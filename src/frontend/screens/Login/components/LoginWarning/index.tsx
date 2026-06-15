@@ -9,12 +9,13 @@ import {
   amazonLoginPath,
   epicLoginPath,
   gogLoginPath,
-  zoomLoginPath
+  zoomLoginPath,
+  humbleBundleLoginPath
 } from '../..'
 import { NavLink } from 'react-router-dom'
 
 interface LoginWarningProps {
-  warnLoginForStore: null | 'epic' | 'gog' | 'amazon' | 'zoom'
+  warnLoginForStore: null | 'epic' | 'gog' | 'amazon' | 'zoom' | 'humble-bundle'
   onClose: () => void
 }
 
@@ -54,6 +55,12 @@ const LoginWarning = function ({
       "You are not logged in with a Zoom account in Heroic. Don't use the store page to login, click the following button instead:"
     )
     loginPath = zoomLoginPath
+  } else if (warnLoginForStore === 'humble-bundle') {
+    textContent = t(
+      'not_logged_in.humble-bundle',
+      "You are not logged in with an Humble bundle account in Heroic. Don't use the store page to login, click the following button instead:"
+    )
+    loginPath = humbleBundleLoginPath
   }
 
   return (

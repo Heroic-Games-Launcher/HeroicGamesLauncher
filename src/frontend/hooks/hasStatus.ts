@@ -7,7 +7,8 @@ import { getStatusLabel, handleNonAvailableGames } from './constants'
 
 export function hasStatus(gameInfo: GameInfo, gameSize?: string) {
   const appName = gameInfo.app_name
-  const { libraryStatus, epic, gog } = React.useContext(ContextProvider)
+  const { libraryStatus, epic, gog, humbleBundle } =
+    React.useContext(ContextProvider)
   const [progress] = hasProgress(gameInfo.app_name, gameInfo.runner)
   const [newGameInfo, setNewGameInfo] = React.useState<GameInfo | undefined>(
     gameInfo
@@ -111,6 +112,7 @@ export function hasStatus(gameInfo: GameInfo, gameSize?: string) {
     appName,
     epic.library,
     gog.library,
+    humbleBundle.library,
     is_installed,
     progress.percent
   ])

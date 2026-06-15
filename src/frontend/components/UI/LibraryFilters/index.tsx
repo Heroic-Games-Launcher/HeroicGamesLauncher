@@ -12,7 +12,8 @@ const RunnerToStore = {
   gog: 'GOG',
   nile: 'Amazon Games',
   sideload: 'Other',
-  zoom: 'ZOOM Platform'
+  zoom: 'ZOOM Platform',
+  'humble-bundle': 'Humble Bundle'
 }
 
 export default function LibraryFilters() {
@@ -90,7 +91,8 @@ export default function LibraryFilters() {
       gog: false,
       nile: false,
       sideload: false,
-      zoom: false
+      zoom: false,
+      'humble-bundle': false
     }
     newFilters = { ...newFilters, [store]: true }
     setStoresFilters(newFilters)
@@ -155,7 +157,8 @@ export default function LibraryFilters() {
       gog: true,
       nile: true,
       sideload: true,
-      zoom: true
+      zoom: true,
+      'humble-bundle': true
     })
     setPlatformsFilters({
       win: true,

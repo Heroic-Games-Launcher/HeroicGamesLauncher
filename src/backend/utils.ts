@@ -36,6 +36,7 @@ import {
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
+import { libraryStore as humbleBundleLibraryStore } from './storeManagers/humble_bundle/electronStores'
 import gogPresence from './storeManagers/gog/presence'
 import {
   installStore as nileInstallStore,
@@ -368,7 +369,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 }
 
 function clearCache(
-  library?: 'gog' | 'legendary' | 'nile' | 'zoom',
+  library?: 'gog' | 'legendary' | 'nile' | 'zoom' | 'humble-bundle',
   fromVersionChange = false
 ) {
   wikiGameInfoStore.clear()
@@ -390,6 +391,10 @@ function clearCache(
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
     nileLibraryStore.clear()
+  }
+
+  if (library == 'humble-bundle' || !library) {
+    humbleBundleLibraryStore.clear()
   }
 
   if (!fromVersionChange) {
@@ -1519,7 +1524,7 @@ export async function downloadFile({
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: any[]) => any>(
   callback: T,
   limit: number
 ): (...args: Parameters<T>) => void {

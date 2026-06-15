@@ -24,6 +24,8 @@ const validStoredUrl = (url: string, store: string) => {
       return url.includes('gaming.amazon.com')
     case 'zoom':
       return url.includes('zoom-platform.com')
+    case 'humble-bundle':
+      return url.includes('humblebundle.com')
     default:
       return false
   }
@@ -33,7 +35,8 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, connectivity } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, humbleBundle, connectivity } =
+    useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -63,6 +66,7 @@ export default function WebView() {
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
   const zoomStore = `https://www.zoom-platform.com`
+  const humbleBundleStore = 'https://www.humblebundle.com/store'
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
@@ -71,6 +75,8 @@ export default function WebView() {
   const zoomLoginUrl =
     'https://www.zoom-platform.com/login?li=heroic&return_li_token=true'
 
+  const humbleBundleLoginUrl = 'https://www.humblebundle.com/login?goto=%2F'
+
   const trueAsStr = 'true' as unknown as boolean | undefined
 
   const urls: { [pathname: string]: string } = {
@@ -78,13 +84,15 @@ export default function WebView() {
     '/store/gog': gogStore,
     '/store/amazon': amazonStore,
     '/store/zoom': zoomStore,
+    '/store/humble-bundle': humbleBundleStore,
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
     '/loginweb/legendary': epicLoginUrl,
     '/loginweb/gog': gogLoginUrl,
     '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
-    '/loginweb/zoom': zoomLoginUrl
+    '/loginweb/zoom': zoomLoginUrl,
+    '/loginweb/humble-bundle': humbleBundleLoginUrl
   }
   let startUrl = urls[pathname]
 
@@ -207,6 +215,13 @@ export default function WebView() {
               epic.login(code).then(() => handleSuccessfulLogin())
             }
           }
+        } else if (runner === 'humble-bundle') {
+          await webview.executeJavaScript(
+            'try { OneTrust.RejectAll() } catch (e) {}'
+          )
+          if (await webview.executeJavaScript('models.user_json["email"]')) {
+            humbleBundle.login().then(() => handleSuccessfulLogin())
+          }
         }
       }
 
@@ -296,7 +311,7 @@ export default function WebView() {
   }, [webviewRef.current, store, runner])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
-    null | 'epic' | 'gog' | 'amazon' | 'zoom'
+    null | 'epic' | 'gog' | 'amazon' | 'zoom' | 'humble-bundle'
   >(null)
 
   const [showAdtractionWarning, setShowAdtractionWarning] =
@@ -322,6 +337,8 @@ export default function WebView() {
       setShowLoginWarningFor('amazon')
     } else if (startUrl.match(/zoom-platform\.com\/$/) && !zoom.username) {
       setShowLoginWarningFor('zoom')
+    } else if (startUrl.match(humbleBundleStore) && !humbleBundle.email) {
+      setShowLoginWarningFor('humble-bundle')
     } else {
       setShowLoginWarningFor(null)
     }
@@ -380,7 +397,13 @@ export default function WebView() {
         key={store}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${startUrl === epicLoginUrl ? 'epicstore' : store}`}
+        partition={`persist:${
+          startUrl === epicLoginUrl
+            ? 'epicstore'
+            : runner === 'humble-bundle'
+              ? 'humble-bundle'
+              : store
+        }`}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
