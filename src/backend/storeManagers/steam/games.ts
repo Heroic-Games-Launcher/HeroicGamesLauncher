@@ -1,0 +1,764 @@
+import { existsSync } from 'graceful-fs'
+import { GameConfig } from '../../game_config'
+import {
+  ExtraInfo,
+  GameAchievement,
+  GameInfo,
+  GameSettings,
+  ExecResult,
+  InstallArgs,
+  InstallPlatform,
+  Reqs,
+  REQS_OTHER_TITLE,
+  Status
+} from 'common/types'
+import {
+  logError,
+  logInfo,
+  logWarning,
+  LogPrefix,
+  createGameLogWriter
+} from 'backend/logger'
+import {
+  addShortcuts as addShortcutsUtil,
+  removeShortcuts as removeShortcutsUtil
+} from '../../shortcuts/shortcuts/shortcuts'
+import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
+import { sendGameStatusUpdate } from 'backend/utils'
+import { sendFrontendMessage } from 'backend/ipc'
+import { GlobalConfig } from 'backend/config'
+import { libraryManagerMap } from '..'
+import { configStore, extraInfoStore } from './electronStores'
+import { steamCdnImageBase, steamStoreAppUrl } from './constants'
+import {
+  runAurelia,
+  fetchAureliaInfo,
+  parseAureliaJson,
+  makeAureliaProgressHandler,
+  AureliaError
+} from './aurelia'
+import type { AureliaAchievementsResponse } from './aurelia_types'
+
+import type LogWriter from 'backend/logger/log_writer'
+
+function isSteamImportEnabled(): boolean {
+  return !!GlobalConfig.get().getSettings().experimentalFeatures?.steamImport
+}
+
+function describeError(error: unknown): string {
+  return error instanceof AureliaError ? error.message : String(error)
+}
+
+function aureliaPlatform(platform: InstallPlatform): string | undefined {
+  const lc = String(platform).toLowerCase()
+  if (lc.startsWith('win')) return 'windows'
+  if (lc.startsWith('lin')) return 'linux'
+  return undefined
+}
+
+function toSteamApiLanguage(lang: string): string {
+  const lc = lang.toLowerCase().replace('_', '-')
+  // Locales whose Steam name isn't derivable from the primary subtag alone.
+  const exact: Record<string, string> = {
+    'pt-br': 'brazilian',
+    'zh-cn': 'schinese',
+    'zh-hans': 'schinese',
+    'zh-sg': 'schinese',
+    'zh-tw': 'tchinese',
+    'zh-hk': 'tchinese',
+    'zh-hant': 'tchinese',
+    'es-419': 'latam',
+    'es-mx': 'latam'
+  }
+  if (exact[lc]) return exact[lc]
+
+  const byPrimary: Record<string, string> = {
+    ar: 'arabic',
+    bg: 'bulgarian',
+    cs: 'czech',
+    da: 'danish',
+    nl: 'dutch',
+    en: 'english',
+    fi: 'finnish',
+    fr: 'french',
+    de: 'german',
+    el: 'greek',
+    hu: 'hungarian',
+    id: 'indonesian',
+    it: 'italian',
+    ja: 'japanese',
+    ko: 'koreana',
+    no: 'norwegian',
+    pl: 'polish',
+    pt: 'portuguese',
+    ro: 'romanian',
+    ru: 'russian',
+    es: 'spanish',
+    sv: 'swedish',
+    th: 'thai',
+    tr: 'turkish',
+    uk: 'ukrainian',
+    vi: 'vietnamese',
+    zh: 'schinese'
+  }
+  return byPrimary[lc.split('-')[0]] ?? 'english'
+}
+
+/**
+ * Strips Steam's store-description markup
+ */
+function stripSteamMarkup(input?: string): string {
+  if (!input) return ''
+  return input
+    .replace(/\[\/?p[^\]]*\]/gi, '\n')
+    .replace(/\[\/?[a-z][^\]]*\]/gi, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+}
+
+/**
+ * `label -> value` pair
+ */
+function splitRequirement(line: string): [string, string] {
+  const idx = line.indexOf(':')
+  if (idx === -1) return [REQS_OTHER_TITLE, line.trim()]
+  return [line.slice(0, idx).trim(), line.slice(idx + 1).trim()]
+}
+
+/**
+ * Builds `Reqs[]` table
+ */
+function buildReqs(minimum: string[] = [], recommended: string[] = []): Reqs[] {
+  const min = new Map<string, string>()
+  const rec = new Map<string, string>()
+
+  const collect = (lines: string[], target: Map<string, string>) => {
+    for (const line of lines) {
+      if (!line.trim()) continue
+      const [label, value] = splitRequirement(line)
+      target.set(
+        label,
+        target.has(label) ? `${target.get(label)}\n${value}` : value
+      )
+    }
+  }
+  collect(minimum, min)
+  collect(recommended, rec)
+
+  const labels: string[] = []
+  for (const label of min.keys()) {
+    if (label !== REQS_OTHER_TITLE) labels.push(label)
+  }
+  for (const label of rec.keys()) {
+    if (label !== REQS_OTHER_TITLE && !labels.includes(label))
+      labels.push(label)
+  }
+
+  const reqs: Reqs[] = labels.map((title) => ({
+    title,
+    minimum: min.get(title) ?? '',
+    recommended: rec.get(title) ?? ''
+  }))
+
+  const other = [min.get(REQS_OTHER_TITLE), rec.get(REQS_OTHER_TITLE)]
+    .filter(Boolean)
+    .join('\n')
+  if (other) {
+    reqs.push({ title: REQS_OTHER_TITLE, minimum: other, recommended: '' })
+  }
+
+  return reqs
+}
+
+/**
+ * Steam game manager.
+ */
+export default class SteamGame implements Game {
+  private readonly id: string
+
+  constructor(id: string) {
+    this.id = id
+  }
+
+  getGameInfo(): GameInfo {
+    const info = libraryManagerMap['steam'].getGameInfo(this.id)
+    if (!info) {
+      logError(
+        [
+          'Could not get game info for',
+          `${this.id},`,
+          'returning empty object. Something is probably gonna go wrong soon'
+        ],
+        LogPrefix.Steam
+      )
+      return {
+        app_name: '',
+        runner: 'steam',
+        art_cover: '',
+        art_square: '',
+        install: {},
+        is_installed: false,
+        title: '',
+        canRunOffline: false
+      }
+    }
+    return info
+  }
+
+  async getSettings(): Promise<GameSettings> {
+    return (
+      GameConfig.get(this.id).config ||
+      (await GameConfig.get(this.id).getSettings())
+    )
+  }
+
+  async getExtraInfo(): Promise<ExtraInfo> {
+    const appName = this.id
+    const cached = extraInfoStore.get(appName)
+    if (cached) {
+      return cached
+    }
+
+    const empty: ExtraInfo = {
+      about: { description: '', shortDescription: '' },
+      reqs: [],
+      releaseDate: undefined,
+      storeUrl: `${steamStoreAppUrl}/${appName}`,
+      changelog: undefined,
+      genres: []
+    }
+
+    if (!isSteamImportEnabled()) {
+      return empty
+    }
+
+    if (!libraryManagerMap['steam'].getGameInfo(appName)) {
+      return empty
+    }
+
+    try {
+      const [details] = await fetchAureliaInfo([appName], { extended: true })
+      if (!details) {
+        return empty
+      }
+
+      // `--extended` populate rich fields
+      const ext = details.extended ?? {}
+      const assets = details.assets ?? {}
+
+      const extraInfo: ExtraInfo = {
+        about: {
+          description:
+            stripSteamMarkup(details.full_description) ||
+            details.description ||
+            '',
+          shortDescription: details.description ?? ''
+        },
+        reqs: buildReqs(
+          ext.requirements?.minimum,
+          ext.requirements?.recommended
+        ),
+        releaseDate: details.release_date || undefined,
+        storeUrl: ext.website || `${steamStoreAppUrl}/${appName}`,
+        changelog: undefined,
+        genres: ext.genres ?? [],
+        // Prefer Aurelia's real artwork URLs, falling back to Steam's CDN.
+        background:
+          assets.hero ||
+          assets.background ||
+          `${steamCdnImageBase}/${appName}/library_hero.jpg`,
+        cover: assets.header || `${steamCdnImageBase}/${appName}/header.jpg`,
+        score:
+          typeof ext.metacritic === 'number'
+            ? String(ext.metacritic)
+            : undefined
+      }
+
+      extraInfoStore.set(appName, extraInfo)
+      return extraInfo
+    } catch (error) {
+      logError(
+        [`Unable to get Steam store info for ${appName}`, describeError(error)],
+        LogPrefix.Steam
+      )
+      return empty
+    }
+  }
+
+  async getAchievements(lang = 'en-US'): Promise<GameAchievement[]> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      return []
+    }
+    try {
+      const res = await runAurelia<AureliaAchievementsResponse>([
+        'achievements',
+        appName,
+        '-l',
+        toSteamApiLanguage(lang)
+      ])
+      return (res.achievements ?? []).map((a) => ({
+        achievement_id: a.achievement_id,
+        achievement_key: a.achievement_key,
+        visible: a.visible ?? true,
+        name: a.name,
+        description: a.description,
+        image_url_unlocked: a.image_url_unlocked ?? '',
+        image_url_locked: a.image_url_locked ?? '',
+        rarity: a.rarity ?? 0,
+        date_unlocked: a.date_unlocked ?? null,
+        rarity_level_description: '',
+        rarity_level_slug: ''
+      }))
+    } catch (error) {
+      logWarning(
+        [
+          `Unable to get Steam achievements for ${appName}`,
+          describeError(error)
+        ],
+        LogPrefix.Steam
+      )
+      return []
+    }
+  }
+
+  /**
+   * Enables or disables an owned DLC (`aurelia enable`/`disable <dlcAppId>`).
+   * (see {@link applyPendingDlcChanges}) to make it permanent.
+   */
+  async setDlcEnabled(dlcAppId: string, enabled: boolean): Promise<void> {
+    if (!isSteamImportEnabled()) {
+      return
+    }
+    const verb = enabled ? 'enable' : 'disable'
+    try {
+      await runAurelia([verb, dlcAppId])
+    } catch (error) {
+      logError(
+        [`Unable to ${verb} Steam DLC ${dlcAppId}`, describeError(error)],
+        LogPrefix.Steam
+      )
+      throw error
+    }
+
+    const pending = configStore
+      .get('pendingDlc', [])
+      .filter((change) => change.appId !== dlcAppId)
+    pending.push({ appId: dlcAppId, enable: enabled })
+    configStore.set('pendingDlc', pending)
+  }
+
+  /**
+   * Makes any queued DLC enable/disable permanent by re-applying it with `--restart-steam`
+   */
+  private async applyPendingDlcChanges(): Promise<void> {
+    const pending = configStore.get('pendingDlc', [])
+    if (!pending.length) {
+      return
+    }
+    logInfo(
+      `Applying ${pending.length} pending Steam DLC change(s) with a Steam restart`,
+      LogPrefix.Steam
+    )
+    for (const change of pending) {
+      try {
+        await runAurelia([
+          change.enable ? 'enable' : 'disable',
+          change.appId,
+          '--restart-steam'
+        ])
+      } catch (error) {
+        logWarning(
+          [
+            `Unable to apply pending DLC change for ${change.appId}`,
+            describeError(error)
+          ],
+          LogPrefix.Steam
+        )
+      }
+    }
+    configStore.delete('pendingDlc')
+  }
+
+  /**
+   * streaming maintenance commands (install/update/verify)
+   */
+  private async runStreamingCommand(
+    appName: string,
+    commandParts: string[],
+    status: Status,
+    logType: 'install' | 'update' | 'repair'
+  ): Promise<InstallResult> {
+    const logWriter = await createGameLogWriter(appName, 'steam', logType)
+    const res = await libraryManagerMap['steam'].runRunnerCommand(
+      [...commandParts, '--json'],
+      {
+        abortId: appName,
+        logWriters: [logWriter],
+        onOutput: makeAureliaProgressHandler(appName, status),
+        logMessagePrefix: `${status} ${appName}`
+      }
+    )
+
+    if (res.abort) {
+      return { status: 'abort' }
+    }
+    if (res.error && !res.error.includes('signal')) {
+      logError([`Failed to ${status} ${appName}`, res.error], LogPrefix.Steam)
+      return { status: 'error', error: res.error }
+    }
+    try {
+      parseAureliaJson(res)
+    } catch (error) {
+      if (error instanceof AureliaError && error.aborted) {
+        return { status: 'abort' }
+      }
+      logError(
+        [`Failed to ${status} ${appName}`, describeError(error)],
+        LogPrefix.Steam
+      )
+      return { status: 'error', error: describeError(error) }
+    }
+    return { status: 'done' }
+  }
+
+  async importGame(path: string): Promise<ExecResult> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      return { stdout: '', stderr: 'Steam import disabled' }
+    }
+    const importLogWriter = await createGameLogWriter(
+      appName,
+      'steam',
+      'import'
+    )
+    const res = await libraryManagerMap['steam'].runRunnerCommand(
+      ['import', appName, path, '--json'],
+      { abortId: appName, logWriters: [importLogWriter] }
+    )
+    if (res.error) {
+      logError(['Failed to import', appName, res.error], LogPrefix.Steam)
+      return { stdout: '', stderr: res.error }
+    }
+    await libraryManagerMap['steam'].refresh()
+    sendFrontendMessage('refreshLibrary', 'steam')
+    return { stdout: res.stdout, stderr: res.stderr }
+  }
+
+  // TODO: Add Aurelia Functionality here
+  onInstallOrUpdateOutput(): void {
+    return
+  }
+
+  async install({ platformToInstall }: InstallArgs): Promise<InstallResult> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      logWarning(
+        `Steam import is disabled, cannot install ${appName}`,
+        LogPrefix.Steam
+      )
+      return { status: 'error', error: 'Steam import disabled' }
+    }
+
+    const gameInfo = this.getGameInfo()
+    logInfo(`Installing ${gameInfo.title} (${appName})`, LogPrefix.Steam)
+
+    const platformArg = aureliaPlatform(platformToInstall)
+    const commandParts = [
+      'install',
+      appName,
+      ...(platformArg ? ['-p', platformArg] : [])
+    ]
+
+    const result = await this.runStreamingCommand(
+      appName,
+      commandParts,
+      'installing',
+      'install'
+    )
+
+    if (result.status === 'done') {
+      void this.addShortcuts()
+      await libraryManagerMap['steam'].markInstalled(appName)
+      logInfo(
+        `Steam finished installing ${gameInfo.title} (${appName})`,
+        LogPrefix.Steam
+      )
+    }
+    return result
+  }
+
+  // TODO: Add Heroic handler to Aurelia
+  // Currently Aurelia handles Proton layer
+  isNative(): boolean {
+    return true
+  }
+
+  async addShortcuts(fromMenu?: boolean): Promise<void> {
+    return addShortcutsUtil(this, fromMenu)
+  }
+
+  async removeShortcuts(): Promise<void> {
+    return removeShortcutsUtil(this)
+  }
+
+  /**
+   * Runs a Steam Cloud sync
+   */
+  private async syncCloudSaves(
+    appName: string,
+    direction: 'up' | 'down',
+    logWriter: LogWriter
+  ): Promise<void> {
+    const action = direction === 'down' ? 'download' : 'upload'
+    try {
+      await logWriter.logInfo(`Steam Cloud sync (${action})`)
+      await runAurelia(['cloud', 'sync', appName, `--${direction}`], {
+        abortId: `${appName}-cloud-${direction}`,
+        logWriters: [logWriter]
+      })
+    } catch (error) {
+      logWarning(
+        [
+          `Failed to ${action} Steam Cloud saves for ${appName}`,
+          describeError(error)
+        ],
+        LogPrefix.Steam
+      )
+    }
+  }
+
+  async launch(logWriter: LogWriter): Promise<boolean> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      logWarning(
+        `Steam import is disabled, cannot launch ${appName}`,
+        LogPrefix.Steam
+      )
+      return false
+    }
+
+    const gameInfo = this.getGameInfo()
+    if (!gameInfo.is_installed) {
+      logError(
+        `Cannot launch ${appName}, game is not installed`,
+        LogPrefix.Steam
+      )
+      return false
+    }
+
+    logInfo(
+      `Launching ${gameInfo.title} (${appName}) through Aurelia`,
+      LogPrefix.Steam
+    )
+    await logWriter.logInfo(`Launching ${gameInfo.title} through Aurelia`)
+
+    await this.applyPendingDlcChanges()
+
+    // Sync before starting a game
+    await this.syncCloudSaves(appName, 'down', logWriter)
+
+    sendGameStatusUpdate({ appName, runner: 'steam', status: 'playing' })
+
+    const res = await libraryManagerMap['steam'].runRunnerCommand(
+      ['play', appName, '--json'],
+      { abortId: appName, logWriters: [logWriter] }
+    )
+
+    if (res.error && !res.error.includes('signal')) {
+      logError(
+        [`Failed to launch ${appName} through Aurelia`, res.error],
+        LogPrefix.Steam
+      )
+      return false
+    }
+
+    // Sync after game stopped
+    await this.syncCloudSaves(appName, 'up', logWriter)
+
+    logInfo(`${gameInfo.title} (${appName}) has stopped`, LogPrefix.Steam)
+    return true
+  }
+
+  async moveInstall(newInstallPath: string): Promise<InstallResult> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      return { status: 'error', error: 'Steam import disabled' }
+    }
+
+    const gameInfo = this.getGameInfo()
+    logInfo(
+      `Moving ${gameInfo.title} (${appName}) to ${newInstallPath}`,
+      LogPrefix.Steam
+    )
+
+    const result = await this.runStreamingCommand(
+      appName,
+      ['move', appName, newInstallPath],
+      'moving',
+      'update'
+    )
+
+    if (result.status === 'done') {
+      await libraryManagerMap['steam'].refresh()
+      sendFrontendMessage('refreshLibrary', 'steam')
+    }
+    return result
+  }
+
+  async repair(): Promise<ExecResult> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      return { stdout: '', stderr: 'Steam import disabled' }
+    }
+    const result = await this.runStreamingCommand(
+      appName,
+      ['verify', appName],
+      'repairing',
+      'repair'
+    )
+    return {
+      stdout: result.status === 'done' ? 'verified' : '',
+      stderr: result.error ?? ''
+    }
+  }
+
+  async syncSaves(arg: string, path: string): Promise<string> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      return ''
+    }
+    const directionFlag = /upload/i.test(arg)
+      ? ['--up']
+      : /download/i.test(arg)
+        ? ['--down']
+        : []
+    const pathArg = path ? ['--path', path] : []
+    try {
+      await runAurelia(['cloud', 'sync', appName, ...directionFlag, ...pathArg])
+      return 'Steam Cloud sync finished'
+    } catch (error) {
+      logError(
+        [
+          `Failed to sync Steam Cloud saves for ${appName}`,
+          describeError(error)
+        ],
+        LogPrefix.Steam
+      )
+      return `${describeError(error)}`
+    }
+  }
+
+  async uninstall({ deleteFiles }: RemoveArgs): Promise<ExecResult> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      logWarning(
+        `Steam import is disabled, cannot uninstall ${appName}`,
+        LogPrefix.Steam
+      )
+      return { stdout: '', stderr: 'Steam import disabled' }
+    }
+
+    const gameInfo = this.getGameInfo()
+    logInfo(`Uninstalling ${gameInfo.title} (${appName})`, LogPrefix.Steam)
+
+    try {
+      // `deleteFiles` here means "remove the Wine prefix/compat data".
+      await runAurelia([
+        'uninstall',
+        appName,
+        ...(deleteFiles ? ['--delete-prefix'] : [])
+      ])
+    } catch (error) {
+      logError(
+        [`Failed to uninstall ${appName}`, describeError(error)],
+        LogPrefix.Steam
+      )
+      return { stdout: '', stderr: describeError(error) }
+    }
+
+    await removeShortcutsUtil(this)
+    libraryManagerMap['steam'].installState(appName, false)
+    await libraryManagerMap['steam'].refresh()
+
+    logInfo(
+      `Steam finished uninstalling ${gameInfo.title} (${appName})`,
+      LogPrefix.Steam
+    )
+    return { stdout: '', stderr: '' }
+  }
+
+  async update(): Promise<InstallResult> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      return { status: 'error', error: 'Steam import disabled' }
+    }
+    const result = await this.runStreamingCommand(
+      appName,
+      ['update', appName],
+      'updating',
+      'update'
+    )
+    if (result.status === 'done') {
+      await libraryManagerMap['steam'].refresh()
+    }
+    return result
+  }
+
+  async forceUninstall(): Promise<void> {
+    const appName = this.id
+    await removeShortcutsUtil(this)
+    libraryManagerMap['steam'].installState(appName, false)
+    sendFrontendMessage('refreshLibrary', 'steam')
+  }
+
+  async stop(): Promise<void> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      return
+    }
+    const gameInfo = this.getGameInfo()
+    logInfo(`Stopping ${gameInfo.title} (${appName})`, LogPrefix.Steam)
+    try {
+      await runAurelia(['stop', appName])
+    } catch (error) {
+      logWarning(
+        [`Failed to stop ${appName}`, describeError(error)],
+        LogPrefix.Steam
+      )
+    }
+  }
+
+  async isGameAvailable(): Promise<boolean> {
+    const appName = this.id
+    if (!isSteamImportEnabled()) {
+      return false
+    }
+
+    // ignore unknown ids.
+    const info = libraryManagerMap['steam'].getGameInfo(appName)
+    if (!info) {
+      return false
+    }
+
+    try {
+      const result = await runAurelia<{
+        app_id?: number
+        available?: boolean
+        install_path?: string | null
+      }>(['available', appName])
+      return Boolean(result.available)
+    } catch (error) {
+      logWarning(
+        [`Unable to check availability for ${appName}`, describeError(error)],
+        LogPrefix.Steam
+      )
+      // Fall back to a local presence check
+      return Boolean(
+        info.is_installed &&
+        info.install?.install_path &&
+        existsSync(info.install.install_path)
+      )
+    }
+  }
+}

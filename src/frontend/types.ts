@@ -17,6 +17,7 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
+import { SteamAccount, SteamLoginData } from 'common/types/steam'
 
 export type Category =
   | 'all'
@@ -25,6 +26,7 @@ export type Category =
   | 'sideload'
   | 'nile'
   | 'zoom'
+  | 'steam'
 
 export interface ContextType {
   error: boolean
@@ -94,6 +96,18 @@ export interface ContextType {
     login: (url: string) => Promise<string>
     logout: () => Promise<void>
     enabled: boolean
+  }
+  steam: {
+    library: GameInfo[]
+    username?: string
+    login: (
+      credentials: SteamLoginData
+    ) => Promise<{ status: 'done' | 'error'; error?: string }>
+    loginQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
+    logout: () => Promise<void>
+    enabled: boolean
+    users: SteamAccount[]
+    logoutUser: (steamId: string) => void
   }
   installingEpicGame: boolean
   allTilesInColor: boolean
@@ -212,6 +226,7 @@ export interface StoresFilters {
   nile: boolean
   sideload: boolean
   zoom: boolean
+  steam: boolean
 }
 
 export interface PlatformsFilters {
@@ -248,6 +263,8 @@ export interface LibraryContextType {
   setShowThirdPartyManagedOnly: (value: boolean) => void
   showUpdatesOnly: boolean
   setShowUpdatesOnly: (value: boolean) => void
+  showSteamOwnedOnly: boolean
+  setShowSteamOwnedOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
   setShowCategories: (value: boolean) => void
   showAlphabetFilter: boolean

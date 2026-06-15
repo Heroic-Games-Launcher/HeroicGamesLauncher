@@ -126,5 +126,6 @@ const testPCGamingWikiInfo = {
     urlid: 'the-witcher-3-wild-hunt'
   },
   howLongToBeatID: '10101',
-  direct3DVersions: ['11', '12']
+  direct3DVersions: ['11', '12'],
+  cover: undefined
 }

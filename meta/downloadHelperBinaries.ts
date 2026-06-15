@@ -12,6 +12,7 @@ type DownloadedBinary =
   | 'gogdl'
   | 'nile'
   | 'comet'
+  | 'aurelia'
   | 'epic-integration'
 
 const RELEASE_TAGS = {
@@ -19,6 +20,7 @@ const RELEASE_TAGS = {
   gogdl: 'v1.2.1',
   nile: 'v1.1.2',
   comet: 'v0.2.0',
+  aurelia: 'v0.1.7',
   'epic-integration': 'v0.4'
 } as const satisfies Record<DownloadedBinary, string>
 
@@ -183,6 +185,26 @@ async function downloadComet() {
   ])
 }
 
+async function downloadAurelia() {
+  return downloadGithubAssets(
+    'aurelia',
+    'Drackrath/Aurelia',
+    RELEASE_TAGS['aurelia'],
+    {
+      x64: {
+        linux: 'aurelia_linux_x86_64',
+        darwin: 'aurelia_macOS_x86_64',
+        win32: 'aurelia_windows_x86_64.exe'
+      },
+      arm64: {
+        linux: 'aurelia_linux_arm64',
+        darwin: 'aurelia_macOS_arm64',
+        win32: 'aurelia_windows_arm64.exe'
+      }
+    }
+  )
+}
+
 async function downloadEpicIntegration() {
   return downloadGithubAssets(
     'EpicGamesLauncher',
@@ -210,7 +232,14 @@ async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
   try {
     storedTagsParsed = JSON.parse(storedTagsText)
   } catch {
-    return ['legendary', 'gogdl', 'nile', 'comet', 'epic-integration']
+    return [
+      'legendary',
+      'gogdl',
+      'nile',
+      'comet',
+      'aurelia',
+      'epic-integration'
+    ]
   }
   const binariesToDownload: DownloadedBinary[] = []
   for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {
@@ -253,6 +282,8 @@ async function main() {
   if (binariesToDownload.includes('nile')) promisesToAwait.push(downloadNile())
   if (binariesToDownload.includes('comet'))
     promisesToAwait.push(downloadComet())
+  if (binariesToDownload.includes('aurelia'))
+    promisesToAwait.push(downloadAurelia())
   if (binariesToDownload.includes('epic-integration'))
     promisesToAwait.push(downloadEpicIntegration())
 

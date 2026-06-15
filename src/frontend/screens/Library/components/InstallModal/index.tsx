@@ -94,8 +94,15 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
   )
 
   const getDefaultplatform = (): InstallPlatform => {
-    if (isMac && gameInfo?.is_mac_native) {
-      return 'Mac'
+    // Prefer the current OS's platform .
+    const currentPlatform: InstallPlatform = isMac
+      ? 'Mac'
+      : isLinux
+        ? 'linux'
+        : 'Windows'
+
+    if (availablePlatforms.some((p) => p.value === currentPlatform)) {
+      return currentPlatform
     }
 
     return 'Windows'
@@ -103,8 +110,8 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
 
   const [platformToInstall, setPlatformToInstall] =
     useState<InstallPlatform>(getDefaultplatform())
-
-  const hasWine = platformToInstall === 'Windows' && !isWin
+  const hasWine =
+    platformToInstall === 'Windows' && !isWin && runner !== 'steam'
 
   useEffect(() => {
     if (hasWine) {
@@ -234,6 +241,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             availablePlatforms={availablePlatforms}
             backdropClick={closeModal}
             platformToInstall={platformToInstall}
+            setPlatformToInstall={setPlatformToInstall}
             gameInfo={gameInfo}
             crossoverBottle={crossoverBottle}
           >

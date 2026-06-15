@@ -37,6 +37,7 @@ import { GOGUser } from './storeManagers/gog/user'
 import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
 import { ZoomUser } from './storeManagers/zoom/user'
+import { SteamUser } from './storeManagers/steam/user'
 import {
   clearCache,
   isEpicServiceOffline,
@@ -833,6 +834,31 @@ addHandler('authZoom', async (event, url) => {
 addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 
+addHandler('loginSteam', async (event, credentials) => {
+  const login = await SteamUser.login(credentials)
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addHandler('loginSteamQr', async () => {
+  const login = await SteamUser.loginQr()
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addListener('cancelSteamQrLogin', () => {
+  SteamUser.cancelQrLogin()
+})
+
+addListener('logoutSteam', () => {
+  void SteamUser.logout()
+})
+addHandler('getSteamUserInfo', async () => SteamUser.getUserDetails())
+
 addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
@@ -1134,8 +1160,8 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
   const availableLaunchOptions =
     await libraryManagerMap[runner].getLaunchOptions(appName)
 
-  // add a default option if there are other options but no default
   if (
+    runner !== 'steam' &&
     availableLaunchOptions.length > 0 &&
     !availableLaunchOptions.some(
       (option) =>
@@ -1477,3 +1503,4 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
+import './storeManagers/steam/ipc_handler'

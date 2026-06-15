@@ -46,7 +46,8 @@ const Achievements = ({ achievements }: Props) => {
                 {isHiddenAchievement ? '' : x.description}
               </span>
               <span className="achievement-rarity">
-                {x.rarity_level_description} · {x.rarity}%
+                {x.rarity_level_description} ·{' '}
+                {Math.round(x.rarity * 100) / 100}%
               </span>
             </div>
           </div>

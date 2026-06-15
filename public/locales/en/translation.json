@@ -48,6 +48,7 @@
         },
         "changelog": "Changelog",
         "choose": "Choose",
+        "choose-aurelia-binary": "Select Aurelia binary",
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary binary",
@@ -441,6 +442,7 @@
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
         "show_installed_only": "Show Installed only",
+        "show_steam_owned_only": "Show Steam owned games only",
         "show_support_offline_only": "Show offline-supported only",
         "show_third_party_managed_only": "Show third-party managed only",
         "show_updates_only": "Show games with updates only",
@@ -592,6 +594,7 @@
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
+        "steam_add": "Add Steam Account",
         "zoom": "Zoom Login"
     },
     "message": {
@@ -706,6 +709,7 @@
         }
     },
     "other": {
+        "aurelia-version": "Aurelia Version: ",
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "nile-version": "Nile Version: ",
@@ -713,6 +717,7 @@
     },
     "Other": "Other",
     "placeholder": {
+        "alt-aurelia-bin": "Using built-in Aurelia binary...",
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "alt-nile-bin": "Using built-in Nile binary...",
@@ -755,6 +760,7 @@
             },
             "label": "Allow installation of games with broken or denied anticheat"
         },
+        "alt-aurelia-bin": "Choose an Alternative Aurelia Binary",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
@@ -815,6 +821,7 @@
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
             "enableNewDesign": "New design",
+            "steamImport": "Steam library integration",
             "zoomPlatform": "Zoom Platform support (only Linux)"
         },
         "frameless-window": {
@@ -853,6 +860,7 @@
                 "heroic": "General Heroic log",
                 "legendary": "Epic Games / Legendary log",
                 "nile": "Amazon / Nile log",
+                "steam": "Steam / Aurelia log",
                 "zoom": "Zoom log"
             },
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
@@ -1038,6 +1046,7 @@
             }
         },
         "systemInformation": {
+            "aureliaVersion": "Aurelia: {{aureliaVersion}}",
             "cometVersion": "Comet: {{cometVersion}}",
             "copyToClipboard": "Copy to clipboard",
             "cpu": "CPU:",
@@ -1072,6 +1081,8 @@
         "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
     },
+    "Steam": "Steam",
+    "steam-store": "Steam Store",
     "steamgriddb": {
         "error": {
             "grids": "Failed to fetch grids",

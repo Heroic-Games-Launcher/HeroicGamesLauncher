@@ -58,6 +58,7 @@ interface Props {
   appName: string
   runner: Runner
   platformToInstall: InstallPlatform
+  setPlatformToInstall: (platform: InstallPlatform) => void
   availablePlatforms: AvailablePlatforms
   winePrefix: string
   crossoverBottle: string
@@ -97,6 +98,7 @@ export default function DownloadDialog({
   appName,
   runner,
   platformToInstall,
+  setPlatformToInstall,
   availablePlatforms,
   winePrefix,
   wineVersion,
@@ -111,6 +113,7 @@ export default function DownloadDialog({
     useContext(ContextProvider)
 
   const isWin = platform === 'win32'
+  const isSteam = runner === 'steam'
 
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
@@ -324,11 +327,25 @@ export default function DownloadDialog({
           branch
         )
 
-        if (
+        const noContent =
           gameInstallInfo?.manifest &&
           gameInstallInfo?.manifest.disk_size === 0 &&
           gameInstallInfo.manifest.download_size === 0
+
+        // Steam: the current platform was auto-selected, but this game has no
+        // depots for it (dry-run reports 0 sizes). Fall back to Windows (run via
+        // Proton) instead of declaring the game uninstallable.
+        if (
+          noContent &&
+          isSteam &&
+          platformToInstall !== 'Windows' &&
+          availablePlatforms.some((p) => p.value === 'Windows')
         ) {
+          setPlatformToInstall('Windows')
+          return
+        }
+
+        if (noContent) {
           showDialogModal({
             showDialog: true,
             title: t(
@@ -437,6 +454,18 @@ export default function DownloadDialog({
     branch,
     savedBranchPassword
   ])
+
+  useEffect(() => {
+    if (
+      isSteam &&
+      gameInstallInfo &&
+      'game' in gameInstallInfo &&
+      'path' in gameInstallInfo.game &&
+      gameInstallInfo.game.path
+    ) {
+      setInstallPath(gameInstallInfo.game.path)
+    }
+  }, [isSteam, gameInstallInfo])
 
   useEffect(() => {
     const getGameSdl = async () => {
@@ -668,10 +697,22 @@ export default function DownloadDialog({
           pathDialogTitle={t('install.path')}
           pathDialogDefaultPath={getDefaultInstallPath()}
           htmlId="setinstallpath"
-          label={t('install.path', 'Select Install Path')}
+          disabled={isSteam}
+          label={
+            isSteam
+              ? t('install.steam-path', 'Install Path (Steam library)')
+              : t('install.path', 'Select Install Path')
+          }
           noDeleteButton
           afterInput={
-            downloadSize ? (
+            isSteam ? (
+              <span className="smallInputInfo">
+                {t(
+                  'install.steam-path-info',
+                  'Steam games install into the Steam library.'
+                )}
+              </span>
+            ) : downloadSize ? (
               <span className="smallInputInfo">
                 {validPath && validFlatpakPath && (
                   <>
@@ -783,9 +824,14 @@ export default function DownloadDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button onClick={handleSwitchToImport} className="button is-secondary">
-          {t('button.import', 'Import Game')}
-        </button>
+        {!isSteam && (
+          <button
+            onClick={handleSwitchToImport}
+            className="button is-secondary"
+          >
+            {t('button.import', 'Import Game')}
+          </button>
+        )}
         <button
           onClick={async () => handleInstall()}
           className="button is-primary"

@@ -1,4 +1,5 @@
 import {
+  coverRegEx,
   direct3DVersionsRegEx,
   genresRegEx,
   howLongToBeatIDRegEx,
@@ -43,6 +44,9 @@ export async function getInfoFromPCGamingWiki(
 
     const releaseDates = getReleaseDates(wikitext)
 
+    const coverFile = wikitext.match(coverRegEx)?.[1]?.trim()
+    const cover = coverFile ? await getImageUrl(coverFile) : undefined
+
     return {
       steamID,
       howLongToBeatID,
@@ -51,7 +55,8 @@ export async function getInfoFromPCGamingWiki(
       igdb,
       direct3DVersions: direct3DVersions.replaceAll(' ', '').split(','),
       genres: genres.replaceAll(' ', '').split(','),
-      releaseDate: releaseDates
+      releaseDate: releaseDates,
+      cover
     }
   } catch (error) {
     logError(
@@ -92,6 +97,22 @@ async function getPageID(title: string, id?: string): Promise<string | null> {
   )
 
   return data.query.search[0]?.pageid
+}
+
+async function getImageUrl(fileName: string): Promise<string | undefined> {
+  try {
+    const { data } = await axiosClient.get(
+      `https://www.pcgamingwiki.com/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url&titles=${encodeURIComponent(
+        `File:${fileName}`
+      )}`
+    )
+    const pages = data?.query?.pages
+    if (!pages) return undefined
+    const page = pages[Object.keys(pages)[0]]
+    return page?.imageinfo?.[0]?.url ?? undefined
+  } catch {
+    return undefined
+  }
 }
 
 async function getWikiText(id: string): Promise<string | null> {

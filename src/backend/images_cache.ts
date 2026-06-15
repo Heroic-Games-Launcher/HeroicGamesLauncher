@@ -42,6 +42,7 @@ const getImageFromCache = (url: string) => {
           responseType: 'stream'
         })
           .then((response) => response.data.pipe(createWriteStream(cachePath)))
+          .catch(() => {})
           .finally(() => {
             pending.delete(digest)
             res()

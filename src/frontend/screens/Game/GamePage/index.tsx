@@ -7,7 +7,8 @@ import {
   Info,
   Star,
   Monitor,
-  EmojiEvents
+  EmojiEvents,
+  ShoppingCart
 } from '@mui/icons-material'
 
 import { Tab, Tabs } from '@mui/material'
@@ -34,6 +35,7 @@ import {
   InstallInfo,
   GameAchievement
 } from 'common/types'
+import { steamStoreAppUrl } from 'common/types/steam'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -262,14 +264,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
   ])
 
   useEffect(() => {
-    window.api.getWikiGameInfo(gameInfo.title, appName, runner).then((info) => {
-      if (
-        info &&
-        (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
-      ) {
-        setWikiInfo(info)
-      }
-    })
+    window.api
+      .getWikiGameInfo(gameInfo.title, appName, runner)
+      .then((info) => {
+        if (
+          info &&
+          (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
+        ) {
+          setWikiInfo(info)
+        }
+      })
+      .catch((error) => window.api.logError(`${error}`))
   }, [appName])
 
   useEffect(() => {
@@ -396,9 +401,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
     return (
       <SettingsContext.Provider value={settingsContextValues}>
         <div className="gameConfigContainer">
-          {!!(art_background ?? art_cover) && (
+          {!!(extraInfo?.background || art_background || art_cover) && (
             <CachedImage
-              src={art_background || art_cover}
+              src={extraInfo?.background || art_background || art_cover}
               className="backgroundImage"
             />
           )}
@@ -435,7 +440,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <div className="mainInfoWrapper">
                     <div className="mainInfo">
                       <GamePicture
-                        art_square={art_cover}
+                        // For Steam, prefer its own portrait art
+                        art_square={
+                          runner === 'steam'
+                            ? gameInfo.art_square || art_cover
+                            : art_cover
+                        }
+                        {...(runner === 'steam'
+                          ? {
+                              fallback:
+                                wikiInfo?.pcgamingwiki?.cover ||
+                                extraInfo?.cover ||
+                                art_cover
+                            }
+                          : {})}
                         art_logo={art_logo}
                         store={runner}
                       />
@@ -472,6 +490,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           handlePlay={handlePlay}
                           handleInstall={handleInstall}
                         />
+                        {runner === 'steam' && (
+                          <NavLink
+                            className="button mainBtn outline steamStoreButton buttonWithIcon"
+                            to={`/store-page?store-url=${encodeURIComponent(
+                              `${steamStoreAppUrl}/${appName}`
+                            )}`}
+                          >
+                            <ShoppingCart />
+                            {t('button.steamStore', 'Open Store Page')}
+                          </NavLink>
+                        )}
                       </div>
                       {wikiLink}
                     </div>
