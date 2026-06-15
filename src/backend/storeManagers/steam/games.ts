@@ -723,13 +723,18 @@ export default class SteamGame implements Game {
     }
     const gameInfo = this.getGameInfo()
     logInfo(`Stopping ${gameInfo.title} (${this.id})`, LogPrefix.Steam)
-    try {
-      await runAurelia(['stop', this.id])
-    } catch (error) {
-      logWarning(
-        [`Failed to stop ${this.id}`, describeError(error)],
-        LogPrefix.Steam
-      )
+    // This is invoked both to stop a running game and a download
+    const results = await Promise.allSettled([
+      runAurelia(['install', 'stop', this.id]),
+      runAurelia(['stop', this.id])
+    ])
+    for (const result of results) {
+      if (result.status === 'rejected') {
+        logWarning(
+          [`Failed to stop ${this.id}`, describeError(result.reason)],
+          LogPrefix.Steam
+        )
+      }
     }
   }
 
