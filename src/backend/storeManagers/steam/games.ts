@@ -229,6 +229,23 @@ export default class SteamGame implements Game {
     )
   }
 
+  getSteamIntegrationEnabled(): boolean {
+    const info = libraryManagerMap['steam'].getGameInfo(this.id)
+    if (info?.isFamilyShare) {
+      return true
+    }
+    return configStore.get('steamIntegration', {})[this.id] === true
+  }
+
+  /**
+   * Persist the user's "run with Steam integration" choice for this game.
+   */
+  setSteamIntegrationEnabled(enabled: boolean): void {
+    const map = configStore.get('steamIntegration', {})
+    map[this.id] = enabled
+    configStore.set('steamIntegration', map)
+  }
+
   async getExtraInfo(lang = 'en-US'): Promise<ExtraInfo> {
     const steamLang = toSteamApiLanguage(lang)
     const cacheKey = `${this.id}-${steamLang}`
@@ -578,12 +595,19 @@ export default class SteamGame implements Game {
 
     const playCommand = ['play', this.id, '--json']
 
-    // On Linux, hand Aurelia the Proton runner of Heroic
-    if (isLinux) {
+    // Ignore on native Linux handling
+    if (isLinux && !gameInfo.is_linux_native) {
       const { wineVersion } = await this.getSettings()
       if (wineVersion?.type === 'proton' && wineVersion.bin) {
         playCommand.push('--proton', dirname(wineVersion.bin))
       }
+    }
+
+    // Opt-in: run with real Steam integration so Steamworks online features stay
+    // enabled (Aurelia bridges to the host Steam client, starting it silently if
+    // needed). Aurelia also forces this on for Family-Shared games.
+    if (this.getSteamIntegrationEnabled()) {
+      playCommand.push('--steam')
     }
 
     const res = await libraryManagerMap['steam'].runRunnerCommand(playCommand, {

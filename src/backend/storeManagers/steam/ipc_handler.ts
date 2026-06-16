@@ -13,6 +13,16 @@ addHandler('setSteamDlcEnabled', async (_e, dlcAppId, enabled) =>
   libraryManagerMap['steam'].getGame(dlcAppId).setDlcEnabled(dlcAppId, enabled)
 )
 
+addHandler('getSteamIntegrationEnabled', (_e, appName) =>
+  libraryManagerMap['steam'].getGame(appName).getSteamIntegrationEnabled()
+)
+
+addListener('setSteamIntegrationEnabled', (_e, appName, enabled) => {
+  libraryManagerMap['steam']
+    .getGame(appName)
+    .setSteamIntegrationEnabled(enabled)
+})
+
 addListener('logoutSteamAccount', (_e, steamId) => {
   void SteamUser.logoutAccount(steamId)
 })

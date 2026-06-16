@@ -35,6 +35,7 @@ export interface AureliaLibraryGame {
   online_required?: boolean | null
   assets?: AureliaAssets
   store_url?: string
+  platform?: string
 }
 
 interface AureliaDlcEntry {

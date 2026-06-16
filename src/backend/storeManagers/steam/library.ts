@@ -173,8 +173,8 @@ export default class SteamLibraryManager implements LibraryManager {
       is_installed: false,
       canRunOffline: true,
       // Aurelia installs the Windows depots and runs them
-      is_mac_native: false,
-      is_linux_native: false
+      is_mac_native: game.platform === 'macos',
+      is_linux_native: game.platform === 'linux'
     }
   }
 

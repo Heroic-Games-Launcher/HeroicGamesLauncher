@@ -90,6 +90,8 @@ export interface StoreStructure {
     username?: string
     accounts?: SteamAccount[]
     pendingDlc?: SteamPendingDlcChange[]
+    // Per-game opt-in Steam launch, needed for Steamworks online features and Family-Sharing. .
+    steamIntegration?: Record<string, boolean>
   }
   nileConfigStore: {
     userData?: NileUserData

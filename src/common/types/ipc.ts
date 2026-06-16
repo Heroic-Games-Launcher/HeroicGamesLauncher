@@ -128,6 +128,7 @@ interface SyncIPCFunctions {
   logoutSteam: () => void
   cancelSteamQrLogin: () => void
   logoutSteamAccount: (steamId: string) => void
+  setSteamIntegrationEnabled: (appName: string, enabled: boolean) => void
   setGameMetadataOverride: (args: {
     appName: string
     title?: string
@@ -207,6 +208,7 @@ interface AsyncIPCFunctions {
   getSteamUserInfo: () => Promise<{ username: string } | undefined>
   getSteamDlcInfo: (appName: string) => Promise<SteamDLCInfo[]>
   setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
+  getSteamIntegrationEnabled: (appName: string) => boolean
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'
