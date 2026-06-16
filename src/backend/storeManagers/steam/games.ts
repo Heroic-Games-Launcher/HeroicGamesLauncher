@@ -297,7 +297,7 @@ export default class SteamGame implements Game {
           ext.requirements?.recommended
         ),
         releaseDate: details.release_date || undefined,
-        storeUrl: ext.website || details.store_url,
+        storeUrl: details.store_url,
         changelog: undefined,
         genres: ext.genres ?? [],
         // Artwork URLs are baked into Aurelia's response.

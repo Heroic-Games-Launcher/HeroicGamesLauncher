@@ -13,7 +13,7 @@ export interface AureliaProgressEvent {
 }
 
 /** Artwork URLs baked into Aurelia's responses (see `aurelia list`/`info`). */
-export interface AureliaAssets {
+interface AureliaAssets {
   header?: string
   capsule?: string
   hero?: string
