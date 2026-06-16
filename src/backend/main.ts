@@ -60,6 +60,7 @@ import {
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
+import { handleExeFile, findExeInArgs } from './exe_handler'
 
 import {
   getDiskInfo,
@@ -319,6 +320,12 @@ if (!gotTheLock) {
 } else {
   app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
+    const exePath = findExeInArgs(argv)
+    if (exePath) {
+      handleExeFile(exePath)
+      return
+    }
+
     const mainWindow = getMainWindow()
     if (!shouldHideWindowForProtocolArgs(argv)) {
       mainWindow?.show()
@@ -473,6 +480,13 @@ addListener('notify', (event, args) => notify(args))
 
 addOneTimeListener('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
+
+  // Handle files opened with Heroic
+  const exePath = findExeInArgs(process.argv)
+  if (exePath) {
+    void handleExeFile(exePath)
+  }
+
   handleProtocol([openUrlArgument, ...process.argv])
 
   if (isSnap) {
@@ -617,6 +631,17 @@ app.on('open-url', (event, url) => {
     handleProtocol([url])
   } else {
     openUrlArgument = url
+  }
+})
+
+app.on('open-file', (event, filePath) => {
+  event.preventDefault()
+  if (
+    filePath.toLowerCase().endsWith('.exe') ||
+    filePath.toLowerCase().endsWith('.msi') ||
+    filePath.toLowerCase().endsWith('.bat')
+  ) {
+    handleExeFile(filePath)
   }
 })
 
