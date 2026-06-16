@@ -33,7 +33,7 @@ fileAssociations:
   - ext: bat
     name: Windows Batch File
     description: Windows Batch Script
-    mimeType: text/x-bat
+    mimeType: application/x-bat
 
 win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
