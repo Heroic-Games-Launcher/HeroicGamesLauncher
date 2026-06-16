@@ -21,6 +21,20 @@ protocols:
     schemes:
       - heroic
 
+fileAssociations:
+  - ext: exe
+    name: Windows Executable
+    description: Windows Executable
+    mimeType: application/x-ms-dos-executable
+  - ext: msi
+    name: Windows Installer
+    description: Windows Installer Package
+    mimeType: application/x-msi
+  - ext: bat
+    name: Windows Batch File
+    description: Windows Batch Script
+    mimeType: text/x-bat
+
 win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
   icon: build/win_icon.ico
