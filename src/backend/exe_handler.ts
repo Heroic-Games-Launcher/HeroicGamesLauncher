@@ -30,10 +30,7 @@ async function launchExe(exePath: string, appName: string) {
     return
   }
 
-  logInfo(
-    ['Launching', exePath, 'in prefix of', appName],
-    LogPrefix.Backend
-  )
+  logInfo(['Launching', exePath, 'in prefix of', appName], LogPrefix.Backend)
 
   await runWineCommand({
     commandParts: [exePath],
@@ -79,17 +76,16 @@ function showPicker(exePath: string, games: GameInfo[]) {
 <head>
 <meta charset="utf-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600&family=Rubik:wght@500;600&display=swap');
   * { box-sizing: border-box; }
   body {
-    font-family: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     margin: 0; padding: 24px 32px;
     background: #070a0b;
     color: #caf3fd;
     font-size: 14px;
   }
   h2 {
-    font-family: 'Rubik', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 16px;
     color: #caf3fd;
@@ -125,7 +121,7 @@ function showPicker(exePath: string, games: GameInfo[]) {
     color: #caf3fd;
     text-align: left;
     border-radius: 4px;
-    font-family: 'Cabin', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
@@ -151,7 +147,7 @@ function showPicker(exePath: string, games: GameInfo[]) {
     color: #51595a;
     border: none;
     text-align: center;
-    font-family: 'Cabin', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
@@ -172,7 +168,9 @@ function pick(appName) { window.location.href = 'game-picked://' + appName }
 </body>
 </html>`
 
-  void pickerWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html))
+  void pickerWindow.loadURL(
+    'data:text/html;charset=utf-8,' + encodeURIComponent(html)
+  )
 
   pickerWindow.webContents.on('will-navigate', (event, url) => {
     event.preventDefault()
