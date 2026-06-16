@@ -1,3 +1,4 @@
+import { join } from 'path'
 import { callRunner } from 'backend/launcher'
 import {
   getAureliaBin,
@@ -5,6 +6,7 @@ import {
   formatTime,
   sendProgressUpdate
 } from 'backend/utils'
+import { appFolder } from 'backend/constants/paths'
 import { logError, LogPrefix } from 'backend/logger'
 import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
 import type {
@@ -24,7 +26,10 @@ export class AureliaError extends Error {
 
 /**
  * Runs an `aurelia` command and returns the raw {@link ExecResult}.
+ * Keeps Aurelia's session/config/cache under Heroic's own config folder
  */
+const aureliaConfigDir = join(appFolder, 'aurelia')
+
 export async function runAureliaCommand(
   commandParts: string[],
   options: CallRunnerOptions = {}
@@ -33,7 +38,10 @@ export async function runAureliaCommand(
   return callRunner(
     commandParts,
     { name: 'steam', logPrefix: LogPrefix.Steam, bin, dir },
-    options
+    {
+      ...options,
+      env: { AURELIA_CONFIG_DIR: aureliaConfigDir, ...options.env }
+    }
   )
 }
 

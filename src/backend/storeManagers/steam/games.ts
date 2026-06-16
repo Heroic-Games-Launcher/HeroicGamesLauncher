@@ -1,4 +1,5 @@
 import { existsSync } from 'graceful-fs'
+import { dirname } from 'path'
 import { GameConfig } from '../../game_config'
 import {
   ExtraInfo,
@@ -26,6 +27,7 @@ import {
 import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
+import { isLinux } from 'backend/constants/environment'
 import { GlobalConfig } from 'backend/config'
 import { libraryManagerMap } from '..'
 import { configStore, extraInfoStore } from './electronStores'
@@ -574,10 +576,20 @@ export default class SteamGame implements Game {
       status: 'playing'
     })
 
-    const res = await libraryManagerMap['steam'].runRunnerCommand(
-      ['play', this.id, '--json'],
-      { abortId: this.id, logWriters: [logWriter] }
-    )
+    const playCommand = ['play', this.id, '--json']
+
+    // On Linux, hand Aurelia the Proton runner of Heroic
+    if (isLinux) {
+      const { wineVersion } = await this.getSettings()
+      if (wineVersion?.type === 'proton' && wineVersion.bin) {
+        playCommand.push('--proton', dirname(wineVersion.bin))
+      }
+    }
+
+    const res = await libraryManagerMap['steam'].runRunnerCommand(playCommand, {
+      abortId: this.id,
+      logWriters: [logWriter]
+    })
 
     if (res.error && !res.error.includes('signal')) {
       logError(
@@ -748,25 +760,10 @@ export default class SteamGame implements Game {
     if (!info) {
       return false
     }
-
-    try {
-      const result = await runAurelia<{
-        app_id?: number
-        available?: boolean
-        install_path?: string | null
-      }>(['available', this.id])
-      return Boolean(result.available)
-    } catch (error) {
-      logWarning(
-        [`Unable to check availability for ${this.id}`, describeError(error)],
-        LogPrefix.Steam
-      )
-      // Fall back to a local presence check
-      return Boolean(
-        info.is_installed &&
-        info.install?.install_path &&
-        existsSync(info.install.install_path)
-      )
-    }
+    return Boolean(
+      info.is_installed &&
+      info.install?.install_path &&
+      existsSync(info.install.install_path)
+    )
   }
 }

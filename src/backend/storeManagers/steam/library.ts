@@ -392,14 +392,13 @@ export default class SteamLibraryManager implements LibraryManager {
 
     let installPath: string
     try {
-      const result = await runAurelia<{
-        available?: boolean
-        install_path?: string | null
-      }>(['available', appName])
-      if (!result.available || !result.install_path) {
+      // `list -i` reports installed games with their full install info
+      const games = await runAurelia<AureliaLibraryGame[]>(['list', '-i'])
+      const game = games.find((value) => String(value.app_id) === appName)
+      if (!game?.is_installed || !game.install_path) {
         return
       }
-      installPath = result.install_path
+      installPath = game.install_path
     } catch (error) {
       logWarning(
         [`Unable to mark ${appName} as installed`, describeError(error)],
