@@ -15,17 +15,22 @@ export default function ExeFilePicker() {
   const { t } = useTranslation()
 
   useEffect(() => {
-    window.api.checkPendingExeFile().then((data) => {
-      if (data) {
-        setExePath(data.exePath)
-        setGames(data.games)
-      }
-    }, () => {})
+    window.api.checkPendingExeFile().then(
+      (data) => {
+        if (data) {
+          setExePath(data.exePath)
+          setGames(data.games)
+        }
+      },
+      () => {}
+    )
 
-    const removeListener = window.api.handleShowExeFilePicker((_e, path, gameList) => {
-      setExePath(path)
-      setGames(gameList)
-    })
+    const removeListener = window.api.handleShowExeFilePicker(
+      (_e, path, gameList) => {
+        setExePath(path)
+        setGames(gameList)
+      }
+    )
     return () => removeListener()
   }, [])
 

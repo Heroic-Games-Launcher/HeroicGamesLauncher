@@ -1604,5 +1604,9 @@
         "nothingYet": "Nothing was installed by winetricks yet",
         "openGUI": "Open winetricks GUI",
         "search": "Search fonts or components"
+    },
+    "zoom-store": "Zoom Store",
+    "exeFilePicker": {
+        "title": "Select Game Prefix"
     }
 }

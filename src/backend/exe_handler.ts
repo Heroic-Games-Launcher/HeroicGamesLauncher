@@ -10,7 +10,10 @@ import { sendFrontendMessage } from './ipc'
 
 let pendingPickerData: { exePath: string; games: GameInfo[] } | null = null
 
-export function checkPendingExeFile(): { exePath: string; games: GameInfo[] } | null {
+export function checkPendingExeFile(): {
+  exePath: string
+  games: GameInfo[]
+} | null {
   const data = pendingPickerData
   pendingPickerData = null
   return data
