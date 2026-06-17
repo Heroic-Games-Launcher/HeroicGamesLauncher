@@ -78,6 +78,8 @@ export function findExeInArgs(args: string[]): string | undefined {
 }
 
 export async function handleExeFile(exePath: string) {
+  if (process.platform === 'win32') return // Hopefully this fixes the issue on windows
+
   logInfo(['Handling executable:', exePath], LogPrefix.Backend)
 
   if (!existsSync(exePath)) {
