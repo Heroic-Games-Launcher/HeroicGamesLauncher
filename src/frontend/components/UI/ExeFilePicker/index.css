@@ -28,7 +28,9 @@
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
-  transition: background 150ms, border-color 150ms;
+  transition:
+    background 150ms,
+    border-color 150ms;
 }
 
 .exeFilePicker__gameBtn:hover {
