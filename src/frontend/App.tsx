@@ -22,6 +22,7 @@ import { TourProvider } from './state/TourContext'
 import { InstallGameWrapper } from './screens/Library/components/InstallModal'
 import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
 import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
+import ExeFilePicker from './components/UI/ExeFilePicker'
 
 function Root() {
   const {
@@ -95,6 +96,7 @@ function Root() {
               <SettingsModalWrapper />
               <ExternalLinkDialog />
               <LogFileUploadDialog />
+              <ExeFilePicker />
               <UploadedLogFilesList />
               <Outlet />
               <AnalyticsDialog />
