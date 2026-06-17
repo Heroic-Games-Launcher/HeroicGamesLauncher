@@ -1,5 +1,7 @@
 import { existsSync } from 'graceful-fs'
 import { dirname } from 'path'
+import { dialog } from 'electron'
+import { t } from 'i18next'
 import { GameConfig } from '../../game_config'
 import {
   ExtraInfo,
@@ -38,7 +40,11 @@ import {
   makeAureliaProgressHandler,
   AureliaError
 } from './aurelia'
-import type { AureliaAchievementsResponse } from './aurelia_types'
+import type {
+  AureliaAchievementsResponse,
+  AureliaCloudConflict,
+  AureliaCloudSyncResponse
+} from './aurelia_types'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -534,7 +540,13 @@ export default class SteamGame implements Game {
   }
 
   /**
-   * Runs a Steam Cloud sync
+   * Runs a Steam Cloud sync.
+   *
+   * Aurelia never overwrites a save by timestamp alone: it compares content
+   * hashes and, when the cloud and local copies have *diverged* (each changed
+   * independently since they last agreed), leaves both untouched and reports a
+   * conflict instead. When that happens we ask the user which side to keep and
+   * re-run the sync with `--resolve`, so no progress is silently lost.
    */
   private async syncCloudSaves(
     direction: 'up' | 'down',
@@ -543,14 +555,78 @@ export default class SteamGame implements Game {
     const action = direction === 'down' ? 'download' : 'upload'
     try {
       await logWriter.logInfo(`Steam Cloud sync (${action})`)
-      await runAurelia(['cloud', 'sync', this.id, `--${direction}`], {
-        abortId: `${this.id}-cloud-${direction}`,
-        logWriters: [logWriter]
-      })
+      const result = await runAurelia<AureliaCloudSyncResponse>(
+        ['cloud', 'sync', this.id, `--${direction}`],
+        {
+          abortId: `${this.id}-cloud-${direction}`,
+          logWriters: [logWriter]
+        }
+      )
+      if (result?.status === 'conflicts' && result.conflicts?.length) {
+        await this.resolveCloudConflicts(result.conflicts, logWriter)
+      }
     } catch (error) {
       logWarning(
         [
           `Failed to ${action} Steam Cloud saves for ${this.id}`,
+          describeError(error)
+        ],
+        LogPrefix.Steam
+      )
+    }
+  }
+
+  /**
+   * Prompt the user to keep either the Steam Cloud copy or the on-disk copy of
+   * the diverged save(s), then re-run the sync with that choice. Dismissing the
+   * prompt leaves both copies as-is (nothing is lost; it can be resolved later).
+   */
+  private async resolveCloudConflicts(
+    conflicts: AureliaCloudConflict[],
+    logWriter?: LogWriter
+  ): Promise<void> {
+    const title = this.getGameInfo().title || this.id
+    const fileList = conflicts.map((c) => `• ${c.filename}`).join('\n')
+    const { response } = await dialog.showMessageBox({
+      type: 'warning',
+      title: t('box.steam.cloudConflict.title', 'Steam Cloud save conflict'),
+      message: t(
+        'box.steam.cloudConflict.message',
+        'The Cloud and local saves for {{game}} have diverged — both were changed since they last matched. Choose which copy to keep:\n\n{{files}}',
+        { game: title, files: fileList }
+      ),
+      buttons: [
+        t('box.steam.cloudConflict.keepCloud', 'Use Steam Cloud save'),
+        t('box.steam.cloudConflict.keepLocal', 'Use this PC’s save'),
+        t('box.cancel', 'Cancel')
+      ],
+      cancelId: 2,
+      defaultId: 0
+    })
+
+    const resolve =
+      response === 0 ? 'cloud' : response === 1 ? 'local' : undefined
+    if (!resolve) {
+      logWarning(
+        `Steam Cloud conflict for ${this.id} left unresolved by the user`,
+        LogPrefix.Steam
+      )
+      await logWriter?.logWarning('Steam Cloud conflict left unresolved')
+      return
+    }
+
+    await logWriter?.logInfo(
+      `Resolving Steam Cloud conflict: keeping ${resolve}`
+    )
+    try {
+      await runAurelia(['cloud', 'sync', this.id, '--resolve', resolve], {
+        abortId: `${this.id}-cloud-resolve`,
+        logWriters: logWriter ? [logWriter] : []
+      })
+    } catch (error) {
+      logWarning(
+        [
+          `Failed to resolve Steam Cloud conflict for ${this.id}`,
           describeError(error)
         ],
         LogPrefix.Steam
@@ -680,7 +756,17 @@ export default class SteamGame implements Game {
         : []
     const pathArg = path ? ['--path', path] : []
     try {
-      await runAurelia(['cloud', 'sync', this.id, ...directionFlag, ...pathArg])
+      const result = await runAurelia<AureliaCloudSyncResponse>([
+        'cloud',
+        'sync',
+        this.id,
+        ...directionFlag,
+        ...pathArg
+      ])
+      if (result?.status === 'conflicts' && result.conflicts?.length) {
+        await this.resolveCloudConflicts(result.conflicts)
+        return 'Steam Cloud conflict resolved'
+      }
       return 'Steam Cloud sync finished'
     } catch (error) {
       logError(

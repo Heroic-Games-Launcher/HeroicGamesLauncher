@@ -1151,14 +1151,21 @@ class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    if (legendaryUser || gogUser || amazonUser || (zoom.enabled && zoomUser)) {
+    if (
+      legendaryUser ||
+      gogUser ||
+      amazonUser ||
+      (zoom.enabled && zoomUser) ||
+      (steam.enabled && steamUser)
+    ) {
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground:
           epic.library.length !== 0 ||
           gog.library.length !== 0 ||
           amazon.library.length !== 0 ||
-          ((this.state.zoom.enabled && zoom.library) || []).length !== 0
+          ((this.state.zoom.enabled && zoom.library) || []).length !== 0 ||
+          ((this.state.steam.enabled && steam.library) || []).length !== 0
       })
     }
 

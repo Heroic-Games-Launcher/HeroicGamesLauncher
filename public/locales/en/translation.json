@@ -46,6 +46,7 @@
             "message": "Heroic cache cleared.",
             "title": "Cache cleared"
         },
+        "cancel": "Cancel",
         "changelog": "Changelog",
         "choose": "Choose",
         "choose-aurelia-binary": "Select Aurelia binary",
@@ -150,6 +151,14 @@
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Shortcuts"
+        },
+        "steam": {
+            "cloudConflict": {
+                "keepCloud": "Use Cloud save",
+                "keepLocal": "Use Local save",
+                "message": "The Cloud and Local saves for {{game}} have diverged, choose which copy to keep:\n\n{{files}}",
+                "title": "Steam Cloud save conflict"
+            }
         },
         "sync": {
             "error": "Invalid Path",

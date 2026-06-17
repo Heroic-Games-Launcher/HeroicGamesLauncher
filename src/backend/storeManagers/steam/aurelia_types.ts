@@ -133,6 +133,29 @@ export interface AureliaAchievementsResponse {
   achievements: AureliaAchievement[]
 }
 
+/** One save that diverged between Steam Cloud and disk (`cloud sync` JSON). */
+export interface AureliaCloudConflict {
+  filename: string
+  local_path: string
+  local_hash: string
+  local_size: number
+  local_timestamp: number
+  cloud_hash: string
+  cloud_size: number
+  cloud_timestamp: number
+}
+
+/** Result of `aurelia cloud sync <id> --json`. */
+export interface AureliaCloudSyncResponse {
+  app_id: number
+  direction: 'up' | 'down' | 'both'
+  remote_root?: string
+  status: 'ok' | 'conflicts'
+  downloaded?: string[]
+  uploaded?: string[]
+  conflicts?: AureliaCloudConflict[]
+}
+
 export interface AureliaAccount {
   // FIXME: Aurelia prints the 64-bit SteamID as a JSON number;
   steam_id: string | number
