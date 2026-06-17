@@ -1215,5 +1215,8 @@
         "openGUI": "Open Winetricks GUI",
         "search": "Search fonts or components"
     },
-    "zoom-store": "Zoom Store"
+    "zoom-store": "Zoom Store",
+    "exeFilePicker": {
+        "title": "Select Game Prefix"
+    }
 }
