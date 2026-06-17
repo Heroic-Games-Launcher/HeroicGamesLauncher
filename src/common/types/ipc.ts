@@ -366,7 +366,10 @@ interface AsyncIPCFunctions {
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
   launchWithExeFile: (exePath: string, appName: string) => Promise<void>
-  checkPendingExeFile: () => Promise<{ exePath: string; games: GameInfo[] } | null>
+  checkPendingExeFile: () => Promise<{
+    exePath: string
+    games: GameInfo[]
+  } | null>
 }
 
 interface FrontendMessages {

@@ -60,7 +60,12 @@ import {
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
-import { handleExeFile, findExeInArgs, launchWithExeFile, checkPendingExeFile } from './exe_handler'
+import {
+  handleExeFile,
+  findExeInArgs,
+  launchWithExeFile,
+  checkPendingExeFile
+} from './exe_handler'
 
 import {
   getDiskInfo,
@@ -677,7 +682,9 @@ addListener('removeFolder', async (e, [path, folderName]) => {
 })
 
 addHandler('runWineCommand', async (e, args) => runWineCommand(args))
-addHandler('launchWithExeFile', async (e, exePath, appName) => launchWithExeFile(exePath, appName))
+addHandler('launchWithExeFile', async (e, exePath, appName) =>
+  launchWithExeFile(exePath, appName)
+)
 addHandler('checkPendingExeFile', async () => checkPendingExeFile())
 
 /// IPC handlers begin here.
