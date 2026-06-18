@@ -930,7 +930,8 @@
         "installing": "Installerar",
         "logging": "Loggar in...",
         "processing": "Hanterar filer, vänligen vänta",
-        "preparing_login": "Förbereder inloggning... "
+        "preparing_login": "Förbereder inloggning... ",
+        "installed": "Installerad"
     },
     "store": "Epic Butik",
     "stores": "Butiker",
@@ -1252,7 +1253,15 @@
         "empty": "",
         "games": "Installerade spel",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "Avbryt uppdatering"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Installera spel",
+            "wineLoading": "Laddar…"
+        }
     },
     "next": "Nästa"
 }
