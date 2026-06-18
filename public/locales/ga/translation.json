@@ -282,8 +282,10 @@
         "wine-wayland": "Ligeann an tiománaí turgnamhach Wine-Wayland do chluichí rith go dúchasach faoin bprótacal taispeána Wayland. D’fhéadfadh sé go gcuirfeadh cumasú isteach ar roinnt cluichí.",
         "WoW64": "Ligeann mód Wine WoW64 do chluichí Windows 32-giotán a bheith á rith ar Wine 64-giotán. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú, ach d’fhéadfadh sé go gcuirfeadh sé isteach ar chluichí 32-giotán níos sine freisin.",
         "nvidiaprime": {
-            "details": "Bain úsáid as cárta grafaicí tiomnaithe chun cluiche a rindreáil ar chórais il-GPU. Ní gá ach ar ríomhairí glúine nó deisce cearrbhachais a úsáideann GPU gan cheann le haghaidh rindreála (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Bain úsáid as cárta grafaicí tiomnaithe chun cluiche a rindreáil ar chórais il-GPU. Ní gá ach ar ríomhairí glúine nó deisce cearrbhachais a úsáideann GPU gan cheann le haghaidh rindreála (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Seiceáil tuilleadh sonraí inár vicí"
+        },
+        "hide-window-on-protocol-launch": "Coinníonn sé an fhuinneog Heroic i bhfolach nuair a sheoltar cluiche ó aicearra seachtrach, cosúil leis an ngné 'Cuir le Steam'."
     },
     "placeholder": {
         "egs-prefix": "Roghnaigh Réimír ina bhfuil EGS suiteáilte",
@@ -495,7 +497,11 @@
         "scripts": "Scripteanna:",
         "enable-quick-sync-menu": "Cumasaigh an Roghchlár Sábháil-Sioncrónaithe Tapa ar leathanach an chluiche",
         "disable_gog_presence": "Díchumasaigh nuashonruithe GOG Presence",
-        "start-in-console-mode": "Tosaigh i Mód Consóil"
+        "start-in-console-mode": "Tosaigh i Mód Consóil",
+        "hide-window-on-protocol-launch": "Folaigh fuinneog Heroic agus cluichí á seoladh ó naisc heroic://",
+        "nvidiaprime": {
+            "description": "Éirigh úsáid NVIDIA Optimus nó AMD Dynamic Switchable Graphics dGPU. Ná húsáid é seo ach amháin le haghaidh cluichí OpenGL agus Vulkan."
+        }
     },
     "button": {
         "login": "Logáil isteach",
@@ -625,7 +631,8 @@
         "installing": "Ag suiteáil",
         "processing": "Comhaid á bpróiseáil, fan le do thoil",
         "logging": "Ag Logáil Isteach...",
-        "preparing_login": "Logáil Isteach á Ullmhú... "
+        "preparing_login": "Logáil Isteach á Ullmhú... ",
+        "installed": "Suiteáilte"
     },
     "info": {
         "heroic": {
@@ -1192,7 +1199,26 @@
         },
         "empty": "Níl aon chluichí suiteáilte le taispeáint. Suiteáil rud éigin ar dtús.",
         "quitApp": "Scoir den Aip",
-        "loading": "Ag lódáil do leabharlann…"
+        "loading": "Ag lódáil do leabharlann…",
+        "cancelInstall": {
+            "title": "Cealaigh an suiteáil?",
+            "message": "Tá an cluiche seo á shuiteáil faoi láthair. An bhfuil tú ag iarraidh an suiteáil a chealú?"
+        },
+        "install": {
+            "title": "Suiteáil cluiche",
+            "wineLoading": "Ag lódáil…",
+            "path": "Suiteáil chuig",
+            "platform": "Ardán",
+            "wine": "Wine",
+            "wineMissing": "Níor roghnaíodh"
+        },
+        "cancelUpdate": {
+            "message": "Tá an cluiche seo á íoslódáil faoi láthair. An bhfuil tú ag iarraidh an nuashonrú atá ar siúl a chealú?",
+            "title": "An bhfuil tú ag iarraidh an nuashonrú a chealú?"
+        },
+        "removeFromQueue": {
+            "message": "Tá an cluiche seo i scuaine le híoslódáil. Bain den scuaine é?"
+        }
     },
     "steamgriddb": {
         "error": {
