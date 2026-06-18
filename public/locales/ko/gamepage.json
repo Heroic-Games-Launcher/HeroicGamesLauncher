@@ -334,5 +334,8 @@
         }
     },
     "open-saves-folder": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "고급"
+    }
 }
