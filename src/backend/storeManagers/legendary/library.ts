@@ -158,16 +158,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
     }
 
     await this.refreshLegendary()
-    this.loadGamesInAccount()
-    this.refreshInstalled()
-
-    try {
-      await this.loadAll()
-    } catch (error) {
-      logError(error, LogPrefix.Legendary)
-    }
-    const arr = Array.from(library.values())
-    libraryStore.set('library', arr)
+    const arr = await this.applyLocalData()
     logInfo(
       ['Game list updated, got', `${arr.length}`, 'games & DLCs'],
       LogPrefix.Legendary
@@ -175,7 +166,24 @@ export default class LegendaryLibraryManager implements LibraryManager {
     return this.defaultExecResult
   }
 
+  /**
+   * Refresh games in the user's library using only local data, without network calls.
+   */
   async refreshLocal(): Promise<void> {
+    logInfo('Refreshing library locally...', LogPrefix.Legendary)
+    const arr = await this.applyLocalData()
+    logInfo(
+      ['Game list updated locally, got', `${arr.length}`, 'games & DLCs'],
+      LogPrefix.Legendary
+    )
+  }
+
+  /**
+   * Load local game data into the library store.
+   *
+   * @returns Array of GameInfo objects.
+   */
+  private async applyLocalData(): Promise<GameInfo[]> {
     this.loadGamesInAccount()
     this.refreshInstalled()
     try {
@@ -185,10 +193,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
     }
     const arr = Array.from(library.values())
     libraryStore.set('library', arr)
-    logInfo(
-      ['Game list updated locally, got', `${arr.length}`, 'games & DLCs'],
-      LogPrefix.Legendary
-    )
+    return arr
   }
 
   getListOfGames() {
