@@ -49,7 +49,8 @@ import {
   createAbortController,
   deleteAbortController
 } from '../utils/aborthandler/aborthandler'
-import { gameManagerMap } from '../storeManagers'
+
+import { libraryManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
@@ -64,6 +65,7 @@ import {
   isWindows
 } from 'backend/constants/environment'
 import './dxmt'
+import { Game } from '../../common/types/game_manager'
 
 type ReleasesResponse = {
   assets: {
@@ -566,7 +568,9 @@ export const Winetricks = {
     args: string[],
     returnOutput = false
   ) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+    const gameSettings = await libraryManagerMap[runner]
+      .getGame(appName)
+      .getSettings()
 
     const { wineVersion } = gameSettings
 
@@ -751,8 +755,8 @@ export const Winetricks = {
       return []
     }
   },
-  listInstalled: async (runner: Runner, appName: string) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  listInstalled: async (game: Game) => {
+    const gameSettings = await game.getSettings()
     const { winePrefix } = await getWineFromProton(gameSettings)
     const winetricksLogPath = join(winePrefix, 'winetricks.log')
     try {
@@ -875,12 +879,13 @@ export async function runWineCommandOnGame(
   appName: string,
   { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
 ): Promise<ExecResult> {
-  if (gameManagerMap[runner].isNative(appName)) {
+  const game = libraryManagerMap[runner].getGame(appName)
+  if (game.isNative()) {
     logError('runWineCommand called on native game!', LogPrefix.Gog)
     return { stdout: '', stderr: '' }
   }
-  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const { folder_name, install } = game.getGameInfo()
+  const gameSettings = await game.getSettings()
 
   return runWineCommand({
     gameSettings,

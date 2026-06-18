@@ -22,7 +22,6 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo,
-  InstallPlatform,
   InstallProgress,
   LaunchOption,
   GOGAchievement
@@ -37,7 +36,6 @@ import {
   syncStore
 } from './electronStores'
 import {
-  logDebug,
   logError,
   logInfo,
   LogPrefix,
@@ -67,14 +65,13 @@ import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import {
   GOGCloudSavesLocation,
-  GOGSessionSyncQueueItem,
   GogInstallPlatform,
   UserData
 } from 'common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../ipc'
-import { GameManager, RemoveArgs } from 'common/types/game_manager'
+import { Game, RemoveArgs } from 'common/types/game_manager'
 import {
   getWineFlagsArray,
   isUmuSupported
@@ -82,7 +79,6 @@ import {
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import { readdir, readFile } from 'fs/promises'
-import { statSync } from 'fs'
 import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
 import { spawn } from 'child_process'
@@ -92,9 +88,15 @@ import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export default class GOGGameManager implements GameManager {
-  async getExtraInfo(appName: string): Promise<ExtraInfo> {
-    const gameInfo = this.getGameInfo(appName)
+export default class GOGGame implements Game {
+  private readonly id: string
+
+  constructor(id: string) {
+    this.id = id
+  }
+
+  async getExtraInfo(): Promise<ExtraInfo> {
+    const gameInfo = this.getGameInfo()
     let targetPlatform: GogInstallPlatform = 'windows'
 
     if (isMac && gameInfo.is_mac_native) {
@@ -106,14 +108,14 @@ export default class GOGGameManager implements GameManager {
     }
 
     const reqs = await libraryManagerMap['gog'].createReqsArray(
-      appName,
+      this.id,
       targetPlatform
     )
-    const productInfo = await libraryManagerMap['gog'].getProductApi(appName, [
+    const productInfo = await libraryManagerMap['gog'].getProductApi(this.id, [
       'changelog'
     ])
 
-    const gamesData = await libraryManagerMap['gog'].getGamesData(appName)
+    const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
 
     let gogStoreUrl = gamesData?._links?.store.href
     const releaseDate =
@@ -136,17 +138,14 @@ export default class GOGGameManager implements GameManager {
     return extra
   }
 
-  async getAchievements(
-    appName: string,
-    lang = 'en-US'
-  ): Promise<GOGAchievement[]> {
-    const cached = achievementStore.get(appName)
+  async getAchievements(lang = 'en-US'): Promise<GOGAchievement[]> {
+    const cached = achievementStore.get(this.id)
     if (cached) return cached
 
     if (!GOGUser.isLoggedIn()) return []
     const credentials = await GOGUser.getCredentials()
     if (!credentials) return []
-    const url = `https://gameplay.gog.com/clients/${appName}/users/${credentials?.user_id}/achievements`
+    const url = `https://gameplay.gog.com/clients/${this.id}/users/${credentials?.user_id}/achievements`
 
     const response: AxiosResponse | null = await axiosClient
       .get(url, {
@@ -164,18 +163,18 @@ export default class GOGGameManager implements GameManager {
     }
 
     const achievements: GOGAchievement[] = response.data.items
-    achievementStore.set(appName, achievements)
+    achievementStore.set(this.id, achievements)
 
     return achievements
   }
 
-  getGameInfo(appName: string): GameInfo {
-    const info = libraryManagerMap['gog'].getGameInfo(appName)
+  getGameInfo(): GameInfo {
+    const info = libraryManagerMap['gog'].getGameInfo(this.id)
     if (!info) {
       logError(
         [
           'Could not get game info for',
-          `${appName},`,
+          `${this.id},`,
           'returning empty object. Something is probably gonna go wrong soon'
         ],
         LogPrefix.Gog
@@ -194,24 +193,19 @@ export default class GOGGameManager implements GameManager {
     return info
   }
 
-  async getSettings(appName: string): Promise<GameSettings> {
+  async getSettings(): Promise<GameSettings> {
     return (
-      GameConfig.get(appName).config ||
-      (await GameConfig.get(appName).getSettings())
+      GameConfig.get(this.id).config ||
+      (await GameConfig.get(this.id).getSettings())
     )
   }
 
-  async importGame(
-    appName: string,
-    folderPath: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    platform: InstallPlatform
-  ): Promise<ExecResult> {
+  async importGame(folderPath: string): Promise<ExecResult> {
     const res = await libraryManagerMap['gog'].runRunnerCommand(
       ['import', folderPath],
       {
-        abortId: appName,
-        logMessagePrefix: `Importing ${appName}`
+        abortId: this.id,
+        logMessagePrefix: `Importing ${this.id}`
       }
     )
 
@@ -220,7 +214,7 @@ export default class GOGGameManager implements GameManager {
     }
 
     if (res.error) {
-      logError(['Failed to import', `${appName}:`, res.error], LogPrefix.Gog)
+      logError([`Failed to import ${this.id}:`, res.error], LogPrefix.Gog)
       return res
     }
 
@@ -229,9 +223,9 @@ export default class GOGGameManager implements GameManager {
         JSON.parse(res.stdout),
         folderPath
       )
-      this.addShortcuts(appName)
+      this.addShortcuts()
     } catch (error) {
-      logError(['Failed to import', `${appName}:`, error], LogPrefix.Gog)
+      logError([`Failed to import ${this.id}:`, error], LogPrefix.Gog)
     }
 
     return res
@@ -244,19 +238,18 @@ export default class GOGGameManager implements GameManager {
     diskSpeed: undefined,
     downSpeed: undefined
   })
-  private tmpProgress: Record<string, InstallProgress> = {}
+  private tmpProgress: InstallProgress | undefined
 
   onInstallOrUpdateOutput(
-    appName: string,
     action: 'installing' | 'updating',
     data: string,
     /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
     totalDownloadSize = -1
   ) {
-    if (!Object.hasOwn(this.tmpProgress, appName)) {
-      this.tmpProgress[appName] = this.defaultTmpProgress()
+    if (!this.tmpProgress) {
+      this.tmpProgress = this.defaultTmpProgress()
     }
-    const progress = this.tmpProgress[appName]
+    const progress = this.tmpProgress
 
     // parse log for percent
     if (!progress.percent) {
@@ -304,7 +297,7 @@ export default class GOGGameManager implements GameManager {
     ) {
       logInfo(
         [
-          `Progress for ${this.getGameInfo(appName).title}:`,
+          `Progress for ${this.getGameInfo().title}:`,
           `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
           `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
         ],
@@ -312,34 +305,31 @@ export default class GOGGameManager implements GameManager {
       )
 
       sendProgressUpdate({
-        appName: appName,
+        appName: this.id,
         runner: 'gog',
         status: action,
         progress: progress
       })
 
       // reset
-      this.tmpProgress[appName] = this.defaultTmpProgress()
+      this.tmpProgress = this.defaultTmpProgress()
     }
   }
 
-  async install(
-    appName: string,
-    {
-      path,
-      installDlcs,
-      platformToInstall,
-      installLanguage,
-      build,
-      branch
-    }: InstallArgs
-  ): Promise<{
+  async install({
+    path,
+    installDlcs,
+    platformToInstall,
+    installLanguage,
+    build,
+    branch
+  }: InstallArgs): Promise<{
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
     const { maxWorkers } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-    const privateBranchPassword = privateBranchesStore.get(appName, '')
+    const privateBranchPassword = privateBranchesStore.get(this.id, '')
     const withDlcs = installDlcs?.length
       ? ['--with-dlcs', '--dlcs', installDlcs.join(',')]
       : ['--skip-dlcs']
@@ -351,7 +341,7 @@ export default class GOGGameManager implements GameManager {
 
     if (!credentials) {
       logError(
-        ['Failed to install', `${appName}:`, 'No credentials'],
+        ['Failed to install', `${this.id}:`, 'No credentials'],
         LogPrefix.Gog
       )
       return { status: 'error' }
@@ -364,13 +354,13 @@ export default class GOGGameManager implements GameManager {
 
     const commandParts: string[] = [
       'download',
-      appName,
+      this.id,
       '--platform',
       installPlatform,
       '--path',
       path,
       '--support',
-      join(gogSupportPath, appName),
+      join(gogSupportPath, this.id),
       ...withDlcs,
       '--lang',
       String(installLanguage),
@@ -384,19 +374,19 @@ export default class GOGGameManager implements GameManager {
     }
 
     const onOutput = (data: string) => {
-      this.onInstallOrUpdateOutput(appName, 'installing', data)
+      this.onInstallOrUpdateOutput('installing', data)
     }
 
     const installLogWriter = await createGameLogWriter(
-      appName,
+      this.id,
       'gog',
       'install'
     )
     const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
-      abortId: appName,
+      abortId: this.id,
       logWriters: [installLogWriter],
       onOutput,
-      logMessagePrefix: `Installing ${appName}`
+      logMessagePrefix: `Installing ${this.id}`
     })
 
     if (res.abort) {
@@ -405,7 +395,7 @@ export default class GOGGameManager implements GameManager {
 
     if (res.error) {
       logError(
-        ['Failed to install GOG game ', `${appName}:`, res.error],
+        ['Failed to install GOG game ', `${this.id}:`, res.error],
         LogPrefix.Gog
       )
       return { status: 'error', error: res.error }
@@ -414,7 +404,7 @@ export default class GOGGameManager implements GameManager {
     // Installation succeded
     // Save new game info to installed games store
     const installInfo = await libraryManagerMap['gog'].getInstallInfo(
-      appName,
+      this.id,
       installPlatform,
       {
         branch,
@@ -425,10 +415,10 @@ export default class GOGGameManager implements GameManager {
       logError('install info is undefined in GOG install', LogPrefix.Gog)
       return { status: 'error' }
     }
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     const isLinuxNative = installPlatform === 'linux'
     const additionalInfo = isLinuxNative
-      ? await libraryManagerMap['gog'].getLinuxInstallerInfo(appName)
+      ? await libraryManagerMap['gog'].getLinuxInstallerInfo(this.id)
       : null
 
     if (
@@ -451,7 +441,7 @@ export default class GOGGameManager implements GameManager {
       version: additionalInfo
         ? additionalInfo.version
         : installInfo.game.version,
-      appName: appName,
+      appName: this.id,
       installedDLCs: installDlcs,
       language: installLanguage,
       versionEtag: isLinuxNative ? '' : installInfo.manifest.versionEtag,
@@ -470,7 +460,7 @@ export default class GOGGameManager implements GameManager {
         LogPrefix.Gog
       )
       try {
-        await setup(appName, installedData)
+        await setup(this.id, installedData)
       } catch (e) {
         logWarning(
           [
@@ -493,12 +483,12 @@ export default class GOGGameManager implements GameManager {
         )
       }
     }
-    this.addShortcuts(appName)
+    this.addShortcuts()
     return { status: 'done' }
   }
 
-  isNative(appName: string): boolean {
-    const gameInfo = this.getGameInfo(appName)
+  isNative(): boolean {
+    const gameInfo = this.getGameInfo()
     if (isWindows) {
       return true
     }
@@ -514,22 +504,21 @@ export default class GOGGameManager implements GameManager {
     return false
   }
 
-  async addShortcuts(appName: string, fromMenu?: boolean) {
-    return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
+  async addShortcuts(fromMenu?: boolean) {
+    return addShortcutsUtil(this, fromMenu)
   }
 
-  async removeShortcuts(appName: string) {
-    return removeShortcutsUtil(this.getGameInfo(appName))
+  async removeShortcuts() {
+    return removeShortcutsUtil(this)
   }
 
   async launch(
-    appName: string,
     logWriter: LogWriter,
     launchArguments?: LaunchOption,
     args: string[] = []
   ): Promise<boolean> {
-    const gameSettings = await this.getSettings(appName)
-    const gameInfo = this.getGameInfo(appName)
+    const gameSettings = await this.getSettings()
+    const gameInfo = this.getGameInfo()
 
     if (
       !gameInfo.install ||
@@ -540,11 +529,7 @@ export default class GOGGameManager implements GameManager {
     }
 
     if (!existsSync(gameInfo.install.install_path)) {
-      errorHandler({
-        error: 'appears to be deleted',
-        runner: 'gog',
-        appName: gameInfo.app_name
-      })
+      errorHandler('appears to be deleted', this.id, 'gog')
       return false
     }
 
@@ -556,12 +541,7 @@ export default class GOGGameManager implements GameManager {
       gameScopeCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(
-      gameSettings,
-      logWriter,
-      gameInfo,
-      this.isNative(appName)
-    )
+    } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
       launchCleanup()
@@ -582,11 +562,11 @@ export default class GOGGameManager implements GameManager {
 
     let commandEnv = {
       ...process.env,
-      ...setupWrapperEnvVars({ appName, appRunner: 'gog' }),
+      ...setupWrapperEnvVars({ appName: this.id, appRunner: 'gog' }),
       ...(isWindows
         ? {}
         : setupEnvVars(gameSettings, gameInfo.install.install_path)),
-      ...getKnownFixesEnvVariables(appName, 'gog')
+      ...getKnownFixesEnvVariables(this.id, 'gog')
     }
 
     const wrappers = setupWrappers(
@@ -601,12 +581,12 @@ export default class GOGGameManager implements GameManager {
       ? ['--wrapper', shlex.join(wrappers)]
       : []
 
-    if (!this.isNative(appName)) {
+    if (!this.isNative()) {
       const {
         success: wineLaunchPrepSuccess,
         failureReason: wineLaunchPrepFailReason,
         envVars: wineEnvVars
-      } = await prepareWineLaunch('gog', appName, logWriter)
+      } = await prepareWineLaunch(this, logWriter)
       if (!wineLaunchPrepSuccess) {
         logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
         if (wineLaunchPrepFailReason) {
@@ -673,7 +653,7 @@ export default class GOGGameManager implements GameManager {
               gameSettings
             })
 
-        const availableMods = await this.getCyberpunkMods()
+        const availableMods = await libraryManagerMap['gog'].getCyberpunkMods()
         const modsEnabledToLoad = gameInfo.install.cyberpunk.modsToLoad
         const modsAbleToLoad: string[] = []
 
@@ -735,7 +715,7 @@ export default class GOGGameManager implements GameManager {
 
     const userData: UserData | undefined = configStore.get_nodefault('userData')
 
-    sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
+    sendGameStatusUpdate({ appName: this.id, runner: 'gog', status: 'playing' })
 
     let child = undefined
 
@@ -768,7 +748,7 @@ export default class GOGGameManager implements GameManager {
     const { error, abort } = await libraryManagerMap['gog'].runRunnerCommand(
       commandParts,
       {
-        abortId: appName,
+        abortId: this.id,
         env: commandEnv,
         wrappers,
         logMessagePrefix: `Launching ${gameInfo.title}`,
@@ -794,11 +774,10 @@ export default class GOGGameManager implements GameManager {
   }
 
   async moveInstall(
-    appName: string,
     newInstallPath: string
   ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
-    const gameInfo = this.getGameInfo(appName)
-    const gameConfig = GameConfig.get(appName).config
+    const gameInfo = this.getGameInfo()
+    const gameConfig = await this.getSettings()
     logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
     const moveImpl = isWindows ? moveOnWindows : moveOnUnix
@@ -815,14 +794,14 @@ export default class GOGGameManager implements GameManager {
     }
 
     await libraryManagerMap['gog'].changeGameInstallPath(
-      appName,
+      this.id,
       moveResult.installPath
     )
     if (
       gameInfo.install.platform === 'windows' &&
       (isWindows || existsSync(gameConfig.winePrefix))
     ) {
-      await setup(appName, undefined, false)
+      await setup(this.id, undefined, false)
     }
     return { status: 'done' }
   }
@@ -831,25 +810,25 @@ export default class GOGGameManager implements GameManager {
    * This proces verifies and repairs game files
    * verification step doesn't have progress, but download does
    */
-  async repair(appName: string): Promise<ExecResult> {
+  async repair(): Promise<ExecResult> {
     const { installPlatform, gameData, credentials, withDlcs, workers } =
-      await this.getCommandParameters(appName)
+      await this.getCommandParameters()
 
     if (!credentials) {
       return { stderr: 'Unable to repair game, no credentials', stdout: '' }
     }
-    const privateBranchPassword = privateBranchesStore.get(appName, '')
+    const privateBranchPassword = privateBranchesStore.get(this.id, '')
 
     // Most of the data provided here is discarded and read from manifest instead
     const commandParts = [
       'repair',
-      appName,
+      this.id,
       '--platform',
       installPlatform!,
       '--path',
       gameData.install.install_path!,
       '--support',
-      join(gogSupportPath, appName),
+      join(gogSupportPath, this.id),
       withDlcs,
       '--lang',
       gameData.install.language || 'en-US',
@@ -861,22 +840,21 @@ export default class GOGGameManager implements GameManager {
       commandParts.push('--password', privateBranchPassword)
     }
 
-    const repairLogWriter = await createGameLogWriter(appName, 'gog', 'repair')
+    const repairLogWriter = await createGameLogWriter(this.id, 'gog', 'repair')
     const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
-      abortId: appName,
+      abortId: this.id,
       logWriters: [repairLogWriter],
-      logMessagePrefix: `Repairing ${appName}`
+      logMessagePrefix: `Repairing ${this.id}`
     })
 
     if (res.error) {
-      logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Gog)
+      logError(['Failed to repair', `${this.id}:`, res.error], LogPrefix.Gog)
     }
 
     return res
   }
 
   async syncSaves(
-    appName: string,
     arg: string,
     path: string,
     gogSaves?: GOGCloudSavesLocation[]
@@ -890,7 +868,7 @@ export default class GOGGameManager implements GameManager {
       return 'Unable to sync saves, no credentials'
     }
 
-    const gameInfo = libraryManagerMap['gog'].getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     if (!gameInfo || !gameInfo.install.platform) {
       return 'Unable to sync saves, game info not found'
     }
@@ -901,11 +879,11 @@ export default class GOGGameManager implements GameManager {
       const commandParts = [
         'save-sync',
         location.location,
-        appName,
+        this.id,
         '--os',
         gameInfo.install.platform,
         '--ts',
-        syncStore.get(`${appName}.${location.name}`, '0'),
+        syncStore.get(`${this.id}.${location.name}`, '0'),
         '--name',
         location.name,
         arg
@@ -916,7 +894,7 @@ export default class GOGGameManager implements GameManager {
       const res = await libraryManagerMap['gog'].runRunnerCommand(
         commandParts,
         {
-          abortId: appName,
+          abortId: this.id,
           logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
           onOutput: (output) => (fullOutput += output)
         }
@@ -924,24 +902,21 @@ export default class GOGGameManager implements GameManager {
 
       if (res.error) {
         logError(
-          ['Failed to sync saves for', `${appName}`, `${res.error}`],
+          ['Failed to sync saves for', `${this.id}`, `${res.error}`],
           LogPrefix.Gog
         )
       }
       if (res.stdout) {
-        syncStore.set(`${appName}.${location.name}`, res.stdout.trim())
+        syncStore.set(`${this.id}.${location.name}`, res.stdout.trim())
       }
     }
 
     return fullOutput
   }
 
-  async uninstall({
-    appName,
-    shouldRemovePrefix
-  }: RemoveArgs): Promise<ExecResult> {
+  async uninstall({ shouldRemovePrefix }: RemoveArgs): Promise<ExecResult> {
     const array = installedGamesStore.get('installed', [])
-    const index = array.findIndex((game) => game.appName === appName)
+    const index = array.findIndex((game) => game.appName === this.id)
     if (index === -1) {
       throw Error("Game isn't installed")
     }
@@ -953,7 +928,7 @@ export default class GOGGameManager implements GameManager {
 
     const res: ExecResult = { stdout: '', stderr: '' }
     if (existsSync(uninstallerPath)) {
-      const gameSettings = GameConfig.get(appName).config
+      const gameSettings = await this.getSettings()
 
       const installDirectory = isWindows
         ? object.install_path
@@ -965,7 +940,7 @@ export default class GOGGameManager implements GameManager {
       const command = [
         uninstallerPath,
         '/VERYSILENT',
-        `/ProductId=${appName}`,
+        `/ProductId=${this.id}`,
         '/galaxyclient',
         '/KEEPSAVES'
       ]
@@ -1002,37 +977,35 @@ export default class GOGGameManager implements GameManager {
     if (existsSync(object.install_path)) {
       rmSync(object.install_path, { recursive: true })
     }
-    const manifestPath = join(gogdlConfigPath, 'manifests', appName)
+    const manifestPath = join(gogdlConfigPath, 'manifests', this.id)
     if (existsSync(manifestPath)) {
       rmSync(manifestPath) // Delete manifest so gogdl won't try to patch the not installed game
     }
-    const supportPath = join(gogSupportPath, appName)
+    const supportPath = join(gogSupportPath, this.id)
     if (existsSync(supportPath)) {
       rmSync(supportPath, { recursive: true }) // Remove unnecessary support dir
     }
     installedGamesStore.set('installed', array)
     libraryManagerMap['gog'].refreshInstalled()
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     gameInfo.is_installed = false
     gameInfo.install = { is_dlc: false }
-    await removeShortcutsUtil(gameInfo)
-    syncStore.delete(appName)
-    await removeNonSteamGame({ gameInfo })
+    await removeShortcutsUtil(this)
+    syncStore.delete(this.id)
+    await removeNonSteamGame(this)
     sendFrontendMessage('pushGameToLibrary', gameInfo)
     return res
   }
 
-  async update(
-    appName: string,
-    updateOverwrites?: {
-      build?: string
-      branch?: string
-      language?: string
-      dlcs?: string[]
-      dependencies?: string[]
-    }
-  ): Promise<{ status: 'done' | 'error' }> {
-    if (appName === 'gog-redist') {
+  async update(updateOverwrites?: {
+    build?: string
+    branch?: string
+    language?: string
+    dlcs?: string[]
+    dependencies?: string[]
+  }): Promise<{ status: 'done' | 'error' }> {
+    // TODO: Implement GOG redist as a subclass of GOGGame & move this logic to it
+    if (this.id === 'gog-redist') {
       const redist = await getRequiredRedistList()
       if (updateOverwrites?.dependencies?.length) {
         for (const dep of updateOverwrites.dependencies) {
@@ -1051,12 +1024,12 @@ export default class GOGGameManager implements GameManager {
       workers,
       dlcs,
       branch
-    } = await this.getCommandParameters(appName)
+    } = await this.getCommandParameters()
     if (!installPlatform || !credentials) {
       return { status: 'error' }
     }
 
-    const gameConfig = GameConfig.get(appName).config
+    const gameConfig = await this.getSettings()
     const installedDlcs = gameData.install.installedDLCs || []
 
     if (updateOverwrites?.dlcs) {
@@ -1124,7 +1097,7 @@ export default class GOGGameManager implements GameManager {
       }
     }
 
-    const privateBranchPassword = privateBranchesStore.get(appName, '')
+    const privateBranchPassword = privateBranchesStore.get(this.id, '')
 
     const overwrittenBuild: string[] = updateOverwrites?.build
       ? ['--build', updateOverwrites.build]
@@ -1149,13 +1122,13 @@ export default class GOGGameManager implements GameManager {
 
     const commandParts = [
       'update',
-      appName,
+      this.id,
       '--platform',
       installPlatform,
       '--path',
       gameData.install.install_path!,
       '--support',
-      join(gogSupportPath, appName),
+      join(gogSupportPath, this.id),
       overwrittenWithDlcs,
       '--lang',
       overwrittenLanguage,
@@ -1169,15 +1142,15 @@ export default class GOGGameManager implements GameManager {
     }
 
     const onOutput = (data: string) => {
-      this.onInstallOrUpdateOutput(appName, 'updating', data)
+      this.onInstallOrUpdateOutput('updating', data)
     }
 
-    const updateLogWriter = await createGameLogWriter(appName, 'gog', 'update')
+    const updateLogWriter = await createGameLogWriter(this.id, 'gog', 'update')
     const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
-      abortId: appName,
+      abortId: this.id,
       logWriters: [updateLogWriter],
       onOutput,
-      logMessagePrefix: `Updating ${appName}`
+      logMessagePrefix: `Updating ${this.id}`
     })
 
     if (res.abort) {
@@ -1185,9 +1158,9 @@ export default class GOGGameManager implements GameManager {
     }
 
     if (res.error) {
-      logError(['Failed to update', `${appName}:`, res.error], LogPrefix.Gog)
+      logError(['Failed to update', `${this.id}:`, res.error], LogPrefix.Gog)
       sendGameStatusUpdate({
-        appName: appName,
+        appName: this.id,
         runner: 'gog',
         status: 'done'
       })
@@ -1196,13 +1169,13 @@ export default class GOGGameManager implements GameManager {
 
     const installedArray = installedGamesStore.get('installed', [])
     const gameIndex = installedArray.findIndex(
-      (value) => appName === value.appName
+      (value) => this.id === value.appName
     )
     const gameObject = installedArray[gameIndex]
 
     if (gameData.install.platform !== 'linux') {
       const installInfo = await libraryManagerMap['gog'].getInstallInfo(
-        appName,
+        this.id,
         gameData.install.platform ?? 'windows',
         {
           branch: updateOverwrites?.branch,
@@ -1211,7 +1184,7 @@ export default class GOGGameManager implements GameManager {
       )
       // TODO: use installInfo.game.builds
       const { etag } = await libraryManagerMap['gog'].getMetaResponse(
-        appName,
+        this.id,
         gameData.install.platform ?? 'windows',
         installInfo?.manifest.versionEtag
       )
@@ -1222,8 +1195,9 @@ export default class GOGGameManager implements GameManager {
       gameObject.language = overwrittenLanguage
       gameObject.versionEtag = etag
     } else {
-      const installerInfo =
-        await libraryManagerMap['gog'].getLinuxInstallerInfo(appName)
+      const installerInfo = await libraryManagerMap[
+        'gog'
+      ].getLinuxInstallerInfo(this.id)
       if (!installerInfo) {
         return { status: 'error' }
       }
@@ -1236,14 +1210,14 @@ export default class GOGGameManager implements GameManager {
     gameObject.install_size = getFileSize(sizeOnDisk)
     installedGamesStore.set('installed', installedArray)
     libraryManagerMap['gog'].refreshInstalled()
-    const gameSettings = GameConfig.get(appName).config
+    const gameSettings = await this.getSettings()
     // Simple check if wine prefix exists and setup can be performed because of an
     // update
     if (
       gameObject.platform === 'windows' &&
       (isWindows || existsSync(gameSettings.winePrefix))
     ) {
-      await setup(appName, gameObject, false)
+      await setup(this.id, gameObject, false)
     } else if (gameObject.platform === 'linux') {
       const installer = join(gameObject.install_path, 'support/postinst.sh')
       if (existsSync(installer)) {
@@ -1257,7 +1231,7 @@ export default class GOGGameManager implements GameManager {
       }
     }
     sendGameStatusUpdate({
-      appName: appName,
+      appName: this.id,
       runner: 'gog',
       status: 'done'
     })
@@ -1270,10 +1244,10 @@ export default class GOGGameManager implements GameManager {
    * Reads game installed data and returns proper parameters
    * Useful for Update and Repair
    */
-  private async getCommandParameters(appName: string) {
+  private async getCommandParameters() {
     const { maxWorkers } = GlobalConfig.get().getSettings()
     const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-    const gameData = this.getGameInfo(appName)
+    const gameData = this.getGameInfo()
     const credentials = await GOGUser.getCredentials()
 
     const numberOfDLCs = gameData.install?.installedDLCs?.length || 0
@@ -1305,25 +1279,25 @@ export default class GOGGameManager implements GameManager {
     }
   }
 
-  async forceUninstall(appName: string): Promise<void> {
+  async forceUninstall(): Promise<void> {
     const installed = installedGamesStore.get('installed', [])
-    const newInstalled = installed.filter((g) => g.appName !== appName)
+    const newInstalled = installed.filter((g) => g.appName !== this.id)
     installedGamesStore.set('installed', newInstalled)
     libraryManagerMap['gog'].refreshInstalled()
-    sendFrontendMessage('pushGameToLibrary', this.getGameInfo(appName))
+    sendFrontendMessage('pushGameToLibrary', this.getGameInfo())
   }
 
   // GOGDL now handles the signal, this is no longer needed
-  async stop(appName: string, stopWine = true): Promise<void> {
-    if (stopWine && !this.isNative(appName)) {
-      const gameSettings = await this.getSettings(appName)
+  async stop(stopWine = true): Promise<void> {
+    if (stopWine && !this.isNative()) {
+      const gameSettings = await this.getSettings()
       await shutdownWine(gameSettings)
     }
   }
 
-  async isGameAvailable(appName: string): Promise<boolean> {
+  async isGameAvailable(): Promise<boolean> {
     return new Promise((resolve) => {
-      const info = this.getGameInfo(appName)
+      const info = this.getGameInfo()
       if (info && info.is_installed) {
         if (
           info.install.install_path &&
@@ -1338,50 +1312,7 @@ export default class GOGGameManager implements GameManager {
     })
   }
 
-  private async postPlaytimeSession({
-    appName,
-    session_date,
-    time
-  }: GOGSessionSyncQueueItem) {
-    const userData: UserData | undefined = configStore.get_nodefault('userData')
-    if (!userData) {
-      logError('No userData, unable to post new session', {
-        prefix: LogPrefix.Gog
-      })
-      return null
-    }
-    const credentials = await GOGUser.getCredentials().catch(() => null)
-
-    if (!credentials) {
-      logError("Couldn't fetch credentials, unable to post new session", {
-        prefix: LogPrefix.Gog
-      })
-      return null
-    }
-
-    return axios
-      .post(
-        `https://gameplay.gog.com/games/${appName}/users/${userData?.galaxyUserId}/sessions`,
-        { session_date, time },
-        {
-          headers: {
-            Authorization: `Bearer ${credentials.access_token}`
-          }
-        }
-      )
-      .catch((e: AxiosError) => {
-        logDebug(['Failed to post session', e.toJSON()], {
-          prefix: LogPrefix.Gog
-        })
-        return null
-      })
-  }
-
-  async updateGOGPlaytime(
-    appName: string,
-    startPlayingDate: Date,
-    finishedPlayingDate: Date
-  ) {
+  async updateGOGPlaytime(startPlayingDate: Date, finishedPlayingDate: Date) {
     // Let server know about new session
     const sessionDate = Math.floor(startPlayingDate.getTime() / 1000) // In seconds
     const time = Math.floor(
@@ -1411,20 +1342,23 @@ export default class GOGGameManager implements GameManager {
         prefix: LogPrefix.Gog
       })
       const alreadySetData = playtimeSyncQueue.get(userData.galaxyUserId, [])
-      alreadySetData.push({ ...data, appName })
+      alreadySetData.push({ ...data, appName: this.id })
       playtimeSyncQueue.set(userData.galaxyUserId, alreadySetData)
-      runOnceWhenOnline(() => this.syncQueuedPlaytimeGOG())
+      runOnceWhenOnline(() => libraryManagerMap['gog'].syncQueuedPlaytime())
       return
     }
 
-    const response = await this.postPlaytimeSession({ ...data, appName }).catch(
-      () => null
-    )
+    const response = await libraryManagerMap['gog']
+      .postPlaytimeSession({
+        ...data,
+        appName: this.id
+      })
+      .catch(() => null)
 
     if (!response || response.status !== 201) {
       logError('Failed to post session', { prefix: LogPrefix.Gog })
       const alreadySetData = playtimeSyncQueue.get(userData.galaxyUserId, [])
-      alreadySetData.push({ ...data, appName })
+      alreadySetData.push({ ...data, appName: this.id })
       playtimeSyncQueue.set(userData.galaxyUserId, alreadySetData)
       return
     }
@@ -1432,50 +1366,7 @@ export default class GOGGameManager implements GameManager {
     logInfo('Posted session to gameplay.gog.com', { prefix: LogPrefix.Gog })
   }
 
-  async syncQueuedPlaytimeGOG() {
-    if (playtimeSyncQueue.has('lock')) {
-      return
-    }
-    const userData: UserData | undefined = configStore.get_nodefault('userData')
-    if (!userData) {
-      logError('Unable to syncQueued playtime, userData not present', {
-        prefix: LogPrefix.Gog
-      })
-      return
-    }
-    const queue = playtimeSyncQueue.get(userData.galaxyUserId, [])
-    if (queue.length === 0) {
-      return
-    }
-    playtimeSyncQueue.set('lock', [])
-    const failed = []
-
-    for (const session of queue) {
-      if (!isOnline()) {
-        failed.push(session)
-      }
-      const response = await this.postPlaytimeSession(session)
-
-      if (!response || response.status !== 201) {
-        logError('Failed to post session', { prefix: LogPrefix.Gog })
-        failed.push(session)
-      }
-    }
-    playtimeSyncQueue.set(userData.galaxyUserId, failed)
-    playtimeSyncQueue.delete('lock')
-    logInfo(
-      [
-        'Finished posting sessions to gameplay.gog.com',
-        'failed:',
-        failed.length
-      ],
-      {
-        prefix: LogPrefix.Gog
-      }
-    )
-  }
-
-  async getGOGPlaytime(appName: string): Promise<number | undefined> {
+  async getGOGPlaytime(): Promise<number | undefined> {
     if (!isOnline()) {
       return
     }
@@ -1487,7 +1378,7 @@ export default class GOGGameManager implements GameManager {
     }
     const response = await axios
       .get(
-        `https://gameplay.gog.com/games/${appName}/users/${userData?.galaxyUserId}/sessions`,
+        `https://gameplay.gog.com/games/${this.id}/users/${userData?.galaxyUserId}/sessions`,
         {
           headers: {
             Authorization: `Bearer ${credentials.access_token}`
@@ -1495,7 +1386,7 @@ export default class GOGGameManager implements GameManager {
         }
       )
       .catch((e: AxiosError) => {
-        logWarning(['Failed attempt to get playtime of', appName, e.toJSON()], {
+        logWarning(['Failed attempt to get playtime of', this.id, e.toJSON()], {
           prefix: LogPrefix.Gog
         })
         return null
@@ -1504,37 +1395,11 @@ export default class GOGGameManager implements GameManager {
     return response?.data?.time_sum
   }
 
-  getBranchPassword(appName: string): string {
-    return privateBranchesStore.get(appName, '')
+  getBranchPassword(): string {
+    return privateBranchesStore.get(this.id, '')
   }
 
-  setBranchPassword(appName: string, password: string): void {
-    privateBranchesStore.set(appName, password)
-  }
-
-  async getCyberpunkMods(): Promise<string[]> {
-    const gameInfo = libraryManagerMap['gog'].getGameInfo('1423049311')
-    if (!gameInfo || !gameInfo?.install?.install_path) {
-      return []
-    }
-
-    const modsPath = join(gameInfo.install.install_path, 'mods')
-    if (!existsSync(modsPath)) {
-      return []
-    }
-    const modsPathContents = await readdir(modsPath)
-
-    return modsPathContents.reduce((acc, next) => {
-      const modPath = join(modsPath, next)
-      const infoFilePath = join(modPath, 'info.json')
-
-      const modStat = statSync(modPath)
-
-      if (modStat.isDirectory() && existsSync(infoFilePath)) {
-        acc.push(next)
-      }
-
-      return acc
-    }, [] as string[])
+  setBranchPassword(password: string): void {
+    privateBranchesStore.set(this.id, password)
   }
 }
