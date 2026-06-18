@@ -266,6 +266,7 @@ export interface GameSettings {
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
   enableQuickSavesMenu: boolean
+  disableHidraw: boolean
 }
 
 export type Status =

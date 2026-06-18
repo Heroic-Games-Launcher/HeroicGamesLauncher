@@ -374,7 +374,8 @@ class GlobalConfigV0 extends GlobalConfig {
       noTrayIcon: false,
       showValveProton: false,
       steamGridDbApiKey: '',
-      disableGOGPresence: false
+      disableGOGPresence: false,
+      disableHidraw: false
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

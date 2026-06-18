@@ -280,7 +280,8 @@ class GameConfigV0 extends GameConfig {
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta,
-      enableQuickSavesMenu: false
+      enableQuickSavesMenu: false,
+      disableHidraw: false
     } as GameSettings
 
     let gameSettings = {} as GameSettings
