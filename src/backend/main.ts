@@ -907,21 +907,18 @@ if (existsSync(legendaryInstalled)) {
   })
 }
 
-addHandler('refreshLibrary', async (e, library?, localOnly?) => {
-  if (library !== undefined && library !== 'all') {
-    const manager = libraryManagerMap[library] as LibraryManager
-    if (localOnly && manager.refreshLocal) {
-      await manager.refreshLocal()
-    } else {
-      await manager.refresh()
-    }
-  } else {
-    const allRefreshPromises = []
-    for (const manager of Object.values(libraryManagerMap)) {
-      allRefreshPromises.push(manager.refresh())
-    }
-    await Promise.allSettled(allRefreshPromises)
+addHandler('refreshLibrary', async (e, library, localOnly) => {
+  async function doRefresh(manager: LibraryManager) {
+    if (localOnly && manager.refreshLocal) return manager.refreshLocal()
+    return manager.refresh()
   }
+
+  const managers =
+    library !== undefined && library !== 'all'
+      ? [libraryManagerMap[library]]
+      : Object.values(libraryManagerMap)
+
+  await Promise.allSettled(managers.map(doRefresh))
 })
 
 // get pid/tid on launch and inject
