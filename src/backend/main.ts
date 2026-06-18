@@ -907,7 +907,7 @@ if (existsSync(legendaryInstalled)) {
   })
 }
 
-addHandler('refreshLibrary', async (e, library, localOnly) => {
+addHandler('refreshLibrary', async (e, { library, localOnly } = {}) => {
   async function doRefresh(manager: LibraryManager) {
     if (localOnly && manager.refreshLocal) return manager.refreshLocal()
     return manager.refresh()

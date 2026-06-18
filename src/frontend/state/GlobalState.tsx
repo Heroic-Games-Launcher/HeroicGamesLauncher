@@ -722,7 +722,7 @@ class GlobalState extends PureComponent<Props> {
     let gogLibrary = this.loadGOGLibrary(overrides)
     if (gog.username && (!gogLibrary.length || !gog.library.length)) {
       window.api.logInfo('No cache found, getting data from gog...')
-      await window.api.refreshLibrary('gog')
+      await window.api.refreshLibrary({ library: 'gog' })
       gogLibrary = this.loadGOGLibrary(overrides)
     }
 
@@ -731,7 +731,7 @@ class GlobalState extends PureComponent<Props> {
       zoomLibrary = this.loadZoomLibrary(overrides)
       if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
         window.api.logInfo('No cache found, getting data from zoom...')
-        await window.api.refreshLibrary('zoom')
+        await window.api.refreshLibrary({ library: 'zoom' })
         zoomLibrary = this.loadZoomLibrary(overrides)
       }
     }
@@ -739,7 +739,7 @@ class GlobalState extends PureComponent<Props> {
     let amazonLibrary = nileLibraryStore.get('library', [])
     if (amazon.user_id && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
-      await window.api.refreshLibrary('nile')
+      await window.api.refreshLibrary({ library: 'nile' })
       amazonLibrary = this.loadAmazonLibrary(overrides)
     }
 
@@ -790,7 +790,7 @@ class GlobalState extends PureComponent<Props> {
     })
     window.api.logInfo(`Refreshing ${library} Library`)
     try {
-      await window.api.refreshLibrary(library, localOnly)
+      await window.api.refreshLibrary({ library, localOnly })
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`Library refresh failed: ${String(error)}`)
