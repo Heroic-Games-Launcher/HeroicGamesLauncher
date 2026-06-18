@@ -1244,7 +1244,12 @@
         "empty": "",
         "games": "已安裝的遊戲",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
+        }
     },
     "next": ""
 }
