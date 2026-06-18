@@ -114,6 +114,7 @@ interface StateProps {
   experimentalFeatures: ExperimentalFeatures
   disableDialogBackdropClose: boolean
   disableAnimations: boolean
+  consoleModeSounds: boolean
 }
 
 // function to load the new key or fallback to the old one
@@ -268,7 +269,8 @@ class GlobalState extends PureComponent<Props> {
       'disableDialogBackdropClose',
       false
     ),
-    disableAnimations: configStore.get('disableAnimations', false)
+    disableAnimations: configStore.get('disableAnimations', false),
+    consoleModeSounds: configStore.get('consoleModeSounds', true)
   }
 
   setCurrentCustomCategories = (newCustomCategories: string[]) => {
@@ -878,6 +880,11 @@ class GlobalState extends PureComponent<Props> {
     }
   }
 
+  setConsoleModeSounds = (value: boolean) => {
+    configStore.set('consoleModeSounds', value)
+    this.setState({ consoleModeSounds: value })
+  }
+
   async componentDidMount() {
     const {
       epic,
@@ -1197,7 +1204,8 @@ class GlobalState extends PureComponent<Props> {
           },
           setDisableDialogBackdropClose: this.setDisableDialogBackdropClose,
           disableAnimations: this.state.disableAnimations,
-          setDisableAnimations: this.setDisableAnimations
+          setDisableAnimations: this.setDisableAnimations,
+          setConsoleModeSounds: this.setConsoleModeSounds
         }}
       >
         {this.props.children}
