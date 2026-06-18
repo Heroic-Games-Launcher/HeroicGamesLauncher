@@ -903,7 +903,8 @@
         "logging": "Пријављивањем...",
         "installing": "Инсталирање",
         "processing": "Обрада датотека, молимо вас сачекајте",
-        "preparing_login": "Припрема за пријаву... "
+        "preparing_login": "Припрема за пријаву... ",
+        "installed": "Инсталирано"
     },
     "sidebar": {
         "collapse": "Скупи бочну траку",
@@ -1243,7 +1244,12 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Платформа",
+            "title": "Инсталирај игру",
+            "wineLoading": "Лоадинг"
+        }
     },
     "next": ""
 }
