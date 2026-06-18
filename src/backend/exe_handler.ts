@@ -80,6 +80,14 @@ export function findExeInArgs(args: string[]): string | undefined {
 export async function handleExeFile(exePath: string) {
   if (process.platform === 'win32') return // Hopefully this fixes the issue on windows
 
+  if (exePath.startsWith('/run/user')) {
+    dialog.showErrorBox(
+      'No Access',
+      `Cannot access "${exePath}" in the current sandbox.\nTry opening the file from a location Heroic has access to.`
+    )
+    return
+  }
+
   logInfo(['Handling executable:', exePath], LogPrefix.Backend)
 
   if (!existsSync(exePath)) {
