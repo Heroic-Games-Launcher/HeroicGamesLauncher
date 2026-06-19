@@ -199,7 +199,6 @@ export default function GamesSettings() {
             <EnableMsync />
             <AdvertiseAvxForRosetta />
             <EnableFSR />
-            {isLinux && <DisableHidraw />}
             {isMac && <EnableDXVKFpsLimit />}
             <Tools />
           </>
@@ -230,6 +229,7 @@ export default function GamesSettings() {
         )}
         <VerboseLogs />
         <DisableUMU />
+        {isLinux && <DisableHidraw />}
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />
