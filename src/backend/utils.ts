@@ -1312,7 +1312,7 @@ const POWERSHELL_SIZE_THRESHOLD = 5 * 1024 * 1024 * 1024 // 5 GB
 
 async function getPathDiskSize(
   dirPath: string,
-  hintBytes?: number
+  hintBytes?: number // compressed download size; used on Windows to decide whether to spawn PowerShell
 ): Promise<number> {
   if (!isWindows) {
     try {
