@@ -1,43 +1,66 @@
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useCallback, useContext, useState } from 'react'
 import {
   Dialog,
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import CachedImage from 'frontend/components/UI/CachedImage'
-import { GameInfo } from 'common/types'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import './index.css'
 
 export default function ExeFilePicker() {
   const [exePath, setExePath] = useState('')
-  const [games, setGames] = useState<GameInfo[]>([])
+  const [search, setSearch] = useState('')
+  const { epic, gog, amazon, zoom, sideloadedLibrary } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
+
+  const allGames = [
+    ...sideloadedLibrary,
+    ...epic.library,
+    ...gog.library,
+    ...amazon.library,
+    ...zoom.library
+  ]
+
+  const games = allGames.filter(
+    (g) =>
+      g.title &&
+      !g.browserUrl &&
+      !g.is_linux_native &&
+      !g.is_mac_native &&
+      g.install?.platform?.toLowerCase() !== 'linux'
+  )
 
   useEffect(() => {
     window.api.checkPendingExeFile().then(
-      (data) => {
-        if (data) {
-          setExePath(data.exePath)
-          setGames(data.games)
+      (path) => {
+        if (path) {
+          setExePath(path)
         }
       },
       () => {}
     )
 
     const removeListener = window.api.handleShowExeFilePicker(
-      (_e, path, gameList) => {
+      (path) => {
         setExePath(path)
-        setGames(gameList)
       }
     )
     return () => removeListener()
   }, [])
 
+  const filtered = search
+    ? games.filter((g) =>
+        g.title.toLowerCase().includes(search.toLowerCase())
+      )
+    : games
+
   const handlePick = useCallback(
     (appName: string) => {
       setExePath('')
-      setGames([])
+      setSearch('')
       void window.api.launchWithExeFile(exePath, appName)
     },
     [exePath]
@@ -45,7 +68,7 @@ export default function ExeFilePicker() {
 
   const handleClose = useCallback(() => {
     setExePath('')
-    setGames([])
+    setSearch('')
   }, [])
 
   const isOpen = exePath.length > 0 && games.length > 0
@@ -53,14 +76,20 @@ export default function ExeFilePicker() {
   return (
     <>
       {isOpen && (
-        <Dialog onClose={handleClose} showCloseButton>
+        <Dialog className="exeFilePicker" onClose={handleClose} showCloseButton>
           <DialogHeader onClose={handleClose}>
             {t('exeFilePicker.title', 'Select Game Prefix')}
           </DialogHeader>
           <DialogContent>
             <div className="exeFilePicker__path">{exePath}</div>
+            <input
+              className="exeFilePicker__search"
+              placeholder={t('exeFilePicker.search', 'Search games...')}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
             <div className="exeFilePicker__list">
-              {games.map((g) => (
+              {filtered.map((g) => (
                 <button
                   key={g.app_name}
                   className="exeFilePicker__gameBtn"
