@@ -7,7 +7,7 @@ export const installStore = new CacheStore<LegendaryInstallInfo>(
 )
 export const libraryStore = new CacheStore<GameInfo[], 'library'>(
   'legendary_library',
-  60 * 24 * 7
+  null
 )
 
 /**
