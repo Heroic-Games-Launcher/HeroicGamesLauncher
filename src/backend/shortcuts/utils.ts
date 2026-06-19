@@ -38,6 +38,7 @@ async function downloadImage(
   } finally {
     deleteAbortController(imageURL)
   }
+  return
 }
 
 function removeImage(imagePath: string): string | undefined {
