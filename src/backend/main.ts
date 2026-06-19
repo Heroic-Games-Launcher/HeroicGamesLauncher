@@ -56,7 +56,8 @@ import {
   checkRosettaInstall,
   writeConfig,
   createNecessaryFolders,
-  clearAchievementCache
+  clearAchievementCache,
+  getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
 
@@ -97,34 +98,18 @@ import { getDefaultSavePath } from './save_sync'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import { createMainWindow, getMainWindow, isFrameless } from './main_window'
 
-import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
-import {
-  getCyberpunkMods,
-  getBranchPassword,
-  setBranchPassword,
-  getGOGPlaytime,
-  syncQueuedPlaytimeGOG,
-  getAchievements as getAchievementsGOG
-} from 'backend/storeManagers/gog/games'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
-import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
   autoUpdate,
-  gameManagerMap,
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
-import { addNewApp } from './storeManagers/sideload/library'
 import {
   setGameOverrides,
   getGameOverrides,
   getAllGameOverrides,
   attachOverrides
 } from './game_overrides'
-import {
-  getGameOverride,
-  getGameSdl
-} from 'backend/storeManagers/legendary/library'
 import { backendEvents } from './backend_events'
 import { configStore } from './constants/key_value_stores'
 import {
@@ -166,8 +151,6 @@ import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
-
-const { showOpenDialog } = dialog
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
@@ -392,7 +375,7 @@ if (!gotTheLock) {
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
     if (!settings.disablePlaytimeSync) {
-      runOnceWhenOnline(syncQueuedPlaytimeGOG)
+      runOnceWhenOnline(() => libraryManagerMap['gog'].syncQueuedPlaytime())
     } else {
       logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
         prefix: LogPrefix.Backend
@@ -687,10 +670,14 @@ addHandler('getEpicGamesStatus', async () => isEpicServiceOffline())
 
 addHandler('getMaxCpus', () => cpus().length)
 
-addHandler('getHeroicVersion', app.getVersion)
+addHandler('getHeroicVersion', () => app.getVersion())
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
-addHandler('getGameOverride', async () => getGameOverride())
-addHandler('getGameSdl', async (event, appName) => getGameSdl(appName))
+addHandler('getGameOverride', async () =>
+  libraryManagerMap['legendary'].getGameOverride()
+)
+addHandler('getGameSdl', async (event, appName) =>
+  libraryManagerMap['legendary'].getGameSdl(appName)
+)
 
 addHandler('showUpdateSetting', () => !isFlatpak)
 
@@ -741,15 +728,18 @@ addListener('createNewWindow', (e, url) => {
 
 addHandler('isGameAvailable', async (e, args) => {
   const { appName, runner } = args
-  return gameManagerMap[runner].isGameAvailable(appName)
+  return libraryManagerMap[runner].getGame(appName).isGameAvailable()
 })
 
 addHandler('getGameInfo', async (event, appName, runner) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
-  if (runner === 'legendary' && !LegendaryLibraryManager.hasGame(appName)) {
+  if (
+    runner === 'legendary' &&
+    !libraryManagerMap['legendary'].hasGame(appName)
+  ) {
     return null
   }
-  const tempGameInfo = gameManagerMap[runner].getGameInfo(appName)
+  const tempGameInfo = libraryManagerMap[runner].getGame(appName).getGameInfo()
   // The game managers return an empty object if they couldn't fetch the game
   // info, since most of the backend assumes getting it can never fail (and
   // an empty object is a little easier to work with than `null`)
@@ -762,22 +752,24 @@ addHandler('getGameInfo', async (event, appName, runner) => {
 addHandler(
   'getAchievements',
   async (event, appName, runner, lang = 'en-US') => {
-    if (runner === 'gog') return getAchievementsGOG(appName, lang)
-    return []
+    return getGame(appName, runner).getAchievements?.(lang) ?? []
   }
 )
 
 addHandler('getExtraInfo', async (event, appName, runner) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
-  if (runner === 'legendary' && !LegendaryLibraryManager.hasGame(appName)) {
+  if (
+    runner === 'legendary' &&
+    !libraryManagerMap['legendary'].hasGame(appName)
+  ) {
     return null
   }
-  return gameManagerMap[runner].getExtraInfo(appName)
+  return libraryManagerMap[runner].getGame(appName).getExtraInfo()
 })
 
 addHandler('getGameSettings', async (event, appName, runner) => {
   try {
-    return await gameManagerMap[runner].getSettings(appName)
+    return await libraryManagerMap[runner].getGame(appName).getSettings()
   } catch (error) {
     logError(error, LogPrefix.Backend)
     return null
@@ -785,7 +777,7 @@ addHandler('getGameSettings', async (event, appName, runner) => {
 })
 
 addHandler('getGOGLinuxInstallersLangs', async (event, appName) =>
-  GOGLibraryManager.getLinuxInstallersLanguages(appName)
+  libraryManagerMap['gog'].getLinuxInstallersLanguages(appName)
 )
 
 addHandler(
@@ -846,16 +838,16 @@ addHandler('getUserInfo', async () => {
 addHandler('getAmazonUserInfo', async () => NileUser.getUserData())
 
 // Checks if the user have logged in with Legendary already
-addHandler('isLoggedIn', LegendaryUser.isLoggedIn)
+addHandler('isLoggedIn', () => LegendaryUser.isLoggedIn())
 
 addHandler('login', async (event, sid) => LegendaryUser.login(sid))
 addHandler('authGOG', async (event, code) => GOGUser.login(code))
-addHandler('logoutLegendary', LegendaryUser.logout)
-addListener('logoutGOG', GOGUser.logout)
+addHandler('logoutLegendary', () => LegendaryUser.logout())
+addListener('logoutGOG', () => GOGUser.logout())
 
-addHandler('getAmazonLoginData', NileUser.getLoginData)
+addHandler('getAmazonLoginData', () => NileUser.getLoginData())
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
-addHandler('logoutAmazon', NileUser.logout)
+addHandler('logoutAmazon', () => NileUser.logout())
 
 addHandler('authZoom', async (event, url) => {
   const login = await ZoomUser.login(url)
@@ -865,7 +857,7 @@ addHandler('authZoom', async (event, url) => {
   return login
 })
 
-addListener('logoutZoom', ZoomUser.logout)
+addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 
 addHandler('getAlternativeWine', async () =>
@@ -875,7 +867,7 @@ addHandler('getAlternativeWine', async () =>
 addHandler('readConfig', async (event, configClass) => {
   if (configClass === 'library') {
     await libraryManagerMap['legendary'].refresh()
-    return LegendaryLibraryManager.getListOfGames()
+    return libraryManagerMap['legendary'].getListOfGames()
   }
   const userInfo = LegendaryUser.getUserInfo()
   return userInfo?.displayName ?? ''
@@ -932,7 +924,10 @@ if (existsSync(legendaryInstalled)) {
     // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen
     // in a 500ms timespan
     if (watchTimeout) clearTimeout(watchTimeout)
-    watchTimeout = setTimeout(LegendaryLibraryManager.refreshInstalled, 500)
+    watchTimeout = setTimeout(
+      () => libraryManagerMap['legendary'].refreshInstalled(),
+      500
+    )
   })
 }
 
@@ -959,7 +954,7 @@ addHandler('openDialog', async (e, args) => {
     return false
   }
 
-  const { filePaths, canceled } = await showOpenDialog(mainWindow, args)
+  const { filePaths, canceled } = await dialog.showOpenDialog(mainWindow, args)
   if (!canceled) {
     return filePaths[0]
   }
@@ -985,10 +980,10 @@ addHandler('repair', async (event, appName, runner) => {
     status: 'repairing'
   })
 
-  const { title } = gameManagerMap[runner].getGameInfo(appName)
+  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
 
   try {
-    await gameManagerMap[runner].repair(appName)
+    await libraryManagerMap[runner].getGame(appName).repair()
   } catch (error) {
     notify({
       title,
@@ -1015,10 +1010,12 @@ addHandler(
       status: 'moving'
     })
 
-    const { title } = gameManagerMap[runner].getGameInfo(appName)
+    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-    const moveRes = await gameManagerMap[runner].moveInstall(appName, path)
+    const moveRes = await libraryManagerMap[runner]
+      .getGame(appName)
+      .moveInstall(path)
     if (moveRes.status === 'error') {
       notify({
         title,
@@ -1082,7 +1079,7 @@ addHandler(
       }
     }
 
-    const title = gameManagerMap[runner].getGameInfo(appName).title
+    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
     sendGameStatusUpdate({
       appName,
       runner,
@@ -1102,11 +1099,9 @@ addHandler(
     }
 
     try {
-      const { abort, error } = await gameManagerMap[runner].importGame(
-        appName,
-        path,
-        platform
-      )
+      const { abort, error } = await libraryManagerMap[runner]
+        .getGame(appName)
+        .importGame(path, platform)
       if (abort || error) {
         abortMessage()
         return { status: 'done' }
@@ -1118,7 +1113,7 @@ addHandler(
     }
 
     if (winePrefix && wineVersion) {
-      const gameSettings = await gameManagerMap[runner].getSettings(appName)
+      const gameSettings = await getGame(appName, runner).getSettings()
       writeConfig(appName, {
         ...gameSettings,
         winePrefix,
@@ -1143,7 +1138,7 @@ addHandler(
 
 addHandler('kill', async (event, appName, runner) => {
   callAbortController(appName)
-  return gameManagerMap[runner].stop(appName)
+  return libraryManagerMap[runner].getGame(appName).stop()
 })
 
 addHandler('changeInstallPath', async (event, { appName, path, runner }) => {
@@ -1155,11 +1150,11 @@ addHandler('changeInstallPath', async (event, { appName, path, runner }) => {
 })
 
 addHandler('egsSync', async (event, args) => {
-  return LegendaryLibraryManager.toggleGamesSync(args)
+  return libraryManagerMap['legendary'].toggleGamesSync(args)
 })
 
 addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  gameManagerMap['gog'].syncSaves(appName, arg, '', gogSaves)
+  libraryManagerMap['gog'].getGame(appName).syncSaves(arg, '', gogSaves)
 )
 
 addHandler('getLaunchOptions', async (event, appName, runner) => {
@@ -1204,7 +1199,9 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
     return 'App is offline, cannot sync saves!'
   }
 
-  const output = await gameManagerMap[runner].syncSaves(appName, arg, path)
+  const output = await libraryManagerMap[runner]
+    .getGame(appName)
+    .syncSaves(arg, path)
   logInfo(output, LogPrefix.Backend)
   return output
 })
@@ -1388,7 +1385,9 @@ addListener('setTitleBarOverlay', (e, args) => {
   }
 })
 
-addListener('addNewApp', (e, args) => addNewApp(args))
+addListener('addNewApp', (e, args) =>
+  libraryManagerMap['sideload'].addNewApp(args)
+)
 
 addListener('setGameMetadataOverride', (e, args) => {
   const { appName, title, art_cover, art_square } = args
@@ -1405,7 +1404,7 @@ addHandler('getAllGameOverrides', async () => {
 })
 
 addHandler('isNative', (e, { appName, runner }) => {
-  return gameManagerMap[runner].isNative(appName)
+  return libraryManagerMap[runner].getGame(appName).isNative()
 })
 
 addHandler('pathExists', async (e, path: string) => {
@@ -1450,7 +1449,7 @@ addHandler(
       return
     }
     if (runner === 'gog') {
-      return getGOGPlaytime(appName)
+      return libraryManagerMap[runner].getGame(appName).getGOGPlaytime()
     }
 
     return
@@ -1458,15 +1457,17 @@ addHandler(
 )
 
 addHandler('getPrivateBranchPassword', (e, appName) =>
-  getBranchPassword(appName)
+  libraryManagerMap['gog'].getGame(appName).getBranchPassword()
 )
 addHandler('setPrivateBranchPassword', (e, appName, password) =>
-  setBranchPassword(appName, password)
+  libraryManagerMap['gog'].getGame(appName).setBranchPassword(password)
 )
 
-addHandler('getAvailableCyberpunkMods', async () => getCyberpunkMods())
+addHandler('getAvailableCyberpunkMods', async () =>
+  libraryManagerMap['gog'].getCyberpunkMods()
+)
 addHandler('setCyberpunkModConfig', async (e, props) =>
-  GOGLibraryManager.setCyberpunkModConfig(props)
+  libraryManagerMap['gog'].setCyberpunkModConfig(props)
 )
 
 addListener('changeGameVersionPinnedStatus', (e, appName, runner, status) => {

@@ -1,4 +1,4 @@
-import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
@@ -417,7 +417,9 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
 
     if (removeDownloaded) {
       const { appName, runner } = elementToCancel.params
-      const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
+      const { folder_name } = libraryManagerMap[runner]
+        .getGame(appName)
+        .getGameInfo()
       if (folder_name) {
         removeFolder(elementToCancel.params.path, folder_name)
       }
@@ -454,7 +456,7 @@ function stopCurrentDownload() {
   if (!currentElement) return
   const { appName, runner } = currentElement.params
   callAbortController(appName)
-  void gameManagerMap[runner].stop(appName, false)
+  void libraryManagerMap[runner].getGame(appName).stop(false)
 }
 
 // notify the user based on the status of the element and the status of the queue
@@ -466,9 +468,9 @@ function processNotification(element: DMQueueElement, status: DMStatus) {
   ) {
     return
   }
-  const { title } = gameManagerMap[element.params.runner].getGameInfo(
-    element.params.appName
-  )
+  const { title } = libraryManagerMap[element.params.runner]
+    .getGame(element.params.appName)
+    .getGameInfo()
 
   if (status === 'abort') {
     if (isPaused()) {

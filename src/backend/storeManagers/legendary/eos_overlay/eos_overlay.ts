@@ -6,11 +6,9 @@ import { join } from 'path'
 import { logError, LogPrefix, logWarning } from 'backend/logger'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { sendGameStatusUpdate } from 'backend/utils'
-import { gameManagerMap } from '../..'
+import { libraryManagerMap } from '../..'
 import { LegendaryCommand } from '../commands'
 import { ValidWinePrefix } from '../commands/base'
-import { setCurrentDownloadSize } from '../games'
-import { runRunnerCommand as runLegendaryCommand } from '../library'
 import { Path } from 'backend/schemas'
 import { toolsPath } from 'backend/constants/paths'
 import { legendaryConfigPath } from '../constants'
@@ -76,7 +74,7 @@ async function updateInfo() {
     return
   }
 
-  await runLegendaryCommand(
+  await libraryManagerMap['legendary'].runRunnerCommand(
     { subcommand: 'status' },
     {
       abortId: eosOverlayAppName,
@@ -98,7 +96,7 @@ async function install() {
 
   let downloadSize = 0
   // Run download without -y to get the install size
-  await runLegendaryCommand(
+  await libraryManagerMap['legendary'].runRunnerCommand(
     {
       subcommand: 'eos-overlay',
       action: 'install',
@@ -119,11 +117,12 @@ async function install() {
     }
   )
 
+  const game = libraryManagerMap['legendary'].getGame(eosOverlayAppName)
   // The EOS Overlay doesn't support Ctrl-C-pausing, so it's fine to just do this
-  setCurrentDownloadSize(eosOverlayAppName, downloadSize)
+  game.setCurrentDownloadSize(downloadSize)
 
   // And now actually install it
-  const { error } = await runLegendaryCommand(
+  const { error } = await libraryManagerMap['legendary'].runRunnerCommand(
     {
       '-y': true,
       subcommand: 'eos-overlay',
@@ -134,12 +133,7 @@ async function install() {
       abortId: eosOverlayAppName,
       logMessagePrefix: 'Installing EOS Overlay',
       onOutput: (output: string) => {
-        gameManagerMap['legendary'].onInstallOrUpdateOutput(
-          eosOverlayAppName,
-          'installing',
-          output,
-          downloadSize
-        )
+        game.onInstallOrUpdateOutput('installing', output, downloadSize)
       }
     }
   )
@@ -174,7 +168,7 @@ async function remove(): Promise<boolean> {
     return false
   }
 
-  await runLegendaryCommand(
+  await libraryManagerMap['legendary'].runRunnerCommand(
     {
       '-y': true,
       subcommand: 'eos-overlay',
@@ -215,7 +209,7 @@ async function enable(
   }
   if (prefix) command['--prefix'] = prefix
 
-  await runLegendaryCommand(command, {
+  await libraryManagerMap['legendary'].runRunnerCommand(command, {
     abortId: eosOverlayAppName,
     logMessagePrefix: 'Enabling EOS Overlay'
   })
@@ -234,7 +228,7 @@ async function disable(appName: string) {
   }
   if (prefix) command['--prefix'] = prefix
 
-  await runLegendaryCommand(command, {
+  await libraryManagerMap['legendary'].runRunnerCommand(command, {
     abortId: eosOverlayAppName,
     logMessagePrefix: 'Disabling EOS Overlay'
   })
@@ -261,7 +255,7 @@ async function isEnabled(appName?: string): Promise<boolean> {
   }
   if (prefix) command['--prefix'] = prefix
 
-  await runLegendaryCommand(command, {
+  await libraryManagerMap['legendary'].runRunnerCommand(command, {
     abortId: eosOverlayAppName,
     onOutput: (data: string) => {
       if (data.includes('Overlay enabled')) {
@@ -286,8 +280,9 @@ async function getWinePrefixFolder(
 ): Promise<ValidWinePrefix | null | false> {
   if (!isLinux || !appName) return null
 
-  const { winePrefix, wineVersion } =
-    await gameManagerMap[runner].getSettings(appName)
+  const { winePrefix, wineVersion } = await libraryManagerMap[runner]
+    .getGame(appName)
+    .getSettings()
   const prefixPath =
     wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   const maybePrefix = ValidWinePrefix.safeParse(prefixPath)
