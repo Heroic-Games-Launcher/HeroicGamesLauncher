@@ -444,10 +444,7 @@ interface AsyncIPCFunctions {
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
   launchWithExeFile: (exePath: string, appName: string) => Promise<void>
-  checkPendingExeFile: () => Promise<{
-    exePath: string
-    games: GameInfo[]
-  } | null>
+  checkPendingExeFile: () => Promise<string | null>
 }
 
 interface FrontendMessages {
@@ -499,7 +496,7 @@ interface FrontendMessages {
   ) => void
   itchioOAuthCallback: (url: string) => void
 
-  showExeFilePicker: (exePath: string, games: GameInfo[]) => void
+  showExeFilePicker: (exePath: string) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

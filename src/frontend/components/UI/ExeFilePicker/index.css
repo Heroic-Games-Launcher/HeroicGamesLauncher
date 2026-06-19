@@ -1,3 +1,7 @@
+.exeFilePicker {
+  min-width: min(480px, 85vw);
+}
+
 .exeFilePicker__path {
   font-size: 12px;
   color: var(--text-secondary);
@@ -6,6 +10,23 @@
   padding: 8px 12px;
   background: var(--input-background);
   border-radius: 4px;
+}
+
+.exeFilePicker__search {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--input-background);
+  color: var(--text-default);
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.exeFilePicker__search:focus {
+  border-color: var(--accent);
 }
 
 .exeFilePicker__list {
