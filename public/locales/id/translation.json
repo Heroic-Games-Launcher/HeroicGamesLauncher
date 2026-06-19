@@ -375,8 +375,10 @@
         "wine-wayland": "Driver eksperimental Wine-Wayland memungkinkan game dijalankan secara native di bawah protokol tampilan Wayland. Mengaktifkannya dapat menyebabkan beberapa game tidak berfungsi.",
         "WoW64": "Mode Wine WoW64 memungkinkan game Windows 32-bit dijalankan pada Wine 64-bit. Mengaktifkannya dapat meningkatkan performa, tetapi juga bisa menyebabkan gangguan pada game 32-bit lama.",
         "nvidiaprime": {
-            "details": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Periksa detail lebih lanjut di wiki kami"
+        },
+        "hide-window-on-protocol-launch": "Menjaga jendela Heroic tetap tersembunyi saat game diluncurkan dari pintasan eksternal, seperti fitur 'Tambahkan ke Steam'."
     },
     "info": {
         "heroic": {
@@ -795,7 +797,11 @@
         "scripts": "Skrip:",
         "enable-quick-sync-menu": "Aktifkan Menu Quick Save-Sync di halaman game",
         "start-in-console-mode": "Mulai dalam Mode Konsol",
-        "disable_gog_presence": "Nonaktifkan pembaruan GOG Presence"
+        "disable_gog_presence": "Nonaktifkan pembaruan GOG Presence",
+        "hide-window-on-protocol-launch": "Sembunyikan jendela Heroic saat meluncurkan game dari tautan heroic://",
+        "nvidiaprime": {
+            "description": "Paksa penggunaan NVIDIA Optimus atau AMD Dynamic Switchable Graphics dGPU. HANYA gunakan ini untuk game OpenGL dan Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -923,7 +929,8 @@
         "installing": "Menginstal",
         "logging": "Masuk Akun...",
         "processing": "Memproses berkas, harap tunggu",
-        "preparing_login": "Persiapan Masuk Akun... "
+        "preparing_login": "Persiapan Masuk Akun... ",
+        "installed": "Terpasang"
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -1176,7 +1183,8 @@
             "ageRatingAll": "Semua",
             "pageSize": "Per halaman",
             "releaseYear": "Tahun rilis",
-            "hideOwned": "Sembunyikan yang Dimiliki"
+            "hideOwned": "Sembunyikan yang Dimiliki",
+            "wishlistOnly": "Daftar Keinginan Saja"
         },
         "sidebar": "Penawaran",
         "sort": {
@@ -1246,7 +1254,26 @@
         "empty": "Tidak ada game yang terpasang untuk ditampilkan. Pasang sesuatu terlebih dahulu.",
         "games": "Gim Terpasang",
         "quitApp": "Keluar dari Aplikasi",
-        "loading": "Memuat perpustakaan Anda…"
+        "loading": "Memuat perpustakaan Anda…",
+        "install": {
+            "platform": "Platform",
+            "title": "Instal gim",
+            "wineLoading": "Loading",
+            "path": "Instal ke",
+            "wine": "Wine",
+            "wineMissing": "Tidak dipilih"
+        },
+        "cancelInstall": {
+            "message": "Game ini sedang diinstal. Batalkan pemasangannya?",
+            "title": "Batalkan pemasangan?"
+        },
+        "cancelUpdate": {
+            "message": "Game ini sedang diunduh. Batalkan pembaruan yang sedang berlangsung?",
+            "title": "Batalkan pembaruan?"
+        },
+        "removeFromQueue": {
+            "message": "Game ini sedang antri untuk diunduh. Hapus dari antrian?"
+        }
     },
     "next": "Berikutnya"
 }

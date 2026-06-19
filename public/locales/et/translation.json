@@ -948,7 +948,8 @@
         "installing": "Paigaldamine",
         "logging": "Sisselogimine...",
         "processing": "Failide töötlemine, palun oodake",
-        "preparing_login": "Sisselogimise ettevalmistamine... "
+        "preparing_login": "Sisselogimise ettevalmistamine... ",
+        "installed": "Paigaldatud"
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -1279,7 +1280,15 @@
         "empty": "Pole ühtegi paigaldatud mängu näidata. Paigalda midagi.",
         "games": "Paigaldatud mängud",
         "quitApp": "Lahku äpist",
-        "loading": "Varamu laadimine…"
+        "loading": "Varamu laadimine…",
+        "cancelInstall": {
+            "title": "Tühista paigaldamine"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Paigalda mäng",
+            "wineLoading": "Laadimine"
+        }
     },
     "next": "Järgmine"
 }

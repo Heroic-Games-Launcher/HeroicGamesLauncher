@@ -382,8 +382,10 @@
         "analytics": "Permette a Heroic di raccogliere dati utenti anonimi al 100% per aiutare a migliorare l'applicazione. È necessario un riavvio per applicare l'impostazione.",
         "WoW64": "La modalità Wine WoW64 consente di eseguire giochi Windows a 32 bit su Wine a 64 bit. L'attivazione può migliorare le prestazioni, ma potrebbe anche causare problemi con i giochi a 32 bit più vecchi.",
         "nvidiaprime": {
-            "details": "Usa la scheda video dedicata per renderizzare il gioco su un sistema munito di multiple GPU (schede video). Necessario solo su Computer portatili o desktop da Gaming che utilizzano headless GPU rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Usa la scheda video dedicata per renderizzare il gioco su un sistema munito di multiple GPU (schede video). Necessario solo su Computer portatili o desktop da Gaming che utilizzano headless GPU rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Consulta ulteriori dettagli nella nostra wiki"
+        },
+        "hide-window-on-protocol-launch": "Mantiene la finestra di Heroic nascosta quando un gioco viene avviato da un collegamento esterno, come la funzione 'Aggiungi a Steam'."
     },
     "info": {
         "heroic": {
@@ -814,7 +816,11 @@
         "scripts": "Script:",
         "enable-quick-sync-menu": "Abilita il menu rapido di sincronizzazione dei salvataggi nella pagina del gioco",
         "disable_gog_presence": "Disattiva gli aggiornamenti di GOG Presence",
-        "start-in-console-mode": "Avvia in Modalità Console"
+        "start-in-console-mode": "Avvia in Modalità Console",
+        "hide-window-on-protocol-launch": "Nascondi la finestra di Heroic quando avvii i giochi dai link heroic://",
+        "nvidiaprime": {
+            "description": "Forza l'uso di NVIDIA Optimus o della GPU dedicata AMD Dynamic Switchable Graphics. Usa questa opzione SOLO per giochi OpenGL e Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -942,7 +948,8 @@
         "installing": "Installazione in corso",
         "logging": "Accesso in corso...",
         "processing": "File in elaborazione, attendere",
-        "preparing_login": "Preparazione dell'accesso... "
+        "preparing_login": "Preparazione dell'accesso... ",
+        "installed": "Installata"
     },
     "store": "Epic Store",
     "stores": "Negozi",
@@ -1202,7 +1209,8 @@
             "ageRatingAll": "Tutto",
             "pageSize": "Per pagina",
             "releaseYear": "Anno di rilascio",
-            "hideOwned": "Nascondi posseduti"
+            "hideOwned": "Nascondi posseduti",
+            "wishlistOnly": "Solo lista dei desideri"
         },
         "sidebar": "Affari",
         "sort": {
@@ -1272,7 +1280,26 @@
         "empty": "Nessun gioco da mostrare. Installa qualcosa prima.",
         "games": "Giochi installati",
         "quitApp": "Chiudi applicazione",
-        "loading": "Caricamento della tua libreria…"
+        "loading": "Caricamento della tua libreria…",
+        "cancelInstall": {
+            "title": "Annulla Installazione",
+            "message": "Questo gioco è attualmente in fase di installazione. Annullare l'installazione?"
+        },
+        "cancelUpdate": {
+            "title": "Annulla l'aggiornamento",
+            "message": "Questo gioco è attualmente in fase di download. Annullare l'aggiornamento in corso?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Installa gioco",
+            "wineLoading": "Caricamento…",
+            "path": "Installa in",
+            "wine": "Wine",
+            "wineMissing": "Non selezionato"
+        },
+        "removeFromQueue": {
+            "message": "Questo gioco è in coda per il download. Rimuoverlo dalla coda?"
+        }
     },
     "next": "Prossimo"
 }

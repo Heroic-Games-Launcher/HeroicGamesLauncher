@@ -932,7 +932,8 @@
         "installing": "Asennetaan",
         "logging": "Kirjaudutaan sisään...",
         "processing": "Käsitellään tiedostoja, odota hetki",
-        "preparing_login": "Valmistellaan kirjautumista... "
+        "preparing_login": "Valmistellaan kirjautumista... ",
+        "installed": "Asennettu"
     },
     "store": "Epic-kauppa",
     "stores": "Kaupat",
@@ -1256,7 +1257,15 @@
         "empty": "Ei asennettuja pelejä näytettäväksi. Asenna jotain ensin.",
         "games": "Asennetut pelit",
         "quitApp": "Sulje ohjelma",
-        "loading": "Ladataan kirjastoasi…"
+        "loading": "Ladataan kirjastoasi…",
+        "cancelUpdate": {
+            "title": "Peruuta Päivitys"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Asenna peli",
+            "wineLoading": "Ladataan"
+        }
     },
     "next": "Seuraava"
 }
