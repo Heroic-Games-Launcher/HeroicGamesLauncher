@@ -23,23 +23,21 @@ function createImage(
   return
 }
 
-function downloadImage(
+async function downloadImage(
   imageURL: string,
   outputFilePath: string
-): string | undefined {
+): Promise<string | undefined> {
   try {
-    downloadFile({
+    await downloadFile({
       url: imageURL,
       dest: outputFilePath,
       abortSignal: createAbortController(imageURL).signal
-    }).finally(() => {
-      deleteAbortController(imageURL)
     })
   } catch (error) {
+    return `Downloading of ${imageURL} failed with:\n${error}`
+  } finally {
     deleteAbortController(imageURL)
-    return `Donwloading of ${imageURL} failed with:\n${error}`
   }
-  return
 }
 
 function removeImage(imagePath: string): string | undefined {
@@ -96,7 +94,7 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
   }
 
   if (!checkImageExistsAlready(icon)) {
-    downloadImage(image, icon)
+    await downloadImage(image, icon)
   }
   return icon
 }
