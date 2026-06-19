@@ -3,26 +3,39 @@ import { existsSync } from 'graceful-fs'
 import { dirname } from 'path'
 import { GameConfig } from './game_config'
 import { runWineCommand } from './launcher'
-import { libraryStore } from './storeManagers/sideload/electronStores'
+import { libraryStore as sideloadLibraryStore } from './storeManagers/sideload/electronStores'
+import { libraryStore as legendaryLibraryStore } from './storeManagers/legendary/electronStores'
+import { libraryStore as gogLibraryStore } from './storeManagers/gog/electronStores'
+import { libraryStore as nileLibraryStore } from './storeManagers/nile/electronStores'
+import { libraryStore as zoomLibraryStore } from './storeManagers/zoom/electronStores'
 import { logInfo, LogPrefix } from './logger'
 import { GameInfo } from 'common/types'
 import { sendFrontendMessage } from './ipc'
 
-let pendingPickerData: { exePath: string; games: GameInfo[] } | null = null
+let pendingExePath: string | null = null
 
-export function checkPendingExeFile(): {
-  exePath: string
-  games: GameInfo[]
-} | null {
-  const data = pendingPickerData
-  pendingPickerData = null
-  return data
+export function checkPendingExeFile(): string | null {
+  const path = pendingExePath
+  pendingExePath = null
+  return path
 }
 
-function getSideloadGames(): GameInfo[] {
-  const games: GameInfo[] = libraryStore.get('games', [])
+function getCandidateGames(): GameInfo[] {
+  const games: GameInfo[] = [
+    ...sideloadLibraryStore.get('games', []),
+    ...legendaryLibraryStore.get('library', []),
+    ...gogLibraryStore.get('games', []),
+    ...nileLibraryStore.get('library', []),
+    ...zoomLibraryStore.get('games', [])
+  ]
+
   return games.filter(
-    (g) => g.runner === 'sideload' && g.title && !g.browserUrl
+    (g) =>
+      g.title &&
+      !g.browserUrl &&
+      !g.is_linux_native &&
+      !g.is_mac_native &&
+      g.install?.platform?.toLowerCase() !== 'linux'
   )
 }
 
@@ -95,12 +108,12 @@ export async function handleExeFile(exePath: string) {
     return
   }
 
-  const games = getSideloadGames()
+  const games = getCandidateGames()
 
   if (games.length === 0) {
     dialog.showErrorBox(
       'No Games Available',
-      'No sideloaded games found.\nAdd a game in Heroic first to set up a Wine prefix.'
+      'No installed Windows games found.\nInstall a game in Heroic first to set up a Wine prefix.'
     )
     return
   }
@@ -110,6 +123,6 @@ export async function handleExeFile(exePath: string) {
     return
   }
 
-  pendingPickerData = { exePath, games }
-  sendFrontendMessage('showExeFilePicker', exePath, games)
+  pendingExePath = exePath
+  sendFrontendMessage('showExeFilePicker', exePath)
 }
