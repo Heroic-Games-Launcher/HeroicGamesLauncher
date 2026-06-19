@@ -1228,6 +1228,7 @@
     },
     "zoom-store": "Zoom Store",
     "exeFilePicker": {
-        "title": "Select Wine Prefix"
+        "title": "Select Wine Prefix",
+        "search": "Search games..."
     }
 }
