@@ -123,7 +123,12 @@ export default class LegendaryGame extends Game {
     return info
   }
 
-  private async getProductSlug(namespace: string, title: string) {
+  private _slug: string | null = null
+  private async getProductSlug(): Promise<string> {
+    if (this._slug) return this._slug
+
+    const { namespace, title } = this.getGameInfo()
+
     // If you want to change this graphql query, make sure it works for these games:
     // Rocket League
     // Alba - A Wildlife Adventure
@@ -160,17 +165,20 @@ export default class LegendaryGame extends Game {
       )
 
       if (slugMapping) {
-        return slugMapping.pageSlug
+        this._slug = slugMapping.pageSlug
       } else {
-        return this.slugFromTitle(title)
+        this._slug = this.slugFromTitle(title)
       }
     } catch (error) {
       logError(error, LogPrefix.Legendary)
-      return this.slugFromTitle(title)
+      this._slug = this.slugFromTitle(title)
     }
+    return this._slug
   }
 
-  private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
+  private async getStoreContentApiInfo() {
+    const slug = await this.getProductSlug()
+
     let lang = configStore.get('language', '')
     if (lang === 'pt') {
       lang = 'pt-BR'
@@ -181,31 +189,24 @@ export default class LegendaryGame extends Game {
 
     const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${slug}`
 
-    try {
-      const { data } = await axios({ method: 'GET', url: epicUrl })
-      logInfo('Getting Info from Epic API', LogPrefix.Legendary)
+    const storeContentInfo = await axios.get(epicUrl).catch(() => null)
 
-      const about = data?.pages?.find(
-        (e: { type: string }) => e.type === 'productHome'
-      )
+    return storeContentInfo?.data?.pages?.find(
+      (e: { type: string }) => e.type === 'productHome'
+    )
+  }
 
-      if (about) {
-        return {
-          about: about.data.about,
-          reqs: about.data.requirements.systems[0].details,
-          releaseDate: about.data.meta.releaseDate?.substring(0, 19),
-          storeUrl: `https://www.epicgames.com/store/product/${slug}`
-        }
-      } else {
-        return null
+  private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
+    const about = await this.getStoreContentApiInfo()
+
+    if (about) {
+      return {
+        about: about.data.about,
+        reqs: about.data.requirements.systems[0].details,
+        storeUrl: `https://www.epicgames.com/store/product/${slug}`
       }
-    } catch (error) {
-      logError(
-        ['Failed to get info from Epic API:', error],
-        LogPrefix.Legendary
-      )
-      return null
     }
+    return null
   }
 
   private async getExtraFromGraphql(
@@ -302,7 +303,7 @@ export default class LegendaryGame extends Game {
    *
    */
   async getExtraInfo(): Promise<ExtraInfo> {
-    const { namespace, title } = this.getGameInfo()
+    const { namespace } = this.getGameInfo()
     if (namespace === undefined) return this.emptyExtraInfo
 
     const cachedExtraInfo = gameInfoStore.get(namespace)
@@ -313,7 +314,7 @@ export default class LegendaryGame extends Game {
       return this.emptyExtraInfo
     }
 
-    const slug = await this.getProductSlug(namespace, title)
+    const slug = await this.getProductSlug()
 
     // try the API first, it works for most games
     let extraData = await this.getExtraFromAPI(slug)
@@ -1075,5 +1076,15 @@ export default class LegendaryGame extends Game {
     if (info.install.install_path && existsSync(info.install.install_path))
       return true
     return false
+  }
+
+  async getReleaseDate(): Promise<Date | null> {
+    const gameInfo = this.getGameInfo()
+    if (!gameInfo.namespace) return null
+
+    const storeContentInfo = await this.getStoreContentApiInfo()
+    if (!storeContentInfo) return null
+
+    return new Date(Date.parse(storeContentInfo.data.meta.releaseDate))
   }
 }

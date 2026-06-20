@@ -121,8 +121,6 @@ export default class GOGGame extends Game {
     const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
 
     let gogStoreUrl = gamesData?._links?.store.href
-    const releaseDate =
-      gamesData?._embedded.product?.globalReleaseDate?.substring(0, 19)
 
     if (gogStoreUrl) {
       const storeUrl = new URL(gogStoreUrl)
@@ -134,7 +132,6 @@ export default class GOGGame extends Game {
     const extra: ExtraInfo = {
       about: gameInfo.extra?.about,
       reqs,
-      releaseDate,
       storeUrl: gogStoreUrl
     }
     return extra
@@ -1403,5 +1400,12 @@ export default class GOGGame extends Game {
     if (!data) return null
 
     return data.game.genres.map((genre) => genre.name['*'])
+  }
+
+  async getReleaseDate(): Promise<Date | null> {
+    const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
+    if (!gamesData) return null
+
+    return new Date(Date.parse(gamesData._embedded.product.globalReleaseDate))
   }
 }

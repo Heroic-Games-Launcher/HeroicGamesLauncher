@@ -445,10 +445,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
                       <Genres game={game} />
                       <Developer gameInfo={gameInfo} />
-                      <ReleaseDate
-                        runnerDate={extraInfo?.releaseDate}
-                        date={wikiInfo?.pcgamingwiki?.releaseDate}
-                      />
+                      <ReleaseDate game={game} />
 
                       <Description />
                       {!notInstallable && <TimeContainer game={game} />}
