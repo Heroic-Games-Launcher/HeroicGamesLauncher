@@ -1,0 +1,2 @@
+import { addHandler } from '../ipc'
+
