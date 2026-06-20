@@ -35,6 +35,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinux, faSteam } from '@fortawesome/free-brands-svg-icons'
 import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
+import { useAwaited } from 'frontend/hooks/useAwaited'
 import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
@@ -42,7 +43,6 @@ interface Props {
   isInstalled: boolean
   title: string
   storeUrl: string
-  changelog?: string
   handleUpdate: () => void
   handleChangeLog: () => void
   disableUpdate: boolean
@@ -56,7 +56,6 @@ export default function GamesSubmenu({
   isInstalled,
   title,
   storeUrl,
-  changelog,
   handleUpdate,
   handleChangeLog,
   disableUpdate,
@@ -80,6 +79,8 @@ export default function GamesSubmenu({
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const showChangelogButton =
+    useAwaited(window.api.game.supportsChangelogs, game) ?? false
   const [protonDBurl, setProtonDBurl] = useState(
     `https://www.protondb.com/search?q=${title}`
   )
@@ -400,7 +401,7 @@ export default function GamesSubmenu({
               {t('submenu.store')}
             </NavLink>
           )}
-          {!isSideloaded && !!changelog?.length && (
+          {showChangelogButton && (
             <button
               onClick={() => handleChangeLog()}
               className="link button is-text is-link buttonWithIcon"

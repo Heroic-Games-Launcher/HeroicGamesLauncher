@@ -157,7 +157,6 @@ export interface ExtraInfo {
   reqs: Reqs[]
   releaseDate?: string
   storeUrl?: string
-  changelog?: string
   genres?: string[]
 }
 
