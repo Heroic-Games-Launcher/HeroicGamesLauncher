@@ -72,6 +72,7 @@ export abstract class Game {
   getAchievements?(lang: string): Promise<GOGAchievement[]>
   getChangelog?(): Promise<string | null>
   getGenres?(): Promise<string[] | null>
+  getReleaseDate?(): Promise<Date | null>
 }
 
 export interface LibraryManager {

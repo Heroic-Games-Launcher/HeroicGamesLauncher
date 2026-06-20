@@ -82,7 +82,6 @@ export default class NileLibraryManager implements LibraryManager {
         details: {
           shortDescription,
           developer,
-          releaseDate,
           backgroundUrl1,
           backgroundUrl2,
           logoUrl
@@ -117,8 +116,7 @@ export default class NileLibraryManager implements LibraryManager {
         description: shortDescription,
         developer,
         extra: {
-          reqs: [],
-          releaseDate
+          reqs: []
         },
         is_linux_native: false,
         is_mac_native: false

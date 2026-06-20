@@ -125,7 +125,6 @@ export default class ZoomGame extends Game {
     const extra: ExtraInfo = {
       about: { description: '', shortDescription: '' },
       reqs: [],
-      releaseDate: undefined,
       storeUrl: undefined
     }
     return extra
