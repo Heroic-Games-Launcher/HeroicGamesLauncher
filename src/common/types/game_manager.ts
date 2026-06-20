@@ -71,6 +71,7 @@ export abstract class Game {
   abstract isGameAvailable(): Promise<boolean>
   getAchievements?(lang: string): Promise<GOGAchievement[]>
   getChangelog?(): Promise<string | null>
+  getGenres?(): Promise<string[] | null>
 }
 
 export interface LibraryManager {

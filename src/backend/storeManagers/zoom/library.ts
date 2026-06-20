@@ -156,8 +156,7 @@ export default class ZoomLibraryManager implements LibraryManager {
       cloud_save_enabled: false, // Zoom.py example doesn't show cloud saves
       extra: {
         about: { description: zoomGame.description, shortDescription: '' }, // No direct equivalent in zoom.py for detailed description
-        reqs: [],
-        genres: []
+        reqs: []
       },
       developer: zoomGame.developers.join(', '),
       folder_name: zoomGame.slug, // Using slug as folder_name

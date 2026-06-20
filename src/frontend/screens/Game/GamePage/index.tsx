@@ -443,13 +443,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       </div>
 
                       <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
-                      <Genres
-                        genres={
-                          gameInfo.extra?.genres ||
-                          wikiInfo?.pcgamingwiki?.genres ||
-                          []
-                        }
-                      />
+                      <Genres game={game} />
                       <Developer gameInfo={gameInfo} />
                       <ReleaseDate
                         runnerDate={extraInfo?.releaseDate}

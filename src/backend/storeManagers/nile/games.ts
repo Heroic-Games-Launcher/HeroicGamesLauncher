@@ -576,4 +576,12 @@ export default class NileGame extends Game {
       )
     })
   }
+
+  async getGenres(): Promise<string[] | null> {
+    const nileGameInfo = await libraryManagerMap['nile'].getNileGameInfo(
+      this.id
+    )
+    if (!nileGameInfo) return null
+    return nileGameInfo.product.productDetail.details.genres
+  }
 }

@@ -330,6 +330,7 @@ interface AsyncIPCFunctions {
 
   'game.supportsChangelogs': (game: Game) => boolean
   'game.getChangelog': (game: Game) => Promise<string | null>
+  'game.getGenres': (game: Game) => Promise<string[] | null>
 }
 
 interface FrontendEvent {

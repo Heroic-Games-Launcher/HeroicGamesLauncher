@@ -25,6 +25,7 @@ import { NileUser } from './user'
 import { runNileCommandStub } from './e2eMock'
 import { nileConfigPath, nileInstalled, nileLibrary } from './constants'
 import NileGame from './games'
+import { readFile } from 'fs/promises'
 import type { LibraryManager } from 'common/types/game_manager'
 
 export default class NileLibraryManager implements LibraryManager {
@@ -52,6 +53,18 @@ export default class NileLibraryManager implements LibraryManager {
     return game
   }
 
+  async getNileGameInfos(): Promise<NileGameInfo[]> {
+    return readFile(nileLibrary, 'utf-8')
+      .then((raw) => Promise.try(JSON.parse, raw))
+      .then((library): NileGameInfo[] => library)
+      .catch(() => [])
+  }
+
+  async getNileGameInfo(id: string): Promise<NileGameInfo | null> {
+    const infos = await this.getNileGameInfos()
+    return infos.find((info) => info.id === id) ?? null
+  }
+
   /**
    * Loads all the user's games into `library`
    */
@@ -69,7 +82,6 @@ export default class NileLibraryManager implements LibraryManager {
         details: {
           shortDescription,
           developer,
-          genres,
           releaseDate,
           backgroundUrl1,
           backgroundUrl2,
@@ -106,7 +118,6 @@ export default class NileLibraryManager implements LibraryManager {
         developer,
         extra: {
           reqs: [],
-          genres,
           releaseDate
         },
         is_linux_native: false,

@@ -157,7 +157,6 @@ export interface ExtraInfo {
   reqs: Reqs[]
   releaseDate?: string
   storeUrl?: string
-  genres?: string[]
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
