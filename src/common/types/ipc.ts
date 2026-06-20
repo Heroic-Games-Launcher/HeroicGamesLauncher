@@ -327,6 +327,9 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+
+  'game.supportsChangelogs': (game: Game) => boolean
+  'game.getChangelog': (game: Game) => Promise<string | null>
 }
 
 interface FrontendEvent {

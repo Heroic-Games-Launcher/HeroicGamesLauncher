@@ -70,6 +70,7 @@ export abstract class Game {
   abstract stop(stopWine?: boolean): Promise<void>
   abstract isGameAvailable(): Promise<boolean>
   getAchievements?(lang: string): Promise<GOGAchievement[]>
+  getChangelog?(): Promise<string | null>
 }
 
 export interface LibraryManager {

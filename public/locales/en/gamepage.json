@@ -133,6 +133,7 @@
             "version": "Version"
         },
         "changelogFor": "Changelog for {{gameTitle}}",
+        "changelogNotFound": "No changelog found",
         "downloadSize": "Download Size",
         "extra_info": "Extra info",
         "firstPlayed": "First Played",

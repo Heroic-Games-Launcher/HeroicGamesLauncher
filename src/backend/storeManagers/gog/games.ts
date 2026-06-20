@@ -117,9 +117,6 @@ export default class GOGGame extends Game {
       this.id,
       targetPlatform
     )
-    const productInfo = await libraryManagerMap['gog'].getProductApi(this.id, [
-      'changelog'
-    ])
 
     const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
 
@@ -138,8 +135,7 @@ export default class GOGGame extends Game {
       about: gameInfo.extra?.about,
       reqs,
       releaseDate,
-      storeUrl: gogStoreUrl,
-      changelog: productInfo?.data.changelog
+      storeUrl: gogStoreUrl
     }
     return extra
   }
@@ -1384,5 +1380,18 @@ export default class GOGGame extends Game {
 
   setBranchPassword(password: string): void {
     privateBranchesStore.set(this.id, password)
+  }
+
+  async getChangelog(): Promise<string | null> {
+    const productInfo = await libraryManagerMap['gog'].getProductApi(this.id, [
+      'changelog'
+    ])
+    if (!productInfo) return null
+
+    // FIXME: This can't actually be `undefined` (so the `?? null` is
+    //        unnecessary). Tighten up the type definitions to make
+    //        `ProductEndpointData` change shape depending on the
+    //        `expand` array passed above
+    return productInfo.data.changelog ?? null
   }
 }

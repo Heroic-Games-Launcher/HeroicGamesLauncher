@@ -48,7 +48,6 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
               ? gameInfo.store_url
               : '')
           }
-          changelog={gameExtraInfo?.changelog}
           handleUpdate={handleUpdate}
           handleChangeLog={() => setShowChangelog(true)}
           disableUpdate={is.installing || is.updating}
@@ -80,10 +79,10 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
         />
       )}
 
-      {gameExtraInfo?.changelog && showChangelog && (
+      {showChangelog && (
         <GameChangeLog
+          game={game}
           title={gameInfo.overrides?.title || gameInfo.title}
-          changelog={gameExtraInfo.changelog}
           backdropClick={() => {
             setShowChangelog(false)
           }}
