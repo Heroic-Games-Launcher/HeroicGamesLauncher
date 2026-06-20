@@ -1393,4 +1393,14 @@ export default class GOGGame extends Game {
     //        `expand` array passed above
     return productInfo.data.changelog ?? null
   }
+
+  async getGenres(): Promise<string[] | null> {
+    const { data } = await libraryManagerMap['gog'].getGamesdbData(
+      'gog',
+      this.id
+    )
+    if (!data) return null
+
+    return data.game.genres.map((genre) => genre.name['*'])
+  }
 }
