@@ -19,7 +19,6 @@ import {
 } from 'common/types/legendary'
 import { LegendaryUser } from './user'
 import {
-  formatEpicStoreUrl,
   getLegendaryBin,
   isEpicServiceOffline,
   getFileSize,
@@ -613,9 +612,6 @@ export default class LegendaryLibraryManager implements LibraryManager {
       art_square: art_square || art_square_front || art_cover || fallBackImage,
       cloud_save_enabled: Boolean(saveFolder),
       developer,
-      extra: {
-        storeUrl: formatEpicStoreUrl(title)
-      },
       dlcList: dlcItemList,
       folder_name: installFolder,
       install: {
@@ -643,8 +639,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
         !!thirdPartyManagedApp &&
         'ubisoftconnect' == thirdPartyManagedApp.toLowerCase(),
       is_linux_native: false,
-      runner: 'legendary',
-      store_url: formatEpicStoreUrl(title)
+      runner: 'legendary'
     })
 
     return true

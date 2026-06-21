@@ -1,10 +1,4 @@
-import {
-  ExecResult,
-  ExtraInfo,
-  GameInfo,
-  GameSettings,
-  LaunchOption
-} from 'common/types'
+import { ExecResult, GameInfo, GameSettings, LaunchOption } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
@@ -163,15 +157,6 @@ export default class SideloadGame extends Game {
     }
 
     return false
-  }
-
-  async getExtraInfo(): Promise<ExtraInfo> {
-    logWarning(
-      `getExtraInfo not implemented on Sideload Game Manager. called for ID = ${this.id}`
-    )
-    return {
-      storeUrl: ''
-    }
   }
 
   onInstallOrUpdateOutput() {

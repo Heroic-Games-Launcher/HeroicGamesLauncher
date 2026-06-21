@@ -164,7 +164,6 @@ export default class ZoomLibraryManager implements LibraryManager {
       install: {
         is_dlc: false
       },
-      store_url: zoomGame.store_url,
       is_installed: false,
       save_folder: '',
       canRunOffline: true, // Assuming DRM-free as per zoom.py

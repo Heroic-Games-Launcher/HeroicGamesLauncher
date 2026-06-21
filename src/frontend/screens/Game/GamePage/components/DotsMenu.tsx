@@ -22,7 +22,7 @@ interface Props {
 
 const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { gameExtraInfo, gameInstallInfo, is } = useContext(GameContext)
+  const { gameInstallInfo, is } = useContext(GameContext)
   const [showRequirements, setShowRequirements] = useState(false)
   const [showChangelog, setShowChangelog] = useState(false)
   const [showModifyInstallModal, setShowModifyInstallModal] = useState(false)
@@ -40,12 +40,6 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
           game={game}
           isInstalled={is_installed}
           title={title}
-          storeUrl={
-            gameExtraInfo?.storeUrl ||
-            ('store_url' in gameInfo && gameInfo.store_url !== undefined
-              ? gameInfo.store_url
-              : '')
-          }
           handleUpdate={handleUpdate}
           handleChangeLog={() => setShowChangelog(true)}
           disableUpdate={is.installing || is.updating}

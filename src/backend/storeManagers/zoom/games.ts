@@ -13,7 +13,6 @@ import axios, { AxiosProgressEvent } from 'axios'
 import { createWriteStream } from 'node:fs'
 import { pipeline } from 'node:stream/promises'
 import {
-  ExtraInfo,
   GameInfo,
   GameSettings,
   ExecResult,
@@ -117,15 +116,6 @@ export default class ZoomGame extends Game {
       logError(`Error finding .conf files in ${dir}: ${error}`, LogPrefix.Zoom)
     }
     return confFiles
-  }
-
-  async getExtraInfo(): Promise<ExtraInfo> {
-    // Zoom.py doesn't have direct equivalents for reqs, changelog, etc.
-    // This part would need to be implemented if the Zoom API provides such data.
-    const extra: ExtraInfo = {
-      storeUrl: undefined
-    }
-    return extra
   }
 
   getGameInfo(): GameInfo {
@@ -815,5 +805,10 @@ export default class ZoomGame extends Game {
   async getDescription(): Promise<string | null> {
     const info = await libraryManagerMap['zoom'].getZoomGameInfo(this.id)
     return info?.description ?? null
+  }
+
+  async getStoreUrl(): Promise<string | null> {
+    const info = await libraryManagerMap['zoom'].getZoomGameInfo(this.id)
+    return info?.store_url ?? null
   }
 }
