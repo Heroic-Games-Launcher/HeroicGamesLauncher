@@ -22,14 +22,12 @@ interface Props {
 
 const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { gameExtraInfo, gameInstallInfo, is } = useContext(GameContext)
+  const { gameInstallInfo, is } = useContext(GameContext)
   const [showRequirements, setShowRequirements] = useState(false)
   const [showChangelog, setShowChangelog] = useState(false)
   const [showModifyInstallModal, setShowModifyInstallModal] = useState(false)
 
   const { is_installed, title } = gameInfo
-
-  const hasRequirements = (gameExtraInfo?.reqs || []).length > 0
 
   return (
     <>
@@ -42,19 +40,10 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
           game={game}
           isInstalled={is_installed}
           title={title}
-          storeUrl={
-            gameExtraInfo?.storeUrl ||
-            ('store_url' in gameInfo && gameInfo.store_url !== undefined
-              ? gameInfo.store_url
-              : '')
-          }
-          changelog={gameExtraInfo?.changelog}
           handleUpdate={handleUpdate}
           handleChangeLog={() => setShowChangelog(true)}
           disableUpdate={is.installing || is.updating}
-          onShowRequirements={
-            hasRequirements ? () => setShowRequirements(true) : undefined
-          }
+          onShowRequirements={() => setShowRequirements(true)}
           onShowModifyInstall={() => setShowModifyInstallModal(true)}
           gameInfo={gameInfo}
         />
@@ -66,7 +55,7 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
             <div>{t('game.requirements', 'Requirements')}</div>
           </DialogHeader>
           <DialogContent>
-            <GameRequirements reqs={gameExtraInfo?.reqs} />
+            <GameRequirements game={game} />
           </DialogContent>
         </Dialog>
       )}
@@ -80,10 +69,10 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
         />
       )}
 
-      {gameExtraInfo?.changelog && showChangelog && (
+      {showChangelog && (
         <GameChangeLog
+          game={game}
           title={gameInfo.overrides?.title || gameInfo.title}
-          changelog={gameExtraInfo.changelog}
           backdropClick={() => {
             setShowChangelog(false)
           }}

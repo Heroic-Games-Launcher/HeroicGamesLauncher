@@ -16,7 +16,6 @@ import {
   axiosClient
 } from '../../utils'
 import {
-  ExtraInfo,
   GameInfo,
   GameSettings,
   ExecResult,
@@ -24,7 +23,8 @@ import {
   InstalledInfo,
   InstallProgress,
   LaunchOption,
-  GOGAchievement
+  GOGAchievement,
+  Reqs
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -64,6 +64,7 @@ import setup from './setup'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import {
+  GamesDBData,
   GOGCloudSavesLocation,
   GogInstallPlatform,
   UserData
@@ -99,49 +100,6 @@ export default class GOGGame extends Game {
 
   toString(): string {
     return `GOGGame(${this.id})`
-  }
-
-  async getExtraInfo(): Promise<ExtraInfo> {
-    const gameInfo = this.getGameInfo()
-    let targetPlatform: GogInstallPlatform = 'windows'
-
-    if (isMac && gameInfo.is_mac_native) {
-      targetPlatform = 'osx'
-    } else if (isLinux && gameInfo.is_linux_native) {
-      targetPlatform = 'linux'
-    } else {
-      targetPlatform = 'windows'
-    }
-
-    const reqs = await libraryManagerMap['gog'].createReqsArray(
-      this.id,
-      targetPlatform
-    )
-    const productInfo = await libraryManagerMap['gog'].getProductApi(this.id, [
-      'changelog'
-    ])
-
-    const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
-
-    let gogStoreUrl = gamesData?._links?.store.href
-    const releaseDate =
-      gamesData?._embedded.product?.globalReleaseDate?.substring(0, 19)
-
-    if (gogStoreUrl) {
-      const storeUrl = new URL(gogStoreUrl)
-      storeUrl.hostname = 'af.gog.com'
-      storeUrl.searchParams.set('as', '1838482841')
-      gogStoreUrl = storeUrl.toString()
-    }
-
-    const extra: ExtraInfo = {
-      about: gameInfo.extra?.about,
-      reqs,
-      releaseDate,
-      storeUrl: gogStoreUrl,
-      changelog: productInfo?.data.changelog
-    }
-    return extra
   }
 
   async getAchievements(lang = 'en-US'): Promise<GOGAchievement[]> {
@@ -1384,5 +1342,69 @@ export default class GOGGame extends Game {
 
   setBranchPassword(password: string): void {
     privateBranchesStore.set(this.id, password)
+  }
+
+  private async getGamesdbData(): Promise<GamesDBData | null> {
+    return libraryManagerMap['gog']
+      .getGamesdbData('gog', this.id)
+      .then(({ data }) => data ?? null)
+  }
+
+  async getChangelog(): Promise<string | null> {
+    const productInfo = await libraryManagerMap['gog'].getProductApi(this.id, [
+      'changelog'
+    ])
+    if (!productInfo) return null
+
+    // FIXME: This can't actually be `undefined` (so the `?? null` is
+    //        unnecessary). Tighten up the type definitions to make
+    //        `ProductEndpointData` change shape depending on the
+    //        `expand` array passed above
+    return productInfo.data.changelog ?? null
+  }
+
+  async getGenres(): Promise<string[] | null> {
+    const data = await this.getGamesdbData()
+    if (!data) return null
+
+    return data.game.genres.map((genre) => genre.name['*'])
+  }
+
+  async getReleaseDate(): Promise<Date | null> {
+    const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
+    if (!gamesData) return null
+
+    return new Date(Date.parse(gamesData._embedded.product.globalReleaseDate))
+  }
+
+  async getDescription(): Promise<string | null> {
+    const data = await this.getGamesdbData()
+    return data?.summary['*'] ?? null
+  }
+
+  async getSystemRequirements(): Promise<Reqs[] | null> {
+    const gameInfo = this.getGameInfo()
+    let targetPlatform: GogInstallPlatform
+
+    if (isMac && gameInfo.is_mac_native) {
+      targetPlatform = 'osx'
+    } else if (isLinux && gameInfo.is_linux_native) {
+      targetPlatform = 'linux'
+    } else {
+      targetPlatform = 'windows'
+    }
+
+    return libraryManagerMap['gog'].createReqsArray(this.id, targetPlatform)
+  }
+
+  async getStoreUrl(): Promise<string | null> {
+    const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
+    const gogStoreUrl = gamesData?._links?.store.href
+    if (!gogStoreUrl) return null
+
+    const storeUrl = new URL(gogStoreUrl)
+    storeUrl.hostname = 'af.gog.com'
+    storeUrl.searchParams.set('as', '1838482841')
+    return storeUrl.toString()
   }
 }

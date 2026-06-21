@@ -1,6 +1,5 @@
 import {
   ExecResult,
-  ExtraInfo,
   GameInfo,
   GameSettings,
   InstallArgs,
@@ -96,20 +95,6 @@ export default class NileGame extends Game {
       }
     }
     return info
-  }
-
-  async getExtraInfo(): Promise<ExtraInfo> {
-    const info = this.getGameInfo()
-    return {
-      reqs: [],
-      about: info?.description
-        ? {
-            description: info.description,
-            shortDescription: info.description
-          }
-        : undefined,
-      releaseDate: info?.extra?.releaseDate
-    }
   }
 
   async importGame(folderPath: string): Promise<ExecResult> {
@@ -575,5 +560,30 @@ export default class NileGame extends Game {
         )
       )
     })
+  }
+
+  async getGenres(): Promise<string[] | null> {
+    const nileGameInfo = await libraryManagerMap['nile'].getNileGameInfo(
+      this.id
+    )
+    if (!nileGameInfo) return null
+    return nileGameInfo.product.productDetail.details.genres
+  }
+
+  async getReleaseDate(): Promise<Date | null> {
+    const nileGameInfo = await libraryManagerMap['nile'].getNileGameInfo(
+      this.id
+    )
+    if (!nileGameInfo) return null
+    return new Date(
+      Date.parse(nileGameInfo.product.productDetail.details.releaseDate)
+    )
+  }
+
+  async getDescription(): Promise<string | null> {
+    const nileGameInfo = await libraryManagerMap['nile'].getNileGameInfo(
+      this.id
+    )
+    return nileGameInfo?.product.productDetail.details.shortDescription ?? null
   }
 }

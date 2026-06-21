@@ -70,6 +70,8 @@ const installedGames: Map<string, InstalledInfo> = new Map()
 export default class GOGLibraryManager implements LibraryManager {
   private readonly gameCache: Map<string, GOGGame> = new Map()
 
+  private readonly certificates: Map<string, string> = new Map()
+
   async init() {
     await this.refresh()
 
@@ -504,11 +506,11 @@ export default class GOGLibraryManager implements LibraryManager {
       while (retries > 0) {
         let gdbData
         try {
+          this.certificates.set(game.external_id, game.certificate)
           const { data } = await this.getGamesdbData(
             'gog',
             game.external_id,
             false,
-            game.certificate,
             credentials.access_token
           )
           gdbData = data
@@ -1085,11 +1087,6 @@ export default class GOGLibraryManager implements LibraryManager {
       art_background: background,
       cloud_save_enabled: false,
       art_icon: icon,
-      extra: {
-        about: { description: info.summary['*'], shortDescription: '' },
-        reqs: [],
-        genres: info.game.genres.map((genre) => genre.name['*'])
-      },
       folder_name: '',
       install: {
         is_dlc: false
@@ -1307,16 +1304,13 @@ export default class GOGLibraryManager implements LibraryManager {
    * @param store Indicates a store we have game_id from, like: epic, itch, humble, gog, uplay
    * @param game_id ID of a game
    * @param forceUpdate (optional) force data update check
-   * @param certificate (optional) Galaxy library certificate
    * @param accessToken (optional) GOG Galaxy access token
-   * multiple entries)
    * @returns object {isUpdated, data}, where isUpdated is true when Etags match
    */
   async getGamesdbData(
     store: string,
     game_id: string,
     forceUpdate?: boolean,
-    certificate?: string,
     accessToken?: string
   ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
     const pieceId = `${store}_${game_id}`
@@ -1324,6 +1318,9 @@ export default class GOGLibraryManager implements LibraryManager {
     if (cachedData && cachedData?.id && !forceUpdate) {
       return { isUpdated: false, data: apiInfoCache.get(pieceId) }
     }
+    const certificate =
+      store === 'gog' ? this.certificates.get(game_id) : undefined
+    accessToken ??= (await GOGUser.getCredentials())?.access_token
     const url = `https://gamesdb.gog.com/platforms/${store}/external_releases/${game_id}`
     const headers = {
       ...(cachedData?.etag ? { 'If-None-Match': cachedData.etag } : {}),
