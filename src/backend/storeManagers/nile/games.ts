@@ -99,15 +99,8 @@ export default class NileGame extends Game {
   }
 
   async getExtraInfo(): Promise<ExtraInfo> {
-    const info = this.getGameInfo()
     return {
-      reqs: [],
-      about: info?.description
-        ? {
-            description: info.description,
-            shortDescription: info.description
-          }
-        : undefined
+      reqs: []
     }
   }
 
@@ -592,5 +585,12 @@ export default class NileGame extends Game {
     return new Date(
       Date.parse(nileGameInfo.product.productDetail.details.releaseDate)
     )
+  }
+
+  async getDescription(): Promise<string | null> {
+    const nileGameInfo = await libraryManagerMap['nile'].getNileGameInfo(
+      this.id
+    )
+    return nileGameInfo?.product.productDetail.details.shortDescription ?? null
   }
 }

@@ -4,5 +4,6 @@ export const game = {
   supportsChangelogs: makeHandlerInvoker('game.supportsChangelogs'),
   getChangelog: makeHandlerInvoker('game.getChangelog'),
   getGenres: makeHandlerInvoker('game.getGenres'),
-  getReleaseDate: makeHandlerInvoker('game.getReleaseDate')
+  getReleaseDate: makeHandlerInvoker('game.getReleaseDate'),
+  getDescription: makeHandlerInvoker('game.getDescription')
 }

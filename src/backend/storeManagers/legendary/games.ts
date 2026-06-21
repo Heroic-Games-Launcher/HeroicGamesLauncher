@@ -204,7 +204,6 @@ export default class LegendaryGame extends Game {
 
     if (about) {
       return {
-        about: about.data.about,
         reqs: about.data.requirements.systems[0].details,
         storeUrl: `https://www.epicgames.com/store/product/${slug}`
       }
@@ -270,10 +269,6 @@ export default class LegendaryGame extends Game {
 
       if (requirements) {
         return {
-          about: {
-            description: res.sandbox.configuration[0].configs.shortDescription,
-            shortDescription: ''
-          },
           reqs: requirements,
           storeUrl: `https://www.epicgames.com/store/product/${slug}`
         }
@@ -334,10 +329,6 @@ export default class LegendaryGame extends Game {
     } else {
       logError('Error Getting Info from Epic API', LogPrefix.Legendary)
       return {
-        about: {
-          description: '',
-          shortDescription: ''
-        },
         reqs: [],
         storeUrl: ''
       }
@@ -1089,5 +1080,13 @@ export default class LegendaryGame extends Game {
     if (!storeContentInfo) return null
 
     return new Date(Date.parse(storeContentInfo.data.meta.releaseDate))
+  }
+
+  async getDescription(): Promise<string | null> {
+    const data = await libraryManagerMap['legendary'].loadGameMetadataAsync(
+      this.id
+    )
+
+    return data.metadata.description
   }
 }

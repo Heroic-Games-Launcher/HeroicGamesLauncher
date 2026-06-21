@@ -64,11 +64,6 @@ interface DLCLaunchOption {
   dlcTitle: string
 }
 
-interface About {
-  description: string
-  shortDescription: string
-}
-
 export type Release = {
   type: 'stable' | 'beta'
   html_url: string
@@ -153,7 +148,6 @@ export type ExecResult = {
 }
 
 export interface ExtraInfo {
-  about?: About
   reqs: Reqs[]
   storeUrl?: string
 }
@@ -206,7 +200,6 @@ export interface GameInfo {
   is_mac_native?: boolean
   is_linux_native?: boolean
   browserUrl?: string
-  description?: string
   //used for store release versions. if remote !== local, then update
   version?: string
   dlcList?: GameMetadataInner[]

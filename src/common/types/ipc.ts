@@ -334,6 +334,7 @@ interface AsyncIPCFunctions {
   'game.getChangelog': (game: Game) => Promise<string | null>
   'game.getGenres': (game: Game) => Promise<string[] | null>
   'game.getReleaseDate': (game: Game) => Promise<Date | null>
+  'game.getDescription': (game: Game) => Promise<string | null>
 }
 
 interface FrontendEvent {

@@ -79,13 +79,7 @@ export default class NileLibraryManager implements LibraryManager {
       const { product } = game
       const { title, productDetail } = product
       const {
-        details: {
-          shortDescription,
-          developer,
-          backgroundUrl1,
-          backgroundUrl2,
-          logoUrl
-        },
+        details: { developer, backgroundUrl1, backgroundUrl2, logoUrl },
         iconUrl
       } = productDetail
 
@@ -113,7 +107,6 @@ export default class NileLibraryManager implements LibraryManager {
         is_installed: info !== undefined,
         runner: 'nile',
         title: title ?? '???',
-        description: shortDescription,
         developer,
         extra: {
           reqs: []
