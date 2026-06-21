@@ -25,7 +25,6 @@ import {
 } from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
 import {
-  gameInfoStore,
   installStore,
   libraryStore
 } from 'backend/storeManagers/legendary/electronStores'
@@ -389,7 +388,6 @@ function clearCache(
   if (library === 'legendary' || !library) {
     installStore.clear()
     libraryStore.clear()
-    gameInfoStore.clear()
     libraryManagerMap['legendary'].runRunnerCommand(
       { subcommand: 'cleanup' },
       { abortId: 'legandary-cleanup' }

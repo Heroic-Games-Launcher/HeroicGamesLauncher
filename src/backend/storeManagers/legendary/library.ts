@@ -614,7 +614,6 @@ export default class LegendaryLibraryManager implements LibraryManager {
       cloud_save_enabled: Boolean(saveFolder),
       developer,
       extra: {
-        reqs: [],
         storeUrl: formatEpicStoreUrl(title)
       },
       dlcList: dlcItemList,

@@ -123,7 +123,6 @@ export default class ZoomGame extends Game {
     // Zoom.py doesn't have direct equivalents for reqs, changelog, etc.
     // This part would need to be implemented if the Zoom API provides such data.
     const extra: ExtraInfo = {
-      reqs: [],
       storeUrl: undefined
     }
     return extra

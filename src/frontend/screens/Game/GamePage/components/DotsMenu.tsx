@@ -29,8 +29,6 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
 
   const { is_installed, title } = gameInfo
 
-  const hasRequirements = (gameExtraInfo?.reqs || []).length > 0
-
   return (
     <>
       <div className="game-actions">
@@ -51,9 +49,7 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
           handleUpdate={handleUpdate}
           handleChangeLog={() => setShowChangelog(true)}
           disableUpdate={is.installing || is.updating}
-          onShowRequirements={
-            hasRequirements ? () => setShowRequirements(true) : undefined
-          }
+          onShowRequirements={() => setShowRequirements(true)}
           onShowModifyInstall={() => setShowModifyInstallModal(true)}
           gameInfo={gameInfo}
         />
@@ -65,7 +61,7 @@ const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
             <div>{t('game.requirements', 'Requirements')}</div>
           </DialogHeader>
           <DialogContent>
-            <GameRequirements reqs={gameExtraInfo?.reqs} />
+            <GameRequirements game={game} />
           </DialogContent>
         </Dialog>
       )}

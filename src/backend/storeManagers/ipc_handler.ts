@@ -37,3 +37,13 @@ addHandler(
   'game.getDescription',
   async (_e, game) => game.getDescription?.() ?? null
 )
+
+addHandler(
+  'game.supportsRequirements',
+  (_e, game) => !!game.getSystemRequirements
+)
+
+addHandler(
+  'game.getRequirements',
+  (_e, game) => game.getSystemRequirements?.() ?? null
+)

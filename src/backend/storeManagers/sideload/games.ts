@@ -170,7 +170,6 @@ export default class SideloadGame extends Game {
       `getExtraInfo not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
     return {
-      reqs: [],
       storeUrl: ''
     }
   }

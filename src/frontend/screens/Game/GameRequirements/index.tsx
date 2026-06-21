@@ -1,17 +1,20 @@
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Reqs } from 'common/types'
+import { useAwaited } from 'frontend/hooks/useAwaited'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 import './index.css'
 
 type Props = {
-  reqs?: Reqs[]
+  game: GameHandle
 }
 
-function GameRequirements({ reqs }: Props) {
+function GameRequirements({ game }: Props) {
   const { t } = useTranslation('gamepage')
+  const reqs = useAwaited(window.api.game.getRequirements, game)
 
-  if (!reqs || !reqs.length) return null
+  if (!reqs || !reqs.length)
+    return t('game.noRequirementsFound', 'No requirements found')
 
   return (
     <div className="gameRequirements" style={{ marginBottom: '2em' }}>

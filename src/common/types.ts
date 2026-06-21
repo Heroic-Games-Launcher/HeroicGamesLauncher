@@ -148,7 +148,6 @@ export type ExecResult = {
 }
 
 export interface ExtraInfo {
-  reqs: Reqs[]
   storeUrl?: string
 }
 

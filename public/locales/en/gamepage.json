@@ -145,6 +145,7 @@
         "lastPlayed": "Last Played",
         "modify": "Modify Installation",
         "neverPlayed": "Never",
+        "noRequirementsFound": "No requirements found",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
         "totalPlayed": "Time Played"

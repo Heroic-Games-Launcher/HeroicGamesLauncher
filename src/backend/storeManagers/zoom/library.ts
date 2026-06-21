@@ -159,9 +159,6 @@ export default class ZoomLibraryManager implements LibraryManager {
       art_square: zoomGame.poster_url, // Assuming poster_url can be used for square as well, or find a better equivalent
       art_background: zoomGame.poster_url, // Assuming poster_url can be used for background as well
       cloud_save_enabled: false, // Zoom.py example doesn't show cloud saves
-      extra: {
-        reqs: []
-      },
       developer: zoomGame.developers.join(', '),
       folder_name: zoomGame.slug, // Using slug as folder_name
       install: {
