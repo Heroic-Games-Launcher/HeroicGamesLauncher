@@ -73,6 +73,7 @@ export abstract class Game {
   getChangelog?(): Promise<string | null>
   getGenres?(): Promise<string[] | null>
   getReleaseDate?(): Promise<Date | null>
+  getDescription?(): Promise<string | null>
 }
 
 export interface LibraryManager {

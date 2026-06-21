@@ -143,6 +143,11 @@ export default class ZoomLibraryManager implements LibraryManager {
     }
   }
 
+  async getZoomGameInfo(id: string): Promise<ZoomGameInfo | null> {
+    const library = await this.getZoomLibrary()
+    return library.find((info) => String(info.id) === id) ?? null
+  }
+
   zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
     if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
       return {} as GameInfo
@@ -155,7 +160,6 @@ export default class ZoomLibraryManager implements LibraryManager {
       art_background: zoomGame.poster_url, // Assuming poster_url can be used for background as well
       cloud_save_enabled: false, // Zoom.py example doesn't show cloud saves
       extra: {
-        about: { description: zoomGame.description, shortDescription: '' }, // No direct equivalent in zoom.py for detailed description
         reqs: []
       },
       developer: zoomGame.developers.join(', '),

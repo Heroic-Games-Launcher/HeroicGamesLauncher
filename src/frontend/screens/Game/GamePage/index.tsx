@@ -447,7 +447,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <Developer gameInfo={gameInfo} />
                       <ReleaseDate game={game} />
 
-                      <Description />
+                      <Description game={game} />
                       {!notInstallable && <TimeContainer game={game} />}
                       <GameStatus
                         gameInfo={gameInfo}

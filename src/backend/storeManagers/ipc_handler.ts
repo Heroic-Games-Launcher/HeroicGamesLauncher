@@ -32,3 +32,8 @@ addHandler('game.getReleaseDate', async (_e, game) => {
 
   return candidates.find((d) => !isNaN(d.valueOf())) ?? null
 })
+
+addHandler(
+  'game.getDescription',
+  async (_e, game) => game.getDescription?.() ?? null
+)

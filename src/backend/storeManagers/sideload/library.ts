@@ -24,7 +24,6 @@ export default class SideloadLibraryManager implements LibraryManager {
     art_square,
     browserUrl,
     is_installed = true,
-    description,
     customUserAgent,
     launchFullScreen
   }: GameInfo): void {
@@ -43,7 +42,6 @@ export default class SideloadLibraryManager implements LibraryManager {
       art_square,
       canRunOffline: !browserUrl,
       browserUrl,
-      description,
       customUserAgent,
       launchFullScreen
     }

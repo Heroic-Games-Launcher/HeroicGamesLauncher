@@ -64,6 +64,7 @@ import setup from './setup'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import {
+  GamesDBData,
   GOGCloudSavesLocation,
   GogInstallPlatform,
   UserData
@@ -130,7 +131,6 @@ export default class GOGGame extends Game {
     }
 
     const extra: ExtraInfo = {
-      about: gameInfo.extra?.about,
       reqs,
       storeUrl: gogStoreUrl
     }
@@ -1379,6 +1379,12 @@ export default class GOGGame extends Game {
     privateBranchesStore.set(this.id, password)
   }
 
+  private async getGamesdbData(): Promise<GamesDBData | null> {
+    return libraryManagerMap['gog']
+      .getGamesdbData('gog', this.id)
+      .then(({ data }) => data ?? null)
+  }
+
   async getChangelog(): Promise<string | null> {
     const productInfo = await libraryManagerMap['gog'].getProductApi(this.id, [
       'changelog'
@@ -1393,10 +1399,7 @@ export default class GOGGame extends Game {
   }
 
   async getGenres(): Promise<string[] | null> {
-    const { data } = await libraryManagerMap['gog'].getGamesdbData(
-      'gog',
-      this.id
-    )
+    const data = await this.getGamesdbData()
     if (!data) return null
 
     return data.game.genres.map((genre) => genre.name['*'])
@@ -1407,5 +1410,10 @@ export default class GOGGame extends Game {
     if (!gamesData) return null
 
     return new Date(Date.parse(gamesData._embedded.product.globalReleaseDate))
+  }
+
+  async getDescription(): Promise<string | null> {
+    const data = await this.getGamesdbData()
+    return data?.summary['*'] ?? null
   }
 }

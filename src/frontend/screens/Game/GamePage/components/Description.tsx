@@ -1,19 +1,22 @@
-import { useContext } from 'react'
-import GameContext from '../../GameContext'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useAwaited } from 'frontend/hooks/useAwaited'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
-const Description = () => {
+interface Props {
+  game: GameHandle
+}
+
+function Description({ game }: Props) {
   const { t } = useTranslation('gamepage')
-  const { gameExtraInfo, runner } = useContext(GameContext)
+  const maybeDescription = useAwaited(window.api.game.getDescription, game)
 
-  let description = ''
-
-  if (runner !== 'sideload') {
-    description =
-      gameExtraInfo?.about?.shortDescription ||
-      gameExtraInfo?.about?.description ||
-      t('generic.noDescription', 'No description available')
-  }
+  const description = useMemo(
+    () =>
+      maybeDescription ??
+      t('generic.noDescription', 'No description available'),
+    [t, maybeDescription]
+  )
 
   return <div className="summary">{description}</div>
 }
