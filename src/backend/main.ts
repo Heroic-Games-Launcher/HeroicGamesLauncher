@@ -78,7 +78,6 @@ import {
   LogPrefix,
   logWarning
 } from './logger'
-import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import {
   launchEventCallback,
   readKnownFixes,
@@ -450,7 +449,6 @@ if (!gotTheLock) {
     addListener('changeLanguage', async (event, language) => {
       logInfo(['Changing Language to:', language], LogPrefix.Backend)
       await i18next.changeLanguage(language)
-      gameInfoStore.clear()
       GlobalConfig.get().setSetting('language', language)
       backendEvents.emit('languageChanged')
     })

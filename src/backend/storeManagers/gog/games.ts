@@ -24,7 +24,8 @@ import {
   InstalledInfo,
   InstallProgress,
   LaunchOption,
-  GOGAchievement
+  GOGAchievement,
+  Reqs
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -103,22 +104,6 @@ export default class GOGGame extends Game {
   }
 
   async getExtraInfo(): Promise<ExtraInfo> {
-    const gameInfo = this.getGameInfo()
-    let targetPlatform: GogInstallPlatform = 'windows'
-
-    if (isMac && gameInfo.is_mac_native) {
-      targetPlatform = 'osx'
-    } else if (isLinux && gameInfo.is_linux_native) {
-      targetPlatform = 'linux'
-    } else {
-      targetPlatform = 'windows'
-    }
-
-    const reqs = await libraryManagerMap['gog'].createReqsArray(
-      this.id,
-      targetPlatform
-    )
-
     const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
 
     let gogStoreUrl = gamesData?._links?.store.href
@@ -131,7 +116,6 @@ export default class GOGGame extends Game {
     }
 
     const extra: ExtraInfo = {
-      reqs,
       storeUrl: gogStoreUrl
     }
     return extra
@@ -1415,5 +1399,20 @@ export default class GOGGame extends Game {
   async getDescription(): Promise<string | null> {
     const data = await this.getGamesdbData()
     return data?.summary['*'] ?? null
+  }
+
+  async getSystemRequirements(): Promise<Reqs[] | null> {
+    const gameInfo = this.getGameInfo()
+    let targetPlatform: GogInstallPlatform
+
+    if (isMac && gameInfo.is_mac_native) {
+      targetPlatform = 'osx'
+    } else if (isLinux && gameInfo.is_linux_native) {
+      targetPlatform = 'linux'
+    } else {
+      targetPlatform = 'windows'
+    }
+
+    return libraryManagerMap['gog'].createReqsArray(this.id, targetPlatform)
   }
 }

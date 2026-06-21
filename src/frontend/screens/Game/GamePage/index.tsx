@@ -60,7 +60,6 @@ import {
   InstalledInfo,
   MainButton,
   ReportIssue,
-  Requirements,
   Scores,
   SettingsButton
 } from './components'
@@ -75,6 +74,8 @@ import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import Achievements from './components/Achievements'
 import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
+import { useAwaited } from 'frontend/hooks/useAwaited'
+import GameRequirements from '../GameRequirements'
 import { GameHandle } from '../../../helpers/ipc'
 
 export default React.memo(function GamePage(): JSX.Element | null {
@@ -292,6 +293,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const settingsContextValues = useSettingsContext(game)
 
+  const hasRequirements = useAwaited(window.api.game.supportsRequirements, game)
+
   if (gameInfo && gameInfo.install && settingsContextValues) {
     const {
       runner,
@@ -372,8 +375,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       wikiInfo?.pcgamingwiki?.metacritic.score ||
       wikiInfo?.pcgamingwiki?.opencritic.score ||
       wikiInfo?.steamInfo
-
-    const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
 
     let wikiLink = <></>
     if (knownFixes && knownFixes.wikiLink) {
@@ -555,7 +556,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           value={currentTab}
                           index="requirements"
                         >
-                          <Requirements />
+                          <GameRequirements game={game} />
                         </TabPanel>
                       </div>
                     </div>

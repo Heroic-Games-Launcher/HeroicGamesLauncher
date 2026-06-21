@@ -1087,9 +1087,6 @@ export default class GOGLibraryManager implements LibraryManager {
       art_background: background,
       cloud_save_enabled: false,
       art_icon: icon,
-      extra: {
-        reqs: []
-      },
       folder_name: '',
       install: {
         is_dlc: false

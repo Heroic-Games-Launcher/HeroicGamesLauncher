@@ -27,6 +27,7 @@ import type {
   LaunchParams,
   RecentGame,
   Release,
+  Reqs,
   Runner,
   RunnerCommandStub,
   RuntimeName,
@@ -333,6 +334,8 @@ interface AsyncIPCFunctions {
   'game.getGenres': (game: Game) => Promise<string[] | null>
   'game.getReleaseDate': (game: Game) => Promise<Date | null>
   'game.getDescription': (game: Game) => Promise<string | null>
+  'game.supportsRequirements': (game: Game) => boolean
+  'game.getRequirements': (game: Game) => Promise<Reqs[] | null>
 }
 
 interface FrontendEvent {

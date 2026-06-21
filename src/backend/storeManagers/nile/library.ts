@@ -108,9 +108,6 @@ export default class NileLibraryManager implements LibraryManager {
         runner: 'nile',
         title: title ?? '???',
         developer,
-        extra: {
-          reqs: []
-        },
         is_linux_native: false,
         is_mac_native: false
       })

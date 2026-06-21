@@ -8,7 +8,8 @@ import {
   InstallArgs,
   InstallPlatform,
   InstallProgress,
-  LaunchOption
+  LaunchOption,
+  Reqs
 } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
@@ -44,7 +45,6 @@ import {
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
 import { join } from 'path'
-import { gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
@@ -196,22 +196,10 @@ export default class LegendaryGame extends Game {
     )
   }
 
-  private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
-    const about = await this.getStoreContentApiInfo()
+  private async getProductInfoFromGraphql(): Promise<Product | null> {
+    const { namespace } = this.getGameInfo()
+    if (!namespace) return null
 
-    if (about) {
-      return {
-        reqs: about.data.requirements.systems[0].details,
-        storeUrl: `https://www.epicgames.com/store/product/${slug}`
-      }
-    }
-    return null
-  }
-
-  private async getExtraFromGraphql(
-    namespace: string,
-    slug: string
-  ): Promise<ExtraInfo | null> {
     const graphql = {
       query: `{
         Product {
@@ -254,24 +242,7 @@ export default class LegendaryGame extends Game {
         }
       )
 
-      const res = result.data.data.Product as Product
-
-      const configuration = res.sandbox.configuration[0]
-
-      if (!configuration) {
-        return null
-      }
-
-      const requirements = configuration.configs.technicalRequirements.windows
-
-      if (requirements) {
-        return {
-          reqs: requirements,
-          storeUrl: `https://www.epicgames.com/store/product/${slug}`
-        }
-      } else {
-        return null
-      }
+      return result.data.data.Product
     } catch (error) {
       logError(error, LogPrefix.Legendary)
       return null
@@ -286,11 +257,6 @@ export default class LegendaryGame extends Game {
   }
 
   private emptyExtraInfo = {
-    about: {
-      description: '',
-      shortDescription: ''
-    },
-    reqs: [],
     storeUrl: ''
   }
   /**
@@ -298,37 +264,14 @@ export default class LegendaryGame extends Game {
    *
    */
   async getExtraInfo(): Promise<ExtraInfo> {
-    const { namespace } = this.getGameInfo()
-    if (namespace === undefined) return this.emptyExtraInfo
-
-    const cachedExtraInfo = gameInfoStore.get(namespace)
-    if (cachedExtraInfo) {
-      return cachedExtraInfo
-    }
     if (!isOnline()) {
       return this.emptyExtraInfo
     }
 
     const slug = await this.getProductSlug()
 
-    // try the API first, it works for most games
-    let extraData = await this.getExtraFromAPI(slug)
-
-    // if the API doesn't work, try graphql
-    if (!extraData) {
-      extraData = await this.getExtraFromGraphql(namespace, slug)
-    }
-
-    // if we have data, store it and return
-    if (extraData) {
-      gameInfoStore.set(namespace, extraData)
-      return extraData
-    } else {
-      logError('Error Getting Info from Epic API', LogPrefix.Legendary)
-      return {
-        reqs: [],
-        storeUrl: ''
-      }
+    return {
+      storeUrl: `https://www.epicgames.com/store/product/${slug}`
     }
   }
 
@@ -1085,5 +1028,16 @@ export default class LegendaryGame extends Game {
     )
 
     return data.metadata.description
+  }
+
+  async getSystemRequirements(): Promise<Reqs[] | null> {
+    const storeContentInfo = await this.getStoreContentApiInfo()
+    const requirementsFromStoreContent =
+      storeContentInfo?.data.requirements.systems[0].details
+    if (requirementsFromStoreContent) return requirementsFromStoreContent
+
+    const productInfo = await this.getProductInfoFromGraphql()
+    const configuration = productInfo?.sandbox.configuration[0]
+    return configuration?.configs.technicalRequirements.windows ?? null
   }
 }

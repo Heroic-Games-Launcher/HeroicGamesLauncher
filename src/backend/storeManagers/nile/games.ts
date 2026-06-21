@@ -99,9 +99,7 @@ export default class NileGame extends Game {
   }
 
   async getExtraInfo(): Promise<ExtraInfo> {
-    return {
-      reqs: []
-    }
+    return {}
   }
 
   async importGame(folderPath: string): Promise<ExecResult> {

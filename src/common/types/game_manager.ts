@@ -1,4 +1,4 @@
-import {
+import type {
   ExtraInfo,
   GameInfo,
   InstallPlatform,
@@ -8,9 +8,10 @@ import {
   InstallInfo,
   LaunchOption,
   GOGAchievement,
-  Runner
+  Runner,
+  Reqs
 } from 'common/types'
-import { GOGCloudSavesLocation } from './gog'
+import type { GOGCloudSavesLocation } from './gog'
 import type LogWriter from 'backend/logger/log_writer'
 
 export interface InstallResult {
@@ -74,6 +75,7 @@ export abstract class Game {
   getGenres?(): Promise<string[] | null>
   getReleaseDate?(): Promise<Date | null>
   getDescription?(): Promise<string | null>
+  getSystemRequirements?(): Promise<Reqs[] | null>
 }
 
 export interface LibraryManager {
