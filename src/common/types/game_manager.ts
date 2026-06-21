@@ -1,5 +1,4 @@
 import type {
-  ExtraInfo,
   GameInfo,
   InstallPlatform,
   GameSettings,
@@ -32,7 +31,6 @@ export abstract class Game {
 
   abstract getSettings(): Promise<GameSettings>
   abstract getGameInfo(): GameInfo
-  abstract getExtraInfo(): Promise<ExtraInfo>
   abstract importGame(
     path: string,
     platform: InstallPlatform
@@ -76,6 +74,7 @@ export abstract class Game {
   getReleaseDate?(): Promise<Date | null>
   getDescription?(): Promise<string | null>
   getSystemRequirements?(): Promise<Reqs[] | null>
+  getStoreUrl?(): Promise<string | null>
 }
 
 export interface LibraryManager {

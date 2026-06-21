@@ -12,7 +12,6 @@ import type {
   DMQueueElement,
   DownloadManagerState,
   ExecResult,
-  ExtraInfo,
   GameAchievement,
   GameInfo,
   GamepadActionArgs,
@@ -162,7 +161,6 @@ interface AsyncIPCFunctions {
   getCurrentChangelog: () => Promise<Release | null>
   getGameInfo: (game: Game) => Promise<GameInfo | null>
   getAchievements: (game: Game, lang?: string) => Promise<GameAchievement[]>
-  getExtraInfo: (game: Game) => Promise<ExtraInfo | null>
   getGameSettings: (game: Game) => Promise<GameSettings | null>
   getGOGLinuxInstallersLangs: (game: Game) => Promise<string[]>
   getInstallInfo: (
@@ -336,6 +334,8 @@ interface AsyncIPCFunctions {
   'game.getDescription': (game: Game) => Promise<string | null>
   'game.supportsRequirements': (game: Game) => boolean
   'game.getRequirements': (game: Game) => Promise<Reqs[] | null>
+  'game.supportsStoreUrl': (game: Game) => boolean
+  'game.getStoreUrl': (game: Game) => Promise<string | null>
 }
 
 interface FrontendEvent {

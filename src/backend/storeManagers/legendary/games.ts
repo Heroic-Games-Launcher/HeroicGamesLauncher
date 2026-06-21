@@ -3,7 +3,6 @@ import axios from 'axios'
 
 import {
   ExecResult,
-  ExtraInfo,
   GameInfo,
   InstallArgs,
   InstallPlatform,
@@ -48,7 +47,6 @@ import { join } from 'path'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
-import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
@@ -254,25 +252,6 @@ export default class LegendaryGame extends Game {
       .toLowerCase()
       .replace(/[^a-z ]/g, '')
       .replaceAll(' ', '-')
-  }
-
-  private emptyExtraInfo = {
-    storeUrl: ''
-  }
-  /**
-   * Get extra info from Epic's API.
-   *
-   */
-  async getExtraInfo(): Promise<ExtraInfo> {
-    if (!isOnline()) {
-      return this.emptyExtraInfo
-    }
-
-    const slug = await this.getProductSlug()
-
-    return {
-      storeUrl: `https://www.epicgames.com/store/product/${slug}`
-    }
   }
 
   /**
@@ -1039,5 +1018,10 @@ export default class LegendaryGame extends Game {
     const productInfo = await this.getProductInfoFromGraphql()
     const configuration = productInfo?.sandbox.configuration[0]
     return configuration?.configs.technicalRequirements.windows ?? null
+  }
+
+  async getStoreUrl(): Promise<string | null> {
+    const slug = await this.getProductSlug()
+    return `https://www.epicgames.com/store/product/${slug}`
   }
 }

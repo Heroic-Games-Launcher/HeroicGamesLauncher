@@ -94,7 +94,7 @@ async function getGogHLTBGameData(
   game: Game
 ): Promise<HeroicHowLongToBeatEntry | null> {
   const { title } = game.getGameInfo()
-  const { storeUrl } = await game.getExtraInfo()
+  const storeUrl = await game.getStoreUrl?.()
   if (!storeUrl) return null
 
   try {

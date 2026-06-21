@@ -26,7 +26,6 @@ import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 import {
-  ExtraInfo,
   GameInfo,
   GameSettings,
   Runner,
@@ -116,9 +115,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [progress, previousProgress] = hasProgress(game)
 
-  const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
-    gameInfo.extra || null
-  )
   const [achievements, setAchievements] = useState<GameAchievement[]>([])
   const hasAchievements = achievements && achievements.length > 0
   const achievementPercentage = hasAchievements
@@ -198,7 +194,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
         if (newInfo) {
           setGameInfo(newInfo)
         }
-        setExtraInfo(await window.api.getExtraInfo(game))
       }
     }
     updateGameInfo()
@@ -338,7 +333,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       runner,
       gameSettings,
       gameInstallInfo,
-      gameExtraInfo: extraInfo,
       is: {
         installing: isInstalling,
         importing: isImporting,

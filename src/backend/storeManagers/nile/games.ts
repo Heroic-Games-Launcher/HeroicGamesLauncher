@@ -1,6 +1,5 @@
 import {
   ExecResult,
-  ExtraInfo,
   GameInfo,
   GameSettings,
   InstallArgs,
@@ -96,10 +95,6 @@ export default class NileGame extends Game {
       }
     }
     return info
-  }
-
-  async getExtraInfo(): Promise<ExtraInfo> {
-    return {}
   }
 
   async importGame(folderPath: string): Promise<ExecResult> {

@@ -47,3 +47,7 @@ addHandler(
   'game.getRequirements',
   (_e, game) => game.getSystemRequirements?.() ?? null
 )
+
+addHandler('game.supportsStoreUrl', (_e, game) => !!game.getStoreUrl)
+
+addHandler('game.getStoreUrl', (_e, game) => game.getStoreUrl?.() ?? null)

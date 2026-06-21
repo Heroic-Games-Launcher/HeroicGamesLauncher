@@ -147,10 +147,6 @@ export type ExecResult = {
   abort?: boolean
 }
 
-export interface ExtraInfo {
-  storeUrl?: string
-}
-
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export type GOGAchievement = {
@@ -171,7 +167,6 @@ export type GameAchievement = GOGAchievement
 
 export interface GameInfo {
   runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
-  store_url?: string
   app_name: string
   art_cover: string
   art_logo?: string
@@ -180,7 +175,6 @@ export interface GameInfo {
   art_square: string
   cloud_save_enabled?: boolean
   developer?: string
-  extra?: ExtraInfo
   folder_name?: string
   install: Partial<InstalledInfo>
   installable?: boolean

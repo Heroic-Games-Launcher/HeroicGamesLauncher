@@ -742,8 +742,6 @@ addHandler('getAchievements', async (event, game, lang = 'en-US') => {
   return game.getAchievements?.(lang) ?? []
 })
 
-addHandler('getExtraInfo', async (event, game) => game.getExtraInfo())
-
 addHandler('getGameSettings', async (event, game) => game.getSettings())
 
 addHandler('getGOGLinuxInstallersLangs', async (event, game) =>

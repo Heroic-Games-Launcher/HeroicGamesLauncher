@@ -646,21 +646,6 @@ function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
   return client
 }
 
-const specialCharactersRegex =
-  /('\w)|(\\(\w|\d){5})|(\\"(\\.|[^"])*")|[^((0-9)|(a-z)|(A-Z)|\s)]/g // addeed regex for capturings "'s" + unicodes + remove subtitles in quotes
-const cleanTitle = (title: string) =>
-  title
-    .replaceAll(specialCharactersRegex, '')
-    .replaceAll(' ', '-')
-    .replaceAll('®', '')
-    .toLowerCase()
-    .split('--definitive')[0]
-
-const formatEpicStoreUrl = (title: string) => {
-  const storeUrl = `https://www.epicgames.com/store/product/`
-  return `${storeUrl}${cleanTitle(title)}`
-}
-
 function quoteIfNecessary(stringToQuote: string) {
   const shouldQuote =
     typeof stringToQuote === 'string' &&
@@ -1694,7 +1679,6 @@ export {
   getGOGdlBin,
   getCometBin,
   getNileBin,
-  formatEpicStoreUrl,
   getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,

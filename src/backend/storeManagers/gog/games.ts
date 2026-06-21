@@ -16,7 +16,6 @@ import {
   axiosClient
 } from '../../utils'
 import {
-  ExtraInfo,
   GameInfo,
   GameSettings,
   ExecResult,
@@ -101,24 +100,6 @@ export default class GOGGame extends Game {
 
   toString(): string {
     return `GOGGame(${this.id})`
-  }
-
-  async getExtraInfo(): Promise<ExtraInfo> {
-    const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
-
-    let gogStoreUrl = gamesData?._links?.store.href
-
-    if (gogStoreUrl) {
-      const storeUrl = new URL(gogStoreUrl)
-      storeUrl.hostname = 'af.gog.com'
-      storeUrl.searchParams.set('as', '1838482841')
-      gogStoreUrl = storeUrl.toString()
-    }
-
-    const extra: ExtraInfo = {
-      storeUrl: gogStoreUrl
-    }
-    return extra
   }
 
   async getAchievements(lang = 'en-US'): Promise<GOGAchievement[]> {
@@ -1414,5 +1395,16 @@ export default class GOGGame extends Game {
     }
 
     return libraryManagerMap['gog'].createReqsArray(this.id, targetPlatform)
+  }
+
+  async getStoreUrl(): Promise<string | null> {
+    const gamesData = await libraryManagerMap['gog'].getGamesData(this.id)
+    const gogStoreUrl = gamesData?._links?.store.href
+    if (!gogStoreUrl) return null
+
+    const storeUrl = new URL(gogStoreUrl)
+    storeUrl.hostname = 'af.gog.com'
+    storeUrl.searchParams.set('as', '1838482841')
+    return storeUrl.toString()
   }
 }
