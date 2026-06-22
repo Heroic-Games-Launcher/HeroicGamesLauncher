@@ -142,4 +142,6 @@ export const uninstallGameCallback = async (
     runner,
     status: 'done'
   })
+
+  return uninstalled
 }

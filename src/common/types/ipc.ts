@@ -226,7 +226,7 @@ interface AsyncIPCFunctions {
     shouldRemovePrefix: boolean,
     shoudlRemoveSetting: boolean,
     partialInstallFolder?: string
-  ) => Promise<void>
+  ) => Promise<boolean>
   repair: (appName: string, runner: Runner) => Promise<void>
   moveInstall: (args: MoveGameArgs) => Promise<void>
   importGame: (args: ImportGameArgs) => StatusPromise

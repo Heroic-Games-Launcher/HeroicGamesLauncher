@@ -1,6 +1,7 @@
 import './index.scss'
 import React, { useContext, useEffect, useState } from 'react'
 import { clearInstallProgress } from 'frontend/state/InstallProgress'
+import { clearPartialInstall } from 'frontend/helpers/library'
 import {
   Dialog,
   DialogContent,
@@ -89,11 +90,10 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
     checkIfIsNative()
   }, [])
 
-  const storage: Storage = window.localStorage
   const uninstallGame = async () => {
     onClose()
 
-    await window.api.uninstall(
+    const uninstalled = await window.api.uninstall(
       appName,
       runner,
       deletePrefixChecked,
@@ -103,12 +103,13 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
     if (runner === 'sideload' && location.pathname.match(/gamepage/)) {
       navigate('/#library')
     }
-    storage.removeItem(appName)
-    window.dispatchEvent(
-      new StorageEvent('storage', { key: appName, newValue: null })
-    )
-    if (partialInstallFolder) {
-      clearInstallProgress(appName, runner)
+    // Only clear the partial-install marker if the backend actually finished the
+    // uninstall — otherwise the user keeps the badge to retry the cleanup.
+    if (uninstalled) {
+      clearPartialInstall(appName)
+      if (partialInstallFolder) {
+        clearInstallProgress(appName, runner)
+      }
     }
   }
 

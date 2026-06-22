@@ -35,7 +35,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinux, faSteam } from '@fortawesome/free-brands-svg-icons'
 import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
-import { hasPartialInstall as hasPartialInstallHook } from 'frontend/hooks/hasPartialInstall'
+import { useHasPartialInstall } from 'frontend/hooks/useHasPartialInstall'
 
 interface Props {
   appName: string
@@ -89,7 +89,7 @@ export default function GamesSubmenu({
   const isSideloaded = runner === 'sideload'
   const isThirdPartyManaged = !!gameInfo.thirdPartyManagedApp
 
-  const { hasPartialInstall, partialInstallFolder } = hasPartialInstallHook(
+  const { hasPartialInstall, partialInstallFolder } = useHasPartialInstall(
     appName,
     isInstalled
   )

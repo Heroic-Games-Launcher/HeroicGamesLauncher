@@ -15,6 +15,26 @@ import { clearInstallProgress } from 'frontend/state/InstallProgress'
 
 const storage: Storage = window.localStorage
 
+// Partial installs are tracked under the `appName` key in localStorage, holding
+// at least a `folder` field pointing at where the (incomplete) install lives.
+
+// Reads the partial-install folder for a game, or undefined if there's none.
+export function getPartialInstallFolder(appName: string): string | undefined {
+  const data = JSON.parse(storage.getItem(appName) || '{}') as {
+    folder?: string
+  }
+  return data.folder
+}
+
+// Removes the partial-install marker and notifies listeners (e.g. the
+// `useHasPartialInstall` hook) so badges/filters update immediately.
+export function clearPartialInstall(appName: string): void {
+  storage.removeItem(appName)
+  window.dispatchEvent(
+    new StorageEvent('storage', { key: appName, newValue: null })
+  )
+}
+
 type InstallArgs = {
   gameInfo: GameInfo
   installPath: string
@@ -83,7 +103,7 @@ async function install({
 
   // If the user changed the previous folder, the percentage should start from zero again.
   if (previousProgress && previousProgress.folder !== installPath) {
-    storage.removeItem(appName)
+    clearPartialInstall(appName)
   }
 
   // Store the install folder so partial installs can be detected and cleaned up
@@ -94,7 +114,7 @@ async function install({
     new StorageEvent('storage', { key: appName, newValue: partialInstallData })
   )
 
-  return window.api.install({
+  const installPromise = window.api.install({
     appName,
     path: installPath,
     installDlcs,
@@ -106,6 +126,12 @@ async function install({
     build,
     branch
   })
+
+  // If queuing the install fails outright, drop the marker we wrote above so we
+  // don't leave a phantom partial install for a game with nothing on disk.
+  installPromise.catch(() => clearPartialInstall(appName))
+
+  return installPromise
 }
 
 function handleStopInstallation(
@@ -136,10 +162,7 @@ function handleStopInstallation(
         text: t('box.no'),
         onClick: () => {
           window.api.cancelDownload(true)
-          storage.removeItem(appName)
-          window.dispatchEvent(
-            new StorageEvent('storage', { key: appName, newValue: null })
-          )
+          clearPartialInstall(appName)
           clearInstallProgress(appName, runner)
         }
       }

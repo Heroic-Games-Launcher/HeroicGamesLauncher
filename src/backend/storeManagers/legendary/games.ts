@@ -27,6 +27,7 @@ import {
 import {
   logError,
   logInfo,
+  logWarning,
   LogPrefix,
   createGameLogWriter
 } from 'backend/logger'
@@ -744,9 +745,19 @@ export default class LegendaryGame implements Game {
     }
 
     if (!gameInfo.is_installed && partialInstallFolder) {
-      cancelDownloadForApp(this.appName)
+      // Stop the active download before deleting so we don't race the writer
+      await cancelDownloadForApp(this.appName)
       if (gameInfo.folder_name) {
         removeFolder(partialInstallFolder, gameInfo.folder_name)
+      } else {
+        logWarning(
+          [
+            'Could not clean up partial install for',
+            this.appName,
+            '- folder_name is missing, leftover files may remain on disk'
+          ],
+          LogPrefix.Legendary
+        )
       }
       sendFrontendMessage('refreshLibrary', 'legendary')
       return { stdout: '', stderr: '' }

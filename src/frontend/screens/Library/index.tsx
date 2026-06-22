@@ -26,7 +26,8 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
-  normalizeTitle
+  normalizeTitle,
+  getPartialInstallFolder
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -504,13 +505,10 @@ export default React.memo(function Library(): JSX.Element {
       }
 
       if (showPartiallyInstalledOnly) {
-        library = library.filter((game) => {
-          if (game.is_installed) return false
-          const data = JSON.parse(storage.getItem(game.app_name) || '{}') as {
-            folder?: string
-          }
-          return !!data.folder
-        })
+        library = library.filter(
+          (game) =>
+            !game.is_installed && !!getPartialInstallFolder(game.app_name)
+        )
       }
 
       if (!showNonAvailable) {

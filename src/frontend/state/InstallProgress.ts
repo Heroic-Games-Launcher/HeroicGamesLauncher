@@ -17,8 +17,10 @@ export const useInstallProgress = <T>(
 ) => useInstallProgressRaw(useShallow(selector))
 
 export function clearInstallProgress(appName: string, runner: Runner) {
-  const key = `${appName}_${runner}`
-  useInstallProgressRaw.setState({
-    [key]: { bytes: '0.00MB', eta: '00:00:00', percent: 0 }
-  })
+  const key: `${string}_${Runner}` = `${appName}_${runner}`
+  useInstallProgressRaw.setState((state) => {
+    const next = { ...state }
+    delete next[key]
+    return next
+  }, true)
 }

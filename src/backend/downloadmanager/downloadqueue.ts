@@ -29,7 +29,7 @@ let autoPaused = false
 onConnectivityChange((status) => {
   if (status === 'offline' && isRunning()) {
     logInfo('System offline, auto-pausing downloads', LogPrefix.DownloadManager)
-    pauseCurrentDownload()
+    void pauseCurrentDownload()
     autoPaused = true
   } else if (status === 'online' && autoPaused) {
     logInfo('System online, auto-resuming downloads', LogPrefix.DownloadManager)
@@ -228,7 +228,7 @@ function getQueueInformation() {
   return { elements, finished, state: queueState }
 }
 
-function cancelCurrentDownload({ removeDownloaded = false }) {
+async function cancelCurrentDownload({ removeDownloaded = false }) {
   if (currentElement) {
     if (Array.isArray(currentElement.params.installDlcs)) {
       const dlcsToRemove = currentElement.params.installDlcs
@@ -237,7 +237,7 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
       }
     }
     if (isRunning()) {
-      stopCurrentDownload()
+      await stopCurrentDownload()
     }
     removeFromQueue(currentElement.params.appName)
 
@@ -254,9 +254,9 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
   }
 }
 
-function pauseCurrentDownload() {
+async function pauseCurrentDownload() {
   if (currentElement) {
-    stopCurrentDownload()
+    await stopCurrentDownload()
   }
   queueState = 'paused'
   autoPaused = false
@@ -272,10 +272,10 @@ function resumeCurrentDownload() {
   void initQueue()
 }
 
-function stopCurrentDownload() {
+async function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
-  libraryManagerMap[runner].getGame(appName).stop(false)
+  await libraryManagerMap[runner].getGame(appName).stop(false)
 }
 
 // notify the user based on the status of the element and the status of the queue
@@ -332,9 +332,9 @@ function processNotification(element: DMQueueElement, status: DMStatus) {
   }
 }
 
-function cancelDownloadForApp(appName: string) {
+async function cancelDownloadForApp(appName: string) {
   if (currentElement?.params.appName === appName) {
-    cancelCurrentDownload({ removeDownloaded: false })
+    await cancelCurrentDownload({ removeDownloaded: false })
   } else {
     removeFromQueue(appName)
   }
