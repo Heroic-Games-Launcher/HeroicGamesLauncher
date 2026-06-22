@@ -191,6 +191,14 @@ export default React.memo(function Library(): JSX.Element {
     setShowUpdatesOnly(value)
   }
 
+  const [showPartiallyInstalledOnly, setShowPartiallyInstalledOnly] = useState(
+    JSON.parse(storage.getItem('show_partially_installed_only') || 'false')
+  )
+  const handleShowPartiallyInstalledOnly = (value: boolean) => {
+    storage.setItem('show_partially_installed_only', JSON.stringify(value))
+    setShowPartiallyInstalledOnly(value)
+  }
+
   const [showCategories, setShowCategories] = useState(false)
 
   const [showAlphabetFilter, setShowAlphabetFilter] = useState(
@@ -495,6 +503,16 @@ export default React.memo(function Library(): JSX.Element {
         library = library.filter((game) => gameUpdates.includes(game.app_name))
       }
 
+      if (showPartiallyInstalledOnly) {
+        library = library.filter((game) => {
+          if (game.is_installed) return false
+          const data = JSON.parse(storage.getItem(game.app_name) || '{}') as {
+            folder?: string
+          }
+          return !!data.folder
+        })
+      }
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -583,6 +601,7 @@ export default React.memo(function Library(): JSX.Element {
     showSupportOfflineOnly,
     showThirdPartyManagedOnly,
     showUpdatesOnly,
+    showPartiallyInstalledOnly,
     gameUpdates
   ])
 
@@ -710,6 +729,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
         showUpdatesOnly,
         setShowUpdatesOnly: handleShowUpdatesOnly,
+        showPartiallyInstalledOnly,
+        setShowPartiallyInstalledOnly: handleShowPartiallyInstalledOnly,
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),

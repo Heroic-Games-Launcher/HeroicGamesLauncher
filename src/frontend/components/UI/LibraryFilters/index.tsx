@@ -36,7 +36,9 @@ export default function LibraryFilters() {
     showThirdPartyManagedOnly,
     setShowThirdPartyManagedOnly,
     showUpdatesOnly,
-    setShowUpdatesOnly
+    setShowUpdatesOnly,
+    showPartiallyInstalledOnly,
+    setShowPartiallyInstalledOnly
   } = useContext(LibraryContext)
 
   const toggleShowHidden = () => {
@@ -65,6 +67,10 @@ export default function LibraryFilters() {
 
   const toggleUpdatesOnly = () => {
     setShowUpdatesOnly(!showUpdatesOnly)
+  }
+
+  const togglePartiallyInstalledOnly = () => {
+    setShowPartiallyInstalledOnly(!showPartiallyInstalledOnly)
   }
 
   const toggleStoreFilter = (store: Runner) => {
@@ -170,6 +176,7 @@ export default function LibraryFilters() {
     setShowSupportOfflineOnly(false)
     setShowThirdPartyManagedOnly(false)
     setShowUpdatesOnly(false)
+    setShowPartiallyInstalledOnly(false)
   }
 
   return (
@@ -245,6 +252,16 @@ export default function LibraryFilters() {
         handleChange={() => toggleUpdatesOnly()}
         value={showUpdatesOnly}
         title={t('header.show_updates_only', 'Show games with updates only')}
+      />
+      <ToggleSwitch
+        key="only-partially-installed"
+        htmlId="only-partially-installed"
+        handleChange={() => togglePartiallyInstalledOnly()}
+        value={showPartiallyInstalledOnly}
+        title={t(
+          'header.show_partially_installed_only',
+          'Show partially installed only'
+        )}
       />
       <hr />
       <button
