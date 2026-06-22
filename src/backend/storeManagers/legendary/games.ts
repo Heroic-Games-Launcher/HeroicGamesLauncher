@@ -735,7 +735,6 @@ export default class LegendaryGame implements Game {
 
   async uninstall(): Promise<ExecResult> {
     const gameInfo = this.getGameInfo()
-
     if (gameInfo.thirdPartyManagedApp) {
       await thirdParty.removeInstalledGame(this.appName)
       return { stdout: '', stderr: '' }
