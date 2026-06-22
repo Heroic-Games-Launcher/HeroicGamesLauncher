@@ -54,7 +54,7 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
 import { cancelDownloadForApp } from '../../downloadmanager/downloadqueue'
-import { Game, GameManager, RemoveArgs } from 'common/types/game_manager'
+import { Game, RemoveArgs } from 'common/types/game_manager'
 import {
   AllowedWineFlags,
   getWineFlags,
@@ -737,10 +737,9 @@ export default class LegendaryGame implements Game {
 
 
   async uninstall({
-    appName,
     partialInstallFolder
   }: RemoveArgs): Promise<ExecResult> {
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
 
     if (gameInfo.thirdPartyManagedApp) {
       await thirdParty.removeInstalledGame(this.appName)
@@ -748,7 +747,7 @@ export default class LegendaryGame implements Game {
     }
 
     if (!gameInfo.is_installed && partialInstallFolder) {
-      cancelDownloadForApp(appName)
+      cancelDownloadForApp(this.appName)
       if (gameInfo.folder_name) {
         removeFolder(partialInstallFolder, gameInfo.folder_name)
       }
