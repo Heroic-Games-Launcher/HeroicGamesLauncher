@@ -1249,7 +1249,12 @@
         "empty": "",
         "games": "Εγκατεστημένα Παιχνίδια",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Εγκατάσταση παιχνιδιού",
+            "wineLoading": "Φόρτωση"
+        }
     },
     "next": "Επόμενο"
 }

@@ -927,7 +927,8 @@
         "installing": "Installeren",
         "logging": "Aan het inloggen...",
         "processing": "Bestanden verwerken, een ogenblik geduld a.u.b.",
-        "preparing_login": "Inloggen Voorbereiden... "
+        "preparing_login": "Inloggen Voorbereiden... ",
+        "installed": "Geïnstalleerd"
     },
     "store": "Epic Winkel",
     "stores": "Winkels",
@@ -1249,7 +1250,15 @@
         "empty": "",
         "games": "Installed Games",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "Update annuleren"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
+        }
     },
     "next": "Volgende"
 }

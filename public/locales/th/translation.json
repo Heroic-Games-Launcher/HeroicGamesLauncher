@@ -738,7 +738,8 @@
         "installing": "กำลังติดตั้ง",
         "preparing_login": "",
         "logging": "",
-        "processing": ""
+        "processing": "",
+        "installed": "ติดตั้งแล้ว"
     },
     "tray": {
         "about": "เกี่ยวกับ",
@@ -1185,7 +1186,10 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "wineLoading": "กำลังโหลด…"
+        }
     },
     "next": "",
     "sidebar": {

@@ -941,7 +941,8 @@
         "installing": "Instalando",
         "logging": "Inciando sesión…",
         "processing": "Procesando os arquivos, por favor, espera",
-        "preparing_login": "Preparando o inicio de sesión... "
+        "preparing_login": "Preparando o inicio de sesión... ",
+        "installed": "Instalado"
     },
     "store": "Tenda de Epic",
     "stores": "Tendas",
@@ -1271,6 +1272,14 @@
         },
         "empty": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelInstall": {
+            "title": "Cancelar Instalación"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Instalar xogo",
+            "wineLoading": "Cargando"
+        }
     }
 }
