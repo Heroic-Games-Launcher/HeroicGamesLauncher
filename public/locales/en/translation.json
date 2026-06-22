@@ -441,10 +441,10 @@
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
         "show_installed_only": "Show Installed only",
+        "show_partially_installed_only": "Show partially installed only",
         "show_support_offline_only": "Show offline-supported only",
         "show_third_party_managed_only": "Show third-party managed only",
         "show_updates_only": "Show games with updates only",
-        "show_partially_installed_only": "Show partially installed only",
         "uncategorized": "Uncategorized"
     },
     "help": {
