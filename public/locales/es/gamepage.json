@@ -35,6 +35,7 @@
         "uninstall": {
             "checkbox": "Eliminar prefijo: {{prefix}}{{newLine}}Nota: Esto no se puede deshacer y también eliminará los archivos de guardado que no se hayan respaldado.",
             "message": "¿Quieres desinstalar \"{{title}}\"?",
+            "partial-message": "¿Quieres limpiar la descarga incompleta de \"{{title}}\"?",
             "settingcheckbox": "Borrar configuración y eliminar registro{{newLine}}Nota: Esto no se puede deshacer. Cualquier configuración modificada se perderá y el registro se eliminará.",
             "title": "Desinstalar",
             "prefix_warning": "El prefijo de Wine para este juego es el predeterminado. Si realmente deseas eliminarlo, tienes que hacerlo manualmente.",

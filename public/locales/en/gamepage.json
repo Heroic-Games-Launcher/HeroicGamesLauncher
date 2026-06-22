@@ -53,6 +53,7 @@
             "dlc": "Do you want to uninstall \"{{title}}\" (DLC)?",
             "gameIsRunning": "{{title}} is running. Close the game to uninstall it.",
             "message": "Do you want to uninstall \"{{title}}\"?",
+            "partial-message": "Do you want to clean up the incomplete download of \"{{title}}\"?",
             "prefix_warning": "The Wine prefix for this game is the default prefix. If you really want to delete it, you have to do it manually.",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Uninstall"
