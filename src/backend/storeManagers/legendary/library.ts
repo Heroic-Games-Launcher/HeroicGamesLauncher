@@ -56,10 +56,6 @@ const fallBackImage = 'fallback'
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
-// Timestamp (ms) of the last successful `legendary list` run; used to skip
-// redundant calls in listUpdateableGames when refresh just ran.
-const LIST_TTL_MS = 30 * 1000
-let lastLegendaryListTimestamp = 0
 
 export default class LegendaryLibraryManager implements LibraryManager {
   async init() {
@@ -110,8 +106,6 @@ export default class LegendaryLibraryManager implements LibraryManager {
 
     if (res.error) {
       logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
-    } else {
-      lastLegendaryListTimestamp = Date.now()
     }
     this.refreshInstalled()
     return res
@@ -274,52 +268,13 @@ export default class LegendaryLibraryManager implements LibraryManager {
    * @returns App names of updateable games.
    */
   async listUpdateableGames(): Promise<string[]> {
-    const isLoggedIn = LegendaryUser.isLoggedIn()
-
-    if (!isLoggedIn || !isOnline()) {
-      return []
-    }
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline) {
-      logWarning(
-        'Epic servers are offline, cannot check for game updates',
-        LogPrefix.Backend
-      )
+    if (!LegendaryUser.isLoggedIn() || !isOnline()) {
       return []
     }
 
-    const listAge = Date.now() - lastLegendaryListTimestamp
-    if (listAge < LIST_TTL_MS) {
-      logDebug(
-        `Skipping 'legendary list' for update check (ran ${Math.round(listAge / 1000)}s ago)`,
-        LogPrefix.Legendary
-      )
-    } else {
-      const res = await this.runRunnerCommand(
-        { subcommand: 'list', '--third-party': true },
-        {
-          abortId: 'legendary-check-updates',
-          logMessagePrefix: 'Checking for game updates'
-        }
-      )
-
-      if (res.abort) {
-        return []
-      }
-
-      if (res.error) {
-        logError(
-          ['Failed to check for game updates:', res.error],
-          LogPrefix.Legendary
-        )
-        return []
-      }
-
-      lastLegendaryListTimestamp = Date.now()
-    }
-
-    // Once we ran `legendary list`, `assets.json` will be updated with the newest
-    // game versions, and `installed.json` has our currently installed ones
+    // `refresh()` already ran `legendary list` and wrote assets.json with the
+    // newest game versions; installed.json has our currently installed ones.
+    // No network call needed here — just compare the two local files.
     const installedJsonFile = join(legendaryConfigPath, 'installed.json')
     let installedJson: Record<string, InstalledJsonMetadata> = {}
     try {
