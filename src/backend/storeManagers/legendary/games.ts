@@ -735,10 +735,7 @@ export default class LegendaryGame implements Game {
     return { status: 'done' }
   }
 
-
-  async uninstall({
-    partialInstallFolder
-  }: RemoveArgs): Promise<ExecResult> {
+  async uninstall({ partialInstallFolder }: RemoveArgs): Promise<ExecResult> {
     const gameInfo = this.getGameInfo()
 
     if (gameInfo.thirdPartyManagedApp) {
