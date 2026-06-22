@@ -18,9 +18,11 @@ export const useInstallProgress = <T>(
 
 export function clearInstallProgress(appName: string, runner: Runner) {
   const key: `${string}_${Runner}` = `${appName}_${runner}`
-  useInstallProgressRaw.setState((state) => {
-    const next = { ...state }
-    delete next[key]
-    return next
-  }, true)
+  // Reset to a zeroed entry instead of deleting the key: `hasProgress` only
+  // updates the displayed progress when the store value is truthy, so a 0% entry
+  // resets the on-card bar to 0% on reinstall. Deleting the key would leave the
+  // last percentage stuck until the card unmounts.
+  useInstallProgressRaw.setState({
+    [key]: { bytes: '0.00MB', eta: '00:00:00', percent: 0 }
+  })
 }
