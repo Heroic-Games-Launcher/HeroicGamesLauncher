@@ -20,10 +20,16 @@ const storage: Storage = window.localStorage
 
 // Reads the partial-install folder for a game, or undefined if there's none.
 export function getPartialInstallFolder(appName: string): string | undefined {
-  const data = JSON.parse(storage.getItem(appName) || '{}') as {
-    folder?: string
+  try {
+    const data = JSON.parse(storage.getItem(appName) || '{}') as {
+      folder?: string
+    }
+    return data.folder
+  } catch {
+    // Malformed entry — treat as "no partial install" rather than crashing
+    // callers that map over the whole library (e.g. the library filter).
+    return undefined
   }
-  return data.folder
 }
 
 // Removes the partial-install marker and notifies listeners (e.g. the
@@ -107,7 +113,7 @@ async function install({
   }
 
   // Store the install folder so partial installs can be detected and cleaned up
-  // even if legendary crashes (not just when the user explicitly stops via UI)
+  // even if the download crashes (not just when the user explicitly stops via UI)
   const partialInstallData = JSON.stringify({ folder: installPath })
   storage.setItem(appName, partialInstallData)
   window.dispatchEvent(

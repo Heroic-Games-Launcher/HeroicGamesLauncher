@@ -1280,25 +1280,31 @@ const memoryLog = (limit = 50) => {
 }
 
 function removeFolder(path: string, folderName: string) {
-  if (path === 'default') {
-    const { defaultInstallPath } = GlobalConfig.get().getSettings()
-    const path = defaultInstallPath.replaceAll("'", '')
-    const folderToDelete = `${path}/${folderName}`
-    if (existsSync(folderToDelete)) {
-      return setTimeout(() => {
-        rmSync(folderToDelete, { recursive: true })
-      }, 5000)
-    }
-    return
+  // Deletes after a delay so any process still holding the files (e.g. a writer
+  // that was just stopped) has time to release them, which matters on Windows.
+  const scheduleDelete = (folderToDelete: string, delay: number) => {
+    if (!existsSync(folderToDelete)) return
+    return setTimeout(() => {
+      try {
+        // `force` ignores the path already being gone; try/catch keeps a locked
+        // or permission-denied file from throwing as an uncaught async error.
+        rmSync(folderToDelete, { recursive: true, force: true })
+      } catch (error) {
+        logError(
+          ['Failed to remove folder', folderToDelete, error],
+          LogPrefix.Backend
+        )
+      }
+    }, delay)
   }
 
-  const folderToDelete = `${path}/${folderName}`.replaceAll("'", '')
-  if (existsSync(folderToDelete)) {
-    return setTimeout(() => {
-      rmSync(folderToDelete, { recursive: true })
-    }, 2000)
+  if (path === 'default') {
+    const { defaultInstallPath } = GlobalConfig.get().getSettings()
+    const resolvedPath = defaultInstallPath.replaceAll("'", '')
+    return scheduleDelete(`${resolvedPath}/${folderName}`, 5000)
   }
-  return
+
+  return scheduleDelete(`${path}/${folderName}`.replaceAll("'", ''), 2000)
 }
 
 async function getPathDiskSize(path: string): Promise<number> {
