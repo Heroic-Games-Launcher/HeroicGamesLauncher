@@ -18,7 +18,6 @@ import {
   killPattern,
   moveOnUnix,
   moveOnWindows,
-  removeFolder,
   sendGameStatusUpdate,
   sendProgressUpdate,
   shutdownWine,
@@ -27,7 +26,6 @@ import {
 import {
   logError,
   logInfo,
-  logWarning,
   LogPrefix,
   createGameLogWriter
 } from 'backend/logger'
@@ -54,8 +52,7 @@ import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
-import { cancelDownloadForApp } from '../../downloadmanager/downloadqueue'
-import { Game, RemoveArgs } from 'common/types/game_manager'
+import { Game } from 'common/types/game_manager'
 import {
   AllowedWineFlags,
   getWineFlags,
@@ -736,30 +733,11 @@ export default class LegendaryGame implements Game {
     return { status: 'done' }
   }
 
-  async uninstall({ partialInstallFolder }: RemoveArgs): Promise<ExecResult> {
+  async uninstall(): Promise<ExecResult> {
     const gameInfo = this.getGameInfo()
 
     if (gameInfo.thirdPartyManagedApp) {
       await thirdParty.removeInstalledGame(this.appName)
-      return { stdout: '', stderr: '' }
-    }
-
-    if (!gameInfo.is_installed && partialInstallFolder) {
-      // Stop the active download before deleting so we don't race the writer
-      await cancelDownloadForApp(this.appName)
-      if (gameInfo.folder_name) {
-        removeFolder(partialInstallFolder, gameInfo.folder_name)
-      } else {
-        logWarning(
-          [
-            'Could not clean up partial install for',
-            this.appName,
-            '- folder_name is missing, leftover files may remain on disk'
-          ],
-          LogPrefix.Legendary
-        )
-      }
-      sendFrontendMessage('refreshLibrary', 'legendary')
       return { stdout: '', stderr: '' }
     }
 

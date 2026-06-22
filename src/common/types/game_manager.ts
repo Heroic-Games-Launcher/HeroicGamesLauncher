@@ -20,7 +20,6 @@ export interface InstallResult {
 export type RemoveArgs = {
   shouldRemovePrefix?: boolean
   deleteFiles?: boolean
-  partialInstallFolder?: string
 }
 
 export interface Game {
@@ -51,6 +50,16 @@ export interface Game {
     gogSaves?: GOGCloudSavesLocation[]
   ) => Promise<string>
   uninstall: (args: RemoveArgs) => Promise<ExecResult>
+  /**
+   * Optional runner-specific cleanup for a partial (incomplete) install, i.e. a
+   * download that was started but never finished.
+   *
+   * Runners that don't implement this still get partial-install cleanup: the
+   * uninstaller falls back to a generic routine that cancels any active download
+   * and deletes the leftover folder, which works for any runner using Heroic's
+   * download queue. Implement this only when a runner needs extra teardown.
+   */
+  cleanUpPartialInstall?: (partialInstallFolder: string) => Promise<void>
   update: (updateOverwrites?: {
     build?: string
     branch?: string

@@ -2,7 +2,12 @@ import { libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
-import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
+import {
+  DMQueueElement,
+  DMStatus,
+  DownloadManagerState,
+  Runner
+} from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../ipc'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
@@ -340,13 +345,44 @@ async function cancelDownloadForApp(appName: string) {
   }
 }
 
+/**
+ * Generic cleanup for a partial (incomplete) install: stops any active or
+ * queued download for the game, then deletes the leftover folder on disk.
+ *
+ * This is runner-agnostic and works for any current or future runner that uses
+ * Heroic's download queue, so a runner doesn't need to implement anything to get
+ * partial-install cleanup. Runners that need custom teardown can override it via
+ * the optional `Game.cleanUpPartialInstall` method.
+ */
+async function cleanUpPartialInstall(
+  appName: string,
+  runner: Runner,
+  partialInstallFolder: string,
+  folderName?: string
+) {
+  await cancelDownloadForApp(appName)
+  if (folderName) {
+    removeFolder(partialInstallFolder, folderName)
+  } else {
+    logWarning(
+      [
+        'Could not fully clean up partial install for',
+        appName,
+        '- folder name is missing, leftover files may remain on disk'
+      ],
+      LogPrefix.DownloadManager
+    )
+  }
+  sendFrontendMessage('refreshLibrary', runner)
+}
+
 export {
   initQueue,
   addToQueue,
   removeFromQueue,
   getQueueInformation,
   cancelCurrentDownload,
-  cancelDownloadForApp,
+  cleanUpPartialInstall,
   pauseCurrentDownload,
   resumeCurrentDownload,
   isRunning
