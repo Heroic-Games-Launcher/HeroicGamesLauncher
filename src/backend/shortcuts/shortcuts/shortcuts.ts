@@ -21,6 +21,7 @@ import sanitize from 'sanitize-filename'
 import { libraryManagerMap } from 'backend/storeManagers'
 import { isMac } from 'backend/constants/environment'
 import { userHome } from 'backend/constants/paths'
+import type { Game } from 'common/types/game_manager'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
@@ -29,7 +30,8 @@ import { userHome } from 'backend/constants/paths'
  * @async
  * @public
  */
-async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
+async function addShortcuts(game: Game, fromMenu?: boolean) {
+  const gameInfo = game.getGameInfo()
   if (gameInfo.install.is_dlc) return
 
   const { app_name, runner, title } = gameInfo
@@ -39,7 +41,7 @@ async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
     GlobalConfig.get().getSettings()
 
   if (addSteamShortcuts) {
-    addNonSteamGame({ gameInfo })
+    addNonSteamGame(game)
   }
 
   const launchWithProtocol = `heroic://launch?appName=${app_name}&runner=${runner}`
@@ -118,7 +120,8 @@ Categories=Game;
  * @async
  * @public
  */
-async function removeShortcuts(gameInfo: GameInfo) {
+async function removeShortcuts(game: Game) {
+  const gameInfo = game.getGameInfo()
   if (gameInfo.install.is_dlc) return
 
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
