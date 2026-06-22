@@ -64,7 +64,8 @@ addHandler('updateGame', async (_e, args) => {
 addListener('removeFromDMQueue', (e, appName) => removeFromQueue(appName))
 addListener('resumeCurrentDownload', () => resumeCurrentDownload())
 addListener('pauseCurrentDownload', () => void pauseCurrentDownload())
-addListener('cancelDownload', (e, removeDownloaded) =>
-  void cancelCurrentDownload({ removeDownloaded })
+addListener(
+  'cancelDownload',
+  (e, removeDownloaded) => void cancelCurrentDownload({ removeDownloaded })
 )
 addHandler('getDMQueueInformation', getQueueInformation)

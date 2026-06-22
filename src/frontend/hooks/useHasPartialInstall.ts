@@ -8,7 +8,8 @@ export function useHasPartialInstall(
   appName: string,
   isInstalled: boolean
 ): { hasPartialInstall: boolean; partialInstallFolder: string | undefined } {
-  const read = () => (isInstalled ? undefined : getPartialInstallFolder(appName))
+  const read = () =>
+    isInstalled ? undefined : getPartialInstallFolder(appName)
 
   const [partialInstallFolder, setPartialInstallFolder] = useState<
     string | undefined
