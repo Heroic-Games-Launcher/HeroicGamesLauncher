@@ -20,6 +20,7 @@ import { getClient } from './butlerd'
 import { configStore, installStore, libraryStore } from './electronStores'
 import { ItchioUser } from './user'
 import ItchioGameManager from './games'
+import setupItchio from './setup'
 
 interface DownloadKeyRecord {
   id: number
@@ -79,6 +80,7 @@ function loadFromCache(): GameInfo[] {
 }
 
 export async function initItchioLibraryManager(): Promise<void> {
+  await setupItchio()
   loadFromCache()
   if (!ItchioUser.isLoggedIn()) {
     logDebug(

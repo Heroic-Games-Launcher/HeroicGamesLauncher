@@ -17,7 +17,7 @@
 import type { LaunchOption } from 'common/types'
 
 // itch.io upload platforms exposed by butlerd. Lower-case in the wire format.
-export type ItchioInstallPlatform = 'windows' | 'linux' | 'osx'
+type ItchioInstallPlatform = 'windows' | 'linux' | 'osx'
 
 export interface ItchioUserData {
   id: number
@@ -43,7 +43,7 @@ export interface ItchioRegisterData {
   apiKey: string
 }
 
-export interface ItchioGameUser {
+interface ItchioGameUser {
   id: number
   username: string
   displayName?: string
@@ -85,24 +85,6 @@ export interface ItchioUpload {
   size: number
   channelName?: string
   platforms: Partial<Record<ItchioInstallPlatform, boolean>>
-}
-
-export interface ItchioCaveInstallInfo {
-  installFolder: string
-  installedSize: number
-  pinned?: boolean
-}
-
-export interface ItchioCave {
-  id: string
-  game?: ItchioGame
-  upload?: ItchioUpload
-  installInfo?: ItchioCaveInstallInfo
-  build?: {
-    id: number
-    version: string
-    userVersion?: string
-  }
 }
 
 export interface ItchioInstallInfo {

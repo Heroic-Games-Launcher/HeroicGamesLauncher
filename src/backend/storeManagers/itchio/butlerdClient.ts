@@ -42,8 +42,8 @@ type PendingCall = {
   reject: (err: Error) => void
 }
 
-export type NotificationHandler = (params: unknown) => void
-export type RequestHandler = (params: unknown) => unknown
+type NotificationHandler = (params: unknown) => void
+type RequestHandler = (params: unknown) => unknown
 
 export class ButlerdClient {
   private daemon?: ChildProcess
@@ -394,10 +394,4 @@ export async function getButlerdClient(
   }
   await singleton.start()
   return singleton
-}
-
-export async function shutdownButlerdClient(): Promise<void> {
-  if (!singleton) return
-  await singleton.stop()
-  singleton = undefined
 }

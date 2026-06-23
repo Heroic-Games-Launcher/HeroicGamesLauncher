@@ -344,14 +344,14 @@ async function ensureInstallLocationId(path: string): Promise<string> {
   return added.installLocation.id
 }
 
-export async function getSettings(appName: string): Promise<GameSettings> {
+async function getSettings(appName: string): Promise<GameSettings> {
   return (
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
   )
 }
 
-export function getGameInfo(appName: string): GameInfo {
+function getGameInfo(appName: string): GameInfo {
   const info = getItchioLibraryGameInfo(appName)
   if (info) return info
 
@@ -375,7 +375,7 @@ export function getGameInfo(appName: string): GameInfo {
   }
 }
 
-export function getExtraInfo(appName: string): Promise<ExtraInfo> {
+function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const game = getItchioLibraryGameInfo(appName)
   return Promise.resolve({
     about: {
@@ -389,7 +389,7 @@ export function getExtraInfo(appName: string): Promise<ExtraInfo> {
   })
 }
 
-export function importGame(
+function importGame(
   appName: string,
   path: string,
   platform: InstallPlatform
@@ -400,7 +400,7 @@ export function importGame(
 
 // butlerd uses JSON-RPC notifications, not stdout. This satisfies the
 // GameManager contract; actual progress is wired via `createProgressEmitter`.
-export function onInstallOrUpdateOutput(
+function onInstallOrUpdateOutput(
   appName: string,
   action: 'installing' | 'updating',
   data: string,
@@ -465,7 +465,7 @@ async function closeWriter(writer: LogWriter): Promise<void> {
   }
 }
 
-export async function install(
+async function install(
   appName: string,
   { path, platformToInstall }: InstallArgs
 ): Promise<InstallResult> {
@@ -614,7 +614,7 @@ export async function install(
   }
 }
 
-export function isNative(appName: string): boolean {
+function isNative(appName: string): boolean {
   const platform = getItchioLibraryGameInfo(appName)?.install?.platform
   if (!platform) return false
   if (isWindows) return true
@@ -624,15 +624,12 @@ export function isNative(appName: string): boolean {
   return false
 }
 
-export function addShortcuts(
-  appName: string,
-  fromMenu?: boolean
-): Promise<void> {
+function addShortcuts(appName: string, fromMenu?: boolean): Promise<void> {
   logNotImplemented('addShortcuts', { appName, fromMenu })
   return Promise.resolve()
 }
 
-export function removeShortcuts(appName: string): Promise<void> {
+function removeShortcuts(appName: string): Promise<void> {
   logNotImplemented('removeShortcuts', { appName })
   return Promise.resolve()
 }
@@ -640,7 +637,7 @@ export function removeShortcuts(appName: string): Promise<void> {
 // itch.io is DRM-free, so we skip butlerd's Launch RPC (which insists
 // on Windows prereq scaffolding) and run the recorded executable directly,
 // going through Heroic's wine path on non-Windows for Windows builds.
-export async function launch(
+async function launch(
   appName: string,
   logWriter: LogWriter,
   _launchArguments?: LaunchOption,
@@ -727,7 +724,7 @@ async function maybePrepareInstallerLaunch(
   return [...args, '/quiet', `/dir=${installPath}`]
 }
 
-export async function moveInstall(
+async function moveInstall(
   appName: string,
   newInstallPath: string
 ): Promise<InstallResult> {
@@ -746,7 +743,7 @@ export async function moveInstall(
   return { status: 'done' }
 }
 
-export async function repair(appName: string): Promise<ExecResult> {
+async function repair(appName: string): Promise<ExecResult> {
   const cached = getItchioLibraryGameInfo(appName)
   if (!cached?.is_installed) {
     return { stdout: '', stderr: `${appName} is not installed` }
@@ -763,7 +760,7 @@ export async function repair(appName: string): Promise<ExecResult> {
 }
 
 // itch.io has no first-party save sync; intentional no-op.
-export function syncSaves(
+function syncSaves(
   appName: string,
   arg: string,
   path: string
@@ -779,7 +776,7 @@ function getCaveId(appName: string): string | undefined {
   return getItchioLibraryGameInfo(appName)?.caveId
 }
 
-export async function uninstall(
+async function uninstall(
   appName: string,
   { deleteFiles }: RemoveArgs
 ): Promise<ExecResult> {
@@ -825,7 +822,7 @@ export async function uninstall(
   }
 }
 
-export async function update(appName: string): Promise<InstallResult> {
+async function update(appName: string): Promise<InstallResult> {
   const caveId = getCaveId(appName)
   if (!caveId) {
     return { status: 'error', error: `no cave for ${appName}` }
@@ -889,14 +886,14 @@ export async function update(appName: string): Promise<InstallResult> {
   }
 }
 
-export async function forceUninstall(appName: string): Promise<void> {
+async function forceUninstall(appName: string): Promise<void> {
   installStore.delete(appName)
   setLibraryInstallState(appName, false)
   const updated = getItchioLibraryGameInfo(appName)
   if (updated) sendFrontendMessage('pushGameToLibrary', updated)
 }
 
-export async function stop(appName: string): Promise<void> {
+async function stop(appName: string): Promise<void> {
   const cached = getItchioLibraryGameInfo(appName)
   const executable = cached?.install?.executable
   if (!executable) {
@@ -914,7 +911,7 @@ export async function stop(appName: string): Promise<void> {
   }
 }
 
-export async function isGameAvailable(appName: string): Promise<boolean> {
+async function isGameAvailable(appName: string): Promise<boolean> {
   const cached = getItchioLibraryGameInfo(appName)
   if (!cached?.is_installed) return false
   const local = cached.install?.install_path
