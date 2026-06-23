@@ -961,7 +961,7 @@ export async function downloadDefaultWine() {
   const isMacOSUpToDate = await isMacSonomaOrHigher()
   const release = availableWine.find((version) => {
     if (isLinux) {
-      return version.type === 'GE-Proton'
+      return version.type === 'Proton-CachyOS'
     } else if (isMac) {
       if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
