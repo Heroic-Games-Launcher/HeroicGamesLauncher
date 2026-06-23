@@ -68,7 +68,7 @@ async function fetchReleases({
               release_data.download = stagingAsset.browser_download_url
               release_data.downsize = stagingAsset.size
             }
-          } else if (type === 'Proton-Cachyos') {
+          } else if (type === 'Proton-CachyOS') {
             const shaAsset = release.assets.find((asset) =>
               asset.browser_download_url.endsWith('x86_64.sha512sum')
             )

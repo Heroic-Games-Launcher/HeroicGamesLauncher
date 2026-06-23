@@ -50,7 +50,7 @@ export default function WineManager(): JSX.Element | null {
     if (isLinux) {
       return [
         { type: 'GE-Proton', value: 'protonge' },
-        { type: 'Proton-Cachyos', value: 'proton-cachyos' },
+        { type: 'Proton-CachyOS', value: 'proton-cachyos' },
         { type: 'Wine-GE', value: 'winege' }
       ]
     }
@@ -163,13 +163,13 @@ export default function WineManager(): JSX.Element | null {
             )}
           </div>
         )
-      case 'Proton-Cachyos':
+      case 'Proton-CachyOS':
         return (
           <div className="infoBox">
             <FontAwesomeIcon icon={faCheck} color={'green'} />
             {t(
               'wineExplanation.proton-cachyos',
-              'Proton-cachyos is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.'
+              'Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.'
             )}
           </div>
         )

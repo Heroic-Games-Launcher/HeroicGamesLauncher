@@ -154,7 +154,7 @@ async function getAvailableVersions({
       case Repositorys.PROTONCACHYOS: {
         await fetchReleases({
           url: PROTON_CACHYOS_URL,
-          type: 'Proton-Cachyos',
+          type: 'Proton-CachyOS',
           count: count
         })
           .then((fetchedReleases: VersionInfo[]) => {

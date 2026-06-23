@@ -26,6 +26,6 @@ export const WINESTAGINGMACOS_URL =
 export const GPTK_URL =
   'https://api.github.com/repos/Gcenx/game-porting-toolkit/releases'
 
-/// Url to proton-cachyos from the CachyOS team github release page
+/// Url to Proton-CachyOS from the CachyOS team github release page
 export const PROTON_CACHYOS_URL =
   'https://api.github.com/repos/CachyOS/proton-cachyos/releases'

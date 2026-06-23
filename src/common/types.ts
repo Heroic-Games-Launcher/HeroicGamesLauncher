@@ -759,7 +759,7 @@ export type Type =
   | 'Wine-Crossover'
   | 'Wine-Staging-macOS'
   | 'Game-Porting-Toolkit'
-  | 'Proton-Cachyos'
+  | 'Proton-CachyOS'
 
 /**
  * Interface contains information about a version

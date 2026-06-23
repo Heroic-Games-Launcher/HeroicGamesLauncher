@@ -44,7 +44,7 @@ function getLatestLocalVersions(): Record<string, string | undefined> {
         (wine) => wine.version === 'GE-Proton-latest'
       )?.date,
       latestProtonCachyos: localWines.find(
-        (wine) => wine.version === 'Proton-Cachyos-latest'
+        (wine) => wine.version === 'Proton-CachyOS-latest'
       )?.date
     }
   }
