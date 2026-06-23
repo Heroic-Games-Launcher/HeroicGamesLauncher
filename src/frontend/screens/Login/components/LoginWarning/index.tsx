@@ -14,7 +14,7 @@ import {
 import { NavLink } from 'react-router-dom'
 
 interface LoginWarningProps {
-  warnLoginForStore: null | 'epic' | 'gog' | 'amazon' | 'zoom'
+  warnLoginForStore: null | 'epic' | 'gog' | 'amazon' | 'zoom' | 'itchio'
   onClose: () => void
 }
 
@@ -54,6 +54,12 @@ const LoginWarning = function ({
       "You are not logged in with a Zoom account in Heroic. Don't use the store page to login, click the following button instead:"
     )
     loginPath = zoomLoginPath
+  } else if (warnLoginForStore === 'itchio') {
+    textContent = t(
+      'not_logged_in.itchio',
+      "itch.io's login and registration pages are protected by Cloudflare and may fail to load in the embedded browser. To connect your itch.io account to Heroic, use the API key login on the Login page instead:"
+    )
+    loginPath = '/login'
   }
 
   return (

@@ -48,6 +48,7 @@ export default function WebView() {
   )
   const navigate = useNavigate()
   const webviewRef = useRef<Electron.WebviewTag>(null)
+  const [showItchioLoginWarning, setShowItchioLoginWarning] = useState(false)
 
   // `store` is set to epic/gog/amazon depending on which storefront we're
   // supposed to show, `runner` is set to a runner if we're supposed to show its
@@ -290,16 +291,37 @@ export default function WebView() {
         }
       }
 
+      // itch.io's /login and /register pages are behind a Cloudflare challenge
+      // that blocks the embedded browser (endless reloads /
+      // ERR_HTTP2_PROTOCOL_ERROR). Catch the navigation, stop the doomed load,
+      // and surface the API-key login instead.
+      const blockItchioLogin = (targetUrl: string) => {
+        if (
+          targetUrl.startsWith('https://itch.io/login') ||
+          targetUrl.startsWith('https://itch.io/register')
+        ) {
+          webview.stop()
+          setShowItchioLoginWarning(true)
+        }
+      }
+      const onWillNavigate = (e: Electron.WillNavigateEvent) =>
+        blockItchioLogin(e.url)
+      const onDidNavigateItchio = () => blockItchioLogin(webview.getURL())
+
       // this one is needed for gog/amazon
       webview.addEventListener('did-navigate', onNavigate)
       // this one is needed for epic
       webview.addEventListener('did-navigate-in-page', onNavigate)
       webview.addEventListener('did-navigate', onLoginNavigate)
+      webview.addEventListener('will-navigate', onWillNavigate)
+      webview.addEventListener('did-navigate', onDidNavigateItchio)
 
       return () => {
         webview.removeEventListener('did-navigate', onNavigate)
         webview.removeEventListener('did-navigate-in-page', onNavigate)
         webview.removeEventListener('did-navigate', onLoginNavigate)
+        webview.removeEventListener('will-navigate', onWillNavigate)
+        webview.removeEventListener('did-navigate', onDidNavigateItchio)
       }
     }
 
@@ -401,6 +423,12 @@ export default function WebView() {
         <LoginWarning
           warnLoginForStore={showLoginWarningFor}
           onClose={onLoginWarningClosed}
+        />
+      )}
+      {showItchioLoginWarning && (
+        <LoginWarning
+          warnLoginForStore="itchio"
+          onClose={() => setShowItchioLoginWarning(false)}
         />
       )}
       {showAdtractionWarning && (
