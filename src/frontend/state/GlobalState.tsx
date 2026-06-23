@@ -793,11 +793,11 @@ class GlobalState extends PureComponent<Props> {
       amazonLibrary = this.loadAmazonLibrary(overrides)
     }
 
-    let itchioLibrary = this.loadItchioLibrary()
+    let itchioLibrary = this.loadItchioLibrary(overrides)
     if (itchio.username && (!itchioLibrary.length || !itchio.library.length)) {
       window.api.logInfo('No cache found, getting data from itch.io...')
       await window.api.refreshLibrary('itchio')
-      itchioLibrary = this.loadItchioLibrary()
+      itchioLibrary = this.loadItchioLibrary(overrides)
     }
 
     const updatedSideload = sideloadLibrary.get('games', [])

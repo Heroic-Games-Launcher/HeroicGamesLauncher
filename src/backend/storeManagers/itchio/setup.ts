@@ -9,10 +9,10 @@ import { itchioConfigPath } from './constants'
  * SQLite db under `itchioConfigPath`; without the directory, the very first
  * `Profile.LoginWithAPIKey` call fails with an obscure sqlite-open error.
  *
- * The butler binary itself is resolved via `getButlerBin()` — Heroic ships
- * one in `tools/butler/<arch>/butler` and falls back to a user-configured
- * `altButlerBin`. Auto-downloading butler from broth.itch.zone is out of
- * scope for this MVP.
+ * The butler binary itself is resolved via `getButlerBin()`, which looks it
+ * up under `public/bin/<arch>/<platform>/` (downloaded at build time from
+ * broth.itch.zone — see `meta/downloadHelperBinaries.ts`) and falls back to a
+ * user-configured `altButlerBin`.
  */
 export default function setupItchio(): Promise<void> {
   if (!existsSync(itchioConfigPath)) {

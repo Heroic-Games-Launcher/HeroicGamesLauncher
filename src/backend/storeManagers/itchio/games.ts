@@ -28,7 +28,6 @@ import {
   logInfo,
   logWarning
 } from 'backend/logger'
-import { GameConfig } from 'backend/game_config'
 import {
   killPattern,
   removeSpecialcharacters,
@@ -36,7 +35,10 @@ import {
   shutdownWine
 } from 'backend/utils'
 import { sendFrontendMessage } from '../../ipc'
-import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
+import {
+  getAppSettings,
+  launchGame
+} from 'backend/storeManagers/storeManagerCommon/games'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { getMainWindow } from 'backend/main_window'
 
@@ -261,23 +263,23 @@ function scanForExecutable(
   return hits[0].path
 }
 
-// Lowercase, GOG-style: matches what `handleRunnersPlatforms` in
-// `frontend/helpers/index.ts` produces, so install.platform round-trips
-// cleanly through the frontend on later page opens.
-const PLATFORM_BY_KEY: Record<'osx' | 'linux' | 'windows', InstallPlatform> = {
-  osx: 'osx',
-  linux: 'linux',
-  windows: 'windows'
-}
-
+// Record the platform the user actually requested whenever the upload
+// supports it, only falling back to the upload's advertised platforms (or
+// 'windows') otherwise. Returning a different platform than requested would
+// make pickLaunchCandidate/isNative resolve the wrong executable flavor for
+// multi-platform uploads. The lowercase keys ('osx'/'linux'/'windows') match
+// what `handleRunnersPlatforms` in `frontend/helpers/index.ts` produces, so
+// install.platform round-trips cleanly through the frontend.
 function uploadInstalledPlatform(
   upload: ItchioUpload | undefined,
   requested: InstallPlatform
 ): InstallPlatform {
-  if (upload?.platforms?.osx) return PLATFORM_BY_KEY.osx
-  if (upload?.platforms?.linux) return PLATFORM_BY_KEY.linux
-  if (upload?.platforms?.windows) return PLATFORM_BY_KEY.windows
-  return PLATFORM_BY_KEY[butlerdPlatformKey(requested) ?? 'windows']
+  const key = butlerdPlatformKey(requested) ?? 'windows'
+  if (upload?.platforms?.[key]) return key
+  if (upload?.platforms?.osx) return 'osx'
+  if (upload?.platforms?.linux) return 'linux'
+  if (upload?.platforms?.windows) return 'windows'
+  return key
 }
 
 const FLAVOR_BY_KEY: Record<'osx' | 'linux' | 'windows', string> = {
@@ -342,13 +344,6 @@ async function ensureInstallLocationId(path: string): Promise<string> {
     { path }
   )
   return added.installLocation.id
-}
-
-async function getSettings(appName: string): Promise<GameSettings> {
-  return (
-    GameConfig.get(appName).config ||
-    (await GameConfig.get(appName).getSettings())
-  )
 }
 
 function getGameInfo(appName: string): GameInfo {
@@ -465,6 +460,94 @@ async function closeWriter(writer: LogWriter): Promise<void> {
   }
 }
 
+// After butlerd finishes an install/update, resolve the real install folder
+// and executable from the cave, then persist them to BOTH the in-memory
+// library and the on-disk cache. The persist (setLibraryInstallState) must
+// run AFTER the install fields are set — otherwise the cache is left with
+// `is_installed: true` but empty install info / no caveId, which breaks
+// launch and uninstall after a restart.
+async function persistInstalledCave(
+  appName: string,
+  client: Awaited<ReturnType<typeof getClient>>,
+  caveId: string,
+  fallbackInstallFolder: string,
+  installInfo: ItchioInstallInfo,
+  requestedPlatform: InstallPlatform
+): Promise<void> {
+  installStore.set(appName, installInfo)
+
+  // Re-fetch the cave: butlerd may resolve to a different upload, and
+  // the verdict/installFolder live there.
+  const caveResult = await client
+    .call<FetchCaveResult>('Fetch.Cave', { caveId })
+    .catch((err: Error) => {
+      logWarning(
+        [
+          'itch.io: Fetch.Cave after install failed (using queued values):',
+          err.message
+        ],
+        LogPrefix.Itchio
+      )
+      return { cave: undefined } as FetchCaveResult
+    })
+  const cave = caveResult.cave
+  const installFolder = cave?.installInfo?.installFolder ?? fallbackInstallFolder
+  const installedUpload = cave?.upload ?? installInfo.upload
+  const installedPlatform = uploadInstalledPlatform(
+    installedUpload,
+    requestedPlatform
+  )
+  const candidate = pickLaunchCandidate(
+    cave?.installInfo?.verdict,
+    installedPlatform
+  )
+  let executable = candidate ? join(installFolder, candidate.path) : ''
+  if (
+    executable &&
+    butlerdPlatformKey(installedPlatform) === 'osx' &&
+    executable.endsWith('.app')
+  ) {
+    executable = resolveAppBundleExecutable(executable)?.path ?? executable
+  }
+  if (!executable) {
+    const scanned = scanForExecutable(installFolder, installedPlatform)
+    if (scanned) {
+      executable = scanned
+      logInfo(
+        `itch.io install ${appName}: executable picked by folder scan: ${scanned}`,
+        LogPrefix.Itchio
+      )
+    } else {
+      logWarning(
+        `itch.io install ${appName}: butlerd verdict and folder scan ` +
+          'both came up empty; set Target Executable in game settings.',
+        LogPrefix.Itchio
+      )
+    }
+  }
+
+  const cachedInfo = getItchioLibraryGameInfo(appName)
+  if (cachedInfo) {
+    cachedInfo.install = {
+      install_path: installFolder,
+      install_size: String(installInfo.install_size),
+      is_dlc: false,
+      version: installedUpload?.channelName ?? '0',
+      platform: installedPlatform,
+      executable,
+      appName
+    }
+    cachedInfo.is_installed = true
+    cachedInfo.folder_name = installFolder
+    cachedInfo.caveId = caveId
+  }
+
+  setLibraryInstallState(appName, true)
+
+  const updated = getItchioLibraryGameInfo(appName)
+  if (updated) sendFrontendMessage('pushGameToLibrary', updated)
+}
+
 async function install(
   appName: string,
   { path, platformToInstall }: InstallArgs
@@ -529,79 +612,14 @@ async function install(
       unsub()
     }
 
-    installStore.set(appName, installInfo)
-
-    // Re-fetch the cave: butlerd may resolve to a different upload, and
-    // the verdict/installFolder live there.
-    const caveResult = await client
-      .call<FetchCaveResult>('Fetch.Cave', { caveId: queued.caveId })
-      .catch((err: Error) => {
-        logWarning(
-          [
-            'itch.io: Fetch.Cave after install failed (using queued values):',
-            err.message
-          ],
-          LogPrefix.Itchio
-        )
-        return { cave: undefined } as FetchCaveResult
-      })
-    const cave = caveResult.cave
-    const installFolder =
-      cave?.installInfo?.installFolder ?? queued.installFolder
-    const installedUpload = cave?.upload ?? installInfo.upload
-    const installedPlatform = uploadInstalledPlatform(
-      installedUpload,
+    await persistInstalledCave(
+      appName,
+      client,
+      queued.caveId,
+      queued.installFolder,
+      installInfo,
       platformToInstall
     )
-    const candidate = pickLaunchCandidate(
-      cave?.installInfo?.verdict,
-      installedPlatform
-    )
-    let executable = candidate ? join(installFolder, candidate.path) : ''
-    if (
-      executable &&
-      butlerdPlatformKey(installedPlatform) === 'osx' &&
-      executable.endsWith('.app')
-    ) {
-      executable = resolveAppBundleExecutable(executable)?.path ?? executable
-    }
-    if (!executable) {
-      const scanned = scanForExecutable(installFolder, installedPlatform)
-      if (scanned) {
-        executable = scanned
-        logInfo(
-          `itch.io install ${appName}: executable picked by folder scan: ${scanned}`,
-          LogPrefix.Itchio
-        )
-      } else {
-        logWarning(
-          `itch.io install ${appName}: butlerd verdict and folder scan ` +
-            'both came up empty; set Target Executable in game settings.',
-          LogPrefix.Itchio
-        )
-      }
-    }
-
-    setLibraryInstallState(appName, true)
-
-    const cachedInfo = getItchioLibraryGameInfo(appName)
-    if (cachedInfo) {
-      cachedInfo.install = {
-        install_path: installFolder,
-        install_size: String(installInfo.install_size),
-        is_dlc: false,
-        version: installedUpload?.channelName ?? '0',
-        platform: installedPlatform,
-        executable,
-        appName
-      }
-      cachedInfo.is_installed = true
-      cachedInfo.folder_name = installFolder
-      cachedInfo.caveId = queued.caveId
-    }
-
-    const updated = getItchioLibraryGameInfo(appName)
-    if (updated) sendFrontendMessage('pushGameToLibrary', updated)
     return { status: 'done' }
   } catch (err) {
     logError(
@@ -673,7 +691,7 @@ async function maybePrepareInstallerLaunch(
   cached: GameInfo,
   args: string[]
 ): Promise<string[] | null> {
-  const settings = await getSettings(cached.app_name)
+  const settings = await getAppSettings(cached.app_name)
   // User-overridden target wins — don't second-guess it.
   if (settings.targetExe) return args
 
@@ -797,7 +815,15 @@ async function uninstall(
     await client.call('Uninstall.Perform', { caveId, hard: shouldDeleteFiles })
     if (shouldDeleteFiles && wrapperFolder && existsSync(wrapperFolder)) {
       try {
-        rmSync(wrapperFolder, { recursive: true, force: true })
+        // butlerd removes its own `game-<id>` folder; we only clean up the
+        // wrapper we created, and only when it's now empty. Never recursively
+        // delete a non-empty directory here: if butlerd installed without
+        // nesting (or the install was moved via changeGameInstallPath), `..`
+        // can resolve to the user's install root, and a recursive force
+        // delete would wipe every other game in it.
+        if (readdirSync(wrapperFolder).length === 0) {
+          rmSync(wrapperFolder, { recursive: false, force: true })
+        }
       } catch (err) {
         logWarning(
           [
@@ -856,8 +882,9 @@ async function update(appName: string): Promise<InstallResult> {
       onProgress(params as ButlerdProgress)
     )
 
+    let queued: InstallQueueResult
     try {
-      const queued = await client.call<InstallQueueResult>('Install.Queue', {
+      queued = await client.call<InstallQueueResult>('Install.Queue', {
         caveId,
         game: installInfo.game,
         upload: installInfo.upload,
@@ -871,9 +898,17 @@ async function update(appName: string): Promise<InstallResult> {
       unsub()
     }
 
-    installStore.set(appName, installInfo)
-    const updated = getItchioLibraryGameInfo(appName)
-    if (updated) sendFrontendMessage('pushGameToLibrary', updated)
+    // Re-resolve the executable/version from the cave after updating: an
+    // update can change the upload's executable name or path, and without
+    // this the cached install info would point at a stale/missing binary.
+    await persistInstalledCave(
+      appName,
+      client,
+      queued.caveId,
+      queued.installFolder,
+      installInfo,
+      platform
+    )
     return { status: 'done' }
   } catch (err) {
     logError(
@@ -903,10 +938,10 @@ async function stop(appName: string): Promise<void> {
     )
     return
   }
-  const exeName = executable.split('/').pop() ?? executable
+  const exeName = basename(executable)
   killPattern(exeName)
   if (!isNative(appName)) {
-    const settings = await getSettings(appName)
+    const settings = await getAppSettings(appName)
     shutdownWine(settings)
   }
 }
@@ -942,7 +977,7 @@ export default class ItchioGame implements Game {
   constructor(public appName: string) {}
 
   getSettings(): Promise<GameSettings> {
-    return getSettings(this.appName)
+    return getAppSettings(this.appName)
   }
 
   getGameInfo(): GameInfo {

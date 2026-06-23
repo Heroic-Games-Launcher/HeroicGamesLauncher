@@ -77,6 +77,19 @@ export class ButlerdClient {
 
   private spawnAndConnect(): Promise<void> {
     return new Promise((resolve, reject) => {
+      // Guard so the daemon's 'exit' event can reject a still-pending start
+      // without double-settling once the handshake has completed.
+      let settled = false
+      const settle = <T>(fn: (arg: T) => void) => {
+        return (arg: T) => {
+          if (settled) return
+          settled = true
+          fn(arg)
+        }
+      }
+      resolve = settle(resolve)
+      reject = settle(reject)
+
       const runnerLog = getRunnerLogWriter('itchio')
       logInfo(['Spawning butlerd:', this.butlerBin], LogPrefix.Itchio)
       runnerLog.logInfo(`Spawning butlerd: ${this.butlerBin}`)
@@ -157,7 +170,12 @@ export class ButlerdClient {
         const msg = `butlerd exited (code=${code}, signal=${signal})`
         logWarning(msg, LogPrefix.Itchio)
         runnerLog.logWarning(msg)
-        this.teardown(new Error(`butlerd exited (code=${code})`))
+        const err = new Error(`butlerd exited (code=${code})`)
+        this.teardown(err)
+        // If the daemon dies before completing the handshake (e.g. bad
+        // --dbpath, missing sibling libs), 'error' never fires, so reject
+        // here to avoid leaving start() pending forever.
+        reject(err)
       })
 
       daemon.on('error', (err) => {
