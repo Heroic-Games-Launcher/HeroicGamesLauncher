@@ -49,8 +49,8 @@ export default function WineManager(): JSX.Element | null {
   const repositories: WineManagerUISettings[] = useMemo(() => {
     if (isLinux) {
       return [
-        { type: 'GE-Proton', value: 'protonge' },
         { type: 'Proton-CachyOS', value: 'proton-cachyos' },
+        { type: 'GE-Proton', value: 'protonge' },
         { type: 'Wine-GE', value: 'winege' }
       ]
     }
