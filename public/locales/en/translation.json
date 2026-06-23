@@ -1174,6 +1174,7 @@
         "controls": {
             "back": "Go back",
             "forward": "Go forward",
+            "home": "Go to store home",
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
