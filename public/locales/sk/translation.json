@@ -372,7 +372,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -926,7 +929,8 @@
         "installing": "Inštaluje sa",
         "logging": "Logging In...",
         "processing": "Prebieha spracovanie súborov, čakajte",
-        "preparing_login": "Pripravuje sa prihlásenie... "
+        "preparing_login": "Pripravuje sa prihlásenie... ",
+        "installed": "Nainštalované"
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -1248,7 +1252,12 @@
         "empty": "",
         "games": "Nainštalované hry",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Načítavam…"
+        }
     },
     "next": ""
 }

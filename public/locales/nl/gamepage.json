@@ -22,7 +22,7 @@
         },
         "select": {
             "button": "Selecteer",
-            "image": ""
+            "image": "Selecteer prent"
         },
         "sideload": {
             "exe": "Selecteer uitvoerbaar bestand"
@@ -48,15 +48,15 @@
         },
         "wineprefix": "Selecteer WinePrefix Map",
         "yes": "JA",
-        "close": "sluit",
+        "close": "Sluit",
         "warning": {
             "title": "Warning"
         },
         "ok": "OK",
         "offline_warning": {
-            "message": "",
-            "playAnyway": "",
-            "title": ""
+            "message": "Dit spel zal waarschijnlijk niet werken zonder internetverbinding. Wil je toch proberen te spelen ?",
+            "playAnyway": "Toch Spelen ?",
+            "title": "Geen Internetverbinding"
         },
         "selectLaunchOption": {
             "title": "",
@@ -335,5 +335,8 @@
         }
     },
     "wikiLink": "Belangrijke informatie over dit spel, lees dit:&nbsp;<1>Open pagina</1>",
-    "open-saves-folder": ""
+    "open-saves-folder": "",
+    "edit-game": {
+        "advanced": "Advanced"
+    }
 }

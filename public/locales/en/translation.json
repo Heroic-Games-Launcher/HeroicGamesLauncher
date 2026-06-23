@@ -231,6 +231,14 @@
             "hintPrefix": "Hold",
             "hintSuffix": "for 3s to cancel"
         },
+        "cancelInstall": {
+            "message": "This game is currently installing. Cancel the installation?",
+            "title": "Cancel installation?"
+        },
+        "cancelUpdate": {
+            "message": "This game is currently downloading. Cancel the ongoing update?",
+            "title": "Cancel update?"
+        },
         "card": {
             "needsUpdate": "Needs update"
         },
@@ -247,17 +255,22 @@
             "quit": "Quit",
             "sort": "Sort"
         },
+        "install": {
+            "path": "Install to",
+            "platform": "Platform",
+            "title": "Install game",
+            "wine": "Wine",
+            "wineLoading": "Loading…",
+            "wineMissing": "Not selected"
+        },
         "launching": "Launching",
         "loading": "Loading your library…",
         "quit": "Quit Console",
         "quitApp": "Quit App",
-        "sort": "Sort",
-        "update": {
-            "body": "This game has an update available. Please leave Console Mode and update the game before launching.",
-            "hintPrefix": "Press",
-            "hintSuffix": "to go back",
-            "title": "Update required"
-        }
+        "removeFromQueue": {
+            "message": "This game is queued for download. Remove it from the queue?"
+        },
+        "sort": "Sort"
     },
     "controller": {
         "hints": {
@@ -486,6 +499,7 @@
             "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
+        "hide-window-on-protocol-launch": "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'Add to Steam' feature.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "nvidiaprime": {
@@ -829,6 +843,7 @@
             "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
+        "hide-window-on-protocol-launch": "Hide Heroic window when launching games from heroic:// links",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",
@@ -1028,7 +1043,7 @@
                 "title": "SteamGridDB API Key"
             },
             "help": {
-                "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at www.steamgriddb.com/profile/preferences/api"
+                "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}"
             }
         },
         "systemInformation": {
@@ -1193,6 +1208,7 @@
     },
     "wineExplanation": {
         "gpt": "Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.",
+        "proton-cachyos": "Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.",
         "proton-ge": "GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).",
         "wine-crossover": "Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.",
         "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.",

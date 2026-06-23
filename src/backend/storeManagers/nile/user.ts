@@ -4,7 +4,7 @@ import {
   NileRegisterData,
   NileUserData
 } from 'common/types/nile'
-import { runRunnerCommand } from './library'
+import { libraryManagerMap } from '..'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
@@ -26,7 +26,7 @@ function authLogSanitizer(line: string) {
 export class NileUser {
   static async getLoginData(): Promise<NileLoginData> {
     logDebug('Getting login data from Nile', LogPrefix.Nile)
-    const { stdout } = await runRunnerCommand(
+    const { stdout } = await libraryManagerMap['nile'].runRunnerCommand(
       ['auth', '--login', '--non-interactive'],
       {
         abortId: 'nile-auth',
@@ -45,7 +45,7 @@ export class NileUser {
     logDebug(['Got register data:', data], LogPrefix.Nile)
     const { code, code_verifier, serial, client_id } = data
     // Nile prints output to stderr
-    const { stderr: output } = await runRunnerCommand(
+    const { stderr: output } = await libraryManagerMap['nile'].runRunnerCommand(
       [
         'register',
         '--code',
@@ -88,7 +88,9 @@ export class NileUser {
   static async logout() {
     const commandParts = ['auth', '--logout']
 
-    const res = await runRunnerCommand(commandParts, { abortId: 'nile-logout' })
+    const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
+      abortId: 'nile-logout'
+    })
 
     if (res.abort) {
       logError('Failed to logout: abort by user', LogPrefix.Nile)

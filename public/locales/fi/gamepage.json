@@ -131,7 +131,7 @@
         "changelogFor": "{{gameTitle}} muutosloki",
         "extra_info": "Lisätiedot",
         "install_info": "Asennustiedot",
-        "achievements": ""
+        "achievements": "Saavutukset"
     },
     "gamecard": {
         "moving": "Siirretään",
@@ -179,7 +179,7 @@
             "ok": "Ok",
             "install_anyway": "Kyllä (ymmärrän että moninpeliominaisuudet eivät tule toimimaan)",
             "multiplayer_message": "Huijaukseneston tuki on rikki tai evätty. Peli voi käynnistyä mutta moninpeliominaisuudet eivät tule toimimaan. Haluatko asentaa pelin tästä huolimatta?",
-            "disabled_installation": "Huijaukseneston tuki on rikki tai evätty, eivätkä moninpeliominaisuudet toimi. Peliä ei voi asentaa. Jos haluat asentaa tämän pelin kaikesta huolimatta, poista tämä tarkistus käytöstä lisäasetuksissa."
+            "disabled_installation": "Tämä peli käyttää huijauksenestojärjestelmää joka ei ole yhteensopiva käyttöjärjestelmäsi kanssa, tai pelinkehittäjät eivät ole aktivoineet sitä. Tämä tarkoittaa, että moninpeliominaisuudet eivät toimi, etkä sinä (tai Heroic-tiimi) voi asialle mitään.<br /><br />Asentaaksesi tämän pelin jokatapauksessa, mene asetuksiin, sieltä lisäasetuksiin ja salli niiden pelien asennus joissa huijauksenesto on rikki tai muutoin estetty.<br /><br />Huomaa, että tähän ei ole ratkaisua ja saatat saada peliin pelikiellon."
         },
         "flatpak-path-not-writtable": "Virhe: pääsy tähän polkuun on hiekkalaatikoinnin ulkopuolella ja evätty, tiedonmenetystä tulee tapahtumaan."
     },
@@ -241,7 +241,7 @@
             "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)"
         },
         "placeholder": {
-            "image": "Liitä kuvan URL tähän",
+            "image": "Liitä kuvan URL tähän, tai valitse kuva laitteeltasi",
             "title": "Lisää otsikko peliisi/sovellukseesi",
             "url": "Liitä pelin URL-osoite tähän",
             "useragent": "Tähän laitetaan vaihtoehtoinen selaimen tunnistetieto tälle sovellukselle/pelille"
@@ -303,7 +303,7 @@
         "categories": "Kategoriat"
     },
     "help": {
-        "cloud_save_unsupported": "Tämä peli ei tue pilvitallennusta. Nämä tiedot ovat pelin kehittäjien toimittamia. Jotkut pelit toteuttavat oman pilvitallennusjärjestelmän",
+        "cloud_save_unsupported": "Tämä peli ei tue pilvitallennusta. Nämä tiedot ovat pelin kehittäjien toimittamia. Jotkin pelit toteuttavat oman pilvitallennusjärjestelmänsä.",
         "title": {
             "gamePage": "Pelisivu"
         },
@@ -335,5 +335,8 @@
         }
     },
     "open-saves-folder": "Avaa pelitallennuskansio",
-    "wikiLink": "Tärkeää tietoa tästä pelistä, lue tämä:&nbsp;<1>Avaa sivu</1>"
+    "wikiLink": "Tärkeää tietoa tästä pelistä, lue tämä:&nbsp;<1>Avaa sivu</1>",
+    "edit-game": {
+        "advanced": "Edistyneet"
+    }
 }

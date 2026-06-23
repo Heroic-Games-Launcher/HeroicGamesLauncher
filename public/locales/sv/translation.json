@@ -373,7 +373,10 @@
         "download_proton_steam": "När det är aktiverat kommer GE-Proton att laddas ner direkt till Steams kompatibilitetsverktygskatalog istället för standardsökvägen för Heroic. Det kommer att använda Steam-sökvägen som angetts i inställningen \"Standardsökväg för Steam\" ovan.",
         "wine-hdr": "HDR förstärker färgerna genom att ge ljusare höjdpunkter och djupare kontraster. För att HDR ska fungera måste både skärmen och spelet stödja det.",
         "wine-wayland": "Den experimentella drivrutinen Wine-Wayland tillåter spel att köras direkt under Wayland visningsprotokoll. Aktivering kan orsaka problem i vissa spel.",
-        "WoW64": "Wine WoW64-läget gör att 32-bitars Windows-spel kan köras på 64-bitars Wine. Aktivering kan förbättra prestandan, men kan också förstöra äldre 32-bitars spel."
+        "WoW64": "Wine WoW64-läget gör att 32-bitars Windows-spel kan köras på 64-bitars Wine. Aktivering kan förbättra prestandan, men kan också förstöra äldre 32-bitars spel.",
+        "nvidiaprime": {
+            "details": "Använd dedikerat grafikkort för att rendera spel på multi-GPU system. Behövs endast på laptop eller stationära datorer som använder en headless GPU för rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -927,7 +930,8 @@
         "installing": "Installerar",
         "logging": "Loggar in...",
         "processing": "Hanterar filer, vänligen vänta",
-        "preparing_login": "Förbereder inloggning... "
+        "preparing_login": "Förbereder inloggning... ",
+        "installed": "Installerad"
     },
     "store": "Epic Butik",
     "stores": "Butiker",
@@ -1249,7 +1253,15 @@
         "empty": "",
         "games": "Installerade spel",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "Avbryt uppdatering"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Installera spel",
+            "wineLoading": "Laddar…"
+        }
     },
     "next": "Nästa"
 }

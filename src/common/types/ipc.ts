@@ -129,6 +129,12 @@ interface SyncIPCFunctions {
     status: boolean
   ) => void
   logoutZoom: () => void
+  setGameMetadataOverride: (args: {
+    appName: string
+    title?: string
+    art_cover?: string
+    art_square?: string
+  }) => void
 }
 
 /*
@@ -262,6 +268,21 @@ interface AsyncIPCFunctions {
   isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
   getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
   getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
+  getGameMetadataOverride: (appName: string) => Promise<{
+    title?: string
+    art_cover?: string
+    art_square?: string
+  } | null>
+  getAllGameOverrides: () => Promise<
+    Record<
+      string,
+      {
+        title?: string
+        art_cover?: string
+        art_square?: string
+      }
+    >
+  >
   getEosOverlayStatus: () => {
     isInstalled: boolean
     version?: string
@@ -350,6 +371,11 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  'steamgriddb.getHeroes': (args: {
+    gameId: number
+    styles?: string[]
+    dimensions?: string[]
+  }) => Promise<Array<{ id: number; url: string; thumb: string }>>
 }
 
 interface FrontendMessages {
@@ -387,6 +413,12 @@ interface FrontendMessages {
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void
   progressUpdate: (progress: GameStatus) => void
+  metadataChanged: (
+    overrides: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    >
+  ) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

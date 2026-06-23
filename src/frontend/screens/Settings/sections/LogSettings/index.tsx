@@ -174,7 +174,7 @@ export default function LogSettings() {
       baseFiles.push({ title: 'itch.io', args: { runner: 'itchio' } })
     }
     const logsForInstalledGames = installedGames.map((game) => ({
-      title: game.title,
+      title: game.overrides?.title || game.title,
       args: {
         appName: game.app_name,
         runner: game.runner

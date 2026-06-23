@@ -372,7 +372,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "استفاده از کارت گرافیک اختصاصی برای رندر بازی در سیستم های حاوی چندین کارت گرافیک. فقط برای سیستم ها و لب تاپ هایی که از headless GPU برای رندر کردن استفاده می کنند (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -919,7 +922,8 @@
         "installing": "در حال نصب",
         "logging": "در حال وارد شدن...",
         "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
-        "preparing_login": "در حال آماده سازی ورود... "
+        "preparing_login": "در حال آماده سازی ورود... ",
+        "installed": "نصب شده"
     },
     "store": "فروشگاه اپیک",
     "stores": "فروشگاهها",
@@ -1241,7 +1245,12 @@
         "empty": "",
         "games": "بازی‌های نصب شده",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "نصب بازی",
+            "wineLoading": "درحال بارگذاری"
+        }
     },
     "next": ""
 }

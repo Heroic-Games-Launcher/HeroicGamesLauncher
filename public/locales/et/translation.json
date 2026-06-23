@@ -380,7 +380,11 @@
         "wine-hdr": "HDR täiustab värve võimendades eredaid kohti ja pakkudes sügavamat kontrasti. HDR-i toimimiseks peavad nii ekraan kui ka mäng seda toetama.",
         "wine-wayland": "Wine-Waylandi eksperimentaalne draiver lubab mängudel otse käivituda läbi Waylandi kuvaprotokolli. Selle lubamine võib mõned mängud katki teha.",
         "analytics": "Lubab Heroicul koguda 100% anonüümseid kasutusandmeid, et rakendust paremaks teha. Nõuab restarti.",
-        "WoW64": "Wine'i WoW64 režiim lubab 32-bitistel Windowsi mängudel toimida 64-bitisel Wine'il. Selle lubamine võib muuta kogemuse sujuvamaks, aga võib ka vanemaid 32-bitiseid mänge katki teha."
+        "WoW64": "Wine'i WoW64 režiim lubab 32-bitistel Windowsi mängudel toimida 64-bitisel Wine'il. Selle lubamine võib muuta kogemuse sujuvamaks, aga võib ka vanemaid 32-bitiseid mänge katki teha.",
+        "nvidiaprime": {
+            "details": "Mitme GPU-süsteemides mängu renderdamiseks kasutage spetsiaalset graafikakaarti. Vajalik ainult mängusülearvutites või lauaarvutites, mis kasutavad renderdamiseks peata GPU-d (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Vaata rohkem üksikasju meie vikis"
+        }
     },
     "info": {
         "heroic": {
@@ -813,7 +817,10 @@
         "scripts": "Skriptid:",
         "enable-quick-sync-menu": "Luba kiire salvestuste sünkroonimine mängu lehel",
         "disable_gog_presence": "Keela GOG Presence'i uuendused",
-        "start-in-console-mode": "Alusta Konsoolirežiimis"
+        "start-in-console-mode": "Alusta Konsoolirežiimis",
+        "nvidiaprime": {
+            "description": "Sunni NVIDIA Optimuse või AMD Dynamic Switchable Graphics dGPU kasutamist. Kasutage seda AINULT OpenGL-i ja Vulkani mängude puhul."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -927,7 +934,7 @@
                 "placeholder_saved": "Võti salvestatud — kirjutage siia, et asendada; tühjendage, et eemaldada"
             },
             "help": {
-                "description": "Varustage oma SteamGridDB API võti, et lubada mängude kaanepiltide otsing. Võti talletatakse krüpteeritult, kui teie süsteem seda toetab. Võite leida võtme aadressil www.steamgriddb.com/profile/preferences/api"
+                "description": "Varustage oma SteamGridDB API võti, et lubada mängude kaanepiltide otsing. Võti talletatakse krüpteeritult, kui teie süsteem seda toetab. Võite leida võtme aadressil {{url}}"
             }
         }
     },
@@ -941,7 +948,8 @@
         "installing": "Paigaldamine",
         "logging": "Sisselogimine...",
         "processing": "Failide töötlemine, palun oodake",
-        "preparing_login": "Sisselogimise ettevalmistamine... "
+        "preparing_login": "Sisselogimise ettevalmistamine... ",
+        "installed": "Paigaldatud"
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -1272,7 +1280,15 @@
         "empty": "Pole ühtegi paigaldatud mängu näidata. Paigalda midagi.",
         "games": "Paigaldatud mängud",
         "quitApp": "Lahku äpist",
-        "loading": "Varamu laadimine…"
+        "loading": "Varamu laadimine…",
+        "cancelInstall": {
+            "title": "Tühista paigaldamine"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Paigalda mäng",
+            "wineLoading": "Laadimine"
+        }
     },
     "next": "Järgmine"
 }

@@ -93,6 +93,11 @@
     }
   }
 
+  &--heroes &__grid-item {
+    height: 100px;
+    aspect-ratio: 1600 / 650;
+  }
+
   &__no-results {
     text-align: center;
     padding: 1rem;

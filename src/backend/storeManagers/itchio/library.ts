@@ -11,6 +11,7 @@ import {
   ItchioUpload
 } from 'common/types/itchio'
 import { ItchioGameInfo } from './types'
+import { Game, LibraryManager } from 'common/types/game_manager'
 
 import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger'
 import { isLinux } from 'backend/constants/environment'
@@ -18,6 +19,7 @@ import { isLinux } from 'backend/constants/environment'
 import { getClient } from './butlerd'
 import { configStore, installStore, libraryStore } from './electronStores'
 import { ItchioUser } from './user'
+import ItchioGameManager from './games'
 
 interface DownloadKeyRecord {
   id: number
@@ -344,4 +346,59 @@ export function installState(appName: string, state: boolean): void {
 export function getLaunchOptions(appName: string): LaunchOption[] {
   const cached = installStore.get(appName)
   return cached?.launch_options ?? []
+}
+
+// Library-level manager. The functions above hold the implementation; this
+// class binds them to the class-based store-manager contract.
+export default class ItchioLibraryManager implements LibraryManager {
+  init(): Promise<void> {
+    return initItchioLibraryManager()
+  }
+
+  getGame(id: string): Game {
+    return new ItchioGameManager(id)
+  }
+
+  refresh(): Promise<ExecResult | null> {
+    return refresh()
+  }
+
+  getGameInfo(appName: string): GameInfo | undefined {
+    return getGameInfo(appName)
+  }
+
+  getInstallInfo(
+    appName: string,
+    installPlatform: InstallPlatform,
+    // itch.io install info needs no branch/build/lang options
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    options?: {
+      branch?: string
+      build?: string
+      lang?: string
+      retries?: number
+    }
+  ): Promise<InstallInfo | undefined> {
+    return getInstallInfo(appName, installPlatform)
+  }
+
+  listUpdateableGames(): Promise<string[]> {
+    return listUpdateableGames()
+  }
+
+  changeGameInstallPath(appName: string, newPath: string): Promise<void> {
+    return changeGameInstallPath(appName, newPath)
+  }
+
+  changeVersionPinnedStatus(appName: string, status: boolean): void {
+    changeVersionPinnedStatus(appName, status)
+  }
+
+  installState(appName: string, state: boolean): void {
+    installState(appName, state)
+  }
+
+  getLaunchOptions(appName: string): LaunchOption[] {
+    return getLaunchOptions(appName)
+  }
 }

@@ -372,7 +372,10 @@
         },
         "wine-hdr": "HDR tăng cường màu sắc bằng cách mang lại những highlight sáng hơn và độ tương phản sâu hơn. Để HDR hoạt động, cả màn hình và trò chơi đều phải hỗ trợ nó.",
         "wine-wayland": "Trình điều khiển thử nghiệm Wine-Wayland cho phép trò chơi chạy nguyên bản theo giao thức hiển thị Wayland. Việc kích hoạt có thể làm hỏng một số trò chơi.",
-        "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn."
+        "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -919,7 +922,8 @@
         "installing": "Đang Cài Đặt",
         "logging": "Đang Đăng Nhập...",
         "processing": "Đang xử lý tệp, vui lòng đợi",
-        "preparing_login": "Đang Chuẩn Bị Đăng Nhập... "
+        "preparing_login": "Đang Chuẩn Bị Đăng Nhập... ",
+        "installed": "Đã Cài Đặt"
     },
     "store": "Cửa hàng Epic",
     "stores": "Cửa Hàng",
@@ -1241,7 +1245,12 @@
         "empty": "",
         "games": "Game đã cài",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
+        }
     },
     "next": "Tiếp"
 }

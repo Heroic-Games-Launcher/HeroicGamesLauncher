@@ -372,7 +372,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Koristite namjensku grafičku karticu za renderiranje igre na multi-GPU sistemima. Potrebno samo na laptop računarima ili desktop računarima koji koriste GPU bez glave za renderovanje (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -919,7 +922,8 @@
         "installing": "Instalira se",
         "logging": "Prijavljivanje",
         "processing": "Obrada datoteka, pričekajte",
-        "preparing_login": "Priprema za prijavu... "
+        "preparing_login": "Priprema za prijavu... ",
+        "installed": "Instalirano"
     },
     "store": "Epic Store",
     "stores": "Trgovine",
@@ -1241,7 +1245,11 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Loading"
+        }
     },
     "next": ""
 }

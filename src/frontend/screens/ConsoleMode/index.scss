@@ -290,6 +290,47 @@
   pointer-events: none;
 }
 
+.consoleCardStatus {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px 12px;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, #000 90%, transparent) 30%,
+    transparent 100%
+  );
+  color: var(--text-title, #fff);
+  pointer-events: none;
+}
+
+.consoleCardStatusText {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.consoleCardProgress {
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
+  overflow: hidden;
+}
+
+.consoleCardProgressFill {
+  height: 100%;
+  background: var(--accent, #0080ff);
+  border-radius: inherit;
+  transition: width 220ms ease;
+}
+
 .consoleFooter {
   display: flex;
   justify-content: center;
@@ -400,6 +441,30 @@
   color: var(--text-secondary, #b1b1b1);
   line-height: 1.5;
   margin: 0;
+}
+
+.consoleUpdateNoticeButtons {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+
+  .consoleChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-size: 1rem;
+
+    kbd {
+      font-family: var(--primary-font-family);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+      background: color-mix(in srgb, currentColor 10%, transparent);
+    }
+  }
 }
 
 // App-level: when console mode is active, strip scrollbars and chrome

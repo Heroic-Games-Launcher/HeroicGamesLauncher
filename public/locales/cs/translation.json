@@ -381,7 +381,12 @@
         "wine-hdr": "HDR vylepšuje barvy tím, že poskytuje jasnější světla a hlubší kontrasty. Aby HDR fungovalo, musí jej podporovat jak displej, tak hra.",
         "wine-wayland": "Experimentální ovladač Wine-Wayland umožňuje spouštět hry nativně pod zobrazovacím protokolem Wayland. Jeho zapnutí může způsobit nefunkčnost některých her.",
         "analytics": "Umožňuje Heroic shromažďovat 100% anonymní údaje o používání, které poskytují pomoc při vylepšování aplikace. Aby se změna projevila, je nutné restartovat zařízení.",
-        "WoW64": "Režim Wine WoW64 umožňuje spouštět 32bitové hry pro Windows na 64bitovém Wine. Jeho zapnutí může zlepšit výkon, ale také může způsobit nefunkčnost starších 32bitových her."
+        "WoW64": "Režim Wine WoW64 umožňuje spouštět 32bitové hry pro Windows na 64bitovém Wine. Jeho zapnutí může zlepšit výkon, ale také může způsobit nefunkčnost starších 32bitových her.",
+        "nvidiaprime": {
+            "details": "K vykreslování hry na systémech s více grafickými procesory používejte dedikovanou grafickou kartu. Potřebné pouze u herních notebooků nebo stolních počítačů, které pro vykreslování používají headless GPU (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Další podrobnosti najdete na naší wiki"
+        },
+        "hide-window-on-protocol-launch": "Ponechává okno Heroicu schované když je hra spuštěna z externí zkratky, jako třeba přes \"Přidat na Steam\"."
     },
     "info": {
         "heroic": {
@@ -815,7 +820,11 @@
         "scripts": "Skripty:",
         "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry",
         "disable_gog_presence": "Zakázat aktualizace GOG Presence",
-        "start-in-console-mode": "Začít v konzolovém módu"
+        "start-in-console-mode": "Začít v konzolovém módu",
+        "nvidiaprime": {
+            "description": "Vynutit použití diskrétní grafické karty s technologií NVIDIA Optimus nebo AMD Dynamic Switchable Graphics. Tuto možnost používejte POUZE pro hry využívající OpenGL a Vulkan."
+        },
+        "hide-window-on-protocol-launch": "Schovat Heroic okno při spuštění hry z heroic:// odkaz"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -929,7 +938,7 @@
                 "placeholder_saved": "Klíč uložen — pište pro jeho změnu, vymažte pro odstranění"
             },
             "help": {
-                "description": "Poskytněte SteamGridDB API pro zapnutí vyhledávaní náhledu her. Tento klíč je šifrován při uložení když to podporuje systém. Můžete ho získat na www.steamgriddb.com/profile/preferences/api"
+                "description": "Poskytněte SteamGridDB API pro zapnutí vyhledávaní náhledu her. Tento klíč je šifrován při uložení když to podporuje systém. Můžete ho získat na {{url}}"
             }
         }
     },
@@ -943,7 +952,8 @@
         "installing": "Instaluji",
         "logging": "Přihlašování...",
         "processing": "Zpracovávám soubory, čekejte prosím",
-        "preparing_login": "Příprava přihlášení... "
+        "preparing_login": "Příprava přihlášení... ",
+        "installed": "Nainstalováno"
     },
     "store": "Epic Store",
     "stores": "Obchody",
@@ -1274,7 +1284,26 @@
         "empty": "Žádné stažené hry. Nejprve si nějaké stáhněte.",
         "games": "Instalované hry",
         "quitApp": "Zavřít Aplikaci",
-        "loading": "Načítám vaší knihovnu…"
+        "loading": "Načítám vaší knihovnu…",
+        "cancelInstall": {
+            "title": "Zrušit instalaci?",
+            "message": "Tato hra se instaluje. Zrušit instalaci?"
+        },
+        "cancelUpdate": {
+            "title": "Zrušit aktualizaci?",
+            "message": "Tato hra nyní něco stahuje. Zrušit tuto aktualizaci?"
+        },
+        "install": {
+            "platform": "Platforma",
+            "title": "Instalovat hru",
+            "wineLoading": "Načítání…",
+            "path": "Instalovat do",
+            "wine": "Wine",
+            "wineMissing": "Nevybráno"
+        },
+        "removeFromQueue": {
+            "message": "Tato hra je ve frontě na stažení. Odstranit z fronty?"
+        }
     },
     "next": "Další"
 }

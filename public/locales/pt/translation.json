@@ -1,7 +1,7 @@
 {
     "accessibility": {
         "actions_font_family_no_default": "Ações de familia fonte (Default):",
-        "all_tiles_in_color": "Mostrar todas as janelas dos jogos a cores",
+        "all_tiles_in_color": "Mostrar todas as mosaicos de jogos a cores",
         "content_font_family_no_default": "Família da Fonte Family (Default): ",
         "fonts": "Fontes",
         "title": "Acessibilidade",
@@ -60,7 +60,7 @@
                 "title": "Erro do DXVK/VKD3D"
             },
             "folder-not-found": {
-                "title": "A pasta do jogo parece ter sido removida, pretende remover o mesmo da sua lista de jogos instalados?"
+                "title": "Pasta do jogo parece ter sido eliminada , pretende eliminar o jogo da lista dos jogos instalados?"
             },
             "generic": {
                 "message": "mensagem de erro genérica",
@@ -69,11 +69,11 @@
             "launchAborted": "O arranque foi abortado",
             "title": "Erro",
             "uncaught-exception": {
-                "message": "Ocorreu uma exceção não detetada:{{newLine}}{{error}}{{newLine}}{{newLine}} Reporte a exceção no nosso Repositório Github.",
-                "title": "Ocorreu uma Exceção não Detetada!"
+                "message": "Ocorreu uma exceção não prevista :{{newLine}}{{error}}{{newLine}}{{newLine}} Reporte a exceção no nosso Repositório Github.",
+                "title": "Ocorreu uma Exceção não prevista!"
             },
             "update": {
-                "message": "Ocorreu um erro com a atualização. Consulte, por favor, os registos de eventos ou tente novamente mais tarde!",
+                "message": "Ocorreu um erro durante a atualização. Por favor verifique os 'logs' ou tente novamente mais tarde!",
                 "title": "Erro ao Atualizar"
             },
             "wine-not-found": {
@@ -109,15 +109,15 @@
             "update": {
                 "changelog": "Abrir registo de alterações",
                 "detail": "Pretende transferir a atualização em segundo plano?",
-                "message": "Existe uma Versão nova disponível!",
-                "message-finished": "Pretende reiniciar agora o Heroic?",
+                "message": "Há uma Versão nova disponível!",
+                "message-finished": "Pretende reiniciar o Heroic agora?",
                 "title": "Lançador de Jogos Heroic",
                 "title-finished": "Atualização Terminada",
                 "detailNoAutoupdate": "As atualizações automáticas não são suportadas pelo seu formato de pacote. Utilize, por favor, o seu gestor de pacotes para atualizar."
             }
         },
         "no": "NÃO",
-        "ok": "OK",
+        "ok": "Aceitar",
         "protocol": {
             "install": {
                 "not_installed": "Não está instalado de momento. Pretende instalar?"
@@ -130,7 +130,7 @@
         "reset-heroic": {
             "question": {
                 "message": "Tem a certeza de que pretende restaurar o Heroic? Isto irá remover todas as definições e o cache, mas não irá remover os jogos instalados nem as suas credenciais da Epic. As versões portáteis do Heroic (AppImage, WinPortable, ...) terão que ser reiniciadas posteriormente de forma manual.",
-                "title": "Restaurar o Heroic"
+                "title": "Restaurar Heroic"
             }
         },
         "runexe": {
@@ -142,23 +142,23 @@
             "script": "Selecione o script..."
         },
         "shortcuts": {
-            "message": "Os atalhos foram criados no Ambiente de Trabalho e no Menu Inicial",
+            "message": "Atalhos foram criados no Ambiente Trabalho e Menu Inicial",
             "message-mac": "Os atalhos foram criados na pasta das Aplicações",
-            "message-remove": "Os atalhos foram removidos do Ambiente de Trabalho e do Menu Inicial",
+            "message-remove": "Atalhos foram removidos no Ambiente Trabalho e Menu Inicial",
             "message-remove-mac": "Os atalhos foram removidos da pasta das Aplicações",
             "title": "Atalhos"
         },
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
-            "title": "Escolha o diretório para os jogos guardados (saves)"
+            "title": "Selecione a localização para Saves"
         },
         "vcruntime": {
             "install": {
-                "message": "Os links para a transferência dos Tempos de Execução do Microsoft Visual C++ foram abertos. Instale, por favor, ambas as versões de x86 e x64."
+                "message": "As ligações de transferência do Visual C++ Runtimes foram abertas. Por favor instale ambas as versões de x86 e x64."
             },
             "notfound": {
-                "message": "Os Tempos de Execução do Microsoft Visual C++ não estão instalados, sendo estes necessários para alguns jogos",
+                "message": "Os Runtimes Microsoft Visual C++ não estão instalados, sendo estes requiridos por alguns jogos",
                 "title": "O Tempo de Execução VC não está instalado"
             }
         },
@@ -211,18 +211,18 @@
     },
     "controller": {
         "hints": {
-            "back": "Atrás",
+            "back": "Recuar",
             "backspace": "Apagar",
             "close_dialog": "Fechar janela de diálogo",
             "close_keyboard": "Fechar o teclado",
-            "close_options": "Fechar Opções",
+            "close_options": "Fechar Preferências",
             "game_details": "Detalhes do jogo",
             "game_settings": "Definições do jogo",
             "install_game": "Instalar jogo",
             "move_cursor": "Mover o cursor",
             "open_virtual_keyboard": "Abrir o teclado virtual",
-            "options": "Opções",
-            "play_game": "Jogar o jogo",
+            "options": "Preferencias",
+            "play_game": "Jogar",
             "scroll": "Deslocar",
             "select": "Selecione",
             "space": "Espaço",
@@ -269,7 +269,7 @@
         "library": {
             "refresh": "Recarregar a Biblioteca"
         },
-        "abort": "",
+        "abort": "Abortar",
         "install": "Instalar",
         "uninstall": "Desinstalar"
     },
@@ -299,27 +299,27 @@
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a impulsionar os fotogramas por segundo (FPS) ao aumentar a escala de resoluções mais baixas (upscaling) no modo de Ecrã Inteiro. A qualidade da imagem aumenta de 5 a 1 com um pequeno custo a nível do desempenho. O desempenho pode aumentar se ativar esta opção.",
-        "custom_themes_path": "Não use ficheiros CSS de fontes não confiáveis. Em caso de dúvida, peça uma analise no nosso canal no Discord.",
+        "custom_themes_path": "Não use ficheiros CSS de fontes não confiáveis. Em caso de dúvida, peça uma revisão no nosso canal no Discord.",
         "custom_themes_wiki": "Consulte a Wiki para obter mais informações sobre como adicionar temas personalizados. Clique aqui.",
         "dxvk": "O DXVK é uma camada de tradução baseada no Vulkan para jogos DirectX 9, 10 e 11. A compatibilidade pode aumentar se ativar esta opção. Pode causar problemas especialmente em jogos DirectX mais antigos.",
         "dxvkfpslimit": "Define um limite de fotogramas por segundo (FPS) para jogos DXVK",
-        "esync": "O Esync tem como objetivo reduzir a sobrecarga do servidor wine em jogos que usam extensivamente a CPU. O desempenho pode aumentar se ativar esta opção.",
-        "fsync": "O Fsync tem como objetivo reduzir a sobrecarga do servidor wine em jogos que usam extensivamente a CPU. O desempenho pode aumentar se ativar esta opção em kernels suportados do Linux.",
+        "esync": "O Esync tem como objetivo reduzir a carga no 'wineserver' em jogos que usam o CPU intensivamente. Ativar esta opção pode melhorar o desempenho.",
+        "fsync": "O Fsync tem como objetivo reduzir a carga no 'wineserver' em jogos que usam o CPU intensivamente. Ativar esta opção pode melhorar o desempenho em kernels de Linux suportados.",
         "game_language": {
             "fallback": "Deixar em branco para usar o idioma do Heroic.",
             "in_game_config": "Nem todos os jogos suportam esta configuração, alguns têm a definição de idioma dentro do próprio.",
             "valid_codes": "Códigos válidos para idiomas são dependentes de cada jogo."
         },
-        "gamemode": "O Feral GameMode faz ajustes ao sistema de forma automática e temporária quando está a executar jogos. O desempenho pode aumentar se ativar esta opção.",
+        "gamemode": "O Feral GameMode faz ajustes ao sistema de forma automática e temporária quando está a executar jogos. Ativar esta opção pode aumentar desempenho.",
         "general": "Sincronize com a EGL se tiver num outro local uma instalação a funcionar do lançador da Epic Games e pretende importar os seus jogos. Assim, evita ter que fazer novamente a transferência destes.",
-        "mangohud": "O MangoHUD é uma janela de sobreposição que mostra e monitoriza os fotogramas por segundo (FPS), temperaturas, utilização da CPU/GPU e outros recursos do sistema.",
+        "mangohud": "O MangoHUD é uma janela de sobreposição que mostra e monitoriza FPS, temperaturas, utilização da CPU/GPU e outros recursos do sistema.",
         "other": {
             "part4": "Use o ",
             "part5": "Argumentos do Jogo",
             "part6": " para que seja invocado após o comando de arranque, por exemplo: ",
             "part7": " para não usar o lançador em alguns jogos, etc."
         },
-        "preferSystemLibs": "As versões personalizadas do Wine (Wine-GE, Wine-Lutris) são lançadas com as suas próprias bibliotecas de dependências. Ao ativar esta opção, estas bibliotecas vão ser ignoradas enquanto que o Wine vai carregar as bibliotecas do sistema. Aviso! Podem ocorrer problemas se as exigências de dependências não forem cumpridas.",
+        "preferSystemLibs": "As versões personalizadas do Wine (Wine-GE, Wine-Lutris) são distribuidas com as suas próprias bibliotecas de dependências. Ao ativar esta opção, estas bibliotecas vão ser ignoradas e o Wine vai carregar as bibliotecas do sistema. Aviso! Podem ocorrer problemas se as dependências não estiverem satisfeitas.",
         "primerun": "Utilize uma placa de gráficos dedicada para renderizar um jogo em sistemas com múltiplos GPUs. Só é necessário em computadores portáteis ou computadores de secretária dedicados a jogos, que usem uma GPU adicional para renderizar (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
             "info": "Este caminho permite que o Heroic consiga determinar qual é a versão do Proton que o Steam usa, para adicionar jogos ao Steam que não sejam provenientes deste."
@@ -380,7 +380,12 @@
         "download_proton_steam": "Quando ativado, o GE-Proton vai ser transferido diretamente para o diretório de ferramentas de compatibilidade do Steam, em vez do caminho pré-definido pelo Heroic. Este vai usar o caminho do Steam que foi definido na definição em cima \"Caminho Padrão do Steam\".",
         "wine-hdr": "O HDR melhora as cores ao proporcionar realces mais brilhantes e contrastes mais profundos. Para que o HDR funcione, tanto o ecrã como o jogo devem suportá-lo.",
         "wine-wayland": "O controlador experimental Wine-Wayland permite que os jogos executem de forma nativa sob o protocolo de janelas de ecrã Wayland. Poderão ocorrer problemas em alguns jogos se ativar esta opção.",
-        "WoW64": "O modo Wine WoW64 permite que os jogos do Windows, na versão 32 bits, sejam executados no Wine de 64 bits. O desempenho pode aumentar se ativar esta opção mas também poderá causar problemas em jogos de 32 bits mais antigos."
+        "WoW64": "O modo Wine WoW64 permite que os jogos do Windows, na versão 32 bits, sejam executados no Wine de 64 bits. O desempenho pode aumentar se ativar esta opção mas também poderá causar problemas em jogos de 32 bits mais antigos.",
+        "nvidiaprime": {
+            "details": "Usar a placa gráfica dedicada para renderizar o jogo em sistemas multi-GPU. Necessário apenas em portáteis ou desktops que usam um GPU integrado para renderização (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Consulte mais detalhes na nossa wiki"
+        },
+        "hide-window-on-protocol-launch": "Mantém a janela da Heroic oculta quando um jogo é iniciado por um atalho externo, como a funcionalidade ‘Adicionar a Steam’."
     },
     "info": {
         "heroic": {
@@ -525,7 +530,7 @@
             "placeholder": "Coloque aqui os argumentos do Lançador do jogo",
             "title": "Argumentos do Jogo (Para executar depois do comando):",
             "error": {
-                "command": "A sintaxe %command% do Steam não é válida como argumentos de jogo.",
+                "command": "A %command% syntax da Steam não é válida como argumento para o jogo.",
                 "env": "As variáveis de ambiente devem ser configuradas na tabela em baixo."
             }
         },
@@ -710,7 +715,7 @@
             "upload": "Enviar"
         },
         "maxRecentGames": "Jogados Recentemente para Mostrar",
-        "maxworkers": "Número máximo de núcleos da CPU quando estiver a fazer transferências",
+        "maxworkers": "Número Máximo de Instancias para transferências",
         "minimize-on-launch": "Minimizar o Heroic Depois de Iniciar um Jogo",
         "offlinemode": "Executar o Jogo em Modo Offline",
         "prefered_language": "Idioma Preferido (Código de Idioma)",
@@ -757,7 +762,7 @@
         "gamescope": {
             "enableLimiter": "Ativar Limitador de Fotogramas por Segundo (FPS)",
             "enableUpscaling": "Ativar o Aumento de Escala de Resoluções mais Baixas (upscaling)",
-            "missingMsg": "Não foi possível encontrar o gamescope no CAMINHO. Instale ou adicione-o ao CAMINHO.",
+            "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o ao PATH.",
             "enableForceGrabCursor": "Ativar Forçar Captura do Cursor",
             "warningFlatpak": "Não foi possível encontrar uma versão compatível do Gamescope. Instale o pacote flatpak do Gamescope com o tempo de execução {{runtimeVersion}} e reinicie o Heroic."
         },
@@ -809,7 +814,11 @@
         "scripts": "Scripts:",
         "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo",
         "disable_gog_presence": "Desativar atualizações presentes do GOG",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "Iniciar em Modo de Consola",
+        "hide-window-on-protocol-launch": "Ocultar a janela da Heroic ao iniciar jogos a partir de links heroic://",
+        "nvidiaprime": {
+            "description": "Força o uso da GPU dedicada do NVIDIA Optimus ou do AMD Dynamic Switchable Graphics. APENAS use isto para jogos OpenGL e Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -918,12 +927,12 @@
         "legacy_warning": "Aviso: A maior parte das definições neste separador estão obsoletas e podem não funcionar de todo.",
         "steamgriddb": {
             "apikey": {
-                "title": "",
-                "placeholder": "",
-                "placeholder_saved": ""
+                "title": "Chave API da SteamGridDB",
+                "placeholder": "Introduza aqui a sua chave API da SteamGridDB",
+                "placeholder_saved": "Chave guardada — escreva para a substituir, apague para a remover"
             },
             "help": {
-                "description": ""
+                "description": "Forneça a sua própria chave API do SteamGridDB para ativar a pesquisa de capas do jogo. A chave é armazenada encriptada caso o seu sistema o suporte. Pode obter uma em {{url}}"
             }
         }
     },
@@ -931,13 +940,14 @@
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "Mode de Consola"
     },
     "status": {
         "installing": "A Instalar",
         "logging": "A Iniciar Sessão...",
         "processing": "A processar os ficheiros, aguarde por favor",
-        "preparing_login": "A Preparar o Inicio de Sessão... "
+        "preparing_login": "A Preparar o Inicio de Sessão... ",
+        "installed": "Instalado"
     },
     "store": "Loja Epic",
     "stores": "Lojas",
@@ -989,12 +999,12 @@
             "not-found": "Não foi encontrada nenhuma versão do Wine. Clique, por favor, no ícone de recarregar para tentar novamente.",
             "title": "Gestor do Wine",
             "unzipping": "A descomprimir",
-            "search": "",
-            "loading": "",
-            "open_folder": "",
+            "search": "Procurar versões...",
+            "loading": "Carregando versões do Wine...",
+            "open_folder": "Abrir Pasta",
             "update": "Atualização",
             "settings": "Configurações",
-            "no-results": ""
+            "no-results": "Nenhuma versão do Wine corresponde à sua pesquisa."
         },
         "release": "Data de Lançamento",
         "size": "Tamanho",
@@ -1066,9 +1076,9 @@
     "wineExplanation": {
         "proton-ge": "O GE-Proton é uma variante do Proton criada por Glorious Eggroll. É suposto ser usada juntamente com o lançador umu (que é a predefinição no Heroic).",
         "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada por Glorious Eggroll. Foi entretanto descontinuada em favor do GE-Proton com o lançador umu.",
-        "gpt": "",
-        "wine-crossover": "",
-        "wine-staging-macos": ""
+        "gpt": "O Game Porting Toolkit é desenvolvido pela Apple e é recomendado para Macs Apple Silicon com chips M1+, funcionando melhor para jogos mais recentes que usam DX12.",
+        "wine-crossover": "O Wine-Crossover baseia-se no projeto Crossover OpenSource Wine e é recomendado para Macs Intel e para jogos DX11 ou mais antigos.",
+        "wine-staging-macos": "Wine-Staging-macOS baseia-se no projeto principal Wine e é recomendado para Macs Intel e para jogos DX11 ou mais antigos, especialmente quando combinado com a ferramenta DXMT."
     },
     "tour": {
         "back": "Atrás",
@@ -1145,94 +1155,96 @@
     "discounts": {
         "region": {
             "countries": {
-                "IT": "",
-                "ES": "",
-                "FI": "",
-                "GR": "",
-                "RO": "",
-                "NO": "",
-                "KR": "",
-                "US": "",
-                "HU": "",
-                "PT": "",
-                "NL": "",
-                "AU": "",
-                "TW": "",
-                "IL": "",
-                "JP": "",
-                "DK": "",
-                "DE": "",
-                "CZ": "",
-                "FR": "",
-                "UA": "",
-                "GB": "",
-                "SE": "",
-                "CN": "",
-                "RU": "",
-                "CA": "",
-                "PL": "",
-                "BR": "",
-                "CH": "",
-                "TR": ""
+                "IT": "Itália",
+                "ES": "Espanha",
+                "FI": "Finlândia",
+                "GR": "Grécia",
+                "RO": "Roménia",
+                "NO": "Noruega",
+                "KR": "Coreia do Sul",
+                "US": "Estados Unidos",
+                "HU": "Hungria",
+                "PT": "Portugal",
+                "NL": "Paises Baixos",
+                "AU": "Austrália",
+                "TW": "Taiwan",
+                "IL": "Israel",
+                "JP": "Japão",
+                "DK": "Dinamarca",
+                "DE": "Alemanha",
+                "CZ": "Chéquia",
+                "FR": "França",
+                "UA": "Ucrânia",
+                "GB": "Reino Unido",
+                "SE": "Suécia",
+                "CN": "China",
+                "RU": "Rússia",
+                "CA": "Canadá",
+                "PL": "Polónia",
+                "BR": "Brasil",
+                "CH": "Suíça",
+                "TR": "Turquia"
             },
-            "auto": "",
-            "label": ""
+            "auto": "Automático ({{code}})",
+            "label": "Região da Loja"
         },
         "filters": {
-            "moreFilters": "",
-            "ageRating": "",
-            "os": "Sistema Operacional:",
-            "price": "",
-            "activeCount_other": "",
-            "hideDlcs": "",
-            "ageRatingOption": "",
-            "genres": "",
-            "activeCount_one": "",
-            "lessFilters": "",
-            "rating": "",
-            "sort": "",
-            "genresPlaceholder": "",
-            "features": "",
-            "featuresPlaceholder": "",
+            "moreFilters": "Mais filtros",
+            "ageRating": "Idade recomendada",
+            "os": "Sistema Operativo",
+            "price": "Preço",
+            "activeCount_other": "{{count}} activos",
+            "hideDlcs": "Esconder DLCs",
+            "ageRatingOption": "Mostrar jogos classificados PEGI {{age}} ou inferior",
+            "genres": "Géneros",
+            "activeCount_one": "{{count}} activos",
+            "lessFilters": "Menos filtros",
+            "rating": "Classificação",
+            "sort": "Ordenar por",
+            "genresPlaceholder": "Qualquer género",
+            "features": "Funcionalidades",
+            "featuresPlaceholder": "Qualquer funcionalidade",
             "ageRatingAll": "Tudo",
-            "pageSize": "",
-            "releaseYear": ""
+            "pageSize": "Por página",
+            "releaseYear": "Ano de lançamento",
+            "hideOwned": "Ocultar possuídos",
+            "wishlistOnly": "Apenas lista de desejos"
         },
-        "sidebar": "",
+        "sidebar": "Promoções",
         "sort": {
-            "priceDesc": "",
-            "trending": "",
-            "priceAsc": "",
-            "releaseDesc": "",
-            "ratingAsc": "",
-            "releaseAsc": "",
-            "ratingDesc": "",
-            "discount": ""
+            "priceDesc": "Preço: maior para o menor",
+            "trending": "Populares",
+            "priceAsc": "Preço: menor para o maior",
+            "releaseDesc": "Data de lançamento: mais novo primeiro",
+            "ratingAsc": "Classificação: menor para a maior",
+            "releaseAsc": "Data de lançamento: mais antigo primeiro",
+            "ratingDesc": "Classificação: maior para a menor",
+            "discount": "Maior desconto"
         },
-        "noMatches": "",
+        "noMatches": "Nenhum jogo corresponde aos filtros atuais.",
         "aria": {
-            "pagination": "",
-            "rating": ""
+            "pagination": "Paginação",
+            "rating": "Classificação {{rating}} de 10"
         },
-        "error": "",
-        "empty": "",
-        "loading": "",
-        "title": "",
+        "error": "Não foi possível carregar descontos. Por favor, volte a tentar mais tarde.",
+        "empty": "Não há jogos com desconto disponíveis neste momento.",
+        "loading": "A carregar jogos com disconto...",
+        "title": "Promoções GOG",
         "pagination": {
-            "prev": ""
+            "prev": "Anterior"
         }
     },
     "steamgriddb": {
         "error": {
-            "no-games": "Nenhum Jogo Encontrado",
-            "no-grids": "",
-            "search": "",
-            "grids": ""
+            "no-games": "Nenhum Jogo encontrado.",
+            "no-grids": "Não foram encontradas capas para este jogo.",
+            "search": "A pesquisa de jogos falhou, por favor verifique a sua chave API da SteamGridDB e volte a tentar",
+            "grids": "Falhou ao obter grelhas"
         },
         "picker": {
-            "search": "",
-            "title": "",
-            "select-game": ""
+            "search": "Procurar Jogo",
+            "title": "Capas da SteamGridDB",
+            "select-game": "Selecione um Jogo:"
         }
     },
     "console": {
@@ -1242,31 +1254,50 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Ordenar",
         "cancel": {
-            "hintSuffix": "",
-            "hintPrefix": ""
+            "hintSuffix": "durante 3s para cancelar",
+            "hintPrefix": "Pressionar"
         },
-        "quit": "",
+        "quit": "Sair da Consola",
         "hints": {
-            "launch": "",
-            "sort": "",
-            "navigate": "",
+            "launch": "Lançar",
+            "sort": "Ordenar",
+            "navigate": "Navegar",
             "quit": "Fechar",
-            "change_store": ""
+            "change_store": "Mudar loja"
         },
         "launching": "Iniciando",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Precisa atualizaçao"
         },
         "filter": {
             "sideload": "Other",
             "all": "Tudo"
         },
-        "empty": "",
+        "empty": "Não há jogos para mostrar. Instale algum primeiro.",
         "games": "Jogos Instalados",
-        "quitApp": "",
-        "loading": ""
+        "quitApp": "Sair da Aplicação",
+        "loading": "A carregar a biblioteca…",
+        "cancelInstall": {
+            "title": "Cancelar instalação?",
+            "message": "Este jogo está atualmente a ser instalado. Cancelar a instalação?"
+        },
+        "cancelUpdate": {
+            "title": "Cancelar atualização?",
+            "message": "Este jogo está atualmente a ser descarregado. Cancelar a atualização em progresso?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Instalar jogo",
+            "wineLoading": "Carregando…",
+            "path": "Instalar em",
+            "wine": "Wine",
+            "wineMissing": "Não selecionado"
+        },
+        "removeFromQueue": {
+            "message": "Este jogo está na fila para descarregar. Removê-lo da fila?"
+        }
     },
     "next": "Próximo"
 }

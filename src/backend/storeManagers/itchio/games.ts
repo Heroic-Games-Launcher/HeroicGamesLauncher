@@ -16,7 +16,7 @@ import {
   InstallPlatform,
   LaunchOption
 } from 'common/types'
-import { InstallResult, RemoveArgs } from 'common/types/game_manager'
+import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
 import type LogWriter from 'backend/logger/log_writer'
 import { dialog } from 'electron'
 import i18next from 'i18next'
@@ -669,7 +669,7 @@ export async function launch(
   const launchArgs = await maybePrepareInstallerLaunch(cached, args)
   if (launchArgs === null) return false
 
-  return launchGame(appName, logWriter, cached, 'itchio', launchArgs)
+  return launchGame(new ItchioGame(appName), logWriter, launchArgs)
 }
 
 async function maybePrepareInstallerLaunch(
@@ -779,10 +779,10 @@ function getCaveId(appName: string): string | undefined {
   return getItchioLibraryGameInfo(appName)?.caveId
 }
 
-export async function uninstall({
-  appName,
-  deleteFiles
-}: RemoveArgs): Promise<ExecResult> {
+export async function uninstall(
+  appName: string,
+  { deleteFiles }: RemoveArgs
+): Promise<ExecResult> {
   const caveId = getCaveId(appName)
   if (!caveId) {
     await forceUninstall(appName)
@@ -935,5 +935,92 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
       LogPrefix.Itchio
     )
     return false
+  }
+}
+
+// Per-game manager. The functions above hold the implementation and take
+// `appName` explicitly; this class binds an app to satisfy the `Game`
+// contract used by the class-based store-manager architecture.
+export default class ItchioGame implements Game {
+  constructor(public appName: string) {}
+
+  getSettings(): Promise<GameSettings> {
+    return getSettings(this.appName)
+  }
+
+  getGameInfo(): GameInfo {
+    return getGameInfo(this.appName)
+  }
+
+  getExtraInfo(): Promise<ExtraInfo> {
+    return getExtraInfo(this.appName)
+  }
+
+  importGame(path: string, platform: InstallPlatform): Promise<ExecResult> {
+    return importGame(this.appName, path, platform)
+  }
+
+  onInstallOrUpdateOutput(
+    action: 'installing' | 'updating',
+    data: string,
+    totalDownloadSize: number
+  ): void {
+    onInstallOrUpdateOutput(this.appName, action, data, totalDownloadSize)
+  }
+
+  install(args: InstallArgs): Promise<InstallResult> {
+    return install(this.appName, args)
+  }
+
+  isNative(): boolean {
+    return isNative(this.appName)
+  }
+
+  addShortcuts(fromMenu?: boolean): Promise<void> {
+    return addShortcuts(this.appName, fromMenu)
+  }
+
+  removeShortcuts(): Promise<void> {
+    return removeShortcuts(this.appName)
+  }
+
+  launch(
+    logWriter: LogWriter,
+    launchArguments?: LaunchOption,
+    args?: string[]
+  ): Promise<boolean> {
+    return launch(this.appName, logWriter, launchArguments, args)
+  }
+
+  moveInstall(newInstallPath: string): Promise<InstallResult> {
+    return moveInstall(this.appName, newInstallPath)
+  }
+
+  repair(): Promise<ExecResult> {
+    return repair(this.appName)
+  }
+
+  syncSaves(arg: string, path: string): Promise<string> {
+    return syncSaves(this.appName, arg, path)
+  }
+
+  uninstall(args: RemoveArgs): Promise<ExecResult> {
+    return uninstall(this.appName, args)
+  }
+
+  update(): Promise<InstallResult> {
+    return update(this.appName)
+  }
+
+  forceUninstall(): Promise<void> {
+    return forceUninstall(this.appName)
+  }
+
+  stop(): Promise<void> {
+    return stop(this.appName)
+  }
+
+  isGameAvailable(): Promise<boolean> {
+    return isGameAvailable(this.appName)
   }
 }

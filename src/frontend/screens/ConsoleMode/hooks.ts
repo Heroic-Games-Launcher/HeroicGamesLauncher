@@ -24,6 +24,12 @@ export function useGamepadButtonPress(
   useEffect(() => {
     if (!enabled) return
     const prev = new Map<number, boolean>()
+    // Seed with current state so a button still held from the press that
+    // mounted this hook (e.g. the A press that opened an overlay) does not
+    // immediately fire the new handler — only real press-down edges should.
+    for (const gp of navigator.getGamepads()) {
+      if (gp) prev.set(gp.index, isPressed(gp.buttons[buttonIndex]))
+    }
     let raf = 0
     const tick = () => {
       for (const gp of navigator.getGamepads()) {
@@ -49,7 +55,9 @@ export function useGamepadButtonHold(
 
   useEffect(() => {
     if (!enabled) return
-    let held = false
+    let held = Array.from(navigator.getGamepads()).some(
+      (gp) => gp && isPressed(gp.buttons[buttonIndex])
+    )
     let raf = 0
     const tick = () => {
       let anyHeld = false

@@ -542,7 +542,8 @@
         "processing": "מעבד קבצים, נא לחכות",
         "installing": "מתקין",
         "logging": "נכנס...",
-        "preparing_login": "מכין כניסה... "
+        "preparing_login": "מכין כניסה... ",
+        "installed": "מותקן"
     },
     "accessibility": {
         "content_font_family_no_default": "משפחת גופני תוכן (ברירת מחדל: ",
@@ -690,7 +691,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "Library": "ספריה",
     "message": {
@@ -1219,7 +1223,12 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "פלטפורמה",
+            "title": "התקן משחק",
+            "wineLoading": "טוען"
+        }
     },
     "next": "",
     "sidebar": {

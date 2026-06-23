@@ -5,7 +5,7 @@
         "content_font_family_no_default": "Lletra tipogràfica per a continguts (per defecte: ",
         "fonts": "Lletra tipogràfica",
         "title": "Accessibilitat",
-        "zoom": "Zoom",
+        "zoom": "Escala",
         "disable_dialog_backdrop_close": "Desactiva que les finestres es tanquin en fer-hi clic fora",
         "titles_always_visible": "Mostra sempre els títols a la biblioteca",
         "actions_font_family_default": "Tipus de lletra de les accions (per defecte, {{fontFamily}})",
@@ -381,7 +381,12 @@
         "analytics": "Permet a l'Heroic recopilar dades d'ús 100% anònimes per a ajudar-nos a millorar l'aplicació. Cal que reiniciïs per a aplicar-ho.",
         "wine-hdr": "L'HDR millora els colors proporcionant punts de llum més brillants i contrastos més profunds. Perquè l'HDR funcioni, cal que tant el joc com la pantalla hi siguin compatibles.",
         "wine-wayland": "El controlador experimental Wine-Wayland permet als jocs executar-se de manera nativa sota el protocol de visualització Wayland. Activar-ho podria trencar alguns jocs.",
-        "WoW64": "El mode Wine WoW64 permet que els jocs de Windows a 32 bits s'executin amb el Wine de 64 bits. Activar-ho podria millorar el rendiment, però també podria trencar alguns jocs de 32 bits més antics."
+        "WoW64": "El mode Wine WoW64 permet que els jocs de Windows a 32 bits s'executin amb el Wine de 64 bits. Activar-ho podria millorar el rendiment, però també podria trencar alguns jocs de 32 bits més antics.",
+        "nvidiaprime": {
+            "details": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes amb diverses GPU. Només cal en portàtils o ordinadors que tinguin una GPU «headless» per al renderitzat (NVIDIA Optimus, AMD Crossfire)",
+            "link": "Obtén més informació en la nostra wiki"
+        },
+        "hide-window-on-protocol-launch": "Manté la finestra de l'Heroic amagada quan s'executa un joc des d'una drecera externa, com ara la funció «Afegeix al Steam»."
     },
     "info": {
         "heroic": {
@@ -808,7 +813,11 @@
         "scripts": "Scripts:",
         "enable-quick-sync-menu": "Activa el menú de sincronització de desades ràpides en la pàgina del joc",
         "start-in-console-mode": "Inicia en mode consola",
-        "disable_gog_presence": "Desactiva les actualitzacions del GOG Presence"
+        "disable_gog_presence": "Desactiva les actualitzacions del GOG Presence",
+        "nvidiaprime": {
+            "description": "Força l'ús de les GPU NVIDIA Optimus o AMD Dynamic Switchable Graphics. Usa-ho NOMÉS per a jocs OpenGL i Vulkan."
+        },
+        "hide-window-on-protocol-launch": "Amaga la finestra de l'Heroic en iniciar jocs des d'enllaços heroic://"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -907,7 +916,7 @@
             },
             "details": "Detalls",
             "resetHeroic": {
-                "help": "S'eliminaran tots els ajustos i els continguts de la memòria cau, però no s'eliminarà els jocs instal·lats de l'Epic o les seves credencials. Les versions portables (AppImage, WinPortable, ...) que necessita l'Heroic es reiniciaran manualment."
+                "help": "Se suprimirà tota la configuració i els continguts de la memòria cau, però no se suprimiran els jocs instal·lats de l'Epic o les seves credencials. Cal reiniciar manualment les versions portables (AppImage, WinPortable...) de l'Heroic."
             }
         },
         "custom_css": {
@@ -919,10 +928,10 @@
             "apikey": {
                 "title": "Clau de l'API del SteamGridDB",
                 "placeholder": "Introdueix aquí la clau de l'API de SteamGridDB",
-                "placeholder_saved": "S'ha desat la clau. Escriu-hi per a reemplaçar-la, esborra-la per a eliminar-la"
+                "placeholder_saved": "S'ha desat la clau. Escriu-hi per a reemplaçar-la, esborra-la per a suprimir-la"
             },
             "help": {
-                "description": "Aporta la teva clau de l'API del SteamGridDB per a poder cercar caràtules dels jocs. La clau s'emmagatzema de manera xifrada si el teu sistema ho permet. Pots obtenir-ne una a www.steamgriddb.com/profile/preferences/api"
+                "description": "Aporta la teva clau de l'API del SteamGridDB per a poder cercar caràtules dels jocs. La clau s'emmagatzema de manera xifrada si el teu sistema ho permet. Pots obtenir-ne una a {{url}}"
             }
         }
     },
@@ -936,7 +945,8 @@
         "installing": "S'està instal·lant",
         "logging": "S'està iniciant la sessió...",
         "processing": "S'estan processant els fitxers, espera",
-        "preparing_login": "S'està preparant l'inici de sessió... "
+        "preparing_login": "S'està preparant l'inici de sessió... ",
+        "installed": "Instal·lat"
     },
     "store": "Botiga de l'Epic",
     "stores": "Botigues",
@@ -1054,12 +1064,12 @@
     },
     "categories-manager": {
         "add": "Afegeix",
-        "confirm-remove": "Confirma l'eliminació de «{{name}}»",
+        "confirm-remove": "Confirma la supressió de «{{name}}»",
         "no-categories": "No hi ha categories.",
-        "cancel-remove": "Cancel·la l'eliminació de «{{name}}»",
+        "cancel-remove": "Cancel·la la supressió de «{{name}}»",
         "cancel-rename": "Cancel·la el canvi de nom de «{{name}}»",
         "confirm-rename": "Confirma el canvi de nom «{{oldName}}» a «{{newName}}»",
-        "remove": "Elimina «{{name}}»",
+        "remove": "Suprimeix «{{name}}»",
         "rename": "Reanomena «{{name}}»",
         "title": "Administra les categories",
         "add-placeholder": "Afegeix una categoria"
@@ -1196,7 +1206,8 @@
             "ageRatingAll": "Tots",
             "pageSize": "Per pàgina",
             "releaseYear": "Any de publicació",
-            "hideOwned": "Amaga els que tens"
+            "hideOwned": "Amaga els que tens",
+            "wishlistOnly": "Només en la llista de desitjats"
         },
         "sidebar": "Ofertes",
         "sort": {
@@ -1266,7 +1277,26 @@
         "empty": "No hi ha cap joc instal·lat. Instal·la'n algun primer.",
         "games": "Jocs instal·lats",
         "quitApp": "Surt de l'aplicació",
-        "loading": "S'està carregant la biblioteca…"
+        "loading": "S'està carregant la biblioteca…",
+        "cancelInstall": {
+            "title": "Vols cancel·lar la instal·lació?",
+            "message": "El joc s'està instal·lant. Vols cancel·lar la instal·lació?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Instal·la el joc",
+            "wineLoading": "Es carrega…",
+            "path": "Instal·la en",
+            "wine": "Wine",
+            "wineMissing": "No seleccionat"
+        },
+        "cancelUpdate": {
+            "message": "El joc s'està baixant. Vols cancel·lar l'actualització?",
+            "title": "Vols cancel·lar l'actualització?"
+        },
+        "removeFromQueue": {
+            "message": "El joc s'ha posat en cua per a baixar-lo. Vols suprimir-lo de la cua?"
+        }
     },
     "next": "Següent"
 }

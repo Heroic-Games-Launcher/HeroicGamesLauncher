@@ -96,8 +96,8 @@
             "executableNotFound": "Executabilul nu a fost găsit",
             "executableNotFoundMessage": "Heroic nu a putut găsi un executabil pentru acest joc. Te rugăm să îl setezi manual în setările jocului.",
             "dxmt": {
-                "message": "",
-                "title": ""
+                "message": "Eroare la descărcarea DXMT! Verificați conexiunea!",
+                "title": "Eroare de descărcare DXMT"
             }
         },
         "info": {
@@ -184,7 +184,7 @@
                 "title": "Heroic rulează ca și Snap"
             }
         },
-        "wineprefix": "Alegeți dosarul Wine Prefix",
+        "wineprefix": "Selectați folderul WinePrefix",
         "yes": "DA",
         "dontShowAgain": "Nu mai arăta",
         "choose-nile-binary": "Selectați binarul Nil",
@@ -372,7 +372,10 @@
         "msync": "",
         "wine-hdr": "",
         "WoW64": "",
-        "wine-wayland": ""
+        "wine-wayland": "",
+        "nvidiaprime": {
+            "details": "Utilizați placa grafică dedicată pentru a reda jocul pe sisteme multi-GPU. Este necesar doar pe laptop-uri sau desktop-uri de jocuri care utilizează un GPU fără cap pentru randare (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -919,7 +922,8 @@
         "installing": "Se Instalează",
         "logging": "Autentificare...",
         "processing": "Se procesează fișierele, așteptați",
-        "preparing_login": "Se pregătește autentificare... "
+        "preparing_login": "Se pregătește autentificare... ",
+        "installed": "Instalat"
     },
     "store": "Magazin",
     "stores": "Magazine",
@@ -1014,9 +1018,9 @@
         "cancel": "Cancel",
         "warning": "Warning",
         "add-new-category": "Adaugă o categorie nouă",
-        "remove-category": "",
-        "delete-question": "",
-        "new-category": ""
+        "remove-category": "Șterge categoria",
+        "delete-question": "Continuarea va șterge permanent această categorie și o va elimina de la toate jocurile. Doriți să continuați?",
+        "new-category": "Categorie nouă"
     },
     "window": {
         "close": "Închide",
@@ -1098,9 +1102,9 @@
         "confirm-remove": "Confirmă ștergerea lui \"{{name}}\"",
         "confirm-rename": "Confirmă redenumirea lui {{oldName}} ca {{newName}}",
         "no-categories": "Nicio categorie.",
-        "remove": "",
-        "title": "",
-        "rename": ""
+        "remove": "Elimină \"{{name}}\"",
+        "title": "Gestionează categoriile",
+        "rename": "Redenumește \"{{name}}\""
     },
     "launch": {
         "options": "Opțiuni de Lansare..."
@@ -1241,7 +1245,11 @@
         "empty": "",
         "games": "Jocuri instalate",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Loading"
+        }
     },
     "next": ""
 }

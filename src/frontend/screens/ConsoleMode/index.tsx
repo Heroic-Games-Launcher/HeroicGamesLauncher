@@ -13,21 +13,47 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { getImageFormatting } from '../Library/components/GameCard/constants'
-import { CachedImage } from 'frontend/components/UI'
-import fallBackImage from 'frontend/assets/heroic_card.jpg'
+import { sendKill, updateGame } from 'frontend/helpers'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
+import ConfirmDialog from './components/ConfirmDialog'
+import ConsoleCard from './components/ConsoleCard'
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
 import InstallOverlay from './InstallOverlay'
-import UpdateNotice from './components/UpdateNotice'
-import { BTN_L1, BTN_R1, BTN_R2 } from './controller'
+import {
+  BTN_L1,
+  BTN_R1,
+  BTN_R2,
+  getActionButtonLabel,
+  getBackButtonLabel
+} from './controller'
 import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
-import type { GameInfo, Runner, Status } from 'common/types'
+import type { TFunction } from 'i18next'
+import type { GameInfo, Runner } from 'common/types'
 
 type StoreKey = Runner | 'all'
+
+const CANCEL_DOWNLOAD_COPY = {
+  update: {
+    title: (t: TFunction) => t('console.cancelUpdate.title', 'Cancel update?'),
+    message: (t: TFunction) =>
+      t(
+        'console.cancelUpdate.message',
+        'This game is currently downloading. Cancel the ongoing update?'
+      )
+  },
+  install: {
+    title: (t: TFunction) =>
+      t('console.cancelInstall.title', 'Cancel installation?'),
+    message: (t: TFunction) =>
+      t(
+        'console.cancelInstall.message',
+        'This game is currently installing. Cancel the installation?'
+      )
+  }
+} as const
 
 export default function ConsoleMode() {
   const { t } = useTranslation()
@@ -54,9 +80,18 @@ export default function ConsoleMode() {
   const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
     null
   )
+  const [cancelDownloadGame, setCancelDownloadGame] = useState<{
+    game: GameInfo
+    kind: 'install' | 'update'
+  } | null>(null)
+  const [queuedNoticeGame, setQueuedNoticeGame] = useState<GameInfo | null>(
+    null
+  )
 
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
+  const backButtonLabel = getBackButtonLabel(controllerLayout)
+  const actionButtonLabel = getActionButtonLabel(controllerLayout)
 
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([])
   const gridRef = useRef<HTMLDivElement | null>(null)
@@ -200,8 +235,90 @@ export default function ConsoleMode() {
 
   const quit = useCallback(() => navigate('/'), [navigate])
 
+  const idle =
+    !launchingGame &&
+    !installingGame &&
+    !updateNoticeGame &&
+    !cancelDownloadGame &&
+    !queuedNoticeGame
+
+  const activateGame = useCallback(
+    (game: GameInfo) => {
+      if (!idle) return
+      const status = libraryStatus.find(
+        (g) => g.appName === game.app_name
+      )?.status
+      if (status === 'queued') {
+        setQueuedNoticeGame(game)
+        return
+      }
+      if (status === 'installing') {
+        setCancelDownloadGame({ game, kind: 'install' })
+        return
+      }
+      if (status === 'updating') {
+        setCancelDownloadGame({ game, kind: 'update' })
+        return
+      }
+      if (!game.is_installed) {
+        setInstallingGame(game)
+        return
+      }
+      if (gameUpdates.includes(game.app_name)) {
+        setUpdateNoticeGame(game)
+        return
+      }
+      setLaunchingGame(game)
+    },
+    [idle, libraryStatus, gameUpdates]
+  )
+
+  const handleUpdateFromNotice = useCallback(() => {
+    if (!updateNoticeGame) return
+    const game = updateNoticeGame
+    setUpdateNoticeGame(null)
+    if (game.runner !== 'sideload') {
+      void updateGame({
+        appName: game.app_name,
+        runner: game.runner as Runner,
+        gameInfo: game
+      })
+    }
+  }, [updateNoticeGame])
+
+  const handleLaunchWithoutUpdate = useCallback(() => {
+    if (!updateNoticeGame) return
+    const game = updateNoticeGame
+    setUpdateNoticeGame(null)
+    setLaunchingGame(game)
+  }, [updateNoticeGame])
+
+  const dismissUpdateNotice = useCallback(() => setUpdateNoticeGame(null), [])
+
+  const handleCancelDownload = useCallback(() => {
+    if (!cancelDownloadGame) return
+    const { game } = cancelDownloadGame
+    setCancelDownloadGame(null)
+    void sendKill(game.app_name, game.runner)
+  }, [cancelDownloadGame])
+
+  const dismissCancelDownload = useCallback(
+    () => setCancelDownloadGame(null),
+    []
+  )
+
+  const handleRemoveFromQueue = useCallback(() => {
+    if (!queuedNoticeGame) return
+    const game = queuedNoticeGame
+    setQueuedNoticeGame(null)
+    window.localStorage.removeItem(game.app_name)
+    void window.api.removeFromDMQueue(game.app_name)
+  }, [queuedNoticeGame])
+
+  const dismissQueuedNotice = useCallback(() => setQueuedNoticeGame(null), [])
+
   const onTopBarKeyDown = (e: React.KeyboardEvent) => {
-    if (launchingGame || updateNoticeGame) return
+    if (!idle) return
     const root = topBarRef.current
     if (!root) return
 
@@ -227,7 +344,7 @@ export default function ConsoleMode() {
   }
 
   const onGridKeyDown = (e: React.KeyboardEvent) => {
-    if (visibleGames.length === 0 || launchingGame || updateNoticeGame) return
+    if (visibleGames.length === 0 || !idle) return
     const last = visibleGames.length - 1
 
     if (e.key === 'ArrowRight') {
@@ -253,8 +370,25 @@ export default function ConsoleMode() {
       } else {
         setFocusedIndex((i) => Math.max(i - columns, 0))
       }
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      const g = visibleGames[focusedIndex]
+      if (g) activateGame(g)
     }
   }
+
+  // Esc quits when idle. While a game is launching or a dialog is open,
+  // the overlay/dialog handles Esc itself.
+  useEffect(() => {
+    if (!idle) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      e.preventDefault()
+      quit()
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [quit, idle])
 
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
@@ -263,7 +397,6 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const idle = !launchingGame && !updateNoticeGame
   const toggleSort = useCallback(() => setAscending((v) => !v), [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
@@ -359,63 +492,22 @@ export default function ConsoleMode() {
             <div className="consoleGrid">
               {visibleGames.map((game, i) => {
                 const isFocused = i === focusedIndex
-                const needsUpdate = gameUpdates.includes(game.app_name)
-                // badges we want to show status updates on
-                const badgeStates: Status[] = [
-                  'installing',
-                  'queued',
-                  'updating',
-                  'uninstalling'
-                ]
-
-                const gameStatus = libraryStatus.find(
-                  (st) => st.appName === game.app_name
-                )
-
                 return (
-                  <button
+                  <ConsoleCard
                     key={`${game.runner}-${game.app_name}`}
                     ref={(el) => {
                       cardRefs.current[i] = el
                     }}
-                    className={classNames('consoleCard', {
-                      focused: isFocused
-                    })}
-                    tabIndex={isFocused ? 0 : -1}
+                    game={game}
+                    focused={isFocused}
+                    needsUpdate={gameUpdates.includes(game.app_name)}
                     onClick={() => {
-                      if (isFocused) {
-                        if (gameUpdates.includes(game.app_name)) {
-                          setUpdateNoticeGame(game)
-                        } else if (game.is_installed) setLaunchingGame(game)
-                        else setInstallingGame(game)
-                      } else setFocusedIndex(i)
+                      if (isFocused) activateGame(game)
+                      else setFocusedIndex(i)
                     }}
                     onMouseEnter={() => setFocusedIndex(i)}
                     onFocus={() => setFocusedIndex(i)}
-                  >
-                    <CachedImage
-                      src={
-                        getImageFormatting(game.art_square, game.runner) ||
-                        fallBackImage
-                      }
-                      alt={game.title}
-                      className="consoleCardArt"
-                    />
-                    {needsUpdate && (
-                      <span className="consoleCardBadge">
-                        {t('console.card.needsUpdate', 'Needs update')}
-                      </span>
-                    )}
-                    {gameStatus?.status &&
-                      badgeStates.includes(gameStatus?.status) && (
-                        <span className="consoleCardBadge">
-                          {t(
-                            `gamepage:status.${gameStatus?.status}`,
-                            'Installing'
-                          )}
-                        </span>
-                      )}
-                  </button>
+                  />
                 )
               })}
             </div>
@@ -444,9 +536,52 @@ export default function ConsoleMode() {
       )}
 
       {updateNoticeGame && (
-        <UpdateNotice
-          game={updateNoticeGame}
-          onDismiss={() => setUpdateNoticeGame(null)}
+        <ConfirmDialog
+          title={t('gamepage:box.update.title')}
+          message={t('gamepage:box.update.message')}
+          gameTitle={updateNoticeGame.title}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
+          dismissLabel={t('button.cancel', 'Cancel')}
+          onConfirm={handleUpdateFromNotice}
+          onCancel={handleLaunchWithoutUpdate}
+          onDismiss={dismissUpdateNotice}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
+        />
+      )}
+
+      {cancelDownloadGame && (
+        <ConfirmDialog
+          title={CANCEL_DOWNLOAD_COPY[cancelDownloadGame.kind].title(t)}
+          message={CANCEL_DOWNLOAD_COPY[cancelDownloadGame.kind].message(t)}
+          gameTitle={cancelDownloadGame.game.title}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
+          onConfirm={handleCancelDownload}
+          onCancel={dismissCancelDownload}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
+        />
+      )}
+
+      {queuedNoticeGame && (
+        <ConfirmDialog
+          title={t('gamepage:button.queue.remove')}
+          message={t(
+            'console.removeFromQueue.message',
+            'This game is queued for download. Remove it from the queue?'
+          )}
+          gameTitle={queuedNoticeGame.title}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
+          onConfirm={handleRemoveFromQueue}
+          onCancel={dismissQueuedNotice}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
         />
       )}
     </div>

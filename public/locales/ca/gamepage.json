@@ -37,7 +37,7 @@
             "message": "Vols desinstal·lar «{{title}}»?",
             "settingcheckbox": "Esborra la configuració i suprimeix el registre{{newLine}}Avís: aquesta acció no es pot desfer. S'oblidarà qualsevol opció modificada i el registre se suprimirà.",
             "title": "Desinstal·la",
-            "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols eliminar-lo, has de fer-ho manualment.",
+            "prefix_warning": "El prefix Wine d'aquest joc és el prefix predefinit. Si realment vols suprimir-lo, has de fer-ho manualment.",
             "dlc": "Vols desinstal·lar \"{{title}}\" (DLC)?",
             "cannotUninstallEpic": "No es poden desinstal·lar jocs d'Epic Games mentre s'instal·la un altre joc d'Epic Games.",
             "gameIsRunning": "{{title}} ja s'executa. Tanca el joc per a desinstal·lar-lo."
@@ -96,7 +96,8 @@
         "changelog": "Mostra el registre",
         "browse_files": "Explora els fitxers",
         "browse_wine_prefix": "Explora el prefix Wine",
-        "play": "JUGAR"
+        "play": "JUGAR",
+        "edit-game": "Edita el joc"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
@@ -261,7 +262,9 @@
             "title": "Títol del joc o aplicació",
             "broser": "URL del navegador",
             "useragent": "Agent d'usuari personalitzat",
-            "fullscreen": "Executa a pantalla completa (F11 per a sortir)"
+            "fullscreen": "Executa a pantalla completa (F11 per a sortir)",
+            "cover-hint": "Art de la caràtula/principal (fes clic en la imatge per a cercar al SteamGridDB)",
+            "image-hint": "Art quadrada (fes clic en la imatge per a cercar al SteamGridDB)"
         },
         "placeholder": {
             "image": "Enganxa l'URL d'una imatge o selecciona'n una del teu ordinador",
@@ -272,6 +275,9 @@
         "import-hint": {
             "title": "Important! Si vols afegir un joc d'Epic/GOG/Amazon, fes clic aquí.",
             "content": "No facis servir aquesta funció per a això.<br />En el seu lloc, <3>inicia la sessió</3> a la botiga, cerca el joc a la teva biblioteca, obre el diàleg d'instal·lació i fes clic al botó &quot;Importa un joc&quot;."
+        },
+        "images": {
+            "summary": "Imatges"
         }
     },
     "specs": {
@@ -359,5 +365,23 @@
             "resume": "Reprèn la descàrrega"
         }
     },
-    "open-saves-folder": "Obre la carpeta de partides"
+    "open-saves-folder": "Obre la carpeta de partides",
+    "edit-game": {
+        "advanced": "Avançat",
+        "cover": "Art de la caràtula",
+        "info": {
+            "cover": "Imatge de la caràtula",
+            "square": "Imatge quadrada"
+        },
+        "placeholder": {
+            "image": "Enganxa l'URL d'una imatge"
+        },
+        "reset": "Restableix al predefinit",
+        "sgdb": {
+            "no-key-link": "Configuració → Avançada",
+            "no-key-prefix": "Per a cercar caràtules al SteamGridDB, afegiu-hi una clau de l'API"
+        },
+        "square": "Art quadrada",
+        "title": "Edita el joc"
+    }
 }

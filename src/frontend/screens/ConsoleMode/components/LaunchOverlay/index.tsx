@@ -42,9 +42,6 @@ export default function LaunchOverlay({
     }
   })
 
-  const onOverlayKeyDown = (e: React.KeyboardEvent) => {}
-  const onOverlayKeyUp = (e: React.KeyboardEvent) => {}
-
   // Escape quits when idle; hold it while launching to cancel.
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -64,8 +61,10 @@ export default function LaunchOverlay({
     }
   }, [startHold, stopHold])
 
+  // Fire the launch exactly once on mount; the overlay closes via onDismiss
+  // in the finally block. Intentionally not depending on the launch inputs.
   useEffect(() => {
-    launch({
+    void launch({
       appName: game.app_name,
       t,
       runner: game.runner as Runner,
@@ -74,6 +73,7 @@ export default function LaunchOverlay({
     }).finally(() => {
       onDismiss()
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useGamepadButtonHold(
@@ -105,13 +105,7 @@ export default function LaunchOverlay({
   }
 
   return (
-    <div
-      onKeyDown={onOverlayKeyDown}
-      onKeyUp={onOverlayKeyUp}
-      className="consoleLaunchOverlay"
-      role="status"
-      aria-live="polite"
-    >
+    <div className="consoleLaunchOverlay" role="status" aria-live="polite">
       <div
         className={classNames('consoleLaunchSpinner', {
           idle: status === 'playing'
@@ -120,7 +114,9 @@ export default function LaunchOverlay({
       <div className="consoleLaunchText">
         {label || t('console.launching', 'Launching')}
       </div>
-      <div className="consoleLaunchGameTitle">{game.title}</div>
+      <div className="consoleLaunchGameTitle">
+        {game.overrides?.title || game.title}
+      </div>
       <BackHint
         prefix={t('console.cancel.hintPrefix', 'Hold')}
         suffix={t('console.cancel.hintSuffix', 'for 3s to cancel')}

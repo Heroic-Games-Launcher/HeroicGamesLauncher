@@ -2,6 +2,16 @@
   display: grid;
   justify-content: space-around;
   grid-template-columns: min-content 1fr;
+  width: 800px;
+  max-width: 100%;
+  min-height: 70vh;
+
+  /* When the form column scrolls, picker swaps in without bumping the dialog. */
+  .sideloadForm {
+    min-width: 0;
+    overflow-y: auto;
+    max-height: 70vh;
+  }
 
   .textInputFieldWrapper.Field .selectFieldWrapper.Field {
     margin: 0 var(--space-xs);
@@ -52,6 +62,15 @@
     display: block;
     width: 100%;
     transition: 200ms;
+
+    &.heroImage {
+      aspect-ratio: 1600 / 650;
+    }
+  }
+
+  .heroImageContainer {
+    width: 100%;
+    margin-bottom: var(--space-md);
   }
 
   .imageLoadingOverlay,
@@ -82,5 +101,22 @@
     word-break: break-word;
     display: flex;
     justify-content: space-between;
+  }
+
+  .advancedFields {
+    summary {
+      cursor: pointer;
+      font-size: var(--font-size-sm);
+      color: var(--neutral-06);
+      font-weight: bold;
+      padding: var(--space-xs) 0;
+      user-select: none;
+    }
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
   }
 }

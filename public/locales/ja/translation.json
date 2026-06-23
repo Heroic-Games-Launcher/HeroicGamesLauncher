@@ -376,7 +376,10 @@
         "WoW64": "WineのWoW64モードを使用すると、64ビット版のWine上で32ビット版のWindowsゲームを実行できます。このモードを有効にするとパフォーマンスが向上する可能性がありますが、古い32ビット版のゲームが正常に動作しなくなる恐れもあります。",
         "wine-wayland": "Wine-Wayland実験用ドライバーを使用すると、Waylandディスプレイプロトコル上でゲームをネイティブに実行できるようになります。有効にすると、一部のゲームが正常に動作しなくなる可能性があります。",
         "advertiseAvxForRosetta": "Apple Silicon搭載MacでRosetta経由でWindowsゲームを実行する際、AVX命令セットのサポートを有効にします。これは、『Death Stranding』のようにAVXサポートを必要とする一部のゲームで必要となる場合があります。",
-        "analytics": "Heroicがアプリケーションの改善に役立てるため、100%匿名化された利用データを収集できるようにします。変更を反映するには再起動が必要です。"
+        "analytics": "Heroicがアプリケーションの改善に役立てるため、100%匿名化された利用データを収集できるようにします。変更を反映するには再起動が必要です。",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -917,7 +920,7 @@
                 "placeholder_saved": "キーが保存されています — 入力して上書き、クリアして削除"
             },
             "help": {
-                "description": "ゲームのカバー画像の検索を有効にするには、ご自身のSteamGridDB APIキーを入力してください。お使いのシステムが対応している場合、このキーは暗号化されて保存されます。APIキーは www.steamgriddb.com/profile/preferences/api から取得できます。"
+                "description": "ゲームのカバー画像の検索を有効にするには、ご自身のSteamGridDB APIキーを入力してください。お使いのシステムが対応している場合、このキーは暗号化されて保存されます。APIキーは {{url}} から取得できます。"
             }
         }
     },
@@ -931,7 +934,8 @@
         "installing": "インストール中",
         "logging": "ログイン中…",
         "processing": "ファイルを処理中。しばらくお待ちください",
-        "preparing_login": "ログインを準備しています... "
+        "preparing_login": "ログインを準備しています... ",
+        "installed": "インストールされています"
     },
     "store": "Epic Store",
     "stores": "ストア",
@@ -1167,6 +1171,11 @@
             "hintPrefix": "押す",
             "hintSuffix": "戻る",
             "title": "更新が必要です"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
         }
     },
     "discounts": {

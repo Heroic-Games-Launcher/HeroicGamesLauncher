@@ -372,7 +372,10 @@
         "wine-hdr": "HDR verbetert de kleuren door helderdere hoogtepunten en diepere contrasten te leveren. Om HDR te laten werken, moeten zowel het beeldscherm als het spel dit ondersteunen.",
         "wine-wayland": "Het experimentele stuurprogramma van Wine-Wayland staat toe dat spelletjes van nature werken onder het Wayland weergave protocol. Het inschakelen hiervan kan kritieke fouten veroorzaken in sommige spelletjes.",
         "WoW64": "De Wine WoW64 modus staat toe dat 32-bit Windows spellen kunnen werken op 64-bit Wine. Het inschakelen ervan kan de prestatie verbeteren, maar kan ook kritieke fouten veroorzaken bij oudere 32-bit spelletjes.",
-        "advertiseAvxForRosetta": ""
+        "advertiseAvxForRosetta": "",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -924,7 +927,8 @@
         "installing": "Installeren",
         "logging": "Aan het inloggen...",
         "processing": "Bestanden verwerken, een ogenblik geduld a.u.b.",
-        "preparing_login": "Inloggen Voorbereiden... "
+        "preparing_login": "Inloggen Voorbereiden... ",
+        "installed": "Geïnstalleerd"
     },
     "store": "Epic Winkel",
     "stores": "Winkels",
@@ -1246,7 +1250,15 @@
         "empty": "",
         "games": "Installed Games",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "Update annuleren"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
+        }
     },
     "next": "Volgende"
 }

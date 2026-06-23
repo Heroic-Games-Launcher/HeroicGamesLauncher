@@ -113,5 +113,6 @@ export const steamgriddb = {
   hasApiKey: makeHandlerInvoker('steamgriddb.hasApiKey'),
   setApiKey: makeHandlerInvoker('steamgriddb.setApiKey'),
   searchGame: makeHandlerInvoker('steamgriddb.searchGame'),
-  getGrids: makeHandlerInvoker('steamgriddb.getGrids')
+  getGrids: makeHandlerInvoker('steamgriddb.getGrids'),
+  getHeroes: makeHandlerInvoker('steamgriddb.getHeroes')
 }

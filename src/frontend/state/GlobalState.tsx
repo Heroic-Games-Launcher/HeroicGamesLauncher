@@ -43,6 +43,7 @@ import {
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
 import { ItchioRegisterData } from 'common/types/itchio'
+import useGlobalState from './GlobalStateV2'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -137,33 +138,60 @@ const loadCurrentCategories = () => {
   }
 }
 
+import { attachGameOverrides } from '../helpers/gameOverrides'
+
+type GameOverride = NonNullable<GameInfo['overrides']>
+
+const currentOverrides = () => useGlobalState.getState().gameOverrides
+
+const applyGameOverrides = (
+  lib: GameInfo[],
+  overrides: Record<string, GameOverride> = currentOverrides()
+) => attachGameOverrides(lib, overrides)
+
 class GlobalState extends PureComponent<Props> {
-  loadGOGLibrary = (): Array<GameInfo> => {
+  loadLegendaryLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
+    const games = libraryStore.get('library', [])
+    return applyGameOverrides(games, overrides)
+  }
+
+  loadGOGLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
     const games = gogLibraryStore.get('games', [])
 
     const installedGames = gogInstalledGamesStore.get('installed', [])
-    for (const igame in games) {
+    for (const game of games) {
       for (const installedGame of installedGames) {
-        if (installedGame.appName === games[igame].app_name) {
-          games[igame].install = installedGame
-          games[igame].is_installed = true
+        if (installedGame.appName === game.app_name) {
+          game.install = installedGame
+          game.is_installed = true
         }
       }
     }
 
-    return games
+    return applyGameOverrides(games, overrides)
   }
-  loadAmazonLibrary = (): Array<GameInfo> => {
+  loadAmazonLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
     const games = nileLibraryStore.get('library', [])
 
-    return games
+    return applyGameOverrides(games, overrides)
   }
 
-  loadItchioLibrary = (): Array<GameInfo> => {
-    return itchioLibraryStore.get('library', [])
+  loadItchioLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
+    const games = itchioLibraryStore.get('library', [])
+    return applyGameOverrides(games, overrides)
   }
 
-  loadZoomLibrary = (): Array<GameInfo> => {
+  loadZoomLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
     const games = zoomLibraryStore.get('games', [])
     const installedGames = zoomInstalledGamesStore.get('installed', [])
     for (const game of games) {
@@ -175,12 +203,12 @@ class GlobalState extends PureComponent<Props> {
         game.is_installed = true
       }
     }
-    return games
+    return applyGameOverrides(games, overrides)
   }
 
   state: StateProps = {
     epic: {
-      library: libraryStore.get('library', []),
+      library: this.loadLegendaryLibrary(),
       username: configStore.get_nodefault('userInfo.displayName')
     },
     gog: {
@@ -242,7 +270,7 @@ class GlobalState extends PureComponent<Props> {
       runner: 'legendary',
       gameInfo: null
     },
-    sideloadedLibrary: sideloadLibrary.get('games', []),
+    sideloadedLibrary: applyGameOverrides(sideloadLibrary.get('games', [])),
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
@@ -686,20 +714,49 @@ class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
+  updateGameOverrides = (overrides: Record<string, GameOverride>) => {
+    useGlobalState.getState().setGameOverrides(overrides)
+    this.setState({
+      epic: {
+        ...this.state.epic,
+        library: this.loadLegendaryLibrary(overrides)
+      },
+      gog: {
+        ...this.state.gog,
+        library: this.loadGOGLibrary(overrides)
+      },
+      zoom: {
+        ...this.state.zoom,
+        library: this.loadZoomLibrary(overrides)
+      },
+      amazon: {
+        ...this.state.amazon,
+        library: this.loadAmazonLibrary(overrides)
+      },
+      sideloadedLibrary: applyGameOverrides(
+        sideloadLibrary.get('games', []),
+        overrides
+      )
+    })
+  }
+
   refresh = async (
     library?: Runner | 'all',
-    checkUpdates = false
+    checkUpdates = false,
+    overridesArg?: Record<string, GameOverride>
   ): Promise<void> => {
     console.log('refreshing')
 
     const { epic, gog, amazon, zoom, itchio, gameUpdates } = this.state
+
+    const overrides = overridesArg || currentOverrides()
 
     let updates = gameUpdates
     if (checkUpdates) {
       try {
         updates = await window.api.checkGameUpdates()
       } catch (error) {
-        window.api.logError(`${error}`)
+        window.api.logError(`Game update check failed: ${String(error)}`)
       }
     }
 
@@ -712,20 +769,20 @@ class GlobalState extends PureComponent<Props> {
       epicLibrary = legendaryLibrary
     }
 
-    let gogLibrary = this.loadGOGLibrary()
+    let gogLibrary = this.loadGOGLibrary(overrides)
     if (gog.username && (!gogLibrary.length || !gog.library.length)) {
       window.api.logInfo('No cache found, getting data from gog...')
       await window.api.refreshLibrary('gog')
-      gogLibrary = this.loadGOGLibrary()
+      gogLibrary = this.loadGOGLibrary(overrides)
     }
 
     let zoomLibrary: GameInfo[] = []
     if (zoom.enabled) {
-      zoomLibrary = this.loadZoomLibrary()
+      zoomLibrary = this.loadZoomLibrary(overrides)
       if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
         window.api.logInfo('No cache found, getting data from zoom...')
         await window.api.refreshLibrary('zoom')
-        zoomLibrary = this.loadZoomLibrary()
+        zoomLibrary = this.loadZoomLibrary(overrides)
       }
     }
 
@@ -733,7 +790,7 @@ class GlobalState extends PureComponent<Props> {
     if (amazon.user_id && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
       await window.api.refreshLibrary('nile')
-      amazonLibrary = this.loadAmazonLibrary()
+      amazonLibrary = this.loadAmazonLibrary(overrides)
     }
 
     let itchioLibrary = this.loadItchioLibrary()
@@ -747,7 +804,7 @@ class GlobalState extends PureComponent<Props> {
 
     this.setState({
       epic: {
-        library: epicLibrary,
+        library: applyGameOverrides(epicLibrary, overrides),
         username: epic.username
       },
       gog: {
@@ -771,7 +828,7 @@ class GlobalState extends PureComponent<Props> {
       gameUpdates: updates,
       refreshing: false,
       refreshingInTheBackground: true,
-      sideloadedLibrary: updatedSideload
+      sideloadedLibrary: applyGameOverrides(updatedSideload, overrides)
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
@@ -796,7 +853,7 @@ class GlobalState extends PureComponent<Props> {
       await window.api.refreshLibrary(library)
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
-      window.api.logError(`${error}`)
+      window.api.logError(`Library refresh failed: ${String(error)}`)
     }
   }
 
@@ -923,6 +980,10 @@ class GlobalState extends PureComponent<Props> {
         runInBackground: true,
         library: runner
       })
+    })
+
+    window.api.handleMetadataChanged((e, overrides) => {
+      this.updateGameOverrides(overrides)
     })
 
     window.api.handleGamePush((e: IpcRendererEvent, args: GameInfo) => {
