@@ -108,6 +108,17 @@ export default function WebView() {
     }
   }
 
+  // Cloudflare-fronted stores (e.g. itch.io) serve a managed bot challenge
+  // to Electron's default UA or to an obviously-fake one; that challenge then
+  // dies with ERR_HTTP2_PROTOCOL_ERROR. Sending a complete, realistic Chrome
+  // UA avoids the challenge. Epic keeps its dedicated launcher UA.
+  const epicUserAgent =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
+  const defaultUserAgent =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
+  const webviewUserAgent =
+    startUrl === epicLoginUrl ? epicUserAgent : defaultUserAgent
+
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
     console.log('Loading amazon login data')
@@ -166,12 +177,8 @@ export default function WebView() {
     if (webview) {
       const loadstop = async () => {
         setLoading({ ...loading, refresh: false })
-        const userAgent =
-          startUrl === epicLoginUrl
-            ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
-            : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0'
-        if (webview.getUserAgent() != userAgent) {
-          webview.setUserAgent(userAgent)
+        if (webview.getUserAgent() != webviewUserAgent) {
+          webview.setUserAgent(webviewUserAgent)
         }
         // Ignore the login handling if not on login page
         if (!runner) {
@@ -386,6 +393,7 @@ export default function WebView() {
         className="WebView__webview"
         partition={`persist:${startUrl === epicLoginUrl ? 'epicstore' : store}`}
         src={startUrl}
+        useragent={webviewUserAgent}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
       />
