@@ -253,18 +253,22 @@ function getInstallDir(release: WineVersionInfo): string {
   } else {
     const config = GlobalConfig.get().getSettings()
     if (config.downloadProtonToSteam && config.defaultSteamPath) {
-      const steamCompatPath = join(
-        config.defaultSteamPath,
-        'compatibilitytools.d'
+      const isValidSteamPath = existsSync(
+        join(config.defaultSteamPath, 'steam.sh')
       )
-      if (existsSync(steamCompatPath)) {
-        return steamCompatPath
+      if (isValidSteamPath) {
+        const compatToolsPath = join(
+          config.defaultSteamPath,
+          'compatibilitytools.d'
+        )
+        mkdirSync(compatToolsPath, { recursive: true })
+        return compatToolsPath
+      } else {
+        logWarning(
+          `Configured Steam path ("${config.defaultSteamPath}") does not appear to be valid, installing into Heroic tools path instead`,
+          LogPrefix.WineDownloader
+        )
       }
-      // If Steam path doesn't exist, fall back to default
-      logWarning(
-        'Steam compatibilitytools.d directory does not exist, defaulting to Heroic tools path',
-        LogPrefix.WineDownloader
-      )
     }
     return `${toolsPath}/proton`
   }
