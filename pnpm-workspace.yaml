@@ -1,3 +1,6 @@
+patchedDependencies:
+  '@types/node@22.19.3': patches/@types__node@22.19.3.patch
+
 onlyBuiltDependencies:
   - '@fortawesome/fontawesome-common-types'
   - '@fortawesome/fontawesome-svg-core'
@@ -10,6 +13,3 @@ onlyBuiltDependencies:
   - esbuild
   - register-scheme
   - unrs-resolver
-
-patchedDependencies:
-  '@types/node@22.19.3': patches/@types__node@22.19.3.patch
