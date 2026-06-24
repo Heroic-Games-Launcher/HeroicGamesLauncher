@@ -50,6 +50,7 @@ import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
+import type { IOptions as SanitizeHtmlOptions } from 'sanitize-html'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -349,6 +350,7 @@ interface AsyncIPCFunctions {
     hideOwned?: boolean,
     wishlistOnly?: boolean
   ) => Promise<CatalogProduct[]>
+  sanitizeHtml: (input: string, options?: SanitizeHtmlOptions) => string
   'steamgriddb.hasApiKey': () => Promise<boolean>
   'steamgriddb.setApiKey': (key: string) => Promise<void>
   'steamgriddb.searchGame': (
