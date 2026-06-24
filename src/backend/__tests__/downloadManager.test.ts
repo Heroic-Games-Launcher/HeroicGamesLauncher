@@ -2,16 +2,27 @@ import type { DMQueueElement } from 'common/types'
 
 // ---- Mocks ----
 
-jest.mock('backend/storeManagers', () => ({
-  libraryManagerMap: {
-    legendary: { getGameInfo: jest.fn(), getInstallInfo: jest.fn() },
-    gog: { getGameInfo: jest.fn(), getInstallInfo: jest.fn() }
-  },
-  gameManagerMap: {
-    legendary: { getGameInfo: jest.fn(), stop: jest.fn() },
-    gog: { getGameInfo: jest.fn(), stop: jest.fn() }
+jest.mock('backend/storeManagers', () => {
+  // Game-level managers are no longer singletons; they are reached via
+  // libraryManagerMap[runner].getGame(appName). getGame returns a stable
+  // object per runner so tests can configure getGameInfo/stop on it.
+  const legendaryGame = { getGameInfo: jest.fn(), stop: jest.fn() }
+  const gogGame = { getGameInfo: jest.fn(), stop: jest.fn() }
+  return {
+    libraryManagerMap: {
+      legendary: {
+        getGameInfo: jest.fn(),
+        getInstallInfo: jest.fn(),
+        getGame: jest.fn(() => legendaryGame)
+      },
+      gog: {
+        getGameInfo: jest.fn(),
+        getInstallInfo: jest.fn(),
+        getGame: jest.fn(() => gogGame)
+      }
+    }
   }
-}))
+})
 
 jest.mock('backend/logger', () => ({
   logError: jest.fn(),
@@ -152,7 +163,10 @@ beforeEach(async () => {
 
     const storeManagers = await import('backend/storeManagers')
     mockLibraryManager = storeManagers.libraryManagerMap
-    mockGameManager = storeManagers.gameManagerMap
+    mockGameManager = {
+      legendary: mockLibraryManager.legendary.getGame('legendary'),
+      gog: mockLibraryManager.gog.getGame('gog')
+    }
 
     mockSendFrontendMessage = (await import('backend/ipc'))
       .sendFrontendMessage as jest.Mock
