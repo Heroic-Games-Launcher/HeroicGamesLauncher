@@ -418,6 +418,38 @@ describe('pause and resume', () => {
     // The state check below runs before any async code in initQueue.
     expect(dm.getQueueInformation().state).toBe('idle')
   })
+
+  it('adding to a paused queue does not start a download', async () => {
+    let resolveInstall: (val: { status: string }) => void
+    mockInstall
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            resolveInstall = resolve
+          })
+      )
+      .mockResolvedValue({ status: 'done' })
+
+    dm.addToQueue(makeElement('game1'))
+    await flushPromises() // game1 install hanging
+
+    dm.pauseCurrentDownload()
+    resolveInstall!({ status: 'abort' })
+    await flushPromises() // paused; the finally in initQueue nulled currentElement
+
+    expect(dm.getQueueInformation().state).toBe('paused')
+    const callsBefore = mockInstall.mock.calls.length
+
+    // isIdle() returns true here because currentElement is null. Without the
+    // !isPaused() guard in addToQueue this would fire initQueue and silently
+    // resume the queue. Background size analysis is still allowed (it never
+    // starts a download), so only installQueueElement must stay untouched.
+    dm.addToQueue(makeElement('game2'))
+    await flushPromises()
+
+    expect(dm.getQueueInformation().state).toBe('paused')
+    expect(mockInstall.mock.calls.length).toBe(callsBefore)
+  })
 })
 
 // ================================================================

@@ -358,7 +358,12 @@ function addToQueue(element: DMQueueElement): void {
   )
   sendFrontendMessage('changedDMQueueInformation', elements, queueState)
 
-  const willProcessImmediately = isIdle()
+  // `isIdle()` returns true while paused too, because the finally in initQueue
+  // nulls `currentElement`. Without the `!isPaused()` guard, adding an element
+  // to a paused queue would auto-start the download and silently break the
+  // pause. Background size analysis below is still allowed while paused (it
+  // only updates the displayed size, it never starts a download).
+  const willProcessImmediately = isIdle() && !isPaused()
   if (willProcessImmediately) {
     void initQueue()
   }
