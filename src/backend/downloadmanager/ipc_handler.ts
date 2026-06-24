@@ -31,7 +31,11 @@ addHandler('install', (_e, args) => {
       const dlcQueueElement: DMQueueElement = {
         params: {
           ...args,
-          appName: dlc
+          appName: dlc,
+          // `addToQueue` above mutated `args.size` with the base game's size.
+          // Don't let the DLC inherit it: its real size is resolved later via
+          // the size cache / background analysis (keyed by the DLC appName).
+          size: undefined
         },
         type: 'install',
         addToQueueTime: Date.now(),

@@ -358,9 +358,24 @@ function addToQueue(element: DMQueueElement): void {
   )
   sendFrontendMessage('changedDMQueueInformation', elements, queueState)
 
-  if (isIdle()) {
+  const willProcessImmediately = isIdle()
+  if (willProcessImmediately) {
     void initQueue()
-  } else if (isNewElement) {
+  }
+
+  // initQueue only enriches the element it processes first (the queue head).
+  // Every other new element with an unknown size needs background analysis,
+  // otherwise it keeps the size it was added with until its turn comes. This
+  // matters for DLCs queued right after their base game while the queue was
+  // still idle: they are not the head, so initQueue won't enrich them, and
+  // their size would otherwise stay inherited from the base game. The analysis
+  // runs off the serialized backgroundAnalysisChain so it never blocks the
+  // active download.
+  const isQueueHead =
+    elements[0]?.params.appName === element.params.appName &&
+    elements[0]?.params.runner === element.params.runner
+
+  if (isNewElement && !(willProcessImmediately && isQueueHead)) {
     backgroundAnalysisChain = backgroundAnalysisChain.then(() =>
       analyzeElementSize(element)
     )
