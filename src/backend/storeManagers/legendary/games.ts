@@ -40,8 +40,8 @@ import {
   getWinePath
 } from '../../launcher'
 import {
-  addShortcuts as addShortcutsUtil,
-  removeShortcuts as removeShortcutsUtil
+  addShortcuts,
+  removeShortcuts
 } from '../../shortcuts/shortcuts/shortcuts'
 import { join } from 'path'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
@@ -446,26 +446,6 @@ export default class LegendaryGame extends Game {
   }
 
   /**
-   * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
-   * so that the game can be opened from the start menu and the desktop folder.
-   * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
-   * @async
-   * @public
-   */
-  async addShortcuts(fromMenu?: boolean) {
-    return addShortcutsUtil(this, fromMenu)
-  }
-
-  /**
-   * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
-   * @async
-   * @public
-   */
-  async removeShortcuts() {
-    return removeShortcutsUtil(this)
-  }
-
-  /**
    * Install game.
    * Does NOT check for online connectivity.
    */
@@ -548,7 +528,7 @@ export default class LegendaryGame extends Game {
       }
       return { status: 'error', error: res.error }
     }
-    this.addShortcuts()
+    addShortcuts(this)
 
     return { status: 'done' }
   }
@@ -652,7 +632,7 @@ export default class LegendaryGame extends Game {
       )
     } else if (!res.abort) {
       libraryManagerMap['legendary'].installState(this.appName, false)
-      await removeShortcutsUtil(this)
+      await removeShortcuts(this)
       await removeNonSteamGame(this)
     }
     sendFrontendMessage('refreshLibrary', 'legendary')
@@ -712,7 +692,7 @@ export default class LegendaryGame extends Game {
       logWriters: [logWriter],
       game: this
     })
-    this.addShortcuts()
+    addShortcuts(this)
     const errorMatch = res.stderr.match(/^.*ERROR:.*$/gm)?.join('') ?? ''
     res.error = (res.error ?? '') + errorMatch
     if (res.error) {

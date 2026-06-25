@@ -42,8 +42,8 @@ import {
 } from 'backend/utils'
 import { GlobalConfig } from 'backend/config'
 import {
-  addShortcuts as addShortcutsUtil,
-  removeShortcuts as removeShortcutsUtil
+  addShortcuts,
+  removeShortcuts
 } from '../../shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 import { sendFrontendMessage } from '../../ipc'
@@ -125,7 +125,7 @@ export default class NileGame extends Game {
     }
 
     try {
-      this.addShortcuts()
+      addShortcuts(this)
       libraryManagerMap['nile'].installState(this.id, true)
     } catch (error) {
       logError(['Failed to import', `${this.id}:`, error], LogPrefix.Nile)
@@ -241,7 +241,7 @@ export default class NileGame extends Game {
       }
       return { status: 'error', error: res.error }
     }
-    this.addShortcuts()
+    addShortcuts(this)
     libraryManagerMap['nile'].installState(this.id, true)
     const metadata = libraryManagerMap['nile'].getInstallMetadata(this.id)
 
@@ -254,26 +254,6 @@ export default class NileGame extends Game {
 
   isNative(): boolean {
     return isWindows
-  }
-
-  /**
-   * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
-   * so that the game can be opened from the start menu and the desktop folder.
-   * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
-   * @async
-   * @public
-   */
-  async addShortcuts(fromMenu?: boolean) {
-    return addShortcutsUtil(this, fromMenu)
-  }
-
-  /**
-   * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
-   * @async
-   * @public
-   */
-  async removeShortcuts() {
-    return removeShortcutsUtil(this)
   }
 
   async launch(
@@ -487,7 +467,7 @@ export default class NileGame extends Game {
         LogPrefix.Nile
       )
     } else if (!res.abort) {
-      await removeShortcutsUtil(this)
+      await removeShortcuts(this)
       await removeNonSteamGame(this)
       libraryManagerMap['nile'].installState(this.id, false)
     }

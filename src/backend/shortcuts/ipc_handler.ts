@@ -6,12 +6,16 @@ import {
   isAddedToSteam,
   removeNonSteamGame
 } from './nonesteamgame/nonesteamgame'
-import { shortcutFiles } from './shortcuts/shortcuts'
+import {
+  addShortcuts,
+  removeShortcuts,
+  shortcutFiles
+} from './shortcuts/shortcuts'
 import { notify } from 'backend/dialog/dialog'
 import { isMac } from 'backend/constants/environment'
 
 addListener('addShortcut', async (event, game, fromMenu) => {
-  game.addShortcuts(fromMenu)
+  await addShortcuts(game, fromMenu)
 
   const body = i18next.t(
     'box.shortcuts.message',
@@ -38,7 +42,7 @@ addHandler('shortcutsExists', (event, game) => {
 })
 
 addListener('removeShortcut', async (event, game) => {
-  game.removeShortcuts()
+  await removeShortcuts(game)
 
   const body = i18next.t(
     'box.shortcuts.message-remove',

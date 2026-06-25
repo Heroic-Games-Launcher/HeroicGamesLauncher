@@ -40,10 +40,7 @@ import {
   prepareWineLaunch,
   runWineCommand
 } from '../../launcher'
-import {
-  addShortcuts as addShortcutsUtil,
-  removeShortcuts as removeShortcutsUtil
-} from '../../shortcuts/shortcuts/shortcuts'
+import { removeShortcuts } from '../../shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { ZoomInstallPlatform, ZoomDownloadFile } from 'common/types/zoom'
@@ -546,14 +543,6 @@ export default class ZoomGame extends Game {
     return false
   }
 
-  async addShortcuts(fromMenu?: boolean) {
-    return addShortcutsUtil(this, fromMenu)
-  }
-
-  async removeShortcuts() {
-    return removeShortcutsUtil(this)
-  }
-
   async launch(
     logWriter: LogWriter,
     launchArguments?: LaunchOption,
@@ -755,7 +744,7 @@ export default class ZoomGame extends Game {
     const gameInfo = this.getGameInfo()
     gameInfo.is_installed = false
     gameInfo.install = { is_dlc: false }
-    await removeShortcutsUtil(this)
+    await removeShortcuts(this)
     await removeNonSteamGame(this)
     sendFrontendMessage('pushGameToLibrary', gameInfo)
     return { stdout: 'Uninstalled', stderr: '' }

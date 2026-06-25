@@ -39,8 +39,6 @@ export abstract class Game {
   ): void
   abstract install(args: InstallArgs): Promise<InstallResult>
   abstract isNative(): boolean
-  abstract addShortcuts(fromMenu?: boolean): Promise<void>
-  abstract removeShortcuts(): Promise<void>
   abstract launch(
     logWriter: LogWriter,
     launchArguments?: LaunchOption,

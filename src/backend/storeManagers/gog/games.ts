@@ -56,8 +56,8 @@ import {
   setupWrappers
 } from '../../launcher'
 import {
-  addShortcuts as addShortcutsUtil,
-  removeShortcuts as removeShortcutsUtil
+  addShortcuts,
+  removeShortcuts
 } from '../../shortcuts/shortcuts/shortcuts'
 import setup from './setup'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
@@ -180,7 +180,7 @@ export default class GOGGame extends Game {
         JSON.parse(res.stdout),
         folderPath
       )
-      this.addShortcuts()
+      addShortcuts(this)
     } catch (error) {
       logError([`Failed to import ${this.id}:`, error], LogPrefix.Gog)
     }
@@ -435,7 +435,7 @@ export default class GOGGame extends Game {
         )
       }
     }
-    this.addShortcuts()
+    addShortcuts(this)
     return { status: 'done' }
   }
 
@@ -454,14 +454,6 @@ export default class GOGGame extends Game {
     }
 
     return false
-  }
-
-  async addShortcuts(fromMenu?: boolean) {
-    return addShortcutsUtil(this, fromMenu)
-  }
-
-  async removeShortcuts() {
-    return removeShortcutsUtil(this)
   }
 
   async launch(
@@ -932,7 +924,7 @@ export default class GOGGame extends Game {
     const gameInfo = this.getGameInfo()
     gameInfo.is_installed = false
     gameInfo.install = { is_dlc: false }
-    await removeShortcutsUtil(this)
+    await removeShortcuts(this)
     syncStore.delete(this.id)
     await removeNonSteamGame(this)
     sendFrontendMessage('pushGameToLibrary', gameInfo)
