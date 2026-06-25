@@ -947,7 +947,8 @@
         "installing": "Instalando",
         "logging": "Iniciando sesión…",
         "processing": "Procesando los archivos, por favor, espera un momento",
-        "preparing_login": "Preparando inicio de sesión... "
+        "preparing_login": "Preparando inicio de sesión... ",
+        "installed": "Instalado"
     },
     "store": "Tienda de Epic",
     "stores": "Tiendas",
@@ -1278,7 +1279,25 @@
         "empty": "No hay juegos instalados para mostrar. Instala algo primero.",
         "games": "Juegos Instalados",
         "quitApp": "Salir de la aplicación",
-        "loading": "Cargando tu biblioteca…"
+        "loading": "Cargando tu biblioteca…",
+        "cancelInstall": {
+            "title": "¿Cancelar la instalación?",
+            "message": "Este juego se está instalando actualmente. ¿Cancelar la instalación?"
+        },
+        "cancelUpdate": {
+            "title": "¿Cancelar la actualización?",
+            "message": "El juego se está descargando actualmente. ¿Quieres cancelar la actualización en curso?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Instalar juego",
+            "wineLoading": "Cargando…",
+            "path": "Instalar en",
+            "wineMissing": "No seleccionado"
+        },
+        "removeFromQueue": {
+            "message": "Este juego está en la cola de descargas. ¿Eliminarlo de la cola?"
+        }
     },
     "next": "Siguiente"
 }

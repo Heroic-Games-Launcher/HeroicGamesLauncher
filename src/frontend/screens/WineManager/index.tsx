@@ -49,6 +49,7 @@ export default function WineManager(): JSX.Element | null {
   const repositories: WineManagerUISettings[] = useMemo(() => {
     if (isLinux) {
       return [
+        { type: 'Proton-CachyOS', value: 'proton-cachyos' },
         { type: 'GE-Proton', value: 'protonge' },
         { type: 'Wine-GE', value: 'winege' }
       ]
@@ -159,6 +160,16 @@ export default function WineManager(): JSX.Element | null {
             {t(
               'wineExplanation.wine-staging-macos',
               'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool.'
+            )}
+          </div>
+        )
+      case 'Proton-CachyOS':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.proton-cachyos',
+              'Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.'
             )}
           </div>
         )

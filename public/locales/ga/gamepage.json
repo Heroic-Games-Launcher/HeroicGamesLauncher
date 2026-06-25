@@ -126,7 +126,8 @@
         "unhide_game": "Nocht Cluiche",
         "uninstall": "Díshuiteáil",
         "update": "Nuashonrú",
-        "play": "IMIR"
+        "play": "IMIR",
+        "edit-game": "Cuir Cluiche in Eagar"
     },
     "cloud_save_unsupported": "Gan tacaíocht",
     "enabled": "Cumasaithe",
@@ -284,13 +285,18 @@
             "fullscreen": "Seoladh Lánscáileáin (F11 le scoir)",
             "image": "Íomhá na hAipe",
             "title": "Teideal Cluiche/Aipe",
-            "useragent": "Gníomhaire Úsáideora Saincheaptha"
+            "useragent": "Gníomhaire Úsáideora Saincheaptha",
+            "cover-hint": "Ealaín Chlúdaigh/Laoch (cliceáil ar an íomhá le cuardach a dhéanamh ar SteamGridDB)",
+            "image-hint": "Ealaín Chearnógach (cliceáil ar an íomhá le cuardach a dhéanamh ar SteamGridDB)"
         },
         "placeholder": {
             "image": "Greamaigh URL Íomhá nó roghnaigh ceann ó do ríomhaire",
             "title": "Cuir teideal le do Chluiche/Aip",
             "url": "Greamaigh URL an Chluiche anseo",
             "useragent": "Scríobh gníomhaire úsáideora saincheaptha anseo le húsáid ar an aip/cluiche brabhsálaí seo"
+        },
+        "images": {
+            "summary": "Íomhánna"
         }
     },
     "specs": {
@@ -348,5 +354,23 @@
         "notice2": "Tar éis cliceáil ar Suiteáil, rithfidh Heroic an feidhmchlár chun an próiseas suiteála a chríochnú"
     },
     "wikiLink": "Eolas tábhachtach faoin gcluiche seo, léigh seo:<1>Oscail an leathanach</1>",
-    "open-saves-folder": "Oscail Fillteán Sábhálann"
+    "open-saves-folder": "Oscail Fillteán Sábhálann",
+    "edit-game": {
+        "advanced": "Ardleibhéil",
+        "cover": "Ealaín Chlúdaigh",
+        "info": {
+            "cover": "Íomhá Chlúdaigh",
+            "square": "Íomhá Chearnógach"
+        },
+        "placeholder": {
+            "image": "Greamaigh URL íomhá"
+        },
+        "reset": "Athshocraigh go réamhshocraithe",
+        "sgdb": {
+            "no-key-link": "Socruithe → Ardleibhéil",
+            "no-key-prefix": "Chun cuardach a dhéanamh ar SteamGridDB le haghaidh ealaín chlúdaigh, cuir eochair API leis"
+        },
+        "square": "Ealaín Chearnógach",
+        "title": "Cuir Cluiche in Eagar"
+    }
 }
