@@ -208,7 +208,7 @@ export default function SidebarLinks() {
         label={t('discounts.sidebar', 'Deals')}
         dataTour="sidebar-discounts"
       />
-      {epic.username && hideEpicFriends === false && (
+      {epic.username && hideEpicFriends !== true && (
         <SidebarItem
           elementType="button"
           onClick={() =>

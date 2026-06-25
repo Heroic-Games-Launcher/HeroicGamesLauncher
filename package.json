@@ -71,7 +71,6 @@
     "electron-store": "^8.2.0",
     "electron-updater": "^6.8.3",
     "filesize": "^10.1.6",
-    "fnbr": "4.2.0",
     "fs-extra": "^11.3.0",
     "fuse.js": "^6.6.2",
     "graceful-fs": "^4.2.11",
@@ -97,6 +96,7 @@
     "short-uuid": "^4.2.2",
     "simple-keyboard": "^3.8.53",
     "source-map-support": "^0.5.21",
+    "stanza": "12.22.1",
     "steam-shortcut-editor": "^3.1.3",
     "zod": "^3.24.3",
     "zustand": "^4.5.6"

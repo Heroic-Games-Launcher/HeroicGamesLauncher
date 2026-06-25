@@ -1,14 +1,12 @@
-import axios from 'axios'
-import { Client, type FriendPresence } from 'fnbr'
-
 import { logError, LogPrefix } from 'backend/logger'
 import type { EpicFriendPresence } from 'common/types/epic_friends'
+import { HLPM } from './hlpm'
 
 const presenceByAccountId = new Map<string, EpicFriendPresence>()
-let client: Client | undefined
+let client: HLPM | undefined
 let connectionAttempt: Promise<void> | undefined
 let lastConnectionFailure = 0
-let stopRequested = false
+
 function getXmlAttribute(message: string, attribute: string) {
   return message.match(
     new RegExp(`\\s${attribute}=(?:'|")([^'"]+)(?:'|")`)
@@ -53,91 +51,26 @@ function handleRawPresence(message: string) {
   }
 }
 
-function setPresence(
-  accountId: string,
-  presenceStatus: EpicFriendPresence['presenceStatus']
-) {
-  presenceByAccountId.set(accountId, { presenceStatus })
-}
-
-function handlePresence(presence: FriendPresence) {
-  setPresence(
-    presence.friend.id,
-    presence.onlineType === 'away' ? 'away' : 'online'
-  )
-}
-
-function normalizeOnlineType(onlineType: FriendPresence['onlineType']) {
-  if (onlineType === 'away' || onlineType === 'xa') return 'away'
-  return 'online'
-}
-
-async function getExchangeCode(accessToken: string): Promise<string> {
-  const { data } = await axios.get<{ code: string }>(
-    'https://account-public-service-prod.ol.epicgames.com/account/api/oauth/exchange',
-    { headers: { Authorization: `Bearer ${accessToken}` } }
-  )
-  return data.code
-}
-
 async function connect(accessToken: string) {
-  const epicClient = new Client({
-    auth: {
-      authClient: 'fortnitePCGameClient',
-      exchangeCode: () => getExchangeCode(accessToken),
-      killOtherTokens: false
-    },
-    connectToSTOMP: false,
-    createParty: false,
-    disablePartyService: true,
-    fetchFriends: true,
-    forceNewParty: false,
-    xmppDebug: (message) => {
-      if (message.startsWith('IN <presence')) handleRawPresence(message)
-    }
-  })
-
-  epicClient.on('friend:presence', (_before, after) => {
-    handlePresence(after)
-  })
-  epicClient.on('friend:online', (friend) => {
-    setPresence(
-      friend.id,
-      friend.presence
-        ? normalizeOnlineType(friend.presence.onlineType)
-        : 'online'
-    )
-  })
-  epicClient.on('friend:offline', (friend) => {
-    setPresence(friend.id, 'offline')
-  })
-  epicClient.on('ready', () => {
-    setTimeout(() => {
-      for (const friend of epicClient.friend.list.values()) {
-        if (friend.presence) {
-          handlePresence(friend.presence)
-        }
-      }
-    }, 15_000)
-  })
-
-  await epicClient.login()
-  if (stopRequested) {
-    await epicClient.logout()
-    return
-  }
+  const epicClient = new HLPM(accessToken, handleRawPresence)
   client = epicClient
+  try {
+    await epicClient.connect()
+  } finally {
+    if (!epicClient.isConnected() && client === epicClient) {
+      client = undefined
+    }
+  }
 }
 
 export function startEpicPresence(accessToken: string) {
   if (
-    client?.xmpp.isConnected ||
+    client?.isConnected() ||
     connectionAttempt ||
     Date.now() - lastConnectionFailure < 60_000
   )
     return
 
-  stopRequested = false
   connectionAttempt = connect(accessToken)
     .catch((error) => {
       lastConnectionFailure = Date.now()
@@ -156,14 +89,13 @@ export function getEpicPresence(accountId: string): EpicFriendPresence {
 }
 
 export function isWatchingEpicPresence() {
-  return Boolean(connectionAttempt || client?.xmpp.isConnected)
+  return Boolean(connectionAttempt || client?.isConnected())
 }
 
 export async function stopEpicPresence() {
-  stopRequested = true
   presenceByAccountId.clear()
   if (!client) return
 
-  await client.logout()
+  await client.disconnect()
   client = undefined
 }
