@@ -337,5 +337,8 @@
         }
     },
     "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>",
-    "open-saves-folder": "保存フォルダを開く"
+    "open-saves-folder": "保存フォルダを開く",
+    "edit-game": {
+        "advanced": "Advanced"
+    }
 }

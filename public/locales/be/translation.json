@@ -940,7 +940,8 @@
         "installing": "Усталяванне",
         "logging": "Уваход...",
         "processing": "Апрацоўка файлаў, пачакайце",
-        "preparing_login": "Падрыхтоўка ўваходу... "
+        "preparing_login": "Падрыхтоўка ўваходу... ",
+        "installed": "Усталявана"
     },
     "store": "Epic Store",
     "stores": "Крамы",
@@ -1269,7 +1270,15 @@
         "empty": "",
         "games": "Усталяваныя гульні",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelInstall": {
+            "title": "Скасаваць усталяванне"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Усталяваць гульню",
+            "wineLoading": "Загрузка"
+        }
     },
     "next": "Далей"
 }

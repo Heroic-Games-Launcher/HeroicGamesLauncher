@@ -91,12 +91,13 @@
         },
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
-        "update": "Update",
+        "update": "Aktualizace",
         "details": "Podrobnosti",
         "changelog": "Zobrazit seznam změn",
         "browse_files": "Procházet soubory",
         "browse_wine_prefix": "Procházet předpony Wine",
-        "play": "HRÁT"
+        "play": "HRÁT",
+        "edit-game": "Upravit Hru"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
@@ -261,7 +262,9 @@
             "title": "Název hry/aplikace",
             "broser": "Adresa URL prohlížeče",
             "useragent": "Vlastní User Agent",
-            "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)"
+            "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)",
+            "cover-hint": "Ikona/Grafika (klikněte na obrázek pro hledání v SteamGridDB)",
+            "image-hint": "Čtvercová Ikona (klikněte na obrázek pro hledání v SteamGridDB)"
         },
         "placeholder": {
             "image": "Sem vložte URL obrázku, nebo vyberte soubor z vašeho zařízení",
@@ -272,6 +275,9 @@
         "import-hint": {
             "content": "Tuto funkci k této akci NEPOUŽÍVEJTE.<br />Namísto toho se <3>přihlaste do obchodu</3>, vyhledejte hru ve své knihovně, otevřete instalační dialog a klikněte na tlačítko &quot;Importovat hru&quot;",
             "title": "Důležité! Přidáváte hru z obchodu Epic/GOG/Amazon? Klikněte sem!"
+        },
+        "images": {
+            "summary": "Obrázky"
         }
     },
     "specs": {
@@ -359,5 +365,23 @@
             "pause": "Pozastavit stahování"
         }
     },
-    "open-saves-folder": "Otevřít složku s uloženým postupem"
+    "open-saves-folder": "Otevřít složku s uloženým postupem",
+    "edit-game": {
+        "advanced": "Pokročilé",
+        "cover": "Ikona Hry",
+        "info": {
+            "cover": "Obrázek Ikony",
+            "square": "Čtvercový Obrázek"
+        },
+        "placeholder": {
+            "image": "Vložit URL obrázku"
+        },
+        "reset": "Vrátit do výchozího",
+        "sgdb": {
+            "no-key-link": "Nastavení -> Pokročilé",
+            "no-key-prefix": "Pro hledání Ikon v SteamGridDB vložte klíč API"
+        },
+        "square": "Čtvercová Ikona",
+        "title": "Upravit Hru"
+    }
 }
