@@ -1,7 +1,6 @@
 import {
   ExecResult,
   GameInfo,
-  GameSettings,
   InstallArgs,
   InstallProgress,
   LaunchOption
@@ -15,7 +14,6 @@ import {
   logInfo,
   createGameLogWriter
 } from 'backend/logger'
-import { GameConfig } from 'backend/game_config'
 import {
   getKnownFixesEnvVariables,
   launchCleanup,
@@ -34,6 +32,7 @@ import {
 } from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
 import {
+  getSettings,
   killPattern,
   moveOnUnix,
   moveOnWindows,
@@ -65,11 +64,6 @@ export default class NileGame extends Game {
 
   toString(): string {
     return `NileGame(id=${this.id})`
-  }
-
-  async getSettings(): Promise<GameSettings> {
-    const gameConfig = GameConfig.get(this.id)
-    return gameConfig.config || (await gameConfig.getSettings())
   }
 
   getGameInfo(): GameInfo {
@@ -287,7 +281,7 @@ export default class NileGame extends Game {
     launchArguments?: LaunchOption,
     args: string[] = []
   ): Promise<boolean> {
-    const gameSettings = await this.getSettings()
+    const gameSettings = await getSettings(this)
     const gameInfo = this.getGameInfo()
 
     const {

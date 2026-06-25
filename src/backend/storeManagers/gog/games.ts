@@ -1,6 +1,5 @@
 import { libraryManagerMap } from '..'
 import { join } from 'path'
-import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
 import {
   errorHandler,
@@ -13,11 +12,11 @@ import {
   sendGameStatusUpdate,
   getPathDiskSize,
   getCometBin,
-  axiosClient
+  axiosClient,
+  getSettings
 } from '../../utils'
 import {
   GameInfo,
-  GameSettings,
   ExecResult,
   InstallArgs,
   InstalledInfo,
@@ -155,13 +154,6 @@ export default class GOGGame extends Game {
       }
     }
     return info
-  }
-
-  async getSettings(): Promise<GameSettings> {
-    return (
-      GameConfig.get(this.id).config ||
-      (await GameConfig.get(this.id).getSettings())
-    )
   }
 
   async importGame(folderPath: string): Promise<ExecResult> {
@@ -477,7 +469,7 @@ export default class GOGGame extends Game {
     launchArguments?: LaunchOption,
     args: string[] = []
   ): Promise<boolean> {
-    const gameSettings = await this.getSettings()
+    const gameSettings = await getSettings(this)
     const gameInfo = this.getGameInfo()
 
     if (
@@ -729,7 +721,7 @@ export default class GOGGame extends Game {
     newInstallPath: string
   ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
     const gameInfo = this.getGameInfo()
-    const gameConfig = await this.getSettings()
+    const gameConfig = await getSettings(this)
     logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
     const moveImpl = isWindows ? moveOnWindows : moveOnUnix
@@ -882,7 +874,7 @@ export default class GOGGame extends Game {
 
     const res: ExecResult = { stdout: '', stderr: '' }
     if (existsSync(uninstallerPath)) {
-      const gameSettings = await this.getSettings()
+      const gameSettings = await getSettings(this)
 
       const installDirectory = isWindows
         ? object.install_path
@@ -979,7 +971,7 @@ export default class GOGGame extends Game {
       return { status: 'error' }
     }
 
-    const gameConfig = await this.getSettings()
+    const gameConfig = await getSettings(this)
     const installedDlcs = gameData.install.installedDLCs || []
 
     if (updateOverwrites?.dlcs) {
@@ -1156,7 +1148,7 @@ export default class GOGGame extends Game {
     gameObject.install_size = getFileSize(sizeOnDisk)
     installedGamesStore.set('installed', installedArray)
     libraryManagerMap['gog'].refreshInstalled()
-    const gameSettings = await this.getSettings()
+    const gameSettings = await getSettings(this)
     // Simple check if wine prefix exists and setup can be performed because of an
     // update
     if (

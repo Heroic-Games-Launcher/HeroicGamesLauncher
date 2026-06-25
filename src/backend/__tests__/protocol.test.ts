@@ -30,6 +30,14 @@ jest.mock('../config', () => ({
   }
 }))
 
+const mockGameSettings = {
+  ignoreGameUpdates: false
+}
+jest.mock('../utils', () => ({
+  ...jest.requireActual('../utils'),
+  getSettings: () => mockGameSettings
+}))
+
 import { handleProtocol, shouldHideWindowForProtocolArgs } from '../protocol'
 import { app, dialog } from 'electron'
 import { libraryManagerMap } from '../storeManagers'
@@ -122,15 +130,11 @@ describe('protocol.ts --no-gui behavior', () => {
     is_installed: false
   }
 
-  const mockGameSettings = {
-    ignoreGameUpdates: false
-  }
   const emptyGameInfoMock = { getGameInfo: () => ({}) }
 
   beforeEach(() => {
     jest.clearAllMocks()
     fakeGame.getGameInfo.mockReturnValue(mockGameInfo)
-    fakeGame.getSettings.mockReturnValue(mockGameSettings)
     mockHideWindowOnProtocolLaunch.mockReturnValue(false)
     mockMainWindow.isVisible.mockReturnValue(true)
     ;(getMainWindow as jest.Mock).mockReturnValue(mockMainWindow)

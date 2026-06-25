@@ -6,7 +6,8 @@ import {
   SteamRuntime,
   Release,
   GameInfo,
-  GameStatus
+  GameStatus,
+  GameSettings
 } from 'common/types'
 import axios from 'axios'
 import https from 'node:https'
@@ -99,6 +100,13 @@ function getGame(id: string, runner: Runner): Game {
   return game
 }
 
+async function getSettings(game: Game): Promise<GameSettings> {
+  return (
+    GameConfig.get(game.id).config ||
+    (await GameConfig.get(game.id).getSettings())
+  )
+}
+
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
  * Checks if target is newer than base.
@@ -151,7 +159,7 @@ const getFileSize = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 async function getWineFromProton(
   game: Game
 ): Promise<{ winePrefix: string; wineVersion: WineInstallation }> {
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   const wineVersion = gameSettings.wineVersion
   let winePrefix = gameSettings.winePrefix
 
@@ -855,7 +863,7 @@ function killPattern(pattern: string) {
 }
 
 async function shutdownWine(game: Game) {
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   if (gameSettings.wineVersion.wineserver) {
     spawnSync(gameSettings.wineVersion.wineserver, ['-k'], {
       env: { WINEPREFIX: gameSettings.winePrefix }
@@ -985,7 +993,7 @@ export async function checkWineBeforeLaunch(
   game: Game,
   logWriter: LogWriter
 ): Promise<boolean> {
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   const wineIsValid = await validWine(gameSettings.wineVersion)
 
   if (wineIsValid) {
@@ -1699,7 +1707,8 @@ export {
   extractFiles,
   axiosClient,
   parseSize,
-  getGame
+  getGame,
+  getSettings
 }
 
 // Exported only for testing purpose

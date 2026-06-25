@@ -18,6 +18,7 @@ import {
   downloadFile,
   execAsync,
   extractFiles,
+  getSettings,
   getWineFromProton
 } from '../utils'
 import { execOptions } from 'backend/constants/others'
@@ -201,7 +202,7 @@ export const DXVK = {
     tool: 'dxvk' | 'dxvk-nvapi' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ): Promise<boolean> => {
-    const gameSettings = await game.getSettings()
+    const gameSettings = await getSettings(game)
     if (gameSettings.wineVersion.bin.includes('toolkit')) {
       // we don't want to install dxvk on the toolkit prefix since it breaks Apple's implementation
       logWarning(
@@ -545,7 +546,7 @@ export const Winetricks = {
     }
   },
   runWithArgs: async (game: Game, args: string[], returnOutput = false) => {
-    const gameSettings = await game.getSettings()
+    const gameSettings = await getSettings(game)
     const { wineVersion } = gameSettings
 
     if (!(await validWine(wineVersion))) {

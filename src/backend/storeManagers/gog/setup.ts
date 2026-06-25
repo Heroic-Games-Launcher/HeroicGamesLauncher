@@ -3,6 +3,7 @@ import path from 'node:path'
 import { InstalledInfo, WineCommandArgs } from 'common/types'
 import {
   checkWineBeforeLaunch,
+  getSettings,
   sendGameStatusUpdate,
   spawnAsync
 } from '../../utils'
@@ -85,7 +86,7 @@ async function setup(
     return
   }
 
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   if (!isWindows) {
     const logWriter = getRunnerLogWriter('gog')
     const isWineOkToLaunch = await checkWineBeforeLaunch(game, logWriter)

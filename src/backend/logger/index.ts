@@ -8,6 +8,7 @@ import { GameLogType, getLogFilePath } from './paths'
 
 import type { Game } from 'common/types/game_manager'
 import type { RunnerOrComet } from './types'
+import { getSettings } from '../utils'
 
 let heroicLogWriter: LogWriter
 const runnerLogWriters = new Map<RunnerOrComet, LogWriter>()
@@ -45,7 +46,7 @@ async function createGameLogWriter(
 ): Promise<LogWriter> {
   const logsDisabledGlobally = GlobalConfig.get().getSettings().disableLogs
   const logsDisabledPerGame =
-    type === 'launch' ? !(await game.getSettings()).verboseLogs : false
+    type === 'launch' ? !(await getSettings(game)).verboseLogs : false
 
   return new LogWriter(
     getLogFilePath({ appName: game.id, runner: game.runner, type }),

@@ -6,7 +6,7 @@ import {
 } from 'backend/constants/paths'
 import { notify } from 'backend/dialog/dialog'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
-import { sendGameStatusUpdate } from 'backend/utils'
+import { sendGameStatusUpdate, getSettings } from 'backend/utils'
 import { storeMap } from 'common/utils'
 import { Event } from 'electron'
 import { existsSync, readdirSync, rmSync } from 'graceful-fs'
@@ -15,7 +15,7 @@ import { join } from 'path'
 import type { Game } from 'common/types/game_manager'
 
 export const removePrefix = async (game: Game) => {
-  const { winePrefix } = await game.getSettings()
+  const { winePrefix } = await getSettings(game)
   logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
 
   if (!existsSync(winePrefix)) {

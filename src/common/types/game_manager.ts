@@ -1,7 +1,6 @@
 import type {
   GameInfo,
   InstallPlatform,
-  GameSettings,
   ExecResult,
   InstallArgs,
   InstallInfo,
@@ -28,8 +27,6 @@ export abstract class Game {
   abstract readonly runner: Runner
 
   abstract toString(): string
-
-  abstract getSettings(): Promise<GameSettings>
   abstract getGameInfo(): GameInfo
   abstract importGame(
     path: string,

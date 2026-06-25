@@ -1,6 +1,5 @@
-import { ExecResult, GameInfo, GameSettings, LaunchOption } from 'common/types'
+import { ExecResult, GameInfo, LaunchOption } from 'common/types'
 import { libraryStore } from './electronStores'
-import { GameConfig } from '../../game_config'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { dirname } from 'path'
@@ -41,13 +40,6 @@ export default class SideloadGame extends Game {
       return {}
     }
     return info
-  }
-
-  async getSettings(): Promise<GameSettings> {
-    return (
-      GameConfig.get(this.id).config ||
-      (await GameConfig.get(this.id).getSettings())
-    )
   }
 
   async addShortcuts(fromMenu?: boolean): Promise<void> {

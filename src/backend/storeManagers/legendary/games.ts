@@ -10,11 +10,11 @@ import {
   LaunchOption,
   Reqs
 } from 'common/types'
-import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
 import { libraryManagerMap } from '..'
 import {
   downloadFile,
+  getSettings,
   killPattern,
   moveOnUnix,
   moveOnWindows,
@@ -255,19 +255,6 @@ export default class LegendaryGame extends Game {
       .toLowerCase()
       .replace(/[^a-z ]/g, '')
       .replaceAll(' ', '-')
-  }
-
-  /**
-   * Alias for `GameConfig.get(appName).config`
-   * If it doesn't exist, uses getSettings() instead.
-   *
-   * @returns GameConfig
-   */
-  async getSettings() {
-    return (
-      GameConfig.get(this.appName).config ||
-      (await GameConfig.get(this.appName).getSettings())
-    )
   }
 
   /**
@@ -781,7 +768,7 @@ export default class LegendaryGame extends Game {
     args: string[] = [],
     skipVersionCheck = false
   ): Promise<boolean> {
-    const gameSettings = await this.getSettings()
+    const gameSettings = await getSettings(this)
     const gameInfo = this.getGameInfo()
 
     const {

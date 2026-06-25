@@ -5,7 +5,7 @@ import { join } from 'path'
 
 import { logError, LogPrefix, logWarning } from 'backend/logger'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
-import { sendGameStatusUpdate } from 'backend/utils'
+import { getSettings, sendGameStatusUpdate } from 'backend/utils'
 import { libraryManagerMap } from '../..'
 import { LegendaryCommand } from '../commands'
 import { ValidWinePrefix } from '../commands/base'
@@ -274,7 +274,7 @@ async function getWinePrefixFolder(
 ): Promise<ValidWinePrefix | null | false> {
   if (!isLinux || !game) return null
 
-  const { winePrefix, wineVersion } = await game.getSettings()
+  const { winePrefix, wineVersion } = await getSettings(game)
   const prefixPath =
     wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   const maybePrefix = ValidWinePrefix.safeParse(prefixPath)

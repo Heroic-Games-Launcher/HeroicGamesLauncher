@@ -1,6 +1,6 @@
 import { GlobalConfig } from 'backend/config'
 import { logError, LogPrefix, logInfo } from 'backend/logger'
-import { execAsync, getSteamLibraries } from 'backend/utils'
+import { execAsync, getSettings, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
@@ -507,7 +507,7 @@ export async function getWineFlags(
   wrapper: string
 ): Promise<AllowedWineFlags> {
   let partialCommand: AllowedWineFlags = {}
-  const { wineVersion } = await game.getSettings()
+  const { wineVersion } = await getSettings(game)
   const { type: wineType, bin: wineExec } = wineVersion
 
   // Fix for people with old config
@@ -571,7 +571,7 @@ export async function isUmuSupported(
   game: Game,
   checkUmuInstalled = true
 ): Promise<boolean> {
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   if (!isLinux) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
   if (gameSettings.disableUMU === true) {
