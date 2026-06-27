@@ -27,16 +27,70 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
   const [pkceData, setPkceData] = useState<NileLoginData | null>(null)
   const [status, setStatus] = useState({
     loading: false,
-    error: false,
+    errorMessage: null as string | null,
     fetchingUrl: false
   })
   const [linkCopied, setLinkCopied] = useState(false)
+
+  const manualTranslations = {
+    epic: {
+      step1: t(
+        'manual.epic.step1',
+        'Open the Epic Store login page in your browser, log in to your account and copy your authorization code (Session ID).'
+      ),
+      step2: t(
+        'manual.epic.step2',
+        'Paste your authorization code in the input box below and click on the login button.'
+      )
+    },
+    gog: {
+      step1: t(
+        'manual.gog.step1',
+        'Open the GOG login page in your browser and log in to your account.'
+      ),
+      step2: t(
+        'manual.gog.step2',
+        "After logging in, copy the entire URL from your browser's address bar and paste it in the input box below."
+      )
+    },
+    amazon: {
+      step1: t(
+        'manual.amazon.step1',
+        'Open the Amazon Games login page in your browser and log in to your account.'
+      ),
+      step2: t(
+        'manual.amazon.step2',
+        "After logging in, copy the entire URL from your browser's address bar and paste it in the input box below."
+      ),
+      loadingUrl: t('manual.amazon.loading_url', 'Preparing Amazon login...')
+    },
+    error: {
+      invalidCode: t(
+        'manual.error.invalid_code',
+        'Could not extract authorization code. Please paste the complete redirect URL.'
+      ),
+      codeTooShort: t(
+        'manual.error.code_too_short',
+        'Code is too short or invalid'
+      ),
+      loginFailed: t(
+        'manual.error.login_failed',
+        'Login failed. Please try again or use the standard login method.'
+      ),
+      networkError: t(
+        'manual.error.network_error',
+        'Network error. Please try again.'
+      ),
+      fetchUrl: t('manual.error.fetch_url', 'Failed to prepare login'),
+      noPkce: t('manual.error.no_pkce', 'Login data missing. Please try again.')
+    }
+  }
 
   // Get store-specific configuration
   const config: StoreConfig =
     store === 'epic' ? epicConfig : store === 'gog' ? gogConfig : amazonConfig
 
-  const { loading, error, fetchingUrl } = status
+  const { loading, errorMessage, fetchingUrl } = status
 
   // Fetch login URL (dynamic for Amazon PKCE, static for others)
   useEffect(() => {
@@ -54,7 +108,11 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
         .catch((err) => {
           console.error('[AltLogin] PKCE fetch error:', err)
           window.api.logError(`Amazon PKCE fetch failed: ${err}`)
-          setStatus((prev) => ({ ...prev, fetchingUrl: false, error: true }))
+          setStatus((prev) => ({
+            ...prev,
+            fetchingUrl: false,
+            errorMessage: manualTranslations.error.fetchUrl
+          }))
         })
     } else {
       setLoginUrl(config.loginUrl)
@@ -69,15 +127,41 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
 
   const handleLogin = async (inputCode: string) => {
     window.api.logInfo(`Called ${store} alternative login`)
-    setStatus({ loading: true, error: false, fetchingUrl: false })
+    setStatus({ loading: true, errorMessage: null, fetchingUrl: false })
 
     try {
       // Extract and validate code
       const extractedCode = config.extractCode(inputCode)
-      if (!extractedCode || extractedCode.length < config.minCodeLength) {
-        setStatus({ loading: false, error: true, fetchingUrl: false })
+      if (!extractedCode) {
+        setStatus({
+          loading: false,
+          errorMessage: manualTranslations.error.invalidCode,
+          fetchingUrl: false
+        })
         setTimeout(
-          () => setStatus({ loading: false, error: false, fetchingUrl: false }),
+          () =>
+            setStatus({
+              loading: false,
+              errorMessage: null,
+              fetchingUrl: false
+            }),
+          2500
+        )
+        return
+      }
+      if (extractedCode.length < config.minCodeLength) {
+        setStatus({
+          loading: false,
+          errorMessage: manualTranslations.error.codeTooShort,
+          fetchingUrl: false
+        })
+        setTimeout(
+          () =>
+            setStatus({
+              loading: false,
+              errorMessage: null,
+              fetchingUrl: false
+            }),
           2500
         )
         return
@@ -97,7 +181,20 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
           break
         case 'amazon':
           if (!pkceData) {
-            setStatus({ loading: false, error: true, fetchingUrl: false })
+            setStatus({
+              loading: false,
+              errorMessage: manualTranslations.error.noPkce,
+              fetchingUrl: false
+            })
+            setTimeout(
+              () =>
+                setStatus({
+                  loading: false,
+                  errorMessage: null,
+                  fetchingUrl: false
+                }),
+              3500
+            )
             return
           }
           result = await amazon.login({
@@ -110,21 +207,35 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
       }
 
       if (result === 'done') {
-        setStatus({ loading: false, error: false, fetchingUrl: false })
+        setStatus({ loading: false, errorMessage: null, fetchingUrl: false })
         backdropClick()
       } else {
-        setStatus({ loading: false, error: true, fetchingUrl: false })
+        setStatus({
+          loading: false,
+          errorMessage: manualTranslations.error.loginFailed,
+          fetchingUrl: false
+        })
         setTimeout(
-          () => setStatus({ loading: false, error: false, fetchingUrl: false }),
+          () =>
+            setStatus({
+              loading: false,
+              errorMessage: null,
+              fetchingUrl: false
+            }),
           2500
         )
       }
     } catch (err) {
       console.error(`[AltLogin] Login error:`, err)
-      setStatus({ loading: false, error: true, fetchingUrl: false })
+      setStatus({
+        loading: false,
+        errorMessage: manualTranslations.error.networkError,
+        fetchingUrl: false
+      })
       setTimeout(
-        () => setStatus({ loading: false, error: false, fetchingUrl: false }),
-        2500
+        () =>
+          setStatus({ loading: false, errorMessage: null, fetchingUrl: false }),
+        3500
       )
     }
   }
@@ -132,7 +243,7 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
   function getButtonLabel() {
     if (loading) {
       return t('button.loading', 'Loading')
-    } else if (error) {
+    } else if (errorMessage) {
       return t('button.error', 'Error, try a different Code')
     } else {
       return t('button.login', 'Login')
@@ -153,14 +264,11 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
           </p>
           <ol>
             <li>
-              {t(
-                `manual.${store}.step1`,
-                `Open the ${store.toUpperCase()} login page in your browser and log in to your account.`
-              )}
+              {manualTranslations[store].step1}
               {fetchingUrl ? (
                 <p>
                   <Autorenew className="material-icons refreshing" />{' '}
-                  {t('manual.amazon.loading_url', 'Preparing login...')}
+                  {manualTranslations.amazon.loadingUrl}
                 </p>
               ) : (
                 <Paper variant="outlined" className="login-link">
@@ -194,12 +302,7 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
                 </Paper>
               )}
             </li>
-            <li>
-              {t(
-                `manual.${store}.step2`,
-                `After logging in, copy the entire URL from your browser's address bar and paste it in the input box below.`
-              )}
-            </li>
+            <li>{manualTranslations[store].step2}</li>
           </ol>
         </div>
         <input
@@ -218,13 +321,18 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
             <Autorenew className="material-icons refreshing" />{' '}
           </p>
         )}
+        {errorMessage && (
+          <p className="message error-message" style={{ color: 'red' }}>
+            {errorMessage}
+          </p>
+        )}
         <button
           onClick={async () => handleLogin(input)}
           className="button is-primary"
           disabled={
             loading ||
             input.length < config.minCodeLength ||
-            error ||
+            !!errorMessage ||
             fetchingUrl
           }
         >
