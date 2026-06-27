@@ -321,7 +321,9 @@ export default function DownloadDialog({
           runner,
           platformToInstall,
           selectedBuild,
-          branch
+          branch,
+          installLanguage || undefined,
+          sdlList.length ? sdlList : undefined
         )
 
         if (
