@@ -12,12 +12,14 @@ const RunnerToStore = {
   gog: 'GOG',
   nile: 'Amazon Games',
   sideload: 'Other',
-  zoom: 'ZOOM Platform'
+  zoom: 'ZOOM Platform',
+  steam: 'Steam'
 }
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon, zoom } = useContext(ContextProvider)
+  const { platform, epic, gog, amazon, zoom, steam } =
+    useContext(ContextProvider)
   const {
     setShowFavourites,
     setShowHidden,
@@ -36,7 +38,9 @@ export default function LibraryFilters() {
     showThirdPartyManagedOnly,
     setShowThirdPartyManagedOnly,
     showUpdatesOnly,
-    setShowUpdatesOnly
+    setShowUpdatesOnly,
+    showSteamOwnedOnly,
+    setShowSteamOwnedOnly
   } = useContext(LibraryContext)
 
   const toggleShowHidden = () => {
@@ -67,6 +71,10 @@ export default function LibraryFilters() {
     setShowUpdatesOnly(!showUpdatesOnly)
   }
 
+  const toggleSteamOwnedOnly = () => {
+    setShowSteamOwnedOnly(!showSteamOwnedOnly)
+  }
+
   const toggleStoreFilter = (store: Runner) => {
     const currentValue = storesFilters[store]
     const newFilters = { ...storesFilters, [store]: !currentValue }
@@ -90,7 +98,8 @@ export default function LibraryFilters() {
       gog: false,
       nile: false,
       sideload: false,
-      zoom: false
+      zoom: false,
+      steam: false
     }
     newFilters = { ...newFilters, [store]: true }
     setStoresFilters(newFilters)
@@ -133,6 +142,7 @@ export default function LibraryFilters() {
   // t('GOG', 'GOG')
   // t('Amazon Games', 'Amazon Games')
   // t('Other', 'Other')
+  // t('Steam', 'Steam')
   const storeToggle = (store: Runner) => {
     const toggle = (
       <ToggleSwitch
@@ -155,7 +165,8 @@ export default function LibraryFilters() {
       gog: true,
       nile: true,
       sideload: true,
-      zoom: true
+      zoom: true,
+      steam: true
     })
     setPlatformsFilters({
       win: true,
@@ -170,6 +181,7 @@ export default function LibraryFilters() {
     setShowSupportOfflineOnly(false)
     setShowThirdPartyManagedOnly(false)
     setShowUpdatesOnly(false)
+    setShowSteamOwnedOnly(false)
   }
 
   return (
@@ -184,6 +196,7 @@ export default function LibraryFilters() {
       {gog.username && storeToggle('gog')}
       {amazon.user_id && storeToggle('nile')}
       {zoom.enabled && zoom.username && storeToggle('zoom')} {}
+      {steam.enabled && storeToggle('steam')}
       {storeToggle('sideload')}
       <hr />
       {platformToggle('win')}
@@ -246,6 +259,18 @@ export default function LibraryFilters() {
         value={showUpdatesOnly}
         title={t('header.show_updates_only', 'Show games with updates only')}
       />
+      {steam.enabled && (
+        <ToggleSwitch
+          key="only-steam-owned"
+          htmlId="only-steam-owned"
+          handleChange={() => toggleSteamOwnedOnly()}
+          value={showSteamOwnedOnly}
+          title={t(
+            'header.show_steam_owned_only',
+            'Show Steam owned games only'
+          )}
+        />
+      )}
       <hr />
       <button
         type="reset"

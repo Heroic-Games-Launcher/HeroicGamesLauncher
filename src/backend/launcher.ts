@@ -1888,8 +1888,9 @@ function getRunnerCallWithoutCredentials(
     command = libraryManagerMap['legendary'].commandToArgsArray(command)
 
   const modifiedCommand = [...command]
-  // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
-  for (const sensitiveArg of ['--code', '--token']) {
+  // Redact sensitive arguments (Authorization Code for Legendary, token for
+  // GOGDL, password (`-p`)/Steam Guard code for Aurelia)
+  for (const sensitiveArg of ['--code', '--token', '-p', '--guard']) {
     // PowerShell's argument formatting is quite different, instead of having
     // arguments as members of `command`, they're all in one specific member
     // (the one after "-ArgumentList")

@@ -19,6 +19,7 @@ import {
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
 import { ZoomCredentials } from './zoom'
+import { SteamAccount, SteamPendingDlcChange } from './steam'
 
 export interface StoreStructure {
   configStore: {
@@ -60,6 +61,9 @@ export interface StoreStructure {
   zoomInstalledGamesStore: {
     installed: InstalledInfo[]
   }
+  steamInstalledGamesStore: {
+    installed: InstalledInfo[]
+  }
   timestampStore: {
     [K: string]: {
       firstPlayed: string
@@ -79,6 +83,15 @@ export interface StoreStructure {
     credentials?: ZoomCredentials
     isLoggedIn: boolean
     username?: string
+  }
+  steamConfigStore: {
+    isLoggedIn: boolean
+    steamId?: string
+    username?: string
+    accounts?: SteamAccount[]
+    pendingDlc?: SteamPendingDlcChange[]
+    // Per-game opt-in Steam launch, needed for Steamworks online features and Family-Sharing. .
+    steamIntegration?: Record<string, boolean>
   }
   nileConfigStore: {
     userData?: NileUserData

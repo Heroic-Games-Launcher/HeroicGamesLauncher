@@ -177,6 +177,18 @@
   fill: var(--text-default);
 }
 
+.gameCard .family-share-icon {
+  top: 44px;
+  box-sizing: border-box;
+  display: grid;
+  color: var(--text-default);
+}
+
+.gameCard .family-share-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .gameCard:hover,
 .gameCard:focus-within {
   transform: scale(1.05);

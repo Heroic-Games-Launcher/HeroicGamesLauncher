@@ -41,6 +41,11 @@ import {
   installStore as nileInstallStore,
   libraryStore as nileLibraryStore
 } from './storeManagers/nile/electronStores'
+import {
+  installInfoStore as steamInstallInfoStore,
+  libraryStore as steamLibraryStore,
+  extraInfoStore as steamExtraInfoStore
+} from './storeManagers/steam/electronStores'
 import * as fileSize from 'filesize'
 import { Client as discordClient } from '@xhayper/discord-rpc'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -361,14 +366,14 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
-  if (url.startsWith('http')) {
+  if (url.includes('://') && URL.canParse(url)) {
     return shell.openExternal(url)
   }
   return shell.openPath(url)
 }
 
 function clearCache(
-  library?: 'gog' | 'legendary' | 'nile' | 'zoom',
+  library?: 'gog' | 'legendary' | 'nile' | 'zoom' | 'steam',
   fromVersionChange = false
 ) {
   wikiGameInfoStore.clear()
@@ -390,6 +395,11 @@ function clearCache(
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
     nileLibraryStore.clear()
+  }
+  if (library === 'steam' || !library) {
+    steamInstallInfoStore.clear()
+    steamLibraryStore.clear()
+    steamExtraInfoStore.clear()
   }
 
   if (!fromVersionChange) {
@@ -499,6 +509,24 @@ function getNileBin(): { dir: string; bin: string } {
   if (!defaultNilePath) defaultNilePath = archSpecificBinary('nile')
 
   return splitPathAndName(fixAsarPath(defaultNilePath))
+}
+
+let defaultAureliaPath: string | undefined = undefined
+function getAureliaBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altAureliaBin) {
+    return splitPathAndName(settings.altAureliaBin)
+  }
+
+  if (!defaultAureliaPath) defaultAureliaPath = archSpecificBinary('aurelia')
+
+  const bundledPath = fixAsarPath(defaultAureliaPath)
+  // check PATH
+  if (!existsSync(bundledPath)) {
+    return { dir: '', bin: isWindows ? 'aurelia.exe' : 'aurelia' }
+  }
+
+  return splitPathAndName(bundledPath)
 }
 
 export function createNecessaryFolders() {
@@ -1626,7 +1654,10 @@ async function extractTarFile({
 
 const axiosClient = axios.create({
   timeout: 10 * 1000,
-  httpsAgent: new https.Agent({ keepAlive: true })
+  httpsAgent: new https.Agent({ keepAlive: true }),
+  headers: {
+    'User-Agent': `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
+  }
 })
 
 export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
@@ -1685,6 +1716,7 @@ export {
   getGOGdlBin,
   getCometBin,
   getNileBin,
+  getAureliaBin,
   formatEpicStoreUrl,
   getSteamRuntime,
   constructAndUpdateRPC,
@@ -1703,6 +1735,7 @@ export {
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,
+  formatTime,
   extractFiles,
   axiosClient,
   parseSize,

@@ -1,0 +1,20 @@
+.steam-qr {
+  display: grid;
+  place-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+/* White quiet-zone backing so the code scans on any theme. */
+.steam-qr-code {
+  background: #ffffff;
+  padding: var(--space-sm);
+  border-radius: var(--space-3xs);
+  line-height: 0;
+}
+
+.steam-mode-toggle {
+  margin-top: var(--space-sm);
+  color: var(--text-secondary);
+  text-decoration: underline;
+}

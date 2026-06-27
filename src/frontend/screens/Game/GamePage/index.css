@@ -347,6 +347,11 @@
             margin-inline-end: 0;
           }
         }
+
+        & .steamStoreButton {
+          margin-inline-start: var(--space-xs);
+          text-decoration: none;
+        }
       }
     }
   }
@@ -412,6 +417,86 @@
             overflow: visible;
             white-space: normal;
             background: var(--body-background);
+          }
+        }
+        & > div > .steamDlcInfo {
+          flex-direction: column;
+          align-items: stretch;
+          text-align: start;
+
+          .steamDlcList {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3xs, 2px);
+          }
+
+          .steamDlcRow {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-3xs, 2px) 0;
+          }
+
+          .steamDlcImage {
+            width: 92px;
+            height: 43px;
+            flex-shrink: 0;
+            object-fit: cover;
+            border-radius: 4px;
+            background: var(--neutral-04);
+          }
+
+          .steamDlcTitle {
+            flex-grow: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .steamDlcStatus {
+            display: inline-flex;
+            align-items: center;
+            flex-shrink: 0;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+
+            svg {
+              width: 22px;
+              height: 22px;
+            }
+
+            &.installed {
+              color: var(--success);
+            }
+            &.notInstalled {
+              color: var(--accent);
+            }
+            &.notBought {
+              color: var(--text-secondary);
+            }
+          }
+
+          .steamDlcStoreBtn {
+            display: inline-flex;
+            align-items: center;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+
+            &:hover,
+            &:focus-visible {
+              color: var(--text-default);
+            }
+
+            svg {
+              width: 20px;
+              height: 20px;
+            }
           }
         }
         & > div > .hltbWrapper > .MuiAccordion-root {
