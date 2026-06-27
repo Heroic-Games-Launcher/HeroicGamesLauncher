@@ -17,7 +17,7 @@ describe('Main - GetAvailableVersions', () => {
     })
 
     expect(axiosClient.get).toBeCalledWith(
-      'https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases?per_page=100'
+      'https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases?per_page=100'
     )
     expect(logError).not.toBeCalled()
   })
@@ -35,7 +35,7 @@ describe('Main - GetAvailableVersions', () => {
       })
 
       expect(axiosClient.get).toBeCalledWith(
-        'https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases?per_page=100'
+        'https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases?per_page=100'
       )
       expect(logError).not.toBeCalled()
     }
@@ -54,7 +54,7 @@ describe('Main - GetAvailableVersions', () => {
       )
       expect(logError).toBeCalledWith(
         Error(
-          'Could not fetch available releases from https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases with error:\n ' +
+          'Could not fetch available releases from https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases with error:\n ' +
             'Could not fetch tag 404'
         ),
         'WineDownloader'

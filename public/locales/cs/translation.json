@@ -1060,7 +1060,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
-        "wine-ge": "Wine-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb.",
         "gpt": "Game Porting Toolkit je vyvíjen Applem a je doporučen pro Apple Silicon Macky s M1+ čipem a nejlépe funguje pro nové hry s DX12.",
         "wine-crossover": "Wine-Crossover je založen na projektu Crossover OpenSource Wine a je doporučen pro Intel Macky a pro DX11 a starší hry.",
         "wine-staging-macos": "Wine-Staging-macOS je založen na projektu Wine a je doporučen pro Intel Macky a pro DX11 a starší hry, speciálně když je spárovaný s nástrojem DXMT."
