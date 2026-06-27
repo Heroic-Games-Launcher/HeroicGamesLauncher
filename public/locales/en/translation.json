@@ -170,6 +170,12 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
+            "itchio": {
+                "installer": {
+                    "message": "Heroic detected that the executable for \"{{title}}\" is an installer ({{exe}}).\n\nHeroic will try to run it silently and install the game into:\n{{path}}\n\nIf the game does not launch afterwards, open the game settings > Advanced > Alternative exe and pick the actual game executable.\n\nContinue launching?",
+                    "title": "Installer detected"
+                }
+            },
             "rosetta": {
                 "message": "Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: \"softwareupdate --install-rosetta\" and restart Heroic. ",
                 "title": "Rosetta not found"
@@ -562,6 +568,7 @@
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         }
     },
+    "itchio-store": "itch.io Store",
     "label": {
         "loading": "Loading",
         "releaseDate": "Release Date"
@@ -590,6 +597,7 @@
         "amazon": "Amazon Login",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
+        "itchio": "itch.io Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
         "zoom": "Zoom Login"
@@ -851,6 +859,7 @@
                 "game-log": "Game log of {{gameTitle}}",
                 "gog": "GOG log",
                 "heroic": "General Heroic log",
+                "itchio": "itch.io log",
                 "legendary": "Epic Games / Legendary log",
                 "nile": "Amazon / Nile log",
                 "zoom": "Zoom log"

@@ -161,6 +161,14 @@ const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
   cwd: 'nile_store'
 })
 
+const itchioLibraryStore = new CacheStore<GameInfo[], 'library'>(
+  'itchio_library',
+  null
+)
+const itchioConfigStore = new TypeCheckedStoreFrontend('itchioConfigStore', {
+  cwd: 'itchio_store'
+})
+
 const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
@@ -193,6 +201,8 @@ export {
   downloadManagerStore,
   nileLibraryStore,
   nileConfigStore,
+  itchioLibraryStore,
+  itchioConfigStore,
   zoomLibraryStore,
   zoomInstalledGamesStore,
   zoomConfigStore,
