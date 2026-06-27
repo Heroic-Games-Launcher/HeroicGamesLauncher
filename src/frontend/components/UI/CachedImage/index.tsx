@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 
 interface CachedImageProps {
@@ -15,11 +15,14 @@ const CachedImage = (props: Props) => {
   const [useCache, setUseCache] = useState(
     props.src?.startsWith('http') || false
   )
+  const imgRef = useRef<HTMLImageElement>(null)
   const [loaded, setLoaded] = useState(false)
   const [useFallback, setUseFallback] = useState(false)
 
   useEffect(() => {
-    setLoaded(false)
+    setLoaded(
+      (imgRef.current?.complete && imgRef.current?.naturalWidth > 0) ?? false
+    )
     setUseFallback(false)
     setUseCache(props.src?.startsWith('http') || false)
   }, [props.src])
@@ -48,6 +51,7 @@ const CachedImage = (props: Props) => {
 
   return (
     <img
+      ref={imgRef}
       loading="lazy"
       {...props}
       src={src}
