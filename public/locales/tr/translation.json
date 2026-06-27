@@ -1067,7 +1067,8 @@
         "proton-ge": "GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar.",
         "gpt": "Game Porting Toolkit, Apple tarafından geliştirilmiştir; M1+ yongalarına sahip Apple Silicon Mac'ler için önerilir ve DX12 kullanan yeni oyunlarda en iyi performansı gösterir.",
         "wine-crossover": "Wine-Crossover, Crossover OpenSource Wine projesine dayanmaktadır ve İntel tabanlı Mac'ler ile DX11 veya daha eski sürümdeki oyunlar için önerilmektedir.",
-        "wine-staging-macos": "Wine-Staging-macOS, ana Wine projesine dayanmaktadır ve İntel Mac'ler ile DX11 veya daha eski sürümdeki oyunlar için, özellikle de DXMT aracıyla birlikte kullanıldığında tavsiye edilmektedir."
+        "wine-staging-macos": "Wine-Staging-macOS, ana Wine projesine dayanmaktadır ve İntel Mac'ler ile DX11 veya daha eski sürümdeki oyunlar için, özellikle de DXMT aracıyla birlikte kullanıldığında tavsiye edilmektedir.",
+        "proton-cachyos": "Proton-CachyOS, CachyOS ekibi tarafından geliştirilen bir Proton türevidir. DXVK-Sarek ve D7VK gibi ek araçlar içerir."
     },
     "categories-manager": {
         "add-placeholder": "Yeni kategori ekle",
