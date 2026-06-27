@@ -7,34 +7,31 @@
         "login": "Log in",
         "open": "Open Link"
     },
-    "message": {
-        "part1": "In order to log in and install your games, you first need to follow the steps below:"
-    },
     "manual": {
+        "amazon": {
+            "loading_url": "Preparing login...",
+            "step1": "Open the Amazon Games login page in your browser and log in to your account.",
+            "step2": "After logging in, copy the entire URL from your browser's address bar and paste it in the input box below."
+        },
         "epic": {
             "step1": "Open the Epic Store login page in your browser, log in to your account and copy your authorization code (Session ID).",
-            "step2": "Paste your authorization code in the input box below and click on the login button.",
-            "label": "Epic Session ID (SID)"
+            "step2": "Paste your authorization code in the input box below and click on the login button."
+        },
+        "error": {
+            "code_too_short": "Code is too short or invalid",
+            "fetch_url": "Failed to prepare login",
+            "invalid_code": "Could not extract authorization code. Please paste the complete redirect URL.",
+            "login_failed": "Login failed. Please try again or use the standard login method.",
+            "network_error": "Network error. Please try again.",
+            "no_pkce": "Login data missing. Please try again."
         },
         "gog": {
             "step1": "Open the GOG login page in your browser and log in to your account.",
-            "step2": "After logging in, copy the entire URL from your browser's address bar and paste it in the input box below.",
-            "label": "GOG Authorization URL or Code"
-        },
-        "amazon": {
-            "step1": "Open the Amazon Games login page in your browser and log in to your account.",
-            "step2": "After logging in, copy the entire URL from your browser's address bar and paste it in the input box below.",
-            "label": "Amazon Authorization URL",
-            "loading_url": "Preparing Amazon login..."
-        },
-        "error": {
-            "invalid_code": "Could not extract authorization code. Please paste the complete redirect URL.",
-            "code_too_short": "Code is too short or invalid",
-            "login_failed": "Login failed. Please try again or use the standard login method.",
-            "network_error": "Network error. Please try again.",
-            "fetch_url": "Failed to prepare login",
-            "no_pkce": "Login data missing. Please try again."
+            "step2": "After logging in, copy the entire URL from your browser's address bar and paste it in the input box below."
         }
+    },
+    "message": {
+        "part1": "In order to log in and install your games, you first need to follow the steps below:"
     },
     "welcome": "Welcome!"
 }

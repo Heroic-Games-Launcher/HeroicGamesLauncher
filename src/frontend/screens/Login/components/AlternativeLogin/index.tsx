@@ -154,13 +154,13 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
           <ol>
             <li>
               {t(
-                `login.manual.${store}.step1`,
+                `manual.${store}.step1`,
                 `Open the ${store.toUpperCase()} login page in your browser and log in to your account.`
               )}
               {fetchingUrl ? (
                 <p>
                   <Autorenew className="material-icons refreshing" />{' '}
-                  {t('login.manual.amazon.loading_url', 'Preparing login...')}
+                  {t('manual.amazon.loading_url', 'Preparing login...')}
                 </p>
               ) : (
                 <Paper variant="outlined" className="login-link">
@@ -196,7 +196,7 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
             </li>
             <li>
               {t(
-                `login.manual.${store}.step2`,
+                `manual.${store}.step2`,
                 `After logging in, copy the entire URL from your browser's address bar and paste it in the input box below.`
               )}
             </li>
