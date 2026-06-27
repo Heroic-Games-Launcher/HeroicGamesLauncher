@@ -277,6 +277,22 @@ Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)"
 
 After cloning the repository, Nix users can use `nix-shell` to make Node.JS/pnpm available and automatically run [installation step](#development-environment) 3 and 4. See [shell.nix](shell.nix) for more information.
 
+If flakes are enabled, this repository also provides a Linux FHS-based development shell:
+
+```bash
+nix develop
+nix run .#setup
+nix run .#start
+```
+
+Useful flake commands:
+
+```bash
+nix run .#check
+nix run .#lint
+nix run .#test
+```
+
 ## Sponsors
 
 Thanks [Weblate](https://weblate.org/en/) for hosting our translations

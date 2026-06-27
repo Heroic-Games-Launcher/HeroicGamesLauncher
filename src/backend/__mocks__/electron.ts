@@ -79,6 +79,19 @@ const screen = {
   }
 }
 
+const mockSession = () => ({
+  clearStorageData: jest.fn().mockResolvedValue(undefined),
+  clearCache: jest.fn().mockResolvedValue(undefined),
+  clearAuthCache: jest.fn().mockResolvedValue(undefined),
+  clearHostResolverCache: jest.fn().mockResolvedValue(undefined),
+  clearData: jest.fn().mockResolvedValue(undefined)
+})
+
+const session = {
+  defaultSession: mockSession(),
+  fromPartition: () => mockSession()
+}
+
 class Tray {
   icon = ''
   menu: MenuItemConstructorOptions[] = []
@@ -110,5 +123,6 @@ export {
   nativeImage,
   Tray,
   ipcMain,
-  screen
+  screen,
+  session
 }
