@@ -43,6 +43,19 @@ mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
     com.apple.security.cs.allow-jit: true
+  fileAssociations:
+    - ext: exe
+      name: Windows Executable
+      description: Windows Executable
+      mimeType: application/x-ms-dos-executable
+    - ext: msi
+      name: Windows Installer
+      description: Windows Installer Package
+      mimeType: application/x-msi
+    - ext: bat
+      name: Windows Batch File
+      description: Windows Batch Script
+      mimeType: application/x-bat
   files:
     - build/bin/${arch}/darwin/*
     - build/bin/x64/win32/GalaxyCommunication.exe
@@ -66,6 +79,19 @@ linux:
   artifactName: ${productName}-${version}-linux-${arch}.${ext}
   category: Game
   icon: build/icon.icns
+  fileAssociations:
+    - ext: exe
+      name: Windows Executable
+      description: Windows Executable
+      mimeType: application/x-ms-dos-executable
+    - ext: msi
+      name: Windows Installer
+      description: Windows Installer Package
+      mimeType: application/x-msi
+    - ext: bat
+      name: Windows Batch File
+      description: Windows Batch Script
+      mimeType: application/x-bat
   desktop:
     entry:
       Name: Heroic Games Launcher
