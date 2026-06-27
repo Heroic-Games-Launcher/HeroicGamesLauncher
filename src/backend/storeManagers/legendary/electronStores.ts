@@ -25,3 +25,7 @@ export const gamesOverrideStore: CacheStore<GameOverride, 'gamesOverride'> =
   )
 
 export const gameInfoStore = new CacheStore<ExtraInfo>('legendary_gameinfo')
+export const friendDisplayNameStore = new CacheStore<string>(
+  'legendary_friend_display_names',
+  60 * 24 * 7
+)
