@@ -1242,8 +1242,8 @@
         },
         "sort": "Сортировка",
         "cancel": {
-            "hintSuffix": "",
-            "hintPrefix": ""
+            "hintSuffix": "3с для отмены",
+            "hintPrefix": "Удерживайте"
         },
         "quit": "Выйти из режима консоли",
         "hints": {
@@ -1251,25 +1251,27 @@
             "sort": "Сортировка",
             "navigate": "",
             "quit": "Закрыть Heroic",
-            "change_store": ""
+            "change_store": "Сменить магазин"
         },
         "launching": "",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Требуется обновление"
         },
         "filter": {
             "sideload": "Другое",
             "all": "Все"
         },
-        "empty": "",
+        "empty": "Установленных игр нет. Сначала установите что-нибудь.",
         "games": "Установленные игры",
         "quitApp": "Закрыть приложение",
         "loading": "",
         "cancelInstall": {
-            "title": "Отменить установку"
+            "title": "Отменить установку",
+            "message": "Игра сейчас устанавливается. Отменить установку?"
         },
         "cancelUpdate": {
-            "title": "Отменить обновление"
+            "title": "Отменить обновление",
+            "message": "Игра сейчас загружается. Отменить текущее обновление?"
         },
         "install": {
             "platform": "Platform",
