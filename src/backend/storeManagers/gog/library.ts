@@ -1310,6 +1310,9 @@ export default class GOGLibraryManager implements LibraryManager {
     certificate?: string,
     accessToken?: string
   ): Promise<{ isUpdated: boolean; data?: GamesDBData | undefined }> {
+    if (store == 'humble-bundle') {
+      store = 'humble'
+    }
     const pieceId = `${store}_${game_id}`
     const cachedData = !forceUpdate ? apiInfoCache.get(pieceId) : null
     if (cachedData && cachedData?.id && !forceUpdate) {

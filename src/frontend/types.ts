@@ -25,6 +25,7 @@ export type Category =
   | 'sideload'
   | 'nile'
   | 'zoom'
+  | 'humble-bundle'
 
 export interface ContextType {
   error: boolean
@@ -94,6 +95,12 @@ export interface ContextType {
     login: (url: string) => Promise<string>
     logout: () => Promise<void>
     enabled: boolean
+  }
+  humbleBundle: {
+    library: GameInfo[]
+    email?: string
+    login: () => Promise<string>
+    logout: () => Promise<void>
   }
   installingEpicGame: boolean
   allTilesInColor: boolean
@@ -212,6 +219,7 @@ export interface StoresFilters {
   nile: boolean
   sideload: boolean
   zoom: boolean
+  'humble-bundle': boolean
 }
 
 export interface PlatformsFilters {

@@ -19,6 +19,7 @@ import {
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
 import { ZoomCredentials } from './zoom'
+import { HumbleBundleUserInfo } from './humble_bundle'
 
 export interface StoreStructure {
   configStore: {
@@ -79,6 +80,10 @@ export interface StoreStructure {
     credentials?: ZoomCredentials
     isLoggedIn: boolean
     username?: string
+  }
+  humbleConfigStore: {
+    userData: HumbleBundleUserInfo
+    isLoggedIn: boolean
   }
   nileConfigStore: {
     userData?: NileUserData
