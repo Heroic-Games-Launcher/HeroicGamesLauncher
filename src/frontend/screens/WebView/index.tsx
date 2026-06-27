@@ -1,10 +1,17 @@
-import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
 import { ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { isUsingGamepad, toggleWebviewFocus } from 'frontend/helpers/gamepad'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
@@ -45,7 +52,14 @@ export default function WebView() {
     null
   )
   const navigate = useNavigate()
-  const webviewRef = useRef<Electron.WebviewTag>(null)
+  // Keep the webview element in state (via a callback ref) instead of a plain
+  // ref so that mounting/remounting it — e.g. when switching stores — triggers
+  // a re-render and propagates the live element to children like
+  // WebviewControls. A mutable ref wouldn't, leaving them with a stale webview.
+  const [webview, setWebview] = useState<Electron.WebviewTag | null>(null)
+  const webviewRef = useCallback((node: Electron.WebviewTag | null) => {
+    setWebview(node)
+  }, [])
 
   // `store` is set to epic/gog/amazon depending on which storefront we're
   // supposed to show, `runner` is set to a runner if we're supposed to show its
@@ -158,7 +172,6 @@ export default function WebView() {
   }, [])
 
   useLayoutEffect(() => {
-    const webview = webviewRef.current
     if (webview) {
       const loadstop = async () => {
         setLoading({ ...loading, refresh: false })
@@ -168,6 +181,24 @@ export default function WebView() {
             : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0'
         if (webview.getUserAgent() != userAgent) {
           webview.setUserAgent(userAgent)
+        }
+        // Hand input to the webview so the gamepad's spatial navigation
+        // (handled by the preload) takes effect when the user got here with
+        // a controller. Mouse users stay in the host so they can still click
+        // the sidebar / URL bar.
+        if (isUsingGamepad()) {
+          webview.focus()
+        }
+        // Keep the preload's gamepad loop in sync with the disable-controller
+        // setting. Cheaper to re-send on every navigation than to subscribe.
+        try {
+          const { disableController } = await window.api.requestAppSettings()
+          webview.send('heroic-host', {
+            type: 'set-disabled',
+            value: !!disableController
+          })
+        } catch {
+          // best-effort — preload still works without this hint
         }
         // Ignore the login handling if not on login page
         if (!runner) {
@@ -250,10 +281,9 @@ export default function WebView() {
       }
     }
     return
-  }, [webviewRef.current, amazonLoginData, runner, webviewPreloadPath])
+  }, [webview, amazonLoginData, runner, webviewPreloadPath])
 
   useEffect(() => {
-    const webview = webviewRef.current
     if (webview) {
       const onNavigate = () => {
         if (store) {
@@ -293,7 +323,7 @@ export default function WebView() {
     }
 
     return
-  }, [webviewRef.current, store, runner])
+  }, [webview, store, runner])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon' | 'zoom'
@@ -331,11 +361,61 @@ export default function WebView() {
     setShowLoginWarningFor(null)
   }
 
+  // Track webview focus so the host gamepad handler can step aside while the
+  // preload script drives the navigation inside the store page. Also handle
+  // commands the preload posts back (B with empty history, X → URL bar,
+  // guide → console mode).
+  useEffect(() => {
+    if (!webview) return
+
+    const onFocus = () => toggleWebviewFocus(true)
+    const onBlur = () => toggleWebviewFocus(false)
+
+    webview.addEventListener('focus', onFocus)
+    webview.addEventListener('blur', onBlur)
+
+    const onIpcMessage = (ev: Electron.IpcMessageEvent) => {
+      if (ev.channel !== 'heroic-webview') return
+      const data = ev.args?.[0] as { type?: string } | undefined
+      if (!data) return
+      switch (data.type) {
+        case 'blur-webview':
+          toggleWebviewFocus(false)
+          ;(webview as unknown as HTMLElement).blur?.()
+          document.body.focus()
+          break
+        case 'focus-url-bar': {
+          toggleWebviewFocus(false)
+          const urlInput = document.querySelector<HTMLInputElement>(
+            '.WebviewControls__urlInput'
+          )
+          urlInput?.focus()
+          urlInput?.select()
+          break
+        }
+        case 'guide':
+          toggleWebviewFocus(false)
+          ;(webview as unknown as HTMLElement).blur?.()
+          window.location.hash = window.location.hash.startsWith('#/console')
+            ? '#/'
+            : '#/console'
+          break
+      }
+    }
+
+    webview.addEventListener('ipc-message', onIpcMessage)
+
+    return () => {
+      webview.removeEventListener('focus', onFocus)
+      webview.removeEventListener('blur', onBlur)
+      webview.removeEventListener('ipc-message', onIpcMessage)
+      toggleWebviewFocus(false)
+    }
+  }, [webview])
+
   // Handle back/forward mouse buttons to navigate inside webview
   useEffect(() => {
-    if (!webviewRef.current) return
-
-    const webview = webviewRef.current
+    if (!webview) return
 
     const handleMouseBackForward = (ev: MouseEvent) => {
       // 3 and 4 are the typical `button` value for mouse back/forward buttons on mouseup events
@@ -360,7 +440,7 @@ export default function WebView() {
     return () => {
       document.removeEventListener('mouseup', handleMouseBackForward)
     }
-  }, [webviewRef.current])
+  }, [webview])
 
   if (!webviewPreloadPath) {
     return <></>
@@ -368,9 +448,10 @@ export default function WebView() {
 
   return (
     <div className="WebView">
-      {webviewRef.current && (
+      {webview && (
         <WebviewControls
-          webview={webviewRef.current}
+          key={`controls-${store}`}
+          webview={webview}
           initURL={startUrl}
           openInBrowser={!startUrl.startsWith('login')}
         />

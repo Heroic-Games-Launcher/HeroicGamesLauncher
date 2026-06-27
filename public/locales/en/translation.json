@@ -277,13 +277,18 @@
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
+            "move_focus": "Move focus",
+            "next_page": "Next page",
             "open_virtual_keyboard": "Open virtual keyboard",
             "options": "Options",
             "play_game": "Play game",
+            "previous_page": "Previous page",
             "scroll": "Scroll",
+            "search": "Search",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "url_bar": "URL bar"
         }
     },
     "discounts": {
@@ -1169,6 +1174,7 @@
         "controls": {
             "back": "Go back",
             "forward": "Go forward",
+            "home": "Go to store home",
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
