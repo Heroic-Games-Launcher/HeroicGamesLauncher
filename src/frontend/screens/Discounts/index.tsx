@@ -16,6 +16,7 @@ import {
   getLocaleSettings,
   getPegiAge,
   getStoredRegionOverride,
+  isMatureProduct,
   loadStoredFilters,
   normalizeRating,
   parseDiscountPercent,
@@ -55,6 +56,7 @@ export default function Discounts() {
     setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
+    setShowMature(false)
     setHideOwned(false)
     setWishlistOnly(false)
   }
@@ -94,6 +96,9 @@ export default function Discounts() {
     storedFilters.searchQuery ?? ''
   )
   const [hideDlcs, setHideDlcs] = useState(storedFilters.hideDlcs ?? false)
+  const [showMature, setShowMature] = useState(
+    storedFilters.showMature ?? false
+  )
   const [hideOwned, setHideOwned] = useState(storedFilters.hideOwned ?? false)
   const [wishlistOnly, setWishlistOnly] = useState(
     storedFilters.wishlistOnly ?? false
@@ -121,6 +126,7 @@ export default function Discounts() {
       maxPegiAge,
       searchQuery,
       hideDlcs,
+      showMature,
       hideOwned,
       wishlistOnly,
       pageSize
@@ -136,6 +142,7 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
+    showMature,
     hideOwned,
     wishlistOnly,
     pageSize
@@ -277,6 +284,8 @@ export default function Discounts() {
 
       if (hideDlcs && p.productType === 'dlc') return false
 
+      if (!showMature && isMatureProduct(p.tags, p.ratings)) return false
+
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       if (amount < minPrice || amount > maxPrice) return false
 
@@ -393,6 +402,7 @@ export default function Discounts() {
     selectedOS,
     searchQuery,
     hideDlcs,
+    showMature,
     sortBy
   ])
 
@@ -412,6 +422,7 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
+    showMature,
     hideOwned,
     wishlistOnly,
     pageSize,
@@ -438,6 +449,7 @@ export default function Discounts() {
     maxPegiAge !== null ||
     searchQuery.trim() !== '' ||
     hideDlcs ||
+    showMature ||
     hideOwned ||
     wishlistOnly ||
     (priceRange !== null &&
@@ -457,6 +469,7 @@ export default function Discounts() {
     setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
+    setShowMature(false)
     setHideOwned(false)
     setWishlistOnly(false)
   }
@@ -576,6 +589,8 @@ export default function Discounts() {
             onSearchChange={setSearchQuery}
             hideDlcs={hideDlcs}
             onHideDlcsChange={setHideDlcs}
+            showMature={showMature}
+            onShowMatureChange={setShowMature}
             hideOwned={hideOwned}
             onHideOwnedChange={setHideOwned}
             wishlistOnly={wishlistOnly}

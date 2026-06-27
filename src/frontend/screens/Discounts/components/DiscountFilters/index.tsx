@@ -51,6 +51,8 @@ interface Props {
   onSearchChange: (query: string) => void
   hideDlcs: boolean
   onHideDlcsChange: (value: boolean) => void
+  showMature: boolean
+  onShowMatureChange: (value: boolean) => void
   hideOwned: boolean
   onHideOwnedChange: (value: boolean) => void
   wishlistOnly: boolean
@@ -181,6 +183,8 @@ const DiscountFilters = ({
   onSearchChange,
   hideDlcs,
   onHideDlcsChange,
+  showMature,
+  onShowMatureChange,
   hideOwned,
   onHideOwnedChange,
   wishlistOnly,
@@ -321,6 +325,17 @@ const DiscountFilters = ({
             />
           }
           label={t('discounts.filters.hideDlcs', 'Hide DLCs')}
+        />
+        <FormControlLabel
+          className="discountFilters__showMature"
+          control={
+            <Checkbox
+              size="small"
+              checked={showMature}
+              onChange={(e) => onShowMatureChange(e.target.checked)}
+            />
+          }
+          label={t('discounts.filters.showMature', 'NSFW')}
         />
       </div>
 
