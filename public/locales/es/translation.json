@@ -29,7 +29,7 @@
             "message": "Se limpió la caché de Heroic.",
             "title": "Caché borrado"
         },
-        "choose": "Seleccionar",
+        "choose": "Selecciona",
         "choose-egs-prefix": "Elija el Prefix de Wine donde está instalado EGS",
         "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere reiniciar)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",
@@ -385,7 +385,8 @@
         "nvidiaprime": {
             "details": "Utiliza una tarjeta gráfica dedicada para renderizar el juego en sistemas multi-GPU. Sólo es necesario en los portátiles para juegos o en los ordenadores de sobremesa que utilizan una GPU sin cabeza para el renderizado (NVIDIA Optimus, AMD CrossFire)",
             "link": "Comprueba más detalles en nuestra wiki"
-        }
+        },
+        "hide-window-on-protocol-launch": "Mantener la ventana de Heroic oculta cuando un juego es lanzado desde un acceso directo externo, como la función \"Agregar a Steam\"."
     },
     "info": {
         "heroic": {
@@ -819,7 +820,11 @@
         "enable-quick-sync-menu": "Habilitar el menú Guardar y sincronizar rápidamente en la página del juego",
         "scripts": "Secuencias de comandos:",
         "disable_gog_presence": "Desactivar actualizaciones de GOG Presence",
-        "start-in-console-mode": "Iniciar en modo consola"
+        "start-in-console-mode": "Iniciar en modo consola",
+        "hide-window-on-protocol-launch": "Ocultar ventana de Heroic cuando un juego es ejecutado desde enlaces heroic://",
+        "nvidiaprime": {
+            "description": "Forzar el uso de NVIDIA Optimus o AMD Dynamic Switchable Graphics dGPU . Úsalo ÚNICAMENTE para juegos OpenGL y Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -968,7 +973,7 @@
     "tray": {
         "about": "Acerca",
         "quit": "Salir",
-        "reload": "Refrescar",
+        "reload": "Recarga",
         "show": "Mostrar"
     },
     "two_col_table": {
@@ -997,7 +1002,7 @@
         "actions": "Acción",
         "manager": {
             "link": "Gestor de Wine",
-            "not-found": "No se encontraron version de Wine. Por favor, presiona el botón de refrescar para volver a intentar.",
+            "not-found": "No se han encontrado versiones de Wine. Haz clic en el icono de actualizar para volver a intentarlo.",
             "title": "Gestor de Wine",
             "unzipping": "Descomprimiendo",
             "search": "Buscar versiones...",
@@ -1060,7 +1065,7 @@
     },
     "emptyLibrary": {
         "noResults": "Los filtros actuales no produjeron resultados.",
-        "noGames": "La biblioteca está vacía.<br /><br />Hacer click <4>acá</4> para iniciar sesión con Epic, GOG.com, o Amazon. Luego, los juegos aparecerán en la Biblioteca.<br /><br />Para usar juegos o aplicaciones de otras fuentes, hacer click <br /> para agegarlos maualmente."
+        "noGames": "Tu biblioteca está vacía.<br /><br />Haz clic <4>aquí</4> para iniciar sesión con tus cuentas de Epic, GOG.com o Amazon. Después, tus juegos aparecerán aquí, en la Biblioteca.<br /><br />Para usar juegos o aplicaciones de otras fuentes, haz clic en <br /> para añadirlos manualmente."
     },
     "categories-manager": {
         "add-placeholder": "Añadir una nueva categoría",
@@ -1079,32 +1084,33 @@
         "wine-ge": "Wine-GE-Proton es una variante de Wine creada por Glorious Eggroll. Es la versión de Wine para ser usada fuera de Steam. Genera registros útiles para solucionar problemas.",
         "gpt": "Game Porting Toolkit es un programa desarrollado por Apple y se recomienda para Macs con procesadores Apple Silicon y chips M1+, funcionando mejor con juegos más recientes que utilizan DX12.",
         "wine-crossover": "Wine-Crossover se basa en el proyecto de código abierto Crossover para Wine y se recomienda para Macs con procesador Intel y para juegos compatibles con DX11 o versiones anteriores.",
-        "wine-staging-macos": "Wine-Staging-macOS se basa en el proyecto principal de Wine y se recomienda para Macs con procesador Intel y para juegos con DX11 o versiones anteriores, especialmente cuando se combina con la herramienta DXMT."
+        "wine-staging-macos": "Wine-Staging-macOS se basa en el proyecto principal de Wine y se recomienda para Macs con procesador Intel y para juegos con DX11 o versiones anteriores, especialmente cuando se combina con la herramienta DXMT.",
+        "proton-cachyos": "Proton-CachyOS es una variante de Proton mantenida por el equipo de CachyOS. Incluye herramientas adicionales como DXVK-Sarek y D7VK ."
     },
     "tour": {
         "back": "Volver",
         "done": "Listo",
         "library": {
             "end": {
-                "intro": "Eso es todo! Disfruta tus juegos y diviértete!",
-                "title": "Disfruta tus juegos!"
+                "intro": "¡Eso es todo! ¡Disfruta de tus juegos y diviértete!",
+                "title": "¡Disfruta de tus juegos!"
             },
-            "filters": "Filtra tus juegos por tienda, plataforma, favorites, y más usando estas opciones.",
-            "categories": "Organiza tus juegos en categorías para mantener las cosas ordenadas.",
-            "addGame": "Agrega tus propios juegos y apps haciendo click aquí. Pueden ser básicamente cualquier cosa, incluso URLs web.",
-            "gameCard": "Clic Izquierdo en la tarjeta de juego para navegar a la pagina del juego y para ver detalles y ajustar los ajustes o Clic derecho para abrir el menú de contexto.",
-            "refresh": "Refresca tu librería para revisar nuevos juegos o actualizaciones.",
-            "search": "Usa la barra de búsqueda para buscar por tus juegos.",
-            "sortInstalled": "Organiza juegos por el status de descarga.",
-            "sortOptions": "Haz clic acá para organizar juegos alfabéticamente.",
+            "filters": "Filtra tus juegos por tienda, plataforma, favoritos y más con estas opciones.",
+            "categories": "Organiza tus juegos en categorías para mantener todo ordenado.",
+            "addGame": "Añade tus propios juegos o aplicaciones a la biblioteca haciendo clic aquí. Pueden ser básicamente cualquier cosa, incluso URLs de navegador.",
+            "gameCard": "Haz clic izquierdo en la tarjeta del juego para ir a su página y ver los detalles y ajustar la configuración, o haz clic derecho para abrir el menú contextual.",
+            "refresh": "Actualiza tu biblioteca para comprobar si hay juegos nuevos o actualizaciones.",
+            "search": "Usa la barra de búsqueda para buscar tus juegos.",
+            "sortInstalled": "Ordena los juegos por estado de instalación.",
+            "sortOptions": "Haz clic aquí para ordenar los juegos alfabéticamente.",
             "steamInstall": "Usa este botón para instalar la versión de Windows de Steam y poder jugar tus juegos de windows usando Crossover, Wine o GPTK.",
             "welcome": {
-                "intro": "Bienvenido a la librería de Heroic! Acá es donde tu puedes ver todos tus juegos atravez de diferentes tiendas digitales.",
-                "intro2": "Si la libreria esta vacia, asegurate de iniciar sesion con tus cuentas usando el boton que dice \"Manejar cuentas\" en la barra lateral o añade tus propios juegos usando el boton de Añadir Juego arriba.",
+                "intro": "¡Bienvenido a la Biblioteca de Heroic! Aquí es donde puedes ver todos tus juegos de las diferentes tiendas.",
+                "intro2": "Si la biblioteca está vacía, asegúrate de iniciar sesión con tus cuentas mediante la opción Gestionar cuentas de la barra lateral, o de añadir tus propios juegos con el botón Añadir juego de arriba.",
                 "title": "Bienvenido a Heroic!",
                 "title2": "Gestionando la biblioteca!"
             },
-            "viewToggle": "Cambia entre las vistas de cuadrícula y de lista para tus juegos."
+            "viewToggle": "Cambia entre vista de cuadrícula y vista de lista para tus juegos."
         },
         "next": "Siguiente",
         "sidebar": {

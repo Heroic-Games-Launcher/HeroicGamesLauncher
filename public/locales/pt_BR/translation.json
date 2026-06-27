@@ -1067,7 +1067,8 @@
         "wine-ge": "Wine-GE-Proton foi uma variante Wine criada por Glorious Eggroll. O mesmo foi descontinuado em favor ao GE-Proton com o umu launcher.",
         "gpt": "O Game Porting Toolkit é desenvolvido pela Apple, é recomendado para Macs Apple Silicon com chips M1 ou superiores e funciona melhor com jogos mais novos que usam DX12.",
         "wine-crossover": "O Wine-Crossover é baseado no projeto Wine de código aberto do Crossover e é recomendado para Macs Intel e para jogos DX11 ou mais antigos.",
-        "wine-staging-macos": "O Wine-Staging-macOS é baseado no projeto principal do Wine e é recomendado para Macs Intel e para jogos DX11 ou anteriores, especialmente quando combinado com a ferramenta DXMT."
+        "wine-staging-macos": "O Wine-Staging-macOS é baseado no projeto principal do Wine e é recomendado para Macs Intel e para jogos DX11 ou anteriores, especialmente quando combinado com a ferramenta DXMT.",
+        "proton-cachyos": "Proton-CachyOS é uma variante do Proton mantida pela equipe do CachyOS. Ela inclui ferramentas extras como DXVK-Sarek e D7VK."
     },
     "categories-manager": {
         "add-placeholder": "Adicionar nova categoria",
