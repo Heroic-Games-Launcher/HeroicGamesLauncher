@@ -369,13 +369,13 @@ class GlobalConfigV0 extends GlobalConfig {
       afterLaunchScriptPath: '',
       disableUMU: false,
       verboseLogs: true,
+      disableHidraw: false,
       downloadProtonToSteam: false,
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,
       showValveProton: false,
       steamGridDbApiKey: '',
-      disableGOGPresence: false,
-      disableHidraw: false
+      disableGOGPresence: false
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

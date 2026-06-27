@@ -279,9 +279,9 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
+      disableHidraw: false,
       advertiseAvxForRosetta,
-      enableQuickSavesMenu: false,
-      disableHidraw: false
+      enableQuickSavesMenu: false
     } as GameSettings
 
     let gameSettings = {} as GameSettings
