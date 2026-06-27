@@ -10,6 +10,7 @@ import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { ZoomCredentials } from 'common/types/zoom'
 import { clearCache } from 'backend/utils'
+import { GameConfig } from 'backend/game_config'
 import { tokenPath, embedUrl, apiUrl } from './constants'
 
 export class ZoomUser {
@@ -89,6 +90,7 @@ export class ZoomUser {
 
   public static logout() {
     clearCache('zoom')
+    GameConfig.evictAll()
     configStore.clear()
     if (existsSync(tokenPath)) {
       unlinkSync(tokenPath)
