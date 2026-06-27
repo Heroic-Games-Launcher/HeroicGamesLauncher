@@ -42,6 +42,9 @@ function getLatestLocalVersions(): Record<string, string | undefined> {
         ?.date,
       latestGEProton: localWines.find(
         (wine) => wine.version === 'GE-Proton-latest'
+      )?.date,
+      latestProtonCachyos: localWines.find(
+        (wine) => wine.version === 'Proton-CachyOS-latest'
       )?.date
     }
   }
@@ -104,6 +107,14 @@ export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
       )
     )
       repositoriesToFetch.push(Repositorys.WINEGE)
+
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestProtonCachyos,
+        releasesData['proton-cachyos']
+      )
+    )
+      repositoriesToFetch.push(Repositorys.PROTONCACHYOS)
   }
 
   if (isMac) {
@@ -155,7 +166,7 @@ async function updateWineVersionInfos(
             Repositorys.WINESTAGINGMACOS,
             Repositorys.GPTK
           ]
-        : [Repositorys.WINEGE, Repositorys.PROTONGE]
+        : [Repositorys.WINEGE, Repositorys.PROTONGE, Repositorys.PROTONCACHYOS]
     }
 
     await getAvailableVersions({
@@ -242,18 +253,22 @@ function getInstallDir(release: WineVersionInfo): string {
   } else {
     const config = GlobalConfig.get().getSettings()
     if (config.downloadProtonToSteam && config.defaultSteamPath) {
-      const steamCompatPath = join(
-        config.defaultSteamPath,
-        'compatibilitytools.d'
+      const isValidSteamPath = existsSync(
+        join(config.defaultSteamPath, 'steam.sh')
       )
-      if (existsSync(steamCompatPath)) {
-        return steamCompatPath
+      if (isValidSteamPath) {
+        const compatToolsPath = join(
+          config.defaultSteamPath,
+          'compatibilitytools.d'
+        )
+        mkdirSync(compatToolsPath, { recursive: true })
+        return compatToolsPath
+      } else {
+        logWarning(
+          `Configured Steam path ("${config.defaultSteamPath}") does not appear to be valid, installing into Heroic tools path instead`,
+          LogPrefix.WineDownloader
+        )
       }
-      // If Steam path doesn't exist, fall back to default
-      logWarning(
-        'Steam compatibilitytools.d directory does not exist, defaulting to Heroic tools path',
-        LogPrefix.WineDownloader
-      )
     }
     return `${toolsPath}/proton`
   }

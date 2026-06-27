@@ -30,7 +30,7 @@
             "title": "缓存已清理"
         },
         "choose": "选择",
-        "choose-egs-prefix": "选择已安装 EGS 的前置",
+        "choose-egs-prefix": "选择已安装 EGS 的前缀",
         "choose-gogdl-binary": "选择 GOGDL 二进制文件 （需要重启）",
         "choose-legendary-binary": "选择 Legendary 二进制文件",
         "customWine": "选择 Wine 或 Proton 二进制文件",
@@ -189,7 +189,7 @@
                 "message": "Heroic 需要 Rosetta 在配备 Apple Silicon 芯片的 macOS 上正确运行。请用以下命令从 macOS 终端安装它：\"softwareupdate --install-rosetta\"，并重启 Heroic。 "
             }
         },
-        "wineprefix": "选择 Wine 前置文件夹",
+        "wineprefix": "选择 Wine 前缀文件夹",
         "yes": "是",
         "dontShowAgain": "不再显示",
         "choose-nile-binary": "选择 Nile 二进制文件",
@@ -328,7 +328,7 @@
         "steamruntime": "Steam 提供的用于帮助运行 Linux 和 Windows（Proton）游戏的自定义库。启用可能会提高兼容性。",
         "sync": {
             "part1": "大多数情况下，Heroic 启动器会正确猜测的存档的位置。但如果位置是错误的，请使用覆盖框更改。",
-            "part2": "如果你改变了 Wine 或 Proton 的文件夹，你将需要再次检查路径，因为 Proton 使用不同的前置（/pfx）和用户名（steamuser）。很简单，你可以直接删除当前的路径，离开同步设置页面再回来，Heroic 会去重新猜测正确前置的文件夹。",
+            "part2": "如果你更改了 Wine 或 Proton 的前缀文件夹，则需要再次检查路径，因为 Proton 使用不同的前缀（/pfx）和用户名（steamuser）。你可以直接删除当前路径，退出同步设置页面再重新进入，Heroic 会使用正确的前缀重新检测文件夹。",
             "part3": "手动同步：选择下载以下载存储在云端的存档。选择上传将会把本地存档上传到云端。强制下载将会忽略本地版本，强制上传将会忽略云端版本。",
             "part4": "自动同步将在你每次开始游戏时和结束游戏后同步存档。"
         },
@@ -384,7 +384,8 @@
         "WoW64": "Wine WoW64 模式允许在 64 位 Wine 上运行 32 位 Windows 游戏。启用该选项可能会提高性能，但也可能会无法运行较早的 32 位游戏。",
         "nvidiaprime": {
             "details": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)"
-        }
+        },
+        "hide-window-on-protocol-launch": "从外部快捷方式（如“添加到 Steam”）启动游戏时，保持 Heroic 窗口隐藏。"
     },
     "info": {
         "heroic": {
@@ -603,9 +604,9 @@
         "addgamestosteam": "自动添加游戏到 Steam",
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
-        "autodxvk": "在前置自动安装并更新 DXVK",
+        "autodxvk": "自动在前缀上安装并更新 DXVK",
         "autosync": "自动同步存档",
-        "autovkd3d": "自动在前置中安装/更新 VKD3D",
+        "autovkd3d": "自动在前缀上安装并更新 VKD3D",
         "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
         "crossover-version": "Crossover/Wine 版本",
@@ -721,7 +722,7 @@
         "preferSystemLibs": "首选系统库",
         "runexe": {
             "message": "将文件拖放到此处",
-            "title": "在前置上运行 EXE"
+            "title": "在前缀上运行 EXE"
         },
         "savefolder": {
             "not-found": "未找到保存文件夹，请手动选择（单击重试）",
@@ -741,7 +742,7 @@
         "addgamestoapplications": "自动将游戏添加到应用程序",
         "showMetalOverlay": "显示统计数据叠加",
         "alt-nile-bin": "选择替代的 Nile 二进制文件",
-        "autodxvknvapi": "在前置自动安装并更新 DXVK-NVAPI",
+        "autodxvknvapi": "自动在前缀上安装并更新 DXVK-NVAPI",
         "experimental_features": {
             "enableNewShinyFeature": "新功能",
             "enableNewDesign": "新设计",
@@ -818,7 +819,11 @@
         "scripts": "脚本：",
         "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单",
         "disable_gog_presence": "禁用 GOG Presence 更新",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "启动时进入主机模式",
+        "nvidiaprime": {
+            "description": "强制使用独立显卡（适用于 NVIDIA Optimus 或 AMD 双显卡切换），此选项仅对 OpenGL 和 Vulkan 游戏有效。"
+        },
+        "hide-window-on-protocol-launch": "通过 heroic:// 链接启动游戏时隐藏 Heroic 窗口"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -927,12 +932,12 @@
         "legacy_warning": "警告：此选项卡上的设置大多已废弃，可能完全无法使用。",
         "steamgriddb": {
             "apikey": {
-                "title": "",
-                "placeholder": "",
+                "title": "SteamGridDB API 密钥",
+                "placeholder": "在此输入您的 SteamGridDB API 密钥",
                 "placeholder_saved": ""
             },
             "help": {
-                "description": ""
+                "description": "提供您的 SteamGridDB API 密钥以启用封面搜索。系统支持时密钥加密存储。在此获取：{{url}}"
             }
         }
     },
@@ -940,13 +945,14 @@
     "sidebar": {
         "collapse": "收起侧栏",
         "uncollapse": "展开侧栏",
-        "console": ""
+        "console": "主机模式"
     },
     "status": {
         "installing": "安装中",
         "logging": "正在登录...",
         "processing": "处理文件中，请稍等",
-        "preparing_login": "正在准备登录... "
+        "preparing_login": "正在准备登录... ",
+        "installed": "已安装"
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -956,7 +962,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "选择新配置的默认前置文件夹",
-            "wineprefix": "为新的 Wine 前置选择一个文件夹"
+            "wineprefix": "为新的 Wine 前缀选择一个文件夹"
         }
     },
     "tooltip": {
@@ -995,15 +1001,15 @@
         "actions": "动作",
         "manager": {
             "link": "Wine 管理器",
-            "not-found": "未找到 Wine 版本。请单击刷新按钮重试。",
+            "not-found": "未找到匹配的 Wine 版本，请点击刷新图标重试。",
             "title": "Wine 管理器",
             "unzipping": "解压缩",
-            "search": "",
-            "loading": "",
-            "open_folder": "",
+            "search": "搜索...",
+            "loading": "加载中...",
+            "open_folder": "打开文件夹",
             "update": "更新",
             "settings": "设置",
-            "no-results": ""
+            "no-results": "未找到匹配的 Wine 版本。"
         },
         "release": "发布日期",
         "size": "大小",
@@ -1054,9 +1060,9 @@
     "wineExplanation": {
         "wine-ge": "Wine-GE-Protonis 是 Glorious Eggroll 创建的 Wine 变体。它是建议用于 Steam 之外的 Wine 版本，提供对故障排除有用的日志。",
         "proton-ge": "GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。",
-        "gpt": "",
-        "wine-crossover": "",
-        "wine-staging-macos": ""
+        "gpt": "Game Porting Toolkit 由苹果公司开发，推荐用于搭载 M1+ 芯片的 Apple Silicon Mac，且对于使用 DX12 的新游戏效果最佳。",
+        "wine-crossover": "Wine-Crossover 基于 Crossover 开源 Wine 项目，推荐用于 Intel Mac 以及 DX11 或更早版本的游戏。",
+        "wine-staging-macos": "Wine-Staging-macOS 基于主线 Wine 项目，推荐用于 Intel Mac 以及 DX11 或更早版本的游戏，尤其是与 DXMT 工具配合使用时效果更佳。"
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
@@ -1188,35 +1194,37 @@
             "label": ""
         },
         "filters": {
-            "moreFilters": "",
+            "moreFilters": "更多筛选项",
             "ageRating": "",
             "os": "操作系统：",
-            "price": "",
+            "price": "价格",
             "activeCount_other": "",
-            "hideDlcs": "",
+            "hideDlcs": "隐藏 DLC",
             "ageRatingOption": "",
             "genres": "",
             "activeCount_one": "",
-            "lessFilters": "",
-            "rating": "",
-            "sort": "",
+            "lessFilters": "更少筛选项",
+            "rating": "评分",
+            "sort": "排序依据",
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
             "ageRatingAll": "全部",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "发布年份",
+            "wishlistOnly": "仅显示愿望单",
+            "hideOwned": "隐藏已拥有"
         },
-        "sidebar": "",
+        "sidebar": "优惠",
         "sort": {
-            "priceDesc": "",
+            "priceDesc": "价格：从高到低",
             "trending": "",
-            "priceAsc": "",
-            "releaseDesc": "",
-            "ratingAsc": "",
-            "releaseAsc": "",
-            "ratingDesc": "",
-            "discount": ""
+            "priceAsc": "价格：从低到高",
+            "releaseDesc": "发布日期：从新到旧",
+            "ratingAsc": "评分：从低到高",
+            "releaseAsc": "发布日期：从旧到新",
+            "ratingDesc": "评分：从高到低",
+            "discount": "最大折扣"
         },
         "noMatches": "",
         "aria": {
@@ -1226,7 +1234,7 @@
         "error": "",
         "empty": "",
         "loading": "",
-        "title": "",
+        "title": "GOG 优惠",
         "pagination": {
             "prev": ""
         }
@@ -1236,10 +1244,10 @@
             "no-games": "未找到游戏",
             "no-grids": "",
             "search": "",
-            "grids": ""
+            "grids": "获取封面失败"
         },
         "picker": {
-            "search": "",
+            "search": "搜索游戏",
             "title": "",
             "select-game": ""
         }
@@ -1256,7 +1264,7 @@
             "hintSuffix": "",
             "hintPrefix": ""
         },
-        "quit": "",
+        "quit": "退出主机模式",
         "hints": {
             "launch": "",
             "sort": "",
@@ -1274,8 +1282,20 @@
         },
         "empty": "",
         "games": "已安装的游戏",
-        "quitApp": "",
-        "loading": ""
+        "quitApp": "退出软件",
+        "loading": "",
+        "cancelInstall": {
+            "title": "取消安装"
+        },
+        "cancelUpdate": {
+            "title": "取消更新"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "安装游戏",
+            "wineLoading": "加载中…",
+            "path": "安装到"
+        }
     },
     "next": "下一步"
 }

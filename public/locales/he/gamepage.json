@@ -54,16 +54,16 @@
         },
         "ok": "אישור",
         "offline_warning": {
-            "message": "",
-            "playAnyway": "",
-            "title": ""
+            "message": "יתכן שהמשחק הזה לא יעבוד כראוי ללא גישה לאינטרנט. רוצה לנסות בכל זאת?",
+            "playAnyway": "שחק בכל מקרה",
+            "title": "אין רשת"
         },
         "selectLaunchOption": {
             "title": "",
-            "body": ""
+            "body": "אנא בחר אפשרות הרצה למשחק זה (ניתן שינוי מאוחר יותר בהגדרות המשחק):"
         },
         "sync": {
-            "force_download_warning": "",
+            "force_download_warning": "קבצים מקומיים שנשמרו ימחקו. מעוניין להמשיך?",
             "force_upload_warning": ""
         }
     },
@@ -334,5 +334,8 @@
         "notice1": ""
     },
     "open-saves-folder": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "מתקדם"
+    }
 }

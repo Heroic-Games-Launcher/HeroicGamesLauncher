@@ -936,7 +936,8 @@
         "installing": "Установка",
         "logging": "Вход…",
         "processing": "Обработка файлов, подождите",
-        "preparing_login": "Подготовка входа... "
+        "preparing_login": "Подготовка входа... ",
+        "installed": "Установлено"
     },
     "store": "Магазин Epic",
     "stores": "Магазины",
@@ -1209,7 +1210,7 @@
         "noMatches": "",
         "aria": {
             "pagination": "",
-            "rating": ""
+            "rating": "Рейтинг {{rating}} из 10"
         },
         "error": "",
         "empty": "",
@@ -1239,15 +1240,15 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Сортировка",
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
         },
-        "quit": "",
+        "quit": "Выйти из режима консоли",
         "hints": {
             "launch": "",
-            "sort": "",
+            "sort": "Сортировка",
             "navigate": "",
             "quit": "Закрыть Heroic",
             "change_store": ""
@@ -1262,8 +1263,22 @@
         },
         "empty": "",
         "games": "Установленные игры",
-        "quitApp": "",
-        "loading": ""
+        "quitApp": "Закрыть приложение",
+        "loading": "",
+        "cancelInstall": {
+            "title": "Отменить установку"
+        },
+        "cancelUpdate": {
+            "title": "Отменить обновление"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Установить игру",
+            "wineLoading": "Загрузка"
+        },
+        "removeFromQueue": {
+            "message": "Эта игра стоит в очереди на загрузку. Удалить её из очереди?"
+        }
     },
     "next": "Следующий"
 }
