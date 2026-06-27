@@ -24,6 +24,7 @@ export const isMac = process.platform === 'darwin'
 export const isIntelMac = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
 export const isWindows = process.platform === 'win32'
 export const isLinux = process.platform === 'linux'
+export const cpuArch = process.arch
 export const isSteamDeckGameMode =
   process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isSteamDeckDesktopMode =

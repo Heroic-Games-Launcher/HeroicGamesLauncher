@@ -3,7 +3,7 @@ import { spawnSync } from 'child_process'
 
 import { VersionInfo, Type, type WineManagerStatus } from 'common/types'
 import { axiosClient, extractFiles } from 'backend/utils'
-import { isMac } from 'backend/constants/environment'
+import { isMac, cpuArch } from 'backend/constants/environment'
 
 interface fetchProps {
   url: string
@@ -69,24 +69,26 @@ async function fetchReleases({
               release_data.downsize = stagingAsset.size
             }
           } else if (type === 'Proton-CachyOS') {
+            const archPrefix = cpuArch === 'arm64' ? 'arm64' : 'x86_64'
             const shaAsset = release.assets.find((asset) =>
-              asset.browser_download_url.endsWith('x86_64.sha512sum')
+              asset.browser_download_url.endsWith(`${archPrefix}.sha512sum`)
             )
             if (shaAsset) release_data.checksum = shaAsset.browser_download_url
             const tarAsset = release.assets.find((asset) =>
-              asset.browser_download_url.endsWith('x86_64.tar.xz')
+              asset.browser_download_url.endsWith(`${archPrefix}.tar.xz`)
             )
             if (tarAsset) {
               release_data.download = tarAsset.browser_download_url
               release_data.downsize = tarAsset.size
             }
           } else {
+            const archPrefix = cpuArch === 'arm64' ? 'aarch64' : ''
             for (const asset of release.assets) {
-              if (asset.name.endsWith('sha512sum')) {
+              if (asset.name.endsWith(`${archPrefix}.sha512sum`)) {
                 release_data.checksum = asset.browser_download_url
               } else if (
-                asset.name.endsWith('tar.gz') ||
-                asset.name.endsWith('tar.xz')
+                asset.name.endsWith(`${archPrefix}.tar.gz`) ||
+                asset.name.endsWith(`${archPrefix}.tar.xz`)
               ) {
                 release_data.download = asset.browser_download_url
                 release_data.downsize = asset.size
