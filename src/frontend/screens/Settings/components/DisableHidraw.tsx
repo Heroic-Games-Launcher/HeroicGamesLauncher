@@ -13,12 +13,12 @@ const DisableHidraw = () => {
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
 
+  const [disableHidraw, setDisableHidraw] = useSetting('disableHidraw', false)
+
   // Only show on Linux and Mac (not for native games)
   if ((isLinux && isLinuxNative) || (isMac && isMacNative)) {
     return <></>
   }
-
-  const [disableHidraw, setDisableHidraw] = useSetting('disableHidraw', false)
 
   return (
     <div className="toggleRow">

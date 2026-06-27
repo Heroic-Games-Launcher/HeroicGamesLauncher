@@ -229,7 +229,7 @@ export default function GamesSettings() {
         )}
         <VerboseLogs />
         <DisableUMU />
-        {isLinux && <DisableHidraw />}
+        <DisableHidraw />
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />
