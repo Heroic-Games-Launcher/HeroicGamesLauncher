@@ -10,6 +10,7 @@ export const BTN_ACTION = 0
 export const BTN_BACK = 1
 export const BTN_L1 = 4
 export const BTN_R1 = 5
+export const BTN_L2 = 6
 export const BTN_R2 = 7
 
 export const getActionButtonLabel = (layout: ControllerLayout) =>
