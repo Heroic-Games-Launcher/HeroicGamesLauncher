@@ -999,6 +999,86 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
+  // Set or remove DisableHidraw and Enable SDL registry keys based on setting
+  if (gameSettings.disableHidraw) {
+    logInfo(
+      'Setting DisableHidraw and Enable SDL registry keys',
+      LogPrefix.Backend
+    )
+    // Set DisableHidraw to disable hidraw backend
+    await runWineCommand({
+      gameSettings,
+      commandParts: [
+        'reg',
+        'add',
+        'HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\winebus',
+        '/v',
+        'DisableHidraw',
+        '/t',
+        'REG_DWORD',
+        '/d',
+        '1',
+        '/f'
+      ],
+      wait: true,
+      protonVerb: 'run'
+    })
+    // Set Enable SDL to enable SDL backend
+    await runWineCommand({
+      gameSettings,
+      commandParts: [
+        'reg',
+        'add',
+        'HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\winebus',
+        '/v',
+        'Enable SDL',
+        '/t',
+        'REG_DWORD',
+        '/d',
+        '1',
+        '/f'
+      ],
+      wait: true,
+      protonVerb: 'run'
+    })
+  } else {
+    // Remove the registry keys if setting is disabled
+    logInfo(
+      'Removing DisableHidraw and Enable SDL registry keys',
+      LogPrefix.Backend
+    )
+    await runWineCommand({
+      gameSettings,
+      commandParts: [
+        'reg',
+        'delete',
+        'HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\winebus',
+        '/v',
+        'DisableHidraw',
+        '/f'
+      ],
+      wait: true,
+      protonVerb: 'run'
+    }).catch(() => {
+      // Ignore errors if the key doesn't exist
+    })
+    await runWineCommand({
+      gameSettings,
+      commandParts: [
+        'reg',
+        'delete',
+        'HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\winebus',
+        '/v',
+        'Enable SDL',
+        '/f'
+      ],
+      wait: true,
+      protonVerb: 'run'
+    }).catch(() => {
+      // Ignore errors if the key doesn't exist
+    })
+  }
+
   const envVars = setupWineEnvVars(gameSettings, gameInfo.folder_name)
 
   return { success: true, envVars: envVars }
