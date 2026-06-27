@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DMQueueElement, DownloadManagerState } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
@@ -10,6 +10,7 @@ import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { GameHandle } from '../../helpers/ipc'
 
 export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -37,11 +38,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
     })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (
-        e: Electron.IpcRendererEvent,
-        elements: DMQueueElement[],
-        state: DownloadManagerState
-      ) => {
+      (elements: DMQueueElement[], state: DownloadManagerState) => {
         if (elements) {
           setCurrentElement(elements[0])
           setPlannendElements([...elements.slice(1)])
@@ -60,6 +57,14 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       setFinishedElem(finished)
     })
   }, [plannendElements.length, currentElement?.params.appName])
+
+  const currentGame = useMemo(() => {
+    if (!currentElement) return null
+    return new GameHandle(
+      currentElement.params.appName,
+      currentElement.params.runner
+    )
+  }, [currentElement])
 
   if (refreshing) {
     return <UpdateComponent />
@@ -108,11 +113,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       </h4>
       {
         <>
-          <ProgressHeader
-            state={state}
-            appName={currentElement?.params?.appName ?? ''}
-            runner={currentElement?.params?.runner ?? 'legendary'}
-          />
+          <ProgressHeader game={currentGame} state={state} />
           {currentElement && (
             <div className="downloadManager">
               <div

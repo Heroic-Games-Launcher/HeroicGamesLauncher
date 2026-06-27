@@ -3,9 +3,10 @@ import { SelectField, TextInputField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import { Dialog, DialogContent } from 'frontend/components/UI/Dialog'
 import { MenuItem } from '@mui/material'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface BranchSelectorProps {
-  appName: string
+  game: GameHandle
   branches: Array<string | null>
   branch?: string
   savedBranchPassword: string
@@ -14,7 +15,7 @@ interface BranchSelectorProps {
 }
 
 export default function BranchSelector({
-  appName,
+  game,
   branches,
   branch,
   savedBranchPassword,
@@ -66,7 +67,7 @@ export default function BranchSelector({
                 onClick={() => {
                   setShowBranchPasswordInput(false)
                   window.api
-                    .setPrivateBranchPassword(appName, branchPassword)
+                    .setPrivateBranchPassword(game, branchPassword)
                     .finally(() => {
                       onPasswordChange(branchPassword)
                     })

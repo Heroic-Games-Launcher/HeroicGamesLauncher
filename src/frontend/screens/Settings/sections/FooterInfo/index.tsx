@@ -4,15 +4,15 @@ import SettingsContext from '../../SettingsContext'
 
 export default function FooterInfo() {
   const { t } = useTranslation()
-  const { isDefault, appName } = useContext(SettingsContext)
+  const { game } = useContext(SettingsContext)
 
   return (
     <div>
       <span className="save">{t('info.settings')}</span>
-      {!isDefault && (
+      {game && (
         <span className="appName">
           AppName: &nbsp;
-          <span style={{ userSelect: 'all' }}> {appName}</span>
+          <span style={{ userSelect: 'all' }}> {game.id}</span>
         </span>
       )}
     </div>

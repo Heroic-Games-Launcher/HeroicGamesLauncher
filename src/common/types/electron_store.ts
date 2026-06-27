@@ -19,6 +19,7 @@ import {
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
 import { ZoomCredentials } from './zoom'
+import type { GameMetadataOverride } from 'backend/game_overrides/electronStores'
 
 export interface StoreStructure {
   configStore: {
@@ -113,14 +114,7 @@ export interface StoreStructure {
     appliedMigrations: string[]
   }
   gameOverridesStore: {
-    overrides: Record<
-      string,
-      {
-        title?: string
-        art_cover?: string
-        art_square?: string
-      }
-    >
+    overrides: Record<string, GameMetadataOverride>
   }
 }
 

@@ -4,7 +4,13 @@ import { useEffect, useState } from 'react'
 import { AreaChart, Area, ResponsiveContainer } from 'recharts'
 import { Box, LinearProgress, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { DownloadManagerState, Runner } from 'common/types'
+import { DownloadManagerState } from 'common/types'
+import type { GameHandle } from 'frontend/helpers/ipc'
+
+interface Props {
+  game: GameHandle | null
+  state: DownloadManagerState
+}
 
 interface Point {
   download: number
@@ -16,20 +22,16 @@ const roundToNearestHundredth = function (val: number | undefined) {
   return Math.round(val * 100) / 100
 }
 
-export default function ProgressHeader(props: {
-  appName: string
-  state: DownloadManagerState
-  runner: Runner
-}) {
+export default function ProgressHeader({ game, state }: Props) {
   const sampleSize = 100
   const { t } = useTranslation()
-  const [progress] = hasProgress(props.appName, props.runner)
+  const [progress] = hasProgress(game)
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
     Array<Point>(sampleSize).fill({ download: 0, disk: 0 })
   )
 
   useEffect(() => {
-    if (props.state === 'idle') {
+    if (state === 'idle') {
       setAvgDownloadSpeed(
         Array<Point>(sampleSize).fill({ download: 0, disk: 0 })
       )
@@ -49,7 +51,7 @@ export default function ProgressHeader(props: {
     })
 
     setAvgDownloadSpeed([...avgSpeed])
-  }, [progress, props.state])
+  }, [progress, state])
 
   return (
     <>
@@ -105,7 +107,7 @@ export default function ProgressHeader(props: {
           </div>
         </div>
       </div>
-      {props.state !== 'idle' && props.appName && progress.eta && (
+      {state !== 'idle' && progress.eta && (
         <div className="downloadBar">
           <div className="downloadProgressStats">
             <p className="downloadStat" color="var(--text-default)">{`${
@@ -126,9 +128,7 @@ export default function ProgressHeader(props: {
                 variant="subtitle1"
                 title={t('download-manager.ETA', 'Estimated Time')}
               >
-                {props.state === 'running'
-                  ? (progress.eta ?? '00.00.00')
-                  : 'Paused'}
+                {state === 'running' ? (progress.eta ?? '00.00.00') : 'Paused'}
               </Typography>
             </Box>
           </Box>

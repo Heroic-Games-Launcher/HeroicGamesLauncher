@@ -7,8 +7,8 @@ type StoreType = Record<`${string}_${Runner}`, InstallProgress>
 
 const useInstallProgressRaw = create<StoreType>()(() => ({}))
 
-window.api.onProgressUpdate((e, { appName, progress, runner }) => {
-  const key = `${appName}_${runner}`
+window.api.onProgressUpdate((game, { progress }) => {
+  const key = `${game.id}_${game.runner}`
   useInstallProgressRaw.setState({ [key]: progress })
 })
 
