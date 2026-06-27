@@ -271,7 +271,7 @@
         },
         "install": "Instalar",
         "uninstall": "Desinstalar",
-        "abort": ""
+        "abort": "Abortar"
     },
     "globalSettings": "Preferencias globais",
     "GOG": "GOG",
@@ -382,8 +382,10 @@
         "analytics": "Permite a Heroic recoller información de uso 100% anónima para axudar a mellorar a aplicación. É necesario reiniciar para que faga efecto.",
         "WoW64": "O modo WoW64 de Wine permite executar xogos de Windows de 32-bits no Wine de 64-bits. Habilitalo pode mellorar o rendemento, mais podería corromper xogos de 32-bits máis vellos.",
         "nvidiaprime": {
-            "details": "Usa a tarxeta gráfica dedicada para renderizar o xogo en sistemas con múltiples GPU. Só é necesario en porátiles para xogos ou de sobremesa que teñen unha GPU \"headless\" para renderizar (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Usa a tarxeta gráfica dedicada para renderizar o xogo en sistemas con múltiples GPU. Só é necesario en porátiles para xogos ou de sobremesa que teñen unha GPU \"headless\" para renderizar (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Consulta máis detalles na nosa wiki"
+        },
+        "hide-window-on-protocol-launch": "Mantén a ventá de Heroic oculta cando se inicia un xogo desde un atallo externo, como a función 'Engadir a Steam'."
     },
     "info": {
         "heroic": {
@@ -996,10 +998,10 @@
             "unzipping": "Descomprimindo",
             "settings": "Preferencias",
             "update": "Actualizar",
-            "search": "",
-            "loading": "",
-            "open_folder": "",
-            "no-results": ""
+            "search": "Buscar versións…",
+            "loading": "Cargando versións de Wine…",
+            "open_folder": "Abrir cartafol",
+            "no-results": "Ningunha versión de Wine coincide coa túa busca."
         },
         "release": "Data de publicación",
         "size": "Tamaño",
@@ -1138,9 +1140,10 @@
     "wineExplanation": {
         "proton-ge": "GE-Proton é unha variante de Proton creada por Glorious Eggroll. Está deseñada para usarse xunto co lanzador umu (predeterminado en Heroic).",
         "wine-ge": "Wine-GE-Proton é unha variante de Wine creada por Glorious Eggroll. Quedou obsoleta en favor de GE-Proton co lanzador umu.",
-        "gpt": "",
-        "wine-crossover": "",
-        "wine-staging-macos": ""
+        "gpt": "Game Porting Toolkit é desenvolvido por Apple e recoméndase para Macs con Apple Silicon con chips M1+ . Funciona mellor con xogos máis recentes que usan DX12.",
+        "wine-crossover": "Wine-Crossover está baseado no proxecto de código aberto Crossover Wine e recoméndase para Macs con Intel e para xogos con DX11 ou anteriores.",
+        "wine-staging-macos": "Wine-Staging-macOS está baseado no proxecto principal de Wine e recoméndase para Macs con Intel e para xogos con DX11 ou anteriores, especialmente combinado coa ferramenta DXMT.",
+        "proton-cachyos": "Proton-CachyOS é unha variante de Proton mantida polo equipo de CachyOS. Inclúe ferramentas adicionais como DXVK-Sarek e D7VK."
     },
     "amazon-luna": "Amazon Luna",
     "zoom-store": "Tenda de Zoom",
@@ -1156,7 +1159,7 @@
         },
         "picker": {
             "search": "",
-            "title": "",
+            "title": "Portadas de SteamGridDB",
             "select-game": ""
         }
     },
@@ -1164,80 +1167,82 @@
         "filters": {
             "ageRatingAll": "Todos",
             "os": "Sistema operativo:",
-            "moreFilters": "",
+            "moreFilters": "Máis filtros",
             "ageRating": "",
-            "price": "",
-            "activeCount_other": "",
-            "hideDlcs": "",
-            "ageRatingOption": "",
-            "genres": "",
-            "activeCount_one": "",
-            "lessFilters": "",
-            "rating": "",
-            "sort": "",
-            "genresPlaceholder": "",
+            "price": "Prezo",
+            "activeCount_other": "{{count}} activos",
+            "hideDlcs": "Ocultar DLCs",
+            "ageRatingOption": "Amosar xogos clasificados PEGI {{age}} ou inferior",
+            "genres": "Xéneros",
+            "activeCount_one": "{{count}} activos",
+            "lessFilters": "Menos filtros",
+            "rating": "Puntuación",
+            "sort": "Ordenar por",
+            "genresPlaceholder": "Calquera xénero",
             "features": "",
             "featuresPlaceholder": "",
-            "pageSize": "",
-            "releaseYear": ""
+            "pageSize": "Por páxina",
+            "releaseYear": "Ano de lanzamento",
+            "hideOwned": "Ocultar Propios",
+            "wishlistOnly": "Só lista de desexos"
         },
         "region": {
             "countries": {
-                "IT": "",
-                "ES": "",
-                "FI": "",
-                "GR": "",
-                "RO": "",
-                "NO": "",
-                "KR": "",
-                "US": "",
-                "HU": "",
-                "PT": "",
-                "NL": "",
-                "AU": "",
-                "TW": "",
-                "IL": "",
-                "JP": "",
-                "DK": "",
-                "DE": "",
-                "CZ": "",
-                "FR": "",
-                "UA": "",
-                "GB": "",
-                "SE": "",
-                "CN": "",
-                "RU": "",
-                "CA": "",
-                "PL": "",
-                "BR": "",
-                "CH": "",
-                "TR": ""
+                "IT": "Italia",
+                "ES": "España",
+                "FI": "Finlandia",
+                "GR": "Grecia",
+                "RO": "Romanía",
+                "NO": "Noruega",
+                "KR": "Corea do Sur",
+                "US": "Estados Unidos",
+                "HU": "Hungría",
+                "PT": "Portugal",
+                "NL": "Países Baixos",
+                "AU": "Australia",
+                "TW": "Taiwán",
+                "IL": "Israel",
+                "JP": "Xapón",
+                "DK": "Dinamarca",
+                "DE": "Alemaña",
+                "CZ": "Chequia",
+                "FR": "Francia",
+                "UA": "Ucraína",
+                "GB": "Reino Unido",
+                "SE": "Suecia",
+                "CN": "China",
+                "RU": "Rusia",
+                "CA": "Canadá",
+                "PL": "Polonia",
+                "BR": "Brasil",
+                "CH": "Suíza",
+                "TR": "Turquía"
             },
-            "auto": "",
-            "label": ""
+            "auto": "Automático {{code}}",
+            "label": "Rexión da tenda"
         },
-        "sidebar": "",
+        "sidebar": "Ofertas",
         "sort": {
-            "priceDesc": "",
-            "trending": "",
-            "priceAsc": "",
-            "releaseDesc": "",
-            "ratingAsc": "",
-            "releaseAsc": "",
-            "ratingDesc": "",
-            "discount": ""
+            "priceDesc": "Prezo: de maior a menor",
+            "trending": "Tendencias",
+            "priceAsc": "Prezo: de menor a maior",
+            "releaseDesc": "Data de lanzamento: de novo a antigo",
+            "ratingAsc": "Clasificación: de baixa a alta",
+            "releaseAsc": "Data de lanzamento: antiga a nova",
+            "ratingDesc": "Clasificación: de alta a baixa",
+            "discount": "Maior desconto"
         },
-        "noMatches": "",
+        "noMatches": "Non hai xogos que coincidan cos filtros actuais.",
         "aria": {
             "pagination": "",
-            "rating": ""
+            "rating": "Puntuación {{rating}} de 10"
         },
-        "error": "",
+        "error": "Non se puideron cargar os descontos. Téntao de novo máis tarde.",
         "empty": "",
-        "loading": "",
-        "title": "",
+        "loading": "Cargando xogos con desconto…",
+        "title": "Ofertas de GOG",
         "pagination": {
-            "prev": ""
+            "prev": "Anterior"
         }
     },
     "next": "Seguinte",
@@ -1250,9 +1255,9 @@
         "hints": {
             "quit": "Saír",
             "launch": "",
-            "sort": "",
-            "navigate": "",
-            "change_store": ""
+            "sort": "Ordenar",
+            "navigate": "Navegar",
+            "change_store": "Cambiar de tenda"
         },
         "launching": "Lanzando",
         "update": {
@@ -1261,25 +1266,34 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Ordenar",
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
         },
-        "quit": "",
+        "quit": "Saír da consola",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Precisa actualización"
         },
-        "empty": "",
+        "empty": "Non hai xogos instalados para amosar. Instala algo primeiro.",
         "quitApp": "",
         "loading": "",
         "cancelInstall": {
-            "title": "Cancelar Instalación"
+            "title": "Cancelar Instalación ?",
+            "message": "Este xogo está a instalarse actualmente. Queres cancelar a instalación?"
         },
         "install": {
             "platform": "Platform",
             "title": "Instalar xogo",
-            "wineLoading": "Cargando"
+            "wineLoading": "Cargando…",
+            "path": "Instalar en"
+        },
+        "cancelUpdate": {
+            "message": "Este xogo está a descargarse actualmente. Queres cancelar a actualización en curso?",
+            "title": "Cancelar actualización?"
+        },
+        "removeFromQueue": {
+            "message": "Este xogo está na cola de descarga. Queres eliminalo da cola?"
         }
     }
 }
