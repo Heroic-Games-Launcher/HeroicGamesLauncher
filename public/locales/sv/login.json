@@ -8,18 +8,17 @@
         "error": "Fel, försök med en annan kod"
     },
     "message": {
-        "part1": "För att logga in och installera spel, följ dessa instruktioner:",
-        "part2": "Öppna",
-        "part3": "Epic Store här",
-        "part4": ", logga in med ditt konto och kopiera ditt",
-        "part5": "auktoriseringkodsinformationsnummer",
-        "part6": "Klistra in ditt",
-        "part7": "auktoriseringskodnummer",
-        "part8": "i fältet nedan och klicka på Logga in."
+        "part1": "För att logga in och installera spel, följ dessa instruktioner:"
     },
     "status": {
         "error": "Problem",
         "loading": "Laddar spellistan, vänligen vänta"
     },
-    "welcome": "Välkommen!"
+    "welcome": "Välkommen!",
+    "manual": {
+        "epic": {
+            "step1": "Öppna Epic Store här , logga in med ditt konto och kopiera ditt auktoriseringkodsinformationsnummer",
+            "step2": "Klistra in ditt auktoriseringskodnummer i fältet nedan och klicka på Logga in."
+        }
+    }
 }

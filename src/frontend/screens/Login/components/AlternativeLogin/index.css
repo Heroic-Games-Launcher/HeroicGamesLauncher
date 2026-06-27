@@ -1,4 +1,4 @@
-.SIDLoginModal {
+.AlternativeLoginModal {
   display: grid;
   place-items: center;
   inset: 0px;
@@ -13,7 +13,7 @@
   z-index: 6;
 }
 
-.sid-modal {
+.alt-login-modal {
   position: relative;
   display: grid;
   place-items: center;
@@ -26,9 +26,10 @@
   border: solid 1px var(--background);
   overflow: auto;
   max-height: 100vh;
-  max-width: 90%;
+  max-width: min(90%, 800px);
   font-size: var(--text-md);
   margin: 2rem;
+  width: 100%;
 }
 
 .loginInstructions > strong {
@@ -59,6 +60,14 @@
   justify-content: space-around;
   user-select: text;
   flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.loginInstructions .login-link > * {
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 
 .loginInstructions .login-link h6 {
@@ -90,7 +99,7 @@
   text-align: start;
 }
 
-.sid-modal > .sid-input {
+.alt-login-modal > .code-input {
   color: var(--text-secondary);
   font-size: var(--text-md);
   padding: var(--space-2xs);
@@ -102,10 +111,29 @@
   margin-bottom: var(--space-md);
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   font-family: var(--primary-font-family);
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .material-icons.refreshing {
   color: var(--text-hover);
   animation: 2s refreshing;
   animation-iteration-count: infinite;
+}
+
+.help-link-section {
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.help-link-button {
+  color: var(--accent) !important;
+  text-transform: none !important;
+  font-size: var(--text-sm) !important;
+}
+
+.help-link-button:hover {
+  color: var(--accent-overlay) !important;
+  background-color: transparent !important;
 }

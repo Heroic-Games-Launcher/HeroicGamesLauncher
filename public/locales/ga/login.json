@@ -8,14 +8,13 @@
         "open": "Oscail Nasc"
     },
     "message": {
-        "part1": "Chun logáil isteach agus do chluichí a shuiteáil, ní mór duit na céimeanna seo a leanas a leanúint ar dtús:",
-        "part2": "Oscail an",
-        "part3": "Siopa Epic anseo",
-        "part4": ", logáil isteach i do chuntas agus cóipeáil do",
-        "part5": "uimhir faisnéise cód údaraithe",
-        "part6": "Greamaigh do",
-        "part7": "uimhir chód údaraithe",
-        "part8": "sa bhosca ionchuir thíos agus cliceáil ar an gcnaipe logáil isteach."
+        "part1": "Chun logáil isteach agus do chluichí a shuiteáil, ní mór duit na céimeanna seo a leanas a leanúint ar dtús:"
     },
-    "welcome": "Fáilte!"
+    "welcome": "Fáilte!",
+    "manual": {
+        "epic": {
+            "step1": "Oscail an Siopa Epic anseo , logáil isteach i do chuntas agus cóipeáil do uimhir faisnéise cód údaraithe",
+            "step2": "Greamaigh do uimhir chód údaraithe sa bhosca ionchuir thíos agus cliceáil ar an gcnaipe logáil isteach."
+        }
+    }
 }

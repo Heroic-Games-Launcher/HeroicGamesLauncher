@@ -16,10 +16,6 @@ const writeConfig = window.api.writeConfig
 const notify = (args: { title: string; body: string }) =>
   window.api.notify(args)
 
-const loginPage = window.api.openLoginPage
-
-const sidInfoPage = window.api.openSidInfoPage
-
 const handleQuit = window.api.quit
 
 const openDiscordLink = window.api.openDiscordLink
@@ -162,12 +158,10 @@ export {
   handleQuit,
   install,
   launch,
-  loginPage,
   notify,
   openDiscordLink,
   repair,
   sendKill,
-  sidInfoPage,
   syncSaves,
   updateGame,
   writeConfig,

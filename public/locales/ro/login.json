@@ -8,18 +8,17 @@
         "loading": "Loading"
     },
     "message": {
-        "part1": "In order to log in and install your games, you first need to follow the steps below:",
-        "part2": "Deschide",
-        "part3": "Epic Store aici",
-        "part4": ", log in to your account and copy your",
-        "part5": "numărul de informații authorization code",
-        "part6": "Paste your",
-        "part7": "număr authorization code",
-        "part8": "in the input box below and click on the login button."
+        "part1": "In order to log in and install your games, you first need to follow the steps below:"
     },
     "status": {
         "error": "Eroare",
         "loading": "Se încarcă lista de jocuri, așteptați"
     },
-    "welcome": "Bun venit!"
+    "welcome": "Bun venit!",
+    "manual": {
+        "epic": {
+            "step1": "Deschide Epic Store aici , log in to your account and copy your numărul de informații authorization code",
+            "step2": "Paste your număr authorization code in the input box below and click on the login button."
+        }
+    }
 }
