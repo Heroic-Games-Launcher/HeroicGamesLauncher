@@ -26,6 +26,7 @@ import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import { useHasPartialInstall } from 'frontend/hooks/useHasPartialInstall'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 
 import classNames from 'classnames'
@@ -44,6 +45,7 @@ import {
   Edit,
   Favorite,
   FavoriteBorder,
+  Storage,
   List,
   OpenInNew,
   PlayArrow,
@@ -136,7 +138,7 @@ const GameCard = ({
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
 
-  const [progress, previousProgress] = hasProgress(appName, runner)
+  const [progress] = hasProgress(appName, runner)
   const { install_size: size = '0' } = {
     ...gameInstallInfo
   }
@@ -144,6 +146,11 @@ const GameCard = ({
   const { status, folder, label } = hasStatus(gameInfo, size)
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
+
+  const { hasPartialInstall, partialInstallFolder } = useHasPartialInstall(
+    appName,
+    isInstalled
+  )
 
   useEffect(() => {
     setIsLaunching(false)
@@ -425,7 +432,7 @@ const GameCard = ({
       // uninstall
       label: t('button.uninstall'),
       onclick: onUninstallClick,
-      show: isInstalled && !isUpdating && !isPlaying,
+      show: (isInstalled || hasPartialInstall) && !isUpdating && !isPlaying,
       icon: <DeleteForever />
     }
   ]
@@ -467,6 +474,7 @@ const GameCard = ({
           runner={runner}
           isDlc={Boolean(gameInfo.install.is_dlc)}
           onClose={() => setShowUninstallModal(false)}
+          partialInstallFolder={partialInstallFolder}
         />
       )}
       <ContextMenu items={items}>
@@ -479,6 +487,17 @@ const GameCard = ({
           {showUpdateBadge && (
             <span className="gameCardUpdateBadge">
               {t('status.hasUpdates')}
+            </span>
+          )}
+          {hasPartialInstall && !isInstalled && !isInstalling && !isQueued && (
+            <span
+              className="partialInstallBadge"
+              title={t(
+                'label.game.partial-install',
+                'Partial install on disk — right-click to clean up'
+              )}
+            >
+              <Storage />
             </span>
           )}
           <Link
@@ -572,7 +591,7 @@ const GameCard = ({
         gameInfo,
         installPath: folder || 'default',
         isInstalling,
-        previousProgress,
+        previousProgress: null,
         progress,
         t,
         showDialogModal

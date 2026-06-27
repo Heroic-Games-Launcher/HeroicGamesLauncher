@@ -248,6 +248,8 @@ export interface LibraryContextType {
   setShowThirdPartyManagedOnly: (value: boolean) => void
   showUpdatesOnly: boolean
   setShowUpdatesOnly: (value: boolean) => void
+  showPartiallyInstalledOnly: boolean
+  setShowPartiallyInstalledOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
   setShowCategories: (value: boolean) => void
   showAlphabetFilter: boolean

@@ -8,6 +8,8 @@ import { notify } from 'backend/dialog/dialog'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { libraryManagerMap } from 'backend/storeManagers'
 import { sendGameStatusUpdate } from 'backend/utils'
+import { cleanUpPartialInstall } from 'backend/downloadmanager/downloadqueue'
+import type { Game } from 'common/types/game_manager'
 import { Runner } from 'common/types'
 import { storeMap } from 'common/utils'
 import { Event } from 'electron'
@@ -96,7 +98,8 @@ export const uninstallGameCallback = async (
   appName: string,
   runner: Runner,
   shouldRemovePrefix: boolean,
-  shouldRemoveSetting: boolean
+  shouldRemoveSetting: boolean,
+  partialInstallFolder?: string
 ) => {
   sendGameStatusUpdate({
     appName,
@@ -104,13 +107,31 @@ export const uninstallGameCallback = async (
     status: 'uninstalling'
   })
 
-  const game = libraryManagerMap[runner].getGame(appName)
-  const { title } = game.getGameInfo()
+  const game: Game = libraryManagerMap[runner].getGame(appName)
+  const gameInfo = game.getGameInfo()
+  const { title } = gameInfo
 
   let uninstalled = false
 
   try {
-    await game.uninstall({ shouldRemovePrefix })
+    if (!gameInfo.is_installed && partialInstallFolder) {
+      // Partial-install cleanup replaces the normal uninstall path, which
+      // assumes the game is fully installed. Prefer a runner's own cleanup if it
+      // provides one, otherwise fall back to the generic, runner-agnostic
+      // routine so any current or future runner is supported out of the box.
+      if (game.cleanUpPartialInstall) {
+        await game.cleanUpPartialInstall(partialInstallFolder)
+      } else {
+        await cleanUpPartialInstall(
+          appName,
+          runner,
+          partialInstallFolder,
+          gameInfo.folder_name
+        )
+      }
+    } else {
+      await game.uninstall({ shouldRemovePrefix })
+    }
     uninstalled = true
   } catch (error) {
     notify({
@@ -138,4 +159,6 @@ export const uninstallGameCallback = async (
     runner,
     status: 'done'
   })
+
+  return uninstalled
 }

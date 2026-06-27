@@ -1,5 +1,7 @@
 import './index.scss'
 import React, { useContext, useEffect, useState } from 'react'
+import { clearInstallProgress } from 'frontend/state/InstallProgress'
+import { clearPartialInstall } from 'frontend/helpers/library'
 import {
   Dialog,
   DialogContent,
@@ -17,13 +19,15 @@ interface UninstallModalProps {
   runner: Runner
   onClose: () => void
   isDlc: boolean
+  partialInstallFolder?: string
 }
 
 const UninstallModal: React.FC<UninstallModalProps> = function ({
   appName,
   runner,
   onClose,
-  isDlc
+  isDlc,
+  partialInstallFolder
 }) {
   const [isNative, setIsNative] = useState(true)
   const [winePrefix, setWinePrefix] = useState('')
@@ -86,26 +90,37 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
     checkIfIsNative()
   }, [])
 
-  const storage: Storage = window.localStorage
   const uninstallGame = async () => {
     onClose()
 
-    await window.api.uninstall(
+    const uninstalled = await window.api.uninstall(
       appName,
       runner,
       deletePrefixChecked,
-      deleteSettingsChecked
+      deleteSettingsChecked,
+      partialInstallFolder
     )
     if (runner === 'sideload' && location.pathname.match(/gamepage/)) {
       navigate('/#library')
     }
-    storage.removeItem(appName)
+    // Only clear the partial-install marker if the backend actually finished the
+    // uninstall — otherwise the user keeps the badge to retry the cleanup.
+    if (uninstalled) {
+      clearPartialInstall(appName)
+      if (partialInstallFolder) {
+        clearInstallProgress(appName, runner)
+      }
+    }
   }
 
-  const showWineCheckbox = !isNative && !isDlc
+  // A partial install is just an unfinished download: there's no Wine prefix or
+  // settings to remove yet, so we only offer to clean up the leftover files.
+  const isPartialInstall = !!partialInstallFolder
+  const showWineCheckbox = !isNative && !isDlc && !isPartialInstall
 
   // disallow uninstalling epic games if an epic game is being installed
-  if (installingEpicGame && runner === 'legendary') {
+  // partial install cleanup is exempt: the backend cancels the active download before deleting
+  if (installingEpicGame && runner === 'legendary' && !partialInstallFolder) {
     return (
       <>
         {showUninstallModal && (
@@ -166,15 +181,22 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
           </DialogHeader>
           <DialogContent>
             <div className="uninstallModalMessage">
-              {isDlc
-                ? t('gamepage:box.uninstall.dlc', {
-                    defaultValue: 'Do you want to uninstall "{{title}}" (DLC)?',
+              {isPartialInstall
+                ? t('gamepage:box.uninstall.partial-message', {
+                    defaultValue:
+                      'Do you want to clean up the incomplete download of "{{title}}"?',
                     title: gameTitle
                   })
-                : t('gamepage:box.uninstall.message', {
-                    defaultValue: 'Do you want to uninstall "{{title}}"?',
-                    title: gameTitle
-                  })}
+                : isDlc
+                  ? t('gamepage:box.uninstall.dlc', {
+                      defaultValue:
+                        'Do you want to uninstall "{{title}}" (DLC)?',
+                      title: gameTitle
+                    })
+                  : t('gamepage:box.uninstall.message', {
+                      defaultValue: 'Do you want to uninstall "{{title}}"?',
+                      title: gameTitle
+                    })}
             </div>
             {showWineCheckbox && (
               <ToggleSwitch
@@ -192,7 +214,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
                 }}
               />
             )}
-            {disableDeleteWine && (
+            {disableDeleteWine && !isPartialInstall && (
               <p className="default-wine-warning">
                 {t(
                   'gamepage:box.uninstall.prefix_warning',
@@ -200,7 +222,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
                 )}
               </p>
             )}
-            {!isDlc && (
+            {!isDlc && !isPartialInstall && (
               <ToggleSwitch
                 htmlId="uninstallsettingCheckbox"
                 value={deleteSettingsChecked}

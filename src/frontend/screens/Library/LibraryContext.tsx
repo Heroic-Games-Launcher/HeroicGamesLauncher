@@ -36,6 +36,8 @@ const initialContext: LibraryContextType = {
   setShowThirdPartyManagedOnly: () => null,
   showUpdatesOnly: false,
   setShowUpdatesOnly: () => null,
+  showPartiallyInstalledOnly: false,
+  setShowPartiallyInstalledOnly: () => null,
   handleAddGameButtonClick: () => null,
   setShowCategories: () => null,
   showAlphabetFilter: false,

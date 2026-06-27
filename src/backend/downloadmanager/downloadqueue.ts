@@ -2,7 +2,12 @@ import { libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
-import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
+import {
+  DMQueueElement,
+  DMStatus,
+  DownloadManagerState,
+  Runner
+} from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../ipc'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
@@ -29,7 +34,7 @@ let autoPaused = false
 onConnectivityChange((status) => {
   if (status === 'offline' && isRunning()) {
     logInfo('System offline, auto-pausing downloads', LogPrefix.DownloadManager)
-    pauseCurrentDownload()
+    void pauseCurrentDownload()
     autoPaused = true
   } else if (status === 'online' && autoPaused) {
     logInfo('System online, auto-resuming downloads', LogPrefix.DownloadManager)
@@ -228,7 +233,7 @@ function getQueueInformation() {
   return { elements, finished, state: queueState }
 }
 
-function cancelCurrentDownload({ removeDownloaded = false }) {
+async function cancelCurrentDownload({ removeDownloaded = false }) {
   if (currentElement) {
     if (Array.isArray(currentElement.params.installDlcs)) {
       const dlcsToRemove = currentElement.params.installDlcs
@@ -237,7 +242,7 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
       }
     }
     if (isRunning()) {
-      stopCurrentDownload()
+      await stopCurrentDownload()
     }
     removeFromQueue(currentElement.params.appName)
 
@@ -254,9 +259,9 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
   }
 }
 
-function pauseCurrentDownload() {
+async function pauseCurrentDownload() {
   if (currentElement) {
-    stopCurrentDownload()
+    await stopCurrentDownload()
   }
   queueState = 'paused'
   autoPaused = false
@@ -272,10 +277,10 @@ function resumeCurrentDownload() {
   void initQueue()
 }
 
-function stopCurrentDownload() {
+async function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
-  libraryManagerMap[runner].getGame(appName).stop(false)
+  await libraryManagerMap[runner].getGame(appName).stop(false)
 }
 
 // notify the user based on the status of the element and the status of the queue
@@ -332,12 +337,52 @@ function processNotification(element: DMQueueElement, status: DMStatus) {
   }
 }
 
+async function cancelDownloadForApp(appName: string) {
+  if (currentElement?.params.appName === appName) {
+    await cancelCurrentDownload({ removeDownloaded: false })
+  } else {
+    removeFromQueue(appName)
+  }
+}
+
+/**
+ * Generic cleanup for a partial (incomplete) install: stops any active or
+ * queued download for the game, then deletes the leftover folder on disk.
+ *
+ * This is runner-agnostic and works for any current or future runner that uses
+ * Heroic's download queue, so a runner doesn't need to implement anything to get
+ * partial-install cleanup. Runners that need custom teardown can override it via
+ * the optional `Game.cleanUpPartialInstall` method.
+ */
+async function cleanUpPartialInstall(
+  appName: string,
+  runner: Runner,
+  partialInstallFolder: string,
+  folderName?: string
+) {
+  await cancelDownloadForApp(appName)
+  if (folderName) {
+    removeFolder(partialInstallFolder, folderName)
+  } else {
+    logWarning(
+      [
+        'Could not fully clean up partial install for',
+        appName,
+        '- folder name is missing, leftover files may remain on disk'
+      ],
+      LogPrefix.DownloadManager
+    )
+  }
+  sendFrontendMessage('refreshLibrary', runner)
+}
+
 export {
   initQueue,
   addToQueue,
   removeFromQueue,
   getQueueInformation,
   cancelCurrentDownload,
+  cleanUpPartialInstall,
   pauseCurrentDownload,
   resumeCurrentDownload,
   isRunning
