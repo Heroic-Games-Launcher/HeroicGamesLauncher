@@ -8,18 +8,17 @@
         "loading": "Načítání"
     },
     "message": {
-        "part1": "Aby jste se mohli přihlásit a instalovat vaše hry, musíte postupovat podle kroků níže:",
-        "part2": "Otevřete",
-        "part3": "obchod Epic Games",
-        "part4": ", přihlaste se s vaším účtem a zkopírujte vaše",
-        "part5": "číslo ověřovacího kódu",
-        "part6": "Vložte",
-        "part7": "číslo authorization code",
-        "part8": "do pole níže a klikněte na tlačítko přihlásit."
+        "part1": "Aby jste se mohli přihlásit a instalovat vaše hry, musíte postupovat podle kroků níže:"
     },
     "status": {
         "error": "Chyba",
         "loading": "Načítám seznam her, čekejte prosím"
     },
-    "welcome": "Vítejte!"
+    "welcome": "Vítejte!",
+    "manual": {
+        "epic": {
+            "step1": "Otevřete obchod Epic Games , přihlaste se s vaším účtem a zkopírujte vaše číslo ověřovacího kódu",
+            "step2": "Vložte číslo authorization code do pole níže a klikněte na tlačítko přihlásit."
+        }
+    }
 }

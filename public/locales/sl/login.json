@@ -8,14 +8,13 @@
         "open": "Odpri povezavo"
     },
     "message": {
-        "part1": "Za vpis in namestitev vaših iger morate slediti spodnjim navodilom:",
-        "part2": "Odpri",
-        "part3": "Odpri trgovino Epic",
-        "part4": ", vpišite se v svoj račun in kopirajte svojo",
-        "part5": "avtorizacijsko kodo",
-        "part6": "Prilepite svojo",
-        "part7": "avtorizacijsko kodo",
-        "part8": "v spodnje polje in kliknite na gumb za vpis."
+        "part1": "Za vpis in namestitev vaših iger morate slediti spodnjim navodilom:"
     },
-    "welcome": "Dobrodošli!"
+    "welcome": "Dobrodošli!",
+    "manual": {
+        "epic": {
+            "step1": "Odpri Odpri trgovino Epic , vpišite se v svoj račun in kopirajte svojo avtorizacijsko kodo",
+            "step2": "Prilepite svojo avtorizacijsko kodo v spodnje polje in kliknite na gumb za vpis."
+        }
+    }
 }
