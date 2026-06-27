@@ -197,12 +197,7 @@ export default class GOGGame extends Game {
   })
   private tmpProgress: InstallProgress | undefined
 
-  onInstallOrUpdateOutput(
-    action: 'installing' | 'updating',
-    data: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    totalDownloadSize = -1
-  ) {
+  onInstallOrUpdateOutput(action: 'installing' | 'updating', data: string) {
     if (!this.tmpProgress) {
       this.tmpProgress = this.defaultTmpProgress()
     }

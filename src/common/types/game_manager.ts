@@ -32,11 +32,6 @@ export abstract class Game {
     path: string,
     platform: InstallPlatform
   ): Promise<ExecResult>
-  abstract onInstallOrUpdateOutput(
-    action: 'installing' | 'updating',
-    data: string,
-    totalDownloadSize: number
-  ): void
   abstract install(args: InstallArgs): Promise<InstallResult>
   abstract isNative(): boolean
   abstract launch(

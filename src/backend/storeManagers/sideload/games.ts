@@ -140,12 +140,6 @@ export default class SideloadGame extends Game {
     return false
   }
 
-  onInstallOrUpdateOutput() {
-    logWarning(
-      `onInstallOrUpdateOutput not implemented on Sideload Game Manager. called for ID = ${this.id}`
-    )
-  }
-
   async moveInstall(): Promise<InstallResult> {
     logWarning(
       `moveInstall not implemented on Sideload Game Manager. called for ID = ${this.id}`
