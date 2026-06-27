@@ -4,6 +4,7 @@ export interface StoreConfig {
   codeParam: string
   minCodeLength: number
   extractCode: (input: string) => string | null
+  helpUrl?: string
 }
 
 export const epicConfig: StoreConfig = {
@@ -15,7 +16,9 @@ export const epicConfig: StoreConfig = {
     // Epic accepts raw SID (Session ID)
     const trimmed = input.trim()
     return trimmed.length >= 30 ? trimmed : null
-  }
+  },
+  helpUrl:
+    'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-To:-Epic-Alternative-Login'
 }
 
 export const gogConfig: StoreConfig = {

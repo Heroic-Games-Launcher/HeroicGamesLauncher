@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import LinkIcon from '@mui/icons-material/Link'
 import PublicIcon from '@mui/icons-material/Public'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import { Button, Paper, Stack, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import './index.css'
@@ -304,6 +305,19 @@ export default function AlternativeLogin({ store, backdropClick }: Props) {
             </li>
             <li>{manualTranslations[store].step2}</li>
           </ol>
+          {config.helpUrl && (
+            <div className="help-link-section">
+              <Button
+                className="help-link-button"
+                startIcon={<HelpOutlineIcon fontSize="small" />}
+                onClick={() => window.api.openExternalUrl(config.helpUrl!)}
+                size="small"
+                variant="text"
+              >
+                {t('help.link', 'Need help with alternative login?')}
+              </Button>
+            </div>
+          )}
         </div>
         <input
           type="text"

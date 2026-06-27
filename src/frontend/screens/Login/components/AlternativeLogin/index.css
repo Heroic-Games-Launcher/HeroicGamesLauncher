@@ -120,3 +120,20 @@
   animation: 2s refreshing;
   animation-iteration-count: infinite;
 }
+
+.help-link-section {
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.help-link-button {
+  color: var(--accent) !important;
+  text-transform: none !important;
+  font-size: var(--text-sm) !important;
+}
+
+.help-link-button:hover {
+  color: var(--accent-overlay) !important;
+  background-color: transparent !important;
+}
