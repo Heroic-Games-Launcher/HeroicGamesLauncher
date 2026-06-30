@@ -17,7 +17,36 @@ import SettingsContext from '../Settings/SettingsContext'
 import useSettingsContext from '../../hooks/useSettingsContext'
 import './index.css'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
+import { CoverResolution } from 'common/types'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
+
+function AccessToggle({
+  htmlId,
+  value,
+  onChange,
+  title,
+  isRTL
+}: {
+  htmlId: string
+  value: boolean
+  onChange: () => void
+  title: string
+  isRTL: boolean
+}) {
+  return (
+    <span className="setting">
+      <label className={classNames('toggleWrapper', { isRTL })}>
+        <ToggleSwitch
+          htmlId={htmlId}
+          value={value}
+          handleChange={onChange}
+          title={title}
+        />
+      </label>
+    </span>
+  )
+}
 
 const Accessibility = React.memo(function Accessibility() {
   const { t } = useTranslation()
@@ -27,6 +56,14 @@ const Accessibility = React.memo(function Accessibility() {
     setZoomPercent,
     allTilesInColor,
     setAllTilesInColor,
+    hideStoreLogos,
+    setHideStoreLogos,
+    disableGameCardHoverScale,
+    setDisableGameCardHoverScale,
+    reducedMotion,
+    setReducedMotion,
+    coverResolution,
+    setCoverResolution,
     titlesAlwaysVisible,
     setTitlesAlwaysVisible,
     setPrimaryFontFamily,
@@ -174,85 +211,127 @@ const Accessibility = React.memo(function Accessibility() {
 
         <ThemeSelector />
 
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="setAllTitlesInColor"
-              value={allTilesInColor}
-              handleChange={() => {
-                setAllTilesInColor(!allTilesInColor)
-              }}
-              title={t(
-                'accessibility.all_tiles_in_color',
-                'Show all game tiles in color'
-              )}
-            />
-          </label>
-        </span>
+        <AccessToggle
+          htmlId="disableDialogBackdropClose"
+          value={disableDialogBackdropClose}
+          onChange={() =>
+            setDisableDialogBackdropClose(!disableDialogBackdropClose)
+          }
+          title={t(
+            'accessibility.disable_dialog_backdrop_close',
+            'Disable closing dialogs by clicking outside'
+          )}
+          isRTL={isRTL}
+        />
 
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="setTitlesAlwaysVisible"
-              value={titlesAlwaysVisible}
-              handleChange={() => {
-                setTitlesAlwaysVisible(!titlesAlwaysVisible)
-              }}
-              title={t(
-                'accessibility.titles_always_visible',
-                'Always show titles in library'
-              )}
-            />
-          </label>
-        </span>
+        <AccessToggle
+          htmlId="disableSmoothScrolling"
+          value={smoothScrollingDisabled}
+          onChange={() => setSmoothScrollingDisabled(!smoothScrollingDisabled)}
+          title={t(
+            'accessibility.disable_smooth_scrolling',
+            'Disable smooth scrolling (requires restart)'
+          )}
+          isRTL={isRTL}
+        />
 
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="disableDialogBackdropClose"
-              value={disableDialogBackdropClose}
-              handleChange={() => {
-                setDisableDialogBackdropClose(!disableDialogBackdropClose)
-              }}
-              title={t(
-                'accessibility.disable_dialog_backdrop_close',
-                'Disable closing dialogs by clicking outside'
-              )}
-            />
-          </label>
-        </span>
+        <AccessToggle
+          htmlId="disableAnimations"
+          value={disableAnimations}
+          onChange={() => setDisableAnimations(!disableAnimations)}
+          title={t('accessibility.disable_animations', 'Disable UI animations')}
+          isRTL={isRTL}
+        />
 
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="disableSmoothScrolling"
-              value={smoothScrollingDisabled}
-              handleChange={() => {
-                setSmoothScrollingDisabled(!smoothScrollingDisabled)
-              }}
-              title={t(
-                'accessibility.disable_smooth_scrolling',
-                'Disable smooth scrolling (requires restart)'
-              )}
-            />
-          </label>
-        </span>
+        <h2 className="librarySectionLabel">{t('Library', 'Library')}</h2>
 
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="disableAnimations"
-              value={disableAnimations}
-              handleChange={() => {
-                setDisableAnimations(!disableAnimations)
-              }}
-              title={t(
-                'accessibility.disable_animations',
-                'Disable UI animations'
-              )}
-            />
-          </label>
-        </span>
+        <div className="libraryAccessibility">
+          <SelectField
+            htmlId="cover-resolution"
+            value={coverResolution}
+            onChange={(e: SelectChangeEvent) =>
+              setCoverResolution(e.target.value as CoverResolution)
+            }
+            label={
+              <>
+                {t('accessibility.cover_resolution', 'Game cover resolution')}
+                <InfoIcon
+                  text={t(
+                    'accessibility.cover_resolution_info',
+                    'Higher resolution requires more resources. Medium is recommended as it has the best load times and is good enough. Only affects Epic Games covers.'
+                  )}
+                />
+              </>
+            }
+          >
+            <MenuItem value="low">
+              {t('accessibility.cover_resolution_low', 'Low')}
+            </MenuItem>
+            <MenuItem value="medium">
+              {t('accessibility.cover_resolution_medium', 'Medium')}
+            </MenuItem>
+            <MenuItem value="high">
+              {t('accessibility.cover_resolution_high', 'High')}
+            </MenuItem>
+          </SelectField>
+
+          <AccessToggle
+            htmlId="setAllTitlesInColor"
+            value={allTilesInColor}
+            onChange={() => setAllTilesInColor(!allTilesInColor)}
+            title={t(
+              'accessibility.all_tiles_in_color',
+              'Show all game tiles in color'
+            )}
+            isRTL={isRTL}
+          />
+
+          <AccessToggle
+            htmlId="setTitlesAlwaysVisible"
+            value={titlesAlwaysVisible}
+            onChange={() => setTitlesAlwaysVisible(!titlesAlwaysVisible)}
+            title={t(
+              'accessibility.titles_always_visible',
+              'Always show titles in library'
+            )}
+            isRTL={isRTL}
+          />
+
+          <AccessToggle
+            htmlId="hideStoreLogos"
+            value={hideStoreLogos}
+            onChange={() => setHideStoreLogos(!hideStoreLogos)}
+            title={t(
+              'accessibility.hide_store_logos',
+              'Hide store logos in library'
+            )}
+            isRTL={isRTL}
+          />
+
+          <AccessToggle
+            htmlId="disableGameCardHoverScale"
+            value={disableGameCardHoverScale}
+            onChange={() =>
+              setDisableGameCardHoverScale(!disableGameCardHoverScale)
+            }
+            title={t(
+              'accessibility.disable_game_card_hover_effects',
+              'Disable game card hover effects'
+            )}
+            isRTL={isRTL}
+          />
+
+          <AccessToggle
+            htmlId="reducedMotion"
+            value={reducedMotion}
+            onChange={() => setReducedMotion(!reducedMotion)}
+            title={t(
+              'accessibility.reduced_motion',
+              'Reduce game card hover animation intensity'
+            )}
+            isRTL={isRTL}
+          />
+        </div>
       </div>
     </div>
   )

@@ -22,6 +22,8 @@ import type LogWriter from 'backend/logger/log_writer'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
+export type CoverResolution = 'low' | 'medium' | 'high'
+
 // NOTE: Do not put enum's in this module or it will break imports
 
 export type DialogType = 'MESSAGE' | 'ERROR'
