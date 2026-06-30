@@ -162,12 +162,24 @@
   object-fit: cover;
   aspect-ratio: 3 / 4;
   display: block;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.2s,
+    opacity 0.5s;
+  transform-origin: center;
 }
 
 .gameCard.justPlayed .justPlayedImg {
   aspect-ratio: 16 / 10;
   object-fit: cover;
   width: 100%;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.2s,
+    opacity 0.5s;
+  transform-origin: center;
 }
 
 .gameCard .gameLogo {
@@ -249,10 +261,11 @@
 
 .gameCard:hover,
 .gameCard:focus-within {
-  transform: translate3d(0, -8px, 0);
+  transform: translate3d(0, -5px, 0);
   box-shadow:
-    0 22px 34px rgba(0, 0, 0, 0.5),
-    0 10px 16px rgba(0, 0, 0, 0.34);
+    0 24px 34px rgba(0, 0, 0, 0.5),
+    0 12px 16px rgba(0, 0, 0, 0.34),
+    0 2px 3px rgba(0, 0, 0, 0.38);
 }
 
 .gameCard:hover::before,
@@ -396,7 +409,6 @@
   z-index: 7;
 }
 
-.gameImg,
 .gameLogo {
   transition:
     filter 0.2s,
@@ -413,6 +425,13 @@
 .allTilesInColor .gameImg,
 .allTilesInColor .gameLogo {
   filter: grayscale(0);
+}
+
+.gameCard:hover .gameImg,
+.gameCard:focus-within .gameImg,
+.gameCard:hover .justPlayedImg,
+.gameCard:focus-within .justPlayedImg {
+  transform: translate3d(0, 0, 0) scale(1.012);
 }
 
 .icons {
