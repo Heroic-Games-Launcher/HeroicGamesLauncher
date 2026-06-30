@@ -238,9 +238,7 @@ const Accessibility = React.memo(function Accessibility() {
             htmlId="cover-resolution"
             value={coverResolution}
             onChange={(e: SelectChangeEvent) =>
-              setCoverResolution(
-                e.target.value as 'low' | 'medium' | 'high'
-              )
+              setCoverResolution(e.target.value as 'low' | 'medium' | 'high')
             }
             label={
               <>
@@ -257,9 +255,15 @@ const Accessibility = React.memo(function Accessibility() {
               </>
             }
           >
-            <MenuItem value="low">{t('accessibility.cover_resolution_low', 'Baja')}</MenuItem>
-            <MenuItem value="medium">{t('accessibility.cover_resolution_medium', 'Media')}</MenuItem>
-            <MenuItem value="high">{t('accessibility.cover_resolution_high', 'Alta')}</MenuItem>
+            <MenuItem value="low">
+              {t('accessibility.cover_resolution_low', 'Baja')}
+            </MenuItem>
+            <MenuItem value="medium">
+              {t('accessibility.cover_resolution_medium', 'Media')}
+            </MenuItem>
+            <MenuItem value="high">
+              {t('accessibility.cover_resolution_high', 'Alta')}
+            </MenuItem>
           </SelectField>
 
           <span className="setting">
