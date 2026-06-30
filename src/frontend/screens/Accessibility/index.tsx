@@ -37,7 +37,12 @@ function AccessToggle({
   return (
     <span className="setting">
       <label className={classNames('toggleWrapper', { isRTL })}>
-        <ToggleSwitch htmlId={htmlId} value={value} handleChange={onChange} title={title} />
+        <ToggleSwitch
+          htmlId={htmlId}
+          value={value}
+          handleChange={onChange}
+          title={title}
+        />
       </label>
     </span>
   )
@@ -209,8 +214,13 @@ const Accessibility = React.memo(function Accessibility() {
         <AccessToggle
           htmlId="disableDialogBackdropClose"
           value={disableDialogBackdropClose}
-          onChange={() => setDisableDialogBackdropClose(!disableDialogBackdropClose)}
-          title={t('accessibility.disable_dialog_backdrop_close', 'Disable closing dialogs by clicking outside')}
+          onChange={() =>
+            setDisableDialogBackdropClose(!disableDialogBackdropClose)
+          }
+          title={t(
+            'accessibility.disable_dialog_backdrop_close',
+            'Disable closing dialogs by clicking outside'
+          )}
           isRTL={isRTL}
         />
 
@@ -218,7 +228,10 @@ const Accessibility = React.memo(function Accessibility() {
           htmlId="disableSmoothScrolling"
           value={smoothScrollingDisabled}
           onChange={() => setSmoothScrollingDisabled(!smoothScrollingDisabled)}
-          title={t('accessibility.disable_smooth_scrolling', 'Disable smooth scrolling (requires restart)')}
+          title={t(
+            'accessibility.disable_smooth_scrolling',
+            'Disable smooth scrolling (requires restart)'
+          )}
           isRTL={isRTL}
         />
 
@@ -266,7 +279,10 @@ const Accessibility = React.memo(function Accessibility() {
             htmlId="setAllTitlesInColor"
             value={allTilesInColor}
             onChange={() => setAllTilesInColor(!allTilesInColor)}
-            title={t('accessibility.all_tiles_in_color', 'Show all game tiles in color')}
+            title={t(
+              'accessibility.all_tiles_in_color',
+              'Show all game tiles in color'
+            )}
             isRTL={isRTL}
           />
 
@@ -274,7 +290,10 @@ const Accessibility = React.memo(function Accessibility() {
             htmlId="setTitlesAlwaysVisible"
             value={titlesAlwaysVisible}
             onChange={() => setTitlesAlwaysVisible(!titlesAlwaysVisible)}
-            title={t('accessibility.titles_always_visible', 'Always show titles in library')}
+            title={t(
+              'accessibility.titles_always_visible',
+              'Always show titles in library'
+            )}
             isRTL={isRTL}
           />
 
@@ -282,15 +301,23 @@ const Accessibility = React.memo(function Accessibility() {
             htmlId="hideStoreLogos"
             value={hideStoreLogos}
             onChange={() => setHideStoreLogos(!hideStoreLogos)}
-            title={t('accessibility.hide_store_logos', 'Hide store logos in library')}
+            title={t(
+              'accessibility.hide_store_logos',
+              'Hide store logos in library'
+            )}
             isRTL={isRTL}
           />
 
           <AccessToggle
             htmlId="disableGameCardHoverScale"
             value={disableGameCardHoverScale}
-            onChange={() => setDisableGameCardHoverScale(!disableGameCardHoverScale)}
-            title={t('accessibility.disable_game_card_hover_effects', 'Disable game card hover effects')}
+            onChange={() =>
+              setDisableGameCardHoverScale(!disableGameCardHoverScale)
+            }
+            title={t(
+              'accessibility.disable_game_card_hover_effects',
+              'Disable game card hover effects'
+            )}
             isRTL={isRTL}
           />
 
@@ -298,7 +325,10 @@ const Accessibility = React.memo(function Accessibility() {
             htmlId="reducedMotion"
             value={reducedMotion}
             onChange={() => setReducedMotion(!reducedMotion)}
-            title={t('accessibility.reduced_motion', 'Reduce game card hover animation intensity')}
+            title={t(
+              'accessibility.reduced_motion',
+              'Reduce game card hover animation intensity'
+            )}
             isRTL={isRTL}
           />
         </div>
