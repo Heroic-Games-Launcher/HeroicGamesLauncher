@@ -27,8 +27,6 @@ export type Category =
   | 'nile'
   | 'zoom'
 
-export type { CoverResolution }
-
 export interface ContextType {
   error: boolean
   gameUpdates: string[]

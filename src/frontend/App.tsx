@@ -30,8 +30,7 @@ function Root() {
     isFrameless,
     experimentalFeatures,
     help,
-    disableAnimations,
-    reducedMotion
+    disableAnimations
   } = useContext(ContextProvider)
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
@@ -76,7 +75,6 @@ function Root() {
         frameless: isFrameless,
         fullscreen: isFullscreen,
         disableAnimations,
-        reducedMotion,
         consoleMode: isConsoleMode
       })}
       // disable dragging for all elements by default
