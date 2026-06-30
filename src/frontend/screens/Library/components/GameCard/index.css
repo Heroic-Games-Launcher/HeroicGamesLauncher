@@ -4,13 +4,65 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  transition-duration: 0.1s;
+  transition:
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 180ms ease,
+    filter 180ms ease;
   box-shadow: 0px 0px 12px 4px #00000055;
   display: flex;
   flex-direction: column;
   border-radius: var(--space-3xs);
   animation: fade-in 0.1s ease-in;
   aspect-ratio: 173/275;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transform-origin: center;
+  will-change: transform, box-shadow, filter;
+}
+
+.gameCard::before,
+.gameCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 180ms ease,
+    transform 500ms ease;
+}
+
+.gameCard::before {
+  z-index: 1;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(255, 255, 255, 0.24),
+      transparent 48%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.04) 30%,
+      rgba(255, 255, 255, 0.02) 58%,
+      rgba(0, 0, 0, 0.18) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -18px 36px rgba(0, 0, 0, 0.18);
+  mix-blend-mode: soft-light;
+}
+
+.gameCard::after {
+  z-index: 6;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.1) 7%,
+    transparent 22%
+  );
+  transform: translateY(-10%);
 }
 
 .gameCard.gamepad {
@@ -179,7 +231,22 @@
 
 .gameCard:hover,
 .gameCard:focus-within {
-  transform: scale(1.05);
+  transform: translate3d(0, -6px, 0) scale(1.025);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.16);
+  filter: saturate(1.06) brightness(1.03);
+}
+
+.gameCard:hover::before,
+.gameCard:focus-within::before {
+  opacity: 1;
+}
+
+.gameCard:hover::after,
+.gameCard:focus-within::after {
+  opacity: 0.9;
+  transform: translateY(0);
 }
 
 .gameCard.hidden .gameImg,
@@ -315,7 +382,7 @@
 .gameImg,
 .gameLogo {
   transition:
-    all 0.2s,
+    filter 0.2s,
     opacity 0.5s;
 }
 
