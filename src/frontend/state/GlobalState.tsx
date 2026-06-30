@@ -14,6 +14,7 @@ import {
   Status
 } from 'common/types'
 import {
+  CoverResolution,
   DialogModalOptions,
   ExternalLinkDialogOptions,
   HelpItem
@@ -98,6 +99,7 @@ interface StateProps {
   hideStoreLogos: boolean
   disableGameCardHoverScale: boolean
   reducedMotion: boolean
+  coverResolution: CoverResolution
   titlesAlwaysVisible: boolean
   sidebarCollapsed: boolean
   activeController: string
@@ -252,6 +254,7 @@ class GlobalState extends PureComponent<Props> {
       false
     ),
     reducedMotion: configStore.get('reducedMotion', false),
+    coverResolution: configStore.get('coverResolution', 'medium'),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
@@ -345,6 +348,11 @@ class GlobalState extends PureComponent<Props> {
   setReducedMotion = (value: boolean) => {
     configStore.set('reducedMotion', value)
     this.setState({ reducedMotion: value })
+  }
+
+  setCoverResolution = (value: CoverResolution) => {
+    configStore.set('coverResolution', value)
+    this.setState({ coverResolution: value })
   }
 
   setTitlesAlwaysVisible = (value: boolean) => {
@@ -1208,6 +1216,8 @@ class GlobalState extends PureComponent<Props> {
           setDisableGameCardHoverScale: this.setDisableGameCardHoverScale,
           reducedMotion: this.state.reducedMotion,
           setReducedMotion: this.setReducedMotion,
+          coverResolution: this.state.coverResolution,
+          setCoverResolution: this.setCoverResolution,
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
           setSideBarCollapsed: this.setSideBarCollapsed,
           setPrimaryFontFamily: this.setPrimaryFontFamily,

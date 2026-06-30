@@ -82,6 +82,8 @@ const initialContext: ContextType = {
   setDisableGameCardHoverScale: () => null,
   reducedMotion: false,
   setReducedMotion: () => null,
+  coverResolution: 'medium',
+  setCoverResolution: () => null,
   titlesAlwaysVisible: false,
   setTitlesAlwaysVisible: () => null,
   sidebarCollapsed: false,

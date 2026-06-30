@@ -55,6 +55,7 @@ const GamesList = ({
     hideStoreLogos,
     disableGameCardHoverScale,
     reducedMotion,
+    coverResolution,
     titlesAlwaysVisible
   } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -171,6 +172,7 @@ const GamesList = ({
               hideStoreLogos={hideStoreLogos}
               disableGameCardHoverScale={disableGameCardHoverScale}
               reducedMotion={reducedMotion}
+              coverResolution={coverResolution}
               dataTour={index === 0 ? 'library-game-card' : undefined}
             />
           )

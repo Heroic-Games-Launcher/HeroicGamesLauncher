@@ -38,6 +38,7 @@ export interface StoreStructure {
     hideStoreLogos: boolean
     disableGameCardHoverScale: boolean
     reducedMotion: boolean
+    coverResolution: 'low' | 'medium' | 'high'
     titlesAlwaysVisible: boolean
     disableDialogBackdropClose: boolean
     disableAnimations: boolean

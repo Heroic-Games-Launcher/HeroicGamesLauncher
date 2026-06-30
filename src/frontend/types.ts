@@ -26,6 +26,8 @@ export type Category =
   | 'nile'
   | 'zoom'
 
+export type CoverResolution = 'low' | 'medium' | 'high'
+
 export interface ContextType {
   error: boolean
   gameUpdates: string[]
@@ -104,6 +106,8 @@ export interface ContextType {
   setDisableGameCardHoverScale: (value: boolean) => void
   reducedMotion: boolean
   setReducedMotion: (value: boolean) => void
+  coverResolution: CoverResolution
+  setCoverResolution: (value: CoverResolution) => void
   titlesAlwaysVisible: boolean
   setTitlesAlwaysVisible: (value: boolean) => void
   setSideBarCollapsed: (value: boolean) => void

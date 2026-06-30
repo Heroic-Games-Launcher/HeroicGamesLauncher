@@ -17,6 +17,7 @@ import SettingsContext from '../Settings/SettingsContext'
 import useSettingsContext from '../../hooks/useSettingsContext'
 import './index.css'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
 
 const Accessibility = React.memo(function Accessibility() {
@@ -33,6 +34,8 @@ const Accessibility = React.memo(function Accessibility() {
     setDisableGameCardHoverScale,
     reducedMotion,
     setReducedMotion,
+    coverResolution,
+    setCoverResolution,
     titlesAlwaysVisible,
     setTitlesAlwaysVisible,
     setPrimaryFontFamily,
@@ -231,6 +234,34 @@ const Accessibility = React.memo(function Accessibility() {
         <h2 className="librarySectionLabel">{t('Library', 'Library')}</h2>
 
         <div className="libraryAccessibility">
+          <SelectField
+            htmlId="cover-resolution"
+            value={coverResolution}
+            onChange={(e: SelectChangeEvent) =>
+              setCoverResolution(
+                e.target.value as 'low' | 'medium' | 'high'
+              )
+            }
+            label={
+              <>
+                {t(
+                  'accessibility.cover_resolution',
+                  'Resolución para las portadas de los videojuegos'
+                )}
+                <InfoIcon
+                  text={t(
+                    'accessibility.cover_resolution_info',
+                    'Higher resolution requires more resources. Medium is recommended as it has the best load times and is good enough.'
+                  )}
+                />
+              </>
+            }
+          >
+            <MenuItem value="low">{t('accessibility.cover_resolution_low', 'Baja')}</MenuItem>
+            <MenuItem value="medium">{t('accessibility.cover_resolution_medium', 'Media')}</MenuItem>
+            <MenuItem value="high">{t('accessibility.cover_resolution_high', 'Alta')}</MenuItem>
+          </SelectField>
+
           <span className="setting">
             <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
               <ToggleSwitch

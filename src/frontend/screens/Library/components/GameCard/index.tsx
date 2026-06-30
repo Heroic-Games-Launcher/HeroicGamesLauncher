@@ -32,6 +32,7 @@ import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
+import { CoverResolution } from 'frontend/types'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
@@ -65,6 +66,7 @@ interface Card {
   hideStoreLogos?: boolean
   disableGameCardHoverScale?: boolean
   reducedMotion?: boolean
+  coverResolution?: CoverResolution
   forceCard?: boolean
   dataTour?: string
 }
@@ -80,6 +82,7 @@ const GameCard = ({
   hideStoreLogos = false,
   disableGameCardHoverScale = false,
   reducedMotion = false,
+  coverResolution = 'medium' as CoverResolution,
   gameInfo: gameInfoFromProps,
   dataTour
 }: Card) => {
@@ -544,7 +547,7 @@ const GameCard = ({
               />
             ) : (
               <CachedImage
-                src={getImageFormatting(cover, runner)}
+                src={getImageFormatting(cover, runner, coverResolution)}
                 className={imgClasses}
                 alt="cover"
               />
