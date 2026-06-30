@@ -146,9 +146,10 @@
 
 .gameCard > a {
   display: block;
+  flex: 1 1 auto;
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 0;
   overflow: hidden;
   border-radius: var(--space-3xs) var(--space-3xs) 0 0;
   isolation: isolate;
@@ -156,8 +157,8 @@
 
 .gameCard .gameImg {
   width: 100%;
+  height: 100%;
   object-fit: cover;
-  aspect-ratio: 3 / 4;
   display: block;
   transform: translate3d(0, 0, 0);
   transition:
@@ -233,9 +234,12 @@
   background: var(--icons-background);
   justify-content: space-around;
   display: grid;
+  flex: 0 0 auto;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'update settings play';
-  padding: var(--space-xs-fixed);
+  align-items: center;
+  min-height: 36px;
+  padding: 4px var(--space-xs-fixed);
 }
 
 .gameCard.justPlayed > .icons {
@@ -254,6 +258,13 @@
 
 .gameCard > .icons > .svg-button {
   justify-self: center;
+}
+
+.gameCard > .icons .svg-button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
 }
 
 .gameCard .store-icon {
@@ -467,11 +478,15 @@
   transition: 300ms;
 }
 
+.gameCard > .icons {
+  padding: 4px var(--space-xs-fixed);
+}
+
 .icons > button > svg,
 .icons > a > svg,
 .icons > svg {
-  height: clamp(28px, 1vw, 36px);
-  aspect-ratio: 1;
+  width: 26px;
+  height: 26px;
   display: block;
 }
 
