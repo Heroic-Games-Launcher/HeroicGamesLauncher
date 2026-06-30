@@ -242,10 +242,7 @@ const Accessibility = React.memo(function Accessibility() {
             }
             label={
               <>
-                {t(
-                  'accessibility.cover_resolution',
-                  'Game cover resolution'
-                )}
+                {t('accessibility.cover_resolution', 'Game cover resolution')}
                 <InfoIcon
                   text={t(
                     'accessibility.cover_resolution_info',
