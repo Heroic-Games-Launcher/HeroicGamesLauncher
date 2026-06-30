@@ -32,7 +32,7 @@ import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
-import { CoverResolution } from 'frontend/types'
+import { CoverResolution } from 'common/types'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
@@ -82,7 +82,7 @@ const GameCard = ({
   hideStoreLogos = false,
   disableGameCardHoverScale = false,
   reducedMotion = false,
-  coverResolution = 'medium' as CoverResolution,
+  coverResolution = 'medium',
   gameInfo: gameInfoFromProps,
   dataTour
 }: Card) => {
@@ -448,44 +448,18 @@ const GameCard = ({
     noHoverEffects: disableGameCardHoverScale
   })
 
-  const hoverScale = disableGameCardHoverScale
-    ? 1
-    : reducedMotion
-      ? 1.006
-      : 1.015
-  const hoverLift = disableGameCardHoverScale
-    ? '0px'
-    : reducedMotion
-      ? '-2px'
-      : '-5px'
-  const coverScale = disableGameCardHoverScale
-    ? 1
-    : reducedMotion
-      ? 1.012
-      : 1.025
-  const buttonHoverScale = disableGameCardHoverScale
-    ? 1
-    : reducedMotion
-      ? 1.003
-      : 1.01
-  const storeHoverLift = disableGameCardHoverScale
-    ? '0px'
-    : reducedMotion
-      ? '0px'
-      : '-1px'
-  const motionDuration = disableGameCardHoverScale
-    ? '180ms'
-    : reducedMotion
-      ? '140ms'
-      : '220ms'
-  const cardStyle = {
-    '--game-card-hover-scale': hoverScale,
-    '--game-card-hover-lift': hoverLift,
-    '--game-card-cover-scale': coverScale,
-    '--game-card-hover-button-scale': buttonHoverScale,
-    '--game-card-store-hover-lift': storeHoverLift,
-    '--game-card-motion-duration': motionDuration
-  } as CSSProperties
+  const cardStyle = useMemo(() => {
+    const d = disableGameCardHoverScale
+    const r = reducedMotion
+    return {
+      '--game-card-hover-scale': d ? 1 : r ? 1.006 : 1.015,
+      '--game-card-hover-lift': d ? '0px' : r ? '-2px' : '-5px',
+      '--game-card-cover-scale': d ? 1 : r ? 1.012 : 1.025,
+      '--game-card-hover-button-scale': d ? 1 : r ? 1.003 : 1.01,
+      '--game-card-store-hover-lift': d || r ? '0px' : '-1px',
+      '--game-card-motion-duration': d ? '180ms' : r ? '140ms' : '220ms'
+    } as CSSProperties
+  }, [disableGameCardHoverScale, reducedMotion])
 
   const imgClasses = classNames('gameImg', { installed: isInstalled })
   const logoClasses = classNames('gameLogo', { installed: isInstalled })

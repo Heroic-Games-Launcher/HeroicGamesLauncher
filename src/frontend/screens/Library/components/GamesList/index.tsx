@@ -56,11 +56,11 @@ const GamesList = ({
     disableGameCardHoverScale,
     reducedMotion,
     coverResolution,
-    titlesAlwaysVisible
+    titlesAlwaysVisible,
+    activeController
   } = useContext(ContextProvider)
   const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
-  const { activeController } = useContext(ContextProvider)
 
   useEffect(() => {
     if (library.length) {

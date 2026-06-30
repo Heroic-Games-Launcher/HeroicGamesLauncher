@@ -1,5 +1,6 @@
 import {
   AppSettings,
+  CoverResolution,
   GameInfo,
   GameStatus,
   Runner,
@@ -26,7 +27,7 @@ export type Category =
   | 'nile'
   | 'zoom'
 
-export type CoverResolution = 'low' | 'medium' | 'high'
+export type { CoverResolution }
 
 export interface ContextType {
   error: boolean

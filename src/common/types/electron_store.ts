@@ -14,7 +14,8 @@ import {
   WikiInfo,
   GameInfo,
   WindowProps,
-  UploadedLogData
+  UploadedLogData,
+  CoverResolution
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
@@ -38,7 +39,7 @@ export interface StoreStructure {
     hideStoreLogos: boolean
     disableGameCardHoverScale: boolean
     reducedMotion: boolean
-    coverResolution: 'low' | 'medium' | 'high'
+    coverResolution: CoverResolution
     titlesAlwaysVisible: boolean
     disableDialogBackdropClose: boolean
     disableAnimations: boolean
