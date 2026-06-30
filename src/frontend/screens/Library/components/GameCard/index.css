@@ -194,7 +194,7 @@
   position: absolute;
   left: -1px;
   width: calc(100% + 2px);
-  bottom: 0px;
+  bottom: -1px;
   padding: 0.5rem 0.45rem;
   color: var(--text-secondary);
   background: var(--gamecard-title-color);
