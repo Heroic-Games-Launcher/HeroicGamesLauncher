@@ -5,8 +5,11 @@
         "content_font_family_default": "Content Font Family (Default: {{fontFamily}})",
         "disable_animations": "Disable UI animations",
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
+        "disable_game_card_hover_effects": "Disable game card hover effects",
         "disable_smooth_scrolling": "Disable smooth scrolling (requires restart)",
         "fonts": "Fonts",
+        "hide_store_logos": "Hide store logos in library",
+        "reduced_motion": "Reduce game card hover animation intensity",
         "title": "Accessibility",
         "titles_always_visible": "Always show titles in library",
         "zoom": "Zoom"
