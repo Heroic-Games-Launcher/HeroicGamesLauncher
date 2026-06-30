@@ -231,7 +231,7 @@ const GameCard = ({
         <SvgButton
           className="cancelIcon"
           onClick={async () => handlePlay(runner)}
-          title={`${t('label.playing.stop')} (${title})`}
+          title={t('label.playing.stop')}
         >
           <StopIconAlt />
         </SvgButton>
@@ -242,7 +242,7 @@ const GameCard = ({
         <SvgButton
           className="cancelIcon"
           onClick={async () => handlePlay(runner)}
-          title={`${t('button.cancel')} (${title})`}
+          title={t('button.cancel')}
         >
           <StopIcon />
         </SvgButton>
@@ -256,7 +256,7 @@ const GameCard = ({
         <SvgButton
           className={!notAvailable ? 'playIcon' : 'notAvailableIcon'}
           onClick={async () => handlePlay(runner)}
-          title={`${t('label.playing.start')} (${title})`}
+          title={t('label.playing.start')}
           disabled={disabled}
         >
           {justPlayed ? <span>{t('button.play', 'PLAY')}</span> : <PlayIcon />}
@@ -267,7 +267,7 @@ const GameCard = ({
         <SvgButton
           className="downIcon"
           onClick={() => buttonClick()}
-          title={`${t('button.install')} (${title})`}
+          title={t('button.install')}
         >
           <DownIcon />
         </SvgButton>
@@ -541,7 +541,7 @@ const GameCard = ({
               {showUpdateButton && (
                 <SvgButton
                   className="updateIcon"
-                  title={`${t('button.update')} (${title})`}
+                  title={t('button.update')}
                   onClick={async () => handleUpdate()}
                 >
                   <FontAwesomeIcon size={'2x'} icon={faRepeat} />
@@ -550,7 +550,7 @@ const GameCard = ({
               {showSettingsButton && (
                 <>
                   <SvgButton
-                    title={`${t('submenu.settings')} (${title})`}
+                    title={t('submenu.settings')}
                     className="settingsIcon"
                     onClick={() => openGameSettingsModal(gameInfo)}
                   >
