@@ -257,17 +257,29 @@
 }
 
 .gameCard .store-icon {
-  border-radius: 10px;
+  border-radius: 6px;
   position: absolute;
-  right: 5px;
-  top: 4px;
+  right: 8px;
+  top: 7px;
   z-index: 2;
-  padding: var(--space-3xs);
-  width: 35px;
-  height: 35px;
+  padding: 3px;
+  width: 28px;
+  height: 28px;
   place-content: center;
-  background: var(--background-darker);
+  background: color-mix(in srgb, var(--background-darker) 78%, transparent);
   fill: var(--text-default);
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.gameCard:hover .store-icon,
+.gameCard:focus-within .store-icon {
+  background: color-mix(in srgb, var(--background-darker) 88%, transparent);
+  transform: translateY(-1px);
 }
 
 .gameCard:hover,
