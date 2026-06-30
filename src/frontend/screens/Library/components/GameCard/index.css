@@ -261,10 +261,18 @@
 }
 
 .gameCard > .icons .svg-button {
-  width: 28px;
-  height: 28px;
+  width: calc(28px * var(--game-card-hover-scale));
+  height: calc(28px * var(--game-card-hover-scale));
   display: grid;
   place-items: center;
+  transform: scale(calc(1 / var(--game-card-hover-scale)));
+  transform-origin: center;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gameCard:hover > .icons .svg-button,
+.gameCard:focus-within > .icons .svg-button {
+  transform: scale(1.01);
 }
 
 .gameCard .store-icon {
@@ -485,8 +493,8 @@
 .icons > button > svg,
 .icons > a > svg,
 .icons > svg {
-  width: 26px;
-  height: 26px;
+  width: calc(26px * var(--game-card-hover-scale));
+  height: calc(26px * var(--game-card-hover-scale));
   display: block;
 }
 
