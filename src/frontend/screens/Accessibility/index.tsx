@@ -245,7 +245,7 @@ const Accessibility = React.memo(function Accessibility() {
                 <InfoIcon
                   text={t(
                     'accessibility.cover_resolution_info',
-                    'Higher resolution requires more resources. Medium is recommended as it has the best load times and is good enough.'
+                    'Higher resolution requires more resources. Medium is recommended as it has the best load times and is good enough. Only affects Epic Games covers.'
                   )}
                 />
               </>

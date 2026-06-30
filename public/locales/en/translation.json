@@ -5,7 +5,7 @@
         "content_font_family_default": "Content Font Family (Default: {{fontFamily}})",
         "cover_resolution": "Game cover resolution",
         "cover_resolution_high": "High",
-        "cover_resolution_info": "Higher resolution requires more resources. Medium is recommended as it has the best load times and is good enough.",
+        "cover_resolution_info": "Higher resolution requires more resources. Medium is recommended as it has the best load times and is good enough. Only affects Epic Games covers.",
         "cover_resolution_low": "Low",
         "cover_resolution_medium": "Medium",
         "disable_animations": "Disable UI animations",
