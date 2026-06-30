@@ -66,16 +66,14 @@
 .gameCard::after {
   z-index: 6;
   bottom: auto;
-  height: 58%;
-  background: linear-gradient(
-    118deg,
-    transparent 0%,
-    transparent 44%,
-    rgba(255, 255, 255, 0.12) 54%,
-    rgba(255, 255, 255, 0.035) 62%,
-    transparent 78%
+  height: 46%;
+  background: radial-gradient(
+    ellipse at 88% 8%,
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0.045) 32%,
+    transparent 66%
   );
-  transform: translate(8%, -4%);
+  transform: translate(4%, -4%);
 }
 
 .gameCard.gamepad {
@@ -317,7 +315,7 @@
 
 .gameCard:hover::after,
 .gameCard:focus-within::after {
-  opacity: 0.62;
+  opacity: 0.58;
   transform: translate(0, 0);
 }
 
