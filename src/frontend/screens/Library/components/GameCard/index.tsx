@@ -62,6 +62,7 @@ interface Card {
   isRecent: boolean
   justPlayed: boolean
   gameInfo: GameInfo
+  hideStoreLogos?: boolean
   forceCard?: boolean
   dataTour?: string
 }
@@ -74,6 +75,7 @@ const GameCard = ({
   forceCard,
   isRecent = false,
   justPlayed = false,
+  hideStoreLogos = false,
   gameInfo: gameInfoFromProps,
   dataTour
 }: Card) => {
@@ -488,7 +490,7 @@ const GameCard = ({
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
-            <StoreLogos runner={runner} />
+            {!hideStoreLogos && <StoreLogos runner={runner} />}
             {justPlayed ? (
               <CachedImage
                 src={art_cover || fallBackImage}

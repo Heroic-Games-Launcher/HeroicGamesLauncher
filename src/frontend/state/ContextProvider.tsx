@@ -76,6 +76,8 @@ const initialContext: ContextType = {
   setZoomPercent: () => null,
   allTilesInColor: false,
   setAllTilesInColor: () => null,
+  hideStoreLogos: false,
+  setHideStoreLogos: () => null,
   titlesAlwaysVisible: false,
   setTitlesAlwaysVisible: () => null,
   sidebarCollapsed: false,

@@ -98,6 +98,8 @@ export interface ContextType {
   installingEpicGame: boolean
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
+  hideStoreLogos: boolean
+  setHideStoreLogos: (value: boolean) => void
   titlesAlwaysVisible: boolean
   setTitlesAlwaysVisible: (value: boolean) => void
   setSideBarCollapsed: (value: boolean) => void

@@ -49,7 +49,7 @@ const GamesList = ({
   isRecent = false,
   isFavourite = false
 }: Props): JSX.Element => {
-  const { gameUpdates, allTilesInColor, titlesAlwaysVisible } =
+  const { gameUpdates, allTilesInColor, hideStoreLogos, titlesAlwaysVisible } =
     useContext(ContextProvider)
   const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
@@ -162,6 +162,7 @@ const GamesList = ({
               isRecent={isRecent}
               gameInfo={gameInfo}
               justPlayed={isJustPlayed}
+              hideStoreLogos={hideStoreLogos}
               dataTour={index === 0 ? 'library-game-card' : undefined}
             />
           )

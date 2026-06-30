@@ -27,6 +27,8 @@ const Accessibility = React.memo(function Accessibility() {
     setZoomPercent,
     allTilesInColor,
     setAllTilesInColor,
+    hideStoreLogos,
+    setHideStoreLogos,
     titlesAlwaysVisible,
     setTitlesAlwaysVisible,
     setPrimaryFontFamily,
@@ -201,6 +203,22 @@ const Accessibility = React.memo(function Accessibility() {
               title={t(
                 'accessibility.titles_always_visible',
                 'Always show titles in library'
+              )}
+            />
+          </label>
+        </span>
+
+        <span className="setting">
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              htmlId="hideStoreLogos"
+              value={hideStoreLogos}
+              handleChange={() => {
+                setHideStoreLogos(!hideStoreLogos)
+              }}
+              title={t(
+                'accessibility.hide_store_logos',
+                'Hide store logos in library'
               )}
             />
           </label>

@@ -95,6 +95,7 @@ interface StateProps {
   primaryFontFamily: string
   secondaryFontFamily: string
   allTilesInColor: boolean
+  hideStoreLogos: boolean
   titlesAlwaysVisible: boolean
   sidebarCollapsed: boolean
   activeController: string
@@ -243,6 +244,7 @@ class GlobalState extends PureComponent<Props> {
         '--default-primary-font-family'
       ),
     allTilesInColor: configStore.get('allTilesInColor', false),
+    hideStoreLogos: configStore.get('hideStoreLogos', false),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
@@ -321,6 +323,11 @@ class GlobalState extends PureComponent<Props> {
   setAllTilesInColor = (value: boolean) => {
     configStore.set('allTilesInColor', value)
     this.setState({ allTilesInColor: value })
+  }
+
+  setHideStoreLogos = (value: boolean) => {
+    configStore.set('hideStoreLogos', value)
+    this.setState({ hideStoreLogos: value })
   }
 
   setTitlesAlwaysVisible = (value: boolean) => {
@@ -1178,6 +1185,8 @@ class GlobalState extends PureComponent<Props> {
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,
+          hideStoreLogos: this.state.hideStoreLogos,
+          setHideStoreLogos: this.setHideStoreLogos,
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
           setSideBarCollapsed: this.setSideBarCollapsed,
           setPrimaryFontFamily: this.setPrimaryFontFamily,
