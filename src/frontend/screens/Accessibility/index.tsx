@@ -244,7 +244,7 @@ const Accessibility = React.memo(function Accessibility() {
               <>
                 {t(
                   'accessibility.cover_resolution',
-                  'Resolución para las portadas de los videojuegos'
+                  'Game cover resolution'
                 )}
                 <InfoIcon
                   text={t(
@@ -256,13 +256,13 @@ const Accessibility = React.memo(function Accessibility() {
             }
           >
             <MenuItem value="low">
-              {t('accessibility.cover_resolution_low', 'Baja')}
+              {t('accessibility.cover_resolution_low', 'Low')}
             </MenuItem>
             <MenuItem value="medium">
-              {t('accessibility.cover_resolution_medium', 'Media')}
+              {t('accessibility.cover_resolution_medium', 'Medium')}
             </MenuItem>
             <MenuItem value="high">
-              {t('accessibility.cover_resolution_high', 'Alta')}
+              {t('accessibility.cover_resolution_high', 'High')}
             </MenuItem>
           </SelectField>
 
