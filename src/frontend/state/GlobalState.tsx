@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 
 import {
   ConnectivityStatus,
+  CoverResolution,
   FavouriteGame,
   GameInfo,
   GameStatus,
@@ -14,7 +15,6 @@ import {
   Status
 } from 'common/types'
 import {
-  CoverResolution,
   DialogModalOptions,
   ExternalLinkDialogOptions,
   HelpItem

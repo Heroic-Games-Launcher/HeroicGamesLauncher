@@ -2,6 +2,8 @@
   --game-card-hover-scale: 1.015;
   --game-card-hover-lift: -5px;
   --game-card-cover-scale: 1.025;
+  --game-card-hover-button-scale: 1.01;
+  --game-card-store-hover-lift: -1px;
   --game-card-motion-duration: 220ms;
   background-color: var(--gradient-gamecard);
   text-align: start;
