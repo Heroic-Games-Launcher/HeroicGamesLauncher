@@ -29,6 +29,10 @@ const Accessibility = React.memo(function Accessibility() {
     setAllTilesInColor,
     hideStoreLogos,
     setHideStoreLogos,
+    disableGameCardHoverScale,
+    setDisableGameCardHoverScale,
+    reducedMotion,
+    setReducedMotion,
     titlesAlwaysVisible,
     setTitlesAlwaysVisible,
     setPrimaryFontFamily,
@@ -179,54 +183,6 @@ const Accessibility = React.memo(function Accessibility() {
         <span className="setting">
           <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
-              htmlId="setAllTitlesInColor"
-              value={allTilesInColor}
-              handleChange={() => {
-                setAllTilesInColor(!allTilesInColor)
-              }}
-              title={t(
-                'accessibility.all_tiles_in_color',
-                'Show all game tiles in color'
-              )}
-            />
-          </label>
-        </span>
-
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="setTitlesAlwaysVisible"
-              value={titlesAlwaysVisible}
-              handleChange={() => {
-                setTitlesAlwaysVisible(!titlesAlwaysVisible)
-              }}
-              title={t(
-                'accessibility.titles_always_visible',
-                'Always show titles in library'
-              )}
-            />
-          </label>
-        </span>
-
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="hideStoreLogos"
-              value={hideStoreLogos}
-              handleChange={() => {
-                setHideStoreLogos(!hideStoreLogos)
-              }}
-              title={t(
-                'accessibility.hide_store_logos',
-                'Hide store logos in library'
-              )}
-            />
-          </label>
-        </span>
-
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
               htmlId="disableDialogBackdropClose"
               value={disableDialogBackdropClose}
               handleChange={() => {
@@ -271,6 +227,90 @@ const Accessibility = React.memo(function Accessibility() {
             />
           </label>
         </span>
+
+        <h2 className="librarySectionLabel">{t('Library', 'Library')}</h2>
+
+        <div className="libraryAccessibility">
+          <span className="setting">
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+              <ToggleSwitch
+                htmlId="setAllTitlesInColor"
+                value={allTilesInColor}
+                handleChange={() => {
+                  setAllTilesInColor(!allTilesInColor)
+                }}
+                title={t(
+                  'accessibility.all_tiles_in_color',
+                  'Show all game tiles in color'
+                )}
+              />
+            </label>
+          </span>
+
+          <span className="setting">
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+              <ToggleSwitch
+                htmlId="setTitlesAlwaysVisible"
+                value={titlesAlwaysVisible}
+                handleChange={() => {
+                  setTitlesAlwaysVisible(!titlesAlwaysVisible)
+                }}
+                title={t(
+                  'accessibility.titles_always_visible',
+                  'Always show titles in library'
+                )}
+              />
+            </label>
+          </span>
+
+          <span className="setting">
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+              <ToggleSwitch
+                htmlId="hideStoreLogos"
+                value={hideStoreLogos}
+                handleChange={() => {
+                  setHideStoreLogos(!hideStoreLogos)
+                }}
+                title={t(
+                  'accessibility.hide_store_logos',
+                  'Hide store logos in library'
+                )}
+              />
+            </label>
+          </span>
+
+          <span className="setting">
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+              <ToggleSwitch
+                htmlId="disableGameCardHoverScale"
+                value={disableGameCardHoverScale}
+                handleChange={() => {
+                  setDisableGameCardHoverScale(!disableGameCardHoverScale)
+                }}
+                title={t(
+                  'accessibility.disable_game_card_hover_effects',
+                  'Disable game card hover effects'
+                )}
+              />
+            </label>
+          </span>
+
+          <span className="setting">
+            <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+              <ToggleSwitch
+                htmlId="reducedMotion"
+                value={reducedMotion}
+                handleChange={() => {
+                  setReducedMotion(!reducedMotion)
+                }}
+                title={t(
+                  'accessibility.reduced_motion',
+                  'Reduce game card hover animation intensity'
+                )}
+              />
+            </label>
+          </span>
+        </div>
       </div>
     </div>
   )

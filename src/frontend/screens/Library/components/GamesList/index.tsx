@@ -49,8 +49,14 @@ const GamesList = ({
   isRecent = false,
   isFavourite = false
 }: Props): JSX.Element => {
-  const { gameUpdates, allTilesInColor, hideStoreLogos, titlesAlwaysVisible } =
-    useContext(ContextProvider)
+  const {
+    gameUpdates,
+    allTilesInColor,
+    hideStoreLogos,
+    disableGameCardHoverScale,
+    reducedMotion,
+    titlesAlwaysVisible
+  } = useContext(ContextProvider)
   const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
   const { activeController } = useContext(ContextProvider)
@@ -163,6 +169,8 @@ const GamesList = ({
               gameInfo={gameInfo}
               justPlayed={isJustPlayed}
               hideStoreLogos={hideStoreLogos}
+              disableGameCardHoverScale={disableGameCardHoverScale}
+              reducedMotion={reducedMotion}
               dataTour={index === 0 ? 'library-game-card' : undefined}
             />
           )

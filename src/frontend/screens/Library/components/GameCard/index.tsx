@@ -63,6 +63,8 @@ interface Card {
   justPlayed: boolean
   gameInfo: GameInfo
   hideStoreLogos?: boolean
+  disableGameCardHoverScale?: boolean
+  reducedMotion?: boolean
   forceCard?: boolean
   dataTour?: string
 }
@@ -76,6 +78,8 @@ const GameCard = ({
   isRecent = false,
   justPlayed = false,
   hideStoreLogos = false,
+  disableGameCardHoverScale = false,
+  reducedMotion = false,
   gameInfo: gameInfoFromProps,
   dataTour
 }: Card) => {
@@ -437,8 +441,48 @@ const GameCard = ({
     hidden: isHiddenGame,
     notAvailable: notAvailable,
     gamepad: activeController,
-    justPlayed: justPlayed
+    justPlayed: justPlayed,
+    noHoverEffects: disableGameCardHoverScale
   })
+
+  const hoverScale = disableGameCardHoverScale
+    ? 1
+    : reducedMotion
+      ? 1.006
+      : 1.015
+  const hoverLift = disableGameCardHoverScale
+    ? '0px'
+    : reducedMotion
+      ? '-2px'
+      : '-5px'
+  const coverScale = disableGameCardHoverScale
+    ? 1
+    : reducedMotion
+      ? 1.012
+      : 1.025
+  const buttonHoverScale = disableGameCardHoverScale
+    ? 1
+    : reducedMotion
+      ? 1.003
+      : 1.01
+  const storeHoverLift = disableGameCardHoverScale
+    ? '0px'
+    : reducedMotion
+      ? '0px'
+      : '-1px'
+  const motionDuration = disableGameCardHoverScale
+    ? '180ms'
+    : reducedMotion
+      ? '140ms'
+      : '220ms'
+  const cardStyle = {
+    '--game-card-hover-scale': hoverScale,
+    '--game-card-hover-lift': hoverLift,
+    '--game-card-cover-scale': coverScale,
+    '--game-card-hover-button-scale': buttonHoverScale,
+    '--game-card-store-hover-lift': storeHoverLift,
+    '--game-card-motion-duration': motionDuration
+  } as CSSProperties
 
   const imgClasses = classNames('gameImg', { installed: isInstalled })
   const logoClasses = classNames('gameLogo', { installed: isInstalled })
@@ -476,6 +520,7 @@ const GameCard = ({
           className={wrapperClasses}
           data-app-name={appName}
           data-tour={dataTour}
+          style={cardStyle}
         >
           {haveStatus && <span className="gameCardStatus">{label}</span>}
           {showUpdateBadge && (

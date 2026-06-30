@@ -96,6 +96,8 @@ interface StateProps {
   secondaryFontFamily: string
   allTilesInColor: boolean
   hideStoreLogos: boolean
+  disableGameCardHoverScale: boolean
+  reducedMotion: boolean
   titlesAlwaysVisible: boolean
   sidebarCollapsed: boolean
   activeController: string
@@ -245,6 +247,11 @@ class GlobalState extends PureComponent<Props> {
       ),
     allTilesInColor: configStore.get('allTilesInColor', false),
     hideStoreLogos: configStore.get('hideStoreLogos', false),
+    disableGameCardHoverScale: configStore.get(
+      'disableGameCardHoverScale',
+      false
+    ),
+    reducedMotion: configStore.get('reducedMotion', false),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
@@ -328,6 +335,16 @@ class GlobalState extends PureComponent<Props> {
   setHideStoreLogos = (value: boolean) => {
     configStore.set('hideStoreLogos', value)
     this.setState({ hideStoreLogos: value })
+  }
+
+  setDisableGameCardHoverScale = (value: boolean) => {
+    configStore.set('disableGameCardHoverScale', value)
+    this.setState({ disableGameCardHoverScale: value })
+  }
+
+  setReducedMotion = (value: boolean) => {
+    configStore.set('reducedMotion', value)
+    this.setState({ reducedMotion: value })
   }
 
   setTitlesAlwaysVisible = (value: boolean) => {
@@ -1187,6 +1204,10 @@ class GlobalState extends PureComponent<Props> {
           setAllTilesInColor: this.setAllTilesInColor,
           hideStoreLogos: this.state.hideStoreLogos,
           setHideStoreLogos: this.setHideStoreLogos,
+          disableGameCardHoverScale: this.state.disableGameCardHoverScale,
+          setDisableGameCardHoverScale: this.setDisableGameCardHoverScale,
+          reducedMotion: this.state.reducedMotion,
+          setReducedMotion: this.setReducedMotion,
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
           setSideBarCollapsed: this.setSideBarCollapsed,
           setPrimaryFontFamily: this.setPrimaryFontFamily,

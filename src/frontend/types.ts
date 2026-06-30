@@ -100,6 +100,10 @@ export interface ContextType {
   setAllTilesInColor: (value: boolean) => void
   hideStoreLogos: boolean
   setHideStoreLogos: (value: boolean) => void
+  disableGameCardHoverScale: boolean
+  setDisableGameCardHoverScale: (value: boolean) => void
+  reducedMotion: boolean
+  setReducedMotion: (value: boolean) => void
   titlesAlwaysVisible: boolean
   setTitlesAlwaysVisible: (value: boolean) => void
   setSideBarCollapsed: (value: boolean) => void

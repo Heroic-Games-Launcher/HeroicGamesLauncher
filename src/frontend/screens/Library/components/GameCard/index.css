@@ -1,13 +1,16 @@
 .gameCard {
   --game-card-hover-scale: 1.015;
+  --game-card-hover-lift: -5px;
+  --game-card-cover-scale: 1.025;
+  --game-card-motion-duration: 220ms;
   background-color: var(--gradient-gamecard);
   text-align: start;
   width: 100%;
   overflow: hidden;
   position: relative;
   transition:
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 220ms ease;
+    transform var(--game-card-motion-duration) cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow var(--game-card-motion-duration) ease;
   box-shadow:
     0 4px 10px rgba(0, 0, 0, 0.36),
     0 1px 2px rgba(0, 0, 0, 0.45);
@@ -32,13 +35,13 @@
   opacity: 0;
   transition:
     opacity 180ms ease,
-    transform 500ms ease;
+    transform var(--game-card-motion-duration) ease;
 }
 
 .gameCard::after {
   transition:
     opacity 180ms ease,
-    transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform var(--game-card-motion-duration) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gameCard::before {
@@ -160,7 +163,7 @@
   display: block;
   transform: translate3d(0, 0, 0);
   transition:
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--game-card-motion-duration) cubic-bezier(0.16, 1, 0.3, 1),
     filter 0.2s,
     opacity 0.5s;
   transform-origin: center;
@@ -172,7 +175,7 @@
   width: 100%;
   transform: translate3d(0, 0, 0);
   transition:
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--game-card-motion-duration) cubic-bezier(0.16, 1, 0.3, 1),
     filter 0.2s,
     opacity 0.5s;
   transform-origin: center;
@@ -198,7 +201,8 @@
   padding: 0.5rem 0.45rem;
   color: var(--text-secondary);
   background: var(--gamecard-title-color);
-  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--game-card-motion-duration)
+    cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--primary-font-family);
   font-size: var(--text-md);
   font-weight: var(--bold);
@@ -265,12 +269,13 @@
   place-items: center;
   transform: scale(calc(1 / var(--game-card-hover-scale)));
   transform-origin: center;
-  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--game-card-motion-duration)
+    cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gameCard:hover > .icons .svg-button,
 .gameCard:focus-within > .icons .svg-button {
-  transform: scale(1.01);
+  transform: scale(var(--game-card-hover-button-scale));
 }
 
 .gameCard .store-icon {
@@ -289,19 +294,20 @@
     0 1px 4px rgba(0, 0, 0, 0.28),
     inset 0 0 0 1px rgba(255, 255, 255, 0.06);
   transition:
-    background-color 160ms ease,
-    transform 160ms ease;
+    background-color var(--game-card-motion-duration) ease,
+    transform var(--game-card-motion-duration) ease;
 }
 
 .gameCard:hover .store-icon,
 .gameCard:focus-within .store-icon {
   background: color-mix(in srgb, var(--background-darker) 88%, transparent);
-  transform: translateY(-1px);
+  transform: translateY(var(--game-card-store-hover-lift));
 }
 
 .gameCard:hover,
 .gameCard:focus-within {
-  transform: translate3d(0, -5px, 0) scale(var(--game-card-hover-scale));
+  transform: translate3d(0, var(--game-card-hover-lift), 0)
+    scale(var(--game-card-hover-scale));
   box-shadow:
     0 24px 34px rgba(0, 0, 0, 0.5),
     0 12px 16px rgba(0, 0, 0, 0.34),
@@ -317,6 +323,11 @@
 .gameCard:focus-within::after {
   opacity: 0.58;
   transform: translate(0, 0);
+}
+
+.gameCard.noHoverEffects::before,
+.gameCard.noHoverEffects::after {
+  display: none;
 }
 
 .gameCard.hidden .gameImg,
@@ -471,7 +482,7 @@
 .gameCard:focus-within .gameImg,
 .gameCard:hover .justPlayedImg,
 .gameCard:focus-within .justPlayedImg {
-  transform: translate3d(0, 0, 0) scale(1.025);
+  transform: translate3d(0, 0, 0) scale(var(--game-card-cover-scale));
 }
 
 .icons {

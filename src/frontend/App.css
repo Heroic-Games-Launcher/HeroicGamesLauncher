@@ -76,6 +76,17 @@ body:has(.disableAnimations) {
   }
 }
 
+body:has(.reducedMotion) {
+  *,
+  *:before,
+  *:after {
+    animation-duration: 120ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .HelpButton {
   position: fixed;
   bottom: 0;
