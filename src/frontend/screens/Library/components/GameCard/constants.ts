@@ -7,7 +7,7 @@ export function getImageFormatting(cover: string, runner: Runner) {
     return fallbackImage
   }
   if (runner === 'legendary') {
-    return `${imageBase}?h=400&resize=1&w=300`
+    return `${imageBase}?h=800&resize=1&w=600`
   } else {
     return imageBase
   }
