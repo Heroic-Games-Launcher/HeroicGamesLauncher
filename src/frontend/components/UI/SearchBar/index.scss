@@ -6,31 +6,53 @@
   background: var(--search-bar-background, var(--input-background));
   border-radius: var(--space-md);
   padding: var(--space-xs);
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
 
   &:focus-within {
-    box-shadow: 0px 0px 0px 3px
-      var(--search-bar-border, var(--input-backgroundd));
+    box-shadow:
+      0px 0px 0px 3px var(--search-bar-border, var(--input-backgroundd)),
+      0 10px 22px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
   }
 
   .autoComplete {
     position: absolute;
-    top: 75%;
+    top: calc(100% + var(--space-2xs));
+    left: 0;
     max-height: 200px;
     width: 100%;
+    box-sizing: border-box;
     background-color: var(--input-background);
     overflow: auto;
     list-style: none;
-    margin: -2px -8px;
-    display: none;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
     padding: var(--space-xs) var(--space-md);
     text-align: start;
     overflow-x: hidden;
-    z-index: 1;
-    border-bottom-left-radius: var(--space-md);
-    border-bottom-right-radius: var(--space-md);
+    pointer-events: none;
+    transform: translateY(-12px) scale(0.96);
+    transform-origin: top;
+    transition:
+      opacity 220ms ease,
+      transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 220ms ease;
+    z-index: 10;
+    border-radius: var(--space-md);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
 
     li {
-      padding: 2px 0px;
+      border-radius: var(--space-2xs);
+      padding: 4px var(--space-xs);
+      transition:
+        background-color 170ms ease,
+        color 170ms ease,
+        padding-inline-start 170ms ease,
+        transform 170ms ease;
 
       span {
         opacity: 0.3;
@@ -39,31 +61,48 @@
       &:hover {
         background-color: var(--accent);
         color: var(--background);
+        padding-inline-start: var(--space-sm);
+        transform: translateX(5px) scale(1.01);
       }
     }
   }
 
   &:focus-within ul.autoComplete {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
   }
 
   ul.autoComplete:empty {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .searchButton {
     padding: var(--space-2xs) var(--space-2xs) 0 var(--space-2xs);
+    transition:
+      color 220ms ease,
+      transform 220ms ease;
   }
 
   .clearSearchButton {
     padding-inline-end: var(--space-sm);
-    transition: color 250ms;
+    transition:
+      color 220ms ease,
+      transform 220ms ease;
     background: transparent;
     border: none;
     color: var(--text-secondary);
 
     svg {
       cursor: pointer;
+    }
+
+    &:hover {
+      color: var(--text-primary);
+      transform: scale(1.16) rotate(90deg);
     }
   }
 
@@ -75,11 +114,38 @@
     padding: 0 var(--space-2xs);
     border: none;
     outline: none;
-    transition: color 250ms;
+    transition: color 220ms ease;
     color: var(--text-secondary);
 
     &::placeholder {
       opacity: 0.8;
     }
+  }
+
+  &:focus-within {
+    .searchButton,
+    .searchBarInput {
+      color: var(--text-primary);
+    }
+
+    .searchButton {
+      transform: scale(1.08);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .SearchBar,
+  .SearchBar .autoComplete,
+  .SearchBar .autoComplete li,
+  .SearchBar .searchButton,
+  .SearchBar .clearSearchButton,
+  .SearchBar .searchBarInput {
+    transition: none;
+  }
+
+  .SearchBar .autoComplete,
+  .SearchBar .autoComplete li:hover {
+    transform: none;
   }
 }
