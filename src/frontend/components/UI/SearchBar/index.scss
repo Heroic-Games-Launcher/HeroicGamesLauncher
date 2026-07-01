@@ -37,6 +37,11 @@
     border-color: color-mix(in srgb, var(--accent) 76%, transparent);
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.14);
     transform: translateY(-2px) scale(1.01);
+
+    .searchButton,
+    .searchBarInput {
+      color: var(--text-primary);
+    }
   }
 
   &:has(ul.autoComplete:not(:empty)):hover {
@@ -105,7 +110,6 @@
       }
 
       span {
-        opacity: 1;
         position: relative;
         z-index: 1;
       }
@@ -213,13 +217,8 @@
     }
   }
 
-  &:focus-within {
-    .searchButton,
-    .searchBarInput {
-      color: var(--text-primary);
-    }
-  }
 }
+
 
 @keyframes autoCompleteOpen {
   from {
