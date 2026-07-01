@@ -4,12 +4,15 @@
   position: relative;
   display: inline-flex;
   isolation: isolate;
+  box-sizing: border-box;
   margin-inline: calc(var(--space-xs) / 2);
   background: var(--search-bar-background, var(--input-background));
+  border: 1px solid transparent;
   border-radius: var(--space-md);
   padding: var(--space-xs);
   transition:
     background-color 220ms ease,
+    border-color 220ms ease,
     box-shadow 220ms ease,
     margin-inline 260ms cubic-bezier(0.16, 1, 0.3, 1),
     transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -26,15 +29,17 @@
   }
 
   &:hover {
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--accent) 58%, transparent),
-      0 3px 8px rgba(0, 0, 0, 0.12);
+    border-color: color-mix(in srgb, var(--accent) 58%, transparent);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
   }
 
   &:focus-within {
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--accent) 76%, transparent),
-      0 5px 12px rgba(0, 0, 0, 0.14);
+    border-color: color-mix(in srgb, var(--accent) 76%, transparent);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.14);
+    transform: translateY(-2px) scale(1.01);
+  }
+
+  &:has(ul.autoComplete:not(:empty)):hover {
     transform: translateY(-2px) scale(1.01);
   }
 
@@ -172,6 +177,7 @@
     }
   }
 
+  &:hover ul.autoComplete,
   &:focus-within ul.autoComplete {
     opacity: 1;
     visibility: visible;
