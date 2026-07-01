@@ -42,7 +42,7 @@ export default function WinetricksSearchBar({
   const suggestions = searchResults.map((component) => {
     return (
       <li key={component}>
-        <span>{component}</span>
+        <span className="autoCompleteTitle">{component}</span>
         <button className="button" onClick={() => install(component)}>
           {t('winetricks.install', 'Install')}
         </button>

@@ -28,51 +28,141 @@
     transform: translateY(-2px) scale(1.01);
   }
 
+  &:focus-within:has(ul.autoComplete:not(:empty)) {
+    border-bottom-right-radius: var(--space-xs);
+    border-bottom-left-radius: var(--space-xs);
+  }
+
   .autoComplete {
     position: absolute;
-    top: calc(100% + var(--space-2xs));
-    left: 0;
-    max-height: 200px;
-    width: 100%;
+    top: calc(100% - 1px);
+    left: var(--space-xs);
+    max-height: min(260px, 42vh);
+    width: calc(100% - (var(--space-xs) * 2));
     box-sizing: border-box;
     background-color: var(--input-background);
+    border: 1px solid color-mix(in srgb, var(--accent) 76%, transparent);
+    border-top: none;
     overflow: auto;
     list-style: none;
     margin: 0;
     opacity: 0;
     visibility: hidden;
-    padding: var(--space-xs) var(--space-md);
+    padding: var(--space-sm) var(--space-xs) var(--space-xs);
+    scrollbar-color: color-mix(in srgb, var(--accent) 60%, transparent)
+      transparent;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
     text-align: start;
     overflow-x: hidden;
+    overscroll-behavior: contain;
     pointer-events: none;
-    transform: translateY(-10px);
+    transform: translateY(-6px);
     transform-origin: top;
     transition:
       opacity 220ms ease,
       transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
       visibility 220ms ease;
     z-index: 10;
-    border-radius: var(--space-md);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    border-radius: 0 0 var(--space-md) var(--space-md);
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.14);
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      margin-block: var(--space-sm);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: color-mix(in srgb, var(--accent) 52%, transparent);
+      background-clip: padding-box;
+      border: 3px solid transparent;
+      border-radius: 999px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: color-mix(in srgb, var(--accent) 72%, transparent);
+    }
 
     li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 34px;
       border-radius: var(--space-2xs);
-      padding: 4px var(--space-xs);
+      padding: 6px var(--space-sm);
+      color: var(--text-secondary);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
       transition:
         background-color 170ms ease,
         box-shadow 170ms ease,
         color 170ms ease,
         padding-inline-start 170ms ease;
 
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          90deg,
+          color-mix(in srgb, var(--accent) 24%, transparent),
+          transparent 72%
+        );
+        transition: opacity 170ms ease;
+      }
+
       span {
-        opacity: 0.3;
+        opacity: 1;
+        position: relative;
+        z-index: 1;
+      }
+
+      .autoCompleteTitle {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .autoCompleteMeta {
+        color: var(--text-secondary);
+        font-size: 0.85em;
+        opacity: 0.72;
+      }
+
+      .button {
+        margin: 0;
+        min-height: 28px;
+        padding: 4px var(--space-sm);
+        position: relative;
+        white-space: nowrap;
+        z-index: 1;
       }
 
       &:hover {
-        background-color: var(--accent);
-        box-shadow: inset 3px 0 0 var(--text-primary);
-        color: var(--background);
+        background-color: color-mix(in srgb, var(--accent) 18%, transparent);
+        box-shadow: inset 0 0 0 1px
+          color-mix(in srgb, var(--accent) 62%, transparent);
+        color: var(--text-primary);
         padding-inline-start: var(--space-sm);
+        z-index: 1;
+
+        &::before {
+          opacity: 1;
+        }
+
+        .autoCompleteMeta,
+        .autoCompleteTitle {
+          color: var(--text-primary);
+        }
       }
     }
   }
