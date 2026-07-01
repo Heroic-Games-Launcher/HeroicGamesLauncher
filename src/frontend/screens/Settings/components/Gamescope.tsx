@@ -16,6 +16,7 @@ const Gamescope = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [gamescope, setGamescope] = useSetting('gamescope', {
+    enableGamescope: false,
     enableUpscaling: false,
     enableLimiter: false,
     enableForceGrabCursor: false,
@@ -122,22 +123,38 @@ const Gamescope = () => {
 
   return (
     <div className="gamescopeSettings">
-      {/* Enable Upscale */}
+      {/* Enable Gamescope */}
       <div className="toggleRow">
         <ToggleSwitch
-          htmlId="gamescopeUpscaleToggle"
-          value={gamescope.enableUpscaling || false}
+          htmlId="gamescopeEnableToggle"
+          value={gamescope.enableGamescope || false}
           handleChange={() =>
             setGamescope({
               ...gamescope,
-              enableUpscaling: !gamescope.enableUpscaling
+              enableGamescope: !gamescope.enableGamescope
             })
           }
-          title={t('setting.gamescope.enableUpscaling', 'Enables Upscaling')}
+          title={t('setting.gamescope.enableGamescope', 'Enable Gamescope')}
         />
       </div>
+      {/* Enable Upscale */}
+      {gamescope.enableGamescope && (
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="gamescopeUpscaleToggle"
+            value={gamescope.enableUpscaling || false}
+            handleChange={() =>
+              setGamescope({
+                ...gamescope,
+                enableUpscaling: !gamescope.enableUpscaling
+              })
+            }
+            title={t('setting.gamescope.enableUpscaling', 'Enable Upscaling')}
+          />
+        </div>
+      )}
       {/* Upscale Settings */}
-      {gamescope.enableUpscaling && (
+      {gamescope.enableUpscaling && gamescope.enableGamescope && (
         <>
           {/* Upscale Method */}
           <SelectField
@@ -280,21 +297,23 @@ const Gamescope = () => {
         </>
       )}
       {/* Enable Limiter*/}
-      <div className="toggleRow">
-        <ToggleSwitch
-          htmlId="gamescopeLimiterToggle"
-          value={gamescope.enableLimiter || false}
-          handleChange={() =>
-            setGamescope({
-              ...gamescope,
-              enableLimiter: !gamescope.enableLimiter
-            })
-          }
-          title={t('setting.gamescope.enableLimiter', 'Enable FPS Limiter')}
-        />
-      </div>
+      {gamescope.enableGamescope && (
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="gamescopeLimiterToggle"
+            value={gamescope.enableLimiter || false}
+            handleChange={() =>
+              setGamescope({
+                ...gamescope,
+                enableLimiter: !gamescope.enableLimiter
+              })
+            }
+            title={t('setting.gamescope.enableLimiter', 'Enable FPS Limiter')}
+          />
+        </div>
+      )}
       {/* FPS Limiter Settings */}
-      {gamescope.enableLimiter && (
+      {gamescope.enableLimiter && gamescope.enableGamescope && (
         <div className="row">
           <TextInputField
             label={t('options.gamescope.fpsLimiter', 'FPS Limiter')}
@@ -346,52 +365,56 @@ const Gamescope = () => {
         </div>
       )}
       {/* Enable Force Grab Cursor*/}
-      <div className="toggleRow">
-        <ToggleSwitch
-          htmlId="gamescopeForceGrabCursorToggle"
-          value={gamescope.enableForceGrabCursor || false}
-          handleChange={() =>
-            setGamescope({
-              ...gamescope,
-              enableForceGrabCursor: !gamescope.enableForceGrabCursor
-            })
-          }
-          title={t(
-            'setting.gamescope.enableForceGrabCursor',
-            'Enable Force Grab Cursor'
-          )}
-        />
-        <InfoIcon
-          text={t(
-            'help.gamescope.forceGrabCursor',
-            'Always use relative mouse mode instead of flipping dependent on cursor visibility. (Useful for when applications keep losing focus)'
-          )}
-        />
-      </div>
-      {/* Additional Options */}
-      <TextInputField
-        label={t('options.gamescope.additionalOptions', 'Additional Options')}
-        htmlId="additionalOptions"
-        placeholder=""
-        value={additionalOptions}
-        afterInput={
-          <InfoIcon
-            text={t(
-              'help.gamescope.additionalOptions',
-              'Additional commandline flags to pass into gamescope.'
+      {gamescope.enableGamescope && (
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="gamescopeForceGrabCursorToggle"
+            value={gamescope.enableForceGrabCursor || false}
+            handleChange={() =>
+              setGamescope({
+                ...gamescope,
+                enableForceGrabCursor: !gamescope.enableForceGrabCursor
+              })
+            }
+            title={t(
+              'setting.gamescope.enableForceGrabCursor',
+              'Enable Force Grab Cursor'
             )}
           />
-        }
-        onChange={(newValue) => {
-          setAdditionalOptions(newValue)
-        }}
-        onBlur={(event: ChangeEvent<HTMLInputElement>) =>
-          setGamescope({
-            ...gamescope,
-            additionalOptions: event.currentTarget.value
-          })
-        }
-      />
+          <InfoIcon
+            text={t(
+              'help.gamescope.forceGrabCursor',
+              'Always use relative mouse mode instead of flipping dependent on cursor visibility. (Useful for when applications keep losing focus)'
+            )}
+          />
+        </div>
+      )}
+      {/* Additional Options */}
+      {gamescope.enableGamescope && (
+        <TextInputField
+          label={t('options.gamescope.additionalOptions', 'Additional Options')}
+          htmlId="additionalOptions"
+          placeholder=""
+          value={additionalOptions}
+          afterInput={
+            <InfoIcon
+              text={t(
+                'help.gamescope.additionalOptions',
+                'Additional commandline flags to pass into gamescope.'
+              )}
+            />
+          }
+          onChange={(newValue) => {
+            setAdditionalOptions(newValue)
+          }}
+          onBlur={(event: ChangeEvent<HTMLInputElement>) =>
+            setGamescope({
+              ...gamescope,
+              additionalOptions: event.currentTarget.value
+            })
+          }
+        />
+      )}
     </div>
   )
 }
