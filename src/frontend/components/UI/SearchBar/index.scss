@@ -15,6 +15,16 @@
     transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
     width 260ms cubic-bezier(0.16, 1, 0.3, 1);
 
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background: inherit;
+    pointer-events: none;
+  }
+
   &:hover {
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--accent) 58%, transparent),
@@ -28,27 +38,21 @@
     transform: translateY(-2px) scale(1.01);
   }
 
-  &:focus-within:has(ul.autoComplete:not(:empty)) {
-    border-bottom-right-radius: var(--space-xs);
-    border-bottom-left-radius: var(--space-xs);
-  }
-
   .autoComplete {
     position: absolute;
-    top: calc(100% - 1px);
+    top: calc(100% - var(--space-xs) + 5px);
     left: var(--space-xs);
     max-height: min(260px, 42vh);
     width: calc(100% - (var(--space-xs) * 2));
     box-sizing: border-box;
     background-color: var(--input-background);
     border: 1px solid color-mix(in srgb, var(--accent) 76%, transparent);
-    border-top: none;
     overflow: auto;
     list-style: none;
     margin: 0;
     opacity: 0;
     visibility: hidden;
-    padding: var(--space-sm) var(--space-xs) var(--space-xs);
+    padding: var(--space-xs);
     scrollbar-color: color-mix(in srgb, var(--accent) 60%, transparent)
       transparent;
     scrollbar-gutter: stable;
@@ -57,14 +61,14 @@
     overflow-x: hidden;
     overscroll-behavior: contain;
     pointer-events: none;
-    transform: translateY(-6px);
+    transform: translateY(-10px);
     transform-origin: top;
     transition:
-      opacity 220ms ease,
-      transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
-      visibility 220ms ease;
-    z-index: 10;
-    border-radius: 0 0 var(--space-md) var(--space-md);
+      opacity 180ms ease,
+      transform 200ms ease,
+      visibility 180ms ease;
+    z-index: 0;
+    border-radius: 0 0 var(--space-xs) var(--space-xs);
     box-shadow: 0 10px 16px rgba(0, 0, 0, 0.14);
 
     &::-webkit-scrollbar {
@@ -79,7 +83,8 @@
     &::-webkit-scrollbar-thumb {
       background: color-mix(in srgb, var(--accent) 52%, transparent);
       background-clip: padding-box;
-      border: 3px solid transparent;
+      border-block: 3px solid transparent;
+      border-inline: 2px 4px solid transparent;
       border-radius: 999px;
     }
 
@@ -171,6 +176,7 @@
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    animation: autoCompleteOpen 260ms cubic-bezier(0.16, 1, 0.3, 1);
     transform: translateY(0);
   }
 
@@ -183,7 +189,7 @@
   .searchButton {
     padding: var(--space-2xs) var(--space-2xs) 0 var(--space-2xs);
     position: relative;
-    z-index: 1;
+    z-index: 2;
     transition: color 220ms ease;
   }
 
@@ -196,7 +202,7 @@
     border: none;
     color: var(--text-secondary);
     position: relative;
-    z-index: 1;
+    z-index: 2;
 
     svg {
       cursor: pointer;
@@ -217,7 +223,7 @@
     border: none;
     outline: none;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     transition: color 220ms ease;
     color: var(--text-secondary);
 
@@ -234,6 +240,24 @@
   }
 }
 
+@keyframes autoCompleteOpen {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .SearchBar,
   .SearchBar .autoComplete,
@@ -241,6 +265,7 @@
   .SearchBar .searchButton,
   .SearchBar .clearSearchButton,
   .SearchBar .searchBarInput {
+    animation: none;
     transition: none;
   }
 
