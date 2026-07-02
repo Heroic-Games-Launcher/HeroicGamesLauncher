@@ -382,8 +382,10 @@
         "wine-wayland": "Der experimentelle Wine-Wayland Treiber erlaubt es Spielen, nativ das Wayland Displayprotokoll zu nutzen. Dies funktioniert nicht mit allen Spielen und kann zu Abstürzen führen.",
         "WoW64": "Der Wine WOW64-Modus erlaubt es älteren 32-Bit Windowsspielen in einer 64-Bit Wine-Instanz zu laufen. Das kann die Leistung verbessern, kann aber auch bei manchen Spielen zu Abstürzen führen.",
         "nvidiaprime": {
-            "details": "Verwende dedizierte Grafikkarte zum Rendern von Spielen auf Multi-GPU-Systemen. Nur auf Gaming-Laptops oder -Desktops erforderlich, die eine Headless-GPU zum Rendern verwenden (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Verwende dedizierte Grafikkarte zum Rendern von Spielen auf Multi-GPU-Systemen. Nur auf Gaming-Laptops oder -Desktops erforderlich, die eine Headless-GPU zum Rendern verwenden (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Weitere Informationen findest du in unserem Wiki"
+        },
+        "hide-window-on-protocol-launch": "Das Heroic-Fenster wird ausgeblendet, wenn ein Spiel über eine externe Verknüpfung gestartet wird, beispielsweise über die Funktion „Zu Steam hinzufügen“."
     },
     "info": {
         "heroic": {
@@ -810,7 +812,11 @@
         "scripts": "Skripte:",
         "enable-quick-sync-menu": "Menü für Schnellspeicher-Synchronisierung auf der Spielseite aktivieren",
         "disable_gog_presence": "Deaktiviere GOG Präsenz Aktualisierungen",
-        "start-in-console-mode": "Starte im Konsolen Modus"
+        "start-in-console-mode": "Starte im Konsolen Modus",
+        "hide-window-on-protocol-launch": "Das Heroic-Fenster beim Starten von Spielen über „heroic://“-Links ausblenden",
+        "nvidiaprime": {
+            "description": "Erzwinge die Verwendung der NVIDIA Optimus- oder AMD Dynamic Switchable Graphics-dGPU. Verwende dies NUR für OpenGL- und Vulkan-Spiele."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -924,7 +930,7 @@
                 "placeholder_saved": "Schlüssel gespeichert - tippe zum ersetzen, lösche zum entfernen"
             },
             "help": {
-                "description": "Gebe Deinen eigenen SteamGridDB API-Schlüssel ein, um die Spiele-Cover Suche zu aktivieren. Der Schlüssel wird verschlüsselt gespeichert, wenn Dein System es unterstützt. Du kannst einen API-Schlüssel unter www.steamgridb.com/profile/preferences/api erhalten"
+                "description": "Gebe Deinen eigenen SteamGridDB API-Schlüssel ein, um die Spiele-Cover Suche zu aktivieren. Der Schlüssel wird verschlüsselt gespeichert, wenn Dein System es unterstützt. Du kannst einen API-Schlüssel unter {{url}} erhalten"
             }
         }
     },
@@ -938,7 +944,8 @@
         "installing": "Wird installiert",
         "logging": "Anmelden …",
         "processing": "Bitte warten. Dateien werden verarbeitet …",
-        "preparing_login": "Anmeldung wird vorbereitet … "
+        "preparing_login": "Anmeldung wird vorbereitet … ",
+        "installed": "Installiert"
     },
     "store": "Epic Store",
     "stores": "Shops",
@@ -1044,7 +1051,6 @@
         "restore": "Fenster wiederherstellen"
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton ist eine von Glorious Eggroll entwickelte Wine-Variante. Sie wurde zugunsten von GE-Proton mit dem umu-Launcher eingestellt.",
         "proton-ge": "GE-Proton ist eine von Glorious Eggroll entwickelte Variante von Proton. Es ist für die Verwendung mit dem umu-Launcher vorgesehen (Standard in Heroic).",
         "gpt": "Das Game Porting Toolkit wird von Apple entwickelt und für Apple Silicon Macs mit den M1+ Chips empfohlen. Es funktioniert am besten für neuere Spiele, die DX12 verwenden.",
         "wine-crossover": "Wine-Crossover basiert auf dem Crossover OpenSource Wine Projekt und wird für Intel Macs und für DX11 und ältere Spiele empfohlen.",
@@ -1269,7 +1275,26 @@
         "empty": "Keine installieren Spiele zum Anzeigen. Installiere erst etwas.",
         "games": "Installierte Spiele",
         "quitApp": "Beende Programm",
-        "loading": "Deine Bibliothek wird geladen…"
+        "loading": "Deine Bibliothek wird geladen…",
+        "cancelUpdate": {
+            "title": "Update abbrechen",
+            "message": "Das Spiel wird gerade heruntergeladen. Möchten Sie das laufende Update abbrechen?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Spiel installieren",
+            "wineLoading": "Wird geladen",
+            "path": "Installieren nach",
+            "wine": "Wine",
+            "wineMissing": "Nicht ausgewählt"
+        },
+        "cancelInstall": {
+            "message": "Das Spiel wird gerade installiert. Möchten Sie die Installation abbrechen?",
+            "title": "Installation abbrechen?"
+        },
+        "removeFromQueue": {
+            "message": "Dieses Spiel steht zum Herunterladen an. Möchten Sie es aus der Warteschlange entfernen?"
+        }
     },
     "next": "Weiter"
 }

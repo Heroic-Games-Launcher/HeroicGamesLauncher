@@ -940,7 +940,8 @@
         "installing": "Усталяванне",
         "logging": "Уваход...",
         "processing": "Апрацоўка файлаў, пачакайце",
-        "preparing_login": "Падрыхтоўка ўваходу... "
+        "preparing_login": "Падрыхтоўка ўваходу... ",
+        "installed": "Усталявана"
     },
     "store": "Epic Store",
     "stores": "Крамы",
@@ -1047,7 +1048,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton - гэта варыянт Proton, створаны Glorious Eggroll. Ён прызначаны для выкарыстання ў Steam, але некаторыя гульні па-за Steam могуць працаваць лепш з гэтым варыянтам. Ён дае ў асноўным бескарысныя часопісы для выпраўлення непаладак.",
-        "wine-ge": "Wine-GE-Proton - гэта варыянт Wine, створаны Glorious Eggroll. Яго адмянілі на карысць GE-Proton з пускавой устаноўкай umu.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1269,7 +1269,15 @@
         "empty": "",
         "games": "Усталяваныя гульні",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelInstall": {
+            "title": "Скасаваць усталяванне"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Усталяваць гульню",
+            "wineLoading": "Загрузка"
+        }
     },
     "next": "Далей"
 }

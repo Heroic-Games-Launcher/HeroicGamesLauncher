@@ -33,28 +33,27 @@ import Folder from '@mui/icons-material/Folder'
 type Props = {
   availablePlatforms: AvailablePlatforms
   winePrefix: string
-  crossoverBottle: string
   wineVersion: WineInstallation | undefined
-  setWinePrefix: React.Dispatch<React.SetStateAction<string>>
   children: React.ReactNode
   platformToInstall: InstallPlatform
   backdropClick: () => void
   appName?: string
+  title: string
+  setTitle: (title: string) => void
 }
 
 export default function SideloadDialog({
   availablePlatforms,
   backdropClick,
   winePrefix,
-  crossoverBottle,
   wineVersion,
   platformToInstall,
-  setWinePrefix,
   children,
-  appName
+  appName,
+  title,
+  setTitle
 }: Props) {
   const { t, i18n } = useTranslation('gamepage')
-  const [title, setTitle] = useState<string>(t('sideload.field.title', 'Title'))
   const [selectedExe, setSelectedExe] = useState('')
   const [gameUrl, setGameUrl] = useState('')
   const [customUserAgent, setCustomUserAgent] = useState('')
@@ -130,15 +129,6 @@ export default function SideloadDialog({
     }
   }, [])
 
-  // Suggest default Wine prefix if we're adding a new app
-  useEffect(() => {
-    if (editMode) return
-    window.api.requestAppSettings().then(({ defaultWinePrefixDir }) => {
-      const suggestedWinePrefix = `${defaultWinePrefixDir}/${title}`
-      setWinePrefix(suggestedWinePrefix)
-    })
-  }, [title, editMode])
-
   async function searchImage() {
     if (hasSgdbKey) {
       setSgdbTarget('square')
@@ -205,20 +195,6 @@ export default function SideloadDialog({
       customUserAgent,
       launchFullScreen
     })
-    const gameSettings = await getGameSettings(app_name, 'sideload')
-    if (!gameSettings) {
-      return
-    }
-    if (!editMode)
-      window.api.writeConfig({
-        appName: app_name,
-        config: {
-          ...gameSettings,
-          winePrefix,
-          wineVersion,
-          wineCrossoverBottle: crossoverBottle
-        }
-      })
 
     await refreshLibrary({
       library: 'sideload',

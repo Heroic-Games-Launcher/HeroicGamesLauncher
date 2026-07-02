@@ -933,7 +933,7 @@
                 "placeholder_saved": "Clave guardada — escriba para reemplazar, borre para eliminar"
             },
             "help": {
-                "description": "Proporciona tu propia clave API de SteamGridDB para habilitar la búsqueda de carátulas de juegos. La clave se almacena cifrada si tu sistema lo admite. Puedes obtener una en www.steamgriddb.com/profile/preferences/api"
+                "description": "Proporciona tu propia clave API de SteamGridDB para habilitar la búsqueda de carátulas de juegos. La clave se almacena cifrada si tu sistema lo admite. Puedes obtener una en {{url}}"
             }
         }
     },
@@ -947,7 +947,8 @@
         "installing": "Instalando",
         "logging": "Iniciando sesión…",
         "processing": "Procesando los archivos, por favor, espera un momento",
-        "preparing_login": "Preparando inicio de sesión... "
+        "preparing_login": "Preparando inicio de sesión... ",
+        "installed": "Instalado"
     },
     "store": "Tienda de Epic",
     "stores": "Tiendas",
@@ -1075,7 +1076,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton es una variante de Proton creada por Glorious Eggroll. Está diseñada para usarse en Steam, pero algunos juegos fuera de Steam podrían funcionar mejor con esta variante. Genera registros casi siempre inútiles para solucionar problemas.",
-        "wine-ge": "Wine-GE-Proton es una variante de Wine creada por Glorious Eggroll. Es la versión de Wine para ser usada fuera de Steam. Genera registros útiles para solucionar problemas.",
         "gpt": "Game Porting Toolkit es un programa desarrollado por Apple y se recomienda para Macs con procesadores Apple Silicon y chips M1+, funcionando mejor con juegos más recientes que utilizan DX12.",
         "wine-crossover": "Wine-Crossover se basa en el proyecto de código abierto Crossover para Wine y se recomienda para Macs con procesador Intel y para juegos compatibles con DX11 o versiones anteriores.",
         "wine-staging-macos": "Wine-Staging-macOS se basa en el proyecto principal de Wine y se recomienda para Macs con procesador Intel y para juegos con DX11 o versiones anteriores, especialmente cuando se combina con la herramienta DXMT."
@@ -1278,7 +1278,25 @@
         "empty": "No hay juegos instalados para mostrar. Instala algo primero.",
         "games": "Juegos Instalados",
         "quitApp": "Salir de la aplicación",
-        "loading": "Cargando tu biblioteca…"
+        "loading": "Cargando tu biblioteca…",
+        "cancelInstall": {
+            "title": "¿Cancelar la instalación?",
+            "message": "Este juego se está instalando actualmente. ¿Cancelar la instalación?"
+        },
+        "cancelUpdate": {
+            "title": "¿Cancelar la actualización?",
+            "message": "El juego se está descargando actualmente. ¿Quieres cancelar la actualización en curso?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Instalar juego",
+            "wineLoading": "Cargando…",
+            "path": "Instalar en",
+            "wineMissing": "No seleccionado"
+        },
+        "removeFromQueue": {
+            "message": "Este juego está en la cola de descargas. ¿Eliminarlo de la cola?"
+        }
     },
     "next": "Siguiente"
 }

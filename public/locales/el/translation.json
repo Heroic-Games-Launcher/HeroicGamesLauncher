@@ -1116,7 +1116,6 @@
     "amazon-luna": "Amazon Luna",
     "wineExplanation": {
         "proton-ge": "Το GE-Proton είναι μια παραλλαγή του Proton που δημιουργήθηκε από το Glorious Eggroll. Προορίζεται για χρήση μαζί με τον umu launcher (προεπιλογή στο Heroic).",
-        "wine-ge": "Το Wine-GE-Proton είναι μια παραλλαγή του Wine που δημιουργήθηκε από την Glorious Eggroll. Έχει καταργηθεί υπέρ του GE-Proton με τον umu launcher.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1249,7 +1248,12 @@
         "empty": "",
         "games": "Εγκατεστημένα Παιχνίδια",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Εγκατάσταση παιχνιδιού",
+            "wineLoading": "Φόρτωση"
+        }
     },
     "next": "Επόμενο"
 }

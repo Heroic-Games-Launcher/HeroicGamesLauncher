@@ -931,7 +931,8 @@
         "installing": "قيد التثبيت",
         "logging": "قيد تسجيل الدخول...",
         "processing": "قيد معالجة الملفات، يرجى الانتظار",
-        "preparing_login": "يحضِّر الولوج "
+        "preparing_login": "يحضِّر الولوج ",
+        "installed": "مثبت"
     },
     "store": "متجر أََبِك",
     "stores": "المتاجر",
@@ -1042,7 +1043,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton هو نوع Proton تم إنشاؤه بواسطة Glorious Eggroll. من المفترض استخدامه في Steam، لكن بعض الألعاب خارج Steam قد تعمل بشكل أفضل مع هذا المتغير. ويوفر سجلات غير مجدية في الغالب لاستكشاف الأخطاء وإصلاحها.",
-        "wine-ge": "Wine-GE-Proton هو نوع من Wine تم إنشاؤه بواسطة Glorious Eggroll. إنه Wine الموصى باستخدامه خارج Steam. يوفر هذا سجلات مفيدة عند استكشاف الأخطاء وإصلاحها.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1253,7 +1253,12 @@
         "empty": "",
         "games": "الألعاب المثبتة",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "منصة",
+            "title": "ثبت اللعبة",
+            "wineLoading": "يحمَّل"
+        }
     },
     "next": ""
 }
