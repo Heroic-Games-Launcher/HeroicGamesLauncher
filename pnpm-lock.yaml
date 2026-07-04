@@ -11,6 +11,9 @@ patchedDependencies:
   '@types/node@22.19.3':
     hash: 8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831
     path: patches/@types__node@22.19.3.patch
+  extract-zip@2.0.1:
+    hash: 4dfae9c4338fd843cbc6f7dd7d3bd371de07584a152c2c983c2f72ae959c336a
+    path: patches/extract-zip@2.0.1.patch
 
 importers:
 
@@ -9652,7 +9655,7 @@ snapshots:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 16.18.126
-      extract-zip: 2.0.1
+      extract-zip: 2.0.1(patch_hash=4dfae9c4338fd843cbc6f7dd7d3bd371de07584a152c2c983c2f72ae959c336a)
     transitivePeerDependencies:
       - supports-color
 
@@ -10070,7 +10073,7 @@ snapshots:
 
   extend@3.0.2: {}
 
-  extract-zip@2.0.1:
+  extract-zip@2.0.1(patch_hash=4dfae9c4338fd843cbc6f7dd7d3bd371de07584a152c2c983c2f72ae959c336a):
     dependencies:
       debug: 4.4.3
       get-stream: 5.2.0

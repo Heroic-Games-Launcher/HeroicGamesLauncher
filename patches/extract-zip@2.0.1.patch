@@ -1,0 +1,31 @@
+diff --git a/index.js b/index.js
+index 23384ea16bb848616886f356d8d69f94325535bf..91c4a60e341b5ffb9793f941f9f86c5d303d76d8 100644
+--- a/index.js
++++ b/index.js
+@@ -125,10 +125,22 @@ class Extractor {
+     const readStream = await promisify(this.zipfile.openReadStream.bind(this.zipfile))(entry)
+ 
+     if (symlink) {
+-      const link = await getStream(readStream)
+-      debug('creating symlink', link, dest)
+-      await fs.symlink(link, dest)
+-    } else {
++      let link = await getStream(readStream)
++      link = link.toString().trim()
++
++      // --- CVE-2026-56876 Fix ---
++      const symlinkDir = path.dirname(dest)
++      const absoluteTarget = path.resolve(symlinkDir, link)
++      const safeDir = this.opts.dir
++
++      if (!absoluteTarget.startsWith(safeDir + path.sep) && absoluteTarget !== safeDir) {
++        throw new Error(`Out of bound symlink target "${absoluteTarget}" found while processing symlink ${entry.fileName}`)
++      }
++      // --- END OF FIX ---
++
++       debug('creating symlink', link, dest)
++       await fs.symlink(link, dest)
++     } else {
+       await pipeline(readStream, createWriteStream(dest, { mode: procMode }))
+     }
+   }
