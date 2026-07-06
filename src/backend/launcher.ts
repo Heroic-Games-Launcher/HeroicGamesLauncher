@@ -146,6 +146,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   let totalSuspendMs = 0
   let suspendedAt: number | null = null
   let heartbeatTimer: ReturnType<typeof setInterval> | null = null
+  let sessionPersisted = false
   const onSuspend = () => {
     if (suspendedAt !== null) return
     suspendedAt = Date.now()
@@ -174,6 +175,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       totalSuspendMs: suspendSoFar,
       suspendedAt
     })
+    sessionPersisted = true
   }
   const finalizeSession = () => {
     powerMonitor.off('suspend', onSuspend)
@@ -186,7 +188,11 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       clearInterval(heartbeatTimer)
       heartbeatTimer = null
     }
+  }
+  const clearPersistedSession = () => {
+    if (!sessionPersisted) return
     activeSessionsStore.delete(appName)
+    sessionPersisted = false
   }
   powerMonitor.on('suspend', onSuspend)
   powerMonitor.on('resume', onResume)
@@ -343,6 +349,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const totalPlaytime =
     sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
   tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+  clearPersistedSession()
 
   const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
   if (runner === 'gog') {
