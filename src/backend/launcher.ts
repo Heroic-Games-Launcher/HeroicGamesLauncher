@@ -351,18 +351,10 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
   clearPersistedSession()
 
-  const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
   if (runner === 'gog') {
-    if (!disablePlaytimeSync) {
-      await libraryManagerMap['gog']
-        .getGame(appName)
-        .updateGOGPlaytime(startPlayingDate, sessionPlaytime)
-    } else {
-      logWarning(
-        'Posting playtime session to server skipped - playtime sync disabled',
-        { prefix: LogPrefix.Backend }
-      )
-    }
+    await libraryManagerMap['gog']
+      .getGame(appName)
+      .updateGOGPlaytime(startPlayingDate, sessionPlaytime)
   }
   await addRecentGame(gameInfo)
 

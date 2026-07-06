@@ -1313,6 +1313,15 @@ export default class GOGGame implements Game {
   }
 
   async updateGOGPlaytime(startPlayingDate: Date, minutesPlayed: number) {
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (disablePlaytimeSync) {
+      logWarning(
+        'Posting playtime session to server skipped - playtime sync disabled',
+        { prefix: LogPrefix.Gog }
+      )
+      return
+    }
+
     // Let server know about new session
     const sessionDate = Math.floor(startPlayingDate.getTime() / 1000) // In seconds
     const time = Math.floor(minutesPlayed)
