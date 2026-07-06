@@ -72,7 +72,7 @@ import { copyFile } from 'fs/promises'
 import { app, powerMonitor, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { addRecentGame } from './recent_games/recent_games'
-import { tsStore } from './constants/key_value_stores'
+import { activeSessionsStore, tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
   sharedWinePrefix,
@@ -145,22 +145,48 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   // Note that on Linux, Chromium is double-firing `PrepareForSleep`
   let totalSuspendMs = 0
   let suspendedAt: number | null = null
+  let heartbeatTimer: ReturnType<typeof setInterval> | null = null
   const onSuspend = () => {
     if (suspendedAt !== null) return
     suspendedAt = Date.now()
+    logInfo(`[Playtime] Suspend detected for ${appName}`, LogPrefix.Backend)
   }
   const onResume = () => {
     if (suspendedAt === null) return
-    totalSuspendMs += Date.now() - suspendedAt
+    const delta = Date.now() - suspendedAt
+    totalSuspendMs += delta
     suspendedAt = null
+    logInfo(
+      `[Playtime] Resume after ${Math.floor(delta / 1000)}s for ${appName}`,
+      LogPrefix.Backend
+    )
   }
-  const unregisterPowerListeners = () => {
+  const persistSessionCheckpoint = () => {
+    // Snapshot for recovery from session loss
+    const suspendSoFar =
+      totalSuspendMs +
+      (suspendedAt !== null ? Date.now() - suspendedAt : 0)
+    activeSessionsStore.set(appName, {
+      runner,
+      title,
+      startedAt: startPlayingDate.toISOString(),
+      checkpointAt: new Date().toISOString(),
+      totalSuspendMs: suspendSoFar,
+      suspendedAt
+    })
+  }
+  const finalizeSession = () => {
     powerMonitor.off('suspend', onSuspend)
     powerMonitor.off('resume', onResume)
     if (suspendedAt !== null) {
       totalSuspendMs += Date.now() - suspendedAt
       suspendedAt = null
     }
+    if (heartbeatTimer !== null) {
+      clearInterval(heartbeatTimer)
+      heartbeatTimer = null
+    }
+    activeSessionsStore.delete(appName)
   }
   powerMonitor.on('suspend', onSuspend)
   powerMonitor.on('resume', onResume)
@@ -241,7 +267,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       })
 
       await logWriter.close()
-      unregisterPowerListeners()
+      finalizeSession()
 
       return { status: 'error' }
     }
@@ -261,6 +287,10 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     args,
     skipVersionCheck
   )
+
+  // Start 60s heartbeat for playtime
+  persistSessionCheckpoint()
+  heartbeatTimer = setInterval(persistSessionCheckpoint, 60_000)
 
   if (runner === 'gog') {
     gogPresence.setCurrentGame(appName)
@@ -292,7 +322,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     powerSaveBlocker.stop(powerDisplayId)
   }
 
-  unregisterPowerListeners()
+  finalizeSession()
 
   // Update playtime and last played date
   const finishedPlayingDate = new Date()
@@ -301,6 +331,15 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const wallMs = finishedPlayingDate.getTime() - startPlayingDate.getTime()
   const activeMs = Math.max(0, wallMs - totalSuspendMs)
   const sessionPlaytime = activeMs / 1000 / 60
+  if (totalSuspendMs > 0) {
+    logInfo(
+      `[Playtime] Session for ${appName}: 
+      wall=${Math.floor(wallMs / 60000)}m 
+      active=${Math.floor(activeMs / 60000)}m 
+      (subtracted ${Math.floor(totalSuspendMs / 60000)}m of suspend)`,
+      LogPrefix.Backend
+    )
+  }
   const totalPlaytime =
     sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
   tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))

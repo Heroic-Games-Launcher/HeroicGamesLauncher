@@ -67,6 +67,16 @@ export interface StoreStructure {
       totalPlayed: number
     }
   }
+  activeSessionsStore: {
+    [appName: string]: {
+      runner: string
+      title: string
+      startedAt: string
+      checkpointAt: string
+      totalSuspendMs: number
+      suspendedAt: number | null
+    }
+  }
   fontsStore: {
     fonts: string[]
   }
