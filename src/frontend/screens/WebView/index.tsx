@@ -11,7 +11,11 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { isUsingGamepad, toggleWebviewFocus } from 'frontend/helpers/gamepad'
+import {
+  isUsingGamepad,
+  setWebviewInputTarget,
+  toggleWebviewFocus
+} from 'frontend/helpers/gamepad'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
@@ -173,7 +177,7 @@ export default function WebView() {
 
   useLayoutEffect(() => {
     if (webview) {
-      const loadstop = async () => {
+      const loadstop = () => {
         setLoading({ ...loading, refresh: false })
         const userAgent =
           startUrl === epicLoginUrl
@@ -188,17 +192,6 @@ export default function WebView() {
         // the sidebar / URL bar.
         if (isUsingGamepad()) {
           webview.focus()
-        }
-        // Keep the preload's gamepad loop in sync with the disable-controller
-        // setting. Cheaper to re-send on every navigation than to subscribe.
-        try {
-          const { disableController } = await window.api.requestAppSettings()
-          webview.send('heroic-host', {
-            type: 'set-disabled',
-            value: !!disableController
-          })
-        } catch {
-          // best-effort — preload still works without this hint
         }
         // Ignore the login handling if not on login page
         if (!runner) {
@@ -361,10 +354,12 @@ export default function WebView() {
     setShowLoginWarningFor(null)
   }
 
-  // Track webview focus so the host gamepad handler can step aside while the
-  // preload script drives the navigation inside the store page. Also handle
-  // commands the preload posts back (B with empty history, X → URL bar,
-  // guide → console mode).
+  // Register the webview as the gamepad input target while it's mounted so
+  // the host's gamepad handler can forward processed inputs to the guest
+  // preload (`src/webviewPreload/index.ts`) and ask it the questions it needs
+  // to decide (canGoBack) plus trigger host-side actions (blur, URL bar).
+  // Focus/blur toggles `webviewHasFocus` in the gamepad helper so the host
+  // steps aside while the guest is driving navigation.
   useEffect(() => {
     if (!webview) return
 
@@ -374,41 +369,32 @@ export default function WebView() {
     webview.addEventListener('focus', onFocus)
     webview.addEventListener('blur', onBlur)
 
-    const onIpcMessage = (ev: Electron.IpcMessageEvent) => {
-      if (ev.channel !== 'heroic-webview') return
-      const data = ev.args?.[0] as { type?: string } | undefined
-      if (!data) return
-      switch (data.type) {
-        case 'blur-webview':
-          toggleWebviewFocus(false)
-          ;(webview as unknown as HTMLElement).blur?.()
-          document.body.focus()
-          break
-        case 'focus-url-bar': {
-          toggleWebviewFocus(false)
-          const urlInput = document.querySelector<HTMLInputElement>(
-            '.WebviewControls__urlInput'
-          )
-          urlInput?.focus()
-          urlInput?.select()
-          break
-        }
-        case 'guide':
-          toggleWebviewFocus(false)
-          ;(webview as unknown as HTMLElement).blur?.()
-          window.location.hash = window.location.hash.startsWith('#/console')
-            ? '#/'
-            : '#/console'
-          break
-      }
+    const focusUrlBar = () => {
+      // Exit "webview drives gamepad" mode so the host handles input while
+      // the user is in the URL bar.
+      toggleWebviewFocus(false)
+      const urlInput = document.querySelector<HTMLInputElement>(
+        '.WebviewControls__urlInput'
+      )
+      urlInput?.focus()
+      urlInput?.select()
     }
 
-    webview.addEventListener('ipc-message', onIpcMessage)
+    setWebviewInputTarget({
+      send: (cmd) => webview.send('heroic-webview', cmd),
+      canGoBack: () => webview.canGoBack(),
+      blur: () => {
+        toggleWebviewFocus(false)
+        ;(webview as unknown as HTMLElement).blur?.()
+        document.body.focus()
+      },
+      focusUrlBar
+    })
 
     return () => {
       webview.removeEventListener('focus', onFocus)
       webview.removeEventListener('blur', onBlur)
-      webview.removeEventListener('ipc-message', onIpcMessage)
+      setWebviewInputTarget(null)
       toggleWebviewFocus(false)
     }
   }, [webview])

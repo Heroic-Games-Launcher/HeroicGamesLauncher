@@ -91,8 +91,8 @@ export default function ControllerHints() {
   }
 
   // Hints shown when the user is inside a store webview. The bottom bar lives
-  // in the host, but the actions described here run inside the webview's
-  // preload (public/webviewPreload.js). Keep these in sync with that file.
+  // in the host; the actions are forwarded to the webview preload
+  // (`src/webviewPreload/index.ts`) by the gamepad helper.
   const applyWebviewHints = () => {
     setMainActionHint(t('controller.hints.select', 'Select'))
     setBackActionHint(t('controller.hints.back', 'Back'))

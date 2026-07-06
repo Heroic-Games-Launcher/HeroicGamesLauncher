@@ -30,6 +30,103 @@ export const toggleWebviewFocus = (focused: boolean) => {
 
 export const isUsingGamepad = () => currentController !== -1
 
+/**
+ * High-level commands the host forwards to the focused store webview's
+ * preload script (see `src/webviewPreload/index.ts`). The host keeps full
+ * ownership of gamepad parsing — the guest only acts on these commands.
+ */
+export type WebviewCommand =
+  | { type: 'navigate'; direction: 'up' | 'down' | 'left' | 'right' }
+  | { type: 'scroll'; direction: 'up' | 'down' }
+  | { type: 'click' }
+  | { type: 'goBack' }
+  | { type: 'goForward' }
+  | { type: 'focusSearch' }
+
+/**
+ * Registered by `WebView/index.tsx` when a store webview mounts. Lets the
+ * gamepad handler forward processed inputs to the guest and ask the host side
+ * of the webview a couple of things it needs to decide (canGoBack) plus
+ * trigger host-side actions (blur, focus the URL bar).
+ */
+export interface WebviewInputTarget {
+  send: (cmd: WebviewCommand) => void
+  canGoBack: () => boolean
+  blur: () => void
+  focusUrlBar: () => void
+}
+
+let webviewTarget: WebviewInputTarget | null = null
+
+export const setWebviewInputTarget = (target: WebviewInputTarget | null) => {
+  webviewTarget = target
+}
+
+/**
+ * Translates a `ValidGamepadAction` into a command for the focused webview.
+ * Returns `false` for actions the host must keep handling itself (e.g.
+ * `guide` toggles Console Mode in the host) so the caller can fall through.
+ */
+function handleWebviewAction(action: ValidGamepadAction): boolean {
+  if (!webviewTarget) return false
+  switch (action) {
+    case 'guide':
+      // Host keeps ownership of the guide button (Console Mode toggle).
+      return false
+    case 'rightClick':
+      // X focuses the URL bar, which lives in the host's WebviewControls.
+      webviewTarget.focusUrlBar()
+      return true
+    case 'back':
+      // B goes back inside the webview when there's history, otherwise it
+      // blurs the webview so the host takes over.
+      if (webviewTarget.canGoBack()) {
+        webviewTarget.send({ type: 'goBack' })
+      } else {
+        webviewTarget.blur()
+      }
+      return true
+    case 'mainAction':
+      webviewTarget.send({ type: 'click' })
+      return true
+    case 'altAction':
+      webviewTarget.send({ type: 'focusSearch' })
+      return true
+    case 'prevPage':
+      webviewTarget.send({ type: 'goBack' })
+      return true
+    case 'nextPage':
+      webviewTarget.send({ type: 'goForward' })
+      return true
+    case 'padUp':
+    case 'leftStickUp':
+      webviewTarget.send({ type: 'navigate', direction: 'up' })
+      return true
+    case 'padDown':
+    case 'leftStickDown':
+      webviewTarget.send({ type: 'navigate', direction: 'down' })
+      return true
+    case 'padLeft':
+    case 'leftStickLeft':
+      webviewTarget.send({ type: 'navigate', direction: 'left' })
+      return true
+    case 'padRight':
+    case 'leftStickRight':
+      webviewTarget.send({ type: 'navigate', direction: 'right' })
+      return true
+    case 'rightStickUp':
+      webviewTarget.send({ type: 'scroll', direction: 'up' })
+      return true
+    case 'rightStickDown':
+      webviewTarget.send({ type: 'scroll', direction: 'down' })
+      return true
+    default:
+      // Other actions (esc, tab, shiftTab, keyboardClick, leftClick,
+      // rightStickLeft/Right) aren't relevant while a webview is focused.
+      return true
+  }
+}
+
 export const initGamepad = () => {
   window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
     controllerIsDisabled = disableController || false
@@ -64,6 +161,8 @@ export const initGamepad = () => {
     altAction: { triggeredAt: {}, repeatDelay: false },
     rightClick: { triggeredAt: {}, repeatDelay: false },
     leftClick: { triggeredAt: {}, repeatDelay: false },
+    prevPage: { triggeredAt: {}, repeatDelay: false },
+    nextPage: { triggeredAt: {}, repeatDelay: false },
     esc: { triggeredAt: {}, repeatDelay: false },
     tab: { triggeredAt: {}, repeatDelay: false },
     shiftTab: { triggeredAt: {}, repeatDelay: false },
@@ -84,13 +183,6 @@ export const initGamepad = () => {
       //
       // the browser still detects the gamepad interactions even
       // if the screen is not focused when playing a game
-      return
-    }
-
-    // when the store webview is focused, its preload handles gamepad input
-    // directly. Skip host-side handling to avoid double processing — but keep
-    // `guide` working as a global escape hatch to toggle Console Mode.
-    if (webviewHasFocus && action !== 'guide') {
       return
     }
 
@@ -144,6 +236,13 @@ export const initGamepad = () => {
         (document.body.classList.contains('console-launching') ||
           document.body.classList.contains('console-modal-open'))
       ) {
+        return
+      }
+
+      // When a store webview is focused, forward the processed input to the
+      // guest preload (see `src/webviewPreload/index.ts`) instead of running
+      // the host's DOM navigation. `guide` stays host-side (Console Mode).
+      if (webviewHasFocus && handleWebviewAction(action)) {
         return
       }
 
