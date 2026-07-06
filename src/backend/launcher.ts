@@ -111,7 +111,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   skipVersionCheck,
   args
 }) => {
-  const game = libraryManagerMap[runner].getGame(appName)
+  const game: Game = libraryManagerMap[runner].getGame(appName)
   const gameInfo = game.getGameInfo()
 
   if (
@@ -351,11 +351,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
   clearPersistedSession()
 
-  if (runner === 'gog') {
-    await libraryManagerMap['gog']
-      .getGame(appName)
-      .updateGOGPlaytime(startPlayingDate, sessionPlaytime)
-  }
+  await game.updatePlaytime?.(startPlayingDate, sessionPlaytime)
   await addRecentGame(gameInfo)
 
   if (autoSyncSaves && isOnline()) {

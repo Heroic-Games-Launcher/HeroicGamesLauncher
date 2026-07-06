@@ -1312,7 +1312,7 @@ export default class GOGGame implements Game {
     })
   }
 
-  async updateGOGPlaytime(startPlayingDate: Date, minutesPlayed: number) {
+  async updatePlaytime(startPlayingDate: Date, minutesPlayed: number) {
     const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (disablePlaytimeSync) {
       logWarning(

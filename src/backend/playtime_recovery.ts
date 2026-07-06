@@ -1,3 +1,4 @@
+import type { Game } from 'common/types/game_manager'
 import { activeSessionsStore, tsStore } from './constants/key_value_stores'
 import { libraryManagerMap } from './storeManagers'
 import { logError, logInfo, LogPrefix } from './logger'
@@ -31,16 +32,14 @@ export async function recoverOrphanedSessions(): Promise<void> {
         LogPrefix.Backend
       )
 
-      if (state.runner === 'gog' && minutes >= 1) {
-        libraryManagerMap['gog']
-          .getGame(appName)
-          .updateGOGPlaytime(startedAt, minutes)
-          .catch((e) => {
-            logError(
-              `[Playtime] Failed to enqueue orphaned GOG session for ${appName}: ${e}`,
-              LogPrefix.Gog
-            )
-          })
+      if (minutes >= 1) {
+        const game: Game = libraryManagerMap[state.runner].getGame(appName)
+        game.updatePlaytime?.(startedAt, minutes)?.catch((e: unknown) => {
+          logError(
+            `[Playtime] Failed to enqueue orphaned ${state.runner} session for ${appName}: ${e}`,
+            LogPrefix.Backend
+          )
+        })
       }
     } catch (e) {
       logError(
