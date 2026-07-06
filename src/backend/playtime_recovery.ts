@@ -32,16 +32,15 @@ export async function recoverOrphanedSessions(): Promise<void> {
       )
 
       if (state.runner === 'gog' && minutes >= 1) {
-        try {
-          await libraryManagerMap['gog']
-            .getGame(appName)
-            .updateGOGPlaytime(startedAt, minutes)
-        } catch (e) {
-          logError(
-            `[Playtime] Failed to enqueue orphaned GOG session for ${appName}: ${e}`,
-            LogPrefix.Gog
-          )
-        }
+        libraryManagerMap['gog']
+          .getGame(appName)
+          .updateGOGPlaytime(startedAt, minutes)
+          .catch((e) => {
+            logError(
+              `[Playtime] Failed to enqueue orphaned GOG session for ${appName}: ${e}`,
+              LogPrefix.Gog
+            )
+          })
       }
     } catch (e) {
       logError(

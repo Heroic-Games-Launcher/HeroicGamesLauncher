@@ -151,6 +151,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     if (suspendedAt !== null) return
     suspendedAt = Date.now()
     logInfo(`[Playtime] Suspend detected for ${appName}`, LogPrefix.Backend)
+    persistSessionCheckpoint()
   }
   const onResume = () => {
     if (suspendedAt === null) return
@@ -161,6 +162,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       `[Playtime] Resume after ${Math.floor(delta / 1000)}s for ${appName}`,
       LogPrefix.Backend
     )
+    persistSessionCheckpoint()
   }
   const persistSessionCheckpoint = () => {
     // Snapshot for recovery from session loss
@@ -294,9 +296,9 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       skipVersionCheck
     )
 
-    // Start 60s heartbeat for playtime
+    // Heartbeat to recover session state on crash
     persistSessionCheckpoint()
-    heartbeatTimer = setInterval(persistSessionCheckpoint, 60_000)
+    heartbeatTimer = setInterval(persistSessionCheckpoint, 5 * 60 * 1000)
 
     if (runner === 'gog') {
       gogPresence.setCurrentGame(appName)
