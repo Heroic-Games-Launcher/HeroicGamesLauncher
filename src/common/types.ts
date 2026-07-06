@@ -787,7 +787,6 @@ export interface VersionInfo {
  * Enum for the supported repositorys
  */
 export enum Repositorys {
-  WINEGE,
   PROTONGE,
   PROTON,
   WINELUTRIS,
