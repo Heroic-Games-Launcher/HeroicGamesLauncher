@@ -95,7 +95,7 @@ export default function ControllerHints() {
   // (`src/webviewPreload/index.ts`) by the gamepad helper.
   const applyWebviewHints = () => {
     setMainActionHint(t('controller.hints.select', 'Select'))
-    setBackActionHint(t('controller.hints.back', 'Back'))
+    setBackActionHint(t('controller.hints.exit', 'Exit'))
     setAltActionHint(t('controller.hints.url_bar', 'URL bar'))
     setAltActionHint2(t('controller.hints.search', 'Search'))
     setPrevPageHint(t('controller.hints.previous_page', 'Previous page'))
@@ -179,7 +179,9 @@ export default function ControllerHints() {
   }
 
   return (
-    <div className={`controller-hints ${layout}`}>
+    <div
+      className={`controller-hints ${layout}${inWebview ? ' in-webview' : ''}`}
+    >
       <div className="hint">
         <i className="buttonImage main-action" />
         {mainActionHint || '–'}

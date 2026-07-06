@@ -7,6 +7,7 @@
   padding: var(--space-2xs-fixed) var(--space-md-fixed);
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 }
 
 .controller-hints .hint {
@@ -17,6 +18,19 @@
   flex-basis: 16%;
   flex-grow: 0;
   flex-shrink: 0;
+}
+
+/* The store webview bar carries more hints (L1/R1 page history), so let them
+   share the row and shrink instead of overflowing horizontally. */
+.controller-hints.in-webview {
+  gap: var(--space-2xs-fixed);
+}
+
+.controller-hints.in-webview .hint {
+  flex-basis: auto;
+  flex-shrink: 1;
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .controller-hints .buttonImage {

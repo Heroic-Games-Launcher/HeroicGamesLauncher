@@ -5,6 +5,12 @@
 // knows how to act on those commands against the guest DOM — it never polls
 // gamepads or duplicates parsing logic from the frontend.
 //
+// IMPORTANT: we must NOT move real DOM focus into the guest. Chromium only
+// delivers Gamepad API input to the *focused* document, so focusing the guest
+// would blur the host and kill the host's gamepad polling — the input loop
+// that feeds us these commands. Instead we track our own "virtual cursor"
+// element and highlight it manually, leaving real focus in the host.
+//
 // Built by electron-vite into `build/preload/webviewPreload.js`; see
 // `electron.vite.config.ts` and `src/backend/constants/paths.ts`.
 
@@ -20,6 +26,8 @@ type WebviewCommand =
   | { type: 'goBack' }
   | { type: 'goForward' }
   | { type: 'focusSearch' }
+  | { type: 'enter' }
+  | { type: 'exit' }
 
 // --- Mouse back/forward buttons ---
 // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
@@ -38,19 +46,51 @@ document.addEventListener('mouseup', (ev) => {
   }
 })
 
-// --- Focus ring so the user can see what's selected ---
-// Stores often hide :focus outlines; we force a visible one.
-function injectFocusRing() {
+// --- Virtual cursor ---
+// A custom highlight decoupled from native focus (see file header). Stores hide
+// :focus outlines anyway, so a forced attribute-based ring is more reliable.
+
+const CURSOR_ATTR = 'data-heroic-cursor'
+
+let cursorEl: HTMLElement | null = null
+
+function injectCursorStyle() {
   const style = document.createElement('style')
-  style.setAttribute('data-heroic-focus', '')
-  style.textContent =
-    ':focus, :focus-visible { outline: 3px solid #ffae00 !important; outline-offset: 2px !important; }'
+  style.setAttribute('data-heroic-cursor-style', '')
+  style.textContent = `[${CURSOR_ATTR}] { outline: 3px solid #ffae00 !important; outline-offset: 2px !important; }`
   document.documentElement.appendChild(style)
 }
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', injectFocusRing, { once: true })
+  document.addEventListener('DOMContentLoaded', injectCursorStyle, {
+    once: true
+  })
 } else {
-  injectFocusRing()
+  injectCursorStyle()
+}
+
+function clearCursor() {
+  if (cursorEl) cursorEl.removeAttribute(CURSOR_ATTR)
+  cursorEl = null
+}
+
+function setCursor(el: HTMLElement | null) {
+  if (cursorEl && cursorEl !== el) cursorEl.removeAttribute(CURSOR_ATTR)
+  cursorEl = el
+  if (el) {
+    el.setAttribute(CURSOR_ATTR, '')
+    el.scrollIntoView({
+      block: 'nearest',
+      inline: 'nearest',
+      behavior: 'smooth'
+    })
+  }
+}
+
+// The cursor element, but only if it's still in the DOM and visible. Store
+// pages swap content out from under us, so we can't trust a stale reference.
+function currentCursor(): HTMLElement | null {
+  if (cursorEl && cursorEl.isConnected && isVisible(cursorEl)) return cursorEl
+  return null
 }
 
 // --- Spatial navigation helpers ---
@@ -93,11 +133,14 @@ function pickInitialFocus(): HTMLElement | null {
 }
 
 function navigate(direction: Direction): boolean {
-  const current =
-    document.activeElement && document.activeElement !== document.body
-      ? (document.activeElement as HTMLElement)
-      : pickInitialFocus()
+  const current = currentCursor() ?? pickInitialFocus()
   if (!current) return false
+
+  // No cursor yet (first move after entering) — just show it where we are.
+  if (current !== cursorEl) {
+    setCursor(current)
+    return true
+  }
 
   const curRect = current.getBoundingClientRect()
   const cx = curRect.left + curRect.width / 2
@@ -142,12 +185,7 @@ function navigate(direction: Direction): boolean {
   }
 
   if (best) {
-    best.focus({ preventScroll: false })
-    best.scrollIntoView({
-      block: 'nearest',
-      inline: 'nearest',
-      behavior: 'smooth'
-    })
+    setCursor(best)
     return true
   }
 
@@ -162,14 +200,27 @@ function navigate(direction: Direction): boolean {
   return false
 }
 
+function activateCursor() {
+  const el = currentCursor()
+  if (!el) return
+  // Text fields need real focus so the user can type; everything else is
+  // driven by a synthetic click, which works without the frame being focused.
+  const tag = el.tagName
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable) {
+    el.focus()
+  } else if (typeof el.click === 'function') {
+    el.click()
+  }
+}
+
 function focusFirstSearchInput(): boolean {
   const candidates = document.querySelectorAll<HTMLElement>(
     'input[type="search"], input[type="text"], input[role="searchbox"], [role="search"] input'
   )
   for (const el of candidates) {
     if (isVisible(el)) {
+      setCursor(el)
       el.focus()
-      el.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
       return true
     }
   }
@@ -180,12 +231,16 @@ function focusFirstSearchInput(): boolean {
 
 function handleCommand(cmd: WebviewCommand) {
   switch (cmd.type) {
-    case 'click': {
-      const el = document.activeElement as HTMLElement | null
-      if (el && el !== document.body && typeof el.click === 'function')
-        el.click()
+    case 'enter':
+      // Arm the cursor when the host hands control to us.
+      setCursor(currentCursor() ?? pickInitialFocus())
       break
-    }
+    case 'exit':
+      clearCursor()
+      break
+    case 'click':
+      activateCursor()
+      break
     case 'goBack':
       if (history.length > 1) history.back()
       break

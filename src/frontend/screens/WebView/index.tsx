@@ -186,12 +186,15 @@ export default function WebView() {
         if (webview.getUserAgent() != userAgent) {
           webview.setUserAgent(userAgent)
         }
-        // Hand input to the webview so the gamepad's spatial navigation
-        // (handled by the preload) takes effect when the user got here with
-        // a controller. Mouse users stay in the host so they can still click
-        // the sidebar / URL bar.
+        // Arm gamepad forwarding when the user got here with a controller so
+        // the preload's spatial navigation takes effect. We must NOT focus the
+        // webview element — that blurs the host and stops its gamepad polling
+        // (see the gamepad helper). Mouse users stay in the host so they can
+        // still click the sidebar / URL bar; a later mouse→controller hand-off
+        // is picked up by the gamepad helper's first-press detection.
         if (isUsingGamepad()) {
-          webview.focus()
+          toggleWebviewFocus(true)
+          webview.send('heroic-webview', { type: 'enter' })
         }
         // Ignore the login handling if not on login page
         if (!runner) {
@@ -354,19 +357,16 @@ export default function WebView() {
     setShowLoginWarningFor(null)
   }
 
-  // Register the webview as the gamepad input target while it's mounted so
-  // the host's gamepad handler can forward processed inputs to the guest
-  // preload (`src/webviewPreload/index.ts`) and ask it the questions it needs
-  // to decide (canGoBack) plus trigger host-side actions (blur, URL bar).
-  // Focus/blur toggles `webviewHasFocus` in the gamepad helper so the host
-  // steps aside while the guest is driving navigation.
+  // Register the webview as the gamepad input target while it's mounted so the
+  // host's gamepad handler can forward processed inputs to the guest preload
+  // (`src/webviewPreload/index.ts`) and trigger host-side actions: focus the
+  // webview (arm forwarding), exit back to the sidebar, or focus the URL bar.
+  // Arming is explicit (loadstop / first gamepad press); we only listen for
+  // `blur` as a best-effort disarm when focus leaves the webview.
   useEffect(() => {
     if (!webview) return
 
-    const onFocus = () => toggleWebviewFocus(true)
     const onBlur = () => toggleWebviewFocus(false)
-
-    webview.addEventListener('focus', onFocus)
     webview.addEventListener('blur', onBlur)
 
     const focusUrlBar = () => {
@@ -382,17 +382,22 @@ export default function WebView() {
 
     setWebviewInputTarget({
       send: (cmd) => webview.send('heroic-webview', cmd),
-      canGoBack: () => webview.canGoBack(),
-      blur: () => {
+      exit: () => {
+        // B leaves the webview: disarm, clear the guest cursor, and drop the
+        // user back on the sidebar "Stores" item so they can keep navigating
+        // with the controller.
         toggleWebviewFocus(false)
-        ;(webview as unknown as HTMLElement).blur?.()
-        document.body.focus()
+        webview.send('heroic-webview', { type: 'exit' })
+        const storesItem = document.querySelector<HTMLElement>(
+          '[data-tour="sidebar-stores"]'
+        )
+        if (storesItem) storesItem.focus()
+        else document.body.focus()
       },
       focusUrlBar
     })
 
     return () => {
-      webview.removeEventListener('focus', onFocus)
       webview.removeEventListener('blur', onBlur)
       setWebviewInputTarget(null)
       toggleWebviewFocus(false)

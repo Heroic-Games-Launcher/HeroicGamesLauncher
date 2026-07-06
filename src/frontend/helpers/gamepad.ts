@@ -42,17 +42,19 @@ export type WebviewCommand =
   | { type: 'goBack' }
   | { type: 'goForward' }
   | { type: 'focusSearch' }
+  | { type: 'enter' }
+  | { type: 'exit' }
 
 /**
  * Registered by `WebView/index.tsx` when a store webview mounts. Lets the
- * gamepad handler forward processed inputs to the guest and ask the host side
- * of the webview a couple of things it needs to decide (canGoBack) plus
- * trigger host-side actions (blur, focus the URL bar).
+ * gamepad handler forward processed inputs to the guest and trigger host-side
+ * actions: exit back to the host sidebar, or focus the URL bar. Note we never
+ * move real focus into the webview (that would blur the host and kill gamepad
+ * polling) — arming just sends an `enter` command via `send`.
  */
 export interface WebviewInputTarget {
   send: (cmd: WebviewCommand) => void
-  canGoBack: () => boolean
-  blur: () => void
+  exit: () => void
   focusUrlBar: () => void
 }
 
@@ -60,6 +62,50 @@ let webviewTarget: WebviewInputTarget | null = null
 
 export const setWebviewInputTarget = (target: WebviewInputTarget | null) => {
   webviewTarget = target
+}
+
+// Actions that can hand control to a store webview when it isn't driving yet.
+const ENTER_WEBVIEW_ACTIONS: ValidGamepadAction[] = [
+  'mainAction',
+  'padUp',
+  'padDown',
+  'padLeft',
+  'padRight',
+  'leftStickUp',
+  'leftStickDown',
+  'leftStickLeft',
+  'leftStickRight'
+]
+
+function isSidebarStoreLink(el: Element | null | undefined): boolean {
+  const link = el?.closest<HTMLAnchorElement>('a.Sidebar__item')
+  return !!link && (link.getAttribute('href')?.includes('/store/') ?? false)
+}
+
+/**
+ * Decides whether a gamepad press on a store screen should hand control to the
+ * webview (arming gamepad forwarding). Two ways in:
+ *  - The user got here with the mouse and nothing host-focusable is focused
+ *    (focus is on `<body>` or the `<webview>` itself) — any nav/select press
+ *    enters. This covers the mouse→controller hand-off.
+ *  - The user is on the sidebar "Stores" item/submenu and presses A — the
+ *    explicit "re-enter" affordance after leaving with B.
+ */
+function shouldEnterWebview(action: ValidGamepadAction): boolean {
+  if (!webviewTarget || webviewHasFocus) return false
+  if (!ENTER_WEBVIEW_ACTIONS.includes(action)) return false
+  const el = document.querySelector<HTMLElement>(':focus')
+  if (!el || el === document.body || el.tagName === 'WEBVIEW') return true
+  if (action === 'mainAction' && isSidebarStoreLink(el)) return true
+  return false
+}
+
+function enterWebview() {
+  if (!webviewTarget) return
+  // Arm forwarding and tell the guest to show its cursor. We deliberately do
+  // NOT focus the webview element — see `WebviewInputTarget` docs.
+  webviewHasFocus = true
+  webviewTarget.send({ type: 'enter' })
 }
 
 /**
@@ -78,13 +124,9 @@ function handleWebviewAction(action: ValidGamepadAction): boolean {
       webviewTarget.focusUrlBar()
       return true
     case 'back':
-      // B goes back inside the webview when there's history, otherwise it
-      // blurs the webview so the host takes over.
-      if (webviewTarget.canGoBack()) {
-        webviewTarget.send({ type: 'goBack' })
-      } else {
-        webviewTarget.blur()
-      }
+      // B leaves the webview and hands control back to the host sidebar.
+      // Page history stays on L1/R1 (prevPage/nextPage).
+      webviewTarget.exit()
       return true
     case 'mainAction':
       webviewTarget.send({ type: 'click' })
@@ -239,10 +281,20 @@ export const initGamepad = () => {
         return
       }
 
-      // When a store webview is focused, forward the processed input to the
-      // guest preload (see `src/webviewPreload/index.ts`) instead of running
-      // the host's DOM navigation. `guide` stays host-side (Console Mode).
-      if (webviewHasFocus && handleWebviewAction(action)) {
+      // Store screens: the mounted webview is the gamepad target. Hand control
+      // to it on a mouse→controller hand-off or the explicit A-to-enter from
+      // the sidebar; once it's driving, forward processed inputs to the guest
+      // preload (`src/webviewPreload/index.ts`) instead of host DOM navigation.
+      // `guide` stays host-side (Console Mode).
+      if (shouldEnterWebview(action)) {
+        if (action === 'mainAction' && isSidebarStoreLink(currentElement())) {
+          // Let the sidebar link switch store first, then enter once it settled.
+          setTimeout(enterWebview, 150)
+        } else {
+          enterWebview()
+          return
+        }
+      } else if (webviewHasFocus && handleWebviewAction(action)) {
         return
       }
 
