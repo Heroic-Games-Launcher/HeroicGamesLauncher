@@ -375,14 +375,17 @@ if (!gotTheLock) {
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    await recoverOrphanedSessions()
-    if (!settings.disablePlaytimeSync) {
-      runOnceWhenOnline(() => libraryManagerMap['gog'].syncQueuedPlaytime())
-    } else {
-      logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
-        prefix: LogPrefix.Backend
-      })
-    }
+    runOnceWhenOnline(async () => {
+      await recoverOrphanedSessions()
+      if (!settings.disablePlaytimeSync) {
+        await libraryManagerMap['gog'].syncQueuedPlaytime()
+      } else {
+        logDebug(
+          'Skipping playtime sync queue upload - playtime sync disabled',
+          { prefix: LogPrefix.Backend }
+        )
+      }
+    })
     runOnceWhenOnline(gogPresence.setPresence)
     await i18next.use(Backend).init({
       backend: {
