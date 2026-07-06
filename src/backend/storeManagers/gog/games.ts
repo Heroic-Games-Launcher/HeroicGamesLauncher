@@ -1312,12 +1312,10 @@ export default class GOGGame implements Game {
     })
   }
 
-  async updateGOGPlaytime(startPlayingDate: Date, finishedPlayingDate: Date) {
+  async updateGOGPlaytime(startPlayingDate: Date, minutesPlayed: number) {
     // Let server know about new session
     const sessionDate = Math.floor(startPlayingDate.getTime() / 1000) // In seconds
-    const time = Math.floor(
-      (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
-    ) // In minutes
+    const time = Math.floor(minutesPlayed)
 
     // It makes no sense to post 0 minutes of playtime
     if (time < 1) {

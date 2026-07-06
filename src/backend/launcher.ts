@@ -69,7 +69,7 @@ import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
-import { app, powerSaveBlocker } from 'electron'
+import { app, powerMonitor, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
@@ -141,6 +141,29 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const { minimizeOnLaunch, noTrayIcon } = GlobalConfig.get().getSettings()
 
   const startPlayingDate = new Date()
+
+  // Note that on Linux, Chromium is double-firing `PrepareForSleep`
+  let totalSuspendMs = 0
+  let suspendedAt: number | null = null
+  const onSuspend = () => {
+    if (suspendedAt !== null) return
+    suspendedAt = Date.now()
+  }
+  const onResume = () => {
+    if (suspendedAt === null) return
+    totalSuspendMs += Date.now() - suspendedAt
+    suspendedAt = null
+  }
+  const unregisterPowerListeners = () => {
+    powerMonitor.off('suspend', onSuspend)
+    powerMonitor.off('resume', onResume)
+    if (suspendedAt !== null) {
+      totalSuspendMs += Date.now() - suspendedAt
+      suspendedAt = null
+    }
+  }
+  powerMonitor.on('suspend', onSuspend)
+  powerMonitor.on('resume', onResume)
 
   if (!tsStore.has(appName)) {
     tsStore.set(`${appName}.firstPlayed`, startPlayingDate.toISOString())
@@ -218,6 +241,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       })
 
       await logWriter.close()
+      unregisterPowerListeners()
 
       return { status: 'error' }
     }
@@ -268,12 +292,15 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     powerSaveBlocker.stop(powerDisplayId)
   }
 
+  unregisterPowerListeners()
+
   // Update playtime and last played date
   const finishedPlayingDate = new Date()
   tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
-  // Playtime of this session in minutes
-  const sessionPlaytime =
-    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
+  // Playtime of this session in minutes, excluding system-suspend time.
+  const wallMs = finishedPlayingDate.getTime() - startPlayingDate.getTime()
+  const activeMs = Math.max(0, wallMs - totalSuspendMs)
+  const sessionPlaytime = activeMs / 1000 / 60
   const totalPlaytime =
     sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
   tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
@@ -283,7 +310,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     if (!disablePlaytimeSync) {
       await libraryManagerMap['gog']
         .getGame(appName)
-        .updateGOGPlaytime(startPlayingDate, finishedPlayingDate)
+        .updateGOGPlaytime(startPlayingDate, sessionPlaytime)
     } else {
       logWarning(
         'Posting playtime session to server skipped - playtime sync disabled',
