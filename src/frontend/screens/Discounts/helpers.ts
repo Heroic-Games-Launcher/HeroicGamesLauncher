@@ -217,7 +217,7 @@ export const getLocaleSettings = (
 // the path of the original www.gog.com URL preserved, plus the ?as=<id>
 // affiliate parameter. Links pointing at www.gog.com directly are not
 // tracked by GOG even if ?as= is present.
-export const withAffiliate = (storeLink: string): string => {
+const withAffiliate = (storeLink: string): string => {
   try {
     const url = new URL(storeLink)
     url.hostname = 'af.gog.com'
