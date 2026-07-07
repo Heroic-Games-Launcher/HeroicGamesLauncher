@@ -6,28 +6,36 @@ import { UpdateComponent } from 'frontend/components/UI'
 import type {
   CatalogFeature,
   CatalogGenre,
-  CatalogProduct
+  CatalogProduct,
+  DiscountStore
 } from 'common/types/discounts'
 import DiscountCard from './components/DiscountCard'
 import DiscountFilters from './components/DiscountFilters'
 import DiscountPagination from './components/DiscountPagination'
 import {
   DEFAULT_PAGE_SIZE,
+  getGmgAutoCurrency,
   getLocaleSettings,
   getPegiAge,
+  getStoredGmgCurrency,
   getStoredRegionOverride,
+  GMG_CURRENCIES,
   loadStoredFilters,
   normalizeRating,
+  OS_OPTIONS,
   parseDiscountPercent,
   parsePriceAmount,
   parseReleaseTimestamp,
   RATING_SCALE_MAX,
   REGION_OPTIONS,
   saveStoredFilters,
+  STORE_OPTIONS,
+  setStoredGmgCurrency,
   setStoredRegionOverride,
   type DiscountSort,
   type OsOption,
-  type PegiAge
+  type PegiAge,
+  type StoreTab
 } from './helpers'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -41,6 +49,28 @@ export default function Discounts() {
     () => getLocaleSettings(i18n.language, regionOverride),
     [i18n.language, regionOverride]
   )
+  const [gmgCurrencyOverride, setGmgCurrencyOverride] = useState<string | null>(
+    () => getStoredGmgCurrency()
+  )
+  const gmgCurrency =
+    gmgCurrencyOverride ?? getGmgAutoCurrency(localeSettings.currencyCode)
+
+  const handleGmgCurrencyChange = (currency: string | null) => {
+    setGmgCurrencyOverride(currency)
+    setStoredGmgCurrency(currency)
+  }
+
+  const currencyName = (code: string): string => {
+    try {
+      return (
+        new Intl.DisplayNames([i18n.language.replace('_', '-')], {
+          type: 'currency'
+        }).of(code === 'TRL' ? 'TRY' : code) ?? code
+      )
+    } catch {
+      return code
+    }
+  }
   const { gog } = useContext(ContextProvider)
   const isGogLoggedIn: boolean = !!gog?.username
 
@@ -77,6 +107,9 @@ export default function Discounts() {
   )
   const [selectedOS, setSelectedOS] = useState<OsOption[]>(
     storedFilters.selectedOS ?? []
+  )
+  const [storeTab, setStoreTab] = useState<StoreTab>(
+    storedFilters.storeTab ?? 'all'
   )
   const [priceRange, setPriceRange] = useState<[number, number] | null>(
     storedFilters.priceRange ?? null
@@ -115,6 +148,7 @@ export default function Discounts() {
       selectedGenres,
       selectedFeatures,
       selectedOS,
+      storeTab,
       priceRange,
       ratingRange,
       releaseYearRange,
@@ -130,6 +164,7 @@ export default function Discounts() {
     selectedGenres,
     selectedFeatures,
     selectedOS,
+    storeTab,
     priceRange,
     ratingRange,
     releaseYearRange,
@@ -150,13 +185,16 @@ export default function Discounts() {
       setProducts([])
 
       try {
-        const result = await window.api.getGogDiscounts(
-          localeSettings,
-          hideOwned,
-          wishlistOnly
-        )
+        // A GMG feed failure must not take down the GOG deals
+        const [gogResult, gmgResult] = await Promise.all([
+          window.api.getGogDiscounts(localeSettings, hideOwned, wishlistOnly),
+          window.api.getGmgDiscounts(gmgCurrency).catch((err: unknown) => {
+            window.api.logError(`Failed to fetch GMG discounts: ${String(err)}`)
+            return [] as CatalogProduct[]
+          })
+        ])
         if (!cancelled) {
-          setProducts(result)
+          setProducts([...gogResult, ...gmgResult])
           // Only clear data-bound ranges when this is a reload caused by a
           // locale change. On the very first load after mount we keep the
           // values restored from localStorage so persisted filters survive.
@@ -185,22 +223,35 @@ export default function Discounts() {
     return () => {
       cancelled = true
     }
-  }, [localeSettings, hideOwned, wishlistOnly, t])
+  }, [localeSettings, gmgCurrency, hideOwned, wishlistOnly, t])
+
+  // Filter options and bounds derive from the active tab's products.
+  // Rating/PEGI/genre/release-year/DLC data only exists on GOG items, so
+  // those filters are hidden AND skipped on the GMG tab — otherwise a range
+  // set on another tab would invisibly empty the grid.
+  const tabProducts = useMemo(
+    () =>
+      storeTab === 'all'
+        ? products
+        : products.filter((p) => (p.store ?? 'gog') === storeTab),
+    [products, storeTab]
+  )
+  const showGogOnlyFilters = storeTab !== 'gmg'
 
   const priceMax = useMemo(() => {
-    const max = products.reduce((acc, p) => {
+    const max = tabProducts.reduce((acc, p) => {
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       return amount > acc ? amount : acc
     }, 0)
     return Math.max(1, Math.ceil(max))
-  }, [products])
+  }, [tabProducts])
 
   const releaseYearBounds = useMemo<[number, number]>(() => {
     const currentYear = new Date().getFullYear()
     let min = currentYear
     let max = currentYear
     let found = false
-    for (const p of products) {
+    for (const p of tabProducts) {
       if (!p.releaseDate) continue
       const y = new Date(p.releaseDate).getFullYear()
       if (!Number.isFinite(y)) continue
@@ -214,7 +265,7 @@ export default function Discounts() {
       }
     }
     return [min, max]
-  }, [products])
+  }, [tabProducts])
 
   // GOG sometimes returns multiple slugs for the same display name (e.g.
   // "Multi-player"). Dedup by normalized name so the picker shows each label
@@ -222,7 +273,7 @@ export default function Discounts() {
   // filtering.
   const genreOptions = useMemo<CatalogGenre[]>(() => {
     const seen = new Map<string, CatalogGenre>()
-    for (const p of products) {
+    for (const p of tabProducts) {
       for (const g of p.genres ?? []) {
         const key = g.name.trim().toLowerCase()
         if (!key || seen.has(key)) continue
@@ -232,11 +283,11 @@ export default function Discounts() {
     return Array.from(seen.values()).sort((a, b) =>
       a.name.localeCompare(b.name)
     )
-  }, [products])
+  }, [tabProducts])
 
   const featureOptions = useMemo<CatalogFeature[]>(() => {
     const seen = new Map<string, CatalogFeature>()
-    for (const p of products) {
+    for (const p of tabProducts) {
       for (const f of p.features ?? []) {
         const key = f.name.trim().toLowerCase()
         if (!key || seen.has(key)) continue
@@ -246,7 +297,33 @@ export default function Discounts() {
     return Array.from(seen.values()).sort((a, b) =>
       a.name.localeCompare(b.name)
     )
+  }, [tabProducts])
+
+  const storeOptions = useMemo<DiscountStore[]>(() => {
+    const present = new Set<DiscountStore>()
+    for (const p of products) present.add(p.store ?? 'gog')
+    return STORE_OPTIONS.filter((s) => present.has(s))
   }, [products])
+
+  const osOptions = useMemo<OsOption[]>(() => {
+    const present = new Set<string>()
+    for (const p of tabProducts) {
+      for (const os of p.operatingSystems ?? []) present.add(os)
+    }
+    return OS_OPTIONS.filter((os) => present.has(os))
+  }, [tabProducts])
+
+  // A persisted tab whose store has no items would strand the grid on an
+  // empty selection with the tab bar hidden
+  useEffect(() => {
+    if (
+      storeTab !== 'all' &&
+      products.length > 0 &&
+      !storeOptions.includes(storeTab)
+    ) {
+      setStoreTab('all')
+    }
+  }, [storeTab, storeOptions, products.length])
 
   // Initialize price range once we know the max
   useEffect(() => {
@@ -265,17 +342,20 @@ export default function Discounts() {
   const filteredSorted = useMemo(() => {
     const [minPrice, maxPrice] = priceRange ?? [0, priceMax]
     const [minRating, maxRating] = ratingRange
-    const ratingFilterActive = minRating > 0 || maxRating < RATING_SCALE_MAX
+    const ratingFilterActive =
+      showGogOnlyFilters && (minRating > 0 || maxRating < RATING_SCALE_MAX)
     const [minYear, maxYear] = releaseYearRange ?? releaseYearBounds
     const yearFilterActive =
+      showGogOnlyFilters &&
       releaseYearRange !== null &&
       (minYear > releaseYearBounds[0] || maxYear < releaseYearBounds[1])
     const search = searchQuery.trim().toLowerCase()
 
-    const filtered = products.filter((p) => {
+    const filtered = tabProducts.filter((p) => {
       if (search && !p.title.toLowerCase().includes(search)) return false
 
-      if (hideDlcs && p.productType === 'dlc') return false
+      if (showGogOnlyFilters && hideDlcs && p.productType === 'dlc')
+        return false
 
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       if (amount < minPrice || amount > maxPrice) return false
@@ -291,12 +371,12 @@ export default function Discounts() {
         if (y < minYear || y > maxYear) return false
       }
 
-      if (maxPegiAge !== null) {
+      if (showGogOnlyFilters && maxPegiAge !== null) {
         const age = getPegiAge(p.ratings)
         if (age === null || age > maxPegiAge) return false
       }
 
-      if (selectedGenres.length > 0) {
+      if (showGogOnlyFilters && selectedGenres.length > 0) {
         const productGenres =
           p.genres?.map((g) => g.name.trim().toLowerCase()) ?? []
         if (!selectedGenres.some((s) => productGenres.includes(s))) return false
@@ -381,7 +461,8 @@ export default function Discounts() {
     }
     return sorted
   }, [
-    products,
+    tabProducts,
+    showGogOnlyFilters,
     priceRange,
     priceMax,
     ratingRange,
@@ -406,6 +487,7 @@ export default function Discounts() {
     selectedGenres,
     selectedFeatures,
     selectedOS,
+    storeTab,
     priceRange,
     ratingRange,
     releaseYearRange,
@@ -428,23 +510,25 @@ export default function Discounts() {
     [filteredSorted, clampedPage, pageSize]
   )
 
-  const hasActiveFilters =
+  const hasActiveGogOnlyFilters =
     selectedGenres.length > 0 ||
-    selectedFeatures.length > 0 ||
-    selectedOS.length > 0 ||
-    sortBy !== 'trending' ||
     ratingRange[0] !== 0 ||
     ratingRange[1] !== RATING_SCALE_MAX ||
     maxPegiAge !== null ||
-    searchQuery.trim() !== '' ||
     hideDlcs ||
     hideOwned ||
     wishlistOnly ||
-    (priceRange !== null &&
-      (priceRange[0] !== 0 || priceRange[1] !== priceMax)) ||
     (releaseYearRange !== null &&
       (releaseYearRange[0] !== releaseYearBounds[0] ||
         releaseYearRange[1] !== releaseYearBounds[1]))
+
+  const hasActiveFilters =
+    (showGogOnlyFilters && hasActiveGogOnlyFilters) ||
+    selectedFeatures.length > 0 ||
+    selectedOS.length > 0 ||
+    sortBy !== 'trending' ||
+    searchQuery.trim() !== '' ||
+    (priceRange !== null && (priceRange[0] !== 0 || priceRange[1] !== priceMax))
 
   const handleReset = () => {
     setSortBy('trending')
@@ -470,68 +554,138 @@ export default function Discounts() {
     <div className="discountsScreen">
       <div className="discountsScreen__topbar">
         <h2 className="discountsScreen__header">
-          {t('discounts.title', 'GOG Deals')}
+          {t('discounts.titleMulti', 'Deals')}
         </h2>
 
-        <div className="discountsScreen__region">
-          <label
-            className="discountsScreen__regionLabel"
-            htmlFor="discountsScreen__regionSelect"
+        {storeOptions.length > 1 && (
+          <div
+            className="discountsScreen__storeTabs"
+            role="tablist"
+            aria-label={t('discounts.tabs.label', 'Store')}
           >
-            {t('discounts.region.label', 'Store region')}
-          </label>
-          <Select
-            id="discountsScreen__regionSelect"
-            size="small"
-            value={regionOverride ?? ''}
-            onChange={(e) => {
-              const value = e.target.value
-              handleRegionChange(value === '' ? null : value)
-            }}
-            className="discountsScreen__regionSelect"
-            renderValue={(value) => {
-              if (!value) {
-                return t('discounts.region.auto', 'Auto ({{code}})', {
-                  code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
-                })
-              }
-              const match = REGION_OPTIONS.find((r) => r.countryCode === value)
-              if (!match) return value
-              const label = t(
-                `discounts.region.countries.${match.countryCode}`,
-                match.label
-              )
-              return `${label} · ${match.currencyCode}`
-            }}
-          >
-            <MenuItem value="">
-              {t('discounts.region.auto', 'Auto ({{code}})', {
-                code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
-              })}
-            </MenuItem>
-            {REGION_OPTIONS.map((r) => ({
-              ...r,
-              localizedLabel: t(
-                `discounts.region.countries.${r.countryCode}`,
-                r.label
-              )
-            }))
-              .sort((a, b) =>
-                a.localizedLabel.localeCompare(
-                  b.localizedLabel,
-                  i18n.language.replace('_', '-')
-                )
-              )
-              .map((r) => (
-                <MenuItem key={r.countryCode} value={r.countryCode}>
-                  {r.localizedLabel}
+            {(['all', ...storeOptions] as StoreTab[]).map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                role="tab"
+                aria-selected={storeTab === tab}
+                className={`discountsScreen__storeTab${
+                  storeTab === tab ? ' discountsScreen__storeTab--active' : ''
+                }`}
+                onClick={() => setStoreTab(tab)}
+              >
+                {tab === 'all'
+                  ? t('discounts.tabs.all', 'All stores')
+                  : tab.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {storeTab === 'gmg' ? (
+          <div className="discountsScreen__region">
+            <label
+              className="discountsScreen__regionLabel"
+              htmlFor="discountsScreen__currencySelect"
+            >
+              {t('discounts.currency.label', 'Currency')}
+            </label>
+            <Select
+              id="discountsScreen__currencySelect"
+              size="small"
+              value={gmgCurrencyOverride ?? ''}
+              onChange={(e) => {
+                const value = e.target.value
+                handleGmgCurrencyChange(value === '' ? null : value)
+              }}
+              className="discountsScreen__regionSelect"
+              renderValue={(value) => {
+                if (!value) {
+                  return t('discounts.region.auto', 'Auto ({{code}})', {
+                    code: gmgCurrency
+                  })
+                }
+                return `${currencyName(value)} · ${value}`
+              }}
+            >
+              <MenuItem value="">
+                {t('discounts.region.auto', 'Auto ({{code}})', {
+                  code: gmgCurrency
+                })}
+              </MenuItem>
+              {GMG_CURRENCIES.map((currency) => (
+                <MenuItem key={currency} value={currency}>
+                  {currencyName(currency)}
                   <span className="discountsScreen__regionCurrency">
-                    {r.currencyCode}
+                    {currency}
                   </span>
                 </MenuItem>
               ))}
-          </Select>
-        </div>
+            </Select>
+          </div>
+        ) : (
+          <div className="discountsScreen__region">
+            <label
+              className="discountsScreen__regionLabel"
+              htmlFor="discountsScreen__regionSelect"
+            >
+              {t('discounts.region.label', 'Store region')}
+            </label>
+            <Select
+              id="discountsScreen__regionSelect"
+              size="small"
+              value={regionOverride ?? ''}
+              onChange={(e) => {
+                const value = e.target.value
+                handleRegionChange(value === '' ? null : value)
+              }}
+              className="discountsScreen__regionSelect"
+              renderValue={(value) => {
+                if (!value) {
+                  return t('discounts.region.auto', 'Auto ({{code}})', {
+                    code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
+                  })
+                }
+                const match = REGION_OPTIONS.find(
+                  (r) => r.countryCode === value
+                )
+                if (!match) return value
+                const label = t(
+                  `discounts.region.countries.${match.countryCode}`,
+                  match.label
+                )
+                return `${label} · ${match.currencyCode}`
+              }}
+            >
+              <MenuItem value="">
+                {t('discounts.region.auto', 'Auto ({{code}})', {
+                  code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
+                })}
+              </MenuItem>
+              {REGION_OPTIONS.map((r) => ({
+                ...r,
+                localizedLabel: t(
+                  `discounts.region.countries.${r.countryCode}`,
+                  r.label
+                )
+              }))
+                .sort((a, b) =>
+                  a.localizedLabel.localeCompare(
+                    b.localizedLabel,
+                    i18n.language.replace('_', '-')
+                  )
+                )
+                .map((r) => (
+                  <MenuItem key={r.countryCode} value={r.countryCode}>
+                    {r.localizedLabel}
+                    <span className="discountsScreen__regionCurrency">
+                      {r.currencyCode}
+                    </span>
+                  </MenuItem>
+                ))}
+            </Select>
+          </div>
+        )}
       </div>
 
       {loading && (
@@ -556,7 +710,9 @@ export default function Discounts() {
             priceMax={priceMax}
             priceRange={priceRange ?? [0, priceMax]}
             onPriceChange={setPriceRange}
-            currencyCode={localeSettings.currencyCode}
+            currencyCode={
+              storeTab === 'gmg' ? gmgCurrency : localeSettings.currencyCode
+            }
             ratingRange={ratingRange}
             onRatingChange={setRatingRange}
             releaseYearBounds={releaseYearBounds}
@@ -570,8 +726,10 @@ export default function Discounts() {
             featureOptions={featureOptions}
             selectedFeatures={selectedFeatures}
             onFeaturesChange={setSelectedFeatures}
+            osOptions={osOptions}
             selectedOS={selectedOS}
             onOSChange={setSelectedOS}
+            showGogOnlyFilters={showGogOnlyFilters}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
             hideDlcs={hideDlcs}

@@ -2,11 +2,13 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
+import GOGLogo from 'frontend/assets/gog-logo.svg?react'
+import GMGLogo from 'frontend/assets/gmg-logo.svg?react'
 import type { CatalogProduct } from 'common/types/discounts'
 import {
+  getAffiliateLink,
   normalizeRating,
-  parseDiscountPercent,
-  withAffiliate
+  parseDiscountPercent
 } from '../../helpers'
 import './index.css'
 
@@ -21,9 +23,15 @@ const DiscountCard = ({ product }: Props) => {
     product.coverVertical || product.coverHorizontal || fallBackImage
   const discountPercent = parseDiscountPercent(product.price.discount)
   const rating = normalizeRating(product.reviewsRating)
+  const store = product.store ?? 'gog'
+  const drm = store === 'gmg' ? product.features?.[0]?.name : undefined
 
   const handleClick = () => {
-    const target = withAffiliate(product.storeLink)
+    const target = getAffiliateLink(product)
+    if (store === 'gmg') {
+      window.api.openExternalUrl(target)
+      return
+    }
     navigate(`/store-page?store-url=${encodeURIComponent(target)}`)
   }
 
@@ -54,12 +62,33 @@ const DiscountCard = ({ product }: Props) => {
       {discountPercent > 0 && (
         <span className="discountCard__badge">-{discountPercent}%</span>
       )}
-      <CachedImage
-        className="discountCard__image"
-        src={cover}
-        fallback={fallBackImage}
-        alt={product.title}
-      />
+      <div className="discountCard__cover">
+        <CachedImage
+          className="discountCard__image"
+          src={cover}
+          fallback={fallBackImage}
+          alt={product.title}
+        />
+        <span
+          className="discountCard__storeIcon"
+          title={
+            store === 'gmg'
+              ? drm
+                ? t(
+                    'discounts.storeBadge.gmgDrmHint',
+                    'Green Man Gaming — {{drm}} key, redeemed outside Heroic',
+                    { drm }
+                  )
+                : t(
+                    'discounts.storeBadge.gmgHint',
+                    'Green Man Gaming — key for an external store, not installable through Heroic'
+                  )
+              : 'GOG'
+          }
+        >
+          {store === 'gmg' ? <GMGLogo /> : <GOGLogo />}
+        </span>
+      </div>
       <div className="discountCard__info">
         <span className="discountCard__title">{product.title}</span>
         <div className="discountCard__priceRow">

@@ -366,7 +366,18 @@
             "releaseDesc": "Release date: new to old",
             "trending": "Trending"
         },
-        "title": "GOG Deals"
+        "currency": {
+            "label": "Currency"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} key, redeemed outside Heroic",
+            "gmgHint": "Green Man Gaming — key for an external store, not installable through Heroic"
+        },
+        "tabs": {
+            "all": "All stores",
+            "label": "Store"
+        },
+        "titleMulti": "Deals"
     },
     "dlc": {
         "actions": "Actions",
