@@ -22,8 +22,6 @@ const KEPT_FIELDS = [
   'CurrentPrice',
   'OriginalPrice',
   'Currency',
-  'Manufacturer',
-  'StockAvailability',
   'Text1'
 ]
 

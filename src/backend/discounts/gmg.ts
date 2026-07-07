@@ -35,8 +35,6 @@ interface ImpactCatalogItem {
   CurrentPrice?: string
   OriginalPrice?: string
   Currency?: string
-  Manufacturer?: string
-  StockAvailability?: string
   Text1?: string
 }
 
