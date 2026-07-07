@@ -111,15 +111,17 @@ export default function Discounts() {
   const [storeTab, setStoreTab] = useState<StoreTab>(
     storedFilters.storeTab ?? 'all'
   )
-  const [priceRange, setPriceRange] = useState<[number, number] | null>(
-    storedFilters.priceRange ?? null
-  )
+  // Price and release-year ranges are bound to the loaded data's min/max,
+  // which changes with the active tab, region, and currency — so they are
+  // seeded fresh on each load rather than persisted (a stored range from
+  // another tab/currency would silently filter the current one).
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(null)
   const [ratingRange, setRatingRange] = useState<[number, number]>(
     storedFilters.ratingRange ?? [0, RATING_SCALE_MAX]
   )
   const [releaseYearRange, setReleaseYearRange] = useState<
     [number, number] | null
-  >(storedFilters.releaseYearRange ?? null)
+  >(null)
   const [maxPegiAge, setMaxPegiAge] = useState<PegiAge | null>(
     storedFilters.maxPegiAge ?? null
   )
@@ -149,9 +151,7 @@ export default function Discounts() {
       selectedFeatures,
       selectedOS,
       storeTab,
-      priceRange,
       ratingRange,
-      releaseYearRange,
       maxPegiAge,
       searchQuery,
       hideDlcs,
@@ -165,9 +165,7 @@ export default function Discounts() {
     selectedFeatures,
     selectedOS,
     storeTab,
-    priceRange,
     ratingRange,
-    releaseYearRange,
     maxPegiAge,
     searchQuery,
     hideDlcs,
@@ -226,9 +224,6 @@ export default function Discounts() {
   }, [localeSettings, gmgCurrency, hideOwned, wishlistOnly, t])
 
   // Filter options and bounds derive from the active tab's products.
-  // Rating/PEGI/genre/release-year/DLC data only exists on GOG items, so
-  // those filters are hidden AND skipped on the GMG tab — otherwise a range
-  // set on another tab would invisibly empty the grid.
   const tabProducts = useMemo(
     () =>
       storeTab === 'all'
@@ -236,7 +231,6 @@ export default function Discounts() {
         : products.filter((p) => (p.store ?? 'gog') === storeTab),
     [products, storeTab]
   )
-  const showGogOnlyFilters = storeTab !== 'gmg'
 
   const priceMax = useMemo(() => {
     const max = tabProducts.reduce((acc, p) => {
@@ -304,6 +298,15 @@ export default function Discounts() {
     for (const p of products) present.add(p.store ?? 'gog')
     return STORE_OPTIONS.filter((s) => present.has(s))
   }, [products])
+  const gmgPresent = storeOptions.includes('gmg')
+
+  // Rating/PEGI/genre/release-year/DLC data only exists on GOG items, so
+  // those filters are hidden AND skipped unless the shown set is GOG-only:
+  // the GOG tab, or any tab when GMG contributes nothing.
+  const showGogOnlyFilters = storeTab === 'gog' || !gmgPresent
+  // The price range needs a single currency; on the mixed "all" tab (region
+  // currency for GOG, gmgCurrency for GMG) it is hidden and not applied.
+  const showPriceFilter = !(storeTab === 'all' && gmgPresent)
 
   const osOptions = useMemo<OsOption[]>(() => {
     const present = new Set<string>()
@@ -324,6 +327,17 @@ export default function Discounts() {
       setStoreTab('all')
     }
   }, [storeTab, storeOptions, products.length])
+
+  // Each tab has its own price/year scale, so re-seed those ranges from the
+  // new tab's bounds on every tab change.
+  const prevStoreTabRef = useRef(storeTab)
+  useEffect(() => {
+    if (prevStoreTabRef.current !== storeTab) {
+      prevStoreTabRef.current = storeTab
+      setPriceRange(null)
+      setReleaseYearRange(null)
+    }
+  }, [storeTab])
 
   // Initialize price range once we know the max
   useEffect(() => {
@@ -351,14 +365,26 @@ export default function Discounts() {
       (minYear > releaseYearBounds[0] || maxYear < releaseYearBounds[1])
     const search = searchQuery.trim().toLowerCase()
 
+    // Only constrain by OS/feature values the active tab actually offers: a
+    // selection carried over from another tab (e.g. Linux, absent from GMG)
+    // must be ignored, not silently empty the grid.
+    const availableOS = new Set(osOptions)
+    const effectiveOS = selectedOS.filter((os) => availableOS.has(os))
+    const availableFeatures = new Set(featureOptions.map((f) => f.slug))
+    const effectiveFeatures = selectedFeatures.filter((s) =>
+      availableFeatures.has(s)
+    )
+
     const filtered = tabProducts.filter((p) => {
       if (search && !p.title.toLowerCase().includes(search)) return false
 
       if (showGogOnlyFilters && hideDlcs && p.productType === 'dlc')
         return false
 
-      const amount = parsePriceAmount(p.price.finalMoney?.amount)
-      if (amount < minPrice || amount > maxPrice) return false
+      if (showPriceFilter) {
+        const amount = parsePriceAmount(p.price.finalMoney?.amount)
+        if (amount < minPrice || amount > maxPrice) return false
+      }
 
       if (ratingFilterActive) {
         const rating = normalizeRating(p.reviewsRating)
@@ -382,16 +408,16 @@ export default function Discounts() {
         if (!selectedGenres.some((s) => productGenres.includes(s))) return false
       }
 
-      if (selectedFeatures.length > 0) {
+      if (effectiveFeatures.length > 0) {
         const productFeatures =
           p.features?.map((f) => f.name.trim().toLowerCase()) ?? []
-        if (!selectedFeatures.every((s) => productFeatures.includes(s)))
+        if (!effectiveFeatures.every((s) => productFeatures.includes(s)))
           return false
       }
 
-      if (selectedOS.length > 0) {
+      if (effectiveOS.length > 0) {
         const productOS = p.operatingSystems ?? []
-        if (!selectedOS.some((os) => productOS.includes(os))) return false
+        if (!effectiveOS.some((os) => productOS.includes(os))) return false
       }
 
       return true
@@ -463,6 +489,7 @@ export default function Discounts() {
   }, [
     tabProducts,
     showGogOnlyFilters,
+    showPriceFilter,
     priceRange,
     priceMax,
     ratingRange,
@@ -472,6 +499,8 @@ export default function Discounts() {
     selectedGenres,
     selectedFeatures,
     selectedOS,
+    osOptions,
+    featureOptions,
     searchQuery,
     hideDlcs,
     sortBy
@@ -528,7 +557,9 @@ export default function Discounts() {
     selectedOS.length > 0 ||
     sortBy !== 'trending' ||
     searchQuery.trim() !== '' ||
-    (priceRange !== null && (priceRange[0] !== 0 || priceRange[1] !== priceMax))
+    (showPriceFilter &&
+      priceRange !== null &&
+      (priceRange[0] !== 0 || priceRange[1] !== priceMax))
 
   const handleReset = () => {
     setSortBy('trending')
@@ -730,6 +761,7 @@ export default function Discounts() {
             selectedOS={selectedOS}
             onOSChange={setSelectedOS}
             showGogOnlyFilters={showGogOnlyFilters}
+            showPriceFilter={showPriceFilter}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
             hideDlcs={hideDlcs}

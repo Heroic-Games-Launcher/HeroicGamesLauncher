@@ -306,9 +306,7 @@ interface StoredDiscountFilters {
   selectedFeatures?: string[]
   selectedOS?: OsOption[]
   storeTab?: StoreTab
-  priceRange?: [number, number] | null
   ratingRange?: [number, number]
-  releaseYearRange?: [number, number] | null
   maxPegiAge?: PegiAge | null
   searchQuery?: string
   hideDlcs?: boolean

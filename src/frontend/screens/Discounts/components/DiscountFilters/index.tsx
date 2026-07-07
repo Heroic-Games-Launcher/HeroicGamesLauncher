@@ -48,6 +48,7 @@ interface Props {
   selectedOS: OsOption[]
   onOSChange: (slugs: OsOption[]) => void
   showGogOnlyFilters: boolean
+  showPriceFilter: boolean
   searchQuery: string
   onSearchChange: (query: string) => void
   hideDlcs: boolean
@@ -180,6 +181,7 @@ const DiscountFilters = ({
   selectedOS,
   onOSChange,
   showGogOnlyFilters,
+  showPriceFilter,
   searchQuery,
   onSearchChange,
   hideDlcs,
@@ -210,7 +212,8 @@ const DiscountFilters = ({
   // Count of filters hidden inside the collapsible that are currently narrowing
   // results. Surfaces on the "More filters" toggle so a user returning with
   // persisted filters can see there's non-default state before expanding.
-  const priceActive = priceRange[0] !== 0 || priceRange[1] !== priceMax
+  const priceActive =
+    showPriceFilter && (priceRange[0] !== 0 || priceRange[1] !== priceMax)
   const ratingActive =
     ratingRange[0] !== 0 || ratingRange[1] !== RATING_SCALE_MAX
   const releaseYearActive =
@@ -504,92 +507,96 @@ const DiscountFilters = ({
             </div>
           </div>
 
-          <div className="discountFilters__row discountFilters__row--sliders">
-            <div className="discountFilters__field discountFilters__field--slider">
-              <label className="discountFilters__label">
-                <span>{t('discounts.filters.price', 'Price')}</span>
-                <span className="discountFilters__labelValue">
-                  {currencyCode} {priceRange[0].toFixed(0)} –{' '}
-                  {priceRange[1].toFixed(0)}
-                </span>
-              </label>
-              <Slider
-                size="small"
-                value={priceRange}
-                onChange={(_, value) =>
-                  onPriceChange(value as [number, number])
-                }
-                min={0}
-                max={priceMax}
-                step={1}
-                valueLabelDisplay="auto"
-                className="discountFilters__slider"
-              />
-              <div className="discountFilters__sliderBounds">
-                <span>{currencyCode} 0</span>
-                <span>
-                  {currencyCode} {priceMax}
-                </span>
-              </div>
+          {(showPriceFilter || showGogOnlyFilters) && (
+            <div className="discountFilters__row discountFilters__row--sliders">
+              {showPriceFilter && (
+                <div className="discountFilters__field discountFilters__field--slider">
+                  <label className="discountFilters__label">
+                    <span>{t('discounts.filters.price', 'Price')}</span>
+                    <span className="discountFilters__labelValue">
+                      {currencyCode} {priceRange[0].toFixed(0)} –{' '}
+                      {priceRange[1].toFixed(0)}
+                    </span>
+                  </label>
+                  <Slider
+                    size="small"
+                    value={priceRange}
+                    onChange={(_, value) =>
+                      onPriceChange(value as [number, number])
+                    }
+                    min={0}
+                    max={priceMax}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    className="discountFilters__slider"
+                  />
+                  <div className="discountFilters__sliderBounds">
+                    <span>{currencyCode} 0</span>
+                    <span>
+                      {currencyCode} {priceMax}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {showGogOnlyFilters && (
+                <div className="discountFilters__field discountFilters__field--slider">
+                  <label className="discountFilters__label">
+                    <span>{t('discounts.filters.rating', 'Rating')}</span>
+                    <span className="discountFilters__labelValue">
+                      {ratingRange[0].toFixed(1)} – {ratingRange[1].toFixed(1)}
+                    </span>
+                  </label>
+                  <Slider
+                    size="small"
+                    value={ratingRange}
+                    onChange={(_, value) =>
+                      onRatingChange(value as [number, number])
+                    }
+                    min={0}
+                    max={RATING_SCALE_MAX}
+                    step={0.5}
+                    valueLabelDisplay="auto"
+                    className="discountFilters__slider"
+                  />
+                  <div className="discountFilters__sliderBounds">
+                    <span>0.0</span>
+                    <span>{RATING_SCALE_MAX.toFixed(1)}</span>
+                  </div>
+                </div>
+              )}
+
+              {showGogOnlyFilters && (
+                <div className="discountFilters__field discountFilters__field--slider">
+                  <label className="discountFilters__label">
+                    <span>
+                      {t('discounts.filters.releaseYear', 'Release year')}
+                    </span>
+                    <span className="discountFilters__labelValue">
+                      {releaseYearRange[0]} – {releaseYearRange[1]}
+                    </span>
+                  </label>
+                  <Slider
+                    size="small"
+                    value={releaseYearRange}
+                    onChange={(_, value) =>
+                      onReleaseYearChange(value as [number, number])
+                    }
+                    min={releaseYearBounds[0]}
+                    max={releaseYearBounds[1]}
+                    step={1}
+                    valueLabelDisplay="auto"
+                    disabled={releaseYearBounds[0] === releaseYearBounds[1]}
+                    className="discountFilters__slider"
+                  />
+                  <div className="discountFilters__sliderBounds">
+                    <span>{releaseYearBounds[0]}</span>
+                    <span>{releaseYearBounds[1]}</span>
+                  </div>
+                </div>
+              )}
             </div>
-
-            {showGogOnlyFilters && (
-              <div className="discountFilters__field discountFilters__field--slider">
-                <label className="discountFilters__label">
-                  <span>{t('discounts.filters.rating', 'Rating')}</span>
-                  <span className="discountFilters__labelValue">
-                    {ratingRange[0].toFixed(1)} – {ratingRange[1].toFixed(1)}
-                  </span>
-                </label>
-                <Slider
-                  size="small"
-                  value={ratingRange}
-                  onChange={(_, value) =>
-                    onRatingChange(value as [number, number])
-                  }
-                  min={0}
-                  max={RATING_SCALE_MAX}
-                  step={0.5}
-                  valueLabelDisplay="auto"
-                  className="discountFilters__slider"
-                />
-                <div className="discountFilters__sliderBounds">
-                  <span>0.0</span>
-                  <span>{RATING_SCALE_MAX.toFixed(1)}</span>
-                </div>
-              </div>
-            )}
-
-            {showGogOnlyFilters && (
-              <div className="discountFilters__field discountFilters__field--slider">
-                <label className="discountFilters__label">
-                  <span>
-                    {t('discounts.filters.releaseYear', 'Release year')}
-                  </span>
-                  <span className="discountFilters__labelValue">
-                    {releaseYearRange[0]} – {releaseYearRange[1]}
-                  </span>
-                </label>
-                <Slider
-                  size="small"
-                  value={releaseYearRange}
-                  onChange={(_, value) =>
-                    onReleaseYearChange(value as [number, number])
-                  }
-                  min={releaseYearBounds[0]}
-                  max={releaseYearBounds[1]}
-                  step={1}
-                  valueLabelDisplay="auto"
-                  disabled={releaseYearBounds[0] === releaseYearBounds[1]}
-                  className="discountFilters__slider"
-                />
-                <div className="discountFilters__sliderBounds">
-                  <span>{releaseYearBounds[0]}</span>
-                  <span>{releaseYearBounds[1]}</span>
-                </div>
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </div>
     </section>
