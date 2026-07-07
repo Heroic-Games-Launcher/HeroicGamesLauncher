@@ -291,6 +291,9 @@
             "pagination": "Pagination",
             "rating": "Rating {{rating}} out of 10"
         },
+        "currency": {
+            "label": "Currency"
+        },
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
         "filters": {
@@ -307,8 +310,8 @@
             "hideOwned": "Hide Owned",
             "lessFilters": "Less filters",
             "moreFilters": "More filters",
-            "os": "Operating system",
             "pageSize": "Per page",
+            "platform": "Platform",
             "price": "Price",
             "rating": "Rating",
             "releaseYear": "Release year",
@@ -366,7 +369,15 @@
             "releaseDesc": "Release date: new to old",
             "trending": "Trending"
         },
-        "title": "GOG Deals"
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} key, redeemed outside Heroic",
+            "gmgHint": "Green Man Gaming — key for an external store, not installable through Heroic"
+        },
+        "tabs": {
+            "all": "All stores",
+            "label": "Store"
+        },
+        "titleMulti": "Deals"
     },
     "dlc": {
         "actions": "Actions",

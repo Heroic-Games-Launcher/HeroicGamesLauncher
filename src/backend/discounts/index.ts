@@ -7,6 +7,7 @@ import type {
   CatalogLocaleSettings,
   CatalogProduct
 } from 'common/types/discounts'
+import './gmg'
 
 interface CatalogResponse {
   pages: number
