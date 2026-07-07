@@ -34,7 +34,8 @@ const mockActiveStore = activeSessionsStore as unknown as {
 const mockTsStoreSet = tsStore.set as unknown as jest.Mock
 const mockTsStoreGet = tsStore.get as unknown as jest.Mock
 const mockGogGetGame = libraryManagerMap.gog.getGame as unknown as jest.Mock
-const mockLegendaryGetGame = libraryManagerMap.legendary.getGame as unknown as jest.Mock
+const mockLegendaryGetGame = libraryManagerMap.legendary
+  .getGame as unknown as jest.Mock
 const mockLogError = logError as unknown as jest.Mock
 
 const mockGogGame = { updatePlaytime: jest.fn() }
@@ -83,9 +84,15 @@ describe('recoverOrphanedSessions', () => {
 
     await recoverOrphanedSessions()
 
-    expect(mockTsStoreSet).toHaveBeenCalledWith('1511366207.lastPlayed', checkpointAt)
+    expect(mockTsStoreSet).toHaveBeenCalledWith(
+      '1511366207.lastPlayed',
+      checkpointAt
+    )
     expect(mockTsStoreSet).toHaveBeenCalledWith('1511366207.totalPlayed', 15)
-    expect(mockGogGame.updatePlaytime).toHaveBeenCalledWith(new Date(ISO_START), 5)
+    expect(mockGogGame.updatePlaytime).toHaveBeenCalledWith(
+      new Date(ISO_START),
+      5
+    )
     expect(mockActiveStore.delete).toHaveBeenCalledWith('1511366207')
   })
 
@@ -147,7 +154,10 @@ describe('recoverOrphanedSessions', () => {
 
     // active = 10 - 4 = 6m
     expect(mockTsStoreSet).toHaveBeenCalledWith('1511366207.totalPlayed', 6)
-    expect(mockGogGame.updatePlaytime).toHaveBeenCalledWith(new Date(ISO_START), 6)
+    expect(mockGogGame.updatePlaytime).toHaveBeenCalledWith(
+      new Date(ISO_START),
+      6
+    )
   })
 
   test('unknown runner: outer catch fires, activeSessionsStore.delete still runs', async () => {
@@ -168,7 +178,9 @@ describe('recoverOrphanedSessions', () => {
 
     expect(mockActiveStore.delete).toHaveBeenCalledWith('weird-game')
     expect(mockLogError).toHaveBeenCalledWith(
-      expect.stringContaining('Failed to finalize orphaned session for weird-game'),
+      expect.stringContaining(
+        'Failed to finalize orphaned session for weird-game'
+      ),
       'Backend'
     )
   })
@@ -232,7 +244,9 @@ describe('recoverOrphanedSessions', () => {
     expect(mockActiveStore.delete).toHaveBeenCalledWith('game-b')
     expect(mockGogGame.updatePlaytime).toHaveBeenCalledTimes(2)
     expect(mockLogError).toHaveBeenCalledWith(
-      expect.stringContaining('Failed to enqueue orphaned gog session for game-a'),
+      expect.stringContaining(
+        'Failed to enqueue orphaned gog session for game-a'
+      ),
       'Backend'
     )
   })
