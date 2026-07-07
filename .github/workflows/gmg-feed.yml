@@ -18,7 +18,7 @@ jobs:
   update-feed:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Fetch and normalize the GMG catalog
         env:
