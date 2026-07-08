@@ -35,7 +35,7 @@ export const isUsingGamepad = () => currentController !== -1
  * preload script (see `src/webviewPreload/index.ts`). The host keeps full
  * ownership of gamepad parsing — the guest only acts on these commands.
  */
-export type WebviewCommand =
+type WebviewCommand =
   | { type: 'navigate'; direction: 'up' | 'down' | 'left' | 'right' }
   | { type: 'scroll'; direction: 'up' | 'down' }
   | { type: 'click' }
@@ -52,7 +52,7 @@ export type WebviewCommand =
  * move real focus into the webview (that would blur the host and kill gamepad
  * polling) — arming just sends an `enter` command via `send`.
  */
-export interface WebviewInputTarget {
+interface WebviewInputTarget {
   send: (cmd: WebviewCommand) => void
   exit: () => void
   focusUrlBar: () => void
