@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Step, StepLabel, Stepper } from '@mui/material'
+import { Box, Step, StepLabel, Stepper } from '@mui/material'
 import MetadataStep from './steps/MetadataStep'
 import InstallationStep from './steps/InstallationStep'
 import FinishStep from './steps/FinishStep'
@@ -287,7 +287,16 @@ export default function SideloadDialog({
           />
         )
       case 'compat':
-        return wineSelector
+        return (
+          <Box
+            height={'100%'}
+            display={'flex'}
+            flexDirection={'column'}
+            justifyContent={'center'}
+          >
+            {wineSelector}
+          </Box>
+        )
       case 'install':
         return (
           <InstallationStep
