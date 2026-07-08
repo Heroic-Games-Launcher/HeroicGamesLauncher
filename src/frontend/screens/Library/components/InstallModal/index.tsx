@@ -275,6 +275,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
                   crossoverBottle={crossoverBottle}
                   setCrossoverBottle={setCrossoverBottle}
                   title={sideloadTitle}
+                  initiallyOpen
                 />
               ) : null
             }

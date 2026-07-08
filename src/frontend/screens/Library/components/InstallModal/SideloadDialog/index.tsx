@@ -1,17 +1,7 @@
 import './index.scss'
 import short from 'short-uuid'
-import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
-import {
-  CachedImage,
-  TextInputField,
-  PathSelectionBox,
-  ToggleSwitch,
-  InfoBox,
-  SteamGridDBPicker,
-  WarningMessage
-} from 'frontend/components/UI'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
   getGameInfo,
@@ -26,18 +16,12 @@ import React, {
   useMemo,
   useState
 } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
-import classNames from 'classnames'
-import axios from 'axios'
-import { NavLink, useNavigate } from 'react-router-dom'
-import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
-import Folder from '@mui/icons-material/Folder'
-import { Step, StepContent, StepLabel, Stepper } from '@mui/material'
+import { Step, StepLabel, Stepper } from '@mui/material'
 import MetadataStep from './steps/MetadataStep'
-import CompatibilityStep from './steps/CompatibilityStep'
 import InstallationStep from './steps/InstallationStep'
 import FinishStep from './steps/FinishStep'
 import ImagesStep from './steps/ImagesStep'
@@ -69,7 +53,7 @@ export default function SideloadDialog({
   title,
   setTitle
 }: Props) {
-  const { t, i18n } = useTranslation('gamepage')
+  const { t } = useTranslation('gamepage')
   const [activeStep, setActiveStep] = useState(0)
   const [selectedExe, setSelectedExe] = useState('')
   const [gameUrl, setGameUrl] = useState('')
@@ -77,13 +61,10 @@ export default function SideloadDialog({
   const [launchFullScreen, setLaunchFullScreen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
   const [heroUrl, setHeroUrl] = useState('')
-  const [searching, setSearching] = useState(false)
-  const [imageLoading, setImageLoading] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const [addingApp, setAddingApp] = useState(false)
-  const [sgdbTarget, setSgdbTarget] = useState<'cover' | 'square' | null>(null)
   const [hasSgdbKey, setHasSgdbKey] = useState(false)
   const editMode = Boolean(appName)
 
@@ -140,35 +121,6 @@ export default function SideloadDialog({
       setApp_name(short.generate().toString())
     }
   }, [])
-
-  async function searchImage() {
-    if (hasSgdbKey) {
-      setSgdbTarget('square')
-      return
-    }
-    setSearching(true)
-
-    try {
-      const response = await axios.get(
-        `https://steamgrid.usebottles.com/api/search/${title}`,
-        { timeout: 3500 }
-      )
-
-      if (response.status === 200) {
-        const steamGridImage = response.data as string
-
-        if (steamGridImage && steamGridImage.startsWith('http')) {
-          setImageUrl(steamGridImage)
-        }
-      } else {
-        throw new Error('Fetch failed')
-      }
-    } catch (error) {
-      window.api.logError(`${error}`)
-    } finally {
-      setSearching(false)
-    }
-  }
 
   async function handleInstall(): Promise<void> {
     setAddingApp(true)
@@ -252,7 +204,7 @@ export default function SideloadDialog({
         await window.api.runWineCommand({
           commandParts: [exeToRun],
           wait: true,
-          protonVerb: 'runinprefix',
+          protonVerb: 'run',
           gameSettings: {
             ...gameSettings,
             winePrefix,
@@ -260,6 +212,7 @@ export default function SideloadDialog({
           }
         })
         setRunningSetup(false)
+        handleNextStepClick()
       } catch (error) {
         console.log('finished with error', error)
         setRunningSetup(false)
@@ -309,13 +262,14 @@ export default function SideloadDialog({
   }, [shouldShowRunExe])
 
   const numberOfSteps = flowSteps.length
+  const lastStepIndex = numberOfSteps - 1
 
   function handlePreviousStepClick() {
     setActiveStep(Math.max(activeStep - 1, 0))
   }
 
   function handleNextStepClick() {
-    setActiveStep(Math.min(activeStep + 1, numberOfSteps - 1))
+    setActiveStep(Math.min(activeStep + 1, lastStepIndex))
   }
 
   function renderDialogContent(step: SupportedSteps) {
@@ -341,9 +295,14 @@ export default function SideloadDialog({
           />
         )
       case 'compat':
-        return <CompatibilityStep />
+        return wineSelector
       case 'install':
-        return <InstallationStep />
+        return (
+          <InstallationStep
+            runningSetup={runningSetup}
+            handleRunExe={handleRunExe}
+          />
+        )
       case 'finish':
         return <FinishStep />
     }
@@ -372,11 +331,16 @@ export default function SideloadDialog({
           <button
             onClick={handlePreviousStepClick}
             className="button is-tertiary"
+            disabled={runningSetup || activeStep === 0}
           >
             {t('button.back', 'Back')}
           </button>
-          <button onClick={handleNextStepClick} className="button">
-            {numberOfSteps - 1 === activeStep
+          <button
+            onClick={handleNextStepClick}
+            className="button"
+            disabled={runningSetup}
+          >
+            {lastStepIndex === activeStep
               ? t('button.finish', 'Finish')
               : t('button.next', 'Next')}
           </button>
@@ -384,172 +348,4 @@ export default function SideloadDialog({
       </DialogFooter>
     </>
   )
-
-  // return (
-  //   <>
-  //     <DialogContent>
-  //       <div className="sideloadGrid">
-  //         <div className="imageIcons">
-  //
-  //         <div className="sideloadForm">
-  //           {sgdbTarget ? (
-  //             <SteamGridDBPicker
-  //               initialTitle={title}
-  //               mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
-  //               onClose={() => setSgdbTarget(null)}
-  //               onSelect={(url: string) => {
-  //                 if (sgdbTarget === 'cover') {
-  //                   setHeroUrl(url)
-  //                 } else if (url !== imageUrl) {
-  //                   setImageLoading(true)
-  //                   setImageUrl(url)
-  //                 }
-  //                 setSgdbTarget(null)
-  //               }}
-  //             />
-  //           ) : (
-  //             <>
-  //
-  //               <TextInputField
-  //                 label={t('sideload.info.title', 'Game/App Title')}
-  //                 placeholder={t(
-  //                   'sideload.placeholder.title',
-  //                   'Add a title to your Game/App'
-  //                 )}
-  //                 onChange={(newValue) => handleTitle(newValue)}
-  //                 onBlur={async () => searchImage()}
-  //                 htmlId="sideload-title"
-  //                 value={title}
-  //                 maxLength={40}
-  //               />
-  //               <details className="advancedFields">
-  //                 <summary>{t('sideload.images.summary', 'Images')}</summary>
-  //                 <TextInputWithIconField
-  //                   label={t(
-  //                     'sideload.info.image-hint',
-  //                     'Square Art (click on the image to search on SteamGridDB)'
-  //                   )}
-  //                   placeholder={t(
-  //                     'sideload.placeholder.image',
-  //                     'Paste an URL of an Image or select one from your computer'
-  //                   )}
-  //                   onChange={(newValue: string) => setImageUrl(newValue)}
-  //                   htmlId="sideload-image"
-  //                   value={imageUrl}
-  //                   icon={<Folder />}
-  //                   onIconClick={() => handleSelectLocalImage('square')}
-  //                 />
-  //                 <TextInputWithIconField
-  //                   label={t(
-  //                     'sideload.info.cover-hint',
-  //                     'Cover/Hero Art (click on the image to search on SteamGridDB)'
-  //                   )}
-  //                   placeholder={t(
-  //                     'sideload.placeholder.image',
-  //                     'Paste an URL of an Image or select one from your computer'
-  //                   )}
-  //                   onChange={(newValue: string) => setHeroUrl(newValue)}
-  //                   htmlId="sideload-cover"
-  //                   value={heroUrl}
-  //                   icon={<Folder />}
-  //                   onIconClick={() => handleSelectLocalImage('cover')}
-  //                 />
-  //               </details>
-  //               {!hasSgdbKey && (
-  //                 <WarningMessage>
-  //                   {t(
-  //                     'edit-game.sgdb.no-key-prefix',
-  //                     'To search SteamGridDB for cover art, add an API key in'
-  //                   )}{' '}
-  //                   <a
-  //                     role="button"
-  //                     tabIndex={0}
-  //                     onClick={goToAdvancedSettings}
-  //                     className="sgdbWarningLink"
-  //                   >
-  //                     {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
-  //                   </a>
-  //                   .
-  //                 </WarningMessage>
-  //               )}
-  //               {!editMode && children}
-  //               {showSideloadExe && (
-  //                 <PathSelectionBox
-  //                   type="file"
-  //                   onPathChange={setSelectedExe}
-  //                   path={selectedExe}
-  //                   placeholder={t('sideload.info.exe', 'Select Executable')}
-  //                   pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
-  //                   pathDialogDefaultPath={winePrefix}
-  //                   pathDialogFilters={fileFilters(platformToInstall)}
-  //                   htmlId="sideload-exe"
-  //                   label={t('sideload.info.exe', 'Select Executable')}
-  //                   noDeleteButton
-  //                 />
-  //               )}
-  //               {!showSideloadExe && (
-  //                 <>
-  //                   <TextInputField
-  //                     label={t('sideload.info.broser', 'BrowserURL')}
-  //                     placeholder={t(
-  //                       'sideload.placeholder.url',
-  //                       'Paste the Game URL here'
-  //                     )}
-  //                     onChange={(newValue: string) => handleGameUrl(newValue)}
-  //                     htmlId="sideload-game-url"
-  //                     value={gameUrl}
-  //                   />
-  //                   <TextInputField
-  //                     label={t('sideload.info.useragent', 'Custom User Agent')}
-  //                     placeholder={t(
-  //                       'sideload.placeholder.useragent',
-  //                       'Write a custom user agent here to be used on this browser app/game'
-  //                     )}
-  //                     onChange={(newValue: string) =>
-  //                       setCustomUserAgent(newValue)
-  //                     }
-  //                     htmlId="sideload-user-agent"
-  //                     value={customUserAgent}
-  //                   />
-  //                   <ToggleSwitch
-  //                     htmlId="launch-fullscreen"
-  //                     value={launchFullScreen}
-  //                     handleChange={() =>
-  //                       setLaunchFullScreen(!launchFullScreen)
-  //                     }
-  //                     title={t(
-  //                       'sideload.info.fullscreen',
-  //                       'Launch Fullscreen (F11 to exit)'
-  //                     )}
-  //                   />
-  //                 </>
-  //               )}
-  //             </>
-  //           )}
-  //         </div>
-  //       </div>
-  //     </DialogContent>
-  //     <DialogFooter>
-  //       {shouldShowRunExe && (
-  //         <button
-  //           onClick={async () => handleRunExe()}
-  //           className={`button is-secondary`}
-  //           disabled={runningSetup || !title.length}
-  //         >
-  //           {runningSetup
-  //             ? t('button.running-setup', 'Running Setup')
-  //             : t('button.run-exe-first', 'Run Installer First')}
-  //         </button>
-  //       )}
-  //       <button
-  //         onClick={async () => handleInstall()}
-  //         className={`button is-success`}
-  //         disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
-  //       >
-  //         {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
-  //         {!addingApp && t('button.finish', 'Finish')}
-  //       </button>
-  //     </DialogFooter>
-  //   </>
-  // )
 }
