@@ -302,6 +302,7 @@ export default function SideloadDialog({
           <InstallationStep
             runningSetup={runningSetup}
             handleRunExe={handleRunExe}
+            onSkip={handleNextStepClick}
           />
         )
       case 'finish':
@@ -320,6 +321,12 @@ export default function SideloadDialog({
         )
     }
   }
+
+  const showNextButton = useMemo(() => {
+    const step = flowSteps[activeStep]
+    if (step === 'install') return false
+    return true
+  }, [flowSteps, activeStep])
 
   return (
     <>
@@ -348,15 +355,17 @@ export default function SideloadDialog({
           >
             {t('button.back', 'Back')}
           </button>
-          <button
-            onClick={handleNextStepClick}
-            className="button"
-            disabled={addingApp || runningSetup}
-          >
-            {lastStepIndex === activeStep
-              ? t('button.finish', 'Finish')
-              : t('button.next', 'Next')}
-          </button>
+          {showNextButton && (
+            <button
+              onClick={handleNextStepClick}
+              className="button"
+              disabled={addingApp || runningSetup}
+            >
+              {lastStepIndex === activeStep
+                ? t('button.finish', 'Finish')
+                : t('button.next', 'Next')}
+            </button>
+          )}
         </div>
       </DialogFooter>
     </>

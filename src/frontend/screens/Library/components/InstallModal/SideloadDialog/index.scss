@@ -118,42 +118,6 @@
   }
 }
 
-.sideloadInstallForm {
-  padding: var(--space-md);
-  gap: var(--space-xl);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100%;
-
-  & .installButtons {
-    display: flex;
-    gap: var(--space-sm);
-    flex-direction: column;
-  }
-}
-
-.sideloadRunInstaller {
-  cursor: pointer;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--text-xl);
-  padding: var(--space-md);
-  margin: var(--space-md);
-  border-radius: 10px;
-  color: var(--primary);
-  border: 2px dashed var(--primary);
-
-  & svg {
-    width: 70%;
-    height: 70%;
-  }
-}
-
 .sideloadFinish {
   display: flex;
   height: 100%;
