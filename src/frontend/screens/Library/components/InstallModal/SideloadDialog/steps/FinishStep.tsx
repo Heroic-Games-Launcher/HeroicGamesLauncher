@@ -1,6 +1,11 @@
-import { WineInstallation } from 'common/types'
+import { InstallPlatform, WineInstallation } from 'common/types'
 import { ParsedProtonShorctut } from 'common/types/proton_shorctuts'
-import { TextInputField, ToggleSwitch } from 'frontend/components/UI'
+import {
+  CachedImage,
+  PathSelectionBox,
+  TextInputField,
+  ToggleSwitch
+} from 'frontend/components/UI'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -14,6 +19,10 @@ type Props = {
   launchFullScreen: boolean
   winePrefix: string
   wineVersion?: WineInstallation
+  platformToInstall: InstallPlatform
+  setSelectedExe: (val: string) => void
+  selectedExe: string
+  fileFilters: (installPlatform: InstallPlatform) => Electron.FileFilter[]
 }
 
 export default function FinishStep({
@@ -23,9 +32,13 @@ export default function FinishStep({
   gameUrl,
   customUserAgent,
   launchFullScreen,
+  platformToInstall,
+  selectedExe,
+  setSelectedExe,
   setGameUrl,
   setCustomUserAgent,
-  setLaunchFullScreen
+  setLaunchFullScreen,
+  fileFilters
 }: Props) {
   const { t } = useTranslation('gamepage')
 
@@ -43,7 +56,7 @@ export default function FinishStep({
   }
 
   async function loadProtonShortcuts() {
-    if (wineVersion?.type !== 'proton') return
+    if (window.platform !== 'linux' || wineVersion?.type !== 'proton') return
     const shortcuts = await window.api.getProtonShortcuts(winePrefix)
     setProtonShortcuts(shortcuts)
   }
@@ -54,7 +67,36 @@ export default function FinishStep({
 
   return (
     <div className="sideloadFinish">
-      {showSideloadExe && <></>}
+      {showSideloadExe && (
+        <>
+          <div className="proton-shortcuts">
+            {protonShortcuts.map((shortcut) => (
+              <div
+                key={shortcut.name}
+                onClick={() => setSelectedExe(shortcut.executable)}
+              >
+                {shortcut.icon && (
+                  <CachedImage src={`file://${shortcut.icon}`} />
+                )}
+                {shortcut.name}
+              </div>
+            ))}
+          </div>
+
+          <PathSelectionBox
+            type="file"
+            onPathChange={setSelectedExe}
+            path={selectedExe}
+            placeholder={t('sideload.info.exe', 'Select Executable')}
+            pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
+            pathDialogDefaultPath={winePrefix}
+            pathDialogFilters={fileFilters(platformToInstall)}
+            htmlId="sideload-exe"
+            label={t('sideload.info.exe', 'Select Executable')}
+            noDeleteButton
+          />
+        </>
+      )}
       {!showSideloadExe && (
         <>
           <TextInputField

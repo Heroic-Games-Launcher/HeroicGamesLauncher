@@ -3,12 +3,7 @@ import short from 'short-uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
-import {
-  getGameInfo,
-  getGameSettings,
-  removeSpecialcharacters,
-  writeConfig
-} from 'frontend/helpers'
+import { getGameInfo, getGameSettings, writeConfig } from 'frontend/helpers'
 import React, {
   useCallback,
   useContext,
@@ -70,11 +65,6 @@ export default function SideloadDialog({
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
 
-  function handleTitle(value: string) {
-    value = removeSpecialcharacters(value)
-    setTitle(value)
-  }
-
   const appPlatform = gameInfo.install?.platform || platformToInstall
 
   useEffect(() => {
@@ -108,7 +98,6 @@ export default function SideloadDialog({
           setCustomUserAgent(customUserAgent)
         }
 
-        console.log(launchFullScreen)
         if (launchFullScreen !== undefined) {
           setLaunchFullScreen(launchFullScreen)
         }
@@ -261,6 +250,10 @@ export default function SideloadDialog({
   }
 
   function handleNextStepClick() {
+    if (activeStep === lastStepIndex) {
+      handleInstall()
+      return
+    }
     setActiveStep(Math.min(activeStep + 1, lastStepIndex))
   }
 
@@ -317,6 +310,10 @@ export default function SideloadDialog({
             setLaunchFullScreen={setLaunchFullScreen}
             winePrefix={winePrefix}
             wineVersion={wineVersion}
+            platformToInstall={platformToInstall}
+            selectedExe={selectedExe}
+            setSelectedExe={setSelectedExe}
+            fileFilters={fileFilters}
           />
         )
     }
@@ -363,7 +360,7 @@ export default function SideloadDialog({
           {renderDialogContent(flowSteps[activeStep])}
         </div>
       </DialogContent>
-      <DialogFooter>
+      <DialogFooter className="sideload">
         <div className="sideloadFooterMetadata">
           {title}
           {platformIcon()}
