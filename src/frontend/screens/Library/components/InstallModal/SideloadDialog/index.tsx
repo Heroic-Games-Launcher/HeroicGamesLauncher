@@ -331,7 +331,11 @@ export default function SideloadDialog({
   return (
     <>
       <DialogContent className="sideloadDialog">
-        <Stepper className="sideloadStepper" activeStep={activeStep}>
+        <Stepper
+          className="sideloadStepper"
+          activeStep={activeStep}
+          sx={{ marginTop: 2, marginBottom: 2 }}
+        >
           {flowSteps.map((step) => (
             <Step
               key={step}
