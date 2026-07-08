@@ -221,14 +221,6 @@ export default function SideloadDialog({
     return
   }
 
-  function handleGameUrl(url: string) {
-    if (!url.startsWith('https://')) {
-      return setGameUrl(`https://${url}`)
-    }
-
-    setGameUrl(url)
-  }
-
   function platformIcon() {
     const platformIcon = availablePlatforms.filter(
       (p) => p.name === appPlatform.replace('Mac', 'macOS')
@@ -254,7 +246,7 @@ export default function SideloadDialog({
 
   const flowSteps: SupportedSteps[] = useMemo(() => {
     const steps: SupportedSteps[] = ['meta', 'images']
-    if (shouldShowRunExe) {
+    if (!editMode && shouldShowRunExe) {
       steps.push('compat', 'install')
     }
     steps.push('finish')
@@ -304,7 +296,19 @@ export default function SideloadDialog({
           />
         )
       case 'finish':
-        return <FinishStep />
+        return (
+          <FinishStep
+            appPlatform={appPlatform}
+            gameUrl={gameUrl}
+            setGameUrl={setGameUrl}
+            customUserAgent={customUserAgent}
+            setCustomUserAgent={setCustomUserAgent}
+            launchFullScreen={launchFullScreen}
+            setLaunchFullScreen={setLaunchFullScreen}
+            winePrefix={winePrefix}
+            wineVersion={wineVersion}
+          />
+        )
     }
   }
 
@@ -331,14 +335,14 @@ export default function SideloadDialog({
           <button
             onClick={handlePreviousStepClick}
             className="button is-tertiary"
-            disabled={runningSetup || activeStep === 0}
+            disabled={addingApp || runningSetup || activeStep === 0}
           >
             {t('button.back', 'Back')}
           </button>
           <button
             onClick={handleNextStepClick}
             className="button"
-            disabled={runningSetup}
+            disabled={addingApp || runningSetup}
           >
             {lastStepIndex === activeStep
               ? t('button.finish', 'Finish')
