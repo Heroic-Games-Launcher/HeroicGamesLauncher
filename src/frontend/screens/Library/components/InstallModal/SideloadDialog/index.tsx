@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Box, Step, StepLabel, Stepper } from '@mui/material'
+import { Box, Step, StepLabel, Stepper, stepIconClasses } from '@mui/material'
 import MetadataStep from './steps/MetadataStep'
 import InstallationStep from './steps/InstallationStep'
 import FinishStep from './steps/FinishStep'
@@ -333,7 +333,24 @@ export default function SideloadDialog({
       <DialogContent className="sideloadDialog">
         <Stepper className="sideloadStepper" activeStep={activeStep}>
           {flowSteps.map((step) => (
-            <Step key={step}>
+            <Step
+              key={step}
+              sx={{
+                [`& .${stepIconClasses.root}`]: {
+                  color: 'var(--neutral-04)'
+                },
+                [`& .${stepIconClasses.root}.${stepIconClasses.active}`]: {
+                  color: 'var(--primary-button)'
+                },
+
+                [`& .${stepIconClasses.text}`]: { fill: 'var(--text-default)' },
+
+                [`& .${stepIconClasses.root}.${stepIconClasses.active} .${stepIconClasses.text}`]:
+                  {
+                    fill: 'var(--text-tertiary)'
+                  }
+              }}
+            >
               <StepLabel>{stepLabels[step]}</StepLabel>
             </Step>
           ))}
