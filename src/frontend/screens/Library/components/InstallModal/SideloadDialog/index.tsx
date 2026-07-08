@@ -19,7 +19,13 @@ import {
   removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
@@ -29,18 +35,27 @@ import axios from 'axios'
 import { NavLink, useNavigate } from 'react-router-dom'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import Folder from '@mui/icons-material/Folder'
+import { Step, StepContent, StepLabel, Stepper } from '@mui/material'
+import MetadataStep from './steps/MetadataStep'
+import CompatibilityStep from './steps/CompatibilityStep'
+import InstallationStep from './steps/InstallationStep'
+import FinishStep from './steps/FinishStep'
+import ImagesStep from './steps/ImagesStep'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
   winePrefix: string
   wineVersion: WineInstallation | undefined
-  children: React.ReactNode
   platformToInstall: InstallPlatform
+  platformSelection: React.ReactNode
+  wineSelector?: React.ReactNode
   backdropClick: () => void
   appName?: string
   title: string
   setTitle: (title: string) => void
 }
+
+type SupportedSteps = 'meta' | 'images' | 'compat' | 'install' | 'finish'
 
 export default function SideloadDialog({
   availablePlatforms,
@@ -48,12 +63,14 @@ export default function SideloadDialog({
   winePrefix,
   wineVersion,
   platformToInstall,
-  children,
+  platformSelection,
+  wineSelector,
   appName,
   title,
   setTitle
 }: Props) {
   const { t, i18n } = useTranslation('gamepage')
+  const [activeStep, setActiveStep] = useState(0)
   const [selectedExe, setSelectedExe] = useState('')
   const [gameUrl, setGameUrl] = useState('')
   const [customUserAgent, setCustomUserAgent] = useState('')
@@ -71,11 +88,6 @@ export default function SideloadDialog({
   const editMode = Boolean(appName)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
-  const navigate = useNavigate()
-  const goToAdvancedSettings = () => {
-    backdropClick()
-    navigate('/settings/advanced')
-  }
 
   function handleTitle(value: string) {
     value = removeSpecialcharacters(value)
@@ -156,25 +168,6 @@ export default function SideloadDialog({
     } finally {
       setSearching(false)
     }
-  }
-
-  async function handleSelectLocalImage(target: 'cover' | 'square') {
-    const path = await window.api.openDialog({
-      buttonLabel: t('box.select.button', 'Select'),
-      properties: ['openFile'],
-      title: t('box.select.image', 'Select Image'),
-      filters: [
-        {
-          name: 'Images',
-          extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif']
-        },
-        { name: 'All', extensions: ['*'] }
-      ]
-    })
-
-    if (!path) return
-    if (target === 'cover') setHeroUrl(`file://${path}`)
-    else setImageUrl(`file://${path}`)
   }
 
   async function handleInstall(): Promise<void> {
@@ -296,242 +289,267 @@ export default function SideloadDialog({
     )
   }
 
-  const showSideloadExe = appPlatform !== 'Browser'
+  const shouldShowRunExe = platform !== 'win32' && appPlatform === 'Windows'
 
-  const shouldShowRunExe =
-    platform !== 'win32' &&
-    appPlatform !== 'Mac' &&
-    appPlatform !== 'linux' &&
-    appPlatform !== 'Browser'
+  const stepLabels: Record<SupportedSteps, string> = {
+    meta: t('sideload.step.meta', 'Metadata'),
+    images: t('sideload.step.images', 'Images'),
+    compat: t('sideload.step.compat', 'Compatibility'),
+    install: t('sideload.step.install', 'Installation'),
+    finish: t('sideload.step.finish', 'Finish')
+  }
+
+  const flowSteps: SupportedSteps[] = useMemo(() => {
+    const steps: SupportedSteps[] = ['meta', 'images']
+    if (shouldShowRunExe) {
+      steps.push('compat', 'install')
+    }
+    steps.push('finish')
+    return steps
+  }, [shouldShowRunExe])
+
+  const numberOfSteps = flowSteps.length
+
+  function handlePreviousStepClick() {
+    setActiveStep(Math.max(activeStep - 1, 0))
+  }
+
+  function handleNextStepClick() {
+    setActiveStep(Math.min(activeStep + 1, numberOfSteps - 1))
+  }
+
+  function renderDialogContent(step: SupportedSteps) {
+    switch (step) {
+      case 'meta':
+        return (
+          <MetadataStep
+            title={title}
+            setTitle={setTitle}
+            platformSelection={platformSelection}
+          />
+        )
+      case 'images':
+        return (
+          <ImagesStep
+            title={title}
+            backdropClick={backdropClick}
+            imageUrl={imageUrl}
+            setImageUrl={setImageUrl}
+            heroUrl={heroUrl}
+            setHeroUrl={setHeroUrl}
+            hasSgdbKey={hasSgdbKey}
+          />
+        )
+      case 'compat':
+        return <CompatibilityStep />
+      case 'install':
+        return <InstallationStep />
+      case 'finish':
+        return <FinishStep />
+    }
+  }
 
   return (
     <>
-      <DialogContent>
-        <div className="sideloadGrid">
-          <div className="imageIcons">
-            <div
-              className={classNames('appImageContainer', {
-                hasSgdbKey,
-                searching,
-                loading: imageLoading
-              })}
-              onClick={() => hasSgdbKey && setSgdbTarget('square')}
-            >
-              <CachedImage
-                className={classNames('appImage', {
-                  blackWhiteImage: searching
-                })}
-                src={imageUrl ? imageUrl : fallbackImage}
-                onLoad={() => setImageLoading(false)}
-                onError={() => setImageLoading(false)}
-              />
-              {(searching || imageLoading) && (
-                <div className="imageLoadingOverlay">
-                  <FontAwesomeIcon icon={faSpinner} spin size="3x" />
-                </div>
-              )}
-              {hasSgdbKey && !searching && !imageLoading && (
-                <div className="imageHoverOverlay">
-                  <FontAwesomeIcon icon={faSearch} size="3x" />
-                </div>
-              )}
-            </div>
-            <div
-              className={classNames('appImageContainer heroImageContainer', {
-                hasSgdbKey
-              })}
-              onClick={() => hasSgdbKey && setSgdbTarget('cover')}
-            >
-              <CachedImage
-                className="appImage heroImage"
-                src={heroUrl || imageUrl || fallbackImage}
-              />
-              {hasSgdbKey && (
-                <div className="imageHoverOverlay">
-                  <FontAwesomeIcon icon={faSearch} size="3x" />
-                </div>
-              )}
-            </div>
-            <span className="titleIcon">
-              {title}
-              {platformIcon()}
-            </span>
-          </div>
-          <div className="sideloadForm">
-            {sgdbTarget ? (
-              <SteamGridDBPicker
-                initialTitle={title}
-                mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
-                onClose={() => setSgdbTarget(null)}
-                onSelect={(url: string) => {
-                  if (sgdbTarget === 'cover') {
-                    setHeroUrl(url)
-                  } else if (url !== imageUrl) {
-                    setImageLoading(true)
-                    setImageUrl(url)
-                  }
-                  setSgdbTarget(null)
-                }}
-              />
-            ) : (
-              <>
-                <InfoBox
-                  text={t(
-                    'sideload.import-hint.title',
-                    'Important! Are you adding a game from Epic/GOG/Amazon? Click here!'
-                  )}
-                >
-                  <div className="sideloadImportHint">
-                    <Trans i18n={i18n} key="sideload.import-hint.content">
-                      Do NOT use this feature for that.
-                      <br />
-                      Instead, <NavLink to={'/login'}>log into</NavLink> the
-                      store, look for the game in your library, open the
-                      installation dialog, and click the &quot;Import Game&quot;
-                      button
-                    </Trans>
-                  </div>
-                </InfoBox>
-                <TextInputField
-                  label={t('sideload.info.title', 'Game/App Title')}
-                  placeholder={t(
-                    'sideload.placeholder.title',
-                    'Add a title to your Game/App'
-                  )}
-                  onChange={(newValue) => handleTitle(newValue)}
-                  onBlur={async () => searchImage()}
-                  htmlId="sideload-title"
-                  value={title}
-                  maxLength={40}
-                />
-                <details className="advancedFields">
-                  <summary>{t('sideload.images.summary', 'Images')}</summary>
-                  <TextInputWithIconField
-                    label={t(
-                      'sideload.info.image-hint',
-                      'Square Art (click on the image to search on SteamGridDB)'
-                    )}
-                    placeholder={t(
-                      'sideload.placeholder.image',
-                      'Paste an URL of an Image or select one from your computer'
-                    )}
-                    onChange={(newValue: string) => setImageUrl(newValue)}
-                    htmlId="sideload-image"
-                    value={imageUrl}
-                    icon={<Folder />}
-                    onIconClick={() => handleSelectLocalImage('square')}
-                  />
-                  <TextInputWithIconField
-                    label={t(
-                      'sideload.info.cover-hint',
-                      'Cover/Hero Art (click on the image to search on SteamGridDB)'
-                    )}
-                    placeholder={t(
-                      'sideload.placeholder.image',
-                      'Paste an URL of an Image or select one from your computer'
-                    )}
-                    onChange={(newValue: string) => setHeroUrl(newValue)}
-                    htmlId="sideload-cover"
-                    value={heroUrl}
-                    icon={<Folder />}
-                    onIconClick={() => handleSelectLocalImage('cover')}
-                  />
-                </details>
-                {!hasSgdbKey && (
-                  <WarningMessage>
-                    {t(
-                      'edit-game.sgdb.no-key-prefix',
-                      'To search SteamGridDB for cover art, add an API key in'
-                    )}{' '}
-                    <a
-                      role="button"
-                      tabIndex={0}
-                      onClick={goToAdvancedSettings}
-                      className="sgdbWarningLink"
-                    >
-                      {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
-                    </a>
-                    .
-                  </WarningMessage>
-                )}
-                {!editMode && children}
-                {showSideloadExe && (
-                  <PathSelectionBox
-                    type="file"
-                    onPathChange={setSelectedExe}
-                    path={selectedExe}
-                    placeholder={t('sideload.info.exe', 'Select Executable')}
-                    pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
-                    pathDialogDefaultPath={winePrefix}
-                    pathDialogFilters={fileFilters(platformToInstall)}
-                    htmlId="sideload-exe"
-                    label={t('sideload.info.exe', 'Select Executable')}
-                    noDeleteButton
-                  />
-                )}
-                {!showSideloadExe && (
-                  <>
-                    <TextInputField
-                      label={t('sideload.info.broser', 'BrowserURL')}
-                      placeholder={t(
-                        'sideload.placeholder.url',
-                        'Paste the Game URL here'
-                      )}
-                      onChange={(newValue: string) => handleGameUrl(newValue)}
-                      htmlId="sideload-game-url"
-                      value={gameUrl}
-                    />
-                    <TextInputField
-                      label={t('sideload.info.useragent', 'Custom User Agent')}
-                      placeholder={t(
-                        'sideload.placeholder.useragent',
-                        'Write a custom user agent here to be used on this browser app/game'
-                      )}
-                      onChange={(newValue: string) =>
-                        setCustomUserAgent(newValue)
-                      }
-                      htmlId="sideload-user-agent"
-                      value={customUserAgent}
-                    />
-                    <ToggleSwitch
-                      htmlId="launch-fullscreen"
-                      value={launchFullScreen}
-                      handleChange={() =>
-                        setLaunchFullScreen(!launchFullScreen)
-                      }
-                      title={t(
-                        'sideload.info.fullscreen',
-                        'Launch Fullscreen (F11 to exit)'
-                      )}
-                    />
-                  </>
-                )}
-              </>
-            )}
-          </div>
+      <DialogContent className="sideloadDialog">
+        <Stepper className="sideloadStepper" activeStep={activeStep}>
+          {flowSteps.map((step) => (
+            <Step key={step}>
+              <StepLabel>{stepLabels[step]}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <div className="stepContentRenderer">
+          {renderDialogContent(flowSteps[activeStep])}
         </div>
       </DialogContent>
       <DialogFooter>
-        {shouldShowRunExe && (
+        <div className="sideloadFooterMetadata">
+          {title}
+          {platformIcon()}
+        </div>
+        <div className="sideloadFooterButtons">
           <button
-            onClick={async () => handleRunExe()}
-            className={`button is-secondary`}
-            disabled={runningSetup || !title.length}
+            onClick={handlePreviousStepClick}
+            className="button is-tertiary"
           >
-            {runningSetup
-              ? t('button.running-setup', 'Running Setup')
-              : t('button.run-exe-first', 'Run Installer First')}
+            {t('button.back', 'Back')}
           </button>
-        )}
-        <button
-          onClick={async () => handleInstall()}
-          className={`button is-success`}
-          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
-        >
-          {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
-          {!addingApp && t('button.finish', 'Finish')}
-        </button>
+          <button onClick={handleNextStepClick} className="button">
+            {numberOfSteps - 1 === activeStep
+              ? t('button.finish', 'Finish')
+              : t('button.next', 'Next')}
+          </button>
+        </div>
       </DialogFooter>
     </>
   )
+
+  // return (
+  //   <>
+  //     <DialogContent>
+  //       <div className="sideloadGrid">
+  //         <div className="imageIcons">
+  //
+  //         <div className="sideloadForm">
+  //           {sgdbTarget ? (
+  //             <SteamGridDBPicker
+  //               initialTitle={title}
+  //               mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
+  //               onClose={() => setSgdbTarget(null)}
+  //               onSelect={(url: string) => {
+  //                 if (sgdbTarget === 'cover') {
+  //                   setHeroUrl(url)
+  //                 } else if (url !== imageUrl) {
+  //                   setImageLoading(true)
+  //                   setImageUrl(url)
+  //                 }
+  //                 setSgdbTarget(null)
+  //               }}
+  //             />
+  //           ) : (
+  //             <>
+  //
+  //               <TextInputField
+  //                 label={t('sideload.info.title', 'Game/App Title')}
+  //                 placeholder={t(
+  //                   'sideload.placeholder.title',
+  //                   'Add a title to your Game/App'
+  //                 )}
+  //                 onChange={(newValue) => handleTitle(newValue)}
+  //                 onBlur={async () => searchImage()}
+  //                 htmlId="sideload-title"
+  //                 value={title}
+  //                 maxLength={40}
+  //               />
+  //               <details className="advancedFields">
+  //                 <summary>{t('sideload.images.summary', 'Images')}</summary>
+  //                 <TextInputWithIconField
+  //                   label={t(
+  //                     'sideload.info.image-hint',
+  //                     'Square Art (click on the image to search on SteamGridDB)'
+  //                   )}
+  //                   placeholder={t(
+  //                     'sideload.placeholder.image',
+  //                     'Paste an URL of an Image or select one from your computer'
+  //                   )}
+  //                   onChange={(newValue: string) => setImageUrl(newValue)}
+  //                   htmlId="sideload-image"
+  //                   value={imageUrl}
+  //                   icon={<Folder />}
+  //                   onIconClick={() => handleSelectLocalImage('square')}
+  //                 />
+  //                 <TextInputWithIconField
+  //                   label={t(
+  //                     'sideload.info.cover-hint',
+  //                     'Cover/Hero Art (click on the image to search on SteamGridDB)'
+  //                   )}
+  //                   placeholder={t(
+  //                     'sideload.placeholder.image',
+  //                     'Paste an URL of an Image or select one from your computer'
+  //                   )}
+  //                   onChange={(newValue: string) => setHeroUrl(newValue)}
+  //                   htmlId="sideload-cover"
+  //                   value={heroUrl}
+  //                   icon={<Folder />}
+  //                   onIconClick={() => handleSelectLocalImage('cover')}
+  //                 />
+  //               </details>
+  //               {!hasSgdbKey && (
+  //                 <WarningMessage>
+  //                   {t(
+  //                     'edit-game.sgdb.no-key-prefix',
+  //                     'To search SteamGridDB for cover art, add an API key in'
+  //                   )}{' '}
+  //                   <a
+  //                     role="button"
+  //                     tabIndex={0}
+  //                     onClick={goToAdvancedSettings}
+  //                     className="sgdbWarningLink"
+  //                   >
+  //                     {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
+  //                   </a>
+  //                   .
+  //                 </WarningMessage>
+  //               )}
+  //               {!editMode && children}
+  //               {showSideloadExe && (
+  //                 <PathSelectionBox
+  //                   type="file"
+  //                   onPathChange={setSelectedExe}
+  //                   path={selectedExe}
+  //                   placeholder={t('sideload.info.exe', 'Select Executable')}
+  //                   pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
+  //                   pathDialogDefaultPath={winePrefix}
+  //                   pathDialogFilters={fileFilters(platformToInstall)}
+  //                   htmlId="sideload-exe"
+  //                   label={t('sideload.info.exe', 'Select Executable')}
+  //                   noDeleteButton
+  //                 />
+  //               )}
+  //               {!showSideloadExe && (
+  //                 <>
+  //                   <TextInputField
+  //                     label={t('sideload.info.broser', 'BrowserURL')}
+  //                     placeholder={t(
+  //                       'sideload.placeholder.url',
+  //                       'Paste the Game URL here'
+  //                     )}
+  //                     onChange={(newValue: string) => handleGameUrl(newValue)}
+  //                     htmlId="sideload-game-url"
+  //                     value={gameUrl}
+  //                   />
+  //                   <TextInputField
+  //                     label={t('sideload.info.useragent', 'Custom User Agent')}
+  //                     placeholder={t(
+  //                       'sideload.placeholder.useragent',
+  //                       'Write a custom user agent here to be used on this browser app/game'
+  //                     )}
+  //                     onChange={(newValue: string) =>
+  //                       setCustomUserAgent(newValue)
+  //                     }
+  //                     htmlId="sideload-user-agent"
+  //                     value={customUserAgent}
+  //                   />
+  //                   <ToggleSwitch
+  //                     htmlId="launch-fullscreen"
+  //                     value={launchFullScreen}
+  //                     handleChange={() =>
+  //                       setLaunchFullScreen(!launchFullScreen)
+  //                     }
+  //                     title={t(
+  //                       'sideload.info.fullscreen',
+  //                       'Launch Fullscreen (F11 to exit)'
+  //                     )}
+  //                   />
+  //                 </>
+  //               )}
+  //             </>
+  //           )}
+  //         </div>
+  //       </div>
+  //     </DialogContent>
+  //     <DialogFooter>
+  //       {shouldShowRunExe && (
+  //         <button
+  //           onClick={async () => handleRunExe()}
+  //           className={`button is-secondary`}
+  //           disabled={runningSetup || !title.length}
+  //         >
+  //           {runningSetup
+  //             ? t('button.running-setup', 'Running Setup')
+  //             : t('button.run-exe-first', 'Run Installer First')}
+  //         </button>
+  //       )}
+  //       <button
+  //         onClick={async () => handleInstall()}
+  //         className={`button is-success`}
+  //         disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
+  //       >
+  //         {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
+  //         {!addingApp && t('button.finish', 'Finish')}
+  //       </button>
+  //     </DialogFooter>
+  //   </>
+  // )
 }

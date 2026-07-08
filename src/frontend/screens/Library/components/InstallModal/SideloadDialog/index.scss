@@ -1,33 +1,53 @@
-.sideloadGrid {
-  display: grid;
-  justify-content: space-around;
-  grid-template-columns: min-content 1fr;
+.sideloadDialog {
   width: 800px;
   max-width: 100%;
-  min-height: 70vh;
+  height: calc(100vh - 160px);
+  overflow: hidden;
 
-  /* When the form column scrolls, picker swaps in without bumping the dialog. */
-  .sideloadForm {
-    min-width: 0;
-    overflow-y: auto;
-    max-height: 70vh;
+  .stepContentRenderer {
+    height: 100%;
+    padding-bottom: 32px;
+    overflow: auto;
   }
 
-  .textInputFieldWrapper.Field .selectFieldWrapper.Field {
-    margin: 0 var(--space-xs);
+  .MuiStepLabel-label,
+  .MuiStepLabel-label.Mui-completed {
+    color: var(--text-default);
   }
 
-  .imageIcons {
-    margin-block: var(--space-lg) 0;
-    margin-inline: 0 var(--space-lg);
-    width: auto;
+  .MuiStepLabel-label.Mui-active {
+    color: var(--accent);
   }
+}
+
+.sideloadStepper {
+  margin: 0 16px 16px;
+}
+
+.sieloadMetadataForm {
+  height: 100%;
+  padding: var(--space-md);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sideloadImagesForm {
+  padding: var(--space-md);
+}
+
+.sideloadImages {
+  display: grid;
+  padding: var(--space-md);
+  gap: var(--space-md);
+  grid-template-columns: 180px 400px;
+  align-items: center;
+  justify-content: center;
 
   .appImageContainer {
     position: relative;
     cursor: pointer;
-    margin-bottom: var(--space-md);
-    width: 210px;
+    color: white;
     border-radius: 10px;
     overflow: hidden;
     border: 3px solid var(--neutral-02);
@@ -96,27 +116,21 @@
   .imageHoverOverlay {
     opacity: 0;
   }
+}
 
-  .titleIcon {
-    word-break: break-word;
-    display: flex;
-    justify-content: space-between;
+.Dialog__footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .sideloadFooterMetadata {
+    padding: 0 var(--space-md);
   }
 
-  .advancedFields {
-    summary {
-      cursor: pointer;
-      font-size: var(--font-size-sm);
-      color: var(--neutral-06);
-      font-weight: bold;
-      padding: var(--space-xs) 0;
-      user-select: none;
-    }
-
-    &[open] {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
-    }
+  .sideloadFooterButtons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
   }
 }

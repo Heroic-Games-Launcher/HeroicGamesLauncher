@@ -51,6 +51,7 @@ export async function getGrids(
     gameId: number
     dimensions?: string[]
     styles?: string[]
+    nsfw?: string
   }
 ): Promise<SGDBGrid[]> {
   const params: Record<string, string> = {}
@@ -88,6 +89,7 @@ export async function getHeroes(
     gameId: number
     dimensions?: string[]
     styles?: string[]
+    nsfw?: string
   }
 ): Promise<SGDBGrid[]> {
   const params: Record<string, string> = {}
