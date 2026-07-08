@@ -491,7 +491,8 @@ async function persistInstalledCave(
       return { cave: undefined } as FetchCaveResult
     })
   const cave = caveResult.cave
-  const installFolder = cave?.installInfo?.installFolder ?? fallbackInstallFolder
+  const installFolder =
+    cave?.installInfo?.installFolder ?? fallbackInstallFolder
   const installedUpload = cave?.upload ?? installInfo.upload
   const installedPlatform = uploadInstalledPlatform(
     installedUpload,
