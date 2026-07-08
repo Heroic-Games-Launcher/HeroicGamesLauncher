@@ -10,10 +10,11 @@ import {
   faWineGlass,
   faBarsProgress,
   faTv,
-  faTags
+  faTags,
+  faUserGroup
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   faDiscord,
@@ -21,6 +22,10 @@ import {
   faPatreon
 } from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
+import {
+  clearCachedEpicFriends,
+  loadEpicFriends
+} from 'frontend/helpers/epicFriends'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import QuitButton from '../QuitButton'
@@ -49,6 +54,42 @@ export default function SidebarLinks() {
     location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
+  const [hideEpicFriends, setHideEpicFriends] = useState<boolean>()
+
+  useEffect(() => {
+    void window.api
+      .requestAppSettings()
+      .then((settings) => setHideEpicFriends(settings.hideEpicFriends ?? false))
+
+    const handleChange = (event: CustomEvent<boolean>) => {
+      setHideEpicFriends(event.detail)
+    }
+    window.addEventListener('hide-epic-friends-changed', handleChange)
+
+    return () =>
+      window.removeEventListener('hide-epic-friends-changed', handleChange)
+  }, [])
+
+  useEffect(() => {
+    if (hideEpicFriends === undefined) return
+
+    if (!epic.username || hideEpicFriends) {
+      clearCachedEpicFriends()
+      void window.api.stopEpicFriendsBackground()
+      return
+    }
+
+    const epicUsername = epic.username
+    const refreshFriends = () => {
+      void loadEpicFriends(epicUsername, true).catch((error) => {
+        window.api.logError(`Failed to preload Epic friends: ${String(error)}`)
+      })
+    }
+    refreshFriends()
+
+    const refreshInterval = window.setInterval(refreshFriends, 5000)
+    return () => window.clearInterval(refreshInterval)
+  }, [epic.username, hideEpicFriends])
 
   const loggedIn =
     epic.username || gog.username || amazon.user_id || zoom.username
@@ -167,6 +208,17 @@ export default function SidebarLinks() {
         label={t('discounts.sidebar', 'Deals')}
         dataTour="sidebar-discounts"
       />
+      {epic.username && hideEpicFriends !== true && (
+        <SidebarItem
+          elementType="button"
+          onClick={() =>
+            window.dispatchEvent(new CustomEvent('toggle-epic-friends-panel'))
+          }
+          icon={faUserGroup}
+          label={t('friends.sidebar', 'Epic Friends')}
+          dataTour="sidebar-friends"
+        />
+      )}
       <div className="divider" />
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
