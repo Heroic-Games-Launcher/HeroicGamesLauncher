@@ -325,6 +325,10 @@ export default function SideloadDialog({
     return true
   }, [flowSteps, activeStep])
 
+  const noAppEntryPoint =
+    (appPlatform !== 'Browser' && !selectedExe) ||
+    (appPlatform === 'Browser' && !gameUrl)
+
   return (
     <>
       <DialogContent className="sideloadDialog">
@@ -377,7 +381,7 @@ export default function SideloadDialog({
             <button
               onClick={handleNextStepClick}
               className="button"
-              disabled={addingApp || runningSetup}
+              disabled={noAppEntryPoint || addingApp || runningSetup}
             >
               {lastStepIndex === activeStep
                 ? t('button.finish', 'Finish')

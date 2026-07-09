@@ -1,3 +1,5 @@
+import { CheckCircleRounded } from '@mui/icons-material'
+import { Button, Typography } from '@mui/material'
 import { InstallPlatform, WineInstallation } from 'common/types'
 import { ParsedProtonShorctut } from 'common/types/proton_shorctuts'
 import {
@@ -69,17 +71,52 @@ export default function FinishStep({
     <div className="sideloadFinish">
       {showSideloadExe && (
         <>
+          <Typography
+            variant="h5"
+            sx={{
+              color: 'var(--text-secondary)',
+              margin: 'var(--space-md) 0;'
+            }}
+          >
+            {t('sideload.info.proton-shortcuts', 'Detected software')}
+          </Typography>
           <div className="proton-shortcuts">
             {protonShortcuts.map((shortcut) => (
-              <div
+              <Button
                 key={shortcut.name}
+                variant="outlined"
+                sx={{
+                  color: 'var(--text-default)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 'var(--space-sm)',
+                  width: '150px',
+                  height: '150px'
+                }}
                 onClick={() => setSelectedExe(shortcut.executable)}
               >
                 {shortcut.icon && (
-                  <CachedImage src={`file://${shortcut.icon}`} />
+                  <CachedImage
+                    className="shortcutImage"
+                    src={`file://${shortcut.icon}`}
+                  />
                 )}
-                {shortcut.name}
-              </div>
+                <Typography
+                  className="shortcutName"
+                  variant="subtitle2"
+                  color="var(--text-secondary)"
+                  textAlign="center"
+                  overflow="hidden"
+                >
+                  {shortcut.name}
+                </Typography>
+
+                {selectedExe === shortcut.executable && (
+                  <CheckCircleRounded className="shortcutSelectedIcon" />
+                )}
+              </Button>
             ))}
           </div>
 
