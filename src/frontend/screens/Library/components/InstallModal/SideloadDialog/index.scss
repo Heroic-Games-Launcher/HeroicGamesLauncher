@@ -122,6 +122,7 @@
   display: flex;
   height: 100%;
   flex-direction: column;
+  justify-content: center;
   & .proton-shortcuts {
     display: flex;
     align-items: center;
@@ -141,6 +142,15 @@
       top: 0;
       right: 0;
       margin: var(--space-xs);
+    }
+
+    & .emptyState {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 60%;
     }
   }
 

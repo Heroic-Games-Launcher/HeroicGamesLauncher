@@ -310,7 +310,6 @@ export default function SideloadDialog({
             setLaunchFullScreen={setLaunchFullScreen}
             winePrefix={winePrefix}
             wineVersion={wineVersion}
-            platformToInstall={platformToInstall}
             selectedExe={selectedExe}
             setSelectedExe={setSelectedExe}
             fileFilters={fileFilters}
@@ -328,6 +327,8 @@ export default function SideloadDialog({
   const noAppEntryPoint =
     (appPlatform !== 'Browser' && !selectedExe) ||
     (appPlatform === 'Browser' && !gameUrl)
+
+  const lastStep = lastStepIndex === activeStep
 
   return (
     <>
@@ -381,9 +382,11 @@ export default function SideloadDialog({
             <button
               onClick={handleNextStepClick}
               className="button"
-              disabled={noAppEntryPoint || addingApp || runningSetup}
+              disabled={
+                (lastStep && noAppEntryPoint) || addingApp || runningSetup
+              }
             >
-              {lastStepIndex === activeStep
+              {lastStep
                 ? t('button.finish', 'Finish')
                 : t('button.next', 'Next')}
             </button>

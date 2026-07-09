@@ -286,6 +286,10 @@
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
             "image-hint": "Square Art (click on the image to search on SteamGridDB)",
+            "no-proton-shortcuts": {
+                "subtitle": "Heroic didn't detect any installed software. Please select the executable manually instead.",
+                "title": "No shortcuts found"
+            },
             "proton-shortcuts": "Detected software",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"

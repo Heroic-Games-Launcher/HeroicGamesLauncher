@@ -1,4 +1,4 @@
-import { CheckCircleRounded } from '@mui/icons-material'
+import { CheckCircleRounded, InstallDesktop } from '@mui/icons-material'
 import { Button, Typography } from '@mui/material'
 import { InstallPlatform, WineInstallation } from 'common/types'
 import { ParsedProtonShorctut } from 'common/types/proton_shorctuts'
@@ -14,14 +14,13 @@ import { useTranslation } from 'react-i18next'
 type Props = {
   setGameUrl: (val: string) => void
   gameUrl: string
-  appPlatform: string
+  appPlatform: InstallPlatform
   setCustomUserAgent: (val: string) => void
   customUserAgent: string
   setLaunchFullScreen: (val: boolean) => void
   launchFullScreen: boolean
   winePrefix: string
   wineVersion?: WineInstallation
-  platformToInstall: InstallPlatform
   setSelectedExe: (val: string) => void
   selectedExe: string
   fileFilters: (installPlatform: InstallPlatform) => Electron.FileFilter[]
@@ -34,7 +33,6 @@ export default function FinishStep({
   gameUrl,
   customUserAgent,
   launchFullScreen,
-  platformToInstall,
   selectedExe,
   setSelectedExe,
   setGameUrl,
@@ -71,54 +69,13 @@ export default function FinishStep({
     <div className="sideloadFinish">
       {showSideloadExe && (
         <>
-          <Typography
-            variant="h5"
-            sx={{
-              color: 'var(--text-secondary)',
-              margin: 'var(--space-md) 0;'
-            }}
-          >
-            {t('sideload.info.proton-shortcuts', 'Detected software')}
-          </Typography>
-          <div className="proton-shortcuts">
-            {protonShortcuts.map((shortcut) => (
-              <Button
-                key={shortcut.name}
-                variant="outlined"
-                sx={{
-                  color: 'var(--text-default)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 'var(--space-sm)',
-                  width: '150px',
-                  height: '150px'
-                }}
-                onClick={() => setSelectedExe(shortcut.executable)}
-              >
-                {shortcut.icon && (
-                  <CachedImage
-                    className="shortcutImage"
-                    src={`file://${shortcut.icon}`}
-                  />
-                )}
-                <Typography
-                  className="shortcutName"
-                  variant="subtitle2"
-                  color="var(--text-secondary)"
-                  textAlign="center"
-                  overflow="hidden"
-                >
-                  {shortcut.name}
-                </Typography>
-
-                {selectedExe === shortcut.executable && (
-                  <CheckCircleRounded className="shortcutSelectedIcon" />
-                )}
-              </Button>
-            ))}
-          </div>
+          {window.platform === 'linux' && appPlatform === 'Windows' && (
+            <ProtonShorcutsSection
+              protonShortcuts={protonShortcuts}
+              selectedExe={selectedExe}
+              setSelectedExe={setSelectedExe}
+            />
+          )}
 
           <PathSelectionBox
             type="file"
@@ -127,7 +84,7 @@ export default function FinishStep({
             placeholder={t('sideload.info.exe', 'Select Executable')}
             pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
             pathDialogDefaultPath={winePrefix}
-            pathDialogFilters={fileFilters(platformToInstall)}
+            pathDialogFilters={fileFilters(appPlatform)}
             htmlId="sideload-exe"
             label={t('sideload.info.exe', 'Select Executable')}
             noDeleteButton
@@ -168,5 +125,91 @@ export default function FinishStep({
         </>
       )}
     </div>
+  )
+}
+
+interface ProtonShorcutsSectionProps {
+  protonShortcuts: ParsedProtonShorctut[]
+  selectedExe: string
+  setSelectedExe: (val: string) => void
+}
+
+function ProtonShorcutsSection({
+  protonShortcuts,
+  selectedExe,
+  setSelectedExe
+}: ProtonShorcutsSectionProps) {
+  const { t } = useTranslation('gamepage')
+
+  return (
+    <>
+      {!!protonShortcuts.length && (
+        <Typography
+          variant="h5"
+          sx={{
+            color: 'var(--text-secondary)',
+            margin: 'var(--space-md) 0;'
+          }}
+        >
+          {t('sideload.info.proton-shortcuts', 'Detected software')}
+        </Typography>
+      )}
+      <div className="proton-shortcuts">
+        {!protonShortcuts.length && (
+          <div className="emptyState">
+            <InstallDesktop fontSize="large" />
+            <Typography variant="h5">
+              {t(
+                'sideload.info.no-proton-shortcuts.title',
+                'No shortcuts found'
+              )}
+            </Typography>
+            <Typography variant="subtitle1">
+              {t(
+                'sideload.info.no-proton-shortcuts.subtitle',
+                "Heroic didn't detect any installed software. Please select the executable manually instead."
+              )}
+            </Typography>
+          </div>
+        )}
+        {protonShortcuts.map((shortcut) => (
+          <Button
+            key={shortcut.name}
+            variant="outlined"
+            sx={{
+              color: 'var(--text-default)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'var(--space-sm)',
+              width: '150px',
+              height: '150px'
+            }}
+            onClick={() => setSelectedExe(shortcut.executable)}
+          >
+            {shortcut.icon && (
+              <CachedImage
+                className="shortcutImage"
+                src={`file://${shortcut.icon}`}
+              />
+            )}
+            <Typography
+              className="shortcutName"
+              variant="subtitle2"
+              color="var(--text-secondary)"
+              textAlign="center"
+              overflow="hidden"
+            >
+              {shortcut.name}
+            </Typography>
+
+            {selectedExe === shortcut.executable && (
+              <CheckCircleRounded className="shortcutSelectedIcon" />
+            )}
+          </Button>
+        ))}
+      </div>
+    </>
   )
 }
