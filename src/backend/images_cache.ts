@@ -29,6 +29,22 @@ const getImageFromCache = async (url: string, abort: AbortSignal) => {
   const digest = createHash('sha256').update(realUrl).digest('hex')
   const cachePath = join(imagesCachePath, digest)
 
+  // Handle file protocol request, but only accept image file extensions
+  if (realUrl.startsWith('file://')) {
+    const filePath = realUrl.slice(7)
+    if (
+      !/\.(a?png)?(jpe?g)?(webp)?(gif)?(webm)?(webm)?(avif)?$/.test(filePath)
+    ) {
+      return new Response(null, { status: 404 })
+    }
+    const webStream = Readable.toWeb(createReadStream(realUrl.slice(7)))
+    // @ts-expect-error It seems node web api gets confused here
+    // as one prop is required in one variant and not another
+    return new Response(webStream, {
+      headers: { 'Content-Type': 'application/octet-stream' }
+    })
+  }
+
   if (
     !pending.has(digest) &&
     realUrl.startsWith('http') &&
