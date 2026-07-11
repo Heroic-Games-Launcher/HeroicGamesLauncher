@@ -62,6 +62,7 @@ export default function ConsoleMode() {
     epic,
     gog,
     amazon,
+    steam,
     zoom,
     libraryStatus,
     sideloadedLibrary,
@@ -103,6 +104,7 @@ export default function ConsoleMode() {
       epic.library.length === 0 &&
       gog.library.length === 0 &&
       amazon.library.length === 0 &&
+      steam.library.length === 0 &&
       zoom.library.length === 0
     ) {
       void refreshLibrary({ runInBackground: true })
@@ -118,6 +120,7 @@ export default function ConsoleMode() {
       ...epic.library,
       ...gog.library,
       ...amazon.library,
+      ...steam.library,
       ...zoom.library,
       ...sideloadedLibrary
     ]
@@ -126,6 +129,7 @@ export default function ConsoleMode() {
     epic.library,
     gog.library,
     amazon.library,
+    steam.library,
     zoom.library,
     sideloadedLibrary
   ])
@@ -172,6 +176,7 @@ export default function ConsoleMode() {
       },
       { key: 'gog', label: 'GOG', enabled: storesWithGames.has('gog') },
       { key: 'nile', label: 'Amazon', enabled: storesWithGames.has('nile') },
+      { key: 'steam', label: 'Steam', enabled: storesWithGames.has('steam') },
       {
         key: 'sideload',
         label: t('console.filter.sideload', 'Other'),

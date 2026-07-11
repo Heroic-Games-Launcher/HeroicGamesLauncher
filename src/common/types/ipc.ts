@@ -114,6 +114,7 @@ interface SyncIPCFunctions {
   cancelDownload: (removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
   minimizeWindow: () => void
+  showWindow: () => void
   maximizeWindow: () => void
   unmaximizeWindow: () => void
   closeWindow: () => void
@@ -213,6 +214,7 @@ interface AsyncIPCFunctions {
   getSteamUserInfo: () => Promise<{ username: string } | undefined>
   getSteamDlcInfo: (appName: string) => Promise<SteamDLCInfo[]>
   getSteamInstallLibraries: () => Promise<SteamInstallLibrary[]>
+  focusGameWindow: () => Promise<void>
   setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
   getSteamIntegrationEnabled: (appName: string) => boolean
   isLoggedIn: () => boolean

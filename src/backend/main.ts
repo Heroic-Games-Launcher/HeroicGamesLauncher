@@ -58,7 +58,8 @@ import {
   writeConfig,
   createNecessaryFolders,
   clearAchievementCache,
-  getGame
+  getGame,
+  focusGameWindow
 } from './utils'
 import { startPlausible } from './utils/plausible'
 
@@ -587,7 +588,11 @@ addHandler('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
 addHandler('isFrameless', () => isFrameless())
 addHandler('isMinimized', () => !!getMainWindow()?.isMinimized())
 addHandler('isMaximized', () => !!getMainWindow()?.isMaximized())
+addHandler('focusGameWindow', () => {
+  focusGameWindow()
+})
 addListener('minimizeWindow', () => getMainWindow()?.minimize())
+addListener('showWindow', () => getMainWindow()?.show())
 addListener('maximizeWindow', () => getMainWindow()?.maximize())
 addListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 addListener('closeWindow', () => getMainWindow()?.close())
