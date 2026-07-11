@@ -97,7 +97,8 @@
         "changelog": "Vis endringslogg",
         "browse_wine_prefix": "Bla gjennom Wine Prefix",
         "browse_files": "Bla gjennom filer",
-        "play": "SPILL"
+        "play": "SPILL",
+        "edit-game": "Rediger spill"
     },
     "cloud_save_unsupported": "Ustøttet",
     "disabled": "Deaktivert",
@@ -259,7 +260,9 @@
             "title": "Spill/app tittel",
             "broser": "NettleserURL",
             "fullscreen": "Start fullskjerm (F11 for å avslutte)",
-            "useragent": "Egendefinert brukeragent"
+            "useragent": "Egendefinert brukeragent",
+            "cover-hint": "Forside/Heltekunst (klikk på bildet for å søke på SteamGridDB)",
+            "image-hint": "Stående forsidekunst (klikk på bildet for å søke på SteamGridDB)"
         },
         "placeholder": {
             "image": "Lim inn en bilde-URL her eller velg et bilde fra datamaskinen din",
@@ -270,6 +273,9 @@
         "import-hint": {
             "content": "IKKE bruk denne egenskapen for det. <br /> Bruk heller, <3>logg inn på</3> butikken, let etter spillet i biblioteket ditt, åpne installasjonsdialogen, og klikk på &quot;Importer Spill&quot; knappen",
             "title": "Viktig! Legger du til et spill fra Epic/GOG/Amazon? Klikk her!"
+        },
+        "images": {
+            "summary": "Bilder"
         }
     },
     "specs": {
@@ -356,5 +362,23 @@
     },
     "wikiLink": "Viktig informasjon om dette spillet: les dette:&nbsp;<1>Åpne side</1>",
     "Open": "Åpne",
-    "open-saves-folder": "Åpne mappen med spilllageringer"
+    "open-saves-folder": "Åpne mappen med spilllageringer",
+    "edit-game": {
+        "advanced": "Avansert",
+        "cover": "Omslagskunst",
+        "info": {
+            "cover": "Bred forside",
+            "square": "Stående forside"
+        },
+        "placeholder": {
+            "image": "Lim inn en bildelenke"
+        },
+        "reset": "Tilbakestill til standard",
+        "sgdb": {
+            "no-key-link": "Innstillinger → Avansert",
+            "no-key-prefix": "For å søke etter forsidebilder i SteamGridDB, legg til en API-nøkkel i"
+        },
+        "square": "Stående forsidekunst",
+        "title": "Rediger spill"
+    }
 }

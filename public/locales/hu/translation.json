@@ -29,7 +29,7 @@
             "message": "Heroic gyorsítótár törölve.",
             "title": "Gyorsítótár törölve"
         },
-        "choose": "Válassz",
+        "choose": "Kiválasztás",
         "choose-egs-prefix": "Környezet kiválasztása, ahol az EGS telepítve van",
         "choose-gogdl-binary": "GOGDL bináris kiválasztása (újraindítást igényel)",
         "choose-legendary-binary": "Legendary bináris kiválasztása",
@@ -229,7 +229,7 @@
             "update_game": "Játék frissítése"
         }
     },
-    "docs": "Dokumentációk",
+    "docs": "Dokumentáció",
     "download-manager": {
         "install-type": {
             "install": "Telepítés",
@@ -355,7 +355,7 @@
             "login": "Bejelentkezés",
             "settings": "Beállítások",
             "downloadManager": "Letöltéskezelő",
-            "wineManager": "Wine kezelő",
+            "wineManager": "Wine-kezelő",
             "library": "Könyvtár"
         },
         "button": {
@@ -384,7 +384,8 @@
         "nvidiaprime": {
             "details": "Dedikált grafikus kártya használata a játék megjelenítéséhez a több GPU-s rendszereken. Csak olyan játékra szánt laptopokon és asztali számítógépeken van rá szükség, amelyek kimenet nélküli GPU-t használnak a megjelenítéshez (NVIDIA Optimus, AMD CrossFire)",
             "link": "További részletekért nézd meg a wikinket"
-        }
+        },
+        "hide-window-on-protocol-launch": "Rejtve tartja a Heroic ablakát, ha a játékot külső parancsikonról indítod, például a „Hozzáadás a Steamhez” funkció használatával."
     },
     "info": {
         "heroic": {
@@ -392,7 +393,7 @@
             "click-to-see-changelog": "Kattints a változásnapló megnyitásához",
             "newReleases": "Frissítés érhető el.",
             "stable": "Stabil",
-            "version": "Heroic verzió"
+            "version": "Heroic verziója"
         },
         "save-sync": {
             "searching": "Megfelelő mentési mappa keresése (kattints a megszakításhoz)"
@@ -412,7 +413,7 @@
             "message": "A Wine ún. WINEPREFIX-et használ a Windowsos alkalmazások körbefogásához. Ez a környezet tartalmazza a Wine beállítófájljait és a C: (az elsődleges meghajtó Windowson) fájlhierarchiájának utánzatát. A játékmentések és a winetricks által feltelepített függőségek is ezen a C: meghajtón vannak tárolva."
         },
         "wine-path-invalid": "A Wine elérési útja érvénytelen, válassz másikat.",
-        "wine-path-none-found": "Nem található Wine verzió, tölts le egyet a Wine kezelőből"
+        "wine-path-none-found": "Nem található Wine-verzió, tölts le egyet a Wine-kezelőből"
     },
     "install": {
         "path": "Telepítési útvonal kiválasztása"
@@ -484,7 +485,7 @@
         },
         "moved": "Áthelyezés befejezve",
         "moving": "Játék áthelyezése…",
-        "new-heroic-version": "Egy új Heroic verzió jelent meg.",
+        "new-heroic-version": "Egy új Heroic-verzió jelent meg.",
         "refresh": {
             "error": "Nem sikerült lekérni a kiadásokat a forrástól, lehet, hogy a GitHub API-korlátozásai miatt. Próbáld újra később."
         },
@@ -601,12 +602,12 @@
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start menühöz",
         "addgamestosteam": "Játékok automatikus hozzáadása a Steamhez",
-        "alt-gogdl-bin": "Válassz egy alternatív GOGDL binárist",
-        "alt-legendary-bin": "Válassz egy alternatív Legendary binárist",
+        "alt-gogdl-bin": "Alternatív GOGDL bináris választása",
+        "alt-legendary-bin": "Alternatív Legendary bináris választása",
         "autodxvk": "A DXVK automatikus telepítése/frissítése a környezeten",
         "autosync": "Mentések automatikus szinkronizálása",
         "autovkd3d": "A VKD3D automatikus telepítése/frissítése a környezeten",
-        "change-target-exe": "Válassz egy alternatív EXE-fájlt a futtatáshoz",
+        "change-target-exe": "Alternatív EXE-fájl választása a futtatáshoz",
         "checkForUpdatesOnStartup": "A Heroic frissítéseinek keresése indításkor",
         "crossover-version": "Crossover/Wine verzió",
         "custom_themes_path": "Egyéni témaútvonalak",
@@ -740,7 +741,7 @@
         "disable_logs": "Naplók letiltása",
         "showMetalOverlay": "Statisztikai átfedés megjelenítése",
         "addgamestoapplications": "Játékok automatikus hozzáadása az Alkalmazásokhoz",
-        "alt-nile-bin": "Válassz egy alternatív Nile binárist",
+        "alt-nile-bin": "Alternatív Nile bináris választása",
         "autodxvknvapi": "A DXVK-NVAPI automatikus telepítése/frissítése a környezeten",
         "frameless-window": {
             "confirmation": {
@@ -801,7 +802,7 @@
             "wine_selector_warning": "A nem GE-Proton verziók alapértelmezetten figyelmen kívül vannak hagyva, engedélyezd őket a Globális speciális beállításokban"
         },
         "analyticsOptIn": "Anonim adatok küldése a Heroic fejlesztésének támogatására",
-        "no-tray-icon": "Rendszertálca ikon elrejtése (újraindítás szükséges)",
+        "no-tray-icon": "Rendszertálcaikon elrejtése (újraindítás szükséges)",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Ne jelenjenek meg",
@@ -820,7 +821,8 @@
         "start-in-console-mode": "Indítás konzol módban",
         "nvidiaprime": {
             "description": "NVIDIA Optimus vagy AMD Dynamic Switchable Graphics dedikált GPU kényszerített használata. CSAK OpenGL- és Vulkan-játékokhoz használd."
-        }
+        },
+        "hide-window-on-protocol-launch": "Heroic ablak elrejtése a játékok heroic:// hivatkozással történő indításakor"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -856,7 +858,7 @@
             "other": "Egyéb",
             "sync": "Felhőmentések szinkronizálása",
             "wineExt": "Wine Extensions",
-            "systemInformation": "Rendszerinformációk",
+            "systemInformation": "Rendszer-információk",
             "gamescope": "Gamescope",
             "legacy": "Örökölt"
         },
@@ -865,14 +867,14 @@
         "saves": {
             "label": "Save Location:",
             "warning": "A felhőmentés funkciója béta állapotú, szinkronizálás előtt készíts biztonsági mentést a mentéseidről (ha esetleg valami rosszul sikerülne)",
-            "gog_linux_native_warning": "A natív Linuxos játékok nem támogatják a GOG felhőmentési funkcióját. Használd inkább a Windowsos verziót.",
+            "gog_linux_native_warning": "A natív linuxos játékok nem támogatják a GOG felhőmentési funkcióját. Használd inkább a windowsos verziót.",
             "not_supported": "Ez a játék nem támogatja a felhőmentéseket."
         },
         "systemInformation": {
             "cpu": "CPU:",
             "gpuWithNumber": "{{number}}. GPU:",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
-            "systemSpecifications": "Rendszerspecifikációk:",
+            "systemSpecifications": "Rendszer-specifikációk:",
             "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Illesztőprogram: {{driverVersion}}",
             "os": "Operációs rendszer:",
@@ -931,7 +933,7 @@
             "apikey": {
                 "title": "SteamGridDB API-kulcs",
                 "placeholder": "Add meg itt a SteamGridDB API-kulcsodat",
-                "placeholder_saved": "Kulcs mentve — gépelj a cseréhez, töröld az eltávolításhoz"
+                "placeholder_saved": "Kulcs mentve – gépelj a cseréhez, töröld az eltávolításhoz"
             },
             "help": {
                 "description": "Add meg a saját SteamGridDB API-kulcsodat a játékborítók keresésének engedélyezéséhez. A kulcs titkosítva kerül tárolásra, ha a rendszered támogatja. Itt szerezhetsz egyet: {{url}}"
@@ -948,7 +950,8 @@
         "installing": "Telepítés…",
         "logging": "Bejelentkezés…",
         "processing": "Fájlok feldolgozása, kis türelmet",
-        "preparing_login": "Bejelentkezés előkészítése… "
+        "preparing_login": "Bejelentkezés előkészítése… ",
+        "installed": "Telepítve"
     },
     "store": "Epic Store",
     "stores": "Áruházak",
@@ -996,12 +999,12 @@
     "wine": {
         "actions": "Művelet",
         "manager": {
-            "link": "Wine kezelő",
+            "link": "Wine-kezelő",
             "not-found": "Nem található Wine verzió. Kattints a frissítés gombra az újrapróbálkozáshoz.",
-            "title": "Wine kezelő",
+            "title": "Wine-kezelő",
             "unzipping": "Kibontás",
-            "search": "Verziók keresése...",
-            "loading": "Wine verziók betöltése...",
+            "search": "Verziók keresése…",
+            "loading": "Wine verziók betöltése…",
             "open_folder": "Mappa megnyitása",
             "update": "Frissítés",
             "settings": "Beállítások",
@@ -1059,7 +1062,6 @@
     },
     "wineExplanation": {
         "proton-ge": "A GE-Proton egy olyan Proton változat, melyet GloriousEggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
-        "wine-ge": "A Wine-GE-Proton egy olyan Wine változat, melyet GloriousEggroll készít. Elavult, a GE-Proton és az umu-launcher váltja le.",
         "gpt": "A Game Porting Toolkitet az Apple fejleszti, és Apple Silicon (M1 vagy újabb) chipekkel rendelkező Maceken ajánlott. Legjobban az újabb, DX12-t használó játékokkal működik.",
         "wine-crossover": "A Wine-Crossover a Crossover nyílt forráskódú Wine-projektjén alapul, és Intel Maceken, valamint DX11 vagy régebbi játékokhoz ajánlott.",
         "wine-staging-macos": "A Wine-Staging-macOS a fő Wine-projekten alapul, és Intel Maceken, valamint DX11 vagy régebbi játékokhoz ajánlott, különösen a DXMT eszközzel együtt használva."
@@ -1187,7 +1189,7 @@
                 "TR": "Törökország"
             },
             "auto": "Automatikus ({{code}})",
-            "label": "Áruház régió"
+            "label": "Áruház régiója"
         },
         "filters": {
             "moreFilters": "Több szűrő",
@@ -1229,7 +1231,7 @@
         },
         "error": "Nem sikerült betölteni a kedvezményeket. Próbáld újra később.",
         "empty": "Jelenleg nincsenek kedvezményes játékok.",
-        "loading": "Kedvezményes játékok betöltése...",
+        "loading": "Kedvezményes játékok betöltése…",
         "title": "GOG kedvezmények",
         "pagination": {
             "prev": "Előző"
@@ -1279,7 +1281,26 @@
         "empty": "Nincsenek megjeleníthető telepített játékok. Telepíts valamit előbb.",
         "games": "Telepített játékok",
         "quitApp": "Alkalmazás bezárása",
-        "loading": "Könyvtár betöltése…"
+        "loading": "Könyvtár betöltése…",
+        "cancelInstall": {
+            "title": "Megszakítod a telepítést?",
+            "message": "A játék telepítése folyamatban van. Megszakítod a telepítést?"
+        },
+        "cancelUpdate": {
+            "title": "Megszakítod a frissítést?",
+            "message": "A játék letöltése folyamatban van. Megszakítod a frissítést?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Játék telepítése",
+            "wineLoading": "Betöltés…",
+            "path": "Telepítési hely",
+            "wine": "Wine",
+            "wineMissing": "Nincs kiválasztva"
+        },
+        "removeFromQueue": {
+            "message": "Ez a játék letöltési sorban van. Eltávolítod a sorból?"
+        }
     },
     "next": "Következő"
 }

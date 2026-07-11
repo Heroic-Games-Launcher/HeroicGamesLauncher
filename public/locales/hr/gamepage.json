@@ -333,5 +333,8 @@
         "notice1": ""
     },
     "open-saves-folder": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "Advanced"
+    }
 }

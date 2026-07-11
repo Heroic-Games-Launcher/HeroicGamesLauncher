@@ -381,7 +381,7 @@
         "wine-hdr": "Le HDR améliore la colorimétrie en proposant des contours plus clairs et des contrastes plus profonds. Afin que le HDR fonctionne, l'écran et le jeu doivent être tous deux compatibles.",
         "wine-wayland": "Le pilote expérimental Wine-Wayland permet aux jeux de s'exécuter nativement par l'entremise du protocole d'affichage Wayland. L'activer peut faire dysfonctionner certains jeux.",
         "analytics": "Autorise Heroic à collecter des données d'usage 100 % anonymes afin de contribuer à l'amélioration de l'application. Requiert un redémarrage.",
-        "WoW64": "Le mode Wine WoW64 permet aux jeux Windows 32-bit d'être exécutés depuis la version 64-bit de Wine. L'activer peut améliorer les performances, mais pourrait aussi faire dysfonctionner les jeux 32-bit très anciens.",
+        "WoW64": "Le mode Wine WoW64 permet aux jeux Windows 32 bits d'être exécutés depuis la version 64 bits de Wine. L'activer peut améliorer les performances, mais pourrait aussi faire dysfonctionner des jeux 32 bits très anciens.",
         "nvidiaprime": {
             "details": "Utiliser la carte graphique dédiée pour le rendu sur les systèmes à multiples processeurs graphiques. Utile seulement sur les ordinateurs ayant un processeur graphique intégré et une carte graphique dédiée (NVIDIA Optimus, AMD CrossFire)"
         }
@@ -952,7 +952,8 @@
         "installing": "Installation",
         "logging": "Connexion en cours...",
         "processing": "Préparation des fichiers, veuillez patienter",
-        "preparing_login": "Préparation de la connexion.... "
+        "preparing_login": "Préparation de la connexion.... ",
+        "installed": "Installé"
     },
     "store": "Boutique Epic",
     "stores": "Boutiques",
@@ -1059,7 +1060,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton est une variante de Proton créée par Glorious Eggroll. Elle a été conçue pour être utilisée avec le lanceur UMU (activé par défaut dans Heroic).",
-        "wine-ge": "Wine-GE-Proton est une variante de Wine créée par Glorious Eggroll. Elle a été abandonnée en faveur de GE-Proton et du lanceur UMU.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1281,7 +1281,18 @@
         "empty": "",
         "games": "Jeux installés",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelInstall": {
+            "title": "Annuler l'installation"
+        },
+        "cancelUpdate": {
+            "title": "Annuler la mise à jour"
+        },
+        "install": {
+            "platform": "Système",
+            "title": "Installer le jeu",
+            "wineLoading": "Chargement…"
+        }
     },
     "next": "Suivant"
 }

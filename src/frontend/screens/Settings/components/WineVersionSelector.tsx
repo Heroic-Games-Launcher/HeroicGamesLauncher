@@ -15,6 +15,7 @@ import { faApple } from '@fortawesome/free-brands-svg-icons'
 import Badge from '@mui/material/Badge'
 import { Autorenew as AutorenewIcon } from '@mui/icons-material'
 import GELogo from 'frontend/assets/ge-logo.svg?react'
+import CachyOSLogo from 'frontend/assets/cachyos-logo.svg?react'
 
 interface ListItemProps {
   version: WineInstallation
@@ -36,6 +37,7 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
         return <FontAwesomeIcon icon={faWineGlass} />
       case 'proton':
         if (name.includes('GE')) return <GELogo />
+        if (name.includes('CachyOS')) return <CachyOSLogo />
         return <ProtonLogo />
       case 'crossover':
         return <CodeweaversLogo />
