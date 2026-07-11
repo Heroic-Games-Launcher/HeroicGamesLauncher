@@ -46,7 +46,7 @@
             "message": "该游戏有更新，你想要现在更新吗？",
             "title": "游戏需要更新"
         },
-        "wineprefix": "选择 WinePrefix 文件夹",
+        "wineprefix": "选择 Wine 前缀文件夹",
         "yes": "是",
         "close": "关闭",
         "select-install-path": "选择 Steam 安装路径",
@@ -359,5 +359,12 @@
             "canceled": "已取消"
         }
     },
-    "open-saves-folder": "打开保存文件夹"
+    "open-saves-folder": "打开保存文件夹",
+    "edit-game": {
+        "advanced": "高级",
+        "sgdb": {
+            "no-key-link": "设置 → 高级",
+            "no-key-prefix": "要在 SteamGridDB 中搜索封面，请添加 API 密钥"
+        }
+    }
 }

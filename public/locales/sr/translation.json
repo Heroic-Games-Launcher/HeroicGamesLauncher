@@ -903,7 +903,8 @@
         "logging": "Пријављивањем...",
         "installing": "Инсталирање",
         "processing": "Обрада датотека, молимо вас сачекајте",
-        "preparing_login": "Припрема за пријаву... "
+        "preparing_login": "Припрема за пријаву... ",
+        "installed": "Инсталирано"
     },
     "sidebar": {
         "collapse": "Скупи бочну траку",
@@ -1113,7 +1114,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1243,7 +1243,12 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Платформа",
+            "title": "Инсталирај игру",
+            "wineLoading": "Лоадинг"
+        }
     },
     "next": ""
 }

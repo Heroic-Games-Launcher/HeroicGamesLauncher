@@ -936,7 +936,8 @@
         "installing": "Установка",
         "logging": "Вход…",
         "processing": "Обработка файлов, подождите",
-        "preparing_login": "Подготовка входа... "
+        "preparing_login": "Подготовка входа... ",
+        "installed": "Установлено"
     },
     "store": "Магазин Epic",
     "stores": "Магазины",
@@ -1064,7 +1065,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton - это вариант Proton, созданный Glorious Eggroll. Он предназначен для использования в Steam, но некоторые игры за пределами Steam могут работать лучше с этим вариантом. Он предоставляет в основном бесполезные для устранения неполадок логи.",
-        "wine-ge": "Wine-GE-Proton - это вариант Wine, созданный Glorious Eggroll. Он был объявлен устаревшим в пользу GE-Proton с лаунчером umu.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1209,7 +1209,7 @@
         "noMatches": "",
         "aria": {
             "pagination": "",
-            "rating": ""
+            "rating": "Рейтинг {{rating}} из 10"
         },
         "error": "",
         "empty": "",
@@ -1239,15 +1239,15 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Сортировка",
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
         },
-        "quit": "",
+        "quit": "Выйти из режима консоли",
         "hints": {
             "launch": "",
-            "sort": "",
+            "sort": "Сортировка",
             "navigate": "",
             "quit": "Закрыть Heroic",
             "change_store": ""
@@ -1262,8 +1262,22 @@
         },
         "empty": "",
         "games": "Установленные игры",
-        "quitApp": "",
-        "loading": ""
+        "quitApp": "Закрыть приложение",
+        "loading": "",
+        "cancelInstall": {
+            "title": "Отменить установку"
+        },
+        "cancelUpdate": {
+            "title": "Отменить обновление"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Установить игру",
+            "wineLoading": "Загрузка"
+        },
+        "removeFromQueue": {
+            "message": "Эта игра стоит в очереди на загрузку. Удалить её из очереди?"
+        }
     },
     "next": "Следующий"
 }

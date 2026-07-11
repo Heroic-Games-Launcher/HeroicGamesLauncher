@@ -269,9 +269,9 @@
         "library": {
             "refresh": "Oppdater biblioteket"
         },
-        "abort": "",
+        "abort": "Avbryt",
         "install": "Installer",
-        "uninstall": ""
+        "uninstall": "Avinstaller"
     },
     "globalSettings": "Globale innstillinger",
     "GOG": "GOG",
@@ -382,8 +382,10 @@
         "analytics": "Lar Heroic samle inn 100% anonyme brukerdata for å hjelpe oss forbedre appen. Appen må startes på nytt før innstillingen gjelder.",
         "WoW64": "Wine WoW64-modusen lar 32-bit Windows-spill kjøre under 64-bit Wine. Å skru det på kan forbedre ytelse, men det kan også forhindre eldre 32-bit-spill i å fungere riktig.",
         "nvidiaprime": {
-            "details": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Se flere detaljer på wikien vår"
+        },
+        "hide-window-on-protocol-launch": "Holder Heroic-vinduet skjult når et spill startes fra en ekstern snarvei, som «Legg til i Steam»-funksjonen."
     },
     "info": {
         "heroic": {
@@ -808,7 +810,11 @@
         "scripts": "Skript:",
         "enable-quick-sync-menu": "Aktiver hurtiglagrings-synkroniseringsmenyen på spillsiden",
         "disable_gog_presence": "Deaktiver GOG Presence-oppdateringer",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "Start i konsoll-modus",
+        "hide-window-on-protocol-launch": "Skjul Heroic-vinduet når du starter spill fra heroic://-lenker",
+        "nvidiaprime": {
+            "description": "Tving bruk av NVIDIA Optimus eller AMD Dynamic Switchable Graphics dGPU. Bruk dette KUN for OpenGL og Vulkan-spill."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -917,12 +923,12 @@
         "legacy_warning": "Advarsel: Innstilingene på denne siden er stort sett foreldret og fungerer muligens ikke.",
         "steamgriddb": {
             "apikey": {
-                "title": "",
-                "placeholder": "",
-                "placeholder_saved": ""
+                "title": "SteamGridDB API-nøkkel",
+                "placeholder": "Skriv inn SteamGridDB API-nøkkelen din her",
+                "placeholder_saved": "Nøkkel lagret – skriv inn for å erstatte, fjern for å fjerne"
             },
             "help": {
-                "description": ""
+                "description": "Oppgi din egen SteamGridDB API-nøkkel for å aktivere søk etter omslagskunst for spill. Nøkkelen lagres kryptert dersom systemet ditt støtter det. Du kan skaffe en hos {{url}}"
             }
         }
     },
@@ -930,13 +936,14 @@
     "sidebar": {
         "collapse": "Skjul sidefeltet",
         "uncollapse": "Slå opp sidefeltet",
-        "console": ""
+        "console": "Konsollmodus"
     },
     "status": {
         "installing": "Installerer",
         "logging": "Logger inn...",
         "processing": "Behandler filer, vennligst vent",
-        "preparing_login": "Forbereder pålogging... "
+        "preparing_login": "Forbereder pålogging... ",
+        "installed": "Installert"
     },
     "store": "Epic butikken",
     "stores": "Butikker",
@@ -988,12 +995,12 @@
             "not-found": "Ingen Wine-versjoner funnet. Vennligst klikk på oppdateringsikonet for å prøve på nytt.",
             "title": "Wine-behandler",
             "unzipping": "Pakker ut",
-            "search": "",
-            "loading": "",
-            "open_folder": "",
+            "search": "Søk etter versjoner...",
+            "loading": "Laster inn wine-versjoner...",
+            "open_folder": "Åpne mappe",
             "update": "Update",
             "settings": "Innstillinger",
-            "no-results": ""
+            "no-results": "Ingen Wine-versjoner passer søket ditt."
         },
         "release": "Utgivelsesdato",
         "size": "Størrelse",
@@ -1046,11 +1053,10 @@
         "maximize": "Maksimer vindu"
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton er en Wine-variant laget av Glorious Eggroll. Det er den anbefalte Wine-versjonen for bruk utenfor Steam. Den gir nyttige logger ved feilsøking.",
         "proton-ge": "GE-Proton er en Proton-variant opprettet av Glorious Eggroll. Den er ment for bruk i Steam, men noen spill utenfor Steam kan fungere bedre med denne varianten. Den gir stort sett ubrukelige logger for feilsøking.",
-        "gpt": "",
-        "wine-crossover": "",
-        "wine-staging-macos": ""
+        "gpt": "Game Porting Toolkit er utviklet av Apple og anbefales for Apple Silicon Mac-er med M1+prosessorer, og fungerer best for nyere spill som bruker DX12.",
+        "wine-crossover": "Wine-Crossover er basert på Crossover OpenSource Wine-prosjektet og anbefales for Intel Mac-er og for DX11 eller eldre spill.",
+        "wine-staging-macos": "Wine-Staging-macOS er basert på det vanlige Wine-prosjektet og anbefales for Intel Mac-er og for DX11 eller eldre spill, spesielt i samarbeid med DXMT-verktøyet."
     },
     "adtraction-locked": {
         "dont-show-again": "Ikke vis denne advarselen igjen",
@@ -1144,94 +1150,96 @@
     "discounts": {
         "region": {
             "countries": {
-                "IT": "",
-                "ES": "",
-                "FI": "",
-                "GR": "",
-                "RO": "",
-                "NO": "",
-                "KR": "",
-                "US": "",
-                "HU": "",
-                "PT": "",
-                "NL": "",
-                "AU": "",
-                "TW": "",
-                "IL": "",
-                "JP": "",
-                "DK": "",
-                "DE": "",
-                "CZ": "",
-                "FR": "",
-                "UA": "",
-                "GB": "",
-                "SE": "",
-                "CN": "",
-                "RU": "",
-                "CA": "",
-                "PL": "",
-                "BR": "",
-                "CH": "",
-                "TR": ""
+                "IT": "Italia",
+                "ES": "Spania",
+                "FI": "Finland",
+                "GR": "Hellas",
+                "RO": "Romania",
+                "NO": "Norge",
+                "KR": "Sør-Korea",
+                "US": "USA",
+                "HU": "Ungarn",
+                "PT": "Portugal",
+                "NL": "Nederland",
+                "AU": "Australia",
+                "TW": "Taiwan",
+                "IL": "Israel",
+                "JP": "Japan",
+                "DK": "Danmark",
+                "DE": "Tyskland",
+                "CZ": "Tsjekkia",
+                "FR": "Frankrike",
+                "UA": "Ukraina",
+                "GB": "Storbritannia",
+                "SE": "Sverige",
+                "CN": "Kina",
+                "RU": "Russland",
+                "CA": "Canada",
+                "PL": "Polen",
+                "BR": "Brasil",
+                "CH": "Sveits",
+                "TR": "Tyrkia"
             },
-            "auto": "",
-            "label": ""
+            "auto": "Auto ({{code}})",
+            "label": "Butikkregion"
         },
         "filters": {
-            "moreFilters": "",
-            "ageRating": "",
+            "moreFilters": "Flere filtre",
+            "ageRating": "Passer for aldersgruppe",
             "os": "Operativsystem:",
-            "price": "",
-            "activeCount_other": "",
-            "hideDlcs": "",
-            "ageRatingOption": "",
-            "genres": "",
-            "activeCount_one": "",
-            "lessFilters": "",
-            "rating": "",
-            "sort": "",
-            "genresPlaceholder": "",
-            "features": "",
-            "featuresPlaceholder": "",
+            "price": "Pris",
+            "activeCount_other": "{{count}} aktive",
+            "hideDlcs": "Skjul DLC-er",
+            "ageRatingOption": "Vis spill rangert PEGI {{age}} eller lavere",
+            "genres": "Sjangere",
+            "activeCount_one": "{{count}} aktiv",
+            "lessFilters": "Færre filtre",
+            "rating": "Vurderingsgrad",
+            "sort": "Sorter etter",
+            "genresPlaceholder": "Enhver sjanger",
+            "features": "Funksjoner",
+            "featuresPlaceholder": "Enhver funksjon",
             "ageRatingAll": "Alle",
-            "pageSize": "",
-            "releaseYear": ""
+            "pageSize": "Per side",
+            "releaseYear": "Utgivelsesår",
+            "hideOwned": "Skjul eide spill",
+            "wishlistOnly": "Bare ønskeliste"
         },
-        "sidebar": "",
+        "sidebar": "Tilbud",
         "sort": {
-            "priceDesc": "",
-            "trending": "",
-            "priceAsc": "",
-            "releaseDesc": "",
-            "ratingAsc": "",
-            "releaseAsc": "",
-            "ratingDesc": "",
-            "discount": ""
+            "priceDesc": "Pris: høy til lav",
+            "trending": "Populært",
+            "priceAsc": "Pris: lav til høy",
+            "releaseDesc": "Utgivelsesdato: nyeste til eldste",
+            "ratingAsc": "Vurderingsgrad: lav til høy",
+            "releaseAsc": "Utgivelsesdato: eldste til nyeste",
+            "ratingDesc": "Vurderingsgrad: høy til lav",
+            "discount": "Største avslag"
         },
-        "noMatches": "",
+        "noMatches": "Ingen spill samsvarer med de gjeldende filtrene.",
         "aria": {
-            "pagination": "",
-            "rating": ""
+            "pagination": "Sidetall",
+            "rating": "Vurderingsgrad {{rating}} av 10"
         },
-        "error": "",
-        "empty": "",
-        "loading": "",
-        "title": "",
+        "error": "Kunne ikke laste inn tilbud. Vennligst prøv igjen senere.",
+        "empty": "Ingen spilltilbud tilgjengelig akkurat nå.",
+        "loading": "Laster inn spill på salg...",
+        "title": "GOG tilbud",
         "pagination": {
-            "prev": ""
+            "prev": "Forrige"
         }
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
-            "no-grids": "",
-            "search": "",
-            "grids": ""
+            "no-games": "Ingen spill funnet.",
+            "no-grids": "Ingen omslagskunst funnet for dette spillet.",
+            "search": "Klarte ikke å søke etter spill. Sjekk SteamGridDB API-nøkkelen din og prøv på nytt",
+            "grids": "Kunne ikke hente rutenettbilder"
         },
         "picker": {
-            "search": "",
-            "title": "",
-            "select-game": ""
+            "search": "Søk etter spill",
+            "title": "SteamGridDB omslagskunst",
+            "select-game": "Velg et spill:"
         }
     },
     "console": {
@@ -1241,31 +1249,50 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Sorter",
         "cancel": {
-            "hintSuffix": "",
-            "hintPrefix": ""
+            "hintSuffix": "i 3s for å avbryte",
+            "hintPrefix": "Hold inne"
         },
-        "quit": "",
+        "quit": "Avslutt konsoll",
         "hints": {
-            "launch": "",
-            "sort": "",
-            "navigate": "",
+            "launch": "Start",
+            "sort": "Sorter",
+            "navigate": "Naviger",
             "quit": "Avslutt",
-            "change_store": ""
+            "change_store": "Endre butikk"
         },
         "launching": "Starter",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Trenger oppdatering"
         },
         "filter": {
             "sideload": "Other",
             "all": "Alle"
         },
-        "empty": "",
+        "empty": "Ingen installerte spill å vise. Installer noe først.",
         "games": "Installerte spill",
-        "quitApp": "",
-        "loading": ""
+        "quitApp": "Avslutt app",
+        "loading": "Laster inn biblioteket ditt…",
+        "cancelInstall": {
+            "title": "Avbryt installering",
+            "message": "Dette spillet installeres for øyeblikket. Vil du avbryte installasjonen?"
+        },
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Laster…",
+            "path": "Installer til",
+            "title": "Installer spill",
+            "wine": "Wine",
+            "wineMissing": "Ikke valgt"
+        },
+        "cancelUpdate": {
+            "message": "Dette spillet lastes ned for øyeblikket. Vil du avbryte nedlastingen?",
+            "title": "Avbryt oppdatering?"
+        },
+        "removeFromQueue": {
+            "message": "Dette spillet står i nedlastingskø. Vil du fjerne det fra køen?"
+        }
     },
     "next": "Neste"
 }

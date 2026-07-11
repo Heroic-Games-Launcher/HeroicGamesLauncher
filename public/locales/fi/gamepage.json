@@ -335,5 +335,8 @@
         }
     },
     "open-saves-folder": "Avaa pelitallennuskansio",
-    "wikiLink": "Tärkeää tietoa tästä pelistä, lue tämä:&nbsp;<1>Avaa sivu</1>"
+    "wikiLink": "Tärkeää tietoa tästä pelistä, lue tämä:&nbsp;<1>Avaa sivu</1>",
+    "edit-game": {
+        "advanced": "Edistyneet"
+    }
 }

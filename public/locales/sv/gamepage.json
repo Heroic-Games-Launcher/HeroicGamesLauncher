@@ -339,5 +339,8 @@
         }
     },
     "wikiLink": "Viktig information om det här spelet, läs detta:<1>Öppna sida</1>",
-    "open-saves-folder": "Öppna mappen med sparningar"
+    "open-saves-folder": "Öppna mappen med sparningar",
+    "edit-game": {
+        "advanced": "Avancerat"
+    }
 }

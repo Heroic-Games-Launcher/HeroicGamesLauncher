@@ -44,6 +44,30 @@
   pointer-events: none;
 }
 
+.discountCard__cover {
+  position: relative;
+}
+
+.discountCard__storeIcon {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  width: 28px;
+  height: 28px;
+  padding: var(--space-3xs);
+  border-radius: 10px;
+  background: var(--background-darker);
+  fill: var(--text-default);
+}
+
+.discountCard__storeIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .discountCard__score {
   position: absolute;
   top: 8px;

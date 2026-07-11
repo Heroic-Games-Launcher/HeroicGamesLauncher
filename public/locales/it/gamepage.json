@@ -96,7 +96,8 @@
         "changelog": "Mostra Changelog",
         "browse_files": "Sfoglia file",
         "browse_wine_prefix": "Sfoglia prefisso Wine",
-        "play": "GIOCA"
+        "play": "GIOCA",
+        "edit-game": "Modifica gioco"
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -260,7 +261,9 @@
             "title": "Titolo Gioco/App",
             "broser": "URL del browser",
             "useragent": "Agente Utente Personalizzato",
-            "fullscreen": "Apri schermo intero (F11 per uscire)"
+            "fullscreen": "Apri schermo intero (F11 per uscire)",
+            "cover-hint": "Grafica (clicca sull'immagine per cercare su SteamGridDB)",
+            "image-hint": "Grafica quadrata (clicca sull'immagine per cercare su SteamGridDB)"
         },
         "placeholder": {
             "image": "Incolla qui l'URL di un'Immagine o seleziona un'immagine dal computer",
@@ -271,6 +274,9 @@
         "import-hint": {
             "title": "Importante! Stai aggiungendo un gioco da Epic/GOG/Amazon? Clicca qui!",
             "content": "NON utilizzare questa funzionalità per fare questo.<br />Invece, <3>accedi</3> al negozio, cerca il gioco nella tua libreria, apri la finestra d'installazione e clicca il tasto &quot;Importa Gioco&quot;"
+        },
+        "images": {
+            "summary": "Immagini"
         }
     },
     "specs": {
@@ -357,5 +363,23 @@
         }
     },
     "wikiLink": "Informazioni importanti su questo gioco, leggi qui:&nbsp;<1>Apri la pagina</1>",
-    "open-saves-folder": "Apri la cartella dei salvataggi"
+    "open-saves-folder": "Apri la cartella dei salvataggi",
+    "edit-game": {
+        "advanced": "Avanzate",
+        "cover": "Grafica",
+        "info": {
+            "cover": "Copertina",
+            "square": "Immagine quadrata"
+        },
+        "placeholder": {
+            "image": "Incolla l'URL di un'immagine"
+        },
+        "reset": "Ripristina valori predefiniti",
+        "sgdb": {
+            "no-key-link": "Impostazioni → Avanzate",
+            "no-key-prefix": "Per cercare una grafica da SteamGridDB, aggiungi una chiave API"
+        },
+        "square": "Grafica quadrata",
+        "title": "Modifica gioco"
+    }
 }

@@ -24,6 +24,39 @@
   font-size: var(--text-2xl);
 }
 
+.discountsScreen__storeTabs {
+  display: inline-flex;
+  height: 40px;
+  padding: 3px;
+  gap: 2px;
+  background-color: var(--input-background, var(--background));
+  border: 1px solid var(--divider, rgba(255, 255, 255, 0.12));
+  border-radius: var(--space-3xs);
+  margin-inline-end: auto;
+}
+
+.discountsScreen__storeTab {
+  min-width: 90px;
+  padding: 0 var(--space-sm);
+  border: none;
+  border-radius: calc(var(--space-3xs) - 1px);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+  font-weight: var(--semibold);
+  cursor: pointer;
+}
+
+.discountsScreen__storeTab:hover:not(.discountsScreen__storeTab--active) {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-default);
+}
+
+.discountsScreen__storeTab--active {
+  background-color: var(--accent);
+  color: var(--text-tertiary);
+}
+
 .discountsScreen__region {
   display: flex;
   align-items: center;

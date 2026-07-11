@@ -96,7 +96,8 @@
         "changelog": "Änderungsprotokoll anzeigen",
         "browse_files": "Dateien durchsuchen",
         "browse_wine_prefix": "Wine-Präfix durchsuchen",
-        "play": "Spielen"
+        "play": "Spielen",
+        "edit-game": "Bearbeite Spiel"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -261,7 +262,9 @@
             "title": "Spiele-/App-Titel",
             "broser": "Browser-URL",
             "fullscreen": "Im Vollbild starten (F11 zum Beenden)",
-            "useragent": "Benutzerdefinierter Agent"
+            "useragent": "Benutzerdefinierter Agent",
+            "cover-hint": "Cover-Art (Klicke auf das Bild, um auf SteamGridDB zu suchen)",
+            "image-hint": "Quadratisches Symbol (Klicke auf das Bild, um in SteamGridDB zu suchen)"
         },
         "placeholder": {
             "image": "Hier die URL eines Bildes einfügen oder eines auf deinem Computer auswählen",
@@ -272,6 +275,9 @@
         "import-hint": {
             "title": "Wichtig! Fügst du ein Spiel von Epic/GOG/Amazon hinzu? Klicke hier!",
             "content": "Verwende diese Funktion NICHT dafür.<br />Logge dich stattdessen im Store ein, suche das Spiel in deiner Bibliothek, öffne den Installationsdialog und klicke auf die Schaltfläche &quot;Spiel importieren&quot;"
+        },
+        "images": {
+            "summary": "Bilder"
         }
     },
     "specs": {
@@ -359,5 +365,22 @@
         }
     },
     "wikiLink": "Wichtige Informationen zu diesem Spiel, bitte lies dies:&nbsp;<1>Öffne Seite</1>",
-    "open-saves-folder": "Speicherdaten-Ordner öffnen"
+    "open-saves-folder": "Speicherdaten-Ordner öffnen",
+    "edit-game": {
+        "advanced": "Erweitert",
+        "placeholder": {
+            "image": "Füge eine Bild URL ein"
+        },
+        "reset": "Auf Standardwerte zurücksetzen",
+        "sgdb": {
+            "no-key-link": "Einstellungen → Erweitert",
+            "no-key-prefix": "Um in SteamGridDB nach Cover-Artworks zu suchen, füge einen API-Schlüssel hinzu in"
+        },
+        "title": "Spiel bearbeiten",
+        "cover": "Titelbild",
+        "info": {
+            "cover": "Titelbild",
+            "square": "Quadratisches Bild"
+        }
+    }
 }

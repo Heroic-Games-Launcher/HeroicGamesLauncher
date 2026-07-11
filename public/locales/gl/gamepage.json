@@ -355,5 +355,8 @@
         "notice2": "Ao facer clic en Instalar, Heroic executará a aplicación para poder rematar o proceso de instalación"
     },
     "wikiLink": "Información importante sobre este xogo, lee esto: &nbsp;<1>Abrir páxina</1>",
-    "open-saves-folder": ""
+    "open-saves-folder": "",
+    "edit-game": {
+        "advanced": "Avanzado"
+    }
 }
