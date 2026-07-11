@@ -146,6 +146,8 @@ const applyGameOverrides = (
 ) => attachGameOverrides(lib, overrides)
 
 class GlobalState extends PureComponent<Props> {
+  private activeLibraryRefresh?: Promise<void>
+
   loadLegendaryLibrary = (
     overrides: Record<string, GameOverride> = currentOverrides()
   ): Array<GameInfo> => {
@@ -567,16 +569,20 @@ class GlobalState extends PureComponent<Props> {
 
   epicLogout = async () => {
     this.setState({ refreshing: true })
-    await window.api.logoutLegendary().finally(async () => {
-      const accounts = await window.api.getLegendaryAccounts()
-      this.setState({
-        epic: {
-          library: [],
-          username: null,
-          accounts,
-          activeAccountId: undefined
-        }
-      })
+    const loggedOut = await window.api.logoutLegendary()
+    if (!loggedOut) {
+      this.setState({ refreshing: false })
+      return
+    }
+
+    const accounts = await window.api.getLegendaryAccounts()
+    this.setState({
+      epic: {
+        library: [],
+        username: null,
+        accounts,
+        activeAccountId: undefined
+      }
     })
     console.log('Logging out from epic')
     this.setState({ refreshing: false })
@@ -584,6 +590,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   epicSwitchAccount = async (accountId: string) => {
+    await this.activeLibraryRefresh
     const response = await window.api.switchLegendaryAccount(accountId)
     const accounts = await window.api.getLegendaryAccounts()
 
@@ -606,6 +613,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   epicRemoveAccount = async (accountId: string) => {
+    await this.activeLibraryRefresh
     const wasActiveAccount = accountId === this.state.epic.activeAccountId
     const response = await window.api.removeLegendaryAccount(accountId)
 
@@ -850,8 +858,30 @@ class GlobalState extends PureComponent<Props> {
     runInBackground = true,
     library = undefined
   }: RefreshOptions): Promise<void> => {
-    if (this.state.refreshing) return
+    if (this.activeLibraryRefresh) {
+      return this.activeLibraryRefresh
+    }
 
+    const refresh = this.runLibraryRefresh({
+      checkForUpdates,
+      runInBackground,
+      library
+    })
+    this.activeLibraryRefresh = refresh
+    try {
+      await refresh
+    } finally {
+      if (this.activeLibraryRefresh === refresh) {
+        this.activeLibraryRefresh = undefined
+      }
+    }
+  }
+
+  private runLibraryRefresh = async ({
+    checkForUpdates,
+    runInBackground = true,
+    library = undefined
+  }: RefreshOptions): Promise<void> => {
     this.setState({
       refreshing: true,
       refreshingInTheBackground: runInBackground
@@ -862,6 +892,7 @@ class GlobalState extends PureComponent<Props> {
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`Library refresh failed: ${String(error)}`)
+      this.setState({ refreshing: false })
     }
   }
 

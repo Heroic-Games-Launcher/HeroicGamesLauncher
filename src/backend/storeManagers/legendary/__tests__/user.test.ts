@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 import { ensureDirSync, removeSync } from 'fs-extra'
 import { join } from 'path'
+import { session } from 'electron'
 
 import { configStore } from 'backend/constants/key_value_stores'
 import { libraryManagerMap } from '../..'
@@ -68,6 +69,7 @@ const accountProfilePath = (accountId: string) =>
 
 describe('LegendaryUser account management', () => {
   beforeEach(() => {
+    jest.clearAllMocks()
     configStore.clear()
     mockRunRunnerCommand.mockReset()
     removeSync(legendaryConfigPath)
@@ -286,6 +288,8 @@ describe('LegendaryUser account management', () => {
     )
     expect(existsSync(accountProfilePath('account-a'))).toBe(true)
     expect(existsSync(accountProfilePath('account-b'))).toBe(true)
+    expect(session.defaultSession.clearStorageData).not.toHaveBeenCalled()
+    expect(session.defaultSession.clearData).not.toHaveBeenCalled()
   })
 
   test('removes an inactive account while preserving the active account', async () => {
@@ -323,5 +327,151 @@ describe('LegendaryUser account management', () => {
         .get('legendaryAccounts.accounts', [])
         .map((account) => account.account_id)
     ).toEqual(['account-a'])
+  })
+
+  test('does not report success when removing the active account fails to log out', async () => {
+    writeLegendaryProfile(
+      legendaryConfigPath,
+      'account-a',
+      'Account A',
+      'active account'
+    )
+    LegendaryUser.getAccounts()
+    mockRunRunnerCommand.mockResolvedValue({
+      stdout: '',
+      stderr: '',
+      error: 'logout failed'
+    })
+
+    const result = await LegendaryUser.removeAccount('account-a')
+
+    expect(result.status).toBe('failed')
+    expect(result.activeAccountId).toBe('account-a')
+    expect(readProfileUser(legendaryConfigPath).account_id).toBe('account-a')
+    expect(existsSync(accountProfilePath('account-a'))).toBe(true)
+  })
+
+  test('rejects an invalid saved profile without replacing the active profile', async () => {
+    writeLegendaryProfile(
+      legendaryConfigPath,
+      'account-a',
+      'Account A',
+      'active account'
+    )
+    LegendaryUser.getAccounts()
+    writeLegendaryProfile(
+      accountProfilePath('account-b'),
+      'wrong-account',
+      'Wrong Account',
+      'invalid saved profile'
+    )
+    configStore.set('legendaryAccounts.accounts', [
+      {
+        account_id: 'account-b',
+        displayName: 'Account B',
+        user: 'test',
+        lastLogin: 0,
+        lastUsed: 0
+      },
+      ...configStore.get('legendaryAccounts.accounts', [])
+    ])
+
+    const result = await LegendaryUser.switchAccount('account-b')
+
+    expect(result.status).toBe('failed')
+    expect(readProfileUser(legendaryConfigPath).account_id).toBe('account-a')
+  })
+
+  test('recovers each missing install metadata file independently', async () => {
+    writeLegendaryProfile(
+      legendaryConfigPath,
+      'account-a',
+      'Account A',
+      'active account'
+    )
+    writeInstalledMetadata(legendaryConfigPath, 'Sugar')
+    writeLegendaryProfile(
+      accountProfilePath('account-a'),
+      'account-a',
+      'Account A',
+      'saved account'
+    )
+    writeFileSync(
+      join(accountProfilePath('account-a'), 'third-party-installed.json'),
+      JSON.stringify({ external: { app_name: 'external' } })
+    )
+    mockRunRunnerCommand.mockImplementation(async (_command, options) => {
+      if (options?.env?.LEGENDARY_CONFIG_PATH) {
+        writeLegendaryProfile(
+          options.env.LEGENDARY_CONFIG_PATH,
+          'account-b',
+          'Account B',
+          'new account'
+        )
+      }
+      return { stdout: '', stderr: '' }
+    })
+
+    const result = await LegendaryUser.login('auth-code', { addAccount: true })
+
+    expect(result.status).toBe('done')
+    expect(existsSync(join(legendaryConfigPath, 'installed.json'))).toBe(true)
+    expect(
+      existsSync(join(legendaryConfigPath, 'third-party-installed.json'))
+    ).toBe(true)
+  })
+
+  test('keeps the active profile when staged install metadata cannot be written', async () => {
+    writeLegendaryProfile(
+      legendaryConfigPath,
+      'account-a',
+      'Account A',
+      'active account'
+    )
+    writeInstalledMetadata(legendaryConfigPath, 'Sugar')
+    LegendaryUser.getAccounts()
+    writeLegendaryProfile(
+      accountProfilePath('account-b'),
+      'account-b',
+      'Account B',
+      'saved account'
+    )
+    configStore.set('legendaryAccounts.accounts', [
+      {
+        account_id: 'account-b',
+        displayName: 'Account B',
+        user: 'test',
+        lastLogin: 0,
+        lastUsed: 0
+      },
+      ...configStore.get('legendaryAccounts.accounts', [])
+    ])
+
+    const gracefulFsModule =
+      jest.requireActual<typeof import('graceful-fs')>('graceful-fs')
+    const originalWriteFileSync = gracefulFsModule.writeFileSync
+    const writeFileSpy = jest
+      .spyOn(gracefulFsModule, 'writeFileSync')
+      .mockImplementation(((file, data, options) => {
+        if (
+          String(file).includes('account-b.new') &&
+          String(file).endsWith('installed.json')
+        ) {
+          throw new Error('simulated metadata write failure')
+        }
+        return originalWriteFileSync(file, data, options)
+      }) as typeof gracefulFsModule.writeFileSync)
+
+    const result = await LegendaryUser.switchAccount('account-b')
+    writeFileSpy.mockRestore()
+
+    expect(result.status).toBe('failed')
+    expect(readProfileUser(legendaryConfigPath).account_id).toBe('account-a')
+    expect(configStore.get_nodefault('legendaryAccounts.activeAccountId')).toBe(
+      'account-a'
+    )
+    expect(readProfileUser(accountProfilePath('account-b')).account_id).toBe(
+      'account-b'
+    )
   })
 })
