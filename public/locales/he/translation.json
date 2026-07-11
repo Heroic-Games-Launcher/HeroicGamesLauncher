@@ -542,7 +542,8 @@
         "processing": "מעבד קבצים, נא לחכות",
         "installing": "מתקין",
         "logging": "נכנס...",
-        "preparing_login": "מכין כניסה... "
+        "preparing_login": "מכין כניסה... ",
+        "installed": "מותקן"
     },
     "accessibility": {
         "content_font_family_no_default": "משפחת גופני תוכן (ברירת מחדל: ",
@@ -1092,7 +1093,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1222,7 +1222,12 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "פלטפורמה",
+            "title": "התקן משחק",
+            "wineLoading": "טוען"
+        }
     },
     "next": "",
     "sidebar": {

@@ -26,9 +26,13 @@ export interface CatalogRating {
   ageRating: string
 }
 
+export type DiscountStore = 'gog' | 'gmg'
+
 export interface CatalogProduct {
   id: string
   title: string
+  // Absent on GOG catalog responses; the frontend treats undefined as 'gog'
+  store?: DiscountStore
   coverHorizontal?: string
   coverVertical?: string
   price: CatalogPrice

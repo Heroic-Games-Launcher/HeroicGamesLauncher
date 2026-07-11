@@ -922,7 +922,8 @@
         "installing": "در حال نصب",
         "logging": "در حال وارد شدن...",
         "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
-        "preparing_login": "در حال آماده سازی ورود... "
+        "preparing_login": "در حال آماده سازی ورود... ",
+        "installed": "نصب شده"
     },
     "store": "فروشگاه اپیک",
     "stores": "فروشگاهها",
@@ -1114,7 +1115,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1244,7 +1244,12 @@
         "empty": "",
         "games": "بازی‌های نصب شده",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "نصب بازی",
+            "wineLoading": "درحال بارگذاری"
+        }
     },
     "next": ""
 }

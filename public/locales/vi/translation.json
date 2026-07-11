@@ -922,7 +922,8 @@
         "installing": "Đang Cài Đặt",
         "logging": "Đang Đăng Nhập...",
         "processing": "Đang xử lý tệp, vui lòng đợi",
-        "preparing_login": "Đang Chuẩn Bị Đăng Nhập... "
+        "preparing_login": "Đang Chuẩn Bị Đăng Nhập... ",
+        "installed": "Đã Cài Đặt"
     },
     "store": "Cửa hàng Epic",
     "stores": "Cửa Hàng",
@@ -1111,7 +1112,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton là một biến thể Proton được tạo ra bởi Glorious Eggroll. Nó được sử dụng cùng với trình khởi chạy umu (mặc định trong Heroic).",
-        "wine-ge": "Wine-GE-Proton là một biến thể của Wine được tạo ra bởi Glorious Eggroll. Nó không được dùng nữa để ủng hộ GE-Proton với trình khởi chạy umu.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1244,7 +1244,12 @@
         "empty": "",
         "games": "Game đã cài",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
+        }
     },
     "next": "Tiếp"
 }

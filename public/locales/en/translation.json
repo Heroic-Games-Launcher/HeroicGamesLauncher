@@ -24,7 +24,7 @@
         "enable": "Enable",
         "info": {
             "pt1": "In order to improve the app, Heroic collects 100% anonymous data.",
-            "pt2": "Heroic uses the open-source Plausible Analytics platform to gather basic data: App Version, OS, Stores Connected and Country.",
+            "pt2": "Heroic uses the open-source Plausible Analytics platform, self-hosted by the Heroic team, to gather basic data: App Version, OS, System Architecture, Linux Distribution, Stores Connected and Country.",
             "pt3": "It will never collect any personal information, including your username, IP address or email.",
             "pt4": "This data is used to give us insights on what to focus on next due to our limited resources and user feedback.",
             "pt5": "Plausible Analytics is fully compliant with GDPR, CCPA and PECR.",
@@ -291,6 +291,9 @@
             "pagination": "Pagination",
             "rating": "Rating {{rating}} out of 10"
         },
+        "currency": {
+            "label": "Currency"
+        },
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
         "filters": {
@@ -307,8 +310,8 @@
             "hideOwned": "Hide Owned",
             "lessFilters": "Less filters",
             "moreFilters": "More filters",
-            "os": "Operating system",
             "pageSize": "Per page",
+            "platform": "Platform",
             "price": "Price",
             "rating": "Rating",
             "releaseYear": "Release year",
@@ -367,7 +370,15 @@
             "releaseDesc": "Release date: new to old",
             "trending": "Trending"
         },
-        "title": "GOG Deals"
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} key, redeemed outside Heroic",
+            "gmgHint": "Green Man Gaming — key for an external store, not installable through Heroic"
+        },
+        "tabs": {
+            "all": "All stores",
+            "label": "Store"
+        },
+        "titleMulti": "Deals"
     },
     "dlc": {
         "actions": "Actions",
@@ -1200,9 +1211,9 @@
     },
     "wineExplanation": {
         "gpt": "Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.",
+        "proton-cachyos": "Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.",
         "proton-ge": "GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).",
         "wine-crossover": "Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.",
-        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.",
         "wine-staging-macos": "Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool."
     },
     "winetricks": {
