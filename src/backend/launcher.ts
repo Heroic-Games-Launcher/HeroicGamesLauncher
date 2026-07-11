@@ -243,6 +243,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     await gogPresence.setPresence()
   }
 
+  let launchErrorMsg: string | undefined = undefined
+
   const launchResult = await command
     .catch(async (exception) => {
       logError(exception, LogPrefix.Backend)
@@ -250,6 +252,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
         `An exception occurred when launching the game:`
       ])
       await logWriter.logError(exception)
+      launchErrorMsg =
+        exception instanceof Error ? exception.message : String(exception)
 
       return false
     })
@@ -329,7 +333,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     app.exit()
   }
 
-  return { status: launchResult ? 'done' : 'error' }
+  return { status: launchResult ? 'done' : 'error', error: launchErrorMsg }
 }
 
 function filterGameSettingsForLog(

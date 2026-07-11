@@ -156,7 +156,10 @@ const launch = async ({
   showDialogModal,
   args,
   notPlayableOffline
-}: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
+}: LaunchOptions): Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string
+}> => {
   const proceedToLaunch = async () => {
     // First handle update dialog if needed
     if (hasUpdate) {
@@ -275,6 +278,7 @@ async function checkLaunchOptionsAndLaunch({
   skipVersionCheck = false
 }: LaunchOptions & { skipVersionCheck?: boolean }): Promise<{
   status: 'done' | 'error' | 'abort'
+  error?: string
 }> {
   // If launch arguments already provided, launch directly
   if (launchArguments) {

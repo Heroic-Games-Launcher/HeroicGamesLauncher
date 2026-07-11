@@ -267,6 +267,9 @@
             "wineLoading": "Loading…",
             "wineMissing": "Not selected"
         },
+        "launchError": "Failed to launch game. Check the logs for details.",
+        "launchErrorNotLoggedIn": "Failed to launch game. You must log in to Steam first.",
+        "launchErrorPrefix": "Failed to launch game:",
         "launching": "Launching",
         "loading": "Loading your library…",
         "quit": "Quit Console",

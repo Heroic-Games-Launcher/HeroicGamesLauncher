@@ -12,7 +12,13 @@ import {
 import axios from 'axios'
 import https from 'node:https'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
+import {
+  ChildProcess,
+  exec,
+  spawn,
+  SpawnOptions,
+  spawnSync
+} from 'child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -1404,6 +1410,91 @@ export async function isMacSonomaOrHigher() {
 function sendGameStatusUpdate(payload: GameStatus) {
   sendFrontendMessage('gameStatusUpdate', payload)
   backendEvents.emit('gameStatusUpdate', payload)
+
+  // Bring the game window to the foreground once it starts playing.
+  if (payload.status === 'playing') {
+    focusGameWindow()
+  }
+}
+
+let activeFocusProcess: ChildProcess | null = null
+
+/**
+ * Polls for a newly-created game window and brings it to the foreground.
+ * On Windows, polls for up to 10 seconds (500ms intervals) using AppActivate,
+ * which is more robust than a single attempt since the game process may take
+ * time to start and create its window.
+ *
+ * Only one polling loop runs at a time — starting a new one cancels any
+ * in-progress focus attempt to prevent overlapping loops from activating the
+ * wrong window.
+ */
+function focusGameWindow() {
+  // Cancel any in-progress focus attempt.
+  if (activeFocusProcess) {
+    try {
+      activeFocusProcess.kill()
+    } catch {
+      // process may already be dead
+    }
+    activeFocusProcess = null
+  }
+
+  try {
+    let child: ChildProcess
+    if (isWindows) {
+      child = spawn(
+        'powershell',
+        [
+          '-NoProfile',
+          '-Command',
+          [
+            'Add-Type -AssemblyName Microsoft.VisualBasic;',
+            '$deadline = [DateTime]::Now.AddSeconds(10);',
+            'while ([DateTime]::Now -lt $deadline) {',
+            '  $p = Get-Process | Where-Object {',
+            '    $_.MainWindowHandle -ne 0 -and',
+            '    $_.ProcessName -ne "Heroic" -and',
+            '    $_.ProcessName -ne "HeroicGamesLauncher"',
+            '  } | Sort-Object StartTime -Descending | Select-Object -First 1;',
+            '  if ($p -and [Microsoft.VisualBasic.Interaction]::AppActivate($p.Id)) { break };',
+            '  Start-Sleep -Milliseconds 500',
+            '}'
+          ].join('')
+        ],
+        { timeout: 15000, stdio: 'ignore' }
+      )
+    } else if (isLinux) {
+      child = spawn(
+        'xdotool',
+        ['search', '--onlyvisible', '--class', '.', 'windowactivate'],
+        { timeout: 3000, stdio: 'ignore' }
+      )
+    } else if (isMac) {
+      child = spawn(
+        'osascript',
+        [
+          '-e',
+          'tell application "System Events" to set frontmost of (first process whose visible is true and name is not "Heroic") to true'
+        ],
+        { timeout: 3000, stdio: 'ignore' }
+      )
+    } else {
+      return
+    }
+
+    activeFocusProcess = child
+    child.on('error', () => {
+      // best-effort — process failed to start or was killed
+    })
+    child.on('close', () => {
+      if (activeFocusProcess === child) {
+        activeFocusProcess = null
+      }
+    })
+  } catch {
+    // best-effort
+  }
 }
 
 function sendProgressUpdate(payload: GameStatus) {
@@ -1739,7 +1830,8 @@ export {
   extractFiles,
   axiosClient,
   parseSize,
-  getGame
+  getGame,
+  focusGameWindow
 }
 
 // Exported only for testing purpose

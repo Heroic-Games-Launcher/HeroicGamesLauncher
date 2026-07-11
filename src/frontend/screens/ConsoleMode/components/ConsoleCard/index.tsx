@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 
 import { CachedImage } from 'frontend/components/UI'
+import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import { getProgress } from 'frontend/helpers'
@@ -68,6 +69,7 @@ const ConsoleCard = forwardRef<HTMLButtonElement, Props>(function ConsoleCard(
         alt={game.title}
         className="consoleCardArt"
       />
+      <StoreLogos runner={game.runner} className="consoleCardStoreIcon" />
       {needsUpdate && !showStatus && (
         <span className="consoleCardBadge">
           {t('console.card.needsUpdate', 'Needs update')}
