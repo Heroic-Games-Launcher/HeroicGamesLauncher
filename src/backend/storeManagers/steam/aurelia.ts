@@ -12,8 +12,10 @@ import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
 import type {
   AureliaConfigShowResponse,
   AureliaInfoResponse,
+  AureliaLibrariesResponse,
   AureliaProgressEvent
 } from './aurelia_types'
+import type { SteamInstallLibrary } from 'common/types/steam'
 
 export class AureliaError extends Error {
   readonly aborted: boolean
@@ -246,5 +248,20 @@ export async function getSteamLibraryPath(): Promise<string | undefined> {
       LogPrefix.Steam
     )
     return undefined
+  }
+}
+
+/**
+ * Lists the Steam library folders
+ */
+export async function getSteamInstallLibraries(): Promise<
+  SteamInstallLibrary[]
+> {
+  try {
+    const result = await runAurelia<AureliaLibrariesResponse>(['libraries'])
+    return result.libraries ?? []
+  } catch (error) {
+    logError(['Unable to list Steam install libraries', error], LogPrefix.Steam)
+    return []
   }
 }

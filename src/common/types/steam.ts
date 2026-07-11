@@ -27,6 +27,11 @@ export interface SteamPendingDlcChange {
   enable: boolean
 }
 
+export interface SteamInstallLibrary {
+  path: string
+  free_bytes: number | null
+}
+
 interface SteamInstallManifest {
   download_size: number
   disk_size: number

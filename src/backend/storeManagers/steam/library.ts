@@ -30,8 +30,10 @@ import {
   runAurelia,
   runAureliaCommand,
   getSteamLibraryPath,
+  getSteamInstallLibraries,
   AureliaError
 } from './aurelia'
+import type { SteamInstallLibrary } from 'common/types/steam'
 import { join } from 'path'
 import SteamGame from './games'
 import type {
@@ -431,6 +433,18 @@ export default class SteamLibraryManager implements LibraryManager {
       library.set(appName, cached)
       sendFrontendMessage('pushGameToLibrary', cached)
     }
+  }
+
+  /**
+   * Lists the Steam library folders (one per drive/location) a game can be
+   * installed into, with each drive's free space. Backs the install dialog's
+   * drive-selection dropdown.
+   */
+  async getInstallLibraries(): Promise<SteamInstallLibrary[]> {
+    if (!isSteamImportEnabled()) {
+      return []
+    }
+    return getSteamInstallLibraries()
   }
 
   async getLaunchOptions(appName: string): Promise<LaunchOption[]> {

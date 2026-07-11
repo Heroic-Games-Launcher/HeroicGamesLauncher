@@ -95,6 +95,11 @@ export interface AureliaConfigShowResponse {
   steam_library_path: string
 }
 
+/** Result of `aurelia libraries --json`. */
+export interface AureliaLibrariesResponse {
+  libraries: Array<{ path: string; free_bytes: number | null }>
+}
+
 interface AureliaLaunchOption {
   id: string | number
   description?: string

@@ -8,6 +8,10 @@ addHandler('getSteamDlcInfo', async (_e, appName) =>
   libraryManagerMap['steam'].getDLCInfo(appName)
 )
 
+addHandler('getSteamInstallLibraries', async () =>
+  libraryManagerMap['steam'].getInstallLibraries()
+)
+
 addHandler('setSteamDlcEnabled', async (_e, dlcAppId, enabled) =>
   // setDlcEnabled operates on the DLC's app id, not a specific game instance.
   libraryManagerMap['steam'].getGame(dlcAppId).setDlcEnabled(dlcAppId, enabled)

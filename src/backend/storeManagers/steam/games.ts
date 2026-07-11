@@ -1,5 +1,5 @@
 import { existsSync } from 'graceful-fs'
-import { dirname } from 'path'
+import { dirname, sep } from 'path'
 import { dialog } from 'electron'
 import { t } from 'i18next'
 import { GameConfig } from '../../game_config'
@@ -61,6 +61,26 @@ function aureliaPlatform(platform: InstallPlatform): string | undefined {
   if (lc.startsWith('win')) return 'windows'
   if (lc.startsWith('lin')) return 'linux'
   return undefined
+}
+
+/**
+ * Normalises a chosen install path to the Steam **library root** that
+ * `aurelia install --library` expects (the folder containing `steamapps/`).
+ * The drive-selection dropdown already provides a root, but accept a
+ * `<root>/steamapps[/common]` path too so an install started from the legacy
+ * resolved path still targets the right library. Returns `undefined` for an
+ * empty path so the command falls back to Aurelia's configured library.
+ */
+function toSteamLibraryRoot(path?: string): string | undefined {
+  if (!path) return undefined
+  const trimmed = path.replace(/[/\\]+$/, '')
+  const segments = trimmed.split(/[/\\]/)
+  const steamappsIdx = segments.findIndex(
+    (segment) => segment.toLowerCase() === 'steamapps'
+  )
+  const root =
+    steamappsIdx === -1 ? trimmed : segments.slice(0, steamappsIdx).join(sep)
+  return root || undefined
 }
 
 // Maps Aurelia's store platform strings
@@ -489,7 +509,10 @@ export default class SteamGame implements Game {
     return
   }
 
-  async install({ platformToInstall }: InstallArgs): Promise<InstallResult> {
+  async install({
+    platformToInstall,
+    path
+  }: InstallArgs): Promise<InstallResult> {
     if (!isSteamImportEnabled()) {
       logWarning(
         `Steam import is disabled, cannot install ${this.id}`,
@@ -499,13 +522,21 @@ export default class SteamGame implements Game {
     }
 
     const gameInfo = this.getGameInfo()
-    logInfo(`Installing ${gameInfo.title} (${this.id})`, LogPrefix.Steam)
+    const libraryRoot = toSteamLibraryRoot(path)
+    logInfo(
+      `Installing ${gameInfo.title} (${this.id})${
+        libraryRoot ? ` into ${libraryRoot}` : ''
+      }`,
+      LogPrefix.Steam
+    )
 
     const platformArg = aureliaPlatform(platformToInstall)
     const commandParts = [
       'install',
       this.id,
-      ...(platformArg ? ['-p', platformArg] : [])
+      ...(platformArg ? ['-p', platformArg] : []),
+      // Install into the chosen Steam library folder
+      ...(libraryRoot ? ['--library', libraryRoot] : [])
     ]
 
     const result = await this.runStreamingCommand(

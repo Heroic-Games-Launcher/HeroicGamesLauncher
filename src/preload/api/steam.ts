@@ -2,6 +2,9 @@ import { makeHandlerInvoker, makeListenerCaller, frontendListenerSlot } from '..
 
 export const getSteamUserInfo = makeHandlerInvoker('getSteamUserInfo')
 export const getSteamDlcInfo = makeHandlerInvoker('getSteamDlcInfo')
+export const getSteamInstallLibraries = makeHandlerInvoker(
+  'getSteamInstallLibraries'
+)
 export const setSteamDlcEnabled = makeHandlerInvoker('setSteamDlcEnabled')
 export const getSteamIntegrationEnabled = makeHandlerInvoker('getSteamIntegrationEnabled')
 export const setSteamIntegrationEnabled = makeListenerCaller('setSteamIntegrationEnabled')
