@@ -23,6 +23,7 @@ export default function EpicAccountsManager({
   const { t } = useTranslation()
   const [busyAccountId, setBusyAccountId] = useState<string>()
   const hasAccounts = accounts.length > 0
+  const isBusy = busyAccountId !== undefined
 
   async function handleSwitch(accountId: string) {
     if (disabled || accountId === activeAccountId) {
@@ -30,8 +31,11 @@ export default function EpicAccountsManager({
     }
 
     setBusyAccountId(accountId)
-    await onSwitchAccount(accountId)
-    setBusyAccountId(undefined)
+    try {
+      await onSwitchAccount(accountId)
+    } finally {
+      setBusyAccountId(undefined)
+    }
   }
 
   async function handleRemove(account: LegendaryAccount) {
@@ -52,8 +56,11 @@ export default function EpicAccountsManager({
     }
 
     setBusyAccountId(account.account_id)
-    await onRemoveAccount(account.account_id)
-    setBusyAccountId(undefined)
+    try {
+      await onRemoveAccount(account.account_id)
+    } finally {
+      setBusyAccountId(undefined)
+    }
   }
 
   return (
@@ -62,8 +69,13 @@ export default function EpicAccountsManager({
         <span>{t('login.epic.accounts.title', 'Epic Accounts')}</span>
         <button
           className="epicAccountButton primary"
-          disabled={disabled}
-          onClick={() => void onAddAccount()}
+          disabled={disabled || isBusy}
+          onClick={() => {
+            setBusyAccountId('add-account')
+            void Promise.resolve(onAddAccount()).finally(() => {
+              setBusyAccountId(undefined)
+            })
+          }}
         >
           {t('login.epic.accounts.add', 'Add Account')}
         </button>
@@ -73,7 +85,7 @@ export default function EpicAccountsManager({
         <div className="epicAccountsList">
           {accounts.map((account) => {
             const isActive = account.account_id === activeAccountId
-            const isBusy = account.account_id === busyAccountId
+            const isCurrentAccountBusy = account.account_id === busyAccountId
             const lastUsed = new Date(account.lastUsed).toLocaleDateString()
 
             return (
@@ -99,7 +111,7 @@ export default function EpicAccountsManager({
                       disabled={disabled || isBusy}
                       onClick={() => void handleSwitch(account.account_id)}
                     >
-                      {isBusy
+                      {isCurrentAccountBusy
                         ? t('login.epic.accounts.switching', 'Switching')
                         : t('login.epic.accounts.switch', 'Switch')}
                     </button>

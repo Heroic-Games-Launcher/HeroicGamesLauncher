@@ -1,7 +1,8 @@
-import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
+import { existsSync, readFileSync, statSync, writeFileSync } from 'graceful-fs'
 import {
   copySync,
   ensureDirSync,
+  moveSync,
   pathExistsSync,
   readdirSync,
   removeSync
@@ -25,7 +26,18 @@ import {
 } from './constants'
 
 export class LegendaryUser {
+  private static accountOperation = Promise.resolve()
+
   public static async login(
+    authorizationCode: string,
+    options?: { addAccount?: boolean }
+  ) {
+    return this.withAccountLock(() =>
+      this.loginUnlocked(authorizationCode, options)
+    )
+  }
+
+  private static async loginUnlocked(
     authorizationCode: string,
     options?: { addAccount?: boolean }
   ): Promise<{
@@ -38,8 +50,12 @@ export class LegendaryUser {
     }
 
     const currentUser = this.getUserInfo()
-    if (currentUser) {
-      this.saveCurrentAccount(currentUser)
+    if (currentUser && !this.saveCurrentAccount(currentUser)) {
+      return {
+        status: 'failed',
+        data: undefined,
+        message: 'Could not safely save the current Epic account'
+      }
     }
 
     const command: LegendaryCommand = {
@@ -91,8 +107,12 @@ export class LegendaryUser {
   }> {
     const localInstallMetadata = this.getLocalInstallMetadata()
     const currentUser = this.getUserInfo()
-    if (currentUser) {
-      this.saveCurrentAccount(currentUser)
+    if (currentUser && !this.saveCurrentAccount(currentUser)) {
+      return {
+        status: 'failed',
+        data: undefined,
+        message: 'Could not safely save the current Epic account'
+      }
     }
 
     const command: LegendaryCommand = {
@@ -153,15 +173,16 @@ export class LegendaryUser {
       }
 
       const accountPath = this.getAccountPath(userInfo.account_id)
-      removeSync(accountPath)
-      ensureDirSync(legendaryAccountsPath)
-      copySync(legendaryTempLoginPath, accountPath, { overwrite: true })
-      this.restoreLocalInstallMetadata(accountPath, localInstallMetadata)
-      removeSync(legendaryConfigPath)
-      ensureDirSync(legendaryConfigPath)
-      copySync(accountPath, legendaryConfigPath, { overwrite: true })
-      this.restoreLocalInstallMetadata(
+      this.replaceProfile(
+        legendaryTempLoginPath,
+        accountPath,
+        userInfo.account_id,
+        localInstallMetadata
+      )
+      this.replaceProfile(
+        accountPath,
         legendaryConfigPath,
+        userInfo.account_id,
         localInstallMetadata
       )
       removeSync(legendaryTempLoginPath)
@@ -178,6 +199,10 @@ export class LegendaryUser {
   }
 
   public static async logout() {
+    return this.withAccountLock(() => this.logoutUnlocked())
+  }
+
+  private static async logoutUnlocked(): Promise<boolean> {
     const userInfo = this.getUserInfo()
     const accountId =
       userInfo?.account_id ??
@@ -194,7 +219,7 @@ export class LegendaryUser {
         ['Failed to logout:', res.error ?? 'abort by user'],
         LogPrefix.Legendary
       )
-      return
+      return false
     }
 
     await this.clearEpicWebSession()
@@ -204,6 +229,7 @@ export class LegendaryUser {
     configStore.delete('userInfo')
     configStore.delete('legendaryAccounts.activeAccountId')
     clearCache('legendary')
+    return true
   }
 
   public static getAccounts(): LegendaryAccount[] {
@@ -218,7 +244,10 @@ export class LegendaryUser {
       (account) => account.account_id === currentUser.account_id
     )
 
-    if (hasCurrentAccount) {
+    if (
+      hasCurrentAccount &&
+      pathExistsSync(this.getAccountPath(currentUser.account_id))
+    ) {
       return accounts
     }
 
@@ -226,7 +255,11 @@ export class LegendaryUser {
     return configStore.get('legendaryAccounts.accounts', [])
   }
 
-  public static async switchAccount(
+  public static async switchAccount(accountId: string) {
+    return this.withAccountLock(() => this.switchAccountUnlocked(accountId))
+  }
+
+  private static async switchAccountUnlocked(
     accountId: string
   ): Promise<{ status: 'done' | 'failed'; data: UserInfo | undefined }> {
     const accounts = this.getAccounts()
@@ -240,12 +273,6 @@ export class LegendaryUser {
       return { status: 'failed', data: undefined }
     }
 
-    const localInstallMetadata = this.getLocalInstallMetadata()
-    const currentUser = this.getUserInfo()
-    if (currentUser) {
-      this.saveCurrentAccount(currentUser)
-    }
-
     const accountPath = this.getAccountPath(account.account_id)
     if (!pathExistsSync(accountPath)) {
       logError(
@@ -256,17 +283,44 @@ export class LegendaryUser {
     }
 
     try {
-      removeSync(legendaryConfigPath)
-      ensureDirSync(legendaryConfigPath)
-      copySync(accountPath, legendaryConfigPath, { overwrite: true })
-      this.restoreLocalInstallMetadata(
-        legendaryConfigPath,
+      const savedUserInfo = this.getUserInfoFromPath(
+        join(accountPath, 'user.json')
+      )
+      if (savedUserInfo?.account_id !== account.account_id) {
+        logError(
+          [
+            'Failed to switch Epic account: saved profile is invalid',
+            accountPath
+          ],
+          LogPrefix.Legendary
+        )
+        return { status: 'failed', data: undefined }
+      }
+
+      const localInstallMetadata = this.getLocalInstallMetadata()
+      const currentUser = this.getUserInfo()
+      if (currentUser && !this.saveCurrentAccount(currentUser)) {
+        return { status: 'failed', data: undefined }
+      }
+
+      this.replaceProfile(
+        accountPath,
+        accountPath,
+        account.account_id,
         localInstallMetadata
       )
-      this.restoreLocalInstallMetadata(accountPath, localInstallMetadata)
+      this.replaceProfile(
+        accountPath,
+        legendaryConfigPath,
+        account.account_id,
+        localInstallMetadata
+      )
       await this.clearEpicWebSession()
 
-      const restoredUserInfo = this.getUserInfo() ?? account
+      const restoredUserInfo = this.getUserInfo()
+      if (!restoredUserInfo) {
+        throw new Error('Restored Epic account profile has no user info')
+      }
       configStore.set('userInfo', restoredUserInfo)
       configStore.set('legendaryAccounts.activeAccountId', account.account_id)
       this.upsertAccount(restoredUserInfo, false)
@@ -292,12 +346,29 @@ export class LegendaryUser {
     activeAccountId?: string
     data?: UserInfo
   }> {
+    return this.withAccountLock(() => this.removeAccountUnlocked(accountId))
+  }
+
+  private static async removeAccountUnlocked(accountId: string): Promise<{
+    status: 'done' | 'failed'
+    accounts: LegendaryAccount[]
+    activeAccountId?: string
+    data?: UserInfo
+  }> {
     const activeAccountId =
       this.getUserInfo()?.account_id ??
       configStore.get_nodefault('legendaryAccounts.activeAccountId')
 
     if (accountId === activeAccountId) {
-      await this.logout()
+      const loggedOut = await this.logoutUnlocked()
+      if (!loggedOut) {
+        return {
+          status: 'failed',
+          accounts: this.getAccounts(),
+          activeAccountId,
+          data: this.getUserInfo()
+        }
+      }
       return {
         status: 'done',
         accounts: this.getAccounts()
@@ -331,19 +402,82 @@ export class LegendaryUser {
     }
   }
 
-  private static saveCurrentAccount(userInfo: UserInfo) {
+  private static saveCurrentAccount(userInfo: UserInfo): boolean {
     try {
-      ensureDirSync(legendaryAccountsPath)
       const accountPath = this.getAccountPath(userInfo.account_id)
-      removeSync(accountPath)
-      copySync(legendaryConfigPath, accountPath, { overwrite: true })
+      this.replaceProfile(legendaryConfigPath, accountPath, userInfo.account_id)
       configStore.set('legendaryAccounts.activeAccountId', userInfo.account_id)
       this.upsertAccount(userInfo, true)
+      return true
     } catch (error) {
       logError(
         ['Failed to save Epic account profile:', `${error}`],
         LogPrefix.Legendary
       )
+      return false
+    }
+  }
+
+  private static replaceProfile(
+    sourcePath: string,
+    targetPath: string,
+    expectedAccountId: string,
+    installMetadata: ReturnType<
+      typeof LegendaryUser.getLocalInstallMetadataFromPath
+    > = []
+  ) {
+    const stagingPath = `${targetPath}.new`
+    const backupPath = `${targetPath}.backup`
+    removeSync(stagingPath)
+    if (!pathExistsSync(targetPath) && pathExistsSync(backupPath)) {
+      moveSync(backupPath, targetPath)
+    } else {
+      removeSync(backupPath)
+    }
+    ensureDirSync(legendaryAccountsPath)
+
+    try {
+      copySync(sourcePath, stagingPath, { overwrite: true })
+      this.restoreLocalInstallMetadata(stagingPath, installMetadata)
+      const stagedUserInfo = this.getUserInfoFromPath(
+        join(stagingPath, 'user.json')
+      )
+      if (stagedUserInfo?.account_id !== expectedAccountId) {
+        throw new Error('Staged Epic account profile failed validation')
+      }
+
+      if (pathExistsSync(targetPath)) {
+        moveSync(targetPath, backupPath)
+      }
+
+      try {
+        moveSync(stagingPath, targetPath)
+      } catch (error) {
+        removeSync(targetPath)
+        if (pathExistsSync(backupPath)) {
+          moveSync(backupPath, targetPath)
+        }
+        throw error
+      }
+
+      removeSync(backupPath)
+    } finally {
+      removeSync(stagingPath)
+    }
+  }
+
+  private static async withAccountLock<T>(operation: () => Promise<T>) {
+    const previousOperation = this.accountOperation
+    let release: () => void = () => undefined
+    this.accountOperation = new Promise<void>((resolve) => {
+      release = resolve
+    })
+
+    await previousOperation
+    try {
+      return await operation()
+    } finally {
+      release()
     }
   }
 
@@ -385,15 +519,19 @@ export class LegendaryUser {
   private static getLocalInstallMetadata() {
     const activeMetadata =
       this.getLocalInstallMetadataFromPath(legendaryConfigPath)
-
-    if (activeMetadata.length) {
-      return activeMetadata
-    }
-
     const savedProfileMetadata = this.getSavedProfileInstallMetadata()
-    this.restoreLocalInstallMetadata(legendaryConfigPath, savedProfileMetadata)
+    const metadataByFile = new Map(
+      activeMetadata.map((metadata) => [metadata.file, metadata])
+    )
+    for (const metadata of savedProfileMetadata) {
+      if (!metadataByFile.has(metadata.file)) {
+        metadataByFile.set(metadata.file, metadata)
+      }
+    }
+    const metadata = [...metadataByFile.values()]
+    this.restoreLocalInstallMetadata(legendaryConfigPath, metadata)
 
-    return savedProfileMetadata
+    return metadata
   }
 
   private static getSavedProfileInstallMetadata() {
@@ -401,16 +539,23 @@ export class LegendaryUser {
       return []
     }
 
-    for (const accountPath of readdirSync(legendaryAccountsPath)) {
+    const metadataByFile = new Map<
+      string,
+      ReturnType<typeof this.getLocalInstallMetadataFromPath>[number]
+    >()
+    for (const accountPath of readdirSync(legendaryAccountsPath).sort()) {
       const metadata = this.getLocalInstallMetadataFromPath(
         join(legendaryAccountsPath, accountPath)
       )
-      if (metadata.length) {
-        return metadata
+      for (const item of metadata) {
+        const existingItem = metadataByFile.get(item.file)
+        if (!existingItem || item.mtimeMs > existingItem.mtimeMs) {
+          metadataByFile.set(item.file, item)
+        }
       }
     }
 
-    return []
+    return [...metadataByFile.values()]
   }
 
   private static getLocalInstallMetadataFromPath(profilePath: string) {
@@ -420,12 +565,17 @@ export class LegendaryUser {
         return []
       }
 
-      return [
-        {
-          file,
-          contents: readFileSync(sourcePath)
-        }
-      ]
+      try {
+        const contents = readFileSync(sourcePath)
+        JSON.parse(contents.toString())
+        return [{ file, contents, mtimeMs: statSync(sourcePath).mtimeMs }]
+      } catch (error) {
+        logError(
+          ['Ignoring invalid Legendary install metadata:', sourcePath, error],
+          LogPrefix.Legendary
+        )
+        return []
+      }
     })
   }
 
@@ -445,7 +595,6 @@ export class LegendaryUser {
 
   private static async clearEpicWebSession() {
     const sessions = [
-      session.defaultSession,
       session.fromPartition('persist:epic'),
       session.fromPartition('persist:epicstore')
     ]
