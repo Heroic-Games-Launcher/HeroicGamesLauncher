@@ -34,18 +34,6 @@ interface ImpactCatalogItemsResponse {
   Items?: ImpactCatalogItem[]
 }
 
-// Platform comes from the SKU suffix ("<title> - PC", "... - Xbox Series XS",
-// "... - MAC"), when present.
-const platformFromSku = (sku: string): string[] | undefined => {
-  const match = / - ([A-Za-z0-9 +()]+)$/.exec(sku)
-  if (!match) return undefined
-  const suffix = match[1].toLowerCase()
-  if (suffix.startsWith('xbox')) return ['xbox']
-  if (suffix === 'mac') return ['osx']
-  if (suffix === 'pc' || suffix.startsWith('windows')) return ['windows']
-  return undefined
-}
-
 const formatPrice = (amount: number, currency: string): string => {
   try {
     return new Intl.NumberFormat('en-US', {
@@ -83,7 +71,8 @@ const normalizeItem = (item: ImpactCatalogItem): CatalogProduct | null => {
       baseMoney: { amount: base.toFixed(2), currency }
     },
     productType: 'game',
-    operatingSystems: platformFromSku(item.CatalogItemId ?? ''),
+    // Humble's store sells PC games only.
+    operatingSystems: ['windows'],
     // Text1 holds the key's redemption DRM ('steam', 'uplay', ...)
     features: item.Text1
       ? [
