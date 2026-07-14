@@ -54,16 +54,10 @@ const DiscountCard = ({ product }: Props) => {
           )
     }
     if (store === 'humble') {
-      return drm
-        ? t(
-            'discounts.storeBadge.humbleDrmHint',
-            'Humble Bundle — {{drm}} key, redeemed outside Heroic',
-            { drm }
-          )
-        : t(
-            'discounts.storeBadge.humbleHint',
-            'Humble Bundle — key for an external store, not installable through Heroic'
-          )
+      return t(
+        'discounts.storeBadge.humbleHint',
+        'Humble Bundle — key for an external store, not installable through Heroic'
+      )
     }
     return 'GOG'
   }

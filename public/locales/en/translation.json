@@ -372,7 +372,6 @@
         "storeBadge": {
             "gmgDrmHint": "Green Man Gaming — {{drm}} key, redeemed outside Heroic",
             "gmgHint": "Green Man Gaming — key for an external store, not installable through Heroic",
-            "humbleDrmHint": "Humble Bundle — {{drm}} key, redeemed outside Heroic",
             "humbleHint": "Humble Bundle — key for an external store, not installable through Heroic"
         },
         "tabs": {

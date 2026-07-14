@@ -25,7 +25,6 @@ interface ImpactCatalogItem {
   CurrentPrice?: string
   OriginalPrice?: string
   Currency?: string
-  Text1?: string
 }
 
 interface ImpactCatalogItemsResponse {
@@ -73,15 +72,6 @@ const normalizeItem = (item: ImpactCatalogItem): CatalogProduct | null => {
     productType: 'game',
     // Humble's store sells PC games only.
     operatingSystems: ['windows'],
-    // Text1 holds the key's redemption DRM ('steam', 'uplay', ...)
-    features: item.Text1
-      ? [
-          {
-            name: item.Text1.charAt(0).toUpperCase() + item.Text1.slice(1),
-            slug: item.Text1.toLowerCase()
-          }
-        ]
-      : undefined,
     storeLink: item.Url,
     store: 'humble'
   }
