@@ -130,6 +130,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   grid-gap: var(--space-md);
+  /* Cards can differ in height (portrait vs landscape covers); keep them
+     top-aligned instead of stretching the shorter ones. */
+  align-items: start;
 }
 
 .discountsScreen__message {

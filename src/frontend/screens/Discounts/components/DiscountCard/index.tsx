@@ -25,6 +25,9 @@ const DiscountCard = ({ product }: Props) => {
   const discountPercent = parseDiscountPercent(product.price.discount)
   const rating = normalizeRating(product.reviewsRating)
   const store = product.store ?? 'gog'
+  // Humble ships only landscape store art; render it in a wide box so it isn't
+  // cropped to a portrait crop. (GOG and GMG provide portrait covers.)
+  const landscape = store === 'humble'
   const isExternalKey = store === 'gmg' || store === 'humble'
   const drm = isExternalKey ? product.features?.[0]?.name : undefined
 
@@ -71,7 +74,7 @@ const DiscountCard = ({ product }: Props) => {
   return (
     <button
       type="button"
-      className="discountCard"
+      className={`discountCard${landscape ? ' discountCard--landscape' : ''}`}
       onClick={handleClick}
       title={product.title}
     >

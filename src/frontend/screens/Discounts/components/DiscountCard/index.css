@@ -29,6 +29,12 @@
   display: block;
 }
 
+/* Humble ships only landscape store art; render it in a wide box so it isn't
+   cropped into a portrait box. */
+.discountCard--landscape .discountCard__image {
+  aspect-ratio: 16 / 9;
+}
+
 .discountCard__badge {
   position: absolute;
   top: 8px;
