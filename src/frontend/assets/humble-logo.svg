@@ -1,0 +1,5 @@
+<!-- Humble Bundle logo mark: the brand's red rounded-square tile with an "H". -->
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <rect x="6" y="6" width="116" height="116" rx="28" fill="#cc2929"/>
+  <path fill="#ffffff" d="M40,34h14v23h20V34h14v60H74V71H54v23H40z"/>
+</svg>

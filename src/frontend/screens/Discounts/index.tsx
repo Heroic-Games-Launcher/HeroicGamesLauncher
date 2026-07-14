@@ -29,6 +29,7 @@ import {
   RATING_SCALE_MAX,
   REGION_OPTIONS,
   saveStoredFilters,
+  STORE_LABELS,
   STORE_OPTIONS,
   setStoredGmgCurrency,
   setStoredRegionOverride,
@@ -183,16 +184,22 @@ export default function Discounts() {
       setProducts([])
 
       try {
-        // A GMG feed failure must not take down the GOG deals
-        const [gogResult, gmgResult] = await Promise.all([
+        // A GMG or Humble feed failure must not take down the GOG deals
+        const [gogResult, gmgResult, humbleResult] = await Promise.all([
           window.api.getGogDiscounts(localeSettings, hideOwned, wishlistOnly),
           window.api.getGmgDiscounts(gmgCurrency).catch((err: unknown) => {
             window.api.logError(`Failed to fetch GMG discounts: ${String(err)}`)
             return [] as CatalogProduct[]
+          }),
+          window.api.getHumbleDiscounts().catch((err: unknown) => {
+            window.api.logError(
+              `Failed to fetch Humble discounts: ${String(err)}`
+            )
+            return [] as CatalogProduct[]
           })
         ])
         if (!cancelled) {
-          setProducts([...gogResult, ...gmgResult])
+          setProducts([...gogResult, ...gmgResult, ...humbleResult])
           // Only clear data-bound ranges when this is a reload caused by a
           // locale change. On the very first load after mount we keep the
           // values restored from localStorage so persisted filters survive.
@@ -298,15 +305,16 @@ export default function Discounts() {
     for (const p of products) present.add(p.store ?? 'gog')
     return STORE_OPTIONS.filter((s) => present.has(s))
   }, [products])
-  const gmgPresent = storeOptions.includes('gmg')
+  const nonGogPresent = storeOptions.some((s) => s !== 'gog')
 
   // Rating/PEGI/genre/release-year/DLC data only exists on GOG items, so
   // those filters are hidden AND skipped unless the shown set is GOG-only:
-  // the GOG tab, or any tab when GMG contributes nothing.
-  const showGogOnlyFilters = storeTab === 'gog' || !gmgPresent
+  // the GOG tab, or any tab when no other store contributes.
+  const showGogOnlyFilters = storeTab === 'gog' || !nonGogPresent
   // The price range needs a single currency; on the mixed "all" tab (region
-  // currency for GOG, gmgCurrency for GMG) it is hidden and not applied.
-  const showPriceFilter = !(storeTab === 'all' && gmgPresent)
+  // currency for GOG, its own currency for each external store) it is hidden
+  // and not applied.
+  const showPriceFilter = !(storeTab === 'all' && nonGogPresent)
 
   const osOptions = useMemo<OsOption[]>(() => {
     const present = new Set<string>()
@@ -607,13 +615,13 @@ export default function Discounts() {
               >
                 {tab === 'all'
                   ? t('discounts.tabs.all', 'All stores')
-                  : tab.toUpperCase()}
+                  : STORE_LABELS[tab]}
               </button>
             ))}
           </div>
         )}
 
-        {storeTab === 'gmg' ? (
+        {storeTab === 'humble' ? null : storeTab === 'gmg' ? (
           <div className="discountsScreen__region">
             <label
               className="discountsScreen__regionLabel"
@@ -742,7 +750,11 @@ export default function Discounts() {
             priceRange={priceRange ?? [0, priceMax]}
             onPriceChange={setPriceRange}
             currencyCode={
-              storeTab === 'gmg' ? gmgCurrency : localeSettings.currencyCode
+              storeTab === 'gmg'
+                ? gmgCurrency
+                : storeTab === 'humble'
+                  ? 'USD'
+                  : localeSettings.currencyCode
             }
             ratingRange={ratingRange}
             onRatingChange={setRatingRange}
