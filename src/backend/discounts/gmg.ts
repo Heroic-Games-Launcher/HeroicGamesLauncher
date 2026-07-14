@@ -5,10 +5,10 @@ import { logError, logInfo, LogPrefix } from 'backend/logger'
 import type { CatalogProduct } from 'common/types/discounts'
 
 const GMG_FEED_URL_TEMPLATE =
-  'https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/gmg-feed/gmg-discounts-{currency}.json'
+  'https://raw.githubusercontent.com/Heroic-Games-Launcher/deals-listing/gmg-feed/gmg-discounts-{currency}.json'
 
 // Keep in sync with GMG_CURRENCIES in frontend/screens/Discounts/helpers.ts
-// and the files published by .github/workflows/gmg-feed.yml.
+// and the feeds published by the deals-listing repo.
 const GMG_CURRENCIES = [
   'GBP',
   'USD',
