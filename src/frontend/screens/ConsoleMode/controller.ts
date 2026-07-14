@@ -6,8 +6,8 @@ export type ControllerLayout =
   | 'steam-deck'
 
 // Standard gamepad button indices (Chromium "standard" mapping).
-export const BTN_ACTION = 0
-export const BTN_BACK = 1
+const BTN_ACTION = 0
+const BTN_BACK = 1
 export const BTN_L1 = 4
 export const BTN_R1 = 5
 export const BTN_R2 = 7
