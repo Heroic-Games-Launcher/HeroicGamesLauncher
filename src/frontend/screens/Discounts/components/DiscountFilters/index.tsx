@@ -259,6 +259,7 @@ const DiscountFilters = ({
                   : ''
               }`}
               aria-pressed={viewMode === 'grid'}
+              aria-label={t('discounts.view.grid', 'Grid')}
               title={t('discounts.view.grid', 'Grid')}
               onClick={() => onViewModeChange('grid')}
             >
@@ -272,6 +273,7 @@ const DiscountFilters = ({
                   : ''
               }`}
               aria-pressed={viewMode === 'list'}
+              aria-label={t('discounts.view.list', 'List')}
               title={t('discounts.view.list', 'List')}
               onClick={() => onViewModeChange('list')}
             >
