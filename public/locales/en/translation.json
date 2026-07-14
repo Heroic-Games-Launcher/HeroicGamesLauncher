@@ -379,7 +379,12 @@
             "all": "All stores",
             "label": "Store"
         },
-        "titleMulti": "Deals"
+        "titleMulti": "Deals",
+        "view": {
+            "grid": "Grid",
+            "label": "View mode",
+            "list": "List"
+        }
     },
     "dlc": {
         "actions": "Actions",

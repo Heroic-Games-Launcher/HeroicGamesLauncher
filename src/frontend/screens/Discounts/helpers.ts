@@ -297,6 +297,8 @@ export type OsOption = (typeof OS_OPTIONS)[number]
 export const STORE_OPTIONS: readonly DiscountStore[] = ['gog', 'gmg', 'humble']
 export type StoreTab = 'all' | DiscountStore
 
+export type ViewMode = 'grid' | 'list'
+
 // Display names for the store tabs. GOG/GMG are acronyms; Humble is not.
 export const STORE_LABELS: Record<DiscountStore, string> = {
   gog: 'GOG',
@@ -331,6 +333,7 @@ interface StoredDiscountFilters {
   selectedFeatures?: string[]
   selectedOS?: OsOption[]
   storeTab?: StoreTab
+  viewMode?: ViewMode
   ratingRange?: [number, number]
   maxPegiAge?: PegiAge | null
   searchQuery?: string

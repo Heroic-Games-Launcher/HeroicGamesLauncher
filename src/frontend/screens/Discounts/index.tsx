@@ -36,7 +36,8 @@ import {
   type DiscountSort,
   type OsOption,
   type PegiAge,
-  type StoreTab
+  type StoreTab,
+  type ViewMode
 } from './helpers'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -112,6 +113,9 @@ export default function Discounts() {
   const [storeTab, setStoreTab] = useState<StoreTab>(
     storedFilters.storeTab ?? 'all'
   )
+  const [viewMode, setViewMode] = useState<ViewMode>(
+    storedFilters.viewMode ?? 'grid'
+  )
   // Price and release-year ranges are bound to the loaded data's min/max,
   // which changes with the active tab, region, and currency — so they are
   // seeded fresh on each load rather than persisted (a stored range from
@@ -152,6 +156,7 @@ export default function Discounts() {
       selectedFeatures,
       selectedOS,
       storeTab,
+      viewMode,
       ratingRange,
       maxPegiAge,
       searchQuery,
@@ -166,6 +171,7 @@ export default function Discounts() {
     selectedFeatures,
     selectedOS,
     storeTab,
+    viewMode,
     ratingRange,
     maxPegiAge,
     searchQuery,
@@ -787,6 +793,8 @@ export default function Discounts() {
             onPageSizeChange={setPageSize}
             onReset={handleReset}
             hasActiveFilters={hasActiveFilters}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
           />
 
           {paginated.length === 0 ? (
@@ -794,7 +802,11 @@ export default function Discounts() {
               {t('discounts.noMatches', 'No games match the current filters.')}
             </p>
           ) : (
-            <div className="discountsScreen__grid">
+            <div
+              className={`discountsScreen__grid${
+                viewMode === 'list' ? ' discountsScreen__grid--list' : ''
+              }`}
+            >
               {paginated.map((product) => (
                 <DiscountCard key={product.id} product={product} />
               ))}

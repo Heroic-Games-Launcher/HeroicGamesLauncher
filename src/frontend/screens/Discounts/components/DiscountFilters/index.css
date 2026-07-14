@@ -22,6 +22,41 @@
   gap: var(--space-2xs);
 }
 
+.discountFilters__viewToggle {
+  display: inline-flex;
+  height: 32px;
+  padding: 3px;
+  gap: 2px;
+  background-color: var(--input-background, var(--background));
+  border: 1px solid var(--divider, rgba(255, 255, 255, 0.12));
+  border-radius: var(--space-3xs);
+}
+
+.discountFilters__viewButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  border: none;
+  border-radius: calc(var(--space-3xs) - 2px);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.discountFilters__viewButton:hover:not(.discountFilters__viewButton--active) {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-default);
+}
+
+.discountFilters__viewButton--active {
+  background-color: var(--accent);
+  color: var(--text-tertiary);
+}
+
 .discountFilters__toggle {
   display: inline-flex;
   align-items: center;

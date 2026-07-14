@@ -35,6 +35,36 @@
   aspect-ratio: 16 / 9;
 }
 
+/* List view: cards become horizontal rows with a fixed-height thumbnail. */
+.discountsScreen__grid--list .discountCard {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.discountsScreen__grid--list .discountCard:hover,
+.discountsScreen__grid--list .discountCard:focus-visible {
+  transform: none;
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.discountsScreen__grid--list .discountCard__cover {
+  flex-shrink: 0;
+  height: 92px;
+}
+
+/* Fixed row height, natural width — keeps each store's cover uncropped. */
+.discountsScreen__grid--list .discountCard__image {
+  height: 92px;
+  width: auto;
+  aspect-ratio: auto;
+}
+
+.discountsScreen__grid--list .discountCard__info {
+  flex: 1;
+  justify-content: center;
+}
+
 .discountCard__badge {
   position: absolute;
   top: 8px;

@@ -135,6 +135,12 @@
   align-items: start;
 }
 
+.discountsScreen__grid--list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
 .discountsScreen__message {
   margin: var(--space-xl) 0;
   text-align: center;
