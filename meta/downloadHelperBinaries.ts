@@ -29,7 +29,7 @@ type DownloadedBinary =
 const RELEASE_TAGS = {
   legendary: '0.20.43',
   gogdl: 'v1.2.1',
-  nile: 'v1.1.2',
+  nile: 'v1.2.0',
   comet: 'v0.2.0',
   'epic-integration': 'v0.4',
   // butler is distributed via itch.io's broth channel system rather than
