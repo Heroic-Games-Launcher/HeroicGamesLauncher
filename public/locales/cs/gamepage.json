@@ -49,7 +49,24 @@
         "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO",
         "close": "Zavřít",
-        "select-install-path": "Vyberte instalační cestu služby Steam"
+        "select-install-path": "Vyberte instalační cestu služby Steam",
+        "selectLaunchOption": {
+            "body": "Vyberte možnost spuštění této hry (lze ji později změnit v nastavení hry):",
+            "title": "Vyberte možnost spuštění ({{seconds}})"
+        },
+        "sync": {
+            "force_download_warning": "Místní uložená data budou smazána. Chcete pokračovat?",
+            "force_upload_warning": "Údaje uložené v cloudu budou přepsány. Chcete pokračovat?"
+        },
+        "warning": {
+            "title": "Varování"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Tato hra nemusí v režimu offline fungovat správně. Chcete ji přesto spustit?",
+            "playAnyway": "Přesto Hrát",
+            "title": "Offline varování"
+        }
     },
     "button": {
         "add_to_favourites": "Přidat do oblíbených",
@@ -74,12 +91,13 @@
         },
         "unhide_game": "Odkrýt hru",
         "uninstall": "Odinstalovat",
-        "update": "Update",
+        "update": "Aktualizace",
         "details": "Podrobnosti",
         "changelog": "Zobrazit seznam změn",
         "browse_files": "Procházet soubory",
         "browse_wine_prefix": "Procházet předpony Wine",
-        "play": "HRÁT"
+        "play": "HRÁT",
+        "edit-game": "Upravit Hru"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
@@ -114,7 +132,8 @@
         "changelogFor": "Seznam změn hry {{gameTitle}}",
         "modify": "Upravit instalaci",
         "extra_info": "Další informace",
-        "install_info": "Informace o instalaci"
+        "install_info": "Informace o instalaci",
+        "achievements": "Úspěchy"
     },
     "gamecard": {
         "moving": "Přesouvám",
@@ -212,7 +231,8 @@
         }
     },
     "launch": {
-        "options": "Možnosti spuštění..."
+        "options": "Možnosti spuštění...",
+        "default": "Výchozí"
     },
     "not_logged_in": {
         "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
@@ -242,7 +262,9 @@
             "title": "Název hry/aplikace",
             "broser": "Adresa URL prohlížeče",
             "useragent": "Vlastní User Agent",
-            "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)"
+            "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)",
+            "cover-hint": "Ikona/Grafika (klikněte na obrázek pro hledání v SteamGridDB)",
+            "image-hint": "Čtvercová Ikona (klikněte na obrázek pro hledání v SteamGridDB)"
         },
         "placeholder": {
             "image": "Sem vložte URL obrázku, nebo vyberte soubor z vašeho zařízení",
@@ -253,6 +275,9 @@
         "import-hint": {
             "content": "Tuto funkci k této akci NEPOUŽÍVEJTE.<br />Namísto toho se <3>přihlaste do obchodu</3>, vyhledejte hru ve své knihovně, otevřete instalační dialog a klikněte na tlačítko &quot;Importovat hru&quot;",
             "title": "Důležité! Přidáváte hru z obchodu Epic/GOG/Amazon? Klikněte sem!"
+        },
+        "images": {
+            "summary": "Obrázky"
         }
     },
     "specs": {
@@ -308,7 +333,7 @@
         "categories": "Kategorie"
     },
     "help": {
-        "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání",
+        "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání.",
         "content": {
             "gamePage": "Zobrazit všechny herní podrobnosti a akce. Pro více možností použijte 3-tečkovou nabídku."
         },
@@ -339,5 +364,24 @@
             "remove": "Odstranit ze stažených",
             "pause": "Pozastavit stahování"
         }
+    },
+    "open-saves-folder": "Otevřít složku s uloženým postupem",
+    "edit-game": {
+        "advanced": "Pokročilé",
+        "cover": "Ikona Hry",
+        "info": {
+            "cover": "Obrázek Ikony",
+            "square": "Čtvercový Obrázek"
+        },
+        "placeholder": {
+            "image": "Vložit URL obrázku"
+        },
+        "reset": "Vrátit do výchozího",
+        "sgdb": {
+            "no-key-link": "Nastavení -> Pokročilé",
+            "no-key-prefix": "Pro hledání Ikon v SteamGridDB vložte klíč API"
+        },
+        "square": "Čtvercová Ikona",
+        "title": "Upravit Hru"
     }
 }

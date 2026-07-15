@@ -14,11 +14,8 @@ const WinePrefix = () => {
 
   const isWin = platform === 'win32'
 
-  const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
-  const [winePrefix, setWinePrefix] = useSetting(
-    'winePrefix',
-    defaultWinePrefix + '/default'
-  )
+  const [sharedWinePrefix] = useSetting('sharedWinePrefix', '')
+  const [winePrefix, setWinePrefix] = useSetting('winePrefix', sharedWinePrefix)
 
   if (isWin || wineVersion.type === 'crossover') {
     return <></>

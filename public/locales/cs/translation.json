@@ -99,7 +99,11 @@
                 "title": "Chyba Steamu"
             },
             "executableNotFound": "Spustitelný soubor nebyl nalezen",
-            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry."
+            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry.",
+            "dxmt": {
+                "message": "Chyba při stahování DXMT! Zkontrolujte připojení!",
+                "title": "Chyba při stahování DXMT"
+            }
         },
         "info": {
             "update": {
@@ -217,7 +221,7 @@
             "install_game": "Instalovat hru",
             "move_cursor": "Přesunout kurzor",
             "open_virtual_keyboard": "Otevřít virtuální klávesnici",
-            "options": "Options",
+            "options": "Volby",
             "play_game": "Hrát hru",
             "scroll": "Scroll",
             "select": "Vybrat",
@@ -228,19 +232,19 @@
     "docs": "Dokumentace",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Instalovat",
+            "update": "Aktualizovat"
         },
         "label": {
             "disk": "Disk",
-            "speed": "Download"
+            "speed": "Stahování"
         },
         "link": "Stahování",
         "queue": {
             "end-time": "Dokončeno",
             "queue-time": "Přidáno",
             "start-time": "Spuštěno",
-            "type": "Type"
+            "type": "Typ"
         },
         "title": "Stahování",
         "ETA": "Předpokládaný čas"
@@ -264,7 +268,10 @@
         },
         "library": {
             "refresh": "Obnovit knihovnu"
-        }
+        },
+        "abort": "Zrušit",
+        "install": "Instalovat",
+        "uninstall": "Odinstalovat"
     },
     "globalSettings": "Globální nastavení",
     "GOG": "GOG",
@@ -369,12 +376,17 @@
         },
         "msync": "Msync má za cíl snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může na podporovaných jádrech Linuxu zlepšit výkon.",
         "download_proton_steam": "Pokud je tato funkce povolena, bude GE-Proton stažen přímo do adresáře nástrojů kompatibility služby Steam namísto výchozí cesty k Heroic. Použije cestu ke službě Steam nastavenou ve výše uvedeném nastavení „Výchozí cesta ke službě Steam“.",
-        "dxfpslimit": "Nastavení limitu snímkové frekvence pro DXVK hry",
+        "dxfpslimit": "Nastaví omezení snímkové frekvence pro hry DirectX (9–12)",
         "advertiseAvxForRosetta": "Povoluje podporu instrukční sady AVX při spouštění her pro Windows prostřednictvím Rosetty na počítačích Apple Silicon Mac. To může být nutné u některých her, jako je Death Stranding, které podporu AVX vyžadují.",
         "wine-hdr": "HDR vylepšuje barvy tím, že poskytuje jasnější světla a hlubší kontrasty. Aby HDR fungovalo, musí jej podporovat jak displej, tak hra.",
         "wine-wayland": "Experimentální ovladač Wine-Wayland umožňuje spouštět hry nativně pod zobrazovacím protokolem Wayland. Jeho zapnutí může způsobit nefunkčnost některých her.",
         "analytics": "Umožňuje Heroic shromažďovat 100% anonymní údaje o používání, které poskytují pomoc při vylepšování aplikace. Aby se změna projevila, je nutné restartovat zařízení.",
-        "WoW64": "Režim Wine WoW64 umožňuje spouštět 32bitové hry pro Windows na 64bitovém Wine. Jeho zapnutí může zlepšit výkon, ale také může způsobit nefunkčnost starších 32bitových her."
+        "WoW64": "Režim Wine WoW64 umožňuje spouštět 32bitové hry pro Windows na 64bitovém Wine. Jeho zapnutí může zlepšit výkon, ale také může způsobit nefunkčnost starších 32bitových her.",
+        "nvidiaprime": {
+            "details": "K vykreslování hry na systémech s více grafickými procesory používejte dedikovanou grafickou kartu. Potřebné pouze u herních notebooků nebo stolních počítačů, které pro vykreslování používají headless GPU (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Další podrobnosti najdete na naší wiki"
+        },
+        "hide-window-on-protocol-launch": "Ponechává okno Heroicu schované když je hra spuštěna z externí zkratky, jako třeba přes \"Přidat na Steam\"."
     },
     "info": {
         "heroic": {
@@ -561,7 +573,7 @@
         "custom_themes_path": "Vyberte cestu k vyhledávání vlastních souborů CSS",
         "dxvkfpsvalue": "Kladná celočíselná hodnota (např. 30, 60, ...)",
         "egs-prefix": "Prefix kde je nainstalován EGS",
-        "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")",
+        "prefered_language": "2místný nebo 4místný kód (např. „fr“ nebo „pt-BR“)",
         "alt-nile-bin": "Používání vestavěného binárního souboru Nile..."
     },
     "platforms": {
@@ -663,7 +675,8 @@
                 "delete": "Požádat o smazání souboru protokolu",
                 "error": {
                     "title": "Nahrání selhalo",
-                    "content": "Nepodařilo se nahrát soubor protokolu. Více podrobností viz obecný protokol Heroic"
+                    "content": "Nepodařilo se nahrát soubor protokolu. Více podrobností viz obecný protokol Heroic",
+                    "manual_upload": "Klikněte na tlačítko „ZOBRAZIT SOUBOR PROTOKOLU VE SLOŽCE“ a ručně nahrajte soubor „launch.log“ na Discord nebo jakoukoli online službu pro sdílení souborů."
                 },
                 "header": "Nahrány soubory protokolů",
                 "minutes-ago": "Nahráno {{minutesAgo, relativetime(minutes)}}",
@@ -708,13 +721,6 @@
         "offlinemode": "Spustit hru offline",
         "prefered_language": "Preferovaný jazyk (kód jazyka)",
         "preferSystemLibs": "Preferovat systémové knihovny",
-        "primerun": {
-            "confirmation": {
-                "message": "V tomto systému byla zjištěna pouze jedna grafická karta. Vezměte prosím na vědomí, že tato možnost je určena pro systémy s více grafickými kartami s headless GPU (např. notebooky). V systémech s jednou grafickou kartou je grafická karta použita automaticky a zapnutí této možnosti může způsobit problémy. Opravdu chcete tuto možnost povolit?",
-                "title": "Nalezeno pouze 1 GPU"
-            },
-            "description": "Použít dedikovanou grafickou kartu"
-        },
         "runexe": {
             "message": "Přetáhněte soubory sem",
             "title": "Spustit EXE na prefixu"
@@ -744,7 +750,8 @@
             "enableHelp": "Komponenta nápovědy",
             "automaticWinetricksFixes": "Automaticky použít známé opravy",
             "umuSupport": "Použít umu jako runtime Protonu",
-            "cometSupport": "Podpora Comet"
+            "cometSupport": "Podpora Comet",
+            "zoomPlatform": "Podpora platformy Zoom (pouze Linux)"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {
@@ -804,13 +811,20 @@
                 "title": "Opravdu?",
                 "message": "Doporučujeme používat vlastní verze Proton (GE-Proton, Proton-CachyOS atd.) s Heroic, protože verze Proton od Valve neobsahují winetricks a protofixes. Pokud chcete, můžete je i tak použít."
             },
-            "label": "Povolit používání ne-GE Proton buildů pro spouštění her",
-            "wine_selector_warning": "Verze Protonu bez GE jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
+            "label": "Povolit spouštění her pomocí buildů Valve Proton",
+            "wine_selector_warning": "Verze Protonu od Valve jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
             "info_label": "Verze Valve Proton ignorovány"
         },
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
         "WoW64": "Povolit WoW64 (experimentální)",
-        "scripts": "Skripty:"
+        "scripts": "Skripty:",
+        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry",
+        "disable_gog_presence": "Zakázat aktualizace GOG Presence",
+        "start-in-console-mode": "Začít v konzolovém módu",
+        "nvidiaprime": {
+            "description": "Vynutit použití diskrétní grafické karty s technologií NVIDIA Optimus nebo AMD Dynamic Switchable Graphics. Tuto možnost používejte POUZE pro hry využívající OpenGL a Vulkan."
+        },
+        "hide-window-on-protocol-launch": "Schovat Heroic okno při spuštění hry z heroic:// odkaz"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -847,7 +861,8 @@
             "sync": "Synchronizace uložených souborů",
             "wineExt": "Wine rozšíření",
             "systemInformation": "Systémové informace",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Zastaralé"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Resetovat Heroic",
@@ -913,18 +928,32 @@
         },
         "custom_css": {
             "title": "Vlastní styl CSS"
+        },
+        "launchOptions": "Možnosti spuštění",
+        "legacy_warning": "Upozornění: Nastavení na této kartě jsou většinou zastaralá a nemusí vůbec fungovat.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "SteamGridDB API Klíč",
+                "placeholder": "Zde vložte SteamGridDB API klíč",
+                "placeholder_saved": "Klíč uložen — pište pro jeho změnu, vymažte pro odstranění"
+            },
+            "help": {
+                "description": "Poskytněte SteamGridDB API pro zapnutí vyhledávaní náhledu her. Tento klíč je šifrován při uložení když to podporuje systém. Můžete ho získat na {{url}}"
+            }
         }
     },
     "Settings": "Nastavení",
     "sidebar": {
         "collapse": "Sbalit postranní panel",
-        "uncollapse": "Rozbalit postranní panel"
+        "uncollapse": "Rozbalit postranní panel",
+        "console": "Konzolový Mód"
     },
     "status": {
         "installing": "Instaluji",
         "logging": "Přihlašování...",
         "processing": "Zpracovávám soubory, čekejte prosím",
-        "preparing_login": "Příprava přihlášení... "
+        "preparing_login": "Příprava přihlášení... ",
+        "installed": "Nainstalováno"
     },
     "store": "Epic Store",
     "stores": "Obchody",
@@ -975,10 +1004,17 @@
             "link": "Správce Wine",
             "not-found": "Nebyly nalezeny žádné verze Wine. Klikněte na ikonu obnovení a zkuste to znovu.",
             "title": "Správce Wine",
-            "unzipping": "Rozbalování"
+            "unzipping": "Rozbalování",
+            "search": "Hledání verzí...",
+            "loading": "Načítám wine verze...",
+            "open_folder": "Otevřít Složku",
+            "update": "Aktualizovat",
+            "settings": "Nastavení",
+            "no-results": "Žádné verze Wine neodpovídají hledání."
         },
         "release": "Release Date",
-        "size": "Velikost"
+        "size": "Velikost",
+        "notes": "Poznámky"
     },
     "externalLink": {
         "dontAskAgain": "Už se neptat",
@@ -1024,11 +1060,13 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
-        "wine-ge": "Wine-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb."
+        "gpt": "Game Porting Toolkit je vyvíjen Applem a je doporučen pro Apple Silicon Macky s M1+ čipem a nejlépe funguje pro nové hry s DX12.",
+        "wine-crossover": "Wine-Crossover je založen na projektu Crossover OpenSource Wine a je doporučen pro Intel Macky a pro DX11 a starší hry.",
+        "wine-staging-macos": "Wine-Staging-macOS je založen na projektu Wine a je doporučen pro Intel Macky a pro DX11 a starší hry, speciálně když je spárovaný s nástrojem DXMT."
     },
     "emptyLibrary": {
         "noGames": "Vaše knihovna je prázdná.<br /><br />Klikněte <4>zde</4> a přihlaste se pomocí účtu Epic, GOG.com nebo Amazon. Poté se vaše hry zobrazí zde v knihovně.<br /><br />Chcete-li používat hry nebo aplikace z jiných zdrojů, klikněte na <br /> a přidejte je ručně.",
-        "noResults": "S nastavenými filtry nebyl nalezen žádný výsledek."
+        "noResults": "Aktuálním filtrům nic neodpovídá."
     },
     "adtraction-locked": {
         "title": "Služba adtraction je blokována",
@@ -1115,5 +1153,156 @@
         "title": "Odeslat anonymní statistiky"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Obchod Zoom"
+    "zoom-store": "Obchod Zoom",
+    "launch": {
+        "options": "Možnosti spuštění..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "Itálie",
+                "ES": "Španělsko",
+                "FI": "Finsko",
+                "GR": "Řecko",
+                "RO": "Rumunsko",
+                "NO": "Norsko",
+                "KR": "Jižní Korea",
+                "US": "Spojené Státy Americké",
+                "HU": "Maďarsko",
+                "PT": "Portugalsko",
+                "NL": "Nizozemsko",
+                "AU": "Austrálie",
+                "TW": "Taiwan",
+                "IL": "Izrael",
+                "JP": "Japonsko",
+                "DK": "Dánsko",
+                "DE": "Německo",
+                "CZ": "Česko",
+                "FR": "Francie",
+                "UA": "Ukrajina",
+                "GB": "Velká Británie",
+                "SE": "Švédsko",
+                "CN": "Čína",
+                "RU": "Rusko",
+                "CA": "Kanada",
+                "PL": "Polsko",
+                "BR": "Brazílie",
+                "CH": "Švýcarsko",
+                "TR": "Turecko"
+            },
+            "auto": "Automaticky {{code}}",
+            "label": "Obchodní region"
+        },
+        "filters": {
+            "moreFilters": "Více filtrů",
+            "ageRating": "Vhodné pro věk",
+            "os": "Operační systém",
+            "price": "Cena",
+            "activeCount_other": "{{count}} aktivních",
+            "hideDlcs": "Schovat DLC",
+            "ageRatingOption": "Zobrazit hry s hodnocením PEGI {{age}} nebo nižším",
+            "genres": "Žánry",
+            "activeCount_one": "{{count}} aktivních",
+            "lessFilters": "Méně filtrů",
+            "rating": "Hodnocení",
+            "sort": "Seřadit podle",
+            "genresPlaceholder": "Jakýkoliv žánr",
+            "features": "Vlastnosti",
+            "featuresPlaceholder": "Jakákoliv vlastnost",
+            "ageRatingAll": "Vše",
+            "pageSize": "Na stránku",
+            "releaseYear": "Rok vydání",
+            "hideOwned": "Schovat Vlastněné",
+            "wishlistOnly": "Pouze seznam přání"
+        },
+        "sidebar": "Nabídky",
+        "sort": {
+            "priceDesc": "Cena: od největší",
+            "trending": "Trendy",
+            "priceAsc": "Cena: od nejmenší",
+            "releaseDesc": "Rok vydání: od nejnovějšího",
+            "ratingAsc": "Hodnocení: od nejmenšího",
+            "releaseAsc": "Rok vydání: od nejstaršího",
+            "ratingDesc": "Hodnocení: od největšího",
+            "discount": "Největší sleva"
+        },
+        "noMatches": "Žádné hry neodpovídají aktuálním filtrům.",
+        "aria": {
+            "pagination": "Stránkování",
+            "rating": "Hodnoceno {{rating}} z 10"
+        },
+        "error": "Nemohu načíst slevu. Zkuste to později.",
+        "empty": "Žádné zlevněné hry momentálně nejsou dostupné.",
+        "loading": "Načítám zlevněné hry...",
+        "title": "Nabídky GOGu",
+        "pagination": {
+            "prev": "Předcházející"
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Nebyly nalezeny žádné hry.",
+            "no-grids": "Náhled pro hru nenalezen.",
+            "search": "Selhalo vyhledávání her, zkontrolujte SteamGridDB API klíč a opakujte",
+            "grids": "Selhalo získávání mřížek"
+        },
+        "picker": {
+            "search": "Hledat Hru",
+            "title": "SteamGridDB Náhledy",
+            "select-game": "Vybrat Hru:"
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "Zmáčknout",
+            "body": "Tato hra má dostupnou aktualizaci. Odejděte z konzolového módu a aktualizujte hru před jejím spuštěním.",
+            "title": "Potřeba aktualizace",
+            "hintSuffix": "vrátit se"
+        },
+        "sort": "Seřadit",
+        "cancel": {
+            "hintSuffix": "po dobu tří sekund pro zrušení",
+            "hintPrefix": "Držte"
+        },
+        "quit": "Zavřít Konzoli",
+        "hints": {
+            "launch": "Spustit",
+            "sort": "Seřadit",
+            "navigate": "Vyhledat",
+            "quit": "Ukončit",
+            "change_store": "Změnit obchod"
+        },
+        "launching": "Spouštění",
+        "card": {
+            "needsUpdate": "Potřebuje aktualizace"
+        },
+        "filter": {
+            "sideload": "Ostatní",
+            "all": "Vše"
+        },
+        "empty": "Žádné stažené hry. Nejprve si nějaké stáhněte.",
+        "games": "Instalované hry",
+        "quitApp": "Zavřít Aplikaci",
+        "loading": "Načítám vaší knihovnu…",
+        "cancelInstall": {
+            "title": "Zrušit instalaci?",
+            "message": "Tato hra se instaluje. Zrušit instalaci?"
+        },
+        "cancelUpdate": {
+            "title": "Zrušit aktualizaci?",
+            "message": "Tato hra nyní něco stahuje. Zrušit tuto aktualizaci?"
+        },
+        "install": {
+            "platform": "Platforma",
+            "title": "Instalovat hru",
+            "wineLoading": "Načítání…",
+            "path": "Instalovat do",
+            "wine": "Wine",
+            "wineMissing": "Nevybráno"
+        },
+        "removeFromQueue": {
+            "message": "Tato hra je ve frontě na stažení. Odstranit z fronty?"
+        }
+    },
+    "next": "Další"
 }

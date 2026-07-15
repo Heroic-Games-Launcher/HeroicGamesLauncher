@@ -82,7 +82,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
 
       {gameExtraInfo?.changelog && showChangelog && (
         <GameChangeLog
-          title={gameInfo.title}
+          title={gameInfo.overrides?.title || gameInfo.title}
           changelog={gameExtraInfo.changelog}
           backdropClick={() => {
             setShowChangelog(false)

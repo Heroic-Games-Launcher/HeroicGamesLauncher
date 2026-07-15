@@ -14,6 +14,12 @@
             "title": "Move Game Installation"
         },
         "no": "NO",
+        "offline_warning": {
+            "message": "This game might not work properly offline. Do you want to play anyway?",
+            "playAnyway": "Play Anyway",
+            "title": "Offline Warning"
+        },
+        "ok": "OK",
         "repair": {
             "message": "Do you want to try to repair this game? This can take a long time.",
             "title": "Verify and Repair"
@@ -25,6 +31,10 @@
             "button": "Select",
             "image": "Select Image"
         },
+        "selectLaunchOption": {
+            "body": "Please select a launch option for this game (it can be changed later on the game settings):",
+            "title": "Select Launch Option ({{seconds}}s)"
+        },
         "sideload": {
             "exe": "Select Executable"
         },
@@ -32,6 +42,10 @@
             "keepInstalling": "Keep Installing",
             "message": "Do you wish to KEEP downloaded files?",
             "title": "Stop Installation"
+        },
+        "sync": {
+            "force_download_warning": "Local saves will be erased. Do you want to proceed?",
+            "force_upload_warning": "Cloud saves will be overwritten. Do you want to proceed?"
         },
         "uninstall": {
             "cannotUninstallEpic": "Epic games cannot be uninstalled while another Epic game is being installed.",
@@ -47,6 +61,9 @@
             "message": "This game has an update, apply update now?",
             "title": "Game Needs Update"
         },
+        "warning": {
+            "title": "Warning"
+        },
         "wineprefix": "Select WinePrefix Folder",
         "yes": "YES"
     },
@@ -58,6 +75,7 @@
         "changelog": "Show Changelog",
         "continue": "Continue Downloading",
         "details": "Details",
+        "edit-game": "Edit Game",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
@@ -82,8 +100,27 @@
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
+    "edit-game": {
+        "advanced": "Advanced",
+        "cover": "Cover Art",
+        "info": {
+            "cover": "Cover Image",
+            "square": "Square Image"
+        },
+        "placeholder": {
+            "image": "Paste an image URL"
+        },
+        "reset": "Reset to default",
+        "sgdb": {
+            "no-key-link": "Settings → Advanced",
+            "no-key-prefix": "To search SteamGridDB for cover art, add an API key in"
+        },
+        "square": "Square Art",
+        "title": "Edit Game"
+    },
     "enabled": "Enabled",
     "game": {
+        "achievements": "Achievements",
         "branch": {
             "disabled": "Disabled",
             "password": "Set private channel password",
@@ -120,7 +157,7 @@
         "noDescription": "No description available"
     },
     "help": {
-        "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system",
+        "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system.",
         "content": {
             "gamePage": "Show all game details and actions. Use the 3 dots menu for more options."
         },
@@ -186,7 +223,7 @@
         "winetricks": "Installing Winetricks Packages"
     },
     "launch": {
-        "options": "Launch Options..."
+        "default": "Default"
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
@@ -206,6 +243,7 @@
         "zoom": "You are not logged in with a Zoom account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "Open": "Open",
+    "open-saves-folder": "Open Saves Folder",
     "queue": {
         "label": {
             "canceled": "Canceled",
@@ -228,15 +266,19 @@
         "field": {
             "title": "Title"
         },
+        "images": {
+            "summary": "Images"
+        },
         "import-hint": {
             "content": "Do NOT use this feature for that.<br />Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
             "title": "Important! Are you adding a game from Epic/GOG/Amazon? Click here!"
         },
         "info": {
             "broser": "BrowserURL",
+            "cover-hint": "Cover/Hero Art (click on the image to search on SteamGridDB)",
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
-            "image": "App Image",
+            "image-hint": "Square Art (click on the image to search on SteamGridDB)",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
         },

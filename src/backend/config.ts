@@ -23,13 +23,18 @@ import { configStore } from './constants/key_value_stores'
 import { isFlatpak, isLinux, isMac, isWindows } from './constants/environment'
 import {
   configPath,
-  defaultWinePrefix,
+  sharedWinePrefix,
   gamesConfigPath,
   heroicInstallPath,
-  userHome
+  userHome,
+  defaultWinePrefixDir
 } from './constants/paths'
 import { join } from 'path'
 import { spawnSync } from 'child_process'
+import {
+  updateWineVersionInfos,
+  wineDownloaderInfoStore
+} from './wine/manager/utils'
 
 function getSteamCompatFolder() {
   // Paths are from https://savelocation.net/steam-game-folder
@@ -190,6 +195,10 @@ abstract class GlobalConfig {
   public async getAlternativeWine(
     scanCustom = true
   ): Promise<WineInstallation[]> {
+    if (wineDownloaderInfoStore.get('wine-releases', []).length === 0) {
+      await updateWineVersionInfos(true)
+    }
+
     if (isMac) {
       const macOsWineSet = await this.getMacOsWineSet()
       return [...macOsWineSet]
@@ -299,6 +308,10 @@ class GlobalConfigV0 extends GlobalConfig {
     }
     const defaultSettings = settingsParsed.defaultSettings
 
+    // keep old setting value for backwards compatibility, always use defaultWinePrefixDir in new code
+    if (!defaultSettings.defaultWinePrefixDir)
+      defaultSettings.defaultWinePrefixDir = defaultSettings.defaultWinePrefix
+
     // fix relative paths
     const winePrefix = !isWindows
       ? defaultSettings?.winePrefix?.replace('~', userHome)
@@ -306,7 +319,7 @@ class GlobalConfigV0 extends GlobalConfig {
 
     const settings: AppSettings = {
       ...this.getFactoryDefaults(),
-      ...settingsParsed.defaultSettings,
+      ...defaultSettings,
       winePrefix
     }
 
@@ -334,7 +347,8 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
-      defaultWinePrefix: defaultWinePrefix,
+      defaultWinePrefix: defaultWinePrefixDir,
+      defaultWinePrefixDir: defaultWinePrefixDir,
       hideChangelogsOnStartup: false,
       language: 'en',
       maxWorkers: 0,
@@ -345,7 +359,7 @@ class GlobalConfigV0 extends GlobalConfig {
       showFps: false,
       useGameMode: isFlatpak,
       wineCrossoverBottle: 'Heroic',
-      winePrefix: isWindows ? '' : defaultWinePrefix,
+      winePrefix: isWindows ? '' : sharedWinePrefix,
       wineVersion: defaultWine,
       enableEsync: true,
       enableFsync: isLinux,
@@ -356,6 +370,7 @@ class GlobalConfigV0 extends GlobalConfig {
       eacRuntime: isLinux,
       battlEyeRuntime: isLinux,
       framelessWindow: false,
+      hideWindowOnProtocolLaunch: false,
       beforeLaunchScriptPath: '',
       afterLaunchScriptPath: '',
       disableUMU: false,
@@ -364,6 +379,8 @@ class GlobalConfigV0 extends GlobalConfig {
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,
       showValveProton: false,
+      steamGridDbApiKey: '',
+      disableGOGPresence: false,
       afterDownloadAction: 'none'
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults

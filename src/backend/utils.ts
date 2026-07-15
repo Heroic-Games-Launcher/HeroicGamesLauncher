@@ -25,13 +25,13 @@ import {
   logDebug
 } from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
-import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import {
   gameInfoStore,
   installStore,
   libraryStore
 } from 'backend/storeManagers/legendary/electronStores'
 import {
+  achievementStore as GOGAchievementStore,
   apiInfoCache as GOGapiInfoCache,
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
@@ -49,7 +49,7 @@ import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
-import { gameManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import {
   installWineVersion,
   updateWineVersionInfos,
@@ -84,10 +84,14 @@ import { parse } from '@node-steam/vdf'
 
 import type LogWriter from 'backend/logger/log_writer'
 import { isRunning } from './downloadmanager/downloadqueue'
+import { isOnline } from './online_monitor'
+import type { Game } from 'common/types/game_manager'
 
 const execAsync = promisify(exec)
 
-const { showMessageBox } = dialog
+function getGame(id: string, runner: Runner): Game {
+  return libraryManagerMap[runner].getGame(id)
+}
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -183,6 +187,8 @@ async function getWineFromProton(
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
 ) {
+  if (!isOnline()) return true
+
   const epicStatusApi = 'https://status.epicgames.com/api/v2/components.json'
   const notification = new Notification({
     title: `${type} ${t('epic.offline-notification-title', 'offline')}`,
@@ -237,10 +243,8 @@ async function handleExit() {
   const isLocked = existsSync(join(gamesConfigPath, 'lock'))
   const mainWindow = getMainWindow()
 
-  await gogPresence.deletePresence()
-
   if ((isLocked || isRunning()) && mainWindow) {
-    const { response } = await showMessageBox(mainWindow, {
+    const { response } = await dialog.showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
@@ -269,76 +273,83 @@ async function handleExit() {
     // Kill all child processes
     callAllAbortControllers()
   }
+
+  mainWindow?.hide()
+  await gogPresence.deletePresence()
+
   app.exit()
 }
 
-type ErrorHandlerMessage = {
-  error?: string
-  appName?: string
-  runner: string
+export async function askForceUninstall(game: Game) {
+  const { title } = game.getGameInfo()
+  const { response } = await dialog.showMessageBox({
+    type: 'question',
+    title,
+    message: i18next.t(
+      'box.error.folder-not-found.title',
+      'Game folder appears to be deleted, do you want to remove the game from the installed list?'
+    ),
+    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+  })
+
+  if (response === 1) {
+    await game.forceUninstall()
+  }
+  return response
 }
 
-async function errorHandler({
-  error,
-  runner: r,
-  appName
-}: ErrorHandlerMessage): Promise<void> {
-  const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
+async function errorHandler(
+  error: string,
+  appName: string,
+  runner: Runner
+): Promise<void> {
+  const plat = runner === 'legendary' ? 'Legendary (Epic Games)' : runner
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
-  // this message appears on macOS when no Crossover was found in the system but its a false alarm
-  const ignoreCrossoverMessage = 'IndexError: list index out of range'
+  const ignoreMessages = [
+    // this message appears on macOS when no Crossover was found in the system, but it's a false alarm
+    'IndexError: list index out of range',
+    // Happens with the Zipapp build of Legendary on Linux, if the user updates
+    // dependencies requests relies on
+    'RequestsDependencyWarning'
+  ]
 
-  if (error) {
-    if (error.includes(ignoreCrossoverMessage)) {
+  if (!error) return
+
+  if (ignoreMessages.some((msg) => error.includes(msg))) return
+
+  if (error.includes(deletedFolderMsg) && appName) {
+    await askForceUninstall(getGame(appName, runner))
+    return
+  }
+
+  if (legendaryRegex.test(error)) {
+    const MemoryError = 'MemoryError: '
+    if (error.includes(MemoryError)) {
       return
     }
-    if (error.includes(deletedFolderMsg) && appName) {
-      const runner = r.toLocaleLowerCase() as Runner
-      const { title } = gameManagerMap[runner].getGameInfo(appName)
-      const { response } = await showMessageBox({
-        type: 'question',
-        title,
-        message: i18next.t(
-          'box.error.folder-not-found.title',
-          'Game folder appears to be deleted, do you want to remove the game from the installed list?'
-        ),
-        buttons: [i18next.t('box.no'), i18next.t('box.yes')]
-      })
 
-      if (response === 1) {
-        return gameManagerMap[runner].forceUninstall(appName)
-      }
-    }
+    return showDialogBoxModalAuto({
+      title: plat,
+      message: i18next.t(
+        'box.error.legendary.generic',
+        'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
+        { error, newline: '\n' }
+      ),
+      type: 'ERROR'
+    })
+  }
 
-    if (legendaryRegex.test(error)) {
-      const MemoryError = 'MemoryError: '
-      if (error.includes(MemoryError)) {
-        return
-      }
-
-      return showDialogBoxModalAuto({
-        title: plat,
-        message: i18next.t(
-          'box.error.legendary.generic',
-          'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
-          { error, newline: '\n' }
-        ),
-        type: 'ERROR'
-      })
-    }
-
-    if (error.includes(expiredCredentials)) {
-      return showDialogBoxModalAuto({
-        title: plat,
-        message: i18next.t(
-          'box.error.credentials.message',
-          'Your Crendentials have expired, Logout and Login Again!'
-        ),
-        type: 'ERROR'
-      })
-    }
+  if (error.includes(expiredCredentials)) {
+    return showDialogBoxModalAuto({
+      title: plat,
+      message: i18next.t(
+        'box.error.credentials.message',
+        'Your Crendentials have expired, Logout and Login Again!'
+      ),
+      type: 'ERROR'
+    })
   }
 }
 
@@ -365,12 +376,13 @@ function clearCache(
     GOGapiInfoCache.clear()
     GOGlibraryStore.clear()
     GOGinstallInfoStore.clear()
+    GOGAchievementStore.clear()
   }
   if (library === 'legendary' || !library) {
     installStore.clear()
     libraryStore.clear()
     gameInfoStore.clear()
-    runLegendaryCommand(
+    libraryManagerMap['legendary'].runRunnerCommand(
       { subcommand: 'cleanup' },
       { abortId: 'legandary-cleanup' }
     )
@@ -384,6 +396,10 @@ function clearCache(
     deviceNameCache.clear()
     vendorNameCache.clear()
   }
+}
+
+function clearAchievementCache(appName: string) {
+  GOGAchievementStore.delete(appName)
 }
 
 function resetHeroic() {
@@ -420,6 +436,9 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function archSpecificBinary(binaryName: string) {
+  // On Windows the helper binaries have .exe extension
+  if (process.platform === 'win32') binaryName += '.exe'
+
   // Try to use the arch-native binary first, if that doesn't exist fall back to
   // the x64 version (assume a compatibility layer like box64 is installed)
   const archSpecificPath = join(
@@ -767,18 +786,17 @@ const getLatestReleases = async (): Promise<Release[]> => {
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
   try {
-    const { data: releases } = await axiosClient.get(GITHUB_API)
-    const latestStable: Release = releases.filter(
-      (rel: Release) => rel.prerelease === false
-    )[0]
-    const latestBeta: Release = releases.filter(
-      (rel: Release) => rel.prerelease === true
-    )[0]
+    const { data: releases } = await axiosClient.get<Release[]>(GITHUB_API)
+    const latestStable = releases
+      .filter((rel) => rel.prerelease === false)
+      .at(0)
+    const latestBeta = releases.filter((rel) => rel.prerelease === true).at(0)
 
     const current = app.getVersion()
 
-    const thereIsNewStable = semverGt(latestStable.tag_name, current)
-    const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
+    const thereIsNewStable =
+      latestStable && semverGt(latestStable.tag_name, current)
+    const thereIsNewBeta = latestBeta && semverGt(latestBeta.tag_name, current)
 
     if (thereIsNewStable) {
       newReleases.push({ ...latestStable, type: 'stable' })
@@ -827,10 +845,6 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
     )
     return null
   }
-}
-
-function getInfo(appName: string, runner: Runner): GameInfo {
-  return gameManagerMap[runner].getGameInfo(appName)
 }
 
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
@@ -935,7 +949,7 @@ export async function downloadDefaultWine() {
   const isMacOSUpToDate = await isMacSonomaOrHigher()
   const release = availableWine.find((version) => {
     if (isLinux) {
-      return version.type === 'GE-Proton'
+      return version.type === 'Proton-CachyOS'
     } else if (isMac) {
       if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
@@ -1665,6 +1679,7 @@ export {
   showItemInFolder,
   removeSpecialcharacters,
   clearCache,
+  clearAchievementCache,
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
@@ -1678,7 +1693,6 @@ export {
   detectVCRedist,
   killPattern,
   shutdownWine,
-  getInfo,
   getShellPath,
   getLatestReleases,
   getWineFromProton,
@@ -1691,7 +1705,8 @@ export {
   calculateEta,
   extractFiles,
   axiosClient,
-  parseSize
+  parseSize,
+  getGame
 }
 
 // Exported only for testing purpose

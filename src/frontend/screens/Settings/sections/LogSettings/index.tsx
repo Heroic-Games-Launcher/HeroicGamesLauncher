@@ -165,7 +165,7 @@ export default function LogSettings() {
       baseFiles.push({ title: 'Zoom', args: { runner: 'zoom' } })
     }
     const logsForInstalledGames = installedGames.map((game) => ({
-      title: game.title,
+      title: game.overrides?.title || game.title,
       args: {
         appName: game.app_name,
         runner: game.runner

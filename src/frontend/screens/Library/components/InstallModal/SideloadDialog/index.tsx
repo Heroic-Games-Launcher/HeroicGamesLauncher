@@ -1,6 +1,6 @@
 import './index.scss'
 import short from 'short-uuid'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
@@ -8,7 +8,9 @@ import {
   TextInputField,
   PathSelectionBox,
   ToggleSwitch,
-  InfoBox
+  InfoBox,
+  SteamGridDBPicker,
+  WarningMessage
 } from 'frontend/components/UI'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
@@ -24,48 +26,56 @@ import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import Folder from '@mui/icons-material/Folder'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
   winePrefix: string
-  crossoverBottle: string
   wineVersion: WineInstallation | undefined
-  setWinePrefix: React.Dispatch<React.SetStateAction<string>>
   children: React.ReactNode
   platformToInstall: InstallPlatform
   backdropClick: () => void
   appName?: string
+  title: string
+  setTitle: (title: string) => void
 }
 
 export default function SideloadDialog({
   availablePlatforms,
   backdropClick,
   winePrefix,
-  crossoverBottle,
   wineVersion,
   platformToInstall,
-  setWinePrefix,
   children,
-  appName
+  appName,
+  title,
+  setTitle
 }: Props) {
   const { t, i18n } = useTranslation('gamepage')
-  const [title, setTitle] = useState<string>(t('sideload.field.title', 'Title'))
   const [selectedExe, setSelectedExe] = useState('')
   const [gameUrl, setGameUrl] = useState('')
   const [customUserAgent, setCustomUserAgent] = useState('')
   const [launchFullScreen, setLaunchFullScreen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
+  const [heroUrl, setHeroUrl] = useState('')
   const [searching, setSearching] = useState(false)
+  const [imageLoading, setImageLoading] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const [addingApp, setAddingApp] = useState(false)
+  const [sgdbTarget, setSgdbTarget] = useState<'cover' | 'square' | null>(null)
+  const [hasSgdbKey, setHasSgdbKey] = useState(false)
   const editMode = Boolean(appName)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
+  const navigate = useNavigate()
+  const goToAdvancedSettings = () => {
+    backdropClick()
+    navigate('/settings/advanced')
+  }
 
   function handleTitle(value: string) {
     value = removeSpecialcharacters(value)
@@ -75,8 +85,10 @@ export default function SideloadDialog({
   const appPlatform = gameInfo.install?.platform || platformToInstall
 
   useEffect(() => {
+    window.api.steamgriddb.hasApiKey().then(setHasSgdbKey)
+
     if (appName) {
-      getGameInfo(appName, 'sideload').then((info) => {
+      void getGameInfo(appName, 'sideload').then((info) => {
         if (!info || info.runner !== 'sideload') {
           return
         }
@@ -109,23 +121,19 @@ export default function SideloadDialog({
         }
 
         setTitle(title)
-        setImageUrl(art_cover ? art_cover : art_square)
+        setImageUrl(art_square || '')
+        setHeroUrl(art_cover && art_cover !== art_square ? art_cover : '')
       })
     } else {
       setApp_name(short.generate().toString())
     }
   }, [])
 
-  // Suggest default Wine prefix if we're adding a new app
-  useEffect(() => {
-    if (editMode) return
-    window.api.requestAppSettings().then(({ defaultWinePrefix }) => {
-      const suggestedWinePrefix = `${defaultWinePrefix}/${title}`
-      setWinePrefix(suggestedWinePrefix)
-    })
-  }, [title, editMode])
-
   async function searchImage() {
+    if (hasSgdbKey) {
+      setSgdbTarget('square')
+      return
+    }
     setSearching(true)
 
     try {
@@ -150,20 +158,23 @@ export default function SideloadDialog({
     }
   }
 
-  async function handleSelectLocalImage() {
+  async function handleSelectLocalImage(target: 'cover' | 'square') {
     const path = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
       title: t('box.select.image', 'Select Image'),
       filters: [
-        { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif'] },
+        {
+          name: 'Images',
+          extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif']
+        },
         { name: 'All', extensions: ['*'] }
       ]
     })
 
-    if (path) {
-      setImageUrl(`file://${path}`)
-    }
+    if (!path) return
+    if (target === 'cover') setHeroUrl(`file://${path}`)
+    else setImageUrl(`file://${path}`)
   }
 
   async function handleInstall(): Promise<void> {
@@ -176,28 +187,14 @@ export default function SideloadDialog({
         executable: selectedExe,
         platform: gameInfo.install?.platform ?? platformToInstall
       },
-      art_cover: imageUrl ? imageUrl : fallbackImage,
+      art_cover: heroUrl || imageUrl || fallbackImage,
       is_installed: true,
-      art_square: imageUrl ? imageUrl : fallbackImage,
+      art_square: imageUrl || heroUrl || fallbackImage,
       canRunOffline: true,
       browserUrl: gameUrl,
       customUserAgent,
       launchFullScreen
     })
-    const gameSettings = await getGameSettings(app_name, 'sideload')
-    if (!gameSettings) {
-      return
-    }
-    if (!editMode)
-      window.api.writeConfig({
-        appName: app_name,
-        config: {
-          ...gameSettings,
-          winePrefix,
-          wineVersion,
-          wineCrossoverBottle: crossoverBottle
-        }
-      })
 
     await refreshLibrary({
       library: 'sideload',
@@ -312,102 +309,203 @@ export default function SideloadDialog({
       <DialogContent>
         <div className="sideloadGrid">
           <div className="imageIcons">
-            <CachedImage
-              className={classNames('appImage', { blackWhiteImage: searching })}
-              src={imageUrl ? imageUrl : fallbackImage}
-            />
+            <div
+              className={classNames('appImageContainer', {
+                hasSgdbKey,
+                searching,
+                loading: imageLoading
+              })}
+              onClick={() => hasSgdbKey && setSgdbTarget('square')}
+            >
+              <CachedImage
+                className={classNames('appImage', {
+                  blackWhiteImage: searching
+                })}
+                src={imageUrl ? imageUrl : fallbackImage}
+                onLoad={() => setImageLoading(false)}
+                onError={() => setImageLoading(false)}
+              />
+              {(searching || imageLoading) && (
+                <div className="imageLoadingOverlay">
+                  <FontAwesomeIcon icon={faSpinner} spin size="3x" />
+                </div>
+              )}
+              {hasSgdbKey && !searching && !imageLoading && (
+                <div className="imageHoverOverlay">
+                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                </div>
+              )}
+            </div>
+            <div
+              className={classNames('appImageContainer heroImageContainer', {
+                hasSgdbKey
+              })}
+              onClick={() => hasSgdbKey && setSgdbTarget('cover')}
+            >
+              <CachedImage
+                className="appImage heroImage"
+                src={heroUrl || imageUrl || fallbackImage}
+              />
+              {hasSgdbKey && (
+                <div className="imageHoverOverlay">
+                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                </div>
+              )}
+            </div>
             <span className="titleIcon">
               {title}
               {platformIcon()}
             </span>
           </div>
           <div className="sideloadForm">
-            <InfoBox
-              text={t(
-                'sideload.import-hint.title',
-                'Important! Are you adding a game from Epic/GOG/Amazon? Click here!'
-              )}
-            >
-              <div className="sideloadImportHint">
-                <Trans i18n={i18n} key="sideload.import-hint.content">
-                  Do NOT use this feature for that.
-                  <br />
-                  Instead, <NavLink to={'/login'}>log into</NavLink> the store,
-                  look for the game in your library, open the installation
-                  dialog, and click the &quot;Import Game&quot; button
-                </Trans>
-              </div>
-            </InfoBox>
-            <TextInputField
-              label={t('sideload.info.title', 'Game/App Title')}
-              placeholder={t(
-                'sideload.placeholder.title',
-                'Add a title to your Game/App'
-              )}
-              onChange={(newValue) => handleTitle(newValue)}
-              onBlur={async () => searchImage()}
-              htmlId="sideload-title"
-              value={title}
-              maxLength={40}
-            />
-            <TextInputWithIconField
-              label={t('sideload.info.image', 'App Image')}
-              placeholder={t(
-                'sideload.placeholder.image',
-                'Paste an URL of an Image or select one from your computer'
-              )}
-              onChange={(newValue) => setImageUrl(newValue)}
-              htmlId="sideload-image"
-              value={imageUrl}
-              icon={<Folder />}
-              onIconClick={handleSelectLocalImage}
-            />
-            {!editMode && children}
-            {showSideloadExe && (
-              <PathSelectionBox
-                type="file"
-                onPathChange={setSelectedExe}
-                path={selectedExe}
-                placeholder={t('sideload.info.exe', 'Select Executable')}
-                pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
-                pathDialogDefaultPath={winePrefix}
-                pathDialogFilters={fileFilters(platformToInstall)}
-                htmlId="sideload-exe"
-                label={t('sideload.info.exe', 'Select Executable')}
-                noDeleteButton
+            {sgdbTarget ? (
+              <SteamGridDBPicker
+                initialTitle={title}
+                mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
+                onClose={() => setSgdbTarget(null)}
+                onSelect={(url: string) => {
+                  if (sgdbTarget === 'cover') {
+                    setHeroUrl(url)
+                  } else if (url !== imageUrl) {
+                    setImageLoading(true)
+                    setImageUrl(url)
+                  }
+                  setSgdbTarget(null)
+                }}
               />
-            )}
-            {!showSideloadExe && (
+            ) : (
               <>
+                <InfoBox
+                  text={t(
+                    'sideload.import-hint.title',
+                    'Important! Are you adding a game from Epic/GOG/Amazon? Click here!'
+                  )}
+                >
+                  <div className="sideloadImportHint">
+                    <Trans i18n={i18n} key="sideload.import-hint.content">
+                      Do NOT use this feature for that.
+                      <br />
+                      Instead, <NavLink to={'/login'}>log into</NavLink> the
+                      store, look for the game in your library, open the
+                      installation dialog, and click the &quot;Import Game&quot;
+                      button
+                    </Trans>
+                  </div>
+                </InfoBox>
                 <TextInputField
-                  label={t('sideload.info.broser', 'BrowserURL')}
+                  label={t('sideload.info.title', 'Game/App Title')}
                   placeholder={t(
-                    'sideload.placeholder.url',
-                    'Paste the Game URL here'
+                    'sideload.placeholder.title',
+                    'Add a title to your Game/App'
                   )}
-                  onChange={(newValue) => handleGameUrl(newValue)}
-                  htmlId="sideload-game-url"
-                  value={gameUrl}
+                  onChange={(newValue) => handleTitle(newValue)}
+                  onBlur={async () => searchImage()}
+                  htmlId="sideload-title"
+                  value={title}
+                  maxLength={40}
                 />
-                <TextInputField
-                  label={t('sideload.info.useragent', 'Custom User Agent')}
-                  placeholder={t(
-                    'sideload.placeholder.useragent',
-                    'Write a custom user agent here to be used on this browser app/game'
-                  )}
-                  onChange={(newValue) => setCustomUserAgent(newValue)}
-                  htmlId="sideload-user-agent"
-                  value={customUserAgent}
-                />
-                <ToggleSwitch
-                  htmlId="launch-fullscreen"
-                  value={launchFullScreen}
-                  handleChange={() => setLaunchFullScreen(!launchFullScreen)}
-                  title={t(
-                    'sideload.info.fullscreen',
-                    'Launch Fullscreen (F11 to exit)'
-                  )}
-                />
+                <details className="advancedFields">
+                  <summary>{t('sideload.images.summary', 'Images')}</summary>
+                  <TextInputWithIconField
+                    label={t(
+                      'sideload.info.image-hint',
+                      'Square Art (click on the image to search on SteamGridDB)'
+                    )}
+                    placeholder={t(
+                      'sideload.placeholder.image',
+                      'Paste an URL of an Image or select one from your computer'
+                    )}
+                    onChange={(newValue: string) => setImageUrl(newValue)}
+                    htmlId="sideload-image"
+                    value={imageUrl}
+                    icon={<Folder />}
+                    onIconClick={() => handleSelectLocalImage('square')}
+                  />
+                  <TextInputWithIconField
+                    label={t(
+                      'sideload.info.cover-hint',
+                      'Cover/Hero Art (click on the image to search on SteamGridDB)'
+                    )}
+                    placeholder={t(
+                      'sideload.placeholder.image',
+                      'Paste an URL of an Image or select one from your computer'
+                    )}
+                    onChange={(newValue: string) => setHeroUrl(newValue)}
+                    htmlId="sideload-cover"
+                    value={heroUrl}
+                    icon={<Folder />}
+                    onIconClick={() => handleSelectLocalImage('cover')}
+                  />
+                </details>
+                {!hasSgdbKey && (
+                  <WarningMessage>
+                    {t(
+                      'edit-game.sgdb.no-key-prefix',
+                      'To search SteamGridDB for cover art, add an API key in'
+                    )}{' '}
+                    <a
+                      role="button"
+                      tabIndex={0}
+                      onClick={goToAdvancedSettings}
+                      className="sgdbWarningLink"
+                    >
+                      {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
+                    </a>
+                    .
+                  </WarningMessage>
+                )}
+                {!editMode && children}
+                {showSideloadExe && (
+                  <PathSelectionBox
+                    type="file"
+                    onPathChange={setSelectedExe}
+                    path={selectedExe}
+                    placeholder={t('sideload.info.exe', 'Select Executable')}
+                    pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
+                    pathDialogDefaultPath={winePrefix}
+                    pathDialogFilters={fileFilters(platformToInstall)}
+                    htmlId="sideload-exe"
+                    label={t('sideload.info.exe', 'Select Executable')}
+                    noDeleteButton
+                  />
+                )}
+                {!showSideloadExe && (
+                  <>
+                    <TextInputField
+                      label={t('sideload.info.broser', 'BrowserURL')}
+                      placeholder={t(
+                        'sideload.placeholder.url',
+                        'Paste the Game URL here'
+                      )}
+                      onChange={(newValue: string) => handleGameUrl(newValue)}
+                      htmlId="sideload-game-url"
+                      value={gameUrl}
+                    />
+                    <TextInputField
+                      label={t('sideload.info.useragent', 'Custom User Agent')}
+                      placeholder={t(
+                        'sideload.placeholder.useragent',
+                        'Write a custom user agent here to be used on this browser app/game'
+                      )}
+                      onChange={(newValue: string) =>
+                        setCustomUserAgent(newValue)
+                      }
+                      htmlId="sideload-user-agent"
+                      value={customUserAgent}
+                    />
+                    <ToggleSwitch
+                      htmlId="launch-fullscreen"
+                      value={launchFullScreen}
+                      handleChange={() =>
+                        setLaunchFullScreen(!launchFullScreen)
+                      }
+                      title={t(
+                        'sideload.info.fullscreen',
+                        'Launch Fullscreen (F11 to exit)'
+                      )}
+                    />
+                  </>
+                )}
               </>
             )}
           </div>

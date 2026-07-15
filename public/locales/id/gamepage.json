@@ -48,7 +48,24 @@
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA",
-        "close": "Tutup"
+        "close": "Tutup",
+        "warning": {
+            "title": "Peringatan"
+        },
+        "selectLaunchOption": {
+            "title": "Pilih Opsi Peluncuran ({{seconds}}d)",
+            "body": "Silakan pilih opsi peluncuran untuk game ini (dapat diubah nanti di pengaturan game):"
+        },
+        "sync": {
+            "force_download_warning": "Penyimpanan lokal akan dihapus. Apakah Anda ingin melanjutkan?",
+            "force_upload_warning": "Penyimpanan cloud akan ditimpa. Apakah Anda ingin melanjutkan?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Game ini mungkin tidak berfungsi dengan baik saat offline. Apakah Anda tetap ingin bermain?",
+            "playAnyway": "Tetap Mainkan",
+            "title": "Peringatan Offline"
+        }
     },
     "button": {
         "add_to_favourites": "Tambahkan Ke Favorit",
@@ -78,7 +95,8 @@
         "changelog": "Tampilkan Log Perubahan",
         "browse_files": "Jelajahi File",
         "browse_wine_prefix": "Jelajahi Wine Prefix",
-        "play": "MAIN"
+        "play": "MAIN",
+        "edit-game": "Edit Game"
     },
     "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
@@ -113,7 +131,8 @@
         "changelogFor": "Log perubahan untuk {{gameTitle}}",
         "modify": "Ubah Pemasangan",
         "extra_info": "Info tambahan",
-        "install_info": "Info instalasi"
+        "install_info": "Info instalasi",
+        "achievements": "Pencapaian"
     },
     "gamecard": {
         "moving": "Memindahkan",
@@ -189,7 +208,8 @@
         }
     },
     "launch": {
-        "options": "Opsi Peluncuran…"
+        "options": "Opsi Peluncuran…",
+        "default": "Bawaan"
     },
     "not_logged_in": {
         "epic": "Anda tidak masuk dengan akun Epic di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:",
@@ -219,7 +239,9 @@
             "title": "Gim/Judul App",
             "broser": "URL browser",
             "useragent": "Kustomisasi User Agent",
-            "fullscreen": "Luncurkan Layar Penuh (F11 untuk keluar)"
+            "fullscreen": "Luncurkan Layar Penuh (F11 untuk keluar)",
+            "cover-hint": "Gambar Sampul/Hero (klik pada gambar untuk mencari di SteamGridDB)",
+            "image-hint": "Gambar Persegi (klik pada gambar untuk mencari di SteamGridDB)"
         },
         "placeholder": {
             "image": "Tempel URL gambar atau pilih salah satu dari komputer Anda",
@@ -230,6 +252,9 @@
         "import-hint": {
             "content": "JANGAN gunakan fitur ini untuk tujuan tersebut.<br />Sebagai gantinya, <3>masuk ke</3> toko, cari game di pustaka Anda, buka dialog instalasi, lalu klik tombol &quot;Impor Game&quot;",
             "title": "Penting! Apakah Anda menambahkan game dari Epic/GOG/Amazon? Klik di sini!"
+        },
+        "images": {
+            "summary": "Gambar"
         }
     },
     "specs": {
@@ -315,5 +340,24 @@
             "resume": "Lanjutkan unduhan"
         }
     },
-    "wikiLink": "Informasi penting tentang game ini, baca di sini:&nbsp;<1>Buka halaman</1>"
+    "wikiLink": "Informasi penting tentang game ini, baca di sini:&nbsp;<1>Buka halaman</1>",
+    "open-saves-folder": "Buka Folder Penyimpanan",
+    "edit-game": {
+        "advanced": "Tambahan",
+        "title": "Edit Game",
+        "cover": "Gambar Sampul",
+        "info": {
+            "cover": "Gambar Sampul",
+            "square": "Gambar Persegi"
+        },
+        "placeholder": {
+            "image": "Tempel URL gambar"
+        },
+        "reset": "Atur ulang ke default",
+        "sgdb": {
+            "no-key-link": "Pengaturan → Lanjutan",
+            "no-key-prefix": "Untuk mencari gambar sampul di SteamGridDB, tambahkan API key di"
+        },
+        "square": "Gambar Persegi"
+    }
 }

@@ -99,7 +99,11 @@
                 "title": "Ошибка Steam"
             },
             "executableNotFound": "Исполняемый файл не найден",
-            "executableNotFoundMessage": "Не удалось найти исполняемый файл для этой игры. Пожалуйста, установите его вручную в настройках игры."
+            "executableNotFoundMessage": "Не удалось найти исполняемый файл для этой игры. Пожалуйста, установите его вручную в настройках игры.",
+            "dxmt": {
+                "message": "Ошибка загрузки DXMT! Проверьте свое соединение!",
+                "title": "Ошибка загрузки DXMT"
+            }
         },
         "info": {
             "update": {
@@ -185,7 +189,7 @@
                 "title": "Rosetta не был найден"
             }
         },
-        "wineprefix": "Выбрать папку префикса Wine",
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ДА",
         "dontShowAgain": "Больше не показывать",
         "choose-nile-binary": "Выберите двоичный файл Нила",
@@ -261,7 +265,10 @@
         },
         "library": {
             "refresh": "Обновить библиотеку"
-        }
+        },
+        "abort": "",
+        "install": "Установка",
+        "uninstall": "Удалить"
     },
     "globalSettings": "Глобальные настройки",
     "GOG": "GOG",
@@ -371,7 +378,10 @@
         "download_proton_steam": "При включении GE-Proton будет загружен непосредственно в папку с инструментами совместимости Steam, а не в папку Heroic по умолчанию. Будет использоваться папка Steam, заданная в параметре «Путь Steam по умолчанию» выше.",
         "wine-hdr": "HDR улучшает цвета, предоставляя более яркие блики и более глубокий контраст. Для работы HDR, дисплей и игра должны его поддерживать.",
         "wine-wayland": "Экспериментальный драйвер Wine-Wayland позволяет запускать игры по протоколу отображения Wayland. Включение драйвера может привести к сбоям в работе некоторых игр.",
-        "WoW64": "Режим Wine WoW64 позволяет запускать 32-битные игры Windows в 64-битной версии Wine. Включение режима может повысить производительность, но также может привести к сбоям в работе старых 32-битных игр."
+        "WoW64": "Режим Wine WoW64 позволяет запускать 32-битные игры Windows в 64-битной версии Wine. Включение режима может повысить производительность, но также может привести к сбоям в работе старых 32-битных игр.",
+        "nvidiaprime": {
+            "details": "Использовать выделенную видеокарту для рендеринга игры в системах с несколькими GPU. Необходимо только для игровых ноутбуков или настольных компьютеров, использующих для рендеринга headless GPU (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -558,7 +568,7 @@
         "custom_themes_path": "Выберите путь для поиска пользовательских файлов CSS",
         "dxvkfpsvalue": "Целое положительное число (напр. 30, 60, ...)",
         "egs-prefix": "Префикс куда установлен EGS",
-        "prefered_language": "2-значный код (например: \"en\" или \"fr\")",
+        "prefered_language": "2-значный или 4-значный код (например: «fr» или «pt-BR»)",
         "alt-nile-bin": "Использование встроенного двоичного файла Nile..."
     },
     "platforms": {
@@ -606,7 +616,7 @@
         "discordRPC": "Включить статус активности Discord",
         "download-no-https": "Скачивание игр без HTTPS (полезно для CDN, например, LanCache)",
         "dxvkfpslimit": "Ограничение FPS (DX9, 10 и 11)",
-        "egs-sync": "Синхронизировать с установленнными играми EGS",
+        "egs-sync": "Синхронизировать с установленными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
         "eosOverlay": {
             "cancelInstall": "Отмена",
@@ -655,7 +665,8 @@
                 "actions": "Действия",
                 "error": {
                     "content": "Не удалось отправить файл журнала. Подробности содержатся в журнале Heroic",
-                    "title": "Отправка не удалась"
+                    "title": "Отправка не удалась",
+                    "manual_upload": "Нажмите кнопку «ПОКАЗАТЬ ЛОГИ В ПАПКЕ» и загрузите файл «launch.log» вручную в Discord или любой сервис обмена файлами."
                 },
                 "button": "Отправить файл журнала",
                 "confirm": {
@@ -705,13 +716,6 @@
         "offlinemode": "Запускать игру в офлайн-режиме",
         "prefered_language": "Предпочтительный язык (код языка)",
         "preferSystemLibs": "Предпочитать системные библиотеки",
-        "primerun": {
-            "confirmation": {
-                "message": "В этой системе обнаружена только одна видеокарта. Обратите внимание, что эта опция предназначена для multi-GPU систем с безголовыми GPU (например, ноутбуков). В системах с одним GPU графический процессор используется автоматически, и включение этой опции может вызвать проблемы. Вы действительно хотите включить эту опцию?",
-                "title": "Обнаружен только 1 графический процессор"
-            },
-            "description": "Использовать выделенную видеокарту"
-        },
         "runexe": {
             "message": "Перетащите файлы сюда",
             "title": "Запустить EXE в префиксе"
@@ -741,7 +745,8 @@
             "enableHelp": "Компонент Справки",
             "automaticWinetricksFixes": "Автоматическое применение известных исправлений",
             "cometSupport": "Поддержка Comet",
-            "umuSupport": "Использовать umu как среду Proton"
+            "umuSupport": "Использовать umu как среду Proton",
+            "zoomPlatform": "Поддержка платформы Zoom (только Linux)"
         },
         "disablePlaytimeSync": "Отключить синхронизацию времени воспроизведения",
         "frameless-window": {
@@ -800,7 +805,10 @@
         },
         "wineWayland": "Включить Wine-Wayland (экспериментальная функция) (версия Wine должна поддерживать эту функцию)",
         "WoW64": "Включить WoW64 (экспериментально)",
-        "scripts": "Скрипты:"
+        "scripts": "Скрипты:",
+        "enable-quick-sync-menu": "Включить быструю синхронизацию сохранений на странице игры",
+        "disable_gog_presence": "Отключить обновление статуса в GOG",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -837,7 +845,8 @@
             "sync": "Синхронизация облачных сохранений",
             "wineExt": "Расширения Wine",
             "systemInformation": "Информация о системе",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Старые"
         },
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",
@@ -903,18 +912,32 @@
         },
         "custom_css": {
             "title": "Пользовательские стили CSS"
+        },
+        "launchOptions": "Параметры запуска",
+        "legacy_warning": "Предупреждение: настройки на этой вкладке в основном устарели и могут не работать.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Настройки",
     "sidebar": {
         "collapse": "Свернуть боковую панель",
-        "uncollapse": "Развернуть боковую панель"
+        "uncollapse": "Развернуть боковую панель",
+        "console": ""
     },
     "status": {
         "installing": "Установка",
         "logging": "Вход…",
         "processing": "Обработка файлов, подождите",
-        "preparing_login": "Подготовка входа... "
+        "preparing_login": "Подготовка входа... ",
+        "installed": "Установлено"
     },
     "store": "Магазин Epic",
     "stores": "Магазины",
@@ -947,7 +970,7 @@
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "manageaccounts": "Аккаунты",
-        "quit": "Закрыть Heroic",
+        "quit": "Выйти",
         "cancel": "Отмена",
         "quitMessage": "Вы уверены, что хотите выйти?"
     },
@@ -965,10 +988,17 @@
             "link": "Менеджер Wine",
             "not-found": "Версии Wine не найдены. Пожалуйста, нажмите на значок обновления, чтобы повторить попытку.",
             "title": "Менеджер Wine",
-            "unzipping": "Распаковка"
+            "unzipping": "Распаковка",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Обновление",
+            "settings": "Настройки",
+            "no-results": ""
         },
         "release": "Дата выхода",
-        "size": "Размер"
+        "size": "Размер",
+        "notes": "Заметки"
     },
     "externalLink": {
         "dontAskAgain": "Больше не спрашивать",
@@ -1035,7 +1065,9 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton - это вариант Proton, созданный Glorious Eggroll. Он предназначен для использования в Steam, но некоторые игры за пределами Steam могут работать лучше с этим вариантом. Он предоставляет в основном бесполезные для устранения неполадок логи.",
-        "wine-ge": "Wine-GE-Proton - это вариант Wine, созданный Glorious Eggroll. Он был объявлен устаревшим в пользу GE-Proton с лаунчером umu."
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "tour": {
         "back": "Назад",
@@ -1103,5 +1135,149 @@
         }
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Магазин Zoom"
+    "zoom-store": "Магазин Zoom",
+    "launch": {
+        "options": "Параметры запуска..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Операционная система:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Все",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": "Рейтинг {{rating}} из 10"
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Игры не найдены",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "Сортировка",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "Выйти из режима консоли",
+        "hints": {
+            "launch": "",
+            "sort": "Сортировка",
+            "navigate": "",
+            "quit": "Закрыть Heroic",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Другое",
+            "all": "Все"
+        },
+        "empty": "",
+        "games": "Установленные игры",
+        "quitApp": "Закрыть приложение",
+        "loading": "",
+        "cancelInstall": {
+            "title": "Отменить установку"
+        },
+        "cancelUpdate": {
+            "title": "Отменить обновление"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Установить игру",
+            "wineLoading": "Загрузка"
+        },
+        "removeFromQueue": {
+            "message": "Эта игра стоит в очереди на загрузку. Удалить её из очереди?"
+        }
+    },
+    "next": "Следующий"
 }

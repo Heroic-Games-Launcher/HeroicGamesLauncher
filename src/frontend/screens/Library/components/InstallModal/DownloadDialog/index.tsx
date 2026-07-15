@@ -51,6 +51,7 @@ import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import BranchSelector from './BranchSelector'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 interface Props {
   backdropClick: () => void
@@ -296,6 +297,16 @@ export default function DownloadDialog({
       build: selectedBuild,
       branch,
       showDialogModal: () => backdropClick()
+    })
+  }
+
+  function handleSwitchToImport() {
+    backdropClick()
+    openInstallGameModal({
+      appName,
+      runner,
+      gameInfo,
+      action: 'import'
     })
   }
 
@@ -772,21 +783,18 @@ export default function DownloadDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button
-          onClick={async () => handleInstall('import')}
-          className={`button is-secondary outline`}
-        >
-          {t('button.import')}
+        <button onClick={handleSwitchToImport} className="button is-secondary">
+          {t('button.import', 'Import Game')}
         </button>
         <button
           onClick={async () => handleInstall()}
-          className={`button is-secondary`}
+          className="button is-primary"
           disabled={!readyToInstall}
         >
-          {!readyToInstall && (
+          {!readyToInstall ? (
             <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
-          )}
-          {readyToInstall && getInstallLabel()}
+          ) : null}
+          {getInstallLabel()}
         </button>
       </DialogFooter>
     </>

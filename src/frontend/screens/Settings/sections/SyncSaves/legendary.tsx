@@ -25,6 +25,7 @@ interface Props {
   winePrefix?: string
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
+  quickSavesToggle: () => React.ReactNode
 }
 
 export default function LegendarySyncSaves({
@@ -35,7 +36,8 @@ export default function LegendarySyncSaves({
   isProton,
   winePrefix,
   syncCommands,
-  featureSupported
+  featureSupported,
+  quickSavesToggle: QuickSavesToggle
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -81,7 +83,8 @@ export default function LegendarySyncSaves({
 
   if (!featureSupported) {
     return (
-      <div style={{ color: 'red' }}>
+      <div className="defaults-hint">
+        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
         {t(
           'settings.saves.not_supported',
           'This game does not support Cloud Saves.'
@@ -102,7 +105,7 @@ export default function LegendarySyncSaves({
           }}
         />
       )}
-      <div className="infoBox saves-warning">
+      <div className="defaults-hint">
         <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
         {t(
           'settings.saves.warning',
@@ -184,6 +187,7 @@ export default function LegendarySyncSaves({
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
+          {savesPath.length > 0 ? <QuickSavesToggle /> : null}
           <InfoBox text="infobox.help">
             <ul>
               <li>{t('help.sync.part1')}</li>

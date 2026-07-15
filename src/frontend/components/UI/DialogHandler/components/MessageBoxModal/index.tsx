@@ -15,6 +15,7 @@ interface MessageBoxModalProps {
   onClose: () => void
   buttons: Array<ButtonOptions>
   type: DialogType
+  className?: string
 }
 
 // This function proper parses the message from the backend and returns HTML code with an array of spans and paragraphs
@@ -33,6 +34,7 @@ function decodeHTML(html: string): Array<JSX.Element> {
 
 const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   const { t } = useTranslation()
+  const { className: customClassName } = props
 
   const message = useMemo(() => {
     if (typeof props.message === 'string') return decodeHTML(props.message)
@@ -80,7 +82,10 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
     <Dialog
       onClose={props.onClose}
       showCloseButton
-      className={classNames({ errorDialog: props.type === 'ERROR' })}
+      className={classNames(
+        { errorDialog: props.type === 'ERROR' },
+        customClassName
+      )}
     >
       <DialogHeader onClose={props.onClose}>{props.title}</DialogHeader>
       <DialogContent>{getContent()}</DialogContent>

@@ -2,13 +2,13 @@
     "box": {
         "change": {
             "message": "Bu, oyunun kurulum konumunu değiştirecek, emin misiniz?",
-            "path": "Yeni kurulum yolu seç",
-            "title": "Oyun Kurulum Yolunu Değiştir"
+            "path": "Yeni kurulum konumu seçin",
+            "title": "Oyunların kurulum konumunu değiştir"
         },
         "choose": "Seç",
         "importpath": "İçe Aktarılacak Oyun Klasörünü Seç",
         "move": {
-            "message": "Bu uzun sürebilir, emin misin?",
+            "message": "Bu biraz uzun sürebilir, emin misin?",
             "path": "Nereye taşımak istediğinizi seçin",
             "title": "Oyun Kurulumunu Taşı"
         },
@@ -46,10 +46,27 @@
             "message": "Bu oyun için bir güncelleme var, şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
-        "wineprefix": "WinePrefix Klasörünü Seçin",
+        "wineprefix": "WinePrefix Klasörünü Seç",
         "yes": "EVET",
         "close": "Kapat",
-        "select-install-path": "Steam Kurulum Yolunu Seç"
+        "select-install-path": "Steam Kurulum Yolunu Seç",
+        "warning": {
+            "title": "Uyarı"
+        },
+        "selectLaunchOption": {
+            "body": "Lütfen bu oyun için bir başlangıç seçeneği seçin (bu daha sonra oyun ayarlarında değiştirilebilir):",
+            "title": "Başlatma Seçeneği Seç ({{seconds}})"
+        },
+        "sync": {
+            "force_download_warning": "Yerel kayıtlar silinecek. Devam etmek istiyor musunuz?",
+            "force_upload_warning": "Buluttaki kayıt dosyalarının üstüne yazılacak. Devam etmek istiyor musunuz?"
+        },
+        "ok": "Tamam",
+        "offline_warning": {
+            "message": "Bu oyun çevrimdışı iken düzgün çalışmayabilir. Yine de oynamak ister misin?",
+            "playAnyway": "Yine De Oyna",
+            "title": "İnternet Bağlantısı Yok"
+        }
     },
     "button": {
         "add_to_favourites": "Favorilere Ekle",
@@ -79,7 +96,8 @@
         "changelog": "Değişiklik Günlüğünü Göster",
         "browse_files": "Dosyalara Göz At",
         "browse_wine_prefix": "Wine Prefix'e Göz At",
-        "play": "OYNA"
+        "play": "OYNA",
+        "edit-game": "Oyunu Düzenle"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
@@ -114,7 +132,8 @@
         "changelogFor": "{{gameTitle}} değişiklik günlükleri",
         "modify": "Kurulumu Düzenle",
         "install_info": "Kurulum bilgisi",
-        "extra_info": "Ek bilgi"
+        "extra_info": "Ek bilgi",
+        "achievements": "Başarımlar"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -212,7 +231,8 @@
         }
     },
     "launch": {
-        "options": "Başlatma Seçenekleri..."
+        "options": "Başlatma Seçenekleri...",
+        "default": "Varsayılan"
     },
     "not_logged_in": {
         "epic": "Heroic'te Epic hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
@@ -220,7 +240,7 @@
         "login": "Log in",
         "title": "Giriş yapmadınız",
         "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:",
-        "zoom": "Heroic'te GOG hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:"
+        "zoom": "Heroic'e Zoom hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine şu düğmeye tıklayın:"
     },
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
@@ -242,7 +262,9 @@
             "title": "Oyun/Uygulama Adı",
             "broser": "Tarayıcı URL'si",
             "useragent": "Özel Kullanıcı Aracısı",
-            "fullscreen": "Tam Ekran Başlat (Çıkmak için F11)"
+            "fullscreen": "Tam Ekran Başlat (Çıkmak için F11)",
+            "cover-hint": "Kapak/Ana Görsel (SteamGridDB'de aramak için resme tıklayın)",
+            "image-hint": "Kare Görsel (SteamGridDB'de aramak için resme tıklayın)"
         },
         "placeholder": {
             "image": "Bir resim URL'si yapıştırın ya da bilgisayarınızdan bir tane seçin",
@@ -253,6 +275,9 @@
         "import-hint": {
             "title": "Önemli! Epic/GOG/Amazon'dan bir oyun mu ekliyorsunuz? Buraya tıklayın!",
             "content": "Bu özelliği bu amaç için KULLANMAYIN.<br />Bunun yerine, mağazaya <3>giriş yapın</3>, kütüphanenizde oyunu bulun, yükleme penceresini açın ve &quot;Oyunu İçe Aktar&quot; butonuna tıklayın"
+        },
+        "images": {
+            "summary": "Görseller"
         }
     },
     "specs": {
@@ -308,7 +333,7 @@
         "categories": "Kategoriler"
     },
     "help": {
-        "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendi bulut kaydetme sistemlerini uygular",
+        "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendine ait buluta kaydetme sistemini uygular.",
         "content": {
             "gamePage": "Tüm oyun ayrıntılarını ve eylemleri göster. Daha fazla seçenek için 3 nokta menüsünü kullanın."
         },
@@ -339,5 +364,24 @@
             "resume": "İndirmeye devam et"
         }
     },
-    "wikiLink": "Bu oyun hakkında önemli bilgiler için bunu okuyun:&nbsp;<1>Sayfayı Aç</1>"
+    "wikiLink": "Bu oyun hakkında önemli bilgiler için bunu okuyun:&nbsp;<1>Sayfayı Aç</1>",
+    "open-saves-folder": "Kayıtlar Klasörünü Aç",
+    "edit-game": {
+        "advanced": "Gelişmiş",
+        "cover": "Kapak Resmi",
+        "info": {
+            "square": "Kare Resim",
+            "cover": "Kapak Resmi"
+        },
+        "placeholder": {
+            "image": "Bir Resim Bağlantısı Yapıştırın"
+        },
+        "reset": "Varsayılana Sıfırla",
+        "sgdb": {
+            "no-key-link": "Ayarlar → Gelişmiş",
+            "no-key-prefix": "SteamGridDB'de kapak resmini aramak için bir API anahtarı ekleyin"
+        },
+        "title": "Oyunu Düzenle",
+        "square": "Kare Görsel"
+    }
 }

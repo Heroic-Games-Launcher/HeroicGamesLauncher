@@ -149,61 +149,47 @@ export type SaveFolderVariable =
   | 'DOCUMENTS'
   | 'APPLICATION_SUPPORT'
 
-// Data returned from https://embed.gog.com/userData.json
+// Data returned from https://users.gog.com/users/${user_id}
 export interface UserData {
-  country: string
-  currencies: Currency[]
-  selectedCurrency: Currency
-  preferredLanguage: {
-    code: string
-    name: string
-  }
-  ratingBrand: string
-  isLoggedIn: true
-  checksum: {
-    cart: string | null
-    games: string | null
-    wishlist: string | null
-    reviews_votes: string | null
-    games_rating: string | null
-  }
-  updates: {
-    messages: number
-    pendingFriendRequests: number
-    unreadChatMessages: number
-    products: number
-    total: number
-  }
-  userId: string
+  id: string
   username: string
-  galaxyUserId: string
-  email?: string
-  // NOTE: This URL doesn't seem to work?
-  avatar: string
-  walletBalancy: {
-    currency: string
-    amount: number
-  }
-  purchasedItems: {
-    games: number
-    movies: number
-  }
-  whishlistedItems: number
-  friends: Friend[]
-  personalizedProductPrices: []
-  personalizedSeriesPrices: []
+  // ISO 8601 date and time with offset
+  created_date: string
+  avatar: UserAvatar
+  is_employee: boolean
+  tags: string[]
+  email: string
+  email_sha256_hash: string
+  roles: string[]
+  status: number
+  checksum: string
+  settings: UserSettings
+  password_set: boolean
+  marketing_consent: boolean
 }
 
-interface Currency {
-  code: string
-  symbol: string
+interface UserAvatar {
+  gog_image_id: string
+  small: string
+  small_2x: string
+  medium: string
+  medium_2x: string
+  large: string
+  large_2x: string
+  sdk_img_32: string
+  sdk_img_64: string
+  sdk_img_184: string
+  menu_small: string
+  menu_small_2: string
+  menu_big: string
+  menu_big_2: string
 }
 
-interface Friend {
-  username: string
-  userSince: number
-  galaxyId: string
-  avatar: string
+interface UserSettings {
+  allow_to_be_invited_by: 'anyone' | 'friend' | 'nobody'
+  allow_to_be_searched: boolean
+  use_two_step_authentication: boolean
+  use_two_factor_authentication: boolean
 }
 
 // Data returned by https://gamesdb.gog.com/platforms/$PLATFORM/external_releases/$APP_ID
@@ -216,7 +202,7 @@ interface GamesDBDataBase {
   first_release_date: string
   title: LanguageMapper<string>
   sorting_title: LanguageMapper<string>
-  type: 'game' | 'dlc' | 'spam'
+  type: 'game' | 'dlc' | 'spam' | 'mod'
   summary: LanguageMapper<string>
   videos: {
     provider: 'youtube'

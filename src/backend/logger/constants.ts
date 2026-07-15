@@ -7,7 +7,7 @@ const LogPrefix = {
   Nile: 'Nile',
   Zoom: 'Zoom',
   WineDownloader: 'WineDownloader',
-  DXVKInstaller: 'DXVKInstaller',
+  ToolInstaller: 'ToolInstaller',
   GlobalConfig: 'GlobalConfig',
   GameConfig: 'GameConfig',
   ProtocolHandler: 'ProtocolHandler',

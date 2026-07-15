@@ -6,6 +6,7 @@
   gap: var(--space-md);
   border-radius: 10px;
   height: 100%;
+  max-height: 100vh;
   max-width: 2400px;
   grid-template-areas:
     'header header'
@@ -264,7 +265,6 @@
         justify-content: flex-start;
         align-items: center;
         margin-top: 15px;
-        max-width: 250px;
         border-radius: 8px;
 
         .buttonWithIcon > svg {
@@ -277,9 +277,10 @@
           align-self: center;
         }
 
+        & .installButtons,
         & .playButtons {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
 
           .altPlay {
             position: relative;
@@ -294,8 +295,8 @@
             a {
               display: none;
               position: absolute;
-              bottom: 100%;
-              right: -10px;
+              bottom: 106%;
+              right: 0px;
               white-space: nowrap;
             }
 
@@ -307,6 +308,11 @@
               }
             }
           }
+        }
+
+        .installButtons {
+          gap: var(--space-xs);
+          flex-wrap: wrap;
         }
 
         & .mainBtn {
@@ -435,6 +441,68 @@
 
           .MuiAccordionDetails-root {
             padding-bottom: 8px;
+          }
+        }
+      }
+
+      & div.achievementsTab .achievement-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 0.2rem;
+
+        .achievement-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .achievement-icon {
+            height: 60px;
+            width: 60px;
+
+            img {
+              border-radius: var(--space-3xs);
+              height: 100%;
+              width: auto;
+              object-fit: cover;
+            }
+            &.rarity-epic {
+              box-shadow: 0 0 4px gold;
+            }
+            &.rarity-legendary {
+              box-shadow: 0 0 6px orangered;
+            }
+          }
+
+          .achievement-text {
+            display: flex;
+            flex-direction: column;
+
+            .achievement-title {
+              font-size: var(--text-md);
+              color: var(--text-title);
+            }
+            .achievement-desc {
+              font-size: var(--text-xs);
+              color: var(--neutral-06);
+            }
+            .achievement-rarity {
+              font-size: var(--text-xs);
+              color: var(--neutral-05);
+            }
+          }
+
+          &.locked {
+            .achievement-text {
+              filter: opacity(0.7) contrast(0.7);
+            }
+          }
+          &.hidden-achievement {
+            .achievement-icon {
+              img {
+                filter: blur(4px) opacity(0.7);
+              }
+            }
           }
         }
       }
@@ -615,7 +683,7 @@
   .gameConfigContainer {
     height: auto;
     grid-template-columns: 1fr;
-    grid-template-rows: min-content 1fr 1fr min-content;
+    grid-template-rows: min-content 400px 2fr min-content;
     grid-template-areas:
       'header'
       'main'
@@ -680,6 +748,15 @@
 
     .MuiTabs-flexContainer {
       border-bottom: none;
+    }
+
+    .MuiTabs-scrollButtons {
+      height: 100%;
+      width: 30px;
+
+      &.Mui-disabled {
+        opacity: 0.2;
+      }
     }
   }
 

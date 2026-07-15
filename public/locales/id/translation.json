@@ -94,7 +94,11 @@
                 "generic": "Sebuah kesalahan telah terjadi! Cobalah Keluar dan Masuk kembali di akun Epic Anda. {{newline}} {{error}}"
             },
             "executableNotFound": "File eksekusi tidak ditemukan",
-            "executableNotFoundMessage": "Heroic tidak bisa menemukan file eksekusi untuk permainan ini. Tolong ubah secara manual pada pengaturan permainan."
+            "executableNotFoundMessage": "Heroic tidak bisa menemukan file eksekusi untuk permainan ini. Tolong ubah secara manual pada pengaturan permainan.",
+            "dxmt": {
+                "message": "Kesalahan saat mengunduh DXMT! Periksa koneksi Anda!",
+                "title": "Kesalahan Unduhan DXMT"
+            }
         },
         "info": {
             "update": {
@@ -256,7 +260,10 @@
         },
         "library": {
             "refresh": "Segarkan Pustaka"
-        }
+        },
+        "abort": "Batalkan",
+        "install": "Instal",
+        "uninstall": "Copot"
     },
     "globalSettings": "Pengaturan Global",
     "GOG": "GOG",
@@ -366,7 +373,12 @@
         },
         "wine-hdr": "HDR meningkatkan warna dengan memberikan sorotan yang lebih terang dan kontras yang lebih dalam. Agar HDR berfungsi, baik tampilan maupun game harus mendukungnya.",
         "wine-wayland": "Driver eksperimental Wine-Wayland memungkinkan game dijalankan secara native di bawah protokol tampilan Wayland. Mengaktifkannya dapat menyebabkan beberapa game tidak berfungsi.",
-        "WoW64": "Mode Wine WoW64 memungkinkan game Windows 32-bit dijalankan pada Wine 64-bit. Mengaktifkannya dapat meningkatkan performa, tetapi juga bisa menyebabkan gangguan pada game 32-bit lama."
+        "WoW64": "Mode Wine WoW64 memungkinkan game Windows 32-bit dijalankan pada Wine 64-bit. Mengaktifkannya dapat meningkatkan performa, tetapi juga bisa menyebabkan gangguan pada game 32-bit lama.",
+        "nvidiaprime": {
+            "details": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Periksa detail lebih lanjut di wiki kami"
+        },
+        "hide-window-on-protocol-launch": "Menjaga jendela Heroic tetap tersembunyi saat game diluncurkan dari pintasan eksternal, seperti fitur 'Tambahkan ke Steam'."
     },
     "info": {
         "heroic": {
@@ -427,7 +439,7 @@
         "message": "Masuk dengan platform akun anda. Anda dapat masuk ke lebih dari satu platform akun secara bersamaan.",
         "amazon": "Masuk ke Amazon",
         "old-mac": "Versi macOS anda adalah {{version}}. macOS 12 atau lebih diperlukan untuk masuk.",
-        "zoom": "Masuk menggunakan Zoom"
+        "zoom": "Login Zoom"
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -553,7 +565,7 @@
         "custom_themes_path": "Pilih jalur untuk mencari file CSS khusus",
         "dxvkfpsvalue": "Nilai bilangan bulat positif (contohnya 30, 60, ...)",
         "egs-prefix": "Prefiks di mana EGS diinstal",
-        "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")",
+        "prefered_language": "Kode 2 karakter atau 4 karakter (mis.: \"fr\" atau \"pt-BR\")",
         "alt-nile-bin": "Menggunakan Nile binary bawaan ..."
     },
     "platforms": {
@@ -659,7 +671,8 @@
                 },
                 "error": {
                     "content": "Gagal mengunggah file log. Periksa log umum Heroic untuk detailnya.",
-                    "title": "Unggahan gagal"
+                    "title": "Unggahan gagal",
+                    "manual_upload": "Klik tombol \"TAMPILKAN FILE LOG DI FOLDER\" dan unggah file \"launch.log\" secara manual ke Discord atau layanan berbagi file online mana pun."
                 },
                 "header": "File log yang diunggah",
                 "hours-ago": "Diunggah {{hoursAgo, relativetime(hours)}} yang lalu",
@@ -679,7 +692,7 @@
                 "heroic": "Log umum Heroic",
                 "legendary": "Log Epic Games / Legendary",
                 "nile": "Log Amazon / Nile",
-                "zoom": "Catatan aktivitas zoom"
+                "zoom": "Log Zoom"
             },
             "join-heroic-discord": "Bergabunglah dengan Discord kami",
             "show-uploads": "Tampilkan file log yang diunggah"
@@ -700,13 +713,6 @@
         "offlinemode": "Jalankan Game Secara Luring",
         "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "preferSystemLibs": "Lebih memilih pustaka sistem",
-        "primerun": {
-            "confirmation": {
-                "message": "Hanya satu kartu grafis yang terdeteksi di sistem ini. Harap perhatikan bahwa opsi ini ditujukan untuk sistem multi-GPU dengan GPU tanpa kepala (seperti laptop). Pada sistem GPU tunggal, GPU digunakan secara otomatis & mengaktifkan opsi ini dapat menyebabkan masalah. Apakah Anda benar-benar ingin mengaktifkan opsi ini?",
-                "title": "Hanya 1 GPU yang terdeteksi"
-            },
-            "description": "Gunakan Kartu Grafis untuk Rendering"
-        },
         "runexe": {
             "message": "Seret dan Jatuhkan Berkas di sini",
             "title": "Jalankan EXE di Prefiks"
@@ -740,7 +746,8 @@
         "experimental_features": {
             "enableNewDesign": "Desain baru",
             "cometSupport": "Dukungan Comet",
-            "enableHelp": "Komponen Bantuan"
+            "enableHelp": "Komponen Bantuan",
+            "zoomPlatform": "Dukungan platform Zoom (hanya Linux)"
         },
         "frameless-window": {
             "description": "Gunakan frameless window (perlu restart)",
@@ -786,7 +793,15 @@
             "description": "Aktifkan log mendetail"
         },
         "wineWayland": "Aktifkan Wine-Wayland (Eksperimental) (versi Wine harus mendukungnya)",
-        "WoW64": "Aktifkan WoW64 (Eksperimental)"
+        "WoW64": "Aktifkan WoW64 (Eksperimental)",
+        "scripts": "Skrip:",
+        "enable-quick-sync-menu": "Aktifkan Menu Quick Save-Sync di halaman game",
+        "start-in-console-mode": "Mulai dalam Mode Konsol",
+        "disable_gog_presence": "Nonaktifkan pembaruan GOG Presence",
+        "hide-window-on-protocol-launch": "Sembunyikan jendela Heroic saat meluncurkan game dari tautan heroic://",
+        "nvidiaprime": {
+            "description": "Paksa penggunaan NVIDIA Optimus atau AMD Dynamic Switchable Graphics dGPU. HANYA gunakan ini untuk game OpenGL dan Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -823,7 +838,8 @@
             "sync": "Sinkronisasi Penyimpanan",
             "wineExt": "Ekstensi Wine",
             "gamescope": "Gamescope",
-            "systemInformation": "Informasi Sistem"
+            "systemInformation": "Informasi Sistem",
+            "legacy": "Warisan"
         },
         "open-config-file": "Buka Berkas Pengaturan",
         "reset-heroic": "Reset Heroic",
@@ -854,7 +870,7 @@
                 "clearCache": "Hapus Cache"
             },
             "resetHeroic": {
-                "help": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini."
+                "help": "Ini akan menghapus semua Pengaturan dan Cache, tetapi tidak akan menghapus game yang terinstal atau kredensial Epic Anda. Versi portabel (AppImage, WinPortable, ...) dari Heroic perlu dimulai ulang secara manual setelahnya."
             },
             "details": "Detail"
         },
@@ -889,18 +905,32 @@
         },
         "offline": {
             "warning": "Game ini tidak secara eksplisit mengizinkan mode offline, aktifkan dengan risiko Anda sendiri. Game mungkin tidak berfungsi."
+        },
+        "launchOptions": "Opsi Peluncuran",
+        "legacy_warning": "Peringatan: Pengaturan pada tab ini sebagian besar sudah tidak berlaku dan mungkin tidak berfungsi sama sekali.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "Kunci API SteamGridDB",
+                "placeholder": "Masukkan Kunci API SteamGridDB Anda di sini",
+                "placeholder_saved": "Kunci tersimpan — ketik untuk mengganti, kosongkan untuk menghapus"
+            },
+            "help": {
+                "description": "Berikan kunci API SteamGridDB Anda sendiri untuk mengaktifkan pencarian sampul game. Kunci disimpan dalam bentuk terenkripsi jika sistem Anda mendukungnya. Anda bisa mendapatkannya di [{{url}}](https://{{url}})"
+            }
         }
     },
     "Settings": "Pengaturan",
     "sidebar": {
         "collapse": "Tutup bilah samping",
-        "uncollapse": "Tampilkan bilah samping"
+        "uncollapse": "Tampilkan bilah samping",
+        "console": "Mode Konsol"
     },
     "status": {
         "installing": "Menginstal",
         "logging": "Masuk Akun...",
         "processing": "Memproses berkas, harap tunggu",
-        "preparing_login": "Persiapan Masuk Akun... "
+        "preparing_login": "Persiapan Masuk Akun... ",
+        "installed": "Terpasang"
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -951,10 +981,17 @@
             "link": "Manajer Wine",
             "not-found": "Tidak ada versi Wine yang ditemukan. Klik ikon segarkan untuk mencoba lagi.",
             "title": "Manajer Wine",
-            "unzipping": "Mengekstrak"
+            "unzipping": "Mengekstrak",
+            "search": "Cari versi...",
+            "loading": "Memuat versi wine...",
+            "open_folder": "Buka Folder",
+            "update": "Perbarui",
+            "settings": "Pengaturan",
+            "no-results": "Tidak ada versi Wine yang cocok dengan pencarian Anda."
         },
         "release": "Release Date",
-        "size": "Ukuran"
+        "size": "Ukuran",
+        "notes": "Catatan"
     },
     "externalLink": {
         "dontAskAgain": "Jangan tanyakan lagi",
@@ -1082,7 +1119,160 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton adalah varian Proton yang dibuat oleh Glorious Eggroll. Versi ini dirancang untuk digunakan bersama peluncur umu (default di Heroic).",
-        "wine-ge": "Wine-GE-Proton adalah varian Wine yang dibuat oleh Glorious Eggroll. Versi ini sudah tidak digunakan lagi dan digantikan oleh GE-Proton dengan peluncur umu."
+        "gpt": "Game Porting Toolkit dikembangkan oleh Apple dan direkomendasikan untuk Mac Apple Silicon dengan chip M1 ke atas serta paling baik digunakan untuk game terbaru yang menggunakan DX12.",
+        "wine-crossover": "Wine-Crossover didasarkan pada proyek Wine OpenSource Crossover dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama.",
+        "wine-staging-macos": "Wine-Staging-macOS didasarkan pada proyek Wine utama dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama, terutama bila dipasangkan dengan alat DXMT."
     },
-    "zoom-store": "Perbesar Toko"
+    "zoom-store": "Toko Zoom",
+    "launch": {
+        "options": "Opsi Peluncuran…"
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "Italia",
+                "ES": "Spanyol",
+                "FI": "Finlandia",
+                "GR": "Yunani",
+                "RO": "Rumania",
+                "NO": "Norwegia",
+                "KR": "Korea Selatan",
+                "US": "Amerika Serikat",
+                "HU": "Hungaria",
+                "PT": "Portugal",
+                "NL": "Belanda",
+                "AU": "Australia",
+                "TW": "Taiwan",
+                "IL": "Israel",
+                "JP": "Jepang",
+                "DK": "Denmark",
+                "DE": "Jerman",
+                "CZ": "Ceko",
+                "FR": "Prancis",
+                "UA": "Ukraina",
+                "GB": "Britania Raya",
+                "SE": "Swedia",
+                "CN": "Tiongkok",
+                "RU": "Rusia",
+                "CA": "Kanada",
+                "PL": "Polandia",
+                "BR": "Brasil",
+                "CH": "Swiss",
+                "TR": "Turki"
+            },
+            "auto": "Otomatis ({{code}})",
+            "label": "Wilayah toko"
+        },
+        "filters": {
+            "moreFilters": "Filter lebih banyak",
+            "ageRating": "Cocok untuk usia",
+            "os": "Sistem Operasi:",
+            "price": "Harga",
+            "activeCount_other": "{{count}} aktif",
+            "hideDlcs": "Sembunyikan DLC",
+            "ageRatingOption": "Tampilkan game berperingkat PEGI {{age}} atau lebih rendah",
+            "genres": "Genre",
+            "activeCount_one": "{{count}} aktif",
+            "lessFilters": "Filter lebih sedikit",
+            "rating": "Rating",
+            "sort": "Urutkan berdasarkan",
+            "genresPlaceholder": "Genre apa saja",
+            "features": "Fitur",
+            "featuresPlaceholder": "Fitur apa saja",
+            "ageRatingAll": "Semua",
+            "pageSize": "Per halaman",
+            "releaseYear": "Tahun rilis",
+            "hideOwned": "Sembunyikan yang Dimiliki",
+            "wishlistOnly": "Daftar Keinginan Saja"
+        },
+        "sidebar": "Penawaran",
+        "sort": {
+            "priceDesc": "Harga: tinggi ke rendah",
+            "trending": "Sedang tren",
+            "priceAsc": "Harga: rendah ke tinggi",
+            "releaseDesc": "Tanggal rilis: baru ke lama",
+            "ratingAsc": "Rating: rendah ke tinggi",
+            "releaseAsc": "Tanggal rilis: lama ke baru",
+            "ratingDesc": "Rating: tinggi ke rendah",
+            "discount": "Diskon terbesar"
+        },
+        "noMatches": "Tidak ada game yang cocok dengan filter saat ini.",
+        "aria": {
+            "pagination": "Paginasi",
+            "rating": "Rating {{rating}} dari 10"
+        },
+        "error": "Tidak dapat memuat diskon. Silakan coba lagi nanti.",
+        "empty": "Tidak ada game dengan diskon yang tersedia saat ini.",
+        "loading": "Memuat game dengan diskon...",
+        "title": "Penawaran GOG",
+        "pagination": {
+            "prev": "Sebelumnya"
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Tidak Ada Gim yang Ditemukan",
+            "no-grids": "Tidak ada sampul yang ditemukan untuk game ini.",
+            "search": "Gagal mencari game, harap periksa kunci API SteamGridDB Anda dan coba lagi",
+            "grids": "Gagal mengambil grid"
+        },
+        "picker": {
+            "search": "Cari Game",
+            "title": "Sampul SteamGridDB",
+            "select-game": "Pilih Game:"
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "Tekan",
+            "body": "Game ini memiliki pembaruan yang tersedia. Harap keluar dari Mode Konsol dan perbarui game sebelum meluncurkannya.",
+            "title": "Pembaruan diperlukan",
+            "hintSuffix": "untuk kembali"
+        },
+        "sort": "Urutkan",
+        "cancel": {
+            "hintSuffix": "selama 3 detik untuk membatalkan",
+            "hintPrefix": "Tahan"
+        },
+        "quit": "Keluar dari Mode Konsol",
+        "hints": {
+            "launch": "Jalankan",
+            "sort": "Urutkan",
+            "navigate": "Navigasi",
+            "quit": "Keluar",
+            "change_store": "Ganti toko"
+        },
+        "launching": "Meluncurkan",
+        "card": {
+            "needsUpdate": "Perlu pembaruan"
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Semua"
+        },
+        "empty": "Tidak ada game yang terpasang untuk ditampilkan. Pasang sesuatu terlebih dahulu.",
+        "games": "Gim Terpasang",
+        "quitApp": "Keluar dari Aplikasi",
+        "loading": "Memuat perpustakaan Anda…",
+        "install": {
+            "platform": "Platform",
+            "title": "Instal gim",
+            "wineLoading": "Loading",
+            "path": "Instal ke",
+            "wine": "Wine",
+            "wineMissing": "Tidak dipilih"
+        },
+        "cancelInstall": {
+            "message": "Game ini sedang diinstal. Batalkan pemasangannya?",
+            "title": "Batalkan pemasangan?"
+        },
+        "cancelUpdate": {
+            "message": "Game ini sedang diunduh. Batalkan pembaruan yang sedang berlangsung?",
+            "title": "Batalkan pembaruan?"
+        },
+        "removeFromQueue": {
+            "message": "Game ini sedang antri untuk diunduh. Hapus dari antrian?"
+        }
+    },
+    "next": "Berikutnya"
 }

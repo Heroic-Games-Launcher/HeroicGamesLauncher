@@ -94,7 +94,11 @@
                 "generic": "Một lỗi đã xảy ra! Hãy thử Đăng Xuất và Đăng Nhập vào tài khoản Epic của bạn. {{newline}}   {{error}}"
             },
             "executableNotFound": "Tệp thực thi không được tìm thấy",
-            "executableNotFoundMessage": "Heroic không thể tìm thấy tệp thực thi cho trò chơi này. Vui lòng thiết đặt nó một cách thủ công trong cài đặt của trò chơi."
+            "executableNotFoundMessage": "Heroic không thể tìm thấy tệp thực thi cho trò chơi này. Vui lòng thiết đặt nó một cách thủ công trong cài đặt của trò chơi.",
+            "dxmt": {
+                "message": "Lỗi tải DXMT! Kiểm tra kết nối của bạn!",
+                "title": "Lỗi tải xuống DXMT"
+            }
         },
         "info": {
             "update": {
@@ -159,7 +163,7 @@
                 "install": "Máy chủ Epic hiện đang ngừng hoạt động nghiêm trọng, không thể cài đặt trò chơi!",
                 "update": "Máy chủ Epic hiện đang ngừng hoạt động nghiêm trọng, trò chơi không thể cập nhật được!"
             },
-            "title": "Cảnh Báo",
+            "title": "Cảnh báo",
             "wine-change": {
                 "message": "Chúng tôi không thể tìm thấy phiên bản wine đã chọn để ra mắt tựa game này ({{selectedWine}}). {{newline}} Chúng tôi đã tìm thấy một phiên bản khác, bạn có muốn tiếp tục khởi chạy bằng cách sử dụng {{foundWine}} không?",
                 "title": "Không tìm thấy Wine!"
@@ -180,7 +184,7 @@
                 "title": "Heroic đang chạy như Snap"
             }
         },
-        "wineprefix": "Chọn thư mục Wine Prefix",
+        "wineprefix": "Chọn thư mục WinePrefix",
         "yes": "CÓ",
         "dontShowAgain": "Không hiển thị lại",
         "choose-nile-binary": "Chọn Nile binary",
@@ -256,7 +260,10 @@
         },
         "library": {
             "refresh": "Làm Mới Thư Viện"
-        }
+        },
+        "abort": "",
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Cài Đặt Chung",
     "GOG": "GOG",
@@ -365,7 +372,10 @@
         },
         "wine-hdr": "HDR tăng cường màu sắc bằng cách mang lại những highlight sáng hơn và độ tương phản sâu hơn. Để HDR hoạt động, cả màn hình và trò chơi đều phải hỗ trợ nó.",
         "wine-wayland": "Trình điều khiển thử nghiệm Wine-Wayland cho phép trò chơi chạy nguyên bản theo giao thức hiển thị Wayland. Việc kích hoạt có thể làm hỏng một số trò chơi.",
-        "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn."
+        "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -658,7 +668,8 @@
                 },
                 "error": {
                     "content": "Không thể tải lên tệp nhật ký. Kiểm tra nhật ký tổng quan của Heroic để biết chi tiết",
-                    "title": "Tải lên không thành công"
+                    "title": "Tải lên không thành công",
+                    "manual_upload": ""
                 },
                 "header": "Tệp nhật ký đã tải lên",
                 "hours-ago": "Đã tải lên {{hoursAgo, relativetime(hours)}}",
@@ -699,13 +710,6 @@
         "offlinemode": "Chạy Trò Chơi Ngoại Tuyến",
         "prefered_language": "Ngôn Ngữ Ưa Thích (Mã Ngôn Ngữ)",
         "preferSystemLibs": "Ưu tiên thư viện hệ thống",
-        "primerun": {
-            "confirmation": {
-                "message": "Chỉ có một card đồ họa được phát hiện trong hệ thống này. Xin lưu ý rằng tùy chọn này dành cho các hệ thống nhiều GPU có GPU không đầu (như máy tính xách tay). Trên các hệ thống GPU đơn, GPU được sử dụng tự động và việc bật tùy chọn này có thể gây ra sự cố. Bạn có thực sự muốn kích hoạt tùy chọn này?",
-                "title": "Chỉ phát hiện được 1 GPU"
-            },
-            "description": "Sử Dụng Card Đồ Họa Chuyên Dụng"
-        },
         "runexe": {
             "message": "Kéo thả file vào đây",
             "title": "Chạy EXE trên Tiền Tố"
@@ -752,7 +756,8 @@
         "experimental_features": {
             "cometSupport": "Hỗ trợ Comet",
             "enableHelp": "Thành phần trợ giúp",
-            "enableNewDesign": "Thiết kế mới"
+            "enableNewDesign": "Thiết kế mới",
+            "zoomPlatform": "Hỗ trợ nền tảng Zoom (chỉ Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -785,7 +790,11 @@
             "description": "Bật nhật ký chi tiết"
         },
         "wineWayland": "Kích hoạt Wine-Wayland (Thử nghiệm) (Phiên bản Wine cần hỗ trợ)",
-        "WoW64": "Kích hoạt WoW64 (Thử nghiệm)"
+        "WoW64": "Kích hoạt WoW64 (Thử nghiệm)",
+        "scripts": "Kịch bản:",
+        "enable-quick-sync-menu": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -822,7 +831,8 @@
             "sync": "Đồng Bộ Hóa Lưu Trữ Đám Mây",
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
-            "systemInformation": "Thông Tin Hệ Thống"
+            "systemInformation": "Thông Tin Hệ Thống",
+            "legacy": ""
         },
         "open-config-file": "Mở Tệp Cấu Hình",
         "reset-heroic": "Đặt Lại Heroic",
@@ -888,18 +898,32 @@
         },
         "offline": {
             "warning": "Trò chơi này không cho phép chế độ ngoại tuyến một cách rõ ràng, hãy tự chịu rủi ro khi bật chế độ này. Trò chơi có thể không hoạt động."
+        },
+        "launchOptions": "Tùy chọn khởi chạy",
+        "legacy_warning": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Cài Đặt",
     "sidebar": {
         "collapse": "Thu gọn sidebar",
-        "uncollapse": "Hủy thu gọn sidebar"
+        "uncollapse": "Hủy thu gọn sidebar",
+        "console": ""
     },
     "status": {
         "installing": "Đang Cài Đặt",
         "logging": "Đang Đăng Nhập...",
         "processing": "Đang xử lý tệp, vui lòng đợi",
-        "preparing_login": "Đang Chuẩn Bị Đăng Nhập... "
+        "preparing_login": "Đang Chuẩn Bị Đăng Nhập... ",
+        "installed": "Đã Cài Đặt"
     },
     "store": "Cửa hàng Epic",
     "stores": "Cửa Hàng",
@@ -950,10 +974,17 @@
             "link": "Trình Quản Lý Wine",
             "not-found": "Không tìm thấy phiên bản Wine nào. Vui lòng nhấp vào biểu tượng làm mới để thử lại.",
             "title": "Trình Quản Lý Wine (thử nghiệm)",
-            "unzipping": "Đang Giải Nén"
+            "unzipping": "Đang Giải Nén",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Update",
+            "settings": "Cài đặt",
+            "no-results": ""
         },
         "release": "Ngày Phát Hành",
-        "size": "Kích Thước"
+        "size": "Kích Thước",
+        "notes": "Ghi chú"
     },
     "externalLink": {
         "dontAskAgain": "Đừng hỏi lại",
@@ -1081,7 +1112,144 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton là một biến thể Proton được tạo ra bởi Glorious Eggroll. Nó được sử dụng cùng với trình khởi chạy umu (mặc định trong Heroic).",
-        "wine-ge": "Wine-GE-Proton là một biến thể của Wine được tạo ra bởi Glorious Eggroll. Nó không được dùng nữa để ủng hộ GE-Proton với trình khởi chạy umu."
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
-    "zoom-store": "Cửa hàng Zoom"
+    "zoom-store": "Cửa hàng Zoom",
+    "launch": {
+        "options": "Khởi Chạy Tuỳ Chọn ..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Hệ Điều Hành:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Tất cả",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Không tìm thấy game nào",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "Thoát",
+            "change_store": ""
+        },
+        "launching": "Ra Mắt",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Tất cả"
+        },
+        "empty": "",
+        "games": "Game đã cài",
+        "quitApp": "",
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
+        }
+    },
+    "next": "Tiếp"
 }

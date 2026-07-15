@@ -4,7 +4,7 @@ import {
   TextInputField,
   PathSelectionBox
 } from 'frontend/components/UI'
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { WineInstallation } from 'common/types'
 import { Trans, useTranslation } from 'react-i18next'
 import { removeSpecialcharacters } from 'frontend/helpers'
@@ -12,12 +12,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWarning } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionListItem } from 'frontend/screens/Settings/components/WineVersionSelector'
 import { MenuItem } from '@mui/material'
+import { useAwaited } from 'frontend/hooks/useAwaited'
 
 type Props = {
-  setWineVersion: React.Dispatch<
-    React.SetStateAction<WineInstallation | undefined>
-  >
-  setWinePrefix: React.Dispatch<React.SetStateAction<string>>
+  setWineVersion: (newVersion: WineInstallation) => void
+  setWinePrefix: (newPrefix: string) => void
   setCrossoverBottle: React.Dispatch<React.SetStateAction<string>>
   winePrefix: string
   crossoverBottle: string
@@ -42,42 +41,43 @@ export default function WineSelector({
 }: Props) {
   const { t, i18n } = useTranslation('gamepage')
 
-  const [detailsOpen, setDetailsOpen] = React.useState(!!initiallyOpen)
-  const [useDefaultSettings, setUseDefaultSettings] = React.useState(false)
-  const [description, setDescription] = React.useState('')
+  const [detailsOpen, setDetailsOpen] = useState(!!initiallyOpen)
+  const [useSharedPrefix, setUseSharedPrefix] = useState(false)
 
-  React.useEffect(() => {
-    const getAppSettings = async () => {
-      const {
-        defaultWinePrefix: prefixFolder,
-        wineVersion,
-        winePrefix: defaultPrefix,
-        wineCrossoverBottle: defaultBottle
-      } = await window.api.requestAppSettings()
+  const globalConfig = useAwaited(() => window.api.requestAppSettings())
 
-      if (!wineVersion || !defaultPrefix || !defaultBottle) return
-      setDescription(
-        `${wineVersion.name.replace('Proton - ', '')}\n${defaultPrefix}`
-      )
+  const sharedToggleDescription = useMemo(() => {
+    if (!globalConfig) return ''
+    return `${globalConfig.wineVersion.name}\n${globalConfig.defaultWinePrefix}`
+  }, [globalConfig])
 
-      if (!useDefaultSettings && wineVersion.type === 'crossover') {
-        return setCrossoverBottle(defaultBottle)
-      }
+  useEffect(() => {
+    if (!globalConfig) return
 
-      if (useDefaultSettings) {
-        setWinePrefix(defaultPrefix)
-        setWineVersion(wineVersion)
-        setCrossoverBottle(defaultBottle)
-      } else {
-        const dirName =
-          removeSpecialcharacters(title) || removeSpecialcharacters(appName)
-        const suggestedWinePrefix = `${prefixFolder}/${dirName}`
-        setWinePrefix(suggestedWinePrefix)
-        setWineVersion(wineVersion || undefined)
-      }
+    if (useSharedPrefix) {
+      setWinePrefix(globalConfig.winePrefix)
+      setWineVersion(globalConfig.wineVersion)
+      setCrossoverBottle(globalConfig.wineCrossoverBottle)
+    } else {
+      const suggestedPrefix = `${globalConfig.defaultWinePrefixDir}/${removeSpecialcharacters(title ?? appName)}`
+      setWinePrefix(suggestedPrefix)
     }
-    getAppSettings()
-  }, [useDefaultSettings])
+  }, [
+    globalConfig,
+    useSharedPrefix,
+    setWinePrefix,
+    setWineVersion,
+    setCrossoverBottle,
+    title,
+    appName
+  ])
+
+  useEffect(() => {
+    if (wineVersion) return
+
+    const firstAvailableVersion = wineVersionList.at(0)
+    if (firstAvailableVersion) setWineVersion(firstAvailableVersion)
+  }, [wineVersion, wineVersionList, setWineVersion])
 
   const showPrefix = wineVersion?.type !== 'crossover'
   const showBottle = wineVersion?.type === 'crossover'
@@ -95,11 +95,11 @@ export default function WineSelector({
               'setting.use-shared-wine-config',
               'Use shared Wine prefix'
             )}
-            value={useDefaultSettings}
-            handleChange={() => setUseDefaultSettings(!useDefaultSettings)}
-            description={description}
+            value={useSharedPrefix}
+            handleChange={() => setUseSharedPrefix(!useSharedPrefix)}
+            description={sharedToggleDescription}
           />
-          {useDefaultSettings && (
+          {useSharedPrefix && (
             <div className="infoBox">
               <FontAwesomeIcon icon={faWarning} />
               <Trans
@@ -123,7 +123,7 @@ export default function WineSelector({
               label={t('install.wineprefix', 'WinePrefix')}
               htmlId="setinstallpath"
               noDeleteButton
-              disabled={useDefaultSettings}
+              disabled={useSharedPrefix}
             />
           )}
           {showBottle && (
@@ -132,7 +132,7 @@ export default function WineSelector({
               htmlId="crossoverBottle"
               value={crossoverBottle}
               onChange={(newValue) => setCrossoverBottle(newValue)}
-              disabled={useDefaultSettings}
+              disabled={useSharedPrefix}
             />
           )}
 
@@ -140,12 +140,12 @@ export default function WineSelector({
             label={`${t('install.wineversion')}:`}
             htmlId="wineVersion"
             value={wineVersion?.name || ''}
-            disabled={useDefaultSettings || wineVersionList.length === 0}
+            disabled={useSharedPrefix || wineVersionList.length === 0}
             onChange={(e) =>
               setWineVersion(
                 wineVersionList.find(
                   (version) => version.name === e.target.value
-                )
+                )!
               )
             }
           >

@@ -2,10 +2,10 @@
     "box": {
         "change": {
             "message": "Ez megváltoztatja a játék telepítési helyét, biztos vagy benne?",
-            "path": "Válasszon egy új telepítési útvonalat",
+            "path": "Válassz egy új telepítési útvonalat",
             "title": "Játékok telepítési útvonalának megváltoztatása"
         },
-        "choose": "Válassz",
+        "choose": "Kiválasztás",
         "importpath": "Importálandó játékmappa kiválasztása",
         "move": {
             "message": "Ez eltarthat egy ideig, biztos vagy benne?",
@@ -49,7 +49,24 @@
         "wineprefix": "Wine-környezetmappa kiválasztása",
         "yes": "IGEN",
         "close": "Bezárás",
-        "select-install-path": "Steam telepítési útvonalának kiválasztása"
+        "select-install-path": "Steam telepítési útvonalának kiválasztása",
+        "selectLaunchOption": {
+            "body": "Válassz indítási kapcsolót ehhez a játékhoz (később a játék beállításaiban módosítható):",
+            "title": "Indítási kapcsoló kiválasztása ({{seconds}} mp)"
+        },
+        "warning": {
+            "title": "Figyelmeztetés"
+        },
+        "sync": {
+            "force_download_warning": "A helyi mentések törlődnek. Folytatod?",
+            "force_upload_warning": "A felhőmentések felülíródnak. Folytatod?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Ez a játék offline módban nem biztos, hogy megfelelően működik. Szeretnéd így is elindítani?",
+            "playAnyway": "Indítás így is",
+            "title": "Offline figyelmeztetés"
+        }
     },
     "button": {
         "add_to_favourites": "Hozzáadás a kedvencekhez",
@@ -79,7 +96,8 @@
         "changelog": "Változásnapló megjelenítése",
         "browse_files": "Fájlok tallózása",
         "browse_wine_prefix": "Wine-környezet tallózása",
-        "play": "INDÍTÁS"
+        "play": "INDÍTÁS",
+        "edit-game": "Játék szerkesztése"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -94,7 +112,7 @@
         "getting-install-size": "Telepítendő adatmennyiség lekérése",
         "installSize": "Telepítési méret",
         "language": "Nyelv",
-        "lastPlayed": "Legutóbb játsztva",
+        "lastPlayed": "Legutóbb játszva",
         "neverPlayed": "Soha",
         "platform": "Telepítendő platformverzió kiválasztása",
         "requirements": "Rendszerkövetelmények",
@@ -114,7 +132,8 @@
         "changelogFor": "Változásnapló a(z) {{gameTitle}} játékhoz",
         "modify": "Telepítés módosítása",
         "extra_info": "További információk",
-        "install_info": "Telepítési információk"
+        "install_info": "Telepítési információk",
+        "achievements": "Eredmények"
     },
     "gamecard": {
         "moving": "Áthelyezés",
@@ -211,13 +230,14 @@
         }
     },
     "launch": {
-        "options": "Indítási kapcsolók…"
+        "options": "Indítási kapcsolók…",
+        "default": "Alapértelmezett"
     },
     "not_logged_in": {
         "epic": "Nem vagy Epic-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
         "gog": "Nem vagy GOG-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
         "login": "Bejelentkezés",
-        "title": "NEM VAGY bejelentkezve",
+        "title": "Nem vagy bejelentkezve",
         "amazon": "Nem vagy Amazon-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
         "zoom": "Nem vagy Zoom-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:"
     },
@@ -241,7 +261,9 @@
             "title": "Játék/alkalmazás címe",
             "broser": "Webcím",
             "fullscreen": "Indítás teljes képernyőben (F11 a kilépéshez)",
-            "useragent": "Egyéni felhasználói ügynök"
+            "useragent": "Egyéni felhasználói ügynök",
+            "cover-hint": "Borítógrafika/Kiemelt kép (kattints a képre a SteamGridDB-n való kereséshez)",
+            "image-hint": "Négyzetes grafika (kattints a képre a SteamGridDB-n való kereséshez)"
         },
         "placeholder": {
             "image": "Ide illeszd be a kép webcímét, vagy válassz egyet a számítógépedről",
@@ -252,6 +274,9 @@
         "import-hint": {
             "title": "Fontos! Épp egy játékot adsz hozzá az Epicről/GOG-ról/Amazonról? Kattints ide!",
             "content": "NE használd erre ezt a funkciót.<br />Helyette <3>jelentkezz be</3> az áruházba, keresd meg a játékot a könyvtárodban, nyisd meg a telepítési párbeszédablakot, és kattints a „Játék importálása” gombra."
+        },
+        "images": {
+            "summary": "Képek"
         }
     },
     "specs": {
@@ -285,7 +310,7 @@
         "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizd a letölthető tartalmat a https://gog.com/account oldalon.",
         "goodie": "Nem telepíthető",
         "winetricks": "Winetricks javítások alkalmazása",
-        "redist": "Terjeszhető csomagok telepítése ({{redist}})",
+        "redist": "Terjeszthető csomagok telepítése ({{redist}})",
         "importing": "Importálás"
     },
     "submenu": {
@@ -306,7 +331,7 @@
         "categories": "Kategóriák"
     },
     "help": {
-        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak",
+        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak.",
         "title": {
             "gamePage": "Játékoldal"
         },
@@ -337,5 +362,24 @@
             "resume": "Letöltés folytatása"
         }
     },
-    "wikiLink": "Fontos információ erről a játékról, olvasd el ezt:&nbsp;<1>Oldal megnyitása</1>"
+    "wikiLink": "Fontos információ erről a játékról, olvasd el ezt:&nbsp;<1>Oldal megnyitása</1>",
+    "open-saves-folder": "Mentések mappa megnyitása",
+    "edit-game": {
+        "advanced": "Speciális",
+        "cover": "Borítógrafika",
+        "info": {
+            "cover": "Borítókép",
+            "square": "Négyzetes kép"
+        },
+        "placeholder": {
+            "image": "Illeszd be egy kép webcímét"
+        },
+        "reset": "Visszaállítás alapértelmezettre",
+        "sgdb": {
+            "no-key-link": "Beállítások → Speciális",
+            "no-key-prefix": "A SteamGridDB borítóképek kereséséhez adj meg egy API-kulcsot itt:"
+        },
+        "square": "Négyzetes grafika",
+        "title": "Játék szerkesztése"
+    }
 }

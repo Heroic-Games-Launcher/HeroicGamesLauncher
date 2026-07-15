@@ -1,4 +1,6 @@
 name: Build on PR
+permissions:
+  contents: read
 
 on:
   pull_request:
@@ -11,4 +13,4 @@ jobs:
     with:
       publish-snap: false
     secrets:
-      workflowToken: ${{ secrets.WORKFLOW_TOKEN }}
+      workflowToken: ${{ secrets.GITHUB_TOKEN }}

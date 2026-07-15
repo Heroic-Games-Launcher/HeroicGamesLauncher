@@ -49,7 +49,24 @@
         "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM",
         "close": "Fechar",
-        "select-install-path": "Selecione o diretório de instalação da Steam"
+        "select-install-path": "Selecione o diretório de instalação da Steam",
+        "selectLaunchOption": {
+            "body": "Por favor selecione uma da opções abaixo (pode ser modificada mais tarde nas configurações):",
+            "title": "Selecione uma opção ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Aviso"
+        },
+        "sync": {
+            "force_download_warning": "Saves locais serão deletados. Você deseja continuar?",
+            "force_upload_warning": "Os Saves na nuvem serão sobrescritos. Você deseja continuar?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Este jogo pode não funcionar adequadamente offline. Gostaria de jogar mesmo assim?",
+            "playAnyway": "Jogar mesmo assim",
+            "title": "Aviso Offline"
+        }
     },
     "button": {
         "add_to_favourites": "Adicionar aos favoritos",
@@ -79,7 +96,8 @@
         "changelog": "Mostrar lista de mudanças",
         "browse_files": "Navegar pelos arquivos",
         "browse_wine_prefix": "Navegar pelo prefixo Wine",
-        "play": "JOGAR"
+        "play": "JOGAR",
+        "edit-game": "Editar jogo"
     },
     "cloud_save_unsupported": "Não suportado",
     "disabled": "Desabilitado",
@@ -114,7 +132,8 @@
         "changelogFor": "Log de alterações para {{gameTitle}}",
         "modify": "Modificar instalação",
         "extra_info": "Informações extras",
-        "install_info": "Dados da instalação"
+        "install_info": "Dados da instalação",
+        "achievements": "Conquistas"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -162,7 +181,7 @@
             "ok": "Ok",
             "install_anyway": "Sim (Entendo que a função multijogador não funcionará)",
             "multiplayer_message": "Suporte ao sistema anti trapaça foi negado ou comprometido. Talvez o jogo funcione, mas a função multijogador não funcionará. Instalar mesmo assim?",
-            "disabled_installation": "Suporte ao sistema antitrapaça foi negado ou comprometido, portanto a função multijogador não funcionará, e não há nada que você (ou a equipe do Heroic) possa fazer sobre isso.<br /><br /> Para instalar o jogo mesmo assim, vá em Configurações, Avançado, e marque a opção para permitir a instalação de jogos com o sistema antitrapaça negado ou comprometido.<br /><br /> Mantenha em mente que não há nenhuma solução para isso, e você corre o risco de ser banido no jogo."
+            "disabled_installation": "Este jogo utiliza sistema anti-trapaça que não é compatível com seu sistema operacional ou o suporte não esta disponível pelos desenvolvedores. Isto significa que recursos multijogador não funcionarão e não há nada que você (ou o Time Heroic) possa fazer sobre isso. <br /><br /> Para instalar este jogo ou tentar de alguma forma, vá para Configurações, Avançado e marque a opção para permitir a instalação de jogos com anti-trapaça quebrado ou negado.<br /><br /> Note que não há solução para isso e você terá risco de ser banido do jogo."
         },
         "flatpak-path-not-writtable": "Erro: Acesso ao sandbox não concedido a este caminho, ocorrerá perda de dados."
     },
@@ -212,7 +231,8 @@
         }
     },
     "launch": {
-        "options": "Opções de inicialização..."
+        "options": "Opções de inicialização...",
+        "default": "Padrão"
     },
     "not_logged_in": {
         "epic": "Você não está logado em uma conta Epic no Heroic. Não use a página da loja para fazer login, clique no seguinte botão:",
@@ -242,7 +262,9 @@
             "title": "Título do jogo/app",
             "broser": "URL do navegador",
             "useragent": "\"User Agent\" personalizado",
-            "fullscreen": "Inicie em tela cheia (F11 para sair)"
+            "fullscreen": "Inicie em tela cheia (F11 para sair)",
+            "image-hint": "Arte quadrada (clique na imagem para buscar no SteamGridDB)",
+            "cover-hint": "Arte da capa/herói (clique na imagem para buscar no SteamGridDB)"
         },
         "placeholder": {
             "image": "Cole uma URL de uma imagem ou selecione uma do seu computador",
@@ -253,6 +275,9 @@
         "import-hint": {
             "title": "Importante! Você está adicionando um jogo da Epic/GOG/Amazon? Clique aqui!",
             "content": "NÃO utilize essa função para isso.<br />Em vez disso, <3>faça o login</3> na loja, procure pelo jogo na sua biblioteca, abra o diálogo de instalação, e clique no botão &quot;Importar Jogo&quot;"
+        },
+        "images": {
+            "summary": "Imagens"
         }
     },
     "specs": {
@@ -308,7 +333,7 @@
         "categories": "Categorias"
     },
     "help": {
-        "cloud_save_unsupported": "Este jogo não suporta salvamentos em nuvem (Informação fornecida por desenvolvedores do jogo). Alguns jogos possuem sistema próprio de salvamento em nuvem",
+        "cloud_save_unsupported": "Este jogo não suporta salvamentos em nuvem (Informação fornecida por desenvolvedores do jogo). Alguns jogos possuem sistema próprio de salvamento em nuvem.",
         "title": {
             "gamePage": "Página do Jogo"
         },
@@ -339,5 +364,24 @@
         }
     },
     "Open": "Abrir",
-    "wikiLink": "Informação importante sobre esse jogo, leia isto:&nbsp;<1>Open page</1>"
+    "wikiLink": "Informação importante sobre esse jogo, leia isto:&nbsp;<1>Open page</1>",
+    "open-saves-folder": "Abrir a pasta dos saves",
+    "edit-game": {
+        "advanced": "Avançado",
+        "cover": "Arte da capa",
+        "info": {
+            "cover": "Imagem de capa",
+            "square": "Imagem quadrada"
+        },
+        "placeholder": {
+            "image": "Cole uma URL de imagem"
+        },
+        "reset": "Restaurar padrão",
+        "sgdb": {
+            "no-key-link": "Configurações → Avançado",
+            "no-key-prefix": "Para buscar arte da capa no SteamGridDB, adicione uma chave de API em"
+        },
+        "square": "Arte quadrada",
+        "title": "Editar Jogo"
+    }
 }

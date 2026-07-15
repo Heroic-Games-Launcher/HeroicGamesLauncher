@@ -1,9 +1,9 @@
 {
     "box": {
         "change": {
-            "message": "Dette vil ændre installationens placering. Er du sikker?",
+            "message": "Dette vil ændre spillets installationsplacering. Er du sikker?",
             "path": "Vælg en ny installationssti",
-            "title": "Skift installationssti for spil"
+            "title": "Ændr Spillets Installationssti"
         },
         "move": {
             "path": "Vælg hvor du vil flytte til",
@@ -12,84 +12,102 @@
         },
         "no": "NEJ",
         "repair": {
-            "message": "Vil du forsøge at reparere dette spil? Dette kan tage lang tid.",
-            "title": "Verificer og reparer"
+            "message": "Vil du prøve at reparere dette spil? Dette kan tage lang tid.",
+            "title": "Bekræft og Reparér"
         },
         "stopInstall": {
             "keepInstalling": "Fortsæt installationen",
-            "message": "Vil du GEMME de downloadede filer?",
-            "title": "Stop installationen"
+            "message": "Ønsker du at BEHOLDE hentede filer?",
+            "title": "Afbryd installation"
         },
         "uninstall": {
-            "checkbox": "Fjern prefixet: {{prefix}}{{newLine}}Dette kan ikke omgøres og vil fjerne filer, der ikke er taget sikkerhedskopier af.",
+            "checkbox": "Fjern præfiks: {{prefix}}{{newLine}}Bemærk: Dette kan ikke fortrydes og vil også fjerne ikke sikkerhedskopierede gemte data.",
             "checkbox_prefix": "Prefix",
             "message": "Vil du afinstallere \"{{title}}\"?",
-            "title": "Afinstaller",
-            "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
-            "prefix_warning": "Wine-præfixet for dette spil er standardpræfikset. Hvis du vil slette det, skal du gøre det manuelt.",
+            "title": "Afinstallér",
+            "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Alle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
+            "prefix_warning": "Wine-præfikset for dette spil er standardpræfikset. Hvis du vil slette det, må du gøre det manuelt.",
             "dlc": "Vil du afinstallere \"{{title}}\" DLC?",
             "gameIsRunning": "{{title}} kører. Luk spillet for at afinstallere det.",
-            "cannotUninstallEpic": "Epic spil kan ikke afinstalleres, mens et andet Epic spil er ved at blive installeret."
+            "cannotUninstallEpic": "Epic Games kan ikke afinstalleres, mens et andet Epic-spil bliver installeret."
         },
         "update": {
-            "title": "Spillet skal opdateres",
-            "message": "Dette spil har en opdatering. Ønsker du at opdatere nu?"
+            "title": "Spillet Behøver Opdatering",
+            "message": "Dette spil har en opdatering, anvend opdatering nu?"
         },
         "yes": "JA",
         "choose": "Vælg",
-        "importpath": "Vælg spilmappe til import",
-        "wineprefix": "Vælg WinePrefix mappe",
+        "importpath": "Vælg spilmappe at importere",
+        "wineprefix": "Vælg WinePræfiks-mappe",
         "select": {
             "button": "Vælg",
             "image": "Vælg billede"
         },
         "runexe": {
-            "title": "Vælg EXE for at køre"
+            "title": "Vælg EXE at køre"
         },
         "sideload": {
-            "exe": "Vælg eksekverbar fil"
+            "exe": "Vælg Eksekverbar"
         },
-        "close": "Luk"
+        "close": "Luk",
+        "warning": {
+            "title": "Advarsel"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Dette spil fungerer måske ikke ordentligt offline. Ønsker du at spille alligevel?",
+            "playAnyway": "Spil Alligevel",
+            "title": "Offline Advarsel"
+        },
+        "selectLaunchOption": {
+            "title": "Vælg Startmulighed ({{seconds}}s)",
+            "body": "Vælg venligst en startmulighed for dette spil (det kan ændres senere i spilindstillingerne):"
+        },
+        "sync": {
+            "force_download_warning": "Lokale gemte data bliver slettet. Vil du fortsætte?",
+            "force_upload_warning": "Gamte data i skyen bliver overskrevet. Vil du fortsætte?"
+        }
     },
     "button": {
-        "cancel": "Pause/Afbryd",
-        "continue": "Fortsæt download",
-        "import": "Importer Spil",
-        "install": "Installer",
-        "uninstall": "Afinstaller",
-        "update": "Opdater",
+        "cancel": "Paus/Afbryd",
+        "continue": "Fortsæt Overførsel",
+        "import": "Importér Spil",
+        "install": "Installér",
+        "uninstall": "Afinstallér",
+        "update": "Opdatér",
         "hide_game": "Skjul Spil",
-        "unhide_game": "Vis spil",
-        "add_to_favourites": "Tilføj til favorit",
-        "remove_from_favourites": "Fjern fra favoritter",
-        "force_update": "Tving opdatering, hvis tilgængelig",
+        "unhide_game": "Synliggør Spil",
+        "add_to_favourites": "Føj Til Favoritter",
+        "remove_from_favourites": "Fjern Fra Favoritter",
+        "force_update": "Tving Opdatering, hvis Tilgængelig",
         "queue": {
-            "remove": "Fjern fra kø"
+            "remove": "Fjern fra Kø"
         },
-        "remove_from_recent": "Fjern fra Seneste",
+        "remove_from_recent": "Fjern Fra Seneste",
         "finish": "Afslut",
-        "force-innstall": "Tving installation",
+        "force-innstall": "Tving Installation",
         "no-path-selected": "Ingen sti valgt",
-        "run-exe-first": "Kør Installer først",
-        "running-setup": "Kører opsætning",
+        "run-exe-first": "Kør Installation Først",
+        "running-setup": "Kører Opsætning",
         "sideload": {
-            "edit": "Rediger app/spil"
+            "edit": "Redigér App/Spil"
         },
-        "details": "detaljer",
-        "changelog": "Vis changelog",
-        "browse_files": "Gennemse filer",
+        "details": "Oplysninger",
+        "changelog": "Vis Ændringslog",
+        "browse_files": "Gennemse Filer",
         "play": "SPIL",
-        "browse_wine_prefix": "Browse Wine Prefix"
+        "browse_wine_prefix": "Gennemse Wine Præfiks",
+        "edit-game": "Redigér Spil"
     },
-    "disabled": "Slå Fra",
+    "disabled": "Deaktiveret",
     "dlc": {
         "installDlcs": "Installer alle DLC'er",
         "title": "DLC'er"
     },
-    "enabled": "Slået til",
+    "enabled": "Aktiveret",
     "game": {
-        "downloadSize": "Download Størrelse",
-        "firstPlayed": "Spillede Første Gang",
+        "downloadSize": "Overførselsstørrelse",
+        "firstPlayed": "Først Spillet",
         "neverPlayed": "Aldrig",
         "totalPlayed": "Spilletid",
         "installSize": "Installations Størrelse",
@@ -99,24 +117,25 @@
         "platform": "Vælg platformsversion, der skal installeres",
         "requirements": "System Krav",
         "tools": "Værktøjer",
-        "getting-download-size": "Henter downloadstørrelse",
+        "getting-download-size": "Beregner overførselsstørrelse",
         "getting-install-size": "Får installationsstørrelse",
         "dlcs": "DLC'er",
         "branch": {
-            "disabled": "Slå Fra",
-            "select": "Vælg beta kanal",
-            "password": "Sæt private kanals kodeord",
-            "setPrivateBranchPassword": "Sæt private kanals kodeord"
+            "disabled": "Deaktiveret",
+            "select": "Vælg beta-kanal",
+            "password": "Indstil privat kanals adgangskode",
+            "setPrivateBranchPassword": "Indstil privat kanals adgangskode"
         },
         "builds": {
             "version": "Version",
             "buildsSelector": "Vælg spil version",
-            "toggle": "Hold spillet ved en bestemt version"
+            "toggle": "Hold spillet på en specifik version"
         },
         "extra_info": "Ekstra info",
         "install_info": "Installations infomation",
         "modify": "Ændre installation",
-        "changelogFor": "Ændringslog for {{gameTitle}}"
+        "changelogFor": "Ændringslog for {{gameTitle}}",
+        "achievements": "Bedrifter"
     },
     "gamecard": {
         "moving": "Flytter",
@@ -139,7 +158,7 @@
     },
     "install": {
         "path": "Vælg Installations Sti",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "WinePræfiks",
         "not-enough-disk-space": "Ikke nok diskplads",
         "wineversion": "Wine version",
         "space-after-install": "Efter installation",
@@ -178,7 +197,8 @@
         }
     },
     "launch": {
-        "options": "Opstartsinstillinger..."
+        "options": "Opstartsinstillinger...",
+        "default": ""
     },
     "sdl": {
         "title": "Vælg komponent der skal installeres"
@@ -222,17 +242,17 @@
         "change": "Ændre installationssti",
         "log": "Seneste Log",
         "move": "Flyt Spil",
-        "protondb": "Check Compatabilitet",
+        "protondb": "Kontrollér Kompatibilitet",
         "settings": "Indstillinger",
-        "store": "Butik",
-        "verify": "Verificer og Reparer",
+        "store": "Butiksside",
+        "verify": "Bekræft og Reparér",
         "removeShortcut": "Fjern genveje",
         "removeFromSteam": "Fjern fra Steam",
         "addToSteam": "Tilføj til Steam",
-        "disableEosOverlay": "Deaktiver EOS Overlay",
-        "enableEosOverlay": "Aktiver EOS Overlay",
+        "disableEosOverlay": "Deaktivér EOS Overlejring",
+        "enableEosOverlay": "Aktivér EOS Overlejring",
         "extraInfo": "Ekstra info",
-        "logs": "Logs",
+        "logs": "Logger",
         "categories": "Kategorier"
     },
     "generic": {
@@ -240,7 +260,7 @@
         "noDescription": "Ingen beskrivelse tilgængelig"
     },
     "report_problem": "Rapportér et problem med at køre dette spil",
-    "cloud_save_unsupported": "Ikke understøttet",
+    "cloud_save_unsupported": "Ikke kompatibel",
     "not_logged_in": {
         "epic": "Du er ikke logget ind med en Epic-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
         "gog": "Du er ikke logget ind med en GOG-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
@@ -266,7 +286,7 @@
             "image": "App billede",
             "title": "Spil/App titel",
             "broser": "BrowserURL",
-            "fullscreen": "Åbn fuld skærm (F11 for at afslutte)",
+            "fullscreen": "Start Fuld Skærm (F11 for at forlade)",
             "useragent": "Brugerdefineret User Agent"
         },
         "placeholder": {
@@ -283,8 +303,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver flaske",
         "show-wine-settings": "Vis Wine indstillinger",
-        "warn-use-shared-wine-config": "Brug kun denne mulighed, hvis du ved hvad du laver. <br/>Deling af den samme prefeks over flere spil kan skabe problemer, hvis deres afhængigheder er inkompatible.",
-        "use-shared-wine-config": "Brug delt Wine Prefix"
+        "warn-use-shared-wine-config": "Brug kun denne mulighed, hvis du ved hvad du gør. <br/>Deling af det samme præfiks til flere spil, kan skabe problemer, hvis deres afhængigheder er inkompatible.",
+        "use-shared-wine-config": "Brug delt Wine Præfiks"
     },
     "hours": "Timer",
     "how-long-to-beat": {
@@ -303,9 +323,9 @@
         }
     },
     "third-party-managed": {
-        "header": "Dette spil er administreret af en tredjeparts applikation",
-        "notice2": "Efter at have klikket på Installer, vil Heroic åbne applikationen for at fuldføre installationsprocessen",
-        "notice1": "Dette spil er administreret af en tredjeparts applikation: \"{{application_name}}\""
+        "header": "Dette spil administreres af en tredjepartsapplikation",
+        "notice2": "Efter klik på Installér, vil Heroic køre applikationen, for at fuldføre installationsprocessen",
+        "notice1": "Dette spil administreres af en tredjepartsapplikation: \"{{application_name}}\""
     },
     "modifyInstall": {
         "nodlcs": "Ingen DLC tilgængelig",
@@ -317,5 +337,24 @@
         "dlcsCollapsible": "DLC"
     },
     "Open": "Åbn",
-    "wikiLink": "Vigtig information om dette spil, læs dette:&nbsp;<1>Åbn side</1>"
+    "wikiLink": "Vigtig information om dette spil, læs dette:&nbsp;<1>Åbn side</1>",
+    "open-saves-folder": "",
+    "edit-game": {
+        "sgdb": {
+            "no-key-prefix": "For søgning på SteamGridDB efter omslagsbillede, tilføj en API-nøgle i",
+            "no-key-link": "Indstillinger → Avanceret"
+        },
+        "advanced": "Avanceret",
+        "cover": "Omslagsbillede",
+        "info": {
+            "cover": "Omslagsbillede",
+            "square": "Kvadratisk Billede"
+        },
+        "placeholder": {
+            "image": "Indsæt et billede-URL"
+        },
+        "reset": "Nulstil til standard",
+        "square": "Kvadratisk Illustration",
+        "title": "Redigér Spil"
+    }
 }

@@ -49,7 +49,24 @@
         "wineprefix": "Selecione a pasta com o prefixo Wine",
         "yes": "SIM",
         "close": "Fechar",
-        "select-install-path": "Selecione o Caminho de Instalação da Steam"
+        "select-install-path": "Selecione o Caminho de Instalação da Steam",
+        "warning": {
+            "title": "Aviso"
+        },
+        "selectLaunchOption": {
+            "body": "Selecione uma opção de execução para este jogo, por favor (pode alterar mais tarde nas definições do jogo):",
+            "title": "Selecione opção de execução ({{seconds}}s)"
+        },
+        "sync": {
+            "force_download_warning": "Os jogos guardados localmente 'saves' vão ser eliminados. Pretende continuar?",
+            "force_upload_warning": "Os jogos guardados na núvem 'saves' vão ser substituídos. Pretende continuar?"
+        },
+        "ok": "Aceitar",
+        "offline_warning": {
+            "message": "Este jogo pode não funcionar corretamente em modo offline. Pretende jogar mesmo assim?",
+            "playAnyway": "Jogar mesmo assim",
+            "title": "Aviso offline"
+        }
     },
     "button": {
         "add_to_favourites": "Adicionar aos Favoritos",
@@ -79,7 +96,8 @@
         "changelog": "Mostrar Registo de Alterações",
         "browse_files": "Pesquisar Ficheiros",
         "browse_wine_prefix": "Pesquisar o Prefixo Wine",
-        "play": "JOGAR"
+        "play": "JOGAR",
+        "edit-game": "Editar Jogo"
     },
     "cloud_save_unsupported": "Não é suportado",
     "disabled": "Desativado",
@@ -114,7 +132,8 @@
         "changelogFor": "Registo de Alterações do {{gameTitle}}",
         "modify": "Modificar a Instalação",
         "extra_info": "Informação extra",
-        "install_info": "Informação da instalação"
+        "install_info": "Informação da instalação",
+        "achievements": "Conquistas"
     },
     "gamecard": {
         "moving": "A mover",
@@ -211,7 +230,8 @@
         }
     },
     "launch": {
-        "options": "Opções de Arranque..."
+        "options": "Opções de Arranque...",
+        "default": "Padrão"
     },
     "not_logged_in": {
         "epic": "Não tem a sessão iniciada com uma conta da Epic no Heroic. Não use a página da loja para iniciar a sessão, em vez disso clique no botão seguinte:",
@@ -241,7 +261,9 @@
             "title": "Titulo do Jogo/Aplicação",
             "broser": "URL do Browser",
             "useragent": "Agente de Utilizador Personalizado",
-            "fullscreen": "Iniciar em Ecrã Inteiro (F11 para sair)"
+            "fullscreen": "Iniciar em Ecrã Inteiro (F11 para sair)",
+            "cover-hint": "Arte de Capa/Herói (clique na imagem para pesquisar em SteamGridDB)",
+            "image-hint": "Arte quadrada (clique na imagem para pesquisar em SteamGridDB)"
         },
         "placeholder": {
             "image": "Cole um URL de uma Imagem aqui ou selecione a partir do seu computador",
@@ -252,6 +274,9 @@
         "import-hint": {
             "content": "NÃO utilize esta funcionalidade para isso.<br />Em vez disso, <3>inicie sessão</3> na loja, procure o jogo na sua biblioteca, abra a janela de instalação e clique no botão &quot;Importar Jogo&quot;",
             "title": "Importante! Está a adicionar um jogo da Epic/GOG/Amazon? Clique aqui!"
+        },
+        "images": {
+            "summary": "Imagens"
         }
     },
     "specs": {
@@ -337,5 +362,24 @@
             "pause": "Pausar transferência"
         }
     },
-    "wikiLink": "Informação importante sobre este jogo, leia isto:&nbsp;<1>Abrir pagina</1>"
+    "wikiLink": "Informação importante sobre este jogo, leia isto:&nbsp;<1>Abrir pagina</1>",
+    "open-saves-folder": "Abrir pasta de jogos guardados",
+    "edit-game": {
+        "advanced": "Avançado",
+        "placeholder": {
+            "image": "Colar link para imagem"
+        },
+        "reset": "Restaurar predefinições",
+        "sgdb": {
+            "no-key-link": "Definições → Avançadas",
+            "no-key-prefix": "Para procurar capas em SteamGridDB, adicione uma chave API em"
+        },
+        "title": "Editar Jogo",
+        "cover": "Arte da Capa",
+        "info": {
+            "cover": "Imagen da Capa",
+            "square": "Imagem quadrada"
+        },
+        "square": "Arte quadrada"
+    }
 }

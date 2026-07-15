@@ -19,6 +19,7 @@
   font-size: var(--text-lg);
   padding: var(--space-xs-fixed);
   text-align: start;
+  white-space: nowrap;
 }
 
 /* using max and min width on purpose, width doesn't work as expected on these */
@@ -32,7 +33,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 0 var(--space-xs-fixed) m;
+  padding: 0 var(--space-xs-fixed) 0;
 }
 
 .tableFieldWrapper td:last-child {

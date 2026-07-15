@@ -24,7 +24,7 @@
         "enable": "Enable",
         "info": {
             "pt1": "In order to improve the app, Heroic collects 100% anonymous data.",
-            "pt2": "Heroic uses the open-source Plausible Analytics platform to gather basic data: App Version, OS, Stores Connected and Country.",
+            "pt2": "Heroic uses the open-source Plausible Analytics platform, self-hosted by the Heroic team, to gather basic data: App Version, OS, System Architecture, Linux Distribution, Stores Connected and Country.",
             "pt3": "It will never collect any personal information, including your username, IP address or email.",
             "pt4": "This data is used to give us insights on what to focus on next due to our limited resources and user feedback.",
             "pt5": "Plausible Analytics is fully compliant with GDPR, CCPA and PECR.",
@@ -70,6 +70,10 @@
             "cx-bottle-not-found": {
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
+            },
+            "dxmt": {
+                "message": "Error downloading DXMT! Check your connection!",
+                "title": "DXMT Download Error"
             },
             "dxvk": {
                 "message": "Error installing DXVK/VKD3D! Please check your connection!",
@@ -187,7 +191,7 @@
                 "title": "Wine not found!"
             }
         },
-        "wineprefix": "Choose Wine Prefix Folder",
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "YES"
     },
     "button": {
@@ -216,6 +220,52 @@
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
+    "console": {
+        "cancel": {
+            "hintPrefix": "Hold",
+            "hintSuffix": "for 3s to cancel"
+        },
+        "cancelInstall": {
+            "message": "This game is currently installing. Cancel the installation?",
+            "title": "Cancel installation?"
+        },
+        "cancelUpdate": {
+            "message": "This game is currently downloading. Cancel the ongoing update?",
+            "title": "Cancel update?"
+        },
+        "card": {
+            "needsUpdate": "Needs update"
+        },
+        "empty": "No installed games to show. Install something first.",
+        "filter": {
+            "all": "All",
+            "sideload": "Other"
+        },
+        "games": "Installed games",
+        "hints": {
+            "change_store": "Change store",
+            "launch": "Launch",
+            "navigate": "Navigate",
+            "quit": "Quit",
+            "sort": "Sort"
+        },
+        "install": {
+            "path": "Install to",
+            "platform": "Platform",
+            "title": "Install game",
+            "wine": "Wine",
+            "wineLoading": "Loading…",
+            "wineMissing": "Not selected"
+        },
+        "launching": "Launching",
+        "loading": "Loading your library…",
+        "quit": "Quit Console",
+        "quitApp": "Quit App",
+        "removeFromQueue": {
+            "message": "This game is queued for download. Remove it from the queue?"
+        },
+        "sort": "Sort"
+    },
     "controller": {
         "hints": {
             "back": "Back",
@@ -235,6 +285,99 @@
             "space": "Space",
             "update_game": "Update game"
         }
+    },
+    "discounts": {
+        "aria": {
+            "pagination": "Pagination",
+            "rating": "Rating {{rating}} out of 10"
+        },
+        "currency": {
+            "label": "Currency"
+        },
+        "empty": "No discounted games available right now.",
+        "error": "Could not load discounts. Please try again later.",
+        "filters": {
+            "activeCount_one": "{{count}} active",
+            "activeCount_other": "{{count}} active",
+            "ageRating": "Suitable for age",
+            "ageRatingAll": "All",
+            "ageRatingOption": "Show games rated PEGI {{age}} or lower",
+            "features": "Features",
+            "featuresPlaceholder": "Any feature",
+            "genres": "Genres",
+            "genresPlaceholder": "Any genre",
+            "hideDlcs": "Hide DLCs",
+            "hideOwned": "Hide Owned",
+            "lessFilters": "Less filters",
+            "moreFilters": "More filters",
+            "pageSize": "Per page",
+            "platform": "Platform",
+            "price": "Price",
+            "rating": "Rating",
+            "releaseYear": "Release year",
+            "sort": "Sort by",
+            "wishlistOnly": "Wishlist Only"
+        },
+        "loading": "Loading discounted games...",
+        "noMatches": "No games match the current filters.",
+        "pagination": {
+            "prev": "Previous"
+        },
+        "region": {
+            "auto": "Auto ({{code}})",
+            "countries": {
+                "AU": "Australia",
+                "BR": "Brazil",
+                "CA": "Canada",
+                "CH": "Switzerland",
+                "CN": "China",
+                "CZ": "Czechia",
+                "DE": "Germany",
+                "DK": "Denmark",
+                "ES": "Spain",
+                "FI": "Finland",
+                "FR": "France",
+                "GB": "United Kingdom",
+                "GR": "Greece",
+                "HU": "Hungary",
+                "IL": "Israel",
+                "IT": "Italy",
+                "JP": "Japan",
+                "KR": "South Korea",
+                "NL": "Netherlands",
+                "NO": "Norway",
+                "PL": "Poland",
+                "PT": "Portugal",
+                "RO": "Romania",
+                "RU": "Russia",
+                "SE": "Sweden",
+                "TR": "Turkey",
+                "TW": "Taiwan",
+                "UA": "Ukraine",
+                "US": "United States"
+            },
+            "label": "Store region"
+        },
+        "sidebar": "Deals",
+        "sort": {
+            "discount": "Biggest discount",
+            "priceAsc": "Price: low to high",
+            "priceDesc": "Price: high to low",
+            "ratingAsc": "Rating: low to high",
+            "ratingDesc": "Rating: high to low",
+            "releaseAsc": "Release date: old to new",
+            "releaseDesc": "Release date: new to old",
+            "trending": "Trending"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} key, redeemed outside Heroic",
+            "gmgHint": "Green Man Gaming — key for an external store, not installable through Heroic"
+        },
+        "tabs": {
+            "all": "All stores",
+            "label": "Store"
+        },
+        "titleMulti": "Deals"
     },
     "dlc": {
         "actions": "Actions",
@@ -291,12 +434,15 @@
         "title": "Game Title"
     },
     "generic": {
+        "abort": "Abort",
         "error": {
             "component": "No games found - Try to logout and login again or one of the options below"
         },
+        "install": "Install",
         "library": {
             "refresh": "Refresh Library"
-        }
+        },
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -364,8 +510,13 @@
             "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
+        "hide-window-on-protocol-launch": "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'Add to Steam' feature.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Check more details in our wiki"
+        },
         "other": {
             "part4": "Use the ",
             "part5": "Game Arguments",
@@ -432,6 +583,9 @@
         "loading": "Loading",
         "releaseDate": "Release Date"
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "library": {
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
@@ -461,6 +615,7 @@
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
     },
+    "next": "Next",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -581,7 +736,7 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char or 4-char code (i.e.: \"fr\" or \"pt-BR\")"
     },
     "platforms": {
         "browser": "Browser",
@@ -640,6 +795,7 @@
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
+        "disable_gog_presence": "Disable GOG Presence updates",
         "disable_logs": "Disable Logs",
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
@@ -648,6 +804,7 @@
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
+        "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -695,6 +852,7 @@
             "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
+        "hide-window-on-protocol-launch": "Hide Heroic window when launching games from heroic:// links",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",
@@ -734,6 +892,7 @@
                 },
                 "error": {
                     "content": "Failed to upload log file. Check Heroic's general log for details",
+                    "manual_upload": "Click the \"SHOW LOG FILE IN FOLDER\" button and upload the \"launch.log\" file manually to Discord or any online file sharing service.",
                     "title": "Upload failed"
                 },
                 "header": "Uploaded log files",
@@ -764,6 +923,9 @@
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "msync": "Enable Msync",
         "no-tray-icon": "Hide System Tray Icon (requires restart)",
+        "nvidiaprime": {
+            "description": "Force use of NVIDIA Optimus or AMD Dynamic Switchable Graphics dGPU. ONLY use this for OpenGL and Vulkan games."
+        },
         "offlinemode": "Run Game Offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
@@ -790,6 +952,7 @@
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showMetalOverlay": "Show Stats Overlay",
+        "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "verboseLogs": {
@@ -855,6 +1018,8 @@
         "gamescope": {
             "searchMsg": "Searching for gamescope executable."
         },
+        "launchOptions": "Launch Options",
+        "legacy_warning": "Warning: The settings on this tab are mostly deprecated and might not work at all.",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -863,6 +1028,7 @@
             "games_settings_defaults": "Game Defaults",
             "gamescope": "Gamescope",
             "general": "General",
+            "legacy": "Legacy",
             "log": "Log",
             "other": "Other",
             "sync": "Cloud Saves Sync",
@@ -877,6 +1043,16 @@
             "gog_linux_native_warning": "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead.",
             "not_supported": "This game does not support Cloud Saves.",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "steamgriddb": {
+            "apikey": {
+                "placeholder": "Enter your SteamGridDB API Key here",
+                "placeholder_saved": "Key saved — type to replace, clear to remove",
+                "title": "SteamGridDB API Key"
+            },
+            "help": {
+                "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}"
+            }
         },
         "systemInformation": {
             "cometVersion": "Comet: {{cometVersion}}",
@@ -903,11 +1079,28 @@
         }
     },
     "Settings": "Settings",
+    "sidebar": {
+        "console": "Console Mode"
+    },
     "status": {
+        "installed": "Installed",
         "installing": "Installing",
         "logging": "Logging In...",
         "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
+    },
+    "steamgriddb": {
+        "error": {
+            "grids": "Failed to fetch grids",
+            "no-games": "No games found.",
+            "no-grids": "No covers found for this game.",
+            "search": "Failed to search for games, please check your SteamGridDB API key and try again"
+        },
+        "picker": {
+            "search": "Search Game",
+            "select-game": "Select a Game:",
+            "title": "SteamGridDB Covers"
+        }
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -1007,16 +1200,26 @@
         "actions": "Action",
         "manager": {
             "link": "Wine Manager",
+            "loading": "Loading wine versions...",
+            "no-results": "No Wine versions match your search.",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "open_folder": "Open Folder",
+            "search": "Search versions...",
+            "settings": "Settings",
             "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "unzipping": "Unzipping",
+            "update": "Update"
         },
+        "notes": "Notes",
         "release": "Release Date",
         "size": "Size"
     },
     "wineExplanation": {
+        "gpt": "Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.",
+        "proton-cachyos": "Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.",
         "proton-ge": "GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).",
-        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher."
+        "wine-crossover": "Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.",
+        "wine-staging-macos": "Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool."
     },
     "winetricks": {
         "install": "Install",

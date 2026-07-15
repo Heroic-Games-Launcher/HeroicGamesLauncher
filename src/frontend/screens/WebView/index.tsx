@@ -377,9 +377,10 @@ export default function WebView() {
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
       <webview
+        key={store}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${store}`}
+        partition={`persist:${startUrl === epicLoginUrl ? 'epicstore' : store}`}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}

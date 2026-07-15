@@ -2,12 +2,14 @@ import { addHandler, sendFrontendMessage } from 'backend/ipc'
 import {
   installWineVersion,
   removeWineVersion,
+  updateWineListsIfOutdated,
   updateWineVersionInfos
 } from './utils'
-import { logError, LogPrefix } from 'backend/logger'
+import { logDebug, logError, LogPrefix } from 'backend/logger'
 import type { WineManagerStatus } from 'common/types'
 import { notify } from '../../dialog/dialog'
 import { t } from 'i18next'
+import { backendEvents } from 'backend/backend_events'
 
 addHandler('installWineVersion', async (e, release) => {
   const onProgress = (state: WineManagerStatus) => {
@@ -54,4 +56,9 @@ addHandler('refreshWineVersionInfo', async (e, fetch?) => {
 addHandler('removeWineVersion', async (e, release) => {
   const result = await removeWineVersion(release)
   if (result) notify({ title: release.version, body: t('notify.uninstalled') })
+})
+
+backendEvents.on('releasesInfoReady', (releasesInfo) => {
+  logDebug('Releases info ready, checking wine releases', LogPrefix.Backend)
+  void updateWineListsIfOutdated(releasesInfo)
 })

@@ -3,21 +3,22 @@ import { getInfoFromProtonDB } from 'backend/wiki_game_info/protondb/utils'
 import { getSteamDeckComp } from 'backend/wiki_game_info/steamdeck/utils'
 import { wikiGameInfoStore } from './electronStore'
 import { removeSpecialcharacters } from '../utils'
-import { Runner, SteamInfo, WikiInfo } from 'common/types'
+import { SteamInfo, WikiInfo } from 'common/types'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
 import { getUmuId } from './umu/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
+import type { Game } from 'common/types/game_manager'
 
-export async function getWikiGameInfo(
-  title: string,
-  appName: string,
-  runner: Runner
-): Promise<WikiInfo | null> {
+export async function getWikiGameInfo(game: Game): Promise<WikiInfo | null> {
+  const gameInfo = game.getGameInfo()
+  const appName = gameInfo.app_name
+  const runner = gameInfo.runner
+
   try {
-    title = removeSpecialcharacters(title)
+    const title = removeSpecialcharacters(gameInfo.title)
 
     // check if we have a cached response
     const cachedResponse = wikiGameInfoStore.get(title)
@@ -31,14 +32,18 @@ export async function getWikiGameInfo(
 
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
-    const [pcgamingwiki, howlongtobeat, gamesdb, applegamingwiki, umuId] =
-      await Promise.all([
-        getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
-        getHowLongToBeat(title),
-        getInfoFromGamesDB(title, appName, runner),
-        isMac ? getInfoFromAppleGamingWiki(title) : null,
-        isLinux ? getUmuId(appName, runner) : null
-      ])
+    const [pcgamingwiki, gamesdb, applegamingwiki, umuId] = await Promise.all([
+      getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
+      getInfoFromGamesDB(title, appName, runner),
+      isMac ? getInfoFromAppleGamingWiki(title) : null,
+      isLinux ? getUmuId(appName, runner) : null
+    ])
+
+    // Get HowLongToBeat data, using gog.com site for GOG games, and HLTB ID from PCGamingWiki if available
+    const howlongtobeat = await getHowLongToBeat(
+      game,
+      pcgamingwiki?.howLongToBeatID
+    )
 
     let steamInfo = null
     if (isLinux) {
@@ -72,7 +77,7 @@ export async function getWikiGameInfo(
     return wikiGameInfo
   } catch (error) {
     logError(
-      [`Was not able to get ExtraGameInfo data for ${title}`, error],
+      [`Was not able to get ExtraGameInfo data for ${gameInfo.title}`, error],
       LogPrefix.ExtraGameInfo
     )
     return null

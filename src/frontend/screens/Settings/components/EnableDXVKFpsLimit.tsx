@@ -10,7 +10,7 @@ import InfoIcon from 'frontend/components/UI/InfoIcon'
 const EnableDXVKFpsLimit = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isMacNative } = useContext(SettingsContext)
+  const { isLinuxNative, isMacNative } = useContext(SettingsContext)
   const isWin = platform === 'win32'
   const [enableDXVKFpsLimit, setDXVKFpsLimit] = useSetting(
     'enableDXVKFpsLimit',
@@ -21,9 +21,10 @@ const EnableDXVKFpsLimit = () => {
 
   if (
     isWin ||
-    platform === 'linux' ||
+    isLinuxNative ||
     isMacNative ||
-    wineVersion.bin.includes('toolkit')
+    wineVersion.bin.includes('toolkit') ||
+    wineVersion.name.endsWith('-DXMT')
   ) {
     return <></>
   }

@@ -17,13 +17,13 @@ environment:
 
 build_script:
   - npm run sign:win
-  - 7z.exe a -tzip dist\HeroicWin.zip dist\*x64.exe dist\*.blockmap dist\*.yml
+  - 7z.exe a -tzip dist\HeroicWin.zip dist\*x64.exe dist\*arm64.exe dist\*.blockmap dist\*.yml
 
 test: off
 
 artifacts:
   - path: dist\HeroicWin.zip
-    name: Heroic_setup
+    name: Heroic_Windows_Files
 
 deploy:
   - provider: Webhook

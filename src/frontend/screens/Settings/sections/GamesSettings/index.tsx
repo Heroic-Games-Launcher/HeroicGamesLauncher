@@ -21,6 +21,7 @@ import {
   EnvVariablesTable,
   GameMode,
   LauncherArgs,
+  LaunchOptionSelector,
   Mangohud,
   OfflineMode,
   PreferedLanguage,
@@ -34,7 +35,8 @@ import {
   IgnoreGameUpdates,
   Gamescope,
   BeforeLaunchScriptPath,
-  AfterLaunchScriptPath
+  AfterLaunchScriptPath,
+  NvidiaPrime
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -125,9 +127,9 @@ export default function GamesSettings() {
         })
         setIsNative(isNative)
       }
-      getIsNative()
+      void getIsNative()
     }
-  }, [])
+  }, [gameInfo])
 
   const showOtherTab = shouldShowSettings('other')
   const showWineTab = shouldShowSettings('wine')
@@ -171,6 +173,9 @@ export default function GamesSettings() {
             value="gamescope"
           />
         )}
+        {isLinux && !isNative && (
+          <Tab label={t('settings.navbar.legacy', 'Legacy')} value="legacy" />
+        )}
       </Tabs>
 
       <TabPanel value={value} index={'wine'}>
@@ -193,7 +198,7 @@ export default function GamesSettings() {
             <EnableMsync />
             <AdvertiseAvxForRosetta />
             <EnableFSR />
-            <EnableDXVKFpsLimit />
+            {isMac && <EnableDXVKFpsLimit />}
             <Tools />
           </>
         )}
@@ -205,6 +210,7 @@ export default function GamesSettings() {
         <GameMode />
         {isLinux && <PreferSystemLibs />}
         <SteamRuntime />
+        <NvidiaPrime />
         {!isNative && (
           <>
             <BattlEyeRuntime />
@@ -221,8 +227,8 @@ export default function GamesSettings() {
           </>
         )}
         <VerboseLogs />
-        <DisableUMU />
         <AlternativeExe />
+        <LaunchOptionSelector />
         <LauncherArgs />
         <div className="Field">
           <label>{t('setting.scripts', 'Scripts:')}</label>
@@ -241,6 +247,20 @@ export default function GamesSettings() {
       <TabPanel value={value} index={'gamescope'}>
         <Gamescope />
       </TabPanel>
+
+      {isLinux && (
+        <TabPanel value={value} index={'legacy'}>
+          <span className="defaults-hint">
+            <FontAwesomeIcon icon={faInfoCircle} />
+            {t(
+              'settings.legacy_warning',
+              'Warning: The settings on this tab are mostly deprecated and might not work at all.'
+            )}
+          </span>
+          <EnableDXVKFpsLimit />
+          <DisableUMU />
+        </TabPanel>
+      )}
 
       {!isDefault && <FooterInfo />}
     </>
