@@ -1,6 +1,5 @@
 import { join } from 'path'
-import { getGameInfo } from './games'
-import { getInstallInfo } from './library'
+import { libraryManagerMap } from '..'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { enable, getStatus, isEnabled } from './eos_overlay/eos_overlay'
 import { split } from 'shlex'
@@ -12,7 +11,7 @@ import { isLinux } from 'backend/constants/environment'
 import LogWriter from 'backend/logger/log_writer'
 
 export const legendarySetup = async (appName: string, logWriter: LogWriter) => {
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = libraryManagerMap['legendary'].getGame(appName).getGameInfo()
   if (!gameInfo) {
     return
   }
@@ -47,7 +46,10 @@ export const legendarySetup = async (appName: string, logWriter: LogWriter) => {
     !gameInfo.isUbisoftManaged
   ) {
     try {
-      const info = await getInstallInfo(appName, gameInfo.install.platform)
+      const info = await libraryManagerMap['legendary'].getInstallInfo(
+        appName,
+        gameInfo.install.platform
+      )
       if (
         info.manifest.prerequisites &&
         info.manifest.prerequisites.path.length > 0

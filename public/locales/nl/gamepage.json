@@ -335,5 +335,8 @@
         }
     },
     "wikiLink": "Belangrijke informatie over dit spel, lees dit:&nbsp;<1>Open pagina</1>",
-    "open-saves-folder": ""
+    "open-saves-folder": "",
+    "edit-game": {
+        "advanced": "Advanced"
+    }
 }

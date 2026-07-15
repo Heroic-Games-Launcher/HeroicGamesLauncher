@@ -96,7 +96,8 @@
         "changelog": "Değişiklik Günlüğünü Göster",
         "browse_files": "Dosyalara Göz At",
         "browse_wine_prefix": "Wine Prefix'e Göz At",
-        "play": "OYNA"
+        "play": "OYNA",
+        "edit-game": "Oyunu Düzenle"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
@@ -261,7 +262,9 @@
             "title": "Oyun/Uygulama Adı",
             "broser": "Tarayıcı URL'si",
             "useragent": "Özel Kullanıcı Aracısı",
-            "fullscreen": "Tam Ekran Başlat (Çıkmak için F11)"
+            "fullscreen": "Tam Ekran Başlat (Çıkmak için F11)",
+            "cover-hint": "Kapak/Ana Görsel (SteamGridDB'de aramak için resme tıklayın)",
+            "image-hint": "Kare Görsel (SteamGridDB'de aramak için resme tıklayın)"
         },
         "placeholder": {
             "image": "Bir resim URL'si yapıştırın ya da bilgisayarınızdan bir tane seçin",
@@ -272,6 +275,9 @@
         "import-hint": {
             "title": "Önemli! Epic/GOG/Amazon'dan bir oyun mu ekliyorsunuz? Buraya tıklayın!",
             "content": "Bu özelliği bu amaç için KULLANMAYIN.<br />Bunun yerine, mağazaya <3>giriş yapın</3>, kütüphanenizde oyunu bulun, yükleme penceresini açın ve &quot;Oyunu İçe Aktar&quot; butonuna tıklayın"
+        },
+        "images": {
+            "summary": "Görseller"
         }
     },
     "specs": {
@@ -359,5 +365,23 @@
         }
     },
     "wikiLink": "Bu oyun hakkında önemli bilgiler için bunu okuyun:&nbsp;<1>Sayfayı Aç</1>",
-    "open-saves-folder": "Kayıtlar Klasörünü Aç"
+    "open-saves-folder": "Kayıtlar Klasörünü Aç",
+    "edit-game": {
+        "advanced": "Gelişmiş",
+        "cover": "Kapak Resmi",
+        "info": {
+            "square": "Kare Resim",
+            "cover": "Kapak Resmi"
+        },
+        "placeholder": {
+            "image": "Bir Resim Bağlantısı Yapıştırın"
+        },
+        "reset": "Varsayılana Sıfırla",
+        "sgdb": {
+            "no-key-link": "Ayarlar → Gelişmiş",
+            "no-key-prefix": "SteamGridDB'de kapak resmini aramak için bir API anahtarı ekleyin"
+        },
+        "title": "Oyunu Düzenle",
+        "square": "Kare Görsel"
+    }
 }

@@ -929,7 +929,8 @@
         "installing": "설치 중",
         "logging": "로그인 중…",
         "processing": "파일 처리 중, 기다려 주세요",
-        "preparing_login": "로그인 준비 중... "
+        "preparing_login": "로그인 준비 중... ",
+        "installed": "설치됨"
     },
     "store": "에픽 스토어",
     "stores": "스토어",
@@ -1053,7 +1054,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton은 Glorious Eggroll이 만든 프로톤 변형입니다. 스팀에서 사용하도록 만들어졌지만 스팀 외부의 일부 게임은 이 변형에서 더 잘 작동할 수 있습니다. 문제 해결을 위해 대부분 쓸모없는 로그를 제공합니다.",
-        "wine-ge": "Wine-GE-Proton은 Glorious Eggroll이 만든 와인 변형입니다. 스팀 외부에서 사용하기에 권장되는 와인입니다. 이는 문제 해결 시 유용한 로그를 제공합니다.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1251,7 +1251,12 @@
         "empty": "",
         "games": "설치된 게임",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "게임 설치",
+            "wineLoading": "Loading"
+        }
     },
     "next": ""
 }

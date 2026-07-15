@@ -5,7 +5,7 @@ import { GOGLoginData } from 'common/types'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { GOGCredentials, UserData } from 'common/types/gog'
-import { runRunnerCommand } from './library'
+import { libraryManagerMap } from '../index'
 import { clearCache } from 'backend/utils'
 import { app } from 'electron'
 import { gogdlAuthConfig } from './constants'
@@ -34,10 +34,13 @@ export class GOGUser {
     logInfo('Logging using GOG credentials', LogPrefix.Gog)
 
     // Gets token from GOG basaed on authorization code
-    const { stdout } = await runRunnerCommand(['auth', '--code', code], {
-      abortId: 'gogdl-auth',
-      logSanitizer: authLogSanitizer
-    })
+    const { stdout } = await libraryManagerMap['gog'].runRunnerCommand(
+      ['auth', '--code', code],
+      {
+        abortId: 'gogdl-auth',
+        logSanitizer: authLogSanitizer
+      }
+    )
 
     try {
       const data: GOGLoginData = JSON.parse(stdout.trim())
@@ -57,7 +60,7 @@ export class GOGUser {
     return { status: 'done', data: userDetails }
   }
 
-  public static async getUserDetails() {
+  public static async getUserDetails(): Promise<UserData | undefined> {
     if (!isOnline()) {
       logError('Unable to login information, Heroic offline', LogPrefix.Gog)
       return
@@ -73,7 +76,7 @@ export class GOGUser {
       return
     }
     const response = await axios
-      .get(`https://embed.gog.com/userData.json`, {
+      .get(`https://users.gog.com/users/${user.user_id}`, {
         headers: {
           Authorization: `Bearer ${user.access_token}`,
           'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
@@ -88,9 +91,6 @@ export class GOGUser {
     }
 
     const data: UserData = response.data
-
-    //Exclude email, it won't be needed
-    delete data.email
 
     configStore.set('userData', data)
     logInfo('Saved username to config file', LogPrefix.Gog)
@@ -109,10 +109,13 @@ export class GOGUser {
       })
       return
     }
-    const { stdout } = await runRunnerCommand(['auth'], {
-      abortId: 'gogdl-get-credentials',
-      logSanitizer: authLogSanitizer
-    })
+    const { stdout } = await libraryManagerMap['gog'].runRunnerCommand(
+      ['auth'],
+      {
+        abortId: 'gogdl-get-credentials',
+        logSanitizer: authLogSanitizer
+      }
+    )
     try {
       return JSON.parse(stdout) as GOGCredentials | undefined
     } catch (error) {
