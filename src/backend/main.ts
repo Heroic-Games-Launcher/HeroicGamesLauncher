@@ -330,6 +330,10 @@ if (!gotTheLock) {
     initStoreManagers()
     initImagesCache()
 
+    // Gracefully handle termination signals to ensure Electron natively flushes session data
+    process.on('SIGTERM', () => app.quit())
+    process.on('SIGINT', () => app.quit())
+
     // Add User-Agent Client hints to behave like Windows
     if (process.argv.includes('--spoof-windows')) {
       session.defaultSession.webRequest.onBeforeSendHeaders(
