@@ -237,6 +237,11 @@ async function initializeWindow(): Promise<BrowserWindow> {
     isCLIConsoleMode || globalConf.startInConsoleMode ? '/console' : undefined
 
   if (process.env.ELECTRON_RENDERER_URL) {
+    await import('electron-devtools-installer').then(
+      ({ installExtension, REACT_DEVELOPER_TOOLS }) =>
+        installExtension(REACT_DEVELOPER_TOOLS)
+    )
+
     const devUrl = startHash
       ? `${process.env.ELECTRON_RENDERER_URL}#${startHash}`
       : process.env.ELECTRON_RENDERER_URL
