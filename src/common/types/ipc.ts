@@ -133,7 +133,6 @@ interface SyncIPCFunctions {
   logoutZoom: () => void
   logoutSteam: () => void
   cancelSteamQrLogin: () => void
-  cancelSteamWebLogin: () => void
   logoutSteamAccount: (steamId: string) => void
   setSteamIntegrationEnabled: (appName: string, enabled: boolean) => void
   setGameMetadataOverride: (args: {
@@ -236,11 +235,6 @@ interface AsyncIPCFunctions {
     credentials: SteamLoginData
   ) => Promise<{ status: 'done' | 'error'; error?: string }>
   loginSteamQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
-  startSteamWebLogin: () => Promise<{ url?: string; error?: string }>
-  finishSteamWebLogin: () => Promise<{
-    status: 'done' | 'error'
-    error?: string
-  }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
