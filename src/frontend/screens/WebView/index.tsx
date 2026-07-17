@@ -35,8 +35,7 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, connectivity } =
-    useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, connectivity } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -422,9 +421,7 @@ export default function WebView() {
         key={store}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${
-          startUrl === epicLoginUrl ? 'epicstore' : store
-        }`}
+        partition={`persist:${startUrl === epicLoginUrl ? 'epicstore' : store}`}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}

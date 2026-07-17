@@ -859,6 +859,14 @@ addListener('cancelSteamQrLogin', () => {
   SteamUser.cancelQrLogin()
 })
 
+addListener('cancelSteamLogin', () => {
+  SteamUser.cancelLogin()
+})
+
+addListener('submitSteamGuardCode', (_e, code) => {
+  SteamUser.submitGuardCode(code)
+})
+
 addListener('logoutSteam', () => {
   void SteamUser.logout()
 })
