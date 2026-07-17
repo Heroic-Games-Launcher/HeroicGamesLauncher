@@ -35,7 +35,7 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, steam, connectivity } =
+  const { epic, gog, amazon, zoom, connectivity } =
     useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
@@ -47,9 +47,6 @@ export default function WebView() {
   const [amazonLoginData, setAmazonLoginData] = useState<NileLoginData | null>(
     null
   )
-  const [steamLoginUrl, setSteamLoginUrl] = useState<string | null>(null)
-  // Whether the Steam browser sign-in reached Aurelia's callback
-  const steamLoginHandled = useRef(false)
   const navigate = useNavigate()
   const webviewRef = useRef<Electron.WebviewTag>(null)
 
@@ -92,8 +89,7 @@ export default function WebView() {
     '/loginweb/legendary': epicLoginUrl,
     '/loginweb/gog': gogLoginUrl,
     '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
-    '/loginweb/zoom': zoomLoginUrl,
-    '/loginweb/steam': steamLoginUrl ?? ''
+    '/loginweb/zoom': zoomLoginUrl
   }
   let startUrl = urls[pathname]
 
@@ -112,32 +108,6 @@ export default function WebView() {
       startUrl = queryParam
     }
   }
-
-  // Steam browser sign-in
-  useEffect(() => {
-    if (pathname !== '/loginweb/steam') return
-
-    steamLoginHandled.current = false
-    setSteamLoginUrl(null)
-    setLoading({
-      refresh: true,
-      message: t('status.preparing_login', 'Preparing Login...')
-    })
-    void window.api.startSteamWebLogin().then(({ url, error }) => {
-      if (url) {
-        setSteamLoginUrl(url)
-      } else {
-        console.error('Steam browser sign-in failed to start:', error)
-        navigate('/login')
-      }
-    })
-
-    return () => {
-      if (!steamLoginHandled.current) {
-        window.api.cancelSteamWebLogin()
-      }
-    }
-  }, [pathname])
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
@@ -330,27 +300,6 @@ export default function WebView() {
             })
             zoom.login(pageURL).then(() => handleSuccessfulLogin())
           }
-        } else if (runner === 'steam') {
-          // Steam redirected the sign-in to Aurelia's localhost
-          if (
-            parsedURL.hostname === '127.0.0.1' &&
-            parsedURL.pathname === '/callback'
-          ) {
-            loginHandled = true
-            steamLoginHandled.current = true
-            setLoading({
-              refresh: true,
-              message: t('status.logging', 'Logging In...')
-            })
-            void steam.loginWeb().then((result) => {
-              if (result.status === 'done') {
-                handleSuccessfulLogin()
-              } else if (result.error !== 'cancelled') {
-                console.error('Steam browser sign-in failed:', result.error)
-                navigate('/login')
-              }
-            })
-          }
         }
       }
 
@@ -473,13 +422,8 @@ export default function WebView() {
         key={store}
         ref={webviewRef}
         className="WebView__webview"
-        // The Steam sign-in shares the store's persistent partition
         partition={`persist:${
-          startUrl === epicLoginUrl
-            ? 'epicstore'
-            : runner === 'steam'
-              ? 'steam'
-              : store
+          startUrl === epicLoginUrl ? 'epicstore' : store
         }`}
         src={startUrl}
         allowpopups={trueAsStr}

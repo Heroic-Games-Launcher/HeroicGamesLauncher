@@ -104,7 +104,6 @@ export interface ContextType {
       credentials: SteamLoginData
     ) => Promise<{ status: 'done' | 'error'; error?: string }>
     loginQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
-    loginWeb: () => Promise<{ status: 'done' | 'error'; error?: string }>
     logout: () => Promise<void>
     enabled: boolean
     users: SteamAccount[]

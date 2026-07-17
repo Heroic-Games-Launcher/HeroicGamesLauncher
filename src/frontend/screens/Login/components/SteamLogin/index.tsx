@@ -1,6 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 import { QRCodeSVG } from 'qrcode.react'
 import { Autorenew } from '@mui/icons-material'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -20,7 +19,6 @@ type Mode = 'password' | 'qr'
 export default function SteamLogin({ backdropClick, onSuccess }: Props) {
   const { steam } = useContext(ContextProvider)
   const { t } = useTranslation('login')
-  const navigate = useNavigate()
   const [mode, setMode] = useState<Mode>('password')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -185,18 +183,6 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
           {mode === 'password'
             ? t('steam.qr.switch', 'Sign in with a QR code instead')
             : t('steam.qr.switchBack', 'Sign in with username and password')}
-        </button>
-        <button
-          className="button is-text steam-mode-toggle"
-          onClick={() => {
-            backdropClick()
-            navigate('/loginweb/steam')
-          }}
-        >
-          {t(
-            'steam.web.switch',
-            'Sign in via your browser (official Steam page)'
-          )}
         </button>
       </div>
     </div>

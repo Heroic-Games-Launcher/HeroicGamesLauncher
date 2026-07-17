@@ -165,6 +165,8 @@ export interface AureliaAccount {
   // FIXME: Aurelia prints the 64-bit SteamID as a JSON number;
   steam_id: string | number
   account_name: string
+  /** Public persona **/
+  persona_name?: string | null
   country?: string
   email?: string
   email_validated?: boolean

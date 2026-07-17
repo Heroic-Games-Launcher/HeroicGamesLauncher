@@ -23,7 +23,6 @@ export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
 export const amazonLoginPath = '/loginweb/nile'
 export const zoomLoginPath = '/loginweb/zoom'
-export const steamLoginPath = '/loginweb/steam'
 
 export default React.memo(function NewLogin() {
   const { epic, gog, amazon, zoom, steam, refreshLibrary } =
@@ -179,7 +178,7 @@ export default React.memo(function NewLogin() {
                 class="steam"
                 buttonText={t('login.steam_add', 'Add Steam Account')}
                 icon={() => <SteamLogo />}
-                loginUrl={steamLoginPath}
+                loginUrl="/login"
                 isLoggedIn={Boolean(steamUser)}
                 user={steamUser?.username}
                 logoutAction={
