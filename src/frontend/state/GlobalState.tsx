@@ -746,6 +746,13 @@ class GlobalState extends PureComponent<Props> {
     return this.finishSteamLogin(response)
   }
 
+  // Completes the browser sign-in
+  steamLoginWeb = async () => {
+    console.log('logging steam (browser)')
+    const response = await window.api.finishSteamWebLogin()
+    return this.finishSteamLogin(response)
+  }
+
   steamLogout = async () => {
     window.api.logoutSteam()
     this.setState({
@@ -1313,6 +1320,7 @@ class GlobalState extends PureComponent<Props> {
             username: this.state.steam.enabled ? steam.username : undefined,
             login: this.steamLogin,
             loginQr: this.steamLoginQr,
+            loginWeb: this.steamLoginWeb,
             logout: this.steamLogout,
             enabled: this.state.steam.enabled,
             users: this.state.steam.users,

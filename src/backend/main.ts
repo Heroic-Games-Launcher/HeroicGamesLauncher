@@ -859,6 +859,20 @@ addListener('cancelSteamQrLogin', () => {
   SteamUser.cancelQrLogin()
 })
 
+addHandler('startSteamWebLogin', async () => SteamUser.startWebLogin())
+
+addHandler('finishSteamWebLogin', async () => {
+  const login = await SteamUser.finishWebLogin()
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addListener('cancelSteamWebLogin', () => {
+  SteamUser.cancelWebLogin()
+})
+
 addListener('logoutSteam', () => {
   void SteamUser.logout()
 })

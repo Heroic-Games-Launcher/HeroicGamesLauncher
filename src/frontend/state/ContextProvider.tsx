@@ -35,6 +35,7 @@ const initialContext: ContextType = {
     library: [],
     login: async () => Promise.resolve({ status: 'error' as const }),
     loginQr: async () => Promise.resolve({ status: 'error' as const }),
+    loginWeb: async () => Promise.resolve({ status: 'error' as const }),
     logout: async () => Promise.resolve(),
     enabled: false,
     users: [],
