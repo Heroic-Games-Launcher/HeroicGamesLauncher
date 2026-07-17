@@ -29,6 +29,9 @@
             "switchBack": "Sign in with username and password"
         },
         "username": "Username",
+        "web": {
+            "switch": "Sign in via your browser (official Steam page)"
+        },
         "welcome": "Sign in to Steam"
     },
     "welcome": "Welcome!"

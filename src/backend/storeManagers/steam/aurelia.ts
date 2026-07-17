@@ -1,4 +1,6 @@
 import { join } from 'path'
+import { userInfo } from 'os'
+import { spawn } from 'child_process'
 import { callRunner } from 'backend/launcher'
 import {
   getAureliaBin,
@@ -32,17 +34,66 @@ export class AureliaError extends Error {
  */
 const aureliaConfigDir = join(appFolder, 'aurelia')
 
+/**
+ * Isolated daemon endpoint for Heroic's aurelia commands.
+ */
+const aureliaDaemonSocket =
+  process.platform === 'win32'
+    ? `\\\\.\\pipe\\aurelia-heroic-${userInfo().username}`
+    : join(aureliaConfigDir, 'daemon.sock')
+
+let daemonEnsured = false
+
+/**
+ * Start Aurelia's session daemon
+ */
+function ensureAureliaDaemon(): void {
+  if (daemonEnsured) return
+  daemonEnsured = true
+  const { dir, bin } = getAureliaBin()
+  try {
+    const child = spawn(dir ? join(dir, bin) : bin, ['daemon'], {
+      detached: true,
+      stdio: 'ignore',
+      windowsHide: true,
+      env: {
+        ...process.env,
+        AURELIA_CONFIG_DIR: aureliaConfigDir,
+        AURELIA_DAEMON_SOCKET: aureliaDaemonSocket
+      }
+    })
+    child.on('error', (error) =>
+      logError(
+        ['Unable to start the Aurelia daemon', String(error)],
+        LogPrefix.Steam
+      )
+    )
+    child.unref()
+  } catch (error) {
+    logError(
+      ['Unable to start the Aurelia daemon', String(error)],
+      LogPrefix.Steam
+    )
+  }
+}
+
 export async function runAureliaCommand(
   commandParts: string[],
   options: CallRunnerOptions = {}
 ): Promise<ExecResult> {
+  ensureAureliaDaemon()
   const { dir, bin } = getAureliaBin()
   return callRunner(
     commandParts,
     { name: 'steam', logPrefix: LogPrefix.Steam, bin, dir },
     {
       ...options,
-      env: { AURELIA_CONFIG_DIR: aureliaConfigDir, ...options.env }
+      env: {
+        AURELIA_CONFIG_DIR: aureliaConfigDir,
+        AURELIA_DAEMON_SOCKET: aureliaDaemonSocket,
+        AURELIA_NO_SPAWN: '1',
+        ...options.env
+      }
     }
   )
 }
@@ -195,7 +246,11 @@ export function makeAureliaProgressHandler(
   }
 }
 
-export function makeAureliaQrHandler(
+/**
+ * Builds an `onOutput` handler
+ */
+export function makeAureliaUrlEventHandler(
+  eventName: string,
   onUrl: (url: string) => void
 ): (data: string) => void {
   return (data: string) => {
@@ -209,11 +264,17 @@ export function makeAureliaQrHandler(
       } catch {
         continue
       }
-      if (evt.event === 'qr_challenge' && typeof evt.url === 'string') {
+      if (evt.event === eventName && typeof evt.url === 'string') {
         onUrl(evt.url)
       }
     }
   }
+}
+
+export function makeAureliaQrHandler(
+  onUrl: (url: string) => void
+): (data: string) => void {
+  return makeAureliaUrlEventHandler('qr_challenge', onUrl)
 }
 
 /**
