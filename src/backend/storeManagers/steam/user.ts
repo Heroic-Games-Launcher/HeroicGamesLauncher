@@ -1,3 +1,4 @@
+import type { ChildProcess } from 'child_process'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { clearCache } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
@@ -8,29 +9,67 @@ import {
   runAureliaCommand,
   parseAureliaJson,
   makeAureliaQrHandler,
+  makeAureliaLoginHandler,
   AureliaError
 } from './aurelia'
 import type { AureliaAccount } from './aurelia_types'
 
 const QR_LOGIN_ABORT_ID = 'steam-qr-login'
+const LOGIN_ABORT_ID = 'steam-login'
+
+function isCancellationError(message: string): boolean {
+  return /\b(cancelled|canceled|FileNotFound|Expired)\b/i.test(message)
+}
 
 export class SteamUser {
+  /**
+   * login process
+   */
+  private static loginProcess: ChildProcess | null = null
+
+  /**
+   * Signs in with a username and password {@link submitGuardCode}
+   */
   static async login(
     credentials: SteamLoginData
   ): Promise<{ status: 'done' | 'error'; error?: string }> {
     logInfo('Logging in to Steam through Aurelia', LogPrefix.Steam)
 
-    const { username, password, guard } = credentials
+    const { username, password } = credentials
+    if (!username || !password) {
+      return {
+        status: 'error',
+        error: 'A username and password are required'
+      }
+    }
+
+    const onLoginEvent = makeAureliaLoginHandler((event) => {
+      if (event.event === 'awaiting_confirmation') {
+        sendFrontendMessage('steamLoginStatus', {
+          state: 'awaiting_confirmation',
+          message: event.message
+        })
+      } else if (event.event === 'guard_required') {
+        sendFrontendMessage('steamGuardRequired', event.type ?? 'device')
+      }
+    })
+
+    this.loginProcess = null
     try {
-      const result = await runAurelia<{
+      const res = await runAureliaCommand(
+        ['login', '-u', username, '-p', password, '--json'],
+        {
+          abortId: LOGIN_ABORT_ID,
+          onOutput: (data, child) => {
+            this.loginProcess = child
+            onLoginEvent(data)
+          }
+        }
+      )
+      const result = parseAureliaJson<{
         logged_in?: boolean
         account?: string
-      }>([
-        'login',
-        ...(username ? ['-u', username] : []),
-        ...(password ? ['-p', password] : []),
-        ...(guard ? ['--guard', guard] : [])
-      ])
+      }>(res)
       if (!result.logged_in) {
         logError('Steam login did not succeed', LogPrefix.Steam)
         return { status: 'error', error: 'Login was not successful' }
@@ -38,11 +77,40 @@ export class SteamUser {
       logInfo('Steam login successful', LogPrefix.Steam)
       return { status: 'done' }
     } catch (error) {
+      if (error instanceof AureliaError && error.aborted) {
+        logInfo('Steam login cancelled', LogPrefix.Steam)
+        return { status: 'error', error: 'cancelled' }
+      }
       const message =
         error instanceof AureliaError ? error.message : String(error)
+      if (isCancellationError(message)) {
+        logInfo('Steam login cancelled', LogPrefix.Steam)
+        return { status: 'error', error: 'cancelled' }
+      }
       logError(['Steam login failed', message], LogPrefix.Steam)
       return { status: 'error', error: message }
+    } finally {
+      this.loginProcess = null
     }
+  }
+
+  /**
+   * Feeds a Steam Guard code to the login
+   */
+  static submitGuardCode(code: string): void {
+    const child = this.loginProcess
+    if (!child?.stdin?.writable) {
+      logWarning(
+        'No pending Steam login to receive the Steam Guard code',
+        LogPrefix.Steam
+      )
+      return
+    }
+    child.stdin.write(`${code.trim()}\n`)
+  }
+
+  static cancelLogin(): void {
+    callAbortController(LOGIN_ABORT_ID)
   }
 
   static async loginQr(): Promise<{
@@ -54,8 +122,9 @@ export class SteamUser {
     try {
       const res = await runAureliaCommand(['login', '--qr', '--json'], {
         abortId: QR_LOGIN_ABORT_ID,
-        onOutput: makeAureliaQrHandler((url) =>
-          sendFrontendMessage('steamQrChallenge', url)
+        onOutput: makeAureliaQrHandler(
+          (url) => sendFrontendMessage('steamQrChallenge', url),
+          () => sendFrontendMessage('steamQrScanned')
         )
       })
       const result = parseAureliaJson<{
@@ -75,6 +144,10 @@ export class SteamUser {
       }
       const message =
         error instanceof AureliaError ? error.message : String(error)
+      if (isCancellationError(message)) {
+        logInfo('Steam QR login cancelled', LogPrefix.Steam)
+        return { status: 'error', error: 'cancelled' }
+      }
       logError(['Steam QR login failed', message], LogPrefix.Steam)
       return { status: 'error', error: message }
     }

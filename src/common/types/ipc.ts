@@ -133,6 +133,8 @@ interface SyncIPCFunctions {
   logoutZoom: () => void
   logoutSteam: () => void
   cancelSteamQrLogin: () => void
+  cancelSteamLogin: () => void
+  submitSteamGuardCode: (code: string) => void
   logoutSteamAccount: (steamId: string) => void
   setSteamIntegrationEnabled: (appName: string, enabled: boolean) => void
   setGameMetadataOverride: (args: {
@@ -430,6 +432,9 @@ interface FrontendMessages {
   logFileUploadDeleted: (url: string) => void
   progressUpdate: (progress: GameStatus) => void
   steamQrChallenge: (url: string) => void
+  steamQrScanned: () => void
+  steamGuardRequired: (type: string) => void
+  steamLoginStatus: (status: { state: string; message?: string }) => void
   metadataChanged: (
     overrides: Record<
       string,

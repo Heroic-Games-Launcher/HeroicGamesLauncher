@@ -3,7 +3,6 @@ import { LaunchOption } from 'common/types'
 export interface SteamLoginData {
   username: string
   password: string
-  guard?: string
 }
 
 export interface SteamAccount {

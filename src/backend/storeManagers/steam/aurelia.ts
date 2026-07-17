@@ -246,12 +246,9 @@ export function makeAureliaProgressHandler(
   }
 }
 
-/**
- * Builds an `onOutput` handler
- */
-export function makeAureliaUrlEventHandler(
-  eventName: string,
-  onUrl: (url: string) => void
+export function makeAureliaQrHandler(
+  onUrl: (url: string) => void,
+  onScanned?: () => void
 ): (data: string) => void {
   return (data: string) => {
     for (const rawLine of stripAnsi(data).split('\n')) {
@@ -264,17 +261,45 @@ export function makeAureliaUrlEventHandler(
       } catch {
         continue
       }
-      if (evt.event === eventName && typeof evt.url === 'string') {
+      if (evt.event === 'qr_challenge' && typeof evt.url === 'string') {
         onUrl(evt.url)
+      } else if (evt.event === 'qr_scanned') {
+        onScanned?.()
       }
     }
   }
 }
 
-export function makeAureliaQrHandler(
-  onUrl: (url: string) => void
+/** One NDJSON status line emitted by `aurelia login --json` while it runs. */
+interface AureliaLoginEvent {
+  event?: string
+  /** For `guard_required`: `email` | `device` | `device_confirmation`. */
+  type?: string
+  message?: string
+}
+
+/**
+ * Builds an `onOutput` handler
+ */
+export function makeAureliaLoginHandler(
+  onEvent: (event: AureliaLoginEvent) => void
 ): (data: string) => void {
-  return makeAureliaUrlEventHandler('qr_challenge', onUrl)
+  return (data: string) => {
+    for (const rawLine of stripAnsi(data).split('\n')) {
+      const line = rawLine.trim()
+      if (!line.startsWith('{')) continue
+
+      let evt: AureliaLoginEvent
+      try {
+        evt = JSON.parse(line)
+      } catch {
+        continue
+      }
+      if (typeof evt.event === 'string') {
+        onEvent(evt)
+      }
+    }
+  }
 }
 
 /**

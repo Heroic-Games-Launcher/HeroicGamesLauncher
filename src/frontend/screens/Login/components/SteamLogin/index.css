@@ -1,8 +1,87 @@
-.steam-qr {
-  display: grid;
-  place-items: center;
+/* Wider modal so the credentials and QR columns sit side by side*/
+.steam-login-modal {
+  place-items: stretch;
+  min-width: min(640px, 90vw);
   gap: var(--space-md);
-  margin-bottom: var(--space-md);
+}
+
+.steam-login-modal .loginInstructions {
+  text-align: start;
+}
+
+.steam-login-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+.steam-login-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.steam-credentials {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.steam-qr-column {
+  flex: 0 0 auto;
+  align-items: center;
+  text-align: center;
+}
+
+.steam-section-title {
+  color: var(--accent, #1a9fff);
+  font-size: var(--text-sm);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-2xs);
+}
+
+.steam-field-label {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-top: var(--space-2xs);
+}
+
+.steam-login-column .sid-input {
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+  padding: var(--space-2xs);
+  background-color: var(--input-background);
+  border: none;
+  height: 40px;
+  width: 100%;
+  border-radius: var(--space-3xs);
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  font-family: var(--primary-font-family);
+}
+
+.steam-login-column .sid-input:disabled {
+  opacity: 0.6;
+}
+
+.steam-signin-btn {
+  width: 100%;
+  margin-top: var(--space-md);
+  background: linear-gradient(90deg, #1a9fff 0%, #2f77e3 100%);
+  border: none;
+  color: #ffffff;
+}
+
+.steam-signin-btn:disabled {
+  opacity: 0.5;
+}
+
+.steam-login-divider {
+  align-self: stretch;
+  width: 1px;
+  background: var(--background);
 }
 
 /* White quiet-zone backing so the code scans on any theme. */
@@ -13,8 +92,48 @@
   line-height: 0;
 }
 
-.steam-mode-toggle {
-  margin-top: var(--space-sm);
+/* Same footprint as the rendered QR */
+.steam-qr-placeholder {
+  display: grid;
+  place-items: center;
+  width: 216px;
+  height: 216px;
+  background: var(--input-background);
+  border-radius: var(--space-3xs);
+}
+
+.steam-qr-caption {
+  max-width: 216px;
+  margin-top: var(--space-xs);
   color: var(--text-secondary);
-  text-decoration: underline;
+  font-size: var(--text-sm);
+}
+
+.steam-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--text-secondary);
+  margin-top: var(--space-2xs);
+}
+
+.steam-login-error {
+  color: var(--danger, #e74c3c);
+}
+
+/* Stack the columns on narrow viewports. */
+@media (max-width: 640px) {
+  .steam-login-columns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .steam-qr-column {
+    align-items: center;
+  }
+
+  .steam-login-divider {
+    width: auto;
+    height: 1px;
+  }
 }
