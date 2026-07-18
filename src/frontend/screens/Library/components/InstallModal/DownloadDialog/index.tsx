@@ -521,7 +521,10 @@ export default function DownloadDialog({
       return size(languageSize + universalSize + dlcSize)
     }
     if (gameInstallInfo?.manifest?.download_size) {
-      if (previousProgress.folder === installPath) {
+      if (
+        previousProgress.folder === installPath ||
+        previousProgressStrategy === 'move'
+      ) {
         const progress = 100 - getProgress(previousProgress)
         return size(
           (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
@@ -531,7 +534,13 @@ export default function DownloadDialog({
       return size(Number(gameInstallInfo?.manifest?.download_size))
     }
     return ''
-  }, [installPath, gameInstallInfo, installLanguage, dlcsToInstall])
+  }, [
+    installPath,
+    gameInstallInfo,
+    installLanguage,
+    dlcsToInstall,
+    previousProgressStrategy
+  ])
 
   const installSize = useMemo(() => {
     if (
