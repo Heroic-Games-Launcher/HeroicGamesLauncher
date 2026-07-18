@@ -59,6 +59,7 @@ export function getCardStatus(
     isLaunching,
     isInstallingWinetricksPackages,
     isInstallingRedist,
+    isMoving,
     haveStatus
   }
 }
