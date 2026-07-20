@@ -142,7 +142,6 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
-import './exe_handler/setup'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -1453,4 +1452,4 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
-import './exe_handler/ipc_handler'
+import './exe_handler/setup'
