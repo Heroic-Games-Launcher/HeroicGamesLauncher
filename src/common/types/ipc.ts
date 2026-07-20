@@ -443,8 +443,11 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
-  launchWithExeFile: (exePath: string, appName: string) => Promise<void>
-  checkPendingExeFile: () => Promise<string | null>
+  'exe_handler.launchWithExeFile': (
+    exePath: string,
+    appName: string,
+    runner: Runner
+  ) => Promise<void>
 }
 
 interface FrontendMessages {
@@ -496,7 +499,10 @@ interface FrontendMessages {
   ) => void
   itchioOAuthCallback: (url: string) => void
 
-  showExeFilePicker: (exePath: string) => void
+  'exe_handler.showExeFilePicker': (
+    exePath: string,
+    flatpakInaccessible: boolean
+  ) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

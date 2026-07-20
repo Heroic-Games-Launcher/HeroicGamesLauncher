@@ -68,12 +68,6 @@ import {
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
-import {
-  handleExeFile,
-  findExeInArgs,
-  launchWithExeFile,
-  checkPendingExeFile
-} from './exe_handler'
 
 import {
   getDiskInfo,
@@ -157,6 +151,7 @@ import {
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
 import { shouldUpdateDxvkTools } from './utils/config_helper'
+import './exe_handler/setup'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -331,12 +326,6 @@ if (!gotTheLock) {
 } else {
   app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
-    const exePath = findExeInArgs(argv)
-    if (exePath) {
-      handleExeFile(exePath)
-      return
-    }
-
     const mainWindow = getMainWindow()
     if (!shouldHideWindowForProtocolArgs(argv)) {
       mainWindow?.show()
@@ -506,13 +495,6 @@ addListener('notify', (event, args) => notify(args))
 
 addOneTimeListener('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
-
-  // Handle files opened with Heroic
-  const exePath = findExeInArgs(process.argv)
-  if (exePath) {
-    void handleExeFile(exePath)
-  }
-
   handleProtocol([openUrlArgument, ...process.argv])
 
   // skip the download queue if we are running in CLI mode
@@ -635,17 +617,6 @@ app.on('open-url', (event, url) => {
   }
 })
 
-app.on('open-file', (event, filePath) => {
-  event.preventDefault()
-  if (
-    filePath.toLowerCase().endsWith('.exe') ||
-    filePath.toLowerCase().endsWith('.msi') ||
-    filePath.toLowerCase().endsWith('.bat')
-  ) {
-    handleExeFile(filePath)
-  }
-})
-
 addListener('openExternalUrl', async (event, url) => openUrlOrFile(url))
 addListener('openFolder', async (event, folder) => openUrlOrFile(folder))
 addListener('openSupportPage', async () => openUrlOrFile(supportURL))
@@ -682,10 +653,6 @@ addListener('removeFolder', async (e, [path, folderName]) => {
 })
 
 addHandler('runWineCommand', async (e, args) => runWineCommand(args))
-addHandler('launchWithExeFile', async (e, exePath, appName) =>
-  launchWithExeFile(exePath, appName)
-)
-addHandler('checkPendingExeFile', async () => checkPendingExeFile())
 
 /// IPC handlers begin here.
 
@@ -1573,4 +1540,4 @@ import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
 import './storeManagers/steam/ipc_handler'
-import './storeManagers/steam/ipc_handler'
+import './exe_handler/ipc_handler'

@@ -1,77 +1,7 @@
-.exeFilePicker {
-  min-width: min(480px, 85vw);
-}
-
-.exeFilePicker__path {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-  word-break: break-all;
-  padding: 8px 12px;
-  background: var(--input-background);
-  border-radius: 4px;
-}
-
-.exeFilePicker__search {
-  width: 100%;
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  border: 1px solid var(--border-color);
-  background: var(--input-background);
-  color: var(--text-default);
-  border-radius: 4px;
-  font-size: 14px;
-  outline: none;
-  box-sizing: border-box;
-}
-
-.exeFilePicker__search:focus {
-  border-color: var(--accent);
-}
-
-.exeFilePicker__list {
-  max-height: 240px;
-  overflow-y: auto;
-  margin-bottom: 4px;
-}
-
-.exeFilePicker__gameBtn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 10px 14px;
-  margin-bottom: 4px;
-  border: 1px solid var(--border-color);
-  background: var(--input-background);
-  color: var(--text-default);
-  text-align: left;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition:
-    background 150ms,
-    border-color 150ms;
-}
-
-.exeFilePicker__gameBtn:hover {
-  background: var(--hover-background);
-  border-color: var(--accent);
-}
-
-.exeFilePicker__gameBtn:active {
-  background: var(--accent);
-  color: var(--background);
-}
-
 .exeFilePicker__gameIcon {
   width: 32px;
   height: 32px;
   border-radius: 4px;
   flex-shrink: 0;
   object-fit: cover;
-}
-
-.exeFilePicker__gameTitle {
-  flex: 1;
 }
