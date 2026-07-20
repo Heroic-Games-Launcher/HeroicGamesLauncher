@@ -32,8 +32,6 @@ export const getGameSettings = makeHandlerInvoker('getGameSettings')
 export const getInstallInfo = makeHandlerInvoker('getInstallInfo')
 export const runWineCommand = makeHandlerInvoker('runWineCommand')
 export const runWineCommandForGame = makeHandlerInvoker('runWineCommandForGame')
-export const launchWithExeFile = makeHandlerInvoker('launchWithExeFile')
-export const checkPendingExeFile = makeHandlerInvoker('checkPendingExeFile')
 export const onConnectivityChanged = frontendListenerSlot('connectivity-changed')
 export const getConnectivityStatus = makeHandlerInvoker('get-connectivity-status')
 export const setConnectivityOnline = makeListenerCaller('set-connectivity-online')
@@ -46,3 +44,8 @@ export const getGogDiscounts = makeHandlerInvoker('getGogDiscounts')
 export const getGmgDiscounts = makeHandlerInvoker('getGmgDiscounts')
 export const setTitleBarOverlay = makeListenerCaller('setTitleBarOverlay')
 export const isGameAvailable = makeHandlerInvoker('isGameAvailable')
+
+export const exe_handler = {
+  launchWithExeFile: makeHandlerInvoker('exe_handler.launchWithExeFile'),
+  handleShowExeFilePicker: frontendListenerSlot('exe_handler.showExeFilePicker')
+}
