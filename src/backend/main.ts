@@ -151,7 +151,6 @@ import {
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
 import { shouldUpdateDxvkTools } from './utils/config_helper'
-import './exe_handler/setup'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -1540,4 +1539,4 @@ import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
 import './storeManagers/steam/ipc_handler'
-import './exe_handler/ipc_handler'
+import './exe_handler/setup'
