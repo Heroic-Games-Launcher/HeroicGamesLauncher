@@ -58,7 +58,6 @@ export const pathExists = makeHandlerInvoker('pathExists')
 export const processShortcut = makeListenerCaller('processShortcut')
 export const handleGoToScreen = frontendListenerSlot('openScreen')
 export const handleShowDialog = frontendListenerSlot('showDialog')
-export const handleShowExeFilePicker = frontendListenerSlot('showExeFilePicker')
 
 import Store from 'electron-store'
 // FUTURE WORK
