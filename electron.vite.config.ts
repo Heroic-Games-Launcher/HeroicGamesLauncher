@@ -21,8 +21,8 @@ export default defineConfig(({ mode }) => ({
         input: 'src/backend/main.ts'
       },
       outDir: 'build/main',
-      minify: true,
-      sourcemap: mode === 'development' ? 'inline' : false
+      minify: false,
+      sourcemap: 'inline'
     },
     resolve: { alias: srcAliases },
     plugins: [externalizeDepsPlugin({ exclude: dependenciesToNotExternalize })]
