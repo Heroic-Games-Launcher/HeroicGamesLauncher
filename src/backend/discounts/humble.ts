@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { app } from 'electron'
+import CacheStore from 'backend/cache'
 import { addHandler } from 'backend/ipc'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import type { CatalogProduct } from 'common/types/discounts'
@@ -12,9 +13,7 @@ const HUMBLE_FEED_URL_TEMPLATE =
 const HUMBLE_CURRENCIES = ['USD']
 const HUMBLE_FALLBACK_CURRENCY = 'USD'
 
-const PAGE_SIZE = 1000
-const MAX_PAGES = 20
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000
+const CACHE_LIFESPAN_MINUTES = 24 * 60
 
 interface ImpactCatalogItem {
   CatalogItemId?: string
@@ -27,9 +26,7 @@ interface ImpactCatalogItem {
   Currency?: string
 }
 
-interface ImpactCatalogItemsResponse {
-  '@page'?: string
-  '@numpages'?: string
+interface ImpactCatalogFeed {
   Items?: ImpactCatalogItem[]
 }
 
@@ -77,33 +74,15 @@ const normalizeItem = (item: ImpactCatalogItem): CatalogProduct | null => {
   }
 }
 
-const fetchPage = async (
-  url: string,
-  page: number
-): Promise<ImpactCatalogItemsResponse> => {
-  const { data } = await axios.get<ImpactCatalogItemsResponse>(url, {
+const fetchFeed = async (url: string): Promise<CatalogProduct[]> => {
+  const { data } = await axios.get<ImpactCatalogFeed>(url, {
     timeout: 30000,
-    params: { PageSize: PAGE_SIZE, Page: page },
     headers: { 'User-Agent': `HeroicGamesLauncher/${app.getVersion()}` }
   })
-  return data
-}
-
-const fetchAllItems = async (url: string): Promise<CatalogProduct[]> => {
-  const first = await fetchPage(url, 1)
-  const numPages = Math.min(
-    parseInt(first['@numpages'] ?? '1', 10) || 1,
-    MAX_PAGES
-  )
-
-  const items = [...(first.Items ?? [])]
-  for (let page = 2; page <= numPages; page++) {
-    items.push(...((await fetchPage(url, page)).Items ?? []))
-  }
 
   const products: CatalogProduct[] = []
   const seen = new Set<string>()
-  for (const item of items) {
+  for (const item of data.Items ?? []) {
     const product = normalizeItem(item)
     if (!product || seen.has(product.id)) continue
     seen.add(product.id)
@@ -119,17 +98,16 @@ const resolveCurrency = (currencyCode?: string): string => {
     : HUMBLE_FALLBACK_CURRENCY
 }
 
-interface HumbleCache {
-  products: CatalogProduct[]
-  fetchedAt: number
-}
-const cache = new Map<string, HumbleCache>()
+const dealsCache = new CacheStore<CatalogProduct[]>(
+  'humble_deals',
+  CACHE_LIFESPAN_MINUTES
+)
 const inflight = new Map<string, Promise<CatalogProduct[]>>()
 
 const refreshCache = async (currency: string): Promise<CatalogProduct[]> => {
   const url = HUMBLE_FEED_URL_TEMPLATE.replace('{currency}', currency)
-  const products = await fetchAllItems(url)
-  cache.set(currency, { products, fetchedAt: Date.now() })
+  const products = await fetchFeed(url)
+  dealsCache.set(currency, products)
   logInfo(
     `Fetched ${products.length} Humble discounts (${currency})`,
     LogPrefix.Backend
@@ -141,10 +119,8 @@ const getHumbleDiscounts = async (
   currencyCode?: string
 ): Promise<CatalogProduct[]> => {
   const currency = resolveCurrency(currencyCode)
-  const cached = cache.get(currency)
-  if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
-    return cached.products
-  }
+  const cached = dealsCache.get(currency)
+  if (cached) return cached
 
   let pending = inflight.get(currency)
   if (!pending) {
@@ -161,7 +137,6 @@ const getHumbleDiscounts = async (
       `Failed to fetch Humble discounts (${currency}): ${String(err)}`,
       LogPrefix.Backend
     )
-    if (cached) return cached.products
     throw err
   }
 }
