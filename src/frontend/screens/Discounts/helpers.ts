@@ -217,7 +217,7 @@ export const getLocaleSettings = (
 // the path of the original www.gog.com URL preserved, plus the ?as=<id>
 // affiliate parameter. Links pointing at www.gog.com directly are not
 // tracked by GOG even if ?as= is present.
-const withAffiliate = (storeLink: string): string => {
+const withGogAffiliate = (storeLink: string): string => {
   try {
     const url = new URL(storeLink)
     url.hostname = 'af.gog.com'
@@ -250,7 +250,7 @@ type AffiliateStrategy =
   | { kind: 'deeplink' }
 
 const AFFILIATE_STRATEGIES: Record<DiscountStore, AffiliateStrategy> = {
-  gog: { kind: 'rewrite', rewrite: withAffiliate },
+  gog: { kind: 'rewrite', rewrite: withGogAffiliate },
   gmg: { kind: 'deeplink' },
   humble: { kind: 'rewrite', rewrite: withHumbleAffiliate }
 }

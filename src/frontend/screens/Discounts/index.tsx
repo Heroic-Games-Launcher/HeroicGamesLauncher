@@ -201,7 +201,7 @@ export default function Discounts() {
             window.api.logError(
               `Failed to fetch Humble discounts: ${String(err)}`
             )
-            return [] as CatalogProduct[]
+            return []
           })
         ])
         if (!cancelled) {
