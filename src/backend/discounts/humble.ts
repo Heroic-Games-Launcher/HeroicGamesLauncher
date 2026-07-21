@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { app } from 'electron'
+import i18next from 'i18next'
 import CacheStore from 'backend/cache'
 import { addHandler } from 'backend/ipc'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
@@ -30,15 +31,16 @@ interface ImpactCatalogFeed {
   Items?: ImpactCatalogItem[]
 }
 
+const SUPPORTED_CURRENCIES = new Set(Intl.supportedValuesOf('currency'))
+
 const formatPrice = (amount: number, currency: string): string => {
-  try {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency
-    }).format(amount)
-  } catch {
+  if (!SUPPORTED_CURRENCIES.has(currency)) {
     return `${currency} ${amount.toFixed(2)}`
   }
+  return new Intl.NumberFormat(i18next.language?.replace('_', '-') || 'en-US', {
+    style: 'currency',
+    currency
+  }).format(amount)
 }
 
 const normalizeItem = (item: ImpactCatalogItem): CatalogProduct | null => {

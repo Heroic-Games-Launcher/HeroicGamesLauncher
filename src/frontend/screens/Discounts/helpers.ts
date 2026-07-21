@@ -234,12 +234,8 @@ const withGogAffiliate = (storeLink: string): string => {
 const HUMBLE_AFFILIATE_LINK = 'https://humblebundleinc.sjv.io/heroic'
 
 const withHumbleAffiliate = (storeLink: string): string => {
-  try {
-    const destination = new URL(storeLink).searchParams.get('u') ?? storeLink
-    return `${HUMBLE_AFFILIATE_LINK}?u=${encodeURIComponent(destination)}`
-  } catch {
-    return storeLink
-  }
+  const destination = new URL(storeLink).searchParams.get('u') ?? storeLink
+  return `${HUMBLE_AFFILIATE_LINK}?u=${encodeURIComponent(destination)}`
 }
 
 // 'deeplink' feeds arrive already tagged with our affiliate code; rewriting
