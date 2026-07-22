@@ -50,6 +50,7 @@ import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
+import { HumbleBundleUserInfo } from './humble_bundle'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -195,6 +196,7 @@ interface AsyncIPCFunctions {
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
+  getHumbleBundleUserInfo: () => Promise<HumbleBundleUserInfo | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'
@@ -204,6 +206,10 @@ interface AsyncIPCFunctions {
     status: 'done' | 'error'
     data?: UserData
   }>
+  authHumbleBundle: () => Promise<{
+    status: 'done' | 'error'
+    data?: HumbleBundleUserInfo
+  }>
   authAmazon: (data: NileRegisterData) => Promise<{
     status: 'done' | 'failed'
     user: NileUserData | undefined
@@ -211,6 +217,7 @@ interface AsyncIPCFunctions {
   authZoom: (url: string) => Promise<{ status: 'done' | 'error' }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
+  logoutHumble: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestAppSettings: () => AppSettings

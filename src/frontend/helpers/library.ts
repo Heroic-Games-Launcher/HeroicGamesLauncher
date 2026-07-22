@@ -471,6 +471,7 @@ export const normalizeTitle = (title: string) => {
 
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
+export const humbleBundleCategories = ['all', 'humble-bundle']
 export const sideloadedCategories = ['all', 'sideload']
 export const amazonCategories = ['all', 'nile', 'amazon']
 export const zoomCategories = ['all', 'zoom']

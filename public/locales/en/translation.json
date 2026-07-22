@@ -551,6 +551,7 @@
         "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games.",
         "WoW64": "The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games."
     },
+    "humble-bundle": "Humble Bundle",
     "info": {
         "heroic": {
             "beta": "Beta",
@@ -607,6 +608,7 @@
         "amazon": "Amazon Login",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
+        "humble-bundle": "Humble Bundle Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
         "zoom": "Zoom Login"
