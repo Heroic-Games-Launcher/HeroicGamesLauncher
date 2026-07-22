@@ -23,6 +23,7 @@ import type {
   InstallParams,
   InstallPlatform,
   KnowFixesInfo,
+  LegendaryAccount,
   LaunchOption,
   LaunchParams,
   MoveGameArgs,
@@ -196,9 +197,25 @@ interface AsyncIPCFunctions {
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
   isLoggedIn: () => boolean
-  login: (sid: string) => Promise<{
+  login: (
+    sid: string,
+    options?: { addAccount?: boolean }
+  ) => Promise<{
     status: 'done' | 'failed'
     data: UserInfo | undefined
+    message?: string
+  }>
+  getLegendaryAccounts: () => Promise<LegendaryAccount[]>
+  switchLegendaryAccount: (accountId: string) => Promise<{
+    status: 'done' | 'failed'
+    data: UserInfo | undefined
+  }>
+  clearLegendaryWebSession: () => Promise<void>
+  removeLegendaryAccount: (accountId: string) => Promise<{
+    status: 'done' | 'failed'
+    accounts: LegendaryAccount[]
+    activeAccountId?: string
+    data?: UserInfo
   }>
   authGOG: (code: string) => Promise<{
     status: 'done' | 'error'
@@ -209,7 +226,7 @@ interface AsyncIPCFunctions {
     user: NileUserData | undefined
   }>
   authZoom: (url: string) => Promise<{ status: 'done' | 'error' }>
-  logoutLegendary: () => Promise<void>
+  logoutLegendary: () => Promise<boolean>
   logoutAmazon: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
