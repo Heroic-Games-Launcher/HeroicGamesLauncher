@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo, Runner } from 'common/types'
+import { GameInfo } from 'common/types'
 import GamesList from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
-  handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
+  handleModal: (game: GameHandle, gameInfo: GameInfo) => void
   onlyInstalled: boolean
   showHidden: boolean
 }

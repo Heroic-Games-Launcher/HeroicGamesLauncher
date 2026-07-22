@@ -1,4 +1,6 @@
 // Mock environment constants first, before any imports
+import { FakeGame } from './util'
+
 const mockIsCLINoGui = jest.fn()
 jest.mock('../constants/environment', () => ({
   get isCLINoGui() {
@@ -11,7 +13,9 @@ jest.mock('../constants/environment', () => ({
 jest.mock('../constants/paths', () => ({
   windowIcon: 'mock-icon-path',
   appFolder: '/mock/app/folder',
-  userHome: '/mock/home'
+  userHome: '/mock/home',
+  toolsPath: '/mock/tools',
+  userDataPath: '/mock/userdata'
 }))
 
 // Mock GlobalConfig so we can toggle hideWindowOnProtocolLaunch per test
@@ -62,6 +66,9 @@ jest.mock('../storeManagers', () => ({
     nile: {
       getGame: jest.fn()
     },
+    zoom: {
+      getGame: jest.fn()
+    },
     sideload: {
       getGame: jest.fn()
     }
@@ -106,6 +113,8 @@ describe('protocol.ts --no-gui behavior', () => {
     isVisible: jest.fn(() => true)
   }
 
+  const fakeGame = new FakeGame('test-game', 'legendary')
+
   const mockGameInfo = {
     app_name: 'test-game',
     title: 'Test Game',
@@ -120,17 +129,13 @@ describe('protocol.ts --no-gui behavior', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+    fakeGame.getGameInfo.mockReturnValue(mockGameInfo)
+    fakeGame.getSettings.mockReturnValue(mockGameSettings)
     mockHideWindowOnProtocolLaunch.mockReturnValue(false)
     mockMainWindow.isVisible.mockReturnValue(true)
-
-    const gameMock = {
-      getGameInfo: () => mockGameInfo,
-      getSettings: () => mockGameSettings
-    }
-
     ;(getMainWindow as jest.Mock).mockReturnValue(mockMainWindow)
     ;(libraryManagerMap.legendary.getGame as jest.Mock).mockReturnValue(
-      gameMock
+      fakeGame
     )
 
     // Mock other game managers to return empty objects
@@ -138,6 +143,9 @@ describe('protocol.ts --no-gui behavior', () => {
       emptyGameInfoMock
     )
     ;(libraryManagerMap.nile.getGame as jest.Mock).mockReturnValue(
+      emptyGameInfoMock
+    )
+    ;(libraryManagerMap.zoom.getGame as jest.Mock).mockReturnValue(
       emptyGameInfoMock
     )
     ;(libraryManagerMap.sideload.getGame as jest.Mock).mockReturnValue(
@@ -171,8 +179,7 @@ describe('protocol.ts --no-gui behavior', () => {
         expect(mockMainWindow.show).toHaveBeenCalled()
         expect(sendFrontendMessage).toHaveBeenCalledWith(
           'installGame',
-          'test-game',
-          'legendary'
+          fakeGame
         )
         expect(app.quit).not.toHaveBeenCalled()
       })
@@ -199,8 +206,7 @@ describe('protocol.ts --no-gui behavior', () => {
 
         expect(sendFrontendMessage).toHaveBeenCalledWith(
           'installGame',
-          'test-game',
-          'legendary'
+          fakeGame
         )
         expect(app.quit).not.toHaveBeenCalled()
         expect(mockMainWindow.show).not.toHaveBeenCalled()
@@ -309,11 +315,7 @@ describe('protocol.ts --no-gui behavior', () => {
       await handleProtocol(['heroic://launch/test-game'])
 
       expect(mockMainWindow.show).toHaveBeenCalled()
-      expect(sendFrontendMessage).toHaveBeenCalledWith(
-        'installGame',
-        'test-game',
-        'legendary'
-      )
+      expect(sendFrontendMessage).toHaveBeenCalledWith('installGame', fakeGame)
     })
   })
 

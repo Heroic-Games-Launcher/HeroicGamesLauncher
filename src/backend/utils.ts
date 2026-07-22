@@ -6,7 +6,6 @@ import {
   SteamRuntime,
   Release,
   GameInfo,
-  GameSettings,
   GameStatus
 } from 'common/types'
 import axios from 'axios'
@@ -85,12 +84,20 @@ import { parse } from '@node-steam/vdf'
 import type LogWriter from 'backend/logger/log_writer'
 import { isRunning } from './downloadmanager/downloadqueue'
 import { isOnline } from './online_monitor'
-import type { Game } from 'common/types/game_manager'
+import { Game } from 'common/types/game_manager'
 
 const execAsync = promisify(exec)
 
+const gameCache: Map<`${string}_${Runner}`, Game> = new Map()
+
 function getGame(id: string, runner: Runner): Game {
-  return libraryManagerMap[runner].getGame(id)
+  const cacheKey = `${id}_${runner}` as const
+  const cached = gameCache.get(cacheKey)
+  if (cached) return cached
+
+  const game = libraryManagerMap[runner].getGame(id)
+  gameCache.set(cacheKey, game)
+  return game
 }
 
 /**
@@ -143,12 +150,13 @@ function semverGt(target: string, base: string) {
 const getFileSize = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 
 async function getWineFromProton(
-  gameSettings: GameSettings
+  game: Game
 ): Promise<{ winePrefix: string; wineVersion: WineInstallation }> {
+  const gameSettings = await game.getSettings()
   const wineVersion = gameSettings.wineVersion
   let winePrefix = gameSettings.winePrefix
 
-  if (wineVersion.type !== 'proton' || (await isUmuSupported(gameSettings))) {
+  if (wineVersion.type !== 'proton' || (await isUmuSupported(game))) {
     return { winePrefix, wineVersion }
   }
 
@@ -300,8 +308,8 @@ export async function askForceUninstall(game: Game) {
 
 async function errorHandler(
   error: string,
-  appName: string,
-  runner: Runner
+  runner: Runner,
+  game?: Game
 ): Promise<void> {
   const plat = runner === 'legendary' ? 'Legendary (Epic Games)' : runner
   const deletedFolderMsg = 'appears to be deleted'
@@ -319,8 +327,8 @@ async function errorHandler(
 
   if (ignoreMessages.some((msg) => error.includes(msg))) return
 
-  if (error.includes(deletedFolderMsg) && appName) {
-    await askForceUninstall(getGame(appName, runner))
+  if (game && error.includes(deletedFolderMsg)) {
+    await askForceUninstall(game)
     return
   }
 
@@ -398,8 +406,8 @@ function clearCache(
   }
 }
 
-function clearAchievementCache(appName: string) {
-  GOGAchievementStore.delete(appName)
+function clearAchievementCache(game: Game) {
+  GOGAchievementStore.delete(game.id)
 }
 
 function resetHeroic() {
@@ -863,14 +871,14 @@ function killPattern(pattern: string) {
   return ret
 }
 
-async function shutdownWine(gameSettings: GameSettings) {
+async function shutdownWine(game: Game) {
+  const gameSettings = await game.getSettings()
   if (gameSettings.wineVersion.wineserver) {
     spawnSync(gameSettings.wineVersion.wineserver, ['-k'], {
       env: { WINEPREFIX: gameSettings.winePrefix }
     })
   } else {
-    await runWineCommand({
-      gameSettings,
+    await runWineCommand(game, {
       commandParts: ['wineboot', '-k'],
       wait: true,
       protonVerb: 'run'
@@ -991,10 +999,10 @@ export async function downloadDefaultWine() {
 }
 
 export async function checkWineBeforeLaunch(
-  gameInfo: GameInfo,
-  gameSettings: GameSettings,
+  game: Game,
   logWriter: LogWriter
 ): Promise<boolean> {
+  const gameSettings = await game.getSettings()
   const wineIsValid = await validWine(gameSettings.wineVersion)
 
   if (wineIsValid) {
@@ -1035,7 +1043,7 @@ export async function checkWineBeforeLaunch(
           ])
         }
         gameSettings.wineVersion = defaultwine
-        GameConfig.get(gameInfo.app_name).setSetting('wineVersion', defaultwine)
+        GameConfig.get(game.id).setSetting('wineVersion', defaultwine)
         return true
       } else {
         logInfo('User canceled the launch', LogPrefix.Backend)
@@ -1052,10 +1060,7 @@ export async function checkWineBeforeLaunch(
         if (firstFoundWine) {
           logInfo(`Changing wine version to ${firstFoundWine.name}`)
           gameSettings.wineVersion = firstFoundWine
-          GameConfig.get(gameInfo.app_name).setSetting(
-            'wineVersion',
-            firstFoundWine
-          )
+          GameConfig.get(game.id).setSetting('wineVersion', firstFoundWine)
           return true
         }
       }
@@ -1069,10 +1074,7 @@ export async function checkWineBeforeLaunch(
         if (response === 0) {
           logInfo(`Changing wine version to ${firstFoundWine.name}`)
           gameSettings.wineVersion = firstFoundWine
-          GameConfig.get(gameInfo.app_name).setSetting(
-            'wineVersion',
-            firstFoundWine
-          )
+          GameConfig.get(game.id).setSetting('wineVersion', firstFoundWine)
           return true
         } else {
           logInfo('User canceled the launch', LogPrefix.Backend)
@@ -1085,15 +1087,15 @@ export async function checkWineBeforeLaunch(
 }
 
 export async function moveOnWindows(
-  newInstallPath: string,
-  gameInfo: GameInfo
+  game: Game,
+  newInstallPath: string
 ): Promise<
   { status: 'done'; installPath: string } | { status: 'error'; error: string }
 > {
   const {
     install: { install_path },
     title
-  } = gameInfo
+  } = game.getGameInfo()
 
   if (!install_path) {
     return { status: 'error', error: 'No install path found' }
@@ -1116,9 +1118,7 @@ export async function moveOnWindows(
       const filenameMatch = data.match(/([\w.:\\]+)$/)?.[1]
       if (filenameMatch) currentFile = filenameMatch
 
-      sendFrontendMessage('progressUpdate', {
-        appName: gameInfo.app_name,
-        runner: gameInfo.runner,
+      sendProgressUpdate(game, {
         status: 'moving',
         progress: {
           percent,
@@ -1140,15 +1140,15 @@ export async function moveOnWindows(
 }
 
 export async function moveOnUnix(
-  newInstallPath: string,
-  gameInfo: GameInfo
+  game: Game,
+  newInstallPath: string
 ): Promise<
   { status: 'done'; installPath: string } | { status: 'error'; error: string }
 > {
   const {
     install: { install_path },
     title
-  } = gameInfo
+  } = game.getGameInfo()
   if (!install_path) {
     return { status: 'error', error: 'No install path found' }
   }
@@ -1222,9 +1222,7 @@ export async function moveOnUnix(
           }
         }
 
-        sendFrontendMessage('progressUpdate', {
-          appName: gameInfo.app_name,
-          runner: gameInfo.runner,
+        sendProgressUpdate(game, {
           status: 'moving',
           progress: {
             percent,
@@ -1373,14 +1371,28 @@ export async function isMacSonomaOrHigher() {
   return isMacSonomaOrHigher
 }
 
-function sendGameStatusUpdate(payload: GameStatus) {
-  sendFrontendMessage('gameStatusUpdate', payload)
-  backendEvents.emit('gameStatusUpdate', payload)
+type GameLike = Game | { id: string; runner: Runner }
+
+function sendGameStatusUpdate(
+  gameLike: GameLike,
+  payload: GameStatus['status'] | GameStatus
+) {
+  if (typeof payload === 'string') {
+    payload = {
+      status: payload
+    }
+  }
+  const game =
+    gameLike instanceof Game ? gameLike : getGame(gameLike.id, gameLike.runner)
+  sendFrontendMessage('gameStatusUpdate', game, payload)
+  backendEvents.emit('gameStatusUpdate', game, payload)
 }
 
-function sendProgressUpdate(payload: GameStatus) {
-  sendFrontendMessage('progressUpdate', payload)
-  backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
+function sendProgressUpdate(gameLike: GameLike, payload: GameStatus) {
+  const game =
+    gameLike instanceof Game ? gameLike : getGame(gameLike.id, gameLike.runner)
+  sendFrontendMessage('progressUpdate', game, payload)
+  backendEvents.emit(`progressUpdate-${game.id}`, game, payload)
 }
 
 interface ProgressCallback {
@@ -1629,15 +1641,14 @@ const axiosClient = axios.create({
   httpsAgent: new https.Agent({ keepAlive: true })
 })
 
-export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
-  logInfo(
-    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
-    LogPrefix.Backend
-  )
-  const oldConfig =
-    appName === 'default'
-      ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
+export const writeConfig = (
+  game: Game | null,
+  config: Partial<AppSettings>
+) => {
+  logInfo(`Writing config for ${game ? game.id : 'Heroic'}`, LogPrefix.Backend)
+  const oldConfig = game
+    ? GameConfig.get(game.id).config
+    : GlobalConfig.get().getSettings()
 
   // log only the changed setting
   const sharedKeys = (
@@ -1655,16 +1666,16 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
     )
   }
 
-  if (appName === 'default') {
+  if (game) {
+    GameConfig.get(game.id).config = { ...oldConfig, ...config }
+    GameConfig.get(game.id).flush()
+  } else {
     GlobalConfig.get().set(config as AppSettings)
     GlobalConfig.get().flush()
     const currentConfigStore = configStore.get_nodefault('settings')
     if (currentConfigStore) {
       configStore.set('settings', { ...currentConfigStore, ...config })
     }
-  } else {
-    GameConfig.get(appName).config = config as GameSettings
-    GameConfig.get(appName).flush()
   }
 }
 

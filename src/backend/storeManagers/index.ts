@@ -7,8 +7,9 @@ import ZoomLibraryManager from 'backend/storeManagers/zoom/library'
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 
-import type { DMQueueElement, GameInfo, Runner } from 'common/types'
-import type { LibraryManager } from 'common/types/game_manager'
+import type { DMQueueElement, Runner } from 'common/types'
+import { Game, LibraryManager } from 'common/types/game_manager'
+import { getGame } from '../utils'
 
 export const libraryManagerMap = {
   sideload: new SideloadLibraryManager(),
@@ -18,16 +19,16 @@ export const libraryManagerMap = {
   zoom: new ZoomLibraryManager()
 } satisfies Record<Runner, LibraryManager>
 
-function getDMElement(gameInfo: GameInfo, appName: string) {
+function getDMElement(game: Game) {
+  const gameInfo = game.getGameInfo()
   const {
-    install: { install_path, platform },
-    runner
+    install: { install_path, platform }
   } = gameInfo
   const dmQueueElement: DMQueueElement = {
     params: {
-      appName,
+      appName: game.id,
       gameInfo,
-      runner,
+      runner: game.runner,
       path: install_path!,
       platformToInstall: platform!
     },
@@ -42,13 +43,13 @@ function getDMElement(gameInfo: GameInfo, appName: string) {
 export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   const logPrefix = RunnerToLogPrefixMap[runner]
   gamesToUpdate.forEach(async (appName) => {
-    const game = libraryManagerMap[runner].getGame(appName)
+    const game = getGame(appName, runner)
     const { ignoreGameUpdates } = await game.getSettings()
     const gameInfo = game.getGameInfo()
     const gameIsAvailable = await game.isGameAvailable()
     if (!ignoreGameUpdates && gameIsAvailable) {
       logInfo(`Auto-Updating ${gameInfo.title}`, logPrefix)
-      const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
+      const dmQueueElement: DMQueueElement = getDMElement(game)
       addToQueue(dmQueueElement)
       // remove from the array to avoid downloading the same game twice
       gamesToUpdate = gamesToUpdate.filter((game) => game !== appName)

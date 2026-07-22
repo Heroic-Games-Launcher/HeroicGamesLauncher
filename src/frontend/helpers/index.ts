@@ -1,14 +1,15 @@
-import {
+import type {
   GameInfo,
   InstallProgress,
   Runner,
-  GameSettings,
   InstallPlatform,
   InstallInfo
 } from 'common/types'
 
 import { install, launch, repair, updateGame } from './library'
 import * as fileSize from 'filesize'
+import type { GameHandle } from './ipc'
+
 const readFile = window.api.readConfig
 
 const writeConfig = window.api.writeConfig
@@ -29,18 +30,11 @@ export const size = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 const sendKill = window.api.kill
 
 const syncSaves = async (
+  game: GameHandle,
   savesPath: string,
-  appName: string,
-  runner: Runner,
   arg?: string
 ): Promise<string> => {
-  const response: string = await window.api.syncSaves({
-    arg,
-    path: savesPath,
-    appName,
-    runner
-  })
-  return response
+  return window.api.syncSaves(game, savesPath, arg)
 }
 
 const getLegendaryConfig = async (): Promise<{
@@ -58,28 +52,19 @@ const getLegendaryConfig = async (): Promise<{
   return { library, user }
 }
 
-const getGameInfo = async (appName: string, runner: Runner) => {
-  return window.api.getGameInfo(appName, runner)
-}
-
-const getGameSettings = async (
-  appName: string,
-  runner: Runner
-): Promise<GameSettings | null> => {
-  return window.api.getGameSettings(appName, runner)
+const getGameInfo = async (game: GameHandle) => {
+  return window.api.getGameInfo(game)
 }
 
 const getInstallInfo = async (
-  appName: string,
-  runner: Runner,
+  game: GameHandle,
   installPlatform: InstallPlatform,
   build?: string,
   branch?: string
-): Promise<InstallInfo | null> => {
+): Promise<InstallInfo | null | undefined> => {
   return window.api.getInstallInfo(
-    appName,
-    runner,
-    handleRunnersPlatforms(installPlatform, runner),
+    game,
+    handleRunnersPlatforms(installPlatform, game.runner),
     build,
     branch
   )
@@ -155,7 +140,6 @@ function getPreferredInstallLanguage(
 export {
   createNewWindow,
   getGameInfo,
-  getGameSettings,
   getInstallInfo,
   getLegendaryConfig,
   getProgress,

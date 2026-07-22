@@ -1,18 +1,16 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './index.scss'
 import { ProgressDialog } from '../ProgressDialog'
 import WinetricksSearchBar from './WinetricksSearch'
 import { useTranslation } from 'react-i18next'
-import SettingsContext from 'frontend/screens/Settings/SettingsContext'
-import { Runner } from 'common/types'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
   onClose: () => void
-  runner: Runner
+  game: GameHandle
 }
 
-export default function Winetricks({ onClose, runner }: Props) {
-  const { appName } = useContext(SettingsContext)
+export default function Winetricks({ onClose, game }: Props) {
   const { t } = useTranslation()
 
   const [loadingInstalled, setLoadingInstalled] = useState(true)
@@ -23,10 +21,7 @@ export default function Winetricks({ onClose, runner }: Props) {
   async function listInstalled() {
     setLoadingInstalled(true)
     try {
-      const components = await window.api.winetricksListInstalled(
-        runner,
-        appName
-      )
+      const components = await window.api.winetricksListInstalled(game)
       setInstalled(components)
     } catch {
       setInstalled([])
@@ -42,10 +37,7 @@ export default function Winetricks({ onClose, runner }: Props) {
     async function listComponents() {
       setLoadingAvailable(true)
       try {
-        const components = await window.api.winetricksListAvailable(
-          runner,
-          appName
-        )
+        const components = await window.api.winetricksListAvailable(game)
         setAllComponents(components)
       } catch {
         setAllComponents([])
@@ -61,24 +53,21 @@ export default function Winetricks({ onClose, runner }: Props) {
   const [installingComponent, setInstallingComponent] = useState('')
   const [logs, setLogs] = useState<string[]>([])
   function install(component: string) {
-    window.api.winetricksInstall(runner, appName, component)
+    window.api.winetricksInstall(game, component)
   }
 
   useEffect(() => {
-    async function onInstallingChange(
-      e: Electron.IpcRendererEvent,
-      component: string
-    ) {
+    async function onInstallingChange(component: string) {
       if (component === '') {
         listInstalled()
       }
       setInstalling(false)
     }
 
-    async function onWinetricksProgress(
-      e: Electron.IpcRendererEvent,
-      payload: { messages: string[]; installingComponent: string }
-    ) {
+    async function onWinetricksProgress(payload: {
+      messages: string[]
+      installingComponent: string
+    }) {
       // this conditionals help to show the correct state if the dialog
       // is closed during an installation and then re-opened
       if (payload.installingComponent.length) {
@@ -103,11 +92,7 @@ export default function Winetricks({ onClose, runner }: Props) {
   }, [])
 
   function launchWinetricks() {
-    window.api.callTool({
-      tool: 'winetricks',
-      appName,
-      runner
-    })
+    window.api.callTool(game, 'winetricks')
   }
 
   const dialogContent = (

@@ -14,8 +14,6 @@ import type { Game } from 'common/types/game_manager'
 
 export async function getWikiGameInfo(game: Game): Promise<WikiInfo | null> {
   const gameInfo = game.getGameInfo()
-  const appName = gameInfo.app_name
-  const runner = gameInfo.runner
 
   try {
     const title = removeSpecialcharacters(gameInfo.title)
@@ -33,10 +31,13 @@ export async function getWikiGameInfo(game: Game): Promise<WikiInfo | null> {
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
     const [pcgamingwiki, gamesdb, applegamingwiki, umuId] = await Promise.all([
-      getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
-      getInfoFromGamesDB(title, appName, runner),
+      getInfoFromPCGamingWiki(
+        title,
+        game.runner === 'gog' ? game.id : undefined
+      ),
+      getInfoFromGamesDB(title, game),
       isMac ? getInfoFromAppleGamingWiki(title) : null,
-      isLinux ? getUmuId(appName, runner) : null
+      isLinux ? getUmuId(game) : null
     ])
 
     // Get HowLongToBeat data, using gog.com site for GOG games, and HLTB ID from PCGamingWiki if available

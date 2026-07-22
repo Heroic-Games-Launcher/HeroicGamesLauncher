@@ -6,11 +6,11 @@ import { PathSelectionBox } from 'frontend/components/UI'
 
 const AlternativeExe = () => {
   const { t } = useTranslation()
-  const { isDefault, runner, gameInfo } = useContext(SettingsContext)
+  const { isDefault, game, gameInfo } = useContext(SettingsContext)
 
   const [targetExe, setTargetExe] = useSetting('targetExe', '')
 
-  if (isDefault || runner === 'sideload') {
+  if (isDefault || game.runner === 'sideload') {
     return <></>
   }
 

@@ -13,7 +13,7 @@ const LaunchOptionSelector = ({
   showTitle?: boolean
 }) => {
   const { t } = useTranslation()
-  const { isDefault, appName, gameInfo } = useContext(SettingsContext)
+  const { isDefault, game } = useContext(SettingsContext)
 
   const defaultLaunchOption: LaunchOption = {
     type: 'basic',
@@ -32,8 +32,7 @@ const LaunchOptionSelector = ({
     labelForLaunchOption,
     handleLaunchOptionChange
   } = useLaunchOptions({
-    appName: appName || '',
-    runner: gameInfo?.runner,
+    game,
     lastUsedOption: lastUsedLaunchOption,
     onSelectionChange: (option) => {
       setLastUsedLaunchOption(option)
