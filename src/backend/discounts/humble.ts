@@ -6,23 +6,13 @@ import { addHandler } from 'backend/ipc'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import type { CatalogProduct } from 'common/types/discounts'
 
-const GMG_FEED_URL_TEMPLATE =
-  'https://raw.githubusercontent.com/Heroic-Games-Launcher/deals-listing/gmg-feed/gmg-discounts-{currency}.json'
+const HUMBLE_FEED_URL_TEMPLATE =
+  'https://raw.githubusercontent.com/Heroic-Games-Launcher/deals-listing/humble-feed/humble-discounts-{currency}.json'
 
-// Keep in sync with GMG_CURRENCIES in frontend/screens/Discounts/helpers.ts
-// and the feeds published by the deals-listing repo.
-const GMG_CURRENCIES = [
-  'GBP',
-  'USD',
-  'EUR',
-  'CAD',
-  'AUD',
-  'BRL',
-  'CNY',
-  'TRL',
-  'KRW'
-]
-const GMG_FALLBACK_CURRENCY = 'USD'
+// The Humble impact catalog currently only publishes USD. Extend this list (and
+// the workflow) if Humble starts exposing more currencies.
+const HUMBLE_CURRENCIES = ['USD']
+const HUMBLE_FALLBACK_CURRENCY = 'USD'
 
 const CACHE_LIFESPAN_MINUTES = 24 * 60
 
@@ -35,23 +25,10 @@ interface ImpactCatalogItem {
   CurrentPrice?: string
   OriginalPrice?: string
   Currency?: string
-  Text1?: string
 }
 
 interface ImpactCatalogFeed {
   Items?: ImpactCatalogItem[]
-}
-
-// Platform comes from GMG's SKU suffix ("<title> - PC", "... - Xbox
-// Series XS", "... - MAC").
-const platformFromSku = (sku: string): string[] | undefined => {
-  const match = / - ([A-Za-z0-9 +()]+)$/.exec(sku)
-  if (!match) return undefined
-  const suffix = match[1].toLowerCase()
-  if (suffix.startsWith('xbox')) return ['xbox']
-  if (suffix === 'mac') return ['osx']
-  if (suffix === 'pc' || suffix.startsWith('windows')) return ['windows']
-  return undefined
 }
 
 const SUPPORTED_CURRENCIES = new Set(Intl.supportedValuesOf('currency'))
@@ -81,7 +58,7 @@ const normalizeItem = (item: ImpactCatalogItem): CatalogProduct | null => {
   const currency = item.Currency ?? 'USD'
 
   return {
-    id: `gmg-${id}`,
+    id: `humble-${id}`,
     title: item.Name,
     coverHorizontal: item.ImageUrl,
     price: {
@@ -92,18 +69,10 @@ const normalizeItem = (item: ImpactCatalogItem): CatalogProduct | null => {
       baseMoney: { amount: base.toFixed(2), currency }
     },
     productType: 'game',
-    operatingSystems: platformFromSku(item.CatalogItemId ?? ''),
-    // Text1 holds the key's redemption DRM ('steam', 'uplay', ...)
-    features: item.Text1
-      ? [
-          {
-            name: item.Text1.charAt(0).toUpperCase() + item.Text1.slice(1),
-            slug: item.Text1.toLowerCase()
-          }
-        ]
-      : undefined,
+    // Humble's store sells PC games only.
+    operatingSystems: ['windows'],
     storeLink: item.Url,
-    store: 'gmg'
+    store: 'humble'
   }
 }
 
@@ -126,27 +95,29 @@ const fetchFeed = async (url: string): Promise<CatalogProduct[]> => {
 
 const resolveCurrency = (currencyCode?: string): string => {
   const requested = (currencyCode ?? '').toUpperCase()
-  return GMG_CURRENCIES.includes(requested) ? requested : GMG_FALLBACK_CURRENCY
+  return HUMBLE_CURRENCIES.includes(requested)
+    ? requested
+    : HUMBLE_FALLBACK_CURRENCY
 }
 
 const dealsCache = new CacheStore<CatalogProduct[]>(
-  'gmg_deals',
+  'humble_deals',
   CACHE_LIFESPAN_MINUTES
 )
 const inflight = new Map<string, Promise<CatalogProduct[]>>()
 
 const refreshCache = async (currency: string): Promise<CatalogProduct[]> => {
-  const url = GMG_FEED_URL_TEMPLATE.replace('{currency}', currency)
+  const url = HUMBLE_FEED_URL_TEMPLATE.replace('{currency}', currency)
   const products = await fetchFeed(url)
   dealsCache.set(currency, products)
   logInfo(
-    `Fetched ${products.length} GMG discounts (${currency})`,
+    `Fetched ${products.length} Humble discounts (${currency})`,
     LogPrefix.Backend
   )
   return products
 }
 
-const getGmgDiscounts = async (
+const getHumbleDiscounts = async (
   currencyCode?: string
 ): Promise<CatalogProduct[]> => {
   const currency = resolveCurrency(currencyCode)
@@ -165,13 +136,13 @@ const getGmgDiscounts = async (
     return await pending
   } catch (err) {
     logError(
-      `Failed to fetch GMG discounts (${currency}): ${String(err)}`,
+      `Failed to fetch Humble discounts (${currency}): ${String(err)}`,
       LogPrefix.Backend
     )
     throw err
   }
 }
 
-addHandler('getGmgDiscounts', async (_event, currencyCode) =>
-  getGmgDiscounts(currencyCode)
+addHandler('getHumbleDiscounts', async (_event, currencyCode) =>
+  getHumbleDiscounts(currencyCode)
 )

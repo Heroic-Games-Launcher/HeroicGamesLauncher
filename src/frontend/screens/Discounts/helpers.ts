@@ -217,7 +217,7 @@ export const getLocaleSettings = (
 // the path of the original www.gog.com URL preserved, plus the ?as=<id>
 // affiliate parameter. Links pointing at www.gog.com directly are not
 // tracked by GOG even if ?as= is present.
-const withAffiliate = (storeLink: string): string => {
+const withGogAffiliate = (storeLink: string): string => {
   try {
     const url = new URL(storeLink)
     url.hostname = 'af.gog.com'
@@ -228,19 +228,33 @@ const withAffiliate = (storeLink: string): string => {
   }
 }
 
+// Our Humble affiliate deeplink base. Humble's impact catalog links embed the
+// real store destination in their `u` param; we re-wrap that destination with
+// our own tracking link so clicks are attributed to Heroic.
+const HUMBLE_AFFILIATE_LINK = 'https://humblebundleinc.sjv.io/heroic'
+
+const withHumbleAffiliate = (storeLink: string): string => {
+  const destination = new URL(storeLink).searchParams.get('u') ?? storeLink
+  return `${HUMBLE_AFFILIATE_LINK}?u=${encodeURIComponent(destination)}`
+}
+
 // 'deeplink' feeds arrive already tagged with our affiliate code; rewriting
-// those links would break attribution.
-type AffiliateStrategy = { kind: 'rewrite' } | { kind: 'deeplink' }
+// those links would break attribution. 'rewrite' feeds carry a store URL (or
+// an impact link we unwrap) that we tag with our own affiliate link.
+type AffiliateStrategy =
+  | { kind: 'rewrite'; rewrite: (storeLink: string) => string }
+  | { kind: 'deeplink' }
 
 const AFFILIATE_STRATEGIES: Record<DiscountStore, AffiliateStrategy> = {
-  gog: { kind: 'rewrite' },
-  gmg: { kind: 'deeplink' }
+  gog: { kind: 'rewrite', rewrite: withGogAffiliate },
+  gmg: { kind: 'deeplink' },
+  humble: { kind: 'rewrite', rewrite: withHumbleAffiliate }
 }
 
 export const getAffiliateLink = (product: CatalogProduct): string => {
   const strategy = AFFILIATE_STRATEGIES[product.store ?? 'gog']
   return strategy.kind === 'rewrite'
-    ? withAffiliate(product.storeLink)
+    ? strategy.rewrite(product.storeLink)
     : product.storeLink
 }
 
@@ -276,8 +290,17 @@ export const DEFAULT_PAGE_SIZE: (typeof PAGE_SIZE_OPTIONS)[number] = 50
 export const RATING_SCALE_MAX = 10
 export const OS_OPTIONS = ['windows', 'linux', 'osx', 'xbox'] as const
 export type OsOption = (typeof OS_OPTIONS)[number]
-export const STORE_OPTIONS: readonly DiscountStore[] = ['gog', 'gmg']
+export const STORE_OPTIONS: readonly DiscountStore[] = ['gog', 'gmg', 'humble']
 export type StoreTab = 'all' | DiscountStore
+
+export type ViewMode = 'grid' | 'list'
+
+// Display names for the store tabs. GOG/GMG are acronyms; Humble is not.
+export const STORE_LABELS: Record<DiscountStore, string> = {
+  gog: 'GOG',
+  gmg: 'GMG',
+  humble: 'Humble'
+}
 
 // GOG's reviewsRating is on a 0-50 scale; we display it as 0-10.
 export const normalizeRating = (rating?: number): number => {
@@ -306,6 +329,7 @@ interface StoredDiscountFilters {
   selectedFeatures?: string[]
   selectedOS?: OsOption[]
   storeTab?: StoreTab
+  viewMode?: ViewMode
   ratingRange?: [number, number]
   maxPegiAge?: PegiAge | null
   searchQuery?: string
