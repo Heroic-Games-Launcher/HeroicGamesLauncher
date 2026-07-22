@@ -10,7 +10,7 @@ interface SelectFieldProps {
   onChange: (event: SelectChangeEvent) => void
   children: ReactNode
   afterSelect?: ReactNode
-  label?: string
+  label?: ReactNode
   prompt?: string
   disabled?: boolean
   extraClass?: string

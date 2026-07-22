@@ -1,16 +1,81 @@
 .gameCard {
+  --game-card-hover-scale: 1.015;
+  --game-card-hover-lift: -5px;
+  --game-card-cover-scale: 1.025;
+  --game-card-hover-button-scale: 1.01;
+  --game-card-store-hover-lift: -1px;
+  --game-card-motion-duration: 220ms;
   background-color: var(--gradient-gamecard);
   text-align: start;
   width: 100%;
   overflow: hidden;
   position: relative;
-  transition-duration: 0.1s;
-  box-shadow: 0px 0px 12px 4px #00000055;
+  transition:
+    transform var(--game-card-motion-duration) cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow var(--game-card-motion-duration) ease;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.36),
+    0 1px 2px rgba(0, 0, 0, 0.45);
   display: flex;
   flex-direction: column;
   border-radius: var(--space-3xs);
   animation: fade-in 0.1s ease-in;
   aspect-ratio: 173/275;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transform-origin: center;
+  will-change: transform, box-shadow;
+}
+
+.gameCard::before,
+.gameCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 180ms ease,
+    transform var(--game-card-motion-duration) ease;
+}
+
+.gameCard::before {
+  z-index: 1;
+  background:
+    radial-gradient(
+      ellipse at 88% 12%,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.055) 30%,
+      transparent 62%
+    ),
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.075) 0%,
+      rgba(255, 255, 255, 0.026) 34%,
+      transparent 58%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  box-shadow:
+    inset 0 10px 24px rgba(255, 255, 255, 0.055),
+    inset 0 -28px 48px rgba(0, 0, 0, 0.24);
+  mix-blend-mode: overlay;
+}
+
+.gameCard::after {
+  z-index: 6;
+  bottom: auto;
+  height: 46%;
+  background: radial-gradient(
+    ellipse at 88% 8%,
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0.045) 32%,
+    transparent 66%
+  );
+  transform: translate(4%, -4%);
+  transition:
+    opacity 180ms ease,
+    transform var(--game-card-motion-duration) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gameCard.gamepad {
@@ -81,23 +146,38 @@
 
 .gameCard > a {
   display: block;
+  flex: 1 1 auto;
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 0;
   overflow: hidden;
+  border-radius: var(--space-3xs) var(--space-3xs) 0 0;
+  isolation: isolate;
 }
 
 .gameCard .gameImg {
   width: 100%;
+  height: 100%;
   object-fit: cover;
-  aspect-ratio: 3 / 4;
   display: block;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform var(--game-card-motion-duration) cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.2s,
+    opacity 0.5s;
+  transform-origin: center;
 }
 
 .gameCard.justPlayed .justPlayedImg {
   aspect-ratio: 16 / 10;
   object-fit: cover;
   width: 100%;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform var(--game-card-motion-duration) cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.2s,
+    opacity 0.5s;
+  transform-origin: center;
 }
 
 .gameCard .gameLogo {
@@ -114,23 +194,37 @@
 
 .gameCard .gameTitle {
   position: absolute;
-  width: 100%;
-  bottom: 0px;
-  padding: 0.6rem 0.3rem;
+  left: -1px;
+  width: calc(100% + 2px);
+  bottom: -1px;
+  padding: 0.5rem 0.45rem;
   color: var(--text-secondary);
   background: var(--gamecard-title-color);
-  transition: 200ms;
+  transition: transform var(--game-card-motion-duration)
+    cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--primary-font-family);
   font-size: var(--text-md);
   font-weight: var(--bold);
-  line-height: 17px;
-  cursor: pointer;
+  line-height: 1.18;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.75);
   z-index: 3;
   pointer-events: none;
   transform: translateY(100%);
+  transform-origin: bottom center;
+}
+
+.gameCard .gameTitle > span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-size: calc(var(--text-md) * var(--game-card-hover-scale));
+  transform-origin: center;
+  transform: scale(calc(1 / var(--game-card-hover-scale)));
 }
 
 .gameCard:hover .gameTitle,
+.gameCard:focus-within .gameTitle,
 .titlesAlwaysVisible .gameTitle {
   display: block;
   transform: translateY(0);
@@ -140,9 +234,12 @@
   background: var(--icons-background);
   justify-content: space-around;
   display: grid;
+  flex: 0 0 auto;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'update settings play';
-  padding: var(--space-xs-fixed);
+  align-items: center;
+  min-height: 36px;
+  padding: 4px var(--space-xs-fixed);
 }
 
 .gameCard.justPlayed > .icons {
@@ -163,23 +260,72 @@
   justify-self: center;
 }
 
+.gameCard > .icons .svg-button {
+  width: calc(28px * var(--game-card-hover-scale));
+  height: calc(28px * var(--game-card-hover-scale));
+  display: grid;
+  place-items: center;
+  transform: scale(calc(1 / var(--game-card-hover-scale)));
+  transform-origin: center;
+  transition: transform var(--game-card-motion-duration)
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gameCard:hover > .icons .svg-button,
+.gameCard:focus-within > .icons .svg-button {
+  transform: scale(var(--game-card-hover-button-scale));
+}
+
 .gameCard .store-icon {
-  border-radius: 10px;
+  border-radius: 6px;
   position: absolute;
-  right: 5px;
-  top: 4px;
+  right: 8px;
+  top: 7px;
   z-index: 2;
-  padding: var(--space-3xs);
-  width: 35px;
-  height: 35px;
+  padding: 3px;
+  width: 28px;
+  height: 28px;
   place-content: center;
-  background: var(--background-darker);
+  background: color-mix(in srgb, var(--background-darker) 78%, transparent);
   fill: var(--text-default);
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition:
+    background-color var(--game-card-motion-duration) ease,
+    transform var(--game-card-motion-duration) ease;
+}
+
+.gameCard:hover .store-icon,
+.gameCard:focus-within .store-icon {
+  background: color-mix(in srgb, var(--background-darker) 88%, transparent);
+  transform: translateY(var(--game-card-store-hover-lift));
 }
 
 .gameCard:hover,
 .gameCard:focus-within {
-  transform: scale(1.05);
+  transform: translate3d(0, var(--game-card-hover-lift), 0)
+    scale(var(--game-card-hover-scale));
+  box-shadow:
+    0 24px 34px rgba(0, 0, 0, 0.5),
+    0 12px 16px rgba(0, 0, 0, 0.34),
+    0 2px 3px rgba(0, 0, 0, 0.38);
+}
+
+.gameCard:hover::before,
+.gameCard:focus-within::before {
+  opacity: 1;
+}
+
+.gameCard:hover::after,
+.gameCard:focus-within::after {
+  opacity: 0.58;
+  transform: translate(0, 0);
+}
+
+.gameCard.noHoverEffects::before,
+.gameCard.noHoverEffects::after {
+  display: none;
 }
 
 .gameCard.hidden .gameImg,
@@ -188,7 +334,7 @@
 }
 
 .gameCard.notAvailable .gameImg.installed,
-.gameCard.notAvailable .gameLog.installed {
+.gameCard.notAvailable .gameLogo.installed {
   filter: sepia(100%);
   opacity: 0.7;
 }
@@ -312,10 +458,9 @@
   z-index: 7;
 }
 
-.gameImg,
 .gameLogo {
   transition:
-    all 0.2s,
+    filter 0.2s,
     opacity 0.5s;
 }
 
@@ -331,6 +476,13 @@
   filter: grayscale(0);
 }
 
+.gameCard:hover .gameImg,
+.gameCard:focus-within .gameImg,
+.gameCard:hover .justPlayedImg,
+.gameCard:focus-within .justPlayedImg {
+  transform: translate3d(0, 0, 0) scale(var(--game-card-cover-scale));
+}
+
 .icons {
   align-self: flex-end;
   width: 100%;
@@ -344,8 +496,8 @@
 .icons > button > svg,
 .icons > a > svg,
 .icons > svg {
-  height: clamp(28px, 1vw, 36px);
-  aspect-ratio: 1;
+  width: calc(26px * var(--game-card-hover-scale));
+  height: calc(26px * var(--game-card-hover-scale));
   display: block;
 }
 

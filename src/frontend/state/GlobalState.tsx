@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 
 import {
   ConnectivityStatus,
+  CoverResolution,
   FavouriteGame,
   GameInfo,
   GameStatus,
@@ -95,6 +96,10 @@ interface StateProps {
   primaryFontFamily: string
   secondaryFontFamily: string
   allTilesInColor: boolean
+  hideStoreLogos: boolean
+  disableGameCardHoverScale: boolean
+  reducedMotion: boolean
+  coverResolution: CoverResolution
   titlesAlwaysVisible: boolean
   sidebarCollapsed: boolean
   activeController: string
@@ -243,6 +248,13 @@ class GlobalState extends PureComponent<Props> {
         '--default-primary-font-family'
       ),
     allTilesInColor: configStore.get('allTilesInColor', false),
+    hideStoreLogos: configStore.get('hideStoreLogos', false),
+    disableGameCardHoverScale: configStore.get(
+      'disableGameCardHoverScale',
+      false
+    ),
+    reducedMotion: configStore.get('reducedMotion', false),
+    coverResolution: configStore.get('coverResolution', 'medium'),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
@@ -321,6 +333,26 @@ class GlobalState extends PureComponent<Props> {
   setAllTilesInColor = (value: boolean) => {
     configStore.set('allTilesInColor', value)
     this.setState({ allTilesInColor: value })
+  }
+
+  setHideStoreLogos = (value: boolean) => {
+    configStore.set('hideStoreLogos', value)
+    this.setState({ hideStoreLogos: value })
+  }
+
+  setDisableGameCardHoverScale = (value: boolean) => {
+    configStore.set('disableGameCardHoverScale', value)
+    this.setState({ disableGameCardHoverScale: value })
+  }
+
+  setReducedMotion = (value: boolean) => {
+    configStore.set('reducedMotion', value)
+    this.setState({ reducedMotion: value })
+  }
+
+  setCoverResolution = (value: CoverResolution) => {
+    configStore.set('coverResolution', value)
+    this.setState({ coverResolution: value })
   }
 
   setTitlesAlwaysVisible = (value: boolean) => {
@@ -1178,6 +1210,10 @@ class GlobalState extends PureComponent<Props> {
           setTheme: this.setTheme,
           setZoomPercent: this.setZoomPercent,
           setAllTilesInColor: this.setAllTilesInColor,
+          setHideStoreLogos: this.setHideStoreLogos,
+          setDisableGameCardHoverScale: this.setDisableGameCardHoverScale,
+          setReducedMotion: this.setReducedMotion,
+          setCoverResolution: this.setCoverResolution,
           setTitlesAlwaysVisible: this.setTitlesAlwaysVisible,
           setSideBarCollapsed: this.setSideBarCollapsed,
           setPrimaryFontFamily: this.setPrimaryFontFamily,

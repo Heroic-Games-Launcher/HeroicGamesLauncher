@@ -1,13 +1,23 @@
-import { Runner } from 'common/types'
+import { Runner, CoverResolution } from 'common/types'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 
-export function getImageFormatting(cover: string, runner: Runner) {
+const legendaryResolutions: Record<CoverResolution, string> = {
+  low: '?h=240&resize=1&w=180',
+  medium: '?h=400&resize=1&w=300',
+  high: '?h=800&resize=1&w=600'
+}
+
+export function getImageFormatting(
+  cover: string,
+  runner: Runner,
+  resolution: CoverResolution = 'medium'
+) {
   const imageBase = cover
   if (imageBase === 'fallback' || !cover) {
     return fallbackImage
   }
   if (runner === 'legendary') {
-    return `${imageBase}?h=400&resize=1&w=300`
+    return `${imageBase}${legendaryResolutions[resolution]}`
   } else {
     return imageBase
   }

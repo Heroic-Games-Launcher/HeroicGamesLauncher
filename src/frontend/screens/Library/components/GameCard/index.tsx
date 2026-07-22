@@ -32,6 +32,7 @@ import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
+import { CoverResolution } from 'common/types'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
@@ -62,6 +63,10 @@ interface Card {
   isRecent: boolean
   justPlayed: boolean
   gameInfo: GameInfo
+  hideStoreLogos?: boolean
+  disableGameCardHoverScale?: boolean
+  reducedMotion?: boolean
+  coverResolution?: CoverResolution
   forceCard?: boolean
   dataTour?: string
 }
@@ -74,6 +79,10 @@ const GameCard = ({
   forceCard,
   isRecent = false,
   justPlayed = false,
+  hideStoreLogos = false,
+  disableGameCardHoverScale = false,
+  reducedMotion = false,
+  coverResolution = 'medium',
   gameInfo: gameInfoFromProps,
   dataTour
 }: Card) => {
@@ -231,7 +240,7 @@ const GameCard = ({
         <SvgButton
           className="cancelIcon"
           onClick={async () => handlePlay(runner)}
-          title={`${t('label.playing.stop')} (${title})`}
+          title={t('label.playing.stop')}
         >
           <StopIconAlt />
         </SvgButton>
@@ -242,7 +251,7 @@ const GameCard = ({
         <SvgButton
           className="cancelIcon"
           onClick={async () => handlePlay(runner)}
-          title={`${t('button.cancel')} (${title})`}
+          title={t('button.cancel')}
         >
           <StopIcon />
         </SvgButton>
@@ -256,7 +265,7 @@ const GameCard = ({
         <SvgButton
           className={!notAvailable ? 'playIcon' : 'notAvailableIcon'}
           onClick={async () => handlePlay(runner)}
-          title={`${t('label.playing.start')} (${title})`}
+          title={t('label.playing.start')}
           disabled={disabled}
         >
           {justPlayed ? <span>{t('button.play', 'PLAY')}</span> : <PlayIcon />}
@@ -267,7 +276,7 @@ const GameCard = ({
         <SvgButton
           className="downIcon"
           onClick={() => buttonClick()}
-          title={`${t('button.install')} (${title})`}
+          title={t('button.install')}
         >
           <DownIcon />
         </SvgButton>
@@ -435,8 +444,22 @@ const GameCard = ({
     hidden: isHiddenGame,
     notAvailable: notAvailable,
     gamepad: activeController,
-    justPlayed: justPlayed
+    justPlayed: justPlayed,
+    noHoverEffects: disableGameCardHoverScale
   })
+
+  const cardStyle = useMemo(() => {
+    const d = disableGameCardHoverScale
+    const r = reducedMotion
+    return {
+      '--game-card-hover-scale': d ? 1 : r ? 1.006 : 1.015,
+      '--game-card-hover-lift': d ? '0px' : r ? '-2px' : '-5px',
+      '--game-card-cover-scale': d ? 1 : r ? 1.012 : 1.025,
+      '--game-card-hover-button-scale': d ? 1 : r ? 1.003 : 1.01,
+      '--game-card-store-hover-lift': d || r ? '0px' : '-1px',
+      '--game-card-motion-duration': d ? '180ms' : r ? '140ms' : '220ms'
+    } as CSSProperties
+  }, [disableGameCardHoverScale, reducedMotion])
 
   const imgClasses = classNames('gameImg', { installed: isInstalled })
   const logoClasses = classNames('gameLogo', { installed: isInstalled })
@@ -474,6 +497,7 @@ const GameCard = ({
           className={wrapperClasses}
           data-app-name={appName}
           data-tour={dataTour}
+          style={cardStyle}
         >
           {haveStatus && <span className="gameCardStatus">{label}</span>}
           {showUpdateBadge && (
@@ -488,7 +512,7 @@ const GameCard = ({
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
-            <StoreLogos runner={runner} />
+            {!hideStoreLogos && <StoreLogos runner={runner} />}
             {justPlayed ? (
               <CachedImage
                 src={art_cover || fallBackImage}
@@ -497,7 +521,7 @@ const GameCard = ({
               />
             ) : (
               <CachedImage
-                src={getImageFormatting(cover, runner)}
+                src={getImageFormatting(cover, runner, coverResolution)}
                 className={imgClasses}
                 alt="cover"
               />
@@ -541,7 +565,7 @@ const GameCard = ({
               {showUpdateButton && (
                 <SvgButton
                   className="updateIcon"
-                  title={`${t('button.update')} (${title})`}
+                  title={t('button.update')}
                   onClick={async () => handleUpdate()}
                 >
                   <FontAwesomeIcon size={'2x'} icon={faRepeat} />
@@ -550,7 +574,7 @@ const GameCard = ({
               {showSettingsButton && (
                 <>
                   <SvgButton
-                    title={`${t('submenu.settings')} (${title})`}
+                    title={t('submenu.settings')}
                     className="settingsIcon"
                     onClick={() => openGameSettingsModal(gameInfo)}
                   >
