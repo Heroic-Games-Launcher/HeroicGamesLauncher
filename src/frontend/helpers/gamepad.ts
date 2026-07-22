@@ -22,6 +22,152 @@ const SCROLL_REPEAT_DELAY = 50
 
 let controllerIsDisabled = false
 let currentController = -1
+let webviewHasFocus = false
+
+export const toggleWebviewFocus = (focused: boolean) => {
+  webviewHasFocus = focused
+}
+
+export const isUsingGamepad = () => currentController !== -1
+
+/**
+ * High-level commands the host forwards to the focused store webview's
+ * preload script (see `src/webviewPreload/index.ts`). The host keeps full
+ * ownership of gamepad parsing — the guest only acts on these commands.
+ */
+type WebviewCommand =
+  | { type: 'navigate'; direction: 'up' | 'down' | 'left' | 'right' }
+  | { type: 'scroll'; direction: 'up' | 'down' }
+  | { type: 'click' }
+  | { type: 'goBack' }
+  | { type: 'goForward' }
+  | { type: 'focusSearch' }
+  | { type: 'enter' }
+  | { type: 'exit' }
+
+/**
+ * Registered by `WebView/index.tsx` when a store webview mounts. Lets the
+ * gamepad handler forward processed inputs to the guest and trigger host-side
+ * actions: exit back to the host sidebar, or focus the URL bar. Note we never
+ * move real focus into the webview (that would blur the host and kill gamepad
+ * polling) — arming just sends an `enter` command via `send`.
+ */
+interface WebviewInputTarget {
+  send: (cmd: WebviewCommand) => void
+  exit: () => void
+  focusUrlBar: () => void
+}
+
+let webviewTarget: WebviewInputTarget | null = null
+
+export const setWebviewInputTarget = (target: WebviewInputTarget | null) => {
+  webviewTarget = target
+}
+
+// Actions that can hand control to a store webview when it isn't driving yet.
+const ENTER_WEBVIEW_ACTIONS: ValidGamepadAction[] = [
+  'mainAction',
+  'padUp',
+  'padDown',
+  'padLeft',
+  'padRight',
+  'leftStickUp',
+  'leftStickDown',
+  'leftStickLeft',
+  'leftStickRight'
+]
+
+function isSidebarStoreLink(el: Element | null | undefined): boolean {
+  const link = el?.closest<HTMLAnchorElement>('a.Sidebar__item')
+  return !!link && (link.getAttribute('href')?.includes('/store/') ?? false)
+}
+
+/**
+ * Decides whether a gamepad press on a store screen should hand control to the
+ * webview (arming gamepad forwarding). Two ways in:
+ *  - The user got here with the mouse and nothing host-focusable is focused
+ *    (focus is on `<body>` or the `<webview>` itself) — any nav/select press
+ *    enters. This covers the mouse→controller hand-off.
+ *  - The user is on the sidebar "Stores" item/submenu and presses A — the
+ *    explicit "re-enter" affordance after leaving with B.
+ */
+function shouldEnterWebview(action: ValidGamepadAction): boolean {
+  if (!webviewTarget || webviewHasFocus) return false
+  if (!ENTER_WEBVIEW_ACTIONS.includes(action)) return false
+  const el = document.querySelector<HTMLElement>(':focus')
+  if (!el || el === document.body || el.tagName === 'WEBVIEW') return true
+  if (action === 'mainAction' && isSidebarStoreLink(el)) return true
+  return false
+}
+
+function enterWebview() {
+  if (!webviewTarget) return
+  // Arm forwarding and tell the guest to show its cursor. We deliberately do
+  // NOT focus the webview element — see `WebviewInputTarget` docs.
+  webviewHasFocus = true
+  webviewTarget.send({ type: 'enter' })
+}
+
+/**
+ * Translates a `ValidGamepadAction` into a command for the focused webview.
+ * Returns `false` for actions the host must keep handling itself (e.g.
+ * `guide` toggles Console Mode in the host) so the caller can fall through.
+ */
+function handleWebviewAction(action: ValidGamepadAction): boolean {
+  if (!webviewTarget) return false
+  switch (action) {
+    case 'guide':
+      // Host keeps ownership of the guide button (Console Mode toggle).
+      return false
+    case 'rightClick':
+      // X focuses the URL bar, which lives in the host's WebviewControls.
+      webviewTarget.focusUrlBar()
+      return true
+    case 'back':
+      // B leaves the webview and hands control back to the host sidebar.
+      // Page history stays on L1/R1 (prevPage/nextPage).
+      webviewTarget.exit()
+      return true
+    case 'mainAction':
+      webviewTarget.send({ type: 'click' })
+      return true
+    case 'altAction':
+      webviewTarget.send({ type: 'focusSearch' })
+      return true
+    case 'prevPage':
+      webviewTarget.send({ type: 'goBack' })
+      return true
+    case 'nextPage':
+      webviewTarget.send({ type: 'goForward' })
+      return true
+    case 'padUp':
+    case 'leftStickUp':
+      webviewTarget.send({ type: 'navigate', direction: 'up' })
+      return true
+    case 'padDown':
+    case 'leftStickDown':
+      webviewTarget.send({ type: 'navigate', direction: 'down' })
+      return true
+    case 'padLeft':
+    case 'leftStickLeft':
+      webviewTarget.send({ type: 'navigate', direction: 'left' })
+      return true
+    case 'padRight':
+    case 'leftStickRight':
+      webviewTarget.send({ type: 'navigate', direction: 'right' })
+      return true
+    case 'rightStickUp':
+      webviewTarget.send({ type: 'scroll', direction: 'up' })
+      return true
+    case 'rightStickDown':
+      webviewTarget.send({ type: 'scroll', direction: 'down' })
+      return true
+    default:
+      // Other actions (esc, tab, shiftTab, keyboardClick, leftClick,
+      // rightStickLeft/Right) aren't relevant while a webview is focused.
+      return true
+  }
+}
 
 export const initGamepad = () => {
   window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
@@ -57,6 +203,8 @@ export const initGamepad = () => {
     altAction: { triggeredAt: {}, repeatDelay: false },
     rightClick: { triggeredAt: {}, repeatDelay: false },
     leftClick: { triggeredAt: {}, repeatDelay: false },
+    prevPage: { triggeredAt: {}, repeatDelay: false },
+    nextPage: { triggeredAt: {}, repeatDelay: false },
     esc: { triggeredAt: {}, repeatDelay: false },
     tab: { triggeredAt: {}, repeatDelay: false },
     shiftTab: { triggeredAt: {}, repeatDelay: false },
@@ -130,6 +278,23 @@ export const initGamepad = () => {
         (document.body.classList.contains('console-launching') ||
           document.body.classList.contains('console-modal-open'))
       ) {
+        return
+      }
+
+      // Store screens: the mounted webview is the gamepad target. Hand control
+      // to it on a mouse→controller hand-off or the explicit A-to-enter from
+      // the sidebar; once it's driving, forward processed inputs to the guest
+      // preload (`src/webviewPreload/index.ts`) instead of host DOM navigation.
+      // `guide` stays host-side (Console Mode).
+      if (shouldEnterWebview(action)) {
+        if (action === 'mainAction' && isSidebarStoreLink(currentElement())) {
+          // Let the sidebar link switch store first, then enter once it settled.
+          setTimeout(enterWebview, 150)
+        } else {
+          enterWebview()
+          return
+        }
+      } else if (webviewHasFocus && handleWebviewAction(action)) {
         return
       }
 
