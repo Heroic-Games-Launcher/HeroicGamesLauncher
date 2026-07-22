@@ -26,7 +26,8 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
-  normalizeTitle
+  normalizeTitle,
+  getPartialInstallFolder
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -189,6 +190,14 @@ export default React.memo(function Library(): JSX.Element {
   const handleShowUpdatesOnly = (value: boolean) => {
     storage.setItem('show_updates_only', JSON.stringify(value))
     setShowUpdatesOnly(value)
+  }
+
+  const [showPartiallyInstalledOnly, setShowPartiallyInstalledOnly] = useState(
+    JSON.parse(storage.getItem('show_partially_installed_only') || 'false')
+  )
+  const handleShowPartiallyInstalledOnly = (value: boolean) => {
+    storage.setItem('show_partially_installed_only', JSON.stringify(value))
+    setShowPartiallyInstalledOnly(value)
   }
 
   const [showCategories, setShowCategories] = useState(false)
@@ -495,6 +504,13 @@ export default React.memo(function Library(): JSX.Element {
         library = library.filter((game) => gameUpdates.includes(game.app_name))
       }
 
+      if (showPartiallyInstalledOnly) {
+        library = library.filter(
+          (game) =>
+            !game.is_installed && !!getPartialInstallFolder(game.app_name)
+        )
+      }
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -583,6 +599,7 @@ export default React.memo(function Library(): JSX.Element {
     showSupportOfflineOnly,
     showThirdPartyManagedOnly,
     showUpdatesOnly,
+    showPartiallyInstalledOnly,
     gameUpdates
   ])
 
@@ -710,6 +727,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
         showUpdatesOnly,
         setShowUpdatesOnly: handleShowUpdatesOnly,
+        showPartiallyInstalledOnly,
+        setShowPartiallyInstalledOnly: handleShowPartiallyInstalledOnly,
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),

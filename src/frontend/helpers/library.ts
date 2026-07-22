@@ -11,8 +11,35 @@ import {
 import { TFunction } from 'i18next'
 import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
+import { clearInstallProgress } from 'frontend/state/InstallProgress'
 
 const storage: Storage = window.localStorage
+
+// Partial installs are tracked under the `appName` key in localStorage, holding
+// at least a `folder` field pointing at where the (incomplete) install lives.
+
+// Reads the partial-install folder for a game, or undefined if there's none.
+export function getPartialInstallFolder(appName: string): string | undefined {
+  try {
+    const data = JSON.parse(storage.getItem(appName) || '{}') as {
+      folder?: string
+    }
+    return data.folder
+  } catch {
+    // Malformed entry — treat as "no partial install" rather than crashing
+    // callers that map over the whole library (e.g. the library filter).
+    return undefined
+  }
+}
+
+// Removes the partial-install marker and notifies listeners (e.g. the
+// `useHasPartialInstall` hook) so badges/filters update immediately.
+export function clearPartialInstall(appName: string): void {
+  storage.removeItem(appName)
+  window.dispatchEvent(
+    new StorageEvent('storage', { key: appName, newValue: null })
+  )
+}
 
 type InstallArgs = {
   gameInfo: GameInfo
@@ -82,10 +109,18 @@ async function install({
 
   // If the user changed the previous folder, the percentage should start from zero again.
   if (previousProgress && previousProgress.folder !== installPath) {
-    storage.removeItem(appName)
+    clearPartialInstall(appName)
   }
 
-  return window.api.install({
+  // Store the install folder so partial installs can be detected and cleaned up
+  // even if the download crashes (not just when the user explicitly stops via UI)
+  const partialInstallData = JSON.stringify({ folder: installPath })
+  storage.setItem(appName, partialInstallData)
+  window.dispatchEvent(
+    new StorageEvent('storage', { key: appName, newValue: partialInstallData })
+  )
+
+  const installPromise = window.api.install({
     appName,
     path: installPath,
     installDlcs,
@@ -97,6 +132,12 @@ async function install({
     build,
     branch
   })
+
+  // If queuing the install fails outright, drop the marker we wrote above so we
+  // don't leave a phantom partial install for a game with nothing on disk.
+  installPromise.catch(() => clearPartialInstall(appName))
+
+  return installPromise
 }
 
 function handleStopInstallation(
@@ -115,9 +156,10 @@ function handleStopInstallation(
       {
         text: t('box.yes'),
         onClick: () => {
-          storage.setItem(
-            appName,
-            JSON.stringify({ ...progress, folder: path })
+          const partialData = JSON.stringify({ ...progress, folder: path })
+          storage.setItem(appName, partialData)
+          window.dispatchEvent(
+            new StorageEvent('storage', { key: appName, newValue: partialData })
           )
           window.api.cancelDownload(false)
         }
@@ -126,7 +168,8 @@ function handleStopInstallation(
         text: t('box.no'),
         onClick: () => {
           window.api.cancelDownload(true)
-          storage.removeItem(appName)
+          clearPartialInstall(appName)
+          clearInstallProgress(appName, runner)
         }
       }
     ]
