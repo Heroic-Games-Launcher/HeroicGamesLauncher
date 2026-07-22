@@ -24,6 +24,7 @@ import InstallOverlay from './InstallOverlay'
 import {
   BTN_L1,
   BTN_R1,
+  BTN_L2,
   BTN_R2,
   getActionButtonLabel,
   getBackButtonLabel
@@ -72,7 +73,7 @@ export default function ConsoleMode() {
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [ascending, setAscending] = useState(true)
-  const [filteringByInstalled, setFilteringByInstalled] = useState(false)
+  const [filteringByInstalled, setFilteringByInstalled] = useState(true)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
   const [installingGame, setInstallingGame] = useState<GameInfo | null>(null)
@@ -389,9 +390,14 @@ export default function ConsoleMode() {
   }, [launchingGame])
 
   const toggleSort = useCallback(() => setAscending((v) => !v), [])
+  const toggleInstalledGames = useCallback(
+    () => setFilteringByInstalled((v) => !v),
+    []
+  )
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
+  useGamepadButtonPress(BTN_L2, toggleInstalledGames, idle)
   useGamepadButtonPress(BTN_R2, toggleSort, idle)
 
   return (

@@ -247,7 +247,8 @@
             "launch": "Launch",
             "navigate": "Navigate",
             "quit": "Quit",
-            "sort": "Sort"
+            "sort": "Sort",
+            "toggle_installed": "Toggle Installed"
         },
         "install": {
             "path": "Install to",
