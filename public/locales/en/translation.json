@@ -315,6 +315,7 @@
             "price": "Price",
             "rating": "Rating",
             "releaseYear": "Release year",
+            "showMature": "NSFW",
             "sort": "Sort by",
             "wishlistOnly": "Wishlist Only"
         },

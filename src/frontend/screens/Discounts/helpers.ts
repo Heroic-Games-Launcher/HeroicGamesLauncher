@@ -1,5 +1,7 @@
 import type {
   CatalogLocaleSettings,
+  CatalogRating,
+  CatalogTag
   CatalogProduct,
   CatalogRating,
   DiscountStore
@@ -321,6 +323,29 @@ export const getPegiAge = (ratings?: CatalogRating[]): number | null => {
   return Number.isFinite(n) ? n : null
 }
 
+// filter out sexual/adult content specifically
+const EXPLICIT_TAG_SLUGS = new Set([
+  'sexual-content',
+  'nudity',
+  'nsfw',
+  'hentai',
+  'erotic',
+  'sexual-violence'
+])
+
+export const isMatureProduct = (
+  tags?: CatalogTag[],
+  ratings?: CatalogRating[]
+): boolean => {
+  if (!tags) return false
+  const hasExplicitTag = tags.some((tag) => EXPLICIT_TAG_SLUGS.has(tag.slug))
+  const isAdultRated = ratings?.some((r) => {
+    const n = parseInt(r.ageRating, 10)
+    return Number.isFinite(n) && n >= 18
+  })
+  return hasExplicitTag && !!isAdultRated
+}
+
 // Persisted filter state (excluding regionOverride, which has its own key).
 // Stored in localStorage so filters survive navigation and page reloads.
 interface StoredDiscountFilters {
@@ -334,6 +359,7 @@ interface StoredDiscountFilters {
   maxPegiAge?: PegiAge | null
   searchQuery?: string
   hideDlcs?: boolean
+  showMature?: boolean
   hideOwned?: boolean
   wishlistOnly?: boolean
   pageSize?: number
