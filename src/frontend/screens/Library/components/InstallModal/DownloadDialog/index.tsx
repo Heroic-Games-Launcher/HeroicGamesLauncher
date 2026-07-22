@@ -4,6 +4,7 @@ import {
   faSpinner
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { MenuItem } from '@mui/material'
 
 import classNames from 'classnames'
 import {
@@ -26,6 +27,7 @@ import {
   DialogFooter,
   DialogContent
 } from 'frontend/components/UI/Dialog'
+import SelectField from 'frontend/components/UI/SelectField'
 import {
   getProgress,
   size,
@@ -150,6 +152,9 @@ export default function DownloadDialog({
     validFlatpakPath: true,
     spaceLeftAfter: ''
   })
+
+  const [previousProgressStrategy, setPreviousProgressStrategy] =
+    useState<string>('move')
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
@@ -287,7 +292,6 @@ export default function DownloadDialog({
       gameInfo,
       installPath: path || installFolder,
       isInstalling: false,
-      previousProgress,
       progress: previousProgress,
       t,
       sdlList,
@@ -296,7 +300,9 @@ export default function DownloadDialog({
       platformToInstall,
       build: selectedBuild,
       branch,
-      showDialogModal: () => backdropClick()
+      showDialogModal: () => backdropClick(),
+      previousProgressStrategy,
+      previousProgress
     })
   }
 
@@ -515,7 +521,10 @@ export default function DownloadDialog({
       return size(languageSize + universalSize + dlcSize)
     }
     if (gameInstallInfo?.manifest?.download_size) {
-      if (previousProgress.folder === installPath) {
+      if (
+        previousProgress.folder === installPath ||
+        previousProgressStrategy === 'move'
+      ) {
         const progress = 100 - getProgress(previousProgress)
         return size(
           (progress / 100) * Number(gameInstallInfo.manifest.disk_size)
@@ -525,7 +534,13 @@ export default function DownloadDialog({
       return size(Number(gameInstallInfo?.manifest?.download_size))
     }
     return ''
-  }, [installPath, gameInstallInfo, installLanguage, dlcsToInstall])
+  }, [
+    installPath,
+    gameInstallInfo,
+    installLanguage,
+    dlcsToInstall,
+    previousProgressStrategy
+  ])
 
   const installSize = useMemo(() => {
     if (
@@ -570,10 +585,14 @@ export default function DownloadDialog({
     if (installPath) {
       if (notEnoughDiskSpace) {
         return t('button.force-innstall', 'Force Install')
-      } else {
-        return previousProgress.folder === installPath
-          ? t('button.continue', 'Continue Download')
-          : t('button.install')
+      } else if (!previousProgress.folder) {
+        return t('button.install')
+      } else if (previousProgress.folder === installPath) {
+        return t('button.continue', 'Continue Download')
+      } else if (previousProgressStrategy === 'move') {
+        return t('button.move_and_continue', 'Move and Continue Download')
+      } else if (previousProgressStrategy === 'delete') {
+        return t('button.delete_and_install', 'Delete and Install')
       }
     }
     return t('button.no-path-selected', 'No path selected')
@@ -584,6 +603,17 @@ export default function DownloadDialog({
 
   const showDlcSelector =
     ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0
+
+  const previousProgressStrategyOptions = {
+    move: t(
+      'install.previous_progress_strategy_options.move',
+      'Move to new path and continue'
+    ),
+    delete: t(
+      'install.previous_progress_strategy_options.delete',
+      'Delete and download from scratch'
+    )
+  }
 
   return (
     <>
@@ -636,21 +666,41 @@ export default function DownloadDialog({
               `${t('game.getting-install-size', 'Geting install size')}...`
             )}
           </div>
-          {previousProgress.folder === installPath && (
-            <div className="InstallModal__size">
-              <FontAwesomeIcon
-                className="InstallModal__sizeIcon"
-                icon={faSpinner}
-              />
-              <div className="InstallModal__sizeLabel">
-                {t('status.totalDownloaded', 'Total Downloaded')}:
-              </div>
-              <div className="InstallModal__sizeValue">
-                {getProgress(previousProgress)}%
-              </div>
+          <div className="InstallModal__size">
+            <FontAwesomeIcon
+              className="InstallModal__sizeIcon"
+              icon={faSpinner}
+            />
+            <div className="InstallModal__sizeLabel">
+              {t('status.totalDownloaded', 'Total Downloaded')}:
             </div>
-          )}
+            <div className="InstallModal__sizeValue">
+              {getProgress(previousProgress)}%
+            </div>
+          </div>
         </div>
+
+        {previousProgress.folder && previousProgress.folder !== installPath && (
+          <SelectField
+            htmlId="previousProgressStrategySelect"
+            value={previousProgressStrategy}
+            onChange={(event) =>
+              setPreviousProgressStrategy(event.target.value)
+            }
+            label={t(
+              'install.previous_progress_strategy_prompt',
+              'What to do with previous partial download?'
+            )}
+          >
+            {Object.entries(previousProgressStrategyOptions).map(
+              ([key, value]) => (
+                <MenuItem key={key} value={key}>
+                  {value}
+                </MenuItem>
+              )
+            )}
+          </SelectField>
+        )}
         {installLanguages && installLanguages?.length > 1 && (
           <GameLanguageSelector
             installPlatform={platformToInstall}
