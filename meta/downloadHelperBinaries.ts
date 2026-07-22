@@ -16,7 +16,7 @@ type DownloadedBinary =
 
 const RELEASE_TAGS = {
   legendary: '0.20.43',
-  gogdl: 'v1.2.1',
+  gogdl: 'v1.2.2',
   nile: 'v1.2.0',
   comet: 'v0.2.0',
   'epic-integration': 'v0.4'
@@ -129,12 +129,12 @@ async function downloadGogdl() {
     {
       x64: {
         linux: 'gogdl_linux_x86_64',
-        darwin: 'gogdl_macOS_x86_64',
+        darwin: 'gogdl_macos_x86_64',
         win32: 'gogdl_windows_x86_64.exe'
       },
       arm64: {
         linux: 'gogdl_linux_arm64',
-        darwin: 'gogdl_macOS_arm64',
+        darwin: 'gogdl_macos_arm64',
         win32: 'gogdl_windows_arm64.exe'
       }
     }
