@@ -92,6 +92,7 @@ import {
   isOnline,
   runOnceWhenOnline
 } from './online_monitor'
+import { recoverOrphanedSessions } from './playtime_recovery'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
@@ -379,13 +380,17 @@ if (!gotTheLock) {
 
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
-    if (!settings.disablePlaytimeSync) {
-      runOnceWhenOnline(() => libraryManagerMap['gog'].syncQueuedPlaytime())
-    } else {
-      logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
-        prefix: LogPrefix.Backend
-      })
-    }
+    runOnceWhenOnline(async () => {
+      await recoverOrphanedSessions()
+      if (!settings.disablePlaytimeSync) {
+        await libraryManagerMap['gog'].syncQueuedPlaytime()
+      } else {
+        logDebug(
+          'Skipping playtime sync queue upload - playtime sync disabled',
+          { prefix: LogPrefix.Backend }
+        )
+      }
+    })
     runOnceWhenOnline(gogPresence.setPresence)
     await i18next.use(Backend).init({
       backend: {
