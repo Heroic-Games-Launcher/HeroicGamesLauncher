@@ -787,7 +787,16 @@ addHandler('getGOGLinuxInstallersLangs', async (event, appName) =>
 
 addHandler(
   'getInstallInfo',
-  async (event, appName, runner, installPlatform, build, branch) => {
+  async (
+    event,
+    appName,
+    runner,
+    installPlatform,
+    build,
+    branch,
+    installLanguage,
+    sdlList
+  ) => {
     try {
       const info = await libraryManagerMap[runner].getInstallInfo(
         appName,
@@ -798,6 +807,24 @@ addHandler(
         }
       )
       if (info === undefined) return null
+
+      if (info.manifest?.download_size) {
+        const { buildCacheKey, setCachedSize } =
+          await import('./downloadmanager/sizeCache')
+        const { getFileSize } = await import('./utils')
+        const key = buildCacheKey(
+          'install',
+          appName,
+          runner,
+          installPlatform,
+          installLanguage,
+          sdlList,
+          branch,
+          build
+        )
+        setCachedSize(key, getFileSize(info.manifest.download_size))
+      }
+
       return info
     } catch (error) {
       logError(
