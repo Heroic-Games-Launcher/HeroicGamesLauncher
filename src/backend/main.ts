@@ -104,6 +104,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
+import type { LibraryManager } from 'common/types/game_manager'
 import {
   setGameOverrides,
   getGameOverrides,
@@ -909,16 +910,18 @@ if (existsSync(legendaryInstalled)) {
   })
 }
 
-addHandler('refreshLibrary', async (e, library?) => {
-  if (library !== undefined && library !== 'all') {
-    await libraryManagerMap[library].refresh()
-  } else {
-    const allRefreshPromises = []
-    for (const manager of Object.values(libraryManagerMap)) {
-      allRefreshPromises.push(manager.refresh())
-    }
-    await Promise.allSettled(allRefreshPromises)
+addHandler('refreshLibrary', async (e, { library, localOnly } = {}) => {
+  async function doRefresh(manager: LibraryManager) {
+    if (localOnly && manager.refreshLocal) return manager.refreshLocal()
+    return manager.refresh()
   }
+
+  const managers =
+    library !== undefined && library !== 'all'
+      ? [libraryManagerMap[library]]
+      : Object.values(libraryManagerMap)
+
+  await Promise.allSettled(managers.map(doRefresh))
 })
 
 // get pid/tid on launch and inject
