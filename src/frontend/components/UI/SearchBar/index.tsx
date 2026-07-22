@@ -1,4 +1,10 @@
-import { Fragment, useCallback, useEffect, useRef } from 'react'
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  type PointerEvent
+} from 'react'
 import './index.scss'
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -52,8 +58,25 @@ export default function SearchBar({
     }
   }, [onInputChanged])
 
+  const focusInput = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement
+    if (target.closest('.autoComplete, button')) {
+      return
+    }
+
+    if (target !== input.current) {
+      event.preventDefault()
+    }
+
+    input.current?.focus()
+  }, [])
+
   return (
-    <div className="SearchBar" data-testid="searchBar">
+    <div
+      className="SearchBar"
+      data-testid="searchBar"
+      onPointerDownCapture={focusInput}
+    >
       <FontAwesomeIcon
         className="searchButton"
         style={{ padding: 'var(--space-2xs) var(--space-sm)' }}
