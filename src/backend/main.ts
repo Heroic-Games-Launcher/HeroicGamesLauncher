@@ -326,6 +326,23 @@ if (!gotTheLock) {
 
     handleProtocol(argv)
   })
+
+  // Proactively save session cookies to prevent store disconnects on hard crash or ungraceful shutdown
+  app.on('session-created', (ses) => {
+    let timeout: NodeJS.Timeout | null = null
+    ses.cookies.on('changed', () => {
+      if (timeout) clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        ses.cookies.flushStore().catch((err: unknown) => {
+          logError(`Failed to flush session cookies: ${err}`, {
+            prefix: LogPrefix.Backend
+          })
+        })
+        ses.flushStorageData()
+      }, 1000)
+    })
+  })
+
   app.whenReady().then(async () => {
     initLogger()
 
@@ -334,6 +351,10 @@ if (!gotTheLock) {
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
+
+    // Gracefully handle termination signals to ensure Electron natively flushes session data
+    process.on('SIGTERM', () => app.quit())
+    process.on('SIGINT', () => app.quit())
 
     // Add User-Agent Client hints to behave like Windows
     if (process.argv.includes('--spoof-windows')) {
