@@ -49,6 +49,8 @@ import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
 import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
+import SteamLibrarySelector from './SteamLibrarySelector'
+import { SteamInstallLibrary } from 'common/types/steam'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import BranchSelector from './BranchSelector'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
@@ -58,6 +60,7 @@ interface Props {
   appName: string
   runner: Runner
   platformToInstall: InstallPlatform
+  setPlatformToInstall: (platform: InstallPlatform) => void
   availablePlatforms: AvailablePlatforms
   winePrefix: string
   crossoverBottle: string
@@ -97,6 +100,7 @@ export default function DownloadDialog({
   appName,
   runner,
   platformToInstall,
+  setPlatformToInstall,
   availablePlatforms,
   winePrefix,
   wineVersion,
@@ -111,6 +115,7 @@ export default function DownloadDialog({
     useContext(ContextProvider)
 
   const isWin = platform === 'win32'
+  const isSteam = runner === 'steam'
 
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
@@ -129,6 +134,9 @@ export default function DownloadDialog({
 
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || getDefaultInstallPath()
+  )
+  const [steamLibraries, setSteamLibraries] = useState<SteamInstallLibrary[]>(
+    []
   )
   const gameStatus: GameStatus = libraryStatus.filter(
     (game: GameStatus) => game.appName === appName
@@ -324,11 +332,25 @@ export default function DownloadDialog({
           branch
         )
 
-        if (
+        const noContent =
           gameInstallInfo?.manifest &&
           gameInstallInfo?.manifest.disk_size === 0 &&
           gameInstallInfo.manifest.download_size === 0
+
+        // Steam: the current platform was auto-selected, but this game has no
+        // depots for it (dry-run reports 0 sizes). Fall back to Windows (run via
+        // Proton) instead of declaring the game uninstallable.
+        if (
+          noContent &&
+          isSteam &&
+          platformToInstall !== 'Windows' &&
+          availablePlatforms.some((p) => p.value === 'Windows')
         ) {
+          setPlatformToInstall('Windows')
+          return
+        }
+
+        if (noContent) {
           showDialogModal({
             showDialog: true,
             title: t(
@@ -437,6 +459,29 @@ export default function DownloadDialog({
     branch,
     savedBranchPassword
   ])
+
+  useEffect(() => {
+    if (!isSteam) return
+    let cancelled = false
+    void window.api.getSteamInstallLibraries().then((libraries) => {
+      if (cancelled) return
+      setSteamLibraries(libraries)
+      if (!libraries.length) return
+      const configuredPath =
+        gameInstallInfo &&
+        'game' in gameInstallInfo &&
+        'path' in gameInstallInfo.game
+          ? gameInstallInfo.game.path
+          : ''
+      const preselected =
+        libraries.find((lib) => configuredPath.startsWith(lib.path))?.path ??
+        libraries[0].path
+      setInstallPath(preselected)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [isSteam, gameInstallInfo])
 
   useEffect(() => {
     const getGameSdl = async () => {
@@ -660,70 +705,78 @@ export default function DownloadDialog({
           />
         )}
 
-        <PathSelectionBox
-          type="directory"
-          onPathChange={setInstallPath}
-          path={installPath}
-          placeholder={getDefaultInstallPath()}
-          pathDialogTitle={t('install.path')}
-          pathDialogDefaultPath={getDefaultInstallPath()}
-          htmlId="setinstallpath"
-          label={t('install.path', 'Select Install Path')}
-          noDeleteButton
-          afterInput={
-            downloadSize ? (
-              <span className="smallInputInfo">
-                {validPath && validFlatpakPath && (
-                  <>
-                    <span>
-                      {`${t('install.disk-space-left', 'Space Available')}: `}
+        {isSteam ? (
+          <SteamLibrarySelector
+            libraries={steamLibraries}
+            selectedPath={installPath}
+            onChange={setInstallPath}
+          />
+        ) : (
+          <PathSelectionBox
+            type="directory"
+            onPathChange={setInstallPath}
+            path={installPath}
+            placeholder={getDefaultInstallPath()}
+            pathDialogTitle={t('install.path')}
+            pathDialogDefaultPath={getDefaultInstallPath()}
+            htmlId="setinstallpath"
+            label={t('install.path', 'Select Install Path')}
+            noDeleteButton
+            afterInput={
+              downloadSize ? (
+                <span className="smallInputInfo">
+                  {validPath && validFlatpakPath && (
+                    <>
+                      <span>
+                        {`${t('install.disk-space-left', 'Space Available')}: `}
+                      </span>
+                      <span>
+                        <strong>{`${message}`}</strong>
+                      </span>
+                      {!notEnoughDiskSpace && (
+                        <>
+                          <span>
+                            {` - ${t(
+                              'install.space-after-install',
+                              'After Install'
+                            )}: `}
+                          </span>
+                          <span>
+                            <strong>{`${spaceLeftAfter}`}</strong>
+                          </span>
+                        </>
+                      )}
+                    </>
+                  )}
+                  {!validPath && (
+                    <span className="warning">
+                      {`${t(
+                        'install.path-not-writtable',
+                        'Warning: path might not be writable.'
+                      )}`}
                     </span>
-                    <span>
-                      <strong>{`${message}`}</strong>
+                  )}
+                  {validPath && !validFlatpakPath && (
+                    <span className="error">
+                      {`${t(
+                        'install.flatpak-path-not-writtable',
+                        'Error: Sandbox access not granted to this path, data loss will occur.'
+                      )}`}
                     </span>
-                    {!notEnoughDiskSpace && (
-                      <>
-                        <span>
-                          {` - ${t(
-                            'install.space-after-install',
-                            'After Install'
-                          )}: `}
-                        </span>
-                        <span>
-                          <strong>{`${spaceLeftAfter}`}</strong>
-                        </span>
-                      </>
-                    )}
-                  </>
-                )}
-                {!validPath && (
-                  <span className="warning">
-                    {`${t(
-                      'install.path-not-writtable',
-                      'Warning: path might not be writable.'
-                    )}`}
-                  </span>
-                )}
-                {validPath && !validFlatpakPath && (
-                  <span className="error">
-                    {`${t(
-                      'install.flatpak-path-not-writtable',
-                      'Error: Sandbox access not granted to this path, data loss will occur.'
-                    )}`}
-                  </span>
-                )}
-                {validPath && notEnoughDiskSpace && (
-                  <span className="warning">
-                    {` (${t(
-                      'install.not-enough-disk-space',
-                      'Not enough disk space'
-                    )})`}
-                  </span>
-                )}
-              </span>
-            ) : null
-          }
-        />
+                  )}
+                  {validPath && notEnoughDiskSpace && (
+                    <span className="warning">
+                      {` (${t(
+                        'install.not-enough-disk-space',
+                        'Not enough disk space'
+                      )})`}
+                    </span>
+                  )}
+                </span>
+              ) : null
+            }
+          />
+        )}
 
         {platformToInstall !== 'linux' && branches.length > 1 && (
           <div>
@@ -783,9 +836,14 @@ export default function DownloadDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button onClick={handleSwitchToImport} className="button is-secondary">
-          {t('button.import', 'Import Game')}
-        </button>
+        {!isSteam && (
+          <button
+            onClick={handleSwitchToImport}
+            className="button is-secondary"
+          >
+            {t('button.import', 'Import Game')}
+          </button>
+        )}
         <button
           onClick={async () => handleInstall()}
           className="button is-primary"

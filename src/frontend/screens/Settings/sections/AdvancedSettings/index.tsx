@@ -20,6 +20,7 @@ import {
   AltGOGdlBin,
   AltLegendaryBin,
   AltNileBin,
+  AltAureliaBin,
   ClearCache,
   CustomCSS,
   DisableLogs,
@@ -182,6 +183,8 @@ export default function AdvancedSetting() {
       <AltGOGdlBin />
 
       <AltNileBin />
+
+      <AltAureliaBin />
 
       <DownloadNoHTTPS />
 

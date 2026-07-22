@@ -12,7 +12,13 @@ import {
 import axios from 'axios'
 import https from 'node:https'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
+import {
+  ChildProcess,
+  exec,
+  spawn,
+  SpawnOptions,
+  spawnSync
+} from 'child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -41,6 +47,11 @@ import {
   installStore as nileInstallStore,
   libraryStore as nileLibraryStore
 } from './storeManagers/nile/electronStores'
+import {
+  installInfoStore as steamInstallInfoStore,
+  libraryStore as steamLibraryStore,
+  extraInfoStore as steamExtraInfoStore
+} from './storeManagers/steam/electronStores'
 import * as fileSize from 'filesize'
 import { Client as discordClient } from '@xhayper/discord-rpc'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -361,14 +372,14 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
-  if (url.startsWith('http')) {
+  if (url.includes('://') && URL.canParse(url)) {
     return shell.openExternal(url)
   }
   return shell.openPath(url)
 }
 
 function clearCache(
-  library?: 'gog' | 'legendary' | 'nile' | 'zoom',
+  library?: 'gog' | 'legendary' | 'nile' | 'zoom' | 'steam',
   fromVersionChange = false
 ) {
   wikiGameInfoStore.clear()
@@ -390,6 +401,11 @@ function clearCache(
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
     nileLibraryStore.clear()
+  }
+  if (library === 'steam' || !library) {
+    steamInstallInfoStore.clear()
+    steamLibraryStore.clear()
+    steamExtraInfoStore.clear()
   }
 
   if (!fromVersionChange) {
@@ -499,6 +515,24 @@ function getNileBin(): { dir: string; bin: string } {
   if (!defaultNilePath) defaultNilePath = archSpecificBinary('nile')
 
   return splitPathAndName(fixAsarPath(defaultNilePath))
+}
+
+let defaultAureliaPath: string | undefined = undefined
+function getAureliaBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altAureliaBin) {
+    return splitPathAndName(settings.altAureliaBin)
+  }
+
+  if (!defaultAureliaPath) defaultAureliaPath = archSpecificBinary('aurelia')
+
+  const bundledPath = fixAsarPath(defaultAureliaPath)
+  // check PATH
+  if (!existsSync(bundledPath)) {
+    return { dir: '', bin: isWindows ? 'aurelia.exe' : 'aurelia' }
+  }
+
+  return splitPathAndName(bundledPath)
 }
 
 export function createNecessaryFolders() {
@@ -1376,6 +1410,91 @@ export async function isMacSonomaOrHigher() {
 function sendGameStatusUpdate(payload: GameStatus) {
   sendFrontendMessage('gameStatusUpdate', payload)
   backendEvents.emit('gameStatusUpdate', payload)
+
+  // Bring the game window to the foreground once it starts playing.
+  if (payload.status === 'playing') {
+    focusGameWindow()
+  }
+}
+
+let activeFocusProcess: ChildProcess | null = null
+
+/**
+ * Polls for a newly-created game window and brings it to the foreground.
+ * On Windows, polls for up to 10 seconds (500ms intervals) using AppActivate,
+ * which is more robust than a single attempt since the game process may take
+ * time to start and create its window.
+ *
+ * Only one polling loop runs at a time — starting a new one cancels any
+ * in-progress focus attempt to prevent overlapping loops from activating the
+ * wrong window.
+ */
+function focusGameWindow() {
+  // Cancel any in-progress focus attempt.
+  if (activeFocusProcess) {
+    try {
+      activeFocusProcess.kill()
+    } catch {
+      // process may already be dead
+    }
+    activeFocusProcess = null
+  }
+
+  try {
+    let child: ChildProcess
+    if (isWindows) {
+      child = spawn(
+        'powershell',
+        [
+          '-NoProfile',
+          '-Command',
+          [
+            'Add-Type -AssemblyName Microsoft.VisualBasic;',
+            '$deadline = [DateTime]::Now.AddSeconds(10);',
+            'while ([DateTime]::Now -lt $deadline) {',
+            '  $p = Get-Process | Where-Object {',
+            '    $_.MainWindowHandle -ne 0 -and',
+            '    $_.ProcessName -ne "Heroic" -and',
+            '    $_.ProcessName -ne "HeroicGamesLauncher"',
+            '  } | Sort-Object StartTime -Descending | Select-Object -First 1;',
+            '  if ($p -and [Microsoft.VisualBasic.Interaction]::AppActivate($p.Id)) { break };',
+            '  Start-Sleep -Milliseconds 500',
+            '}'
+          ].join('')
+        ],
+        { timeout: 15000, stdio: 'ignore' }
+      )
+    } else if (isLinux) {
+      child = spawn(
+        'xdotool',
+        ['search', '--onlyvisible', '--class', '.', 'windowactivate'],
+        { timeout: 3000, stdio: 'ignore' }
+      )
+    } else if (isMac) {
+      child = spawn(
+        'osascript',
+        [
+          '-e',
+          'tell application "System Events" to set frontmost of (first process whose visible is true and name is not "Heroic") to true'
+        ],
+        { timeout: 3000, stdio: 'ignore' }
+      )
+    } else {
+      return
+    }
+
+    activeFocusProcess = child
+    child.on('error', () => {
+      // best-effort — process failed to start or was killed
+    })
+    child.on('close', () => {
+      if (activeFocusProcess === child) {
+        activeFocusProcess = null
+      }
+    })
+  } catch {
+    // best-effort
+  }
 }
 
 function sendProgressUpdate(payload: GameStatus) {
@@ -1626,7 +1745,10 @@ async function extractTarFile({
 
 const axiosClient = axios.create({
   timeout: 10 * 1000,
-  httpsAgent: new https.Agent({ keepAlive: true })
+  httpsAgent: new https.Agent({ keepAlive: true }),
+  headers: {
+    'User-Agent': `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
+  }
 })
 
 export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
@@ -1685,6 +1807,7 @@ export {
   getGOGdlBin,
   getCometBin,
   getNileBin,
+  getAureliaBin,
   formatEpicStoreUrl,
   getSteamRuntime,
   constructAndUpdateRPC,
@@ -1703,10 +1826,12 @@ export {
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,
+  formatTime,
   extractFiles,
   axiosClient,
   parseSize,
-  getGame
+  getGame,
+  focusGameWindow
 }
 
 // Exported only for testing purpose

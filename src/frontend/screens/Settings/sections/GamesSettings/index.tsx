@@ -28,6 +28,7 @@ import {
   PreferSystemLibs,
   ShowFPS,
   SteamRuntime,
+  SteamIntegration,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -210,6 +211,7 @@ export default function GamesSettings() {
         <GameMode />
         {isLinux && <PreferSystemLibs />}
         <SteamRuntime />
+        <SteamIntegration />
         <NvidiaPrime />
         {!isNative && (
           <>

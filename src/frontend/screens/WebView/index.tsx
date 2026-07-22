@@ -24,6 +24,8 @@ const validStoredUrl = (url: string, store: string) => {
       return url.includes('gaming.amazon.com')
     case 'zoom':
       return url.includes('zoom-platform.com')
+    case 'steam':
+      return url.includes('steampowered.com')
     default:
       return false
   }
@@ -63,6 +65,7 @@ export default function WebView() {
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
   const zoomStore = `https://www.zoom-platform.com`
+  const steamStore = `https://store.steampowered.com/?l=${lang}`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
@@ -78,6 +81,7 @@ export default function WebView() {
     '/store/gog': gogStore,
     '/store/amazon': amazonStore,
     '/store/zoom': zoomStore,
+    '/store/steam': steamStore,
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
@@ -264,12 +268,31 @@ export default function WebView() {
         }
       }
 
-      const onLoginNavigate = () => {
+      // Guards against processing the same login callback more than once (the
+      // callback URL can be observed by several navigation events).
+      let loginHandled = false
+
+      // Handles the OAuth/OpenID callback for runners that log in through the
+      // embedded webview. The callback URL is read from the navigation event so
+      // we capture every query parameter (e.g. Steam's `openid.sig`) *before*
+      // the storefront can redirect and strip them, which previously caused the
+      // login verification to fail.
+      const handleLoginCallback = (pageURL: string) => {
+        if (loginHandled || !pageURL) {
+          return
+        }
+
+        let parsedURL: URL
+        try {
+          parsedURL = new URL(pageURL)
+        } catch {
+          return
+        }
+
         if (runner === 'zoom') {
-          const pageURL = webview.getURL()
-          const parsedURL = new URL(pageURL)
           const token = parsedURL.searchParams.get('li_token')
           if (token) {
+            loginHandled = true
             setLoading({
               refresh: true,
               message: t('status.logging', 'Logging In...')
@@ -279,15 +302,33 @@ export default function WebView() {
         }
       }
 
+      const onLoginStartNavigation = (e: Electron.DidStartNavigationEvent) => {
+        if (e.isMainFrame) {
+          handleLoginCallback(e.url)
+        }
+      }
+
+      const onLoginNavigate = () => {
+        handleLoginCallback(webview.getURL())
+      }
+
       // this one is needed for gog/amazon
       webview.addEventListener('did-navigate', onNavigate)
       // this one is needed for epic
       webview.addEventListener('did-navigate-in-page', onNavigate)
+      // Catch the login callback as early as possible (before any storefront
+      // redirect strips the auth query parameters), with `did-navigate` as a
+      // fallback for callbacks that only surface once navigation has committed.
+      webview.addEventListener('did-start-navigation', onLoginStartNavigation)
       webview.addEventListener('did-navigate', onLoginNavigate)
 
       return () => {
         webview.removeEventListener('did-navigate', onNavigate)
         webview.removeEventListener('did-navigate-in-page', onNavigate)
+        webview.removeEventListener(
+          'did-start-navigation',
+          onLoginStartNavigation
+        )
         webview.removeEventListener('did-navigate', onLoginNavigate)
       }
     }

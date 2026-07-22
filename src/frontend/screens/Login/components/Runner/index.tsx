@@ -15,6 +15,8 @@ interface RunnerProps {
   logoutAction: () => any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   alternativeLoginAction?: () => any
+  // Clicking the primary login button runs this instead of navigating to `loginUrl`
+  onLogin?: () => void
   buttonText: string
   disabled: boolean
 }
@@ -35,6 +37,11 @@ export default function Runner(props: RunnerProps) {
 
   function handleLogin() {
     if (props.disabled) {
+      return
+    }
+
+    if (props.onLogin) {
+      props.onLogin()
       return
     }
 
