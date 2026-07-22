@@ -366,6 +366,11 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  'exe_handler.launchWithExeFile': (
+    exePath: string,
+    appName: string,
+    runner: Runner
+  ) => Promise<void>
 }
 
 interface FrontendMessages {
@@ -408,6 +413,11 @@ interface FrontendMessages {
       string,
       { title?: string; art_cover?: string; art_square?: string }
     >
+  ) => void
+
+  'exe_handler.showExeFilePicker': (
+    exePath: string,
+    flatpakInaccessible: boolean
   ) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here

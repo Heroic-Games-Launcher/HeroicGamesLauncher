@@ -422,6 +422,14 @@
     },
     "Epic Games": "Epic Games",
     "error": "Error",
+    "exeFilePicker": {
+        "description": "You have opened an executable file with Heroic. Please select the game you wish to run this EXE file on.",
+        "flatpakWarning": "The selected executable is not accessible to Heroic. If you run this executable, it will not see any other files in its containing folder. To fix this, move the executable into an accessible location (e.g. ~/Games/Heroic).",
+        "loading": "Loading game list...",
+        "running": "Running executable...",
+        "search": "Search games...",
+        "title": "Open EXE"
+    },
     "externalLink": {
         "dontAskAgain": "Don't ask again",
         "warning": "You are about to open an external link."

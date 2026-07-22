@@ -45,3 +45,8 @@ export const getGmgDiscounts = makeHandlerInvoker('getGmgDiscounts')
 export const getHumbleDiscounts = makeHandlerInvoker('getHumbleDiscounts')
 export const setTitleBarOverlay = makeListenerCaller('setTitleBarOverlay')
 export const isGameAvailable = makeHandlerInvoker('isGameAvailable')
+
+export const exe_handler = {
+  launchWithExeFile: makeHandlerInvoker('exe_handler.launchWithExeFile'),
+  handleShowExeFilePicker: frontendListenerSlot('exe_handler.showExeFilePicker')
+}
