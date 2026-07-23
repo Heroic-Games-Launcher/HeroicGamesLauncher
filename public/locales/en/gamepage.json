@@ -205,6 +205,11 @@
         "wineprefix": "WinePrefix",
         "wineversion": "Wine version"
     },
+    "itchio": {
+        "import": {
+            "warning": "Folders installed by the itch.io app are fully imported, including updates. For any other folder, Heroic cannot check for updates and uninstalling will not delete the game files."
+        }
+    },
     "label": {
         "game": {
             "not-installable-game": "Game is NOT Installable",

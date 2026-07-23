@@ -5,7 +5,7 @@ import {
   rmSync,
   statSync
 } from 'graceful-fs'
-import { basename, join } from 'path'
+import { basename, dirname, join, resolve } from 'path'
 
 import {
   ExecResult,
@@ -29,6 +29,7 @@ import {
   logWarning
 } from 'backend/logger'
 import {
+  getPathDiskSize,
   killPattern,
   removeSpecialcharacters,
   sendProgressUpdate,
@@ -57,17 +58,11 @@ import {
   getStrictInstallInfo,
   installState as setLibraryInstallState
 } from './library'
-import { ItchioInstallInfo, ItchioUpload } from 'common/types/itchio'
-
-const NOT_IMPLEMENTED =
-  'itch.io integration: butlerd command not yet implemented'
-
-function logNotImplemented(operation: string, details: object): void {
-  logWarning(
-    [`${NOT_IMPLEMENTED} (operation=${operation})`, details],
-    LogPrefix.Itchio
-  )
-}
+import {
+  ItchioGame as ItchioGameData,
+  ItchioInstallInfo,
+  ItchioUpload
+} from 'common/types/itchio'
 
 interface InstallQueueResult {
   id: string
@@ -389,13 +384,182 @@ function getExtraInfo(appName: string): Promise<ExtraInfo> {
   })
 }
 
-function importGame(
+interface InstallLocationsScanResult {
+  numFoundItems?: number
+  numImportedItems?: number
+}
+
+// A folder installed by the itch.io app carries a butlerd receipt at
+// `.itch/receipt.json.gz`. For those we register the folder's parent as a
+// butlerd install location and run Install.Locations.Scan, which re-creates
+// the cave from the receipt — so the imported game gets working updates and
+// uninstall, exactly as if Heroic had installed it. Returns false when no
+// cave could be adopted (caller falls back to the cave-less import).
+async function adoptCaveFromScan(
+  appName: string,
+  path: string,
+  platform: InstallPlatform,
+  installInfo: ItchioInstallInfo | undefined
+): Promise<boolean> {
+  const gameId = gameIdFromAppName(appName)
+  if (gameId === undefined) return false
+
+  try {
+    const client = await getClient()
+    await ensureInstallLocationId(dirname(path))
+
+    // The scan ends with a ConfirmImport server->client request; without a
+    // handler the client rejects it and butlerd discards the found items.
+    const unhandle = client.handle(
+      'Install.Locations.Scan.ConfirmImport',
+      () => ({ confirm: true })
+    )
+    let scan: InstallLocationsScanResult
+    try {
+      scan = await client.call<InstallLocationsScanResult>(
+        'Install.Locations.Scan'
+      )
+    } finally {
+      unhandle()
+    }
+    logInfo(
+      `itch.io import ${appName}: scan found ${scan.numFoundItems ?? 0} ` +
+        `item(s), imported ${scan.numImportedItems ?? 0}`,
+      LogPrefix.Itchio
+    )
+
+    const caves = await client.call<FetchCavesResult>('Fetch.Caves', {
+      filters: { gameId }
+    })
+    const items = caves.items ?? []
+    const cave =
+      items.find(
+        (c) =>
+          c.installInfo?.installFolder &&
+          resolve(c.installInfo.installFolder) === resolve(path)
+      ) ?? (items.length === 1 ? items[0] : undefined)
+    if (!cave) return false
+
+    const upload = cave.upload ?? installInfo?.upload
+    if (!upload) return false
+
+    const info = getItchioLibraryGameInfo(appName)
+    const installedSize = cave.installInfo?.installedSize ?? upload.size ?? 0
+    const resolvedInstallInfo: ItchioInstallInfo = installInfo ?? {
+      game: { ...info, id: gameId, owned_dlc: [] } as unknown as ItchioGameData,
+      upload,
+      install_size: installedSize,
+      download_size: upload.size ?? 0,
+      launch_options: [],
+      manifest: { disk_size: installedSize, download_size: upload.size ?? 0 }
+    }
+
+    await persistInstalledCave(
+      appName,
+      client,
+      cave.id,
+      cave.installInfo?.installFolder ?? path,
+      resolvedInstallInfo,
+      platform
+    )
+    await addShortcuts(appName)
+    return true
+  } catch (err) {
+    logWarning(
+      [
+        `itch.io import ${appName}: butlerd scan adoption failed:`,
+        (err as Error).message
+      ],
+      LogPrefix.Itchio
+    )
+    return false
+  }
+}
+
+// Adopt an already-installed copy of the game. Folders installed by the
+// itch.io app (identified by their butlerd receipt) are re-attached to
+// butlerd via Install.Locations.Scan so updates keep working. Any other
+// folder is recorded as-is, without a cave: updates are unavailable until
+// the game is reinstalled through Heroic, and uninstalling only removes
+// the library entry.
+async function importGame(
   appName: string,
   path: string,
   platform: InstallPlatform
 ): Promise<ExecResult> {
-  logNotImplemented('importGame', { appName, path, platform })
-  return Promise.resolve({ stdout: '', stderr: NOT_IMPLEMENTED })
+  const info = getItchioLibraryGameInfo(appName)
+  if (!info) {
+    return { stdout: '', stderr: '', error: `Unknown itch.io app ${appName}` }
+  }
+  if (!existsSync(path)) {
+    return { stdout: '', stderr: '', error: `Path does not exist: ${path}` }
+  }
+
+  logInfo(`Importing ${appName} from ${path}`, LogPrefix.Itchio)
+
+  // Upload metadata (version/channel) is nice-to-have; importing must also
+  // work offline, so a failed fetch never aborts the import.
+  const installInfo = await getStrictInstallInfo(appName, platform).catch(
+    () => undefined
+  )
+  if (installInfo) installStore.set(appName, installInfo)
+
+  if (existsSync(join(path, '.itch', 'receipt.json.gz'))) {
+    const adopted = await adoptCaveFromScan(
+      appName,
+      path,
+      platform,
+      installInfo
+    )
+    if (adopted) return { stdout: 'done', stderr: '' }
+    logWarning(
+      `itch.io import ${appName}: receipt found but no cave could be ` +
+        'adopted; importing without update support.',
+      LogPrefix.Itchio
+    )
+  }
+
+  const installedPlatform = uploadInstalledPlatform(
+    installInfo?.upload,
+    platform
+  )
+
+  let executable: string | undefined
+  if (
+    butlerdPlatformKey(installedPlatform) === 'osx' &&
+    path.endsWith('.app')
+  ) {
+    executable = resolveAppBundleExecutable(path)?.path
+  } else {
+    executable = scanForExecutable(path, installedPlatform)
+  }
+  if (!executable) {
+    logWarning(
+      `itch.io import ${appName}: no executable found in ${path}; set ` +
+        'Target Executable in game settings.',
+      LogPrefix.Itchio
+    )
+  }
+
+  const installSize = await getPathDiskSize(path).catch(() => 0)
+
+  info.install = {
+    install_path: path,
+    install_size: String(installSize),
+    is_dlc: false,
+    version: installInfo?.upload?.channelName ?? '0',
+    platform: installedPlatform,
+    executable: executable ?? '',
+    appName
+  }
+  info.is_installed = true
+  info.folder_name = path
+  setLibraryInstallState(appName, true)
+
+  const updated = getItchioLibraryGameInfo(appName)
+  if (updated) sendFrontendMessage('pushGameToLibrary', updated)
+  await addShortcuts(appName)
+  return { stdout: 'done', stderr: '' }
 }
 
 // butlerd uses JSON-RPC notifications, not stdout. This satisfies the
