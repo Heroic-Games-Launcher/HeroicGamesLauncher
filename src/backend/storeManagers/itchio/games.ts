@@ -41,6 +41,11 @@ import {
 } from 'backend/storeManagers/storeManagerCommon/games'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { getMainWindow } from 'backend/main_window'
+import {
+  addShortcuts as addShortcutsUtil,
+  removeShortcuts as removeShortcutsUtil
+} from 'backend/shortcuts/shortcuts/shortcuts'
+import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 
 import { getClient } from './butlerd'
 import { installStore } from './electronStores'
@@ -621,6 +626,7 @@ async function install(
       installInfo,
       platformToInstall
     )
+    await addShortcuts(appName)
     return { status: 'done' }
   } catch (err) {
     logError(
@@ -644,13 +650,11 @@ function isNative(appName: string): boolean {
 }
 
 function addShortcuts(appName: string, fromMenu?: boolean): Promise<void> {
-  logNotImplemented('addShortcuts', { appName, fromMenu })
-  return Promise.resolve()
+  return addShortcutsUtil(new ItchioGame(appName), fromMenu)
 }
 
 function removeShortcuts(appName: string): Promise<void> {
-  logNotImplemented('removeShortcuts', { appName })
-  return Promise.resolve()
+  return removeShortcutsUtil(new ItchioGame(appName))
 }
 
 // itch.io is DRM-free, so we skip butlerd's Launch RPC (which insists
@@ -801,6 +805,8 @@ async function uninstall(
 ): Promise<ExecResult> {
   const caveId = getCaveId(appName)
   if (!caveId) {
+    await removeShortcuts(appName)
+    await removeNonSteamGame(new ItchioGame(appName))
     await forceUninstall(appName)
     return { stdout: 'no cave', stderr: '' }
   }
@@ -835,6 +841,8 @@ async function uninstall(
         )
       }
     }
+    await removeShortcuts(appName)
+    await removeNonSteamGame(new ItchioGame(appName))
     installStore.delete(appName)
     setLibraryInstallState(appName, false)
     const updated = getItchioLibraryGameInfo(appName)
