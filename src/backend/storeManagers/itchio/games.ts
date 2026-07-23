@@ -949,10 +949,15 @@ async function maybePrepareInstallerLaunch(
     if (response !== 0) return null
   }
 
-  // /quiet covers MSI-style installers; /dir=... is honoured by InnoSetup
-  // and a few others. If the installer ignores these flags it will still
-  // launch interactively, which is the same behaviour as before this hook.
-  return [...args, '/quiet', `/dir=${installPath}`]
+  // /quiet covers MSI-wrapper installers, /S covers NSIS, and
+  // /SILENT + /DIR=... cover InnoSetup. The installer runs as a Windows
+  // program, so under Wine the target must be in Windows form (host paths
+  // are exposed through the Z: drive). If the installer ignores these
+  // flags it still launches interactively, same as before this hook.
+  const winPath = isWindows
+    ? installPath
+    : 'Z:' + installPath.split('/').join('\\')
+  return [...args, '/quiet', '/S', '/SILENT', `/DIR=${winPath}`]
 }
 
 async function moveInstall(

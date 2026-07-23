@@ -390,10 +390,14 @@ export class ButlerdClient {
     this.socket = undefined
     this.secret = undefined
     this.starting = undefined
+    // A partial line left over from a dead connection would otherwise
+    // corrupt the first message of the next one.
+    this.buffer = ''
   }
 }
 
 let singleton: ButlerdClient | undefined
+let singletonKey: string | undefined
 
 /**
  * Lazily start (or return) the process-wide butlerd client.
@@ -407,8 +411,16 @@ export async function getButlerdClient(
   dbPath: string,
   userAgent: string
 ): Promise<ButlerdClient> {
+  const key = JSON.stringify([bin, dbPath, userAgent])
+  if (singleton && singletonKey !== key) {
+    // The butler binary or db path changed (e.g. the altButlerBin
+    // setting): retire the old daemon so the new configuration applies.
+    await singleton.stop()
+    singleton = undefined
+  }
   if (!singleton) {
     singleton = new ButlerdClient(bin, dbPath, userAgent)
+    singletonKey = key
   }
   await singleton.start()
   return singleton

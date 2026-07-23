@@ -84,7 +84,7 @@ function loadFromCache(): GameInfo[] {
   return cached
 }
 
-export async function initItchioLibraryManager(): Promise<void> {
+async function initItchioLibraryManager(): Promise<void> {
   await setupItchio()
   loadFromCache()
   if (!ItchioUser.isLoggedIn()) {
@@ -104,7 +104,7 @@ export async function initItchioLibraryManager(): Promise<void> {
   }
 }
 
-export async function refresh(): Promise<ExecResult | null> {
+async function refresh(): Promise<ExecResult | null> {
   const profileId = configStore.get_nodefault('profileId')
   if (profileId === undefined) {
     logInfo(
@@ -140,22 +140,34 @@ export async function refresh(): Promise<ExecResult | null> {
     }
   } while (cursor)
 
-  const persisted = games.map(gameToGameInfo)
-  for (const game of persisted) {
-    const existing = inMemoryLibrary.get(game.app_name)
+  // A game owned through several download keys (e.g. bought directly AND
+  // via a bundle) comes back once per key — dedupe by app_name so the
+  // library doesn't render duplicate entries.
+  const merged = new Map<string, ItchioGameInfo>()
+  for (const game of games) {
+    const info = gameToGameInfo(game)
+    if (merged.has(info.app_name)) continue
+    const existing = inMemoryLibrary.get(info.app_name)
     if (existing?.is_installed) {
-      game.install = existing.install
-      game.is_installed = true
-      game.folder_name = existing.folder_name
-      game.caveId = existing.caveId
+      info.install = existing.install
+      info.is_installed = true
+      info.folder_name = existing.folder_name
+      info.caveId = existing.caveId
     }
-    inMemoryLibrary.set(game.app_name, game)
+    merged.set(info.app_name, info)
   }
-  libraryStore.set('library', persisted)
-  logInfo(
-    `itch.io library refreshed: ${persisted.length} games`,
-    LogPrefix.Itchio
-  )
+  // Installed games can be missing from the response (revoked key,
+  // delisted game, truncated pagination) — never drop them, or the
+  // install would vanish from the library and orphan its files.
+  for (const existing of inMemoryLibrary.values()) {
+    if (existing.is_installed && !merged.has(existing.app_name)) {
+      merged.set(existing.app_name, existing)
+    }
+  }
+  inMemoryLibrary.clear()
+  for (const [appName, info] of merged) inMemoryLibrary.set(appName, info)
+  libraryStore.set('library', Array.from(merged.values()))
+  logInfo(`itch.io library refreshed: ${merged.size} games`, LogPrefix.Itchio)
   return { stdout: '', stderr: '' }
 }
 
@@ -257,7 +269,7 @@ async function fetchInstallInfo(
 // call can render size/metadata even when no upload matches the host
 // platform. Must satisfy the LibraryManager contract — third arg is
 // fixed by Heroic, not customisable here.
-export async function getInstallInfo(
+async function getInstallInfo(
   appName: string,
   installPlatform: InstallPlatform
 ): Promise<InstallInfo | undefined> {
@@ -285,7 +297,7 @@ interface CheckUpdateResult {
   warnings?: string[]
 }
 
-export async function listUpdateableGames(): Promise<string[]> {
+async function listUpdateableGames(): Promise<string[]> {
   if (!ItchioUser.isLoggedIn()) return []
   const appByCave = new Map<string, string>()
   for (const game of inMemoryLibrary.values()) {
@@ -336,10 +348,7 @@ export function changeGameInstallPath(
   return Promise.resolve()
 }
 
-export function changeVersionPinnedStatus(
-  appName: string,
-  status: boolean
-): void {
+function changeVersionPinnedStatus(appName: string, status: boolean): void {
   logDebug(
     `itch.io changeVersionPinnedStatus(${appName}, ${status}) is a no-op`,
     LogPrefix.Itchio
@@ -359,7 +368,7 @@ export function installState(appName: string, state: boolean): void {
   libraryStore.set('library', Array.from(inMemoryLibrary.values()))
 }
 
-export function getLaunchOptions(appName: string): LaunchOption[] {
+function getLaunchOptions(appName: string): LaunchOption[] {
   const cached = installStore.get(appName)
   return cached?.launch_options ?? []
 }
