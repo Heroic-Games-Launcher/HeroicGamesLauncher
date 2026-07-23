@@ -13,6 +13,8 @@ import {
 import { ItchioGameInfo } from './types'
 import { Game, LibraryManager } from 'common/types/game_manager'
 
+import { join, relative } from 'path'
+
 import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger'
 import { isLinux } from 'backend/constants/environment'
 
@@ -52,10 +54,13 @@ export function gameIdFromAppName(appName: string): number | undefined {
 function gameToGameInfo(game: ItchioGame): ItchioGameInfo {
   const cover = game.coverUrl ?? game.stillCoverUrl ?? ''
   const platforms = game.platforms ?? {}
-  // On Linux we suppress native-Linux: uploads vary too much in shape
-  // for reliable native launching, so we always route through Wine.
+  // On Linux we prefer Wine whenever a Windows build exists: native Linux
+  // uploads vary too much in shape for reliable launching. Games without
+  // a Windows upload can only run natively, so those stay installable.
   const is_mac_native = Boolean(platforms.osx)
-  const is_linux_native = isLinux ? false : Boolean(platforms.linux)
+  const is_linux_native = isLinux
+    ? Boolean(platforms.linux) && !platforms.windows
+    : Boolean(platforms.linux)
   return {
     app_name: gameToAppName(game),
     runner: 'itchio',
@@ -316,7 +321,16 @@ export function changeGameInstallPath(
 ): Promise<void> {
   const info = inMemoryLibrary.get(appName)
   if (info?.install) {
+    const oldPath = info.install.install_path
+    // Keep the recorded executable pointing inside the new folder.
+    if (oldPath && info.install.executable?.startsWith(oldPath)) {
+      info.install.executable = join(
+        newPath,
+        relative(oldPath, info.install.executable)
+      )
+    }
     info.install.install_path = newPath
+    info.folder_name = newPath
     libraryStore.set('library', Array.from(inMemoryLibrary.values()))
   }
   return Promise.resolve()

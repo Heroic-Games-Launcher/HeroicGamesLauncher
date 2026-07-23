@@ -31,6 +31,8 @@ import {
 import {
   getPathDiskSize,
   killPattern,
+  moveOnUnix,
+  moveOnWindows,
   removeSpecialcharacters,
   sendProgressUpdate,
   shutdownWine
@@ -52,9 +54,9 @@ import { getClient } from './butlerd'
 import { installStore } from './electronStores'
 import {
   butlerdPlatformKey,
+  changeGameInstallPath,
   gameIdFromAppName,
   getGameInfo as getItchioLibraryGameInfo,
-  getInstallInfo as getItchioLibraryInstallInfo,
   getStrictInstallInfo,
   installState as setLibraryInstallState
 } from './library'
@@ -125,41 +127,68 @@ interface FetchCavesResult {
 
 // butlerd retains caves across Heroic restarts, so a previous uninstall
 // from Heroic's UI may leave a cave behind that makes a fresh
-// Install.Queue fail with "That upload is already installed!".
-async function clearStaleCavesForGame(gameId: number): Promise<void> {
-  const client = await getClient()
+// Install.Queue fail with "That upload is already installed!". But a cave
+// can also point at a LIVE install Heroic doesn't track — e.g. a sibling
+// game adopted by an import scan that the itch.io app owns — and hard-
+// uninstalling that would silently delete its files. So: adopt any cave
+// whose install folder still exists on disk, and only clear caves whose
+// folder is actually gone.
+async function adoptOrClearExistingCaves(
+  appName: string,
+  client: Awaited<ReturnType<typeof getClient>>,
+  gameId: number,
+  installInfo: ItchioInstallInfo,
+  platform: InstallPlatform
+): Promise<boolean> {
   try {
     const result = await client.call<FetchCavesResult>('Fetch.Caves', {
       filters: { gameId }
     })
-    await Promise.all(
-      (result.items ?? []).map(async (cave) => {
-        try {
-          await client.call('Uninstall.Perform', {
-            caveId: cave.id,
-            hard: true
-          })
-          logInfo(
-            `itch.io: cleared stale cave ${cave.id} for game ${gameId}`,
-            LogPrefix.Itchio
-          )
-        } catch (err) {
-          logWarning(
-            [
-              `itch.io: failed to clear stale cave ${cave.id}:`,
-              (err as Error).message
-            ],
-            LogPrefix.Itchio
-          )
-        }
-      })
-    )
+    for (const cave of result.items ?? []) {
+      const folder = cave.installInfo?.installFolder
+      if (folder && existsSync(folder)) {
+        logInfo(
+          `itch.io install ${appName}: adopting existing cave ${cave.id} ` +
+            `at ${folder} instead of downloading`,
+          LogPrefix.Itchio
+        )
+        await persistInstalledCave(
+          appName,
+          client,
+          cave.id,
+          folder,
+          installInfo,
+          platform
+        )
+        await addShortcuts(appName)
+        return true
+      }
+      try {
+        await client.call('Uninstall.Perform', {
+          caveId: cave.id,
+          hard: true
+        })
+        logInfo(
+          `itch.io: cleared stale cave ${cave.id} for game ${gameId}`,
+          LogPrefix.Itchio
+        )
+      } catch (err) {
+        logWarning(
+          [
+            `itch.io: failed to clear stale cave ${cave.id}:`,
+            (err as Error).message
+          ],
+          LogPrefix.Itchio
+        )
+      }
+    }
   } catch (err) {
     logWarning(
       ['itch.io: Fetch.Caves failed:', (err as Error).message],
       LogPrefix.Itchio
     )
   }
+  return false
 }
 
 // `.app` is a directory; spawn() needs the inner Mach-O at
@@ -746,6 +775,24 @@ async function install(
     installLogWriter.logInfo(headline)
 
     const client = await getClient()
+
+    const numericGameId = gameIdFromAppName(appName)
+    if (numericGameId !== undefined) {
+      const adopted = await adoptOrClearExistingCaves(
+        appName,
+        client,
+        numericGameId,
+        installInfo,
+        platformToInstall
+      )
+      if (adopted) {
+        installLogWriter.logInfo(
+          'Adopted an existing butlerd install; nothing to download'
+        )
+        return { status: 'done' }
+      }
+    }
+
     const onProgress = createProgressEmitter(
       appName,
       'installing',
@@ -754,9 +801,6 @@ async function install(
     const unsub = client.on('Progress', (params) =>
       onProgress(params as ButlerdProgress)
     )
-
-    const numericGameId = gameIdFromAppName(appName)
-    if (numericGameId !== undefined) await clearStaleCavesForGame(numericGameId)
 
     // Create a `<path>/<Game Name>` wrapper and register IT as butlerd's
     // install location, so butlerd's `game-<id>` slug ends up nested
@@ -917,17 +961,166 @@ async function moveInstall(
 ): Promise<InstallResult> {
   const cached = getItchioLibraryGameInfo(appName)
   const oldPath = cached?.install?.install_path
-  if (!oldPath) {
+  if (!cached || !oldPath) {
     return { status: 'error', error: 'no current install path' }
   }
-  await import('./library').then((m) =>
-    m.changeGameInstallPath(appName, newInstallPath)
-  )
   logInfo(
     `itch.io moveInstall(${appName}): ${oldPath} -> ${newInstallPath}`,
     LogPrefix.Itchio
   )
+
+  // Physically move the game folder into a fresh `<dest>/<Game Name>`
+  // wrapper, mirroring the layout install() creates.
+  const wrapperFolder = ensureGameWrapperFolder(
+    newInstallPath,
+    cached.title,
+    appName
+  )
+  const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+  const moveResult = await moveImpl(wrapperFolder, cached)
+  if (moveResult.status === 'error') {
+    logError(
+      ['itch.io moveInstall failed:', moveResult.error],
+      LogPrefix.Itchio
+    )
+    return moveResult
+  }
+  const movedPath = moveResult.installPath
+
+  // Clean up the old wrapper folder, but only when it's now empty (see
+  // the equivalent guard in uninstall()).
+  const oldWrapper = dirname(oldPath)
+  try {
+    if (existsSync(oldWrapper) && readdirSync(oldWrapper).length === 0) {
+      rmSync(oldWrapper, { recursive: false, force: true })
+    }
+  } catch {
+    /* a leftover empty wrapper is harmless */
+  }
+
+  await changeGameInstallPath(appName, movedPath)
+
+  // The butlerd cave still references the old folder. The moved folder
+  // keeps its `.itch/receipt.json.gz`, so drop the stale cave record (its
+  // files are gone from the old path, nothing gets deleted) and re-adopt
+  // via a location scan so updates keep working at the new path.
+  const caveId = getCaveId(appName)
+  if (caveId) {
+    try {
+      const client = await getClient()
+      await client.call('Uninstall.Perform', { caveId, hard: true })
+    } catch (err) {
+      logWarning(
+        [
+          `itch.io moveInstall(${appName}): failed to drop stale cave:`,
+          (err as Error).message
+        ],
+        LogPrefix.Itchio
+      )
+    }
+    delete cached.caveId
+    setLibraryInstallState(appName, true)
+    if (existsSync(join(movedPath, '.itch', 'receipt.json.gz'))) {
+      const platform =
+        (cached.install?.platform as InstallPlatform) ?? 'Windows'
+      await adoptCaveFromScan(appName, movedPath, platform, undefined)
+    }
+  }
   return { status: 'done' }
+}
+
+// Queue a butlerd operation against the EXISTING cave only — passing a
+// game/upload here would let butlerd switch the install to whatever upload
+// the lenient install-info picked (possibly a different variant or even
+// platform); with just the caveId butlerd sticks to the upload the cave
+// was installed from, and reinstalls/updates into the same folder.
+async function performCaveOperation(
+  appName: string,
+  caveId: string,
+  reason: 'update' | 'reinstall',
+  action: 'updating' | 'installing'
+): Promise<InstallResult> {
+  const info = getItchioLibraryGameInfo(appName)
+  const gameId = gameIdFromAppName(appName)
+  if (!info || gameId === undefined) {
+    return { status: 'error', error: `Unknown itch.io app ${appName}` }
+  }
+  const platform = (info.install?.platform as InstallPlatform) ?? 'Windows'
+
+  const logWriter = await createGameLogWriter(
+    appName,
+    'itchio',
+    reason === 'update' ? 'update' : 'install'
+  )
+  try {
+    const headline = `${
+      reason === 'update' ? 'Updating' : 'Repairing'
+    } ${appName} (${platform})`
+    logInfo(headline, LogPrefix.Itchio)
+    logWriter.logInfo(headline)
+
+    const client = await getClient()
+    const caveResult = await client.call<FetchCaveResult>('Fetch.Cave', {
+      caveId
+    })
+    const cave = caveResult.cave
+    const upload = cave?.upload
+    if (!upload) {
+      return {
+        status: 'error',
+        error: `could not resolve the installed upload for ${appName}`
+      }
+    }
+    const installedSize = cave.installInfo?.installedSize ?? upload.size ?? 0
+    const installInfo: ItchioInstallInfo = {
+      game: { ...info, id: gameId, owned_dlc: [] } as unknown as ItchioGameData,
+      upload,
+      install_size: installedSize,
+      download_size: upload.size ?? 0,
+      launch_options: [],
+      manifest: { disk_size: installedSize, download_size: upload.size ?? 0 }
+    }
+
+    const onProgress = createProgressEmitter(appName, action, logWriter)
+    const unsub = client.on('Progress', (params) =>
+      onProgress(params as ButlerdProgress)
+    )
+
+    let queued: InstallQueueResult
+    try {
+      queued = await client.call<InstallQueueResult>('Install.Queue', {
+        caveId,
+        reason
+      })
+      await client.call('Install.Perform', {
+        id: queued.id,
+        stagingFolder: queued.stagingFolder
+      })
+    } finally {
+      unsub()
+    }
+
+    // Re-resolve the executable/version from the cave afterwards: the
+    // operation can change the upload's executable name or path, and
+    // without this the cached install info would point at a stale binary.
+    await persistInstalledCave(
+      appName,
+      client,
+      queued.caveId,
+      queued.installFolder,
+      installInfo,
+      platform
+    )
+    return { status: 'done' }
+  } catch (err) {
+    logError(
+      [`itch.io ${reason} failed:`, (err as Error).message],
+      LogPrefix.Itchio
+    )
+    return { status: 'error', error: (err as Error).message }
+  } finally {
+    await closeWriter(logWriter)
+  }
 }
 
 async function repair(appName: string): Promise<ExecResult> {
@@ -935,11 +1128,19 @@ async function repair(appName: string): Promise<ExecResult> {
   if (!cached?.is_installed) {
     return { stdout: '', stderr: `${appName} is not installed` }
   }
-  const platform = (cached.install?.platform as InstallPlatform) ?? 'Windows'
-  const result = await install(appName, {
-    path: cached.install?.install_path ?? '',
-    platformToInstall: platform
-  })
+  const caveId = getCaveId(appName)
+  if (!caveId) {
+    return {
+      stdout: '',
+      stderr: `${appName} has no butlerd cave to repair from; reinstall instead`
+    }
+  }
+  const result = await performCaveOperation(
+    appName,
+    caveId,
+    'reinstall',
+    'installing'
+  )
   return {
     stdout: result.status,
     stderr: result.status === 'error' ? (result.error ?? '') : ''
@@ -1030,68 +1231,7 @@ async function update(appName: string): Promise<InstallResult> {
   if (!cached?.is_installed) {
     return { status: 'error', error: `${appName} is not installed` }
   }
-  const platform = (cached.install?.platform as InstallPlatform) ?? 'Windows'
-
-  const installInfo = (await getItchioLibraryInstallInfo(appName, platform)) as
-    | ItchioInstallInfo
-    | undefined
-  if (!installInfo) {
-    return { status: 'error', error: 'no compatible upload for update' }
-  }
-
-  const updateLogWriter = await createGameLogWriter(appName, 'itchio', 'update')
-  try {
-    const headline = `Updating ${appName} (${platform})`
-    logInfo(headline, LogPrefix.Itchio)
-    updateLogWriter.logInfo(headline)
-
-    const client = await getClient()
-    const onProgress = createProgressEmitter(
-      appName,
-      'updating',
-      updateLogWriter
-    )
-    const unsub = client.on('Progress', (params) =>
-      onProgress(params as ButlerdProgress)
-    )
-
-    let queued: InstallQueueResult
-    try {
-      queued = await client.call<InstallQueueResult>('Install.Queue', {
-        caveId,
-        game: installInfo.game,
-        upload: installInfo.upload,
-        reason: 'update'
-      })
-      await client.call('Install.Perform', {
-        id: queued.id,
-        stagingFolder: queued.stagingFolder
-      })
-    } finally {
-      unsub()
-    }
-
-    // Re-resolve the executable/version from the cave after updating: an
-    // update can change the upload's executable name or path, and without
-    // this the cached install info would point at a stale/missing binary.
-    await persistInstalledCave(
-      appName,
-      client,
-      queued.caveId,
-      queued.installFolder,
-      installInfo,
-      platform
-    )
-    return { status: 'done' }
-  } catch (err) {
-    logError(
-      ['itch.io update failed:', (err as Error).message],
-      LogPrefix.Itchio
-    )
-    return { status: 'error', error: (err as Error).message }
-  } finally {
-    await closeWriter(updateLogWriter)
-  }
+  return performCaveOperation(appName, caveId, 'update', 'updating')
 }
 
 async function forceUninstall(appName: string): Promise<void> {
