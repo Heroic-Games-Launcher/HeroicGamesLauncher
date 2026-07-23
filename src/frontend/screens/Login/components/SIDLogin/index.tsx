@@ -43,7 +43,11 @@ export default function SIDLogin({ backdropClick }: Props) {
   }
 
   const handleLogin = async (sid: string) => {
-    if (sid.trim().length < 30) return
+    if (sid.trim().length < 30) {
+      setStatus({ loading: false, error: true })
+      setTimeout(() => setStatus({ loading: false, error: false }), 2500)
+      return
+    }
     window.api.logInfo('Called Epic Login')
     setStatus({
       loading: true,

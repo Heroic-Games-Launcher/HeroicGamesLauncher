@@ -25,11 +25,14 @@ export default function ItchioLogin({ backdropClick }: Props) {
   const [status, setStatus] = useState({ loading: false, error: false })
   const [linkCopied, setLinkCopied] = useState(false)
 
+  // getLoginData is a stable method; the itchio context object itself is
+  // recreated on every provider render and would refire the effect constantly.
+  const { getLoginData } = itchio
   useEffect(() => {
-    itchio.getLoginData().then((data) => {
+    getLoginData().then((data) => {
       if (data.apiKeysUrl) setApiKeysUrl(data.apiKeysUrl)
     })
-  }, [itchio])
+  }, [getLoginData])
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -51,7 +54,11 @@ export default function ItchioLogin({ backdropClick }: Props) {
   }
 
   const handleLogin = async (apiKey: string) => {
-    if (apiKey.trim().length < 20) return
+    if (apiKey.trim().length < 20) {
+      setStatus({ loading: false, error: true })
+      setTimeout(() => setStatus({ loading: false, error: false }), 2500)
+      return
+    }
     window.api.logInfo('Called itch.io Login')
     setStatus({ loading: true, error: false })
     const res = await itchio.login({ apiKey: apiKey.trim() })
