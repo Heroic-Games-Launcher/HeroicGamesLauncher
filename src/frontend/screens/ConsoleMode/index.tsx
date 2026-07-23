@@ -63,6 +63,7 @@ export default function ConsoleMode() {
     gog,
     amazon,
     zoom,
+    itchio,
     libraryStatus,
     sideloadedLibrary,
     refreshLibrary,
@@ -103,7 +104,8 @@ export default function ConsoleMode() {
       epic.library.length === 0 &&
       gog.library.length === 0 &&
       amazon.library.length === 0 &&
-      zoom.library.length === 0
+      zoom.library.length === 0 &&
+      itchio.library.length === 0
     ) {
       void refreshLibrary({ runInBackground: true })
     }
@@ -119,6 +121,7 @@ export default function ConsoleMode() {
       ...gog.library,
       ...amazon.library,
       ...zoom.library,
+      ...itchio.library,
       ...sideloadedLibrary
     ]
     return all.filter((g) => !g.install?.is_dlc && !g.thirdPartyManagedApp)
@@ -127,6 +130,7 @@ export default function ConsoleMode() {
     gog.library,
     amazon.library,
     zoom.library,
+    itchio.library,
     sideloadedLibrary
   ])
 
@@ -177,7 +181,12 @@ export default function ConsoleMode() {
         label: t('console.filter.sideload', 'Other'),
         enabled: storesWithGames.has('sideload')
       },
-      { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') }
+      { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') },
+      {
+        key: 'itchio',
+        label: 'itch.io',
+        enabled: storesWithGames.has('itchio')
+      }
     ],
     [t, storesWithGames, allGames.length]
   )

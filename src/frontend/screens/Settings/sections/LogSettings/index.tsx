@@ -80,36 +80,40 @@ export default function LogSettings() {
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
 
-  const { epic, gog, amazon, zoom, sideloadedLibrary } =
+  const { epic, gog, amazon, zoom, itchio, sideloadedLibrary } =
     useContext(ContextProvider)
-  const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
 
-  useEffect(() => {
-    let games: GameInfo[] = []
-    games = games.concat(epic.library.filter((game) => game.is_installed))
-    games = games.concat(gog.library.filter((game) => game.is_installed))
-    games = games.concat(amazon.library.filter((game) => game.is_installed))
-    games = games.concat(zoom.library.filter((game) => game.is_installed))
-    games = games.concat(sideloadedLibrary.filter((game) => game.is_installed))
-    games = games.sort((game1, game2) => game1.title.localeCompare(game2.title))
-
-    setInstalledGames(games)
-  }, [
-    epic.library,
-    gog.library,
-    amazon.library,
-    sideloadedLibrary,
-    zoom.library
-  ])
+  const installedGames = useMemo<GameInfo[]>(
+    () =>
+      [
+        ...epic.library,
+        ...gog.library,
+        ...amazon.library,
+        ...zoom.library,
+        ...itchio.library,
+        ...sideloadedLibrary
+      ]
+        .filter((game) => game.is_installed)
+        .sort((a, b) => a.title.localeCompare(b.title)),
+    [
+      epic.library,
+      gog.library,
+      amazon.library,
+      sideloadedLibrary,
+      zoom.library,
+      itchio.library
+    ]
+  )
 
   const getLogContent = () => {
     void window.api.getLogContent(showLogOf).then((content: string) => {
       if (!content) {
-        setLogFileContent(t('setting.log.no-file', 'No log file found.'))
+        const fallback = t('setting.log.no-file', 'No log file found.')
+        setLogFileContent((prev) => (prev === fallback ? prev : fallback))
         setLogFileExist(false)
         return setRefreshing(false)
       }
-      setLogFileContent(content)
+      setLogFileContent((prev) => (prev === content ? prev : content))
       setLogFileExist(true)
       setRefreshing(false)
     })
@@ -151,6 +155,8 @@ export default function LogSettings() {
       return t('setting.log.descriptiveNames.nile', 'Amazon / Nile log')
     if (showLogOf.runner === 'zoom')
       return t('setting.log.descriptiveNames.zoom', 'Zoom log')
+    if (showLogOf.runner === 'itchio')
+      return t('setting.log.descriptiveNames.itchio', 'itch.io log')
     return ''
   }, [showLogOf, installedGames, t])
 
@@ -164,6 +170,9 @@ export default function LogSettings() {
     if (zoom.enabled) {
       baseFiles.push({ title: 'Zoom', args: { runner: 'zoom' } })
     }
+    if (itchio.username) {
+      baseFiles.push({ title: 'itch.io', args: { runner: 'itchio' } })
+    }
     const logsForInstalledGames = installedGames.map((game) => ({
       title: game.overrides?.title || game.title,
       args: {
@@ -172,7 +181,7 @@ export default function LogSettings() {
       }
     }))
     return baseFiles.concat(logsForInstalledGames)
-  }, [installedGames, zoom.enabled])
+  }, [installedGames, zoom.enabled, itchio.username])
 
   return (
     <>

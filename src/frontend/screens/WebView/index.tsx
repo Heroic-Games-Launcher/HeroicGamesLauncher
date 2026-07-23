@@ -24,6 +24,8 @@ const validStoredUrl = (url: string, store: string) => {
       return url.includes('gaming.amazon.com')
     case 'zoom':
       return url.includes('zoom-platform.com')
+    case 'itchio':
+      return url.includes('itch.io')
     default:
       return false
   }
@@ -46,6 +48,7 @@ export default function WebView() {
   )
   const navigate = useNavigate()
   const webviewRef = useRef<Electron.WebviewTag>(null)
+  const [showItchioLoginWarning, setShowItchioLoginWarning] = useState(false)
 
   // `store` is set to epic/gog/amazon depending on which storefront we're
   // supposed to show, `runner` is set to a runner if we're supposed to show its
@@ -62,6 +65,7 @@ export default function WebView() {
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
+  const itchioStore = `https://itch.io`
   const zoomStore = `https://www.zoom-platform.com`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
@@ -77,6 +81,7 @@ export default function WebView() {
     '/store/epic': epicStore,
     '/store/gog': gogStore,
     '/store/amazon': amazonStore,
+    '/store/itchio': itchioStore,
     '/store/zoom': zoomStore,
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
@@ -103,6 +108,17 @@ export default function WebView() {
       startUrl = queryParam
     }
   }
+
+  // Cloudflare-fronted stores (e.g. itch.io) serve a managed bot challenge
+  // to Electron's default UA or to an obviously-fake one; that challenge then
+  // dies with ERR_HTTP2_PROTOCOL_ERROR. Sending a complete, realistic Chrome
+  // UA avoids the challenge. Epic keeps its dedicated launcher UA.
+  const epicUserAgent =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
+  const defaultUserAgent =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
+  const webviewUserAgent =
+    startUrl === epicLoginUrl ? epicUserAgent : defaultUserAgent
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
@@ -162,12 +178,8 @@ export default function WebView() {
     if (webview) {
       const loadstop = async () => {
         setLoading({ ...loading, refresh: false })
-        const userAgent =
-          startUrl === epicLoginUrl
-            ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
-            : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0'
-        if (webview.getUserAgent() != userAgent) {
-          webview.setUserAgent(userAgent)
+        if (webview.getUserAgent() != webviewUserAgent) {
+          webview.setUserAgent(webviewUserAgent)
         }
         // Ignore the login handling if not on login page
         if (!runner) {
@@ -279,16 +291,37 @@ export default function WebView() {
         }
       }
 
+      // itch.io's /login and /register pages are behind a Cloudflare challenge
+      // that blocks the embedded browser (endless reloads /
+      // ERR_HTTP2_PROTOCOL_ERROR). Catch the navigation, stop the doomed load,
+      // and surface the API-key login instead.
+      const blockItchioLogin = (targetUrl: string) => {
+        if (
+          targetUrl.startsWith('https://itch.io/login') ||
+          targetUrl.startsWith('https://itch.io/register')
+        ) {
+          webview.stop()
+          setShowItchioLoginWarning(true)
+        }
+      }
+      const onWillNavigate = (e: Electron.WillNavigateEvent) =>
+        blockItchioLogin(e.url)
+      const onDidNavigateItchio = () => blockItchioLogin(webview.getURL())
+
       // this one is needed for gog/amazon
       webview.addEventListener('did-navigate', onNavigate)
       // this one is needed for epic
       webview.addEventListener('did-navigate-in-page', onNavigate)
       webview.addEventListener('did-navigate', onLoginNavigate)
+      webview.addEventListener('will-navigate', onWillNavigate)
+      webview.addEventListener('did-navigate', onDidNavigateItchio)
 
       return () => {
         webview.removeEventListener('did-navigate', onNavigate)
         webview.removeEventListener('did-navigate-in-page', onNavigate)
         webview.removeEventListener('did-navigate', onLoginNavigate)
+        webview.removeEventListener('will-navigate', onWillNavigate)
+        webview.removeEventListener('did-navigate', onDidNavigateItchio)
       }
     }
 
@@ -382,6 +415,7 @@ export default function WebView() {
         className="WebView__webview"
         partition={`persist:${startUrl === epicLoginUrl ? 'epicstore' : store}`}
         src={startUrl}
+        useragent={webviewUserAgent}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
       />
@@ -389,6 +423,12 @@ export default function WebView() {
         <LoginWarning
           warnLoginForStore={showLoginWarningFor}
           onClose={onLoginWarningClosed}
+        />
+      )}
+      {showItchioLoginWarning && (
+        <LoginWarning
+          warnLoginForStore="itchio"
+          onClose={() => setShowItchioLoginWarning(false)}
         />
       )}
       {showAdtractionWarning && (
