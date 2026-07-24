@@ -267,6 +267,10 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
       newEntry.StartDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`
     }
 
+    if (process.env.HEROIC_EXEC) {
+      newEntry.Exe = `"${process.env.HEROIC_EXEC}"`
+    }
+
     newEntry.appid = generateShortcutId(newEntry.Exe, newEntry.AppName)
 
     await getIcon(gameInfo.app_name, gameInfo)
