@@ -115,12 +115,10 @@ import { configStore } from './constants/key_value_stores'
 import {
   customThemesWikiLink,
   discordLink,
-  epicLoginUrl,
   githubSponsorsPage,
   heroicGithubURL,
   kofiPage,
   patreonPage,
-  sidInfoUrl,
   supportURL,
   weblateUrl,
   wikiLink,
@@ -626,7 +624,6 @@ addListener('openSupportPage', async () => openUrlOrFile(supportURL))
 addListener('openReleases', async () => openUrlOrFile(heroicGithubURL))
 addListener('openWeblate', async () => openUrlOrFile(weblateUrl))
 addListener('showAboutWindow', () => showAboutWindow())
-addListener('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 addListener('openDiscordLink', async () => openUrlOrFile(discordLink))
 addListener('openPatreonPage', async () => openUrlOrFile(patreonPage))
 addListener('openKofiPage', async () => openUrlOrFile(kofiPage))
@@ -636,7 +633,6 @@ addListener('openGithubSponsorsPage', async () =>
 addListener('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
 addListener('openWebviewPage', async (event, url) => openUrlOrFile(url))
 addListener('openWikiLink', async () => openUrlOrFile(wikiLink))
-addListener('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
 addListener('openCustomThemesWiki', async () =>
   openUrlOrFile(customThemesWikiLink)
 )

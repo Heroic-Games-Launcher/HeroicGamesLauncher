@@ -8,18 +8,17 @@
         "loading": "Učitavanje"
     },
     "message": {
-        "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate slijediti sljedeće korake:",
-        "part2": "Otvori",
-        "part3": "Epic Store ovdje",
-        "part4": ", prijavite se na vaš račun i kopirajte svoj",
-        "part5": "informacijski broj koda autorizacije",
-        "part6": "Zalijepite vaš",
-        "part7": "broj koda autorizacije",
-        "part8": "u donje polje i kliknite gumb za prijavu."
+        "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate slijediti sljedeće korake:"
     },
     "status": {
         "error": "Greška",
         "loading": "Učitavanje liste igara, pričekajte"
     },
-    "welcome": "Dobro došli!"
+    "welcome": "Dobro došli!",
+    "manual": {
+        "epic": {
+            "step1": "Otvori Epic Store ovdje , prijavite se na vaš račun i kopirajte svoj informacijski broj koda autorizacije",
+            "step2": "Zalijepite vaš broj koda autorizacije u donje polje i kliknite gumb za prijavu."
+        }
+    }
 }

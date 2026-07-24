@@ -8,18 +8,17 @@
         "loading": "Kargatzen"
     },
     "message": {
-        "part1": "Saioa hasteko eta jolasak instalatzeko, lehenik eta behin, jarraitu beharreko pausoak:",
-        "part2": "Ireki",
-        "part3": "Epic Store hemen",
-        "part4": ", saioa hasi zure kontuan eta kopiatu",
-        "part5": "zure autentikatzeko kodearen informazio zenbakia",
-        "part6": "Itsatsi zure",
-        "part7": "authorization code zenbakia",
-        "part8": "azpiko sarrera eremuan, eta klik egin saio hasierako botoian."
+        "part1": "Saioa hasteko eta jolasak instalatzeko, lehenik eta behin, jarraitu beharreko pausoak:"
     },
     "status": {
         "error": "Errorea",
         "loading": "Jokoen zerrenda kargatzen, mesedez itxaron"
     },
-    "welcome": "Ongi etorri!"
+    "welcome": "Ongi etorri!",
+    "manual": {
+        "epic": {
+            "step1": "Ireki Epic Store hemen , saioa hasi zure kontuan eta kopiatu zure autentikatzeko kodearen informazio zenbakia",
+            "step2": "Itsatsi zure authorization code zenbakia azpiko sarrera eremuan, eta klik egin saio hasierako botoian."
+        }
+    }
 }

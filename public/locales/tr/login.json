@@ -8,18 +8,17 @@
         "loading": "Yükleniyor"
     },
     "message": {
-        "part1": "Oturum açıp oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
-        "part2": "Aç",
-        "part3": "Epic Store burada",
-        "part4": "açın, hesabınıza giriş yapın ve",
-        "part5": "yetkilendirme kodu bilgi numarası",
-        "part6": "yapıştırın",
-        "part7": "yetkilendirme kodu numarası",
-        "part8": "yapıştırın ve oturum aç düğmesine tıklayın."
+        "part1": "Oturum açıp oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:"
     },
     "status": {
         "error": "Hata",
         "loading": "Oyun listesi yükleniyor, lütfen bekleyin"
     },
-    "welcome": "Hoş Geldiniz!"
+    "welcome": "Hoş Geldiniz!",
+    "manual": {
+        "epic": {
+            "step1": "Aç Epic Store burada açın, hesabınıza giriş yapın ve yetkilendirme kodu bilgi numarası",
+            "step2": "yapıştırın yetkilendirme kodu numarası yapıştırın ve oturum aç düğmesine tıklayın."
+        }
+    }
 }
