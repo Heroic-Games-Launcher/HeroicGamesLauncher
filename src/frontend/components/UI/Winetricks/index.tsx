@@ -111,7 +111,7 @@ export default function Winetricks({ onClose, runner }: Props) {
         appName,
         runner
       })
-      .then(() => setGuiOpen(false))
+      .finally(() => setGuiOpen(false))
   }
 
   const dialogContent = (
