@@ -1564,6 +1564,10 @@ async function runWineCommand({
     commandParts.unshift(protonVerb)
   }
 
+  if (startFolder === 'workingDir') {
+    startFolder = dirname(commandParts[0] || '')
+  }
+
   logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
