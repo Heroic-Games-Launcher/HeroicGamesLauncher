@@ -111,7 +111,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { status, folder, statusContext } = hasStatus(gameInfo)
   const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
-  const [progress, previousProgress] = hasProgress(appName, runner)
+  const [progress] = hasProgress(appName, runner)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
     gameInfo.extra || null
@@ -621,7 +621,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       gameInfo,
       installPath: folder,
       isInstalling,
-      previousProgress,
+      previousProgress: null,
       progress,
       t,
       showDialogModal: showDialogModal
