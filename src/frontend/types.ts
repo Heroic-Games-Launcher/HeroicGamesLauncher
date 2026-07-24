@@ -221,6 +221,12 @@ export interface PlatformsFilters {
   browser: boolean
 }
 
+export enum SortOptions {
+  alphaAsc = 'alphaAsc',
+  alphaDesc = 'alphaDesc',
+  random = 'random'
+}
+
 export interface LibraryContextType {
   storesFilters: StoresFilters
   platformsFilters: PlatformsFilters
@@ -238,8 +244,8 @@ export interface LibraryContextType {
   setShowInstalledOnly: (value: boolean) => void
   showNonAvailable: boolean
   setShowNonAvailable: (value: boolean) => void
-  sortDescending: boolean
-  setSortDescending: (value: boolean) => void
+  currentSort: SortOptions
+  setCurrentSort: (value: SortOptions) => void
   sortInstalled: boolean
   setSortInstalled: (value: boolean) => void
   showSupportOfflineOnly: boolean
