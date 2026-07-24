@@ -380,7 +380,7 @@ export default function WebView() {
         key={store}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${startUrl === epicLoginUrl ? 'epicstore' : store}`}
+        partition={`persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
