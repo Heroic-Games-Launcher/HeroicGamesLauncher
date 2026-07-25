@@ -1,12 +1,14 @@
 import { addHandler } from '../ipc'
 import { getWikiGameInfo } from '../wiki_game_info/wiki_game_info'
+import sanitizeHtml from 'sanitize-html'
 
 addHandler('game.supportsChangelogs', (_e, game) => !!game.getChangelog)
 
-addHandler(
-  'game.getChangelog',
-  async (_e, game) => game.getChangelog?.() ?? null
-)
+addHandler('game.getChangelog', async (_e, game) => {
+  const changelog = await game.getChangelog?.()
+  if (!changelog) return null
+  return sanitizeHtml(changelog, { disallowedTagsMode: 'discard' })
+})
 
 addHandler('game.getGenres', async (_e, game) => {
   const genres = (await game.getGenres?.()) ?? null

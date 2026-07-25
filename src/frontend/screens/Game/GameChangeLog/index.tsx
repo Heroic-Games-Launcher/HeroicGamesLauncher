@@ -1,10 +1,8 @@
-import { useMemo } from 'react'
 import {
   Dialog,
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
-import sanitizeHtml from 'sanitize-html'
 import { useTranslation } from 'react-i18next'
 import { useAwaited } from 'frontend/hooks/useAwaited'
 import type { GameHandle } from 'frontend/helpers/ipc'
@@ -23,14 +21,6 @@ export default function GameChangeLog({
   const { t } = useTranslation('gamepage')
   const changelog = useAwaited(window.api.game.getChangelog, game)
 
-  const sanitizedChangeLog = useMemo(() => {
-    if (!changelog) return null
-    const sanitized = sanitizeHtml(changelog, {
-      disallowedTagsMode: 'discard'
-    })
-    return { __html: sanitized }
-  }, [changelog])
-
   return (
     <Dialog showCloseButton onClose={backdropClick}>
       <DialogHeader onClose={backdropClick}>
@@ -39,9 +29,9 @@ export default function GameChangeLog({
         })}
       </DialogHeader>
       <DialogContent className="changelogModalContent">
-        {sanitizedChangeLog ? (
+        {changelog ? (
           <div
-            dangerouslySetInnerHTML={sanitizedChangeLog}
+            dangerouslySetInnerHTML={{ __html: changelog }}
             className={'gameChangeLog'}
           />
         ) : (
