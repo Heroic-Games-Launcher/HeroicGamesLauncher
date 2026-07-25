@@ -136,6 +136,7 @@ export interface AppSettings extends GameSettings {
   verboseLogs: boolean
   showValveProton: boolean
   steamGridDbApiKey: string
+  steamGridDbShowNsfw: boolean
 }
 
 export type LibraryTopSectionOptions =

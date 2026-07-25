@@ -111,6 +111,32 @@ describe('SteamGridDB Utils', () => {
       )
     })
 
+    it('should not send the nsfw param when nsfw is not enabled', async () => {
+      mockedAxios.get.mockResolvedValueOnce({
+        data: { success: true, data: [] }
+      })
+
+      await getGrids(apiKey, { gameId: 123, nsfw: false })
+
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ params: {} })
+      )
+    })
+
+    it('should send nsfw=any when nsfw is enabled', async () => {
+      mockedAxios.get.mockResolvedValueOnce({
+        data: { success: true, data: [] }
+      })
+
+      await getGrids(apiKey, { gameId: 123, nsfw: true })
+
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ params: { nsfw: 'any' } })
+      )
+    })
+
     it('should throw an error if the API returns success: false', async () => {
       const mockData = {
         success: false,
