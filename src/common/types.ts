@@ -361,6 +361,11 @@ export type UserInfo = {
   displayName: string
   user: string
 }
+
+export type LegendaryAccount = UserInfo & {
+  lastLogin: number
+  lastUsed: number
+}
 export interface WineInstallation {
   bin: string
   name: string

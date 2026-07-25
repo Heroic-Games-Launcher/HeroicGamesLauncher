@@ -40,7 +40,7 @@ export default function SIDLogin({ backdropClick }: Props) {
     })
     await epic.login(sid).then(async (res) => {
       console.log(res)
-      if (res === 'done') {
+      if (res.status === 'done') {
         await window.api.getUserInfo()
         setStatus({ loading: false, error: false })
         backdropClick()

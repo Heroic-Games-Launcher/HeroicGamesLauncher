@@ -11,7 +11,8 @@ import {
   WineVersionInfo,
   LibraryTopSectionOptions,
   ExperimentalFeatures,
-  Status
+  Status,
+  LegendaryAccount
 } from 'common/types'
 import {
   DialogModalOptions,
@@ -59,6 +60,8 @@ interface StateProps {
   epic: {
     library: GameInfo[]
     username?: string
+    accounts: LegendaryAccount[]
+    activeAccountId?: string
   }
   gog: {
     library: GameInfo[]
@@ -143,6 +146,8 @@ const applyGameOverrides = (
 ) => attachGameOverrides(lib, overrides)
 
 class GlobalState extends PureComponent<Props> {
+  private activeLibraryRefresh?: Promise<void>
+
   loadLegendaryLibrary = (
     overrides: Record<string, GameOverride> = currentOverrides()
   ): Array<GameInfo> => {
@@ -195,7 +200,11 @@ class GlobalState extends PureComponent<Props> {
   state: StateProps = {
     epic: {
       library: this.loadLegendaryLibrary(),
-      username: configStore.get_nodefault('userInfo.displayName')
+      username: configStore.get_nodefault('userInfo.displayName'),
+      accounts: configStore.get('legendaryAccounts.accounts', []),
+      activeAccountId: configStore.get_nodefault(
+        'legendaryAccounts.activeAccountId'
+      )
     },
     gog: {
       library: this.loadGOGLibrary(),
@@ -534,37 +543,104 @@ class GlobalState extends PureComponent<Props> {
     })
   }
 
-  epicLogin = async (sid: string) => {
+  epicLogin = async (sid: string, options?: { addAccount?: boolean }) => {
     console.log('logging epic')
-    const response = await window.api.login(sid)
+    const response = await window.api.login(sid, options)
+    const accounts = await window.api.getLegendaryAccounts()
 
     if (response.status === 'done') {
       this.setState({
         epic: {
           library: [],
-          username: response.data?.displayName
+          username: response.data?.displayName,
+          accounts,
+          activeAccountId: response.data?.account_id
         }
       })
 
       this.handleSuccessfulLogin('legendary')
     }
 
-    return response.status
+    return {
+      status: response.status,
+      message: response.message
+    }
   }
 
   epicLogout = async () => {
     this.setState({ refreshing: true })
-    await window.api.logoutLegendary().finally(() => {
-      this.setState({
-        epic: {
-          library: [],
-          username: null
-        }
-      })
+    const loggedOut = await window.api.logoutLegendary()
+    if (!loggedOut) {
+      this.setState({ refreshing: false })
+      return
+    }
+
+    const accounts = await window.api.getLegendaryAccounts()
+    this.setState({
+      epic: {
+        library: [],
+        username: null,
+        accounts,
+        activeAccountId: undefined
+      }
     })
     console.log('Logging out from epic')
     this.setState({ refreshing: false })
     window.location.reload()
+  }
+
+  epicSwitchAccount = async (accountId: string) => {
+    await this.activeLibraryRefresh
+    const response = await window.api.switchLegendaryAccount(accountId)
+    const accounts = await window.api.getLegendaryAccounts()
+
+    if (response.status === 'done') {
+      this.setState({
+        epic: {
+          library: [],
+          username: response.data?.displayName,
+          accounts,
+          activeAccountId: response.data?.account_id
+        }
+      })
+      await this.refreshLibrary({
+        runInBackground: false,
+        library: 'legendary'
+      })
+    }
+
+    return response.status
+  }
+
+  epicRemoveAccount = async (accountId: string) => {
+    await this.activeLibraryRefresh
+    const wasActiveAccount = accountId === this.state.epic.activeAccountId
+    const response = await window.api.removeLegendaryAccount(accountId)
+
+    if (response.status === 'done') {
+      this.setState({
+        epic: {
+          ...this.state.epic,
+          library: wasActiveAccount ? [] : this.state.epic.library,
+          username: response.data?.displayName,
+          accounts: response.accounts,
+          activeAccountId: response.activeAccountId
+        }
+      })
+    }
+
+    return response.status
+  }
+
+  refreshEpicAccounts = async () => {
+    const accounts = await window.api.getLegendaryAccounts()
+    this.setState({
+      epic: {
+        ...this.state.epic,
+        accounts
+      }
+    })
+    return accounts
   }
 
   gogLogin = async (token: string) => {
@@ -747,6 +823,7 @@ class GlobalState extends PureComponent<Props> {
 
     this.setState({
       epic: {
+        ...epic,
         library: applyGameOverrides(epicLibrary, overrides),
         username: epic.username
       },
@@ -781,8 +858,30 @@ class GlobalState extends PureComponent<Props> {
     runInBackground = true,
     library = undefined
   }: RefreshOptions): Promise<void> => {
-    if (this.state.refreshing) return
+    if (this.activeLibraryRefresh) {
+      return this.activeLibraryRefresh
+    }
 
+    const refresh = this.runLibraryRefresh({
+      checkForUpdates,
+      runInBackground,
+      library
+    })
+    this.activeLibraryRefresh = refresh
+    try {
+      await refresh
+    } finally {
+      if (this.activeLibraryRefresh === refresh) {
+        this.activeLibraryRefresh = undefined
+      }
+    }
+  }
+
+  private runLibraryRefresh = async ({
+    checkForUpdates,
+    runInBackground = true,
+    library = undefined
+  }: RefreshOptions): Promise<void> => {
     this.setState({
       refreshing: true,
       refreshingInTheBackground: runInBackground
@@ -793,6 +892,7 @@ class GlobalState extends PureComponent<Props> {
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`Library refresh failed: ${String(error)}`)
+      this.setState({ refreshing: false })
     }
   }
 
@@ -984,7 +1084,16 @@ class GlobalState extends PureComponent<Props> {
     const zoomUser = zoomConfigStore.has('isLoggedIn')
 
     if (legendaryUser) {
-      await window.api.getUserInfo()
+      const userInfo = await window.api.getUserInfo()
+      const accounts = await window.api.getLegendaryAccounts()
+      this.setState({
+        epic: {
+          ...this.state.epic,
+          username: userInfo?.displayName,
+          accounts,
+          activeAccountId: userInfo?.account_id
+        }
+      })
     }
 
     if (amazonUser) {
@@ -1125,8 +1234,13 @@ class GlobalState extends PureComponent<Props> {
           epic: {
             library: epic.library,
             username: epic.username,
+            accounts: epic.accounts,
+            activeAccountId: epic.activeAccountId,
             login: this.epicLogin,
-            logout: this.epicLogout
+            logout: this.epicLogout,
+            switchAccount: this.epicSwitchAccount,
+            removeAccount: this.epicRemoveAccount,
+            refreshAccounts: this.refreshEpicAccounts
           },
           gog: {
             library: gog.library,
