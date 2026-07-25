@@ -2,6 +2,9 @@ import type { GameInfo } from 'common/types'
 
 type GameOverride = NonNullable<GameInfo['overrides']>
 
+export const getGameDisplayTitle = (game: GameInfo): string =>
+  game.overrides?.title || game.title
+
 export const attachGameOverrides = (
   games: GameInfo[],
   overrides: Record<string, GameOverride>

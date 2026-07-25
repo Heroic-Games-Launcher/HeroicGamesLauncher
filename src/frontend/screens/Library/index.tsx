@@ -37,6 +37,10 @@ import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
 import AlphabetFilter from './components/AlphabetFilter'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import { getGameDisplayTitle } from 'frontend/helpers/gameOverrides'
+
+const titleForSorting = (game: GameInfo) =>
+  getGameDisplayTitle(game).toUpperCase().replace('THE ', '')
 
 const storage = window.localStorage
 
@@ -44,6 +48,8 @@ type SearchableGame = {
   original: GameInfo
   title: string
   normalizedTitle: string
+  storeTitle: string
+  normalizedStoreTitle: string
 }
 
 export default React.memo(function Library(): JSX.Element {
@@ -375,11 +381,9 @@ export default React.memo(function Library(): JSX.Element {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
-    return tempArray.sort((a, b) => {
-      const gameA = a.title.toUpperCase().replace('THE ', '')
-      const gameB = b.title.toUpperCase().replace('THE ', '')
-      return gameA.localeCompare(gameB)
-    })
+    return tempArray.sort((a, b) =>
+      titleForSorting(a).localeCompare(titleForSorting(b))
+    )
   }, [
     showFavourites,
     showFavouritesLibrary,
@@ -521,11 +525,14 @@ export default React.memo(function Library(): JSX.Element {
       const filteredLibrary = filterByPlatform(library)
       const searchableLibrary: SearchableGame[] = filteredLibrary.map(
         (game) => {
-          const title = game.overrides?.title || game.title
+          const title = getGameDisplayTitle(game)
+          const storeTitle = title === game.title ? '' : game.title
           return {
             original: game,
             title,
-            normalizedTitle: normalizeTitle(title)
+            normalizedTitle: normalizeTitle(title),
+            storeTitle,
+            normalizedStoreTitle: storeTitle ? normalizeTitle(storeTitle) : ''
           }
         }
       )
@@ -534,7 +541,12 @@ export default React.memo(function Library(): JSX.Element {
         minMatchCharLength: 1,
         threshold: 0.4,
         useExtendedSearch: true,
-        keys: ['title', 'normalizedTitle']
+        keys: [
+          { name: 'title', weight: 2 },
+          { name: 'normalizedTitle', weight: 2 },
+          { name: 'storeTitle', weight: 1 },
+          { name: 'normalizedStoreTitle', weight: 1 }
+        ]
       }
       const fuse = new Fuse(searchableLibrary, options)
 
@@ -611,11 +623,8 @@ export default React.memo(function Library(): JSX.Element {
 
     // sort
     library = library.sort((a, b) => {
-      const gameA = a.title.toUpperCase().replace('THE ', '')
-      const gameB = b.title.toUpperCase().replace('THE ', '')
-      return sortDescending
-        ? -gameA.localeCompare(gameB)
-        : gameA.localeCompare(gameB)
+      const cmp = titleForSorting(a).localeCompare(titleForSorting(b))
+      return sortDescending ? -cmp : cmp
     })
     const installed = library.filter((game) => game?.is_installed)
     const notInstalled = library.filter(

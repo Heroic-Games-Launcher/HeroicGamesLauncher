@@ -14,6 +14,7 @@ import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill, updateGame } from 'frontend/helpers'
+import { getGameDisplayTitle } from 'frontend/helpers/gameOverrides'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -145,7 +146,7 @@ export default function ConsoleMode() {
     }
 
     return filteredGames.sort((a, b) => {
-      const cmp = a.title.localeCompare(b.title)
+      const cmp = getGameDisplayTitle(a).localeCompare(getGameDisplayTitle(b))
       return ascending ? cmp : -cmp
     })
   }, [allGames, filteringByInstalled, activeStore, ascending])
