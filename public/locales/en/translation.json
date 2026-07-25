@@ -1052,6 +1052,9 @@
             },
             "help": {
                 "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}"
+            },
+            "nsfw": {
+                "label": "Show adult content in SteamGridDB search results"
             }
         },
         "systemInformation": {

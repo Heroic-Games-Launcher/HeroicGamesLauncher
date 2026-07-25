@@ -25,6 +25,10 @@ function getDecryptedApiKey(): string {
   return decryptApiKey(stored)
 }
 
+function showNsfw(): boolean {
+  return !!GlobalConfig.get().getSettings().steamGridDbShowNsfw
+}
+
 addHandler('steamgriddb.hasApiKey', () => !!readStoredApiKey())
 
 addHandler('steamgriddb.setApiKey', (event, key) => {
@@ -61,7 +65,8 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
     const results = await SteamGridDB.getGrids(apiKey, {
       gameId: args.gameId,
       dimensions: args.dimensions,
-      styles: args.styles
+      styles: args.styles,
+      nsfw: showNsfw()
     })
     return results.map((grid) => ({
       id: grid.id,
@@ -84,7 +89,8 @@ addHandler('steamgriddb.getHeroes', async (event, args) => {
     const results = await SteamGridDB.getHeroes(apiKey, {
       gameId: args.gameId,
       dimensions: args.dimensions,
-      styles: args.styles
+      styles: args.styles,
+      nsfw: showNsfw()
     })
     return results.map((grid) => ({
       id: grid.id,

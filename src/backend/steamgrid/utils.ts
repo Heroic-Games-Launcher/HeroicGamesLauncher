@@ -51,6 +51,7 @@ export async function getGrids(
     gameId: number
     dimensions?: string[]
     styles?: string[]
+    nsfw?: boolean
   }
 ): Promise<SGDBGrid[]> {
   const params: Record<string, string> = {}
@@ -59,6 +60,9 @@ export async function getGrids(
   }
   if (args.styles && args.styles.length > 0) {
     params.styles = args.styles.join(',')
+  }
+  if (args.nsfw) {
+    params.nsfw = 'any'
   }
 
   const response = await axios.get<SGDBResponse<SGDBGrid[]>>(
@@ -88,6 +92,7 @@ export async function getHeroes(
     gameId: number
     dimensions?: string[]
     styles?: string[]
+    nsfw?: boolean
   }
 ): Promise<SGDBGrid[]> {
   const params: Record<string, string> = {}
@@ -96,6 +101,9 @@ export async function getHeroes(
   }
   if (args.styles && args.styles.length > 0) {
     params.styles = args.styles.join(',')
+  }
+  if (args.nsfw) {
+    params.nsfw = 'any'
   }
 
   const response = await axios.get<SGDBResponse<SGDBGrid[]>>(
