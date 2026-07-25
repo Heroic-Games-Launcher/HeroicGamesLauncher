@@ -26,6 +26,7 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
+  humbleBundleCategories,
   normalizeTitle
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
@@ -57,6 +58,7 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     zoom,
+    humbleBundle,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -93,7 +95,8 @@ export default React.memo(function Library(): JSX.Element {
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoom.enabled && zoomCategories.includes(storedCategory)
+      zoom: zoom.enabled && zoomCategories.includes(storedCategory),
+      'humble-bundle': humbleBundleCategories.includes(storedCategory)
     }
   }
 
@@ -374,6 +377,9 @@ export default React.memo(function Library(): JSX.Element {
       zoom.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      humbleBundle.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -388,7 +394,8 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     sideloadedLibrary,
-    zoom
+    zoom,
+    humbleBundle
   ])
 
   const favouritesIds = useMemo(() => {
@@ -406,6 +413,9 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['nile'] && amazon.username) {
       displayedStores.push('nile')
     }
+    if (storesFilters['humble-bundle'] && humbleBundle.email) {
+      displayedStores.push('humble-bundle')
+    }
     if (storesFilters['sideload']) {
       displayedStores.push('sideload')
     }
@@ -420,6 +430,8 @@ export default React.memo(function Library(): JSX.Element {
     const showEpic = epic.username && displayedStores.includes('legendary')
     const showGog = gog.username && displayedStores.includes('gog')
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
+    const showHumbleBundle =
+      humbleBundle.email && displayedStores.includes('humble-bundle')
     const showSideloaded = displayedStores.includes('sideload')
     const showZoom = zoom.username && displayedStores.includes('zoom')
 
@@ -428,13 +440,15 @@ export default React.memo(function Library(): JSX.Element {
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
     const zoomLibrary = showZoom ? zoom.library : []
+    const humbleBundleLibrary = showHumbleBundle ? humbleBundle.library : []
 
     return [
       ...sideloadedApps,
       ...epicLibrary,
       ...gogLibrary,
       ...amazonLibrary,
-      ...zoomLibrary
+      ...zoomLibrary,
+      ...humbleBundleLibrary
     ]
   }
 
@@ -569,6 +583,7 @@ export default React.memo(function Library(): JSX.Element {
     gog.library,
     amazon.library,
     zoom.library,
+    humbleBundle.library,
     sideloadedLibrary,
     platform,
     filterText,

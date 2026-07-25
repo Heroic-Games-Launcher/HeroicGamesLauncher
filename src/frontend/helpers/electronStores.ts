@@ -152,6 +152,16 @@ const zoomInstalledGamesStore = new TypeCheckedStoreFrontend(
 const zoomConfigStore = new TypeCheckedStoreFrontend('zoomConfigStore', {
   cwd: 'zoom_store'
 })
+const humbleBundleLibraryStore = new CacheStore<GameInfo[], 'games'>(
+  'humble_bundle_library',
+  null
+)
+const humbleBundleConfigStore = new TypeCheckedStoreFrontend(
+  'humbleConfigStore',
+  {
+    cwd: 'humble_bundle_store'
+  }
+)
 
 const nileLibraryStore = new CacheStore<GameInfo[], 'library'>(
   'nile_library',
@@ -196,5 +206,7 @@ export {
   zoomLibraryStore,
   zoomInstalledGamesStore,
   zoomConfigStore,
-  gameOverridesStore
+  gameOverridesStore,
+  humbleBundleLibraryStore,
+  humbleBundleConfigStore
 }

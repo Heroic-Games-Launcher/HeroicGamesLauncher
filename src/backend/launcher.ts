@@ -46,6 +46,7 @@ import {
   logWarning
 } from './logger'
 import { GlobalConfig } from './config'
+import { GameConfig } from './game_config'
 import { DXVK, runWineCommandOnGame, Winetricks } from './tools'
 import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
@@ -1729,13 +1730,24 @@ async function callRunner(
       .map((part) => part.replaceAll('\\', '\\\\'))
       .map((part) => `"\`"${part}\`""`)
       .join(',')
-    commandParts = [
-      '-NoProfile',
-      'Start-Process',
-      `"\`"${fullRunnerPath}\`""`,
-      '-Wait',
-      '-NoNewWindow'
-    ]
+    if (bin.endsWith('.lnk')) {
+      commandParts = [
+        'Start-Process',
+        'cmd.exe',
+        '-ArgumentList',
+        `'/c ""${fullRunnerPath}""'`,
+        '-Wait',
+        '-NoNewWindow'
+      ]
+    } else {
+      commandParts = [
+        '-NoProfile',
+        'Start-Process',
+        `"\`"${fullRunnerPath}\`""`,
+        '-Wait',
+        '-NoNewWindow'
+      ]
+    }
     if (argsAsString) commandParts.push('-ArgumentList', argsAsString)
 
     bin = fullRunnerPath = 'powershell'
@@ -1927,6 +1939,34 @@ function getRunnerCallWithoutCredentials(
     quoteIfNecessary(runnerPath),
     ...modifiedCommand.map(quoteIfNecessary)
   ].join(' ')
+}
+
+async function getPathFromEnvVariable(appName: string, envVariable: string) {
+  if (isWindows) {
+    return process.env[envVariable]!
+  } else {
+    const gameSettings =
+      GameConfig.get(appName).config ||
+      (await GameConfig.get(appName).getSettings())
+    const result = await runWineCommand({
+      gameSettings,
+      commandParts: ['cmd', '/c', 'echo', `%${envVariable}%`],
+      wait: true
+    })
+
+    return getWinePath({ path: result.stdout, gameSettings })
+  }
+}
+
+export async function getAppDataDirectory(appName: string) {
+  return getPathFromEnvVariable(appName, 'APPDATA')
+}
+
+export async function getProgramfilesDirectory(appName: string) {
+  return [
+    await getPathFromEnvVariable(appName, 'ProgramFiles'),
+    await getPathFromEnvVariable(appName, 'ProgramFiles(x86)')
+  ]
 }
 
 /**

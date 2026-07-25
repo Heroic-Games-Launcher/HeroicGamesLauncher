@@ -1,4 +1,4 @@
-import { GameSettings } from 'common/types'
+import { GameSettings, WineCommandArgs } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { basename, dirname } from 'path'
@@ -23,8 +23,8 @@ import {
   deleteAbortController
 } from '../../utils/aborthandler/aborthandler'
 import { BrowserWindow, dialog, Menu } from 'electron'
-import { sendGameStatusUpdate } from 'backend/utils'
-import { isLinux, isMac } from 'backend/constants/environment'
+import { sendGameStatusUpdate, spawnAsync } from 'backend/utils'
+import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { windowIcon } from 'backend/constants/paths'
 
 import type LogWriter from 'backend/logger/log_writer'
@@ -111,6 +111,45 @@ const openNewBrowserGameWindow = async ({
       res(true)
     })
   })
+}
+
+/*
+ * Automatially executes command properly according to operating system
+ *  on Windows pre-appends powershell command to spawn UAC prompt
+ */
+export async function runSetupCommand(wineArgs: WineCommandArgs) {
+  if (isWindows) {
+    // Run shell
+    const [exe, ...args] = wineArgs.commandParts
+    return spawnAsync(
+      'powershell',
+      [
+        '-NoProfile',
+        'Start-Process',
+        '-FilePath',
+        exe,
+        '-Verb',
+        'RunAs',
+        '-Wait',
+        '-ArgumentList',
+        // TODO: Verify how Powershell will handle those
+        args
+          .map((argument) => {
+            if (argument.includes(' ')) {
+              // Add super quotes:tm:
+              argument = '`"' + argument + '`"'
+            }
+            // Add normal quotes
+            argument = '"' + argument + '"'
+            return argument
+          })
+          .join(',')
+      ],
+      { cwd: wineArgs.startFolder }
+    )
+  } else {
+    return runWineCommand(wineArgs)
+  }
 }
 
 export async function launchGame(

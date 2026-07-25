@@ -39,6 +39,7 @@ export default function SidebarLinks() {
     epic,
     gog,
     zoom,
+    humbleBundle,
     platform,
     refreshLibrary,
     handleExternalLinkDialog
@@ -51,7 +52,11 @@ export default function SidebarLinks() {
   const isWin = platform === 'win32'
 
   const loggedIn =
-    epic.username || gog.username || amazon.user_id || zoom.username
+    epic.username ||
+    gog.username ||
+    amazon.user_id ||
+    zoom.username ||
+    humbleBundle.email
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -60,7 +65,8 @@ export default function SidebarLinks() {
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length) ||
       (amazon.user_id && !amazon.library.length) ||
-      (zoom.username && !zoom.library.length)
+      (zoom.username && !zoom.library.length) ||
+      (humbleBundle.email && !humbleBundle.library.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })
     }
@@ -158,6 +164,11 @@ export default function SidebarLinks() {
                 label={t('zoom-store', 'Zoom Store')}
               />
             )}
+            <SidebarItem
+              className="SidebarLinks__subItem"
+              url="/store/humble-bundle"
+              label={t('humble-bundle', 'Humble Bundle')}
+            />
           </div>
         )}
       </div>

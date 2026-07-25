@@ -89,8 +89,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
-  const { epic, gog, gameUpdates, platform, showDialogModal, connectivity } =
-    useContext(ContextProvider)
+  const {
+    epic,
+    gog,
+    humbleBundle,
+    gameUpdates,
+    platform,
+    showDialogModal,
+    connectivity
+  } = useContext(ContextProvider)
 
   const { settingsModalProps } = useGlobalState.keys('settingsModalProps')
 
@@ -199,7 +206,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateGameInfo()
-  }, [status, gog.library, epic.library, isMoving])
+  }, [status, gog.library, epic.library, humbleBundle.library, isMoving])
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -256,6 +263,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     status,
     epic.library,
     gog.library,
+    humbleBundle.library,
     gameInfo,
     settingsModalProps.isOpen,
     isOffline
