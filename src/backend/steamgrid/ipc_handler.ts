@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'backend/config'
 import { addHandler } from 'backend/ipc'
 import { logError, LogPrefix } from 'backend/logger'
+import { SGDBContentFilter, sgdbContentFilters } from 'common/types'
 import * as SteamGridDB from './utils'
 import { encryptApiKey, decryptApiKey, isEncryptedValue } from './secureKey'
 
@@ -25,8 +26,10 @@ function getDecryptedApiKey(): string {
   return decryptApiKey(stored)
 }
 
-function showNsfw(): boolean {
-  return !!GlobalConfig.get().getSettings().steamGridDbShowNsfw
+function contentFilters(): SGDBContentFilter[] {
+  const stored = GlobalConfig.get().getSettings().steamGridDbContentFilters
+  if (!Array.isArray(stored)) return []
+  return stored.filter((filter) => sgdbContentFilters.includes(filter))
 }
 
 addHandler('steamgriddb.hasApiKey', () => !!readStoredApiKey())
@@ -66,7 +69,7 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
       gameId: args.gameId,
       dimensions: args.dimensions,
       styles: args.styles,
-      nsfw: showNsfw()
+      contentFilters: contentFilters()
     })
     return results.map((grid) => ({
       id: grid.id,
@@ -90,7 +93,7 @@ addHandler('steamgriddb.getHeroes', async (event, args) => {
       gameId: args.gameId,
       dimensions: args.dimensions,
       styles: args.styles,
-      nsfw: showNsfw()
+      contentFilters: contentFilters()
     })
     return results.map((grid) => ({
       id: grid.id,

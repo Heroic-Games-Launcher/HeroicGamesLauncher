@@ -28,7 +28,7 @@ import {
   HideWindowOnProtocolLaunch,
   ResetHeroic,
   SteamGridDbApiKey,
-  SteamGridDbShowNsfw
+  SteamGridDbContentFilters
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
 
@@ -175,7 +175,7 @@ export default function AdvancedSetting() {
 
       <div className="advancedSetting">
         <SteamGridDbApiKey />
-        <SteamGridDbShowNsfw />
+        <SteamGridDbContentFilters />
         <hr />
       </div>
 

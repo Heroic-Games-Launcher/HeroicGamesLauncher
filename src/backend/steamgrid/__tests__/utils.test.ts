@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { searchGame, getGrids } from '../utils'
 import { app } from 'electron'
+import { sgdbContentFilters } from 'common/types'
 
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
@@ -111,12 +112,12 @@ describe('SteamGridDB Utils', () => {
       )
     })
 
-    it('should not send the nsfw param when nsfw is not enabled', async () => {
+    it('should not send any content filter params when none are enabled', async () => {
       mockedAxios.get.mockResolvedValueOnce({
         data: { success: true, data: [] }
       })
 
-      await getGrids(apiKey, { gameId: 123, nsfw: false })
+      await getGrids(apiKey, { gameId: 123, contentFilters: [] })
 
       expect(mockedAxios.get).toHaveBeenCalledWith(
         expect.any(String),
@@ -124,16 +125,61 @@ describe('SteamGridDB Utils', () => {
       )
     })
 
-    it('should send nsfw=any when nsfw is enabled', async () => {
+    it.each(sgdbContentFilters)(
+      'should send %s=any when that filter is enabled',
+      async (filter) => {
+        mockedAxios.get.mockResolvedValueOnce({
+          data: { success: true, data: [] }
+        })
+
+        await getGrids(apiKey, { gameId: 123, contentFilters: [filter] })
+
+        expect(mockedAxios.get).toHaveBeenCalledWith(
+          expect.any(String),
+          expect.objectContaining({ params: { [filter]: 'any' } })
+        )
+      }
+    )
+
+    it('should send every enabled content filter at once', async () => {
       mockedAxios.get.mockResolvedValueOnce({
         data: { success: true, data: [] }
       })
 
-      await getGrids(apiKey, { gameId: 123, nsfw: true })
+      await getGrids(apiKey, {
+        gameId: 123,
+        contentFilters: ['nsfw', 'humor', 'epilepsy']
+      })
 
       expect(mockedAxios.get).toHaveBeenCalledWith(
         expect.any(String),
-        expect.objectContaining({ params: { nsfw: 'any' } })
+        expect.objectContaining({
+          params: { nsfw: 'any', humor: 'any', epilepsy: 'any' }
+        })
+      )
+    })
+
+    it('should combine content filters with dimensions and styles', async () => {
+      mockedAxios.get.mockResolvedValueOnce({
+        data: { success: true, data: [] }
+      })
+
+      await getGrids(apiKey, {
+        gameId: 123,
+        dimensions: ['460x215'],
+        styles: ['alternate'],
+        contentFilters: ['humor']
+      })
+
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({
+          params: {
+            dimensions: '460x215',
+            styles: 'alternate',
+            humor: 'any'
+          }
+        })
       )
     })
 
