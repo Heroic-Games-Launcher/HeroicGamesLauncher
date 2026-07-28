@@ -8,6 +8,7 @@ import { libraryManagerMap } from '..'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
+import { GameConfig } from 'backend/game_config'
 import { nileUserData } from './constants'
 
 function authLogSanitizer(line: string) {
@@ -99,6 +100,7 @@ export class NileUser {
 
     configStore.delete('userData')
     clearCache('nile')
+    GameConfig.evictAll()
   }
 
   static async getUserData(): Promise<NileUserData | undefined> {

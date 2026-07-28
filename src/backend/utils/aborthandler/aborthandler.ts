@@ -27,7 +27,7 @@ function callAbortController(id: string) {
 }
 
 function callAllAbortControllers() {
-  for (const key in abortControllers.keys()) {
+  for (const key of abortControllers.keys()) {
     callAbortController(key)
   }
 }

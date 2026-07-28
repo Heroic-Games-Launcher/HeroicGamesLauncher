@@ -12,11 +12,12 @@ backendEvents.on('gameStatusUpdate', ({ appName, status }) => {
   if (status === 'done') {
     getMainWindow()?.setProgressBar(-1) // reset progress bar
     // stop listening for progress updates
-    backendEvents.off(`progressUpdate-${appName}`, handleProgressUpdate)
+    backendEvents.removeAllListeners(`progressUpdate-${appName}`)
   } else if (status !== 'queued') {
     // ignore 'queued' events as download may be in progress
     getMainWindow()?.setProgressBar(2) // indeterminate
-    // subscribe to progress updates for current app
+    // remove before re-adding to prevent duplicate listeners on pause/resume cycles
+    backendEvents.removeAllListeners(`progressUpdate-${appName}`)
     backendEvents.on(`progressUpdate-${appName}`, handleProgressUpdate)
   }
 })

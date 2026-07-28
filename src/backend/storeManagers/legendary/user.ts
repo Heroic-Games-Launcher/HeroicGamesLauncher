@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
 import { clearCache } from '../../utils'
+import { GameConfig } from 'backend/game_config'
 import { logError, LogPrefix } from 'backend/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
@@ -76,6 +77,7 @@ export class LegendaryUser {
     await ses.clearData()
     configStore.delete('userInfo')
     clearCache('legendary')
+    GameConfig.evictAll()
   }
 
   public static isLoggedIn() {
