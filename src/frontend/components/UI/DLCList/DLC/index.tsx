@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { DLCInfo } from 'common/types/legendary'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { getGameInfo, getInstallInfo, install, size } from 'frontend/helpers'
-import { GameInfo, Runner } from 'common/types'
+import { GameInfo } from 'common/types'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,36 +12,35 @@ import DownIcon from 'frontend/assets/down-icon.svg?react'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import StopIconAlt from 'frontend/assets/stop-icon-alt.svg?react'
 import SvgButton from '../../SvgButton'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 type Props = {
-  dlc: DLCInfo
-  runner: Runner
+  dlc: GameHandle
   mainAppInfo: GameInfo
   onClose: () => void
 }
 
-const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
-  const { title, app_name } = dlc
+const DLC = ({ dlc, mainAppInfo, onClose }: Props) => {
   const { libraryStatus, showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [dlcInfo, setDlcInfo] = useState<GameInfo | null>(null)
   const [dlcSize, setDlcSize] = useState<number>(0)
   const [refreshing, setRefreshing] = useState(true)
-  const [progress] = hasProgress(dlc.app_name, runner)
+  const [progress] = hasProgress(dlc)
 
   const isInstalled = dlcInfo?.is_installed
 
   useEffect(() => {
     const checkInstalled = async () => {
-      const info = await getGameInfo(app_name, runner)
+      const info = await getGameInfo(dlc)
       if (!info) {
         return
       }
       setDlcInfo(info)
     }
     checkInstalled()
-  }, [dlc, runner])
+  }, [dlc])
 
   useEffect(() => {
     setRefreshing(true)
@@ -50,11 +48,7 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
       if (!mainAppInfo.install.platform) {
         return
       }
-      const info = await getInstallInfo(
-        app_name,
-        runner,
-        mainAppInfo.install.platform
-      )
+      const info = await getInstallInfo(dlc, mainAppInfo.install.platform)
       if (!info) {
         return
       }
@@ -62,9 +56,9 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
       setRefreshing(false)
     }
     getDlcSize()
-  }, [dlc, runner])
+  }, [dlc])
 
-  const currentApp = libraryStatus.find((app) => app.appName === app_name)
+  const currentApp = libraryStatus.find((s) => s.appName === dlc.id)
   const isInstalling = currentApp?.status === 'installing'
   const showInstallButton = !isInstalling && !refreshing
 
@@ -93,18 +87,19 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
     }
   }
 
+  if (!dlcInfo) return <></>
+
   return (
     <>
       {showUninstallModal && (
         <UninstallModal
-          appName={app_name}
-          runner={runner}
+          game={dlc}
           onClose={() => setShowUninstallModal(false)}
           isDlc
         />
       )}
       <div className="dlcItem">
-        <span className="title">{title}</span>
+        <span className="title">{dlcInfo.title}</span>
         {refreshing ? '...' : <span className="size">{size(dlcSize)}</span>}
         {showInstallButton && (
           <SvgButton
@@ -114,7 +109,7 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
               isInstalled
                 ? t('button.uninstall', 'Uninstall')
                 : t('button.install', 'Install')
-            } (${title})`}
+            } (${dlcInfo.title})`}
           >
             {isInstalled ? <StopIcon /> : <DownIcon />}
           </SvgButton>
@@ -123,7 +118,7 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
           <SvgButton
             className="action"
             onClick={() => mainAction()}
-            title={`${t('button.cancel', 'Cancel')} (${title})`}
+            title={`${t('button.cancel', 'Cancel')} (${dlcInfo.title})`}
           >
             <StopIconAlt />
           </SvgButton>

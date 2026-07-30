@@ -226,22 +226,23 @@ export function makeAureliaProgressHandler(
           ? formatTime(Math.floor(evt.eta_seconds))
           : '--:--:--'
 
-      sendProgressUpdate({
-        appName,
-        runner: 'steam',
-        status,
-        progress: {
-          bytes: getFileSize(evt.bytes_downloaded ?? 0),
-          eta,
-          percent:
-            typeof evt.percent === 'number'
-              ? Math.round(evt.percent * 100) / 100
-              : undefined,
-          downSpeed,
-          diskSpeed: downSpeed,
-          file: evt.file
+      sendProgressUpdate(
+        { id: appName, runner: 'steam' },
+        {
+          status,
+          progress: {
+            bytes: getFileSize(evt.bytes_downloaded ?? 0),
+            eta,
+            percent:
+              typeof evt.percent === 'number'
+                ? Math.round(evt.percent * 100) / 100
+                : undefined,
+            downSpeed,
+            diskSpeed: downSpeed,
+            file: evt.file
+          }
         }
-      })
+      )
     }
   }
 }

@@ -13,18 +13,18 @@ import { useCancelOnHold, useGamepadButtonHold } from '../../hooks'
 import { BTN_BACK } from '../../controller'
 import { launch, sendKill } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 const CANCEL_HOLD_MS = 3000
 
-export default function LaunchOverlay({
-  game,
-  onDismiss
-}: {
+interface Props {
   game: GameInfo
   onDismiss: () => void
-}) {
+}
+
+export default function LaunchOverlay({ game, onDismiss }: Props) {
   const { t } = useTranslation()
-  const { status, statusContext } = hasStatus(game)
+  const { status, statusContext } = hasStatus(GameHandle.fromGameInfo(game))
   let label: string | null = null
 
   const { showDialogModal } = useContext(ContextProvider)
@@ -64,7 +64,7 @@ export default function LaunchOverlay({
     active: !launchError && !!game,
     holdMs: CANCEL_HOLD_MS,
     onCancel: () => {
-      if (game) void sendKill(game.app_name, game.runner)
+      if (game) void sendKill(GameHandle.fromGameInfo(game))
 
       // prevent UX from hanging in "Launching" mode
       handleDismiss()
@@ -99,9 +99,8 @@ export default function LaunchOverlay({
       setTimeout(() => handleDismiss(), errMsg ? 5000 : 3000)
     }
     void launch({
-      appName: game.app_name,
+      game: GameHandle.fromGameInfo(game),
       t,
-      runner: game.runner,
       hasUpdate: false,
       showDialogModal
     })

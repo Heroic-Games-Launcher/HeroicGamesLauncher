@@ -9,12 +9,13 @@ import {
 } from '@mui/icons-material'
 import { CachedImage } from 'frontend/components/UI'
 import { SteamDLCInfo } from 'common/types/steam'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
-  appName: string
+  game: GameHandle
 }
 
-const SteamDlcList = ({ appName }: Props) => {
+const SteamDlcList = ({ game }: Props) => {
   const { t } = useTranslation('gamepage')
   const navigate = useNavigate()
   const [dlcs, setDlcs] = useState<SteamDLCInfo[]>([])
@@ -25,11 +26,11 @@ const SteamDlcList = ({ appName }: Props) => {
 
   const loadDlcs = useCallback(async () => {
     try {
-      setDlcs(await window.api.getSteamDlcInfo(appName))
+      setDlcs(await window.api.getSteamDlcInfo(game))
     } catch {
       setDlcs([])
     }
-  }, [appName])
+  }, [game])
 
   const onStatusClick = async (dlc: SteamDLCInfo) => {
     if (!dlc.owned) {
@@ -55,7 +56,7 @@ const SteamDlcList = ({ appName }: Props) => {
   useEffect(() => {
     let active = true
     window.api
-      .getSteamDlcInfo(appName)
+      .getSteamDlcInfo(game)
       .then((list) => {
         if (active) setDlcs(list)
       })
@@ -65,7 +66,7 @@ const SteamDlcList = ({ appName }: Props) => {
     return () => {
       active = false
     }
-  }, [appName])
+  }, [game])
 
   if (!dlcs.length) {
     return null

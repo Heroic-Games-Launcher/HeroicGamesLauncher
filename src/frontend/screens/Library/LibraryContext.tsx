@@ -39,7 +39,6 @@ const initialContext: LibraryContextType = {
   setShowUpdatesOnly: () => null,
   showSteamOwnedOnly: false,
   setShowSteamOwnedOnly: () => null,
-  handleAddGameButtonClick: () => null,
   setShowCategories: () => null,
   showAlphabetFilter: false,
   onToggleAlphabetFilter: () => null,

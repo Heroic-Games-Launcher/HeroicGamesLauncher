@@ -5,6 +5,7 @@ import { DownloadDone } from '@mui/icons-material'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import { GameInfo } from 'common/types'
 import SteamDlcList from './SteamDlcList'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
   gameInfo: GameInfo
@@ -104,7 +105,9 @@ const InstalledInfo = ({ gameInfo }: Props) => {
           <div className="truncatedPath">{appLocation}</div>
         </div>
       )}
-      {runner === 'steam' && <SteamDlcList appName={gameInfo.app_name} />}
+      {runner === 'steam' && (
+        <SteamDlcList game={GameHandle.fromGameInfo(gameInfo)} />
+      )}
       {!is.win && !is.native && (
         <>
           <div>

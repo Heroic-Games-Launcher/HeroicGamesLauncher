@@ -4,7 +4,7 @@ import {
   ConnectivityStatus,
   FavouriteGame,
   GameInfo,
-  GameStatus,
+  GameStatusLegacy,
   HiddenGame,
   RefreshOptions,
   Runner,
@@ -41,7 +41,6 @@ import {
   steamInstalledGamesStore,
   steamLibraryStore
 } from '../helpers/electronStores'
-import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
 import { SteamAccount, SteamLoginData } from 'common/types/steam'
 import useGlobalState from './GlobalStateV2'
@@ -88,7 +87,7 @@ interface StateProps {
   error: boolean
   gameUpdates: string[]
   language: string
-  libraryStatus: GameStatus[]
+  libraryStatus: GameStatusLegacy[]
   libraryTopSection: string
   platform: NodeJS.Platform
   isIntelMac: boolean
@@ -933,7 +932,7 @@ class GlobalState extends PureComponent<Props> {
     context,
     progress,
     runner
-  }: GameStatus) => {
+  }: GameStatusLegacy) => {
     const { libraryStatus, gameUpdates } = this.state
     const currentApp = libraryStatus.find((game) => game.appName === appName)
 
@@ -1024,31 +1023,30 @@ class GlobalState extends PureComponent<Props> {
       void this.loadSteamUsers()
     }
 
-    window.api.handleInstallGame(async (e, appName, runner) => {
-      const currentApp = libraryStatus.filter(
-        (game) => game.appName === appName
-      )[0]
+    window.api.handleInstallGame(async (game) => {
+      const currentApp = libraryStatus.find(
+        (s) => s.appName === game.id && s.runner === game.runner
+      )
       if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
-        const gameInfo = await getGameInfo(appName, runner)
+        const gameInfo = await getGameInfo(game)
         if (!gameInfo || gameInfo.runner === 'sideload') {
           return
         }
         return this.setState({
           showInstallModal: {
             show: true,
-            appName,
-            runner,
+            game,
             gameInfo
           }
         })
       }
     })
 
-    window.api.handleGameStatus((e, args) => {
-      this.handleGameStatus({ ...args })
+    window.api.handleGameStatus((game, args) => {
+      this.handleGameStatus({ ...args, appName: game.id, runner: game.runner })
     })
 
-    window.api.handleRefreshLibrary((e, runner) => {
+    window.api.handleRefreshLibrary((runner) => {
       this.refreshLibrary({
         checkForUpdates: false,
         runInBackground: true,
@@ -1056,11 +1054,11 @@ class GlobalState extends PureComponent<Props> {
       })
     })
 
-    window.api.handleMetadataChanged((e, overrides) => {
+    window.api.handleMetadataChanged((overrides) => {
       this.updateGameOverrides(overrides)
     })
 
-    window.api.handleGamePush((e: IpcRendererEvent, args: GameInfo) => {
+    window.api.handleGamePush((args) => {
       if (!args.app_name) return
       // Use the functional setState form so a burst of pushes (e.g. hundreds of
       // games streamed in during a library refresh) can't lose updates: each
@@ -1118,11 +1116,9 @@ class GlobalState extends PureComponent<Props> {
       isFullscreen: await window.api.isFullscreen(),
       isFrameless: await window.api.isFrameless()
     })
-    window.api.handleFullscreen(
-      (e: IpcRendererEvent, isFullscreen: boolean) => {
-        this.setState({ isFullscreen })
-      }
-    )
+    window.api.handleFullscreen((isFullscreen) => {
+      this.setState({ isFullscreen })
+    })
 
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
@@ -1181,7 +1177,7 @@ class GlobalState extends PureComponent<Props> {
     )
 
     // listen to custom connectivity-changed event to update state
-    window.api.onConnectivityChanged((_, connectivity) => {
+    window.api.onConnectivityChanged((connectivity) => {
       this.setState({ connectivity })
     })
 

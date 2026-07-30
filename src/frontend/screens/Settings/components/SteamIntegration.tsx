@@ -7,7 +7,7 @@ import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const SteamIntegration = () => {
   const { t } = useTranslation()
-  const { appName, runner, gameInfo } = useContext(SettingsContext)
+  const { game, gameInfo } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
@@ -18,13 +18,13 @@ const SteamIntegration = () => {
   const isFamilyShare = !!gameInfo?.isFamilyShare
 
   useEffect(() => {
-    if (runner === 'steam' && isLinux) {
-      window.api.getSteamIntegrationEnabled(appName).then(setSteamIntegration)
+    if (game?.runner === 'steam' && isLinux) {
+      window.api.getSteamIntegrationEnabled(game).then(setSteamIntegration)
     }
-  }, [appName, runner, isLinux])
+  }, [game, isLinux])
 
   // Only relevant for Steam games launched through Aurelia/Proton on Linux.
-  if (runner !== 'steam' || !isLinux) {
+  if (game?.runner !== 'steam' || !isLinux) {
     return <></>
   }
 
@@ -34,7 +34,7 @@ const SteamIntegration = () => {
     }
     const next = !steamIntegration
     setSteamIntegration(next)
-    window.api.setSteamIntegrationEnabled(appName, next)
+    window.api.setSteamIntegrationEnabled(game, next)
   }
 
   return (

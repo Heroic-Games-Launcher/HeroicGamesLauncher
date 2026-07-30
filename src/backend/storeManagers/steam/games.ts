@@ -216,11 +216,17 @@ function buildReqs(minimum: string[] = [], recommended: string[] = []): Reqs[] {
 /**
  * Steam game manager.
  */
-export default class SteamGame implements Game {
-  private readonly id: string
+export default class SteamGame extends Game {
+  public readonly id: string
+  public readonly runner = 'steam'
 
   constructor(id: string) {
+    super()
     this.id = id
+  }
+
+  toString(): string {
+    return `SteamGame(id=${this.id})`
   }
 
   getGameInfo(): GameInfo {
@@ -449,7 +455,7 @@ export default class SteamGame implements Game {
     status: Status,
     logType: 'install' | 'update' | 'repair'
   ): Promise<InstallResult> {
-    const logWriter = await createGameLogWriter(this.id, 'steam', logType)
+    const logWriter = await createGameLogWriter(this, logType)
     const res = await libraryManagerMap['steam'].runRunnerCommand(
       [...commandParts, '--json'],
       {
@@ -486,11 +492,7 @@ export default class SteamGame implements Game {
     if (!isSteamImportEnabled()) {
       return { stdout: '', stderr: 'Steam import disabled' }
     }
-    const importLogWriter = await createGameLogWriter(
-      this.id,
-      'steam',
-      'import'
-    )
+    const importLogWriter = await createGameLogWriter(this, 'import')
     const res = await libraryManagerMap['steam'].runRunnerCommand(
       ['import', this.id, path, '--json'],
       { abortId: this.id, logWriters: [importLogWriter] }
@@ -694,11 +696,7 @@ export default class SteamGame implements Game {
     // Sync before starting a game
     await this.syncCloudSaves('down', logWriter)
 
-    sendGameStatusUpdate({
-      appName: this.id,
-      runner: 'steam',
-      status: 'playing'
-    })
+    sendGameStatusUpdate(this, 'playing')
 
     const playCommand = ['play', this.id, '--json']
 

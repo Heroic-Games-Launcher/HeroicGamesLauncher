@@ -55,7 +55,7 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
 
     qrListeners.current.forEach((remove) => remove())
     qrListeners.current = [
-      window.api.handleSteamQrChallenge((_e, url) => setQrUrl(url)),
+      window.api.handleSteamQrChallenge((url) => setQrUrl(url)),
       window.api.handleSteamQrScanned(() => {
         qrScannedRef.current = true
         setQrScanned(true)
@@ -80,7 +80,7 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
     mounted.current = true
     startQr()
 
-    const removeGuard = window.api.handleSteamGuardRequired((_e, type) => {
+    const removeGuard = window.api.handleSteamGuardRequired((type) => {
       if (type === 'device_confirmation') {
         setPhase('device')
       } else {
@@ -89,7 +89,7 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
         setPhase('guard')
       }
     })
-    const removeStatus = window.api.handleSteamLoginStatus((_e, status) => {
+    const removeStatus = window.api.handleSteamLoginStatus((status) => {
       if (status.state === 'awaiting_confirmation') {
         setStatusMessage(status.message ?? null)
       }

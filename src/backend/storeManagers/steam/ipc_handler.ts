@@ -4,8 +4,8 @@ import { libraryManagerMap } from '..'
 
 addHandler('getSteamUsers', () => SteamUser.getAccounts())
 
-addHandler('getSteamDlcInfo', async (_e, appName) =>
-  libraryManagerMap['steam'].getDLCInfo(appName)
+addHandler('getSteamDlcInfo', async (_e, game) =>
+  libraryManagerMap['steam'].getDLCInfo(game.id)
 )
 
 addHandler('getSteamInstallLibraries', async () =>
@@ -17,13 +17,13 @@ addHandler('setSteamDlcEnabled', async (_e, dlcAppId, enabled) =>
   libraryManagerMap['steam'].getGame(dlcAppId).setDlcEnabled(dlcAppId, enabled)
 )
 
-addHandler('getSteamIntegrationEnabled', (_e, appName) =>
-  libraryManagerMap['steam'].getGame(appName).getSteamIntegrationEnabled()
+addHandler('getSteamIntegrationEnabled', (_e, game) =>
+  libraryManagerMap['steam'].getGame(game.id).getSteamIntegrationEnabled()
 )
 
-addListener('setSteamIntegrationEnabled', (_e, appName, enabled) => {
+addListener('setSteamIntegrationEnabled', (_e, game, enabled) => {
   libraryManagerMap['steam']
-    .getGame(appName)
+    .getGame(game.id)
     .setSteamIntegrationEnabled(enabled)
 })
 
