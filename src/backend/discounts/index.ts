@@ -8,6 +8,7 @@ import type {
   CatalogProduct
 } from 'common/types/discounts'
 import './gmg'
+import './humble'
 
 interface CatalogResponse {
   pages: number

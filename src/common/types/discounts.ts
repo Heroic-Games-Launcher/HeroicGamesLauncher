@@ -21,7 +21,7 @@ export interface CatalogRating {
   ageRating: string
 }
 
-export type DiscountStore = 'gog' | 'gmg'
+export type DiscountStore = 'gog' | 'gmg' | 'humble'
 
 export interface CatalogProduct {
   id: string

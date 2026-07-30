@@ -11,7 +11,7 @@ import {
   TextField,
   Tooltip
 } from '@mui/material'
-import { ExpandMore } from '@mui/icons-material'
+import { ExpandMore, ViewList, ViewModule } from '@mui/icons-material'
 import SearchBar from 'frontend/components/UI/SearchBar'
 import type { CatalogFeature, CatalogGenre } from 'common/types/discounts'
 import {
@@ -20,7 +20,8 @@ import {
   RATING_SCALE_MAX,
   type DiscountSort,
   type OsOption,
-  type PegiAge
+  type PegiAge,
+  type ViewMode
 } from '../../helpers'
 import './index.css'
 
@@ -62,6 +63,8 @@ interface Props {
   onPageSizeChange: (value: number) => void
   onReset: () => void
   hasActiveFilters: boolean
+  viewMode: ViewMode
+  onViewModeChange: (mode: ViewMode) => void
 }
 
 const OS_PLATFORM_KEY: Partial<Record<OsOption, 'win' | 'linux' | 'mac'>> = {
@@ -194,7 +197,9 @@ const DiscountFilters = ({
   pageSize,
   onPageSizeChange,
   onReset,
-  hasActiveFilters
+  hasActiveFilters,
+  viewMode,
+  onViewModeChange
 }: Props) => {
   const { t } = useTranslation()
   const [expanded, setExpanded] = useState(false)
@@ -241,6 +246,40 @@ const DiscountFilters = ({
           {t('header.filters', 'Filters')}
         </h3>
         <div className="discountFilters__headerActions">
+          <div
+            className="discountFilters__viewToggle"
+            role="group"
+            aria-label={t('discounts.view.label', 'View mode')}
+          >
+            <button
+              type="button"
+              className={`discountFilters__viewButton${
+                viewMode === 'grid'
+                  ? ' discountFilters__viewButton--active'
+                  : ''
+              }`}
+              aria-pressed={viewMode === 'grid'}
+              aria-label={t('discounts.view.grid', 'Grid')}
+              title={t('discounts.view.grid', 'Grid')}
+              onClick={() => onViewModeChange('grid')}
+            >
+              <ViewModule fontSize="small" />
+            </button>
+            <button
+              type="button"
+              className={`discountFilters__viewButton${
+                viewMode === 'list'
+                  ? ' discountFilters__viewButton--active'
+                  : ''
+              }`}
+              aria-pressed={viewMode === 'list'}
+              aria-label={t('discounts.view.list', 'List')}
+              title={t('discounts.view.list', 'List')}
+              onClick={() => onViewModeChange('list')}
+            >
+              <ViewList fontSize="small" />
+            </button>
+          </div>
           <button
             type="button"
             className={`discountFilters__toggle${
