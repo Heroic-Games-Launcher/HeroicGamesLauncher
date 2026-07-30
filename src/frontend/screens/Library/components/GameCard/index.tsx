@@ -156,6 +156,9 @@ const GameCard = ({
     coverErrorCount.current += 1
     if (coverErrorCount.current < 2) return
     triedSteamCover.current = true
+    if (cover?.startsWith('http')) {
+      void window.api.removeImageFromCache(cover)
+    }
     window.api
       .getWikiGameInfo(game)
       .then((info) => {

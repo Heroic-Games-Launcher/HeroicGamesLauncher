@@ -148,6 +148,8 @@ interface TestSyncIPCFunctions {
 // ts-prune-ignore-next
 interface AsyncIPCFunctions {
   kill: (game: Game) => Promise<void>
+  clearImagesCache: () => Promise<void>
+  removeImageFromCache: (url: string) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
   callTool: (game: Game, tool: string, exe?: string) => Promise<void>
   runWineCommand: (

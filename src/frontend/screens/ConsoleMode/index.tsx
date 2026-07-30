@@ -14,6 +14,7 @@ import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill, updateGame } from 'frontend/helpers'
+import { timestampStore } from 'frontend/helpers/electronStores'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -35,6 +36,14 @@ import type { GameInfo, Runner } from 'common/types'
 import { GameHandle } from 'frontend/helpers/ipc'
 
 type StoreKey = Runner | 'all'
+
+type ConsoleSortMode = 'last_played' | 'alpha_asc' | 'alpha_desc'
+
+const SORT_MODE_ORDER: ConsoleSortMode[] = [
+  'last_played',
+  'alpha_asc',
+  'alpha_desc'
+]
 
 const CANCEL_DOWNLOAD_COPY = {
   update: {
@@ -73,7 +82,7 @@ export default function ConsoleMode() {
   } = useContext(ContextProvider)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
-  const [ascending, setAscending] = useState(true)
+  const [sortMode, setSortMode] = useState<ConsoleSortMode>('last_played')
   const [filteringByInstalled, setFilteringByInstalled] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
@@ -150,10 +159,18 @@ export default function ConsoleMode() {
     }
 
     return filteredGames.sort((a, b) => {
+      if (sortMode === 'last_played') {
+        const ta = timestampStore.get_nodefault(a.app_name)?.lastPlayed ?? ''
+        const tb = timestampStore.get_nodefault(b.app_name)?.lastPlayed ?? ''
+        if (!ta && !tb) return a.title.localeCompare(b.title)
+        if (!ta) return 1
+        if (!tb) return -1
+        return tb.localeCompare(ta)
+      }
       const cmp = a.title.localeCompare(b.title)
-      return ascending ? cmp : -cmp
+      return sortMode === 'alpha_asc' ? cmp : -cmp
     })
-  }, [allGames, filteringByInstalled, activeStore, ascending])
+  }, [allGames, filteringByInstalled, activeStore, sortMode])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<Runner>()
@@ -390,11 +407,17 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const toggleSort = useCallback(() => setAscending((v) => !v), [])
+  const cycleSort = useCallback(() => {
+    setSortMode((current) => {
+      const idx = SORT_MODE_ORDER.indexOf(current)
+      const next = (idx + 1) % SORT_MODE_ORDER.length
+      return SORT_MODE_ORDER[next]
+    })
+  }, [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
-  useGamepadButtonPress(BTN_R2, toggleSort, idle)
+  useGamepadButtonPress(BTN_R2, cycleSort, idle)
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -433,11 +456,15 @@ export default function ConsoleMode() {
         <div className="consoleTopRight">
           <button
             className="consoleChip"
-            onClick={toggleSort}
-            aria-label={t('console.sort', 'Sort')}
+            onClick={cycleSort}
+            aria-label={t('console.sort.label', 'Sort')}
             disabled={!!launchingGame}
           >
-            {ascending ? 'A → Z' : 'Z → A'}
+            {sortMode === 'last_played'
+              ? t('console.sort.last_played', 'Last Played')
+              : sortMode === 'alpha_asc'
+                ? t('console.sort.alpha_asc', 'A → Z')
+                : t('console.sort.alpha_desc', 'Z → A')}
           </button>
           <button
             className="consoleQuitButton"

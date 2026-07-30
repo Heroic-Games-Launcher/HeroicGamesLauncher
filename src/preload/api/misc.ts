@@ -2,6 +2,8 @@ import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '..
 
 export const clearCache = makeListenerCaller('clearCache')
 export const clearAchievementCache = makeListenerCaller('clearAchievementCache')
+export const clearImagesCache = makeHandlerInvoker('clearImagesCache')
+export const removeImageFromCache = makeHandlerInvoker('removeImageFromCache')
 export const resetHeroic = makeListenerCaller('resetHeroic')
 export const openWeblate = makeListenerCaller('openWeblate')
 export const changeLanguage = makeListenerCaller('changeLanguage')

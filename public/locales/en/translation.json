@@ -277,7 +277,12 @@
         "removeFromQueue": {
             "message": "This game is queued for download. Remove it from the queue?"
         },
-        "sort": "Sort"
+        "sort": {
+            "alpha_asc": "A → Z",
+            "alpha_desc": "Z → A",
+            "label": "Sort",
+            "last_played": "Last Played"
+        }
     },
     "controller": {
         "hints": {
@@ -999,7 +1004,8 @@
                 "help6": "This will NOT delete:",
                 "help7": "Store login",
                 "help8": "Installed games",
-                "help9": "Games settings"
+                "help9": "Games settings",
+                "helpImages": "A separate button below clears only the downloaded game cover artwork cache, forcing pristine re-downloads with rate limiting."
             },
             "details": "Details",
             "resetHeroic": {
@@ -1015,6 +1021,7 @@
             "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "Clear Heroic Cache",
+        "clear-images-cache": "Clear Images Cache (Re-download covers)",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
         "custom_css": {

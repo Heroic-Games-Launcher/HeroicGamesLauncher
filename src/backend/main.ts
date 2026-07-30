@@ -1,4 +1,8 @@
-import { initImagesCache } from './images_cache'
+import {
+  initImagesCache,
+  clearImagesCache,
+  removeImageFromCache
+} from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
@@ -730,6 +734,15 @@ addListener('clearAchievementCache', (event, game) => {
     'Achievement cache was cleared for game: ' + game.id,
     LogPrefix.Backend
   )
+})
+
+addHandler('clearImagesCache', () => {
+  clearImagesCache()
+  logInfo('Image cache was cleared', LogPrefix.Backend)
+})
+
+addHandler('removeImageFromCache', (event, url: string) => {
+  removeImageFromCache(url)
 })
 
 addListener('resetHeroic', () => resetHeroic())
