@@ -96,7 +96,8 @@
         "changelog": "显示更新日志",
         "browse_files": "浏览文件",
         "browse_wine_prefix": "浏览 Wine Prefix",
-        "play": "开始游戏"
+        "play": "开始游戏",
+        "edit-game": "编辑应用/游戏"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
