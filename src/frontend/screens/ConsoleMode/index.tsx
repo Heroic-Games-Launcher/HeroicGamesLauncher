@@ -117,9 +117,7 @@ export default function ConsoleMode() {
   const allGames = useMemo<GameInfo[]>(() => {
     // Match normal library: respect games hidden from the library view.
     // See https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/5783
-    const hiddenAppNames = new Set(
-      hiddenGames.list.map((game) => game.appName)
-    )
+    const hiddenAppNames = new Set(hiddenGames.list.map((game) => game.appName))
     const all: GameInfo[] = [
       ...epic.library,
       ...gog.library,
