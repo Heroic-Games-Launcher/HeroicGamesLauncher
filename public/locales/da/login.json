@@ -1,21 +1,21 @@
 {
     "button": {
         "login": "Log ind",
-        "open": "Åben link",
-        "copy": "Kopi",
+        "open": "Åbn link",
+        "copy": "Kopiér",
         "copied": "Kopieret!",
         "error": "Fejl, prøv en anden kode",
         "loading": "Indlæser"
     },
     "message": {
-        "part1": "For at logge ind og installere dine spil, skal du først følge nedenstående trin:",
-        "part2": "Åben",
-        "part3": "Epic Store her",
-        "part4": ", log ind på din konto og kopier dine",
-        "part5": "authorization code informations nummer",
+        "part1": "For at logge ind og installere dine spil, må du først følge trinene herunder:",
+        "part2": "Åbn",
+        "part3": "Epic-Butik her",
+        "part4": ", log ind på din konto og kopiér dit",
+        "part5": "autoriseringskodeinformationsnummer",
         "part6": "Indsæt dit",
-        "part7": "authorization code nummer",
-        "part8": "i nedenstående boks og klik på log ind knappen."
+        "part7": "Autoriseringskodenummer",
+        "part8": "i indtastningsfeltet herunder og klik på login-knappen."
     },
     "status": {
         "error": "Fejl",

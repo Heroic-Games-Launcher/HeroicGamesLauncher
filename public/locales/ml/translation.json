@@ -922,7 +922,8 @@
         "installing": "Installing",
         "logging": "Logging In...",
         "processing": "Processing files, please wait",
-        "preparing_login": "ലോഗിൻ തയ്യാറാക്കുന്നു... "
+        "preparing_login": "ലോഗിൻ തയ്യാറാക്കുന്നു... ",
+        "installed": "നട്ടു"
     },
     "store": "കട",
     "stores": "Stores",
@@ -1114,7 +1115,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1244,7 +1244,15 @@
         "empty": "",
         "games": "നട്ട കളികള്‍",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "പുതുക്കല്‍ നിര്‍ത്തൂ"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
+        }
     },
     "next": ""
 }

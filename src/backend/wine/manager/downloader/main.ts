@@ -10,13 +10,13 @@ import {
 } from 'graceful-fs'
 
 import {
-  WINEGE_URL,
   PROTONGE_URL,
   PROTON_URL,
   WINELUTRIS_URL,
   WINECROSSOVER_URL,
   WINESTAGINGMACOS_URL,
-  GPTK_URL
+  GPTK_URL,
+  PROTON_CACHYOS_URL
 } from './constants'
 import { VersionInfo, Repositorys, WineVersionInfo } from 'common/types'
 import {
@@ -45,27 +45,13 @@ interface getVersionsProps {
  *          * rejects with an {@link Error}
  */
 async function getAvailableVersions({
-  repositorys = [Repositorys.WINEGE, Repositorys.PROTONGE],
+  repositorys = [Repositorys.PROTONGE],
   count = 100
 }: getVersionsProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
 
   for (const repo of repositorys) {
     switch (repo) {
-      case Repositorys.WINEGE: {
-        await fetchReleases({
-          url: WINEGE_URL,
-          type: 'Wine-GE',
-          count: count
-        })
-          .then((fetchedReleases: VersionInfo[]) => {
-            releases.push(...fetchedReleases)
-          })
-          .catch((error: Error) => {
-            logError(error, LogPrefix.WineDownloader)
-          })
-        break
-      }
       case Repositorys.PROTONGE: {
         await fetchReleases({
           url: PROTONGE_URL,
@@ -140,6 +126,20 @@ async function getAvailableVersions({
         await fetchReleases({
           url: GPTK_URL,
           type: 'Game-Porting-Toolkit',
+          count: count
+        })
+          .then((fetchedReleases: VersionInfo[]) => {
+            releases.push(...fetchedReleases)
+          })
+          .catch((error: Error) => {
+            logError(error, LogPrefix.WineDownloader)
+          })
+        break
+      }
+      case Repositorys.PROTONCACHYOS: {
+        await fetchReleases({
+          url: PROTON_CACHYOS_URL,
+          type: 'Proton-CachyOS',
           count: count
         })
           .then((fetchedReleases: VersionInfo[]) => {

@@ -227,7 +227,6 @@ export default function GamesSettings() {
           </>
         )}
         <VerboseLogs />
-        <DisableUMU />
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />
@@ -259,6 +258,7 @@ export default function GamesSettings() {
             )}
           </span>
           <EnableDXVKFpsLimit />
+          <DisableUMU />
         </TabPanel>
       )}
 

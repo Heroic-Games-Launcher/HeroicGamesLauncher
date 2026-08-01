@@ -24,7 +24,6 @@ import {
   GOGCredentials,
   GOGv1Manifest,
   GOGv2Manifest,
-  UserData,
   GOGSessionSyncQueueItem
 } from 'common/types/gog'
 import { dirname, join } from 'node:path'
@@ -45,7 +44,6 @@ import {
   installInfoStore,
   apiInfoCache,
   privateBranchesStore,
-  configStore,
   playtimeSyncQueue
 } from './electronStores'
 import { callRunner } from '../../launcher'
@@ -170,14 +168,14 @@ export default class GOGLibraryManager implements LibraryManager {
     if (playtimeSyncQueue.has('lock')) {
       return
     }
-    const userData: UserData | undefined = configStore.get_nodefault('userData')
-    if (!userData) {
-      logError('Unable to syncQueued playtime, userData not present', {
+    const credentials = await GOGUser.getCredentials()
+    if (!credentials) {
+      logError('Unable to syncQueued playtime, credentials not present', {
         prefix: LogPrefix.Gog
       })
       return
     }
-    const queue = playtimeSyncQueue.get(userData.galaxyUserId, [])
+    const queue = playtimeSyncQueue.get(credentials.user_id, [])
     if (queue.length === 0) {
       return
     }
@@ -195,7 +193,7 @@ export default class GOGLibraryManager implements LibraryManager {
         failed.push(session)
       }
     }
-    playtimeSyncQueue.set(userData.galaxyUserId, failed)
+    playtimeSyncQueue.set(credentials.user_id, failed)
     playtimeSyncQueue.delete('lock')
     logInfo(
       [
@@ -214,13 +212,6 @@ export default class GOGLibraryManager implements LibraryManager {
     time,
     appName
   }: GOGSessionSyncQueueItem) {
-    const userData: UserData | undefined = configStore.get_nodefault('userData')
-    if (!userData) {
-      logError('No userData, unable to post new session', {
-        prefix: LogPrefix.Gog
-      })
-      return null
-    }
     const credentials = await GOGUser.getCredentials().catch(() => null)
 
     if (!credentials) {
@@ -232,7 +223,7 @@ export default class GOGLibraryManager implements LibraryManager {
 
     return axios
       .post(
-        `https://gameplay.gog.com/games/${appName}/users/${userData?.galaxyUserId}/sessions`,
+        `https://gameplay.gog.com/games/${appName}/users/${credentials.user_id}/sessions`,
         { session_date, time },
         {
           headers: {

@@ -948,7 +948,8 @@
         "installing": "Paigaldamine",
         "logging": "Sisselogimine...",
         "processing": "Failide töötlemine, palun oodake",
-        "preparing_login": "Sisselogimise ettevalmistamine... "
+        "preparing_login": "Sisselogimise ettevalmistamine... ",
+        "installed": "Paigaldatud"
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -1061,7 +1062,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton on Protoni variant, mille lõi Glorious Eggroll. See on mõeldud Steami jaoks kasutamiseks, aga mõned Steami-välised mängud võivad sellega paremini töötada. Selle tõrkeotsingu logid on enamasti kasutud.",
-        "wine-ge": "Wine-GE-Proton on Wine'i variant, mille lõi Glorious Eggroll. See on soovitatav Wine'i versioon, mida kasutada väljaspool Steami. Selle tõrkeotsingu logid on kasulikud ja asjakohased.",
         "gpt": "Game Porting Toolkit on arendatud Apple'i poolt ja on soovitatav Apple Siliconi Macidele M1+ kiipidega ja töötab kõige paremini uuemate mängude puhul, mis kasutavad DX12-t.",
         "wine-crossover": "Wine-Crossover põhineb Crossover OpenSource Wine'i projektil ja on soovitatav Inteli Macidele ja DX11 või vanemate mängude puhul.",
         "wine-staging-macos": "Wine-Staging-macOS põhineb peavoolu Wine'i projektil ja on soovitatav Inteli Macidele ja DX11 või vanemate mängude puhul, eriti koos DXMT tööriistaga."
@@ -1279,7 +1279,15 @@
         "empty": "Pole ühtegi paigaldatud mängu näidata. Paigalda midagi.",
         "games": "Paigaldatud mängud",
         "quitApp": "Lahku äpist",
-        "loading": "Varamu laadimine…"
+        "loading": "Varamu laadimine…",
+        "cancelInstall": {
+            "title": "Tühista paigaldamine"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Paigalda mäng",
+            "wineLoading": "Laadimine"
+        }
     },
     "next": "Järgmine"
 }

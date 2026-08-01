@@ -96,7 +96,8 @@
         "changelog": "Mostrar registro de cambios",
         "browse_wine_prefix": "Abrir prefijo de Wine",
         "browse_files": "Ver archivos",
-        "play": "JUGAR"
+        "play": "JUGAR",
+        "edit-game": "Editar juego"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
@@ -272,6 +273,9 @@
         "import-hint": {
             "content": "NO utilizar esta función para eso.<br />En vez, <3>inicia sesión</3> en la tienda, busca el juego en tu librería, abre el diálogo de instalación, y presiona en el botón de &quot;Importar Juego&quot;",
             "title": "¡Importante! ¿Estás añadiendo un juego de Epic/GOG/Amazon? ¡Presiona aquí!"
+        },
+        "images": {
+            "summary": "Imágenes"
         }
     },
     "specs": {
@@ -359,5 +363,16 @@
         }
     },
     "wikiLink": "Información importante sobre este juego, leer esto:&nbsp;<1>Abrir página</1>",
-    "open-saves-folder": "Abrir carpeta de guardados"
+    "open-saves-folder": "Abrir carpeta de guardados",
+    "edit-game": {
+        "advanced": "Avanzado",
+        "reset": "Restaurar por defecto",
+        "sgdb": {
+            "no-key-link": "Ajustes → Avanzado"
+        },
+        "title": "Editar juego",
+        "placeholder": {
+            "image": "Inserta el enlace web de una imagen aquí"
+        }
+    }
 }

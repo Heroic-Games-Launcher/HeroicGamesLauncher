@@ -349,6 +349,8 @@ interface AsyncIPCFunctions {
     hideOwned?: boolean,
     wishlistOnly?: boolean
   ) => Promise<CatalogProduct[]>
+  getGmgDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
+  getHumbleDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
   'steamgriddb.hasApiKey': () => Promise<boolean>
   'steamgriddb.setApiKey': (key: string) => Promise<void>
   'steamgriddb.searchGame': (

@@ -930,7 +930,8 @@
         "installing": "Installerar",
         "logging": "Loggar in...",
         "processing": "Hanterar filer, vänligen vänta",
-        "preparing_login": "Förbereder inloggning... "
+        "preparing_login": "Förbereder inloggning... ",
+        "installed": "Installerad"
     },
     "store": "Epic Butik",
     "stores": "Butiker",
@@ -1037,7 +1038,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton är en Proton-variant skapad av Glorious Eggroll. Den är tänkt att användas för Steam, men vissa spel utanför Steam kan fungera bättre med denna variant. Den ger mestadels värdelösa loggar för felsökning.",
-        "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1252,7 +1252,15 @@
         "empty": "",
         "games": "Installerade spel",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "Avbryt uppdatering"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Installera spel",
+            "wineLoading": "Laddar…"
+        }
     },
     "next": "Nästa"
 }

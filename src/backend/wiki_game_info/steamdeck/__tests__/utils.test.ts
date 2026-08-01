@@ -33,7 +33,7 @@ describe('getSteamDeckComp', () => {
     expect(result).toBeNull()
     expect(mockAxios).toBeCalled()
     expect(logError).toBeCalledWith(
-      ['Was not able to get Stem Deck data for 1234', undefined],
+      ['Was not able to get Steam Deck data for 1234', undefined],
       'ExtraGameInfo'
     )
   })

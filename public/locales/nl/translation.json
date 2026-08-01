@@ -927,7 +927,8 @@
         "installing": "Installeren",
         "logging": "Aan het inloggen...",
         "processing": "Bestanden verwerken, een ogenblik geduld a.u.b.",
-        "preparing_login": "Inloggen Voorbereiden... "
+        "preparing_login": "Inloggen Voorbereiden... ",
+        "installed": "Geïnstalleerd"
     },
     "store": "Epic Winkel",
     "stores": "Winkels",
@@ -1115,7 +1116,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton is een Proton variant gemaakt door Glorious Eggrol. Het is bedoelt in gebruikt te worden met de umu launcher (standaard in Heroic).",
-        "wine-ge": "Wine-GE-Proton is een Wine variant gemaakt door Glorious Eggrol. Het is verouderd en vervangen voor GE-Proton met de umu launcher.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1249,7 +1249,15 @@
         "empty": "",
         "games": "Installed Games",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "Update annuleren"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
+        }
     },
     "next": "Volgende"
 }
