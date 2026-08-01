@@ -48,8 +48,6 @@ export default function Discounts() {
   const [regionOverride, setRegionOverride] = useState<string | null>(() =>
     getStoredRegionOverride()
   )
-  // undefined while the lookup is in flight; null when it fails (falls back
-  // to the UI-language guess in getLocaleSettings).
   const [gogRegion, setGogRegion] = useState<GogDealsRegion | null | undefined>(
     undefined
   )
@@ -202,8 +200,6 @@ export default function Discounts() {
   ])
 
   useEffect(() => {
-    // Wait for the GOG region lookup so the catalog isn't fetched twice
-    // (once with the language guess, again with the resolved region).
     if (gogRegion === undefined) return
 
     let cancelled = false

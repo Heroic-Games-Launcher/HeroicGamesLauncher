@@ -192,8 +192,6 @@ export const setStoredRegionOverride = (countryCode: string | null) => {
   }
 }
 
-// Priority: manual override > region GOG resolved for the user (account
-// settings or geo-IP) > UI-language guess > US/USD.
 export const getLocaleSettings = (
   language: string,
   regionOverride?: string | null,

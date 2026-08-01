@@ -154,8 +154,6 @@ const fetchUserDataRegion = async (
   }
 }
 
-// Resolves the country/currency GOG itself would use for this user: account
-// settings when logged in (authenticated request), geo-IP otherwise.
 addHandler('getGogDealsRegion', async (): Promise<GogDealsRegion | null> => {
   let token: string | undefined = undefined
   if (GOGUser.isLoggedIn()) {
@@ -166,13 +164,11 @@ addHandler('getGogDealsRegion', async (): Promise<GogDealsRegion | null> => {
   try {
     return await fetchUserDataRegion(token)
   } catch (err) {
-    // The token may not be accepted by embed.gog.com; geo-IP data from an
-    // anonymous request is still better than no region at all.
     if (token) {
       try {
         return await fetchUserDataRegion()
       } catch {
-        // fall through to the warning below
+        // ignore, fall back to the warning below
       }
     }
     logWarning(

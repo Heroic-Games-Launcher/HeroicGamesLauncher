@@ -49,8 +49,6 @@ export interface CatalogLocaleSettings {
   currencyCode: string
 }
 
-// Country and currency GOG resolves for the user (account settings when
-// logged in, geo-IP otherwise), used as the "Auto" region for the Deals page.
 export interface GogDealsRegion {
   countryCode: string
   currencyCode: string
