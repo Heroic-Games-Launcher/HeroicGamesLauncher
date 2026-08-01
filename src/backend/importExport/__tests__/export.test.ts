@@ -88,7 +88,7 @@ describe('exportHeroicBackup', () => {
     // Nile
     const nileDir = join(appFolder, 'nile_config', 'nile')
     mkdirSync(nileDir, { recursive: true })
-    writeJson(join(nileDir, 'user.json'), { tokens: {} })
+    writeJson(join(nileDir, 'current_user.json'), { tokens: {} })
     writeJson(join(nileDir, 'installed.json'), [
       { id: 'nile1', version: '1', path: '/n/1', size: 0 }
     ])
