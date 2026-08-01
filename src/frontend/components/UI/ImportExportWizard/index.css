@@ -321,7 +321,7 @@
 }
 
 .ImportExportWizard__appList {
-  max-height: 15em;
+  max-height: max(15em, 48vh);
   overflow-y: auto;
   padding-right: var(--space-2xs);
 }
