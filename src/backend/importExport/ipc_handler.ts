@@ -1,6 +1,7 @@
 import { addHandler } from 'backend/ipc'
 
 import { importExportRollbackStore } from 'backend/constants/key_value_stores'
+import { handleExit } from 'backend/utils'
 import { app } from 'electron'
 
 import { exportHeroicBackup } from './export'
@@ -33,8 +34,9 @@ addHandler('getRollbackSnapshot', () =>
 
 addHandler('rollbackHeroicBackup', () => rollbackLastImport())
 
-addHandler('restartHeroic', () => {
+addHandler('restartHeroic', async () => {
+  // handleExit runs the graceful shutdown path (pending-operation check,
+  // child process cleanup) and exits; relaunch only kicks in on exit.
   app.relaunch()
-  app.exit(0)
-  return Promise.resolve()
+  await handleExit()
 })
