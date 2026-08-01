@@ -355,7 +355,8 @@
                 "TR": "Turkey",
                 "TW": "Taiwan",
                 "UA": "Ukraine",
-                "US": "United States"
+                "US": "United States",
+                "ZA": "South Africa"
             },
             "label": "Store region"
         },
