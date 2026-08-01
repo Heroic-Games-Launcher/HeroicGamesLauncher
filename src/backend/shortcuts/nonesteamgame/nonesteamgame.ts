@@ -296,6 +296,20 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
 
     const { runner, app_name } = gameInfo
 
+    await game.getSettings()
+      .then((settings) => {
+        if (settings?.autoSyncSaves) {
+          args.push('--download')
+          args.push('--upload')
+        }
+      })
+      .catch((error) =>
+        logWarning(
+          [`Couldn't retrieve game settings for ${gameInfo.title} with:`, error],
+          LogPrefix.Shortcuts
+        )
+      )
+
     args.push(`"heroic://launch?appName=${app_name}&runner=${runner}"`)
     newEntry.LaunchOptions = args.join(' ')
     if (isFlatpak) {
