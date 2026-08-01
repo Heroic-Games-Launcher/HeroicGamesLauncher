@@ -592,6 +592,13 @@
         "per-game": "Per-game settings",
         "pick-backup": "Choose a Heroic backup archive",
         "platform": "Platform",
+        "platform-limitations": {
+            "paths": "Install paths from another operating system are usually invalid, so imported games may need to be reinstalled or have their paths fixed in the next steps.",
+            "settings": "Global settings may reference tools and folders that do not exist here — review them before overwriting your current settings.",
+            "title": "Importing across platforms has limitations",
+            "wine": "Wine/Proton versions, prefixes and related settings only apply on Linux and macOS — they are skipped on Windows.",
+            "works": "Store logins, game library, sideloaded entries and custom categories work on any platform."
+        },
         "rollback": {
             "done": "Rollback applied. Restart Heroic to apply all changes.",
             "failed": "Rollback failed",

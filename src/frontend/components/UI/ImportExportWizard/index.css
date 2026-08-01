@@ -263,6 +263,18 @@
   }
 }
 
+.ImportExportWizard__limitationsList {
+  margin: 0;
+  padding-left: var(--space-md);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+
+  li + li {
+    margin-top: var(--space-2xs);
+  }
+}
+
 .ImportExportWizard__meta {
   color: var(--text-secondary);
   font-size: var(--text-sm);

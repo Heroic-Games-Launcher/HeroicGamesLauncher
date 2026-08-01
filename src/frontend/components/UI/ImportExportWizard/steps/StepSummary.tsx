@@ -72,6 +72,45 @@ export default function StepSummary({ validation, currentPlatform }: Props) {
           </div>
         )}
       </dl>
+      {!platformMatches && (
+        <div className="ImportExportWizard__warningCard">
+          <WarningAmberIcon />
+          <div>
+            <strong>
+              {t(
+                'import-export.platform-limitations.title',
+                'Importing across platforms has limitations'
+              )}
+            </strong>
+            <ul className="ImportExportWizard__limitationsList">
+              <li>
+                {t(
+                  'import-export.platform-limitations.works',
+                  'Store logins, game library, sideloaded entries and custom categories work on any platform.'
+                )}
+              </li>
+              <li>
+                {t(
+                  'import-export.platform-limitations.wine',
+                  'Wine/Proton versions, prefixes and related settings only apply on Linux and macOS — they are skipped on Windows.'
+                )}
+              </li>
+              <li>
+                {t(
+                  'import-export.platform-limitations.paths',
+                  'Install paths from another operating system are usually invalid, so imported games may need to be reinstalled or have their paths fixed in the next steps.'
+                )}
+              </li>
+              <li>
+                {t(
+                  'import-export.platform-limitations.settings',
+                  'Global settings may reference tools and folders that do not exist here — review them before overwriting your current settings.'
+                )}
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
       {warnings.map((w) => (
         <div key={w} className="ImportExportWizard__warningBox">
           <WarningAmberIcon />
