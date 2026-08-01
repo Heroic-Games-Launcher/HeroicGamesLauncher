@@ -9,8 +9,8 @@ import { StatusPill, runnerLabel } from '../shared'
 
 interface Props {
   validation: HeroicBackupValidationReport
-  included: Record<Runner, boolean>
-  setIncluded: (v: Record<Runner, boolean>) => void
+  included: Partial<Record<Runner, boolean>>
+  setIncluded: (v: Partial<Record<Runner, boolean>>) => void
 }
 
 export default function StepCredentials({

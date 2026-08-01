@@ -33,6 +33,13 @@ import type { PathChoice } from './shared'
 
 type WizardStep = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
+const DEFAULT_CREDENTIALS: Partial<Record<Runner, boolean>> = {
+  legendary: true,
+  gog: true,
+  nile: true,
+  zoom: true
+}
+
 interface Props {
   open: boolean
   onClose: () => void
@@ -64,15 +71,8 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   const [includeCategories, setIncludeCategories] = useState(true)
   const [includedApps, setIncludedApps] = useState<Set<string>>(new Set())
   const [appFilter, setAppFilter] = useState('')
-  const [includedCredentials, setIncludedCredentials] = useState<
-    Record<Runner, boolean>
-  >({
-    legendary: true,
-    gog: true,
-    nile: true,
-    zoom: true,
-    sideload: true
-  })
+  const [includedCredentials, setIncludedCredentials] =
+    useState<Partial<Record<Runner, boolean>>>(DEFAULT_CREDENTIALS)
   const [pathChoices, setPathChoices] = useState<Record<string, PathChoice>>({})
   const [includedWineVersions, setIncludedWineVersions] = useState<Set<string>>(
     new Set()
@@ -92,6 +92,11 @@ export default function ImportExportWizard({ open, onClose }: Props) {
       setApplyResult(null)
       setAppFilter('')
       setPathChoices({})
+      setOverwriteGlobal(false)
+      setIncludeGlobal(true)
+      setIncludeCategories(true)
+      setIncludedCredentials(DEFAULT_CREDENTIALS)
+      setDownloadMissingGames(true)
     }
   }, [open])
 
@@ -146,9 +151,18 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     setValidateError(null)
     try {
       const report = await window.api.validateHeroicBackup(path)
-      setValidation(report)
       if (report.ok) {
+        setValidation(report)
         setStep(1)
+      } else {
+        setValidation(null)
+        setValidateError(
+          report.errors.join(' — ') ||
+            t(
+              'import-export.invalid-backup',
+              'This file is not a valid Heroic backup.'
+            )
+        )
       }
     } catch (err) {
       setValidateError(String(err))
@@ -172,6 +186,8 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   }
 
   function stepIsReachable(target: WizardStep): boolean {
+    // Once applying (or applied), going back would allow a double apply
+    if (applying || step === 6) return target === step
     if (!validation) return target === 0
     return target <= step
   }
@@ -219,6 +235,16 @@ export default function ImportExportWizard({ open, onClose }: Props) {
       })
       setApplyResult(result)
       setStep(6)
+    } catch (err) {
+      setApplyResult({
+        ok: false,
+        stages: [],
+        gamesQueuedForDownload: [],
+        wineVersionsQueuedForDownload: [],
+        warnings: [],
+        errors: [String(err)]
+      })
+      setStep(6)
     } finally {
       setApplying(false)
     }
@@ -226,14 +252,21 @@ export default function ImportExportWizard({ open, onClose }: Props) {
 
   if (!open) return null
 
+  // Gamepad "back" clicks the (hidden) close button directly, so gate every
+  // close path while wine versions are still installing.
+  const guardedClose = () => {
+    if (wineBusy) return
+    onClose()
+  }
+
   return (
     <Dialog
       className="ImportExportWizard"
-      onClose={onClose}
+      onClose={guardedClose}
       showCloseButton={!wineBusy}
       disableBackdropClose
     >
-      <DialogHeader onClose={onClose}>
+      <DialogHeader onClose={guardedClose}>
         <div className="ImportExportWizard__titleRow">
           <span>{t('import-export.wizard-title', 'Import Heroic backup')}</span>
           <span className="ImportExportWizard__stepCounter">

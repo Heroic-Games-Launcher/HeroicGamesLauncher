@@ -37,13 +37,16 @@ export default function StepDone({
     if (queuedTotal === 0) return undefined
 
     let cancelled = false
+    let gotEvent = false
 
     void window.api.getWineImportProgress().then((snap) => {
-      if (cancelled) return
+      // Events are fresher; don't let a late initial snapshot overwrite them
+      if (cancelled || gotEvent) return
       setWineProgress({ total: snap.total, completed: snap.completed })
     })
 
     const off = window.api.onWineImportProgress((_e, snap) => {
+      gotEvent = true
       setWineProgress({ total: snap.total, completed: snap.completed })
     })
 
@@ -132,11 +135,24 @@ export default function StepDone({
         ))}
       </ul>
 
+      {applyResult.errors.map((e) => (
+        <div key={e} className="ImportExportWizard__errorBox" role="alert">
+          <WarningAmberIcon />
+          <span>{e}</span>
+        </div>
+      ))}
+      {applyResult.warnings.map((w) => (
+        <div key={w} className="ImportExportWizard__warningBox">
+          <WarningAmberIcon />
+          <span>{w}</span>
+        </div>
+      ))}
+
       {applyResult.gamesQueuedForDownload.length > 0 && (
         <div className="ImportExportWizard__successBox">
           {t(
             'import-export.step7.queued',
-            '{{count}} game(s) were queued to re-download.',
+            '{{count}} game(s) need to be downloaded again — install them from the Library.',
             { count: applyResult.gamesQueuedForDownload.length }
           )}
         </div>
