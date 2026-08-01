@@ -33,7 +33,7 @@ function getManifest(zip: AdmZip): HeroicBackupManifest | null {
   return safeJsonParse<HeroicBackupManifest>(entry.getData())
 }
 
-function isHeroicBackupManifest(v: unknown): v is HeroicBackupManifest {
+export function isHeroicBackupManifest(v: unknown): v is HeroicBackupManifest {
   if (!v || typeof v !== 'object') return false
   const rec = v as Record<string, unknown>
   return (

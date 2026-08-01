@@ -3,6 +3,7 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  readdirSync,
   rmSync,
   writeFileSync
 } from 'graceful-fs'
@@ -37,6 +38,7 @@ import {
 import { GlobalConfig } from 'backend/config'
 
 import { exportHeroicBackup } from './export'
+import { isHeroicBackupManifest } from './validate'
 import { BACKUP_FORMAT_VERSION, BACKUP_PATHS } from './constants'
 import { sourcePaths } from './paths'
 
@@ -50,11 +52,26 @@ function ensureDir(path: string): void {
   if (!existsSync(path)) mkdirSync(path, { recursive: true })
 }
 
-function writeEntry(zip: AdmZip, entryPath: string, destFile: string): boolean {
+interface WriteEntryOptions {
+  // Delete destFile when the archive has no entry for it. Used on rollback so
+  // files created by the import (absent from the pre-import snapshot) go away.
+  removeIfMissing?: boolean
+  mode?: number
+}
+
+function writeEntry(
+  zip: AdmZip,
+  entryPath: string,
+  destFile: string,
+  { removeIfMissing = false, mode }: WriteEntryOptions = {}
+): boolean {
   const entry = zip.getEntry(entryPath)
-  if (!entry) return false
+  if (!entry) {
+    if (removeIfMissing) rmSync(destFile, { force: true })
+    return false
+  }
   ensureDir(dirOf(destFile))
-  writeFileSync(destFile, entry.getData())
+  writeFileSync(destFile, entry.getData(), mode ? { mode } : undefined)
   return true
 }
 
@@ -104,9 +121,13 @@ function syncElectronStoreFromDisk(
   store: InMemoryStoreShim,
   filePath: string,
   warnings: string[],
-  label: string
+  label: string,
+  clearWhenMissing = false
 ): void {
-  if (!existsSync(filePath)) return
+  if (!existsSync(filePath)) {
+    if (clearWhenMissing) store.clear()
+    return
+  }
   try {
     const raw = readFileSync(filePath, 'utf-8')
     const parsed = JSON.parse(raw) as Record<string, unknown>
@@ -176,6 +197,15 @@ function applyGlobalSettings(
     BACKUP_PATHS.globalSettings.config,
     sourcePaths.globalConfig()
   )
+  if (wroteConfig) {
+    // GlobalConfig caches settings in memory and would flush the stale
+    // pre-import values back to disk on the next setSetting call.
+    try {
+      GlobalConfig.get().reloadFromFile()
+    } catch (err) {
+      warnings.push(`Could not reload global settings cache: ${String(err)}`)
+    }
+  }
   const fixesCount = writeFolder(
     zip,
     BACKUP_PATHS.globalSettings.fixesDir,
@@ -237,12 +267,24 @@ function patchPerGameSettings(
 
 function applyPerGameSettings(
   zip: AdmZip,
-  options: HeroicApplyOptions
+  options: HeroicApplyOptions,
+  restore = false
 ): HeroicApplyStageResult {
   const overrides = new Map<string, PerGamePathOverride>()
   for (const o of options.perGameOverrides) overrides.set(o.appName, o)
 
   ensureDir(sourcePaths.gamesConfigDir())
+
+  if (restore) {
+    // Files the import created are not in the snapshot; delete them so
+    // rollback restores the exact pre-import state.
+    for (const file of readdirSync(sourcePaths.gamesConfigDir())) {
+      if (!file.endsWith('.json')) continue
+      if (!zip.getEntry(`${BACKUP_PATHS.perGameSettings.dir}${file}`)) {
+        rmSync(join(sourcePaths.gamesConfigDir(), file), { force: true })
+      }
+    }
+  }
 
   let written = 0
   for (const entry of zip.getEntries()) {
@@ -282,10 +324,16 @@ function applyPerGameSettings(
 function applyCredentials(
   zip: AdmZip,
   options: HeroicApplyOptions,
-  warnings: string[]
+  warnings: string[],
+  restore = false
 ): HeroicApplyStageResult {
   const includeRunner = (r: 'legendary' | 'nile' | 'gog' | 'zoom'): boolean =>
     options.includedCredentials[r] !== false
+
+  const credentialOpts: WriteEntryOptions = {
+    removeIfMissing: restore,
+    mode: 0o600
+  }
 
   let wrote = 0
   if (includeRunner('legendary')) {
@@ -294,7 +342,8 @@ function applyCredentials(
       writeEntry(
         zip,
         BACKUP_PATHS.credentials.legendaryUser,
-        sourcePaths.legendary.user()
+        sourcePaths.legendary.user(),
+        credentialOpts
       )
     )
       wrote++
@@ -305,7 +354,8 @@ function applyCredentials(
       writeEntry(
         zip,
         BACKUP_PATHS.credentials.nileUser,
-        sourcePaths.nile.user()
+        sourcePaths.nile.user(),
+        credentialOpts
       )
     )
       wrote++
@@ -316,7 +366,8 @@ function applyCredentials(
       writeEntry(
         zip,
         BACKUP_PATHS.credentials.gogConfig,
-        sourcePaths.gog.configFile()
+        sourcePaths.gog.configFile(),
+        credentialOpts
       )
     )
       wrote++
@@ -327,7 +378,8 @@ function applyCredentials(
       writeEntry(
         zip,
         BACKUP_PATHS.credentials.gogAuth,
-        sourcePaths.gog.authFile()
+        sourcePaths.gog.authFile(),
+        credentialOpts
       )
     )
       wrote++
@@ -338,7 +390,8 @@ function applyCredentials(
       writeEntry(
         zip,
         BACKUP_PATHS.credentials.zoomConfig,
-        sourcePaths.zoom.configFile()
+        sourcePaths.zoom.configFile(),
+        credentialOpts
       )
     )
       wrote++
@@ -346,7 +399,8 @@ function applyCredentials(
       writeEntry(
         zip,
         BACKUP_PATHS.credentials.zoomToken,
-        sourcePaths.zoom.tokenFile()
+        sourcePaths.zoom.tokenFile(),
+        credentialOpts
       )
     )
       wrote++
@@ -369,7 +423,8 @@ function applyCredentials(
       gogConfigStore,
       sourcePaths.gog.configFile(),
       warnings,
-      'GOG'
+      'GOG',
+      restore
     )
   }
   if (includeRunner('zoom')) {
@@ -377,7 +432,8 @@ function applyCredentials(
       zoomConfigStore,
       sourcePaths.zoom.configFile(),
       warnings,
-      'Zoom'
+      'Zoom',
+      restore
     )
   }
 
@@ -464,10 +520,13 @@ function patchNileInstalled(
 function applyLibraryCache(
   zip: AdmZip,
   options: HeroicApplyOptions,
-  gamesQueuedForDownload: string[]
+  gamesQueuedForDownload: string[],
+  restore = false
 ): HeroicApplyStageResult {
   const overrides = new Map<string, PerGamePathOverride>()
   for (const o of options.perGameOverrides) overrides.set(o.appName, o)
+
+  const restoreOpts: WriteEntryOptions = { removeIfMissing: restore }
 
   const legRaw = safeJsonFromEntry<
     Record<string, { install_path?: string; [k: string]: unknown }>
@@ -483,12 +542,15 @@ function applyLibraryCache(
       sourcePaths.legendary.installed(),
       JSON.stringify(patched, null, 2)
     )
+  } else if (restore) {
+    rmSync(sourcePaths.legendary.installed(), { force: true })
   }
 
   writeEntry(
     zip,
     BACKUP_PATHS.libraryCache.legendaryThirdParty,
-    sourcePaths.legendary.thirdPartyInstalled()
+    sourcePaths.legendary.thirdPartyInstalled(),
+    restoreOpts
   )
 
   writeFolder(
@@ -507,6 +569,8 @@ function applyLibraryCache(
       sourcePaths.gog.installedFile(),
       JSON.stringify(patched, null, 2)
     )
+  } else if (restore) {
+    rmSync(sourcePaths.gog.installedFile(), { force: true })
   }
 
   const nileRaw = safeJsonFromEntry<Array<Record<string, unknown>>>(
@@ -524,12 +588,15 @@ function applyLibraryCache(
       sourcePaths.nile.installed(),
       JSON.stringify(patched, null, 2)
     )
+  } else if (restore) {
+    rmSync(sourcePaths.nile.installed(), { force: true })
   }
 
   writeEntry(
     zip,
     BACKUP_PATHS.libraryCache.nileLibraryFile,
-    sourcePaths.nile.library()
+    sourcePaths.nile.library(),
+    restoreOpts
   )
 
   // Library caches are verbatim copies — they're just title lookups.
@@ -539,22 +606,26 @@ function applyLibraryCache(
   writeEntry(
     zip,
     BACKUP_PATHS.libraryCache.legendaryLibrary,
-    sourcePaths.libraryCache.legendary()
+    sourcePaths.libraryCache.legendary(),
+    restoreOpts
   )
   writeEntry(
     zip,
     BACKUP_PATHS.libraryCache.gogLibrary,
-    sourcePaths.libraryCache.gog()
+    sourcePaths.libraryCache.gog(),
+    restoreOpts
   )
   writeEntry(
     zip,
     BACKUP_PATHS.libraryCache.nileLibrary,
-    sourcePaths.libraryCache.nile()
+    sourcePaths.libraryCache.nile(),
+    restoreOpts
   )
   writeEntry(
     zip,
     BACKUP_PATHS.libraryCache.zoomLibrary,
-    sourcePaths.libraryCache.zoom()
+    sourcePaths.libraryCache.zoom(),
+    restoreOpts
   )
 
   return { stage: 'libraryCache', ok: true }
@@ -563,7 +634,8 @@ function applyLibraryCache(
 function applySideloadLibrary(
   zip: AdmZip,
   options: HeroicApplyOptions,
-  gamesQueuedForDownload: string[]
+  gamesQueuedForDownload: string[],
+  restore = false
 ): HeroicApplyStageResult {
   const raw = safeJsonFromEntry<{
     games?: Array<
@@ -573,8 +645,10 @@ function applySideloadLibrary(
       >
     >
   }>(zip, BACKUP_PATHS.sideloadLibrary.library)
-  if (!raw)
+  if (!raw) {
+    if (restore) rmSync(sourcePaths.sideload.library(), { force: true })
     return { stage: 'sideloadLibrary', ok: true, message: 'Not in backup' }
+  }
 
   const overrides = new Map<string, PerGamePathOverride>()
   for (const o of options.perGameOverrides) overrides.set(o.appName, o)
@@ -700,10 +774,16 @@ async function applyWineMetadata(
       (v) =>
         v?.isInstalled &&
         !installedLocal.has(v.version) &&
-        requested.has(v.version)
+        requested.has(v.version) &&
+        // Skip versions a previous import is still installing
+        !wineImportTracker.pending.has(v.version)
     )
     .map((v) => knownLocal.get(v.version))
     .filter((v): v is WineVersionInfo => !!v)
+
+  // Fresh import with nothing in flight: reset the counter so progress
+  // doesn't accumulate across imports in the same session.
+  if (wineImportTracker.pending.size === 0) wineImportTracker.total = 0
 
   for (const r of toInstall) {
     wineVersionsQueuedForDownload.push(r.version)
@@ -743,8 +823,16 @@ async function applyWineMetadata(
   }
 }
 
+interface ApplyInternalOptions {
+  // Rollback re-applies the pre-import snapshot: skip writing a new snapshot
+  // (it would overwrite the very archive being restored) and delete files the
+  // import created that the snapshot does not contain.
+  rollbackMode?: boolean
+}
+
 export async function applyHeroicBackup(
-  options: HeroicApplyOptions
+  options: HeroicApplyOptions,
+  { rollbackMode = false }: ApplyInternalOptions = {}
 ): Promise<HeroicApplyResult> {
   const gamesQueuedForDownload: string[] = []
   const wineVersionsQueuedForDownload: string[] = []
@@ -769,7 +857,11 @@ export async function applyHeroicBackup(
     zip,
     BACKUP_PATHS.manifest
   )
-  if (!manifest || manifest.formatVersion > BACKUP_FORMAT_VERSION) {
+  if (
+    !manifest ||
+    !isHeroicBackupManifest(manifest) ||
+    manifest.formatVersion > BACKUP_FORMAT_VERSION
+  ) {
     return {
       ok: false,
       stages: [],
@@ -782,9 +874,12 @@ export async function applyHeroicBackup(
     }
   }
 
-  const snapshot = await writePreApplySnapshot(options.stages)
-  if (!snapshot) {
-    warnings.push('Could not create rollback snapshot; proceeding anyway.')
+  let snapshot: HeroicRollbackSnapshot | null = null
+  if (!rollbackMode) {
+    snapshot = await writePreApplySnapshot(options.stages)
+    if (!snapshot) {
+      warnings.push('Could not create rollback snapshot; proceeding anyway.')
+    }
   }
 
   const stages: HeroicApplyStageResult[] = []
@@ -794,16 +889,20 @@ export async function applyHeroicBackup(
       stages.push(applyGlobalSettings(zip, options, warnings))
     }
     if (options.stages.includes('perGameSettings')) {
-      stages.push(applyPerGameSettings(zip, options))
+      stages.push(applyPerGameSettings(zip, options, rollbackMode))
     }
     if (options.stages.includes('credentials')) {
-      stages.push(applyCredentials(zip, options, warnings))
+      stages.push(applyCredentials(zip, options, warnings, rollbackMode))
     }
     if (options.stages.includes('libraryCache')) {
-      stages.push(applyLibraryCache(zip, options, gamesQueuedForDownload))
+      stages.push(
+        applyLibraryCache(zip, options, gamesQueuedForDownload, rollbackMode)
+      )
     }
     if (options.stages.includes('sideloadLibrary')) {
-      stages.push(applySideloadLibrary(zip, options, gamesQueuedForDownload))
+      stages.push(
+        applySideloadLibrary(zip, options, gamesQueuedForDownload, rollbackMode)
+      )
     }
     if (options.stages.includes('categories')) {
       stages.push(applyCategories(zip))
@@ -866,20 +965,23 @@ export async function rollbackLastImport(): Promise<HeroicApplyResult> {
     }
   }
 
-  const result = await applyHeroicBackup({
-    sourcePath: snapshot.archivePath,
-    stages: snapshot.stages,
-    overwriteGlobalSettings: true,
-    includedAppNames: [],
-    includedCredentials: {
-      legendary: true,
-      gog: true,
-      nile: true,
-      zoom: true
+  const result = await applyHeroicBackup(
+    {
+      sourcePath: snapshot.archivePath,
+      stages: snapshot.stages,
+      overwriteGlobalSettings: true,
+      includedAppNames: [],
+      includedCredentials: {
+        legendary: true,
+        gog: true,
+        nile: true,
+        zoom: true
+      },
+      perGameOverrides: [],
+      includedWineVersions: []
     },
-    perGameOverrides: [],
-    includedWineVersions: []
-  })
+    { rollbackMode: true }
+  )
 
   if (result.ok) {
     try {
