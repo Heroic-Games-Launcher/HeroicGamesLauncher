@@ -42,6 +42,15 @@ jest.mock('electron', () => ({
   }
 }))
 
+const mockConfigStore = {
+  get: jest.fn(),
+  set: jest.fn(),
+  delete: jest.fn()
+}
+jest.mock('backend/constants/key_value_stores', () => ({
+  configStore: mockConfigStore
+}))
+
 // Import after mocks so paths.ts picks them up
 import { exportHeroicBackup } from '../export'
 import { BACKUP_PATHS } from '../constants'
@@ -231,5 +240,30 @@ describe('exportHeroicBackup', () => {
     expect(zip.getEntry(BACKUP_PATHS.globalSettings.config)).toBeTruthy()
     expect(zip.getEntry(BACKUP_PATHS.credentials.legendaryUser)).toBeFalsy()
     expect(zip.getEntry(BACKUP_PATHS.libraryCache.legendaryLibrary)).toBeFalsy()
+    expect(zip.getEntry(BACKUP_PATHS.categories.file)).toBeFalsy()
+  })
+
+  it('exports custom categories with a count in the manifest', async () => {
+    mockConfigStore.get.mockReturnValue({
+      Favorites: ['game1', 'side1'],
+      RPGs: ['gog1']
+    })
+
+    const outputPath = join(tmpRoot, 'categories.zip')
+    const result = await exportHeroicBackup({
+      outputPath,
+      stages: ['categories']
+    })
+
+    expect(result.success).toBe(true)
+    expect(result.manifest?.counts.categories).toBe(2)
+
+    const zip = new AdmZip(outputPath)
+    const entry = zip.getEntry(BACKUP_PATHS.categories.file)
+    expect(entry).toBeTruthy()
+    expect(JSON.parse(entry!.getData().toString('utf-8'))).toEqual({
+      Favorites: ['game1', 'side1'],
+      RPGs: ['gog1']
+    })
   })
 })

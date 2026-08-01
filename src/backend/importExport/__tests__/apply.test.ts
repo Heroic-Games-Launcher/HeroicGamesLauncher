@@ -71,9 +71,14 @@ const mockRollbackStore = {
   set: jest.fn(),
   delete: jest.fn()
 }
+const mockConfigStore = {
+  get: jest.fn(),
+  set: jest.fn(),
+  delete: jest.fn()
+}
 jest.mock('backend/constants/key_value_stores', () => ({
   importExportRollbackStore: mockRollbackStore,
-  configStore: { set: jest.fn(), delete: jest.fn() }
+  configStore: mockConfigStore
 }))
 
 import { applyHeroicBackup } from '../apply'
@@ -258,6 +263,33 @@ describe('applyHeroicBackup patch semantics', () => {
     ]
     expect(key).toBe('lastSnapshot')
     expect(typeof value.archivePath).toBe('string')
+  })
+
+  it('applies custom categories, dropping malformed entries', async () => {
+    const src = join(tmpRoot, 'categories.zip')
+    const zip = new AdmZip()
+    addJson(zip, BACKUP_PATHS.manifest, { ...manifest, stages: ['categories'] })
+    addJson(zip, BACKUP_PATHS.categories.file, {
+      Favorites: ['game1', 42, 'game2'],
+      Broken: 'not-an-array'
+    })
+    zip.writeZip(src)
+
+    mockConfigStore.get.mockReturnValue({})
+    const result = await applyHeroicBackup({
+      sourcePath: src,
+      stages: ['categories'],
+      overwriteGlobalSettings: false,
+      includedAppNames: [],
+      includedCredentials: {},
+      perGameOverrides: [],
+      includedWineVersions: []
+    })
+
+    expect(result.ok).toBe(true)
+    expect(mockConfigStore.set).toHaveBeenCalledWith('games.customCategories', {
+      Favorites: ['game1', 'game2']
+    })
   })
 
   it('rejects zip entries that traverse outside the destination (zip-slip)', async () => {
