@@ -16,18 +16,7 @@
 
 // eslint-disable-next-line no-restricted-imports
 import { ipcRenderer } from 'electron'
-
-type Direction = 'up' | 'down' | 'left' | 'right'
-
-type WebviewCommand =
-  | { type: 'navigate'; direction: Direction }
-  | { type: 'scroll'; direction: 'up' | 'down' }
-  | { type: 'click' }
-  | { type: 'goBack' }
-  | { type: 'goForward' }
-  | { type: 'focusSearch' }
-  | { type: 'enter' }
-  | { type: 'exit' }
+import { NavigateDirection, WebviewCommand } from 'frontend/helpers/gamepad'
 
 // --- Mouse back/forward buttons ---
 // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
@@ -132,7 +121,7 @@ function pickInitialFocus(): HTMLElement | null {
   return list[0]
 }
 
-function navigate(direction: Direction): boolean {
+function navigate(direction: NavigateDirection): boolean {
   const current = currentCursor() ?? pickInitialFocus()
   if (!current) return false
 

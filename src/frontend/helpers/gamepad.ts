@@ -30,14 +30,17 @@ export const toggleWebviewFocus = (focused: boolean) => {
 
 export const isUsingGamepad = () => currentController !== -1
 
+export type NavigateDirection = 'up' | 'down' | 'left' | 'right'
+type ScrollDirection = 'up' | 'down'
+
 /**
  * High-level commands the host forwards to the focused store webview's
  * preload script (see `src/webviewPreload/index.ts`). The host keeps full
  * ownership of gamepad parsing — the guest only acts on these commands.
  */
-type WebviewCommand =
-  | { type: 'navigate'; direction: 'up' | 'down' | 'left' | 'right' }
-  | { type: 'scroll'; direction: 'up' | 'down' }
+export type WebviewCommand =
+  | { type: 'navigate'; direction: NavigateDirection }
+  | { type: 'scroll'; direction: ScrollDirection }
   | { type: 'click' }
   | { type: 'goBack' }
   | { type: 'goForward' }

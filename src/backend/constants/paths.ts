@@ -51,6 +51,8 @@ export const publicDir = resolve(
 // `src/webviewPreload/index.ts` — see `electron.vite.config.ts`.
 const preloadDir = resolve(__dirname, '..', 'preload')
 
+export const mainPreloadPath = join(preloadDir, 'index.js')
+
 export const fakeEpicExePath = fixAsarPath(
   join(publicDir, 'bin', 'x64', 'win32', 'EpicGamesLauncher.exe')
 )
