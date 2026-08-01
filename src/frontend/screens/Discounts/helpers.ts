@@ -1,6 +1,8 @@
 import type {
   CatalogLocaleSettings,
-  CatalogRating
+  CatalogProduct,
+  CatalogRating,
+  DiscountStore
 } from 'common/types/discounts'
 
 const GOG_AFFILIATE_ID = '1838482841'
@@ -118,6 +120,51 @@ export const REGION_OPTIONS: RegionOption[] = [
   { countryCode: 'GB', currencyCode: 'GBP', label: 'United Kingdom' }
 ]
 
+// Keep in sync with GMG_CURRENCIES in src/backend/discounts/gmg.ts.
+// 'TRL' is GMG's (dated) code for the Turkish lira.
+export const GMG_CURRENCIES = [
+  'AUD',
+  'BRL',
+  'CAD',
+  'CNY',
+  'EUR',
+  'GBP',
+  'KRW',
+  'TRL',
+  'USD'
+] as const
+
+export const getGmgAutoCurrency = (regionCurrency: string): string =>
+  (GMG_CURRENCIES as readonly string[]).includes(regionCurrency)
+    ? regionCurrency
+    : 'USD'
+
+const GMG_CURRENCY_OVERRIDE_KEY = 'discounts.gmgCurrencyOverride'
+
+export const getStoredGmgCurrency = (): string | null => {
+  try {
+    const stored = localStorage.getItem(GMG_CURRENCY_OVERRIDE_KEY)
+    if (!stored) return null
+    return (GMG_CURRENCIES as readonly string[]).includes(stored)
+      ? stored
+      : null
+  } catch {
+    return null
+  }
+}
+
+export const setStoredGmgCurrency = (currency: string | null) => {
+  try {
+    if (currency) {
+      localStorage.setItem(GMG_CURRENCY_OVERRIDE_KEY, currency)
+    } else {
+      localStorage.removeItem(GMG_CURRENCY_OVERRIDE_KEY)
+    }
+  } catch {
+    // ignore storage errors (private mode, quota, etc.)
+  }
+}
+
 const LOCALE_OVERRIDE_KEY = 'discounts.regionOverride'
 
 export const getStoredRegionOverride = (): string | null => {
@@ -170,7 +217,7 @@ export const getLocaleSettings = (
 // the path of the original www.gog.com URL preserved, plus the ?as=<id>
 // affiliate parameter. Links pointing at www.gog.com directly are not
 // tracked by GOG even if ?as= is present.
-export const withAffiliate = (storeLink: string): string => {
+const withGogAffiliate = (storeLink: string): string => {
   try {
     const url = new URL(storeLink)
     url.hostname = 'af.gog.com'
@@ -179,6 +226,36 @@ export const withAffiliate = (storeLink: string): string => {
   } catch {
     return storeLink
   }
+}
+
+// Our Humble affiliate deeplink base. Humble's impact catalog links embed the
+// real store destination in their `u` param; we re-wrap that destination with
+// our own tracking link so clicks are attributed to Heroic.
+const HUMBLE_AFFILIATE_LINK = 'https://humblebundleinc.sjv.io/heroic'
+
+const withHumbleAffiliate = (storeLink: string): string => {
+  const destination = new URL(storeLink).searchParams.get('u') ?? storeLink
+  return `${HUMBLE_AFFILIATE_LINK}?u=${encodeURIComponent(destination)}`
+}
+
+// 'deeplink' feeds arrive already tagged with our affiliate code; rewriting
+// those links would break attribution. 'rewrite' feeds carry a store URL (or
+// an impact link we unwrap) that we tag with our own affiliate link.
+type AffiliateStrategy =
+  | { kind: 'rewrite'; rewrite: (storeLink: string) => string }
+  | { kind: 'deeplink' }
+
+const AFFILIATE_STRATEGIES: Record<DiscountStore, AffiliateStrategy> = {
+  gog: { kind: 'rewrite', rewrite: withGogAffiliate },
+  gmg: { kind: 'deeplink' },
+  humble: { kind: 'rewrite', rewrite: withHumbleAffiliate }
+}
+
+export const getAffiliateLink = (product: CatalogProduct): string => {
+  const strategy = AFFILIATE_STRATEGIES[product.store ?? 'gog']
+  return strategy.kind === 'rewrite'
+    ? strategy.rewrite(product.storeLink)
+    : product.storeLink
 }
 
 export const parseDiscountPercent = (discount: string): number => {
@@ -211,8 +288,19 @@ export const parseReleaseTimestamp = (releaseDate?: string): number => {
 export const PAGE_SIZE_OPTIONS = [20, 50, 100] as const
 export const DEFAULT_PAGE_SIZE: (typeof PAGE_SIZE_OPTIONS)[number] = 50
 export const RATING_SCALE_MAX = 10
-export const OS_OPTIONS = ['windows', 'linux', 'osx'] as const
+export const OS_OPTIONS = ['windows', 'linux', 'osx', 'xbox'] as const
 export type OsOption = (typeof OS_OPTIONS)[number]
+export const STORE_OPTIONS: readonly DiscountStore[] = ['gog', 'gmg', 'humble']
+export type StoreTab = 'all' | DiscountStore
+
+export type ViewMode = 'grid' | 'list'
+
+// Display names for the store tabs. GOG/GMG are acronyms; Humble is not.
+export const STORE_LABELS: Record<DiscountStore, string> = {
+  gog: 'GOG',
+  gmg: 'GMG',
+  humble: 'Humble'
+}
 
 // GOG's reviewsRating is on a 0-50 scale; we display it as 0-10.
 export const normalizeRating = (rating?: number): number => {
@@ -240,9 +328,9 @@ interface StoredDiscountFilters {
   selectedGenres?: string[]
   selectedFeatures?: string[]
   selectedOS?: OsOption[]
-  priceRange?: [number, number] | null
+  storeTab?: StoreTab
+  viewMode?: ViewMode
   ratingRange?: [number, number]
-  releaseYearRange?: [number, number] | null
   maxPegiAge?: PegiAge | null
   searchQuery?: string
   hideDlcs?: boolean

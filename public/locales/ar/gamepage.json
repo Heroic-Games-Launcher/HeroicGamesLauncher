@@ -336,5 +336,8 @@
         }
     },
     "wikiLink": "معلومات مهمة حول هذه اللعبة, اقرأ هذا: &nbsp;<1>افتح الصفحة</1>",
-    "open-saves-folder": ""
+    "open-saves-folder": "",
+    "edit-game": {
+        "advanced": "الإعدادات المتقدمة"
+    }
 }

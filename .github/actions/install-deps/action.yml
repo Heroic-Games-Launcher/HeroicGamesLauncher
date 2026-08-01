@@ -18,6 +18,9 @@ runs:
       shell: bash
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+    - name: Run Electron installer
+      run: pnpm exec install-electron
+      shell: bash
     - name: Download helper binaries
       run: pnpm download-helper-binaries
       shell: bash

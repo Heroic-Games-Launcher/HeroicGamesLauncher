@@ -375,8 +375,10 @@
         "wine-wayland": "Driver eksperimental Wine-Wayland memungkinkan game dijalankan secara native di bawah protokol tampilan Wayland. Mengaktifkannya dapat menyebabkan beberapa game tidak berfungsi.",
         "WoW64": "Mode Wine WoW64 memungkinkan game Windows 32-bit dijalankan pada Wine 64-bit. Mengaktifkannya dapat meningkatkan performa, tetapi juga bisa menyebabkan gangguan pada game 32-bit lama.",
         "nvidiaprime": {
-            "details": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Periksa detail lebih lanjut di wiki kami"
+        },
+        "hide-window-on-protocol-launch": "Menjaga jendela Heroic tetap tersembunyi saat game diluncurkan dari pintasan eksternal, seperti fitur 'Tambahkan ke Steam'."
     },
     "info": {
         "heroic": {
@@ -795,7 +797,11 @@
         "scripts": "Skrip:",
         "enable-quick-sync-menu": "Aktifkan Menu Quick Save-Sync di halaman game",
         "start-in-console-mode": "Mulai dalam Mode Konsol",
-        "disable_gog_presence": "Nonaktifkan pembaruan GOG Presence"
+        "disable_gog_presence": "Nonaktifkan pembaruan GOG Presence",
+        "hide-window-on-protocol-launch": "Sembunyikan jendela Heroic saat meluncurkan game dari tautan heroic://",
+        "nvidiaprime": {
+            "description": "Paksa penggunaan NVIDIA Optimus atau AMD Dynamic Switchable Graphics dGPU. HANYA gunakan ini untuk game OpenGL dan Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -909,7 +915,7 @@
                 "placeholder_saved": "Kunci tersimpan — ketik untuk mengganti, kosongkan untuk menghapus"
             },
             "help": {
-                "description": "Berikan kunci API SteamGridDB Anda sendiri untuk mengaktifkan pencarian sampul game. Kunci disimpan dalam bentuk terenkripsi jika sistem Anda mendukungnya. Anda bisa mendapatkannya di [www.steamgriddb.com/profile/preferences/api](https://www.steamgriddb.com/profile/preferences/api)"
+                "description": "Berikan kunci API SteamGridDB Anda sendiri untuk mengaktifkan pencarian sampul game. Kunci disimpan dalam bentuk terenkripsi jika sistem Anda mendukungnya. Anda bisa mendapatkannya di [{{url}}](https://{{url}})"
             }
         }
     },
@@ -923,7 +929,8 @@
         "installing": "Menginstal",
         "logging": "Masuk Akun...",
         "processing": "Memproses berkas, harap tunggu",
-        "preparing_login": "Persiapan Masuk Akun... "
+        "preparing_login": "Persiapan Masuk Akun... ",
+        "installed": "Terpasang"
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -1112,7 +1119,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton adalah varian Proton yang dibuat oleh Glorious Eggroll. Versi ini dirancang untuk digunakan bersama peluncur umu (default di Heroic).",
-        "wine-ge": "Wine-GE-Proton adalah varian Wine yang dibuat oleh Glorious Eggroll. Versi ini sudah tidak digunakan lagi dan digantikan oleh GE-Proton dengan peluncur umu.",
         "gpt": "Game Porting Toolkit dikembangkan oleh Apple dan direkomendasikan untuk Mac Apple Silicon dengan chip M1 ke atas serta paling baik digunakan untuk game terbaru yang menggunakan DX12.",
         "wine-crossover": "Wine-Crossover didasarkan pada proyek Wine OpenSource Crossover dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama.",
         "wine-staging-macos": "Wine-Staging-macOS didasarkan pada proyek Wine utama dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama, terutama bila dipasangkan dengan alat DXMT."
@@ -1176,7 +1182,8 @@
             "ageRatingAll": "Semua",
             "pageSize": "Per halaman",
             "releaseYear": "Tahun rilis",
-            "hideOwned": "Sembunyikan yang Dimiliki"
+            "hideOwned": "Sembunyikan yang Dimiliki",
+            "wishlistOnly": "Daftar Keinginan Saja"
         },
         "sidebar": "Penawaran",
         "sort": {
@@ -1246,7 +1253,26 @@
         "empty": "Tidak ada game yang terpasang untuk ditampilkan. Pasang sesuatu terlebih dahulu.",
         "games": "Gim Terpasang",
         "quitApp": "Keluar dari Aplikasi",
-        "loading": "Memuat perpustakaan Anda…"
+        "loading": "Memuat perpustakaan Anda…",
+        "install": {
+            "platform": "Platform",
+            "title": "Instal gim",
+            "wineLoading": "Loading",
+            "path": "Instal ke",
+            "wine": "Wine",
+            "wineMissing": "Tidak dipilih"
+        },
+        "cancelInstall": {
+            "message": "Game ini sedang diinstal. Batalkan pemasangannya?",
+            "title": "Batalkan pemasangan?"
+        },
+        "cancelUpdate": {
+            "message": "Game ini sedang diunduh. Batalkan pembaruan yang sedang berlangsung?",
+            "title": "Batalkan pembaruan?"
+        },
+        "removeFromQueue": {
+            "message": "Game ini sedang antri untuk diunduh. Hapus dari antrian?"
+        }
     },
     "next": "Berikutnya"
 }

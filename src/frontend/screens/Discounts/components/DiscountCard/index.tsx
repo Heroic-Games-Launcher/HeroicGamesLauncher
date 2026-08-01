@@ -2,11 +2,14 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
+import GOGLogo from 'frontend/assets/gog-logo.svg?react'
+import GMGLogo from 'frontend/assets/gmg-logo.svg?react'
+import HumbleLogo from 'frontend/assets/humble-logo.svg?react'
 import type { CatalogProduct } from 'common/types/discounts'
 import {
+  getAffiliateLink,
   normalizeRating,
-  parseDiscountPercent,
-  withAffiliate
+  parseDiscountPercent
 } from '../../helpers'
 import './index.css'
 
@@ -21,16 +24,51 @@ const DiscountCard = ({ product }: Props) => {
     product.coverVertical || product.coverHorizontal || fallBackImage
   const discountPercent = parseDiscountPercent(product.price.discount)
   const rating = normalizeRating(product.reviewsRating)
+  const store = product.store ?? 'gog'
+  // Humble ships only landscape store art; render it in a wide box so it isn't
+  // cropped to a portrait crop. (GOG and GMG provide portrait covers.)
+  const landscape = store === 'humble'
+  const isExternalKey = store === 'gmg' || store === 'humble'
+  const drm = isExternalKey ? product.features?.[0]?.name : undefined
 
   const handleClick = () => {
-    const target = withAffiliate(product.storeLink)
+    const target = getAffiliateLink(product)
+    if (isExternalKey) {
+      window.api.openExternalUrl(target)
+      return
+    }
     navigate(`/store-page?store-url=${encodeURIComponent(target)}`)
   }
+
+  const storeBadgeTitle = (): string => {
+    if (store === 'gmg') {
+      return drm
+        ? t(
+            'discounts.storeBadge.gmgDrmHint',
+            'Green Man Gaming — {{drm}} key, redeemed outside Heroic',
+            { drm }
+          )
+        : t(
+            'discounts.storeBadge.gmgHint',
+            'Green Man Gaming — key for an external store, not installable through Heroic'
+          )
+    }
+    if (store === 'humble') {
+      return t(
+        'discounts.storeBadge.humbleHint',
+        'Humble Bundle — key for an external store, not installable through Heroic'
+      )
+    }
+    return 'GOG'
+  }
+
+  const StoreLogo =
+    store === 'gmg' ? GMGLogo : store === 'humble' ? HumbleLogo : GOGLogo
 
   return (
     <button
       type="button"
-      className="discountCard"
+      className={`discountCard${landscape ? ' discountCard--landscape' : ''}`}
       onClick={handleClick}
       title={product.title}
     >
@@ -54,12 +92,17 @@ const DiscountCard = ({ product }: Props) => {
       {discountPercent > 0 && (
         <span className="discountCard__badge">-{discountPercent}%</span>
       )}
-      <CachedImage
-        className="discountCard__image"
-        src={cover}
-        fallback={fallBackImage}
-        alt={product.title}
-      />
+      <div className="discountCard__cover">
+        <CachedImage
+          className="discountCard__image"
+          src={cover}
+          fallback={fallBackImage}
+          alt={product.title}
+        />
+        <span className="discountCard__storeIcon" title={storeBadgeTitle()}>
+          <StoreLogo />
+        </span>
+      </div>
       <div className="discountCard__info">
         <span className="discountCard__title">{product.title}</span>
         <div className="discountCard__priceRow">

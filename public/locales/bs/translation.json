@@ -922,7 +922,8 @@
         "installing": "Instalira se",
         "logging": "Prijavljivanje",
         "processing": "Obrada datoteka, pričekajte",
-        "preparing_login": "Priprema za prijavu... "
+        "preparing_login": "Priprema za prijavu... ",
+        "installed": "Instalirano"
     },
     "store": "Epic Store",
     "stores": "Trgovine",
@@ -1114,7 +1115,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1244,7 +1244,11 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Loading"
+        }
     },
     "next": ""
 }

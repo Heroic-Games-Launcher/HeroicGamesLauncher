@@ -335,5 +335,8 @@
         "notice2": "Sau khi nhấn Cài Đặt, Heroic sẽ chạy ứng dụng để hoàn tất quá trình cài đặt"
     },
     "wikiLink": "Thông tin quan trọng về trò chơi này, hãy đọc phần này: <1>Mở trang</1>",
-    "open-saves-folder": "Mở thư mục lưu"
+    "open-saves-folder": "Mở thư mục lưu",
+    "edit-game": {
+        "advanced": "Nâng cao"
+    }
 }

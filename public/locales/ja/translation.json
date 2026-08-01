@@ -920,7 +920,7 @@
                 "placeholder_saved": "キーが保存されています — 入力して上書き、クリアして削除"
             },
             "help": {
-                "description": "ゲームのカバー画像の検索を有効にするには、ご自身のSteamGridDB APIキーを入力してください。お使いのシステムが対応している場合、このキーは暗号化されて保存されます。APIキーは www.steamgriddb.com/profile/preferences/api から取得できます。"
+                "description": "ゲームのカバー画像の検索を有効にするには、ご自身のSteamGridDB APIキーを入力してください。お使いのシステムが対応している場合、このキーは暗号化されて保存されます。APIキーは {{url}} から取得できます。"
             }
         }
     },
@@ -934,7 +934,8 @@
         "installing": "インストール中",
         "logging": "ログイン中…",
         "processing": "ファイルを処理中。しばらくお待ちください",
-        "preparing_login": "ログインを準備しています... "
+        "preparing_login": "ログインを準備しています... ",
+        "installed": "インストールされています"
     },
     "store": "Epic Store",
     "stores": "ストア",
@@ -1041,7 +1042,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-ProtonはGlorious Eggrollによって作成されたProtonの亜種です。Steamで使うことを想定していますが、Steam以外のゲームではこの亜種の方がうまく動くかもしれません。トラブルシューティングのためにほとんど役に立たないログを提供します。",
-        "wine-ge": "Wine-GE-Protonは、Glorious Eggrollによって作成されたWineの派生版です。現在は、umuランチャーを搭載したGE-Protonに取って代わられ、非推奨となっています。",
         "gpt": "「Game Porting Toolkit」はAppleによって開発されたツールキットで、M1+チップを搭載したApple Silicon搭載Macでの使用が推奨されており、DX12を採用した新しいゲームで最も効果を発揮します。",
         "wine-crossover": "Wine-Crossoverは、オープンソースのWineプロジェクト「Crossover」をベースにしており、Intel搭載のMacや、DX11以前のゲームでの使用が推奨されています。",
         "wine-staging-macos": "Wine-Staging-macOSはメインラインのWineプロジェクトをベースとしており、Intel搭載のMacやDX11以前のゲーム、特にDXMTツールと組み合わせて使用する場合に推奨されます。"
@@ -1170,6 +1170,11 @@
             "hintPrefix": "押す",
             "hintSuffix": "戻る",
             "title": "更新が必要です"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
         }
     },
     "discounts": {

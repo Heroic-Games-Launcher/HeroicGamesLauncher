@@ -6,7 +6,7 @@ export default function SteamGridDbApiKey() {
   const { t } = useTranslation()
   const [value, setValue] = useState('')
   const [hasKey, setHasKey] = useState(false)
-
+  const url = 'www.steamgriddb.com/profile/preferences/api'
   useEffect(() => {
     void window.api.steamgriddb.hasApiKey().then(setHasKey)
   }, [])
@@ -41,7 +41,8 @@ export default function SteamGridDbApiKey() {
           <span style={{ userSelect: 'text' }}>
             {t(
               'settings.steamgriddb.help.description',
-              'Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at www.steamgriddb.com/profile/preferences/api'
+              'Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}',
+              { url }
             )}
           </span>
         </InfoBox>

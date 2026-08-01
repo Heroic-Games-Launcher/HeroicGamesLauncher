@@ -5,8 +5,6 @@ import { getMainWindow } from '../main_window'
 import { sendFrontendMessage } from '../ipc'
 import { isSteamDeckGameMode } from 'backend/constants/environment'
 
-const { showErrorBox, showMessageBox } = dialog
-
 function showDialogBoxModalAuto(props: {
   event?: Electron.IpcMainInvokeEvent
   title: string
@@ -38,13 +36,13 @@ function showDialogBoxModalAuto(props: {
 
       switch (props.type) {
         case 'ERROR':
-          showErrorBox(props.title, props.message)
+          dialog.showErrorBox(props.title, props.message)
           break
         default:
           if (!window) {
             break
           }
-          showMessageBox(window, {
+          dialog.showMessageBox(window, {
             title: props.title,
             message: props.message,
             buttons: props.buttons?.map((button) => button.text) || []

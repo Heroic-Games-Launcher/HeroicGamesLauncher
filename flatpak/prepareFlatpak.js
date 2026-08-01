@@ -38,8 +38,8 @@ async function main() {
     }
 
     // generate flatpak-build
-    if (!fs.existsSync("./flatpak-build")) {
-        fs.mkdirSync('./flatpak-build', { recursive: true })
+    if (!fs.existsSync("./flatpak-build/patches")) {
+        fs.mkdirSync('./flatpak-build/patches', { recursive: true })
     }
 
     // generate manifest
@@ -53,7 +53,9 @@ async function main() {
     fs.writeFileSync("./flatpak-build/com.heroicgameslauncher.hgl.metainfo.xml", templateMetaInfo)
 
     // copy extra files
-    fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.desktop", "./flatpak-build/com.heroicgameslauncher.hgl.desktop")
-    fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.png", "./flatpak-build/com.heroicgameslauncher.hgl.png")
-    fs.copyFileSync("./flatpak/flathub.json", "./flatpak-build/flathub.json")
+    const copyFromFlatpakToBuild = (filename) => fs.copyFileSync(`./flatpak/${filename}`, `./flatpak-build/${filename}`)
+    copyFromFlatpakToBuild('com.heroicgameslauncher.hgl.desktop')
+    copyFromFlatpakToBuild('com.heroicgameslauncher.hgl.png')
+    copyFromFlatpakToBuild('flathub.json')
+    copyFromFlatpakToBuild('patches/0001-timidity-fix-missing-includes.patch')
 }
