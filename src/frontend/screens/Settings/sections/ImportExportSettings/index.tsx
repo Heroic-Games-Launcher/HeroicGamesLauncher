@@ -1,7 +1,7 @@
 import './index.css'
 
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import RestoreIcon from '@mui/icons-material/Restore'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
@@ -29,8 +29,9 @@ interface ImportExportNavState {
 export default function ImportExportSettings() {
   const { t } = useTranslation()
   const location = useLocation()
-  const openImportFromNav = Boolean(
-    (location.state as ImportExportNavState | null)?.openImport
+  const navigate = useNavigate()
+  const [openImportFromNav] = useState(() =>
+    Boolean((location.state as ImportExportNavState | null)?.openImport)
   )
 
   const [selectedStages, setSelectedStages] = useState<
@@ -58,6 +59,14 @@ export default function ImportExportSettings() {
       setOutputDir(home)
     })()
   }, [])
+
+  useEffect(() => {
+    if (openImportFromNav) {
+      // Clear the router state so remounting this section doesn't reopen
+      // the wizard the user already closed
+      navigate(location.pathname, { replace: true, state: null })
+    }
+  }, [openImportFromNav, navigate, location.pathname])
 
   async function refreshRollback() {
     const snap = await window.api.getRollbackSnapshot()
@@ -93,7 +102,8 @@ export default function ImportExportSettings() {
     setExportResult(null)
     try {
       const sep = outputDir.includes('\\') ? '\\' : '/'
-      const finalPath = `${outputDir}${sep}${outputName}`
+      const dir = outputDir.endsWith(sep) ? outputDir.slice(0, -1) : outputDir
+      const finalPath = `${dir}${sep}${outputName}`
       const result = await window.api.exportHeroicBackup({
         outputPath: finalPath,
         stages: Array.from(selectedStages)
@@ -101,6 +111,8 @@ export default function ImportExportSettings() {
       setExportResult(result)
       // Refresh the auto-generated filename for the next export
       setOutputName(timestampedBackupName())
+    } catch (err) {
+      setExportResult({ success: false, error: String(err) })
     } finally {
       setExportInFlight(false)
     }
@@ -113,6 +125,15 @@ export default function ImportExportSettings() {
       const result = await window.api.rollbackHeroicBackup()
       setRollbackResult(result)
       if (result.ok) setRollbackSnapshot(null)
+    } catch (err) {
+      setRollbackResult({
+        ok: false,
+        stages: [],
+        gamesQueuedForDownload: [],
+        wineVersionsQueuedForDownload: [],
+        warnings: [],
+        errors: [String(err)]
+      })
     } finally {
       setRollbackInFlight(false)
     }
