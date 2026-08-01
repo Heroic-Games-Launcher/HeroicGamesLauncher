@@ -2,7 +2,8 @@ import type {
   CatalogLocaleSettings,
   CatalogProduct,
   CatalogRating,
-  DiscountStore
+  DiscountStore,
+  GogDealsRegion
 } from 'common/types/discounts'
 
 const GOG_AFFILIATE_ID = '1838482841'
@@ -191,9 +192,12 @@ export const setStoredRegionOverride = (countryCode: string | null) => {
   }
 }
 
+// Priority: manual override > region GOG resolved for the user (account
+// settings or geo-IP) > UI-language guess > US/USD.
 export const getLocaleSettings = (
   language: string,
-  regionOverride?: string | null
+  regionOverride?: string | null,
+  gogRegion?: GogDealsRegion | null
 ): CatalogLocaleSettings => {
   if (regionOverride) {
     const match = REGION_OPTIONS.find((r) => r.countryCode === regionOverride)
@@ -203,6 +207,14 @@ export const getLocaleSettings = (
         currencyCode: match.currencyCode,
         locale: 'en-US'
       }
+    }
+  }
+
+  if (gogRegion) {
+    return {
+      countryCode: gogRegion.countryCode,
+      currencyCode: gogRegion.currencyCode,
+      locale: 'en-US'
     }
   }
 
