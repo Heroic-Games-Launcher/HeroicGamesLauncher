@@ -65,6 +65,12 @@ export default function StepSummary({ validation, currentPlatform }: Props) {
           <dt>{t('import-export.wine-versions', 'Wine versions')}</dt>
           <dd>{manifest.counts.wineVersions}</dd>
         </div>
+        {manifest.stages.includes('categories') && (
+          <div>
+            <dt>{t('import-export.categories', 'Custom categories')}</dt>
+            <dd>{manifest.counts.categories ?? 0}</dd>
+          </div>
+        )}
       </dl>
       {warnings.map((w) => (
         <div key={w} className="ImportExportWizard__warningBox">

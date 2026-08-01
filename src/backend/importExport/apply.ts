@@ -30,7 +30,10 @@ import {
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from 'backend/wine/manager/utils'
-import { importExportRollbackStore } from 'backend/constants/key_value_stores'
+import {
+  configStore,
+  importExportRollbackStore
+} from 'backend/constants/key_value_stores'
 import { GlobalConfig } from 'backend/config'
 
 import { exportHeroicBackup } from './export'
@@ -591,6 +594,27 @@ function applySideloadLibrary(
   }
 }
 
+function applyCategories(zip: AdmZip): HeroicApplyStageResult {
+  const raw = safeJsonFromEntry<Record<string, unknown>>(
+    zip,
+    BACKUP_PATHS.categories.file
+  )
+  if (!raw) return { stage: 'categories', ok: true, message: 'Not in backup' }
+
+  const categories: Record<string, string[]> = {}
+  for (const [name, games] of Object.entries(raw)) {
+    if (!Array.isArray(games)) continue
+    categories[name] = games.filter((g): g is string => typeof g === 'string')
+  }
+
+  configStore.set('games.customCategories', categories)
+  return {
+    stage: 'categories',
+    ok: true,
+    message: `${Object.keys(categories).length} category(ies)`
+  }
+}
+
 interface WineImportTracker {
   total: number
   pending: Set<string>
@@ -762,6 +786,9 @@ export async function applyHeroicBackup(
     }
     if (options.stages.includes('sideloadLibrary')) {
       stages.push(applySideloadLibrary(zip, options, gamesQueuedForDownload))
+    }
+    if (options.stages.includes('categories')) {
+      stages.push(applyCategories(zip))
     }
     if (options.stages.includes('wineMetadata')) {
       stages.push(

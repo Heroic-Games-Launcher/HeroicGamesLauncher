@@ -61,6 +61,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
 
   const [overwriteGlobal, setOverwriteGlobal] = useState(false)
   const [includeGlobal, setIncludeGlobal] = useState(true)
+  const [includeCategories, setIncludeCategories] = useState(true)
   const [includedApps, setIncludedApps] = useState<Set<string>>(new Set())
   const [appFilter, setAppFilter] = useState('')
   const [includedCredentials, setIncludedCredentials] = useState<
@@ -120,13 +121,20 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     if (!validation) return []
     return validation.manifest.stages.filter((s) => {
       if (s === 'globalSettings') return includeGlobal
+      if (s === 'categories') return includeCategories
       if (s === 'credentials') {
         return Object.values(includedCredentials).some(Boolean)
       }
       if (s === 'perGameSettings') return includedApps.size > 0
       return true
     })
-  }, [validation, includeGlobal, includedApps, includedCredentials])
+  }, [
+    validation,
+    includeGlobal,
+    includeCategories,
+    includedApps,
+    includedCredentials
+  ])
 
   async function pickBackupFile(path: string) {
     setFilePath(path)
@@ -280,6 +288,8 @@ export default function ImportExportWizard({ open, onClose }: Props) {
               setIncludeGlobal={setIncludeGlobal}
               overwriteGlobal={overwriteGlobal}
               setOverwriteGlobal={setOverwriteGlobal}
+              includeCategories={includeCategories}
+              setIncludeCategories={setIncludeCategories}
             />
           )}
           {step === 3 && validation && (

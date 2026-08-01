@@ -121,6 +121,14 @@
   max-width: 65ch;
 }
 
+.ImportExportWizard__categoriesToggle {
+  margin-top: var(--space-md);
+
+  & .ImportExportWizard__hint {
+    margin-top: var(--space-2xs);
+  }
+}
+
 .ImportExportWizard__filePicker {
   display: grid;
   grid-template-columns: 1fr auto;

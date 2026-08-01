@@ -564,6 +564,7 @@
         "applying": "Applying...",
         "back": "Back",
         "browse": "Browse",
+        "categories": "Custom categories",
         "close": "Close",
         "created": "Created",
         "different-platform": "different from current ({{current}})",
@@ -610,6 +611,9 @@
             "title": "Backup summary"
         },
         "step3": {
+            "categories_one": "Import custom categories ({{count}})",
+            "categories_other": "Import custom categories ({{count}})",
+            "categoriesHint": "Replaces your current custom categories with the ones from the backup.",
             "none": "This backup does not contain global settings.",
             "overwrite": "Overwrite current global settings",
             "overwriteBody": "Off by default. Turn this on to replace your current Heroic settings with the ones in the backup.",

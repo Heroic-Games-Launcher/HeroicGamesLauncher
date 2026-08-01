@@ -3,6 +3,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'graceful-fs'
 import AdmZip from 'adm-zip'
 
 import { logError, logInfo, LogPrefix } from 'backend/logger'
+import { configStore } from 'backend/constants/key_value_stores'
 import type {
   HeroicBackupManifest,
   HeroicBackupPlatform,
@@ -135,7 +136,8 @@ export async function exportHeroicBackup(
       fixesIncluded: false,
       themesIncluded: false,
       wineVersions: 0,
-      sideloadGames: 0
+      sideloadGames: 0,
+      categories: 0
     }
   }
 
@@ -286,6 +288,17 @@ export async function exportHeroicBackup(
         manifest.counts.sideloadGames = countSideloadGames()
         manifest.counts.installedGames.sideload = manifest.counts.sideloadGames
       }
+    }
+
+    if (stages.includes('categories')) {
+      const categories = configStore.get('games.customCategories', {})
+      // Always write the file (even when empty) so a rollback snapshot can
+      // restore the "no categories" state.
+      zip.addFile(
+        BACKUP_PATHS.categories.file,
+        Buffer.from(JSON.stringify(categories, null, 2), 'utf-8')
+      )
+      manifest.counts.categories = Object.keys(categories).length
     }
 
     if (stages.includes('wineMetadata')) {

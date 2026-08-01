@@ -8,7 +8,8 @@ export const BACKUP_STAGE_IDS: readonly HeroicBackupStageId[] = [
   'credentials',
   'libraryCache',
   'wineMetadata',
-  'sideloadLibrary'
+  'sideloadLibrary',
+  'categories'
 ] as const
 
 export const BACKUP_MANIFEST_FILE = 'manifest.json'
@@ -45,6 +46,9 @@ export const BACKUP_PATHS = {
   },
   sideloadLibrary: {
     library: 'sideloadLibrary/library.json'
+  },
+  categories: {
+    file: 'categories/customCategories.json'
   },
   wineMetadata: {
     store: 'wineMetadata/wine-downloader-info.json'

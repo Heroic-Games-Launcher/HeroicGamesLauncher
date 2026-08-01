@@ -7,6 +7,7 @@ export type HeroicBackupStageId =
   | 'libraryCache'
   | 'wineMetadata'
   | 'sideloadLibrary'
+  | 'categories'
 
 export type HeroicBackupPlatform = 'linux' | 'darwin' | 'win32'
 
@@ -24,6 +25,7 @@ export interface HeroicBackupManifest {
     themesIncluded: boolean
     wineVersions: number
     sideloadGames: number
+    categories?: number
   }
 }
 

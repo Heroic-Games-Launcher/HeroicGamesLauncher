@@ -6,7 +6,8 @@ export const STAGE_LABELS: Record<HeroicBackupStageId, string> = {
   credentials: 'Store logins',
   libraryCache: 'Installed games and library',
   sideloadLibrary: 'Sideloaded games',
-  wineMetadata: 'Wine / Proton versions'
+  wineMetadata: 'Wine / Proton versions',
+  categories: 'Custom categories'
 }
 
 export const ALL_STAGES: HeroicBackupStageId[] = [
@@ -15,7 +16,8 @@ export const ALL_STAGES: HeroicBackupStageId[] = [
   'credentials',
   'libraryCache',
   'sideloadLibrary',
-  'wineMetadata'
+  'wineMetadata',
+  'categories'
 ]
 
 export function timestampedBackupName(now = new Date()): string {

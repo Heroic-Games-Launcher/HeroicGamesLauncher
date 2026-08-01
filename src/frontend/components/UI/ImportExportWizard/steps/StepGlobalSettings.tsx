@@ -11,6 +11,8 @@ interface Props {
   setIncludeGlobal: (v: boolean) => void
   overwriteGlobal: boolean
   setOverwriteGlobal: (v: boolean) => void
+  includeCategories: boolean
+  setIncludeCategories: (v: boolean) => void
 }
 
 export default function StepGlobalSettings({
@@ -18,11 +20,14 @@ export default function StepGlobalSettings({
   includeGlobal,
   setIncludeGlobal,
   overwriteGlobal,
-  setOverwriteGlobal
+  setOverwriteGlobal,
+  includeCategories,
+  setIncludeCategories
 }: Props) {
   const { t } = useTranslation()
   const { manifest } = validation
   const hasGlobal = manifest.stages.includes('globalSettings')
+  const hasCategories = manifest.stages.includes('categories')
   return (
     <section>
       <h3 className="ImportExportWizard__heading">
@@ -71,6 +76,26 @@ export default function StepGlobalSettings({
             </div>
           </div>
         </>
+      )}
+      {hasCategories && (
+        <div className="ImportExportWizard__categoriesToggle">
+          <ToggleSwitch
+            htmlId="ie-include-categories"
+            title={t(
+              'import-export.step3.categories',
+              'Import custom categories ({{count}})',
+              { count: manifest.counts.categories ?? 0 }
+            )}
+            value={includeCategories}
+            handleChange={() => setIncludeCategories(!includeCategories)}
+          />
+          <p className="ImportExportWizard__hint">
+            {t(
+              'import-export.step3.categoriesHint',
+              'Replaces your current custom categories with the ones from the backup.'
+            )}
+          </p>
+        </div>
       )}
     </section>
   )
