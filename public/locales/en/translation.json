@@ -607,6 +607,15 @@
             "running": "Rolling back...",
             "saved": "Saved"
         },
+        "stage": {
+            "categories": "Custom categories",
+            "credentials": "Store logins",
+            "globalSettings": "Global settings",
+            "libraryCache": "Installed games and library",
+            "perGameSettings": "Per-game settings",
+            "sideloadLibrary": "Sideloaded games",
+            "wineMetadata": "Wine / Proton versions"
+        },
         "step-counter": "Step {{current}} of {{total}}",
         "step1": {
             "browse": "Browse for a backup file",
@@ -675,6 +684,15 @@
             "wine-busy-hint": "Wait until Wine / Proton finishes installing",
             "wine-progress-body": "Please wait — Restart and Close are disabled until all selected versions finish installing.",
             "wine-progress-title": "Installing Wine / Proton version ({{current}}/{{total}})"
+        },
+        "steps": {
+            "credentials": "Store logins",
+            "done": "Done",
+            "global-settings": "Global settings",
+            "library-system": "Library & system",
+            "per-game": "Per-game settings",
+            "pick-file": "Pick a backup file",
+            "summary": "Summary"
         },
         "unsupported-format": "This backup uses a newer format than this build of Heroic supports.",
         "validating": "Validating...",

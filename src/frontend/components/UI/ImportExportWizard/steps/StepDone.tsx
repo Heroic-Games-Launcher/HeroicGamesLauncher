@@ -8,7 +8,7 @@ import DownloadingIcon from '@mui/icons-material/Downloading'
 
 import type { HeroicApplyResult } from 'common/types/importExport'
 
-import { stageFriendlyLabel } from '../shared'
+import { stageLabels } from '../labels'
 
 interface Props {
   applyResult: HeroicApplyResult | null
@@ -123,12 +123,7 @@ export default function StepDone({
           <li key={s.stage}>
             <span className="ImportExportWizard__stageDot" data-ok={s.ok} />
             <div>
-              <div>
-                {t(
-                  `import-export.stage.${s.stage}`,
-                  stageFriendlyLabel(s.stage)
-                )}
-              </div>
+              <div>{stageLabels(t)[s.stage]}</div>
               {s.message && (
                 <div className="ImportExportWizard__stageMsg">{s.message}</div>
               )}

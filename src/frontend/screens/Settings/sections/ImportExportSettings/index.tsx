@@ -11,7 +11,7 @@ import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import ImportExportWizard from 'frontend/components/UI/ImportExportWizard'
 import {
   ALL_STAGES,
-  STAGE_LABELS,
+  stageLabels,
   timestampedBackupName
 } from 'frontend/components/UI/ImportExportWizard/labels'
 
@@ -154,7 +154,7 @@ export default function ImportExportSettings() {
             <li key={stage}>
               <ToggleSwitch
                 htmlId={`ie-export-${stage}`}
-                title={STAGE_LABELS[stage]}
+                title={stageLabels(t)[stage]}
                 value={selectedStages.has(stage)}
                 handleChange={() => toggleStage(stage)}
               />

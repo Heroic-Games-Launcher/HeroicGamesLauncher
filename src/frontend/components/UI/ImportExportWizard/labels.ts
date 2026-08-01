@@ -1,13 +1,31 @@
+import type { TFunction } from 'i18next'
+
 import type { HeroicBackupStageId } from 'common/types/importExport'
 
-export const STAGE_LABELS: Record<HeroicBackupStageId, string> = {
-  globalSettings: 'Global settings',
-  perGameSettings: 'Per-game settings',
-  credentials: 'Store logins',
-  libraryCache: 'Installed games and library',
-  sideloadLibrary: 'Sideloaded games',
-  wineMetadata: 'Wine / Proton versions',
-  categories: 'Custom categories'
+export function stageLabels(
+  t: TFunction<'translation'>
+): Record<HeroicBackupStageId, string> {
+  return {
+    globalSettings: t('import-export.stage.globalSettings', 'Global settings'),
+    perGameSettings: t(
+      'import-export.stage.perGameSettings',
+      'Per-game settings'
+    ),
+    credentials: t('import-export.stage.credentials', 'Store logins'),
+    libraryCache: t(
+      'import-export.stage.libraryCache',
+      'Installed games and library'
+    ),
+    sideloadLibrary: t(
+      'import-export.stage.sideloadLibrary',
+      'Sideloaded games'
+    ),
+    wineMetadata: t(
+      'import-export.stage.wineMetadata',
+      'Wine / Proton versions'
+    ),
+    categories: t('import-export.stage.categories', 'Custom categories')
+  }
 }
 
 export const ALL_STAGES: HeroicBackupStageId[] = [

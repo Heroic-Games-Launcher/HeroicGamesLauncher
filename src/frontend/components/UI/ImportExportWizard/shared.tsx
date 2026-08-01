@@ -1,10 +1,7 @@
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 
-import type { HeroicBackupStageId } from 'common/types/importExport'
 import type { Runner } from 'common/types'
-
-import { STAGE_LABELS } from './labels'
 
 type PathAction = 'browse' | 'ignore' | 'skip' | 'download' | 'default-prefix'
 
@@ -28,10 +25,6 @@ export function runnerLabel(runner: Runner): string {
     default:
       return 'Sideloaded'
   }
-}
-
-export function stageFriendlyLabel(stage: HeroicBackupStageId): string {
-  return STAGE_LABELS[stage]
 }
 
 export function StatusPill({

@@ -31,16 +31,6 @@ import {
 } from './steps'
 import type { PathChoice } from './shared'
 
-const STEP_TITLES = [
-  'Pick a backup file',
-  'Summary',
-  'Global settings',
-  'Per-game settings',
-  'Store logins',
-  'Library & system',
-  'Done'
-] as const
-
 type WizardStep = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
 interface Props {
@@ -51,6 +41,16 @@ interface Props {
 export default function ImportExportWizard({ open, onClose }: Props) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
+
+  const stepTitles = [
+    t('import-export.steps.pick-file', 'Pick a backup file'),
+    t('import-export.steps.summary', 'Summary'),
+    t('import-export.steps.global-settings', 'Global settings'),
+    t('import-export.steps.per-game', 'Per-game settings'),
+    t('import-export.steps.credentials', 'Store logins'),
+    t('import-export.steps.library-system', 'Library & system'),
+    t('import-export.steps.done', 'Done')
+  ]
 
   const [step, setStep] = useState<WizardStep>(0)
   const [filePath, setFilePath] = useState('')
@@ -239,14 +239,14 @@ export default function ImportExportWizard({ open, onClose }: Props) {
           <span className="ImportExportWizard__stepCounter">
             {t('import-export.step-counter', 'Step {{current}} of {{total}}', {
               current: step + 1,
-              total: STEP_TITLES.length
+              total: stepTitles.length
             })}
           </span>
         </div>
       </DialogHeader>
 
       <div className="ImportExportWizard__stepper" role="tablist">
-        {STEP_TITLES.map((title, idx) => (
+        {stepTitles.map((title, idx) => (
           <button
             key={title}
             type="button"
