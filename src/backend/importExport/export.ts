@@ -292,8 +292,6 @@ export async function exportHeroicBackup(
 
     if (stages.includes('categories')) {
       const categories = configStore.get('games.customCategories', {})
-      // Always write the file (even when empty) so a rollback snapshot can
-      // restore the "no categories" state.
       zip.addFile(
         BACKUP_PATHS.categories.file,
         Buffer.from(JSON.stringify(categories, null, 2), 'utf-8')

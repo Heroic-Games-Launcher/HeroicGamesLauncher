@@ -186,7 +186,6 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   }
 
   function stepIsReachable(target: WizardStep): boolean {
-    // Once applying (or applied), going back would allow a double apply
     if (applying || step === 6) return target === step
     if (!validation) return target === 0
     return target <= step
@@ -252,8 +251,6 @@ export default function ImportExportWizard({ open, onClose }: Props) {
 
   if (!open) return null
 
-  // Gamepad "back" clicks the (hidden) close button directly, so gate every
-  // close path while wine versions are still installing.
   const guardedClose = () => {
     if (wineBusy) return
     onClose()

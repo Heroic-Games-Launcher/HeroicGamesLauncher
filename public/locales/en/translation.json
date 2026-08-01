@@ -675,8 +675,8 @@
         "step7": {
             "applying": "Applying backup...",
             "failure": "Some steps could not finish",
-            "queued_one": "{{count}} game(s) need to be downloaded again — install them from the Library.",
-            "queued_other": "{{count}} game(s) need to be downloaded again — install them from the Library.",
+            "queued_one": "{{count}} game(s) were added to the download queue.",
+            "queued_other": "{{count}} game(s) were added to the download queue.",
             "restart-body": "Some settings are cached in memory and only take effect after a restart.",
             "restart-btn": "Restart now",
             "restart-title": "Restart Heroic to apply all changes",

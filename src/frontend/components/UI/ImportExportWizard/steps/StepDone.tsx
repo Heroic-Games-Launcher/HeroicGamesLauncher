@@ -40,7 +40,6 @@ export default function StepDone({
     let gotEvent = false
 
     void window.api.getWineImportProgress().then((snap) => {
-      // Events are fresher; don't let a late initial snapshot overwrite them
       if (cancelled || gotEvent) return
       setWineProgress({ total: snap.total, completed: snap.completed })
     })
@@ -152,7 +151,7 @@ export default function StepDone({
         <div className="ImportExportWizard__successBox">
           {t(
             'import-export.step7.queued',
-            '{{count}} game(s) need to be downloaded again — install them from the Library.',
+            '{{count}} game(s) were added to the download queue.',
             { count: applyResult.gamesQueuedForDownload.length }
           )}
         </div>

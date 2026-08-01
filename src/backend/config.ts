@@ -82,7 +82,6 @@ abstract class GlobalConfig {
     this.config = config
   }
 
-  /** Drop the in-memory settings cache and re-read from the config file */
   public reloadFromFile() {
     this.config = undefined
     this.config = this.getSettings()

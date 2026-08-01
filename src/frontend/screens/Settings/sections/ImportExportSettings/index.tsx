@@ -62,8 +62,6 @@ export default function ImportExportSettings() {
 
   useEffect(() => {
     if (openImportFromNav) {
-      // Clear the router state so remounting this section doesn't reopen
-      // the wizard the user already closed
       navigate(location.pathname, { replace: true, state: null })
     }
   }, [openImportFromNav, navigate, location.pathname])

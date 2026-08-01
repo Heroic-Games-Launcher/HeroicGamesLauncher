@@ -21,13 +21,21 @@ import type {
   HeroicRollbackSnapshot,
   PerGamePathOverride
 } from 'common/types/importExport'
-import type { WineManagerStatus, WineVersionInfo } from 'common/types'
+import type {
+  InstallPlatform,
+  Runner,
+  WineManagerStatus,
+  WineVersionInfo
+} from 'common/types'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { NileUser } from 'backend/storeManagers/nile/user'
 import { configStore as gogConfigStore } from 'backend/storeManagers/gog/electronStores'
 import { configStore as zoomConfigStore } from 'backend/storeManagers/zoom/electronStores'
+import { libraryManagerMap } from 'backend/storeManagers'
+import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 import {
   installWineVersion,
+  removeWineVersion,
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from 'backend/wine/manager/utils'
@@ -53,8 +61,6 @@ function ensureDir(path: string): void {
 }
 
 interface WriteEntryOptions {
-  // Delete destFile when the archive has no entry for it. Used on rollback so
-  // files created by the import (absent from the pre-import snapshot) go away.
   removeIfMissing?: boolean
   mode?: number
 }
@@ -80,8 +86,6 @@ function dirOf(path: string): string {
   return idx >= 0 ? path.slice(0, idx) : path
 }
 
-// Entry names come from an untrusted archive; reject anything that would
-// escape the destination directory (zip-slip).
 function safeZipRel(rel: string): string | null {
   if (!rel || rel.includes('\0')) return null
   const normalized = normalize(rel)
@@ -198,8 +202,6 @@ function applyGlobalSettings(
     sourcePaths.globalConfig()
   )
   if (wroteConfig) {
-    // GlobalConfig caches settings in memory and would flush the stale
-    // pre-import values back to disk on the next setSetting call.
     try {
       GlobalConfig.get().reloadFromFile()
     } catch (err) {
@@ -276,8 +278,6 @@ function applyPerGameSettings(
   ensureDir(sourcePaths.gamesConfigDir())
 
   if (restore) {
-    // Files the import created are not in the snapshot; delete them so
-    // rollback restores the exact pre-import state.
     for (const file of readdirSync(sourcePaths.gamesConfigDir())) {
       if (!file.endsWith('.json')) continue
       if (!zip.getEntry(`${BACKUP_PATHS.perGameSettings.dir}${file}`)) {
@@ -292,7 +292,6 @@ function applyPerGameSettings(
     if (entry.isDirectory) continue
     const rel = entry.entryName.slice(BACKUP_PATHS.perGameSettings.dir.length)
     if (!rel.endsWith('.json')) continue
-    // Per-game settings are flat files; nested or traversal names are hostile
     if (rel.includes('/') || rel.includes('\\')) continue
     const appName = rel.slice(0, -'.json'.length)
     if (
@@ -444,17 +443,31 @@ function applyCredentials(
   }
 }
 
+interface QueuedGameDownload {
+  appName: string
+  runner: Runner
+  platform: InstallPlatform
+}
+
+function entryPlatform(v: unknown, fallback: InstallPlatform): InstallPlatform {
+  return typeof v === 'string' ? (v as InstallPlatform) : fallback
+}
+
 function patchLegendaryInstalled(
   raw: Record<string, { install_path?: string; [k: string]: unknown }>,
   overrides: Map<string, PerGamePathOverride>,
-  gamesQueuedForDownload: string[]
+  queuedDownloads: QueuedGameDownload[]
 ): Record<string, unknown> {
   const out: Record<string, unknown> = {}
   for (const [appName, entry] of Object.entries(raw)) {
     const override = overrides.get(appName)
     if (override?.skipInstallPath) continue
     if (override?.installAfterImport) {
-      gamesQueuedForDownload.push(appName)
+      queuedDownloads.push({
+        appName,
+        runner: 'legendary',
+        platform: entryPlatform(entry['platform'], 'Windows')
+      })
       continue
     }
     if (override?.installPath) {
@@ -469,7 +482,7 @@ function patchLegendaryInstalled(
 function patchGogInstalled(
   raw: { installed?: Array<Record<string, unknown>> },
   overrides: Map<string, PerGamePathOverride>,
-  gamesQueuedForDownload: string[]
+  queuedDownloads: QueuedGameDownload[]
 ): { installed: Array<Record<string, unknown>> } {
   const list = Array.isArray(raw.installed) ? raw.installed : []
   const patched: Array<Record<string, unknown>> = []
@@ -478,7 +491,11 @@ function patchGogInstalled(
     const override = overrides.get(appName)
     if (override?.skipInstallPath) continue
     if (override?.installAfterImport) {
-      gamesQueuedForDownload.push(appName)
+      queuedDownloads.push({
+        appName,
+        runner: 'gog',
+        platform: entryPlatform(entry['platform'], 'windows')
+      })
       continue
     }
     if (override?.installPath) {
@@ -497,7 +514,7 @@ function asStringKey(v: unknown): string {
 function patchNileInstalled(
   raw: Array<Record<string, unknown>>,
   overrides: Map<string, PerGamePathOverride>,
-  gamesQueuedForDownload: string[]
+  queuedDownloads: QueuedGameDownload[]
 ): Array<Record<string, unknown>> {
   const patched: Array<Record<string, unknown>> = []
   for (const entry of raw) {
@@ -505,7 +522,7 @@ function patchNileInstalled(
     const override = overrides.get(id)
     if (override?.skipInstallPath) continue
     if (override?.installAfterImport) {
-      gamesQueuedForDownload.push(id)
+      queuedDownloads.push({ appName: id, runner: 'nile', platform: 'Windows' })
       continue
     }
     if (override?.installPath) {
@@ -520,7 +537,7 @@ function patchNileInstalled(
 function applyLibraryCache(
   zip: AdmZip,
   options: HeroicApplyOptions,
-  gamesQueuedForDownload: string[],
+  queuedDownloads: QueuedGameDownload[],
   restore = false
 ): HeroicApplyStageResult {
   const overrides = new Map<string, PerGamePathOverride>()
@@ -533,11 +550,7 @@ function applyLibraryCache(
   >(zip, BACKUP_PATHS.libraryCache.legendaryInstalled)
   if (legRaw) {
     ensureDir(dirOf(sourcePaths.legendary.installed()))
-    const patched = patchLegendaryInstalled(
-      legRaw,
-      overrides,
-      gamesQueuedForDownload
-    )
+    const patched = patchLegendaryInstalled(legRaw, overrides, queuedDownloads)
     writeFileSync(
       sourcePaths.legendary.installed(),
       JSON.stringify(patched, null, 2)
@@ -564,7 +577,7 @@ function applyLibraryCache(
   }>(zip, BACKUP_PATHS.libraryCache.gogInstalled)
   if (gogRaw) {
     ensureDir(dirOf(sourcePaths.gog.installedFile()))
-    const patched = patchGogInstalled(gogRaw, overrides, gamesQueuedForDownload)
+    const patched = patchGogInstalled(gogRaw, overrides, queuedDownloads)
     writeFileSync(
       sourcePaths.gog.installedFile(),
       JSON.stringify(patched, null, 2)
@@ -579,11 +592,7 @@ function applyLibraryCache(
   )
   if (nileRaw) {
     ensureDir(dirOf(sourcePaths.nile.installed()))
-    const patched = patchNileInstalled(
-      nileRaw,
-      overrides,
-      gamesQueuedForDownload
-    )
+    const patched = patchNileInstalled(nileRaw, overrides, queuedDownloads)
     writeFileSync(
       sourcePaths.nile.installed(),
       JSON.stringify(patched, null, 2)
@@ -634,7 +643,7 @@ function applyLibraryCache(
 function applySideloadLibrary(
   zip: AdmZip,
   options: HeroicApplyOptions,
-  gamesQueuedForDownload: string[],
+  queuedDownloads: QueuedGameDownload[],
   restore = false
 ): HeroicApplyStageResult {
   const raw = safeJsonFromEntry<{
@@ -660,7 +669,11 @@ function applySideloadLibrary(
     const override = overrides.get(appName)
     if (override?.skipInstallPath) continue
     if (override?.installAfterImport) {
-      gamesQueuedForDownload.push(appName)
+      queuedDownloads.push({
+        appName,
+        runner: 'sideload',
+        platform: 'Windows'
+      })
       continue
     }
     if (override?.installPath) {
@@ -775,14 +788,11 @@ async function applyWineMetadata(
         v?.isInstalled &&
         !installedLocal.has(v.version) &&
         requested.has(v.version) &&
-        // Skip versions a previous import is still installing
         !wineImportTracker.pending.has(v.version)
     )
     .map((v) => knownLocal.get(v.version))
     .filter((v): v is WineVersionInfo => !!v)
 
-  // Fresh import with nothing in flight: reset the counter so progress
-  // doesn't accumulate across imports in the same session.
   if (wineImportTracker.pending.size === 0) wineImportTracker.total = 0
 
   for (const r of toInstall) {
@@ -824,9 +834,6 @@ async function applyWineMetadata(
 }
 
 interface ApplyInternalOptions {
-  // Rollback re-applies the pre-import snapshot: skip writing a new snapshot
-  // (it would overwrite the very archive being restored) and delete files the
-  // import created that the snapshot does not contain.
   rollbackMode?: boolean
 }
 
@@ -834,7 +841,7 @@ export async function applyHeroicBackup(
   options: HeroicApplyOptions,
   { rollbackMode = false }: ApplyInternalOptions = {}
 ): Promise<HeroicApplyResult> {
-  const gamesQueuedForDownload: string[] = []
+  const queuedDownloads: QueuedGameDownload[] = []
   const wineVersionsQueuedForDownload: string[] = []
   const warnings: string[] = []
   const errors: string[] = []
@@ -878,7 +885,16 @@ export async function applyHeroicBackup(
   if (!rollbackMode) {
     snapshot = await writePreApplySnapshot(options.stages)
     if (!snapshot) {
-      warnings.push('Could not create rollback snapshot; proceeding anyway.')
+      return {
+        ok: false,
+        stages: [],
+        gamesQueuedForDownload: [],
+        wineVersionsQueuedForDownload: [],
+        warnings,
+        errors: [
+          'Could not create a rollback snapshot. Import aborted; nothing was changed.'
+        ]
+      }
     }
   }
 
@@ -896,12 +912,12 @@ export async function applyHeroicBackup(
     }
     if (options.stages.includes('libraryCache')) {
       stages.push(
-        applyLibraryCache(zip, options, gamesQueuedForDownload, rollbackMode)
+        applyLibraryCache(zip, options, queuedDownloads, rollbackMode)
       )
     }
     if (options.stages.includes('sideloadLibrary')) {
       stages.push(
-        applySideloadLibrary(zip, options, gamesQueuedForDownload, rollbackMode)
+        applySideloadLibrary(zip, options, queuedDownloads, rollbackMode)
       )
     }
     if (options.stages.includes('categories')) {
@@ -924,18 +940,30 @@ export async function applyHeroicBackup(
       ok: false,
       stages,
       rollbackPath: snapshot?.archivePath,
-      gamesQueuedForDownload,
+      gamesQueuedForDownload: queuedDownloads.map((q) => q.appName),
       wineVersionsQueuedForDownload,
       warnings,
       errors
     }
   }
 
+  if (!rollbackMode) {
+    await queueGameDownloads(queuedDownloads, warnings)
+  }
+
+  if (snapshot && wineVersionsQueuedForDownload.length > 0) {
+    const updated: HeroicRollbackSnapshot = {
+      ...snapshot,
+      wineVersionsInstalled: [...wineVersionsQueuedForDownload]
+    }
+    importExportRollbackStore.set('lastSnapshot', updated)
+  }
+
   logInfo(
     [
       'Applied Heroic backup from',
       options.sourcePath,
-      `— ${stages.length} stage(s), ${gamesQueuedForDownload.length} game(s) queued for download`
+      `— ${stages.length} stage(s), ${queuedDownloads.length} game(s) queued for download`
     ],
     LogPrefix.ImportExport
   )
@@ -944,10 +972,58 @@ export async function applyHeroicBackup(
     ok: true,
     stages,
     rollbackPath: snapshot?.archivePath,
-    gamesQueuedForDownload,
+    gamesQueuedForDownload: queuedDownloads.map((q) => q.appName),
     wineVersionsQueuedForDownload,
     warnings,
     errors
+  }
+}
+
+async function queueGameDownloads(
+  queued: QueuedGameDownload[],
+  warnings: string[]
+): Promise<void> {
+  if (queued.length === 0) return
+
+  const { defaultInstallPath } = GlobalConfig.get().getSettings()
+  const refreshed = new Set<Runner>()
+
+  for (const { appName, runner, platform } of queued) {
+    if (runner === 'sideload') {
+      warnings.push(
+        `${appName} is sideloaded and cannot be downloaded automatically; add it again manually.`
+      )
+      continue
+    }
+    try {
+      let gameInfo = libraryManagerMap[runner].getGameInfo(appName)
+      if (!gameInfo && !refreshed.has(runner)) {
+        refreshed.add(runner)
+        await libraryManagerMap[runner].refresh()
+        gameInfo = libraryManagerMap[runner].getGameInfo(appName)
+      }
+      if (!gameInfo) {
+        warnings.push(
+          `Could not queue ${appName} for download: not found in the ${runner} library.`
+        )
+        continue
+      }
+      await addToQueue({
+        type: 'install',
+        params: {
+          appName,
+          runner,
+          gameInfo,
+          path: defaultInstallPath,
+          platformToInstall: platform
+        },
+        addToQueueTime: Date.now(),
+        startTime: 0,
+        endTime: 0
+      })
+    } catch (err) {
+      warnings.push(`Could not queue ${appName} for download: ${String(err)}`)
+    }
   }
 }
 
@@ -982,6 +1058,23 @@ export async function rollbackLastImport(): Promise<HeroicApplyResult> {
     },
     { rollbackMode: true }
   )
+
+  if (result.ok && snapshot.wineVersionsInstalled?.length) {
+    const releases = wineDownloaderInfoStore.get('wine-releases', [])
+    for (const version of snapshot.wineVersionsInstalled) {
+      const release = releases.find(
+        (r) => r.version === version && r.isInstalled
+      )
+      if (!release) continue
+      try {
+        await removeWineVersion(release)
+      } catch (err) {
+        result.warnings.push(
+          `Could not remove wine version ${version}: ${String(err)}`
+        )
+      }
+    }
+  }
 
   if (result.ok) {
     try {

@@ -35,8 +35,6 @@ addHandler('getRollbackSnapshot', () =>
 addHandler('rollbackHeroicBackup', () => rollbackLastImport())
 
 addHandler('restartHeroic', async () => {
-  // handleExit runs the graceful shutdown path (pending-operation check,
-  // child process cleanup) and exits; relaunch only kicks in on exit.
   app.relaunch()
   await handleExit()
 })

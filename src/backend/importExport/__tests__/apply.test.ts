@@ -63,7 +63,20 @@ const mockWineStore = {
 jest.mock('backend/wine/manager/utils', () => ({
   wineDownloaderInfoStore: mockWineStore,
   updateWineVersionInfos: jest.fn().mockResolvedValue([]),
-  installWineVersion: jest.fn().mockResolvedValue('success')
+  installWineVersion: jest.fn().mockResolvedValue('success'),
+  removeWineVersion: jest.fn().mockResolvedValue(true)
+}))
+
+const mockLegendaryLibrary = {
+  getGameInfo: jest.fn(),
+  refresh: jest.fn()
+}
+jest.mock('backend/storeManagers', () => ({
+  libraryManagerMap: { legendary: mockLegendaryLibrary }
+}))
+const mockAddToQueue = jest.fn<Promise<void>, [DMQueueElement]>()
+jest.mock('backend/downloadmanager/downloadqueue', () => ({
+  addToQueue: mockAddToQueue
 }))
 
 const mockRollbackStore = {
@@ -80,6 +93,8 @@ jest.mock('backend/constants/key_value_stores', () => ({
   importExportRollbackStore: mockRollbackStore,
   configStore: mockConfigStore
 }))
+
+import type { DMQueueElement } from 'common/types'
 
 import { applyHeroicBackup } from '../apply'
 import { BACKUP_FORMAT_VERSION, BACKUP_PATHS } from '../constants'
@@ -263,6 +278,43 @@ describe('applyHeroicBackup patch semantics', () => {
     ]
     expect(key).toBe('lastSnapshot')
     expect(typeof value.archivePath).toBe('string')
+  })
+
+  it('adds games marked installAfterImport to the download manager queue', async () => {
+    const src = join(tmpRoot, 'queue.zip')
+    const zip = new AdmZip()
+    addJson(zip, BACKUP_PATHS.manifest, manifest)
+    addJson(zip, BACKUP_PATHS.libraryCache.legendaryInstalled, {
+      queueMe: {
+        app_name: 'queueMe',
+        install_path: '/games/queue',
+        platform: 'Windows'
+      }
+    })
+    zip.writeZip(src)
+
+    const gameInfo = { app_name: 'queueMe', title: 'Queue Me' }
+    mockLegendaryLibrary.getGameInfo.mockReturnValue(gameInfo)
+
+    const result = await applyHeroicBackup({
+      sourcePath: src,
+      stages: ['libraryCache'],
+      overwriteGlobalSettings: false,
+      includedAppNames: [],
+      includedCredentials: {},
+      perGameOverrides: [{ appName: 'queueMe', installAfterImport: true }],
+      includedWineVersions: []
+    })
+
+    expect(result.ok).toBe(true)
+    expect(result.gamesQueuedForDownload).toEqual(['queueMe'])
+    expect(mockAddToQueue).toHaveBeenCalledTimes(1)
+    const element = mockAddToQueue.mock.calls[0][0]
+    expect(element.type).toBe('install')
+    expect(element.params.appName).toBe('queueMe')
+    expect(element.params.runner).toBe('legendary')
+    expect(element.params.platformToInstall).toBe('Windows')
+    expect(element.params.gameInfo).toBe(gameInfo)
   })
 
   it('applies custom categories, dropping malformed entries', async () => {

@@ -137,4 +137,5 @@ export interface HeroicRollbackSnapshot {
   archivePath: string
   stages: HeroicBackupStageId[]
   sourceManifest: HeroicBackupManifest
+  wineVersionsInstalled?: string[]
 }
