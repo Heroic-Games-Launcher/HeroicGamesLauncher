@@ -48,7 +48,7 @@ export interface HeroicExportResult {
   manifest?: HeroicBackupManifest
 }
 
-export type CredentialStatus = 'valid' | 'expired' | 'missing'
+type CredentialStatus = 'valid' | 'expired' | 'missing'
 
 export interface CredentialValidation {
   runner: Runner
@@ -57,7 +57,7 @@ export interface CredentialValidation {
   displayName?: string
 }
 
-export type PathIssueKind = 'missing' | 'broken'
+type PathIssueKind = 'missing' | 'broken'
 
 export interface PerGamePathIssue {
   appName: string

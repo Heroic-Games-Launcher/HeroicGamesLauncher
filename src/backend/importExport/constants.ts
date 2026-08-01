@@ -1,18 +1,6 @@
-import type { HeroicBackupStageId } from './types'
-
 export const BACKUP_FORMAT_VERSION = 1
 
-export const BACKUP_STAGE_IDS: readonly HeroicBackupStageId[] = [
-  'globalSettings',
-  'perGameSettings',
-  'credentials',
-  'libraryCache',
-  'wineMetadata',
-  'sideloadLibrary',
-  'categories'
-] as const
-
-export const BACKUP_MANIFEST_FILE = 'manifest.json'
+const BACKUP_MANIFEST_FILE = 'manifest.json'
 
 export const BACKUP_PATHS = {
   manifest: BACKUP_MANIFEST_FILE,
