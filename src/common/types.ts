@@ -124,6 +124,7 @@ export interface AppSettings extends GameSettings {
   experimentalFeatures?: ExperimentalFeatures
   framelessWindow: boolean
   hideChangelogsOnStartup: boolean
+  hideWindowOnProtocolLaunch: boolean
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
   maxWorkers: number
@@ -204,6 +205,7 @@ export interface GameInfo {
   canRunOffline: boolean
   thirdPartyManagedApp?: string
   isEAManaged?: boolean
+  isUbisoftManaged?: boolean
   is_mac_native?: boolean
   is_linux_native?: boolean
   browserUrl?: string
@@ -213,6 +215,11 @@ export interface GameInfo {
   dlcList?: GameMetadataInner[]
   customUserAgent?: string
   launchFullScreen?: boolean
+  overrides?: {
+    title?: string
+    art_cover?: string
+    art_square?: string
+  }
 }
 
 export interface GameSettings {
@@ -752,6 +759,7 @@ export type Type =
   | 'Wine-Crossover'
   | 'Wine-Staging-macOS'
   | 'Game-Porting-Toolkit'
+  | 'Proton-CachyOS'
 
 /**
  * Interface contains information about a version
@@ -777,13 +785,13 @@ export interface VersionInfo {
  * Enum for the supported repositorys
  */
 export enum Repositorys {
-  WINEGE,
   PROTONGE,
   PROTON,
   WINELUTRIS,
   WINECROSSOVER,
   WINESTAGINGMACOS,
-  GPTK
+  GPTK,
+  PROTONCACHYOS
 }
 
 export type WineManagerStatus =
@@ -866,6 +874,7 @@ export type ReleasesInfo = Record<
   | 'ge-proton'
   | 'wine-ge'
   | 'game-porting-toolkit'
+  | 'proton-cachyos'
   | 'wine-staging'
   | 'wine-crossover'
   | 'dxvk'

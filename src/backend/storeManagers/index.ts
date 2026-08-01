@@ -1,44 +1,22 @@
-import * as SideloadGameManager from 'backend/storeManagers/sideload/games'
-import * as GOGGameManager from 'backend/storeManagers/gog/games'
-import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
-import * as NileGameManager from 'backend/storeManagers/nile/games'
-import * as ZoomGameManager from 'backend/storeManagers/zoom/games'
-
-import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
-import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
-import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
-import * as NileLibraryManager from 'backend/storeManagers/nile/library'
-import * as ZoomLibraryManager from 'backend/storeManagers/zoom/library'
-import { GameManager, LibraryManager } from 'common/types/game_manager'
+import SideloadLibraryManager from 'backend/storeManagers/sideload/library'
+import GOGLibraryManager from 'backend/storeManagers/gog/library'
+import LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
+import NileLibraryManager from 'backend/storeManagers/nile/library'
+import ZoomLibraryManager from 'backend/storeManagers/zoom/library'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
-
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
-import { DMQueueElement, GameInfo, Runner } from 'common/types'
-import { GlobalConfig } from 'backend/config'
-type GameManagerMap = {
-  [key in Runner]: GameManager
-}
 
-export const gameManagerMap: GameManagerMap = {
-  sideload: SideloadGameManager,
-  gog: GOGGameManager,
-  legendary: LegendaryGameManager,
-  nile: NileGameManager,
-  zoom: ZoomGameManager
-}
+import type { DMQueueElement, GameInfo, Runner } from 'common/types'
+import type { LibraryManager } from 'common/types/game_manager'
 
-type LibraryManagerMap = {
-  [key in Runner]: LibraryManager
-}
-
-export const libraryManagerMap: LibraryManagerMap = {
-  sideload: SideloadLibraryManager,
-  gog: GOGLibraryManager,
-  legendary: LegendaryLibraryManager,
-  nile: NileLibraryManager,
-  zoom: ZoomLibraryManager
-}
+export const libraryManagerMap = {
+  sideload: new SideloadLibraryManager(),
+  gog: new GOGLibraryManager(),
+  legendary: new LegendaryLibraryManager(),
+  nile: new NileLibraryManager(),
+  zoom: new ZoomLibraryManager()
+} satisfies Record<Runner, LibraryManager>
 
 function getDMElement(gameInfo: GameInfo, appName: string) {
   const {
@@ -64,11 +42,10 @@ function getDMElement(gameInfo: GameInfo, appName: string) {
 export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   const logPrefix = RunnerToLogPrefixMap[runner]
   gamesToUpdate.forEach(async (appName) => {
-    const { ignoreGameUpdates } =
-      await gameManagerMap[runner].getSettings(appName)
-    const gameInfo = gameManagerMap[runner].getGameInfo(appName)
-    const gameIsAvailable =
-      await gameManagerMap[runner].isGameAvailable(appName)
+    const game = libraryManagerMap[runner].getGame(appName)
+    const { ignoreGameUpdates } = await game.getSettings()
+    const gameInfo = game.getGameInfo()
+    const gameIsAvailable = await game.isGameAvailable()
     if (!ignoreGameUpdates && gameIsAvailable) {
       logInfo(`Auto-Updating ${gameInfo.title}`, logPrefix)
       const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
@@ -83,9 +60,7 @@ export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
 }
 
 export async function initStoreManagers() {
-  await LegendaryLibraryManager.initLegendaryLibraryManager()
-  await GOGLibraryManager.initGOGLibraryManager()
-  await NileLibraryManager.initNileLibraryManager()
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
-    await ZoomLibraryManager.initZoomLibraryManager()
+  return Promise.all(
+    Object.values(libraryManagerMap).map((manager) => manager.init())
+  )
 }

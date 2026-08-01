@@ -5,7 +5,10 @@ import type { GetLogFileArgs } from 'backend/logger/paths'
 import type { GameInfo } from 'common/types'
 import type { GameSettingsModalType } from '../screens/Settings/components/SettingsModal'
 import { notify } from 'frontend/helpers'
+import { gameOverridesStore } from 'frontend/helpers/electronStores'
 import { t } from 'i18next'
+
+type GameOverride = NonNullable<GameInfo['overrides']>
 
 interface GlobalStateV2 {
   uploadLogFileProps:
@@ -32,6 +35,9 @@ interface GlobalStateV2 {
 
   refreshingWineVersions: boolean
   refreshWineVersions: (fetch: boolean) => void
+
+  gameOverrides: Record<string, GameOverride>
+  setGameOverrides: (overrides: Record<string, GameOverride>) => void
 }
 
 const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
@@ -73,6 +79,9 @@ const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
   },
 
   showUploadedLogFileList: false,
+
+  gameOverrides: gameOverridesStore.get('overrides', {}),
+  setGameOverrides: (gameOverrides) => set({ gameOverrides }),
 
   refreshingWineVersions: false,
   refreshWineVersions: (fetch) => {
@@ -131,5 +140,6 @@ const useGlobalStateKeys = <Keys extends (keyof GlobalStateV2)[]>(
 export default {
   ...useGlobalState,
   keys: useGlobalStateKeys,
-  setState: useGlobalStateRaw.setState
+  setState: useGlobalStateRaw.setState,
+  getState: useGlobalStateRaw.getState
 }

@@ -65,7 +65,8 @@ export default function LibrarySearchBar() {
 
   const suggestions = list.map((game) => (
     <li onClick={() => handleClick(game)} key={game.app_name}>
-      {game.title} <span>({RUNNER_TO_STORE[game.runner] || game.runner})</span>
+      {game.overrides?.title || game.title}{' '}
+      <span>({RUNNER_TO_STORE[game.runner] || game.runner})</span>
     </li>
   ))
 

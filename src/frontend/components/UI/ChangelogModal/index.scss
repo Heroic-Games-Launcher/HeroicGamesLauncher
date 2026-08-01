@@ -3,4 +3,13 @@
     color: var(--accent);
     font-weight: 700;
   }
+
+  img,
+  video {
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin: 1rem auto;
+    border-radius: 4px;
+  }
 }

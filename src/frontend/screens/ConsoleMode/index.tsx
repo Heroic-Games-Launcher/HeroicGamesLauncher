@@ -13,35 +13,47 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { launch, sendKill } from 'frontend/helpers'
-import { getImageFormatting } from '../Library/components/GameCard/constants'
-import { CachedImage } from 'frontend/components/UI'
-import fallBackImage from 'frontend/assets/heroic_card.jpg'
+import { sendKill, updateGame } from 'frontend/helpers'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
+import ConfirmDialog from './components/ConfirmDialog'
+import ConsoleCard from './components/ConsoleCard'
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
-import UpdateNotice from './components/UpdateNotice'
+import InstallOverlay from './InstallOverlay'
 import {
-  BTN_BACK,
   BTN_L1,
   BTN_R1,
   BTN_R2,
+  getActionButtonLabel,
   getBackButtonLabel
 } from './controller'
-import {
-  useCancelOnHold,
-  useColumnCount,
-  useGamepadButtonHold,
-  useGamepadButtonPress,
-  useGamepadInfo
-} from './hooks'
+import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
+import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
 
-const CANCEL_HOLD_MS = 3000
-
 type StoreKey = Runner | 'all'
+
+const CANCEL_DOWNLOAD_COPY = {
+  update: {
+    title: (t: TFunction) => t('console.cancelUpdate.title', 'Cancel update?'),
+    message: (t: TFunction) =>
+      t(
+        'console.cancelUpdate.message',
+        'This game is currently downloading. Cancel the ongoing update?'
+      )
+  },
+  install: {
+    title: (t: TFunction) =>
+      t('console.cancelInstall.title', 'Cancel installation?'),
+    message: (t: TFunction) =>
+      t(
+        'console.cancelInstall.message',
+        'This game is currently installing. Cancel the installation?'
+      )
+  }
+} as const
 
 export default function ConsoleMode() {
   const { t } = useTranslation()
@@ -51,8 +63,8 @@ export default function ConsoleMode() {
     gog,
     amazon,
     zoom,
+    libraryStatus,
     sideloadedLibrary,
-    showDialogModal,
     refreshLibrary,
     refreshing,
     gameUpdates
@@ -60,15 +72,25 @@ export default function ConsoleMode() {
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [ascending, setAscending] = useState(true)
+  const [filteringByInstalled, setFilteringByInstalled] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
+  const [installingGame, setInstallingGame] = useState<GameInfo | null>(null)
   const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
+    null
+  )
+  const [cancelDownloadGame, setCancelDownloadGame] = useState<{
+    game: GameInfo
+    kind: 'install' | 'update'
+  } | null>(null)
+  const [queuedNoticeGame, setQueuedNoticeGame] = useState<GameInfo | null>(
     null
   )
 
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
   const backButtonLabel = getBackButtonLabel(controllerLayout)
+  const actionButtonLabel = getActionButtonLabel(controllerLayout)
 
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([])
   const gridRef = useRef<HTMLDivElement | null>(null)
@@ -91,7 +113,7 @@ export default function ConsoleMode() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const installedGames = useMemo<GameInfo[]>(() => {
+  const allGames = useMemo<GameInfo[]>(() => {
     const all: GameInfo[] = [
       ...epic.library,
       ...gog.library,
@@ -99,9 +121,7 @@ export default function ConsoleMode() {
       ...zoom.library,
       ...sideloadedLibrary
     ]
-    return all.filter(
-      (g) => g?.is_installed && !g.install?.is_dlc && !g.thirdPartyManagedApp
-    )
+    return all.filter((g) => !g.install?.is_dlc && !g.thirdPartyManagedApp)
   }, [
     epic.library,
     gog.library,
@@ -111,21 +131,30 @@ export default function ConsoleMode() {
   ])
 
   const visibleGames = useMemo(() => {
-    let list = installedGames
-    if (activeStore !== 'all') {
-      list = list.filter((g) => g.runner === activeStore)
+    // reset card refs to rebuild them
+    cardRefs.current = []
+
+    let filteredGames = allGames
+
+    if (filteringByInstalled) {
+      filteredGames = filteredGames.filter((g) => g.is_installed)
     }
-    return [...list].sort((a, b) => {
+
+    if (activeStore !== 'all') {
+      filteredGames = filteredGames.filter((g) => g.runner === activeStore)
+    }
+
+    return filteredGames.sort((a, b) => {
       const cmp = a.title.localeCompare(b.title)
       return ascending ? cmp : -cmp
     })
-  }, [installedGames, activeStore, ascending])
+  }, [allGames, filteringByInstalled, activeStore, ascending])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<Runner>()
-    for (const g of installedGames) set.add(g.runner)
+    for (const g of allGames) set.add(g.runner)
     return set
-  }, [installedGames])
+  }, [allGames])
 
   const storeFilters = useMemo<
     { key: StoreKey; label: string; enabled: boolean }[]
@@ -134,7 +163,7 @@ export default function ConsoleMode() {
       {
         key: 'all',
         label: t('console.filter.all', 'All'),
-        enabled: installedGames.length > 0
+        enabled: allGames.length > 0
       },
       {
         key: 'legendary',
@@ -150,7 +179,7 @@ export default function ConsoleMode() {
       },
       { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') }
     ],
-    [t, storesWithGames, installedGames.length]
+    [t, storesWithGames, allGames.length]
   )
 
   const enabledStoreKeys = useMemo(
@@ -167,8 +196,11 @@ export default function ConsoleMode() {
   const columns = useColumnCount(cardRefs, visibleGames.length)
 
   useEffect(() => {
-    if (focusedIndex >= visibleGames.length) {
-      setFocusedIndex(Math.max(0, visibleGames.length - 1))
+    // always make sane focused index
+    if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
+      setFocusedIndex(
+        Math.max(0, Math.min(focusedIndex, visibleGames.length - 1))
+      )
     }
   }, [visibleGames.length, focusedIndex])
 
@@ -194,42 +226,90 @@ export default function ConsoleMode() {
 
   const quit = useCallback(() => navigate('/'), [navigate])
 
-  const launchGame = useCallback(
-    async (game: GameInfo) => {
-      if (launchingGame || updateNoticeGame) return
+  const idle =
+    !launchingGame &&
+    !installingGame &&
+    !updateNoticeGame &&
+    !cancelDownloadGame &&
+    !queuedNoticeGame
+
+  const activateGame = useCallback(
+    (game: GameInfo) => {
+      if (!idle) return
+      const status = libraryStatus.find(
+        (g) => g.appName === game.app_name
+      )?.status
+      if (status === 'queued') {
+        setQueuedNoticeGame(game)
+        return
+      }
+      if (status === 'installing') {
+        setCancelDownloadGame({ game, kind: 'install' })
+        return
+      }
+      if (status === 'updating') {
+        setCancelDownloadGame({ game, kind: 'update' })
+        return
+      }
+      if (!game.is_installed) {
+        setInstallingGame(game)
+        return
+      }
       if (gameUpdates.includes(game.app_name)) {
         setUpdateNoticeGame(game)
         return
       }
       setLaunchingGame(game)
-      try {
-        await launch({
-          appName: game.app_name,
-          t,
-          runner: game.runner as Runner,
-          hasUpdate: false,
-          showDialogModal
-        })
-      } finally {
-        setLaunchingGame(null)
-      }
     },
-    [launchingGame, updateNoticeGame, gameUpdates, showDialogModal, t]
+    [idle, libraryStatus, gameUpdates]
   )
 
-  // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
-  // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
-  const { holdStart, startHold, stopHold } = useCancelOnHold({
-    active: !!launchingGame,
-    holdMs: CANCEL_HOLD_MS,
-    onCancel: () => {
-      if (launchingGame)
-        void sendKill(launchingGame.app_name, launchingGame.runner)
+  const handleUpdateFromNotice = useCallback(() => {
+    if (!updateNoticeGame) return
+    const game = updateNoticeGame
+    setUpdateNoticeGame(null)
+    if (game.runner !== 'sideload') {
+      void updateGame({
+        appName: game.app_name,
+        runner: game.runner as Runner,
+        gameInfo: game
+      })
     }
-  })
+  }, [updateNoticeGame])
+
+  const handleLaunchWithoutUpdate = useCallback(() => {
+    if (!updateNoticeGame) return
+    const game = updateNoticeGame
+    setUpdateNoticeGame(null)
+    setLaunchingGame(game)
+  }, [updateNoticeGame])
+
+  const dismissUpdateNotice = useCallback(() => setUpdateNoticeGame(null), [])
+
+  const handleCancelDownload = useCallback(() => {
+    if (!cancelDownloadGame) return
+    const { game } = cancelDownloadGame
+    setCancelDownloadGame(null)
+    void sendKill(game.app_name, game.runner)
+  }, [cancelDownloadGame])
+
+  const dismissCancelDownload = useCallback(
+    () => setCancelDownloadGame(null),
+    []
+  )
+
+  const handleRemoveFromQueue = useCallback(() => {
+    if (!queuedNoticeGame) return
+    const game = queuedNoticeGame
+    setQueuedNoticeGame(null)
+    window.localStorage.removeItem(game.app_name)
+    void window.api.removeFromDMQueue(game.app_name)
+  }, [queuedNoticeGame])
+
+  const dismissQueuedNotice = useCallback(() => setQueuedNoticeGame(null), [])
 
   const onTopBarKeyDown = (e: React.KeyboardEvent) => {
-    if (launchingGame || updateNoticeGame) return
+    if (!idle) return
     const root = topBarRef.current
     if (!root) return
 
@@ -255,8 +335,9 @@ export default function ConsoleMode() {
   }
 
   const onGridKeyDown = (e: React.KeyboardEvent) => {
-    if (visibleGames.length === 0 || launchingGame || updateNoticeGame) return
+    if (visibleGames.length === 0 || !idle) return
     const last = visibleGames.length - 1
+
     if (e.key === 'ArrowRight') {
       e.preventDefault()
       e.stopPropagation()
@@ -283,28 +364,22 @@ export default function ConsoleMode() {
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       const g = visibleGames[focusedIndex]
-      if (g) void launchGame(g)
+      if (g) activateGame(g)
     }
   }
 
-  // Escape quits when idle; hold it while launching to cancel.
+  // Esc quits when idle. While a game is launching or a dialog is open,
+  // the overlay/dialog handles Esc itself.
   useEffect(() => {
+    if (!idle) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       e.preventDefault()
-      if (!launchingGame) quit()
-      else if (!e.repeat) startHold()
-    }
-    const onKeyUp = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') stopHold()
+      quit()
     }
     window.addEventListener('keydown', onKeyDown)
-    window.addEventListener('keyup', onKeyUp)
-    return () => {
-      window.removeEventListener('keydown', onKeyDown)
-      window.removeEventListener('keyup', onKeyUp)
-    }
-  }, [quit, launchingGame, startHold, stopHold])
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [quit, idle])
 
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
@@ -313,17 +388,11 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const idle = !launchingGame && !updateNoticeGame
   const toggleSort = useCallback(() => setAscending((v) => !v), [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
   useGamepadButtonPress(BTN_R2, toggleSort, idle)
-  useGamepadButtonHold(
-    BTN_BACK,
-    (held) => (held ? startHold() : stopHold()),
-    !!launchingGame
-  )
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -334,6 +403,16 @@ export default function ConsoleMode() {
       >
         <HeroicIcon className="consoleLogo" />
         <div className="consoleFilters">
+          <button
+            key={'installedGames'}
+            className={classNames('consoleChip', {
+              active: filteringByInstalled
+            })}
+            onClick={() => setFilteringByInstalled(!filteringByInstalled)}
+          >
+            {t('status.installed', 'Installed')}
+          </button>
+          <div className="consoleDividerVertical" />
           {storeFilters
             .filter((f) => f.enabled)
             .map((f) => (
@@ -404,38 +483,22 @@ export default function ConsoleMode() {
             <div className="consoleGrid">
               {visibleGames.map((game, i) => {
                 const isFocused = i === focusedIndex
-                const needsUpdate = gameUpdates.includes(game.app_name)
                 return (
-                  <button
+                  <ConsoleCard
                     key={`${game.runner}-${game.app_name}`}
                     ref={(el) => {
                       cardRefs.current[i] = el
                     }}
-                    className={classNames('consoleCard', {
-                      focused: isFocused
-                    })}
-                    tabIndex={isFocused ? 0 : -1}
+                    game={game}
+                    focused={isFocused}
+                    needsUpdate={gameUpdates.includes(game.app_name)}
                     onClick={() => {
-                      if (isFocused) void launchGame(game)
+                      if (isFocused) activateGame(game)
                       else setFocusedIndex(i)
                     }}
                     onMouseEnter={() => setFocusedIndex(i)}
                     onFocus={() => setFocusedIndex(i)}
-                  >
-                    <CachedImage
-                      src={
-                        getImageFormatting(game.art_square, game.runner) ||
-                        fallBackImage
-                      }
-                      alt={game.title}
-                      className="consoleCardArt"
-                    />
-                    {needsUpdate && (
-                      <span className="consoleCardBadge">
-                        {t('console.card.needsUpdate', 'Needs update')}
-                      </span>
-                    )}
-                  </button>
+                  />
                 )
               })}
             </div>
@@ -452,18 +515,64 @@ export default function ConsoleMode() {
       {launchingGame && (
         <LaunchOverlay
           game={launchingGame}
-          holdStart={holdStart}
-          gamepadConnected={gamepadConnected}
-          backButtonLabel={backButtonLabel}
+          onDismiss={() => setLaunchingGame(null)}
+        />
+      )}
+
+      {installingGame && (
+        <InstallOverlay
+          game={installingGame}
+          onDismiss={() => setInstallingGame(null)}
         />
       )}
 
       {updateNoticeGame && (
-        <UpdateNotice
-          game={updateNoticeGame}
-          onDismiss={() => setUpdateNoticeGame(null)}
+        <ConfirmDialog
+          title={t('gamepage:box.update.title')}
+          message={t('gamepage:box.update.message')}
+          gameTitle={updateNoticeGame.title}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
+          dismissLabel={t('button.cancel', 'Cancel')}
+          onConfirm={handleUpdateFromNotice}
+          onCancel={handleLaunchWithoutUpdate}
+          onDismiss={dismissUpdateNotice}
           gamepadConnected={gamepadConnected}
           backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
+        />
+      )}
+
+      {cancelDownloadGame && (
+        <ConfirmDialog
+          title={CANCEL_DOWNLOAD_COPY[cancelDownloadGame.kind].title(t)}
+          message={CANCEL_DOWNLOAD_COPY[cancelDownloadGame.kind].message(t)}
+          gameTitle={cancelDownloadGame.game.title}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
+          onConfirm={handleCancelDownload}
+          onCancel={dismissCancelDownload}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
+        />
+      )}
+
+      {queuedNoticeGame && (
+        <ConfirmDialog
+          title={t('gamepage:button.queue.remove')}
+          message={t(
+            'console.removeFromQueue.message',
+            'This game is queued for download. Remove it from the queue?'
+          )}
+          gameTitle={queuedNoticeGame.title}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
+          onConfirm={handleRemoveFromQueue}
+          onCancel={dismissQueuedNotice}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
         />
       )}
     </div>

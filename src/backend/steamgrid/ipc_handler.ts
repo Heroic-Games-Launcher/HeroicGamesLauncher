@@ -73,3 +73,26 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
     throw error
   }
 })
+
+addHandler('steamgriddb.getHeroes', async (event, args) => {
+  const apiKey = getDecryptedApiKey()
+  if (!apiKey) {
+    return []
+  }
+
+  try {
+    const results = await SteamGridDB.getHeroes(apiKey, {
+      gameId: args.gameId,
+      dimensions: args.dimensions,
+      styles: args.styles
+    })
+    return results.map((grid) => ({
+      id: grid.id,
+      url: grid.url,
+      thumb: grid.thumb
+    }))
+  } catch (error) {
+    logError([`SteamGridDB getHeroes failed:`, error], LogPrefix.Backend)
+    throw error
+  }
+})

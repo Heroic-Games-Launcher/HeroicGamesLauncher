@@ -385,7 +385,8 @@
         "installing": "მიმდინარეობს დაყენება",
         "preparing_login": "",
         "logging": "",
-        "processing": ""
+        "processing": "",
+        "installed": "დაყენებულია"
     },
     "dlc": {
         "size": "ზომა",
@@ -696,8 +697,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "განახლება",
+            "settings": "პარამეტრები",
             "no-results": ""
         },
         "notes": "",
@@ -1047,14 +1048,13 @@
             "component": ""
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "დაყენება",
+        "uninstall": "წაშლა"
     },
     "search": "",
     "store": "",
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1171,23 +1171,26 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "გასვლა",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "ეშვება",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
+            "sideload": "სხვა",
             "all": ""
         },
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "wineLoading": "იტვირთება"
+        }
     },
-    "next": "",
+    "next": "შემდეგი",
     "sidebar": {
         "console": ""
     }

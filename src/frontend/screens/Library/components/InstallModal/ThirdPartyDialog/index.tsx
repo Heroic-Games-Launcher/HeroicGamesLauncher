@@ -88,7 +88,7 @@ export default function ThirdPartyDialog({
   return (
     <>
       <DialogHeader onClose={backdropClick}>
-        {gameInfo.title}
+        {gameInfo.overrides?.title || gameInfo.title}
         {availablePlatforms.map((p) => (
           <FontAwesomeIcon
             className="InstallModal__platformIcon"
