@@ -18,7 +18,8 @@ let tmpSteamUserConfigDir = ''
 
 function makeGameMock(title: string = 'MyGame', id: string = 'Game'): Game {
   return {
-    getGameInfo: () => ({ title, app_name: id })
+    getGameInfo: () => ({ title, app_name: id }),
+    getSettings: async () => ({ autoSyncSaves: true})
   } as Game
 }
 
