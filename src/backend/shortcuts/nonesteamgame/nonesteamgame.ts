@@ -296,7 +296,8 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
 
     const { runner, app_name } = gameInfo
 
-    await game.getSettings()
+    await game
+      .getSettings()
       .then((settings) => {
         if (settings?.autoSyncSaves) {
           args.push('--download')
@@ -305,7 +306,10 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
       })
       .catch((error) =>
         logWarning(
-          [`Couldn't retrieve game settings for ${gameInfo.title} with:`, error],
+          [
+            `Couldn't retrieve game settings for ${gameInfo.title} with:`,
+            error
+          ],
           LogPrefix.Shortcuts
         )
       )
