@@ -1,5 +1,12 @@
 import AdmZip from 'adm-zip'
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs'
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync
+} from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
 
@@ -251,5 +258,39 @@ describe('applyHeroicBackup patch semantics', () => {
     ]
     expect(key).toBe('lastSnapshot')
     expect(typeof value.archivePath).toBe('string')
+  })
+
+  it('rejects zip entries that traverse outside the destination (zip-slip)', async () => {
+    const src = join(tmpRoot, 'zipslip.zip')
+    const zip = new AdmZip()
+    addJson(zip, BACKUP_PATHS.manifest, {
+      ...manifest,
+      stages: ['globalSettings', 'perGameSettings']
+    })
+    const evil = Buffer.from('{"owned": true}', 'utf-8')
+    zip.addFile(
+      `${BACKUP_PATHS.globalSettings.fixesDir}../../evil-fix.json`,
+      evil
+    )
+    zip.addFile(`${BACKUP_PATHS.perGameSettings.dir}../evil-game.json`, evil)
+    zip.writeZip(src)
+
+    const result = await applyHeroicBackup({
+      sourcePath: src,
+      stages: ['globalSettings', 'perGameSettings'],
+      overwriteGlobalSettings: true,
+      includedAppNames: [],
+      includedCredentials: {},
+      perGameOverrides: [],
+      includedWineVersions: []
+    })
+
+    expect(result.ok).toBe(true)
+    expect(existsSync(join(appFolder, 'evil-fix.json'))).toBe(false)
+    expect(existsSync(join(tmpRoot, 'evil-fix.json'))).toBe(false)
+    expect(existsSync(join(appFolder, 'evil-game.json'))).toBe(false)
+    expect(
+      existsSync(join(appFolder, 'GamesConfig', '..', 'evil-game.json'))
+    ).toBe(false)
   })
 })

@@ -7,7 +7,7 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { app } from 'electron'
-import { join } from 'path'
+import { isAbsolute, join, normalize } from 'path'
 
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { sendFrontendMessage } from 'backend/ipc'
@@ -63,13 +63,29 @@ function dirOf(path: string): string {
   return idx >= 0 ? path.slice(0, idx) : path
 }
 
+// Entry names come from an untrusted archive; reject anything that would
+// escape the destination directory (zip-slip).
+function safeZipRel(rel: string): string | null {
+  if (!rel || rel.includes('\0')) return null
+  const normalized = normalize(rel)
+  if (isAbsolute(normalized)) return null
+  if (
+    normalized === '..' ||
+    normalized.startsWith('../') ||
+    normalized.startsWith('..\\')
+  ) {
+    return null
+  }
+  return normalized
+}
+
 function writeFolder(zip: AdmZip, zipPrefix: string, destDir: string): number {
   ensureDir(destDir)
   let written = 0
   for (const entry of zip.getEntries()) {
     if (!entry.entryName.startsWith(zipPrefix)) continue
     if (entry.isDirectory) continue
-    const rel = entry.entryName.slice(zipPrefix.length)
+    const rel = safeZipRel(entry.entryName.slice(zipPrefix.length))
     if (!rel) continue
     const dest = join(destDir, rel)
     ensureDir(dirOf(dest))
@@ -234,6 +250,8 @@ function applyPerGameSettings(
     if (entry.isDirectory) continue
     const rel = entry.entryName.slice(BACKUP_PATHS.perGameSettings.dir.length)
     if (!rel.endsWith('.json')) continue
+    // Per-game settings are flat files; nested or traversal names are hostile
+    if (rel.includes('/') || rel.includes('\\')) continue
     const appName = rel.slice(0, -'.json'.length)
     if (
       options.includedAppNames.length > 0 &&
