@@ -1,6 +1,7 @@
 import {
   ArrowBackOutlined,
   ArrowForwardRounded,
+  HomeOutlined,
   OpenInBrowser,
   Replay
 } from '@mui/icons-material'
@@ -59,7 +60,7 @@ export default function WebviewControls({
   }, [webview])
 
   const handleButtons = useCallback(
-    (event: 'reload' | 'back' | 'forward') => {
+    (event: 'reload' | 'back' | 'forward' | 'home') => {
       try {
         if (event === 'reload') {
           return webview?.reload()
@@ -74,11 +75,14 @@ export default function WebviewControls({
         if (event === 'forward') {
           return webview?.goForward()
         }
+        if (event === 'home') {
+          return webview?.loadURL(initURL)
+        }
       } catch (error) {
         console.error(error)
       }
     },
-    [webview, webviewGoBack]
+    [webview, webviewGoBack, initURL]
   )
 
   return (
@@ -105,6 +109,13 @@ export default function WebviewControls({
           onClick={() => handleButtons('reload')}
         >
           <Replay />
+        </SvgButton>
+        <SvgButton
+          className="WebviewControls__icon"
+          title={t('webview.controls.home')}
+          onClick={() => handleButtons('home')}
+        >
+          <HomeOutlined />
         </SvgButton>
       </div>
       <span className="WebviewControls__url">
