@@ -73,7 +73,8 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     .replace('{ext}', 'jpg')
   let icon = `${iconsFolder}/${appName}.jpg`
 
-  if (gameInfo.runner === 'gog') {
+  // Only fall back to GOG icons when the user hasn't picked a custom one
+  if (gameInfo.runner === 'gog' && !customArt) {
     const icoPath = join(
       gameInfo.install.install_path!,
       `goggame-${appName}.ico`

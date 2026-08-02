@@ -10,7 +10,7 @@ import {
   writeFile,
   writeFileSync
 } from 'graceful-fs'
-import { IconIcns } from '@shockpkg/icon-encoder'
+import { IconIcns, IconIco } from '@shockpkg/icon-encoder'
 import { join } from 'path'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { GlobalConfig } from '../../config'
@@ -20,7 +20,11 @@ import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
 import sanitize from 'sanitize-filename'
 import { libraryManagerMap } from 'backend/storeManagers'
 import { isMac } from 'backend/constants/environment'
-import { userHome } from 'backend/constants/paths'
+import {
+  userHome,
+  heroicIconFolder as iconsFolder
+} from 'backend/constants/paths'
+import { getGameOverrides } from 'backend/game_overrides'
 import type { Game } from 'common/types/game_manager'
 
 /**
@@ -83,7 +87,17 @@ Categories=Game;
       if (gameInfo.runner === 'gog') {
         executable = libraryManagerMap['gog'].getExecutable(gameInfo.app_name)
       }
-      if (executable) {
+
+      // Prefer the custom user picked cover over the executable's embedded icon
+      const customArt = getGameOverrides(gameInfo.app_name)?.art_square
+      const icoPath = customArt
+        ? await convertPngToICO(gameInfo.app_name, gameInfo, iconsFolder)
+        : undefined
+
+      if (icoPath) {
+        shortcutOptions.icon = icoPath
+        shortcutOptions.iconIndex = 0
+      } else if (executable) {
         let icon: string
         if (
           'install_path' in gameInfo.install &&
@@ -274,6 +288,36 @@ async function convertPngToICNS(
   } catch (error) {
     logError(['Error converting icon to icns:', error], LogPrefix.Backend)
     return false
+  }
+}
+
+async function convertPngToICO(
+  app_name: string,
+  gameInfo: GameInfo,
+  dest: string
+): Promise<string | undefined> {
+  try {
+    const iconPath = await getIcon(app_name, gameInfo)
+    const iconBuffer = readFileSync(iconPath)
+    const pngTemp = join(dest, `${app_name}-shortcut-temp.png`)
+    const resized = nativeImage
+      .createFromBuffer(iconBuffer)
+      .resize({ width: 256 })
+      .crop({ x: 0, y: 0, width: 256, height: 256 })
+      .toPNG()
+
+    writeFileSync(pngTemp, resized)
+
+    const icoPath = join(dest, `${app_name}-shortcut.ico`)
+    const ico = new IconIco()
+    ico.addFromPng(readFileSync(pngTemp), null, false)
+    writeFileSync(icoPath, ico.encode())
+    unlinkSync(pngTemp)
+
+    return icoPath
+  } catch (error) {
+    logError(['Error converting icon to ico:', error], LogPrefix.Backend)
+    return undefined
   }
 }
 
