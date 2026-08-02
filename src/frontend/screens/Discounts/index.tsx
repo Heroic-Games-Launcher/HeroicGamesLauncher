@@ -7,7 +7,8 @@ import type {
   CatalogFeature,
   CatalogGenre,
   CatalogProduct,
-  DiscountStore
+  DiscountStore,
+  GogDealsRegion
 } from 'common/types/discounts'
 import DiscountCard from './components/DiscountCard'
 import DiscountFilters from './components/DiscountFilters'
@@ -48,9 +49,26 @@ export default function Discounts() {
   const [regionOverride, setRegionOverride] = useState<string | null>(() =>
     getStoredRegionOverride()
   )
+  const [gogRegion, setGogRegion] = useState<GogDealsRegion | null | undefined>(
+    undefined
+  )
+
+  useEffect(() => {
+    let cancelled = false
+    void window.api
+      .getGogDealsRegion()
+      .catch(() => null)
+      .then((region) => {
+        if (!cancelled) setGogRegion(region)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   const localeSettings = useMemo(
-    () => getLocaleSettings(i18n.language, regionOverride),
-    [i18n.language, regionOverride]
+    () => getLocaleSettings(i18n.language, regionOverride, gogRegion),
+    [i18n.language, regionOverride, gogRegion]
   )
   const [gmgCurrencyOverride, setGmgCurrencyOverride] = useState<string | null>(
     () => getStoredGmgCurrency()
@@ -189,6 +207,8 @@ export default function Discounts() {
   ])
 
   useEffect(() => {
+    if (gogRegion === undefined) return
+
     let cancelled = false
 
     const load = async () => {
@@ -241,7 +261,7 @@ export default function Discounts() {
     return () => {
       cancelled = true
     }
-  }, [localeSettings, gmgCurrency, hideOwned, wishlistOnly, t])
+  }, [gogRegion, localeSettings, gmgCurrency, hideOwned, wishlistOnly, t])
 
   // Filter options and bounds derive from the active tab's products.
   const tabProducts = useMemo(

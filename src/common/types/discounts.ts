@@ -54,3 +54,8 @@ export interface CatalogLocaleSettings {
   locale: string
   currencyCode: string
 }
+
+export interface GogDealsRegion {
+  countryCode: string
+  currencyCode: string
+}
