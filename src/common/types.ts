@@ -602,6 +602,8 @@ interface GamepadActionArgsWithoutMetadata {
     | 'mainAction'
     | 'back'
     | 'altAction'
+    | 'prevPage'
+    | 'nextPage'
     | 'esc'
     | 'tab'
     | 'shiftTab'

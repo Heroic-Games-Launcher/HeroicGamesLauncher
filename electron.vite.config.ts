@@ -21,8 +21,8 @@ export default defineConfig(({ mode }) => ({
         input: 'src/backend/main.ts'
       },
       outDir: 'build/main',
-      minify: true,
-      sourcemap: mode === 'development' ? 'inline' : false
+      minify: false,
+      sourcemap: 'inline'
     },
     resolve: { alias: srcAliases },
     plugins: [externalizeDepsPlugin({ exclude: dependenciesToNotExternalize })]
@@ -30,7 +30,10 @@ export default defineConfig(({ mode }) => ({
   preload: {
     build: {
       rollupOptions: {
-        input: 'src/preload/index.ts'
+        input: {
+          index: 'src/preload/index.ts',
+          webviewPreload: 'src/webviewPreload/index.ts'
+        }
       },
       outDir: 'build/preload',
       minify: true,
