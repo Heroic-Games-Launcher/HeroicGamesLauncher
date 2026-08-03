@@ -52,7 +52,7 @@ export function checkGameCube(
 // so buttons[0] is the bottom button (labeled B on Switch) and buttons[1] is
 // the right button (labeled A). We swap the face buttons so the A/B and X/Y
 // actions match the Nintendo labels shown in the UI.
-export function checkSwitchPro(
+export function checkNintendo(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
   controllerIndex: number,
