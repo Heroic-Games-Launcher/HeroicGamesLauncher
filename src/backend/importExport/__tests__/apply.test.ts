@@ -68,12 +68,39 @@ jest.mock('backend/wine/manager/utils', () => ({
   removeWineVersion: jest.fn().mockResolvedValue(true)
 }))
 
+const backupFile = (source: string, destInZip: string) => ({
+  source: () => source,
+  destInZip
+})
+const emptyBackupPaths = { credentials: [], libraryCache: [] }
 const mockLegendaryLibrary = {
   getGameInfo: jest.fn(),
-  refresh: jest.fn()
+  refresh: jest.fn(),
+  getBackupPaths: () => ({
+    credentials: [
+      backupFile(
+        join(appFolder, 'legendaryConfig', 'legendary', 'user.json'),
+        'credentials/legendary/user.json'
+      )
+    ],
+    libraryCache: [],
+    installedGames: {
+      ...backupFile(
+        join(appFolder, 'legendaryConfig', 'legendary', 'installed.json'),
+        'libraryCache/legendary/installed.json'
+      ),
+      countGames: () => 0
+    }
+  })
 }
 jest.mock('backend/storeManagers', () => ({
-  libraryManagerMap: { legendary: mockLegendaryLibrary }
+  libraryManagerMap: {
+    legendary: mockLegendaryLibrary,
+    gog: { getBackupPaths: () => emptyBackupPaths },
+    nile: { getBackupPaths: () => emptyBackupPaths },
+    zoom: { getBackupPaths: () => emptyBackupPaths },
+    sideload: { getBackupPaths: () => emptyBackupPaths }
+  }
 }))
 const mockAddToQueue = jest.fn<Promise<void>, [DMQueueElement]>()
 jest.mock('backend/downloadmanager/downloadqueue', () => ({

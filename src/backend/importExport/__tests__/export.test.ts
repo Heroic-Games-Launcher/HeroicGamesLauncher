@@ -52,6 +52,167 @@ jest.mock('backend/constants/key_value_stores', () => ({
   configStore: mockConfigStore
 }))
 
+jest.mock('backend/storeManagers', () => {
+  const { BACKUP_PATHS: dest } =
+    jest.requireActual<typeof import('../constants')>('../constants')
+  const { readFileSync } = jest.requireActual<typeof import('fs')>('fs')
+  const file = (source: string, destInZip: string) => ({
+    source: () => source,
+    destInZip
+  })
+  const readJson = (path: string): unknown => {
+    try {
+      return JSON.parse(readFileSync(path, 'utf-8'))
+    } catch {
+      return null
+    }
+  }
+  const legendaryDir = join(appFolder, 'legendaryConfig', 'legendary')
+  const nileDir = join(appFolder, 'nile_config', 'nile')
+  const cacheDir = join(userData, 'store_cache')
+  return {
+    libraryManagerMap: {
+      legendary: {
+        getBackupPaths: () => ({
+          credentials: [
+            file(
+              join(legendaryDir, 'user.json'),
+              dest.credentials.legendaryUser
+            )
+          ],
+          libraryCache: [
+            file(
+              join(cacheDir, 'legendary_library.json'),
+              dest.libraryCache.legendaryLibrary
+            ),
+            file(
+              join(legendaryDir, 'third-party-installed.json'),
+              dest.libraryCache.legendaryThirdParty
+            ),
+            {
+              ...file(
+                join(legendaryDir, 'metadata'),
+                dest.libraryCache.legendaryMetadataDir
+              ),
+              kind: 'dir'
+            }
+          ],
+          installedGames: {
+            ...file(
+              join(legendaryDir, 'installed.json'),
+              dest.libraryCache.legendaryInstalled
+            ),
+            countGames: () => {
+              const data = readJson(join(legendaryDir, 'installed.json'))
+              return data ? Object.keys(data as object).length : 0
+            }
+          }
+        })
+      },
+      gog: {
+        getBackupPaths: () => ({
+          credentials: [
+            file(
+              join(userData, 'gog_store', 'config.json'),
+              dest.credentials.gogConfig
+            ),
+            file(
+              join(userData, 'gog_store', 'auth.json'),
+              dest.credentials.gogAuth
+            )
+          ],
+          libraryCache: [
+            file(
+              join(cacheDir, 'gog_library.json'),
+              dest.libraryCache.gogLibrary
+            )
+          ],
+          installedGames: {
+            ...file(
+              join(userData, 'gog_store', 'installed.json'),
+              dest.libraryCache.gogInstalled
+            ),
+            countGames: () => {
+              const data = readJson(
+                join(userData, 'gog_store', 'installed.json')
+              ) as { installed?: unknown[] } | null
+              return Array.isArray(data?.installed) ? data.installed.length : 0
+            }
+          }
+        })
+      },
+      nile: {
+        getBackupPaths: () => ({
+          credentials: [
+            file(join(nileDir, 'current_user.json'), dest.credentials.nileUser)
+          ],
+          libraryCache: [
+            file(
+              join(cacheDir, 'nile_library.json'),
+              dest.libraryCache.nileLibrary
+            ),
+            file(
+              join(nileDir, 'library.json'),
+              dest.libraryCache.nileLibraryFile
+            )
+          ],
+          installedGames: {
+            ...file(
+              join(nileDir, 'installed.json'),
+              dest.libraryCache.nileInstalled
+            ),
+            countGames: () => {
+              const data = readJson(join(nileDir, 'installed.json'))
+              return Array.isArray(data) ? data.length : 0
+            }
+          }
+        })
+      },
+      zoom: {
+        getBackupPaths: () => ({
+          credentials: [
+            file(
+              join(userData, 'zoom_store', 'config.json'),
+              dest.credentials.zoomConfig
+            ),
+            {
+              ...file(
+                join(userData, 'zoom_store', '.zoom.token'),
+                dest.credentials.zoomToken
+              ),
+              indicatesLogin: false
+            }
+          ],
+          libraryCache: [
+            file(
+              join(cacheDir, 'zoom_library.json'),
+              dest.libraryCache.zoomLibrary
+            )
+          ]
+        })
+      },
+      sideload: {
+        getBackupPaths: () => ({
+          credentials: [],
+          libraryCache: [],
+          sideloadLibrary: {
+            ...file(
+              join(userData, 'sideload_apps', 'library.json'),
+              dest.sideloadLibrary.library
+            ),
+            countGames: () => {
+              const data = readJson(
+                join(userData, 'sideload_apps', 'library.json')
+              ) as { games?: unknown[] } | null
+              return Array.isArray(data?.games) ? data.games.length : 0
+            }
+          }
+        })
+      }
+    }
+  }
+})
+
 // Import after mocks so paths.ts picks them up
 import { exportHeroicBackup } from '../export'
 import { BACKUP_PATHS } from '../constants'

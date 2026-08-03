@@ -31,6 +31,14 @@ import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { NileUser } from 'backend/storeManagers/nile/user'
 import { configStore as gogConfigStore } from 'backend/storeManagers/gog/electronStores'
 import { configStore as zoomConfigStore } from 'backend/storeManagers/zoom/electronStores'
+import { legendaryInstalled } from 'backend/storeManagers/legendary/constants'
+import { nileInstalled } from 'backend/storeManagers/nile/constants'
+import {
+  gogConfigPath,
+  gogInstalledConfigPath
+} from 'backend/storeManagers/gog/constants'
+import { zoomConfigPath } from 'backend/storeManagers/zoom/constants'
+import { sideloadLibraryPath } from 'backend/storeManagers/sideload/constants'
 import { libraryManagerMap } from 'backend/storeManagers'
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 import {
@@ -326,7 +334,7 @@ function applyCredentials(
   warnings: string[],
   restore = false
 ): HeroicApplyStageResult {
-  const includeRunner = (r: 'legendary' | 'nile' | 'gog' | 'zoom'): boolean =>
+  const includeRunner = (r: Runner): boolean =>
     options.includedCredentials[r] !== false
 
   const credentialOpts: WriteEntryOptions = {
@@ -335,74 +343,14 @@ function applyCredentials(
   }
 
   let wrote = 0
-  if (includeRunner('legendary')) {
-    ensureDir(dirOf(sourcePaths.legendary.user()))
-    if (
-      writeEntry(
-        zip,
-        BACKUP_PATHS.credentials.legendaryUser,
-        sourcePaths.legendary.user(),
-        credentialOpts
-      )
-    )
-      wrote++
-  }
-  if (includeRunner('nile')) {
-    ensureDir(dirOf(sourcePaths.nile.user()))
-    if (
-      writeEntry(
-        zip,
-        BACKUP_PATHS.credentials.nileUser,
-        sourcePaths.nile.user(),
-        credentialOpts
-      )
-    )
-      wrote++
-  }
-  if (includeRunner('gog')) {
-    ensureDir(dirOf(sourcePaths.gog.configFile()))
-    if (
-      writeEntry(
-        zip,
-        BACKUP_PATHS.credentials.gogConfig,
-        sourcePaths.gog.configFile(),
-        credentialOpts
-      )
-    )
-      wrote++
-    // gogdl reads tokens directly from auth.json via `gogdl auth`. Without it,
-    // the restored config.json says isLoggedIn=true but every call fails with
-    // "invalid credentials" because gogdl has no access/refresh token to use.
-    if (
-      writeEntry(
-        zip,
-        BACKUP_PATHS.credentials.gogAuth,
-        sourcePaths.gog.authFile(),
-        credentialOpts
-      )
-    )
-      wrote++
-  }
-  if (includeRunner('zoom')) {
-    ensureDir(dirOf(sourcePaths.zoom.configFile()))
-    if (
-      writeEntry(
-        zip,
-        BACKUP_PATHS.credentials.zoomConfig,
-        sourcePaths.zoom.configFile(),
-        credentialOpts
-      )
-    )
-      wrote++
-    if (
-      writeEntry(
-        zip,
-        BACKUP_PATHS.credentials.zoomToken,
-        sourcePaths.zoom.tokenFile(),
-        credentialOpts
-      )
-    )
-      wrote++
+  for (const runner of Object.keys(libraryManagerMap) as Runner[]) {
+    const { credentials } = libraryManagerMap[runner].getBackupPaths()
+    if (credentials.length === 0 || !includeRunner(runner)) continue
+    for (const file of credentials) {
+      ensureDir(dirOf(file.source()))
+      if (writeEntry(zip, file.destInZip, file.source(), credentialOpts))
+        wrote++
+    }
   }
 
   // Mirror runtime in-memory state so live code sees the restored login
@@ -420,7 +368,7 @@ function applyCredentials(
   if (includeRunner('gog')) {
     syncElectronStoreFromDisk(
       gogConfigStore,
-      sourcePaths.gog.configFile(),
+      gogConfigPath,
       warnings,
       'GOG',
       restore
@@ -429,7 +377,7 @@ function applyCredentials(
   if (includeRunner('zoom')) {
     syncElectronStoreFromDisk(
       zoomConfigStore,
-      sourcePaths.zoom.configFile(),
+      zoomConfigPath,
       warnings,
       'Zoom',
       restore
@@ -549,41 +497,22 @@ function applyLibraryCache(
     Record<string, { install_path?: string; [k: string]: unknown }>
   >(zip, BACKUP_PATHS.libraryCache.legendaryInstalled)
   if (legRaw) {
-    ensureDir(dirOf(sourcePaths.legendary.installed()))
+    ensureDir(dirOf(legendaryInstalled))
     const patched = patchLegendaryInstalled(legRaw, overrides, queuedDownloads)
-    writeFileSync(
-      sourcePaths.legendary.installed(),
-      JSON.stringify(patched, null, 2)
-    )
+    writeFileSync(legendaryInstalled, JSON.stringify(patched, null, 2))
   } else if (restore) {
-    rmSync(sourcePaths.legendary.installed(), { force: true })
+    rmSync(legendaryInstalled, { force: true })
   }
-
-  writeEntry(
-    zip,
-    BACKUP_PATHS.libraryCache.legendaryThirdParty,
-    sourcePaths.legendary.thirdPartyInstalled(),
-    restoreOpts
-  )
-
-  writeFolder(
-    zip,
-    BACKUP_PATHS.libraryCache.legendaryMetadataDir,
-    sourcePaths.legendary.metadataDir()
-  )
 
   const gogRaw = safeJsonFromEntry<{
     installed?: Array<Record<string, unknown>>
   }>(zip, BACKUP_PATHS.libraryCache.gogInstalled)
   if (gogRaw) {
-    ensureDir(dirOf(sourcePaths.gog.installedFile()))
+    ensureDir(dirOf(gogInstalledConfigPath))
     const patched = patchGogInstalled(gogRaw, overrides, queuedDownloads)
-    writeFileSync(
-      sourcePaths.gog.installedFile(),
-      JSON.stringify(patched, null, 2)
-    )
+    writeFileSync(gogInstalledConfigPath, JSON.stringify(patched, null, 2))
   } else if (restore) {
-    rmSync(sourcePaths.gog.installedFile(), { force: true })
+    rmSync(gogInstalledConfigPath, { force: true })
   }
 
   const nileRaw = safeJsonFromEntry<Array<Record<string, unknown>>>(
@@ -591,51 +520,23 @@ function applyLibraryCache(
     BACKUP_PATHS.libraryCache.nileInstalled
   )
   if (nileRaw) {
-    ensureDir(dirOf(sourcePaths.nile.installed()))
+    ensureDir(dirOf(nileInstalled))
     const patched = patchNileInstalled(nileRaw, overrides, queuedDownloads)
-    writeFileSync(
-      sourcePaths.nile.installed(),
-      JSON.stringify(patched, null, 2)
-    )
+    writeFileSync(nileInstalled, JSON.stringify(patched, null, 2))
   } else if (restore) {
-    rmSync(sourcePaths.nile.installed(), { force: true })
+    rmSync(nileInstalled, { force: true })
   }
 
-  writeEntry(
-    zip,
-    BACKUP_PATHS.libraryCache.nileLibraryFile,
-    sourcePaths.nile.library(),
-    restoreOpts
-  )
-
-  // Library caches are verbatim copies — they're just title lookups.
-  ensureDir(
-    sourcePaths.libraryCache.legendary().replace(/legendary_library\.json$/, '')
-  )
-  writeEntry(
-    zip,
-    BACKUP_PATHS.libraryCache.legendaryLibrary,
-    sourcePaths.libraryCache.legendary(),
-    restoreOpts
-  )
-  writeEntry(
-    zip,
-    BACKUP_PATHS.libraryCache.gogLibrary,
-    sourcePaths.libraryCache.gog(),
-    restoreOpts
-  )
-  writeEntry(
-    zip,
-    BACKUP_PATHS.libraryCache.nileLibrary,
-    sourcePaths.libraryCache.nile(),
-    restoreOpts
-  )
-  writeEntry(
-    zip,
-    BACKUP_PATHS.libraryCache.zoomLibrary,
-    sourcePaths.libraryCache.zoom(),
-    restoreOpts
-  )
+  for (const runner of Object.keys(libraryManagerMap) as Runner[]) {
+    const { libraryCache } = libraryManagerMap[runner].getBackupPaths()
+    for (const file of libraryCache) {
+      if (file.kind === 'dir') {
+        writeFolder(zip, file.destInZip, file.source())
+      } else {
+        writeEntry(zip, file.destInZip, file.source(), restoreOpts)
+      }
+    }
+  }
 
   return { stage: 'libraryCache', ok: true }
 }
@@ -655,7 +556,7 @@ function applySideloadLibrary(
     >
   }>(zip, BACKUP_PATHS.sideloadLibrary.library)
   if (!raw) {
-    if (restore) rmSync(sourcePaths.sideload.library(), { force: true })
+    if (restore) rmSync(sideloadLibraryPath, { force: true })
     return { stage: 'sideloadLibrary', ok: true, message: 'Not in backup' }
   }
 
@@ -686,9 +587,9 @@ function applySideloadLibrary(
     }
   }
 
-  ensureDir(dirOf(sourcePaths.sideload.library()))
+  ensureDir(dirOf(sideloadLibraryPath))
   writeFileSync(
-    sourcePaths.sideload.library(),
+    sideloadLibraryPath,
     JSON.stringify({ ...raw, games: patched }, null, 2)
   )
 

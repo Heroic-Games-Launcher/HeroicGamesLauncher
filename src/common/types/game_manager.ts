@@ -63,8 +63,33 @@ export interface Game {
   getAchievements?: (lang: string) => Promise<GOGAchievement[]>
 }
 
+interface BackupFile {
+  source: () => string
+  destInZip: string
+}
+
+interface CredentialBackupFile extends BackupFile {
+  indicatesLogin?: boolean
+}
+
+interface LibraryCacheBackupFile extends BackupFile {
+  kind?: 'file' | 'dir'
+}
+
+interface InstalledGamesBackupFile extends BackupFile {
+  countGames: () => number
+}
+
+export interface RunnerBackupPaths {
+  credentials: CredentialBackupFile[]
+  libraryCache: LibraryCacheBackupFile[]
+  installedGames?: InstalledGamesBackupFile
+  sideloadLibrary?: InstalledGamesBackupFile
+}
+
 export interface LibraryManager {
   init: () => Promise<void>
+  getBackupPaths: () => RunnerBackupPaths
   getGame: (id: string) => Game
   refresh: () => Promise<ExecResult | null>
   getGameInfo: (appName: string, forceReload?: boolean) => GameInfo | undefined

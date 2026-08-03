@@ -4,6 +4,8 @@ import AdmZip from 'adm-zip'
 
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { configStore } from 'backend/constants/key_value_stores'
+import { libraryManagerMap } from 'backend/storeManagers'
+import type { Runner } from 'common/types'
 import type {
   HeroicBackupManifest,
   HeroicBackupPlatform,
@@ -64,32 +66,6 @@ function countJsonFiles(dir: string): number {
   } catch {
     return 0
   }
-}
-
-function countInstalledLegendary(): number {
-  const data = safeParseJson<Record<string, unknown>>(
-    sourcePaths.legendary.installed()
-  )
-  return data ? Object.keys(data).length : 0
-}
-
-function countInstalledGog(): number {
-  const data = safeParseJson<{ installed?: unknown[] }>(
-    sourcePaths.gog.installedFile()
-  )
-  return Array.isArray(data?.installed) ? data.installed.length : 0
-}
-
-function countInstalledNile(): number {
-  const data = safeParseJson<unknown[]>(sourcePaths.nile.installed())
-  return Array.isArray(data) ? data.length : 0
-}
-
-function countSideloadGames(): number {
-  const data = safeParseJson<{ games?: unknown[] }>(
-    sourcePaths.sideload.library()
-  )
-  return Array.isArray(data?.games) ? data.games.length : 0
 }
 
 function countInstalledWineVersions(): number {
@@ -176,117 +152,59 @@ export async function exportHeroicBackup(
       )
     }
 
+    const runners = Object.keys(libraryManagerMap) as Runner[]
+
     if (stages.includes('credentials')) {
-      manifest.counts.credentials.legendary = addFileIfExists(
-        zip,
-        sourcePaths.legendary.user(),
-        BACKUP_PATHS.credentials.legendaryUser
-      )
-      manifest.counts.credentials.nile = addFileIfExists(
-        zip,
-        sourcePaths.nile.user(),
-        BACKUP_PATHS.credentials.nileUser
-      )
-      const gogConfigPresent = addFileIfExists(
-        zip,
-        sourcePaths.gog.configFile(),
-        BACKUP_PATHS.credentials.gogConfig
-      )
-      const gogAuthPresent = addFileIfExists(
-        zip,
-        sourcePaths.gog.authFile(),
-        BACKUP_PATHS.credentials.gogAuth
-      )
-      manifest.counts.credentials.gog = gogConfigPresent || gogAuthPresent
-      const zoomConfigPresent = addFileIfExists(
-        zip,
-        sourcePaths.zoom.configFile(),
-        BACKUP_PATHS.credentials.zoomConfig
-      )
-      addFileIfExists(
-        zip,
-        sourcePaths.zoom.tokenFile(),
-        BACKUP_PATHS.credentials.zoomToken
-      )
-      manifest.counts.credentials.zoom = zoomConfigPresent
+      for (const runner of runners) {
+        const { credentials } = libraryManagerMap[runner].getBackupPaths()
+        if (credentials.length === 0) continue
+        let loggedIn = false
+        for (const file of credentials) {
+          const added = addFileIfExists(zip, file.source(), file.destInZip)
+          if (added && file.indicatesLogin !== false) loggedIn = true
+        }
+        manifest.counts.credentials[runner] = loggedIn
+      }
     }
 
     if (stages.includes('libraryCache')) {
-      addFileIfExists(
-        zip,
-        sourcePaths.libraryCache.legendary(),
-        BACKUP_PATHS.libraryCache.legendaryLibrary
-      )
-      addFileIfExists(
-        zip,
-        sourcePaths.libraryCache.gog(),
-        BACKUP_PATHS.libraryCache.gogLibrary
-      )
-      addFileIfExists(
-        zip,
-        sourcePaths.libraryCache.nile(),
-        BACKUP_PATHS.libraryCache.nileLibrary
-      )
-      addFileIfExists(
-        zip,
-        sourcePaths.libraryCache.zoom(),
-        BACKUP_PATHS.libraryCache.zoomLibrary
-      )
-
-      if (
-        addFileIfExists(
-          zip,
-          sourcePaths.legendary.installed(),
-          BACKUP_PATHS.libraryCache.legendaryInstalled
-        )
-      ) {
-        manifest.counts.installedGames.legendary = countInstalledLegendary()
+      for (const runner of runners) {
+        const { libraryCache, installedGames } =
+          libraryManagerMap[runner].getBackupPaths()
+        for (const file of libraryCache) {
+          if (file.kind === 'dir') {
+            addFolderIfExists(zip, file.source(), file.destInZip)
+          } else {
+            addFileIfExists(zip, file.source(), file.destInZip)
+          }
+        }
+        if (
+          installedGames &&
+          addFileIfExists(
+            zip,
+            installedGames.source(),
+            installedGames.destInZip
+          )
+        ) {
+          manifest.counts.installedGames[runner] = installedGames.countGames()
+        }
       }
-      addFileIfExists(
-        zip,
-        sourcePaths.legendary.thirdPartyInstalled(),
-        BACKUP_PATHS.libraryCache.legendaryThirdParty
-      )
-      addFolderIfExists(
-        zip,
-        sourcePaths.legendary.metadataDir(),
-        BACKUP_PATHS.libraryCache.legendaryMetadataDir
-      )
-      if (
-        addFileIfExists(
-          zip,
-          sourcePaths.gog.installedFile(),
-          BACKUP_PATHS.libraryCache.gogInstalled
-        )
-      ) {
-        manifest.counts.installedGames.gog = countInstalledGog()
-      }
-      if (
-        addFileIfExists(
-          zip,
-          sourcePaths.nile.installed(),
-          BACKUP_PATHS.libraryCache.nileInstalled
-        )
-      ) {
-        manifest.counts.installedGames.nile = countInstalledNile()
-      }
-      addFileIfExists(
-        zip,
-        sourcePaths.nile.library(),
-        BACKUP_PATHS.libraryCache.nileLibraryFile
-      )
     }
 
     if (stages.includes('sideloadLibrary')) {
-      if (
-        addFileIfExists(
-          zip,
-          sourcePaths.sideload.library(),
-          BACKUP_PATHS.sideloadLibrary.library
-        )
-      ) {
-        manifest.counts.sideloadGames = countSideloadGames()
-        manifest.counts.installedGames.sideload = manifest.counts.sideloadGames
+      for (const runner of runners) {
+        const { sideloadLibrary } = libraryManagerMap[runner].getBackupPaths()
+        if (!sideloadLibrary) continue
+        if (
+          addFileIfExists(
+            zip,
+            sideloadLibrary.source(),
+            sideloadLibrary.destInZip
+          )
+        ) {
+          manifest.counts.sideloadGames = sideloadLibrary.countGames()
+          manifest.counts.installedGames[runner] = manifest.counts.sideloadGames
+        }
       }
     }
 

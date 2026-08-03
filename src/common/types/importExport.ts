@@ -29,12 +29,7 @@ export interface HeroicBackupManifest {
   }
 }
 
-export interface CredentialPresence {
-  legendary: boolean
-  gog: boolean
-  nile: boolean
-  zoom: boolean
-}
+export type CredentialPresence = Partial<Record<Runner, boolean>>
 
 export interface HeroicExportOptions {
   outputPath: string

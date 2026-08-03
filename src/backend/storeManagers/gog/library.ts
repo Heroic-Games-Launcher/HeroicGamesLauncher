@@ -54,10 +54,19 @@ import { unzipSync } from 'node:zlib'
 import { readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { checkForRedistUpdates } from './redist'
 import { runGogdlCommandStub } from './e2eMock'
-import { gogdlConfigPath } from './constants'
+import {
+  gogConfigPath,
+  gogInstalledConfigPath,
+  gogdlAuthConfig,
+  gogdlConfigPath
+} from './constants'
+import { BACKUP_PATHS } from 'backend/importExport/constants'
 import { userDataPath } from 'backend/constants/paths'
 import GOGGame from './games'
-import type { LibraryManager } from 'common/types/game_manager'
+import type {
+  LibraryManager,
+  RunnerBackupPaths
+} from 'common/types/game_manager'
 import { libraryManagerMap } from '../index'
 import { readdir } from 'fs/promises'
 import { statSync } from 'fs'
@@ -1565,5 +1574,43 @@ export default class GOGLibraryManager implements LibraryManager {
 
       return acc
     }, [] as string[])
+  }
+
+  getBackupPaths(): RunnerBackupPaths {
+    return {
+      credentials: [
+        {
+          source: () => gogConfigPath,
+          destInZip: BACKUP_PATHS.credentials.gogConfig
+        },
+        {
+          // gogdl reads tokens directly from auth.json via `gogdl auth`.
+          // Without it, a restored config.json says isLoggedIn=true but every
+          // call fails because gogdl has no access/refresh token to use.
+          source: () => gogdlAuthConfig,
+          destInZip: BACKUP_PATHS.credentials.gogAuth
+        }
+      ],
+      libraryCache: [
+        {
+          source: () => libraryStore.path,
+          destInZip: BACKUP_PATHS.libraryCache.gogLibrary
+        }
+      ],
+      installedGames: {
+        source: () => gogInstalledConfigPath,
+        destInZip: BACKUP_PATHS.libraryCache.gogInstalled,
+        countGames: () => {
+          try {
+            const data = JSON.parse(
+              readFileSync(gogInstalledConfigPath, 'utf-8')
+            ) as { installed?: unknown[] }
+            return Array.isArray(data.installed) ? data.installed.length : 0
+          } catch {
+            return 0
+          }
+        }
+      }
+    }
   }
 }
