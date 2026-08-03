@@ -11,11 +11,9 @@ import { GOGUser } from 'backend/storeManagers/gog/user'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { NileUser } from 'backend/storeManagers/nile/user'
 import { libraryStore } from 'backend/storeManagers/sideload/electronStores'
-import { tokenPath as zoomTokenPath } from 'backend/storeManagers/zoom/constants'
-import { configStore as zoomConfigStore } from 'backend/storeManagers/zoom/electronStores'
+import { ZoomUser } from 'backend/storeManagers/zoom/user'
 import { getOsInfo } from 'backend/utils/systeminfo/osInfo'
 import { app } from 'electron'
-import { existsSync } from 'graceful-fs'
 import https from 'https'
 
 const PLAUSIBLE_DOMAIN = 'heroic-games-client.com'
@@ -105,7 +103,7 @@ export async function startPlausible() {
     gog: !!GOGUser.isLoggedIn(),
     epic: !!LegendaryUser.isLoggedIn(),
     amazon: !!NileUser.isLoggedIn(),
-    zoom: existsSync(zoomTokenPath) && zoomConfigStore.get('isLoggedIn', false),
+    zoom: ZoomUser.isLoggedInSync(),
     sideloaded: libraryStore.raw_store.games?.length > 0
   }
   const loggedInProviders = Object.entries(providersObject)
