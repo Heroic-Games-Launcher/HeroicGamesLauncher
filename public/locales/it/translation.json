@@ -1067,7 +1067,6 @@
         "no-categories": "Ancora nessuna categoria."
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton è una variante Wine creata da Glorious Eggroll. È stato deprecata in favore di Proton-GE con il launcher UMU.",
         "proton-ge": "GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi.",
         "gpt": "Game Porting Toolkit è sviluppato da Apple ed è consigliato per i Mac con processori Apple Silicon M1+, offrendo prestazioni ottimali con i giochi più recenti che utilizzano le DirectX 12.",
         "wine-crossover": "Wine-Crossover si basa sul progetto open source Crossover Wine ed è consigliato per Mac con processore Intel e per giochi con DirectX 11 o versioni precedenti.",

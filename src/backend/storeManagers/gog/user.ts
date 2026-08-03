@@ -7,7 +7,7 @@ import { isOnline } from '../../online_monitor'
 import { GOGCredentials, UserData } from 'common/types/gog'
 import { libraryManagerMap } from '../index'
 import { clearCache } from 'backend/utils'
-import { app } from 'electron'
+import { app, session } from 'electron'
 import { gogdlAuthConfig } from './constants'
 
 function authLogSanitizer(line: string) {
@@ -130,6 +130,10 @@ export class GOGUser {
     if (existsSync(gogdlAuthConfig)) {
       unlinkSync(gogdlAuthConfig)
     }
+    const ses = session.fromPartition('persist:gog')
+    ses.clearStorageData().catch(() => {})
+    ses.clearCache().catch(() => {})
+    ses.clearAuthCache().catch(() => {})
     logInfo('Logging user out', LogPrefix.Gog)
   }
 

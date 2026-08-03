@@ -123,6 +123,7 @@ export default function GOGSyncSaves({
           onClose={() => {
             setManuallyOutputShow(false)
           }}
+          hideProgress
         />
       )}
       <div className="defaults-hint">

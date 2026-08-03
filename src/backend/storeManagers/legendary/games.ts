@@ -168,6 +168,9 @@ export default class LegendaryGame implements Game {
     if (lang === 'zh_Hans') {
       lang = 'zh-CN'
     }
+    if (lang === 'es') {
+      lang = 'es-ES'
+    }
 
     const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${slug}`
 

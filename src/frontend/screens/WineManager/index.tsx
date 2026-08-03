@@ -8,12 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import { wineDownloaderInfoStore } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCheck,
-  faSyncAlt,
-  faWarning,
-  faCog
-} from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faSyncAlt, faCog } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
 import SearchBar from 'frontend/components/UI/SearchBar'
 import WineManagerSettingsModal from './components/WineManagerSettingsModal'
@@ -50,8 +45,7 @@ export default function WineManager(): JSX.Element | null {
     if (isLinux) {
       return [
         { type: 'Proton-CachyOS', value: 'proton-cachyos' },
-        { type: 'GE-Proton', value: 'protonge' },
-        { type: 'Wine-GE', value: 'winege' }
+        { type: 'GE-Proton', value: 'protonge' }
       ]
     }
     return [
@@ -76,14 +70,9 @@ export default function WineManager(): JSX.Element | null {
   )
 
   const getWineVersions = (repo: Type) => {
-    let versions = wineDownloaderInfoStore.get('wine-releases', [])
+    const versions = wineDownloaderInfoStore.get('wine-releases', [])
 
-    if (repo.startsWith('Wine-GE')) {
-      versions = versions.filter((version) => version.type === 'Wine-GE')
-      return versions.filter((version) => !version.version.endsWith('LoL'))
-    } else {
-      return versions.filter((version) => version.type === repo)
-    }
+    return versions.filter((version) => version.type === repo)
   }
 
   const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
@@ -113,16 +102,6 @@ export default function WineManager(): JSX.Element | null {
 
   const wineVersionExplanation = useMemo(() => {
     switch (repository.type) {
-      case 'Wine-GE':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faWarning} color={'orange'} />
-            {t(
-              'wineExplanation.wine-ge',
-              'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.'
-            )}
-          </div>
-        )
       case 'GE-Proton':
         return (
           <div className="infoBox">

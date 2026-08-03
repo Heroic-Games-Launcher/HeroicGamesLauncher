@@ -594,6 +594,8 @@ interface GamepadActionArgsWithoutMetadata {
     | 'mainAction'
     | 'back'
     | 'altAction'
+    | 'prevPage'
+    | 'nextPage'
     | 'esc'
     | 'tab'
     | 'shiftTab'
@@ -785,7 +787,6 @@ export interface VersionInfo {
  * Enum for the supported repositorys
  */
 export enum Repositorys {
-  WINEGE,
   PROTONGE,
   PROTON,
   WINELUTRIS,
