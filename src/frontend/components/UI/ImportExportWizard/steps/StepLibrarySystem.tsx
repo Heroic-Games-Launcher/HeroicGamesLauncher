@@ -214,7 +214,7 @@ export default function StepLibrarySystem({
                     <span className="ImportExportWizard__appTitle">
                       {issue.title}{' '}
                       <span className="ImportExportWizard__appStore">
-                        ({runnerLabel(issue.runner)})
+                        ({runnerLabel(issue.runner, t)})
                       </span>
                       <span className="ImportExportWizard__appBrokenPath">
                         {issue.installPath}
@@ -250,7 +250,7 @@ export default function StepLibrarySystem({
                   <div>
                     <strong>{issue.title}</strong>
                     <span className="ImportExportWizard__issueRunner">
-                      {runnerLabel(issue.runner)}
+                      {runnerLabel(issue.runner, t)}
                     </span>
                   </div>
                   <WarningAmberIcon className="ImportExportWizard__issueWarn" />
@@ -300,7 +300,7 @@ export default function StepLibrarySystem({
                   <span className="ImportExportWizard__appTitle">
                     {game.title}{' '}
                     <span className="ImportExportWizard__appStore">
-                      ({runnerLabel(game.runner)})
+                      ({runnerLabel(game.runner, t)})
                     </span>
                     <span className="ImportExportWizard__appBrokenPath">
                       {game.installPath}

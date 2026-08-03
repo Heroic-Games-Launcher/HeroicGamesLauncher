@@ -1,6 +1,6 @@
 import './index.css'
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import RestoreIcon from '@mui/icons-material/Restore'
@@ -9,6 +9,7 @@ import DownloadIcon from '@mui/icons-material/Download'
 
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import ImportExportWizard from 'frontend/components/UI/ImportExportWizard'
+import ContextProvider from 'frontend/state/ContextProvider'
 import {
   ALL_STAGES,
   stageLabels,
@@ -28,6 +29,7 @@ interface ImportExportNavState {
 
 export default function ImportExportSettings() {
   const { t } = useTranslation()
+  const { showDialogModal } = useContext(ContextProvider)
   const location = useLocation()
   const navigate = useNavigate()
   const [openImportFromNav] = useState(() =>
@@ -114,6 +116,27 @@ export default function ImportExportSettings() {
     } finally {
       setExportInFlight(false)
     }
+  }
+
+  function confirmRollback() {
+    showDialogModal({
+      showDialog: true,
+      title: t('import-export.rollback.confirm-title', 'Rollback last import?'),
+      message: t(
+        'import-export.rollback.confirm-message',
+        'This will revert settings, logins and library changes made by the last import. This cannot be undone.'
+      ),
+      buttons: [
+        {
+          text: t('box.yes'),
+          onClick: () => {
+            void runRollback()
+          }
+        },
+        { text: t('box.no'), onClick: () => null }
+      ],
+      type: 'MESSAGE'
+    })
   }
 
   async function runRollback() {
@@ -271,7 +294,7 @@ export default function ImportExportSettings() {
               <button
                 type="button"
                 className="button is-tertiary"
-                onClick={runRollback}
+                onClick={confirmRollback}
                 disabled={rollbackInFlight}
               >
                 <RestoreIcon fontSize="small" />

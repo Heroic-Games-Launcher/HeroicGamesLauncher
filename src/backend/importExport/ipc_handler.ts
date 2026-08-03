@@ -1,3 +1,5 @@
+import { existsSync } from 'graceful-fs'
+
 import { addHandler } from 'backend/ipc'
 
 import { importExportRollbackStore } from 'backend/constants/key_value_stores'
@@ -26,11 +28,13 @@ addHandler('validateHeroicBackup', (_e, sourcePath) =>
 
 addHandler('applyHeroicBackup', (_e, options) => applyHeroicBackup(options))
 
-addHandler('getRollbackSnapshot', () =>
-  Promise.resolve(
-    importExportRollbackStore.get_nodefault('lastSnapshot') ?? null
-  )
-)
+addHandler('getRollbackSnapshot', () => {
+  const snapshot = importExportRollbackStore.get_nodefault('lastSnapshot')
+  if (!snapshot || !existsSync(snapshot.archivePath)) {
+    return Promise.resolve(null)
+  }
+  return Promise.resolve(snapshot)
+})
 
 addHandler('rollbackHeroicBackup', () => rollbackLastImport())
 

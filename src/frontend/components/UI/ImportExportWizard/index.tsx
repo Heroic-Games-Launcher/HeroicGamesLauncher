@@ -107,6 +107,12 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     if (!validation) return
     setIncludedApps(new Set(validation.perGameAppNames))
 
+    const creds: Partial<Record<Runner, boolean>> = {}
+    for (const cred of validation.credentials) {
+      creds[cred.runner] = cred.present
+    }
+    setIncludedCredentials(creds)
+
     const initial: Record<string, PathChoice> = {}
     for (const issue of validation.pathIssues) {
       initial[issue.appName] = {

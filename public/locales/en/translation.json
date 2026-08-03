@@ -601,6 +601,8 @@
             "works": "Store logins, game library, sideloaded entries and custom categories work on any platform."
         },
         "rollback": {
+            "confirm-message": "This will revert settings, logins and library changes made by the last import. This cannot be undone.",
+            "confirm-title": "Rollback last import?",
             "done": "Rollback applied. Restart Heroic to apply all changes.",
             "failed": "Rollback failed",
             "hint": "A rollback snapshot was saved during the last import. Use this button to revert to that state.",
@@ -608,6 +610,7 @@
             "running": "Rolling back...",
             "saved": "Saved"
         },
+        "sideloaded": "Sideloaded",
         "stage": {
             "categories": "Custom categories",
             "credentials": "Store logins",

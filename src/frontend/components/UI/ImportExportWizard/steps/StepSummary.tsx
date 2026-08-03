@@ -56,7 +56,7 @@ export default function StepSummary({ validation, currentPlatform }: Props) {
             {Object.entries(manifest.counts.installedGames)
               .map(
                 ([runner, count]) =>
-                  `${runnerLabel(runner as Runner)}: ${count}`
+                  `${runnerLabel(runner as Runner, t)}: ${count}`
               )
               .join(', ') || '0'}
           </dd>

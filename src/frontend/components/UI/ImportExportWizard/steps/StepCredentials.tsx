@@ -36,7 +36,7 @@ export default function StepCredentials({
             <div className="ImportExportWizard__credLeft">
               <div>
                 <div className="ImportExportWizard__credName">
-                  {runnerLabel(cred.runner)}
+                  {runnerLabel(cred.runner, t)}
                 </div>
                 {cred.displayName && (
                   <div className="ImportExportWizard__credUser">

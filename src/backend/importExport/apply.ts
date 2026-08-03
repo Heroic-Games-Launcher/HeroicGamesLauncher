@@ -730,7 +730,7 @@ async function applyWineMetadata(
   return {
     stage: 'wineMetadata',
     ok: true,
-    message: `${toInstall.length} wine version(s) will be installled`
+    message: `${toInstall.length} wine version(s) will be installed`
   }
 }
 

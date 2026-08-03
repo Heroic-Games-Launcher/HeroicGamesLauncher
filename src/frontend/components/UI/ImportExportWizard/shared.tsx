@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
+import type { TFunction } from 'i18next'
 
 import type { Runner } from 'common/types'
 
@@ -12,7 +13,10 @@ export interface PathChoice {
   prefixOverride?: string
 }
 
-export function runnerLabel(runner: Runner): string {
+export function runnerLabel(
+  runner: Runner,
+  t: TFunction<'translation'>
+): string {
   switch (runner) {
     case 'legendary':
       return 'Epic Games'
@@ -23,7 +27,7 @@ export function runnerLabel(runner: Runner): string {
     case 'zoom':
       return 'ZOOM'
     default:
-      return 'Sideloaded'
+      return t('import-export.sideloaded', 'Sideloaded')
   }
 }
 

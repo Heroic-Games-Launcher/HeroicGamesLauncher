@@ -1,5 +1,6 @@
 import AdmZip from 'adm-zip'
 import { existsSync } from 'graceful-fs'
+import { z } from 'zod'
 
 import { logWarning, LogPrefix } from 'backend/logger'
 import type { Runner, WineVersionInfo } from 'common/types'
@@ -33,16 +34,26 @@ function getManifest(zip: AdmZip): HeroicBackupManifest | null {
   return safeJsonParse<HeroicBackupManifest>(entry.getData())
 }
 
+const BackupManifestSchema = z.object({
+  formatVersion: z.number(),
+  createdAt: z.string(),
+  heroicVersion: z.string(),
+  platform: z.enum(['linux', 'darwin', 'win32']),
+  stages: z.array(z.string()),
+  counts: z.object({
+    perGameSettings: z.number(),
+    installedGames: z.record(z.string(), z.number()),
+    credentials: z.record(z.string(), z.boolean()),
+    fixesIncluded: z.boolean(),
+    themesIncluded: z.boolean(),
+    wineVersions: z.number(),
+    sideloadGames: z.number(),
+    categories: z.number().optional()
+  })
+})
+
 export function isHeroicBackupManifest(v: unknown): v is HeroicBackupManifest {
-  if (!v || typeof v !== 'object') return false
-  const rec = v as Record<string, unknown>
-  return (
-    typeof rec.formatVersion === 'number' &&
-    typeof rec.heroicVersion === 'string' &&
-    typeof rec.createdAt === 'string' &&
-    typeof rec.platform === 'string' &&
-    Array.isArray(rec.stages)
-  )
+  return BackupManifestSchema.safeParse(v).success
 }
 
 interface ZipGameInfo {

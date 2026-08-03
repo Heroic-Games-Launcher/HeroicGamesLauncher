@@ -76,7 +76,7 @@ export default function StepPerGame({
                 <span className="ImportExportWizard__appTitle">
                   {title}{' '}
                   <span className="ImportExportWizard__appStore">
-                    ({runnerLabel(runner)})
+                    ({runnerLabel(runner, t)})
                   </span>
                 </span>
               </label>

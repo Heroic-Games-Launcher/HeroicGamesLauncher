@@ -63,7 +63,7 @@ export const Dialog: React.FC<DialogProps> = ({
     <MuiDialog
       open={open}
       onClose={(e, reason) => {
-        if (disableBackdropClose) return
+        if (disableBackdropClose && reason === 'backdropClick') return
         if (disableDialogBackdropClose && reason === 'backdropClick') return
         close()
       }}
