@@ -1325,15 +1325,12 @@ export async function checkRosettaInstall() {
     return
   }
 
-  let result = false
-  try {
-    const { stdout: rosettaCheck } = await execAsync(
-      'arch -x86_64 /usr/sbin/sysctl sysctl.proc_translated'
-    )
-    result = rosettaCheck.split(':')[1].trim() === '1'
-  } catch {
-    // the spawn itself fails when Rosetta is not installed
-  }
+  // the spawn itself fails when Rosetta is not installed
+  const result = await execAsync(
+    'arch -x86_64 /usr/sbin/sysctl sysctl.proc_translated'
+  )
+    .then(() => true)
+    .catch(() => false)
 
   logInfo(
     `Rosetta is ${result ? 'available' : 'not available'} on this system.`,
