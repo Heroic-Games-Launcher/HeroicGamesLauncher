@@ -28,6 +28,7 @@ jest.mock('backend/ipc', () => ({
 }))
 jest.mock('backend/constants/paths', () => ({
   appFolder,
+  userDataPath: userData,
   configPath: join(appFolder, 'config.json'),
   gamesConfigPath: join(appFolder, 'GamesConfig'),
   fixesPath: join(appFolder, 'fixes'),

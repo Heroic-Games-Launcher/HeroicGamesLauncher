@@ -21,15 +21,19 @@ import {
   nileLibrary,
   nileUserData
 } from 'backend/storeManagers/nile/constants'
+import {
+  gogConfigPath,
+  gogInstalledConfigPath,
+  gogdlAuthConfig
+} from 'backend/storeManagers/gog/constants'
+import { tokenPath, zoomConfigPath } from 'backend/storeManagers/zoom/constants'
+import { sideloadLibraryPath } from 'backend/storeManagers/sideload/constants'
 import { GlobalConfig } from 'backend/config'
 
 const userData = () => app.getPath('userData')
 
 const storeCacheDir = () => join(userData(), 'store_cache')
 const storeDir = () => join(userData(), 'store')
-const gogStoreDir = () => join(userData(), 'gog_store')
-const zoomStoreDir = () => join(userData(), 'zoom_store')
-const sideloadStoreDir = () => join(userData(), 'sideload_apps')
 
 export const sourcePaths = {
   appFolder: () => appFolder,
@@ -56,13 +60,13 @@ export const sourcePaths = {
     library: () => nileLibrary
   },
   gog: {
-    configFile: () => join(gogStoreDir(), 'config.json'),
-    authFile: () => join(gogStoreDir(), 'auth.json'),
-    installedFile: () => join(gogStoreDir(), 'installed.json')
+    configFile: () => gogConfigPath,
+    authFile: () => gogdlAuthConfig,
+    installedFile: () => gogInstalledConfigPath
   },
   zoom: {
-    configFile: () => join(zoomStoreDir(), 'config.json'),
-    tokenFile: () => join(zoomStoreDir(), '.zoom.token')
+    configFile: () => zoomConfigPath,
+    tokenFile: () => tokenPath
   },
   libraryCache: {
     legendary: () => join(storeCacheDir(), 'legendary_library.json'),
@@ -71,7 +75,7 @@ export const sourcePaths = {
     zoom: () => join(storeCacheDir(), 'zoom_library.json')
   },
   sideload: {
-    library: () => join(sideloadStoreDir(), 'library.json')
+    library: () => sideloadLibraryPath
   },
   wine: {
     infoStore: () => join(storeDir(), 'wine-downloader-info.json')
