@@ -1,6 +1,6 @@
 import './index.css'
 
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
@@ -83,8 +83,11 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   const [applyResult, setApplyResult] = useState<HeroicApplyResult | null>(null)
   const [wineBusy, setWineBusy] = useState(false)
 
+  const sessionRef = useRef(0)
+
   useEffect(() => {
     if (!open) {
+      sessionRef.current += 1
       setStep(0)
       setFilePath('')
       setValidation(null)
@@ -147,10 +150,12 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   }
 
   async function runValidation(path: string) {
+    const session = sessionRef.current
     setValidating(true)
     setValidateError(null)
     try {
       const report = await window.api.validateHeroicBackup(path)
+      if (session !== sessionRef.current) return
       if (report.ok) {
         setValidation(report)
         setStep(1)
@@ -165,9 +170,10 @@ export default function ImportExportWizard({ open, onClose }: Props) {
         )
       }
     } catch (err) {
+      if (session !== sessionRef.current) return
       setValidateError(String(err))
     } finally {
-      setValidating(false)
+      if (session === sessionRef.current) setValidating(false)
     }
   }
 
@@ -252,7 +258,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   if (!open) return null
 
   const guardedClose = () => {
-    if (wineBusy) return
+    if (wineBusy || applying) return
     onClose()
   }
 
@@ -260,7 +266,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     <Dialog
       className="ImportExportWizard"
       onClose={guardedClose}
-      showCloseButton={!wineBusy}
+      showCloseButton={!wineBusy && !applying}
       disableBackdropClose
     >
       <DialogHeader onClose={guardedClose}>

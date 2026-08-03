@@ -239,7 +239,7 @@ const showAboutWindow = () => {
   return app.showAboutPanel()
 }
 
-async function handleExit() {
+async function handleExit(relaunch = false) {
   const isLocked = existsSync(join(gamesConfigPath, 'lock'))
   const mainWindow = getMainWindow()
 
@@ -277,6 +277,7 @@ async function handleExit() {
   mainWindow?.hide()
   await gogPresence.deletePresence()
 
+  if (relaunch) app.relaunch()
   app.exit()
 }
 

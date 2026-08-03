@@ -328,12 +328,12 @@ function applyPerGameSettings(
   }
 }
 
-function applyCredentials(
+async function applyCredentials(
   zip: AdmZip,
   options: HeroicApplyOptions,
   warnings: string[],
   restore = false
-): HeroicApplyStageResult {
+): Promise<HeroicApplyStageResult> {
   const includeRunner = (r: Runner): boolean =>
     options.includedCredentials[r] !== false
 
@@ -361,7 +361,7 @@ function applyCredentials(
     warnings.push(`Could not mirror Legendary credentials: ${String(err)}`)
   }
   try {
-    if (includeRunner('nile')) void NileUser.getUserData()
+    if (includeRunner('nile')) await NileUser.getUserData()
   } catch (err) {
     warnings.push(`Could not mirror Nile credentials: ${String(err)}`)
   }
@@ -738,7 +738,31 @@ interface ApplyInternalOptions {
   rollbackMode?: boolean
 }
 
+let applyInProgress = false
+
 export async function applyHeroicBackup(
+  options: HeroicApplyOptions,
+  internalOptions: ApplyInternalOptions = {}
+): Promise<HeroicApplyResult> {
+  if (applyInProgress) {
+    return {
+      ok: false,
+      stages: [],
+      gamesQueuedForDownload: [],
+      wineVersionsQueuedForDownload: [],
+      warnings: [],
+      errors: ['Another backup import is already in progress.']
+    }
+  }
+  applyInProgress = true
+  try {
+    return await doApplyHeroicBackup(options, internalOptions)
+  } finally {
+    applyInProgress = false
+  }
+}
+
+async function doApplyHeroicBackup(
   options: HeroicApplyOptions,
   { rollbackMode = false }: ApplyInternalOptions = {}
 ): Promise<HeroicApplyResult> {
@@ -809,7 +833,7 @@ export async function applyHeroicBackup(
       stages.push(applyPerGameSettings(zip, options, rollbackMode))
     }
     if (options.stages.includes('credentials')) {
-      stages.push(applyCredentials(zip, options, warnings, rollbackMode))
+      stages.push(await applyCredentials(zip, options, warnings, rollbackMode))
     }
     if (options.stages.includes('libraryCache')) {
       stages.push(

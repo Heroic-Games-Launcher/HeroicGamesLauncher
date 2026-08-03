@@ -2,7 +2,7 @@ import { addHandler } from 'backend/ipc'
 
 import { importExportRollbackStore } from 'backend/constants/key_value_stores'
 import { handleExit } from 'backend/utils'
-import { app } from 'electron'
+import { userHome } from 'backend/constants/paths'
 
 import { exportHeroicBackup } from './export'
 import { validateHeroicBackup } from './validate'
@@ -12,7 +12,7 @@ import {
   rollbackLastImport
 } from './apply'
 
-addHandler('getHomeDir', () => Promise.resolve(app.getPath('home')))
+addHandler('getHomeDir', () => Promise.resolve(userHome))
 
 addHandler('getWineImportProgress', () =>
   Promise.resolve(getWineImportProgressSnapshot())
@@ -34,7 +34,4 @@ addHandler('getRollbackSnapshot', () =>
 
 addHandler('rollbackHeroicBackup', () => rollbackLastImport())
 
-addHandler('restartHeroic', async () => {
-  app.relaunch()
-  await handleExit()
-})
+addHandler('restartHeroic', async () => handleExit(true))
