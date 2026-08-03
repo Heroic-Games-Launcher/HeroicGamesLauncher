@@ -7,7 +7,7 @@ jobs:
   stableToMain:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           ref: main
       - name: Reset stable branch
@@ -15,7 +15,7 @@ jobs:
           git fetch origin stable:stable
           git reset --hard stable
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           branch: stable_to_main
           commit-message: Sync latest stable changes with main
