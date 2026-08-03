@@ -62,8 +62,8 @@ export default function StepDone({
     onWineBusyChange?.(wineBusy)
   }, [wineBusy, onWineBusyChange])
 
-  async function restart() {
-    await window.api.restartHeroic()
+  function restart() {
+    void window.api.restartHeroic().catch(() => null)
   }
 
   if (applying || !applyResult) {

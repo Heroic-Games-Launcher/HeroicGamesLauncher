@@ -395,6 +395,7 @@ interface QueuedGameDownload {
   appName: string
   runner: Runner
   platform: InstallPlatform
+  installPath?: string
 }
 
 function entryPlatform(v: unknown, fallback: InstallPlatform): InstallPlatform {
@@ -414,7 +415,8 @@ function patchLegendaryInstalled(
       queuedDownloads.push({
         appName,
         runner: 'legendary',
-        platform: entryPlatform(entry['platform'], 'Windows')
+        platform: entryPlatform(entry['platform'], 'Windows'),
+        installPath: override.installPath
       })
       continue
     }
@@ -442,7 +444,8 @@ function patchGogInstalled(
       queuedDownloads.push({
         appName,
         runner: 'gog',
-        platform: entryPlatform(entry['platform'], 'windows')
+        platform: entryPlatform(entry['platform'], 'windows'),
+        installPath: override.installPath
       })
       continue
     }
@@ -470,7 +473,12 @@ function patchNileInstalled(
     const override = overrides.get(id)
     if (override?.skipInstallPath) continue
     if (override?.installAfterImport) {
-      queuedDownloads.push({ appName: id, runner: 'nile', platform: 'Windows' })
+      queuedDownloads.push({
+        appName: id,
+        runner: 'nile',
+        platform: 'Windows',
+        installPath: override.installPath
+      })
       continue
     }
     if (override?.installPath) {
@@ -913,7 +921,7 @@ async function queueGameDownloads(
   const { defaultInstallPath } = GlobalConfig.get().getSettings()
   const refreshed = new Set<Runner>()
 
-  for (const { appName, runner, platform } of queued) {
+  for (const { appName, runner, platform, installPath } of queued) {
     if (runner === 'sideload') {
       warnings.push(
         `${appName} is sideloaded and cannot be downloaded automatically; add it again manually.`
@@ -939,7 +947,7 @@ async function queueGameDownloads(
           appName,
           runner,
           gameInfo,
-          path: defaultInstallPath,
+          path: installPath ?? defaultInstallPath,
           platformToInstall: platform
         },
         addToQueueTime: Date.now(),

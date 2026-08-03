@@ -55,11 +55,11 @@ export default function ImportExportSettings() {
     useState<HeroicApplyResult | null>(null)
 
   useEffect(() => {
-    void refreshRollback()
-    void (async () => {
-      const home = await window.api.getHomeDir()
-      setOutputDir(home)
-    })()
+    refreshRollback().catch(() => null)
+    window.api
+      .getHomeDir()
+      .then((home) => setOutputDir(home))
+      .catch(() => null)
   }, [])
 
   useEffect(() => {

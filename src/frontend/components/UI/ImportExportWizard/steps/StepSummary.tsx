@@ -11,6 +11,12 @@ interface Props {
   currentPlatform: string
 }
 
+function platformName(platform: string): string {
+  if (platform === 'darwin') return 'macOS'
+  if (platform === 'win32') return 'Windows'
+  return 'Linux'
+}
+
 export default function StepSummary({ validation, currentPlatform }: Props) {
   const { t } = useTranslation()
   const { manifest, platformMatches, formatSupported, warnings, errors } =
@@ -33,14 +39,14 @@ export default function StepSummary({ validation, currentPlatform }: Props) {
         <div>
           <dt>{t('import-export.platform', 'Platform')}</dt>
           <dd>
-            {manifest.platform}
+            {platformName(manifest.platform)}
             {!platformMatches && (
               <span className="ImportExportWizard__warningTag">
                 <WarningAmberIcon fontSize="inherit" />
                 {t(
                   'import-export.different-platform',
                   'different from current ({{current}})',
-                  { current: currentPlatform }
+                  { current: platformName(currentPlatform) }
                 )}
               </span>
             )}

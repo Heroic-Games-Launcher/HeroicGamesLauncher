@@ -198,7 +198,8 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   }
 
   function stepIsReachable(target: WizardStep): boolean {
-    if (applying || step === 6) return target === step
+    if (applying) return target === step
+    if (step === 6 && applyResult?.ok !== false) return target === step
     if (!validation) return target === 0
     return target <= step
   }
@@ -290,7 +291,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
       <div className="ImportExportWizard__stepper" role="tablist">
         {stepTitles.map((title, idx) => (
           <button
-            key={title}
+            key={idx}
             type="button"
             role="tab"
             aria-selected={idx === step}
@@ -379,7 +380,11 @@ export default function ImportExportWizard({ open, onClose }: Props) {
             type="button"
             className="button is-tertiary"
             onClick={prevStep}
-            disabled={step === 0 || applying || step === 6}
+            disabled={
+              step === 0 ||
+              applying ||
+              (step === 6 && applyResult?.ok !== false)
+            }
           >
             {t('import-export.back', 'Back')}
           </button>
