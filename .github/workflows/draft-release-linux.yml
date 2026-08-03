@@ -6,6 +6,11 @@ on:
       - 'v*'
   workflow_dispatch:
 
+# Releases are drafted with the dedicated WORKFLOW_TOKEN, the default
+# token is unused.
+permissions:
+  contents: read
+
 jobs:
   draft-releases:
     runs-on: ubuntu-24.04

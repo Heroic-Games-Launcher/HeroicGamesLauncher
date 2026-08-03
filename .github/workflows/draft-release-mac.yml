@@ -18,6 +18,11 @@ env:
   EVS_ACCOUNT_NAME: ${{ secrets.EVS_ACCOUNT_NAME }}
   EVS_PASSWD: ${{ secrets.EVS_PASSWD }}
 
+# Releases are drafted with the dedicated WORKFLOW_TOKEN, the default
+# token is unused.
+permissions:
+  contents: read
+
 jobs:
   draft-releases:
     runs-on: macos-15

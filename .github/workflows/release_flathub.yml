@@ -23,6 +23,11 @@ env:
   RELEASE_VERSION: ${{ github.ref_name }}
   IS_PRERELEASE: ${{ github.event.release.prerelease || github.event.inputs.is_prerelease || 'false' }}
 
+# The push and PR steps use the dedicated WORKFLOW_TOKEN, the default
+# token is unused.
+permissions:
+  contents: read
+
 jobs:
   draft-releases:
     runs-on: ubuntu-latest

@@ -3,6 +3,12 @@ on:
   push:
     branches:
       - stable
+# create-pull-request pushes a branch and opens the PR with the
+# default token.
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   stableToMain:
     runs-on: ubuntu-latest

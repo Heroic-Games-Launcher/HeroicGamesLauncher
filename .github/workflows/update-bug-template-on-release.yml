@@ -5,6 +5,12 @@ on:
     types:
       - published
 
+# The workflow pushes the template branch and opens a PR with the
+# default token.
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update_version_job:
     runs-on: ubuntu-latest
