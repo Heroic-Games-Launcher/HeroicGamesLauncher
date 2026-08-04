@@ -1,6 +1,7 @@
+import { spawnSync } from 'child_process'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { join } from 'path'
-import { isSteamDeckGameMode } from 'backend/constants/environment'
+import { isSteamDeckGameMode, isWindows } from 'backend/constants/environment'
 
 function isPidAlive(pid: number): boolean {
   try {
@@ -12,6 +13,24 @@ function isPidAlive(pid: number): boolean {
 }
 
 /**
+ * The Windows Steam client does not write a pid file, it stores its
+ * pid in the registry instead.
+ */
+function getWindowsSteamPid(): number | null {
+  const result = spawnSync(
+    'reg',
+    ['query', 'HKCU\\Software\\Valve\\Steam\\ActiveProcess', '/v', 'pid'],
+    { encoding: 'utf-8', windowsHide: true }
+  )
+  const match = result.stdout?.match(/REG_DWORD\s+(0x[0-9a-fA-F]+)/)
+  if (!match) {
+    return null
+  }
+  const pid = parseInt(match[1], 16)
+  return pid > 0 ? pid : null
+}
+
+/**
  * Best-effort check if the Steam client is currently running.
  * Steam only reads shortcuts.vdf on startup and overwrites it on exit,
  * so editing the file while Steam runs silently loses the changes.
@@ -20,6 +39,11 @@ function isPidAlive(pid: number): boolean {
 function isSteamRunning(steamPath: string): boolean {
   if (isSteamDeckGameMode) {
     return true
+  }
+
+  if (isWindows) {
+    const pid = getWindowsSteamPid()
+    return pid !== null && isPidAlive(pid)
   }
 
   const pidFiles = [

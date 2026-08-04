@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { existsSync, readFileSync } from 'graceful-fs'
+import { existsSync } from 'graceful-fs'
+import { readFile } from 'fs/promises'
 import { extname } from 'path'
 import { logWarning, LogPrefix } from 'backend/logger'
 
@@ -16,6 +17,9 @@ import { logWarning, LogPrefix } from 'backend/logger'
 
 const CEF_DEBUGGER_URL = 'http://127.0.0.1:8080'
 const EVAL_TIMEOUT_MS = 10000
+const SOCKET_URL_CACHE_MS = 5000
+
+let cachedSocketUrl: { url: string; fetchedAt: number } | null = null
 
 interface SteamClientShortcut {
   appid: number
@@ -30,6 +34,13 @@ interface CEFTarget {
 }
 
 async function getSharedJSContextSocketUrl(): Promise<string | null> {
+  if (
+    cachedSocketUrl &&
+    Date.now() - cachedSocketUrl.fetchedAt < SOCKET_URL_CACHE_MS
+  ) {
+    return cachedSocketUrl.url
+  }
+
   try {
     const { data } = await axios.get<CEFTarget[]>(`${CEF_DEBUGGER_URL}/json`, {
       timeout: 3000
@@ -38,8 +49,11 @@ async function getSharedJSContextSocketUrl(): Promise<string | null> {
       return null
     }
     const target = data.find((target) => target.title === 'SharedJSContext')
-    return target?.webSocketDebuggerUrl ?? null
+    const url = target?.webSocketDebuggerUrl ?? null
+    cachedSocketUrl = url ? { url, fetchedAt: Date.now() } : null
+    return url
   } catch {
+    cachedSocketUrl = null
     return null
   }
 }
@@ -67,20 +81,33 @@ async function evalInSteamClient<T>(expression: string): Promise<T> {
 
   return new Promise<T>((resolve, reject) => {
     const socket = new WebSocket(socketUrl)
+    let settled = false
 
     const timeout = setTimeout(() => {
+      settled = true
       socket.close()
       reject(new Error('Timed out waiting for the Steam client'))
     }, EVAL_TIMEOUT_MS)
 
     const finish = (callback: () => void) => {
+      settled = true
       clearTimeout(timeout)
       socket.close()
       callback()
     }
 
     socket.onerror = () => {
+      cachedSocketUrl = null
       finish(() => reject(new Error('Connection to the Steam client failed')))
+    }
+
+    socket.onclose = () => {
+      if (!settled) {
+        cachedSocketUrl = null
+        finish(() =>
+          reject(new Error('The Steam client closed the connection'))
+        )
+      }
     }
 
     socket.onopen = () => {
@@ -121,7 +148,7 @@ async function evalInSteamClient<T>(expression: string): Promise<T> {
 }
 
 async function getSteamClientShortcuts(): Promise<SteamClientShortcut[]> {
-  return evalInSteamClient<SteamClientShortcut[]>(
+  const shortcuts = await evalInSteamClient<SteamClientShortcut[]>(
     `(async () => {
       const shortcuts = await SteamClient.Apps.GetAllShortcuts()
       return shortcuts.map((shortcut) => ({
@@ -132,6 +159,10 @@ async function getSteamClientShortcuts(): Promise<SteamClientShortcut[]> {
       }))
     })()`
   )
+  if (!Array.isArray(shortcuts)) {
+    throw new Error('Could not get the shortcut list from the Steam client')
+  }
+  return shortcuts
 }
 
 async function addShortcutViaSteamClient(props: {
@@ -189,7 +220,7 @@ async function setShortcutArtworkViaSteamClient(props: {
   }
 
   try {
-    const imageData = readFileSync(props.imagePath).toString('base64')
+    const imageData = (await readFile(props.imagePath)).toString('base64')
     const imageExt = extname(props.imagePath).replace('.', '') || 'jpg'
     await evalInSteamClient<boolean>(
       `(async () => {
@@ -218,4 +249,3 @@ export {
   setShortcutArtworkViaSteamClient,
   steamClientArtworkTypes
 }
-export type { SteamClientShortcut }

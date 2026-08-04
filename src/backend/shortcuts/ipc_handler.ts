@@ -64,7 +64,7 @@ addHandler('addToSteam', async (event, appName, runner) => {
 
 addHandler('removeFromSteam', async (event, appName, runner) => {
   const game = getGame(appName, runner)
-  await removeNonSteamGame(game)
+  return removeNonSteamGame(game)
 })
 
 addHandler('isAddedToSteam', async (event, appName, runner) => {
