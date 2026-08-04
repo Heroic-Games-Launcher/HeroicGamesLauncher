@@ -138,6 +138,8 @@ async function prepareImagesForSteam(props: {
       LogPrefix.Shortcuts
     )
   }
+
+  return { coverArt, headerArt, backGroundArt, logoArt }
 }
 
 function removeImagesFromSteam(props: {

@@ -30,17 +30,28 @@ import { GlobalConfig } from '../../config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 import { tsStore } from 'backend/constants/key_value_stores'
 import { userHome } from 'backend/constants/paths'
-import { isAppImage, isFlatpak, isWindows } from 'backend/constants/environment'
+import {
+  isAppImage,
+  isFlatpak,
+  isSteamDeckGameMode,
+  isWindows
+} from 'backend/constants/environment'
 import { isSteamRunning } from './steamProcess'
+import {
+  addShortcutViaSteamClient,
+  getSteamClientShortcuts,
+  isSteamClientApiAvailable,
+  removeShortcutViaSteamClient,
+  setShortcutArtworkViaSteamClient,
+  steamClientArtworkTypes
+} from './steamClient'
+import type { SteamClientShortcut } from './steamClient'
+import type { GameInfo } from 'common/types'
 import type { Game } from 'common/types/game_manager'
 
 const getSteamPath = async () => {
   const { defaultSteamPath } = GlobalConfig.get().getSettings()
   return defaultSteamPath.replaceAll("'", '')
-}
-
-const getSteamUserdataDir = async () => {
-  return join(await getSteamPath(), 'userdata')
 }
 
 /**
@@ -72,7 +83,10 @@ function showErrorInFrontend(props: {
 
   const title = props.adding
     ? i18next.t('box.error.add.steam.title', 'Error Adding Game to Steam')
-    : i18next.t('box.error.remove.steam.title', 'Error Removing Game from Steam')
+    : i18next.t(
+        'box.error.remove.steam.title',
+        'Error Removing Game from Steam'
+      )
 
   showDialogBoxModalAuto({ title, message: error, type: 'ERROR' })
 }
@@ -196,24 +210,122 @@ function getLaunchOptions(object: ShortcutEntry): string {
 }
 
 /**
- * Check if a shortcut entry points to the given Heroic game.
+ * Check if a shortcut points to the given Heroic game.
  * Matches on the heroic launch url first, so renaming the shortcut
  * in Steam does not break the detection. Falls back to the title
  * for entries created by older Heroic versions or added manually.
  */
+function matchesHeroicGame(
+  shortcut: { appName: string; launchOptions: string },
+  gameInfo: { app_name: string; runner?: string; title: string }
+): boolean {
+  if (shortcut.launchOptions.includes('heroic://launch')) {
+    return (
+      shortcut.launchOptions.includes(
+        `appName=${gameInfo.app_name}&runner=${gameInfo.runner}`
+      ) || shortcut.launchOptions.includes(`launch/${gameInfo.app_name}"`)
+    )
+  }
+  return shortcut.appName === gameInfo.title
+}
+
 function isHeroicShortcutForGame(
   entry: ShortcutEntry,
   gameInfo: { app_name: string; runner?: string; title: string }
 ): boolean {
-  const launchOptions = getLaunchOptions(entry)
-  if (launchOptions.includes('heroic://launch')) {
-    return (
-      launchOptions.includes(
-        `appName=${gameInfo.app_name}&runner=${gameInfo.runner}`
-      ) || launchOptions.includes(`launch/${gameInfo.app_name}"`)
+  return matchesHeroicGame(
+    { appName: getAppName(entry), launchOptions: getLaunchOptions(entry) },
+    gameInfo
+  )
+}
+
+/**
+ * Builds the Exe, StartDir and LaunchOptions used for a Heroic
+ * shortcut entry, quoted the same way Steam stores them.
+ */
+function buildShortcutEntryConfig(gameInfo: GameInfo): {
+  exe: string
+  startDir: string
+  launchOptions: string
+} {
+  let exe = `"${app.getPath('exe')}"`
+  let startDir = `"${dirname(app.getPath('exe'))}"`
+
+  if (isFlatpak) {
+    exe = `"flatpak"`
+    startDir = `"${userHome}"`
+  } else if (!isWindows && isAppImage) {
+    exe = `"${process.env.APPIMAGE}"`
+    startDir = `"${dirname(process.env.APPIMAGE!)}"`
+  } else if (isWindows && process.env.PORTABLE_EXECUTABLE_FILE) {
+    exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}"`
+    startDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`
+  }
+
+  const args = []
+  args.push('--no-gui')
+  if (!isWindows) {
+    args.push('--no-sandbox')
+  }
+  args.push(
+    `"heroic://launch?appName=${gameInfo.app_name}&runner=${gameInfo.runner}"`
+  )
+
+  let launchOptions = args.join(' ')
+  if (isFlatpak) {
+    launchOptions = `run com.heroicgameslauncher.hgl ${launchOptions}`
+  }
+
+  return { exe, startDir, launchOptions }
+}
+
+/**
+ * Creates the flag file that makes Steam expose its remote debugging
+ * interface on the next start, so shortcuts can be managed while
+ * Steam is running.
+ */
+function enableSteamClientApiOnNextStart(steamPath: string) {
+  const flagFile = join(steamPath, '.cef-enable-remote-debugging')
+  try {
+    if (!existsSync(flagFile)) {
+      writeFileSync(flagFile, '')
+    }
+  } catch (error) {
+    logWarning(
+      [`Failed to create ${flagFile} with:`, error],
+      LogPrefix.Shortcuts
     )
   }
-  return getAppName(entry) === gameInfo.title
+}
+
+function showSteamRunningError(props: {
+  steamPath: string
+  gameTitle: string
+  adding: boolean
+}) {
+  enableSteamClientApiOnNextStart(props.steamPath)
+
+  const error = isSteamDeckGameMode
+    ? i18next.t('box.error.steam.running-gamemode', {
+        defaultValue:
+          'A one-time Steam restart is required before Heroic can manage Steam shortcuts on this device. Restart Steam and try again.'
+      })
+    : i18next.t('box.error.steam.running', {
+        defaultValue:
+          'Steam is running. Close Steam and try again, or restart Steam once to let Heroic manage shortcuts while Steam is running.'
+      })
+
+  logError(
+    `Can't ${props.adding ? 'add' : 'remove'} "${props.gameTitle}" ${
+      props.adding ? 'to' : 'from'
+    } Steam while Steam is running.`,
+    LogPrefix.Shortcuts
+  )
+  showErrorInFrontend({
+    gameTitle: props.gameTitle,
+    error,
+    adding: props.adding
+  })
 }
 
 /**
@@ -258,7 +370,149 @@ function checkIfAlreadyAdded(
   gameInfo: { app_name: string; runner?: string; title: string }
 ) {
   const shortcuts = object.shortcuts ?? []
-  return shortcuts.findIndex((entry) => isHeroicShortcutForGame(entry, gameInfo))
+  return shortcuts.findIndex((entry) =>
+    isHeroicShortcutForGame(entry, gameInfo)
+  )
+}
+
+/**
+ * Downloads the Steam grid images for a shortcut into every Steam
+ * user config dir and returns the image paths of the last user.
+ */
+async function prepareImagesForAllUsers(props: {
+  game: Game
+  gameInfo: GameInfo
+  steamUserdataDir: string
+  appID: { bigPictureAppID: string; otherGridAppID: string }
+}) {
+  const wikiInfo = await getWikiGameInfo(props.game)
+  const steamID = wikiInfo?.pcgamingwiki?.steamID ?? wikiInfo?.gamesdb?.steamID
+
+  const { folders } = checkSteamUserDataDir(props.steamUserdataDir)
+  let images = undefined
+  for (const folder of folders) {
+    const configDir = join(props.steamUserdataDir, folder, 'config')
+    if (!existsSync(configDir)) {
+      continue
+    }
+    images = await prepareImagesForSteam({
+      steamUserConfigDir: configDir,
+      appID: props.appID,
+      gameInfo: props.gameInfo,
+      steamID
+    })
+  }
+  return images
+}
+
+/**
+ * Adds a non-steam game to a running Steam client via the
+ * SteamClient API. Takes effect without a Steam restart.
+ * @returns boolean
+ */
+async function addNonSteamGameViaSteamClient(props: {
+  game: Game
+  gameInfo: GameInfo
+  steamUserdataDir: string
+}): Promise<boolean> {
+  const { game, gameInfo, steamUserdataDir } = props
+  try {
+    let shortcuts: SteamClientShortcut[] = []
+    try {
+      shortcuts = await getSteamClientShortcuts()
+    } catch (error) {
+      logWarning(
+        ['Failed to list Steam shortcuts with:', error],
+        LogPrefix.Shortcuts
+      )
+    }
+
+    const existing = shortcuts.find((shortcut) =>
+      matchesHeroicGame(shortcut, gameInfo)
+    )
+    let appId = existing?.appid
+
+    if (appId === undefined) {
+      const { exe, startDir, launchOptions } =
+        buildShortcutEntryConfig(gameInfo)
+
+      let icon = undefined
+      await getIcon(gameInfo.app_name, gameInfo)
+        .then((path) => (icon = path))
+        .catch((error) =>
+          logWarning(
+            [`Couldn't find a icon for ${gameInfo.title} with:`, error],
+            LogPrefix.Shortcuts
+          )
+        )
+
+      appId = await addShortcutViaSteamClient({
+        name: gameInfo.title,
+        exe,
+        startDir,
+        launchOptions,
+        icon
+      })
+    }
+
+    const shortAppId = appId >>> 0
+    const images = await prepareImagesForAllUsers({
+      game,
+      gameInfo,
+      steamUserdataDir,
+      appID: {
+        bigPictureAppID: String(
+          (BigInt(shortAppId) << BigInt(32)) | BigInt(0x02000000)
+        ),
+        otherGridAppID: String(shortAppId)
+      }
+    })
+
+    if (images) {
+      await setShortcutArtworkViaSteamClient({
+        appId: shortAppId,
+        imagePath: images.coverArt,
+        assetType: steamClientArtworkTypes.grid
+      })
+      await setShortcutArtworkViaSteamClient({
+        appId: shortAppId,
+        imagePath: images.backGroundArt,
+        assetType: steamClientArtworkTypes.hero
+      })
+      await setShortcutArtworkViaSteamClient({
+        appId: shortAppId,
+        imagePath: images.logoArt,
+        assetType: steamClientArtworkTypes.logo
+      })
+      await setShortcutArtworkViaSteamClient({
+        appId: shortAppId,
+        imagePath: images.headerArt,
+        assetType: steamClientArtworkTypes.wideGrid
+      })
+    }
+
+    logInfo(
+      `${gameInfo.title} was successfully added to Steam.`,
+      LogPrefix.Shortcuts
+    )
+    const message = i18next.t('notify.finished.add.steam.success-no-restart', {
+      defaultValue: '{{game}} was successfully added to Steam.',
+      game: gameInfo.title
+    })
+    notifyFrontend({ message, adding: true })
+    return true
+  } catch (error) {
+    logError(
+      [`Failed to add ${gameInfo.title} to Steam with:`, error],
+      LogPrefix.Shortcuts
+    )
+    showErrorInFrontend({
+      gameTitle: gameInfo.title,
+      error: `${error}`,
+      adding: true
+    })
+    return false
+  }
 }
 
 /**
@@ -272,17 +526,12 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
   const steamUserdataDir = join(steamPath, 'userdata')
 
   if (isSteamRunning(steamPath)) {
-    const error = i18next.t('box.error.steam.running', {
-      defaultValue:
-        'Steam is running. Close Steam and try again, otherwise the changes will be discarded by Steam.'
-    })
-    logError(
-      `Can't add "${gameInfo.title}" to Steam while Steam is running.`,
-      LogPrefix.Shortcuts
-    )
-    showErrorInFrontend({
+    if (await isSteamClientApiAvailable()) {
+      return addNonSteamGameViaSteamClient({ game, gameInfo, steamUserdataDir })
+    }
+    showSteamRunningError({
+      steamPath,
       gameTitle: gameInfo.title,
-      error,
       adding: true
     })
     return false
@@ -336,21 +585,11 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
     }
 
     // add new Entry
+    const { exe, startDir, launchOptions } = buildShortcutEntryConfig(gameInfo)
     const newEntry = {} as ShortcutEntry
     newEntry.AppName = gameInfo.title
-    newEntry.Exe = `"${app.getPath('exe')}"`
-    newEntry.StartDir = `"${dirname(app.getPath('exe'))}"`
-
-    if (isFlatpak) {
-      newEntry.Exe = `"flatpak"`
-      newEntry.StartDir = `"${userHome}"`
-    } else if (!isWindows && isAppImage) {
-      newEntry.Exe = `"${process.env.APPIMAGE}"`
-      newEntry.StartDir = `"${dirname(process.env.APPIMAGE!)}"`
-    } else if (isWindows && process.env.PORTABLE_EXECUTABLE_FILE) {
-      newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}"`
-      newEntry.StartDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`
-    }
+    newEntry.Exe = exe
+    newEntry.StartDir = startDir
 
     newEntry.appid = generateShortcutId(newEntry.Exe, newEntry.AppName)
 
@@ -373,19 +612,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
       steamID: steamID
     })
 
-    const args = []
-    args.push('--no-gui')
-    if (!isWindows) {
-      args.push('--no-sandbox')
-    }
-
-    const { runner, app_name } = gameInfo
-
-    args.push(`"heroic://launch?appName=${app_name}&runner=${runner}"`)
-    newEntry.LaunchOptions = args.join(' ')
-    if (isFlatpak) {
-      newEntry.LaunchOptions = `run com.heroicgameslauncher.hgl ${newEntry.LaunchOptions}`
-    }
+    newEntry.LaunchOptions = launchOptions
     newEntry.IsHidden = false
     newEntry.AllowDesktopConfig = true
     newEntry.AllowOverlay = true
@@ -455,6 +682,78 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
 }
 
 /**
+ * Removes a non-steam game from a running Steam client via the
+ * SteamClient API. Takes effect without a Steam restart.
+ */
+async function removeNonSteamGameViaSteamClient(props: {
+  gameInfo: GameInfo
+  steamUserdataDir: string
+}): Promise<void> {
+  const { gameInfo, steamUserdataDir } = props
+  try {
+    const shortcuts = await getSteamClientShortcuts()
+    const existing = shortcuts.find((shortcut) =>
+      matchesHeroicGame(shortcut, gameInfo)
+    )
+    if (!existing) {
+      return
+    }
+
+    await removeShortcutViaSteamClient(existing.appid)
+
+    const shortAppId = existing.appid >>> 0
+    const { folders } = checkSteamUserDataDir(steamUserdataDir)
+    for (const folder of folders) {
+      const configDir = join(steamUserdataDir, folder, 'config')
+      if (!existsSync(configDir)) {
+        continue
+      }
+      removeImagesFromSteam({
+        steamUserConfigDir: configDir,
+        appID: {
+          bigPictureAppID: String(
+            (BigInt(shortAppId) << BigInt(32)) | BigInt(0x02000000)
+          ),
+          otherGridAppID: String(shortAppId)
+        },
+        gameInfo
+      })
+      removeImagesFromSteam({
+        steamUserConfigDir: configDir,
+        appID: {
+          bigPictureAppID: generateAppId(existing.exe, existing.appName),
+          otherGridAppID: generateShortAppId(existing.exe, existing.appName)
+        },
+        gameInfo
+      })
+    }
+
+    logInfo(
+      `${gameInfo.title} was successfully removed from Steam.`,
+      LogPrefix.Shortcuts
+    )
+    const message = i18next.t(
+      'notify.finished.remove.steam.success-no-restart',
+      {
+        defaultValue: '{{game}} was successfully removed from Steam.',
+        game: gameInfo.title
+      }
+    )
+    notifyFrontend({ message, adding: false })
+  } catch (error) {
+    logError(
+      [`Failed to remove ${gameInfo.title} from Steam with:`, error],
+      LogPrefix.Shortcuts
+    )
+    showErrorInFrontend({
+      gameTitle: gameInfo.title,
+      error: `${error}`,
+      adding: false
+    })
+  }
+}
+
+/**
  * Removes a non-steam game from steam via editing shortcuts.vdf
  * @param gameInfo @see GameInfo of the game to remove
  * @param steamUserdataDir Path to steam userdata directory, optional
@@ -466,17 +765,12 @@ async function removeNonSteamGame(game: Game): Promise<void> {
   const steamUserdataDir = join(steamPath, 'userdata')
 
   if (isSteamRunning(steamPath)) {
-    const error = i18next.t('box.error.steam.running', {
-      defaultValue:
-        'Steam is running. Close Steam and try again, otherwise the changes will be discarded by Steam.'
-    })
-    logError(
-      `Can't remove "${gameInfo.title}" from Steam while Steam is running.`,
-      LogPrefix.Shortcuts
-    )
-    showErrorInFrontend({
+    if (await isSteamClientApiAvailable()) {
+      return removeNonSteamGameViaSteamClient({ gameInfo, steamUserdataDir })
+    }
+    showSteamRunningError({
+      steamPath,
       gameTitle: gameInfo.title,
-      error,
       adding: false
     })
     return
@@ -588,7 +882,21 @@ async function removeNonSteamGame(game: Game): Promise<void> {
  * @returns boolean
  */
 async function isAddedToSteam(game: Game): Promise<boolean> {
-  const steamUserdataDir = await getSteamUserdataDir()
+  const gameInfo = game.getGameInfo()
+  const steamPath = await getSteamPath()
+  const steamUserdataDir = join(steamPath, 'userdata')
+
+  if (isSteamRunning(steamPath) && (await isSteamClientApiAvailable())) {
+    try {
+      const shortcuts = await getSteamClientShortcuts()
+      return shortcuts.some((shortcut) => matchesHeroicGame(shortcut, gameInfo))
+    } catch (error) {
+      logWarning(
+        ['Failed to list Steam shortcuts with:', error],
+        LogPrefix.Shortcuts
+      )
+    }
+  }
 
   const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
@@ -612,7 +920,7 @@ async function isAddedToSteam(game: Game): Promise<boolean> {
       continue
     }
 
-    const index = checkIfAlreadyAdded(content, game.getGameInfo())
+    const index = checkIfAlreadyAdded(content, gameInfo)
 
     if (index < 0) {
       continue
