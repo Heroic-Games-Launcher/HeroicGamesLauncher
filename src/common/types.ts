@@ -136,6 +136,7 @@ export interface AppSettings extends GameSettings {
   verboseLogs: boolean
   showValveProton: boolean
   steamGridDbApiKey: string
+  ProcessMitigations: boolean
 }
 
 export type LibraryTopSectionOptions =
@@ -266,6 +267,7 @@ export interface GameSettings {
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
   enableQuickSavesMenu: boolean
+  ProcessMitigations: boolean
 }
 
 export type Status =
