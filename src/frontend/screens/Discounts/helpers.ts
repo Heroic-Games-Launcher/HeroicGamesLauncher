@@ -3,7 +3,6 @@ import type {
   CatalogProduct,
   CatalogRating,
   CatalogTag,
-  DiscountStore
   DiscountStore,
   GogDealsRegion
 } from 'common/types/discounts'
