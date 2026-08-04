@@ -31,30 +31,48 @@ import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 import { tsStore } from 'backend/constants/key_value_stores'
 import { userHome } from 'backend/constants/paths'
 import { isAppImage, isFlatpak, isWindows } from 'backend/constants/environment'
+import { isSteamRunning } from './steamProcess'
 import type { Game } from 'common/types/game_manager'
 
-const getSteamUserdataDir = async () => {
+const getSteamPath = async () => {
   const { defaultSteamPath } = GlobalConfig.get().getSettings()
-  return join(defaultSteamPath.replaceAll("'", ''), 'userdata')
+  return defaultSteamPath.replaceAll("'", '')
+}
+
+const getSteamUserdataDir = async () => {
+  return join(await getSteamPath(), 'userdata')
 }
 
 /**
  * Opens a error dialog in frontend with the error message
  * @param props
  */
-function showErrorInFrontend(props: { gameTitle: string; error: string }) {
-  const error = i18next.t('box.error.add.steam.body', {
-    defaultValue: 'Adding {{game}} to Steam failed with:{{newLine}} {{error}}',
-    game: props.gameTitle,
-    newLine: '\n',
-    error: props.error,
-    interpolation: { escapeValue: false }
-  })
+function showErrorInFrontend(props: {
+  gameTitle: string
+  error: string
+  adding: boolean
+}) {
+  const error = props.adding
+    ? i18next.t('box.error.add.steam.body', {
+        defaultValue:
+          'Adding {{game}} to Steam failed with:{{newLine}} {{error}}',
+        game: props.gameTitle,
+        newLine: '\n',
+        error: props.error,
+        interpolation: { escapeValue: false }
+      })
+    : i18next.t('box.error.remove.steam.body', {
+        defaultValue:
+          'Removing {{game}} from Steam failed with:{{newLine}} {{error}}',
+        game: props.gameTitle,
+        newLine: '\n',
+        error: props.error,
+        interpolation: { escapeValue: false }
+      })
 
-  const title = i18next.t(
-    'box.error.add.steam.title',
-    'Error Adding Game to Steam'
-  )
+  const title = props.adding
+    ? i18next.t('box.error.add.steam.title', 'Error Adding Game to Steam')
+    : i18next.t('box.error.remove.steam.title', 'Error Removing Game from Steam')
 
   showDialogBoxModalAuto({ title, message: error, type: 'ERROR' })
 }
@@ -250,7 +268,26 @@ function checkIfAlreadyAdded(
  */
 async function addNonSteamGame(game: Game): Promise<boolean> {
   const gameInfo = game.getGameInfo()
-  const steamUserdataDir = await getSteamUserdataDir()
+  const steamPath = await getSteamPath()
+  const steamUserdataDir = join(steamPath, 'userdata')
+
+  if (isSteamRunning(steamPath)) {
+    const error = i18next.t('box.error.steam.running', {
+      defaultValue:
+        'Steam is running. Close Steam and try again, otherwise the changes will be discarded by Steam.'
+    })
+    logError(
+      `Can't add "${gameInfo.title}" to Steam while Steam is running.`,
+      LogPrefix.Shortcuts
+    )
+    showErrorInFrontend({
+      gameTitle: gameInfo.title,
+      error,
+      adding: true
+    })
+    return false
+  }
+
   const wikiInfo = await getWikiGameInfo(game)
   const steamID = wikiInfo?.pcgamingwiki?.steamID ?? wikiInfo?.gamesdb?.steamID
 
@@ -260,7 +297,8 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
     logError(error, LogPrefix.Shortcuts)
     showErrorInFrontend({
       gameTitle: gameInfo.title,
-      error
+      error,
+      adding: true
     })
     return false
   }
@@ -380,7 +418,8 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
     logError(errorMessage, LogPrefix.Shortcuts)
     showErrorInFrontend({
       gameTitle: gameInfo.title,
-      error: errorMessage
+      error: errorMessage,
+      adding: true
     })
     return false
   }
@@ -423,7 +462,26 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
  */
 async function removeNonSteamGame(game: Game): Promise<void> {
   const gameInfo = game.getGameInfo()
-  const steamUserdataDir = await getSteamUserdataDir()
+  const steamPath = await getSteamPath()
+  const steamUserdataDir = join(steamPath, 'userdata')
+
+  if (isSteamRunning(steamPath)) {
+    const error = i18next.t('box.error.steam.running', {
+      defaultValue:
+        'Steam is running. Close Steam and try again, otherwise the changes will be discarded by Steam.'
+    })
+    logError(
+      `Can't remove "${gameInfo.title}" from Steam while Steam is running.`,
+      LogPrefix.Shortcuts
+    )
+    showErrorInFrontend({
+      gameTitle: gameInfo.title,
+      error,
+      adding: false
+    })
+    return
+  }
+
   const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
   // we don't show a error here.
