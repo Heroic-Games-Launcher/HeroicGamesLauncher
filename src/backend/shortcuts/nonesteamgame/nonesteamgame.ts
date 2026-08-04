@@ -12,7 +12,7 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { readFileSync } from 'fs-extra'
-import { join } from 'path'
+import { dirname, join } from 'path'
 import { ShortcutsResult } from '../types'
 import { getIcon } from '../utils'
 import {
@@ -29,6 +29,7 @@ import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 import { tsStore } from 'backend/constants/key_value_stores'
+import { userHome } from 'backend/constants/paths'
 import { isAppImage, isFlatpak, isWindows } from 'backend/constants/environment'
 import type { Game } from 'common/types/game_manager'
 
@@ -300,12 +301,14 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
     const newEntry = {} as ShortcutEntry
     newEntry.AppName = gameInfo.title
     newEntry.Exe = `"${app.getPath('exe')}"`
-    newEntry.StartDir = `"${process.cwd()}"`
+    newEntry.StartDir = `"${dirname(app.getPath('exe'))}"`
 
     if (isFlatpak) {
       newEntry.Exe = `"flatpak"`
+      newEntry.StartDir = `"${userHome}"`
     } else if (!isWindows && isAppImage) {
       newEntry.Exe = `"${process.env.APPIMAGE}"`
+      newEntry.StartDir = `"${dirname(process.env.APPIMAGE!)}"`
     } else if (isWindows && process.env.PORTABLE_EXECUTABLE_FILE) {
       newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}"`
       newEntry.StartDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`
