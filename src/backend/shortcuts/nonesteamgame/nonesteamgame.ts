@@ -249,19 +249,18 @@ function getShortcutPath(object: ShortcutEntry): string {
 
 /**
  * Check if a shortcut points to the given Heroic game.
- * Matches on the heroic launch url or on the .desktop wrapper first,
- * so renaming the shortcut in Steam does not break the detection.
- * Falls back to the title for entries created by older Heroic
- * versions or added manually.
+ * Only matches shortcuts created by Heroic, identified by the heroic
+ * launch url or by the .desktop wrapper, so shortcuts with the same
+ * title created by other tools are never touched. Renaming the
+ * shortcut in Steam does not break the detection.
  */
 function matchesHeroicGame(
   shortcut: {
-    appName: string
     launchOptions: string
     exe?: string
     shortcutPath?: string
   },
-  gameInfo: { app_name: string; runner?: string; title: string }
+  gameInfo: { app_name: string; runner?: string }
 ): boolean {
   if (gameInfo.runner) {
     const wrapperPath = steamShortcutWrapperPath({
@@ -286,16 +285,15 @@ function matchesHeroicGame(
       )
     )
   }
-  return shortcut.appName === gameInfo.title
+  return false
 }
 
 function isHeroicShortcutForGame(
   entry: ShortcutEntry,
-  gameInfo: { app_name: string; runner?: string; title: string }
+  gameInfo: { app_name: string; runner?: string }
 ): boolean {
   return matchesHeroicGame(
     {
-      appName: getAppName(entry),
       launchOptions: getLaunchOptions(entry),
       exe: getExe(entry),
       shortcutPath: getShortcutPath(entry)
@@ -432,7 +430,7 @@ function checkIfShortcutObjectIsValid(
  */
 function checkIfAlreadyAdded(
   object: Partial<ShortcutObject>,
-  gameInfo: { app_name: string; runner?: string; title: string }
+  gameInfo: { app_name: string; runner?: string }
 ) {
   const shortcuts = object.shortcuts ?? []
   return shortcuts.findIndex((entry) =>
