@@ -2,7 +2,7 @@ import axios from 'axios'
 import { existsSync } from 'graceful-fs'
 import { readFile } from 'fs/promises'
 import { extname } from 'path'
-import { logWarning, LogPrefix } from 'backend/logger'
+import { logDebug, logWarning, LogPrefix } from 'backend/logger'
 
 /**
  * Talks to a running Steam client through its CEF remote debugging
@@ -52,7 +52,11 @@ async function getSharedJSContextSocketUrl(): Promise<string | null> {
     const url = target?.webSocketDebuggerUrl ?? null
     cachedSocketUrl = url ? { url, fetchedAt: Date.now() } : null
     return url
-  } catch {
+  } catch (error) {
+    logDebug(
+      ['The Steam client debugging interface is not reachable:', error],
+      LogPrefix.Shortcuts
+    )
     cachedSocketUrl = null
     return null
   }
