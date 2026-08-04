@@ -98,6 +98,23 @@ describe('NonSteamGame', () => {
     )
   })
 
+  test('Remove game even if title changed since it was added', async () => {
+    copyTestFile('shortcuts_valid.vdf')
+    const shortcutFilePath = join(tmpSteamUserConfigDir, 'shortcuts.vdf')
+    const contentBefore = readFileSync(shortcutFilePath).toString()
+
+    await addNonSteamGame(makeGameMock('MyGame', 'Game'))
+
+    const contentBetween = readFileSync(shortcutFilePath).toString()
+
+    // the launch url still points to the same app_name
+    await removeNonSteamGame(makeGameMock('Renamed Title', 'Game'))
+
+    const contentAfter = readFileSync(shortcutFilePath).toString()
+    expect(contentBetween).toContain('MyGame')
+    expect(contentBefore).toStrictEqual(contentAfter)
+  })
+
   test('Create shortcuts.vdf if not exist', async () => {
     const shortcutFilePath = join(tmpSteamUserConfigDir, 'shortcuts.vdf')
 

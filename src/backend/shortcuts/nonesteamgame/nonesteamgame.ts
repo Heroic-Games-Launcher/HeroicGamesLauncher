@@ -164,6 +164,39 @@ function getAppName(object: ShortcutEntry): string {
   )?.[1]
 }
 
+/** Return LaunchOptions property case insensitive
+ *  @param {Object} object
+ *  @returns LaunchOptions of Shortcut Entry
+ */
+function getLaunchOptions(object: ShortcutEntry): string {
+  return (
+    Object.entries(object).find(
+      ([key]) => key.toLowerCase() === 'launchoptions'
+    )?.[1] ?? ''
+  )
+}
+
+/**
+ * Check if a shortcut entry points to the given Heroic game.
+ * Matches on the heroic launch url first, so renaming the shortcut
+ * in Steam does not break the detection. Falls back to the title
+ * for entries created by older Heroic versions or added manually.
+ */
+function isHeroicShortcutForGame(
+  entry: ShortcutEntry,
+  gameInfo: { app_name: string; runner?: string; title: string }
+): boolean {
+  const launchOptions = getLaunchOptions(entry)
+  if (launchOptions.includes('heroic://launch')) {
+    return (
+      launchOptions.includes(
+        `appName=${gameInfo.app_name}&runner=${gameInfo.runner}`
+      ) || launchOptions.includes(`launch/${gameInfo.app_name}"`)
+    )
+  }
+  return getAppName(entry) === gameInfo.title
+}
+
 /**
  * Check if the parsed object of a shortcuts.vdf is valid.
  * @param object @see Partial<ShortcutObject>
@@ -198,12 +231,15 @@ function checkIfShortcutObjectIsValid(
 /**
  * Check if a game is already added.
  * @param object @see Partial<ShortcutObject>
- * @param title Title of the game
- * @returns Index of the found title, else if not found -1
+ * @param gameInfo GameInfo of the game
+ * @returns Index of the found entry, else if not found -1
  */
-function checkIfAlreadyAdded(object: Partial<ShortcutObject>, title: string) {
+function checkIfAlreadyAdded(
+  object: Partial<ShortcutObject>,
+  gameInfo: { app_name: string; runner?: string; title: string }
+) {
   const shortcuts = object.shortcuts ?? []
-  return shortcuts.findIndex((entry) => getAppName(entry) === title)
+  return shortcuts.findIndex((entry) => isHeroicShortcutForGame(entry, gameInfo))
 }
 
 /**
@@ -255,7 +291,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
       continue
     }
 
-    if (checkIfAlreadyAdded(content, gameInfo.title) > -1) {
+    if (checkIfAlreadyAdded(content, gameInfo) > -1) {
       added = true
       continue
     }
@@ -418,7 +454,7 @@ async function removeNonSteamGame(game: Game): Promise<void> {
     // This is just to make TS happy, in reality checkIfShortcutObjectIsValid already checks for this array
     content.shortcuts = content.shortcuts || []
 
-    const index = checkIfAlreadyAdded(content, gameInfo.title)
+    const index = checkIfAlreadyAdded(content, gameInfo)
 
     if (index < 0) {
       continue
@@ -515,7 +551,7 @@ async function isAddedToSteam(game: Game): Promise<boolean> {
       continue
     }
 
-    const index = checkIfAlreadyAdded(content, game.getGameInfo().title)
+    const index = checkIfAlreadyAdded(content, game.getGameInfo())
 
     if (index < 0) {
       continue
