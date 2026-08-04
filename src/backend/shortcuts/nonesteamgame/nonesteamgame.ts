@@ -4,7 +4,13 @@ import {
   ShortcutEntry,
   ShortcutObject
 } from 'steam-shortcut-editor'
-import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  renameSync,
+  writeFileSync
+} from 'graceful-fs'
 import { readFileSync } from 'fs-extra'
 import { join } from 'path'
 import { ShortcutsResult } from '../types'
@@ -128,8 +134,10 @@ function writeShortcutFile(
   object: Partial<ShortcutObject>
 ): string | undefined {
   const buffer = writeBuffer(object)
+  const tmpFile = `${file}.tmp`
   try {
-    writeFileSync(file, buffer)
+    writeFileSync(tmpFile, buffer)
+    renameSync(tmpFile, file)
     return
   } catch (error) {
     return `${error}`
