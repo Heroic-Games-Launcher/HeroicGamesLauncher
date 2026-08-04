@@ -150,13 +150,25 @@ async function evalInSteamClient<T>(expression: string): Promise<T> {
 async function getSteamClientShortcuts(): Promise<SteamClientShortcut[]> {
   const shortcuts = await evalInSteamClient<SteamClientShortcut[]>(
     `(async () => {
-      const shortcuts = await SteamClient.Apps.GetAllShortcuts()
-      return shortcuts.map((shortcut) => ({
-        appid: shortcut.appid,
-        appName: shortcut.data?.strAppName ?? '',
-        exe: shortcut.data?.strExePath ?? '',
-        launchOptions: shortcut.data?.strArguments ?? ''
-      }))
+      const apps = appStore.allApps.filter((app) => app.BIsShortcut())
+      const shortcuts = []
+      for (const app of apps) {
+        let details = appDetailsStore.GetAppDetails(app.appid)
+        if (!details) {
+          appDetailsStore.RequestAppDetails(app.appid)
+          for (let i = 0; i < 10 && !details; i++) {
+            await new Promise((resolve) => setTimeout(resolve, 100))
+            details = appDetailsStore.GetAppDetails(app.appid)
+          }
+        }
+        shortcuts.push({
+          appid: app.appid,
+          appName: details?.strDisplayName ?? app.display_name ?? '',
+          exe: details?.strShortcutExe ?? '',
+          launchOptions: details?.strShortcutLaunchOptions ?? ''
+        })
+      }
+      return shortcuts
     })()`
   )
   if (!Array.isArray(shortcuts)) {
