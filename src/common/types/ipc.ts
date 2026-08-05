@@ -52,6 +52,11 @@ import type {
 } from './discounts'
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
+import type {
+  ItchioLoginData,
+  ItchioRegisterData,
+  ItchioUserData
+} from './itchio'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
 
@@ -198,6 +203,7 @@ interface AsyncIPCFunctions {
   ) => Promise<InstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
+  getItchioUserInfo: () => Promise<ItchioUserData | undefined>
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
@@ -212,9 +218,14 @@ interface AsyncIPCFunctions {
     status: 'done' | 'failed'
     user: NileUserData | undefined
   }>
+  authItchio: (data: ItchioRegisterData) => Promise<{
+    status: 'done' | 'failed'
+    user: ItchioUserData | undefined
+  }>
   authZoom: (url: string) => Promise<{ status: 'done' | 'error' }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
+  logoutItchio: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestAppSettings: () => AppSettings
@@ -329,6 +340,7 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
+  getItchioLoginData: () => Promise<ItchioLoginData>
   hasExecutable: (executable: string) => Promise<boolean>
 
   setPrivateBranchPassword: (appName: string, password: string) => void

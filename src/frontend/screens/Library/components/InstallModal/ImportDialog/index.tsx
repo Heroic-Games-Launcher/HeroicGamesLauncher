@@ -105,6 +105,14 @@ export default function ImportDialog({
           label={t('install.path', 'Select Install Path')}
           noDeleteButton
         />
+        {runner === 'itchio' && (
+          <span className="warning">
+            {t(
+              'itchio.import.warning',
+              'Folders installed by the itch.io app are fully imported, including updates. For any other folder, Heroic cannot check for updates and uninstalling will not delete the game files.'
+            )}
+          </span>
+        )}
         {children}
       </DialogContent>
       <DialogFooter>

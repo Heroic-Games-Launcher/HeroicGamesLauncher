@@ -205,6 +205,11 @@
         "wineprefix": "WinePrefix",
         "wineversion": "Wine version"
     },
+    "itchio": {
+        "import": {
+            "warning": "Folders installed by the itch.io app are fully imported, including updates. For any other folder, Heroic cannot check for updates and uninstalling will not delete the game files."
+        }
+    },
     "label": {
         "game": {
             "not-installable-game": "Game is NOT Installable",
@@ -238,6 +243,7 @@
         "amazon": "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:",
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "itchio": "itch.io's login and registration pages are protected by Cloudflare and may fail to load in the embedded browser. To connect your itch.io account to Heroic, use the API key login on the Login page instead:",
         "login": "Log in",
         "title": "You are NOT logged in",
         "zoom": "You are not logged in with a Zoom account in Heroic. Don't use the store page to login, click the following button instead:"
