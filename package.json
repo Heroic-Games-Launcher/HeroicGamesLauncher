@@ -21,7 +21,7 @@
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@11.20.0",
   "scripts": {
     "start": "electron-vite dev --watch",
     "codecheck": "tsc --noEmit",
@@ -149,8 +149,5 @@
     "unimported": "^1.31.1",
     "vite-plugin-svgr": "^4.3.0",
     "xvfb-maybe": "^0.2.1"
-  },
-  "resolutions": {
-    "ts-morph": "17.0.1"
   }
 }
