@@ -56,8 +56,7 @@ import {
   checkRosettaInstall,
   writeConfig,
   createNecessaryFolders,
-  clearAchievementCache,
-  getGame
+  clearAchievementCache
 } from './utils'
 import { startPlausible } from './utils/plausible'
 
@@ -640,18 +639,20 @@ addListener('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
 addListener('openCustomThemesWiki', async () =>
   openUrlOrFile(customThemesWikiLink)
 )
-addListener('showConfigFileInFolder', async (event, appName) => {
-  if (appName === 'default') {
+addListener('showConfigFileInFolder', async (event, game) => {
+  if (!game) {
     return openUrlOrFile(configPath)
   }
-  return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
+  return openUrlOrFile(path.join(gamesConfigPath, `${game.id}.json`))
 })
 
 addListener('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-addHandler('runWineCommand', async (e, args) => runWineCommand(args))
+addHandler('runWineCommand', async (e, game, args) =>
+  runWineCommand(game, args)
+)
 
 /// IPC handlers begin here.
 
@@ -680,8 +681,8 @@ addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 addHandler('getGameOverride', async () =>
   libraryManagerMap['legendary'].getGameOverride()
 )
-addHandler('getGameSdl', async (event, appName) =>
-  libraryManagerMap['legendary'].getGameSdl(appName)
+addHandler('getGameSdl', async (event, game) =>
+  libraryManagerMap['legendary'].getGameSdl(game.id)
 )
 
 addHandler('showUpdateSetting', () => !isFlatpak)
@@ -717,10 +718,10 @@ addListener('clearCache', (event, showDialog, fromVersionChange = false) => {
   }
 })
 
-addListener('clearAchievementCache', (event, appName: string) => {
-  clearAchievementCache(appName)
+addListener('clearAchievementCache', (event, game) => {
+  clearAchievementCache(game)
   logInfo(
-    'Achievement cache was cleared for game: ' + appName,
+    'Achievement cache was cleared for game: ' + game.id,
     LogPrefix.Backend
   )
 })
@@ -731,82 +732,38 @@ addListener('createNewWindow', (e, url) => {
   new BrowserWindow({ height: 700, width: 1200 }).loadURL(url)
 })
 
-addHandler('isGameAvailable', async (e, args) => {
-  const { appName, runner } = args
-  return libraryManagerMap[runner].getGame(appName).isGameAvailable()
-})
+addHandler('isGameAvailable', async (e, game) => game.isGameAvailable())
 
-addHandler('getGameInfo', async (event, appName, runner) => {
-  // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
-  if (
-    runner === 'legendary' &&
-    !libraryManagerMap['legendary'].hasGame(appName)
-  ) {
-    return null
-  }
-  const tempGameInfo = libraryManagerMap[runner].getGame(appName).getGameInfo()
+addHandler('getGameInfo', async (event, game) => {
+  const tempGameInfo = game.getGameInfo()
   // The game managers return an empty object if they couldn't fetch the game
   // info, since most of the backend assumes getting it can never fail (and
   // an empty object is a little easier to work with than `null`)
   // The frontend can however handle being passed an explicit `null` value, so
   // we return that here instead if the game info is empty
   if (!Object.keys(tempGameInfo).length) return null
-  return attachOverrides(tempGameInfo)
+  return attachOverrides(game, tempGameInfo)
 })
 
-addHandler(
-  'getAchievements',
-  async (event, appName, runner, lang = 'en-US') => {
-    return getGame(appName, runner).getAchievements?.(lang) ?? []
-  }
-)
-
-addHandler('getExtraInfo', async (event, appName, runner) => {
-  // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
-  if (
-    runner === 'legendary' &&
-    !libraryManagerMap['legendary'].hasGame(appName)
-  ) {
-    return null
-  }
-  return libraryManagerMap[runner].getGame(appName).getExtraInfo()
+addHandler('getAchievements', async (event, game, lang = 'en-US') => {
+  return game.getAchievements?.(lang) ?? []
 })
 
-addHandler('getGameSettings', async (event, appName, runner) => {
-  try {
-    return await libraryManagerMap[runner].getGame(appName).getSettings()
-  } catch (error) {
-    logError(error, LogPrefix.Backend)
-    return null
-  }
-})
+addHandler('getExtraInfo', async (event, game) => game.getExtraInfo())
 
-addHandler('getGOGLinuxInstallersLangs', async (event, appName) =>
-  libraryManagerMap['gog'].getLinuxInstallersLanguages(appName)
+addHandler('getGameSettings', async (event, game) => game.getSettings())
+
+addHandler('getGOGLinuxInstallersLangs', async (event, game) =>
+  libraryManagerMap['gog'].getLinuxInstallersLanguages(game.id)
 )
 
 addHandler(
   'getInstallInfo',
-  async (event, appName, runner, installPlatform, build, branch) => {
-    try {
-      const info = await libraryManagerMap[runner].getInstallInfo(
-        appName,
-        installPlatform,
-        {
-          branch,
-          build
-        }
-      )
-      if (info === undefined) return null
-      return info
-    } catch (error) {
-      logError(
-        error,
-        runner === 'legendary' ? LogPrefix.Legendary : LogPrefix.Gog
-      )
-      return null
-    }
-  }
+  async (event, game, installPlatform, build, branch) =>
+    libraryManagerMap[game.runner].getInstallInfo(game.id, installPlatform, {
+      branch,
+      build
+    })
 )
 
 addHandler('getUserInfo', async () => {
@@ -852,44 +809,27 @@ addHandler('readConfig', async (event, configClass) => {
 })
 
 addHandler('requestAppSettings', () => GlobalConfig.get().getSettings())
-addHandler(
-  'requestGameSettings',
-  async (_e, appName) => await GameConfig.get(appName).getSettings()
+addHandler('requestGameSettings', async (_e, game) => game.getSettings())
+
+addHandler('toggleDXVK', async (event, game, action) =>
+  DXVK.installRemove(game, 'dxvk', action)
 )
 
-addHandler('toggleDXVK', async (event, { appName, action }) =>
-  GameConfig.get(appName)
-    .getSettings()
-    .then(async (gameSettings) =>
-      DXVK.installRemove(gameSettings, 'dxvk', action)
-    )
+addHandler('toggleDXVKNVAPI', async (event, game, action) =>
+  DXVK.installRemove(game, 'dxvk-nvapi', action)
 )
 
-addHandler('toggleDXVKNVAPI', async (event, { appName, action }) =>
-  GameConfig.get(appName)
-    .getSettings()
-    .then(async (gameSettings) =>
-      DXVK.installRemove(gameSettings, 'dxvk-nvapi', action)
-    )
+addHandler('toggleVKD3D', async (event, game, action) =>
+  DXVK.installRemove(game, 'vkd3d', action)
 )
 
-addHandler('toggleVKD3D', async (event, { appName, action }) =>
-  GameConfig.get(appName)
-    .getSettings()
-    .then(async (gameSettings) =>
-      DXVK.installRemove(gameSettings, 'vkd3d', action)
-    )
-)
+addHandler('writeConfig', (event, game, config) => writeConfig(game, config))
 
-addHandler('writeConfig', (event, { appName, config }) =>
-  writeConfig(appName, config)
-)
-
-addListener('setSetting', (event, { appName, key, value }) => {
-  if (appName === 'default') {
-    GlobalConfig.get().setSetting(key, value)
+addListener('setSetting', (event, game, key, value) => {
+  if (game) {
+    GameConfig.get(game.id).setSetting(key, value)
   } else {
-    GameConfig.get(appName).setSetting(key, value)
+    GlobalConfig.get().setSetting(key, value)
   }
 })
 
@@ -922,8 +862,8 @@ addHandler('refreshLibrary', async (e, library?) => {
 })
 
 // get pid/tid on launch and inject
-addHandler('launch', (event, args): StatusPromise => {
-  return launchEventCallback(args)
+addHandler('launch', (event, game, args): StatusPromise => {
+  return launchEventCallback(game, args)
 })
 
 addHandler('openDialog', async (e, args) => {
@@ -943,25 +883,21 @@ addListener('showItemInFolder', async (e, item) => showItemInFolder(item))
 
 addHandler('uninstall', uninstallGameCallback)
 
-addHandler('repair', async (event, appName, runner) => {
+addHandler('repair', async (event, game) => {
   if (!isOnline()) {
     logWarning(
-      `App offline, skipping repair for game '${appName}'.`,
+      `App offline, skipping repair for game '${game.id}'.`,
       LogPrefix.Backend
     )
     return
   }
 
-  sendGameStatusUpdate({
-    appName,
-    runner,
-    status: 'repairing'
-  })
+  sendGameStatusUpdate(game, 'repairing')
 
-  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+  const { title } = game.getGameInfo()
 
   try {
-    await libraryManagerMap[runner].getGame(appName).repair()
+    await game.repair()
   } catch (error) {
     notify({
       title,
@@ -972,76 +908,52 @@ addHandler('repair', async (event, appName, runner) => {
   notify({ title, body: i18next.t('notify.finished.reparing') })
   logInfo('Finished repairing', LogPrefix.Backend)
 
-  sendGameStatusUpdate({
-    appName,
-    runner,
-    status: 'done'
-  })
+  sendGameStatusUpdate(game, 'done')
 })
 
-addHandler(
-  'moveInstall',
-  async (event, { appName, path, runner }): Promise<void> => {
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'moving'
+addHandler('moveInstall', async (event, game, path): Promise<void> => {
+  sendGameStatusUpdate(game, 'moving')
+
+  const { title } = game.getGameInfo()
+  notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
+
+  const moveRes = await game.moveInstall(path)
+  if (moveRes.status === 'error') {
+    notify({
+      title,
+      body: i18next.t('notify.error.move', 'Error Moving Game')
     })
+    logError(
+      `Error while moving ${title} to ${path}: ${moveRes.error} `,
+      LogPrefix.Backend
+    )
 
-    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
-    notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
-
-    const moveRes = await libraryManagerMap[runner]
-      .getGame(appName)
-      .moveInstall(path)
-    if (moveRes.status === 'error') {
-      notify({
-        title,
-        body: i18next.t('notify.error.move', 'Error Moving Game')
-      })
-      logError(
-        `Error while moving ${appName} to ${path}: ${moveRes.error} `,
-        LogPrefix.Backend
-      )
-
-      showDialogBoxModalAuto({
-        event,
-        title: i18next.t('box.error.title', 'Error'),
-        message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
-          error: moveRes.error
-        }),
-        type: 'ERROR'
-      })
-    }
-
-    if (moveRes.status === 'done') {
-      notify({ title, body: i18next.t('notify.moved') })
-      logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
-    }
-
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'done'
+    showDialogBoxModalAuto({
+      event,
+      title: i18next.t('box.error.title', 'Error'),
+      message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
+        error: moveRes.error
+      }),
+      type: 'ERROR'
     })
   }
-)
+
+  if (moveRes.status === 'done') {
+    notify({ title, body: i18next.t('notify.moved') })
+    logInfo(`Finished moving ${title} to ${path}.`, LogPrefix.Backend)
+  }
+
+  sendGameStatusUpdate(game, 'done')
+})
 
 addHandler(
   'importGame',
   async (
     event,
-    {
-      appName,
-      path,
-      runner,
-      platform,
-      winePrefix,
-      wineVersion,
-      wineCrossoverBottle
-    }
+    game,
+    { path, platform, winePrefix, wineVersion, wineCrossoverBottle }
   ): StatusPromise => {
-    if (runner === 'legendary') {
+    if (game.runner === 'legendary') {
       const epicOffline = await isEpicServiceOffline()
       if (epicOffline) {
         showDialogBoxModalAuto({
@@ -1057,29 +969,19 @@ addHandler(
       }
     }
 
-    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'importing'
-    })
+    const { title } = game.getGameInfo()
+    sendGameStatusUpdate(game, 'importing')
 
     const abortMessage = () => {
       notify({
         title,
         body: i18next.t('notify.import.failed', 'Importing Failed')
       })
-      sendGameStatusUpdate({
-        appName,
-        runner,
-        status: 'done'
-      })
+      sendGameStatusUpdate(game, 'done')
     }
 
     try {
-      const { abort, error } = await libraryManagerMap[runner]
-        .getGame(appName)
-        .importGame(path, platform)
+      const { abort, error } = await game.importGame(path, platform)
       if (abort || error) {
         abortMessage()
         return { status: 'done' }
@@ -1091,9 +993,7 @@ addHandler(
     }
 
     if (winePrefix && wineVersion) {
-      const gameSettings = await getGame(appName, runner).getSettings()
-      writeConfig(appName, {
-        ...gameSettings,
+      writeConfig(game, {
         winePrefix,
         wineVersion,
         wineCrossoverBottle
@@ -1104,25 +1004,21 @@ addHandler(
       title,
       body: i18next.t('notify.install.imported', 'Game Imported')
     })
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'done'
-    })
+    sendGameStatusUpdate(game, 'done')
     logInfo(`imported ${title}`, LogPrefix.Backend)
     return { status: 'done' }
   }
 )
 
-addHandler('kill', async (event, appName, runner) => {
-  callAbortController(appName)
-  return libraryManagerMap[runner].getGame(appName).stop()
+addHandler('kill', async (event, game) => {
+  callAbortController(game.id)
+  return game.stop()
 })
 
-addHandler('changeInstallPath', async (event, { appName, path, runner }) => {
-  await libraryManagerMap[runner].changeGameInstallPath(appName, path)
+addHandler('changeInstallPath', async (event, game, path) => {
+  await libraryManagerMap[game.runner].changeGameInstallPath(game.id, path)
   logInfo(
-    `Finished changing install path of ${appName} to ${path}.`,
+    `Finished changing install path of ${game.id} to ${path}.`,
     LogPrefix.Backend
   )
 })
@@ -1131,13 +1027,14 @@ addHandler('egsSync', async (event, args) => {
   return libraryManagerMap['legendary'].toggleGamesSync(args)
 })
 
-addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  libraryManagerMap['gog'].getGame(appName).syncSaves(arg, '', gogSaves)
+addHandler('syncGOGSaves', async (eventgame, game, gogSaves, arg) =>
+  game.syncSaves(arg, '', gogSaves)
 )
 
-addHandler('getLaunchOptions', async (event, appName, runner) => {
-  const availableLaunchOptions =
-    await libraryManagerMap[runner].getLaunchOptions(appName)
+addHandler('getLaunchOptions', async (event, game) => {
+  const availableLaunchOptions = await libraryManagerMap[
+    game.runner
+  ].getLaunchOptions(game.id)
 
   // add a default option if there are other options but no default
   if (
@@ -1161,8 +1058,8 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
   return availableLaunchOptions
 })
 
-addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
-  if (runner === 'legendary') {
+addHandler('syncSaves', async (event, game, path, arg = '') => {
+  if (game.runner === 'legendary') {
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
       logWarning(
@@ -1177,17 +1074,13 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
     return 'App is offline, cannot sync saves!'
   }
 
-  const output = await libraryManagerMap[runner]
-    .getGame(appName)
-    .syncSaves(arg, path)
+  const output = await game.syncSaves(arg, path)
   logInfo(output, LogPrefix.Backend)
   return output
 })
 
-addHandler(
-  'getDefaultSavePath',
-  async (event, appName, runner, alreadyDefinedGogSaves) =>
-    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
+addHandler('getDefaultSavePath', async (event, game, alreadyDefinedGogSaves) =>
+  getDefaultSavePath(game, alreadyDefinedGogSaves)
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used
@@ -1367,23 +1260,21 @@ addListener('addNewApp', (e, args) =>
   libraryManagerMap['sideload'].addNewApp(args)
 )
 
-addListener('setGameMetadataOverride', (e, args) => {
-  const { appName, title, art_cover, art_square } = args
-  setGameOverrides(appName, { title, art_cover, art_square })
+addListener('setGameMetadataOverride', (e, game, args) => {
+  const { title, art_cover, art_square } = args
+  setGameOverrides(game, { title, art_cover, art_square })
   sendFrontendMessage('metadataChanged', getAllGameOverrides())
 })
 
-addHandler('getGameMetadataOverride', async (_e, appName) => {
-  return getGameOverrides(appName)
+addHandler('getGameMetadataOverride', async (_e, game) => {
+  return getGameOverrides(game)
 })
 
 addHandler('getAllGameOverrides', async () => {
   return getAllGameOverrides()
 })
 
-addHandler('isNative', (e, { appName, runner }) => {
-  return libraryManagerMap[runner].getGame(appName).isNative()
-})
+addHandler('isNative', (e, game) => game.isNative())
 
 addHandler('pathExists', async (e, path: string) => {
   return existsSync(path)
@@ -1421,25 +1312,26 @@ addListener('processShortcut', async (e, combination: string) => {
 
 addHandler(
   'getPlaytimeFromRunner',
-  async (e, runner, appName): Promise<number | undefined> => {
+  async (e, game): Promise<number | undefined> => {
     const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (disablePlaytimeSync) {
       return
     }
-    if (runner === 'gog') {
-      return libraryManagerMap[runner].getGame(appName).getGOGPlaytime()
+    if (game instanceof GOGGame) {
+      return game.getGOGPlaytime()
     }
 
     return
   }
 )
 
-addHandler('getPrivateBranchPassword', (e, appName) =>
-  libraryManagerMap['gog'].getGame(appName).getBranchPassword()
-)
-addHandler('setPrivateBranchPassword', (e, appName, password) =>
-  libraryManagerMap['gog'].getGame(appName).setBranchPassword(password)
-)
+addHandler('getPrivateBranchPassword', (e, game) => {
+  if (game instanceof GOGGame) return game.getBranchPassword()
+  return ''
+})
+addHandler('setPrivateBranchPassword', (e, game, password) => {
+  if (game instanceof GOGGame) return game.setBranchPassword(password)
+})
 
 addHandler('getAvailableCyberpunkMods', async () =>
   libraryManagerMap['gog'].getCyberpunkMods()
@@ -1448,13 +1340,11 @@ addHandler('setCyberpunkModConfig', async (e, props) =>
   libraryManagerMap['gog'].setCyberpunkModConfig(props)
 )
 
-addListener('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
-  libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
+addListener('changeGameVersionPinnedStatus', (e, game, status) => {
+  libraryManagerMap[game.runner].changeVersionPinnedStatus(game.id, status)
 })
 
-addHandler('getKnownFixes', (e, appName, runner) =>
-  readKnownFixes(appName, runner)
-)
+addHandler('getKnownFixes', (e, game) => readKnownFixes(game))
 
 addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
   validWine(wineVersion)
@@ -1482,3 +1372,4 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
+import GOGGame from './storeManagers/gog/games'

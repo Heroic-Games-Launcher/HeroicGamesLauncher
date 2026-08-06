@@ -1,7 +1,7 @@
 import {
   AppSettings,
   GameInfo,
-  GameStatus,
+  GameStatusLegacy,
   Runner,
   ConnectivityStatus,
   DialogType,
@@ -17,6 +17,7 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
+import type { GameHandle } from './helpers/ipc'
 
 export type Category =
   | 'all'
@@ -34,7 +35,7 @@ export interface ContextType {
   isFrameless: boolean
   language: string
   setLanguage: (newLanguage: string) => void
-  libraryStatus: GameStatus[]
+  libraryStatus: GameStatusLegacy[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   platform: NodeJS.Platform | 'unknown'
@@ -188,7 +189,7 @@ declare global {
   }
 }
 
-export interface SettingsContextType {
+interface SettingsContextTypeBase {
   getSetting: <T extends keyof AppSettings>(
     key: T,
     fallback: NonNullable<AppSettings[T]>
@@ -198,13 +199,24 @@ export interface SettingsContextType {
     value: AppSettings[T]
   ) => void
   config: Partial<AppSettings>
-  isDefault: boolean
-  appName: string
-  runner?: Runner
-  gameInfo?: GameInfo
+  gameInfo: GameInfo | null
   isMacNative: boolean
   isLinuxNative: boolean
 }
+
+interface SettingsContextTypeDefault extends SettingsContextTypeBase {
+  isDefault: false
+  game: GameHandle
+}
+
+interface SettingsContextTypeNonDefault extends SettingsContextTypeBase {
+  isDefault: true
+  game: null
+}
+
+export type SettingsContextType =
+  | SettingsContextTypeDefault
+  | SettingsContextTypeNonDefault
 
 export interface StoresFilters {
   legendary: boolean
@@ -248,7 +260,6 @@ export interface LibraryContextType {
   setShowThirdPartyManagedOnly: (value: boolean) => void
   showUpdatesOnly: boolean
   setShowUpdatesOnly: (value: boolean) => void
-  handleAddGameButtonClick: () => void
   setShowCategories: (value: boolean) => void
   showAlphabetFilter: boolean
   onToggleAlphabetFilter: () => void

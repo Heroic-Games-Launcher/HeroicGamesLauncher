@@ -6,12 +6,11 @@ const initialContext: SettingsContextType = {
   getSetting: (key, fallback) => fallback,
   setSetting: () => null,
   config: {},
+  game: null,
   isDefault: true,
-  appName: 'default',
-  runner: 'legendary',
-  gameInfo: undefined,
+  gameInfo: null,
   isMacNative: false,
   isLinuxNative: false
 }
 
-export default React.createContext(initialContext)
+export default React.createContext<SettingsContextType>(initialContext)

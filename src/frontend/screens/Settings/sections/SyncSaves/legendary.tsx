@@ -12,11 +12,12 @@ import { syncSaves } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
-import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 import { MenuItem } from '@mui/material'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
+  game: GameHandle
   autoSyncSaves: boolean
   isProton?: boolean
   savesPath: string
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export default function LegendarySyncSaves({
+  game,
   savesPath,
   setSavesPath,
   autoSyncSaves,
@@ -48,7 +50,6 @@ export default function LegendarySyncSaves({
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
-  const { appName } = useContext(SettingsContext)
 
   useEffect(() => {
     const setDefaultSaveFolder = async () => {
@@ -57,8 +58,7 @@ export default function LegendarySyncSaves({
       }
       setLoading(true)
       const newSavePath = (await window.api.getDefaultSavePath(
-        appName,
-        'legendary',
+        game,
         []
       )) as string
 
@@ -72,12 +72,10 @@ export default function LegendarySyncSaves({
   async function handleSync() {
     setIsSyncing(true)
 
-    await syncSaves(savesPath, appName, 'legendary', syncType).then(
-      (response: string) => {
-        setManuallyOutput(response.split('\n'))
-        setManuallyOutputShow(true)
-      }
-    )
+    await syncSaves(game, savesPath, syncType).then((response: string) => {
+      setManuallyOutput(response.split('\n'))
+      setManuallyOutputShow(true)
+    })
     setIsSyncing(false)
   }
 

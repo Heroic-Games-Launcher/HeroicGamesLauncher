@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Runner } from 'common/types'
 import { umuStore } from '../electronStore'
+import type { Game } from 'common/types/game_manager'
 
 interface GameObject {
   title: string
@@ -14,24 +15,21 @@ const storeMapping: Record<Runner, string> = {
   zoom: 'zoomplatform'
 }
 
-export async function getUmuId(
-  appName: string,
-  runner: Runner
-): Promise<string | null> {
+export async function getUmuId(game: Game): Promise<string | null> {
   // if it's a sideload, there won't be any umu id
-  if (runner === 'sideload') {
+  if (game.runner === 'sideload') {
     return null
   }
 
-  const store = storeMapping[runner]
-  const key = `${runner}_${appName}`
+  const store = storeMapping[game.runner]
+  const key = `${game.id}_${game.runner}`
   const cachedValue = umuStore.get(key)
   if (cachedValue) {
     return cachedValue
   }
   const response = await axios
     .get<GameObject[]>('https://umu.openwinecomponents.org/umu_api.php', {
-      params: { codename: appName.toLowerCase(), store }
+      params: { codename: game.id.toLowerCase(), store }
     })
     .catch(() => null)
 

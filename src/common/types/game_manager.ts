@@ -7,7 +7,8 @@ import {
   InstallArgs,
   InstallInfo,
   LaunchOption,
-  GOGAchievement
+  GOGAchievement,
+  Runner
 } from 'common/types'
 import { GOGCloudSavesLocation } from './gog'
 import type LogWriter from 'backend/logger/log_writer'
@@ -22,45 +23,53 @@ export type RemoveArgs = {
   deleteFiles?: boolean
 }
 
-export interface Game {
-  getSettings: () => Promise<GameSettings>
-  getGameInfo: () => GameInfo
-  getExtraInfo: () => Promise<ExtraInfo>
-  importGame: (path: string, platform: InstallPlatform) => Promise<ExecResult>
-  onInstallOrUpdateOutput: (
+export abstract class Game {
+  abstract readonly id: string
+  abstract readonly runner: Runner
+
+  abstract toString(): string
+
+  abstract getSettings(): Promise<GameSettings>
+  abstract getGameInfo(): GameInfo
+  abstract getExtraInfo(): Promise<ExtraInfo>
+  abstract importGame(
+    path: string,
+    platform: InstallPlatform
+  ): Promise<ExecResult>
+  abstract onInstallOrUpdateOutput(
     action: 'installing' | 'updating',
     data: string,
     totalDownloadSize: number
-  ) => void
-  install: (args: InstallArgs) => Promise<InstallResult>
-  isNative: () => boolean
-  addShortcuts: (fromMenu?: boolean) => Promise<void>
-  removeShortcuts: () => Promise<void>
-  launch: (
+  ): void
+  abstract install(args: InstallArgs): Promise<InstallResult>
+  abstract isNative(): boolean
+  abstract addShortcuts(fromMenu?: boolean): Promise<void>
+  abstract removeShortcuts(): Promise<void>
+  abstract launch(
     logWriter: LogWriter,
     launchArguments?: LaunchOption,
     args?: string[],
     skipVersionCheck?: boolean
-  ) => Promise<boolean>
-  moveInstall: (newInstallPath: string) => Promise<InstallResult>
-  repair: () => Promise<ExecResult>
-  syncSaves: (
+  ): Promise<boolean>
+  abstract moveInstall(newInstallPath: string): Promise<InstallResult>
+  abstract repair(): Promise<ExecResult>
+  abstract syncSaves(
     arg: string,
     path: string,
     gogSaves?: GOGCloudSavesLocation[]
-  ) => Promise<string>
-  uninstall: (args: RemoveArgs) => Promise<ExecResult>
-  update: (updateOverwrites?: {
+  ): Promise<string>
+  abstract uninstall(args: RemoveArgs): Promise<ExecResult>
+  abstract update(updateOverwrites?: {
     build?: string
     branch?: string
     language?: string
     dlcs?: string[]
     dependencies?: string[]
-  }) => Promise<InstallResult>
-  forceUninstall: () => Promise<void>
-  stop: (stopWine?: boolean) => Promise<void>
-  isGameAvailable: () => Promise<boolean>
-  getAchievements?: (lang: string) => Promise<GOGAchievement[]>
+  }): Promise<InstallResult>
+  abstract forceUninstall(): Promise<void>
+  abstract stop(stopWine?: boolean): Promise<void>
+  abstract isGameAvailable(): Promise<boolean>
+  getAchievements?(lang: string): Promise<GOGAchievement[]>
 }
 
 export interface LibraryManager {

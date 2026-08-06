@@ -15,11 +15,11 @@ export default function Tools() {
   const [winecfgRunning, setWinecfgRunning] = useState(false)
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [runExeRunning, setRunExeRunning] = useState(false)
-  const { appName, runner, isDefault } = useContext(SettingsContext)
+  const { game, isDefault } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isWindows = platform === 'win32'
 
-  if (isDefault || isWindows || !runner) {
+  if (isDefault || isWindows || !game) {
     return <></>
   }
 
@@ -33,12 +33,7 @@ export default function Tools() {
       toolStates[tool](true)
     }
 
-    await window.api.callTool({
-      tool,
-      exe,
-      appName,
-      runner
-    })
+    await window.api.callTool(game, tool, exe)
 
     if (tool in toolStates) {
       toolStates[tool](false)
@@ -47,7 +42,7 @@ export default function Tools() {
 
   const handleRunExe = async () => {
     let exe = ''
-    const gameinfo = await getGameInfo(appName, runner)
+    const gameinfo = await getGameInfo(game)
     if (!gameinfo) return
     const defaultPath =
       gameinfo.runner === 'sideload' ? undefined : gameinfo.install.install_path
@@ -76,7 +71,7 @@ export default function Tools() {
     <>
       <div data-testid="toolsSettings" className="settingsTools">
         {winetricksRunning && (
-          <Winetricks onClose={winetricksDialogClosed} runner={runner} />
+          <Winetricks onClose={winetricksDialogClosed} game={game} />
         )}
         <div className="toolsWrapper">
           <button
