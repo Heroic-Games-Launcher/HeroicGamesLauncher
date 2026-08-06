@@ -30,7 +30,7 @@ jobs:
             arch: x64
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - uses: ./.github/actions/install-deps
       - name: Build Windows x64 Portable version
         run: pnpm dist:win portable --x64
@@ -56,7 +56,7 @@ jobs:
         run: pnpm dist:linux AppImage --x64 --arm64 --publish=never
         if: runner.os == 'Linux'
       - name: Upload built version
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: ${{ (matrix.os == 'windows-2025'  && 'win-x64-portable'  ) ||
                     (matrix.os == 'windows-11-arm' && 'win-arm64-portable') ||
@@ -70,7 +70,7 @@ jobs:
           if-no-files-found: error
           compression-level: 3
       - name: Upload linux ARM version
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: linux-AppImage-arm64
           path: dist/Heroic*arm64.AppImage
@@ -79,7 +79,7 @@ jobs:
           compression-level: 3
         if: runner.os == 'Linux'
       - name: Upload macOS ARM version
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: mac-arm64
           path: dist/Heroic*arm64.dmg

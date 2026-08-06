@@ -6,12 +6,17 @@ on:
       - 'v*'
   workflow_dispatch:
 
+# Releases are drafted with the dedicated WORKFLOW_TOKEN, the default
+# token is unused.
+permissions:
+  contents: read
+
 jobs:
   draft-releases:
     runs-on: ubuntu-24.04
     steps:
       - run: sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - uses: ./.github/actions/install-deps
       - run: pnpm release:linux
         env:

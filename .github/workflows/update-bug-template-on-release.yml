@@ -5,13 +5,19 @@ on:
     types:
       - published
 
+# The workflow pushes the template branch and opens a PR with the
+# default token.
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update_version_job:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: Get Latest Release Version
         id: get_latest_release

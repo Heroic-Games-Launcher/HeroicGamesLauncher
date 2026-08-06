@@ -3,6 +3,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/Heroic-Games-Launcher/HeroicGamesLauncher?style=for-the-badge)](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest)
 [![GitHub all releases](https://img.shields.io/github/downloads/Heroic-Games-Launcher/HeroicGamesLauncher/total?style=for-the-badge&color=00B000)](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/)
 [![Flathub](https://img.shields.io/flathub/downloads/com.heroicgameslauncher.hgl?label=flathub&logo=flathub&logoColor=white&style=for-the-badge&color=00B000)](https://flathub.org/apps/details/com.heroicgameslauncher.hgl)
+[![Plumber Score](https://score.getplumber.io/github.com/Heroic-Games-Launcher/HeroicGamesLauncher.svg)](https://score.getplumber.io/github.com/Heroic-Games-Launcher/HeroicGamesLauncher)
 [![GPLv3 license](https://img.shields.io/github/license/Heroic-Games-Launcher/HeroicGamesLauncher?style=for-the-badge&color=blue)](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/COPYING)  
 [![Discord](https://img.shields.io/discord/812703221789097985?label=Discord%20Server&logo=discord&color=5865F2&style=for-the-badge)](https://discord.gg/rHJ2uqdquK)
 [![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dheroicgameslauncher%26type%3Dpatrons&style=for-the-badge)](https://patreon.com/heroicgameslauncher)
