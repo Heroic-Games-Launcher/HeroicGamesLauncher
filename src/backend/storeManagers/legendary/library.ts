@@ -19,7 +19,6 @@ import {
 } from 'common/types/legendary'
 import { LegendaryUser } from './user'
 import {
-  formatEpicStoreUrl,
   getLegendaryBin,
   isEpicServiceOffline,
   getFileSize,
@@ -51,6 +50,7 @@ import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
 import { LibraryManager } from 'common/types/game_manager'
 import LegendaryGame from './games'
+import { readFile } from 'fs/promises'
 
 const fallBackImage = 'fallback'
 
@@ -470,6 +470,13 @@ export default class LegendaryLibraryManager implements LibraryManager {
     return JSON.parse(readFileSync(fullPath, 'utf-8'))
   }
 
+  async loadGameMetadataAsync(appName: string): Promise<GameMetadata> {
+    const fullPath = join(legendaryMetadata, appName + '.json')
+    return readFile(fullPath, 'utf-8')
+      .then((raw) => Promise.try(JSON.parse, raw))
+      .then((meta) => meta as GameMetadata)
+  }
+
   /**
    * Load the file completely into our in-memory library.
    * Largely derived from legacy code.
@@ -502,8 +509,6 @@ export default class LegendaryLibraryManager implements LibraryManager {
     }
 
     const {
-      description,
-      shortDescription = '',
       keyImages = [],
       title,
       developer,
@@ -607,14 +612,6 @@ export default class LegendaryLibraryManager implements LibraryManager {
       art_square: art_square || art_square_front || art_cover || fallBackImage,
       cloud_save_enabled: Boolean(saveFolder),
       developer,
-      extra: {
-        about: {
-          description,
-          shortDescription
-        },
-        reqs: [],
-        storeUrl: formatEpicStoreUrl(title)
-      },
       dlcList: dlcItemList,
       folder_name: installFolder,
       install: {
@@ -642,8 +639,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
         !!thirdPartyManagedApp &&
         'ubisoftconnect' == thirdPartyManagedApp.toLowerCase(),
       is_linux_native: false,
-      runner: 'legendary',
-      store_url: formatEpicStoreUrl(title)
+      runner: 'legendary'
     })
 
     return true

@@ -22,13 +22,13 @@ export async function getWikiGameInfo(game: Game): Promise<WikiInfo | null> {
     const cachedResponse = wikiGameInfoStore.get(title)
     if (cachedResponse) {
       logInfo(
-        [`Using cached ExtraGameInfo data for ${title}`],
+        [`Using cached WikiInfo data for ${title}`],
         LogPrefix.ExtraGameInfo
       )
       return cachedResponse
     }
 
-    logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
+    logInfo(`Getting WikiInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
     const [pcgamingwiki, gamesdb, applegamingwiki, umuId] = await Promise.all([
       getInfoFromPCGamingWiki(

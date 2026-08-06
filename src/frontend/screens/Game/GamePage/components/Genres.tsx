@@ -1,18 +1,21 @@
-import React from 'react'
+import { useAwaited } from 'frontend/hooks/useAwaited'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
-type GenresProps = {
-  genres: string[]
+type Props = {
+  game: GameHandle
 }
 
-const Genres: React.FC<GenresProps> = ({ genres }) => {
-  if (genres[0] === '' || genres.length === 0) {
+function Genres({ game }: Props) {
+  const genres = useAwaited(window.api.game.getGenres, game)
+
+  if (!genres || !genres.length) {
     return null
   }
 
   return (
     <span className="genres">
-      {genres.map((genre) => (
-        <span key={genre} className="genre">
+      {genres.map((genre, i) => (
+        <span key={i} className="genre">
           {genre}
         </span>
       ))}

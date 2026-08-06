@@ -7,7 +7,6 @@ import { GameInfo } from 'common/types'
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { NavLink } from 'react-router-dom'
 
 import { CircularProgress, SvgIcon } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
@@ -35,14 +34,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinux, faSteam } from '@fortawesome/free-brands-svg-icons'
 import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
+import { useAwaited } from 'frontend/hooks/useAwaited'
 import type { GameHandle } from 'frontend/helpers/ipc'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   game: GameHandle
   isInstalled: boolean
   title: string
-  storeUrl: string
-  changelog?: string
   handleUpdate: () => void
   handleChangeLog: () => void
   disableUpdate: boolean
@@ -55,8 +54,6 @@ export default function GamesSubmenu({
   game,
   isInstalled,
   title,
-  storeUrl,
-  changelog,
   handleUpdate,
   handleChangeLog,
   disableUpdate,
@@ -64,6 +61,7 @@ export default function GamesSubmenu({
   onShowModifyInstall,
   gameInfo
 }: Props) {
+  const navigate = useNavigate()
   const { refresh, platform, libraryStatus, showDialogModal } =
     useContext(ContextProvider)
   const { openGameCategoriesModal } = useGlobalState.keys(
@@ -80,6 +78,8 @@ export default function GamesSubmenu({
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const [showUninstallModal, setShowUninstallModal] = useState(false)
+  const showChangelogButton =
+    useAwaited(window.api.game.supportsChangelogs, game) ?? false
   const [protonDBurl, setProtonDBurl] = useState(
     `https://www.protondb.com/search?q=${title}`
   )
@@ -276,6 +276,14 @@ export default function GamesSubmenu({
     }
   }, [gameSettings])
 
+  const supportsStoreUrl = useAwaited(window.api.game.supportsStoreUrl, game)
+
+  const navigateToStorePage = useCallback(async () => {
+    return window.api.game.getStoreUrl(game).then((storeUrl) => {
+      if (storeUrl) navigate(`/store-page?store-url=${storeUrl}`)
+    })
+  }, [game, navigate])
+
   return (
     <>
       <div className="gameTools subMenuContainer">
@@ -391,16 +399,16 @@ export default function GamesSubmenu({
             <FormatListBulletedIcon />
             {t('submenu.categories', 'Categories')}
           </button>
-          {!isSideloaded && storeUrl && (
-            <NavLink
+          {supportsStoreUrl && (
+            <button
               className="link button is-text is-link buttonWithIcon"
-              to={`/store-page?store-url=${storeUrl}`}
+              onClick={() => navigateToStorePage()}
             >
               <ShoppingCartIcon />
               {t('submenu.store')}
-            </NavLink>
+            </button>
           )}
-          {!isSideloaded && !!changelog?.length && (
+          {showChangelogButton && (
             <button
               onClick={() => handleChangeLog()}
               className="link button is-text is-link buttonWithIcon"

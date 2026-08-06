@@ -12,7 +12,6 @@ import {
   ExperimentalFeatures,
   GameSettings,
   WikiInfo,
-  ExtraInfo,
   Status,
   InstallInfo
 } from 'common/types'
@@ -272,7 +271,6 @@ export interface GameContextType {
   appName: string
   runner: Runner
   gameInfo: GameInfo | null
-  gameExtraInfo: ExtraInfo | null
   gameSettings: GameSettings | null
   gameInstallInfo: InstallInfo | null
   is: {

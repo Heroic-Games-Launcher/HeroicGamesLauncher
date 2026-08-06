@@ -26,7 +26,6 @@ import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 import {
-  ExtraInfo,
   GameInfo,
   GameSettings,
   Runner,
@@ -60,7 +59,6 @@ import {
   InstalledInfo,
   MainButton,
   ReportIssue,
-  Requirements,
   Scores,
   SettingsButton
 } from './components'
@@ -75,6 +73,8 @@ import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import Achievements from './components/Achievements'
 import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
+import { useAwaited } from 'frontend/hooks/useAwaited'
+import GameRequirements from '../GameRequirements'
 import { GameHandle } from '../../../helpers/ipc'
 
 export default React.memo(function GamePage(): JSX.Element | null {
@@ -115,9 +115,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [progress, previousProgress] = hasProgress(game)
 
-  const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
-    gameInfo.extra || null
-  )
   const [achievements, setAchievements] = useState<GameAchievement[]>([])
   const hasAchievements = achievements && achievements.length > 0
   const achievementPercentage = hasAchievements
@@ -197,7 +194,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
         if (newInfo) {
           setGameInfo(newInfo)
         }
-        setExtraInfo(await window.api.getExtraInfo(game))
       }
     }
     updateGameInfo()
@@ -292,6 +288,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const settingsContextValues = useSettingsContext(game)
 
+  const hasRequirements = useAwaited(window.api.game.supportsRequirements, game)
+
   if (gameInfo && gameInfo.install && settingsContextValues) {
     const {
       runner,
@@ -335,7 +333,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       runner,
       gameSettings,
       gameInstallInfo,
-      gameExtraInfo: extraInfo,
       is: {
         installing: isInstalling,
         importing: isImporting,
@@ -372,8 +369,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       wikiInfo?.pcgamingwiki?.metacritic.score ||
       wikiInfo?.pcgamingwiki?.opencritic.score ||
       wikiInfo?.steamInfo
-
-    const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
 
     let wikiLink = <></>
     if (knownFixes && knownFixes.wikiLink) {
@@ -443,20 +438,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       </div>
 
                       <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
-                      <Genres
-                        genres={
-                          gameInfo.extra?.genres ||
-                          wikiInfo?.pcgamingwiki?.genres ||
-                          []
-                        }
-                      />
+                      <Genres game={game} />
                       <Developer gameInfo={gameInfo} />
-                      <ReleaseDate
-                        runnerDate={extraInfo?.releaseDate}
-                        date={wikiInfo?.pcgamingwiki?.releaseDate}
-                      />
+                      <ReleaseDate game={game} />
 
-                      <Description />
+                      <Description game={game} />
                       {!notInstallable && <TimeContainer game={game} />}
                       <GameStatus
                         gameInfo={gameInfo}
@@ -564,7 +550,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           value={currentTab}
                           index="requirements"
                         >
-                          <Requirements />
+                          <GameRequirements game={game} />
                         </TabPanel>
                       </div>
                     </div>

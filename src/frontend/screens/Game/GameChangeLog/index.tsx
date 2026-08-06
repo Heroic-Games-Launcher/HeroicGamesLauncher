@@ -1,30 +1,25 @@
-import { useMemo } from 'react'
 import {
   Dialog,
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
-import sanitizeHtml from 'sanitize-html'
 import { useTranslation } from 'react-i18next'
+import { useAwaited } from 'frontend/hooks/useAwaited'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface GameChangeLogProps {
+  game: GameHandle
   title: string
-  changelog: string
   backdropClick: () => void
 }
 
 export default function GameChangeLog({
+  game,
   title,
-  changelog,
   backdropClick
 }: GameChangeLogProps) {
   const { t } = useTranslation('gamepage')
-  const santiziedChangeLog = useMemo(() => {
-    const sanitized = sanitizeHtml(changelog, {
-      disallowedTagsMode: 'discard'
-    })
-    return { __html: sanitized }
-  }, [changelog])
+  const changelog = useAwaited(window.api.game.getChangelog, game)
 
   return (
     <Dialog showCloseButton onClose={backdropClick}>
@@ -34,10 +29,14 @@ export default function GameChangeLog({
         })}
       </DialogHeader>
       <DialogContent className="changelogModalContent">
-        <div
-          dangerouslySetInnerHTML={santiziedChangeLog}
-          className={'gameChangeLog'}
-        />
+        {changelog ? (
+          <div
+            dangerouslySetInnerHTML={{ __html: changelog }}
+            className={'gameChangeLog'}
+          />
+        ) : (
+          t('game.changelogNotFound', 'No changelog found')
+        )}
       </DialogContent>
     </Dialog>
   )

@@ -425,7 +425,7 @@ export interface ProductsEndpointData {
     language_packs: Array<ProductsEndpointInstaller>
     bonus_content: Array<ProductsEndpointBonusContent>
   }
-  changelog?: string
+  changelog?: string | null
 }
 
 // MANIFESTS

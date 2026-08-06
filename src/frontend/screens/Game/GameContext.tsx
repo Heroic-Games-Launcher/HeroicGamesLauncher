@@ -6,7 +6,6 @@ const initialContext: GameContextType = {
   appName: 'default',
   runner: 'legendary',
   gameInfo: null,
-  gameExtraInfo: null,
   gameSettings: null,
   gameInstallInfo: null,
   is: {

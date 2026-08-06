@@ -78,7 +78,6 @@ import {
   LogPrefix,
   logWarning
 } from './logger'
-import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import {
   launchEventCallback,
   readKnownFixes,
@@ -455,7 +454,6 @@ if (!gotTheLock) {
     addListener('changeLanguage', async (event, language) => {
       logInfo(['Changing Language to:', language], LogPrefix.Backend)
       await i18next.changeLanguage(language)
-      gameInfoStore.clear()
       GlobalConfig.get().setSetting('language', language)
       backendEvents.emit('languageChanged')
     })
@@ -748,8 +746,6 @@ addHandler('getGameInfo', async (event, game) => {
 addHandler('getAchievements', async (event, game, lang = 'en-US') => {
   return game.getAchievements?.(lang) ?? []
 })
-
-addHandler('getExtraInfo', async (event, game) => game.getExtraInfo())
 
 addHandler('getGameSettings', async (event, game) => game.getSettings())
 
@@ -1363,6 +1359,7 @@ import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
+import './storeManagers/ipc_handler'
 import './storeManagers/legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
