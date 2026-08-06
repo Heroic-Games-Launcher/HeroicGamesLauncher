@@ -1,15 +1,11 @@
-import { ExecResult, GameInfo, GameSettings, LaunchOption } from 'common/types'
+import { ExecResult, GameInfo, LaunchOption } from 'common/types'
 import { libraryStore } from './electronStores'
-import { GameConfig } from '../../game_config'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { dirname } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
-import {
-  addShortcuts as addShortcutsUtil,
-  removeShortcuts as removeShortcutsUtil
-} from '../../shortcuts/shortcuts/shortcuts'
+import { removeShortcuts } from '../../shortcuts/shortcuts/shortcuts'
 import { notify } from '../../dialog/dialog'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
@@ -41,21 +37,6 @@ export default class SideloadGame extends Game {
       return {}
     }
     return info
-  }
-
-  async getSettings(): Promise<GameSettings> {
-    return (
-      GameConfig.get(this.id).config ||
-      (await GameConfig.get(this.id).getSettings())
-    )
-  }
-
-  async addShortcuts(fromMenu?: boolean): Promise<void> {
-    return addShortcutsUtil(this, fromMenu)
-  }
-
-  async removeShortcuts(): Promise<void> {
-    return removeShortcutsUtil(this)
   }
 
   async isGameAvailable(): Promise<boolean> {
@@ -122,7 +103,7 @@ export default class SideloadGame extends Game {
 
     notify({ title, body: i18next.t('notify.uninstalled') })
 
-    removeShortcutsUtil(this)
+    removeShortcuts(this)
     removeRecentGame(this)
     removeNonSteamGame(this)
 
@@ -157,12 +138,6 @@ export default class SideloadGame extends Game {
     }
 
     return false
-  }
-
-  onInstallOrUpdateOutput() {
-    logWarning(
-      `onInstallOrUpdateOutput not implemented on Sideload Game Manager. called for ID = ${this.id}`
-    )
   }
 
   async moveInstall(): Promise<InstallResult> {

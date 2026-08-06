@@ -9,6 +9,7 @@ import {
 import { libraryManagerMap } from '..'
 import {
   checkWineBeforeLaunch,
+  getSettings,
   sendGameStatusUpdate,
   spawnAsync
 } from 'backend/utils'
@@ -60,7 +61,7 @@ export default async function setup(
     LogPrefix.Nile
   )
 
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   if (!isWindows) {
     const logWriter = getRunnerLogWriter('nile')
     const isWineOkToLaunch = await checkWineBeforeLaunch(game, logWriter)

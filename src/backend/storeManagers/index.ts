@@ -9,7 +9,7 @@ import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 
 import type { DMQueueElement, Runner } from 'common/types'
 import { Game, LibraryManager } from 'common/types/game_manager'
-import { getGame } from '../utils'
+import { getGame, getSettings } from '../utils'
 
 export const libraryManagerMap = {
   sideload: new SideloadLibraryManager(),
@@ -44,7 +44,7 @@ export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   const logPrefix = RunnerToLogPrefixMap[runner]
   gamesToUpdate.forEach(async (appName) => {
     const game = getGame(appName, runner)
-    const { ignoreGameUpdates } = await game.getSettings()
+    const { ignoreGameUpdates } = await getSettings(game)
     const gameInfo = game.getGameInfo()
     const gameIsAvailable = await game.isGameAvailable()
     if (!ignoreGameUpdates && gameIsAvailable) {

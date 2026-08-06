@@ -56,7 +56,8 @@ import {
   checkRosettaInstall,
   writeConfig,
   createNecessaryFolders,
-  clearAchievementCache
+  clearAchievementCache,
+  getSettings
 } from './utils'
 import { startPlausible } from './utils/plausible'
 
@@ -747,7 +748,7 @@ addHandler('getAchievements', async (event, game, lang = 'en-US') => {
   return game.getAchievements?.(lang) ?? []
 })
 
-addHandler('getGameSettings', async (event, game) => game.getSettings())
+addHandler('getGameSettings', async (event, game) => getSettings(game))
 
 addHandler('getGOGLinuxInstallersLangs', async (event, game) =>
   libraryManagerMap['gog'].getLinuxInstallersLanguages(game.id)
@@ -805,7 +806,7 @@ addHandler('readConfig', async (event, configClass) => {
 })
 
 addHandler('requestAppSettings', () => GlobalConfig.get().getSettings())
-addHandler('requestGameSettings', async (_e, game) => game.getSettings())
+addHandler('requestGameSettings', async (_e, game) => getSettings(game))
 
 addHandler('toggleDXVK', async (event, game, action) =>
   DXVK.installRemove(game, 'dxvk', action)

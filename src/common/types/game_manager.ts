@@ -1,7 +1,6 @@
 import type {
   GameInfo,
   InstallPlatform,
-  GameSettings,
   ExecResult,
   InstallArgs,
   InstallInfo,
@@ -28,22 +27,13 @@ export abstract class Game {
   abstract readonly runner: Runner
 
   abstract toString(): string
-
-  abstract getSettings(): Promise<GameSettings>
   abstract getGameInfo(): GameInfo
   abstract importGame(
     path: string,
     platform: InstallPlatform
   ): Promise<ExecResult>
-  abstract onInstallOrUpdateOutput(
-    action: 'installing' | 'updating',
-    data: string,
-    totalDownloadSize: number
-  ): void
   abstract install(args: InstallArgs): Promise<InstallResult>
   abstract isNative(): boolean
-  abstract addShortcuts(fromMenu?: boolean): Promise<void>
-  abstract removeShortcuts(): Promise<void>
   abstract launch(
     logWriter: LogWriter,
     launchArguments?: LaunchOption,

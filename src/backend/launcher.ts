@@ -31,7 +31,8 @@ import {
   sendGameStatusUpdate,
   checkWineBeforeLaunch,
   isMacSonomaOrHigher,
-  askForceUninstall
+  askForceUninstall,
+  getSettings
 } from './utils'
 import {
   createGameLogWriter,
@@ -118,7 +119,7 @@ async function launchEventCallback(
     return { status: 'abort' }
   }
 
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
 
   if (!launchArguments && gameSettings.lastUsedLaunchOption) {
@@ -446,7 +447,7 @@ async function prepareLaunch(
   logWriter: LogWriter
 ): Promise<LaunchPreperationResult> {
   const gameInfo = game.getGameInfo()
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   const isNative = game.isNative()
 
   const globalSettings = GlobalConfig.get().getSettings()
@@ -733,7 +734,7 @@ async function prepareLaunch(
 
 // Use Crossover's verbose output to extract the path of the game's configured bottle
 async function getCrossoverBottleFolder(game: Game) {
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   const command = runWineCommand(game, {
     commandParts: [
       '--bottle',
@@ -768,7 +769,7 @@ async function prepareWineLaunch(
 }> {
   const gameInfo = game.getGameInfo()
 
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
 
   if (!(await validWine(gameSettings.wineVersion))) {
     const defaultWine = GlobalConfig.get().getSettings().wineVersion
@@ -1376,8 +1377,7 @@ export async function validWine(
 export async function verifyWinePrefix(
   game: Game
 ): Promise<{ res: ExecResult }> {
-  const { winePrefix = sharedWinePrefix, wineVersion } =
-    await game.getSettings()
+  const { winePrefix = sharedWinePrefix, wineVersion } = await getSettings(game)
 
   const isValidWine = await validWine(wineVersion)
 
@@ -1444,7 +1444,7 @@ async function runWineCommand(
     ignoreLogging = false
   } = args
 
-  const settings = await game.getSettings()
+  const settings = await getSettings(game)
   const { wineVersion, winePrefix } = settings
 
   if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
@@ -1866,7 +1866,7 @@ async function getWinePath(
 }
 
 async function runBeforeLaunchScript(game: Game, logWriter: LogWriter) {
-  const { beforeLaunchScriptPath } = await game.getSettings()
+  const { beforeLaunchScriptPath } = await getSettings(game)
   if (!beforeLaunchScriptPath) {
     return true
   }
@@ -1879,7 +1879,7 @@ async function runBeforeLaunchScript(game: Game, logWriter: LogWriter) {
 }
 
 async function runAfterLaunchScript(game: Game, logWriter: LogWriter) {
-  const { afterLaunchScriptPath } = await game.getSettings()
+  const { afterLaunchScriptPath } = await getSettings(game)
   if (!afterLaunchScriptPath) {
     return true
   }
@@ -1917,7 +1917,7 @@ async function runScriptForGame(
   scriptStage: 'before' | 'after',
   logWriter: LogWriter
 ): Promise<boolean | string> {
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   const gameInfo = game.getGameInfo()
   return new Promise((resolve, reject) => {
     const scriptPath = gameSettings[`${scriptStage}LaunchScriptPath`]

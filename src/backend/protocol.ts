@@ -10,7 +10,7 @@ import { Path } from './schemas'
 import { isCLINoGui } from './constants/environment'
 import { GlobalConfig } from './config'
 import { Runner } from 'common/schemas'
-import { getGame } from './utils'
+import { getGame, getSettings } from './utils'
 import { Game } from '../common/types/game_manager'
 
 function parseHeroicUrl(args: string[]): URL | undefined {
@@ -109,7 +109,7 @@ async function handleLaunch(url: URL) {
   }
 
   const { is_installed, title } = game.getGameInfo()
-  const settings = await game.getSettings()
+  const settings = await getSettings(game)
   const hideForThisLaunch =
     urlRequestsNoGui(url) ||
     GlobalConfig.get().getSettings().hideWindowOnProtocolLaunch === true

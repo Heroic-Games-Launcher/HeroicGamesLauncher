@@ -1,6 +1,5 @@
 import { libraryManagerMap } from '..'
 import { join } from 'path'
-import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
 import {
   errorHandler,
@@ -13,11 +12,11 @@ import {
   sendGameStatusUpdate,
   getPathDiskSize,
   getCometBin,
-  axiosClient
+  axiosClient,
+  getSettings
 } from '../../utils'
 import {
   GameInfo,
-  GameSettings,
   ExecResult,
   InstallArgs,
   InstalledInfo,
@@ -57,8 +56,8 @@ import {
   setupWrappers
 } from '../../launcher'
 import {
-  addShortcuts as addShortcutsUtil,
-  removeShortcuts as removeShortcutsUtil
+  addShortcuts,
+  removeShortcuts
 } from '../../shortcuts/shortcuts/shortcuts'
 import setup from './setup'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
@@ -157,13 +156,6 @@ export default class GOGGame extends Game {
     return info
   }
 
-  async getSettings(): Promise<GameSettings> {
-    return (
-      GameConfig.get(this.id).config ||
-      (await GameConfig.get(this.id).getSettings())
-    )
-  }
-
   async importGame(folderPath: string): Promise<ExecResult> {
     const res = await libraryManagerMap['gog'].runRunnerCommand(
       ['import', folderPath],
@@ -188,7 +180,7 @@ export default class GOGGame extends Game {
         JSON.parse(res.stdout),
         folderPath
       )
-      this.addShortcuts()
+      addShortcuts(this)
     } catch (error) {
       logError([`Failed to import ${this.id}:`, error], LogPrefix.Gog)
     }
@@ -205,12 +197,7 @@ export default class GOGGame extends Game {
   })
   private tmpProgress: InstallProgress | undefined
 
-  onInstallOrUpdateOutput(
-    action: 'installing' | 'updating',
-    data: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    totalDownloadSize = -1
-  ) {
+  onInstallOrUpdateOutput(action: 'installing' | 'updating', data: string) {
     if (!this.tmpProgress) {
       this.tmpProgress = this.defaultTmpProgress()
     }
@@ -443,7 +430,7 @@ export default class GOGGame extends Game {
         )
       }
     }
-    this.addShortcuts()
+    addShortcuts(this)
     return { status: 'done' }
   }
 
@@ -464,20 +451,12 @@ export default class GOGGame extends Game {
     return false
   }
 
-  async addShortcuts(fromMenu?: boolean) {
-    return addShortcutsUtil(this, fromMenu)
-  }
-
-  async removeShortcuts() {
-    return removeShortcutsUtil(this)
-  }
-
   async launch(
     logWriter: LogWriter,
     launchArguments?: LaunchOption,
     args: string[] = []
   ): Promise<boolean> {
-    const gameSettings = await this.getSettings()
+    const gameSettings = await getSettings(this)
     const gameInfo = this.getGameInfo()
 
     if (
@@ -729,7 +708,7 @@ export default class GOGGame extends Game {
     newInstallPath: string
   ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
     const gameInfo = this.getGameInfo()
-    const gameConfig = await this.getSettings()
+    const gameConfig = await getSettings(this)
     logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
     const moveImpl = isWindows ? moveOnWindows : moveOnUnix
@@ -882,7 +861,7 @@ export default class GOGGame extends Game {
 
     const res: ExecResult = { stdout: '', stderr: '' }
     if (existsSync(uninstallerPath)) {
-      const gameSettings = await this.getSettings()
+      const gameSettings = await getSettings(this)
 
       const installDirectory = isWindows
         ? object.install_path
@@ -940,7 +919,7 @@ export default class GOGGame extends Game {
     const gameInfo = this.getGameInfo()
     gameInfo.is_installed = false
     gameInfo.install = { is_dlc: false }
-    await removeShortcutsUtil(this)
+    await removeShortcuts(this)
     syncStore.delete(this.id)
     await removeNonSteamGame(this)
     sendFrontendMessage('pushGameToLibrary', gameInfo)
@@ -979,7 +958,7 @@ export default class GOGGame extends Game {
       return { status: 'error' }
     }
 
-    const gameConfig = await this.getSettings()
+    const gameConfig = await getSettings(this)
     const installedDlcs = gameData.install.installedDLCs || []
 
     if (updateOverwrites?.dlcs) {
@@ -1156,7 +1135,7 @@ export default class GOGGame extends Game {
     gameObject.install_size = getFileSize(sizeOnDisk)
     installedGamesStore.set('installed', installedArray)
     libraryManagerMap['gog'].refreshInstalled()
-    const gameSettings = await this.getSettings()
+    const gameSettings = await getSettings(this)
     // Simple check if wine prefix exists and setup can be performed because of an
     // update
     if (

@@ -15,8 +15,6 @@ export class FakeGame extends Game {
     return `FakeGame(id=${this.id}, runner=${this.runner})`
   }
 
-  getSettings = jest.fn()
-  addShortcuts = jest.fn()
   forceUninstall = jest.fn()
   getExtraInfo = jest.fn()
   getGameInfo = jest.fn()
@@ -26,8 +24,6 @@ export class FakeGame extends Game {
   isNative = jest.fn()
   launch = jest.fn()
   moveInstall = jest.fn()
-  onInstallOrUpdateOutput = jest.fn()
-  removeShortcuts = jest.fn()
   repair = jest.fn()
   stop = jest.fn()
   syncSaves = jest.fn()

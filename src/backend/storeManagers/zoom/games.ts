@@ -1,11 +1,11 @@
-import { GameConfig } from '../../game_config'
 import {
   errorHandler,
   getFileSize,
   parseSize,
   spawnAsync,
   sendGameStatusUpdate,
-  sendProgressUpdate
+  sendProgressUpdate,
+  getSettings
 } from '../../utils'
 import { join, relative, dirname, basename, isAbsolute } from 'node:path'
 import * as fs from 'fs'
@@ -14,7 +14,6 @@ import { createWriteStream } from 'node:fs'
 import { pipeline } from 'node:stream/promises'
 import {
   GameInfo,
-  GameSettings,
   ExecResult,
   InstallArgs,
   InstalledInfo,
@@ -41,10 +40,7 @@ import {
   prepareWineLaunch,
   runWineCommand
 } from '../../launcher'
-import {
-  addShortcuts as addShortcutsUtil,
-  removeShortcuts as removeShortcutsUtil
-} from '../../shortcuts/shortcuts/shortcuts'
+import { removeShortcuts } from '../../shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { ZoomInstallPlatform, ZoomDownloadFile } from 'common/types/zoom'
@@ -141,13 +137,6 @@ export default class ZoomGame extends Game {
       }
     }
     return info
-  }
-
-  async getSettings(): Promise<GameSettings> {
-    return (
-      GameConfig.get(this.id).config ||
-      (await GameConfig.get(this.id).getSettings())
-    )
   }
 
   async importGame(): Promise<ExecResult> {
@@ -554,20 +543,12 @@ export default class ZoomGame extends Game {
     return false
   }
 
-  async addShortcuts(fromMenu?: boolean) {
-    return addShortcutsUtil(this, fromMenu)
-  }
-
-  async removeShortcuts() {
-    return removeShortcutsUtil(this)
-  }
-
   async launch(
     logWriter: LogWriter,
     launchArguments?: LaunchOption,
     args: string[] = []
   ): Promise<boolean> {
-    const gameSettings = await this.getSettings()
+    const gameSettings = await getSettings(this)
     const gameInfo = this.getGameInfo()
 
     if (
@@ -763,7 +744,7 @@ export default class ZoomGame extends Game {
     const gameInfo = this.getGameInfo()
     gameInfo.is_installed = false
     gameInfo.install = { is_dlc: false }
-    await removeShortcutsUtil(this)
+    await removeShortcuts(this)
     await removeNonSteamGame(this)
     sendFrontendMessage('pushGameToLibrary', gameInfo)
     return { stdout: 'Uninstalled', stderr: '' }

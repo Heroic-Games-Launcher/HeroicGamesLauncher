@@ -21,7 +21,7 @@ import {
   deleteAbortController
 } from '../../utils/aborthandler/aborthandler'
 import { BrowserWindow, dialog, Menu } from 'electron'
-import { sendGameStatusUpdate } from 'backend/utils'
+import { getSettings, sendGameStatusUpdate } from 'backend/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
 import { windowIcon } from 'backend/constants/paths'
 
@@ -117,7 +117,7 @@ export async function launchGame(
 
   const { browserUrl, customUserAgent, launchFullScreen } = gameInfo
 
-  const gameSettings = await game.getSettings()
+  const gameSettings = await getSettings(game)
   if (gameSettings.targetExe !== undefined && gameSettings.targetExe !== '') {
     executable = gameSettings.targetExe
   }

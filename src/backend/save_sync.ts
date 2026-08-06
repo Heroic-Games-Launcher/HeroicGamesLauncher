@@ -2,7 +2,7 @@ import { InstalledInfo } from 'common/types'
 import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { logDebug, LogPrefix, logInfo, logError, logWarning } from './logger'
-import { getShellPath } from './utils'
+import { getSettings, getShellPath } from './utils'
 import {
   existsSync,
   readFileSync,
@@ -77,7 +77,7 @@ async function getDefaultLegendarySavePath(game: Game): Promise<string> {
     {
       abortId: game.id + '-savePath',
       logMessagePrefix: 'Getting default save path',
-      env: game.isNative() ? {} : setupWineEnvVars(await game.getSettings()),
+      env: game.isNative() ? {} : setupWineEnvVars(await getSettings(game)),
       game
     }
   )
