@@ -226,7 +226,8 @@
             "scroll": "Scroll",
             "select": "Selecionar",
             "space": "Espaço",
-            "update_game": "Atualizar jogo"
+            "update_game": "Atualizar jogo",
+            "exit": "Sair"
         }
     },
     "docs": "Documentação",
@@ -1214,7 +1215,8 @@
             "pageSize": "Por página",
             "releaseYear": "Ano de lançamento",
             "hideOwned": "Ocultar possuídos",
-            "wishlistOnly": "Apenas lista de desejos"
+            "wishlistOnly": "Apenas lista de desejos",
+            "platform": "Platform"
         },
         "sidebar": "Descontos",
         "sort": {
@@ -1238,7 +1240,11 @@
         "title": "Descontos GOG",
         "pagination": {
             "prev": "Anterior"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Descontos"
     },
     "steamgriddb": {
         "error": {
