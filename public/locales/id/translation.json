@@ -218,7 +218,8 @@
             "scroll": "Menggulir",
             "select": "Pilih",
             "space": "Spasi",
-            "update_game": "Perbarui gim"
+            "update_game": "Perbarui gim",
+            "exit": "Keluar"
         }
     },
     "docs": "Dokumentasi",
@@ -1183,7 +1184,8 @@
             "pageSize": "Per halaman",
             "releaseYear": "Tahun rilis",
             "hideOwned": "Sembunyikan yang Dimiliki",
-            "wishlistOnly": "Daftar Keinginan Saja"
+            "wishlistOnly": "Daftar Keinginan Saja",
+            "platform": "Platform"
         },
         "sidebar": "Penawaran",
         "sort": {
@@ -1207,7 +1209,11 @@
         "title": "Penawaran GOG",
         "pagination": {
             "prev": "Sebelumnya"
-        }
+        },
+        "tabs": {
+            "label": "Toko"
+        },
+        "titleMulti": "Penawaran"
     },
     "steamgriddb": {
         "error": {
