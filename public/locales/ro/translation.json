@@ -218,7 +218,8 @@
             "scroll": "Sul",
             "select": "Select",
             "space": "Spaţiu",
-            "update_game": "Actualizați jocul"
+            "update_game": "Actualizați jocul",
+            "exit": "Ieșire"
         }
     },
     "docs": "Documentație",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "Actualizează biblioteca"
         },
-        "abort": "",
+        "abort": "Despre",
         "install": "Install",
         "uninstall": "Dezinstalează"
     },
@@ -666,7 +667,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "Încărcați",
                     "content": ""
                 },
                 "open": "",
@@ -1174,9 +1175,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Toate",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Detalii",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1198,12 +1200,16 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Detalii"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Nu s-au găsit jocuri",
-            "no-grids": "",
+            "no-grids": "Nu a fost găsit niciun jurnal pentru acest joc",
             "search": "",
             "grids": ""
         },
@@ -1247,7 +1253,10 @@
         "loading": "",
         "install": {
             "platform": "Platform",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "Instalează în",
+            "title": "Jocuri instalate",
+            "wineMissing": "Nici o cale selectată"
         }
     },
     "next": ""
