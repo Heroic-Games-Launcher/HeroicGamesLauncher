@@ -223,7 +223,8 @@
             "scroll": "Kaydır",
             "select": "Seç",
             "space": "Boşluk",
-            "update_game": "Oyunu güncelle"
+            "update_game": "Oyunu güncelle",
+            "exit": "Çıkış"
         }
     },
     "docs": "Dokümantasyon",
@@ -1187,7 +1188,8 @@
             "pageSize": "Sayfa başına",
             "releaseYear": "Çıkış yılı",
             "hideOwned": "Sahip Olunanları gizle",
-            "wishlistOnly": "Yalnızca İstek Listesi"
+            "wishlistOnly": "Yalnızca İstek Listesi",
+            "platform": "Platform"
         },
         "region": {
             "countries": {
@@ -1246,7 +1248,11 @@
         "title": "GOG Fırsatları",
         "pagination": {
             "prev": "Önceki"
-        }
+        },
+        "tabs": {
+            "label": "Mağaza"
+        },
+        "titleMulti": "Fırsatlar"
     },
     "next": "Sonraki",
     "console": {
