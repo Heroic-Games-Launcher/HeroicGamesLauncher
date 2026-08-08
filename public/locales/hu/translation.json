@@ -226,7 +226,8 @@
             "scroll": "Görgetés",
             "select": "Kiválasztás",
             "space": "Szóköz",
-            "update_game": "Játék frissítése"
+            "update_game": "Játék frissítése",
+            "exit": "Kilépés"
         }
     },
     "docs": "Dokumentáció",
@@ -1212,7 +1213,8 @@
             "pageSize": "Oldalanként",
             "releaseYear": "Megjelenési év",
             "hideOwned": "Meglévők elrejtése",
-            "wishlistOnly": "Csak kívánságlistás"
+            "wishlistOnly": "Csak kívánságlistás",
+            "platform": "Platform"
         },
         "sidebar": "Kedvezmények",
         "sort": {
@@ -1236,7 +1238,11 @@
         "title": "GOG kedvezmények",
         "pagination": {
             "prev": "Előző"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Kedvezmények"
     },
     "steamgriddb": {
         "error": {
