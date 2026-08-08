@@ -366,6 +366,9 @@
         "title": "Editar Xogo",
         "sgdb": {
             "no-key-prefix": "Para buscar portadas en SteamGridDB, engade unha clave API en"
+        },
+        "placeholder": {
+            "image": "Paste an Image URL here"
         }
     }
 }
