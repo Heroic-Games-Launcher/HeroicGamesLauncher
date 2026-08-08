@@ -95,7 +95,8 @@
         "changelog": "Zobraziť Changelog",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "Upraviť nastavenie App/Game"
     },
     "cloud_save_unsupported": "Nepodporované",
     "disabled": "Zakázané",
@@ -335,6 +336,10 @@
     "Open": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "Advanced"
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "Sem prilepte adresu URL obrázka"
+        },
+        "title": "Upraviť nastavenie App/Game"
     }
 }
