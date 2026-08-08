@@ -228,7 +228,8 @@
             "close_keyboard": "Uždaryti klaviatūrą",
             "close_options": "Uždaryti parinktis",
             "close_dialog": "Uždaryti dialogo langą",
-            "backspace": "Grįžties klavišas"
+            "backspace": "Grįžties klavišas",
+            "exit": "Išeiti"
         }
     },
     "dlc": {
@@ -1115,7 +1116,8 @@
             "pageSize": "",
             "releaseYear": "Išleidimo metai",
             "hideOwned": "Slėpti turimus",
-            "wishlistOnly": "Tik norimus"
+            "wishlistOnly": "Tik norimus",
+            "platform": "Platforma"
         },
         "region": {
             "countries": {
@@ -1152,7 +1154,7 @@
             "auto": "Automatinis/-ė/-iškai ({{code}})",
             "label": "Parduotuvės regionas"
         },
-        "sidebar": "",
+        "sidebar": "Išsamumas",
         "sort": {
             "priceDesc": "Kaina: nuo aukščiausios iki žemiausios",
             "trending": "",
@@ -1174,7 +1176,11 @@
         "title": "",
         "pagination": {
             "prev": "Praeita/-s"
-        }
+        },
+        "tabs": {
+            "label": "Parduotuvė"
+        },
+        "titleMulti": "Išsamumas"
     },
     "console": {
         "filter": {
