@@ -226,7 +226,8 @@
             "scroll": "Faire défiler",
             "select": "Sélectionner",
             "space": "Espace",
-            "update_game": "Mettre à jour le jeu"
+            "update_game": "Mettre à jour le jeu",
+            "exit": "Quitter"
         }
     },
     "docs": "Documentation",
@@ -269,7 +270,7 @@
         "library": {
             "refresh": "Actualiser la bibliothèque"
         },
-        "abort": "",
+        "abort": "À propos",
         "install": "Installation",
         "uninstall": "Désinstaller"
     },
@@ -1211,9 +1212,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Tout",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Système"
         },
-        "sidebar": "",
+        "sidebar": "Détails",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1235,17 +1237,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Boutique"
+        },
+        "titleMulti": "Détails"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Aucun jeu trouvé",
-            "no-grids": "",
+            "no-grids": "Aucun Log n'a été trouvé pour ce jeu",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Rechercher un jeu",
             "title": "",
             "select-game": ""
         }
@@ -1291,7 +1297,9 @@
         "install": {
             "platform": "Système",
             "title": "Installer le jeu",
-            "wineLoading": "Chargement…"
+            "wineLoading": "Chargement…",
+            "path": "Installer sur",
+            "wineMissing": "Aucun chemin sélectionné"
         }
     },
     "next": "Suivant"
