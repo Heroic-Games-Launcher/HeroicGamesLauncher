@@ -226,7 +226,8 @@
             "scroll": "உருட்டவும்",
             "select": "தேர்ந்தெடு",
             "space": "வெற்றிடம்",
-            "update_game": "விளையாட்டை புதுப்பிக்கவும்"
+            "update_game": "விளையாட்டை புதுப்பிக்கவும்",
+            "exit": "வெளியேறு"
         }
     },
     "docs": "ஆவணப்படுத்தல்",
@@ -269,7 +270,7 @@
         "library": {
             "refresh": "நூலகத்தைப் புதுப்பிக்கவும்"
         },
-        "abort": "",
+        "abort": "இதனை பற்றி",
         "install": "நிறுவவும்",
         "uninstall": "நிறுவல் நீக்கவும்"
     },
@@ -1195,9 +1196,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "அனைத்தும்",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "விவரங்கள்",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1219,17 +1221,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "கடை"
+        },
+        "titleMulti": "விவரங்கள்"
     },
     "steamgriddb": {
         "error": {
             "no-games": "தேடலுக்குரிய கேம்கள் கிடைக்கவில்லை.",
-            "no-grids": "",
+            "no-grids": "இந்த விளையாட்டுக்கு எந்த பதிவும் கிடைக்கவில்லை",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "விளையாட்டுகளைத் தேடு",
             "title": "",
             "select-game": ""
         }
@@ -1275,7 +1281,9 @@
         "install": {
             "platform": "Platform",
             "title": "விளையாட்டை நிறுவவும்",
-            "wineLoading": "ஏற்றுகிறது…"
+            "wineLoading": "ஏற்றுகிறது…",
+            "path": "இதில் நிறுவு",
+            "wineMissing": "பாதை எதுவும் தேர்ந்தெடுக்கப்படவில்லை"
         }
     },
     "next": "அடுத்தது"
