@@ -218,7 +218,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "exit": "പുറത്തിറക്ക്"
         }
     },
     "docs": "Documentation",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "Refresh Library"
         },
-        "abort": "",
+        "abort": "ഇതിനെക്കിറിച്ച്",
         "install": "Install",
         "uninstall": "Uninstall"
     },
@@ -666,7 +667,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "കയറ്റിവയ്ക്കുൂ",
                     "content": ""
                 },
                 "open": "",
@@ -1174,7 +1175,8 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "എല്ലാം",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
         "sidebar": "",
         "sort": {
@@ -1198,12 +1200,15 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Store"
         }
     },
     "steamgriddb": {
         "error": {
             "no-games": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
-            "no-grids": "",
+            "no-grids": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല",
             "search": "",
             "grids": ""
         },
@@ -1251,7 +1256,9 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "ഇവിടെ നടൂ",
+            "wineMissing": "No path selected"
         }
     },
     "next": ""

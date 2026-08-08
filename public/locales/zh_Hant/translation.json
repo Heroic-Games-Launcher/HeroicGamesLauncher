@@ -689,7 +689,7 @@
                 "nile": "",
                 "gog": "",
                 "zoom": "",
-                "game-log": "",
+                "game-log": "{{gameTitle}} 更新日誌",
                 "heroic": ""
             },
             "show-uploads": ""
@@ -922,7 +922,8 @@
         "installing": "正在安裝",
         "logging": "正在登入...",
         "processing": "檔案處理中，請等待",
-        "preparing_login": "正在準備登入... "
+        "preparing_login": "正在準備登入... ",
+        "installed": "下載"
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -1173,9 +1174,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "內容",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1197,17 +1199,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "商店"
+        },
+        "titleMulti": "內容"
     },
     "steamgriddb": {
         "error": {
             "no-games": "",
-            "no-grids": "",
+            "no-grids": "未找到此遊戲的日誌",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "搜尋遊戲",
             "title": "",
             "select-game": ""
         }
@@ -1226,7 +1232,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "啟動中",
             "sort": "",
             "navigate": "",
             "quit": "",
@@ -1247,7 +1253,9 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "下載",
+            "wineMissing": "未選擇路徑"
         }
     },
     "next": ""

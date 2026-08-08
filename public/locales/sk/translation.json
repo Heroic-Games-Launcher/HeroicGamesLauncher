@@ -218,7 +218,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "exit": "Exit"
         }
     },
     "docs": "Documentation",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "Obnoviť Knižnicu"
         },
-        "abort": "",
+        "abort": "About",
         "install": "Inštalácia",
         "uninstall": "Odinštalovať"
     },
@@ -1181,9 +1182,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Všetky",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Podrobnosti",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1205,7 +1207,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Podrobnosti"
     },
     "steamgriddb": {
         "error": {
@@ -1215,7 +1221,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Vyhľadajte hry",
             "title": "",
             "select-game": ""
         }
@@ -1234,7 +1240,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "Spúšťam",
             "sort": "",
             "navigate": "",
             "quit": "Quit",
@@ -1255,7 +1261,9 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Načítavam…"
+            "wineLoading": "Načítavam…",
+            "path": "Inštalácia",
+            "wineMissing": "Žiadna cesta nie je vybraná"
         }
     },
     "next": ""

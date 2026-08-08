@@ -226,7 +226,8 @@
             "scroll": "Scroll",
             "select": "Seleccionar",
             "space": "Espazo",
-            "update_game": "Actualizar o xogo"
+            "update_game": "Actualizar o xogo",
+            "exit": "Saír"
         }
     },
     "docs": "Documentación",
@@ -1153,12 +1154,12 @@
     "steamgriddb": {
         "error": {
             "no-games": "Non se atoparon xogos",
-            "no-grids": "",
+            "no-grids": "Non se atopou o rexistro para este xogo",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Buscar xogos",
             "title": "Portadas de SteamGridDB",
             "select-game": ""
         }
@@ -1184,7 +1185,8 @@
             "pageSize": "Por páxina",
             "releaseYear": "Ano de lanzamento",
             "hideOwned": "Ocultar Propios",
-            "wishlistOnly": "Só lista de desexos"
+            "wishlistOnly": "Só lista de desexos",
+            "platform": "Platform"
         },
         "region": {
             "countries": {
@@ -1243,7 +1245,11 @@
         "title": "Ofertas de GOG",
         "pagination": {
             "prev": "Anterior"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Ofertas"
     },
     "next": "Seguinte",
     "console": {
@@ -1254,7 +1260,7 @@
         "games": "Xogos instalados",
         "hints": {
             "quit": "Saír",
-            "launch": "",
+            "launch": "Lanzando",
             "sort": "Ordenar",
             "navigate": "Navegar",
             "change_store": "Cambiar de tenda"
@@ -1286,7 +1292,8 @@
             "platform": "Platform",
             "title": "Instalar xogo",
             "wineLoading": "Cargando…",
-            "path": "Instalar en"
+            "path": "Instalar en",
+            "wineMissing": "Ningunha localización seleccionada"
         },
         "cancelUpdate": {
             "message": "Este xogo está a descargarse actualmente. Queres cancelar a actualización en curso?",

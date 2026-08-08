@@ -23,7 +23,7 @@
         "enable": "Cumasaigh",
         "info": {
             "pt1": "Chun an aip a fheabhsú, bailíonn Heroic sonraí 100% gan ainm.",
-            "pt2": "Úsáideann Heroic an t-ardán foinse oscailte Plausible Analytics chun sonraí bunúsacha a bhailiú: Leagan na hAipe, Córas Oibriúcháin, Siopaí Ceangailte agus Tír.",
+            "pt2": "Úsáideann Heroic an t-ardán foinse oscailte Plausible Analytics, atá á óstáil ag foireann Heroic féin, chun sonraí bunúsacha a bhailiú: Leagan an Aipe, Córas Oibriúcháin, Ailtireacht an Chórais, Dáileadh Linux, Siopaí Ceangailte agus Tír.",
             "pt3": "Ní bhaileoidh sé aon fhaisnéis phearsanta choíche, lena n-áirítear d’ainm úsáideora, do sheoladh IP ná do r-phost.",
             "pt4": "Úsáidtear an fhaisnéis seo chun léargas a thabhairt dúinn ar a bhfuil le díriú air ina dhiaidh seo mar gheall ar ár n-acmhainní teoranta agus aiseolas ó úsáideoirí.",
             "pt5": "Tá Plausible Analytics go hiomlán i gcomhréir le GDPR, CCPA agus PECR.",
@@ -546,7 +546,13 @@
             "scroll": "Scrollaigh",
             "select": "Roghnaigh",
             "space": "Spás",
-            "update_game": "Nuashonraigh an cluiche"
+            "update_game": "Nuashonraigh an cluiche",
+            "exit": "Scoir",
+            "move_focus": "Bog fócas",
+            "next_page": "An chéad leathanach eile",
+            "previous_page": "Leathanach roimhe seo",
+            "search": "Cuardaigh",
+            "url_bar": "Barra URL"
         }
     },
     "dlc": {
@@ -1035,7 +1041,8 @@
             "back": "Téigh ar ais",
             "forward": "Téigh ar aghaidh",
             "openInBrowser": "Oscail sa bhrabhsálaí",
-            "reload": "Athlódáil an leathanach"
+            "reload": "Athlódáil an leathanach",
+            "home": "Téigh go dtí an siopa baile"
         }
     },
     "window": {
@@ -1106,7 +1113,8 @@
             "pageSize": "In aghaidh an leathanaigh",
             "releaseYear": "Bliain scaoilte",
             "hideOwned": "Folaigh Úinéireacht",
-            "wishlistOnly": "Liosta Mianta Amháin"
+            "wishlistOnly": "Liosta Mianta Amháin",
+            "platform": "Ardán"
         },
         "region": {
             "countries": {
@@ -1138,7 +1146,8 @@
                 "PL": "An Pholainn",
                 "BR": "An Bhrasaíl",
                 "CH": "An Eilvéis",
-                "TR": "An Tuirc"
+                "TR": "An Tuirc",
+                "ZA": "An Afraic Theas"
             },
             "auto": "Uathoibríoch ({{code}})",
             "label": "Réigiún an tsiopa"
@@ -1165,6 +1174,24 @@
         "title": "Margaí GOG",
         "pagination": {
             "prev": "Roimhe Seo"
+        },
+        "tabs": {
+            "label": "Siopa",
+            "all": "Gach siopa"
+        },
+        "titleMulti": "Margaí",
+        "currency": {
+            "label": "Airgeadra"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Cearrbhachas Fear Glas — eochair {{drm}}, fuascailte lasmuigh de Heroic",
+            "gmgHint": "Green Man Gaming — eochair do shiopa seachtrach, ní féidir é a shuiteáil trí Heroic",
+            "humbleHint": "Bundle Uasal — eochair do stór seachtrach, ní féidir a shuiteáil trí Heroic"
+        },
+        "view": {
+            "grid": "Eangach",
+            "label": "Mód radhairc",
+            "list": "Liosta"
         }
     },
     "next": "Ar Aghaidh",

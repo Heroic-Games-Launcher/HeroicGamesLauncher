@@ -226,7 +226,8 @@
             "scroll": "Превъртане",
             "select": "Избиране",
             "space": "Интервал",
-            "update_game": "Обновяване на играта"
+            "update_game": "Обновяване на играта",
+            "exit": "Изход"
         }
     },
     "docs": "Документация",
@@ -1213,7 +1214,8 @@
             "pageSize": "На страница",
             "releaseYear": "Дата на издаване",
             "hideOwned": "Скриване на притежаваните неща",
-            "wishlistOnly": "Само от списъка с желания"
+            "wishlistOnly": "Само от списъка с желания",
+            "platform": "Platform"
         },
         "sidebar": "Намаления",
         "sort": {
@@ -1237,7 +1239,11 @@
         "title": "Сделки в GOG",
         "pagination": {
             "prev": "Предишна"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Намаления"
     },
     "steamgriddb": {
         "error": {

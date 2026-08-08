@@ -95,7 +95,8 @@
         "changelog": "Näytä muutosloki",
         "browse_files": "Selaa tiedostoja",
         "browse_wine_prefix": "Selaa Wine Prefixiä",
-        "play": "PELAA"
+        "play": "PELAA",
+        "edit-game": "Muokkaa sovellusta/peliä"
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
@@ -337,6 +338,10 @@
     "open-saves-folder": "Avaa pelitallennuskansio",
     "wikiLink": "Tärkeää tietoa tästä pelistä, lue tämä:&nbsp;<1>Avaa sivu</1>",
     "edit-game": {
-        "advanced": "Edistyneet"
+        "advanced": "Edistyneet",
+        "placeholder": {
+            "image": "Liitä kuvan URL tähän"
+        },
+        "title": "Muokkaa sovellusta/peliä"
     }
 }

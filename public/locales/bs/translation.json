@@ -218,7 +218,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Prostor",
-            "update_game": "Ažurirajte igru"
+            "update_game": "Ažurirajte igru",
+            "exit": "Izlaz"
         }
     },
     "docs": "Dokumentacija",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "Osvježi biblioteku"
         },
-        "abort": "",
+        "abort": "U vezi sa",
         "install": "Install",
         "uninstall": "Deinstaliraj"
     },
@@ -335,7 +336,7 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine menadžer",
             "library": "Biblioteka",
-            "login": ""
+            "login": "Log in"
         },
         "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "content": {
@@ -537,7 +538,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "Windows",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -666,7 +667,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "Učitaj",
                     "content": ""
                 },
                 "open": "",
@@ -1174,7 +1175,8 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Sve",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
         "sidebar": "",
         "sort": {
@@ -1198,6 +1200,9 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Store"
         }
     },
     "steamgriddb": {
@@ -1208,7 +1213,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Potražite igre",
             "title": "",
             "select-game": ""
         }
@@ -1247,7 +1252,9 @@
         "loading": "",
         "install": {
             "platform": "Platform",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "Install",
+            "wineMissing": "No path selected"
         }
     },
     "next": ""

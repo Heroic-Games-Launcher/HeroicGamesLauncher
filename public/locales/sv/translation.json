@@ -218,7 +218,8 @@
             "scroll": "Skrolla",
             "select": "Välj",
             "space": "Mellanslag",
-            "update_game": "Uppdatera spel"
+            "update_game": "Uppdatera spel",
+            "exit": "Avbryt"
         }
     },
     "docs": "Dokumentation",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "Uppdatera bibliotek"
         },
-        "abort": "",
+        "abort": "Om",
         "install": "Installation",
         "uninstall": "Avinstallera"
     },
@@ -1182,9 +1183,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Alla",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Detaljer",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1206,17 +1208,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Detaljer"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Inga spel hittades",
-            "no-grids": "",
+            "no-grids": "No Log was found for this game",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Sök efter spel",
             "title": "",
             "select-game": ""
         }
@@ -1235,7 +1241,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "Startar",
             "sort": "",
             "navigate": "",
             "quit": "Avsluta",
@@ -1259,7 +1265,9 @@
         "install": {
             "platform": "Platform",
             "title": "Installera spel",
-            "wineLoading": "Laddar…"
+            "wineLoading": "Laddar…",
+            "path": "Installera",
+            "wineMissing": "Ingen sökväg har angetts"
         }
     },
     "next": "Nästa"

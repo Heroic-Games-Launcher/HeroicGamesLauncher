@@ -226,7 +226,8 @@
             "scroll": "Scroll",
             "select": "Seleziona",
             "space": "Barra Spaziatrice",
-            "update_game": "Aggiorna il gioco"
+            "update_game": "Aggiorna il gioco",
+            "exit": "Esci"
         }
     },
     "docs": "Documentazione",
@@ -1210,7 +1211,8 @@
             "pageSize": "Per pagina",
             "releaseYear": "Anno di rilascio",
             "hideOwned": "Nascondi posseduti",
-            "wishlistOnly": "Solo lista dei desideri"
+            "wishlistOnly": "Solo lista dei desideri",
+            "platform": "Platform"
         },
         "sidebar": "Affari",
         "sort": {
@@ -1234,7 +1236,11 @@
         "title": "Affari GOG",
         "pagination": {
             "prev": "Precedente"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Affari"
     },
     "steamgriddb": {
         "error": {

@@ -218,7 +218,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Aktualiziraj igru"
+            "update_game": "Aktualiziraj igru",
+            "exit": "Exit"
         }
     },
     "docs": "Documentation",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "Osviježi knjižnicu"
         },
-        "abort": "",
+        "abort": "About",
         "install": "Install",
         "uninstall": "Uninstall"
     },
@@ -537,7 +538,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "Windows",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -666,7 +667,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "Prebaci",
                     "content": ""
                 },
                 "open": "",
@@ -1174,9 +1175,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Sve",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Pojedinosti",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1198,17 +1200,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Pojedinosti"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Igrice nisu pronađene",
-            "no-grids": "",
+            "no-grids": "Dnevnik nije nađen za ovu igricu",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Traži igre",
             "title": "",
             "select-game": ""
         }
@@ -1248,7 +1254,9 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "Instaliraj na",
+            "wineMissing": "Nijedna staza nije odabrana"
         }
     },
     "next": ""

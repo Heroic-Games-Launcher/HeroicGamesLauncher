@@ -226,7 +226,8 @@
             "scroll": "Scroll",
             "select": "Выбраць",
             "space": "Прабел",
-            "update_game": "Абнавіць гульню"
+            "update_game": "Абнавіць гульню",
+            "exit": "Выхад"
         }
     },
     "docs": "Дакументацыя",
@@ -269,7 +270,7 @@
         "library": {
             "refresh": "Абнавіць бібліятэку"
         },
-        "abort": "",
+        "abort": "Аб праграме",
         "install": "Усталяванне",
         "uninstall": "Выдаліць"
     },
@@ -1197,11 +1198,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Усе",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Падрабязнасці",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1223,7 +1225,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Крама"
+        },
+        "titleMulti": "Падрабязнасці"
     },
     "steamgriddb": {
         "error": {
@@ -1233,7 +1239,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Пошук гульняў",
             "title": "",
             "select-game": ""
         }
@@ -1264,7 +1270,7 @@
         },
         "filter": {
             "sideload": "Other",
-            "all": ""
+            "all": "Усе"
         },
         "empty": "",
         "games": "Усталяваныя гульні",
@@ -1276,7 +1282,9 @@
         "install": {
             "platform": "Platform",
             "title": "Усталяваць гульню",
-            "wineLoading": "Загрузка"
+            "wineLoading": "Загрузка",
+            "path": "Усталяванне",
+            "wineMissing": "Шлях не выбраны"
         }
     },
     "next": "Далей"
