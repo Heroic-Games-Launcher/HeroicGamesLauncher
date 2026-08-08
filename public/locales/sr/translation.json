@@ -218,7 +218,8 @@
             "select": "Изабери",
             "update_game": "Ажурирај игру",
             "options": "Опције",
-            "space": "Размак"
+            "space": "Размак",
+            "exit": "Изађи"
         }
     },
     "docs": "Документација",
@@ -332,7 +333,7 @@
         "disable_logs": "Укључите ово поље за потврду да бисте онемогућили већину уписивања у датотеке евиденције (критичне информације се увек евидентирају). Обавезно ИСКЉУЧИТЕ ову поставку пре него што пријавите било какав проблем.",
         "title": {
             "accessibility": "Приступачност",
-            "login": "",
+            "login": "Пријави се",
             "settings": "",
             "downloadManager": "",
             "wineManager": "",
@@ -783,7 +784,7 @@
             "clearCache": {
                 "help9": "Подешавања игре",
                 "help1": "",
-                "help8": "",
+                "help8": "Инсталирај игру",
                 "help3": "",
                 "help10": "",
                 "help7": "",
@@ -1173,7 +1174,8 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Све",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Платформа"
         },
         "sidebar": "",
         "sort": {
@@ -1197,6 +1199,9 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Продавница"
         }
     },
     "steamgriddb": {
@@ -1241,13 +1246,14 @@
             "all": "Све"
         },
         "empty": "",
-        "games": "",
+        "games": "Инсталирај игру",
         "quitApp": "",
         "loading": "",
         "install": {
             "platform": "Платформа",
             "title": "Инсталирај игру",
-            "wineLoading": "Лоадинг"
+            "wineLoading": "Лоадинг",
+            "path": "Инсталирај"
         }
     },
     "next": ""
