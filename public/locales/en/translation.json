@@ -702,7 +702,7 @@
                 "env": "Environment variables must be configured in the table below."
             },
             "placeholder": "Put here the Launcher Arguments",
-            "title": "Game Arguments (To run after the command):"
+            "title": "Game Arguments (appended to game launch command)"
         },
         "gamescope": {
             "additionalOptions": "Additional Options",
