@@ -221,7 +221,8 @@
             "scroll": "スクロール",
             "select": "選択",
             "space": "スペース",
-            "update_game": "ゲームをアップデート"
+            "update_game": "ゲームをアップデート",
+            "exit": "終了"
         }
     },
     "docs": "ドキュメント",
@@ -1174,7 +1175,9 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "にインストール",
+            "wineMissing": "パスが選択されていません"
         }
     },
     "discounts": {
@@ -1233,7 +1236,8 @@
             "pageSize": "1ページの表示件数",
             "releaseYear": "発売年",
             "hideOwned": "所有済みゲームを非表示",
-            "wishlistOnly": "ウィッシュリストのみ"
+            "wishlistOnly": "ウィッシュリストのみ",
+            "platform": "Platform"
         },
         "sidebar": "セール情報",
         "sort": {
@@ -1257,7 +1261,11 @@
         "title": "GOG セール",
         "pagination": {
             "prev": "前へ"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "セール情報"
     },
     "steamgriddb": {
         "error": {
