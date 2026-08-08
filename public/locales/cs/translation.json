@@ -226,7 +226,13 @@
             "scroll": "Scroll",
             "select": "Vybrat",
             "space": "Místo",
-            "update_game": "Aktualizovat hru"
+            "update_game": "Aktualizovat hru",
+            "exit": "Ukončit",
+            "move_focus": "Přesunout pozornost",
+            "next_page": "Další stránka",
+            "previous_page": "Předchozí stránka",
+            "search": "Hledat",
+            "url_bar": "Adresový řádek"
         }
     },
     "docs": "Dokumentace",
@@ -995,7 +1001,8 @@
             "back": "Vrátit se zpět",
             "forward": "Jít vpřed",
             "openInBrowser": "Otevřít v prohlížeči",
-            "reload": "Znovu načíst stránku"
+            "reload": "Znovu načíst stránku",
+            "home": "Přejít na úvodní stránku obchodu"
         }
     },
     "wine": {
@@ -1144,7 +1151,7 @@
         "enable": "Povolit",
         "info": {
             "pt1": "Za účelem vylepšení aplikace Heroic shromažďuje 100% anonymní data.",
-            "pt2": "Heroic využívá open-source platformu Plausible Analytics ke shromažďování základních údajů: verze aplikace, operační systém, připojené obchody a země.",
+            "pt2": "Heroic využívá open-source platformu Plausible Analytics, kterou si tým Heroic sám hostuje, k shromažďování základních údajů: verze aplikace, operační systém, architektura systému, distribuce Linuxu, připojené obchody a země.",
             "pt3": "Nikdy nebude shromažďovat žádné osobní údaje, včetně vašeho uživatelského jména, IP adresy nebo e-mailu.",
             "pt4": "Tyto údaje nám pomáhají určit, na co se máme vzhledem k omezeným zdrojům a zpětné vazbě od uživatelů dále zaměřit.",
             "pt5": "Plausible Analytics je plně v souladu s GDPR, CCPA a PECR.",
@@ -1189,7 +1196,8 @@
                 "PL": "Polsko",
                 "BR": "Brazílie",
                 "CH": "Švýcarsko",
-                "TR": "Turecko"
+                "TR": "Turecko",
+                "ZA": "Jihoafrická republika"
             },
             "auto": "Automaticky {{code}}",
             "label": "Obchodní region"
@@ -1214,7 +1222,8 @@
             "pageSize": "Na stránku",
             "releaseYear": "Rok vydání",
             "hideOwned": "Schovat Vlastněné",
-            "wishlistOnly": "Pouze seznam přání"
+            "wishlistOnly": "Pouze seznam přání",
+            "platform": "Platforma"
         },
         "sidebar": "Nabídky",
         "sort": {
@@ -1238,6 +1247,24 @@
         "title": "Nabídky GOGu",
         "pagination": {
             "prev": "Předcházející"
+        },
+        "tabs": {
+            "label": "Obchod",
+            "all": "Všechny obchody"
+        },
+        "titleMulti": "Nabídky",
+        "currency": {
+            "label": "Měna"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — klíč {{drm}}, uplatněný mimo Heroic",
+            "gmgHint": "Green Man Gaming — klíč pro externí obchod, nelze nainstalovat prostřednictvím Heroic",
+            "humbleHint": "Humble Bundle — klíč pro externí obchod, nelze nainstalovat prostřednictvím Heroic"
+        },
+        "view": {
+            "grid": "Mřížka",
+            "label": "Režim zobrazení",
+            "list": "Seznam"
         }
     },
     "steamgriddb": {
