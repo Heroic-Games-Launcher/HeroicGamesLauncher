@@ -9,7 +9,7 @@ import { join } from 'path'
 import type { Game } from 'common/types/game_manager'
 import { addShortcuts } from '../shortcuts'
 
-const mockUserHome = '/private/tmp/heroic-shortcuts-test'
+const mockUserHome = join(process.env.TMPDIR || '/tmp', 'heroic-shortcuts-test')
 const mockIconPath = join(mockUserHome, 'shortcut.png')
 
 jest.mock('electron', () => ({
@@ -18,7 +18,7 @@ jest.mock('electron', () => ({
       if (path === 'exe') {
         return '/Applications/Heroic.app/Contents/MacOS/Heroic'
       }
-      return `/private/tmp/${path}`
+      return join(process.env.TMPDIR || '/tmp', path)
     }
   },
   nativeImage: {
@@ -52,7 +52,7 @@ jest.mock('backend/config', () => ({
 
 jest.mock('backend/constants/environment', () => ({ isMac: true }))
 jest.mock('backend/constants/paths', () => ({
-  userHome: '/private/tmp/heroic-shortcuts-test'
+  userHome: `${process.env.TMPDIR || '/tmp'}/heroic-shortcuts-test`
 }))
 jest.mock('backend/logger', () => ({
   logError: jest.fn(),
@@ -61,7 +61,8 @@ jest.mock('backend/logger', () => ({
 }))
 jest.mock('backend/storeManagers', () => ({ libraryManagerMap: {} }))
 jest.mock('../../utils', () => ({
-  getIcon: () => '/private/tmp/heroic-shortcuts-test/shortcut.png'
+  getIcon: () =>
+    `${process.env.TMPDIR || '/tmp'}/heroic-shortcuts-test/shortcut.png`
 }))
 jest.mock('../../nonesteamgame/nonesteamgame', () => ({
   addNonSteamGame: jest.fn()
