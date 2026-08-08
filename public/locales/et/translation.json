@@ -226,7 +226,8 @@
             "scroll": "Scroll",
             "select": "Vali",
             "space": "Tühik",
-            "update_game": "Uuenda mängu"
+            "update_game": "Uuenda mängu",
+            "exit": "Välju"
         }
     },
     "docs": "Dokumentatsioon",
@@ -1209,7 +1210,8 @@
             "pageSize": "Igal leheküljel",
             "releaseYear": "Väljalaske aasta",
             "hideOwned": "Peida kuuluvad",
-            "wishlistOnly": "Ainult soovinimekirjas"
+            "wishlistOnly": "Ainult soovinimekirjas",
+            "platform": "Platform"
         },
         "sidebar": "Allahindlused",
         "sort": {
@@ -1233,7 +1235,11 @@
         "title": "GOG allahindlused",
         "pagination": {
             "prev": "Eelmine"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Allahindlused"
     },
     "steamgriddb": {
         "error": {
@@ -1286,7 +1292,9 @@
         "install": {
             "platform": "Platform",
             "title": "Paigalda mäng",
-            "wineLoading": "Laadimine"
+            "wineLoading": "Laadimine",
+            "path": "Paigalda",
+            "wineMissing": "Kohta pole valitud"
         }
     },
     "next": "Järgmine"
