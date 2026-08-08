@@ -226,7 +226,8 @@
             "scroll": "Rull",
             "select": "Velg",
             "space": "Rom",
-            "update_game": "Oppdater spillet"
+            "update_game": "Oppdater spillet",
+            "exit": "Avslutt"
         }
     },
     "docs": "Dokumentasjon",
@@ -1203,7 +1204,8 @@
             "pageSize": "Per side",
             "releaseYear": "Utgivelsesår",
             "hideOwned": "Skjul eide spill",
-            "wishlistOnly": "Bare ønskeliste"
+            "wishlistOnly": "Bare ønskeliste",
+            "platform": "Platform"
         },
         "sidebar": "Tilbud",
         "sort": {
@@ -1227,7 +1229,11 @@
         "title": "GOG tilbud",
         "pagination": {
             "prev": "Forrige"
-        }
+        },
+        "tabs": {
+            "label": "Butikk"
+        },
+        "titleMulti": "Tilbud"
     },
     "steamgriddb": {
         "error": {
