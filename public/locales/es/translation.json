@@ -226,7 +226,8 @@
             "scroll": "Scroll",
             "select": "Seleccionar",
             "space": "Espacio",
-            "update_game": "Actualizar juego"
+            "update_game": "Actualizar juego",
+            "exit": "Salir"
         }
     },
     "docs": "Documentación",
@@ -1214,7 +1215,8 @@
             "pageSize": "Por página",
             "releaseYear": "Año de lanzamiento",
             "hideOwned": "Ocultar adquiridos",
-            "wishlistOnly": "Solo lista de deseos"
+            "wishlistOnly": "Solo lista de deseos",
+            "platform": "Platform"
         },
         "sidebar": "Ofertas",
         "sort": {
@@ -1238,7 +1240,11 @@
         "title": "Ofertas de GOG",
         "pagination": {
             "prev": "Previo"
-        }
+        },
+        "tabs": {
+            "label": "Tienda"
+        },
+        "titleMulti": "Ofertas"
     },
     "steamgriddb": {
         "error": {
