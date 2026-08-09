@@ -96,7 +96,8 @@
         "changelog": "Паказаць спіс змен",
         "browse_files": "Прагляд файлаў",
         "browse_wine_prefix": "Праглядзець Wine прэфікс",
-        "play": ""
+        "play": "",
+        "edit-game": "Рэдагаваць праграму/гульню"
     },
     "cloud_save_unsupported": "Не падтрымліваецца",
     "disabled": "Адключана",
@@ -361,6 +362,10 @@
     "wikiLink": "Азнаёмцеся з важная інфармацыя пра гульню:&nbsp;<1>Адкрыць старонку</1>",
     "open-saves-folder": "",
     "edit-game": {
-        "advanced": "Пашыраныя"
+        "advanced": "Пашыраныя",
+        "placeholder": {
+            "image": "Устаўце сюды URL выявы"
+        },
+        "title": "Рэдагаваць праграму/гульню"
     }
 }

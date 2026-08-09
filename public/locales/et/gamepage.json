@@ -96,7 +96,8 @@
         "changelog": "Näita muutuste nimekirja",
         "browse_files": "Sirvi faile",
         "browse_wine_prefix": "Sirvi Wine'i prefiksi",
-        "play": "MÄNGI"
+        "play": "MÄNGI",
+        "edit-game": "Muuda rakendust/mängu"
     },
     "cloud_save_unsupported": "Mitte toetatud",
     "disabled": "Keelatud",
@@ -359,6 +360,10 @@
     "Open": "Ava",
     "open-saves-folder": "Ava salvestuste kaust",
     "edit-game": {
-        "advanced": "Täpsem"
+        "advanced": "Täpsem",
+        "placeholder": {
+            "image": "Kleepige pildi URL siia"
+        },
+        "title": "Muuda rakendust/mängu"
     }
 }

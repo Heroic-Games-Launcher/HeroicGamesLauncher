@@ -226,7 +226,8 @@
             "scroll": "Deslocar",
             "select": "Selecione",
             "space": "Espaço",
-            "update_game": "Atualizar o jogo"
+            "update_game": "Atualizar o jogo",
+            "exit": "Sair"
         }
     },
     "docs": "Documentação",
@@ -1207,7 +1208,8 @@
             "pageSize": "Por página",
             "releaseYear": "Ano de lançamento",
             "hideOwned": "Ocultar possuídos",
-            "wishlistOnly": "Apenas lista de desejos"
+            "wishlistOnly": "Apenas lista de desejos",
+            "platform": "Platform"
         },
         "sidebar": "Promoções",
         "sort": {
@@ -1231,7 +1233,11 @@
         "title": "Promoções GOG",
         "pagination": {
             "prev": "Anterior"
-        }
+        },
+        "tabs": {
+            "label": "Loja"
+        },
+        "titleMulti": "Promoções"
     },
     "steamgriddb": {
         "error": {

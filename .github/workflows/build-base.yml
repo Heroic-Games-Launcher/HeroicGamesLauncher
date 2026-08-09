@@ -47,6 +47,7 @@ jobs:
         if: runner.os == 'macOS'
       - name: Build and publish Snap version
         run: |
+          sudo apt-get update
           sudo apt-get install --no-install-recommends -y snapcraft
           pnpm dist:linux Snap --publish=always
         env:

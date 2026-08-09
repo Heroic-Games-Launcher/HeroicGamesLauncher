@@ -218,7 +218,8 @@
             "scroll": "Scroll",
             "select": "انتخاب",
             "space": "فضا",
-            "update_game": "به روزرسانی بازی"
+            "update_game": "به روزرسانی بازی",
+            "exit": "خروج"
         }
     },
     "docs": "Documentation",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "تازه سازی کتابخانه"
         },
-        "abort": "",
+        "abort": "درباره",
         "install": "نصب کردن",
         "uninstall": "حذف"
     },
@@ -537,7 +538,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "ویندوز",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -666,7 +667,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "آپلود",
                     "content": ""
                 },
                 "open": "",
@@ -1174,7 +1175,8 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "همه",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
         "sidebar": "",
         "sort": {
@@ -1198,17 +1200,20 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Store"
         }
     },
     "steamgriddb": {
         "error": {
             "no-games": "بازی یافت نشد",
-            "no-grids": "",
+            "no-grids": "برای این بازی لاگی پیدا نشد",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "جست و جو برای بازی ها",
             "title": "",
             "select-game": ""
         }
@@ -1227,7 +1232,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "در حال راه اندازی",
             "sort": "",
             "navigate": "",
             "quit": "خروج",
@@ -1248,7 +1253,9 @@
         "install": {
             "platform": "Platform",
             "title": "نصب بازی",
-            "wineLoading": "درحال بارگذاری"
+            "wineLoading": "درحال بارگذاری",
+            "path": "نصب در",
+            "wineMissing": "مسیری انتخاب نشده است"
         }
     },
     "next": ""

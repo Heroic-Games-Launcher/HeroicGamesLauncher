@@ -324,7 +324,7 @@
             "gameWidth": "Den breddeopløsning, der bruges af spillet. Gamescope antager et billedformat på 16:9.",
             "upscaleHeight": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages.",
             "upscaleMethod": "Den opskaleringsmetode, som Gamescope skal bruge.",
-            "upscaleWidth": "Den breddeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages."
+            "upscaleWidth": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages."
         },
         "msync": "Msync har til formål at reducere wineserver-overhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
         "wine-hdr": "HDR forbedrer farverne ved at give lysere højdepunkter og dybere kontraster. For at HDR kan fungere, skal både skærmen og spillet understøtte det.",
@@ -777,7 +777,8 @@
             "space": "Plads",
             "close_options": "Luk indstillinger",
             "options": "Muligheder",
-            "select": "Vælg"
+            "select": "Vælg",
+            "exit": "Afslut"
         }
     },
     "Epic Games": "Episke spil",
@@ -1224,7 +1225,7 @@
             "pageSize": "",
             "releaseYear": ""
         },
-        "sidebar": "",
+        "sidebar": "detaljer",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1246,7 +1247,8 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "titleMulti": "detaljer"
     },
     "steamgriddb": {
         "error": {
@@ -1294,7 +1296,9 @@
         "quitApp": "Afslut App",
         "loading": "",
         "install": {
-            "wineLoading": "Indlæser…"
+            "wineLoading": "Indlæser…",
+            "path": "Installer",
+            "title": "Installerede spil"
         },
         "cancelInstall": {
             "message": "Dette spil er i gang med at installere. Afbryd installationen?",

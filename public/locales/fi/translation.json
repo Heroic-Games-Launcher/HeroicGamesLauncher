@@ -218,7 +218,8 @@
             "scroll": "Vieritä",
             "select": "Valitse",
             "space": "Välilyönti",
-            "update_game": "Päivitä peli"
+            "update_game": "Päivitä peli",
+            "exit": "Poistu"
         }
     },
     "docs": "Dokumentaatio",
@@ -1186,7 +1187,8 @@
             "pageSize": "Per sivu",
             "releaseYear": "Julkaisuvuosi",
             "hideOwned": "Piilota omistetut",
-            "wishlistOnly": "Vain toivelistalla olevat"
+            "wishlistOnly": "Vain toivelistalla olevat",
+            "platform": "Platform"
         },
         "sidebar": "Tarjoukset",
         "sort": {
@@ -1210,17 +1212,21 @@
         "title": "GOG tarjoukset",
         "pagination": {
             "prev": "Edellinen"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Tarjoukset"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Pelejä ei löydetty",
-            "no-grids": "",
+            "no-grids": "Tälle pelille ei löytynyt lokitiedostoja",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Etsi pelejä",
             "title": "",
             "select-game": ""
         }
@@ -1263,7 +1269,9 @@
         "install": {
             "platform": "Platform",
             "title": "Asenna peli",
-            "wineLoading": "Ladataan"
+            "wineLoading": "Ladataan",
+            "path": "Asenna sijaintiin",
+            "wineMissing": "Ei valittua polkua"
         }
     },
     "next": "Seuraava"

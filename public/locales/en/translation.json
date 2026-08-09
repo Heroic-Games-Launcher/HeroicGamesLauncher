@@ -283,17 +283,23 @@
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
             "close_options": "Close Options",
+            "exit": "Exit",
             "game_details": "Game details",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
+            "move_focus": "Move focus",
+            "next_page": "Next page",
             "open_virtual_keyboard": "Open virtual keyboard",
             "options": "Options",
             "play_game": "Play game",
+            "previous_page": "Previous page",
             "scroll": "Scroll",
+            "search": "Search",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "url_bar": "URL bar"
         }
     },
     "discounts": {
@@ -364,7 +370,8 @@
                 "TR": "Turkey",
                 "TW": "Taiwan",
                 "UA": "Ukraine",
-                "US": "United States"
+                "US": "United States",
+                "ZA": "South Africa"
             },
             "label": "Store region"
         },
@@ -381,13 +388,19 @@
         },
         "storeBadge": {
             "gmgDrmHint": "Green Man Gaming — {{drm}} key, redeemed outside Heroic",
-            "gmgHint": "Green Man Gaming — key for an external store, not installable through Heroic"
+            "gmgHint": "Green Man Gaming — key for an external store, not installable through Heroic",
+            "humbleHint": "Humble Bundle — key for an external store, not installable through Heroic"
         },
         "tabs": {
             "all": "All stores",
             "label": "Store"
         },
-        "titleMulti": "Deals"
+        "titleMulti": "Deals",
+        "view": {
+            "grid": "Grid",
+            "label": "View mode",
+            "list": "List"
+        }
     },
     "dlc": {
         "actions": "Actions",
@@ -701,7 +714,7 @@
                 "env": "Environment variables must be configured in the table below."
             },
             "placeholder": "Put here the Launcher Arguments",
-            "title": "Game Arguments (To run after the command):"
+            "title": "Game Arguments (appended to game launch command)"
         },
         "gamescope": {
             "additionalOptions": "Additional Options",
@@ -850,6 +863,8 @@
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
+        "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
+        "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
             "enableForceGrabCursor": "Enable Force Grab Cursor",
             "enableLimiter": "Enable FPS Limiter",
@@ -948,7 +963,7 @@
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Don't show them",
-                "message": "We recommend custom Proton forks (GE-Proton, Proton-CachyOS, etc.) to be used with Heroic because Valve's Proton builds lack winetricks and protofixes. You can still use then if you want.",
+                "message": "We recommend custom Proton forks (GE-Proton, Proton-CachyOS, etc.) to be used with Heroic because Valve's Proton builds lack winetricks and protofixes. You can still use them if you want.",
                 "show": "I understand, show them",
                 "title": "Are you sure?"
             },
@@ -1192,6 +1207,7 @@
         "controls": {
             "back": "Go back",
             "forward": "Go forward",
+            "home": "Go to store home",
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
