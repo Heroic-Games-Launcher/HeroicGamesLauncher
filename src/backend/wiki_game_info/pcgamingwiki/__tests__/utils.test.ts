@@ -53,6 +53,35 @@ describe('getInfoFromPCGamingWiki', () => {
     expect(result).toStrictEqual(testPCGamingWikiInfo)
   })
 
+  test('prefers exact title match over first search result', async () => {
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
+      data: {
+        query: {
+          search: [
+            { pageid: 2, title: 'Hades II' },
+            { pageid: 1, title: 'Hades' }
+          ]
+        }
+      }
+    })
+    mockAxios.mockResolvedValueOnce({
+      data: {
+        parse: {
+          wikitext: {
+            '*': '|steam appid  = 100\n'
+          }
+        }
+      }
+    })
+
+    const result = await getInfoFromPCGamingWiki('Hades')
+    expect(result?.steamID).toBe('100')
+    expect(mockAxios).toHaveBeenNthCalledWith(
+      2,
+      expect.stringContaining('pageid=1')
+    )
+  })
+
   test('does not find page id', async () => {
     jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
       data: { query: { search: [{ pageid: undefined }] } }

@@ -257,7 +257,7 @@ interface AsyncIPCFunctions {
   'wine.isValidVersion': (release: WineInstallation) => Promise<boolean>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
-  removeFromSteam: (appName: string, runner: Runner) => Promise<void>
+  removeFromSteam: (appName: string, runner: Runner) => Promise<boolean>
   isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
   getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
   getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
