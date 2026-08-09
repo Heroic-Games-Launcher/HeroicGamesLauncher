@@ -11,15 +11,13 @@ export const WEBVIEW_PARTITION = {
 } as const
 
 /** Maps runner names to their WEBVIEW_PARTITION key. */
-const RUNNER_TO_PARTITION_KEY: Record<
-  string,
-  keyof typeof WEBVIEW_PARTITION
-> = {
-  legendary: 'epic',
-  gog: 'gog',
-  nile: 'amazon',
-  zoom: 'zoom'
-}
+const RUNNER_TO_PARTITION_KEY: Record<string, keyof typeof WEBVIEW_PARTITION> =
+  {
+    legendary: 'epic',
+    gog: 'gog',
+    nile: 'amazon',
+    zoom: 'zoom'
+  }
 
 /**
  * Returns the Electron session partition for the given store/runner.
