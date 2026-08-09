@@ -179,11 +179,6 @@
                     "title": "你确定要退出吗？"
                 }
             },
-            "snap": {
-                "checkbox": "不再显示本消息",
-                "title": "Heroic 正以 Snap 运行",
-                "message": "某些功能眼下在本应用的 Snap 版本中不可用，我们正尝试修复它。{{newLine}}当前限制为：{{newLine}}Heroic 无法从 Steam 找到 Proton 或从 Lutris 找到 Wine。{{newLine}}{{newLine}}Gamescope、GameMode 和 MangoHud 也无法正常工作，因为 Heroci 无法有权限访问它们。{{newLine}}{{newLine}}要访问此功能，请以 Flakpak、DEB 格式包安装 Heroic 或从 AppImage 安装。"
-            },
             "rosetta": {
                 "title": "未找到 Rosetta",
                 "message": "Heroic 需要 Rosetta 在配备 Apple Silicon 芯片的 macOS 上正确运行。请用以下命令从 macOS 终端安装它：\"softwareupdate --install-rosetta\"，并重启 Heroic。 "

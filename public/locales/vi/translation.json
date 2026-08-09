@@ -177,11 +177,6 @@
             "rosetta": {
                 "message": "Heroic yêu cầu Rosetta chạy chính xác trên macOS với chip Apple Silicon. Vui lòng cài đặt nó từ thiết bị đầu cuối macOS bằng lệnh sau: \"softwareupdate --install-rosetta\" và khởi động lại Heroic. ",
                 "title": "Không tìm thấy Rosetta"
-            },
-            "snap": {
-                "checkbox": "Không hiển thị lại thông báo này",
-                "message": "Một số tính năng hiện không có trong phiên bản Snap của ứng dụng và chúng tôi đang cố gắng khắc phục.{{newLine}}Hạn chế hiện tại là: {{newLine}}Heroic sẽ không thể tìm thấy Proton từ Steam hoặc Wine từ Lutris.{{newLine}}{{newLine}}Gamescope, GameMode và MangoHud cũng sẽ không hoạt động vì Heroic không thể truy cập vào chúng.{{newLine}}{{newLine}}Để có quyền truy cập vào tính năng này, vui lòng cài đặt Heroic dưới dạng Heroic Flatpak, DEB hoặc từ AppImage.",
-                "title": "Heroic đang chạy như Snap"
             }
         },
         "wineprefix": "Chọn thư mục WinePrefix",

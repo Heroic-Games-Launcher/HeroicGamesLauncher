@@ -179,11 +179,6 @@
                     "message": "Tot el progrés que no s'hagi desat es perdrà"
                 }
             },
-            "snap": {
-                "checkbox": "No mostris més aquest missatge",
-                "title": "L'Heroic s'executa com a Snap",
-                "message": "Algunes funcions de moment no estan disponibles a la versió Snap i ho estem mirant d'arreglar.{{newLine}}Les limitacions actuals són: {{newLine}}L'Heroic no serà capaç de trobar el Proton del Steam o el Wine del Lutris.{{newLine}}{{newLine}}Gamescope, GameMode i MangoHud tampoc funcionaran, ja que l'Heroic no hi té accés.{{newLine}}{{newLine}}Per a poder fer servir aquestes funcions, instal·la l'Heroic com a Flatpak, DEB o amb l'AppImage."
-            },
             "rosetta": {
                 "title": "La Rosetta no s'ha trobat.",
                 "message": "L'Heroic necessita la Rosetta per a executar jocs en el macOS amb xips d'Apple Silicon. Instal·la-la des del terminal macOS amb l'ordre: «softwareupdate --install-rosetta» i reinicia l'Heroic. "

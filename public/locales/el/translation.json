@@ -174,11 +174,6 @@
                     "message": "Οποιαδήποτε μη αποθηκευμένη πρόοδος μπορεί να χαθεί"
                 }
             },
-            "snap": {
-                "checkbox": "Μην εμφανίσετε ξανά αυτό το μήνυμα",
-                "title": "Το Heroic τρέχει ως Snap",
-                "message": "Ορισμένες λειτουργίες δεν είναι διαθέσιμες στην έκδοση Snap της εφαρμογής προς το παρόν και προσπαθούμε να τις διορθώσουμε.{{newLine}}Οι τρέχοντες περιορισμοί είναι: {{newLine}}}Το Heroic δεν θα είναι σε θέση να βρει το Proton από το Steam ή το Wine από το Lutris.{{newLine}}{{newLine}}{{newLine}}Τα Gamecope, GameMode και MangoHud δεν θα λειτουργούν επίσης, καθώς το Heroic δεν μπορεί να έχει πρόσβαση σε αυτά.{{newLine}}{{newLine}}{{newLine}}Για να έχετε πρόσβαση σε αυτό το χαρακτηριστικό, παρακαλούμε εγκαταστήστε το Heroic ως Flatpak, DEB ή από το AppImage."
-            },
             "rosetta": {
                 "message": "Το Heroic απαιτεί το Rosetta για να εκτελεστεί σωστά σε macOS με Apple Silicon τσιπ. Εγκαταστήστε το από το τερματικό macOS χρησιμοποιώντας την ακόλουθη εντολή: \"softwareupdate --install-rosetta\" και επανεκκινήστε το Heroic. ",
                 "title": "Το Rosetta δεν βρέθηκε"

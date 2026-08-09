@@ -87,11 +87,6 @@
         },
         "warning": {
             "title": "Įspėjimas",
-            "snap": {
-                "checkbox": "Daugiau neberodyti šios žinutes",
-                "title": "„Heroic“ veikia kaip – „Snap“",
-                "message": "Kai kurios funkcijos nėra pasiekiamos „Snap“ versijoje (kol kas) ir stengiamės ta sutvarkyti.{{newLine}}Dabartiniai ribojimai yra:{{newLine}}„Heroic“ negalės surasti „Proton“ iš „Steam“ ar „Wine“ iš „Lutris“.{{newLine}}{{newLine}}„Gamescope“, žaidimų veiksena ir „MangoHud“ tai pat neveiks, nes „Heroic“ neturi prieigos prie jų.{{newLine}}{{newLine}}Norint gauti prieigą prie šių funkcijų, prašome įdiegti „Heroic“ kaip „Flatpack“, „DEB“ ar „AppImage“."
-            },
             "wine-change": {
                 "title": "„Wine“ nebuvo rastas!",
                 "message": "Mes negalėjome surasti pasirinktos „Wine“ versijos, kad paleistumėme šį titulą („{{selectedWine}}“). {{newline}} Užtat mes radome kitą, ar norite tęsti paleidimą naudojant – „{{foundWine}}“?"

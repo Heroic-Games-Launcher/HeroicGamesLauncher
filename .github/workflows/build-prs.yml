@@ -10,7 +10,5 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/build-base.yml
-    with:
-      publish-snap: false
     secrets:
       workflowToken: ${{ secrets.GITHUB_TOKEN }}

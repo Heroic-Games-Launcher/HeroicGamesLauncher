@@ -184,11 +184,6 @@
                     "title": "An bhfuil tú cinnte gur mian leat éirí as?"
                 }
             },
-            "snap": {
-                "checkbox": "Ná taispeáin an teachtaireacht seo arís",
-                "message": "Níl roinnt gnéithe ar fáil i leagan Snap den aip faoi láthair agus táimid ag iarraidh iad a shocrú.{{newLine}}Seo a leanas na teorainneacha reatha: {{newLine}}Ní bheidh Heroic in ann Proton a aimsiú ó Steam ná Wine ó Lutris.{{newLine}}{{newLine}}Ní oibreoidh Gamescope, GameMode ná MangoHud ach an oiread ós rud é nach féidir le Heroic rochtain a fháil orthu.{{newLine}}{{newLine}}Chun rochtain a fháil ar an ngné seo, suiteáil Heroic mar Flatpak, DEB nó ón AppImage.",
-                "title": "Tá Heroic ag rith mar Snap"
-            },
             "title": "Rabhadh",
             "wine-change": {
                 "message": "Ní raibh muid in ann an leagan roghnaithe den fhíon a aimsiú chun an teideal seo a sheoladh ({{selectedWine}}). {{newline}} Fuaireamar ceann eile, ar mhaith leat leanúint ar aghaidh ag seoladh ag baint úsáide as {{foundWine}}?",
