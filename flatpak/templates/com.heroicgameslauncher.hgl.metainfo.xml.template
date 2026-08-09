@@ -10,6 +10,7 @@
   <summary xml:lang="fr">Lancez des jeux Epic, GOG et Amazon</summary>
   <summary xml:lang="zh">游玩 Epic、GOG 和 Amazon 游戏</summary>
   <summary xml:lang="ja">Epic、GOG、Amazonのゲームをプレイ</summary>
+  <summary xml:lang="hu">Epic-, GOG- és Amazon-játékok indítása</summary>
   <url type="homepage">https://heroicgameslauncher.com</url>
   <url type="bugtracker">https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues</url>
   <url type="donation">https://ko-fi.com/heroicgames</url>
@@ -47,6 +48,9 @@
       使用我们自定义的 gogdl 实现启动 GOG 游戏，以及使用 Nile 启动 Amazon 游戏。</p>
     <p xml:lang="ja">Heroic はオープンソースのゲームランチャーです。現在 Legendary を使って Epic Games Store の
       ゲームを起動し、カスタム実装の gogdl を使用して GOG のゲームを起動し、Nile を使用して Amazon のゲームを起動できます。</p>
+    <p xml:lang="hu">A Heroic egy nyílt forráskódú játékindító. Jelenleg támogatja az Epic Games Store
+      játékainak indítását a Legendary segítségével, a GOG játékok indítását saját gogdl-alapú
+      megoldásunkkal, valamint az Amazon Games játékait a Nile használatával.</p>
     <p>Main Features:</p>
     <p xml:lang="de">Hauptfunktionen:</p>
     <p xml:lang="pt">Principais recursos:</p>
@@ -54,6 +58,7 @@
     <p xml:lang="fr">Principales fonctionnalités :</p>
     <p xml:lang="zh">主要功能：</p>
     <p xml:lang="ja">主な機能：</p>
+    <p xml:lang="hu">Főbb funkciók:</p>
     <ul>
       <li>Have access to your Epic, GOG and Amazon Games in a intuitive User Interface.</li>
       <li xml:lang="pt">Acesse seus jogos da Epic, GOG e Amazon em uma interface de usuário
@@ -67,6 +72,7 @@
       <li xml:lang="de">Zugriff auf deine Spielebibliothek von Epic Games, GOG und Amazon Games
         durch eine
         intuitive Benutzeroberfläche.</li>
+      <li xml:lang="hu">Hozzáférés az Epic-, GOG- és Amazon-játékaidhoz egy intuitív felhasználói felületen.</li>
       <li>Add Games outside GOG, Amazon or Epic Games Store native or not. Even Browser apps
         are supported</li>
       <li xml:lang="pt">Adicione jogos fora da GOG, Amazon ou Epic Games Store, nativos ou não. Até
@@ -80,6 +86,8 @@
       <li xml:lang="de">Spiele können hinzugefügt werden, die nicht von Epic Games, GOG oder Amazon
         Games
         sind. Sogar Browser Apps werden unterstützt.</li>
+      <li xml:lang="hu">Más forrásból származó játékok hozzáadása (nem csak GOG, Amazon vagy Epic Games Store), legyenek
+        natívak vagy nem natívak. Még a böngészős alkalmazások is támogatottak.</li>
       <li>A Download queue to download multiple games at once.</li>
       <li xml:lang="pt">Uma fila de download para baixar vários jogos de uma vez.</li>
       <li xml:lang="es">Una cola de descarga para descargar varios juegos a la vez.</li>
@@ -91,6 +99,7 @@
       <li xml:lang="de">Zugriff auf deine Spielebibliothek von Epic Games und GOG durch eine
         intuitive
         Benutzeroberfläche.</li>
+      <li xml:lang="hu">Letöltési sor több játék egyidejű letöltéséhez.</li>
       <li>Install and launch your Windows Games using Wine or Proton. Or Launch your Native
         GOG Games.</li>
       <li xml:lang="pt">Instale e inicie seus jogos do Windows usando Wine ou Proton. Ou inicie seus
@@ -104,6 +113,8 @@
       <li xml:lang="de">Windows Spiele könne mithilfe von Wine oder Proton gestartet werden. Native
         Spiele
         von GOG können direkt gestartet werden.</li>
+      <li xml:lang="hu">Windowsos játékok telepítése és indítása Wine vagy Proton segítségével, illetve
+        natív GOG-játékok futtatása.</li>
       <li>Cloud Saves support for GOG and Epic Games.</li>
       <li xml:lang="pt">Suporte a salvamentos em nuvem para GOG e Epic Games.</li>
       <li xml:lang="es">Soporte de guardado en la nube para GOG y Epic Games.</li>
@@ -111,6 +122,7 @@
       <li xml:lang="zh">支持 GOG 和 Epic Games 的云存档。</li>
       <li xml:lang="ja">GOG と Epic Games のクラウドセーブをサポート。</li>
       <li xml:lang="de">Cloud Saves werden für GOG und Epic Games unterstützt.</li>
+      <li xml:lang="hu">Felhőmentések támogatása GOG és Epic Games esetén.</li>
       <li>Import Games installed through the Epic Store or GOG Galaxy.</li>
       <li xml:lang="pt">Importe jogos instalados através da Epic Store ou GOG Galaxy.</li>
       <li xml:lang="es">Importa juegos instalados desde Epic Store o GOG Galaxy.</li>
@@ -120,6 +132,7 @@
       <li xml:lang="de">Installierte Spiele können aus dem Epic Games Sore oder aus GOG Galaxy
         importiert
         werden.</li>
+      <li xml:lang="hu">Az Epic Store vagy GOG Galaxy által telepített játékok importálása.</li>
       <li>Verify and Repair corrupted installations or even move your installation to
         different folders.</li>
       <li xml:lang="pt">Verifique e repare instalações corrompidas ou até mesmo mova sua instalação
@@ -130,6 +143,7 @@
         installation vers différents dossiers.</li>
       <li xml:lang="zh">验证并修复损坏的安装，或将安装移动到不同的文件夹。</li>
       <li xml:lang="ja">破損したインストールを検証および修復し、インストール先を別のフォルダに移動することもできます。</li>
+      <li xml:lang="hu">Sérült telepítések ellenőrzése és javítása, valamint áthelyezése más mappákba.</li>
       <li>Integrated Proton/Wine Manager for easy installation of new and updated ones</li>
       <li xml:lang="pt">Gerenciador Proton/Wine integrado para fácil instalação de versões novas e
         atualizadas.</li>
@@ -139,12 +153,14 @@
         nouvelles versions et mises à jour.</li>
       <li xml:lang="zh">集成的 Proton/Wine 管理器，轻松安装新版本和更新。</li>
       <li xml:lang="ja">新規および更新された Proton/Wine バージョンを簡単にインストールできる統合 Proton/Wine マネージャー。</li>
+      <li xml:lang="hu">Beépített Proton-/Wine-kezelő új és frissített verziók egyszerű telepítéséhez.</li>
       <li>Integrated Winetricks</li>
       <li xml:lang="pt">Winetricks integrado</li>
       <li xml:lang="es">Winetricks integrado</li>
       <li xml:lang="fr">Winetricks intégré</li>
       <li xml:lang="zh">集成 Winetricks</li>
       <li xml:lang="ja">統合 Winetricks</li>
+      <li xml:lang="hu">Winetricks-integráció</li>
       <li>Support for install and uninstall of Games DLCs</li>
       <li xml:lang="pt">Suporte para instalação e desinstalação de DLCs de jogos</li>
       <li xml:lang="es">Soporte para instalación y desinstalación de DLCs de juegos</li>
@@ -155,6 +171,7 @@
       <li xml:lang="de">Installationen können auf Beschädigungen überprüft und repariert werden,
         sowie in
         andere Ordner verschoben werden.</li>
+      <li xml:lang="hu">Játék-DLC-k telepítésének és eltávolításának támogatása.</li>
       <li>Access the Epic and GOG store and also Heroic Wiki directly from the App.</li>
       <li xml:lang="pt">Acesse a loja da Epic e da GOG, além da Wiki do Heroic diretamente no
         aplicativo.</li>
@@ -167,13 +184,15 @@
       <li xml:lang="de">Der Epic Games Store sowie der GOG Store können direkt aus der App
         aufgerufen
         werden.</li>
-      <li>Check Metacritic, IGCB or OpenCritic score for the game.</li>
-      <li xml:lang="pt">Verifique a pontuação do Metacritic, IGCB ou OpenCritic para o jogo.</li>
-      <li xml:lang="es">Consulta la puntuación en Metacritic, IGCB u OpenCritic para el juego.</li>
-      <li xml:lang="fr">Vérifiez le score Metacritic, IGCB ou OpenCritic du jeu.</li>
-      <li xml:lang="zh">查看游戏在 Metacritic、IGCB 或 OpenCritic 上的评分。</li>
-      <li xml:lang="ja">ゲームの Metacritic、IGCB、OpenCritic のスコアを確認します。</li>
-      <li xml:lang="de">Überprüfen Sie den Metacritic-, IGCB- oder OpenCritic-Score des Spiels.</li>
+      <li xml:lang="hu">Az Epic- és GOG-áruház, valamint a Heroic Wiki közvetlen elérése az alkalmazásból.</li>
+      <li>Check Metacritic, IGDB or OpenCritic score for the game.</li>
+      <li xml:lang="pt">Verifique a pontuação do Metacritic, IGDB ou OpenCritic para o jogo.</li>
+      <li xml:lang="es">Consulta la puntuación en Metacritic, IGDB u OpenCritic para el juego.</li>
+      <li xml:lang="fr">Vérifiez le score Metacritic, IGDB ou OpenCritic du jeu.</li>
+      <li xml:lang="zh">查看游戏在 Metacritic、IGDB 或 OpenCritic 上的评分。</li>
+      <li xml:lang="ja">ゲームの Metacritic、IGDB、OpenCritic のスコアを確認します。</li>
+      <li xml:lang="de">Überprüfen Sie den Metacritic-, IGDB- oder OpenCritic-Score des Spiels.</li>
+      <li xml:lang="hu">A játék Metacritic-, IGDB- vagy OpenCritic-értékeléseinek megtekintése.</li>
       <li>And many more features</li>
       <li xml:lang="pt">E muitas outras funcionalidades</li>
       <li xml:lang="es">Y muchas más funciones</li>
@@ -181,6 +200,7 @@
       <li xml:lang="zh">以及更多功能</li>
       <li xml:lang="ja">その他多数の機能</li>
       <li xml:lang="de">Und viele weitere Features</li>
+      <li xml:lang="hu">És még sok egyéb funkció</li>
     </ul>
     <p>Current Limitations on the Flatpak:</p>
     <p xml:lang="de">Aktuelle Einschränkungen des Flatpaks:</p>
@@ -245,42 +265,52 @@
   <screenshots>
     <screenshot type="default">
       <caption>Library</caption>
+      <caption xml:lang="hu">Könyvtár</caption>
       <image>https://github.com/user-attachments/assets/ec391f3e-9820-4c31-9909-f298965b8003</image>
     </screenshot>
     <screenshot>
       <caption>GamePage</caption>
+      <caption xml:lang="hu">Játékoldal</caption>
       <image>https://github.com/user-attachments/assets/c46cbbec-ff2e-4378-88d6-25c6d8651c39</image>
     </screenshot>
     <screenshot>
       <caption>Stores</caption>
+      <caption xml:lang="hu">Áruházak</caption>
       <image>https://github.com/user-attachments/assets/84d800de-51f5-44d1-9530-0d529613714f</image>
     </screenshot>
     <screenshot>
       <caption>Sideload Dialog</caption>
+      <caption xml:lang="hu">Külső telepítési párbeszédablak</caption>
       <image>https://github.com/user-attachments/assets/8c4f0f79-ec45-4f48-a947-8d250204ad60</image>
     </screenshot>
     <screenshot>
       <caption>Download Manager</caption>
+      <caption xml:lang="hu">Letöltéskezelő</caption>
       <image>https://github.com/user-attachments/assets/b99f0482-953f-4528-a432-10aded523bb4</image>
     </screenshot>
     <screenshot>
       <caption>Wine Manager</caption>
+      <caption xml:lang="hu">Wine-kezelő</caption>
       <image>https://github.com/user-attachments/assets/8c2e6c44-68ef-42cc-9dc1-ddec6989a8b2</image>
     </screenshot>
     <screenshot>
       <caption>Game Settings</caption>
+      <caption xml:lang="hu">Játékbeállítások</caption>
       <image>https://github.com/user-attachments/assets/5f10d3f1-a918-411c-93b9-48a9f67fb5fd</image>
     </screenshot>
     <screenshot>
       <caption>Install Dialog</caption>
+      <caption xml:lang="hu">Telepítési párbeszédablak</caption>
       <image>https://github.com/user-attachments/assets/3c61fe93-a1a3-45fb-86ec-e87cfe3c290a</image>
     </screenshot>
     <screenshot>
       <caption>Winetricks</caption>
+      <caption xml:lang="hu">Winetricks</caption>
       <image>https://github.com/user-attachments/assets/40b8f9e0-36cc-491a-9745-e3693c2f9af0</image>
     </screenshot>
     <screenshot>
       <caption>Modify Installation</caption>
+      <caption xml:lang="hu">Telepítés módosítása</caption>
       <image>https://github.com/user-attachments/assets/14a2346c-fcad-479f-bddb-45b740a97a39</image>
     </screenshot>
   </screenshots>
