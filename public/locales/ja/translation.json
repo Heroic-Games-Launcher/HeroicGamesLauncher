@@ -177,11 +177,6 @@
                     "message": "保存されていない進行状況が失われる可能性があります"
                 }
             },
-            "snap": {
-                "checkbox": "このメッセージを二度と表示しない",
-                "title": "Heroicはスナップとして実行されます",
-                "message": "一部の機能は現在Snapバージョンのアプリで利用できません。 {{newLine}}現在の制限事項：{{newLine}}HeroicはSteamのProtonやLutrisのWineを見つけることができません。{{newLine}}{{newLine}}Gamescope、GameMode、MangoHudもアクセス権限がないため正常に動作しません。 {{newLine}}{{newLine}}この機能にアクセスするには、HeroicをFlakpak、DEBフォーマットパッケージ、またはAppImageからインストールしてください。"
-            },
             "rosetta": {
                 "title": "Rosettaが見つかりません",
                 "message": "Apple Siliconチップ搭載のmacOSでHeroicを正常に動作させるには、Rosettaが必要です。macOSのターミナルで次のコマンド「softwareupdate --install-rosetta」を実行してインストールし、Heroicを再起動してください。 "

@@ -102,11 +102,6 @@
                 "message": ""
             },
             "title": "",
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",

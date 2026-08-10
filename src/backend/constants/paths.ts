@@ -4,7 +4,6 @@ import { homedir } from 'os'
 import { join, resolve } from 'path'
 import { env } from 'process'
 import { dirSync } from 'tmp'
-import { isSnap } from './environment'
 
 let configFolder = app.getPath('appData')
 // If we're running tests, we want a config folder independent of the normal
@@ -19,7 +18,7 @@ if (process.env.CI === 'e2e') {
 }
 
 export const flatpakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
-export const userHome = isSnap ? env.SNAP_REAL_HOME! : homedir()
+export const userHome = homedir()
 
 export const appFolder = join(configFolder, 'heroic')
 export const userDataPath = app.getPath('userData')
