@@ -266,6 +266,7 @@ export interface GameSettings {
   afterLaunchScriptPath: string
   disableUMU: boolean
   verboseLogs: boolean
+  disableHidraw: boolean
   advertiseAvxForRosetta: boolean
   enableQuickSavesMenu: boolean
 }

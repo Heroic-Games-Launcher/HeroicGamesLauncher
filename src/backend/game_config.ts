@@ -279,6 +279,7 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
+      disableHidraw: false,
       advertiseAvxForRosetta,
       enableQuickSavesMenu: false
     } as GameSettings
