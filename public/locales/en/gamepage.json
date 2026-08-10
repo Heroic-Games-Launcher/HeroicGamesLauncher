@@ -69,6 +69,7 @@
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
+        "back": "Back",
         "browse_files": "Browse Files",
         "browse_wine_prefix": "Browse Wine Prefix",
         "cancel": "Pause/Cancel",
@@ -82,6 +83,7 @@
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Install",
+        "next": "Next",
         "no-path-selected": "No path selected",
         "play": "PLAY",
         "queue": {
@@ -89,11 +91,19 @@
         },
         "remove_from_favourites": "Remove From Favourites",
         "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "run-installer": {
+            "subtitle": "The game comes with an installer I need to run before I can play it",
+            "title": "Run installer"
+        },
+        "running-setup": "Running installer...",
         "sideload": {
             "edit": "Edit App/Game"
         },
+        "skip-installer": {
+            "subtitle": "I already have a game executable I can run to play the game",
+            "title": "Skip"
+        },
+        "skip-waiting": "Skip waiting",
         "unhide_game": "Unhide Game",
         "uninstall": "Uninstall",
         "update": "Update"
@@ -266,9 +276,6 @@
         "field": {
             "title": "Title"
         },
-        "images": {
-            "summary": "Images"
-        },
         "import-hint": {
             "content": "Do NOT use this feature for that.<br />Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
             "title": "Important! Are you adding a game from Epic/GOG/Amazon? Click here!"
@@ -279,6 +286,11 @@
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
             "image-hint": "Square Art (click on the image to search on SteamGridDB)",
+            "no-proton-shortcuts": {
+                "subtitle": "Heroic didn't detect any installed software. Please select the executable manually instead.",
+                "title": "No shortcuts found"
+            },
+            "proton-shortcuts": "Detected software",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
         },
@@ -287,6 +299,13 @@
             "title": "Add a title to your Game/App",
             "url": "Paste the Game URL here",
             "useragent": "Write a custom user agent here to be used on this browser app/game"
+        },
+        "step": {
+            "compat": "Compatibility",
+            "finish": "Finish",
+            "images": "Images",
+            "install": "Installation",
+            "meta": "Metadata"
         }
     },
     "specs": {
