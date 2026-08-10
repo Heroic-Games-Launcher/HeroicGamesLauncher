@@ -8,6 +8,7 @@ import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from 'common/types'
 import { openDiscordLink } from 'frontend/helpers'
+import { getGameDisplayTitle } from 'frontend/helpers/gameOverrides'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import Upload from '@mui/icons-material/Upload'
@@ -91,7 +92,9 @@ export default function LogSettings() {
     games = games.concat(amazon.library.filter((game) => game.is_installed))
     games = games.concat(zoom.library.filter((game) => game.is_installed))
     games = games.concat(sideloadedLibrary.filter((game) => game.is_installed))
-    games = games.sort((game1, game2) => game1.title.localeCompare(game2.title))
+    games = games.sort((game1, game2) =>
+      getGameDisplayTitle(game1).localeCompare(getGameDisplayTitle(game2))
+    )
 
     setInstalledGames(games)
   }, [
@@ -131,9 +134,10 @@ export default function LogSettings() {
     if (!showLogOf.runner)
       return t('setting.log.descriptiveNames.heroic', 'General Heroic log')
     if (showLogOf.appName) {
-      const gameTitle = installedGames.find(
+      const game = installedGames.find(
         ({ app_name }) => app_name === showLogOf.appName
-      )?.title
+      )
+      const gameTitle = game ? getGameDisplayTitle(game) : undefined
       return t(
         'setting.log.descriptiveNames.game-log',
         'Game log of {{gameTitle}}',
