@@ -1,14 +1,21 @@
+nodeLinker: hoisted
+
+overrides:
+  ts-morph: 17.0.1
+
 patchedDependencies:
   '@types/node@22.19.3': patches/@types__node@22.19.3.patch
 
-onlyBuiltDependencies:
-  - '@fortawesome/fontawesome-common-types'
-  - '@fortawesome/fontawesome-svg-core'
-  - '@fortawesome/free-brands-svg-icons'
-  - '@fortawesome/free-regular-svg-icons'
-  - '@fortawesome/free-solid-svg-icons'
-  - '@swc/core'
-  - electron
-  - esbuild
-  - register-scheme
-  - unrs-resolver
+allowBuilds:
+  '@fortawesome/fontawesome-common-types': true
+  '@fortawesome/fontawesome-svg-core': true
+  '@fortawesome/free-brands-svg-icons': true
+  '@fortawesome/free-regular-svg-icons': true
+  '@fortawesome/free-solid-svg-icons': true
+  '@swc/core': true
+  electron: true
+  esbuild: true
+  register-scheme: true
+  unrs-resolver: true
+  '@parcel/watcher': false
+  electron-winstaller: false
