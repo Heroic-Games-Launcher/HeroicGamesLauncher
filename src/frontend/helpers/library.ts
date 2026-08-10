@@ -19,6 +19,7 @@ type InstallArgs = {
   installPath: string
   isInstalling: boolean
   previousProgress: InstallProgress | null
+  previousProgressStrategy?: string
   progress: InstallProgress
   installDlcs?: Array<string>
   t: TFunction<'gamepage'>
@@ -38,6 +39,7 @@ async function install({
   progress,
   isInstalling,
   previousProgress,
+  previousProgressStrategy,
   setInstallPath,
   sdlList = [],
   installDlcs = [],
@@ -95,7 +97,9 @@ async function install({
     platformToInstall,
     gameInfo,
     build,
-    branch
+    branch,
+    previousProgress: previousProgress ? previousProgress : undefined,
+    previousProgressStrategy
   })
 }
 

@@ -74,6 +74,7 @@
         "cancel": "Pause/Cancel",
         "changelog": "Show Changelog",
         "continue": "Continue Downloading",
+        "delete_and_install": "Delete and Install",
         "details": "Details",
         "edit-game": "Edit Game",
         "finish": "Finish",
@@ -82,6 +83,7 @@
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Install",
+        "move_and_continue": "Move and Continue Download",
         "no-path-selected": "No path selected",
         "play": "PLAY",
         "queue": {
@@ -201,6 +203,11 @@
         "not-enough-disk-space": "Not enough disk space",
         "path": "Select Install Path",
         "path-not-writtable": "Warning: path might not be writable.",
+        "previous_progress_strategy_options": {
+            "delete": "Delete and download from scratch",
+            "move": "Move to new path and continue"
+        },
+        "previous_progress_strategy_prompt": "What to do with previous partial download?",
         "space-after-install": "After Install",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine version"
