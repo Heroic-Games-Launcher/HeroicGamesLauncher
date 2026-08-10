@@ -1,0 +1,1 @@
+import './ipc_handler'
