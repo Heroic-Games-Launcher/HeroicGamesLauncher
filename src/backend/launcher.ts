@@ -69,10 +69,10 @@ import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
-import { app, powerSaveBlocker } from 'electron'
+import { app, powerMonitor, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { addRecentGame } from './recent_games/recent_games'
-import { tsStore } from './constants/key_value_stores'
+import { activeSessionsStore, tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
   sharedWinePrefix,
@@ -111,7 +111,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   skipVersionCheck,
   args
 }) => {
-  const game = libraryManagerMap[runner].getGame(appName)
+  const game: Game = libraryManagerMap[runner].getGame(appName)
   const gameInfo = game.getGameInfo()
 
   if (
@@ -142,155 +142,216 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
   const startPlayingDate = new Date()
 
-  if (!tsStore.has(appName)) {
-    tsStore.set(`${appName}.firstPlayed`, startPlayingDate.toISOString())
+  // Note that on Linux, Chromium is double-firing `PrepareForSleep`
+  let totalSuspendMs = 0
+  let suspendedAt: number | null = null
+  let heartbeatTimer: ReturnType<typeof setInterval> | null = null
+  let sessionPersisted = false
+  const onSuspend = () => {
+    if (suspendedAt !== null) return
+    suspendedAt = Date.now()
+    logInfo(`[Playtime] Suspend detected for ${appName}`, LogPrefix.Backend)
+    persistSessionCheckpoint()
   }
-
-  logInfo(`Launching ${title} (${appName})`, LogPrefix.Backend)
-
-  if (autoSyncSaves && isOnline()) {
-    sendGameStatusUpdate({
-      appName,
+  const onResume = () => {
+    if (suspendedAt === null) return
+    const delta = Date.now() - suspendedAt
+    totalSuspendMs += delta
+    suspendedAt = null
+    logInfo(
+      `[Playtime] Resume after ${Math.floor(delta / 1000)}s for ${appName}`,
+      LogPrefix.Backend
+    )
+    persistSessionCheckpoint()
+  }
+  const persistSessionCheckpoint = () => {
+    // Snapshot for recovery from session loss
+    const suspendSoFar =
+      totalSuspendMs + (suspendedAt !== null ? Date.now() - suspendedAt : 0)
+    activeSessionsStore.set(appName, {
       runner,
-      status: 'syncing-saves'
+      title,
+      startedAt: startPlayingDate.toISOString(),
+      checkpointAt: new Date().toISOString(),
+      totalSuspendMs: suspendSoFar,
+      suspendedAt
     })
-    logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
-    try {
-      await game.syncSaves('--skip-upload', savesPath, gogSaves)
-      logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
-    } catch (error) {
-      logError(
-        `Error while downloading saves for ${title}. ${error}`,
-        LogPrefix.Backend
-      )
+    sessionPersisted = true
+  }
+  const finalizeSession = () => {
+    powerMonitor.off('suspend', onSuspend)
+    powerMonitor.off('resume', onResume)
+    if (suspendedAt !== null) {
+      totalSuspendMs += Date.now() - suspendedAt
+      suspendedAt = null
+    }
+    if (heartbeatTimer !== null) {
+      clearInterval(heartbeatTimer)
+      heartbeatTimer = null
     }
   }
-
-  sendGameStatusUpdate({
-    appName,
-    runner,
-    status: 'launching'
-  })
-
-  const mainWindow = getMainWindow()
-  if (minimizeOnLaunch && !noTrayIcon) {
-    mainWindow?.hide()
+  const clearPersistedSession = () => {
+    if (!sessionPersisted) return
+    activeSessionsStore.delete(appName)
+    sessionPersisted = false
   }
+  powerMonitor.on('suspend', onSuspend)
+  powerMonitor.on('resume', onResume)
 
-  // Prevent display from sleep
-  if (!powerDisplayId) {
-    logInfo('Preventing display from sleep', LogPrefix.Backend)
-    powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
-  }
+  let launchResult: boolean | undefined
+  try {
+    if (!tsStore.has(appName)) {
+      tsStore.set(`${appName}.firstPlayed`, startPlayingDate.toISOString())
+    }
 
-  const logWriter = await createGameLogWriter(appName, runner)
+    logInfo(`Launching ${title} (${appName})`, LogPrefix.Backend)
 
-  if (!gameSettings.verboseLogs) {
-    await logWriter.logWarning('IMPORTANT: Logs are disabled', {
-      forceLog: true
-    })
-    await logWriter.logWarning(
-      "Enable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.",
-      { forceLog: true }
-    )
-  }
-
-  const isNative = game.isNative()
-
-  // check if isNative, if not, check if wine is valid
-  if (!isNative) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(
-      gameInfo,
-      gameSettings,
-      logWriter
-    )
-
-    if (!isWineOkToLaunch) {
-      logError(
-        `Was not possible to launch using ${gameSettings.wineVersion.name}`,
-        LogPrefix.Backend
-      )
-
+    if (autoSyncSaves && isOnline()) {
       sendGameStatusUpdate({
         appName,
         runner,
-        status: 'done'
+        status: 'syncing-saves'
+      })
+      logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
+      try {
+        await game.syncSaves('--skip-upload', savesPath, gogSaves)
+        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      } catch (error) {
+        logError(
+          `Error while downloading saves for ${title}. ${error}`,
+          LogPrefix.Backend
+        )
+      }
+    }
+
+    sendGameStatusUpdate({
+      appName,
+      runner,
+      status: 'launching'
+    })
+
+    const mainWindow = getMainWindow()
+    if (minimizeOnLaunch && !noTrayIcon) {
+      mainWindow?.hide()
+    }
+
+    // Prevent display from sleep
+    if (!powerDisplayId) {
+      logInfo('Preventing display from sleep', LogPrefix.Backend)
+      powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
+    }
+
+    const logWriter = await createGameLogWriter(appName, runner)
+
+    if (!gameSettings.verboseLogs) {
+      await logWriter.logWarning('IMPORTANT: Logs are disabled', {
+        forceLog: true
+      })
+      await logWriter.logWarning(
+        "Enable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.",
+        { forceLog: true }
+      )
+    }
+
+    const isNative = game.isNative()
+
+    // check if isNative, if not, check if wine is valid
+    if (!isNative) {
+      const isWineOkToLaunch = await checkWineBeforeLaunch(
+        gameInfo,
+        gameSettings,
+        logWriter
+      )
+
+      if (!isWineOkToLaunch) {
+        logError(
+          `Was not possible to launch using ${gameSettings.wineVersion.name}`,
+          LogPrefix.Backend
+        )
+
+        sendGameStatusUpdate({
+          appName,
+          runner,
+          status: 'done'
+        })
+
+        await logWriter.close()
+
+        return { status: 'error' }
+      }
+    }
+
+    await runBeforeLaunchScript(gameInfo, gameSettings, logWriter)
+
+    sendGameStatusUpdate({
+      appName,
+      runner,
+      status: 'launching'
+    })
+
+    const command = game.launch(
+      logWriter,
+      launchArguments,
+      args,
+      skipVersionCheck
+    )
+
+    // Heartbeat to recover session state on crash
+    persistSessionCheckpoint()
+    heartbeatTimer = setInterval(persistSessionCheckpoint, 5 * 60 * 1000)
+
+    if (runner === 'gog') {
+      gogPresence.setCurrentGame(appName)
+      await gogPresence.setPresence()
+    }
+
+    launchResult = await command
+      .catch(async (exception) => {
+        logError(exception, LogPrefix.Backend)
+        await logWriter.logError([
+          `An exception occurred when launching the game:`
+        ])
+        await logWriter.logError(exception)
+
+        return false
+      })
+      .finally(async () => {
+        await runAfterLaunchScript(gameInfo, gameSettings, logWriter)
+        await logWriter.close()
       })
 
-      await logWriter.close()
-
-      return { status: 'error' }
+    if (runner === 'gog') {
+      gogPresence.setCurrentGame('')
+      await gogPresence.setPresence()
     }
-  }
-
-  await runBeforeLaunchScript(gameInfo, gameSettings, logWriter)
-
-  sendGameStatusUpdate({
-    appName,
-    runner,
-    status: 'launching'
-  })
-
-  const command = game.launch(
-    logWriter,
-    launchArguments,
-    args,
-    skipVersionCheck
-  )
-
-  if (runner === 'gog') {
-    gogPresence.setCurrentGame(appName)
-    await gogPresence.setPresence()
-  }
-
-  const launchResult = await command
-    .catch(async (exception) => {
-      logError(exception, LogPrefix.Backend)
-      await logWriter.logError([
-        `An exception occurred when launching the game:`
-      ])
-      await logWriter.logError(exception)
-
-      return false
-    })
-    .finally(async () => {
-      await runAfterLaunchScript(gameInfo, gameSettings, logWriter)
-      await logWriter.close()
-    })
-
-  if (runner === 'gog') {
-    gogPresence.setCurrentGame('')
-    await gogPresence.setPresence()
-  }
-  // Stop display sleep blocker
-  if (powerDisplayId !== null) {
-    logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
-    powerSaveBlocker.stop(powerDisplayId)
+    // Stop display sleep blocker
+    if (powerDisplayId !== null) {
+      logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
+      powerSaveBlocker.stop(powerDisplayId)
+    }
+  } finally {
+    finalizeSession()
   }
 
   // Update playtime and last played date
   const finishedPlayingDate = new Date()
   tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
-  // Playtime of this session in minutes
-  const sessionPlaytime =
-    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
+  // Playtime of this session in minutes, excluding system-suspend time.
+  const wallMs = finishedPlayingDate.getTime() - startPlayingDate.getTime()
+  const activeMs = Math.max(0, wallMs - totalSuspendMs)
+  const sessionPlaytime = activeMs / 1000 / 60
+  if (totalSuspendMs > 0) {
+    logInfo(
+      `[Playtime] Session for ${appName}: wall=${Math.floor(wallMs / 60000)}m active=${Math.floor(activeMs / 60000)}m (subtracted ${Math.floor(totalSuspendMs / 60000)}m of suspend)`,
+      LogPrefix.Backend
+    )
+  }
   const totalPlaytime =
     sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
   tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+  clearPersistedSession()
 
-  const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
-  if (runner === 'gog') {
-    if (!disablePlaytimeSync) {
-      await libraryManagerMap['gog']
-        .getGame(appName)
-        .updateGOGPlaytime(startPlayingDate, finishedPlayingDate)
-    } else {
-      logWarning(
-        'Posting playtime session to server skipped - playtime sync disabled',
-        { prefix: LogPrefix.Backend }
-      )
-    }
-  }
+  await game.updatePlaytime?.(startPlayingDate, sessionPlaytime)
   await addRecentGame(gameInfo)
 
   if (autoSyncSaves && isOnline()) {
