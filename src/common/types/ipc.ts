@@ -70,7 +70,6 @@ interface SyncIPCFunctions {
   openReleases: () => void
   openWeblate: () => void
   showAboutWindow: () => void
-  openLoginPage: () => void
   openDiscordLink: () => void
   openPatreonPage: () => void
   openKofiPage: () => void
@@ -78,7 +77,6 @@ interface SyncIPCFunctions {
   openWinePrefixFAQ: () => void
   openWebviewPage: (url: string) => void
   openWikiLink: () => void
-  openSidInfoPage: () => void
   openCustomThemesWiki: () => void
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void

@@ -8,14 +8,13 @@
         "loading": "Kraunama"
     },
     "message": {
-        "part1": "Norint prisijungti ir įdiegti žaidimus, Jums reikia sekti šiuos žingsnius:",
-        "part3": "„Epic“ parduotuvė čia –",
-        "part4": ", prisijunkite prie savo paskyros ir nukopijuokite savo",
-        "part5": "autorizavimo kodo informacijos numerį",
-        "part6": "Įklijuokite savo",
-        "part7": "autorizavimo kodo numeris",
-        "part2": "Atidaryti –",
-        "part8": "įvesties lauke (randamas apačioje); ir paspauskite – „prisijungti“ mygtuką."
+        "part1": "Norint prisijungti ir įdiegti žaidimus, Jums reikia sekti šiuos žingsnius:"
     },
-    "welcome": "Sveiki!"
+    "welcome": "Sveiki!",
+    "manual": {
+        "epic": {
+            "step1": "Atidaryti – „Epic“ parduotuvė čia – , prisijunkite prie savo paskyros ir nukopijuokite savo autorizavimo kodo informacijos numerį",
+            "step2": "Įklijuokite savo autorizavimo kodo numeris įvesties lauke (randamas apačioje); ir paspauskite – „prisijungti“ mygtuką."
+        }
+    }
 }

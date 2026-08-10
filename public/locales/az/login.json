@@ -8,18 +8,17 @@
         "loading": "Yüklənir"
     },
     "message": {
-        "part1": "Oyunlarınızı daxil etmək və quraşdırmaq üçün əvvəlcə aşağıdakı addımları yerinə yetirməlisiniz:",
-        "part2": "Açın",
-        "part3": "Epic Store burada",
-        "part4": ", hesabınıza daxil olun və kopyalayın",
-        "part5": "icazə kodu məlumat nömrəsi",
-        "part6": "Özünüz yapışdırın",
-        "part7": "səlahiyyət kod nömrəsi",
-        "part8": "aşağıdakı giriş qutusuna daxil edin və giriş edin düyməsini basın."
+        "part1": "Oyunlarınızı daxil etmək və quraşdırmaq üçün əvvəlcə aşağıdakı addımları yerinə yetirməlisiniz:"
     },
     "status": {
         "error": "Xəta",
         "loading": "Oyun siyahısı yüklənir, gözləyin"
     },
-    "welcome": "Xoş gəldiniz!"
+    "welcome": "Xoş gəldiniz!",
+    "manual": {
+        "epic": {
+            "step1": "Açın Epic Store burada , hesabınıza daxil olun və kopyalayın icazə kodu məlumat nömrəsi",
+            "step2": "Özünüz yapışdırın səlahiyyət kod nömrəsi aşağıdakı giriş qutusuna daxil edin və giriş edin düyməsini basın."
+        }
+    }
 }

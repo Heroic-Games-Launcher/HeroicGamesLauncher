@@ -8,18 +8,17 @@
         "error": "Error, prova amb un codi diferent"
     },
     "message": {
-        "part1": "Per a iniciar sessió i instal·lar jocs, cal que segueixis primer les passes de sota:",
-        "part2": "Obre el",
-        "part3": "Epic Store aquí",
-        "part4": ", inicia la sessió i copia el teu",
-        "part5": "nombre informatiu del codi d'autorització",
-        "part6": "Enganxa el",
-        "part7": "nombre informatiu del codi d'autorització",
-        "part8": "a la caixa de sota i fes clic al botó d'inici de sessió."
+        "part1": "Per a iniciar sessió i instal·lar jocs, cal que segueixis primer les passes de sota:"
     },
     "status": {
         "error": "Error",
         "loading": "S'està carregant la llista de jocs, espera"
     },
-    "welcome": "Et donem la benvinguda!"
+    "welcome": "Et donem la benvinguda!",
+    "manual": {
+        "epic": {
+            "step1": "Obre el Epic Store aquí , inicia la sessió i copia el teu nombre informatiu del codi d'autorització",
+            "step2": "Enganxa el nombre informatiu del codi d'autorització a la caixa de sota i fes clic al botó d'inici de sessió."
+        }
+    }
 }

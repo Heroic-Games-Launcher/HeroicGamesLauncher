@@ -8,18 +8,17 @@
         "error": "Błąd, spróbuj użyć innego kodu"
     },
     "message": {
-        "part1": "Żeby się zalogować i móc instalować gry, wykonaj najpierw następujące kroki:",
-        "part2": "Otwórz",
-        "part3": "Epic Games Store",
-        "part4": ", zaloguj się na swoje konto i skopiuj swój",
-        "part5": "kod autoryzacyjny",
-        "part6": "Wklej swój",
-        "part7": "kod autoryzacji",
-        "part8": "w pole poniżej i kliknij na przycisk Zaloguj się."
+        "part1": "Żeby się zalogować i móc instalować gry, wykonaj najpierw następujące kroki:"
     },
     "status": {
         "error": "Błąd",
         "loading": "Ładowanie listy gier, proszę czekać"
     },
-    "welcome": "Witaj!"
+    "welcome": "Witaj!",
+    "manual": {
+        "epic": {
+            "step1": "Otwórz Epic Games Store , zaloguj się na swoje konto i skopiuj swój kod autoryzacyjny",
+            "step2": "Wklej swój kod autoryzacji w pole poniżej i kliknij na przycisk Zaloguj się."
+        }
+    }
 }
