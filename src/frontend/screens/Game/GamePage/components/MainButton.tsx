@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import GameContext from '../../GameContext'
+import ContextProvider from 'frontend/state/ContextProvider'
 import {
   ArrowBackIosNew,
   Cancel,
@@ -28,9 +29,34 @@ interface Props {
 const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
+  const { showDialogModal } = useContext(ContextProvider)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
 
   const is_installed = gameInfo.is_installed
+
+  const showDownloadControls = is.installing || is.updating || is.downloadPaused
+
+  const handlePauseResume = () => {
+    if (is.downloadPaused) {
+      window.api.resumeCurrentDownload()
+    } else {
+      window.api.pauseCurrentDownload()
+    }
+  }
+
+  const handleCancelDownload = () => {
+    showDialogModal({
+      title: t('gamepage:box.stopInstall.title'),
+      message: t('gamepage:box.stopInstall.message'),
+      buttons: [
+        { text: t('gamepage:box.stopInstall.keepInstalling') },
+        {
+          text: t('button.cancel'),
+          onClick: () => window.api.cancelDownload(false)
+        }
+      ]
+    })
+  }
   const disabledPlayButtons =
     is.reparing ||
     is.moving ||
@@ -168,6 +194,41 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const handleAltLaunch = async () => {
     setVerboseLogs(!verboseLogs)
     await handlePlay(gameInfo)
+  }
+
+  if (showDownloadControls) {
+    return (
+      <div className="buttonsWrapper">
+        <span className="installButtons">
+          <button
+            onClick={handlePauseResume}
+            autoFocus={true}
+            className={classNames('button', 'is-tertiary', 'mainBtn')}
+          >
+            {is.downloadPaused ? (
+              <span className="buttonWithIcon">
+                <PlayArrow data-icon="play" />
+                {t('queue.label.resume', 'Resume download')}
+              </span>
+            ) : (
+              <span className="buttonWithIcon">
+                <Pause />
+                {t('queue.label.pause', 'Pause download')}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={handleCancelDownload}
+            className={'button mainBtn is-secondary'}
+          >
+            <span className="buttonWithIcon">
+              <Stop data-icon="stop" />
+              {t('button.cancel')}
+            </span>
+          </button>
+        </span>
+      </div>
+    )
   }
 
   return (
