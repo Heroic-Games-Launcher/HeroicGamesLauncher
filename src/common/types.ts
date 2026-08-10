@@ -138,6 +138,7 @@ export interface AppSettings extends GameSettings {
   verboseLogs: boolean
   showValveProton: boolean
   steamGridDbApiKey: string
+  afterDownloadAction: 'none' | 'shutdown' | 'suspend'
 }
 
 export type LibraryTopSectionOptions =

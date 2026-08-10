@@ -12,6 +12,8 @@ import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 import { onConnectivityChange } from 'backend/online_monitor'
+import { GlobalConfig } from '../config'
+import { shutdown, suspend } from '../utils/power'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -112,7 +114,19 @@ async function initQueue() {
 
   if (queueState !== 'paused') {
     queueState = 'idle'
+    await performAfterDownloadAction()
   }
+}
+
+async function performAfterDownloadAction() {
+  const globalConfig = GlobalConfig.get()
+  const action = globalConfig.getSettings().afterDownloadAction
+  if (action === 'none') {
+    return
+  }
+
+  globalConfig.setSetting('afterDownloadAction', 'none')
+  return action === 'shutdown' ? shutdown() : suspend()
 }
 
 async function addToQueue(element: DMQueueElement) {
