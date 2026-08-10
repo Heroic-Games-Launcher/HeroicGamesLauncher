@@ -723,6 +723,23 @@ export default class GOGLibraryManager implements LibraryManager {
       )
       return
     }
+    
+    // Validate external data before using it
+    const folderName = gogInfo.folder_name?.trim()
+
+    if (!folderName) {
+      logWarning(
+        [
+          'Invalid GOG install info: missing or empty folder_name',
+          { appName }
+        ],
+        LogPrefix.Gog
+      )
+      return
+    }
+
+    // Normalize data for safe use downstream
+    gogInfo.folder_name = folderName
 
     let libraryArray = libraryStore.get('games', [])
     let gameObjectIndex = libraryArray.findIndex(
