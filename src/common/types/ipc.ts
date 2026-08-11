@@ -40,7 +40,11 @@ import type {
   WineManagerStatus,
   WineVersionInfo
 } from '../types'
-import type { CatalogLocaleSettings, CatalogProduct } from './discounts'
+import type {
+  CatalogLocaleSettings,
+  CatalogProduct,
+  GogDealsRegion
+} from './discounts'
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
@@ -334,6 +338,7 @@ interface AsyncIPCFunctions {
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
   getSteamUsers: () => Promise<SteamAccount[]>
+  getGogDealsRegion: () => Promise<GogDealsRegion | null>
   getGogDiscounts: (
     locale: CatalogLocaleSettings,
     hideOwned?: boolean,

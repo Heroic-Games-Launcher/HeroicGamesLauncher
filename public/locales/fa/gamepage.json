@@ -95,7 +95,8 @@
         "changelog": "",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "ویرایش نرم افزار/بازی"
     },
     "cloud_save_unsupported": "پشتیبانی نشده",
     "disabled": "غیر فعال",
@@ -129,7 +130,7 @@
         },
         "changelogFor": "",
         "modify": "",
-        "install_info": "",
+        "install_info": "Installing",
         "extra_info": "",
         "achievements": ""
     },
@@ -337,6 +338,10 @@
     "open-saves-folder": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "Advanced"
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "آدرس ایمیج را اینجا درج کنید"
+        },
+        "title": "ویرایش نرم افزار/بازی"
     }
 }

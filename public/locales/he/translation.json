@@ -93,11 +93,6 @@
             "rosetta": {
                 "title": "",
                 "message": ""
-            },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
             }
         },
         "wineprefix": "בחר תיקיית WinePrefix",
@@ -202,7 +197,8 @@
             "move_cursor": "הזז סמן",
             "play_game": "שחק משחק",
             "open_virtual_keyboard": "פתח מקלדת וירטואלית",
-            "scroll": "גללו"
+            "scroll": "גללו",
+            "exit": "יציאה"
         }
     },
     "dlc": {
@@ -399,7 +395,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "העלה",
                     "content": ""
                 },
                 "open": "",
@@ -583,7 +579,7 @@
         "error": {
             "component": "לא נמצאו משחקים - נסו לצאת ולהיכנס שוב או את אחד מהאפשרויות הבאות"
         },
-        "abort": "",
+        "abort": "אודות",
         "install": "התקן",
         "uninstall": "הסר התקנה"
     },
@@ -654,7 +650,7 @@
             "settings": "הגדרות",
             "wineManager": "מנהל גרסאות Wine",
             "library": "ספריה",
-            "login": "",
+            "login": "היכנס",
             "downloadManager": ""
         },
         "msync": "מטרת Fsync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים על הקרנלים של לינוקס הנתמכים.",
@@ -740,7 +736,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "ווינדוס",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -848,7 +844,7 @@
             "clearCache": {
                 "help9": "הגדרות משחק",
                 "help1": "",
-                "help8": "",
+                "help8": "התקן משחק",
                 "help3": "",
                 "help10": "",
                 "help7": "",
@@ -1150,11 +1146,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "הכל",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "פלטפורמה"
         },
-        "sidebar": "",
+        "sidebar": "פרטים",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1176,7 +1173,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "חנות"
+        },
+        "titleMulti": "פרטים"
     },
     "steamgriddb": {
         "error": {
@@ -1186,7 +1187,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "חיפוש משחקים",
             "title": "",
             "select-game": ""
         }
@@ -1205,7 +1206,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "מפעיל",
             "sort": "",
             "navigate": "",
             "quit": "יציאה",
@@ -1217,16 +1218,18 @@
         },
         "filter": {
             "sideload": "אחר",
-            "all": ""
+            "all": "הכל"
         },
         "empty": "",
-        "games": "",
+        "games": "התקן משחק",
         "quitApp": "",
         "loading": "",
         "install": {
             "platform": "פלטפורמה",
             "title": "התקן משחק",
-            "wineLoading": "טוען"
+            "wineLoading": "טוען",
+            "path": "התקן",
+            "wineMissing": "לא נבחר מיקום"
         }
     },
     "next": "",

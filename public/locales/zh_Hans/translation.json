@@ -179,11 +179,6 @@
                     "title": "你确定要退出吗？"
                 }
             },
-            "snap": {
-                "checkbox": "不再显示本消息",
-                "title": "Heroic 正以 Snap 运行",
-                "message": "某些功能眼下在本应用的 Snap 版本中不可用，我们正尝试修复它。{{newLine}}当前限制为：{{newLine}}Heroic 无法从 Steam 找到 Proton 或从 Lutris 找到 Wine。{{newLine}}{{newLine}}Gamescope、GameMode 和 MangoHud 也无法正常工作，因为 Heroci 无法有权限访问它们。{{newLine}}{{newLine}}要访问此功能，请以 Flakpak、DEB 格式包安装 Heroic 或从 AppImage 安装。"
-            },
             "rosetta": {
                 "title": "未找到 Rosetta",
                 "message": "Heroic 需要 Rosetta 在配备 Apple Silicon 芯片的 macOS 上正确运行。请用以下命令从 macOS 终端安装它：\"softwareupdate --install-rosetta\"，并重启 Heroic。 "
@@ -226,7 +221,8 @@
             "scroll": "滚动",
             "select": "选择",
             "space": "空格",
-            "update_game": "更新游戏"
+            "update_game": "更新游戏",
+            "exit": "退出"
         }
     },
     "docs": "文档",
@@ -269,7 +265,7 @@
         "library": {
             "refresh": "刷新游戏库"
         },
-        "abort": "",
+        "abort": "关于",
         "install": "安装",
         "uninstall": "卸载"
     },
@@ -1212,7 +1208,8 @@
             "pageSize": "",
             "releaseYear": "发布年份",
             "wishlistOnly": "仅显示愿望单",
-            "hideOwned": "隐藏已拥有"
+            "hideOwned": "隐藏已拥有",
+            "platform": "Platform"
         },
         "sidebar": "优惠",
         "sort": {
@@ -1236,12 +1233,16 @@
         "title": "GOG 优惠",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "优惠"
     },
     "steamgriddb": {
         "error": {
             "no-games": "未找到游戏",
-            "no-grids": "",
+            "no-grids": "未找到此游戏的日志",
             "search": "",
             "grids": "获取封面失败"
         },
@@ -1265,7 +1266,7 @@
         },
         "quit": "退出主机模式",
         "hints": {
-            "launch": "",
+            "launch": "启动中",
             "sort": "",
             "navigate": "",
             "quit": "退出",
@@ -1293,7 +1294,8 @@
             "platform": "Platform",
             "title": "安装游戏",
             "wineLoading": "加载中…",
-            "path": "安装到"
+            "path": "安装到",
+            "wineMissing": "未选择路径"
         }
     },
     "next": "下一步"

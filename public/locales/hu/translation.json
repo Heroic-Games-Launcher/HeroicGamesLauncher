@@ -179,11 +179,6 @@
                     "message": "Minden el nem mentett haladás elveszhet"
                 }
             },
-            "snap": {
-                "checkbox": "Ne mutassa újra ezt az üzenetet",
-                "title": "A Heroic Snapként fut",
-                "message": "Néhány funkció egyelőre nem érhető el az alkalmazás Snap verziójában, dolgozunk a megoldáson. {{newLine}}Jelenlegi korlátozások: {{newLine}}A Heroic nem találja meg a Protont a Steamből vagy a Wine-t a Lutrisból.{{newLine}}{{newLine}}A Gamescope, a GameMode és a MangoHud szintén nem működik, mivel a Heroicnak nincs jogosultsága az elérésükhöz.{{newLine}}{{newLine}}Hogy hozzáférésed legyen ehhez a funkcióhoz, telepítsd a Heroicot flatpakként, DEB vagy AppImage-csomagként."
-            },
             "rosetta": {
                 "title": "A Rosetta nem található",
                 "message": "A Heroichoz jelenleg a Rosetta szükséges macOS-en az Apple Silicon chipek esetén. Telepítsd a macOS terminálból a következő parancs használatával: „softwareupdate --install-rosetta”, majd indítsd újra a Heroicot. "
@@ -226,7 +221,8 @@
             "scroll": "Görgetés",
             "select": "Kiválasztás",
             "space": "Szóköz",
-            "update_game": "Játék frissítése"
+            "update_game": "Játék frissítése",
+            "exit": "Kilépés"
         }
     },
     "docs": "Dokumentáció",
@@ -1064,7 +1060,8 @@
         "proton-ge": "A GE-Proton egy olyan Proton változat, melyet GloriousEggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
         "gpt": "A Game Porting Toolkitet az Apple fejleszti, és Apple Silicon (M1 vagy újabb) chipekkel rendelkező Maceken ajánlott. Legjobban az újabb, DX12-t használó játékokkal működik.",
         "wine-crossover": "A Wine-Crossover a Crossover nyílt forráskódú Wine-projektjén alapul, és Intel Maceken, valamint DX11 vagy régebbi játékokhoz ajánlott.",
-        "wine-staging-macos": "A Wine-Staging-macOS a fő Wine-projekten alapul, és Intel Maceken, valamint DX11 vagy régebbi játékokhoz ajánlott, különösen a DXMT eszközzel együtt használva."
+        "wine-staging-macos": "A Wine-Staging-macOS a fő Wine-projekten alapul, és Intel Maceken, valamint DX11 vagy régebbi játékokhoz ajánlott, különösen a DXMT eszközzel együtt használva.",
+        "proton-cachyos": "A Proton-CachyOS a Proton egy olyan változata, amelyet a CachyOS csapata tart karban. Olyan extra eszközöket tartalmaz, mint a DXVK-Sarek és a D7VK."
     },
     "adtraction-locked": {
         "dont-show-again": "Ne jelenjen meg újra ez a figyelmeztetés",
@@ -1211,7 +1208,8 @@
             "pageSize": "Oldalanként",
             "releaseYear": "Megjelenési év",
             "hideOwned": "Meglévők elrejtése",
-            "wishlistOnly": "Csak kívánságlistás"
+            "wishlistOnly": "Csak kívánságlistás",
+            "platform": "Platform"
         },
         "sidebar": "Kedvezmények",
         "sort": {
@@ -1235,7 +1233,11 @@
         "title": "GOG kedvezmények",
         "pagination": {
             "prev": "Előző"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Kedvezmények"
     },
     "steamgriddb": {
         "error": {

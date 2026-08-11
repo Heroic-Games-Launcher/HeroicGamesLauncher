@@ -88,11 +88,6 @@
                 "title": "",
                 "message": ""
             },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",
@@ -169,7 +164,8 @@
             "game_details": "",
             "close_dialog": "",
             "close_options": "",
-            "update_game": ""
+            "update_game": "",
+            "exit": "გასვლა"
         }
     },
     "setting": {
@@ -195,7 +191,7 @@
         },
         "library_top_option": {
             "disabled": "გათიშულია",
-            "favourites": "",
+            "favourites": "რჩეულები",
             "recently_played_installed": "",
             "recently_played": ""
         },
@@ -753,7 +749,7 @@
         "cancel": "გაუქმება",
         "continue": "გაგრძელება",
         "go_to_library": "",
-        "login": ""
+        "login": "შესვლა"
     },
     "categories-manager": {
         "add": "დამატება",
@@ -795,7 +791,7 @@
         "requirements": "სისტემური მოთხოვნები",
         "wine-path-none-found": "",
         "wine-prefix": {
-            "title": ""
+            "title": "Wine-ის პრეფიქსი"
         },
         "wine-repfix": {
             "message": ""
@@ -1047,7 +1043,7 @@
         "error": {
             "component": ""
         },
-        "abort": "",
+        "abort": "შესახებ",
         "install": "დაყენება",
         "uninstall": "წაშლა"
     },
@@ -1117,7 +1113,7 @@
             "pageSize": "",
             "releaseYear": ""
         },
-        "sidebar": "",
+        "sidebar": "დეტალები",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1139,7 +1135,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "მაღაზია"
+        },
+        "titleMulti": "დეტალები"
     },
     "steamgriddb": {
         "error": {
@@ -1168,7 +1168,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "ეშვება",
             "sort": "",
             "navigate": "",
             "quit": "გასვლა",
@@ -1187,7 +1187,8 @@
         "quitApp": "",
         "loading": "",
         "install": {
-            "wineLoading": "იტვირთება"
+            "wineLoading": "იტვირთება",
+            "path": "დაყენება"
         }
     },
     "next": "შემდეგი",

@@ -30,7 +30,10 @@ export default defineConfig(({ mode }) => ({
   preload: {
     build: {
       rollupOptions: {
-        input: 'src/preload/index.ts'
+        input: {
+          index: 'src/preload/index.ts',
+          webviewPreload: 'src/webviewPreload/index.ts'
+        }
       },
       outDir: 'build/preload',
       minify: true,

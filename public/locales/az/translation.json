@@ -172,11 +172,6 @@
                 "title": "",
                 "message": ""
             },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",
@@ -263,7 +258,7 @@
         },
         "abort": "",
         "install": "Install",
-        "uninstall": ""
+        "uninstall": "Uninstalling"
     },
     "globalSettings": "Qlobal Parametrlər",
     "GOG": "GOG",
@@ -332,7 +327,7 @@
         "title": {
             "downloadManager": "Download Manager",
             "accessibility": "",
-            "login": "",
+            "login": "Daxil ol",
             "settings": "",
             "wineManager": "",
             "library": ""
@@ -689,7 +684,7 @@
                 "nile": "",
                 "gog": "",
                 "zoom": "",
-                "game-log": "",
+                "game-log": "{{gameTitle}} üçün dəyişiklik jurnalı",
                 "heroic": ""
             },
             "show-uploads": ""
@@ -922,7 +917,8 @@
         "installing": "Quraşdırılır",
         "logging": "Daxil olur...",
         "processing": "Fayllar emal olunur, gözləyin",
-        "preparing_login": "Giriş hazırlanır... "
+        "preparing_login": "Giriş hazırlanır... ",
+        "installed": "Install"
     },
     "store": "Epic Store",
     "stores": "Mağazalar",
@@ -1173,9 +1169,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Təfərrüatlar",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1197,7 +1194,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Təfərrüatlar"
     },
     "steamgriddb": {
         "error": {
@@ -1246,7 +1247,9 @@
         "loading": "",
         "install": {
             "platform": "Platform",
-            "wineLoading": "Yüklənir"
+            "wineLoading": "Yüklənir",
+            "path": "Install",
+            "wineMissing": "No path selected"
         }
     },
     "next": ""

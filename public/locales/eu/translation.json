@@ -172,11 +172,6 @@
                 "title": "",
                 "message": ""
             },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",
@@ -218,7 +213,8 @@
             "scroll": "Korritu",
             "select": "Hautatu",
             "space": "Espazioa",
-            "update_game": "Eguneratu jokoa"
+            "update_game": "Eguneratu jokoa",
+            "exit": "Irten"
         }
     },
     "docs": "Dokumentazioa",
@@ -263,7 +259,7 @@
         },
         "abort": "",
         "install": "Install",
-        "uninstall": ""
+        "uninstall": "Uninstalling"
     },
     "globalSettings": "Ezarpen globalak",
     "GOG": "GOG",
@@ -332,7 +328,7 @@
         "title": {
             "accessibility": "Erabilerraztasuna",
             "downloadManager": "Download Manager",
-            "login": "",
+            "login": "Log in",
             "settings": "",
             "wineManager": "",
             "library": ""
@@ -689,7 +685,7 @@
                 "nile": "",
                 "gog": "",
                 "zoom": "",
-                "game-log": "",
+                "game-log": "{{gameTitle}}-(r)en aldaketak",
                 "heroic": ""
             },
             "show-uploads": ""
@@ -922,7 +918,8 @@
         "installing": "Instalatzen",
         "logging": "Saioa hasi...",
         "processing": "Fitxategiak prozesatzen, itxaron mesedez",
-        "preparing_login": "Saioa hasteko prestatzen... "
+        "preparing_login": "Saioa hasteko prestatzen... ",
+        "installed": "Install"
     },
     "store": "Denda epikoa",
     "stores": "Dendak",
@@ -1173,9 +1170,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Dena",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Xehetasunak",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1197,12 +1195,16 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Xehetasunak"
     },
     "steamgriddb": {
         "error": {
             "no-games": "",
-            "no-grids": "",
+            "no-grids": "Ez zen aurkitu joko honetarako erregistroa",
             "search": "",
             "grids": ""
         },
@@ -1246,7 +1248,9 @@
         "loading": "",
         "install": {
             "platform": "Platform",
-            "wineLoading": "Kargatzen"
+            "wineLoading": "Kargatzen",
+            "path": "Install",
+            "wineMissing": "No path selected"
         }
     },
     "next": ""

@@ -179,11 +179,6 @@
                     "title": "Сапраўды хочаце выйсці?"
                 }
             },
-            "snap": {
-                "checkbox": "Больш не паказваць гэта паведамленне",
-                "title": "Heroic працуе як Snap пакет",
-                "message": "Некаторыя функцыі на дадзены момант недаступныя ў Snap версіі праграмы, і мы спрабуем гэта выправіць. {{newLine}} Бягучыя абмежаванні: {{newLine}} Heroic не зможа знайсці Proton у Steam або Wine у Lutris. .{{newLine}}{{newLine}}Gamescope, GameMode і MangoHud таксама не будуць працаваць, паколькі ў Heroic няма доступу да іх.{{newLine}}{{newLine}}Каб атрымаць доступ да гэтай функцыі, ўсталюйце Heroic як Flatpak, DEB ці з AppImage."
-            },
             "rosetta": {
                 "message": "Для карэктнай працы Heroic на macOS з чыпамі Apple Silicon патрабуецца Rosetta. Калі ласка, усталюйце яе з тэрмінала macOS з дапамогай наступнай каманды: \"softwareupdate --install-rosetta\" і перазапусціце Heroic. ",
                 "title": "Rosetta не знойдзена"
@@ -226,7 +221,8 @@
             "scroll": "Scroll",
             "select": "Выбраць",
             "space": "Прабел",
-            "update_game": "Абнавіць гульню"
+            "update_game": "Абнавіць гульню",
+            "exit": "Выхад"
         }
     },
     "docs": "Дакументацыя",
@@ -269,7 +265,7 @@
         "library": {
             "refresh": "Абнавіць бібліятэку"
         },
-        "abort": "",
+        "abort": "Аб праграме",
         "install": "Усталяванне",
         "uninstall": "Выдаліць"
     },
@@ -1197,11 +1193,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Усе",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Падрабязнасці",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1223,7 +1220,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Крама"
+        },
+        "titleMulti": "Падрабязнасці"
     },
     "steamgriddb": {
         "error": {
@@ -1233,7 +1234,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Пошук гульняў",
             "title": "",
             "select-game": ""
         }
@@ -1264,7 +1265,7 @@
         },
         "filter": {
             "sideload": "Other",
-            "all": ""
+            "all": "Усе"
         },
         "empty": "",
         "games": "Усталяваныя гульні",
@@ -1276,7 +1277,9 @@
         "install": {
             "platform": "Platform",
             "title": "Усталяваць гульню",
-            "wineLoading": "Загрузка"
+            "wineLoading": "Загрузка",
+            "path": "Усталяванне",
+            "wineMissing": "Шлях не выбраны"
         }
     },
     "next": "Далей"

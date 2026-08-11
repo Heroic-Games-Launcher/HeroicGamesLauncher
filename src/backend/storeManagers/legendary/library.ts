@@ -694,11 +694,6 @@ export default class LegendaryLibraryManager implements LibraryManager {
       options.env = {}
     }
 
-    // if not on a SNAP environment, set the XDG_CONFIG_HOME to the same location as the config file
-    if (!process.env.SNAP) {
-      options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
-    }
-
     const commandParts = this.commandToArgsArray(command)
 
     return callRunner(

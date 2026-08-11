@@ -95,7 +95,8 @@
         "changelog": "Visa ändringslogg",
         "browse_files": "Bläddra bland filer",
         "browse_wine_prefix": "Bläddra i Wine Prefix",
-        "play": "SPELA"
+        "play": "SPELA",
+        "edit-game": "Editera Applikation/Spel"
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
@@ -341,6 +342,10 @@
     "wikiLink": "Viktig information om det här spelet, läs detta:<1>Öppna sida</1>",
     "open-saves-folder": "Öppna mappen med sparningar",
     "edit-game": {
-        "advanced": "Avancerat"
+        "advanced": "Avancerat",
+        "placeholder": {
+            "image": "Klistra in bildens URL här"
+        },
+        "title": "Editera Applikation/Spel"
     }
 }

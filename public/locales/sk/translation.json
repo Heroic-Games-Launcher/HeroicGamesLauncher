@@ -174,11 +174,6 @@
                     "message": "Akýkoľvek neuložený postup sa môže stratiť"
                 }
             },
-            "snap": {
-                "checkbox": "Už nikdy nezobrazovať túto správu",
-                "title": "Heroic beží ako Snap",
-                "message": "Niektoré funkcie nie sú momentálne dostupné vo verzii aplikácie Snap a snažíme sa to napraviť.{{newLine}}Aktuálne obmedzenia sú: {{newLine}}Heroic nebude môcť nájsť Proton zo Steamu alebo Wine z Lutris .{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud tiež nebudú fungovať, pretože Heroic k nim nemá prístup.{{newLine}}{{newLine}}Ak chcete získať prístup k tejto funkcii, nainštalujte si Heroic ako Flatpak , DEB alebo z AppImage."
-            },
             "rosetta": {
                 "title": "",
                 "message": ""
@@ -218,7 +213,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "exit": "Exit"
         }
     },
     "docs": "Documentation",
@@ -261,7 +257,7 @@
         "library": {
             "refresh": "Obnoviť Knižnicu"
         },
-        "abort": "",
+        "abort": "About",
         "install": "Inštalácia",
         "uninstall": "Odinštalovať"
     },
@@ -1181,9 +1177,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Všetky",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Podrobnosti",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1205,7 +1202,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Podrobnosti"
     },
     "steamgriddb": {
         "error": {
@@ -1215,7 +1216,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Vyhľadajte hry",
             "title": "",
             "select-game": ""
         }
@@ -1234,7 +1235,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "Spúšťam",
             "sort": "",
             "navigate": "",
             "quit": "Quit",
@@ -1255,7 +1256,9 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Načítavam…"
+            "wineLoading": "Načítavam…",
+            "path": "Inštalácia",
+            "wineMissing": "Žiadna cesta nie je vybraná"
         }
     },
     "next": ""

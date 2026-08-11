@@ -179,11 +179,6 @@
                     "message": "Tout progrès non sauvegardé pourrait être perdu"
                 }
             },
-            "snap": {
-                "checkbox": "Ne plus afficher ce message",
-                "title": "Heroic est exécuté en tant que Snap",
-                "message": "Certaines fonctionnalités ne sont pour le moment pas disponibles dans la version Snap de l'application ; nous nous efforçons d'y remédier.{{newLine}}Les limitations actuelles sont les suivantes : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut y avoir accès.{{newLine}}{{newLine}}Pour avoir accès à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
-            },
             "rosetta": {
                 "title": "Rosetta n'a pas été trouvé",
                 "message": "Heroic requiert Rosetta pour s'exécuter correctement sur un appareil macOS comportant des puces Apple Silicon. Veuillez l'installer depuis le terminal macOS en utilisant la commande suivante : « softwareupdate --install-rosetta » et redémarrez Heroic. "
@@ -226,7 +221,8 @@
             "scroll": "Faire défiler",
             "select": "Sélectionner",
             "space": "Espace",
-            "update_game": "Mettre à jour le jeu"
+            "update_game": "Mettre à jour le jeu",
+            "exit": "Quitter"
         }
     },
     "docs": "Documentation",
@@ -269,7 +265,7 @@
         "library": {
             "refresh": "Actualiser la bibliothèque"
         },
-        "abort": "",
+        "abort": "À propos",
         "install": "Installation",
         "uninstall": "Désinstaller"
     },
@@ -1211,9 +1207,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Tout",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Système"
         },
-        "sidebar": "",
+        "sidebar": "Détails",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1235,17 +1232,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Boutique"
+        },
+        "titleMulti": "Détails"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Aucun jeu trouvé",
-            "no-grids": "",
+            "no-grids": "Aucun Log n'a été trouvé pour ce jeu",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Rechercher un jeu",
             "title": "",
             "select-game": ""
         }
@@ -1291,7 +1292,9 @@
         "install": {
             "platform": "Système",
             "title": "Installer le jeu",
-            "wineLoading": "Chargement…"
+            "wineLoading": "Chargement…",
+            "path": "Installer sur",
+            "wineMissing": "Aucun chemin sélectionné"
         }
     },
     "next": "Suivant"
