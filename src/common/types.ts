@@ -138,6 +138,7 @@ export interface AppSettings extends GameSettings {
   verboseLogs: boolean
   showValveProton: boolean
   steamGridDbApiKey: string
+  steamGridDbContentFilters: SGDBContentFilter[]
 }
 
 export type LibraryTopSectionOptions =
@@ -877,6 +878,14 @@ export interface SGDBGame {
   id: number
   name: string
 }
+
+/**
+ * Content categories from SteamGridDB
+ * @see https://www.steamgriddb.com/api/v2#tag/GRIDS/operation/getGridsByGameId
+ */
+export const sgdbContentFilters = ['nsfw', 'humor', 'epilepsy'] as const
+
+export type SGDBContentFilter = (typeof sgdbContentFilters)[number]
 
 export type ReleasesInfo = Record<
   | 'ge-proton'

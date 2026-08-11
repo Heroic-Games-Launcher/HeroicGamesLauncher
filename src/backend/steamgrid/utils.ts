@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SGDBGame, SGDBGrid } from 'common/types'
+import { SGDBContentFilter, SGDBGame, SGDBGrid } from 'common/types'
 import { app } from 'electron'
 
 const SGDB_API_URL = 'https://www.steamgriddb.com/api/v2'
@@ -10,7 +10,33 @@ interface SGDBResponse<T> {
   errors?: string[]
 }
 
+interface SGDBAssetQuery {
+  gameId: number
+  dimensions?: string[]
+  styles?: string[]
+  contentFilters?: SGDBContentFilter[]
+}
+
 const userAgent = `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
+
+/**
+ * Query parameters for getGrids and getHeroes
+ */
+function buildAssetParams(args: SGDBAssetQuery): Record<string, string> {
+  const params: Record<string, string> = {}
+
+  if (args.dimensions && args.dimensions.length > 0) {
+    params.dimensions = args.dimensions.join(',')
+  }
+  if (args.styles && args.styles.length > 0) {
+    params.styles = args.styles.join(',')
+  }
+  for (const filter of args.contentFilters ?? []) {
+    params[filter] = 'any'
+  }
+
+  return params
+}
 
 /**
  * Search for a game using autocomplete.
@@ -47,24 +73,12 @@ export async function searchGame(
  */
 export async function getGrids(
   apiKey: string,
-  args: {
-    gameId: number
-    dimensions?: string[]
-    styles?: string[]
-  }
+  args: SGDBAssetQuery
 ): Promise<SGDBGrid[]> {
-  const params: Record<string, string> = {}
-  if (args.dimensions && args.dimensions.length > 0) {
-    params.dimensions = args.dimensions.join(',')
-  }
-  if (args.styles && args.styles.length > 0) {
-    params.styles = args.styles.join(',')
-  }
-
   const response = await axios.get<SGDBResponse<SGDBGrid[]>>(
     `${SGDB_API_URL}/grids/game/${args.gameId}`,
     {
-      params,
+      params: buildAssetParams(args),
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'User-Agent': userAgent
@@ -84,24 +98,12 @@ export async function getGrids(
  */
 export async function getHeroes(
   apiKey: string,
-  args: {
-    gameId: number
-    dimensions?: string[]
-    styles?: string[]
-  }
+  args: SGDBAssetQuery
 ): Promise<SGDBGrid[]> {
-  const params: Record<string, string> = {}
-  if (args.dimensions && args.dimensions.length > 0) {
-    params.dimensions = args.dimensions.join(',')
-  }
-  if (args.styles && args.styles.length > 0) {
-    params.styles = args.styles.join(',')
-  }
-
   const response = await axios.get<SGDBResponse<SGDBGrid[]>>(
     `${SGDB_API_URL}/heroes/game/${args.gameId}`,
     {
-      params,
+      params: buildAssetParams(args),
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'User-Agent': userAgent
