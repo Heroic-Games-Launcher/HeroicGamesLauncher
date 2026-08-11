@@ -150,15 +150,37 @@ export interface AureliaCloudConflict {
   cloud_timestamp: number
 }
 
+/** Cloud file with no local path. */
+export interface AureliaCloudSkip {
+  filename: string
+  /** The root token that failed. */
+  root_token?: string | null
+  reason: string
+}
+
+/** A cloud file whose transfer failed. */
+export interface AureliaCloudFailure {
+  filename: string
+  direction: 'up' | 'down'
+  error: string
+}
+
 /** Result of `aurelia cloud sync <id> --json`. */
 export interface AureliaCloudSyncResponse {
   app_id: number
   direction: 'up' | 'down' | 'both'
   remote_root?: string
-  status: 'ok' | 'conflicts'
+  /** Not `ok` means files are missing. */
+  status: 'ok' | 'conflicts' | 'failed' | 'incomplete'
   downloaded?: string[]
   uploaded?: string[]
   conflicts?: AureliaCloudConflict[]
+  skipped?: AureliaCloudSkip[]
+  /** Distinct unresolvable root tokens. */
+  skipped_root_tokens?: string[]
+  failed?: AureliaCloudFailure[]
+  /** Prefix the saves were synced into. */
+  wine_prefix?: string
 }
 
 export interface AureliaAccount {

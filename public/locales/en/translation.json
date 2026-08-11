@@ -158,6 +158,10 @@
                 "keepLocal": "Use Local save",
                 "message": "The Cloud and Local saves for {{game}} have diverged, choose which copy to keep:\n\n{{files}}",
                 "title": "Steam Cloud save conflict"
+            },
+            "cloudIncomplete": {
+                "message": "Not all Cloud saves for {{game}} could be downloaded, so the saves on this PC are incomplete. Playing now may overwrite the missing progress in the Cloud.\n\n{{details}}",
+                "title": "Steam Cloud saves incomplete"
             }
         },
         "sync": {

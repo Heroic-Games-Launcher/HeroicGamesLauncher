@@ -580,6 +580,8 @@ export default class SteamGame extends Game {
    * independently since they last agreed), leaves both untouched and reports a
    * conflict instead. When that happens we ask the user which side to keep and
    * re-run the sync with `--resolve`, so no progress is silently lost.
+   *
+   * Incomplete syncs are reported, never swallowed.
    */
   private async syncCloudSaves(
     direction: 'up' | 'down',
@@ -596,8 +598,9 @@ export default class SteamGame extends Game {
         }
       )
       if (result?.status === 'conflicts' && result.conflicts?.length) {
-        await this.resolveCloudConflicts(result.conflicts, logWriter)
+        await this.resolveCloudConflicts(result.conflicts, logWriter, direction)
       }
+      await this.reportIncompleteCloudSync(result, direction, logWriter)
     } catch (error) {
       logWarning(
         [
@@ -609,14 +612,75 @@ export default class SteamGame extends Game {
     }
   }
 
+  /** Warn when synced saves are missing. */
+  private async reportIncompleteCloudSync(
+    result: AureliaCloudSyncResponse | undefined,
+    direction: 'up' | 'down',
+    logWriter: LogWriter
+  ): Promise<void> {
+    if (!result) return
+    const failed = result.failed ?? []
+    const skipped = result.skipped ?? []
+    if (!failed.length && !skipped.length) return
+
+    const title = this.getGameInfo().title || this.id
+    const details: string[] = []
+    if (failed.length) {
+      details.push(
+        `${failed.length} file(s) failed to transfer: ${failed
+          .slice(0, 3)
+          .map((f) => `${f.filename} (${f.error})`)
+          .join('; ')}`
+      )
+    }
+    if (skipped.length) {
+      const tokens = result.skipped_root_tokens ?? []
+      details.push(
+        `${skipped.length} file(s) could not be placed on disk${
+          tokens.length ? ` (unmapped root: ${tokens.join(', ')})` : ''
+        }`
+      )
+    }
+    if (result.wine_prefix) {
+      details.push(`Save prefix: ${result.wine_prefix}`)
+    }
+    const summary = details.join('\n')
+
+    logWarning(
+      [`Steam Cloud sync for ${this.id} was incomplete`, summary],
+      LogPrefix.Steam
+    )
+    await logWriter.logWarning(`Steam Cloud sync incomplete\n${summary}`)
+
+    // Only a download precedes play
+    if (direction !== 'down') return
+
+    await dialog.showMessageBox({
+      type: 'warning',
+      title: t(
+        'box.steam.cloudIncomplete.title',
+        'Steam Cloud saves incomplete'
+      ),
+      message: t(
+        'box.steam.cloudIncomplete.message',
+        'Not all Cloud saves for {{game}} could be downloaded, so the saves on this PC are incomplete. Playing now may overwrite the missing progress in the Cloud.\n\n{{details}}',
+        { game: title, details: summary }
+      ),
+      buttons: [t('box.ok', 'Ok')]
+    })
+  }
+
   /**
    * Prompt the user to keep either the Steam Cloud copy or the on-disk copy of
    * the diverged save(s), then re-run the sync with that choice. Dismissing the
    * prompt leaves both copies as-is (nothing is lost; it can be resolved later).
+   *
+   * Without `direction` Aurelia syncs both ways.
    */
   private async resolveCloudConflicts(
     conflicts: AureliaCloudConflict[],
-    logWriter?: LogWriter
+    logWriter?: LogWriter,
+    direction?: 'up' | 'down'
   ): Promise<void> {
     const title = this.getGameInfo().title || this.id
     const fileList = conflicts.map((c) => `• ${c.filename}`).join('\n')
@@ -652,10 +716,20 @@ export default class SteamGame extends Game {
       `Resolving Steam Cloud conflict: keeping ${resolve}`
     )
     try {
-      await runAurelia(['cloud', 'sync', this.id, '--resolve', resolve], {
-        abortId: `${this.id}-cloud-resolve`,
-        logWriters: logWriter ? [logWriter] : []
-      })
+      await runAurelia(
+        [
+          'cloud',
+          'sync',
+          this.id,
+          ...(direction ? [`--${direction}`] : []),
+          '--resolve',
+          resolve
+        ],
+        {
+          abortId: `${this.id}-cloud-resolve`,
+          logWriters: logWriter ? [logWriter] : []
+        }
+      )
     } catch (error) {
       logWarning(
         [
@@ -778,11 +852,12 @@ export default class SteamGame extends Game {
     if (!isSteamImportEnabled()) {
       return ''
     }
-    const directionFlag = /upload/i.test(arg)
-      ? ['--up']
+    const direction: 'up' | 'down' | undefined = /upload/i.test(arg)
+      ? 'up'
       : /download/i.test(arg)
-        ? ['--down']
-        : []
+        ? 'down'
+        : undefined
+    const directionFlag = direction ? [`--${direction}`] : []
     const pathArg = path ? ['--path', path] : []
     try {
       const result = await runAurelia<AureliaCloudSyncResponse>([
@@ -793,8 +868,18 @@ export default class SteamGame extends Game {
         ...pathArg
       ])
       if (result?.status === 'conflicts' && result.conflicts?.length) {
-        await this.resolveCloudConflicts(result.conflicts)
+        // Never widen the requested direction
+        await this.resolveCloudConflicts(result.conflicts, undefined, direction)
         return 'Steam Cloud conflict resolved'
+      }
+      if (result?.failed?.length || result?.skipped?.length) {
+        const failed = result.failed?.length ?? 0
+        const skipped = result.skipped?.length ?? 0
+        logWarning(
+          `Steam Cloud sync for ${this.id} was incomplete: ${failed} failed, ${skipped} unplaceable`,
+          LogPrefix.Steam
+        )
+        return 'Steam Cloud sync incomplete — some saves are missing'
       }
       return 'Steam Cloud sync finished'
     } catch (error) {
