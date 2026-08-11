@@ -28,7 +28,8 @@ import {
   HideWindowOnProtocolLaunch,
   ResetHeroic,
   SteamGridDbApiKey,
-  SteamGridDbContentFilters
+  SteamGridDbContentFilters,
+  GamePadDelayRepeat
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
 
@@ -81,7 +82,7 @@ export default function AdvancedSetting() {
     }
     getLatestEosOverlayVersion()
   }, [])
-
+      
   useEffect(() => {
     const { status } =
       libraryStatus.filter(
@@ -192,6 +193,8 @@ export default function AdvancedSetting() {
       <DisableGOGPresence />
 
       <AllowInstallationBrokenAnticheat />
+
+      <GamePadDelayRepeat />
 
       <HideWindowOnProtocolLaunch />
 

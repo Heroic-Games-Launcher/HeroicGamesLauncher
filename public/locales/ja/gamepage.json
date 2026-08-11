@@ -95,7 +95,8 @@
         "changelog": "変更履歴を確認",
         "browse_wine_prefix": "Wine Prefixを閲覧",
         "play": "プレイ",
-        "browse_files": "ファイルを閲覧"
+        "browse_files": "ファイルを閲覧",
+        "edit-game": "App/ゲームを編集"
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -339,6 +340,10 @@
     "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>",
     "open-saves-folder": "保存フォルダを開く",
     "edit-game": {
-        "advanced": "Advanced"
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "ここにイメージURLをペーストしてください"
+        },
+        "title": "App/ゲームを編集"
     }
 }

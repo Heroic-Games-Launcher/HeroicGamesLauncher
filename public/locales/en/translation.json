@@ -180,11 +180,6 @@
                     "title": "Are you sure you want to quit?"
                 }
             },
-            "snap": {
-                "checkbox": "Do not show this message again",
-                "message": "Some features are not available in the Snap version of the app for now and we are trying to fix it.{{newLine}}Current limitations are: {{newLine}}Heroic will not be able to find Proton from Steam or Wine from Lutris.{{newLine}}{{newLine}}Gamescope, GameMode and MangoHud will also not work since Heroic cannot have access to them.{{newLine}}{{newLine}}To have access to this feature please install Heroic as a Flatpak, DEB or from the AppImage.",
-                "title": "Heroic is running as a Snap"
-            },
             "title": "Warning",
             "wine-change": {
                 "message": "We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?",
@@ -273,17 +268,23 @@
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
             "close_options": "Close Options",
+            "exit": "Exit",
             "game_details": "Game details",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
+            "move_focus": "Move focus",
+            "next_page": "Next page",
             "open_virtual_keyboard": "Open virtual keyboard",
             "options": "Options",
             "play_game": "Play game",
+            "previous_page": "Previous page",
             "scroll": "Scroll",
+            "search": "Search",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "url_bar": "URL bar"
         }
     },
     "discounts": {
@@ -354,7 +355,8 @@
                 "TR": "Turkey",
                 "TW": "Taiwan",
                 "UA": "Ukraine",
-                "US": "United States"
+                "US": "United States",
+                "ZA": "South Africa"
             },
             "label": "Store region"
         },
@@ -695,7 +697,7 @@
                 "env": "Environment variables must be configured in the table below."
             },
             "placeholder": "Put here the Launcher Arguments",
-            "title": "Game Arguments (To run after the command):"
+            "title": "Game Arguments (appended to game launch command)"
         },
         "gamescope": {
             "additionalOptions": "Additional Options",
@@ -844,6 +846,8 @@
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
+        "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
+        "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
             "enableForceGrabCursor": "Enable Force Grab Cursor",
             "enableLimiter": "Enable FPS Limiter",
@@ -1192,6 +1196,7 @@
         "controls": {
             "back": "Go back",
             "forward": "Go forward",
+            "home": "Go to store home",
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }

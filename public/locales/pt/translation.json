@@ -179,11 +179,6 @@
                     "message": "Poderá haver perda de qualquer progresso não guardado"
                 }
             },
-            "snap": {
-                "checkbox": "Não mostrar novamente esta mensagem",
-                "title": "O Heroic está a ser executado como uma Snap",
-                "message": "De momento não estão disponíveis algumas funcionalidades na versão Snap da aplicação, estamos a tentar corrigir.{{newLine}}As limitações atuais são: {{newLine}}O Heroic não vai conseguir encontrar o Proton e o Wine a partir do Steam e Lutris, respetivamente.{{newLine}}{{newLine}}O Gamescope, GameMode e MangoHud não vão funcionar porque o Heroic não tem acesso às mesmas.{{newLine}}{{newLine}}Para ter acesso a estas funcionalidades instale, por favor, o Heroic como Flatpack, DEB ou a partir da AppImage."
-            },
             "rosetta": {
                 "message": "O Heroic necessita da camada de compatibilidade Rosetta para conseguir executar corretamente no macOS com processadores da Apple Silicon. Instale, por favor, o Rosetta através do terminal do macOS com o seguinte comando: \"softwareupdate --install-rosetta\" e reinicie o Heroic. ",
                 "title": "Não foi encontrado o Rosetta"
@@ -226,7 +221,8 @@
             "scroll": "Deslocar",
             "select": "Selecione",
             "space": "Espaço",
-            "update_game": "Atualizar o jogo"
+            "update_game": "Atualizar o jogo",
+            "exit": "Sair"
         }
     },
     "docs": "Documentação",
@@ -1207,7 +1203,8 @@
             "pageSize": "Por página",
             "releaseYear": "Ano de lançamento",
             "hideOwned": "Ocultar possuídos",
-            "wishlistOnly": "Apenas lista de desejos"
+            "wishlistOnly": "Apenas lista de desejos",
+            "platform": "Platform"
         },
         "sidebar": "Promoções",
         "sort": {
@@ -1231,7 +1228,11 @@
         "title": "Promoções GOG",
         "pagination": {
             "prev": "Anterior"
-        }
+        },
+        "tabs": {
+            "label": "Loja"
+        },
+        "titleMulti": "Promoções"
     },
     "steamgriddb": {
         "error": {

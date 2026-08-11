@@ -23,7 +23,13 @@ import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 import { tsStore } from 'backend/constants/key_value_stores'
-import { isAppImage, isFlatpak, isWindows } from 'backend/constants/environment'
+import {
+  isAppImage,
+  isFlatpak,
+  isLinux,
+  isWindows
+} from 'backend/constants/environment'
+import { searchForExecutableOnPath } from 'backend/utils/os/path'
 import type { Game } from 'common/types/game_manager'
 
 const getSteamUserdataDir = async () => {
@@ -255,7 +261,23 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
     // add new Entry
     const newEntry = {} as ShortcutEntry
     newEntry.AppName = gameInfo.title
-    newEntry.Exe = `"${app.getPath('exe')}"`
+
+    const ourExePath = app.getPath('exe')
+    newEntry.Exe = `"${ourExePath}"`
+    if (isLinux && !ourExePath.toLowerCase().endsWith('heroic')) {
+      // If we are on Linux and our executable path does not end with "heroic",
+      // we are running on a distribution packaging Electron and Heroic
+      // separately (e.g. Arch Linux). Launching our executable alone will only
+      // launch Electron, it will not know what to do (running Heroic).
+      // A proper workaround for this is not easy (we would have to pull out
+      // launch-relevant parameters from our argv while also leaving temporary
+      // parameters out). The best we can do here is search for an
+      // `heroic` wrapper executable (which these types of packages make
+      // available) and launch it
+      const heroicWrapper = await searchForExecutableOnPath('heroic')
+      if (heroicWrapper) newEntry.Exe = `"${heroicWrapper}"`
+    }
+
     newEntry.StartDir = `"${process.cwd()}"`
 
     if (isFlatpak) {

@@ -9,8 +9,12 @@ import BackHint from '../BackHint'
 
 import type { GameInfo, Runner } from 'common/types'
 import { useContext, useEffect } from 'react'
-import { useCancelOnHold, useGamepadButtonHold } from '../../hooks'
-import { BTN_BACK } from '../../controller'
+import {
+  useCancelOnHold,
+  useGamepadButtonHold,
+  useGamepadInfo
+} from '../../hooks'
+import { getBackButtonIndex } from '../../controller'
 import { launch, sendKill } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 
@@ -76,8 +80,9 @@ export default function LaunchOverlay({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const { layout } = useGamepadInfo()
   useGamepadButtonHold(
-    BTN_BACK,
+    getBackButtonIndex(layout),
     (held) => (held ? startHold() : stopHold()),
     !!game
   )

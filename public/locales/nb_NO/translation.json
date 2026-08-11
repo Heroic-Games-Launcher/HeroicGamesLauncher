@@ -173,11 +173,6 @@
                 "message": "Vi kunne ikke finne den valgte Wine-versjonen for å starte dette programmet ({{selectedWine}}). {{newline}} Vi fant en annen, vil du fortsette med {{foundWine}}?",
                 "title": "Fant ikke Wine!"
             },
-            "snap": {
-                "checkbox": "Ikke vis denne meldingen igjen",
-                "message": "Noen funksjoner er foreløpig ikke tilgjengelige i Snap-versjonen av appen, og vi jobber med å fikse det.{{newLine}}Nåværende begrensninger er:{{newLine}}Heroic vil ikke kunne finne Proton fra Steam eller Wine fra Lutris.{{newLine}}{{newLine}}Gamescope, GameMode og MangoHud vil heller ikke fungere, siden Heroic ikke har tilgang til dem.{{newLine}}{{newLine}}For å få tilgang til disse funksjonene, vennligst installer Heroic som en Flatpak, DEB eller fra AppImage.",
-                "title": "Heroic kjører som en Snap"
-            },
             "sideload": {
                 "confirmExit": {
                     "message": "Ulagret fremgang kan gå tapt",
@@ -226,7 +221,8 @@
             "scroll": "Rull",
             "select": "Velg",
             "space": "Rom",
-            "update_game": "Oppdater spillet"
+            "update_game": "Oppdater spillet",
+            "exit": "Avslutt"
         }
     },
     "docs": "Dokumentasjon",
@@ -1203,7 +1199,8 @@
             "pageSize": "Per side",
             "releaseYear": "Utgivelsesår",
             "hideOwned": "Skjul eide spill",
-            "wishlistOnly": "Bare ønskeliste"
+            "wishlistOnly": "Bare ønskeliste",
+            "platform": "Platform"
         },
         "sidebar": "Tilbud",
         "sort": {
@@ -1227,7 +1224,11 @@
         "title": "GOG tilbud",
         "pagination": {
             "prev": "Forrige"
-        }
+        },
+        "tabs": {
+            "label": "Butikk"
+        },
+        "titleMulti": "Tilbud"
     },
     "steamgriddb": {
         "error": {

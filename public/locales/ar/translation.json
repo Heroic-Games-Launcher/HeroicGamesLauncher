@@ -9,7 +9,7 @@
         "disable_dialog_backdrop_close": "قم بتعطيل مربعات الحوار الختامية من خلال النقر بالخارج",
         "titles_always_visible": "أظهر العنواين في المكتبة دائماً",
         "disable_animations": "عطّل تأثيرات الواجهة",
-        "disable_smooth_scrolling": "عطّل السحب السلس(يتطلب اعادة التشغيل)",
+        "disable_smooth_scrolling": "عطّل السحب السلس (يتطلب اعادة التشغيل)",
         "actions_font_family_default": "",
         "content_font_family_default": ""
     },
@@ -96,8 +96,8 @@
             "executableNotFound": "لم يُعثر على الملف التنفيذي",
             "executableNotFoundMessage": "لم يعثر هيرويك على الملف التفيذي للعبة، رجاء عيّنه من اعدادات اللعبة.",
             "dxmt": {
-                "message": "",
-                "title": ""
+                "message": "حدث خلل أثناء تحميل DXMT! الرجاء التحقق من الاتصال بالانترنت!",
+                "title": "حدث خلل أثناء تحميل DXMT"
             }
         },
         "info": {
@@ -108,7 +108,7 @@
                 "message-finished": "هل تريد إعادة تشغيل هِرُوِك الأن؟",
                 "title": "مشغل الألعاب هِرُوِك",
                 "title-finished": "انتهى التحديث",
-                "detailNoAutoupdate": "التنسيق الذي تستخدمه غير مدعوم في التحديث التلقائي، لتحديث استخدم مدير الحزم."
+                "detailNoAutoupdate": "التنسيق الذي تستخدمه غير مدعوم في التحديث التلقائي، للتحديث استخدم مدير الحزم."
             }
         },
         "no": "لا",
@@ -174,14 +174,9 @@
                     "message": "ربما تفقد ما لم يُحفَظ"
                 }
             },
-            "snap": {
-                "checkbox": "لا تظهر هذا مجدَّدًا",
-                "title": "هذه نسخة سناب من هروك",
-                "message": "تنقص من نسخة سناب بعض الأشياء، ونحن نشتغل بإصلاح هذا النقص.{{newLine}}ومن النقص: {{newLine}}لن يجد هروك بروتون من ستيم ولا واين من لوترس.{{newLine}}{{newLine}}ولن يعمل Gamescope ولا GameMode ولا MangoHud لأن هروك لا يصل لهم.{{newLine}}{{newLine}}فإن أردت أن تستخدم هذه الأشياء ثبِّت نسخة فلاتباك أو deb أو AppImage."
-            },
             "rosetta": {
-                "title": "",
-                "message": ""
+                "title": "لم يتم العثور على روزيتا",
+                "message": "هيرويك يتطلب روزيتا للعمل بشكل صحيح على نظام ماك مع شرائح أبل سيليكون. الرجاء تحميله من تيرمنال نظام ماك باستخدام الأمر التالي: \"softwareupdate --install-rosetta\" ثم أعد التشغيل "
             }
         },
         "wineprefix": "اختر مجلَّد سابقة واين",
@@ -218,7 +213,12 @@
             "scroll": "مرّر",
             "select": "اختر",
             "space": "مسافة",
-            "update_game": "حدث اللعبة"
+            "update_game": "حدث اللعبة",
+            "exit": "اخرج",
+            "move_focus": "حرك التركيز",
+            "next_page": "الصفحة التالية",
+            "previous_page": "الصفحة السابقة",
+            "search": "ابحث"
         }
     },
     "docs": "التوثيق",
@@ -261,7 +261,7 @@
         "library": {
             "refresh": "أعد تحميل المكتبة"
         },
-        "abort": "",
+        "abort": "عن",
         "install": "ثبِّت",
         "uninstall": "الغاء التثبيت"
     },
@@ -547,7 +547,7 @@
             "fpsLimiterNoFocus": "حدُّ معدَّل الإطارات (دون التركيز)",
             "stretch": "مدِّد الصورة",
             "additionalOptions": "الإعدادات الإضافية",
-            "windowed": "داخل نافذة"
+            "windowed": "ويندوز"
         }
     },
     "other": {
@@ -668,7 +668,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "ارفع",
                     "content": ""
                 },
                 "open": "",
@@ -690,7 +690,7 @@
                 "nile": "",
                 "gog": "",
                 "zoom": "",
-                "game-log": "",
+                "game-log": "سجل التغيير لـ {{gameTitle}}",
                 "heroic": ""
             },
             "show-uploads": ""
@@ -1069,7 +1069,7 @@
         "enable": "فعّل",
         "info": {
             "pt1": "حتى يتم تحسين التطبيق، هيرويك يجمع البيانات دون الإفصاح عن هويتك مطلقا.",
-            "pt2": "هيرويك يستخدم منصة التحليلات المعقولة مفتوحة المصدر لتجميع البيانات الأساسية مثل: إصدار التطبيق، و نظام التشغيل، و المتاجر المرتبطة، و الدولة.",
+            "pt2": "هيرويك يستخدم منصة التحليلات المعقولة مفتوحة المصدر المستضافة من قبل فريق هيرويك, لتجميع البيانات الأساسية مثل: إصدار التطبيق، و نظام التشغيل، و عمارة النظام, و توزيعة لينكس, و المتاجر المرتبطة، و الدولة.",
             "pt3": "لن يجمع أي معلومات شخصية، مثل اسم المستخدم او عنوان IP او البريد الالكتروني.",
             "pt4": "هذه البيانات تستخدم لإعطائنا بصيرة على الأمور التي نركز عليها لاحقاً بسبب محدودية و مواردنا و التغذية الراجعة من المستخدمين.",
             "pt5": "منصة البيانات المعقولة منطبقة تماما مع GDPR، CCPA، PECR.",
@@ -1167,25 +1167,27 @@
         },
         "filters": {
             "moreFilters": "",
-            "ageRating": "",
+            "ageRating": "مناسب لعمر",
             "os": "نظام التشغيل:",
             "price": "",
-            "activeCount_other": "",
-            "hideDlcs": "",
-            "ageRatingOption": "",
-            "genres": "",
-            "activeCount_one": "",
+            "activeCount_other": "{{count}} فعّال",
+            "hideDlcs": "أخفي المحتوى القابل للتحميل",
+            "ageRatingOption": "أظهر الالعاب المقيمة لعمر {{age}} او أقل من قبل PEGI",
+            "genres": "التصنيفات",
+            "activeCount_one": "{{count}} فعّال",
             "lessFilters": "",
             "rating": "",
             "sort": "",
-            "genresPlaceholder": "",
-            "features": "",
-            "featuresPlaceholder": "",
+            "genresPlaceholder": "أي تصنيف",
+            "features": "الميّزات",
+            "featuresPlaceholder": "أي ميّزة",
             "ageRatingAll": "الكل",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "منصة",
+            "hideOwned": "أخفي المملوك"
         },
-        "sidebar": "",
+        "sidebar": "التفاصيل",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1199,25 +1201,32 @@
         "noMatches": "",
         "aria": {
             "pagination": "",
-            "rating": ""
+            "rating": "تقييم {{rating}} من 10"
         },
-        "error": "",
-        "empty": "",
+        "error": "لم يمكن تحميل التخفيضات. الرجاء المحاولة لاحقاً.",
+        "empty": "لا يوجد ألعاب مخفضة حالياً.",
         "loading": "",
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "المتجر"
+        },
+        "titleMulti": "التفاصيل",
+        "currency": {
+            "label": "العملة"
         }
     },
     "steamgriddb": {
         "error": {
             "no-games": "لم يتم العثور على ألعاب",
-            "no-grids": "",
+            "no-grids": "لم يُعثر على سجلات لهذه اللعبة",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "ابحث عن ألعاب",
             "title": "",
             "select-game": ""
         }
@@ -1229,35 +1238,46 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "رتب",
         "cancel": {
-            "hintSuffix": "",
-            "hintPrefix": ""
+            "hintSuffix": "ل3 ثواني للالغاء",
+            "hintPrefix": "اضغط"
         },
-        "quit": "",
+        "quit": "أخرج من وحدة التحكم",
         "hints": {
-            "launch": "",
-            "sort": "",
+            "launch": "شغِّل",
+            "sort": "رتب",
             "navigate": "",
             "quit": "اخرج",
-            "change_store": ""
+            "change_store": "غيّر المتجر"
         },
         "launching": "يشغَّل",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "تحتاج التحديث"
         },
         "filter": {
             "sideload": "آخر",
             "all": "الكل"
         },
-        "empty": "",
+        "empty": "لا يوجد ألعاب مثبتة. ثبت شيئاً أولاً.",
         "games": "الألعاب المثبتة",
-        "quitApp": "",
-        "loading": "",
+        "quitApp": "أخرج من التطبيق",
+        "loading": "يتم تحميل مكتبتك…",
         "install": {
             "platform": "منصة",
             "title": "ثبت اللعبة",
-            "wineLoading": "يحمَّل"
+            "wineLoading": "يحمَّل…",
+            "path": "ثبّت في",
+            "wineMissing": "لم يُحدد",
+            "wine": "برنامج واين"
+        },
+        "cancelInstall": {
+            "message": "هذه اللعبة تُثبت حاليا. هل ترغب بإلغاء الثبيت؟",
+            "title": "إلغاء التثبيت؟"
+        },
+        "cancelUpdate": {
+            "message": "هذه اللعبة تحمل حاليا. هل ترغب بإلغاء التحديث الجاري؟",
+            "title": "إلغاء التحديث؟"
         }
     },
     "next": ""

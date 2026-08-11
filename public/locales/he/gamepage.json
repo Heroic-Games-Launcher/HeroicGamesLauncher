@@ -95,7 +95,8 @@
         "changelog": "הצג שינויים",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "ערוך אפליקציה/משחק"
     },
     "gamecard": {
         "repairing": "מתקן",
@@ -214,7 +215,7 @@
         },
         "changelogFor": "",
         "modify": "",
-        "install_info": "",
+        "install_info": "מתקין",
         "extra_info": "",
         "achievements": ""
     },
@@ -336,6 +337,10 @@
     "open-saves-folder": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "מתקדם"
+        "advanced": "מתקדם",
+        "placeholder": {
+            "image": "הדבק קישור תמונה לפה"
+        },
+        "title": "ערוך אפליקציה/משחק"
     }
 }

@@ -179,11 +179,6 @@
                     "message": "Salvestamata edumaa võib kaduma minna"
                 }
             },
-            "snap": {
-                "checkbox": "Ära enam seda teavitust näita",
-                "title": "Heroic töötab kui Snap",
-                "message": "Mõningaid võimalusi ei ole äpi Snap versioonis saadaval ning me üritame seda parandada.{{newLine}}Praeguste piirangute hulgas on: {{newLine}}Heroic ei leia Protonit üles Steamist või Lutrisest.{{newLine}}{{newLine}}Gamescope, GameMode ja MangoHud ei toimi, sest Heroicul ei ole neile ligipääsu.{{newLine}}{{newLine}}Et sellest mööda pääseda, installeerige Heroic kasutades Flatpaki, DEB-i või AppImage'it."
-            },
             "rosetta": {
                 "title": "Rosettat ei leitud",
                 "message": "Heroic nõuab Rosettat, et Apple Siliconi kiipidega macOS süsteemidel korralikult toimida. Palun paigaldage see macOS-i terminalist kasutades järgmist käsku: \"softwareupdate --install-rosetta\" ja taaskäivitage Heroic. "
@@ -226,7 +221,8 @@
             "scroll": "Scroll",
             "select": "Vali",
             "space": "Tühik",
-            "update_game": "Uuenda mängu"
+            "update_game": "Uuenda mängu",
+            "exit": "Välju"
         }
     },
     "docs": "Dokumentatsioon",
@@ -1209,7 +1205,8 @@
             "pageSize": "Igal leheküljel",
             "releaseYear": "Väljalaske aasta",
             "hideOwned": "Peida kuuluvad",
-            "wishlistOnly": "Ainult soovinimekirjas"
+            "wishlistOnly": "Ainult soovinimekirjas",
+            "platform": "Platform"
         },
         "sidebar": "Allahindlused",
         "sort": {
@@ -1233,7 +1230,11 @@
         "title": "GOG allahindlused",
         "pagination": {
             "prev": "Eelmine"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Allahindlused"
     },
     "steamgriddb": {
         "error": {
@@ -1286,7 +1287,9 @@
         "install": {
             "platform": "Platform",
             "title": "Paigalda mäng",
-            "wineLoading": "Laadimine"
+            "wineLoading": "Laadimine",
+            "path": "Paigalda",
+            "wineMissing": "Kohta pole valitud"
         }
     },
     "next": "Järgmine"
