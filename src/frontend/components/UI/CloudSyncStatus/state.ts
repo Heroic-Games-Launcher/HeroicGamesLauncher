@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import {
+  Autorenew,
   CloudDone,
   CloudOff,
   CloudQueue,
-  Sync,
   SyncProblem
 } from '@mui/icons-material'
 
@@ -14,8 +14,9 @@ export const CLOUD_SYNC_ICONS: Record<SteamCloudSyncState, typeof CloudQueue> =
   {
     unknown: CloudQueue,
     ok: CloudDone,
-    // A plain circling arrow — a spinning cloud reads as odd.
-    syncing: Sync,
+    // A plain circling arrow — a spinning cloud reads as odd. Arrows point
+    // clockwise to match the spin direction.
+    syncing: Autorenew,
     conflicts: SyncProblem,
     incomplete: SyncProblem,
     failed: CloudOff

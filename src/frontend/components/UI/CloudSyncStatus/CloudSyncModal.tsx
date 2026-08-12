@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   ArrowBack,
+  Autorenew,
   CloudDownload,
   CloudUpload,
   FolderOpen,
@@ -432,7 +433,7 @@ export default function CloudSyncModal({
 
             {busy && (
               <p className="cloudSyncBusy">
-                <Sync className="cloudSyncBusyIcon" />
+                <Autorenew className="cloudSyncBusyIcon" />
                 {t('cloudSync.syncing', 'Syncing… please wait.')}
               </p>
             )}
