@@ -6,7 +6,10 @@ import ZoomLibraryManager from 'backend/storeManagers/zoom/library'
 import SteamLibraryManager from 'backend/storeManagers/steam/library'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
-import { addToQueue } from 'backend/downloadmanager/downloadqueue'
+import {
+  addToQueue,
+  getQueueInformation
+} from 'backend/downloadmanager/downloadqueue'
 
 import type { DMQueueElement, Runner } from 'common/types'
 import { Game, LibraryManager } from 'common/types/game_manager'
@@ -44,7 +47,21 @@ function getDMElement(game: Game) {
 
 export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   const logPrefix = RunnerToLogPrefixMap[runner]
+  // Runners report updateable until the update finishes,
+  // so a mid-download check re-queues the game.
+  // Index 0 holds the running element.
+  const { elements: queued } = getQueueInformation()
+  const alreadyQueued = (appName: string) =>
+    queued.some(
+      (element) =>
+        element.params.appName === appName && element.params.runner === runner
+    )
+
   gamesToUpdate.forEach(async (appName) => {
+    if (alreadyQueued(appName)) {
+      logInfo(`${appName} is already in the download queue`, logPrefix)
+      return
+    }
     const game = getGame(appName, runner)
     const { ignoreGameUpdates } = await game.getSettings()
     const gameInfo = game.getGameInfo()
