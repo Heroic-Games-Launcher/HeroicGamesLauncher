@@ -17,10 +17,8 @@ import {
   logWarning,
   LogPrefix
 } from 'backend/logger'
-import { GlobalConfig } from 'backend/config'
 import { getFileSize } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
-import { isMac, isWindows } from 'backend/constants/environment'
 import {
   libraryStore,
   installedGamesStore,
@@ -30,9 +28,17 @@ import {
   runAurelia,
   runAureliaCommand,
   getSteamLibraryPath,
-  getSteamInstallLibraries,
-  AureliaError
+  getSteamInstallLibraries
 } from './aurelia'
+import {
+  currentOsList,
+  describeError,
+  installPlatform,
+  isSteamImportEnabled,
+  platformArgs,
+  steamCall,
+  STEAM_DISABLED
+} from './utils'
 import type { SteamInstallLibrary } from 'common/types/steam'
 import { join } from 'path'
 import SteamGame from './games'
@@ -45,16 +51,6 @@ import type {
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
-
-const installPlatform = isWindows ? 'windows' : isMac ? 'osx' : 'linux'
-
-function isSteamImportEnabled(): boolean {
-  return !!GlobalConfig.get().getSettings().experimentalFeatures?.steamImport
-}
-
-function describeError(error: unknown): string {
-  return error instanceof AureliaError ? error.message : String(error)
-}
 
 /**
  * Steam library manager.
@@ -78,7 +74,7 @@ export default class SteamLibraryManager implements LibraryManager {
 
   async refresh(): Promise<ExecResult | null> {
     if (!isSteamImportEnabled()) {
-      return { stdout: '', stderr: 'Steam import disabled' }
+      return { stdout: '', stderr: STEAM_DISABLED }
     }
 
     logInfo('Refreshing Steam library', LogPrefix.Steam)
@@ -208,37 +204,33 @@ export default class SteamLibraryManager implements LibraryManager {
    * files are installed, via `aurelia dlc <id>`.
    */
   async getDLCInfo(appId: string): Promise<SteamDLCInfo[]> {
-    if (!isSteamImportEnabled()) {
-      return []
-    }
+    return steamCall(
+      async () => {
+        const response = await runAurelia<AureliaDlcResponse>(['dlc', appId])
+        const dlcs: SteamDLCInfo[] = (response.dlc ?? []).map((dlc) => ({
+          appId: String(dlc.app_id),
+          title: dlc.name || `DLC ${dlc.app_id}`,
+          owned: !!dlc.owned,
+          installed: !!dlc.installed,
+          disabled: !!dlc.disabled,
+          imageUrl: dlc.image_url ?? '',
+          imageFallbackUrl: dlc.image_fallback_url ?? '',
+          storeUrl: dlc.store_url ?? ''
+        }))
 
-    let response: AureliaDlcResponse
-    try {
-      response = await runAurelia<AureliaDlcResponse>(['dlc', appId])
-    } catch (error) {
-      logWarning(
-        [`Unable to get Steam DLC for ${appId}`, describeError(error)],
-        LogPrefix.Steam
-      )
-      return []
-    }
-
-    const dlcs: SteamDLCInfo[] = (response.dlc ?? []).map((dlc) => ({
-      appId: String(dlc.app_id),
-      title: dlc.name || `DLC ${dlc.app_id}`,
-      owned: !!dlc.owned,
-      installed: !!dlc.installed,
-      disabled: !!dlc.disabled,
-      imageUrl: dlc.image_url ?? '',
-      imageFallbackUrl: dlc.image_fallback_url ?? '',
-      storeUrl: dlc.store_url ?? ''
-    }))
-
-    // Installed first, then owned-but-not-installed, then not owned; alphabetical
-    // within each group.
-    const rank = (dlc: SteamDLCInfo) => (dlc.installed ? 0 : dlc.owned ? 1 : 2)
-    dlcs.sort((a, b) => rank(a) - rank(b) || (a.title < b.title ? -1 : 1))
-    return dlcs
+        // Installed first, then owned-but-not-installed, then not owned;
+        // alphabetical within each group.
+        const rank = (dlc: SteamDLCInfo) =>
+          dlc.installed ? 0 : dlc.owned ? 1 : 2
+        dlcs.sort((a, b) => rank(a) - rank(b) || (a.title < b.title ? -1 : 1))
+        return dlcs
+      },
+      {
+        fallback: [],
+        failure: `Unable to get Steam DLC for ${appId}`,
+        level: 'warning'
+      }
+    )
   }
 
   async getInstallInfo(
@@ -261,106 +253,89 @@ export default class SteamLibraryManager implements LibraryManager {
     }
 
     const game = this.getGameInfo(appName)
-    try {
-      // PICS size estimate, no files fetched.
-      const lc = String(platform).toLowerCase()
-      const platformArg = lc.startsWith('win')
-        ? ['-p', 'windows']
-        : lc.startsWith('lin')
-          ? ['-p', 'linux']
-          : []
-      const dryRun = await runAurelia<AureliaDryRunResponse>([
-        'install',
-        appName,
-        '--dry-run',
-        ...platformArg
-      ])
+    return steamCall<InstallInfo | undefined>(
+      async () => {
+        // PICS size estimate, no files fetched.
+        const dryRun = await runAurelia<AureliaDryRunResponse>([
+          'install',
+          appName,
+          '--dry-run',
+          ...platformArgs(platform)
+        ])
 
-      const launchOptions = await this.getLaunchOptions(appName)
-      const libraryPath = await getSteamLibraryPath()
-      const installPath = libraryPath
-        ? join(libraryPath, 'steamapps', 'common')
-        : ''
+        const launchOptions = await this.getLaunchOptions(appName)
+        const libraryPath = await getSteamLibraryPath()
+        const installPath = libraryPath
+          ? join(libraryPath, 'steamapps', 'common')
+          : ''
 
-      const info: SteamInstallInfo = {
-        manifest: {
-          download_size: dryRun.download_size,
-          disk_size: dryRun.disk_size
-        },
-        game: {
-          id: appName,
-          version: '',
-          path: installPath,
-          app_name: appName,
-          cloud_saves_supported: false,
-          external_activation: '',
-          is_dlc: false,
-          launch_options: launchOptions,
-          owned_dlc: [],
-          platform_versions: {},
-          title: game?.title ?? appName
+        const info: SteamInstallInfo = {
+          manifest: {
+            download_size: dryRun.download_size,
+            disk_size: dryRun.disk_size
+          },
+          game: {
+            id: appName,
+            version: '',
+            path: installPath,
+            app_name: appName,
+            cloud_saves_supported: false,
+            external_activation: '',
+            is_dlc: false,
+            launch_options: launchOptions,
+            owned_dlc: [],
+            platform_versions: {},
+            title: game?.title ?? appName
+          }
         }
+        installInfoStore.set(cacheKey, info)
+        return info
+      },
+      {
+        fallback: undefined,
+        failure: `Unable to get Steam install info for ${appName}`
       }
-      installInfoStore.set(cacheKey, info)
-      return info
-    } catch (error) {
-      logError(
-        [
-          `Unable to get Steam install info for ${appName}`,
-          describeError(error)
-        ],
-        LogPrefix.Steam
-      )
-      return undefined
-    }
+    )
   }
 
   async listUpdateableGames(): Promise<string[]> {
-    if (!isSteamImportEnabled()) {
-      return []
-    }
-    try {
-      // `--check-updates` is required
-      const games = await runAurelia<AureliaLibraryGame[]>([
-        'list',
-        '-i',
-        '--check-updates'
-      ])
-      const updates = games
-        .filter((game) => game.update_available)
-        .map((game) => String(game.app_id))
-      if (updates.length) {
-        logInfo(
-          ['Found', `${updates.length}`, 'Steam games to update'],
-          LogPrefix.Steam
-        )
-      }
-      return updates
-    } catch (error) {
-      logError(
-        ['Unable to list updateable Steam games', describeError(error)],
-        LogPrefix.Steam
-      )
-      return []
-    }
+    return steamCall(
+      async () => {
+        // `--check-updates` is required
+        const games = await runAurelia<AureliaLibraryGame[]>([
+          'list',
+          '-i',
+          '--check-updates'
+        ])
+        const updates = games
+          .filter((game) => game.update_available)
+          .map((game) => String(game.app_id))
+        if (updates.length) {
+          logInfo(
+            ['Found', `${updates.length}`, 'Steam games to update'],
+            LogPrefix.Steam
+          )
+        }
+        return updates
+      },
+      { fallback: [], failure: 'Unable to list updateable Steam games' }
+    )
   }
 
   async changeGameInstallPath(appName: string, newPath: string): Promise<void> {
-    if (!isSteamImportEnabled()) {
-      return
-    }
-    try {
-      // `relink` points Steam/Aurelia at an existing install at `newPath`
-      // without moving any files.
-      await runAurelia(['relink', appName, newPath])
-      await this.refresh()
-      sendFrontendMessage('refreshLibrary', 'steam')
-    } catch (error) {
-      logError(
-        [`Unable to relink Steam game ${appName}`, describeError(error)],
-        LogPrefix.Steam
-      )
-    }
+    return steamCall(
+      async () => {
+        // `relink` points Steam/Aurelia at an existing install at `newPath`
+        // without moving any files.
+        await runAurelia(['relink', appName, newPath])
+        await this.refresh()
+        sendFrontendMessage('refreshLibrary', 'steam')
+      },
+      {
+        fallback: undefined,
+        failure: `Unable to relink Steam game ${appName}`
+      }
+    )
   }
 
   changeVersionPinnedStatus(): void {
@@ -393,26 +368,21 @@ export default class SteamLibraryManager implements LibraryManager {
   }
 
   async markInstalled(appName: string): Promise<void> {
-    if (!isSteamImportEnabled()) {
-      return
-    }
-
-    let installPath: string
-    try {
-      // `list -i` reports installed games with their full install info
-      const games = await runAurelia<AureliaLibraryGame[]>(['list', '-i'])
-      const game = games.find((value) => String(value.app_id) === appName)
-      if (!game?.is_installed || !game.install_path) {
-        return
+    const installPath = await steamCall<string | undefined>(
+      async () => {
+        // `list -i` reports installed games with their full install info
+        const games = await runAurelia<AureliaLibraryGame[]>(['list', '-i'])
+        const game = games.find((value) => String(value.app_id) === appName)
+        if (!game?.is_installed) return undefined
+        return game.install_path ?? undefined
+      },
+      {
+        fallback: undefined,
+        failure: `Unable to mark ${appName} as installed`,
+        level: 'warning'
       }
-      installPath = game.install_path
-    } catch (error) {
-      logWarning(
-        [`Unable to mark ${appName} as installed`, describeError(error)],
-        LogPrefix.Steam
-      )
-      return
-    }
+    )
+    if (!installPath) return
 
     const installed: InstalledInfo = {
       executable: '',
@@ -448,39 +418,36 @@ export default class SteamLibraryManager implements LibraryManager {
   }
 
   async getLaunchOptions(appName: string): Promise<LaunchOption[]> {
-    if (!isSteamImportEnabled()) {
-      return []
-    }
-    try {
-      const response = await runAurelia<AureliaLaunchOptionsResponse>([
-        'launch-options',
-        appName
-      ])
-      const currentOs = isWindows ? 'windows' : isMac ? 'macos' : 'linux'
-      return (
-        (response.launch_options ?? [])
-          // Aurelia lists options for every platform
-          // only show current OS's.
-          .filter(
-            (option) =>
-              !option.oslist || option.oslist.toLowerCase().includes(currentOs)
-          )
-          .map((option) => ({
-            type: 'basic',
-            name:
-              option.description || option.executable || `Option ${option.id}`,
-            parameters: option.arguments ?? ''
-          }))
-      )
-    } catch (error) {
-      logWarning(
-        [
-          `Unable to get Steam launch options for ${appName}`,
-          describeError(error)
-        ],
-        LogPrefix.Steam
-      )
-      return []
-    }
+    return steamCall<LaunchOption[]>(
+      async () => {
+        const response = await runAurelia<AureliaLaunchOptionsResponse>([
+          'launch-options',
+          appName
+        ])
+        return (
+          (response.launch_options ?? [])
+            // Aurelia lists options for every platform
+            // only show current OS's.
+            .filter(
+              (option) =>
+                !option.oslist ||
+                option.oslist.toLowerCase().includes(currentOsList)
+            )
+            .map((option) => ({
+              type: 'basic',
+              name:
+                option.description ||
+                option.executable ||
+                `Option ${option.id}`,
+              parameters: option.arguments ?? ''
+            }))
+        )
+      },
+      {
+        fallback: [],
+        failure: `Unable to get Steam launch options for ${appName}`,
+        level: 'warning'
+      }
+    )
   }
 }
