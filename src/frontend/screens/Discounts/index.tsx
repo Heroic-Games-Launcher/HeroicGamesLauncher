@@ -160,6 +160,7 @@ export default function Discounts() {
     storedFilters.pageSize ?? DEFAULT_PAGE_SIZE
   )
   const [page, setPage] = useState(1)
+  const topSentinelRef = useRef<HTMLDivElement>(null)
 
   // Track whether we've already completed a load, so locale-change reloads
   // know to clear the data-bound ranges (price/releaseYear), but the very
@@ -612,11 +613,16 @@ export default function Discounts() {
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    // window.scrollTo({ top: 0, behavior: 'smooth' })
+    topSentinelRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
   }
 
   return (
     <div className="discountsScreen">
+      <div ref={topSentinelRef} />
       <div className="discountsScreen__topbar">
         <h2 className="discountsScreen__header">
           {t('discounts.titleMulti', 'Deals')}
