@@ -1,6 +1,7 @@
 import { join } from 'path'
 import { userInfo } from 'os'
 import { spawn } from 'child_process'
+import { readFileSync, statSync, writeFileSync } from 'graceful-fs'
 import { callRunner } from 'backend/launcher'
 import {
   getAureliaBin,
@@ -9,7 +10,7 @@ import {
   sendProgressUpdate
 } from 'backend/utils'
 import { appFolder } from 'backend/constants/paths'
-import { logError, LogPrefix } from 'backend/logger'
+import { logError, logInfo, logWarning, LogPrefix } from 'backend/logger'
 import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
 import type {
   AureliaConfigShowResponse,
@@ -42,14 +43,121 @@ const aureliaDaemonSocket =
     ? `\\\\.\\pipe\\aurelia-heroic-${userInfo().username}`
     : join(aureliaConfigDir, 'daemon.sock')
 
-let daemonEnsured = false
+let daemonReady: Promise<void> | undefined
 
-/**
- * Start Aurelia's session daemon
- */
-function ensureAureliaDaemon(): void {
-  if (daemonEnsured) return
-  daemonEnsured = true
+/** Aurelia's own daemon marker. */
+interface AureliaDaemonInfo {
+  version: string
+  pid: number
+}
+
+/** Binary a daemon started from. */
+interface AureliaDaemonStamp {
+  binary: string
+  size: number
+  mtimeMs: number
+}
+
+const aureliaDaemonInfoPath = join(aureliaConfigDir, 'daemon.info')
+
+/** Heroic's record of the daemon's binary. */
+const aureliaDaemonStampPath = join(aureliaConfigDir, 'daemon.heroic.json')
+
+function readJsonFile<T>(path: string): T | undefined {
+  try {
+    return JSON.parse(readFileSync(path, 'utf-8')) as T
+  } catch {
+    return undefined
+  }
+}
+
+/** Current binary's size and mtime. */
+function currentDaemonStamp(): AureliaDaemonStamp | undefined {
+  const { dir, bin } = getAureliaBin()
+  const binary = dir ? join(dir, bin) : bin
+  try {
+    const stats = statSync(binary)
+    return { binary, size: stats.size, mtimeMs: stats.mtimeMs }
+  } catch {
+    return undefined
+  }
+}
+
+function stampsMatch(
+  a: AureliaDaemonStamp | undefined,
+  b: AureliaDaemonStamp | undefined
+): boolean {
+  if (!a || !b) return false
+  return a.binary === b.binary && a.size === b.size && a.mtimeMs === b.mtimeMs
+}
+
+function isProcessAlive(pid: number): boolean {
+  try {
+    process.kill(pid, 0)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/** Run an aurelia subcommand to completion. */
+function runAureliaDirect(args: string[]): Promise<void> {
+  const { dir, bin } = getAureliaBin()
+  return new Promise((resolve) => {
+    try {
+      const child = spawn(dir ? join(dir, bin) : bin, args, {
+        stdio: 'ignore',
+        windowsHide: true,
+        env: {
+          ...process.env,
+          AURELIA_CONFIG_DIR: aureliaConfigDir,
+          AURELIA_DAEMON_SOCKET: aureliaDaemonSocket
+        }
+      })
+      child.on('error', () => resolve())
+      child.on('close', () => resolve())
+    } catch {
+      resolve()
+    }
+  })
+}
+
+/** Stop a daemon from another build. */
+async function stopStaleAureliaDaemon(
+  current: AureliaDaemonStamp | undefined
+): Promise<void> {
+  const recorded = readJsonFile<AureliaDaemonStamp>(aureliaDaemonStampPath)
+  if (stampsMatch(recorded, current)) return
+
+  const info = readJsonFile<AureliaDaemonInfo>(aureliaDaemonInfoPath)
+  if (!info?.pid || !isProcessAlive(info.pid)) return
+
+  logInfo(
+    [
+      'Aurelia binary changed since its daemon started. Restarting the daemon',
+      `(pid ${info.pid}, v${info.version})`
+    ],
+    LogPrefix.Steam
+  )
+  await runAureliaDirect(['daemon', 'stop', String(info.pid)])
+  if (isProcessAlive(info.pid)) {
+    logWarning(
+      `Aurelia daemon ${info.pid} did not stop and commands may run against the previous build`,
+      LogPrefix.Steam
+    )
+  }
+}
+
+/** Memoised so callers await one restart. */
+function ensureAureliaDaemon(): Promise<void> {
+  daemonReady ??= startAureliaDaemon()
+  return daemonReady
+}
+
+/** Replace stale daemon, then start. */
+async function startAureliaDaemon(): Promise<void> {
+  const stamp = currentDaemonStamp()
+  await stopStaleAureliaDaemon(stamp)
   const { dir, bin } = getAureliaBin()
   try {
     const child = spawn(dir ? join(dir, bin) : bin, ['daemon'], {
@@ -69,6 +177,17 @@ function ensureAureliaDaemon(): void {
       )
     )
     child.unref()
+    // Record only after a successful spawn
+    if (stamp) {
+      try {
+        writeFileSync(aureliaDaemonStampPath, JSON.stringify(stamp))
+      } catch (error) {
+        logWarning(
+          ['Could not record the Aurelia daemon binary', String(error)],
+          LogPrefix.Steam
+        )
+      }
+    }
   } catch (error) {
     logError(
       ['Unable to start the Aurelia daemon', String(error)],
@@ -81,7 +200,7 @@ export async function runAureliaCommand(
   commandParts: string[],
   options: CallRunnerOptions = {}
 ): Promise<ExecResult> {
-  ensureAureliaDaemon()
+  await ensureAureliaDaemon()
   const { dir, bin } = getAureliaBin()
   return callRunner(
     commandParts,

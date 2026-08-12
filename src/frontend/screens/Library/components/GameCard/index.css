@@ -177,6 +177,13 @@
   fill: var(--text-default);
 }
 
+.gameCard .cloud-sync-icon {
+  right: 45px;
+  top: 4px;
+  box-sizing: border-box;
+  color: var(--text-default);
+}
+
 .gameCard .family-share-icon {
   top: 44px;
   box-sizing: border-box;

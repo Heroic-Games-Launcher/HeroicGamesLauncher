@@ -19,7 +19,11 @@ import {
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
 import { ZoomCredentials } from './zoom'
-import { SteamAccount, SteamPendingDlcChange } from './steam'
+import {
+  SteamAccount,
+  SteamCloudSyncStatus,
+  SteamPendingDlcChange
+} from './steam'
 import type { GameMetadataOverride } from 'backend/game_overrides/electronStores'
 
 export interface StoreStructure {
@@ -92,6 +96,8 @@ export interface StoreStructure {
     pendingDlc?: SteamPendingDlcChange[]
     // Per-game opt-in Steam launch, needed for Steamworks online features and Family-Sharing. .
     steamIntegration?: Record<string, boolean>
+    // Last Cloud sync outcome per app id, so the library can show sync state
+    cloudSync?: Record<string, SteamCloudSyncStatus>
   }
   nileConfigStore: {
     userData?: NileUserData

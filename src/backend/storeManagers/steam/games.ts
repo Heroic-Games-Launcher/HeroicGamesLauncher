@@ -34,6 +34,12 @@ import { GlobalConfig } from 'backend/config'
 import { libraryManagerMap } from '..'
 import { configStore, extraInfoStore } from './electronStores'
 import {
+  getCloudSyncStatus,
+  markCloudSyncing,
+  recordCloudSyncError,
+  recordCloudSyncResult
+} from './cloud_sync_status'
+import {
   runAurelia,
   fetchAureliaInfo,
   parseAureliaJson,
@@ -45,6 +51,11 @@ import type {
   AureliaCloudConflict,
   AureliaCloudSyncResponse
 } from './aurelia_types'
+import type {
+  SteamCloudFile,
+  SteamCloudSyncDirection,
+  SteamCloudSyncStatus
+} from 'common/types/steam'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -588,9 +599,10 @@ export default class SteamGame extends Game {
     logWriter: LogWriter
   ): Promise<void> {
     const action = direction === 'down' ? 'download' : 'upload'
+    markCloudSyncing(this.id)
     try {
       await logWriter.logInfo(`Steam Cloud sync (${action})`)
-      const result = await runAurelia<AureliaCloudSyncResponse>(
+      let result = await runAurelia<AureliaCloudSyncResponse>(
         ['cloud', 'sync', this.id, `--${direction}`],
         {
           abortId: `${this.id}-cloud-${direction}`,
@@ -598,17 +610,100 @@ export default class SteamGame extends Game {
         }
       )
       if (result?.status === 'conflicts' && result.conflicts?.length) {
-        await this.resolveCloudConflicts(result.conflicts, logWriter, direction)
+        // Reflect the post-resolution state, not the conflict we just cleared.
+        result =
+          (await this.resolveCloudConflicts(
+            result.conflicts,
+            logWriter,
+            direction
+          )) ?? result
       }
+      recordCloudSyncResult(this.id, result)
       await this.reportIncompleteCloudSync(result, direction, logWriter)
     } catch (error) {
+      const message = describeError(error)
+      recordCloudSyncError(this.id, message)
       logWarning(
+        [`Failed to ${action} Steam Cloud saves for ${this.id}`, message],
+        LogPrefix.Steam
+      )
+    }
+  }
+
+  /** Last recorded Cloud sync outcome, for the library/game-page icon. */
+  getCloudSyncStatus(): SteamCloudSyncStatus {
+    return getCloudSyncStatus(this.id)
+  }
+
+  /**
+   * User-initiated Cloud sync from the UI
+   */
+  async runCloudSync(
+    direction: SteamCloudSyncDirection
+  ): Promise<SteamCloudSyncStatus> {
+    markCloudSyncing(this.id)
+    try {
+      const result = await runAurelia<AureliaCloudSyncResponse>([
+        'cloud',
+        'sync',
+        this.id,
+        ...(direction === 'both' ? [] : [`--${direction}`])
+      ])
+      return recordCloudSyncResult(this.id, result)
+    } catch (error) {
+      const message = describeError(error)
+      logError(
+        [`Failed to sync Steam Cloud saves for ${this.id}`, message],
+        LogPrefix.Steam
+      )
+      return recordCloudSyncError(this.id, message)
+    }
+  }
+
+  /**
+   * Resolves a detected Cloud conflict by keeping one side, then re-syncing.
+   */
+  async resolveCloudSync(
+    resolve: 'cloud' | 'local'
+  ): Promise<SteamCloudSyncStatus> {
+    markCloudSyncing(this.id)
+    try {
+      const result = await runAurelia<AureliaCloudSyncResponse>([
+        'cloud',
+        'sync',
+        this.id,
+        '--resolve',
+        resolve
+      ])
+      return recordCloudSyncResult(this.id, result)
+    } catch (error) {
+      const message = describeError(error)
+      logError(
+        [`Failed to resolve Steam Cloud conflict for ${this.id}`, message],
+        LogPrefix.Steam
+      )
+      return recordCloudSyncError(this.id, message)
+    }
+  }
+
+  /** Lists the game's Steam Cloud files. */
+  async listCloudFiles(): Promise<SteamCloudFile[]> {
+    try {
+      const result = await runAurelia<{ files?: SteamCloudFile[] }>([
+        'cloud',
+        'list',
+        this.id
+      ])
+      return result?.files ?? []
+    } catch (error) {
+      logError(
         [
-          `Failed to ${action} Steam Cloud saves for ${this.id}`,
+          `Failed to list Steam Cloud files for ${this.id}`,
           describeError(error)
         ],
         LogPrefix.Steam
       )
+      return []
     }
   }
 
@@ -681,7 +776,7 @@ export default class SteamGame extends Game {
     conflicts: AureliaCloudConflict[],
     logWriter?: LogWriter,
     direction?: 'up' | 'down'
-  ): Promise<void> {
+  ): Promise<AureliaCloudSyncResponse | undefined> {
     const title = this.getGameInfo().title || this.id
     const fileList = conflicts.map((c) => `• ${c.filename}`).join('\n')
     const { response } = await dialog.showMessageBox({
@@ -709,14 +804,14 @@ export default class SteamGame extends Game {
         LogPrefix.Steam
       )
       await logWriter?.logWarning('Steam Cloud conflict left unresolved')
-      return
+      return undefined
     }
 
     await logWriter?.logInfo(
       `Resolving Steam Cloud conflict: keeping ${resolve}`
     )
     try {
-      await runAurelia(
+      return await runAurelia<AureliaCloudSyncResponse>(
         [
           'cloud',
           'sync',
@@ -738,6 +833,7 @@ export default class SteamGame extends Game {
         ],
         LogPrefix.Steam
       )
+      return undefined
     }
   }
 
@@ -859,8 +955,9 @@ export default class SteamGame extends Game {
         : undefined
     const directionFlag = direction ? [`--${direction}`] : []
     const pathArg = path ? ['--path', path] : []
+    markCloudSyncing(this.id)
     try {
-      const result = await runAurelia<AureliaCloudSyncResponse>([
+      let result = await runAurelia<AureliaCloudSyncResponse>([
         'cloud',
         'sync',
         this.id,
@@ -869,9 +966,16 @@ export default class SteamGame extends Game {
       ])
       if (result?.status === 'conflicts' && result.conflicts?.length) {
         // Never widen the requested direction
-        await this.resolveCloudConflicts(result.conflicts, undefined, direction)
+        result =
+          (await this.resolveCloudConflicts(
+            result.conflicts,
+            undefined,
+            direction
+          )) ?? result
+        recordCloudSyncResult(this.id, result)
         return 'Steam Cloud conflict resolved'
       }
+      recordCloudSyncResult(this.id, result)
       if (result?.failed?.length || result?.skipped?.length) {
         const failed = result.failed?.length ?? 0
         const skipped = result.skipped?.length ?? 0
@@ -883,14 +987,13 @@ export default class SteamGame extends Game {
       }
       return 'Steam Cloud sync finished'
     } catch (error) {
+      const message = describeError(error)
+      recordCloudSyncError(this.id, message)
       logError(
-        [
-          `Failed to sync Steam Cloud saves for ${this.id}`,
-          describeError(error)
-        ],
+        [`Failed to sync Steam Cloud saves for ${this.id}`, message],
         LogPrefix.Steam
       )
-      return `${describeError(error)}`
+      return `${message}`
     }
   }
 

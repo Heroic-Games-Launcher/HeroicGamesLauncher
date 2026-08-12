@@ -1,0 +1,138 @@
+.cloudSyncStatusButton {
+  display: grid;
+  place-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-default);
+  cursor: pointer;
+  line-height: 0;
+  /* The dot is positioned against this box. */
+  position: relative;
+}
+
+.cloudSyncStatusButton:disabled {
+  cursor: default;
+}
+
+.cloudSyncStatusButton > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cloudSyncStatusButton.state-conflicts,
+.cloudSyncStatusButton.state-failed {
+  color: var(--danger, #f45460);
+}
+
+.cloudSyncStatusButton.state-incomplete {
+  color: var(--warning, #ffcc00);
+}
+
+.cloudSyncStatusButton.state-ok {
+  color: var(--success, #07c5ef);
+}
+
+.cloudSyncStatusButton.state-syncing > svg {
+  animation: cloudSyncSpin 1.6s linear infinite;
+}
+
+@keyframes cloudSyncSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloudSyncStatusButton.state-syncing > svg {
+    animation: none;
+  }
+}
+
+.cloudSyncStatusDot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--danger, #f45460);
+  box-shadow: 0 0 0 2px var(--background-darker, #000);
+}
+
+.cloudSyncStatusDot.warning {
+  background: var(--warning, #ffcc00);
+}
+
+/* ---- Modal ---- */
+
+.cloudSyncModal .cloudSyncActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs, 0.5rem);
+  min-width: min(420px, 70vw);
+}
+
+.cloudSyncModal .cloudSyncIssue {
+  display: flex;
+  gap: var(--space-xs, 0.5rem);
+  align-items: flex-start;
+  padding: var(--space-xs, 0.5rem);
+  margin-bottom: var(--space-sm, 0.75rem);
+  border-radius: 8px;
+  background: var(--background-darker);
+  border-left: 3px solid var(--danger, #f45460);
+}
+
+.cloudSyncModal .cloudSyncIssue.warning {
+  border-left-color: var(--warning, #ffcc00);
+}
+
+.cloudSyncModal .cloudSyncIssueText {
+  white-space: pre-wrap;
+  font-size: var(--text-sm);
+  margin: 0;
+}
+
+.cloudSyncModal .cloudSyncMeta {
+  font-size: var(--text-sm);
+  color: var(--text-secondary, inherit);
+  margin: 0 0 var(--space-sm, 0.75rem) 0;
+}
+
+.cloudSyncModal .cloudSyncFileList {
+  max-height: 45vh;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cloudSyncModal .cloudSyncFile {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--space-xs, 0.5rem);
+  align-items: baseline;
+  padding: var(--space-2xs, 0.25rem) 0;
+  border-bottom: 1px solid var(--neutral-06, rgba(128, 128, 128, 0.25));
+  font-size: var(--text-sm);
+}
+
+.cloudSyncModal .cloudSyncFileName {
+  overflow-wrap: anywhere;
+}
+
+.cloudSyncModal .cloudSyncFileMeta {
+  color: var(--text-secondary, inherit);
+  white-space: nowrap;
+}
+
+.cloudSyncModal .cloudSyncEmpty {
+  padding: var(--space-md, 1rem) 0;
+  text-align: center;
+  color: var(--text-secondary, inherit);
+}

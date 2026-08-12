@@ -151,7 +151,7 @@ export interface AureliaCloudConflict {
 }
 
 /** Cloud file with no local path. */
-export interface AureliaCloudSkip {
+interface AureliaCloudSkip {
   filename: string
   /** The root token that failed. */
   root_token?: string | null
@@ -159,7 +159,7 @@ export interface AureliaCloudSkip {
 }
 
 /** A cloud file whose transfer failed. */
-export interface AureliaCloudFailure {
+interface AureliaCloudFailure {
   filename: string
   direction: 'up' | 'down'
   error: string

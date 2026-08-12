@@ -628,6 +628,18 @@
     }
   }
 
+  .gamePageCloudSync {
+    display: inline-grid;
+    vertical-align: middle;
+    margin-inline-start: var(--space-2xs);
+    width: 46px;
+    height: 46px;
+    padding: var(--space-2xs);
+    border-radius: 10px;
+    background-color: var(--body-background);
+    box-sizing: border-box;
+  }
+
   .settings-icon {
     width: 44px;
     position: relative;

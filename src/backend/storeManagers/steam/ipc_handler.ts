@@ -12,6 +12,22 @@ addHandler('getSteamInstallLibraries', async () =>
   libraryManagerMap['steam'].getInstallLibraries()
 )
 
+addHandler('getSteamCloudSyncStatus', (_e, game) =>
+  libraryManagerMap['steam'].getGame(game.id).getCloudSyncStatus()
+)
+
+addHandler('runSteamCloudSync', async (_e, game, direction) =>
+  libraryManagerMap['steam'].getGame(game.id).runCloudSync(direction)
+)
+
+addHandler('resolveSteamCloudSync', async (_e, game, resolve) =>
+  libraryManagerMap['steam'].getGame(game.id).resolveCloudSync(resolve)
+)
+
+addHandler('listSteamCloudFiles', async (_e, game) =>
+  libraryManagerMap['steam'].getGame(game.id).listCloudFiles()
+)
+
 addHandler('setSteamDlcEnabled', async (_e, dlcAppId, enabled) =>
   // setDlcEnabled operates on the DLC's app id, not a specific game instance.
   libraryManagerMap['steam'].getGame(dlcAppId).setDlcEnabled(dlcAppId, enabled)

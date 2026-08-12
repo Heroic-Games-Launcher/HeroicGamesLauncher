@@ -44,6 +44,7 @@ import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
 
 import StoreLogos from 'frontend/components/UI/StoreLogos'
+import CloudSyncStatus from 'frontend/components/UI/CloudSyncStatus'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import GameContext from '../GameContext'
 import { GameContextType } from 'frontend/types'
@@ -467,6 +468,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       />
                       <div className="store-icon">
                         <StoreLogos runner={runner} />
+                        <CloudSyncStatus
+                          gameInfo={gameInfo}
+                          className="gamePageCloudSync"
+                        />
                       </div>
 
                       <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>

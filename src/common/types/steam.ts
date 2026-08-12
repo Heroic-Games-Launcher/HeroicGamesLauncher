@@ -59,3 +59,34 @@ export interface SteamInstallInfo {
   manifest: SteamInstallManifest
   game: SteamGameInstallInfo
 }
+
+/**
+ * Outcome of the last Steam Cloud sync for a game
+ */
+export type SteamCloudSyncState =
+  | 'unknown'
+  | 'ok'
+  | 'syncing'
+  | 'conflicts'
+  | 'incomplete'
+  | 'failed'
+
+export interface SteamCloudSyncStatus {
+  appId: string
+  state: SteamCloudSyncState
+  lastSync?: number
+  message?: string
+  conflicts?: number
+  failed?: number
+  skipped?: number
+}
+
+/** One file in a game's Steam Cloud storage (`aurelia cloud list`). */
+export interface SteamCloudFile {
+  filename: string
+  size: number
+  timestamp: number
+  sha_hash?: string | null
+}
+
+export type SteamCloudSyncDirection = 'up' | 'down' | 'both'

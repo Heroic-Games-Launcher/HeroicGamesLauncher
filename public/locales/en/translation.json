@@ -229,6 +229,31 @@
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
+    "cloudSync": {
+        "back": "Back",
+        "filesTitle": "Steam Cloud files — {{game}}",
+        "genericIssue": "The last sync had a problem.",
+        "keepCloud": "Resolve: keep Steam Cloud saves",
+        "keepLocal": "Resolve: keep this PC's saves",
+        "lastSync": "Last sync: {{when}}",
+        "loadingFiles": "Loading Cloud files…",
+        "never": "Never",
+        "noFiles": "No files in Steam Cloud for this game.",
+        "pull": "Download saves from Cloud",
+        "push": "Upload local saves to Cloud",
+        "state": {
+            "conflicts": "Steam Cloud saves conflict with this PC",
+            "failed": "Steam Cloud sync failed",
+            "incomplete": "Steam Cloud sync incomplete",
+            "ok": "Steam Cloud saves are up to date",
+            "syncing": "Syncing Steam Cloud saves…",
+            "unknown": "Steam Cloud saves — not synced yet"
+        },
+        "sync": "Sync now (both ways)",
+        "syncing": "Syncing… please wait.",
+        "title": "Steam Cloud saves — {{game}}",
+        "viewFiles": "View Cloud save files"
+    },
     "console": {
         "cancel": {
             "hintPrefix": "Hold",

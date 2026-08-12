@@ -51,6 +51,9 @@ import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
 import type {
   SteamAccount,
+  SteamCloudFile,
+  SteamCloudSyncDirection,
+  SteamCloudSyncStatus,
   SteamDLCInfo,
   SteamInstallLibrary,
   SteamLoginData
@@ -195,6 +198,16 @@ interface AsyncIPCFunctions {
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
   getSteamUserInfo: () => Promise<{ username: string } | undefined>
   getSteamDlcInfo: (game: Game) => Promise<SteamDLCInfo[]>
+  getSteamCloudSyncStatus: (game: Game) => Promise<SteamCloudSyncStatus>
+  runSteamCloudSync: (
+    game: Game,
+    direction: SteamCloudSyncDirection
+  ) => Promise<SteamCloudSyncStatus>
+  resolveSteamCloudSync: (
+    game: Game,
+    resolve: 'cloud' | 'local'
+  ) => Promise<SteamCloudSyncStatus>
+  listSteamCloudFiles: (game: Game) => Promise<SteamCloudFile[]>
   getSteamInstallLibraries: () => Promise<SteamInstallLibrary[]>
   focusGameWindow: () => Promise<void>
   setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
@@ -402,6 +415,7 @@ interface FrontendEvent {
   steamQrScanned: () => void
   steamGuardRequired: (type: string) => void
   steamLoginStatus: (status: { state: string; message?: string }) => void
+  steamCloudSyncStatusChanged: (status: SteamCloudSyncStatus) => void
   metadataChanged: (
     overrides: Record<
       string,
