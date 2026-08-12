@@ -100,14 +100,6 @@
   width: 100%;
 }
 
-.gameCard .gameLogo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-}
-
 .gameCard .gameListInfo {
   display: none;
 }
@@ -177,9 +169,9 @@
   fill: var(--text-default);
 }
 
+/* Second in the icon column, under the store logo. */
 .gameCard .cloud-sync-icon {
-  right: 45px;
-  top: 4px;
+  top: 44px;
   box-sizing: border-box;
   color: var(--text-default);
 }
@@ -189,6 +181,11 @@
   box-sizing: border-box;
   display: grid;
   color: var(--text-default);
+}
+
+/* Cloud icon only renders for installed Steam games, so make room on demand. */
+.gameCard:has(.cloud-sync-icon) .family-share-icon {
+  top: 84px;
 }
 
 .gameCard .family-share-icon svg {
@@ -201,8 +198,7 @@
   transform: scale(1.05);
 }
 
-.gameCard.hidden .gameImg,
-.gameCard.hidden .gameLogo {
+.gameCard.hidden .gameImg {
   opacity: 0.2;
 }
 
@@ -251,8 +247,7 @@
 }
 
 .gameListItem .gameImg,
-.gameListItem .store-icon,
-.gameListItem .gameLogo {
+.gameListItem .store-icon {
   display: none;
 }
 
@@ -331,22 +326,18 @@
   z-index: 7;
 }
 
-.gameImg,
-.gameLogo {
+.gameImg {
   transition:
     all 0.2s,
     opacity 0.5s;
 }
 
-.gameImg:not(.installed),
-.gameLogo:not(.installed) {
+.gameImg:not(.installed) {
   filter: grayscale(var(--installing-effect));
 }
 
 .gameCard:hover .gameImg:not(.installed),
-.gameCard:hover .gameLogo:not(.installed),
-.allTilesInColor .gameImg,
-.allTilesInColor .gameLogo {
+.allTilesInColor .gameImg {
   filter: grayscale(0);
 }
 

@@ -138,7 +138,6 @@ const GameCard = ({
   const { layout } = useContext(LibraryContext)
 
   const {
-    art_logo: logo = undefined,
     app_name: appName,
     runner,
     is_installed: isInstalled,
@@ -475,7 +474,6 @@ const GameCard = ({
   })
 
   const imgClasses = classNames('gameImg', { installed: isInstalled })
-  const logoClasses = classNames('gameLogo', { installed: isInstalled })
 
   const showUpdateButton =
     hasUpdate && !isUpdating && !isQueued && !notAvailable
@@ -545,13 +543,6 @@ const GameCard = ({
                 className={imgClasses}
                 alt="cover"
                 onError={handleCoverError}
-              />
-            )}
-            {(justPlayed || runner !== 'nile') && logo && (
-              <CachedImage
-                alt="logo"
-                src={`${logo}?h=400&resize=1&w=300`}
-                className={logoClasses}
               />
             )}
             {haveStatus && (

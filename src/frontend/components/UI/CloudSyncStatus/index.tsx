@@ -1,21 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import {
-  CloudDone,
-  CloudOff,
-  CloudQueue,
-  CloudSync,
-  SyncProblem
-} from '@mui/icons-material'
 
 import { GameHandle } from 'frontend/helpers/ipc'
 import type { GameInfo } from 'common/types'
-import type {
-  SteamCloudSyncState,
-  SteamCloudSyncStatus
-} from 'common/types/steam'
+import type { SteamCloudSyncStatus } from 'common/types/steam'
 
 import CloudSyncModal from './CloudSyncModal'
+import { CLOUD_SYNC_ICONS, issueLevel, useCloudSyncStateLabels } from './state'
 import './index.css'
 
 interface Props {
@@ -23,27 +13,11 @@ interface Props {
   className?: string
 }
 
-const ICONS: Record<SteamCloudSyncState, typeof CloudQueue> = {
-  unknown: CloudQueue,
-  ok: CloudDone,
-  syncing: CloudSync,
-  conflicts: SyncProblem,
-  incomplete: SyncProblem,
-  failed: CloudOff
-}
-
-/** States that warrant the attention dot. */
-function issueLevel(state: SteamCloudSyncState): 'none' | 'warning' | 'error' {
-  if (state === 'conflicts' || state === 'failed') return 'error'
-  if (state === 'incomplete') return 'warning'
-  return 'none'
-}
-
 /**
  * Steam Cloud sync indicator
  */
 export default function CloudSyncStatus({ gameInfo, className }: Props) {
-  const { t } = useTranslation()
+  const labels = useCloudSyncStateLabels()
   const [status, setStatus] = useState<SteamCloudSyncStatus | null>(null)
   const [showModal, setShowModal] = useState(false)
 
@@ -81,20 +55,8 @@ export default function CloudSyncStatus({ gameInfo, className }: Props) {
 
   if (!supported || !status) return null
 
-  const Icon = ICONS[status.state]
+  const Icon = CLOUD_SYNC_ICONS[status.state]
   const level = issueLevel(status.state)
-
-  const labels: Record<SteamCloudSyncState, string> = {
-    unknown: t('cloudSync.state.unknown', 'Steam Cloud saves — not synced yet'),
-    ok: t('cloudSync.state.ok', 'Steam Cloud saves are up to date'),
-    syncing: t('cloudSync.state.syncing', 'Syncing Steam Cloud saves…'),
-    conflicts: t(
-      'cloudSync.state.conflicts',
-      'Steam Cloud saves conflict with this PC'
-    ),
-    incomplete: t('cloudSync.state.incomplete', 'Steam Cloud sync incomplete'),
-    failed: t('cloudSync.state.failed', 'Steam Cloud sync failed')
-  }
 
   return (
     <>

@@ -156,6 +156,10 @@ function ensureAureliaDaemon(): Promise<void> {
 
 /** Replace stale daemon, then start. */
 async function startAureliaDaemon(): Promise<void> {
+  // The daemon outlives Heroic on purpose, which leaves one orphan process per
+  // launch under e2e and stops Playwright's app teardown from completing.
+  if (process.env.CI === 'e2e') return
+
   const stamp = currentDaemonStamp()
   await stopStaleAureliaDaemon(stamp)
   const { dir, bin } = getAureliaBin()

@@ -311,7 +311,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const {
       runner,
       art_background,
-      art_logo,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
@@ -463,7 +462,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                                 art_cover
                             }
                           : {})}
-                        art_logo={art_logo}
                         store={runner}
                       />
                       <div className="store-icon">
@@ -474,7 +472,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         />
                       </div>
 
-                      <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
+                      <h1>{title}</h1>
                       <Genres
                         genres={
                           gameInfo.extra?.genres ||

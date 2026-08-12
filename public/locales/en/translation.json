@@ -231,8 +231,28 @@
     },
     "cloudSync": {
         "back": "Back",
+        "count": {
+            "conflicts_one": "{{count}} conflicting",
+            "conflicts_other": "{{count}} conflicting",
+            "failed_one": "{{count}} failed",
+            "failed_other": "{{count}} failed",
+            "skipped_one": "{{count}} skipped",
+            "skipped_other": "{{count}} skipped"
+        },
         "filesTitle": "Steam Cloud files — {{game}}",
         "genericIssue": "The last sync had a problem.",
+        "hint": {
+            "checking": "Checking Steam Cloud…",
+            "cloudCopy": "Cloud copy from {{when}}",
+            "cloudEmpty": "Nothing in Steam Cloud yet",
+            "discardCloud": "Discards the Cloud copy from {{when}}",
+            "fileCount_one": "{{count}} file · {{size}}",
+            "fileCount_other": "{{count}} files · {{size}}",
+            "firstUpload": "Creates the first Cloud copy",
+            "lastSync": "Last synced {{when}}",
+            "neverSynced": "Not synced from Heroic yet",
+            "replaceCloud": "Replaces the Cloud copy from {{when}}"
+        },
         "keepCloud": "Resolve: keep Steam Cloud saves",
         "keepLocal": "Resolve: keep this PC's saves",
         "lastSync": "Last sync: {{when}}",

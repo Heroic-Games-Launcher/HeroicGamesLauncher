@@ -161,10 +161,14 @@
       padding: 0px min(4vw, 70px);
       background-color: var(--body-background);
 
-      .store-icon {
+      /* Direct child only — the store logo svg carries the same class. */
+      & > .store-icon {
         position: absolute;
         left: 0.5rem;
         top: 0.5rem;
+        display: grid;
+        justify-items: center;
+        gap: var(--space-2xs);
       }
 
       .gamePicture {
@@ -629,9 +633,7 @@
   }
 
   .gamePageCloudSync {
-    display: inline-grid;
-    vertical-align: middle;
-    margin-inline-start: var(--space-2xs);
+    display: grid;
     width: 46px;
     height: 46px;
     padding: var(--space-2xs);
