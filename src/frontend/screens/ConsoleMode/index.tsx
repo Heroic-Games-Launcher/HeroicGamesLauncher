@@ -32,6 +32,7 @@ import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
 import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
+import BackgroundImage from './components/BackgroundImage'
 
 type StoreKey = Runner | 'all'
 
@@ -463,6 +464,18 @@ export default function ConsoleMode() {
           </button>
         </div>
       </div>
+
+      <BackgroundImage
+        url={
+          visibleGames[focusedIndex]
+            ? getImageFormatting(
+                visibleGames[focusedIndex].art_background ??
+                  visibleGames[focusedIndex].art_cover,
+                visibleGames[focusedIndex].runner
+              ) || fallBackImage
+            : fallBackImage
+        }
+      />
 
       <div className="consoleTitleBar">
         {visibleGames[focusedIndex] && (
