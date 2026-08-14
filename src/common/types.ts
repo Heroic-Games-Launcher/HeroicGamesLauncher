@@ -548,6 +548,7 @@ export type RefreshOptions = {
   fullRefresh?: boolean
   library?: Runner | 'all'
   runInBackground?: boolean
+  localOnly?: boolean
 }
 
 export interface WineVersionInfo extends VersionInfo {
