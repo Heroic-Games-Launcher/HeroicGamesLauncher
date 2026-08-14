@@ -74,14 +74,18 @@ const getInstallInfo = async (
   runner: Runner,
   installPlatform: InstallPlatform,
   build?: string,
-  branch?: string
+  branch?: string,
+  installLanguage?: string,
+  sdlList?: string[]
 ): Promise<InstallInfo | null> => {
   return window.api.getInstallInfo(
     appName,
     runner,
     handleRunnersPlatforms(installPlatform, runner),
     build,
-    branch
+    branch,
+    installLanguage,
+    sdlList
   )
 }
 

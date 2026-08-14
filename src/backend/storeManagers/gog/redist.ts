@@ -96,7 +96,7 @@ export async function checkForRedistUpdates() {
   pushRedistUpdateToQueue()
 }
 
-async function pushRedistUpdateToQueue() {
+function pushRedistUpdateToQueue() {
   const currentQueue = getQueueInformation()
 
   const currentRedistElement = currentQueue.elements.find(
@@ -108,7 +108,7 @@ async function pushRedistUpdateToQueue() {
   }
   const newElement = createRedistDMQueueElement()
 
-  await addToQueue(newElement)
+  addToQueue(newElement)
 }
 
 export function createRedistDMQueueElement(): DMQueueElement {
