@@ -33,6 +33,7 @@ import Folder from '@mui/icons-material/Folder'
 type Props = {
   availablePlatforms: AvailablePlatforms
   winePrefix: string
+  crossoverBottle: string
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
   platformToInstall: InstallPlatform
@@ -46,6 +47,7 @@ export default function SideloadDialog({
   availablePlatforms,
   backdropClick,
   winePrefix,
+  crossoverBottle,
   wineVersion,
   platformToInstall,
   children,
@@ -195,6 +197,17 @@ export default function SideloadDialog({
       customUserAgent,
       launchFullScreen
     })
+
+    if (!editMode) {
+      await window.api.writeConfig({
+        appName: app_name,
+        config: {
+          winePrefix,
+          wineVersion,
+          wineCrossoverBottle: crossoverBottle
+        }
+      })
+    }
 
     await refreshLibrary({
       library: 'sideload',
