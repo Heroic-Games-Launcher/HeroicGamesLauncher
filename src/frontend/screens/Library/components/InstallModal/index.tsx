@@ -262,6 +262,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             backdropClick={closeModal}
             platformToInstall={platformToInstall}
             appName={appName}
+            crossoverBottle={crossoverBottle}
           >
             {platformSelection()}
             {hasWine ? (
