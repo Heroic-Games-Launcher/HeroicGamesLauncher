@@ -859,7 +859,9 @@
         "hide-window-on-protocol-launch": "Hide Heroic window when launching games from heroic:// links",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
+        "invalidInputError": "Invalid input provided",
         "language": "Choose App Language",
+        "legendaryTimeout": "Legendary/Epic Timeout (default is 10 seconds)",
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
