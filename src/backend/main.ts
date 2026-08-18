@@ -70,7 +70,11 @@ import {
 import { Path } from './schemas'
 
 import { uninstallGameCallback } from './utils/uninstaller'
-import { handleProtocol, shouldHideWindowForProtocolArgs } from './protocol'
+import {
+  handleProtocol,
+  isGameLaunchArgs,
+  shouldHideWindowForProtocolArgs
+} from './protocol'
 import {
   init as initLogger,
   logDebug,
@@ -317,9 +321,12 @@ if (!gotTheLock) {
   app.quit()
 } else {
   app.on('second-instance', (event, argv) => {
-    // Someone tried to run a second instance, we should focus our window.
+    // Someone tried to run a second instance, we should focus our window,
+    // unless this is a game launch: starting a game should never change the
+    // main window's current visibility state (open, minimized, or hidden),
+    // it should just be left as it is.
     const mainWindow = getMainWindow()
-    if (!shouldHideWindowForProtocolArgs(argv)) {
+    if (!isGameLaunchArgs(argv)) {
       mainWindow?.show()
     }
 
