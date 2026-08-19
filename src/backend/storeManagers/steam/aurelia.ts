@@ -44,6 +44,10 @@ const aureliaDaemonSocket =
     : join(aureliaConfigDir, 'daemon.sock')
 
 let daemonReady: Promise<void> | undefined
+/** When the current daemon was spawned (ms). */
+let daemonSpawnedAt = 0
+/** Grace period before a freshly spawned daemon is expected to be up. */
+const DAEMON_STARTUP_GRACE_MS = 15_000
 
 /** Aurelia's own daemon marker. */
 interface AureliaDaemonInfo {
@@ -148,8 +152,21 @@ async function stopStaleAureliaDaemon(
   }
 }
 
-/** Memoised so callers await one restart. */
+/** Whether the daemon we know of is still running. */
+function isAureliaDaemonAlive(): boolean {
+  const info = readJsonFile<AureliaDaemonInfo>(aureliaDaemonInfoPath)
+  return !!info?.pid && isProcessAlive(info.pid)
+}
+
 function ensureAureliaDaemon(): Promise<void> {
+  const pastGrace = Date.now() - daemonSpawnedAt > DAEMON_STARTUP_GRACE_MS
+  if (daemonReady && pastGrace && !isAureliaDaemonAlive()) {
+    logWarning(
+      'Aurelia daemon is no longer running; starting a new one',
+      LogPrefix.Steam
+    )
+    daemonReady = undefined
+  }
   daemonReady ??= startAureliaDaemon()
   return daemonReady
 }
@@ -162,6 +179,7 @@ async function startAureliaDaemon(): Promise<void> {
   const stamp = currentDaemonStamp()
   await stopStaleAureliaDaemon(stamp)
   const { dir, bin } = getAureliaBin()
+  daemonSpawnedAt = Date.now()
   try {
     const child = spawn(dir ? join(dir, bin) : bin, ['daemon'], {
       detached: true,

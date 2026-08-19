@@ -738,6 +738,17 @@ export default class SteamGame extends Game {
     // Sync after game stopped
     await this.syncCloudSaves('up', logWriter)
 
+    // The pre-launch update tracking
+    try {
+      await libraryManagerMap['steam'].refresh()
+      sendFrontendMessage('refreshLibrary', 'steam')
+    } catch (error) {
+      logWarning(
+        [`Failed to refresh Steam library after ${this.id} stopped`, error],
+        LogPrefix.Steam
+      )
+    }
+
     logInfo(`${gameInfo.title} (${this.id}) has stopped`, LogPrefix.Steam)
     return true
   }

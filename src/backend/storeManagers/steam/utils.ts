@@ -2,6 +2,7 @@ import { sep } from 'path'
 import { GlobalConfig } from 'backend/config'
 import { logError, logWarning, LogPrefix } from 'backend/logger'
 import { isMac, isWindows } from 'backend/constants/environment'
+import type { InstallPlatform } from 'common/types'
 import { AureliaError } from './aurelia'
 
 /** Returned by every command when the integration is off. */
@@ -27,6 +28,25 @@ export function aureliaPlatform(platform: string): string | undefined {
   if (lc.startsWith('win')) return 'windows'
   if (lc.startsWith('lin')) return 'linux'
   return undefined
+}
+
+/**
+ * The platform Heroic should record for an installed Steam game
+ */
+export function installedPlatformFor(
+  gamePlatform?: string | null
+): InstallPlatform {
+  switch (String(gamePlatform).toLowerCase()) {
+    case 'windows':
+      return 'windows'
+    case 'macos':
+    case 'osx':
+      return 'osx'
+    case 'linux':
+      return 'linux'
+    default:
+      return installPlatform
+  }
 }
 
 /** `-p <platform>` argument pair, or empty. */

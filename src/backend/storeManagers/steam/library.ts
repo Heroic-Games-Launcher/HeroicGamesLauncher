@@ -33,7 +33,7 @@ import {
 import {
   currentOsList,
   describeError,
-  installPlatform,
+  installedPlatformFor,
   isSteamImportEnabled,
   platformArgs,
   steamCall,
@@ -148,7 +148,7 @@ export default class SteamLibraryManager implements LibraryManager {
       install_size: getFileSize(0),
       is_dlc: false,
       version: '',
-      platform: installPlatform,
+      platform: installedPlatformFor(game.platform),
       appName: appId,
       branch: game.active_branch
     }
@@ -368,13 +368,18 @@ export default class SteamLibraryManager implements LibraryManager {
   }
 
   async markInstalled(appName: string): Promise<void> {
-    const installPath = await steamCall<string | undefined>(
+    const marked = await steamCall<
+      { installPath: string; platform: InstallPlatform } | undefined
+    >(
       async () => {
         // `list -i` reports installed games with their full install info
         const games = await runAurelia<AureliaLibraryGame[]>(['list', '-i'])
         const game = games.find((value) => String(value.app_id) === appName)
-        if (!game?.is_installed) return undefined
-        return game.install_path ?? undefined
+        if (!game?.is_installed || !game.install_path) return undefined
+        return {
+          installPath: game.install_path,
+          platform: installedPlatformFor(game.platform)
+        }
       },
       {
         fallback: undefined,
@@ -382,15 +387,15 @@ export default class SteamLibraryManager implements LibraryManager {
         level: 'warning'
       }
     )
-    if (!installPath) return
+    if (!marked) return
 
     const installed: InstalledInfo = {
       executable: '',
-      install_path: installPath,
+      install_path: marked.installPath,
       install_size: getFileSize(0),
       is_dlc: false,
       version: '',
-      platform: installPlatform,
+      platform: marked.platform,
       appName
     }
     installedGames.set(appName, installed)
