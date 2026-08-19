@@ -17,7 +17,7 @@ export function describeError(error: unknown): string {
 }
 
 /** Platform string recorded in `InstalledInfo`. */
-export const installPlatform = isWindows ? 'windows' : isMac ? 'osx' : 'linux'
+const installPlatform = isWindows ? 'windows' : isMac ? 'osx' : 'linux'
 
 /** Matched against Aurelia's `oslist` field. */
 export const currentOsList = isWindows ? 'windows' : isMac ? 'macos' : 'linux'
