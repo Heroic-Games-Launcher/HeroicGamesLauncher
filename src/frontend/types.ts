@@ -1,7 +1,7 @@
 import {
   AppSettings,
   GameInfo,
-  GameStatus,
+  GameStatusLegacy,
   Runner,
   ConnectivityStatus,
   DialogType,
@@ -17,6 +17,8 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
+import { SteamAccount, SteamLoginData } from 'common/types/steam'
+import type { GameHandle } from './helpers/ipc'
 
 export type Category =
   | 'all'
@@ -25,6 +27,7 @@ export type Category =
   | 'sideload'
   | 'nile'
   | 'zoom'
+  | 'steam'
 
 export interface ContextType {
   error: boolean
@@ -34,7 +37,7 @@ export interface ContextType {
   isFrameless: boolean
   language: string
   setLanguage: (newLanguage: string) => void
-  libraryStatus: GameStatus[]
+  libraryStatus: GameStatusLegacy[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   platform: NodeJS.Platform | 'unknown'
@@ -94,6 +97,18 @@ export interface ContextType {
     login: (url: string) => Promise<string>
     logout: () => Promise<void>
     enabled: boolean
+  }
+  steam: {
+    library: GameInfo[]
+    username?: string
+    login: (
+      credentials: SteamLoginData
+    ) => Promise<{ status: 'done' | 'error'; error?: string }>
+    loginQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
+    logout: () => Promise<void>
+    enabled: boolean
+    users: SteamAccount[]
+    logoutUser: (steamId: string) => void
   }
   installingEpicGame: boolean
   allTilesInColor: boolean
@@ -188,7 +203,7 @@ declare global {
   }
 }
 
-export interface SettingsContextType {
+interface SettingsContextTypeBase {
   getSetting: <T extends keyof AppSettings>(
     key: T,
     fallback: NonNullable<AppSettings[T]>
@@ -198,13 +213,24 @@ export interface SettingsContextType {
     value: AppSettings[T]
   ) => void
   config: Partial<AppSettings>
-  isDefault: boolean
-  appName: string
-  runner?: Runner
-  gameInfo?: GameInfo
+  gameInfo: GameInfo | null
   isMacNative: boolean
   isLinuxNative: boolean
 }
+
+interface SettingsContextTypeDefault extends SettingsContextTypeBase {
+  isDefault: false
+  game: GameHandle
+}
+
+interface SettingsContextTypeNonDefault extends SettingsContextTypeBase {
+  isDefault: true
+  game: null
+}
+
+export type SettingsContextType =
+  | SettingsContextTypeDefault
+  | SettingsContextTypeNonDefault
 
 export interface StoresFilters {
   legendary: boolean
@@ -212,6 +238,7 @@ export interface StoresFilters {
   nile: boolean
   sideload: boolean
   zoom: boolean
+  steam: boolean
 }
 
 export interface PlatformsFilters {
@@ -248,7 +275,8 @@ export interface LibraryContextType {
   setShowThirdPartyManagedOnly: (value: boolean) => void
   showUpdatesOnly: boolean
   setShowUpdatesOnly: (value: boolean) => void
-  handleAddGameButtonClick: () => void
+  showSteamOwnedOnly: boolean
+  setShowSteamOwnedOnly: (value: boolean) => void
   setShowCategories: (value: boolean) => void
   showAlphabetFilter: boolean
   onToggleAlphabetFilter: () => void

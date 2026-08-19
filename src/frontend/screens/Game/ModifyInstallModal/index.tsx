@@ -10,11 +10,14 @@ import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
 import { NileInstallInfo } from 'common/types/nile'
 import { ZoomInstallInfo, ZoomInstalledInfo } from 'common/types/zoom'
+import { SteamInstallInfo } from 'common/types/steam'
 import { useTranslation } from 'react-i18next'
 import LegendaryModifyInstallModal from './Legendary'
 import GOGModifyInstallModal from './GOG'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface ModifyInstallProps {
+  game: GameHandle
   gameInfo: GameInfo
   gameInstallInfo:
     | LegendaryInstallInfo
@@ -22,11 +25,13 @@ interface ModifyInstallProps {
     | NileInstallInfo
     | ZoomInstalledInfo
     | ZoomInstallInfo
+    | SteamInstallInfo
     | null
   onClose: () => void
 }
 
 export default function ModifyInstallModal({
+  game,
   gameInfo,
   gameInstallInfo,
   onClose
@@ -46,12 +51,16 @@ export default function ModifyInstallModal({
         {gameInstallInfo ? (
           <>
             {gameInfo.runner === 'gog' && (
-              <GOGModifyInstallModal gameInfo={gameInfo} onClose={onClose} />
+              <GOGModifyInstallModal
+                game={game}
+                gameInfo={gameInfo}
+                onClose={onClose}
+              />
             )}
             {gameInfo.runner === 'legendary' && (
               <LegendaryModifyInstallModal
-                dlcs={(gameInstallInfo as LegendaryInstallInfo)?.game.owned_dlc}
-                gameInfo={gameInfo}
+                gameInstallInfo={gameInstallInfo as LegendaryInstallInfo}
+                mainAppInfo={gameInfo}
                 onClose={onClose}
               />
             )}

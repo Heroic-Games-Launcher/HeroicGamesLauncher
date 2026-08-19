@@ -13,8 +13,10 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionListItem } from 'frontend/screens/Settings/components/WineVersionSelector'
 import { MenuItem } from '@mui/material'
 import { useAwaited } from 'frontend/hooks/useAwaited'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 type Props = {
+  game: GameHandle
   setWineVersion: (newVersion: WineInstallation) => void
   setWinePrefix: (newPrefix: string) => void
   setCrossoverBottle: React.Dispatch<React.SetStateAction<string>>
@@ -23,11 +25,11 @@ type Props = {
   wineVersionList: WineInstallation[]
   wineVersion: WineInstallation | undefined
   title?: string
-  appName: string
   initiallyOpen?: boolean
 }
 
 export default function WineSelector({
+  game,
   setWinePrefix,
   setWineVersion,
   winePrefix,
@@ -36,8 +38,7 @@ export default function WineSelector({
   title = 'sideload',
   crossoverBottle,
   setCrossoverBottle,
-  initiallyOpen,
-  appName
+  initiallyOpen
 }: Props) {
   const { t, i18n } = useTranslation('gamepage')
 
@@ -59,7 +60,7 @@ export default function WineSelector({
       setWineVersion(globalConfig.wineVersion)
       setCrossoverBottle(globalConfig.wineCrossoverBottle)
     } else {
-      const suggestedPrefix = `${globalConfig.defaultWinePrefixDir}/${removeSpecialcharacters(title ?? appName)}`
+      const suggestedPrefix = `${globalConfig.defaultWinePrefixDir}/${removeSpecialcharacters(title ?? game.id)}`
       setWinePrefix(suggestedPrefix)
     }
   }, [
@@ -69,7 +70,7 @@ export default function WineSelector({
     setWineVersion,
     setCrossoverBottle,
     title,
-    appName
+    game
   ])
 
   useEffect(() => {

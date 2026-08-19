@@ -9,10 +9,12 @@ import GOGLogo from 'frontend/assets/gog-logo.svg?react'
 import HeroicLogo from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
+import SteamLogo from 'frontend/assets/steam-logo.svg?react'
 
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
+import SteamLogin from './components/SteamLogin'
 import ContextProvider from '../../state/ContextProvider'
 import { useAwaited } from '../../hooks/useAwaited'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -23,7 +25,7 @@ export const amazonLoginPath = '/loginweb/nile'
 export const zoomLoginPath = '/loginweb/zoom'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, zoom, refreshLibrary } =
+  const { epic, gog, amazon, zoom, steam, refreshLibrary } =
     useContext(ContextProvider)
   const { t } = useTranslation()
 
@@ -36,6 +38,7 @@ export default React.memo(function NewLogin() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
+  const [showSteamLogin, setShowSteamLogin] = useState(false)
   const [isEpicLoggedIn, setIsEpicLoggedIn] = useState(Boolean(epic.username))
   const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
@@ -64,6 +67,8 @@ export default React.memo(function NewLogin() {
     'Login with your platform. You can login to more than one platform at the same time.'
   )
 
+  const steamUser = steam.users[0]
+
   useEffect(() => {
     setLoading(false)
   }, [epic, gog])
@@ -90,6 +95,13 @@ export default React.memo(function NewLogin() {
         <SIDLogin
           backdropClick={() => {
             setShowSidLogin(false)
+          }}
+        />
+      )}
+      {showSteamLogin && (
+        <SteamLogin
+          backdropClick={() => {
+            setShowSteamLogin(false)
           }}
         />
       )}
@@ -158,6 +170,23 @@ export default React.memo(function NewLogin() {
                 isLoggedIn={isZoomLoggedIn}
                 user={zoom.username}
                 logoutAction={zoom.logout}
+                disabled={oldMac}
+              />
+            )}
+            {steam.enabled && (
+              <Runner
+                class="steam"
+                buttonText={t('login.steam_add', 'Add Steam Account')}
+                icon={() => <SteamLogo />}
+                loginUrl="/login"
+                isLoggedIn={Boolean(steamUser)}
+                user={steamUser?.username}
+                logoutAction={
+                  steamUser
+                    ? () => steam.logoutUser(steamUser.steamId)
+                    : steam.logout
+                }
+                onLogin={() => setShowSteamLogin(true)}
                 disabled={oldMac}
               />
             )}

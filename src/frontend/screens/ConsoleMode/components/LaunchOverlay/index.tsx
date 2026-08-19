@@ -7,8 +7,8 @@ import { hasStatus } from 'frontend/hooks/hasStatus'
 
 import BackHint from '../BackHint'
 
-import type { GameInfo, Runner } from 'common/types'
-import { useContext, useEffect } from 'react'
+import type { GameInfo } from 'common/types'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import {
   useCancelOnHold,
   useGamepadButtonHold,
@@ -17,32 +17,61 @@ import {
 import { getBackButtonIndex } from '../../controller'
 import { launch, sendKill } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 const CANCEL_HOLD_MS = 3000
 
-export default function LaunchOverlay({
-  game,
-  onDismiss
-}: {
+interface Props {
   game: GameInfo
   onDismiss: () => void
-}) {
+}
+
+export default function LaunchOverlay({ game, onDismiss }: Props) {
   const { t } = useTranslation()
-  const { status, statusContext } = hasStatus(game)
+  const { status, statusContext } = hasStatus(GameHandle.fromGameInfo(game))
   let label: string | null = null
 
   const { showDialogModal } = useContext(ContextProvider)
+  const [launchError, setLaunchError] = useState<string | null>(null)
+
+  const handleDismiss = useCallback(() => {
+    onDismiss()
+  }, [onDismiss])
+
+  // Turns a raw launch error into a user-facing message, with a friendlier
+  // hint for the common "not logged in to Steam" case.
+  const buildLaunchErrorMessage = useCallback(
+    (errMsg?: string): string => {
+      if (
+        errMsg &&
+        (errMsg.includes('not logged in') || errMsg.includes('aurelia login'))
+      ) {
+        return t(
+          'console.launchErrorNotLoggedIn',
+          'Failed to launch game. You must log in to Steam first.'
+        )
+      }
+      if (errMsg) {
+        return `${t('console.launchErrorPrefix', 'Failed to launch game:')} ${errMsg}`
+      }
+      return t(
+        'console.launchError',
+        'Failed to launch game. Check the logs for details.'
+      )
+    },
+    [t]
+  )
 
   // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
   // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
   const { holdStart, startHold, stopHold } = useCancelOnHold({
-    active: !!game,
+    active: !launchError && !!game,
     holdMs: CANCEL_HOLD_MS,
     onCancel: () => {
-      if (game) void sendKill(game.app_name, game.runner)
+      if (game) void sendKill(GameHandle.fromGameInfo(game))
 
       // prevent UX from hanging in "Launching" mode
-      onDismiss()
+      handleDismiss()
     }
   })
 
@@ -65,18 +94,30 @@ export default function LaunchOverlay({
     }
   }, [startHold, stopHold])
 
-  // Fire the launch exactly once on mount; the overlay closes via onDismiss
-  // in the finally block. Intentionally not depending on the launch inputs.
+  // Fire the launch exactly once on mount. On success the overlay closes; on
+  // error it shows the failure and auto-dismisses after a short delay.
+  // Intentionally not depending on the launch inputs.
   useEffect(() => {
+    const showError = (errMsg?: string) => {
+      setLaunchError(buildLaunchErrorMessage(errMsg))
+      setTimeout(() => handleDismiss(), errMsg ? 5000 : 3000)
+    }
     void launch({
-      appName: game.app_name,
+      game: GameHandle.fromGameInfo(game),
       t,
-      runner: game.runner as Runner,
       hasUpdate: false,
       showDialogModal
-    }).finally(() => {
-      onDismiss()
     })
+      .then((result) => {
+        if (result.status === 'error') {
+          showError(result.error)
+          return
+        }
+        handleDismiss()
+      })
+      .catch((err) => {
+        showError(err instanceof Error ? err.message : String(err))
+      })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -111,22 +152,31 @@ export default function LaunchOverlay({
 
   return (
     <div className="consoleLaunchOverlay" role="status" aria-live="polite">
-      <div
-        className={classNames('consoleLaunchSpinner', {
-          idle: status === 'playing'
-        })}
-      />
-      <div className="consoleLaunchText">
-        {label || t('console.launching', 'Launching')}
-      </div>
-      <div className="consoleLaunchGameTitle">
-        {game.overrides?.title || game.title}
-      </div>
-      <BackHint
-        prefix={t('console.cancel.hintPrefix', 'Hold')}
-        suffix={t('console.cancel.hintSuffix', 'for 3s to cancel')}
-        active={holdStart != null}
-      />
+      {launchError ? (
+        <div className="consoleLaunchError">
+          <div className="consoleLaunchErrorIcon">!</div>
+          <div className="consoleLaunchErrorText">{launchError}</div>
+        </div>
+      ) : (
+        <>
+          <div
+            className={classNames('consoleLaunchSpinner', {
+              idle: status === 'playing'
+            })}
+          />
+          <div className="consoleLaunchText">
+            {label || t('console.launching', 'Launching')}
+          </div>
+          <div className="consoleLaunchGameTitle">
+            {game.overrides?.title || game.title}
+          </div>
+          <BackHint
+            prefix={t('console.cancel.hintPrefix', 'Hold')}
+            suffix={t('console.cancel.hintSuffix', 'for 3s to cancel')}
+            active={holdStart != null}
+          />
+        </>
+      )}
     </div>
   )
 }

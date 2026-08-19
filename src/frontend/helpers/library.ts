@@ -11,6 +11,7 @@ import {
 import { TFunction } from 'i18next'
 import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
+import type { GameHandle } from './ipc'
 
 const storage: Storage = window.localStorage
 
@@ -133,14 +134,13 @@ function handleStopInstallation(
   })
 }
 
-const repair = async (appName: string, runner: Runner): Promise<void> =>
-  window.api.repair(appName, runner)
+const repair = async (game: GameHandle): Promise<void> =>
+  window.api.repair(game)
 
 type LaunchOptions = {
-  appName: string
+  game: GameHandle
   t: TFunction<'gamepage'>
   launchArguments?: LaunchOption
-  runner: Runner
   hasUpdate: boolean
   showDialogModal: (options: DialogModalOptions) => void
   args?: string[]
@@ -148,28 +148,28 @@ type LaunchOptions = {
 }
 
 const launch = async ({
-  appName,
+  game,
   t,
   launchArguments,
-  runner,
   hasUpdate,
   showDialogModal,
   args,
   notPlayableOffline
-}: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
+}: LaunchOptions): Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string
+}> => {
   const proceedToLaunch = async () => {
     // First handle update dialog if needed
     if (hasUpdate) {
-      const { ignoreGameUpdates } =
-        await window.api.requestGameSettings(appName)
+      const { ignoreGameUpdates } = await window.api.requestGameSettings(game)
 
       if (ignoreGameUpdates) {
         // If updates are ignored, proceed to check launch options
         return checkLaunchOptionsAndLaunch({
-          appName,
+          game,
           t,
           launchArguments,
-          runner,
           showDialogModal,
           args,
           skipVersionCheck: true,
@@ -188,9 +188,9 @@ const launch = async ({
             {
               text: t('gamepage:box.yes'),
               onClick: async () => {
-                const gameInfo = await getGameInfo(appName, runner)
+                const gameInfo = await getGameInfo(game)
                 if (gameInfo && gameInfo.runner !== 'sideload') {
-                  void updateGame({ appName, runner, gameInfo })
+                  void updateGame(game)
                   res({ status: 'done' })
                 }
                 res({ status: 'error' })
@@ -202,10 +202,9 @@ const launch = async ({
                 // User chose to skip the update, now check launch options
                 res(
                   checkLaunchOptionsAndLaunch({
-                    appName,
+                    game,
                     t,
                     launchArguments,
-                    runner,
                     showDialogModal,
                     args,
                     skipVersionCheck: true,
@@ -223,10 +222,9 @@ const launch = async ({
 
     // No update needed, proceed to check launch options
     return checkLaunchOptionsAndLaunch({
-      appName,
+      game,
       t,
       launchArguments,
-      runner,
       showDialogModal,
       args,
       hasUpdate
@@ -266,21 +264,19 @@ const launch = async ({
 }
 
 async function checkLaunchOptionsAndLaunch({
-  appName,
+  game,
   t,
   launchArguments,
-  runner,
   showDialogModal,
   args,
   skipVersionCheck = false
 }: LaunchOptions & { skipVersionCheck?: boolean }): Promise<{
   status: 'done' | 'error' | 'abort'
+  error?: string
 }> {
   // If launch arguments already provided, launch directly
   if (launchArguments) {
-    return window.api.launch({
-      appName,
-      runner,
+    return window.api.launch(game, {
       launchArguments,
       args,
       skipVersionCheck
@@ -288,10 +284,7 @@ async function checkLaunchOptionsAndLaunch({
   }
 
   // Get available launch options
-  const availableLaunchOptions = await window.api.getLaunchOptions(
-    appName,
-    runner
-  )
+  const availableLaunchOptions = await window.api.getLaunchOptions(game)
 
   // If no launch options or only one option, launch directly
   if (!availableLaunchOptions.length || availableLaunchOptions.length === 1) {
@@ -301,9 +294,7 @@ async function checkLaunchOptionsAndLaunch({
         ? availableLaunchOptions[0]
         : undefined
 
-    return window.api.launch({
-      appName,
-      runner,
+    return window.api.launch(game, {
       launchArguments: singleOption,
       args,
       skipVersionCheck
@@ -312,11 +303,9 @@ async function checkLaunchOptionsAndLaunch({
 
   // If we have multiple launch options and none selected, show dialog
   // First check if there's a saved launch option
-  const gameSettings = await window.api.requestGameSettings(appName)
+  const gameSettings = await window.api.requestGameSettings(game)
   if (gameSettings.lastUsedLaunchOption) {
-    return window.api.launch({
-      appName,
-      runner,
+    return window.api.launch(game, {
       launchArguments: gameSettings.lastUsedLaunchOption,
       args,
       skipVersionCheck
@@ -346,17 +335,11 @@ async function checkLaunchOptionsAndLaunch({
       showDialogModal({ showDialog: false })
 
       // Save this choice for future launches
-      window.api.setSetting({
-        appName,
-        key: 'lastUsedLaunchOption',
-        value: firstOption
-      })
+      window.api.setSetting(game, 'lastUsedLaunchOption', firstOption)
 
       // Launch with the first option
       res(
-        window.api.launch({
-          appName,
-          runner,
+        window.api.launch(game, {
           launchArguments: firstOption,
           args,
           skipVersionCheck
@@ -426,16 +409,10 @@ async function checkLaunchOptionsAndLaunch({
           showDialogModal({ showDialog: false })
 
           // Save this choice for future launches
-          window.api.setSetting({
-            appName,
-            key: 'lastUsedLaunchOption',
-            value: option
-          })
+          window.api.setSetting(game, 'lastUsedLaunchOption', option)
 
           res(
-            window.api.launch({
-              appName,
-              runner,
+            window.api.launch(game, {
               launchArguments: option,
               args,
               skipVersionCheck
@@ -461,8 +438,8 @@ async function checkLaunchOptionsAndLaunch({
   })
 }
 
-const updateGame = (args: UpdateParams) => {
-  return window.api.updateGame(args)
+const updateGame = (game: GameHandle, args: UpdateParams = {}) => {
+  return window.api.updateGame(game, args)
 }
 
 export const normalizeTitle = (title: string) => {
@@ -474,5 +451,6 @@ export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
 export const amazonCategories = ['all', 'nile', 'amazon']
 export const zoomCategories = ['all', 'zoom']
+export const steamCategories = ['all', 'steam']
 
 export { handleStopInstallation, install, launch, repair, updateGame }

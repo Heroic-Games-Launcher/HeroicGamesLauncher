@@ -88,11 +88,17 @@ import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export default class GOGGame implements Game {
-  private readonly id: string
+export default class GOGGame extends Game {
+  public readonly id: string
+  public readonly runner = 'gog'
 
   constructor(id: string) {
+    super()
     this.id = id
+  }
+
+  toString(): string {
+    return `GOGGame(${this.id})`
   }
 
   async getExtraInfo(): Promise<ExtraInfo> {
@@ -205,7 +211,8 @@ export default class GOGGame implements Game {
       ['import', folderPath],
       {
         abortId: this.id,
-        logMessagePrefix: `Importing ${this.id}`
+        logMessagePrefix: `Importing ${this.id}`,
+        game: this
       }
     )
 
@@ -304,9 +311,7 @@ export default class GOGGame implements Game {
         LogPrefix.Gog
       )
 
-      sendProgressUpdate({
-        appName: this.id,
-        runner: 'gog',
+      sendProgressUpdate(this, {
         status: action,
         progress: progress
       })
@@ -377,16 +382,13 @@ export default class GOGGame implements Game {
       this.onInstallOrUpdateOutput('installing', data)
     }
 
-    const installLogWriter = await createGameLogWriter(
-      this.id,
-      'gog',
-      'install'
-    )
+    const installLogWriter = await createGameLogWriter(this, 'install')
     const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
       abortId: this.id,
       logWriters: [installLogWriter],
       onOutput,
-      logMessagePrefix: `Installing ${this.id}`
+      logMessagePrefix: `Installing ${this.id}`,
+      game: this
     })
 
     if (res.abort) {
@@ -460,7 +462,7 @@ export default class GOGGame implements Game {
         LogPrefix.Gog
       )
       try {
-        await setup(this.id, installedData)
+        await setup(this, installedData)
       } catch (e) {
         logWarning(
           [
@@ -529,7 +531,7 @@ export default class GOGGame implements Game {
     }
 
     if (!existsSync(gameInfo.install.install_path)) {
-      errorHandler('appears to be deleted', this.id, 'gog')
+      errorHandler('appears to be deleted', this.runner, this)
       return false
     }
 
@@ -541,7 +543,7 @@ export default class GOGGame implements Game {
       gameScopeCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
+    } = await prepareLaunch(this, logWriter)
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
       launchCleanup()
@@ -562,11 +564,11 @@ export default class GOGGame implements Game {
 
     let commandEnv = {
       ...process.env,
-      ...setupWrapperEnvVars({ appName: this.id, appRunner: 'gog' }),
+      ...setupWrapperEnvVars(this),
       ...(isWindows
         ? {}
         : setupEnvVars(gameSettings, gameInfo.install.install_path)),
-      ...getKnownFixesEnvVariables(this.id, 'gog')
+      ...getKnownFixesEnvVariables(this)
     }
 
     const wrappers = setupWrappers(
@@ -604,14 +606,14 @@ export default class GOGGame implements Game {
         ...wineEnvVars
       }
 
-      if (await isUmuSupported(gameSettings)) {
-        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (await isUmuSupported(this)) {
+        const umuId = await getUmuId(this)
         if (umuId) {
           commandEnv['GAMEID'] = umuId
         }
       }
 
-      wineFlag = await getWineFlagsArray(gameSettings, shlex.join(wrappers))
+      wineFlag = await getWineFlagsArray(this, shlex.join(wrappers))
     }
 
     const launchArgumentsArgs =
@@ -647,11 +649,7 @@ export default class GOGGame implements Game {
       if (existsSync(startFolder)) {
         const installDirectory = isWindows
           ? gameInfo.install.install_path
-          : await getWinePath({
-              path: gameInfo.install.install_path,
-              variant: 'win',
-              gameSettings
-            })
+          : await getWinePath(this, gameInfo.install.install_path, 'win')
 
         const availableMods = await libraryManagerMap['gog'].getCyberpunkMods()
         const modsEnabledToLoad = gameInfo.install.cyberpunk.modsToLoad
@@ -679,19 +677,14 @@ export default class GOGGame implements Game {
           ...modsAbleToLoad.map((mod) => ['-mod', mod]).flat()
         ]
 
-        let result: { stdout: string; stderr: string; code?: number | null } = {
-          stdout: '',
-          stderr: ''
-        }
+        let result: { stdout: string; stderr: string; code?: number | null }
         if (isWindows) {
           const [bin, ...args] = redModCommand
           result = await spawnAsync(bin, args, { cwd: startFolder })
         } else {
-          result = await runWineCommandUtil({
+          result = await runWineCommandUtil(this, {
             commandParts: redModCommand,
             wait: true,
-            gameSettings,
-            gameInstallPath: gameInfo.install.install_path,
             startFolder
           })
         }
@@ -715,7 +708,7 @@ export default class GOGGame implements Game {
 
     const userData: UserData | undefined = configStore.get_nodefault('userData')
 
-    sendGameStatusUpdate({ appName: this.id, runner: 'gog', status: 'playing' })
+    sendGameStatusUpdate(this, 'playing')
 
     let child = undefined
 
@@ -752,7 +745,8 @@ export default class GOGGame implements Game {
         env: commandEnv,
         wrappers,
         logMessagePrefix: `Launching ${gameInfo.title}`,
-        logWriters: [logWriter]
+        logWriters: [logWriter],
+        game: this
       }
     )
 
@@ -781,7 +775,7 @@ export default class GOGGame implements Game {
     logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
     const moveImpl = isWindows ? moveOnWindows : moveOnUnix
-    const moveResult = await moveImpl(newInstallPath, gameInfo)
+    const moveResult = await moveImpl(this, newInstallPath)
 
     if (moveResult.status === 'error') {
       const { error } = moveResult
@@ -801,7 +795,7 @@ export default class GOGGame implements Game {
       gameInfo.install.platform === 'windows' &&
       (isWindows || existsSync(gameConfig.winePrefix))
     ) {
-      await setup(this.id, undefined, false)
+      await setup(this, undefined, false)
     }
     return { status: 'done' }
   }
@@ -840,11 +834,12 @@ export default class GOGGame implements Game {
       commandParts.push('--password', privateBranchPassword)
     }
 
-    const repairLogWriter = await createGameLogWriter(this.id, 'gog', 'repair')
+    const repairLogWriter = await createGameLogWriter(this, 'repair')
     const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
       abortId: this.id,
       logWriters: [repairLogWriter],
-      logMessagePrefix: `Repairing ${this.id}`
+      logMessagePrefix: `Repairing ${this.id}`,
+      game: this
     })
 
     if (res.error) {
@@ -896,7 +891,8 @@ export default class GOGGame implements Game {
         {
           abortId: this.id,
           logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
-          onOutput: (output) => (fullOutput += output)
+          onOutput: (output) => (fullOutput += output),
+          game: this
         }
       )
 
@@ -932,10 +928,7 @@ export default class GOGGame implements Game {
 
       const installDirectory = isWindows
         ? object.install_path
-        : await getWinePath({
-            path: object.install_path,
-            gameSettings
-          })
+        : await getWinePath(this, object.install_path)
 
       const command = [
         uninstallerPath,
@@ -949,8 +942,7 @@ export default class GOGGame implements Game {
 
       if (!isWindows) {
         if (existsSync(gameSettings.winePrefix) && !shouldRemovePrefix) {
-          await runWineCommandUtil({
-            gameSettings,
+          await runWineCommandUtil(this, {
             commandParts: command,
             wait: true
           })
@@ -1079,8 +1071,7 @@ export default class GOGGame implements Game {
                 { cwd: gameData.install.install_path }
               )
             } else {
-              await runWineCommand({
-                gameSettings: gameConfig,
+              await runWineCommand(this, {
                 protonVerb: 'run',
                 commandParts: [
                   uninstallExeFile,
@@ -1145,12 +1136,13 @@ export default class GOGGame implements Game {
       this.onInstallOrUpdateOutput('updating', data)
     }
 
-    const updateLogWriter = await createGameLogWriter(this.id, 'gog', 'update')
+    const updateLogWriter = await createGameLogWriter(this, 'update')
     const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
       abortId: this.id,
       logWriters: [updateLogWriter],
       onOutput,
-      logMessagePrefix: `Updating ${this.id}`
+      logMessagePrefix: `Updating ${this.id}`,
+      game: this
     })
 
     if (res.abort) {
@@ -1159,11 +1151,7 @@ export default class GOGGame implements Game {
 
     if (res.error) {
       logError(['Failed to update', `${this.id}:`, res.error], LogPrefix.Gog)
-      sendGameStatusUpdate({
-        appName: this.id,
-        runner: 'gog',
-        status: 'done'
-      })
+      sendGameStatusUpdate(this, 'done')
       return { status: 'error' }
     }
 
@@ -1217,7 +1205,7 @@ export default class GOGGame implements Game {
       gameObject.platform === 'windows' &&
       (isWindows || existsSync(gameSettings.winePrefix))
     ) {
-      await setup(this.id, gameObject, false)
+      await setup(this, gameObject, false)
     } else if (gameObject.platform === 'linux') {
       const installer = join(gameObject.install_path, 'support/postinst.sh')
       if (existsSync(installer)) {
@@ -1230,11 +1218,7 @@ export default class GOGGame implements Game {
         )
       }
     }
-    sendGameStatusUpdate({
-      appName: this.id,
-      runner: 'gog',
-      status: 'done'
-    })
+    sendGameStatusUpdate(this, 'done')
     gameData.install = gameObject
     sendFrontendMessage('pushGameToLibrary', gameData)
     return { status: 'done' }
@@ -1290,8 +1274,7 @@ export default class GOGGame implements Game {
   // GOGDL now handles the signal, this is no longer needed
   async stop(stopWine = true): Promise<void> {
     if (stopWine && !this.isNative()) {
-      const gameSettings = await this.getSettings()
-      await shutdownWine(gameSettings)
+      await shutdownWine(this)
     }
   }
 

@@ -6,7 +6,7 @@ const useWineManagerState = create<
   Record<string, WineManagerStatus | undefined>
 >(() => ({}))
 
-window.api.handleProgressOfWineManager((_e, version, progress) => {
+window.api.handleProgressOfWineManager((version, progress) => {
   useWineManagerState.setState({ [version]: progress })
 })
 

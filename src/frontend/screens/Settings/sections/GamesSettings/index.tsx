@@ -28,6 +28,7 @@ import {
   PreferSystemLibs,
   ShowFPS,
   SteamRuntime,
+  SteamIntegration,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -75,7 +76,7 @@ function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
 export default function GamesSettings() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo } = useContext(SettingsContext)
+  const { game, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [isNative, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
@@ -119,24 +120,17 @@ export default function GamesSettings() {
   }
 
   useEffect(() => {
-    if (gameInfo) {
-      const getIsNative = async () => {
-        const isNative = await window.api.isNative({
-          appName: gameInfo?.app_name,
-          runner: gameInfo?.runner
-        })
-        setIsNative(isNative)
-      }
-      void getIsNative()
+    if (game) {
+      void window.api.isNative(game).then(setIsNative)
     }
-  }, [gameInfo])
+  }, [game])
 
   const showOtherTab = shouldShowSettings('other')
   const showWineTab = shouldShowSettings('wine')
 
   return (
     <>
-      {isDefault && (
+      {!game && (
         <p className="defaults-hint">
           <FontAwesomeIcon icon={faInfoCircle} />
           {t(
@@ -210,6 +204,7 @@ export default function GamesSettings() {
         <GameMode />
         {isLinux && <PreferSystemLibs />}
         <SteamRuntime />
+        <SteamIntegration />
         <NvidiaPrime />
         {!isNative && (
           <>
@@ -262,7 +257,7 @@ export default function GamesSettings() {
         </TabPanel>
       )}
 
-      {!isDefault && <FooterInfo />}
+      <FooterInfo />
     </>
   )
 }

@@ -31,6 +31,15 @@ const initialContext: ContextType = {
     logout: async () => Promise.resolve(),
     enabled: false
   },
+  steam: {
+    library: [],
+    login: async () => Promise.resolve({ status: 'error' as const }),
+    loginQr: async () => Promise.resolve({ status: 'error' as const }),
+    logout: async () => Promise.resolve(),
+    enabled: false,
+    users: [],
+    logoutUser: () => null
+  },
   installingEpicGame: false,
   sideloadedLibrary: [],
   error: false,
@@ -101,7 +110,8 @@ const initialContext: ContextType = {
   experimentalFeatures: {
     enableHelp: false,
     cometSupport: true,
-    zoomPlatform: false
+    zoomPlatform: false,
+    steamImport: false
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,

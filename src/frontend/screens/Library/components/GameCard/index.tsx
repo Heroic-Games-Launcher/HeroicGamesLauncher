@@ -1,12 +1,20 @@
 import './index.css'
 
-import { useContext, CSSProperties, useMemo, useState, useEffect } from 'react'
+import {
+  useContext,
+  CSSProperties,
+  useMemo,
+  useState,
+  useEffect,
+  useRef
+} from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
 
 import DownIcon from 'frontend/assets/down-icon.svg?react'
-import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
+import FamilyShareIcon from 'frontend/assets/ico_familysharing.svg?react'
+import { FavouriteGame, GameInfo, HiddenGame } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
 import SettingsIcon from 'frontend/assets/settings_icon_alt.svg?react'
@@ -30,6 +38,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 
 import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
+import CloudSyncStatus from 'frontend/components/UI/CloudSyncStatus'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
@@ -55,8 +64,10 @@ import {
 } from '@mui/icons-material'
 import EditGameDialog from 'frontend/components/UI/EditGameDialog'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Card {
+  game: GameHandle
   buttonClick: () => void
   hasUpdate: boolean
   isRecent: boolean
@@ -69,6 +80,7 @@ interface Card {
 const storage: Storage = window.localStorage
 
 const GameCard = ({
+  game,
   hasUpdate,
   buttonClick,
   forceCard,
@@ -83,7 +95,7 @@ const GameCard = ({
     // render an empty div until the card enters the viewport
     // check GameList for the other side of this detection
     const callback = (e: CustomEvent<{ appNames: string[] }>) => {
-      if (e.detail.appNames.includes(gameInfoFromProps.app_name)) {
+      if (!visible && e.detail.appNames.includes(game.id)) {
         setVisible(true)
       }
     }
@@ -93,11 +105,16 @@ const GameCard = ({
     return () => {
       window.removeEventListener('visible-cards', callback)
     }
-  }, [])
+  }, [game])
 
   const [gameInfo, setGameInfo] = useState<GameInfo>(gameInfoFromProps)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
+  // A cover fetched from the store API to replace a missing/unreachable Steam
+  // library image (see handleCoverError).
+  const [steamCover, setSteamCover] = useState<string>()
+  const triedSteamCover = useRef(false)
+  const coverErrorCount = useRef(0)
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
@@ -121,7 +138,6 @@ const GameCard = ({
   const { layout } = useContext(LibraryContext)
 
   const {
-    art_logo: logo = undefined,
     app_name: appName,
     runner,
     is_installed: isInstalled,
@@ -133,22 +149,41 @@ const GameCard = ({
   const cover =
     gameInfoFromProps.overrides?.art_square || gameInfoFromProps.art_square
 
+  // Steam's library_600x900 portrait is often missing
+  // only after its real CDN URL fails fetch a wiki portrait.
+  const handleCoverError = (): void => {
+    if (runner !== 'steam' || triedSteamCover.current) return
+    coverErrorCount.current += 1
+    if (coverErrorCount.current < 2) return
+    triedSteamCover.current = true
+    if (cover?.startsWith('http')) {
+      void window.api.removeImageFromCache(cover)
+    }
+    window.api
+      .getWikiGameInfo(game)
+      .then((info) => {
+        const wikiCover = info?.pcgamingwiki?.cover
+        if (wikiCover) setSteamCover(wikiCover)
+      })
+      .catch(() => undefined)
+  }
+
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
 
-  const [progress, previousProgress] = hasProgress(appName, runner)
+  const [progress, previousProgress] = hasProgress(game)
   const { install_size: size = '0' } = {
     ...gameInstallInfo
   }
 
-  const { status, folder, label } = hasStatus(gameInfo, size)
+  const { status, folder, label } = hasStatus(game, size)
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
 
   useEffect(() => {
     setIsLaunching(false)
     const updateGameInfo = async () => {
-      const newInfo = await getGameInfo(appName, runner)
+      const newInfo = await getGameInfo(game)
       if (newInfo) {
         setGameInfo(newInfo)
       }
@@ -157,8 +192,7 @@ const GameCard = ({
   }, [status])
 
   async function handleUpdate() {
-    if (gameInfo.runner !== 'sideload')
-      updateGame({ appName, runner, gameInfo })
+    if (gameInfo.runner !== 'sideload') updateGame(game)
   }
 
   const grid = forceCard || layout === 'grid'
@@ -179,7 +213,7 @@ const GameCard = ({
     : '100%'
 
   const handleRemoveFromQueue = () => {
-    window.api.removeFromDMQueue(appName)
+    window.api.removeFromDMQueue(game)
   }
 
   const renderIcon = () => {
@@ -230,7 +264,7 @@ const GameCard = ({
       return (
         <SvgButton
           className="cancelIcon"
-          onClick={async () => handlePlay(runner)}
+          onClick={async () => handlePlay()}
           title={`${t('label.playing.stop')} (${title})`}
         >
           <StopIconAlt />
@@ -241,7 +275,7 @@ const GameCard = ({
       return (
         <SvgButton
           className="cancelIcon"
-          onClick={async () => handlePlay(runner)}
+          onClick={async () => handlePlay()}
           title={`${t('button.cancel')} (${title})`}
         >
           <StopIcon />
@@ -255,7 +289,7 @@ const GameCard = ({
       return (
         <SvgButton
           className={!notAvailable ? 'playIcon' : 'notAvailableIcon'}
-          onClick={async () => handlePlay(runner)}
+          onClick={async () => handlePlay()}
           title={`${t('label.playing.start')} (${title})`}
           disabled={disabled}
         >
@@ -295,7 +329,7 @@ const GameCard = ({
 
   const handleEdit = () => {
     if (isSideloaded) {
-      openInstallGameModal({ appName, runner, gameInfo })
+      openInstallGameModal({ game, gameInfo, action: 'install' })
       return
     }
 
@@ -304,6 +338,7 @@ const GameCard = ({
       title: t('edit-game.title', 'Edit Game'),
       message: (
         <EditGameDialog
+          game={game}
           gameInfo={gameInfo}
           backdropClick={() => showDialogModal({ showDialog: false })}
         />
@@ -322,14 +357,14 @@ const GameCard = ({
     {
       // stop if running
       label: t('label.playing.stop'),
-      onclick: async () => handlePlay(runner),
+      onclick: async () => handlePlay(),
       show: isPlaying,
       icon: <Cancel />
     },
     {
       // launch game
       label: t('label.playing.start'),
-      onclick: async () => handlePlay(runner),
+      onclick: async () => handlePlay(),
       show: isInstalled && !isPlaying && !isUpdating && !isQueued,
       icon: <PlayArrow />
     },
@@ -350,7 +385,7 @@ const GameCard = ({
     {
       // cancel installation/update
       label: t('button.cancel'),
-      onclick: async () => handlePlay(runner),
+      onclick: async () => handlePlay(),
       show: isInstalling || isUpdating,
       icon: <Cancel />
     },
@@ -365,13 +400,13 @@ const GameCard = ({
     {
       // settings
       label: t('submenu.settings', 'Settings'),
-      onclick: () => openGameSettingsModal(gameInfo),
+      onclick: () => openGameSettingsModal(game),
       show: isInstalled && !isUninstalling && !isBrowserGame,
       icon: <Settings />
     },
     {
       label: t('submenu.logs', 'Logs'),
-      onclick: () => openGameLogsModal(gameInfo),
+      onclick: () => openGameLogsModal(game),
       show: isInstalled && !isUninstalling && !isBrowserGame,
       icon: <Description />
     },
@@ -405,7 +440,7 @@ const GameCard = ({
     },
     {
       label: t('submenu.categories', 'Categories'),
-      onclick: () => openGameCategoriesModal(gameInfo),
+      onclick: () => openGameCategoriesModal(game),
       show: true,
       icon: <List />
     },
@@ -417,7 +452,7 @@ const GameCard = ({
     },
     {
       label: t('button.remove_from_recent', 'Remove From Recent'),
-      onclick: async () => window.api.removeRecentGame(appName),
+      onclick: async () => window.api.removeRecentGame(game),
       show: isRecent,
       icon: <PlaylistRemove />
     },
@@ -439,7 +474,6 @@ const GameCard = ({
   })
 
   const imgClasses = classNames('gameImg', { installed: isInstalled })
-  const logoClasses = classNames('gameLogo', { installed: isInstalled })
 
   const showUpdateButton =
     hasUpdate && !isUpdating && !isQueued && !notAvailable
@@ -463,8 +497,7 @@ const GameCard = ({
     <div>
       {showUninstallModal && (
         <UninstallModal
-          appName={appName}
-          runner={runner}
+          game={game}
           isDlc={Boolean(gameInfo.install.is_dlc)}
           onClose={() => setShowUninstallModal(false)}
         />
@@ -489,6 +522,14 @@ const GameCard = ({
             }
           >
             <StoreLogos runner={runner} />
+            {gameInfo.isFamilyShare && (
+              <span
+                className="store-icon family-share-icon"
+                title={t('label.steam-family-share', 'Steam Family Sharing')}
+              >
+                <FamilyShareIcon />
+              </span>
+            )}
             {justPlayed ? (
               <CachedImage
                 src={art_cover || fallBackImage}
@@ -497,16 +538,11 @@ const GameCard = ({
               />
             ) : (
               <CachedImage
-                src={getImageFormatting(cover, runner)}
+                src={steamCover || getImageFormatting(cover, runner)}
+                fallback={art_cover}
                 className={imgClasses}
                 alt="cover"
-              />
-            )}
-            {(justPlayed || runner !== 'nile') && logo && (
-              <CachedImage
-                alt="logo"
-                src={`${logo}?h=400&resize=1&w=300`}
-                className={logoClasses}
+                onError={handleCoverError}
               />
             )}
             {haveStatus && (
@@ -536,6 +572,10 @@ const GameCard = ({
               {getStoreName(runner, t2('Other'))}
             </span>
           </Link>
+          <CloudSyncStatus
+            gameInfo={gameInfo}
+            className="store-icon cloud-sync-icon"
+          />
           <>
             <span className="icons">
               {showUpdateButton && (
@@ -552,7 +592,7 @@ const GameCard = ({
                   <SvgButton
                     title={`${t('submenu.settings')} (${title})`}
                     className="settingsIcon"
-                    onClick={() => openGameSettingsModal(gameInfo)}
+                    onClick={() => openGameSettingsModal(game)}
                   >
                     <SettingsIcon />
                   </SvgButton>
@@ -566,7 +606,7 @@ const GameCard = ({
     </div>
   )
 
-  async function handlePlay(runner: Runner) {
+  async function handlePlay() {
     if (!isInstalled && !isQueued && gameInfo.runner !== 'sideload') {
       return install({
         gameInfo,
@@ -580,12 +620,12 @@ const GameCard = ({
     }
 
     if (isPlaying || isUpdating) {
-      return sendKill(appName, runner)
+      return sendKill(game)
     }
 
     if (isQueued) {
       storage.removeItem(appName)
-      return window.api.removeFromDMQueue(appName)
+      return window.api.removeFromDMQueue(game)
     }
 
     if (isInstalled) {
@@ -593,9 +633,8 @@ const GameCard = ({
       const isOffline = connectivity.status !== 'online'
       const notPlayableOffline = isOffline && !gameInfo.canRunOffline
       await launch({
-        appName,
+        game,
         t,
-        runner,
         hasUpdate,
         showDialogModal,
         notPlayableOffline
