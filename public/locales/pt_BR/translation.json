@@ -8,8 +8,8 @@
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Desative o fechamento de caixas de diálogo ao clicar fora",
         "titles_always_visible": "Sempre exibir títulos dos jogos na biblioteca",
-        "actions_font_family_default": "Ações de família de fontes (padrão: {{fontFamily}})",
-        "content_font_family_default": "Conteúdo de família de fontes (padrão: {{fontFamily}})",
+        "actions_font_family_default": "Família da fonte das ações (padrão: {{fontFamily}})",
+        "content_font_family_default": "Família da fonte do conteúdo (padrão: {{fontFamily}})",
         "disable_smooth_scrolling": "Desativar rolagem suave (O Heroic precisará ser reiniciado)",
         "disable_animations": "Desativar animações da interface de usuário"
     },
@@ -222,7 +222,12 @@
             "select": "Selecionar",
             "space": "Espaço",
             "update_game": "Atualizar jogo",
-            "exit": "Sair"
+            "exit": "Sair",
+            "move_focus": "Mover foco",
+            "next_page": "Próxima página",
+            "previous_page": "Página anterior",
+            "search": "Pesquisar",
+            "url_bar": "Barra de URL"
         }
     },
     "docs": "Documentação",
@@ -525,7 +530,7 @@
         },
         "gameargs": {
             "placeholder": "Adicione os argumentos de inicialização aqui",
-            "title": "Argumentos do jogo (para serem utilizados após o comando):",
+            "title": "Argumentos do jogo (adicionados ao comando de inicialização do jogo)",
             "error": {
                 "command": "A sintaxe %command% do Steam é inválida como argumento de jogo.",
                 "env": "As variáveis de ambiente devem ser configuradas na tabela abaixo."
@@ -820,7 +825,9 @@
         "hide-window-on-protocol-launch": "Ocultar a janela do Heroic ao iniciar jogos por links heroic://",
         "nvidiaprime": {
             "description": "Força o uso da GPU dedicada do NVIDIA Optimus ou do AMD Dynamic Switchable Graphics. SOMENTE use isto para jogos OpenGL e Vulkan."
-        }
+        },
+        "gamepad-initial-repeat-delay": "Atraso inicial de repetição da entrada do controle",
+        "gamepad-repeat-frequency": "Frequência de repetição da entrada do controle"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -991,7 +998,8 @@
             "back": "Voltar",
             "forward": "Avançar",
             "openInBrowser": "Abrir no navegador",
-            "reload": "Recarregar página"
+            "reload": "Recarregar página",
+            "home": "Ir para a página inicial da loja"
         }
     },
     "wine": {
@@ -1140,7 +1148,7 @@
         "enable": "Habilitar",
         "info": {
             "pt1": "Como maneira de aperfeiçoar o app, o Heroic coleta dados de maneira 100% anônima.",
-            "pt2": "Heroic usa o sistema de código aberto Plausible Analytics para coletar dados básicos: Versão do app, Sistema operacional, Lojas conectadas e País.",
+            "pt2": "O Heroic utiliza a plataforma de análise de dados de código aberto Plausible Analytics, hospedada pela própria equipe do Heroic, para coletar dados básicos: versão do aplicativo, sistema operacional, arquitetura do sistema, distribuição Linux, lojas conectadas e país.",
             "pt3": "Nunca serão coletadas informações pessoais, incluindo seu nome de usuário, endereço IP ou E-mail.",
             "pt4": "Esses dados serão utilizados para nos dar entendimento no que deveremos focar, devido aos nossos recursos limitados e Feedback de Usuários.",
             "pt5": "Plausible Analytics é totalmente compatível com legislações como GDPR, CCPA e PECR.",
@@ -1185,7 +1193,8 @@
                 "PL": "Polônia",
                 "BR": "Brasil",
                 "CH": "Suíça",
-                "TR": "Turquia"
+                "TR": "Turquia",
+                "ZA": "África do Sul"
             },
             "auto": "Auto ({{code}})",
             "label": "Região da Loja"
@@ -1237,9 +1246,23 @@
             "prev": "Anterior"
         },
         "tabs": {
-            "label": "Store"
+            "label": "Loja",
+            "all": "Todas as lojas"
         },
-        "titleMulti": "Descontos"
+        "titleMulti": "Descontos",
+        "currency": {
+            "label": "Moeda"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — chave {{drm}}, resgatada fora do Heroic",
+            "gmgHint": "Green Man Gaming — chave para uma loja externa, não instalável pelo Heroic",
+            "humbleHint": "Humble Bundle — chave para uma loja externa, não instalável pelo Heroic"
+        },
+        "view": {
+            "grid": "Grade",
+            "label": "Modo de exibição",
+            "list": "Lista"
+        }
     },
     "steamgriddb": {
         "error": {
