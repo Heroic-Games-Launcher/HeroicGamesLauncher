@@ -9,6 +9,7 @@ import { libraryManagerMap } from '../index'
 import { clearCache } from 'backend/utils'
 import { app, session } from 'electron'
 import { gogdlAuthConfig } from './constants'
+import { WEBVIEW_PARTITION } from 'common/constants/webview'
 
 function authLogSanitizer(line: string) {
   try {
@@ -130,7 +131,7 @@ export class GOGUser {
     if (existsSync(gogdlAuthConfig)) {
       unlinkSync(gogdlAuthConfig)
     }
-    const ses = session.fromPartition('persist:gog')
+    const ses = session.fromPartition(WEBVIEW_PARTITION.gog)
     ses.clearStorageData().catch(() => {})
     ses.clearCache().catch(() => {})
     ses.clearAuthCache().catch(() => {})
