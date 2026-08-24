@@ -17,10 +17,6 @@ exports.default = async function sign(configuration) {
     return
   }
 
-  if (configuration.path.includes('app.asar.unpacked')) {
-    return
-  }
-
   const outputPath = `${configuration.path}.signed`
 
   const commandParts = [
