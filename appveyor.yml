@@ -19,7 +19,7 @@ environment:
     secure: havQJWi4z2xX9aYI2szN9f89BROoFFzFQCELaBflr3ZOjJXq2P/xNsmgYbJtJoWw
 
 build_script:
-  - npm run sign:win
+  - npm run release:win
   - 7z.exe a -tzip dist\HeroicWin.zip dist\*x64.exe dist\*arm64.exe dist\*.blockmap dist\*.yml
 
 test: off
