@@ -30,8 +30,8 @@ jobs:
         with:
           name: unsigned-binaries
           path: |
-            dist/win-unpacked/**/*.exe
-            dist/win-arm64-unpacked/**/*.exe
+            dist/win-unpacked/Heroic.exe
+            dist/win-arm64-unpacked/Heroic.exe
           retention-days: 1
       - name: Sign binaries
         uses: signpath/github-action-submit-signing-request@v2
