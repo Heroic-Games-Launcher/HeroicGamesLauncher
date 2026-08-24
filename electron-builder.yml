@@ -25,10 +25,6 @@ protocols:
 win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
   icon: build/win_icon.ico
-  signtoolOptions:
-    sign: ./sign/signpath.js
-    signingHashAlgorithms:
-      - sha256
   target:
     - nsis
   files:

@@ -32,7 +32,7 @@
     "test:e2e": "electron-vite build && cross-env CI=e2e xvfb-maybe -- playwright test",
     "release:linux": "electron-vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz",
     "release:mac": "electron-vite build && electron-builder -p always --mac --x64 --arm64",
-    "release:win": "electron-vite build && electron-builder -p onTag --win nsis portable --x64 --arm64",
+    "release:win": "electron-vite build && electron-builder -p always --win portable --x64",
     "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
     "dist:linux": "electron-vite build && electron-builder --linux",
     "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && electron-vite build && electron-builder --mac",
