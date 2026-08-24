@@ -52,6 +52,7 @@ exports.default = async function sign(configuration) {
     ],
     {
       stdio: 'inherit',
+      timeout: 10 * 60 * 1000,
       env: {
         ...process.env,
         SIGNPATH_INPUT: configuration.path,

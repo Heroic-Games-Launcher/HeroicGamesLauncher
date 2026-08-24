@@ -10,7 +10,10 @@ install:
   - npm install -g pnpm@10
   - pnpm install
   - pnpm download-helper-binaries
-  - ps: Install-Module -Name SignPath -Force -Scope CurrentUser
+  - ps: >-
+      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
+      Install-PackageProvider -Name NuGet -Force -Scope CurrentUser | Out-Null;
+      Install-Module -Name SignPath -Force -Scope CurrentUser
 
 environment:
   GH_TOKEN:
