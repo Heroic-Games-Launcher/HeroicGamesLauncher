@@ -10,10 +10,13 @@ install:
   - npm install -g pnpm@10
   - pnpm install
   - pnpm download-helper-binaries
+  - ps: Install-Module -Name SignPath -Force -Scope CurrentUser
 
 environment:
   GH_TOKEN:
     secure: kZMGyhBmfPsJKEryrd+I7gTEudm8tW0jSrKKhtT/3fbqKQzndTWp47C1Eetx5kFs
+  SIGNPATH_API_TOKEN:
+    secure: havQJWi4z2xX9aYI2szN9f89BROoFFzFQCELaBflr3ZOjJXq2P/xNsmgYbJtJoWw
 
 build_script:
   - npm run sign:win
@@ -24,9 +27,3 @@ test: off
 artifacts:
   - path: dist\HeroicWin.zip
     name: Heroic_Windows_Files
-
-deploy:
-  - provider: Webhook
-    url: https://app.signpath.io/API/v1/f7f99393-5adb-408c-8ca3-67e07cfe31e6/Integrations/AppVeyor?ProjectSlug=HeroicGamesLauncher&SigningPolicySlug=release-signing
-    authorization:
-      secure: 0xlTR3DMFume9u66Kf7WkMP1sMl9S7GMoP8vZgrIAKr/eHXCKfLBM+LbmACtCHWoqeTXVIuAYCfUJIPoJt1SBA==
