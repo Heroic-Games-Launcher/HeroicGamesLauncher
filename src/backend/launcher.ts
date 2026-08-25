@@ -881,7 +881,6 @@ async function prepareWineLaunch(
     )
   }
 
-  await verifyWinePrefix(gameSettings)
   const experimentalFeatures =
     GlobalConfig.get().getSettings().experimentalFeatures
 
