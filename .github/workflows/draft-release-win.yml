@@ -75,6 +75,7 @@ jobs:
           github-artifact-id: ${{ steps.upload-unsigned-installers.outputs.artifact-id }}
           wait-for-completion: true
           wait-for-completion-timeout-in-seconds: 1800
+          github-token: ${{ secrets.GH_TOKEN }}
           output-artifact-directory: signed-installers
       - name: Restore signed installers
         run: |
@@ -93,7 +94,7 @@ jobs:
       - name: Publish to draft release
         if: startsWith(github.ref, 'refs/tags/')
         env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh release view $env:GITHUB_REF_NAME
           if ($LASTEXITCODE -ne 0) {
