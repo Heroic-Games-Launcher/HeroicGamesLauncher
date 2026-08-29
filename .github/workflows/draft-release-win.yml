@@ -11,7 +11,7 @@ on:
 env:
   SIGNPATH_ORGANIZATION_ID: f7f99393-5adb-408c-8ca3-67e07cfe31e6
   SIGNPATH_PROJECT_SLUG: HeroicGamesLauncher
-  SIGNPATH_POLICY_SLUG: ${{ startsWith(github.ref, 'refs/tags/') && 'release-signing' || 'test-signing' }}
+  SIGNPATH_POLICY_SLUG: 'release-signing'
   SIGNPATH_ARTIFACT_CONFIGURATION_SLUG: zipped-pe-files
 
 jobs:
