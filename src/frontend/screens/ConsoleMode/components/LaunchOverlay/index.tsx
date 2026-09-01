@@ -12,9 +12,16 @@ import { useContext, useEffect } from 'react'
 import {
   useCancelOnHold,
   useGamepadButtonHold,
+  useGamepadComboHold,
   useGamepadInfo
 } from '../../hooks'
-import { getBackButtonIndex } from '../../controller'
+import {
+  BTN_R2,
+  BTN_SELECT,
+  getBackButtonIndex,
+  getR2ButtonLabel,
+  getSelectButtonLabel
+} from '../../controller'
 import { launch, sendKill } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 
@@ -29,12 +36,12 @@ export default function LaunchOverlay({
 }) {
   const { t } = useTranslation()
   const { status, statusContext } = hasStatus(game)
+  const isPlaying = status === 'playing'
   let label: string | null = null
 
   const { showDialogModal } = useContext(ContextProvider)
 
-  // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
-  // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
+  // Held long enough, kills the game
   const { holdStart, startHold, stopHold } = useCancelOnHold({
     active: !!game,
     holdMs: CANCEL_HOLD_MS,
@@ -81,11 +88,20 @@ export default function LaunchOverlay({
   }, [])
 
   const { layout } = useGamepadInfo()
+  // Back hold only while launching (#5520)
   useGamepadButtonHold(
     getBackButtonIndex(layout),
     (held) => (held ? startHold() : stopHold()),
-    !!game
+    !!game && !isPlaying
   )
+  // Select+R2 combo closes running game (#5577)
+  useGamepadComboHold(
+    [BTN_SELECT, BTN_R2],
+    (held) => (held ? startHold() : stopHold()),
+    !!game && isPlaying
+  )
+  // Discard pending hold on phase change
+  useEffect(() => stopHold(), [isPlaying, stopHold])
 
   switch (status) {
     case 'syncing-saves':
@@ -124,7 +140,16 @@ export default function LaunchOverlay({
       </div>
       <BackHint
         prefix={t('console.cancel.hintPrefix', 'Hold')}
-        suffix={t('console.cancel.hintSuffix', 'for 3s to cancel')}
+        suffix={
+          isPlaying
+            ? t('console.close.hintSuffix', 'for 3s to close the game')
+            : t('console.cancel.hintSuffix', 'for 3s to cancel')
+        }
+        buttons={
+          isPlaying
+            ? [getSelectButtonLabel(layout), getR2ButtonLabel(layout)]
+            : undefined
+        }
         active={holdStart != null}
       />
     </div>

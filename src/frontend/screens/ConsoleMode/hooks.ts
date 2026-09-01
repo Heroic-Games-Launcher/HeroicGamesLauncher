@@ -78,6 +78,39 @@ export function useGamepadButtonHold(
   }, [buttonIndex, enabled])
 }
 
+export function useGamepadComboHold(
+  buttonIndices: number[],
+  onChange: (held: boolean) => void,
+  enabled = true
+) {
+  const handlerRef = useRef(onChange)
+  handlerRef.current = onChange
+
+  // Stable key avoids re-running on rerenders
+  const comboKey = buttonIndices.join(',')
+
+  useEffect(() => {
+    if (!enabled) return
+    const indices = comboKey.split(',').map(Number)
+    const comboPressed = (gp: Gamepad) =>
+      indices.every((i) => isPressed(gp.buttons[i]))
+    const anyComboHeld = () =>
+      Array.from(navigator.getGamepads()).some((gp) => gp && comboPressed(gp))
+    let held = anyComboHeld()
+    let raf = 0
+    const tick = () => {
+      const anyHeld = anyComboHeld()
+      if (anyHeld !== held) {
+        held = anyHeld
+        handlerRef.current(anyHeld)
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [comboKey, enabled])
+}
+
 export function useGamepadInfo() {
   const [connected, setConnected] = useState(false)
   const [layout, setLayout] = useState<ControllerLayout>('xbox')

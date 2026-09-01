@@ -231,6 +231,9 @@
         "card": {
             "needsUpdate": "Needs update"
         },
+        "close": {
+            "hintSuffix": "for 3s to close the game"
+        },
         "empty": "No installed games to show. Install something first.",
         "filter": {
             "all": "All",
