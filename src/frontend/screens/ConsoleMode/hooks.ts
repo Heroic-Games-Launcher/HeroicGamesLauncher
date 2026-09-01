@@ -111,6 +111,13 @@ export function useGamepadComboHold(
   }, [comboKey, enabled])
 }
 
+// One-off check outside hook ticks
+export function isGamepadButtonHeld(buttonIndex: number) {
+  return Array.from(navigator.getGamepads()).some(
+    (gp) => gp && isPressed(gp.buttons[buttonIndex])
+  )
+}
+
 export function useGamepadInfo() {
   const [connected, setConnected] = useState(false)
   const [layout, setLayout] = useState<ControllerLayout>('xbox')

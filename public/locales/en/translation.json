@@ -242,9 +242,9 @@
         "games": "Installed games",
         "hints": {
             "change_store": "Change store",
+            "hold_quit": "Hold to quit",
             "launch": "Launch",
             "navigate": "Navigate",
-            "quit": "Quit",
             "sort": "Sort"
         },
         "install": {
@@ -259,6 +259,10 @@
         "loading": "Loading your library…",
         "quit": "Quit Console",
         "quitApp": "Quit App",
+        "quitHold": {
+            "hintSuffix": "for 3s to quit"
+        },
+        "quitting": "Quitting console",
         "removeFromQueue": {
             "message": "This game is queued for download. Remove it from the queue?"
         },

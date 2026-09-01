@@ -294,13 +294,8 @@ export const initGamepad = () => {
         return
       }
 
-      // `back` hits webContents.goBack() on the backend, which would pop
-      // out of /console during a launch or while a console modal is open.
-      if (
-        action === 'back' &&
-        (document.body.classList.contains('console-launching') ||
-          document.body.classList.contains('console-modal-open'))
-      ) {
+      // Back must not leave Console Mode
+      if (action === 'back' && window.location.hash.startsWith('#/console')) {
         return
       }
 
