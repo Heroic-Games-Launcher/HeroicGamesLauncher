@@ -13,6 +13,7 @@ env:
   SIGNPATH_PROJECT_SLUG: HeroicGamesLauncher
   SIGNPATH_POLICY_SLUG: 'release-signing'
   SIGNPATH_ARTIFACT_CONFIGURATION_SLUG: zipped-pe-files
+  SIGNPATH_INSTALLER_CONFIGURATION_SLUG: zip-Installers
 
 jobs:
   draft-release:
@@ -71,7 +72,7 @@ jobs:
           organization-id: ${{ env.SIGNPATH_ORGANIZATION_ID }}
           project-slug: ${{ env.SIGNPATH_PROJECT_SLUG }}
           signing-policy-slug: ${{ env.SIGNPATH_POLICY_SLUG }}
-          artifact-configuration-slug: ${{ env.SIGNPATH_ARTIFACT_CONFIGURATION_SLUG }}
+          artifact-configuration-slug: ${{ env.SIGNPATH_INSTALLER_CONFIGURATION_SLUG }}
           github-artifact-id: ${{ steps.upload-unsigned-installers.outputs.artifact-id }}
           wait-for-completion: true
           wait-for-completion-timeout-in-seconds: 1800
