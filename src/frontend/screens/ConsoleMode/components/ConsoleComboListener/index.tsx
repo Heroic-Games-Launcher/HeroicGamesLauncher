@@ -11,8 +11,14 @@ export default function ConsoleComboListener() {
     holdMs: 3000,
     onCancel: () => navigate('/console')
   })
-  useGamepadComboHold([BTN_SELECT, BTN_R2], (held) =>
-    held ? startHold() : stopHold()
-  )
+  useGamepadComboHold([BTN_SELECT, BTN_R2], (held) => {
+    if (held) {
+      // Surface Heroic during the countdown
+      window.api.focusMainWindow()
+      startHold()
+    } else {
+      stopHold()
+    }
+  })
   return null
 }

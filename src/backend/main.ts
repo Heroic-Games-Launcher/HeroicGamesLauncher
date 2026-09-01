@@ -60,6 +60,7 @@ import {
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
+import { kwinActivateWindow } from './utils/kwin_activate'
 
 import {
   getDiskInfo,
@@ -596,6 +597,16 @@ addListener('openSupportPage', async () => openUrlOrFile(supportURL))
 addListener('openReleases', async () => openUrlOrFile(heroicGithubURL))
 addListener('openWeblate', async () => openUrlOrFile(weblateUrl))
 addListener('showAboutWindow', () => showAboutWindow())
+addListener('focusMainWindow', async () => {
+  const mainWindow = getMainWindow()
+  if (!mainWindow) return
+  if (mainWindow.isMinimized()) mainWindow.restore()
+  mainWindow.show()
+  mainWindow.focus()
+  if (mainWindow.isFocused()) return
+  // Wayland compositors reject plain focus()
+  await kwinActivateWindow(mainWindow.getTitle()).catch(() => {})
+})
 addListener('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 addListener('openDiscordLink', async () => openUrlOrFile(discordLink))
 addListener('openPatreonPage', async () => openUrlOrFile(patreonPage))
