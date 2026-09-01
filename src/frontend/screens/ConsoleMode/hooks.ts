@@ -7,6 +7,7 @@ import {
   type RefObject
 } from 'react'
 
+import { isControllerNavDisabled } from 'frontend/helpers/gamepad'
 import { detectControllerLayout, type ControllerLayout } from './controller'
 
 function isPressed(btn: GamepadButton | undefined) {
@@ -32,10 +33,12 @@ export function useGamepadButtonPress(
     }
     let raf = 0
     const tick = () => {
+      // Live check honours disable setting
+      const disabled = isControllerNavDisabled()
       for (const gp of navigator.getGamepads()) {
         if (!gp) continue
         const pressed = isPressed(gp.buttons[buttonIndex])
-        if (pressed && !prev.get(gp.index)) handlerRef.current()
+        if (pressed && !prev.get(gp.index) && !disabled) handlerRef.current()
         prev.set(gp.index, pressed)
       }
       raf = requestAnimationFrame(tick)
@@ -60,11 +63,14 @@ export function useGamepadButtonHold(
     )
     let raf = 0
     const tick = () => {
+      // Disabled controllers report nothing held
       let anyHeld = false
-      for (const gp of navigator.getGamepads()) {
-        if (gp && isPressed(gp.buttons[buttonIndex])) {
-          anyHeld = true
-          break
+      if (!isControllerNavDisabled()) {
+        for (const gp of navigator.getGamepads()) {
+          if (gp && isPressed(gp.buttons[buttonIndex])) {
+            anyHeld = true
+            break
+          }
         }
       }
       if (anyHeld !== held) {
