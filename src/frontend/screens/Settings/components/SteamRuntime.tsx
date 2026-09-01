@@ -1,7 +1,6 @@
 import { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
@@ -19,8 +18,6 @@ const RUNTIME_NAMES = {
 function SteamRuntime() {
   const { t } = useTranslation()
   const { isLinuxNative } = useContext(SettingsContext)
-  const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
   const [steamRuntime, setSteamRuntime] = useSetting('steamRuntime', false)
 
   const parseAndSet = useCallback(
@@ -39,7 +36,7 @@ function SteamRuntime() {
     [setSteamRuntime]
   )
 
-  if (!(isLinux && isLinuxNative)) return <></>
+  if (!isLinuxNative) return <></>
 
   return (
     <>
