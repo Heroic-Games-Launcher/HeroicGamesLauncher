@@ -23,6 +23,7 @@ import 'backend/updater'
 import 'backend/discounts'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
+import { execFile } from 'child_process'
 import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
 
@@ -61,6 +62,10 @@ import {
 } from './utils'
 import { startPlausible } from './utils/plausible'
 import { kwinActivateWindow } from './utils/kwin_activate'
+import {
+  forceForegroundWindow,
+  toggleForegroundWindow
+} from './utils/win_foreground'
 
 import {
   getDiskInfo,
@@ -597,16 +602,49 @@ addListener('openSupportPage', async () => openUrlOrFile(supportURL))
 addListener('openReleases', async () => openUrlOrFile(heroicGithubURL))
 addListener('openWeblate', async () => openUrlOrFile(weblateUrl))
 addListener('showAboutWindow', () => showAboutWindow())
+let focusInFlight = false
 addListener('focusMainWindow', async () => {
   const mainWindow = getMainWindow()
-  if (!mainWindow) return
+  if (!mainWindow || focusInFlight) return
+  focusInFlight = true
+  try {
+    await bringMainWindowForward(mainWindow)
+  } finally {
+    focusInFlight = false
+  }
+})
+
+// Short View+R2 press: Heroic <-> the app that was in front (Windows)
+addListener('toggleMainWindowFocus', async () => {
+  const mainWindow = getMainWindow()
+  if (!mainWindow || focusInFlight) return
+  focusInFlight = true
+  try {
+    if (isWindows) {
+      const result = await toggleForegroundWindow(mainWindow)
+      logInfo(['toggleMainWindowFocus', result.detail], LogPrefix.Backend)
+    } else {
+      await bringMainWindowForward(mainWindow)
+    }
+  } finally {
+    focusInFlight = false
+  }
+})
+
+async function bringMainWindowForward(mainWindow: BrowserWindow) {
   if (mainWindow.isMinimized()) mainWindow.restore()
   mainWindow.show()
   mainWindow.focus()
+  if (isWindows) {
+    // isFocused() is thread-local on Windows, always ask the OS instead
+    const result = await forceForegroundWindow(mainWindow)
+    logInfo(['focusMainWindow', result.detail], LogPrefix.Backend)
+    return
+  }
   if (mainWindow.isFocused()) return
   // Wayland compositors reject plain focus()
   await kwinActivateWindow(mainWindow.getTitle()).catch(() => {})
-})
+}
 addListener('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 addListener('openDiscordLink', async () => openUrlOrFile(discordLink))
 addListener('openPatreonPage', async () => openUrlOrFile(patreonPage))
@@ -1170,6 +1208,18 @@ addHandler(
   async (event, appName, runner, alreadyDefinedGogSaves) =>
     getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
+
+// Asked when the user flips controller modes by hand, Steam owns them otherwise
+addHandler('isSteamRunning', async () => {
+  const [bin, args] = isWindows
+    ? ['tasklist', ['/FI', 'IMAGENAME eq steam.exe', '/NH']]
+    : ['pgrep', ['-x', 'steam']]
+  return new Promise<boolean>((resolve) => {
+    execFile(bin, args, (error, stdout) => {
+      resolve(!error && /steam/i.test(stdout))
+    })
+  })
+})
 
 // Simulate keyboard and mouse actions as if the real input device is used
 addHandler('gamepadAction', async (event, args) => {
