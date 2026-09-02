@@ -19,6 +19,7 @@ import { ChildProcess } from 'child_process'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
+import type { SteamRuntimeName } from './types/umu'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
@@ -255,7 +256,7 @@ export interface GameSettings {
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
-  useSteamRuntime: boolean
+  steamRuntime: SteamRuntimeName | false
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -427,12 +428,6 @@ export interface GOGImportData {
   platform: GogInstallPlatform
   versionName: string
   dlcs: string[]
-}
-
-export interface SteamRuntime {
-  path: string
-  type: 'sniper' | 'scout' | 'soldier'
-  args: string[]
 }
 
 export interface LaunchPreperationResult {
