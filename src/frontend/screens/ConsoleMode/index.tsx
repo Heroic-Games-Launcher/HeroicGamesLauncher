@@ -36,6 +36,7 @@ import {
   isGamepadButtonHeld,
   useCancelOnHold,
   useColumnCount,
+  useComboShortPress,
   useGamepadButtonPress,
   useGamepadComboHold,
   useGamepadInfo
@@ -421,10 +422,22 @@ export default function ConsoleMode() {
     }
   }, [idle, startQuitHold, stopQuitHold])
 
+  // Short View+R2 press switches to the previous app and back
+  const shortPress = useComboShortPress(() =>
+    window.api.toggleMainWindowFocus()
+  )
   // View+R2 hold quits Console Mode
   useGamepadComboHold(
     [BTN_SELECT, BTN_R2],
-    (held) => (held ? startQuitHold() : stopQuitHold()),
+    (held) => {
+      if (held) {
+        shortPress.down()
+        startQuitHold()
+      } else {
+        shortPress.up()
+        stopQuitHold()
+      }
+    },
     idle
   )
 

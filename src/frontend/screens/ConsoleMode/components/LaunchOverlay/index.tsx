@@ -11,6 +11,7 @@ import type { GameInfo, Runner } from 'common/types'
 import { useContext, useEffect } from 'react'
 import {
   useCancelOnHold,
+  useComboShortPress,
   useGamepadButtonHold,
   useGamepadComboHold,
   useGamepadInfo
@@ -94,10 +95,22 @@ export default function LaunchOverlay({
     (held) => (held ? startHold() : stopHold()),
     !!game && !isPlaying
   )
+  // Short View+R2 press switches between Heroic and the game
+  const shortPress = useComboShortPress(() =>
+    window.api.toggleMainWindowFocus()
+  )
   // Select+R2 combo closes running game (#5577)
   useGamepadComboHold(
     [BTN_SELECT, BTN_R2],
-    (held) => (held ? startHold() : stopHold()),
+    (held) => {
+      if (held) {
+        shortPress.down()
+        startHold()
+      } else {
+        shortPress.up()
+        stopHold()
+      }
+    },
     !!game && isPlaying
   )
   // Discard pending hold on phase change

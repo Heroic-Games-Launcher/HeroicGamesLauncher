@@ -1,22 +1,33 @@
 import { useNavigate } from 'react-router-dom'
 
-import { useCancelOnHold, useGamepadComboHold } from '../../hooks'
+import {
+  useCancelOnHold,
+  useComboShortPress,
+  useGamepadComboHold
+} from '../../hooks'
 import { BTN_R2, BTN_SELECT } from '../../controller'
 
-// View+R2 hold enters Console Mode
+// View+R2: short press switches between Heroic and the game, 3 s hold
+// brings Heroic forward and enters Console Mode
 export default function ConsoleComboListener() {
   const navigate = useNavigate()
   const { startHold, stopHold } = useCancelOnHold({
     active: true,
     holdMs: 3000,
-    onCancel: () => navigate('/console')
+    onCancel: () => {
+      window.api.focusMainWindow()
+      navigate('/console')
+    }
   })
+  const shortPress = useComboShortPress(() =>
+    window.api.toggleMainWindowFocus()
+  )
   useGamepadComboHold([BTN_SELECT, BTN_R2], (held) => {
     if (held) {
-      // Surface Heroic during the countdown
-      window.api.focusMainWindow()
+      shortPress.down()
       startHold()
     } else {
+      shortPress.up()
       stopHold()
     }
   })
