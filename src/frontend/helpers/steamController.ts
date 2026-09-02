@@ -60,7 +60,7 @@ const SETTING_LIZARD_MODE = 9
 const LIZARD_MODE_OFF = 0
 const LIZARD_MODE_ON = 1
 
-export const STEAM_CONTROLLER_INDEX = 8
+const STEAM_CONTROLLER_INDEX = 8
 
 type MutableButton = { pressed: boolean; touched: boolean; value: number }
 type SyntheticGamepad = {
