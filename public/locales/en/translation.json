@@ -292,6 +292,11 @@
             "space": "Space",
             "update_game": "Update game",
             "url_bar": "URL bar"
+        },
+        "mode": {
+            "gamepad": "Gamepad mode",
+            "hint": "Hold Start for 1s to switch",
+            "lizard": "Keyboard & mouse mode"
         }
     },
     "discounts": {
