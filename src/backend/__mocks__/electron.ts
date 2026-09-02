@@ -38,6 +38,13 @@ class Notification {
 class BrowserWindow {
   static windows: BrowserWindow[] = []
   options: BrowserWindowConstructorOptions = {}
+  // Enough of the session API for the HID handlers in main_window
+  webContents = {
+    session: {
+      setDevicePermissionHandler: () => undefined,
+      on: () => undefined
+    }
+  }
 
   constructor(options: BrowserWindowConstructorOptions) {
     this.options = options
