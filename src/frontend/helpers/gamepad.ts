@@ -1,3 +1,4 @@
+import { getGamepads } from './steamController'
 import {
   AppSettings,
   GamepadActionStatus,
@@ -699,7 +700,7 @@ export const initGamepad = () => {
 
   // check all the buttons and axes every frame
   function updateStatus() {
-    const gamepads = navigator.getGamepads()
+    const gamepads = getGamepads()
 
     controllers.forEach((index) => {
       const controller = gamepads[index]
@@ -809,7 +810,7 @@ export const initGamepad = () => {
     }
 
     // if not disconnected event, look for id
-    const gamepads = navigator.getGamepads()
+    const gamepads = getGamepads()
     const gamepad = gamepads[controllerIndex]
     if (!gamepad) {
       return
