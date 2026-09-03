@@ -81,6 +81,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
    * Loads all of the user's games into `allGames`
    */
   loadGamesInAccount() {
+    allGames.clear()
     if (!existsSync(legendaryMetadata)) {
       return
     }
@@ -174,6 +175,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
     await this.refreshLegendary()
     this.loadGamesInAccount()
     this.refreshInstalled()
+    library.clear()
 
     try {
       await this.loadAll()
@@ -696,6 +698,10 @@ export default class LegendaryLibraryManager implements LibraryManager {
     options ??= {}
     options.env ??= {}
     options.env['LEGENDARY_CONFIG_PATH'] = legendaryConfigPath
+
+    if (!options.env.LEGENDARY_CONFIG_PATH) {
+      options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
+    }
 
     const commandParts = this.commandToArgsArray(command)
 

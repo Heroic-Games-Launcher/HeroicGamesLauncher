@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import Runner from './components/Runner'
+import EpicAccountsManager from './components/EpicAccountsManager'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -80,6 +81,11 @@ export default React.memo(function NewLogin() {
     navigate('/')
   }
 
+  async function handleAddEpicAccount() {
+    await window.api.clearLegendaryWebSession()
+    navigate(`${epicLoginPath}?add-account=${Date.now()}`)
+  }
+
   if (loading) {
     return <UpdateComponent />
   }
@@ -129,6 +135,16 @@ export default React.memo(function NewLogin() {
               }}
               disabled={oldMac}
             />
+            {(isEpicLoggedIn || epic.accounts.length > 0) && (
+              <EpicAccountsManager
+                accounts={epic.accounts}
+                activeAccountId={epic.activeAccountId}
+                disabled={oldMac}
+                onAddAccount={handleAddEpicAccount}
+                onRemoveAccount={epic.removeAccount}
+                onSwitchAccount={epic.switchAccount}
+              />
+            )}
             <Runner
               class="gog"
               buttonText={t('login.gog', 'GOG Login')}

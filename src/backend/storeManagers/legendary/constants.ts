@@ -6,6 +6,16 @@ export const legendaryConfigPath = join(
   'legendaryConfig',
   'legendary'
 )
+export const legendaryAccountsPath = join(
+  appFolder,
+  'legendaryConfig',
+  'accounts'
+)
+export const legendaryTempLoginPath = join(
+  appFolder,
+  'legendaryConfig',
+  'login'
+)
 export const legendaryUserInfo = join(legendaryConfigPath, 'user.json')
 export const legendaryInstalled = join(legendaryConfigPath, 'installed.json')
 export const thirdPartyInstalled = join(
