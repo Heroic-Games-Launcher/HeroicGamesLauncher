@@ -220,6 +220,13 @@ export default function SidebarLinks() {
               className="SidebarLinks__subItem"
               label={t('settings.navbar.log', 'Log')}
             />
+
+            <SidebarItem
+              url="/settings/importexport"
+              isActiveFallback={type === 'importexport'}
+              className="SidebarLinks__subItem"
+              label={t('settings.navbar.importExport', 'Import / Export')}
+            />
           </div>
         )}
       </div>

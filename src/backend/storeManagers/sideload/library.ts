@@ -1,12 +1,14 @@
 import { ExecResult, GameInfo } from 'common/types'
-import { readdirSync } from 'graceful-fs'
+import { readFileSync, readdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
 import { libraryStore } from './electronStores'
 import { logWarning } from 'backend/logger'
 import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 import { sendFrontendMessage } from 'backend/ipc'
 import { isMac } from 'backend/constants/environment'
-import { LibraryManager } from 'common/types/game_manager'
+import { LibraryManager, RunnerBackupPaths } from 'common/types/game_manager'
+import { BACKUP_PATHS } from 'backend/importExport/constants'
+import { sideloadLibraryPath } from './constants'
 import SideloadGame from './games'
 
 export default class SideloadLibraryManager implements LibraryManager {
@@ -131,5 +133,26 @@ export default class SideloadLibraryManager implements LibraryManager {
     logWarning(
       'changeVersionPinnedStatus not implemented on Sideload Library Manager'
     )
+  }
+
+  getBackupPaths(): RunnerBackupPaths {
+    return {
+      credentials: [],
+      libraryCache: [],
+      sideloadLibrary: {
+        source: () => sideloadLibraryPath,
+        destInZip: BACKUP_PATHS.sideloadLibrary.library,
+        countGames: () => {
+          try {
+            const data = JSON.parse(
+              readFileSync(sideloadLibraryPath, 'utf-8')
+            ) as { games?: unknown[] }
+            return Array.isArray(data.games) ? data.games.length : 0
+          } catch {
+            return 0
+          }
+        }
+      }
+    }
   }
 }
