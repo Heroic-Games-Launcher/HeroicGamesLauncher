@@ -231,6 +231,9 @@
         "card": {
             "needsUpdate": "Needs update"
         },
+        "close": {
+            "hintSuffix": "for 3s to close the game"
+        },
         "empty": "No installed games to show. Install something first.",
         "filter": {
             "all": "All",
@@ -239,9 +242,9 @@
         "games": "Installed games",
         "hints": {
             "change_store": "Change store",
+            "hold_quit": "Hold to quit",
             "launch": "Launch",
             "navigate": "Navigate",
-            "quit": "Quit",
             "sort": "Sort"
         },
         "install": {
@@ -256,6 +259,10 @@
         "loading": "Loading your library…",
         "quit": "Quit Console",
         "quitApp": "Quit App",
+        "quitHold": {
+            "hintSuffix": "for 3s to quit"
+        },
+        "quitting": "Quitting console",
         "removeFromQueue": {
             "message": "This game is queued for download. Remove it from the queue?"
         },
@@ -285,6 +292,11 @@
             "space": "Space",
             "update_game": "Update game",
             "url_bar": "URL bar"
+        },
+        "mode": {
+            "gamepad": "Gamepad mode",
+            "hint": "Hold Start for 1s to switch",
+            "lizard": "Keyboard & mouse mode"
         }
     },
     "discounts": {
@@ -806,6 +818,7 @@
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
+        "enable-controller-in-console-mode": "Always enable controller in Console Mode",
         "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {

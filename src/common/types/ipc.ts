@@ -70,6 +70,8 @@ interface SyncIPCFunctions {
   openReleases: () => void
   openWeblate: () => void
   showAboutWindow: () => void
+  focusMainWindow: () => void
+  toggleMainWindowFocus: () => void
   openLoginPage: () => void
   openDiscordLink: () => void
   openPatreonPage: () => void
@@ -243,6 +245,7 @@ interface AsyncIPCFunctions {
   ) => Promise<string>
   syncSaves: (args: SaveSyncArgs) => Promise<string>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
+  isSteamRunning: () => Promise<boolean>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
   getWebviewPreloadPath: () => string

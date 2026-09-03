@@ -16,6 +16,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill, updateGame } from 'frontend/helpers'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
+import BackHint from './components/BackHint'
 import ConfirmDialog from './components/ConfirmDialog'
 import ConsoleCard from './components/ConsoleCard'
 import ControllerHints from './components/ControllerHints'
@@ -25,15 +26,28 @@ import {
   BTN_L1,
   BTN_R1,
   BTN_R2,
+  BTN_SELECT,
   getActionButtonLabel,
-  getBackButtonLabel
+  getBackButtonLabel,
+  getR2ButtonLabel,
+  getSelectButtonLabel
 } from './controller'
-import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
+import {
+  isGamepadButtonHeld,
+  useCancelOnHold,
+  useColumnCount,
+  useComboShortPress,
+  useGamepadButtonPress,
+  useGamepadComboHold,
+  useGamepadInfo
+} from './hooks'
 
 import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
 
 type StoreKey = Runner | 'all'
+
+const QUIT_HOLD_MS = 3000
 
 const CANCEL_DOWNLOAD_COPY = {
   update: {
@@ -378,18 +392,54 @@ export default function ConsoleMode() {
     }
   }
 
-  // Esc quits when idle. While a game is launching or a dialog is open,
-  // the overlay/dialog handles Esc itself.
+  // Quitting requires a deliberate hold
+  const {
+    holdStart: quitHoldStart,
+    startHold: startQuitHold,
+    stopHold: stopQuitHold
+  } = useCancelOnHold({
+    active: idle,
+    holdMs: QUIT_HOLD_MS,
+    onCancel: quit
+  })
+
+  // Hold Esc while idle to quit
   useEffect(() => {
     if (!idle) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       e.preventDefault()
-      quit()
+      if (!e.repeat) startQuitHold()
+    }
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') stopQuitHold()
     }
     window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [quit, idle])
+    window.addEventListener('keyup', onKeyUp)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keyup', onKeyUp)
+    }
+  }, [idle, startQuitHold, stopQuitHold])
+
+  // Short View+R2 press switches to the previous app and back
+  const shortPress = useComboShortPress(() =>
+    window.api.toggleMainWindowFocus()
+  )
+  // View+R2 hold quits Console Mode
+  useGamepadComboHold(
+    [BTN_SELECT, BTN_R2],
+    (held) => {
+      if (held) {
+        shortPress.down()
+        startQuitHold()
+      } else {
+        shortPress.up()
+        stopQuitHold()
+      }
+    },
+    idle
+  )
 
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
@@ -402,7 +452,14 @@ export default function ConsoleMode() {
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
-  useGamepadButtonPress(BTN_R2, toggleSort, idle)
+  // Skip sort during quit combo
+  useGamepadButtonPress(
+    BTN_R2,
+    () => {
+      if (!isGamepadButtonHeld(BTN_SELECT)) toggleSort()
+    },
+    idle
+  )
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -453,6 +510,14 @@ export default function ConsoleMode() {
             disabled={!!launchingGame}
           >
             {t('console.quit', 'Quit Console')}
+            {gamepadConnected && (
+              <span
+                className={`consoleButtonGlyphs consoleQuitCombo ${controllerLayout}`}
+              >
+                <i className="buttonImage select" />
+                <i className="buttonImage trigger-r" />
+              </span>
+            )}
           </button>
           <button
             className="consoleQuitButton danger"
@@ -527,6 +592,26 @@ export default function ConsoleMode() {
           game={launchingGame}
           onDismiss={() => setLaunchingGame(null)}
         />
+      )}
+
+      {quitHoldStart != null && (
+        <div className="consoleLaunchOverlay" role="status" aria-live="polite">
+          <div className="consoleLaunchSpinner" />
+          <div className="consoleLaunchText">
+            {t('console.quitting', 'Quitting console')}
+          </div>
+          {gamepadConnected && (
+            <BackHint
+              prefix={t('console.cancel.hintPrefix', 'Hold')}
+              suffix={t('console.quitHold.hintSuffix', 'for 3s to quit')}
+              buttons={[
+                getSelectButtonLabel(controllerLayout),
+                getR2ButtonLabel(controllerLayout)
+              ]}
+              active
+            />
+          )}
+        </div>
       )}
 
       {installingGame && (
