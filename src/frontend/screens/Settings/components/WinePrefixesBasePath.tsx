@@ -18,21 +18,21 @@ const WinePrefixesBasePath = () => {
   const { isDefault } = useContext(SettingsContext)
   const isWindows = platform === 'win32'
 
-  const [winePrefixDir, setWinePrefixDir] = useSetting(
+  const [defaultWinePrefixDir, setDefaultWinePrefixDir] = useSetting(
     'defaultWinePrefixDir',
     ''
   )
 
-  const emptyPathWarning = !winePrefixDir ? (
+  const emptyPathWarning = !defaultWinePrefixDir ? (
     <span className="smallInputInfo warning">
       {t(
         'setting.defaultWinePrefixEmpty',
-        'An empty prefix folder may prevent game installations. Default: {{path}}',
+        'An empty prefix folder will prevent games from running. Default: {{path}}',
         { path: factoryDefaultWinePrefixDir }
       )}
       <SvgButton
         title={t('setting.restoreDefault', 'Restore default')}
-        onClick={() => setWinePrefixDir(factoryDefaultWinePrefixDir)}
+        onClick={() => setDefaultWinePrefixDir(factoryDefaultWinePrefixDir)}
       >
         <Undo />
       </SvgButton>
@@ -47,15 +47,17 @@ const WinePrefixesBasePath = () => {
     <PathSelectionBox
       htmlId="selectDefaultWinePrefix"
       label={t('setting.defaultWinePrefix', 'Set Folder for new Wine Prefixes')}
-      path={winePrefixDir}
-      onPathChange={setWinePrefixDir}
+      path={defaultWinePrefixDir}
+      onPathChange={setDefaultWinePrefixDir}
       type="directory"
       pathDialogTitle={t(
         'toolbox.settings.wineprefix',
         'Select a Folder for new Wine Prefixes'
       )}
       noDeleteButton
-      pathDialogDefaultPath={winePrefixDir || factoryDefaultWinePrefixDir}
+      pathDialogDefaultPath={
+        defaultWinePrefixDir || factoryDefaultWinePrefixDir
+      }
       afterInput={emptyPathWarning}
     />
   )
