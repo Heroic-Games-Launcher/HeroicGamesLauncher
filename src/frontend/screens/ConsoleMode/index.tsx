@@ -128,8 +128,10 @@ export default function ConsoleMode() {
     return all.filter(
       (g) =>
         !g.install?.is_dlc &&
-        !g.thirdPartyManagedApp &&
-        !hiddenAppNames.has(g.app_name)
+        !hiddenAppNames.has(g.app_name) &&
+        // Validate it's a supported 3rd party app
+        // TODO: This should probably be abstracted
+        (!g.thirdPartyManagedApp || g.isEAManaged || g.isUbisoftManaged)
     )
   }, [
     epic.library,
