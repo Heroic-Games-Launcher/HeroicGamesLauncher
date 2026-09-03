@@ -1057,6 +1057,12 @@
                 "placeholder_saved": "Key saved — type to replace, clear to remove",
                 "title": "SteamGridDB API Key"
             },
+            "filters": {
+                "epilepsy": "Show potentially seizure-inducing artwork",
+                "humor": "Show humorous or joke artwork",
+                "nsfw": "Show adult artwork",
+                "title": "SteamGridDB content filters"
+            },
             "help": {
                 "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}"
             }
