@@ -8,18 +8,17 @@
         "loading": "Chargement"
     },
     "message": {
-        "part1": "Pour vous connecter et installer vos jeux, vous devez d’abord suivre les étapes ci-dessous :",
-        "part2": "Accédez à la",
-        "part3": "boutique Epic en cliquant ici",
-        "part4": ", connectez-vous à votre compte et copiez votre",
-        "part5": "code d'autorisation",
-        "part6": "Collez ce",
-        "part7": "code",
-        "part8": "dans la boîte de dialogue ci-dessous et cliquez sur le bouton « Connexion »."
+        "part1": "Pour vous connecter et installer vos jeux, vous devez d’abord suivre les étapes ci-dessous :"
     },
     "status": {
         "error": "Erreur",
         "loading": "Chargement de la liste des jeux, veuillez patienter"
     },
-    "welcome": "Bienvenue !"
+    "welcome": "Bienvenue !",
+    "manual": {
+        "epic": {
+            "step1": "Accédez à la boutique Epic en cliquant ici , connectez-vous à votre compte et copiez votre code d'autorisation",
+            "step2": "Collez ce code dans la boîte de dialogue ci-dessous et cliquez sur le bouton « Connexion »."
+        }
+    }
 }

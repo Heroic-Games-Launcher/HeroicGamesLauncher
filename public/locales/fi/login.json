@@ -8,18 +8,17 @@
         "loading": "Ladataan"
     },
     "message": {
-        "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, suorita alla mainitut vaiheet:",
-        "part2": "Avaa",
-        "part3": "Epic Store tässä",
-        "part4": ", kirjaudu sisään omalle käyttäjällesi ja kopioi sinun",
-        "part5": "valtuutuskoodi",
-        "part6": "Liitä oma",
-        "part7": "valtuutuskoodinumero",
-        "part8": "syötelaatikkoon alla sekä napsauta sisäänkirjautumisen painiketta."
+        "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, suorita alla mainitut vaiheet:"
     },
     "status": {
         "error": "Virhe",
         "loading": "Ladataan pelilistaa, odota hetki"
     },
-    "welcome": "Tervetuloa!"
+    "welcome": "Tervetuloa!",
+    "manual": {
+        "epic": {
+            "step1": "Avaa Epic Store tässä , kirjaudu sisään omalle käyttäjällesi ja kopioi sinun valtuutuskoodi",
+            "step2": "Liitä oma valtuutuskoodinumero syötelaatikkoon alla sekä napsauta sisäänkirjautumisen painiketta."
+        }
+    }
 }
