@@ -194,7 +194,9 @@ interface AsyncIPCFunctions {
     runner: Runner,
     installPlatform: InstallPlatform,
     branch?: string,
-    build?: string
+    build?: string,
+    installLanguage?: string,
+    sdlList?: string[]
   ) => Promise<InstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>

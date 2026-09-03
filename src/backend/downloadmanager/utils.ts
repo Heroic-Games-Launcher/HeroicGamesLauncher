@@ -6,7 +6,7 @@ import {
   sendGameStatusUpdate
 } from '../utils'
 import { DMStatus, InstallParams, Runner } from 'common/types'
-import i18next from 'i18next'
+import { t } from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import pathModule from 'path'
@@ -44,8 +44,8 @@ async function installQueueElement(params: InstallParams): Promise<{
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
       showDialogBoxModalAuto({
-        title: i18next.t('box.warning.title', 'Warning'),
-        message: i18next.t(
+        title: t('box.warning.title', 'Warning'),
+        message: t(
           'box.warning.epic.install',
           'Epic Servers are having major outage right now, the game cannot be installed!'
         ),
@@ -71,7 +71,7 @@ async function installQueueElement(params: InstallParams): Promise<{
 
   notify({
     title,
-    body: i18next.t('notify.install.startInstall', 'Installation Started')
+    body: t('notify.install.startInstall', 'Installation Started')
   })
 
   const errorMessage = (error: string) => {
@@ -132,8 +132,8 @@ async function updateQueueElement(params: InstallParams): Promise<{
     const epicOffline = await isEpicServiceOffline()
     if (epicOffline) {
       showDialogBoxModalAuto({
-        title: i18next.t('box.warning.title', 'Warning'),
-        message: i18next.t(
+        title: t('box.warning.title', 'Warning'),
+        message: t(
           'box.warning.epic.update',
           'Epic Servers are having major outage right now, the game cannot be updated!'
         ),
@@ -151,7 +151,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
 
   notify({
     title,
-    body: i18next.t('notify.update.started', 'Update Started')
+    body: t('notify.update.started', 'Update Started')
   })
 
   const errorMessage = (error: string) => {
