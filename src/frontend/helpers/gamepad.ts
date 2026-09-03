@@ -20,6 +20,7 @@ const SCROLL_REPEAT_DELAY = 50
  */
 
 let controllerIsDisabled = false
+let controllerEnabledInConsole = true
 let currentController = -1
 let webviewHasFocus = false
 
@@ -218,9 +219,14 @@ export const updateGamepadActions = async () => {
 }
 
 export const initGamepad = () => {
-  window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
-    controllerIsDisabled = disableController || false
-  })
+  window.api
+    .requestAppSettings()
+    .then((settings: AppSettings) => {
+      controllerIsDisabled = settings.disableController || false
+      controllerEnabledInConsole =
+        settings.enableControllerInConsoleMode ?? true
+    })
+    .catch(() => {})
 
   // store the current controllers
   let controllers: number[] = []
@@ -229,7 +235,7 @@ export const initGamepad = () => {
   window.addEventListener('focus', () => (isFocused = true))
   window.addEventListener('blur', () => (isFocused = false))
 
-  updateGamepadActions()
+  void updateGamepadActions()
 
   // check if an action should be triggered
   function checkAction(
@@ -237,7 +243,7 @@ export const initGamepad = () => {
     pressed: boolean,
     controllerIndex: number
   ) {
-    if (controllerIsDisabled) return
+    if (isControllerNavDisabled()) return
 
     if (!isFocused) {
       // ignore gamepad events if Heroic is not the focused app
@@ -294,13 +300,8 @@ export const initGamepad = () => {
         return
       }
 
-      // `back` hits webContents.goBack() on the backend, which would pop
-      // out of /console during a launch or while a console modal is open.
-      if (
-        action === 'back' &&
-        (document.body.classList.contains('console-launching') ||
-          document.body.classList.contains('console-modal-open'))
-      ) {
+      // Back must not leave Console Mode
+      if (action === 'back' && window.location.hash.startsWith('#/console')) {
         return
       }
 
@@ -436,11 +437,11 @@ export const initGamepad = () => {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
         if (action !== 'leftClick' && action !== 'rightClick') {
-          window.api.gamepadAction({ action })
+          void window.api.gamepadAction({ action })
         } else {
           const data = metadata()
           if (data) {
-            window.api.gamepadAction({ action, metadata: data })
+            void window.api.gamepadAction({ action, metadata: data })
           } else {
             console.error(
               'Got controller action that requires metadata, but we have no metadata'
@@ -829,6 +830,16 @@ export const initGamepad = () => {
 
   window.addEventListener('gamepadconnected', connecthandler)
   window.addEventListener('gamepaddisconnected', disconnecthandler)
+}
+
+// True when controller nav is blocked
+export const isControllerNavDisabled = () => {
+  const inConsoleMode = window.location.hash.startsWith('#/console')
+  return controllerIsDisabled && !(controllerEnabledInConsole && inConsoleMode)
+}
+
+export const setControllerEnabledInConsole = (value: boolean) => {
+  controllerEnabledInConsole = value
 }
 
 export const toggleControllerIsDisabled = (value: boolean | undefined) => {

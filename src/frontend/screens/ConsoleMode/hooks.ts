@@ -7,6 +7,7 @@ import {
   type RefObject
 } from 'react'
 
+import { isControllerNavDisabled } from 'frontend/helpers/gamepad'
 import { detectControllerLayout, type ControllerLayout } from './controller'
 
 function isPressed(btn: GamepadButton | undefined) {
@@ -32,10 +33,12 @@ export function useGamepadButtonPress(
     }
     let raf = 0
     const tick = () => {
+      // Live check honours disable setting
+      const disabled = isControllerNavDisabled()
       for (const gp of navigator.getGamepads()) {
         if (!gp) continue
         const pressed = isPressed(gp.buttons[buttonIndex])
-        if (pressed && !prev.get(gp.index)) handlerRef.current()
+        if (pressed && !prev.get(gp.index) && !disabled) handlerRef.current()
         prev.set(gp.index, pressed)
       }
       raf = requestAnimationFrame(tick)
@@ -60,11 +63,14 @@ export function useGamepadButtonHold(
     )
     let raf = 0
     const tick = () => {
+      // Disabled controllers report nothing held
       let anyHeld = false
-      for (const gp of navigator.getGamepads()) {
-        if (gp && isPressed(gp.buttons[buttonIndex])) {
-          anyHeld = true
-          break
+      if (!isControllerNavDisabled()) {
+        for (const gp of navigator.getGamepads()) {
+          if (gp && isPressed(gp.buttons[buttonIndex])) {
+            anyHeld = true
+            break
+          }
         }
       }
       if (anyHeld !== held) {
@@ -76,6 +82,46 @@ export function useGamepadButtonHold(
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
   }, [buttonIndex, enabled])
+}
+
+export function useGamepadComboHold(
+  buttonIndices: number[],
+  onChange: (held: boolean) => void,
+  enabled = true
+) {
+  const handlerRef = useRef(onChange)
+  handlerRef.current = onChange
+
+  // Stable key avoids re-running on rerenders
+  const comboKey = buttonIndices.join(',')
+
+  useEffect(() => {
+    if (!enabled) return
+    const indices = comboKey.split(',').map(Number)
+    const comboPressed = (gp: Gamepad) =>
+      indices.every((i) => isPressed(gp.buttons[i]))
+    const anyComboHeld = () =>
+      Array.from(navigator.getGamepads()).some((gp) => gp && comboPressed(gp))
+    let held = anyComboHeld()
+    let raf = 0
+    const tick = () => {
+      const anyHeld = anyComboHeld()
+      if (anyHeld !== held) {
+        held = anyHeld
+        handlerRef.current(anyHeld)
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [comboKey, enabled])
+}
+
+// One-off check outside hook ticks
+export function isGamepadButtonHeld(buttonIndex: number) {
+  return Array.from(navigator.getGamepads()).some(
+    (gp) => gp && isPressed(gp.buttons[buttonIndex])
+  )
 }
 
 export function useGamepadInfo() {
