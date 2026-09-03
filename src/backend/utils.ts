@@ -1580,7 +1580,10 @@ const axiosClient = axios.create({
   httpsAgent: new https.Agent({ keepAlive: true })
 })
 
-export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
+export const writeConfig = async (
+  appName: string,
+  config: Partial<AppSettings>
+) => {
   logInfo(
     `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
     LogPrefix.Backend
@@ -1588,7 +1591,7 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
   const oldConfig =
     appName === 'default'
       ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
+      : await GameConfig.get(appName).getSettings()
 
   // log only the changed setting
   const sharedKeys = (
