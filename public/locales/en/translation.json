@@ -796,6 +796,7 @@
         "default-install-path": "Default Installation Path",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "defaultWinePrefixEmpty": "An empty prefix folder may prevent game installations. Default: {{path}}",
         "disable_controller": "Disable Heroic navigation using controller",
         "disable_gog_presence": "Disable GOG Presence updates",
         "disable_logs": "Disable Logs",
@@ -933,6 +934,7 @@
         "offlinemode": "Run Game Offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
+        "restoreDefault": "Restore default",
         "runexe": {
             "title": "Run EXE on Prefix"
         },
