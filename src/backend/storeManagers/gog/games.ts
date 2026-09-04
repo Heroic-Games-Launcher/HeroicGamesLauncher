@@ -231,6 +231,11 @@ export default class GOGGame extends Game {
         folderPath
       )
       this.addShortcuts()
+
+      if (isLinux && this.isNative()) {
+        const gameConfig = GameConfig.get(this.id)
+        gameConfig.setSetting('steamRuntime', 'umu-scout')
+      }
     } catch (error) {
       logError([`Failed to import ${this.id}:`, error], LogPrefix.Gog)
     }
@@ -474,6 +479,9 @@ export default class GOGGame extends Game {
         )
       }
     } else if (isLinuxNative) {
+      const gameConfig = GameConfig.get(this.id)
+      gameConfig.setSetting('steamRuntime', 'umu-scout')
+
       const installer = join(install_path, 'support/postinst.sh')
       if (existsSync(installer)) {
         logInfo(`Running ${installer}`, LogPrefix.Gog)

@@ -22,6 +22,7 @@ import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 import type { Runner } from './schemas'
 import type { Game } from './types/game_manager'
+import type { SteamRuntimeName } from './types/umu'
 
 export type { Runner }
 
@@ -264,7 +265,7 @@ export interface GameSettings {
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
-  useSteamRuntime: boolean
+  steamRuntime: SteamRuntimeName | false
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -436,12 +437,6 @@ export interface GOGImportData {
   platform: GogInstallPlatform
   versionName: string
   dlcs: string[]
-}
-
-export interface SteamRuntime {
-  path: string
-  type: 'sniper' | 'scout' | 'soldier'
-  args: string[]
 }
 
 export interface LaunchPreperationResult {

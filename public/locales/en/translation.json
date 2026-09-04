@@ -1035,7 +1035,10 @@
         "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
         "steamIntegration": "Use Steam integration",
-        "steamruntime": "Use Steam Runtime",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        },
         "verboseLogs": {
             "description": "Enable verbose logs"
         },
