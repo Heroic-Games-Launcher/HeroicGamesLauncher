@@ -5,6 +5,7 @@ import { libraryManagerMap } from '../storeManagers'
 import { downloadFile } from 'backend/utils'
 import { createAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { heroicIconFolder as iconsFolder } from 'backend/constants/paths'
+import { getGameOverrides } from 'backend/game_overrides'
 
 function createImage(
   buffer: Buffer,
@@ -20,12 +21,12 @@ function createImage(
   return
 }
 
-function downloadImage(
+async function downloadImage(
   imageURL: string,
   outputFilePath: string
-): string | undefined {
+): Promise<string | undefined> {
   try {
-    downloadFile({
+    await downloadFile({
       url: imageURL,
       dest: outputFilePath,
       abortSignal: createAbortController(imageURL).signal
@@ -63,11 +64,17 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     mkdirSync(iconsFolder)
   }
 
+  // Prefer the custom user picked cover over the store one
+  const customArt = getGameOverrides(appName)?.art_square
+
   // By default use vertical image - art_square in jpg format
-  let image = gameInfo.art_square.replaceAll(' ', '%20').replace('{ext}', 'jpg')
+  let image = (customArt || gameInfo.art_square)
+    .replaceAll(' ', '%20')
+    .replace('{ext}', 'jpg')
   let icon = `${iconsFolder}/${appName}.jpg`
 
-  if (gameInfo.runner === 'gog') {
+  // Only fall back to GOG icons when the user hasn't picked a custom one
+  if (gameInfo.runner === 'gog' && !customArt) {
     const icoPath = join(
       gameInfo.install.install_path!,
       `goggame-${appName}.ico`
@@ -89,8 +96,8 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     }
   }
 
-  if (!checkImageExistsAlready(icon)) {
-    downloadImage(image, icon)
+  if (customArt || !checkImageExistsAlready(icon)) {
+    await downloadImage(image, icon)
   }
   return icon
 }
