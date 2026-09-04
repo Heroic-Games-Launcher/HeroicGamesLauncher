@@ -252,16 +252,9 @@ export default function SideloadDialog({
         if (!gameSettings) {
           return
         }
-        const selectedWinePrefix =
-          winePrefix === '...' ? gameSettings.winePrefix : winePrefix
-        const selectedWineVersion = wineVersion || gameSettings.wineVersion
         await writeConfig({
           appName: app_name,
-          config: {
-            ...gameSettings,
-            winePrefix: selectedWinePrefix,
-            wineVersion: selectedWineVersion
-          }
+          config: { ...gameSettings, winePrefix, wineVersion }
         })
         await window.api.runWineCommand({
           commandParts: [exeToRun],
@@ -269,8 +262,8 @@ export default function SideloadDialog({
           protonVerb: 'runinprefix',
           gameSettings: {
             ...gameSettings,
-            winePrefix: selectedWinePrefix,
-            wineVersion: selectedWineVersion
+            winePrefix,
+            wineVersion: wineVersion || gameSettings.wineVersion
           }
         })
         setRunningSetup(false)
@@ -306,6 +299,7 @@ export default function SideloadDialog({
   const showSideloadExe = appPlatform !== 'Browser'
 
   const shouldShowRunExe =
+    !editMode &&
     platform !== 'win32' &&
     appPlatform !== 'Mac' &&
     appPlatform !== 'linux' &&
