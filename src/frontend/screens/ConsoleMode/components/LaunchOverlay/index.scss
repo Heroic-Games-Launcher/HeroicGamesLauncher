@@ -64,6 +64,34 @@
   text-align: center;
 }
 
+.consoleLaunchError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 80vw;
+}
+
+.consoleLaunchErrorIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--cancel-button, #b94a3a);
+  color: var(--cancel-button, #b94a3a);
+  font-size: 2rem;
+  font-weight: 700;
+  display: grid;
+  place-content: center;
+  animation: overlayFade 220ms ease;
+}
+
+.consoleLaunchErrorText {
+  font-size: 0.95rem;
+  color: var(--text-secondary, #b1b1b1);
+  text-align: center;
+  line-height: 1.4;
+}
+
 .consoleLaunchHint {
   display: inline-flex;
   align-items: center;

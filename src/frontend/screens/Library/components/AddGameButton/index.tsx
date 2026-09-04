@@ -1,6 +1,7 @@
-import { useContext } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import LibraryContext from '../../LibraryContext'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import { GameHandle } from '../../../../helpers/ipc'
 
 interface AddGameButtonProps {
   'data-tour'?: string
@@ -8,7 +9,13 @@ interface AddGameButtonProps {
 
 function AddGameButton({ 'data-tour': dataTour }: AddGameButtonProps = {}) {
   const { t } = useTranslation()
-  const { handleAddGameButtonClick } = useContext(LibraryContext)
+
+  const handleAddGameButtonClick = useCallback(() => {
+    // FIXME: We should never create a GameHandle manually. Ideally we'd
+    //        ask the backend to create one, and then operate on it
+    const game = new GameHandle('', 'sideload')
+    openInstallGameModal({ game, gameInfo: null, action: 'install' })
+  }, [])
 
   return (
     <button

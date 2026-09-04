@@ -7,7 +7,6 @@ import {
   getRunnerLogWriter
 } from 'backend/logger'
 import { libraryManagerMap } from '..'
-import { GameConfig } from 'backend/game_config'
 import {
   checkWineBeforeLaunch,
   sendGameStatusUpdate,
@@ -15,36 +14,35 @@ import {
 } from 'backend/utils'
 import { runWineCommand, verifyWinePrefix } from 'backend/launcher'
 import { isWindows } from 'backend/constants/environment'
+import type { Game } from 'common/types/game_manager'
 
 /**
  * Handles installing dependencies for games that include PostInstall scripts
  */
 export default async function setup(
-  appName: string,
+  game: Game,
   installedPath?: string
 ): Promise<void> {
-  const gameInfo = libraryManagerMap['nile'].getGameInfo(appName)
+  const gameInfo = game.getGameInfo()
   if (!gameInfo) {
-    logError([`Could not find game info for ${appName}. Skipping setup`])
+    logError([`Could not find game info for ${game.id}. Skipping setup`])
     return
   }
 
   const basePath = installedPath ?? gameInfo?.install.install_path
   if (!basePath) {
     logError([
-      `Could not find install path for ${
-        gameInfo?.title ?? appName
-      }. Skipping setup`
+      `Could not find install path for ${gameInfo.title}. Skipping setup`
     ])
     return
   }
 
-  const fuel = libraryManagerMap['nile'].fetchFuelJSON(appName, basePath)
+  const fuel = libraryManagerMap['nile'].fetchFuelJSON(game.id, basePath)
   if (!fuel) {
     logError(
       [
         'Cannot install dependencies for',
-        gameInfo?.title ?? appName,
+        gameInfo.title,
         'without a fuel.json'
       ],
       LogPrefix.Nile
@@ -53,10 +51,7 @@ export default async function setup(
   }
 
   if (!fuel.PostInstall.length) {
-    logInfo(
-      ['No PostInstall instructions for', gameInfo?.title ?? appName],
-      LogPrefix.Nile
-    )
+    logInfo(['No PostInstall instructions for', gameInfo.title], LogPrefix.Nile)
     return
   }
 
@@ -65,14 +60,10 @@ export default async function setup(
     LogPrefix.Nile
   )
 
-  const gameSettings = GameConfig.get(appName).config
+  const gameSettings = await game.getSettings()
   if (!isWindows) {
     const logWriter = getRunnerLogWriter('nile')
-    const isWineOkToLaunch = await checkWineBeforeLaunch(
-      gameInfo,
-      gameSettings,
-      logWriter
-    )
+    const isWineOkToLaunch = await checkWineBeforeLaunch(game, logWriter)
 
     if (!isWineOkToLaunch) {
       logError(
@@ -82,14 +73,12 @@ export default async function setup(
       return
     }
     // Make sure prefix is initialized correctly
-    await verifyWinePrefix(gameSettings)
+    await verifyWinePrefix(game)
   }
 
   logDebug(['PostInstall:', fuel.PostInstall], LogPrefix.Nile)
 
-  sendGameStatusUpdate({
-    appName,
-    runner: 'nile',
+  sendGameStatusUpdate(game, {
     status: 'redist',
     context: 'AMAZON'
   })
@@ -120,9 +109,7 @@ export default async function setup(
       LogPrefix.Nile
     )
 
-    await runWineCommand({
-      gameSettings,
-      gameInstallPath: basePath,
+    await runWineCommand(game, {
       commandParts: [action.Command, ...exeArguments],
       wait: true,
       protonVerb: 'run',

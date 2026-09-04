@@ -17,5 +17,26 @@
         "part7": "authorization code number",
         "part8": "in the input box below and click on the login button."
     },
+    "steam": {
+        "accountName": "Sign in with account name",
+        "error": "Login failed. Check your credentials and Steam Guard code.",
+        "guard": {
+            "device": "Enter your Steam Guard code",
+            "deviceConfirmation": "Approve this sign-in in your Steam Mobile app.",
+            "email": "Enter the code sent to your email",
+            "placeholder": "Steam Guard code"
+        },
+        "password": "Password",
+        "qr": {
+            "caption": "Use the Steam Mobile App to sign in via QR",
+            "error": "QR sign-in failed. Please try again.",
+            "scanned": "Scanned — approve the sign-in in your Steam Mobile app.",
+            "title": "Or sign in with QR"
+        },
+        "signingIn": "Signing in…",
+        "submitCode": "Submit code",
+        "username": "Username",
+        "welcome": "Sign in to Steam"
+    },
     "welcome": "Welcome!"
 }

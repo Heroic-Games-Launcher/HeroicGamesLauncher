@@ -14,6 +14,7 @@ import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill, updateGame } from 'frontend/helpers'
+import { timestampStore } from 'frontend/helpers/electronStores'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -32,8 +33,17 @@ import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
 import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 type StoreKey = Runner | 'all'
+
+type ConsoleSortMode = 'last_played' | 'alpha_asc' | 'alpha_desc'
+
+const SORT_MODE_ORDER: ConsoleSortMode[] = [
+  'last_played',
+  'alpha_asc',
+  'alpha_desc'
+]
 
 const CANCEL_DOWNLOAD_COPY = {
   update: {
@@ -62,6 +72,7 @@ export default function ConsoleMode() {
     epic,
     gog,
     amazon,
+    steam,
     zoom,
     libraryStatus,
     sideloadedLibrary,
@@ -72,7 +83,7 @@ export default function ConsoleMode() {
   } = useContext(ContextProvider)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
-  const [ascending, setAscending] = useState(true)
+  const [sortMode, setSortMode] = useState<ConsoleSortMode>('last_played')
   const [filteringByInstalled, setFilteringByInstalled] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
@@ -104,6 +115,7 @@ export default function ConsoleMode() {
       epic.library.length === 0 &&
       gog.library.length === 0 &&
       amazon.library.length === 0 &&
+      steam.library.length === 0 &&
       zoom.library.length === 0
     ) {
       void refreshLibrary({ runInBackground: true })
@@ -122,6 +134,7 @@ export default function ConsoleMode() {
       ...epic.library,
       ...gog.library,
       ...amazon.library,
+      ...steam.library,
       ...zoom.library,
       ...sideloadedLibrary
     ]
@@ -135,6 +148,7 @@ export default function ConsoleMode() {
     epic.library,
     gog.library,
     amazon.library,
+    steam.library,
     zoom.library,
     sideloadedLibrary,
     hiddenGames
@@ -155,10 +169,18 @@ export default function ConsoleMode() {
     }
 
     return filteredGames.sort((a, b) => {
+      if (sortMode === 'last_played') {
+        const ta = timestampStore.get_nodefault(a.app_name)?.lastPlayed ?? ''
+        const tb = timestampStore.get_nodefault(b.app_name)?.lastPlayed ?? ''
+        if (!ta && !tb) return a.title.localeCompare(b.title)
+        if (!ta) return 1
+        if (!tb) return -1
+        return tb.localeCompare(ta)
+      }
       const cmp = a.title.localeCompare(b.title)
-      return ascending ? cmp : -cmp
+      return sortMode === 'alpha_asc' ? cmp : -cmp
     })
-  }, [allGames, filteringByInstalled, activeStore, ascending])
+  }, [allGames, filteringByInstalled, activeStore, sortMode])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<Runner>()
@@ -182,6 +204,7 @@ export default function ConsoleMode() {
       },
       { key: 'gog', label: 'GOG', enabled: storesWithGames.has('gog') },
       { key: 'nile', label: 'Amazon', enabled: storesWithGames.has('nile') },
+      { key: 'steam', label: 'Steam', enabled: storesWithGames.has('steam') },
       {
         key: 'sideload',
         label: t('console.filter.sideload', 'Other'),
@@ -276,14 +299,10 @@ export default function ConsoleMode() {
 
   const handleUpdateFromNotice = useCallback(() => {
     if (!updateNoticeGame) return
-    const game = updateNoticeGame
+    const game = GameHandle.fromGameInfo(updateNoticeGame)
     setUpdateNoticeGame(null)
     if (game.runner !== 'sideload') {
-      void updateGame({
-        appName: game.app_name,
-        runner: game.runner as Runner,
-        gameInfo: game
-      })
+      void updateGame(game)
     }
   }, [updateNoticeGame])
 
@@ -298,9 +317,9 @@ export default function ConsoleMode() {
 
   const handleCancelDownload = useCallback(() => {
     if (!cancelDownloadGame) return
-    const { game } = cancelDownloadGame
+    const game = GameHandle.fromGameInfo(cancelDownloadGame.game)
     setCancelDownloadGame(null)
-    void sendKill(game.app_name, game.runner)
+    void sendKill(game)
   }, [cancelDownloadGame])
 
   const dismissCancelDownload = useCallback(
@@ -310,10 +329,10 @@ export default function ConsoleMode() {
 
   const handleRemoveFromQueue = useCallback(() => {
     if (!queuedNoticeGame) return
-    const game = queuedNoticeGame
+    const game = GameHandle.fromGameInfo(queuedNoticeGame)
     setQueuedNoticeGame(null)
-    window.localStorage.removeItem(game.app_name)
-    void window.api.removeFromDMQueue(game.app_name)
+    window.localStorage.removeItem(game.id)
+    void window.api.removeFromDMQueue(game)
   }, [queuedNoticeGame])
 
   const dismissQueuedNotice = useCallback(() => setQueuedNoticeGame(null), [])
@@ -398,11 +417,17 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const toggleSort = useCallback(() => setAscending((v) => !v), [])
+  const cycleSort = useCallback(() => {
+    setSortMode((current) => {
+      const idx = SORT_MODE_ORDER.indexOf(current)
+      const next = (idx + 1) % SORT_MODE_ORDER.length
+      return SORT_MODE_ORDER[next]
+    })
+  }, [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
-  useGamepadButtonPress(BTN_R2, toggleSort, idle)
+  useGamepadButtonPress(BTN_R2, cycleSort, idle)
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -441,11 +466,15 @@ export default function ConsoleMode() {
         <div className="consoleTopRight">
           <button
             className="consoleChip"
-            onClick={toggleSort}
-            aria-label={t('console.sort', 'Sort')}
+            onClick={cycleSort}
+            aria-label={t('console.sort.label', 'Sort')}
             disabled={!!launchingGame}
           >
-            {ascending ? 'A → Z' : 'Z → A'}
+            {sortMode === 'last_played'
+              ? t('console.sort.last_played', 'Last Played')
+              : sortMode === 'alpha_asc'
+                ? t('console.sort.alpha_asc', 'A → Z')
+                : t('console.sort.alpha_desc', 'Z → A')}
           </button>
           <button
             className="consoleQuitButton"

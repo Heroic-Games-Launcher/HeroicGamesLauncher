@@ -63,4 +63,23 @@ async function getNileVersion(): Promise<string> {
   return stdout
 }
 
-export { getLegendaryVersion, getGogdlVersion, getNileVersion, getCometVersion }
+async function getAureliaVersion(): Promise<string> {
+  const { stdout, error } = await libraryManagerMap['steam'].runRunnerCommand(
+    ['--version'],
+    {
+      abortId: 'aurelia-version'
+    }
+  )
+
+  if (error) return 'invalid'
+
+  return stdout.trimEnd()
+}
+
+export {
+  getLegendaryVersion,
+  getGogdlVersion,
+  getNileVersion,
+  getCometVersion,
+  getAureliaVersion
+}

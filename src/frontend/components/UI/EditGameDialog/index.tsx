@@ -17,15 +17,21 @@ import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import classNames from 'classnames'
 import ContentPaste from '@mui/icons-material/ContentPaste'
 import Clear from '@mui/icons-material/Clear'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 type Props = {
+  game: GameHandle
   gameInfo: GameInfo
   backdropClick: () => void
 }
 
 type SgdbTarget = 'cover' | 'square' | null
 
-export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
+export default function EditGameDialog({
+  game,
+  gameInfo,
+  backdropClick
+}: Props) {
   const { t } = useTranslation('gamepage')
   const navigate = useNavigate()
   const goToAdvancedSettings = () => {
@@ -52,11 +58,10 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
     // Drop fields that match the original game info — the backend deletes
     // the override entry when all three are empty, which is what we want
     // after the user resets.
-    window.api.setGameMetadataOverride({
-      appName: gameInfo.app_name,
-      title: title === gameInfo.title ? '' : title,
-      art_cover: artCover === gameInfo.art_cover ? '' : artCover,
-      art_square: artSquare === gameInfo.art_square ? '' : artSquare
+    window.api.setGameMetadataOverride(game, {
+      title: title === gameInfo.title ? undefined : title,
+      art_cover: artCover === gameInfo.art_cover ? undefined : artCover,
+      art_square: artSquare === gameInfo.art_square ? undefined : artSquare
     })
     backdropClick()
   }

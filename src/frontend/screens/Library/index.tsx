@@ -17,7 +17,7 @@ import Fuse from 'fuse.js'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import GamesList from './components/GamesList'
-import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
+import { FavouriteGame, GameInfo, HiddenGame } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
@@ -26,6 +26,7 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
+  steamCategories,
   normalizeTitle
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
@@ -37,6 +38,7 @@ import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
 import AlphabetFilter from './components/AlphabetFilter'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import { GameHandle } from '../../helpers/ipc'
 
 const storage = window.localStorage
 
@@ -57,6 +59,7 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     zoom,
+    steam,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -93,7 +96,8 @@ export default React.memo(function Library(): JSX.Element {
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoom.enabled && zoomCategories.includes(storedCategory)
+      zoom: zoom.enabled && zoomCategories.includes(storedCategory),
+      steam: steam.enabled && steamCategories.includes(storedCategory)
     }
   }
 
@@ -191,6 +195,15 @@ export default React.memo(function Library(): JSX.Element {
     setShowUpdatesOnly(value)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const [showSteamOwnedOnly, setShowSteamOwnedOnly] = useState(
+    JSON.parse(storage.getItem('show_steam_owned_only') || 'false')
+  )
+  const handleShowSteamOwnedOnly = (value: boolean) => {
+    storage.setItem('show_steam_owned_only', JSON.stringify(value))
+    setShowSteamOwnedOnly(value)
+  }
+
   const [showCategories, setShowCategories] = useState(false)
 
   const [showAlphabetFilter, setShowAlphabetFilter] = useState(
@@ -265,12 +278,8 @@ export default React.memo(function Library(): JSX.Element {
     }
   }
 
-  function handleModal(
-    appName: string,
-    runner: Runner,
-    gameInfo: GameInfo | null
-  ) {
-    openInstallGameModal({ appName, runner, gameInfo })
+  function handleModal(game: GameHandle, gameInfo: GameInfo | null) {
+    openInstallGameModal({ game, gameInfo, action: 'install' })
   }
 
   // cache list of games being installed
@@ -374,6 +383,9 @@ export default React.memo(function Library(): JSX.Element {
       zoom.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      steam.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -388,7 +400,8 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     sideloadedLibrary,
-    zoom
+    zoom,
+    steam
   ])
 
   const favouritesIds = useMemo(() => {
@@ -412,6 +425,9 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['zoom'] && zoom.username) {
       displayedStores.push('zoom')
     }
+    if (storesFilters['steam'] && steam.enabled) {
+      displayedStores.push('steam')
+    }
 
     if (!displayedStores.length) {
       displayedStores = Object.keys(storesFilters)
@@ -422,19 +438,22 @@ export default React.memo(function Library(): JSX.Element {
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
     const showSideloaded = displayedStores.includes('sideload')
     const showZoom = zoom.username && displayedStores.includes('zoom')
+    const showSteam = steam.enabled && displayedStores.includes('steam')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
     const zoomLibrary = showZoom ? zoom.library : []
+    const steamLibrary = showSteam ? steam.library : []
 
     return [
       ...sideloadedApps,
       ...epicLibrary,
       ...gogLibrary,
       ...amazonLibrary,
-      ...zoomLibrary
+      ...zoomLibrary,
+      ...steamLibrary
     ]
   }
 
@@ -493,6 +512,12 @@ export default React.memo(function Library(): JSX.Element {
 
       if (showUpdatesOnly) {
         library = library.filter((game) => gameUpdates.includes(game.app_name))
+      }
+
+      if (showSteamOwnedOnly) {
+        // Only hides Steam family-shared games; games from other stores (and
+        // owned Steam games) are left untouched.
+        library = library.filter((game) => !game.isFamilyShare)
       }
 
       if (!showNonAvailable) {
@@ -583,6 +608,7 @@ export default React.memo(function Library(): JSX.Element {
     showSupportOfflineOnly,
     showThirdPartyManagedOnly,
     showUpdatesOnly,
+    showSteamOwnedOnly,
     gameUpdates
   ])
 
@@ -710,9 +736,10 @@ export default React.memo(function Library(): JSX.Element {
         setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
         showUpdatesOnly,
         setShowUpdatesOnly: handleShowUpdatesOnly,
+        showSteamOwnedOnly,
+        setShowSteamOwnedOnly: handleShowSteamOwnedOnly,
         sortDescending,
         sortInstalled,
-        handleAddGameButtonClick: () => handleModal('', 'sideload', null),
         setShowCategories,
         showAlphabetFilter: showAlphabetFilter,
         onToggleAlphabetFilter: handleToggleAlphabetFilter,

@@ -14,14 +14,17 @@ import {
   ZoomInstalledInfo,
   ZoomInstallInfo
 } from './types/zoom'
+import { SteamInstallInfo } from './types/steam'
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
+import type { Runner } from './schemas'
+import type { Game } from './types/game_manager'
 import type { SteamRuntimeName } from './types/umu'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+export type { Runner }
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -33,9 +36,7 @@ export interface ButtonOptions {
 }
 
 export type LaunchParams = {
-  appName: string
   launchArguments?: LaunchOption
-  runner: Runner
   skipVersionCheck?: boolean
   args?: string[]
 }
@@ -86,6 +87,7 @@ export type ExperimentalFeatures = {
   cometSupport: boolean
   umuSupport?: boolean
   zoomPlatform?: boolean
+  steamImport?: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -97,6 +99,7 @@ export interface AppSettings extends GameSettings {
   altCometBin: string
   altLegendaryBin: string
   altNileBin: string
+  altAureliaBin: string
   autoUpdateGames: boolean
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
@@ -162,6 +165,10 @@ export interface ExtraInfo {
   storeUrl?: string
   changelog?: string
   genres?: string[]
+  background?: string
+  cover?: string
+  score?: string
+  platforms?: InstallPlatform[]
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -183,7 +190,7 @@ export type GOGAchievement = {
 export type GameAchievement = GOGAchievement
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+  runner: Runner
   store_url?: string
   app_name: string
   art_cover: string
@@ -211,6 +218,8 @@ export interface GameInfo {
   isUbisoftManaged?: boolean
   is_mac_native?: boolean
   is_linux_native?: boolean
+  // True for Steam games that come from a Steam Family member's library
+  isFamilyShare?: boolean
   browserUrl?: string
   description?: string
   //used for store release versions. if remote !== local, then update
@@ -294,12 +303,15 @@ export type Status =
   | 'winetricks'
 
 export interface GameStatus {
-  appName: string
   progress?: InstallProgress
   folder?: string
   context?: string // Additional context e.g current step
-  runner?: Runner
   status: Status
+}
+
+export interface GameStatusLegacy extends GameStatus {
+  appName: string
+  runner: Runner
 }
 
 export type GlobalConfigVersion = 'auto' | 'v0'
@@ -392,9 +404,6 @@ export interface InstallParams extends InstallArgs {
 }
 
 export interface UpdateParams {
-  appName: string
-  runner: Runner
-  gameInfo: GameInfo
   installDlcs?: Array<string>
   installLanguage?: string
   build?: string
@@ -454,6 +463,7 @@ export interface CallRunnerOptions {
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
   cwd?: string
+  game?: Game
 }
 
 export interface EnviromentVariable {
@@ -464,11 +474,6 @@ export interface EnviromentVariable {
 export interface WrapperVariable {
   exe: string
   args: string
-}
-
-export interface WrapperEnv {
-  appName: string
-  appRunner: Runner
 }
 
 type AntiCheat =
@@ -614,13 +619,6 @@ export type InstallPlatform =
 
 export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
 
-export interface Tools {
-  exe?: string
-  tool: string
-  appName: string
-  runner: Runner
-}
-
 export interface Tool {
   name: string
   url: string
@@ -650,42 +648,18 @@ export type WineCommandArgs = {
   commandParts: string[]
   wait?: boolean
   protonVerb?: ProtonVerb
-  gameSettings?: GameSettings
-  gameInstallPath?: string
-  installFolderName?: string
   options?: CallRunnerOptions
   startFolder?: string
   skipPrefixCheckIKnowWhatImDoing?: boolean
   ignoreLogging?: boolean
 }
 
-export interface SaveSyncArgs {
-  arg: string | undefined
-  path: string
-  appName: string
-  runner: Runner
-}
-
-export interface RunWineCommandArgs {
-  appName: string
-  runner: Runner
-  commandParts: string[]
-}
-
 export interface ImportGameArgs {
-  appName: string
   path: string
-  runner: Runner
   platform: InstallPlatform
   winePrefix?: string
   wineVersion?: WineInstallation
   wineCrossoverBottle?: string
-}
-
-export interface MoveGameArgs {
-  appName: string
-  path: string
-  runner: Runner
 }
 
 export interface DiskSpaceData {
@@ -696,12 +670,10 @@ export interface DiskSpaceData {
   validFlatpakPath: boolean
 }
 
-export interface ToolArgs {
-  appName: string
-  action: 'backup' | 'restore'
-}
-
-export type StatusPromise = Promise<{ status: 'done' | 'error' | 'abort' }>
+export type StatusPromise = Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string
+}>
 
 export interface GameScoreInfo {
   score: string
@@ -716,6 +688,7 @@ export interface PCGamingWikiInfo {
   direct3DVersions: string[]
   genres: string[]
   releaseDate: string[]
+  cover?: string
 }
 
 export interface AppleGamingWikiInfo {
@@ -836,6 +809,7 @@ export type InstallInfo =
   | NileInstallInfo
   | ZoomInstalledInfo
   | ZoomInstallInfo
+  | SteamInstallInfo
 
 export interface KnowFixesInfo {
   title: string
