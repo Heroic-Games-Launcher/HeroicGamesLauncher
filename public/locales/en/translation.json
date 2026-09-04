@@ -93,6 +93,10 @@
                 "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
             },
             "moving": "Error Moving Game {{error}}",
+            "previous_progress_move_failure": {
+                "message": "Error: {{error}}\nContinuing without moving previous progress.",
+                "title": "Failed to move previously downloaded files"
+            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",

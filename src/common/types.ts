@@ -382,6 +382,8 @@ export interface InstallArgs {
   branch?: string
   build?: string
   dependencies?: string[]
+  previousProgress?: InstallProgress
+  previousProgressStrategy?: string
 }
 
 export interface InstallParams extends InstallArgs {
