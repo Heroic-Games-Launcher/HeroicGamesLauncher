@@ -61,6 +61,7 @@ export interface Game {
   stop: (stopWine?: boolean) => Promise<void>
   isGameAvailable: () => Promise<boolean>
   getAchievements?: (lang: string) => Promise<GOGAchievement[]>
+  updatePlaytime?: (startDate: Date, minutesPlayed: number) => Promise<void>
 }
 
 export interface LibraryManager {

@@ -14,7 +14,8 @@ import {
   WikiInfo,
   GameInfo,
   WindowProps,
-  UploadedLogData
+  UploadedLogData,
+  Runner
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
@@ -64,6 +65,16 @@ export interface StoreStructure {
       firstPlayed: string
       lastPlayed: string
       totalPlayed: number
+    }
+  }
+  activeSessionsStore: {
+    [appName: string]: {
+      runner: Runner
+      title: string
+      startedAt: string
+      checkpointAt: string
+      totalSuspendMs: number
+      suspendedAt: number | null
     }
   }
   fontsStore: {
