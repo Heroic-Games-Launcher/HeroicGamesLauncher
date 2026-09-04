@@ -206,11 +206,10 @@ export default function ConsoleMode() {
   const columns = useColumnCount(cardRefs, visibleGames.length)
 
   useEffect(() => {
-    // always make sane focused index
-    if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
-      setFocusedIndex(
-        Math.max(0, Math.min(focusedIndex, visibleGames.length - 1))
-      )
+    // always make sane focused index, but we could be temporarily setting
+    // the focused index to be negative if the user is in the top bar
+    if (focusedIndex >= visibleGames.length) {
+      setFocusedIndex(Math.min(focusedIndex, visibleGames.length - 1))
     }
   }, [visibleGames.length, focusedIndex])
 
@@ -235,6 +234,7 @@ export default function ConsoleMode() {
   )
 
   const quit = useCallback(() => navigate('/'), [navigate])
+  const returnFocusToCard = () => cardRefs.current[focusedIndex]?.focus()
 
   const idle =
     !launchingGame &&
@@ -294,7 +294,10 @@ export default function ConsoleMode() {
     setLaunchingGame(game)
   }, [updateNoticeGame])
 
-  const dismissUpdateNotice = useCallback(() => setUpdateNoticeGame(null), [])
+  const dismissUpdateNotice = useCallback(() => {
+    setUpdateNoticeGame(null)
+    returnFocusToCard()
+  }, [])
 
   const handleCancelDownload = useCallback(() => {
     if (!cancelDownloadGame) return
@@ -303,10 +306,10 @@ export default function ConsoleMode() {
     void sendKill(game.app_name, game.runner)
   }, [cancelDownloadGame])
 
-  const dismissCancelDownload = useCallback(
-    () => setCancelDownloadGame(null),
-    []
-  )
+  const dismissCancelDownload = useCallback(() => {
+    setCancelDownloadGame(null)
+    returnFocusToCard()
+  }, [])
 
   const handleRemoveFromQueue = useCallback(() => {
     if (!queuedNoticeGame) return
@@ -326,7 +329,14 @@ export default function ConsoleMode() {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
       e.stopPropagation()
-      cardRefs.current[focusedIndex]?.focus()
+      // we should be between [-columns and -1] at this point,
+      // make the focused index be somewhere in the middle
+      const returnFocusButton = Math.min(
+        focusedIndex + columns,
+        visibleGames.length - 1
+      )
+      cardRefs.current[returnFocusButton]?.focus()
+      setFocusedIndex(returnFocusButton)
       return
     }
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
@@ -367,6 +377,8 @@ export default function ConsoleMode() {
         const first = topBarRef.current?.querySelector<HTMLButtonElement>(
           'button:not(:disabled)'
         )
+        // make the focused index negative to not focus on any card
+        setFocusedIndex((i) => i - columns)
         first?.focus()
       } else {
         setFocusedIndex((i) => Math.max(i - columns, 0))
@@ -394,8 +406,9 @@ export default function ConsoleMode() {
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
     if (!launchingGame) return
-    document.body.classList.add('console-launching')
-    return () => document.body.classList.remove('console-launching')
+    document.body.classList.add('console-launching', 'console-ignore-back')
+    return () =>
+      document.body.classList.remove('console-launching', 'console-ignore-back')
   }, [launchingGame])
 
   const toggleSort = useCallback(() => setAscending((v) => !v), [])
@@ -525,14 +538,20 @@ export default function ConsoleMode() {
       {launchingGame && (
         <LaunchOverlay
           game={launchingGame}
-          onDismiss={() => setLaunchingGame(null)}
+          onDismiss={() => {
+            setLaunchingGame(null)
+            returnFocusToCard()
+          }}
         />
       )}
 
       {installingGame && (
         <InstallOverlay
           game={installingGame}
-          onDismiss={() => setInstallingGame(null)}
+          onDismiss={() => {
+            setInstallingGame(null)
+            returnFocusToCard()
+          }}
         />
       )}
 
