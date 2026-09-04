@@ -136,7 +136,7 @@ const GameCard = ({
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
 
-  const [progress, previousProgress] = hasProgress(appName, runner)
+  const [progress] = hasProgress(appName, runner)
   const { install_size: size = '0' } = {
     ...gameInstallInfo
   }
@@ -572,7 +572,7 @@ const GameCard = ({
         gameInfo,
         installPath: folder || 'default',
         isInstalling,
-        previousProgress,
+        previousProgress: null,
         progress,
         t,
         showDialogModal
