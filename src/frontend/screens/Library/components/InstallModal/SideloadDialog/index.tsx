@@ -299,6 +299,7 @@ export default function SideloadDialog({
   const showSideloadExe = appPlatform !== 'Browser'
 
   const shouldShowRunExe =
+    !editMode &&
     platform !== 'win32' &&
     appPlatform !== 'Mac' &&
     appPlatform !== 'linux' &&
