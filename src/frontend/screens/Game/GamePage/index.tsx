@@ -26,6 +26,7 @@ import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 
 import {
+  DownloadManagerState,
   ExtraInfo,
   GameInfo,
   GameSettings,
@@ -136,6 +137,32 @@ export default React.memo(function GamePage(): JSX.Element | null {
     message: unknown
   }>({ error: false, message: '' })
   const [playClicked, setPlayClicked] = useState(false)
+
+  const [dmState, setDmState] = useState<DownloadManagerState>('idle')
+  const [currentDMAppName, setCurrentDMAppName] = useState<string>()
+
+  useEffect(() => {
+    window.api
+      .getDMQueueInformation()
+      .then(({ elements, state }) => {
+        setCurrentDMAppName(elements[0]?.params.appName)
+        setDmState(state)
+      })
+      .catch((error) => {
+        console.error('Failed to get DM queue information:', error)
+      })
+
+    const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
+      (e, elements, state) => {
+        setCurrentDMAppName(elements[0]?.params.appName)
+        setDmState(state)
+      }
+    )
+
+    return () => {
+      removeHandleDMQueueInformation()
+    }
+  }, [])
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
@@ -362,7 +389,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
         uninstalling: isUninstalling,
         updating: isUpdating,
         win: isWin,
-        notPlayableOffline: notPlayableOffline
+        notPlayableOffline: notPlayableOffline,
+        // When a download is paused the backend reports game status as "done",
+        // so is.installing/is.updating become false. This flag covers that gap.
+        downloadPaused: dmState === 'paused' && currentDMAppName === appName
       },
       statusContext,
       status,
