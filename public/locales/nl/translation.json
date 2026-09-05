@@ -795,7 +795,11 @@
         "dxfpslimit": "Limiteer DirectX Games FPS",
         "enable-quick-sync-menu": "",
         "disable_gog_presence": "Schakel GOG Presence updates uit",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

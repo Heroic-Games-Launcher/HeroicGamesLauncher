@@ -222,7 +222,12 @@
             "select": "选择",
             "space": "空格",
             "update_game": "更新游戏",
-            "exit": "退出"
+            "exit": "退出",
+            "move_focus": "移动焦点",
+            "next_page": "下一页",
+            "previous_page": "上一页",
+            "search": "搜索",
+            "url_bar": "地址栏"
         }
     },
     "docs": "文档",
@@ -718,7 +723,7 @@
         "preferSystemLibs": "首选系统库",
         "runexe": {
             "message": "将文件拖放到此处",
-            "title": "在前缀上运行 EXE"
+            "title": "在当前 Prefix 上运行 EXE"
         },
         "savefolder": {
             "not-found": "未找到保存文件夹，请手动选择（单击重试）",
@@ -819,7 +824,11 @@
         "nvidiaprime": {
             "description": "强制使用独立显卡（适用于 NVIDIA Optimus 或 AMD 双显卡切换），此选项仅对 OpenGL 和 Vulkan 游戏有效。"
         },
-        "hide-window-on-protocol-launch": "通过 heroic:// 链接启动游戏时隐藏 Heroic 窗口"
+        "hide-window-on-protocol-launch": "通过 heroic:// 链接启动游戏时隐藏 Heroic 窗口",
+        "steamRuntime": {
+            "label": "使用 Steam 运行时",
+            "noRuntimeOption": "无"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1057,7 +1066,8 @@
         "proton-ge": "GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。",
         "gpt": "Game Porting Toolkit 由苹果公司开发，推荐用于搭载 M1+ 芯片的 Apple Silicon Mac，且对于使用 DX12 的新游戏效果最佳。",
         "wine-crossover": "Wine-Crossover 基于 Crossover 开源 Wine 项目，推荐用于 Intel Mac 以及 DX11 或更早版本的游戏。",
-        "wine-staging-macos": "Wine-Staging-macOS 基于主线 Wine 项目，推荐用于 Intel Mac 以及 DX11 或更早版本的游戏，尤其是与 DXMT 工具配合使用时效果更佳。"
+        "wine-staging-macos": "Wine-Staging-macOS 基于主线 Wine 项目，推荐用于 Intel Mac 以及 DX11 或更早版本的游戏，尤其是与 DXMT 工具配合使用时效果更佳。",
+        "proton-cachyos": "Proton-CachyOS 是由 CachyOS 团队维护的 Proton 变体。它包含了 DXVK-Sarek 和 D7VK 等额外工具。"
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
@@ -1138,7 +1148,7 @@
         "enable": "启用",
         "info": {
             "pt1": "Heroic 收集 100% 匿名的数据来改进应用。",
-            "pt2": "Heroic 使用开源的 Plausible Analytics 平台收集基本数据：应用版本、操作系统、连接的商店和国家/地区。",
+            "pt2": "Heroic 使用自托管开源的 Plausible Analytics 平台收集基本数据：应用版本、操作系统、系统架构、Linux 分发版本、连接的商店和国家/地区。",
             "pt3": "Heroic 从不收集任何个人信息，包括用户名、IP 地址或电子邮箱。",
             "pt4": "由于资源和用户反馈有限，此数据用于洞悉接下来要把主要精力放在哪里。",
             "pt5": "Plausible Analytics 完全遵守 GDPR、CCPA 和 PECR.",
@@ -1190,12 +1200,12 @@
         },
         "filters": {
             "moreFilters": "更多筛选项",
-            "ageRating": "",
+            "ageRating": "适合年龄",
             "os": "操作系统：",
             "price": "价格",
             "activeCount_other": "",
             "hideDlcs": "隐藏 DLC",
-            "ageRatingOption": "",
+            "ageRatingOption": "展示游戏评级为PEGI {{age}}及以下",
             "genres": "",
             "activeCount_one": "",
             "lessFilters": "更少筛选项",
@@ -1225,10 +1235,10 @@
         "noMatches": "",
         "aria": {
             "pagination": "",
-            "rating": ""
+            "rating": "评分 {{rating}}（满分10分）"
         },
-        "error": "",
-        "empty": "",
+        "error": "无法获取折扣。请稍后再试。",
+        "empty": "目前没有游戏打折。",
         "loading": "",
         "title": "GOG 优惠",
         "pagination": {
@@ -1237,7 +1247,10 @@
         "tabs": {
             "label": "Store"
         },
-        "titleMulti": "优惠"
+        "titleMulti": "优惠",
+        "currency": {
+            "label": "货币"
+        }
     },
     "steamgriddb": {
         "error": {
@@ -1259,43 +1272,49 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "分类",
         "cancel": {
-            "hintSuffix": "",
-            "hintPrefix": ""
+            "hintSuffix": "持续 3 秒以退出",
+            "hintPrefix": "长按"
         },
         "quit": "退出主机模式",
         "hints": {
             "launch": "启动中",
-            "sort": "",
-            "navigate": "",
+            "sort": "分类",
+            "navigate": "导航",
             "quit": "退出",
-            "change_store": ""
+            "change_store": "切换商店"
         },
         "launching": "启动中",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "需要更新"
         },
         "filter": {
             "sideload": "其他",
             "all": "全部"
         },
-        "empty": "",
+        "empty": "没有已安装的游戏可以展示。请先安装一些游戏。",
         "games": "已安装的游戏",
         "quitApp": "退出软件",
-        "loading": "",
+        "loading": "加载你的游戏库中……",
         "cancelInstall": {
-            "title": "取消安装"
+            "title": "取消安装",
+            "message": "这款游戏目前正在安装，取消安装？"
         },
         "cancelUpdate": {
-            "title": "取消更新"
+            "title": "取消更新",
+            "message": "这款游戏目前正在下载。取消正在进行的更新？"
         },
         "install": {
             "platform": "Platform",
             "title": "安装游戏",
             "wineLoading": "加载中…",
             "path": "安装到",
-            "wineMissing": "未选择路径"
+            "wineMissing": "未选择路径",
+            "wine": "Wine"
+        },
+        "removeFromQueue": {
+            "message": "这款游戏正在排队下载。从队列中移除？"
         }
     },
     "next": "下一步"

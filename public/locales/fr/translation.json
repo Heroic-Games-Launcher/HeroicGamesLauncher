@@ -820,7 +820,11 @@
         "scripts": "Scripts :",
         "enable-quick-sync-menu": "Inclure le menu des sauvegardes rapides sur la page de description des jeux",
         "disable_gog_presence": "Désactiver la mise à jour de GOG Présence",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "",
+        "steamRuntime": {
+            "label": "Utiliser le runtime Steam",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

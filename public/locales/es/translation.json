@@ -820,6 +820,10 @@
         "hide-window-on-protocol-launch": "Ocultar ventana de Heroic cuando un juego es ejecutado desde enlaces heroic://",
         "nvidiaprime": {
             "description": "Forzar el uso de NVIDIA Optimus o AMD Dynamic Switchable Graphics dGPU . Úsalo ÚNICAMENTE para juegos OpenGL y Vulkan."
+        },
+        "steamRuntime": {
+            "label": "Usar Steam Runtime",
+            "noRuntimeOption": "Nada"
         }
     },
     "settings": {

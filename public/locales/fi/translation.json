@@ -214,7 +214,12 @@
             "select": "Valitse",
             "space": "Välilyönti",
             "update_game": "Päivitä peli",
-            "exit": "Poistu"
+            "exit": "Poistu",
+            "move_focus": "Siirrä kohdistusta",
+            "next_page": "Seuraava sivu",
+            "previous_page": "Edellinen sivu",
+            "search": "Hae",
+            "url_bar": "URL-osoitepalkki"
         }
     },
     "docs": "Dokumentaatio",
@@ -372,7 +377,8 @@
         "nvidiaprime": {
             "details": "Käytä omistautunutta tehokkaampaa grafiikkakorttia pelin hahmontamiseen moninäytönohjaimisissa järjestelmissä. Tarvitaan vain kannettavissa tietokoneissa tai työpöytäkonessa, jotka käyttävät vaihtelevaa näytönohjainmallia (NVIDIA Optimus, AMD CrossFire)",
             "link": "Lue lisää yksityiskohtia wikistämme"
-        }
+        },
+        "hide-window-on-protocol-launch": "Pitää Heroic:in ikkunan piilossa, kun peli käynnistetään ulkoisesta pikakuvakkeesta, kuten \"lisää Steamiin\" -toiminnon kautta."
     },
     "info": {
         "heroic": {
@@ -515,7 +521,7 @@
         },
         "gameargs": {
             "placeholder": "Laita tähän käynnistyskäskyt",
-            "title": "Lisäkäskyt pelille (jotka suoritetaan komennon jälkeen):",
+            "title": "Lisäkäskyt (lisätään tämän pelin käynnistyskomentoon)",
             "error": {
                 "command": "Steamin %command% syntaksi ei ole kelpo pelin argumentti.",
                 "env": "Ympäristömuuttujat täytyy asetaa alla olevaan taulukkoon."
@@ -800,6 +806,13 @@
         "disable_gog_presence": "Poista GOG:n läsnäolopäivitykset käytöstä",
         "nvidiaprime": {
             "description": "Pakota NVIDIA Optimus tai AMD:n Dynamic Switchable Graphics dGPU käyttöön. Käytä tätä VAIN OpenGL ja Vulkan peleille."
+        },
+        "gamepad-initial-repeat-delay": "Peliohjaimen painikesyötteen ensimmäinen toistoviive",
+        "gamepad-repeat-frequency": "Peliohjaimen painikesyötteen toistamisen tiheys",
+        "hide-window-on-protocol-launch": "Piilota Heroic:in ikkuna kun pelejä käynnistetään heroic:// links -osoitteesta",
+        "steamRuntime": {
+            "label": "Käytä Steam Runtimea",
+            "noRuntimeOption": "None"
         }
     },
     "settings": {
@@ -869,7 +882,7 @@
             "copyToClipboard": "Kopioi leikepöydälle",
             "heroicVersion": "Heroic-julkaisu: {{heroicVersion}}",
             "nileVersion": "Nile-julkaisu: {{nileVersion}}",
-            "cometVersion": ""
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Kokeelliset ominaisuudet"
@@ -914,7 +927,7 @@
                 "placeholder_saved": "Avain tallennettu — kirjoita korvataksesi, tyhjää poistaaksesi"
             },
             "help": {
-                "description": ""
+                "description": "Anna oma SteamGridDB API-avain pelin kansihaun mahdollistamiseksi. Avain tallennetaan salattuna, kun järjestelmäsi tukee sitä. Saat sellaisen osoitteesta {{url}}"
             }
         }
     },
@@ -922,7 +935,7 @@
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "Päätetila"
     },
     "status": {
         "installing": "Asennetaan",
@@ -971,7 +984,8 @@
             "back": "Mene takaisin",
             "forward": "Mene eteenpäin",
             "openInBrowser": "Avaa selaimessa",
-            "reload": "Lataa sivu uudelleen"
+            "reload": "Lataa sivu uudelleen",
+            "home": "Siirry kaupan pääsivulle"
         }
     },
     "wine": {
@@ -981,16 +995,16 @@
             "not-found": "Wine-versioita ei löytynyt. Napsauta virkistä -kuvaketta ja yritä uudelleen.",
             "title": "Wine-hallinta",
             "unzipping": "Purkaminen",
-            "search": "",
-            "loading": "",
-            "open_folder": "",
+            "search": "Etsi versioita...",
+            "loading": "Ladataan Wine-versioita...",
+            "open_folder": "Avaa kansio",
             "update": "Päivitä",
             "settings": "Asetukset",
-            "no-results": ""
+            "no-results": "Hakusi ei vastannut yhtäkään Wine-julkaisua."
         },
         "release": "Julkaisupäivä",
         "size": "Koko",
-        "notes": ""
+        "notes": "Merkinnät"
     },
     "externalLink": {
         "dontAskAgain": "Älä kysy uudestaan",
@@ -1018,7 +1032,7 @@
         "installed": "Asennetut komponentit:",
         "loading-available": "Ladataan saatavilla olevia komponentteja...",
         "no-components": "Ei saatavilla olevia komponentteja",
-        "nothingYet": ""
+        "nothingYet": "Winetricks:in kautta ei ole vielä asennettu mitään"
     },
     "window": {
         "close": "Sulje",
@@ -1061,44 +1075,44 @@
         "library": {
             "end": {
                 "title": "Nauti peleistäsi!",
-                "intro": ""
+                "intro": "Se on siinä! Nauti peleistäsi ja pidä hauskaa!"
             },
             "welcome": {
                 "intro": "Tervetuloa Heroic-kirjastoon! Täältä näet kaikki pelisi riippumatta mistä kaupasta ne ovat peräisin.",
                 "title": "Tervetuloa Heroiciin!",
                 "title2": "Kirjaston hallinta!",
-                "intro2": ""
+                "intro2": "Jos kirjasto on tyhjä, muista kirjautua sisään tileilläsi sivupalkin tilienjallinta -painikkeella tai lisää omia pelejäsi yllä olevalla Lisää peli -painikkeella."
             },
-            "gameCard": "",
-            "filters": "",
-            "search": "",
-            "refresh": "",
-            "viewToggle": "",
-            "categories": "",
-            "sortInstalled": "",
-            "sortOptions": "",
-            "addGame": ""
+            "gameCard": "Napsauta pelikorttia hiiren vasemmalla painikkeella siirtyäksesi pelisivulle ja nähdäksesi yksityiskohdat sekä säätääksesi asetuksia. Lisäksi voit avata aihevalikon napsauttamalla hiiren oikeata painiketta.",
+            "filters": "Suodata pelejäsi kaupan, alustan, suosikkien ja muiden määritteiden mukaan hyödyntäen näitä vaihtoehtoja.",
+            "search": "Käytä hakupalkkia peliesi etsimiseen.",
+            "refresh": "Virkistä kirjasto tarkastellaksesi uusia pelejä tai päivityksiä.",
+            "viewToggle": "Vaihda ruudukko-ja luettelonäkymän välillä peliesi tarkasteluun.",
+            "categories": "Järjestele pelisi eri luokkiin pitääksesi näkymän siistinä.",
+            "sortInstalled": "Lajittele pelit asennustilanteen mukaan.",
+            "sortOptions": "Npsauta tässä lajitellaksesi pelit aakkosjärjestykseen.",
+            "addGame": "Lisää omia pelejä tai sovelluksia kirjastoon napsauttamalla tässä. Ne voivat olla periaatteessa mitä tahansa, jopa selaimen URL-osoitteita."
         },
         "next": "Seuraava",
         "startTour": "Käynnistä tutustumiskierros",
         "skip": "Ohita",
         "sidebar": {
             "welcome": {
-                "title": "",
-                "intro": ""
+                "title": "Sivupalkin navigaatio",
+                "intro": "Tervetuloa Heroic:iin! Tämä sivupalkki sisältää kaikki navigointivaihtoehdot sovelluksen tutkimiseen."
             },
-            "quit": "",
-            "docs": "",
-            "library": "",
-            "community": "",
-            "accessibility": "",
-            "wine": "",
-            "login": "",
-            "settings": "",
-            "downloads": "",
-            "accounts": "",
-            "stores": "",
-            "version": ""
+            "quit": "Poistu sovelluksesta turvallisesti.",
+            "docs": "Lue dokumentaatiota saadaksesi apua Heroic:in käyttöön.",
+            "library": "Hyödynnä pelikirjastoasi eri kaupoista yhdessä paikassa.",
+            "community": "Liity yhteisöömme Discordissa ja tue Heroic:in kehitystä.",
+            "accessibility": "Käytä esteettömyysominaisuuksia käyttösi mukauttamiseen.",
+            "wine": "Hallinnoi tai lataa uusi Wine/Proton/GPTK -versio ajaaksesi Windows-pelejä Linuxilla tai macOS:llä.",
+            "login": "Kirjaudu sisään pelikaupojen tileille päästäksesi niiden kirjastoihin.",
+            "settings": "Määritä Heroic:in asetukset, pelien oletusasetukset, tarkista lokit, ynnä muuta.",
+            "downloads": "Seuraa ja hallitse pelien latauksia ja asennuksia.",
+            "accounts": "Hallinnoi yhdistettyjen pelikauppojen tilejä (Epic, GOG, Amazon), kirjaudu niistä ulos tai sisään.",
+            "stores": "Selaa ja osta pelejä eri pelikaupoista, mukaan lukien Epic, GOG sekä Amazon.",
+            "version": "Tarkista tämänhetkinen Heroic-versiosi, napsauta nähdäksesi uusimmat muutoslokit ja siirtyäksesi tähän esittelyyn ohjekuvakkeesta."
         }
     },
     "analyticsModal": {
@@ -1106,7 +1120,7 @@
         "enable": "Päällä",
         "info": {
             "pt1": "Sovelluksen parantamiseksi Heroic kerää 100% anonyymejä tietoja.",
-            "pt2": "Heroic käyttää avoimen lähdekoodin Plausible Analytics -alustaa kerätäkseen perustietoja: Ohjelman versio, käyttöjärjestelmä, yhdistetyt kaupat, sekä maa.",
+            "pt2": "Heroic käyttää avoimen lähdekoodin Plausible Analytics -alustaa, Heroic-kehittäjien itsensä hostaamana, kerätäkseen perustietoja: ohjelman versio, käyttöjärjestelmä, järjestelmän arkkitehtuuri, Linux-jakelu, yhdistetyt kaupat, sekä maa.",
             "pt3": "Se ei koskaan kerää mitään henkilökohtaisia tietoja, mukaan lukien käyttäjänimesi, IP-osoitteesi tai sähköpostisi.",
             "pt4": "Näitä tietoja käytetään antamaan meille oivalluksia siitä, mihin keskittyä seuraavaksi rajallisten resurssiemme ja käyttäjäpalautteen vuoksi.",
             "pt5": "Plausible Analytics on täysin GDPR:n, CCPA:n ja PECR:n mukainen.",
@@ -1119,12 +1133,13 @@
     "launch": {
         "options": "Käynnistysasetukset..."
     },
-    "zoom-store": "",
+    "zoom-store": "Zoom -kauppa",
     "wineExplanation": {
-        "proton-ge": "",
-        "gpt": "",
-        "wine-crossover": "",
-        "wine-staging-macos": ""
+        "proton-ge": "GE-Proton on Glorious Eggroll:in luoma Proton-muunnelma. Se on tarkoitettu käytettäväksi yhdessä umu launcher:in kanssa (oletus Heroic:issa).",
+        "gpt": "Game Porting Toolkit on Applen kehittämä ja suositeltu Apple Silicon Mac-tietokoneille, joissa on M1 + - siru, se toimii parhaiten uudemmissa peleissä, jotka käyttävät DX12:sta.",
+        "wine-crossover": "Wine-Crossover perustuu avoimen ohjelmakoodin Wine-projektiin; sitä suositellaan käytettäväksi Intel Maceissä ja DX11 -peleissä tai sitä vieläkin vanhemmissa peleissä.",
+        "wine-staging-macos": "Wine-Staging-macOS perustuu pääketjun Wine-projektiin, ja sitä suositellaan käytettäväksi Intel Mac-tietokoneissa ja DX11 -tai sitä vanhemmissa peleissä, varsinkin kun se on pariutettu DXMT-työkaluun.",
+        "proton-cachyos": "Proton-CachyOS on Protonin muunnelma jota ylläpitää CachyOS-tiimi. Se sisältää lisätyökaluja kuten DXVK-Sarek ja D7VK."
     },
     "discounts": {
         "region": {
@@ -1157,7 +1172,8 @@
                 "PL": "Puola",
                 "BR": "Brasilia",
                 "CH": "Sveitsi",
-                "TR": "Turkki"
+                "TR": "Turkki",
+                "ZA": "Etelä-Afrikka"
             },
             "auto": "Auto {{code}}",
             "label": "Kaupan alue"
@@ -1209,21 +1225,35 @@
             "prev": "Edellinen"
         },
         "tabs": {
-            "label": "Store"
+            "label": "Store",
+            "all": "Kaikki kaupat"
         },
-        "titleMulti": "Tarjoukset"
+        "titleMulti": "Tarjoukset",
+        "currency": {
+            "label": "Valuutta"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} avain, hankittu Heroic:in ulkopuolelta",
+            "gmgHint": "Green Man Gaming — ulkoisen kaupan avain, ei voida asentaa Heroic:in kautta",
+            "humbleHint": "Humble Bundle — ulkoisen kaupan avain, ei voida asentaa Heroic:in kautta"
+        },
+        "view": {
+            "grid": "Ruudukko",
+            "label": "Näkymätila",
+            "list": "Luettelo"
+        }
     },
     "steamgriddb": {
         "error": {
             "no-games": "Pelejä ei löydetty",
             "no-grids": "Tälle pelille ei löytynyt lokitiedostoja",
-            "search": "",
-            "grids": ""
+            "search": "Pelihaku epäonnistui, tarkista SteamGridDB API-avaimesi ja yritä uudelleen",
+            "grids": "Ruudukkojen noutaminen epäonnistui"
         },
         "picker": {
             "search": "Etsi pelejä",
-            "title": "",
-            "select-game": ""
+            "title": "SteamGridDB-kannet",
+            "select-game": "Valitse peli:"
         }
     },
     "console": {
@@ -1259,14 +1289,23 @@
         "quitApp": "Sulje ohjelma",
         "loading": "Ladataan kirjastoasi…",
         "cancelUpdate": {
-            "title": "Peruuta Päivitys"
+            "title": "Peruuta Päivitys",
+            "message": "Tälle pelille on käynnissä lataus. Peruutetaanko päivittäminen?"
         },
         "install": {
             "platform": "Platform",
             "title": "Asenna peli",
             "wineLoading": "Ladataan",
             "path": "Asenna sijaintiin",
-            "wineMissing": "Ei valittua polkua"
+            "wineMissing": "Ei valittua polkua",
+            "wine": "Wine"
+        },
+        "cancelInstall": {
+            "message": "Tämä peli on tällä hetkellä asentumassa. Peruutetaanko asentaminen?",
+            "title": "Peruutetaanko asennus?"
+        },
+        "removeFromQueue": {
+            "message": "Tämä peli on latausjonossa. Poista se jonosta?"
         }
     },
     "next": "Seuraava"

@@ -1,21 +1,21 @@
 {
     "button": {
         "login": "Logga in",
-        "open": "Öppen länk",
+        "open": "Öppna länk",
         "copy": "Kopiera",
         "copied": "Kopierat!",
-        "loading": "Läser in",
+        "loading": "Laddar",
         "error": "Fel, försök med en annan kod"
     },
     "message": {
-        "part1": "För att logga in och installera spel, följ dessa instruktioner:",
+        "part1": "För att logga in och installera spel behöver du först följa stegen nedan:",
         "part2": "Öppna",
         "part3": "Epic Store här",
-        "part4": ", logga in med ditt konto och kopiera ditt",
-        "part5": "auktoriseringkodsinformationsnummer",
-        "part6": "Klistra in ditt",
-        "part7": "auktoriseringskodnummer",
-        "part8": "i fältet nedan och klicka på Logga in."
+        "part4": ", logga in på ditt konto och kopiera",
+        "part5": "auktoriseringskoden",
+        "part6": "Klistra in",
+        "part7": "auktoriseringskoden",
+        "part8": "i fältet nedan och klicka på knappen Logga in."
     },
     "status": {
         "error": "Problem",
