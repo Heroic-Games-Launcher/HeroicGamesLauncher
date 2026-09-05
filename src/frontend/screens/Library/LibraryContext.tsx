@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { GameInfo } from 'common/types'
-import { LibraryContextType } from 'frontend/types'
+import { LibraryContextType, SortOptions } from 'frontend/types'
 
 const initialContext: LibraryContextType = {
   storesFilters: {
@@ -26,8 +26,8 @@ const initialContext: LibraryContextType = {
   setShowNonAvailable: () => null,
   showInstalledOnly: false,
   setShowInstalledOnly: () => null,
-  sortDescending: true,
-  setSortDescending: () => null,
+  currentSort: SortOptions.alphaAsc,
+  setCurrentSort: () => null,
   sortInstalled: true,
   setSortInstalled: () => null,
   showSupportOfflineOnly: false,
