@@ -219,7 +219,12 @@
             "select": "Seç",
             "space": "Boşluk",
             "update_game": "Oyunu güncelle",
-            "exit": "Çıkış"
+            "exit": "Çıkış",
+            "move_focus": "Odağı taşı",
+            "next_page": "Sonraki sayfa",
+            "previous_page": "Önceki sayfa",
+            "search": "Ara",
+            "url_bar": "URL çubuğu"
         }
     },
     "docs": "Dokümantasyon",
@@ -263,7 +268,7 @@
             "refresh": "Kütüphaneyi Yenile"
         },
         "install": "Kur",
-        "uninstall": "Uninstall",
+        "uninstall": "Kurulumu sil",
         "abort": "İptal"
     },
     "globalSettings": "Genel Ayarlar",
@@ -522,7 +527,7 @@
         },
         "gameargs": {
             "placeholder": "Başlatma Parametrelerini buraya girin",
-            "title": "Oyun Parametreleri (Komutun sonunda çalıştırmak için):",
+            "title": "Oyun Parametreleri (oyun başlatma komutuna eklenir)",
             "error": {
                 "env": "Ortam değişkenleri aşağıdaki tabloda yapılandırılmalıdır.",
                 "command": "Steam'in %command% sözdizimi oyun argümanları olarak geçerli değil."
@@ -815,6 +820,12 @@
         "hide-window-on-protocol-launch": "heroic://bağlantılardan oyun başlatılırken Heroic penceresini gizle",
         "nvidiaprime": {
             "description": "NVIDIA Optimus veya AMD Dynamic Switchable Graphics dGPU'nun kullanılmasını zorla. Bunu YALNIZCA OpenGL ve Vulkan oyunları için kullanın."
+        },
+        "gamepad-initial-repeat-delay": "Oyun kumandası girişi için ilk tekrar gecikmesi",
+        "gamepad-repeat-frequency": "Oyun kumandası giriş tekrarlama sıklığı",
+        "steamRuntime": {
+            "label": "Steam Çalışma Zamanını Kullan",
+            "noRuntimeOption": "None"
         }
     },
     "settings": {
@@ -986,7 +997,8 @@
             "back": "Geri dön",
             "forward": "İleri",
             "openInBrowser": "Tarayıcıda aç",
-            "reload": "Sayfayı yeniden yükle"
+            "reload": "Sayfayı yeniden yükle",
+            "home": "Mağazanın ana sayfasına git"
         }
     },
     "wine": {
@@ -1138,7 +1150,7 @@
             "pt3": "Heroic; kullanıcı adınız, IP adresiniz ya da e-postanız gibi kişisel bilgilerinizi asla toplamaz.",
             "pt6": "Şeffaf olmak açısından, toplanılan verileri Heroic kayıtlarında görebilirsiniz.",
             "pt7": "Bu ayarı dilediğiniz zaman uygulama ayarlarından değiştirebilirsiniz.",
-            "pt2": "Heroic, açık kaynaklı Plausible Analytics platformunu kullanarak şu temel verileri toplar: Uygulama Sürümü, İşletim Sistemi, Bağlı Mağazalar ve Ülke.",
+            "pt2": "Heroic, şu temel verileri toplamak için Heroic ekibi tarafından kendi sunucularında barındırılan açık kaynaklı Plausible Analytics platformunu kullanır: Uygulama Sürümü, İşletim Sistemi, Sistem Mimarisi, Linux Dağıtımı, Bağlı Mağazalar ve Ülke.",
             "pt4": "Bu veriler, kısıtlı kaynaklarımız ve kullanıcı geri bildirimleri doğrultusunda, bir sonraki adımda neye odaklanmamız gerektiği konusunda bize yol göstermek için kullanılır.",
             "pt5": "Plausible Analytics; GDPR, CCPA ve PECR ile tamamen uyumludur."
         },
@@ -1216,7 +1228,8 @@
                 "PL": "Polonya",
                 "BR": "Brezilya",
                 "CH": "İsviçre",
-                "TR": "Türkiye"
+                "TR": "Türkiye",
+                "ZA": "Güney Afrika"
             },
             "auto": "Otomatik ({{code}})",
             "label": "Mağaza bölgesi"
@@ -1245,9 +1258,23 @@
             "prev": "Önceki"
         },
         "tabs": {
-            "label": "Mağaza"
+            "label": "Mağaza",
+            "all": "Tüm mağazalar"
         },
-        "titleMulti": "Fırsatlar"
+        "titleMulti": "Fırsatlar",
+        "currency": {
+            "label": "Döviz"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} anahtarı, Heroic dışında kullanıldı",
+            "gmgHint": "Green Man Gaming — harici bir mağaza için anahtar, Heroic aracılığıyla yüklenemez",
+            "humbleHint": "Humble Bundle — harici bir mağaza için anahtar; Heroic üzerinden yüklenemez"
+        },
+        "view": {
+            "grid": "Izgara",
+            "label": "Görünüm modu",
+            "list": "Liste"
+        }
     },
     "next": "Sonraki",
     "console": {
@@ -1283,7 +1310,7 @@
         "quitApp": "Uygulamadan Çık",
         "loading": "Kütüphaneniz yükleniyor…",
         "cancelInstall": {
-            "title": "Kurulumu İptal Et",
+            "title": "Kurulumu İptal Et?",
             "message": "Bu oyun şu anda yükleniyor. Yüklemeyi iptal et?"
         },
         "cancelUpdate": {
