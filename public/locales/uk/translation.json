@@ -530,7 +530,7 @@
         },
         "gameargs": {
             "placeholder": "Вкажіть тут команди запуску",
-            "title": "Команди для гри (для виконання після команди запуску):",
+            "title": "Аргументи гри (додаються до команди запуску гри)",
             "error": {
                 "command": "Синтаксис команди %command% із Steam недійсний як аргументи гри.",
                 "env": "Змінні середовища повинні бути налаштовані в таблиці нижче."
@@ -825,7 +825,13 @@
         "nvidiaprime": {
             "description": "Примусово ввімкнути технологію NVIDIA Optimus або AMD Dynamic Switchable Graphics для дискретної відеокарти. Використовуйте цю функцію ТІЛЬКИ для ігор, що підтримують OpenGL та Vulkan."
         },
-        "hide-window-on-protocol-launch": "Приховувати вікно Heroic під час запуску ігор через посилання heroic://"
+        "hide-window-on-protocol-launch": "Приховувати вікно Heroic під час запуску ігор через посилання heroic://",
+        "gamepad-initial-repeat-delay": "Початкова затримка повторення введення з ґеймпада",
+        "gamepad-repeat-frequency": "Частота повторення введення ґеймпада",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
