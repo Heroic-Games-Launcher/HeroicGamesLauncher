@@ -7,19 +7,18 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import Box from '@mui/material/Box'
 import { getGameInfo } from 'frontend/helpers'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { Runner } from 'common/types'
 import './index.css'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Badge from '@mui/material/Badge'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 type Props = {
-  appName: string
-  runner: Runner
+  game: GameHandle
 }
 
-export default React.memo(function CurrentDownload({ appName, runner }: Props) {
-  const [progress] = hasProgress(appName, runner)
+export default React.memo(function CurrentDownload({ game }: Props) {
+  const [progress] = hasProgress(game)
   const [gameTitle, setGameTitle] = useState('')
   const { libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -29,17 +28,17 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
       // Hack for EOS Overlay. Not sure if this can be done better
       let title
       if (
-        appName === '98bc04bc842e4906993fd6d6644ffb8d' &&
-        runner === 'legendary'
+        game.id === '98bc04bc842e4906993fd6d6644ffb8d' &&
+        game.runner === 'legendary'
       ) {
         title = 'EOS Overlay'
       } else {
-        title = (await getGameInfo(appName, runner))!.title
+        title = (await getGameInfo(game))!.title
       }
       setGameTitle(title)
     }
     getGameTitle()
-  }, [appName])
+  }, [game])
 
   function getStatus() {
     return progress.percent && progress.percent > 98

@@ -1,5 +1,6 @@
 import { Runner, Status } from 'common/types'
 import { TFunction } from 'i18next'
+import type { GameHandle } from '../helpers/ipc'
 
 type StatusArgs = {
   status: Status
@@ -52,23 +53,20 @@ const storage = window.localStorage
 const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
 const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
 
-export async function handleNonAvailableGames(appName: string, runner: Runner) {
-  const gameAvailable = await window.api.isGameAvailable({
-    appName,
-    runner
-  })
+export async function handleNonAvailableGames(game: GameHandle) {
+  const gameAvailable = await window.api.isGameAvailable(game)
 
   if (!gameAvailable) {
-    if (!nonAvailbleGamesArray.includes(appName)) {
-      nonAvailbleGamesArray.push(appName)
+    if (!nonAvailbleGamesArray.includes(game.id)) {
+      nonAvailbleGamesArray.push(game.id)
       storage.setItem(
         'nonAvailableGames',
         JSON.stringify(nonAvailbleGamesArray)
       )
     }
   } else {
-    if (nonAvailbleGamesArray.includes(appName)) {
-      nonAvailbleGamesArray.splice(nonAvailbleGamesArray.indexOf(appName), 1)
+    if (nonAvailbleGamesArray.includes(game.id)) {
+      nonAvailbleGamesArray.splice(nonAvailbleGamesArray.indexOf(game.id), 1)
       storage.setItem(
         'nonAvailableGames',
         JSON.stringify(nonAvailbleGamesArray)

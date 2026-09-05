@@ -1,18 +1,17 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { DLCInfo } from 'common/types/legendary'
 import DLC from './DLC'
 import './index.scss'
-import { GameInfo, Runner } from 'common/types'
+import { GameInfo } from 'common/types'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 type Props = {
-  dlcs: DLCInfo[]
-  runner: Runner
+  dlcs: GameHandle[]
   mainAppInfo: GameInfo
   onClose: () => void
 }
 
-const DlcList = ({ dlcs, runner, mainAppInfo, onClose }: Props) => {
+const DlcList = ({ dlcs, mainAppInfo, onClose }: Props) => {
   const { t } = useTranslation()
 
   return (
@@ -28,9 +27,8 @@ const DlcList = ({ dlcs, runner, mainAppInfo, onClose }: Props) => {
         dlcs.map((dlc) => {
           return (
             <DLC
-              key={dlc.app_name}
+              key={dlc.id}
               dlc={dlc}
-              runner={runner}
               mainAppInfo={mainAppInfo}
               onClose={onClose}
             />

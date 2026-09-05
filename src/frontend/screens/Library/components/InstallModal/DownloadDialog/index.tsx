@@ -8,10 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import {
   GameInfo,
-  GameStatus,
   InstallInfo,
   InstallPlatform,
-  Runner,
   WineInstallation
 } from 'common/types'
 import {
@@ -49,15 +47,18 @@ import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
 import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
+import SteamLibrarySelector from './SteamLibrarySelector'
+import { SteamInstallLibrary } from 'common/types/steam'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import BranchSelector from './BranchSelector'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
+  game: GameHandle
   backdropClick: () => void
-  appName: string
-  runner: Runner
   platformToInstall: InstallPlatform
+  setPlatformToInstall: (platform: InstallPlatform) => void
   availablePlatforms: AvailablePlatforms
   winePrefix: string
   crossoverBottle: string
@@ -93,10 +94,10 @@ function getDefaultInstallPath() {
 }
 
 export default function DownloadDialog({
+  game,
   backdropClick,
-  appName,
-  runner,
   platformToInstall,
+  setPlatformToInstall,
   availablePlatforms,
   winePrefix,
   wineVersion,
@@ -105,16 +106,17 @@ export default function DownloadDialog({
   crossoverBottle
 }: Props) {
   const previousProgress = JSON.parse(
-    storage.getItem(appName) || '{}'
+    storage.getItem(game.id) || '{}'
   ) as InstallProgress
   const { libraryStatus, platform, showDialogModal } =
     useContext(ContextProvider)
 
   const isWin = platform === 'win32'
+  const isSteam = game.runner === 'steam'
 
-  const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
-    null
-  )
+  const [gameInstallInfo, setGameInstallInfo] = useState<
+    InstallInfo | null | undefined
+  >(null)
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 
@@ -130,9 +132,10 @@ export default function DownloadDialog({
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || getDefaultInstallPath()
   )
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
-  )[0]
+  const [steamLibraries, setSteamLibraries] = useState<SteamInstallLibrary[]>(
+    []
+  )
+  const gameStatus = libraryStatus.find((s) => s.appName === game.id)
 
   const [dlcsToInstall, setDlcsToInstall] = useState<string[]>([])
   const [sdls, setSdls] = useState<SelectiveDownload[]>([])
@@ -174,13 +177,11 @@ export default function DownloadDialog({
 
   useEffect(() => {
     async function get() {
-      const branchPassword = await window.api.getPrivateBranchPassword(
-        gameInfo.app_name
-      )
+      const branchPassword = await window.api.getPrivateBranchPassword(game)
       setSavedBranchPassword(branchPassword)
     }
     get()
-  }, [])
+  }, [game])
 
   const handleSdl = useCallback(
     (sdl: SelectiveDownload, value: boolean) => {
@@ -268,17 +269,11 @@ export default function DownloadDialog({
 
     // Write Default game config with prefix on linux
     if (!isWin) {
-      const gameSettings = await window.api.requestGameSettings(appName)
-
       if (wineVersion) {
-        writeConfig({
-          appName,
-          config: {
-            ...gameSettings,
-            winePrefix,
-            wineVersion,
-            wineCrossoverBottle: crossoverBottle
-          }
+        writeConfig(game, {
+          winePrefix,
+          wineVersion,
+          wineCrossoverBottle: crossoverBottle
         })
       }
     }
@@ -303,8 +298,7 @@ export default function DownloadDialog({
   function handleSwitchToImport() {
     backdropClick()
     openInstallGameModal({
-      appName,
-      runner,
+      game,
       gameInfo,
       action: 'import'
     })
@@ -317,18 +311,31 @@ export default function DownloadDialog({
         const fetchedBuild = selectedBuild
         setGettingInstallInfo(true)
         const gameInstallInfo = await getInstallInfo(
-          appName,
-          runner,
+          game,
           platformToInstall,
           selectedBuild,
           branch
         )
 
-        if (
+        const noContent =
           gameInstallInfo?.manifest &&
           gameInstallInfo?.manifest.disk_size === 0 &&
           gameInstallInfo.manifest.download_size === 0
+
+        // Steam: the current platform was auto-selected, but this game has no
+        // depots for it (dry-run reports 0 sizes). Fall back to Windows (run via
+        // Proton) instead of declaring the game uninstallable.
+        if (
+          noContent &&
+          isSteam &&
+          platformToInstall !== 'Windows' &&
+          availablePlatforms.some((p) => p.value === 'Windows')
         ) {
+          setPlatformToInstall('Windows')
+          return
+        }
+
+        if (noContent) {
           showDialogModal({
             showDialog: true,
             title: t(
@@ -430,7 +437,7 @@ export default function DownloadDialog({
     }
     void getInstInfo()
   }, [
-    appName,
+    game,
     i18n.languages,
     platformToInstall,
     selectedBuild,
@@ -439,19 +446,33 @@ export default function DownloadDialog({
   ])
 
   useEffect(() => {
-    const getGameSdl = async () => {
-      if (runner === 'legendary') {
-        const { sdl_config } = await window.api.getGameOverride()
-        if (sdl_config && sdl_config[appName]) {
-          const sdl = await window.api.getGameSdl(appName)
-          if (sdl.length > 0) {
-            setSdls(sdl)
-          }
-        }
-      }
+    if (!isSteam) return
+    let cancelled = false
+    void window.api.getSteamInstallLibraries().then((libraries) => {
+      if (cancelled) return
+      setSteamLibraries(libraries)
+      if (!libraries.length) return
+      const configuredPath =
+        gameInstallInfo &&
+        'game' in gameInstallInfo &&
+        'path' in gameInstallInfo.game
+          ? gameInstallInfo.game.path
+          : ''
+      const preselected =
+        libraries.find((lib) => configuredPath.startsWith(lib.path))?.path ??
+        libraries[0].path
+      setInstallPath(preselected)
+    })
+    return () => {
+      cancelled = true
     }
-    getGameSdl()
-  }, [appName, runner])
+  }, [isSteam, gameInstallInfo])
+
+  useEffect(() => {
+    void window.api.getGameSdl(game).then((sdl) => {
+      if (sdl) setSdls(sdl)
+    })
+  }, [game])
 
   useEffect(() => {
     const getSpace = async () => {
@@ -583,7 +604,7 @@ export default function DownloadDialog({
     installPath && !!diskSize && !gettingInstallInfo && validFlatpakPath
 
   const showDlcSelector =
-    ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0
+    ['legendary', 'gog'].includes(game.runner) && DLCList && DLCList?.length > 0
 
   return (
     <>
@@ -660,75 +681,83 @@ export default function DownloadDialog({
           />
         )}
 
-        <PathSelectionBox
-          type="directory"
-          onPathChange={setInstallPath}
-          path={installPath}
-          placeholder={getDefaultInstallPath()}
-          pathDialogTitle={t('install.path')}
-          pathDialogDefaultPath={getDefaultInstallPath()}
-          htmlId="setinstallpath"
-          label={t('install.path', 'Select Install Path')}
-          noDeleteButton
-          afterInput={
-            downloadSize ? (
-              <span className="smallInputInfo">
-                {validPath && validFlatpakPath && (
-                  <>
-                    <span>
-                      {`${t('install.disk-space-left', 'Space Available')}: `}
+        {isSteam ? (
+          <SteamLibrarySelector
+            libraries={steamLibraries}
+            selectedPath={installPath}
+            onChange={setInstallPath}
+          />
+        ) : (
+          <PathSelectionBox
+            type="directory"
+            onPathChange={setInstallPath}
+            path={installPath}
+            placeholder={getDefaultInstallPath()}
+            pathDialogTitle={t('install.path')}
+            pathDialogDefaultPath={getDefaultInstallPath()}
+            htmlId="setinstallpath"
+            label={t('install.path', 'Select Install Path')}
+            noDeleteButton
+            afterInput={
+              downloadSize ? (
+                <span className="smallInputInfo">
+                  {validPath && validFlatpakPath && (
+                    <>
+                      <span>
+                        {`${t('install.disk-space-left', 'Space Available')}: `}
+                      </span>
+                      <span>
+                        <strong>{`${message}`}</strong>
+                      </span>
+                      {!notEnoughDiskSpace && (
+                        <>
+                          <span>
+                            {` - ${t(
+                              'install.space-after-install',
+                              'After Install'
+                            )}: `}
+                          </span>
+                          <span>
+                            <strong>{`${spaceLeftAfter}`}</strong>
+                          </span>
+                        </>
+                      )}
+                    </>
+                  )}
+                  {!validPath && (
+                    <span className="warning">
+                      {`${t(
+                        'install.path-not-writtable',
+                        'Warning: path might not be writable.'
+                      )}`}
                     </span>
-                    <span>
-                      <strong>{`${message}`}</strong>
+                  )}
+                  {validPath && !validFlatpakPath && (
+                    <span className="error">
+                      {`${t(
+                        'install.flatpak-path-not-writtable',
+                        'Error: Sandbox access not granted to this path, data loss will occur.'
+                      )}`}
                     </span>
-                    {!notEnoughDiskSpace && (
-                      <>
-                        <span>
-                          {` - ${t(
-                            'install.space-after-install',
-                            'After Install'
-                          )}: `}
-                        </span>
-                        <span>
-                          <strong>{`${spaceLeftAfter}`}</strong>
-                        </span>
-                      </>
-                    )}
-                  </>
-                )}
-                {!validPath && (
-                  <span className="warning">
-                    {`${t(
-                      'install.path-not-writtable',
-                      'Warning: path might not be writable.'
-                    )}`}
-                  </span>
-                )}
-                {validPath && !validFlatpakPath && (
-                  <span className="error">
-                    {`${t(
-                      'install.flatpak-path-not-writtable',
-                      'Error: Sandbox access not granted to this path, data loss will occur.'
-                    )}`}
-                  </span>
-                )}
-                {validPath && notEnoughDiskSpace && (
-                  <span className="warning">
-                    {` (${t(
-                      'install.not-enough-disk-space',
-                      'Not enough disk space'
-                    )})`}
-                  </span>
-                )}
-              </span>
-            ) : null
-          }
-        />
+                  )}
+                  {validPath && notEnoughDiskSpace && (
+                    <span className="warning">
+                      {` (${t(
+                        'install.not-enough-disk-space',
+                        'Not enough disk space'
+                      )})`}
+                    </span>
+                  )}
+                </span>
+              ) : null
+            }
+          />
+        )}
 
         {platformToInstall !== 'linux' && branches.length > 1 && (
           <div>
             <BranchSelector
-              appName={gameInfo.app_name}
+              game={game}
               branches={branches}
               branch={branch}
               setBranch={setBranch}
@@ -783,9 +812,14 @@ export default function DownloadDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button onClick={handleSwitchToImport} className="button is-secondary">
-          {t('button.import', 'Import Game')}
-        </button>
+        {!isSteam && (
+          <button
+            onClick={handleSwitchToImport}
+            className="button is-secondary"
+          >
+            {t('button.import', 'Import Game')}
+          </button>
+        )}
         <button
           onClick={async () => handleInstall()}
           className="button is-primary"

@@ -1,10 +1,10 @@
 import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'graceful-fs'
-import { GameInfo } from 'common/types'
 import { basename, dirname, extname, join } from 'path'
 import { libraryManagerMap } from '../storeManagers'
 import { downloadFile } from 'backend/utils'
 import { createAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { heroicIconFolder as iconsFolder } from 'backend/constants/paths'
+import type { Game } from 'common/types/game_manager'
 
 function createImage(
   buffer: Buffer,
@@ -58,19 +58,21 @@ function checkImageExistsAlready(image: string): boolean {
   return found !== undefined ? true : false
 }
 
-async function getIcon(appName: string, gameInfo: GameInfo) {
+async function getIcon(game: Game) {
   if (!existsSync(iconsFolder)) {
     mkdirSync(iconsFolder)
   }
 
+  const gameInfo = game.getGameInfo()
+
   // By default use vertical image - art_square in jpg format
   let image = gameInfo.art_square.replaceAll(' ', '%20').replace('{ext}', 'jpg')
-  let icon = `${iconsFolder}/${appName}.jpg`
+  let icon = `${iconsFolder}/${game.id}.jpg`
 
   if (gameInfo.runner === 'gog') {
     const icoPath = join(
       gameInfo.install.install_path!,
-      `goggame-${appName}.ico`
+      `goggame-${game.id}.ico`
     )
     const linuxNativePath = join(
       gameInfo.install.install_path!,
@@ -82,10 +84,10 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     } else if (existsSync(linuxNativePath)) {
       return linuxNativePath
     }
-    const productApiData = await libraryManagerMap['gog'].getProductApi(appName)
+    const productApiData = await libraryManagerMap['gog'].getProductApi(game.id)
     if (productApiData && productApiData.data.images?.icon) {
       image = 'https:' + productApiData.data.images?.icon
-      icon = `${iconsFolder}/${appName}.png` // Allow transparency
+      icon = `${iconsFolder}/${game.id}.png` // Allow transparency
     }
   }
 

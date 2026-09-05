@@ -1,39 +1,31 @@
 import { libraryManagerMap } from 'backend/storeManagers'
 import { addListener, addHandler, sendFrontendMessage } from '../ipc'
-import { Winetricks, runWineCommandOnGame } from '.'
+import { Winetricks } from '.'
 import path from 'path'
-import { execAsync, getGame, sendGameStatusUpdate } from 'backend/utils'
+import { execAsync, sendGameStatusUpdate } from 'backend/utils'
 import { isWindows } from 'backend/constants/environment'
+import { runWineCommand } from '../launcher'
 
-addHandler(
-  'runWineCommandForGame',
-  async (event, { appName, commandParts, runner }) => {
-    if (isWindows) {
-      return execAsync(commandParts.join(' '))
-    }
-
-    // FIXME: Why are we using `runinprefix` here?
-    return runWineCommandOnGame(runner, appName, {
-      commandParts,
-      wait: false,
-      protonVerb: 'runinprefix'
-    })
+addHandler('runWineCommandForGame', async (event, game, commandParts) => {
+  if (isWindows) {
+    return execAsync(commandParts.join(' '))
   }
-)
+
+  return runWineCommand(game, {
+    commandParts,
+    wait: false,
+    protonVerb: 'runinprefix'
+  })
+})
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
-addHandler('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await libraryManagerMap[runner]
-    .getGame(appName)
-    .getSettings()
-
+addHandler('callTool', async (event, game, tool, exe) => {
   switch (tool) {
     case 'winetricks':
-      await Winetricks.run(runner, appName)
+      await Winetricks.run(game)
       break
     case 'winecfg':
-      await runWineCommandOnGame(runner, appName, {
-        gameSettings,
+      await runWineCommand(game, {
         commandParts: ['winecfg'],
         wait: false
       })
@@ -41,8 +33,7 @@ addHandler('callTool', async (event, { tool, exe, appName, runner }) => {
     case 'runExe':
       if (exe) {
         const workingDir = path.parse(exe).dir
-        await runWineCommandOnGame(runner, appName, {
-          gameSettings,
+        await runWineCommand(game, {
           commandParts: [exe],
           wait: false,
           startFolder: workingDir
@@ -50,30 +41,25 @@ addHandler('callTool', async (event, { tool, exe, appName, runner }) => {
       }
       break
   }
-  if (runner === 'gog') {
+  if (game.runner === 'gog') {
     // Check if game was modified by offline installer / wine uninstaller
-    await libraryManagerMap['gog'].checkForOfflineInstallerChanges(appName)
-    const maybeNewGameInfo = libraryManagerMap['gog'].getGameInfo(appName)
+    await libraryManagerMap['gog'].checkForOfflineInstallerChanges(game.id)
+    const maybeNewGameInfo = libraryManagerMap['gog'].getGameInfo(game.id)
     if (maybeNewGameInfo)
       sendFrontendMessage('pushGameToLibrary', maybeNewGameInfo)
   }
 
-  sendGameStatusUpdate({ appName, runner, status: 'done' })
+  sendGameStatusUpdate(game, 'done')
 })
 
-addListener('winetricksInstall', async (event, runner, appName, component) =>
-  Winetricks.install(runner, appName, component)
+addListener('winetricksInstall', async (event, game, component) =>
+  Winetricks.install(game, component)
 )
 
-addHandler('winetricksAvailable', async (event, runner, appName) => {
-  try {
-    return await Winetricks.listAvailable(runner, appName)
-  } catch {
-    return []
-  }
+addHandler('winetricksAvailable', async (event, game) => {
+  return Winetricks.listAvailable(game)
 })
 
-addHandler('winetricksInstalled', async (event, runner, appName) => {
-  const game = getGame(appName, runner)
+addHandler('winetricksInstalled', async (event, game) => {
   return Winetricks.listInstalled(game)
 })

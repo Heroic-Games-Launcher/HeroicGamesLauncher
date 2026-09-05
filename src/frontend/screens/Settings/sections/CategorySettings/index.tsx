@@ -1,7 +1,6 @@
 import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useContext, useEffect, useMemo, useState } from 'react'
-import SettingsContext from '../../SettingsContext'
 import { Box, Button, Divider, IconButton } from '@mui/material'
 import { TextInputField, ToggleSwitch } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
@@ -11,23 +10,24 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
-const CategorySettings = () => {
+interface Props {
+  game: GameHandle
+}
+
+const CategorySettings = ({ game }: Props) => {
   const {
     customCategories,
     currentCustomCategories,
     setCurrentCustomCategories
   } = useContext(ContextProvider)
-  const { appName, runner } = useContext(SettingsContext)
 
   const [newCategory, setNewCategory] = useState('')
   const [categoryToDelete, setCategoryToDelete] = useState('')
   const [assignedCategories, setAssignedCategories] = useState<string[]>([])
 
-  const appNameWithRunner = useMemo(
-    () => `${appName}_${runner}`,
-    [appName, runner]
-  )
+  const appNameWithRunner = useMemo(() => `${game.id}_${game.runner}`, [game])
 
   const { t } = useTranslation()
 

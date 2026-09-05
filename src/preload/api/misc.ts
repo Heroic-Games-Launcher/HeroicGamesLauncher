@@ -2,6 +2,8 @@ import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '..
 
 export const clearCache = makeListenerCaller('clearCache')
 export const clearAchievementCache = makeListenerCaller('clearAchievementCache')
+export const clearImagesCache = makeHandlerInvoker('clearImagesCache')
+export const removeImageFromCache = makeHandlerInvoker('removeImageFromCache')
 export const resetHeroic = makeListenerCaller('resetHeroic')
 export const openWeblate = makeListenerCaller('openWeblate')
 export const changeLanguage = makeListenerCaller('changeLanguage')
@@ -17,6 +19,7 @@ export const isFrameless = makeHandlerInvoker('isFrameless')
 export const isMinimized = makeHandlerInvoker('isMinimized')
 export const isMaximized = makeHandlerInvoker('isMaximized')
 export const minimizeWindow = makeListenerCaller('minimizeWindow')
+export const showWindow = makeListenerCaller('showWindow')
 export const maximizeWindow = makeListenerCaller('maximizeWindow')
 export const unmaximizeWindow = makeListenerCaller('unmaximizeWindow')
 export const closeWindow = makeListenerCaller('closeWindow')
@@ -58,6 +61,9 @@ export const pathExists = makeHandlerInvoker('pathExists')
 export const processShortcut = makeListenerCaller('processShortcut')
 export const handleGoToScreen = frontendListenerSlot('openScreen')
 export const handleShowDialog = frontendListenerSlot('showDialog')
+export const getSteamUsers = makeHandlerInvoker('getSteamUsers')
+export const focusGameWindow = makeHandlerInvoker('focusGameWindow')
+export const logoutSteamAccount = makeListenerCaller('logoutSteamAccount')
 
 import Store from 'electron-store'
 // FUTURE WORK

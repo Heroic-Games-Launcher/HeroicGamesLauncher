@@ -14,7 +14,7 @@ import { toolsPath } from 'backend/constants/paths'
 import { legendaryConfigPath } from '../constants'
 import { isLinux } from 'backend/constants/environment'
 
-import type { Runner } from 'common/types'
+import type { Game } from 'common/types/game_manager'
 
 const currentVersionPath = () =>
   join(legendaryConfigPath, 'overlay_version.json')
@@ -88,11 +88,10 @@ async function updateInfo() {
  * @returns The error encountered when installing, if any
  */
 async function install() {
-  sendGameStatusUpdate({
-    appName: eosOverlayAppName,
-    runner: 'legendary',
-    status: isInstalled() ? 'updating' : 'installing'
-  })
+  sendGameStatusUpdate(
+    { id: eosOverlayAppName, runner: 'legendary' },
+    isInstalled() ? 'updating' : 'installing'
+  )
 
   let downloadSize = 0
   // Run download without -y to get the install size
@@ -138,11 +137,7 @@ async function install() {
     }
   )
 
-  sendGameStatusUpdate({
-    appName: eosOverlayAppName,
-    runner: 'legendary',
-    status: 'done'
-  })
+  sendGameStatusUpdate({ id: eosOverlayAppName, runner: 'legendary' }, 'done')
 
   return error
 }
@@ -183,7 +178,7 @@ async function remove(): Promise<boolean> {
 }
 
 async function enable(
-  appName: string
+  game?: Game
 ): Promise<{ wasEnabled: boolean; installNow?: boolean }> {
   if (!isInstalled()) {
     const { response } = await dialog.showMessageBox({
@@ -198,7 +193,7 @@ async function enable(
     return { wasEnabled: false, installNow: response === 0 }
   }
 
-  const prefix = await getWinePrefixFolder(appName)
+  const prefix = await getWinePrefixFolder(game)
   // Can't install the overlay if we don't have a valid prefix
   // FIXME: Notify the user about this
   if (prefix === false) return { wasEnabled: false }
@@ -217,8 +212,8 @@ async function enable(
   return { wasEnabled: true }
 }
 
-async function disable(appName: string) {
-  const prefix = await getWinePrefixFolder(appName)
+async function disable(game?: Game) {
+  const prefix = await getWinePrefixFolder(game)
   // If we don't have a valid prefix anymore, we have nothing to disable
   if (prefix === false) return
 
@@ -243,10 +238,10 @@ function isInstalled() {
  * @param appName required on Linux, does nothing on Windows
  * @returns Enabled = True; Disabled = False
  */
-async function isEnabled(appName?: string): Promise<boolean> {
+async function isEnabled(game?: Game): Promise<boolean> {
   let enabled = false
 
-  const prefix = await getWinePrefixFolder(appName)
+  const prefix = await getWinePrefixFolder(game)
   if (prefix === false) return false
 
   const command: LegendaryCommand = {
@@ -275,14 +270,11 @@ async function isEnabled(appName?: string): Promise<boolean> {
  * @returns ValidWinePrefix (a folder that is verified to contain a Wineprefix) otherwise
  */
 async function getWinePrefixFolder(
-  appName?: string,
-  runner: Runner = 'legendary'
+  game?: Game
 ): Promise<ValidWinePrefix | null | false> {
-  if (!isLinux || !appName) return null
+  if (!isLinux || !game) return null
 
-  const { winePrefix, wineVersion } = await libraryManagerMap[runner]
-    .getGame(appName)
-    .getSettings()
+  const { winePrefix, wineVersion } = await game.getSettings()
   const prefixPath =
     wineVersion.type === 'proton' ? join(winePrefix, 'pfx') : winePrefix
   const maybePrefix = ValidWinePrefix.safeParse(prefixPath)

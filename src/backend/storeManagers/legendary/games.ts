@@ -76,11 +76,21 @@ import { fakeEpicExePath } from 'backend/constants/paths'
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export default class LegendaryGame implements Game {
+export default class LegendaryGame extends Game {
   private readonly appName: LegendaryAppName
+  public readonly runner = 'legendary'
 
   constructor(appName: LegendaryAppName) {
+    super()
     this.appName = appName
+  }
+
+  public get id() {
+    return this.appName
+  }
+
+  toString(): string {
+    return `LegendaryGame(appName=${this.appName})`
   }
 
   /**
@@ -357,7 +367,7 @@ export default class LegendaryGame implements Game {
     logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
     const moveImpl = isWindows ? moveOnWindows : moveOnUnix
-    const moveResult = await moveImpl(newInstallPath, gameInfo)
+    const moveResult = await moveImpl(this, newInstallPath)
 
     if (moveResult.status === 'error') {
       const { error } = moveResult
@@ -473,9 +483,7 @@ export default class LegendaryGame implements Game {
         LogPrefix.Legendary
       )
 
-      sendProgressUpdate({
-        appName: this.appName,
-        runner: 'legendary',
+      sendProgressUpdate(this, {
         status: action,
         progress: progress
       })
@@ -490,11 +498,7 @@ export default class LegendaryGame implements Game {
    * Does NOT check for online connectivity.
    */
   async update(): Promise<{ status: 'done' | 'error' }> {
-    sendGameStatusUpdate({
-      appName: this.appName,
-      runner: 'legendary',
-      status: 'updating'
-    })
+    sendGameStatusUpdate(this, 'updating')
     const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const installPlatform = this.getGameInfo().install.platform!
     const info = await libraryManagerMap['legendary'].getInstallInfo(
@@ -519,23 +523,16 @@ export default class LegendaryGame implements Game {
       )
     }
 
-    const updateLogWriter = await createGameLogWriter(
-      this.appName,
-      'legendary',
-      'update'
-    )
+    const updateLogWriter = await createGameLogWriter(this, 'update')
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
       logWriters: [updateLogWriter],
       onOutput,
-      logMessagePrefix: `Updating ${this.appName}`
+      logMessagePrefix: `Updating ${this.appName}`,
+      game: this
     })
 
-    sendGameStatusUpdate({
-      appName: this.appName,
-      runner: 'legendary',
-      status: 'done'
-    })
+    sendGameStatusUpdate(this, 'done')
 
     if (res.error) {
       logError(
@@ -578,9 +575,9 @@ export default class LegendaryGame implements Game {
     const gameInfo = this.getGameInfo()
     if (gameInfo.thirdPartyManagedApp) {
       if (gameInfo.isEAManaged) {
-        return this.installEA(gameInfo, platformToInstall)
+        return this.installEA(platformToInstall)
       } else if (gameInfo.isUbisoftManaged) {
-        return this.installUbisoft(gameInfo, platformToInstall)
+        return this.installUbisoft(platformToInstall)
       }
 
       logError(
@@ -617,16 +614,13 @@ export default class LegendaryGame implements Game {
       )
     }
 
-    const installLogWriter = await createGameLogWriter(
-      this.appName,
-      'legendary',
-      'install'
-    )
+    const installLogWriter = await createGameLogWriter(this, 'install')
     let res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
       logWriters: [installLogWriter],
       onOutput,
-      logMessagePrefix: `Installing ${this.appName}`
+      logMessagePrefix: `Installing ${this.appName}`,
+      game: this
     })
 
     // try to run the install again with higher memory limit
@@ -635,7 +629,8 @@ export default class LegendaryGame implements Game {
       res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
         abortId: this.appName,
         logWriters: [installLogWriter],
-        onOutput
+        onOutput,
+        game: this
       })
     }
 
@@ -657,10 +652,7 @@ export default class LegendaryGame implements Game {
     return { status: 'done' }
   }
 
-  private async installEA(
-    gameInfo: GameInfo,
-    platformToInstall: string
-  ): Promise<{
+  private async installEA(platformToInstall: string): Promise<{
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
@@ -693,15 +685,12 @@ export default class LegendaryGame implements Game {
       }
     }
 
-    await thirdParty.addInstalledGame(gameInfo.app_name, platformToInstall)
+    await thirdParty.addInstalledGame(this.appName, platformToInstall)
 
     return { status: 'done' }
   }
 
-  async installUbisoft(
-    gameInfo: GameInfo,
-    platformToInstall: string
-  ): Promise<{
+  async installUbisoft(platformToInstall: string): Promise<{
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
@@ -731,7 +720,7 @@ export default class LegendaryGame implements Game {
       }
     }
 
-    await thirdParty.addInstalledGame(gameInfo.app_name, platformToInstall)
+    await thirdParty.addInstalledGame(this.appName, platformToInstall)
 
     return { status: 'done' }
   }
@@ -751,7 +740,8 @@ export default class LegendaryGame implements Game {
 
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
-      logMessagePrefix: `Uninstalling ${this.appName}`
+      logMessagePrefix: `Uninstalling ${this.appName}`,
+      game: this
     })
 
     if (res.error) {
@@ -784,15 +774,12 @@ export default class LegendaryGame implements Game {
     if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
     if (downloadNoHttps) command['--no-https'] = true
 
-    const repairLogWriter = await createGameLogWriter(
-      this.appName,
-      'legendary',
-      'repair'
-    )
+    const repairLogWriter = await createGameLogWriter(this, 'repair')
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
       logWriters: [repairLogWriter],
-      logMessagePrefix: `Repairing ${this.appName}`
+      logMessagePrefix: `Repairing ${this.appName}`,
+      game: this
     })
 
     if (res.error) {
@@ -818,14 +805,11 @@ export default class LegendaryGame implements Game {
 
     logInfo(`Importing ${this.appName}.`, LogPrefix.Legendary)
 
-    const logWriter = await createGameLogWriter(
-      this.appName,
-      'legendary',
-      'import'
-    )
+    const logWriter = await createGameLogWriter(this, 'import')
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
-      logWriters: [logWriter]
+      logWriters: [logWriter],
+      game: this
     })
     this.addShortcuts()
     const errorMatch = res.stderr.match(/^.*ERROR:.*$/gm)?.join('') ?? ''
@@ -864,7 +848,8 @@ export default class LegendaryGame implements Game {
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
       logMessagePrefix: `Syncing saves for ${this.getGameInfo().title}`,
-      onOutput: (output) => (fullOutput += output)
+      onOutput: (output) => (fullOutput += output),
+      game: this
     })
 
     if (res.error) {
@@ -894,7 +879,7 @@ export default class LegendaryGame implements Game {
       gameScopeCommand,
       steamRuntime,
       offlineMode
-    } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
+    } = await prepareLaunch(this, logWriter)
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
       launchCleanup()
@@ -911,9 +896,9 @@ export default class LegendaryGame implements Game {
 
     let commandEnv = {
       ...process.env,
-      ...setupWrapperEnvVars({ appName: this.appName, appRunner: 'legendary' }),
+      ...setupWrapperEnvVars(this),
       ...setupEnvVars(gameSettings, gameInfo.install.install_path),
-      ...getKnownFixesEnvVariables(this.appName, 'legendary')
+      ...getKnownFixesEnvVariables(this)
     }
 
     // Use the wrapper EXE to launch games.
@@ -926,11 +911,7 @@ export default class LegendaryGame implements Game {
       } else {
         // on linux and mac, we copy the fake exe
         const fakeExeWinPath = 'C:\\windows\\command\\EpicGamesLauncher.exe'
-        const fakeEpicExePathInPrefix = await getWinePath({
-          path: fakeExeWinPath,
-          gameSettings,
-          variant: 'unix'
-        })
+        const fakeEpicExePathInPrefix = await getWinePath(this, fakeExeWinPath)
 
         // we copy the file inside the prefix to avoid permission issues
         if (!existsSync(fakeEpicExePathInPrefix))
@@ -975,14 +956,14 @@ export default class LegendaryGame implements Game {
         ...wineEnvVars
       }
 
-      if (await isUmuSupported(gameSettings)) {
-        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (await isUmuSupported(this)) {
+        const umuId = await getUmuId(this)
         if (umuId) {
           commandEnv['GAMEID'] = umuId
         }
       }
 
-      wineFlags = await getWineFlags(gameSettings, shlex.join(wrappers))
+      wineFlags = await getWineFlags(this, shlex.join(wrappers))
     }
 
     const appNameToLaunch =
@@ -1015,11 +996,7 @@ export default class LegendaryGame implements Game {
     if (gameInfo.isEAManaged) command['--origin'] = true
     if (gameInfo.isUbisoftManaged) command['--ubisoft'] = true
 
-    sendGameStatusUpdate({
-      appName: this.appName,
-      runner: 'legendary',
-      status: 'playing'
-    })
+    sendGameStatusUpdate(this, 'playing')
 
     const { error } = await libraryManagerMap['legendary'].runRunnerCommand(
       command,
@@ -1028,7 +1005,8 @@ export default class LegendaryGame implements Game {
         env: commandEnv,
         wrappers: wrappers,
         logMessagePrefix: `Launching ${gameInfo.title}`,
-        logWriters: gameSettings.verboseLogs ? [logWriter] : []
+        logWriters: gameSettings.verboseLogs ? [logWriter] : [],
+        game: this
       }
     )
 
@@ -1062,7 +1040,8 @@ export default class LegendaryGame implements Game {
           '--keep-files': true
         },
         {
-          abortId: this.appName
+          abortId: this.appName,
+          game: this
         }
       )
 
@@ -1089,8 +1068,7 @@ export default class LegendaryGame implements Game {
     killPattern(pattern)
 
     if (stopWine && !this.isNative()) {
-      const gameSettings = await this.getSettings()
-      await shutdownWine(gameSettings)
+      await shutdownWine(this)
     }
   }
 

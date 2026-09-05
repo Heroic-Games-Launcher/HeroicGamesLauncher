@@ -1,12 +1,7 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import {
-  GameInfo,
-  InstallPlatform,
-  Runner,
-  WineInstallation
-} from 'common/types'
+import { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
 import { PathSelectionBox } from 'frontend/components/UI'
 import {
   DialogHeader,
@@ -18,11 +13,11 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
 import { configStore } from 'frontend/helpers/electronStores'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
+  game: GameHandle
   backdropClick: () => void
-  appName: string
-  runner: Runner
   platformToInstall: InstallPlatform
   availablePlatforms: AvailablePlatforms
   winePrefix: string
@@ -42,9 +37,8 @@ function getDefaultInstallPath() {
 }
 
 export default function ImportDialog({
+  game,
   backdropClick,
-  appName,
-  runner,
   platformToInstall,
   availablePlatforms,
   winePrefix,
@@ -60,7 +54,7 @@ export default function ImportDialog({
 
   const title = gameInfo?.title
   const isImportingThisGame = libraryStatus.some(
-    (game) => game.appName === appName && game.status === 'importing'
+    (s) => s.appName === game.id && s.status === 'importing'
   )
 
   const pickFile = platformToInstall === 'Mac'
@@ -70,10 +64,8 @@ export default function ImportDialog({
 
     backdropClick()
 
-    await window.api.importGame({
-      appName,
+    await window.api.importGame(game, {
       path: importPath,
-      runner,
       platform: platformToInstall,
       winePrefix,
       wineVersion,

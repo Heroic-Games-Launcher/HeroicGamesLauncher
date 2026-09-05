@@ -4,6 +4,7 @@ import { logInfo, logError, LogPrefix } from 'backend/logger'
 import { userDataPath } from 'backend/constants/paths'
 import { existsSync, readdirSync, unlinkSync } from 'graceful-fs'
 import { join } from 'node:path'
+import type { Game } from 'common/types/game_manager'
 
 const logPrefix: LogPrefix = 'GameOverrides'
 
@@ -24,21 +25,18 @@ const removeImagesMatching = (predicate: (file: string) => boolean) => {
   }
 }
 
-const removeImagesForApp = (appName: string) =>
-  removeImagesMatching((file) => file.startsWith(`${appName}-`))
+const removeImagesForApp = (game: Game) =>
+  removeImagesMatching((file) => file.startsWith(`${game.id}-`))
 
 /**
  * Get stored overrides for a specific game
  */
-export function getGameOverrides(appName: string): GameMetadataOverride | null {
+export function getGameOverrides(game: Game): GameMetadataOverride | null {
   try {
-    const overrides = gameOverridesStore.get('overrides', {}) as Record<
-      string,
-      GameMetadataOverride
-    >
-    return overrides[appName] || null
+    const overrides = gameOverridesStore.get('overrides', {})
+    return overrides[game.id] || null
   } catch {
-    logError(`Failed to get overrides for ${appName}`, logPrefix)
+    logError(`Failed to get overrides for ${game}`, logPrefix)
     return null
   }
 }
@@ -48,10 +46,7 @@ export function getGameOverrides(appName: string): GameMetadataOverride | null {
  */
 export function getAllGameOverrides(): Record<string, GameMetadataOverride> {
   try {
-    return gameOverridesStore.get('overrides', {}) as Record<
-      string,
-      GameMetadataOverride
-    >
+    return gameOverridesStore.get('overrides', {})
   } catch {
     logError('Failed to get all overrides', logPrefix)
     return {}
@@ -62,28 +57,25 @@ export function getAllGameOverrides(): Record<string, GameMetadataOverride> {
  * Save custom overrides for a game
  */
 export function setGameOverrides(
-  appName: string,
+  game: Game,
   override: GameMetadataOverride
 ): boolean {
   try {
-    const currentOverrides = gameOverridesStore.get('overrides', {}) as Record<
-      string,
-      GameMetadataOverride
-    >
+    const currentOverrides = gameOverridesStore.get('overrides', {})
 
     // If override is empty, remove it and drop any stored image files.
     if (!override.title && !override.art_cover && !override.art_square) {
-      delete currentOverrides[appName]
-      removeImagesForApp(appName)
+      delete currentOverrides[game.id]
+      removeImagesForApp(game)
     } else {
-      currentOverrides[appName] = override
+      currentOverrides[game.id] = override
     }
 
     gameOverridesStore.set('overrides', currentOverrides)
-    logInfo(`Saved overrides for ${appName}`, logPrefix)
+    logInfo(`Saved overrides for ${game}`, logPrefix)
     return true
   } catch {
-    logError(`Failed to save overrides for ${appName}`, logPrefix)
+    logError(`Failed to save overrides for ${game}`, logPrefix)
     return false
   }
 }
@@ -93,8 +85,8 @@ export function setGameOverrides(
  * Original fields (title, art_cover, art_square) are left untouched so callers
  * can choose between the canonical value and the user-edited one.
  */
-export function attachOverrides(gameInfo: GameInfo): GameInfo {
-  const overrides = getGameOverrides(gameInfo.app_name)
+export function attachOverrides(game: Game, gameInfo: GameInfo): GameInfo {
+  const overrides = getGameOverrides(game)
   if (!overrides) {
     return gameInfo
   }

@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
+  game: GameHandle
   gameInfo: GameInfo
 }
 
-const ReportIssue = ({ gameInfo }: Props) => {
+const ReportIssue = ({ game, gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { openGameLogsModal } = useGlobalState.keys('openGameLogsModal')
   const showReportIssue =
@@ -20,7 +22,7 @@ const ReportIssue = ({ gameInfo }: Props) => {
 
   return (
     <span
-      onClick={() => openGameLogsModal(gameInfo)}
+      onClick={() => openGameLogsModal(game)}
       className="clickable reportProblem"
       role={'button'}
     >

@@ -6,7 +6,6 @@ import {
   sendGameStatusUpdate,
   spawnAsync
 } from '../../utils'
-import { GameConfig } from '../../game_config'
 import {
   getRunnerLogWriter,
   logError,
@@ -15,7 +14,6 @@ import {
   logWarning
 } from 'backend/logger'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
-import { libraryManagerMap } from '..'
 import { readFile } from 'node:fs/promises'
 import shlex from 'shlex'
 import {
@@ -25,12 +23,13 @@ import {
 } from 'common/types/gog'
 import { gogdlConfigPath, gogRedistPath, gogSupportPath } from './constants'
 import { isWindows } from 'backend/constants/environment'
+import type { Game } from 'common/types/game_manager'
 
 /*
  * Automatially executes command properly according to operating system
  *  on Windows pre-appends powershell command to spawn UAC prompt
  */
-async function runSetupCommand(wineArgs: WineCommandArgs) {
+async function runSetupCommand(game: Game, wineArgs: WineCommandArgs) {
   if (isWindows) {
     // Run shell
     const [exe, ...args] = wineArgs.commandParts
@@ -61,7 +60,7 @@ async function runSetupCommand(wineArgs: WineCommandArgs) {
       { cwd: wineArgs.startFolder }
     )
   } else {
-    return runWineCommand(wineArgs)
+    return runWineCommand(game, wineArgs)
   }
 }
 
@@ -74,11 +73,11 @@ async function runSetupCommand(wineArgs: WineCommandArgs) {
  * @param installInfo Allows passing install instructions directly
  */
 async function setup(
-  appName: string,
+  game: Game,
   installInfo?: InstalledInfo,
   installRedist = true
 ): Promise<void> {
-  const gameInfo = libraryManagerMap['gog'].getGameInfo(appName)
+  const gameInfo = game.getGameInfo()
   if (installInfo && gameInfo) {
     gameInfo.install = installInfo
   }
@@ -86,14 +85,10 @@ async function setup(
     return
   }
 
-  const gameSettings = GameConfig.get(appName).config
+  const gameSettings = await game.getSettings()
   if (!isWindows) {
     const logWriter = getRunnerLogWriter('gog')
-    const isWineOkToLaunch = await checkWineBeforeLaunch(
-      gameInfo,
-      gameSettings,
-      logWriter
-    )
+    const isWineOkToLaunch = await checkWineBeforeLaunch(game, logWriter)
 
     if (!isWineOkToLaunch) {
       logError(
@@ -103,11 +98,11 @@ async function setup(
       return
     }
     // Make sure prefix is initalized correctly
-    await verifyWinePrefix(gameSettings)
+    await verifyWinePrefix(game)
   }
 
   // Read game manifest
-  const manifestPath = path.join(gogdlConfigPath, 'manifests', appName)
+  const manifestPath = path.join(gogdlConfigPath, 'manifests', game.id)
 
   if (!existsSync(manifestPath)) {
     logWarning(
@@ -133,7 +128,7 @@ async function setup(
     return
   }
 
-  let gameSupportDir = path.join(gogSupportPath, appName) // This doesn't need to exist, scriptinterpreter.exe will handle it gracefully
+  let gameSupportDir = path.join(gogSupportPath, game.id) // This doesn't need to exist, scriptinterpreter.exe will handle it gracefully
 
   const installLanguage = gameInfo.install.language?.split('-')[0]
   const languages = new Intl.DisplayNames(['en'], { type: 'language' })
@@ -161,27 +156,17 @@ async function setup(
   // When there is no scummvm in dependencies, proceed with windows paths
   if (!isWindows) {
     if (!dependencies.find((dep) => dep.toLowerCase() === 'scummvm')) {
-      gameSupportDir = await getWinePath({
-        path: gameSupportDir,
-        gameSettings,
-        variant: 'win'
-      })
-      gameDirectoryPath = await getWinePath({
-        path: gameDirectoryPath,
-        gameSettings,
-        variant: 'win'
-      })
+      gameSupportDir = await getWinePath(game, gameSupportDir, 'win')
+      gameDirectoryPath = await getWinePath(game, gameDirectoryPath, 'win')
     }
   }
 
-  sendGameStatusUpdate({
-    appName,
-    runner: 'gog',
+  sendGameStatusUpdate(game, {
     status: 'redist',
     context: 'GOG'
   })
   if (manifestData.version === 1) {
-    if (existsSync(path.join(gogSupportPath, appName))) {
+    if (existsSync(path.join(gogSupportPath, game.id))) {
       for (const supportCommand of manifestData.product?.support_commands ||
         []) {
         if (
@@ -192,7 +177,7 @@ async function setup(
         ) {
           const absPath = path.join(
             gogSupportPath,
-            appName,
+            game.id,
             supportCommand.gameID,
             supportCommand.executable
           )
@@ -210,12 +195,10 @@ async function setup(
             '/nodesktopshorctut', // YES THEY MADE A TYPO
             '/nodesktopshortcut'
           ]
-          await runSetupCommand({
+          await runSetupCommand(game, {
             commandParts: [absPath, ...exeArgs],
-            gameSettings,
             wait: false,
             protonVerb: 'run',
-            gameInstallPath: gameInfo.install.install_path,
             skipPrefixCheckIKnowWhatImDoing: true,
             startFolder: gameInfo.install.install_path
           })
@@ -245,7 +228,7 @@ async function setup(
         // Run scriptinterpreter for every installed product
         for (const manifestProduct of manifestData.products) {
           if (
-            manifestProduct.productId !== appName &&
+            manifestProduct.productId !== game.id &&
             !(gameInfo.install.installedDLCs || []).includes(
               manifestProduct.productId
             )
@@ -269,12 +252,10 @@ async function setup(
             '/nodesktopshortcut'
           ]
 
-          await runSetupCommand({
+          await runSetupCommand(game, {
             commandParts: [isiPath, ...exeArgs],
-            gameSettings,
             wait: false,
             protonVerb: 'run',
-            gameInstallPath: gameInfo.install.install_path,
             skipPrefixCheckIKnowWhatImDoing: true,
             startFolder: gameInfo.install.install_path
           })
@@ -284,7 +265,7 @@ async function setup(
       // Check for temp executables
       for (const manifestProduct of manifestData.products) {
         if (
-          manifestProduct.productId !== appName &&
+          manifestProduct.productId !== game.id &&
           !(gameInfo.install.installedDLCs || []).includes(
             manifestProduct.productId
           )
@@ -296,7 +277,7 @@ async function setup(
         }
         const absPath = path.join(
           gogSupportPath,
-          appName,
+          game.id,
           manifestProduct.productId,
           manifestProduct.temp_executable
         )
@@ -315,12 +296,10 @@ async function setup(
           '/nodesktopshorctut',
           '/nodesktopshortcut'
         ]
-        await runSetupCommand({
+        await runSetupCommand(game, {
           commandParts: [absPath, ...exeArgs],
-          gameSettings,
           wait: false,
           protonVerb: 'run',
-          gameInstallPath: gameInfo.install.install_path,
           skipPrefixCheckIKnowWhatImDoing: true,
           startFolder: gameInfo.install.install_path
         })
@@ -381,21 +360,17 @@ async function setup(
         prefix: LogPrefix.Gog
       })
 
-      sendGameStatusUpdate({
-        appName,
-        runner: 'gog',
+      sendGameStatusUpdate(game, {
         status: 'redist',
         context: foundDep.readableName
       })
 
-      await runSetupCommand({
+      await runSetupCommand(game, {
         commandParts,
-        gameSettings,
         startFolder: gogRedistPath,
         wait: false,
         protonVerb: 'run',
-        skipPrefixCheckIKnowWhatImDoing: true, // We are running those commands after we check if prefix is valid, this shouldn't cause issues
-        gameInstallPath: gameInfo.install.install_path!
+        skipPrefixCheckIKnowWhatImDoing: true // We are running those commands after we check if prefix is valid, this shouldn't cause issues
       })
     }
   }

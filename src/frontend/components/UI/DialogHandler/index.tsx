@@ -7,7 +7,6 @@ export default function DialogHandler() {
 
   useEffect(() => {
     const onMessage = (
-      e: Electron.IpcRendererEvent,
       title: string,
       message: string,
       type: DialogType,

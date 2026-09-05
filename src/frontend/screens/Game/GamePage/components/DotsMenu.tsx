@@ -13,16 +13,16 @@ import GameRequirements from '../../GameRequirements'
 import { useTranslation } from 'react-i18next'
 import GameChangeLog from '../../GameChangeLog'
 import ModifyInstallModal from '../../ModifyInstallModal'
-
+import type { GameHandle } from 'frontend/helpers/ipc'
 interface Props {
+  game: GameHandle
   gameInfo: GameInfo
   handleUpdate: () => void
 }
 
-const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
+const DotsMenu = ({ game, gameInfo, handleUpdate }: Props) => {
   const { t } = useTranslation('gamepage')
-  const { appName, gameExtraInfo, gameInstallInfo, is } =
-    useContext(GameContext)
+  const { gameExtraInfo, gameInstallInfo, is } = useContext(GameContext)
   const [showRequirements, setShowRequirements] = useState(false)
   const [showChangelog, setShowChangelog] = useState(false)
   const [showModifyInstallModal, setShowModifyInstallModal] = useState(false)
@@ -39,7 +39,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
         </button>
 
         <GameSubMenu
-          appName={appName}
+          game={game}
           isInstalled={is_installed}
           title={title}
           storeUrl={
@@ -49,7 +49,6 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
               : '')
           }
           changelog={gameExtraInfo?.changelog}
-          runner={gameInfo.runner}
           handleUpdate={handleUpdate}
           handleChangeLog={() => setShowChangelog(true)}
           disableUpdate={is.installing || is.updating}
@@ -74,6 +73,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
 
       {showModifyInstallModal && (
         <ModifyInstallModal
+          game={game}
           gameInfo={gameInfo}
           gameInstallInfo={gameInstallInfo}
           onClose={() => setShowModifyInstallModal(false)}

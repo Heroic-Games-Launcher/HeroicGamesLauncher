@@ -1,18 +1,17 @@
 import { dialog, app } from 'electron'
 import { logError, logInfo, LogPrefix } from './logger'
 import i18next from 'i18next'
-import { GameInfo, LaunchOption, Runner } from 'common/types'
+import { LaunchOption } from 'common/types'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
-import { libraryManagerMap } from './storeManagers'
 import { launchEventCallback } from './launcher'
-import { z } from 'zod'
 import { windowIcon } from './constants/paths'
 import { Path } from './schemas'
 import { isCLINoGui } from './constants/environment'
 import { GlobalConfig } from './config'
-
-const RUNNERS = z.enum(['legendary', 'gog', 'nile', 'sideload'])
+import { Runner } from 'common/schemas'
+import { getGame } from './utils'
+import { Game } from '../common/types/game_manager'
 
 function parseHeroicUrl(args: string[]): URL | undefined {
   const urlStr = args.find((arg) => arg.startsWith('heroic://'))
@@ -97,22 +96,20 @@ async function handleLaunch(url: URL) {
   }
 
   let runner: Runner | undefined
-  const runnerParse = RUNNERS.safeParse(runnerStr)
+  const runnerParse = Runner.safeParse(runnerStr)
   if (runnerParse.success) {
     runner = runnerParse.data
   }
-  const gameInfo = findGame(appName, runner)
-  if (!gameInfo) {
+  const game = findGame(appName, runner)
+  if (!game) {
     return logError(
       `Could not receive game data for ${appName}!`,
       LogPrefix.ProtocolHandler
     )
   }
 
-  const { is_installed, title } = gameInfo
-  const settings = await libraryManagerMap[gameInfo.runner]
-    .getGame(appName)
-    .getSettings()
+  const { is_installed, title } = game.getGameInfo()
+  const settings = await game.getSettings()
   const hideForThisLaunch =
     urlRequestsNoGui(url) ||
     GlobalConfig.get().getSettings().hideWindowOnProtocolLaunch === true
@@ -136,9 +133,7 @@ async function handleLaunch(url: URL) {
       }
     }
 
-    return launchEventCallback({
-      appName: appName,
-      runner: gameInfo.runner,
+    return launchEventCallback(game, {
       skipVersionCheck: settings.ignoreGameUpdates,
       args,
       launchArguments: launchOption
@@ -168,7 +163,7 @@ async function handleLaunch(url: URL) {
       )
       mainWindow.show()
     }
-    sendFrontendMessage('installGame', appName, gameInfo.runner)
+    sendFrontendMessage('installGame', game)
   } else if (response === 1) {
     logInfo('Not installing game', LogPrefix.ProtocolHandler)
     if (isCLINoGui) {
@@ -178,21 +173,17 @@ async function handleLaunch(url: URL) {
   }
 }
 
-function findGame(
-  appName?: string | null,
-  runner?: Runner
-): GameInfo | undefined {
+function findGame(appName?: string | null, runner?: Runner): Game | undefined {
   if (!appName) return
 
   // If a runner is specified, search for the game in that runner and return it (if found)
-  if (runner) return libraryManagerMap[runner].getGame(appName).getGameInfo()
+  if (runner) return getGame(appName, runner)
 
   // If no runner is specified, search for the game in all runners and return the first one found
-  for (const runner of RUNNERS.options) {
-    const maybeGameInfo = libraryManagerMap[runner]
-      .getGame(appName)
-      .getGameInfo()
-    if (maybeGameInfo.app_name) return maybeGameInfo
+  for (const runner of Runner.options) {
+    const game = getGame(appName, runner)
+    const maybeGameInfo = game.getGameInfo()
+    if (maybeGameInfo.app_name) return game
   }
   return
 }

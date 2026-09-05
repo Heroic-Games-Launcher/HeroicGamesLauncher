@@ -1,11 +1,11 @@
-import { libraryManagerMap } from 'backend/storeManagers'
 import { logError, LogPrefix, logWarning } from 'backend/logger'
 import {
   downloadFile,
+  getGame,
   isEpicServiceOffline,
   sendGameStatusUpdate
 } from '../utils'
-import { DMStatus, InstallParams, Runner } from 'common/types'
+import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
@@ -14,6 +14,7 @@ import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { storeMap } from 'common/utils'
 import { gogdlConfigPath } from 'backend/storeManagers/gog/constants'
 import { fixesPath } from 'backend/constants/paths'
+import type { Game } from 'common/types/game_manager'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: DMStatus
@@ -30,7 +31,8 @@ async function installQueueElement(params: InstallParams): Promise<{
     build,
     branch
   } = params
-  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+  const game = getGame(appName, runner)
+  const { title } = game.getGameInfo()
 
   if (!isOnline()) {
     logWarning(
@@ -62,9 +64,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     if (existsSync(manifestPath)) rmSync(manifestPath)
   }
 
-  sendGameStatusUpdate({
-    appName,
-    runner,
+  sendGameStatusUpdate(game, {
     status: 'installing',
     folder: path
   })
@@ -82,19 +82,17 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    downloadFixesFor(appName, runner)
+    downloadFixesFor(getGame(appName, runner))
 
-    const { status, error } = await libraryManagerMap[runner]
-      .getGame(appName)
-      .install({
-        path: path.replaceAll("'", ''),
-        installDlcs,
-        sdlList: sdlList.filter((el) => el !== ''),
-        platformToInstall,
-        installLanguage,
-        build,
-        branch
-      })
+    const { status, error } = await getGame(appName, runner).install({
+      path: path.replaceAll("'", ''),
+      installDlcs,
+      sdlList: sdlList.filter((el) => el !== ''),
+      platformToInstall,
+      installLanguage,
+      build,
+      branch
+    })
 
     if (status === 'error') {
       errorMessage(error ?? '')
@@ -105,11 +103,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     errorMessage(`${error}`)
     return { status: 'error' }
   } finally {
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'done'
-    })
+    sendGameStatusUpdate(game, 'done')
   }
 }
 
@@ -118,7 +112,8 @@ async function updateQueueElement(params: InstallParams): Promise<{
   error?: string | undefined
 }> {
   const { appName, runner } = params
-  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+  const game = getGame(appName, runner)
+  const { title } = game.getGameInfo()
 
   if (!isOnline()) {
     logWarning(
@@ -143,11 +138,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
     }
   }
 
-  sendGameStatusUpdate({
-    appName,
-    runner,
-    status: 'updating'
-  })
+  sendGameStatusUpdate(game, 'updating')
 
   notify({
     title,
@@ -162,7 +153,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status } = await libraryManagerMap[runner].getGame(appName).update({
+    const { status } = await getGame(appName, runner).update({
       build: params.build,
       branch: params.branch,
       language: params.installLanguage,
@@ -179,17 +170,16 @@ async function updateQueueElement(params: InstallParams): Promise<{
     errorMessage(`${error}`)
     return { status: 'error' }
   } finally {
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'done'
-    })
+    sendGameStatusUpdate(game, 'done')
   }
 }
 
-async function downloadFixesFor(appName: string, runner: Runner) {
-  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${storeMap[runner]}/${appName}-${storeMap[runner]}.json`
-  const dest = pathModule.join(fixesPath, `${appName}-${storeMap[runner]}.json`)
+async function downloadFixesFor(game: Game) {
+  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${storeMap[game.runner]}/${game.id}-${storeMap[game.runner]}.json`
+  const dest = pathModule.join(
+    fixesPath,
+    `${game.id}-${storeMap[game.runner]}.json`
+  )
   if (!existsSync(fixesPath)) {
     mkdirSync(fixesPath, { recursive: true })
   }

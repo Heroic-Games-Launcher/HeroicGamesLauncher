@@ -322,6 +322,7 @@ Heroic would not be possible without the work done in many other projects:
 - GOGdl: https://github.com/Heroic-Games-Launcher/heroic-gogdl
 - Nile: https://github.com/imLinguin/nile
 - Comet: https://github.com/imLinguin/comet
+- Aurelia: https://github.com/Drackrath/Aurelia
 - GE-Proton: https://github.com/GloriousEggroll/proton-ge-custom
 - Proton-cachyos: https://github.com/CachyOS/proton-cachyos
 - umu-launcher: https://github.com/Open-Wine-Components/umu-launcher

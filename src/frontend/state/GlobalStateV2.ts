@@ -7,6 +7,7 @@ import type { GameSettingsModalType } from '../screens/Settings/components/Setti
 import { notify } from 'frontend/helpers'
 import { gameOverridesStore } from 'frontend/helpers/electronStores'
 import { t } from 'i18next'
+import type { GameHandle } from '../helpers/ipc'
 
 type GameOverride = NonNullable<GameInfo['overrides']>
 
@@ -24,11 +25,11 @@ interface GlobalStateV2 {
     | {
         isOpen: true
         type: GameSettingsModalType
-        gameInfo: GameInfo
+        game: GameHandle
       }
-  openGameSettingsModal: (gameInfo: GameInfo) => void
-  openGameLogsModal: (gameInfo: GameInfo) => void
-  openGameCategoriesModal: (gameInfo: GameInfo) => void
+  openGameSettingsModal: (game: GameHandle) => void
+  openGameLogsModal: (game: GameHandle) => void
+  openGameCategoriesModal: (game: GameHandle) => void
   closeSettingsModal: () => void
 
   showUploadedLogFileList: boolean
@@ -47,30 +48,30 @@ const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
   },
 
   settingsModalProps: { isOpen: false },
-  openGameSettingsModal: (gameInfo) => {
+  openGameSettingsModal: (game) => {
     set({
       settingsModalProps: {
         isOpen: true,
         type: 'settings',
-        gameInfo
+        game
       }
     })
   },
-  openGameLogsModal: (gameInfo) => {
+  openGameLogsModal: (game) => {
     set({
       settingsModalProps: {
         isOpen: true,
         type: 'log',
-        gameInfo
+        game
       }
     })
   },
-  openGameCategoriesModal: (gameInfo) => {
+  openGameCategoriesModal: (game) => {
     set({
       settingsModalProps: {
         isOpen: true,
         type: 'category',
-        gameInfo
+        game
       }
     })
   },

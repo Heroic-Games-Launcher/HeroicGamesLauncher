@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import CurrentDownload from './components/CurrentDownload'
 import SidebarLinks from './components/SidebarLinks'
@@ -10,6 +10,7 @@ import { DMQueueElement } from 'common/types'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import { useNavigate } from 'react-router-dom'
 import { WebviewTag } from 'electron'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 let sidebarSize = localStorage.getItem('sidebar-width') || 240
 const minWidth = 60
@@ -33,7 +34,7 @@ export default React.memo(function Sidebar() {
       })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (e, elements) => {
+      (elements) => {
         setCurrentDMElement(elements[0])
       }
     )
@@ -56,7 +57,7 @@ export default React.memo(function Sidebar() {
   }, [sidebarEl])
 
   useEffect(() => {
-    window.api.handleGoToScreen((e, screen) => {
+    window.api.handleGoToScreen((screen) => {
       // handle navigate to screen
       navigate(screen, { state: { fromGameCard: false } })
     })
@@ -135,6 +136,14 @@ export default React.memo(function Sidebar() {
     requestAnimationFrame(dragFrame)
   }
 
+  // FIXME: We should never create a GameHandle manually. Ideally we'd
+  //        store it in `DMQueueElement`
+  const gameHandleFromDmElement = useCallback(
+    (element: DMQueueElement) =>
+      new GameHandle(element.params.appName, element.params.runner),
+    []
+  )
+
   return (
     <aside ref={sidebarEl} className="Sidebar">
       <HeroicIcon className="heroicIcon" />
@@ -143,8 +152,7 @@ export default React.memo(function Sidebar() {
         {currentDMElement && (
           <CurrentDownload
             key={currentDMElement.params.appName}
-            appName={currentDMElement.params.appName}
-            runner={currentDMElement.params.runner}
+            game={gameHandleFromDmElement(currentDMElement)}
           />
         )}
       </div>

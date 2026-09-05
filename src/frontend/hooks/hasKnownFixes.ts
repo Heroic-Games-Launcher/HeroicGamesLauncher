@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react'
-import { KnowFixesInfo, Runner } from 'common/types'
+import { KnowFixesInfo } from 'common/types'
+import type { GameHandle } from '../helpers/ipc'
 
-export const hasKnownFixes = (appName: string, runner: Runner) => {
+export const hasKnownFixes = (game: GameHandle) => {
   const [knownFixes, setKnownFixes] = useState<KnowFixesInfo | null>(null)
 
   useEffect(() => {
-    window.api
-      .getKnownFixes(appName, runner)
-      .then((info: KnowFixesInfo | null) => {
-        console.log({ info })
-        setKnownFixes(info)
-      })
-  }, [appName])
+    window.api.getKnownFixes(game).then((info: KnowFixesInfo | null) => {
+      console.log({ info })
+      setKnownFixes(info)
+    })
+  }, [game])
 
   return knownFixes
 }
