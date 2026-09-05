@@ -222,7 +222,12 @@
             "select": "Kiválasztás",
             "space": "Szóköz",
             "update_game": "Játék frissítése",
-            "exit": "Kilépés"
+            "exit": "Kilépés",
+            "next_page": "Következő oldal",
+            "previous_page": "Előző oldal",
+            "search": "Keresés",
+            "url_bar": "URL-sáv",
+            "move_focus": "Fókusz mozgatása"
         }
     },
     "docs": "Dokumentáció",
@@ -237,9 +242,9 @@
         },
         "link": "Letöltések",
         "queue": {
-            "end-time": "Befejezve:",
-            "queue-time": "Hozzáadva:",
-            "start-time": "Elkezdve:",
+            "end-time": "Befejezve",
+            "queue-time": "Hozzáadva",
+            "start-time": "Elkezdve",
             "type": "Típus"
         },
         "title": "Letöltések",
@@ -308,7 +313,7 @@
         },
         "gamemode": "A Feral GameMode automatikus és ideiglenes finomhangolásokat végez a rendszeren a játékok futása közben. Engedélyezése javíthatja a teljesítményt.",
         "general": "Ha van máshol egy működő Epic Games Launcher telepítésed, akkor szinkronizálja az EGL-lel a játékaid importálásához, hogy elkerülje az újbóli letöltésüket.",
-        "mangohud": "A MangoHUD egy átfedés, amely megjeleníti és figyeli az FPS-t, hőmérsékleteket, CPU- és GPU-terhelést és más rendszererőforrásokat.",
+        "mangohud": "A MangoHUD egy átfedés, amely megjeleníti és figyeli az FPS-t, hőmérsékleteket, CPU- és GPU-terhelést és más rendszer-erőforrásokat.",
         "other": {
             "part4": "Játékargumentumok ",
             "part5": "használata",
@@ -399,7 +404,7 @@
     },
     "infobox": {
         "help": "Súgó",
-        "requirements": "Rendszerkövetelmények",
+        "requirements": "Rendszer-követelmények",
         "warning": "Figyelmeztetés",
         "wine-path": "A Wine elérési útja",
         "wine-prefix": {
@@ -524,7 +529,7 @@
         },
         "gameargs": {
             "placeholder": "Ide írd az indító argumentumait",
-            "title": "Játékargumentumok (futtatás a parancs után):",
+            "title": "Játékargumentumok (a játék indítási parancsához hozzáfűzve)",
             "error": {
                 "command": "A %command% parancs a Steamről nem érvényes játékargumentumként.",
                 "env": "A környezeti változókat az alábbi táblázatban kell beállítani."
@@ -818,7 +823,13 @@
         "nvidiaprime": {
             "description": "NVIDIA Optimus vagy AMD Dynamic Switchable Graphics dedikált GPU kényszerített használata. CSAK OpenGL- és Vulkan-játékokhoz használd."
         },
-        "hide-window-on-protocol-launch": "Heroic ablak elrejtése a játékok heroic:// hivatkozással történő indításakor"
+        "hide-window-on-protocol-launch": "Heroic ablak elrejtése a játékok heroic:// hivatkozással történő indításakor",
+        "gamepad-initial-repeat-delay": "A játékvezérlő-bemenet kezdeti ismétlési késleltetése",
+        "gamepad-repeat-frequency": "A játékvezérlő-bemenet ismétlési gyakorisága",
+        "steamRuntime": {
+            "label": "Steam futtatókörnyezet használata",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -989,7 +1000,8 @@
             "back": "Vissza",
             "forward": "Előre",
             "openInBrowser": "Megnyitás böngészőben",
-            "reload": "Lap újratöltése"
+            "reload": "Lap újratöltése",
+            "home": "Ugrás az áruház kezdőlapjára"
         }
     },
     "wine": {
@@ -1138,7 +1150,7 @@
         "enable": "Engedélyezés",
         "info": {
             "pt1": "A Heroic az alkalmazás fejlesztése érdekében 100%-ban anonim adatokat gyűjt.",
-            "pt2": "A Heroic a nyílt forráskódú Plausible Analytics platformot használja alapvető adatok gyűjtésére: alkalmazásverzió, operációs rendszer, csatlakoztatott áruházak és ország.",
+            "pt2": "A Heroic a nyílt forráskódú, a Heroic csapata által saját szerveren üzemeltetett Plausible Analytics platformot használja alapvető adatok gyűjtésére: alkalmazásverzió, operációs rendszer, rendszer-architektúra, Linux-disztribúció, csatlakoztatott áruházak és ország.",
             "pt3": "Soha nem gyűjt semmilyen személyes adatot, beleértve a felhasználónevet, IP-címet vagy e-mail-címet.",
             "pt4": "Ezeket az adatokat arra használjuk, hogy betekintést nyerjünk, mire érdemes fókuszálnunk a korlátozott erőforrásaink és a felhasználói visszajelzések alapján.",
             "pt5": "A Plausible Analytics teljes mértékben megfelel a GDPR, CCPA és PECR előírásainak.",
@@ -1183,7 +1195,8 @@
                 "PL": "Lengyelország",
                 "BR": "Brazília",
                 "CH": "Svájc",
-                "TR": "Törökország"
+                "TR": "Törökország",
+                "ZA": "Dél-afrikai Köztársaság"
             },
             "auto": "Automatikus ({{code}})",
             "label": "Áruház régiója"
@@ -1235,9 +1248,23 @@
             "prev": "Előző"
         },
         "tabs": {
-            "label": "Store"
+            "label": "Store",
+            "all": "Minden áruház"
         },
-        "titleMulti": "Kedvezmények"
+        "titleMulti": "Kedvezmények",
+        "currency": {
+            "label": "Pénznem"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}}-kulcs, a Heroicon kívül beváltva",
+            "gmgHint": "Green Man Gaming — külső áruházhoz tartozó kulcs, nem telepíthető a Heroicon keresztül",
+            "humbleHint": "Humble Bundle — külső áruházhoz tartozó kulcs, nem telepíthető a Heroicon keresztül"
+        },
+        "view": {
+            "grid": "Rács",
+            "label": "Nézetmód",
+            "list": "Lista"
+        }
     },
     "steamgriddb": {
         "error": {
