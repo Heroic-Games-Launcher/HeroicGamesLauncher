@@ -794,7 +794,11 @@
         "WoW64": "Ενεργοποίηση του WoW64 (Experimental)",
         "enable-quick-sync-menu": "Ενεργοποίηση Quick Save-Sync Menu στο game page",
         "disable_gog_presence": "Απενεργοποίηση ενημερώσεων GOG Presence",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "",
+        "steamRuntime": {
+            "label": "Χρήση Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
