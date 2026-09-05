@@ -804,7 +804,11 @@
         "no-tray-icon": "கணினி தட்டு ஐகானை மறை (மறுதொடக்கம் தேவை)",
         "analyticsOptIn": "வீர வளர்ச்சிக்கு உதவ அநாமதேய தரவை அனுப்பவும்",
         "disable_gog_presence": "GOG இருப்பு புதுப்பிப்புகளை முடக்கு",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "",
+        "steamRuntime": {
+            "label": "நீராவி இயக்க நேரத்தைப் பயன்படுத்தவும்",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
