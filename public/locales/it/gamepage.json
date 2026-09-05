@@ -46,7 +46,7 @@
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
             "title": "Il gioco richiede un aggiornamento"
         },
-        "wineprefix": "Seleziona la cartella del prefisso di Wine",
+        "wineprefix": "Seleziona la cartella WinePrefix",
         "yes": "SI",
         "close": "Chiudi",
         "select-install-path": "Seleziona percorso di installazione di Steam",
