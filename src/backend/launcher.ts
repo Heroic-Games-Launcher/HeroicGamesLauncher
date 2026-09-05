@@ -663,66 +663,11 @@ async function prepareLaunch(
     }
   }
 
-  if (
-    (await isUmuSupported(game, false)) &&
-    isOnline() &&
-    !(await isInstalled('umu')) &&
-    (await getUmuPath()) === defaultUmuPath
-  ) {
-    await download('umu')
-  }
-
-  // If the Steam Runtime is enabled, find a valid one
-  let steamRuntime: string[] = []
-  const shouldUseRuntime =
-    gameSettings.useSteamRuntime &&
-    (isNative ||
-      (!(await isUmuSupported(game)) &&
-        gameSettings.wineVersion.type === 'proton'))
-
-  if (shouldUseRuntime) {
-    // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
-    let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
-    if (!isNative) {
-      try {
-        const parentPath = dirname(gameSettings.wineVersion.bin)
-        const requiredAppId = VDF.parse(
-          readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
-        ).manifest?.require_tool_appid
-        if (requiredAppId === 1628350) nonNativeRuntime = 'sniper'
-      } catch (error) {
-        logError(
-          ['Failed to parse toolmanifest.vdf:', error],
-          LogPrefix.Backend
-        )
-      }
-    }
-
-    const runtimeType = isNative ? 'scout' : nonNativeRuntime
-    const { path, args } = await getSteamRuntime(runtimeType)
-    if (!path) {
-      return {
-        success: false,
-        failureReason:
-          'Steam Runtime is enabled, but no runtimes could be found\n' +
-          `Make sure Steam ${
-            isNative
-              ? 'is'
-              : `and the SteamLinuxRuntime - ${
-                  nonNativeRuntime === 'sniper' ? 'Sniper' : 'Soldier'
-                } are`
-          } installed`
-      }
-    }
-
-    logInfo(`Using Steam ${runtimeType} Runtime`, LogPrefix.Backend)
-
-    steamRuntime = [path, ...args]
   let steamRuntime = undefined
   const umuAvailable =
     (await isInstalled('umu')) || (await getUmuPath()) !== defaultUmuPath
   const useUmu =
-    (await isUmuSupported(gameSettings, false)) ||
+    (await isUmuSupported(game, false)) ||
     (gameSettings.steamRuntime && isNative)
 
   if (useUmu && !umuAvailable) {
