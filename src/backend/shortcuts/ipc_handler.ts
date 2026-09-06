@@ -1,4 +1,3 @@
-import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync } from 'graceful-fs'
 import { addListener, addHandler } from 'backend/ipc'
 import i18next from 'i18next'
@@ -7,13 +6,13 @@ import {
   isAddedToSteam,
   removeNonSteamGame
 } from './nonesteamgame/nonesteamgame'
-import { getInfo } from '../utils'
 import { shortcutFiles } from './shortcuts/shortcuts'
 import { notify } from 'backend/dialog/dialog'
 import { isMac } from 'backend/constants/environment'
+import { getGame } from '../utils'
 
 addListener('addShortcut', async (event, appName, runner, fromMenu) => {
-  gameManagerMap[runner].addShortcuts(appName, fromMenu)
+  getGame(appName, runner).addShortcuts(fromMenu)
 
   const body = i18next.t(
     'box.shortcuts.message',
@@ -32,7 +31,7 @@ addListener('addShortcut', async (event, appName, runner, fromMenu) => {
 })
 
 addHandler('shortcutsExists', (event, appName, runner) => {
-  const title = gameManagerMap[runner].getGameInfo(appName).title
+  const { title } = getGame(appName, runner).getGameInfo()
 
   const [desktopFile, menuFile] = shortcutFiles(title)
 
@@ -40,7 +39,7 @@ addHandler('shortcutsExists', (event, appName, runner) => {
 })
 
 addListener('removeShortcut', async (event, appName, runner) => {
-  gameManagerMap[runner].removeShortcuts(appName)
+  getGame(appName, runner).removeShortcuts()
 
   const body = i18next.t(
     'box.shortcuts.message-remove',
@@ -59,19 +58,16 @@ addListener('removeShortcut', async (event, appName, runner) => {
 })
 
 addHandler('addToSteam', async (event, appName, runner) => {
-  const gameInfo = getInfo(appName, runner)
-
-  return addNonSteamGame({
-    gameInfo
-  })
+  const game = getGame(appName, runner)
+  return addNonSteamGame(game)
 })
 
 addHandler('removeFromSteam', async (event, appName, runner) => {
-  const gameInfo = getInfo(appName, runner)
-  await removeNonSteamGame({ gameInfo })
+  const game = getGame(appName, runner)
+  await removeNonSteamGame(game)
 })
 
 addHandler('isAddedToSteam', async (event, appName, runner) => {
-  const gameInfo = getInfo(appName, runner)
-  return isAddedToSteam({ gameInfo })
+  const game = getGame(appName, runner)
+  return isAddedToSteam(game)
 })

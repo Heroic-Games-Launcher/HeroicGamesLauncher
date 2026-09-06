@@ -177,11 +177,6 @@
                     "message": "保存されていない進行状況が失われる可能性があります"
                 }
             },
-            "snap": {
-                "checkbox": "このメッセージを二度と表示しない",
-                "title": "Heroicはスナップとして実行されます",
-                "message": "一部の機能は現在Snapバージョンのアプリで利用できません。 {{newLine}}現在の制限事項：{{newLine}}HeroicはSteamのProtonやLutrisのWineを見つけることができません。{{newLine}}{{newLine}}Gamescope、GameMode、MangoHudもアクセス権限がないため正常に動作しません。 {{newLine}}{{newLine}}この機能にアクセスするには、HeroicをFlakpak、DEBフォーマットパッケージ、またはAppImageからインストールしてください。"
-            },
             "rosetta": {
                 "title": "Rosettaが見つかりません",
                 "message": "Apple Siliconチップ搭載のmacOSでHeroicを正常に動作させるには、Rosettaが必要です。macOSのターミナルで次のコマンド「softwareupdate --install-rosetta」を実行してインストールし、Heroicを再起動してください。 "
@@ -221,7 +216,8 @@
             "scroll": "スクロール",
             "select": "選択",
             "space": "スペース",
-            "update_game": "ゲームをアップデート"
+            "update_game": "ゲームをアップデート",
+            "exit": "終了"
         }
     },
     "docs": "ドキュメント",
@@ -934,7 +930,8 @@
         "installing": "インストール中",
         "logging": "ログイン中…",
         "processing": "ファイルを処理中。しばらくお待ちください",
-        "preparing_login": "ログインを準備しています... "
+        "preparing_login": "ログインを準備しています... ",
+        "installed": "インストールされています"
     },
     "store": "Epic Store",
     "stores": "ストア",
@@ -1041,7 +1038,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-ProtonはGlorious Eggrollによって作成されたProtonの亜種です。Steamで使うことを想定していますが、Steam以外のゲームではこの亜種の方がうまく動くかもしれません。トラブルシューティングのためにほとんど役に立たないログを提供します。",
-        "wine-ge": "Wine-GE-Protonは、Glorious Eggrollによって作成されたWineの派生版です。現在は、umuランチャーを搭載したGE-Protonに取って代わられ、非推奨となっています。",
         "gpt": "「Game Porting Toolkit」はAppleによって開発されたツールキットで、M1+チップを搭載したApple Silicon搭載Macでの使用が推奨されており、DX12を採用した新しいゲームで最も効果を発揮します。",
         "wine-crossover": "Wine-Crossoverは、オープンソースのWineプロジェクト「Crossover」をベースにしており、Intel搭載のMacや、DX11以前のゲームでの使用が推奨されています。",
         "wine-staging-macos": "Wine-Staging-macOSはメインラインのWineプロジェクトをベースとしており、Intel搭載のMacやDX11以前のゲーム、特にDXMTツールと組み合わせて使用する場合に推奨されます。"
@@ -1170,6 +1166,13 @@
             "hintPrefix": "押す",
             "hintSuffix": "戻る",
             "title": "更新が必要です"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading",
+            "path": "にインストール",
+            "wineMissing": "パスが選択されていません"
         }
     },
     "discounts": {
@@ -1228,7 +1231,8 @@
             "pageSize": "1ページの表示件数",
             "releaseYear": "発売年",
             "hideOwned": "所有済みゲームを非表示",
-            "wishlistOnly": "ウィッシュリストのみ"
+            "wishlistOnly": "ウィッシュリストのみ",
+            "platform": "Platform"
         },
         "sidebar": "セール情報",
         "sort": {
@@ -1252,7 +1256,11 @@
         "title": "GOG セール",
         "pagination": {
             "prev": "前へ"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "セール情報"
     },
     "steamgriddb": {
         "error": {

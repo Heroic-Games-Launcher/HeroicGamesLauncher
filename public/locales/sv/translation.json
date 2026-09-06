@@ -174,11 +174,6 @@
                     "message": "Alla osparade framsteg kan gå förlorade"
                 }
             },
-            "snap": {
-                "checkbox": "Visa inte detta meddelande igen",
-                "title": "Heroic körs som Snap",
-                "message": "Vissa funktioner är inte tillgängliga i Snap-versionen av appen för tillfället men vi försöker åtgärda dem .{{newLine}}Nuvarande begränsningar är: {{newLine}}Heroic kommer inte att kunna hitta Proton från Steam eller Wine från Lutris .{{newLine}}{{newLine}}Gamescope, GameMode och MangoHud kommer inte heller att fungera eftersom Heroic inte kan ha tillgång till dem.{{newLine}}{{newLine}}För att få tillgång till den här funktionen, installera Heroic som en Flatpak , DEB eller AppImage."
-            },
             "rosetta": {
                 "message": "Heroic kräver Rosetta för att det ska fungera korrekt på macOS med Apple Silicon-chips, installera det från macOS-terminalen med följande kommando: \"softwareupdate --install-rosetta\" och starta om Heroic. ",
                 "title": "Rosetta hittades inte"
@@ -218,7 +213,8 @@
             "scroll": "Skrolla",
             "select": "Välj",
             "space": "Mellanslag",
-            "update_game": "Uppdatera spel"
+            "update_game": "Uppdatera spel",
+            "exit": "Avbryt"
         }
     },
     "docs": "Dokumentation",
@@ -261,7 +257,7 @@
         "library": {
             "refresh": "Uppdatera bibliotek"
         },
-        "abort": "",
+        "abort": "Om",
         "install": "Installation",
         "uninstall": "Avinstallera"
     },
@@ -650,6 +646,7 @@
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",
+            "error": "Internt fel vid läsning av loggfil",
             "instructions": "Gå med i vår Discord och leta efter kanalen \"#-support\". Läs den fästa \"Read Me First | Frequently Asked Questions\" tråden och följ instruktionerna för att dela dessa loggar och all relevant information om ditt problem.",
             "instructions_title": "Hur rapporterar jag problem?",
             "last-log": "Senaste logg",
@@ -930,7 +927,8 @@
         "installing": "Installerar",
         "logging": "Loggar in...",
         "processing": "Hanterar filer, vänligen vänta",
-        "preparing_login": "Förbereder inloggning... "
+        "preparing_login": "Förbereder inloggning... ",
+        "installed": "Installerad"
     },
     "store": "Epic Butik",
     "stores": "Butiker",
@@ -1037,7 +1035,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton är en Proton-variant skapad av Glorious Eggroll. Den är tänkt att användas för Steam, men vissa spel utanför Steam kan fungera bättre med denna variant. Den ger mestadels värdelösa loggar för felsökning.",
-        "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1182,9 +1179,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Alla",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Detaljer",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1206,17 +1204,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Detaljer"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Inga spel hittades",
-            "no-grids": "",
+            "no-grids": "No Log was found for this game",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Sök efter spel",
             "title": "",
             "select-game": ""
         }
@@ -1235,7 +1237,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "Startar",
             "sort": "",
             "navigate": "",
             "quit": "Avsluta",
@@ -1252,7 +1254,17 @@
         "empty": "",
         "games": "Installerade spel",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "Avbryt uppdatering"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Installera spel",
+            "wineLoading": "Laddar…",
+            "path": "Installera",
+            "wineMissing": "Ingen sökväg har angetts"
+        }
     },
     "next": "Nästa"
 }

@@ -19,6 +19,7 @@ import { ChildProcess } from 'child_process'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
+import type { SteamRuntimeName } from './types/umu'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
@@ -120,6 +121,8 @@ export interface AppSettings extends GameSettings {
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean
+  gamepadRepeatDelay: number
+  gamepadInitialRepeatDelay: number
   noTrayIcon: boolean
   experimentalFeatures?: ExperimentalFeatures
   framelessWindow: boolean
@@ -253,7 +256,7 @@ export interface GameSettings {
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
-  useSteamRuntime: boolean
+  steamRuntime: SteamRuntimeName | false
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -429,12 +432,6 @@ export interface GOGImportData {
   dlcs: string[]
 }
 
-export interface SteamRuntime {
-  path: string
-  type: 'sniper' | 'scout' | 'soldier'
-  args: string[]
-}
-
 export interface LaunchPreperationResult {
   success: boolean
   failureReason?: string
@@ -559,8 +556,12 @@ export interface WineVersionInfo extends VersionInfo {
 export type GamepadActionStatus = Record<
   ValidGamepadAction,
   {
+    // handles basic repeat delay
     triggeredAt: { [key: number]: number }
     repeatDelay: false | number
+    // for initial post activation delay
+    activationDelay?: false | number
+    hasRepeated?: boolean
   }
 >
 
@@ -596,6 +597,8 @@ interface GamepadActionArgsWithoutMetadata {
     | 'mainAction'
     | 'back'
     | 'altAction'
+    | 'prevPage'
+    | 'nextPage'
     | 'esc'
     | 'tab'
     | 'shiftTab'
@@ -761,6 +764,7 @@ export type Type =
   | 'Wine-Crossover'
   | 'Wine-Staging-macOS'
   | 'Game-Porting-Toolkit'
+  | 'Proton-CachyOS'
 
 /**
  * Interface contains information about a version
@@ -786,13 +790,13 @@ export interface VersionInfo {
  * Enum for the supported repositorys
  */
 export enum Repositorys {
-  WINEGE,
   PROTONGE,
   PROTON,
   WINELUTRIS,
   WINECROSSOVER,
   WINESTAGINGMACOS,
-  GPTK
+  GPTK,
+  PROTONCACHYOS
 }
 
 export type WineManagerStatus =
@@ -875,6 +879,7 @@ export type ReleasesInfo = Record<
   | 'ge-proton'
   | 'wine-ge'
   | 'game-porting-toolkit'
+  | 'proton-cachyos'
   | 'wine-staging'
   | 'wine-crossover'
   | 'dxvk'

@@ -8,12 +8,11 @@ import {
   checkPS3Clone1,
   checkStandard,
   checkN64Clone1,
-  checkGenius1
+  checkGenius1,
+  checkNintendo
 } from './gamepad_layouts'
 import { VirtualKeyboardController } from './virtualKeyboard'
 
-const KEY_REPEAT_DELAY = 500
-const STICK_REPEAT_DELAY = 250
 const SCROLL_REPEAT_DELAY = 50
 
 /*
@@ -22,6 +21,201 @@ const SCROLL_REPEAT_DELAY = 50
 
 let controllerIsDisabled = false
 let currentController = -1
+let webviewHasFocus = false
+
+export const toggleWebviewFocus = (focused: boolean) => {
+  webviewHasFocus = focused
+}
+
+export const isUsingGamepad = () => currentController !== -1
+
+export type NavigateDirection = 'up' | 'down' | 'left' | 'right'
+type ScrollDirection = 'up' | 'down'
+
+/**
+ * High-level commands the host forwards to the focused store webview's
+ * preload script (see `src/webviewPreload/index.ts`). The host keeps full
+ * ownership of gamepad parsing — the guest only acts on these commands.
+ */
+export type WebviewCommand =
+  | { type: 'navigate'; direction: NavigateDirection }
+  | { type: 'scroll'; direction: ScrollDirection }
+  | { type: 'click' }
+  | { type: 'goBack' }
+  | { type: 'goForward' }
+  | { type: 'focusSearch' }
+  | { type: 'enter' }
+  | { type: 'exit' }
+
+/**
+ * Registered by `WebView/index.tsx` when a store webview mounts. Lets the
+ * gamepad handler forward processed inputs to the guest and trigger host-side
+ * actions: exit back to the host sidebar, or focus the URL bar. Note we never
+ * move real focus into the webview (that would blur the host and kill gamepad
+ * polling) — arming just sends an `enter` command via `send`.
+ */
+interface WebviewInputTarget {
+  send: (cmd: WebviewCommand) => void
+  exit: () => void
+  focusUrlBar: () => void
+}
+
+let webviewTarget: WebviewInputTarget | null = null
+
+export const setWebviewInputTarget = (target: WebviewInputTarget | null) => {
+  webviewTarget = target
+}
+
+// Actions that can hand control to a store webview when it isn't driving yet.
+const ENTER_WEBVIEW_ACTIONS: ValidGamepadAction[] = [
+  'mainAction',
+  'padUp',
+  'padDown',
+  'padLeft',
+  'padRight',
+  'leftStickUp',
+  'leftStickDown',
+  'leftStickLeft',
+  'leftStickRight'
+]
+
+function isSidebarStoreLink(el: Element | null | undefined): boolean {
+  const link = el?.closest<HTMLAnchorElement>('a.Sidebar__item')
+  return !!link && (link.getAttribute('href')?.includes('/store/') ?? false)
+}
+
+/**
+ * Decides whether a gamepad press on a store screen should hand control to the
+ * webview (arming gamepad forwarding). Two ways in:
+ *  - The user got here with the mouse and nothing host-focusable is focused
+ *    (focus is on `<body>` or the `<webview>` itself) — any nav/select press
+ *    enters. This covers the mouse→controller hand-off.
+ *  - The user is on the sidebar "Stores" item/submenu and presses A — the
+ *    explicit "re-enter" affordance after leaving with B.
+ */
+function shouldEnterWebview(action: ValidGamepadAction): boolean {
+  if (!webviewTarget || webviewHasFocus) return false
+  if (!ENTER_WEBVIEW_ACTIONS.includes(action)) return false
+  const el = document.querySelector<HTMLElement>(':focus')
+  if (!el || el === document.body || el.tagName === 'WEBVIEW') return true
+  if (action === 'mainAction' && isSidebarStoreLink(el)) return true
+  return false
+}
+
+function enterWebview() {
+  if (!webviewTarget) return
+  // Arm forwarding and tell the guest to show its cursor. We deliberately do
+  // NOT focus the webview element — see `WebviewInputTarget` docs.
+  webviewHasFocus = true
+  webviewTarget.send({ type: 'enter' })
+}
+
+/**
+ * Translates a `ValidGamepadAction` into a command for the focused webview.
+ * Returns `false` for actions the host must keep handling itself (e.g.
+ * `guide` toggles Console Mode in the host) so the caller can fall through.
+ */
+function handleWebviewAction(action: ValidGamepadAction): boolean {
+  if (!webviewTarget) return false
+  switch (action) {
+    case 'guide':
+      // Host keeps ownership of the guide button (Console Mode toggle).
+      return false
+    case 'rightClick':
+      // X focuses the URL bar, which lives in the host's WebviewControls.
+      webviewTarget.focusUrlBar()
+      return true
+    case 'back':
+      // B leaves the webview and hands control back to the host sidebar.
+      // Page history stays on L1/R1 (prevPage/nextPage).
+      webviewTarget.exit()
+      return true
+    case 'mainAction':
+      webviewTarget.send({ type: 'click' })
+      return true
+    case 'altAction':
+      webviewTarget.send({ type: 'focusSearch' })
+      return true
+    case 'prevPage':
+      webviewTarget.send({ type: 'goBack' })
+      return true
+    case 'nextPage':
+      webviewTarget.send({ type: 'goForward' })
+      return true
+    case 'padUp':
+    case 'leftStickUp':
+      webviewTarget.send({ type: 'navigate', direction: 'up' })
+      return true
+    case 'padDown':
+    case 'leftStickDown':
+      webviewTarget.send({ type: 'navigate', direction: 'down' })
+      return true
+    case 'padLeft':
+    case 'leftStickLeft':
+      webviewTarget.send({ type: 'navigate', direction: 'left' })
+      return true
+    case 'padRight':
+    case 'leftStickRight':
+      webviewTarget.send({ type: 'navigate', direction: 'right' })
+      return true
+    case 'rightStickUp':
+      webviewTarget.send({ type: 'scroll', direction: 'up' })
+      return true
+    case 'rightStickDown':
+      webviewTarget.send({ type: 'scroll', direction: 'down' })
+      return true
+    default:
+      // Other actions (esc, tab, shiftTab, keyboardClick, leftClick,
+      // rightStickLeft/Right) aren't relevant while a webview is focused.
+      return true
+  }
+}
+
+let actions: GamepadActionStatus
+
+// called whenever we update the timings in the settings
+export const updateGamepadActions = async () => {
+  const settings = await window.api.requestAppSettings()
+
+  // input should be cloned to prevent variables from being re-used
+  // across different controller indexes
+  const basicGamepadInputRepeat = {
+    triggeredAt: {},
+    repeatDelay: settings.gamepadRepeatDelay,
+    activationDelay: settings.gamepadInitialRepeatDelay
+  }
+
+  // store the status and metadata for each action
+  // triggeredAt is a hash with controllerIndex as keys and a timestamp or 0 (inactive)
+  // this keeps track of the moment a button/trigger/stick is activated
+  // we use this to know when to fire events
+  actions = {
+    padUp: structuredClone(basicGamepadInputRepeat),
+    padDown: structuredClone(basicGamepadInputRepeat),
+    padLeft: structuredClone(basicGamepadInputRepeat),
+    padRight: structuredClone(basicGamepadInputRepeat),
+    leftStickUp: structuredClone(basicGamepadInputRepeat),
+    leftStickDown: structuredClone(basicGamepadInputRepeat),
+    leftStickLeft: structuredClone(basicGamepadInputRepeat),
+    leftStickRight: structuredClone(basicGamepadInputRepeat),
+    rightStickUp: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
+    rightStickDown: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
+    rightStickLeft: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
+    rightStickRight: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
+    mainAction: { triggeredAt: {}, repeatDelay: false },
+    back: { triggeredAt: {}, repeatDelay: false },
+    altAction: { triggeredAt: {}, repeatDelay: false },
+    rightClick: { triggeredAt: {}, repeatDelay: false },
+    leftClick: { triggeredAt: {}, repeatDelay: false },
+    prevPage: { triggeredAt: {}, repeatDelay: false },
+    nextPage: { triggeredAt: {}, repeatDelay: false },
+    esc: { triggeredAt: {}, repeatDelay: false },
+    tab: { triggeredAt: {}, repeatDelay: false },
+    shiftTab: { triggeredAt: {}, repeatDelay: false },
+    keyboardClick: { triggeredAt: {}, repeatDelay: false },
+    guide: { triggeredAt: {}, repeatDelay: false }
+  }
+}
 
 export const initGamepad = () => {
   window.api.requestAppSettings().then(({ disableController }: AppSettings) => {
@@ -35,34 +229,7 @@ export const initGamepad = () => {
   window.addEventListener('focus', () => (isFocused = true))
   window.addEventListener('blur', () => (isFocused = false))
 
-  // store the status and metadata for each action
-  // triggeredAt is a hash with controllerIndex as keys and a timestamp or 0 (inactive)
-  // this keeps track of the moment a button/trigger/stick is activated
-  // we use this to know when to fire events
-  const actions: GamepadActionStatus = {
-    padUp: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
-    padDown: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
-    padLeft: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
-    padRight: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
-    leftStickUp: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickDown: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickLeft: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickRight: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
-    rightStickUp: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
-    rightStickDown: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
-    rightStickLeft: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
-    rightStickRight: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
-    mainAction: { triggeredAt: {}, repeatDelay: false },
-    back: { triggeredAt: {}, repeatDelay: false },
-    altAction: { triggeredAt: {}, repeatDelay: false },
-    rightClick: { triggeredAt: {}, repeatDelay: false },
-    leftClick: { triggeredAt: {}, repeatDelay: false },
-    esc: { triggeredAt: {}, repeatDelay: false },
-    tab: { triggeredAt: {}, repeatDelay: false },
-    shiftTab: { triggeredAt: {}, repeatDelay: false },
-    keyboardClick: { triggeredAt: {}, repeatDelay: false },
-    guide: { triggeredAt: {}, repeatDelay: false }
-  }
+  updateGamepadActions()
 
   // check if an action should be triggered
   function checkAction(
@@ -86,29 +253,33 @@ export const initGamepad = () => {
     if (!pressed) {
       // set 0 if not pressed (means inactive button)
       data.triggeredAt[controllerIndex] = 0
+      data.hasRepeated = false
       return
     }
 
     const now = new Date().getTime()
-
-    // check if the action was already active or not
     const wasActive = triggeredAt !== 0
 
     let shouldRepeat = false
-    if (wasActive) {
+    if (wasActive && data.repeatDelay) {
+      // base delay is just the repeat
+      let totalDelay = data.repeatDelay
+      // if input hasn't repeated and we want to consider activation delay,
+      // add in that time to total delay if present
+      if (!data.hasRepeated) totalDelay += data.activationDelay || 0
+
       // it it was active, check if the action should be repeated
-      if (data.repeatDelay) {
-        const lastTriggered = triggeredAt
-        if (now - lastTriggered > data.repeatDelay) {
-          shouldRepeat = true
-        }
+      if (now - triggeredAt > totalDelay) {
+        shouldRepeat = true
+        // should no longer consider activation delay
+        data.hasRepeated = true
       }
     }
 
     if (!wasActive || shouldRepeat) {
       // console.log(`Action: ${action}`)
 
-      // set last triggeredAt timestamp, used for repeater
+      // update timestamps for repeaters
       data.triggeredAt[controllerIndex] = now
 
       emitControllerEvent(controllerIndex)
@@ -133,6 +304,23 @@ export const initGamepad = () => {
         return
       }
 
+      // Store screens: the mounted webview is the gamepad target. Hand control
+      // to it on a mouse→controller hand-off or the explicit A-to-enter from
+      // the sidebar; once it's driving, forward processed inputs to the guest
+      // preload (`src/webviewPreload/index.ts`) instead of host DOM navigation.
+      // `guide` stays host-side (Console Mode).
+      if (shouldEnterWebview(action)) {
+        if (action === 'mainAction' && isSidebarStoreLink(currentElement())) {
+          // Let the sidebar link switch store first, then enter once it settled.
+          setTimeout(enterWebview, 150)
+        } else {
+          enterWebview()
+          return
+        }
+      } else if (webviewHasFocus && handleWebviewAction(action)) {
+        return
+      }
+
       // check special cases for the different actions, more details on the wiki
       switch (action) {
         case 'mainAction':
@@ -148,6 +336,9 @@ export const initGamepad = () => {
             // open virtual keyboard if focusing a text input
             VirtualKeyboardController.initOrFocus()
             return
+          } else if (isMuiSlider()) {
+            // clicking a slider toggles it's focus
+            action = 'tab'
           }
           break
         case 'back':
@@ -170,6 +361,8 @@ export const initGamepad = () => {
             action = 'tab'
           } else if (isContextMenu()) {
             action = 'rightClick'
+          } else if (insideMuiSlider()) {
+            action = 'shiftTab'
           }
           break
         case 'altAction':
@@ -211,11 +404,17 @@ export const initGamepad = () => {
                 if (isMuiDialogCloseButton()) {
                   action = 'tab'
                 }
+                if (insideMuiSlider()) {
+                  action = 'tab'
+                }
                 break
               case 'padUp':
               case 'leftStickUp':
                 // Same as above
                 if (isMuiSelect()) {
+                  action = 'shiftTab'
+                }
+                if (insideMuiSlider()) {
                   action = 'shiftTab'
                 }
                 break
@@ -302,6 +501,31 @@ export const initGamepad = () => {
     if (!el) return false
 
     return el.classList.contains('MuiSelect-select')
+  }
+
+  // this is for if we're hovering above a MUISlider
+  function isMuiSlider() {
+    const el = currentElement()
+
+    if (!el) return false
+
+    return el.classList.contains('MuiSlider-root')
+  }
+
+  // this function is if slider stole focus and user is now
+  // iterating through slider
+  function insideMuiSlider() {
+    const el = currentElement()
+
+    if (!el) return false
+    if (el.classList.contains('MuiSlider-thumb')) return true
+
+    const parent = el.parentElement
+    if (!parent) return false
+
+    if (parent.classList.contains('MuiSlider-thumb')) return true
+
+    return false
   }
 
   function isMuiDialogCloseButton() {
@@ -493,6 +717,8 @@ export const initGamepad = () => {
           checkN64Clone1(buttons, axes, index, checkAction)
         } else if (controller.id.match(/0583.*a009/i)) {
           checkGenius1(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/057e.*(2006|2007|2009)/i)) {
+          checkNintendo(buttons, axes, index, checkAction)
         } else {
           // if not specific, fallback to the standard layout, seems
           // to be the most common for now and if not exact it seems

@@ -8,12 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
 import { wineDownloaderInfoStore } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCheck,
-  faSyncAlt,
-  faWarning,
-  faCog
-} from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faSyncAlt, faCog } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
 import SearchBar from 'frontend/components/UI/SearchBar'
 import WineManagerSettingsModal from './components/WineManagerSettingsModal'
@@ -49,8 +44,8 @@ export default function WineManager(): JSX.Element | null {
   const repositories: WineManagerUISettings[] = useMemo(() => {
     if (isLinux) {
       return [
-        { type: 'GE-Proton', value: 'protonge' },
-        { type: 'Wine-GE', value: 'winege' }
+        { type: 'Proton-CachyOS', value: 'proton-cachyos' },
+        { type: 'GE-Proton', value: 'protonge' }
       ]
     }
     return [
@@ -75,14 +70,9 @@ export default function WineManager(): JSX.Element | null {
   )
 
   const getWineVersions = (repo: Type) => {
-    let versions = wineDownloaderInfoStore.get('wine-releases', [])
+    const versions = wineDownloaderInfoStore.get('wine-releases', [])
 
-    if (repo.startsWith('Wine-GE')) {
-      versions = versions.filter((version) => version.type === 'Wine-GE')
-      return versions.filter((version) => !version.version.endsWith('LoL'))
-    } else {
-      return versions.filter((version) => version.type === repo)
-    }
+    return versions.filter((version) => version.type === repo)
   }
 
   const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
@@ -112,16 +102,6 @@ export default function WineManager(): JSX.Element | null {
 
   const wineVersionExplanation = useMemo(() => {
     switch (repository.type) {
-      case 'Wine-GE':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faWarning} color={'orange'} />
-            {t(
-              'wineExplanation.wine-ge',
-              'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.'
-            )}
-          </div>
-        )
       case 'GE-Proton':
         return (
           <div className="infoBox">
@@ -159,6 +139,16 @@ export default function WineManager(): JSX.Element | null {
             {t(
               'wineExplanation.wine-staging-macos',
               'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool.'
+            )}
+          </div>
+        )
+      case 'Proton-CachyOS':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.proton-cachyos',
+              'Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.'
             )}
           </div>
         )

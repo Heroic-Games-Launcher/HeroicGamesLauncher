@@ -56,16 +56,16 @@
         "ok": "O.K",
         "offline_warning": {
             "message": "",
-            "playAnyway": "",
-            "title": ""
+            "playAnyway": "Joacă oricum",
+            "title": "Avertisment offline"
         },
         "selectLaunchOption": {
-            "title": "",
-            "body": ""
+            "title": "Selectați opțiunea de lansare ({{seconds}}s)",
+            "body": "Vă rugăm să selectați o opțiune de lansare pentru acest joc (poate fi modificată ulterior din setările jocului):"
         },
         "sync": {
-            "force_download_warning": "",
-            "force_upload_warning": ""
+            "force_download_warning": "Salvările locale vor fi șterse. Doriți să continuați?",
+            "force_upload_warning": "Salvările din cloud vor fi suprascrise. Doriți să continuați?"
         }
     },
     "button": {
@@ -96,7 +96,8 @@
         "browse_files": "Răsfoiește Fișierele",
         "browse_wine_prefix": "Răsfoiește Wine Prefix",
         "changelog": "Arată Jurnalul modificărilor",
-        "play": "JOACĂ"
+        "play": "JOACĂ",
+        "edit-game": "Editează jocul"
     },
     "cloud_save_unsupported": "Neacceptat",
     "disabled": "Dezactivat",
@@ -132,7 +133,7 @@
         "extra_info": "Informații extra",
         "install_info": "Instalează info",
         "modify": "Modifică Instalarea",
-        "achievements": ""
+        "achievements": "Realizări"
     },
     "gamecard": {
         "moving": "Mutare",
@@ -177,8 +178,8 @@
             "cancel": "Nu",
             "disabled_installation": "Acest joc folosește software anticheat care nu este compatibil cu sistemul tău de operare sau suportul nu a fost activat de dezvoltatorii jocului. Asta înseamnă că funcțiile multiplayer nu vor funcționa, iar tu (sau echipa Heroic) nu puteți face nimic în privința asta. <br /><br /> Pentru a instala acest joc și a-l încerca oricum, mergi la Setări, Avansat și bifează opțiunea de a permite instalarea jocurilor cu anticheat defect sau refuzat. <br /><br />Reține că nu există nicio soluție pentru asta și vei risca să fii restricționat (Ban Permanent) în joc.",
             "install_anyway": "Da (Ințeleg că funcțiile multiplayer nu vor funcționa)",
-            "multiplayer_message": "",
-            "title": ""
+            "multiplayer_message": "Suportul pentru anti-cheat este defect sau refuzat. Jocul se poate deschide, dar funcțiile multiplayer nu vor funcționa. Doriți să îl instalați oricum?",
+            "title": "Anti-cheat defect/refuzat"
         },
         "flatpak-path-not-writtable": ""
     },
@@ -302,7 +303,7 @@
         "categories": ""
     },
     "help": {
-        "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud",
+        "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud.",
         "content": {
             "gamePage": "Arată toate detaliile și acțiunile jocului. Folosește meniul cu 3 puncte pentru mai multe opțiuni."
         },
@@ -334,5 +335,23 @@
     },
     "open-saves-folder": "",
     "Open": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "Avansat",
+        "cover": "Copertă",
+        "info": {
+            "cover": "Imagine de copertă",
+            "square": "Imagine pătrată"
+        },
+        "placeholder": {
+            "image": "Lipește un URL al unei imagini"
+        },
+        "reset": "Resetează la setările implicite",
+        "sgdb": {
+            "no-key-link": "Setări → Avansat",
+            "no-key-prefix": "Pentru a căuta pe SteamGridDB imagini de copertă, adaugă o cheie API în"
+        },
+        "square": "Artă pătrată",
+        "title": "Editează jocul"
+    }
 }

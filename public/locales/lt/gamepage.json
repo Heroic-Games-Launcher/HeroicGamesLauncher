@@ -55,17 +55,17 @@
         },
         "ok": "GERAI",
         "offline_warning": {
-            "message": "",
-            "playAnyway": "",
-            "title": ""
+            "message": "Šis žaidimas gali neveikti neprisijungus prie interneto. Ar vis tiek norite žaisti?",
+            "playAnyway": "Vis tiek žaisti",
+            "title": "Įspėjimas, kad nesate prisijungę prie interneto"
         },
         "selectLaunchOption": {
-            "title": "",
-            "body": ""
+            "title": "Pasirinkti paleidimo parinktį ({{seconds}}sek.)",
+            "body": "Prašome pasirinkti paleidimo parinktį šiam žaidimui (tai galima pakeisti vėliau žaidimo nustatymuose):"
         },
         "sync": {
-            "force_download_warning": "",
-            "force_upload_warning": ""
+            "force_download_warning": "Vietiniai išsaugojimai bus pašalinti. Ar norite tęsti?",
+            "force_upload_warning": "Debesijos išsaugojimai bus perrašyti. Ar norite tęsti?"
         }
     },
     "button": {
@@ -95,8 +95,9 @@
         "remove_from_recent": "Pašalinti iš paskiausių",
         "run-exe-first": "Pirmiausiai vykdyti įdiegiklį",
         "browse_files": "Naršyti failus",
-        "browse_wine_prefix": "",
-        "play": ""
+        "browse_wine_prefix": "Naršyti „Wine“ prielinksnį/priešdėlį",
+        "play": "ŽAISTI",
+        "edit-game": "Redaguoti žaidimą"
     },
     "cloud_save_unsupported": "Nepalaikoma/-s",
     "game": {
@@ -126,7 +127,7 @@
         "getting-install-size": "Gaunamas įdiegimo dydis",
         "modify": "Redaguoti įdiegimą",
         "platform": "Pasirinkti platformos versiją, kurią įdiegti",
-        "achievements": ""
+        "achievements": "Pasiekimai"
     },
     "gamecard": {
         "repairing": "Taisoma/-s",
@@ -143,7 +144,7 @@
             "cancel": "Ne",
             "install_anyway": "Taip (Aš suvokiu, kad daugiažaidėjė̄škumo funkcijos neveiks)",
             "title": "Anti-sukčiavimas sugedęs/neleistas",
-            "disabled_installation": "Anti-sukčiavimo palaikymas yra sugedęs arba neleidžiamas ir daugiažaidėjė̄škumo funkcijos neveiks. Žaidimas negali būti įdiegtas. Norint įdiegti šį žaidimą, išjunkite šią patikrą pažangiose nustatymuose.",
+            "disabled_installation": "Šis žaidimas naudoja anti-sukčiavimo taikomąją programą, kuri nėra palaikoma su Jūsų operacine sistema. Tai reiškia, kad daugiažaidėjė̄škumo funkcijos neveiks. Šio negali sutaisyti, nei Jūs, nei „Heroic“ komanda, o žaidimo kūrėja/-s.<br /><br />Žaidimas negali būti įdiegtas. Norint įdiegti šį žaidimą, išjunkite šią patikrą pažangiose nustatymuose.<br /><br />Svarbu: Galimai gali nukentėti Jūsų žaidimo paskyros būsena (būtų uždrausta) dėl sukčiavimo ar pan. priežasčių.",
             "multiplayer_message": "Anti-sukčiavimo palaikymas yra sugedęs arba neleidžiamas. Žaidimas galimai pasileis, bet daugiažaidėjė̄škumo funkcijos neveiks.. Ar Jūs vis tiek norite įdiegti šį žaidimą?"
         },
         "wineversion": "„Wine“ versija",
@@ -190,7 +191,7 @@
         "title": {
             "gamePage": "Žaidimo puslapis"
         },
-        "cloud_save_unsupported": "Šis žaidimas nepalaiko „debesies“ išsaugojimų. Ši informacija pateikiama žaidimo kūrėjų. Kai kurie žaidimai įtaiso savo „debesies“ išsaugojimo sistemas",
+        "cloud_save_unsupported": "Šis žaidimas nepalaiko debesijos išsaugojimų. Ši informacija pateikiama žaidimo kūrėjų. Kai kurie žaidimai įtaiso savo debesijos išsaugojimo sistemas.",
         "content": {
             "gamePage": "Rodyti visų žaidimų išsamumus ir veiksmus. Naudokite 3-ių taškiukų menių, norint gauti daugiau parinkčių."
         }
@@ -223,13 +224,15 @@
             "exe": "Pažymėti vykdomąjį",
             "image": "Programos laikmena",
             "title": "Žaidimo/Programos antraštė/pavadinimas",
-            "useragent": "Pasirinktinis naudotojo/vartotojo agentas"
+            "useragent": "Pasirinktinis naudotojo/vartotojo agentas",
+            "cover-hint": "Viršelio/„Hero“ menas (spustelėkite ant atvaizdo, kad jį ieškotumėte „SteamGridDB“)",
+            "image-hint": "Kvadratinis menas (spustelėkite ant atvaizdo, kad jį ieškotumėte „SteamGridDB“)"
         },
         "field": {
             "title": "Antraštė/Pavadinimas"
         },
         "placeholder": {
-            "image": "Įklijuokite nuotraukos/vaizdo/paveikslėlio „URL“ – saitą čia",
+            "image": "Įklijuokite nuotraukos/vaizdo/paveikslėlio „URL“ – saitą arba pasirinkite jį iš savo kompiuterio",
             "url": "Įklijuokite žaidimo „URL“ – saitą čia",
             "title": "Pridėkite antraštę/pavadinimą prie savo žaidimo/programos",
             "useragent": "Įrašykite pasirinktinį naudotojo/vartotojo agentą čia, norint jį pritaikyti šioje naršyklėje; programos/žaidimo"
@@ -237,6 +240,9 @@
         "import-hint": {
             "content": "NENAUDOKITE šios funkcijos šiam.<br />Vietoj to, <3>prisijunkite prie</3> parduotuvės, susiieškokite žaidimo savo bibliotekoje, atidarykite jo įdiegimo langą ir spauskite/spustelėkite – „&quot;Importuoti žaidimą&quot;“ mygtuką",
             "title": "Svarbu! Ar Jūs pridedate žaidimą iš „Epic“/„GOG“/„Amazon“? Spauskite/Spustelėkite čia!"
+        },
+        "images": {
+            "summary": "Atvaizdai"
         }
     },
     "specs": {
@@ -278,13 +284,13 @@
         "amazon": "Jūs nesate prisijungę su „Amazon“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
         "epic": "Jūs nesate prisijungę su „Epic“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
         "gog": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
-        "zoom": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:"
+        "zoom": "Jūs nesate prisijungę su „Zoom“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:"
     },
     "setting": {
         "show-wine-settings": "Rodyti „Wine“ nustatymus",
         "warn-use-shared-wine-config": "Naudokite šią parinktį tik, jei Jūs žinote ką darote.<br/>Naudodami tą patį prielinksnį/priešdėlį keliems žaidimams gali sukelti problemų, jeigu jų priklausomybės yra nesuderinamos.",
         "winecrossoverbottle": "„CrossOver butelis“",
-        "use-shared-wine-config": ""
+        "use-shared-wine-config": "Naudoti bendrinamą „Wine“ prielinksnį/priešdėlį"
     },
     "sdl": {
         "title": "Pasirinkti komponentus, kurios įdiegti"
@@ -327,5 +333,23 @@
             "resume": "Pratęsti atsisiuntimą"
         }
     },
-    "open-saves-folder": ""
+    "open-saves-folder": "Atidaryti išsaugojimų aplanką(-lą)",
+    "edit-game": {
+        "advanced": "Pažangūs",
+        "cover": "Viršelio menas",
+        "info": {
+            "cover": "Viršelio atvaizdas",
+            "square": "Kvadratinis atvaizdas"
+        },
+        "placeholder": {
+            "image": "Įklijuokite atvaizdo „URL“ – saitą"
+        },
+        "reset": "Atstatyti į numatytuosius",
+        "sgdb": {
+            "no-key-link": "Nustatymai → Pažangūs",
+            "no-key-prefix": "Norint ieškoti „SteamGridDB“ viršelių menams, pridėkite „API“ raktą –"
+        },
+        "square": "Kvadratinis menas",
+        "title": "Redaguoti žaidimą"
+    }
 }

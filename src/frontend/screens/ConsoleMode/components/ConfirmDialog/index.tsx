@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import classNames from 'classnames'
 
-import { BTN_ACTION, BTN_BACK } from '../../controller'
-import { useGamepadButtonPress } from '../../hooks'
+import { getActionButtonIndex, getBackButtonIndex } from '../../controller'
+import { useGamepadButtonPress, useGamepadInfo } from '../../hooks'
 
 type ButtonId = 'confirm' | 'cancel' | 'dismiss'
 
@@ -102,8 +102,9 @@ export default function ConfirmDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focused, buttons, onBackKey, onConfirm, onCancel, onDismiss])
 
-  useGamepadButtonPress(BTN_ACTION, () => handlers[focused]())
-  useGamepadButtonPress(BTN_BACK, () => onBackKey())
+  const { layout } = useGamepadInfo()
+  useGamepadButtonPress(getActionButtonIndex(layout), () => handlers[focused]())
+  useGamepadButtonPress(getBackButtonIndex(layout), () => onBackKey())
 
   const confirmKey = gamepadConnected ? actionButtonLabel : 'Enter'
   const dismissKey = gamepadConnected ? backButtonLabel : 'Esc'

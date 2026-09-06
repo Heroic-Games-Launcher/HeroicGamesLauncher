@@ -78,6 +78,6 @@ export default tseslint.config(
     }
   },
   {
-    ignores: ['build/', '**/*.js', 'eslint.config.mjs']
+    ignores: ['build/', '**/*.js', 'eslint.config.mjs', '.github/scripts/']
   }
 )

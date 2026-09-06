@@ -95,7 +95,8 @@
         "changelog": "Tampilkan Log Perubahan",
         "browse_files": "Jelajahi File",
         "browse_wine_prefix": "Jelajahi Wine Prefix",
-        "play": "MAIN"
+        "play": "MAIN",
+        "edit-game": "Edit Game"
     },
     "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
@@ -238,7 +239,9 @@
             "title": "Gim/Judul App",
             "broser": "URL browser",
             "useragent": "Kustomisasi User Agent",
-            "fullscreen": "Luncurkan Layar Penuh (F11 untuk keluar)"
+            "fullscreen": "Luncurkan Layar Penuh (F11 untuk keluar)",
+            "cover-hint": "Gambar Sampul/Hero (klik pada gambar untuk mencari di SteamGridDB)",
+            "image-hint": "Gambar Persegi (klik pada gambar untuk mencari di SteamGridDB)"
         },
         "placeholder": {
             "image": "Tempel URL gambar atau pilih salah satu dari komputer Anda",
@@ -249,6 +252,9 @@
         "import-hint": {
             "content": "JANGAN gunakan fitur ini untuk tujuan tersebut.<br />Sebagai gantinya, <3>masuk ke</3> toko, cari game di pustaka Anda, buka dialog instalasi, lalu klik tombol &quot;Impor Game&quot;",
             "title": "Penting! Apakah Anda menambahkan game dari Epic/GOG/Amazon? Klik di sini!"
+        },
+        "images": {
+            "summary": "Gambar"
         }
     },
     "specs": {
@@ -335,5 +341,23 @@
         }
     },
     "wikiLink": "Informasi penting tentang game ini, baca di sini:&nbsp;<1>Buka halaman</1>",
-    "open-saves-folder": "Buka Folder Penyimpanan"
+    "open-saves-folder": "Buka Folder Penyimpanan",
+    "edit-game": {
+        "advanced": "Tambahan",
+        "title": "Edit Game",
+        "cover": "Gambar Sampul",
+        "info": {
+            "cover": "Gambar Sampul",
+            "square": "Gambar Persegi"
+        },
+        "placeholder": {
+            "image": "Tempel URL gambar"
+        },
+        "reset": "Atur ulang ke default",
+        "sgdb": {
+            "no-key-link": "Pengaturan → Lanjutan",
+            "no-key-prefix": "Untuk mencari gambar sampul di SteamGridDB, tambahkan API key di"
+        },
+        "square": "Gambar Persegi"
+    }
 }

@@ -20,7 +20,6 @@ import {
   InstallArgs,
   InstalledInfo,
   LaunchOption,
-  InstallPlatform,
   InstallProgress
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
@@ -53,7 +52,7 @@ import { ZoomInstallPlatform, ZoomDownloadFile } from 'common/types/zoom'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../ipc'
-import { GameManager, RemoveArgs } from 'common/types/game_manager'
+import { Game } from 'common/types/game_manager'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { libraryManagerMap } from '..'
 import { isUmuSupported } from 'backend/utils/compatibility_layers'
@@ -62,7 +61,13 @@ import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import type LogWriter from 'backend/logger/log_writer'
 import { rm, writeFile } from 'node:fs/promises'
 
-export default class ZoomGameManager implements GameManager {
+export default class ZoomGame implements Game {
+  private readonly id: string
+
+  constructor(id: string) {
+    this.id = id
+  }
+
   private async findDosboxExecutable(dir: string): Promise<string | undefined> {
     let list: fs.Dirent[]
     try {
@@ -121,13 +126,13 @@ export default class ZoomGameManager implements GameManager {
     return extra
   }
 
-  getGameInfo(appName: string): GameInfo {
-    const info = libraryManagerMap['zoom'].getGameInfo(appName)
+  getGameInfo(): GameInfo {
+    const info = libraryManagerMap['zoom'].getGameInfo(this.id)
     if (!info) {
       logError(
         [
           'Could not get game info for',
-          `${appName},`,
+          `${this.id},`,
           'returning empty object. Something is probably gonna go wrong soon'
         ],
         LogPrefix.Zoom
@@ -146,94 +151,84 @@ export default class ZoomGameManager implements GameManager {
     return info
   }
 
-  async getSettings(appName: string): Promise<GameSettings> {
+  async getSettings(): Promise<GameSettings> {
     return (
-      GameConfig.get(appName).config ||
-      (await GameConfig.get(appName).getSettings())
+      GameConfig.get(this.id).config ||
+      (await GameConfig.get(this.id).getSettings())
     )
   }
 
-  async importGame(
-    appName: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    folderPath: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    _platform: InstallPlatform
-  ): Promise<ExecResult> {
+  async importGame(): Promise<ExecResult> {
     // The original zoom.py doesn't have an explicit "import" function for installed games.
     // It relies on scanning the library. This function might need to be adapted
     // if Zoom has a way to import already installed games.
     logWarning(
-      `Import game not fully implemented for Zoom: ${appName}`,
+      `Import game not fully implemented for Zoom: ${this.id}`,
       LogPrefix.Zoom
     )
     return { stdout: '', stderr: 'Import not fully implemented' }
   }
 
-  defaultTmpProgress() {
-    return {
-      bytes: '',
-      eta: '',
-      percent: undefined,
-      diskSpeed: undefined,
-      downSpeed: undefined
-    }
-  }
-  private tmpProgress: Record<string, InstallProgress> = {}
+  private defaultTmpProgress = () => ({
+    bytes: '',
+    eta: '',
+    percent: undefined,
+    diskSpeed: undefined,
+    downSpeed: undefined
+  })
+  private tmpProgress: InstallProgress | undefined
 
   onInstallOrUpdateOutput(
-    appName: string,
     action: 'installing' | 'updating',
     data: string,
     total: number
   ) {
     if (data.length === 0) return
 
-    if (!Object.hasOwn(this.tmpProgress, appName)) {
-      this.tmpProgress[appName] = this.defaultTmpProgress()
+    if (!this.tmpProgress) {
+      this.tmpProgress = this.defaultTmpProgress()
     }
-    const progress = this.tmpProgress[appName]
-
     // This part needs to be adapted to parse output from the actual installer.
     // For now, it's a placeholder.
     logDebug(
-      `Installer output for ${appName}: ${data}% (total: ${getFileSize(total)})`,
+      `Installer output for ${this.id}: ${data}% (total: ${getFileSize(total)})`,
       LogPrefix.Zoom
     )
 
-    progress.percent = parseInt(data)
-    if (progress.percent > 100) {
-      progress.percent = 100
+    this.tmpProgress.percent = parseInt(data)
+    if (this.tmpProgress.percent > 100) {
+      this.tmpProgress.percent = 100
     }
-    progress.bytes = 'N/A'
-    progress.eta = 'N/A'
-    progress.downSpeed = 0
-    progress.diskSpeed = 0
+    this.tmpProgress.bytes = 'N/A'
+    this.tmpProgress.eta = 'N/A'
+    this.tmpProgress.downSpeed = 0
+    this.tmpProgress.diskSpeed = 0
 
     sendProgressUpdate({
-      appName: appName,
+      appName: this.id,
       runner: 'zoom',
       status: action,
-      progress: progress
+      progress: this.tmpProgress
     })
   }
 
-  async install(
-    appName: string,
-    { path, platformToInstall, installLanguage }: InstallArgs
-  ): Promise<{
+  async install({
+    path,
+    platformToInstall,
+    installLanguage
+  }: InstallArgs): Promise<{
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
     logInfo(
-      `Installing ${appName} to ${path} for platform ${platformToInstall}`,
+      `Installing ${this.id} to ${path} for platform ${platformToInstall}`,
       LogPrefix.Zoom
     )
     logInfo(`Installation path: ${path}`, LogPrefix.Zoom)
 
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     if (!gameInfo || !gameInfo.folder_name) {
-      logError(`Game info not found for ${appName}`, LogPrefix.Zoom)
+      logError(`Game info not found for ${this.id}`, LogPrefix.Zoom)
       return { status: 'error', error: 'Game info not found' }
     }
 
@@ -244,10 +239,10 @@ export default class ZoomGameManager implements GameManager {
     // Fetch installer URL
     const installers: ZoomDownloadFile[] = await libraryManagerMap[
       'zoom'
-    ].getInstallers(installPlatform, appName)
+    ].getInstallers(installPlatform, this.id)
     if (installers.length === 0 || !installers[0].url) {
       logError(
-        `No installer found for ${appName} on ${installPlatform}`,
+        `No installer found for ${this.id} on ${installPlatform}`,
         LogPrefix.Zoom
       )
       return { status: 'error', error: 'No installer found' }
@@ -289,7 +284,6 @@ export default class ZoomGameManager implements GameManager {
               }
 
               this.onInstallOrUpdateOutput(
-                appName,
                 'installing',
                 `${percent}`,
                 totalSize
@@ -360,7 +354,7 @@ export default class ZoomGameManager implements GameManager {
 
       logInfo(`Executing installer: ${executable}`, LogPrefix.Zoom)
 
-      const gameSettings = await this.getSettings(appName)
+      const gameSettings = await this.getSettings()
       await writeFile(
         infFilePath,
         `[Setup]\nLang=english\nDisableWelcomePage=yes\nDisableDirPage=yes\nDisableProgramGroupPage=yes\nDisableReadyPage=yes\n`,
@@ -387,9 +381,9 @@ export default class ZoomGameManager implements GameManager {
         gameInstallPath: path,
         wait: true,
         options: {
-          logMessagePrefix: `Installing ${appName}`,
-          logWriters: [await createGameLogWriter(appName, 'zoom', 'install')],
-          abortId: appName
+          logMessagePrefix: `Installing ${this.id}`,
+          logWriters: [await createGameLogWriter(this.id, 'zoom', 'install')],
+          abortId: this.id
         }
       })
     }
@@ -477,7 +471,7 @@ export default class ZoomGameManager implements GameManager {
           finalExecutable = exes[0]
         } else if (exes.length > 1) {
           // Try to find an exe with the game's name in it
-          const gameInfo = this.getGameInfo(appName)
+          const gameInfo = this.getGameInfo()
           const gameName = gameInfo.title
             .toLowerCase()
             .replace(/[^a-z0-9]/g, '')
@@ -508,7 +502,7 @@ export default class ZoomGameManager implements GameManager {
     }
     await rm(downloadRoot, { recursive: true, force: true })
     if (!finalExecutable) {
-      logError(['Could not find executable for', appName], LogPrefix.Zoom)
+      logError(['Could not find executable for', this.id], LogPrefix.Zoom)
       showDialogBoxModalAuto({
         title: t('box.error.executableNotFound', 'Executable not found'),
         message: t(
@@ -528,7 +522,7 @@ export default class ZoomGameManager implements GameManager {
       install_size: getFileSize(totalSize), // This might need to be the actual installed size, not just installer size
       is_dlc: false,
       version: '1.0', // Placeholder, ideally extracted from installer or API
-      appName: appName,
+      appName: this.id,
       installedDLCs: [],
       language: installLanguage,
       versionEtag: '',
@@ -539,7 +533,7 @@ export default class ZoomGameManager implements GameManager {
     array.push(installedData)
     installedGamesStore.set('installed', array)
     libraryManagerMap['zoom'].refresh()
-    const libraryGame = this.getGameInfo(appName)
+    const libraryGame = this.getGameInfo()
     if (libraryGame) {
       libraryGame.is_installed = true
       libraryGame.install = installedData
@@ -548,16 +542,16 @@ export default class ZoomGameManager implements GameManager {
         'games',
         libraryStore
           .get('games', [])
-          .map((g) => (g.app_name === appName ? libraryGame : g))
+          .map((g) => (g.app_name === this.id ? libraryGame : g))
       )
     }
 
-    logInfo(`Installation of ${appName} completed.`, LogPrefix.Zoom)
+    logInfo(`Installation of ${this.id} completed.`, LogPrefix.Zoom)
     return { status: 'done' }
   }
 
-  isNative(appName: string): boolean {
-    const gameInfo = this.getGameInfo(appName)
+  isNative(): boolean {
+    const gameInfo = this.getGameInfo()
     if (isWindows) {
       return true
     }
@@ -573,22 +567,21 @@ export default class ZoomGameManager implements GameManager {
     return false
   }
 
-  async addShortcuts(appName: string, fromMenu?: boolean) {
-    return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
+  async addShortcuts(fromMenu?: boolean) {
+    return addShortcutsUtil(this, fromMenu)
   }
 
-  async removeShortcuts(appName: string) {
-    return removeShortcutsUtil(this.getGameInfo(appName))
+  async removeShortcuts() {
+    return removeShortcutsUtil(this)
   }
 
   async launch(
-    appName: string,
     logWriter: LogWriter,
     launchArguments?: LaunchOption,
     args: string[] = []
   ): Promise<boolean> {
-    const gameSettings = await this.getSettings(appName)
-    const gameInfo = this.getGameInfo(appName)
+    const gameSettings = await this.getSettings()
+    const gameInfo = this.getGameInfo()
 
     if (
       !gameInfo.install ||
@@ -596,16 +589,12 @@ export default class ZoomGameManager implements GameManager {
       !gameInfo.install.platform ||
       !gameInfo.install.executable
     ) {
-      logError(`Missing install info for ${appName}`, LogPrefix.Zoom)
+      logError(`Missing install info for ${this.id}`, LogPrefix.Zoom)
       return false
     }
 
     if (!existsSync(gameInfo.install.install_path)) {
-      errorHandler({
-        error: 'appears to be deleted',
-        runner: 'zoom',
-        appName: gameInfo.app_name
-      })
+      errorHandler('appears to be deleted', this.id, 'zoom')
       return false
     }
 
@@ -616,12 +605,7 @@ export default class ZoomGameManager implements GameManager {
       gameScopeCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(
-      gameSettings,
-      logWriter,
-      gameInfo,
-      this.isNative(appName)
-    )
+    } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
       showDialogBoxModalAuto({
@@ -634,11 +618,11 @@ export default class ZoomGameManager implements GameManager {
 
     const commandEnv = {
       ...process.env,
-      ...setupWrapperEnvVars({ appName, appRunner: 'zoom' }),
+      ...setupWrapperEnvVars({ appName: this.id, appRunner: 'zoom' }),
       ...(isWindows
         ? {}
         : setupEnvVars(gameSettings, gameInfo.install.install_path)),
-      ...getKnownFixesEnvVariables(appName, 'zoom')
+      ...getKnownFixesEnvVariables(this.id, 'zoom')
     }
 
     const wrappers = setupWrappers(
@@ -667,10 +651,14 @@ export default class ZoomGameManager implements GameManager {
       })
     }
 
-    sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
+    sendGameStatusUpdate({
+      appName: this.id,
+      runner: 'zoom',
+      status: 'playing'
+    })
 
-    if (this.isNative(appName)) {
-      const isNativeDosbox = this.isNative(appName) && gameInfo.install.isDosbox
+    if (this.isNative()) {
+      const isNativeDosbox = this.isNative() && gameInfo.install.isDosbox
       const { error, abort } = await callRunner(
         commandParts,
         {
@@ -684,7 +672,7 @@ export default class ZoomGameManager implements GameManager {
           wrappers,
           logMessagePrefix: `Launching ${gameInfo.title}`,
           logWriters: [logWriter],
-          abortId: appName,
+          abortId: this.id,
           cwd: gameInfo.install.install_path
         }
       )
@@ -703,7 +691,7 @@ export default class ZoomGameManager implements GameManager {
         success: wineLaunchPrepSuccess,
         failureReason: wineLaunchPrepFailReason,
         envVars
-      } = await prepareWineLaunch('zoom', appName, logWriter)
+      } = await prepareWineLaunch(this, logWriter)
 
       if (!wineLaunchPrepSuccess) {
         logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
@@ -739,7 +727,7 @@ export default class ZoomGameManager implements GameManager {
           wrappers,
           logMessagePrefix: `Launching ${gameInfo.title}`,
           logWriters: [logWriter],
-          abortId: appName
+          abortId: this.id
         }
       })
 
@@ -753,44 +741,32 @@ export default class ZoomGameManager implements GameManager {
     }
   }
 
-  async moveInstall(
-    appName: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    newInstallPath: string
-  ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
+  async moveInstall(): Promise<
+    { status: 'done' } | { status: 'error'; error: string }
+  > {
     logWarning(
-      `Move install not implemented for Zoom: ${appName}`,
+      `Move install not implemented for Zoom: ${this.id}`,
       LogPrefix.Zoom
     )
     return { status: 'error', error: 'Move install not implemented' }
   }
 
-  async repair(appName: string): Promise<ExecResult> {
-    logWarning(`Repair not implemented for Zoom: ${appName}`, LogPrefix.Zoom)
+  async repair(): Promise<ExecResult> {
+    logWarning(`Repair not implemented for Zoom: ${this.id}`, LogPrefix.Zoom)
     return { stdout: '', stderr: 'Repair not implemented' }
   }
 
-  async syncSaves(
-    appName: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    arg: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    path: string
-  ): Promise<string> {
+  async syncSaves(): Promise<string> {
     logWarning(
-      `Sync saves not implemented for Zoom: ${appName}`,
+      `Sync saves not implemented for Zoom: ${this.id}`,
       LogPrefix.Zoom
     )
     return 'Sync saves not implemented'
   }
 
-  async uninstall({
-    appName,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    shouldRemovePrefix
-  }: RemoveArgs): Promise<ExecResult> {
+  async uninstall(): Promise<ExecResult> {
     const array = installedGamesStore.get('installed', [])
-    const index = array.findIndex((game) => game.appName === appName)
+    const index = array.findIndex((game) => game.appName === this.id)
     if (index === -1) {
       throw Error("Game isn't installed")
     }
@@ -803,55 +779,42 @@ export default class ZoomGameManager implements GameManager {
     }
     installedGamesStore.set('installed', array)
     libraryManagerMap['zoom'].refresh()
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     gameInfo.is_installed = false
     gameInfo.install = { is_dlc: false }
-    await removeShortcutsUtil(gameInfo)
-    await removeNonSteamGame({ gameInfo })
+    await removeShortcutsUtil(this)
+    await removeNonSteamGame(this)
     sendFrontendMessage('pushGameToLibrary', gameInfo)
     return { stdout: 'Uninstalled', stderr: '' }
   }
 
-  async update(
-    appName: string,
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    updateOverwrites?: {
-      build?: string
-      branch?: string
-      language?: string
-      dlcs?: string[]
-      dependencies?: string[]
-    }
-  ): Promise<{ status: 'done' | 'error'; error?: string }> {
-    logWarning(`Update not implemented for Zoom: ${appName}`, LogPrefix.Zoom)
+  async update(): Promise<{ status: 'done' | 'error'; error?: string }> {
+    logWarning(`Update not implemented for Zoom: ${this.id}`, LogPrefix.Zoom)
     return { status: 'error', error: 'Update not implemented' }
   }
 
-  async forceUninstall(appName: string): Promise<void> {
+  async forceUninstall(): Promise<void> {
     const installed = installedGamesStore.get('installed', [])
-    const newInstalled = installed.filter((g) => g.appName !== appName)
+    const newInstalled = installed.filter((g) => g.appName !== this.id)
     installedGamesStore.set('installed', newInstalled)
     libraryManagerMap['zoom'].refresh()
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     gameInfo.is_installed = false
     gameInfo.install = { is_dlc: false }
     sendFrontendMessage('pushGameToLibrary', gameInfo)
   }
 
-  async stop(
-    appName: string /* eslint-disable-next-line @typescript-eslint/no-unused-vars */,
-    stopWine = true
-  ): Promise<void> {
+  async stop(): Promise<void> {
     logWarning(
-      `Stop not fully implemented for Zoom: ${appName}`,
+      `Stop not fully implemented for Zoom: ${this.id}`,
       LogPrefix.Zoom
     )
     // For now, we don't have a specific process to stop for Zoom games
     // If wine is used, it will be handled by the launcher's wine cleanup.
   }
 
-  async isGameAvailable(appName: string): Promise<boolean> {
-    const info = this.getGameInfo(appName)
+  async isGameAvailable(): Promise<boolean> {
+    const info = this.getGameInfo()
     if (!info || !info.is_installed || !info.install.install_path) {
       return false
     }

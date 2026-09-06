@@ -6,14 +6,22 @@ export type ControllerLayout =
   | 'steam-deck'
 
 // Standard gamepad button indices (Chromium "standard" mapping).
-export const BTN_ACTION = 0
-export const BTN_BACK = 1
+const BTN_ACTION = 0
+const BTN_BACK = 1
 export const BTN_L1 = 4
 export const BTN_R1 = 5
 export const BTN_R2 = 7
 
 export const getActionButtonLabel = (layout: ControllerLayout) =>
   layout.startsWith('ps') ? '✕' : 'A'
+
+// Nintendo controllers report the same Chromium "standard" positions as Xbox,
+// but their A/B labels sit in swapped physical positions, so confirm/cancel
+// must swap to match the on-screen glyphs.
+export const getActionButtonIndex = (layout: ControllerLayout) =>
+  layout === 'nintendo' ? BTN_BACK : BTN_ACTION
+export const getBackButtonIndex = (layout: ControllerLayout) =>
+  layout === 'nintendo' ? BTN_ACTION : BTN_BACK
 
 export function detectControllerLayout(id: string): ControllerLayout {
   if (/054c|PS3|054c.*09cc|0268|'2563.*0523/i.test(id)) return 'ps4'

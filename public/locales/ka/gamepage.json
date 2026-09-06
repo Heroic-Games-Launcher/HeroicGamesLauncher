@@ -95,7 +95,8 @@
         },
         "remove_from_favourites": "",
         "play": "",
-        "no-path-selected": ""
+        "no-path-selected": "",
+        "edit-game": "აპის/თამაშის ჩასწორება"
     },
     "cloud_save_unsupported": "მხარდაუწერელი",
     "disabled": "გათიშულია",
@@ -325,5 +326,9 @@
         "noDescription": ""
     },
     "report_problem": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "დამატებით",
+        "title": "აპის/თამაშის ჩასწორება"
+    }
 }

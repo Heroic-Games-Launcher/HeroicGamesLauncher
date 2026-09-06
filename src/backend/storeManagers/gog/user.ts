@@ -7,7 +7,7 @@ import { isOnline } from '../../online_monitor'
 import { GOGCredentials, UserData } from 'common/types/gog'
 import { libraryManagerMap } from '../index'
 import { clearCache } from 'backend/utils'
-import { app } from 'electron'
+import { app, session } from 'electron'
 import { gogdlAuthConfig } from './constants'
 
 function authLogSanitizer(line: string) {
@@ -60,7 +60,7 @@ export class GOGUser {
     return { status: 'done', data: userDetails }
   }
 
-  public static async getUserDetails() {
+  public static async getUserDetails(): Promise<UserData | undefined> {
     if (!isOnline()) {
       logError('Unable to login information, Heroic offline', LogPrefix.Gog)
       return
@@ -76,7 +76,7 @@ export class GOGUser {
       return
     }
     const response = await axios
-      .get(`https://embed.gog.com/userData.json`, {
+      .get(`https://users.gog.com/users/${user.user_id}`, {
         headers: {
           Authorization: `Bearer ${user.access_token}`,
           'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
@@ -91,9 +91,6 @@ export class GOGUser {
     }
 
     const data: UserData = response.data
-
-    //Exclude email, it won't be needed
-    delete data.email
 
     configStore.set('userData', data)
     logInfo('Saved username to config file', LogPrefix.Gog)
@@ -133,6 +130,10 @@ export class GOGUser {
     if (existsSync(gogdlAuthConfig)) {
       unlinkSync(gogdlAuthConfig)
     }
+    const ses = session.fromPartition('persist:gog')
+    ses.clearStorageData().catch(() => {})
+    ses.clearCache().catch(() => {})
+    ses.clearAuthCache().catch(() => {})
     logInfo('Logging user out', LogPrefix.Gog)
   }
 

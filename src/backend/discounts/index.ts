@@ -5,8 +5,11 @@ import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { GOGUser } from 'backend/storeManagers/gog/user'
 import type {
   CatalogLocaleSettings,
-  CatalogProduct
+  CatalogProduct,
+  GogDealsRegion
 } from 'common/types/discounts'
+import './gmg'
+import './humble'
 
 interface CatalogResponse {
   pages: number
@@ -117,6 +120,64 @@ const fetchAllDiscounts = async (
     return true
   })
 }
+
+const USER_DATA_URL = 'https://embed.gog.com/userData.json'
+
+interface GogUserDataResponse {
+  country?: string
+  selectedCurrency?: { code?: string }
+}
+
+const fetchUserDataRegion = async (
+  token?: string
+): Promise<GogDealsRegion | null> => {
+  const headers: Record<string, string> = {
+    'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
+  }
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
+  const { data } = await axios.get<GogUserDataResponse>(USER_DATA_URL, {
+    timeout: 10000,
+    headers
+  })
+
+  const countryCode = data?.country
+  const currencyCode = data?.selectedCurrency?.code
+  if (typeof countryCode !== 'string' || typeof currencyCode !== 'string') {
+    return null
+  }
+  return {
+    countryCode: countryCode.toUpperCase(),
+    currencyCode: currencyCode.toUpperCase()
+  }
+}
+
+addHandler('getGogDealsRegion', async (): Promise<GogDealsRegion | null> => {
+  let token: string | undefined = undefined
+  if (GOGUser.isLoggedIn()) {
+    const credentials = await GOGUser.getCredentials().catch(() => undefined)
+    token = credentials?.access_token
+  }
+
+  try {
+    return await fetchUserDataRegion(token)
+  } catch (err) {
+    if (token) {
+      try {
+        return await fetchUserDataRegion()
+      } catch {
+        // ignore, fall back to the warning below
+      }
+    }
+    logWarning(
+      `Failed to fetch GOG region info: ${String(err)}`,
+      LogPrefix.Backend
+    )
+    return null
+  }
+})
 
 addHandler(
   'getGogDiscounts',

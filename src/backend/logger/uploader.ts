@@ -72,7 +72,7 @@ async function uploadLogFile(
   // formData.set('file', fileBlob, filename)
   // formData.set('expires', (EXPIRY_DAYS * 24).toString())
 
-  const formData = `content=${fileContents.toString()}&expiry_days=${EXPIRY_DAYS}`
+  const formData = `content=${encodeURIComponent(fileContents.toString())}&expiry_days=${EXPIRY_DAYS}`
 
   const response = await sendRequestToApi(formData)
   if (!response) return false

@@ -96,8 +96,8 @@
             "executableNotFound": "Executabilul nu a fost găsit",
             "executableNotFoundMessage": "Heroic nu a putut găsi un executabil pentru acest joc. Te rugăm să îl setezi manual în setările jocului.",
             "dxmt": {
-                "message": "",
-                "title": ""
+                "message": "Eroare la descărcarea DXMT! Verificați conexiunea!",
+                "title": "Eroare de descărcare DXMT"
             }
         },
         "info": {
@@ -177,14 +177,9 @@
             "rosetta": {
                 "message": "Heroic are nevoie de Rosetta pentru a rula corect pe macOS cu chip-urile Apple Silicon. Te rugăm să-l reinstalezi din terminalul macOS folosing următoarea comandă : \"softwareupdate --install-rosetta\"  și repornește Heroic. ",
                 "title": "Rosetta nu a fost găsit"
-            },
-            "snap": {
-                "checkbox": "Nu mai arăta acest mesaj",
-                "message": "Unele funcții nu sunt disponibile deocamdată în versiunea Snap a aplicației și încercăm sa o remediem.{{newLine}}Limitările curente sunt:{{newLine}}Heroic nu va putea localiza Proton de la Steam sau Wine de la Lutris.{{newLine}}{{newLine}}Gamescope, Gamemode și MangoHud, de asemenea, nu vor funcționa din moment ce Heroic nu are acces la acestea.{{newLine}}{{newLine}}Pentru a obține acces la această funcție vă rugăm instalați Heroic sub forma Flatpak, DEB sau din AppImage.",
-                "title": "Heroic rulează ca și Snap"
             }
         },
-        "wineprefix": "Alegeți dosarul Wine Prefix",
+        "wineprefix": "Selectați folderul WinePrefix",
         "yes": "DA",
         "dontShowAgain": "Nu mai arăta",
         "choose-nile-binary": "Selectați binarul Nil",
@@ -218,7 +213,8 @@
             "scroll": "Sul",
             "select": "Select",
             "space": "Spaţiu",
-            "update_game": "Actualizați jocul"
+            "update_game": "Actualizați jocul",
+            "exit": "Ieșire"
         }
     },
     "docs": "Documentație",
@@ -261,7 +257,7 @@
         "library": {
             "refresh": "Actualizează biblioteca"
         },
-        "abort": "",
+        "abort": "Despre",
         "install": "Install",
         "uninstall": "Dezinstalează"
     },
@@ -666,7 +662,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "Încărcați",
                     "content": ""
                 },
                 "open": "",
@@ -922,7 +918,8 @@
         "installing": "Se Instalează",
         "logging": "Autentificare...",
         "processing": "Se procesează fișierele, așteptați",
-        "preparing_login": "Se pregătește autentificare... "
+        "preparing_login": "Se pregătește autentificare... ",
+        "installed": "Instalat"
     },
     "store": "Magazin",
     "stores": "Magazine",
@@ -1017,9 +1014,9 @@
         "cancel": "Cancel",
         "warning": "Warning",
         "add-new-category": "Adaugă o categorie nouă",
-        "remove-category": "",
-        "delete-question": "",
-        "new-category": ""
+        "remove-category": "Șterge categoria",
+        "delete-question": "Continuarea va șterge permanent această categorie și o va elimina de la toate jocurile. Doriți să continuați?",
+        "new-category": "Categorie nouă"
     },
     "window": {
         "close": "Închide",
@@ -1101,9 +1098,9 @@
         "confirm-remove": "Confirmă ștergerea lui \"{{name}}\"",
         "confirm-rename": "Confirmă redenumirea lui {{oldName}} ca {{newName}}",
         "no-categories": "Nicio categorie.",
-        "remove": "",
-        "title": "",
-        "rename": ""
+        "remove": "Elimină \"{{name}}\"",
+        "title": "Gestionează categoriile",
+        "rename": "Redenumește \"{{name}}\""
     },
     "launch": {
         "options": "Opțiuni de Lansare..."
@@ -1114,7 +1111,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1174,9 +1170,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Toate",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Detalii",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1198,12 +1195,16 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Detalii"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Nu s-au găsit jocuri",
-            "no-grids": "",
+            "no-grids": "Nu a fost găsit niciun jurnal pentru acest joc",
             "search": "",
             "grids": ""
         },
@@ -1244,7 +1245,14 @@
         "empty": "",
         "games": "Jocuri instalate",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Loading",
+            "path": "Instalează în",
+            "title": "Jocuri instalate",
+            "wineMissing": "Nici o cale selectată"
+        }
     },
     "next": ""
 }

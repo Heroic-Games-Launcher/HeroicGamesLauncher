@@ -50,6 +50,7 @@ import { runLegendaryCommandStub } from './e2eMock'
 import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
 import { LibraryManager } from 'common/types/game_manager'
+import LegendaryGame from './games'
 
 const fallBackImage = 'fallback'
 
@@ -58,9 +59,22 @@ let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
 export default class LegendaryLibraryManager implements LibraryManager {
+  private readonly gameCache: Map<LegendaryAppName, LegendaryGame> = new Map()
+
   async init() {
     this.loadGamesInAccount()
     this.refreshInstalled()
+  }
+
+  getGame(id: string): LegendaryGame {
+    const appName = LegendaryAppName.parse(id)
+
+    const cached = this.gameCache.get(appName)
+    if (cached) return cached
+
+    const game = new LegendaryGame(appName)
+    this.gameCache.set(appName, game)
+    return game
   }
 
   /**
@@ -679,17 +693,9 @@ export default class LegendaryLibraryManager implements LibraryManager {
 
     // Set LEGENDARY_CONFIG_PATH to a custom, Heroic-specific location so user-made
     // changes to Legendary's main config file don't affect us
-    if (!options) {
-      options = {}
-    }
-    if (!options.env) {
-      options.env = {}
-    }
-
-    // if not on a SNAP environment, set the XDG_CONFIG_HOME to the same location as the config file
-    if (!process.env.SNAP) {
-      options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
-    }
+    options ??= {}
+    options.env ??= {}
+    options.env['LEGENDARY_CONFIG_PATH'] = legendaryConfigPath
 
     const commandParts = this.commandToArgsArray(command)
 

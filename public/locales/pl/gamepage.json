@@ -35,7 +35,7 @@
         "uninstall": {
             "checkbox": "Usuń prefiks: {{prefix}}{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
             "message": "Czy chcesz odinstalować \"{{title}}\"?",
-            "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
+            "settingcheckbox": "Wyczyść ustawienia i usuń log{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a log zostanie usunięty.",
             "title": "Odinstaluj",
             "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
             "dlc": "Czy chcesz odinstalować DLC \"{{title}}\"?",
@@ -43,7 +43,7 @@
             "gameIsRunning": "{{title}} jest uruchomiony. Zamknij grę, aby ją odinstalować."
         },
         "update": {
-            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją zaktualizować teraz?",
+            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zaktualizować ?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
@@ -51,7 +51,7 @@
         "close": "Zamknij",
         "select-install-path": "Wybierz ścieżkę instalacji Steam",
         "selectLaunchOption": {
-            "body": "Proszę wybrać opcję uruchomienia tej gry (można to później zmienić w ustawieniach gry):",
+            "body": "Wybierz opcję uruchomienia tej gry (można to później zmienić w ustawieniach gry):",
             "title": "Wybierz opcję uruchomienia ({{seconds}}s)"
         },
         "warning": {
@@ -84,7 +84,7 @@
         },
         "remove_from_favourites": "Usuń z ulubionych",
         "remove_from_recent": "Usuń z ostatnio uruchamianych",
-        "run-exe-first": "Uruchom najpierw instalator",
+        "run-exe-first": "Najpierw uruchom instalator",
         "running-setup": "Rozpoczynanie instalacji",
         "sideload": {
             "edit": "Edytuj aplikację/grę"
@@ -93,10 +93,11 @@
         "uninstall": "Odinstaluj",
         "update": "Aktualizuj",
         "details": "Szczegóły",
-        "changelog": "Pokaż dziennik zmian",
+        "changelog": "Pokaż listę zmian",
         "browse_files": "Przeglądaj pliki",
         "browse_wine_prefix": "Przeglądaj prefiks Wine",
-        "play": "GRAJ"
+        "play": "GRAJ",
+        "edit-game": "Edytuj grę"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -118,7 +119,7 @@
         "totalPlayed": "Czas gry",
         "dlcs": "DLC",
         "branch": {
-            "disabled": "Wyłączone",
+            "disabled": "Wyłączono",
             "password": "Ustaw hasło prywatnego kanału",
             "select": "Wybierz kanał beta",
             "setPrivateBranchPassword": "Ustaw hasło prywatnego kanału"
@@ -128,11 +129,11 @@
             "buildsSelector": "Wybierz wersję gry",
             "toggle": "Utrzymuj grę na konkretnej wersji"
         },
-        "changelogFor": "Dziennik zmian dla {{gameTitle}}",
+        "changelogFor": "Lista zmian dla {{gameTitle}}",
         "modify": "Modyfikuj instalację",
-        "extra_info": "Dodatkowe Informacje",
+        "extra_info": "Dodatkowe informacje",
         "install_info": "Informacje o instalacji",
-        "achievements": ""
+        "achievements": "Osiągnięcia"
     },
     "gamecard": {
         "moving": "Przenoszenie",
@@ -145,7 +146,7 @@
     "hours": "Godzin",
     "how-long-to-beat": {
         "completionist": "Kolekcjoner",
-        "main-plus-extras": "Podstawowa + Dodatki",
+        "main-plus-extras": "Główny wątek + Dodatkowe zadania",
         "main-story": "Główny wątek"
     },
     "howLongToBeat": "Czas na ukończenie",
@@ -154,7 +155,7 @@
         "installedPlatform": "Zainstalowana platforma",
         "path": "Ścieżka instalacji",
         "size": "Rozmiar",
-        "syncsaves": "Synchronizuj zapisy gier",
+        "syncsaves": "Synchronizacja zapisów gry",
         "version": "Wersja",
         "apple-gaming-wiki": "Ocena AppleGamingWiki",
         "clickToOpen": "Kliknij, aby otworzyć",
@@ -168,7 +169,7 @@
         "disk-space-left": "Dostępne miejsce",
         "not-enough-disk-space": "Zbyt mało miejsca na dysku",
         "path": "Wybierz ścieżkę instalacji",
-        "path-not-writtable": "Ostrzeżenie: ścieżka może nie być nadpisywalna.",
+        "path-not-writtable": "Ostrzeżenie: Zapis na ścieżce może nie być możliwy.",
         "space-after-install": "Po instalacji",
         "wineprefix": "Prefiks Wine",
         "wineversion": "Wersja Wine",
@@ -176,10 +177,10 @@
             "cancel": "Nie",
             "message": "Wsparcie dla systemów Anticheat nie działa poprawnie lub nie istnieje. Gra nie będzie działać. Czy chcesz zainstalować ją mimo wszystko?",
             "install": "Tak (Rozumiem, że to nie zadziała)",
-            "title": "Niewspierany Anticheat",
-            "ok": "OK",
+            "title": "Niewspierany/Zepsuty antycheat",
+            "ok": "Ok",
             "install_anyway": "Tak (rozumiem, że funkcje wieloosobowe nie będą działać)",
-            "disabled_installation": "Wsparcie antycheata dla tej gry nie jest kompatybilne z twoim systemem operacyjnym lub twórcy gry nie włączyli wsparcia dla niego. Oznacza to, że funkcje wieloosobowe nie będą działać i nikt (ani ty, ani zespół Heroic) jest w stanie cokolwiek z tym zrobić.<br /><br />Aby mimo tego zainstalować grę, przejdź do Ustawienia, Zaawansowane i zaznacz opcję zezwalania na instalaowanie gier z uszkodzonym lub niedostępnym antycheatem.<br /><br />Uwaga: nie ma na to żadnego rozwiązania i będziesz ryzykować otrzymaniem bana w grze.",
+            "disabled_installation": "Ta gra używa systemu antycheat, który jest niekompatybilny z twoim systemem operacyjnym, lub twórcy nie włączyli dla niego wsparcia. Oznacza to, że funkcje wieloosobowe nie będą działać i nikt (ani ty, ani zespół Heroic) nie jest w stanie nic z tym zrobić.<br /><br />Aby mimo tego zainstalować tę grę, przejdź do Ustawienia, Zaawansowane i zaznacz opcję zezwalania na instalowanie gier z uszkodzonym lub niedostępnym antycheatem.<br /><br />Uwaga: nie ma na to żadnego rozwiązania i będziesz ryzykować otrzymaniem bana w grze.",
             "multiplayer_message": "Wsparcie antycheata nie działa lub jest zablokowane. Gra może się uruchomić ale funkcje wieloosobowe mogą nie działać. Czy chcesz zainstalować?"
         },
         "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
@@ -192,7 +193,7 @@
         "playing": {
             "start": "Graj",
             "stop": "Gra uruchomiona (zatrzymaj)",
-            "start_with_logs": "Graj Teraz (z logami)"
+            "start_with_logs": "Graj (z logami)"
         },
         "saves": {
             "syncing": "Synchronizowanie zapisów"
@@ -237,7 +238,7 @@
         "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",
         "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
         "login": "Zaloguj się",
-        "title": "Jesteś niezalogowany",
+        "title": "NIE jesteś zalogowany",
         "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:",
         "zoom": "Nie jesteś zalogowany za pomocą konta Zoom w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
     },
@@ -248,7 +249,7 @@
     "setting": {
         "winecrossoverbottle": "Butelka CrossOver",
         "show-wine-settings": "Pokaż ustawienia Wine",
-        "warn-use-shared-wine-config": "Używaj tylko, jeżeli wiesz co robisz.<br/>Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne.",
+        "warn-use-shared-wine-config": "Używaj tylko, jeżeli wiesz co robisz.<br />Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne.",
         "use-shared-wine-config": "Używaj dzielonego prefiksu Wine"
     },
     "sideload": {
@@ -259,19 +260,24 @@
             "exe": "Wybierz plik wykonywalny",
             "image": "Obraz aplikacji",
             "title": "Tytuł gry/aplikacji",
-            "broser": "URL przeglądarki",
+            "broser": "Adres URL",
             "useragent": "Niestandardowy User Agent",
-            "fullscreen": "Otwórz w trybie pełnoekranowym (F11 aby wyjsć)"
+            "fullscreen": "Otwórz w trybie pełnoekranowym (F11 aby wyjść)",
+            "cover-hint": "Okładka/Ikona (kliknij obraz, aby szukać na SteamGridDB)",
+            "image-hint": "Ikona (kliknij obraz, aby szukać na SteamGridDB)"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazu lub wybierz jeden z komputera",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
-            "url": "Wklej tutaj adres URL gry",
+            "url": "Wklej adres URL gry",
             "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
         },
         "import-hint": {
-            "title": "Uwaga! Czy dodajesz grę od Epic/GOG/Amazon? Kliknij tutaj!",
+            "title": "Uwaga! Czy dodajesz grę z Epic/GOG/Amazon? Kliknij tutaj!",
             "content": "NIE używaj do tego tej funkcjonalności.<br />. Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
+        },
+        "images": {
+            "summary": "Obrazy"
         }
     },
     "specs": {
@@ -279,10 +285,10 @@
         "recommended": "Zalecane"
     },
     "status": {
-        "clickToUpdate": "Kliknij by zaktualizować",
+        "clickToUpdate": "Kliknij, by zaktualizować",
         "gameNotAvailable": "Gra nie jest dostępna",
         "hasUpdates": "Nowa wersja dostępna!",
-        "installed": "Zainstalowane",
+        "installed": "Zainstalowano",
         "installing": "Instalowanie",
         "moving": "Przenoszenie plików gry, proszę czekać",
         "notinstalled": "Ta gra nie jest zainstalowana",
@@ -291,7 +297,7 @@
         "processing": "Przetwarzanie plików, proszę czekać",
         "queued": "W kolejce",
         "reparing": "Naprawianie gry, proszę czekać",
-        "this-game-uses-third-party": "Ta gra używa programu uruchamiającego strony trzeciej i nie jest jeszcze wspierana",
+        "this-game-uses-third-party": "Ta gra używa zewnętrznego programu uruchamiającego i nie jest jeszcze wspierana",
         "totalDownloaded": "Łącznie pobrane",
         "uninstalling": "Odinstalowywanie",
         "updating": "Aktualizowanie gry",
@@ -320,14 +326,14 @@
         "removeFromSteam": "Usuń ze Steama",
         "removeShortcut": "Usuń skróty",
         "settings": "Ustawienia",
-        "store": "Strona sklepu",
-        "verify": "Sprawdź i napraw",
+        "store": "Strona w sklepie",
+        "verify": "Sprawdź spójność plików gry i napraw",
         "extraInfo": "Informacje dodatkowe",
         "logs": "Logi",
         "categories": "Kategorie"
     },
     "help": {
-        "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze",
+        "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze.",
         "title": {
             "gamePage": "Strona gry"
         },
@@ -347,7 +353,7 @@
     "third-party-managed": {
         "header": "Ta gra jest zarządzana poprzez zewnętrzną aplikację",
         "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
-        "notice2": "Po naciśnięciu Instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
+        "notice2": "Po naciśnięciu Instaluj, Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
     },
     "wikiLink": "Ważne informacje o tej grze można przeczytać tutaj:&nbsp;<1>Otwórz stronę</1>",
     "queue": {
@@ -359,5 +365,23 @@
         }
     },
     "Open": "Otwórz",
-    "open-saves-folder": "Otwórz folder zapisów"
+    "open-saves-folder": "Otwórz folder zapisów",
+    "edit-game": {
+        "advanced": "Zaawansowane",
+        "placeholder": {
+            "image": "Wklej URL obrazka"
+        },
+        "reset": "Zresetuj do ustawień domyślnych",
+        "sgdb": {
+            "no-key-link": "Ustawienia → Zaawansowane",
+            "no-key-prefix": "Aby szukać okładek na SteamGridDB, dodaj klucz API w"
+        },
+        "title": "Edytuj grę",
+        "cover": "Okładka",
+        "info": {
+            "cover": "Obraz okładki",
+            "square": "Obraz ikony"
+        },
+        "square": "Ikona"
+    }
 }

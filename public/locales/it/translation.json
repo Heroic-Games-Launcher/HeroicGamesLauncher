@@ -179,11 +179,6 @@
                     "message": "I progressi non salvati potrebbero essere persi"
                 }
             },
-            "snap": {
-                "checkbox": "Non mostrare più questo messaggio",
-                "title": "Heroic sta girando come Snap",
-                "message": "Alcune funzionalità non sono disponibili nella versione Snap dell'app per ora e stiamo cercando di risolvere la cosa.{{newLine}}Le limitazioni attuali sono: {{newLine}}Heroic non sarà in grado di trovare Proton da Steam o Wine da Lutris .{{newLine}}{{newLine}}Anche Gamescope, GameMode e MangoHud non funzioneranno poiché Heroic non può accedervi.{{newLine}}{{newLine}}Per avere accesso a questa funzione, installa Heroic come Flatpak , DEB o da AppImage."
-            },
             "rosetta": {
                 "message": "Heroic richiede Rosetta per funzionare correttamente su macOs con i chip Apple Silicon. Installa Rosetta dal terminale usando il seguente comando: \"softwareupdate --install-rosetta\" e riavvia Heroic. ",
                 "title": "Rosetta non trovato"
@@ -226,7 +221,8 @@
             "scroll": "Scroll",
             "select": "Seleziona",
             "space": "Barra Spaziatrice",
-            "update_game": "Aggiorna il gioco"
+            "update_game": "Aggiorna il gioco",
+            "exit": "Esci"
         }
     },
     "docs": "Documentazione",
@@ -382,8 +378,10 @@
         "analytics": "Permette a Heroic di raccogliere dati utenti anonimi al 100% per aiutare a migliorare l'applicazione. È necessario un riavvio per applicare l'impostazione.",
         "WoW64": "La modalità Wine WoW64 consente di eseguire giochi Windows a 32 bit su Wine a 64 bit. L'attivazione può migliorare le prestazioni, ma potrebbe anche causare problemi con i giochi a 32 bit più vecchi.",
         "nvidiaprime": {
-            "details": "Usa la scheda video dedicata per renderizzare il gioco su un sistema munito di multiple GPU (schede video). Necessario solo su Computer portatili o desktop da Gaming che utilizzano headless GPU rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Usa la scheda video dedicata per renderizzare il gioco su un sistema munito di multiple GPU (schede video). Necessario solo su Computer portatili o desktop da Gaming che utilizzano headless GPU rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Consulta ulteriori dettagli nella nostra wiki"
+        },
+        "hide-window-on-protocol-launch": "Mantiene la finestra di Heroic nascosta quando un gioco viene avviato da un collegamento esterno, come la funzione 'Aggiungi a Steam'."
     },
     "info": {
         "heroic": {
@@ -570,7 +568,7 @@
         "custom_themes_path": "Seleziona il percorso per cercare i file CSS personalizzati",
         "dxvkfpsvalue": "Valore positivo intero (es. 30, 60, ...)",
         "egs-prefix": "Prefix dove è installato EGS",
-        "prefered_language": "Codice di 2 caratteri (es.: \\\"en\\\" o \\\"fr\\\")",
+        "prefered_language": "Codice di 2 o 4 caratteri (es.: \\\"fr\\\" o \\\"pt-BR\\\")",
         "alt-nile-bin": "Usando il binario Nile integrato..."
     },
     "platforms": {
@@ -814,7 +812,11 @@
         "scripts": "Script:",
         "enable-quick-sync-menu": "Abilita il menu rapido di sincronizzazione dei salvataggi nella pagina del gioco",
         "disable_gog_presence": "Disattiva gli aggiornamenti di GOG Presence",
-        "start-in-console-mode": "Avvia in Modalità Console"
+        "start-in-console-mode": "Avvia in Modalità Console",
+        "hide-window-on-protocol-launch": "Nascondi la finestra di Heroic quando avvii i giochi dai link heroic://",
+        "nvidiaprime": {
+            "description": "Forza l'uso di NVIDIA Optimus o della GPU dedicata AMD Dynamic Switchable Graphics. Usa questa opzione SOLO per giochi OpenGL e Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -942,7 +944,8 @@
         "installing": "Installazione in corso",
         "logging": "Accesso in corso...",
         "processing": "File in elaborazione, attendere",
-        "preparing_login": "Preparazione dell'accesso... "
+        "preparing_login": "Preparazione dell'accesso... ",
+        "installed": "Installata"
     },
     "store": "Epic Store",
     "stores": "Negozi",
@@ -1060,11 +1063,11 @@
         "no-categories": "Ancora nessuna categoria."
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton è una variante Wine creata da Glorious Eggroll. È stato deprecata in favore di Proton-GE con il launcher UMU.",
         "proton-ge": "GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi.",
         "gpt": "Game Porting Toolkit è sviluppato da Apple ed è consigliato per i Mac con processori Apple Silicon M1+, offrendo prestazioni ottimali con i giochi più recenti che utilizzano le DirectX 12.",
         "wine-crossover": "Wine-Crossover si basa sul progetto open source Crossover Wine ed è consigliato per Mac con processore Intel e per giochi con DirectX 11 o versioni precedenti.",
-        "wine-staging-macos": "Wine-Staging-macOS si basa sul progetto Wine principale ed è consigliato per Mac con processore Intel e per giochi compatibili con DirectX 11 o versioni precedenti, soprattutto se utilizzato in combinazione con lo strumento DXMT."
+        "wine-staging-macos": "Wine-Staging-macOS si basa sul progetto Wine principale ed è consigliato per Mac con processore Intel e per giochi compatibili con DirectX 11 o versioni precedenti, soprattutto se utilizzato in combinazione con lo strumento DXMT.",
+        "proton-cachyos": "Proton-CachyOS è una variante di Proton mantenuta dal team di CachyOS. Include strumenti aggiuntivi come DXVK-Sarek e D7VK."
     },
     "adtraction-locked": {
         "description": "Sembra che il dominio track.adtraction.com non si sia caricato o sia bloccato. Con adtraction, ogni acquisto che fai nel GOG store supporta finanziariamente Heroic. Valuta di rimuovere il blocco se hai voglia di contribuire.",
@@ -1202,7 +1205,9 @@
             "ageRatingAll": "Tutto",
             "pageSize": "Per pagina",
             "releaseYear": "Anno di rilascio",
-            "hideOwned": "Nascondi posseduti"
+            "hideOwned": "Nascondi posseduti",
+            "wishlistOnly": "Solo lista dei desideri",
+            "platform": "Platform"
         },
         "sidebar": "Affari",
         "sort": {
@@ -1226,7 +1231,11 @@
         "title": "Affari GOG",
         "pagination": {
             "prev": "Precedente"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Affari"
     },
     "steamgriddb": {
         "error": {
@@ -1272,7 +1281,26 @@
         "empty": "Nessun gioco da mostrare. Installa qualcosa prima.",
         "games": "Giochi installati",
         "quitApp": "Chiudi applicazione",
-        "loading": "Caricamento della tua libreria…"
+        "loading": "Caricamento della tua libreria…",
+        "cancelInstall": {
+            "title": "Annulla Installazione",
+            "message": "Questo gioco è attualmente in fase di installazione. Annullare l'installazione?"
+        },
+        "cancelUpdate": {
+            "title": "Annulla l'aggiornamento",
+            "message": "Questo gioco è attualmente in fase di download. Annullare l'aggiornamento in corso?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Installa gioco",
+            "wineLoading": "Caricamento…",
+            "path": "Installa in",
+            "wine": "Wine",
+            "wineMissing": "Non selezionato"
+        },
+        "removeFromQueue": {
+            "message": "Questo gioco è in coda per il download. Rimuoverlo dalla coda?"
+        }
     },
     "next": "Prossimo"
 }
