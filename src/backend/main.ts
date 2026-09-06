@@ -958,19 +958,27 @@ addHandler(
       status: 'moving'
     })
 
-    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+    const { title, install } = libraryManagerMap[runner]
+      .getGame(appName)
+      .getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-    const moveRes = await libraryManagerMap[runner]
-      .getGame(appName)
-      .moveInstall(path)
-    if (moveRes.status === 'error') {
+    let validNewPath = true
+
+    if (path.startsWith(install.install_path!)) {
+      // we don't want to move a game in a subfolder of the current install directory
+      // it will cause all game files to be deleted since moving moves all files to the
+      // new directory and deletes the old one
+      validNewPath = false
+
       notify({
         title,
-        body: i18next.t('notify.error.move', 'Error Moving Game')
+        body: i18next.t('notify.error.error', 'Error Moving Game')
       })
+
+      const error = `New install path (${path}) cannot be inside the current install path (${install.install_path}).`
       logError(
-        `Error while moving ${appName} to ${path}: ${moveRes.error} `,
+        `Error while moving ${appName} to ${path}: ${error}`,
         LogPrefix.Backend
       )
 
@@ -978,15 +986,44 @@ addHandler(
         event,
         title: i18next.t('box.error.title', 'Error'),
         message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
-          error: moveRes.error
+          error
         }),
         type: 'ERROR'
       })
     }
 
-    if (moveRes.status === 'done') {
-      notify({ title, body: i18next.t('notify.moved') })
-      logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
+    if (validNewPath) {
+      const moveRes = await libraryManagerMap[runner]
+        .getGame(appName)
+        .moveInstall(path)
+      if (moveRes.status === 'error') {
+        notify({
+          title,
+          body: i18next.t('notify.error.move', 'Error Moving Game')
+        })
+        logError(
+          `Error while moving ${appName} to ${path}: ${moveRes.error} `,
+          LogPrefix.Backend
+        )
+
+        showDialogBoxModalAuto({
+          event,
+          title: i18next.t('box.error.title', 'Error'),
+          message: i18next.t(
+            'box.error.moving',
+            'Error Moving Game {{error}}',
+            {
+              error: moveRes.error
+            }
+          ),
+          type: 'ERROR'
+        })
+      }
+
+      if (moveRes.status === 'done') {
+        notify({ title, body: i18next.t('notify.moved') })
+        logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
+      }
     }
 
     sendGameStatusUpdate({
