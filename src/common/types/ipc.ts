@@ -54,6 +54,7 @@ import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
+import { ParsedProtonShorctut } from './proton_shorctuts'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -371,6 +372,7 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  getProtonShortcuts: (prefix: string) => Promise<Array<ParsedProtonShorctut>>
 }
 
 interface FrontendMessages {
