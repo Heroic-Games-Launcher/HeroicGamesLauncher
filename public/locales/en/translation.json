@@ -620,7 +620,6 @@
     "next": "Next",
     "notify": {
         "error": {
-            "error": "Error Moving Game",
             "move": "Error Moving the Game",
             "reparing": "Error Repairing"
         },
