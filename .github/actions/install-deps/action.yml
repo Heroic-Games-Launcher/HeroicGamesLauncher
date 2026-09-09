@@ -11,7 +11,7 @@ runs:
         node-version-file: 'package.json'
         cache: 'pnpm'
     - name: Install node-gyp
-      run: pnpm add --global node-gyp
+      run: pnpm --global-bin-dir "$PNPM_HOME" add --global node-gyp
       shell: bash
     - name: Install modules
       run: pnpm install
