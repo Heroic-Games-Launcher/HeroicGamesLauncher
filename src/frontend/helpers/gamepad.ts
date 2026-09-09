@@ -773,6 +773,7 @@ export const initGamepad = () => {
   }
 
   function removegamepad(gamepad: Gamepad) {
+    console.log(`Gamepad removed: ${gamepad.id}`)
     const removedIndex = controllers.findIndex((idx) => idx === gamepad.index)
 
     // remove disconnected controller
