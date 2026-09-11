@@ -18,7 +18,7 @@ import {
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
-import { existsSync, mkdirSync } from 'graceful-fs'
+import { copyFileSync, existsSync, mkdirSync } from 'graceful-fs'
 import { join, dirname, isAbsolute } from 'path'
 
 import {
@@ -98,6 +98,7 @@ import type { PartialDeep } from 'type-fest'
 import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 import { Game } from 'common/types/game_manager'
+import z from 'zod'
 
 let powerDisplayId: number | null
 
@@ -855,9 +856,19 @@ async function prepareWineLaunch(
       writeFileSync(appsNamesPath, JSON.stringify([gameInfo.app_name]), 'utf-8')
       hasUpdated = true
     } else {
-      const installedGames: string[] = JSON.parse(
-        readFileSync(appsNamesPath, 'utf-8')
-      )
+      let installedGames: string[] = []
+
+      try {
+        installedGames = z
+          .string()
+          .array()
+          .parse(JSON.parse(readFileSync(appsNamesPath, 'utf-8')))
+      } catch (error) {
+        copyFileSync(appsNamesPath, appsNamesPath + '.old')
+        logError(
+          `Error reading installed_games file: ${error}. Invalid file backed up as ${appsNamesPath}.old`
+        )
+      }
       if (!installedGames.includes(gameInfo.app_name)) {
         installedGames.push(gameInfo.app_name)
         writeFileSync(appsNamesPath, JSON.stringify(installedGames), 'utf-8')
