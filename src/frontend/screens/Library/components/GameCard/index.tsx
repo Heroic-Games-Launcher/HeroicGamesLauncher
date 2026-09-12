@@ -171,6 +171,7 @@ const GameCard = ({
     isPlaying,
     notAvailable,
     isUpdating,
+    isMoving,
     haveStatus
   } = getCardStatus(status, isInstalled, layout)
 
@@ -261,6 +262,13 @@ const GameCard = ({
         >
           {justPlayed ? <span>{t('button.play', 'PLAY')}</span> : <PlayIcon />}
         </SvgButton>
+      )
+    }
+    if (isMoving) {
+      return (
+        <button className="svg-button iconDisabled">
+          <svg />
+        </button>
       )
     } else {
       return (
