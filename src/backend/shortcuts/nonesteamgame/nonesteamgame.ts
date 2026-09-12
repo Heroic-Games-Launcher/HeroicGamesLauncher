@@ -34,9 +34,11 @@ import { userHome } from 'backend/constants/paths'
 import {
   isAppImage,
   isFlatpak,
+  isLinux,
   isSteamDeckGameMode,
   isWindows
 } from 'backend/constants/environment'
+import { searchForExecutableOnPath } from 'backend/utils/os/path'
 import { isSteamRunning } from './steamProcess'
 import {
   addNonSteamGameViaUrlHandler,
@@ -306,13 +308,30 @@ function isHeroicShortcutForGame(
  * Builds the Exe, StartDir and LaunchOptions used for a Heroic
  * shortcut entry, quoted the same way Steam stores them.
  */
-function buildShortcutEntryConfig(gameInfo: GameInfo): {
+async function buildShortcutEntryConfig(gameInfo: GameInfo): Promise<{
   exe: string
   startDir: string
   launchOptions: string
-} {
-  let exe = `"${app.getPath('exe')}"`
-  let startDir = `"${dirname(app.getPath('exe'))}"`
+}> {
+  const ourExePath = app.getPath('exe')
+  let exe = `"${ourExePath}"`
+  let startDir = `"${dirname(ourExePath)}"`
+  if (isLinux && !ourExePath.toLowerCase().endsWith('heroic')) {
+    // If we are on Linux and our executable path does not end with "heroic",
+    // we are running on a distribution packaging Electron and Heroic
+    // separately (e.g. Arch Linux). Launching our executable alone will only
+    // launch Electron, it will not know what to do (running Heroic).
+    // A proper workaround for this is not easy (we would have to pull out
+    // launch-relevant parameters from our argv while also leaving temporary
+    // parameters out). The best we can do here is search for an
+    // `heroic` wrapper executable (which these types of packages make
+    // available) and launch it
+    const heroicWrapper = await searchForExecutableOnPath('heroic')
+    if (heroicWrapper) {
+      exe = `"${heroicWrapper}"`
+      startDir = `"${dirname(heroicWrapper)}"`
+    }
+  }
 
   if (isFlatpak) {
     exe = `"flatpak"`
@@ -551,7 +570,7 @@ async function addNonSteamGameViaSteamClient(props: {
 
     if (appId === undefined) {
       const { exe, startDir, launchOptions } =
-        buildShortcutEntryConfig(gameInfo)
+        await buildShortcutEntryConfig(gameInfo)
 
       let icon = undefined
       await getIcon(gameInfo.app_name, gameInfo)
@@ -639,7 +658,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
 
     if (!(await isAddedToSteam(game))) {
       const { exe, startDir, launchOptions } =
-        buildShortcutEntryConfig(gameInfo)
+        await buildShortcutEntryConfig(gameInfo)
 
       let icon = undefined
       await getIcon(gameInfo.app_name, gameInfo)
@@ -746,7 +765,8 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
     }
 
     // add new Entry
-    const { exe, startDir, launchOptions } = buildShortcutEntryConfig(gameInfo)
+    const { exe, startDir, launchOptions } =
+      await buildShortcutEntryConfig(gameInfo)
     const newEntry = {} as ShortcutEntry
     newEntry.AppName = gameInfo.title
     newEntry.Exe = exe

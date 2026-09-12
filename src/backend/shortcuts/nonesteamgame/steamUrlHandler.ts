@@ -4,7 +4,7 @@ import { tmpdir } from 'os'
 import { logError, logInfo, logWarning, LogPrefix } from 'backend/logger'
 import { execAsync } from 'backend/utils'
 import { userHome } from 'backend/constants/paths'
-import { isFlatpak, isLinux, isSnap } from 'backend/constants/environment'
+import { isFlatpak, isLinux } from 'backend/constants/environment'
 
 /**
  * Fallback used when Steam is running but the SteamClient debugging
@@ -50,7 +50,7 @@ async function addNonSteamGameViaUrlHandler(props: {
   launchOptions: string
   icon?: string
 }): Promise<boolean> {
-  if (!isLinux || isFlatpak || isSnap) {
+  if (!isLinux || isFlatpak) {
     return false
   }
 

@@ -135,7 +135,6 @@ import {
   isIntelMac,
   isLinux,
   isMac,
-  isSnap,
   isSteamDeckGameMode,
   isWindows
 } from './constants/environment'
@@ -474,35 +473,6 @@ addListener('notify', (event, args) => notify(args))
 addOneTimeListener('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
-
-  if (isSnap) {
-    const snapWarning: Electron.MessageBoxOptions = {
-      title: i18next.t('box.warning.snap.title', 'Heroic is running as a Snap'),
-      message: i18next.t('box.warning.snap.message', {
-        defaultValue:
-          'Some features are not available in the Snap version of the app for now and we are trying to fix it.{{newLine}}Current limitations are: {{newLine}}Heroic will not be able to find Proton from Steam or Wine from Lutris.{{newLine}}{{newLine}}Gamescope, GameMode and MangoHud will also not work since Heroic cannot have access to them.{{newLine}}{{newLine}}To have access to this feature please install Heroic as a Flatpak, DEB or from the AppImage.',
-        newLine: '\n'
-      }),
-      checkboxLabel: i18next.t('box.warning.snap.checkbox', {
-        defaultValue: 'Do not show this message again'
-      }),
-      checkboxChecked: false
-    }
-
-    const showSnapWarning = configStore.get('showSnapWarning', true)
-
-    if (showSnapWarning) {
-      dialog
-        .showMessageBox({
-          ...snapWarning
-        })
-        .then((result) => {
-          if (result.checkboxChecked) {
-            configStore.set('showSnapWarning', false)
-          }
-        })
-    }
-  }
 
   // skip the download queue if we are running in CLI mode
   if (isCLINoGui) {
@@ -988,19 +958,21 @@ addHandler(
       status: 'moving'
     })
 
-    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+    const { title, install } = libraryManagerMap[runner]
+      .getGame(appName)
+      .getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-    const moveRes = await libraryManagerMap[runner]
-      .getGame(appName)
-      .moveInstall(path)
-    if (moveRes.status === 'error') {
+    let validNewPath = true
+
+    const onMoveError = (error: string) => {
       notify({
         title,
         body: i18next.t('notify.error.move', 'Error Moving Game')
       })
+
       logError(
-        `Error while moving ${appName} to ${path}: ${moveRes.error} `,
+        `Error while moving ${appName} to ${path}: ${error}`,
         LogPrefix.Backend
       )
 
@@ -1008,15 +980,34 @@ addHandler(
         event,
         title: i18next.t('box.error.title', 'Error'),
         message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
-          error: moveRes.error
+          error
         }),
         type: 'ERROR'
       })
     }
 
-    if (moveRes.status === 'done') {
-      notify({ title, body: i18next.t('notify.moved') })
-      logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
+    if (path.startsWith(install.install_path!)) {
+      // we don't want to move a game in a subfolder of the current install directory
+      // it will cause all game files to be deleted since moving moves all files to the
+      // new directory and deletes the old one
+      validNewPath = false
+
+      const error = `New install path (${path}) cannot be inside the current install path (${install.install_path}).`
+      onMoveError(error)
+    }
+
+    if (validNewPath) {
+      const moveRes = await libraryManagerMap[runner]
+        .getGame(appName)
+        .moveInstall(path)
+      if (moveRes.status === 'error') {
+        onMoveError(moveRes.error!)
+      }
+
+      if (moveRes.status === 'done') {
+        notify({ title, body: i18next.t('notify.moved') })
+        logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
+      }
     }
 
     sendGameStatusUpdate({

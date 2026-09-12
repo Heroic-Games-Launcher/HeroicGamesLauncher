@@ -174,11 +174,6 @@
                     "message": "Kaikki tallentamattomat edistysaskeleet voidaan menettää"
                 }
             },
-            "snap": {
-                "message": "Aivan kaikki ominaisuudet eivät vielä ole saavutettavissa sovelluksen Snap-julkaisussa ja työstämme korjauksia.{{newLine}}Rajoituksia joita tällä hetkellä on havaittu: {{newLine}}Heroic ei löydä Protonia Steam:istä tai Wine:stä Lutris-käynnistimen kautta.{{newLine}}{{newLine}}Peliavustajat kuten Gamescope, GameMode ja MangoHud eivät myöskään toimi, koska Heroic:illa ei ole niihin pääsyä.{{newLine}}{{newLine}}Hyödyntääksesi näitä ominaisuuksia, asenna Heroic Games Launcher Flatpak, DEB tai AppImage -paketointien kautta.",
-                "title": "Ajossa on Heroic:in Snap-paketointi",
-                "checkbox": "Älä näytä tätä viestiä enää"
-            },
             "rosetta": {
                 "title": "Rosettaa ei löytynyt",
                 "message": "Heroic vaatii Rosetta:n jotta sitä voidaan ajaa asianmukaisesti macOS:llä Apple Silicon -piireillä. Asenna se macOS:n päätteestä seuraavalla käskyllä: \"softwareupdate --install-rosetta\" ja uudelleenkäynnistä Heroic. "

@@ -174,11 +174,6 @@
                     "message": "任何未儲存進度將遺失"
                 }
             },
-            "snap": {
-                "checkbox": "不要再顯示此訊息",
-                "title": "",
-                "message": ""
-            },
             "rosetta": {
                 "title": "",
                 "message": ""

@@ -174,11 +174,6 @@
                     "message": "Elke niet opgeslagen aanpassingen kunnen verloren gaan"
                 }
             },
-            "snap": {
-                "checkbox": "Toon dit bericht niet opnieuw",
-                "title": "Heroic voert uit als een Snap",
-                "message": "Sommige functies zijn momenteel niet beschikbaar in de Snap versie van de app en we proberen het op te lossen.{{newLine}}Huidige limitaties zijn:{{newLine}}Heroic kan Proton vanuit Steam of Wine vanuit Lutris niet vinden.{{newLine}}{{newLine}}Gamescope, GameMode en MangoHud zullen ook niet werken omdat Heroic er geen toegang tot heeft.{{newLine}}{{newLine}}Om toegang tot deze fuctie te krijgen, installeer Heroic a.u.b. als een Flatpak, DEB of vanuit een AppImage."
-            },
             "rosetta": {
                 "message": "Heroic vereist Rosetta om correct te werken op macOS met Apple Silicon chips. Installeer het alstublieft via de macOS commandlijn met de volgende commando:  \"softwareupdate --install-rosetta\" en herstart Heroic. ",
                 "title": "Rosetta niet gevonden"

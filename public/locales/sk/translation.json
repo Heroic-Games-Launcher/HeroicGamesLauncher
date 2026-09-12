@@ -174,11 +174,6 @@
                     "message": "Akýkoľvek neuložený postup sa môže stratiť"
                 }
             },
-            "snap": {
-                "checkbox": "Už nikdy nezobrazovať túto správu",
-                "title": "Heroic beží ako Snap",
-                "message": "Niektoré funkcie nie sú momentálne dostupné vo verzii aplikácie Snap a snažíme sa to napraviť.{{newLine}}Aktuálne obmedzenia sú: {{newLine}}Heroic nebude môcť nájsť Proton zo Steamu alebo Wine z Lutris .{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud tiež nebudú fungovať, pretože Heroic k nim nemá prístup.{{newLine}}{{newLine}}Ak chcete získať prístup k tejto funkcii, nainštalujte si Heroic ako Flatpak , DEB alebo z AppImage."
-            },
             "rosetta": {
                 "title": "",
                 "message": ""

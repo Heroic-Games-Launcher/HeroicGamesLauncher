@@ -174,11 +174,6 @@
                     "message": "저장되지 않은 진행 상황은 손실될 수 있음"
                 }
             },
-            "snap": {
-                "checkbox": "이 메세지를 다시 표시 안 함",
-                "message": "일부 기능은 현재 앱의 스냅 버전에서 사용할 수 없고 이를 수정하려고 노력하고 있습니다.{{newLine}}현재 제한 사항은 다음과 같습니다:{{newLine}}Heroic은 스팀의 프로톤이나 루트리스의 와인을 찾을 수 없습니다.{{newLine}}{{newLine}}Gamescope, GameMode, MangoHud도 Heroic이 접속할 수 없으므로 작동하지 않습니다.{{newLine}}{{newLine}}이 기능에 접속하려면 Heroic을 Flatpak, DEB 또는 AppImage에서 설치하세요.",
-                "title": "Heroic은 스냅으로 실행됨"
-            },
             "rosetta": {
                 "title": "",
                 "message": ""

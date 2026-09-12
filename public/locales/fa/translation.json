@@ -177,11 +177,6 @@
             "rosetta": {
                 "title": "",
                 "message": ""
-            },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
             }
         },
         "wineprefix": "انتخاب پوشه WinePrefix",

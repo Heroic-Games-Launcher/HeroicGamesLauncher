@@ -93,11 +93,6 @@
             "rosetta": {
                 "title": "",
                 "message": ""
-            },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
             }
         },
         "wineprefix": "בחר תיקיית WinePrefix",

@@ -2,6 +2,7 @@ import { TypeCheckedStoreBackend } from '../electron_store'
 import { logError, logInfo } from '../logger'
 
 import { LegendaryGlobalConfigFolderMigration } from './migrations/legendary'
+import { UmuSteamRuntimeMigration } from './migrations/config'
 
 import type { TypeCheckedStore } from 'common/types/electron_store'
 
@@ -70,7 +71,10 @@ export default class MigrationSystem {
   }
 
   private getAllMigrations(): Migration[] {
-    return [new LegendaryGlobalConfigFolderMigration()]
+    return [
+      new LegendaryGlobalConfigFolderMigration(),
+      new UmuSteamRuntimeMigration()
+    ]
   }
 
   private readonly migrationsStore: TypeCheckedStore<'migrationsStore'>

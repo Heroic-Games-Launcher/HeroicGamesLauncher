@@ -3,8 +3,7 @@ const mockIsCLINoGui = jest.fn()
 jest.mock('../constants/environment', () => ({
   get isCLINoGui() {
     return mockIsCLINoGui()
-  },
-  isSnap: false
+  }
 }))
 
 // Mock paths to avoid XDG_CONFIG_HOME issues

@@ -174,11 +174,6 @@
                     "message": "Alla osparade framsteg kan gå förlorade"
                 }
             },
-            "snap": {
-                "checkbox": "Visa inte detta meddelande igen",
-                "title": "Heroic körs som Snap",
-                "message": "Vissa funktioner är inte tillgängliga i Snap-versionen av appen för tillfället men vi försöker åtgärda dem .{{newLine}}Nuvarande begränsningar är: {{newLine}}Heroic kommer inte att kunna hitta Proton från Steam eller Wine från Lutris .{{newLine}}{{newLine}}Gamescope, GameMode och MangoHud kommer inte heller att fungera eftersom Heroic inte kan ha tillgång till dem.{{newLine}}{{newLine}}För att få tillgång till den här funktionen, installera Heroic som en Flatpak , DEB eller AppImage."
-            },
             "rosetta": {
                 "message": "Heroic kräver Rosetta för att det ska fungera korrekt på macOS med Apple Silicon-chips, installera det från macOS-terminalen med följande kommando: \"softwareupdate --install-rosetta\" och starta om Heroic. ",
                 "title": "Rosetta hittades inte"
@@ -651,6 +646,7 @@
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",
+            "error": "Internt fel vid läsning av loggfil",
             "instructions": "Gå med i vår Discord och leta efter kanalen \"#-support\". Läs den fästa \"Read Me First | Frequently Asked Questions\" tråden och följ instruktionerna för att dela dessa loggar och all relevant information om ditt problem.",
             "instructions_title": "Hur rapporterar jag problem?",
             "last-log": "Senaste logg",

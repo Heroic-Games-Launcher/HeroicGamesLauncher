@@ -10,7 +10,6 @@ import {
   RpcClient,
   WineInstallation,
   WineCommandArgs,
-  SteamRuntime,
   GameSettings,
   KnowFixesInfo,
   LaunchParams,
@@ -24,7 +23,6 @@ import { join, dirname, isAbsolute } from 'path'
 
 import {
   constructAndUpdateRPC,
-  getSteamRuntime,
   isEpicServiceOffline,
   quoteIfNecessary,
   errorHandler,
@@ -55,7 +53,6 @@ import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
 import { libraryManagerMap } from 'backend/storeManagers'
-import * as VDF from '@node-steam/vdf'
 import { readFileSync, writeFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { searchForExecutableOnPath } from './utils/os/path'
@@ -367,13 +364,12 @@ function filterGameSettingsForLog(
     delete gameSettings.advertiseAvxForRosetta
 
     if (notNative) {
+      delete gameSettings.steamRuntime
       const wineVersion = gameSettings.wineVersion
       if (wineVersion) {
         if (wineVersion.type === 'proton') {
           delete gameSettings.autoInstallDxvk
           delete gameSettings.autoInstallVkd3d
-        } else {
-          delete gameSettings.useSteamRuntime
         }
       }
 
@@ -414,7 +410,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableWoW64
     delete gameSettings.showMangohud
     delete gameSettings.disableUMU
-    delete gameSettings.useSteamRuntime
+    delete gameSettings.steamRuntime
     delete gameSettings.enableFsync
 
     if (notNative) {
@@ -481,7 +477,7 @@ function filterGameSettingsForLog(
     delete gameSettings.nvidiaPrime
     delete gameSettings.disableUMU
     delete gameSettings.advertiseAvxForRosetta
-    delete gameSettings.useSteamRuntime
+    delete gameSettings.steamRuntime
   }
 
   return gameSettings
@@ -710,61 +706,19 @@ async function prepareLaunch(
     }
   }
 
-  if (
-    (await isUmuSupported(gameSettings, false)) &&
-    isOnline() &&
-    !(await isInstalled('umu')) &&
-    (await getUmuPath()) === defaultUmuPath
-  ) {
+  let steamRuntime = undefined
+  const umuAvailable =
+    (await isInstalled('umu')) || (await getUmuPath()) !== defaultUmuPath
+  const useUmu =
+    (await isUmuSupported(gameSettings, false)) ||
+    (gameSettings.steamRuntime && isNative)
+
+  if (useUmu && !umuAvailable) {
     await download('umu')
   }
 
-  // If the Steam Runtime is enabled, find a valid one
-  let steamRuntime: string[] = []
-  const shouldUseRuntime =
-    gameSettings.useSteamRuntime &&
-    (isNative ||
-      (!(await isUmuSupported(gameSettings)) &&
-        gameSettings.wineVersion.type === 'proton'))
-
-  if (shouldUseRuntime) {
-    // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
-    let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
-    if (!isNative) {
-      try {
-        const parentPath = dirname(gameSettings.wineVersion.bin)
-        const requiredAppId = VDF.parse(
-          readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
-        ).manifest?.require_tool_appid
-        if (requiredAppId === 1628350) nonNativeRuntime = 'sniper'
-      } catch (error) {
-        logError(
-          ['Failed to parse toolmanifest.vdf:', error],
-          LogPrefix.Backend
-        )
-      }
-    }
-
-    const runtimeType = isNative ? 'scout' : nonNativeRuntime
-    const { path, args } = await getSteamRuntime(runtimeType)
-    if (!path) {
-      return {
-        success: false,
-        failureReason:
-          'Steam Runtime is enabled, but no runtimes could be found\n' +
-          `Make sure Steam ${
-            isNative
-              ? 'is'
-              : `and the SteamLinuxRuntime - ${
-                  nonNativeRuntime === 'sniper' ? 'Sniper' : 'Soldier'
-                } are`
-          } installed`
-      }
-    }
-
-    logInfo(`Using Steam ${runtimeType} Runtime`, LogPrefix.Backend)
-
-    steamRuntime = [path, ...args]
+  if (gameSettings.steamRuntime) {
+    steamRuntime = [await getUmuPath()]
   }
 
   return {
@@ -1087,6 +1041,11 @@ function setupEnvVars(gameSettings: GameSettings, installPath?: string) {
   if (isLinux && installPath) {
     // Used by steam runtime to mount the game directory to the container
     ret.STEAM_COMPAT_INSTALL_PATH = installPath
+  }
+
+  if (isLinux && gameSettings.steamRuntime) {
+    // Umu uses "PROTONPATH" to dictate the runtime to use
+    ret.PROTONPATH = gameSettings.steamRuntime
   }
 
   if (gameSettings.enviromentOptions) {

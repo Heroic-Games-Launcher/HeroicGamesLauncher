@@ -16,6 +16,7 @@ const dialog = {
 const app = {
   // app override
   getPath: (path: string) => {
+    if (path === 'exe') return join(appBasePath, 'heroic')
     return join(appBasePath, path)
   },
   getVersion(): string {
