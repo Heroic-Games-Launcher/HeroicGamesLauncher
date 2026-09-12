@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useLayoutEffect,
+  useRef,
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -52,6 +53,7 @@ export default function WebView() {
     refresh: true,
     message: t('loading.website', 'Loading Website')
   }))
+  const [loginError, setLoginError] = useState<string>()
   const [amazonLoginData, setAmazonLoginData] = useState<NileLoginData | null>(
     null
   )
@@ -105,6 +107,13 @@ export default function WebView() {
     '/loginweb/zoom': zoomLoginUrl
   }
   let startUrl = urls[pathname]
+  const loginSearchParams = new URLSearchParams(search)
+  const addAccountLoginKey = loginSearchParams.get('add-account')
+  const defaultPartition = `persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`
+  const webviewPartition =
+    startUrl === epicLoginUrl && addAccountLoginKey
+      ? `epic-login-${addAccountLoginKey}`
+      : defaultPartition
 
   if (store) {
     sessionStorage.setItem('last-store', store)
@@ -166,6 +175,7 @@ export default function WebView() {
   }
 
   const [webviewPreloadPath, setWebviewPreloadPath] = useState('')
+  const handledLegendaryLoginCode = useRef<string | null>(null)
   useEffect(() => {
     const fetchWebviewPreloadPath = async () => {
       const path = await window.api.getWebviewPreloadPath()
@@ -174,6 +184,48 @@ export default function WebView() {
 
     void fetchWebviewPreloadPath()
   }, [])
+
+  const handleLegendaryLoginUrl = (pageUrl: string) => {
+    if (runner !== 'legendary') {
+      return
+    }
+
+    const parsedUrl = new URL(pageUrl)
+    if (parsedUrl.hostname !== 'localhost') {
+      return
+    }
+
+    const code = parsedUrl.searchParams.get('code')
+    if (!code || handledLegendaryLoginCode.current === code) {
+      return
+    }
+
+    handledLegendaryLoginCode.current = code
+    setLoading({
+      refresh: true,
+      message: t('status.logging', 'Logging In...')
+    })
+    setLoginError(undefined)
+    void epic
+      .login(code, { addAccount: Boolean(addAccountLoginKey) })
+      .then((result) => {
+        if (result.status === 'done') {
+          handleSuccessfulLogin()
+          return
+        }
+
+        handledLegendaryLoginCode.current = null
+        setLoginError(
+          result.message ?? t('login.error', 'Login failed. Please try again.')
+        )
+        setLoading({ refresh: false, message: '' })
+      })
+      .catch(() => {
+        handledLegendaryLoginCode.current = null
+        setLoginError(t('login.error', 'Login failed. Please try again.'))
+        setLoading({ refresh: false, message: '' })
+      })
+  }
 
   useLayoutEffect(() => {
     if (webview) {
@@ -223,21 +275,19 @@ export default function WebView() {
           }
         } else if (runner == 'legendary') {
           const pageUrl = webview.getURL()
-          const parsedUrl = new URL(pageUrl)
-          if (parsedUrl.hostname === 'localhost') {
-            const code = parsedUrl.searchParams.get('code')
-            if (code) {
-              setLoading({
-                refresh: true,
-                message: t('status.logging', 'Logging In...')
-              })
-              epic.login(code).then(() => handleSuccessfulLogin())
-            }
-          }
+          handleLegendaryLoginUrl(pageUrl)
         }
       }
 
       const onerror = ({ validatedURL }: Electron.DidFailLoadEvent) => {
+        if (validatedURL && runner === 'legendary') {
+          const parsedUrl = new URL(validatedURL)
+          if (parsedUrl.hostname === 'localhost') {
+            handleLegendaryLoginUrl(validatedURL)
+            return
+          }
+        }
+
         if (validatedURL && validatedURL.match(/track\.adtraction\.com/)) {
           const parsedUrl = new URL(validatedURL)
           const redirectUrl = parsedUrl.searchParams.get('url')
@@ -302,6 +352,8 @@ export default function WebView() {
             })
             zoom.login(pageURL).then(() => handleSuccessfulLogin())
           }
+        } else if (runner === 'legendary') {
+          handleLegendaryLoginUrl(webview.getURL())
         }
       }
 
@@ -449,10 +501,10 @@ export default function WebView() {
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
       <webview
-        key={store}
+        key={webviewPartition}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`}
+        partition={webviewPartition}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
@@ -462,6 +514,25 @@ export default function WebView() {
           warnLoginForStore={showLoginWarningFor}
           onClose={onLoginWarningClosed}
         />
+      )}
+      {loginError && (
+        <Dialog
+          showCloseButton={true}
+          onClose={() => {
+            setLoginError(undefined)
+          }}
+        >
+          <DialogHeader
+            onClose={() => {
+              setLoginError(undefined)
+            }}
+          >
+            {t('login.error_title', 'Login Failed')}
+          </DialogHeader>
+          <DialogContent>
+            <p>{loginError}</p>
+          </DialogContent>
+        </Dialog>
       )}
       {showAdtractionWarning && (
         <Dialog

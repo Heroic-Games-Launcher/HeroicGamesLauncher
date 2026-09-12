@@ -10,6 +10,7 @@ import {
   FavouriteGame,
   DMQueueElement,
   GOGLoginData,
+  LegendaryAccount,
   AppSettings,
   WikiInfo,
   GameInfo,
@@ -24,6 +25,10 @@ export interface StoreStructure {
   configStore: {
     userHome: string
     userInfo: UserInfo
+    legendaryAccounts: {
+      activeAccountId?: string
+      accounts: LegendaryAccount[]
+    }
     games: {
       recent: RecentGame[]
       hidden: HiddenGame[]

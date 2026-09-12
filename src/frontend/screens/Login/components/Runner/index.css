@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   backdrop-filter: blur(var(--blur-light));
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -26,7 +26,7 @@
 }
 
 .runnerLogin {
-  padding: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
   font-size: var(--text-md);
   border: none;
   transition: 0.2s;
@@ -53,7 +53,8 @@
 }
 
 .runnerIcon {
-  height: 100%;
+  align-self: stretch;
+  min-height: 60px;
   width: 60px;
   background-color: var(--text-default);
   border-top-left-radius: 10px;
@@ -84,7 +85,16 @@
   padding: 0px 10px;
 }
 
-.runnerButtons,
+.runnerButtons {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.runnerLogin.addAccount {
+  color: var(--accent);
+}
+
 .userData {
   flex: 1;
 }
