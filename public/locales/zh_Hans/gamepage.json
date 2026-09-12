@@ -96,7 +96,8 @@
         "changelog": "显示更新日志",
         "browse_files": "浏览文件",
         "browse_wine_prefix": "浏览 Wine Prefix",
-        "play": "开始游戏"
+        "play": "开始游戏",
+        "edit-game": "编辑应用/游戏"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -365,6 +366,10 @@
         "sgdb": {
             "no-key-link": "设置 → 高级",
             "no-key-prefix": "要在 SteamGridDB 中搜索封面，请添加 API 密钥"
-        }
+        },
+        "placeholder": {
+            "image": "在此粘贴映像 URL"
+        },
+        "title": "编辑应用/游戏"
     }
 }

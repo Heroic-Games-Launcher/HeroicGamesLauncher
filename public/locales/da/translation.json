@@ -157,11 +157,6 @@
                 "message": "Vi kunne ikke finde den valgte Wine-version, for at starte denne titel ({{selectedWine}}). {{newline}} Vi fandt en anden, vil du fortsætte med at starte via {{foundWine}}?",
                 "title": "Wine ikke fundet!"
             },
-            "snap": {
-                "title": "Heroic kører som Snap",
-                "checkbox": "Vis ikke denne meddelelse igen",
-                "message": "Nogle funktioner er ikke til tilgængelige i Snap-versionen af appen lige nu, og vi prøver at ordne det.{{newLine}}Nuværende begrænsninger er: {{newLine}}Heroic vil ikke være i stand til, at finde Proton fra Steam eller Wine fra Lutris.{{newLine}}{{newLine}}Gamescope, GameMode og MangoHud vil heller ikke virke, da Heroic ikke har adgang til dem.{{newLine}}{{newLine}}For at få adgang til denne funktion installér venligst Heroic som Flatpak, DEB eller fra et AppImage."
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "Er du sikker på, at du vil afslutte?",
@@ -324,7 +319,7 @@
             "gameWidth": "Den breddeopløsning, der bruges af spillet. Gamescope antager et billedformat på 16:9.",
             "upscaleHeight": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages.",
             "upscaleMethod": "Den opskaleringsmetode, som Gamescope skal bruge.",
-            "upscaleWidth": "Den breddeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages."
+            "upscaleWidth": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages."
         },
         "msync": "Msync har til formål at reducere wineserver-overhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
         "wine-hdr": "HDR forbedrer farverne ved at give lysere højdepunkter og dybere kontraster. For at HDR kan fungere, skal både skærmen og spillet understøtte det.",
@@ -777,7 +772,8 @@
             "space": "Plads",
             "close_options": "Luk indstillinger",
             "options": "Muligheder",
-            "select": "Vælg"
+            "select": "Vælg",
+            "exit": "Afslut"
         }
     },
     "Epic Games": "Episke spil",
@@ -1224,7 +1220,7 @@
             "pageSize": "",
             "releaseYear": ""
         },
-        "sidebar": "",
+        "sidebar": "detaljer",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1246,7 +1242,8 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "titleMulti": "detaljer"
     },
     "steamgriddb": {
         "error": {
@@ -1294,7 +1291,9 @@
         "quitApp": "Afslut App",
         "loading": "",
         "install": {
-            "wineLoading": "Indlæser…"
+            "wineLoading": "Indlæser…",
+            "path": "Installer",
+            "title": "Installerede spil"
         },
         "cancelInstall": {
             "message": "Dette spil er i gang med at installere. Afbryd installationen?",

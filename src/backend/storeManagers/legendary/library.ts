@@ -693,17 +693,9 @@ export default class LegendaryLibraryManager implements LibraryManager {
 
     // Set LEGENDARY_CONFIG_PATH to a custom, Heroic-specific location so user-made
     // changes to Legendary's main config file don't affect us
-    if (!options) {
-      options = {}
-    }
-    if (!options.env) {
-      options.env = {}
-    }
-
-    // if not on a SNAP environment, set the XDG_CONFIG_HOME to the same location as the config file
-    if (!process.env.SNAP) {
-      options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
-    }
+    options ??= {}
+    options.env ??= {}
+    options.env['LEGENDARY_CONFIG_PATH'] = legendaryConfigPath
 
     const commandParts = this.commandToArgsArray(command)
 

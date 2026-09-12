@@ -174,11 +174,6 @@
                     "message": "സേവ് ചെയ്യാത്ത പ്രോഗ്രസ്സ് നഷ്ടപ്പെട്ടേക്കാം"
                 }
             },
-            "snap": {
-                "checkbox": "ഈ അറിയിപ്പ് വീണ്ടും കാണിക്കരുത്",
-                "title": "ഹീറോയ്ക്ക് സ്നാപ്പായിട്ട് ഓടുകയാണ്",
-                "message": "കുറച്ച് ഫീച്ചറുകൾ തൽക്കാലം Snap-ഇൽ ലഭ്യമല്ല. നമ്മൾ അത് പരിഹരിക്കുവാൻ ശ്രമിക്കുകയാണ്.{{newLine}}ഇപ്പോഴത്തെ പരിമിതികൾ ആണ് ഇവ:{{newLine}}ഹീറോയിക്കിന് പ്രോട്ടോണിനെ സ്റ്റീമിൽനിന്നും വൈനിനെ Lutris-യിൽ നിന്നും കണ്ടെത്താൻ പറ്റുകയില്ല.{{newLine}}{{newLine}}ഗെയിംസ്‌കോപ്പും മാങ്കോഹുഡും ഹെറോയിക്കിൽ പ്രവർത്തിക്കുകയില്ല.{{newLine}}{{newLine}}ഈ ഫീച്ചറുകൾ ലഭിക്കുവാൻ ഹീറോയ്ക്കിനെ ഫ്ലാറ്പാക്കിൽനിന്നോ DEB ഇൽനിന്നോ AppImage ഇൽനിന്നോ ഇൻസ്റ്റാൾ ചെയ്യുക."
-            },
             "rosetta": {
                 "title": "",
                 "message": ""
@@ -218,7 +213,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "exit": "പുറത്തിറക്ക്"
         }
     },
     "docs": "Documentation",
@@ -261,7 +257,7 @@
         "library": {
             "refresh": "Refresh Library"
         },
-        "abort": "",
+        "abort": "ഇതിനെക്കിറിച്ച്",
         "install": "Install",
         "uninstall": "Uninstall"
     },
@@ -666,7 +662,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "കയറ്റിവയ്ക്കുൂ",
                     "content": ""
                 },
                 "open": "",
@@ -1174,7 +1170,8 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "എല്ലാം",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
         "sidebar": "",
         "sort": {
@@ -1198,12 +1195,15 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Store"
         }
     },
     "steamgriddb": {
         "error": {
             "no-games": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
-            "no-grids": "",
+            "no-grids": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല",
             "search": "",
             "grids": ""
         },
@@ -1251,7 +1251,9 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "ഇവിടെ നടൂ",
+            "wineMissing": "No path selected"
         }
     },
     "next": ""

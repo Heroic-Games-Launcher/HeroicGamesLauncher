@@ -179,11 +179,6 @@
                     "title": "Tem certeza que deseja sair?"
                 }
             },
-            "snap": {
-                "checkbox": "Não mostre esta mensagem novamente",
-                "title": "O Heroic está sendo executado como um Snap",
-                "message": "Alguns recursos não estão disponíveis na versão Snap do aplicativo no momento e estamos tentando consertar isso.{{newLine}}As limitações atuais são: {{newLine}}Heroic não conseguirá encontrar o Proton da Steam ou o Wine do Lutris .{{newLine}}{{newLine}}Gamescope, GameMode e MangoHud também não funcionarão, pois o Heroic não pode ter acesso a eles.{{newLine}}{{newLine}}Para ter acesso a estes recursos, use o Heroic no formato Flatpak , DEB ou AppImage."
-            },
             "rosetta": {
                 "title": "Rosetta não encontrado",
                 "message": "O Heroic necessita do Rosetta para funcionar corretamente no MacOS com chips Apple Silicon. Instale-o através do terminal macOS usando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicie o Heroic. "
@@ -226,7 +221,8 @@
             "scroll": "Scroll",
             "select": "Selecionar",
             "space": "Espaço",
-            "update_game": "Atualizar jogo"
+            "update_game": "Atualizar jogo",
+            "exit": "Sair"
         }
     },
     "docs": "Documentação",
@@ -1066,7 +1062,8 @@
         "proton-ge": "GE-Proton é uma variante Proton criada por Glorious Eggroll. Deve ser usada com o umu launcher (ativado por padrão no Heroic).",
         "gpt": "O Game Porting Toolkit é desenvolvido pela Apple, é recomendado para Macs Apple Silicon com chips M1 ou superiores e funciona melhor com jogos mais novos que usam DX12.",
         "wine-crossover": "O Wine-Crossover é baseado no projeto Wine de código aberto do Crossover e é recomendado para Macs Intel e para jogos DX11 ou mais antigos.",
-        "wine-staging-macos": "O Wine-Staging-macOS é baseado no projeto principal do Wine e é recomendado para Macs Intel e para jogos DX11 ou anteriores, especialmente quando combinado com a ferramenta DXMT."
+        "wine-staging-macos": "O Wine-Staging-macOS é baseado no projeto principal do Wine e é recomendado para Macs Intel e para jogos DX11 ou anteriores, especialmente quando combinado com a ferramenta DXMT.",
+        "proton-cachyos": "Proton-CachyOS é uma variante do Proton mantida pela equipe do CachyOS. Ela inclui ferramentas extras como DXVK-Sarek e D7VK."
     },
     "categories-manager": {
         "add-placeholder": "Adicionar nova categoria",
@@ -1213,7 +1210,8 @@
             "pageSize": "Por página",
             "releaseYear": "Ano de lançamento",
             "hideOwned": "Ocultar possuídos",
-            "wishlistOnly": "Apenas lista de desejos"
+            "wishlistOnly": "Apenas lista de desejos",
+            "platform": "Platform"
         },
         "sidebar": "Descontos",
         "sort": {
@@ -1237,7 +1235,11 @@
         "title": "Descontos GOG",
         "pagination": {
             "prev": "Anterior"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Descontos"
     },
     "steamgriddb": {
         "error": {

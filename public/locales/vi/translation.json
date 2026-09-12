@@ -177,11 +177,6 @@
             "rosetta": {
                 "message": "Heroic yêu cầu Rosetta chạy chính xác trên macOS với chip Apple Silicon. Vui lòng cài đặt nó từ thiết bị đầu cuối macOS bằng lệnh sau: \"softwareupdate --install-rosetta\" và khởi động lại Heroic. ",
                 "title": "Không tìm thấy Rosetta"
-            },
-            "snap": {
-                "checkbox": "Không hiển thị lại thông báo này",
-                "message": "Một số tính năng hiện không có trong phiên bản Snap của ứng dụng và chúng tôi đang cố gắng khắc phục.{{newLine}}Hạn chế hiện tại là: {{newLine}}Heroic sẽ không thể tìm thấy Proton từ Steam hoặc Wine từ Lutris.{{newLine}}{{newLine}}Gamescope, GameMode và MangoHud cũng sẽ không hoạt động vì Heroic không thể truy cập vào chúng.{{newLine}}{{newLine}}Để có quyền truy cập vào tính năng này, vui lòng cài đặt Heroic dưới dạng Heroic Flatpak, DEB hoặc từ AppImage.",
-                "title": "Heroic đang chạy như Snap"
             }
         },
         "wineprefix": "Chọn thư mục WinePrefix",
@@ -218,7 +213,8 @@
             "scroll": "Cuộn",
             "select": "Chọn",
             "space": "Phím Cách",
-            "update_game": "Cập nhật trò chơi"
+            "update_game": "Cập nhật trò chơi",
+            "exit": "Thoát"
         }
     },
     "docs": "Tài Liệu",
@@ -261,7 +257,7 @@
         "library": {
             "refresh": "Làm Mới Thư Viện"
         },
-        "abort": "",
+        "abort": "Giới thiệu",
         "install": "Install",
         "uninstall": "Uninstall"
     },
@@ -1174,9 +1170,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Tất cả",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Chi tiết",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1198,7 +1195,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Cửa hàng"
+        },
+        "titleMulti": "Chi tiết"
     },
     "steamgriddb": {
         "error": {
@@ -1208,7 +1209,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Tìm kiếm game",
             "title": "",
             "select-game": ""
         }
@@ -1248,7 +1249,9 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "Install",
+            "wineMissing": "Chưa chọn thư mục"
         }
     },
     "next": "Tiếp"

@@ -102,11 +102,6 @@
                 "message": ""
             },
             "title": "",
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",
@@ -226,10 +221,10 @@
         },
         "label": {
             "disk": "",
-            "speed": ""
+            "speed": "กำลังดาวน์โหลด"
         },
-        "title": "",
-        "link": ""
+        "title": "กำลังดาวน์โหลด",
+        "link": "กำลังดาวน์โหลด"
     },
     "game": {
         "modify": "ปรับแต่งการติดตั้ง",
@@ -257,7 +252,7 @@
         "title": {
             "settings": "การตั้งค่า",
             "accessibility": "",
-            "login": "",
+            "login": "เข้าสู่ระบบ",
             "downloadManager": "",
             "wineManager": "",
             "library": ""
@@ -405,7 +400,7 @@
         "refresh": {
             "error": ""
         },
-        "moving": ""
+        "moving": "ย้ายเกม"
     },
     "queue": {
         "label": {
@@ -503,7 +498,7 @@
             "forceupload": "",
             "upload": "",
             "forcedownload": "",
-            "download": ""
+            "download": "กำลังดาวน์โหลด"
         },
         "disable_controller": "",
         "alt-gogdl-bin": "",
@@ -1117,7 +1112,7 @@
             "pageSize": "",
             "releaseYear": ""
         },
-        "sidebar": "",
+        "sidebar": "รายละเอียด",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1139,7 +1134,8 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "titleMulti": "รายละเอียด"
     },
     "steamgriddb": {
         "error": {
@@ -1168,7 +1164,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "กำลังเปิด",
             "sort": "",
             "navigate": "",
             "quit": "",
@@ -1187,7 +1183,8 @@
         "quitApp": "",
         "loading": "",
         "install": {
-            "wineLoading": "กำลังโหลด…"
+            "wineLoading": "กำลังโหลด…",
+            "path": "ติดตั้ง"
         }
     },
     "next": "",

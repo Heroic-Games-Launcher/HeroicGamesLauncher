@@ -179,11 +179,6 @@
                     "message": "I progressi non salvati potrebbero essere persi"
                 }
             },
-            "snap": {
-                "checkbox": "Non mostrare più questo messaggio",
-                "title": "Heroic sta girando come Snap",
-                "message": "Alcune funzionalità non sono disponibili nella versione Snap dell'app per ora e stiamo cercando di risolvere la cosa.{{newLine}}Le limitazioni attuali sono: {{newLine}}Heroic non sarà in grado di trovare Proton da Steam o Wine da Lutris .{{newLine}}{{newLine}}Anche Gamescope, GameMode e MangoHud non funzioneranno poiché Heroic non può accedervi.{{newLine}}{{newLine}}Per avere accesso a questa funzione, installa Heroic come Flatpak , DEB o da AppImage."
-            },
             "rosetta": {
                 "message": "Heroic richiede Rosetta per funzionare correttamente su macOs con i chip Apple Silicon. Installa Rosetta dal terminale usando il seguente comando: \"softwareupdate --install-rosetta\" e riavvia Heroic. ",
                 "title": "Rosetta non trovato"
@@ -226,7 +221,8 @@
             "scroll": "Scroll",
             "select": "Seleziona",
             "space": "Barra Spaziatrice",
-            "update_game": "Aggiorna il gioco"
+            "update_game": "Aggiorna il gioco",
+            "exit": "Esci"
         }
     },
     "docs": "Documentazione",
@@ -572,7 +568,7 @@
         "custom_themes_path": "Seleziona il percorso per cercare i file CSS personalizzati",
         "dxvkfpsvalue": "Valore positivo intero (es. 30, 60, ...)",
         "egs-prefix": "Prefix dove è installato EGS",
-        "prefered_language": "Codice di 2 caratteri (es.: \\\"en\\\" o \\\"fr\\\")",
+        "prefered_language": "Codice di 2 o 4 caratteri (es.: \\\"fr\\\" o \\\"pt-BR\\\")",
         "alt-nile-bin": "Usando il binario Nile integrato..."
     },
     "platforms": {
@@ -1070,7 +1066,8 @@
         "proton-ge": "GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi.",
         "gpt": "Game Porting Toolkit è sviluppato da Apple ed è consigliato per i Mac con processori Apple Silicon M1+, offrendo prestazioni ottimali con i giochi più recenti che utilizzano le DirectX 12.",
         "wine-crossover": "Wine-Crossover si basa sul progetto open source Crossover Wine ed è consigliato per Mac con processore Intel e per giochi con DirectX 11 o versioni precedenti.",
-        "wine-staging-macos": "Wine-Staging-macOS si basa sul progetto Wine principale ed è consigliato per Mac con processore Intel e per giochi compatibili con DirectX 11 o versioni precedenti, soprattutto se utilizzato in combinazione con lo strumento DXMT."
+        "wine-staging-macos": "Wine-Staging-macOS si basa sul progetto Wine principale ed è consigliato per Mac con processore Intel e per giochi compatibili con DirectX 11 o versioni precedenti, soprattutto se utilizzato in combinazione con lo strumento DXMT.",
+        "proton-cachyos": "Proton-CachyOS è una variante di Proton mantenuta dal team di CachyOS. Include strumenti aggiuntivi come DXVK-Sarek e D7VK."
     },
     "adtraction-locked": {
         "description": "Sembra che il dominio track.adtraction.com non si sia caricato o sia bloccato. Con adtraction, ogni acquisto che fai nel GOG store supporta finanziariamente Heroic. Valuta di rimuovere il blocco se hai voglia di contribuire.",
@@ -1209,7 +1206,8 @@
             "pageSize": "Per pagina",
             "releaseYear": "Anno di rilascio",
             "hideOwned": "Nascondi posseduti",
-            "wishlistOnly": "Solo lista dei desideri"
+            "wishlistOnly": "Solo lista dei desideri",
+            "platform": "Platform"
         },
         "sidebar": "Affari",
         "sort": {
@@ -1233,7 +1231,11 @@
         "title": "Affari GOG",
         "pagination": {
             "prev": "Precedente"
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Affari"
     },
     "steamgriddb": {
         "error": {

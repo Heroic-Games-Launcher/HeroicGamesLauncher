@@ -2,7 +2,6 @@ import { backendEvents } from 'backend/backend_events'
 import {
   isFlatpak,
   isAppImage,
-  isSnap,
   isSteamDeckGameMode,
   isSteamDeck
 } from 'backend/constants/environment'
@@ -11,6 +10,7 @@ import { GOGUser } from 'backend/storeManagers/gog/user'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { NileUser } from 'backend/storeManagers/nile/user'
 import { libraryStore } from 'backend/storeManagers/sideload/electronStores'
+import { ZoomUser } from 'backend/storeManagers/zoom/user'
 import { getOsInfo } from 'backend/utils/systeminfo/osInfo'
 import { app } from 'electron'
 import https from 'https'
@@ -102,6 +102,7 @@ export async function startPlausible() {
     gog: !!GOGUser.isLoggedIn(),
     epic: !!LegendaryUser.isLoggedIn(),
     amazon: !!NileUser.isLoggedIn(),
+    zoom: ZoomUser.isLoggedInSync(),
     sideloaded: libraryStore.raw_store.games?.length > 0
   }
   const loggedInProviders = Object.entries(providersObject)
@@ -128,6 +129,7 @@ export async function startPlausible() {
     gog: providersObject.gog || false,
     epic: providersObject.epic || false,
     amazon: providersObject.amazon || false,
+    zoom: providersObject.zoom || false,
     sideloaded: providersObject.sideloaded || false,
     providers: loggedInProviders.join(', '),
     arch: process.arch,
@@ -135,7 +137,6 @@ export async function startPlausible() {
     distroVersion,
     isFlatpak: isFlatpak,
     isAppImage: isAppImage,
-    isSnap: isSnap,
     isSteamDeckGameMode: isSteamDeckGameMode,
     isSteamDeck: !!isSteamDeck
   }

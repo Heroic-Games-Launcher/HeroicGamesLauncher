@@ -10,8 +10,8 @@ import ContextProvider from 'frontend/state/ContextProvider'
 
 import type { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
 
-import { BTN_ACTION, BTN_BACK } from '../controller'
-import { useGamepadButtonPress } from '../hooks'
+import { getActionButtonIndex, getBackButtonIndex } from '../controller'
+import { useGamepadButtonPress, useGamepadInfo } from '../hooks'
 
 type PlatformOption = {
   value: InstallPlatform
@@ -234,11 +234,12 @@ export default function InstallOverlay({
     return () => window.removeEventListener('keydown', onKeyDown, true)
   }, [])
 
-  useGamepadButtonPress(BTN_ACTION, () => {
+  const { layout } = useGamepadInfo()
+  useGamepadButtonPress(getActionButtonIndex(layout), () => {
     if (focused === 'install') void installGame()
     else if (focused === 'cancel') onDismiss()
   })
-  useGamepadButtonPress(BTN_BACK, onDismiss)
+  useGamepadButtonPress(getBackButtonIndex(layout), onDismiss)
 
   const showPlatform = availablePlatforms.length > 1
   const wineLabel =

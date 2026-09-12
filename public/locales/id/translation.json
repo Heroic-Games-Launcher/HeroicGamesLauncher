@@ -174,11 +174,6 @@
                     "message": "Kemajuan yang belum disimpan mungkin akan hilang"
                 }
             },
-            "snap": {
-                "checkbox": "Jangan munculkan pesan ini lagi",
-                "message": "Beberapa fitur tidak tersedia di versi Snap aplikasi untuk saat ini dan kami sedang berusaha untuk memperbaikinya.{{newLine}}Keterbatasan saat ini adalah: {{newLine}}Heroic tidak akan dapat menemukan Proton dari Steam atau Wine dari Lutris.{{newLine}}{{newLine}}Gamescope, GameMode, dan MangoHud juga tidak akan berfungsi karena Heroic tidak dapat mengaksesnya.{{newLine}}{{newLine}}Untuk mendapatkan akses ke fitur ini, silakan instal Heroic sebagai Flatpak, DEB, atau dari AppImage.",
-                "title": "Heroic berjalan sebagai Snap"
-            },
             "rosetta": {
                 "message": "Heroic memerlukan Rosetta agar dapat berjalan dengan benar di macOS dengan chip Apple Silicon. Harap instal melalui terminal macOS dengan perintah berikut: \"softwareupdate --install-rosetta\" dan mulai ulang Heroic. ",
                 "title": "Rosetta tidak ditemukan"
@@ -218,7 +213,8 @@
             "scroll": "Menggulir",
             "select": "Pilih",
             "space": "Spasi",
-            "update_game": "Perbarui gim"
+            "update_game": "Perbarui gim",
+            "exit": "Keluar"
         }
     },
     "docs": "Dokumentasi",
@@ -1183,7 +1179,8 @@
             "pageSize": "Per halaman",
             "releaseYear": "Tahun rilis",
             "hideOwned": "Sembunyikan yang Dimiliki",
-            "wishlistOnly": "Daftar Keinginan Saja"
+            "wishlistOnly": "Daftar Keinginan Saja",
+            "platform": "Platform"
         },
         "sidebar": "Penawaran",
         "sort": {
@@ -1207,7 +1204,11 @@
         "title": "Penawaran GOG",
         "pagination": {
             "prev": "Sebelumnya"
-        }
+        },
+        "tabs": {
+            "label": "Toko"
+        },
+        "titleMulti": "Penawaran"
     },
     "steamgriddb": {
         "error": {

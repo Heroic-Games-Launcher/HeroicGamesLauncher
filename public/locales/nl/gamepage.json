@@ -95,7 +95,8 @@
         "changelog": "Toon Changelog",
         "browse_files": "Blader door Bestanden",
         "browse_wine_prefix": "Blader Wineprefix",
-        "play": ""
+        "play": "",
+        "edit-game": "Bewerk App/Game"
     },
     "cloud_save_unsupported": "Niet ondersteund",
     "disabled": "Uitgeschakeld",
@@ -283,7 +284,7 @@
         "goodie": "Niet installeerbaar",
         "redist": "Herverdelers installeren {{redist}}",
         "winetricks": "Winetricks verbeteringen toepassen",
-        "importing": ""
+        "importing": "Importeren"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
@@ -337,6 +338,10 @@
     "wikiLink": "Belangrijke informatie over dit spel, lees dit:&nbsp;<1>Open pagina</1>",
     "open-saves-folder": "",
     "edit-game": {
-        "advanced": "Advanced"
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "Plak een foto URL hier"
+        },
+        "title": "Bewerk App/Game"
     }
 }

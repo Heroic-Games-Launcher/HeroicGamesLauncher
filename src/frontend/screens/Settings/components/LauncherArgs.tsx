@@ -55,7 +55,10 @@ const LauncherArgs = () => {
 
   return (
     <TextInputField
-      label={t('options.gameargs.title')}
+      label={t(
+        'options.gameargs.title',
+        'Game Arguments (appended to game launch command)'
+      )}
       htmlId="launcherArgs"
       placeholder={t('options.gameargs.placeholder')}
       value={launcherArgs}

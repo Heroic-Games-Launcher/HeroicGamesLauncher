@@ -174,11 +174,6 @@
                     "message": "저장되지 않은 진행 상황은 손실될 수 있음"
                 }
             },
-            "snap": {
-                "checkbox": "이 메세지를 다시 표시 안 함",
-                "message": "일부 기능은 현재 앱의 스냅 버전에서 사용할 수 없고 이를 수정하려고 노력하고 있습니다.{{newLine}}현재 제한 사항은 다음과 같습니다:{{newLine}}Heroic은 스팀의 프로톤이나 루트리스의 와인을 찾을 수 없습니다.{{newLine}}{{newLine}}Gamescope, GameMode, MangoHud도 Heroic이 접속할 수 없으므로 작동하지 않습니다.{{newLine}}{{newLine}}이 기능에 접속하려면 Heroic을 Flatpak, DEB 또는 AppImage에서 설치하세요.",
-                "title": "Heroic은 스냅으로 실행됨"
-            },
             "rosetta": {
                 "title": "",
                 "message": ""
@@ -218,7 +213,8 @@
             "scroll": "스크롤",
             "select": "선택",
             "space": "스페이스",
-            "update_game": "게임 업데이트"
+            "update_game": "게임 업데이트",
+            "exit": "나가기"
         }
     },
     "docs": "문서",
@@ -261,7 +257,7 @@
         "library": {
             "refresh": "라이브러리 새로 고침"
         },
-        "abort": "",
+        "abort": "정보",
         "install": "설치",
         "uninstall": "설치 제거"
     },
@@ -1181,9 +1177,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "모두",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "세부 사항",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1205,17 +1202,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "세부 사항"
     },
     "steamgriddb": {
         "error": {
             "no-games": "게임이 발견되지 않았습니다",
-            "no-grids": "",
+            "no-grids": "이 게임에 대한 로그를 찾을 수 없습니다",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "게임 검색",
             "title": "",
             "select-game": ""
         }
@@ -1234,7 +1235,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "실행 중",
             "sort": "",
             "navigate": "",
             "quit": "나가기",
@@ -1255,7 +1256,9 @@
         "install": {
             "platform": "Platform",
             "title": "게임 설치",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "다음에 설치",
+            "wineMissing": "경로가 선택되지 않음"
         }
     },
     "next": ""

@@ -27,7 +27,8 @@
         "changelog": "",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "Измените апликацију/игру"
     },
     "cloud_save_unsupported": "Неподржано",
     "submenu": {
@@ -328,5 +329,11 @@
     },
     "open-saves-folder": "",
     "Open": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "placeholder": {
+            "image": "Налепите URL слике овде"
+        },
+        "title": "Измените апликацију/игру"
+    }
 }

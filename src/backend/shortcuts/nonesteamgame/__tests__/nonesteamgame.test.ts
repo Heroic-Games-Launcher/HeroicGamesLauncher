@@ -5,8 +5,11 @@ import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { GlobalConfig } from 'backend/config'
 import { logInfo, logError, logWarning } from 'backend/logger'
+import { app } from 'electron'
+import * as pathUtils from 'backend/utils/os/path'
 import type { Game } from 'common/types/game_manager'
 
+jest.mock('electron')
 jest.mock('backend/logger')
 jest.mock('backend/dialog/dialog')
 jest.mock('backend/utils')
@@ -231,5 +234,19 @@ describe('NonSteamGame', () => {
       expect(logError).not.toBeCalled()
       expect(showDialogBoxModalAuto).not.toBeCalled()
     }
+  })
+
+  test('Searches for Heroic wrapper if executable is not `heroic`', async () => {
+    const game = makeGameMock()
+
+    const getPathSpy = jest
+      .spyOn(app, 'getPath')
+      .mockImplementation(() => '/usr/bin/electron43')
+    const searchExeSpy = jest.spyOn(pathUtils, 'searchForExecutableOnPath')
+
+    await addNonSteamGame(game)
+
+    expect(getPathSpy).toHaveBeenCalled()
+    expect(searchExeSpy).toHaveBeenCalledWith('heroic')
   })
 })

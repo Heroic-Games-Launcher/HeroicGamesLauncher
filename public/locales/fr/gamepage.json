@@ -96,7 +96,8 @@
         "changelog": "Afficher le journal des changements",
         "browse_files": "Parcourir les fichiers",
         "browse_wine_prefix": "Parcourir le préfixe Wine",
-        "play": "JOUER"
+        "play": "JOUER",
+        "edit-game": "Modifier l'application/le jeu"
     },
     "cloud_save_unsupported": "Non-compatible",
     "disabled": "Désactivé",
@@ -359,6 +360,10 @@
     "wikiLink": "Information importante au sujet de ce jeu, lisez ceci : &nbsp ;<1>Open page</1>",
     "open-saves-folder": "Ouvrir le dossier des sauvegardes",
     "edit-game": {
-        "advanced": "Avancé"
+        "advanced": "Avancé",
+        "placeholder": {
+            "image": "Collez ici l'URL d'une image"
+        },
+        "title": "Modifier l'application/le jeu"
     }
 }

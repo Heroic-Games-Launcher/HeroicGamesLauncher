@@ -4,15 +4,9 @@ permissions:
 
 on:
   workflow_call:
-    inputs:
-      publish-snap:
-        required: false
-        type: boolean
     secrets:
       workflowToken:
         required: true
-      snapcraftIdEdge:
-        required: false
 
 jobs:
   build:
@@ -45,13 +39,6 @@ jobs:
           GH_TOKEN: ${{ secrets.workflowToken }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
         if: runner.os == 'macOS'
-      - name: Build and publish Snap version
-        run: |
-          sudo apt-get install --no-install-recommends -y snapcraft
-          pnpm dist:linux Snap --publish=always
-        env:
-          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraftIdEdge }}
-        if: runner.os == 'Linux' && inputs.publish-snap
       - name: Build AppImage version
         run: pnpm dist:linux AppImage --x64 --arm64 --publish=never
         if: runner.os == 'Linux'
