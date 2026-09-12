@@ -572,6 +572,11 @@ async function prepareLaunch(
     )
   ])
 
+  const knownFixes = readKnownFixes(gameInfo.app_name, gameInfo.runner)
+  if (knownFixes && knownFixes.wikiLink) {
+    logWriter.logInfo(`Wiki Link, read this: ${knownFixes.wikiLink}\n\n`)
+  }
+
   // If we're not on Linux, we can return here
   if (!isLinux) {
     return { success: true, rpcClient, offlineMode }
