@@ -283,6 +283,8 @@
           justify-content: flex-start;
 
           .altPlay {
+            --alt-button-gap: 6%;
+
             position: relative;
             margin-inline-start: 1px;
             padding-inline: 8px;
@@ -295,15 +297,35 @@
             a {
               display: none;
               position: absolute;
-              bottom: 106%;
+              bottom: calc(100% + var(--alt-button-gap));
               right: 0px;
               white-space: nowrap;
+            }
+
+            /* extend the hover hit-area to bridge the gap between the arrow
+               button and the popup above it, so moving the cursor upward
+               doesn't dismiss the popup before reaching it */
+            &::before {
+              display: none;
+              content: '';
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 100%;
+              height: var(--alt-button-gap);
+              /* transparent area that still receives pointer events,
+                 sized to exactly match the 6% gap from bottom: 106% */
+              background: transparent;
             }
 
             &:focus,
             &:hover,
             &:focus-within {
               a {
+                display: block;
+              }
+
+              &::before {
                 display: block;
               }
             }
