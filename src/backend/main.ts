@@ -26,7 +26,7 @@ import { cpus } from 'os'
 import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
 
-import Backend from 'i18next-fs-backend'
+import Backend from 'i18next-fs-backend/cjs'
 import i18next from 'i18next'
 import { join } from 'path'
 import { DXVK, Winetricks } from './tools'
