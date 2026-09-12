@@ -351,9 +351,9 @@ interface AsyncIPCFunctions {
   getGogDealsRegion: () => Promise<GogDealsRegion | null>
   getGogDiscounts: (
     locale: CatalogLocaleSettings,
-    hideOwned?: boolean,
-    wishlistOnly?: boolean
+    hideOwned?: boolean
   ) => Promise<CatalogProduct[]>
+  getGogWishlist: () => Promise<string[]>
   getGmgDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
   getHumbleDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
   'steamgriddb.hasApiKey': () => Promise<boolean>
