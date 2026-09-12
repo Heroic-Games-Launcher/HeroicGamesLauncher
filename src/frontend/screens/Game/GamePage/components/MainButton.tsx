@@ -8,6 +8,7 @@ import {
   CloudQueue,
   Download,
   Error,
+  Info,
   Pause,
   PlayArrow,
   Stop,
@@ -16,6 +17,7 @@ import {
 import classNames from 'classnames'
 import { GameInfo } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
+import { timestampStore } from 'frontend/helpers/electronStores'
 
 interface Props {
   gameInfo: GameInfo
@@ -29,6 +31,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
+  const playedTime = timestampStore.get_nodefault(gameInfo.app_name)
 
   const is_installed = gameInfo.is_installed
   const disabledPlayButtons =
@@ -170,88 +173,103 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     await handlePlay(gameInfo)
   }
 
+  // Show hint to disable logs if the game is installed and was player for more than 5 minutes
+  const showDisableLogsHint =
+    is_installed && verboseLogs && playedTime && playedTime.totalPlayed > 60 * 5
+
   return (
-    <div className="buttonsWrapper">
-      {is_installed && !is.queued && !is.uninstalling && (
-        <div className="playButtons">
-          <button
-            disabled={disabledPlayButtons}
-            autoFocus={true}
-            onClick={async () => handlePlay(gameInfo)}
-            className={classNames(
-              'button',
-              {
-                'is-secondary': !is_installed && !is.queued,
-                'is-success':
-                  is.syncing ||
-                  (!is.updating &&
-                    !is.playing &&
-                    is_installed &&
-                    !is.notAvailable),
-                'is-tertiary':
-                  is.playing ||
-                  (!is_installed && is.queued) ||
-                  (is_installed && is.notAvailable),
-                'is-disabled': is.updating
-              },
-              'mainBtn'
-            )}
-          >
-            {getPlayLabel()}
-          </button>
-          {altPlayAction()}
-        </div>
+    <>
+      {showDisableLogsHint && (
+        <span className="disableLogsHint">
+          <Info />
+          {t(
+            'disableLogsHint',
+            'Looks like the game is working. You might want to disable verbose logs for better performance. Click the ^ icon and use the "Play Now" button without logs'
+          )}
+        </span>
       )}
-      {(!is_installed || is.queued) && (
-        <span className="installButtons">
-          <button
-            onClick={async () => {
-              if (!is_installed && !is.queued) {
+      <div className="buttonsWrapper">
+        {is_installed && !is.queued && !is.uninstalling && (
+          <div className="playButtons">
+            <button
+              disabled={disabledPlayButtons}
+              autoFocus={true}
+              onClick={async () => handlePlay(gameInfo)}
+              className={classNames(
+                'button',
+                {
+                  'is-secondary': !is_installed && !is.queued,
+                  'is-success':
+                    is.syncing ||
+                    (!is.updating &&
+                      !is.playing &&
+                      is_installed &&
+                      !is.notAvailable),
+                  'is-tertiary':
+                    is.playing ||
+                    (!is_installed && is.queued) ||
+                    (is_installed && is.notAvailable),
+                  'is-disabled': is.updating
+                },
+                'mainBtn'
+              )}
+            >
+              {getPlayLabel()}
+            </button>
+            {altPlayAction()}
+          </div>
+        )}
+        {(!is_installed || is.queued) && (
+          <span className="installButtons">
+            <button
+              onClick={async () => {
+                if (!is_installed && !is.queued) {
+                  openInstallGameModal({
+                    appName: gameInfo.app_name,
+                    runner: gameInfo.runner,
+                    gameInfo,
+                    action: 'install'
+                  })
+                  return
+                }
+                handleInstall(is_installed)
+              }}
+              disabled={disabledInstallButtons}
+              autoFocus={true}
+              className={classNames(
+                'button',
+                {
+                  'is-primary': is_installed,
+                  'is-tertiary':
+                    is.notAvailable ||
+                    is.installing ||
+                    is.queued ||
+                    is.notInstallable,
+                  'is-secondary': !is_installed && !is.queued
+                },
+                'mainBtn'
+              )}
+            >
+              {getButtonLabel()}
+            </button>
+            <button
+              disabled={disabledInstallButtons || is.installing || is.importing}
+              className={'button mainBtn outline'}
+              onClick={() =>
                 openInstallGameModal({
                   appName: gameInfo.app_name,
                   runner: gameInfo.runner,
                   gameInfo,
-                  action: 'install'
+                  action: 'import'
                 })
-                return
               }
-              handleInstall(is_installed)
-            }}
-            disabled={disabledInstallButtons}
-            autoFocus={true}
-            className={classNames(
-              'button',
-              {
-                'is-primary': is_installed,
-                'is-tertiary':
-                  is.notAvailable ||
-                  is.installing ||
-                  is.queued ||
-                  is.notInstallable,
-                'is-secondary': !is_installed && !is.queued
-              },
-              'mainBtn'
-            )}
-          >
-            {getButtonLabel()}
-          </button>
-          <button
-            disabled={disabledInstallButtons || is.installing || is.importing}
-            className={'button mainBtn outline'}
-            onClick={() =>
-              openInstallGameModal({
-                appName: gameInfo.app_name,
-                runner: gameInfo.runner,
-                gameInfo,
-                action: 'import'
-              })
-            }
-          >
-            {t('button.import', 'Import Game')}
-          </button>
-        </span>
-      )}
-    </div>
+            >
+              {t('button.import', 'Import Game')}
+            </button>
+          </span>
+        )}
+      </div>
+    </>
   )
 }
 
