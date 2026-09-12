@@ -414,6 +414,7 @@ interface FrontendMessages {
       { title?: string; art_cover?: string; art_square?: string }
     >
   ) => void
+  'gamepad.setInputsEnabled': (enabled: boolean) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void
