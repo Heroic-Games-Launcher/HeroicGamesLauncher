@@ -7,10 +7,19 @@ import {
   type RefObject
 } from 'react'
 
+import { isControllerNavDisabled } from 'frontend/helpers/gamepad'
+import { getGamepads } from 'frontend/helpers/steamController'
 import { detectControllerLayout, type ControllerLayout } from './controller'
 
 function isPressed(btn: GamepadButton | undefined) {
   return !!btn && (btn.pressed || btn.value > 0.5)
+}
+
+// Timers survive occlusion, rAF does not
+const POLL_MS = 16
+function pollGamepads(tick: () => void) {
+  const id = window.setInterval(tick, POLL_MS)
+  return () => window.clearInterval(id)
 }
 
 export function useGamepadButtonPress(
@@ -23,25 +32,23 @@ export function useGamepadButtonPress(
 
   useEffect(() => {
     if (!enabled) return
-    const prev = new Map<number, boolean>()
+    // All pads count as one so Steam's virtual pad and the raw Steam
+    // Controller do not fire twice for the same physical press
+    const anyPressed = () =>
+      Array.from(getGamepads()).some(
+        (gp) => gp && isPressed(gp.buttons[buttonIndex])
+      )
     // Seed with current state so a button still held from the press that
     // mounted this hook (e.g. the A press that opened an overlay) does not
     // immediately fire the new handler — only real press-down edges should.
-    for (const gp of navigator.getGamepads()) {
-      if (gp) prev.set(gp.index, isPressed(gp.buttons[buttonIndex]))
-    }
-    let raf = 0
+    let prev = anyPressed()
     const tick = () => {
-      for (const gp of navigator.getGamepads()) {
-        if (!gp) continue
-        const pressed = isPressed(gp.buttons[buttonIndex])
-        if (pressed && !prev.get(gp.index)) handlerRef.current()
-        prev.set(gp.index, pressed)
-      }
-      raf = requestAnimationFrame(tick)
+      // Live check honours disable setting
+      const pressed = anyPressed()
+      if (pressed && !prev && !isControllerNavDisabled()) handlerRef.current()
+      prev = pressed
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    return pollGamepads(tick)
   }, [buttonIndex, enabled])
 }
 
@@ -55,27 +62,65 @@ export function useGamepadButtonHold(
 
   useEffect(() => {
     if (!enabled) return
-    let held = Array.from(navigator.getGamepads()).some(
+    let held = Array.from(getGamepads()).some(
       (gp) => gp && isPressed(gp.buttons[buttonIndex])
     )
-    let raf = 0
     const tick = () => {
+      // Disabled controllers report nothing held
       let anyHeld = false
-      for (const gp of navigator.getGamepads()) {
-        if (gp && isPressed(gp.buttons[buttonIndex])) {
-          anyHeld = true
-          break
+      if (!isControllerNavDisabled()) {
+        for (const gp of getGamepads()) {
+          if (gp && isPressed(gp.buttons[buttonIndex])) {
+            anyHeld = true
+            break
+          }
         }
       }
       if (anyHeld !== held) {
         held = anyHeld
         handlerRef.current(anyHeld)
       }
-      raf = requestAnimationFrame(tick)
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    return pollGamepads(tick)
   }, [buttonIndex, enabled])
+}
+
+export function useGamepadComboHold(
+  buttonIndices: number[],
+  onChange: (held: boolean) => void,
+  enabled = true
+) {
+  const handlerRef = useRef(onChange)
+  handlerRef.current = onChange
+
+  // Stable key avoids re-running on rerenders
+  const comboKey = buttonIndices.join(',')
+
+  useEffect(() => {
+    if (!enabled) return
+    const indices = comboKey.split(',').map(Number)
+    const comboPressed = (gp: Gamepad) =>
+      indices.every((i) => isPressed(gp.buttons[i]))
+    const anyComboHeld = () =>
+      // Combos also work in lizard mode (View+R2 outside Console Mode)
+      Array.from(getGamepads(true)).some((gp) => gp && comboPressed(gp))
+    let held = anyComboHeld()
+    const tick = () => {
+      const anyHeld = anyComboHeld()
+      if (anyHeld !== held) {
+        held = anyHeld
+        handlerRef.current(anyHeld)
+      }
+    }
+    return pollGamepads(tick)
+  }, [comboKey, enabled])
+}
+
+// One-off check outside hook ticks
+export function isGamepadButtonHeld(buttonIndex: number) {
+  return Array.from(getGamepads()).some(
+    (gp) => gp && isPressed(gp.buttons[buttonIndex])
+  )
 }
 
 export function useGamepadInfo() {
@@ -84,7 +129,7 @@ export function useGamepadInfo() {
 
   useEffect(() => {
     const refresh = () => {
-      const first = Array.from(navigator.getGamepads()).find(
+      const first = Array.from(getGamepads(true)).find(
         (gp): gp is Gamepad => !!gp
       )
       setConnected(!!first)
@@ -167,4 +212,21 @@ export function useCancelOnHold({
   }, [holdStart, active, holdMs])
 
   return { holdStart, startHold, stopHold }
+}
+
+// Distinguishes a short combo tap from the hold that drives the timers
+export function useComboShortPress(onShort: () => void, shortMs = 800) {
+  const start = useRef<number | null>(null)
+  const onShortRef = useRef(onShort)
+  onShortRef.current = onShort
+  return {
+    down: () => {
+      start.current = performance.now()
+    },
+    up: () => {
+      const s = start.current
+      start.current = null
+      if (s != null && performance.now() - s < shortMs) onShortRef.current()
+    }
+  }
 }

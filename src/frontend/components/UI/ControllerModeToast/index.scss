@@ -1,0 +1,50 @@
+.controllerModeToast {
+  position: fixed;
+  right: var(--space-lg, 24px);
+  bottom: var(--space-lg, 24px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md, 12px);
+  padding: var(--space-sm, 8px) var(--space-md, 12px);
+  border-radius: var(--space-sm, 8px);
+  background: var(--background-darker, #1a1a1f);
+  color: var(--text-primary, #fff);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  font-size: var(--text-md, 14px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  svg {
+    font-size: 1.6em;
+    color: var(--accent, #6b8cff);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__hint {
+    font-size: var(--text-sm, 12px);
+    color: var(--text-secondary, #b5b5c0);
+  }
+}
+
+.disableAnimations .controllerModeToast {
+  transition: none;
+}

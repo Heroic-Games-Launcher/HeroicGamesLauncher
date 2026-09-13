@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
+import { initSteamController } from './helpers/steamController'
 
 import './index.scss'
 import './themes.scss'
@@ -28,6 +29,7 @@ const Backend = new HttpApi(null, {
 })
 
 initGamepad()
+void initSteamController()
 initShortcuts()
 
 const storage: Storage = window.localStorage

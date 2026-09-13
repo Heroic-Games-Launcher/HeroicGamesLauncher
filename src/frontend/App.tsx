@@ -22,6 +22,8 @@ import { TourProvider } from './state/TourContext'
 import { InstallGameWrapper } from './screens/Library/components/InstallModal'
 import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
 import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
+import ConsoleComboListener from './screens/ConsoleMode/components/ConsoleComboListener'
+import ControllerModeToast from './components/UI/ControllerModeToast'
 
 function Root() {
   const {
@@ -81,12 +83,14 @@ function Root() {
       onDragStart={(e) => e.preventDefault()}
     >
       <ThemeProvider theme={theme}>
+        <ControllerModeToast />
         {isConsoleMode ? (
           <main className="content consoleContent">
             <Outlet />
           </main>
         ) : (
           <TourProvider>
+            <ConsoleComboListener />
             <OfflineMessage />
             <Sidebar />
             <main className="content">

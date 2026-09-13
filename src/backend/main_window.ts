@@ -3,6 +3,8 @@ import { BrowserWindow, screen } from 'electron'
 import { mainPreloadPath } from './constants/paths'
 import { configStore } from './constants/key_value_stores'
 
+const VALVE_VENDOR_ID = 0x28de
+
 let mainWindow: BrowserWindow | null = null
 
 export const getMainWindow = () => {
@@ -64,8 +66,25 @@ export const createMainWindow = () => {
       contextIsolation: true,
       nodeIntegration: true,
       // sandbox: false,
+      // Keep polling while a game covers Heroic
+      backgroundThrottling: false,
       preload: mainPreloadPath
     }
+  })
+
+  // WebHID access to Valve controllers for frontend/helpers/steamController
+  const session = mainWindow.webContents.session
+  session.setDevicePermissionHandler(
+    (details) =>
+      details.deviceType === 'hid' &&
+      details.device.vendorId === VALVE_VENDOR_ID
+  )
+  session.on('select-hid-device', (event, details, callback) => {
+    event.preventDefault()
+    const device = details.deviceList.find(
+      (d) => d.vendorId === VALVE_VENDOR_ID
+    )
+    callback(device?.deviceId)
   })
 
   return mainWindow
