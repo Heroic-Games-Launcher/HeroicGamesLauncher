@@ -838,6 +838,10 @@ export const isControllerNavDisabled = () => {
   return controllerIsDisabled && !(controllerEnabledInConsole && inConsoleMode)
 }
 
+// Entry combo follows the override setting
+export const isConsoleEntryDisabled = () =>
+  controllerIsDisabled && !controllerEnabledInConsole
+
 export const setControllerEnabledInConsole = (value: boolean) => {
   controllerEnabledInConsole = value
 }

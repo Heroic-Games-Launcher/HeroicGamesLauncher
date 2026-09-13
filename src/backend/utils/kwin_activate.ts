@@ -3,6 +3,8 @@ import { execFile } from 'child_process'
 import { unlink, writeFile } from 'fs/promises'
 import { join } from 'path'
 import { promisify } from 'util'
+import { isFlatpak } from 'backend/constants/environment'
+import { logInfo, LogPrefix } from 'backend/logger'
 
 const run = promisify(execFile)
 
@@ -24,6 +26,14 @@ async function qdbus(args: string[]): Promise<string> {
 // KWin denies focus stealing on Wayland
 export async function kwinActivateWindow(caption: string): Promise<void> {
   if (process.platform !== 'linux') return
+  // Sandbox lacks qdbus and KWin access
+  if (isFlatpak) {
+    logInfo(
+      'Skipping KWin window activation: not supported in Flatpak',
+      LogPrefix.Backend
+    )
+    return
+  }
 
   // Supports both KWin 5 and 6
   const script = `

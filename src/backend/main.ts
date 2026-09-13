@@ -605,7 +605,12 @@ addListener('focusMainWindow', async () => {
   mainWindow.focus()
   if (mainWindow.isFocused()) return
   // Wayland compositors reject plain focus()
-  await kwinActivateWindow(mainWindow.getTitle()).catch(() => {})
+  await kwinActivateWindow(mainWindow.getTitle()).catch((error) =>
+    logWarning(
+      ['Failed to activate window via KWin:', error],
+      LogPrefix.Backend
+    )
+  )
 })
 addListener('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 addListener('openDiscordLink', async () => openUrlOrFile(discordLink))

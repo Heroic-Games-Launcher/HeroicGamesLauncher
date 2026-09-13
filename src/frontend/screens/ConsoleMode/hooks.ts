@@ -87,7 +87,9 @@ export function useGamepadButtonHold(
 export function useGamepadComboHold(
   buttonIndices: number[],
   onChange: (held: boolean) => void,
-  enabled = true
+  enabled = true,
+  // Live guard, checked every tick
+  isBlocked: () => boolean = isControllerNavDisabled
 ) {
   const handlerRef = useRef(onChange)
   handlerRef.current = onChange
@@ -100,7 +102,9 @@ export function useGamepadComboHold(
     const indices = comboKey.split(',').map(Number)
     const comboPressed = (gp: Gamepad) =>
       indices.every((i) => isPressed(gp.buttons[i]))
+    // Blocked controllers report nothing held
     const anyComboHeld = () =>
+      !isBlocked() &&
       Array.from(navigator.getGamepads()).some((gp) => gp && comboPressed(gp))
     let held = anyComboHeld()
     let raf = 0
@@ -114,11 +118,12 @@ export function useGamepadComboHold(
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [comboKey, enabled])
+  }, [comboKey, enabled, isBlocked])
 }
 
 // One-off check outside hook ticks
 export function isGamepadButtonHeld(buttonIndex: number) {
+  if (isControllerNavDisabled()) return false
   return Array.from(navigator.getGamepads()).some(
     (gp) => gp && isPressed(gp.buttons[buttonIndex])
   )
