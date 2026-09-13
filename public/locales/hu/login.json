@@ -8,18 +8,17 @@
         "loading": "Betöltés…"
     },
     "message": {
-        "part1": "Hogy be tudj jelentkezni és le tudd tölteni a játékaidat, először követned kell az itt felsoroltakat:",
-        "part2": "Nyisd meg az",
-        "part3": "Epic Store-t itt",
-        "part4": ", jelentkezz be a fiókodba és másold a",
-        "part5": "hitelesítőkód-információs számodat",
-        "part6": "Illeszd be a",
-        "part7": "hitelesítőkód számodat",
-        "part8": "a lenti beviteli mezőbe, kattints a bejelentkezés gombra, majd várj."
+        "part1": "Hogy be tudj jelentkezni és le tudd tölteni a játékaidat, először követned kell az itt felsoroltakat:"
     },
     "status": {
         "error": "Hiba",
         "loading": "Játéklista betöltése, kérlek várj"
     },
-    "welcome": "Üdvözlünk!"
+    "welcome": "Üdvözlünk!",
+    "manual": {
+        "epic": {
+            "step1": "Nyisd meg az Epic Store-t itt , jelentkezz be a fiókodba és másold a hitelesítőkód-információs számodat",
+            "step2": "Illeszd be a hitelesítőkód számodat a lenti beviteli mezőbe, kattints a bejelentkezés gombra, majd várj."
+        }
+    }
 }

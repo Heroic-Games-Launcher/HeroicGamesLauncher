@@ -12,7 +12,7 @@ import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
 
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
-import SIDLogin from './components/SIDLogin'
+import AlternativeLogin from './components/AlternativeLogin'
 import ContextProvider from '../../state/ContextProvider'
 import { useAwaited } from '../../hooks/useAwaited'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -35,7 +35,9 @@ export default React.memo(function NewLogin() {
 
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
-  const [showSidLogin, setShowSidLogin] = useState(false)
+  const [showAltLogin, setShowAltLogin] = useState<
+    'epic' | 'gog' | 'amazon' | null
+  >(null)
   const [isEpicLoggedIn, setIsEpicLoggedIn] = useState(Boolean(epic.username))
   const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
@@ -86,10 +88,11 @@ export default React.memo(function NewLogin() {
 
   return (
     <div className="loginPage">
-      {showSidLogin && (
-        <SIDLogin
+      {showAltLogin && (
+        <AlternativeLogin
+          store={showAltLogin}
           backdropClick={() => {
-            setShowSidLogin(false)
+            setShowAltLogin(null)
           }}
         />
       )}
@@ -124,9 +127,7 @@ export default React.memo(function NewLogin() {
               isLoggedIn={isEpicLoggedIn}
               user={epic.username}
               logoutAction={epic.logout}
-              alternativeLoginAction={() => {
-                setShowSidLogin(true)
-              }}
+              alternativeLoginAction={() => setShowAltLogin('epic')}
               disabled={oldMac}
             />
             <Runner
@@ -137,6 +138,7 @@ export default React.memo(function NewLogin() {
               isLoggedIn={isGogLoggedIn}
               user={gog.username}
               logoutAction={gog.logout}
+              alternativeLoginAction={() => setShowAltLogin('gog')}
               disabled={oldMac}
             />
             <Runner
@@ -147,6 +149,7 @@ export default React.memo(function NewLogin() {
               isLoggedIn={isAmazonLoggedIn}
               user={amazon.username || 'Unknown'}
               logoutAction={amazon.logout}
+              alternativeLoginAction={() => setShowAltLogin('amazon')}
               disabled={oldMac}
             />
             {zoom.enabled && (

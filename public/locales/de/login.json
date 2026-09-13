@@ -8,18 +8,17 @@
         "loading": "Wird geladen"
     },
     "message": {
-        "part1": "Damit Du Dich anmelden und Deine Spiele installieren kannst, musst Du zunächst die folgenden Schritte ausführen:",
-        "part2": "Öffne den",
-        "part3": "Epic Store hier",
-        "part4": ", melde dich mit deinem Konto an und kopiere deine",
-        "part5": "Autorisierungscode-Informationsnummer",
-        "part6": "Füge deine",
-        "part7": "Autorisierungscodenummer",
-        "part8": "in das untere Eingabefeld ein und klicke auf „Anmelden“."
+        "part1": "Damit Du Dich anmelden und Deine Spiele installieren kannst, musst Du zunächst die folgenden Schritte ausführen:"
     },
     "status": {
         "error": "Fehler",
         "loading": "Lade Spieleliste, bitte warten"
     },
-    "welcome": "Willkommen!"
+    "welcome": "Willkommen!",
+    "manual": {
+        "epic": {
+            "step1": "Öffne den Epic Store hier , melde dich mit deinem Konto an und kopiere deine Autorisierungscode-Informationsnummer",
+            "step2": "Füge deine Autorisierungscodenummer in das untere Eingabefeld ein und klicke auf „Anmelden“."
+        }
+    }
 }

@@ -8,18 +8,17 @@
         "loading": "A Carregar"
     },
     "message": {
-        "part1": "Para que possa iniciar a sessão e instalar os seus jogos, é necessário seguir os seguintes passos:",
-        "part2": "Abrir a",
-        "part3": "Loja da Epic aqui",
-        "part4": ", inicie sessão na sua conta e copie os seus",
-        "part5": "informação do número do código de autorização",
-        "part6": "Colar o seu",
-        "part7": "número do código de autorização",
-        "part8": "na caixa de entrada em baixo e clique no botão de iniciar sessão."
+        "part1": "Para que possa iniciar a sessão e instalar os seus jogos, é necessário seguir os seguintes passos:"
     },
     "status": {
         "error": "Erro",
         "loading": "Carregando lista de jogos"
     },
-    "welcome": "Bem-vindo!"
+    "welcome": "Bem-vindo!",
+    "manual": {
+        "epic": {
+            "step1": "Abrir a Loja da Epic aqui , inicie sessão na sua conta e copie os seus informação do número do código de autorização",
+            "step2": "Colar o seu número do código de autorização na caixa de entrada em baixo e clique no botão de iniciar sessão."
+        }
+    }
 }

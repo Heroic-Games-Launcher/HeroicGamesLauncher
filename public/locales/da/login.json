@@ -8,18 +8,17 @@
         "loading": "Indlæser"
     },
     "message": {
-        "part1": "For at logge ind og installere dine spil, må du først følge trinene herunder:",
-        "part2": "Åbn",
-        "part3": "Epic-Butik her",
-        "part4": ", log ind på din konto og kopiér dit",
-        "part5": "autoriseringskodeinformationsnummer",
-        "part6": "Indsæt dit",
-        "part7": "Autoriseringskodenummer",
-        "part8": "i indtastningsfeltet herunder og klik på login-knappen."
+        "part1": "For at logge ind og installere dine spil, må du først følge trinene herunder:"
     },
     "status": {
         "error": "Fejl",
         "loading": "Indlæser spil liste, vent venligst"
     },
-    "welcome": "Velkommen!"
+    "welcome": "Velkommen!",
+    "manual": {
+        "epic": {
+            "step1": "Åbn Epic-Butik her , log ind på din konto og kopiér dit autoriseringskodeinformationsnummer",
+            "step2": "Indsæt dit Autoriseringskodenummer i indtastningsfeltet herunder og klik på login-knappen."
+        }
+    }
 }

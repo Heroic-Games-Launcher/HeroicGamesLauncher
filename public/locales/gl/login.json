@@ -8,18 +8,17 @@
         "loading": "Cargando"
     },
     "message": {
-        "part1": "Para que poidas iniciar sesión e instalar os teus xogos, primeiro debes seguir os pasos a continuación:",
-        "part2": "Abrir o",
-        "part3": "Epic Store aquí",
-        "part4": ", inicia sesión coa túa conta e copia o teu",
-        "part5": "número de información do código de autorización",
-        "part6": "Pega o teu",
-        "part7": "número do código de autorización",
-        "part8": "no cadro de entrada de abaixo e fai clic no botón de inicio de sesión."
+        "part1": "Para que poidas iniciar sesión e instalar os teus xogos, primeiro debes seguir os pasos a continuación:"
     },
     "status": {
         "error": "Erro",
         "loading": "Cargando lista de xogos, agarde"
     },
-    "welcome": "Benvida/o!"
+    "welcome": "Benvida/o!",
+    "manual": {
+        "epic": {
+            "step1": "Abrir o Epic Store aquí , inicia sesión coa túa conta e copia o teu número de información do código de autorización",
+            "step2": "Pega o teu número do código de autorización no cadro de entrada de abaixo e fai clic no botón de inicio de sesión."
+        }
+    }
 }

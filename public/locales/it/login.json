@@ -8,18 +8,17 @@
         "loading": "Caricamento"
     },
     "message": {
-        "part1": "Per poter effettuare il login ed installare i tuoi giochi, dovrai prima seguire i passaggi indicati qui sotto:",
-        "part2": "Apri",
-        "part3": "l'Epic Store",
-        "part4": ", accedi con il tuo account e copia il tuo",
-        "part5": "numero authorization code",
-        "part6": "Incolla il tuo",
-        "part7": "numero authorization code",
-        "part8": "nella casella qui sotto, clicca su \"accedi\" ed aspetta."
+        "part1": "Per poter effettuare il login ed installare i tuoi giochi, dovrai prima seguire i passaggi indicati qui sotto:"
     },
     "status": {
         "error": "Errore",
         "loading": "Caricamento elenco dei giochi, attendere"
     },
-    "welcome": "Benvenuto!"
+    "welcome": "Benvenuto!",
+    "manual": {
+        "epic": {
+            "step1": "Apri l'Epic Store , accedi con il tuo account e copia il tuo numero authorization code",
+            "step2": "Incolla il tuo numero authorization code nella casella qui sotto, clicca su \"accedi\" ed aspetta."
+        }
+    }
 }

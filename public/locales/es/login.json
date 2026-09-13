@@ -8,18 +8,17 @@
         "error": "Error, prueba con otro código"
     },
     "message": {
-        "part1": "Para iniciar la sesión e instalar tus juegos, primero debes seguir los siguientes pasos:",
-        "part2": "Abre la",
-        "part3": "Epic Games Store aquí",
-        "part4": ", inicia sesión en tu cuenta y copia tu",
-        "part5": "número de información de código de autorización",
-        "part6": "Pega el",
-        "part7": "número del código de autorización",
-        "part8": "en el recuadro de entrada y haz clic en el botón de inicio de sesión."
+        "part1": "Para iniciar la sesión e instalar tus juegos, primero debes seguir los siguientes pasos:"
     },
     "status": {
         "error": "Error",
         "loading": "Cargando la lista de juegos, por favor espera"
     },
-    "welcome": "¡Bienvenido!"
+    "welcome": "¡Bienvenido!",
+    "manual": {
+        "epic": {
+            "step1": "Abre la Epic Games Store aquí , inicia sesión en tu cuenta y copia tu número de información de código de autorización",
+            "step2": "Pega el número del código de autorización en el recuadro de entrada y haz clic en el botón de inicio de sesión."
+        }
+    }
 }
