@@ -654,6 +654,8 @@ export default class LegendaryGame implements Game {
     }
     this.addShortcuts()
 
+    libraryManagerMap['legendary'].refreshInstalled()
+
     return { status: 'done' }
   }
 
