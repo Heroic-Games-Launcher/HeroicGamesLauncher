@@ -916,9 +916,25 @@ async function prepareWineLaunch(
             `binpath=${galaxyCommWinePath}`
           ],
           gameSettings,
-          protonVerb: 'runinprefix'
+          protonVerb: 'run'
         })
       }
+      await runWineCommand({
+        commandParts: [
+          'reg',
+          'add',
+          'HKLM\\SOFTWARE\\WOW6432Node\\GOG.com\\GalaxyClient\\paths',
+          '/v',
+          'client',
+          '/t',
+          'REG_SZ',
+          '/d',
+          'C:\\Program Files\\GOG Galaxy',
+          '/f'
+        ],
+        gameSettings,
+        protonVerb: 'run'
+      })
     }
   } catch (err) {
     logError([
