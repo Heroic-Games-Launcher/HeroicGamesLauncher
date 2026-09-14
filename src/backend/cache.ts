@@ -35,6 +35,10 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
     }
   }
 
+  public get path(): string {
+    return this.store.path
+  }
+
   /**
    * Allows to switch over to use in memory store (useful for many read and writes)
    * IMPORTANT! after operations run commit() to update file on drive

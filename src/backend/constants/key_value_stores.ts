@@ -8,3 +8,11 @@ export const tsStore = new TypeCheckedStoreBackend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
 })
+
+export const importExportRollbackStore = new TypeCheckedStoreBackend(
+  'importExportRollbackStore',
+  {
+    cwd: 'store',
+    name: 'import-export-rollback'
+  }
+)

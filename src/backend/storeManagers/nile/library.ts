@@ -23,9 +23,18 @@ import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { NileUser } from './user'
 import { runNileCommandStub } from './e2eMock'
-import { nileConfigPath, nileInstalled, nileLibrary } from './constants'
+import {
+  nileConfigPath,
+  nileInstalled,
+  nileLibrary,
+  nileUserData
+} from './constants'
 import NileGame from './games'
-import type { LibraryManager } from 'common/types/game_manager'
+import type {
+  LibraryManager,
+  RunnerBackupPaths
+} from 'common/types/game_manager'
+import { BACKUP_PATHS } from 'backend/importExport/constants'
 
 export default class NileLibraryManager implements LibraryManager {
   private installedGames: Map<string, NileInstallMetadataInfo> = new Map()
@@ -495,5 +504,40 @@ export default class NileLibraryManager implements LibraryManager {
     logWarning(
       'changeVersionPinnedStatus not implemented on Nile Library Manager'
     )
+  }
+
+  getBackupPaths(): RunnerBackupPaths {
+    return {
+      credentials: [
+        {
+          source: () => nileUserData,
+          destInZip: BACKUP_PATHS.credentials.nileUser
+        }
+      ],
+      libraryCache: [
+        {
+          source: () => libraryStore.path,
+          destInZip: BACKUP_PATHS.libraryCache.nileLibrary
+        },
+        {
+          source: () => nileLibrary,
+          destInZip: BACKUP_PATHS.libraryCache.nileLibraryFile
+        }
+      ],
+      installedGames: {
+        source: () => nileInstalled,
+        destInZip: BACKUP_PATHS.libraryCache.nileInstalled,
+        countGames: () => {
+          try {
+            const data = JSON.parse(
+              readFileSync(nileInstalled, 'utf-8')
+            ) as unknown
+            return Array.isArray(data) ? data.length : 0
+          } catch {
+            return 0
+          }
+        }
+      }
+    }
   }
 }
