@@ -1,10 +1,9 @@
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Dialog,
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
-import sanitizeHtml from 'sanitize-html'
 import { useTranslation } from 'react-i18next'
 
 interface GameChangeLogProps {
@@ -19,12 +18,17 @@ export default function GameChangeLog({
   backdropClick
 }: GameChangeLogProps) {
   const { t } = useTranslation('gamepage')
-  const santiziedChangeLog = useMemo(() => {
-    const sanitized = sanitizeHtml(changelog, {
-      disallowedTagsMode: 'discard'
-    })
-    return { __html: sanitized }
+  const [sanitizedChangelog, setSanitizedChangelog] = useState<{
+    __html: string
+  } | null>(null)
+
+  useEffect(() => {
+    void window.api
+      .sanitizeHtml(changelog)
+      .then((output) => setSanitizedChangelog({ __html: output }))
   }, [changelog])
+
+  if (!sanitizedChangelog) return <></>
 
   return (
     <Dialog showCloseButton onClose={backdropClick}>
@@ -35,7 +39,7 @@ export default function GameChangeLog({
       </DialogHeader>
       <DialogContent className="changelogModalContent">
         <div
-          dangerouslySetInnerHTML={santiziedChangeLog}
+          dangerouslySetInnerHTML={sanitizedChangelog}
           className={'gameChangeLog'}
         />
       </DialogContent>
