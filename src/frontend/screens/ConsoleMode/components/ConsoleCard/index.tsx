@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 
@@ -44,6 +44,7 @@ const ConsoleCard = forwardRef<HTMLButtonElement, Props>(function ConsoleCard(
   const { t } = useTranslation()
   const { status, label } = hasStatus(game)
   const [progress] = hasProgress(game.app_name, game.runner)
+  const [isAboveButton, setIsAboveButton] = useState(false)
 
   const isProgressing = status === 'installing' || status === 'updating'
   const percent = isProgressing
@@ -60,7 +61,13 @@ const ConsoleCard = forwardRef<HTMLButtonElement, Props>(function ConsoleCard(
       })}
       tabIndex={focused ? 0 : -1}
       onClick={onClick}
-      onMouseEnter={onMouseEnter}
+      onMouseMove={() => {
+        // only trigger onMouseEnter if moving, otherwise can lead
+        // to false positives on the auto-scroll of the page
+        if (isAboveButton && onMouseEnter) onMouseEnter()
+      }}
+      onMouseEnter={() => setIsAboveButton(true)}
+      onMouseLeave={() => setIsAboveButton(false)}
       onFocus={onFocus}
     >
       <CachedImage
