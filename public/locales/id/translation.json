@@ -214,7 +214,12 @@
             "select": "Pilih",
             "space": "Spasi",
             "update_game": "Perbarui gim",
-            "exit": "Keluar"
+            "exit": "Keluar",
+            "move_focus": "Pindahkan fokus",
+            "next_page": "Halaman berikutnya",
+            "previous_page": "Halaman sebelumnya",
+            "search": "Cari",
+            "url_bar": "Bilah URL"
         }
     },
     "docs": "Dokumentasi",
@@ -517,7 +522,7 @@
         },
         "gameargs": {
             "placeholder": "Letakkan Argumen Peluncur di sini",
-            "title": "Argumen Gim (Untuk dijalankan setelah perintah):",
+            "title": "Argumen Game (ditambahkan ke perintah peluncuran game)",
             "error": {
                 "command": "Sintaks %command% dari Steam tidak valid sebagai argumen game.",
                 "env": "Variabel lingkungan harus dikonfigurasi pada tabel di bawah ini."
@@ -797,6 +802,12 @@
         "hide-window-on-protocol-launch": "Sembunyikan jendela Heroic saat meluncurkan game dari tautan heroic://",
         "nvidiaprime": {
             "description": "Paksa penggunaan NVIDIA Optimus atau AMD Dynamic Switchable Graphics dGPU. HANYA gunakan ini untuk game OpenGL dan Vulkan."
+        },
+        "gamepad-initial-repeat-delay": "Delay repetisi awal input gamepad",
+        "gamepad-repeat-frequency": "Frekuensi repetisi input gamepad",
+        "steamRuntime": {
+            "label": "Gunakan Steam Runtime",
+            "noRuntimeOption": "None"
         }
     },
     "settings": {
@@ -968,7 +979,8 @@
             "back": "Kembali",
             "forward": "Maju",
             "openInBrowser": "Buka di peramban",
-            "reload": "Muat ulang halaman"
+            "reload": "Muat ulang halaman",
+            "home": "Buka beranda toko"
         }
     },
     "wine": {
@@ -1117,7 +1129,8 @@
         "proton-ge": "GE-Proton adalah varian Proton yang dibuat oleh Glorious Eggroll. Versi ini dirancang untuk digunakan bersama peluncur umu (default di Heroic).",
         "gpt": "Game Porting Toolkit dikembangkan oleh Apple dan direkomendasikan untuk Mac Apple Silicon dengan chip M1 ke atas serta paling baik digunakan untuk game terbaru yang menggunakan DX12.",
         "wine-crossover": "Wine-Crossover didasarkan pada proyek Wine OpenSource Crossover dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama.",
-        "wine-staging-macos": "Wine-Staging-macOS didasarkan pada proyek Wine utama dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama, terutama bila dipasangkan dengan alat DXMT."
+        "wine-staging-macos": "Wine-Staging-macOS didasarkan pada proyek Wine utama dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama, terutama bila dipasangkan dengan alat DXMT.",
+        "proton-cachyos": "Proton-CachyOS adalah varian Proton yang dikelola oleh tim CachyOS. Ini mencakup alat tambahan seperti DXVK-Sarek dan D7VK."
     },
     "zoom-store": "Toko Zoom",
     "launch": {
@@ -1154,7 +1167,8 @@
                 "PL": "Polandia",
                 "BR": "Brasil",
                 "CH": "Swiss",
-                "TR": "Turki"
+                "TR": "Turki",
+                "ZA": "Afrika Selatan"
             },
             "auto": "Otomatis ({{code}})",
             "label": "Wilayah toko"
@@ -1206,9 +1220,23 @@
             "prev": "Sebelumnya"
         },
         "tabs": {
-            "label": "Toko"
+            "label": "Toko",
+            "all": "Semua toko"
         },
-        "titleMulti": "Penawaran"
+        "titleMulti": "Penawaran",
+        "currency": {
+            "label": "Mata Uang"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — kunci {{drm}}, diaktifkan di luar Heroic",
+            "gmgHint": "Green Man Gaming — kunci untuk toko eksternal, tidak dapat diinstal melalui Heroic",
+            "humbleHint": "Humble Bundle — kunci untuk toko eksternal, tidak dapat diinstal melalui Heroic"
+        },
+        "view": {
+            "grid": "Kisi",
+            "label": "Mode tampilan",
+            "list": "Daftar"
+        }
     },
     "steamgriddb": {
         "error": {

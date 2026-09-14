@@ -815,6 +815,10 @@
         "hide-window-on-protocol-launch": "Скрыть окно Heroic при запуске игр с ссылки heroic:// links",
         "nvidiaprime": {
             "description": "Принудительно использовать дискретную видеокарту с NVIDIA Optimus или AMD Dynamic Switchable Graphics. Используйте только с играми на OpenGL или Vulkan."
+        },
+        "steamRuntime": {
+            "label": "Использовать среду выполнения Steam",
+            "noRuntimeOption": "None"
         }
     },
     "settings": {

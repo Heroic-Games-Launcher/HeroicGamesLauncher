@@ -261,7 +261,9 @@
             "title": "Mängu/rakenduse pealkiri",
             "broser": "BrowserURL",
             "fullscreen": "Käivita täisekraanis (sulge klahviga F11)",
-            "useragent": "Kohandatud User Agent"
+            "useragent": "Kohandatud User Agent",
+            "cover-hint": "Kaane/Sangarikunst (klikkige pildile, et otsida SteamGridDB-st)",
+            "image-hint": "Ruudukujuline kunst (klikkige pildile, et otsida SteamGridDB-st)"
         },
         "placeholder": {
             "image": "Kleepige pildi URL siia või valige üks oma arvutist",
@@ -272,6 +274,9 @@
         "import-hint": {
             "title": "Tähtis! Kas lisate Epic/GOG/Amazoni mängu? Kliki siia!",
             "content": "Ärge kasutage selleks seda funktsiooni.<br />Selle asemel <3>logige sisse</3> poodi, otsige mäng oma varamust üles, avage paigaldusaken ja klikkige nupul &quot;Impordi mäng&quot;"
+        },
+        "images": {
+            "summary": "Pildid"
         }
     },
     "specs": {
@@ -302,7 +307,7 @@
         "ubisoft": "Ubisofti installimine",
         "downloading": "Allalaadimine",
         "extracting": "Lahtipakkimine",
-        "gog-goodie": "See mäng ei paista olevat paigaldatav. Kontrollige allalaaditavat sisu (DLC) aadressil https://gog.com/account",
+        "gog-goodie": "See mäng ei paista olevat paigaldatav. Kontrollige allalaaditavat sisu (DLC-d) aadressil https://gog.com/account",
         "goodie": "Ei ole paigaldatav",
         "redist": "Vajalike pakkide paigaldamine ({{redist}})",
         "winetricks": "Winetricksi paranduste rakendamine",
@@ -326,7 +331,7 @@
         "categories": "Kategooriad"
     },
     "help": {
-        "cloud_save_unsupported": "See mäng ei toeta pilvesalvestust. Seda teavet pakuvad mängu arendajad. Mõned mängud rakendavad omaenda pilvesalvestussüsteemi",
+        "cloud_save_unsupported": "See mäng ei toeta pilvesalvestust. Seda teavet pakuvad mängu arendajad. Mõned mängud rakendavad omaenda pilvesalvestussüsteemi.",
         "title": {
             "gamePage": "Mängu lehekülg"
         },
@@ -364,6 +369,17 @@
         "placeholder": {
             "image": "Kleepige pildi URL siia"
         },
-        "title": "Muuda rakendust/mängu"
+        "title": "Muuda rakendust/mängu",
+        "cover": "Kaanekunst",
+        "info": {
+            "cover": "Kaanepilt",
+            "square": "Ruudukujuline pilt"
+        },
+        "reset": "Lähtesta vaikimisi sättele",
+        "sgdb": {
+            "no-key-link": "Seaded → Täpsem",
+            "no-key-prefix": "Et otsida kaanepilti SteamGridDB-st, lisage API võti"
+        },
+        "square": "Ruudukujuline kunst"
     }
 }

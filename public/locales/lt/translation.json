@@ -224,7 +224,12 @@
             "close_options": "Uždaryti parinktis",
             "close_dialog": "Uždaryti dialogo langą",
             "backspace": "Grįžties klavišas",
-            "exit": "Išeiti"
+            "exit": "Išeiti",
+            "move_focus": "Perkelti fokusavimą",
+            "next_page": "Kitas puslapis",
+            "previous_page": "Praeitas puslapis",
+            "search": "(Pa-)Ieška",
+            "url_bar": "„URL“ – saito juosta"
         }
     },
     "dlc": {
@@ -628,6 +633,11 @@
         "hide-window-on-protocol-launch": "Slėpti „Heroic“ langą, kai paleidžiami žaidimai iš – „heroic://“ nuorodų",
         "nvidiaprime": {
             "description": "Priverstinai naudoti „NVIDIA Optimus“ ar „AMD DSG dGPU“. Naudoti šį tik „OpenGL“ ir „Vulkan“ žaidimuose."
+        },
+        "gamepad-initial-repeat-delay": "Valdiklio įvesties atkartojimo pradinė delsa",
+        "gamepad-repeat-frequency": "Valdiklio įvesties atkartojimo dažnis",
+        "steamRuntime": {
+            "label": "Naudoti „Steam“ vykdantįjį"
         }
     },
     "settings": {
@@ -769,9 +779,9 @@
             "settings": "Nustatymai",
             "update": "Atnaujinti",
             "search": "Ieškoti versijų...",
-            "loading": "",
-            "open_folder": "",
-            "no-results": ""
+            "loading": "Kraunamos „Wine“ versijos...",
+            "open_folder": "Atidaryti aplankalą",
+            "no-results": "Nėra „Wine“ versijų, atitinkančių Jūsų paiešką."
         },
         "release": "Išleidimo data",
         "notes": "Lapeliai"
@@ -901,7 +911,7 @@
                 "command": "„%command%“ sintaksė iš „Steam“ nėra galimas kaip žaidimo argumentas.",
                 "env": "Aplinkos kintamieji turi būti sukonfigūruoti lentelėje, randama apačioje."
             },
-            "title": "Žaidimo argumentai (vykdyti po komandos):"
+            "title": "Žaidimo argumentai (vykdyti-priskirti po komandos prie žaidimo paleisties)"
         },
         "quote-args-with-spaces": "Įspėjimas: Atminkite argumentus rašyti angliškomis kabutėmis su tarpais! Pvz.: „\"kelias/su tarpais\"“"
     },
@@ -979,7 +989,8 @@
             "back": "Eiti atgal",
             "openInBrowser": "Atidaryti naršyklėje",
             "forward": "Eiti tolyn",
-            "reload": "Perkrauti puslapį"
+            "reload": "Perkrauti puslapį",
+            "home": "Eiti į parduotuvės pagrindinį puslapį"
         }
     },
     "Recent": "Neseniai žaista",
@@ -1014,7 +1025,8 @@
         "proton-ge": "„GE-Proton“ yra „Proton“ variantas sukurtas „Glorious Eggroll“. Jis yra skirtas, naudojant „Steam“, bet kai kurie žaidimai, neveikiantys „Steam“ gali veikti geriau su šiuo variantu. Jis pateikia daugmaž nereikšmingus žurnalus derinimui.",
         "gpt": "Žaidimų perkėlimo įrankių dėžė yra sukurtas „Apple“ ir yra rekomenduojamas „Apple Silicon Mac (dgs.)“ su „M1+“ lustais ir veikia geriausiai su naujausiais žaidimais, kurie naudoja „DX12“.",
         "wine-crossover": "„Wine-Crossover“ yra paremtas ant „Crossover OpenSource Wine projektas“ ir yra rekomenduojamas su „Intel Mac“, bei „DX11“ ir senesniems žaidimams.",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "„Wine-Staging-macOS“ yra paremtas pagrindiniu „Wine“ projektu ir yra rekomenduojamas „Intel Mac“ kompiuteriais „DX11“ ar senesniems žaidimams, ypač kai suporuoti su „DXMT“ įrankiu.",
+        "proton-cachyos": "„Proton-CachyOS“ yra „Proton“ leidinys, kurį prižiūri „CachyOS“ komanda. Jis įtraukia papildomus įrankius kaip „DXVK-Sarek“ ir „D7VK“."
     },
     "message": {
         "sync": "Sinchronizavimas baigtas",
@@ -1030,7 +1042,7 @@
         "next": "S_ekantis",
         "sidebar": {
             "welcome": {
-                "title": "",
+                "title": "Šoninės juostos navigacija",
                 "intro": "Sveiki į – „Heroic“! Ši šoninė juosta sudaro visas naršymo parinktis, siekiant naršyti programą."
             },
             "quit": "Išeikite iš programos saugiai.",
@@ -1038,7 +1050,7 @@
             "library": "Pasiekite savo žaidimų biblioteką iš skirtingų parduotuvių vienoje vietoje.",
             "community": "Prisijunkite prie mūsų bendruomenės „Discord“ ir palaikykite „Heroic“ kūrimą.",
             "accessibility": "Pasiekite pasiekiamumo funkcijas, siekiant tinkinti savo patirtį.",
-            "wine": "",
+            "wine": "Tvarkykite arba atsisiųskite naują „Wine“/„Proton“/„GPTK“ versiją, skirtą „Windows“ žaidimų veikimui ant „Linux“ ar „macOS“.",
             "login": "Prisijunkite prie savo žaidimų parduotuvės/-ių paskyros/-ų, kad pasiektumėte savo biblioteką.",
             "settings": "Sukonfigūruokite „Heroic“ nustatymus, žaidimo numatytuosius parametrus, tikrinkite žurnalus ir t.t.",
             "downloads": "Sekite ir valdykite savo žaidimų atnaujinimus ir įdiegimus.",
@@ -1067,8 +1079,8 @@
             "sortOptions": "Spustelėkite čia, norint surikiuoti žaidimus pagal abėcėlę.",
             "addGame": "Pridėkite savo žaidimus ar programas/programėles į biblioteką spustelėjus čia. Jie gali būti bet kas, net naršyklės „URL“ – saitai."
         },
-        "startTour": "",
-        "skip": "",
+        "startTour": "Pradėti apžiūrą",
+        "skip": "Praleisti",
         "done": "Atlikta"
     },
     "analyticsModal": {
@@ -1076,7 +1088,7 @@
         "enable": "Įjungta/Įgalinta (-as/-i)",
         "info": {
             "pt1": "Siekiant patobulinti šią programą, „Heroic“ renką 100% proc. anonimiškus duomenis.",
-            "pt2": "„Heroic“ naudoja atviro kodo „Plausible Analytics“ platformą, kad surinktų šiuos duomenis: programos versiją, operacinę sistemą, prijungtas parduotuves/platformas ir šalį.",
+            "pt2": "„Heroic“ naudoja atviro kodo „Plausible Analytics“ platformą, savarankiškai skleidžiamą „Heroic“ komandos, kad surinktų šiuos duomenis: programos versiją, operacinę sistemą, sistemos architektūrą, „Linux“ leidinį, prijungtas parduotuves/platformas ir šalį.",
             "pt3": "Jis niekada nerinks jokių asmeninių duomenų, įskaitant Jūsų naudotojo/vartotojo vardą (t.y. slapyvardį), IP adresą ar el. paštą.",
             "pt5": "„Plausible Analytics“ yra pilnai paklusnus su BDAR, „CCPA“ ir PERR.",
             "pt4": "Šie duomenys yra naudojami suteiktiant įžvalgas į tolimesnius dėmesio sutelkimus dėl mūsų ribotų resursų ir vartotojų atsiliepimų.",
@@ -1108,7 +1120,7 @@
             "features": "Funkcijos",
             "featuresPlaceholder": "Bet kokia funkcija",
             "ageRatingAll": "Visi/-as/-os/-us",
-            "pageSize": "",
+            "pageSize": "Puslapiui",
             "releaseYear": "Išleidimo metai",
             "hideOwned": "Slėpti turimus",
             "wishlistOnly": "Tik norimus",
@@ -1144,7 +1156,8 @@
                 "PL": "Lenkija",
                 "BR": "Brazilija",
                 "CH": "Šveicarija",
-                "TR": "Turkija"
+                "TR": "Turkija",
+                "ZA": "Pietų Afrika"
             },
             "auto": "Automatinis/-ė/-iškai ({{code}})",
             "label": "Parduotuvės regionas"
@@ -1152,7 +1165,7 @@
         "sidebar": "Išsamumas",
         "sort": {
             "priceDesc": "Kaina: nuo aukščiausios iki žemiausios",
-            "trending": "",
+            "trending": "Populiarus pagal tendenciją",
             "priceAsc": "Kaina: nuo žemiausios iki aukščiausios",
             "releaseDesc": "Išleidimo data: nuo naujausios iki seniausios",
             "ratingAsc": "Įvertinimas: nuo žemiausios iki aukščiausios",
@@ -1173,9 +1186,23 @@
             "prev": "Praeita/-s"
         },
         "tabs": {
-            "label": "Parduotuvė"
+            "label": "Parduotuvė",
+            "all": "Visos parduotuvės"
         },
-        "titleMulti": "Išsamumas"
+        "titleMulti": "Išsamumas",
+        "currency": {
+            "label": "Valiuta"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "„Green Man Gaming“ – {{drm}} raktas, atsiimamas už „Heroic“ ribų",
+            "gmgHint": "„Green Man Gaming“ – raktas išoriniai parduotuvei, neįdiegiamas per „Heroic“-",
+            "humbleHint": "„Humble Bundle“ – raktas išorinei parduotuvei, neįdiegiamas per „Heroic“"
+        },
+        "view": {
+            "grid": "Tinklelis",
+            "label": "Peržiūra/Žiūrėsena",
+            "list": "Sąrašas"
+        }
     },
     "console": {
         "filter": {

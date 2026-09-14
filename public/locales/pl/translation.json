@@ -818,7 +818,11 @@
         "nvidiaprime": {
             "description": "Wymuś użycie NVIDIA Optimus, lub AMD Dynamic Switchable Graphics dGPU. Używaj TYLKO do gier OpenGL, lub Vulkan."
         },
-        "hide-window-on-protocol-launch": "Ukryj okno Heroic podczas uruchamiania gier przez odnośniki heroic://"
+        "hide-window-on-protocol-launch": "Ukryj okno Heroic podczas uruchamiania gier przez odnośniki heroic://",
+        "steamRuntime": {
+            "label": "Używaj Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

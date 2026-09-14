@@ -530,7 +530,7 @@
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
-            "title": "Herní argumenty (ke spuštění po příkazu):",
+            "title": "Parametry hry (připojené k příkazu pro spuštění hry)",
             "error": {
                 "command": "Syntax příkazu %command% ze služby Steam není platný jako herní parametr.",
                 "env": "Proměnné prostředí musí být konfigurovány v tabulce níže."
@@ -825,7 +825,13 @@
         "nvidiaprime": {
             "description": "Vynutit použití diskrétní grafické karty s technologií NVIDIA Optimus nebo AMD Dynamic Switchable Graphics. Tuto možnost používejte POUZE pro hry využívající OpenGL a Vulkan."
         },
-        "hide-window-on-protocol-launch": "Schovat Heroic okno při spuštění hry z heroic:// odkaz"
+        "hide-window-on-protocol-launch": "Schovat Heroic okno při spuštění hry z heroic:// odkaz",
+        "gamepad-initial-repeat-delay": "Počáteční zpoždění opakování vstupu z gamepadu",
+        "gamepad-repeat-frequency": "Frekvence opakování vstupů z gamepadu",
+        "steamRuntime": {
+            "label": "Použít služby Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

@@ -364,6 +364,7 @@
         "placeholder": {
             "image": "Collez ici l'URL d'une image"
         },
-        "title": "Modifier l'application/le jeu"
+        "title": "Modifier l'application/le jeu",
+        "reset": "Réinitialisation"
     }
 }

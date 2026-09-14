@@ -802,7 +802,11 @@
         "analyticsOptIn": "Heroicの開発に役立てるために匿名データを送信する",
         "advertiseAvxForRosetta": "",
         "start-in-console-mode": "コンソールモードで起動する",
-        "disable_gog_presence": "GOG Presenceの更新を無効にする"
+        "disable_gog_presence": "GOG Presenceの更新を無効にする",
+        "steamRuntime": {
+            "label": "Steamランタイムを使用",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
