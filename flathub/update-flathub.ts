@@ -1,9 +1,8 @@
 import * as fs from 'fs'
 import * as crypto from 'crypto'
-import * as os from 'os'
-import * as child_process from 'child_process'
 import axios from 'axios'
 import { XMLParser, XMLBuilder } from 'fast-xml-parser'
+import { selectAppImageAsset } from './release-assets'
 
 // Define interface for GitHub API Release response
 interface GitHubReleaseAsset {
@@ -35,67 +34,45 @@ async function main() {
     './com.heroicgameslauncher.hgl/com.heroicgameslauncher.hgl.yml'
   let heroicYml = fs.readFileSync(ymlFilePath).toString()
 
-  // Get the specific release information (either latest or by tag for pre-releases)
+  // Use the requested release so its URLs, checksums and metadata stay aligned.
   console.log('Fetching release info')
   let releaseData: GitHubRelease
 
-  if (process.env.IS_PRERELEASE === 'true' && process.env.RELEASE_VERSION) {
-    // For pre-releases, fetch the specific release by tag
+  if (process.env.RELEASE_VERSION) {
     const { data } = await axios.get<GitHubRelease>(
-      `https://api.github.com/repos/${repoName}/releases/tags/${process.env.RELEASE_VERSION}`
+      `https://api.github.com/repos/${repoName}/releases/tags/${encodeURIComponent(process.env.RELEASE_VERSION)}`
     )
     releaseData = data
   } else {
-    // For regular releases, fetch the latest release
+    // Fall back to the latest release when no tag was supplied.
     const { data } = await axios.get<GitHubRelease>(
       `https://api.github.com/repos/${repoName}/releases/latest`
     )
     releaseData = data
   }
 
-  // Use x86_64 only for now
-  const architecture = 'x86_64'
-
-  // Find the AppImage asset
-  const appimage = releaseData.assets.find((asset) =>
-    asset.browser_download_url.includes('AppImage')
-  )
-
-  if (!appimage) {
-    throw new Error('Could not find AppImage asset in latest release')
-  }
+  const appimage = selectAppImageAsset(releaseData.assets, 'x86_64')
 
   console.log(`Using AppImage: ${appimage.browser_download_url}`)
-
-  // Construct the release string with x86_64 architecture
-  const releaseString = `https://github.com/${repoName}/releases/download/${
-    process.env.RELEASE_VERSION
-  }/Heroic-${process.env.RELEASE_VERSION?.substring(
-    1
-  )}-linux-${architecture}.AppImage`
 
   // Updated regex to match any architecture pattern in the URL
   heroicYml = heroicYml.replace(
     /https:\/\/github.com\/Heroic-Games-Launcher\/HeroicGamesLauncher\/releases\/download\/v.*..*..*\/Heroic-.*..*..*(-linux-[a-z0-9_]+)?.AppImage/,
-    releaseString
+    appimage.browser_download_url
   )
 
   // update hash in com.heroicgameslauncher.hgl.yml from latest .AppImage release
   console.log('updating hash in com.heroicgameslauncher.hgl.yml')
 
-  const outputFile = `${os.tmpdir()}/Heroic.AppImage`
-  child_process.spawnSync('curl', [
-    '-L',
+  const { data: outputContent } = await axios.get<Buffer>(
     appimage.browser_download_url,
-    '-o',
-    outputFile,
-    '--create-dirs'
-  ])
-  const outputContent = fs.readFileSync(outputFile)
+    {
+      responseType: 'arraybuffer'
+    }
+  )
   const hashSum = crypto.createHash('sha512')
   hashSum.update(outputContent)
   const sha512 = hashSum.digest('hex')
-  fs.rmSync(outputFile)
 
   heroicYml = heroicYml.replace(/sha512: [0-9, a-f]{128}/, `sha512: ${sha512}`)
 
@@ -108,12 +85,11 @@ async function main() {
   const xmlFilePath =
     './com.heroicgameslauncher.hgl/com.heroicgameslauncher.hgl.metainfo.xml'
   let heroicXml = fs.readFileSync(xmlFilePath).toString()
-  const date = new Date()
-  const isoDate = date.toISOString().slice(0, 10)
+  const isoDate = releaseData.published_at.split('T')[0]
 
   heroicXml = heroicXml.replace(
     /release version="v.*..*..*" date="[0-9]{4}-[0-9]{2}-[0-9]{2}"/,
-    `release version="${process.env.RELEASE_VERSION}" date="${isoDate}"`
+    `release version="${releaseData.tag_name}" date="${isoDate}"`
   )
 
   fs.writeFileSync(xmlFilePath, heroicXml)
@@ -121,37 +97,7 @@ async function main() {
     'Finished updating flathub release! Be sure to update release notes manually before merging.'
   )
 
-  // update release notes
-  console.log('setting default remote repo for gh cli')
-  const setDefaultResult = child_process.spawnSync('gh', [
-    'repo',
-    'set-default',
-    repoName
-  ])
-  console.log('setDefaultResult stdout = ', setDefaultResult.stdout?.toString())
-  console.log(
-    'setDefaultResult stderr = ',
-    setDefaultResult.stderr?.toString(),
-    ' error: ',
-    setDefaultResult?.error
-  )
-
-  const releaseNotesResult = child_process.spawnSync('gh', [
-    'release',
-    'view',
-    process.env.RELEASE_VERSION ?? 'undefined',
-    '--json',
-    'body'
-  ])
-  const releaseNotesStdOut = releaseNotesResult.stdout?.toString()
-  console.log('releaseListResult stdout = ', releaseNotesStdOut)
-  console.log(
-    'releaseListResult stderr = ',
-    releaseNotesResult.stderr?.toString()
-  )
-
-  const releaseNotesJson = JSON.parse(releaseNotesStdOut)
-  const releaseNotesComponents: string[] = releaseNotesJson.body.split('\n')
+  const releaseNotesComponents = (releaseData.body || '').split('\n')
 
   // XML Modification with fast-xml-parser
   heroicXml = fs.readFileSync(xmlFilePath).toString()
