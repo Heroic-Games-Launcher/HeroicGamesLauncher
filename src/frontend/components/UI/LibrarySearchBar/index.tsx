@@ -6,6 +6,7 @@ import SearchBar from '../SearchBar'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import { normalizeTitle } from 'frontend/helpers/library'
+import { getGameDisplayTitle } from 'frontend/helpers/gameOverrides'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -41,12 +42,16 @@ export default function LibrarySearchBar() {
     ]
       .filter(Boolean)
       .filter((el) => {
+        if (el.install.is_dlc) return false
         return (
-          !el.install.is_dlc &&
-          normalizeTitle(el.title).includes(normalizedFilterText)
+          normalizeTitle(getGameDisplayTitle(el)).includes(
+            normalizedFilterText
+          ) || normalizeTitle(el.title).includes(normalizedFilterText)
         )
       })
-      .sort((g1, g2) => (g1.title < g2.title ? -1 : 1))
+      .sort((g1, g2) =>
+        getGameDisplayTitle(g1).localeCompare(getGameDisplayTitle(g2))
+      )
   }, [
     amazon.library,
     epic.library,
