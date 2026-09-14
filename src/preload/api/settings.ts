@@ -22,3 +22,4 @@ export const systemInfo = {
   copyToClipboard: makeListenerCaller('copySystemInfoToClipboard')
 }
 export const hasExecutable = makeHandlerInvoker('hasExecutable')
+export const updateCometComponents = makeHandlerInvoker('updateCometComponents')

@@ -2,6 +2,7 @@ import { TypeCheckedStoreBackend } from '../../electron_store'
 import CacheStore from '../../cache'
 import { GameInfo, GOGAchievement } from 'common/types'
 import {
+  GOGClientsResponse,
   GOGSessionSyncQueueItem,
   GamesDBData,
   GogInstallInfo
@@ -24,6 +25,9 @@ const libraryStore = new CacheStore<GameInfo[], 'games'>('gog_library', null)
 const achievementStore = new CacheStore<GOGAchievement[]>(
   'gog_achievements',
   null
+)
+const remoteConfigStore = new CacheStore<GOGClientsResponse>(
+  'gog_remote_config'
 )
 const syncStore = new TypeCheckedStoreBackend('gogSyncStore', {
   cwd: 'gog_store',
@@ -52,5 +56,6 @@ export {
   syncStore,
   installInfoStore,
   playtimeSyncQueue,
-  privateBranchesStore
+  privateBranchesStore,
+  remoteConfigStore
 }
