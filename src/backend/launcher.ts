@@ -570,7 +570,7 @@ async function prepareLaunch(
     )
   ])
 
-  const knownFixes = readKnownFixes(gameInfo.app_name, gameInfo.runner)
+  const knownFixes = getKnownFixesFor(gameInfo.app_name, gameInfo.runner)
   if (knownFixes && knownFixes.wikiLink) {
     logWriter.logInfo(`Wiki Link, read this: ${knownFixes.wikiLink}\n\n`)
   }
