@@ -11,7 +11,6 @@ import {
   WineInstallation,
   WineCommandArgs,
   GameSettings,
-  KnowFixesInfo,
   LaunchParams,
   StatusPromise
 } from 'common/types'
@@ -61,7 +60,6 @@ import {
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
-import { storeMap } from 'common/utils'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
@@ -73,7 +71,6 @@ import { tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
   sharedWinePrefix,
-  fixesPath,
   flatpakHome,
   galaxyCommunicationExePath,
   gamesConfigPath,
@@ -98,6 +95,7 @@ import type { PartialDeep } from 'type-fest'
 import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 import { Game } from 'common/types/game_manager'
+import { getKnownFixesFor } from './known_fixes/utils'
 
 let powerDisplayId: number | null
 
@@ -572,6 +570,11 @@ async function prepareLaunch(
     )
   ])
 
+  const knownFixes = getKnownFixesFor(gameInfo.app_name, gameInfo.runner)
+  if (knownFixes && knownFixes.wikiLink) {
+    logWriter.logInfo(`Wiki Link, read this: ${knownFixes.wikiLink}\n\n`)
+  }
+
   // If we're not on Linux, we can return here
   if (!isLinux) {
     return { success: true, rpcClient, offlineMode }
@@ -958,27 +961,8 @@ async function prepareWineLaunch(
   return { success: true, envVars: envVars }
 }
 
-export function readKnownFixes(appName: string, runner: Runner) {
-  const fixPath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
-
-  if (!existsSync(fixPath)) return null
-
-  try {
-    const fixesContent = JSON.parse(
-      readFileSync(fixPath).toString()
-    ) as KnowFixesInfo
-
-    return fixesContent
-  } catch (error) {
-    // if we fail to download the json file, it can be malformed causing
-    // JSON.parse to throw an exception
-    logWarning(`Known fixes could not be applied, ignoring.\n${error}`)
-    return null
-  }
-}
-
 async function installFixes(appName: string, runner: Runner) {
-  const knownFixes = readKnownFixes(appName, runner)
+  const knownFixes = getKnownFixesFor(appName, runner)
 
   if (!knownFixes) return
 
@@ -1016,7 +1000,7 @@ async function installFixes(appName: string, runner: Runner) {
 }
 
 function getKnownFixesEnvVariables(appName: string, runner: Runner) {
-  const knownFixes = readKnownFixes(appName, runner)
+  const knownFixes = getKnownFixesFor(appName, runner)
 
   return knownFixes?.envVariables || {}
 }

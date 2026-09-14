@@ -23,7 +23,7 @@ import 'backend/updater'
 import 'backend/discounts'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
-import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
+import { existsSync, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
 
 import Backend from 'i18next-fs-backend'
@@ -80,12 +80,7 @@ import {
   logWarning
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
-import {
-  launchEventCallback,
-  readKnownFixes,
-  runWineCommand,
-  validWine
-} from './launcher'
+import { launchEventCallback, runWineCommand, validWine } from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
@@ -126,7 +121,6 @@ import {
   wikiLink,
   wineprefixFAQ
 } from './constants/urls'
-import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
   isCLIConsoleMode,
   isCLIFullscreen,
@@ -863,22 +857,6 @@ addListener('setSetting', (event, { appName, key, value }) => {
   }
 })
 
-// Watch the installed games file and trigger a refresh on the installed games if something changes
-if (existsSync(legendaryInstalled)) {
-  let watchTimeout: NodeJS.Timeout | undefined
-  watch(legendaryInstalled, () => {
-    logInfo('installed.json updated, refreshing library', LogPrefix.Legendary)
-    // `watch` might fire twice (while Legendary/we are still writing chunks of the file), which would in turn make LegendaryLibrary fail to
-    // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen
-    // in a 500ms timespan
-    if (watchTimeout) clearTimeout(watchTimeout)
-    watchTimeout = setTimeout(
-      () => libraryManagerMap['legendary'].refreshInstalled(),
-      500
-    )
-  })
-}
-
 addHandler('refreshLibrary', async (e, library?) => {
   if (library !== undefined && library !== 'all') {
     await libraryManagerMap[library].refresh()
@@ -958,19 +936,21 @@ addHandler(
       status: 'moving'
     })
 
-    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+    const { title, install } = libraryManagerMap[runner]
+      .getGame(appName)
+      .getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-    const moveRes = await libraryManagerMap[runner]
-      .getGame(appName)
-      .moveInstall(path)
-    if (moveRes.status === 'error') {
+    let validNewPath = true
+
+    const onMoveError = (error: string) => {
       notify({
         title,
         body: i18next.t('notify.error.move', 'Error Moving Game')
       })
+
       logError(
-        `Error while moving ${appName} to ${path}: ${moveRes.error} `,
+        `Error while moving ${appName} to ${path}: ${error}`,
         LogPrefix.Backend
       )
 
@@ -978,15 +958,34 @@ addHandler(
         event,
         title: i18next.t('box.error.title', 'Error'),
         message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
-          error: moveRes.error
+          error
         }),
         type: 'ERROR'
       })
     }
 
-    if (moveRes.status === 'done') {
-      notify({ title, body: i18next.t('notify.moved') })
-      logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
+    if (path.startsWith(install.install_path!)) {
+      // we don't want to move a game in a subfolder of the current install directory
+      // it will cause all game files to be deleted since moving moves all files to the
+      // new directory and deletes the old one
+      validNewPath = false
+
+      const error = `New install path (${path}) cannot be inside the current install path (${install.install_path}).`
+      onMoveError(error)
+    }
+
+    if (validNewPath) {
+      const moveRes = await libraryManagerMap[runner]
+        .getGame(appName)
+        .moveInstall(path)
+      if (moveRes.status === 'error') {
+        onMoveError(moveRes.error!)
+      }
+
+      if (moveRes.status === 'done') {
+        notify({ title, body: i18next.t('notify.moved') })
+        logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
+      }
     }
 
     sendGameStatusUpdate({
@@ -1422,10 +1421,6 @@ addListener('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
   libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
 })
 
-addHandler('getKnownFixes', (e, appName, runner) =>
-  readKnownFixes(appName, runner)
-)
-
 addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
   validWine(wineVersion)
 )
@@ -1443,6 +1438,7 @@ import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
+import './known_fixes/ipc_handler'
 import './storeManagers/legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'

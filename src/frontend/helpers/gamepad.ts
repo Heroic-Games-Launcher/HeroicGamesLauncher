@@ -696,7 +696,7 @@ export const initGamepad = () => {
     return isValveGamepad(gamepad) || !isMaskedGamepad(valveGamepads, gamepad)
   }
 
-  // check all the buttons and axes every frame
+  // check all the buttons and axes every frame if gamepads are connected
   function updateStatus() {
     const gamepads = navigator.getGamepads()
 
@@ -730,7 +730,7 @@ export const initGamepad = () => {
       }
     })
 
-    requestAnimationFrame(updateStatus)
+    if (controllers.length) requestAnimationFrame(updateStatus)
   }
 
   // function logState(index: number) {
@@ -773,6 +773,7 @@ export const initGamepad = () => {
   }
 
   function removegamepad(gamepad: Gamepad) {
+    console.log(`Gamepad removed: ${gamepad.id}`)
     const removedIndex = controllers.findIndex((idx) => idx === gamepad.index)
 
     // remove disconnected controller

@@ -207,7 +207,7 @@ export default function GamesSubmenu({
     if (addedToSteam) {
       await window.api
         .removeFromSteam(appName, runner)
-        .then(() => setAddedToSteam(false))
+        .then((removed) => setAddedToSteam(!removed))
     } else {
       await window.api
         .addToSteam(appName, runner)
