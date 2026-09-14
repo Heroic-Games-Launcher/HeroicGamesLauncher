@@ -163,6 +163,7 @@ for (const [archName, unpackedDirectory] of [
       const hash = () =>
         createHash('sha256').update(fs.readFileSync(archive)).digest('hex')
       const before = hash()
+      assert.equal(source.sha256, before)
       const files = execFileSync('tar', ['-tf', archive], { encoding: 'utf8' })
       assert(files.includes(`${unpackedDirectory}/heroic`))
       fs.utimesSync(path.join(unpacked, 'heroic'), new Date(), new Date())
@@ -172,6 +173,22 @@ for (const [archName, unpackedDirectory] of [
       )
       assert.equal(hash(), before)
       assert.equal(source.dest, 'squashfs-root')
+      fs.writeFileSync(path.join(unpacked, 'heroic'), 'next payload')
+      const changed = createLocalSource(
+        getArchitecture(archName),
+        '1.2.3',
+        root
+      )
+      assert.equal(changed.path, source.path)
+      assert.notEqual(changed.sha256, source.sha256)
+      assert.equal(changed.sha256, hash())
+      assert.equal(
+        moduleNamed(
+          createManifest(getArchitecture(archName), changed),
+          'heroic'
+        ).sources.at(-1).sha256,
+        changed.sha256
+      )
     }
   )
 }

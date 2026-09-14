@@ -61,14 +61,18 @@ function createLocalSource(architecture, version, root = process.cwd()) {
       temporaryArchive,
       architecture.unpackedDirectory
     ])
+    const sha256 = createHash('sha256')
+      .update(fs.readFileSync(temporaryArchive))
+      .digest('hex')
     fs.renameSync(temporaryArchive, path.join(dist, archiveName))
+    return {
+      type: 'archive',
+      path: `../dist/${archiveName}`,
+      sha256,
+      dest: 'squashfs-root'
+    }
   } finally {
     fs.rmSync(temporaryDirectory, { recursive: true, force: true })
-  }
-  return {
-    type: 'archive',
-    path: `../dist/${archiveName}`,
-    dest: 'squashfs-root'
   }
 }
 
