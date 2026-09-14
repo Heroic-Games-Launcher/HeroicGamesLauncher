@@ -24,10 +24,12 @@ export function getStatusLabel({
     playing: t('gamepage:status.playing', 'Playing'),
     queued: `${t('gamepage:status.queued', 'Queued')}`,
     uninstalling: t('gamepage:status.uninstalling', 'Uninstalling'),
-    updating: `${t('gamepage:status.updating')} ${Math.ceil(percent || 0)}%`,
-    installing: `${t('gamepage:status.downloading', 'Downloading')} ${Math.ceil(
-      percent || 0
-    )}%`,
+    updating: percent
+      ? `${t('gamepage:status.updating')} ${Math.ceil(percent)}%`
+      : t('gamepage:status.updating'),
+    installing: percent
+      ? `${t('gamepage:status.downloading', 'Downloading')} ${Math.ceil(percent)}%`
+      : t('gamepage:status.downloading', 'Downloading'),
     extracting: t('gamepage:status.extracting', 'Extracting'),
     'syncing-saves': t('gamepage:status.syncingSaves', 'Syncing Saves'),
     moving: t('gamepage:gamecard.moving', 'Moving'),
