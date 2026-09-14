@@ -27,11 +27,11 @@ async function main() {
   console.log('is prerelease: ', process.env.IS_PRERELEASE)
   const repoOrgName = 'Heroic-Games-Launcher'
   const repoName = repoOrgName + '/HeroicGamesLauncher'
+  const packagingDirectory = process.argv[2] || './com.heroicgameslauncher.hgl'
 
   // update url in com.heroicgameslauncher.hgl.yml
   console.log('updating url in com.heroicgameslauncher.hgl.yml')
-  const ymlFilePath =
-    './com.heroicgameslauncher.hgl/com.heroicgameslauncher.hgl.yml'
+  const ymlFilePath = `${packagingDirectory}/com.heroicgameslauncher.hgl.yml`
   let heroicYml = fs.readFileSync(ymlFilePath).toString()
 
   // Use the requested release so its URLs, checksums and metadata stay aligned.
@@ -51,39 +51,61 @@ async function main() {
     releaseData = data
   }
 
-  const appimage = selectAppImageAsset(releaseData.assets, 'x86_64')
-
-  console.log(`Using AppImage: ${appimage.browser_download_url}`)
-
-  // Updated regex to match any architecture pattern in the URL
-  heroicYml = heroicYml.replace(
-    /https:\/\/github.com\/Heroic-Games-Launcher\/HeroicGamesLauncher\/releases\/download\/v.*..*..*\/Heroic-.*..*..*(-linux-[a-z0-9_]+)?.AppImage/,
-    appimage.browser_download_url
-  )
-
-  // update hash in com.heroicgameslauncher.hgl.yml from latest .AppImage release
-  console.log('updating hash in com.heroicgameslauncher.hgl.yml')
-
-  const { data: outputContent } = await axios.get<Buffer>(
-    appimage.browser_download_url,
-    {
+  const downloadChecksum = async (url: string) => {
+    const { data } = await axios.get<Buffer>(url, {
       responseType: 'arraybuffer'
-    }
-  )
-  const hashSum = crypto.createHash('sha512')
-  hashSum.update(outputContent)
-  const sha512 = hashSum.digest('hex')
+    })
+    return crypto.createHash('sha512').update(data).digest('hex')
+  }
 
-  heroicYml = heroicYml.replace(/sha512: [0-9, a-f]{128}/, `sha512: ${sha512}`)
-
-  fs.writeFileSync(ymlFilePath, heroicYml)
+  if (heroicYml.includes('heroic-sources.json')) {
+    // The shared manifest uses tarballs so extraction works on either host.
+    const assets = [
+      ['x86_64', 'x64'],
+      ['aarch64', 'arm64']
+    ].map(([flatpakArch, assetArch]) => {
+      const asset = releaseData.assets.find((asset) =>
+        asset.browser_download_url.endsWith(`-linux-${assetArch}.tar.xz`)
+      )
+      if (!asset)
+        throw new Error(`No Linux ${assetArch} tarball in this release`)
+      return { flatpakArch, url: asset.browser_download_url }
+    })
+    const sources = await Promise.all(
+      assets.map(async ({ flatpakArch, url }) => ({
+        type: 'archive',
+        url,
+        sha512: await downloadChecksum(url),
+        dest: 'heroic',
+        'only-arches': [flatpakArch]
+      }))
+    )
+    // Resolve and verify both downloads before changing the pinned sources.
+    fs.writeFileSync(
+      `${packagingDirectory}/heroic-sources.json`,
+      JSON.stringify(sources, null, 2) + '\n'
+    )
+  } else {
+    // Keep compatibility with the existing single-architecture manifest.
+    const appimage = selectAppImageAsset(releaseData.assets, 'x86_64')
+    console.log(`Using AppImage: ${appimage.browser_download_url}`)
+    const sha512 = await downloadChecksum(appimage.browser_download_url)
+    heroicYml = heroicYml.replace(
+      /https:\/\/github.com\/Heroic-Games-Launcher\/HeroicGamesLauncher\/releases\/download\/v.*..*..*\/Heroic-.*..*..*(-linux-[a-z0-9_]+)?.AppImage/,
+      appimage.browser_download_url
+    )
+    heroicYml = heroicYml.replace(
+      /sha512: [0-9, a-f]{128}/,
+      `sha512: ${sha512}`
+    )
+    fs.writeFileSync(ymlFilePath, heroicYml)
+  }
 
   // update release version and date on xml tag in com.heroicgameslauncher.hgl.metainfo.xml
   console.log(
     'updating release version and date on xml tag in com.heroicgameslauncher.hgl.metainfo.xml'
   )
-  const xmlFilePath =
-    './com.heroicgameslauncher.hgl/com.heroicgameslauncher.hgl.metainfo.xml'
+  const xmlFilePath = `${packagingDirectory}/com.heroicgameslauncher.hgl.metainfo.xml`
   let heroicXml = fs.readFileSync(xmlFilePath).toString()
   const isoDate = releaseData.published_at.split('T')[0]
 

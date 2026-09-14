@@ -13,8 +13,18 @@ const metainfoPath =
 const version = 'v2.22.1'
 const url = `https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${version}/Heroic-2.22.1-linux-x86_64.AppImage`
 const content = Buffer.from('x86_64 release payload')
+const armContent = Buffer.from('ARM64 release payload')
+const sourcesPath = './com.heroicgameslauncher.hgl/heroic-sources.json'
 
-async function runUpdater(requestedTag?: string) {
+async function runUpdater(
+  requestedTag?: string,
+  options: {
+    archiveSources?: boolean
+    missingArm64?: boolean
+    failArm64Download?: boolean
+    onWrite?: (name: string, value: string | Buffer) => void
+  } = {}
+) {
   const release = {
     tag_name: version,
     published_at: '2026-01-02T03:04:05Z',
@@ -22,6 +32,21 @@ async function runUpdater(requestedTag?: string) {
     assets: [
       { browser_download_url: url.replace('x86_64', 'arm64') },
       { browser_download_url: url }
+    ]
+  }
+  if (options.archiveSources) {
+    release.assets = [
+      { browser_download_url: url.replace('x86_64.AppImage', 'x64.tar.xz') },
+      ...(!options.missingArm64
+        ? [
+            {
+              browser_download_url: url.replace(
+                'x86_64.AppImage',
+                'arm64.tar.xz'
+              )
+            }
+          ]
+        : [])
     ]
   }
   const files = new Map<string, string | Buffer>([
@@ -42,11 +67,21 @@ async function runUpdater(requestedTag?: string) {
         .replace('${heroic-release-date}', '2025-01-01')
     ]
   ])
-  const get = jest.fn((target: string) =>
-    Promise.resolve({
-      data: target.startsWith('https://api.github.com/') ? release : content
+  if (options.archiveSources) {
+    files.set(manifestPath, 'sources:\n  - heroic-sources.json\n')
+    files.set(sourcesPath, '[]\n')
+  }
+  const get = jest.fn((target: string) => {
+    if (options.failArm64Download && target.endsWith('arm64.tar.xz'))
+      return Promise.reject(new Error('ARM64 download failed'))
+    return Promise.resolve({
+      data: target.startsWith('https://api.github.com/')
+        ? release
+        : target.endsWith('arm64.tar.xz')
+          ? armContent
+          : content
     })
-  )
+  })
   const modules: Record<string, unknown> = {
     fs: {
       readFileSync: (name: string) => {
@@ -55,8 +90,10 @@ async function runUpdater(requestedTag?: string) {
           throw new Error(`Unexpected file read: ${name}`)
         return Buffer.isBuffer(value) ? value : Buffer.from(value)
       },
-      writeFileSync: (name: string, value: string | Buffer) =>
+      writeFileSync: (name: string, value: string | Buffer) => {
+        options.onWrite?.(name, value)
         files.set(name, value)
+      }
     },
     crypto: jest.requireActual('node:crypto'),
     axios: { get },
@@ -77,7 +114,10 @@ async function runUpdater(requestedTag?: string) {
       return modules[name]
     },
     exports: {},
-    process: { env: requestedTag ? { RELEASE_VERSION: requestedTag } : {} },
+    process: {
+      argv: [],
+      env: requestedTag ? { RELEASE_VERSION: requestedTag } : {}
+    },
     console: { log: jest.fn() }
   })
   return { files, get }
@@ -102,5 +142,38 @@ test.each([undefined, version])(
       '<release version="v2.22.1" date="2026-01-02"'
     )
     expect(metainfo).toContain('Release-specific change')
+  }
+)
+
+test('updates both architecture-scoped tarball sources with their own checksums', async () => {
+  const { files } = await runUpdater(version, { archiveSources: true })
+  expect(JSON.parse(files.get(sourcesPath)!.toString())).toEqual(
+    (
+      [
+        ['x86_64', 'x64', content],
+        ['aarch64', 'arm64', armContent]
+      ] satisfies [string, string, Buffer][]
+    ).map(([flatpakArch, assetArch, payload]) => ({
+      type: 'archive',
+      url: url.replace('x86_64.AppImage', `${assetArch}.tar.xz`),
+      sha512: createHash('sha512').update(payload).digest('hex'),
+      dest: 'heroic',
+      'only-arches': [flatpakArch]
+    }))
+  )
+  expect(files.get(manifestPath)).toBe('sources:\n  - heroic-sources.json\n')
+  expect(files.get(metainfoPath)!.toString()).toContain(
+    '<release version="v2.22.1" date="2026-01-02"'
+  )
+})
+
+test.each(['missingArm64', 'failArm64Download'] as const)(
+  'does not update either architecture or metadata on %s',
+  async (failure) => {
+    const onWrite = jest.fn()
+    await expect(
+      runUpdater(version, { archiveSources: true, [failure]: true, onWrite })
+    ).rejects.toThrow(/ARM64|arm64/)
+    expect(onWrite).not.toHaveBeenCalled()
   }
 )
