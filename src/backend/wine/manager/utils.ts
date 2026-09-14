@@ -34,17 +34,17 @@ export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   }
 )
 
-function getLatestLocalVersions(): Record<string, string | undefined> {
+function getLatestLocalVersions(): Record<string, WineVersionInfo | undefined> {
   const localWines = wineDownloaderInfoStore.get('wine-releases', [])
 
   if (isLinux) {
     return {
       latestGEProton: localWines.find(
         (wine) => wine.version === 'GE-Proton-latest'
-      )?.date,
+      ),
       latestProtonCachyos: localWines.find(
         (wine) => wine.version === 'Proton-CachyOS-latest'
-      )?.date
+      )
     }
   }
 
@@ -52,47 +52,48 @@ function getLatestLocalVersions(): Record<string, string | undefined> {
     return {
       latestWineCrossover: localWines.find(
         (wine) => wine.version === 'Wine-Crossover-latest'
-      )?.date,
+      ),
       latestWineStaging: localWines.find(
         (wine) => wine.version === 'Wine-Staging-macOS-latest'
-      )?.date,
+      ),
       latestGPTK: localWines.find(
         (wine) => wine.version === 'Game-Porting-Toolkit-latest'
-      )?.date
+      )
     }
   }
 
   return {}
 }
 
-// compare dates only of local version is present
-function localVersionIsOlder(
-  localDate: string | undefined,
+// Refresh incompatible cached assets even if the release date is unchanged.
+function localVersionNeedsUpdate(
+  localVersion: WineVersionInfo | undefined,
   latestRelease: { published_at: string; tag: string }
 ) {
-  if (!localDate) return false
+  if (!localVersion) return false
 
   return (
-    Date.parse(localDate) <
-    Date.parse(latestRelease.published_at.replace(/T.*/, ''))
+    !isCompatibleDownload(localVersion.type, localVersion.download) ||
+    Date.parse(localVersion.date) <
+      Date.parse(latestRelease.published_at.replace(/T.*/, ''))
   )
 }
 
 // Fetch the latest releases of the different translation layers but only
-// if we don't already have the latest version locally
+// if the cached latest version is outdated or targets another architecture.
 //
 // Note that this updates the list of releases of a given repo if and only if
 // we already have a list for that given repo
-export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
+export async function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
   if (isWindows) return
 
   const latestLocalVersions = getLatestLocalVersions()
   const repositoriesToFetch = []
 
-  // compare dates to know which repositories to fetch
+  // Check cached assets and dates to know which repositories to fetch.
   if (isLinux) {
     if (
-      localVersionIsOlder(
+      localVersionNeedsUpdate(
         latestLocalVersions.latestGEProton,
         releasesData['ge-proton']
       )
@@ -100,7 +101,7 @@ export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
       repositoriesToFetch.push(Repositorys.PROTONGE)
 
     if (
-      localVersionIsOlder(
+      localVersionNeedsUpdate(
         latestLocalVersions.latestProtonCachyos,
         releasesData['proton-cachyos']
       )
@@ -110,7 +111,7 @@ export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
 
   if (isMac) {
     if (
-      localVersionIsOlder(
+      localVersionNeedsUpdate(
         latestLocalVersions.latestWineCrossover,
         releasesData['wine-crossover']
       )
@@ -118,7 +119,7 @@ export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
       repositoriesToFetch.push(Repositorys.WINECROSSOVER)
 
     if (
-      localVersionIsOlder(
+      localVersionNeedsUpdate(
         latestLocalVersions.latestWineStaging,
         releasesData['wine-staging']
       )
@@ -126,7 +127,7 @@ export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
       repositoriesToFetch.push(Repositorys.WINESTAGINGMACOS)
 
     if (
-      localVersionIsOlder(
+      localVersionNeedsUpdate(
         latestLocalVersions.latestGPTK,
         releasesData['game-porting-toolkit']
       )
@@ -135,7 +136,7 @@ export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
   }
 
   if (repositoriesToFetch.length > 0) {
-    void updateWineVersionInfos(true, repositoriesToFetch)
+    await updateWineVersionInfos(true, repositoriesToFetch)
   }
 }
 

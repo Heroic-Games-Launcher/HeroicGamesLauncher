@@ -1,9 +1,13 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Repositorys, WineVersionInfo } from 'common/types'
+import { ReleasesInfo, Repositorys, WineVersionInfo } from 'common/types'
 import { getAvailableVersions } from '../downloader/main'
-import { updateWineVersionInfos, wineDownloaderInfoStore } from '../utils'
+import {
+  updateWineListsIfOutdated,
+  updateWineVersionInfos,
+  wineDownloaderInfoStore
+} from '../utils'
 
 jest.mock('backend/logger')
 jest.mock('backend/ipc')
@@ -129,4 +133,67 @@ test('cached reads omit incompatible uninstalled downloads', async () => {
   wineDownloaderInfoStore.set('wine-releases', [entry('x86_64')])
   await expect(updateWineVersionInfos()).resolves.toEqual([])
   expect(wineDownloaderInfoStore.get('wine-releases', [])).toEqual([])
+})
+
+const currentReleases = {
+  'ge-proton': { tag: 'GE-Proton11-6', published_at: '2026-09-01T00:00:00Z' },
+  'proton-cachyos': {
+    tag: 'cachyos-11.0-20260703-slr',
+    published_at: '2026-09-01T00:00:00Z'
+  }
+} as ReleasesInfo
+
+test.each([
+  ['arm64', 'x86_64', 'arm64'],
+  ['x64', 'arm64', 'x86_64']
+])(
+  'startup refreshes incompatible cached URLs on %s without a newer release',
+  async (hostArch, oldArch, newArch) => {
+    Object.defineProperty(process, 'arch', { value: hostArch })
+    const latest = (arch: string) => ({
+      ...entry(arch),
+      version: 'Proton-CachyOS-latest'
+    })
+    wineDownloaderInfoStore.set('wine-releases', [latest(oldArch)])
+    jest.mocked(getAvailableVersions).mockResolvedValue([latest(newArch)])
+
+    await updateWineListsIfOutdated(currentReleases)
+
+    expect(getAvailableVersions).toHaveBeenCalledWith({
+      repositorys: [Repositorys.PROTONCACHYOS],
+      count: 50
+    })
+    expect(wineDownloaderInfoStore.get('wine-releases', [])).toEqual([
+      latest(newArch)
+    ])
+  }
+)
+
+test('startup does not refetch a current compatible catalog', async () => {
+  wineDownloaderInfoStore.set('wine-releases', [
+    { ...entry('arm64'), version: 'Proton-CachyOS-latest' }
+  ])
+  await updateWineListsIfOutdated(currentReleases)
+  expect(getAvailableVersions).not.toHaveBeenCalled()
+})
+
+test('startup still refreshes a compatible catalog when a newer release exists', async () => {
+  wineDownloaderInfoStore.set('wine-releases', [
+    {
+      ...entry('arm64'),
+      version: 'Proton-CachyOS-latest',
+      date: '2026-08-01'
+    }
+  ])
+  jest.mocked(getAvailableVersions).mockResolvedValue([entry('arm64')])
+  await updateWineListsIfOutdated(currentReleases)
+  expect(getAvailableVersions).toHaveBeenCalledWith({
+    repositorys: [Repositorys.PROTONCACHYOS],
+    count: 50
+  })
+})
+
+test('startup leaves a missing catalog lazy', async () => {
+  await updateWineListsIfOutdated(currentReleases)
+  expect(getAvailableVersions).not.toHaveBeenCalled()
 })
