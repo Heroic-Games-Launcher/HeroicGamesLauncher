@@ -70,6 +70,7 @@ interface SyncIPCFunctions {
   openReleases: () => void
   openWeblate: () => void
   showAboutWindow: () => void
+  focusMainWindow: () => void
   openLoginPage: () => void
   openDiscordLink: () => void
   openPatreonPage: () => void

@@ -9,6 +9,7 @@ import {
   DisableController,
   DiscordRPC,
   EgsSettings,
+  EnableControllerInConsoleMode,
   HideChangelogOnStartup,
   LibraryTopSection,
   MaxRecentGames,
@@ -50,6 +51,8 @@ export default function GeneralSettings() {
       <HideChangelogOnStartup />
 
       <StartInConsoleMode />
+
+      <EnableControllerInConsoleMode />
 
       <TraySettings />
 
