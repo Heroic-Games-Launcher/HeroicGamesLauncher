@@ -6,6 +6,11 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import AddBoxIcon from '@mui/icons-material/AddBox'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader
+} from 'frontend/components/UI/Dialog'
 import './EnvVariablesTable.css'
 
 import BulkEditModal from './BulkEditModal'
@@ -22,6 +27,7 @@ const EnvVariablesTable = () => {
   const [newKey, setNewKey] = useState('')
   const [newValue, setNewValue] = useState('')
   const [formError, setFormError] = useState('')
+  const [showBulkEdit, setShowBulkEdit] = useState(false)
 
   const handleAdd = () => {
     const error = validateEnvKey(newKey, t)
@@ -33,18 +39,20 @@ const EnvVariablesTable = () => {
     const trimmedKey = newKey.trim()
     const trimmedValue = newValue.trim()
 
-    const existingIndex = environmentOptions.findIndex(
-      (env) => env.key === trimmedKey
-    )
-
-    const updated = [...environmentOptions]
-    if (existingIndex >= 0) {
-      updated[existingIndex] = { key: trimmedKey, value: trimmedValue }
-    } else {
-      updated.push({ key: trimmedKey, value: trimmedValue })
+    if (environmentOptions.some((env) => env.key === trimmedKey)) {
+      setFormError(
+        t(
+          'options.env_variables.error.duplicate_key',
+          'A variable with this name already exists'
+        )
+      )
+      return
     }
 
-    setEnvironmentOptions(updated)
+    setEnvironmentOptions([
+      ...environmentOptions,
+      { key: trimmedKey, value: trimmedValue }
+    ])
     setNewKey('')
     setNewValue('')
     setFormError('')
@@ -115,23 +123,6 @@ const EnvVariablesTable = () => {
     })
   }
 
-  const openBulkEdit = () => {
-    showDialogModal({
-      title: t('options.env_variables.bulk_edit', 'Bulk Edit'),
-      message: (
-        <BulkEditModal
-          initialEnvs={environmentOptions}
-          onCancel={() => showDialogModal({ showDialog: false })}
-          onSave={(envs) => {
-            setEnvironmentOptions(envs)
-            showDialogModal({ showDialog: false })
-          }}
-        />
-      ),
-      buttons: []
-    })
-  }
-
   const envVariablesInfo = (
     <InfoBox text="infobox.help">
       {t(
@@ -148,13 +139,30 @@ const EnvVariablesTable = () => {
 
   return (
     <div className="env-vars-container">
+      {showBulkEdit && (
+        <Dialog showCloseButton onClose={() => setShowBulkEdit(false)}>
+          <DialogHeader onClose={() => setShowBulkEdit(false)}>
+            {t('options.env_variables.bulk_edit', 'Bulk Edit')}
+          </DialogHeader>
+          <DialogContent>
+            <BulkEditModal
+              initialEnvs={environmentOptions}
+              onCancel={() => setShowBulkEdit(false)}
+              onSave={(envs) => {
+                setEnvironmentOptions(envs)
+                setShowBulkEdit(false)
+              }}
+            />
+          </DialogContent>
+        </Dialog>
+      )}
       <div className="env-vars-header">
         <label className="env-vars-title">
           {t('options.advanced.title', 'Environment Variables')}
         </label>
         <div className="env-vars-actions">
           <SvgButton
-            onClick={openBulkEdit}
+            onClick={() => setShowBulkEdit(true)}
             title={t('options.env_variables.bulk_edit', 'Bulk Edit')}
           >
             <ListAltIcon
@@ -175,7 +183,7 @@ const EnvVariablesTable = () => {
       <div className="env-vars-list">
         {environmentOptions.map((env, index) => (
           <EnvVariableRow
-            key={`${env.key}-${index}`}
+            key={env.key}
             env={env}
             onSave={(newKey, newValue) =>
               handleSaveEdit(index, newKey, newValue)

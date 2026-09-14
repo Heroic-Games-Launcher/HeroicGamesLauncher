@@ -89,9 +89,15 @@
   align-items: center;
 }
 
-.env-var-row:focus-within,
+.env-var-row:focus-within .env-var-row-actions,
 .env-var-row:hover .env-var-row-actions {
   opacity: 1;
+}
+
+.env-vars-container .svg-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(1);
 }
 
 .env-var-add-section {
