@@ -342,6 +342,9 @@ if (!gotTheLock) {
     if (isWindows) {
       app.setAppUserModelId('Heroic Games Launcher')
     }
+    if (isMac) {
+      app.setName('Heroic')
+    }
 
     runOnceWhenOnline(async () => {
       const isLoggedIn = LegendaryUser.isLoggedIn()
