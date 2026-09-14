@@ -1,7 +1,3 @@
-/// Url to Wine GE github release page
-export const WINEGE_URL =
-  'https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases'
-
 /// Url to Proton GE github release page
 export const PROTONGE_URL =
   'https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases'
@@ -16,7 +12,7 @@ export const WINELUTRIS_URL =
 
 /// Url to Wine Crossover github release page
 export const WINECROSSOVER_URL =
-  'https://api.github.com/repos/Gcenx/winecx/releases'
+  'https://api.github.com/repos/Heroic-Games-Launcher/wine-crossover/releases'
 
 /// Url to Wine Staging for macOS github release page
 export const WINESTAGINGMACOS_URL =
@@ -25,3 +21,7 @@ export const WINESTAGINGMACOS_URL =
 /// Url to Game Porting Toolkit from Gcenx github release page
 export const GPTK_URL =
   'https://api.github.com/repos/Gcenx/game-porting-toolkit/releases'
+
+/// Url to Proton-CachyOS from the CachyOS team github release page
+export const PROTON_CACHYOS_URL =
+  'https://api.github.com/repos/CachyOS/proton-cachyos/releases'

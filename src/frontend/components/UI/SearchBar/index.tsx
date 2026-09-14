@@ -33,7 +33,16 @@ export default function SearchBar({
       }
     }
     return
-  }, [input])
+  }, [input, value, onInputChanged])
+
+  // Sync external value changes (e.g., a reset button) into the uncontrolled
+  // input. The effect above only runs on mount, so without this a caller
+  // clearing the value wouldn't clear the visible text.
+  useEffect(() => {
+    if (input.current && input.current.value !== value) {
+      input.current.value = value
+    }
+  }, [value])
 
   const onClear = useCallback(() => {
     onInputChanged('')
@@ -41,7 +50,7 @@ export default function SearchBar({
       input.current.value = ''
       input.current.focus()
     }
-  }, [input])
+  }, [onInputChanged])
 
   return (
     <div className="SearchBar" data-testid="searchBar">

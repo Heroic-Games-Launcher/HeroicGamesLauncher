@@ -4,11 +4,22 @@
   align-items: center;
 }
 
+.toggleWithInfo {
+  label {
+    padding-bottom: 0px !important;
+  }
+  .popover-wrapper {
+    margin-inline-start: 3rem;
+    padding-bottom: var(--space-md);
+  }
+}
+
 .helpIcon {
   padding-inline-start: 5px;
   color: var(--accent);
 }
 
+.settingsDialogContent,
 .settingsWrapper {
   .defaults-hint {
     background: var(--anticheat-denied, var(--status-danger));

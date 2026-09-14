@@ -11,6 +11,7 @@ import { isOnline } from '../../online_monitor'
 import { ZoomCredentials } from 'common/types/zoom'
 import { clearCache } from 'backend/utils'
 import { tokenPath, embedUrl, apiUrl } from './constants'
+import { session } from 'electron'
 
 export class ZoomUser {
   static async login(url: string): Promise<{
@@ -50,7 +51,9 @@ export class ZoomUser {
       return
     }
     try {
-      const response = await this.makeRequest(`${apiUrl}/li/loggedin`)
+      const response = await this.makeRequest<{ name: string }>(
+        `${apiUrl}/li/loggedin`
+      )
       logInfo('User is authenticated with Zoom', LogPrefix.Zoom)
       const username = response.name
       configStore.set('username', username)
@@ -91,7 +94,15 @@ export class ZoomUser {
     if (existsSync(tokenPath)) {
       unlinkSync(tokenPath)
     }
+    const ses = session.fromPartition('persist:zoom')
+    ses.clearStorageData().catch(() => {})
+    ses.clearCache().catch(() => {})
+    ses.clearAuthCache().catch(() => {})
     logInfo('Logging user out from Zoom', LogPrefix.Zoom)
+  }
+
+  public static isLoggedInSync(): boolean {
+    return existsSync(tokenPath) && configStore.get('isLoggedIn', false)
   }
 
   public static async isLoggedIn(): Promise<boolean> {
@@ -125,7 +136,7 @@ export class ZoomUser {
     }
   }
 
-  public static async makeRequest(url: string) {
+  public static async makeRequest<T>(url: string) {
     const credentials = await this.getCredentials()
     if (!credentials) {
       throw new Error('Not authenticated with Zoom')
@@ -136,7 +147,7 @@ export class ZoomUser {
     }
 
     const response = await axios
-      .get(url, { headers })
+      .get<T>(url, { headers })
       .catch((error: AxiosError) => {
         logError(['Zoom API request failed:', error.message], LogPrefix.Zoom)
         throw error

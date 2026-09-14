@@ -19,6 +19,19 @@ function getVersionName(type: string, tag_name: string): string {
   }
 }
 
+interface ReleasesData {
+  data: {
+    tag_name: string
+    published_at: string
+    html_url: string
+    assets: {
+      name: string
+      browser_download_url: string
+      size: number
+    }[]
+  }[]
+}
+
 /**
  * Helper to fetch releases from given url.
  *
@@ -37,7 +50,7 @@ async function fetchReleases({
   return new Promise((resolve, reject) => {
     axiosClient
       .get(url + '?per_page=' + count)
-      .then((data) => {
+      .then((data: ReleasesData) => {
         for (const release of data.data) {
           const release_data = {} as VersionInfo
           release_data.version = getVersionName(type, release.tag_name)
@@ -46,15 +59,57 @@ async function fetchReleases({
           release_data.disksize = 0
           release_data.release_notes_link = release.html_url
 
-          for (const asset of release.assets) {
-            if (asset.name.endsWith('sha512sum')) {
-              release_data.checksum = asset.browser_download_url
-            } else if (
-              asset.name.endsWith('tar.gz') ||
-              asset.name.endsWith('tar.xz')
-            ) {
-              release_data.download = asset.browser_download_url
-              release_data.downsize = asset.size
+          if (type === 'Wine-Staging-macOS') {
+            // Sometimes, the wine-devel package is first in the list, we want to download Wine-Staging always
+            const stagingAsset = release.assets.find((asset) =>
+              asset.name.includes('staging')
+            )
+            if (stagingAsset) {
+              release_data.download = stagingAsset.browser_download_url
+              release_data.downsize = stagingAsset.size
+            }
+          } else if (type === 'GE-Proton') {
+            // GE-Proton includes aarch64 & x86_64 builds. Find the correct one
+            // based on platform
+            for (const asset of release.assets) {
+              const isAarch64 = asset.name.includes('-aarch64')
+              const isShaChecksum = asset.name.endsWith('.sha512sum')
+              const isTar = asset.name.endsWith('.tar.gz')
+              if (
+                (isAarch64 && process.arch === 'arm64') ||
+                (!isAarch64 && process.arch === 'x64')
+              ) {
+                if (isShaChecksum) {
+                  release_data.checksum = asset.browser_download_url
+                } else if (isTar) {
+                  release_data.download = asset.browser_download_url
+                  release_data.downsize = asset.size
+                }
+              }
+            }
+          } else if (type === 'Proton-CachyOS') {
+            const shaAsset = release.assets.find((asset) =>
+              asset.browser_download_url.endsWith('x86_64.sha512sum')
+            )
+            if (shaAsset) release_data.checksum = shaAsset.browser_download_url
+            const tarAsset = release.assets.find((asset) =>
+              asset.browser_download_url.endsWith('x86_64.tar.xz')
+            )
+            if (tarAsset) {
+              release_data.download = tarAsset.browser_download_url
+              release_data.downsize = tarAsset.size
+            }
+          } else {
+            for (const asset of release.assets) {
+              if (asset.name.endsWith('sha512sum')) {
+                release_data.checksum = asset.browser_download_url
+              } else if (
+                asset.name.endsWith('tar.gz') ||
+                asset.name.endsWith('tar.xz')
+              ) {
+                release_data.download = asset.browser_download_url
+                release_data.downsize = asset.size
+              }
             }
           }
 

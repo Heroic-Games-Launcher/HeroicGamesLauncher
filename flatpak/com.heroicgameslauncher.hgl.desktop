@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Heroic Games Launcher
-Exec=heroic-run --ozone-platform-hint=auto %u
+Exec=heroic-run %u
 Terminal=false
 SingleMainWindow=true
 Type=Application

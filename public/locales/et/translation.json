@@ -179,11 +179,6 @@
                     "message": "Salvestamata edumaa võib kaduma minna"
                 }
             },
-            "snap": {
-                "checkbox": "Ära enam seda teavitust näita",
-                "title": "Heroic töötab kui Snap",
-                "message": "Mõningaid võimalusi ei ole äpi Snap versioonis saadaval ning me üritame seda parandada.{{newLine}}Praeguste piirangute hulgas on: {{newLine}}Heroic ei leia Protonit üles Steamist või Lutrisest.{{newLine}}{{newLine}}Gamescope, GameMode ja MangoHud ei toimi, sest Heroicul ei ole neile ligipääsu.{{newLine}}{{newLine}}Et sellest mööda pääseda, installeerige Heroic kasutades Flatpaki, DEB-i või AppImage'it."
-            },
             "rosetta": {
                 "title": "Rosettat ei leitud",
                 "message": "Heroic nõuab Rosettat, et Apple Siliconi kiipidega macOS süsteemidel korralikult toimida. Palun paigaldage see macOS-i terminalist kasutades järgmist käsku: \"softwareupdate --install-rosetta\" ja taaskäivitage Heroic. "
@@ -226,7 +221,13 @@
             "scroll": "Scroll",
             "select": "Vali",
             "space": "Tühik",
-            "update_game": "Uuenda mängu"
+            "update_game": "Uuenda mängu",
+            "exit": "Välju",
+            "move_focus": "Liiguta fookust",
+            "next_page": "Järgmine lehekülg",
+            "previous_page": "Eelmine lehekülg",
+            "search": "Otsing",
+            "url_bar": "URL-i riba"
         }
     },
     "docs": "Dokumentatsioon",
@@ -268,7 +269,10 @@
         },
         "library": {
             "refresh": "Värskenda varamut"
-        }
+        },
+        "abort": "Katkesta",
+        "install": "Paigaldus",
+        "uninstall": "Eemalda"
     },
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
@@ -371,13 +375,18 @@
             "close": "Sulge abi",
             "open": "Ava abi"
         },
-        "dxfpslimit": "Kehtestab kaadrisageduse piirangu DXVK mängude jaoks",
+        "dxfpslimit": "Kehtestab kaadrisageduse piirangu DirectX mängude (9-12) jaoks",
         "download_proton_steam": "Kui lubatud, laetakse GE-Proton alla otse Steami ühilduvustööriistade kausta, mitte Heroicu vaikimisi teele. See kasutab Steami vaiketeed, mis on määratud üleval 'Steami vaiketee' valikus.",
         "advertiseAvxForRosetta": "Lubab toe AVX käsustiku jaoks, kui mängite Windowsi mänge Apple Siliconi Mac-idel läbi Rosetta. See võib olla vajalik teatud mängude jaoks, mis vajavad AVX-i tuge, näiteks \"Death Stranding\".",
         "wine-hdr": "HDR täiustab värve võimendades eredaid kohti ja pakkudes sügavamat kontrasti. HDR-i toimimiseks peavad nii ekraan kui ka mäng seda toetama.",
         "wine-wayland": "Wine-Waylandi eksperimentaalne draiver lubab mängudel otse käivituda läbi Waylandi kuvaprotokolli. Selle lubamine võib mõned mängud katki teha.",
         "analytics": "Lubab Heroicul koguda 100% anonüümseid kasutusandmeid, et rakendust paremaks teha. Nõuab restarti.",
-        "WoW64": "Wine'i WoW64 režiim lubab 32-bitistel Windowsi mängudel toimida 64-bitisel Wine'il. Selle lubamine võib muuta kogemuse sujuvamaks, aga võib ka vanemaid 32-bitiseid mänge katki teha."
+        "WoW64": "Wine'i WoW64 režiim lubab 32-bitistel Windowsi mängudel toimida 64-bitisel Wine'il. Selle lubamine võib muuta kogemuse sujuvamaks, aga võib ka vanemaid 32-bitiseid mänge katki teha.",
+        "nvidiaprime": {
+            "details": "Mitme GPU-süsteemides mängu renderdamiseks kasutage spetsiaalset graafikakaarti. Vajalik ainult mängusülearvutites või lauaarvutites, mis kasutavad renderdamiseks peata GPU-d (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Vaata rohkem üksikasju meie vikis"
+        },
+        "hide-window-on-protocol-launch": "Hoiab Heroicu akna peidus, kui mäng käivitatakse läbi välise otsetee, näiteks läbi 'Lisa Steami' funktsiooni."
     },
     "info": {
         "heroic": {
@@ -520,7 +529,7 @@
         },
         "gameargs": {
             "placeholder": "Pange siia käiviti argumendid",
-            "title": "Mängu argumendid (käivitatakse pärast käsku):",
+            "title": "Mängu argumendid (lisatakse mängu käivituskäsule)",
             "error": {
                 "command": "Steami %command% süntaks ei ole kõlblik mänguargumentide jaoks.",
                 "env": "Keskkonnamuutujaid (\"environment variables\") peab seadistama allpool olevas tabelis."
@@ -564,7 +573,7 @@
         "custom_themes_path": "Valige asukoht, kust otsida kohandatud CSS faile",
         "dxvkfpsvalue": "Positiivne täisarvuline väärtus (nt. 30, 60, ...)",
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
-        "prefered_language": "2-täheline kood (st: \"en\" või \"fr\")",
+        "prefered_language": "2-täheline või 4-täheline kood (nt: \"fr\" või \"pt-BR\")",
         "alt-nile-bin": "Sisseehitatud Nile programmi kasutamine..."
     },
     "platforms": {
@@ -671,7 +680,8 @@
                 },
                 "error": {
                     "content": "Ei suutnud logifaili üles laadida. Üksikasjade jaoks kontrollige Heroicu üldist logi",
-                    "title": "Üleslaadimine ebaõnnestus"
+                    "title": "Üleslaadimine ebaõnnestus",
+                    "manual_upload": "Kliki \"Kuva logifail kaustas\" nuppu ja lae \"launch.log\" fail käsitsi Discordi või mis tahes failijagamise teenusesse."
                 },
                 "header": "Üles laetud logifailid",
                 "hours-ago": "Üles laetud {{hoursAgo, relativetime(hours)}}",
@@ -711,13 +721,6 @@
         "offlinemode": "Käivita mäng võrguühenduseta",
         "prefered_language": "Eelistatud keel (keelekood)",
         "preferSystemLibs": "Eelista süsteemiteeke",
-        "primerun": {
-            "confirmation": {
-                "message": "Süsteemis tuvastati ainult üks graafikakaart. Pange tähele, et see valik on mõeldud ainult mitme GPU-ga süsteemide jaoks, millel on 'headless' GPU-d (näiteks sülearvutid). Ühe GPU-ga süsteemidel on GPU automaatselt kasutuses, ning see valik võib tekitada probleeme. Kas soovite tõesti seda valikut lubada?",
-                "title": "Ainult 1 graafikaprotsessor tuvastatud"
-            },
-            "description": "Kasuta pühendatud graafikakaarti"
-        },
         "runexe": {
             "message": "Lohistage failid siia",
             "title": "Käivita EXE prefiksil"
@@ -808,12 +811,25 @@
                 "title": "Kas olete kindel?",
                 "message": "Soovitame Heroicuga kasutada kohandatud Protoni variante (GE-Proton, Proton-CachyOS jms.), kuna Valve'i Protoni versioonidel puuduvad winetricks ja protofixes. Kui soovite, võite neid siiski kasutada."
             },
-            "label": "Luba mitte-GE Protoni versioone mängude mängimiseks",
-            "wine_selector_warning": "Mitte-GE Protoni versioone vaikimisi ignoreeritakse, luba need täpsemates globaalsetes seadetes",
+            "label": "Luba Valve Protoni versioone mängude mängimiseks",
+            "wine_selector_warning": "Valve Protoni versioone vaikimisi ignoreeritakse, luba need täpsemates globaalsetes seadetes",
             "info_label": "Valve'i Protoni versioonid eiratud"
         },
         "WoW64": "Luba WoW64 (eksperimentaalne)",
-        "scripts": "Skriptid:"
+        "scripts": "Skriptid:",
+        "enable-quick-sync-menu": "Luba kiire salvestuste sünkroonimine mängu lehel",
+        "disable_gog_presence": "Keela GOG Presence'i uuendused",
+        "start-in-console-mode": "Alusta Konsoolirežiimis",
+        "nvidiaprime": {
+            "description": "Sunni NVIDIA Optimuse või AMD Dynamic Switchable Graphics dGPU kasutamist. Kasutage seda AINULT OpenGL-i ja Vulkani mängude puhul."
+        },
+        "gamepad-initial-repeat-delay": "Mängupuldi sisendi algse kordamise viivitus",
+        "gamepad-repeat-frequency": "Mängupuldi sisendi kordamise sagedus",
+        "hide-window-on-protocol-launch": "Peida Heroicu aken, kui käivitatakse mänge läbi heroic:// linkide",
+        "steamRuntime": {
+            "label": "Kasuta Steam Runtime'i",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -850,7 +866,8 @@
             "sync": "Pilvesalvestuste sünkroniseerimine",
             "wineExt": "Wine'i laiendused",
             "systemInformation": "Süsteemi teave",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Igand"
         },
         "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic",
@@ -917,18 +934,31 @@
         "custom_css": {
             "title": "Kasutajaliidese CSS stiil"
         },
-        "launchOptions": "Käivitusvalikud"
+        "launchOptions": "Käivitusvalikud",
+        "legacy_warning": "Hoiatus: Sätted sellel vahelehel on enamasti aegunud ja ei pruugi üldse toimida.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "SteamGridDB API võti",
+                "placeholder": "Sisestage SteamGridDB API võti siia",
+                "placeholder_saved": "Võti salvestatud — kirjutage siia, et asendada; tühjendage, et eemaldada"
+            },
+            "help": {
+                "description": "Varustage oma SteamGridDB API võti, et lubada mängude kaanepiltide otsing. Võti talletatakse krüpteeritult, kui teie süsteem seda toetab. Võite leida võtme aadressil {{url}}"
+            }
+        }
     },
     "Settings": "Seaded",
     "sidebar": {
         "collapse": "Ahenda külgriba",
-        "uncollapse": "Lahtista külgriba"
+        "uncollapse": "Lahtista külgriba",
+        "console": "Konsoolirežiim"
     },
     "status": {
         "installing": "Paigaldamine",
         "logging": "Sisselogimine...",
         "processing": "Failide töötlemine, palun oodake",
-        "preparing_login": "Sisselogimise ettevalmistamine... "
+        "preparing_login": "Sisselogimise ettevalmistamine... ",
+        "installed": "Paigaldatud"
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -970,7 +1000,8 @@
             "back": "Mine tagasi",
             "forward": "Edasi",
             "openInBrowser": "Ava veebilehitsejas",
-            "reload": "Laadi leht uuesti"
+            "reload": "Laadi leht uuesti",
+            "home": "Mine poe koju"
         }
     },
     "wine": {
@@ -979,7 +1010,13 @@
             "link": "Wine'i haldur",
             "not-found": "Wine'i versioone ei leitud. Palun klikkige.",
             "title": "Wine'i haldur",
-            "unzipping": "Lahtipakkimine"
+            "unzipping": "Lahtipakkimine",
+            "search": "Otsi versioone...",
+            "loading": "Laen wine versioone...",
+            "open_folder": "Ava kaust",
+            "update": "Uuendus",
+            "settings": "Seaded",
+            "no-results": "Teie otsing ei vastanud ühelegi Wine'i otsingule."
         },
         "release": "Väljalaske kuupäev",
         "size": "Suurus",
@@ -1035,7 +1072,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton on Protoni variant, mille lõi Glorious Eggroll. See on mõeldud Steami jaoks kasutamiseks, aga mõned Steami-välised mängud võivad sellega paremini töötada. Selle tõrkeotsingu logid on enamasti kasutud.",
-        "wine-ge": "Wine-GE-Proton on Wine'i variant, mille lõi Glorious Eggroll. See on soovitatav Wine'i versioon, mida kasutada väljaspool Steami. Selle tõrkeotsingu logid on kasulikud ja asjakohased."
+        "gpt": "Game Porting Toolkit on arendatud Apple'i poolt ja on soovitatav Apple Siliconi Macidele M1+ kiipidega ja töötab kõige paremini uuemate mängude puhul, mis kasutavad DX12-t.",
+        "wine-crossover": "Wine-Crossover põhineb Crossover OpenSource Wine'i projektil ja on soovitatav Inteli Macidele ja DX11 või vanemate mängude puhul.",
+        "wine-staging-macos": "Wine-Staging-macOS põhineb peavoolu Wine'i projektil ja on soovitatav Inteli Macidele ja DX11 või vanemate mängude puhul, eriti koos DXMT tööriistaga.",
+        "proton-cachyos": "Proton-CachyOS on Protoni variant, mida haldab CachyOS-i tiim. See sisaldab muid tööriistu, sealhulgas DXVK-Sarek ja D7VK."
     },
     "adtraction-locked": {
         "description": "Näib, et track.adtraction.com domeeni ei olnud võimalik laadida või on keelatud. Tänu adtractionile, iga ost, mida GOG poes teete, toetab rahaliselt Heroicut. Kui soovite aidata, palun eemaldage keeld.",
@@ -1110,7 +1150,7 @@
         "enable": "Luba",
         "info": {
             "pt1": "Et äppi paremaks teha, kogub Heroic 100% anonüümseid andmeid.",
-            "pt2": "Heroic kasutab avatud allikaga Plausible Analyticsi platvormi, et koguda kõige põhilisemaid andmeid: äpi versioon, OS, ühendatud poed ja riik.",
+            "pt2": "Heroic kasutab avatud allikaga Plausible Analyticsi platvormi, mida Heroicu tiim haldab kohapeal, et koguda kõige põhilisemaid andmeid: äpi versioon, OS, süsteemi arhitektuur, Linuxi versioon, ühendatud poed ja riik.",
             "pt3": "See ei kogu kunagi isiklikku teavet, näiteks kasutajanime, IP-aadressi või e-maili.",
             "pt4": "Need andmed annavad meile teavet sellest, millele järgmisena keskenduda, kuna meie ressursid ja kasutaja tagasiside on piiratud.",
             "pt5": "Plausible Analytics on täielikult vastavuses GDPR-i, CCPA ja PECR-iga.",
@@ -1120,5 +1160,176 @@
         "title": "Saada anonüümset analüütikat"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoomi pood"
+    "zoom-store": "Zoomi pood",
+    "launch": {
+        "options": "Käivitusvalikud..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "Itaalia",
+                "ES": "Hispaania",
+                "FI": "Soome",
+                "GR": "Kreeka",
+                "RO": "Rumeenia",
+                "NO": "Norra",
+                "KR": "Lõuna-Korea",
+                "US": "Ameerika Ühendriigid",
+                "HU": "Ungari",
+                "PT": "Portugal",
+                "NL": "Holland",
+                "AU": "Austraalia",
+                "TW": "Taiwan",
+                "IL": "Iisrael",
+                "JP": "Jaapan",
+                "DK": "Taani",
+                "DE": "Saksamaa",
+                "CZ": "Tšehhi",
+                "FR": "Prantsusmaa",
+                "UA": "Ukraina",
+                "GB": "Ühendkuningriik",
+                "SE": "Rootsi",
+                "CN": "Hiina",
+                "RU": "Venemaa",
+                "CA": "Kanada",
+                "PL": "Poola",
+                "BR": "Brasiilia",
+                "CH": "Šveits",
+                "TR": "Türgi",
+                "ZA": "Lõuna-Aafrika"
+            },
+            "auto": "Automaatne ({{code}})",
+            "label": "Poe regioon"
+        },
+        "filters": {
+            "moreFilters": "Rohkem filtreid",
+            "ageRating": "Sobilik vanusele",
+            "os": "Operatsioonisüsteem:",
+            "price": "Hind",
+            "activeCount_other": "{{count}} aktiivsed",
+            "hideDlcs": "Peida DLC-d",
+            "ageRatingOption": "Näita mänge PEGI reitinguga {{age}} või noorem",
+            "genres": "Žanrid",
+            "activeCount_one": "{{count}} aktiivsed",
+            "lessFilters": "Vähem filtreid",
+            "rating": "Reiting",
+            "sort": "Sorteerimisalus",
+            "genresPlaceholder": "Mis tahes žanr",
+            "features": "Omadused",
+            "featuresPlaceholder": "Mis tahes omadus",
+            "ageRatingAll": "Kõik",
+            "pageSize": "Igal leheküljel",
+            "releaseYear": "Väljalaske aasta",
+            "hideOwned": "Peida kuuluvad",
+            "wishlistOnly": "Ainult soovinimekirjas",
+            "platform": "Platform"
+        },
+        "sidebar": "Allahindlused",
+        "sort": {
+            "priceDesc": "Hind: kallist odavaks",
+            "trending": "Trendiv",
+            "priceAsc": "Hind: odavast kalliks",
+            "releaseDesc": "Väljalaskekuupäev: uuest vanaks",
+            "ratingAsc": "Reiting: madalast kõrgeks",
+            "releaseAsc": "Väljalaskekuupäev: vanast uueks",
+            "ratingDesc": "Reiting: kõrgest madalaks",
+            "discount": "Suurim allahindlus"
+        },
+        "noMatches": "Ükski mäng ei vasta praegustele filtritele.",
+        "aria": {
+            "pagination": "Leheküljed",
+            "rating": "Reiting {{rating}} 10-st"
+        },
+        "error": "Allahindlusi polnud võimalik laadida. Palun proovige hiljem uuesti.",
+        "empty": "Ühtegi allahinnatud mängu pole hetkel saadaval.",
+        "loading": "Laen allahinnatud mänge...",
+        "title": "GOG allahindlused",
+        "pagination": {
+            "prev": "Eelmine"
+        },
+        "tabs": {
+            "label": "Pood",
+            "all": "Kõik poed"
+        },
+        "titleMulti": "Allahindlused",
+        "currency": {
+            "label": "Valuuta"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} võti, lunastatud väljaspool Heroicut",
+            "gmgHint": "Green Man Gaming — võti välise poe jaoks, ei saa läbi Heroicu paigaldada",
+            "humbleHint": "Humble Bundle — võti välise poe jaoks, ei saa läbi Heroicu paigaldada"
+        },
+        "view": {
+            "grid": "Ruudustik",
+            "label": "Vaaterežiim",
+            "list": "Loend"
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Mänge ei leitud.",
+            "no-grids": "Selle mängu jaoks ei leitud kaanepilte.",
+            "search": "Ei suutnud mänge otsida, palun kontrollige oma SteamGridDB API võtit ja proovige uuesti",
+            "grids": "Ei suutnud ruudustikke hankida"
+        },
+        "picker": {
+            "search": "Otsi mängu",
+            "title": "SteamGridDB kaanepildid",
+            "select-game": "Valige mäng:"
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "Vajuta",
+            "body": "Sellele mängule on uuendus saadaval. Palun lahkuge Konsoolirežiimist ja uuendage mängu enne käivitamist.",
+            "title": "Uuendus nõutav",
+            "hintSuffix": "et tagasi minna"
+        },
+        "sort": "Sorteeri",
+        "cancel": {
+            "hintSuffix": "3 sekundit tühistamiseks",
+            "hintPrefix": "Hoia"
+        },
+        "quit": "Lahku Konsoolist",
+        "hints": {
+            "launch": "Käivita",
+            "sort": "Sorteeri",
+            "navigate": "Navigeeri",
+            "quit": "Lahku",
+            "change_store": "Vaheta poodi"
+        },
+        "launching": "Käivitamas",
+        "card": {
+            "needsUpdate": "Vajab uuendamist"
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Kõik"
+        },
+        "empty": "Pole ühtegi paigaldatud mängu näidata. Paigalda midagi.",
+        "games": "Paigaldatud mängud",
+        "quitApp": "Lahku äpist",
+        "loading": "Varamu laadimine…",
+        "cancelInstall": {
+            "title": "Tühista paigaldamine?",
+            "message": "Mängu hetkel paigaldatakse. Katkestada paigaldamine?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Paigalda mäng",
+            "wineLoading": "Laadimine…",
+            "path": "Paigalda",
+            "wineMissing": "Kohta pole valitud",
+            "wine": "Wine"
+        },
+        "cancelUpdate": {
+            "message": "Mängu laetakse hetkel alla. Katkestada uuendamine?",
+            "title": "Katkestada uuendamine?"
+        },
+        "removeFromQueue": {
+            "message": "Mäng on allalaadimiste järjekorras. Eemaldada järjekorrast?"
+        }
+    },
+    "next": "Järgmine"
 }

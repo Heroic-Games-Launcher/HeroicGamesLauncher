@@ -4,6 +4,7 @@ import { axiosClient } from 'backend/utils'
 import { GOGUser } from './user'
 import { isOnline } from 'backend/online_monitor'
 import { GlobalConfig } from 'backend/config'
+import { backendEvents } from 'backend/backend_events'
 
 interface PresencePayload {
   application_type: string
@@ -22,8 +23,15 @@ function setCurrentGame(game: string) {
 
 async function setPresence() {
   try {
-    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
-    if (disablePlaytimeSync || !GOGUser.isLoggedIn() || !isOnline()) return
+    const { disablePlaytimeSync, disableGOGPresence } =
+      GlobalConfig.get().getSettings()
+    if (
+      disableGOGPresence ||
+      disablePlaytimeSync ||
+      !GOGUser.isLoggedIn() ||
+      !isOnline()
+    )
+      return
     const credentials = await GOGUser.getCredentials()
     if (!credentials) return
 
@@ -56,9 +64,17 @@ async function setPresence() {
   }
 }
 
-async function deletePresence() {
+async function deletePresence(force = false) {
   try {
-    if (!GOGUser.isLoggedIn() || !isOnline()) return
+    const { disablePlaytimeSync, disableGOGPresence } =
+      GlobalConfig.get().getSettings()
+    if (
+      disablePlaytimeSync ||
+      (!force && disableGOGPresence) ||
+      !GOGUser.isLoggedIn() ||
+      !isOnline()
+    )
+      return
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       return
@@ -75,6 +91,17 @@ async function deletePresence() {
     logError(['Failed to delete gog presence', e], LogPrefix.Gog)
   }
 }
+
+// React immediately when the user toggles GOG presence on/off in settings
+backendEvents.on('settingChanged', ({ key, newValue }) => {
+  if (key === 'disableGOGPresence') {
+    if (newValue) {
+      void deletePresence(true)
+    } else {
+      void setPresence()
+    }
+  }
+})
 
 export default {
   setCurrentGame,

@@ -46,7 +46,7 @@ import {
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
-import { gameManagerMap } from '../storeManagers'
+import { libraryManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
@@ -54,17 +54,39 @@ import {
 } from '../utils/inet/downloader'
 import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
 import { toolsPath, userHome } from 'backend/constants/paths'
-import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import {
+  isIntelMac,
+  isLinux,
+  isMac,
+  isWindows
+} from 'backend/constants/environment'
 import './dxmt'
+import { Game } from '../../common/types/game_manager'
+
+type ReleasesResponse = {
+  assets: {
+    name: string
+    browser_download_url: string
+  }[]
+}
 
 export async function installOrUpdateTool(tool: Tool) {
   if (tool.os !== process.platform) return
 
   const {
     data: { assets }
-  } = await axiosClient.get(tool.url)
+  } = await axiosClient.get<ReleasesResponse>(tool.url)
 
-  const { name, browser_download_url: downloadUrl } = assets[0]
+  let asset = assets[0]
+  if (tool.name === 'dxvk-macOS' && asset.name.includes('-builtin')) {
+    // Do not use -builtin asset for dxvk macos
+    // TODO: implement proper use of the -builtin using the WINEDLLPATH_PREPEND
+    // env variable, check https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5342#issuecomment-3936553327
+    // for more details
+    asset = assets.find((asset) => asset.name.endsWith('repack.tar.gz'))!
+  }
+  const { name, browser_download_url: downloadUrl } = asset
+
   const latestVersion = name.replace('.tar.gz', '').replace('.tar.xz', '')
   const latestVersionArchivePath = `${toolsPath}/${tool.name}/${name}`
 
@@ -170,7 +192,10 @@ export const DXVK = {
       },
       {
         name: 'dxvk-macOS',
-        url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
+        // url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
+        // TODO: go back to using latest once we implement the WINEDLLPATH_PREPEND
+        // env variable for dxvk-macos and dxmt
+        url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/tags/v1.10.3-20230507-repack',
         os: 'darwin'
       }
     ]
@@ -238,9 +263,12 @@ export const DXVK = {
     const toolPathx32 = `${toolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
     }`
+
     const dlls32 = readdirSync(toolPathx32)
+
     const toolPathx64 = `${toolsPath}/${tool}/${globalVersion}/x64`
     const dlls64 = readdirSync(toolPathx64)
+
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
@@ -534,7 +562,9 @@ export const Winetricks = {
     args: string[],
     returnOutput = false
   ) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+    const gameSettings = await libraryManagerMap[runner]
+      .getGame(appName)
+      .getSettings()
 
     const { wineVersion } = gameSettings
 
@@ -601,7 +631,9 @@ export const Winetricks = {
         WINESERVER: wineServer,
         WINE: wineBin,
         WINE64: wineBin,
-        PATH: `/opt/homebrew/bin:${process.env.PATH}`
+        PATH: isIntelMac
+          ? `/opt/local/bin:/usr/local/bin:${process.env.PATH}`
+          : `/opt/local/bin:/opt/homebrew/bin:${process.env.PATH}`
       }
 
       const envs = isMac ? macEnvs : linuxEnvs
@@ -627,23 +659,7 @@ export const Winetricks = {
         }
       }, 1000)
 
-      // check if winetricks dependencies are installed
-      const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
-      dependencies.forEach(async (dependency) => {
-        try {
-          await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
-        } catch {
-          appendMessage(
-            `${dependency} not installed! Winetricks might fail to install some packages or even open`
-          )
-          logWarning(
-            [
-              `${dependency} not installed! Winetricks might fail to install some packages or even open`
-            ],
-            LogPrefix.WineTricks
-          )
-        }
-      })
+      Winetricks.checkDependencies(envs, appendMessage)
 
       logInfo(`Running ${winetricks} ${args.join(' ')}`, LogPrefix.WineTricks)
 
@@ -733,8 +749,8 @@ export const Winetricks = {
       return []
     }
   },
-  listInstalled: async (runner: Runner, appName: string) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  listInstalled: async (game: Game) => {
+    const gameSettings = await game.getSettings()
     const { winePrefix } = await getWineFromProton(gameSettings)
     const winetricksLogPath = join(winePrefix, 'winetricks.log')
     try {
@@ -752,6 +768,30 @@ export const Winetricks = {
     } finally {
       installingComponent = ''
       sendFrontendMessage('installing-winetricks-component', '')
+    }
+  },
+  checkDependencies: async (
+    envs: Record<string, string>,
+    appendMessage: (message: string) => void
+  ) => {
+    // check if winetricks dependencies are installed
+    const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
+    const missingDeps: string[] = []
+    for (const dependency of dependencies) {
+      try {
+        await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
+      } catch {
+        missingDeps.push(dependency)
+        const message = `${dependency} not installed! Winetricks might fail to install some packages or even open`
+        appendMessage(message)
+        logWarning([message], LogPrefix.WineTricks)
+      }
+    }
+
+    if (missingDeps.length > 0 && isMac) {
+      const message = `Check https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Using-Heroic-on-a-Mac-computer#winetricks-setup to install the missing dependencies.`
+      appendMessage(message)
+      logWarning([message], LogPrefix.WineTricks)
     }
   }
 }
@@ -778,7 +818,7 @@ function getDxvkUrl(): string {
   }
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
-      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3',
+      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3 for Wine, or use DXVK-Sarek with proton-cachyos',
       LogPrefix.ToolInstaller
     )
     return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v1.10.3'
@@ -814,7 +854,7 @@ function getVkd3dUrl(): string {
   }
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
-      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6',
+      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6 for Wine, or use DXVK-Sarek with proton-cachyos',
       LogPrefix.ToolInstaller
     )
     return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/tags/v2.6'
@@ -833,12 +873,13 @@ export async function runWineCommandOnGame(
   appName: string,
   { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
 ): Promise<ExecResult> {
-  if (gameManagerMap[runner].isNative(appName)) {
+  const game = libraryManagerMap[runner].getGame(appName)
+  if (game.isNative()) {
     logError('runWineCommand called on native game!', LogPrefix.Gog)
     return { stdout: '', stderr: '' }
   }
-  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const { folder_name, install } = game.getGameInfo()
+  const gameSettings = await game.getSettings()
 
   return runWineCommand({
     gameSettings,

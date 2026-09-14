@@ -6,12 +6,12 @@
         "fonts": "Tipografías",
         "title": "Accesibilidade",
         "zoom": "Zoom",
-        "actions_font_family_default": "Tipografías das accións (Por defecto: {{fontFamily}})",
-        "content_font_family_default": "Tipografías dos contidos (Por defecto: {{fontFamily}})",
+        "actions_font_family_default": "Tipografía das accións (Por defecto: {{fontFamily}})",
+        "content_font_family_default": "Tipografía dos contidos (Por defecto: {{fontFamily}})",
         "titles_always_visible": "Mostrar sempre os títulos na biblioteca",
         "disable_dialog_backdrop_close": "Desactivar o peche das caixas de diálogo ao premer fóra delas",
         "disable_smooth_scrolling": "Desactivar o suavizado de scroll (precisa reiniciar)",
-        "disable_animations": "Desactivar animacións da interfaz"
+        "disable_animations": "Desactivar animacións da interfaz de usuario (UI)"
     },
     "add_game": "Engadir xogo",
     "All": "Todos",
@@ -117,7 +117,7 @@
             }
         },
         "no": "NON",
-        "ok": "Aceptar",
+        "ok": "De acordo",
         "protocol": {
             "install": {
                 "not_installed": "Non está instalado, desexas instalalo?"
@@ -179,17 +179,12 @@
                     "message": "Calquera progreso non gardado podería perderse"
                 }
             },
-            "snap": {
-                "checkbox": "Non volver a amosar esta mensaxe",
-                "title": "Heroic está a funcionar coma un Snap",
-                "message": "Algunhas funcións aínda non se encontran dispoñíbeis na versión de Snap da aplicación e seguimos a traballar para reparalas.{{newLine}}As limitacións actuais son:{{newLine}}Heroic non poderá atopar Proton dende Steam ou Wine dende Lutris.{{newLine}}{{newLine}}Gamescope, GameMode e MangoHud tampouco han funcionar, xa que Heroic non pode acceder a eles.{{newLine}}{{newLine}}Para acceder a esta funcionalidade instala Heroic coma un Flatpak, DEB ou dende a AppImage."
-            },
             "rosetta": {
                 "title": "Non se puido atopar Rosetta",
                 "message": "Heroic necesita Rosetta para poder funcionar correctamente en macOS con chips de Apple Silicon. Por favor, instáleo dende a terminal empregando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicia Heroic. "
             }
         },
-        "wineprefix": "Selecciona o cartafol de prefixo de Wine",
+        "wineprefix": "Seleccione o cartafol co Prefixo de Wine",
         "yes": "Sí",
         "dontShowAgain": "Non volver a amosar",
         "choose-nile-binary": "Seleccione o binario de Nile",
@@ -226,7 +221,8 @@
             "scroll": "Scroll",
             "select": "Seleccionar",
             "space": "Espazo",
-            "update_game": "Actualizar o xogo"
+            "update_game": "Actualizar o xogo",
+            "exit": "Saír"
         }
     },
     "docs": "Documentación",
@@ -244,7 +240,7 @@
             "end-time": "Rematado en",
             "queue-time": "Engadido en",
             "start-time": "Iniciado en",
-            "type": "Tipo"
+            "type": "Type"
         },
         "title": "Downloads",
         "ETA": "Tempo estimado"
@@ -268,7 +264,10 @@
         },
         "library": {
             "refresh": "Actualizar a biblioteca"
-        }
+        },
+        "install": "Instalar",
+        "uninstall": "Desinstalar",
+        "abort": "Abortar"
     },
     "globalSettings": "Preferencias globais",
     "GOG": "GOG",
@@ -377,7 +376,12 @@
         "wine-hdr": "HDR mellora as cores proporcionando resaltes máis brillantes e contrastes máis profundos. Para que HDR funcione, tanto a pantalla como o xogo deben ser compatibles.",
         "wine-wayland": "O driver experimental Wine-Wayland permite aos xogos executarse nativamente usando o protocolo de Wayland. Activalo pode causar problemas en algúns xogos.",
         "analytics": "Permite a Heroic recoller información de uso 100% anónima para axudar a mellorar a aplicación. É necesario reiniciar para que faga efecto.",
-        "WoW64": "O modo WoW64 de Wine permite executar xogos de Windows de 32-bits no Wine de 64-bits. Habilitalo pode mellorar o rendemento, mais podería corromper xogos de 32-bits máis vellos."
+        "WoW64": "O modo WoW64 de Wine permite executar xogos de Windows de 32-bits no Wine de 64-bits. Habilitalo pode mellorar o rendemento, mais podería corromper xogos de 32-bits máis vellos.",
+        "nvidiaprime": {
+            "details": "Usa a tarxeta gráfica dedicada para renderizar o xogo en sistemas con múltiples GPU. Só é necesario en porátiles para xogos ou de sobremesa que teñen unha GPU \"headless\" para renderizar (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Consulta máis detalles na nosa wiki"
+        },
+        "hide-window-on-protocol-launch": "Mantén a ventá de Heroic oculta cando se inicia un xogo desde un atallo externo, como a función 'Engadir a Steam'."
     },
     "info": {
         "heroic": {
@@ -670,7 +674,8 @@
                 },
                 "error": {
                     "content": "Fallou a subida do arquivo de rexistros. Comproba o rexistro xeral de Heroic para os detalles",
-                    "title": "Fallou a subida"
+                    "title": "Fallou a subida",
+                    "manual_upload": "Clicar no botón «MOSTRAR FICHEIRO DE REXISTROS NO CARTAFOL» e subir manualmente o ficheiro «launch.log» no Discord ou noutro servizo online para compartir ficheiros."
                 },
                 "header": "Subiuse o arquivo de rexistros",
                 "hours-ago": "Subido {{hoursAgo, relativetime(hours)}}",
@@ -711,13 +716,6 @@
         "offlinemode": "Executar xogo sen conexión",
         "prefered_language": "Lingua preferida (código de idioma)",
         "preferSystemLibs": "Preferir librerías do sistema",
-        "primerun": {
-            "confirmation": {
-                "message": "Só se detectou unha tarxeta gráfica neste sistema. Ten en conta que esta opción está pensada para sistemas con múltiples GPU ou con GPU \"headless\" (como portátiles). En sistemas con unha soa GPU, esta é usada automaticamente e activar esta opción pode causar problemas. Seguro que queres activar esta opción?",
-                "title": "Só se detectou 1 GPU"
-            },
-            "description": "Usar tarxeta gráfica dedicada"
-        },
         "runexe": {
             "message": "Arrastrar e soltar aqúi",
             "title": "Executar EXE en Prefix"
@@ -809,7 +807,15 @@
             "wine_selector_warning": "As versións de Proton que non sexan de GE son ignoradas por defecto, podes activalas na configuración avanzada global",
             "info_label": "Ignoráronse as versións de Valve Proton"
         },
-        "WoW64": "Activar WoW64 (Experimental)"
+        "WoW64": "Activar WoW64 (Experimental)",
+        "enable-quick-sync-menu": "Habilitar o menú de gardar e sincronizar rapidamente na páxina do xogo",
+        "scripts": "Secuencia de comandos (Scripts):",
+        "start-in-console-mode": "",
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Usar o Runtime de Steam",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -841,12 +847,13 @@
             "advanced": "Avanzado",
             "games_settings_defaults": "Valores predeterminados dos xogos",
             "general": "Xeral",
-            "log": "Log",
+            "log": "Rexistro",
             "other": "Outro",
-            "sync": "Gardar-Sincronizar",
+            "sync": "Sincronización dos xogos gardados na nube",
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
-            "systemInformation": "Información do sistema"
+            "systemInformation": "Información do sistema",
+            "legacy": "Obsoleto"
         },
         "open-config-file": "Abrir arquivo de configuración",
         "reset-heroic": "Restabelecer Heroic",
@@ -913,18 +920,31 @@
         "offline": {
             "warning": "Este xogo non permite explicitamente o modo offline, activa esta opción baixo a túa propia responsabilidade. É posible que o xogo non funcione."
         },
-        "launchOptions": "Opcións de arranque"
+        "launchOptions": "Opcións de arranque",
+        "legacy_warning": "Advertencia: A maior parte dos axustes nesta lapela están obsoletos e é posible que non funcionen.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Preferencias",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "Instalando",
         "logging": "Inciando sesión…",
         "processing": "Procesando os arquivos, por favor, espera",
-        "preparing_login": "Preparando o inicio de sesión... "
+        "preparing_login": "Preparando o inicio de sesión... ",
+        "installed": "Instalado"
     },
     "store": "Tenda de Epic",
     "stores": "Tendas",
@@ -975,7 +995,13 @@
             "link": "Xestor de Wine",
             "not-found": "Non se atopou ningunha versión de Wine. Fai clic na icona de refrescar para volvelo a intentar.",
             "title": "Xestor de Wine",
-            "unzipping": "Descomprimindo"
+            "unzipping": "Descomprimindo",
+            "settings": "Preferencias",
+            "update": "Actualizar",
+            "search": "Buscar versións…",
+            "loading": "Cargando versións de Wine…",
+            "open_folder": "Abrir cartafol",
+            "no-results": "Ningunha versión de Wine coincide coa túa busca."
         },
         "release": "Data de publicación",
         "size": "Tamaño",
@@ -1113,8 +1139,167 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton é unha variante de Proton creada por Glorious Eggroll. Está deseñada para usarse xunto co lanzador umu (predeterminado en Heroic).",
-        "wine-ge": "Wine-GE-Proton é unha variante de Wine creada por Glorious Eggroll. Quedou obsoleta en favor de GE-Proton co lanzador umu."
+        "wine-ge": "Wine-GE-Proton é unha variante de Wine creada por Glorious Eggroll. Quedou obsoleta en favor de GE-Proton co lanzador umu.",
+        "gpt": "Game Porting Toolkit é desenvolvido por Apple e recoméndase para Macs con Apple Silicon con chips M1+ . Funciona mellor con xogos máis recentes que usan DX12.",
+        "wine-crossover": "Wine-Crossover está baseado no proxecto de código aberto Crossover Wine e recoméndase para Macs con Intel e para xogos con DX11 ou anteriores.",
+        "wine-staging-macos": "Wine-Staging-macOS está baseado no proxecto principal de Wine e recoméndase para Macs con Intel e para xogos con DX11 ou anteriores, especialmente combinado coa ferramenta DXMT.",
+        "proton-cachyos": "Proton-CachyOS é unha variante de Proton mantida polo equipo de CachyOS. Inclúe ferramentas adicionais como DXVK-Sarek e D7VK."
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Tenda de Zoom"
+    "zoom-store": "Tenda de Zoom",
+    "launch": {
+        "options": "Opcións de arranque..."
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Non se atoparon xogos",
+            "no-grids": "Non se atopou o rexistro para este xogo",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "Buscar xogos",
+            "title": "Portadas de SteamGridDB",
+            "select-game": ""
+        }
+    },
+    "discounts": {
+        "filters": {
+            "ageRatingAll": "Todos",
+            "os": "Sistema operativo:",
+            "moreFilters": "Máis filtros",
+            "ageRating": "",
+            "price": "Prezo",
+            "activeCount_other": "{{count}} activos",
+            "hideDlcs": "Ocultar DLCs",
+            "ageRatingOption": "Amosar xogos clasificados PEGI {{age}} ou inferior",
+            "genres": "Xéneros",
+            "activeCount_one": "{{count}} activos",
+            "lessFilters": "Menos filtros",
+            "rating": "Puntuación",
+            "sort": "Ordenar por",
+            "genresPlaceholder": "Calquera xénero",
+            "features": "",
+            "featuresPlaceholder": "",
+            "pageSize": "Por páxina",
+            "releaseYear": "Ano de lanzamento",
+            "hideOwned": "Ocultar Propios",
+            "wishlistOnly": "Só lista de desexos",
+            "platform": "Platform"
+        },
+        "region": {
+            "countries": {
+                "IT": "Italia",
+                "ES": "España",
+                "FI": "Finlandia",
+                "GR": "Grecia",
+                "RO": "Romanía",
+                "NO": "Noruega",
+                "KR": "Corea do Sur",
+                "US": "Estados Unidos",
+                "HU": "Hungría",
+                "PT": "Portugal",
+                "NL": "Países Baixos",
+                "AU": "Australia",
+                "TW": "Taiwán",
+                "IL": "Israel",
+                "JP": "Xapón",
+                "DK": "Dinamarca",
+                "DE": "Alemaña",
+                "CZ": "Chequia",
+                "FR": "Francia",
+                "UA": "Ucraína",
+                "GB": "Reino Unido",
+                "SE": "Suecia",
+                "CN": "China",
+                "RU": "Rusia",
+                "CA": "Canadá",
+                "PL": "Polonia",
+                "BR": "Brasil",
+                "CH": "Suíza",
+                "TR": "Turquía"
+            },
+            "auto": "Automático {{code}}",
+            "label": "Rexión da tenda"
+        },
+        "sidebar": "Ofertas",
+        "sort": {
+            "priceDesc": "Prezo: de maior a menor",
+            "trending": "Tendencias",
+            "priceAsc": "Prezo: de menor a maior",
+            "releaseDesc": "Data de lanzamento: de novo a antigo",
+            "ratingAsc": "Clasificación: de baixa a alta",
+            "releaseAsc": "Data de lanzamento: antiga a nova",
+            "ratingDesc": "Clasificación: de alta a baixa",
+            "discount": "Maior desconto"
+        },
+        "noMatches": "Non hai xogos que coincidan cos filtros actuais.",
+        "aria": {
+            "pagination": "",
+            "rating": "Puntuación {{rating}} de 10"
+        },
+        "error": "Non se puideron cargar os descontos. Téntao de novo máis tarde.",
+        "empty": "",
+        "loading": "Cargando xogos con desconto…",
+        "title": "Ofertas de GOG",
+        "pagination": {
+            "prev": "Anterior"
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Ofertas"
+    },
+    "next": "Seguinte",
+    "console": {
+        "filter": {
+            "all": "Todos",
+            "sideload": "Outros"
+        },
+        "games": "Xogos instalados",
+        "hints": {
+            "quit": "Saír",
+            "launch": "Lanzando",
+            "sort": "Ordenar",
+            "navigate": "Navegar",
+            "change_store": "Cambiar de tenda"
+        },
+        "launching": "Lanzando",
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "Ordenar",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "Saír da consola",
+        "card": {
+            "needsUpdate": "Precisa actualización"
+        },
+        "empty": "Non hai xogos instalados para amosar. Instala algo primeiro.",
+        "quitApp": "",
+        "loading": "",
+        "cancelInstall": {
+            "title": "Cancelar Instalación ?",
+            "message": "Este xogo está a instalarse actualmente. Queres cancelar a instalación?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Instalar xogo",
+            "wineLoading": "Cargando…",
+            "path": "Instalar en",
+            "wineMissing": "Ningunha localización seleccionada"
+        },
+        "cancelUpdate": {
+            "message": "Este xogo está a descargarse actualmente. Queres cancelar a actualización en curso?",
+            "title": "Cancelar actualización?"
+        },
+        "removeFromQueue": {
+            "message": "Este xogo está na cola de descarga. Queres eliminalo da cola?"
+        }
+    }
 }

@@ -60,7 +60,11 @@
 .settingsWrapper > .backButton {
   position: absolute;
   top: 2rem;
-  right: 100%;
+  left: 25px;
+}
+.isRTL .settingsWrapper > .backButton {
+  right: 25px;
+  left: auto;
 }
 
 .settingsTools {

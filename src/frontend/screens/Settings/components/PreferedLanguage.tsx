@@ -36,7 +36,7 @@ const PreferedLanguage = () => {
       htmlId="prefered-language"
       placeholder={t(
         'placeholder.prefered_language',
-        '2-char code (i.e.: "en" or "fr")'
+        '2-char or 4-char code (i.e.: "fr" or "pt-BR")'
       )}
       value={languageCode}
       onChange={handleLanguageCode}

@@ -13,6 +13,7 @@ import type {
   DownloadManagerState,
   ExecResult,
   ExtraInfo,
+  GameAchievement,
   GameInfo,
   GamepadActionArgs,
   GameSettings,
@@ -21,7 +22,7 @@ import type {
   InstallInfo,
   InstallParams,
   InstallPlatform,
-  KnowFixesInfo,
+  KnownFixesInfo,
   LaunchOption,
   LaunchParams,
   MoveGameArgs,
@@ -44,6 +45,11 @@ import type {
   WineManagerStatus,
   WineVersionInfo
 } from '../types'
+import type {
+  CatalogLocaleSettings,
+  CatalogProduct,
+  GogDealsRegion
+} from './discounts'
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
@@ -68,6 +74,7 @@ interface SyncIPCFunctions {
   openDiscordLink: () => void
   openPatreonPage: () => void
   openKofiPage: () => void
+  openGithubSponsorsPage: () => void
   openWinePrefixFAQ: () => void
   openWebviewPage: (url: string) => void
   openWikiLink: () => void
@@ -76,6 +83,7 @@ interface SyncIPCFunctions {
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
   clearCache: (showDialog?: boolean, fromVersionChange?: boolean) => void
+  clearAchievementCache: (appName: string) => void
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
@@ -107,6 +115,7 @@ interface SyncIPCFunctions {
   maximizeWindow: () => void
   unmaximizeWindow: () => void
   closeWindow: () => void
+  setFullscreen: (enabled: boolean) => void
   setTitleBarOverlay: (options: TitleBarOverlay) => void
   winetricksInstall: (
     runner: Runner,
@@ -119,6 +128,12 @@ interface SyncIPCFunctions {
     status: boolean
   ) => void
   logoutZoom: () => void
+  setGameMetadataOverride: (args: {
+    appName: string
+    title?: string
+    art_cover?: string
+    art_square?: string
+  }) => void
 }
 
 /*
@@ -163,6 +178,11 @@ interface AsyncIPCFunctions {
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
   getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
+  getAchievements: (
+    appName: string,
+    runner: Runner,
+    lang?: string
+  ) => Promise<GameAchievement[]>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
@@ -230,17 +250,32 @@ interface AsyncIPCFunctions {
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
   isNative: (args: { appName: string; runner: Runner }) => boolean
-  getLogContent: (args: GetLogFileArgs) => string
+  getLogContent: (args: GetLogFileArgs) => Promise<string>
   installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
   removeWineVersion: (release: WineVersionInfo) => Promise<void>
   'wine.isValidVersion': (release: WineInstallation) => Promise<boolean>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
-  removeFromSteam: (appName: string, runner: Runner) => Promise<void>
+  removeFromSteam: (appName: string, runner: Runner) => Promise<boolean>
   isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
   getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
-  getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
+  getKnownFixes: (appName: string, runner: Runner) => KnownFixesInfo | null
+  getGameMetadataOverride: (appName: string) => Promise<{
+    title?: string
+    art_cover?: string
+    art_square?: string
+  } | null>
+  getAllGameOverrides: () => Promise<
+    Record<
+      string,
+      {
+        title?: string
+        art_cover?: string
+        art_square?: string
+      }
+    >
+  >
   getEosOverlayStatus: () => {
     isInstalled: boolean
     version?: string
@@ -313,6 +348,29 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  getGogDealsRegion: () => Promise<GogDealsRegion | null>
+  getGogDiscounts: (
+    locale: CatalogLocaleSettings,
+    hideOwned?: boolean
+  ) => Promise<CatalogProduct[]>
+  getGogWishlist: () => Promise<string[]>
+  getGmgDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
+  getHumbleDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
+  'steamgriddb.hasApiKey': () => Promise<boolean>
+  'steamgriddb.setApiKey': (key: string) => Promise<void>
+  'steamgriddb.searchGame': (
+    query: string
+  ) => Promise<Array<{ id: number; name: string }>>
+  'steamgriddb.getGrids': (args: {
+    gameId: number
+    styles?: string[]
+    dimensions?: string[]
+  }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  'steamgriddb.getHeroes': (args: {
+    gameId: number
+    styles?: string[]
+    dimensions?: string[]
+  }) => Promise<Array<{ id: number; url: string; thumb: string }>>
 }
 
 interface FrontendMessages {
@@ -350,6 +408,12 @@ interface FrontendMessages {
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void
   progressUpdate: (progress: GameStatus) => void
+  metadataChanged: (
+    overrides: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    >
+  ) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

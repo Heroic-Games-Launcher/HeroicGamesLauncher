@@ -1,4 +1,4 @@
-import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
@@ -11,6 +11,7 @@ import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
+import { onConnectivityChange } from 'backend/online_monitor'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -23,6 +24,19 @@ const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
 
 let queueState: DownloadManagerState = 'idle'
 let currentElement: DMQueueElement | null = null
+let autoPaused = false
+
+onConnectivityChange((status) => {
+  if (status === 'offline' && isRunning()) {
+    logInfo('System offline, auto-pausing downloads', LogPrefix.DownloadManager)
+    pauseCurrentDownload()
+    autoPaused = true
+  } else if (status === 'online' && autoPaused) {
+    logInfo('System online, auto-resuming downloads', LogPrefix.DownloadManager)
+    autoPaused = false
+    void resumeCurrentDownload()
+  }
+})
 
 function getFirstQueueElement() {
   const elements = downloadManager.get('queue', [])
@@ -96,7 +110,9 @@ async function initQueue() {
     }
   }
 
-  queueState = 'idle'
+  if (queueState !== 'paused') {
+    queueState = 'idle'
+  }
 }
 
 async function addToQueue(element: DMQueueElement) {
@@ -129,7 +145,7 @@ async function addToQueue(element: DMQueueElement) {
     const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
       element.params.appName
     )
-    if (!gameInfo?.isEAManaged) {
+    if (!gameInfo?.isEAManaged && !gameInfo?.isUbisoftManaged) {
       const installInfo = await libraryManagerMap[
         element.params.runner
       ].getInstallInfo(
@@ -175,7 +191,7 @@ async function addToQueue(element: DMQueueElement) {
   sendFrontendMessage('changedDMQueueInformation', elements, queueState)
 
   if (isIdle()) {
-    initQueue()
+    void initQueue()
   }
 }
 
@@ -227,7 +243,9 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
 
     if (removeDownloaded) {
       const { appName, runner } = currentElement.params
-      const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
+      const { folder_name } = libraryManagerMap[runner]
+        .getGame(appName)
+        .getGameInfo()
       if (folder_name) {
         removeFolder(currentElement.params.path, folder_name)
       }
@@ -241,6 +259,7 @@ function pauseCurrentDownload() {
     stopCurrentDownload()
   }
   queueState = 'paused'
+  autoPaused = false
   sendFrontendMessage(
     'changedDMQueueInformation',
     downloadManager.get('queue', []),
@@ -249,13 +268,14 @@ function pauseCurrentDownload() {
 }
 
 function resumeCurrentDownload() {
-  initQueue()
+  autoPaused = false
+  void initQueue()
 }
 
 function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
-  gameManagerMap[runner].stop(appName, false)
+  libraryManagerMap[runner].getGame(appName).stop(false)
 }
 
 // notify the user based on the status of the element and the status of the queue
@@ -267,9 +287,9 @@ function processNotification(element: DMQueueElement, status: DMStatus) {
   ) {
     return
   }
-  const { title } = gameManagerMap[element.params.runner].getGameInfo(
-    element.params.appName
-  )
+  const { title } = libraryManagerMap[element.params.runner]
+    .getGame(element.params.appName)
+    .getGameInfo()
 
   if (status === 'abort') {
     if (isPaused()) {

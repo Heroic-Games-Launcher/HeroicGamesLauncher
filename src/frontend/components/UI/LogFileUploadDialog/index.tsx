@@ -76,10 +76,18 @@ export default function LogUploadDialog() {
     if (error)
       return [
         t('setting.log.upload.error.title', 'Upload failed'),
-        t(
-          'setting.log.upload.error.content',
-          "Failed to upload log file. Check Heroic's general log for details"
-        ),
+        <>
+          {t(
+            'setting.log.upload.error.content',
+            "Failed to upload log file. Check Heroic's general log for details"
+          )}
+          <br />
+          <br />
+          {t(
+            'setting.log.upload.error.manual_upload',
+            'Click the "SHOW LOG FILE IN FOLDER" button and upload the "launch.log" file manually to Discord or any online file sharing service.'
+          )}
+        </>,
         <>
           <button onClick={onClose} className={'button is-secondary'}>
             {t('box.ok')}
@@ -106,7 +114,11 @@ export default function LogUploadDialog() {
   if (!uploadLogFileProps) return <></>
 
   return (
-    <Dialog onClose={onClose} showCloseButton={false}>
+    <Dialog
+      onClose={onClose}
+      showCloseButton={false}
+      className="log-upload-result"
+    >
       <DialogHeader>{dialogTitle}</DialogHeader>
       <DialogContent>{dialogContent}</DialogContent>
       <DialogFooter>{dialogFooter}</DialogFooter>
