@@ -36,7 +36,7 @@
   gap: var(--space-sm-fixed);
   padding: var(--space-xs-fixed) var(--space-sm-fixed);
   background: var(--input-background);
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--space-3xs);
   transition: background 0.2s;
   min-height: 48px;
 }
@@ -104,7 +104,7 @@
   margin-top: var(--space-sm-fixed);
   padding: var(--space-md-fixed);
   border: 1px dashed var(--divider, var(--text-secondary));
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--space-3xs);
 }
 
 .env-var-add-title {
@@ -132,7 +132,7 @@
   color: var(--text-default);
   padding: var(--space-sm-fixed);
   font-family: monospace;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--space-3xs);
   resize: vertical;
 }
 

@@ -699,9 +699,11 @@
     },
     "options": {
         "advanced": {
+            "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderV": "VALUE",
-            "title": "Environment Variables"
+            "title": "Environment Variables",
+            "value": "Value"
         },
         "env_variables": {
             "add_new": "Add New Variable",

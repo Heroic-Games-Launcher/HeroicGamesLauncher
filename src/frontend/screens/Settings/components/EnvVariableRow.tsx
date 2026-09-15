@@ -114,6 +114,7 @@ const EnvVariableRow = ({ env, onSave, onRemove, onDuplicate }: Props) => {
               setError(validateEnvKey(nextKey, t))
             }}
             placeholder={t('options.advanced.placeHolderKey', 'NAME')}
+            aria-label={t('options.advanced.key', 'Variable Name')}
           />
           <span className="env-var-connector">=</span>
           <TextInputField
@@ -123,6 +124,7 @@ const EnvVariableRow = ({ env, onSave, onRemove, onDuplicate }: Props) => {
               setEditValue(val)
             }}
             placeholder={t('options.advanced.placeHolderV', 'VALUE')}
+            aria-label={t('options.advanced.value', 'Value')}
           />
         </div>
       ) : (

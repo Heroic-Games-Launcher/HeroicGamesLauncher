@@ -157,9 +157,9 @@ const EnvVariablesTable = () => {
         </Dialog>
       )}
       <div className="env-vars-header">
-        <label className="env-vars-title">
+        <span className="env-vars-title">
           {t('options.advanced.title', 'Environment Variables')}
-        </label>
+        </span>
         <div className="env-vars-actions">
           <SvgButton
             onClick={() => setShowBulkEdit(true)}
@@ -215,6 +215,7 @@ const EnvVariablesTable = () => {
               setFormError(validateEnvKey(nextKey, t))
             }}
             placeholder={t('options.advanced.placeHolderKey', 'NAME')}
+            aria-label={t('options.advanced.key', 'Variable Name')}
           />
           <span className="env-var-connector">=</span>
           <TextInputField
@@ -224,6 +225,7 @@ const EnvVariablesTable = () => {
               setNewValue(val)
             }}
             placeholder={t('options.advanced.placeHolderV', 'VALUE')}
+            aria-label={t('options.advanced.value', 'Value')}
           />
           <SvgButton
             onClick={handleAdd}
