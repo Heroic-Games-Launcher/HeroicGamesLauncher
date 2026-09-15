@@ -98,6 +98,11 @@
             "dxmt": {
                 "message": "Fel vid nedladdning av DXMT! Kontrollera anslutningen.",
                 "title": "Fel vid nedladdning av DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
