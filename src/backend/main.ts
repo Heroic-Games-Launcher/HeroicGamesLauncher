@@ -608,7 +608,11 @@ addListener('showConfigFileInFolder', async (event, appName) => {
   if (appName === 'default') {
     return openUrlOrFile(configPath)
   }
-  return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
+  const gameConfigPath = path.join(gamesConfigPath, `${appName}.json`)
+  if (!existsSync(gameConfigPath)) {
+    GameConfig.get(appName).flush()
+  }
+  return openUrlOrFile(gameConfigPath)
 })
 
 addListener('removeFolder', async (e, [path, folderName]) => {
