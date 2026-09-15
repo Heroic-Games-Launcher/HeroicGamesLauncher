@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Erro ao transferir o DXMT! Verifique a sua ligação!",
                 "title": "Erro ao transferir o DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
