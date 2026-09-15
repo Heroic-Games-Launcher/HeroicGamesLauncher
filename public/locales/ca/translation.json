@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Error en baixar el DXMT! Comprova la connexió!",
                 "title": "Error de baixada del DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "{{game}} no s'ha pogut treure de l'Steam a causa de:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
