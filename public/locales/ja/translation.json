@@ -101,7 +101,12 @@
                 "message": "DXMTのダウンロードに失敗しました！接続状態を確認してください！",
                 "title": "DXMT ダウンロードエラー"
             },
-            "executableNotFoundMessage": "Heroicはこのゲームの実行ファイルを見つけられませんでした。ゲームの設定で手動で設定してください。"
+            "executableNotFoundMessage": "Heroicはこのゲームの実行ファイルを見つけられませんでした。ゲームの設定で手動で設定してください。",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {

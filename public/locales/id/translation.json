@@ -98,6 +98,11 @@
             "dxmt": {
                 "message": "Kesalahan saat mengunduh DXMT! Periksa koneksi Anda!",
                 "title": "Kesalahan Unduhan DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Gagal menghapus {{game}} dari Steam dengan:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {

@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Ошибка загрузки DXMT! Проверьте свое соединение!",
                 "title": "Ошибка загрузки DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Удаление {{game}} из Steam не удалось:{{newLine}}{{error}}"
+                }
             }
         },
         "info": {

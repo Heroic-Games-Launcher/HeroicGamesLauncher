@@ -109,6 +109,11 @@
             "dxmt": {
                 "message": "Earráid ag íoslódáil DXMT! Seiceáil do nasc!",
                 "title": "Earráid Íoslódála DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Theip ar {{game}} a chur le Steam leis an méid seo a leanas: {{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1263,5 +1268,10 @@
     },
     "sidebar": {
         "console": "Mód Consóil"
+    },
+    "common": {
+        "add": "Cuir",
+        "cancel": "Cealaigh",
+        "warning": "Rabhadh"
     }
 }

@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Hiba a DXMT letöltésekor. Ellenőrizd az internetkapcsolatot!",
                 "title": "DXMT letöltési hiba"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {

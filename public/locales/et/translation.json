@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Viga DXMT allalaadimisel! Kontrollige oma ühendust!",
                 "title": "Viga DXMT allalaadimisel"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Mängu {{game}} eemaldamine Steamist ebaõnnestus:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {

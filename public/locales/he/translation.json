@@ -63,7 +63,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "הוספת {{game}} לSteam נכשל בשל: {{newLine}}{{error}}"
+                }
+            }
         },
         "runexe": {
             "title": "בחרו קובץ EXE להפעיל"

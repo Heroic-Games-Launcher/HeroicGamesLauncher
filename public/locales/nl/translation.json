@@ -98,6 +98,11 @@
             "dxmt": {
                 "message": "",
                 "title": ""
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {

@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Erro ao baixar o DXMT! Verifique sua conexão!",
                 "title": "Erro ao baixar DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Erro ao remover {{game}} da Steam:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {

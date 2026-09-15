@@ -67,7 +67,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Додавање {{game}} на Steam није успело са:{{newLine}} {{error}}"
+                }
+            }
         },
         "quit": {
             "message": "Постоје недовршене операције, да ли сте сигурни?",

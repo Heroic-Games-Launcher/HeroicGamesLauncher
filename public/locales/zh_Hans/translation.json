@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "下载 DXMT 出错！检查你的连接！",
                 "title": "DXMT 下载错误"
+            },
+            "remove": {
+                "steam": {
+                    "body": "从 Steam 删除 {{game}} 失败，错误：{{newLine}} {{error}}"
+                }
             }
         },
         "info": {

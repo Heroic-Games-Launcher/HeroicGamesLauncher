@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "從 Steam 移除 {{game}} 失敗，錯誤：{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
