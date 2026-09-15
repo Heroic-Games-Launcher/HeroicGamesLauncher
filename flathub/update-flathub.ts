@@ -174,13 +174,15 @@ async function main() {
 
   for (const [i, releaseComponent_i] of releaseNotesComponents.entries()) {
     if (i === 0) continue
-    if (!releaseComponent_i.startsWith('*')) continue
+    if (releaseComponent_i.startsWith('## New Contributors')) break
+    if (!releaseComponent_i.startsWith('* ')) continue
 
     // Remove URLs and "@username" from the release note text
     const li = releaseComponent_i
       .replace(/\n/g, '')
       .replace(/\r/g, '')
       .replace(/\t/g, '')
+      .replace(/\s+by\s+@[\w-]+\s+in\s+https?:\/\/\S+$/i, '') // Remove "by @username in URL"
       .replace(/https?:\/\/[^\s]+/g, '') // Remove URLs
       .replace(/by\s+@[\w-]+/gi, '') // Remove "by @username"
       .slice(1)
