@@ -4,7 +4,8 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 
 import './index.scss'
 
-import { install, writeConfig } from 'frontend/helpers'
+import { writeConfig } from 'frontend/helpers'
+import { install } from 'frontend/helpers/library'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 

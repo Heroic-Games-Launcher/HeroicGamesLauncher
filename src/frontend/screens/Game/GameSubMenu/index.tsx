@@ -4,7 +4,8 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { GameInfo, GameStatus, Runner } from 'common/types'
 
-import { createNewWindow, repair } from 'frontend/helpers'
+import { createNewWindow } from 'frontend/helpers'
+import { repair } from 'frontend/helpers/library'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'

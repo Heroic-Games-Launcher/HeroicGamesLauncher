@@ -15,7 +15,8 @@ import {
   useGamepadInfo
 } from '../../hooks'
 import { getBackButtonIndex } from '../../controller'
-import { launch, sendKill } from 'frontend/helpers'
+import { sendKill } from 'frontend/helpers'
+import { launch } from 'frontend/helpers/library'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 const CANCEL_HOLD_MS = 3000
