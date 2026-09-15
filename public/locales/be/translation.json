@@ -103,7 +103,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Не ўдалося дадаць {{game}} у Steam:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
