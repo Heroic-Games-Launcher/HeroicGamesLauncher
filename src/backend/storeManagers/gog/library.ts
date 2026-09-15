@@ -57,6 +57,7 @@ import { runGogdlCommandStub } from './e2eMock'
 import { gogdlConfigPath } from './constants'
 import { userDataPath } from 'backend/constants/paths'
 import GOGGame from './games'
+import { productToGameInfo } from './unified_info'
 import type { LibraryManager } from 'common/types/game_manager'
 import { libraryManagerMap } from '../index'
 import { readdir } from 'fs/promises'
@@ -491,6 +492,8 @@ export default class GOGLibraryManager implements LibraryManager {
     const gamesObjects: GameInfo[] = [redistGameInfo]
     apiInfoCache.use_in_memory() // Prevent blocking operations
     for (const game of filteredApiArray) {
+      let unifiedObject: GameInfo | undefined
+      let gamesdbUnavailable = false
       let retries = 5
       while (retries > 0) {
         let gdbData
@@ -503,8 +506,10 @@ export default class GOGLibraryManager implements LibraryManager {
             credentials.access_token
           )
           gdbData = data
+          gamesdbUnavailable = !gdbData
         } catch {
           retries -= 1
+          gamesdbUnavailable = true
           logError(
             `Error getting gamesdb data for ${game.external_id} retries: ${retries}/5`,
             LogPrefix.Gog
@@ -513,37 +518,63 @@ export default class GOGLibraryManager implements LibraryManager {
           continue
         }
 
-        const unifiedObject = await this.gogToUnifiedInfo(gdbData)
-        if (unifiedObject.app_name) {
-          const oldData = library.get(unifiedObject.app_name)
-          if (oldData) {
-            unifiedObject.folder_name = oldData.folder_name
-          }
-          gamesObjects.push(unifiedObject)
-
-          const installedInfo = installedGames.get(String(game.external_id))
-          // If game is installed, verify if installed game supports cloud saves
-          if (installedInfo && installedInfo?.platform !== 'linux') {
-            const saveLocations = await this.getSaveSyncLocation(
-              unifiedObject.app_name,
-              installedInfo
-            )
-
-            if (saveLocations) {
-              unifiedObject.cloud_save_enabled = true
-              unifiedObject.gog_save_location = saveLocations
-            }
-          }
-          // Create new object to not write install data into library store
-          const copyObject = Object.assign({}, unifiedObject)
-          if (installedInfo) {
-            copyObject.is_installed = true
-            copyObject.install = installedInfo
-          }
-          library.set(copyObject.app_name, copyObject)
-        }
+        const candidate = await this.gogToUnifiedInfo(gdbData)
+        if (candidate.app_name) unifiedObject = candidate
         break
       }
+
+      if (!unifiedObject && gamesdbUnavailable) {
+        const productResponse = await this.getProductApi(
+          String(game.external_id),
+          ['description'],
+          credentials.access_token
+        )
+        if (productResponse) {
+          logWarning(
+            `Using product API metadata for GOG game ${game.external_id} because GamesDB data is unavailable`,
+            LogPrefix.Gog
+          )
+          unifiedObject = productToGameInfo(
+            productResponse.data,
+            String(game.external_id)
+          )
+        } else {
+          logError(
+            `Unable to load metadata for GOG game ${game.external_id}`,
+            LogPrefix.Gog
+          )
+          continue
+        }
+      }
+
+      if (!unifiedObject) continue
+
+      const oldData = library.get(unifiedObject.app_name)
+      if (oldData) {
+        unifiedObject.folder_name = oldData.folder_name
+      }
+      gamesObjects.push(unifiedObject)
+
+      const installedInfo = installedGames.get(String(game.external_id))
+      // If game is installed, verify if installed game supports cloud saves
+      if (installedInfo && installedInfo?.platform !== 'linux') {
+        const saveLocations = await this.getSaveSyncLocation(
+          unifiedObject.app_name,
+          installedInfo
+        )
+
+        if (saveLocations) {
+          unifiedObject.cloud_save_enabled = true
+          unifiedObject.gog_save_location = saveLocations
+        }
+      }
+      // Create new object to not write install data into library store
+      const copyObject = Object.assign({}, unifiedObject)
+      if (installedInfo) {
+        copyObject.is_installed = true
+        copyObject.install = installedInfo
+      }
+      library.set(copyObject.app_name, copyObject)
     }
 
     apiInfoCache.commit() // Sync cache to drive
