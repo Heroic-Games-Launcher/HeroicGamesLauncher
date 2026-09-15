@@ -534,19 +534,18 @@ export async function getWineFlags(
       partialCommand = { '--wine': Path.parse(wineBin) }
       if (wrapper) partialCommand['--wrapper'] = NonEmptyString.parse(wrapper)
       break
-    case 'proton':
+    case 'proton': {
+      // We only need to add the `proton` binary if we're not running with umu
+      // If umu is used, it will automatically do this for us
+      const addProtonBin = !(await isUmuSupported(gameSettings))
       partialCommand = {
         '--no-wine': true,
         '--wrapper': NonEmptyString.parse(
-          `${wrapper} "${wineBin}" waitforexitandrun`
-        )
-      }
-      if (await isUmuSupported(gameSettings)) {
-        partialCommand['--wrapper'] = NonEmptyString.parse(
-          (wrapper ? `${wrapper} ` : '') + `"${await getUmuPath()}"`
+          addProtonBin ? `${wrapper} "${wineBin}" waitforexitandrun` : wrapper
         )
       }
       break
+    }
     case 'crossover':
       partialCommand = {
         '--wine': Path.parse(wineBin)
