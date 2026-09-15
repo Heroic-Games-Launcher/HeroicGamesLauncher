@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Chyba při stahování DXMT! Zkontrolujte připojení!",
                 "title": "Chyba při stahování DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
