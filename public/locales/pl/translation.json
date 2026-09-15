@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Błąd pobierania DXMT! Sprawdź swoje połączenie!",
                 "title": "Błąd pobierania DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Usuwanie {{game}} ze Steam'a zakończyło się błędem:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
