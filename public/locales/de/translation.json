@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Es ist ein Fehler beim Download von DXMT aufgetreten. Kontrolliere deine Internetverbindung!",
                 "title": "DXMT-Downloadfehler"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Das Entfernen von {{game}} aus Steam schlug fehl mit:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
