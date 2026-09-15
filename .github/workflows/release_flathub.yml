@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
     inputs:
       ref_name:
-        description: 'Release Flatpak'
-        required: false
+        description: 'Release tag'
+        required: true
       is_prerelease:
         description: 'Is this a pre-release/beta?'
         required: false
@@ -20,7 +20,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
   GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-  RELEASE_VERSION: ${{ github.ref_name }}
+  RELEASE_VERSION: ${{ github.event.release.tag_name || github.event.inputs.ref_name }}
   IS_PRERELEASE: ${{ github.event.release.prerelease || github.event.inputs.is_prerelease || 'false' }}
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo ref name.
-        run: echo "tag name ${{ github.ref_name }}"
+        run: echo "tag name $RELEASE_VERSION"
       - name: Checkout repository.
         uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
@@ -39,28 +39,28 @@ jobs:
       - name: Checkout flathub repository.
         run: git clone https://github.com/flathub/com.heroicgameslauncher.hgl.git
       - name: Update flathub release
-        run: export RELEASE_VERSION=${{ github.ref_name }} && export IS_PRERELEASE=${{ env.IS_PRERELEASE }} && pnpm release:updateFlathub:ci
+        run: pnpm release:updateFlathub:ci
       - name: Branch flathub repo
-        run: git checkout -b "${{ github.ref_name }}"
+        run: git checkout -b "$RELEASE_VERSION"
         working-directory: ./com.heroicgameslauncher.hgl
       - name: Commit files to com.heroicgameslauncher.hgl
         run: |
           git config --local user.email "26871415+flavioislima@users.noreply.github.com"
           git config --local user.name "Flavio F Lima"
-          git commit -a -m "changes for ${{ github.ref_name }}"
+          git commit -a -m "changes for $RELEASE_VERSION"
         working-directory: ./com.heroicgameslauncher.hgl
       - name: Push updated flathub branch
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.WORKFLOW_TOKEN }}
-          branch: ${{ github.ref_name }}
+          branch: ${{ env.RELEASE_VERSION }}
           directory: com.heroicgameslauncher.hgl
           repository: flathub/com.heroicgameslauncher.hgl
       - name: PR to flathub repo
         run: |
-          if [ "${{ env.IS_PRERELEASE }}" = "true" ]; then
-            sleep 5 && gh pr create --title ${{ github.ref_name }} --body ${{ github.ref_name }} --base beta --head ${{ github.ref_name }}
+          if [ "$IS_PRERELEASE" = "true" ]; then
+            sleep 5 && gh pr create --title "$RELEASE_VERSION" --body "$RELEASE_VERSION" --base beta --head "$RELEASE_VERSION"
           else
-            sleep 5 && gh pr create --title ${{ github.ref_name }} --body ${{ github.ref_name }} --base master --head ${{ github.ref_name }}
+            sleep 5 && gh pr create --title "$RELEASE_VERSION" --body "$RELEASE_VERSION" --base master --head "$RELEASE_VERSION"
           fi
         working-directory: ./com.heroicgameslauncher.hgl
