@@ -10,6 +10,7 @@
   <summary xml:lang="fr">Lancez des jeux Epic, GOG et Amazon</summary>
   <summary xml:lang="zh">游玩 Epic、GOG 和 Amazon 游戏</summary>
   <summary xml:lang="ja">Epic、GOG、Amazonのゲームをプレイ</summary>
+  <summary xml:lang="ru">Запуск игр из Epic, GOG и Amazon</summary>
   <url type="homepage">https://heroicgameslauncher.com</url>
   <url type="bugtracker">https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues</url>
   <url type="donation">https://ko-fi.com/heroicgames</url>
@@ -47,6 +48,9 @@
       使用我们自定义的 gogdl 实现启动 GOG 游戏，以及使用 Nile 启动 Amazon 游戏。</p>
     <p xml:lang="ja">Heroic はオープンソースのゲームランチャーです。現在 Legendary を使って Epic Games Store の
       ゲームを起動し、カスタム実装の gogdl を使用して GOG のゲームを起動し、Nile を使用して Amazon のゲームを起動できます。</p>
+    <p xml:lang="ru">Heroic — игровой лаунчер с открытым исходным кодом. Сейчас он умеет запускать
+      игры из Epic Games Store через Legendary, игры GOG — через нашу собственную реализацию
+      на базе gogdl, а игры Amazon — через Nile.</p>
     <p>Main Features:</p>
     <p xml:lang="de">Hauptfunktionen:</p>
     <p xml:lang="pt">Principais recursos:</p>
@@ -54,6 +58,7 @@
     <p xml:lang="fr">Principales fonctionnalités :</p>
     <p xml:lang="zh">主要功能：</p>
     <p xml:lang="ja">主な機能：</p>
+    <p xml:lang="ru">Основные возможности:</p>
     <ul>
       <li>Have access to your Epic, GOG and Amazon Games in a intuitive User Interface.</li>
       <li xml:lang="pt">Acesse seus jogos da Epic, GOG e Amazon em uma interface de usuário
@@ -67,6 +72,7 @@
       <li xml:lang="de">Zugriff auf deine Spielebibliothek von Epic Games, GOG und Amazon Games
         durch eine
         intuitive Benutzeroberfläche.</li>
+      <li xml:lang="ru">Вся библиотека Epic, GOG и Amazon в одном понятном интерфейсе.</li>
       <li>Add Games outside GOG, Amazon or Epic Games Store native or not. Even Browser apps
         are supported</li>
       <li xml:lang="pt">Adicione jogos fora da GOG, Amazon ou Epic Games Store, nativos ou não. Até
@@ -80,6 +86,8 @@
       <li xml:lang="de">Spiele können hinzugefügt werden, die nicht von Epic Games, GOG oder Amazon
         Games
         sind. Sogar Browser Apps werden unterstützt.</li>
+      <li xml:lang="ru">Добавляйте игры со стороны, не из GOG, Amazon или Epic Games Store, —
+        как нативные, так и нет. Поддерживаются даже браузерные приложения.</li>
       <li>A Download queue to download multiple games at once.</li>
       <li xml:lang="pt">Uma fila de download para baixar vários jogos de uma vez.</li>
       <li xml:lang="es">Una cola de descarga para descargar varios juegos a la vez.</li>
@@ -91,6 +99,7 @@
       <li xml:lang="de">Zugriff auf deine Spielebibliothek von Epic Games und GOG durch eine
         intuitive
         Benutzeroberfläche.</li>
+      <li xml:lang="ru">Очередь загрузок: можно ставить сразу несколько игр.</li>
       <li>Install and launch your Windows Games using Wine or Proton. Or Launch your Native
         GOG Games.</li>
       <li xml:lang="pt">Instale e inicie seus jogos do Windows usando Wine ou Proton. Ou inicie seus
@@ -104,6 +113,8 @@
       <li xml:lang="de">Windows Spiele könne mithilfe von Wine oder Proton gestartet werden. Native
         Spiele
         von GOG können direkt gestartet werden.</li>
+      <li xml:lang="ru">Устанавливайте и запускайте игры для Windows через Wine или Proton, а
+        нативные игры GOG — напрямую.</li>
       <li>Cloud Saves support for GOG and Epic Games.</li>
       <li xml:lang="pt">Suporte a salvamentos em nuvem para GOG e Epic Games.</li>
       <li xml:lang="es">Soporte de guardado en la nube para GOG y Epic Games.</li>
@@ -111,6 +122,7 @@
       <li xml:lang="zh">支持 GOG 和 Epic Games 的云存档。</li>
       <li xml:lang="ja">GOG と Epic Games のクラウドセーブをサポート。</li>
       <li xml:lang="de">Cloud Saves werden für GOG und Epic Games unterstützt.</li>
+      <li xml:lang="ru">Поддержка облачных сохранений для GOG и Epic Games.</li>
       <li>Import Games installed through the Epic Store or GOG Galaxy.</li>
       <li xml:lang="pt">Importe jogos instalados através da Epic Store ou GOG Galaxy.</li>
       <li xml:lang="es">Importa juegos instalados desde Epic Store o GOG Galaxy.</li>
@@ -120,6 +132,7 @@
       <li xml:lang="de">Installierte Spiele können aus dem Epic Games Sore oder aus GOG Galaxy
         importiert
         werden.</li>
+      <li xml:lang="ru">Импорт игр, уже установленных через Epic Store или GOG Galaxy.</li>
       <li>Verify and Repair corrupted installations or even move your installation to
         different folders.</li>
       <li xml:lang="pt">Verifique e repare instalações corrompidas ou até mesmo mova sua instalação
@@ -130,6 +143,8 @@
         installation vers différents dossiers.</li>
       <li xml:lang="zh">验证并修复损坏的安装，或将安装移动到不同的文件夹。</li>
       <li xml:lang="ja">破損したインストールを検証および修復し、インストール先を別のフォルダに移動することもできます。</li>
+      <li xml:lang="ru">Проверка и восстановление повреждённых установок, а также перенос игр в
+        другие папки.</li>
       <li>Integrated Proton/Wine Manager for easy installation of new and updated ones</li>
       <li xml:lang="pt">Gerenciador Proton/Wine integrado para fácil instalação de versões novas e
         atualizadas.</li>
@@ -139,12 +154,15 @@
         nouvelles versions et mises à jour.</li>
       <li xml:lang="zh">集成的 Proton/Wine 管理器，轻松安装新版本和更新。</li>
       <li xml:lang="ja">新規および更新された Proton/Wine バージョンを簡単にインストールできる統合 Proton/Wine マネージャー。</li>
+      <li xml:lang="ru">Встроенный менеджер Wine и Proton: новые версии и обновления ставятся в
+        пару кликов.</li>
       <li>Integrated Winetricks</li>
       <li xml:lang="pt">Winetricks integrado</li>
       <li xml:lang="es">Winetricks integrado</li>
       <li xml:lang="fr">Winetricks intégré</li>
       <li xml:lang="zh">集成 Winetricks</li>
       <li xml:lang="ja">統合 Winetricks</li>
+      <li xml:lang="ru">Встроенный Winetricks</li>
       <li>Support for install and uninstall of Games DLCs</li>
       <li xml:lang="pt">Suporte para instalação e desinstalação de DLCs de jogos</li>
       <li xml:lang="es">Soporte para instalación y desinstalación de DLCs de juegos</li>
@@ -152,6 +170,7 @@
         jeux</li>
       <li xml:lang="zh">支持游戏 DLC 的安装和卸载</li>
       <li xml:lang="ja">ゲームの DLC のインストールとアンインストールをサポート</li>
+      <li xml:lang="ru">Установка и удаление игровых дополнений (DLC)</li>
       <li xml:lang="de">Installationen können auf Beschädigungen überprüft und repariert werden,
         sowie in
         andere Ordner verschoben werden.</li>
@@ -167,6 +186,7 @@
       <li xml:lang="de">Der Epic Games Store sowie der GOG Store können direkt aus der App
         aufgerufen
         werden.</li>
+      <li xml:lang="ru">Магазины Epic и GOG, а также вики Heroic — прямо в приложении.</li>
       <li>Check Metacritic, IGCB or OpenCritic score for the game.</li>
       <li xml:lang="pt">Verifique a pontuação do Metacritic, IGCB ou OpenCritic para o jogo.</li>
       <li xml:lang="es">Consulta la puntuación en Metacritic, IGCB u OpenCritic para el juego.</li>
@@ -174,6 +194,7 @@
       <li xml:lang="zh">查看游戏在 Metacritic、IGCB 或 OpenCritic 上的评分。</li>
       <li xml:lang="ja">ゲームの Metacritic、IGCB、OpenCritic のスコアを確認します。</li>
       <li xml:lang="de">Überprüfen Sie den Metacritic-, IGCB- oder OpenCritic-Score des Spiels.</li>
+      <li xml:lang="ru">Оценки Metacritic, IGDB и OpenCritic для каждой игры.</li>
       <li>And many more features</li>
       <li xml:lang="pt">E muitas outras funcionalidades</li>
       <li xml:lang="es">Y muchas más funciones</li>
@@ -181,6 +202,7 @@
       <li xml:lang="zh">以及更多功能</li>
       <li xml:lang="ja">その他多数の機能</li>
       <li xml:lang="de">Und viele weitere Features</li>
+      <li xml:lang="ru">И многое другое</li>
     </ul>
     <p>Current Limitations on the Flatpak:</p>
     <p xml:lang="de">Aktuelle Einschränkungen des Flatpaks:</p>
@@ -189,6 +211,7 @@
     <p xml:lang="fr">Limitations actuelles du Flatpak :</p>
     <p xml:lang="zh">Flatpak 的当前限制：</p>
     <p xml:lang="ja">Flatpak の現在の制限：</p>
+    <p xml:lang="ru">Текущие ограничения версии Flatpak:</p>
     <ul>
       <li>Due to issues with controller on SteamDeck Gaming Mode Heroic uses Flatpak Runtime 23.08
         on stable branch. If you need runtime 24.08 to have HDR support and more please use the beta
@@ -209,25 +232,36 @@
         24.08 来支持 HDR 等功能，请使用 Flathub 的 beta 分支。</li>
       <li xml:lang="ja">SteamDeck ゲーミングモードでのコントローラーの問題により、Heroic は安定ブランチで Flatpak Runtime 23.08
         を使用しています。HDR サポートなどのために Runtime 24.08 が必要な場合は、Flathub のベータブランチを使用してください。</li>
+      <li xml:lang="ru">Из-за проблем с геймпадом в игровом режиме Steam Deck стабильная ветка
+        Heroic собрана на Flatpak Runtime 23.08. Если нужен Runtime 24.08 с поддержкой HDR и
+        прочим, используйте бета-ветку на Flathub.</li>
       <li>Heroic will not find or use Wine and Proton Flatpak versions. At least for now.</li>
       <li xml:lang="de">Heroic findet aktuell keine Wine oder Proton Versionen, die per Flatpak
         installiert
         sind</li>
+      <li xml:lang="ru">Heroic не находит и не использует версии Wine и Proton, установленные
+        через Flatpak. По крайней мере пока.</li>
       <li>For now would be better to use the Built-in Wine Manager to download and install
         Wine and Proton Versions.</li>
       <li xml:lang="de">Momentan ist es am besten, den eingebauten Wine Manager zu benutzen, um Wine
         und
         Proton Versionen zu downloaden und zu installieren.</li>
+      <li xml:lang="ru">Пока лучше пользоваться встроенным менеджером Wine, чтобы скачивать и
+        устанавливать версии Wine и Proton.</li>
       <li>It should find Proton from the Steam folder for both Steam Flatpak and non-Flatpak
         if they are on installed on the library inside your $HOME folder</li>
       <li xml:lang="de">Heroic sollte Proton Versionen von Steam (Nativ und Flatpak) finden, sofern
         sie
         innerhalb der Bibliothek des Benutzerordners installiert sind.</li>
+      <li xml:lang="ru">Proton из папки Steam (и обычной, и Flatpak) находится, если библиотека
+        лежит внутри домашней папки.</li>
       <li>Heroic cannot access /usr/bin so it won&apos;t be able to find any wine or proton
         isntalled there for now.</li>
       <li xml:lang="de">Heroic hat keinen Zugriff auf /usr/bin, weshalb es dort installierte Wine
         oder
         Proton Versionen nicht finden kann.</li>
+      <li xml:lang="ru">У Heroic нет доступа к /usr/bin, поэтому установленные там Wine и Proton
+        он пока найти не может.</li>
     </ul>
   </description>
   <categories>
