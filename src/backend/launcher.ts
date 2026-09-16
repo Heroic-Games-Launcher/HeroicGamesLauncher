@@ -720,7 +720,7 @@ async function prepareLaunch(
     await download('umu')
   }
 
-  if (gameSettings.steamRuntime) {
+  if (useUmu) {
     steamRuntime = [await getUmuPath()]
   }
 

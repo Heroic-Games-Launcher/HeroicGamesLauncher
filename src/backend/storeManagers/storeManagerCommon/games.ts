@@ -171,7 +171,13 @@ export async function launchGame(
       mangoHudCommand,
       gameModeBin,
       gameScopeCommand,
-      steamRuntime?.length ? [...steamRuntime] : undefined
+      // `steamRuntime` is the path to umu if the Steam runtime option is
+      // enabled. If we are running a game with Wine, we end up calling
+      // `runWineCommand` below. That function automatically adds an umu wrapper
+      // for us. If we thus add umu here again, we'd end up running umu inside
+      // umu, which won't go well. So, only add the wrapper here if we're
+      // running a native game
+      isNative && steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
     if (!launchPrepSuccess) {
