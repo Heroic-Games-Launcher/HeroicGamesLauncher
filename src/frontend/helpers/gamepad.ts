@@ -9,7 +9,8 @@ import {
   checkStandard,
   checkN64Clone1,
   checkGenius1,
-  checkNintendo
+  checkNintendo,
+  checkWiiU
 } from './gamepad_layouts'
 import { VirtualKeyboardController } from './virtualKeyboard'
 
