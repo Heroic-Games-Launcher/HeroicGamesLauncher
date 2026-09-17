@@ -62,8 +62,8 @@ export function checkNintendo(
     ctrlIdx: number
   ) => void
 ) {
-  const B = buttons[0], // bottom button
-    A = buttons[1], // right button
+  const B = buttons[1], // bottom button
+    A = buttons[0], // right button
     Y = buttons[2], // left button
     X = buttons[3], // top button
     up = buttons[12],
