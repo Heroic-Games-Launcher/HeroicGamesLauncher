@@ -108,11 +108,11 @@ export function checkWiiU(
     A = buttons[1], // right button
     Y = buttons[3], // left button
     X = buttons[2], // top button
-    up = buttons[11],
-    down = buttons[12],
-    left = buttons[13],
-    right = buttons[14],
-    guideButton = buttons[15],
+    up = buttons[13],
+    down = buttons[14],
+    left = buttons[15],
+    right = buttons[16],
+    guideButton = buttons[17],
     leftAxisX = axes[0],
     leftAxisY = axes[1],
     rightAxisX = axes[2],
