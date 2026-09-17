@@ -717,9 +717,9 @@ export const initGamepad = () => {
           checkN64Clone1(buttons, axes, index, checkAction)
         } else if (controller.id.match(/0583.*a009/i)) {
           checkGenius1(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/057e.*2009/i)) {
-          checkNintendo(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/057e.*(0330|2006|2007)/i)) {
+        } else if (controller.id.match(/057e.*0330/i)) {
+          checkWiiU(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/057e.*(0330|2006|2007|2009)/i)) {
           checkNintendo(buttons, axes, index, checkAction)
         } else {
           // if not specific, fallback to the standard layout, seems
