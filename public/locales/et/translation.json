@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Viga DXMT allalaadimisel! Kontrollige oma ühendust!",
                 "title": "Viga DXMT allalaadimisel"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Mängu {{game}} eemaldamine Steamist ebaõnnestus:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1331,5 +1336,10 @@
             "message": "Mäng on allalaadimiste järjekorras. Eemaldada järjekorrast?"
         }
     },
-    "next": "Järgmine"
+    "next": "Järgmine",
+    "common": {
+        "add": "Lisa",
+        "cancel": "Tühista",
+        "warning": "Hoiatus"
+    }
 }

@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Błąd pobierania DXMT! Sprawdź swoje połączenie!",
                 "title": "Błąd pobierania DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Usuwanie {{game}} ze Steam'a zakończyło się błędem:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1307,5 +1312,10 @@
             "message": "Ta gra jest w kolejce instalacji. Usunąć ją z kolejki?"
         }
     },
-    "next": "Następny"
+    "next": "Następny",
+    "common": {
+        "add": "Dodaj",
+        "cancel": "Anuluj",
+        "warning": "Ostrzeżenie"
+    }
 }

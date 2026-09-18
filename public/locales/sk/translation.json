@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1265,5 +1270,10 @@
             "wineMissing": "Žiadna cesta nie je vybraná"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Pridať",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }
