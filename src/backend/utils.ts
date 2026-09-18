@@ -9,7 +9,7 @@ import {
   GameStatus
 } from 'common/types'
 import axios from 'axios'
-import https from 'node:https'
+import { httpAgent, httpsAgent } from './utils/inet/proxy'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
@@ -1577,7 +1577,9 @@ async function extractTarFile({
 
 const axiosClient = axios.create({
   timeout: 10 * 1000,
-  httpsAgent: new https.Agent({ keepAlive: true })
+  httpAgent,
+  httpsAgent,
+  proxy: false
 })
 
 export const writeConfig = async (
