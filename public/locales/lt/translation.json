@@ -54,7 +54,12 @@
                 "message": "Klaida atsisiunčiant „DXMT“! Patikrinkite savo ryšį!",
                 "title": "„DXMT“ atsisiuntimo klaida"
             },
-            "executableNotFoundMessage": "„Heroic“ nepavyko rasti šio žaidimo vykdomąjį. Prašome jį nustatyti rankiniu būdu žaidimo nustatymuose."
+            "executableNotFoundMessage": "„Heroic“ nepavyko rasti šio žaidimo vykdomąjį. Prašome jį nustatyti rankiniu būdu žaidimo nustatymuose.",
+            "remove": {
+                "steam": {
+                    "body": "Pridedant „{{game}}“ į/prie „Steam“ nepavyko su: {{newLine}} {{error}}"
+                }
+            }
         },
         "no": "NE",
         "runexe": {
@@ -1272,5 +1277,10 @@
     "next": "Sekantis",
     "sidebar": {
         "console": "Konsolės veiksena"
+    },
+    "common": {
+        "add": "Pridėti",
+        "cancel": "Atšaukti",
+        "warning": "Įspėjimas"
     }
 }
