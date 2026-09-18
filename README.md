@@ -266,7 +266,7 @@ Run the appropriate command for your OS:
 ### Building with VS Code
 
 Instead of using the above commands to build Heroic, you can also use the Tasks in VSCode to build.
-To do that, open up the command palette (Ctrl + P), type in "task" and press Space. You will then see 3 build tasks, "Build for Linux", "Build for Windows", and "Build for MacOS". Click the one you want to run.
+To do that, open up the command palette (Ctrl + Shift + P), type in "task" and press Space. You will then see 3 build tasks, "Build for Linux", "Build for Windows", and "Build for MacOS". Click the one you want to run.
 
 ### Quickly testing/debugging Heroic on your own system
 
