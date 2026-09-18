@@ -1254,5 +1254,10 @@
             "wineMissing": "Nici o cale selectată"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Adaugă",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }
