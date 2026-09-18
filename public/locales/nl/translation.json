@@ -98,6 +98,11 @@
             "dxmt": {
                 "message": "",
                 "title": ""
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1266,5 +1271,10 @@
             "wineMissing": "Geen pad geselecteerd"
         }
     },
-    "next": "Volgende"
+    "next": "Volgende",
+    "common": {
+        "add": "Voeg toe",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }
