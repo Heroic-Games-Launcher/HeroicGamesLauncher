@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "{{game}} Steam-era gehitzeak huts egin du honekin:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1253,5 +1258,9 @@
             "wineMissing": "No path selected"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "Ezeztatu",
+        "warning": "Warning"
+    }
 }
