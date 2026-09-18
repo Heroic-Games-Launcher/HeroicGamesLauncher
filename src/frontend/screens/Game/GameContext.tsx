@@ -32,7 +32,8 @@ const initialContext: GameContextType = {
     uninstalling: false,
     updating: false,
     win: false,
-    notPlayableOffline: false
+    notPlayableOffline: false,
+    downloadPaused: false
   },
   status: undefined,
   wikiInfo: null

@@ -288,6 +288,7 @@ export interface GameContextType {
     updating: boolean
     win: boolean
     notPlayableOffline: boolean
+    downloadPaused: boolean
   }
   statusContext?: string
   status: Status | undefined
