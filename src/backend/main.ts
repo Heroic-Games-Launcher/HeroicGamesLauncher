@@ -685,6 +685,23 @@ addListener('clearCache', (event, showDialog, fromVersionChange = false) => {
   }
 })
 
+addListener('clearBrowserCache', async (event) => {
+  await session.defaultSession.clearStorageData()
+  showDialogBoxModalAuto({
+    event,
+    title: i18next.t(
+      'box.browser-cache-cleared.title',
+      'Browser Cache Cleared'
+    ),
+    message: i18next.t(
+      'box.browser-cache-cleared.message',
+      'Browser Cache Was Cleared!'
+    ),
+    type: 'MESSAGE',
+    buttons: [{ text: i18next.t('box.ok', 'Ok') }]
+  })
+})
+
 addListener('clearAchievementCache', (event, appName: string) => {
   clearAchievementCache(appName)
   logInfo(

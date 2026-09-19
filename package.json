@@ -154,5 +154,9 @@
   },
   "resolutions": {
     "ts-morph": "17.0.1"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.1.0",
+    "utf-8-validate": "^6.0.6"
   }
 }

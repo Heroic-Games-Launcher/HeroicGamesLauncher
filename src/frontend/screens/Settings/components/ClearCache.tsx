@@ -15,6 +15,10 @@ const ClearCache = () => {
     return refreshLibrary({ runInBackground: true })
   }
 
+  async function clearBrowserCache() {
+    return window.api.clearBrowserCache()
+  }
+
   return (
     <>
       <h3 className="settingSubheader">
@@ -71,6 +75,19 @@ const ClearCache = () => {
           </div>
           <span className="button-icon-text">
             {t('settings.clear-cache', 'Clear Heroic Cache')}
+          </span>
+        </div>
+      </button>
+      <button
+        className="button is-footer is-danger"
+        onClick={async () => clearBrowserCache()}
+      >
+        <div className="button-icontext-flex">
+          <div className="button-icon-flex">
+            <CleaningServicesOutlined />
+          </div>
+          <span className="button-icon-text">
+            {t('settings.clear-browser-cache', 'Clear Browser Cache')}
           </span>
         </div>
       </button>
