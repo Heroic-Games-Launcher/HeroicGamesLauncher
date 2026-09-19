@@ -689,7 +689,10 @@ addListener('clearBrowserCache', async (event) => {
   await session.defaultSession.clearStorageData()
   showDialogBoxModalAuto({
     event,
-    title: i18next.t('box.browser-cache-cleared.title', 'Browser Cache Cleared'),
+    title: i18next.t(
+      'box.browser-cache-cleared.title',
+      'Browser Cache Cleared'
+    ),
     message: i18next.t(
       'box.browser-cache-cleared.message',
       'Browser Cache Was Cleared!'

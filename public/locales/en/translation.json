@@ -42,6 +42,10 @@
         "title": "This game includes anticheat software"
     },
     "box": {
+        "browser-cache-cleared": {
+            "message": "Browser Cache Was Cleared!",
+            "title": "Browser Cache Cleared"
+        },
         "cache-cleared": {
             "message": "Heroic cache cleared.",
             "title": "Cache cleared"
@@ -1027,6 +1031,7 @@
             "installing": "Installing BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
+        "clear-browser-cache": "Clear Browser Cache",
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
