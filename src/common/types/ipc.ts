@@ -83,6 +83,7 @@ interface SyncIPCFunctions {
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
   clearCache: (showDialog?: boolean, fromVersionChange?: boolean) => void
+  clearBrowserCache: () => void
   clearAchievementCache: (appName: string) => void
   resetHeroic: () => void
   createNewWindow: (url: string) => void
