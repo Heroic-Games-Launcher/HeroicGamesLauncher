@@ -12,6 +12,7 @@ const ClearCache = () => {
     const storage: Storage = window.localStorage
     storage.removeItem('updates')
     window.api.clearCache(true)
+    window.api.clearBrowserCache()
     return refreshLibrary({ runInBackground: true })
   }
 
@@ -48,6 +49,12 @@ const ClearCache = () => {
             {t(
               'settings.advanced.clearCache.help5',
               'Amazon library info (list of games, install dialog info)'
+            )}
+          </li>
+          <li>
+            {t(
+              'settings.advanced.clearCache.help11',
+              'Browser cache (cookies, localStorage, IndexedDB)'
             )}
           </li>
         </ul>

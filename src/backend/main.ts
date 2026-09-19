@@ -685,6 +685,10 @@ addListener('clearCache', (event, showDialog, fromVersionChange = false) => {
   }
 })
 
+addListener('clearBrowserCache', async () => {
+  await session.defaultSession.clearStorageData()
+})
+
 addListener('clearAchievementCache', (event, appName: string) => {
   clearAchievementCache(appName)
   logInfo(
