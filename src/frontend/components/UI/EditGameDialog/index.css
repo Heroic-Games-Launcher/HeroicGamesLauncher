@@ -35,7 +35,8 @@
       transition: 200ms;
       width: 400px;
 
-      &:has(.appImage.square) {
+      &:has(.appImage.square),
+      &:has(.appImage.shortcutIconArt) {
         width: 200px;
       }
 
@@ -66,6 +67,12 @@
 
       &.square {
         aspect-ratio: 3/4;
+      }
+
+      &.shortcutIconArt {
+        aspect-ratio: 1/1;
+        object-fit: contain;
+        background: var(--neutral-02);
       }
     }
 
