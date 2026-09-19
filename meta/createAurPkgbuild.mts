@@ -59,8 +59,8 @@ async function logPkgverAndPkgrelIfCi(
   const ci = process.env['CI']
   const githubOutput = process.env['GITHUB_OUTPUT']
   if (ci && githubOutput) {
-    await appendFile(githubOutput, `pkgver=${pkgver}`)
-    await appendFile(githubOutput, `pkgrel=${pkgrel}`)
+    await appendFile(githubOutput, `pkgver=${pkgver}\n`)
+    await appendFile(githubOutput, `pkgrel=${pkgrel}\n`)
   }
 }
 
