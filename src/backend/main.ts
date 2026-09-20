@@ -1341,8 +1341,8 @@ addListener('addNewApp', (e, args) =>
 )
 
 addListener('setGameMetadataOverride', (e, args) => {
-  const { appName, title, art_cover, art_square } = args
-  setGameOverrides(appName, { title, art_cover, art_square })
+  const { appName, title, art_cover, art_square, art_icon } = args
+  setGameOverrides(appName, { title, art_cover, art_square, art_icon })
   sendFrontendMessage('metadataChanged', getAllGameOverrides())
 })
 
