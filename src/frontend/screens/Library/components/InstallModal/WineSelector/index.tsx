@@ -46,7 +46,7 @@ export default function WineSelector({
 
   const [useSharedPrefix, setUseSharedPrefix] = useState(false)
 
-  const globalConfig = useAwaited(() => window.api.requestAppSettings())
+  const globalConfig = useAwaited(window.api.requestAppSettings)
 
   const sharedToggleDescription = useMemo(() => {
     if (!globalConfig) return ''

@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
+import CircularProgress from '@mui/material/CircularProgress'
+
 import { Skeleton, SpecCard } from 'frontend/components/UI'
 import { useAwaited } from 'frontend/hooks/useAwaited'
 
@@ -72,9 +74,8 @@ function SpecCardSkeleton() {
 }
 
 export default function SystemInfo() {
-  const systemInformation = useAwaited(async () =>
-    window.api.systemInfo.get(false)
-  )
+  const systemInformation = useAwaited(window.api.systemInfo.get, false)
+  if (!systemInformation) return <CircularProgress />
 
   if (!systemInformation) {
     return (
