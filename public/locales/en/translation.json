@@ -1005,7 +1005,7 @@
             "clearCache": {
                 "help1": "This action will clear the following caches:",
                 "help10": "Heroic configuration",
-                "help11": "Browser cache (HTTP cache for store webviews)",
+                "help11": "Browser cache (cookies and HTTP cache for store webviews)",
                 "help2": "Third-party game info (scores, steam compatibility, howlongtobeat, pcgamingwiki, applegamingwiki)",
                 "help3": "Legendary library info (list of games, install dialog info, game info)",
                 "help4": "GOG library info (list of games, install dialog info, api info -i.e: requirements-)",

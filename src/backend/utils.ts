@@ -409,7 +409,11 @@ function clearCache(
     'persist:amazon',
     'persist:zoom'
   ]) {
-    void session.fromPartition(partition).clearCache()
+    const ses = session.fromPartition(partition)
+    void ses.clearCache()
+    void ses.clearStorageData({
+      storages: ['cookies', 'cachestorage', 'shadercache']
+    })
   }
 }
 

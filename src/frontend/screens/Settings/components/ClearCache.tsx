@@ -53,7 +53,7 @@ const ClearCache = () => {
           <li>
             {t(
               'settings.advanced.clearCache.help11',
-              'Browser cache (cookies, localStorage, IndexedDB)'
+              'Browser cache (cookies and HTTP cache for store webviews)'
             )}
           </li>
         </ul>
