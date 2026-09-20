@@ -17,7 +17,10 @@ export function useAwaited<T, Args extends unknown[]>(
         // requesting it no longer exists
       }
     }
-  }, [getter, args])
+    // `args` is generated dynamically, so its identity will always change between function calls
+    // Adding it to the dependency array directly will thus cause an infinite re-render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getter, ...args])
 
   return value
 }
