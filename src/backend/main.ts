@@ -25,6 +25,7 @@ import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
 import { existsSync, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
+import { initializeProxy } from './utils/inet/proxy'
 
 import Backend from 'i18next-fs-backend/cjs'
 import i18next from 'i18next'
@@ -321,6 +322,7 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     initLogger()
+    initializeProxy()
 
     await MigrationSystem.get().applyMigrations()
 
