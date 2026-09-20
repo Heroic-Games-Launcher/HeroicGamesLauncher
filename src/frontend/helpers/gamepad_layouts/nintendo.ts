@@ -94,6 +94,48 @@ export function checkNintendo(
   checkAction('padRight', right?.pressed, controllerIndex)
   checkAction('guide', guideButton?.pressed, controllerIndex)
 }
+export function checkWiiU(
+  buttons: readonly GamepadButton[],
+  axes: readonly number[],
+  controllerIndex: number,
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
+) {
+  const B = buttons[0], // bottom button
+    A = buttons[1], // right button
+    Y = buttons[3], // left button
+    X = buttons[2], // top button
+    up = buttons[13],
+    down = buttons[14],
+    left = buttons[15],
+    right = buttons[16],
+    guideButton = buttons[10],
+    leftAxisX = axes[0],
+    leftAxisY = axes[1],
+    rightAxisX = axes[2],
+    rightAxisY = axes[3]
+
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', Y?.pressed, controllerIndex)
+  checkAction('rightClick', X?.pressed, controllerIndex)
+  checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
+  checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
+  checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
+  checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
+  checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
+  checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
+  checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
+  checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
+  checkAction('padUp', up?.pressed, controllerIndex)
+  checkAction('padDown', down?.pressed, controllerIndex)
+  checkAction('padLeft', left?.pressed, controllerIndex)
+  checkAction('padRight', right?.pressed, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
+}
 
 // Generic USB Joystick (Vendor: 0079 Product: 0006)
 export function checkN64Clone1(
