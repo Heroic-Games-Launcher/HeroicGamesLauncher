@@ -1,18 +1,23 @@
-import { useEffect, useState } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type SetStateAction
+} from 'react'
 
 export function useAwaited<T, Args extends unknown[]>(
   getter: (...args: Args) => Promise<T>,
   ...args: Args
 ): T | null {
   const [value, setValue] = useState<T | null>(null)
+  const setValueIfMounted = useRef<Dispatch<SetStateAction<T | null>>>(setValue)
 
   useEffect(() => {
-    // This is `setValue` as long as the component requesting the value is mounted
-    let setValueIfMounted = setValue
-    void getter(...args).then(setValueIfMounted)
+    void getter(...args).then((result) => setValueIfMounted.current(result))
     return () => {
       // TODO: Send signal to BE to abort the promise
-      setValueIfMounted = () => {
+      setValueIfMounted.current = () => {
         // We want to do nothing with the value here, since the component
         // requesting it no longer exists
       }
