@@ -180,6 +180,12 @@ export async function launchGame(
       isNative && steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
+    const env = {
+      ...setupWrapperEnvVars({ appName, appRunner: runner }),
+      ...setupEnvVars(gameSettings, gameInfo.install.install_path),
+      ...getKnownFixesEnvVariables(appName, runner)
+    }
+
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
       launchCleanup()
@@ -215,12 +221,6 @@ export async function launchGame(
         if (isLinux || (isMac && !executable.endsWith('.app'))) {
           await chmod(executable, 0o775)
         }
-      }
-
-      const env = {
-        ...setupWrapperEnvVars({ appName, appRunner: runner }),
-        ...setupEnvVars(gameSettings, gameInfo.install.install_path),
-        ...getKnownFixesEnvVariables(appName, runner)
       }
 
       if (wrappers.length > 0) {
@@ -260,6 +260,7 @@ export async function launchGame(
       protonVerb: 'waitforexitandrun',
       startFolder: dirname(executable),
       options: {
+        env,
         wrappers,
         logWriters: [logWriter],
         logMessagePrefix: LogPrefix.Backend
