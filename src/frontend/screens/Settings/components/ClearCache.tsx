@@ -12,7 +12,6 @@ const ClearCache = () => {
     const storage: Storage = window.localStorage
     storage.removeItem('updates')
     window.api.clearCache(true)
-    window.api.clearBrowserCache()
     return refreshLibrary({ runInBackground: true })
   }
 
