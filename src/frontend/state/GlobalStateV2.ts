@@ -38,6 +38,10 @@ interface GlobalStateV2 {
 
   gameOverrides: Record<string, GameOverride>
   setGameOverrides: (overrides: Record<string, GameOverride>) => void
+
+  exeRunDialog:
+    | { open: true; exePath: string; flatpakInaccessible: boolean }
+    | { open: false; exePath?: undefined; flatpakInaccessible?: undefined }
 }
 
 const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
@@ -101,7 +105,9 @@ const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
         })
       })
       .finally(() => set({ refreshingWineVersions: false }))
-  }
+  },
+
+  exeRunDialog: { open: false }
 }))
 
 /**
@@ -136,6 +142,13 @@ const useGlobalStateKeys = <Keys extends (keyof GlobalStateV2)[]>(
         [key in Keys[number]]: GlobalStateV2[key]
       }
   )
+
+window.api.exe_handler.handleShowExeFilePicker(
+  (_e, exePath, flatpakInaccessible) =>
+    useGlobalStateRaw.setState({
+      exeRunDialog: { open: true, exePath, flatpakInaccessible }
+    })
+)
 
 export default {
   ...useGlobalState,
