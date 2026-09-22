@@ -7,6 +7,7 @@ overrides:
   ts-morph: 17.0.1
 
 allowBuilds:
+  '@xhayper/discord-rpc@https://codeload.github.com/CommandMC/discord-rpc/tar.gz/3e2d15909bc4d2c7fcdc58737ff0366efbd2384d': true
   '@fortawesome/fontawesome-common-types': true
   '@fortawesome/fontawesome-svg-core': true
   '@fortawesome/free-brands-svg-icons': true
