@@ -1,9 +1,8 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import Undo from '@mui/icons-material/Undo'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { PathSelectionBox, SvgButton } from 'frontend/components/UI'
+import { PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import { configStore } from 'frontend/helpers/electronStores'
 
@@ -29,13 +28,14 @@ const WinePrefixesBasePath = () => {
         'setting.defaultWinePrefixEmpty',
         'An empty prefix folder will prevent games from running. Default: {{path}}',
         { path: factoryDefaultWinePrefixDir }
-      )}
-      <SvgButton
-        title={t('setting.restoreDefault', 'Restore default')}
+      )}{' '}
+      <button
+        type="button"
+        className="button is-link is-empty"
         onClick={() => setDefaultWinePrefixDir(factoryDefaultWinePrefixDir)}
       >
-        <Undo />
-      </SvgButton>
+        ({t('setting.restoreDefault', 'Restore default')})
+      </button>
     </span>
   ) : undefined
 
