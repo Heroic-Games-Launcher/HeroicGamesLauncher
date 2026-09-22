@@ -23,48 +23,22 @@ interface LogBoxProps {
 const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
   const { t } = useTranslation()
   const maxLines = 1000
-  let sliced = false
   let lines = logFileContent.split('\n')
   if (lines.length > maxLines) {
-    lines = ['...', ...lines.slice(-maxLines)]
-    sliced = true
+    const truncatedHint = t(
+      'settings.log.long-log-hint',
+      'Log truncated, last 1000 lines are shown!'
+    )
+    lines = [
+      truncatedHint,
+      '...',
+      ...lines.slice(maxLines),
+      '...',
+      truncatedHint
+    ]
   }
 
-  return (
-    <>
-      {sliced && (
-        <span className="setting long-log-hint">
-          {t(
-            'settings.log.long-log-hint',
-            'Log truncated, last 1000 lines are shown!'
-          )}
-        </span>
-      )}
-      <span className="setting log-box">
-        {lines.map((line, key) => {
-          if (line.toLowerCase().includes(' err')) {
-            return (
-              <p key={key} className="log-error">
-                {line}
-              </p>
-            )
-          } else if (line.toLowerCase().includes(' warn')) {
-            return (
-              <p key={key} className="log-warning">
-                {line}
-              </p>
-            )
-          } else {
-            return (
-              <p key={key} className="log-info">
-                {line}
-              </p>
-            )
-          }
-        })}
-      </span>
-    </>
-  )
+  return <pre className="setting log-box">{lines.join('\n')}</pre>
 }
 
 export default function LogSettings() {
