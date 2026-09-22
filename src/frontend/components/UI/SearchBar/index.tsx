@@ -69,6 +69,7 @@ export default function SearchBar({
         // and in src/helpers/gamepad.ts#isSearchInput
         id="search"
         className="searchBarInput"
+        autoFocus
       />
       {value.length > 0 && (
         <>
