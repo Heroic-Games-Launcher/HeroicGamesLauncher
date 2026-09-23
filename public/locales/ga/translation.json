@@ -89,7 +89,9 @@
             "steam": {
                 "error": "Níor aimsíodh an comhad inrite Steam. Is dócha gur chealaigh an t-úsáideoir an suiteáil nó gur theip uirthi ar thaobh Steam.",
                 "message": "Theip ar shuiteáil Steam! Léigh na treoracha go cúramach agus déan iarracht arís! {{paragraph}} {{error}}",
-                "title": "Earráid Steam"
+                "title": "Earráid Steam",
+                "running": "Tá Steam ag rith. Dún Steam agus déan iarracht arís, nó athsheol Steam uair amháin chun ligean do Heroic na aicearraí a bhainistiú agus Steam ag rith.",
+                "running-gamemode": "Caithfear Steam a atosú uair amháin sula mbeidh Heroic in ann aicearraí Steam a bhainistiú ar an bhfeiste seo. Atosaigh Steam agus bain triail as arís."
             },
             "title": "Earráid",
             "uncaught-exception": {
@@ -109,6 +111,12 @@
             "dxmt": {
                 "message": "Earráid ag íoslódáil DXMT! Seiceáil do nasc!",
                 "title": "Earráid Íoslódála DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Theip ar {{game}} a chur le Steam leis an méid seo a leanas: {{newLine}} {{error}}",
+                    "title": "Earráid agus an Cluiche á Bhaint de Steam"
+                }
             }
         },
         "info": {
@@ -438,7 +446,8 @@
                     "content": "Ag uaslódáil comhad loga...",
                     "title": "Ag uaslódáil"
                 }
-            }
+            },
+            "error": "Earráid inmheánach agus an comhad logála á léamh"
         },
         "mangohud": "Cumasaigh Mangohud (Ní mór Mangohud a shuiteáil)",
         "manualsync": {
@@ -718,14 +727,16 @@
                 "steam": {
                     "corrupt": "Níorbh fhéidir {{game}} a chur le gach úsáideoir Steam a aimsíodh. Féach na logaí le haghaidh tuilleadh eolais. Tá atosú Steam ag teastáil chun go dtiocfaidh athruithe i bhfeidhm.",
                     "success": "Cuireadh {{game}} le Steam go rathúil. Tá atosú Steam ag teastáil chun na hathruithe a chur i bhfeidhm.",
-                    "title": "Curtha le Steam"
+                    "title": "Curtha le Steam",
+                    "success-no-restart": "Cuireadh {{game}} le Steam go rathúil."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "Níorbh fhéidir {{game}} a bhaint de na húsáideoirí Steam go léir a aimsíodh. Féach na logaí le haghaidh tuilleadh eolais. Tá atosú Steam ag teastáil chun go dtiocfaidh athruithe i bhfeidhm.",
                     "success": "Baineadh {{game}} de Steam go rathúil. Tá atosú Steam ag teastáil chun na hathruithe a chur i bhfeidhm.",
-                    "title": "Bainte as Steam"
+                    "title": "Bainte as Steam",
+                    "success-no-restart": "Baineadh {{game}} go rathúil de Steam."
                 }
             },
             "reparing": "Deisiú críochnaithe"
@@ -770,16 +781,22 @@
             "placeHolderKey": "AINM",
             "placeHolderValue": "M.sh.: Cosán/Chuig/Comhaid Bhreise",
             "title": "Athróga Timpeallachta",
-            "value": "Luach"
+            "value": "Luach",
+            "placeHolderV": "LUACH"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Ní féidir ainmneacha athróg a bheith folamh",
                 "equal_sign_in_key": "Ní féidir an comhartha \"=\" a bheith in ainmneacha athróg",
-                "space_in_key": "Ní féidir spásanna a bheith in ainmneacha athróg"
+                "space_in_key": "Ní féidir spásanna a bheith in ainmneacha athróg",
+                "duplicate_key": "Tá athróg leis an ainm seo ann cheana féin"
             },
             "example": "NÁ cuir an comhartha \"=\" san áireamh, m.sh.: i gcás socraithe cosúil le \"MY_FLAG=123\", socraigh MY_FLAG in AINM agus 123 i VALUE.",
-            "info": "Socraigh athróga comhshaoil le cur leis an ordú."
+            "info": "Socraigh athróga comhshaoil le cur leis an ordú.",
+            "add_new": "Cuir athróg nua leis",
+            "bulk_edit": "Mór-eagarthóireacht",
+            "bulk_edit_error": "Tá roinnt athróg mícheart. Déan cinn de go leanann gach líne an fhormáid EOCHAIR=LUACH.",
+            "clear_all_confirm": "An bhfuil tú cinnte gur mhaith leat gach athróg timpeallachta a ghlanadh?"
         },
         "gameargs": {
             "error": {
@@ -953,7 +970,8 @@
             "help": {
                 "description": "Cuir d’eochair SteamGridDB API féin ar fáil chun cuardach clúdach cluiche a chumasú. Stóráiltear an eochair criptithe nuair a thacaíonn do chóras leis. Is féidir leat ceann a fháil ag {{url}}"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Cliceáil chun comhad socruithe an chluiche a oscailt"
     },
     "Settings": "Socruithe",
     "store": "Epic Store",
@@ -1263,5 +1281,16 @@
     },
     "sidebar": {
         "console": "Mód Consóil"
+    },
+    "common": {
+        "add": "Cuir",
+        "cancel": "Cealaigh",
+        "warning": "Rabhadh",
+        "clear_all": "Glan gach rud",
+        "confirm": "Deimhnigh",
+        "duplicate": "Cóip dhúbailte",
+        "edit": "Cuir in eagar",
+        "remove": "Bain",
+        "save": "Sábháil"
     }
 }
