@@ -96,13 +96,21 @@
             "steam": {
                 "error": "Spustitelný soubor Steamu nebyl nalezen. Instalace byla pravděpodobně zrušena uživatelem nebo selhala na straně Steamu.",
                 "message": "Instalace Steamu se nezdařila! Přečtěte si prosím pozorně pokyny a zkuste to znovu! {{paragraph}} {{error}}",
-                "title": "Chyba Steamu"
+                "title": "Chyba Steamu",
+                "running": "Steam je spuštěn. Zavřete Steam a zkuste to znovu, nebo Steam jednou restartujte, aby mohl Heroic spravovat zástupce i při spuštěném Steamu.",
+                "running-gamemode": "Aby aplikace Heroic mohla spravovat zástupce Steamu na tomto zařízení, je nutné Steam jednou restartovat. Restartujte Steam a zkuste to znovu."
             },
             "executableNotFound": "Spustitelný soubor nebyl nalezen",
             "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry.",
             "dxmt": {
                 "message": "Chyba při stahování DXMT! Zkontrolujte připojení!",
                 "title": "Chyba při stahování DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Odstranění hry {{game}} ze Steamu se nezdařilo z následujícího důvodu:{{newLine}} {{error}}",
+                    "title": "Chyba při odstraňování hry ze Steamu"
+                }
             }
         },
         "info": {
@@ -464,14 +472,16 @@
                 "steam": {
                     "corrupt": "Hru {{game}} se nepodařilo přidat všem nalezeným uživatelům Steam. Další informace naleznete v protokolech. Aby se změny projevily, je nutné službu Steam restartovat.",
                     "success": "Hra {{game}} byla úspěšně přidána do služby Steam. Aby se změny projevily, je nutné službu Steam restartovat.",
-                    "title": "Přidáno do Steamu"
+                    "title": "Přidáno do Steamu",
+                    "success-no-restart": "Hra {{game}} byla úspěšně přidána do Steamu."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "Hru {{game}} se nepodařilo odstranit u všech nalezených uživatelů Steam. Další informace naleznete v protokolech. Aby se změny projevily, je nutné službu Steam restartovat.",
                     "success": "Hra {{game}} byla úspěšně odstraněna ze služby Steam. Aby se změny projevily, je nutné službu Steam restartovat.",
-                    "title": "Odebráno ze Steamu"
+                    "title": "Odebráno ze Steamu",
+                    "success-no-restart": "Hra {{game}} byla úspěšně odstraněna ze Steamu."
                 }
             },
             "reparing": "Oprava dokončena"
@@ -517,16 +527,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "Např.: Cesta/K/ExtraSouborům",
             "title": "Proměnné prostředí",
-            "value": "Hodnota"
+            "value": "Hodnota",
+            "placeHolderV": "HODNOTA"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Názvy proměnných nemohou být prázdné",
                 "equal_sign_in_key": "Názvy proměnných nesmí obsahovat znak „=“",
-                "space_in_key": "Názvy proměnných nesmí obsahovat mezery"
+                "space_in_key": "Názvy proměnných nesmí obsahovat mezery",
+                "duplicate_key": "Proměnná s tímto názvem již existuje"
             },
             "example": "NEZAHRNUJTE znak „=“, např.: pro nastavení jako „MOJE_VLAJKA=123“ zadejte do pole NAME text MOJE_VLAJKA a do pole VALUE text 123.",
-            "info": "Nastavte proměnné prostředí k připojení k příkazu."
+            "info": "Nastavte proměnné prostředí k připojení k příkazu.",
+            "add_new": "Přidat novou proměnnou",
+            "bulk_edit": "Hromadné úpravy",
+            "bulk_edit_error": "Některé proměnné jsou nesprávné. Zkontrolujte prosím, zda všechny řádky mají formát KLÍČ=HODNOTA.",
+            "clear_all_confirm": "Opravdu chcete vymazat všechny proměnné prostředí?"
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spouštěče",
@@ -704,7 +720,8 @@
                 "nile": "Protokol Amazon / Nile",
                 "zoom": "Zoom log"
             },
-            "show-uploads": "Zobrazit nahrané soubory protokolů"
+            "show-uploads": "Zobrazit nahrané soubory protokolů",
+            "error": "Vnitřní chyba při čtení souboru protokolu"
         },
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
         "manualsync": {
@@ -947,7 +964,8 @@
             "help": {
                 "description": "Poskytněte SteamGridDB API pro zapnutí vyhledávaní náhledu her. Tento klíč je šifrován při uložení když to podporuje systém. Můžete ho získat na {{url}}"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Kliknutím otevřete soubor s nastavením hry"
     },
     "Settings": "Nastavení",
     "sidebar": {
@@ -1333,5 +1351,16 @@
             "message": "Tato hra je ve frontě na stažení. Odstranit z fronty?"
         }
     },
-    "next": "Další"
+    "next": "Další",
+    "common": {
+        "add": "Přidat",
+        "cancel": "Zrušit",
+        "warning": "Varování",
+        "clear_all": "Vymazat vše",
+        "confirm": "Potvrdit",
+        "duplicate": "Duplikát",
+        "edit": "Upravit",
+        "remove": "Odstranit",
+        "save": "Uložit"
+    }
 }
