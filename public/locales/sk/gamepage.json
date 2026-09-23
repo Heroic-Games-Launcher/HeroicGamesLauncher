@@ -52,11 +52,11 @@
         "warning": {
             "title": "Warning"
         },
-        "ok": "Ok",
+        "ok": "OK",
         "offline_warning": {
-            "message": "",
-            "playAnyway": "",
-            "title": ""
+            "message": "Táto hra nemusí fungovať správne bez internetového pripojenia. Prajete si pokračovať?",
+            "playAnyway": "Aj tak hrať",
+            "title": "Pozor, ste offline"
         },
         "selectLaunchOption": {
             "title": "",

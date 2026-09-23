@@ -96,13 +96,21 @@
             "steam": {
                 "message": "A Steam telepítése sikertelen! Olvassa el figyelmesen az utasításokat, és próbálja újra! {{paragraph}} {{error}}",
                 "title": "Steam hiba",
-                "error": "A Steam indítófájlja nem található. Lehet, hogy egy felhasználó megszakította a telepítést, vagy hiba történt a Steam oldalán."
+                "error": "A Steam indítófájlja nem található. Lehet, hogy egy felhasználó megszakította a telepítést, vagy hiba történt a Steam oldalán.",
+                "running": "A Steam fut. Zárd be a Steamet és próbáld újra, vagy indítsd újra a Steamet egyszer, hogy a Heroic kezelni tudja a parancsikonokat, miközben a Steam fut.",
+                "running-gamemode": "A Steam egyszeri újraindítása szükséges, mielőtt a Heroic kezelhetné a Steam-parancsikonokat ezen az eszközön. Indítsd újra a Steamet, majd próbáld újra."
             },
             "executableNotFound": "Az indítófájl nem található",
             "executableNotFoundMessage": "A Heroic nem találta a játék indítófájlát. Állítsd be kézileg a játék beállításaiban.",
             "dxmt": {
                 "message": "Hiba a DXMT letöltésekor. Ellenőrizd az internetkapcsolatot!",
                 "title": "DXMT letöltési hiba"
+            },
+            "remove": {
+                "steam": {
+                    "body": "A(z) {{game}} eltávolítása a Steamből sikertelen volt:{{newLine}}{{error}}",
+                    "title": "Hiba a játék Steamről való eltávolításakor"
+                }
             }
         },
         "info": {
@@ -463,14 +471,16 @@
                 "steam": {
                     "corrupt": "A(z) {{game}} nem adható hozzá az összes megtalált Steam felhasználóhoz. További információkért lásd a naplókat. A változások érvénybe lépéséhez újra kell indítani a Steamet.",
                     "success": "A(z) {{game}} sikeresen hozzá lett adva Steamhez. A változások érvénybe lépéséhez újra kell indítani a Steamet.",
-                    "title": "Hozzáadva a Steamhez"
+                    "title": "Hozzáadva a Steamhez",
+                    "success-no-restart": "A(z) {{game}} sikeresen hozzáadva a Steamhez."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "A(z) {{game}} nem távolítható el az összes Steam felhasználótól. További információkért lásd a naplókat. A változások érvénybe lépéséhez újra kell indítani a Steamet.",
                     "success": "A(z) {{game}} sikeresen el lett távolítva a Steamből. A változások érvénybe lépéséhez újra kell indítani a Steamet.",
-                    "title": "Eltávolítva a Steamről"
+                    "title": "Eltávolítva a Steamről",
+                    "success-no-restart": "A(z) {{game}} sikeresen eltávolítva a Steamből."
                 }
             },
             "reparing": "A javítás befejezve"
@@ -516,16 +526,22 @@
             "placeHolderKey": "NÉV",
             "placeHolderValue": "Például: elérési/út/ExtraFájlok",
             "title": "Környezeti változók",
-            "value": "Érték"
+            "value": "Érték",
+            "placeHolderV": "ÉRTÉK"
         },
         "env_variables": {
             "error": {
                 "empty_key": "A változónevek nem lehetnek üresek",
                 "equal_sign_in_key": "A változónevek nem tartalmazhatnak „=” jelet",
-                "space_in_key": "A változónevek nem tartalmazhatnak szóközt"
+                "space_in_key": "A változónevek nem tartalmazhatnak szóközt",
+                "duplicate_key": "Már létezik ilyen nevű változó"
             },
             "example": "NE tartalmazza a „=” jelet, például a „MY_FLAG=123” beállításához állítsd be a NAME értékének „MY_FLAG”, a VALUE értékének pedig „123”.",
-            "info": "A parancshoz fűzendő környezeti változók beállítása."
+            "info": "A parancshoz fűzendő környezeti változók beállítása.",
+            "add_new": "Új változó hozzáadása",
+            "bulk_edit": "Tömeges szerkesztés",
+            "bulk_edit_error": "Néhány változó hibás. Ellenőrizd, hogy minden sor a KULCS=ÉRTÉK formátumot követi-e.",
+            "clear_all_confirm": "Biztosan törölni szeretnéd az összes környezeti változót?"
         },
         "gameargs": {
             "placeholder": "Ide írd az indító argumentumait",
@@ -703,7 +719,8 @@
                 "nile": "Amazon / Nile napló",
                 "zoom": "Zoom napló"
             },
-            "show-uploads": "Feltöltött naplófájlok megjelenítése"
+            "show-uploads": "Feltöltött naplófájlok megjelenítése",
+            "error": "Belső hiba a naplófájl olvasása közben"
         },
         "mangohud": "Mangohud engedélyezése (a Mangohudnak telepítve kell lennie)",
         "manualsync": {
@@ -945,7 +962,8 @@
             "help": {
                 "description": "Add meg a saját SteamGridDB API-kulcsodat a játékborítók keresésének engedélyezéséhez. A kulcs titkosítva kerül tárolásra, ha a rendszered támogatja. Itt szerezhetsz egyet: {{url}}"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Kattints a játék beállításfájljának megnyitásához"
     },
     "Settings": "Beállítások",
     "sidebar": {
@@ -1331,5 +1349,16 @@
             "message": "Ez a játék letöltési sorban van. Eltávolítod a sorból?"
         }
     },
-    "next": "Következő"
+    "next": "Következő",
+    "common": {
+        "add": "Hozzáadás",
+        "cancel": "Mégse",
+        "warning": "Figyelmeztetés",
+        "clear_all": "Összes törlése",
+        "confirm": "Megerősítés",
+        "duplicate": "Kétszerezés",
+        "edit": "Szerkesztés",
+        "remove": "Eltávolítás",
+        "save": "Mentés"
+    }
 }

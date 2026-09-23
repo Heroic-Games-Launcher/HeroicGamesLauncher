@@ -103,7 +103,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Не ўдалося дадаць {{game}} у Steam:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1286,5 +1291,10 @@
             "wineMissing": "Шлях не выбраны"
         }
     },
-    "next": "Далей"
+    "next": "Далей",
+    "common": {
+        "add": "Дадаць",
+        "cancel": "Скасаваць",
+        "warning": "Папярэджанне"
+    }
 }

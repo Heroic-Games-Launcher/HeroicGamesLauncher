@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Errore durante il download di DXMT! Controlla la connessione!",
                 "title": "Errore di download DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "La rimozione di {{game}} da Steam è fallita con:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1320,5 +1325,10 @@
             "message": "Questo gioco è in coda per il download. Rimuoverlo dalla coda?"
         }
     },
-    "next": "Avanti"
+    "next": "Avanti",
+    "common": {
+        "add": "Aggiungi",
+        "cancel": "Annulla",
+        "warning": "Avviso"
+    }
 }

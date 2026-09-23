@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1258,5 +1263,10 @@
             "wineMissing": "Nijedna staza nije odabrana"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Dodaj",
+        "cancel": "Odustani",
+        "warning": "Upozorenje"
+    }
 }
