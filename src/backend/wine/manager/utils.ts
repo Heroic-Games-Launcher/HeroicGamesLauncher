@@ -24,11 +24,12 @@ import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from '../../config'
 import { join } from 'path'
 import { backendEvents } from 'backend/backend_events'
+import { storesPath } from 'backend/constants/key_value_stores'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
   {
-    cwd: 'store',
+    cwd: storesPath,
     name: 'wine-downloader-info'
   }
 )

@@ -4,6 +4,8 @@ import { logError, logInfo } from '../logger'
 import { LegendaryGlobalConfigFolderMigration } from './migrations/legendary'
 import { UmuSteamRuntimeMigration } from './migrations/config'
 
+import { storesPath } from 'backend/constants/key_value_stores'
+
 import type { TypeCheckedStore } from 'common/types/electron_store'
 
 export interface Migration {
@@ -16,7 +18,7 @@ export default class MigrationSystem {
 
   constructor() {
     this.migrationsStore = new TypeCheckedStoreBackend('migrationsStore', {
-      cwd: 'store',
+      cwd: storesPath,
       name: 'migrations'
     })
   }

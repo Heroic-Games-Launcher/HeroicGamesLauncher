@@ -253,7 +253,7 @@ export default function WebView() {
           // - imLinguin - 01/07/24
           url.port = ''
           webview.loadURL(url.toString())
-          if (!localStorage.getItem('adtraction-warning')) {
+          if (!window.storage.getItem('adtraction-warning')) {
             setShowAdtractionWarning(true)
           }
         }
@@ -437,6 +437,15 @@ export default function WebView() {
     return <></>
   }
 
+  let partition = `persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`
+
+  // if not the default profile, add profile as the partition prefix
+  if (window.heroicProfile !== 'default')
+    partition = partition.replace(
+      'persist:',
+      `persist:${window.heroicProfile}-`
+    )
+
   return (
     <div className="WebView">
       {webview && (
@@ -452,7 +461,7 @@ export default function WebView() {
         key={store}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`}
+        partition={partition}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
@@ -469,14 +478,14 @@ export default function WebView() {
           onClose={() => {
             setShowAdtractionWarning(false)
             if (dontShowAdtractionWarning)
-              localStorage.setItem('adtraction-warning', 'true')
+              window.storage.setItem('adtraction-warning', 'true')
           }}
         >
           <DialogHeader
             onClose={() => {
               setShowAdtractionWarning(false)
               if (dontShowAdtractionWarning)
-                localStorage.setItem('adtraction-warning', 'true')
+                window.storage.setItem('adtraction-warning', 'true')
             }}
           >
             {t('adtraction-locked.title', 'Adtraction is blocked')}

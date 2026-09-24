@@ -1,4 +1,5 @@
 import CacheStore from 'backend/cache'
+import { nileStorePath } from 'backend/constants/key_value_stores'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 import { GameInfo } from 'common/types'
 import { NileInstallInfo } from 'common/types/nile'
@@ -10,5 +11,5 @@ export const libraryStore = new CacheStore<GameInfo[], 'library'>(
 )
 
 export const configStore = new TypeCheckedStoreBackend('nileConfigStore', {
-  cwd: 'nile_store'
+  cwd: nileStorePath
 })
