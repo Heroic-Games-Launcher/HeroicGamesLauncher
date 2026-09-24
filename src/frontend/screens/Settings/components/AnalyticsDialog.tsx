@@ -10,10 +10,10 @@ export default function AnalyticsDialog() {
   const { t } = useTranslation()
 
   React.useEffect(() => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
+    if (!window.storage.getItem(STORAGE_KEY)) {
       if (window.isE2ETesting) {
         // Skip showing the dialog in E2E tests
-        localStorage.setItem(STORAGE_KEY, 'true')
+        window.storage.setItem(STORAGE_KEY, 'true')
         return
       }
 
@@ -68,7 +68,7 @@ export default function AnalyticsDialog() {
           {
             text: t('analyticsModal.enable', 'Enable'),
             onClick: () => {
-              localStorage.setItem(STORAGE_KEY, 'true')
+              window.storage.setItem(STORAGE_KEY, 'true')
               window.api.setSetting({
                 appName: 'default',
                 key: 'analyticsOptIn',
@@ -80,7 +80,7 @@ export default function AnalyticsDialog() {
           {
             text: t('analyticsModal.disable', 'Disable'),
             onClick: () => {
-              localStorage.setItem(STORAGE_KEY, 'true')
+              window.storage.setItem(STORAGE_KEY, 'true')
               window.api.setSetting({
                 appName: 'default',
                 key: 'analyticsOptIn',

@@ -1,4 +1,5 @@
 import Store from 'electron-store'
+import { cacheStoresPath } from './constants/key_value_stores'
 
 export default class CacheStore<ValueType, KeyType extends string = string> {
   private readonly store: Store
@@ -20,7 +21,7 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
     options?: { invalidateCheck?: (data: ValueType) => boolean }
   ) {
     this.store = new Store({
-      cwd: 'store_cache',
+      cwd: cacheStoresPath,
       name: filename,
       clearInvalidConfig: true
     })

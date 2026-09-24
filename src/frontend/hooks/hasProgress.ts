@@ -2,12 +2,10 @@ import { useCallback, useEffect, useState } from 'react'
 import { InstallProgress, Runner } from 'common/types'
 import { useInstallProgress } from 'frontend/state/InstallProgress'
 
-const storage: Storage = window.localStorage
-
 export const hasProgress = (appName: string, runner: Runner) => {
   const [previousProgress] = useState<InstallProgress>(
     JSON.parse(
-      storage.getItem(`${appName}_${runner}_progress`) || '{}'
+      window.storage.getItem(`${appName}_${runner}_progress`) || '{}'
     ) as InstallProgress
   )
 

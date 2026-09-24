@@ -86,7 +86,6 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
     checkIfIsNative()
   }, [])
 
-  const storage: Storage = window.localStorage
   const uninstallGame = async () => {
     onClose()
 
@@ -99,7 +98,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
     if (runner === 'sideload' && location.pathname.match(/gamepage/)) {
       navigate('/#library')
     }
-    storage.removeItem(appName)
+    window.storage.removeItem(appName)
   }
 
   const showWineCheckbox = !isNative && !isDlc
