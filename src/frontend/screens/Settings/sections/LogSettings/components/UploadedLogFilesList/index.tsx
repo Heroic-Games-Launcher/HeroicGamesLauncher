@@ -2,11 +2,7 @@ import { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Launch } from '@mui/icons-material'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import SvgButton from 'frontend/components/UI/SvgButton'
 
 import useUploadedLogFiles from 'frontend/state/UploadedLogFiles'
@@ -86,16 +82,16 @@ export default function UploadedLogFilesList() {
   if (!showUploadedLogFileList) return <></>
 
   return (
-    <Dialog
+    <Modal
       onClose={() =>
         useGlobalState.setState({ showUploadedLogFileList: false })
       }
       showCloseButton={true}
     >
-      <DialogHeader>
+      <ModalHeader>
         {t('setting.log.upload.header', 'Uploaded log files')}
-      </DialogHeader>
-      <DialogContent>
+      </ModalHeader>
+      <ModalContent>
         {logsSortedByMostRecentlyUploaded.length ? (
           <table className="uploadedLogFilesTable">
             <thead>
@@ -114,7 +110,7 @@ export default function UploadedLogFilesList() {
         ) : (
           t('setting.log.upload.no-files', 'No log files were uploaded')
         )}
-      </DialogContent>
-    </Dialog>
+      </ModalContent>
+    </Modal>
   )
 }

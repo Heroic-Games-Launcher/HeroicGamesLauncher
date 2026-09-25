@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Dialog, DialogContent, DialogHeader } from '../Dialog'
+import { Modal, ModalContent, ModalHeader } from '../Modal'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import classNames from 'classnames'
@@ -35,11 +35,9 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
 
   return (
     <div className={classNames('changelogModal')}>
-      <Dialog onClose={onClose} showCloseButton={true}>
-        <DialogHeader onClose={onClose}>
-          <div>{currentChangelog.name}</div>
-        </DialogHeader>
-        <DialogContent>
+      <Modal onClose={onClose} showCloseButton={true}>
+        <ModalHeader>{currentChangelog.name}</ModalHeader>
+        <ModalContent>
           <div className={classNames('changelogModalContent')}>
             {currentChangelog.body && (
               <ReactMarkdown
@@ -51,8 +49,8 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
               </ReactMarkdown>
             )}
           </div>
-        </DialogContent>
-      </Dialog>
+        </ModalContent>
+      </Modal>
     </div>
   )
 }

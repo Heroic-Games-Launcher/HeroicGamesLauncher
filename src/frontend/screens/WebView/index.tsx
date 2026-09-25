@@ -19,11 +19,7 @@ import {
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 
 const validStoredUrl = (url: string, store: string) => {
   switch (store) {
@@ -464,24 +460,19 @@ export default function WebView() {
         />
       )}
       {showAdtractionWarning && (
-        <Dialog
+        <Modal
           showCloseButton={true}
+          size="sm"
           onClose={() => {
             setShowAdtractionWarning(false)
             if (dontShowAdtractionWarning)
               localStorage.setItem('adtraction-warning', 'true')
           }}
         >
-          <DialogHeader
-            onClose={() => {
-              setShowAdtractionWarning(false)
-              if (dontShowAdtractionWarning)
-                localStorage.setItem('adtraction-warning', 'true')
-            }}
-          >
+          <ModalHeader>
             {t('adtraction-locked.title', 'Adtraction is blocked')}
-          </DialogHeader>
-          <DialogContent>
+          </ModalHeader>
+          <ModalContent>
             <p>
               {t(
                 'adtraction-locked.description',
@@ -499,8 +490,8 @@ export default function WebView() {
                 "Don't show this warning again"
               )}
             />
-          </DialogContent>
-        </Dialog>
+          </ModalContent>
+        </Modal>
       )}
     </div>
   )

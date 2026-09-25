@@ -12,7 +12,8 @@ import {
   SteamGridDBPicker,
   WarningMessage
 } from 'frontend/components/UI'
-import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
+import { ModalContent, ModalFooter } from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import {
   getGameInfo,
   getGameSettings,
@@ -320,7 +321,7 @@ export default function SideloadDialog({
 
   return (
     <>
-      <DialogContent>
+      <ModalContent>
         <div className="sideloadGrid">
           <div className="imageIcons">
             <div
@@ -524,28 +525,27 @@ export default function SideloadDialog({
             )}
           </div>
         </div>
-      </DialogContent>
-      <DialogFooter>
+      </ModalContent>
+      <ModalFooter>
+        <Button
+          onClick={async () => handleInstall()}
+          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
+          icon={addingApp ? <FontAwesomeIcon icon={faSpinner} spin /> : null}
+        >
+          {t('button.finish', 'Finish')}
+        </Button>
         {shouldShowRunExe && (
-          <button
+          <Button
+            variant="secondary"
             onClick={async () => handleRunExe()}
-            className={`button is-secondary`}
             disabled={runningSetup || !title.length}
           >
             {runningSetup
               ? t('button.running-setup', 'Running Setup')
               : t('button.run-exe-first', 'Run Installer First')}
-          </button>
+          </Button>
         )}
-        <button
-          onClick={async () => handleInstall()}
-          className={`button is-success`}
-          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
-        >
-          {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
-          {!addingApp && t('button.finish', 'Finish')}
-        </button>
-      </DialogFooter>
+      </ModalFooter>
     </>
   )
 }
