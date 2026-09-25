@@ -1,9 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import {
   CustomWineProton,
   DownloadProtonToSteam
@@ -26,17 +22,17 @@ export default function WineManagerSettingsModal({ onClose }: Props) {
 
   return (
     <SettingsContext.Provider value={contextValues}>
-      <Dialog onClose={onClose} showCloseButton={true}>
-        <DialogHeader>
-          <h3>{t('wine.manager.settings', 'Wine Manager Settings')}</h3>
-        </DialogHeader>
-        <DialogContent className="wineManagerSettingsContent">
+      <Modal onClose={onClose} showCloseButton={true}>
+        <ModalHeader>
+          {t('wine.manager.settings', 'Wine Manager Settings')}
+        </ModalHeader>
+        <ModalContent className="wineManagerSettingsContent">
           <div className="wineSettingsModalWrapper">
             <CustomWineProton />
             <DownloadProtonToSteam />
           </div>
-        </DialogContent>
-      </Dialog>
+        </ModalContent>
+      </Modal>
     </SettingsContext.Provider>
   )
 }

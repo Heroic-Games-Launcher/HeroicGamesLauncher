@@ -1,10 +1,6 @@
-.Dialog__content.settingsDialogContent {
-  width: 65vw;
+.Modal__content.settingsDialogContent {
   display: flex;
   flex-direction: column;
-  flex: 1 1 60vh;
-  max-width: 800px;
-  min-height: 64vh;
 
   .log-box {
     width: 100%;

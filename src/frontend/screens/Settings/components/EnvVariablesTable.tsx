@@ -6,11 +6,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import AddBoxIcon from '@mui/icons-material/AddBox'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalHeader } from 'frontend/components/UI/Modal'
 import './EnvVariablesTable.css'
 
 import BulkEditModal from './BulkEditModal'
@@ -112,12 +108,13 @@ const EnvVariablesTable = () => {
       ),
       buttons: [
         {
-          text: t('common.cancel', 'Cancel'),
-          onClick: () => {}
+          text: t('common.confirm', 'Confirm'),
+          variant: 'destructive',
+          onClick: () => setEnvironmentOptions([])
         },
         {
-          text: t('common.confirm', 'Confirm'),
-          onClick: () => setEnvironmentOptions([])
+          text: t('common.cancel', 'Cancel'),
+          onClick: () => {}
         }
       ]
     })
@@ -140,21 +137,19 @@ const EnvVariablesTable = () => {
   return (
     <div className="env-vars-container">
       {showBulkEdit && (
-        <Dialog showCloseButton onClose={() => setShowBulkEdit(false)}>
-          <DialogHeader onClose={() => setShowBulkEdit(false)}>
+        <Modal showCloseButton onClose={() => setShowBulkEdit(false)}>
+          <ModalHeader>
             {t('options.env_variables.bulk_edit', 'Bulk Edit')}
-          </DialogHeader>
-          <DialogContent>
-            <BulkEditModal
-              initialEnvs={environmentOptions}
-              onCancel={() => setShowBulkEdit(false)}
-              onSave={(envs) => {
-                setEnvironmentOptions(envs)
-                setShowBulkEdit(false)
-              }}
-            />
-          </DialogContent>
-        </Dialog>
+          </ModalHeader>
+          <BulkEditModal
+            initialEnvs={environmentOptions}
+            onCancel={() => setShowBulkEdit(false)}
+            onSave={(envs) => {
+              setEnvironmentOptions(envs)
+              setShowBulkEdit(false)
+            }}
+          />
+        </Modal>
       )}
       <div className="env-vars-header">
         <span className="env-vars-title">

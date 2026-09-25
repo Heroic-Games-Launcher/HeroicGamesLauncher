@@ -2,7 +2,8 @@ import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CircularProgress } from '@mui/material'
 
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from '../Dialog'
+import { Modal, ModalContent, ModalFooter, ModalHeader } from '../Modal'
+import Button from '../Button'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 
 export default function LogUploadDialog() {
@@ -55,12 +56,10 @@ export default function LogUploadDialog() {
           { name: uploadLogFileProps.name }
         ),
         <>
-          <button onClick={doUpload} className={'button is-primary'}>
-            {t('box.yes')}
-          </button>
-          <button onClick={onClose} className={'button is-danger'}>
+          <Button onClick={doUpload}>{t('box.yes')}</Button>
+          <Button variant="secondary" onClick={onClose}>
             {t('box.no')}
-          </button>
+          </Button>
         </>
       ]
     if (uploading)
@@ -104,9 +103,7 @@ export default function LogUploadDialog() {
         }
       ),
       <>
-        <button onClick={onClose} className={'button is-secondary'}>
-          {t('box.ok')}
-        </button>
+        <Button onClick={onClose}>{t('box.ok')}</Button>
       </>
     ]
   }, [uploadLogFileProps, confirmed, uploading, error, uploadUrl])
@@ -114,14 +111,15 @@ export default function LogUploadDialog() {
   if (!uploadLogFileProps) return <></>
 
   return (
-    <Dialog
+    <Modal
       onClose={onClose}
-      showCloseButton={false}
+      size="sm"
+      tone={error ? 'error' : 'default'}
       className="log-upload-result"
     >
-      <DialogHeader>{dialogTitle}</DialogHeader>
-      <DialogContent>{dialogContent}</DialogContent>
-      <DialogFooter>{dialogFooter}</DialogFooter>
-    </Dialog>
+      <ModalHeader>{dialogTitle}</ModalHeader>
+      <ModalContent>{dialogContent}</ModalContent>
+      <ModalFooter>{dialogFooter}</ModalFooter>
+    </Modal>
   )
 }
