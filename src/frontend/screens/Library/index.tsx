@@ -10,7 +10,7 @@ import React, {
 } from 'react'
 
 import ArrowDropUp from '@mui/icons-material/ArrowDropUpOutlined'
-import { Header, UpdateComponent } from 'frontend/components/UI'
+import { UpdateComponent } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
@@ -638,40 +638,6 @@ export default React.memo(function Library(): JSX.Element {
     installing
   ])
 
-  // we need this to do proper `position: sticky` of the Add Game area
-  // the height of the Header can change at runtime with different font families
-  // and when resizing the window
-  useEffect(() => {
-    let timer: NodeJS.Timeout | null = null
-
-    const setHeaderHightCSS = () => {
-      if (timer) clearTimeout(timer)
-
-      // adding a timeout so we don't run this for every resize event
-      timer = setTimeout(() => {
-        const header = document.querySelector('.Header')
-        if (header) {
-          const headerHeight = header.getBoundingClientRect().height
-          const libraryHeader =
-            document.querySelector<HTMLDivElement>('.libraryHeader')
-          if (libraryHeader)
-            libraryHeader.style.setProperty(
-              '--header-height',
-              `${headerHeight}px`
-            )
-        }
-      }, 50)
-    }
-    // set when mounted
-    setHeaderHightCSS()
-    // also listen the resize event
-    window.addEventListener('resize', setHeaderHightCSS)
-
-    return () => {
-      window.removeEventListener('resize', setHeaderHightCSS)
-    }
-  }, [])
-
   if (!epic && !gog && !amazon && !zoom) {
     return (
       <ErrorComponent
@@ -721,7 +687,6 @@ export default React.memo(function Library(): JSX.Element {
         setAlphabetFilterLetter
       }}
     >
-      <Header />
       <LibraryTour />
 
       <div className="listing">

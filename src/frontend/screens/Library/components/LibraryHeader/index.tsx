@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import ActionIcons from 'frontend/components/UI/ActionIcons'
+import Header from 'frontend/components/UI/Header'
 import { GameInfo } from 'common/types'
 import LibraryContext from '../../LibraryContext'
 import './index.css'
@@ -24,21 +25,32 @@ export default React.memo(function LibraryHeader({ list }: Props) {
     ).length
 
     const total = list.length - dlcCount
-    return total > 0 ? `${total}` : 0
+    return total > 0 ? total : 0
   }, [list])
 
   return (
-    <h5 className="libraryHeader" data-tour="library-header">
+    <div className="libraryHeader" data-tour="library-header">
       <div className="libraryHeaderWrapper">
-        <span className="libraryTitle">
-          {showFavourites
-            ? t('favourites', 'Favourites')
-            : t('title.allGames', 'All Games')}
-          <span className="numberOfgames">{numberOfGames}</span>
-          <AddGameButton data-tour="library-add-game" />
-        </span>
+        <div className="libraryTitleBlock">
+          <h5 className="libraryTitle">
+            {showFavourites
+              ? t('favourites', 'Favourites')
+              : t('title.allGames', 'All Games')}
+          </h5>
+          <span className="numberOfgames">
+            {t('library.gamesCount', {
+              count: numberOfGames,
+              defaultValue_one: '{{count}} game',
+              defaultValue_other: '{{count}} games'
+            })}
+          </span>
+        </div>
+        <AddGameButton data-tour="library-add-game" />
+      </div>
+      <div className="libraryToolbar">
+        <Header />
         <ActionIcons />
       </div>
-    </h5>
+    </div>
   )
 })

@@ -1,54 +1,84 @@
+.libraryHeaderWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.libraryTitleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .libraryTitle {
   grid-area: title;
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-2xl);
+  font-weight: var(--bold);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-default);
+}
+
+.numberOfgames {
+  font-size: var(--text-sm);
+  font-weight: var(--regular);
+  line-height: 1.3;
+  color: var(--text-tertiary, var(--text-secondary));
+}
+
+.libraryToolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.libraryToolbar .ActionIcons {
+  justify-self: auto;
+  flex-shrink: 0;
+}
+
+.libraryToolbar .ActionIcons .FormControl {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--input-background);
+  margin-inline-end: 0;
 }
 
 .sideloadGameButton {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  font-family: var(--primary-font-family);
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 20px;
+  border: none;
   border-radius: 999px;
-  color: var(--text-secondary);
-  background: transparent;
-  padding: 8px 14px;
-  border: 1px solid var(--divider);
-  margin: 0 var(--space-md);
-  cursor: pointer;
+  font-family: var(--primary-font-family);
   font-size: var(--text-md);
-  font-weight: var(--medium);
+  font-weight: var(--semibold);
+  color: var(--background-darker, #06121a);
+  background: var(--navbar-accent, var(--accent));
+  cursor: pointer;
   transition:
     background-color 150ms ease,
-    border-color 150ms ease,
-    color 150ms ease;
-  vertical-align: middle;
+    box-shadow 150ms ease;
 }
 
 .sideloadGameButton:hover,
-.sideloadGameButton:focus-within {
-  background: var(--input-background);
-  border-color: var(--line-strong, var(--divider));
-  color: var(--text-default);
-  box-shadow: none;
+.sideloadGameButton:focus-visible {
+  background: var(--accent-overlay, var(--accent));
+  box-shadow: 0 8px 24px -8px var(--navbar-accent, var(--accent));
 }
 
 .sideloadGameButton svg {
   flex-shrink: 0;
-}
-
-.sideloadGameButton:hover,
-.sideloadGameButton:focus-within {
-  background: var(--primary-button, var(--accent-overlay));
-  box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
-}
-
-.numberOfgames {
-  font-size: var(--text-md);
-  font-weight: var(--medium);
-  color: var(--text-secondary);
-  background: var(--input-background);
-  padding: 3px 12px;
-  margin-inline-start: var(--space-sm, 4px);
-  border-radius: 999px;
-  vertical-align: middle;
-  line-height: 1.6;
 }

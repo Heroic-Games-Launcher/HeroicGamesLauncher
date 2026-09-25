@@ -41,24 +41,21 @@
 
 .libraryHeader {
   text-align: start;
-  padding: var(--space-md-fixed);
+  padding: var(--space-md) var(--space-md-fixed);
   margin: 0;
   background: var(--gradient-body-background, var(--body-background));
   position: sticky;
-  top: var(--header-height, 82px);
-  z-index: 9;
+  top: 0;
+  z-index: 10;
   font-size: var(--text-xl);
   font-weight: var(--semibold);
   letter-spacing: -0.01em;
 }
 
-.libraryHeaderWrapper {
-  display: grid;
-  align-items: center;
-  margin: calc(-1 * var(--space-3xs)) 0;
-  grid-template-columns: max-content min-content;
-  grid-template-areas: 'title action';
-  justify-content: space-between;
+.frameless:not(.fullscreen) .libraryHeader {
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px) + 10px
+  );
 }
 
 #backToTopArrow {

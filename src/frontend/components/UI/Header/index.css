@@ -1,20 +1,11 @@
 .Header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: var(--space-sm);
-  padding: var(--space-md) var(--space-md-fixed);
-  background: var(--gradient-body-background, var(--body-background));
+  flex: 1 1 auto;
+  min-width: 0;
   color: var(--text-secondary);
-}
-
-.frameless:not(.fullscreen) .Header {
-  padding-right: calc(
-    var(--overlay-controls-width) - env(titlebar-area-x, 0px) + 10px
-  );
 }
 
 .Header__filters {

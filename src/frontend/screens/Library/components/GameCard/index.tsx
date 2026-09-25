@@ -9,7 +9,7 @@ import DownIcon from 'frontend/assets/down-icon.svg?react'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
-import { Settings as GearIcon } from 'lucide-react'
+import { Clock, MoreVertical } from 'lucide-react'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import StopIconAlt from 'frontend/assets/stop-icon-alt.svg?react'
 import {
@@ -33,6 +33,7 @@ import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
+import { timestampStore } from 'frontend/helpers/electronStores'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import {
   CancelOutlined,
@@ -180,6 +181,15 @@ const GameCard = ({
     window.api.removeFromDMQueue(appName)
   }
 
+  const [hoursPlayed, setHoursPlayed] = useState<number | null>(null)
+
+  useEffect(() => {
+    const totalPlayed = timestampStore.get_nodefault(appName)?.totalPlayed
+    setHoursPlayed(
+      totalPlayed ? Math.round((totalPlayed / 60) * 10) / 10 : null
+    )
+  }, [appName, status])
+
   const renderIcon = () => {
     if (!isInstallable) {
       return (
@@ -257,7 +267,14 @@ const GameCard = ({
           title={`${t('label.playing.start')} (${title})`}
           disabled={disabled}
         >
-          {justPlayed ? <span>{t('button.play', 'PLAY')}</span> : <PlayIcon />}
+          {justPlayed ? (
+            <span>{t('button.play', 'PLAY')}</span>
+          ) : (
+            <>
+              <PlayIcon />
+              <span className="actionLabel">{t('button.play', 'PLAY')}</span>
+            </>
+          )}
         </SvgButton>
       )
     } else {
@@ -267,7 +284,10 @@ const GameCard = ({
           onClick={() => buttonClick()}
           title={`${t('button.install')} (${title})`}
         >
-          <DownIcon />
+          <>
+            <DownIcon />
+            <span className="actionLabel">{t('button.install')}</span>
+          </>
         </SvgButton>
       )
     }
@@ -453,7 +473,6 @@ const GameCard = ({
     )
   }
 
-  const showSettingsButton = isInstalled && !isUninstalling && !isBrowserGame
   const showUpdateBadge =
     hasUpdate && !isUpdating && !isQueued && activeController
 
@@ -535,6 +554,14 @@ const GameCard = ({
             >
               {getStoreName(runner, t2('Other'))}
             </span>
+            {hoursPlayed !== null && (
+              <span className="gamePlaytime">
+                <Clock size={14} strokeWidth={1.75} aria-hidden />
+                {t('game.hoursPlayed', '{{hours}} hours played', {
+                  hours: hoursPlayed
+                })}
+              </span>
+            )}
           </div>
           <>
             <span className="icons">
@@ -547,17 +574,21 @@ const GameCard = ({
                   <FontAwesomeIcon size={'2x'} icon={faRepeat} />
                 </SvgButton>
               )}
-              {showSettingsButton && (
-                <>
-                  <SvgButton
-                    title={`${t('submenu.settings')} (${title})`}
-                    className="settingsIcon"
-                    onClick={() => openGameSettingsModal(gameInfo)}
-                  >
-                    <GearIcon size={18} strokeWidth={1.75} aria-hidden />
-                  </SvgButton>
-                </>
-              )}
+              <SvgButton
+                title={`${t('submenu.settings')} (${title})`}
+                className="menuIcon"
+                onClick={(event) =>
+                  event.currentTarget.dispatchEvent(
+                    new MouseEvent('contextmenu', {
+                      bubbles: true,
+                      clientX: event.clientX,
+                      clientY: event.clientY
+                    })
+                  )
+                }
+              >
+                <MoreVertical size={20} strokeWidth={2} aria-hidden />
+              </SvgButton>
               {renderIcon()}
             </span>
           </>
