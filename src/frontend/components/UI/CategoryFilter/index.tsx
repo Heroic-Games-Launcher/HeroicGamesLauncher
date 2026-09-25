@@ -69,7 +69,7 @@ export default function CategoryFilter() {
       }
       popUpOnHover
     >
-      <FilterSection label={t('header.categories', 'Categories')}>
+      <FilterSection>
         {categoriesList.length === 0 && (
           <p className="FilterSection__empty">
             {t(

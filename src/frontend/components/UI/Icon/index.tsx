@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import './index.css'
 
-export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 const SIZES: Record<IconSize, number> = {
   xs: 14,
@@ -11,7 +11,7 @@ const SIZES: Record<IconSize, number> = {
   xl: 26
 }
 
-export const DEFAULT_STROKE = 1.75
+const DEFAULT_STROKE = 1.75
 
 interface IconProps {
   glyph: LucideIcon

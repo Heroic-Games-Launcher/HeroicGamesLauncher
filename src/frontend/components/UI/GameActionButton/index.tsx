@@ -13,7 +13,7 @@ import Button, { ButtonVariant } from '../Button'
 import Icon from '../Icon'
 import './index.css'
 
-export type GameAction =
+type GameAction =
   | 'play'
   | 'install'
   | 'update'

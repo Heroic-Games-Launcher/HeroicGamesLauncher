@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import './index.css'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'
-export type ButtonSize = 'sm' | 'md'
+type ButtonSize = 'sm' | 'md'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode
