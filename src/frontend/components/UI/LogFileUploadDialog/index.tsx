@@ -4,6 +4,7 @@ import { CircularProgress } from '@mui/material'
 
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from '../Dialog'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import { Button } from 'frontend/components/UI'
 
 export default function LogUploadDialog() {
   const { t } = useTranslation()
@@ -55,12 +56,12 @@ export default function LogUploadDialog() {
           { name: uploadLogFileProps.name }
         ),
         <>
-          <button onClick={doUpload} className={'button is-primary'}>
+          <Button onClick={doUpload} variant="primary">
             {t('box.yes')}
-          </button>
-          <button onClick={onClose} className={'button is-danger'}>
+          </Button>
+          <Button onClick={onClose} variant="danger">
             {t('box.no')}
-          </button>
+          </Button>
         </>
       ]
     if (uploading)
@@ -89,9 +90,9 @@ export default function LogUploadDialog() {
           )}
         </>,
         <>
-          <button onClick={onClose} className={'button is-secondary'}>
+          <Button onClick={onClose} variant="ghost">
             {t('box.ok')}
-          </button>
+          </Button>
         </>
       ]
     return [
@@ -104,9 +105,9 @@ export default function LogUploadDialog() {
         }
       ),
       <>
-        <button onClick={onClose} className={'button is-secondary'}>
+        <Button onClick={onClose} variant="ghost">
           {t('box.ok')}
-        </button>
+        </Button>
       </>
     ]
   }, [uploadLogFileProps, confirmed, uploading, error, uploadUrl])

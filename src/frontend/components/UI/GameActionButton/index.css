@@ -1,0 +1,22 @@
+.GameActionButton {
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.GameActionButton.Button--secondary {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+.GameActionButton .Button__label {
+  font-size: var(--text-lg);
+  font-weight: var(--bold);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.Button.GameActionButton svg,
+.Button.GameActionButton svg * {
+  fill: none;
+}

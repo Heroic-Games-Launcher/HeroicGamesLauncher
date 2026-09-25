@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EnviromentVariable } from 'common/types'
 import { validateEnvKey } from './EnvVariableRow'
+import { Button } from 'frontend/components/UI'
 
 interface BulkEditModalProps {
   initialEnvs: EnviromentVariable[]
@@ -72,12 +73,12 @@ const BulkEditModal = ({
       />
       {error && <div className="env-var-error">{error}</div>}
       <div className="bulk-edit-actions">
-        <button onClick={onCancel} className="button is-secondary">
+        <Button variant="ghost" onClick={onCancel}>
           {t('common.cancel', 'Cancel')}
-        </button>
-        <button onClick={handleSave} className="button is-primary">
+        </Button>
+        <Button variant="primary" onClick={handleSave}>
           {t('common.save', 'Save')}
-        </button>
+        </Button>
       </div>
     </div>
   )

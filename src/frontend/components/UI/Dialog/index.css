@@ -16,7 +16,7 @@
   overflow: auto;
   padding-top: var(--dialog-margin-vertical);
   border: solid 1px var(--modal-border);
-  border-radius: 10px;
+  border-radius: 14px;
   background: var(--modal-background);
   color: var(--text-default);
   opacity: 0;
@@ -89,7 +89,7 @@
 
 .Dialog__CloseButton:focus-visible {
   outline: none;
-  box-shadow: var(--accent) 0 0 0 2px inset;
+  box-shadow: 0 0 0 2px var(--navbar-accent, var(--accent));
 }
 
 .Dialog__CloseButton:hover {

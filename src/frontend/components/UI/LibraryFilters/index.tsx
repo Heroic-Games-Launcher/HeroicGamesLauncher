@@ -6,6 +6,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import type { Runner } from 'common/types'
 import Dropdown from '../Dropdown'
 import StoreLogos from '../StoreLogos'
+import { Button, Chip, FilterSection, Icon } from 'frontend/components/UI'
 import {
   SlidersHorizontal,
   Heart,
@@ -140,7 +141,7 @@ export default function LibraryFilters() {
       buttonClass="pill"
       title={
         <>
-          <SlidersHorizontal size={18} strokeWidth={1.75} aria-hidden />
+          <Icon glyph={SlidersHorizontal} size="md" />
           <span>{t('header.filters', 'Filters')}</span>
         </>
       }
@@ -148,134 +149,108 @@ export default function LibraryFilters() {
       data-tour="library-filters"
       popUpOnHover
     >
-      <div className="filterSection">
-        <div className="filterSectionLabel">{t('header.stores', 'Stores')}</div>
-        <div className="filterChips">
-          {stores
-            .filter((s) => s.show)
-            .map((s) => (
-              <button
-                key={s.key}
-                type="button"
-                className={`filterChip ${storesFilters[s.key] ? 'on' : ''}`}
-                onClick={() => toggleStore(s.key)}
-              >
+      <FilterSection label={t('header.stores', 'Stores')}>
+        {stores
+          .filter((s) => s.show)
+          .map((s) => (
+            <Chip
+              key={s.key}
+              active={storesFilters[s.key]}
+              onClick={() => toggleStore(s.key)}
+              icon={
                 <span className="filterChipIcon">
                   <StoreLogos runner={s.runner} className="filterChipLogo" />
                 </span>
-                <span>{s.label}</span>
-              </button>
-            ))}
-        </div>
-      </div>
+              }
+            >
+              {s.label}
+            </Chip>
+          ))}
+      </FilterSection>
 
-      <div className="filterSection">
-        <div className="filterSectionLabel">
-          {t('header.platforms', 'Platforms')}
-        </div>
-        <div className="filterChips">
-          {platforms
-            .filter((p) => p.show)
-            .map((p) => (
-              <button
-                key={p.key}
-                type="button"
-                className={`filterChip ${platformsFilters[p.key] ? 'on' : ''}`}
-                onClick={() => togglePlatform(p.key)}
-              >
+      <FilterSection label={t('header.platforms', 'Platforms')}>
+        {platforms
+          .filter((p) => p.show)
+          .map((p) => (
+            <Chip
+              key={p.key}
+              active={platformsFilters[p.key]}
+              onClick={() => togglePlatform(p.key)}
+              icon={
                 <span
                   className={`filterPlatformTag filterPlatformTag--${p.key}`}
                 >
                   {p.tag}
                 </span>
-                <span>{p.label}</span>
-              </button>
-            ))}
-        </div>
-      </div>
+              }
+            >
+              {p.label}
+            </Chip>
+          ))}
+      </FilterSection>
 
-      <div className="filterSection">
-        <div className="filterSectionLabel">
-          {t('header.display', 'Display')}
-        </div>
-        <div className="filterChips">
-          <button
-            type="button"
-            className={`filterChip ${showFavourites ? 'on' : ''}`}
-            onClick={() => setShowFavourites(!showFavourites)}
-          >
-            <Heart size={14} strokeWidth={1.75} aria-hidden />
-            <span>{t('header.show_favourites_only', 'Favorites only')}</span>
-          </button>
-          <button
-            type="button"
-            className={`filterChip ${showInstalledOnly ? 'on' : ''}`}
-            onClick={() => setShowInstalledOnly(!showInstalledOnly)}
-          >
-            <Package size={14} strokeWidth={1.75} aria-hidden />
-            <span>{t('header.show_installed_only', 'Installed only')}</span>
-          </button>
-          <button
-            type="button"
-            className={`filterChip ${showUpdatesOnly ? 'on' : ''}`}
-            onClick={() => setShowUpdatesOnly(!showUpdatesOnly)}
-          >
-            <RefreshCw size={14} strokeWidth={1.75} aria-hidden />
-            <span>{t('header.show_updates_only', 'With updates')}</span>
-          </button>
-          <button
-            type="button"
-            className={`filterChip ${showSupportOfflineOnly ? 'on' : ''}`}
-            onClick={() => setShowSupportOfflineOnly(!showSupportOfflineOnly)}
-          >
-            <WifiOff size={14} strokeWidth={1.75} aria-hidden />
-            <span>
-              {t('header.show_support_offline_only', 'Offline-supported')}
-            </span>
-          </button>
-          <button
-            type="button"
-            className={`filterChip ${showThirdPartyManagedOnly ? 'on' : ''}`}
-            onClick={() =>
-              setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly)
-            }
-          >
-            <Clock size={14} strokeWidth={1.75} aria-hidden />
-            <span>
-              {t('header.show_third_party_managed_only', 'Third-party only')}
-            </span>
-          </button>
-          <button
-            type="button"
-            className={`filterChip ${showHidden ? 'on' : ''}`}
-            onClick={() => setShowHidden(!showHidden)}
-          >
-            {showHidden ? (
-              <Eye size={14} strokeWidth={1.75} aria-hidden />
-            ) : (
-              <EyeOff size={14} strokeWidth={1.75} aria-hidden />
-            )}
-            <span>{t('header.hidden', 'Hidden')}</span>
-          </button>
-          <button
-            type="button"
-            className={`filterChip ${showNonAvailable ? 'on' : ''}`}
-            onClick={() => setShowNonAvailable(!showNonAvailable)}
-          >
-            <Eye size={14} strokeWidth={1.75} aria-hidden />
-            <span>{t('header.non_available', 'Non-available')}</span>
-          </button>
-        </div>
-      </div>
-
-      <div className="filterActions">
-        <button
-          type="reset"
-          className="filterReset"
-          onClick={() => resetFilters()}
+      <FilterSection label={t('header.display', 'Display')}>
+        <Chip
+          active={showFavourites}
+          onClick={() => setShowFavourites(!showFavourites)}
+          icon={<Icon glyph={Heart} size="md" />}
         >
+          <span>{t('header.show_favourites_only', 'Favorites only')}</span>
+        </Chip>
+        <Chip
+          active={showInstalledOnly}
+          onClick={() => setShowInstalledOnly(!showInstalledOnly)}
+          icon={<Icon glyph={Package} size="md" />}
+        >
+          <span>{t('header.show_installed_only', 'Installed only')}</span>
+        </Chip>
+        <Chip
+          active={showUpdatesOnly}
+          onClick={() => setShowUpdatesOnly(!showUpdatesOnly)}
+          icon={<Icon glyph={RefreshCw} size="md" />}
+        >
+          <span>{t('header.show_updates_only', 'With updates')}</span>
+        </Chip>
+        <Chip
+          active={showSupportOfflineOnly}
+          onClick={() => setShowSupportOfflineOnly(!showSupportOfflineOnly)}
+          icon={<Icon glyph={WifiOff} size="md" />}
+        >
+          <span>
+            {t('header.show_support_offline_only', 'Offline-supported')}
+          </span>
+        </Chip>
+        <Chip
+          active={showThirdPartyManagedOnly}
+          onClick={() =>
+            setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly)
+          }
+          icon={<Icon glyph={Clock} size="md" />}
+        >
+          <span>
+            {t('header.show_third_party_managed_only', 'Third-party only')}
+          </span>
+        </Chip>
+        <Chip
+          active={showHidden}
+          onClick={() => setShowHidden(!showHidden)}
+          icon={<Icon glyph={showHidden ? Eye : EyeOff} size="md" />}
+        >
+          <span>{t('header.hidden', 'Hidden')}</span>
+        </Chip>
+        <Chip
+          active={showNonAvailable}
+          onClick={() => setShowNonAvailable(!showNonAvailable)}
+          icon={<Icon glyph={Eye} size="md" />}
+        >
+          <span>{t('header.non_available', 'Non-available')}</span>
+        </Chip>
+      </FilterSection>
+
+      <div className="FilterActions">
+        <Button variant="ghost" size="sm" onClick={() => resetFilters()}>
           {t('header.reset', 'Reset all')}
-        </button>
+        </Button>
       </div>
     </Dropdown>
   )

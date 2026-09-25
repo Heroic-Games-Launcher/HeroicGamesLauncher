@@ -66,58 +66,6 @@
     overflow: hidden;
     gap: var(--space-sm);
     padding: var(--space-md);
-
-    .toggleWithOnly {
-      display: flex;
-
-      & label {
-        min-height: 30px;
-        flex-grow: 1;
-      }
-
-      .only {
-        display: none;
-        background: none;
-        border: none;
-        color: var(--text);
-        text-decoration: underline;
-        cursor: pointer;
-        &:hover {
-          color: var(--accent);
-        }
-      }
-
-      &:hover .only,
-      &:focus-within .only {
-        display: block;
-      }
-    }
-
-    .toggleSwitchWrapper {
-      white-space: nowrap;
-      padding-inline-end: 1rem;
-      &::before {
-        width: 10px;
-        height: 10px;
-        border-radius: 2px;
-        font-size: 1rem;
-        align-items: center;
-      }
-      &:hover {
-        color: var(--accent);
-      }
-    }
-
-    & hr {
-      width: 80%;
-    }
-
-    & button {
-      margin-inline-start: 0.5rem;
-      align-self: center;
-      font-size: 1rem;
-      padding: 0.3rem 0.8rem;
-    }
   }
 }
 

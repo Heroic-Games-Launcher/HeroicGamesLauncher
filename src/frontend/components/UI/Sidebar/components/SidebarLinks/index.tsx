@@ -26,8 +26,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import QuitButton from '../QuitButton'
 import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
 import SidebarItem from '../SidebarItem'
-
-const ICON = { size: 20, strokeWidth: 1.75 } as const
+import { Icon } from 'frontend/components/UI'
 
 type PathSplit = [a: undefined, b: undefined, type: string]
 
@@ -119,7 +118,7 @@ export default function SidebarLinks() {
       <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
       {!loggedIn && (
         <SidebarItem
-          icon={<LogIn {...ICON} aria-hidden />}
+          icon={<Icon glyph={LogIn} />}
           label={t('button.login', 'Login')}
           url="/login"
           dataTour="sidebar-login"
@@ -128,7 +127,7 @@ export default function SidebarLinks() {
       <SidebarItem
         isActiveFallback={location.pathname.includes('gamepage')}
         url="/"
-        icon={<Gamepad2 {...ICON} aria-hidden />}
+        icon={<Icon glyph={Gamepad2} />}
         label={t('Library')}
         onClick={async () => handleRefresh()}
         dataTour="sidebar-library"
@@ -138,7 +137,7 @@ export default function SidebarLinks() {
         <SidebarItem
           isActiveFallback={location.pathname.includes('store')}
           url={`/store/${defaultStore}`}
-          icon={<Store {...ICON} aria-hidden />}
+          icon={<Icon glyph={Store} />}
           label={t('stores', 'Stores')}
           dataTour="sidebar-stores"
         />
@@ -171,14 +170,14 @@ export default function SidebarLinks() {
       </div>
       <SidebarItem
         url="/discounts"
-        icon={<Tag {...ICON} aria-hidden />}
+        icon={<Icon glyph={Tag} />}
         label={t('discounts.sidebar', 'Deals')}
         dataTour="sidebar-discounts"
       />
 
       <SidebarItem
         url="/download-manager"
-        icon={<Download {...ICON} aria-hidden />}
+        icon={<Icon glyph={Download} />}
         label={t('download-manager.link', 'Downloads')}
         badge={activeDownloads > 0 ? activeDownloads : undefined}
         dataTour="sidebar-downloads"
@@ -187,7 +186,7 @@ export default function SidebarLinks() {
       {!isWin && (
         <SidebarItem
           url="/wine-manager"
-          icon={<Wine {...ICON} aria-hidden />}
+          icon={<Icon glyph={Wine} />}
           label={t('wine.manager.link', 'Wine Manager')}
           dataTour="sidebar-wine"
         />
@@ -195,14 +194,14 @@ export default function SidebarLinks() {
 
       <SidebarItem
         url="/accessibility"
-        icon={<Accessibility {...ICON} aria-hidden />}
+        icon={<Icon glyph={Accessibility} />}
         label={t('accessibility.title', 'Accessibility')}
         dataTour="sidebar-accessibility"
       />
 
       <SidebarItem
         url="/console"
-        icon={<Tv {...ICON} aria-hidden />}
+        icon={<Icon glyph={Tv} />}
         label={t('sidebar.console', 'Console Mode')}
         dataTour="sidebar-console"
       />
@@ -210,7 +209,7 @@ export default function SidebarLinks() {
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
           isActiveFallback={location.pathname.includes('settings')}
-          icon={<SettingsIcon {...ICON} aria-hidden />}
+          icon={<Icon glyph={SettingsIcon} />}
           label={t('Settings', 'Settings')}
           url="/settings/general"
           dataTour="sidebar-settings"
@@ -272,7 +271,7 @@ export default function SidebarLinks() {
           </div>
           <SidebarItem
             url="/login"
-            icon={<UserCircle {...ICON} aria-hidden />}
+            icon={<Icon glyph={UserCircle} />}
             label={t('userselector.manage', 'Manage')}
             dataTour="sidebar-manage-accounts"
           />
@@ -283,7 +282,7 @@ export default function SidebarLinks() {
 
       <SidebarItem
         url="/wiki"
-        icon={<BookOpen {...ICON} aria-hidden />}
+        icon={<Icon glyph={BookOpen} />}
         label={t('docs', 'Documentation')}
         dataTour="sidebar-docs"
       />
@@ -306,7 +305,7 @@ export default function SidebarLinks() {
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(window.api.openKofiPage)}
-          icon={<Coffee {...ICON} aria-hidden />}
+          icon={<Icon glyph={Coffee} />}
           label="Ko-fi"
         />
 

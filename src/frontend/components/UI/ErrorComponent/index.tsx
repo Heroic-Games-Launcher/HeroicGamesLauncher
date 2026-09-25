@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { CleaningServicesOutlined, DeleteOutline } from '@mui/icons-material'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { Button } from 'frontend/components/UI'
 
 export default function ErrorComponent({ message }: { message: string }) {
   const { t } = useTranslation()
@@ -16,8 +17,9 @@ export default function ErrorComponent({ message }: { message: string }) {
       <FontAwesomeIcon icon={faHeartCrack} />
       <span className="errorText">{message}</span>
       <span className="buttonsWrapper">
-        <button
-          className="button is-footer"
+        <Button
+          variant="primary"
+          className="is-footer"
           onClick={async () =>
             refreshLibrary({
               checkForUpdates: true,
@@ -33,10 +35,11 @@ export default function ErrorComponent({ message }: { message: string }) {
               {t('generic.library.refresh', 'Refresh Library')}
             </span>
           </div>
-        </button>
+        </Button>
 
-        <button
-          className="button is-footer is-danger"
+        <Button
+          variant="danger"
+          className="is-footer"
           onClick={() => window.api.clearCache(true)}
         >
           <div className="button-icontext-flex">
@@ -47,10 +50,11 @@ export default function ErrorComponent({ message }: { message: string }) {
               {t('settings.clear-cache', 'Clear Heroic Cache')}
             </span>
           </div>
-        </button>
+        </Button>
 
-        <button
-          className="button is-footer is-danger"
+        <Button
+          variant="danger"
+          className="is-footer"
           onClick={showResetDialog}
         >
           <div className="button-icontext-flex">
@@ -61,7 +65,7 @@ export default function ErrorComponent({ message }: { message: string }) {
               {t('settings.reset-heroic', 'Reset Heroic')}
             </span>
           </div>
-        </button>
+        </Button>
       </span>
     </div>
   )

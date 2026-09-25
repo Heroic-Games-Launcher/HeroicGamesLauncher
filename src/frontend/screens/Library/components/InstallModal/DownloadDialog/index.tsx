@@ -19,7 +19,7 @@ import {
   DLCInfo as LegendaryDLCInfo
 } from 'common/types/legendary'
 import { BuildItem, DLCInfo as GOGDLCInfo } from 'common/types/gog'
-import { PathSelectionBox, ToggleSwitch } from 'frontend/components/UI'
+import { Button, PathSelectionBox, ToggleSwitch } from 'frontend/components/UI'
 import Anticheat from 'frontend/components/UI/Anticheat'
 import {
   DialogHeader,
@@ -783,19 +783,19 @@ export default function DownloadDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button onClick={handleSwitchToImport} className="button is-secondary">
+        <Button variant="ghost" onClick={handleSwitchToImport}>
           {t('button.import', 'Import Game')}
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="primary"
           onClick={async () => handleInstall()}
-          className="button is-primary"
           disabled={!readyToInstall}
         >
           {!readyToInstall ? (
             <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
           ) : null}
           {getInstallLabel()}
-        </button>
+        </Button>
       </DialogFooter>
     </>
   )

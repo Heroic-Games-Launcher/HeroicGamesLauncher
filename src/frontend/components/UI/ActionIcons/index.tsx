@@ -9,10 +9,11 @@ import {
   RefreshCw
 } from 'lucide-react'
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
+import Icon from '../Icon'
 import './index.css'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
@@ -23,14 +24,31 @@ interface ActionIconsProps {
   'data-tour'?: string
 }
 
-const ICON_SIZE = 20
-const STROKE = 1.75
-
 export default React.memo(function ActionIcons({
   'data-tour': dataTour
 }: ActionIconsProps = {}) {
   const { t } = useTranslation()
   const { refreshLibrary, refreshing } = useContext(ContextProvider)
+  const [spinning, setSpinning] = useState(false)
+  const spinTimeout = useRef<ReturnType<typeof setTimeout>>()
+
+  useEffect(
+    () => () => {
+      if (spinTimeout.current) clearTimeout(spinTimeout.current)
+    },
+    []
+  )
+
+  const handleRefresh = async () => {
+    if (spinTimeout.current) clearTimeout(spinTimeout.current)
+    setSpinning(true)
+    const startedAt = Date.now()
+    await refreshLibrary({ checkForUpdates: true })
+    spinTimeout.current = setTimeout(
+      () => setSpinning(false),
+      Math.max(0, 700 - (Date.now() - startedAt))
+    )
+  }
 
   const {
     handleLayout,
@@ -52,12 +70,10 @@ export default React.memo(function ActionIcons({
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
             onClick={() => handleLayout('list')}
           >
-            <List
+            <Icon
+              glyph={List}
               className="FormControl__segmentedLucideIcon"
-              size={ICON_SIZE}
-              strokeWidth={STROKE}
               data-tour="library-view-toggle"
-              aria-hidden
             />
           </button>
         ) : (
@@ -66,12 +82,10 @@ export default React.memo(function ActionIcons({
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
             onClick={() => handleLayout('grid')}
           >
-            <LayoutGrid
+            <Icon
+              glyph={LayoutGrid}
               className="FormControl__segmentedLucideIcon"
-              size={ICON_SIZE}
-              strokeWidth={STROKE}
               data-tour="library-view-toggle"
-              aria-hidden
             />
           </button>
         )}
@@ -85,20 +99,16 @@ export default React.memo(function ActionIcons({
           onClick={() => setSortDescending(!sortDescending)}
         >
           {sortDescending ? (
-            <ArrowDownZA
+            <Icon
+              glyph={ArrowDownZA}
               className="FormControl__segmentedLucideIcon"
-              size={ICON_SIZE}
-              strokeWidth={STROKE}
               data-tour="library-sort-az"
-              aria-hidden
             />
           ) : (
-            <ArrowDownAZ
+            <Icon
+              glyph={ArrowDownAZ}
               className="FormControl__segmentedLucideIcon"
-              size={ICON_SIZE}
-              strokeWidth={STROKE}
               data-tour="library-sort-az"
-              aria-hidden
             />
           )}
         </button>
@@ -107,14 +117,13 @@ export default React.memo(function ActionIcons({
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => setSortInstalled(!sortInstalled)}
         >
-          <HardDrive
+          <Icon
+            glyph={HardDrive}
             className="FormControl__segmentedLucideIcon"
-            size={ICON_SIZE}
-            strokeWidth={sortInstalled ? 2.25 : STROKE}
+            strokeWidth={sortInstalled ? 2.25 : undefined}
             fill={sortInstalled ? 'currentColor' : 'none'}
             fillOpacity={sortInstalled ? 0.15 : 0}
             data-tour="library-sort-installed"
-            aria-hidden
           />
         </button>
         <button
@@ -127,40 +136,30 @@ export default React.memo(function ActionIcons({
           onClick={onToggleAlphabetFilter}
         >
           {showAlphabetFilter ? (
-            <FilterX
+            <Icon
+              glyph={FilterX}
               className="FormControl__segmentedLucideIcon"
-              size={ICON_SIZE}
-              strokeWidth={STROKE}
-              aria-hidden
             />
           ) : (
-            <ListFilter
+            <Icon
+              glyph={ListFilter}
               className="FormControl__segmentedLucideIcon"
-              size={ICON_SIZE}
-              strokeWidth={STROKE}
-              aria-hidden
             />
           )}
         </button>
         <button
           className={classNames('FormControl__button', {
-            active: refreshing
+            active: refreshing || spinning
           })}
           title={t('generic.library.refresh', 'Refresh Library')}
-          onClick={async () =>
-            refreshLibrary({
-              checkForUpdates: true
-            })
-          }
+          onClick={handleRefresh}
         >
-          <RefreshCw
+          <Icon
+            glyph={RefreshCw}
             className={classNames('FormControl__segmentedLucideIcon', {
-              ['lucide-spin']: refreshing
+              ['lucide-spin']: refreshing || spinning
             })}
-            size={ICON_SIZE}
-            strokeWidth={STROKE}
             data-tour="library-refresh"
-            aria-hidden
           />
         </button>
         <TourButton tourId={LIBRARY_TOUR_ID} className="library-tour-button" />

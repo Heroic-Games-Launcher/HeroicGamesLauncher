@@ -14,9 +14,10 @@ export interface Item {
 interface Props {
   children: React.ReactNode
   items: Item[]
+  className?: string
 }
 
-function ContextMenu({ children, items }: Props) {
+function ContextMenu({ children, items, className }: Props) {
   const [contextMenu, setContextMenu] = React.useState<{
     mouseX: number
     mouseY: number
@@ -44,7 +45,11 @@ function ContextMenu({ children, items }: Props) {
   }
 
   return (
-    <div onContextMenu={handleContextMenu} style={{ cursor: 'context-menu' }}>
+    <div
+      className={className}
+      onContextMenu={handleContextMenu}
+      style={{ cursor: 'context-menu' }}
+    >
       {children}
       <Menu
         open={contextMenu !== null}

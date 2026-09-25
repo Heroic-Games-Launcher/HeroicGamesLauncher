@@ -1,0 +1,16 @@
+@mixin formSystem {
+  --field-height: 44px;
+  --field-radius: 12px;
+  --field-padding-inline: 14px;
+  --field-background: var(--input-background);
+  --field-border: color-mix(in oklab, var(--text-default) 16%, transparent);
+  --field-border-hover: color-mix(
+    in oklab,
+    var(--text-default) 32%,
+    transparent
+  );
+  --field-border-focus: var(--accent);
+  --field-color: var(--text-default);
+  --field-placeholder: var(--text-tertiary, var(--text-secondary));
+  --field-label-color: var(--text-secondary);
+}

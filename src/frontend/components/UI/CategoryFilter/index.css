@@ -1,0 +1,37 @@
+.categoriesFilter .dropdown {
+  min-width: 340px;
+  max-width: 420px;
+}
+
+.categoryChip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.categoryOnly {
+  position: absolute;
+  inset-inline-end: 10px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-xs);
+  font-weight: var(--semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--navbar-accent, var(--accent));
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.categoryChip:hover .categoryOnly,
+.categoryChip:focus-within .categoryOnly {
+  opacity: 1;
+}
+
+.categoryChip:hover .Chip,
+.categoryChip:focus-within .Chip {
+  padding-inline-end: 52px;
+}
