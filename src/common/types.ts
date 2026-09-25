@@ -19,6 +19,7 @@ import { ChildProcess } from 'child_process'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
+import type { SteamRuntimeName } from './types/umu'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
@@ -105,7 +106,9 @@ export interface AppSettings extends GameSettings {
   darkTrayIcon: boolean
   defaultInstallPath: string
   defaultSteamPath: string
-  defaultWinePrefix: string
+  sharedWinePrefix: string
+  defaultWinePrefix: string // only here for backwards compatibility, don't use in new code
+  defaultWinePrefixDir: string
   disableController: boolean
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
@@ -118,19 +121,24 @@ export interface AppSettings extends GameSettings {
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean
+  gamepadRepeatDelay: number
+  gamepadInitialRepeatDelay: number
   noTrayIcon: boolean
   experimentalFeatures?: ExperimentalFeatures
   framelessWindow: boolean
   hideChangelogsOnStartup: boolean
+  hideWindowOnProtocolLaunch: boolean
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
   maxWorkers: number
   minimizeOnLaunch: boolean
+  startInConsoleMode: boolean
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  steamGridDbApiKey: string
 }
 
 export type LibraryTopSectionOptions =
@@ -200,6 +208,7 @@ export interface GameInfo {
   canRunOffline: boolean
   thirdPartyManagedApp?: string
   isEAManaged?: boolean
+  isUbisoftManaged?: boolean
   is_mac_native?: boolean
   is_linux_native?: boolean
   browserUrl?: string
@@ -209,6 +218,11 @@ export interface GameInfo {
   dlcList?: GameMetadataInner[]
   customUserAgent?: string
   launchFullScreen?: boolean
+  overrides?: {
+    title?: string
+    art_cover?: string
+    art_square?: string
+  }
 }
 
 export interface GameSettings {
@@ -242,7 +256,7 @@ export interface GameSettings {
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
-  useSteamRuntime: boolean
+  steamRuntime: SteamRuntimeName | false
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -416,12 +430,6 @@ export interface GOGImportData {
   dlcs: string[]
 }
 
-export interface SteamRuntime {
-  path: string
-  type: 'sniper' | 'scout' | 'soldier'
-  args: string[]
-}
-
 export interface LaunchPreperationResult {
   success: boolean
   failureReason?: string
@@ -546,8 +554,12 @@ export interface WineVersionInfo extends VersionInfo {
 export type GamepadActionStatus = Record<
   ValidGamepadAction,
   {
+    // handles basic repeat delay
     triggeredAt: { [key: number]: number }
     repeatDelay: false | number
+    // for initial post activation delay
+    activationDelay?: false | number
+    hasRepeated?: boolean
   }
 >
 
@@ -583,10 +595,13 @@ interface GamepadActionArgsWithoutMetadata {
     | 'mainAction'
     | 'back'
     | 'altAction'
+    | 'prevPage'
+    | 'nextPage'
     | 'esc'
     | 'tab'
     | 'shiftTab'
     | 'keyboardClick'
+    | 'guide'
   metadata?: undefined
 }
 
@@ -662,6 +677,9 @@ export interface ImportGameArgs {
   path: string
   runner: Runner
   platform: InstallPlatform
+  winePrefix?: string
+  wineVersion?: WineInstallation
+  wineCrossoverBottle?: string
 }
 
 export interface MoveGameArgs {
@@ -744,6 +762,7 @@ export type Type =
   | 'Wine-Crossover'
   | 'Wine-Staging-macOS'
   | 'Game-Porting-Toolkit'
+  | 'Proton-CachyOS'
 
 /**
  * Interface contains information about a version
@@ -769,13 +788,13 @@ export interface VersionInfo {
  * Enum for the supported repositorys
  */
 export enum Repositorys {
-  WINEGE,
   PROTONGE,
   PROTON,
   WINELUTRIS,
   WINECROSSOVER,
   WINESTAGINGMACOS,
-  GPTK
+  GPTK,
+  PROTONCACHYOS
 }
 
 export type WineManagerStatus =
@@ -785,7 +804,6 @@ export type WineManagerStatus =
 export interface WineManagerUISettings {
   value: string
   type: Type
-  enabled: boolean
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
@@ -819,13 +837,20 @@ export type InstallInfo =
   | ZoomInstalledInfo
   | ZoomInstallInfo
 
-export interface KnowFixesInfo {
+export interface KnownFixesInfo {
   title: string
   notes?: Record<string, string>
   winetricks?: string[]
   runInPrefix?: string[]
   envVariables?: Record<string, string>
   wikiLink?: string
+}
+
+export interface KnownFixesFile {
+  amazon: Record<string, KnownFixesInfo>
+  epic: Record<string, KnownFixesInfo>
+  gog: Record<string, KnownFixesInfo>
+  zoom: Record<string, KnownFixesInfo>
 }
 
 export interface UploadedLogData {
@@ -844,10 +869,22 @@ export interface RunnerCommandStub {
   stderr?: string
 }
 
+export interface SGDBGrid {
+  id: number
+  url: string
+  thumb: string
+}
+
+export interface SGDBGame {
+  id: number
+  name: string
+}
+
 export type ReleasesInfo = Record<
   | 'ge-proton'
   | 'wine-ge'
   | 'game-porting-toolkit'
+  | 'proton-cachyos'
   | 'wine-staging'
   | 'wine-crossover'
   | 'dxvk'
@@ -863,4 +900,5 @@ export type ReleasesInfo = Record<
     shaMac: string
     shaLinux: string
   }
+  knownFixesSha: string
 }

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
-import { defaultWineVersion } from '../..'
+import { defaultWineVersion } from '../../util'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
 import { ToggleSwitch } from 'frontend/components/UI'
@@ -22,8 +22,8 @@ const SyncSaves = () => {
     false
   )
 
-  const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
-  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix + '/default')
+  const [sharedWinePrefix] = useSetting('sharedWinePrefix', '')
+  const [winePrefix] = useSetting('winePrefix', sharedWinePrefix)
 
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 

@@ -5,7 +5,8 @@ import {
   createHashRouter,
   Navigate,
   Outlet,
-  RouterProvider
+  RouterProvider,
+  useLocation
 } from 'react-router-dom'
 import Sidebar from './components/UI/Sidebar'
 import ContextProvider from './state/ContextProvider'
@@ -34,6 +35,8 @@ function Root() {
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
+
+  const isConsoleMode = useLocation().pathname.startsWith('/console')
 
   const theme = createTheme({
     direction: isRTL ? 'rtl' : 'ltr',
@@ -71,34 +74,41 @@ function Root() {
         isRTL,
         frameless: isFrameless,
         fullscreen: isFullscreen,
-        disableAnimations
+        disableAnimations,
+        consoleMode: isConsoleMode
       })}
       // disable dragging for all elements by default
       onDragStart={(e) => e.preventDefault()}
     >
       <ThemeProvider theme={theme}>
-        <TourProvider>
-          <OfflineMessage />
-          <Sidebar />
-          <main className="content">
-            <DialogHandler />
-            <InstallGameWrapper />
-            <SettingsModalWrapper />
-            <ExternalLinkDialog />
-            <LogFileUploadDialog />
-            <UploadedLogFilesList />
+        {isConsoleMode ? (
+          <main className="content consoleContent">
             <Outlet />
-            <AnalyticsDialog />
           </main>
-          <div className="controller">
-            <ControllerHints />
-            <dialog className="simple-keyboard-wrapper">
-              <div className="simple-keyboard"></div>
-            </dialog>
-          </div>
-          {showOverlayControls && <WindowControls />}
-          {experimentalFeatures.enableHelp && <Help items={help.items} />}
-        </TourProvider>
+        ) : (
+          <TourProvider>
+            <OfflineMessage />
+            <Sidebar />
+            <main className="content">
+              <DialogHandler />
+              <InstallGameWrapper />
+              <SettingsModalWrapper />
+              <ExternalLinkDialog />
+              <LogFileUploadDialog />
+              <UploadedLogFilesList />
+              <Outlet />
+              <AnalyticsDialog />
+            </main>
+            <div className="controller">
+              <ControllerHints />
+              <dialog className="simple-keyboard-wrapper">
+                <div className="simple-keyboard"></div>
+              </dialog>
+            </div>
+            {showOverlayControls && <WindowControls />}
+            {experimentalFeatures.enableHelp && <Help items={help.items} />}
+          </TourProvider>
+        )}
       </ThemeProvider>
     </div>
   )
@@ -143,6 +153,10 @@ const router = createHashRouter([
         lazy: makeLazyFunc(import('./screens/WebView'))
       },
       {
+        path: 'discounts',
+        lazy: makeLazyFunc(import('./screens/Discounts'))
+      },
+      {
         path: 'loginweb/:runner',
         lazy: makeLazyFunc(import('./screens/WebView'))
       },
@@ -161,6 +175,10 @@ const router = createHashRouter([
       {
         path: 'accessibility',
         lazy: makeLazyFunc(import('./screens/Accessibility'))
+      },
+      {
+        path: 'console',
+        lazy: makeLazyFunc(import('./screens/ConsoleMode'))
       },
       {
         path: '*',

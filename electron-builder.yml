@@ -15,6 +15,7 @@ asarUnpack:
   - build/icon-light.png
   - build/bin/**/*
   - '!build/bin/legendary.LICENSE'
+  - build/preload/webviewPreload.js
 
 protocols:
   - name: heroic

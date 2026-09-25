@@ -14,8 +14,9 @@ const AlphabetFilter: React.FC = () => {
   const availableChars = useMemo(() => {
     const chars = new Set<string>()
     allGames.forEach((game) => {
-      if (game.title) {
-        const processedTitle = game.title.replace(/^the\s/i, '')
+      const title = game.overrides?.title || game.title
+      if (title) {
+        const processedTitle = title.replace(/^the\s/i, '')
         const firstCharMatch = processedTitle.match(/[a-zA-Z0-9]/)
         if (firstCharMatch) {
           const char = firstCharMatch[0]

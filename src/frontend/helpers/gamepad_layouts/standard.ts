@@ -15,8 +15,8 @@ export function checkStandard(
     backButton = buttons[1], // Xbox: B, PS: Circle
     contextMenuButton = buttons[2], // Xbox: X, PS: Square
     altButton = buttons[3], // Xbox: Y, PS: Triangle
-    // LB = buttons[4],
-    // RB = buttons[5],
+    leftBumper = buttons[4], // Xbox: LB, PS: L1
+    rightBumper = buttons[5], // Xbox: RB, PS: R1
     // LT = buttons[6], // has .value
     // RT = buttons[7], // has .value
     // view = buttons[8],
@@ -27,7 +27,7 @@ export function checkStandard(
     down = buttons[13],
     left = buttons[14],
     right = buttons[15],
-    // XBOX = buttons[16],
+    guideButton = buttons[16], // Xbox "Guide" / PS button
     leftAxisX = axes[0],
     leftAxisY = axes[1],
     rightAxisX = axes[2],
@@ -38,6 +38,8 @@ export function checkStandard(
   checkAction('mainAction', mainButton?.pressed, controllerIndex)
   checkAction('back', backButton?.pressed, controllerIndex)
   checkAction('altAction', altButton?.pressed, controllerIndex)
+  checkAction('prevPage', leftBumper?.pressed, controllerIndex)
+  checkAction('nextPage', rightBumper?.pressed, controllerIndex)
   checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
@@ -51,4 +53,5 @@ export function checkStandard(
   checkAction('padLeft', left?.pressed, controllerIndex)
   checkAction('padRight', right?.pressed, controllerIndex)
   checkAction('rightClick', contextMenuButton?.pressed, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
 }

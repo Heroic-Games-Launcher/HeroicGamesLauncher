@@ -35,7 +35,8 @@ import {
   IgnoreGameUpdates,
   Gamescope,
   BeforeLaunchScriptPath,
-  AfterLaunchScriptPath
+  AfterLaunchScriptPath,
+  NvidiaPrime
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -44,7 +45,7 @@ import SettingsContext from '../../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '../..'
+import { defaultWineVersion } from '../../util'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
 import { Tabs, Tab } from '@mui/material'
@@ -209,6 +210,7 @@ export default function GamesSettings() {
         <GameMode />
         {isLinux && <PreferSystemLibs />}
         <SteamRuntime />
+        <NvidiaPrime />
         {!isNative && (
           <>
             <BattlEyeRuntime />
@@ -225,7 +227,6 @@ export default function GamesSettings() {
           </>
         )}
         <VerboseLogs />
-        <DisableUMU />
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />
@@ -257,6 +258,7 @@ export default function GamesSettings() {
             )}
           </span>
           <EnableDXVKFpsLimit />
+          <DisableUMU />
         </TabPanel>
       )}
 

@@ -312,33 +312,47 @@ export async function getCrossover(): Promise<Set<WineInstallation>> {
     return crossover
   }
 
+  const crossoverPaths = new Set<string>()
+
+  // search for crossover installed on default path
+  const crossoverDefaultPath = [
+    '/Applications/CrossOver.app',
+    '/Applications/CrossOver Preview.app'
+  ]
+  crossoverDefaultPath.forEach((crossoverAppPath) => {
+    if (existsSync(crossoverAppPath)) {
+      crossoverPaths.add(crossoverAppPath)
+    }
+  })
+
+  // search for crossover installed around the system
   await execAsync(
     'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
-  )
-    .then(async ({ stdout }) => {
-      stdout.split('\n').forEach((crossoverMacPath) => {
-        const infoFilePath = join(crossoverMacPath, 'Contents/Info.plist')
-        if (crossoverMacPath && existsSync(infoFilePath)) {
-          const info = plistParse(
-            readFileSync(infoFilePath, 'utf-8')
-          ) as PlistObject
-          const version = info['CFBundleShortVersionString'] || ''
-          const crossoverWineBin = join(
-            crossoverMacPath,
-            'Contents/SharedSupport/CrossOver/bin/wine'
-          )
-          crossover.add({
-            bin: crossoverWineBin,
-            name: `CrossOver - ${version}`,
-            type: 'crossover',
-            ...getWineExecs(crossoverWineBin)
-          })
-        }
+  ).then(async ({ stdout }) => {
+    stdout.split('\n').forEach((crossoverPath) => {
+      crossoverPaths.add(crossoverPath)
+    })
+  })
+
+  crossoverPaths.forEach((crossoverPath) => {
+    const infoFilePath = join(crossoverPath, 'Contents/Info.plist')
+    if (crossoverPath && existsSync(infoFilePath)) {
+      const info = plistParse(
+        readFileSync(infoFilePath, 'utf-8')
+      ) as PlistObject
+      const version = info['CFBundleShortVersionString'] || ''
+      const crossoverWineBin = join(
+        crossoverPath,
+        'Contents/SharedSupport/CrossOver/bin/wine'
+      )
+      crossover.add({
+        bin: crossoverWineBin,
+        name: `CrossOver - ${version}`,
+        type: 'crossover',
+        ...getWineExecs(crossoverWineBin)
       })
-    })
-    .catch(() => {
-      logInfo('CrossOver not found', LogPrefix.GlobalConfig)
-    })
+    }
+  })
   return crossover
 }
 
@@ -520,19 +534,18 @@ export async function getWineFlags(
       partialCommand = { '--wine': Path.parse(wineBin) }
       if (wrapper) partialCommand['--wrapper'] = NonEmptyString.parse(wrapper)
       break
-    case 'proton':
+    case 'proton': {
+      // We only need to add the `proton` binary if we're not running with umu
+      // If umu is used, it will automatically do this for us
+      const addProtonBin = !(await isUmuSupported(gameSettings))
       partialCommand = {
         '--no-wine': true,
         '--wrapper': NonEmptyString.parse(
-          `${wrapper} "${wineBin}" waitforexitandrun`
-        )
-      }
-      if (await isUmuSupported(gameSettings)) {
-        partialCommand['--wrapper'] = NonEmptyString.parse(
-          (wrapper ? `${wrapper} ` : '') + `"${await getUmuPath()}"`
+          addProtonBin ? `${wrapper} "${wineBin}" waitforexitandrun` : wrapper
         )
       }
       break
+    }
     case 'crossover':
       partialCommand = {
         '--wine': Path.parse(wineBin)

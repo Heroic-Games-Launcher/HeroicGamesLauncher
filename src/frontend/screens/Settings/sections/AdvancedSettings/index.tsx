@@ -25,7 +25,10 @@ import {
   DisableLogs,
   DownloadNoHTTPS,
   ExperimentalFeatures,
-  ResetHeroic
+  HideWindowOnProtocolLaunch,
+  ResetHeroic,
+  GamePadDelayRepeat,
+  SteamGridDbApiKey
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
 
@@ -170,6 +173,11 @@ export default function AdvancedSetting() {
     <div>
       <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
 
+      <div className="advancedSetting">
+        <SteamGridDbApiKey />
+        <hr />
+      </div>
+
       <AltLegendaryBin />
 
       <AltGOGdlBin />
@@ -183,6 +191,10 @@ export default function AdvancedSetting() {
       <DisableGOGPresence />
 
       <AllowInstallationBrokenAnticheat />
+
+      <GamePadDelayRepeat />
+
+      <HideWindowOnProtocolLaunch />
 
       {isLinux && <ShowValveProton />}
 

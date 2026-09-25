@@ -12,13 +12,8 @@ import {
 
 import { Tab, Tabs } from '@mui/material'
 
-import {
-  getGameInfo,
-  getInstallInfo,
-  launch,
-  sendKill,
-  updateGame
-} from 'frontend/helpers'
+import { getGameInfo, getInstallInfo, sendKill } from 'frontend/helpers'
+import { launch, updateGame, install } from 'frontend/helpers/library'
 import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -38,7 +33,6 @@ import {
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
 
-import { install } from 'frontend/helpers/library'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
@@ -68,7 +62,7 @@ import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
-import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
+import { useKnownFixes } from 'frontend/hooks/hasKnownFixes'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
@@ -139,7 +133,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
-  const knownFixes = hasKnownFixes(appName, runner)
+  const knownFixes = useKnownFixes(appName, runner)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -163,7 +157,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const notSupportedGame =
     gameInfo.runner !== 'sideload' &&
     !!gameInfo.thirdPartyManagedApp &&
-    !gameInfo.isEAManaged
+    !gameInfo.isEAManaged &&
+    !gameInfo.isUbisoftManaged
   const isOffline = connectivity.status !== 'online'
   const notPlayableOffline = isOffline && !gameInfo.canRunOffline
 
@@ -297,13 +292,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
   if (gameInfo && gameInfo.install && settingsContextValues) {
     const {
       runner,
-      title,
-      art_cover,
       art_background,
       art_logo,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
+    const title = gameInfo.overrides?.title || gameInfo.title
+    const art_cover = gameInfo.overrides?.art_cover || gameInfo.art_cover
 
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
@@ -470,7 +465,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           gameInfo={gameInfo}
                           handlePlay={handlePlay}
                           handleInstall={handleInstall}
-                          handleImport={handleImport}
                         />
                       </div>
                       {wikiLink}
@@ -625,24 +619,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       progress,
       t,
       showDialogModal: showDialogModal
-    })
-  }
-
-  function handleImport() {
-    return install({
-      gameInfo,
-      installPath: 'import',
-      isInstalling: false,
-      previousProgress: null,
-      progress: {
-        ...progress,
-        bytes: '',
-        eta: '',
-        percent: 0,
-        downSpeed: 0
-      },
-      t,
-      showDialogModal
     })
   }
 })

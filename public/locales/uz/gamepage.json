@@ -3,7 +3,8 @@
         "placeholder": {
             "title": "O'yin/ilovangizga sarlavha qo'shing",
             "image": "Tasvir URL manzilini bu yerga joylashtiring",
-            "url": "Oʻyin URL manzilini shu yerga qoʻying"
+            "url": "Oʻyin URL manzilini shu yerga qoʻying",
+            "useragent": ""
         },
         "field": {
             "title": "Sarlavha"
@@ -12,7 +13,13 @@
             "exe": "Bajariladigan ni tanlang",
             "image": "Ilova tasviri",
             "title": "O'yin/ilova nomi",
-            "broser": "BrowserURL"
+            "broser": "BrowserURL",
+            "useragent": "",
+            "fullscreen": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -44,7 +51,10 @@
         "extracting": "Chiqarish",
         "downloading": "Yuklab olinmoqda",
         "gog-goodie": "Bu oʻyinni oʻrnatib boʻlmaydi. Yuklab olinadigan kontentni https://gog.com/account orqali tekshiring",
-        "goodie": "Oʻrnatish mumkin emas"
+        "goodie": "Oʻrnatish mumkin emas",
+        "redist": "",
+        "winetricks": "",
+        "importing": ""
     },
     "box": {
         "change": {
@@ -68,7 +78,8 @@
             "title": "Ishga tushirish uchun EXE ni tanlang"
         },
         "select": {
-            "button": "Tanlang"
+            "button": "Tanlang",
+            "image": ""
         },
         "sideload": {
             "exe": "Bajariladigan ni tanlang"
@@ -84,14 +95,34 @@
             "prefix_warning": "Ushbu o'yin uchun Wine prefiksi standart prefiksdir. Agar siz haqiqatan ham uni o'chirmoqchi bo'lsangiz, uni qo'lda qilishingiz kerak.",
             "settingcheckbox": "Sozlamalarni oʻchirish va jurnalni oʻchirish{{newLine}}Izoh: Buni ortga qaytarib boʻlmaydi. Har qanday o'zgartirilgan sozlamalar unutiladi va jurnal o'chiriladi.",
             "title": "Oʻchirish",
-            "dlc": "Ushbu DLCni o'chirib tashlamoqchimisiz?"
+            "dlc": "Ushbu DLCni o'chirib tashlamoqchimisiz?",
+            "cannotUninstallEpic": "",
+            "gameIsRunning": ""
         },
         "update": {
             "message": "Bu oʻyinda yangilanish bor, yangilanish hozir qoʻllanilsinmi?",
             "title": "O'yin yangilanishi kerak"
         },
         "wineprefix": "WinePrefix papkasini tanlang",
-        "yes": "HA"
+        "yes": "HA",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "warning": {
+            "title": ""
+        },
+        "close": "",
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        },
+        "ok": ""
     },
     "button": {
         "add_to_favourites": "Sevimlilarga qo'shish",
@@ -117,7 +148,11 @@
         },
         "unhide_game": "O'yinni ko'rsatish",
         "uninstall": "Oʻchirish",
-        "update": "Yangilash"
+        "update": "Yangilash",
+        "changelog": "",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "cloud_save_unsupported": "Qo'llab-quvvatlanmaydi",
     "disabled": "O'chirilgan",
@@ -137,7 +172,23 @@
         "platform": "O'rnatish uchun platforma versiyasini tanlang",
         "requirements": "Tizim talablari",
         "totalPlayed": "O'yin vaqti",
-        "dlcs": "DLClar"
+        "dlcs": "DLClar",
+        "branch": {
+            "disabled": "",
+            "select": "",
+            "password": "",
+            "setPrivateBranchPassword": ""
+        },
+        "changelogFor": "",
+        "modify": "",
+        "builds": {
+            "buildsSelector": "",
+            "version": "",
+            "toggle": ""
+        },
+        "install_info": "",
+        "extra_info": "",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Harakatlanuvchi",
@@ -148,7 +199,13 @@
         "noDescription": "Tavsif mavjud emas"
     },
     "help": {
-        "cloud_save_unsupported": "Bu o'yin bulutli saqlashni qo'llab-quvvatlamaydi. Ushbu ma'lumot o'yin ishlab chiquvchilari tomonidan taqdim etilgan. Ba'zi o'yinlar bulutli saqlash tizimini qo'llaydi"
+        "cloud_save_unsupported": "Bu o'yin bulutli saqlashni qo'llab-quvvatlamaydi. Ushbu ma'lumot o'yin ishlab chiquvchilari tomonidan taqdim etilgan. Ba'zi o'yinlar bulutli saqlash tizimini qo'llaydi",
+        "content": {
+            "gamePage": ""
+        },
+        "title": {
+            "gamePage": ""
+        }
     },
     "hours": "Soat",
     "how-long-to-beat": {
@@ -169,7 +226,8 @@
         "game-scores": "O'yin natijalari",
         "installedInfo": "O'rnatilgan ma'lumotlar",
         "protondb-compatibility-info": "Proton muvofiqlik darajasi",
-        "steamdeck-compatibility-info": "SteamDeck mosligi"
+        "steamdeck-compatibility-info": "SteamDeck mosligi",
+        "third-party-app": ""
     },
     "install": {
         "disk-space-left": "Bo'sh joy mavjud",
@@ -178,7 +236,16 @@
         "path-not-writtable": "Ogohlantirish: yo'l yozilmasligi mumkin.",
         "space-after-install": "O'rnatishdan keyin",
         "wineprefix": "WinePrefix",
-        "wineversion": "Vino versiyasi"
+        "wineversion": "Vino versiyasi",
+        "anticheat-warning": {
+            "cancel": "",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "ok": "",
+            "multiplayer_message": "",
+            "title": ""
+        },
+        "flatpak-path-not-writtable": ""
     },
     "label": {
         "game": {
@@ -188,29 +255,37 @@
         "launching": "Ishga tushirilmoqda",
         "playing": {
             "start": "Hozir O'yna",
-            "stop": "Oʻynamoqda (Toʻxtatish)"
+            "stop": "Oʻynamoqda (Toʻxtatish)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "Saqlashlarni sinxronlash"
         },
-        "ubisoft": "Ubisoft Connect o'rnatilmoqda"
+        "ubisoft": "Ubisoft Connect o'rnatilmoqda",
+        "winetricks": "",
+        "redist": ""
     },
     "launch": {
-        "options": "Ishga tushirish parametrlari..."
+        "options": "Ishga tushirish parametrlari...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "Siz Heroic-da Epic hisob qaydnomasi bilan tizimga kirmagansiz. Kirish uchun doʻkon sahifasidan foydalanmang, uning oʻrniga quyidagi tugmani bosing:",
         "gog": "Siz Heroic-da GOG hisobi bilan tizimga kirmagansiz. Kirish uchun doʻkon sahifasidan foydalanmang, uning oʻrniga quyidagi tugmani bosing:",
         "login": "Tizimga kirish",
         "title": "Siz tizimga kirmadingiz",
-        "amazon": "Siz Heroic-da Amazon hisob qaydnomasi bilan tizimga kirmagansiz. Kirish uchun doʻkon sahifasidan foydalanmang, uning oʻrniga quyidagi tugmani bosing:"
+        "amazon": "Siz Heroic-da Amazon hisob qaydnomasi bilan tizimga kirmagansiz. Kirish uchun doʻkon sahifasidan foydalanmang, uning oʻrniga quyidagi tugmani bosing:",
+        "zoom": ""
     },
     "report_problem": "Ushbu o'yinni ishga tushirishda muammo haqida xabar bering",
     "sdl": {
         "title": "O'rnatish uchun komponentlarni tanlang"
     },
     "setting": {
-        "winecrossoverbottle": "Krossover shishasi"
+        "winecrossoverbottle": "Krossover shishasi",
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": ""
     },
     "submenu": {
         "addShortcut": "Yorliq qo'shing",
@@ -226,6 +301,32 @@
         "removeShortcut": "Yorliqlarni olib tashlang",
         "settings": "Sozlamalar",
         "store": "Do'kon sahifasi",
-        "verify": "Tasdiqlash va ta'mirlash"
-    }
+        "verify": "Tasdiqlash va ta'mirlash",
+        "categories": ""
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "queue": {
+        "label": {
+            "resume": "",
+            "pause": "",
+            "remove": "",
+            "canceled": ""
+        }
+    },
+    "modifyInstall": {
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "dlcsCollapsible": "",
+        "versionCollapsable": ""
+    },
+    "open-saves-folder": "",
+    "Open": "",
+    "wikiLink": ""
 }

@@ -63,7 +63,9 @@
         },
         "ok": "OK",
         "offline_warning": {
-            "message": "Trò chơi có thể không hoạt động như ý khi ngoại tuyến. Bạn có muốn chơi không?"
+            "message": "Trò chơi có thể không hoạt động như ý khi ngoại tuyến. Bạn có muốn chơi không?",
+            "playAnyway": "",
+            "title": ""
         }
     },
     "button": {
@@ -94,7 +96,8 @@
         "changelog": "Hiện Nhật Ký Thay Đổi",
         "browse_files": "Duyệt Tệp",
         "browse_wine_prefix": "Duyệt Wine Prefix",
-        "play": "CHƠI"
+        "play": "CHƠI",
+        "edit-game": "Sửa đổi App/Game"
     },
     "cloud_save_unsupported": "Không Hỗ Trợ",
     "disabled": "Tắt",
@@ -129,7 +132,8 @@
         "changelogFor": "Nhật ký thay đổi của {{gameTitle}}",
         "extra_info": "Thông tin thêm",
         "install_info": "Thông tin cài đặt",
-        "modify": "Sửa Đổi Cài Đặt"
+        "modify": "Sửa Đổi Cài Đặt",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Đang Chuyển",
@@ -332,5 +336,12 @@
         "notice2": "Sau khi nhấn Cài Đặt, Heroic sẽ chạy ứng dụng để hoàn tất quá trình cài đặt"
     },
     "wikiLink": "Thông tin quan trọng về trò chơi này, hãy đọc phần này: <1>Mở trang</1>",
-    "open-saves-folder": "Mở thư mục lưu"
+    "open-saves-folder": "Mở thư mục lưu",
+    "edit-game": {
+        "advanced": "Nâng cao",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Sửa đổi App/Game"
+    }
 }

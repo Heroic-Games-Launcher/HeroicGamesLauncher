@@ -3,7 +3,6 @@ import {
   Runner,
   WineInstallation,
   RpcClient,
-  SteamRuntime,
   Release,
   GameInfo,
   GameSettings,
@@ -25,7 +24,6 @@ import {
   logDebug
 } from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
-import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import {
   gameInfoStore,
   installStore,
@@ -50,7 +48,7 @@ import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
-import { gameManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import {
   installWineVersion,
   updateWineVersionInfos,
@@ -86,10 +84,13 @@ import { parse } from '@node-steam/vdf'
 import type LogWriter from 'backend/logger/log_writer'
 import { isRunning } from './downloadmanager/downloadqueue'
 import { isOnline } from './online_monitor'
+import type { Game } from 'common/types/game_manager'
 
 const execAsync = promisify(exec)
 
-const { showMessageBox } = dialog
+function getGame(id: string, runner: Runner): Game {
+  return libraryManagerMap[runner].getGame(id)
+}
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -242,7 +243,7 @@ async function handleExit() {
   const mainWindow = getMainWindow()
 
   if ((isLocked || isRunning()) && mainWindow) {
-    const { response } = await showMessageBox(mainWindow, {
+    const { response } = await dialog.showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
@@ -278,15 +279,9 @@ async function handleExit() {
   app.exit()
 }
 
-type ErrorHandlerMessage = {
-  error?: string
-  appName?: string
-  runner: string
-}
-
-export async function askForceUninstall(runner: Runner, appName: string) {
-  const { title } = gameManagerMap[runner].getGameInfo(appName)
-  const { response } = await showMessageBox({
+export async function askForceUninstall(game: Game) {
+  const { title } = game.getGameInfo()
+  const { response } = await dialog.showMessageBox({
     type: 'question',
     title,
     message: i18next.t(
@@ -297,17 +292,17 @@ export async function askForceUninstall(runner: Runner, appName: string) {
   })
 
   if (response === 1) {
-    await gameManagerMap[runner].forceUninstall(appName)
+    await game.forceUninstall()
   }
   return response
 }
 
-async function errorHandler({
-  error,
-  runner: r,
-  appName
-}: ErrorHandlerMessage): Promise<void> {
-  const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
+async function errorHandler(
+  error: string,
+  appName: string,
+  runner: Runner
+): Promise<void> {
+  const plat = runner === 'legendary' ? 'Legendary (Epic Games)' : runner
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
@@ -324,7 +319,7 @@ async function errorHandler({
   if (ignoreMessages.some((msg) => error.includes(msg))) return
 
   if (error.includes(deletedFolderMsg) && appName) {
-    await askForceUninstall(r.toLocaleLowerCase() as Runner, appName)
+    await askForceUninstall(getGame(appName, runner))
     return
   }
 
@@ -386,7 +381,7 @@ function clearCache(
     installStore.clear()
     libraryStore.clear()
     gameInfoStore.clear()
-    runLegendaryCommand(
+    libraryManagerMap['legendary'].runRunnerCommand(
       { subcommand: 'cleanup' },
       { abortId: 'legandary-cleanup' }
     )
@@ -555,55 +550,6 @@ export async function getSteamLibraries(): Promise<string[]> {
     LogPrefix.Backend
   )
   return libraries
-}
-
-async function getSteamRuntime(
-  requestedType: SteamRuntime['type']
-): Promise<SteamRuntime> {
-  const steamLibraries = await getSteamLibraries()
-  const runtimeTypes: SteamRuntime[] = [
-    {
-      path: 'steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point',
-      type: 'sniper',
-      args: ['--']
-    },
-    {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point',
-      type: 'soldier',
-      args: ['--']
-    },
-    {
-      path: 'ubuntu12_32/steam-runtime/run.sh',
-      type: 'scout',
-      args: []
-    }
-  ]
-  const allAvailableRuntimes: SteamRuntime[] = []
-  steamLibraries.forEach((library) => {
-    runtimeTypes.forEach(({ path, type, args }) => {
-      const fullPath = join(library, path)
-      if (existsSync(fullPath)) {
-        allAvailableRuntimes.push({ path: fullPath, type, args })
-      }
-    })
-  })
-  // Add dummy runtime at the end to not return `undefined`
-  allAvailableRuntimes.push({ path: '', type: 'scout', args: [] })
-  const requestedRuntime = allAvailableRuntimes.find(({ type }) => {
-    return type === requestedType
-  })
-  if (requestedRuntime) {
-    return requestedRuntime
-  }
-  logWarning(
-    [
-      'No runtimes of type',
-      requestedType,
-      'could be found, returning first available one'
-    ],
-    LogPrefix.Backend
-  )
-  return allAvailableRuntimes.pop()!
 }
 
 function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
@@ -851,10 +797,6 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
   }
 }
 
-function getInfo(appName: string, runner: Runner): GameInfo {
-  return gameManagerMap[runner].getGameInfo(appName)
-}
-
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
 // for us
 function killPattern(pattern: string) {
@@ -957,7 +899,7 @@ export async function downloadDefaultWine() {
   const isMacOSUpToDate = await isMacSonomaOrHigher()
   const release = availableWine.find((version) => {
     if (isLinux) {
-      return version.type === 'GE-Proton'
+      return version.type === 'Proton-CachyOS'
     } else if (isMac) {
       if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
@@ -1333,11 +1275,12 @@ export async function checkRosettaInstall() {
     return
   }
 
-  const { stdout: rosettaCheck } = await execAsync(
+  // the spawn itself fails when Rosetta is not installed
+  const result = await execAsync(
     'arch -x86_64 /usr/sbin/sysctl sysctl.proc_translated'
   )
-
-  const result = rosettaCheck.split(':')[1].trim() === '1'
+    .then(() => true)
+    .catch(() => false)
 
   logInfo(
     `Rosetta is ${result ? 'available' : 'not available'} on this system.`,
@@ -1637,7 +1580,10 @@ const axiosClient = axios.create({
   httpsAgent: new https.Agent({ keepAlive: true })
 })
 
-export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
+export const writeConfig = async (
+  appName: string,
+  config: Partial<AppSettings>
+) => {
   logInfo(
     `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
     LogPrefix.Backend
@@ -1645,7 +1591,7 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
   const oldConfig =
     appName === 'default'
       ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
+      : await GameConfig.get(appName).getSettings()
 
   // log only the changed setting
   const sharedKeys = (
@@ -1694,14 +1640,12 @@ export {
   getCometBin,
   getNileBin,
   formatEpicStoreUrl,
-  getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,
   removeQuoteIfNecessary,
   detectVCRedist,
   killPattern,
   shutdownWine,
-  getInfo,
   getShellPath,
   getLatestReleases,
   getWineFromProton,
@@ -1714,7 +1658,8 @@ export {
   calculateEta,
   extractFiles,
   axiosClient,
-  parseSize
+  parseSize,
+  getGame
 }
 
 // Exported only for testing purpose

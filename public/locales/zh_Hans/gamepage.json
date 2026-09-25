@@ -46,7 +46,7 @@
             "message": "该游戏有更新，你想要现在更新吗？",
             "title": "游戏需要更新"
         },
-        "wineprefix": "选择 WinePrefix 文件夹",
+        "wineprefix": "选择 Wine 前缀文件夹",
         "yes": "是",
         "close": "关闭",
         "select-install-path": "选择 Steam 安装路径",
@@ -96,7 +96,8 @@
         "changelog": "显示更新日志",
         "browse_files": "浏览文件",
         "browse_wine_prefix": "浏览 Wine Prefix",
-        "play": "开始游戏"
+        "play": "开始游戏",
+        "edit-game": "编辑应用/游戏"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -131,7 +132,8 @@
         "changelogFor": "{{gameTitle}} 更新记录",
         "modify": "修改安装",
         "extra_info": "附加信息",
-        "install_info": "安装信息"
+        "install_info": "安装信息",
+        "achievements": "成就"
     },
     "gamecard": {
         "moving": "移动中",
@@ -271,6 +273,9 @@
         "import-hint": {
             "title": "重要！你正添加一款来自 Epic/GOG/Amazon 的游戏吗？请点击此处！",
             "content": "不要用此功能来添加。<br />正确做法是， <3>登录</3> 商店账号，在你的库中寻找该游戏，打开安装对话框,，单击 &quot;导入游戏&quot; 按钮"
+        },
+        "images": {
+            "summary": "图片"
         }
     },
     "specs": {
@@ -326,7 +331,7 @@
         "categories": "分类"
     },
     "help": {
-        "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云保存系统",
+        "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云存档系统。",
         "content": {
             "gamePage": "显示所有游戏详情和操作。使用三点菜单查看更多选项。"
         },
@@ -358,5 +363,23 @@
             "canceled": "已取消"
         }
     },
-    "open-saves-folder": "打开保存文件夹"
+    "open-saves-folder": "打开保存文件夹",
+    "edit-game": {
+        "advanced": "高级",
+        "sgdb": {
+            "no-key-link": "设置 → 高级",
+            "no-key-prefix": "要在 SteamGridDB 中搜索封面，请添加 API 密钥"
+        },
+        "placeholder": {
+            "image": "在此粘贴映像 URL"
+        },
+        "title": "编辑应用/游戏",
+        "cover": "封面艺术",
+        "info": {
+            "cover": "封面图片",
+            "square": "方形图片"
+        },
+        "reset": "重设为默认",
+        "square": "方形艺术"
+    }
 }

@@ -77,8 +77,8 @@ Heroic is built with Web Technologies:
 ## Supported Operating Systems
 
 - Linux:
-  - Ubuntu 20.04LTS or newer
-  - Fedora 33 or newer
+  - Ubuntu (latest 2 LTS versions)
+  - Fedora (latest 2 versions)
   - Arch Linux & derivatives (Manjaro, Garuda, EndeavourOS)
   - Heroic will still _work_ on most distros, but it is up to you to _get_ it to work
     Chances are though that someone on our [Discord](https://discord.gg/rHJ2uqdquK) can help you
@@ -323,6 +323,7 @@ Heroic would not be possible without the work done in many other projects:
 - Nile: https://github.com/imLinguin/nile
 - Comet: https://github.com/imLinguin/comet
 - GE-Proton: https://github.com/GloriousEggroll/proton-ge-custom
+- Proton-cachyos: https://github.com/CachyOS/proton-cachyos
 - umu-launcher: https://github.com/Open-Wine-Components/umu-launcher
 - DXVK: https://github.com/doitsujin/dxvk
 - VKD3D: https://github.com/HansKristian-Work/vkd3d-proton

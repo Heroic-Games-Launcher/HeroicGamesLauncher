@@ -16,13 +16,11 @@ import {
   getGameInfo,
   getProgress,
   getStoreName,
-  install,
-  launch,
   sendKill
 } from 'frontend/helpers'
+import { install, launch, updateGame } from 'frontend/helpers/library'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
@@ -41,6 +39,7 @@ import {
   DeleteForeverOutlined,
   DescriptionOutlined,
   DownloadOutlined,
+  EditOutlined,
   FavoriteBorderOutlined,
   FavoriteOutlined,
   ListOutlined,
@@ -52,6 +51,8 @@ import {
   VisibilityOffOutlined,
   VisibilityOutlined
 } from '@mui/icons-material'
+import EditGameDialog from 'frontend/components/UI/EditGameDialog'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 interface Card {
   buttonClick: () => void
@@ -118,15 +119,17 @@ const GameCard = ({
   const { layout } = useContext(LibraryContext)
 
   const {
-    title,
-    art_cover,
-    art_square: cover,
     art_logo: logo = undefined,
     app_name: appName,
     runner,
     is_installed: isInstalled,
     install: gameInstallInfo
   } = { ...gameInfoFromProps }
+  const title = gameInfoFromProps.overrides?.title || gameInfoFromProps.title
+  const art_cover =
+    gameInfoFromProps.overrides?.art_cover || gameInfoFromProps.art_cover
+  const cover =
+    gameInfoFromProps.overrides?.art_square || gameInfoFromProps.art_square
 
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
@@ -286,6 +289,26 @@ const GameCard = ({
     setShowUninstallModal(true)
   }
 
+  const isSideloaded = runner === 'sideload'
+
+  const handleEdit = () => {
+    if (isSideloaded) {
+      openInstallGameModal({ appName, runner, gameInfo })
+      return
+    }
+
+    showDialogModal({
+      showDialog: true,
+      title: t('edit-game.title', 'Edit Game'),
+      message: (
+        <EditGameDialog
+          gameInfo={gameInfo}
+          backdropClick={() => showDialogModal({ showDialog: false })}
+        />
+      )
+    })
+  }
+
   const items: Item[] = [
     {
       // remove from install queue
@@ -349,6 +372,14 @@ const GameCard = ({
       onclick: () => openGameLogsModal(gameInfo),
       show: isInstalled && !isUninstalling && !isBrowserGame,
       icon: <DescriptionOutlined />
+    },
+    {
+      label: isSideloaded
+        ? t('button.sideload.edit', 'Edit App/Game')
+        : t('edit-game.title', 'Edit Game'),
+      onclick: handleEdit,
+      show: true,
+      icon: <EditOutlined />
     },
     {
       // hide

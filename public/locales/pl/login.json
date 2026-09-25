@@ -1,10 +1,10 @@
 {
     "button": {
         "login": "Zaloguj",
-        "open": "Otwórz łącze",
+        "open": "Otwórz odnośnik",
         "copy": "Kopiuj",
         "copied": "Skopiowane!",
-        "loading": "Ładowanie",
+        "loading": "Wczytywanie",
         "error": "Błąd, spróbuj użyć innego kodu"
     },
     "message": {

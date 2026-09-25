@@ -46,7 +46,7 @@ import {
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
-import { gameManagerMap } from '../storeManagers'
+import { libraryManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
@@ -61,6 +61,7 @@ import {
   isWindows
 } from 'backend/constants/environment'
 import './dxmt'
+import { Game } from '../../common/types/game_manager'
 
 type ReleasesResponse = {
   assets: {
@@ -561,7 +562,9 @@ export const Winetricks = {
     args: string[],
     returnOutput = false
   ) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+    const gameSettings = await libraryManagerMap[runner]
+      .getGame(appName)
+      .getSettings()
 
     const { wineVersion } = gameSettings
 
@@ -746,8 +749,8 @@ export const Winetricks = {
       return []
     }
   },
-  listInstalled: async (runner: Runner, appName: string) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  listInstalled: async (game: Game) => {
+    const gameSettings = await game.getSettings()
     const { winePrefix } = await getWineFromProton(gameSettings)
     const winetricksLogPath = join(winePrefix, 'winetricks.log')
     try {
@@ -815,7 +818,7 @@ function getDxvkUrl(): string {
   }
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
-      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3',
+      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3 for Wine, or use DXVK-Sarek with proton-cachyos',
       LogPrefix.ToolInstaller
     )
     return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v1.10.3'
@@ -851,7 +854,7 @@ function getVkd3dUrl(): string {
   }
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
-      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6',
+      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6 for Wine, or use DXVK-Sarek with proton-cachyos',
       LogPrefix.ToolInstaller
     )
     return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/tags/v2.6'
@@ -870,12 +873,13 @@ export async function runWineCommandOnGame(
   appName: string,
   { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
 ): Promise<ExecResult> {
-  if (gameManagerMap[runner].isNative(appName)) {
+  const game = libraryManagerMap[runner].getGame(appName)
+  if (game.isNative()) {
     logError('runWineCommand called on native game!', LogPrefix.Gog)
     return { stdout: '', stderr: '' }
   }
-  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const { folder_name, install } = game.getGameInfo()
+  const gameSettings = await game.getSettings()
 
   return runWineCommand({
     gameSettings,

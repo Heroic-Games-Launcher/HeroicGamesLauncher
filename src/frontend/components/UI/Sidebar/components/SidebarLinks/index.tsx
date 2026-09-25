@@ -8,21 +8,26 @@ import {
   Coffee,
   UserCircle,
   Wine,
-  Download
+  Download,
+  Tag,
+  Tv
 } from 'lucide-react'
-import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
+import {
+  faDiscord,
+  faGithub,
+  faPatreon
+} from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { openDiscordLink } from 'frontend/helpers'
-
-const ICON = { size: 20, strokeWidth: 1.75 } as const
-
 import ContextProvider from 'frontend/state/ContextProvider'
 import QuitButton from '../QuitButton'
 import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
 import SidebarItem from '../SidebarItem'
+
+const ICON = { size: 20, strokeWidth: 1.75 } as const
 
 type PathSplit = [a: undefined, b: undefined, type: string]
 
@@ -165,6 +170,13 @@ export default function SidebarLinks() {
         )}
       </div>
       <SidebarItem
+        url="/discounts"
+        icon={<Tag {...ICON} aria-hidden />}
+        label={t('discounts.sidebar', 'Deals')}
+        dataTour="sidebar-discounts"
+      />
+
+      <SidebarItem
         url="/download-manager"
         icon={<Download {...ICON} aria-hidden />}
         label={t('download-manager.link', 'Downloads')}
@@ -186,6 +198,13 @@ export default function SidebarLinks() {
         icon={<Accessibility {...ICON} aria-hidden />}
         label={t('accessibility.title', 'Accessibility')}
         dataTour="sidebar-accessibility"
+      />
+
+      <SidebarItem
+        url="/console"
+        icon={<Tv {...ICON} aria-hidden />}
+        label={t('sidebar.console', 'Console Mode')}
+        dataTour="sidebar-console"
       />
 
       <div className="SidebarItemWithSubmenu">
@@ -289,6 +308,13 @@ export default function SidebarLinks() {
           onClick={() => handleExternalLink(window.api.openKofiPage)}
           icon={<Coffee {...ICON} aria-hidden />}
           label="Ko-fi"
+        />
+
+        <SidebarItem
+          elementType="button"
+          onClick={() => handleExternalLink(window.api.openGithubSponsorsPage)}
+          icon={<FontAwesomeIcon icon={faGithub} />}
+          label="GitHub Sponsors"
         />
       </div>
     </div>

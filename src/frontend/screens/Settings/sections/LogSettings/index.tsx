@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -102,17 +102,32 @@ export default function LogSettings() {
     zoom.library
   ])
 
+  const isFetching = useRef<boolean>(false)
+
   const getLogContent = () => {
-    void window.api.getLogContent(showLogOf).then((content: string) => {
-      if (!content) {
-        setLogFileContent(t('setting.log.no-file', 'No log file found.'))
+    if (isFetching.current) return
+    isFetching.current = true
+    void window.api
+      .getLogContent(showLogOf)
+      .then((content: string) => {
+        if (!content) {
+          setLogFileContent(t('setting.log.no-file', 'No log file found'))
+          setLogFileExist(false)
+          return
+        }
+        setLogFileContent(content)
+        setLogFileExist(true)
+      })
+      .catch(() => {
+        setLogFileContent(
+          t('setting.log.error', 'Internal error reading log file')
+        )
         setLogFileExist(false)
-        return setRefreshing(false)
-      }
-      setLogFileContent(content)
-      setLogFileExist(true)
-      setRefreshing(false)
-    })
+      })
+      .finally(() => {
+        isFetching.current = false
+        setRefreshing(false)
+      })
   }
 
   useEffect(() => {
@@ -165,7 +180,7 @@ export default function LogSettings() {
       baseFiles.push({ title: 'Zoom', args: { runner: 'zoom' } })
     }
     const logsForInstalledGames = installedGames.map((game) => ({
-      title: game.title,
+      title: game.overrides?.title || game.title,
       args: {
         appName: game.app_name,
         runner: game.runner
