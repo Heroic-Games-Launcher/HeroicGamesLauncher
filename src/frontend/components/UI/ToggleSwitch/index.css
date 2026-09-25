@@ -13,55 +13,72 @@
   display: none;
 }
 
-/* add fake checkbox */
 .toggleSwitchWrapper:before {
   content: '';
-  display: inline-flex;
-  justify-content: center;
+  grid-area: check;
+  display: block;
+  box-sizing: border-box;
   margin-inline-start: 13px;
   margin-inline-end: 0.5rem;
   width: 20px;
   height: 20px;
-  transition: 350ms;
-  border: 3px solid var(--accent);
-  border-radius: var(--space-3xs);
+  border: 1.5px solid var(--field-border, var(--divider));
+  border-radius: 6px;
+  background: var(--field-background, var(--input-background));
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.toggleSwitchWrapper:after {
+  content: '';
   grid-area: check;
-  color: var(--background);
-  font-size: var(--text-xl);
-  line-height: var(--space-lg-fixed);
-  font-weight: var(--extrabold);
-  font-family: Arial, Helvetica, sans-serif;
+  margin-inline-start: 13px;
+  margin-inline-end: 0.5rem;
+  width: 20px;
+  height: 20px;
+  background-color: var(--background-darker, #06121a);
+  -webkit-mask: var(--toggle-check-mask) center / 13px no-repeat;
+  mask: var(--toggle-check-mask) center / 13px no-repeat;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
 }
 
-.toggleSwitchWrapper span {
-  align-self: center;
-  justify-self: flex-start;
-  transition: 350ms;
-  color: var(--text-default);
+.toggleSwitchWrapper:hover:before {
+  border-color: var(--field-border-hover, var(--divider));
 }
 
-.toggleSwitchWrapper:hover span {
-  transition: 350ms;
-  color: var(--background);
+.hiddenCheckbox:focus-visible + .toggleSwitchWrapper:before {
+  border-color: var(--navbar-accent, var(--accent));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
 }
 
 .hiddenCheckbox:checked + .toggleSwitchWrapper:before {
-  content: '\2713';
-  background: var(--accent);
+  background: var(--navbar-accent, var(--accent));
+  border-color: var(--navbar-accent, var(--accent));
 }
 
-.hiddenCheckbox:checked + .toggleSwitchWrapper span {
-  font-weight: var(--bold);
-  color: var(--accent);
+.hiddenCheckbox:checked + .toggleSwitchWrapper:after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.toggleSwitchWrapper {
+  font-family: var(--primary-font-family);
+  font-size: var(--text-md);
+  color: var(--text-default);
 }
 
 .hiddenCheckbox[disabled] + .toggleSwitchWrapper {
-  color: var(--icon-disabled);
+  color: var(--text-tertiary, var(--text-secondary));
   cursor: not-allowed;
 }
 
 .hiddenCheckbox[disabled] + .toggleSwitchWrapper:before {
-  border-color: var(--icon-disabled);
+  opacity: 0.5;
 }
 
 /* fade in and out animation */
