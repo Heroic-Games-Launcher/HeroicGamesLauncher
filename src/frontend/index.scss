@@ -2,6 +2,7 @@
 @use './styles/spacing';
 @use './styles/colors';
 @use './styles/buttons';
+@use './styles/forms';
 :root {
   @include typography.typeSystem;
   @include spacing.spacingSystem;
@@ -29,6 +30,8 @@ html {
 }
 
 body {
+  @include forms.formSystem;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   user-select: none;

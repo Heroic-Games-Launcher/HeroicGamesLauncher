@@ -1,0 +1,40 @@
+.FilterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.FilterSection + .FilterSection {
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--divider);
+}
+
+.FilterSection__label {
+  font-family: var(--primary-font-family);
+  font-size: var(--text-xs);
+  font-weight: var(--semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary, var(--text-secondary));
+}
+
+.FilterSection__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.FilterSection__empty {
+  font-family: var(--primary-font-family);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.FilterActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--divider);
+}

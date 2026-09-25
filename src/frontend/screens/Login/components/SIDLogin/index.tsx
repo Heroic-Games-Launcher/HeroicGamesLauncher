@@ -1,13 +1,11 @@
 import { useContext, useState } from 'react'
-import Info from '@mui/icons-material/Info'
-import LinkIcon from '@mui/icons-material/Link'
-import PublicIcon from '@mui/icons-material/Public'
-import { Button, Paper, Stack, Typography } from '@mui/material'
+import { Globe, Info, Link as LinkIcon, RefreshCw } from 'lucide-react'
+import { Paper, Stack, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { loginPage, sidInfoPage } from 'frontend/helpers'
 import './index.css'
-import { Autorenew } from '@mui/icons-material'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { Button, Icon } from 'frontend/components/UI'
 
 interface Props {
   backdropClick: () => void
@@ -98,22 +96,18 @@ export default function SIDLogin({ backdropClick }: Props) {
                 </Typography>
                 <Stack direction="row" spacing={1}>
                   <Button
-                    className={
-                      linkCopied ? 'icon-button-success' : 'icon-button'
-                    }
+                    variant="secondary"
+                    size="sm"
                     onClick={handleCopyLink}
-                    endIcon={<LinkIcon fontSize="small" />}
-                    variant="outlined"
-                    size="small"
+                    icon={<Icon glyph={LinkIcon} size="sm" />}
                   >
                     {linkCopied ? t('button.copied') : t('button.copy')}
                   </Button>
                   <Button
-                    className="icon-button"
-                    endIcon={<PublicIcon fontSize="small" />}
+                    variant="secondary"
+                    size="sm"
                     onClick={() => loginPage()}
-                    size="small"
-                    variant="outlined"
+                    icon={<Icon glyph={Globe} size="sm" />}
                   >
                     {t('button.open')}
                   </Button>
@@ -141,16 +135,16 @@ export default function SIDLogin({ backdropClick }: Props) {
         />
         {loading && (
           <p className="message">
-            <Autorenew className="material-icons refreshing" />{' '}
+            <Icon glyph={RefreshCw} className="lucide-spin" />{' '}
           </p>
         )}
-        <button
+        <Button
+          variant="primary"
           onClick={async () => handleLogin(input)}
-          className="button is-primary"
           disabled={loading || input.length < 30 || error}
         >
           {getButtonLabel()}
-        </button>
+        </Button>
       </div>
     </div>
   )

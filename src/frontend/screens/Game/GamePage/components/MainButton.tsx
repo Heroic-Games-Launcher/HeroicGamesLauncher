@@ -16,6 +16,7 @@ import {
 import classNames from 'classnames'
 import { GameInfo } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
+import { Button } from 'frontend/components/UI'
 
 interface Props {
   gameInfo: GameInfo
@@ -106,15 +107,18 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
       : t('label.playing.start_with_logs', 'Play Now (with logs)')
 
     return (
-      <button className="button altPlay is-success">
+      <Button variant="primary" className="altPlay">
         <ArrowBackIosNew />
-        <a className="button" onClick={handleAltLaunch}>
+        <a
+          className="Button Button--primary Button--md"
+          onClick={handleAltLaunch}
+        >
           <span className="buttonWithIcon">
             <PlayArrow data-icon="play" />
             {label}
           </span>
         </a>
-      </button>
+      </Button>
     )
   }
 

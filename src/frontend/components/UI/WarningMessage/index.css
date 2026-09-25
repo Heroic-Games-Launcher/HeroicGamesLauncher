@@ -1,17 +1,30 @@
 .WarningMessage {
-  background: var(--anticheat-denied, var(--status-danger));
-  color: var(--brand-text-01);
-  text-align: start;
-  padding: var(--space-md);
   display: flex;
-  gap: var(--space-md);
-  border-radius: var(--space-3xs);
+  gap: var(--space-sm);
   align-items: center;
-  line-height: 1.4;
+  padding: 14px 16px;
+  border: 1px solid
+    color-mix(in oklab, var(--status-warning, #f59e0b) 40%, transparent);
+  border-radius: var(--field-radius, 12px);
+  background: color-mix(
+    in oklab,
+    var(--status-warning, #f59e0b) 12%,
+    var(--input-background)
+  );
+  color: var(--text-default);
+  font-family: var(--primary-font-family);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  text-align: start;
+}
+
+.WarningMessage svg {
+  flex-shrink: 0;
+  color: var(--status-warning, #f59e0b);
 }
 
 .WarningMessage a {
-  color: inherit;
+  color: var(--navbar-accent, var(--accent));
   text-decoration: underline;
   cursor: pointer;
 }

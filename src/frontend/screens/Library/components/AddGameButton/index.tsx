@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Plus } from 'lucide-react'
 import LibraryContext from '../../LibraryContext'
 
 interface AddGameButtonProps {
@@ -16,7 +17,8 @@ function AddGameButton({ 'data-tour': dataTour }: AddGameButtonProps = {}) {
       onClick={handleAddGameButtonClick}
       data-tour={dataTour || 'library-add-game'}
     >
-      {t('add_game', 'Add Game')}
+      <Plus size={16} strokeWidth={2} aria-hidden />
+      <span>{t('add_game', 'Add Game')}</span>
     </button>
   )
 }

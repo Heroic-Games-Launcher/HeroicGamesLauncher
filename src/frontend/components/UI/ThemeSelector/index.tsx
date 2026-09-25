@@ -9,6 +9,7 @@ import { MenuItem } from '@mui/material'
 
 export const defaultThemes: Record<string, string> = {
   midnightMirage: 'Midnight Mirage',
+  heroicTheme: 'Heroic Theme',
   cyberSpaceOasis: 'Cyberspace Oasis',
   cyberSpaceOasisAlt: 'Cyberspace Oasis Classic',
   'high-contrast': 'High Contrast',

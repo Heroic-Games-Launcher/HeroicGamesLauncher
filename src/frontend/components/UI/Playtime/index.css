@@ -1,0 +1,21 @@
+.Playtime {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-sm);
+  font-weight: var(--regular);
+  color: var(--text-tertiary, var(--text-secondary));
+}
+
+.Playtime__entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.Playtime svg {
+  flex-shrink: 0;
+}

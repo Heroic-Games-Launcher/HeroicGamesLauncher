@@ -1,5 +1,7 @@
-import { ReactNode, useState } from 'react'
+import { FocusEvent, ReactNode, useEffect, useRef, useState } from 'react'
 import './index.scss'
+
+const CLOSE_DELAY_MS = 350
 
 type Props = {
   title?: ReactNode | string
@@ -17,11 +19,38 @@ export default function Dropdown({
   popUpOnHover = false
 }: Props) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const closeTimeout = useRef<ReturnType<typeof setTimeout>>()
+
+  const cancelScheduledClose = () => {
+    if (closeTimeout.current) {
+      clearTimeout(closeTimeout.current)
+      closeTimeout.current = undefined
+    }
+  }
+
+  useEffect(() => cancelScheduledClose, [])
 
   const handlePopup = (state: 'enter' | 'leave') => {
     // if no pop up behavior is wanted, ignore mouse movements
     if (!popUpOnHover) return
-    setIsExpanded(state === 'enter')
+
+    cancelScheduledClose()
+
+    if (state === 'enter') {
+      setIsExpanded(true)
+      return
+    }
+
+    closeTimeout.current = setTimeout(
+      () => setIsExpanded(false),
+      CLOSE_DELAY_MS
+    )
+  }
+
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (event.currentTarget.contains(event.relatedTarget)) return
+    cancelScheduledClose()
+    setIsExpanded(false)
   }
 
   return (
@@ -36,6 +65,7 @@ export default function Dropdown({
             window.api.gamepadAction({ action: 'tab' })
           }
 
+          cancelScheduledClose()
           setIsExpanded(true)
         }}
       >
@@ -44,8 +74,11 @@ export default function Dropdown({
       <div
         onMouseEnter={() => handlePopup('enter')}
         onMouseLeave={() => handlePopup('leave')}
-        onBlur={() => setIsExpanded(false)}
-        onFocus={() => setIsExpanded(true)}
+        onBlur={handleBlur}
+        onFocus={() => {
+          cancelScheduledClose()
+          setIsExpanded(true)
+        }}
         className={`dropdown ${isExpanded ? 'expanded' : 'collapsed'}`}
       >
         {children}

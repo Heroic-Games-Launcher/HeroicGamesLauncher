@@ -1,19 +1,25 @@
 import { useContext } from 'react'
-import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
-import { Category, PlatformsFilters } from 'frontend/types'
+import { PlatformsFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import type { Runner } from 'common/types'
 import Dropdown from '../Dropdown'
+import StoreLogos from '../StoreLogos'
+import { Button, Chip, FilterSection, Icon } from 'frontend/components/UI'
+import {
+  SlidersHorizontal,
+  Heart,
+  Clock,
+  Eye,
+  EyeOff,
+  WifiOff,
+  Package,
+  RefreshCw
+} from 'lucide-react'
+import './index.css'
 
-const RunnerToStore = {
-  legendary: 'Epic Games',
-  gog: 'GOG',
-  nile: 'Amazon Games',
-  sideload: 'Other',
-  zoom: 'ZOOM Platform'
-}
+type StoreKey = 'legendary' | 'gog' | 'nile' | 'zoom' | 'sideload'
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
@@ -39,114 +45,15 @@ export default function LibraryFilters() {
     setShowUpdatesOnly
   } = useContext(LibraryContext)
 
-  const toggleShowHidden = () => {
-    setShowHidden(!showHidden)
+  const toggleStore = (store: StoreKey) => {
+    setStoresFilters({ ...storesFilters, [store]: !storesFilters[store] })
   }
 
-  const toggleShowNonAvailable = () => {
-    setShowNonAvailable(!showNonAvailable)
-  }
-
-  const toggleOnlyFavorites = () => {
-    setShowFavourites(!showFavourites)
-  }
-
-  const toggleOnlyInstalled = () => {
-    setShowInstalledOnly(!showInstalledOnly)
-  }
-
-  const toggleOnlySupportOffline = () => {
-    setShowSupportOfflineOnly(!showSupportOfflineOnly)
-  }
-
-  const toggleThirdParty = () => {
-    setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly)
-  }
-
-  const toggleUpdatesOnly = () => {
-    setShowUpdatesOnly(!showUpdatesOnly)
-  }
-
-  const toggleStoreFilter = (store: Runner) => {
-    const currentValue = storesFilters[store]
-    const newFilters = { ...storesFilters, [store]: !currentValue }
-    setStoresFilters(newFilters)
-  }
-
-  const togglePlatformFilter = (plat: keyof PlatformsFilters) => {
-    const currentValue = platformsFilters[plat]
-    const newFilters = { ...platformsFilters, [plat]: !currentValue }
-    setPlatformsFilters(newFilters)
-  }
-
-  const setPlatformOnly = (plat: string) => {
-    let newFilters = { win: false, linux: false, mac: false, browser: false }
-    newFilters = { ...newFilters, [plat]: true }
-    setPlatformsFilters(newFilters)
-  }
-  const setStoreOnly = (store: Category) => {
-    let newFilters = {
-      legendary: false,
-      gog: false,
-      nile: false,
-      sideload: false,
-      zoom: false
-    }
-    newFilters = { ...newFilters, [store]: true }
-    setStoresFilters(newFilters)
-  }
-
-  const toggleWithOnly = (toggle: JSX.Element, onOnlyClicked: () => void) => {
-    return (
-      <div className="toggleWithOnly">
-        {toggle}
-        <button className="only" onClick={() => onOnlyClicked()}>
-          {t('header.only', 'only')}
-        </button>
-      </div>
-    )
-  }
-
-  // t('platforms.browser', 'Browser')
-  // t('platforms.linux', 'Linux')
-  // t('platforms.mac', 'Mac')
-  // t('platforms.win', 'Windows')
-  const platformToggle = (plat: keyof PlatformsFilters) => {
-    const toggle = (
-      <ToggleSwitch
-        key={plat}
-        htmlId={plat}
-        handleChange={() => togglePlatformFilter(plat)}
-        value={platformsFilters[plat]}
-        title={t(`platforms.${plat}`)}
-      />
-    )
-
-    const onOnlyClick = () => {
-      setPlatformOnly(plat)
-    }
-
-    return toggleWithOnly(toggle, onOnlyClick)
-  }
-
-  // t('Epic Games', 'Epic Games')
-  // t('GOG', 'GOG')
-  // t('Amazon Games', 'Amazon Games')
-  // t('Other', 'Other')
-  const storeToggle = (store: Runner) => {
-    const toggle = (
-      <ToggleSwitch
-        key={store}
-        htmlId={store}
-        handleChange={() => toggleStoreFilter(store)}
-        value={storesFilters[store]}
-        title={t(RunnerToStore[store])}
-      />
-    )
-    const onOnlyClick = () => {
-      setStoreOnly(store)
-    }
-    return toggleWithOnly(toggle, onOnlyClick)
+  const togglePlatform = (plat: keyof PlatformsFilters) => {
+    setPlatformsFilters({
+      ...platformsFilters,
+      [plat]: !platformsFilters[plat]
+    })
   }
 
   const resetFilters = () => {
@@ -157,12 +64,7 @@ export default function LibraryFilters() {
       sideload: true,
       zoom: true
     })
-    setPlatformsFilters({
-      win: true,
-      linux: true,
-      mac: true,
-      browser: true
-    })
+    setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
     setShowHidden(true)
     setShowNonAvailable(true)
     setShowFavourites(false)
@@ -172,88 +74,184 @@ export default function LibraryFilters() {
     setShowUpdatesOnly(false)
   }
 
+  type StoreDef = {
+    key: StoreKey
+    label: string
+    runner: Runner
+    show: boolean
+  }
+  const stores: StoreDef[] = [
+    {
+      key: 'legendary',
+      label: 'Epic Games',
+      runner: 'legendary',
+      show: !!epic.username
+    },
+    { key: 'gog', label: 'GOG', runner: 'gog', show: !!gog.username },
+    {
+      key: 'nile',
+      label: 'Amazon Games',
+      runner: 'nile',
+      show: !!amazon.user_id
+    },
+    {
+      key: 'zoom',
+      label: 'ZOOM',
+      runner: 'zoom',
+      show: !!(zoom.enabled && zoom.username)
+    },
+    {
+      key: 'sideload',
+      label: t('Other', 'Other'),
+      runner: 'sideload',
+      show: true
+    }
+  ]
+
+  type PlatformDef = {
+    key: keyof PlatformsFilters
+    label: string
+    tag: string
+    show: boolean
+  }
+  const platforms: PlatformDef[] = [
+    { key: 'win', label: t('platforms.win', 'Windows'), tag: 'W', show: true },
+    {
+      key: 'linux',
+      label: t('platforms.linux', 'Linux'),
+      tag: 'L',
+      show: platform === 'linux'
+    },
+    {
+      key: 'mac',
+      label: t('platforms.mac', 'Mac'),
+      tag: 'M',
+      show: platform === 'darwin'
+    },
+    {
+      key: 'browser',
+      label: t('platforms.browser', 'Browser'),
+      tag: 'B',
+      show: true
+    }
+  ]
+
   return (
     <Dropdown
-      buttonClass="selectStyle"
-      title={t('header.filters', 'Filters')}
+      buttonClass="pill"
+      title={
+        <>
+          <Icon glyph={SlidersHorizontal} size="md" />
+          <span>{t('header.filters', 'Filters')}</span>
+        </>
+      }
       className="libraryFilters"
       data-tour="library-filters"
       popUpOnHover
     >
-      {epic.username && storeToggle('legendary')}
-      {gog.username && storeToggle('gog')}
-      {amazon.user_id && storeToggle('nile')}
-      {zoom.enabled && zoom.username && storeToggle('zoom')} {}
-      {storeToggle('sideload')}
-      <hr />
-      {platformToggle('win')}
-      {platform === 'linux' && platformToggle('linux')}
-      {platform === 'darwin' && platformToggle('mac')}
-      {platformToggle('browser')}
-      <hr />
-      <ToggleSwitch
-        key="show-hidden"
-        htmlId="show-hidden"
-        handleChange={() => toggleShowHidden()}
-        value={showHidden}
-        title={t('header.show_hidden', 'Show Hidden')}
-      />
-      <ToggleSwitch
-        key="show-non-available"
-        htmlId="show-non-available"
-        handleChange={() => toggleShowNonAvailable()}
-        value={showNonAvailable}
-        title={t('header.show_available_games', 'Show non-Available games')}
-      />
-      <ToggleSwitch
-        key="only-favorites"
-        htmlId="only-favorites"
-        handleChange={() => toggleOnlyFavorites()}
-        value={showFavourites}
-        title={t('header.show_favourites_only', 'Show Favourites only')}
-      />
-      <ToggleSwitch
-        key="only-installed"
-        htmlId="only-installed"
-        handleChange={() => toggleOnlyInstalled()}
-        value={showInstalledOnly}
-        title={t('header.show_installed_only', 'Show Installed only')}
-      />
-      <ToggleSwitch
-        key="only-support-offline"
-        htmlId="only-support-offline"
-        handleChange={() => toggleOnlySupportOffline()}
-        value={showSupportOfflineOnly}
-        title={t(
-          'header.show_support_offline_only',
-          'Show offline-supported only'
-        )}
-      />
-      <ToggleSwitch
-        key="only-third-party-managed"
-        htmlId="only-third-party-managed"
-        handleChange={() => toggleThirdParty()}
-        value={showThirdPartyManagedOnly}
-        title={t(
-          'header.show_third_party_managed_only',
-          'Show third-party managed only'
-        )}
-      />
-      <ToggleSwitch
-        key="only-updates-available"
-        htmlId="only-updates-available"
-        handleChange={() => toggleUpdatesOnly()}
-        value={showUpdatesOnly}
-        title={t('header.show_updates_only', 'Show games with updates only')}
-      />
-      <hr />
-      <button
-        type="reset"
-        className="button is-primary"
-        onClick={() => resetFilters()}
-      >
-        {t('header.reset', 'Reset')}
-      </button>
+      <FilterSection label={t('header.stores', 'Stores')}>
+        {stores
+          .filter((s) => s.show)
+          .map((s) => (
+            <Chip
+              key={s.key}
+              active={storesFilters[s.key]}
+              onClick={() => toggleStore(s.key)}
+              icon={
+                <span className="filterChipIcon">
+                  <StoreLogos runner={s.runner} className="filterChipLogo" />
+                </span>
+              }
+            >
+              {s.label}
+            </Chip>
+          ))}
+      </FilterSection>
+
+      <FilterSection label={t('header.platforms', 'Platforms')}>
+        {platforms
+          .filter((p) => p.show)
+          .map((p) => (
+            <Chip
+              key={p.key}
+              active={platformsFilters[p.key]}
+              onClick={() => togglePlatform(p.key)}
+              icon={
+                <span
+                  className={`filterPlatformTag filterPlatformTag--${p.key}`}
+                >
+                  {p.tag}
+                </span>
+              }
+            >
+              {p.label}
+            </Chip>
+          ))}
+      </FilterSection>
+
+      <FilterSection label={t('header.display', 'Display')}>
+        <Chip
+          active={showFavourites}
+          onClick={() => setShowFavourites(!showFavourites)}
+          icon={<Icon glyph={Heart} size="md" />}
+        >
+          <span>{t('header.show_favourites_only', 'Favorites only')}</span>
+        </Chip>
+        <Chip
+          active={showInstalledOnly}
+          onClick={() => setShowInstalledOnly(!showInstalledOnly)}
+          icon={<Icon glyph={Package} size="md" />}
+        >
+          <span>{t('header.show_installed_only', 'Installed only')}</span>
+        </Chip>
+        <Chip
+          active={showUpdatesOnly}
+          onClick={() => setShowUpdatesOnly(!showUpdatesOnly)}
+          icon={<Icon glyph={RefreshCw} size="md" />}
+        >
+          <span>{t('header.show_updates_only', 'With updates')}</span>
+        </Chip>
+        <Chip
+          active={showSupportOfflineOnly}
+          onClick={() => setShowSupportOfflineOnly(!showSupportOfflineOnly)}
+          icon={<Icon glyph={WifiOff} size="md" />}
+        >
+          <span>
+            {t('header.show_support_offline_only', 'Offline-supported')}
+          </span>
+        </Chip>
+        <Chip
+          active={showThirdPartyManagedOnly}
+          onClick={() =>
+            setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly)
+          }
+          icon={<Icon glyph={Clock} size="md" />}
+        >
+          <span>
+            {t('header.show_third_party_managed_only', 'Third-party only')}
+          </span>
+        </Chip>
+        <Chip
+          active={showHidden}
+          onClick={() => setShowHidden(!showHidden)}
+          icon={<Icon glyph={showHidden ? Eye : EyeOff} size="md" />}
+        >
+          <span>{t('header.hidden', 'Hidden')}</span>
+        </Chip>
+        <Chip
+          active={showNonAvailable}
+          onClick={() => setShowNonAvailable(!showNonAvailable)}
+          icon={<Icon glyph={Eye} size="md" />}
+        >
+          <span>{t('header.non_available', 'Non-available')}</span>
+        </Chip>
+      </FilterSection>
+
+      <div className="FilterActions">
+        <Button variant="ghost" size="sm" onClick={() => resetFilters()}>
+          {t('header.reset', 'Reset all')}
+        </Button>
+      </div>
     </Dropdown>
   )
 }

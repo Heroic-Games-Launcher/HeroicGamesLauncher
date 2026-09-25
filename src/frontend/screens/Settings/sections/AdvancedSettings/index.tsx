@@ -31,6 +31,7 @@ import {
   SteamGridDbApiKey
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
+import { Button } from 'frontend/components/UI'
 
 export default function AdvancedSetting() {
   const { config } = useContext(SettingsContext)
@@ -229,10 +230,7 @@ export default function AdvancedSetting() {
               {/* Check for updates */}
               {(eosOverlayVersion === eosOverlayLatestVersion ||
                 eosOverlayCheckingForUpdates) && (
-                <button
-                  className="button is-primary"
-                  onClick={checkForEosOverlayUpdates}
-                >
+                <Button variant="primary" onClick={checkForEosOverlayUpdates}>
                   <CachedOutlined />
                   <span>
                     {eosOverlayCheckingForUpdates
@@ -245,31 +243,24 @@ export default function AdvancedSetting() {
                           'Check for updates'
                         )}
                   </span>
-                </button>
+                </Button>
               )}
               {/* Update */}
               {eosOverlayVersion !== eosOverlayLatestVersion &&
                 !eosOverlayCheckingForUpdates && (
-                  <button
-                    className="button is-primary"
-                    onClick={updateEosOverlay}
-                  >
+                  <Button variant="primary" onClick={updateEosOverlay}>
                     <UploadOutlined />
                     <span>
                       {eosOverlayInstallingOrUpdating
                         ? t('setting.eosOverlay.updating', 'Updating...')
                         : t('setting.eosOverlay.updateNow', 'Update')}
                     </span>
-                  </button>
+                  </Button>
                 )}
               {/* Enable/Disable */}
               {isWindows && (
-                <button
-                  className={
-                    eosOverlayEnabledGlobally
-                      ? 'button is-danger'
-                      : 'button is-primary'
-                  }
+                <Button
+                  variant={eosOverlayEnabledGlobally ? 'danger' : 'primary'}
                   onClick={toggleEosOverlay}
                 >
                   {eosOverlayEnabledGlobally ? (
@@ -282,33 +273,30 @@ export default function AdvancedSetting() {
                       ? t('setting.eosOverlay.disable', 'Disable')
                       : t('setting.eosOverlay.enable', 'Enable')}
                   </span>
-                </button>
+                </Button>
               )}
               {/* Remove */}
               {!eosOverlayInstallingOrUpdating && (
-                <button className="button is-danger" onClick={removeEosOverlay}>
+                <Button variant="danger" onClick={removeEosOverlay}>
                   <DeleteOutline />
                   <span>{t('setting.eosOverlay.remove', 'Uninstall')}</span>
-                </button>
+                </Button>
               )}
             </>
           )}
           {/* Install */}
           {!eosOverlayInstalled && !eosOverlayInstallingOrUpdating && (
-            <button className="button is-primary" onClick={installEosOverlay}>
+            <Button variant="primary" onClick={installEosOverlay}>
               <DownloadOutlined />
               <span>{t('setting.eosOverlay.install', 'Install')}</span>
-            </button>
+            </Button>
           )}
           {/* Cancel install/update */}
           {eosOverlayInstallingOrUpdating && (
-            <button
-              className="button is-danger"
-              onClick={cancelEosOverlayInstallOrUpdate}
-            >
+            <Button variant="danger" onClick={cancelEosOverlayInstallOrUpdate}>
               <CancelOutlined />
               <span>{t('setting.eosOverlay.cancelInstall', 'Cancel')}</span>
-            </button>
+            </Button>
           )}
         </div>
         <hr />

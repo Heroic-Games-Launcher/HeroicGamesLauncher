@@ -22,26 +22,24 @@
 .alphabet-filter-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  margin: 8px var(--space-md-fixed);
+  justify-content: flex-start;
+  margin: 0 var(--space-md-fixed) var(--space-md);
+  gap: 6px;
 }
 
 .alphabet-filter-button {
-  background-color: transparent;
-  border: none;
-  color: var(--alphabet-filter-accent-color);
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  background-color: var(--input-background);
+  border: 1px solid transparent;
+  color: var(--text-default, var(--alphabet-filter-accent-color));
+  font-family: var(--primary-font-family);
+  font-size: var(--text-sm);
+  font-weight: var(--semibold);
+  letter-spacing: 0.02em;
   cursor: pointer;
 
-  padding: 8px 6px;
-  margin: 0 min(0.4%, 4px);
-  min-width: 24px;
-  width: 2.5%;
-  max-width: 42px;
+  height: 34px;
+  min-width: 34px;
+  padding: 0 8px;
   text-align: center;
   vertical-align: middle;
 
@@ -54,10 +52,8 @@
 .alphabet-filter-button:not(.alphabet-filter-button--active):not(
     .alphabet-filter-button--disabled
   ):hover {
-  background-color: var(--alphabet-filter-bg-hover);
   color: var(--alphabet-filter-text-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 0 0 1px var(--alphabet-filter-accent-color);
+  border-color: var(--alphabet-filter-accent-color);
 }
 
 .alphabet-filter-button:focus-visible {
@@ -66,21 +62,21 @@
 
 .alphabet-filter-button--active {
   background-color: var(--alphabet-filter-accent-color);
-  color: var(--text-tertiary);
-  font-weight: 700;
+  border-color: var(--alphabet-filter-accent-color);
+  color: var(--background-darker, #06121a);
+  font-weight: var(--bold);
   box-shadow: 0 4px 12px -2px var(--alphabet-filter-shadow-color);
-  transform: translateY(-2px);
 }
 
 .alphabet-filter-button--active:hover {
   background-color: var(--alphabet-filter-accent-hover);
-  box-shadow:
-    0 4px 12px -2px var(--alphabet-filter-shadow-color),
-    0 0 0 2px var(--alphabet-filter-accent-hover);
+  border-color: var(--alphabet-filter-accent-hover);
 }
 
 .alphabet-filter-button--disabled {
-  color: var(--alphabet-filter-text-disabled);
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--text-quartenary, var(--text-tertiary));
+  font-weight: var(--medium);
   cursor: auto;
-  opacity: 0.5;
 }

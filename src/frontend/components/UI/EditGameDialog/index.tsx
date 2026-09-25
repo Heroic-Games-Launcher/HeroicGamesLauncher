@@ -17,6 +17,7 @@ import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import classNames from 'classnames'
 import ContentPaste from '@mui/icons-material/ContentPaste'
 import Clear from '@mui/icons-material/Clear'
+import { Button } from 'frontend/components/UI'
 
 type Props = {
   gameInfo: GameInfo
@@ -211,17 +212,13 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
       </DialogContent>
       <DialogFooter>
         {hasOverride && (
-          <button
-            type="button"
-            onClick={handleReset}
-            className="button is-secondary"
-          >
+          <Button variant="ghost" type="button" onClick={handleReset}>
             {t('edit-game.reset', 'Reset to default')}
-          </button>
+          </Button>
         )}
-        <button onClick={handleSave} className="button is-success">
+        <Button variant="primary" onClick={handleSave}>
           {t('button.finish', 'Finish')}
-        </button>
+        </Button>
       </DialogFooter>
     </div>
   )

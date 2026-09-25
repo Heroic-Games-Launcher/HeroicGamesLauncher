@@ -1,7 +1,8 @@
 import './index.css'
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
+import { TriangleAlert } from 'lucide-react'
+import Icon from '../Icon'
 
 interface Props {
   children: React.ReactNode
@@ -10,8 +11,8 @@ interface Props {
 
 export default function WarningMessage({ children, className }: Props) {
   return (
-    <div className={['WarningMessage', className].filter(Boolean).join(' ')}>
-      <FontAwesomeIcon icon={faExclamationTriangle} color="yellow" />
+    <div className={classNames('WarningMessage', className)}>
+      <Icon glyph={TriangleAlert} size="md" />
       <div>{children}</div>
     </div>
   )

@@ -1,27 +1,42 @@
-.gameCard {
-  background-color: var(--gradient-gamecard);
-  text-align: start;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  transition-duration: 0.1s;
-  box-shadow: 0px 0px 12px 4px #00000055;
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--space-3xs);
-  animation: fade-in 0.1s ease-in;
-  aspect-ratio: 173/275;
+.gameList > .gameCardWrapper,
+.gameList > .gameCardWrapper > .gameCardMenu {
+  height: 100%;
 }
 
-.gameCard.gamepad {
+.gameCard {
+  height: 100%;
+  background-color: var(--input-background);
+  text-align: start;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--divider);
+  border-radius: 16px;
+  overflow: hidden;
+  animation: fade-in 0.15s ease-in;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.gameCard > a {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 173/250;
+  background-color: var(--gradient-gamecard);
+}
+
+.gameCard.gamepad > a {
   aspect-ratio: 3/4;
 }
 
-.gameCard.justPlayed {
+.gameCard.justPlayed > a {
   aspect-ratio: 275/205;
 }
 
-.gameCard.gamepad.justPlayed {
+.gameCard.gamepad.justPlayed > a {
   aspect-ratio: 328/205;
 }
 
@@ -32,18 +47,18 @@
 .gameCard > .gameCardStatus {
   position: absolute;
   z-index: 5;
-  top: 5px;
-  left: 5px;
-  max-width: 110px;
+  top: 8px;
+  left: 44px;
+  max-width: 120px;
   font-weight: var(--semibold);
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.418) 2.4%,
-    rgba(20, 21, 21, 0.863) 30%
-  );
-  padding: var(--space-3xs) var(--space-2xs);
-  border-radius: 4px;
+  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: 999px;
   color: var(--success);
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
 }
 .gameCard > .gameCardStatus svg {
   color: var(--success);
@@ -53,16 +68,16 @@
 .gameCard .gameCardUpdateBadge {
   position: absolute;
   z-index: 5;
-  top: 5px;
+  top: 8px;
   right: 28%;
-  left: 5px;
+  left: 8px;
   font-weight: var(--semibold);
   background: var(--status-info);
-  padding: var(--space-3xs) var(--space-2xs);
-  border-radius: var(--space-3xs);
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: 999px;
   color: var(--neutral-01);
-  font-size: var(--text-sm);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: var(--text-xs);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
 
@@ -80,10 +95,6 @@
 }
 
 .gameCard > a {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
   overflow: hidden;
 }
 
@@ -112,37 +123,276 @@
   display: none;
 }
 
-.gameCard .gameTitle {
-  position: absolute;
-  width: 100%;
-  bottom: 0px;
-  padding: 0.6rem 0.3rem;
-  color: var(--text-secondary);
-  background: var(--gamecard-title-color);
-  transition: 200ms;
-  font-family: var(--primary-font-family);
-  font-size: var(--text-md);
-  font-weight: var(--bold);
-  line-height: 17px;
-  cursor: pointer;
-  z-index: 3;
-  pointer-events: none;
-  transform: translateY(100%);
+.gameCardCaption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px 14px;
 }
 
-.gameCard:hover .gameTitle,
-.titlesAlwaysVisible .gameTitle {
-  display: block;
-  transform: translateY(0);
+.gameCard .gameTitle {
+  font-family: var(--primary-font-family);
+  font-size: var(--text-lg);
+  font-weight: var(--semibold);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text-default);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 150ms ease;
+}
+
+.gameCard .gameTitle.installed {
+  color: var(--text-default);
+}
+
+.gameListItem .Playtime {
+  display: none;
+}
+
+.gameCard .runner {
+  display: inline-block;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-xs);
+  font-weight: var(--regular);
+  color: var(--text-tertiary, var(--text-secondary));
 }
 
 .gameCard > .icons {
-  background: var(--icons-background);
-  justify-content: space-around;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: 'update settings play';
-  padding: var(--space-xs-fixed);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 173/250;
+  background: transparent;
+  display: block;
+  padding: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.gameCard.justPlayed > .icons {
+  aspect-ratio: 275/205;
+}
+
+.gameCard > .icons > .svg-button {
+  pointer-events: auto;
+}
+
+.gameCard > .icons > .settingsIcon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 36px;
+  height: 36px;
+  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--text-default);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.gameCard:hover > .icons > .settingsIcon,
+.gameCard:focus-within > .icons > .settingsIcon {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gameCard > .icons > .updateIcon {
+  position: absolute;
+  top: 10px;
+  right: 56px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.gameCard:hover > .icons > .updateIcon,
+.gameCard:focus-within > .icons > .updateIcon {
+  opacity: 1;
+}
+
+.gameCard > .icons > .GameActionButton:not(.updateIcon) {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  transition:
+    width 220ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 220ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 150ms ease;
+}
+
+.gameCard > .icons > .GameActionButton > svg {
+  width: 26px;
+  height: 26px;
+}
+
+.gameCard > .icons > .GameActionButton .Button__label {
+  display: none;
+}
+
+.gameCard:hover > .icons > .playIcon,
+.gameCard:hover > .icons > .downIcon,
+.gameCard:focus-within > .icons > .playIcon,
+.gameCard:focus-within > .icons > .downIcon {
+  width: calc(100% - 20px);
+  height: 56px;
+  padding: 0 18px;
+}
+
+.gameCard:hover > .icons > .playIcon .Button__label,
+.gameCard:hover > .icons > .downIcon .Button__label,
+.gameCard:focus-within > .icons > .playIcon .Button__label,
+.gameCard:focus-within > .icons > .downIcon .Button__label {
+  display: inline;
+}
+
+.gameListItem .GameActionButton {
+  height: 36px;
+  min-width: 124px;
+  padding: 0 12px;
+  border-radius: 10px;
+}
+
+.gameListItem .GameActionButton .Button__label {
+  font-size: var(--text-sm);
+}
+
+.gameCard.justPlayed > .icons {
+  aspect-ratio: 275/205;
+}
+
+.gameCard > .icons > .svg-button {
+  pointer-events: auto;
+}
+
+.gameCard > .icons > .settingsIcon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 36px;
+  height: 36px;
+  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--text-default);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.gameCard:hover > .icons > .settingsIcon,
+.gameCard:focus-within > .icons > .settingsIcon {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gameCard > .icons > .updateIcon {
+  position: absolute;
+  top: 10px;
+  right: 56px;
+  width: 40px;
+  height: 40px;
+  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.gameCard:hover > .icons > .updateIcon {
+  opacity: 1;
+}
+
+.gameCard > .icons > .playIcon,
+.gameCard > .icons > .downIcon,
+.gameCard > .icons > .notAvailableIcon,
+.gameCard > .icons > .cancelIcon,
+.gameCard > .icons > .queueIcon,
+.gameCard > .icons > .iconDisabled {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--navbar-accent, var(--accent));
+  color: var(--background-darker, #000);
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  transition:
+    width 220ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 150ms ease;
+}
+
+.gameCard > .icons > .downIcon {
+  background: var(--background-darker, #0a0e13);
+  color: var(--navbar-accent, var(--accent));
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+.gameCard > .icons > .playIcon > svg,
+.gameCard > .icons > .downIcon > svg,
+.gameCard > .icons > .notAvailableIcon > svg,
+.gameCard > .icons > .cancelIcon > svg,
+.gameCard > .icons > .queueIcon > svg,
+.gameCard > .icons > .iconDisabled > svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+}
+
+.gameCard > .icons > .playIcon svg *,
+.gameCard > .icons > .downIcon svg *,
+.gameCard > .icons > .notAvailableIcon svg *,
+.gameCard > .icons > .cancelIcon svg *,
+.gameCard > .icons > .queueIcon svg * {
+  fill: none;
+}
+
+.gameCard:hover > .icons > .playIcon,
+.gameCard:hover > .icons > .downIcon,
+.gameCard:focus-within > .icons > .playIcon,
+.gameCard:focus-within > .icons > .downIcon {
+  width: calc(100% - 20px);
+  height: 56px;
 }
 
 .gameCard.justPlayed > .icons {
@@ -163,23 +413,20 @@
   justify-self: center;
 }
 
-.gameCard .store-icon {
-  border-radius: 10px;
+.gameCard .StoreBadge {
   position: absolute;
-  right: 5px;
-  top: 4px;
+  right: 10px;
+  top: 10px;
   z-index: 2;
-  padding: var(--space-3xs);
-  width: 35px;
-  height: 35px;
-  place-content: center;
-  background: var(--background-darker);
-  fill: var(--text-default);
 }
 
 .gameCard:hover,
 .gameCard:focus-within {
-  transform: scale(1.05);
+  border-color: var(--navbar-accent, var(--accent));
+  box-shadow:
+    0 0 0 1px var(--navbar-accent, var(--accent)),
+    0 0 28px -6px var(--navbar-accent, var(--accent)),
+    0 16px 40px rgba(0, 0, 0, 0.55);
 }
 
 .gameCard.hidden .gameImg,
@@ -198,90 +445,141 @@
 }
 
 .gameListItem {
+  text-align: start;
   display: grid;
-  grid-template-columns: 90% 10%;
-  grid-template-areas: 'link action';
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-areas: 'thumb info status actions';
   align-items: center;
-  position: relative;
-  cursor: default;
-  place-self: center;
+  gap: 14px;
   width: 100%;
-  padding: var(--space-xs-fixed) 0;
-  border-bottom: 1px solid gray;
+  padding: 10px 12px;
+  position: relative;
+  background: var(--input-background);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.gameListItem > a > * {
-  transition: 300ms;
+.gameListItem:hover,
+.gameListItem:focus-within {
+  border-color: var(--navbar-accent, var(--accent));
+  box-shadow: 0 0 0 1px var(--navbar-accent, var(--accent));
 }
 
 .gameListItem > a {
-  grid-area: link;
-  display: grid;
-  grid-template-columns: 3fr 2fr 1fr;
+  grid-area: thumb;
   position: relative;
-  width: 100%;
-  height: 100%;
-  grid-template-areas: 'name infos runner';
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
   overflow: hidden;
-  align-items: center;
-  justify-items: baseline;
+  background-color: var(--gradient-gamecard);
 }
 
-.gameListItem .runner {
-  grid-area: runner;
+.gameListItem .gameImg {
+  display: block;
+  width: 56px;
+  height: 56px;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
 
-.gameListItem .gameImg,
-.gameListItem .store-icon,
-.gameListItem .gameLogo {
+.gameListItem .StoreBadge {
+  display: inline-flex;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.gameListItem .gameLogo,
+.gameListItem .gameListInfo,
+.gameListItem .runner,
+.gameListItem .gameCardUpdateBadge {
   display: none;
 }
 
-.gameListItem .gameListInfo {
-  font-size: var(--text-md);
-  grid-area: infos;
+.gameListItem > .gameCardCaption {
+  grid-area: info;
+  align-items: flex-start;
+  padding: 0;
+  gap: 3px;
+  min-width: 0;
 }
 
 .gameListItem .gameTitle {
-  grid-area: name;
-  font-size: var(--text-md);
-  padding-inline-end: var(--space-md-fixed);
-  text-align: start;
+  font-size: var(--text-lg);
+  font-weight: var(--semibold);
+  color: var(--text-default);
+  -webkit-line-clamp: 1;
 }
 
-.gameListItem .installed {
-  color: var(--accent);
-  font-weight: var(--bold);
+.gameListItem .Playtime {
+  display: flex;
 }
 
-.gameListItem .active {
-  color: var(--success);
-}
-
-.gameListItem > a:hover,
-.gameListItem > a:focus-within {
-  color: var(--accent-overlay);
-}
-
-.gameListItem .gameTitle span {
-  display: inline;
-}
-
-.gameListItem > .icons {
-  padding: 0px var(--space-2xs-fixed);
-  grid-area: action;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: 'update settings play';
-}
-
-.gameListItem > .gameCardStatus {
+.gameCard .Playtime__last {
   display: none;
 }
 
-.gameListItem > .gameCardStatus > svg {
+.gameListItem > .gameCardStatus {
+  grid-area: status;
+  position: static;
+  left: auto;
+  top: auto;
+  display: inline-flex;
+  align-items: center;
+  max-width: none;
+  white-space: nowrap;
+}
+
+.gameListItem > .icons {
+  grid-area: actions;
+  align-self: center;
+  position: static;
+  width: auto;
+  aspect-ratio: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.gameListItem > .icons > .settingsIcon {
+  position: static;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--background-darker, #0a0e13);
+  border: 1px solid var(--divider);
+  color: var(--text-secondary);
+  opacity: 1;
+  transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: none;
+}
+
+.gameListItem > .icons > .settingsIcon:hover {
+  color: var(--text-default);
+  border-color: var(--navbar-accent, var(--accent));
+}
+
+.gameListItem.hidden {
+  opacity: 0.45;
+}
+
+.gameCardStatus > svg {
   position: relative;
   bottom: 0;
   top: 0;
@@ -291,20 +589,8 @@
   transition: 300ms;
 }
 
-.gameListItem.installed.notAvailable span {
+.gameListItem.notAvailable .gameTitle {
   color: var(--status-warning, var(--text-secondary));
-}
-
-.gameListItem.installed.notAvailable:hover span {
-  color: var(--status-warning-hover, var(--text-default));
-}
-
-.gameListItem.installed:not(.notAvailable) span {
-  color: var(--status-sucess, var(--success));
-}
-
-.gameListItem.installed:not(.notAvailable):hover span {
-  color: var(--status-success-hover, var(--accent));
 }
 
 .gameCardStatus > svg {
@@ -359,7 +645,7 @@
   transition: all 300ms;
 }
 
-.playIcon > span {
+.playIcon > span:not(.Button__label) {
   font-family: var(--secondary-font-family);
   border-radius: 5px;
   color: #1d1d1d;
@@ -372,12 +658,12 @@
   text-align: center;
 }
 
-.playIcon:hover > span {
+.playIcon:hover > span:not(.Button__label) {
   transition: 300ms;
   background: var(--success-hover);
 }
 
-.playIcon[disabled] > span {
+.playIcon[disabled] > span:not(.Button__label) {
   background: var(--icon-disabled);
 }
 
@@ -450,15 +736,6 @@
 
 .settingsIcon {
   grid-area: settings;
-}
-
-.settingsIcon path {
-  fill: var(--neutral-06, var(--accent-overlay));
-}
-
-.settingsIcon:focus-within,
-.settingsIcon:hover path {
-  fill: var(--text-secondary, var(--accent));
 }
 
 @keyframes fade-in {

@@ -1,0 +1,101 @@
+.Button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0 18px;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-md);
+  font-weight: var(--semibold);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.Button--md {
+  height: 44px;
+}
+
+.Button--sm {
+  height: 36px;
+  padding: 0 14px;
+  font-size: var(--text-sm);
+}
+
+.Button--fullWidth {
+  width: 100%;
+}
+
+.Button--iconOnly {
+  padding: 0;
+  width: 44px;
+}
+
+.Button--sm.Button--iconOnly {
+  width: 36px;
+}
+
+.Button svg {
+  flex-shrink: 0;
+}
+
+.Button--primary {
+  background: var(--navbar-accent, var(--accent));
+  color: var(--background-darker, #06121a);
+}
+
+.Button--primary:hover:not(:disabled),
+.Button--primary:focus-visible:not(:disabled) {
+  background: var(--accent-overlay, var(--accent));
+  box-shadow: 0 8px 24px -8px var(--navbar-accent, var(--accent));
+}
+
+.Button--secondary {
+  background: var(--background-darker, #0a0e13);
+  color: var(--navbar-accent, var(--accent));
+  border-color: color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+.Button--secondary:hover:not(:disabled),
+.Button--secondary:focus-visible:not(:disabled) {
+  border-color: var(--navbar-accent, var(--accent));
+  background: color-mix(in oklab, var(--accent) 12%, var(--background-darker));
+}
+
+.Button--ghost {
+  background: var(--input-background);
+  color: var(--text-secondary);
+}
+
+.Button--ghost:hover:not(:disabled),
+.Button--ghost:focus-visible:not(:disabled) {
+  border-color: var(--divider);
+  color: var(--text-default);
+}
+
+.Button--danger {
+  background: var(--cancel-button, var(--danger));
+  color: var(--text-default);
+}
+
+.Button--danger:hover:not(:disabled),
+.Button--danger:focus-visible:not(:disabled) {
+  background: var(--cancel-button-overlay, var(--danger-hover));
+}
+
+.Button:disabled {
+  background: var(--disabled-button, var(--background-secondary));
+  color: var(--text-tertiary, var(--text-secondary));
+  border-color: transparent;
+  cursor: not-allowed;
+  box-shadow: none;
+}

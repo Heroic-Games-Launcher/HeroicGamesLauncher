@@ -1,18 +1,45 @@
 .contextMenu > .MuiPaper-root {
-  background: var(--navbar-background);
+  background: var(--modal-background, var(--background));
+  border: 1px solid var(--divider);
+  border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
 }
 
 .contextMenu > .MuiPaper-root > .MuiMenu-list {
-  background: var(--navbar-background);
-  color: var(--accent);
-  border-radius: 10px;
+  background: transparent;
+  padding: var(--space-2xs);
+  min-width: 220px;
 }
 
-.contextMenu > .MuiPaper-root > .MuiMenu-list > .MuiMenuItem-root:hover {
-  text-decoration: none;
-  background-color: var(--navbar-active-background);
-}
-
-.contextMenu .MuiSvgIcon-root {
+.contextMenu .MuiMenuItem-root {
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-md);
+  font-weight: var(--medium);
   color: var(--text-default);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.contextMenu .MuiMenuItem-root:hover,
+.contextMenu .MuiMenuItem-root.Mui-focusVisible {
+  background-color: var(--input-background);
+  color: var(--text-hover, var(--text-default));
+}
+
+.contextMenu .MuiListItemIcon-root {
+  min-width: 0;
+  color: var(--text-tertiary, var(--text-secondary));
+}
+
+.contextMenu .MuiMenuItem-root:hover .MuiListItemIcon-root {
+  color: var(--navbar-accent, var(--accent));
+}
+
+.contextMenu .MuiListItemIcon-root svg {
+  fill: none;
 }
