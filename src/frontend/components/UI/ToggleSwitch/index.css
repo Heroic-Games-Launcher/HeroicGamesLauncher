@@ -18,7 +18,7 @@
   grid-area: check;
   display: block;
   box-sizing: border-box;
-  margin-inline-start: 13px;
+  margin-inline-start: 8px;
   margin-inline-end: 0.5rem;
   width: 20px;
   height: 20px;
@@ -33,7 +33,7 @@
 .toggleSwitchWrapper:after {
   content: '';
   grid-area: check;
-  margin-inline-start: 13px;
+  margin-inline-start: 8px;
   margin-inline-end: 0.5rem;
   width: 20px;
   height: 20px;
