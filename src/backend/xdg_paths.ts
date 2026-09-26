@@ -1,7 +1,6 @@
 import { app } from 'electron'
-import { moveSync } from 'fs-extra'
-import { existsSync, mkdirSync } from 'graceful-fs'
-import { dirname, join } from 'path'
+import { mkdirSync } from 'graceful-fs'
+import { join } from 'path'
 
 import { isLinux } from 'backend/constants/environment'
 import {
@@ -9,6 +8,7 @@ import {
   heroicCachePath,
   heroicStatePath
 } from 'backend/constants/paths'
+import { moveSyncIfDestinationMissing } from './migration/migrations/xdg_helpers'
 
 const electronUserDataPath = join(heroicStatePath, 'electron')
 const electronSessionPath = join(heroicStatePath, 'session')
@@ -43,12 +43,6 @@ const legacySessionEntries = [
   'Trust Tokens-journal'
 ]
 
-function moveIfDestinationMissing(source: string, destination: string) {
-  if (!existsSync(source) || existsSync(destination)) return
-  mkdirSync(dirname(destination), { recursive: true })
-  moveSync(source, destination)
-}
-
 export function configureElectronXdgPaths() {
   if (!isLinux || process.env.CI === 'e2e') return
 
@@ -58,22 +52,22 @@ export function configureElectronXdgPaths() {
   mkdirSync(electronLogsPath, { recursive: true })
 
   for (const entry of legacyUserDataEntries) {
-    moveIfDestinationMissing(
+    moveSyncIfDestinationMissing(
       join(appFolder, entry),
       join(electronUserDataPath, entry)
     )
   }
 
   for (const entry of legacySessionEntries) {
-    moveIfDestinationMissing(
+    moveSyncIfDestinationMissing(
       join(appFolder, entry),
       join(electronSessionPath, entry)
     )
   }
 
-  moveIfDestinationMissing(join(appFolder, 'Cache'), electronDiskCachePath)
-  moveIfDestinationMissing(join(appFolder, 'Code Cache'), electronCodeCachePath)
-  moveIfDestinationMissing(join(appFolder, 'Crashpad'), electronCrashDumpsPath)
+  moveSyncIfDestinationMissing(join(appFolder, 'Cache'), electronDiskCachePath)
+  moveSyncIfDestinationMissing(join(appFolder, 'Code Cache'), electronCodeCachePath)
+  moveSyncIfDestinationMissing(join(appFolder, 'Crashpad'), electronCrashDumpsPath)
   mkdirSync(electronCrashDumpsPath, { recursive: true })
 
   app.setPath('userData', electronUserDataPath)

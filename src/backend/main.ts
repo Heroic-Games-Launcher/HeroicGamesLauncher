@@ -144,8 +144,6 @@ import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
 import { configureElectronXdgPaths, electronCodeCachePath } from './xdg_paths'
 
-configureElectronXdgPaths()
-
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
 async function initializeWindow(): Promise<BrowserWindow> {
@@ -313,6 +311,10 @@ if (!gotTheLock) {
   console.log('Heroic is already running, quitting this instance')
   app.quit()
 } else {
+  // Only the primary process is allowed to migrate Electron/Chromium data.
+  // This still runs before app.ready, as required by app.setPath().
+  configureElectronXdgPaths()
+
   app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
     const mainWindow = getMainWindow()

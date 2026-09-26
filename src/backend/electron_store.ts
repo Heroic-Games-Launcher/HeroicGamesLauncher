@@ -1,6 +1,4 @@
 import Store from 'electron-store'
-import { moveSync } from 'fs-extra'
-import { existsSync, mkdirSync } from 'graceful-fs'
 import { isAbsolute, join } from 'path'
 
 import {
@@ -18,6 +16,7 @@ import {
   legacyUserDataPath
 } from 'backend/constants/paths'
 import { Get } from 'type-fest'
+import { moveSyncIfDestinationMissing } from './migration/migrations/xdg_helpers'
 
 function getXdgRoot(directory: ReturnType<typeof getXdgStoreDirectory>) {
   switch (directory) {
@@ -71,10 +70,7 @@ export function migrateStoreFile(
   const source = join(sourceCwd, `${fileName}.json`)
   const destination = join(resolvedCwd, `${fileName}.json`)
 
-  if (!existsSync(source) || existsSync(destination)) return
-
-  mkdirSync(resolvedCwd, { recursive: true })
-  moveSync(source, destination)
+  moveSyncIfDestinationMissing(source, destination)
 }
 
 export class TypeCheckedStoreBackend<

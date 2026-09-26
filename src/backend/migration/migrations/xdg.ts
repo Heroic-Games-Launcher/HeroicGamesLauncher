@@ -1,6 +1,6 @@
-import { move } from 'fs-extra'
-import { existsSync, lstatSync, mkdirSync, symlinkSync } from 'graceful-fs'
-import { dirname, join } from 'path'
+import { app } from 'electron'
+import { existsSync, lstatSync, symlinkSync } from 'graceful-fs'
+import { join } from 'path'
 
 import { isLinux } from 'backend/constants/environment'
 import {
@@ -9,17 +9,16 @@ import {
   heroicDataPath,
   heroicIconFolder,
   legacyToolsPath,
-  toolsPath
+  toolsPath,
+  userHome
 } from 'backend/constants/paths'
 import { logInfo, logWarning } from 'backend/logger'
+import {
+  moveIfDestinationMissing,
+  rewriteHeroicDesktopShortcutIconPaths
+} from './xdg_helpers'
 
 import type { Migration } from '..'
-
-async function moveIfDestinationMissing(source: string, destination: string) {
-  if (!existsSync(source) || existsSync(destination)) return
-  mkdirSync(dirname(destination), { recursive: true })
-  await move(source, destination)
-}
 
 export class XdgPathsMigration implements Migration {
   identifier = 'xdg-paths'
@@ -28,9 +27,9 @@ export class XdgPathsMigration implements Migration {
     if (!isLinux) return true
 
     await this.migrateTools()
+    await this.migrateIcons()
 
     await Promise.all([
-      moveIfDestinationMissing(join(appFolder, 'icons'), heroicIconFolder),
       moveIfDestinationMissing(
         join(appFolder, 'images-cache'),
         join(heroicCachePath, 'images-cache')
@@ -72,6 +71,35 @@ export class XdgPathsMigration implements Migration {
     return true
   }
 
+  private async migrateIcons() {
+    const legacyIconsPath = join(appFolder, 'icons')
+    if (legacyIconsPath === heroicIconFolder) return
+
+    if (existsSync(legacyIconsPath) && existsSync(heroicIconFolder)) {
+      logWarning([
+        'Not migrating legacy icons directory because destination exists:',
+        heroicIconFolder
+      ])
+      return
+    }
+
+    await moveIfDestinationMissing(legacyIconsPath, heroicIconFolder)
+
+    // Rewriting the generated shortcuts removes the need for a compatibility
+    // symlink in XDG_CONFIG_HOME. This also makes the migration resumable if a
+    // previous run moved the icons but exited before updating the shortcuts.
+    if (!existsSync(legacyIconsPath) && existsSync(heroicIconFolder)) {
+      rewriteHeroicDesktopShortcutIconPaths(
+        [
+          app.getPath('desktop'),
+          join(userHome, '.local', 'share', 'applications')
+        ],
+        legacyIconsPath,
+        heroicIconFolder
+      )
+    }
+  }
+
   private async migrateTools() {
     if (legacyToolsPath === toolsPath || !existsSync(legacyToolsPath)) return
 
@@ -95,15 +123,23 @@ export class XdgPathsMigration implements Migration {
       return
     }
 
-    mkdirSync(dirname(toolsPath), { recursive: true })
-    await move(legacyToolsPath, toolsPath)
+    const moved = await moveIfDestinationMissing(legacyToolsPath, toolsPath)
+    if (!moved) return
 
     try {
       // Existing game settings and Wine Manager metadata store absolute paths.
       symlinkSync(toolsPath, legacyToolsPath, 'dir')
     } catch (error) {
-      // Roll back instead of leaving existing configured paths broken.
-      await move(toolsPath, legacyToolsPath)
+      // A concurrent primary process may have created the same compatibility
+      // link after our move. Treat that as success; otherwise roll back.
+      if (
+        existsSync(legacyToolsPath) &&
+        lstatSync(legacyToolsPath).isSymbolicLink()
+      ) {
+        return
+      }
+
+      await moveIfDestinationMissing(toolsPath, legacyToolsPath)
       throw error
     }
   }

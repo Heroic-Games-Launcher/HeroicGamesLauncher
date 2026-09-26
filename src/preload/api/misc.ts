@@ -3,7 +3,7 @@ import { homedir } from 'os'
 import { isAbsolute, join } from 'path'
 import { env } from 'process'
 
-import { getXdgStoreDirectory } from 'common/xdg_store'
+import { getXdgStoreDirectory, resolveXdgHome } from 'common/xdg_store'
 
 export const clearCache = makeListenerCaller('clearCache')
 export const clearAchievementCache = makeListenerCaller('clearAchievementCache')
@@ -89,8 +89,6 @@ interface StoreMap {
 }
 const stores: StoreMap = {}
 
-const getXdgHome = (value: string | undefined, fallback: string) => (value && isAbsolute(value) ? value : fallback)
-
 function resolveStoreCwd(storeName: string, cwd?: string) {
   if (process.platform !== 'linux' || process.env.CI === 'e2e' || !cwd || isAbsolute(cwd)) {
     return cwd
@@ -100,16 +98,16 @@ function resolveStoreCwd(storeName: string, cwd?: string) {
   const home = homedir()
 
   if (!directory) {
-    const configHome = getXdgHome(env.XDG_CONFIG_HOME, join(home, '.config'))
+    const configHome = resolveXdgHome(env.XDG_CONFIG_HOME, join(home, '.config'))
     return join(configHome, 'heroic', cwd)
   }
 
   const root =
     directory === 'data'
-      ? getXdgHome(env.XDG_DATA_HOME, join(home, '.local', 'share'))
+      ? resolveXdgHome(env.XDG_DATA_HOME, join(home, '.local', 'share'))
       : directory === 'cache'
-        ? getXdgHome(env.XDG_CACHE_HOME, join(home, '.cache'))
-        : getXdgHome(env.XDG_STATE_HOME, join(home, '.local', 'state'))
+        ? resolveXdgHome(env.XDG_CACHE_HOME, join(home, '.cache'))
+        : resolveXdgHome(env.XDG_STATE_HOME, join(home, '.local', 'state'))
   const appDirectory = directory === 'state' ? 'Heroic' : 'heroic'
 
   return join(root, appDirectory, cwd)

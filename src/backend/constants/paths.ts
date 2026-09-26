@@ -1,9 +1,10 @@
 import { app } from 'electron'
 import { mkdirSync } from 'graceful-fs'
 import { homedir } from 'os'
-import { isAbsolute, join, resolve } from 'path'
+import { join, resolve } from 'path'
 import { env } from 'process'
 import { dirSync } from 'tmp'
+import { resolveXdgHome } from 'common/xdg_store'
 
 let configFolder = app.getPath('appData')
 // If we're running tests, we want a config folder independent of the normal
@@ -20,15 +21,12 @@ if (process.env.CI === 'e2e') {
 export const flatpakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 export const userHome = homedir()
 
-const getXdgHome = (value: string | undefined, fallback: string) =>
-  value && isAbsolute(value) ? value : fallback
-
-const xdgDataHome = getXdgHome(
+const xdgDataHome = resolveXdgHome(
   env.XDG_DATA_HOME,
   join(userHome, '.local', 'share')
 )
-const xdgCacheHome = getXdgHome(env.XDG_CACHE_HOME, join(userHome, '.cache'))
-const xdgStateHome = getXdgHome(
+const xdgCacheHome = resolveXdgHome(env.XDG_CACHE_HOME, join(userHome, '.cache'))
+const xdgStateHome = resolveXdgHome(
   env.XDG_STATE_HOME,
   join(userHome, '.local', 'state')
 )
