@@ -106,9 +106,7 @@ export class XdgPathsMigration implements Migration {
         const configuredPath = config.defaultSettings?.defaultSteamPath
         if (typeof configuredPath === 'string' && configuredPath) {
           paths.add(
-            configuredPath
-              .replaceAll("'", '')
-              .replace(/^~(?=\/)/, userHome)
+            configuredPath.replaceAll("'", '').replace(/^~(?=\/)/, userHome)
           )
         }
       } catch {
@@ -153,7 +151,14 @@ export class XdgPathsMigration implements Migration {
     rewriteHeroicDesktopShortcutIconPaths(
       [
         app.getPath('desktop'),
-        join(userHome, '.local', 'share', 'applications')
+        join(userHome, '.local', 'share', 'applications'),
+        join(
+          userHome,
+          '.local',
+          'share',
+          'applications',
+          'heroic-steam-shortcuts'
+        )
       ],
       legacyIconsPath,
       heroicIconFolder

@@ -38,10 +38,10 @@ export function rewriteHeroicDesktopShortcutIconPaths(
         continue
       }
 
-      // Only touch shortcuts created by Heroic itself. User-authored desktop
-      // files may legitimately reference files under the old directory.
+      // Only touch launchers that reference Heroic itself and an icon in
+      // Heroic's legacy icon directory.
       if (
-        !shortcut.includes('Exec=xdg-open heroic://launch?') ||
+        !shortcut.includes('heroic://launch?') ||
         !shortcut.includes(legacyPrefix)
       ) {
         continue
@@ -62,13 +62,43 @@ type SteamShortcutIconMigrationResult = {
   errors: string[]
 }
 
+function getSteamEntryString(
+  entry: ShortcutEntry,
+  key: string
+): string | undefined {
+  const values = entry as unknown as Record<string, unknown>
+  const actualKey = Object.keys(values).find(
+    (candidate) => candidate.toLowerCase() === key.toLowerCase()
+  )
+  const value = actualKey ? values[actualKey] : undefined
+  return typeof value === 'string' ? value : undefined
+}
+
+function isHeroicSteamShortcut(entry: ShortcutEntry): boolean {
+  const launchOptions = getSteamEntryString(entry, 'LaunchOptions') ?? ''
+  const exe = getSteamEntryString(entry, 'Exe') ?? ''
+  const shortcutPath = getSteamEntryString(entry, 'ShortcutPath') ?? ''
+
+  return (
+    launchOptions.includes('heroic://launch') ||
+    exe.includes('/heroic-steam-shortcuts/') ||
+    shortcutPath.includes('/heroic-steam-shortcuts/')
+  )
+}
+
+function getSteamEntryIcon(entry: ShortcutEntry): string | undefined {
+  return getSteamEntryString(entry, 'icon')
+}
+
 function rewriteSteamEntryIcon(
   entry: ShortcutEntry,
   legacyIconsPath: string,
   newIconsPath: string
 ): boolean {
   const values = entry as unknown as Record<string, unknown>
-  const iconKey = Object.keys(values).find((key) => key.toLowerCase() === 'icon')
+  const iconKey = Object.keys(values).find(
+    (key) => key.toLowerCase() === 'icon'
+  )
   if (!iconKey || typeof values[iconKey] !== 'string') return false
 
   const icon = values[iconKey]
@@ -119,18 +149,17 @@ export function rewriteSteamShortcutIconPaths(
       try {
         shortcuts = readSteamShortcuts(shortcutsPath)
       } catch (error) {
-        result.errors.push(`Failed to read ${shortcutsPath}: ${String(error)}`)
+        result.errors.push(
+          `Failed to read ${shortcutsPath}: ${String(error)}`
+        )
         continue
       }
 
       const entries = shortcuts.shortcuts ?? []
       const matchingEntries = entries.filter((entry) => {
-        const values = entry as unknown as Record<string, unknown>
-        const iconKey = Object.keys(values).find(
-          (key) => key.toLowerCase() === 'icon'
-        )
-        const icon = iconKey ? values[iconKey] : undefined
+        const icon = getSteamEntryIcon(entry)
         return (
+          isHeroicSteamShortcut(entry) &&
           typeof icon === 'string' &&
           (icon === legacyIconsPath || icon.startsWith(`${legacyIconsPath}/`))
         )
@@ -154,7 +183,9 @@ export function rewriteSteamShortcutIconPaths(
         renameSync(temporaryPath, shortcutsPath)
       } catch (error) {
         rmSync(temporaryPath, { force: true })
-        result.errors.push(`Failed to update ${shortcutsPath}: ${String(error)}`)
+        result.errors.push(
+          `Failed to update ${shortcutsPath}: ${String(error)}`
+        )
       }
     }
   }

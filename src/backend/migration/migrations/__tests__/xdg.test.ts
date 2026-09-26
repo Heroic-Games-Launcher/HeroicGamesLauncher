@@ -64,39 +64,48 @@ describe('XdgPathsMigration', () => {
     rmSync(root, { recursive: true, force: true })
   })
 
-  test('moves icons, rewrites Heroic shortcuts, and keeps no icon symlink', async () => {
-    const legacyIcons = join(appFolder, 'icons')
-    const menuPath = join(userHome, '.local', 'share', 'applications')
-    mkdirSync(legacyIcons, { recursive: true })
-    mkdirSync(desktopPath, { recursive: true })
-    mkdirSync(menuPath, { recursive: true })
-    writeFileSync(join(legacyIcons, 'foo.jpg'), 'image')
+  test(
+    'moves icons, rewrites Heroic shortcuts, and keeps no icon symlink',
+    async () => {
+      const legacyIcons = join(appFolder, 'icons')
+      const menuPath = join(userHome, '.local', 'share', 'applications')
+      const wrapperPath = join(menuPath, 'heroic-steam-shortcuts')
+      mkdirSync(legacyIcons, { recursive: true })
+      mkdirSync(desktopPath, { recursive: true })
+      mkdirSync(menuPath, { recursive: true })
+      mkdirSync(wrapperPath, { recursive: true })
+      writeFileSync(join(legacyIcons, 'foo.jpg'), 'image')
 
-    for (const shortcutPath of [
-      join(desktopPath, 'Foo.desktop'),
-      join(menuPath, 'Foo.desktop')
-    ]) {
-      writeFileSync(
-        shortcutPath,
-        `[Desktop Entry]\nExec=xdg-open heroic://launch?appName=foo&runner=legendary\nIcon=${legacyIcons}/foo.jpg\n`
+      for (const shortcutPath of [
+        join(desktopPath, 'Foo.desktop'),
+        join(menuPath, 'Foo.desktop'),
+        join(wrapperPath, 'legendary-foo.desktop')
+      ]) {
+        writeFileSync(
+          shortcutPath,
+          `[Desktop Entry]\nExec=/usr/bin/heroic --no-gui "heroic://launch?appName=foo&runner=legendary"\nIcon=${legacyIcons}/foo.jpg\n`
+        )
+      }
+
+      const { XdgPathsMigration } = await import('../xdg')
+      await new XdgPathsMigration().run()
+
+      expect(existsSync(legacyIcons)).toBe(false)
+      expect(readFileSync(join(iconsPath, 'foo.jpg'), 'utf8')).toBe('image')
+      expect(
+        existsSync(join(iconsPath, '.heroic-xdg-icons-migration'))
+      ).toBe(false)
+      expect(readFileSync(join(desktopPath, 'Foo.desktop'), 'utf8')).toContain(
+        `Icon=${iconsPath}/foo.jpg`
       )
+      expect(readFileSync(join(menuPath, 'Foo.desktop'), 'utf8')).toContain(
+        `Icon=${iconsPath}/foo.jpg`
+      )
+      expect(
+        readFileSync(join(wrapperPath, 'legendary-foo.desktop'), 'utf8')
+      ).toContain(`Icon=${iconsPath}/foo.jpg`)
     }
-
-    const { XdgPathsMigration } = await import('../xdg')
-    await new XdgPathsMigration().run()
-
-    expect(existsSync(legacyIcons)).toBe(false)
-    expect(readFileSync(join(iconsPath, 'foo.jpg'), 'utf8')).toBe('image')
-    expect(
-      existsSync(join(iconsPath, '.heroic-xdg-icons-migration'))
-    ).toBe(false)
-    expect(readFileSync(join(desktopPath, 'Foo.desktop'), 'utf8')).toContain(
-      `Icon=${iconsPath}/foo.jpg`
-    )
-    expect(readFileSync(join(menuPath, 'Foo.desktop'), 'utf8')).toContain(
-      `Icon=${iconsPath}/foo.jpg`
-    )
-  })
+  )
 
   test('keeps the tools compatibility symlink for stored absolute paths', async () => {
     mkdirSync(join(legacyToolsPath, 'wine', 'test'), { recursive: true })
