@@ -1,10 +1,4 @@
-import {
-  mkdtempSync,
-  mkdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync
-} from 'fs'
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
 import {
@@ -76,52 +70,48 @@ describe('XDG shortcut migration', () => {
     )
   })
 
-  test(
-    'rewrites persisted Heroic Steam shortcut icon paths when Steam is stopped',
-    () => {
-      const steamPath = join(root, 'steam')
-      const configPath = join(steamPath, 'userdata', '123', 'config')
-      const shortcutsPath = join(configPath, 'shortcuts.vdf')
-      mkdirSync(configPath, { recursive: true })
+  test('rewrites persisted Heroic Steam shortcut icon paths when Steam is stopped', () => {
+    const steamPath = join(root, 'steam')
+    const configPath = join(steamPath, 'userdata', '123', 'config')
+    const shortcutsPath = join(configPath, 'shortcuts.vdf')
+    mkdirSync(configPath, { recursive: true })
 
-      const heroicShortcut = {
-        AppName: 'Foo',
-        Exe: '"heroic"',
-        StartDir: '"/tmp"',
-        LaunchOptions:
-          '--no-gui "heroic://launch?appName=foo&runner=legendary"',
-        icon: `${legacyIcons}/foo.jpg`
-      } as ShortcutEntry
-      const unrelatedShortcut = {
-        AppName: 'Other',
-        Exe: '"/usr/bin/other"',
-        StartDir: '"/tmp"',
-        LaunchOptions: '',
-        icon: `${legacyIcons}/foo.jpg`
-      } as ShortcutEntry
-      writeFileSync(
-        shortcutsPath,
-        writeBuffer({
-          shortcuts: [heroicShortcut, unrelatedShortcut]
-        } as ShortcutObject)
-      )
+    const heroicShortcut = {
+      AppName: 'Foo',
+      Exe: '"heroic"',
+      StartDir: '"/tmp"',
+      LaunchOptions: '--no-gui "heroic://launch?appName=foo&runner=legendary"',
+      icon: `${legacyIcons}/foo.jpg`
+    } as ShortcutEntry
+    const unrelatedShortcut = {
+      AppName: 'Other',
+      Exe: '"/usr/bin/other"',
+      StartDir: '"/tmp"',
+      LaunchOptions: '',
+      icon: `${legacyIcons}/foo.jpg`
+    } as ShortcutEntry
+    writeFileSync(
+      shortcutsPath,
+      writeBuffer({
+        shortcuts: [heroicShortcut, unrelatedShortcut]
+      } as ShortcutObject)
+    )
 
-      const result = rewriteSteamShortcutIconPaths(
-        [steamPath],
-        legacyIcons,
-        newIcons
-      )
-      const parsed = parseBuffer(readFileSync(shortcutsPath), {
-        autoConvertArrays: true,
-        autoConvertBooleans: true,
-        dateProperties: ['LastPlayTime']
-      })
+    const result = rewriteSteamShortcutIconPaths(
+      [steamPath],
+      legacyIcons,
+      newIcons
+    )
+    const parsed = parseBuffer(readFileSync(shortcutsPath), {
+      autoConvertArrays: true,
+      autoConvertBooleans: true,
+      dateProperties: ['LastPlayTime']
+    })
 
-      expect(result).toEqual({ changed: 1, deferred: false, errors: [] })
-      expect(parsed.shortcuts?.[0].icon).toBe(`${newIcons}/foo.jpg`)
-      expect(parsed.shortcuts?.[1].icon).toBe(`${legacyIcons}/foo.jpg`)
-    }
-  )
+    expect(result).toEqual({ changed: 1, deferred: false, errors: [] })
+    expect(parsed.shortcuts?.[0].icon).toBe(`${newIcons}/foo.jpg`)
+    expect(parsed.shortcuts?.[1].icon).toBe(`${legacyIcons}/foo.jpg`)
+  })
 
   test('defers Steam shortcut rewrites while Steam is running', () => {
     const steamPath = join(root, 'steam')
@@ -134,8 +124,7 @@ describe('XDG shortcut migration', () => {
       AppName: 'Foo',
       Exe: '"heroic"',
       StartDir: '"/tmp"',
-      LaunchOptions:
-        '--no-gui "heroic://launch?appName=foo&runner=legendary"',
+      LaunchOptions: '--no-gui "heroic://launch?appName=foo&runner=legendary"',
       icon: `${legacyIcons}/foo.jpg`
     } as ShortcutEntry
     const before = writeBuffer({ shortcuts: [shortcut] } as ShortcutObject)
