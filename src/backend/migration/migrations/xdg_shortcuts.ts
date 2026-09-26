@@ -149,9 +149,7 @@ export function rewriteSteamShortcutIconPaths(
       try {
         shortcuts = readSteamShortcuts(shortcutsPath)
       } catch (error) {
-        result.errors.push(
-          `Failed to read ${shortcutsPath}: ${String(error)}`
-        )
+        result.errors.push(`Failed to read ${shortcutsPath}: ${String(error)}`)
         continue
       }
 
