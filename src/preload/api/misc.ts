@@ -1,4 +1,9 @@
 import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '../ipc'
+import { homedir } from 'os'
+import { isAbsolute, join } from 'path'
+import { env } from 'process'
+
+import { getXdgStoreDirectory } from 'common/xdg_store'
 
 export const clearCache = makeListenerCaller('clearCache')
 export const clearAchievementCache = makeListenerCaller('clearAchievementCache')
@@ -84,8 +89,37 @@ interface StoreMap {
 }
 const stores: StoreMap = {}
 
+const getXdgHome = (value: string | undefined, fallback: string) => (value && isAbsolute(value) ? value : fallback)
+
+function resolveStoreCwd(storeName: string, cwd?: string) {
+  if (process.platform !== 'linux' || process.env.CI === 'e2e' || !cwd || isAbsolute(cwd)) {
+    return cwd
+  }
+
+  const directory = getXdgStoreDirectory(storeName, cwd)
+  const home = homedir()
+
+  if (!directory) {
+    const configHome = getXdgHome(env.XDG_CONFIG_HOME, join(home, '.config'))
+    return join(configHome, 'heroic', cwd)
+  }
+
+  const root =
+    directory === 'data'
+      ? getXdgHome(env.XDG_DATA_HOME, join(home, '.local', 'share'))
+      : directory === 'cache'
+        ? getXdgHome(env.XDG_CACHE_HOME, join(home, '.cache'))
+        : getXdgHome(env.XDG_STATE_HOME, join(home, '.local', 'state'))
+  const appDirectory = directory === 'state' ? 'Heroic' : 'heroic'
+
+  return join(root, appDirectory, cwd)
+}
+
 export const storeNew = function (storeName: string, options: Store.Options<Record<string, unknown>>) {
-  stores[storeName] = new Store(options)
+  stores[storeName] = new Store({
+    ...options,
+    cwd: resolveStoreCwd(storeName, options.cwd)
+  })
 }
 
 export const storeSet = (storeName: string, key: string, value?: unknown) => stores[storeName].set(key, value)

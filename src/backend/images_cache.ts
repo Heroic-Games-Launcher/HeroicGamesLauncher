@@ -3,14 +3,14 @@ import { createHash } from 'crypto'
 import { join } from 'path'
 import axios from 'axios'
 import { protocol } from 'electron'
-import { appFolder } from './constants/paths'
+import { heroicCachePath } from './constants/paths'
 
-const imagesCachePath = join(appFolder, 'images-cache')
+const imagesCachePath = join(heroicCachePath, 'images-cache')
 
 export const initImagesCache = () => {
   // make sure we have a folder to store the cache
   if (!existsSync(imagesCachePath)) {
-    mkdirSync(imagesCachePath)
+    mkdirSync(imagesCachePath, { recursive: true })
   }
 
   // use a fake protocol for images we want to cache

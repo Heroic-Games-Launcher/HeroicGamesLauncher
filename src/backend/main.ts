@@ -142,6 +142,9 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { configureElectronXdgPaths, electronCodeCachePath } from './xdg_paths'
+
+configureElectronXdgPaths()
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -321,6 +324,10 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     initLogger()
+
+    if (isLinux && process.env.CI !== 'e2e') {
+      session.defaultSession.setCodeCachePath(electronCodeCachePath)
+    }
 
     await MigrationSystem.get().applyMigrations()
 
