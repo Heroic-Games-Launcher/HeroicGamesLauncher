@@ -1,10 +1,20 @@
 import { app } from 'electron'
-import { existsSync, lstatSync, symlinkSync } from 'graceful-fs'
+import { copy, remove } from 'fs-extra'
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  symlinkSync,
+  unlinkSync,
+  writeFileSync
+} from 'graceful-fs'
 import { join } from 'path'
 
 import { isLinux } from 'backend/constants/environment'
 import {
   appFolder,
+  configPath,
   heroicCachePath,
   heroicDataPath,
   heroicIconFolder,
@@ -13,12 +23,15 @@ import {
   userHome
 } from 'backend/constants/paths'
 import { logInfo, logWarning } from 'backend/logger'
+import { moveIfDestinationMissing } from './xdg_helpers'
 import {
-  moveIfDestinationMissing,
-  rewriteHeroicDesktopShortcutIconPaths
-} from './xdg_helpers'
+  rewriteHeroicDesktopShortcutIconPaths,
+  rewriteSteamShortcutIconPaths
+} from './xdg_shortcuts'
 
 import type { Migration } from '..'
+
+const iconsMigrationMarker = '.heroic-xdg-icons-migration'
 
 export class XdgPathsMigration implements Migration {
   identifier = 'xdg-paths'
@@ -27,7 +40,7 @@ export class XdgPathsMigration implements Migration {
     if (!isLinux) return true
 
     await this.migrateTools()
-    await this.migrateIcons()
+    const iconsMigrated = await this.migrateIcons()
 
     await Promise.all([
       moveIfDestinationMissing(
@@ -68,36 +81,109 @@ export class XdgPathsMigration implements Migration {
       )
     ])
 
-    return true
+    return iconsMigrated
   }
 
-  private async migrateIcons() {
-    const legacyIconsPath = join(appFolder, 'icons')
-    if (legacyIconsPath === heroicIconFolder) return
+  private getSteamPaths(): string[] {
+    const paths = new Set([
+      join(userHome, '.steam', 'steam'),
+      join(userHome, '.local', 'share', 'Steam'),
+      join(
+        userHome,
+        '.var',
+        'app',
+        'com.valvesoftware.Steam',
+        '.steam',
+        'steam'
+      )
+    ])
 
-    if (existsSync(legacyIconsPath) && existsSync(heroicIconFolder)) {
+    if (existsSync(configPath)) {
+      try {
+        const config = JSON.parse(readFileSync(configPath, 'utf8')) as {
+          defaultSettings?: { defaultSteamPath?: unknown }
+        }
+        const configuredPath = config.defaultSettings?.defaultSteamPath
+        if (typeof configuredPath === 'string' && configuredPath) {
+          paths.add(
+            configuredPath
+              .replaceAll("'", '')
+              .replace(/^~(?=\/)/, userHome)
+          )
+        }
+      } catch {
+        // Config parsing errors are handled by GlobalConfig. Falling back to
+        // the standard Steam locations is sufficient for this migration.
+      }
+    }
+
+    return [...paths]
+  }
+
+  private async migrateIcons(): Promise<boolean> {
+    const legacyIconsPath = join(appFolder, 'icons')
+    if (legacyIconsPath === heroicIconFolder) return true
+
+    const markerPath = join(heroicIconFolder, iconsMigrationMarker)
+    const legacyExists = existsSync(legacyIconsPath)
+    const destinationExists = existsSync(heroicIconFolder)
+    const migrationInProgress = existsSync(markerPath)
+
+    if (legacyExists && destinationExists && !migrationInProgress) {
       logWarning([
         'Not migrating legacy icons directory because destination exists:',
         heroicIconFolder
       ])
-      return
+      return true
     }
 
-    await moveIfDestinationMissing(legacyIconsPath, heroicIconFolder)
+    if (!legacyExists && !destinationExists) return true
 
-    // Rewriting the generated shortcuts removes the need for a compatibility
-    // symlink in XDG_CONFIG_HOME. This also makes the migration resumable if a
-    // previous run moved the icons but exited before updating the shortcuts.
-    if (!existsSync(legacyIconsPath) && existsSync(heroicIconFolder)) {
-      rewriteHeroicDesktopShortcutIconPaths(
-        [
-          app.getPath('desktop'),
-          join(userHome, '.local', 'share', 'applications')
-        ],
-        legacyIconsPath,
-        heroicIconFolder
+    if (legacyExists) {
+      if (!destinationExists) {
+        mkdirSync(heroicIconFolder, { recursive: true })
+        writeFileSync(markerPath, '')
+      }
+
+      // Keep both paths valid while shortcut references are rewritten. The
+      // marker makes an interrupted copy safely resumable on the next start.
+      await copy(legacyIconsPath, heroicIconFolder, { overwrite: true })
+    }
+
+    rewriteHeroicDesktopShortcutIconPaths(
+      [
+        app.getPath('desktop'),
+        join(userHome, '.local', 'share', 'applications')
+      ],
+      legacyIconsPath,
+      heroicIconFolder
+    )
+
+    const steamMigration = rewriteSteamShortcutIconPaths(
+      this.getSteamPaths(),
+      legacyIconsPath,
+      heroicIconFolder
+    )
+    for (const error of steamMigration.errors) {
+      logWarning(error)
+    }
+    if (steamMigration.errors.length > 0) return false
+
+    if (steamMigration.deferred) {
+      logInfo(
+        'Deferring XDG icon cleanup until Steam is not running so its shortcuts can be updated safely.'
       )
+      return false
     }
+
+    if (existsSync(legacyIconsPath)) {
+      await remove(legacyIconsPath)
+    }
+    if (existsSync(markerPath)) {
+      unlinkSync(markerPath)
+    }
+
+    return true
   }
 
   private async migrateTools() {

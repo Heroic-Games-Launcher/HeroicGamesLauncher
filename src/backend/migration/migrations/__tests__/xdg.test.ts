@@ -43,6 +43,7 @@ describe('XdgPathsMigration', () => {
     jest.doMock('backend/constants/environment', () => ({ isLinux: true }))
     jest.doMock('backend/constants/paths', () => ({
       appFolder,
+      configPath: join(appFolder, 'config.json'),
       heroicCachePath: cachePath,
       heroicDataPath: dataPath,
       heroicIconFolder: iconsPath,
@@ -86,6 +87,9 @@ describe('XdgPathsMigration', () => {
 
     expect(existsSync(legacyIcons)).toBe(false)
     expect(readFileSync(join(iconsPath, 'foo.jpg'), 'utf8')).toBe('image')
+    expect(
+      existsSync(join(iconsPath, '.heroic-xdg-icons-migration'))
+    ).toBe(false)
     expect(readFileSync(join(desktopPath, 'Foo.desktop'), 'utf8')).toContain(
       `Icon=${iconsPath}/foo.jpg`
     )

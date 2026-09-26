@@ -66,8 +66,14 @@ export function configureElectronXdgPaths() {
   }
 
   moveSyncIfDestinationMissing(join(appFolder, 'Cache'), electronDiskCachePath)
-  moveSyncIfDestinationMissing(join(appFolder, 'Code Cache'), electronCodeCachePath)
-  moveSyncIfDestinationMissing(join(appFolder, 'Crashpad'), electronCrashDumpsPath)
+  moveSyncIfDestinationMissing(
+    join(appFolder, 'Code Cache'),
+    electronCodeCachePath
+  )
+  moveSyncIfDestinationMissing(
+    join(appFolder, 'Crashpad'),
+    electronCrashDumpsPath
+  )
   mkdirSync(electronCrashDumpsPath, { recursive: true })
 
   app.setPath('userData', electronUserDataPath)

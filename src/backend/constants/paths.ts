@@ -25,7 +25,10 @@ const xdgDataHome = resolveXdgHome(
   env.XDG_DATA_HOME,
   join(userHome, '.local', 'share')
 )
-const xdgCacheHome = resolveXdgHome(env.XDG_CACHE_HOME, join(userHome, '.cache'))
+const xdgCacheHome = resolveXdgHome(
+  env.XDG_CACHE_HOME,
+  join(userHome, '.cache')
+)
 const xdgStateHome = resolveXdgHome(
   env.XDG_STATE_HOME,
   join(userHome, '.local', 'state')
