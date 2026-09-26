@@ -4,6 +4,7 @@ import { homedir } from 'os'
 import { join, resolve } from 'path'
 import { env } from 'process'
 import { dirSync } from 'tmp'
+import { resolveXdgHome } from 'common/xdg_store'
 
 let configFolder = app.getPath('appData')
 // If we're running tests, we want a config folder independent of the normal
@@ -20,14 +21,40 @@ if (process.env.CI === 'e2e') {
 export const flatpakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 export const userHome = homedir()
 
+const xdgDataHome = resolveXdgHome(
+  env.XDG_DATA_HOME,
+  join(userHome, '.local', 'share')
+)
+const xdgCacheHome = resolveXdgHome(
+  env.XDG_CACHE_HOME,
+  join(userHome, '.cache')
+)
+const xdgStateHome = resolveXdgHome(
+  env.XDG_STATE_HOME,
+  join(userHome, '.local', 'state')
+)
+
 export const appFolder = join(configFolder, 'heroic')
-export const userDataPath = app.getPath('userData')
-export const toolsPath = join(appFolder, 'tools')
+const useXdgDirectories =
+  process.platform === 'linux' && process.env.CI !== 'e2e'
+export const heroicDataPath = useXdgDirectories
+  ? join(xdgDataHome, 'heroic')
+  : appFolder
+export const heroicCachePath = useXdgDirectories
+  ? join(xdgCacheHome, 'heroic')
+  : appFolder
+export const heroicStatePath = useXdgDirectories
+  ? join(xdgStateHome, 'Heroic')
+  : appFolder
+
+export const legacyUserDataPath = app.getPath('userData')
+export const legacyToolsPath = join(appFolder, 'tools')
+export const toolsPath = join(heroicDataPath, 'tools')
 export const runtimePath = join(toolsPath, 'runtimes')
 export const defaultUmuPath = join(runtimePath, 'umu', 'umu_run.py')
 export const configPath = join(appFolder, 'config.json')
 export const gamesConfigPath = join(appFolder, 'GamesConfig')
-export const heroicIconFolder = join(appFolder, 'icons')
+export const heroicIconFolder = join(heroicDataPath, 'icons')
 export const heroicInstallPath = join(userHome, 'Games', 'Heroic')
 export const defaultWinePrefixDir = join(
   userHome,

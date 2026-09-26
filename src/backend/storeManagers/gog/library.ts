@@ -54,8 +54,7 @@ import { unzipSync } from 'node:zlib'
 import { readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { checkForRedistUpdates } from './redist'
 import { runGogdlCommandStub } from './e2eMock'
-import { gogdlConfigPath } from './constants'
-import { userDataPath } from 'backend/constants/paths'
+import { gogdlAuthConfig, gogdlConfigPath } from './constants'
 import GOGGame from './games'
 import { productToGameInfo } from './unified_info'
 import type { LibraryManager } from 'common/types/game_manager'
@@ -1477,7 +1476,7 @@ export default class GOGLibraryManager implements LibraryManager {
     }
 
     const { dir, bin } = getGOGdlBin()
-    const authConfig = join(userDataPath, 'gog_store', 'auth.json')
+    const authConfig = gogdlAuthConfig
 
     if (!options) {
       options = {}

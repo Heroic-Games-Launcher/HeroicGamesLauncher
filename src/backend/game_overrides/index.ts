@@ -1,13 +1,13 @@
 import { GameInfo } from 'common/types'
 import { gameOverridesStore, GameMetadataOverride } from './electronStores'
 import { logInfo, logError, LogPrefix } from 'backend/logger'
-import { userDataPath } from 'backend/constants/paths'
+import { heroicDataPath } from 'backend/constants/paths'
 import { existsSync, readdirSync, unlinkSync } from 'graceful-fs'
 import { join } from 'node:path'
 
 const logPrefix: LogPrefix = 'GameOverrides'
 
-const overridesImagesDir = join(userDataPath, 'game_overrides_images')
+const overridesImagesDir = join(heroicDataPath, 'game_overrides_images')
 
 const removeImagesMatching = (predicate: (file: string) => boolean) => {
   if (!existsSync(overridesImagesDir)) return
