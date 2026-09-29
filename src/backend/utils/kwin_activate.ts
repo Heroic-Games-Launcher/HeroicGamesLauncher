@@ -27,6 +27,7 @@ async function qdbus(args: string[]): Promise<string> {
 export async function kwinActivateWindow(caption: string): Promise<void> {
   if (process.platform !== 'linux') return
   // Sandbox lacks qdbus and KWin access
+  // TODO: Support Flatpak
   if (isFlatpak) {
     logInfo(
       'Skipping KWin window activation: not supported in Flatpak',
