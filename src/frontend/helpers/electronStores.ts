@@ -10,7 +10,7 @@ import {
 import { GameInfo } from 'common/types'
 
 const profilePrefix =
-  window.heroicProfile === 'default' ? '' : `${window.heroicProfile}/`
+  window.heroicProfile === 'default' ? '' : `profiles/${window.heroicProfile}/`
 
 const storesPath = window.heroicProfile ? `${profilePrefix}stores` : 'stores'
 

@@ -25,12 +25,12 @@ export const appFolder = join(configFolder, 'heroic')
 
 // profile-specific subfolder for isolated data like configurations, installed games, etc
 export const profileFolder = env.HEROIC_PROFILE
-  ? join(configFolder, 'heroic', env.HEROIC_PROFILE)
+  ? join(configFolder, 'heroic', 'profiles', env.HEROIC_PROFILE)
   : appFolder
 
 // this is used by gog to store it's user_auth.json file
 export const userDataPath = env.HEROIC_PROFILE
-  ? join(app.getPath('userData'), env.HEROIC_PROFILE)
+  ? join(app.getPath('userData'), 'profiles', env.HEROIC_PROFILE)
   : app.getPath('userData')
 
 export const toolsPath = join(appFolder, 'tools')
