@@ -9,8 +9,7 @@ const ClearCache = () => {
   const { t } = useTranslation()
 
   async function clearHeroicCache() {
-    const storage: Storage = window.localStorage
-    storage.removeItem('updates')
+    window.storage.removeItem('updates')
     window.api.clearCache(true)
     return refreshLibrary({ runInBackground: true })
   }

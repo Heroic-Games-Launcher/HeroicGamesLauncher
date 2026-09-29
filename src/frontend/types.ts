@@ -17,6 +17,7 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
+import { ProfileLocalStorage } from './helpers/profile_local_storage'
 
 export type Category =
   | 'all'
@@ -180,6 +181,8 @@ declare global {
     platform: NodeJS.Platform
     setCustomCSS: (cssString: string) => void
     isE2ETesting: boolean
+    heroicProfile: string
+    storage: ProfileLocalStorage
   }
 
   interface WindowEventMap {
