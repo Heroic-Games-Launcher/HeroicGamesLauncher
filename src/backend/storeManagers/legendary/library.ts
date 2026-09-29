@@ -128,7 +128,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
   /**
    * Refresh `installedGames` from file.
    */
-  refreshInstalled() {
+  public refreshInstalled() {
     const installedJSON = join(legendaryConfigPath, 'installed.json')
 
     let installedCache: [string, InstalledJsonMetadata][] = []
@@ -693,12 +693,9 @@ export default class LegendaryLibraryManager implements LibraryManager {
 
     // Set LEGENDARY_CONFIG_PATH to a custom, Heroic-specific location so user-made
     // changes to Legendary's main config file don't affect us
-    if (!options) {
-      options = {}
-    }
-    if (!options.env) {
-      options.env = {}
-    }
+    options ??= {}
+    options.env ??= {}
+    options.env['LEGENDARY_CONFIG_PATH'] = legendaryConfigPath
 
     const commandParts = this.commandToArgsArray(command)
 

@@ -19,8 +19,8 @@
         "anticheats": "Anticheat",
         "may_not_work": "Potrebbe non funzionare a causa del supporto anti-cheat negato o non funzionante.",
         "reference": "Riferimento",
-        "source": "Source",
-        "status": "Status",
+        "source": "Fonte",
+        "status": "Stato",
         "title": "Questo gioco include software anticheat",
         "multiplayer_may_not_work": "Le funzionalità multiplayer potrebbero non funzionare poiché il supporto anticheat potrebbe essere bloccato o non funzionare."
     },
@@ -170,7 +170,7 @@
             },
             "title": "Attenzione",
             "wine-change": {
-                "message": "Non siamo riusciti a trovare la versione Wine selezionata per lanciare questo titolo ({{selectedWine}}). {{newline}} Ne abbiamo trovato un altro, vuoi continuare l'avvio utilizzando {{foundWine}} ?",
+                "message": "Non siamo riusciti a trovare la versione Wine selezionata per avviare questo titolo ({{selectedWine}}). {{newline}} Ne abbiamo trovato un altro, vuoi continuare l'avvio utilizzando {{foundWine}} ?",
                 "title": "Wine non trovato!"
             },
             "sideload": {
@@ -184,7 +184,7 @@
                 "title": "Rosetta non trovato"
             }
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Seleziona la cartella WinePrefix",
         "yes": "SI",
         "dontShowAgain": "Non mostrare più",
         "choose-nile-binary": "Seleziona binario di Nile",
@@ -312,7 +312,7 @@
         "other": {
             "part4": "Usa le ",
             "part5": "Opzioni di gioco",
-            "part6": " in modo da essere chiamati subito dopo il comando di lancio, per esempio: ",
+            "part6": " in modo da essere chiamati subito dopo il comando di avvio, per esempio: ",
             "part7": " per saltare il launcher in qualche gioco, etc."
         },
         "preferSystemLibs": "Le versioni personalizzate di Wine (Wine-GE, Wine-Lutris) vengono fornite con le loro dipendenze. Abilitando questa opzione, queste librerie saranno ignorate e Wine caricherà invece le librerie di sistema. Attenzione! Potrebbero verificarsi problemi se le dipendenze non sono soddisfatte.",
@@ -524,7 +524,7 @@
         },
         "gameargs": {
             "placeholder": "Inserisci qui le opzioni del Launcher",
-            "title": "Opzioni di gioco (da eseguire dopo il comando):",
+            "title": "Opzioni di gioco (aggiunte dopo il comando di avvio)",
             "error": {
                 "command": "La sintassi %command% di Steam non è valida come argomento per il gioco.",
                 "env": "Le variabili d'ambiente devono essere configurate nella tabella di seguito."
@@ -805,7 +805,7 @@
                 "message": "Si consiglia di utilizzare fork personalizzati di Proton (GE-Proton, Proton-CachyOS, ecc.) con Heroic, poiché le versioni di Proton di Valve non includono winetricks e protofix. Puoi comunque usarle se lo desideri."
             },
             "wine_selector_warning": "Le versioni di Proton di Valve sono ignorate di default, abilitale nelle impostazioni globali avanzate",
-            "info_label": "Versioni Non-GE Proton ignorate",
+            "info_label": "Versioni Proton di Valve ignorate",
             "label": "Consenti l’uso delle versioni di Proton di Valve per eseguire i giochi"
         },
         "WoW64": "Abilita WoW64 (sperimentale)",
@@ -816,6 +816,10 @@
         "hide-window-on-protocol-launch": "Nascondi la finestra di Heroic quando avvii i giochi dai link heroic://",
         "nvidiaprime": {
             "description": "Forza l'uso di NVIDIA Optimus o della GPU dedicata AMD Dynamic Switchable Graphics. Usa questa opzione SOLO per giochi OpenGL e Vulkan."
+        },
+        "steamRuntime": {
+            "label": "Usa Steam Runtime",
+            "noRuntimeOption": "None"
         }
     },
     "settings": {
@@ -1063,7 +1067,7 @@
         "no-categories": "Ancora nessuna categoria."
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi.",
+        "proton-ge": "Proton-GE è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato con umu launcher (predefinito di Heroic).",
         "gpt": "Game Porting Toolkit è sviluppato da Apple ed è consigliato per i Mac con processori Apple Silicon M1+, offrendo prestazioni ottimali con i giochi più recenti che utilizzano le DirectX 12.",
         "wine-crossover": "Wine-Crossover si basa sul progetto open source Crossover Wine ed è consigliato per Mac con processore Intel e per giochi con DirectX 11 o versioni precedenti.",
         "wine-staging-macos": "Wine-Staging-macOS si basa sul progetto Wine principale ed è consigliato per Mac con processore Intel e per giochi compatibili con DirectX 11 o versioni precedenti, soprattutto se utilizzato in combinazione con lo strumento DXMT.",
@@ -1120,7 +1124,7 @@
             "wine": "Gestisci o scarica nuove versioni di Wine/Proton/GPTK per eseguire i giochi di Windows su Linux e macOS.",
             "accounts": "Gestisci gli account dei negozi connessi (Epic, GOG, Amazon), effettua l'accesso o esci."
         },
-        "next": "Prossimo",
+        "next": "Avanti",
         "done": "Fatto",
         "startTour": "Inizia il tutorial",
         "skip": "Salta"
@@ -1181,7 +1185,8 @@
                 "PL": "Polonia",
                 "BR": "Brasile",
                 "CH": "Svizzera",
-                "TR": "Turchia"
+                "TR": "Turchia",
+                "ZA": "Sudafrica"
             },
             "auto": "Auto ({{code}})",
             "label": "Regione Negozio"
@@ -1207,18 +1212,18 @@
             "releaseYear": "Anno di rilascio",
             "hideOwned": "Nascondi posseduti",
             "wishlistOnly": "Solo lista dei desideri",
-            "platform": "Platform"
+            "platform": "Piattaforma"
         },
-        "sidebar": "Affari",
+        "sidebar": "Offerte",
         "sort": {
             "priceDesc": "Prezzo: Maggiore verso il minore",
             "trending": "Di tendenza",
             "priceAsc": "Prezzo: minore al maggiore",
             "releaseDesc": "Data d'uscita: recente a meno recente",
-            "ratingAsc": "Votazione: minore verso maggiore",
+            "ratingAsc": "Recensioni: da peggiore a migliore",
             "releaseAsc": "Data d'uscita: meno recente a recente",
-            "ratingDesc": "Votazione: maggiore verso minore",
-            "discount": "Grandi sconti"
+            "ratingDesc": "Recensioni: da migliore a peggiore",
+            "discount": "Sconto maggiore"
         },
         "noMatches": "Nessun gioco corrisponde ai filtri correnti.",
         "aria": {
@@ -1233,13 +1238,26 @@
             "prev": "Precedente"
         },
         "tabs": {
-            "label": "Store"
+            "label": "Store",
+            "all": "Tutti i negozi"
         },
-        "titleMulti": "Affari"
+        "titleMulti": "Offerte",
+        "currency": {
+            "label": "Valuta"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — chiave {{drm}}, riscattata fuori da Heroic",
+            "gmgHint": "Green Man Gaming — chiave per un negozio esterno, non installabile tramite Heroic",
+            "humbleHint": "Humble Bundle — chiave per un negozio esterno, non installabile tramite Heroic"
+        },
+        "view": {
+            "grid": "Griglia",
+            "list": "Lista"
+        }
     },
     "steamgriddb": {
         "error": {
-            "no-games": "Nessun gioco trovato",
+            "no-games": "Nessun gioco trovato.",
             "no-grids": "Nessuna copertina trovata per questo gioco.",
             "search": "Impossibile trovare i giochi. Verifica la tua chiave API di SteamGridDB e riprova",
             "grids": "Impossibile recuperare le griglie"
@@ -1283,15 +1301,15 @@
         "quitApp": "Chiudi applicazione",
         "loading": "Caricamento della tua libreria…",
         "cancelInstall": {
-            "title": "Annulla Installazione",
+            "title": "Annullare l'installazione?",
             "message": "Questo gioco è attualmente in fase di installazione. Annullare l'installazione?"
         },
         "cancelUpdate": {
-            "title": "Annulla l'aggiornamento",
+            "title": "Annullare l'aggiornamento?",
             "message": "Questo gioco è attualmente in fase di download. Annullare l'aggiornamento in corso?"
         },
         "install": {
-            "platform": "Platform",
+            "platform": "Piattaforma",
             "title": "Installa gioco",
             "wineLoading": "Caricamento…",
             "path": "Installa in",
@@ -1302,5 +1320,5 @@
             "message": "Questo gioco è in coda per il download. Rimuoverlo dalla coda?"
         }
     },
-    "next": "Prossimo"
+    "next": "Avanti"
 }

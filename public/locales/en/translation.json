@@ -93,6 +93,16 @@
                 "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
             },
             "moving": "Error Moving Game {{error}}",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Error Removing Game from Steam"
+                }
+            },
+            "steam": {
+                "running": "Steam is running. Close Steam and try again, or restart Steam once to let Heroic manage shortcuts while Steam is running.",
+                "running-gamemode": "A one-time Steam restart is required before Heroic can manage Steam shortcuts on this device. Restart Steam and try again."
+            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -213,6 +223,17 @@
         "delete-question": "Proceeding will permanently remove this category and unassign it from all games. Continue?",
         "new-category": "New Category",
         "remove-category": "Remove Category",
+        "warning": "Warning"
+    },
+    "common": {
+        "add": "Add",
+        "cancel": "Cancel",
+        "clear_all": "Clear All",
+        "confirm": "Confirm",
+        "duplicate": "Duplicate",
+        "edit": "Edit",
+        "remove": "Remove",
+        "save": "Save",
         "warning": "Warning"
     },
     "console": {
@@ -635,6 +656,7 @@
                 "steam": {
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "success-no-restart": "{{game}} was successfully added to Steam.",
                     "title": "Added to Steam"
                 }
             },
@@ -642,6 +664,7 @@
                 "steam": {
                     "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "success-no-restart": "{{game}} was successfully removed from Steam.",
                     "title": "Removed from Steam"
                 }
             },
@@ -685,12 +708,17 @@
         "advanced": {
             "key": "Variable Name",
             "placeHolderKey": "NAME",
-            "placeHolderValue": "E.g.: Path/To/ExtraFiles",
+            "placeHolderV": "VALUE",
             "title": "Environment Variables",
             "value": "Value"
         },
         "env_variables": {
+            "add_new": "Add New Variable",
+            "bulk_edit": "Bulk Edit",
+            "bulk_edit_error": "Some variables are incorrect. Please check that all lines follow the KEY=VALUE format.",
+            "clear_all_confirm": "Are you sure you want to clear all environment variables?",
             "error": {
+                "duplicate_key": "A variable with this name already exists",
                 "empty_key": "Variable names can't be empty",
                 "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
                 "space_in_key": "Variable names can't contain spaces"
@@ -884,6 +912,7 @@
                 "nile": "Amazon / Nile log",
                 "zoom": "Zoom log"
             },
+            "error": "Internal error reading log file",
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "join-heroic-discord": "Join our Discord",
@@ -966,7 +995,10 @@
         "showMetalOverlay": "Show Stats Overlay",
         "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
-        "steamruntime": "Use Steam Runtime",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        },
         "verboseLogs": {
             "description": "Enable verbose logs"
         },
@@ -1050,6 +1082,7 @@
             "warning": "This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work."
         },
         "open-config-file": "Open Config File",
+        "open-game-settings-file-hint": "Click to open game settings file",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "gog_linux_native_warning": "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead.",

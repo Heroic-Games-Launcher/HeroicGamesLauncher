@@ -221,7 +221,12 @@
             "select": "Auswählen",
             "space": "Leertaste",
             "update_game": "Spiel aktualisieren",
-            "exit": "Beenden"
+            "exit": "Beenden",
+            "move_focus": "Bewege Focus",
+            "next_page": "Nächste Seite",
+            "previous_page": "Vorherige Seite",
+            "search": "Suche",
+            "url_bar": "URL Zeile"
         }
     },
     "docs": "Dokumentation",
@@ -812,6 +817,12 @@
         "hide-window-on-protocol-launch": "Das Heroic-Fenster beim Starten von Spielen über „heroic://“-Links ausblenden",
         "nvidiaprime": {
             "description": "Erzwinge die Verwendung der NVIDIA Optimus- oder AMD Dynamic Switchable Graphics-dGPU. Verwende dies NUR für OpenGL- und Vulkan-Spiele."
+        },
+        "gamepad-initial-repeat-delay": "Gamepad Eingabe initiale Wiederholungsverzögerung",
+        "gamepad-repeat-frequency": "Gamepad Eingabe Wiederholungs-Frequenz",
+        "steamRuntime": {
+            "label": "Steam Runtime verwenden",
+            "noRuntimeOption": "Nichts"
         }
     },
     "settings": {
@@ -983,7 +994,8 @@
             "back": "Zurück",
             "forward": "Vorwärts",
             "openInBrowser": "Im Browser öffnen",
-            "reload": "Seite neu laden"
+            "reload": "Seite neu laden",
+            "home": "Gehe zum Anfang des Stores"
         }
     },
     "wine": {
@@ -1050,7 +1062,8 @@
         "proton-ge": "GE-Proton ist eine von Glorious Eggroll entwickelte Variante von Proton. Es ist für die Verwendung mit dem umu-Launcher vorgesehen (Standard in Heroic).",
         "gpt": "Das Game Porting Toolkit wird von Apple entwickelt und für Apple Silicon Macs mit den M1+ Chips empfohlen. Es funktioniert am besten für neuere Spiele, die DX12 verwenden.",
         "wine-crossover": "Wine-Crossover basiert auf dem Crossover OpenSource Wine Projekt und wird für Intel Macs und für DX11 und ältere Spiele empfohlen.",
-        "wine-staging-macos": "Wine-Staging-macOS basiert auf dem Mainline Wine-Projekt und wird für Intel Macs und für DX11 oder ältere Spiele empfohlen, besonders wenn gepaart mit dem DXMT-Tool."
+        "wine-staging-macos": "Wine-Staging-macOS basiert auf dem Mainline Wine-Projekt und wird für Intel Macs und für DX11 oder ältere Spiele empfohlen, besonders wenn gepaart mit dem DXMT-Tool.",
+        "proton-cachyos": "Proton-CachyOS ist eine Proton-Variante, die vom CachyOS-Team gepflegt wird. Sie enthält zusätzliche Tools wie DXVK-Sarek und D7VK."
     },
     "emptyLibrary": {
         "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht.",
@@ -1176,7 +1189,8 @@
                 "PL": "Polen",
                 "BR": "Brasilien",
                 "CH": "Schweiz",
-                "TR": "Türkei"
+                "TR": "Türkei",
+                "ZA": "Südafrika"
             },
             "auto": "Auto ({{code}})",
             "label": "Store Region"
@@ -1228,9 +1242,23 @@
             "prev": "Vorherige"
         },
         "tabs": {
-            "label": "Store"
+            "label": "Store",
+            "all": "Alle Stores"
         },
-        "titleMulti": "Angebote"
+        "titleMulti": "Angebote",
+        "currency": {
+            "label": "Währung"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} Schlüssel, außerhalb Heroic eingelöst",
+            "gmgHint": "Green Man Gaming — Schlüssel für einen externen Store, nicht installierbar durch Heroic",
+            "humbleHint": "Humble Bundle — Schlüssel für einen externen Store, nicht installierbar durch Heroic"
+        },
+        "view": {
+            "grid": "Gitter",
+            "label": "Ansichtsmodus",
+            "list": "Liste"
+        }
     },
     "steamgriddb": {
         "error": {

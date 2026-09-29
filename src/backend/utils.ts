@@ -3,7 +3,6 @@ import {
   Runner,
   WineInstallation,
   RpcClient,
-  SteamRuntime,
   Release,
   GameInfo,
   GameSettings,
@@ -551,55 +550,6 @@ export async function getSteamLibraries(): Promise<string[]> {
     LogPrefix.Backend
   )
   return libraries
-}
-
-async function getSteamRuntime(
-  requestedType: SteamRuntime['type']
-): Promise<SteamRuntime> {
-  const steamLibraries = await getSteamLibraries()
-  const runtimeTypes: SteamRuntime[] = [
-    {
-      path: 'steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point',
-      type: 'sniper',
-      args: ['--']
-    },
-    {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point',
-      type: 'soldier',
-      args: ['--']
-    },
-    {
-      path: 'ubuntu12_32/steam-runtime/run.sh',
-      type: 'scout',
-      args: []
-    }
-  ]
-  const allAvailableRuntimes: SteamRuntime[] = []
-  steamLibraries.forEach((library) => {
-    runtimeTypes.forEach(({ path, type, args }) => {
-      const fullPath = join(library, path)
-      if (existsSync(fullPath)) {
-        allAvailableRuntimes.push({ path: fullPath, type, args })
-      }
-    })
-  })
-  // Add dummy runtime at the end to not return `undefined`
-  allAvailableRuntimes.push({ path: '', type: 'scout', args: [] })
-  const requestedRuntime = allAvailableRuntimes.find(({ type }) => {
-    return type === requestedType
-  })
-  if (requestedRuntime) {
-    return requestedRuntime
-  }
-  logWarning(
-    [
-      'No runtimes of type',
-      requestedType,
-      'could be found, returning first available one'
-    ],
-    LogPrefix.Backend
-  )
-  return allAvailableRuntimes.pop()!
 }
 
 function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
@@ -1630,7 +1580,10 @@ const axiosClient = axios.create({
   httpsAgent: new https.Agent({ keepAlive: true })
 })
 
-export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
+export const writeConfig = async (
+  appName: string,
+  config: Partial<AppSettings>
+) => {
   logInfo(
     `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
     LogPrefix.Backend
@@ -1638,7 +1591,7 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
   const oldConfig =
     appName === 'default'
       ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
+      : await GameConfig.get(appName).getSettings()
 
   // log only the changed setting
   const sharedKeys = (
@@ -1687,7 +1640,6 @@ export {
   getCometBin,
   getNileBin,
   formatEpicStoreUrl,
-  getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,
   removeQuoteIfNecessary,

@@ -273,6 +273,9 @@
         "import-hint": {
             "title": "重要！你正添加一款来自 Epic/GOG/Amazon 的游戏吗？请点击此处！",
             "content": "不要用此功能来添加。<br />正确做法是， <3>登录</3> 商店账号，在你的库中寻找该游戏，打开安装对话框,，单击 &quot;导入游戏&quot; 按钮"
+        },
+        "images": {
+            "summary": "图片"
         }
     },
     "specs": {
@@ -370,6 +373,13 @@
         "placeholder": {
             "image": "在此粘贴映像 URL"
         },
-        "title": "编辑应用/游戏"
+        "title": "编辑应用/游戏",
+        "cover": "封面艺术",
+        "info": {
+            "cover": "封面图片",
+            "square": "方形图片"
+        },
+        "reset": "重设为默认",
+        "square": "方形艺术"
     }
 }

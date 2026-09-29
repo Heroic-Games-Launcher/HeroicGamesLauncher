@@ -496,6 +496,12 @@
         "hide-window-on-protocol-launch": "Folaigh fuinneog Heroic agus cluichí á seoladh ó naisc heroic://",
         "nvidiaprime": {
             "description": "Éirigh úsáid NVIDIA Optimus nó AMD Dynamic Switchable Graphics dGPU. Ná húsáid é seo ach amháin le haghaidh cluichí OpenGL agus Vulkan."
+        },
+        "gamepad-initial-repeat-delay": "Moill athrá tosaigh ionchuir Gamepad",
+        "gamepad-repeat-frequency": "Minicíocht athrá ionchuir Gamepad",
+        "steamRuntime": {
+            "label": "Úsáid Am Rith Steam",
+            "noRuntimeOption": "Dada"
         }
     },
     "button": {
@@ -781,7 +787,7 @@
                 "env": "Ní mór athróga comhshaoil a chumrú sa tábla thíos."
             },
             "placeholder": "Cuir na hargóintí tosaitheora anseo",
-            "title": "Argóintí Cluiche (Le rith i ndiaidh an ordaithe):"
+            "title": "Argóintí Cluiche (curtha leis an ordú lainseála cluiche)"
         },
         "gamescope": {
             "additionalOptions": "Roghanna Breise",

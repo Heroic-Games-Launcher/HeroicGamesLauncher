@@ -222,7 +222,12 @@
             "select": "Tria",
             "space": "Espai",
             "update_game": "Actualitza el joc",
-            "exit": "Surt"
+            "exit": "Surt",
+            "move_focus": "Mou el focus",
+            "next_page": "Pàgina següent",
+            "previous_page": "Pàgina anterior",
+            "search": "Cerca",
+            "url_bar": "Barra d'URL"
         }
     },
     "docs": "Documentació",
@@ -525,7 +530,7 @@
         },
         "gameargs": {
             "placeholder": "Introdueix aquí els arguments del llançador",
-            "title": "Arguments del joc (s'executaran després de l'ordre):",
+            "title": "Arguments del joc (afegits a l'ordre d'execució del joc)",
             "error": {
                 "command": "La sintaxi %command% del Steam no és vàlida com a argument del joc.",
                 "env": "Les variables d'entorn s’han de configurar a la taula de sota."
@@ -813,7 +818,13 @@
         "nvidiaprime": {
             "description": "Força l'ús de les GPU NVIDIA Optimus o AMD Dynamic Switchable Graphics. Usa-ho NOMÉS per a jocs OpenGL i Vulkan."
         },
-        "hide-window-on-protocol-launch": "Amaga la finestra de l'Heroic en iniciar jocs des d'enllaços heroic://"
+        "hide-window-on-protocol-launch": "Amaga la finestra de l'Heroic en iniciar jocs des d'enllaços heroic://",
+        "gamepad-initial-repeat-delay": "Retard en la repetició de l'entrada inicial del comandament",
+        "gamepad-repeat-frequency": "Freqüència de repetició de l'entrada del comandament",
+        "steamRuntime": {
+            "label": "Utilitza el Runtime del Steam",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -984,7 +995,8 @@
             "back": "Enrere",
             "forward": "Endavant",
             "openInBrowser": "Obre al gestor de fitxers",
-            "reload": "Torna a carregar la pàgina"
+            "reload": "Torna a carregar la pàgina",
+            "home": "Ves a la pàgina d'inici de la botiga"
         }
     },
     "wine": {
@@ -1051,7 +1063,8 @@
         "proton-ge": "GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb el llançador umu (predefinit a l'Heroic).",
         "gpt": "El Game Porting Toolkit el desenvolupa Apple i es recomana per a equips Mac Apple Silicon amb els xips M1+, i funciona millor per a jocs més nous que fan servir DX12.",
         "wine-crossover": "El Winde-Crossover es basa en el projecte Crossover OpenSource Wine i es recomana per a equips Mac Intel i per a jocs que fan servir DX11 o més antics.",
-        "wine-staging-macos": "El Wine-Staging-macOS es basa en el projecte Wine principal i es recomana per a equips Mac Intel i per a jocs que fan serivr DX11 o més antics, especialment quan es combina amb l'eina DXMT."
+        "wine-staging-macos": "El Wine-Staging-macOS es basa en el projecte Wine principal i es recomana per a equips Mac Intel i per a jocs que fan serivr DX11 o més antics, especialment quan es combina amb l'eina DXMT.",
+        "proton-cachyos": "Proton-CachyOS és una variant del Proton gestionada per l'equip del CachyOS. Inclou eines extra, com ara DXVK-Sarek i D7VK."
     },
     "emptyLibrary": {
         "noResults": "Els filtres actuals no han produït cap resultat.",
@@ -1132,7 +1145,7 @@
         "enable": "Activa",
         "info": {
             "pt1": "Per tal de millorar l'aplicació, l'Heroic recopila dades anonimitzades al 100 %.",
-            "pt2": "L'Heroic fa servir la plataforma de codi lliure Plausible Analytics per a obtenir informació bàsica: versió de l'aplicació, sistema operatiu, botigues connectades, i país.",
+            "pt2": "L'Heroic fa servir la plataforma de codi lliure Plausible Analytics, autohostatjada per l'equip de l'Heroic, per a obtenir informació bàsica: versió de l'aplicació, sistema operatiu, arquitectura del sistema, distribució Linux, botigues connectades i país.",
             "pt3": "No recollirà mai cap informació personal, incloent-hi el nom d'usuari, adreça IP ni adreça electrònica.",
             "pt4": "Aquestes dades s'utilitzen per a donar-nos informació sobre en què centrar-nos a continuació, a causa dels nostres limitats recursos i comentaris d'usuaris.",
             "pt5": "Plausible Analytics compleix totalment amb RGPD, CCPA i PECR.",
@@ -1177,7 +1190,8 @@
                 "PL": "Polònia",
                 "BR": "Brasil",
                 "CH": "Suïssa",
-                "TR": "Turquia"
+                "TR": "Turquia",
+                "ZA": "Sud-àfrica"
             },
             "auto": "Auto ({{code}})",
             "label": "Regió de la botiga"
@@ -1229,9 +1243,23 @@
             "prev": "Previs"
         },
         "tabs": {
-            "label": "Store"
+            "label": "Botiga",
+            "all": "Totes les botigues"
         },
-        "titleMulti": "Ofertes"
+        "titleMulti": "Ofertes",
+        "currency": {
+            "label": "Moneda"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — clau {{drm}}, bescanviada fora de l'Heroic",
+            "gmgHint": "Green Man Gaming — clau per a una botiga externa, no instal·lable mitjançant l'Heroic",
+            "humbleHint": "Humble Bundle — clau per a una botiga externa, no instal·lable mitjançant l'Heroic"
+        },
+        "view": {
+            "grid": "Graella",
+            "label": "Mode de visualització",
+            "list": "Llista"
+        }
     },
     "steamgriddb": {
         "error": {

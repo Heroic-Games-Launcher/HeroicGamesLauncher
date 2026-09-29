@@ -1,14 +1,15 @@
 import { backendEvents } from 'backend/backend_events'
-import { isWindows } from 'backend/constants/environment'
 import { LogPrefix, logWarning } from 'backend/logger'
 import { runOnceWhenOnline } from 'backend/online_monitor'
 import { axiosClient } from 'backend/utils'
 import { ReleasesInfo } from 'common/types'
+import { createHash } from 'node:crypto'
+import { createReadStream, existsSync } from 'graceful-fs'
+import { pipeline } from 'node:stream/promises'
 
 // fetch latest versions of wine/proton/gptk and anticheat data if needed
 export const fetchLastestReleases = () => {
   if (process.env.CI === 'e2e') return
-  if (isWindows) return
 
   runOnceWhenOnline(async () => {
     const url =
@@ -24,4 +25,13 @@ export const fetchLastestReleases = () => {
       )
     }
   })
+}
+
+export async function createMD5(filePath: string) {
+  if (!existsSync(filePath)) return ''
+
+  const hash = createHash('md5')
+  const rStream = createReadStream(filePath)
+  await pipeline(rStream, hash)
+  return hash.digest('hex')
 }

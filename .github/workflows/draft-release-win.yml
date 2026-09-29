@@ -1,0 +1,102 @@
+name: Draft Release Windows
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+env:
+  SIGNPATH_ORGANIZATION_ID: f7f99393-5adb-408c-8ca3-67e07cfe31e6
+  SIGNPATH_PROJECT_SLUG: HeroicGamesLauncher
+  SIGNPATH_POLICY_SLUG: 'release-signing'
+  SIGNPATH_ARTIFACT_CONFIGURATION_SLUG: zipped-pe-files
+  SIGNPATH_INSTALLER_CONFIGURATION_SLUG: zip-Installers
+
+jobs:
+  draft-release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/install-deps
+      - name: Build app
+        run: pnpm electron-vite build
+      - name: Package unpacked app
+        run: pnpm exec electron-builder --win --x64 --arm64 --dir
+      - name: Upload unsigned binaries
+        id: upload-unsigned-binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-binaries
+          path: |
+            dist/win-unpacked/Heroic.exe
+            dist/win-arm64-unpacked/Heroic.exe
+          retention-days: 1
+      - name: Sign binaries
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ env.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ env.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ env.SIGNPATH_POLICY_SLUG }}
+          artifact-configuration-slug: ${{ env.SIGNPATH_ARTIFACT_CONFIGURATION_SLUG }}
+          github-artifact-id: ${{ steps.upload-unsigned-binaries.outputs.artifact-id }}
+          wait-for-completion: true
+          wait-for-completion-timeout-in-seconds: 1800
+          output-artifact-directory: signed-binaries
+      - name: Restore signed binaries
+        run: |
+          robocopy signed-binaries dist /E /IS /IT
+          if ($LASTEXITCODE -ge 8) { exit 1 } else { exit 0 }
+      - name: Build x64 installers
+        run: pnpm exec electron-builder --win nsis portable --x64 --prepackaged dist/win-unpacked -p never
+      - name: Save x64 update info
+        run: Move-Item dist/latest.yml dist/latest-x64.yml
+      - name: Build arm64 installers
+        run: pnpm exec electron-builder --win nsis portable --arm64 --prepackaged dist/win-arm64-unpacked -p never
+      - name: Save arm64 update info
+        run: Move-Item dist/latest.yml dist/latest-arm64.yml
+      - name: Upload unsigned installers
+        id: upload-unsigned-installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-installers
+          path: dist/*.exe
+          retention-days: 1
+      - name: Sign installers
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ env.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ env.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ env.SIGNPATH_POLICY_SLUG }}
+          artifact-configuration-slug: ${{ env.SIGNPATH_INSTALLER_CONFIGURATION_SLUG }}
+          github-artifact-id: ${{ steps.upload-unsigned-installers.outputs.artifact-id }}
+          wait-for-completion: true
+          wait-for-completion-timeout-in-seconds: 1800
+          github-token: ${{ secrets.GH_TOKEN }}
+          output-artifact-directory: signed-installers
+      - name: Restore signed installers
+        run: |
+          robocopy signed-installers dist /IS /IT
+          if ($LASTEXITCODE -ge 8) { exit 1 } else { exit 0 }
+      - name: Update release metadata
+        run: node .github/scripts/fixWindowsUpdateInfo.js dist/latest-x64.yml dist/latest-arm64.yml dist
+      - name: Upload release files
+        uses: actions/upload-artifact@v4
+        with:
+          name: Heroic-Windows
+          path: |
+            dist/*.exe
+            dist/*.blockmap
+            dist/latest.yml
+      - name: Publish to draft release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          gh release view $env:GITHUB_REF_NAME
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $env:GITHUB_REF_NAME --draft --title $env:GITHUB_REF_NAME
+          }
+          gh release upload $env:GITHUB_REF_NAME @(Get-Item dist/*.exe) @(Get-Item dist/*.blockmap) dist/latest.yml --clobber

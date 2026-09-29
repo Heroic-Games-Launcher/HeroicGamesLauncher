@@ -11,6 +11,7 @@
     "playwright.config.ts",
     "electron.vite.config.ts",
     "meta/**/*.ts",
+    "meta/**/*.mts",
     "eslint.config.mjs"
   ],
   "exclude": []

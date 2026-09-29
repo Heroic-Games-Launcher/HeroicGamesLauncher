@@ -1,16 +1,16 @@
 {
     "box": {
         "change": {
-            "message": "Detta kommer ändra installationssökvägen, är du säker?",
-            "path": "Ange ny installationssökväg",
+            "message": "Detta ändrar spelets installationssökväg. Vill du fortsätta?",
+            "path": "Välj en ny installationssökväg",
             "title": "Ändra spelets installationssökväg"
         },
         "choose": "Välj",
         "importpath": "Ange spelmapp att importera",
         "move": {
-            "message": "Detta kan ta lång tid, är du säker?",
-            "path": "Ange var du vill flytta spelet",
-            "title": "Flytta spel"
+            "message": "Detta kan ta lång tid. Vill du fortsätta?",
+            "path": "Välj vart spelet ska flyttas",
+            "title": "Flytta spelinstallationen"
         },
         "no": "Nej",
         "repair": {
@@ -18,14 +18,14 @@
             "title": "Verifiera och reparera"
         },
         "runexe": {
-            "title": "Välj körbart program"
+            "title": "Välj EXE-fil att köra"
         },
         "select": {
-            "button": "Ange val",
+            "button": "Välj",
             "image": "Välj bild"
         },
         "sideload": {
-            "exe": "Ange spelets körbara fil"
+            "exe": "Välj spelets körbara fil"
         },
         "stopInstall": {
             "keepInstalling": "Fortsätt installationen",
@@ -33,25 +33,25 @@
             "title": "Avbryt installationen"
         },
         "uninstall": {
-            "checkbox": "Radera prefix: {{prefix}}{{newLine}}OBS: Detta kan inte ångras och kommer även att ta bort spar filer som inte säkerhetskopierats.",
+            "checkbox": "Ta bort prefix: {{prefix}}{{newLine}}OBS: Detta kan inte ångras och tar även bort sparfiler som inte har säkerhetskopierats.",
             "message": "Vill du avinstallera \"{{title}}\"?",
-            "settingcheckbox": "Radera inställningar och ta bort logg{{newLine}}OBS: Denna åtgärd kan ej ångras. Alla ändrade inställningar kommer att glömmas bort och loggen kommer att raderas.",
+            "settingcheckbox": "Ta bort inställningar och logg{{newLine}}OBS: Detta kan inte ångras. Alla ändrade inställningar glöms bort och loggen tas bort.",
             "title": "Avinstallera",
-            "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt.",
+            "prefix_warning": "Wine-prefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt.",
             "dlc": "Vill du avinstallera \"{{title}}\" (DLC)?",
-            "cannotUninstallEpic": "Epic spel kan inte avinstalleras samtidigt som ett annat Epic spel installeras.",
+            "cannotUninstallEpic": "Epic-spel kan inte avinstalleras medan ett annat Epic-spel installeras.",
             "gameIsRunning": "{{title}} körs. Stäng spelet för att avinstallera det."
         },
         "update": {
-            "message": "Det finns en speluppdatering, uppdatera nu?",
+            "message": "Det finns en uppdatering för spelet. Vill du uppdatera nu?",
             "title": "Spelet behöver uppdateras"
         },
-        "wineprefix": "Ange Wine-prefix mapp",
+        "wineprefix": "Välj mapp för Wine-prefix",
         "yes": "Ja",
         "close": "Stäng",
         "selectLaunchOption": {
-            "body": "Välj ett uppstartsalternativ för det här spelet (det kan ändras senare i spelinställningarna):",
-            "title": "Välj uppstartsalternativ {{seconds}})"
+            "body": "Välj ett startalternativ för det här spelet (det kan ändras senare i spelinställningarna):",
+            "title": "Välj startalternativ ({{seconds}} s)"
         },
         "warning": {
             "title": "Varning"
@@ -63,40 +63,40 @@
         "offline_warning": {
             "message": "Det här spelet kanske inte fungerar korrekt offline. Vill du spela ändå?",
             "playAnyway": "Spela ändå",
-            "title": "Offline varning"
+            "title": "Varning för offlineläge"
         },
         "ok": "OK"
     },
     "button": {
-        "add_to_favourites": "Lägg till i Favoriter",
+        "add_to_favourites": "Lägg till i favoriter",
         "cancel": "Paus/Avbryt",
         "continue": "Fortsätt nedladdningen",
-        "finish": "Klar",
-        "force_update": "Om tillgängligt, tvinga uppdatering",
+        "finish": "Slutför",
+        "force_update": "Tvinga fram uppdatering om tillgänglig",
         "force-innstall": "Tvinga installation",
         "hide_game": "Dölj spel",
         "import": "Importera spel",
         "install": "Installera",
-        "no-path-selected": "Ingen sökväg har angetts",
+        "no-path-selected": "Ingen sökväg har valts",
         "queue": {
             "remove": "Ta bort från kö"
         },
-        "remove_from_favourites": "Ta bort från Favoriter",
-        "remove_from_recent": "Ta bort från Senast spelat",
-        "run-exe-first": "Kör installation först",
-        "running-setup": "Setup körs",
+        "remove_from_favourites": "Ta bort från favoriter",
+        "remove_from_recent": "Ta bort från nyligen spelade",
+        "run-exe-first": "Kör installationsprogrammet först",
+        "running-setup": "Installationsprogrammet körs",
         "sideload": {
-            "edit": "Editera Applikation/Spel"
+            "edit": "Redigera program/spel"
         },
-        "unhide_game": "Visa dolt spel igen",
+        "unhide_game": "Visa spelet igen",
         "uninstall": "Avinstallera",
         "update": "Uppdatera",
         "details": "Detaljer",
         "changelog": "Visa ändringslogg",
         "browse_files": "Bläddra bland filer",
-        "browse_wine_prefix": "Bläddra i Wine Prefix",
+        "browse_wine_prefix": "Bläddra i Wine-prefix",
         "play": "SPELA",
-        "edit-game": "Editera Applikation/Spel"
+        "edit-game": "Redigera program/spel"
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
@@ -106,21 +106,21 @@
     "enabled": "Aktiverad",
     "game": {
         "downloadSize": "Nedladdningsstorlek",
-        "firstPlayed": "Först spelat",
-        "getting-download-size": "Beräknar storlek på nerladdning",
-        "getting-install-size": "Beräknar storlek på installation",
+        "firstPlayed": "Spelades första gången",
+        "getting-download-size": "Beräknar nedladdningsstorlek",
+        "getting-install-size": "Beräknar installationsstorlek",
         "installSize": "Installationsstorlek",
         "language": "Språk",
-        "lastPlayed": "Senast spelat",
-        "neverPlayed": "Aldrig",
+        "lastPlayed": "Senast spelad",
+        "neverPlayed": "Aldrig spelat",
         "platform": "Välj plattform för installation",
         "requirements": "Systemkrav",
         "totalPlayed": "Speltid",
         "dlcs": "DLC",
         "branch": {
-            "disabled": "Deaktiverad",
+            "disabled": "Inaktiverad",
             "password": "Ställ in lösenord för privat kanal",
-            "select": "Välj beta kanal",
+            "select": "Välj betakanal",
             "setPrivateBranchPassword": "Ställ in lösenord för privat kanal"
         },
         "builds": {
@@ -129,10 +129,10 @@
             "toggle": "Behåll spelet i en viss version"
         },
         "changelogFor": "Ändringslogg för {{gameTitle}}",
-        "modify": "Modifiera installation",
-        "extra_info": "Extra information",
+        "modify": "Ändra installation",
+        "extra_info": "Ytterligare information",
         "install_info": "Installationsinformation",
-        "achievements": "Achievements"
+        "achievements": "Prestationer"
     },
     "gamecard": {
         "moving": "Flyttar",
@@ -144,13 +144,13 @@
     },
     "hours": "Timmar",
     "how-long-to-beat": {
-        "completionist": "Hundraprocentaren",
-        "main-plus-extras": "Primär story + extra",
-        "main-story": "Primär story"
+        "completionist": "100 %",
+        "main-plus-extras": "Huvudberättelse + extrainnehåll",
+        "main-story": "Huvudberättelse"
     },
-    "howLongToBeat": "Tidsåtgång för att klara spelet",
+    "howLongToBeat": "Tid för att klara spelet",
     "info": {
-        "canRunOffline": "Kräver uppkoppling",
+        "canRunOffline": "Internetanslutning krävs",
         "installedPlatform": "Installerad plattform",
         "path": "Installationssökväg",
         "size": "Storlek",
@@ -158,17 +158,17 @@
         "version": "Version",
         "apple-gaming-wiki": "AppleGamingWiki-betyg",
         "clickToOpen": "Klicka för att öppna",
-        "game-scores": "Spelresultat",
-        "installedInfo": "Installerad information",
-        "protondb-compatibility-info": "Protonkompatibilitetsnivå",
-        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
-        "third-party-app": "Tredjeparts hanterare"
+        "game-scores": "Spelbetyg",
+        "installedInfo": "Information om installationen",
+        "protondb-compatibility-info": "Proton-kompatibilitetsnivå",
+        "steamdeck-compatibility-info": "Steam Deck-kompatibilitet",
+        "third-party-app": "Tredjepartshanterare"
     },
     "install": {
         "disk-space-left": "Utrymme tillgängligt",
         "not-enough-disk-space": "Otillräckligt diskutrymme",
         "path": "Ange installationssökväg",
-        "path-not-writtable": "Varning: sökvägen kan vara skrivskyddad.",
+        "path-not-writtable": "Varning: sökvägen kanske inte är skrivbar.",
         "space-after-install": "Efter installation",
         "wineprefix": "Wine-prefix",
         "wineversion": "Wine-version",
@@ -176,22 +176,22 @@
             "cancel": "Nej",
             "message": "Antifusk stödet är trasigt eller nekat. Spelet kommer inte att fungera. Vill du installera det ändå?",
             "install": "Ja (jag förstår att det inte kommer att fungera)",
-            "title": "Antifusk trasigt/nekat",
-            "install_anyway": "Ja (Jag förstår att flerspelarfunktioner inte kommer att fungera)",
+            "title": "Antifusk: trasigt/nekat",
+            "install_anyway": "Ja (jag förstår att flerspelarfunktionerna inte kommer att fungera)",
             "multiplayer_message": "Antifuskstödet är trasigt eller nekat. Spelet kan öppnas men flerspelarfunktionerna kommer inte att fungera. Vill du installera det ändå?",
-            "ok": "Ok",
-            "disabled_installation": "Det här spelet använder antifusk-programvara som inte är kompatibelt med ditt operativsystem, eller så har stödet inte aktiverats av spelutvecklarna. Det betyder att flerspelarfunktionerna inte kommer att fungera, och det finns inget du (eller Heroic-teamet) kan göra åt det.<br /><br />För att installera det här spelet och prova det ändå, gå till Inställningar, Avancerat och markera alternativet för att tillåta installation av spel med trasiga eller nekade antifusk-funktioner.<br /><br />Observera att det inte finns någon lösning för detta och du riskerar att bli avstängd i spelet."
+            "ok": "OK",
+            "disabled_installation": "Det här spelet använder antifuskprogramvara som inte är kompatibel med ditt operativsystem, eller så har spelutvecklarna inte aktiverat stödet. Det innebär att flerspelarfunktionerna inte kommer att fungera, och det finns inget du (eller Heroic-teamet) kan göra åt det.<br /><br />Om du ändå vill installera och prova spelet går du till Inställningar, Avancerat och markerar alternativet som tillåter installation av spel med trasigt eller nekat antifusk.<br /><br />Observera att det inte finns någon lösning på detta och att du riskerar att bli avstängd i spelet."
         },
-        "flatpak-path-not-writtable": "Fel: Sandlådeåtkomst har inte beviljats till den här sökvägen, dataförlust kommer att inträffa."
+        "flatpak-path-not-writtable": "Fel: Sandlådeåtkomst har inte beviljats för den här sökvägen, vilket kan leda till dataförlust."
     },
     "label": {
         "game": {
-            "third-party-game": "Tredjeparts-spel stöds ej",
-            "not-installable-game": "Spelet kan INTE installeras"
+            "third-party-game": "Tredjepartsspel stöds inte",
+            "not-installable-game": "Spelet kan inte installeras"
         },
         "playing": {
-            "start": "Starta spelet",
-            "stop": "Avsluta spel",
+            "start": "Spela nu",
+            "stop": "Stoppa spelet",
             "start_with_logs": "Spela nu (med loggar)"
         },
         "saves": {
@@ -199,9 +199,9 @@
         },
         "launching": "Startar",
         "ubisoft": "Installera Ubisoft Connect",
-        "winetricks": "Installerar Winetricks paket",
+        "winetricks": "Installerar Winetricks-paket",
         "prerequisites": "Installerar krav",
-        "redist": "Installerar Redistributables",
+        "redist": "Installerar redistribuerbara komponenter",
         "steam": {
             "installing": "Installing",
             "pleaseWait": "Var god dröj...",
@@ -215,22 +215,22 @@
         "default": "Standard"
     },
     "not_logged_in": {
-        "epic": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
-        "gog": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
+        "epic": "Du är inte inloggad med ett Epic-konto i Heroic. Använd inte butikssidan för att logga in; klicka på knappen nedan i stället:",
+        "gog": "Du är inte inloggad med ett GOG-konto i Heroic. Använd inte butikssidan för att logga in; klicka på knappen nedan i stället:",
         "login": "Logga in",
-        "title": "Du är ej inloggad!",
-        "amazon": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
-        "zoom": "Du är inte inloggad med ett Zoom-konto i Heroic. Använd inte butiksidan för att logga in, klicka istället på följande knapp:"
+        "title": "Du är inte inloggad!",
+        "amazon": "Du är inte inloggad med ett Amazon-konto i Heroic. Använd inte butikssidan för att logga in; klicka på knappen nedan i stället:",
+        "zoom": "Du är inte inloggad med ett Zoom-konto i Heroic. Använd inte butikssidan för att logga in; klicka på knappen nedan i stället:"
     },
-    "report_problem": "Rapportera problem med spelet",
+    "report_problem": "Rapportera problem med att köra spelet",
     "sdl": {
-        "title": "Ange komponenter att installera"
+        "title": "Välj komponenter att installera"
     },
     "setting": {
-        "winecrossoverbottle": "CrossOver prefix",
-        "show-wine-settings": "Visa Wine inställningar",
+        "winecrossoverbottle": "CrossOver-prefix",
+        "show-wine-settings": "Visa Wine-inställningar",
         "warn-use-shared-wine-config": "Använd bara det här alternativet om du vet vad du gör.<br/>Att dela samma prefix för flera spel kan skapa problem om deras beroenden är inkompatibla.",
-        "use-shared-wine-config": "Använd delat Wine prefix"
+        "use-shared-wine-config": "Använd delat Wine-prefix"
     },
     "sideload": {
         "field": {
@@ -239,65 +239,68 @@
         "info": {
             "exe": "Välj EXE-fil",
             "image": "Applikationens bild",
-            "title": "Spel/Applikation titel",
+            "title": "Spel-/programtitel",
             "broser": "Webbläsar-URL",
-            "useragent": "Anpassad User Agent",
-            "fullscreen": "Starta helskärm (F11 för att avsluta)"
+            "useragent": "Anpassad användaragent",
+            "fullscreen": "Starta i helskärm (F11 för att avsluta)"
         },
         "placeholder": {
             "image": "Klistra in en URL till en bild eller välj en från din dator",
-            "title": "Lägg till Spel/Applikation titel",
+            "title": "Ange en titel för spelet/programmet",
             "url": "Klistra in spelets URL här",
-            "useragent": "Skriv en anpassad user agent här som ska användas i den här webbläsarappen/spelet"
+            "useragent": "Skriv en anpassad användaragent som ska användas i den här webbläsarappen eller det här spelet"
         },
         "import-hint": {
             "title": "Viktigt! Vill du lägga till ett spel från Epic/GOG/Amazon? Klicka här!",
-            "content": "Använd INTE den här funktionen för detta.<br />Istället <3>loggar du in på</3> butiken, letar efter spelet i ditt bibliotek, öppnar installationsdialogrutan och klickar på &quot;Importera spel&quot; knappen"
+            "content": "Använd INTE den här funktionen för detta.<br />I stället <3>loggar du in på</3> butiken, letar upp spelet i biblioteket, öppnar installationsdialogrutan och klickar på knappen &quot;Importera spel&quot;"
+        },
+        "images": {
+            "summary": "Bilder"
         }
     },
     "specs": {
-        "minimum": "Minimum",
-        "recommended": "Rekommenderade"
+        "minimum": "Minimikrav",
+        "recommended": "Rekommenderat"
     },
     "status": {
         "clickToUpdate": "Klicka för att uppdatera",
-        "gameNotAvailable": "Spel ej tillgängligt",
+        "gameNotAvailable": "Spelet är inte tillgängligt",
         "hasUpdates": "Ny version tillgänglig!",
         "installed": "Installerad",
         "installing": "Installerar",
-        "moving": "Flyttar installationen, vänligen vänta",
-        "notinstalled": "Detta spelet är inte installerat",
+        "moving": "Flyttar installationen, vänta",
+        "notinstalled": "Spelet är inte installerat",
         "notSupported": "Stöds ej",
         "notSupportedGame": "Stöds ej",
         "processing": "Hanterar filer, vänligen vänta",
-        "queued": "Väntar i kö",
-        "reparing": "Reparerar spelet, vänligen vänta",
-        "this-game-uses-third-party": "Spelet använder tredjeparts-launcher och stöds ej i nuläget",
-        "totalDownloaded": "Totalt Nerladdat",
+        "queued": "I kö",
+        "reparing": "Reparerar spelet, vänta",
+        "this-game-uses-third-party": "Spelet använder ett tredjepartsstartprogram och stöds inte ännu",
+        "totalDownloaded": "Totalt nedladdat",
         "uninstalling": "Avinstallerar",
-        "updating": "Updaterar spelet",
+        "updating": "Uppdaterar spelet",
         "playing": "Spelar",
         "moving-files": "Flyttar fil '{{file}}': {{percent}}%",
         "syncingSaves": "Synkroniserar sparfiler",
         "launching": "Startar",
         "ubisoft": "Installerar Ubisoft",
-        "downloading": "Nerladdning",
-        "extracting": "Extrahera",
+        "downloading": "Laddar ned",
+        "extracting": "Packar upp",
         "gog-goodie": "Det här spelet verkar inte gå att installera. Kontrollera nedladdningsbart innehåll på https://gog.com/account",
-        "goodie": "Ej installationsbar",
+        "goodie": "Kan inte installeras",
         "prerequisites": "Installerar krav",
-        "winetricks": "Verkställer Winetricks fixar",
-        "redist": "Installerar Redistributables ({{redist}})",
+        "winetricks": "Tillämpar Winetricks-korrigeringar",
+        "redist": "Installerar redistribuerbara komponenter ({{redist}})",
         "importing": "Importerar"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
         "addToSteam": "Lägg till i Steam",
         "change": "Ändra installationssökväg",
-        "disableEosOverlay": "Deaktivera EOS Overlay",
+        "disableEosOverlay": "Inaktivera EOS Overlay",
         "enableEosOverlay": "Aktivera EOS Overlay",
         "move": "Flytta spelet",
-        "protondb": "Kontrollera kompatibilitet",
+        "protondb": "Kontrollera kompatibiliteten",
         "removeFromSteam": "Ta bort från Steam",
         "removeShortcut": "Ta bort genvägar",
         "settings": "Inställningar",
@@ -308,7 +311,7 @@
         "categories": "Kategorier"
     },
     "help": {
-        "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnlagring. Denna information tillhandahålls av spelutvecklarna. Vissa spel implementerar sitt eget molnsparsystem",
+        "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnet. Informationen tillhandahålls av spelutvecklarna. Vissa spel har ett eget system för molnsparning.",
         "content": {
             "gamePage": "Visa alla speldetaljer och åtgärder. Använd menyn med tre punkter för fler alternativ."
         },
@@ -318,7 +321,7 @@
     },
     "modifyInstall": {
         "redMod": {
-            "collapsible": "REDmod Integration",
+            "collapsible": "REDmod-integrering",
             "enable": "Aktivera moddar"
         },
         "dlcsCollapsible": "DLC",
@@ -326,9 +329,9 @@
         "nodlcs": "Ingen DLC tillgänglig"
     },
     "third-party-managed": {
-        "header": "Detta spel hanteras av ett tredjeparts program",
-        "notice1": "Detta spel hanteras av tredjeparts programmet: \"{{application_name}}\"",
-        "notice2": "Efter att ha klickat på Installera kommer Heroic att köra programmet för att slutföra installationsprocessen"
+        "header": "Det här spelet hanteras av ett tredjepartsprogram",
+        "notice1": "Det här spelet hanteras av tredjepartsprogrammet: \"{{application_name}}\"",
+        "notice2": "När du klickar på Installera kör Heroic programmet för att slutföra installationen"
     },
     "Open": "Öppna",
     "queue": {
@@ -339,13 +342,16 @@
             "pause": "Pausa nedladdning"
         }
     },
-    "wikiLink": "Viktig information om det här spelet, läs detta:<1>Öppna sida</1>",
-    "open-saves-folder": "Öppna mappen med sparningar",
+    "wikiLink": "Viktig information om det här spelet, läs detta: <1>Öppna sida</1>",
+    "open-saves-folder": "Öppna mappen med sparfiler",
     "edit-game": {
         "advanced": "Avancerat",
         "placeholder": {
             "image": "Klistra in bildens URL här"
         },
-        "title": "Editera Applikation/Spel"
+        "title": "Redigera program/spel",
+        "sgdb": {
+            "no-key-link": "Inställningar → Avancerat"
+        }
     }
 }

@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
 
-export function useAwaited<T>(getter: () => Promise<T>): T | null
-export function useAwaited<T>(getter: () => Promise<T>, defaultValue: T): T
-export function useAwaited<T>(
-  getter: () => Promise<T>,
-  defaultValue: T | null = null
+export function useAwaited<T, Args extends unknown[]>(
+  getter: (...args: Args) => Promise<T>,
+  ...args: Args
 ): T | null {
-  const [value, setValue] = useState<T | null>(defaultValue)
+  const [value, setValue] = useState<T | null>(null)
 
   useEffect(() => {
     // This is `setValue` as long as the component requesting the value is mounted
     let setValueIfMounted = setValue
-    getter().then(setValueIfMounted)
+    void getter(...args).then(setValueIfMounted)
     return () => {
       // TODO: Send signal to BE to abort the promise
       setValueIfMounted = () => {
@@ -19,7 +17,7 @@ export function useAwaited<T>(
         // requesting it no longer exists
       }
     }
-  }, [])
+  }, [getter, args])
 
   return value
 }

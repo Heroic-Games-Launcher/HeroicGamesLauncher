@@ -803,7 +803,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "استخدم بيئة تشغيل ستيم"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

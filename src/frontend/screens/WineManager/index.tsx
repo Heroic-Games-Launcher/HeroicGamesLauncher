@@ -186,13 +186,15 @@ export default function WineManager(): JSX.Element | null {
               icon={faSyncAlt}
             />
           </button>
-          <button
-            className="toolbarBtn"
-            title={t('wine.manager.settings', 'Settings')}
-            onClick={() => setShowSettingsModal(true)}
-          >
-            <FontAwesomeIcon icon={faCog} />
-          </button>
+          {isLinux && (
+            <button
+              className="toolbarBtn"
+              title={t('wine.manager.settings', 'Settings')}
+              onClick={() => setShowSettingsModal(true)}
+            >
+              <FontAwesomeIcon icon={faCog} />
+            </button>
+          )}
         </div>
       </div>
 

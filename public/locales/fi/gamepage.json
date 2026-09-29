@@ -239,7 +239,9 @@
             "title": "Pelin/sovelluksen otsikko",
             "broser": "Selaimen URL-osoite",
             "useragent": "Oma \"User Agent\"",
-            "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)"
+            "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)",
+            "cover-hint": "Kansi/Sankaritaide (napsauta kuvan päällä etsiäksesi SteamGridDB:stä)",
+            "image-hint": "Neliötaide (napsauta kuvaa etsiäksesi SteamGridDB:stä)"
         },
         "placeholder": {
             "image": "Liitä kuvan URL tähän, tai valitse kuva laitteeltasi",
@@ -250,6 +252,9 @@
         "import-hint": {
             "content": "Älä käytä tätä ominaisuutta siihen.<br/>Sen sijaan, <3>kirjaudu</3> kauppaan, etsi peli kirjastostasi, avaa asennusdialogi, ja klikkaa &quot;Tuo peli&quot; painiketta",
             "title": "Tärkeää! Oletko lisäämässä peliä Epic/GOG/Amazon palvelusta? Klikkaa tästä!"
+        },
+        "images": {
+            "summary": "Kuvat"
         }
     },
     "specs": {
@@ -342,6 +347,17 @@
         "placeholder": {
             "image": "Liitä kuvan URL tähän"
         },
-        "title": "Muokkaa sovellusta/peliä"
+        "title": "Muokkaa sovellusta/peliä",
+        "cover": "Kansitaide",
+        "info": {
+            "cover": "Kansikuva",
+            "square": "Neliökuva"
+        },
+        "reset": "Nollaa vakioihin",
+        "sgdb": {
+            "no-key-link": "Asetukset → Edistyneet",
+            "no-key-prefix": "Etsiäksesi SteamGridDB:stä kansitaidetta, lisää API-avain"
+        },
+        "square": "Neliömuotoinen taide"
     }
 }
