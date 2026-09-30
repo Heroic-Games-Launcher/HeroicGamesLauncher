@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1265,5 +1270,10 @@
             "wineMissing": "경로가 선택되지 않음"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "추가",
+        "cancel": "취소",
+        "warning": "경고"
+    }
 }
