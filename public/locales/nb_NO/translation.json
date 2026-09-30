@@ -1295,5 +1295,10 @@
             "message": "Dette spillet står i nedlastingskø. Vil du fjerne det fra køen?"
         }
     },
-    "next": "Neste"
+    "next": "Neste",
+    "common": {
+        "add": "Legg til",
+        "cancel": "Avbryt",
+        "warning": "Advarsel"
+    }
 }
