@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -112,7 +117,7 @@
             }
         },
         "no": "NIE",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -1265,5 +1270,10 @@
             "wineMissing": "Žiadna cesta nie je vybraná"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Pridať",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }
