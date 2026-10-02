@@ -17,7 +17,9 @@ export default function CategoryFilter() {
 
   const cycleCategory = (category: string) => {
     const currentState = currentCustomCategories[category]
-    const updated: Record<string, CategoryFilterState> = { ...currentCustomCategories }
+    const updated: Record<string, CategoryFilterState> = {
+      ...currentCustomCategories
+    }
 
     if (!currentState) {
       updated[category] = 'include'

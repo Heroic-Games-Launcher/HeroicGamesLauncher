@@ -448,7 +448,10 @@ export default React.memo(function Library(): JSX.Element {
     } else {
       library = library.filter((game) => !game.install.is_dlc)
 
-      if (currentCustomCategories && Object.keys(currentCustomCategories).length > 0) {
+      if (
+        currentCustomCategories &&
+        Object.keys(currentCustomCategories).length > 0
+      ) {
         const includes = Object.entries(currentCustomCategories)
           .filter(([, state]) => state === 'include')
           .map(([cat]) => cat)
@@ -464,7 +467,9 @@ export default React.memo(function Library(): JSX.Element {
               new Set(Object.values(customCategories.list).flat())
             )
             library.forEach((game) => {
-              if (!categorizedGames.includes(`${game.app_name}_${game.runner}`)) {
+              if (
+                !categorizedGames.includes(`${game.app_name}_${game.runner}`)
+              ) {
                 set.add(`${game.app_name}_${game.runner}`)
               }
             })
@@ -487,7 +492,8 @@ export default React.memo(function Library(): JSX.Element {
 
         library = library.filter((game) => {
           const gameId = `${game.app_name}_${game.runner}`
-          const matchesInclude = includes.length === 0 || includedGameIds.has(gameId)
+          const matchesInclude =
+            includes.length === 0 || includedGameIds.has(gameId)
           const isExcluded = excludes.length > 0 && excludedGameIds.has(gameId)
 
           return matchesInclude && !isExcluded

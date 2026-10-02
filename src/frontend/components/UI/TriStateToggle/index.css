@@ -44,8 +44,12 @@
 }
 
 /* Override parent hover color for UNSELECTED state */
-div.toggleWithOnly .toggleSwitchWrapper:not(.is-included):not(.is-excluded):hover span,
-.categoriesFilter .toggleSwitchWrapper:not(.is-included):not(.is-excluded):hover span,
+div.toggleWithOnly
+  .toggleSwitchWrapper:not(.is-included):not(.is-excluded):hover
+  span,
+.categoriesFilter
+  .toggleSwitchWrapper:not(.is-included):not(.is-excluded):hover
+  span,
 .toggleSwitchWrapper:not(.is-included):not(.is-excluded):hover span {
   color: var(--accent);
 }

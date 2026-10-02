@@ -124,13 +124,16 @@ const loadCurrentCategories = (): Record<string, 'include' | 'exclude'> => {
     if (!currentCategory) return {}
     return { [currentCategory]: 'include' }
   }
-  
+
   const parsed = JSON.parse(currentCategories)
   if (Array.isArray(parsed)) {
-    return parsed.reduce((acc, cat) => {
-      acc[cat] = 'include'
-      return acc
-    }, {} as Record<string, 'include' | 'exclude'>)
+    return parsed.reduce(
+      (acc, cat) => {
+        acc[cat] = 'include'
+        return acc
+      },
+      {} as Record<string, 'include' | 'exclude'>
+    )
   }
   return parsed
 }
