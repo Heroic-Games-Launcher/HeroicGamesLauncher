@@ -450,11 +450,11 @@ export default React.memo(function Library(): JSX.Element {
 
       if (currentCustomCategories && Object.keys(currentCustomCategories).length > 0) {
         const includes = Object.entries(currentCustomCategories)
-          .filter(([_, state]) => state === 'include')
+          .filter(([, state]) => state === 'include')
           .map(([cat]) => cat)
 
         const excludes = Object.entries(currentCustomCategories)
-          .filter(([_, state]) => state === 'exclude')
+          .filter(([, state]) => state === 'exclude')
           .map(([cat]) => cat)
 
         const getGamesInCategory = (category: string): Set<string> => {
