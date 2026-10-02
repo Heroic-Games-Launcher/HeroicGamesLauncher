@@ -1,14 +1,13 @@
 import classNames from 'classnames'
 import { useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { CategoryFilterState } from 'frontend/types'
 import './index.css'
-
-export type CategoryFilterState = 'include' | 'exclude' | undefined
 
 interface Props {
   htmlId: string
   handleChange: () => void
-  value: CategoryFilterState
+  value: CategoryFilterState | undefined
   title: string
   disabled?: boolean
   extraClass?: string
