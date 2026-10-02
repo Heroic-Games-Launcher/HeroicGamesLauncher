@@ -1,0 +1,113 @@
+/* Base Layout */
+.toggleSwitchWrapper {
+  display: grid;
+  grid-template-areas: 'check text';
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+  justify-items: flex-start;
+  text-align: start;
+  cursor: pointer;
+  white-space: pre-line;
+}
+
+.hiddenCheckbox {
+  display: none;
+}
+
+/* Base custom checkbox box */
+.toggleSwitchWrapper:before {
+  content: '';
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-inline-start: 13px;
+  margin-inline-end: 0.5rem;
+  width: 20px;
+  height: 20px;
+  transition: 350ms;
+  border: 3px solid var(--accent);
+  border-radius: var(--space-3xs);
+  grid-area: check;
+  color: var(--background);
+  font-size: var(--text-xl);
+  line-height: var(--space-lg-fixed);
+  font-weight: var(--extrabold);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Base Text Style */
+.toggleSwitchWrapper span {
+  align-self: center;
+  justify-self: flex-start;
+  transition: 350ms;
+  color: var(--text-default);
+}
+
+/* Override parent hover color for UNSELECTED state */
+div.toggleWithOnly .toggleSwitchWrapper:not(.is-included):not(.is-excluded):hover span,
+.categoriesFilter .toggleSwitchWrapper:not(.is-included):not(.is-excluded):hover span,
+.toggleSwitchWrapper:not(.is-included):not(.is-excluded):hover span {
+  color: var(--accent);
+}
+
+/* Checked / Included State (Checkmark) */
+.toggleSwitchWrapper.is-included:before {
+  content: '\2713';
+  background: var(--accent);
+}
+
+div.toggleWithOnly .toggleSwitchWrapper.is-included span,
+.toggleSwitchWrapper.is-included span {
+  font-weight: var(--bold);
+  color: var(--accent);
+}
+
+div.toggleWithOnly .toggleSwitchWrapper.is-included:hover span,
+.toggleSwitchWrapper.is-included:hover span {
+  color: var(--accent);
+}
+
+/* Excluded State (X Mark) */
+.toggleSwitchWrapper.is-excluded:before {
+  content: '\2715';
+  background: var(--accent-danger, #e74c3c);
+  border-color: var(--accent-danger, #e74c3c);
+}
+
+div.toggleWithOnly .toggleSwitchWrapper.is-excluded span,
+.toggleSwitchWrapper.is-excluded span {
+  font-weight: var(--bold);
+  color: var(--accent-danger, #e74c3c);
+}
+
+div.toggleWithOnly .toggleSwitchWrapper.is-excluded:hover span,
+.toggleSwitchWrapper.is-excluded:hover span {
+  color: var(--accent-danger, #e74c3c);
+}
+
+/* Disabled state */
+.hiddenCheckbox[disabled] + .toggleSwitchWrapper {
+  color: var(--icon-disabled);
+  cursor: not-allowed;
+}
+
+.hiddenCheckbox[disabled] + .toggleSwitchWrapper:before {
+  border-color: var(--icon-disabled);
+}
+
+/* Fade in/out animation */
+.toggleSwitchWrapper.fading {
+  animation: fading infinite 1.5s;
+}
+
+@keyframes fading {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}

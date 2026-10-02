@@ -26,6 +26,8 @@ export type Category =
   | 'nile'
   | 'zoom'
 
+export type CategoryFilterState = 'include' | 'exclude'
+
 export interface ContextType {
   error: boolean
   gameUpdates: string[]
@@ -62,8 +64,10 @@ export interface ContextType {
     removeCategory: (category: string) => void
     renameCategory: (oldName: string, newName: string) => void
   }
-  currentCustomCategories: string[]
-  setCurrentCustomCategories: (newCustomCategories: string[]) => void
+  currentCustomCategories: Record<string, CategoryFilterState>
+  setCurrentCustomCategories: (
+    newCustomCategories: Record<string, CategoryFilterState>
+  ) => void
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number
