@@ -448,39 +448,56 @@ export default React.memo(function Library(): JSX.Element {
     } else {
       library = library.filter((game) => !game.install.is_dlc)
 
-      if (currentCustomCategories && currentCustomCategories.length > 0) {
-        const gamesInSelectedCategories = new Set<string>()
+      if (
+        currentCustomCategories &&
+        Object.keys(currentCustomCategories).length > 0
+      ) {
+        const includes = Object.entries(currentCustomCategories)
+          .filter(([, state]) => state === 'include')
+          .map(([cat]) => cat)
 
-        // loop through selected categories and add all games in all those categories
-        currentCustomCategories.forEach((category) => {
+        const excludes = Object.entries(currentCustomCategories)
+          .filter(([, state]) => state === 'exclude')
+          .map(([cat]) => cat)
+
+        const getGamesInCategory = (category: string): Set<string> => {
+          const set = new Set<string>()
           if (category === 'preset_uncategorized') {
-            // in the case of the special "uncategorized" category, we read all
-            // the categorized games and add the others to the list to show
             const categorizedGames = Array.from(
               new Set(Object.values(customCategories.list).flat())
             )
-
             library.forEach((game) => {
               if (
                 !categorizedGames.includes(`${game.app_name}_${game.runner}`)
               ) {
-                gamesInSelectedCategories.add(`${game.app_name}_${game.runner}`)
+                set.add(`${game.app_name}_${game.runner}`)
               }
             })
           } else {
-            const gamesInCustomCategory = customCategories.list[category]
-
-            if (gamesInCustomCategory) {
-              gamesInCustomCategory.forEach((game) => {
-                gamesInSelectedCategories.add(game)
-              })
-            }
+            const gamesInCat = customCategories.list[category] || []
+            gamesInCat.forEach((g) => set.add(g))
           }
+          return set
+        }
+
+        const includedGameIds = new Set<string>()
+        includes.forEach((cat) => {
+          getGamesInCategory(cat).forEach((id) => includedGameIds.add(id))
         })
 
-        library = library.filter((game) =>
-          gamesInSelectedCategories.has(`${game.app_name}_${game.runner}`)
-        )
+        const excludedGameIds = new Set<string>()
+        excludes.forEach((cat) => {
+          getGamesInCategory(cat).forEach((id) => excludedGameIds.add(id))
+        })
+
+        library = library.filter((game) => {
+          const gameId = `${game.app_name}_${game.runner}`
+          const matchesInclude =
+            includes.length === 0 || includedGameIds.has(gameId)
+          const isExcluded = excludes.length > 0 && excludedGameIds.has(gameId)
+
+          return matchesInclude && !isExcluded
+        })
       }
 
       if (showSupportOfflineOnly) {

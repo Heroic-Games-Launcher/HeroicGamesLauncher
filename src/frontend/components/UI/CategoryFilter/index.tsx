@@ -1,9 +1,10 @@
 import { useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
-import ToggleSwitch from '../ToggleSwitch'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import { CategoryFilterState } from 'frontend/types'
 import Dropdown from '../Dropdown'
+import TriStateToggle from '../TriStateToggle'
 
 export default function CategoryFilter() {
   const {
@@ -14,25 +15,29 @@ export default function CategoryFilter() {
   const { setShowCategories } = useContext(LibraryContext)
   const { t } = useTranslation()
 
-  const toggleCategory = (category: string) => {
-    if (currentCustomCategories.includes(category)) {
-      const newCategories = currentCustomCategories.filter(
-        (cat) => cat !== category
-      )
-      setCurrentCustomCategories(newCategories)
-    } else {
-      setCurrentCustomCategories([...currentCustomCategories, category])
+  const cycleCategory = (category: string) => {
+    const currentState = currentCustomCategories[category]
+    const updated: Record<string, CategoryFilterState> = {
+      ...currentCustomCategories
     }
+
+    if (!currentState) {
+      updated[category] = 'include'
+    } else if (currentState === 'include') {
+      updated[category] = 'exclude'
+    } else {
+      delete updated[category]
+    }
+
+    setCurrentCustomCategories(updated)
   }
 
   const setCategoryOnly = (category: string) => {
-    setCurrentCustomCategories([category])
+    setCurrentCustomCategories({ [category]: 'include' })
   }
 
-  const selectAll = () => {
-    setCurrentCustomCategories(
-      ['preset_uncategorized'].concat(customCategories.listCategories())
-    )
+  const resetAll = () => {
+    setCurrentCustomCategories({})
   }
 
   const toggleWithOnly = (
@@ -51,20 +56,23 @@ export default function CategoryFilter() {
   }
 
   const categoryToggle = (categoryName: string, categoryValue?: string) => {
+    const val = categoryValue || categoryName
+    const state = currentCustomCategories[val]
+
     const toggle = (
-      <ToggleSwitch
-        htmlId={categoryValue || categoryName}
-        handleChange={() => toggleCategory(categoryValue || categoryName)}
-        value={currentCustomCategories.includes(categoryValue || categoryName)}
+      <TriStateToggle
+        htmlId={val}
+        handleChange={() => cycleCategory(val)}
+        value={state}
         title={categoryName}
       />
     )
 
     const onOnlyClick = () => {
-      setCategoryOnly(categoryValue || categoryName)
+      setCategoryOnly(val)
     }
 
-    return toggleWithOnly(toggle, onOnlyClick, categoryValue || categoryName)
+    return toggleWithOnly(toggle, onOnlyClick, val)
   }
 
   const categoriesList = customCategories.listCategories()
@@ -98,9 +106,9 @@ export default function CategoryFilter() {
         type="reset"
         className="button is-primary"
         style={{ marginBottom: '0.3rem' }}
-        onClick={() => selectAll()}
+        onClick={() => resetAll()}
       >
-        {t('header.select_all', 'Select All')}
+        {t('header.reset_filters', 'Reset Filters')}
       </button>
       <button
         className="button is-secondary is-small"
