@@ -16,18 +16,18 @@
   grid-area: title;
   margin: 0;
   font-family: var(--primary-font-family);
-  font-size: var(--text-2xl);
-  font-weight: var(--bold);
-  line-height: 1.15;
+  font-size: var(--heading-5);
+  font-weight: var(--weight-bold);
+  line-height: var(--line-height-tight);
   letter-spacing: -0.02em;
   color: var(--text-default);
 }
 
 .numberOfgames {
-  font-size: var(--text-sm);
-  font-weight: var(--regular);
-  line-height: 1.3;
-  color: var(--text-tertiary, var(--text-secondary));
+  font-size: var(--body-sm);
+  font-weight: var(--weight-regular);
+  line-height: var(--line-height-tight);
+  color: var(--text-secondary);
 }
 
 .libraryToolbar {

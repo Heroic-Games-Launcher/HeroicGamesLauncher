@@ -104,15 +104,15 @@
 
 .title {
   font-family: var(--actions-font-family);
-  font-size: 18px;
+  font-size: var(--title-sm);
   margin: 0;
   color: var(--accent);
 }
 
 .subtitle {
-  font-size: 12px;
+  font-size: var(--caption);
   font-family: var(--actions-font-family);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   color: var(--text-default);
 }
 

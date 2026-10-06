@@ -12,7 +12,7 @@
   }
 
   & summary {
-    font-size: var(--text-lg);
+    font-size: var(--body-lg);
   }
 }
 
@@ -62,13 +62,13 @@
 
 .InstallModal__sizeLabel {
   grid-area: label;
-  line-height: 20px;
+  line-height: var(--line-height-normal);
   color: var(--text-secondary);
 }
 
 .InstallModal__sizeValue {
   grid-area: value;
-  line-height: 24px;
+  line-height: var(--line-height-normal);
 }
 
 .InstallModal__sectionHeader {

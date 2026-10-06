@@ -22,12 +22,12 @@ table td.specs {
 
 .gameRequirements table span.title {
   color: var(--text-secondary);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
 }
 
 table span.text {
   color: var(--text-secondary);
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
 }
 
 .tabContent .gameRequirements {

@@ -116,12 +116,12 @@ to another page but still use the elements of the current page */
 }
 
 .danger {
-  font-weight: var(--bold);
+  font-weight: var(--weight-bold);
   color: var(--text-danger, var(--danger));
 }
 
 .warning {
-  font-weight: var(--bold);
+  font-weight: var(--weight-bold);
   color: var(--text-warning, var(--warning));
 }
 
@@ -156,7 +156,7 @@ to another page but still use the elements of the current page */
 }
 
 .smallMessage {
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;

@@ -136,8 +136,8 @@
 }
 
 .discountCard__title {
-  font-size: var(--text-md);
-  font-weight: var(--bold);
+  font-size: var(--body-md);
+  font-weight: var(--weight-bold);
   color: var(--text-default);
   white-space: nowrap;
   overflow: hidden;
@@ -148,7 +148,7 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-xs);
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
 }
 
 .discountCard__basePrice {
@@ -159,6 +159,6 @@
 
 .discountCard__finalPrice {
   color: var(--success, #18ad57);
-  font-weight: var(--bold);
-  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  font-size: var(--body-md);
 }

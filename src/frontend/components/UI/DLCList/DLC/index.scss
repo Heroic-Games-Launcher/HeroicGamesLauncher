@@ -14,16 +14,16 @@
   }
   .title {
     grid-area: title;
-    font-weight: 400;
+    font-weight: var(--weight-regular);
   }
   .size {
     grid-area: size;
-    font-weight: 400;
+    font-weight: var(--weight-regular);
     text-align: center;
   }
   .action {
     grid-area: action;
-    font-weight: 400;
+    font-weight: var(--weight-regular);
     text-align: center;
     cursor: pointer;
     color: var(--primary);

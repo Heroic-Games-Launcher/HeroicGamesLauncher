@@ -71,9 +71,9 @@ details {
   }
 
   summary {
-    font-weight: bold;
+    font-weight: var(--weight-bold);
     padding: var(--space-xs) 0;
-    font-size: var(--text-xl);
+    font-size: var(--title);
   }
 }
 

@@ -28,7 +28,7 @@
 .Button--sm {
   height: 36px;
   padding: 0 14px;
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
 }
 
 .Button--fullWidth {

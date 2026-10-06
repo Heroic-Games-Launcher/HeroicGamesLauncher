@@ -19,8 +19,8 @@
 
 .introjs-tooltiptext {
   color: var(--text-default);
-  font-size: var(--text-lg);
-  line-height: 1.5;
+  font-size: var(--body-lg);
+  line-height: var(--line-height-normal);
   padding: 16px;
 }
 
@@ -72,9 +72,9 @@
 
 .introjs-skipbutton {
   color: var(--tour-popup-skip-color, var(--neutral-05));
-  font-size: 11px; /* Reduced from default size */
+  font-size: var(--caption-sm); /* Reduced from default size */
   text-transform: lowercase;
-  font-weight: normal;
+  font-weight: var(--weight-regular);
 
   &:hover,
   &:focus {
@@ -118,7 +118,7 @@
 
 .introjs-tooltip-title {
   color: var(--tour-popup-title, var(--brand-primary));
-  font-size: 16px;
-  font-weight: bold;
+  font-size: var(--body-lg);
+  font-weight: var(--weight-bold);
   margin-bottom: 8px;
 }

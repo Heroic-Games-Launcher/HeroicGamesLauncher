@@ -23,7 +23,7 @@
   align-items: baseline;
   gap: var(--space-md);
   margin: 0;
-  font-size: var(--text-2xl);
+  font-size: var(--heading-5);
 }
 
 .discountsScreen__storeTabs {
@@ -67,8 +67,8 @@
 }
 
 .discountsScreen__regionLabel {
-  font-size: var(--text-sm);
-  font-weight: var(--semibold);
+  font-size: var(--body-sm);
+  font-weight: var(--weight-semibold);
   color: var(--text-secondary);
   letter-spacing: 0.01em;
   text-transform: uppercase;

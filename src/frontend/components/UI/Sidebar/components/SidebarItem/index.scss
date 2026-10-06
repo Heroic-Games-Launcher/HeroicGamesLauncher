@@ -85,15 +85,15 @@
     }
 
     &.active {
-      color: var(--navbar-accent, var(--sidebar-item-active-text-color));
-      font-weight: var(--semibold);
+      color: var(--sidebar-item-active-text-color);
+      font-weight: var(--weight-semibold);
 
       .Sidebar__itemIcon {
         color: currentColor;
       }
 
       &.SidebarLinks__subItem {
-        font-weight: var(--bold);
+        font-weight: var(--weight-bold);
       }
     }
     &.active:not(.SidebarLinks__subItem) {
@@ -115,8 +115,8 @@
       &:hover {
         padding-block: var(--space-3xs);
         padding-inline: var(--space-xl) var(--sidebar-horizontal-padding);
-        font-size: var(--text-sm);
-        line-height: 20px;
+        font-size: var(--body-sm);
+        line-height: var(--line-height-normal);
         white-space: break-spaces;
       }
       &::before {
@@ -157,7 +157,7 @@
         min-width: 18px;
         height: 18px;
         padding: 0 5px;
-        font-size: 10px;
+        font-size: var(--caption-xs);
       }
 
       position: relative;

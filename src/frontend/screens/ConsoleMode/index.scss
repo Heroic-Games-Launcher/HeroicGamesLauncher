@@ -308,7 +308,7 @@
 
 .consoleCardStatusText {
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
@@ -417,7 +417,7 @@
 .consoleFocusTitle {
   margin: 0;
   font-size: clamp(1.1rem, 1.6vw, 1.6rem);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   letter-spacing: 0.02em;
   color: var(--text-title, var(--text-default, #eae8e5));
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
@@ -439,7 +439,7 @@
   max-width: 560px;
   text-align: center;
   color: var(--text-secondary, #b1b1b1);
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
   margin: 0;
 }
 

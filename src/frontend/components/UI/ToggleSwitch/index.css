@@ -68,12 +68,12 @@
 
 .toggleSwitchWrapper {
   font-family: var(--primary-font-family);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   color: var(--text-default);
 }
 
 .hiddenCheckbox[disabled] + .toggleSwitchWrapper {
-  color: var(--text-tertiary, var(--text-secondary));
+  color: var(--text-secondary);
   cursor: not-allowed;
 }
 

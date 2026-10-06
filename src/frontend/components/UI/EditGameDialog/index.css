@@ -97,7 +97,7 @@
         cursor: pointer;
         font-size: var(--font-size-sm);
         color: var(--neutral-06);
-        font-weight: bold;
+        font-weight: var(--weight-bold);
         padding: var(--space-xs) 0;
         user-select: none;
       }

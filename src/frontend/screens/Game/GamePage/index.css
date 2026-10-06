@@ -191,8 +191,8 @@
       }
 
       h1 {
-        font-size: 34px;
-        line-height: 39px;
+        font-size: var(--heading-3);
+        line-height: var(--line-height-tight);
         padding: var(--space-xs) 0;
         margin-bottom: 0.8rem;
         color: var(--text-title);
@@ -202,20 +202,20 @@
       .developer {
         margin-bottom: 0.5rem;
         color: var(--brand-text-02);
-        font-size: var(--text-md);
+        font-size: var(--body-md);
         font-style: italic;
       }
 
       .releaseDate {
         margin-bottom: 0.3rem;
         color: var(--neutral-05);
-        font-size: var(--text-xs);
+        font-size: var(--caption-sm);
       }
 
       .summary {
         overflow: auto;
-        font-size: var(--text-md);
-        line-height: 1.5em;
+        font-size: var(--body-md);
+        line-height: var(--line-height-normal);
         text-align: left;
         flex-grow: 1;
         margin-top: var(--space-xs);
@@ -226,7 +226,7 @@
       .timeContainerLabel {
         margin-top: 0.8rem;
         color: var(--neutral-05);
-        font-size: var(--text-md);
+        font-size: var(--body-md);
       }
 
       .genres {
@@ -339,7 +339,7 @@
 
         & .mainBtn {
           min-width: 200px;
-          font-size: var(--text-md);
+          font-size: var(--body-md);
           display: flex;
           justify-content: center;
           white-space: nowrap;
@@ -363,7 +363,7 @@
         }
 
         & .delBtn {
-          font-size: var(--text-md);
+          font-size: var(--body-md);
           min-width: 150px;
           & svg {
             margin-inline-end: 0;
@@ -389,7 +389,7 @@
           overflow: hidden;
           text-align: end;
           font-size: var(--space-unit-fixed);
-          line-height: 24px;
+          line-height: var(--line-height-normal);
           gap: var(--space-md-fixed);
           padding: var(--space-unit-fixed);
           align-items: center;
@@ -501,15 +501,15 @@
             flex-direction: column;
 
             .achievement-title {
-              font-size: var(--text-md);
+              font-size: var(--body-md);
               color: var(--text-title);
             }
             .achievement-desc {
-              font-size: var(--text-xs);
+              font-size: var(--caption-sm);
               color: var(--neutral-06);
             }
             .achievement-rarity {
-              font-size: var(--text-xs);
+              font-size: var(--caption-sm);
               color: var(--neutral-05);
             }
           }
@@ -595,7 +595,7 @@
       align-self: flex-end;
       border: none;
       color: var(--navbar-inactive);
-      font-size: var(--text-2xl);
+      font-size: var(--heading-5);
       padding: var(--space-xs-fixed);
       cursor: pointer;
       position: relative;

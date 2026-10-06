@@ -66,7 +66,7 @@
 .downloadManagerTitleList {
   grid-area: name;
   font-size: 1em;
-  font-weight: bold;
+  font-weight: var(--weight-bold);
   text-transform: capitalize;
   cursor: pointer;
   display: flex;
@@ -81,7 +81,7 @@
 }
 
 .titleSize span {
-  font-size: 12px;
+  font-size: var(--caption);
   color: var(--text-secondary);
 }
 
@@ -116,8 +116,8 @@
   color: var(--success);
   font-family: var(--actions-font-family);
   font-style: italic;
-  font-weight: normal;
-  line-height: 12px;
+  font-weight: var(--weight-regular);
+  line-height: var(--line-height-none);
 }
 
 .downloadManagerListItem > .progress > .MuiSvgIcon-root {

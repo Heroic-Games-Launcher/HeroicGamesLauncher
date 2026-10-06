@@ -32,8 +32,8 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  font-size: var(--text-xl);
-  font-weight: var(--semibold);
+  font-size: var(--title);
+  font-weight: var(--weight-semibold);
   letter-spacing: -0.01em;
 }
 

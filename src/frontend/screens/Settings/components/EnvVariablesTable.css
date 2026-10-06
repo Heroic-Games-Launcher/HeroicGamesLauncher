@@ -14,7 +14,7 @@
 }
 
 .env-vars-title {
-  font-size: var(--text-lg);
+  font-size: var(--body-lg);
   margin: 0;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .env-var-key {
-  font-weight: bold;
+  font-weight: var(--weight-bold);
   color: var(--text-default);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,7 +64,7 @@
 
 .env-var-connector {
   color: var(--text-secondary);
-  font-weight: bold;
+  font-weight: var(--weight-bold);
 }
 
 .env-var-value {

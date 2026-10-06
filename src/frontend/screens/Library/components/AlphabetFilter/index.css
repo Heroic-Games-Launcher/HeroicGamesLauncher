@@ -32,8 +32,8 @@
   border: 1px solid transparent;
   color: var(--text-default, var(--alphabet-filter-accent-color));
   font-family: var(--primary-font-family);
-  font-size: var(--text-sm);
-  font-weight: var(--semibold);
+  font-size: var(--body-sm);
+  font-weight: var(--weight-semibold);
   letter-spacing: 0.02em;
   cursor: pointer;
 
@@ -63,8 +63,8 @@
 .alphabet-filter-button--active {
   background-color: var(--alphabet-filter-accent-color);
   border-color: var(--alphabet-filter-accent-color);
-  color: var(--background-darker, #06121a);
-  font-weight: var(--bold);
+  color: var(--text-on-accent, var(--background-darker));
+  font-weight: var(--weight-bold);
   box-shadow: 0 4px 12px -2px var(--alphabet-filter-shadow-color);
 }
 
@@ -76,7 +76,8 @@
 .alphabet-filter-button--disabled {
   background-color: transparent;
   border-color: transparent;
-  color: var(--text-quartenary, var(--text-tertiary));
-  font-weight: var(--medium);
+  color: var(--text-secondary);
+  opacity: 0.55;
+  font-weight: var(--weight-medium);
   cursor: auto;
 }

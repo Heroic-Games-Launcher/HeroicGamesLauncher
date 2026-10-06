@@ -10,15 +10,15 @@ button {
 
 .button {
   @include buttonDefaultStyle();
-  --line-height: 17px;
+  --line-height: var(--line-height-tight);
   cursor: pointer;
   padding: var(--space-sm);
   background: var(--primary);
   color: var(--text-tertiary);
   text-transform: uppercase;
   font-style: normal;
-  font-weight: var(--medium);
-  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  font-size: var(--body-md);
   line-height: var(--line-height);
   border: none;
   max-height: 40px;
@@ -155,7 +155,7 @@ button {
   text-transform: none;
   min-width: fit-content;
   font-family: var(--content-font-family);
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
   padding: var(--space-xs);
   margin-inline-start: var(--space-sm);
   margin-bottom: var(--space-sm);
@@ -168,9 +168,9 @@ button {
 .button.is-link {
   font-family: var(--secondary-font-family);
   font-style: normal;
-  font-weight: normal;
-  font-size: var(--text-md);
-  line-height: 17px;
+  font-weight: var(--weight-regular);
+  font-size: var(--body-md);
+  line-height: var(--line-height-tight);
   color: var(--text-default);
   margin: var(--space-3xs) 0em;
   cursor: pointer;

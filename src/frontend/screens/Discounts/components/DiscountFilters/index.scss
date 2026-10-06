@@ -141,8 +141,8 @@
 
 .discountFilters__title {
   margin: 0;
-  font-size: var(--text-md);
-  font-weight: var(--semibold);
+  font-size: var(--body-md);
+  font-weight: var(--weight-semibold);
   color: var(--text-default);
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -279,8 +279,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2xs);
-  font-size: var(--text-sm);
-  font-weight: var(--semibold);
+  font-size: var(--body-sm);
+  font-weight: var(--weight-semibold);
   color: var(--text-secondary);
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -321,7 +321,7 @@
   background-color: var(--accent);
   color: var(--text-tertiary);
   border: none;
-  font-weight: var(--semibold);
+  font-weight: var(--weight-semibold);
 }
 
 .discountFilters__chip .MuiChip-deleteIcon {
@@ -395,7 +395,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: calc(-1 * var(--space-2xs));
-  font-size: calc(var(--text-sm) * 0.9);
+  font-size: calc(var(--body-sm) * 0.9);
   color: var(--text-secondary);
   opacity: 0.7;
 }

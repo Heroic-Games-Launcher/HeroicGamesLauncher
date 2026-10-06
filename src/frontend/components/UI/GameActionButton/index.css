@@ -10,8 +10,8 @@
 }
 
 .GameActionButton .Button__label {
-  font-size: var(--text-lg);
-  font-weight: var(--bold);
+  font-size: var(--body-lg);
+  font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }

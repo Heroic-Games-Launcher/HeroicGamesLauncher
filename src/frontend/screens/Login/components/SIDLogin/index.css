@@ -27,13 +27,13 @@
   overflow: auto;
   max-height: 100vh;
   max-width: 90%;
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   margin: 2rem;
 }
 
 .loginInstructions > strong {
   color: var(--text-hover);
-  font-size: var(--text-xl);
+  font-size: var(--title);
 }
 
 .loginInstructions .epicLink {

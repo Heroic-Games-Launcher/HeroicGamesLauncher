@@ -41,7 +41,7 @@
 .discountPagination__page--active {
   background: var(--accent);
   color: var(--text-tertiary);
-  font-weight: var(--bold);
+  font-weight: var(--weight-bold);
 }
 
 .discountPagination__ellipsis {

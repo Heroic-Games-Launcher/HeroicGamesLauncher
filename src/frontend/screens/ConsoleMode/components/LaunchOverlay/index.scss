@@ -57,7 +57,7 @@
 
 .consoleLaunchGameTitle {
   font-size: clamp(1.6rem, 2.4vw, 2.4rem);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--text-title, var(--text-default, #eae8e5));
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   max-width: 80vw;

@@ -11,8 +11,8 @@
   height: var(--field-height);
   background: var(--field-background);
   font-family: var(--primary-font-family);
-  font-weight: var(--regular);
-  font-size: var(--text-md);
+  font-weight: var(--weight-regular);
+  font-size: var(--body-md);
   color: var(--field-color);
   border: 1px solid var(--field-border);
   box-shadow: none;
@@ -139,8 +139,8 @@
 .selectFieldWrapper label {
   margin-bottom: 6px;
   font-family: var(--primary-font-family);
-  font-size: var(--text-sm);
-  font-weight: var(--medium);
+  font-size: var(--body-sm);
+  font-weight: var(--weight-medium);
   color: var(--field-label-color);
 }
 
