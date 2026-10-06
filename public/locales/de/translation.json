@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Es ist ein Fehler beim Download von DXMT aufgetreten. Kontrolliere deine Internetverbindung!",
                 "title": "DXMT-Downloadfehler"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Das Entfernen von {{game}} aus Steam schlug fehl mit:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1325,5 +1330,10 @@
             "message": "Dieses Spiel steht zum Herunterladen an. Möchten Sie es aus der Warteschlange entfernen?"
         }
     },
-    "next": "Weiter"
+    "next": "Weiter",
+    "common": {
+        "add": "Hinzufügen",
+        "cancel": "Absagen",
+        "warning": "Warnung"
+    }
 }
