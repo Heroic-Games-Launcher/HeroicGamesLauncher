@@ -49,25 +49,25 @@
 }
 
 .Button--primary {
-  background: var(--navbar-accent, var(--accent));
-  color: var(--background-darker, #06121a);
+  background: var(--primary-action);
+  color: var(--text-on-accent, var(--background-darker));
 }
 
 .Button--primary:hover:not(:disabled),
 .Button--primary:focus-visible:not(:disabled) {
   background: var(--accent-overlay, var(--accent));
-  box-shadow: 0 8px 24px -8px var(--navbar-accent, var(--accent));
+  box-shadow: 0 8px 24px -8px var(--primary-action);
 }
 
 .Button--secondary {
   background: var(--background-darker, #0a0e13);
-  color: var(--navbar-accent, var(--accent));
+  color: var(--accent-text, var(--accent));
   border-color: color-mix(in oklab, var(--accent) 35%, transparent);
 }
 
 .Button--secondary:hover:not(:disabled),
 .Button--secondary:focus-visible:not(:disabled) {
-  border-color: var(--navbar-accent, var(--accent));
+  border-color: var(--primary-action);
   background: color-mix(in oklab, var(--accent) 12%, var(--background-darker));
 }
 
@@ -94,7 +94,7 @@
 
 .Button:disabled {
   background: var(--disabled-button, var(--background-secondary));
-  color: var(--text-tertiary, var(--text-secondary));
+  color: var(--text-secondary);
   border-color: transparent;
   cursor: not-allowed;
   box-shadow: none;

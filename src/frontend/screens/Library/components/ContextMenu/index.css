@@ -33,11 +33,11 @@
 
 .contextMenu .MuiListItemIcon-root {
   min-width: 0;
-  color: var(--text-tertiary, var(--text-secondary));
+  color: var(--text-secondary);
 }
 
 .contextMenu .MuiMenuItem-root:hover .MuiListItemIcon-root {
-  color: var(--navbar-accent, var(--accent));
+  color: var(--primary-action);
 }
 
 .contextMenu .MuiListItemIcon-root svg {

@@ -67,7 +67,7 @@
 }
 
 .wineItem .version:hover {
-  color: var(--accent);
+  color: var(--accent-text, var(--accent));
   text-decoration: underline;
 }
 

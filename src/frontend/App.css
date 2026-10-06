@@ -204,3 +204,8 @@ img.loaded {
 .isRTL {
   direction: rtl;
 }
+
+.svg-inline--fa,
+.Sidebar__itemIcon svg {
+  fill: currentColor;
+}

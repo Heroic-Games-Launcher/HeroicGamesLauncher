@@ -77,9 +77,9 @@
 }
 
 .downLabel {
-  color: var(--accent);
+  color: var(--accent-text, var(--accent));
 }
 
 .diskLabel {
-  color: var(--primary);
+  color: var(--primary-text, var(--primary));
 }

@@ -37,7 +37,7 @@
   margin-inline-end: 0.5rem;
   width: 20px;
   height: 20px;
-  background-color: var(--background-darker, #06121a);
+  background-color: var(--text-on-accent, var(--background-darker));
   -webkit-mask: var(--toggle-check-mask) center / 13px no-repeat;
   mask: var(--toggle-check-mask) center / 13px no-repeat;
   opacity: 0;
