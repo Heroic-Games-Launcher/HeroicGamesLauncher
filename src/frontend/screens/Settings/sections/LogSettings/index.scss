@@ -1,3 +1,5 @@
+@use '../../../../styles/breakpoints';
+
 .Settings.log .settingsWrapper {
   max-width: none;
 }
@@ -43,7 +45,7 @@
   max-width: 900px;
 }
 
-@media screen and (max-width: 1024px) {
+@include breakpoints.for-wide-window {
   .logs-wrapper.game-log {
     width: calc(80vw - 24px);
   }

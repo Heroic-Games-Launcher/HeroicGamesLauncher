@@ -1,3 +1,5 @@
+@use '../../../../styles/breakpoints';
+
 .wineItem {
   display: grid;
   grid-template-columns: 33% 30% 20% 17%;
@@ -99,7 +101,7 @@
 }
 
 /* Responsive */
-@media (max-width: 800px) {
+@include breakpoints.for-default-window {
   .wineItem {
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto;

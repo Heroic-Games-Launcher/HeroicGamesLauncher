@@ -1,7 +1,7 @@
 import { MouseEventHandler, ReactNode } from 'react'
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
-import './index.css'
+import './index.scss'
 
 interface SidebarItemProps {
   label: string

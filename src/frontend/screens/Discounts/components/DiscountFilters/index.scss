@@ -1,3 +1,5 @@
+@use '../../../../styles/breakpoints';
+
 .discountFilters {
   display: flex;
   flex-direction: column;
@@ -249,7 +251,7 @@
   padding: 0;
 }
 
-@media (max-width: 1100px) {
+@include breakpoints.for-wide-window {
   .discountFilters__row--inputs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -258,7 +260,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@include breakpoints.for-compact-window {
   .discountFilters__row--inputs,
   .discountFilters__row--sliders {
     grid-template-columns: 1fr;

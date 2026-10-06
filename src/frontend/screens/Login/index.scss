@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints';
+
 .loginPage {
   --wrapper-padding: 30px;
   --message-padding: 40px;
@@ -154,7 +156,7 @@
   padding: 1rem;
 }
 
-@media screen and (min-width: 850px) {
+@include breakpoints.for-default-up {
   .loginContentWrapper {
     width: max(500px, 75%);
     height: auto;

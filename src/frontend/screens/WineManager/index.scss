@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints';
+
 .wineManagerHeader {
   display: flex;
   justify-content: space-between;
@@ -209,7 +211,7 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 800px) {
+@include breakpoints.for-default-window {
   .wineManagerHeader {
     flex-direction: column;
     align-items: flex-start;
@@ -238,33 +240,6 @@
       .actions {
         grid-column: 2;
       }
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .wineManagerSettingsContent {
-    min-width: auto;
-    width: 100%;
-    padding: 16px;
-  }
-
-  .wineItem {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'version'
-      'notes'
-      'release'
-      'size'
-      'actions';
-    text-align: center;
-    .actions {
-      justify-content: center;
-      margin-top: 8px;
-    }
-    .release,
-    .size {
-      text-align: center;
     }
   }
 }
