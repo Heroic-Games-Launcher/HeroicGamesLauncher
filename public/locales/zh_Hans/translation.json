@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "下载 DXMT 出错！检查你的连接！",
                 "title": "DXMT 下载错误"
+            },
+            "remove": {
+                "steam": {
+                    "body": "从 Steam 删除 {{game}} 失败，错误：{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1317,5 +1322,10 @@
             "message": "这款游戏正在排队下载。从队列中移除？"
         }
     },
-    "next": "下一步"
+    "next": "下一步",
+    "common": {
+        "add": "添加",
+        "cancel": "取消",
+        "warning": "警告"
+    }
 }
