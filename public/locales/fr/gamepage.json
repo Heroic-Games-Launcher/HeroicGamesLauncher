@@ -261,7 +261,9 @@
             "title": "Titre du Jeu/de l'Application",
             "broser": "URL du navigateur",
             "useragent": "Compte Utilisateur Personnalisé",
-            "fullscreen": "Exécuter en plein écran (F11 pour quitter)"
+            "fullscreen": "Exécuter en plein écran (F11 pour quitter)",
+            "cover-hint": "Image d'arrière-plan (cliquer sur l'image pour rechercher sur SteamGridDB)",
+            "image-hint": "Image de jaquette (cliquer sur l'image pour rechercher sur SteamGridDB)"
         },
         "placeholder": {
             "image": "Coller ici l'URL d'une image ou sélectionnez-en une provenant de votre ordinateur",
@@ -272,6 +274,9 @@
         "import-hint": {
             "title": "Important ! Ajoutez-vous un jeu provenant de Epic/GOG/Amazon ? Cliquez ici !",
             "content": "N'utilisez PAS cette fonctionnalité pour cela. <br />À la place, <3>connectez-vous</3> à la boutique, recherchez le jeu dans votre bibliothèque, ouvrez la fenêtre d'installation, et cliquez sur le bouton &quot;Import Game&quot;"
+        },
+        "images": {
+            "summary": "Images"
         }
     },
     "specs": {
@@ -365,6 +370,16 @@
             "image": "Collez ici l'URL d'une image"
         },
         "title": "Modifier l'application/le jeu",
-        "reset": "Réinitialisation"
+        "reset": "Réinitialisation",
+        "cover": "Image d'arrière-plan",
+        "info": {
+            "cover": "Image d'arrière-plan",
+            "square": "Image de jaquette"
+        },
+        "sgdb": {
+            "no-key-link": "Options → Avancé",
+            "no-key-prefix": "Pour rechercher une image d'illustration dans SteamGridDB, ajouter une clé API dans"
+        },
+        "square": "Image de jaquette"
     }
 }
