@@ -52,13 +52,13 @@
 }
 
 .hiddenCheckbox:focus-visible + .toggleSwitchWrapper:before {
-  border-color: var(--navbar-accent, var(--accent));
+  border-color: var(--primary-action);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
 }
 
 .hiddenCheckbox:checked + .toggleSwitchWrapper:before {
-  background: var(--navbar-accent, var(--accent));
-  border-color: var(--navbar-accent, var(--accent));
+  background: var(--primary-action);
+  border-color: var(--primary-action);
 }
 
 .hiddenCheckbox:checked + .toggleSwitchWrapper:after {

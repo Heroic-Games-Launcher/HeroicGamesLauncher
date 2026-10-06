@@ -76,7 +76,7 @@
 .sideloadGameButton:hover,
 .sideloadGameButton:focus-visible {
   background: var(--accent-overlay, var(--accent));
-  box-shadow: 0 8px 24px -8px var(--navbar-accent, var(--accent));
+  box-shadow: 0 8px 24px -8px var(--primary-action);
 }
 
 .sideloadGameButton svg {

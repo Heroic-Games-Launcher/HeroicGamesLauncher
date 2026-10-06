@@ -89,7 +89,7 @@
 
 .Dialog__CloseButton:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--navbar-accent, var(--accent));
+  box-shadow: 0 0 0 2px var(--primary-action);
 }
 
 .Dialog__CloseButton:hover {

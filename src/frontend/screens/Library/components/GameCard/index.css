@@ -361,7 +361,7 @@
 
 .gameCard > .icons > .downIcon {
   background: var(--background-darker, #0a0e13);
-  color: var(--navbar-accent, var(--accent));
+  color: var(--primary-action);
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.45),
     inset 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
@@ -422,10 +422,10 @@
 
 .gameCard:hover,
 .gameCard:focus-within {
-  border-color: var(--navbar-accent, var(--accent));
+  border-color: var(--primary-action);
   box-shadow:
-    0 0 0 1px var(--navbar-accent, var(--accent)),
-    0 0 28px -6px var(--navbar-accent, var(--accent)),
+    0 0 0 1px var(--primary-action),
+    0 0 28px -6px var(--primary-action),
     0 16px 40px rgba(0, 0, 0, 0.55);
 }
 
@@ -464,8 +464,8 @@
 
 .gameListItem:hover,
 .gameListItem:focus-within {
-  border-color: var(--navbar-accent, var(--accent));
-  box-shadow: 0 0 0 1px var(--navbar-accent, var(--accent));
+  border-color: var(--primary-action);
+  box-shadow: 0 0 0 1px var(--primary-action);
 }
 
 .gameListItem > a {
@@ -572,7 +572,7 @@
 
 .gameListItem > .icons > .settingsIcon:hover {
   color: var(--text-default);
-  border-color: var(--navbar-accent, var(--accent));
+  border-color: var(--primary-action);
 }
 
 .gameListItem.hidden {

@@ -323,10 +323,9 @@ export default function AdvancedSetting() {
       </div>
 
       <div className="footerFlex">
-        <button
-          className={classNames('button', 'is-footer', {
-            isSuccess: isCopiedToClipboard
-          })}
+        <Button
+          variant="ghost"
+          className={classNames({ isSuccess: isCopiedToClipboard })}
           onClick={() => {
             window.api.clipboardWriteText(
               JSON.stringify({ ...config }, null, 2)
@@ -347,7 +346,7 @@ export default function AdvancedSetting() {
                   )}
             </span>
           </div>
-        </button>
+        </Button>
       </div>
     </div>
   )

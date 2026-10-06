@@ -24,7 +24,7 @@
 }
 
 .WarningMessage a {
-  color: var(--navbar-accent, var(--accent));
+  color: var(--primary-action);
   text-decoration: underline;
   cursor: pointer;
 }

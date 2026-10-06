@@ -13,7 +13,6 @@ import {
   Stop,
   Warning
 } from '@mui/icons-material'
-import classNames from 'classnames'
 import { GameInfo } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import { Button } from 'frontend/components/UI'
@@ -107,7 +106,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
       : t('label.playing.start_with_logs', 'Play Now (with logs)')
 
     return (
-      <Button variant="primary" className="altPlay">
+      <button className="Button Button--primary Button--md altPlay">
         <ArrowBackIosNew />
         <a
           className="Button Button--primary Button--md"
@@ -118,7 +117,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             {label}
           </span>
         </a>
-      </Button>
+      </button>
     )
   }
 
@@ -178,38 +177,24 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     <div className="buttonsWrapper">
       {is_installed && !is.queued && !is.uninstalling && (
         <div className="playButtons">
-          <button
+          <Button
+            variant={
+              is.playing || is.notAvailable || is.updating ? 'ghost' : 'primary'
+            }
             disabled={disabledPlayButtons}
             autoFocus={true}
-            onClick={async () => handlePlay(gameInfo)}
-            className={classNames(
-              'button',
-              {
-                'is-secondary': !is_installed && !is.queued,
-                'is-success':
-                  is.syncing ||
-                  (!is.updating &&
-                    !is.playing &&
-                    is_installed &&
-                    !is.notAvailable),
-                'is-tertiary':
-                  is.playing ||
-                  (!is_installed && is.queued) ||
-                  (is_installed && is.notAvailable),
-                'is-disabled': is.updating
-              },
-              'mainBtn'
-            )}
+            onClick={() => handlePlay(gameInfo)}
+            className="mainBtn"
           >
             {getPlayLabel()}
-          </button>
+          </Button>
           {altPlayAction()}
         </div>
       )}
       {(!is_installed || is.queued) && (
         <span className="installButtons">
-          <button
-            onClick={async () => {
+          <Button
+            onClick={() => {
               if (!is_installed && !is.queued && !is.installing) {
                 openInstallGameModal({
                   appName: gameInfo.app_name,
@@ -223,25 +208,19 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             }}
             disabled={disabledInstallButtons}
             autoFocus={true}
-            className={classNames(
-              'button',
-              {
-                'is-primary': is_installed,
-                'is-tertiary':
-                  is.notAvailable ||
-                  is.installing ||
-                  is.queued ||
-                  is.notInstallable,
-                'is-secondary': !is_installed && !is.queued
-              },
-              'mainBtn'
-            )}
+            className="mainBtn"
+            variant={
+              is.notAvailable || is.installing || is.queued || is.notInstallable
+                ? 'ghost'
+                : 'primary'
+            }
           >
             {getButtonLabel()}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="secondary"
             disabled={disabledInstallButtons || is.installing || is.importing}
-            className={'button mainBtn outline'}
+            className="mainBtn"
             onClick={() =>
               openInstallGameModal({
                 appName: gameInfo.app_name,
@@ -252,7 +231,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             }
           >
             {t('button.import', 'Import Game')}
-          </button>
+          </Button>
         </span>
       )}
     </div>
