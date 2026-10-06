@@ -33,7 +33,7 @@
     color: var(--danger);
     padding: 1rem;
     background: rgba(var(--danger-rgb), 0.1);
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
   }
 
   &__games {
@@ -52,7 +52,7 @@
       li {
         padding: 0.5rem;
         cursor: pointer;
-        border-radius: 4px;
+        border-radius: var(--radius-xs);
 
         &:hover {
           background: var(--background-hover);
@@ -73,7 +73,7 @@
   &__grid-item {
     cursor: pointer;
     height: 150px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
     aspect-ratio: 2/3;
     transition:

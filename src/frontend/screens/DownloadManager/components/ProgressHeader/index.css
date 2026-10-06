@@ -9,7 +9,7 @@
 .progressHeader {
   border: solid 2px var(--input-background);
   background-color: var(--input-background);
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   margin: var(--space-3xs) var(--space-lg) var(--space-md);
   padding: 0 var(--space-md);
 }

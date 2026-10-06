@@ -30,7 +30,7 @@
   position: relative;
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   border: 4px solid
     color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
   border-top-color: var(--accent, #0080ff);
@@ -79,9 +79,9 @@
   kbd {
     font-family: var(--primary-font-family);
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: var(--weight-bold);
     padding: 3px 8px;
-    border-radius: 6px;
+    border-radius: var(--radius-xs);
     border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
     background: color-mix(in srgb, currentColor 10%, transparent);
   }

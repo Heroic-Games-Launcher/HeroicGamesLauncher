@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 50%; /* change to a circle */
+    border-radius: var(--radius-circle); /* change to a circle */
     border: 2px solid; /* add a border */
     color: var(--text-secondary);
     margin-inline-end: 10px;

@@ -96,8 +96,8 @@
   height: 40px;
   color: var(--text-secondary);
   text-indent: 22px;
-  font-size: var(--text-md);
-  border-radius: 10px;
+  font-size: var(--body-md);
+  border-radius: var(--radius-sm);
 }
 
 .selectFieldWrapper.rightButtons {
@@ -159,9 +159,9 @@
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root {
   gap: 10px;
   padding: 9px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-family: var(--primary-font-family);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   color: var(--text-default);
   transition: background-color 150ms ease;
 }

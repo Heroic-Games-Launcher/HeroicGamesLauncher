@@ -3,10 +3,12 @@
 @use './styles/colors';
 @use './styles/buttons';
 @use './styles/forms';
+@use './styles/radius';
 :root {
   @include typography.typeSystem;
   @include spacing.spacingSystem;
   @include colors.colorSystem;
+  @include radius.radiusSystem;
 
   overflow-y: overlay;
   /* Effects */
@@ -65,7 +67,7 @@ body {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--text-secondary);
-  border-radius: 5px;
+  border-radius: var(--radius-xs);
   margin: 2px;
   border: 2px solid var(--current-background, var(--body-background));
 }

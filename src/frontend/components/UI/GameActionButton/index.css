@@ -1,5 +1,5 @@
 .GameActionButton {
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
 }
 

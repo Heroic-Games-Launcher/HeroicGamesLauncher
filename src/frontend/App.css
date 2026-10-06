@@ -179,14 +179,14 @@ img.loaded {
 .react-contextmenu--visible {
   background-color: var(--input-background);
   padding: var(--space-md) var(--space-lg);
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   z-index: 99;
 }
 
 .react-contextmenu-item {
   color: var(--text-default);
-  font-size: var(--text-sm);
-  line-height: var(--space-lg);
+  font-size: var(--body-sm);
+  line-height: var(--line-height-normal);
   font-family: var(--secondary-font-family);
   cursor: pointer;
   text-align: start;

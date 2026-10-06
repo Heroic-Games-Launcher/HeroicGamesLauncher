@@ -2,10 +2,10 @@
   cursor: default;
   width: 100%;
   padding: var(--space-sm) var(--space-lg);
-  font-size: var(--text-md);
-  line-height: 19px;
+  font-size: var(--body-md);
+  line-height: var(--line-height-normal);
   background-color: var(--input-background);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   text-align: start;
 }
 

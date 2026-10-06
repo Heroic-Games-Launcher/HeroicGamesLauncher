@@ -6,7 +6,7 @@
   align-items: center;
   background: var(--search-bar-background, var(--input-background));
   border: 1px solid var(--search-bar-border, transparent);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0 16px;
   gap: 10px;
   height: 44px;
@@ -39,19 +39,19 @@
     text-align: start;
     overflow-x: hidden;
     z-index: 5;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 
     li {
       padding: var(--space-2xs) var(--space-md);
       cursor: pointer;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       margin: 0 var(--space-2xs);
       transition: background-color 120ms ease;
 
       span {
         opacity: 0.5;
-        font-size: var(--text-sm);
+        font-size: var(--body-sm);
         margin-inline-start: 4px;
       }
 
@@ -146,14 +146,14 @@
     height: 32px;
     padding: 0 10px;
     margin-inline-end: 4px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     background: var(--input-background);
     border: 1px solid var(--divider);
     color: var(--text-secondary);
     font-family: var(--primary-font-family);
-    font-size: var(--text-sm);
-    font-weight: var(--semibold);
-    line-height: 1;
+    font-size: var(--body-sm);
+    font-weight: var(--weight-semibold);
+    line-height: var(--line-height-none);
     pointer-events: none;
   }
 

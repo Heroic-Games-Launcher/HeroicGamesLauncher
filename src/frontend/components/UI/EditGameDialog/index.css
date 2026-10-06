@@ -22,14 +22,14 @@
         .previewLabel {
           font-size: var(--font-size-sm);
           color: var(--neutral-06);
-          font-weight: bold;
+          font-weight: var(--weight-bold);
         }
       }
     }
 
     .appImageContainer {
       position: relative;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       overflow: hidden;
       border: 2px solid var(--neutral-02);
       transition: 200ms;

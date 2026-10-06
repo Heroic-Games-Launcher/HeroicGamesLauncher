@@ -28,7 +28,7 @@
     cursor: pointer;
     margin-bottom: var(--space-md);
     width: 210px;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     border: 3px solid var(--neutral-02);
     transition: 200ms;

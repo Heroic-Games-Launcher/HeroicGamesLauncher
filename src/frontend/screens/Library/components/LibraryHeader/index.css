@@ -47,7 +47,7 @@
   align-items: center;
   height: 44px;
   padding: 0 6px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--input-background);
   margin-inline-end: 0;
 }
@@ -61,12 +61,12 @@
   height: 44px;
   padding: 0 20px;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-family: var(--primary-font-family);
-  font-size: var(--text-md);
-  font-weight: var(--semibold);
-  color: var(--background-darker, #06121a);
-  background: var(--navbar-accent, var(--accent));
+  font-size: var(--body-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-on-accent, var(--background-darker));
+  background: var(--primary-action);
   cursor: pointer;
   transition:
     background-color 150ms ease,

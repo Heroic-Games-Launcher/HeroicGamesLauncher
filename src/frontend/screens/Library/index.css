@@ -48,7 +48,7 @@
 }
 
 #backToTopBtn {
-  border-radius: 100%;
+  border-radius: var(--radius-circle);
   width: 5vh;
   height: 5vh;
   position: fixed;

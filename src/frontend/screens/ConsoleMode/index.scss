@@ -103,9 +103,9 @@
   );
   color: var(--text-default, #eae8e5);
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition:
     background 140ms ease,
@@ -149,8 +149,8 @@
   background: transparent;
   color: var(--cancel-button, #b94a3a);
   padding: 8px 16px;
-  border-radius: 999px;
-  font-weight: 600;
+  border-radius: var(--radius-pill);
+  font-weight: var(--weight-semibold);
   cursor: pointer;
   transition:
     background 140ms ease,
@@ -222,7 +222,7 @@
       var(--text-default, #eae8e5) 25%,
       transparent
     );
-    border-radius: 5px;
+    border-radius: var(--radius-xs);
   }
 }
 
@@ -242,7 +242,7 @@
   background: transparent;
   padding: 0;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   outline: none;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
@@ -279,11 +279,11 @@
   top: 8px;
   left: 8px;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--warning, #f0a03a);
   color: #111;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   letter-spacing: 0.02em;
   text-transform: uppercase;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
@@ -319,7 +319,7 @@
 
 .consoleCardProgress {
   height: 4px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
   overflow: hidden;
 }
@@ -458,9 +458,9 @@
     kbd {
       font-family: var(--primary-font-family);
       font-size: 0.8rem;
-      font-weight: 700;
+      font-weight: var(--weight-bold);
       padding: 2px 8px;
-      border-radius: 6px;
+      border-radius: var(--radius-xs);
       border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
       background: color-mix(in srgb, currentColor 10%, transparent);
     }

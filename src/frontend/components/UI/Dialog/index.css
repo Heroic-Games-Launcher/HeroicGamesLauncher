@@ -16,7 +16,7 @@
   overflow: auto;
   padding-top: var(--dialog-margin-vertical);
   border: solid 1px var(--modal-border);
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   background: var(--modal-background);
   color: var(--text-default);
   opacity: 0;
@@ -77,7 +77,7 @@
   border: none;
   margin: calc(-1 * var(--space-xs));
   padding: var(--space-xs);
-  border-radius: var(--space-xs);
+  border-radius: var(--radius-sm);
   background: none;
   color: var(--text-default);
   cursor: pointer;

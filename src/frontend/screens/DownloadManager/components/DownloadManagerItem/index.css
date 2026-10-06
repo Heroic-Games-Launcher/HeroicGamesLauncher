@@ -105,10 +105,10 @@
 .downloadManagerListItem > .progress {
   z-index: 5;
   grid-area: cover;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   background: var(--background-gradient);
   padding: 2px 5px;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   color: var(--success);
   position: relative;
   bottom: -38px;
@@ -129,14 +129,14 @@
 .react-contextmenu--visible {
   background-color: var(--background);
   padding: 14px 22px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   z-index: 99;
 }
 
 .react-contextmenu-item {
   color: var(--text-default);
-  font-size: 14px;
-  line-height: 26px;
+  font-size: var(--body-md);
+  line-height: var(--line-height-relaxed);
   font-family: var(--actions-font-family);
   cursor: pointer;
   text-align: start;

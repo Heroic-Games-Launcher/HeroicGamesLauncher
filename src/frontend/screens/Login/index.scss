@@ -44,7 +44,7 @@
   background-color: var(--body-background);
   opacity: 0.96;
   padding: var(--wrapper-padding);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   min-width: 400px;
 }
 
@@ -61,14 +61,14 @@
 .goToLibrary {
   position: relative;
   font-family: var(--font-primary-bold);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--background);
   background: var(--primary-button, var(--accent));
   border: none;
   padding: 10px 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-default);
-  border-radius: var(--space-2xs);
+  border-radius: var(--radius-xs);
   cursor: pointer;
   transition: 0.2s;
   width: fit-content;

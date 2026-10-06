@@ -4,12 +4,12 @@
   justify-content: center;
   gap: 10px;
   border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 0 18px;
   font-family: var(--primary-font-family);
-  font-size: var(--text-md);
-  font-weight: var(--semibold);
-  line-height: 1;
+  font-size: var(--body-md);
+  font-weight: var(--weight-semibold);
+  line-height: var(--line-height-none);
   letter-spacing: -0.01em;
   text-transform: none;
   cursor: pointer;

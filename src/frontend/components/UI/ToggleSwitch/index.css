@@ -23,7 +23,7 @@
   width: 20px;
   height: 20px;
   border: 1.5px solid var(--field-border, var(--divider));
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   background: var(--field-background, var(--input-background));
   transition:
     background-color 150ms ease,

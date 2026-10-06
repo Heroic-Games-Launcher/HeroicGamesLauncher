@@ -37,10 +37,10 @@
     border: none;
     background: none;
     cursor: pointer;
-    font-size: var(--text-md);
-    font-weight: var(--medium);
+    font-size: var(--body-md);
+    font-weight: var(--weight-medium);
     color: var(--sidebar-item-inactive-text-color);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     transition:
       color 150ms ease,
       background-color 150ms ease;
@@ -70,13 +70,13 @@
       min-width: 24px;
       height: 24px;
       padding: 0 9px;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: var(--navbar-accent, var(--accent));
-      color: var(--background-darker, #000);
+      color: var(--text-on-accent, var(--background-darker));
       font-family: var(--primary-font-family);
-      font-size: var(--text-xs);
-      font-weight: var(--bold);
-      line-height: 1;
+      font-size: var(--caption-sm);
+      font-weight: var(--weight-bold);
+      line-height: var(--line-height-none);
     }
 
     &:focus-visible {

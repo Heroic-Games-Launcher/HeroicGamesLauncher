@@ -19,11 +19,11 @@
   min-width: 2.5em;
   padding: var(--space-3xs) var(--space-xs);
   border: 1px solid var(--accent);
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   background: transparent;
   color: var(--accent);
   cursor: pointer;
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   font-family: var(--primary-font-family);
 }
 

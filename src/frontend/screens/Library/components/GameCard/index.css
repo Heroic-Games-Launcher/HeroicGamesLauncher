@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid var(--divider);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   animation: fade-in 0.15s ease-in;
   transition:
@@ -50,14 +50,14 @@
   top: 8px;
   left: 44px;
   max-width: 120px;
-  font-weight: var(--semibold);
+  font-weight: var(--weight-semibold);
   background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: var(--space-3xs) var(--space-xs);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   color: var(--success);
-  font-size: var(--text-xs);
+  font-size: var(--caption-sm);
   letter-spacing: 0.02em;
 }
 .gameCard > .gameCardStatus svg {
@@ -71,12 +71,12 @@
   top: 8px;
   right: 28%;
   left: 8px;
-  font-weight: var(--semibold);
+  font-weight: var(--weight-semibold);
   background: var(--status-info);
   padding: var(--space-3xs) var(--space-xs);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   color: var(--neutral-01);
-  font-size: var(--text-xs);
+  font-size: var(--caption-sm);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
@@ -190,12 +190,12 @@
   background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: var(--text-default);
+  color: var(--text-on-overlay, var(--text-default));
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   opacity: 0;
   transform: translateY(-4px);
@@ -217,7 +217,7 @@
   width: 40px;
   height: 40px;
   padding: 0;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   opacity: 0;
   transition: opacity 180ms ease;
 }
@@ -269,11 +269,11 @@
   height: 36px;
   min-width: 124px;
   padding: 0 12px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
 }
 
 .gameListItem .GameActionButton .Button__label {
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
 }
 
 .gameCard.justPlayed > .icons {
@@ -293,12 +293,12 @@
   background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: var(--text-default);
+  color: var(--text-on-overlay, var(--text-default));
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   opacity: 0;
   transform: translateY(-4px);
@@ -322,7 +322,7 @@
   background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -349,9 +349,9 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: var(--navbar-accent, var(--accent));
-  color: var(--background-darker, #000);
-  border-radius: 14px;
+  background: var(--primary-action);
+  color: var(--text-on-accent, var(--background-darker));
+  border-radius: var(--radius-md);
   padding: 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
   transition:
@@ -456,7 +456,7 @@
   position: relative;
   background: var(--input-background);
   border: 1px solid var(--divider);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
@@ -474,7 +474,7 @@
   display: block;
   width: 56px;
   height: 56px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   background-color: var(--gradient-gamecard);
 }
@@ -495,7 +495,7 @@
   width: 20px;
   height: 20px;
   padding: 3px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   box-shadow: none;
 }
 
@@ -557,7 +557,7 @@
   position: static;
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: var(--background-darker, #0a0e13);
   border: 1px solid var(--divider);
   color: var(--text-secondary);
@@ -647,14 +647,14 @@
 
 .playIcon > span:not(.Button__label) {
   font-family: var(--secondary-font-family);
-  border-radius: 5px;
+  border-radius: var(--radius-xs);
   color: #1d1d1d;
   cursor: pointer;
   padding: var(--space-xs-fixed);
   background: var(--success);
   color: var(--text-tertiary);
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: var(--weight-medium);
+  font-size: var(--body-lg);
   text-align: center;
 }
 

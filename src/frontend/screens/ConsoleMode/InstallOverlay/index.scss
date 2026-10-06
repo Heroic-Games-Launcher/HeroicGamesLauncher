@@ -21,7 +21,7 @@
   gap: 16px;
   flex-direction: column;
   padding: var(--space-xl);
-  border-radius: var(--space-lg);
+  border-radius: var(--radius-xl);
 }
 
 @keyframes overlayFade {
@@ -70,7 +70,7 @@
   align-items: center;
   gap: var(--space-md, 12px);
   padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background: color-mix(
     in srgb,
     var(--background-darker, #1a1a20) 50%,
@@ -124,9 +124,9 @@
     background: transparent;
     color: var(--text-secondary, #b1b1b1);
     font-size: 1.4rem;
-    line-height: 1;
+    line-height: var(--line-height-none);
     padding: 4px 8px;
-    border-radius: 6px;
+    border-radius: var(--radius-xs);
     cursor: pointer;
     transition:
       color 120ms ease,

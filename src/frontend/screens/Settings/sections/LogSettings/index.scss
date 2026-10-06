@@ -27,7 +27,7 @@
 
   .setting.log-box {
     background-color: #1e1e1e;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding-block: 4px;
     padding-inline: 6px;
     overflow: auto;

@@ -15,7 +15,7 @@
     from var(--alphabet-filter-accent-color) r g b / 0.25
   );
 
-  --alphabet-filter-border-radius: 8px;
+  --alphabet-filter-border-radius: var(--radius-sm);
   --alphabet-filter-transition-speed: 0.2s ease-in-out;
 }
 

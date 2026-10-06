@@ -12,12 +12,12 @@
     background: var(--input-background);
     color: var(--text-default, var(--text-secondary));
     border: 1px solid transparent;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0 18px;
     height: 44px;
     font-family: var(--primary-font-family);
-    font-size: var(--text-md);
-    font-weight: var(--medium);
+    font-size: var(--body-md);
+    font-weight: var(--weight-medium);
     cursor: pointer;
     transition:
       border-color 150ms ease,
@@ -54,7 +54,7 @@
     right: 0px;
     min-width: 320px;
     display: flex;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     flex-direction: column;
     background: var(--modal-background, var(--background));
     border: 1px solid var(--divider);

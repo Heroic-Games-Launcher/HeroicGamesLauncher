@@ -8,7 +8,7 @@
   background-color: var(--gradient-gamecard);
   color: var(--text-secondary);
   text-align: start;
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   overflow: hidden;
   cursor: pointer;
   box-shadow: 0px 0px 12px 4px #00000055;
@@ -72,10 +72,10 @@
   z-index: 2;
   background: var(--success, #18ad57);
   color: var(--text-tertiary, #ffffff);
-  font-weight: var(--bold);
-  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  font-size: var(--body-md);
   padding: var(--space-3xs) var(--space-xs);
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   pointer-events: none;
 }
@@ -94,7 +94,7 @@
   width: 28px;
   height: 28px;
   padding: var(--space-3xs);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: var(--background-darker);
   fill: var(--text-default);
 }
@@ -114,18 +114,18 @@
   gap: var(--space-3xs);
   background: rgba(0, 0, 0, 0.7);
   color: #ffffff;
-  font-weight: var(--bold);
-  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  font-size: var(--body-sm);
   padding: var(--space-3xs) var(--space-xs);
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   pointer-events: none;
 }
 
 .discountCard__scoreStar {
   color: #ffc107;
-  font-size: var(--text-md);
-  line-height: 1;
+  font-size: var(--body-md);
+  line-height: var(--line-height-none);
 }
 
 .discountCard__info {
