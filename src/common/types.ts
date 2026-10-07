@@ -30,6 +30,7 @@ export type DialogType = 'MESSAGE' | 'ERROR'
 export interface ButtonOptions {
   text: string
   onClick?: () => void
+  variant?: 'primary' | 'secondary' | 'destructive'
 }
 
 export type LaunchParams = {

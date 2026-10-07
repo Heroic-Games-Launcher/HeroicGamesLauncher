@@ -1,9 +1,4 @@
 .InstallModal__dialog {
-  width: 700px;
-  max-height: 90vh;
-  min-width: fit-content;
-  max-width: 80vw;
-
   .infoBox {
     max-width: 630px; // kidna magic number, TODO: find a better way to limit this width
     svg {
@@ -24,7 +19,7 @@
   display: flex;
   padding: var(--space-xs) var(--space-md);
   gap: 0.4rem;
-  margin: var(--space-md) var(--dialog-margin-horizontal) 0;
+  margin: var(--space-md) var(--modal-padding-inline) 0;
   border-radius: 20px;
   background-color: var(--current-background);
   min-width: min-content;

@@ -1,0 +1,108 @@
+.MuiDialog-paper.Modal {
+  --modal-padding-inline: 32px;
+  --modal-padding-block: 24px;
+  --modal-gap: 24px;
+  --modal-radius: 16px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  margin: 32px;
+  border: solid 1px var(--modal-border);
+  border-radius: var(--modal-radius);
+  background: var(--modal-background);
+  color: var(--text-default);
+  text-align: start;
+}
+
+.MuiDialog-paper.Modal--sm {
+  max-width: min(480px, 90vw);
+}
+
+.MuiDialog-paper.Modal--md {
+  max-width: min(700px, 85vw);
+}
+
+.MuiDialog-paper.Modal--lg {
+  max-width: min(900px, 90vw);
+}
+
+.MuiDialog-paper.Modal--fullHeight {
+  height: 80vh;
+}
+
+.Modal img {
+  max-width: 100%;
+}
+
+.Modal__closeButton.MuiIconButton-root {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  border-radius: 10px;
+  color: var(--text-secondary);
+}
+
+.Modal__closeButton.MuiIconButton-root:hover {
+  color: var(--text-default);
+}
+
+.Modal__header {
+  flex: 0 0 auto;
+  padding: var(--modal-padding-block) calc(var(--modal-padding-inline) + 24px) 0
+    var(--modal-padding-inline);
+}
+
+.Modal__title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--bold);
+  line-height: 1.25;
+  text-align: start;
+}
+
+.Modal--destructive .Modal__title,
+.Modal--error .Modal__title {
+  color: var(--status-danger);
+}
+
+.MuiDialog-paper.Modal--destructive {
+  border-color: color-mix(
+    in oklab,
+    var(--danger, var(--status-danger)) 40%,
+    var(--modal-border)
+  );
+}
+
+.Modal__content {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: var(--modal-gap) var(--modal-padding-inline);
+}
+
+.Modal__footer {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--space-md);
+  padding: 0 var(--modal-padding-inline) var(--modal-padding-block);
+}
+
+.Modal__footer--inline {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.Modal__content .Modal__footer {
+  padding: var(--space-md) 0 0;
+}
+
+.Modal__footer--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-sm);
+}

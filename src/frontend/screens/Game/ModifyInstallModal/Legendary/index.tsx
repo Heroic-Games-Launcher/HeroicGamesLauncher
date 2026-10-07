@@ -1,6 +1,7 @@
 import { GameInfo } from 'common/types'
 import { DLCInfo } from 'common/types/legendary'
 import DLCList from 'frontend/components/UI/DLCList'
+import { ModalContent } from 'frontend/components/UI/Modal'
 
 interface LegendaryModifyInstallModalProps {
   dlcs: DLCInfo[]
@@ -14,11 +15,13 @@ export default function LegendaryModifyInstallModal({
   onClose
 }: LegendaryModifyInstallModalProps) {
   return (
-    <DLCList
-      dlcs={dlcs}
-      runner={'legendary'}
-      mainAppInfo={gameInfo}
-      onClose={() => onClose()}
-    />
+    <ModalContent>
+      <DLCList
+        dlcs={dlcs}
+        runner={'legendary'}
+        mainAppInfo={gameInfo}
+        onClose={() => onClose()}
+      />
+    </ModalContent>
   )
 }

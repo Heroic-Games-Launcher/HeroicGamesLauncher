@@ -144,10 +144,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.bulk-edit-actions {
-  display: flex;
-  gap: var(--space-sm-fixed);
-  margin-top: var(--space-md-fixed);
-  justify-content: flex-end;
-}
