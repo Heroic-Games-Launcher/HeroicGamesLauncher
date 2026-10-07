@@ -19,3 +19,6 @@ allowBuilds:
   esbuild: true
   register-scheme: true
   unrs-resolver: true
+
+minimumReleaseAgeExclude:
+  - '@xhayper/discord-rpc@1.5.1'
