@@ -10,6 +10,7 @@ import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
 import { nileUserData } from './constants'
 import { session } from 'electron'
+import { WEBVIEW_PARTITION } from 'common/constants/webview'
 
 function authLogSanitizer(line: string) {
   try {
@@ -100,7 +101,7 @@ export class NileUser {
 
     configStore.delete('userData')
     clearCache('nile')
-    const ses = session.fromPartition('persist:amazon')
+    const ses = session.fromPartition(WEBVIEW_PARTITION.amazon)
     ses.clearStorageData().catch(() => {})
     ses.clearCache().catch(() => {})
     ses.clearAuthCache().catch(() => {})

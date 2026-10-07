@@ -10,6 +10,7 @@ import { LegendaryCommand } from './commands'
 import { NonEmptyString } from './commands/base'
 import { configStore } from 'backend/constants/key_value_stores'
 import { legendaryUserInfo } from './constants'
+import { WEBVIEW_PARTITION } from 'common/constants/webview'
 
 export class LegendaryUser {
   public static async login(
@@ -68,7 +69,7 @@ export class LegendaryUser {
       return
     }
 
-    const ses = session.fromPartition('persist:epic')
+    const ses = session.fromPartition(WEBVIEW_PARTITION.epic)
     await ses.clearStorageData()
     await ses.clearCache()
     await ses.clearAuthCache()
