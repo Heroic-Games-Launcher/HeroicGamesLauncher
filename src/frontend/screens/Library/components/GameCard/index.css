@@ -126,8 +126,8 @@
 .gameCardCaption {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px 14px 14px;
+  gap: var(--space-3xs-fixed);
+  padding: var(--space-3xs-fixed) var(--space-sm-fixed) var(--space-sm-fixed);
 }
 
 .gameCard .gameTitle {
