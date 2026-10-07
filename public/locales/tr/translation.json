@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "DXMT indirmede hata! Bağlantınızı kontrol edin!",
                 "title": "DXMT İndirme Hatası"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1328,5 +1333,10 @@
         "removeFromQueue": {
             "message": "Bu oyun indirmek için kuyrukta. Kuyruktan çıkar?"
         }
+    },
+    "common": {
+        "add": "Ekle",
+        "cancel": "İptal",
+        "warning": "Uyarı"
     }
 }

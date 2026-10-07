@@ -103,6 +103,11 @@
             "dxmt": {
                 "title": "Error al descargar DXMT",
                 "message": "Error al descargar DXMT! Compruebe su conexión!"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removiendo {{game}} de Steam falló con:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -1309,5 +1314,10 @@
             "message": "Este juego está en la cola de descargas. ¿Eliminarlo de la cola?"
         }
     },
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "common": {
+        "add": "Añadir",
+        "cancel": "Cancelar",
+        "warning": "Advertencia"
+    }
 }
