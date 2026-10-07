@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 
 interface CachedImageProps {
@@ -12,28 +12,21 @@ interface CachedImageProps {
 type Props = React.ImgHTMLAttributes<HTMLImageElement> & CachedImageProps
 
 const CachedImage = (props: Props) => {
-  const [useCache, setUseCache] = useState(
-    props.src?.startsWith('http') || false
-  )
+  const imgRef = useRef<HTMLImageElement>(null)
   const [loaded, setLoaded] = useState(false)
   const [useFallback, setUseFallback] = useState(false)
 
   useEffect(() => {
-    setLoaded(false)
+    setLoaded(
+      (imgRef.current?.complete && imgRef.current?.naturalWidth > 0) ?? false
+    )
     setUseFallback(false)
-    setUseCache(props.src?.startsWith('http') || false)
   }, [props.src])
 
   const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    // if not cached, tried with the real
-    if (useCache) {
-      setUseCache(false)
-    } else {
-      // if not cached and can't access real, try with the fallback
-      if (props.fallback) {
-        setUseFallback(true)
-        setUseCache(props.fallback.startsWith('http'))
-      }
+    // if not cached and can't access real, try with the fallback
+    if (props.fallback) {
+      setUseFallback(true)
     }
     props.onError?.(e)
   }
@@ -44,10 +37,12 @@ const CachedImage = (props: Props) => {
   }
 
   let src = useFallback ? props.fallback : props.src
-  src = useCache && src ? `imagecache://${encodeURIComponent(src)}` : src
+  src =
+    src && src.includes('://') ? `imagecache://${encodeURIComponent(src)}` : src
 
   return (
     <img
+      ref={imgRef}
       loading="lazy"
       {...props}
       src={src}
