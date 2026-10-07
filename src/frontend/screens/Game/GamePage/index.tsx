@@ -217,7 +217,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
           getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
               if (!info) {
-                throw new Error('Cannot get game info')
+                return
               }
               if (
                 info.manifest &&
