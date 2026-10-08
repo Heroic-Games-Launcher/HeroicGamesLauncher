@@ -19,6 +19,9 @@ export default defineConfig(({ mode }) => ({
     build: {
       rollupOptions: {
         input: 'src/backend/main.ts',
+        // Optional native addons of `ws`; bundling them turns its guarded
+        // require into a top-level throw
+        external: ['bufferutil', 'utf-8-validate'],
         output: {
           chunkFileNames: `chunks/[name].js`,
           assetFileNames: `chunks/[name].[ext]`
