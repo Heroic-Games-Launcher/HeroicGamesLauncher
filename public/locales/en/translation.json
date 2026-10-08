@@ -1116,6 +1116,13 @@
         },
         "open-config-file": "Open Config File",
         "open-game-settings-file-hint": "Click to open game settings file",
+        "pageSubtitle": {
+            "advanced": "Binaries, experimental features and maintenance",
+            "games_settings_defaults": "Defaults applied to newly installed games",
+            "general": "Configure your launcher preferences",
+            "log": "Read and share Heroic logs",
+            "systeminfo": "Your hardware and the versions Heroic runs"
+        },
         "reset-heroic": "Reset Heroic",
         "saves": {
             "gog_linux_native_warning": "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead.",
@@ -1154,12 +1161,6 @@
             "help": {
                 "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}"
             }
-        },
-        "subtitle": {
-            "advanced": "Binaries, experimental features and maintenance",
-            "games_settings_defaults": "Defaults applied to newly installed games",
-            "log": "Read and share Heroic logs",
-            "systeminfo": "Your hardware and the versions Heroic runs"
         },
         "systemInformation": {
             "copyToClipboard": "Copy to clipboard",

@@ -99,24 +99,24 @@ function Settings() {
             : t('settings.navbar.sync', 'Sync')
 
   const pageDescription = isGeneralSettings
-    ? t('settings.subtitle', 'Configure your launcher preferences')
+    ? t('settings.pageSubtitle.general', 'Configure your launcher preferences')
     : isGamesSettings
       ? t(
-          'settings.subtitle.games_settings_defaults',
+          'settings.pageSubtitle.games_settings_defaults',
           'Defaults applied to newly installed games'
         )
       : isAdvancedSetting
         ? t(
-            'settings.subtitle.advanced',
+            'settings.pageSubtitle.advanced',
             'Binaries, experimental features and maintenance'
           )
         : isSystemInfo
           ? t(
-              'settings.subtitle.systeminfo',
+              'settings.pageSubtitle.systeminfo',
               'Your hardware and the versions Heroic runs'
             )
           : isLogSettings
-            ? t('settings.subtitle.log', 'Read and share Heroic logs')
+            ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
             : undefined
 
   const title = t('globalSettings', 'Global Settings')
