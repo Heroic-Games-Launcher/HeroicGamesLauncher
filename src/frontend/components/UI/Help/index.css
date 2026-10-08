@@ -16,11 +16,11 @@
   transform: translateX(0);
   color: white;
   border: 1px solid white;
-  border-radius: 0px;
+  border-radius: var(--radius-none);
   background: black;
   padding: 0.5rem 1rem;
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: var(--weight-bold);
   cursor: pointer;
 
   &.open {
@@ -49,7 +49,7 @@
   & button {
     background: white;
     border: 0;
-    border-radius: 0 0 0 50%;
+    border-radius: 0 0 0 var(--radius-circle);
     padding: 0.5rem 1rem;
   }
 

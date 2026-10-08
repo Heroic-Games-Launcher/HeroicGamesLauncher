@@ -1,3 +1,5 @@
+@use '../../../../styles/breakpoints';
+
 .Settings.log .settingsWrapper {
   max-width: none;
 }
@@ -25,7 +27,7 @@
 
   .setting.log-box {
     background-color: #1e1e1e;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding-block: 4px;
     padding-inline: 6px;
     overflow: auto;
@@ -43,7 +45,7 @@
   max-width: 900px;
 }
 
-@media screen and (max-width: 1024px) {
+@include breakpoints.for-wide-window {
   .logs-wrapper.game-log {
     width: calc(80vw - 24px);
   }
@@ -108,7 +110,7 @@ dialog .logs-wrapper {
 }
 
 .icon {
-  font-size: var(--text-4xl);
+  font-size: var(--heading-3);
   animation: refreshing 1.5s infinite;
 }
 

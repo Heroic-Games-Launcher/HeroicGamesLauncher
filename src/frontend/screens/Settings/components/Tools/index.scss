@@ -10,7 +10,7 @@
     margin: 0 var(--space-3xs);
     display: flex;
     align-items: center;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
   }
 
   .active {

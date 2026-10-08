@@ -1,3 +1,5 @@
+@use '../../../../styles/breakpoints';
+
 .wineItem {
   display: grid;
   grid-template-columns: 33% 30% 20% 17%;
@@ -53,9 +55,9 @@
 }
 
 .wineItem .version {
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   padding-inline-end: 16px;
-  color: var(--text-primary);
+  color: var(--text-default);
   background: transparent;
   border: none;
   text-align: start;
@@ -65,7 +67,7 @@
 }
 
 .wineItem .version:hover {
-  color: var(--accent);
+  color: var(--accent-text, var(--accent));
   text-decoration: underline;
 }
 
@@ -76,8 +78,8 @@
 
 .wineItem .size {
   text-align: start;
-  font-weight: 500;
-  color: var(--accent);
+  font-weight: var(--weight-medium);
+  color: var(--accent-text, var(--accent));
 }
 
 .wineItem .sizeValue {
@@ -87,7 +89,7 @@
 
 .wineItem .percentageText {
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--success);
   margin-inline-start: 4px;
 }
@@ -99,7 +101,7 @@
 }
 
 /* Responsive */
-@media (max-width: 800px) {
+@include breakpoints.for-default-window {
   .wineItem {
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto;
@@ -121,7 +123,7 @@
   .wineItem .version {
     grid-area: version;
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: var(--weight-bold);
     padding-inline-end: 0;
   }
 
@@ -135,7 +137,7 @@
   .wineItem .size {
     grid-area: size;
     text-align: end;
-    font-weight: 600;
+    font-weight: var(--weight-semibold);
     font-size: 0.9rem;
   }
 

@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints';
+
 .wineManagerHeader {
   display: flex;
   justify-content: space-between;
@@ -10,7 +12,7 @@
   h4 {
     margin: 0;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: var(--weight-bold);
   }
 
   .wineManagerToolbar {
@@ -28,9 +30,9 @@
     .toolbarBtn {
       background: var(--body-background);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       padding: 8px 12px;
-      color: var(--text-primary);
+      color: var(--text-default);
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
@@ -59,7 +61,7 @@
     width: 100%;
     margin-bottom: 16px;
     background: var(--body-background);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 4px;
 
     .MuiTabs-root {
@@ -73,20 +75,20 @@
       .MuiTab-root {
         min-height: 36px;
         padding: 8px 16px;
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
         color: var(--text-secondary);
         text-transform: none;
-        font-weight: 600;
+        font-weight: var(--weight-semibold);
         transition: all 0.2s ease;
 
         &.Mui-selected {
           background: var(--background);
-          color: var(--text-primary);
+          color: white;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         &:hover:not(.Mui-selected) {
-          color: var(--text-primary);
+          color: var(--text-default);
         }
       }
     }
@@ -98,7 +100,7 @@
     flex-direction: column;
     flex-grow: 1;
     background: var(--body-background);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     overflow: auto;
     margin-bottom: 32px;
@@ -117,8 +119,8 @@
 
       span {
         text-align: start;
-        font-weight: 700;
-        color: white;
+        font-weight: var(--weight-bold);
+        color: var(--text-default);
         text-transform: uppercase;
         font-size: 0.75rem;
         letter-spacing: 0.05em;
@@ -143,7 +145,7 @@
     width: 80%;
     margin: 16px auto;
     background: var(--body-background);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     padding: 12px 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     display: flex;
@@ -158,7 +160,7 @@
     &.errorState {
       justify-content: center;
       color: var(--error);
-      font-weight: 500;
+      font-weight: var(--weight-medium);
     }
   }
 }
@@ -184,8 +186,8 @@
         cursor: default;
         margin-bottom: var(--space-md);
         font: var(--font-secondary-regular);
-        font-size: var(--text-md);
-        line-height: var(--space-lg);
+        font-size: var(--body-md);
+        line-height: var(--line-height-normal);
         color: var(--text-secondary);
         display: block;
       }
@@ -209,7 +211,7 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 800px) {
+@include breakpoints.for-default-window {
   .wineManagerHeader {
     flex-direction: column;
     align-items: flex-start;
@@ -238,33 +240,6 @@
       .actions {
         grid-column: 2;
       }
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .wineManagerSettingsContent {
-    min-width: auto;
-    width: 100%;
-    padding: 16px;
-  }
-
-  .wineItem {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'version'
-      'notes'
-      'release'
-      'size'
-      'actions';
-    text-align: center;
-    .actions {
-      justify-content: center;
-      margin-top: 8px;
-    }
-    .release,
-    .size {
-      text-align: center;
     }
   }
 }

@@ -1,64 +1,72 @@
-/*
-with 1.2 scale ratio and 16px root font size
-name px rem
-xs	11.11	0.69
-sm	13.33	0.83
-md	16.00	1.00
-lg	19.20	1.20
-xl	23.04	1.44
-2xl	27.65	1.73
-3xl	33.18	2.07
-4xl	39.81	2.49
-5xl	47.78	2.99
-6xl	57.33	3.58
-*/
-
 @mixin typeSystem {
-  --default-primary-font-family: 'Rubik', sans-serif;
-  --default-secondary-font-family: 'Cabin', sans-serif;
+  --default-primary-font-family: 'Outfit', sans-serif;
+  --default-secondary-font-family: 'Outfit', sans-serif;
   --primary-font-family: var(--default-primary-font-family);
   --secondary-font-family: var(--default-secondary-font-family);
-  --light: 300;
-  --regular: 400;
-  --medium: 500;
-  --semibold: 600;
-  --bold: 700;
-  --extrabold: 900;
 
-  /* set base values */
-  --text-scale-ratio: 1.2;
+  /* base — root font size kept at 16px for rem-based code */
   font-size: 16px;
 
-  /* type scale */
-  --text-xs: calc(1rem / (var(--text-scale-ratio) * var(--text-scale-ratio)));
-  --text-sm: calc(1rem / var(--text-scale-ratio));
-  --text-md: calc(1rem);
-  --text-lg: calc(1rem * var(--text-scale-ratio));
-  --text-xl: calc(1rem * var(--text-scale-ratio) * var(--text-scale-ratio));
-  --text-2xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio)
-  );
-  --text-3xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio)
-  );
-  --text-4xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio)
-  );
-  --text-5xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio)
-  );
-  --text-6xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio)
-  );
+  /* pixel-perfect type scale (Outfit reads smaller than avg, so we
+     size up explicitly rather than rely on a ratio). Each step is a
+     fixed px value; components use the semantic tokens below instead. */
+  --font-size-2xs: 10px;
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+  --font-size-5xl: 46px;
+  --font-size-6xl: 58px;
+
+  --heading-1: var(--font-size-6xl);
+  --heading-2: var(--font-size-5xl);
+  --heading-3: var(--font-size-4xl);
+  --heading-4: var(--font-size-3xl);
+  --heading-5: var(--font-size-2xl);
+  --heading-6: var(--font-size-xl);
+
+  --display: var(--font-size-2xl);
+  --title: var(--font-size-xl);
+  --title-sm: var(--font-size-lg);
+
+  --body-lg: var(--font-size-lg);
+  --body-md: var(--font-size-md);
+  --body-sm: var(--font-size-sm);
+
+  --caption: var(--font-size-sm);
+  --caption-sm: var(--font-size-xs);
+  --caption-xs: var(--font-size-2xs);
+
+  --eyebrow: var(--font-size-md);
+  --eyebrow-sm: var(--font-size-xs);
+
+  --button-lg: var(--font-size-lg);
+  --button-md: var(--font-size-md);
+  --button-sm: var(--font-size-sm);
+
+  --menu: var(--font-size-md);
+  --menu-item: var(--font-size-sm);
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 900;
+
+  --line-height-none: 1;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  --letter-spacing-wide: 0.08em;
+
+  /* legacy fallback — kept for rare places that still do rem math */
+  --text-scale-ratio: 1.2;
 }
 
 body {
@@ -77,7 +85,7 @@ body {
     'Helvetica Neue',
     sans-serif;
   font-style: normal;
-  font-weight: var(--regular);
+  font-weight: var(--weight-regular);
 }
 
 code {
@@ -101,36 +109,36 @@ h6,
 }
 
 .text--6xl {
-  font-size: var(--text-6xl);
+  font-size: var(--font-size-6xl);
 }
 
 .text--5xl {
-  font-size: var(--text-5xl);
+  font-size: var(--font-size-5xl);
 }
 
 h1,
 .text--4xl {
-  font-size: var(--text-4xl);
+  font-size: var(--font-size-4xl);
 }
 
 h2,
 .text--3xl {
-  font-size: var(--text-3xl);
+  font-size: var(--font-size-3xl);
 }
 
 h3,
 .text--2xl {
-  font-size: var(--text-2xl);
+  font-size: var(--font-size-2xl);
 }
 
 h4,
 .text--xl {
-  font-size: var(--text-xl);
+  font-size: var(--font-size-xl);
 }
 
 h5,
 .text--lg {
-  font-size: var(--text-lg);
+  font-size: var(--font-size-lg);
 }
 
 .subtitle,
@@ -140,27 +148,27 @@ h6,
 .text--md,
 button,
 .button-md {
-  font-size: var(--text-md);
+  font-size: var(--font-size-md);
 }
 
 .content-sm,
 .button-sm,
 .text--sm {
-  font-size: var(--text-sm);
+  font-size: var(--font-size-sm);
 }
 
 .subtitle-sm,
 .caption,
 .status,
 .text--xs {
-  font-size: var(--text-xs);
+  font-size: var(--font-size-xs);
 }
 
 .subtitle,
 .content-sm,
 h5,
 h4 {
-  font-weight: var(--medium);
+  font-weight: var(--weight-medium);
 }
 
 .subtitle-sm,
@@ -169,10 +177,10 @@ h4 {
 h3,
 h2,
 h1 {
-  font-weight: var(--bold);
+  font-weight: var(--weight-bold);
 }
 
 .status,
 h6 {
-  font-weight: var(--semibold);
+  font-weight: var(--weight-semibold);
 }

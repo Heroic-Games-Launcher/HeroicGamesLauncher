@@ -1,0 +1,46 @@
+.libraryFilters .dropdown {
+  min-width: 380px;
+  max-width: 440px;
+}
+
+.filterChipIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.filterChipIcon .filterChipLogo {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.filterPlatformTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-xs);
+  font-family: var(--primary-font-family);
+  font-size: var(--caption-xs);
+  font-weight: var(--weight-bold);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.filterPlatformTag--win {
+  background: #2563eb;
+}
+.filterPlatformTag--mac {
+  background: #4b5563;
+}
+.filterPlatformTag--linux {
+  background: #b45309;
+}
+.filterPlatformTag--browser {
+  background: #7c3aed;
+}
