@@ -1,11 +1,11 @@
 .Sidebar {
   .Sidebar__sectionLabel {
     padding: var(--space-md) var(--sidebar-horizontal-padding) var(--space-2xs);
-    font-size: var(--text-xs);
+    font-size: var(--eyebrow);
     font-weight: var(--semibold);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-tertiary, var(--navbar-inactive));
+    color: var(--on-nav-muted, var(--navbar-inactive));
     opacity: 0.9;
     user-select: none;
   }
@@ -16,13 +16,13 @@
 
   .Sidebar__item {
     --sidebar-item-inactive-text-color: var(
-      --navbar-inactive,
-      var(--navbar-accent)
+      --on-nav-muted,
+      var(--navbar-inactive, var(--navbar-accent))
     );
     --sidebar-hover-text-color: var(--text-hover);
     --sidebar-item-active-text-color: var(
-      --navbar-active,
-      var(--accent-overlay, var(--accent))
+      --on-nav-accent,
+      var(--navbar-accent, var(--navbar-active, var(--accent)))
     );
     --sidebar-active-item-background: var(--navbar-active-background);
 
@@ -35,7 +35,7 @@
     border: none;
     background: none;
     cursor: pointer;
-    font-size: var(--text-md);
+    font-size: var(--body-md);
     font-weight: var(--medium);
     color: var(--sidebar-item-inactive-text-color);
     border-radius: 10px;
@@ -72,7 +72,7 @@
       background: var(--navbar-accent, var(--accent));
       color: var(--background-darker, #000);
       font-family: var(--primary-font-family);
-      font-size: var(--text-xs);
+      font-size: var(--body-sm);
       font-weight: var(--bold);
       line-height: 1;
     }
@@ -83,7 +83,7 @@
     }
 
     &.active {
-      color: var(--navbar-accent, var(--sidebar-item-active-text-color));
+      color: var(--sidebar-item-active-text-color);
       font-weight: var(--semibold);
 
       .Sidebar__itemIcon {
@@ -113,8 +113,8 @@
       &:hover {
         padding-block: var(--space-3xs);
         padding-inline: var(--space-xl) var(--sidebar-horizontal-padding);
-        font-size: var(--text-sm);
-        line-height: 20px;
+        font-size: var(--body-sm);
+        line-height: 1.3;
         white-space: break-spaces;
       }
       &::before {

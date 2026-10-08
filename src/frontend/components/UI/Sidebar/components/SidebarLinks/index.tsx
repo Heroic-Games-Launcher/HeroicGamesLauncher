@@ -19,7 +19,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { openDiscordLink } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -54,6 +54,11 @@ export default function SidebarLinks() {
     location.pathname.includes('store') ||
     location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
+  const [settingsSubmenuOpen, setSettingsSubmenuOpen] = useState(isSettings)
+
+  useEffect(() => {
+    if (isSettings) setSettingsSubmenuOpen(true)
+  }, [isSettings])
   const isWin = platform === 'win32'
 
   const loggedIn =
@@ -208,13 +213,19 @@ export default function SidebarLinks() {
 
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
-          isActiveFallback={location.pathname.includes('settings')}
+          isActiveFallback={isSettings}
           icon={<Icon glyph={SettingsIcon} />}
           label={t('Settings', 'Settings')}
           url="/settings/general"
           dataTour="sidebar-settings"
+          onClick={(event) => {
+            if (isSettings) {
+              event.preventDefault()
+              setSettingsSubmenuOpen((open) => !open)
+            }
+          }}
         />
-        {isSettings && (
+        {isSettings && settingsSubmenuOpen && (
           <div className="SidebarSubmenu settings">
             <SidebarItem
               url="/settings/general"

@@ -63,7 +63,7 @@
     font-weight: var(--medium);
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--text-tertiary, var(--navbar-inactive));
+    color: var(--text-muted, var(--navbar-inactive));
     margin-top: 6px;
   }
 
@@ -89,8 +89,7 @@
 
   .heroicVersion {
     grid-area: version;
-    margin-block: 0 var(--sidebar-vertical-padding);
-    margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
+    margin: 0;
     -webkit-app-region: no-drag;
   }
 
@@ -137,7 +136,7 @@
     }
 
     .heroicVersion {
-      margin: var(--space-sm);
+      margin: var(--space-sm) 0;
     }
 
     .divider {
