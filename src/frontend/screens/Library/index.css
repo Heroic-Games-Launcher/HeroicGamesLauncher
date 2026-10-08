@@ -1,8 +1,8 @@
 .gameList {
   color: var(--text-secondary);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
-  grid-gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-gap: 1.75rem 1.25rem;
   padding: 0 var(--space-md-fixed) var(--space-3xl);
   margin: var(--space-md) 0;
 }
@@ -16,46 +16,31 @@
 }
 
 .gameListLayout {
-  display: flex;
-  flex-direction: column;
-  padding-top: 1em;
-  min-height: 2vh;
-  min-width: 80vw;
-  margin: 0 var(--space-md-fixed);
-}
-
-.gameListHeader {
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr 10%;
-  justify-items: baseline;
-  width: 100%;
-  color: var(--text-default);
-  font-weight: var(--bold);
-  padding-bottom: 0.5rem;
-  font-size: var(--text-lg);
-}
-
-.gameListHeader span:last-child {
-  justify-self: center;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 10px;
+  min-height: 2vh;
+  padding: 0 var(--space-md-fixed) var(--space-3xl);
+  margin: var(--space-md) 0;
 }
 
 .libraryHeader {
   text-align: start;
-  padding: var(--space-md-fixed);
+  padding: var(--space-md) var(--space-md-fixed);
   margin: 0;
   background: var(--gradient-body-background, var(--body-background));
   position: sticky;
-  top: var(--header-height, 82px);
-  z-index: 9;
+  top: 0;
+  z-index: 10;
+  font-size: var(--text-xl);
+  font-weight: var(--semibold);
+  letter-spacing: -0.01em;
 }
 
-.libraryHeaderWrapper {
-  display: grid;
-  align-items: center;
-  margin: calc(-1 * var(--space-3xs)) 0;
-  grid-template-columns: max-content min-content;
-  grid-template-areas: 'title action';
-  justify-content: space-between;
+.frameless:not(.fullscreen) .libraryHeader {
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px) + 10px
+  );
 }
 
 #backToTopArrow {

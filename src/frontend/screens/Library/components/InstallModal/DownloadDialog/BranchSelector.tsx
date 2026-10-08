@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { SelectField, TextInputField } from 'frontend/components/UI'
+import { Button, SelectField, TextInputField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import { Dialog, DialogContent } from 'frontend/components/UI/Dialog'
 import { MenuItem } from '@mui/material'
@@ -52,17 +52,17 @@ export default function BranchSelector({
               )}
             />
             <div className="controls">
-              <button
-                className="button is-danger"
+              <Button
+                variant="danger"
                 onClick={() => {
                   setShowBranchPasswordInput(false)
                   setBranchPassword(savedBranchPassword)
                 }}
               >
                 {tr('button.cancel', 'Cancel')}
-              </button>
-              <button
-                className="button is-success"
+              </Button>
+              <Button
+                variant="primary"
                 onClick={() => {
                   setShowBranchPasswordInput(false)
                   window.api
@@ -73,7 +73,7 @@ export default function BranchSelector({
                 }}
               >
                 {tr('box.ok', 'OK')}
-              </button>
+              </Button>
             </div>
           </DialogContent>
         </Dialog>

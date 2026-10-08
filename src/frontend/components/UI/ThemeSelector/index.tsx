@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { SelectField, InfoBox, PathSelectionBox } from '..'
+import { SelectField, PathSelectionBox } from '..'
 import { AppSettings } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -9,6 +9,7 @@ import { MenuItem } from '@mui/material'
 
 export const defaultThemes: Record<string, string> = {
   midnightMirage: 'Midnight Mirage',
+  heroicTheme: 'Heroic Theme',
   cyberSpaceOasis: 'Cyberspace Oasis',
   cyberSpaceOasisAlt: 'Cyberspace Oasis Classic',
   'high-contrast': 'High Contrast',
@@ -93,25 +94,21 @@ export const ThemeSelector = () => {
         onPathChange={updatePath}
         pathDialogTitle={t('box.default-install-path')}
         type="directory"
-        afterInput={
+        info={
           <>
-            <InfoBox text="infobox.help">
-              <a
-                className="link"
-                onClick={() => window.api.openCustomThemesWiki()}
-              >
-                {t(
-                  'help.custom_themes_wiki',
-                  'Check the Wiki for more details on adding custom themes. Click here.'
-                )}
-              </a>
-            </InfoBox>
-            <InfoBox text="infobox.warning">
+            {t(
+              'help.custom_themes_path',
+              'Do not use CSS files from untrusted sources.'
+            )}{' '}
+            <a
+              className="link"
+              onClick={() => window.api.openCustomThemesWiki()}
+            >
               {t(
-                'help.custom_themes_path',
-                'Do not use CSS files from untrusted sources.'
+                'help.custom_themes_wiki',
+                'Check the Wiki for more details on adding custom themes. Click here.'
               )}
-            </InfoBox>
+            </a>
           </>
         }
       />

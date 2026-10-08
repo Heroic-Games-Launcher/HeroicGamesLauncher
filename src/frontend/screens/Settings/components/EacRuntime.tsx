@@ -56,6 +56,10 @@ const EacRuntime = () => {
   return (
     <div className="toggleRow">
       <ToggleSwitch
+        description={t(
+          'settings.eacRuntime.hint',
+          'Install the runtime required by games protected with EasyAntiCheat'
+        )}
         htmlId="eacRuntime"
         value={eacRuntime}
         handleChange={handleEacRuntime}

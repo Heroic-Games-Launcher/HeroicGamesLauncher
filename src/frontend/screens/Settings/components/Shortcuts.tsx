@@ -45,6 +45,10 @@ const Shortcuts = () => {
     <>
       {supportsDesktopShortcut && (
         <ToggleSwitch
+          description={t(
+            'setting.addgamestosteam.description',
+            'Create a Steam shortcut whenever a game is installed'
+          )}
           htmlId="shortcutsToDesktop"
           value={addDesktopShortcuts}
           handleChange={() => setAddDesktopShortcuts(!addDesktopShortcuts)}

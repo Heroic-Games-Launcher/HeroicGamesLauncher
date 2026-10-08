@@ -1,29 +1,37 @@
 .systeminfo {
+  width: 100%;
+
+  .systeminfo__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  @media screen and (max-width: 860px) {
+    .systeminfo__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .SpecCard--loading {
+    gap: var(--space-sm);
+    align-items: center;
+  }
+
   .logo {
-    height: 100%;
-    zoom: 2;
+    height: 48px;
+    width: auto;
   }
 
   .heroic-icon {
-    zoom: 0.191;
+    height: 48px;
+    width: auto;
   }
 
   .fillWithThemeColor {
     path {
-      fill: var(--text-default) !important;
+      fill: currentColor !important;
     }
-  }
-
-  .MuiLinearProgress-bar {
-    background-color: var(--success);
-  }
-
-  .copyToClipboardButton {
-    width: 50%;
-    margin-top: 20px;
-  }
-
-  .showSystemSpecifications {
-    font-size: initial;
   }
 }

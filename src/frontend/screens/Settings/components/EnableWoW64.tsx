@@ -4,7 +4,6 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../SettingsContext'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableWoW64 = () => {
   const { t } = useTranslation()
@@ -19,21 +18,20 @@ const EnableWoW64 = () => {
 
   return (
     <>
-      <div className="toggleRow">
-        <ToggleSwitch
-          htmlId="WoW64Toggle"
-          value={enableWoW64 || false}
-          handleChange={() => setEnableWoW64(!enableWoW64)}
-          title={t('setting.WoW64', 'Enable WoW64 (Experimental)')}
-        />
-
-        <InfoIcon
-          text={t(
-            'help.WoW64',
-            'The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games.'
-          )}
-        />
-      </div>
+      <ToggleSwitch
+        info={t(
+          'help.WoW64',
+          'The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games.'
+        )}
+        description={t(
+          'setting.wow64.description',
+          'Run 32-bit games inside a 64-bit prefix, no separate prefix needed'
+        )}
+        htmlId="WoW64Toggle"
+        value={enableWoW64 || false}
+        handleChange={() => setEnableWoW64(!enableWoW64)}
+        title={t('setting.WoW64', 'Enable WoW64 (Experimental)')}
+      />
     </>
   )
 }

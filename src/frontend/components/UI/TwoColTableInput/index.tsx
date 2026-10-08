@@ -1,7 +1,10 @@
 import { ReactNode, useContext, useEffect, useState } from 'react'
 import SvgButton from '../SvgButton'
 import TextInputField from '../TextInputField'
-import AddBoxIcon from '@mui/icons-material/AddBox'
+import { Plus } from 'lucide-react'
+import Button from '../Button'
+import InfoTooltip from '../InfoTooltip'
+import Icon from '../Icon'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons'
 import EditIcon from '@mui/icons-material/Edit'
@@ -23,6 +26,7 @@ interface FullFillProps {
 
 interface Props {
   label: string
+  info?: ReactNode
   htmlId: string
   header: ColumnProps
   rows: ColumnProps[]
@@ -39,6 +43,7 @@ const EMPTY_INPUTS = { key: '', value: '' }
 
 export function TableInput({
   label,
+  info,
   htmlId,
   header,
   rows,
@@ -132,100 +137,88 @@ export function TableInput({
   return (
     <div
       className={classnames(`tableFieldWrapper Field`, {
-        isRTL
+        isRTL,
+        'tableFieldWrapper--noConnector': !connector
       })}
     >
-      {label && <label htmlFor={htmlId}>{label}</label>}
-      <table>
-        <tbody>
-          <tr>
-            <th>{header.key}</th>
-            <th>{header.value}</th>
-            <th></th>
-          </tr>
-          {!!rowData.length &&
-            rowData.map((row: ColumnProps, key) => {
-              return (
-                <tr key={key}>
-                  <td>
-                    <span>{row.key}</span>
-                  </td>
-                  <td></td>
-                  <td>
-                    <span>{row.value}</span>
-                  </td>
-                  <td>
-                    <SvgButton onClick={() => editRow(row)}>
-                      <EditIcon
-                        style={{ color: 'var(--accent)' }}
-                        fontSize="large"
-                      />
-                    </SvgButton>
-                    <SvgButton onClick={() => removeRow(row)}>
-                      <RemoveCircleIcon
-                        style={{ color: 'var(--danger)' }}
-                        fontSize="large"
-                      />
-                    </SvgButton>
-                  </td>
-                </tr>
-              )
-            })}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td>
-              <TextInputField
-                label={header.key}
-                value={newVarName}
-                htmlId={`${header.key}-key`}
-                placeholder={inputPlaceHolder.key}
-                extraClass={keyError ? 'error' : ''}
-                onChange={(newValue) => setNewVarName(newValue)}
-              />
-            </td>
-            <td>{connector}</td>
-            <td>
-              <TextInputField
-                label={header.value}
-                value={newVarValue}
-                htmlId={`${header.value}-key`}
-                placeholder={inputPlaceHolder.value}
-                onChange={(newValue) => setNewVarValue(newValue)}
-              />
-            </td>
-            <td>
-              <SvgButton
-                onClick={() => addRow({ key: newVarName, value: newVarValue })}
-                className={`is-primary`}
-              >
-                <AddBoxIcon
-                  style={{ color: 'var(--success)' }}
-                  fontSize="large"
-                />
-              </SvgButton>
-            </td>
-          </tr>
-          <tr className="error">
-            <td colSpan={3}>{keyError || valueError}</td>
-          </tr>
-          <tr className="dirty">
-            <td colSpan={3}>
-              {dirtyInputs && !keyError && !valueError && newVarName && (
-                <>
-                  <span>
-                    {t(
-                      'two_col_table.save_hint',
-                      'Changes in this table are not saved automatically. Click the + button'
-                    )}
-                  </span>
-                  <FontAwesomeIcon icon={faArrowUp} />
-                </>
+      {label && (
+        <label className="settingsSectionTitle" htmlFor={htmlId}>
+          {label}
+          {info && <InfoTooltip content={info} label={label} />}
+        </label>
+      )}
+      {!!rowData.length && (
+        <ul className="tableFieldWrapper__rows">
+          {rowData.map((row: ColumnProps, key) => (
+            <li key={key} className="tableFieldWrapper__row">
+              <span className="tableFieldWrapper__key">{row.key}</span>
+              {connector && (
+                <span className="tableFieldWrapper__connector">
+                  {connector}
+                </span>
               )}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+              <span className="tableFieldWrapper__value">{row.value}</span>
+              <span className="tableFieldWrapper__rowActions">
+                <SvgButton onClick={() => editRow(row)}>
+                  <EditIcon
+                    style={{ color: 'var(--accent)' }}
+                    fontSize="large"
+                  />
+                </SvgButton>
+                <SvgButton onClick={() => removeRow(row)}>
+                  <RemoveCircleIcon
+                    style={{ color: 'var(--danger)' }}
+                    fontSize="large"
+                  />
+                </SvgButton>
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="tableFieldWrapper__add">
+        <TextInputField
+          label={header.key}
+          value={newVarName}
+          htmlId={`${header.key}-key`}
+          placeholder={inputPlaceHolder.key}
+          extraClass={keyError ? 'error' : ''}
+          onChange={(newValue) => setNewVarName(newValue)}
+        />
+        {connector && (
+          <span className="tableFieldWrapper__connector">{connector}</span>
+        )}
+        <TextInputField
+          label={header.value}
+          value={newVarValue}
+          htmlId={`${header.value}-key`}
+          placeholder={inputPlaceHolder.value}
+          onChange={(newValue) => setNewVarValue(newValue)}
+        />
+        <Button
+          variant="ghost"
+          aria-label={t('two_col_table.add', 'Add')}
+          title={t('two_col_table.add', 'Add')}
+          onClick={() => addRow({ key: newVarName, value: newVarValue })}
+          icon={<Icon glyph={Plus} size="lg" strokeWidth={2.25} />}
+        />
+      </div>
+
+      {(keyError || valueError) && (
+        <p className="tableFieldWrapper__error">{keyError || valueError}</p>
+      )}
+
+      {dirtyInputs && !keyError && !valueError && newVarName && (
+        <p className="tableFieldWrapper__hint">
+          {t(
+            'two_col_table.save_hint',
+            'Changes in this table are not saved automatically. Click the + button'
+          )}
+          <FontAwesomeIcon icon={faArrowUp} />
+        </p>
+      )}
+
       {newVarValue && warning}
       {afterInput}
     </div>

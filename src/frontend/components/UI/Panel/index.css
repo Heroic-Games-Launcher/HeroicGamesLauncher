@@ -1,0 +1,33 @@
+.Panel {
+  border-radius: 16px;
+  border: 1px solid var(--panel-border, var(--divider));
+  isolation: isolate;
+}
+
+.Panel--translucent {
+  background: var(--panel-background, var(--background-darker));
+}
+
+.Panel--solid {
+  background: var(--background, #141a24);
+}
+
+.Panel--glass {
+  background: var(--panel-glass, var(--panel-background));
+}
+
+.Panel--padding-none {
+  padding: 0;
+}
+
+.Panel--padding-sm {
+  padding: var(--space-md-fixed);
+}
+
+.Panel--padding-md {
+  padding: var(--space-xl-fixed);
+}
+
+.Panel--padding-lg {
+  padding: var(--space-2xl-fixed);
+}

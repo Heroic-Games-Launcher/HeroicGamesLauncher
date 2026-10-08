@@ -1,8 +1,12 @@
 .env-vars-container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md-fixed);
+  gap: var(--space-xs-fixed);
   width: 100%;
+}
+
+.env-vars-container > *:empty {
+  display: none;
 }
 
 .env-vars-header {
@@ -10,11 +14,14 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--space-md-fixed);
-  margin-bottom: var(--space-xs-fixed);
+  margin-bottom: 0;
 }
 
 .env-vars-title {
-  font-size: var(--text-lg);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--body-md);
   margin: 0;
 }
 
@@ -101,26 +108,51 @@
 }
 
 .env-var-add-section {
-  margin-top: var(--space-sm-fixed);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm-fixed);
+  margin-top: 0;
   padding: var(--space-md-fixed);
-  border: 1px dashed var(--divider, var(--text-secondary));
-  border-radius: var(--space-3xs);
+  border: 1px solid var(--panel-divider, var(--divider));
+  border-radius: 12px;
+  background: var(--panel-background, var(--background-darker));
 }
 
 .env-var-add-title {
-  font-weight: bold;
-  color: var(--text-default);
-  font-size: var(--text-md);
+  font-weight: var(--semibold);
+  color: var(--text-muted, var(--text-secondary));
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .env-var-add-inputs {
   display: flex;
-  gap: var(--space-sm-fixed);
-  align-items: center;
+  gap: var(--space-xs-fixed);
+  align-items: flex-end;
+}
+
+.env-var-add-inputs .Field.Field {
+  margin: 0;
+  padding-block: 0;
+  min-width: 0;
+}
+
+.env-var-add-inputs > .Button {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  width: var(--field-height);
+  height: var(--field-height);
+  padding: 0;
+  border-radius: var(--field-radius);
 }
 
 .env-var-add-inputs .env-var-connector {
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
+  height: var(--field-height);
+  color: var(--on-panel-muted, var(--text-secondary));
 }
 
 .bulk-edit-textarea {

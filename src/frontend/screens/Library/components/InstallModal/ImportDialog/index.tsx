@@ -7,7 +7,7 @@ import {
   Runner,
   WineInstallation
 } from 'common/types'
-import { PathSelectionBox } from 'frontend/components/UI'
+import { Button, PathSelectionBox } from 'frontend/components/UI'
 import {
   DialogHeader,
   DialogFooter,
@@ -108,16 +108,16 @@ export default function ImportDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button
+        <Button
+          variant="primary"
           onClick={handleImport}
-          className="button is-primary"
           disabled={!importPath || isImportingThisGame}
         >
           {isImportingThisGame ? (
             <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
           ) : null}
           {t('button.import', 'Import')}
-        </button>
+        </Button>
       </DialogFooter>
     </>
   )

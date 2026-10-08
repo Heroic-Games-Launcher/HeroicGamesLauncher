@@ -10,14 +10,20 @@
   --space-2xl: 4.5em;
   --space-3xl: 8.5em;
 
-  --space-unit-fixed: 16px;
-  --space-2xs-fixed: calc(0.25 * var(--space-unit-fixed));
-  --space-xs-fixed: calc(0.5 * var(--space-unit-fixed));
-  --space-sm-fixed: calc(0.75 * var(--space-unit-fixed));
-  --space-md-fixed: calc(1 * var(--space-unit-fixed));
-  --space-lg-fixed: calc(1.2 * var(--space-unit-fixed));
-  --space-xl-fixed: calc(2.5 * var(--space-unit-fixed));
-  --space-2xl-fixed: calc(4.5 * var(--space-unit-fixed));
+  /* Fixed spacing: every step is a multiple of 4 so component padding and
+     gaps keep one rhythm. The em scale above still drives type-relative
+     spacing, which changes with font size. */
+  --space-3xs-fixed: 2px;
+  --space-2xs-fixed: 4px;
+  --space-xs-fixed: 8px;
+  --space-sm-fixed: 12px;
+  --space-md-fixed: 16px;
+  --space-lg-fixed: 20px;
+  --space-xl-fixed: 24px;
+  --space-2xl-fixed: 32px;
+  --space-3xl-fixed: 40px;
+  --space-4xl-fixed: 48px;
+  --space-5xl-fixed: 72px;
 }
 
 h1,

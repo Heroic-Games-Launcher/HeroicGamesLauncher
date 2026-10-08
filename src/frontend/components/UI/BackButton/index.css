@@ -1,0 +1,25 @@
+.BackButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm-fixed);
+  height: 44px;
+  padding: 0 var(--space-lg-fixed);
+  border-radius: 12px;
+  background: var(--background-darker, #0a0e13);
+  color: var(--text-default);
+  font-family: var(--primary-font-family);
+  font-size: var(--button-md);
+  font-weight: var(--semibold);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.8);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.BackButton:hover,
+.BackButton:focus-visible {
+  background: var(--background-lighter, #1a2030);
+  color: var(--text-hover, #ffffff);
+}

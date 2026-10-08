@@ -1,9 +1,11 @@
 import { useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
-import ToggleSwitch from '../ToggleSwitch'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import Dropdown from '../Dropdown'
+import { Button, Chip, FilterSection, Icon } from 'frontend/components/UI'
+import { LayoutGrid, ChevronDown } from 'lucide-react'
+import './index.css'
 
 export default function CategoryFilter() {
   const {
@@ -16,17 +18,12 @@ export default function CategoryFilter() {
 
   const toggleCategory = (category: string) => {
     if (currentCustomCategories.includes(category)) {
-      const newCategories = currentCustomCategories.filter(
-        (cat) => cat !== category
+      setCurrentCustomCategories(
+        currentCustomCategories.filter((cat) => cat !== category)
       )
-      setCurrentCustomCategories(newCategories)
     } else {
       setCurrentCustomCategories([...currentCustomCategories, category])
     }
-  }
-
-  const setCategoryOnly = (category: string) => {
-    setCurrentCustomCategories([category])
   }
 
   const selectAll = () => {
@@ -35,79 +32,71 @@ export default function CategoryFilter() {
     )
   }
 
-  const toggleWithOnly = (
-    toggle: JSX.Element,
-    onOnlyClicked: () => void,
-    category: string
-  ) => {
+  const categoryChip = (label: string, value?: string) => {
+    const category = value || label
+
     return (
-      <div className="toggleWithOnly" key={category}>
-        {toggle}
-        <button className="only" onClick={() => onOnlyClicked()}>
+      <span className="categoryChip" key={category}>
+        <Chip
+          active={currentCustomCategories.includes(category)}
+          onClick={() => toggleCategory(category)}
+        >
+          {label}
+        </Chip>
+        <button
+          className="categoryOnly"
+          onClick={() => setCurrentCustomCategories([category])}
+        >
           {t('header.only', 'only')}
         </button>
-      </div>
+      </span>
     )
-  }
-
-  const categoryToggle = (categoryName: string, categoryValue?: string) => {
-    const toggle = (
-      <ToggleSwitch
-        htmlId={categoryValue || categoryName}
-        handleChange={() => toggleCategory(categoryValue || categoryName)}
-        value={currentCustomCategories.includes(categoryValue || categoryName)}
-        title={categoryName}
-      />
-    )
-
-    const onOnlyClick = () => {
-      setCategoryOnly(categoryValue || categoryName)
-    }
-
-    return toggleWithOnly(toggle, onOnlyClick, categoryValue || categoryName)
   }
 
   const categoriesList = customCategories.listCategories()
 
   return (
     <Dropdown
-      buttonClass="selectStyle"
+      buttonClass="pill"
       className="categoriesFilter"
       data-tour="library-categories"
-      title={t('header.categories', 'Categories')}
+      title={
+        <>
+          <Icon glyph={LayoutGrid} size="md" />
+          <span>{t('header.categories', 'Categories')}</span>
+          <Icon glyph={ChevronDown} size="sm" />
+        </>
+      }
       popUpOnHover
     >
-      {categoriesList.length === 0 && (
-        <>
-          <span>
+      <FilterSection>
+        {categoriesList.length === 0 && (
+          <p className="FilterSection__empty">
             {t(
               'header.no_categories',
               'No custom categories. Add categories using each game menu.'
             )}
-          </span>
-          <hr />
-        </>
-      )}
-      {categoriesList.map((category) => categoryToggle(category))}
-      {categoryToggle(
-        t('header.uncategorized', 'Uncategorized'),
-        'preset_uncategorized'
-      )}
-      <hr />
-      <button
-        type="reset"
-        className="button is-primary"
-        style={{ marginBottom: '0.3rem' }}
-        onClick={() => selectAll()}
-      >
-        {t('header.select_all', 'Select All')}
-      </button>
-      <button
-        className="button is-secondary is-small"
-        onClick={() => setShowCategories(true)}
-      >
-        {t('categories-manager.title', 'Manage Categories')}
-      </button>
+          </p>
+        )}
+        {categoriesList.map((category) => categoryChip(category))}
+        {categoryChip(
+          t('header.uncategorized', 'Uncategorized'),
+          'preset_uncategorized'
+        )}
+      </FilterSection>
+
+      <div className="FilterActions">
+        <Button variant="ghost" size="sm" onClick={() => selectAll()}>
+          {t('header.select_all', 'Select All')}
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => setShowCategories(true)}
+        >
+          {t('categories-manager.title', 'Manage Categories')}
+        </Button>
+      </div>
     </Dropdown>
   )
 }

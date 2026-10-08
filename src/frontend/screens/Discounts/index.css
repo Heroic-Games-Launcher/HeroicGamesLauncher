@@ -65,7 +65,7 @@
 }
 
 .discountsScreen__regionLabel {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--semibold);
   color: var(--text-secondary);
   letter-spacing: 0.01em;
@@ -111,7 +111,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-secondary);
-  font-size: calc(var(--text-sm) * 0.85);
+  font-size: calc(var(--text-xs) * 0.85);
   font-weight: var(--semibold);
   letter-spacing: 0.02em;
 }

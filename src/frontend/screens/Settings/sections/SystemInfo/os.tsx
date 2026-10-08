@@ -1,11 +1,9 @@
 import React from 'react'
 
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
+
+import { SpecCard } from 'frontend/components/UI'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
 import { useTranslation } from 'react-i18next'
@@ -31,34 +29,29 @@ interface OSInfoProps {
 
 function OSInfo({ os, isFlatpak }: OSInfoProps) {
   const { t } = useTranslation()
+
   return (
-    <Paper sx={{ padding: 1, height: '100%' }} square>
-      <Typography variant="h6">
-        {t('settings.systemInformation.os', 'Operating System:')}
-      </Typography>
-      <Grid container spacing={1}>
-        <Grid item xs={2}>
-          <OSLogo platform={os.platform} />
-        </Grid>
-        <Grid item xs={10}>
-          {isFlatpak
-            ? t(
-                'settings.systemInformation.osNameFlatpak',
-                '{{osName}} (inside Flatpak)',
-                { osName: os.name }
-              )
-            : os.name}
-          <br />
-          {t(
-            'settings.systemInformation.osVersion',
-            'Version {{versionNumber}}',
-            {
-              versionNumber: os.version
-            }
-          )}
-        </Grid>
-      </Grid>
-    </Paper>
+    <SpecCard
+      title={t('settings.systemInformation.os', 'Operating System')}
+      media={<OSLogo platform={os.platform} />}
+    >
+      <span className="SpecCard__value">
+        {isFlatpak
+          ? t(
+              'settings.systemInformation.osNameFlatpak',
+              '{{osName}} (inside Flatpak)',
+              { osName: os.name }
+            )
+          : os.name}
+      </span>
+      <span className="SpecCard__meta">
+        {t(
+          'settings.systemInformation.osVersion',
+          'Version {{versionNumber}}',
+          { versionNumber: os.version }
+        )}
+      </span>
+    </SpecCard>
   )
 }
 

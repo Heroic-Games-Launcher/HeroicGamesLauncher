@@ -1,6 +1,6 @@
 .UpdateComponent {
   height: 100%;
-  font-size: var(--text-xl);
+  font-size: var(--title-md);
   color: var(--text-default);
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
   align-items: center;
 
   & svg {
-    font-size: var(--text-4xl);
+    font-size: var(--display-md);
     animation: refreshing 1.5s infinite;
     max-width: 100px;
   }

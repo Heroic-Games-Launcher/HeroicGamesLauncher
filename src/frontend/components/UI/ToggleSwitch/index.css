@@ -1,82 +1,78 @@
-.toggleSwitchWrapper {
-  display: grid;
-  grid-template-areas: 'check text';
-  grid-template-columns: min-content 1fr;
-  align-items: center;
-  justify-items: flex-start;
-  text-align: start;
-  cursor: pointer;
-  white-space: pre-line;
+.ToggleSwitch__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.hiddenCheckbox {
-  display: none;
-}
-
-/* add fake checkbox */
-.toggleSwitchWrapper:before {
-  content: '';
+.ToggleSwitch__track {
+  position: relative;
   display: inline-flex;
-  justify-content: center;
-  margin-inline-start: 13px;
-  margin-inline-end: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 26px;
+  padding: var(--space-2xs-fixed);
+  border-radius: 999px;
+  background: var(--input-background);
+  border: 1px solid
+    color-mix(
+      in oklab,
+      var(--on-panel, var(--text-default)) 52%,
+      var(--panel-base)
+    );
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.ToggleSwitch__thumb {
   width: 20px;
   height: 20px;
-  transition: 350ms;
-  border: 3px solid var(--accent);
-  border-radius: var(--space-3xs);
-  grid-area: check;
-  color: var(--background);
-  font-size: var(--text-xl);
-  line-height: var(--space-lg-fixed);
-  font-weight: var(--extrabold);
-  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 50%;
+  background: var(--on-panel, var(--text-default));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease;
 }
 
-.toggleSwitchWrapper span {
-  align-self: center;
-  justify-self: flex-start;
-  transition: 350ms;
-  color: var(--text-default);
+.ToggleSwitch__input:checked + .ToggleSwitch__track {
+  background: var(--navbar-accent, var(--accent));
+  border-color: var(--navbar-accent, var(--accent));
 }
 
-.toggleSwitchWrapper:hover span {
-  transition: 350ms;
-  color: var(--background);
+.ToggleSwitch__input:checked + .ToggleSwitch__track .ToggleSwitch__thumb {
+  transform: translateX(20px);
+  background: var(--ink-on-accent, var(--background-darker));
 }
 
-.hiddenCheckbox:checked + .toggleSwitchWrapper:before {
-  content: '\2713';
-  background: var(--accent);
+.isRTL
+  .ToggleSwitch__input:checked
+  + .ToggleSwitch__track
+  .ToggleSwitch__thumb {
+  transform: translateX(-20px);
 }
 
-.hiddenCheckbox:checked + .toggleSwitchWrapper span {
-  font-weight: var(--bold);
-  color: var(--accent);
+.ToggleSwitch__input:focus-visible + .ToggleSwitch__track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-.hiddenCheckbox[disabled] + .toggleSwitchWrapper {
-  color: var(--icon-disabled);
+.ToggleSwitch--disabled {
+  opacity: 0.55;
+}
+
+.ToggleSwitch--disabled .ToggleSwitch__track {
   cursor: not-allowed;
 }
 
-.hiddenCheckbox[disabled] + .toggleSwitchWrapper:before {
-  border-color: var(--icon-disabled);
-}
-
-/* fade in and out animation */
-.toggleSwitchWrapper.fading {
-  animation: fading infinite 1.5s;
-}
-
-@keyframes fading {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
+.ToggleSwitch.fading {
+  animation: fadeIn 300ms ease;
 }

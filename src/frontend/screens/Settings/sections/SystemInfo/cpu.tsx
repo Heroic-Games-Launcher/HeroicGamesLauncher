@@ -1,7 +1,6 @@
 import React from 'react'
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
+
+import { SpecCard } from 'frontend/components/UI'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
 import { useTranslation } from 'react-i18next'
@@ -12,23 +11,17 @@ function CPUCard({ cpu }: { cpu: SystemInformation['CPU'] }) {
   const { t } = useTranslation()
 
   return (
-    <Paper sx={{ padding: 1, height: '100%' }} square>
-      <Typography variant="h6">
-        {t('settings.systemInformation.cpu', 'CPU:')}
-      </Typography>
-      <Grid container spacing={1}>
-        <Grid item xs={2}>
-          <VendorLogo model={model} />
-        </Grid>
-        <Grid item xs={10}>
-          {t(
-            'settings.systemInformation.cpuDescription',
-            '{{numOfCores}}x {{modelName}}',
-            { numOfCores: cores, modelName: model }
-          )}
-        </Grid>
-      </Grid>
-    </Paper>
+    <SpecCard
+      title={t('settings.systemInformation.cpu', 'CPU')}
+      media={<VendorLogo model={model} />}
+    >
+      <span className="SpecCard__value">{model}</span>
+      <span className="SpecCard__meta">
+        {t('settings.systemInformation.cpuCores', '{{numOfCores}} cores', {
+          numOfCores: cores
+        })}
+      </span>
+    </SpecCard>
   )
 }
 

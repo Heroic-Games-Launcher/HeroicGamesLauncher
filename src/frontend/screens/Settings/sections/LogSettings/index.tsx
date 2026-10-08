@@ -1,8 +1,13 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UpdateComponent } from 'frontend/components/UI'
+import {
+  Button,
+  Icon,
+  SettingsCard,
+  UpdateComponent
+} from 'frontend/components/UI'
+import { Cloud, FolderOpen, LifeBuoy, Upload } from 'lucide-react'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -10,8 +15,6 @@ import { GameInfo } from 'common/types'
 import { openDiscordLink } from 'frontend/helpers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import useGlobalState from 'frontend/state/GlobalStateV2'
-import Upload from '@mui/icons-material/Upload'
-import Cloud from '@mui/icons-material/Cloud'
 import classNames from 'classnames'
 
 import type { GetLogFileArgs } from 'backend/logger/paths'
@@ -190,14 +193,15 @@ export default function LogSettings() {
   }, [installedGames, zoom.enabled])
 
   return (
-    <>
-      <h3>{t('setting.log.instructions_title', 'How to report a problem?')}</h3>
-      <p className="report-problem-instructions">
-        {t(
-          'setting.log.instructions',
-          'Join our Discord and look for the "#-support" section. Read the pinned "Read Me First | Frequently Asked Questions" thread and follow the instructions to share these logs and any relevant information about your problem.'
-        )}
-      </p>
+    <SettingsCard
+      glyph={LifeBuoy}
+      title={t('setting.log.instructions_title', 'How to report a problem?')}
+      description={t(
+        'setting.log.instructions',
+        'Join our Discord and look for the "#-support" section. Read the pinned "Read Me First | Frequently Asked Questions" thread and follow the instructions to share these logs and any relevant information about your problem.'
+      )}
+      className="logSettingsCard"
+    >
       <div
         className={classNames('logs-wrapper', {
           'game-log': !isInSettingsMenu
@@ -237,21 +241,17 @@ export default function LogSettings() {
       <span className="footerFlex">
         {logFileExist && (
           <>
-            <a
+            <Button
+              variant="ghost"
+              icon={<Icon glyph={FolderOpen} size="md" />}
               onClick={showLogFileInFolder}
               title={t('setting.log.show-in-folder', 'Show log file in folder')}
-              className="button is-footer"
             >
-              <div className="button-icontext-flex">
-                <div className="button-icon-flex">
-                  <FontAwesomeIcon icon={faFolderOpen} />
-                </div>
-                <span className="button-icon-text">
-                  {t('setting.log.show-in-folder', 'Show log file in folder')}
-                </span>
-              </div>
-            </a>
-            <a
+              {t('setting.log.show-in-folder', 'Show log file in folder')}
+            </Button>
+            <Button
+              variant="ghost"
+              icon={<Icon glyph={Upload} size="md" />}
               onClick={() => {
                 setUploadLogFileProps({
                   logFileArgs: showLogOf,
@@ -259,54 +259,34 @@ export default function LogSettings() {
                 })
               }}
               title={t('setting.log.upload.button', 'Upload log file')}
-              className="button is-footer"
             >
-              <div className="button-icontext-flex">
-                <div className="button-icon-flex">
-                  <Upload />
-                </div>
-                <span className="button-icon-text">
-                  {t('setting.log.upload.button', 'Upload log file')}
-                </span>
-              </div>
-            </a>
-            <a
+              {t('setting.log.upload.button', 'Upload log file')}
+            </Button>
+            <Button
+              variant="ghost"
+              icon={<FontAwesomeIcon icon={faDiscord} />}
               onClick={openDiscordLink}
               title={t('setting.log.join-heroic-discord', 'Join our Discord')}
-              className="button is-footer"
             >
-              <div className="button-icontext-flex">
-                <div className="button-icon-flex">
-                  <FontAwesomeIcon icon={faDiscord} />
-                </div>
-                <span className="button-icon-text">
-                  {t('setting.log.join-heroic-discord', 'Join our Discord')}
-                </span>
-              </div>
-            </a>
+              {t('setting.log.join-heroic-discord', 'Join our Discord')}
+            </Button>
           </>
         )}
         {isInSettingsMenu && (
           <>
-            <a
+            <Button
+              variant="ghost"
+              icon={<Icon glyph={Cloud} size="md" />}
               onClick={() =>
                 useGlobalState.setState({ showUploadedLogFileList: true })
               }
               title={t('setting.log.show-uploads', 'Show uploaded log files')}
-              className="button is-footer"
             >
-              <div className="button-icontext-flex">
-                <div className="button-icon-flex">
-                  <Cloud />
-                </div>
-                <span className="button-icon-text">
-                  {t('setting.log.show-uploads', 'Show uploaded log files')}
-                </span>
-              </div>
-            </a>
+              {t('setting.log.show-uploads', 'Show uploaded log files')}
+            </Button>
           </>
         )}
       </span>
-    </>
+    </SettingsCard>
   )
 }

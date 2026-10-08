@@ -1,789 +1,564 @@
 .gameConfigContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: min-content 1fr min-content;
-  padding: var(--space-md);
-  gap: var(--space-md);
-  border-radius: 10px;
-  height: 100%;
-  max-height: 100vh;
-  max-width: 2400px;
-  grid-template-areas:
-    'header header'
-    'main extra'
-    'report report';
-
-  overflow: hidden;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
-
-  &:has(.UpdateComponent) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-  }
-
-  /*
-  ** Adding icons to the MUI tabs makes them at least 72px high
-  ** min-height is guaranteed by the min height of the tab parent element itself
-  ** which is 44px
-  */
-
-  .MuiTab-labelIcon {
-    min-height: unset;
-    align-items: center;
-  }
-
-  & > p {
-    margin-block-start: var(--space-xs);
-    margin-block-end: var(--space-xs);
-  }
-
-  ::-webkit-scrollbar {
-    background: none;
-  }
-
-  .backButton {
-    justify-self: flex-start;
-    width: 44px;
-    height: 44px;
-    padding: 6px;
-    color: var(--status-default-hover);
-    background-color: var(--navbar-background);
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    border: none;
-
-    svg path {
-      fill: currentColor;
-      transition: fill 0.2s;
-    }
-
-    &:hover {
-      color: var(--status-default-hover);
-    }
-  }
-
-  .topRowWrapper {
-    display: flex;
-    grid-area: header;
-    align-items: center;
-    justify-content: space-between;
-    gap: auto;
-    z-index: 1;
-
-    & > * {
-      filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.25));
-    }
-
-    .backButton {
-      display: flex;
-      justify-content: center;
-      gap: var(--space-sm);
-    }
-  }
-
-  .topRowWapperInner {
-    display: flex;
-    grid-area: header;
-    gap: var(--space-sm);
-    align-items: center;
-    justify-content: flex-start;
-    z-index: 1;
-  }
-
-  .mainInfoWrapper,
-  .extraInfoWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    max-height: 1100px;
-    max-width: 1200px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    align-items: flex-start;
-    justify-self: start;
-  }
-
-  .mainInfoWrapper {
-    grid-area: main;
-    container: main-info-wrapper / size;
-  }
-
-  .extraInfoWrapper {
-    grid-area: extra;
-    max-width: 850px;
-    gap: 1rem;
-  }
-
-  .mainInfo,
-  .extraInfo {
-    outline: 3px solid #8a8a8a;
-    outline-offset: -3px;
-    border-radius: 15px;
-    isolation: isolate;
-    position: relative;
-    overflow: hidden;
-    align-self: stretch;
-    justify-self: stretch;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-
-    & > * {
-      position: relative;
-      z-index: 2;
-      text-align: left;
-    }
-
-    & > .popover-wrapper {
-      z-index: 3;
-    }
-
-    &::after {
-      content: '';
-      display: block;
-      inset: 0px;
-      position: absolute;
-      z-index: 0;
-      background-image: linear-gradient(
-        180deg,
-        transparent,
-        var(--body-background) 70%
-      );
-    }
-  }
-
-  .mainInfoWrapper {
-    .mainInfo {
-      padding: 0px min(4vw, 70px);
-      background-color: var(--body-background);
-
-      .store-icon {
-        position: absolute;
-        left: 0.5rem;
-        top: 0.5rem;
-      }
-
-      .gamePicture {
-        position: absolute;
-        left: 2px;
-        top: 2px;
-        right: 2px;
-        z-index: -1;
-        border-radius: 10px;
-        overflow: hidden;
-
-        &::after {
-          content: '';
-          background-image: linear-gradient(
-            180deg,
-            transparent,
-            var(--body-background)
-          );
-        }
-      }
-
-      & > :last-child {
-        margin-bottom: 25px;
-      }
-
-      h1 {
-        font-size: 34px;
-        line-height: 39px;
-        padding: var(--space-xs) 0;
-        margin-bottom: 0.8rem;
-        color: var(--text-title);
-        margin-top: 16vh;
-      }
-
-      .developer {
-        margin-bottom: 0.5rem;
-        color: var(--brand-text-02);
-        font-size: var(--text-md);
-        font-style: italic;
-      }
-
-      .releaseDate {
-        margin-bottom: 0.3rem;
-        color: var(--neutral-05);
-        font-size: var(--text-xs);
-      }
-
-      .summary {
-        overflow: auto;
-        font-size: var(--text-md);
-        line-height: 1.5em;
-        text-align: left;
-        flex-grow: 1;
-        margin-top: var(--space-xs);
-        color: var(--neutral-06);
-        padding: 16px 0;
-      }
-
-      .timeContainerLabel {
-        margin-top: 0.8rem;
-        color: var(--neutral-05);
-        font-size: var(--text-md);
-      }
-
-      .genres {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-xs);
-        margin-bottom: 0.8rem;
-
-        .genre {
-          background: var(--accent-02);
-          color: var(--brand-text-05);
-          padding: 4px 8px;
-          border-radius: 16px;
-          border: 1px solid var(--accent-02);
-          font-size: var(--text-sm);
-          font-weight: 600;
-        }
-      }
-
-      .gameStatus {
-        text-align: left;
-      }
-
-      .MuiLinearProgress-root {
-        display: block;
-        background-color: var(--neutral-05);
-
-        .MuiLinearProgress-bar {
-          background-color: var(--success);
-        }
-      }
-
-      .buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        margin-top: 15px;
-        border-radius: 8px;
-
-        .buttonWithIcon > svg {
-          display: flex;
-          justify-content: center;
-          margin-inline-end: var(--space-2xs);
-        }
-
-        & > button {
-          align-self: center;
-        }
-
-        & .installButtons,
-        & .playButtons {
-          display: flex;
-          justify-content: flex-start;
-
-          .altPlay {
-            --alt-button-gap: 6%;
-
-            position: relative;
-            margin-inline-start: 1px;
-            padding-inline: 8px;
-
-            & > svg {
-              rotate: 90deg;
-              font-size: 0.7rem;
-            }
-
-            a {
-              display: none;
-              position: absolute;
-              bottom: calc(100% + var(--alt-button-gap));
-              right: 0px;
-              white-space: nowrap;
-            }
-
-            /* extend the hover hit-area to bridge the gap between the arrow
-               button and the popup above it, so moving the cursor upward
-               doesn't dismiss the popup before reaching it */
-            &::before {
-              display: none;
-              content: '';
-              position: absolute;
-              left: 0;
-              right: 0;
-              bottom: 100%;
-              height: var(--alt-button-gap);
-              /* transparent area that still receives pointer events,
-                 sized to exactly match the 6% gap from bottom: 106% */
-              background: transparent;
-            }
-
-            &:focus,
-            &:hover,
-            &:focus-within {
-              a {
-                display: block;
-              }
-
-              &::before {
-                display: block;
-              }
-            }
-          }
-        }
-
-        .installButtons {
-          gap: var(--space-xs);
-          flex-wrap: wrap;
-        }
-
-        & .mainBtn {
-          min-width: 200px;
-          font-size: var(--text-md);
-          display: flex;
-          justify-content: center;
-          white-space: nowrap;
-
-          span {
-            white-space: nowrap;
-          }
-
-          & svg {
-            transform: scale(1.2);
-            height: 16px;
-            width: 16px;
-            align-self: center;
-            color: var(--neutral-02);
-            &[data-icon='play'],
-            &[data-icon='stop'] {
-              /* For some reason Play/Stop icons are much smaller the rest */
-              transform: scale(1.6);
-            }
-          }
-        }
-
-        & .delBtn {
-          font-size: var(--text-md);
-          min-width: 150px;
-          & svg {
-            margin-inline-end: 0;
-          }
-        }
-      }
-    }
-  }
-
-  .extraInfoWrapper {
-    .extraInfo {
-      padding: 3vh 3.5vw;
-      gap: var(--space-sm);
-
-      & > div:last-child {
-        overflow-y: auto;
-      }
-
-      & div.infoTab,
-      & div.extraTab {
-        & > div > * {
-          display: flex;
-          overflow: hidden;
-          text-align: end;
-          font-size: var(--space-unit-fixed);
-          line-height: 24px;
-          gap: var(--space-md-fixed);
-          padding: var(--space-unit-fixed);
-          align-items: center;
-          border-bottom: 1px solid var(--neutral-04);
-          background-image: linear-gradient(to right, transparent, transparent);
-          background-position: bottom;
-          background-size: 100vw;
-          background-repeat: no-repeat;
-
-          svg {
-            outline: none;
-          }
-
-          &:focus-visible,
-          &:has(:focus-visible) {
-            /* do not use :focus-within to prevent outline form appearing when using a mouse */
-            outline: 2px auto -webkit-focus-ring-color;
-          }
-
-          &:last-child {
-            border-bottom: 0px;
-          }
-
-          b {
-            text-align: start;
-            white-space: nowrap;
-            flex-grow: 1;
-            flex-basis: 140px;
-            flex-shrink: 0;
-          }
-
-          .truncatedPath {
-            z-index: 1;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            word-break: break-all;
-          }
-
-          &:hover .truncatedPath,
-          &:focus .truncatedPath {
-            overflow: visible;
-            white-space: normal;
-            background: var(--body-background);
-          }
-        }
-        & > div > .hltbWrapper > .MuiAccordion-root {
-          background-color: unset;
-          box-shadow: none;
-          color: var(--text-default);
-          flex-grow: 1;
-
-          & > .MuiAccordionSummary-root:focus-visible {
-            background: unset; /* no more darker background */
-          }
-
-          & > .MuiAccordionSummary-root {
-            padding: 0;
-            min-height: unset;
-
-            & > .MuiAccordionSummary-content {
-              margin: 0;
-              display: flex;
-              gap: 10px;
-            }
-
-            & .MuiAccordionSummary-expandIconWrapper {
-              color: inherit;
-            }
-          }
-
-          .MuiAccordionDetails-root {
-            padding-bottom: 8px;
-          }
-        }
-      }
-
-      & div.achievementsTab .achievement-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin: 0.2rem;
-
-        .achievement-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-
-          .achievement-icon {
-            height: 60px;
-            width: 60px;
-
-            img {
-              border-radius: var(--space-3xs);
-              height: 100%;
-              width: auto;
-              object-fit: cover;
-            }
-            &.rarity-epic {
-              box-shadow: 0 0 4px gold;
-            }
-            &.rarity-legendary {
-              box-shadow: 0 0 6px orangered;
-            }
-          }
-
-          .achievement-text {
-            display: flex;
-            flex-direction: column;
-
-            .achievement-title {
-              font-size: var(--text-md);
-              color: var(--text-title);
-            }
-            .achievement-desc {
-              font-size: var(--text-xs);
-              color: var(--neutral-06);
-            }
-            .achievement-rarity {
-              font-size: var(--text-xs);
-              color: var(--neutral-05);
-            }
-          }
-
-          &.locked {
-            .achievement-text {
-              filter: opacity(0.7) contrast(0.7);
-            }
-          }
-          &.hidden-achievement {
-            .achievement-icon {
-              img {
-                filter: blur(4px) opacity(0.7);
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .anticheatInfo {
-      max-width: none;
-      margin: 0;
-      align-self: center;
-    }
-  }
-
-  .reportProblem {
-    display: flex;
-    grid-area: report;
-
-    svg {
-      margin-inline-end: 0.5rem;
-    }
-  }
-
-  .store-icon {
-    border-radius: 10px;
-    padding: var(--space-3xs);
-    place-content: center;
-    fill: var(--text-default);
-
-    & > svg {
-      background-color: var(--body-background);
-      width: 46px;
-      height: 46px;
-      padding: var(--space-2xs);
-      border-radius: 10px;
-
-      &.gogIcon {
-        padding: 0px var(--space-3xs) var(--space-3xs);
-      }
-    }
-  }
-
-  .settings-icon {
-    width: 44px;
-    position: relative;
-    padding: 6px;
-    color: var(--navbar-inactive);
-    background-color: var(--navbar-background);
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    height: 44px;
-
-    svg path {
-      fill: currentColor;
-      transition: fill 0.2s;
-    }
-
-    &:hover {
-      color: var(--navbar-active);
-    }
-  }
-
-  .game-actions {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-
-    .toggle {
-      align-self: flex-end;
-      border: none;
-      color: var(--navbar-inactive);
-      font-size: var(--text-2xl);
-      padding: var(--space-xs-fixed);
-      cursor: pointer;
-      position: relative;
-      transition: color 0.2s;
-      display: flex;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      background-color: var(--navbar-background);
-      border-radius: 10px;
-    }
-
-    &:focus-within .toggle,
-    &:hover .toggle,
-    .toggle:hover {
-      color: var(--navbar-active);
-    }
-
-    .gameTools {
-      position: absolute;
-      opacity: 1;
-      pointer-events: all;
-      transition: all 0.2s;
-      background-color: var(--navbar-background);
-      border-radius: 5px;
-      z-index: 2;
-      padding: 0;
-      max-height: 0px;
-      overflow: hidden;
-      right: 0;
-      top: 112%;
-    }
-
-    .gameTools .link {
-      width: 100%;
-      text-align: start;
-      white-space: nowrap;
-      font-size: 1rem;
-      background: none;
-      color: var(--navbar-inactive);
-
-      &:hover {
-        color: var(--navbar-active);
-      }
-
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    &:focus-within .gameTools,
-    &:hover .gameTools {
-      opacity: 1;
-      pointer-events: all;
-      padding: var(--space-md);
-      max-height: 100vh;
-      box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  & .backgroundImage {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    object-fit: cover;
-    filter: blur(15px);
-    opacity: 0.3;
-  }
+  --game-page-gutter: clamp(16px, 4vw, 48px);
+  --game-page-max-width: 1280px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100%;
+  padding: var(--game-page-gutter);
+  overflow-y: auto;
+  overflow-x: hidden;
+  isolation: isolate;
 }
 
-.App.isRTL .gameConfigContainer .game-actions .gameTools {
-  left: 0;
-  right: unset;
+.gameConfigContainer:has(.UpdateComponent) {
+  justify-content: center;
+}
+
+.gameConfigContainer .backgroundImage {
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  height: 100vh;
+  width: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.gamePage__scrim {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 10, 15, 0.34) 0%,
+      rgba(6, 10, 15, 0.52) 55%,
+      rgba(6, 10, 15, 0.8) 100%
+    ),
+    linear-gradient(90deg, rgba(6, 10, 15, 0.42), transparent 72%);
+  pointer-events: none;
+}
+
+.topRowWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: var(--game-page-max-width);
+  margin: 0 auto;
+  z-index: 2;
 }
 
 .App.frameless:not(.fullscreen) .topRowWrapper {
   margin-right: var(--overlay-controls-width);
 }
 
-.gameConfigContainer {
-  .wikiLink {
-    background: var(--status-warning);
-    color: black;
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: center;
-    align-self: flex-start;
-    & svg {
-      margin-inline-end: 0.5rem;
-    }
-    & a {
-      color: black;
-      text-decoration: underline;
-    }
+.gamePage__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: var(--game-page-max-width);
+  margin: 0 auto;
+  padding-block-end: var(--space-xl);
+}
+
+.gamePage__hero {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+
+.gamePage__heroMain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.gamePage__title {
+  margin: 0;
+  font-size: var(--display-lg);
+  font-weight: var(--regular);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--on-panel, var(--text-default));
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.gamePage__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gamePage__metaDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-faint, var(--text-secondary));
+}
+
+.gamePage__meta .genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gameActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block-start: 8px;
+}
+
+.gameActions .playButtons,
+.gameActions .installButtons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.gameActions .Button {
+  flex-shrink: 0;
+}
+
+.gameActions .mainBtn {
+  min-width: 150px;
+}
+
+.gameActions .playWithLogs {
+  min-width: 0;
+}
+
+.gameActions .Button--primary {
+  box-shadow: 0 0 28px -6px var(--navbar-accent, var(--accent));
+}
+
+.gameActions__uninstall svg {
+  color: var(--danger, #ef4444);
+}
+
+.gameActions__favourite[aria-pressed='true'] svg {
+  color: var(--danger, #ef4444);
+}
+
+.gameStatus {
+  text-align: start;
+  width: 100%;
+}
+
+.gameStatus .installProgress {
+  margin-block-end: 8px;
+}
+
+.gameStatus__label {
+  margin: 0;
+  font-size: var(--body-md);
+  color: var(--text-muted, var(--text-secondary));
+}
+
+.gameStatus__label--busy {
+  color: var(--success);
+}
+
+.gameStatus__label a {
+  color: inherit;
+}
+
+.gamePage__heroAside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.gameStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.gameScores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.gameScores__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--body-md);
+  color: var(--text-muted, var(--text-secondary));
+}
+
+.gameScores__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+}
+
+.gameScores__list > *:not(:last-child)::after {
+  content: '·';
+  margin-inline-start: 20px;
+  color: var(--text-faint, var(--text-secondary));
+}
+
+.gamePage__tabs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gamePage__tabs > [role='tabpanel']:empty {
+  display: none;
+}
+
+.overviewTab > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+  align-items: stretch;
+  gap: 32px;
+  min-height: 260px;
+}
+
+.overviewTab__main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  min-width: 0;
+}
+
+.overviewTab__main .aboutGame {
+  flex: 1;
+}
+
+.aboutGame__title {
+  margin: 0 0 16px;
+  font-size: var(--title-md);
+  font-weight: var(--regular);
+  letter-spacing: -0.01em;
+  color: var(--on-panel, var(--text-default));
+  text-align: start;
+}
+
+.aboutGame .summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: var(--body-md);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--on-panel, var(--text-default));
+  text-align: start;
+}
+
+.aboutGame .summary p {
+  margin: 0;
+}
+
+.gameDetails__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-block-end: 16px;
+}
+
+.gameDetails__title {
+  margin: 0;
+  font-size: var(--title-md);
+  font-weight: var(--semibold);
+  color: var(--on-panel, var(--text-default));
+  text-align: start;
+}
+
+.infoTab > div {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.extraTab > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+.extraTab__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: var(--title-sm);
+  font-weight: var(--semibold);
+  color: var(--on-panel, var(--text-default));
+}
+
+.infoTab .truncatedPath {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+
+.infoTab .DetailList__row--clickable:hover .truncatedPath {
+  overflow: visible;
+  white-space: normal;
+}
+
+.steamDeckCompat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.achievementsTab .achievement-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.achievementsTab .achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--input-background);
+}
+
+.achievementsTab .achievement-icon {
+  height: 56px;
+  width: 56px;
+  flex-shrink: 0;
+}
+
+.achievementsTab .achievement-icon img {
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.achievementsTab .achievement-icon.rarity-epic {
+  box-shadow: 0 0 6px gold;
+  border-radius: 8px;
+}
+
+.achievementsTab .achievement-icon.rarity-legendary {
+  box-shadow: 0 0 8px orangered;
+  border-radius: 8px;
+}
+
+.achievementsTab .achievement-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: start;
+  min-width: 0;
+}
+
+.achievementsTab .achievement-title {
+  font-size: var(--text-md);
+  font-weight: var(--semibold);
+  color: var(--on-panel, var(--text-default));
+}
+
+.achievementsTab .achievement-desc {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.achievementsTab .achievement-rarity {
+  font-size: var(--text-xs);
+  color: var(--text-muted, var(--text-secondary));
+}
+
+.achievementsTab .achievement-item.locked .achievement-text {
+  filter: opacity(0.7) contrast(0.7);
+}
+
+.achievementsTab .achievement-item.hidden-achievement .achievement-icon img {
+  filter: blur(4px) opacity(0.7);
+}
+
+.gameConfigContainer .anticheatInfo {
+  max-width: none;
+  margin: 0;
+}
+
+.overviewTab__main .reportProblem {
+  margin-block-start: auto;
+}
+
+.gameConfigContainer .wikiLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--status-warning);
+  color: #000;
+}
+
+.gameConfigContainer .wikiLink a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.game-actions {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.gameActions .game-actions .toggle {
+  width: 44px;
+}
+
+.game-actions .gameTools {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 8px);
+  z-index: 3;
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  border-radius: 12px;
+  background: var(--background-darker, #0a0e13);
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.game-actions .gameTools .link {
+  width: 100%;
+  text-align: start;
+  white-space: nowrap;
+  font-size: var(--text-md);
+  background: none;
+  color: var(--navbar-inactive);
+}
+
+.game-actions .gameTools .link:hover {
+  color: var(--navbar-active);
+}
+
+.game-actions:focus-within .gameTools,
+.game-actions:hover .gameTools {
+  padding: var(--space-md);
+  max-height: 100vh;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  border-color: var(--panel-divider, var(--divider));
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.9);
+}
+
+.App.isRTL .gameConfigContainer .game-actions .gameTools {
+  inset-inline-end: unset;
+  inset-inline-start: 0;
+}
+
+@container main-content (max-width: 1100px) {
+  .gamePage__hero,
+  .overviewTab > div {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @container main-content (max-width: 700px) {
   .gameConfigContainer {
-    height: auto;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content 400px 2fr min-content;
-    grid-template-areas:
-      'header'
-      'main'
-      'extra'
-      'report';
+    --game-page-gutter: 16px;
+  }
+
+  .gamePage__title {
+    font-size: var(--display-md);
+  }
+
+  .gameActions,
+  .gameActions .playButtons,
+  .gameActions .installButtons {
+    gap: 10px;
+  }
+
+  .gameActions .mainBtn {
+    min-width: 0;
   }
 }
 
-@container main-info-wrapper (max-height: 560px) {
-  .mainInfo {
-    .developer,
-    .releaseDate,
-    .genre {
-      display: none;
-    }
-  }
+.cloudSaves__trigger {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-@container main-info-wrapper (max-height: 500px) {
-  .mainInfo {
-    .summary {
-      display: none;
-    }
-  }
+.cloudSaves__trigger:hover {
+  color: var(--navbar-accent, var(--accent));
 }
 
-@container main-info-wrapper (max-height: 450px) {
-  .mainInfo {
-    .gameStatus,
-    .timeContainerLabel {
-      display: none;
-    }
-  }
+.cloudSaves__unsupported {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--danger, #ef4444);
 }
 
-.extraInfoTabs {
+.game-actions .gameTools .submenu {
+  font-size: var(--text-md);
+  gap: 2px;
+}
+
+.game-actions .gameTools .link.buttonWithIcon {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--medium);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
 
-  .gameInfoTabs {
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3xs);
-    border: 1px solid var(--neutral-04);
-    @supports (
-      background-color: color-mix(in srgb, var(--neutral-02), transparent)
-    ) {
-      background-color: color-mix(in srgb, var(--neutral-02) 35%, transparent);
-    }
-    @supports not (
-      background-color: color-mix(in srgb, var(--neutral-02), transparent)
-    ) {
-      background-color: var(--neutral-02);
-      opacity: 0.35;
-    }
-    border-radius: var(--space-xs);
+.game-actions .gameTools .link.buttonWithIcon:hover {
+  background: var(--input-background);
+  color: var(--text-hover, var(--navbar-active));
+}
 
-    .MuiTabs-indicator {
-      display: none;
-    }
-
-    .MuiTabs-flexContainer {
-      border-bottom: none;
-    }
-
-    .MuiTabs-scrollButtons {
-      height: 100%;
-      width: 30px;
-
-      &.Mui-disabled {
-        opacity: 0.2;
-      }
-    }
-  }
-
-  .gameInfoTabsIcon {
-    width: 1rem;
-    height: 1rem;
-  }
+.game-actions .gameTools .link svg {
+  flex-shrink: 0;
 }

@@ -1,0 +1,25 @@
+.ProgressBar {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--input-background);
+  overflow: hidden;
+}
+
+.ProgressBar__fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 300ms ease;
+}
+
+.ProgressBar--accent .ProgressBar__fill {
+  background: var(--navbar-accent, var(--accent));
+}
+
+.ProgressBar--success .ProgressBar__fill {
+  background: var(--success);
+}
+
+.ProgressBar--warning .ProgressBar__fill {
+  background: var(--status-warning);
+}

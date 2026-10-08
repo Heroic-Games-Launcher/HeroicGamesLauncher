@@ -4,7 +4,6 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '../util'
 import SettingsContext from '../SettingsContext'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
@@ -38,27 +37,26 @@ const AutoVKD3D = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="autovkd3d"
-        value={autoInstallVkd3d}
-        handleChange={handleAutoInstallVkd3d}
-        title={
-          installingVKD3D
-            ? t('please-wait', 'Please wait...')
-            : t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')
-        }
-        fading={installingVKD3D}
-        disabled={!autoInstallDxvk || installingVKD3D}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.vkd3d',
-          'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.vkd3d',
+        'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.'
+      )}
+      description={t(
+        'setting.autovkd3d.description',
+        'Translate DirectX 12 calls to Vulkan'
+      )}
+      htmlId="autovkd3d"
+      value={autoInstallVkd3d}
+      handleChange={handleAutoInstallVkd3d}
+      title={
+        installingVKD3D
+          ? t('please-wait', 'Please wait...')
+          : t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')
+      }
+      fading={installingVKD3D}
+      disabled={!autoInstallDxvk || installingVKD3D}
+    />
   )
 }
 

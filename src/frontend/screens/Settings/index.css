@@ -6,7 +6,7 @@
   width: 100%;
   border-radius: 1rem;
   grid-area: content;
-  padding: var(--space-xl-fixed) var(--space-2xl-fixed);
+  padding: var(--space-3xl-fixed) var(--space-5xl-fixed);
   position: relative;
   margin-bottom: 35px;
 }
@@ -27,7 +27,7 @@
   margin-bottom: var(--space-md);
   font: var(--font-secondary-regular);
   font-size: var(--text-md);
-  line-height: var(--space-lg);
+  line-height: 1.5;
   color: var(--text-secondary);
 }
 
@@ -81,8 +81,8 @@
   align-items: center;
   justify-content: space-between;
   font: var(--font-secondary-regular-italic);
-  font-size: var(--text-sm);
-  line-height: var(--space-md);
+  font-size: var(--text-xs);
+  line-height: 1.4;
   /* identical to box height */
   color: var(--text-secondary);
 }
@@ -93,8 +93,8 @@
   display: flex;
   align-items: center;
   font: var(--font-secondary-regular-italic);
-  font-size: var(--text-sm);
-  line-height: var(--space-md);
+  font-size: var(--text-xs);
+  line-height: 1.4;
   /* identical to box height */
   color: #5a5e5f;
 }
@@ -141,7 +141,7 @@
 }
 
 .smallLink {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
@@ -220,7 +220,7 @@ a {
 
 .button-icontext-flex .button-icon-text {
   margin-block: auto;
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
 }
 
 .button-icon-flex {
@@ -254,15 +254,33 @@ a {
   padding-inline-end: 10px;
 }
 
+.customCSSField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.customCSSLabel {
+  font-family: var(--primary-font-family);
+  font-size: var(--eyebrow);
+  font-weight: var(--medium);
+  letter-spacing: 0.04em;
+  line-height: var(--leading-snug, 1.3);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
 .customCSSArea {
-  border-radius: var(--space-3xs);
+  display: block;
+  resize: vertical;
+  border-radius: 12px;
   width: 100%;
   min-height: 200px;
   background: var(--input-background);
   font-family: var(--primary-font-family), 'Noto Color Emoji';
   font-weight: normal;
   font-size: var(--text-md);
-  line-height: 19px;
+  line-height: 1.5;
   color: var(--text-secondary);
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -283,4 +301,310 @@ a {
   display: flex;
   gap: var(--space-md);
   border-radius: var(--space-3xs);
+}
+
+/* --- redesigned settings layout --- */
+
+.Settings {
+  padding: var(--space-3xl-fixed) clamp(16px, 4vw, 48px);
+}
+
+.Settings {
+  padding-block: var(--space-lg) var(--space-5xl-fixed);
+  padding-inline: clamp(16px, 2.5vw, 32px);
+  margin-bottom: 0;
+  align-items: flex-start;
+}
+
+.Settings .settingsWrapper {
+  max-width: 920px;
+  margin-inline: 0 auto;
+  place-self: start;
+  gap: var(--space-md);
+}
+
+.Settings .settingsWrapper > .BackButton {
+  position: static;
+  align-self: flex-start;
+}
+
+.Settings .headerTitle {
+  margin: 0;
+}
+
+.settingsSections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+/* Field components rendered inside a card become plain rows: the card owns
+   the vertical rhythm and the dividers. */
+.Settings .SettingsCard__body > *,
+.settingsDialogContent .SettingsCard__body > * {
+  padding-block: 20px;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  border-bottom: 1px solid var(--panel-divider, var(--divider));
+}
+
+.Settings .SettingsCard__body > *:first-child,
+.settingsDialogContent .SettingsCard__body > *:first-child {
+  padding-top: 0;
+}
+
+.Settings .SettingsCard__body > *:last-child,
+.settingsDialogContent .SettingsCard__body > *:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* Compact controls sit on the right of their label, wide ones stay stacked. */
+.SettingsCard .selectFieldWrapper {
+  grid-template-areas: 'label select';
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 340px);
+  align-items: center;
+  column-gap: var(--space-lg);
+}
+
+.SettingsCard .selectFieldWrapper.small,
+.SettingsCard .selectFieldWrapper.smaller {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 120px);
+}
+
+.SettingsCard .Field > label:not(.SettingRow__label),
+.SettingsCard .textInputFieldWrapper > label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 var(--space-2xs);
+  font-family: var(--primary-font-family);
+  font-size: var(--eyebrow);
+  font-weight: var(--medium);
+  letter-spacing: 0.04em;
+  line-height: var(--leading-snug, 1.3);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.SettingsCard .Field.selectFieldWrapper > label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--regular);
+  line-height: var(--leading-snug, 1.3);
+  color: var(--on-panel, var(--text-default));
+}
+
+.SettingsCard label.settingsSectionTitle {
+  margin: 0 0 var(--space-2xs);
+  font-size: var(--text-lg);
+  font-weight: var(--regular);
+  color: var(--on-panel, var(--text-default));
+}
+
+.SettingsCard .infoBox,
+.SettingsCard .helpLink {
+  font-size: var(--text-xs);
+}
+
+.SettingsCard .helpLink {
+  height: auto;
+  min-height: 0;
+  margin-block: var(--space-2xs) 0;
+  padding-block: 0;
+}
+
+.SettingsCard input::placeholder {
+  color: var(--field-placeholder);
+  opacity: 1;
+}
+
+/* --- settings tabs: consistent width and rhythm --- */
+
+.Settings .settingsWrapper > div,
+.Settings .settingsWrapper > section {
+  width: 100%;
+}
+
+.Settings [role='tabpanel'] > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.Settings .settingsTabs {
+  margin-block-end: var(--space-sm);
+}
+
+.Settings .defaults-hint {
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
+.Settings .settingSubheader {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--text-2xl);
+  font-weight: var(--regular);
+  color: var(--on-panel, var(--text-default));
+}
+
+.Settings .systeminfo h3,
+.Settings .systeminfo h5 {
+  margin: 0 0 var(--space-xs);
+  color: var(--on-panel, var(--text-default));
+}
+
+.Settings .systeminfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.Settings [role='tabpanel'] {
+  margin-block-start: var(--space-xs);
+}
+
+.Settings [role='tabpanel']:empty {
+  display: none;
+}
+
+.Settings .systeminfo hr {
+  border: none;
+  border-top: 1px solid var(--panel-divider, var(--divider));
+  margin-block: var(--space-md);
+}
+
+.Settings .systeminfo .copyToClipboardButton {
+  margin-block-start: var(--space-md);
+  align-self: flex-start;
+  width: auto;
+}
+
+.Settings .systeminfo .MuiPaper-root h3,
+.Settings .systeminfo .MuiPaper-root h4,
+.Settings .systeminfo .MuiPaper-root h5,
+.Settings .systeminfo .infoBox h3,
+.Settings .systeminfo .infoBox h4,
+.Settings .systeminfo .infoBox h5 {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--text-lg);
+  font-weight: var(--semibold);
+  color: var(--on-panel, var(--text-default));
+}
+
+.Settings .systeminfo .MuiPaper-root p,
+.Settings .systeminfo .infoBox p,
+.Settings .systeminfo .MuiPaper-root span,
+.Settings .systeminfo .infoBox span {
+  color: var(--on-panel-muted, var(--text-secondary));
+  line-height: 1.6;
+}
+
+/* --- log page --- */
+
+.Settings .log-box {
+  border: 1px solid var(--panel-divider, var(--divider));
+  background: var(--panel-background, var(--background-darker));
+  padding: var(--space-sm);
+}
+
+.Settings .logs-wrapper .buttons,
+.Settings .logs-wrapper .footerFlex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.Settings .log-box {
+  border-radius: 14px;
+}
+
+.Settings .settingsWrapper > p,
+.Settings .logs-wrapper > p {
+  max-width: none;
+}
+
+/* --- sliders --- */
+
+.Settings .MuiSlider-root {
+  width: 100%;
+  color: var(--navbar-accent, var(--accent));
+  padding-block: 6px;
+}
+
+.Settings .MuiSlider-rail {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--input-background);
+  opacity: 1;
+}
+
+.Settings .MuiSlider-track {
+  height: 6px;
+  border: none;
+  border-radius: 999px;
+  background: var(--navbar-accent, var(--accent));
+}
+
+.Settings .MuiSlider-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--ink-on-accent, #ffffff);
+  border: 3px solid var(--navbar-accent, var(--accent));
+  box-shadow: none;
+}
+
+.Settings .MuiSlider-thumb:hover,
+.Settings .MuiSlider-thumb.Mui-focusVisible {
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 24%, transparent);
+}
+
+.Settings .MuiSlider-markLabel {
+  top: 24px;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-xs);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.Settings .MuiSlider-markLabel[data-index='0'] {
+  transform: translateX(0);
+}
+
+.Settings .MuiSlider-markLabel[data-index='1'] {
+  transform: translateX(-100%);
+}
+
+.Settings .sliderWrapper,
+.Settings .MuiSlider-root + * {
+  margin-block-end: var(--space-2xs);
+}
+
+.settingsToolbar {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-block-start: calc(-1 * var(--space-xs));
+}
+
+.SettingsCard .fieldCaption {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: var(--space-2xs) 0 0;
+  font-size: var(--body-sm);
+}
+
+.SettingsCard .fieldCaption__label {
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.SettingsCard .fieldCaption__value {
+  color: var(--on-panel, var(--text-default));
+  font-weight: var(--medium);
 }

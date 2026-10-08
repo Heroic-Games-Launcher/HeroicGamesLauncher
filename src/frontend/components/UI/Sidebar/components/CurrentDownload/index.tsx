@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import LinearProgress from '@mui/material/LinearProgress'
 import Typography from '@mui/material/Typography'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import { Download } from 'lucide-react'
 import Box from '@mui/material/Box'
 import { getGameInfo } from 'frontend/helpers'
 import { hasProgress } from 'frontend/hooks/hasProgress'
@@ -58,7 +57,7 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
           badgeContent={`${Math.round(progress.percent ?? 0)}%`}
           color="primary"
         >
-          <FontAwesomeIcon icon={faDownload} />
+          <Download size={18} strokeWidth={1.75} aria-hidden />
         </Badge>
       </span>
 

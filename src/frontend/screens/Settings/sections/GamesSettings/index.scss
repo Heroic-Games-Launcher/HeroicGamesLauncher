@@ -33,28 +33,11 @@
 
   section:not(:nth-of-type(0)) {
     padding-top: var(--space-xl);
-    min-width: 500px;
   }
 }
 
-.MuiTabs-root {
-  padding-bottom: var(--space-xs);
-
-  .MuiTabs-scroller {
-    .MuiTabs-indicator {
-      background-color: var(--accent);
-    }
-
-    .MuiTabs-flexContainer {
-      .MuiTab-root {
-        color: var(--text-default);
-      }
-
-      .Mui-selected {
-        color: var(--accent);
-      }
-    }
-  }
+.settingsTabs {
+  margin-bottom: var(--space-md);
 }
 
 // details, should have an hover effect and a pointer cursor and also the summary should be bold and have a background color
