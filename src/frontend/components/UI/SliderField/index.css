@@ -12,7 +12,7 @@
 
 .sliderFieldWrapper .sliderStyle {
   margin: 0;
-  padding-block: 6px;
+  padding-block: var(--space-xs-fixed);
 }
 
 .sliderFieldWrapper .MuiSlider-markLabel {

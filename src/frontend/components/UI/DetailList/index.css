@@ -1,7 +1,7 @@
 .DetailList {
   display: grid;
   margin: 0;
-  column-gap: 32px;
+  column-gap: var(--space-2xl-fixed);
 }
 
 .DetailList--cols-1 {
@@ -24,10 +24,10 @@
     'icon label'
     'icon value';
   grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 10px;
-  row-gap: 4px;
+  column-gap: var(--space-sm-fixed);
+  row-gap: var(--space-2xs-fixed);
   align-items: start;
-  padding: 14px 0;
+  padding: var(--space-md-fixed) 0;
   text-align: start;
   border-bottom: 1px solid var(--panel-divider, var(--divider));
   min-width: 0;

@@ -3,9 +3,9 @@
 
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--space-sm-fixed);
   width: 100%;
-  padding: 14px 16px;
+  padding: var(--space-md-fixed) var(--space-md-fixed);
   border-radius: 14px;
   border: 1px solid color-mix(in oklab, var(--alert-tone) 38%, transparent);
   background: color-mix(in oklab, var(--alert-tone) 14%, var(--panel-base));
@@ -25,7 +25,7 @@
 .Alert__body {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-3xs-fixed);
   min-width: 0;
   flex: 1;
 }
@@ -42,7 +42,7 @@
 .Alert__actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   flex-shrink: 0;
 }
 

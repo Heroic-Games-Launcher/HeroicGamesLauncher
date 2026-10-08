@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   min-width: 160px;
   text-align: center;
 }
@@ -27,7 +27,7 @@
 .StatCard__label {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-md);
   font-weight: var(--regular);

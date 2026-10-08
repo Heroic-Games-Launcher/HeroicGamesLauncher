@@ -35,7 +35,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-2xs-fixed);
   width: 100%;
   min-width: 0;
   font-size: var(--body-md);
@@ -45,7 +45,7 @@
 
 .SpecCard__body > .ProgressBar {
   width: min(100%, 280px);
-  margin-block: 4px;
+  margin-block: var(--space-2xs-fixed);
 }
 
 .SpecCard__value {
@@ -62,8 +62,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  column-gap: 10px;
-  row-gap: 4px;
+  column-gap: var(--space-sm-fixed);
+  row-gap: var(--space-2xs-fixed);
   margin: 0;
   padding: 0;
   list-style: none;

@@ -1,9 +1,9 @@
 .BackButton {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-sm-fixed);
   height: 44px;
-  padding: 0 18px;
+  padding: 0 var(--space-lg-fixed);
   border-radius: 12px;
   background: var(--background-darker, #0a0e13);
   color: var(--text-default);

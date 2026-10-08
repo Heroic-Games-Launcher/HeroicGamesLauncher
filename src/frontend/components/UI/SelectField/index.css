@@ -45,7 +45,7 @@
 .selectFieldWrapper .MuiSelect-select.MuiSelect-select.MuiSelect-select {
   display: flex;
   align-items: center;
-  padding-inline: 14px 44px;
+  padding-inline: var(--space-md-fixed) 44px;
 }
 
 .selectFieldWrapper .MuiSelect-icon {
@@ -53,7 +53,7 @@
 }
 
 .selectFieldWrapper.isRTL .MuiSelect-select.MuiSelect-select.MuiSelect-select {
-  padding-inline: 44px 14px;
+  padding-inline: 44px var(--space-md-fixed);
 }
 
 .selectFieldWrapper.isRTL .MuiSelect-icon {
@@ -156,7 +156,7 @@
 }
 
 .selectFieldWrapper label {
-  margin-bottom: 6px;
+  margin-bottom: var(--space-xs-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
   font-weight: var(--medium);
@@ -164,7 +164,7 @@
 }
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper {
-  margin-top: 6px;
+  margin-top: var(--space-xs-fixed);
   border: 1px solid var(--divider);
   border-radius: var(--field-radius, 12px);
   background: var(--modal-background, var(--background));
@@ -176,8 +176,8 @@
 }
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root {
-  gap: 10px;
-  padding: 9px 12px;
+  gap: var(--space-sm-fixed);
+  padding: var(--space-xs-fixed) var(--space-sm-fixed);
   border-radius: 8px;
   font-family: var(--primary-font-family);
   font-size: var(--body-md);
@@ -204,7 +204,7 @@
 .wineVersionOption {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-sm-fixed);
   min-width: 0;
 }
 

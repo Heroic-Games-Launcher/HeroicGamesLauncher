@@ -34,7 +34,7 @@
   grid-area: summary;
   text-align: end;
   white-space: nowrap;
-  margin-inline-start: 8px;
+  margin-inline-start: var(--space-xs-fixed);
 }
 
 /* TODO move following styles to the components which use them */

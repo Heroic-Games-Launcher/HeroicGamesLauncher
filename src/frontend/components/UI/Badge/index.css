@@ -3,10 +3,10 @@
 
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-xs-fixed);
   border: 1px solid transparent;
   border-radius: 999px;
-  padding: 5px 12px;
+  padding: var(--space-2xs-fixed) var(--space-sm-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--eyebrow);
   font-weight: var(--medium);

@@ -10,14 +10,14 @@
 .PageHeader__text {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-2xs-fixed);
   min-width: 0;
 }
 
 .PageHeader__titleLine {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-sm-fixed);
   min-width: 0;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .PageHeader__text:has(.PageHeader__back) .PageHeader__description {
-  padding-inline-start: 48px;
+  padding-inline-start: var(--space-4xl-fixed);
 }
 
 .PageHeader__actions {

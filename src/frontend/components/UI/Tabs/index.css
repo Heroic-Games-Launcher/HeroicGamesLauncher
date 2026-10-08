@@ -1,7 +1,7 @@
 .Tabs {
   display: flex;
   align-items: stretch;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   overflow-x: auto;
   border-bottom: 1px solid var(--panel-divider, var(--divider));
   scrollbar-width: none;
@@ -14,12 +14,12 @@
 .Tabs__tab {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   border: none;
   border-bottom: 2px solid transparent;
   border-radius: 0;
   background: none;
-  padding: 14px 18px;
+  padding: var(--space-md-fixed) var(--space-lg-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-lg);
   font-weight: var(--medium);

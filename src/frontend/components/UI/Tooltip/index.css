@@ -4,7 +4,7 @@
 
 .MuiTooltip-tooltip.Tooltip__popper {
   max-width: 320px;
-  padding: 10px 12px;
+  padding: var(--space-sm-fixed) var(--space-sm-fixed);
   border-radius: 10px;
   border: 1px solid var(--panel-divider, var(--divider));
   background: var(--background-darker, #0a0e13);

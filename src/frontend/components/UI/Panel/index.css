@@ -21,13 +21,13 @@
 }
 
 .Panel--padding-sm {
-  padding: 16px;
+  padding: var(--space-md-fixed);
 }
 
 .Panel--padding-md {
-  padding: 24px;
+  padding: var(--space-xl-fixed);
 }
 
 .Panel--padding-lg {
-  padding: 32px;
+  padding: var(--space-2xl-fixed);
 }

@@ -1,7 +1,7 @@
 .FilterSection {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-sm-fixed);
 }
 
 .FilterSection + .FilterSection {
@@ -21,7 +21,7 @@
 .FilterSection__items {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
 }
 
 .FilterSection__empty {
@@ -34,7 +34,7 @@
 .FilterActions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   padding-top: var(--space-sm);
   border-top: 1px solid var(--divider);
 }

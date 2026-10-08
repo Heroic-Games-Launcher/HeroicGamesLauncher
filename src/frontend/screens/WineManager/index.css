@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-md) var(--space-xl-fixed);
+  padding: var(--space-md) var(--space-3xl-fixed);
   gap: 16px;
   flex-wrap: wrap;
   max-width: 2000px;

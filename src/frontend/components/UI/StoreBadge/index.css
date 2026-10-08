@@ -4,7 +4,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  padding: 6px;
+  padding: var(--space-xs-fixed);
   border-radius: 10px;
   background: var(--text-default, #ffffff);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);

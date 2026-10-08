@@ -48,7 +48,7 @@
 .textInputFieldWrapper label {
   grid-area: label;
   text-align: start;
-  margin-bottom: 6px;
+  margin-bottom: var(--space-xs-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
   font-weight: var(--medium);

@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4px 14px;
+  gap: var(--space-2xs-fixed) var(--space-md-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
   font-weight: var(--regular);
@@ -12,7 +12,7 @@
 .Playtime__entry {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-xs-fixed);
   white-space: nowrap;
 }
 

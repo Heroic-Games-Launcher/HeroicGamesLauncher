@@ -2,9 +2,9 @@
   padding: 0;
   text-align: start;
 
-  --dialog-margin-horizontal: 32px;
-  --dialog-margin-vertical: 24px;
-  --dialog-gap: 24px;
+  --dialog-margin-horizontal: var(--space-2xl-fixed);
+  --dialog-margin-vertical: var(--space-xl-fixed);
+  --dialog-gap: var(--space-xl-fixed);
 }
 
 .Dialog__element {
@@ -55,7 +55,8 @@
 
 .Dialog__headerTitle {
   flex: 100% 1 1;
-  padding: var(--dialog-margin-vertical) 16px 0 var(--dialog-margin-horizontal);
+  padding: var(--dialog-margin-vertical) var(--space-md-fixed) 0
+    var(--dialog-margin-horizontal);
   font-size: var(--title-md);
   margin: var(--space-lg) 0 0;
   text-align: start;
@@ -114,7 +115,7 @@
 
 .Dialog__footer {
   display: flex;
-  gap: 16px;
+  gap: var(--space-md-fixed);
   justify-content: end;
   padding-top: var(--space-md);
 }

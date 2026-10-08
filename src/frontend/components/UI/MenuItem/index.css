@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 12px;
+  gap: var(--space-sm-fixed);
   width: 100%;
   margin: 0;
-  padding: 9px 12px;
+  padding: var(--space-xs-fixed) var(--space-sm-fixed);
   border: none;
   border-radius: 10px;
   background: none;

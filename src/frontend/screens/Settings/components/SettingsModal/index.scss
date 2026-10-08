@@ -7,12 +7,12 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: var(--space-lg) var(--space-xl-fixed) var(--space-md);
-    padding-inline-end: calc(var(--space-xl-fixed) + 40px);
+    padding: var(--space-lg) var(--space-3xl-fixed) var(--space-md);
+    padding-inline-end: calc(var(--space-3xl-fixed) + 40px);
   }
 
   .MuiDialogContent-root {
-    padding: 0 var(--space-xl-fixed) var(--space-xl-fixed);
+    padding: 0 var(--space-3xl-fixed) var(--space-3xl-fixed);
   }
 }
 

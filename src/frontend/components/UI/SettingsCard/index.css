@@ -9,7 +9,7 @@
 .SettingsCard__header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-sm-fixed);
   margin-block-end: var(--space-md);
 }
 

@@ -17,7 +17,7 @@
   flex-shrink: 0;
   width: 46px;
   height: 26px;
-  padding: 3px;
+  padding: var(--space-2xs-fixed);
   border-radius: 999px;
   background: var(--input-background);
   border: 1px solid

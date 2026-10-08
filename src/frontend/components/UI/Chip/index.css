@@ -1,12 +1,12 @@
 .Chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   background: var(--input-background);
   color: var(--text-secondary);
   border: 1px solid transparent;
   border-radius: 999px;
-  padding: 8px 14px;
+  padding: var(--space-xs-fixed) var(--space-md-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-md);
   font-weight: var(--medium);

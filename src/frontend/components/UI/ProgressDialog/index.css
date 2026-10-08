@@ -10,8 +10,8 @@
 .progressDialog.log-box {
   background-color: #1e1e1e;
   border-radius: 10px;
-  padding-block: 4px;
-  padding-inline: 6px;
+  padding-block: var(--space-2xs-fixed);
+  padding-inline: var(--space-xs-fixed);
   height: 25em;
   overflow: auto;
   user-select: text;
@@ -41,11 +41,11 @@
 }
 
 .progressDialog.header {
-  margin-bottom: 10px;
+  margin-bottom: var(--space-sm-fixed);
 }
 
 .progressDialog.linearProgress {
-  margin-top: 10px;
+  margin-top: var(--space-sm-fixed);
   background-color: var(--primary);
 }
 

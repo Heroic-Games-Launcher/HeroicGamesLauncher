@@ -2,10 +2,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-sm-fixed);
   border: 1px solid transparent;
   border-radius: 12px;
-  padding: 0 18px;
+  padding: 0 var(--space-lg-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--button-md);
   font-weight: var(--semibold);
@@ -27,7 +27,7 @@
 
 .Button--sm {
   height: 36px;
-  padding: 0 14px;
+  padding: 0 var(--space-md-fixed);
   font-size: var(--button-sm);
 }
 

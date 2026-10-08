@@ -6,7 +6,7 @@
   width: 100%;
   border-radius: 1rem;
   grid-area: content;
-  padding: var(--space-xl-fixed) var(--space-2xl-fixed);
+  padding: var(--space-3xl-fixed) var(--space-5xl-fixed);
   position: relative;
   margin-bottom: 35px;
 }
@@ -306,11 +306,11 @@ a {
 /* --- redesigned settings layout --- */
 
 .Settings {
-  padding: var(--space-xl-fixed) clamp(16px, 4vw, 48px);
+  padding: var(--space-3xl-fixed) clamp(16px, 4vw, 48px);
 }
 
 .Settings {
-  padding-block: var(--space-lg) var(--space-2xl-fixed);
+  padding-block: var(--space-lg) var(--space-5xl-fixed);
   padding-inline: clamp(16px, 2.5vw, 32px);
   margin-bottom: 0;
   align-items: flex-start;

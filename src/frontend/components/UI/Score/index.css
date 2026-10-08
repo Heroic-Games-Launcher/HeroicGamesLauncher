@@ -1,7 +1,7 @@
 .Score {
   display: inline-flex;
   align-items: baseline;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   border: none;
   background: none;
   padding: 0;

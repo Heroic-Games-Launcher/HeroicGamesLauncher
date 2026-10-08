@@ -22,21 +22,21 @@
 .SettingRow__text {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-xs-fixed);
   min-width: 0;
 }
 
 .SettingRow__labelLine {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   min-width: 0;
 }
 
 .SettingRow__label {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-md);
   font-weight: var(--regular);

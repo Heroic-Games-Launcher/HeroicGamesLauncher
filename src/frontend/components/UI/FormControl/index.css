@@ -49,7 +49,7 @@
 }
 
 .FormControl--clearable > input {
-  padding-inline-end: 40px;
+  padding-inline-end: var(--space-3xl-fixed);
 }
 
 .FormControl--hasSideButton > input {
@@ -62,7 +62,7 @@
 
 .FormControl--select > select {
   cursor: pointer;
-  padding-inline-end: 40px;
+  padding-inline-end: var(--space-3xl-fixed);
 }
 
 .FormControl--segmented > button {
