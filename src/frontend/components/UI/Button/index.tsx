@@ -2,7 +2,13 @@ import { ButtonHTMLAttributes, ReactNode } from 'react'
 import classNames from 'classnames'
 import './index.css'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'danger'
+  | 'dangerSubtle'
+  | 'warning'
 type ButtonSize = 'sm' | 'md'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

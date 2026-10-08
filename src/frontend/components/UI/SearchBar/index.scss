@@ -51,13 +51,13 @@
 
       span {
         opacity: 0.5;
-        font-size: var(--text-sm);
+        font-size: var(--text-xs);
         margin-inline-start: 4px;
       }
 
       &:hover {
         background-color: var(--accent);
-        color: var(--text-tertiary, var(--background));
+        color: var(--text-muted, var(--text-secondary));
 
         span {
           opacity: 0.8;
@@ -133,7 +133,7 @@
 
     &::placeholder {
       opacity: 0.6;
-      color: var(--text-tertiary, var(--text-secondary));
+      color: var(--text-muted, var(--text-secondary));
     }
   }
 
@@ -151,7 +151,7 @@
     border: 1px solid var(--divider);
     color: var(--text-secondary);
     font-family: var(--primary-font-family);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-weight: var(--semibold);
     line-height: 1;
     pointer-events: none;

@@ -17,7 +17,7 @@
   background: var(--field-background);
   box-shadow: none;
   font-family: var(--primary-font-family), 'Noto Color Emoji';
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   font-weight: var(--regular);
   color: var(--field-color);
   cursor: text;
@@ -50,7 +50,7 @@
   text-align: start;
   margin-bottom: 6px;
   font-family: var(--primary-font-family);
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
   font-weight: var(--medium);
   color: var(--field-label-color);
 }
@@ -64,7 +64,7 @@
   align-items: center;
   z-index: 1;
   cursor: pointer;
-  font-size: var(--text-lg);
+  font-size: var(--body-lg);
   border: none;
   background: none;
   color: var(--text-default);

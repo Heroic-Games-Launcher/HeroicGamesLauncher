@@ -5,12 +5,17 @@ import './index.css'
 
 interface StoreBadgeProps {
   runner: Runner
+  title?: string
   className?: string
 }
 
-export default function StoreBadge({ runner, className }: StoreBadgeProps) {
+export default function StoreBadge({
+  runner,
+  title,
+  className
+}: StoreBadgeProps) {
   return (
-    <span className={classNames('StoreBadge', className)}>
+    <span className={classNames('StoreBadge', className)} title={title}>
       <StoreLogos runner={runner} className="StoreBadge__logo" />
     </span>
   )

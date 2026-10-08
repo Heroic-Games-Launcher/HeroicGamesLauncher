@@ -7,11 +7,11 @@
 }
 
 .errorComponent > svg {
-  font-size: var(--text-6xl);
+  font-size: var(--display-lg);
 }
 
 .errorComponent > .errorText {
-  font-size: var(--text-3xl);
+  font-size: var(--display-md);
 }
 
 .errorComponent > .buttonsWrapper {
@@ -19,6 +19,6 @@
 }
 
 .button-icon-flex > .refreshIcon {
-  font-size: var(--text-xl);
+  font-size: var(--title-md);
   padding-inline-end: 2px;
 }

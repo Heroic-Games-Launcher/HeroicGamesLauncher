@@ -4,9 +4,9 @@
   flex-wrap: wrap;
   gap: 4px 14px;
   font-family: var(--primary-font-family);
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
   font-weight: var(--regular);
-  color: var(--text-tertiary, var(--text-secondary));
+  color: var(--text-muted, var(--text-secondary));
 }
 
 .Playtime__entry {

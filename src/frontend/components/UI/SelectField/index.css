@@ -12,7 +12,7 @@
   background: var(--field-background);
   font-family: var(--primary-font-family);
   font-weight: var(--regular);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   color: var(--field-color);
   border: 1px solid var(--field-border);
   box-shadow: none;
@@ -40,6 +40,25 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   min-width: 100px;
+}
+
+.selectFieldWrapper .MuiSelect-select.MuiSelect-select.MuiSelect-select {
+  display: flex;
+  align-items: center;
+  padding-inline: 14px 44px;
+}
+
+.selectFieldWrapper .MuiSelect-icon {
+  right: 14px;
+}
+
+.selectFieldWrapper.isRTL .MuiSelect-select.MuiSelect-select.MuiSelect-select {
+  padding-inline: 44px 14px;
+}
+
+.selectFieldWrapper.isRTL .MuiSelect-icon {
+  right: auto;
+  left: 14px;
 }
 
 .MuiPopover-root .MuiPaper-root {
@@ -96,7 +115,7 @@
   height: 40px;
   color: var(--text-secondary);
   text-indent: 22px;
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   border-radius: 10px;
 }
 
@@ -139,7 +158,7 @@
 .selectFieldWrapper label {
   margin-bottom: 6px;
   font-family: var(--primary-font-family);
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
   font-weight: var(--medium);
   color: var(--field-label-color);
 }
@@ -161,7 +180,7 @@
   padding: 9px 12px;
   border-radius: 8px;
   font-family: var(--primary-font-family);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   color: var(--text-default);
   transition: background-color 150ms ease;
 }
@@ -180,4 +199,25 @@
     var(--input-background)
   );
   color: var(--text-default);
+}
+
+.wineVersionOption {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.wineVersionOption__icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+
+.wineVersionOption__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

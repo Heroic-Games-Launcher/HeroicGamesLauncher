@@ -1,119 +1,123 @@
 .tableFieldWrapper {
-  display: grid;
-  grid-template-areas: 'label' 'table';
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+  min-width: 0;
 }
 
-.tableFieldWrapper label {
-  grid-area: label;
+.tableFieldWrapper > label {
   text-align: start;
 }
 
-.tableFieldWrapper table {
-  border-collapse: collapse;
-  grid-area: table;
-  max-width: 100%;
+.tableFieldWrapper__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.tableFieldWrapper th {
-  color: var(--accent);
-  font-size: var(--text-lg);
-  padding: var(--space-xs-fixed);
-  text-align: start;
-  white-space: nowrap;
-}
-
-/* using max and min width on purpose, width doesn't work as expected on these */
-.tableFieldWrapper tr {
-  max-width: 100%;
-  display: grid;
-  grid-template-columns: 150px min-content auto min-content;
-}
-
-.tableFieldWrapper td {
-  overflow: hidden;
+.tableFieldWrapper__row {
   display: flex;
   align-items: center;
-  padding: 0 var(--space-xs-fixed) 0;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+  padding: var(--space-2xs-fixed) var(--space-xs-fixed);
+  border-radius: 8px;
+  background: var(--input-background);
 }
 
-.tableFieldWrapper td:last-child {
-  padding: 0;
-}
-
-.tableFieldWrapper td span {
-  padding: var(--space-2xs-fixed) 0;
-  text-align: start;
-  overflow: auto;
+.tableFieldWrapper__key {
+  flex: 0 0 150px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: start;
 }
 
-.tableFieldWrapper tbody tr:nth-child(even),
-.tableFieldWrapper tbody tr:nth-child(even) span::-webkit-scrollbar {
-  background-color: var(--input-background);
+.tableFieldWrapper__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: start;
+  color: var(--on-panel-muted, var(--text-secondary));
 }
 
-.tableFieldWrapper th:last-child button,
-.tableFieldWrapper th:last-child button svg,
-.tableFieldWrapper td:last-child button,
-.tableFieldWrapper td:last-child button svg {
+.tableFieldWrapper__connector {
+  flex: 0 0 auto;
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.tableFieldWrapper__rowActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs-fixed);
+  margin-inline-start: auto;
+}
+
+.tableFieldWrapper__rowActions button,
+.tableFieldWrapper__rowActions button svg {
   display: block;
 }
 
-.tableFieldWrapper tfoot tr:first-child td {
-  padding-top: 1rem;
+.tableFieldWrapper__add {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
 }
 
-.tableFieldWrapper tfoot .Field {
+.tableFieldWrapper__add .Field.Field {
   margin: 0;
+  padding-block: 0;
+  min-width: 0;
 }
 
-.tableFieldWrapper tfoot .Field label {
+.tableFieldWrapper__add .Field > label {
   display: none;
 }
 
-.tableFieldWrapper tfoot td {
+.tableFieldWrapper__add > .Field:first-of-type {
+  flex: 0 0 150px;
+}
+
+.tableFieldWrapper__add > .Field:last-of-type {
+  flex: 1 1 auto;
+}
+
+.tableFieldWrapper__add > .Button {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  width: var(--field-height);
+  height: var(--field-height);
   padding: 0;
+  border-radius: var(--field-radius);
 }
 
-.tableFieldWrapper tfoot td:not(:last-child) {
-  padding-inline-end: 0.2rem;
-}
-
-.tableFieldWrapper input[type='text'] {
-  text-indent: 0.5rem;
-}
-
-.tableFieldWrapper tfoot tr.dirty {
-  display: flex;
-}
-
-.tableFieldWrapper tfoot tr.dirty td {
-  padding-top: 0.2rem;
-  justify-self: flex-end;
-  flex-grow: 1;
-}
-
-.tableFieldWrapper tfoot tr.dirty span {
-  white-space: normal;
-  text-align: end;
-  flex-grow: 1;
-}
-
-.tableFieldWrapper tfoot tr.dirty td svg {
-  margin: 0 var(--space-sm-fixed);
-}
-
-.tableFieldWrapper tfoot tr.error {
-  display: table-row;
-}
-
-.tableFieldWrapper tfoot tr.error td {
-  display: table-cell;
+.tableFieldWrapper__error {
+  margin: 0;
   text-align: start;
-  padding-top: 0.2rem;
+  font-size: var(--body-sm);
+  color: var(--on-panel-danger, var(--danger));
+}
+
+.tableFieldWrapper__hint {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-xs-fixed);
+  margin: 0;
+  text-align: end;
+  font-size: var(--body-sm);
+  color: var(--on-panel-muted, var(--text-secondary));
 }
 
 .tableFieldWrapper .Field.error input {
-  border: 1px solid red;
+  border: 1px solid var(--danger);
   outline: none;
 }

@@ -1,8 +1,5 @@
-import './index.css'
 import React from 'react'
-import classNames from 'classnames'
-import { TriangleAlert } from 'lucide-react'
-import Icon from '../Icon'
+import Alert from '../Alert'
 
 interface Props {
   children: React.ReactNode
@@ -11,9 +8,8 @@ interface Props {
 
 export default function WarningMessage({ children, className }: Props) {
   return (
-    <div className={classNames('WarningMessage', className)}>
-      <Icon glyph={TriangleAlert} size="md" />
-      <div>{children}</div>
-    </div>
+    <Alert variant="warning" className={className}>
+      {children}
+    </Alert>
   )
 }

@@ -13,8 +13,8 @@
   );
   color: var(--text-default);
   font-family: var(--primary-font-family);
-  font-size: var(--text-sm);
-  line-height: 1.45;
+  font-size: var(--body-sm);
+  line-height: var(--leading-normal, 1.5);
   text-align: start;
 }
 

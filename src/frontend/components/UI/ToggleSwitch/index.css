@@ -1,99 +1,78 @@
-.toggleSwitchWrapper {
-  display: grid;
-  grid-template-areas: 'check text';
-  grid-template-columns: min-content 1fr;
+.ToggleSwitch__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ToggleSwitch__track {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  justify-items: flex-start;
-  text-align: start;
+  flex-shrink: 0;
+  width: 46px;
+  height: 26px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--input-background);
+  border: 1px solid
+    color-mix(
+      in oklab,
+      var(--on-panel, var(--text-default)) 52%,
+      var(--panel-base)
+    );
   cursor: pointer;
-  white-space: pre-line;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
 }
 
-.hiddenCheckbox {
-  display: none;
-}
-
-.toggleSwitchWrapper:before {
-  content: '';
-  grid-area: check;
-  display: block;
-  box-sizing: border-box;
-  margin-inline-start: 8px;
-  margin-inline-end: 0.5rem;
+.ToggleSwitch__thumb {
   width: 20px;
   height: 20px;
-  border: 1.5px solid var(--field-border, var(--divider));
-  border-radius: 6px;
-  background: var(--field-background, var(--input-background));
+  border-radius: 50%;
+  background: var(--on-panel, var(--text-default));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
   transition:
-    background-color 150ms ease,
-    border-color 150ms ease;
+    transform 160ms ease,
+    background-color 160ms ease;
 }
 
-.toggleSwitchWrapper:after {
-  content: '';
-  grid-area: check;
-  margin-inline-start: 8px;
-  margin-inline-end: 0.5rem;
-  width: 20px;
-  height: 20px;
-  background-color: var(--background-darker, #06121a);
-  -webkit-mask: var(--toggle-check-mask) center / 13px no-repeat;
-  mask: var(--toggle-check-mask) center / 13px no-repeat;
-  opacity: 0;
-  transform: scale(0.6);
-  transition:
-    opacity 150ms ease,
-    transform 150ms ease;
-}
-
-.toggleSwitchWrapper:hover:before {
-  border-color: var(--field-border-hover, var(--divider));
-}
-
-.hiddenCheckbox:focus-visible + .toggleSwitchWrapper:before {
-  border-color: var(--navbar-accent, var(--accent));
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
-}
-
-.hiddenCheckbox:checked + .toggleSwitchWrapper:before {
+.ToggleSwitch__input:checked + .ToggleSwitch__track {
   background: var(--navbar-accent, var(--accent));
   border-color: var(--navbar-accent, var(--accent));
 }
 
-.hiddenCheckbox:checked + .toggleSwitchWrapper:after {
-  opacity: 1;
-  transform: scale(1);
+.ToggleSwitch__input:checked + .ToggleSwitch__track .ToggleSwitch__thumb {
+  transform: translateX(20px);
+  background: var(--ink-on-accent, var(--background-darker));
 }
 
-.toggleSwitchWrapper {
-  font-family: var(--primary-font-family);
-  font-size: var(--text-md);
-  color: var(--text-default);
+.isRTL
+  .ToggleSwitch__input:checked
+  + .ToggleSwitch__track
+  .ToggleSwitch__thumb {
+  transform: translateX(-20px);
 }
 
-.hiddenCheckbox[disabled] + .toggleSwitchWrapper {
-  color: var(--text-tertiary, var(--text-secondary));
+.ToggleSwitch__input:focus-visible + .ToggleSwitch__track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ToggleSwitch--disabled {
+  opacity: 0.55;
+}
+
+.ToggleSwitch--disabled .ToggleSwitch__track {
   cursor: not-allowed;
 }
 
-.hiddenCheckbox[disabled] + .toggleSwitchWrapper:before {
-  opacity: 0.5;
-}
-
-/* fade in and out animation */
-.toggleSwitchWrapper.fading {
-  animation: fading infinite 1.5s;
-}
-
-@keyframes fading {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
+.ToggleSwitch.fading {
+  animation: fadeIn 300ms ease;
 }
