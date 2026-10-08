@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import Icon from '../Icon'
 import './index.css'
 
-export type AlertVariant = 'neutral' | 'info' | 'success' | 'warning' | 'error'
+type AlertVariant = 'neutral' | 'info' | 'success' | 'warning' | 'error'
 
 const GLYPHS: Record<AlertVariant, LucideIcon> = {
   neutral: Info,

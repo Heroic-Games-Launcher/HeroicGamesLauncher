@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import Icon from '../Icon'
 import './index.css'
 
-export type BadgeVariant =
+type BadgeVariant =
   | 'neutral'
   | 'accent'
   | 'info'
