@@ -1,9 +1,18 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import GameContext from '../../GameContext'
-import { DownloadDone } from '@mui/icons-material'
-import PopoverComponent from 'frontend/components/UI/PopoverComponent'
+import {
+  FolderOpen,
+  HardDrive,
+  MonitorPlay,
+  Package,
+  Tag as TagGlyph,
+  Wifi,
+  Wine
+} from 'lucide-react'
 import { GameInfo } from 'common/types'
+import { DetailList, Panel } from 'frontend/components/UI'
+import type { DetailItem } from 'frontend/components/UI/DetailList'
+import GameContext from '../../GameContext'
 
 interface Props {
   gameInfo: GameInfo
@@ -14,11 +23,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   const { t: t2 } = useTranslation()
   const { gameSettings, runner, is } = useContext(GameContext)
 
-  if (!gameInfo.is_installed) {
-    return null
-  }
-
-  if (!gameSettings) {
+  if (!gameInfo.is_installed || !gameSettings) {
     return null
   }
 
@@ -31,118 +36,103 @@ const InstalledInfo = ({ gameInfo }: Props) => {
     folder_name
   } = gameInfo
 
+  const items: DetailItem[] = []
+
   if (installPlatform === 'Browser') {
+    items.push({
+      glyph: MonitorPlay,
+      label: t('info.installedPlatform', 'Installed Platform'),
+      value: installPlatform
+    })
+
     return (
-      <div style={{ textTransform: 'capitalize' }}>
-        <b>{t('info.installedPlatform', 'Installed Platform')}:</b>{' '}
-        {installPlatform}
-      </div>
+      <Panel tone="glass" className="installationInfo">
+        <DetailList items={items} columns={2} />
+      </Panel>
     )
   }
 
-  let install_path: string | undefined
-  let install_size: string | undefined
-  let version: string | undefined
-
-  if (!isSideloaded) {
-    install_path = gameInfo.install.install_path
-    install_size = gameInfo.install.install_size
-    version = gameInfo.install.version
-  }
-
+  const install_path = isSideloaded ? undefined : gameInfo.install.install_path
+  const install_size = isSideloaded ? undefined : gameInfo.install.install_size
+  const version = isSideloaded ? undefined : gameInfo.install.version
   const appLocation = install_path || folder_name
 
-  const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
-
-  let wineName = ''
-  let wineType = ''
-
-  if (!is.win) {
-    let wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
-    if (wine.includes('Default')) {
-      wine = wine.split('-')[0]
-    }
-    wineName = wine
-    wineType = wineVersion.type
+  if (!isSideloaded && !isThirdParty && install_size) {
+    items.push({
+      glyph: HardDrive,
+      label: t('info.size'),
+      value: install_size
+    })
   }
 
-  const info = (
-    <>
-      {!isSideloaded && !isThirdParty && (
-        <div>
-          <b>{t('info.size')}:</b> {install_size}
-        </div>
-      )}
-      <div style={{ textTransform: 'capitalize' }}>
-        <b>{t('info.installedPlatform', 'Installed Platform')}:</b>{' '}
-        {installPlatform === 'osx' ? 'MacOS' : installPlatform}
-      </div>
-      {!isSideloaded && !isThirdParty && (
-        <div>
-          <b>{t('info.version')}:</b> {version}
-        </div>
-      )}
-      <div>
-        <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
-        {t(canRunOffline ? 'box.no' : 'box.yes')}
-      </div>
-      {isThirdParty && (
-        <div>
-          <b>{t('info.third-party-app', 'Third-Party Manager')}</b>{' '}
-          {gameInfo.isEAManaged ? 'EA app' : gameInfo.thirdPartyManagedApp}
-        </div>
-      )}
-      {!isThirdParty && (
-        <div
-          className="clickable"
-          onClick={() =>
-            appLocation !== undefined ? window.api.openFolder(appLocation) : {}
-          }
-        >
-          <b>{t('info.path')}:</b>{' '}
-          <div className="truncatedPath">{appLocation}</div>
-        </div>
-      )}
-      {!is.win && !is.native && (
-        <>
-          <div>
-            <b>Wine:</b> {wineName}
-          </div>
-          {wineType === 'crossover' ? (
-            <div>
-              <b>{t2('setting.winecrossoverbottle', 'Bottle')}:</b>{' '}
-              <div>{wineCrossoverBottle}</div>
-            </div>
-          ) : (
-            <div
-              className="clickable"
-              onClick={() => window.api.openFolder(winePrefix)}
-            >
-              <b>{t2('setting.wineprefix', 'WinePrefix')}:</b>{' '}
-              <div className="truncatedPath">{winePrefix}</div>
-            </div>
-          )}
-        </>
-      )}
-    </>
-  )
+  items.push({
+    glyph: MonitorPlay,
+    label: t('info.installedPlatform', 'Installed Platform'),
+    value: installPlatform === 'osx' ? 'macOS' : installPlatform
+  })
 
-  return info
+  if (!isSideloaded && !isThirdParty && version) {
+    items.push({
+      glyph: TagGlyph,
+      label: t('info.version'),
+      value: version
+    })
+  }
+
+  items.push({
+    glyph: Wifi,
+    label: t('info.canRunOffline', 'Online Required'),
+    value: t(canRunOffline ? 'box.no' : 'box.yes')
+  })
+
+  if (isThirdParty) {
+    items.push({
+      glyph: Package,
+      label: t('info.third-party-app', 'Third-Party Manager'),
+      value: gameInfo.isEAManaged ? 'EA app' : gameInfo.thirdPartyManagedApp
+    })
+  } else if (appLocation) {
+    items.push({
+      glyph: FolderOpen,
+      label: t('info.path'),
+      value: <span className="truncatedPath">{appLocation}</span>,
+      title: t('info.clickToOpen', 'Click to open'),
+      onClick: () => window.api.openFolder(appLocation)
+    })
+  }
+
+  if (!is.win && !is.native) {
+    const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
+    let wineName = wineVersion.name
+      .replace('Wine - ', '')
+      .replace('Proton - ', '')
+    if (wineName.includes('Default')) {
+      wineName = wineName.split('-')[0]
+    }
+
+    items.push({ glyph: Wine, label: 'Wine', value: wineName })
+
+    if (wineVersion.type === 'crossover') {
+      items.push({
+        glyph: Wine,
+        label: t2('setting.winecrossoverbottle', 'Bottle'),
+        value: wineCrossoverBottle
+      })
+    } else {
+      items.push({
+        glyph: FolderOpen,
+        label: t2('setting.wineprefix', 'WinePrefix'),
+        value: <span className="truncatedPath">{winePrefix}</span>,
+        title: t('info.clickToOpen', 'Click to open'),
+        onClick: () => window.api.openFolder(winePrefix)
+      })
+    }
+  }
 
   return (
-    <PopoverComponent
-      item={
-        <span
-          title={t('info.clickToOpen', 'Click to open')}
-          className="iconWithText"
-        >
-          <DownloadDone />
-          {t('info.installedInfo', 'Installed Information')}
-        </span>
-      }
-    >
-      <div className="poppedElement">{info}</div>
-    </PopoverComponent>
+    <Panel tone="glass" className="installationInfo">
+      <DetailList items={items} columns={2} />
+    </Panel>
   )
 }
 

@@ -1,35 +1,16 @@
 .gameRequirements {
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
   user-select: text;
-  width: fit-content;
-  overflow: hidden;
-}
-.gameRequirements table td {
-  width: 40%;
-  vertical-align: baseline;
-  padding: var(--space-xs);
-}
-
-.gameRequirements table td:first-child {
-  width: 20%;
-}
-
-table td.specs {
-  cursor: default;
-  color: var(--accent);
-  opacity: 0.8;
-}
-
-.gameRequirements table span.title {
-  color: var(--text-secondary);
-  font-size: var(--text-md);
-}
-
-table span.text {
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
-}
-
-.tabContent .gameRequirements {
   width: 100%;
+}
+
+.gameRequirements__title {
+  margin: 0 0 16px;
+  font-size: var(--title-sm);
+  font-weight: var(--semibold);
+  color: var(--text-default);
+  text-align: start;
+  text-transform: capitalize;
 }

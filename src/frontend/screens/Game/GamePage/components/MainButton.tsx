@@ -1,22 +1,25 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { openInstallGameModal } from 'frontend/state/InstallGameModal'
-import GameContext from '../../GameContext'
 import {
-  ArrowBackIosNew,
-  Cancel,
-  CloudQueue,
+  Ban,
+  CircleAlert,
+  CloudCog,
   Download,
-  Error,
   Pause,
-  PlayArrow,
-  Stop,
-  Warning
-} from '@mui/icons-material'
+  Play,
+  ScrollText,
+  Square,
+  TriangleAlert,
+  X
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import classNames from 'classnames'
 import { GameInfo } from 'common/types'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import { Button, Icon } from 'frontend/components/UI'
+import type { ButtonVariant } from 'frontend/components/UI/Button'
 import useSetting from 'frontend/hooks/useSetting'
-import { Button } from 'frontend/components/UI'
+import GameContext from '../../GameContext'
 
 interface Props {
   gameInfo: GameInfo
@@ -26,11 +29,17 @@ interface Props {
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
 }
 
+interface ButtonContent {
+  glyph: LucideIcon | null
+  label: string
+  variant: ButtonVariant
+  legacyClass: string
+}
+
 const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
-
   const is_installed = gameInfo.is_installed
   const disabledPlayButtons =
     is.reparing ||
@@ -52,211 +61,192 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     is.notInstallable ||
     is.importing
 
-  function getPlayLabel(): React.ReactNode {
+  function getPlayContent(): ButtonContent {
     if (is.syncing) {
-      return (
-        <span className="buttonWithIcon">
-          <CloudQueue />
-          {t('label.saves.syncing')}
-        </span>
-      )
+      return {
+        glyph: CloudCog,
+        label: t('label.saves.syncing'),
+        variant: 'ghost',
+        legacyClass: 'playIcon'
+      }
     }
     if (is.installingRedist) {
-      return t('label.redist', 'Installing Redistributables')
+      return {
+        glyph: null,
+        label: t('label.redist', 'Installing Redistributables'),
+        variant: 'ghost',
+        legacyClass: 'playIcon'
+      }
     }
     if (is.installingWinetricksPackages) {
-      return t('label.winetricks', 'Installing Winetricks Packages')
+      return {
+        glyph: null,
+        label: t('label.winetricks', 'Installing Winetricks Packages'),
+        variant: 'ghost',
+        legacyClass: 'playIcon'
+      }
     }
     if (is.launching) {
-      return t('label.launching', 'Launching')
+      return {
+        glyph: null,
+        label: t('label.launching', 'Launching'),
+        variant: 'ghost',
+        legacyClass: 'playIcon'
+      }
     }
-
     if (is.playing) {
-      return (
-        <span className="buttonWithIcon">
-          <Stop data-icon="stop" />
-          {t('label.playing.stop')}
-        </span>
-      )
+      return {
+        glyph: Square,
+        label: t('label.playing.stop'),
+        variant: 'danger',
+        legacyClass: 'cancelIcon'
+      }
     }
-
-    if (verboseLogs) {
-      return (
-        <span className="buttonWithIcon">
-          <PlayArrow data-icon="play" />
-          {t('label.playing.start_with_logs', 'Play (with logs)')}
-        </span>
-      )
+    if (is.notAvailable) {
+      return {
+        glyph: Ban,
+        label: t('status.gameNotAvailable', 'Game not available'),
+        variant: 'ghost',
+        legacyClass: 'notAvailableIcon'
+      }
     }
-
-    return (
-      <span className="buttonWithIcon">
-        <PlayArrow data-icon="play" />
-        {t('label.playing.start')}
-      </span>
-    )
+    return {
+      glyph: Play,
+      label: t('label.playing.start'),
+      variant: 'primary',
+      legacyClass: 'playIcon'
+    }
   }
 
-  function altPlayAction() {
-    if (disabledPlayButtons) {
-      return <></>
+  function getInstallContent(): ButtonContent {
+    if (is.notInstallable) {
+      return {
+        glyph: CircleAlert,
+        label: t('status.goodie', 'Not installable'),
+        variant: 'ghost',
+        legacyClass: 'notAvailableIcon'
+      }
     }
+    if (is.notSupportedGame) {
+      return {
+        glyph: TriangleAlert,
+        label: t('status.notSupported', 'Not supported'),
+        variant: 'ghost',
+        legacyClass: 'notAvailableIcon'
+      }
+    }
+    if (is.queued) {
+      return {
+        glyph: X,
+        label: t('button.queue.remove', 'Remove from Queue'),
+        variant: 'danger',
+        legacyClass: 'queueIcon'
+      }
+    }
+    if (is.installing) {
+      return {
+        glyph: Pause,
+        label: t('button.cancel'),
+        variant: 'danger',
+        legacyClass: 'cancelIcon'
+      }
+    }
+    return {
+      glyph: Download,
+      label: t('button.install'),
+      variant: 'primary',
+      legacyClass: 'downIcon'
+    }
+  }
 
-    const label = verboseLogs
-      ? t('label.playing.start')
-      : t('label.playing.start_with_logs', 'Play Now (with logs)')
+  const launch = async (withLogs: boolean) => {
+    if (verboseLogs !== withLogs) {
+      setVerboseLogs(withLogs)
+    }
+    await handlePlay(gameInfo)
+  }
 
+  function renderButton(
+    { glyph, label, variant, legacyClass }: ButtonContent,
+    props: React.ComponentProps<typeof Button>
+  ) {
     return (
-      <Button variant="primary" className="altPlay">
-        <ArrowBackIosNew />
-        <a
-          className="Button Button--primary Button--md"
-          onClick={handleAltLaunch}
-        >
-          <span className="buttonWithIcon">
-            <PlayArrow data-icon="play" />
-            {label}
-          </span>
-        </a>
+      <Button
+        variant={variant}
+        className={classNames('mainBtn', legacyClass)}
+        icon={glyph ? <Icon glyph={glyph} size="xl" strokeWidth={2} /> : null}
+        {...props}
+      >
+        {label}
       </Button>
     )
   }
 
-  function getButtonLabel() {
-    if (is.notInstallable) {
-      return (
-        <span className="buttonWithIcon">
-          <Error style={{ cursor: 'not-allowed' }} />
-          {t('status.goodie', 'Not installable')}
-        </span>
-      )
-    }
-    if (is.notSupportedGame) {
-      return (
-        <span className="buttonWithIcon">
-          <Warning
-            style={{
-              cursor: 'not-allowed'
-            }}
-          />
-          {t('status.notSupported', 'Not supported')}
-        </span>
-      )
-    }
-
-    if (is.queued) {
-      return (
-        <span className="buttonWithIcon">
-          <Cancel />
-          {t('button.queue.remove', 'Remove from Queue')}
-        </span>
-      )
-    }
-
-    if (is.installing) {
-      return (
-        <span className="buttonWithIcon">
-          <Pause />
-          {t('button.cancel')}
-        </span>
-      )
-    }
+  if (is_installed && !is.queued && !is.uninstalling) {
     return (
-      <span className="buttonWithIcon">
-        <Download />
-        {t('button.install')}
-      </span>
+      <div className="playButtons">
+        {renderButton(getPlayContent(), {
+          disabled: disabledPlayButtons,
+          autoFocus: true,
+          onClick: async () => launch(false)
+        })}
+        {!disabledPlayButtons && !is.playing && (
+          <Button
+            variant="ghost"
+            className="mainBtn playWithLogs"
+            title={t(
+              'label.playing.start_with_logs_hint',
+              'Launches the game while recording a detailed log, useful when you need to report a problem'
+            )}
+            onClick={async () => launch(true)}
+            icon={<Icon glyph={ScrollText} size="lg" strokeWidth={2} />}
+          >
+            {t('label.playing.start_with_logs', 'Play with Logs')}
+          </Button>
+        )}
+      </div>
     )
   }
 
-  const handleAltLaunch = async () => {
-    setVerboseLogs(!verboseLogs)
-    await handlePlay(gameInfo)
-  }
-
-  return (
-    <div className="buttonsWrapper">
-      {is_installed && !is.queued && !is.uninstalling && (
-        <div className="playButtons">
-          <button
-            disabled={disabledPlayButtons}
-            autoFocus={true}
-            onClick={async () => handlePlay(gameInfo)}
-            className={classNames(
-              'button',
-              {
-                'is-secondary': !is_installed && !is.queued,
-                'is-success':
-                  is.syncing ||
-                  (!is.updating &&
-                    !is.playing &&
-                    is_installed &&
-                    !is.notAvailable),
-                'is-tertiary':
-                  is.playing ||
-                  (!is_installed && is.queued) ||
-                  (is_installed && is.notAvailable),
-                'is-disabled': is.updating
-              },
-              'mainBtn'
-            )}
-          >
-            {getPlayLabel()}
-          </button>
-          {altPlayAction()}
-        </div>
-      )}
-      {(!is_installed || is.queued) && (
-        <span className="installButtons">
-          <button
-            onClick={async () => {
-              if (!is_installed && !is.queued && !is.installing) {
-                openInstallGameModal({
-                  appName: gameInfo.app_name,
-                  runner: gameInfo.runner,
-                  gameInfo,
-                  action: 'install'
-                })
-                return
-              }
-              handleInstall(is_installed)
-            }}
-            disabled={disabledInstallButtons}
-            autoFocus={true}
-            className={classNames(
-              'button',
-              {
-                'is-primary': is_installed,
-                'is-tertiary':
-                  is.notAvailable ||
-                  is.installing ||
-                  is.queued ||
-                  is.notInstallable,
-                'is-secondary': !is_installed && !is.queued
-              },
-              'mainBtn'
-            )}
-          >
-            {getButtonLabel()}
-          </button>
-          <button
-            disabled={disabledInstallButtons || is.installing || is.importing}
-            className={'button mainBtn outline'}
-            onClick={() =>
+  if (!is_installed || is.queued) {
+    return (
+      <div className="installButtons">
+        {renderButton(getInstallContent(), {
+          disabled: disabledInstallButtons,
+          autoFocus: true,
+          onClick: async () => {
+            if (!is_installed && !is.queued && !is.installing) {
               openInstallGameModal({
                 appName: gameInfo.app_name,
                 runner: gameInfo.runner,
                 gameInfo,
-                action: 'import'
+                action: 'install'
               })
+              return
             }
-          >
-            {t('button.import', 'Import Game')}
-          </button>
-        </span>
-      )}
-    </div>
-  )
+            handleInstall(is_installed)
+          }
+        })}
+        <Button
+          variant="ghost"
+          className="mainBtn"
+          disabled={disabledInstallButtons || is.installing || is.importing}
+          onClick={() =>
+            openInstallGameModal({
+              appName: gameInfo.app_name,
+              runner: gameInfo.runner,
+              gameInfo,
+              action: 'import'
+            })
+          }
+        >
+          {t('button.import', 'Import Game')}
+        </Button>
+      </div>
+    )
+  }
+
+  return null
 }
 
 export default MainButton
