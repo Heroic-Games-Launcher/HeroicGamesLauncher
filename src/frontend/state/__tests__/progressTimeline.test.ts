@@ -1,5 +1,6 @@
 import {
   addSample,
+  MAX_FILLED_SECONDS,
   padTimeline,
   TIMELINE_SLOTS
 } from 'frontend/state/progressTimeline'
@@ -55,17 +56,47 @@ describe('addSample', () => {
     expect(points.at(-1)?.timestamp).toBe(second(TIMELINE_SLOTS + 4))
   })
 
-  it('stays within the window after a very long gap', () => {
-    let points = addSample([], { download: 5, disk: 2 }, second(0))
-    points = addSample(points, { download: 9, disk: 6 }, second(10_000))
+  it('continues straight on after a pause instead of filling it', () => {
+    let points = addSample([], { download: 5, disk: 2 }, second(10))
+    points = addSample(points, { download: 9, disk: 6 }, second(600))
 
-    expect(points).toHaveLength(TIMELINE_SLOTS)
+    expect(points).toEqual([
+      { download: 5, disk: 2, timestamp: second(10) },
+      { download: 9, disk: 6, timestamp: second(600) }
+    ])
+  })
+
+  it('treats a gap just over the fill limit as a pause', () => {
+    let points = addSample([], { download: 5, disk: 2 }, second(10))
+    points = addSample(
+      points,
+      { download: 9, disk: 6 },
+      second(10 + MAX_FILLED_SECONDS + 2)
+    )
+
+    expect(points).toHaveLength(2)
+  })
+
+  it('fills a gap right at the fill limit', () => {
+    let points = addSample([], { download: 5, disk: 2 }, second(10))
+    points = addSample(
+      points,
+      { download: 9, disk: 6 },
+      second(10 + MAX_FILLED_SECONDS + 1)
+    )
+
+    expect(points).toHaveLength(MAX_FILLED_SECONDS + 2)
+  })
+
+  it('does not throw when the clock goes backwards', () => {
+    let points = addSample([], { download: 5, disk: 2 }, second(10))
+    points = addSample(points, { download: 9, disk: 6 }, second(7))
+
     expect(points.at(-1)).toEqual({
       download: 9,
       disk: 6,
-      timestamp: second(10_000)
+      timestamp: second(7)
     })
-    expect(points[0].timestamp).toBe(second(10_000 - TIMELINE_SLOTS + 1))
   })
 })
 

@@ -1,6 +1,10 @@
 // One slot per second, so the speed graph shows the last three minutes
 export const TIMELINE_SLOTS = 180
 
+// Gaps up to this many seconds are a downloader reporting late and get filled
+// with the previous values. Longer gaps (e.g. a pause) are skipped over.
+export const MAX_FILLED_SECONDS = 3
+
 export interface InstallProgressPoint {
   download: number
   disk: number
@@ -16,8 +20,9 @@ export interface TimelineSlot {
 
 /**
  * Adds a progress sample to a per-second timeline. Samples landing in the
- * same second update that slot, and seconds the downloader skipped are filled
- * with the previous values so the graph keeps a steady pace.
+ * same second update that slot. A few seconds the downloader skipped are
+ * filled with the previous values so the graph keeps a steady pace, while
+ * longer gaps such as a pause are skipped over.
  */
 export function addSample(
   points: InstallProgressPoint[],
@@ -35,10 +40,10 @@ export function addSample(
   if (!previous) return [point]
   if (previous.timestamp === timestamp) return [...points.slice(0, -1), point]
 
-  const skipped = Math.min(
-    (timestamp - previous.timestamp) / 1000 - 1,
-    TIMELINE_SLOTS - 1
-  )
+  const skipped = (timestamp - previous.timestamp) / 1000 - 1
+  if (skipped > MAX_FILLED_SECONDS)
+    return [...points, point].slice(-TIMELINE_SLOTS)
+
   const filler = Array.from({ length: skipped }, (_, i) => ({
     ...previous,
     timestamp: timestamp - (skipped - i) * 1000
