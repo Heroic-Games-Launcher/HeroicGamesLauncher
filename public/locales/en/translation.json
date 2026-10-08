@@ -437,8 +437,10 @@
         "title": "Downloads"
     },
     "emptyLibrary": {
-        "noGames": "Your library is empty.<br /><br />Click <4>here</4> to log in with your Epic, GOG.com, or Amazon accounts. Then, your games will show up here in the Library.<br /><br />To use games or apps from other sources, click <br /> to add them manually.",
-        "noResults": "The current filters produced no results."
+        "description": "<0>Log in</0> with your Epic, GOG.com, Amazon or Zoom accounts and your games will show up here. You can also add games from other sources manually.",
+        "noResults": "The current filters produced no results.",
+        "noResultsTitle": "No games found",
+        "title": "Your library is empty."
     },
     "epic": {
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
