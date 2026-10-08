@@ -41,19 +41,12 @@ export const hasProgress = (appName: string, runner: Runner) => {
 
   useEffect(() => {
     if (installationProgress) {
-      if (currentProgress.percent !== installationProgress.percent)
-        setProgress({
-          ...installationProgress,
-          percent: calculatePercent(installationProgress)
-        })
+      setProgress({
+        ...installationProgress,
+        percent: calculatePercent(installationProgress)
+      })
     }
-  }, [
-    installationProgress,
-    appName,
-    runner,
-    calculatePercent,
-    currentProgress.percent
-  ])
+  }, [installationProgress, appName, runner, calculatePercent])
 
   return [currentProgress, previousProgress]
 }

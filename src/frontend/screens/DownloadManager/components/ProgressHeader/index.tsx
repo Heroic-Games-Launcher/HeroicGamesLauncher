@@ -1,15 +1,21 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { useEffect, useState } from 'react'
-import { AreaChart, Area, ResponsiveContainer } from 'recharts'
+import { useEffect } from 'react'
+import {
+  InstallProgressPoint,
+  useInstallProgressHistory
+} from 'frontend/state/InstallProgress'
+import {
+  AreaChart,
+  Area,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts'
 import { Box, LinearProgress, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { DownloadManagerState, Runner } from 'common/types'
-
-interface Point {
-  download: number
-  disk: number
-}
 
 const roundToNearestHundredth = function (val: number | undefined) {
   if (!val) return 0
@@ -24,32 +30,22 @@ export default function ProgressHeader(props: {
   const sampleSize = 100
   const { t } = useTranslation()
   const [progress] = hasProgress(props.appName, props.runner)
-  const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
-    Array<Point>(sampleSize).fill({ download: 0, disk: 0 })
+  const progressKey = `${props.appName}_${props.runner}`
+  const progressHistory = useInstallProgressHistory(
+    (state) => state.history[progressKey] ?? []
   )
+  const clearProgressHistory = useInstallProgressHistory((state) => state.clear)
 
   useEffect(() => {
-    if (props.state === 'idle') {
-      setAvgDownloadSpeed(
-        Array<Point>(sampleSize).fill({ download: 0, disk: 0 })
-      )
-      return
-    }
+    if (props.state === 'idle') clearProgressHistory(progressKey)
+  }, [clearProgressHistory, progressKey, props.state])
 
-    if (avgSpeed.length > sampleSize - 1) {
-      avgSpeed.shift()
-    }
-
-    avgSpeed.push({
-      download:
-        progress.downSpeed && progress.downSpeed > 0
-          ? progress.downSpeed
-          : (avgSpeed.at(-1)?.download ?? 0),
-      disk: progress.diskSpeed ?? 0
-    })
-
-    setAvgDownloadSpeed([...avgSpeed])
-  }, [progress, props.state])
+  const emptyHistory = Array<InstallProgressPoint>(sampleSize).fill({
+    download: 0,
+    disk: 0,
+    timestamp: 0
+  })
+  const avgSpeed = progressHistory.length ? progressHistory : emptyHistory
 
   return (
     <>
@@ -67,10 +63,28 @@ export default function ProgressHeader(props: {
             >
               <ResponsiveContainer height={80}>
                 <AreaChart data={avgSpeed} margin={{ top: 0, right: 0 }}>
+                  <XAxis dataKey="timestamp" hide type="category" />
+                  <YAxis yAxisId="download" hide domain={[0, 'auto']} />
+                  <YAxis yAxisId="disk" hide domain={[0, 'auto']} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'var(--input-background)',
+                      border: '1px solid var(--text-default)',
+                      borderRadius: '4px'
+                    }}
+                    formatter={(value: number) =>
+                      `${roundToNearestHundredth(value)} MB/s`
+                    }
+                    labelFormatter={(timestamp: number) =>
+                      timestamp ? new Date(timestamp).toLocaleTimeString() : ''
+                    }
+                  />
                   <Area
                     isAnimationActive={false}
                     type="monotone"
+                    yAxisId="download"
                     dataKey="download"
+                    name={t('download-manager.label.speed', 'Download')}
                     strokeWidth="0px"
                     fill="var(--accent)"
                     fillOpacity={0.5}
@@ -78,7 +92,9 @@ export default function ProgressHeader(props: {
                   <Area
                     isAnimationActive={false}
                     type="monotone"
+                    yAxisId="disk"
                     dataKey="disk"
+                    name={t('download-manager.label.disk', 'Disk')}
                     stroke="var(--primary)"
                     strokeWidth="2px"
                     fillOpacity={0}
