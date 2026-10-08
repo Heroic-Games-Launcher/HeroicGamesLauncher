@@ -28,20 +28,37 @@ xl	23.04	1.44
   /* base — root font size kept at 16px for rem-based code */
   font-size: 16px;
 
-  /* pixel-perfect type scale (Outfit reads smaller than avg, so we
-     size up explicitly rather than rely on a ratio). Each step is a
-     fixed px value; use these everywhere instead of hardcoded pixels. */
-  --text-2xs: 10px;
-  --text-xs: 11px;
-  --text-sm: 13px;
-  --text-md: 14px;
-  --text-lg: 16px;
-  --text-xl: 20px;
-  --text-2xl: 24px;
-  --text-3xl: 30px;
-  --text-4xl: 36px;
-  --text-5xl: 46px;
-  --text-6xl: 58px;
+  /* Desktop type scale. Reading sizes step by 2 (12-20), display sizes by 8
+     (24-48). 12px is the smallest size allowed; every step is even. */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-ml: 18px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 40px;
+  --text-4xl: 48px;
+
+  /* Line heights: tighter as the type grows, so headings stay compact and
+     body copy keeps breathing room. */
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+
+  /* Semantic type. Reach for these in components; the --text-* steps above
+     are the raw scale behind them. */
+  --eyebrow: var(--text-xs);
+  --body-sm: var(--text-sm);
+  --body-md: var(--text-md);
+  --body-lg: var(--text-ml);
+  --title-sm: var(--text-lg);
+  --title-md: var(--text-xl);
+  --title-lg: var(--text-2xl);
+  --display-md: var(--text-3xl);
+  --display-lg: var(--text-4xl);
+  --button-sm: var(--text-xs);
+  --button-md: var(--text-md);
 
   /* legacy fallback — kept for rare places that still do rem math */
   --text-scale-ratio: 1.2;
@@ -86,60 +103,44 @@ h6,
   font-family: var(--secondary-font-family);
 }
 
-.text--6xl {
-  font-size: var(--text-6xl);
+h1 {
+  font-size: var(--display-md);
 }
 
-.text--5xl {
-  font-size: var(--text-5xl);
+h2 {
+  font-size: var(--title-lg);
 }
 
-h1,
-.text--4xl {
-  font-size: var(--text-4xl);
+h3 {
+  font-size: var(--title-md);
 }
 
-h2,
-.text--3xl {
-  font-size: var(--text-3xl);
+h4 {
+  font-size: var(--title-sm);
 }
 
-h3,
-.text--2xl {
-  font-size: var(--text-2xl);
-}
-
-h4,
-.text--xl {
-  font-size: var(--text-xl);
-}
-
-h5,
-.text--lg {
-  font-size: var(--text-lg);
+h5 {
+  font-size: var(--body-lg);
 }
 
 .subtitle,
 .content,
 p,
 h6,
-.text--md,
 button,
 .button-md {
-  font-size: var(--text-md);
+  font-size: var(--body-md);
 }
 
 .content-sm,
-.button-sm,
-.text--sm {
-  font-size: var(--text-sm);
+.button-sm {
+  font-size: var(--body-sm);
 }
 
 .subtitle-sm,
 .caption,
-.status,
-.text--xs {
-  font-size: var(--text-xs);
+.status {
+  font-size: var(--eyebrow);
 }
 
 .subtitle,

@@ -3,6 +3,7 @@
 @use './styles/colors';
 @use './styles/buttons';
 @use './styles/forms';
+@use './styles/surfaces';
 :root {
   @include typography.typeSystem;
   @include spacing.spacingSystem;
@@ -31,6 +32,7 @@ html {
 
 body {
   @include forms.formSystem;
+  @include surfaces.surfaceSystem;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -54,7 +56,7 @@ body {
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-  background: var(--current-background, var(--body-background));
+  background: transparent;
 }
 
 /* Track */
@@ -64,18 +66,21 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--text-secondary);
+  background: var(--text-faint, var(--text-secondary));
   border-radius: 5px;
   margin: 2px;
-  border: 2px solid var(--current-background, var(--body-background));
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-overlay);
+  background: var(--text-muted, var(--text-secondary));
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:active {
   background: var(--accent);
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-corner,
@@ -96,7 +101,7 @@ body {
 }
 
 .smallInputInfo {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   align-self: flex-start;
   margin-block: var(--space-xs) var(--space-3xs);
   margin-inline: var(--space-xs) 0;

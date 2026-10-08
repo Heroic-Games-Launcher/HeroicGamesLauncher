@@ -185,7 +185,7 @@ img.loaded {
 
 .react-contextmenu-item {
   color: var(--text-default);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   line-height: var(--space-lg);
   font-family: var(--secondary-font-family);
   cursor: pointer;
