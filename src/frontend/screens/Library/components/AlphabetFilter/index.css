@@ -32,7 +32,7 @@
   border: 1px solid transparent;
   color: var(--text-default, var(--alphabet-filter-accent-color));
   font-family: var(--primary-font-family);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--semibold);
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -76,7 +76,7 @@
 .alphabet-filter-button--disabled {
   background-color: transparent;
   border-color: transparent;
-  color: var(--text-quartenary, var(--text-tertiary));
+  color: var(--text-faint, var(--text-secondary));
   font-weight: var(--medium);
   cursor: auto;
 }

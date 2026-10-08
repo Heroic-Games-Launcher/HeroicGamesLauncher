@@ -24,7 +24,7 @@
   display: block;
   position: relative;
   width: 100%;
-  aspect-ratio: 173/250;
+  aspect-ratio: 3/4;
   background-color: var(--gradient-gamecard);
 }
 
@@ -130,7 +130,12 @@
   padding: 12px 14px 14px;
 }
 
+.gameCard .Playtime {
+  display: none;
+}
+
 .gameCard .gameTitle {
+  min-height: calc(2 * 1.25em);
   font-family: var(--primary-font-family);
   font-size: var(--text-lg);
   font-weight: var(--semibold);
@@ -157,7 +162,7 @@
   font-family: var(--primary-font-family);
   font-size: var(--text-xs);
   font-weight: var(--regular);
-  color: var(--text-tertiary, var(--text-secondary));
+  color: var(--text-muted, var(--text-secondary));
 }
 
 .gameCard > .icons {
@@ -165,7 +170,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  aspect-ratio: 173/250;
+  aspect-ratio: 3/4;
   background: transparent;
   display: block;
   padding: 0;
@@ -195,7 +200,7 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: var(--text-default);
+  color: var(--ink-on-overlay, var(--text-default));
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   opacity: 0;
   transform: translateY(-4px);
@@ -273,7 +278,7 @@
 }
 
 .gameListItem .GameActionButton .Button__label {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
 }
 
 .gameCard.justPlayed > .icons {
@@ -298,7 +303,7 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: var(--text-default);
+  color: var(--ink-on-overlay, var(--text-default));
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   opacity: 0;
   transform: translateY(-4px);
@@ -350,7 +355,7 @@
   justify-content: center;
   gap: 10px;
   background: var(--navbar-accent, var(--accent));
-  color: var(--background-darker, #000);
+  color: var(--ink-on-accent, var(--background-darker, #000));
   border-radius: 14px;
   padding: 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
@@ -361,7 +366,7 @@
 
 .gameCard > .icons > .downIcon {
   background: var(--background-darker, #0a0e13);
-  color: var(--navbar-accent, var(--accent));
+  color: var(--on-panel-link, var(--navbar-accent, var(--accent)));
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.45),
     inset 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
