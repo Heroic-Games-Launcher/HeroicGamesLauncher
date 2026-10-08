@@ -1,13 +1,12 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import { useEffect } from 'react'
+import { useInstallProgressHistory } from 'frontend/state/InstallProgress'
+import { padTimeline, TimelineSlot } from 'frontend/state/progressTimeline'
 import {
-  InstallProgressPoint,
-  useInstallProgressHistory
-} from 'frontend/state/InstallProgress'
-import {
-  AreaChart,
-  Area,
+  Bar,
+  ComposedChart,
+  Line,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -27,7 +26,6 @@ export default function ProgressHeader(props: {
   state: DownloadManagerState
   runner: Runner
 }) {
-  const sampleSize = 100
   const { t } = useTranslation()
   const [progress] = hasProgress(props.appName, props.runner)
   const progressKey = `${props.appName}_${props.runner}`
@@ -40,12 +38,8 @@ export default function ProgressHeader(props: {
     if (props.state === 'idle') clearProgressHistory(progressKey)
   }, [clearProgressHistory, progressKey, props.state])
 
-  const emptyHistory = Array<InstallProgressPoint>(sampleSize).fill({
-    download: 0,
-    disk: 0,
-    timestamp: 0
-  })
-  const avgSpeed = progressHistory.length ? progressHistory : emptyHistory
+  const timeline = padTimeline(progressHistory)
+  const latest = progressHistory.at(-1)
 
   return (
     <>
@@ -62,8 +56,12 @@ export default function ProgressHeader(props: {
               }}
             >
               <ResponsiveContainer height={80}>
-                <AreaChart data={avgSpeed} margin={{ top: 0, right: 0 }}>
-                  <XAxis dataKey="timestamp" hide type="category" />
+                <ComposedChart
+                  data={timeline}
+                  margin={{ top: 0, right: 0 }}
+                  barCategoryGap={1}
+                >
+                  <XAxis dataKey="slot" hide type="category" />
                   <YAxis yAxisId="download" hide domain={[0, 'auto']} />
                   <YAxis yAxisId="disk" hide domain={[0, 'auto']} />
                   <Tooltip
@@ -75,37 +73,40 @@ export default function ProgressHeader(props: {
                     formatter={(value: number) =>
                       `${roundToNearestHundredth(value)} MB/s`
                     }
-                    labelFormatter={(timestamp: number) =>
-                      timestamp ? new Date(timestamp).toLocaleTimeString() : ''
-                    }
+                    labelFormatter={(_, payload) => {
+                      const { timestamp } = (payload[0]?.payload ??
+                        {}) as Partial<TimelineSlot>
+                      return timestamp
+                        ? new Date(timestamp).toLocaleTimeString()
+                        : ''
+                    }}
                   />
-                  <Area
+                  <Bar
                     isAnimationActive={false}
-                    type="monotone"
                     yAxisId="download"
                     dataKey="download"
                     name={t('download-manager.label.speed', 'Download')}
-                    strokeWidth="0px"
                     fill="var(--accent)"
-                    fillOpacity={0.5}
+                    fillOpacity={0.6}
                   />
-                  <Area
+                  <Line
                     isAnimationActive={false}
                     type="monotone"
                     yAxisId="disk"
                     dataKey="disk"
                     name={t('download-manager.label.disk', 'Disk')}
                     stroke="var(--primary)"
-                    strokeWidth="2px"
-                    fillOpacity={0}
+                    strokeWidth={2}
+                    dot={false}
+                    connectNulls={false}
                   />
-                </AreaChart>
+                </ComposedChart>
               </ResponsiveContainer>
             </div>
           </div>
           <div className="realtimeDownloadStatContainer">
             <h5 className="realtimeDownloadStat">
-              {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MB/s
+              {roundToNearestHundredth(latest?.download)} MB/s
             </h5>
             <div className="realtimeDownloadStatLabel downLabel">
               {t('download-manager.label.speed', 'Download')}{' '}
@@ -113,7 +114,7 @@ export default function ProgressHeader(props: {
           </div>
           <div className="realtimeDownloadStatContainer">
             <h5 className="realtimeDownloadStat">
-              {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MB/s
+              {roundToNearestHundredth(latest?.disk)} MB/s
             </h5>
             <div className="realtimeDownloadStatLabel diskLabel">
               {t('download-manager.label.disk', 'Disk')}{' '}

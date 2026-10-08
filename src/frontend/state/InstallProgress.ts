@@ -2,14 +2,9 @@ import { create } from 'zustand'
 import { useShallow } from 'zustand/react/shallow'
 
 import type { InstallProgress, Runner } from 'common/types'
+import { addSample, InstallProgressPoint } from './progressTimeline'
 
 type StoreType = Record<`${string}_${Runner}`, InstallProgress>
-
-export interface InstallProgressPoint {
-  download: number
-  disk: number
-  timestamp: number
-}
 
 interface ProgressHistoryStore {
   history: Record<string, InstallProgressPoint[]>
@@ -21,22 +16,16 @@ const useInstallProgressRaw = create<StoreType>()(() => ({}))
 const useInstallProgressHistoryRaw = create<ProgressHistoryStore>()((set) => ({
   history: {},
   add: (key, progress) =>
-    set((state) => {
-      const previousPoints = state.history[key] ?? []
-      const previousPoint = previousPoints.at(-1)
-      const point: InstallProgressPoint = {
-        download: progress.downSpeed ?? previousPoint?.download ?? 0,
-        disk: progress.diskSpeed ?? 0,
-        timestamp: Date.now()
+    set((state) => ({
+      history: {
+        ...state.history,
+        [key]: addSample(
+          state.history[key] ?? [],
+          { download: progress.downSpeed, disk: progress.diskSpeed },
+          Date.now()
+        )
       }
-
-      return {
-        history: {
-          ...state.history,
-          [key]: [...previousPoints.slice(-99), point]
-        }
-      }
-    }),
+    })),
   clear: (key) =>
     set((state) => {
       const history = { ...state.history }
