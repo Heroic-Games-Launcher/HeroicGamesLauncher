@@ -5,7 +5,6 @@ import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
@@ -44,30 +43,29 @@ const AutoDXVK = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="autodxvk"
-        value={autoInstallDxvk}
-        handleChange={handleAutoInstallDxvk}
-        title={
-          installingDxvk
-            ? t('please-wait', 'Please wait...')
-            : t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')
-        }
-        fading={installingDxvk}
-        disabled={
-          installingDxvk ||
-          (isLinux && (autoInstallDxvkNvapi || autoInstallVkd3d))
-        }
-      />
-
-      <InfoIcon
-        text={t(
-          'help.dxvk',
-          'DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.dxvk',
+        'DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.'
+      )}
+      description={t(
+        'setting.autodxvk.description',
+        'Translate DirectX 9, 10 and 11 calls to Vulkan for better performance'
+      )}
+      htmlId="autodxvk"
+      value={autoInstallDxvk}
+      handleChange={handleAutoInstallDxvk}
+      title={
+        installingDxvk
+          ? t('please-wait', 'Please wait...')
+          : t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')
+      }
+      fading={installingDxvk}
+      disabled={
+        installingDxvk ||
+        (isLinux && (autoInstallDxvkNvapi || autoInstallVkd3d))
+      }
+    />
   )
 }
 

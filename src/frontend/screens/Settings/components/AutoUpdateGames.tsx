@@ -11,6 +11,10 @@ const AutoUpdateGames = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.autoUpdateGames.description',
+        'Download game updates as soon as they are released'
+      )}
       htmlId="autoUpdateGames"
       value={autoUpdateGames}
       handleChange={() => setAutoUpdateGames(!autoUpdateGames)}

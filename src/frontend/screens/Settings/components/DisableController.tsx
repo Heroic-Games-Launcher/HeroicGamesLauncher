@@ -17,6 +17,10 @@ const DisableController = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.disableController.description',
+        'Stop Heroic from responding to gamepad input'
+      )}
       htmlId="disableController"
       value={disableController}
       handleChange={() => setDisableController(!disableController)}

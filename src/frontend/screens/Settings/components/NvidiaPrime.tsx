@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, ToggleSwitch } from 'frontend/components/UI'
+import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 
@@ -31,6 +31,31 @@ const NvidiaPrime = () => {
   return (
     <div className="toggleWithInfo">
       <ToggleSwitch
+        info={
+          <>
+            {t(
+              'help.nvidiaprime.details',
+              'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD Dynamic Switchable Graphics)'
+            )}
+
+            <br />
+            <br />
+            <a
+              className="underlined"
+              href=""
+              onClick={(event) => {
+                event.preventDefault()
+                window.api.openExternalUrl(WIKI_URL)
+              }}
+            >
+              {t('help.nvidiaprime.link', 'Check more details in our wiki')}
+            </a>
+          </>
+        }
+        description={t(
+          'setting.nvidiaPrime.description',
+          'Run the game on the dedicated NVIDIA GPU instead of the integrated one'
+        )}
         htmlId="nvidiaPrime"
         value={nvidiaPrime}
         handleChange={() => setNvidiaPrime(!nvidiaPrime)}
@@ -39,26 +64,6 @@ const NvidiaPrime = () => {
           'Force use of NVIDIA Optimus or AMD Dynamic Switchable Graphics dGPU. ONLY use this for OpenGL and Vulkan games.'
         )}
       />
-
-      <InfoBox text={t('infobox.help')}>
-        {t(
-          'help.nvidiaprime.details',
-          'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD Dynamic Switchable Graphics)'
-        )}
-
-        <br />
-        <br />
-        <a
-          className="underlined"
-          href=""
-          onClick={(event) => {
-            event.preventDefault()
-            window.api.openExternalUrl(WIKI_URL)
-          }}
-        >
-          {t('help.nvidiaprime.link', 'Check more details in our wiki')}
-        </a>
-      </InfoBox>
     </div>
   )
 }

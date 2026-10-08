@@ -1,12 +1,84 @@
-.Dialog__content.settingsDialogContent {
-  width: 65vw;
+.MuiDialog-paper.InstallModal__dialog:has(.settingsDialogContent) {
+  width: min(880px, 90vw);
+  max-width: min(880px, 90vw);
+  border-radius: 16px;
+
+  .MuiDialogTitle-root {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-lg) var(--space-xl-fixed) var(--space-md);
+    padding-inline-end: calc(var(--space-xl-fixed) + 40px);
+  }
+
+  .MuiDialogContent-root {
+    padding: 0 var(--space-xl-fixed) var(--space-xl-fixed);
+  }
+}
+
+.settingsModal__title {
+  font-family: var(--primary-font-family);
+  font-size: var(--title-md);
+  font-weight: var(--medium);
+  line-height: var(--leading-tight, 1.15);
+  color: var(--on-panel, var(--text-default));
+}
+
+.settingsModal__subtitle {
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  font-weight: var(--regular);
+  line-height: var(--leading-snug, 1.3);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.InstallModal__dialog .settingsDialogContent {
   display: flex;
   flex-direction: column;
   flex: 1 1 60vh;
-  max-width: 800px;
   min-height: 64vh;
+  gap: 0;
 
   .log-box {
     width: 100%;
+  }
+
+  .settingsTabs {
+    margin-block-end: var(--space-md);
+  }
+
+  section:not(:nth-of-type(0)) {
+    min-width: 0;
+  }
+
+  [role='tabpanel'] > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .Field,
+  .selectFieldWrapper,
+  .textInputFieldWrapper,
+  .tableFieldWrapper {
+    max-width: 100%;
+  }
+
+  input::placeholder {
+    color: var(--field-placeholder);
+    opacity: 1;
+  }
+
+  .Button--iconOnly {
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .Button svg {
+    display: block;
+  }
+
+  .logs-wrapper .setting.log-box {
+    border-radius: 12px;
   }
 }

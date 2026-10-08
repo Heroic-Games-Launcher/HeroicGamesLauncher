@@ -43,10 +43,14 @@ const AltGOGdlBin = () => {
         'Select GOGDL Binary (needs restart)'
       )}
       afterInput={
-        <span className="smallMessage">
-          {t('other.gogdl-version', 'GOGDL Version: ')}
-          {gogdlVersion}
-        </span>
+        gogdlVersion ? (
+          <span className="fieldCaption">
+            <span className="fieldCaption__label">
+              {t('other.gogdl-version', 'GOGDL Version: ')}
+            </span>
+            <span className="fieldCaption__value">{gogdlVersion}</span>
+          </span>
+        ) : undefined
       }
     />
   )

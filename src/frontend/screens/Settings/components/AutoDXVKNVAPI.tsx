@@ -4,7 +4,6 @@ import useSetting from 'frontend/hooks/useSetting'
 import { useTranslation } from 'react-i18next'
 import { defaultWineVersion } from '../util'
 import SettingsContext from '../SettingsContext'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AutoDXVKNVAPI = () => {
   const { t } = useTranslation()
@@ -37,30 +36,29 @@ const AutoDXVKNVAPI = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="autodxvknvapi"
-        value={autoInstallDXVKNVAPI}
-        handleChange={handleAutoInstallDxvkNvapi}
-        title={
-          installingDxvkNvapi
-            ? t('please-wait', 'Please wait...')
-            : t(
-                'setting.autodxvknvapi',
-                'Auto Install/Update DXVK-NVAPI on Prefix'
-              )
-        }
-        fading={installingDxvkNvapi}
-        disabled={!autoInstallDxvk || installingDxvkNvapi}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.dxvknvapi',
-          'DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.dxvknvapi',
+        'DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.'
+      )}
+      description={t(
+        'setting.autodxvknvapi.description',
+        'Expose NVIDIA features such as DLSS to games running through DXVK'
+      )}
+      htmlId="autodxvknvapi"
+      value={autoInstallDXVKNVAPI}
+      handleChange={handleAutoInstallDxvkNvapi}
+      title={
+        installingDxvkNvapi
+          ? t('please-wait', 'Please wait...')
+          : t(
+              'setting.autodxvknvapi',
+              'Auto Install/Update DXVK-NVAPI on Prefix'
+            )
+      }
+      fading={installingDxvkNvapi}
+      disabled={!autoInstallDxvk || installingDxvkNvapi}
+    />
   )
 }
 
