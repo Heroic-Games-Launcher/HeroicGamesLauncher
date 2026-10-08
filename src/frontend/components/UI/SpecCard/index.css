@@ -1,0 +1,88 @@
+.SpecCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  height: 100%;
+  min-height: 200px;
+  text-align: center;
+}
+
+.SpecCard__title {
+  font-family: var(--primary-font-family);
+  font-size: var(--eyebrow);
+  font-weight: var(--medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.SpecCard__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  color: var(--on-panel, var(--text-default));
+}
+
+.SpecCard__media svg {
+  max-height: 48px;
+  width: auto;
+}
+
+.SpecCard__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  font-size: var(--body-md);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--on-panel, var(--text-default));
+}
+
+.SpecCard__body > .ProgressBar {
+  width: min(100%, 280px);
+  margin-block: 4px;
+}
+
+.SpecCard__value {
+  overflow-wrap: anywhere;
+}
+
+.SpecCard__meta {
+  font-size: var(--body-sm);
+  color: var(--on-panel-muted, var(--text-secondary));
+  overflow-wrap: anywhere;
+}
+
+.SpecCard__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  column-gap: 10px;
+  row-gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.SpecCard__listRow {
+  display: contents;
+}
+
+.SpecCard__listKey {
+  min-width: 0;
+  color: var(--on-panel-muted, var(--text-secondary));
+  text-align: end;
+  overflow-wrap: anywhere;
+}
+
+.SpecCard__listValue {
+  min-width: 0;
+  font-weight: var(--medium);
+  text-align: start;
+  overflow-wrap: anywhere;
+}

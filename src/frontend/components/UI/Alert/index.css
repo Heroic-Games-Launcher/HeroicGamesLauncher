@@ -1,0 +1,67 @@
+.Alert {
+  --alert-tone: var(--on-panel-muted, var(--text-secondary));
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, var(--alert-tone) 38%, transparent);
+  background: color-mix(in oklab, var(--alert-tone) 14%, var(--panel-base));
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--on-panel, var(--text-default));
+  text-align: start;
+}
+
+.Alert__icon {
+  flex-shrink: 0;
+  margin-block-start: 1px;
+  color: var(--alert-tone);
+}
+
+.Alert__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.Alert__title {
+  font-weight: var(--semibold);
+  color: var(--on-panel, var(--text-default));
+}
+
+.Alert__message {
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.Alert__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.Alert--neutral {
+  --alert-tone: var(--on-panel-muted, var(--text-secondary));
+}
+
+.Alert--info {
+  --alert-tone: var(--status-info, var(--accent));
+}
+
+.Alert--success {
+  --alert-tone: var(--success, #10b981);
+}
+
+.Alert--warning {
+  --alert-tone: var(--status-warning, #f59e0b);
+}
+
+.Alert--error {
+  --alert-tone: var(--danger, #ef4444);
+}

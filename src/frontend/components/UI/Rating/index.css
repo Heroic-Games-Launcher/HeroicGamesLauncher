@@ -1,0 +1,14 @@
+.Rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--medium);
+  color: var(--text-default);
+  white-space: nowrap;
+}
+
+.Rating__star {
+  color: var(--status-warning, #f59e0b);
+}

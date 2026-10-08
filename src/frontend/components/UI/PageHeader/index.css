@@ -1,0 +1,71 @@
+.PageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+  text-align: start;
+}
+
+.PageHeader__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.PageHeader__titleLine {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.PageHeader__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  color: var(--on-panel-muted, var(--text-secondary));
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.PageHeader__back:hover,
+.PageHeader__back:focus-visible {
+  background: var(--input-background);
+  color: var(--on-panel, var(--text-default));
+}
+
+.PageHeader__title {
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--title-lg);
+  font-weight: var(--regular);
+  line-height: var(--leading-tight, 1.15);
+  letter-spacing: -0.02em;
+  color: var(--on-panel, var(--text-default));
+}
+
+.PageHeader__description {
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.PageHeader__text:has(.PageHeader__back) .PageHeader__description {
+  padding-inline-start: 48px;
+}
+
+.PageHeader__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}

@@ -1,0 +1,45 @@
+.StatCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.StatCard__label,
+.StatCard__value {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.StatCard--clickable {
+  cursor: pointer;
+  transition: border-color 150ms ease;
+}
+
+.StatCard--clickable:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+}
+
+.StatCard__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--regular);
+  color: var(--text-muted, var(--text-secondary));
+  white-space: nowrap;
+}
+
+.StatCard__value {
+  font-family: var(--primary-font-family);
+  font-size: var(--title-md);
+  font-weight: var(--bold);
+  letter-spacing: -0.02em;
+  color: var(--on-panel, var(--text-default));
+  white-space: nowrap;
+}
