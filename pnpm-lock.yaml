@@ -236,6 +236,9 @@ importers:
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.19.3(patch_hash=8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831))(babel-plugin-macros@3.1.0)
+      js-yaml:
+        specifier: ^4.1.1
+        version: 4.1.1
       node-gyp:
         specifier: ^10.3.1
         version: 10.3.1

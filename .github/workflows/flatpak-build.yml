@@ -13,8 +13,18 @@ permissions:
   contents: read
 jobs:
   flatpak:
-    name: 'Flatpak Build'
-    runs-on: ubuntu-latest
+    name: 'Flatpak Build (${{ matrix.arch }})'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: x86_64
+            electron_arch: x64
+          - runner: ubuntu-24.04-arm
+            arch: aarch64
+            electron_arch: arm64
+    runs-on: ${{ matrix.runner }}
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
       options: --privileged
@@ -22,19 +32,22 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
+      - name: Test Flatpak preparation
+        run: pnpm test:flatpak
       - name: Build artifacts.
-        run: pnpm dist:linux appimage --publish=never
+        run: pnpm dist:linux --${{ matrix.electron_arch }} --dir --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Prepare Flatpak
-        run: pnpm flatpak:prepare
+        run: pnpm flatpak:prepare --arch=${{ matrix.arch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: heroicgameslauncher.flatpak
+          arch: ${{ matrix.arch }}
+          bundle: heroicgameslauncher-${{ matrix.arch }}.flatpak
           manifest-path: flatpak-build/com.heroicgameslauncher.hgl.yml
-          cache-key: flatpak-builder-${{ github.sha }}
+          cache-key: flatpak-builder-${{ matrix.arch }}-${{ github.sha }}
