@@ -348,6 +348,7 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  isLinuxArm: () => boolean
   getGogDealsRegion: () => Promise<GogDealsRegion | null>
   getGogDiscounts: (
     locale: CatalogLocaleSettings,
