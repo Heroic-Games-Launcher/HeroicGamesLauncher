@@ -40,6 +40,7 @@ const initialContext: ContextType = {
   handleLibraryTopSection: () => null,
   platform: 'unknown',
   isIntelMac: false,
+  isLinuxArm: false,
   refresh: async () => Promise.resolve(),
   refreshLibrary: async () => Promise.resolve(),
   refreshing: false,

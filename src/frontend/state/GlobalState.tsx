@@ -82,6 +82,7 @@ interface StateProps {
   libraryTopSection: string
   platform: NodeJS.Platform
   isIntelMac: boolean
+  isLinuxArm: boolean
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: HiddenGame[]
@@ -219,6 +220,7 @@ class GlobalState extends PureComponent<Props> {
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     platform: window.platform,
     isIntelMac: false,
+    isLinuxArm: false,
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
@@ -966,6 +968,10 @@ class GlobalState extends PureComponent<Props> {
 
     if (platform === 'darwin') {
       this.setState({ isIntelMac: await window.api.isIntelMac() })
+    }
+
+    if (platform === 'linux') {
+      this.setState({ isLinuxArm: await window.api.isLinuxArm() })
     }
 
     this.setState({
