@@ -717,7 +717,8 @@
                 "nile": "Журнал Amazon и Nile",
                 "zoom": "Логи Zoom"
             },
-            "show-uploads": "Показать отправленные журналы"
+            "show-uploads": "Показать отправленные журналы",
+            "error": "Внутренняя ошибка чтения файла журнала"
         },
         "mangohud": "Включить Mangohud (требуется установленный Mangohud)",
         "manualsync": {
@@ -835,7 +836,9 @@
         "steamRuntime": {
             "label": "Использовать среду выполнения Steam",
             "noRuntimeOption": "None"
-        }
+        },
+        "gamepad-repeat-frequency": "Частота повторений ввода с геймпада",
+        "gamepad-initial-repeat-delay": "Начальная задержка повтора ввода с геймпада"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -951,7 +954,8 @@
             "help": {
                 "description": "Для включения поиска обложек игр укажите собственный API-ключ SteamGridDB. Ключ хранится в зашифрованном виде, если ваша система это поддерживает. Получить его можно по адресу {{url}}"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Нажмите, чтобы открыть файл настроек игры"
     },
     "Settings": "Настройки",
     "sidebar": {
