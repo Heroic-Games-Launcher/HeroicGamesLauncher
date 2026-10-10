@@ -160,7 +160,8 @@ describe('XdgPathsMigration', () => {
     await new legendary.LegendaryGlobalConfigFolderMigration().run()
     await new XdgPathsMigration().run()
 
-    const installed = join(dataPath, 'legendaryConfig', 'legendary', 'installed.json')
+    const legendaryDir = join(dataPath, 'legendaryConfig', 'legendary')
+    const installed = join(legendaryDir, 'installed.json')
     expect(readFileSync(installed, 'utf8')).toBe('heroic-games')
   })
 
