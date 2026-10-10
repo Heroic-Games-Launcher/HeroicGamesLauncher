@@ -5,11 +5,12 @@ import { z } from 'zod'
 import { TypeCheckedStoreBackend } from '../electron_store'
 import { getLogFilePath, logError, logInfo, LogPrefix } from '../logger'
 import { sendFrontendMessage } from '../ipc'
+import { storesPath } from 'backend/constants/key_value_stores'
 
 import type { UploadedLogData } from 'common/types'
 
 const uploadedLogFileStore = new TypeCheckedStoreBackend('uploadedLogs', {
-  cwd: 'store',
+  cwd: storesPath,
   name: 'uploadedLogs',
   accessPropertiesByDotNotation: false
 })
