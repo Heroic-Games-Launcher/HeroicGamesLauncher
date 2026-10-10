@@ -11,6 +11,7 @@ import {
   AutoVKD3D,
   BattlEyeRuntime,
   CrossoverBottle,
+  DisableHidraw,
   EacRuntime,
   EnableEsync,
   EnableFSR,
@@ -227,6 +228,7 @@ export default function GamesSettings() {
           </>
         )}
         <VerboseLogs />
+        <DisableHidraw />
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />
