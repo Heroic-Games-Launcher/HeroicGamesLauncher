@@ -89,9 +89,7 @@ function SteamDeckSystemSpecifications({
 export default function SystemInfo() {
   const { t } = useTranslation()
 
-  const systemInformation = useAwaited(async () =>
-    window.api.systemInfo.get(false)
-  )
+  const systemInformation = useAwaited(window.api.systemInfo.get, false)
   if (!systemInformation) return <CircularProgress />
 
   return (
