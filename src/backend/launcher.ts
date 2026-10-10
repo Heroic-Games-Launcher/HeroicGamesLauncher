@@ -62,7 +62,12 @@ import {
 import { download, isInstalled } from './wine/runtimes/runtimes'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
-import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
+import {
+  getRequiredPrefixFiles,
+  getUmuPath,
+  isProtonPrefixUpToDate,
+  isUmuSupported
+} from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
 import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
@@ -1408,6 +1413,20 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' } }
   }
 
+  // Spinning up Proton (and the umu container) only to find an already
+  // set-up prefix takes several seconds on every launch. Anything run in the
+  // prefix afterwards goes through Proton, which still handles upgrades itself
+  if (
+    wineVersion.type === 'proton' &&
+    (await isProtonPrefixUpToDate(winePrefix, wineVersion.bin))
+  ) {
+    logDebug(
+      ['Prefix is up to date, skipping setup:', winePrefix],
+      LogPrefix.Backend
+    )
+    return { res: { stdout: '', stderr: '' } }
+  }
+
   if (!existsSync(winePrefix) && !(await isUmuSupported(settings))) {
     mkdirSync(winePrefix, { recursive: true })
   }
@@ -1468,26 +1487,10 @@ async function runWineCommand({
   const { wineVersion, winePrefix } = settings
 
   if (!skipPrefixCheckIKnowWhatImDoing && wineVersion.type !== 'crossover') {
-    let requiredPrefixFiles = [
-      'dosdevices',
-      'drive_c',
-      'system.reg',
-      'user.reg',
-      'userdef.reg'
-    ]
-    if (wineVersion.type === 'proton') {
-      requiredPrefixFiles = [
-        'pfx.lock',
-        'tracked_files',
-        'version',
-        'config_info',
-        ...requiredPrefixFiles.map((path) => join('pfx', path))
-      ]
-    }
-    requiredPrefixFiles = requiredPrefixFiles.map((path) =>
-      join(winePrefix, path)
+    const requiredPrefixFiles = getRequiredPrefixFiles(
+      winePrefix,
+      wineVersion.type
     )
-    requiredPrefixFiles.push(winePrefix)
 
     if (!requiredPrefixFiles.every((path) => existsSync(path))) {
       logWarning(
