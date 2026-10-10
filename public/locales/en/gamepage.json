@@ -103,8 +103,10 @@
     "edit-game": {
         "advanced": "Advanced",
         "cover": "Cover Art",
+        "icon": "Shortcut Icon",
         "info": {
             "cover": "Cover Image",
+            "icon": "Shortcut Icon",
             "square": "Square Image"
         },
         "placeholder": {
@@ -278,6 +280,7 @@
             "cover-hint": "Cover/Hero Art (click on the image to search on SteamGridDB)",
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
+            "icon-hint": "Shortcut Icon (click on the image to search on SteamGridDB)",
             "image-hint": "Square Art (click on the image to search on SteamGridDB)",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"

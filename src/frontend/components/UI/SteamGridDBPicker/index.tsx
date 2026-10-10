@@ -16,13 +16,14 @@ interface Props {
   initialTitle: string
   onSelect: (url: string) => void
   onClose: () => void
-  mode?: 'grids' | 'heroes'
+  mode?: 'grids' | 'heroes' | 'icons'
   dimensions?: string[]
   styles?: string[]
 }
 
 const DEFAULT_GRID_DIMENSIONS = ['600x900', '342x482', '660x930']
 const DEFAULT_GRID_STYLES = ['material', 'alternate', 'blurred']
+const DEFAULT_ICON_STYLES = ['official', 'custom']
 
 export default function SteamGridDBPicker({
   initialTitle,
@@ -50,11 +51,18 @@ export default function SteamGridDBPicker({
         const fetcher =
           mode === 'heroes'
             ? window.api.steamgriddb.getHeroes
-            : window.api.steamgriddb.getGrids
+            : mode === 'icons'
+              ? window.api.steamgriddb.getIcons
+              : window.api.steamgriddb.getGrids
         const fetchDims =
-          dimensions ?? (mode === 'heroes' ? [] : DEFAULT_GRID_DIMENSIONS)
+          dimensions ?? (mode === 'grids' ? DEFAULT_GRID_DIMENSIONS : [])
         const fetchStyles =
-          styles ?? (mode === 'heroes' ? [] : DEFAULT_GRID_STYLES)
+          styles ??
+          (mode === 'icons'
+            ? DEFAULT_ICON_STYLES
+            : mode === 'grids'
+              ? DEFAULT_GRID_STYLES
+              : [])
         const results = await fetcher({
           gameId,
           styles: fetchStyles,

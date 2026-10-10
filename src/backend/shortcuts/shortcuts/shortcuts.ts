@@ -16,6 +16,7 @@ import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { GlobalConfig } from '../../config'
 import { GameInfo } from 'common/types'
 import { getIcon } from '../utils'
+import { attachOverrides } from 'backend/game_overrides'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
 import { buildMacOsShortcutLaunchCommand } from './macos_shortcut'
 import sanitize from 'sanitize-filename'
@@ -32,7 +33,7 @@ import type { Game } from 'common/types/game_manager'
  * @public
  */
 async function addShortcuts(game: Game, fromMenu?: boolean) {
-  const gameInfo = game.getGameInfo()
+  const gameInfo = attachOverrides(game.getGameInfo())
   if (gameInfo.install.is_dlc) return
 
   const { app_name, runner, title } = gameInfo

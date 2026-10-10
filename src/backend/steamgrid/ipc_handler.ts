@@ -96,3 +96,32 @@ addHandler('steamgriddb.getHeroes', async (event, args) => {
     throw error
   }
 })
+
+addHandler('steamgriddb.getIcons', async (event, args) => {
+  const apiKey = getDecryptedApiKey()
+  if (!apiKey) {
+    return []
+  }
+
+  try {
+    const results = await SteamGridDB.getIcons(apiKey, {
+      gameId: args.gameId,
+      dimensions: args.dimensions,
+      styles: args.styles
+    })
+    // Official icons tend to look more like a real app icon than
+    // community submissions, so surface those first.
+    const sorted = [...results].sort((a, b) =>
+      a.style === b.style ? 0 : a.style === 'official' ? -1 : 1
+    )
+    return sorted.map((grid) => ({
+      id: grid.id,
+      url: grid.url,
+      thumb: grid.thumb,
+      style: grid.style
+    }))
+  } catch (error) {
+    logError([`SteamGridDB getIcons failed:`, error], LogPrefix.Backend)
+    throw error
+  }
+})

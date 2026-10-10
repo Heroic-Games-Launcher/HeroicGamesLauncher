@@ -115,3 +115,40 @@ export async function getHeroes(
 
   return response.data.data
 }
+
+/**
+ * Get icons (square app icons) for a specific game.
+ */
+export async function getIcons(
+  apiKey: string,
+  args: {
+    gameId: number
+    dimensions?: string[]
+    styles?: string[]
+  }
+): Promise<SGDBGrid[]> {
+  const params: Record<string, string> = {}
+  if (args.dimensions && args.dimensions.length > 0) {
+    params.dimensions = args.dimensions.join(',')
+  }
+  if (args.styles && args.styles.length > 0) {
+    params.styles = args.styles.join(',')
+  }
+
+  const response = await axios.get<SGDBResponse<SGDBGrid[]>>(
+    `${SGDB_API_URL}/icons/game/${args.gameId}`,
+    {
+      params,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'User-Agent': userAgent
+      }
+    }
+  )
+
+  if (!response.data.success) {
+    throw new Error(response.data.errors?.join(', ') || 'Failed to get icons')
+  }
+
+  return response.data.data
+}

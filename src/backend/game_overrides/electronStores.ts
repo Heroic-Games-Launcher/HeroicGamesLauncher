@@ -10,6 +10,7 @@ export interface GameMetadataOverride {
   title?: string
   art_cover?: string
   art_square?: string
+  art_icon?: string
 }
 
 export const gameOverridesStore = new TypeCheckedStoreBackend(

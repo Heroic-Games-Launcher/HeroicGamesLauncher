@@ -133,6 +133,7 @@ interface SyncIPCFunctions {
     title?: string
     art_cover?: string
     art_square?: string
+    art_icon?: string
   }) => void
 }
 
@@ -371,6 +372,13 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  'steamgriddb.getIcons': (args: {
+    gameId: number
+    styles?: string[]
+    dimensions?: string[]
+  }) => Promise<
+    Array<{ id: number; url: string; thumb: string; style?: string }>
+  >
 }
 
 interface FrontendMessages {

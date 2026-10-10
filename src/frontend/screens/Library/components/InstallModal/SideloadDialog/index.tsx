@@ -62,13 +62,16 @@ export default function SideloadDialog({
   const [launchFullScreen, setLaunchFullScreen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
   const [heroUrl, setHeroUrl] = useState('')
+  const [iconUrl, setIconUrl] = useState('')
   const [searching, setSearching] = useState(false)
   const [imageLoading, setImageLoading] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const [addingApp, setAddingApp] = useState(false)
-  const [sgdbTarget, setSgdbTarget] = useState<'cover' | 'square' | null>(null)
+  const [sgdbTarget, setSgdbTarget] = useState<
+    'cover' | 'square' | 'icon' | null
+  >(null)
   const [hasSgdbKey, setHasSgdbKey] = useState(false)
   const editMode = Boolean(appName)
 
@@ -98,6 +101,7 @@ export default function SideloadDialog({
         const {
           art_cover,
           art_square,
+          art_icon,
           install: { executable, platform },
           title,
           browserUrl,
@@ -125,6 +129,7 @@ export default function SideloadDialog({
         setTitle(title)
         setImageUrl(art_square || '')
         setHeroUrl(art_cover && art_cover !== art_square ? art_cover : '')
+        setIconUrl(art_icon || '')
       })
     } else {
       setApp_name(short.generate().toString())
@@ -160,7 +165,7 @@ export default function SideloadDialog({
     }
   }
 
-  async function handleSelectLocalImage(target: 'cover' | 'square') {
+  async function handleSelectLocalImage(target: 'cover' | 'square' | 'icon') {
     const path = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
@@ -176,6 +181,7 @@ export default function SideloadDialog({
 
     if (!path) return
     if (target === 'cover') setHeroUrl(`file://${path}`)
+    else if (target === 'icon') setIconUrl(`file://${path}`)
     else setImageUrl(`file://${path}`)
   }
 
@@ -192,6 +198,7 @@ export default function SideloadDialog({
       art_cover: heroUrl || imageUrl || fallbackImage,
       is_installed: true,
       art_square: imageUrl || heroUrl || fallbackImage,
+      art_icon: iconUrl || undefined,
       canRunOffline: true,
       browserUrl: gameUrl,
       customUserAgent,
@@ -366,6 +373,22 @@ export default function SideloadDialog({
                 </div>
               )}
             </div>
+            <div
+              className={classNames('appImageContainer iconContainer', {
+                hasSgdbKey
+              })}
+              onClick={() => hasSgdbKey && setSgdbTarget('icon')}
+            >
+              <CachedImage
+                className="appImage shortcutIconArt"
+                src={iconUrl || imageUrl || fallbackImage}
+              />
+              {hasSgdbKey && (
+                <div className="imageHoverOverlay">
+                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                </div>
+              )}
+            </div>
             <span className="titleIcon">
               {title}
               {platformIcon()}
@@ -375,11 +398,19 @@ export default function SideloadDialog({
             {sgdbTarget ? (
               <SteamGridDBPicker
                 initialTitle={title}
-                mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
+                mode={
+                  sgdbTarget === 'cover'
+                    ? 'heroes'
+                    : sgdbTarget === 'icon'
+                      ? 'icons'
+                      : 'grids'
+                }
                 onClose={() => setSgdbTarget(null)}
                 onSelect={(url: string) => {
                   if (sgdbTarget === 'cover') {
                     setHeroUrl(url)
+                  } else if (sgdbTarget === 'icon') {
+                    setIconUrl(url)
                   } else if (url !== imageUrl) {
                     setImageLoading(true)
                     setImageUrl(url)
@@ -449,6 +480,21 @@ export default function SideloadDialog({
                     value={heroUrl}
                     icon={<Folder />}
                     onIconClick={() => handleSelectLocalImage('cover')}
+                  />
+                  <TextInputWithIconField
+                    label={t(
+                      'sideload.info.icon-hint',
+                      'Shortcut Icon (click on the image to search on SteamGridDB)'
+                    )}
+                    placeholder={t(
+                      'sideload.placeholder.image',
+                      'Paste an URL of an Image or select one from your computer'
+                    )}
+                    onChange={(newValue: string) => setIconUrl(newValue)}
+                    htmlId="sideload-icon"
+                    value={iconUrl}
+                    icon={<Folder />}
+                    onIconClick={() => handleSelectLocalImage('icon')}
                   />
                 </details>
                 {!hasSgdbKey && (
