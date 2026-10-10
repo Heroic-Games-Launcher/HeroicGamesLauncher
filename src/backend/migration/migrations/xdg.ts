@@ -4,7 +4,9 @@ import {
   existsSync,
   lstatSync,
   mkdirSync,
+  readdirSync,
   readFileSync,
+  rmdirSync,
   symlinkSync,
   unlinkSync,
   writeFileSync
@@ -204,14 +206,21 @@ export class XdgPathsMigration implements Migration {
       return
     }
 
-    // Avoid merging two independently populated tool trees. Both paths remain
-    // discoverable, and all future Heroic-managed downloads use toolsPath.
+    // A previously created but empty destination must not block the move.
+    // Do not merge independent tool trees or remove non-directory entries.
     if (existsSync(toolsPath)) {
-      logWarning([
-        'Not migrating legacy tools directory because destination exists:',
-        toolsPath
-      ])
-      return
+      if (
+        lstatSync(toolsPath).isDirectory() &&
+        readdirSync(toolsPath).length === 0
+      ) {
+        rmdirSync(toolsPath)
+      } else {
+        logWarning([
+          'Not migrating legacy tools directory because destination exists:',
+          toolsPath
+        ])
+        return
+      }
     }
 
     const moved = await moveIfDestinationMissing(legacyToolsPath, toolsPath)

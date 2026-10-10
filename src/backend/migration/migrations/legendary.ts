@@ -3,7 +3,11 @@ import { access, cp, mkdir } from 'fs/promises'
 import { join } from 'path'
 
 import { isLinux } from 'backend/constants/environment'
-import { userHome } from 'backend/constants/paths'
+import {
+  appFolder,
+  heroicDataPath,
+  userHome
+} from 'backend/constants/paths'
 import { legendaryConfigPath } from 'backend/storeManagers/legendary/constants'
 
 import type { PathLike } from 'fs'
@@ -19,8 +23,13 @@ export class LegendaryGlobalConfigFolderMigration implements Migration {
   identifier = 'legendary-move-global-config-folder'
   async run(): Promise<boolean> {
     const hasHeroicSpecificConfig = await exists(legendaryConfigPath)
-    // Don't overwrite existing configuration
-    if (hasHeroicSpecificConfig) return true
+    // Do not copy global Legendary data over an existing Heroic profile.
+    // On Linux, an older Heroic profile may still be awaiting XDG migration.
+    const hasLegacyHeroicConfig =
+      isLinux &&
+      appFolder !== heroicDataPath &&
+      (await exists(join(appFolder, 'legendaryConfig', 'legendary')))
+    if (hasHeroicSpecificConfig || hasLegacyHeroicConfig) return true
 
     const globalLegendaryConfig = isLinux
       ? join(app.getPath('appData'), 'legendary')

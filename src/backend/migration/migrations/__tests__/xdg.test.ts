@@ -29,7 +29,7 @@ describe('XdgPathsMigration', () => {
     dataPath = join(root, 'data', 'heroic')
     cachePath = join(root, 'cache', 'heroic')
     statePath = join(root, 'state', 'Heroic')
-    iconsPath = join(dataPath, 'icons')
+    iconsPath = join(cachePath, 'icons')
     legacyToolsPath = join(appFolder, 'tools')
     toolsPath = join(dataPath, 'tools')
     userHome = join(root, 'home')
@@ -115,6 +115,54 @@ describe('XdgPathsMigration', () => {
     expect(readFileSync(join(toolsPath, 'wine', 'test', 'wine'), 'utf8')).toBe(
       'binary'
     )
+  })
+
+  test('migrates tools when their new destination already exists but is empty', async () => {
+    mkdirSync(join(legacyToolsPath, 'proton', 'GE'), { recursive: true })
+    writeFileSync(join(legacyToolsPath, 'proton', 'GE', 'proton'), 'binary')
+    mkdirSync(toolsPath, { recursive: true })
+
+    const { XdgPathsMigration } = await import('../xdg')
+    await new XdgPathsMigration().run()
+
+    expect(lstatSync(legacyToolsPath).isSymbolicLink()).toBe(true)
+    expect(readFileSync(join(toolsPath, 'proton', 'GE', 'proton'), 'utf8')).toBe(
+      'binary'
+    )
+  })
+
+  test('keeps both independently populated tool directories without merging', async () => {
+    mkdirSync(join(legacyToolsPath, 'wine'), { recursive: true })
+    mkdirSync(join(toolsPath, 'proton'), { recursive: true })
+    writeFileSync(join(legacyToolsPath, 'wine', 'old'), 'old')
+    writeFileSync(join(toolsPath, 'proton', 'new'), 'new')
+
+    const { XdgPathsMigration } = await import('../xdg')
+    await new XdgPathsMigration().run()
+
+    expect(lstatSync(legacyToolsPath).isSymbolicLink()).toBe(false)
+    expect(readFileSync(join(legacyToolsPath, 'wine', 'old'), 'utf8')).toBe(
+      'old'
+    )
+    expect(readFileSync(join(toolsPath, 'proton', 'new'), 'utf8')).toBe('new')
+  })
+
+  test('preserves Heroic Legendary data even if global migration runs first', async () => {
+    const heroicLegendary = join(appFolder, 'legendaryConfig', 'legendary')
+    const globalLegendary = join(root, 'legendary')
+    mkdirSync(heroicLegendary, { recursive: true })
+    mkdirSync(globalLegendary, { recursive: true })
+    writeFileSync(join(heroicLegendary, 'installed.json'), 'heroic-games')
+    writeFileSync(join(globalLegendary, 'installed.json'), 'global-games')
+
+    const { LegendaryGlobalConfigFolderMigration } = await import('../legendary')
+    const { XdgPathsMigration } = await import('../xdg')
+    await new LegendaryGlobalConfigFolderMigration().run()
+    await new XdgPathsMigration().run()
+
+    expect(
+      readFileSync(join(dataPath, 'legendaryConfig', 'legendary', 'installed.json'), 'utf8')
+    ).toBe('heroic-games')
   })
 
   test('does not merge independently populated icon directories', async () => {

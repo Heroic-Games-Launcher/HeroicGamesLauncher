@@ -28,7 +28,7 @@ describe('XDG shortcut migration', () => {
   beforeEach(() => {
     root = mkdtempSync(join(tmpdir(), 'heroic-xdg-shortcuts-'))
     legacyIcons = join(root, 'config', 'heroic', 'icons')
-    newIcons = join(root, 'data', 'heroic', 'icons')
+    newIcons = join(root, 'cache', 'heroic', 'icons')
     mockIsSteamRunning.mockReturnValue(false)
   })
 

@@ -54,7 +54,7 @@ export const runtimePath = join(toolsPath, 'runtimes')
 export const defaultUmuPath = join(runtimePath, 'umu', 'umu_run.py')
 export const configPath = join(appFolder, 'config.json')
 export const gamesConfigPath = join(appFolder, 'GamesConfig')
-export const heroicIconFolder = join(heroicDataPath, 'icons')
+export const heroicIconFolder = join(heroicCachePath, 'icons')
 export const heroicInstallPath = join(userHome, 'Games', 'Heroic')
 export const defaultWinePrefixDir = join(
   userHome,

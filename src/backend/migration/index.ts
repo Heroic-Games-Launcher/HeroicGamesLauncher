@@ -73,8 +73,9 @@ export default class MigrationSystem {
 
   private getAllMigrations(): Migration[] {
     return [
-      new LegendaryGlobalConfigFolderMigration(),
+      // Migrate Heroic's own configuration before looking for a global copy.
       new XdgPathsMigration(),
+      new LegendaryGlobalConfigFolderMigration(),
       new UmuSteamRuntimeMigration()
     ]
   }

@@ -18,9 +18,10 @@ export const electronCodeCachePath = join(electronCachePath, 'code-cache')
 const electronCrashDumpsPath = join(heroicStatePath, 'crashDumps')
 const electronLogsPath = join(heroicStatePath, 'logs')
 
-const legacyUserDataEntries = ['Local State', 'Partitions']
+const legacyUserDataEntries = ['Local State']
 
 const legacySessionEntries = [
+  'Partitions',
   'Network Persistent State',
   'Network',
   'Local Storage',
