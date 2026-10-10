@@ -155,17 +155,13 @@ describe('XdgPathsMigration', () => {
     writeFileSync(join(heroicLegendary, 'installed.json'), 'heroic-games')
     writeFileSync(join(globalLegendary, 'installed.json'), 'global-games')
 
-    const { LegendaryGlobalConfigFolderMigration } = await import('../legendary')
+    const legendary = await import('../legendary')
     const { XdgPathsMigration } = await import('../xdg')
-    await new LegendaryGlobalConfigFolderMigration().run()
+    await new legendary.LegendaryGlobalConfigFolderMigration().run()
     await new XdgPathsMigration().run()
 
-    expect(
-      readFileSync(
-        join(dataPath, 'legendaryConfig', 'legendary', 'installed.json'),
-        'utf8'
-      )
-    ).toBe('heroic-games')
+    const installed = join(dataPath, 'legendaryConfig', 'legendary', 'installed.json')
+    expect(readFileSync(installed, 'utf8')).toBe('heroic-games')
   })
 
   test('moves legacy tools past empty Wine and Proton destination scaffolds', async () => {
