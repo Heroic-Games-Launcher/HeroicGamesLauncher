@@ -71,11 +71,11 @@ const CategorySettings = () => {
   }
 
   const handleRemoveCategory = (category: string) => {
-    if (
-      currentCustomCategories.length === 1 &&
-      currentCustomCategories[0] === category
-    )
-      setCurrentCustomCategories([])
+    if (currentCustomCategories[category]) {
+      const updated = { ...currentCustomCategories }
+      delete updated[category]
+      setCurrentCustomCategories(updated)
+    }
     customCategories.removeCategory(category)
     updateCategories()
     setCategoryToDelete('')

@@ -16,7 +16,8 @@ import {
 import {
   DialogModalOptions,
   ExternalLinkDialogOptions,
-  HelpItem
+  HelpItem,
+  CategoryFilterState
 } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
 import { getGameInfo, getLegendaryConfig } from '../helpers'
@@ -87,7 +88,7 @@ interface StateProps {
   hiddenGames: HiddenGame[]
   favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
-  currentCustomCategories: string[]
+  currentCustomCategories: Record<string, CategoryFilterState>
   theme: string
   isFullscreen: boolean
   isFrameless: boolean
@@ -116,19 +117,25 @@ interface StateProps {
   disableAnimations: boolean
 }
 
-// function to load the new key or fallback to the old one
-const loadCurrentCategories = () => {
+const loadCurrentCategories = (): Record<string, 'include' | 'exclude'> => {
   const currentCategories = storage.getItem('current_custom_categories') || null
   if (!currentCategories) {
     const currentCategory = storage.getItem('current_custom_category') || null
-    if (!currentCategory) {
-      return []
-    } else {
-      return [currentCategory]
-    }
-  } else {
-    return JSON.parse(currentCategories) as string[]
+    if (!currentCategory) return {}
+    return { [currentCategory]: 'include' }
   }
+
+  const parsed = JSON.parse(currentCategories)
+  if (Array.isArray(parsed)) {
+    return parsed.reduce(
+      (acc, cat) => {
+        acc[cat] = 'include'
+        return acc
+      },
+      {} as Record<string, 'include' | 'exclude'>
+    )
+  }
+  return parsed
 }
 
 import { attachGameOverrides } from '../helpers/gameOverrides'
@@ -271,7 +278,9 @@ class GlobalState extends PureComponent<Props> {
     disableAnimations: configStore.get('disableAnimations', false)
   }
 
-  setCurrentCustomCategories = (newCustomCategories: string[]) => {
+  setCurrentCustomCategories = (
+    newCustomCategories: Record<string, CategoryFilterState>
+  ) => {
     storage.setItem(
       'current_custom_categories',
       JSON.stringify(newCustomCategories)
@@ -402,17 +411,15 @@ class GlobalState extends PureComponent<Props> {
     Array.from(new Set(Object.keys(this.state.customCategories))).sort()
 
   getCurrentCustomCategories = () =>
-    Array.from(new Set(this.state.currentCustomCategories)).sort()
+    Object.keys(this.state.currentCustomCategories)
 
   setCustomCategory = (newCategory: string) => {
-    const newCustomCategories = this.state.customCategories
+    const newCustomCategories = { ...this.state.customCategories }
     newCustomCategories[newCategory] = []
 
-    // when adding a new category, if there are categories selected, select the new
-    // one too so the game doesn't disappear form the library
-    let newCurrentCustomCategories = this.state.currentCustomCategories
-    if (this.state.currentCustomCategories.length > 0) {
-      newCurrentCustomCategories = [...newCurrentCustomCategories, newCategory]
+    const newCurrentCustomCategories = { ...this.state.currentCustomCategories }
+    if (Object.keys(this.state.currentCustomCategories).length > 0) {
+      newCurrentCustomCategories[newCategory] = 'include'
     }
 
     this.setState({
@@ -425,35 +432,36 @@ class GlobalState extends PureComponent<Props> {
   removeCustomCategory = (category: string) => {
     if (!this.state.customCategories[category]) return
 
-    const newCustomCategories = this.state.customCategories
+    const newCustomCategories = { ...this.state.customCategories }
     delete newCustomCategories[category]
-    this.setState({ customCategories: { ...newCustomCategories } })
+    this.setState({ customCategories: newCustomCategories })
 
-    const updatedCategories = this.getCurrentCustomCategories().filter(
-      (cat) => cat !== category
-    )
-    this.setCurrentCustomCategories(updatedCategories)
-    const numberOfCategories = updatedCategories.length
+    const updatedCategories = { ...this.state.currentCustomCategories }
+    delete updatedCategories[category]
 
-    if (numberOfCategories < 1) {
-      this.setCurrentCustomCategories(['preset_uncategorized'])
+    if (Object.keys(updatedCategories).length < 1) {
+      updatedCategories['preset_uncategorized'] = 'include'
     }
+
+    this.setCurrentCustomCategories(updatedCategories)
     configStore.set('games.customCategories', newCustomCategories)
   }
 
   renameCustomCategory = (oldName: string, newName: string) => {
     if (!this.state.customCategories[oldName]) return
 
-    const newCustomCategories = this.state.customCategories
+    const newCustomCategories = { ...this.state.customCategories }
     newCustomCategories[newName] = newCustomCategories[oldName]
     delete newCustomCategories[oldName]
 
-    this.setState({ customCategories: { ...newCustomCategories } })
+    this.setState({ customCategories: newCustomCategories })
     configStore.set('games.customCategories', newCustomCategories)
 
-    const newCurrentCustomCategories = this.state.currentCustomCategories.map(
-      (cat) => (cat === oldName ? newName : cat)
-    )
+    const newCurrentCustomCategories = { ...this.state.currentCustomCategories }
+    if (newCurrentCustomCategories[oldName]) {
+      newCurrentCustomCategories[newName] = newCurrentCustomCategories[oldName]
+      delete newCurrentCustomCategories[oldName]
+    }
     this.setCurrentCustomCategories(newCurrentCustomCategories)
   }
 
