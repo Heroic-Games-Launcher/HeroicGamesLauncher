@@ -64,6 +64,7 @@ finish-args:
   - --system-talk-name=org.freedesktop.UDisks2
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
+  - --system-talk-name=org.freedesktop.login1
   - --talk-name=org.freedesktop.PowerManagement
   - --talk-name=org.freedesktop.Notifications
   - --env=TZ=
