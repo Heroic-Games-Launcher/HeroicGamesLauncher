@@ -10,7 +10,14 @@ import {
 } from 'common/types'
 import axios from 'axios'
 import https from 'node:https'
-import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
+import {
+  app,
+  dialog,
+  shell,
+  Notification,
+  BrowserWindow,
+  session
+} from 'electron'
 import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
@@ -394,6 +401,19 @@ function clearCache(
   if (!fromVersionChange) {
     deviceNameCache.clear()
     vendorNameCache.clear()
+  }
+
+  for (const partition of [
+    'persist:epic',
+    'persist:gog',
+    'persist:amazon',
+    'persist:zoom'
+  ]) {
+    const ses = session.fromPartition(partition)
+    void ses.clearCache()
+    void ses.clearStorageData({
+      storages: ['cookies', 'cachestorage', 'shadercache']
+    })
   }
 }
 
