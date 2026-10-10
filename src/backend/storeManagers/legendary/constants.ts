@@ -1,8 +1,8 @@
-import { appFolder, toolsPath } from 'backend/constants/paths'
+import { heroicDataPath, toolsPath } from 'backend/constants/paths'
 import { join } from 'path'
 
 export const legendaryConfigPath = join(
-  appFolder,
+  heroicDataPath,
   'legendaryConfig',
   'legendary'
 )

@@ -1,6 +1,4 @@
 import { TypeCheckedStoreBackend } from '../electron_store'
-import { join } from 'node:path'
-import { userDataPath } from 'backend/constants/paths'
 
 /**
  * Store for custom game metadata overrides (title, images)
@@ -15,7 +13,7 @@ export interface GameMetadataOverride {
 export const gameOverridesStore = new TypeCheckedStoreBackend(
   'gameOverridesStore',
   {
-    cwd: join(userDataPath, 'store'),
+    cwd: 'store',
     name: 'game-overrides',
     clearInvalidConfig: true
   }
