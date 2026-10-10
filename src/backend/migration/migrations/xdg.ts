@@ -6,7 +6,6 @@ import {
   mkdirSync,
   readdirSync,
   readFileSync,
-  rmdirSync,
   symlinkSync,
   unlinkSync,
   writeFileSync
@@ -34,6 +33,14 @@ import {
 import type { Migration } from '..'
 
 const iconsMigrationMarker = '.heroic-xdg-icons-migration'
+
+// Wine/Proton discovery may pre-create empty subdirectories before migration.
+function isEmptyDirectoryTree(path: string): boolean {
+  return (
+    lstatSync(path).isDirectory() &&
+    readdirSync(path).every((entry) => isEmptyDirectoryTree(join(path, entry)))
+  )
+}
 
 export class XdgPathsMigration implements Migration {
   identifier = 'xdg-paths'
@@ -209,11 +216,8 @@ export class XdgPathsMigration implements Migration {
     // A previously created but empty destination must not block the move.
     // Do not merge independent tool trees or remove non-directory entries.
     if (existsSync(toolsPath)) {
-      if (
-        lstatSync(toolsPath).isDirectory() &&
-        readdirSync(toolsPath).length === 0
-      ) {
-        rmdirSync(toolsPath)
+      if (isEmptyDirectoryTree(toolsPath)) {
+        await remove(toolsPath)
       } else {
         logWarning([
           'Not migrating legacy tools directory because destination exists:',

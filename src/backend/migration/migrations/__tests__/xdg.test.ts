@@ -161,8 +161,26 @@ describe('XdgPathsMigration', () => {
     await new XdgPathsMigration().run()
 
     expect(
-      readFileSync(join(dataPath, 'legendaryConfig', 'legendary', 'installed.json'), 'utf8')
+      readFileSync(
+        join(dataPath, 'legendaryConfig', 'legendary', 'installed.json'),
+        'utf8'
+      )
     ).toBe('heroic-games')
+  })
+
+  test('moves legacy tools past empty Wine and Proton destination scaffolds', async () => {
+    mkdirSync(join(legacyToolsPath, 'proton', 'GE'), { recursive: true })
+    writeFileSync(join(legacyToolsPath, 'proton', 'GE', 'proton'), 'binary')
+    mkdirSync(join(toolsPath, 'wine'), { recursive: true })
+    mkdirSync(join(toolsPath, 'proton'), { recursive: true })
+
+    const { XdgPathsMigration } = await import('../xdg')
+    await new XdgPathsMigration().run()
+
+    expect(lstatSync(legacyToolsPath).isSymbolicLink()).toBe(true)
+    expect(readFileSync(join(toolsPath, 'proton', 'GE', 'proton'), 'utf8')).toBe(
+      'binary'
+    )
   })
 
   test('does not merge independently populated icon directories', async () => {
