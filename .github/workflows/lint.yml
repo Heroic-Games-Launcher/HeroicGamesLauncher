@@ -16,9 +16,6 @@ jobs:
       - name: Lint code.
         run: pnpm lint
       - name: Prettier code.
-        run: |
-          pnpm exec prettier --write src/backend/migration/migrations/__tests__/xdg.test.ts
-          git diff -- src/backend/migration/migrations/__tests__/xdg.test.ts
-          pnpm prettier
+        run: pnpm prettier
       - name: Find dead code
         run: pnpm find-deadcode

@@ -126,9 +126,9 @@ describe('XdgPathsMigration', () => {
     await new XdgPathsMigration().run()
 
     expect(lstatSync(legacyToolsPath).isSymbolicLink()).toBe(true)
-    expect(readFileSync(join(toolsPath, 'proton', 'GE', 'proton'), 'utf8')).toBe(
-      'binary'
-    )
+    expect(
+      readFileSync(join(toolsPath, 'proton', 'GE', 'proton'), 'utf8')
+    ).toBe('binary')
   })
 
   test('keeps both independently populated tool directories without merging', async () => {
@@ -175,9 +175,9 @@ describe('XdgPathsMigration', () => {
     await new XdgPathsMigration().run()
 
     expect(lstatSync(legacyToolsPath).isSymbolicLink()).toBe(true)
-    expect(readFileSync(join(toolsPath, 'proton', 'GE', 'proton'), 'utf8')).toBe(
-      'binary'
-    )
+    expect(
+      readFileSync(join(toolsPath, 'proton', 'GE', 'proton'), 'utf8')
+    ).toBe('binary')
   })
 
   test('does not merge independently populated icon directories', async () => {
