@@ -228,7 +228,7 @@ export default function GamesSettings() {
           </>
         )}
         <VerboseLogs />
-        <DisableHidraw />
+        {showWineTab && !isCrossover && <DisableHidraw />}
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />

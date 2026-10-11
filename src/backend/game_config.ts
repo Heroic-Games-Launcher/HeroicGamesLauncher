@@ -239,6 +239,7 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
+      disableHidraw,
       advertiseAvxForRosetta
     } = GlobalConfig.get().getSettings()
 
@@ -277,7 +278,7 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
-      disableHidraw: false,
+      disableHidraw,
       advertiseAvxForRosetta,
       enableQuickSavesMenu: false,
       steamRuntime: false

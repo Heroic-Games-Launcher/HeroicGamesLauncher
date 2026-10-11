@@ -179,4 +179,24 @@ describe('launcher.ts - readWinebusHidrawState', () => {
     expect(result.disableHidraw).toBe(false)
     expect(result.enableSdl).toBe(true)
   })
+
+  test('matches value names case-insensitively', () => {
+    const prefixPath = join(testDir, 'prefix8')
+    mkdirSync(prefixPath, { recursive: true })
+    const content = `
+[System\\\\ControlSet001\\\\Services\\\\winebus] 1781121710
+"disablehidraw"=dword:00000001
+"ENABLE SDL"=dword:00000001
+`
+    createMockSystemReg(content, prefixPath)
+
+    const gameSettings = {
+      winePrefix: prefixPath,
+      wineVersion: { type: 'wine' }
+    } as GameSettings
+
+    const result = readWinebusHidrawState(gameSettings)
+    expect(result.disableHidraw).toBe(true)
+    expect(result.enableSdl).toBe(true)
+  })
 })
