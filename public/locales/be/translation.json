@@ -103,7 +103,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Не ўдалося дадаць {{game}} у Steam:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -179,11 +184,6 @@
                     "title": "Сапраўды хочаце выйсці?"
                 }
             },
-            "snap": {
-                "checkbox": "Больш не паказваць гэта паведамленне",
-                "title": "Heroic працуе як Snap пакет",
-                "message": "Некаторыя функцыі на дадзены момант недаступныя ў Snap версіі праграмы, і мы спрабуем гэта выправіць. {{newLine}} Бягучыя абмежаванні: {{newLine}} Heroic не зможа знайсці Proton у Steam або Wine у Lutris. .{{newLine}}{{newLine}}Gamescope, GameMode і MangoHud таксама не будуць працаваць, паколькі ў Heroic няма доступу да іх.{{newLine}}{{newLine}}Каб атрымаць доступ да гэтай функцыі, ўсталюйце Heroic як Flatpak, DEB ці з AppImage."
-            },
             "rosetta": {
                 "message": "Для карэктнай працы Heroic на macOS з чыпамі Apple Silicon патрабуецца Rosetta. Калі ласка, усталюйце яе з тэрмінала macOS з дапамогай наступнай каманды: \"softwareupdate --install-rosetta\" і перазапусціце Heroic. ",
                 "title": "Rosetta не знойдзена"
@@ -226,7 +226,8 @@
             "scroll": "Scroll",
             "select": "Выбраць",
             "space": "Прабел",
-            "update_game": "Абнавіць гульню"
+            "update_game": "Абнавіць гульню",
+            "exit": "Выхад"
         }
     },
     "docs": "Дакументацыя",
@@ -269,7 +270,7 @@
         "library": {
             "refresh": "Абнавіць бібліятэку"
         },
-        "abort": "",
+        "abort": "Аб праграме",
         "install": "Усталяванне",
         "uninstall": "Выдаліць"
     },
@@ -812,7 +813,11 @@
         "scripts": "",
         "enable-quick-sync-menu": "",
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Выкарыстоўвайце Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1048,7 +1053,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton - гэта варыянт Proton, створаны Glorious Eggroll. Ён прызначаны для выкарыстання ў Steam, але некаторыя гульні па-за Steam могуць працаваць лепш з гэтым варыянтам. Ён дае ў асноўным бескарысныя часопісы для выпраўлення непаладак.",
-        "wine-ge": "Wine-GE-Proton - гэта варыянт Wine, створаны Glorious Eggroll. Яго адмянілі на карысць GE-Proton з пускавой устаноўкай umu.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1198,11 +1202,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Усе",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Падрабязнасці",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1224,7 +1229,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Крама"
+        },
+        "titleMulti": "Падрабязнасці"
     },
     "steamgriddb": {
         "error": {
@@ -1234,7 +1243,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Пошук гульняў",
             "title": "",
             "select-game": ""
         }
@@ -1265,7 +1274,7 @@
         },
         "filter": {
             "sideload": "Other",
-            "all": ""
+            "all": "Усе"
         },
         "empty": "",
         "games": "Усталяваныя гульні",
@@ -1277,8 +1286,15 @@
         "install": {
             "platform": "Platform",
             "title": "Усталяваць гульню",
-            "wineLoading": "Загрузка"
+            "wineLoading": "Загрузка",
+            "path": "Усталяванне",
+            "wineMissing": "Шлях не выбраны"
         }
     },
-    "next": "Далей"
+    "next": "Далей",
+    "common": {
+        "add": "Дадаць",
+        "cancel": "Скасаваць",
+        "warning": "Папярэджанне"
+    }
 }

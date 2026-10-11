@@ -96,7 +96,8 @@
         "changelog": "Hiện Nhật Ký Thay Đổi",
         "browse_files": "Duyệt Tệp",
         "browse_wine_prefix": "Duyệt Wine Prefix",
-        "play": "CHƠI"
+        "play": "CHƠI",
+        "edit-game": "Sửa đổi App/Game"
     },
     "cloud_save_unsupported": "Không Hỗ Trợ",
     "disabled": "Tắt",
@@ -337,6 +338,10 @@
     "wikiLink": "Thông tin quan trọng về trò chơi này, hãy đọc phần này: <1>Mở trang</1>",
     "open-saves-folder": "Mở thư mục lưu",
     "edit-game": {
-        "advanced": "Nâng cao"
+        "advanced": "Nâng cao",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Sửa đổi App/Game"
     }
 }

@@ -10,7 +10,6 @@ import {
 } from 'graceful-fs'
 
 import {
-  WINEGE_URL,
   PROTONGE_URL,
   PROTON_URL,
   WINELUTRIS_URL,
@@ -22,6 +21,7 @@ import {
 import { VersionInfo, Repositorys, WineVersionInfo } from 'common/types'
 import {
   fetchReleases,
+  isCompatibleDownload,
   getFolderSize,
   unlinkFile,
   unzipFile
@@ -46,27 +46,13 @@ interface getVersionsProps {
  *          * rejects with an {@link Error}
  */
 async function getAvailableVersions({
-  repositorys = [Repositorys.WINEGE, Repositorys.PROTONGE],
+  repositorys = [Repositorys.PROTONGE],
   count = 100
 }: getVersionsProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
 
   for (const repo of repositorys) {
     switch (repo) {
-      case Repositorys.WINEGE: {
-        await fetchReleases({
-          url: WINEGE_URL,
-          type: 'Wine-GE',
-          count: count
-        })
-          .then((fetchedReleases: VersionInfo[]) => {
-            releases.push(...fetchedReleases)
-          })
-          .catch((error: Error) => {
-            logError(error, LogPrefix.WineDownloader)
-          })
-        break
-      }
       case Repositorys.PROTONGE: {
         await fetchReleases({
           url: PROTONGE_URL,
@@ -208,6 +194,15 @@ async function installVersion({
   },
   abortSignal
 }: installProps): Promise<{ versionInfo: VersionInfo; installDir: string }> {
+  if (!versionInfo.download) {
+    throw new Error(`No download link provided for ${versionInfo.version}!`)
+  }
+  if (!isCompatibleDownload(versionInfo.type, versionInfo.download)) {
+    throw new Error(
+      `Download for ${versionInfo.version} is not compatible with ${process.arch}. Refresh the compatibility-tool list.`
+    )
+  }
+
   /*
    * VARIABLE DECLARATION
    */
@@ -247,11 +242,6 @@ async function installVersion({
     mkdirSync(installDir, { recursive: true })
   } else if (!statSync(installDir).isDirectory()) {
     throw new Error(`Installation directory ${installDir} is not a directory!`)
-  }
-
-  if (!versionInfo.download) {
-    // check versionInfo has download
-    throw new Error(`No download link provided for ${versionInfo.version}!`)
   }
 
   // Check if it already exist

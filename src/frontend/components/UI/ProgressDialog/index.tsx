@@ -17,6 +17,7 @@ export function ProgressDialog(props: {
   onClose: () => void
   children?: JSX.Element
   className?: string
+  hideProgress?: boolean
 }) {
   const { t } = useTranslation()
   const winetricksOutputBottomRef = useRef<HTMLDivElement>(null)
@@ -88,7 +89,9 @@ export function ProgressDialog(props: {
             })}
             <div ref={winetricksOutputBottomRef} />
           </div>
-          <LinearProgress className="progressDialog linearProgress" />
+          {!props.hideProgress && (
+            <LinearProgress className="progressDialog linearProgress" />
+          )}
         </DialogContent>
       </Dialog>
     </>

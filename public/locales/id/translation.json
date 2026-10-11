@@ -98,6 +98,11 @@
             "dxmt": {
                 "message": "Kesalahan saat mengunduh DXMT! Periksa koneksi Anda!",
                 "title": "Kesalahan Unduhan DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Gagal menghapus {{game}} dari Steam dengan:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -174,11 +179,6 @@
                     "message": "Kemajuan yang belum disimpan mungkin akan hilang"
                 }
             },
-            "snap": {
-                "checkbox": "Jangan munculkan pesan ini lagi",
-                "message": "Beberapa fitur tidak tersedia di versi Snap aplikasi untuk saat ini dan kami sedang berusaha untuk memperbaikinya.{{newLine}}Keterbatasan saat ini adalah: {{newLine}}Heroic tidak akan dapat menemukan Proton dari Steam atau Wine dari Lutris.{{newLine}}{{newLine}}Gamescope, GameMode, dan MangoHud juga tidak akan berfungsi karena Heroic tidak dapat mengaksesnya.{{newLine}}{{newLine}}Untuk mendapatkan akses ke fitur ini, silakan instal Heroic sebagai Flatpak, DEB, atau dari AppImage.",
-                "title": "Heroic berjalan sebagai Snap"
-            },
             "rosetta": {
                 "message": "Heroic memerlukan Rosetta agar dapat berjalan dengan benar di macOS dengan chip Apple Silicon. Harap instal melalui terminal macOS dengan perintah berikut: \"softwareupdate --install-rosetta\" dan mulai ulang Heroic. ",
                 "title": "Rosetta tidak ditemukan"
@@ -218,7 +218,13 @@
             "scroll": "Menggulir",
             "select": "Pilih",
             "space": "Spasi",
-            "update_game": "Perbarui gim"
+            "update_game": "Perbarui gim",
+            "exit": "Keluar",
+            "move_focus": "Pindahkan fokus",
+            "next_page": "Halaman berikutnya",
+            "previous_page": "Halaman sebelumnya",
+            "search": "Cari",
+            "url_bar": "Bilah URL"
         }
     },
     "docs": "Dokumentasi",
@@ -521,7 +527,7 @@
         },
         "gameargs": {
             "placeholder": "Letakkan Argumen Peluncur di sini",
-            "title": "Argumen Gim (Untuk dijalankan setelah perintah):",
+            "title": "Argumen Game (ditambahkan ke perintah peluncuran game)",
             "error": {
                 "command": "Sintaks %command% dari Steam tidak valid sebagai argumen game.",
                 "env": "Variabel lingkungan harus dikonfigurasi pada tabel di bawah ini."
@@ -801,6 +807,12 @@
         "hide-window-on-protocol-launch": "Sembunyikan jendela Heroic saat meluncurkan game dari tautan heroic://",
         "nvidiaprime": {
             "description": "Paksa penggunaan NVIDIA Optimus atau AMD Dynamic Switchable Graphics dGPU. HANYA gunakan ini untuk game OpenGL dan Vulkan."
+        },
+        "gamepad-initial-repeat-delay": "Delay repetisi awal input gamepad",
+        "gamepad-repeat-frequency": "Frekuensi repetisi input gamepad",
+        "steamRuntime": {
+            "label": "Gunakan Steam Runtime",
+            "noRuntimeOption": "None"
         }
     },
     "settings": {
@@ -972,7 +984,8 @@
             "back": "Kembali",
             "forward": "Maju",
             "openInBrowser": "Buka di peramban",
-            "reload": "Muat ulang halaman"
+            "reload": "Muat ulang halaman",
+            "home": "Buka beranda toko"
         }
     },
     "wine": {
@@ -1119,10 +1132,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton adalah varian Proton yang dibuat oleh Glorious Eggroll. Versi ini dirancang untuk digunakan bersama peluncur umu (default di Heroic).",
-        "wine-ge": "Wine-GE-Proton adalah varian Wine yang dibuat oleh Glorious Eggroll. Versi ini sudah tidak digunakan lagi dan digantikan oleh GE-Proton dengan peluncur umu.",
         "gpt": "Game Porting Toolkit dikembangkan oleh Apple dan direkomendasikan untuk Mac Apple Silicon dengan chip M1 ke atas serta paling baik digunakan untuk game terbaru yang menggunakan DX12.",
         "wine-crossover": "Wine-Crossover didasarkan pada proyek Wine OpenSource Crossover dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama.",
-        "wine-staging-macos": "Wine-Staging-macOS didasarkan pada proyek Wine utama dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama, terutama bila dipasangkan dengan alat DXMT."
+        "wine-staging-macos": "Wine-Staging-macOS didasarkan pada proyek Wine utama dan direkomendasikan untuk Mac Intel serta untuk game DX11 atau yang lebih lama, terutama bila dipasangkan dengan alat DXMT.",
+        "proton-cachyos": "Proton-CachyOS adalah varian Proton yang dikelola oleh tim CachyOS. Ini mencakup alat tambahan seperti DXVK-Sarek dan D7VK."
     },
     "zoom-store": "Toko Zoom",
     "launch": {
@@ -1159,7 +1172,8 @@
                 "PL": "Polandia",
                 "BR": "Brasil",
                 "CH": "Swiss",
-                "TR": "Turki"
+                "TR": "Turki",
+                "ZA": "Afrika Selatan"
             },
             "auto": "Otomatis ({{code}})",
             "label": "Wilayah toko"
@@ -1184,7 +1198,8 @@
             "pageSize": "Per halaman",
             "releaseYear": "Tahun rilis",
             "hideOwned": "Sembunyikan yang Dimiliki",
-            "wishlistOnly": "Daftar Keinginan Saja"
+            "wishlistOnly": "Daftar Keinginan Saja",
+            "platform": "Platform"
         },
         "sidebar": "Penawaran",
         "sort": {
@@ -1208,6 +1223,24 @@
         "title": "Penawaran GOG",
         "pagination": {
             "prev": "Sebelumnya"
+        },
+        "tabs": {
+            "label": "Toko",
+            "all": "Semua toko"
+        },
+        "titleMulti": "Penawaran",
+        "currency": {
+            "label": "Mata Uang"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — kunci {{drm}}, diaktifkan di luar Heroic",
+            "gmgHint": "Green Man Gaming — kunci untuk toko eksternal, tidak dapat diinstal melalui Heroic",
+            "humbleHint": "Humble Bundle — kunci untuk toko eksternal, tidak dapat diinstal melalui Heroic"
+        },
+        "view": {
+            "grid": "Kisi",
+            "label": "Mode tampilan",
+            "list": "Daftar"
         }
     },
     "steamgriddb": {
@@ -1275,5 +1308,10 @@
             "message": "Game ini sedang antri untuk diunduh. Hapus dari antrian?"
         }
     },
-    "next": "Berikutnya"
+    "next": "Berikutnya",
+    "common": {
+        "add": "Tambah",
+        "cancel": "Batalkan",
+        "warning": "Peringatan"
+    }
 }

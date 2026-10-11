@@ -5,8 +5,11 @@ import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { GOGUser } from 'backend/storeManagers/gog/user'
 import type {
   CatalogLocaleSettings,
-  CatalogProduct
+  CatalogProduct,
+  GogDealsRegion
 } from 'common/types/discounts'
+import './gmg'
+import './humble'
 
 interface CatalogResponse {
   pages: number
@@ -15,6 +18,7 @@ interface CatalogResponse {
 }
 
 const CATALOG_URL = 'https://catalog.gog.com/v1/catalog'
+const WISHLIST_URL = 'https://embed.gog.com/user/wishlist.json'
 const PAGE_LIMIT = 48
 const MAX_PAGES = 30
 
@@ -32,8 +36,7 @@ const isFallbackLocale = (locale: CatalogLocaleSettings) =>
 const buildUrl = (
   page: number,
   locale: CatalogLocaleSettings,
-  hideOwned: boolean,
-  wishlistOnly: boolean
+  hideOwned: boolean
 ) => {
   const params = new URLSearchParams({
     limit: String(PAGE_LIMIT),
@@ -50,10 +53,6 @@ const buildUrl = (
     params.append('hideOwned', 'true')
   }
 
-  if (wishlistOnly) {
-    params.append('wishlist', 'eq:true')
-  }
-
   return `${CATALOG_URL}?${params.toString()}`
 }
 
@@ -61,19 +60,18 @@ const fetchPage = async (
   page: number,
   locale: CatalogLocaleSettings,
   hideOwned: boolean,
-  wishlistOnly: boolean,
   token: string | undefined
 ) => {
   const headers: Record<string, string> = {
     'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
   }
 
-  if ((hideOwned && token) || (wishlistOnly && token)) {
+  if (hideOwned && token) {
     headers['Authorization'] = `Bearer ${token}`
   }
 
   const { data } = await axios.get<CatalogResponse>(
-    buildUrl(page, locale, hideOwned, wishlistOnly),
+    buildUrl(page, locale, hideOwned),
     {
       timeout: 15000,
       headers
@@ -85,16 +83,15 @@ const fetchPage = async (
 const fetchAllDiscounts = async (
   locale: CatalogLocaleSettings,
   hideOwned: boolean,
-  wishlistOnly: boolean,
   token: string | undefined
 ) => {
-  const first = await fetchPage(1, locale, hideOwned, wishlistOnly, token)
+  const first = await fetchPage(1, locale, hideOwned, token)
   const totalPages = Math.min(first.pages, MAX_PAGES)
   if (totalPages <= 1) return first.products
 
   const rest = await Promise.all(
     Array.from({ length: totalPages - 1 }, (_, i) =>
-      fetchPage(i + 2, locale, hideOwned, wishlistOnly, token)
+      fetchPage(i + 2, locale, hideOwned, token)
         .then((d) => d.products)
         .catch((err: unknown) => {
           logError(
@@ -118,52 +115,114 @@ const fetchAllDiscounts = async (
   })
 }
 
-addHandler(
-  'getGogDiscounts',
-  async (_event, locale, hideOwned = false, wishlistOnly = false) => {
-    try {
-      let token: string | undefined = undefined
+const USER_DATA_URL = 'https://embed.gog.com/userData.json'
 
-      if (hideOwned || wishlistOnly) {
-        const credentials = await GOGUser.getCredentials()
-        if (credentials) {
-          token = credentials.access_token
-        } else {
-          hideOwned = false
-          wishlistOnly = false
-          logWarning(
-            'Failed to get user credentials: User maybe is not looged in',
-            LogPrefix.Backend
-          )
+interface GogUserDataResponse {
+  country?: string
+  selectedCurrency?: { code?: string }
+}
+
+const fetchUserDataRegion = async (
+  token?: string
+): Promise<GogDealsRegion | null> => {
+  const headers: Record<string, string> = {
+    'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
+  }
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
+  const { data } = await axios.get<GogUserDataResponse>(USER_DATA_URL, {
+    timeout: 10000,
+    headers
+  })
+
+  const countryCode = data?.country
+  const currencyCode = data?.selectedCurrency?.code
+  if (typeof countryCode !== 'string' || typeof currencyCode !== 'string') {
+    return null
+  }
+  return {
+    countryCode: countryCode.toUpperCase(),
+    currencyCode: currencyCode.toUpperCase()
+  }
+}
+
+addHandler('getGogDealsRegion', async (): Promise<GogDealsRegion | null> => {
+  let token: string | undefined = undefined
+  if (GOGUser.isLoggedIn()) {
+    const credentials = await GOGUser.getCredentials().catch(() => undefined)
+    token = credentials?.access_token
+  }
+
+  try {
+    return await fetchUserDataRegion(token)
+  } catch (err) {
+    if (token) {
+      try {
+        return await fetchUserDataRegion()
+      } catch {
+        // ignore, fall back to the warning below
+      }
+    }
+    logWarning(
+      `Failed to fetch GOG region info: ${String(err)}`,
+      LogPrefix.Backend
+    )
+    return null
+  }
+})
+
+addHandler('getGogDiscounts', async (_event, locale, hideOwned = false) => {
+  try {
+    let token: string | undefined = undefined
+
+    if (hideOwned) {
+      const credentials = await GOGUser.getCredentials()
+      if (credentials) {
+        token = credentials.access_token
+      } else {
+        hideOwned = false
+        logWarning(
+          'Failed to get user credentials: User maybe is not looged in',
+          LogPrefix.Backend
+        )
+      }
+    }
+
+    const products = await fetchAllDiscounts(locale, hideOwned, token)
+    if (products.length > 0 || isFallbackLocale(locale)) {
+      return products
+    }
+
+    logInfo(
+      `No discounts for ${locale.countryCode}/${locale.currencyCode}, retrying with US/USD`,
+      LogPrefix.Backend
+    )
+    return await fetchAllDiscounts(FALLBACK_LOCALE, hideOwned, token)
+  } catch (err) {
+    logError(`Failed to fetch GOG discounts: ${String(err)}`, LogPrefix.Backend)
+    throw err
+  }
+})
+
+addHandler('getGogWishlist', async (): Promise<string[]> => {
+  const credentials = await GOGUser.getCredentials()
+  if (!credentials) return []
+  try {
+    const { data } = await axios.get<{ wishlist?: Record<string, number> }>(
+      WISHLIST_URL,
+      {
+        timeout: 15000,
+        headers: {
+          Authorization: `Bearer ${credentials.access_token}`,
+          'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
         }
       }
-
-      const products = await fetchAllDiscounts(
-        locale,
-        hideOwned,
-        wishlistOnly,
-        token
-      )
-      if (products.length > 0 || isFallbackLocale(locale)) {
-        return products
-      }
-
-      logInfo(
-        `No discounts for ${locale.countryCode}/${locale.currencyCode}, retrying with US/USD`,
-        LogPrefix.Backend
-      )
-      return await fetchAllDiscounts(
-        FALLBACK_LOCALE,
-        hideOwned,
-        wishlistOnly,
-        token
-      )
-    } catch (err) {
-      logError(
-        `Failed to fetch GOG discounts: ${String(err)}`,
-        LogPrefix.Backend
-      )
-      throw err
-    }
+    )
+    return Object.keys(data.wishlist ?? {})
+  } catch (err) {
+    logError(`Failed to fetch GOG wishlist: ${String(err)}`, LogPrefix.Backend)
+    return []
   }
-)
+})

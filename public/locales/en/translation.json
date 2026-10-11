@@ -24,7 +24,7 @@
         "enable": "Enable",
         "info": {
             "pt1": "In order to improve the app, Heroic collects 100% anonymous data.",
-            "pt2": "Heroic uses the open-source Plausible Analytics platform to gather basic data: App Version, OS, Stores Connected and Country.",
+            "pt2": "Heroic uses the open-source Plausible Analytics platform, self-hosted by the Heroic team, to gather basic data: App Version, OS, System Architecture, Linux Distribution, Stores Connected and Country.",
             "pt3": "It will never collect any personal information, including your username, IP address or email.",
             "pt4": "This data is used to give us insights on what to focus on next due to our limited resources and user feedback.",
             "pt5": "Plausible Analytics is fully compliant with GDPR, CCPA and PECR.",
@@ -93,6 +93,16 @@
                 "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
             },
             "moving": "Error Moving Game {{error}}",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Error Removing Game from Steam"
+                }
+            },
+            "steam": {
+                "running": "Steam is running. Close Steam and try again, or restart Steam once to let Heroic manage shortcuts while Steam is running.",
+                "running-gamemode": "A one-time Steam restart is required before Heroic can manage Steam shortcuts on this device. Restart Steam and try again."
+            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -180,11 +190,6 @@
                     "title": "Are you sure you want to quit?"
                 }
             },
-            "snap": {
-                "checkbox": "Do not show this message again",
-                "message": "Some features are not available in the Snap version of the app for now and we are trying to fix it.{{newLine}}Current limitations are: {{newLine}}Heroic will not be able to find Proton from Steam or Wine from Lutris.{{newLine}}{{newLine}}Gamescope, GameMode and MangoHud will also not work since Heroic cannot have access to them.{{newLine}}{{newLine}}To have access to this feature please install Heroic as a Flatpak, DEB or from the AppImage.",
-                "title": "Heroic is running as a Snap"
-            },
             "title": "Warning",
             "wine-change": {
                 "message": "We could not find the selected wine version to launch this title ({{selectedWine}}). {{newline}} We found another one, do you want to continue launching using {{foundWine}} ?",
@@ -218,6 +223,17 @@
         "delete-question": "Proceeding will permanently remove this category and unassign it from all games. Continue?",
         "new-category": "New Category",
         "remove-category": "Remove Category",
+        "warning": "Warning"
+    },
+    "common": {
+        "add": "Add",
+        "cancel": "Cancel",
+        "clear_all": "Clear All",
+        "confirm": "Confirm",
+        "duplicate": "Duplicate",
+        "edit": "Edit",
+        "remove": "Remove",
+        "save": "Save",
         "warning": "Warning"
     },
     "console": {
@@ -273,23 +289,32 @@
             "close_dialog": "Close dialog",
             "close_keyboard": "Close keyboard",
             "close_options": "Close Options",
+            "exit": "Exit",
             "game_details": "Game details",
             "game_settings": "Game settings",
             "install_game": "Install game",
             "move_cursor": "Move cursor",
+            "move_focus": "Move focus",
+            "next_page": "Next page",
             "open_virtual_keyboard": "Open virtual keyboard",
             "options": "Options",
             "play_game": "Play game",
+            "previous_page": "Previous page",
             "scroll": "Scroll",
+            "search": "Search",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "url_bar": "URL bar"
         }
     },
     "discounts": {
         "aria": {
             "pagination": "Pagination",
             "rating": "Rating {{rating}} out of 10"
+        },
+        "currency": {
+            "label": "Currency"
         },
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
@@ -307,8 +332,8 @@
             "hideOwned": "Hide Owned",
             "lessFilters": "Less filters",
             "moreFilters": "More filters",
-            "os": "Operating system",
             "pageSize": "Per page",
+            "platform": "Platform",
             "price": "Price",
             "rating": "Rating",
             "releaseYear": "Release year",
@@ -351,7 +376,8 @@
                 "TR": "Turkey",
                 "TW": "Taiwan",
                 "UA": "Ukraine",
-                "US": "United States"
+                "US": "United States",
+                "ZA": "South Africa"
             },
             "label": "Store region"
         },
@@ -366,7 +392,21 @@
             "releaseDesc": "Release date: new to old",
             "trending": "Trending"
         },
-        "title": "GOG Deals"
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} key, redeemed outside Heroic",
+            "gmgHint": "Green Man Gaming — key for an external store, not installable through Heroic",
+            "humbleHint": "Humble Bundle — key for an external store, not installable through Heroic"
+        },
+        "tabs": {
+            "all": "All stores",
+            "label": "Store"
+        },
+        "titleMulti": "Deals",
+        "view": {
+            "grid": "Grid",
+            "label": "View mode",
+            "list": "List"
+        }
     },
     "dlc": {
         "actions": "Actions",
@@ -610,6 +650,7 @@
                 "steam": {
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
+                    "success-no-restart": "{{game}} was successfully added to Steam.",
                     "title": "Added to Steam"
                 }
             },
@@ -617,6 +658,7 @@
                 "steam": {
                     "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
+                    "success-no-restart": "{{game}} was successfully removed from Steam.",
                     "title": "Removed from Steam"
                 }
             },
@@ -660,12 +702,17 @@
         "advanced": {
             "key": "Variable Name",
             "placeHolderKey": "NAME",
-            "placeHolderValue": "E.g.: Path/To/ExtraFiles",
+            "placeHolderV": "VALUE",
             "title": "Environment Variables",
             "value": "Value"
         },
         "env_variables": {
+            "add_new": "Add New Variable",
+            "bulk_edit": "Bulk Edit",
+            "bulk_edit_error": "Some variables are incorrect. Please check that all lines follow the KEY=VALUE format.",
+            "clear_all_confirm": "Are you sure you want to clear all environment variables?",
             "error": {
+                "duplicate_key": "A variable with this name already exists",
                 "empty_key": "Variable names can't be empty",
                 "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
                 "space_in_key": "Variable names can't contain spaces"
@@ -679,7 +726,7 @@
                 "env": "Environment variables must be configured in the table below."
             },
             "placeholder": "Put here the Launcher Arguments",
-            "title": "Game Arguments (To run after the command):"
+            "title": "Game Arguments (appended to game launch command)"
         },
         "gamescope": {
             "additionalOptions": "Additional Options",
@@ -829,6 +876,8 @@
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
+        "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
+        "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
             "enableForceGrabCursor": "Enable Force Grab Cursor",
             "enableLimiter": "Enable FPS Limiter",
@@ -857,6 +906,7 @@
                 "nile": "Amazon / Nile log",
                 "zoom": "Zoom log"
             },
+            "error": "Internal error reading log file",
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "join-heroic-discord": "Join our Discord",
@@ -927,7 +977,7 @@
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Don't show them",
-                "message": "We recommend custom Proton forks (GE-Proton, Proton-CachyOS, etc.) to be used with Heroic because Valve's Proton builds lack winetricks and protofixes. You can still use then if you want.",
+                "message": "We recommend custom Proton forks (GE-Proton, Proton-CachyOS, etc.) to be used with Heroic because Valve's Proton builds lack winetricks and protofixes. You can still use them if you want.",
                 "show": "I understand, show them",
                 "title": "Are you sure?"
             },
@@ -939,7 +989,10 @@
         "showMetalOverlay": "Show Stats Overlay",
         "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
-        "steamruntime": "Use Steam Runtime",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        },
         "verboseLogs": {
             "description": "Enable verbose logs"
         },
@@ -1023,6 +1076,7 @@
             "warning": "This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work."
         },
         "open-config-file": "Open Config File",
+        "open-game-settings-file-hint": "Click to open game settings file",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "gog_linux_native_warning": "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead.",
@@ -1171,6 +1225,7 @@
         "controls": {
             "back": "Go back",
             "forward": "Go forward",
+            "home": "Go to store home",
             "openInBrowser": "Open in browser",
             "reload": "Reload page"
         }
@@ -1204,7 +1259,6 @@
         "proton-cachyos": "Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.",
         "proton-ge": "GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).",
         "wine-crossover": "Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.",
-        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.",
         "wine-staging-macos": "Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool."
     },
     "winetricks": {

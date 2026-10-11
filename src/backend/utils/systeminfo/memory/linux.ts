@@ -1,16 +1,18 @@
+import { readFile } from 'fs/promises'
 import type { PartialMemoryInfo } from './index'
-import { genericSpawnWrapper } from '../../os/processes'
 
 async function getMemoryInfo_linux(): Promise<PartialMemoryInfo> {
-  const { stdout } = await genericSpawnWrapper('free', ['-b'], {
-    env: { ...process.env, LANG: 'C' }
-  })
-  const match = stdout.match(/^\S*:\s*(\d*)\s*(\d*)/m)
-  const totalString = match?.[1]
-  const usedString = match?.[2]
+  const meminfo = await readFile('/proc/meminfo', 'utf-8')
+
+  const valueOf = (key: string) =>
+    Number(meminfo.match(new RegExp(`^${key}:\\s*(\\d+) kB`, 'm'))?.[1] ?? 0) *
+    1024
+
+  const total = valueOf('MemTotal')
+  const available = valueOf('MemAvailable')
   return {
-    total: totalString ? Number(totalString) : 0,
-    used: usedString ? Number(usedString) : 0
+    total,
+    used: total > 0 ? total - available : 0
   }
 }
 

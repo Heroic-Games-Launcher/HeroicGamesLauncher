@@ -68,7 +68,7 @@ export class LegendaryUser {
       return
     }
 
-    const ses = session.fromPartition('persist:epicstore')
+    const ses = session.fromPartition('persist:epic')
     await ses.clearStorageData()
     await ses.clearCache()
     await ses.clearAuthCache()

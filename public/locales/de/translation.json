@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Es ist ein Fehler beim Download von DXMT aufgetreten. Kontrolliere deine Internetverbindung!",
                 "title": "DXMT-Downloadfehler"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Das Entfernen von {{game}} aus Steam schlug fehl mit:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -179,11 +184,6 @@
                     "message": "Alle nicht gespeicherten Fortschritte könnten verloren gehen"
                 }
             },
-            "snap": {
-                "checkbox": "Diese Meldung nicht mehr anzeigen",
-                "title": "Heroic läuft als Snap",
-                "message": "Einige Funktionen sind in der Snap-Version der App noch nicht verfügbar und wir versuchen, dies zu beheben.{{newLine}}Die aktuellen Einschränkungen sind: {{newLine}}Heroic wird nicht in der Lage sein, Proton von Steam oder Wine von Lutris zu finden.{{newLine}}{{newLine}}Gamescope, GameMode und MangoHud werden ebenfalls nicht funktionieren, da Heroic keinen Zugriff darauf hat.{{newLine}}{{newLine}}Um Zugriff auf diese Funktionen zu haben, installiere Heroic bitte als Flatpak, DEB oder vom AppImage."
-            },
             "rosetta": {
                 "title": "Rosetta wurde nicht gefunden",
                 "message": "Heroic benötigt Rosetta, um auf macOS mit Apple-Silicon-Chips korrekt zu funktionieren. Bitte installiere Rosetta über das Terminal mit folgendem Befehl: „softwareupdate --install-rosetta“ und starte Heroic anschließend neu. "
@@ -225,7 +225,13 @@
             "scroll": "Scrollen",
             "select": "Auswählen",
             "space": "Leertaste",
-            "update_game": "Spiel aktualisieren"
+            "update_game": "Spiel aktualisieren",
+            "exit": "Beenden",
+            "move_focus": "Bewege Focus",
+            "next_page": "Nächste Seite",
+            "previous_page": "Vorherige Seite",
+            "search": "Suche",
+            "url_bar": "URL Zeile"
         }
     },
     "docs": "Dokumentation",
@@ -816,6 +822,12 @@
         "hide-window-on-protocol-launch": "Das Heroic-Fenster beim Starten von Spielen über „heroic://“-Links ausblenden",
         "nvidiaprime": {
             "description": "Erzwinge die Verwendung der NVIDIA Optimus- oder AMD Dynamic Switchable Graphics-dGPU. Verwende dies NUR für OpenGL- und Vulkan-Spiele."
+        },
+        "gamepad-initial-repeat-delay": "Gamepad Eingabe initiale Wiederholungsverzögerung",
+        "gamepad-repeat-frequency": "Gamepad Eingabe Wiederholungs-Frequenz",
+        "steamRuntime": {
+            "label": "Steam Runtime verwenden",
+            "noRuntimeOption": "Nichts"
         }
     },
     "settings": {
@@ -987,7 +999,8 @@
             "back": "Zurück",
             "forward": "Vorwärts",
             "openInBrowser": "Im Browser öffnen",
-            "reload": "Seite neu laden"
+            "reload": "Seite neu laden",
+            "home": "Gehe zum Anfang des Stores"
         }
     },
     "wine": {
@@ -1051,11 +1064,11 @@
         "restore": "Fenster wiederherstellen"
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton ist eine von Glorious Eggroll entwickelte Wine-Variante. Sie wurde zugunsten von GE-Proton mit dem umu-Launcher eingestellt.",
         "proton-ge": "GE-Proton ist eine von Glorious Eggroll entwickelte Variante von Proton. Es ist für die Verwendung mit dem umu-Launcher vorgesehen (Standard in Heroic).",
         "gpt": "Das Game Porting Toolkit wird von Apple entwickelt und für Apple Silicon Macs mit den M1+ Chips empfohlen. Es funktioniert am besten für neuere Spiele, die DX12 verwenden.",
         "wine-crossover": "Wine-Crossover basiert auf dem Crossover OpenSource Wine Projekt und wird für Intel Macs und für DX11 und ältere Spiele empfohlen.",
-        "wine-staging-macos": "Wine-Staging-macOS basiert auf dem Mainline Wine-Projekt und wird für Intel Macs und für DX11 oder ältere Spiele empfohlen, besonders wenn gepaart mit dem DXMT-Tool."
+        "wine-staging-macos": "Wine-Staging-macOS basiert auf dem Mainline Wine-Projekt und wird für Intel Macs und für DX11 oder ältere Spiele empfohlen, besonders wenn gepaart mit dem DXMT-Tool.",
+        "proton-cachyos": "Proton-CachyOS ist eine Proton-Variante, die vom CachyOS-Team gepflegt wird. Sie enthält zusätzliche Tools wie DXVK-Sarek und D7VK."
     },
     "emptyLibrary": {
         "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht.",
@@ -1181,7 +1194,8 @@
                 "PL": "Polen",
                 "BR": "Brasilien",
                 "CH": "Schweiz",
-                "TR": "Türkei"
+                "TR": "Türkei",
+                "ZA": "Südafrika"
             },
             "auto": "Auto ({{code}})",
             "label": "Store Region"
@@ -1206,7 +1220,8 @@
             "pageSize": "je Seite",
             "releaseYear": "Erscheinungsjahr",
             "hideOwned": "bereits im Besitz ausblenden",
-            "wishlistOnly": "Nur Wunschliste"
+            "wishlistOnly": "Nur Wunschliste",
+            "platform": "Platform"
         },
         "sidebar": "Angebote",
         "sort": {
@@ -1230,6 +1245,24 @@
         "title": "GOG Angebote",
         "pagination": {
             "prev": "Vorherige"
+        },
+        "tabs": {
+            "label": "Store",
+            "all": "Alle Stores"
+        },
+        "titleMulti": "Angebote",
+        "currency": {
+            "label": "Währung"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}} Schlüssel, außerhalb Heroic eingelöst",
+            "gmgHint": "Green Man Gaming — Schlüssel für einen externen Store, nicht installierbar durch Heroic",
+            "humbleHint": "Humble Bundle — Schlüssel für einen externen Store, nicht installierbar durch Heroic"
+        },
+        "view": {
+            "grid": "Gitter",
+            "label": "Ansichtsmodus",
+            "list": "Liste"
         }
     },
     "steamgriddb": {
@@ -1297,5 +1330,10 @@
             "message": "Dieses Spiel steht zum Herunterladen an. Möchten Sie es aus der Warteschlange entfernen?"
         }
     },
-    "next": "Weiter"
+    "next": "Weiter",
+    "common": {
+        "add": "Hinzufügen",
+        "cancel": "Absagen",
+        "warning": "Warnung"
+    }
 }

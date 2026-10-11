@@ -103,6 +103,11 @@
             "dxmt": {
                 "message": "Erro ao transferir o DXMT! Verifique a sua ligação!",
                 "title": "Erro ao transferir o DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -179,11 +184,6 @@
                     "message": "Poderá haver perda de qualquer progresso não guardado"
                 }
             },
-            "snap": {
-                "checkbox": "Não mostrar novamente esta mensagem",
-                "title": "O Heroic está a ser executado como uma Snap",
-                "message": "De momento não estão disponíveis algumas funcionalidades na versão Snap da aplicação, estamos a tentar corrigir.{{newLine}}As limitações atuais são: {{newLine}}O Heroic não vai conseguir encontrar o Proton e o Wine a partir do Steam e Lutris, respetivamente.{{newLine}}{{newLine}}O Gamescope, GameMode e MangoHud não vão funcionar porque o Heroic não tem acesso às mesmas.{{newLine}}{{newLine}}Para ter acesso a estas funcionalidades instale, por favor, o Heroic como Flatpack, DEB ou a partir da AppImage."
-            },
             "rosetta": {
                 "message": "O Heroic necessita da camada de compatibilidade Rosetta para conseguir executar corretamente no macOS com processadores da Apple Silicon. Instale, por favor, o Rosetta através do terminal do macOS com o seguinte comando: \"softwareupdate --install-rosetta\" e reinicie o Heroic. ",
                 "title": "Não foi encontrado o Rosetta"
@@ -226,7 +226,8 @@
             "scroll": "Deslocar",
             "select": "Selecione",
             "space": "Espaço",
-            "update_game": "Atualizar o jogo"
+            "update_game": "Atualizar o jogo",
+            "exit": "Sair"
         }
     },
     "docs": "Documentação",
@@ -818,6 +819,10 @@
         "hide-window-on-protocol-launch": "Ocultar a janela da Heroic ao iniciar jogos a partir de links heroic://",
         "nvidiaprime": {
             "description": "Força o uso da GPU dedicada do NVIDIA Optimus ou do AMD Dynamic Switchable Graphics. APENAS use isto para jogos OpenGL e Vulkan."
+        },
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
         }
     },
     "settings": {
@@ -1075,7 +1080,6 @@
     },
     "wineExplanation": {
         "proton-ge": "O GE-Proton é uma variante do Proton criada por Glorious Eggroll. É suposto ser usada juntamente com o lançador umu (que é a predefinição no Heroic).",
-        "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada por Glorious Eggroll. Foi entretanto descontinuada em favor do GE-Proton com o lançador umu.",
         "gpt": "O Game Porting Toolkit é desenvolvido pela Apple e é recomendado para Macs Apple Silicon com chips M1+, funcionando melhor para jogos mais recentes que usam DX12.",
         "wine-crossover": "O Wine-Crossover baseia-se no projeto Crossover OpenSource Wine e é recomendado para Macs Intel e para jogos DX11 ou mais antigos.",
         "wine-staging-macos": "Wine-Staging-macOS baseia-se no projeto principal Wine e é recomendado para Macs Intel e para jogos DX11 ou mais antigos, especialmente quando combinado com a ferramenta DXMT."
@@ -1208,7 +1212,8 @@
             "pageSize": "Por página",
             "releaseYear": "Ano de lançamento",
             "hideOwned": "Ocultar possuídos",
-            "wishlistOnly": "Apenas lista de desejos"
+            "wishlistOnly": "Apenas lista de desejos",
+            "platform": "Platform"
         },
         "sidebar": "Promoções",
         "sort": {
@@ -1232,7 +1237,11 @@
         "title": "Promoções GOG",
         "pagination": {
             "prev": "Anterior"
-        }
+        },
+        "tabs": {
+            "label": "Loja"
+        },
+        "titleMulti": "Promoções"
     },
     "steamgriddb": {
         "error": {
@@ -1299,5 +1308,10 @@
             "message": "Este jogo está na fila para descarregar. Removê-lo da fila?"
         }
     },
-    "next": "Próximo"
+    "next": "Próximo",
+    "common": {
+        "add": "Adicionar",
+        "cancel": "Cancelar",
+        "warning": "Aviso"
+    }
 }

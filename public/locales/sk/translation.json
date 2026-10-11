@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -112,7 +117,7 @@
             }
         },
         "no": "NIE",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -174,11 +179,6 @@
                     "message": "Akýkoľvek neuložený postup sa môže stratiť"
                 }
             },
-            "snap": {
-                "checkbox": "Už nikdy nezobrazovať túto správu",
-                "title": "Heroic beží ako Snap",
-                "message": "Niektoré funkcie nie sú momentálne dostupné vo verzii aplikácie Snap a snažíme sa to napraviť.{{newLine}}Aktuálne obmedzenia sú: {{newLine}}Heroic nebude môcť nájsť Proton zo Steamu alebo Wine z Lutris .{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud tiež nebudú fungovať, pretože Heroic k nim nemá prístup.{{newLine}}{{newLine}}Ak chcete získať prístup k tejto funkcii, nainštalujte si Heroic ako Flatpak , DEB alebo z AppImage."
-            },
             "rosetta": {
                 "title": "",
                 "message": ""
@@ -218,7 +218,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "exit": "Exit"
         }
     },
     "docs": "Documentation",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "Obnoviť Knižnicu"
         },
-        "abort": "",
+        "abort": "About",
         "install": "Inštalácia",
         "uninstall": "Odinštalovať"
     },
@@ -801,7 +802,11 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1037,7 +1042,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton je variant Proton vytvorený spoločnosťou Glorious Eggroll. Je určený na použitie v službe Steam, ale niektoré hry mimo služby Steam môžu s týmto variantom fungovať lepšie. Poskytuje väčšinou zbytočné protokoly na riešenie problémov.",
-        "wine-ge": "Wine-GE-Proton je variant Winu vytvorený spoločnosťou Glorious Eggroll. Je to odporúčaný Wine na použitie mimo služby Steam. To poskytuje užitočné protokoly pri riešení problémov.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1182,9 +1186,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Všetky",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Podrobnosti",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1206,7 +1211,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Podrobnosti"
     },
     "steamgriddb": {
         "error": {
@@ -1216,7 +1225,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Vyhľadajte hry",
             "title": "",
             "select-game": ""
         }
@@ -1235,7 +1244,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "Spúšťam",
             "sort": "",
             "navigate": "",
             "quit": "Quit",
@@ -1256,8 +1265,15 @@
         "install": {
             "platform": "Platform",
             "title": "Install game",
-            "wineLoading": "Načítavam…"
+            "wineLoading": "Načítavam…",
+            "path": "Inštalácia",
+            "wineMissing": "Žiadna cesta nie je vybraná"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Pridať",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }

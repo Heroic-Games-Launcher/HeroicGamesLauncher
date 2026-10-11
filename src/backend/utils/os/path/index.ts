@@ -1,6 +1,7 @@
-import { spawn } from 'child_process'
+import { join } from 'path'
+import { stat } from 'fs/promises'
 
-const findCommand = process.platform === 'win32' ? 'where' : 'which'
+const separator = process.platform === 'win32' ? ';' : ':'
 
 /**
  * Finds an executable on %PATH%/$PATH
@@ -10,22 +11,13 @@ const findCommand = process.platform === 'win32' ? 'where' : 'which'
 async function searchForExecutableOnPath(
   executable: string
 ): Promise<string | null> {
-  return new Promise<string | null>((resolve) => {
-    // no need to check stderr or error
-    // if stdout returns the first path we take this
-    // if nothing is send to stdout we didn't found it
-    // this avoids problems inside steam where "which" calls
-    // throws alot of errors and still find the exectuable.
-    // We also prevent endless waiting when stderr, stdout
-    // and error are never called
-    const child = spawn(findCommand, [executable])
-    child.stdout.on('data', (output: Buffer | string) => {
-      resolve(output.toString().trim())
-    })
-
-    // if we close and not got any data on stdout, we return null
-    child.on('close', () => resolve(null))
-  })
+  const pathVar = process.env['PATH'] ?? ''
+  for (const path of pathVar.split(separator)) {
+    const execPath = join(path, executable)
+    const stats = await stat(execPath).catch(() => null)
+    if (stats) return execPath
+  }
+  return null
 }
 
 /**

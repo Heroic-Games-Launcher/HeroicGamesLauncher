@@ -13,7 +13,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { sendKill, updateGame } from 'frontend/helpers'
+import { sendKill } from 'frontend/helpers'
+import { updateGame } from 'frontend/helpers/library'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -67,7 +68,8 @@ export default function ConsoleMode() {
     sideloadedLibrary,
     refreshLibrary,
     refreshing,
-    gameUpdates
+    gameUpdates,
+    hiddenGames
   } = useContext(ContextProvider)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
@@ -114,6 +116,9 @@ export default function ConsoleMode() {
   }, [])
 
   const allGames = useMemo<GameInfo[]>(() => {
+    // Match normal library: respect games hidden from the library view.
+    // See https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/5783
+    const hiddenAppNames = new Set(hiddenGames.list.map((game) => game.appName))
     const all: GameInfo[] = [
       ...epic.library,
       ...gog.library,
@@ -121,13 +126,19 @@ export default function ConsoleMode() {
       ...zoom.library,
       ...sideloadedLibrary
     ]
-    return all.filter((g) => !g.install?.is_dlc && !g.thirdPartyManagedApp)
+    return all.filter(
+      (g) =>
+        !g.install?.is_dlc &&
+        !g.thirdPartyManagedApp &&
+        !hiddenAppNames.has(g.app_name)
+    )
   }, [
     epic.library,
     gog.library,
     amazon.library,
     zoom.library,
-    sideloadedLibrary
+    sideloadedLibrary,
+    hiddenGames
   ])
 
   const visibleGames = useMemo(() => {

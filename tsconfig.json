@@ -22,6 +22,6 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src/"
   },
-  "include": ["src"],
+  "include": ["src", "meta/**/*.mts"],
   "exclude": ["vite.config.ts", "**/__mocks__/**", "sign"]
 }

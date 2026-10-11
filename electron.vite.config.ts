@@ -3,8 +3,6 @@ import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
 import path from 'path'
 
-import type { Plugin } from 'vite'
-
 const srcAliases = ['backend', 'frontend', 'common'].map((aliasName) => ({
   find: aliasName,
   replacement: path.join(__dirname, 'src', aliasName)
@@ -16,28 +14,19 @@ const dependenciesToNotExternalize = [
   '@xhmikosr/decompress-unzip'
 ]
 
-// FIXME: Potentially publish this as a dedicated plugin, if other projects
-//        run into the same issue
-const vite_plugin_react_dev_tools: Plugin = {
-  name: 'react-dev-tools-replace',
-  transformIndexHtml: {
-    handler: (html) =>
-      html.replace(
-        '<!-- REACT_DEVTOOLS_SCRIPT -->',
-        '<script src="http://localhost:8097"></script>'
-      )
-  }
-}
-
 export default defineConfig(({ mode }) => ({
   main: {
     build: {
       rollupOptions: {
-        input: 'src/backend/main.ts'
+        input: 'src/backend/main.ts',
+        output: {
+          chunkFileNames: `chunks/[name].js`,
+          assetFileNames: `chunks/[name].[ext]`
+        }
       },
       outDir: 'build/main',
-      minify: true,
-      sourcemap: mode === 'development' ? 'inline' : false
+      minify: false,
+      sourcemap: 'inline'
     },
     resolve: { alias: srcAliases },
     plugins: [externalizeDepsPlugin({ exclude: dependenciesToNotExternalize })]
@@ -45,7 +34,14 @@ export default defineConfig(({ mode }) => ({
   preload: {
     build: {
       rollupOptions: {
-        input: 'src/preload/index.ts'
+        input: {
+          index: 'src/preload/index.ts',
+          webviewPreload: 'src/webviewPreload/index.ts'
+        },
+        output: {
+          chunkFileNames: `chunks/[name].js`,
+          assetFileNames: `chunks/[name].[ext]`
+        }
       },
       outDir: 'build/preload',
       minify: true,
@@ -58,7 +54,11 @@ export default defineConfig(({ mode }) => ({
     root: '.',
     build: {
       rollupOptions: {
-        input: path.resolve('index.html')
+        input: path.resolve('index.html'),
+        output: {
+          chunkFileNames: `assets/[name].js`,
+          assetFileNames: `assets/[name].[ext]`
+        }
       },
       target: 'esnext',
       outDir: 'build',
@@ -67,10 +67,6 @@ export default defineConfig(({ mode }) => ({
       sourcemap: mode === 'development' ? 'inline' : false
     },
     resolve: { alias: srcAliases },
-    plugins: [
-      react(),
-      svgr(),
-      mode !== 'production' && vite_plugin_react_dev_tools
-    ]
+    plugins: [react(), svgr()]
   }
 }))

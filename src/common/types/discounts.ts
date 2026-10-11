@@ -21,9 +21,13 @@ export interface CatalogRating {
   ageRating: string
 }
 
+export type DiscountStore = 'gog' | 'gmg' | 'humble'
+
 export interface CatalogProduct {
   id: string
   title: string
+  // Absent on GOG catalog responses; the frontend treats undefined as 'gog'
+  store?: DiscountStore
   coverHorizontal?: string
   coverVertical?: string
   price: CatalogPrice
@@ -42,5 +46,10 @@ export interface CatalogProduct {
 export interface CatalogLocaleSettings {
   countryCode: string
   locale: string
+  currencyCode: string
+}
+
+export interface GogDealsRegion {
+  countryCode: string
   currencyCode: string
 }

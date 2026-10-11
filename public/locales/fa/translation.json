@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "حذف کردن {{game}} از استیم با مشکل مواجه شد:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -177,11 +182,6 @@
             "rosetta": {
                 "title": "",
                 "message": ""
-            },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
             }
         },
         "wineprefix": "انتخاب پوشه WinePrefix",
@@ -218,7 +218,8 @@
             "scroll": "Scroll",
             "select": "انتخاب",
             "space": "فضا",
-            "update_game": "به روزرسانی بازی"
+            "update_game": "به روزرسانی بازی",
+            "exit": "خروج"
         }
     },
     "docs": "Documentation",
@@ -261,7 +262,7 @@
         "library": {
             "refresh": "تازه سازی کتابخانه"
         },
-        "abort": "",
+        "abort": "درباره",
         "install": "نصب کردن",
         "uninstall": "حذف"
     },
@@ -537,7 +538,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "ویندوز",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -666,7 +667,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "آپلود",
                     "content": ""
                 },
                 "open": "",
@@ -794,7 +795,11 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "استفاده از Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1115,7 +1120,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1175,7 +1179,8 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "همه",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
         "sidebar": "",
         "sort": {
@@ -1199,17 +1204,20 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Store"
         }
     },
     "steamgriddb": {
         "error": {
             "no-games": "بازی یافت نشد",
-            "no-grids": "",
+            "no-grids": "برای این بازی لاگی پیدا نشد",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "جست و جو برای بازی ها",
             "title": "",
             "select-game": ""
         }
@@ -1228,7 +1236,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "در حال راه اندازی",
             "sort": "",
             "navigate": "",
             "quit": "خروج",
@@ -1249,8 +1257,14 @@
         "install": {
             "platform": "Platform",
             "title": "نصب بازی",
-            "wineLoading": "درحال بارگذاری"
+            "wineLoading": "درحال بارگذاری",
+            "path": "نصب در",
+            "wineMissing": "مسیری انتخاب نشده است"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "انصراف",
+        "warning": "هشدار"
+    }
 }
