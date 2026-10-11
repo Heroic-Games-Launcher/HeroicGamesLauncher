@@ -765,6 +765,21 @@ async function getCrossoverBottleFolder(gameSettings: GameSettings) {
     })
 }
 
+const protonSdlEnvVars = ['PROTON_DISABLE_HIDRAW', 'PROTON_USE_SDL']
+
+/**
+ * Returns the Proton SDL env vars the user turned off themselves ("0" or
+ * empty, Proton treats every other value as enabled). Either one opts the
+ * game out of the `disableHidraw` setting.
+ */
+function getProtonSdlOptOuts(gameSettings: GameSettings) {
+  return gameSettings.enviromentOptions.filter(
+    ({ key, value }) =>
+      protonSdlEnvVars.includes(key) &&
+      ['', '0'].includes(removeQuoteIfNecessary(value))
+  )
+}
+
 /**
  * Reads the prefix's `system.reg` (no Wine process needed) and reports whether
  * the winebus `DisableHidraw` / `Enable SDL` values are currently set (present
@@ -1056,22 +1071,16 @@ async function prepareWineLaunch(
   // Log here (once per launch) rather than in setupWineEnvVars, which runs
   // for every Wine command.
   if (isProton && gameSettings.disableHidraw) {
-    void logWriter.logInfo(
-      'Using SDL for gamepads via PROTON_DISABLE_HIDRAW / PROTON_USE_SDL (needs a Proton version that supports them)'
-    )
-    for (const key of ['PROTON_DISABLE_HIDRAW', 'PROTON_USE_SDL']) {
-      const userValue = gameSettings.enviromentOptions.find(
-        (env) => env.key === key
-      )?.value
-      // Proton treats every value other than "0" or an empty one as enabled
-      if (
-        userValue !== undefined &&
-        ['', '0'].includes(removeQuoteIfNecessary(userValue))
-      ) {
-        const contradictionMessage = `"${key}" is set to "${userValue}" in the environment variables, which contradicts the "Use SDL for gamepads (Disable hidraw)" setting. Not overriding it.`
-        logWarning(contradictionMessage, LogPrefix.Backend)
-        void logWriter.logWarning(contradictionMessage)
-      }
+    const optOuts = getProtonSdlOptOuts(gameSettings)
+    for (const { key, value } of optOuts) {
+      const optOutMessage = `"${key}" is set to "${value}" in the environment variables, which turns off the "Use SDL for gamepads (Disable hidraw)" setting`
+      logWarning(optOutMessage, LogPrefix.Backend)
+      void logWriter.logWarning(optOutMessage)
+    }
+    if (!optOuts.length) {
+      void logWriter.logInfo(
+        'Using SDL for gamepads via PROTON_DISABLE_HIDRAW / PROTON_USE_SDL (needs a Proton version that supports them)'
+      )
     }
   }
 
@@ -1342,11 +1351,15 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (isLinux && !gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
-  if (gameSettings.disableHidraw && wineVersion.type === 'proton') {
+  if (
+    gameSettings.disableHidraw &&
+    wineVersion.type === 'proton' &&
+    !getProtonSdlOptOuts(gameSettings).length
+  ) {
     // Use the SDL gamepad backend instead of hidraw so PS4/PS5 controllers are
     // exposed as XInput devices. These can be combined without issues. Don't
     // override a value the user set explicitly via environment variables.
-    for (const key of ['PROTON_DISABLE_HIDRAW', 'PROTON_USE_SDL']) {
+    for (const key of protonSdlEnvVars) {
       const userDefined = gameSettings.enviromentOptions.find(
         (env) => env.key === key
       )

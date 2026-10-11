@@ -1,4 +1,4 @@
-import { readWinebusHidrawState } from '../launcher'
+import { readWinebusHidrawState, setupWineEnvVars } from '../launcher'
 import { GameSettings } from 'common/types'
 import { mkdirSync, writeFileSync, rmSync } from 'fs'
 import { join } from 'path'
@@ -199,4 +199,57 @@ describe('launcher.ts - readWinebusHidrawState', () => {
     expect(result.disableHidraw).toBe(true)
     expect(result.enableSdl).toBe(true)
   })
+})
+
+describe('launcher.ts - setupWineEnvVars (disableHidraw)', () => {
+  const settings = (overrides: Partial<GameSettings>) =>
+    ({
+      winePrefix: '/prefix',
+      wineVersion: { type: 'proton', name: 'Proton', bin: '/proton/proton' },
+      enviromentOptions: [],
+      disableHidraw: true,
+      ...overrides
+    }) as GameSettings
+
+  test('sets both env vars on Proton when the setting is on', () => {
+    const env = setupWineEnvVars(settings({}))
+    expect(env.PROTON_DISABLE_HIDRAW).toBe('1')
+    expect(env.PROTON_USE_SDL).toBe('1')
+  })
+
+  test('sets nothing when the setting is off', () => {
+    const env = setupWineEnvVars(settings({ disableHidraw: false }))
+    expect(env).not.toHaveProperty('PROTON_DISABLE_HIDRAW')
+    expect(env).not.toHaveProperty('PROTON_USE_SDL')
+  })
+
+  test('sets nothing on Wine', () => {
+    const env = setupWineEnvVars(
+      settings({
+        wineVersion: { type: 'wine', name: 'Wine', bin: '/wine/bin/wine' },
+        preferSystemLibs: true
+      })
+    )
+    expect(env).not.toHaveProperty('PROTON_DISABLE_HIDRAW')
+    expect(env).not.toHaveProperty('PROTON_USE_SDL')
+  })
+
+  test('does not override an env var the user enabled themselves', () => {
+    const env = setupWineEnvVars(
+      settings({ enviromentOptions: [{ key: 'PROTON_USE_SDL', value: '1' }] })
+    )
+    expect(env.PROTON_DISABLE_HIDRAW).toBe('1')
+    expect(env).not.toHaveProperty('PROTON_USE_SDL')
+  })
+
+  test.each(['0', '', '"0"'])(
+    'sets nothing when the user turned one env var off (%p)',
+    (value) => {
+      const env = setupWineEnvVars(
+        settings({ enviromentOptions: [{ key: 'PROTON_USE_SDL', value }] })
+      )
+      expect(env).not.toHaveProperty('PROTON_DISABLE_HIDRAW')
+      expect(env).not.toHaveProperty('PROTON_USE_SDL')
+    }
+  )
 })
