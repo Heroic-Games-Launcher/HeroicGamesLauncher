@@ -96,6 +96,7 @@ import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 import { Game } from 'common/types/game_manager'
 import { getKnownFixesFor } from './known_fixes/utils'
+import { getWinePrefixRoot, isRegistryStringSet } from './utils/wine_prefix'
 
 let powerDisplayId: number | null
 
@@ -897,13 +898,26 @@ async function prepareWineLaunch(
       gameInfo.runner === 'gog' &&
       experimentalFeatures?.cometSupport !== false
     ) {
+      // Every Wine command boots a whole Wine/Proton instance (several
+      // seconds with umu), so work out the paths ourselves when we can
+      const prefixRoot = getWinePrefixRoot(gameSettings)
       const galaxyCommWinePath =
         'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
-      const communicationDest = await getWinePath({
-        path: galaxyCommWinePath,
-        gameSettings,
-        variant: 'unix'
-      })
+      const communicationDest = prefixRoot
+        ? join(
+            prefixRoot,
+            'drive_c',
+            'ProgramData',
+            'GOG.com',
+            'Galaxy',
+            'redists',
+            'GalaxyCommunication.exe'
+          )
+        : await getWinePath({
+            path: galaxyCommWinePath,
+            gameSettings,
+            variant: 'unix'
+          })
 
       if (!existsSync(communicationDest)) {
         mkdirSync(dirname(communicationDest), { recursive: true })
@@ -919,22 +933,38 @@ async function prepareWineLaunch(
           protonVerb: 'run'
         })
       }
-      await runWineCommand({
-        commandParts: [
-          'reg',
-          'add',
-          'HKLM\\SOFTWARE\\WOW6432Node\\GOG.com\\GalaxyClient\\paths',
-          '/v',
+      const galaxyClientPath = 'C:\\Program Files\\GOG Galaxy'
+      const galaxyClientRegistered =
+        prefixRoot !== null &&
+        (await isRegistryStringSet(
+          join(prefixRoot, 'system.reg'),
+          'Software\\Wow6432Node\\GOG.com\\GalaxyClient\\paths',
           'client',
-          '/t',
-          'REG_SZ',
-          '/d',
-          'C:\\Program Files\\GOG Galaxy',
-          '/f'
-        ],
-        gameSettings,
-        protonVerb: 'run'
-      })
+          galaxyClientPath
+        ))
+      if (galaxyClientRegistered) {
+        logDebug(
+          'GOG Galaxy client path already registered, skipping reg add',
+          LogPrefix.Backend
+        )
+      } else {
+        await runWineCommand({
+          commandParts: [
+            'reg',
+            'add',
+            'HKLM\\SOFTWARE\\WOW6432Node\\GOG.com\\GalaxyClient\\paths',
+            '/v',
+            'client',
+            '/t',
+            'REG_SZ',
+            '/d',
+            galaxyClientPath,
+            '/f'
+          ],
+          gameSettings,
+          protonVerb: 'run'
+        })
+      }
     }
   } catch (err) {
     logError([
