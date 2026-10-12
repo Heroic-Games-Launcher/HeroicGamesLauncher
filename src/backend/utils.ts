@@ -23,7 +23,15 @@ import {
   logWarning,
   logDebug
 } from 'backend/logger'
-import { basename, dirname, join, normalize } from 'path'
+import {
+  basename,
+  dirname,
+  isAbsolute,
+  join,
+  normalize,
+  relative,
+  sep
+} from 'path'
 import {
   gameInfoStore,
   installStore,
@@ -1034,6 +1042,45 @@ export async function checkWineBeforeLaunch(
   return false
 }
 
+/**
+ * Checks whether `child` is `parent` itself or a folder inside it.
+ * A plain `startsWith` is not enough: `/games/Foo2` starts with `/games/Foo`
+ * but is not inside it
+ */
+function isSameOrSubPath(parent: string, child: string): boolean {
+  const rel = relative(parent, child)
+  return rel === '' || (rel.split(sep)[0] !== '..' && !isAbsolute(rel))
+}
+
+/**
+ * Returns the folder a game ends up in when moved to `newInstallPath`
+ */
+function getMoveDestination(installPath: string, newInstallPath: string) {
+  return join(newInstallPath, basename(installPath))
+}
+
+/**
+ * Moving copies every file and then deletes the original, so a destination
+ * that overlaps the current install folder would delete the game
+ * @returns Why the game can't be moved there, or null if it can
+ */
+function getMoveInstallError(
+  installPath: string,
+  newInstallPath: string
+): string | null {
+  const destination = getMoveDestination(installPath, newInstallPath)
+  if (relative(installPath, destination) === '') {
+    return `The game is already installed in ${installPath}.`
+  }
+  if (
+    isSameOrSubPath(installPath, destination) ||
+    isSameOrSubPath(destination, installPath)
+  ) {
+    return `New install path (${destination}) cannot overlap the current install path (${installPath}).`
+  }
+  return null
+}
+
 export async function moveOnWindows(
   newInstallPath: string,
   gameInfo: GameInfo
@@ -1049,7 +1096,7 @@ export async function moveOnWindows(
     return { status: 'error', error: 'No install path found' }
   }
 
-  newInstallPath = join(newInstallPath, basename(install_path))
+  newInstallPath = getMoveDestination(install_path, newInstallPath)
 
   let currentFile = ''
 
@@ -1103,7 +1150,7 @@ export async function moveOnUnix(
     return { status: 'error', error: 'No install path found' }
   }
 
-  const destination = join(newInstallPath, basename(install_path))
+  const destination = getMoveDestination(install_path, newInstallPath)
 
   let currentFile = ''
 
@@ -1659,7 +1706,8 @@ export {
   extractFiles,
   axiosClient,
   parseSize,
-  getGame
+  getGame,
+  getMoveInstallError
 }
 
 // Exported only for testing purpose

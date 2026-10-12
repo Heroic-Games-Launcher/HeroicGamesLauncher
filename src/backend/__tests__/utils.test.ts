@@ -131,3 +131,33 @@ describe('backend/utils.ts', () => {
     })
   })
 })
+
+describe('getMoveInstallError', () => {
+  const installPath = '/games/Gunslugs'
+
+  test.each([
+    // the game ends up in <new path>/Gunslugs
+    ['/games/Gunslugs2', 'a sibling whose name starts the same'],
+    ['/games/Gunslugs2/', 'the same with a trailing slash'],
+    ['/other', 'an unrelated folder'],
+    ['/', 'the root folder']
+  ])('allows moving to %s (%s)', (newPath) => {
+    expect(utils.getMoveInstallError(installPath, newPath)).toBeNull()
+  })
+
+  test.each([
+    ['/games', 'the parent: the destination is the install folder itself'],
+    ['/games/', 'the same with a trailing slash'],
+    ['/games/Gunslugs', 'the install folder itself'],
+    ['/games/Gunslugs/sub', 'a folder inside the install folder']
+  ])('refuses moving to %s (%s)', (newPath) => {
+    expect(utils.getMoveInstallError(installPath, newPath)).not.toBeNull()
+  })
+
+  test('refuses a destination that contains the install folder', () => {
+    // destination /games/Gunslugs is a parent of the install folder
+    expect(
+      utils.getMoveInstallError('/games/Gunslugs/old/Gunslugs', '/games')
+    ).not.toBeNull()
+  })
+})
