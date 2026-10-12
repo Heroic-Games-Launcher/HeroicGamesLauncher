@@ -3,6 +3,9 @@ import { app } from 'electron'
 import { logError } from '../logger'
 import * as utils from '../utils'
 import { test_data } from './test_data/github-api-heroic-test-data.json'
+import { mkdirSync, mkdtempSync, rmSync, symlinkSync } from 'graceful-fs'
+import { tmpdir } from 'os'
+import { join } from 'path'
 
 jest.mock('electron')
 jest.mock('../logger')
@@ -159,5 +162,44 @@ describe('getMoveInstallError', () => {
     expect(
       utils.getMoveInstallError('/games/Gunslugs/old/Gunslugs', '/games')
     ).not.toBeNull()
+  })
+
+  describe('with symlinks', () => {
+    let root: string
+    beforeEach(() => {
+      root = mkdtempSync(join(tmpdir(), 'heroic-move-'))
+      mkdirSync(join(root, 'drive', 'Heroic', 'Gunslugs'), { recursive: true })
+      mkdirSync(join(root, 'drive', 'Heroic', 'Gunslugs2'))
+      // Like a ~/Games link to a folder on another drive
+      symlinkSync(join(root, 'drive'), join(root, 'Games'))
+    })
+    afterEach(() => rmSync(root, { recursive: true, force: true }))
+
+    test('refuses the parent folder reached through a symlink', () => {
+      expect(
+        utils.getMoveInstallError(
+          join(root, 'drive', 'Heroic', 'Gunslugs'),
+          join(root, 'Games', 'Heroic')
+        )
+      ).not.toBeNull()
+    })
+
+    test('refuses the real parent folder when the install path goes through a symlink', () => {
+      expect(
+        utils.getMoveInstallError(
+          join(root, 'Games', 'Heroic', 'Gunslugs'),
+          join(root, 'drive', 'Heroic')
+        )
+      ).not.toBeNull()
+    })
+
+    test('allows a sibling folder reached through a symlink', () => {
+      expect(
+        utils.getMoveInstallError(
+          join(root, 'drive', 'Heroic', 'Gunslugs'),
+          join(root, 'Games', 'Heroic', 'Gunslugs2')
+        )
+      ).toBeNull()
+    })
   })
 })

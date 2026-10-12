@@ -12,7 +12,13 @@ import axios from 'axios'
 import https from 'node:https'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
-import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  realpathSync,
+  rmSync
+} from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
@@ -1053,6 +1059,22 @@ function isSameOrSubPath(parent: string, child: string): boolean {
 }
 
 /**
+ * Resolves symlinks in the part of `path` that exists, keeping the rest
+ * (e.g. a destination folder that will only be created by the move) as is
+ */
+function resolveExistingPath(path: string): string {
+  try {
+    return realpathSync(path)
+  } catch {
+    const parent = dirname(path)
+    if (parent === path) {
+      return path
+    }
+    return join(resolveExistingPath(parent), basename(path))
+  }
+}
+
+/**
  * Returns the folder a game ends up in when moved to `newInstallPath`
  */
 function getMoveDestination(installPath: string, newInstallPath: string) {
@@ -1069,12 +1091,16 @@ function getMoveInstallError(
   newInstallPath: string
 ): string | null {
   const destination = getMoveDestination(installPath, newInstallPath)
-  if (relative(installPath, destination) === '') {
+  // Compare where the paths really point to, so a symlinked folder (like a
+  // ~/Games link to another drive) can't hide that they are the same
+  const realInstallPath = resolveExistingPath(installPath)
+  const realDestination = resolveExistingPath(destination)
+  if (relative(realInstallPath, realDestination) === '') {
     return `The game is already installed in ${installPath}.`
   }
   if (
-    isSameOrSubPath(installPath, destination) ||
-    isSameOrSubPath(destination, installPath)
+    isSameOrSubPath(realInstallPath, realDestination) ||
+    isSameOrSubPath(realDestination, realInstallPath)
   ) {
     return `New install path (${destination}) cannot overlap the current install path (${installPath}).`
   }
