@@ -24,6 +24,34 @@ export function getWinePrefixRoot({
 }
 
 /**
+ * Joins several Wine commands into one `cmd /c` invocation, so they all run
+ * in a single Wine boot instead of one boot each
+ */
+export function chainWineCommands(commands: string[][]): string[] {
+  if (commands.length === 1) {
+    return commands[0]
+  }
+  return ['cmd', '/c', ...commands.flatMap((c, i) => (i ? ['&', ...c] : c))]
+}
+
+/**
+ * Splits the output of `winepath` run on several paths into one result per
+ * path (it prints one line for each)
+ * @returns null if the number of lines doesn't match, as there's then no way
+ * to tell which result belongs to which path
+ */
+export function parseWinePathOutput(
+  stdout: string,
+  pathCount: number
+): string[] | null {
+  const lines = stdout
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+  return lines.length === pathCount ? lines : null
+}
+
+/**
  * Escapes a string the way Wine writes it into a `.reg` file
  */
 function escapeRegString(str: string): string {

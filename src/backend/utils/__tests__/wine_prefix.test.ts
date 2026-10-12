@@ -1,7 +1,12 @@
 import { mkdtempSync, rmSync, writeFileSync } from 'graceful-fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
-import { getWinePrefixRoot, isRegistryStringSet } from '../wine_prefix'
+import {
+  chainWineCommands,
+  getWinePrefixRoot,
+  isRegistryStringSet,
+  parseWinePathOutput
+} from '../wine_prefix'
 import { WineInstallation } from 'common/types'
 
 jest.mock('../../logger')
@@ -125,5 +130,55 @@ describe('isRegistryStringSet', () => {
     await expect(
       isRegistryStringSet(join(dir, 'missing.reg'), key, 'client', data)
     ).resolves.toBe(false)
+  })
+})
+
+describe('chainWineCommands', () => {
+  test('leaves a single command untouched', () => {
+    expect(chainWineCommands([['reg', 'add', 'HKLM\\Key']])).toEqual([
+      'reg',
+      'add',
+      'HKLM\\Key'
+    ])
+  })
+
+  test('joins several commands with & under one cmd /c', () => {
+    expect(
+      chainWineCommands([
+        ['sc', 'create', 'Service'],
+        ['reg', 'add', 'HKLM\\Key', '/d', 'C:\\Program Files\\App']
+      ])
+    ).toEqual([
+      'cmd',
+      '/c',
+      'sc',
+      'create',
+      'Service',
+      '&',
+      'reg',
+      'add',
+      'HKLM\\Key',
+      '/d',
+      'C:\\Program Files\\App'
+    ])
+  })
+})
+
+describe('parseWinePathOutput', () => {
+  test('returns one result per line, in order', () => {
+    expect(
+      parseWinePathOutput('X:\\Games\\Some Game\r\nX:\\.config\\support\r\n', 2)
+    ).toEqual(['X:\\Games\\Some Game', 'X:\\.config\\support'])
+  })
+
+  test('handles a single path', () => {
+    expect(parseWinePathOutput('/home/user/Games\n', 1)).toEqual([
+      '/home/user/Games'
+    ])
+  })
+
+  test('returns null when a path produced no output', () => {
+    expect(parseWinePathOutput('X:\\Games\n', 2)).toBeNull()
+    expect(parseWinePathOutput('', 1)).toBeNull()
   })
 })
