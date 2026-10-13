@@ -201,8 +201,11 @@ img.loaded {
   direction: rtl;
 }
 
-/* Console mode in fullscreen hides the cursor until the mouse is moved */
+/* Console mode in fullscreen hides the cursor until the mouse is moved.
+   The hidden cursor must not hover anything either: content scrolling under it
+   would otherwise steal the controller's focus */
 .App.hideCursor,
 .App.hideCursor * {
   cursor: none !important;
+  pointer-events: none !important;
 }
