@@ -38,7 +38,7 @@ function Root() {
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
 
   const isConsoleMode = useLocation().pathname.startsWith('/console')
-  const hideCursor = useHideIdleCursor(isConsoleMode && isFullscreen)
+  useHideIdleCursor(isConsoleMode && isFullscreen)
 
   const theme = createTheme({
     direction: isRTL ? 'rtl' : 'ltr',
@@ -77,8 +77,7 @@ function Root() {
         frameless: isFrameless,
         fullscreen: isFullscreen,
         disableAnimations,
-        consoleMode: isConsoleMode,
-        hideCursor
+        consoleMode: isConsoleMode
       })}
       // disable dragging for all elements by default
       onDragStart={(e) => e.preventDefault()}

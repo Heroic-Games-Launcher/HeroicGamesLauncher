@@ -4,7 +4,7 @@ const IDLE_TIMEOUT_MS = 3000
 
 /**
  * Hides the mouse cursor while `enabled` is true, until the mouse is actually
- * moved. After it has been idle for a few seconds it is hidden again.
+ * moved, by setting the `hideCursor` class on the root element (see App.css). After it has been idle for a few seconds it is hidden again.
  *
  * Chromium sends fake `mousemove` events when content scrolls under a stationary
  * cursor (e.g. when navigating with a controller), so only a changed pointer
@@ -45,5 +45,11 @@ export function useHideIdleCursor(enabled: boolean): boolean {
     }
   }, [enabled])
 
-  return enabled && hidden
+  const hideCursor = enabled && hidden
+  useEffect(() => {
+    document.documentElement.classList.toggle('hideCursor', hideCursor)
+    return () => document.documentElement.classList.remove('hideCursor')
+  }, [hideCursor])
+
+  return hideCursor
 }

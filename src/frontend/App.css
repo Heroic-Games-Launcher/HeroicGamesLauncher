@@ -203,9 +203,14 @@ img.loaded {
 
 /* Console mode in fullscreen hides the cursor until the mouse is moved.
    The hidden cursor must not hover anything either: content scrolling under it
-   would otherwise steal the controller's focus */
-.App.hideCursor,
-.App.hideCursor * {
+   would otherwise steal the controller's focus. `html` and `body` keep receiving
+   pointer events (so the cursor is resolved against them and stays hidden) */
+html.hideCursor,
+html.hideCursor body {
+  cursor: none !important;
+}
+
+html.hideCursor body * {
   cursor: none !important;
   pointer-events: none !important;
 }
