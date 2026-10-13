@@ -200,3 +200,9 @@ img.loaded {
 .isRTL {
   direction: rtl;
 }
+
+/* Console mode in fullscreen hides the cursor until the mouse is moved */
+.App.hideCursor,
+.App.hideCursor * {
+  cursor: none !important;
+}
