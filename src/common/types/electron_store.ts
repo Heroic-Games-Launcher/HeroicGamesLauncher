@@ -19,6 +19,12 @@ import {
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
 import { ZoomCredentials } from './zoom'
+import {
+  SteamAccount,
+  SteamCloudSyncStatus,
+  SteamPendingDlcChange
+} from './steam'
+import type { GameMetadataOverride } from 'backend/game_overrides/electronStores'
 
 export interface StoreStructure {
   configStore: {
@@ -59,6 +65,9 @@ export interface StoreStructure {
   zoomInstalledGamesStore: {
     installed: InstalledInfo[]
   }
+  steamInstalledGamesStore: {
+    installed: InstalledInfo[]
+  }
   timestampStore: {
     [K: string]: {
       firstPlayed: string
@@ -78,6 +87,17 @@ export interface StoreStructure {
     credentials?: ZoomCredentials
     isLoggedIn: boolean
     username?: string
+  }
+  steamConfigStore: {
+    isLoggedIn: boolean
+    steamId?: string
+    username?: string
+    accounts?: SteamAccount[]
+    pendingDlc?: SteamPendingDlcChange[]
+    // Per-game opt-in Steam launch, needed for Steamworks online features and Family-Sharing. .
+    steamIntegration?: Record<string, boolean>
+    // Last Cloud sync outcome per app id, so the library can show sync state
+    cloudSync?: Record<string, SteamCloudSyncStatus>
   }
   nileConfigStore: {
     userData?: NileUserData
@@ -112,14 +132,7 @@ export interface StoreStructure {
     appliedMigrations: string[]
   }
   gameOverridesStore: {
-    overrides: Record<
-      string,
-      {
-        title?: string
-        art_cover?: string
-        art_square?: string
-      }
-    >
+    overrides: Record<string, GameMetadataOverride>
   }
 }
 

@@ -1,10 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  GameInfo,
-  InstallPlatform,
-  Runner,
-  WineInstallation
-} from 'common/types'
+import { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
 import Anticheat from 'frontend/components/UI/Anticheat'
 import {
   DialogFooter,
@@ -21,11 +16,11 @@ import { useTranslation } from 'react-i18next'
 import AllowedIcon from 'frontend/assets/rounded_checkmark_icon.svg?react'
 import { AvailablePlatforms } from '..'
 import './index.css'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
   backdropClick: () => void
-  appName: string
-  runner: Runner
+  game: GameHandle
   platformToInstall: InstallPlatform
   availablePlatforms: AvailablePlatforms
   winePrefix: string
@@ -36,8 +31,7 @@ interface Props {
 }
 
 export default function ThirdPartyDialog({
-  appName,
-  runner,
+  game,
   backdropClick,
   gameInfo,
   availablePlatforms,
@@ -57,17 +51,14 @@ export default function ThirdPartyDialog({
   const handleInstall = useCallback(async () => {
     // Write Default game config with prefix on linux
     if (!isWin) {
-      const gameSettings = await window.api.requestGameSettings(appName)
+      const gameSettings = await window.api.requestGameSettings(game)
 
       if (wineVersion) {
-        writeConfig({
-          appName,
-          config: {
-            ...gameSettings,
-            winePrefix,
-            wineVersion,
-            wineCrossoverBottle: crossoverBottle
-          }
+        writeConfig(game, {
+          ...gameSettings,
+          winePrefix,
+          wineVersion,
+          wineCrossoverBottle: crossoverBottle
         })
       }
     }
@@ -84,7 +75,7 @@ export default function ThirdPartyDialog({
       platformToInstall,
       showDialogModal: () => backdropClick()
     })
-  }, [appName, t, winePrefix, wineVersion, crossoverBottle, platformToInstall])
+  }, [game, t, winePrefix, wineVersion, crossoverBottle, platformToInstall])
 
   return (
     <>
@@ -136,7 +127,7 @@ export default function ThirdPartyDialog({
         <button
           className={`button is-secondary`}
           onClick={handleInstall}
-          disabled={runner !== 'legendary'}
+          disabled={game.runner !== 'legendary'}
         >
           {t('button.install')}
         </button>

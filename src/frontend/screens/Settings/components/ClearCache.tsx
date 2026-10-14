@@ -15,6 +15,11 @@ const ClearCache = () => {
     return refreshLibrary({ runInBackground: true })
   }
 
+  async function clearImagesCacheOnly() {
+    await window.api.clearImagesCache()
+    refreshLibrary({ runInBackground: true })
+  }
+
   return (
     <>
       <h3 className="settingSubheader">
@@ -60,6 +65,10 @@ const ClearCache = () => {
             {t('settings.advanced.clearCache.help10', 'Heroic configuration')}
           </li>
         </ul>
+        {t(
+          'settings.advanced.clearCache.helpImages',
+          'A separate button below clears only the downloaded game cover artwork cache, forcing pristine re-downloads with rate limiting.'
+        )}
       </InfoBox>
       <button
         className="button is-footer is-danger"
@@ -71,6 +80,22 @@ const ClearCache = () => {
           </div>
           <span className="button-icon-text">
             {t('settings.clear-cache', 'Clear Heroic Cache')}
+          </span>
+        </div>
+      </button>
+      <button
+        className="button is-footer is-danger"
+        onClick={async () => clearImagesCacheOnly()}
+      >
+        <div className="button-icontext-flex">
+          <div className="button-icon-flex">
+            <CleaningServicesOutlined />
+          </div>
+          <span className="button-icon-text">
+            {t(
+              'settings.clear-images-cache',
+              'Clear Images Cache (Re-download covers)'
+            )}
           </span>
         </div>
       </button>

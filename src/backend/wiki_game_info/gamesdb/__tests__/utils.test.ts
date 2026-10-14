@@ -1,8 +1,9 @@
-import { GamesDBInfo } from 'common/types'
+import type { GamesDBInfo } from 'common/types'
 import { axiosClient } from 'backend/utils'
 import testData from './test-data.json'
 import { getInfoFromGamesDB } from '../utils'
 import { logError } from 'backend/logger'
+import { FakeGame } from 'backend/__tests__/util'
 
 jest.mock('backend/logger')
 jest.mock('electron-store')
@@ -13,7 +14,8 @@ describe('getInfoFromGamesDB', () => {
       data: testData
     })
 
-    const result = await getInfoFromGamesDB('Jotun', 'Grouse', 'legendary')
+    const game = new FakeGame('Grouse', 'legendary')
+    const result = await getInfoFromGamesDB('Jotun', game)
     expect(result).toStrictEqual(testGamesDBInfo)
   })
 
@@ -22,7 +24,8 @@ describe('getInfoFromGamesDB', () => {
       data: testData
     })
 
-    const result = await getInfoFromGamesDB('Jotun', 'Grouse', 'sideload')
+    const game = new FakeGame('Grouse', 'sideload')
+    const result = await getInfoFromGamesDB('Jotun', game)
     expect(result).toStrictEqual({ steamID: '' })
   })
 
@@ -33,7 +36,8 @@ describe('getInfoFromGamesDB', () => {
       }
     })
 
-    const result = await getInfoFromGamesDB('Jotun', 'Grouse', 'legendary')
+    const game = new FakeGame('Grouse', 'legendary')
+    const result = await getInfoFromGamesDB('Jotun', game)
     expect(result).toStrictEqual({ steamID: '' })
     expect(logError).toBeCalledWith(
       ['Was not able to get GamesDB data for Grouse', 'Failed'],

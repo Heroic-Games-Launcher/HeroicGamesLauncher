@@ -1,17 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { LaunchOption, Runner } from 'common/types'
+import { LaunchOption } from 'common/types'
+import type { GameHandle } from '../helpers/ipc'
 
 interface UseLaunchOptionsProps {
-  appName: string
-  runner: Runner | undefined
+  game: GameHandle | null
   lastUsedOption?: LaunchOption
   onSelectionChange?: (option: LaunchOption | undefined, index: number) => void
 }
 
 export const useLaunchOptions = ({
-  appName,
-  runner,
+  game,
   lastUsedOption,
   onSelectionChange
 }: UseLaunchOptionsProps) => {
@@ -23,21 +22,13 @@ export const useLaunchOptions = ({
   useEffect(() => {
     setSelectedIndex(-1)
     const fetchOptions = async () => {
-      try {
-        const options = await window.api.getLaunchOptions(
-          appName,
-          runner as Runner
-        )
-        setLaunchOptions(options)
-      } catch (error) {
-        console.error('Error fetching launch options:', error)
-      }
+      if (!game) return
+      const options = await window.api.getLaunchOptions(game)
+      setLaunchOptions(options)
     }
 
-    if (appName && runner) {
-      void fetchOptions()
-    }
-  }, [appName, runner])
+    void fetchOptions()
+  }, [game])
 
   // Find and set the previously used option
   useMemo(() => {

@@ -573,7 +573,7 @@ async function addNonSteamGameViaSteamClient(props: {
         await buildShortcutEntryConfig(gameInfo)
 
       let icon = undefined
-      await getIcon(gameInfo.app_name, gameInfo)
+      await getIcon(game)
         .then((path) => (icon = path))
         .catch((error) =>
           logWarning(
@@ -661,7 +661,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
         await buildShortcutEntryConfig(gameInfo)
 
       let icon = undefined
-      await getIcon(gameInfo.app_name, gameInfo)
+      await getIcon(game)
         .then((path) => (icon = path))
         .catch((error) =>
           logWarning(
@@ -774,7 +774,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
 
     newEntry.appid = generateShortcutId(newEntry.Exe, newEntry.AppName)
 
-    await getIcon(gameInfo.app_name, gameInfo)
+    await getIcon(game)
       .then((path) => (newEntry.icon = path))
       .catch((error) =>
         logWarning(
@@ -801,7 +801,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
     newEntry.Devkit = false
     newEntry.DevkitOverrideAppID = false
 
-    const lastPlayed = tsStore.get_nodefault(`${gameInfo.app_name}.lastPlayed`)
+    const lastPlayed = tsStore.get_nodefault(`${game.id}.lastPlayed`)
     if (lastPlayed) {
       newEntry.LastPlayTime = new Date(lastPlayed)
     } else {

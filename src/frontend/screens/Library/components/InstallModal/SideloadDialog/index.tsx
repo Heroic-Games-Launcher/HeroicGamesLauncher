@@ -15,7 +15,6 @@ import {
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
   getGameInfo,
-  getGameSettings,
   removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
@@ -29,8 +28,10 @@ import axios from 'axios'
 import { NavLink, useNavigate } from 'react-router-dom'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import Folder from '@mui/icons-material/Folder'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 type Props = {
+  game: GameHandle
   availablePlatforms: AvailablePlatforms
   winePrefix: string
   crossoverBottle: string
@@ -38,12 +39,12 @@ type Props = {
   children: React.ReactNode
   platformToInstall: InstallPlatform
   backdropClick: () => void
-  appName?: string
   title: string
   setTitle: (title: string) => void
 }
 
 export default function SideloadDialog({
+  game,
   availablePlatforms,
   backdropClick,
   winePrefix,
@@ -51,7 +52,6 @@ export default function SideloadDialog({
   wineVersion,
   platformToInstall,
   children,
-  appName,
   title,
   setTitle
 }: Props) {
@@ -64,13 +64,13 @@ export default function SideloadDialog({
   const [heroUrl, setHeroUrl] = useState('')
   const [searching, setSearching] = useState(false)
   const [imageLoading, setImageLoading] = useState(false)
-  const [app_name, setApp_name] = useState(appName ?? '')
+  const [app_name, setApp_name] = useState(game?.id ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const [addingApp, setAddingApp] = useState(false)
   const [sgdbTarget, setSgdbTarget] = useState<'cover' | 'square' | null>(null)
   const [hasSgdbKey, setHasSgdbKey] = useState(false)
-  const editMode = Boolean(appName)
+  const editMode = Boolean(game.id)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
   const navigate = useNavigate()
@@ -89,8 +89,8 @@ export default function SideloadDialog({
   useEffect(() => {
     window.api.steamgriddb.hasApiKey().then(setHasSgdbKey)
 
-    if (appName) {
-      void getGameInfo(appName, 'sideload').then((info) => {
+    if (game.id) {
+      void getGameInfo(game).then((info) => {
         if (!info || info.runner !== 'sideload') {
           return
         }
@@ -199,13 +199,10 @@ export default function SideloadDialog({
     })
 
     if (!editMode) {
-      await window.api.writeConfig({
-        appName: app_name,
-        config: {
-          winePrefix,
-          wineVersion,
-          wineCrossoverBottle: crossoverBottle
-        }
+      await window.api.writeConfig(new GameHandle(app_name, 'sideload'), {
+        winePrefix,
+        wineVersion,
+        wineCrossoverBottle: crossoverBottle
       })
     }
 
@@ -261,23 +258,14 @@ export default function SideloadDialog({
       exeToRun = path
       try {
         setRunningSetup(true)
-        const gameSettings = await getGameSettings(app_name, 'sideload')
-        if (!gameSettings) {
-          return
-        }
-        await writeConfig({
-          appName: app_name,
-          config: { ...gameSettings, winePrefix, wineVersion }
-        })
-        await window.api.runWineCommand({
+        // FIXME: We should never create a GameHandle manually. Ideally we'd
+        //        ask the backend to create one, and then operate on it
+        const game = new GameHandle(app_name, 'sideload')
+        await writeConfig(game, { winePrefix, wineVersion })
+        await window.api.runWineCommand(game, {
           commandParts: [exeToRun],
           wait: true,
-          protonVerb: 'runinprefix',
-          gameSettings: {
-            ...gameSettings,
-            winePrefix,
-            wineVersion: wineVersion || gameSettings.wineVersion
-          }
+          protonVerb: 'runinprefix'
         })
         setRunningSetup(false)
       } catch (error) {

@@ -59,8 +59,6 @@ let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
 export default class LegendaryLibraryManager implements LibraryManager {
-  private readonly gameCache: Map<LegendaryAppName, LegendaryGame> = new Map()
-
   async init() {
     this.loadGamesInAccount()
     this.refreshInstalled()
@@ -69,11 +67,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
   getGame(id: string): LegendaryGame {
     const appName = LegendaryAppName.parse(id)
 
-    const cached = this.gameCache.get(appName)
-    if (cached) return cached
-
     const game = new LegendaryGame(appName)
-    this.gameCache.set(appName, game)
     return game
   }
 

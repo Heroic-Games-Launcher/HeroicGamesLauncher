@@ -28,8 +28,22 @@ table td.specs {
 table span.text {
   color: var(--text-secondary);
   font-size: var(--text-sm);
+  white-space: pre-line;
 }
 
 .tabContent .gameRequirements {
   width: 100%;
+}
+
+.gameRequirements .reqsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  padding: var(--space-xs);
+}
+
+.gameRequirements .reqsSection .title {
+  color: var(--text-secondary);
+  font-size: var(--text-md);
 }

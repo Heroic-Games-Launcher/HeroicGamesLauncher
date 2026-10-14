@@ -7,21 +7,19 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import { useTranslation } from 'react-i18next'
-import { Runner } from 'common/types'
 import ToggleSwitch from '../ToggleSwitch'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ContextProvider from 'frontend/state/ContextProvider'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface UninstallModalProps {
-  appName: string
-  runner: Runner
+  game: GameHandle
   onClose: () => void
   isDlc: boolean
 }
 
 const UninstallModal: React.FC<UninstallModalProps> = function ({
-  appName,
-  runner,
+  game,
   onClose,
   isDlc
 }) {
@@ -39,7 +37,9 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
 
   const isGameRunning = libraryStatus.find(
     (st) =>
-      st.appName === appName && st.runner === runner && st.status === 'playing'
+      st.appName === game.id &&
+      st.runner === game.runner &&
+      st.status === 'playing'
   )
 
   const checkIfIsNative = async () => {
@@ -48,12 +48,8 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
 
     setShowUninstallModal(true)
 
-    const gameInfo = await window.api.getGameInfo(appName, runner)
-
-    const isNative = await window.api.isNative({
-      runner,
-      appName
-    })
+    const gameInfo = await window.api.getGameInfo(game)
+    const isNative = await window.api.isNative(game)
     setIsNative(isNative)
 
     if (isDlc) {
@@ -71,12 +67,12 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       return
     }
 
-    const gameSettings = await window.api.getGameSettings(appName, runner)
+    const gameSettings = await window.api.getGameSettings(game)
     if (!gameSettings) {
       return
     }
 
-    const defaultSettings = await window.api.requestGameSettings('default')
+    const defaultSettings = await window.api.requestAppSettings()
 
     setWinePrefix(gameSettings.winePrefix)
     setDisableDeleteWine(gameSettings.winePrefix === defaultSettings.winePrefix)
@@ -90,22 +86,17 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
   const uninstallGame = async () => {
     onClose()
 
-    await window.api.uninstall(
-      appName,
-      runner,
-      deletePrefixChecked,
-      deleteSettingsChecked
-    )
-    if (runner === 'sideload' && location.pathname.match(/gamepage/)) {
+    await window.api.uninstall(game, deletePrefixChecked, deleteSettingsChecked)
+    if (game.runner === 'sideload' && location.pathname.match(/gamepage/)) {
       navigate('/#library')
     }
-    storage.removeItem(appName)
+    storage.removeItem(game.id)
   }
 
   const showWineCheckbox = !isNative && !isDlc
 
   // disallow uninstalling epic games if an epic game is being installed
-  if (installingEpicGame && runner === 'legendary') {
+  if (installingEpicGame && game.runner === 'legendary') {
     return (
       <>
         {showUninstallModal && (

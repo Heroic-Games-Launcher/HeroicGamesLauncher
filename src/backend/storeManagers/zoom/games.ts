@@ -61,11 +61,17 @@ import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import type LogWriter from 'backend/logger/log_writer'
 import { rm, writeFile } from 'node:fs/promises'
 
-export default class ZoomGame implements Game {
-  private readonly id: string
+export default class ZoomGame extends Game {
+  public readonly id: string
+  public readonly runner = 'zoom'
 
   constructor(id: string) {
+    super()
     this.id = id
+  }
+
+  toString(): string {
+    return `ZoomGame(id=${this.id})`
   }
 
   private async findDosboxExecutable(dir: string): Promise<string | undefined> {
@@ -204,9 +210,7 @@ export default class ZoomGame implements Game {
     this.tmpProgress.downSpeed = 0
     this.tmpProgress.diskSpeed = 0
 
-    sendProgressUpdate({
-      appName: this.id,
-      runner: 'zoom',
+    sendProgressUpdate(this, {
       status: action,
       progress: this.tmpProgress
     })
@@ -354,7 +358,6 @@ export default class ZoomGame implements Game {
 
       logInfo(`Executing installer: ${executable}`, LogPrefix.Zoom)
 
-      const gameSettings = await this.getSettings()
       await writeFile(
         infFilePath,
         `[Setup]\nLang=english\nDisableWelcomePage=yes\nDisableDirPage=yes\nDisableProgramGroupPage=yes\nDisableReadyPage=yes\n`,
@@ -367,7 +370,7 @@ export default class ZoomGame implements Game {
         fs.mkdirSync(installPath, { recursive: true })
       }
 
-      installResult = await runWineCommand({
+      installResult = await runWineCommand(this, {
         commandParts: [
           join(downloadRoot, executable),
           '/NORESTART',
@@ -377,12 +380,10 @@ export default class ZoomGame implements Game {
           `/LOADINF=Z:${infFilePath.replaceAll('/', '\\')}`,
           '/LOG=C:\\zoom_installer.log'
         ],
-        gameSettings,
-        gameInstallPath: path,
         wait: true,
         options: {
           logMessagePrefix: `Installing ${this.id}`,
-          logWriters: [await createGameLogWriter(this.id, 'zoom', 'install')],
+          logWriters: [await createGameLogWriter(this, 'install')],
           abortId: this.id
         }
       })
@@ -594,7 +595,7 @@ export default class ZoomGame implements Game {
     }
 
     if (!existsSync(gameInfo.install.install_path)) {
-      errorHandler('appears to be deleted', this.id, 'zoom')
+      errorHandler('appears to be deleted', this.runner, this)
       return false
     }
 
@@ -605,7 +606,7 @@ export default class ZoomGame implements Game {
       gameScopeCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
+    } = await prepareLaunch(this, logWriter)
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
       showDialogBoxModalAuto({
@@ -618,11 +619,11 @@ export default class ZoomGame implements Game {
 
     const commandEnv = {
       ...process.env,
-      ...setupWrapperEnvVars({ appName: this.id, appRunner: 'zoom' }),
+      ...setupWrapperEnvVars(this),
       ...(isWindows
         ? {}
         : setupEnvVars(gameSettings, gameInfo.install.install_path)),
-      ...getKnownFixesEnvVariables(this.id, 'zoom')
+      ...getKnownFixesEnvVariables(this)
     }
 
     const wrappers = setupWrappers(
@@ -651,11 +652,7 @@ export default class ZoomGame implements Game {
       })
     }
 
-    sendGameStatusUpdate({
-      appName: this.id,
-      runner: 'zoom',
-      status: 'playing'
-    })
+    sendGameStatusUpdate(this, 'playing')
 
     if (this.isNative()) {
       const isNativeDosbox = this.isNative() && gameInfo.install.isDosbox
@@ -673,7 +670,8 @@ export default class ZoomGame implements Game {
           logMessagePrefix: `Launching ${gameInfo.title}`,
           logWriters: [logWriter],
           abortId: this.id,
-          cwd: gameInfo.install.install_path
+          cwd: gameInfo.install.install_path,
+          game: this
         }
       )
 
@@ -708,18 +706,15 @@ export default class ZoomGame implements Game {
         ? dirname(executable)
         : dirname(join(gameInfo.install.install_path, executable))
 
-      if (await isUmuSupported(gameSettings)) {
-        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (await isUmuSupported(this)) {
+        const umuId = await getUmuId(this)
         if (umuId) {
           commandEnv['GAMEID'] = umuId
         }
       }
 
-      const result = await runWineCommand({
+      const result = await runWineCommand(this, {
         commandParts: [basename(executable), ...commandParts],
-        gameSettings,
-        gameInstallPath: gameInfo.install.install_path,
-        installFolderName: gameInfo.folder_name,
         protonVerb: 'waitforexitandrun',
         startFolder,
         options: {

@@ -26,11 +26,17 @@ import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgam
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export default class SideloadGame implements Game {
-  private readonly id: string
+export default class SideloadGame extends Game {
+  public readonly id: string
+  public readonly runner = 'sideload'
 
   constructor(id: string) {
+    super()
     this.id = id
+  }
+
+  toString(): string {
+    return `SideloadGame(id=${this.id})`
   }
 
   getGameInfo(): GameInfo {
@@ -91,8 +97,7 @@ export default class SideloadGame implements Game {
       killPattern(exe)
 
       if (!this.isNative()) {
-        const gameSettings = await this.getSettings()
-        shutdownWine(gameSettings)
+        shutdownWine(this)
       }
     }
   }
@@ -101,14 +106,10 @@ export default class SideloadGame implements Game {
     shouldRemovePrefix,
     deleteFiles = false
   }: RemoveArgs): Promise<ExecResult> {
-    sendGameStatusUpdate({
-      appName: this.id,
-      runner: 'sideload',
-      status: 'uninstalling'
-    })
+    sendGameStatusUpdate(this, 'uninstalling')
 
     const old = libraryStore.get('games', [])
-    const current = old.filter((a: GameInfo) => a.app_name !== this.id)
+    const current = old.filter((a) => a.app_name !== this.id)
 
     const gameInfo = this.getGameInfo()
     const {
@@ -117,7 +118,7 @@ export default class SideloadGame implements Game {
     } = gameInfo
 
     if (shouldRemovePrefix) {
-      removePrefix(this.id, 'sideload')
+      removePrefix(this)
     }
     libraryStore.set('games', current)
 
@@ -128,14 +129,10 @@ export default class SideloadGame implements Game {
     notify({ title, body: i18next.t('notify.uninstalled') })
 
     removeShortcutsUtil(this)
-    removeRecentGame(this.id)
+    removeRecentGame(this)
     removeNonSteamGame(this)
 
-    sendGameStatusUpdate({
-      appName: this.id,
-      runner: 'sideload',
-      status: 'done'
-    })
+    sendGameStatusUpdate(this, 'done')
 
     logInfo('finished uninstalling', LogPrefix.Backend)
     return { stderr: '', stdout: '' }

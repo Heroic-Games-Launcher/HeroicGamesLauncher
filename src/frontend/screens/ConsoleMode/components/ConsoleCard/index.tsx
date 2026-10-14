@@ -1,8 +1,9 @@
-import { forwardRef } from 'react'
+import { forwardRef, useMemo } from 'react'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 
 import { CachedImage } from 'frontend/components/UI'
+import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import { getProgress } from 'frontend/helpers'
@@ -10,6 +11,7 @@ import { getImageFormatting } from 'frontend/screens/Library/components/GameCard
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 
 import type { GameInfo, Status } from 'common/types'
+import { GameHandle } from '../../../../helpers/ipc'
 
 // Statuses that we surface as an overlay on the card. Anything outside this set
 // (e.g. `installed`, `notInstalled`, `done`) is treated as idle.
@@ -42,8 +44,9 @@ const ConsoleCard = forwardRef<HTMLButtonElement, Props>(function ConsoleCard(
   ref
 ) {
   const { t } = useTranslation()
-  const { status, label } = hasStatus(game)
-  const [progress] = hasProgress(game.app_name, game.runner)
+  const gameHandle = useMemo(() => GameHandle.fromGameInfo(game), [game])
+  const { status, label } = hasStatus(gameHandle)
+  const [progress] = hasProgress(gameHandle)
 
   const isProgressing = status === 'installing' || status === 'updating'
   const percent = isProgressing
@@ -68,6 +71,7 @@ const ConsoleCard = forwardRef<HTMLButtonElement, Props>(function ConsoleCard(
         alt={game.title}
         className="consoleCardArt"
       />
+      <StoreLogos runner={game.runner} className="consoleCardStoreIcon" />
       {needsUpdate && !showStatus && (
         <span className="consoleCardBadge">
           {t('console.card.needsUpdate', 'Needs update')}
