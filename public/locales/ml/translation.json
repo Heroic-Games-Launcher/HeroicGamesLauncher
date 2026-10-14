@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -790,7 +795,11 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1256,5 +1265,9 @@
             "wineMissing": "No path selected"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }

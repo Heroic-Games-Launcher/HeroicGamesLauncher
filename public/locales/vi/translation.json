@@ -98,6 +98,11 @@
             "dxmt": {
                 "message": "Lỗi tải DXMT! Kiểm tra kết nối của bạn!",
                 "title": "Lỗi tải xuống DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -790,7 +795,11 @@
         "scripts": "Kịch bản:",
         "enable-quick-sync-menu": "",
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Sử dụng Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1254,5 +1263,10 @@
             "wineMissing": "Chưa chọn thư mục"
         }
     },
-    "next": "Tiếp"
+    "next": "Tiếp",
+    "common": {
+        "add": "Thêm",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }

@@ -103,6 +103,11 @@
             "dxmt": {
                 "title": "Error al descargar DXMT",
                 "message": "Error al descargar DXMT! Compruebe su conexión!"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removiendo {{game}} de Steam falló con:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -820,6 +825,10 @@
         "hide-window-on-protocol-launch": "Ocultar ventana de Heroic cuando un juego es ejecutado desde enlaces heroic://",
         "nvidiaprime": {
             "description": "Forzar el uso de NVIDIA Optimus o AMD Dynamic Switchable Graphics dGPU . Úsalo ÚNICAMENTE para juegos OpenGL y Vulkan."
+        },
+        "steamRuntime": {
+            "label": "Usar Steam Runtime",
+            "noRuntimeOption": "Nada"
         }
     },
     "settings": {
@@ -1305,5 +1314,10 @@
             "message": "Este juego está en la cola de descargas. ¿Eliminarlo de la cola?"
         }
     },
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "common": {
+        "add": "Añadir",
+        "cancel": "Cancelar",
+        "warning": "Advertencia"
+    }
 }

@@ -6,7 +6,6 @@ import type {
   InstallInfo
 } from 'common/types'
 
-import { install, launch, repair, updateGame } from './library'
 import * as fileSize from 'filesize'
 import type { GameHandle } from './ipc'
 
@@ -144,16 +143,12 @@ export {
   getLegendaryConfig,
   getProgress,
   handleQuit,
-  install,
-  launch,
   loginPage,
   notify,
   openDiscordLink,
-  repair,
   sendKill,
   sidInfoPage,
   syncSaves,
-  updateGame,
   writeConfig,
   removeSpecialcharacters,
   getStoreName,

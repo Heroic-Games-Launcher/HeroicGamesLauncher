@@ -199,6 +199,16 @@ export default function Discounts() {
     pageSize
   ])
 
+  const [wishlistIds, setWishlistIds] = useState<Set<string>>(new Set())
+
+  // The "Wishlist Only" and "Hide Owned" checkboxes are hidden in the filter
+  // bar when the user is logged out of GOG, but the toggle state still lives
+  // in localStorage from a previous logged-in session. Treat them as off
+  // while logged out so the persisted preference doesn't silently filter the
+  // grid or trigger an authenticated refetch the backend can't fulfill.
+  const effectiveWishlistOnly = isGogLoggedIn && wishlistOnly
+  const effectiveHideOwned = isGogLoggedIn && hideOwned
+
   useEffect(() => {
     if (gogRegion === undefined) return
 
@@ -212,7 +222,7 @@ export default function Discounts() {
       try {
         // A GMG or Humble feed failure must not take down the GOG deals
         const [gogResult, gmgResult, humbleResult] = await Promise.all([
-          window.api.getGogDiscounts(localeSettings, hideOwned, wishlistOnly),
+          window.api.getGogDiscounts(localeSettings, effectiveHideOwned),
           window.api.getGmgDiscounts(gmgCurrency).catch((err: unknown) => {
             window.api.logError(`Failed to fetch GMG discounts: ${String(err)}`)
             return [] as CatalogProduct[]
@@ -254,7 +264,34 @@ export default function Discounts() {
     return () => {
       cancelled = true
     }
-  }, [gogRegion, localeSettings, gmgCurrency, hideOwned, wishlistOnly, t])
+  }, [gogRegion, localeSettings, gmgCurrency, effectiveHideOwned, t])
+
+  // Wishlist is fetched separately and applied client-side, so toggling the
+  // "Wishlist Only" filter never wipes the loaded products. Without this,
+  // a wishlist with no items currently on sale would empty the grid and hide
+  // the filter bar, leaving the user with no way to untoggle. See issue #5588.
+  useEffect(() => {
+    let cancelled = false
+
+    if (!isGogLoggedIn) {
+      setWishlistIds(new Set())
+      return
+    }
+
+    const loadWishlist = async () => {
+      try {
+        const ids = await window.api.getGogWishlist()
+        if (!cancelled) setWishlistIds(new Set(ids))
+      } catch (err) {
+        if (!cancelled) window.api.logError(String(err))
+      }
+    }
+
+    void loadWishlist()
+    return () => {
+      cancelled = true
+    }
+  }, [isGogLoggedIn])
 
   // Filter options and bounds derive from the active tab's products.
   const tabProducts = useMemo(
@@ -415,6 +452,13 @@ export default function Discounts() {
       if (showGogOnlyFilters && hideDlcs && p.productType === 'dlc')
         return false
 
+      if (
+        effectiveWishlistOnly &&
+        (p.store ?? 'gog') === 'gog' &&
+        !wishlistIds.has(p.id)
+      )
+        return false
+
       if (showPriceFilter) {
         const amount = parsePriceAmount(p.price.finalMoney?.amount)
         if (amount < minPrice || amount > maxPrice) return false
@@ -537,6 +581,8 @@ export default function Discounts() {
     featureOptions,
     searchQuery,
     hideDlcs,
+    effectiveWishlistOnly,
+    wishlistIds,
     sortBy
   ])
 
@@ -557,8 +603,8 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
-    hideOwned,
-    wishlistOnly,
+    effectiveHideOwned,
+    effectiveWishlistOnly,
     pageSize,
     products
   ])
@@ -579,8 +625,8 @@ export default function Discounts() {
     ratingRange[1] !== RATING_SCALE_MAX ||
     maxPegiAge !== null ||
     hideDlcs ||
-    hideOwned ||
-    wishlistOnly ||
+    effectiveHideOwned ||
+    effectiveWishlistOnly ||
     (releaseYearRange !== null &&
       (releaseYearRange[0] !== releaseYearBounds[0] ||
         releaseYearRange[1] !== releaseYearBounds[1]))
@@ -761,13 +807,13 @@ export default function Discounts() {
 
       {!loading && error && <p className="discountsScreen__message">{error}</p>}
 
-      {!loading && !error && products.length === 0 && (
+      {!loading && !error && products.length === 0 && !hasActiveFilters && (
         <p className="discountsScreen__message">
           {t('discounts.empty', 'No discounted games available right now.')}
         </p>
       )}
 
-      {!loading && !error && products.length > 0 && (
+      {!loading && !error && (products.length > 0 || hasActiveFilters) && (
         <>
           <DiscountFilters
             sortBy={sortBy}

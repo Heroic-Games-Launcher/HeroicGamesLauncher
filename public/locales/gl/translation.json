@@ -103,6 +103,11 @@
             "dxmt": {
                 "title": "Erro ao descargar DXMT",
                 "message": "Erro ao descargar DXMT! Comprobe a súa conexión!"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -811,7 +816,11 @@
         "enable-quick-sync-menu": "Habilitar o menú de gardar e sincronizar rapidamente na páxina do xogo",
         "scripts": "Secuencia de comandos (Scripts):",
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Usar o Runtime de Steam",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1297,5 +1306,10 @@
         "removeFromQueue": {
             "message": "Este xogo está na cola de descarga. Queres eliminalo da cola?"
         }
+    },
+    "common": {
+        "add": "Engadir",
+        "cancel": "Cancelar",
+        "warning": "Advertencia"
     }
 }

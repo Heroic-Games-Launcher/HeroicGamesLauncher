@@ -22,7 +22,7 @@ import type {
   InstallInfo,
   InstallParams,
   InstallPlatform,
-  KnowFixesInfo,
+  KnownFixesInfo,
   LaunchOption,
   LaunchParams,
   RecentGame,
@@ -273,17 +273,17 @@ interface AsyncIPCFunctions {
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
   isNative: (game: Game) => boolean
-  getLogContent: (args: GetLogFileArgs) => string
+  getLogContent: (args: GetLogFileArgs) => Promise<string>
   installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
   removeWineVersion: (release: WineVersionInfo) => Promise<void>
   'wine.isValidVersion': (release: WineInstallation) => Promise<boolean>
   shortcutsExists: (game: Game) => boolean
   addToSteam: (game: Game) => Promise<boolean>
-  removeFromSteam: (game: Game) => Promise<void>
+  removeFromSteam: (game: Game) => Promise<boolean>
   isAddedToSteam: (game: Game) => Promise<boolean>
   getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
-  getKnownFixes: (game: Game) => KnowFixesInfo | null
+  getKnownFixes: (game: Game) => KnownFixesInfo | null
   getGameMetadataOverride: (game: Game) => Promise<GameMetadataOverride | null>
   getAllGameOverrides: () => Promise<Record<string, GameMetadataOverride>>
   getEosOverlayStatus: () => {
@@ -354,9 +354,9 @@ interface AsyncIPCFunctions {
   getGogDealsRegion: () => Promise<GogDealsRegion | null>
   getGogDiscounts: (
     locale: CatalogLocaleSettings,
-    hideOwned?: boolean,
-    wishlistOnly?: boolean
+    hideOwned?: boolean
   ) => Promise<CatalogProduct[]>
+  getGogWishlist: () => Promise<string[]>
   getGmgDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
   getHumbleDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
   'steamgriddb.hasApiKey': () => Promise<boolean>

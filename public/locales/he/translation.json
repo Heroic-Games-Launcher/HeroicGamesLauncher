@@ -63,7 +63,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "הוספת {{game}} לSteam נכשל בשל: {{newLine}}{{error}}"
+                }
+            }
         },
         "runexe": {
             "title": "בחרו קובץ EXE להפעיל"
@@ -532,7 +537,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "השתמש בSteam Runtime"
+        }
     },
     "status": {
         "processing": "מעבד קבצים, נא לחכות",
@@ -1235,5 +1243,9 @@
     "next": "",
     "sidebar": {
         "console": ""
+    },
+    "common": {
+        "cancel": "בטל",
+        "warning": "אזהרה"
     }
 }

@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "حذف کردن {{game}} از استیم با مشکل مواجه شد:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -790,7 +795,11 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "استفاده از Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1253,5 +1262,9 @@
             "wineMissing": "مسیری انتخاب نشده است"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "انصراف",
+        "warning": "هشدار"
+    }
 }

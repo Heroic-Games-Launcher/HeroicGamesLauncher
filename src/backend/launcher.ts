@@ -10,7 +10,6 @@ import {
   WineInstallation,
   WineCommandArgs,
   GameSettings,
-  KnowFixesInfo,
   LaunchParams,
   StatusPromise
 } from 'common/types'
@@ -58,7 +57,6 @@ import {
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
-import { storeMap } from 'common/utils'
 import { getMainWindow } from './main_window'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
@@ -69,7 +67,6 @@ import { tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
   sharedWinePrefix,
-  fixesPath,
   flatpakHome,
   galaxyCommunicationExePath,
   gamesConfigPath,
@@ -95,6 +92,7 @@ import type { PartialDeep } from 'type-fest'
 import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 import type { Game } from 'common/types/game_manager'
+import { getKnownFixesFor } from './known_fixes/utils'
 
 let powerDisplayId: number | null
 
@@ -529,6 +527,11 @@ async function prepareLaunch(
     )
   ])
 
+  const knownFixes = getKnownFixesFor(gameInfo.app_name, gameInfo.runner)
+  if (knownFixes && knownFixes.wikiLink) {
+    logWriter.logInfo(`Wiki Link, read this: ${knownFixes.wikiLink}\n\n`)
+  }
+
   // If we're not on Linux, we can return here
   if (!isLinux) {
     return { success: true, rpcClient, offlineMode }
@@ -674,7 +677,7 @@ async function prepareLaunch(
     await download('umu')
   }
 
-  if (gameSettings.steamRuntime) {
+  if (useUmu) {
     steamRuntime = [await getUmuPath()]
   }
 
@@ -862,9 +865,24 @@ async function prepareWineLaunch(
             'GalaxyCommunication',
             `binpath=${galaxyCommWinePath}`
           ],
-          protonVerb: 'runinprefix'
+          protonVerb: 'run'
         })
       }
+      await runWineCommand(game, {
+        commandParts: [
+          'reg',
+          'add',
+          'HKLM\\SOFTWARE\\WOW6432Node\\GOG.com\\GalaxyClient\\paths',
+          '/v',
+          'client',
+          '/t',
+          'REG_SZ',
+          '/d',
+          'C:\\Program Files\\GOG Galaxy',
+          '/f'
+        ],
+        protonVerb: 'run'
+      })
     }
   } catch (err) {
     logError([
@@ -907,27 +925,8 @@ async function prepareWineLaunch(
   return { success: true, envVars: envVars }
 }
 
-export function readKnownFixes(game: Game) {
-  const fixPath = join(fixesPath, `${game.id}-${storeMap[game.runner]}.json`)
-
-  if (!existsSync(fixPath)) return null
-
-  try {
-    const fixesContent = JSON.parse(
-      readFileSync(fixPath).toString()
-    ) as KnowFixesInfo
-
-    return fixesContent
-  } catch (error) {
-    // if we fail to download the json file, it can be malformed causing
-    // JSON.parse to throw an exception
-    logWarning(`Known fixes could not be applied, ignoring.\n${error}`)
-    return null
-  }
-}
-
 async function installFixes(game: Game) {
-  const knownFixes = readKnownFixes(game)
+  const knownFixes = getKnownFixesFor(game.id, game.runner)
 
   if (!knownFixes) return
 
@@ -959,7 +958,7 @@ async function installFixes(game: Game) {
 }
 
 function getKnownFixesEnvVariables(game: Game) {
-  const knownFixes = readKnownFixes(game)
+  const knownFixes = getKnownFixesFor(game.id, game.runner)
 
   return knownFixes?.envVariables || {}
 }

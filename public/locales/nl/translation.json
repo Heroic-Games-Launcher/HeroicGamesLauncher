@@ -98,6 +98,11 @@
             "dxmt": {
                 "message": "",
                 "title": ""
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -795,7 +800,11 @@
         "dxfpslimit": "Limiteer DirectX Games FPS",
         "enable-quick-sync-menu": "",
         "disable_gog_presence": "Schakel GOG Presence updates uit",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1262,5 +1271,10 @@
             "wineMissing": "Geen pad geselecteerd"
         }
     },
-    "next": "Volgende"
+    "next": "Volgende",
+    "common": {
+        "add": "Voeg toe",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }

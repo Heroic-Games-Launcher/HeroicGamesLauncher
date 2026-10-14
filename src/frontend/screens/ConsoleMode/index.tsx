@@ -13,7 +13,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { sendKill, updateGame } from 'frontend/helpers'
+import { sendKill } from 'frontend/helpers'
+import { updateGame } from 'frontend/helpers/library'
 import { timestampStore } from 'frontend/helpers/electronStores'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 

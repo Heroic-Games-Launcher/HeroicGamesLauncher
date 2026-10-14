@@ -306,6 +306,7 @@ function InstallModal({ game, gameInfo = null }: Props) {
             availablePlatforms={availablePlatforms}
             backdropClick={closeModal}
             platformToInstall={platformToInstall}
+            crossoverBottle={crossoverBottle}
           >
             {platformSelection()}
             {hasWine ? (

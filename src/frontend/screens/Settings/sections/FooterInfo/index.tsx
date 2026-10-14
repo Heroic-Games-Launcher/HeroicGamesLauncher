@@ -6,13 +6,26 @@ export default function FooterInfo() {
   const { t } = useTranslation()
   const { game } = useContext(SettingsContext)
 
+  const openConfigFile = () =>
+    window.api.showConfigFileInFolder(game ?? undefined)
+
   return (
     <div>
       <span className="save">{t('info.settings')}</span>
       {game && (
         <span className="appName">
           AppName: &nbsp;
-          <span style={{ userSelect: 'all' }}> {game.id}</span>
+          <button
+            type="button"
+            className="appNameButton"
+            title={t(
+              'settings.open-game-settings-file-hint',
+              'Click to open game settings file'
+            )}
+            onClick={openConfigFile}
+          >
+            {game.id}
+          </button>
         </span>
       )}
     </div>

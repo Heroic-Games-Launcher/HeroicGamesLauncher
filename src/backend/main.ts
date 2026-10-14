@@ -27,10 +27,10 @@ import 'backend/updater'
 import 'backend/discounts'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
-import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
+import { existsSync, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
 
-import Backend from 'i18next-fs-backend'
+import Backend from 'i18next-fs-backend/cjs'
 import i18next from 'i18next'
 import { join } from 'path'
 import { DXVK, Winetricks } from './tools'
@@ -85,12 +85,7 @@ import {
   logWarning
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
-import {
-  launchEventCallback,
-  readKnownFixes,
-  runWineCommand,
-  validWine
-} from './launcher'
+import { launchEventCallback, runWineCommand, validWine } from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
@@ -131,7 +126,6 @@ import {
   wikiLink,
   wineprefixFAQ
 } from './constants/urls'
-import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
   isCLIConsoleMode,
   isCLIFullscreen,
@@ -623,7 +617,11 @@ addListener('showConfigFileInFolder', async (event, game) => {
   if (!game) {
     return openUrlOrFile(configPath)
   }
-  return openUrlOrFile(path.join(gamesConfigPath, `${game.id}.json`))
+  const gameConfigPath = path.join(gamesConfigPath, `${game.id}.json`)
+  if (!existsSync(gameConfigPath)) {
+    GameConfig.get(game.id).flush()
+  }
+  return openUrlOrFile(gameConfigPath)
 })
 
 addListener('removeFolder', async (e, [path, folderName]) => {
@@ -864,22 +862,6 @@ addListener('setSetting', (event, game, key, value) => {
   }
 })
 
-// Watch the installed games file and trigger a refresh on the installed games if something changes
-if (existsSync(legendaryInstalled)) {
-  let watchTimeout: NodeJS.Timeout | undefined
-  watch(legendaryInstalled, () => {
-    logInfo('installed.json updated, refreshing library', LogPrefix.Legendary)
-    // `watch` might fire twice (while Legendary/we are still writing chunks of the file), which would in turn make LegendaryLibrary fail to
-    // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen
-    // in a 500ms timespan
-    if (watchTimeout) clearTimeout(watchTimeout)
-    watchTimeout = setTimeout(
-      () => libraryManagerMap['legendary'].refreshInstalled(),
-      500
-    )
-  })
-}
-
 addHandler('refreshLibrary', async (e, library?) => {
   if (library !== undefined && library !== 'all') {
     await libraryManagerMap[library].refresh()
@@ -945,33 +927,42 @@ addHandler('repair', async (event, game) => {
 addHandler('moveInstall', async (event, game, path): Promise<void> => {
   sendGameStatusUpdate(game, 'moving')
 
-  const { title } = game.getGameInfo()
+  const { title, install } = game.getGameInfo()
   notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-  const moveRes = await game.moveInstall(path)
-  if (moveRes.status === 'error') {
+  const onMoveError = (error: string) => {
     notify({
       title,
       body: i18next.t('notify.error.move', 'Error Moving Game')
     })
     logError(
-      `Error while moving ${title} to ${path}: ${moveRes.error} `,
+      `Error while moving ${title} to ${path}: ${error}`,
       LogPrefix.Backend
     )
-
     showDialogBoxModalAuto({
       event,
       title: i18next.t('box.error.title', 'Error'),
       message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
-        error: moveRes.error
+        error
       }),
       type: 'ERROR'
     })
   }
 
-  if (moveRes.status === 'done') {
-    notify({ title, body: i18next.t('notify.moved') })
-    logInfo(`Finished moving ${title} to ${path}.`, LogPrefix.Backend)
+  // Moving into own subfolder deletes files
+  if (install.install_path && path.startsWith(install.install_path)) {
+    onMoveError(
+      `New install path (${path}) cannot be inside the current install path (${install.install_path}).`
+    )
+  } else {
+    const moveRes = await game.moveInstall(path)
+    if (moveRes.status === 'error') {
+      onMoveError(moveRes.error ?? '')
+    }
+    if (moveRes.status === 'done') {
+      notify({ title, body: i18next.t('notify.moved') })
+      logInfo(`Finished moving ${title} to ${path}.`, LogPrefix.Backend)
+    }
   }
 
   sendGameStatusUpdate(game, 'done')
@@ -1024,7 +1015,7 @@ addHandler(
     }
 
     if (winePrefix && wineVersion) {
-      writeConfig(game, {
+      await writeConfig(game, {
         winePrefix,
         wineVersion,
         wineCrossoverBottle
@@ -1375,8 +1366,6 @@ addListener('changeGameVersionPinnedStatus', (e, game, status) => {
   libraryManagerMap[game.runner].changeVersionPinnedStatus(game.id, status)
 })
 
-addHandler('getKnownFixes', (e, game) => readKnownFixes(game))
-
 addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
   validWine(wineVersion)
 )
@@ -1394,6 +1383,7 @@ import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
+import './known_fixes/ipc_handler'
 import './storeManagers/legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'

@@ -6,7 +6,8 @@ import {
   DialogHeader,
   DialogContent
 } from 'frontend/components/UI/Dialog'
-import { install, writeConfig } from 'frontend/helpers'
+import { writeConfig } from 'frontend/helpers'
+import { install } from 'frontend/helpers/library'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { InstallProgress } from 'frontend/types'

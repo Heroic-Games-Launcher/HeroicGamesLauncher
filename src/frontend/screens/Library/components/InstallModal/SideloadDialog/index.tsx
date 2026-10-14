@@ -34,6 +34,7 @@ type Props = {
   game: GameHandle
   availablePlatforms: AvailablePlatforms
   winePrefix: string
+  crossoverBottle: string
   wineVersion: WineInstallation | undefined
   children: React.ReactNode
   platformToInstall: InstallPlatform
@@ -47,6 +48,7 @@ export default function SideloadDialog({
   availablePlatforms,
   backdropClick,
   winePrefix,
+  crossoverBottle,
   wineVersion,
   platformToInstall,
   children,
@@ -196,6 +198,14 @@ export default function SideloadDialog({
       launchFullScreen
     })
 
+    if (!editMode) {
+      await window.api.writeConfig(new GameHandle(app_name, 'sideload'), {
+        winePrefix,
+        wineVersion,
+        wineCrossoverBottle: crossoverBottle
+      })
+    }
+
     await refreshLibrary({
       library: 'sideload',
       runInBackground: true,
@@ -290,6 +300,7 @@ export default function SideloadDialog({
   const showSideloadExe = appPlatform !== 'Browser'
 
   const shouldShowRunExe =
+    !editMode &&
     platform !== 'win32' &&
     appPlatform !== 'Mac' &&
     appPlatform !== 'linux' &&

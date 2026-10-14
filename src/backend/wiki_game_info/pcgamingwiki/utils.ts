@@ -96,7 +96,12 @@ async function getPageID(title: string, id?: string): Promise<string | null> {
     )}&format=json`
   )
 
-  return data.query.search[0]?.pageid
+  const results: Array<{ pageid: string; title?: string }> = data.query.search
+  const exactMatch = results.find(
+    (result) => result.title?.toLowerCase() === title.toLowerCase()
+  )
+
+  return (exactMatch ?? results[0])?.pageid
 }
 
 async function getImageUrl(fileName: string): Promise<string | undefined> {

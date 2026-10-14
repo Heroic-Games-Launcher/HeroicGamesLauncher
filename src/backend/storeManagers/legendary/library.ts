@@ -122,7 +122,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
   /**
    * Refresh `installedGames` from file.
    */
-  refreshInstalled() {
+  public refreshInstalled() {
     const installedJSON = join(legendaryConfigPath, 'installed.json')
 
     let installedCache: [string, InstalledJsonMetadata][] = []

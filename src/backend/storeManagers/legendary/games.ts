@@ -649,6 +649,8 @@ export default class LegendaryGame extends Game {
     }
     this.addShortcuts()
 
+    libraryManagerMap['legendary'].refreshInstalled()
+
     return { status: 'done' }
   }
 

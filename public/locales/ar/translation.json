@@ -98,6 +98,11 @@
             "dxmt": {
                 "message": "حدث خلل أثناء تحميل DXMT! الرجاء التحقق من الاتصال بالانترنت!",
                 "title": "حدث خلل أثناء تحميل DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "فشلت إضافة {{game}} إلى ستيم مع: {{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -803,7 +808,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "استخدم بيئة تشغيل ستيم"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1280,5 +1288,10 @@
             "title": "إلغاء التحديث؟"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "أضيف",
+        "cancel": "ألغِ",
+        "warning": "تحذير"
+    }
 }

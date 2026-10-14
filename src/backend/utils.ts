@@ -1721,13 +1721,13 @@ const axiosClient = axios.create({
   }
 })
 
-export const writeConfig = (
+export const writeConfig = async (
   game: Game | null,
   config: Partial<AppSettings>
 ) => {
   logInfo(`Writing config for ${game ? game.id : 'Heroic'}`, LogPrefix.Backend)
   const oldConfig = game
-    ? GameConfig.get(game.id).config
+    ? await GameConfig.get(game.id).getSettings()
     : GlobalConfig.get().getSettings()
 
   // log only the changed setting

@@ -4,7 +4,8 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { GameInfo } from 'common/types'
 
-import { createNewWindow, repair } from 'frontend/helpers'
+import { createNewWindow } from 'frontend/helpers'
+import { repair } from 'frontend/helpers/library'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
@@ -210,7 +211,9 @@ export default function GamesSubmenu({
   async function handleAddToSteam() {
     setSteamRefresh(true)
     if (addedToSteam) {
-      await window.api.removeFromSteam(game).then(() => setAddedToSteam(false))
+      await window.api
+        .removeFromSteam(game)
+        .then((removed) => setAddedToSteam(!removed))
     } else {
       await window.api.addToSteam(game).then((added) => setAddedToSteam(added))
     }

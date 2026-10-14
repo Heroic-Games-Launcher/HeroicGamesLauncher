@@ -103,7 +103,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Не ўдалося дадаць {{game}} у Steam:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -808,7 +813,11 @@
         "scripts": "",
         "enable-quick-sync-menu": "",
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Выкарыстоўвайце Steam Runtime",
+            "noRuntimeOption": "None"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1282,5 +1291,10 @@
             "wineMissing": "Шлях не выбраны"
         }
     },
-    "next": "Далей"
+    "next": "Далей",
+    "common": {
+        "add": "Дадаць",
+        "cancel": "Скасаваць",
+        "warning": "Папярэджанне"
+    }
 }

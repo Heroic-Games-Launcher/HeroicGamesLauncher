@@ -1,20 +1,12 @@
 import { logError, LogPrefix, logWarning } from 'backend/logger'
-import {
-  downloadFile,
-  getGame,
-  isEpicServiceOffline,
-  sendGameStatusUpdate
-} from '../utils'
+import { getGame, isEpicServiceOffline, sendGameStatusUpdate } from '../utils'
 import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import pathModule from 'path'
-import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
-import { storeMap } from 'common/utils'
+import { existsSync, rmSync } from 'graceful-fs'
 import { gogdlConfigPath } from 'backend/storeManagers/gog/constants'
-import { fixesPath } from 'backend/constants/paths'
-import type { Game } from 'common/types/game_manager'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: DMStatus
@@ -82,8 +74,6 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    downloadFixesFor(getGame(appName, runner))
-
     const { status, error } = await getGame(appName, runner).install({
       path: path.replaceAll("'", ''),
       installDlcs,
@@ -172,18 +162,6 @@ async function updateQueueElement(params: InstallParams): Promise<{
   } finally {
     sendGameStatusUpdate(game, 'done')
   }
-}
-
-async function downloadFixesFor(game: Game) {
-  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${storeMap[game.runner]}/${game.id}-${storeMap[game.runner]}.json`
-  const dest = pathModule.join(
-    fixesPath,
-    `${game.id}-${storeMap[game.runner]}.json`
-  )
-  if (!existsSync(fixesPath)) {
-    mkdirSync(fixesPath, { recursive: true })
-  }
-  downloadFile({ url, dest, ignoreFailure: true })
 }
 
 export { installQueueElement, updateQueueElement }
