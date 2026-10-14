@@ -1,4 +1,5 @@
-import { KnownFixesFile, Runner } from 'common/types'
+import { KnownFixesFile } from 'common/types'
+import type { Game } from 'common/types/game_manager'
 import { createWriteStream, existsSync, readFileSync } from 'graceful-fs'
 import { storeMap } from 'common/utils'
 import { appFolder } from 'backend/constants/paths'
@@ -11,8 +12,8 @@ import { pipeline } from 'stream/promises'
 
 const fixesPath = join(appFolder, 'known_fixes.json')
 
-export function getKnownFixesFor(appName: string, runner: Runner) {
-  if (runner === 'sideload') return null
+export function getKnownFixesFor(game: Game) {
+  if (game.runner === 'sideload') return null
   if (!existsSync(fixesPath)) return null
 
   try {
@@ -20,7 +21,7 @@ export function getKnownFixesFor(appName: string, runner: Runner) {
       readFileSync(fixesPath, 'utf-8')
     ) as KnownFixesFile
 
-    return fixesContent[storeMap[runner]]?.[appName] ?? null
+    return fixesContent[storeMap[game.runner]]?.[game.id] ?? null
   } catch (error) {
     // if we fail to download the json file, it can be malformed causing
     // JSON.parse to throw an exception

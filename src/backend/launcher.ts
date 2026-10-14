@@ -527,7 +527,7 @@ async function prepareLaunch(
     )
   ])
 
-  const knownFixes = getKnownFixesFor(gameInfo.app_name, gameInfo.runner)
+  const knownFixes = getKnownFixesFor(game)
   if (knownFixes && knownFixes.wikiLink) {
     logWriter.logInfo(`Wiki Link, read this: ${knownFixes.wikiLink}\n\n`)
   }
@@ -926,7 +926,7 @@ async function prepareWineLaunch(
 }
 
 async function installFixes(game: Game) {
-  const knownFixes = getKnownFixesFor(game.id, game.runner)
+  const knownFixes = getKnownFixesFor(game)
 
   if (!knownFixes) return
 
@@ -958,7 +958,7 @@ async function installFixes(game: Game) {
 }
 
 function getKnownFixesEnvVariables(game: Game) {
-  const knownFixes = getKnownFixesFor(game.id, game.runner)
+  const knownFixes = getKnownFixesFor(game)
 
   return knownFixes?.envVariables || {}
 }
