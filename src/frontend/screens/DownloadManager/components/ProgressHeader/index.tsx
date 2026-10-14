@@ -1,6 +1,5 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { useEffect } from 'react'
 import { useInstallProgressHistory } from 'frontend/state/InstallProgress'
 import { padTimeline, TimelineSlot } from 'frontend/state/progressTimeline'
 import {
@@ -28,15 +27,13 @@ export default function ProgressHeader(props: {
 }) {
   const { t } = useTranslation()
   const [progress] = hasProgress(props.appName, props.runner)
-  const progressKey = `${props.appName}_${props.runner}`
-  const progressHistory = useInstallProgressHistory(
-    (state) => state.history[progressKey] ?? []
-  )
-  const clearProgressHistory = useInstallProgressHistory((state) => state.clear)
-
-  useEffect(() => {
-    if (props.state === 'idle') clearProgressHistory(progressKey)
-  }, [clearProgressHistory, progressKey, props.state])
+  // With nothing in the queue, keep showing the last download of this session
+  const progressHistory = useInstallProgressHistory((state) => {
+    const key = props.appName
+      ? `${props.appName}_${props.runner}`
+      : state.lastKey
+    return (key && state.history[key]) || []
+  })
 
   const timeline = padTimeline(progressHistory)
   const latest = progressHistory.at(-1)

@@ -6,17 +6,21 @@ import { addSample, InstallProgressPoint } from './progressTimeline'
 
 type StoreType = Record<`${string}_${Runner}`, InstallProgress>
 
+// Speed history lives for the whole Heroic session, so the graph still shows
+// the last download after it finished or the queue went idle
 interface ProgressHistoryStore {
   history: Record<string, InstallProgressPoint[]>
+  lastKey: string | null
   add: (key: string, progress: InstallProgress) => void
-  clear: (key: string) => void
 }
 
 const useInstallProgressRaw = create<StoreType>()(() => ({}))
 const useInstallProgressHistoryRaw = create<ProgressHistoryStore>()((set) => ({
   history: {},
+  lastKey: null,
   add: (key, progress) =>
     set((state) => ({
+      lastKey: key,
       history: {
         ...state.history,
         [key]: addSample(
@@ -25,13 +29,7 @@ const useInstallProgressHistoryRaw = create<ProgressHistoryStore>()((set) => ({
           Date.now()
         )
       }
-    })),
-  clear: (key) =>
-    set((state) => {
-      const history = { ...state.history }
-      delete history[key]
-      return { history }
-    })
+    }))
 }))
 
 window.api.onProgressUpdate((e, { appName, progress, runner }) => {
