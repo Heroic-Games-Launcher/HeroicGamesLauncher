@@ -1003,6 +1003,8 @@
         "savefolder": {
             "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Select the exact save games folder",
+            "retry": "Detect again",
+            "title": "Save folder",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
         "scripts": "Scripts",

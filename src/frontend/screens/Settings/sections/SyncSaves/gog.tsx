@@ -4,9 +4,9 @@ import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
   Alert,
-  InfoBox,
   PathSelectionBox,
   SelectField,
+  SettingRow,
   ToggleSwitch
 } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
@@ -159,60 +159,70 @@ export default function GOGSyncSaves({
                   setGogSaves(saves)
                 }}
                 pathDialogTitle={t('box.sync.title')}
-                afterInput={
-                  <span
-                    role={'button'}
-                    className="smallMessage"
-                    onClick={() => handleRetry()}
-                  >
-                    {gogSaves.length >= 1 && value.location.length
-                      ? t(
-                          'setting.savefolder.warning',
-                          'Please check twice if the path is correct (click to retry)'
-                        )
-                      : t(
-                          'setting.savefolder.not-found',
-                          'Save folder not found, please select it manually (click to retry)'
-                        )}
-                  </span>
+                label={value.name}
+                info={
+                  <ul>
+                    <li>{t('help.sync.part1')}</li>
+                    {!isWin && <li>{t('help.sync.part2')}</li>}
+                    <li>{t('help.sync.part3')}</li>
+                    <li>{t('help.sync.part4')}</li>
+                  </ul>
                 }
               />
+              <Alert
+                variant={value.location.length ? 'info' : 'warning'}
+                actions={
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleRetry()}
+                  >
+                    {t('setting.savefolder.retry', 'Detect again')}
+                  </Button>
+                }
+              >
+                {gogSaves.length >= 1 && value.location.length
+                  ? t(
+                      'setting.savefolder.warning',
+                      'Please check twice if the path is correct (click to retry)'
+                    )
+                  : t(
+                      'setting.savefolder.not-found',
+                      'Save folder not found, please select it manually (click to retry)'
+                    )}
+              </Alert>
             </div>
           ))}
 
-          <SelectField
+          <SettingRow
             label={t('setting.manualsync.title')}
-            htmlId="selectSyncType"
-            onChange={(event) => setSyncType(event.target.value as SyncType)}
-            value={syncType}
-            disabled={!gogSaves.every((value) => value.location.length)}
-            extraClass="rightButtons"
-            // style={{ marginRight: '12px' }}
-            afterSelect={
-              <Button
-                variant="primary"
-                size="sm"
-                className="${ isSyncing ? 'is-primary' : 'settings' }"
-                data-testid="setSync"
-                onClick={async () => handleSync()}
-                disabled={
-                  isSyncing || !gogSaves.every((value) => value.location.length)
-                }
-              >
-                {`${
-                  isSyncing
-                    ? t('setting.manualsync.syncing')
-                    : t('setting.manualsync.sync')
-                }`}
-              </Button>
-            }
+            htmlFor="selectSyncType"
           >
-            {syncCommands.map((el, i) => (
-              <MenuItem value={el.value} key={i}>
-                {el.name}
-              </MenuItem>
-            ))}
-          </SelectField>
+            <SelectField
+              htmlId="selectSyncType"
+              onChange={(event) => setSyncType(event.target.value as SyncType)}
+              value={syncType}
+              disabled={!gogSaves.every((value) => value.location.length)}
+            >
+              {syncCommands.map((el, i) => (
+                <MenuItem value={el.value} key={i}>
+                  {el.name}
+                </MenuItem>
+              ))}
+            </SelectField>
+            <Button
+              variant="primary"
+              data-testid="setSync"
+              onClick={async () => handleSync()}
+              disabled={
+                isSyncing || !gogSaves.every((value) => value.location.length)
+              }
+            >
+              {isSyncing
+                ? t('setting.manualsync.syncing')
+                : t('setting.manualsync.sync')}
+            </Button>
+          </SettingRow>
           <ToggleSwitch
             htmlId="autosync"
             value={autoSyncSaves}
@@ -223,14 +233,6 @@ export default function GOGSyncSaves({
           {gogSaves.some((save) => save.location.length > 0) ? (
             <QuickSavesToggle />
           ) : null}
-          <InfoBox text="infobox.help">
-            <ul>
-              <li>{t('help.sync.part1')}</li>
-              {!isWin && <li>{t('help.sync.part2')}</li>}
-              <li>{t('help.sync.part3')}</li>
-              <li>{t('help.sync.part4')}</li>
-            </ul>
-          </InfoBox>
         </>
       )}
     </>

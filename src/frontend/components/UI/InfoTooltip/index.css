@@ -38,3 +38,11 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.InfoTooltip__content ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs-fixed);
+  margin: 0;
+  padding-inline-start: var(--space-md-fixed);
+}
