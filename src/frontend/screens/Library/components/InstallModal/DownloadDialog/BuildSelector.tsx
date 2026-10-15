@@ -14,10 +14,10 @@ export default function BuildSelector({
   selectedBuild,
   setSelectedBuild
 }: BuildSelectorProps) {
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
 
   const getFormattedDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString(undefined)
+    return new Date(dateStr).toLocaleDateString(i18n.language)
   }
 
   return (

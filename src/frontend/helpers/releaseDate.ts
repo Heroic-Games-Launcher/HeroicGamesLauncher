@@ -1,4 +1,4 @@
-function convertDate(date: string) {
+function convertDate(date: string, locale: string) {
   const match = date.match(/(\w+ \d{1,2}, \d{4})/)
   if (match) {
     date = match[1]
@@ -10,7 +10,7 @@ function convertDate(date: string) {
     return null
   }
 
-  return dateObj.toLocaleDateString(undefined, {
+  return dateObj.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -27,10 +27,11 @@ interface NativePlatform {
 export function getReleaseDate(
   wikiDates: string[] | undefined,
   runnerDate: string | undefined,
-  is: NativePlatform
+  is: NativePlatform,
+  locale: string
 ) {
   if (runnerDate) {
-    return convertDate(runnerDate)
+    return convertDate(runnerDate, locale)
   }
 
   if (!wikiDates || wikiDates[0] === '' || wikiDates.length === 0) {
@@ -50,9 +51,9 @@ export function getReleaseDate(
       (platformName === 'Linux' && is.linuxNative && is.linux) ||
       (platformName === 'OS X' && is.macNative && is.mac)
     ) {
-      return convertDate(releaseDate)
+      return convertDate(releaseDate, locale)
     }
   }
 
-  return windowsReleaseDate ? convertDate(windowsReleaseDate) : null
+  return windowsReleaseDate ? convertDate(windowsReleaseDate, locale) : null
 }

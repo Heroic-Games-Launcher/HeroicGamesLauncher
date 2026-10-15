@@ -19,14 +19,15 @@ const STORE_NAMES: Record<string, string> = {
 }
 
 const GameDetails = ({ gameInfo }: Props) => {
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
   const { gameExtraInfo, runner, wikiInfo, is } = useContext(GameContext)
 
   const genres = gameExtraInfo?.genres || wikiInfo?.pcgamingwiki?.genres || []
   const releaseDate = getReleaseDate(
     wikiInfo?.pcgamingwiki?.releaseDate,
     gameExtraInfo?.releaseDate,
-    is
+    is,
+    i18n.language
   )
   const installPlatform = gameInfo.install.platform
 
