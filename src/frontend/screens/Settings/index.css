@@ -339,9 +339,10 @@ a {
 }
 
 /* Field components rendered inside a card become plain rows: the card owns
-   the vertical rhythm and the dividers. */
-.Settings .SettingsCard__body > *,
-.settingsDialogContent .SettingsCard__body > * {
+   the vertical rhythm and the dividers. Components that already draw their own
+   box, like Alert, keep their own padding and border. */
+.Settings .SettingsCard__body > *:not(.Alert),
+.settingsDialogContent .SettingsCard__body > *:not(.Alert) {
   padding-block: 20px;
   margin: 0;
   width: 100%;
@@ -349,15 +350,25 @@ a {
   border-bottom: 1px solid var(--panel-divider, var(--divider));
 }
 
-.Settings .SettingsCard__body > *:first-child,
-.settingsDialogContent .SettingsCard__body > *:first-child {
+.Settings .SettingsCard__body > *:not(.Alert):first-child,
+.settingsDialogContent .SettingsCard__body > *:not(.Alert):first-child {
   padding-top: 0;
 }
 
-.Settings .SettingsCard__body > *:last-child,
-.settingsDialogContent .SettingsCard__body > *:last-child {
+.Settings .SettingsCard__body > *:not(.Alert):last-child,
+.settingsDialogContent .SettingsCard__body > *:not(.Alert):last-child {
   padding-bottom: 0;
   border-bottom: none;
+}
+
+.Settings .SettingsCard__body > .Alert,
+.settingsDialogContent .SettingsCard__body > .Alert {
+  margin-block-end: var(--space-md-fixed);
+}
+
+.Settings .SettingsCard__body > .Alert:last-child,
+.settingsDialogContent .SettingsCard__body > .Alert:last-child {
+  margin-block-end: 0;
 }
 
 /* Compact controls sit on the right of their label, wide ones stay stacked. */
