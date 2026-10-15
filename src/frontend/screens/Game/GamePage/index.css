@@ -166,12 +166,12 @@
 
 .gameStatus__label {
   margin: 0;
-  font-size: var(--body-md);
-  color: var(--text-muted, var(--text-secondary));
+  font-size: var(--body-sm);
+  color: var(--on-panel-muted, var(--text-secondary));
 }
 
 .gameStatus__label--busy {
-  color: var(--success);
+  color: var(--on-panel-muted, var(--text-secondary));
 }
 
 .gameStatus__label a {

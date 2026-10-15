@@ -14,6 +14,16 @@
   overflow: hidden;
 }
 
+.ProgressBar--md .ProgressBar__track {
+  height: 10px;
+}
+
+.ProgressBar--md .ProgressBar__value {
+  font-size: var(--body-md);
+  font-weight: var(--medium);
+  color: var(--on-panel, var(--text-default));
+}
+
 .ProgressBar__fill {
   height: 100%;
   border-radius: inherit;

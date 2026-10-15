@@ -74,7 +74,7 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
         ? ''
         : `${
             percent && bytes
-              ? `${percent}% [${bytes}] ${eta ? `ETA: ${eta}` : ''}`
+              ? `${bytes}${eta ? ` \u00b7 ETA ${eta}` : ''}`
               : '...'
           }`
 
@@ -136,8 +136,11 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
       {showProgress && (
         <ProgressBar
           tone="success"
+          size="md"
+          showValue
           className="installProgress"
           value={getProgress(progress)}
+          label={t('status.installing', 'Installing')}
         />
       )}
       <p

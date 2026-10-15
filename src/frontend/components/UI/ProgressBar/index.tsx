@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import './index.css'
 
 type ProgressTone = 'accent' | 'success' | 'warning'
+type ProgressSize = 'sm' | 'md'
 
 interface ProgressBarProps {
   value?: number
@@ -9,6 +10,7 @@ interface ProgressBarProps {
   className?: string
   label?: string
   showValue?: boolean
+  size?: ProgressSize
 }
 
 export default function ProgressBar({
@@ -16,13 +18,16 @@ export default function ProgressBar({
   tone = 'accent',
   className,
   label,
-  showValue = false
+  showValue = false,
+  size = 'sm'
 }: ProgressBarProps) {
   const indeterminate = value === undefined || Number.isNaN(value)
   const clamped = indeterminate ? 0 : Math.min(100, Math.max(0, value))
 
   return (
-    <div className={classNames('ProgressBar', className)}>
+    <div
+      className={classNames('ProgressBar', `ProgressBar--${size}`, className)}
+    >
       <div
         className={classNames('ProgressBar__track', `ProgressBar--${tone}`, {
           'ProgressBar--indeterminate': indeterminate
