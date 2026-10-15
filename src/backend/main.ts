@@ -80,6 +80,7 @@ import {
   logWarning
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
+import { runEglv2Sync } from 'backend/storeManagers/legendary/eglv2_sync'
 import { launchEventCallback, runWineCommand, validWine } from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -1103,6 +1104,8 @@ addHandler('changeInstallPath', async (event, { appName, path, runner }) => {
 addHandler('egsSync', async (event, args) => {
   return libraryManagerMap['legendary'].toggleGamesSync(args)
 })
+
+addHandler('syncWithNewEgl', async () => runEglv2Sync())
 
 addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
   libraryManagerMap['gog'].getGame(appName).syncSaves(arg, '', gogSaves)

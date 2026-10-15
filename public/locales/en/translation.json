@@ -513,6 +513,7 @@
         "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
+        "eglv2-sync": "Epic games you install in Heroic show up in the new Epic Games Launcher and vice versa, sharing the same files so nothing is downloaded twice. Uninstalls, updates and moves are synced too. Changes made in Heroic appear in the Epic Games Launcher the next time it starts.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -833,6 +834,11 @@
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
+        "eglv2-sync": {
+            "skipped": "These games weren't synced:",
+            "title": "Epic Games Launcher sync",
+            "toggle": "Sync installed games with the new Epic Games Launcher"
+        },
         "egs-sync": "Sync with Installed Epic Games",
         "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",

@@ -27,6 +27,14 @@ export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
 export type DialogType = 'MESSAGE' | 'ERROR'
 
+export interface Eglv2SyncResult {
+  toEgl: string[]
+  toHeroic: string[]
+  removedFromEgl: string[]
+  removedFromHeroic: string[]
+  skipped: { title: string; reason: string }[]
+}
+
 export interface ButtonOptions {
   text: string
   onClick?: () => void
@@ -119,6 +127,7 @@ export interface AppSettings extends GameSettings {
   downloadNoHttps: boolean
   downloadProtonToSteam: boolean
   egsLinkedPath: string
+  eglv2Sync?: boolean
   enableUpdates: boolean
   exitToTray: boolean
   gamepadRepeatDelay: number

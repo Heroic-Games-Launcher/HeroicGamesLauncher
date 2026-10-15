@@ -111,6 +111,9 @@ export interface StoreStructure {
   migrationsStore: {
     appliedMigrations: string[]
   }
+  eglv2SyncStore: {
+    games: Record<string, { dir: string; version: string }>
+  }
   gameOverridesStore: {
     overrides: Record<
       string,

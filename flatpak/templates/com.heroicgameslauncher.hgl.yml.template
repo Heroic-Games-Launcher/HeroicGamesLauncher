@@ -45,6 +45,7 @@ finish-args:
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
   # umu
   - --filesystem=xdg-data/umu:create
+  - --filesystem=xdg-data/com.epicgames.eglv2:create
   - --filesystem=xdg-config/MangoHud:ro
   - --persist=.
   - --share=ipc

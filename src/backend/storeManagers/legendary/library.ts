@@ -51,6 +51,8 @@ import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
 import { LibraryManager } from 'common/types/game_manager'
 import LegendaryGame from './games'
+import { scheduleEglv2Sync, startEglv2Sync } from './eglv2_sync'
+import { sendFrontendMessage } from '../../ipc'
 
 const fallBackImage = 'fallback'
 
@@ -64,6 +66,29 @@ export default class LegendaryLibraryManager implements LibraryManager {
   async init() {
     this.loadGamesInAccount()
     this.refreshInstalled()
+    startEglv2Sync({
+      importGame: async (appName, dir) => {
+        const res = await this.getGame(appName).importGame(dir, 'Windows')
+        if (res.error) return false
+        this.refreshInstalled()
+        this.installState(appName, true)
+        sendFrontendMessage('refreshLibrary', 'legendary')
+        return true
+      },
+      forgetGame: async (appName) => {
+        await this.getGame(appName).forceUninstall()
+        this.refreshInstalled()
+        if (installedGames.has(appName)) return false
+        if (library.has(appName)) this.installState(appName, false)
+        return true
+      },
+      moveGame: async (appName, dir) => {
+        await this.changeGameInstallPath(appName, dir)
+        sendFrontendMessage('refreshLibrary', 'legendary')
+        return true
+      },
+      isOwned: (appName) => allGames.has(appName)
+    })
   }
 
   getGame(id: string): LegendaryGame {
@@ -153,6 +178,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
     installedCache.push(...thirdPartyGames)
 
     installedGames = new Map(installedCache)
+    scheduleEglv2Sync()
   }
 
   private defaultExecResult = {
@@ -469,6 +495,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
       library.get(appName).install = {} as InstalledInfo
       installedGames.delete(appName)
     }
+    scheduleEglv2Sync()
   }
 
   private loadGameMetadata(appName: string): GameMetadata {

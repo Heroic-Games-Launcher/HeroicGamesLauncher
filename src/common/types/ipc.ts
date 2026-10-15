@@ -11,6 +11,7 @@ import type {
   DiskSpaceData,
   DMQueueElement,
   DownloadManagerState,
+  Eglv2SyncResult,
   ExecResult,
   ExtraInfo,
   GameAchievement,
@@ -236,6 +237,7 @@ interface AsyncIPCFunctions {
   updateGame: (args: UpdateParams) => Promise<void>
   changeInstallPath: (args: MoveGameArgs) => Promise<void>
   egsSync: (arg: string) => Promise<string>
+  syncWithNewEgl: () => Promise<Eglv2SyncResult | undefined>
   syncGOGSaves: (
     gogSaves: GOGCloudSavesLocation[],
     appname: string,

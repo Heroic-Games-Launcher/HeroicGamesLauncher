@@ -9,6 +9,7 @@ import {
   DisableController,
   DiscordRPC,
   EgsSettings,
+  Eglv2Sync,
   HideChangelogOnStartup,
   LibraryTopSection,
   MaxRecentGames,
@@ -42,6 +43,8 @@ export default function GeneralSettings() {
       <DefaultSteamPath />
 
       <EgsSettings />
+
+      <Eglv2Sync />
 
       <CheckUpdatesOnStartup />
 
