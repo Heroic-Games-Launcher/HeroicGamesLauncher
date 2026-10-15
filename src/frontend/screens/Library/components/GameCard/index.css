@@ -433,13 +433,16 @@
 
 .gameListItem {
   text-align: start;
+  height: 100%;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;
   grid-template-areas: 'thumb info status actions';
   align-items: center;
   gap: 14px;
   width: 100%;
-  padding: 10px 12px;
+  --list-row-pad-block: 10px;
+  --list-row-pad-inline: 12px;
+  padding: var(--list-row-pad-block) var(--list-row-pad-inline);
   position: relative;
   background: var(--input-background);
   border: 1px solid var(--divider);
@@ -457,13 +460,20 @@
 
 .gameListItem > a {
   grid-area: thumb;
-  position: relative;
+  position: static;
   display: block;
   width: 56px;
   height: 56px;
   border-radius: 8px;
   overflow: hidden;
   background-color: var(--gradient-gamecard);
+}
+
+.gameListItem > a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .gameListItem .gameImg {
@@ -477,8 +487,9 @@
 .gameListItem .StoreBadge {
   display: inline-flex;
   position: absolute;
-  top: 3px;
-  left: 3px;
+  top: calc(var(--list-row-pad-block) + 3px);
+  left: calc(var(--list-row-pad-inline) + 3px);
+  z-index: 2;
   width: 20px;
   height: 20px;
   padding: 3px;
@@ -502,10 +513,14 @@
 }
 
 .gameListItem .gameTitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-size: var(--text-lg);
   font-weight: var(--semibold);
+  line-height: 1.25;
   color: var(--text-default);
-  -webkit-line-clamp: 1;
 }
 
 .gameListItem .Playtime {
@@ -529,6 +544,7 @@
 
 .gameListItem > .icons {
   grid-area: actions;
+  z-index: 2;
   align-self: center;
   position: static;
   width: auto;
