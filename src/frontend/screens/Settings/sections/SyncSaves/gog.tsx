@@ -3,14 +3,13 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
+  Alert,
   InfoBox,
   PathSelectionBox,
   SelectField,
   ToggleSwitch
 } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
@@ -127,13 +126,12 @@ export default function GOGSyncSaves({
           hideProgress
         />
       )}
-      <div className="defaults-hint">
-        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+      <Alert variant="warning">
         {t(
           'settings.saves.warning',
           'Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)'
         )}
-      </div>
+      </Alert>
       {isLoading ? (
         <TextWithProgress
           text={t(

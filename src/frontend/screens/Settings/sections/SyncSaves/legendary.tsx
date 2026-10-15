@@ -1,8 +1,7 @@
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
+  Alert,
   InfoBox,
   PathSelectionBox,
   SelectField,
@@ -84,13 +83,12 @@ export default function LegendarySyncSaves({
 
   if (!featureSupported) {
     return (
-      <div className="defaults-hint">
-        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+      <Alert variant="info">
         {t(
           'settings.saves.not_supported',
           'This game does not support Cloud Saves.'
         )}
-      </div>
+      </Alert>
     )
   }
 
@@ -107,13 +105,12 @@ export default function LegendarySyncSaves({
           hideProgress
         />
       )}
-      <div className="defaults-hint">
-        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+      <Alert variant="warning">
         {t(
           'settings.saves.warning',
           'Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)'
         )}
-      </div>
+      </Alert>
       {isLoading ? (
         <TextWithProgress
           text={t(
