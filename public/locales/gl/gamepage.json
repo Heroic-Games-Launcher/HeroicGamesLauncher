@@ -259,7 +259,9 @@
             "title": "Título da aplicación/xogo",
             "broser": "URL do navegador",
             "fullscreen": "Iniciar a pantalla completa (F11 para saír)",
-            "useragent": "Axente de usuario personalizado"
+            "useragent": "Axente de usuario personalizado",
+            "cover-hint": "Portada/Hero Art (faga clic na imaxe para buscar en SteamGridDB)",
+            "image-hint": "Arte Cadrada (faga clic na imaxe para buscar en SteamGridDB)"
         },
         "placeholder": {
             "image": "Inserta a URL dunha imaxe ou selecciona unha do teu ordenador",
@@ -359,16 +361,23 @@
         "notice2": "Ao facer clic en Instalar, Heroic executará a aplicación para poder rematar o proceso de instalación"
     },
     "wikiLink": "Información importante sobre este xogo, lee esto: &nbsp;<1>Abrir páxina</1>",
-    "open-saves-folder": "",
+    "open-saves-folder": "Abrir Directorio de Gardados",
     "edit-game": {
         "advanced": "Avanzado",
         "reset": "Restablecer por defecto",
         "title": "Editar Xogo",
         "sgdb": {
-            "no-key-prefix": "Para buscar portadas en SteamGridDB, engade unha clave API en"
+            "no-key-prefix": "Para buscar portadas en SteamGridDB, engade unha clave API en",
+            "no-key-link": "Axustes → Avanzado"
         },
         "placeholder": {
             "image": "Paste an Image URL here"
-        }
+        },
+        "cover": "Portada",
+        "info": {
+            "cover": "Imaxe da Portada",
+            "square": "Imaxe Cadrada"
+        },
+        "square": "Arte Cadrada"
     }
 }

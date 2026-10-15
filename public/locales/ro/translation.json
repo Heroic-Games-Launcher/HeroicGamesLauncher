@@ -214,7 +214,11 @@
             "select": "Select",
             "space": "Spaţiu",
             "update_game": "Actualizați jocul",
-            "exit": "Ieșire"
+            "exit": "Ieșire",
+            "move_focus": "Mută focalizarea",
+            "next_page": "Pagina următoare",
+            "previous_page": "Pagina anterioară",
+            "search": "Caută"
         }
     },
     "docs": "Documentație",
@@ -1221,37 +1225,48 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Sortează",
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
         },
-        "quit": "",
+        "quit": "Ieși din consolă",
         "hints": {
-            "launch": "",
-            "sort": "",
-            "navigate": "",
+            "launch": "Lansează",
+            "sort": "Sortează",
+            "navigate": "Navigați",
             "quit": "Părăsește",
-            "change_store": ""
+            "change_store": "Schimbați magazinul"
         },
-        "launching": "",
+        "launching": "Se lansează",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Necesită actualizare"
         },
         "filter": {
             "sideload": "Other",
             "all": "Toate"
         },
-        "empty": "",
+        "empty": "Nu există jocuri instalate de afișat. Instalează mai întâi un joc.",
         "games": "Jocuri instalate",
-        "quitApp": "",
-        "loading": "",
+        "quitApp": "Ieși din aplicație",
+        "loading": "Se încarcă biblioteca ta…",
         "install": {
             "platform": "Platform",
             "wineLoading": "Loading",
             "path": "Instalează în",
-            "title": "Jocuri instalate",
-            "wineMissing": "Nici o cale selectată"
+            "title": "Instalează jocul",
+            "wineMissing": "Nici o cale selectată",
+            "wine": "Wine"
+        },
+        "cancelInstall": {
+            "title": "Anulezi instalarea?"
+        },
+        "cancelUpdate": {
+            "message": "Acest joc se descarcă în prezent. Anulezi actualizarea în curs?",
+            "title": "Anulezi actualizarea?"
+        },
+        "removeFromQueue": {
+            "message": "Acest joc se află în coada de descărcare. Îl elimini din coadă?"
         }
     },
     "next": "",

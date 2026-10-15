@@ -262,7 +262,9 @@
             "title": "Título de la aplicación/juego",
             "broser": "Enlace web del navegador",
             "fullscreen": "Iniciar a pantalla completa (F11 para salir)",
-            "useragent": "Agente de usuario personalizado"
+            "useragent": "Agente de usuario personalizado",
+            "cover-hint": "Portada/Hero Art (Haz click en la imagen para buscar en SteamGridDB)",
+            "image-hint": "Arte Cuadrada (haz click en la imagen para buscar en SteamGridDB)"
         },
         "placeholder": {
             "image": "Pega la URL de una imagen o selecciona una de tu ordenador",
@@ -368,11 +370,18 @@
         "advanced": "Avanzado",
         "reset": "Restaurar por defecto",
         "sgdb": {
-            "no-key-link": "Ajustes → Avanzado"
+            "no-key-link": "Ajustes → Avanzado",
+            "no-key-prefix": "Para buscar imágenes de portada en SteamGridDB, agregue una clave de API"
         },
         "title": "Editar juego",
         "placeholder": {
             "image": "Inserta el enlace web de una imagen aquí"
-        }
+        },
+        "cover": "Arte de Portada",
+        "info": {
+            "cover": "Imagen de Portada",
+            "square": "Imagen Cuadrada"
+        },
+        "square": "Arte Cuadrada"
     }
 }
