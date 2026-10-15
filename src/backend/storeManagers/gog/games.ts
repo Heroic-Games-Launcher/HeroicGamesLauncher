@@ -938,13 +938,6 @@ export default class GOGGame implements Game {
     if (existsSync(uninstallerPath)) {
       const gameSettings = await this.getSettings()
 
-      const installDirectory = isWindows
-        ? object.install_path
-        : await getWinePath({
-            path: object.install_path,
-            gameSettings
-          })
-
       const command = [
         uninstallerPath,
         '/VERYSILENT',
@@ -977,7 +970,7 @@ export default class GOGGame implements Game {
 
         await spawnAsync('powershell', [
           ...adminCommand,
-          `"/verysilent","\`"/dir=${installDirectory}\`""`,
+          `"/verysilent","\`"/dir=${object.install_path}\`""`,
           ``
         ])
       }
