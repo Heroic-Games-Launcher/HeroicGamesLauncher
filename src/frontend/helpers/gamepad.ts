@@ -8,8 +8,10 @@ import {
   checkPS3Clone1,
   checkStandard,
   checkN64Clone1,
+  checkN64Switch,
   checkGenius1,
-  checkNintendo
+  checkNintendo,
+  checkWiiU
 } from './gamepad_layouts'
 import { VirtualKeyboardController } from './virtualKeyboard'
 
@@ -717,6 +719,10 @@ export const initGamepad = () => {
           checkN64Clone1(buttons, axes, index, checkAction)
         } else if (controller.id.match(/0583.*a009/i)) {
           checkGenius1(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/057e.*0330/i)) {
+          checkWiiU(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/057e.*2019/i)) {
+          checkN64Switch(buttons, axes, index, checkAction)
         } else if (controller.id.match(/057e.*(2006|2007|2009)/i)) {
           checkNintendo(buttons, axes, index, checkAction)
         } else {
