@@ -2,6 +2,49 @@
 
 import { ValidGamepadAction } from 'common/types'
 
+export function checkN64Switch(
+  buttons: readonly GamepadButton[],
+  axes: readonly number[],
+  controllerIndex: number,
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
+) {
+  const B = buttons[1], 
+    A = buttons[0], 
+    L = buttons[4], 
+    R = buttons[5], 
+    Z = buttons[6], 
+    Start = buttons[9], 
+    CUp = buttons[8],
+    CDown = buttons[3],
+    CLeft = buttons[2],
+    CRight = buttons[17],
+    up = buttons[12],
+    down = buttons[13],
+    left = buttons[14],
+    right = buttons[15],
+    guideButton = buttons[16],
+    AxisX = axes[0],
+    AxisY = axes[1]
+
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', CDown?.pressed, controllerIndex)
+  checkAction('rightClick', CLeft?.pressed, controllerIndex)
+  checkAction('rightStickLeft', AxisX < -0.5, controllerIndex)
+  checkAction('rightStickRight', AxisX > 0.5, controllerIndex)
+  checkAction('rightStickUp', AxisY < -0.5, controllerIndex)
+  checkAction('rightStickDown', AxisY > 0.5, controllerIndex)
+  checkAction('padUp', up?.pressed, controllerIndex)
+  checkAction('padDown', down?.pressed, controllerIndex)
+  checkAction('padLeft', left?.pressed, controllerIndex)
+  checkAction('padRight', right?.pressed, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
+}
+
 export function checkGameCube(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
