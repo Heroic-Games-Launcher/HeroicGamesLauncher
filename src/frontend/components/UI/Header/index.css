@@ -23,7 +23,6 @@
 .Header__search {
   flex: 1 1 auto;
   min-width: 0;
-  max-width: 720px;
 }
 
 .Header__search .FormControl {

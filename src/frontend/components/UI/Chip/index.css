@@ -3,7 +3,7 @@
   align-items: center;
   gap: var(--space-xs-fixed);
   background: var(--input-background);
-  color: var(--text-secondary);
+  color: var(--on-panel, var(--text-default));
   border: 1px solid transparent;
   border-radius: 999px;
   padding: var(--space-xs-fixed) var(--space-md-fixed);
@@ -20,7 +20,7 @@
 
 .Chip:hover {
   border-color: var(--divider);
-  color: var(--text-default);
+  color: var(--on-panel, var(--text-default));
 }
 
 .Chip:focus-visible {
@@ -31,7 +31,7 @@
 .Chip--active {
   background: color-mix(in oklab, var(--accent) 18%, var(--input-background));
   border-color: color-mix(in oklab, var(--accent) 55%, transparent);
-  color: var(--text-default);
+  color: var(--on-panel, var(--text-default));
 }
 
 .Chip svg {
