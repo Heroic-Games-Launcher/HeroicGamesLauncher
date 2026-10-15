@@ -245,10 +245,6 @@ export async function launchGame(
       )
 
       launchCleanup(rpcClient)
-      // TODO: check and revert to previous permissions
-      if (isLinux || (isMac && !executable.endsWith('.app'))) {
-        await chmod(executable, 0o775)
-      }
       return true
     }
 

@@ -240,7 +240,9 @@
             "title": "ゲーム/Appタイトル",
             "broser": "ブラウザURL",
             "useragent": "カスタムユーザーエージェント",
-            "fullscreen": "フルスクリーンで起動（F11で終了）"
+            "fullscreen": "フルスクリーンで起動（F11で終了）",
+            "cover-hint": "カバー／ヒーローアート (画像をクリックすると SteamGridDB で検索できます)",
+            "image-hint": "正方形アート (画像をクリックすると SteamGridDB で検索できます)"
         },
         "placeholder": {
             "image": "画像のURLを貼り付けるか、お使いのコンピュータから画像を選択してください",
@@ -251,6 +253,9 @@
         "import-hint": {
             "content": "そのためにこの機能を使用しないでください。<br />代わりに、ストアに<3>ログイン</3>し、ライブラリでゲームを探し、インストールダイアログを開いて「ゲームのインポート」ボタンをクリックします。",
             "title": "重要! Epic/GOG/Amazonからゲームを追加しますか? ここをクリックしてください!"
+        },
+        "images": {
+            "summary": "画像"
         }
     },
     "specs": {
@@ -340,10 +345,21 @@
     "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>",
     "open-saves-folder": "保存フォルダを開く",
     "edit-game": {
-        "advanced": "Advanced",
+        "advanced": "詳細",
         "placeholder": {
             "image": "ここにイメージURLをペーストしてください"
         },
-        "title": "App/ゲームを編集"
+        "title": "App/ゲームを編集",
+        "cover": "カバーアート",
+        "info": {
+            "cover": "カバー画像",
+            "square": "正方形画像"
+        },
+        "reset": "デフォルト設定に戻す",
+        "sgdb": {
+            "no-key-prefix": "SteamGridDBでカバーアートを検索するには、APIキーを追加してください",
+            "no-key-link": "[設定] → [詳細]"
+        },
+        "square": "正方形アート"
     }
 }

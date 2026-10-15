@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "حذف کردن {{game}} از استیم با مشکل مواجه شد:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1257,5 +1262,9 @@
             "wineMissing": "مسیری انتخاب نشده است"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "انصراف",
+        "warning": "هشدار"
+    }
 }
