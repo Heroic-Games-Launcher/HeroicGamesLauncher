@@ -392,6 +392,7 @@ function filterGameSettingsForLog(
       delete gameSettings.eacRuntime
       delete gameSettings.battlEyeRuntime
       delete gameSettings.useGameMode
+      delete gameSettings.disableHidraw
     }
   }
 
@@ -433,6 +434,7 @@ function filterGameSettingsForLog(
         if (wineType.type === 'crossover') {
           delete gameSettings.autoInstallDxvk
           delete gameSettings.winePrefix
+          delete gameSettings.disableHidraw
         }
       }
     } else {
@@ -445,6 +447,7 @@ function filterGameSettingsForLog(
       delete gameSettings.autoInstallDxvk
       delete gameSettings.autoInstallDxvkNvapi
       delete gameSettings.autoInstallVkd3d
+      delete gameSettings.disableHidraw
     }
   }
 
@@ -474,6 +477,7 @@ function filterGameSettingsForLog(
     delete gameSettings.eacRuntime
     delete gameSettings.nvidiaPrime
     delete gameSettings.disableUMU
+    delete gameSettings.disableHidraw
     delete gameSettings.advertiseAvxForRosetta
     delete gameSettings.steamRuntime
   }
@@ -761,6 +765,84 @@ async function getCrossoverBottleFolder(gameSettings: GameSettings) {
     })
 }
 
+const protonSdlEnvVars = ['PROTON_DISABLE_HIDRAW', 'PROTON_USE_SDL']
+
+/**
+ * Returns the Proton SDL env vars the user turned off themselves ("0" or
+ * empty, Proton treats every other value as enabled). Either one opts the
+ * game out of the `disableHidraw` setting.
+ */
+function getProtonSdlOptOuts(gameSettings: GameSettings) {
+  return gameSettings.enviromentOptions.filter(
+    ({ key, value }) =>
+      protonSdlEnvVars.includes(key) &&
+      ['', '0'].includes(removeQuoteIfNecessary(value))
+  )
+}
+
+/**
+ * Reads the prefix's `system.reg` (no Wine process needed) and reports whether
+ * the winebus `DisableHidraw` / `Enable SDL` values are currently set (present
+ * and non-zero). Used to avoid spawning a Wine `reg` command on every launch
+ * when the prefix is already in the desired state.
+ */
+export function readWinebusHidrawState(gameSettings: GameSettings): {
+  disableHidraw: boolean
+  enableSdl: boolean
+} {
+  const { winePrefix, wineVersion } = gameSettings
+  const systemRegPath =
+    wineVersion.type === 'proton'
+      ? join(winePrefix, 'pfx', 'system.reg')
+      : join(winePrefix, 'system.reg')
+
+  const notSet = { disableHidraw: false, enableSdl: false }
+  if (!existsSync(systemRegPath)) {
+    return notSet
+  }
+
+  let systemReg: string
+  try {
+    systemReg = readFileSync(systemRegPath, 'utf-8')
+  } catch {
+    return notSet
+  }
+
+  // Wine escapes backslashes in section headers and stores `CurrentControlSet`
+  // under its real name, so the winebus section reads
+  // `[System\\ControlSet001\\Services\\winebus] <timestamp>`.
+  const sectionHeader =
+    /^\[System\\\\(CurrentControlSet|ControlSet\d+)\\\\Services\\\\winebus\]/i
+  // Registry value names are case-insensitive
+  const isNonZeroDword = (line: string, valueName: string): boolean => {
+    const prefix = `"${valueName.toLowerCase()}"=dword:`
+    if (!line.toLowerCase().startsWith(prefix)) {
+      return false
+    }
+    const parsed = parseInt(line.slice(prefix.length), 16)
+    return !Number.isNaN(parsed) && parsed !== 0
+  }
+
+  const state = { disableHidraw: false, enableSdl: false }
+  let inSection = false
+  for (const rawLine of systemReg.split('\n')) {
+    const line = rawLine.trim()
+    if (line.startsWith('[')) {
+      inSection = sectionHeader.test(line)
+      continue
+    }
+    if (!inSection) {
+      continue
+    }
+    if (isNonZeroDword(line, 'DisableHidraw')) {
+      state.disableHidraw = true
+    } else if (isNonZeroDword(line, 'Enable SDL')) {
+      state.enableSdl = true
+    }
+  }
+  return state
+}
+
 async function prepareWineLaunch(
   game: Game,
   logWriter: LogWriter
@@ -970,6 +1052,92 @@ async function prepareWineLaunch(
     !(await isInstalled('battleye_runtime'))
   ) {
     await download('battleye_runtime')
+  }
+
+  // Decide what to do with the winebus registry keys based on the runner:
+  // - Wine (incl. Wine on macOS): the registry keys ARE the mechanism, so add
+  //   them when the setting is on and remove them when it's off.
+  // - Proton: the PROTON_DISABLE_HIDRAW / PROTON_USE_SDL env vars are the
+  //   mechanism (see setupWineEnvVars). A registry key would take precedence
+  //   over (and thus defeat) those env vars, so remove any that are present
+  //   when the setting is on. With the setting off, the prefix is left alone.
+  // - CrossOver: left alone, the setting is not offered for it.
+  const isProton = gameSettings.wineVersion.type === 'proton'
+  const addWinebusKeys = !isProton && gameSettings.disableHidraw
+  const removeWinebusKeys = isProton
+    ? gameSettings.disableHidraw
+    : !gameSettings.disableHidraw
+
+  // Log here (once per launch) rather than in setupWineEnvVars, which runs
+  // for every Wine command.
+  if (isProton && gameSettings.disableHidraw) {
+    const optOuts = getProtonSdlOptOuts(gameSettings)
+    for (const { key, value } of optOuts) {
+      const optOutMessage = `"${key}" is set to "${value}" in the environment variables, which turns off the "Use SDL for gamepads (Disable hidraw)" setting`
+      logWarning(optOutMessage, LogPrefix.Backend)
+      void logWriter.logWarning(optOutMessage)
+    }
+    if (!optOuts.length) {
+      void logWriter.logInfo(
+        'Using SDL for gamepads via PROTON_DISABLE_HIDRAW / PROTON_USE_SDL (needs a Proton version that supports them)'
+      )
+    }
+  }
+
+  if (
+    gameSettings.wineVersion.type !== 'crossover' &&
+    (addWinebusKeys || removeWinebusKeys)
+  ) {
+    const winebusKey =
+      'HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\winebus'
+    const winebusValues = ['DisableHidraw', 'Enable SDL']
+
+    // Only spawn a Wine `reg` process when the prefix isn't already in the
+    // desired state: reading system.reg directly is essentially free, while
+    // running `reg add`/`reg delete` starts a whole Wine/Proton process.
+    const current = readWinebusHidrawState(gameSettings)
+    const alreadySet = current.disableHidraw && current.enableSdl
+    const alreadyAbsent = !current.disableHidraw && !current.enableSdl
+
+    if (addWinebusKeys && !alreadySet) {
+      const addMessage =
+        'Setting DisableHidraw and Enable SDL registry keys in the prefix: the "Use SDL for gamepads (Disable hidraw)" setting is on'
+      logInfo(addMessage, LogPrefix.Backend)
+      void logWriter.logInfo(addMessage)
+      for (const value of winebusValues) {
+        await runWineCommand({
+          gameSettings,
+          commandParts: [
+            'reg',
+            'add',
+            winebusKey,
+            '/v',
+            value,
+            '/t',
+            'REG_DWORD',
+            '/d',
+            '1',
+            '/f'
+          ],
+          wait: true,
+          protonVerb: 'run'
+        })
+      }
+    } else if (removeWinebusKeys && !alreadyAbsent) {
+      const removalMessage = isProton
+        ? 'Removing DisableHidraw and Enable SDL registry keys from the prefix: Proton is configured via PROTON_DISABLE_HIDRAW / PROTON_USE_SDL instead, and the registry keys would override them'
+        : 'Removing DisableHidraw and Enable SDL registry keys from the prefix: the "Use SDL for gamepads (Disable hidraw)" setting is off'
+      logInfo(removalMessage, LogPrefix.Backend)
+      void logWriter.logInfo(removalMessage)
+      for (const value of winebusValues) {
+        await runWineCommand({
+          gameSettings,
+          commandParts: ['reg', 'delete', winebusKey, '/v', value, '/f'],
+          wait: true,
+          protonVerb: 'run'
+        })
+      }
+    }
   }
 
   const envVars = setupWineEnvVars(gameSettings, gameInfo.folder_name)
@@ -1182,6 +1350,23 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (isLinux && !gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
+  }
+  if (
+    gameSettings.disableHidraw &&
+    wineVersion.type === 'proton' &&
+    !getProtonSdlOptOuts(gameSettings).length
+  ) {
+    // Use the SDL gamepad backend instead of hidraw so PS4/PS5 controllers are
+    // exposed as XInput devices. These can be combined without issues. Don't
+    // override a value the user set explicitly via environment variables.
+    for (const key of protonSdlEnvVars) {
+      const userDefined = gameSettings.enviromentOptions.find(
+        (env) => env.key === key
+      )
+      if (!userDefined) {
+        ret[key] = '1'
+      }
+    }
   }
   if (isLinux && gameSettings.enableWineWayland) {
     if (wineVersion.type === 'proton') {

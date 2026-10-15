@@ -371,6 +371,7 @@ class GlobalConfigV0 extends GlobalConfig {
       afterLaunchScriptPath: '',
       disableUMU: false,
       verboseLogs: true,
+      disableHidraw: false,
       downloadProtonToSteam: false,
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,
