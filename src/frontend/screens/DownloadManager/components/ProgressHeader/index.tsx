@@ -1,15 +1,19 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { useEffect, useState } from 'react'
-import { AreaChart, Area, ResponsiveContainer } from 'recharts'
+import { useInstallProgressHistory } from 'frontend/state/InstallProgress'
+import { padTimeline, TimelineSlot } from 'frontend/state/progressTimeline'
+import {
+  Bar,
+  ComposedChart,
+  Line,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts'
 import { Box, LinearProgress, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { DownloadManagerState, Runner } from 'common/types'
-
-interface Point {
-  download: number
-  disk: number
-}
 
 const roundToNearestHundredth = function (val: number | undefined) {
   if (!val) return 0
@@ -21,35 +25,18 @@ export default function ProgressHeader(props: {
   state: DownloadManagerState
   runner: Runner
 }) {
-  const sampleSize = 100
   const { t } = useTranslation()
   const [progress] = hasProgress(props.appName, props.runner)
-  const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
-    Array<Point>(sampleSize).fill({ download: 0, disk: 0 })
-  )
+  // With nothing in the queue, keep showing the last download of this session
+  const progressHistory = useInstallProgressHistory((state) => {
+    const key = props.appName
+      ? `${props.appName}_${props.runner}`
+      : state.lastKey
+    return (key && state.history[key]) || []
+  })
 
-  useEffect(() => {
-    if (props.state === 'idle') {
-      setAvgDownloadSpeed(
-        Array<Point>(sampleSize).fill({ download: 0, disk: 0 })
-      )
-      return
-    }
-
-    if (avgSpeed.length > sampleSize - 1) {
-      avgSpeed.shift()
-    }
-
-    avgSpeed.push({
-      download:
-        progress.downSpeed && progress.downSpeed > 0
-          ? progress.downSpeed
-          : (avgSpeed.at(-1)?.download ?? 0),
-      disk: progress.diskSpeed ?? 0
-    })
-
-    setAvgDownloadSpeed([...avgSpeed])
-  }, [progress, props.state])
+  const timeline = padTimeline(progressHistory)
+  const latest = progressHistory.at(-1)
 
   return (
     <>
@@ -66,30 +53,57 @@ export default function ProgressHeader(props: {
               }}
             >
               <ResponsiveContainer height={80}>
-                <AreaChart data={avgSpeed} margin={{ top: 0, right: 0 }}>
-                  <Area
+                <ComposedChart
+                  data={timeline}
+                  margin={{ top: 0, right: 0 }}
+                  barCategoryGap={1}
+                >
+                  <XAxis dataKey="slot" hide type="category" />
+                  <YAxis yAxisId="download" hide domain={[0, 'auto']} />
+                  <YAxis yAxisId="disk" hide domain={[0, 'auto']} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'var(--input-background)',
+                      border: '1px solid var(--text-default)',
+                      borderRadius: '4px'
+                    }}
+                    formatter={(value: number) =>
+                      `${roundToNearestHundredth(value)} MB/s`
+                    }
+                    labelFormatter={(_, payload) => {
+                      const { timestamp } = (payload[0]?.payload ??
+                        {}) as Partial<TimelineSlot>
+                      return timestamp
+                        ? new Date(timestamp).toLocaleTimeString()
+                        : ''
+                    }}
+                  />
+                  <Bar
                     isAnimationActive={false}
-                    type="monotone"
+                    yAxisId="download"
                     dataKey="download"
-                    strokeWidth="0px"
+                    name={t('download-manager.label.speed', 'Download')}
                     fill="var(--accent)"
-                    fillOpacity={0.5}
+                    fillOpacity={0.6}
                   />
-                  <Area
+                  <Line
                     isAnimationActive={false}
                     type="monotone"
+                    yAxisId="disk"
                     dataKey="disk"
+                    name={t('download-manager.label.disk', 'Disk')}
                     stroke="var(--primary)"
-                    strokeWidth="2px"
-                    fillOpacity={0}
+                    strokeWidth={2}
+                    dot={false}
+                    connectNulls={false}
                   />
-                </AreaChart>
+                </ComposedChart>
               </ResponsiveContainer>
             </div>
           </div>
           <div className="realtimeDownloadStatContainer">
             <h5 className="realtimeDownloadStat">
-              {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MB/s
+              {roundToNearestHundredth(latest?.download)} MB/s
             </h5>
             <div className="realtimeDownloadStatLabel downLabel">
               {t('download-manager.label.speed', 'Download')}{' '}
@@ -97,7 +111,7 @@ export default function ProgressHeader(props: {
           </div>
           <div className="realtimeDownloadStatContainer">
             <h5 className="realtimeDownloadStat">
-              {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MB/s
+              {roundToNearestHundredth(latest?.disk)} MB/s
             </h5>
             <div className="realtimeDownloadStatLabel diskLabel">
               {t('download-manager.label.disk', 'Disk')}{' '}
