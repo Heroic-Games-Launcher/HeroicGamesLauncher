@@ -51,13 +51,13 @@ function GameRequirements({ reqs }: Props) {
   return (
     <div className="gameRequirements">
       {!!minimum.length && (
-        <Panel className="gameRequirements__column">
+        <Panel tone="glass" className="gameRequirements__column">
           <h3 className="gameRequirements__title">{t('specs.minimum')}</h3>
           <DetailList items={minimum} />
         </Panel>
       )}
       {!!recommended.length && (
-        <Panel className="gameRequirements__column">
+        <Panel tone="glass" className="gameRequirements__column">
           <h3 className="gameRequirements__title">{t('specs.recommended')}</h3>
           <DetailList items={recommended} />
         </Panel>
