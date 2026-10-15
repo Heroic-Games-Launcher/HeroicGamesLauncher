@@ -1,5 +1,4 @@
 export { default as Achievements } from './Achievements'
-export { default as CloudSavesSync } from './CloudSavesSync'
 export { default as CompatibilityInfo } from './CompatibilityInfo'
 export { default as Description } from './Description'
 export { default as DownloadSizeInfo } from './DownloadSizeInfo'

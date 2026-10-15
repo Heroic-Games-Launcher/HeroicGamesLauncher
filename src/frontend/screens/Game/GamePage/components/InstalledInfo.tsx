@@ -13,6 +13,7 @@ import { GameInfo } from 'common/types'
 import { DetailList, Panel } from 'frontend/components/UI'
 import type { DetailItem } from 'frontend/components/UI/DetailList'
 import GameContext from '../../GameContext'
+import { useCloudSaveDetail } from './CloudSavesSync'
 
 interface Props {
   gameInfo: GameInfo
@@ -22,6 +23,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
   const { gameSettings, runner, is } = useContext(GameContext)
+  const cloudSave = useCloudSaveDetail(gameInfo)
 
   if (!gameInfo.is_installed || !gameSettings) {
     return null
@@ -129,9 +131,14 @@ const InstalledInfo = ({ gameInfo }: Props) => {
     }
   }
 
+  if (cloudSave.item) {
+    items.push(cloudSave.item)
+  }
+
   return (
     <Panel tone="glass" className="installationInfo">
       <DetailList items={items} columns={2} />
+      {cloudSave.menu}
     </Panel>
   )
 }

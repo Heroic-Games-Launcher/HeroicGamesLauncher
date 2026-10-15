@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react'
+import { ReactNode, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
 import { Cloud, CloudOff } from 'lucide-react'
 import { GameInfo, SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
-import { DetailList, Panel } from 'frontend/components/UI'
 import type { DetailItem } from 'frontend/components/UI/DetailList'
 import useSetting from 'frontend/hooks/useSetting'
 import { syncSaves } from 'frontend/helpers'
@@ -13,11 +12,12 @@ import { Menu, MenuItem, Divider } from '@mui/material'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-interface Props {
-  gameInfo: GameInfo
+interface CloudSaveDetail {
+  item: DetailItem | null
+  menu: ReactNode
 }
 
-const CloudSavesSync = ({ gameInfo }: Props) => {
+export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
   const { t } = useTranslation('gamepage')
   const { t: tCommon } = useTranslation()
   const { gameSettings, is } = useContext(GameContext)
@@ -32,21 +32,11 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
   const [isSyncing, setIsSyncing] = useState(false)
   const open = Boolean(anchorEl)
 
-  if (!gameSettings) {
-    return null
-  }
-
-  if (!gameInfo.is_installed) {
-    return null
-  }
-
-  if (gameInfo.runner === 'sideload') {
-    return null
-  }
-
-  if (!gameInfo.cloud_save_enabled) {
-    return null
-  }
+  const unavailable =
+    !gameSettings ||
+    !gameInfo.is_installed ||
+    gameInfo.runner === 'sideload' ||
+    !gameInfo.cloud_save_enabled
 
   const cloud_save_enabled = gameInfo.cloud_save_enabled || false
   const showCloudSaveInfo = cloud_save_enabled && !is.linuxNative
@@ -194,13 +184,14 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
     )
   }
 
-  return (
-    <Panel tone="glass" className="cloudSaves">
-      <DetailList
-        items={[showCloudSaveInfo ? supportedItem : unsupportedItem]}
-      />
+  if (unavailable) {
+    return { item: null, menu: null }
+  }
 
-      {showCloudSaveInfo && enableQuickSavesMenu && (
+  return {
+    item: showCloudSaveInfo ? supportedItem : unsupportedItem,
+    menu:
+      showCloudSaveInfo && enableQuickSavesMenu ? (
         <Menu
           id="cloud-saves-menu"
           anchorEl={anchorEl}
@@ -232,9 +223,6 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
             />
           </MenuItem>
         </Menu>
-      )}
-    </Panel>
-  )
+      ) : null
+  }
 }
-
-export default CloudSavesSync

@@ -38,7 +38,6 @@ import GameContext from '../GameContext'
 import { GameContextType } from 'frontend/types'
 import {
   Achievements,
-  CloudSavesSync,
   CompatibilityInfo,
   Description,
   DownloadSizeInfo,
@@ -483,7 +482,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 <TabPanel value={activeTab} index="info" className="infoTab">
                   <DownloadSizeInfo gameInfo={gameInfo} />
                   <InstalledInfo gameInfo={gameInfo} />
-                  <CloudSavesSync gameInfo={gameInfo} />
                 </TabPanel>
 
                 <TabPanel
