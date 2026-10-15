@@ -7,6 +7,7 @@ files:
   - build/bin/legendary.LICENSE
 
 asarUnpack:
+  - build/icon.svg
   - build/icon.png
   - build/icon.icns
   - build/mac-icon.icns
@@ -66,7 +67,7 @@ dmg:
 linux:
   artifactName: ${productName}-${version}-linux-${arch}.${ext}
   category: Game
-  icon: build/icon.icns
+  icon: build/icon.svg
   desktop:
     entry:
       Name: Heroic Games Launcher
