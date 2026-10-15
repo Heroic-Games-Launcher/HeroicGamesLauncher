@@ -28,8 +28,6 @@ xl	23.04	1.44
   /* base — root font size kept at 16px for rem-based code */
   font-size: 16px;
 
-  /* Desktop type scale. Reading sizes step by 2 (12-20), display sizes by 8
-     (24-48). 12px is the smallest size allowed; every step is even. */
   --text-xs: 12px;
   --text-sm: 14px;
   --text-md: 16px;
@@ -40,14 +38,10 @@ xl	23.04	1.44
   --text-3xl: 40px;
   --text-4xl: 48px;
 
-  /* Line heights: tighter as the type grows, so headings stay compact and
-     body copy keeps breathing room. */
   --leading-tight: 1.15;
   --leading-snug: 1.3;
   --leading-normal: 1.5;
 
-  /* Semantic type. Reach for these in components; the --text-* steps above
-     are the raw scale behind them. */
   --eyebrow: var(--text-xs);
   --body-sm: var(--text-sm);
   --body-md: var(--text-md);
@@ -60,7 +54,6 @@ xl	23.04	1.44
   --button-sm: var(--text-xs);
   --button-md: var(--text-md);
 
-  /* legacy fallback — kept for rare places that still do rem math */
   --text-scale-ratio: 1.2;
 }
 

@@ -10,9 +10,6 @@
   --space-2xl: 4.5em;
   --space-3xl: 8.5em;
 
-  /* Fixed spacing: every step is a multiple of 4 so component padding and
-     gaps keep one rhythm. The em scale above still drives type-relative
-     spacing, which changes with font size. */
   --space-3xs-fixed: 2px;
   --space-2xs-fixed: 4px;
   --space-xs-fixed: 8px;

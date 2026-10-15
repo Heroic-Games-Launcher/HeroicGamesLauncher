@@ -1,6 +1,4 @@
 @mixin scrollbarSystem {
-  /* Derived from the surface ink so the bar reads correctly on light and dark
-     themes alike, instead of a fixed grey. */
   --scrollbar-size: 10px;
   --scrollbar-radius: 999px;
   --scrollbar-inset: 2px;
@@ -13,8 +11,6 @@
   --scrollbar-thumb-active: var(--navbar-accent, var(--accent));
 }
 
-/* Chromium ignores ::-webkit-scrollbar once scrollbar-color is set, so the
-   pseudo-elements are the only way to keep the rounded inset thumb. */
 ::-webkit-scrollbar {
   width: var(--scrollbar-size, 10px);
   height: var(--scrollbar-size, 10px);
@@ -48,7 +44,6 @@
   background: transparent;
 }
 
-/* Opt out entirely, for strips that scroll horizontally like the tab row. */
 .scrollbar--none {
   scrollbar-width: none;
 }

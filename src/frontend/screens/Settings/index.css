@@ -67,11 +67,6 @@
   left: auto;
 }
 
-.settingsTools {
-  margin-block: var(--space-md);
-  justify-content: left;
-}
-
 .save {
   cursor: default;
   margin-block: var(--space-md) 0;
