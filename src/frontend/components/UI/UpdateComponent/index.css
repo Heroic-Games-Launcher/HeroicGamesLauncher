@@ -1,24 +1,30 @@
 .UpdateComponent {
-  height: 100%;
-  font-size: var(--title-md);
-  color: var(--text-default);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  & svg {
-    font-size: var(--display-md);
-    animation: refreshing 1.5s infinite;
-    max-width: 100px;
-  }
+  height: 100%;
+  width: 100%;
+  padding: var(--space-2xl-fixed) var(--space-md-fixed);
 }
 
-@keyframes refreshing {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.UpdateComponent--inline {
+  height: auto;
+  padding: var(--space-md-fixed) 0;
+}
+
+.UpdateComponent__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm-fixed);
+  width: 100%;
+  max-width: 320px;
+}
+
+.UpdateComponent__message {
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  line-height: var(--leading-snug, 1.3);
+  text-align: center;
+  color: var(--on-panel, var(--text-default));
 }
