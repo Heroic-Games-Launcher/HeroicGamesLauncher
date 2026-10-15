@@ -51,6 +51,7 @@ export interface Eglv2Installation {
   tags?: string[]
   launchCommand?: string
   launchExecutable?: string
+  parentInstallationId?: string
   writtenAt?: string
   deleted?: boolean
 }
@@ -257,7 +258,8 @@ function isWindowsRecord(record: Eglv2Installation) {
 function exportGame(
   paths: SyncPaths,
   game: InstalledJsonMetadata,
-  installationId: string
+  installationId: string,
+  parentInstallationId?: string
 ): Eglv2Installation {
   const metadata = readJson<GameMetadata>(
     join(paths.legendaryConfigDir, 'metadata', `${game.app_name}.json`)
@@ -298,7 +300,8 @@ function exportGame(
     version: game.version,
     tags: game.install_tags?.length ? game.install_tags : [''],
     launchCommand: game.launch_parameters ?? '',
-    launchExecutable: game.executable,
+    launchExecutable: game.is_dlc ? '' : game.executable,
+    ...(parentInstallationId && { parentInstallationId }),
     writtenAt: now()
   }
 }
@@ -326,19 +329,46 @@ export async function syncWithEglv2(
       join(paths.legendaryConfigDir, 'installed.json')
     ) ?? {}
   )
-  // EGLv2 runs Windows builds through Proton; DLCs share their base game's
-  // folder and aren't handled yet
+  // EGLv2 runs Windows builds through Proton
   const heroicGames = new Map(
     installed
-      .filter((game) => game.platform === 'Windows' && !game.is_dlc)
+      .filter((game) => game.platform === 'Windows')
       .map((game) => [game.app_name, game])
   )
+  const eglRecords = readEglv2Installations(paths.eglv2DataDir)
   const eglGames = new Map<string, Eglv2Installation>()
-  for (const record of readEglv2Installations(paths.eglv2DataDir).values()) {
-    if (record.artifactId && record.dir && isWindowsRecord(record)) {
+  for (const record of eglRecords.values()) {
+    if (
+      record.artifactId &&
+      record.dir &&
+      (isWindowsRecord(record) || record.parentInstallationId)
+    ) {
       eglGames.set(record.artifactId, record)
     }
   }
+
+  // Heroic DLCs name their base game by catalog item ID, EGLv2 DLCs by
+  // installation ID
+  const appNameByCatalogId = new Map<string, string>()
+  for (const game of heroicGames.values()) {
+    const id = readJson<GameMetadata>(
+      join(paths.legendaryConfigDir, 'metadata', `${game.app_name}.json`)
+    )?.metadata.id
+    if (id) appNameByCatalogId.set(id, game.app_name)
+  }
+  const heroicBaseOf = (dlc: InstalledJsonMetadata) => {
+    const mainGameId = readJson<GameMetadata>(
+      join(paths.legendaryConfigDir, 'metadata', `${dlc.app_name}.json`)
+    )?.metadata.mainGameItem?.id
+    return mainGameId ? appNameByCatalogId.get(mainGameId) : undefined
+  }
+  const eglBaseOf = (dlc: Eglv2Installation) =>
+    dlc.parentInstallationId
+      ? eglRecords.get(dlc.parentInstallationId)?.artifactId
+      : undefined
+  const isDlc = (appName: string) =>
+    !!heroicGames.get(appName)?.is_dlc ||
+    !!eglGames.get(appName)?.parentInstallationId
 
   const toAppend: Eglv2Installation[] = []
   const nextSynced: Record<string, SyncedGame> = {}
@@ -349,7 +379,27 @@ export async function syncWithEglv2(
   const filesPresent = (dir: string, executable?: string) =>
     existsSync(executable ? join(dir, executable) : dir)
 
-  const appNames = new Set([...heroicGames.keys(), ...eglGames.keys()])
+  // Base games first, so their DLCs can refer to them
+  const appNames = [...new Set([...heroicGames.keys(), ...eglGames.keys()])]
+  appNames.sort((a, b) => Number(isDlc(a)) - Number(isDlc(b)))
+  const importedToHeroic = new Set<string>()
+  const eglInstallationIdOf = (appName: string) => {
+    const game = heroicGames.get(appName)
+    return (
+      eglGames.get(appName)?.installationId ??
+      toAppend.find((record) => record.artifactId === appName)
+        ?.installationId ??
+      (game && installationIdFor(game))
+    )
+  }
+  const exportToEgl = (game: InstalledJsonMetadata, installationId: string) => {
+    if (!game.is_dlc) return exportGame(paths, game, installationId)
+    const base = heroicBaseOf(game)
+    const parentId = base && eglInstallationIdOf(base)
+    if (!parentId) throw new Error('base game is not installed')
+    return exportGame(paths, game, installationId, parentId)
+  }
+
   for (const appName of appNames) {
     const heroicGame = heroicGames.get(appName)
     const eglGame = eglGames.get(appName)
@@ -398,13 +448,13 @@ export async function syncWithEglv2(
         }
 
         if (exportNeeded) {
-          toAppend.push(exportGame(paths, heroicGame, eglGame.installationId))
+          toAppend.push(exportToEgl(heroicGame, eglGame.installationId))
           result.toEgl.push(title)
         }
         nextSynced[appName] = { dir, version }
       } else if (heroicGame) {
         const { install_path: dir, executable } = heroicGame
-        if (last && !filesPresent(dir, executable)) {
+        if (last && (heroicGame.is_dlc || !filesPresent(dir, executable))) {
           // Uninstalled in EGLv2
           if (!(await heroic.forgetGame(appName))) {
             throw new Error('could not remove the game from Heroic')
@@ -412,15 +462,17 @@ export async function syncWithEglv2(
           result.removedFromHeroic.push(title)
           continue
         }
-        toAppend.push(
-          exportGame(paths, heroicGame, installationIdFor(heroicGame))
-        )
+        toAppend.push(exportToEgl(heroicGame, installationIdFor(heroicGame)))
         result.toEgl.push(title)
         nextSynced[appName] = { dir, version: heroicGame.version }
       } else if (eglGame?.dir) {
         if (eglGame.complete === false) continue
         const { dir, launchExecutable } = eglGame
-        if (last && !filesPresent(dir, launchExecutable)) {
+        const eglBase = eglBaseOf(eglGame)
+        if (
+          last &&
+          (eglGame.parentInstallationId || !filesPresent(dir, launchExecutable))
+        ) {
           // Uninstalled in Heroic
           toAppend.push({
             installationId: eglGame.installationId,
@@ -435,9 +487,18 @@ export async function syncWithEglv2(
           skip(title, 'not in your Heroic library')
           continue
         }
+        if (eglGame.parentInstallationId) {
+          // Importing the base game also imports its DLCs
+          if (eglBase && importedToHeroic.has(eglBase)) continue
+          if (!eglBase || !heroicGames.has(eglBase)) {
+            skip(title, 'base game is not installed in Heroic')
+            continue
+          }
+        }
         if (!(await heroic.importGame(appName, dir))) {
           throw new Error('could not import the game into Heroic')
         }
+        importedToHeroic.add(appName)
         result.toHeroic.push(title)
         nextSynced[appName] = { dir, version: eglGame.version ?? '' }
       }

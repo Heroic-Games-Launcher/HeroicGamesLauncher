@@ -68,9 +68,9 @@ export default class LegendaryLibraryManager implements LibraryManager {
     this.refreshInstalled()
     startEglv2Sync({
       importGame: async (appName, dir) => {
-        const res = await this.getGame(appName).importGame(dir, 'Windows')
-        if (res.error) return false
+        await this.getGame(appName).importGame(dir, 'Windows')
         this.refreshInstalled()
+        if (!installedGames.has(appName)) return false
         this.installState(appName, true)
         sendFrontendMessage('refreshLibrary', 'legendary')
         return true

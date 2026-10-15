@@ -40,7 +40,7 @@ function setup() {
     return dir
   }
 
-  const addMetadata = (appName: string, version = '1.0') => {
+  const addMetadata = (appName: string, version = '1.0', dlcOf?: string) => {
     writeFileSync(
       join(paths.legendaryConfigDir, 'metadata', `${appName}.json`),
       JSON.stringify({
@@ -51,7 +51,10 @@ function setup() {
             catalog_item_id: `id-${appName}`
           }
         },
-        metadata: {}
+        metadata: {
+          id: `id-${appName}`,
+          ...(dlcOf && { mainGameItem: { id: `id-${dlcOf}` } })
+        }
       })
     )
     writeFileSync(
@@ -64,9 +67,9 @@ function setup() {
     )
   }
 
-  const addHeroicGame = (appName: string, version = '1.0') => {
-    const dir = gameDir(appName)
-    addMetadata(appName, version)
+  const addHeroicGame = (appName: string, version = '1.0', dlcOf?: string) => {
+    const dir = gameDir(dlcOf ?? appName)
+    addMetadata(appName, version, dlcOf)
     const installed = existsSync(installedPath)
       ? (JSON.parse(readFileSync(installedPath, 'utf-8')) as Record<
           string,
@@ -77,13 +80,13 @@ function setup() {
       app_name: appName,
       title: `Title ${appName}`,
       install_path: dir,
-      executable: 'Game.exe',
+      executable: dlcOf ? '' : 'Game.exe',
       launch_parameters: '',
       version,
       platform: 'Windows',
       can_run_offline: true,
       requires_ot: false,
-      is_dlc: false,
+      is_dlc: !!dlcOf,
       install_size: 1,
       install_tags: [],
       egl_guid: ''
@@ -344,5 +347,99 @@ describe('syncWithEglv2', () => {
     })
     expect(readFileSync(logPath, 'utf-8')).toBe(before)
     expect(heroic.importGame).not.toHaveBeenCalled()
+  })
+
+  describe('DLCs', () => {
+    test('exports a Heroic DLC under its base game', async () => {
+      const { paths, addHeroicGame, addEglRecord, heroic, eglRecords } = setup()
+      const dir = addHeroicGame('Base')
+      addHeroicGame('Dlc', '1.0', 'Base')
+      addEglRecord({ installationId: 'BASEID', artifactId: 'Base', dir })
+
+      const result = await syncWithEglv2(heroic, paths, {
+        Base: { dir, version: '1.0' }
+      })
+      expect(result.toEgl).toEqual(['Title Dlc'])
+      expect(eglRecords()).toContainEqual(
+        expect.objectContaining({
+          artifactId: 'Dlc',
+          dir,
+          parentInstallationId: 'BASEID',
+          launchExecutable: ''
+        })
+      )
+    })
+
+    test('imports an EGL DLC when its base game is in Heroic', async () => {
+      const { paths, addHeroicGame, addEglRecord, heroic } = setup()
+      const dir = addHeroicGame('Base')
+      addEglRecord({ installationId: 'BASEID', artifactId: 'Base', dir })
+      addEglRecord({
+        installationId: 'DLCID',
+        artifactId: 'Dlc',
+        dir,
+        launchExecutable: '',
+        parentInstallationId: 'BASEID'
+      })
+
+      await syncWithEglv2(heroic, paths, { Base: { dir, version: '1.0' } })
+      expect(heroic.importGame).toHaveBeenCalledWith('Dlc', dir)
+    })
+
+    test('skips an EGL DLC whose base game is not in Heroic', async () => {
+      const { paths, gameDir, addEglRecord, heroic } = setup()
+      const dir = gameDir('Base')
+      addEglRecord({
+        installationId: 'DLCID',
+        artifactId: 'Dlc',
+        dir,
+        launchExecutable: '',
+        parentInstallationId: 'BASEID'
+      })
+
+      const result = await syncWithEglv2(heroic, paths, {})
+      expect(heroic.importGame).not.toHaveBeenCalled()
+      expect(result.skipped).toEqual([
+        { title: 'Dlc', reason: 'base game is not installed in Heroic' }
+      ])
+    })
+
+    test('removes a DLC uninstalled in Heroic from EGL', async () => {
+      const { paths, addHeroicGame, addEglRecord, heroic, eglRecords } = setup()
+      const dir = addHeroicGame('Base')
+      addEglRecord({ installationId: 'BASEID', artifactId: 'Base', dir })
+      addEglRecord({
+        installationId: 'DLCID',
+        artifactId: 'Dlc',
+        dir,
+        launchExecutable: '',
+        parentInstallationId: 'BASEID'
+      })
+      mkdirSync(join(dir, '.egstore'))
+      writeFileSync(join(dir, '.egstore', 'DLCID.manifest'), '')
+
+      const result = await syncWithEglv2(heroic, paths, {
+        Base: { dir, version: '1.0' },
+        Dlc: { dir, version: '1.0' }
+      })
+      expect(result.removedFromEgl).toEqual(['Dlc'])
+      expect(eglRecords().map((r) => r.artifactId)).toEqual(['Base'])
+      expect(existsSync(join(dir, '.egstore', 'DLCID.manifest'))).toBe(false)
+      expect(existsSync(join(dir, 'Game.exe'))).toBe(true)
+    })
+
+    test('removes a DLC uninstalled in EGL from Heroic', async () => {
+      const { paths, addHeroicGame, addEglRecord, heroic } = setup()
+      const dir = addHeroicGame('Base')
+      addHeroicGame('Dlc', '1.0', 'Base')
+      addEglRecord({ installationId: 'BASEID', artifactId: 'Base', dir })
+
+      const result = await syncWithEglv2(heroic, paths, {
+        Base: { dir, version: '1.0' },
+        Dlc: { dir, version: '1.0' }
+      })
+      expect(heroic.forgetGame).toHaveBeenCalledWith('Dlc')
+      expect(result.removedFromHeroic).toEqual(['Title Dlc'])
+    })
   })
 })
