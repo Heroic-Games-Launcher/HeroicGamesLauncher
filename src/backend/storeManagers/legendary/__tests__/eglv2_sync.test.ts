@@ -117,7 +117,6 @@ function setup() {
   const heroic: jest.Mocked<HeroicActions> = {
     importGame: jest.fn().mockResolvedValue(true),
     forgetGame: jest.fn().mockResolvedValue(true),
-    moveGame: jest.fn().mockResolvedValue(true),
     reloadGame: jest.fn(),
     isOwned: jest.fn().mockReturnValue(true)
   }
@@ -315,18 +314,6 @@ describe('syncWithEglv2', () => {
         reason: 'missing build manifest from the Epic Games Launcher'
       }
     ])
-  })
-
-  test('follows a game moved in EGL', async () => {
-    const { paths, addHeroicGame, gameDir, addEglRecord, heroic } = setup()
-    const oldDir = addHeroicGame('Herring')
-    const newDir = gameDir('Moved')
-    addEglRecord({ artifactId: 'Herring', dir: newDir })
-
-    await syncWithEglv2(heroic, paths, {
-      Herring: { dir: oldDir, version: '1.0' }
-    })
-    expect(heroic.moveGame).toHaveBeenCalledWith('Herring', newDir)
   })
 
   test('does nothing when both launchers already agree', async () => {

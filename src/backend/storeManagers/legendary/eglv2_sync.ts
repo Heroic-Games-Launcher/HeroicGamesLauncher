@@ -66,7 +66,6 @@ export interface HeroicActions {
   importGame: (appName: string, dir: string) => Promise<boolean>
   forgetGame: (appName: string) => Promise<boolean>
   reloadGame: (appName: string) => void
-  moveGame: (appName: string, dir: string) => Promise<boolean>
   isOwned: (appName: string) => boolean
 }
 
@@ -413,19 +412,13 @@ export async function syncWithEglv2(
           if (last) nextSynced[appName] = last
           continue
         }
-        let { install_path: dir, version } = heroicGame
+        const dir = heroicGame.install_path
+        let version = heroicGame.version
         let exportNeeded = eglGame.platform !== 'Windows'
 
         if (dir !== eglGame.dir) {
           if (last?.dir === eglGame.dir) {
             exportNeeded = true // Moved in Heroic
-          } else if (last?.dir === dir && eglGame.dir) {
-            // Moved in EGLv2
-            if (!(await heroic.moveGame(appName, eglGame.dir))) {
-              throw new Error('could not move the game in Heroic')
-            }
-            dir = eglGame.dir
-            result.toHeroic.push(title)
           } else {
             skip(title, 'installed in a different folder in each launcher')
             continue
