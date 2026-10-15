@@ -4,11 +4,6 @@
   gap: var(--space-xs-fixed);
   overflow-x: auto;
   border-bottom: 1px solid var(--panel-divider, var(--divider));
-  scrollbar-width: none;
-}
-
-.Tabs::-webkit-scrollbar {
-  display: none;
 }
 
 .Tabs__tab {

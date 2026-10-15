@@ -4,6 +4,7 @@
 @use './styles/buttons';
 @use './styles/forms';
 @use './styles/surfaces';
+@use './styles/scrollbars';
 :root {
   @include typography.typeSystem;
   @include spacing.spacingSystem;
@@ -33,6 +34,7 @@ html {
 body {
   @include forms.formSystem;
   @include surfaces.surfaceSystem;
+  @include scrollbars.scrollbarSystem;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,43 +51,6 @@ body {
   // that create problems, don't change
   overflow: auto !important;
   padding: 0 !important;
-}
-
-/* Overlay Scrollbar*/
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  background: transparent;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  display: none;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--text-faint, var(--text-secondary));
-  border-radius: 5px;
-  margin: 2px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted, var(--text-secondary));
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: var(--accent);
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-corner,
-::-webkit-resizer {
-  background: var(--gradient-body-background, var(--body-background));
 }
 
 .simple-keyboard-wrapper {

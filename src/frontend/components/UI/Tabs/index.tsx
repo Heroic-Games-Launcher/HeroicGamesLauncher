@@ -26,7 +26,7 @@ export default function Tabs<T extends string>({
 }: TabsProps<T>) {
   return (
     <div
-      className={classNames('Tabs', className)}
+      className={classNames('Tabs', 'scrollbar--none', className)}
       role="tablist"
       aria-label={ariaLabel}
     >

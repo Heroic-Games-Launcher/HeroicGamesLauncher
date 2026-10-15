@@ -1,0 +1,58 @@
+@mixin scrollbarSystem {
+  /* Derived from the surface ink so the bar reads correctly on light and dark
+     themes alike, instead of a fixed grey. */
+  --scrollbar-size: 10px;
+  --scrollbar-radius: 999px;
+  --scrollbar-inset: 2px;
+  --scrollbar-thumb: color-mix(in oklab, var(--on-panel) 24%, transparent);
+  --scrollbar-thumb-hover: color-mix(
+    in oklab,
+    var(--on-panel) 40%,
+    transparent
+  );
+  --scrollbar-thumb-active: var(--navbar-accent, var(--accent));
+}
+
+/* Chromium ignores ::-webkit-scrollbar once scrollbar-color is set, so the
+   pseudo-elements are the only way to keep the rounded inset thumb. */
+::-webkit-scrollbar {
+  width: var(--scrollbar-size, 10px);
+  height: var(--scrollbar-size, 10px);
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, rgba(255, 255, 255, 0.24));
+  border: var(--scrollbar-inset, 2px) solid transparent;
+  border-radius: var(--scrollbar-radius, 999px);
+  background-clip: content-box;
+  transition: background-color 150ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover, rgba(255, 255, 255, 0.4));
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active, var(--accent));
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-resizer {
+  background: transparent;
+}
+
+/* Opt out entirely, for strips that scroll horizontally like the tab row. */
+.scrollbar--none {
+  scrollbar-width: none;
+}
+
+.scrollbar--none::-webkit-scrollbar {
+  display: none;
+}
