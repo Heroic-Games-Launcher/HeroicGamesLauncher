@@ -12,7 +12,13 @@ import axios from 'axios'
 import https from 'node:https'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
 import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
-import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  realpathSync,
+  rmSync
+} from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
@@ -23,7 +29,15 @@ import {
   logWarning,
   logDebug
 } from 'backend/logger'
-import { basename, dirname, join, normalize } from 'path'
+import {
+  basename,
+  dirname,
+  isAbsolute,
+  join,
+  normalize,
+  relative,
+  sep
+} from 'path'
 import {
   gameInfoStore,
   installStore,
@@ -1034,6 +1048,65 @@ export async function checkWineBeforeLaunch(
   return false
 }
 
+/**
+ * Checks whether `child` is `parent` itself or a folder inside it.
+ * A plain `startsWith` is not enough: `/games/Foo2` starts with `/games/Foo`
+ * but is not inside it
+ */
+function isSameOrSubPath(parent: string, child: string): boolean {
+  const rel = relative(parent, child)
+  return rel === '' || (rel.split(sep)[0] !== '..' && !isAbsolute(rel))
+}
+
+/**
+ * Resolves symlinks in the part of `path` that exists, keeping the rest
+ * (e.g. a destination folder that will only be created by the move) as is
+ */
+function resolveExistingPath(path: string): string {
+  try {
+    return realpathSync(path)
+  } catch {
+    const parent = dirname(path)
+    if (parent === path) {
+      return path
+    }
+    return join(resolveExistingPath(parent), basename(path))
+  }
+}
+
+/**
+ * Returns the folder a game ends up in when moved to `newInstallPath`
+ */
+function getMoveDestination(installPath: string, newInstallPath: string) {
+  return join(newInstallPath, basename(installPath))
+}
+
+/**
+ * Moving copies every file and then deletes the original, so a destination
+ * that overlaps the current install folder would delete the game
+ * @returns Why the game can't be moved there, or null if it can
+ */
+function getMoveInstallError(
+  installPath: string,
+  newInstallPath: string
+): string | null {
+  const destination = getMoveDestination(installPath, newInstallPath)
+  // Compare where the paths really point to, so a symlinked folder (like a
+  // ~/Games link to another drive) can't hide that they are the same
+  const realInstallPath = resolveExistingPath(installPath)
+  const realDestination = resolveExistingPath(destination)
+  if (relative(realInstallPath, realDestination) === '') {
+    return `The game is already installed in ${installPath}.`
+  }
+  if (
+    isSameOrSubPath(realInstallPath, realDestination) ||
+    isSameOrSubPath(realDestination, realInstallPath)
+  ) {
+    return `New install path (${destination}) cannot overlap the current install path (${installPath}).`
+  }
+  return null
+}
+
 export async function moveOnWindows(
   newInstallPath: string,
   gameInfo: GameInfo
@@ -1049,7 +1122,7 @@ export async function moveOnWindows(
     return { status: 'error', error: 'No install path found' }
   }
 
-  newInstallPath = join(newInstallPath, basename(install_path))
+  newInstallPath = getMoveDestination(install_path, newInstallPath)
 
   let currentFile = ''
 
@@ -1103,7 +1176,7 @@ export async function moveOnUnix(
     return { status: 'error', error: 'No install path found' }
   }
 
-  const destination = join(newInstallPath, basename(install_path))
+  const destination = getMoveDestination(install_path, newInstallPath)
 
   let currentFile = ''
 
@@ -1659,7 +1732,8 @@ export {
   extractFiles,
   axiosClient,
   parseSize,
-  getGame
+  getGame,
+  getMoveInstallError
 }
 
 // Exported only for testing purpose
