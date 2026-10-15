@@ -44,13 +44,6 @@
   color: var(--on-panel, var(--text-default));
 }
 
-.SettingRow--stacked > .SettingRow__text .SettingRow__label {
-  font-size: var(--eyebrow);
-  font-weight: var(--medium);
-  letter-spacing: 0.04em;
-  color: var(--on-panel-muted, var(--text-secondary));
-}
-
 .SettingRow__description {
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
