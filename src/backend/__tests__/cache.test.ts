@@ -1,12 +1,13 @@
 import Store from 'electron-store'
 import CacheStore from '../cache'
+import { resolveStoreCwd } from '../electron_store'
 
 jest.mock('electron-store')
 
 describe('backend/cache.ts', () => {
   const testStore = new CacheStore<string>('test_store')
   const internalStore = new Store({
-    cwd: 'store_cache',
+    cwd: resolveStoreCwd('test_store', 'store_cache'),
     name: 'test_store'
   })
 

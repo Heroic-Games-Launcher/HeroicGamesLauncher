@@ -1,5 +1,7 @@
 import Store from 'electron-store'
 
+import { migrateStoreFile, resolveStoreCwd } from './electron_store'
+
 export default class CacheStore<ValueType, KeyType extends string = string> {
   private readonly store: Store
   private in_memory_store: Map<string, ValueType>
@@ -19,8 +21,12 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
     max_value_lifespan: number | null = 60 * 6,
     options?: { invalidateCheck?: (data: ValueType) => boolean }
   ) {
+    const legacyCwd = 'store_cache'
+    const cwd = resolveStoreCwd(filename, legacyCwd)
+    migrateStoreFile(filename, legacyCwd, cwd, filename)
+
     this.store = new Store({
-      cwd: 'store_cache',
+      cwd,
       name: filename,
       clearInvalidConfig: true
     })

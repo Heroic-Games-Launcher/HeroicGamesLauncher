@@ -74,7 +74,10 @@ import {
   configPath,
   fixAsarPath,
   gamesConfigPath,
+  heroicCachePath,
+  heroicDataPath,
   heroicIconFolder,
+  heroicStatePath,
   publicDir,
   toolsPath,
   windowIcon
@@ -505,13 +508,19 @@ export function createNecessaryFolders() {
 
   const necessaryFoldersByPlatform = {
     win32: [...defaultFolders],
-    linux: [...defaultFolders, toolsPath],
+    linux: [
+      ...defaultFolders,
+      heroicDataPath,
+      heroicCachePath,
+      heroicStatePath,
+      toolsPath
+    ],
     darwin: [...defaultFolders, toolsPath]
   }
 
   necessaryFoldersByPlatform[process.platform].forEach((folder: string) => {
     if (!existsSync(folder)) {
-      mkdirSync(folder)
+      mkdirSync(folder, { recursive: true })
     }
   })
 }

@@ -1,7 +1,7 @@
 import { KnownFixesFile, Runner } from 'common/types'
 import { createWriteStream, existsSync, readFileSync } from 'graceful-fs'
 import { storeMap } from 'common/utils'
-import { appFolder } from 'backend/constants/paths'
+import { heroicCachePath } from 'backend/constants/paths'
 import { logDebug, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { createMD5 } from 'backend/utils/releases'
 import { runOnceWhenOnline } from 'backend/online_monitor'
@@ -9,7 +9,7 @@ import { axiosClient } from 'backend/utils'
 import { join } from 'path'
 import { pipeline } from 'stream/promises'
 
-const fixesPath = join(appFolder, 'known_fixes.json')
+const fixesPath = join(heroicCachePath, 'known_fixes.json')
 
 export function getKnownFixesFor(appName: string, runner: Runner) {
   if (runner === 'sideload') return null

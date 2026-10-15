@@ -3,7 +3,13 @@ import { logError, LogPrefix, logInfo } from 'backend/logger'
 import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
-import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  realpathSync
+} from 'graceful-fs'
 import { homedir } from 'os'
 import { dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
@@ -14,6 +20,7 @@ import { searchForExecutableOnPath } from './os/path'
 import {
   configPath,
   defaultUmuPath,
+  legacyToolsPath,
   toolsPath,
   userHome
 } from 'backend/constants/paths'
@@ -109,6 +116,25 @@ export function getWineLibs(wineBin: string): {
   return ret
 }
 
+function getHeroicToolsPaths(): string[] {
+  const paths = [toolsPath]
+
+  if (legacyToolsPath === toolsPath || !existsSync(legacyToolsPath))
+    return paths
+
+  // Successful migrations leave a compatibility symlink behind. Don't scan
+  // the same directory twice in that case.
+  if (
+    existsSync(toolsPath) &&
+    realpathSync(legacyToolsPath) === realpathSync(toolsPath)
+  ) {
+    return paths
+  }
+
+  paths.push(legacyToolsPath)
+  return paths
+}
+
 export async function getLinuxWineSet(
   scanCustom?: boolean
 ): Promise<Set<WineInstallation>> {
@@ -120,16 +146,26 @@ export async function getLinuxWineSet(
     mkdirSync(`${toolsPath}/proton`, { recursive: true })
   }
 
+  const heroicToolsPaths = getHeroicToolsPaths()
   const altWine = new Set<WineInstallation>()
+  const seenWineVersions = new Set<string>()
 
-  readdirSync(`${toolsPath}/wine/`).forEach((version) => {
-    const wineBin = join(toolsPath, 'wine', version, 'bin', 'wine')
-    altWine.add({
-      bin: wineBin,
-      name: version,
-      type: 'wine',
-      ...getWineLibs(wineBin),
-      ...getWineExecs(wineBin)
+  heroicToolsPaths.forEach((heroicToolsPath) => {
+    const winePath = join(heroicToolsPath, 'wine')
+    if (!existsSync(winePath)) return
+
+    readdirSync(winePath).forEach((version) => {
+      if (seenWineVersions.has(version)) return
+      seenWineVersions.add(version)
+
+      const wineBin = join(winePath, version, 'bin', 'wine')
+      altWine.add({
+        bin: wineBin,
+        name: version,
+        type: 'wine',
+        ...getWineLibs(wineBin),
+        ...getWineExecs(wineBin)
+      })
     })
   })
 
@@ -149,7 +185,8 @@ export async function getLinuxWineSet(
     })
   }
 
-  const protonPaths = [`${toolsPath}/proton/`]
+  const protonPaths = heroicToolsPaths.map((path) => join(path, 'proton'))
+  const seenProtonVersions = new Set<string>()
 
   const { showValveProton } = GlobalConfig.get().getSettings()
 
@@ -176,7 +213,8 @@ export async function getLinuxWineSet(
         }
         const protonBin = join(path, version, 'proton')
         // check if bin exists to avoid false positives
-        if (existsSync(protonBin)) {
+        if (existsSync(protonBin) && !seenProtonVersions.has(version)) {
+          seenProtonVersions.add(version)
           proton.add({
             bin: protonBin,
             name: version,
