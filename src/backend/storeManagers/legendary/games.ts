@@ -45,6 +45,7 @@ import {
 } from '../../shortcuts/shortcuts/shortcuts'
 import { join } from 'path'
 import { gameInfoStore } from './electronStores'
+import { applyPendingEAAppUpdate } from './eaAppUpdate'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
@@ -975,6 +976,10 @@ export default class LegendaryGame implements Game {
       commandEnv = {
         ...commandEnv,
         ...wineEnvVars
+      }
+
+      if (gameInfo.isEAManaged) {
+        await applyPendingEAAppUpdate(gameSettings, logWriter)
       }
 
       if (await isUmuSupported(gameSettings)) {
