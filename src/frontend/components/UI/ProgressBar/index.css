@@ -1,7 +1,7 @@
 .ProgressBar {
   display: flex;
   align-items: center;
-  gap: var(--space-sm-fixed);
+  gap: var(--space-xs-fixed);
   width: 100%;
 }
 
@@ -33,7 +33,7 @@
 .ProgressBar__value {
   flex: 0 0 auto;
   min-width: 4ch;
-  text-align: end;
+  text-align: start;
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
   font-variant-numeric: tabular-nums;
