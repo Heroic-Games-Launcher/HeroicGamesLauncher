@@ -8,7 +8,7 @@ import {
   checkPS3Clone1,
   checkStandard,
   checkN64Clone1,
-  checkN64,
+  checkN64Switch,
   checkGenius1,
   checkNintendo,
   checkWiiU
@@ -722,7 +722,7 @@ export const initGamepad = () => {
         } else if (controller.id.match(/057e.*0330/i)) {
           checkWiiU(buttons, axes, index, checkAction)
         } else if (controller.id.match(/057e.*2019/i)) {
-          checkN64(buttons, axes, index, checkAction)
+          checkN64Switch(buttons, axes, index, checkAction)
         } else if (controller.id.match(/057e.*(2006|2007|2009)/i)) {
           checkNintendo(buttons, axes, index, checkAction)
         } else {
