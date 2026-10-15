@@ -18,8 +18,8 @@ const DIVISIONS: { amount: number; unit: Intl.RelativeTimeFormatUnit }[] = [
   { amount: Number.POSITIVE_INFINITY, unit: 'year' }
 ]
 
-function formatRelative(date: Date) {
-  const formatter = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' })
+function formatRelative(date: Date, locale: string) {
+  const formatter = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' })
   let duration = (date.getTime() - Date.now()) / 1000
 
   for (const division of DIVISIONS) {
@@ -33,14 +33,14 @@ function formatRelative(date: Date) {
 }
 
 const GameStats = ({ gameInfo }: Props) => {
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
   const { totalPlayed, firstPlayed, lastPlayed } = hasPlaytime(gameInfo)
 
   const hours = totalPlayed ? Math.round((totalPlayed / 60) * 10) / 10 : 0
   const lastPlayedDate = lastPlayed ? new Date(lastPlayed) : null
   const firstPlayedTitle = firstPlayed
     ? `${t('game.firstPlayed', 'First Played')}: ${new Intl.DateTimeFormat(
-        undefined,
+        i18n.language,
         { dateStyle: 'medium' }
       ).format(new Date(firstPlayed))}`
     : undefined
@@ -58,12 +58,12 @@ const GameStats = ({ gameInfo }: Props) => {
         label={t('game.lastPlayed', 'Last Played')}
         value={
           lastPlayedDate && !Number.isNaN(lastPlayedDate.getTime())
-            ? formatRelative(lastPlayedDate)
+            ? formatRelative(lastPlayedDate, i18n.language)
             : t('game.neverPlayed', 'Never')
         }
         title={
           lastPlayedDate && !Number.isNaN(lastPlayedDate.getTime())
-            ? new Intl.DateTimeFormat(undefined, {
+            ? new Intl.DateTimeFormat(i18n.language, {
                 dateStyle: 'medium',
                 timeStyle: 'short'
               }).format(lastPlayedDate)

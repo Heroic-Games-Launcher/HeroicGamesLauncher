@@ -15,7 +15,7 @@ export default function Playtime({
   lastPlayed,
   className
 }: PlaytimeProps) {
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
 
   if (!minutes && !lastPlayed) {
     return null
@@ -23,7 +23,7 @@ export default function Playtime({
 
   const hours = minutes ? Math.round((minutes / 60) * 10) / 10 : null
   const lastPlayedDate = lastPlayed
-    ? new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(
+    ? new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium' }).format(
         new Date(lastPlayed)
       )
     : null

@@ -26,13 +26,13 @@ const options: Intl.DateTimeFormatOptions = {
   minute: 'numeric'
 }
 
-function convertToTime(time: number) {
+function convertToTime(time: number, locale: string) {
   const date = time ? new Date(time) : new Date()
-  const hour = new Intl.DateTimeFormat(undefined, options).format(date)
+  const hour = new Intl.DateTimeFormat(locale, options).format(date)
   return {
     hour,
-    date: date.toLocaleDateString(),
-    fullDate: date.toLocaleString()
+    date: date.toLocaleDateString(locale),
+    fullDate: date.toLocaleString(locale)
   }
 }
 
@@ -43,7 +43,7 @@ const DownloadManagerItem = ({
   handleClearItem
 }: Props) => {
   const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
 
@@ -168,12 +168,12 @@ const DownloadManagerItem = ({
 
   const getTime = () => {
     if (finished) {
-      return convertToTime(endTime)
+      return convertToTime(endTime, i18n.language)
     }
     if (current) {
-      return convertToTime(startTime)
+      return convertToTime(startTime, i18n.language)
     }
-    return convertToTime(addToQueueTime)
+    return convertToTime(addToQueueTime, i18n.language)
   }
 
   const mainIconTitle = () => {
