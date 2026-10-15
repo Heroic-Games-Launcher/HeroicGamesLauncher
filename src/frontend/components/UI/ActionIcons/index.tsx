@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
 import Icon from '../Icon'
+import Tooltip from '../Tooltip'
 import './index.css'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
@@ -65,103 +66,144 @@ export default React.memo(function ActionIcons({
     <div className="ActionIcons" data-tour={dataTour}>
       <FormControl segmented small>
         {layout === 'grid' ? (
-          <button
-            className="FormControl__button"
-            title={t('library.toggleLayout.list', 'Toggle to a list layout')}
-            onClick={() => handleLayout('list')}
+          <Tooltip
+            content={t('library.toggleLayout.list', 'Toggle to a list layout')}
+            asChild
           >
-            <Icon
-              glyph={List}
-              className="FormControl__segmentedLucideIcon"
-              data-tour="library-view-toggle"
-            />
-          </button>
+            <button
+              aria-label={t(
+                'library.toggleLayout.list',
+                'Toggle to a list layout'
+              )}
+              className="FormControl__button"
+              onClick={() => handleLayout('list')}
+            >
+              <Icon
+                glyph={List}
+                className="FormControl__segmentedLucideIcon"
+                data-tour="library-view-toggle"
+              />
+            </button>
+          </Tooltip>
         ) : (
-          <button
-            className="FormControl__button"
-            title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
-            onClick={() => handleLayout('grid')}
+          <Tooltip
+            content={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
+            asChild
           >
-            <Icon
-              glyph={LayoutGrid}
-              className="FormControl__segmentedLucideIcon"
-              data-tour="library-view-toggle"
-            />
-          </button>
+            <button
+              aria-label={t(
+                'library.toggleLayout.grid',
+                'Toggle to a grid layout'
+              )}
+              className="FormControl__button"
+              onClick={() => handleLayout('grid')}
+            >
+              <Icon
+                glyph={LayoutGrid}
+                className="FormControl__segmentedLucideIcon"
+                data-tour="library-view-toggle"
+              />
+            </button>
+          </Tooltip>
         )}
-        <button
-          className="FormControl__button"
-          title={
+        <Tooltip
+          content={
             sortDescending
               ? t('library.sortDescending', 'Sort Descending')
               : t('library.sortAscending', 'Sort Ascending')
           }
-          onClick={() => setSortDescending(!sortDescending)}
+          asChild
         >
-          {sortDescending ? (
+          <button
+            aria-label={
+              sortDescending
+                ? t('library.sortDescending', 'Sort Descending')
+                : t('library.sortAscending', 'Sort Ascending')
+            }
+            className="FormControl__button"
+            onClick={() => setSortDescending(!sortDescending)}
+          >
+            {sortDescending ? (
+              <Icon
+                glyph={ArrowDownZA}
+                className="FormControl__segmentedLucideIcon"
+                data-tour="library-sort-az"
+              />
+            ) : (
+              <Icon
+                glyph={ArrowDownAZ}
+                className="FormControl__segmentedLucideIcon"
+                data-tour="library-sort-az"
+              />
+            )}
+          </button>
+        </Tooltip>
+        <Tooltip content={t('library.sortByStatus', 'Sort by Status')} asChild>
+          <button
+            aria-label={t('library.sortByStatus', 'Sort by Status')}
+            className="FormControl__button"
+            onClick={() => setSortInstalled(!sortInstalled)}
+          >
             <Icon
-              glyph={ArrowDownZA}
+              glyph={HardDrive}
               className="FormControl__segmentedLucideIcon"
-              data-tour="library-sort-az"
+              strokeWidth={sortInstalled ? 2.25 : undefined}
+              fill={sortInstalled ? 'currentColor' : 'none'}
+              fillOpacity={sortInstalled ? 0.15 : 0}
+              data-tour="library-sort-installed"
             />
-          ) : (
-            <Icon
-              glyph={ArrowDownAZ}
-              className="FormControl__segmentedLucideIcon"
-              data-tour="library-sort-az"
-            />
-          )}
-        </button>
-        <button
-          className="FormControl__button"
-          title={t('library.sortByStatus', 'Sort by Status')}
-          onClick={() => setSortInstalled(!sortInstalled)}
-        >
-          <Icon
-            glyph={HardDrive}
-            className="FormControl__segmentedLucideIcon"
-            strokeWidth={sortInstalled ? 2.25 : undefined}
-            fill={sortInstalled ? 'currentColor' : 'none'}
-            fillOpacity={sortInstalled ? 0.15 : 0}
-            data-tour="library-sort-installed"
-          />
-        </button>
-        <button
-          className="FormControl__button"
-          title={
+          </button>
+        </Tooltip>
+        <Tooltip
+          content={
             showAlphabetFilter
               ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter')
               : t('library.showAlphabetFilter', 'Show Alphabet Filter')
           }
-          onClick={onToggleAlphabetFilter}
+          asChild
         >
-          {showAlphabetFilter ? (
-            <Icon
-              glyph={FilterX}
-              className="FormControl__segmentedLucideIcon"
-            />
-          ) : (
-            <Icon
-              glyph={ListFilter}
-              className="FormControl__segmentedLucideIcon"
-            />
-          )}
-        </button>
-        <button
-          className={classNames('FormControl__button', {
-            active: refreshing || spinning
-          })}
-          title={t('generic.library.refresh', 'Refresh Library')}
-          onClick={handleRefresh}
+          <button
+            aria-label={
+              showAlphabetFilter
+                ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter')
+                : t('library.showAlphabetFilter', 'Show Alphabet Filter')
+            }
+            className="FormControl__button"
+            onClick={onToggleAlphabetFilter}
+          >
+            {showAlphabetFilter ? (
+              <Icon
+                glyph={FilterX}
+                className="FormControl__segmentedLucideIcon"
+              />
+            ) : (
+              <Icon
+                glyph={ListFilter}
+                className="FormControl__segmentedLucideIcon"
+              />
+            )}
+          </button>
+        </Tooltip>
+        <Tooltip
+          content={t('generic.library.refresh', 'Refresh Library')}
+          asChild
         >
-          <Icon
-            glyph={RefreshCw}
-            className={classNames('FormControl__segmentedLucideIcon', {
-              ['lucide-spin']: refreshing || spinning
+          <button
+            aria-label={t('generic.library.refresh', 'Refresh Library')}
+            className={classNames('FormControl__button', {
+              active: refreshing || spinning
             })}
-            data-tour="library-refresh"
-          />
-        </button>
+            onClick={handleRefresh}
+          >
+            <Icon
+              glyph={RefreshCw}
+              className={classNames('FormControl__segmentedLucideIcon', {
+                ['lucide-spin']: refreshing || spinning
+              })}
+              data-tour="library-refresh"
+            />
+          </button>
+        </Tooltip>
         <TourButton tourId={LIBRARY_TOUR_ID} className="library-tour-button" />
       </FormControl>
     </div>

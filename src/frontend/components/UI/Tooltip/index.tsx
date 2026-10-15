@@ -8,12 +8,17 @@ interface TooltipProps {
   content: ReactNode
   children: ReactElement
   placement?: TooltipPlacement
+  /** Attach to the child directly. Only for children that take a ref, such as
+   *  a plain DOM element; without it the child is wrapped in a span, which
+   *  breaks layouts that select on direct children. */
+  asChild?: boolean
 }
 
 export default function Tooltip({
   content,
   children,
-  placement = 'top'
+  placement = 'top',
+  asChild = false
 }: TooltipProps) {
   return (
     <MuiTooltip
@@ -24,7 +29,7 @@ export default function Tooltip({
       leaveTouchDelay={6000}
       classes={{ tooltip: 'Tooltip__popper' }}
     >
-      <span className="Tooltip__anchor">{children}</span>
+      {asChild ? children : <span className="Tooltip__anchor">{children}</span>}
     </MuiTooltip>
   )
 }
