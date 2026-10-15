@@ -8,6 +8,7 @@ import {
   checkPS3Clone1,
   checkStandard,
   checkN64Clone1,
+  checkN64,
   checkGenius1,
   checkNintendo,
   checkWiiU
@@ -720,7 +721,9 @@ export const initGamepad = () => {
           checkGenius1(buttons, axes, index, checkAction)
         } else if (controller.id.match(/057e.*0330/i)) {
           checkWiiU(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/057e.*(0330|2006|2007|2009)/i)) {
+        } else if (controller.id.match(/057e.*2019/i)) {
+          checkN64(buttons, axes, index, checkAction)
+        } else if (controller.id.match(/057e.*(2006|2007|2009)/i)) {
           checkNintendo(buttons, axes, index, checkAction)
         } else {
           // if not specific, fallback to the standard layout, seems
