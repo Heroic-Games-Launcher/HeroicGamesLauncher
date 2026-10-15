@@ -69,7 +69,7 @@ export interface HeroicActions {
   isOwned: (appName: string) => boolean
 }
 
-export interface SyncPaths {
+interface SyncPaths {
   legendaryConfigDir: string
   eglv2DataDir: string
 }
@@ -82,7 +82,7 @@ const syncStore = new TypeCheckedStoreBackend('eglv2SyncStore', {
 
 // In Flatpak, `XDG_DATA_HOME` points inside the sandbox, but EGLv2 runs on
 // the host, so prefer the host's data dir
-export function getEglv2DataDir(): string {
+function getEglv2DataDir(): string {
   const dataHome =
     env.HOST_XDG_DATA_HOME ||
     (!isFlatpak && env.XDG_DATA_HOME) ||
