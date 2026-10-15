@@ -65,12 +65,14 @@
   outline-offset: 2px;
 }
 
-.ToggleSwitch--disabled {
-  opacity: 0.55;
+.ToggleSwitch--disabled .SettingRow__label,
+.ToggleSwitch--disabled .SettingRow__description {
+  color: var(--on-panel-muted, var(--text-secondary));
 }
 
 .ToggleSwitch--disabled .ToggleSwitch__track {
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .ToggleSwitch.fading {
