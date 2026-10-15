@@ -32,6 +32,7 @@ import { install, launch, updateGame } from 'frontend/helpers/library'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
+  Badge,
   CachedImage,
   GameActionButton,
   Icon,
@@ -467,11 +468,15 @@ const GameCard = ({
           data-app-name={appName}
           data-tour={dataTour}
         >
-          {haveStatus && <span className="gameCardStatus">{label}</span>}
+          {haveStatus && (
+            <Badge variant="success" onOverlay className="gameCardStatus">
+              {label}
+            </Badge>
+          )}
           {showUpdateBadge && (
-            <span className="gameCardUpdateBadge">
+            <Badge variant="info" onOverlay className="gameCardUpdateBadge">
               {t('status.hasUpdates')}
-            </span>
+            </Badge>
           )}
           <Link
             to={`/gamepage/${runner}/${appName}`}

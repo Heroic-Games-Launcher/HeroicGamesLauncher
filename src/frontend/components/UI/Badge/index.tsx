@@ -18,6 +18,7 @@ interface BadgeProps {
   glyph?: LucideIcon
   title?: string
   className?: string
+  onOverlay?: boolean
 }
 
 export default function Badge({
@@ -25,11 +26,17 @@ export default function Badge({
   variant = 'neutral',
   glyph,
   title,
-  className
+  className,
+  onOverlay = false
 }: BadgeProps) {
   return (
     <span
-      className={classNames('Badge', `Badge--${variant}`, className)}
+      className={classNames(
+        'Badge',
+        `Badge--${variant}`,
+        { 'Badge--onOverlay': onOverlay },
+        className
+      )}
       title={title}
     >
       {glyph && <Icon glyph={glyph} size="xs" />}

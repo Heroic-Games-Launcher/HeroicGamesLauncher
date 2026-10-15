@@ -44,3 +44,20 @@
 .Badge--error {
   --badge-color: var(--danger, #ef4444);
 }
+
+.Badge--onOverlay {
+  background: color-mix(
+    in oklab,
+    var(--badge-color) 34%,
+    var(--card-overlay-bg, rgba(10, 14, 19, 0.88))
+  );
+  border-color: color-mix(in oklab, var(--badge-color) 70%, transparent);
+  color: var(--ink-on-overlay, #f2f5fa);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.Badge--onOverlay svg {
+  color: var(--ink-on-overlay, #f2f5fa);
+}

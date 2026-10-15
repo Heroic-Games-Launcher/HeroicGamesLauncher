@@ -47,37 +47,19 @@
 .gameCard > .gameCardStatus {
   position: absolute;
   z-index: 5;
-  top: 8px;
-  left: 44px;
-  max-width: 120px;
-  font-weight: var(--semibold);
-  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: var(--space-3xs) var(--space-xs);
-  border-radius: 999px;
-  color: var(--success);
-  font-size: var(--text-xs);
-  letter-spacing: 0.02em;
-}
-.gameCard > .gameCardStatus svg {
-  color: var(--success);
-  height: 20px;
+  top: var(--space-xs-fixed);
+  left: var(--space-xs-fixed);
+  max-width: calc(100% - 64px);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gameCard .gameCardUpdateBadge {
   position: absolute;
   z-index: 5;
-  top: 8px;
-  right: 28%;
-  left: 8px;
-  font-weight: var(--semibold);
-  background: var(--status-info);
-  padding: var(--space-3xs) var(--space-xs);
-  border-radius: 999px;
-  color: var(--neutral-01);
-  font-size: var(--text-xs);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  top: var(--space-xs-fixed);
+  left: var(--space-xs-fixed);
+  max-width: calc(100% - 64px);
   pointer-events: none;
 }
 
