@@ -1,8 +1,6 @@
 .MuiDialog-paper.InstallModal__dialog:has(.settingsDialogContent) {
   width: min(880px, 90vw);
   max-width: min(880px, 90vw);
-  /* the install modal sizes itself to its content; min-width beats max-width,
-     so a long save path would widen this dialog past its own cap */
   min-width: 0;
   border-radius: 16px;
 
@@ -10,8 +8,8 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: var(--space-lg) var(--space-3xl-fixed) var(--space-md);
-    padding-inline-end: calc(var(--space-3xl-fixed) + 40px);
+    padding: var(--space-lg) 0 var(--space-md);
+    padding-inline-end: var(--space-3xl-fixed);
   }
 
   .MuiDialogContent-root {
