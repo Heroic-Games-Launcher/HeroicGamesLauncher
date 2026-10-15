@@ -115,6 +115,7 @@ function setup() {
     importGame: jest.fn().mockResolvedValue(true),
     forgetGame: jest.fn().mockResolvedValue(true),
     moveGame: jest.fn().mockResolvedValue(true),
+    reloadGame: jest.fn(),
     isOwned: jest.fn().mockReturnValue(true)
   }
 
@@ -256,7 +257,47 @@ describe('syncWithEglv2', () => {
     )
   })
 
-  test('picks up EGL updates in Heroic', async () => {
+  test('picks up EGL updates in Heroic in place', async () => {
+    const { paths, addHeroicGame, addEglRecord, heroic } = setup()
+    const dir = addHeroicGame('Herring', '1.0')
+    const installedPath = join(paths.legendaryConfigDir, 'installed.json')
+    const installed = JSON.parse(
+      readFileSync(installedPath, 'utf-8')
+    ) as Record<string, Json>
+    installed.Herring.install_tags = ['optional']
+    writeFileSync(installedPath, JSON.stringify(installed))
+    addEglRecord({ artifactId: 'Herring', dir, version: '2.0' })
+    mkdirSync(join(dir, '.egstore'))
+    writeFileSync(join(dir, '.egstore', 'EGLID.manifest'), 'manifest 2.0')
+
+    const result = await syncWithEglv2(heroic, paths, {
+      Herring: { dir, version: '1.0' }
+    })
+    expect(result.toHeroic).toEqual(['Title Herring'])
+    expect(heroic.reloadGame).toHaveBeenCalledWith('Herring')
+    expect(heroic.forgetGame).not.toHaveBeenCalled()
+    expect(heroic.importGame).not.toHaveBeenCalled()
+
+    const updated = (
+      JSON.parse(readFileSync(installedPath, 'utf-8')) as Record<string, Json>
+    ).Herring
+    expect(updated).toMatchObject({
+      version: '2.0',
+      install_tags: ['optional']
+    })
+    expect(
+      readFileSync(
+        join(
+          paths.legendaryConfigDir,
+          'manifests',
+          'Herring_Windows_2.0.manifest'
+        ),
+        'utf-8'
+      )
+    ).toBe('manifest 2.0')
+  })
+
+  test('skips an EGL update without its build manifest', async () => {
     const { paths, addHeroicGame, addEglRecord, heroic } = setup()
     const dir = addHeroicGame('Herring', '1.0')
     addEglRecord({ artifactId: 'Herring', dir, version: '2.0' })
@@ -264,9 +305,13 @@ describe('syncWithEglv2', () => {
     const result = await syncWithEglv2(heroic, paths, {
       Herring: { dir, version: '1.0' }
     })
-    expect(heroic.forgetGame).toHaveBeenCalledWith('Herring')
-    expect(heroic.importGame).toHaveBeenCalledWith('Herring', dir)
-    expect(result.toHeroic).toEqual(['Title Herring'])
+    expect(heroic.reloadGame).not.toHaveBeenCalled()
+    expect(result.skipped).toEqual([
+      {
+        title: 'Title Herring',
+        reason: 'missing build manifest from the Epic Games Launcher'
+      }
+    ])
   })
 
   test('follows a game moved in EGL', async () => {

@@ -82,6 +82,11 @@ export default class LegendaryLibraryManager implements LibraryManager {
         if (library.has(appName)) this.installState(appName, false)
         return true
       },
+      reloadGame: (appName) => {
+        this.refreshInstalled()
+        this.installState(appName, true)
+        sendFrontendMessage('refreshLibrary', 'legendary')
+      },
       moveGame: async (appName, dir) => {
         await this.changeGameInstallPath(appName, dir)
         sendFrontendMessage('refreshLibrary', 'legendary')

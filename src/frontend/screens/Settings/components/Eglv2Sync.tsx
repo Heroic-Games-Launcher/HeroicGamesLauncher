@@ -60,7 +60,7 @@ const Eglv2Sync = () => {
       <InfoIcon
         text={t(
           'help.eglv2-sync',
-          'Epic games you install in Heroic show up in the new Epic Games Launcher and vice versa, sharing the same files so nothing is downloaded twice. Uninstalls, updates and moves are synced too. Changes made in Heroic appear in the Epic Games Launcher the next time it starts.'
+          'Epic games you install in Heroic show up in the new Epic Games Launcher and vice versa, sharing the same files so nothing is downloaded twice. Uninstalls, updates and moves are synced too. Changes made in Heroic appear in the Epic Games Launcher the next time it starts, and changes made there appear in Heroic the next time it starts or refreshes its library.'
         )}
       />
     </div>

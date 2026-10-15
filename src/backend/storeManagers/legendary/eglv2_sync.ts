@@ -7,10 +7,9 @@ import {
   readFileSync,
   rmdirSync,
   unlinkSync,
-  watch,
+  renameSync,
   writeFileSync
 } from 'graceful-fs'
-import type { FSWatcher } from 'fs'
 import { createHash } from 'crypto'
 import { join } from 'path'
 import { env } from 'process'
@@ -65,6 +64,7 @@ interface SyncedGame {
 export interface HeroicActions {
   importGame: (appName: string, dir: string) => Promise<boolean>
   forgetGame: (appName: string) => Promise<boolean>
+  reloadGame: (appName: string) => void
   moveGame: (appName: string, dir: string) => Promise<boolean>
   isOwned: (appName: string) => boolean
 }
@@ -184,6 +184,48 @@ function findLegendaryManifest(
 function installationIdFor(game: InstalledJsonMetadata) {
   if (game.egl_guid) return game.egl_guid.replace(/-/g, '').toUpperCase()
   return createHash('md5').update(game.app_name).digest('hex').toUpperCase()
+}
+
+function updateLegendaryInstall(
+  paths: SyncPaths,
+  game: InstalledJsonMetadata,
+  eglGame: Eglv2Installation
+) {
+  const version = eglGame.version
+  if (!version) throw new Error('EGL record has no version')
+  const eglManifest = join(
+    game.install_path,
+    '.egstore',
+    `${eglGame.installationId}.manifest`
+  )
+  if (!existsSync(eglManifest)) {
+    throw new Error('missing build manifest from the Epic Games Launcher')
+  }
+
+  const installedPath = join(paths.legendaryConfigDir, 'installed.json')
+  const installed =
+    readJson<Record<string, InstalledJsonMetadata>>(installedPath)
+  const record = installed?.[game.app_name]
+  if (!installed || !record) throw new Error('not in installed.json')
+
+  const manifestsDir = join(paths.legendaryConfigDir, 'manifests')
+  mkdirSync(manifestsDir, { recursive: true })
+  copyFileSync(
+    eglManifest,
+    join(
+      manifestsDir,
+      `${cleanFilename(`${game.app_name}_${game.platform}_${version}`)}.manifest`
+    )
+  )
+
+  installed[game.app_name] = {
+    ...record,
+    version,
+    executable: eglGame.launchExecutable || record.executable
+  }
+  const tmpPath = `${installedPath}.heroic-tmp`
+  writeFileSync(tmpPath, JSON.stringify(installed, null, 2))
+  renameSync(tmpPath, installedPath)
 }
 
 /**
@@ -344,14 +386,9 @@ export async function syncWithEglv2(
           if (last?.version === eglGame.version) {
             exportNeeded = true // Updated in Heroic
           } else if (last?.version === version && eglGame.version) {
-            // Updated in EGLv2; re-importing makes Legendary pick up the
-            // build that's now on disk
-            if (
-              !(await heroic.forgetGame(appName)) ||
-              !(await heroic.importGame(appName, dir))
-            ) {
-              throw new Error('could not update the game in Heroic')
-            }
+            // Updated in EGLv2
+            updateLegendaryInstall(paths, heroicGame, eglGame)
+            heroic.reloadGame(appName)
             version = eglGame.version
             result.toHeroic.push(title)
           } else {
@@ -437,7 +474,6 @@ let heroicActions: HeroicActions | undefined
 let running: Promise<Eglv2SyncResult | undefined> | undefined
 let rerun = false
 let debounce: NodeJS.Timeout | undefined
-let watcher: FSWatcher | undefined
 
 function isEnabled() {
   return isLinux && !!GlobalConfig.get().getSettings().eglv2Sync
@@ -472,26 +508,7 @@ export function scheduleEglv2Sync() {
   debounce = setTimeout(() => void runEglv2Sync(), 2000)
 }
 
-/** Starts syncing on changes to EGLv2's installations log */
 export function startEglv2Sync(actions: HeroicActions) {
   heroicActions = actions
-  if (!isLinux || watcher) return
-  const eglv2DataDir = getEglv2DataDir()
-  // Not installed (yet); Heroic-side changes are still synced
-  if (!existsSync(eglv2DataDir)) {
-    scheduleEglv2Sync()
-    return
-  }
-  try {
-    // EGLv2 replaces the log when compacting it, so watch the folder
-    watcher = watch(eglv2DataDir, (_, filename) => {
-      if (filename === 'installations.jsonl') scheduleEglv2Sync()
-    })
-  } catch (error) {
-    logWarning(
-      ['Could not watch the Epic Games Launcher data folder:', error],
-      LogPrefix.Legendary
-    )
-  }
   scheduleEglv2Sync()
 }

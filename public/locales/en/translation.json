@@ -513,7 +513,7 @@
         "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
-        "eglv2-sync": "Epic games you install in Heroic show up in the new Epic Games Launcher and vice versa, sharing the same files so nothing is downloaded twice. Uninstalls, updates and moves are synced too. Changes made in Heroic appear in the Epic Games Launcher the next time it starts.",
+        "eglv2-sync": "Epic games you install in Heroic show up in the new Epic Games Launcher and vice versa, sharing the same files so nothing is downloaded twice. Uninstalls, updates and moves are synced too. Changes made in Heroic appear in the Epic Games Launcher the next time it starts, and changes made there appear in Heroic the next time it starts or refreshes its library.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
