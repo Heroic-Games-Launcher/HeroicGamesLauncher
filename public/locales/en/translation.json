@@ -998,6 +998,7 @@
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "runexe": {
+            "description": "Run any executable inside this prefix, such as an installer",
             "title": "Run EXE on Prefix"
         },
         "savefolder": {
@@ -1028,12 +1029,23 @@
             "label": "Use Steam Runtime",
             "noRuntimeOption": "None"
         },
+        "tools": {
+            "open": "Open",
+            "running": "Running...",
+            "selectExe": "Select EXE"
+        },
         "verboseLogs": {
             "description": "Enable verbose logs",
             "hint": "Record a detailed log on every launch, useful for reporting problems"
         },
+        "winecfg": {
+            "description": "Open the Wine configuration panel for this prefix"
+        },
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
+        "winetricks": {
+            "description": "Install Windows libraries and components into this prefix"
+        },
         "wineversion": "Wine Version",
         "wineWayland": "Enable Wine-Wayland (Experimental) (Wine version needs to support it)",
         "wow64": {
