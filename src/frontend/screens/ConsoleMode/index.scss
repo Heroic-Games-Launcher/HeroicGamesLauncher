@@ -354,7 +354,9 @@
     align-items: center;
     gap: 6px;
   }
+}
 
+.consoleButtonGlyphs {
   .buttonImage {
     width: 26px;
     height: 26px;
@@ -368,30 +370,30 @@
     xbox: (
       xbox-series,
       XboxSeriesX,
-      (A, B, LB, RB, RT)
+      (A, B, LB, RB, RT, View)
     ),
     ps4: (
       ps4,
       PS4,
-      (Cross, Circle, L1, R1, R2)
+      (Cross, Circle, L1, R1, R2, Share)
     ),
     ps5: (
       ps5,
       PS5,
-      (Cross, Circle, L1, R1, R2)
+      (Cross, Circle, L1, R1, R2, Share)
     ),
     steam-deck: (
       steam-deck,
       SteamDeck,
-      (A, B, L1, R1, R2)
+      (A, B, L1, R1, R2, Minus)
     ),
     nintendo: (
       switch,
       Switch,
-      (A, B, LB, RB, RT)
+      (A, B, LB, RB, RT, Minus)
     )
   );
-  $button-classes: main-action, back, shoulder-l, shoulder-r, trigger-r;
+  $button-classes: main-action, back, shoulder-l, shoulder-r, trigger-r, select;
 
   @each $layout, $config in $layouts {
     $folder: list.nth($config, 1);
@@ -411,6 +413,18 @@
         --imageUrl: url(/src/frontend/assets/controllers/#{$folder}/#{$prefix}_Left_Stick.png);
       }
     }
+  }
+}
+
+.consoleQuitCombo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 10px;
+
+  .buttonImage {
+    width: 20px;
+    height: 20px;
   }
 }
 

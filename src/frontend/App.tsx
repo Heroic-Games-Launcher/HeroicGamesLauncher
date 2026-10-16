@@ -22,6 +22,7 @@ import { TourProvider } from './state/TourContext'
 import { InstallGameWrapper } from './screens/Library/components/InstallModal'
 import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
 import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
+import ConsoleComboListener from './screens/ConsoleMode/components/ConsoleComboListener'
 
 function Root() {
   const {
@@ -87,6 +88,7 @@ function Root() {
           </main>
         ) : (
           <TourProvider>
+            <ConsoleComboListener />
             <OfflineMessage />
             <Sidebar />
             <main className="content">

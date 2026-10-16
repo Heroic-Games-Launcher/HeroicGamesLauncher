@@ -133,6 +133,7 @@ export interface AppSettings extends GameSettings {
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInConsoleMode: boolean
+  enableControllerInConsoleMode: boolean
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
