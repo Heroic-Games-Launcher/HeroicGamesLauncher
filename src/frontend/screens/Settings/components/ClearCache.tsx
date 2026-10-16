@@ -50,6 +50,12 @@ const ClearCache = () => {
               'Amazon library info (list of games, install dialog info)'
             )}
           </li>
+          <li>
+            {t(
+              'settings.advanced.clearCache.help11',
+              'Browser cache (cookies and HTTP cache for store webviews)'
+            )}
+          </li>
         </ul>
         {t('settings.advanced.clearCache.help6', 'This will NOT delete:')}
         <ul>
