@@ -146,16 +146,29 @@ async function addToQueue(element: DMQueueElement) {
       element.params.appName
     )
     if (!gameInfo?.isEAManaged && !gameInfo?.isUbisoftManaged) {
-      const installInfo = await libraryManagerMap[
-        element.params.runner
-      ].getInstallInfo(
-        element.params.appName,
-        element.params.platformToInstall,
-        {
-          branch: element.params.branch,
-          build: element.params.build
-        }
-      )
+      let installInfo
+      try {
+        installInfo = await libraryManagerMap[
+          element.params.runner
+        ].getInstallInfo(
+          element.params.appName,
+          element.params.platformToInstall,
+          {
+            branch: element.params.branch,
+            build: element.params.build
+          }
+        )
+      } catch (error) {
+        logWarning(
+          [
+            'Could not get install size for',
+            element.params.appName,
+            'before queueing:',
+            error
+          ],
+          LogPrefix.DownloadManager
+        )
+      }
 
       element.params.size = installInfo?.manifest?.download_size
         ? getFileSize(installInfo?.manifest?.download_size)
