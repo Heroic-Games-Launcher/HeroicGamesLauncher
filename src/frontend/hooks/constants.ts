@@ -48,8 +48,7 @@ export function getStatusLabel({
   return statusMap[status] || t('gamepage:status.notinstalled')
 }
 
-const storage = window.localStorage
-const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+const nonAvailbleGames = window.storage.getItem('nonAvailableGames') || '[]'
 const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
 
 export async function handleNonAvailableGames(appName: string, runner: Runner) {
@@ -61,7 +60,7 @@ export async function handleNonAvailableGames(appName: string, runner: Runner) {
   if (!gameAvailable) {
     if (!nonAvailbleGamesArray.includes(appName)) {
       nonAvailbleGamesArray.push(appName)
-      storage.setItem(
+      window.storage.setItem(
         'nonAvailableGames',
         JSON.stringify(nonAvailbleGamesArray)
       )
@@ -69,7 +68,7 @@ export async function handleNonAvailableGames(appName: string, runner: Runner) {
   } else {
     if (nonAvailbleGamesArray.includes(appName)) {
       nonAvailbleGamesArray.splice(nonAvailbleGamesArray.indexOf(appName), 1)
-      storage.setItem(
+      window.storage.setItem(
         'nonAvailableGames',
         JSON.stringify(nonAvailbleGamesArray)
       )

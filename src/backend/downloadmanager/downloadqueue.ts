@@ -12,9 +12,10 @@ import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 import { onConnectivityChange } from 'backend/online_monitor'
+import { storesPath } from 'backend/constants/key_value_stores'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
-  cwd: 'store',
+  cwd: storesPath,
   name: 'download-manager'
 })
 

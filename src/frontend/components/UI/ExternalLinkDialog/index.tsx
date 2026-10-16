@@ -25,7 +25,7 @@ export default function ExternalLinkDialog() {
   }
 
   function onHideDialogChange() {
-    localStorage.setItem(
+    window.storage.setItem(
       SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY,
       showDialog ? 'false' : 'true'
     )

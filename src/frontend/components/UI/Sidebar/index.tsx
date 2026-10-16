@@ -11,7 +11,7 @@ import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import { useNavigate } from 'react-router-dom'
 import { WebviewTag } from 'electron'
 
-let sidebarSize = localStorage.getItem('sidebar-width') || 240
+let sidebarSize = window.storage.getItem('sidebar-width') || 240
 const minWidth = 60
 const maxWidth = 400
 const collapsedWidth = 120
@@ -86,7 +86,7 @@ export default React.memo(function Sidebar() {
       document.body.removeEventListener('mouseup', finishDrag)
       document.body.removeEventListener('mouseleave', finishDrag)
       dragging = false
-      localStorage.setItem('sidebar-width', sidebarSize.toString())
+      window.storage.setItem('sidebar-width', sidebarSize.toString())
 
       // Re-enable pointer events on webview element
       const webviewEl = document.querySelector<WebviewTag>('webview')
