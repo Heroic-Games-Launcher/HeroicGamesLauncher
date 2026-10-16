@@ -24,6 +24,10 @@ export default function ControllerHints({
         {t('console.hints.change_store', 'Change store')}
       </div>
       <div className="hint">
+        <i className="buttonImage trigger-l" />
+        {t('console.hints.toggle_installed', 'Toggle Installed')}
+      </div>
+      <div className="hint">
         <i className="buttonImage trigger-r" />
         {t('console.hints.sort', 'Sort')}
       </div>
