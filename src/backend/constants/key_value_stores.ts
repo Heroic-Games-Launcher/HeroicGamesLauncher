@@ -8,3 +8,11 @@ export const tsStore = new TypeCheckedStoreBackend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
 })
+
+export const activeSessionsStore = new TypeCheckedStoreBackend(
+  'activeSessionsStore',
+  {
+    cwd: 'store',
+    name: 'active-sessions'
+  }
+)
