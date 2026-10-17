@@ -21,7 +21,6 @@ import {
   ArrowUpward as ArrowUpwardIcon,
   CheckCircle as CheckCircleIcon,
   Delete as DeleteIcon,
-  DesktopAccessDisabled as DesktopAccessDisabledIcon,
   DriveFileMove as DriveFileMoveIcon,
   Edit as EditIcon,
   FindInPage as FindInPageIcon,
@@ -47,7 +46,6 @@ interface Props {
   handleUpdate: () => void
   handleChangeLog: () => void
   disableUpdate: boolean
-  onShowRequirements?: () => void
   onShowModifyInstall?: () => void
   gameInfo: GameInfo
 }
@@ -62,7 +60,6 @@ export default function GamesSubmenu({
   handleUpdate,
   handleChangeLog,
   disableUpdate,
-  onShowRequirements,
   onShowModifyInstall,
   gameInfo
 }: Props) {
@@ -429,15 +426,6 @@ export default function GamesSubmenu({
                 <FontAwesomeIcon icon={faLinux} />
               </SvgIcon>
               {t('submenu.protondb', 'Check Compatibility')}
-            </button>
-          )}
-          {onShowRequirements && (
-            <button
-              onClick={async () => onShowRequirements()}
-              className="link button is-text is-link buttonWithIcon"
-            >
-              <DesktopAccessDisabledIcon />
-              {t('game.requirements', 'Requirements')}
             </button>
           )}
           {showModifyItem && (
