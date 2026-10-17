@@ -9,6 +9,7 @@ import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
+import PowerSettings from './components/PowerSettings'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export default React.memo(function DownloadManager(): JSX.Element | null {
@@ -106,6 +107,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       >
         {t('download-manager.title', 'Downloads')}
       </h4>
+      {window.isSteamDeck && <PowerSettings />}
       {
         <>
           <ProgressHeader
