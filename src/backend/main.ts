@@ -142,6 +142,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { initGamepad } from './gamepad'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -203,6 +204,8 @@ async function initializeWindow(): Promise<BrowserWindow> {
   mainWindow.on('leave-full-screen', () =>
     sendFrontendMessage('fullscreen', false)
   )
+  mainWindow.on('focus', () => backendEvents.emit('mainWindowFocussed'))
+  mainWindow.on('blur', () => backendEvents.emit('mainWindowUnfocussed'))
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
@@ -327,6 +330,7 @@ if (!gotTheLock) {
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
+    initGamepad()
 
     // Add User-Agent Client hints to behave like Windows
     if (process.argv.includes('--spoof-windows')) {
@@ -1163,135 +1167,6 @@ addHandler(
     getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
 
-// Simulate keyboard and mouse actions as if the real input device is used
-addHandler('gamepadAction', async (event, args) => {
-  // we can only receive gamepad events if the main window exists
-  const mainWindow = getMainWindow()!
-
-  const { action, metadata } = args
-  const inputEvents: (
-    | Electron.MouseInputEvent
-    | Electron.MouseWheelInputEvent
-    | Electron.KeyboardInputEvent
-  )[] = []
-
-  /*
-   * How to extend:
-   *
-   * Valid values for type are 'keyDown', 'keyUp' and 'char'
-   * Valid values for keyCode are defined here:
-   * https://www.electronjs.org/docs/latest/api/accelerator#available-key-codes
-   *
-   */
-  switch (action) {
-    case 'rightStickUp':
-      inputEvents.push({
-        type: 'mouseWheel',
-        deltaY: 50,
-        x: mainWindow.getBounds().width / 2,
-        y: mainWindow.getBounds().height / 2
-      })
-      break
-    case 'rightStickDown':
-      inputEvents.push({
-        type: 'mouseWheel',
-        deltaY: -50,
-        x: mainWindow.getBounds().width / 2,
-        y: mainWindow.getBounds().height / 2
-      })
-      break
-    case 'leftStickUp':
-    case 'leftStickDown':
-    case 'leftStickLeft':
-    case 'leftStickRight':
-    case 'padUp':
-    case 'padDown':
-    case 'padLeft':
-    case 'padRight':
-      // spatial navigation
-      inputEvents.push({
-        type: 'keyDown',
-        keyCode: action.replace(/pad|leftStick/, '')
-      })
-      inputEvents.push({
-        type: 'keyUp',
-        keyCode: action.replace(/pad|leftStick/, '')
-      })
-      break
-    case 'leftClick':
-      inputEvents.push({
-        type: 'mouseDown',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      inputEvents.push({
-        type: 'mouseUp',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      break
-    case 'rightClick':
-      inputEvents.push({
-        type: 'mouseDown',
-        button: 'right',
-        x: metadata.x,
-        y: metadata.y
-      })
-      inputEvents.push({
-        type: 'mouseUp',
-        button: 'right',
-        x: metadata.x,
-        y: metadata.y
-      })
-      break
-    case 'back':
-      mainWindow.webContents.goBack()
-      break
-    case 'esc':
-      inputEvents.push({
-        type: 'keyDown',
-        keyCode: 'Esc'
-      })
-      inputEvents.push({
-        type: 'keyUp',
-        keyCode: 'Esc'
-      })
-      break
-    case 'tab':
-      inputEvents.push(
-        {
-          type: 'keyDown',
-          keyCode: 'Tab'
-        },
-        {
-          type: 'keyUp',
-          keyCode: 'Tab'
-        }
-      )
-      break
-    case 'shiftTab':
-      inputEvents.push(
-        {
-          type: 'keyDown',
-          keyCode: 'Tab',
-          modifiers: ['shift']
-        },
-        {
-          type: 'keyUp',
-          keyCode: 'Tab',
-          modifiers: ['shift']
-        }
-      )
-      break
-  }
-
-  if (inputEvents.length) {
-    inputEvents.forEach((event) => mainWindow.webContents.sendInputEvent(event))
-  }
-})
-
 addHandler('getShellPath', async (event, path) => getShellPath(path))
 
 addHandler('getWebviewPreloadPath', () => webviewPreloadPath)
@@ -1452,3 +1327,4 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
+import './gamepad/ipc_handler'
