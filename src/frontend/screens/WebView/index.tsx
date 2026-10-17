@@ -19,6 +19,7 @@ import {
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
+import { getWebviewPartition } from 'common/constants/webview'
 import {
   Dialog,
   DialogContent,
@@ -454,7 +455,7 @@ export default function WebView() {
         key={store}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`}
+        partition={getWebviewPartition(store, runner)}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
