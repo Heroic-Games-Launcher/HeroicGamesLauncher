@@ -113,7 +113,7 @@ async function prepareImagesForSteam(props: {
   for (const [key, imgUrl] of images) {
     if (!checkImageExistsAlready(key) && imgUrl) {
       if (imgUrl.startsWith('http')) {
-        const error = downloadImage(imgUrl, key)
+        const error = await downloadImage(imgUrl, key)
         if (error) {
           errors.push(error)
         }
