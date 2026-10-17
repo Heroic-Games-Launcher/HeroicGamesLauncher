@@ -23,7 +23,7 @@ type Props = {
   backdropClick: () => void
 }
 
-type SgdbTarget = 'cover' | 'square' | null
+type SgdbTarget = 'cover' | 'square' | 'icon' | null
 
 export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   const { t } = useTranslation('gamepage')
@@ -41,6 +41,9 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   const [artSquare, setArtSquare] = useState(
     gameInfo.overrides?.art_square || gameInfo.art_square
   )
+  const [artIcon, setArtIcon] = useState(
+    gameInfo.overrides?.art_icon || gameInfo.art_icon || ''
+  )
   const [hasSgdbKey, setHasSgdbKey] = useState(false)
   const [sgdbTarget, setSgdbTarget] = useState<SgdbTarget>(null)
 
@@ -50,13 +53,14 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
 
   const handleSave = () => {
     // Drop fields that match the original game info — the backend deletes
-    // the override entry when all three are empty, which is what we want
+    // the override entry when all fields are empty, which is what we want
     // after the user resets.
     window.api.setGameMetadataOverride({
       appName: gameInfo.app_name,
       title: title === gameInfo.title ? '' : title,
       art_cover: artCover === gameInfo.art_cover ? '' : artCover,
-      art_square: artSquare === gameInfo.art_square ? '' : artSquare
+      art_square: artSquare === gameInfo.art_square ? '' : artSquare,
+      art_icon: artIcon === (gameInfo.art_icon || '') ? '' : artIcon
     })
     backdropClick()
   }
@@ -67,21 +71,30 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
     setTitle(gameInfo.title)
     setArtCover('')
     setArtSquare('')
+    setArtIcon('')
   }
 
   const hasOverride = Boolean(gameInfo.overrides)
 
-  async function handlePasteFromClipboard(target: 'cover' | 'square') {
+  async function handlePasteFromClipboard(target: 'cover' | 'square' | 'icon') {
     const text = (await navigator.clipboard.readText()).trim()
     if (!text) return
     if (target === 'cover') setArtCover(text)
-    else setArtSquare(text)
+    else if (target === 'square') setArtSquare(text)
+    else setArtIcon(text)
   }
 
-  const openSgdbPicker = (target: 'cover' | 'square') => {
+  const openSgdbPicker = (target: 'cover' | 'square' | 'icon') => {
     if (!hasSgdbKey) return
     setSgdbTarget(target)
   }
+
+  const sgdbMode =
+    sgdbTarget === 'cover'
+      ? 'heroes'
+      : sgdbTarget === 'icon'
+        ? 'icons'
+        : 'grids'
 
   return (
     <div className="EditGameDialog">
@@ -131,6 +144,20 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                     : handlePasteFromClipboard('square')
                 }
               />
+              <TextInputWithIconField
+                label={t('edit-game.info.icon', 'Shortcut Icon')}
+                placeholder={t(
+                  'edit-game.placeholder.image',
+                  'Paste an image URL'
+                )}
+                onChange={setArtIcon}
+                htmlId="edit-game-icon"
+                value={artIcon}
+                icon={artIcon ? <Clear /> : <ContentPaste />}
+                onIconClick={() =>
+                  artIcon ? setArtIcon('') : handlePasteFromClipboard('icon')
+                }
+              />
             </details>
             {!hasSgdbKey && (
               <WarningMessage>
@@ -152,10 +179,11 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
             {sgdbTarget && (
               <SteamGridDBPicker
                 initialTitle={title}
-                mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
+                mode={sgdbMode}
                 onClose={() => setSgdbTarget(null)}
                 onSelect={(url: string) => {
                   if (sgdbTarget === 'cover') setArtCover(url)
+                  else if (sgdbTarget === 'icon') setArtIcon(url)
                   else setArtSquare(url)
                   setSgdbTarget(null)
                 }}
@@ -196,6 +224,31 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                     artSquare ||
                     gameInfo.art_square ||
                     gameInfo.art_cover ||
+                    fallbackImage
+                  }
+                />
+                {hasSgdbKey && (
+                  <div className="imageHoverOverlay">
+                    <FontAwesomeIcon icon={faSearch} size="3x" />
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="previewItem">
+              <span className="previewLabel">
+                {t('edit-game.icon', 'Shortcut Icon')}
+              </span>
+              <div
+                className={classNames('appImageContainer', { hasSgdbKey })}
+                onClick={() => openSgdbPicker('icon')}
+              >
+                <CachedImage
+                  className={classNames('appImage shortcutIconArt')}
+                  src={
+                    artIcon ||
+                    gameInfo.art_icon ||
+                    artSquare ||
+                    gameInfo.art_square ||
                     fallbackImage
                   }
                 />

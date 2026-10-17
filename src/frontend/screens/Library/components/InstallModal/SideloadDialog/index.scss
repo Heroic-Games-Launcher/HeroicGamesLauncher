@@ -66,6 +66,16 @@
     &.heroImage {
       aspect-ratio: 1600 / 650;
     }
+
+    &.shortcutIconArt {
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      background: var(--neutral-02);
+    }
+  }
+
+  .iconContainer {
+    width: 120px;
   }
 
   .heroImageContainer {

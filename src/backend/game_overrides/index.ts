@@ -72,7 +72,12 @@ export function setGameOverrides(
     >
 
     // If override is empty, remove it and drop any stored image files.
-    if (!override.title && !override.art_cover && !override.art_square) {
+    if (
+      !override.title &&
+      !override.art_cover &&
+      !override.art_square &&
+      !override.art_icon
+    ) {
       delete currentOverrides[appName]
       removeImagesForApp(appName)
     } else {

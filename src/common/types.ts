@@ -222,6 +222,7 @@ export interface GameInfo {
     title?: string
     art_cover?: string
     art_square?: string
+    art_icon?: string
   }
 }
 
@@ -873,6 +874,7 @@ export interface SGDBGrid {
   id: number
   url: string
   thumb: string
+  style?: string
 }
 
 export interface SGDBGame {
