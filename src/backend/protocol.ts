@@ -43,6 +43,16 @@ export function shouldHideWindowForProtocolArgs(args: string[]): boolean {
   }
 }
 
+// Returns true when `args` represent a `heroic://launch/...` request, i.e.
+// starting a game rather than just reopening the app. Used so that starting
+// a game never forces the main window to show: whatever state the window
+// was already in (open, minimized, or hidden) is left untouched, unless the
+// user explicitly opted into hiding it (see `shouldHideWindowForProtocolArgs`).
+export function isGameLaunchArgs(args: string[]): boolean {
+  const url = parseHeroicUrl(args)
+  return url?.hostname === 'launch'
+}
+
 export function handleProtocol(args: string[]) {
   const url = parseHeroicUrl(args)
   if (!url) return
