@@ -13,6 +13,7 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionListItem } from 'frontend/screens/Settings/components/WineVersionSelector'
 import { MenuItem } from '@mui/material'
 import { useAwaited } from 'frontend/hooks/useAwaited'
+import { getWineVersionSourceLabels } from 'common/utils'
 
 type Props = {
   setWineVersion: (newVersion: WineInstallation) => void
@@ -50,6 +51,7 @@ export default function WineSelector({
     if (!globalConfig) return ''
     return `${globalConfig.wineVersion.name}\n${globalConfig.defaultWinePrefix}`
   }, [globalConfig])
+  const sourceLabels = getWineVersionSourceLabels(wineVersionList)
 
   useEffect(() => {
     if (!globalConfig) return
@@ -139,20 +141,23 @@ export default function WineSelector({
           <SelectField
             label={`${t('install.wineversion')}:`}
             htmlId="wineVersion"
-            value={wineVersion?.name || ''}
+            value={wineVersion?.bin || ''}
             disabled={useSharedPrefix || wineVersionList.length === 0}
             onChange={(e) =>
               setWineVersion(
                 wineVersionList.find(
-                  (version) => version.name === e.target.value
+                  (version) => version.bin === e.target.value
                 )!
               )
             }
           >
             {wineVersionList &&
               wineVersionList.map((version, i) => (
-                <MenuItem key={i} value={version.name}>
-                  <WineVersionListItem version={version} />
+                <MenuItem key={version.bin} value={version.bin}>
+                  <WineVersionListItem
+                    version={version}
+                    sourceLabel={sourceLabels[i]}
+                  />
                 </MenuItem>
               ))}
           </SelectField>
