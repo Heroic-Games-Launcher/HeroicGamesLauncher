@@ -116,6 +116,23 @@ export interface AureliaLaunchOptionsResponse {
   launch_options: AureliaLaunchOption[]
 }
 
+/** One entry from `aurelia launch-targets <id> --json`. */
+export interface AureliaLaunchTarget {
+  id: string
+  platform: 'linux' | 'windows'
+  steam_mode: 'runtime' | 'host' | 'none' | null
+  // `aurelia play` flags selecting it
+  flags: string[]
+  available: boolean
+  missing: 'build' | 'steam-runtime' | 'host-steam' | null
+  default: boolean
+}
+
+export interface AureliaLaunchTargetsResponse {
+  app_id: number
+  targets: AureliaLaunchTarget[]
+}
+
 /** One entry from `aurelia achievements <id> --json`. */
 interface AureliaAchievement {
   achievement_id: string

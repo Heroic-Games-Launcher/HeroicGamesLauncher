@@ -6,6 +6,7 @@ import SettingsContext from '../../SettingsContext'
 import { defaultWineVersion } from '../../util'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
+import SteamSyncSaves from './steam'
 import { ToggleSwitch } from 'frontend/components/UI'
 
 const SyncSaves = () => {
@@ -65,6 +66,10 @@ const SyncSaves = () => {
         quickSavesToggle={QuickSavesToggle}
       />
     )
+  }
+
+  if (game.runner === 'steam') {
+    return <SteamSyncSaves game={game} />
   }
 
   if (game.runner === 'gog') {

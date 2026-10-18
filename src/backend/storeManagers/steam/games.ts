@@ -59,12 +59,15 @@ import {
 import type {
   AureliaAchievementsResponse,
   AureliaCloudConflict,
-  AureliaCloudSyncResponse
+  AureliaCloudSyncResponse,
+  AureliaLaunchTarget,
+  AureliaLaunchTargetsResponse
 } from './aurelia_types'
 import type {
   SteamCloudFile,
   SteamCloudSyncDirection,
-  SteamCloudSyncStatus
+  SteamCloudSyncStatus,
+  SteamLaunchTargets
 } from 'common/types/steam'
 
 import type LogWriter from 'backend/logger/log_writer'
@@ -132,6 +135,88 @@ export default class SteamGame extends Game {
     const map = configStore.get('steamIntegration', {})
     map[this.id] = enabled
     configStore.set('steamIntegration', map)
+  }
+
+  /**
+   * Installed builds and Steam modes Aurelia can launch, with the `play` flags
+   * for each. The default mirrors the Steam integration toggle.
+   */
+  private async fetchLaunchTargets(): Promise<AureliaLaunchTarget[]> {
+    const args = ['launch-targets', this.id]
+    if (this.getSteamIntegrationEnabled()) {
+      args.push('--steam')
+    }
+    const res = await runAurelia<AureliaLaunchTargetsResponse>(args)
+    return res.targets ?? []
+  }
+
+  async getLaunchTargets(): Promise<SteamLaunchTargets> {
+    if (!isSteamImportEnabled() || !this.getGameInfo().is_installed) {
+      return { targets: [] }
+    }
+    try {
+      const targets = await this.fetchLaunchTargets()
+      return {
+        targets: targets.map((target) => ({
+          id: target.id,
+          platform: target.platform,
+          steamMode: target.steam_mode,
+          available: target.available,
+          missing: target.missing,
+          isDefault: target.default
+        })),
+        selected: configStore.get('steamLaunchTarget', {})[this.id]
+      }
+    } catch (error) {
+      logWarning(
+        [`Failed to list launch targets for ${this.id}`, describeError(error)],
+        LogPrefix.Steam
+      )
+      return { targets: [] }
+    }
+  }
+
+  /**
+   * Remember which launch target Play uses for this game.
+   */
+  setLaunchTarget(targetId: string): void {
+    const map = configStore.get('steamLaunchTarget', {})
+    // Empty id means automatic
+    if (targetId) {
+      map[this.id] = targetId
+    } else {
+      delete map[this.id]
+    }
+    configStore.set('steamLaunchTarget', map)
+  }
+
+  /**
+   * The chosen target if still installed, else Aurelia's default. Undefined when
+   * Aurelia can't list targets (e.g. an older binary).
+   */
+  private async resolveLaunchTarget(
+    logWriter: LogWriter
+  ): Promise<AureliaLaunchTarget | undefined> {
+    let targets: AureliaLaunchTarget[]
+    try {
+      targets = await this.fetchLaunchTargets()
+    } catch (error) {
+      await logWriter.logWarning([
+        'Could not list launch targets, using legacy launch flags',
+        describeError(error)
+      ])
+      return undefined
+    }
+    const selected = configStore.get('steamLaunchTarget', {})[this.id]
+    const chosen = targets.find(
+      (target) => target.id === selected && target.available
+    )
+    if (selected && !chosen) {
+      await logWriter.logWarning(
+        `Launch target ${selected} is not available, using the default`
+      )
+    }
+    return chosen ?? targets.find((target) => target.default)
   }
 
   async getExtraInfo(lang = 'en-US'): Promise<ExtraInfo> {
@@ -706,20 +791,33 @@ export default class SteamGame extends Game {
     sendGameStatusUpdate(this, 'playing')
 
     const playCommand = ['play', this.id, '--json']
-
-    // Ignore on native Linux handling
-    if (isLinux && !gameInfo.is_linux_native) {
+    const pushProton = async () => {
       const { wineVersion } = await this.getSettings()
       if (wineVersion?.type === 'proton' && wineVersion.bin) {
         playCommand.push('--proton', dirname(wineVersion.bin))
       }
     }
 
-    // Opt-in: run with real Steam integration so Steamworks online features stay
-    // enabled (Aurelia bridges to the host Steam client, starting it silently if
-    // needed). Aurelia also forces this on for Family-Shared games.
-    if (this.getSteamIntegrationEnabled()) {
-      playCommand.push('--steam')
+    const target = await this.resolveLaunchTarget(logWriter)
+    if (target) {
+      // Target flags pick build and Steam mode
+      await logWriter.logInfo(`Launch target: ${target.id}`)
+      playCommand.push(...target.flags)
+      if (isLinux && target.platform === 'windows') {
+        await pushProton()
+      }
+    } else {
+      // Ignore on native Linux handling
+      if (isLinux && !gameInfo.is_linux_native) {
+        await pushProton()
+      }
+
+      // Opt-in: run with real Steam integration so Steamworks online features stay
+      // enabled (Aurelia bridges to the host Steam client, starting it silently if
+      // needed). Aurelia also forces this on for Family-Shared games.
+      if (this.getSteamIntegrationEnabled()) {
+        playCommand.push('--steam')
+      }
     }
 
     const res = await libraryManagerMap['steam'].runRunnerCommand(playCommand, {

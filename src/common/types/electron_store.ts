@@ -96,6 +96,8 @@ export interface StoreStructure {
     pendingDlc?: SteamPendingDlcChange[]
     // Per-game opt-in Steam launch, needed for Steamworks online features and Family-Sharing. .
     steamIntegration?: Record<string, boolean>
+    // Per-game chosen `aurelia launch-targets` id
+    steamLaunchTarget?: Record<string, string>
     // Last Cloud sync outcome per app id, so the library can show sync state
     cloudSync?: Record<string, SteamCloudSyncStatus>
   }

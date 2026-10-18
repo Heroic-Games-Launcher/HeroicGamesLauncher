@@ -56,6 +56,7 @@ import type {
   SteamCloudSyncStatus,
   SteamDLCInfo,
   SteamInstallLibrary,
+  SteamLaunchTargets,
   SteamLoginData
 } from './steam'
 import type { Game } from './game_manager'
@@ -212,6 +213,12 @@ interface AsyncIPCFunctions {
   focusGameWindow: () => Promise<void>
   setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
   getSteamIntegrationEnabled: (game: Game) => boolean
+  getSteamLaunchTargets: (game: Game) => Promise<SteamLaunchTargets>
+  setSteamLaunchTarget: (game: Game, targetId: string) => void
+  installSteamWineRuntime: () => Promise<{
+    status: 'done' | 'error'
+    error?: string
+  }>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'

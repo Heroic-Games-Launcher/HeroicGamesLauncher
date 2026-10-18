@@ -1,6 +1,9 @@
 import { addHandler, addListener } from 'backend/ipc'
 import { SteamUser } from './user'
 import { libraryManagerMap } from '..'
+import { runAurelia } from './aurelia'
+import { describeError } from './utils'
+import { logError, LogPrefix } from 'backend/logger'
 
 addHandler('getSteamUsers', () => SteamUser.getAccounts())
 
@@ -36,6 +39,28 @@ addHandler('setSteamDlcEnabled', async (_e, dlcAppId, enabled) =>
 addHandler('getSteamIntegrationEnabled', (_e, game) =>
   libraryManagerMap['steam'].getGame(game.id).getSteamIntegrationEnabled()
 )
+
+addHandler('getSteamLaunchTargets', async (_e, game) =>
+  libraryManagerMap['steam'].getGame(game.id).getLaunchTargets()
+)
+
+addHandler('setSteamLaunchTarget', (_e, game, targetId) =>
+  libraryManagerMap['steam'].getGame(game.id).setLaunchTarget(targetId)
+)
+
+// Opens the Windows Steam installer under Wine
+addHandler('installSteamWineRuntime', async () => {
+  try {
+    await runAurelia(['steam-runtime', 'install'])
+    return { status: 'done' as const }
+  } catch (error) {
+    logError(
+      ['Failed to install the in-Wine Steam runtime', describeError(error)],
+      LogPrefix.Steam
+    )
+    return { status: 'error' as const, error: describeError(error) }
+  }
+})
 
 addListener('setSteamIntegrationEnabled', (_e, game, enabled) => {
   libraryManagerMap['steam']

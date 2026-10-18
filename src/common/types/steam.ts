@@ -26,6 +26,25 @@ export interface SteamPendingDlcChange {
   enable: boolean
 }
 
+/** An installed build plus how Steam runs alongside it. */
+export interface SteamLaunchTarget {
+  id: string
+  platform: 'linux' | 'windows'
+  // Only set for Windows builds
+  steamMode: 'runtime' | 'host' | 'none' | null
+  available: boolean
+  // What must be installed first
+  missing: 'build' | 'steam-runtime' | 'host-steam' | null
+  // What Aurelia picks without a choice
+  isDefault: boolean
+}
+
+export interface SteamLaunchTargets {
+  targets: SteamLaunchTarget[]
+  // User's chosen target id
+  selected?: string
+}
+
 export interface SteamInstallLibrary {
   path: string
   free_bytes: number | null

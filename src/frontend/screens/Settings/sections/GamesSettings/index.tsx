@@ -29,6 +29,7 @@ import {
   ShowFPS,
   SteamRuntime,
   SteamIntegration,
+  SteamLaunchTarget,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -46,6 +47,7 @@ import SettingsContext from '../../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import useSetting from 'frontend/hooks/useSetting'
+import { useSteamLaunchTargets } from 'frontend/hooks/useSteamLaunchTargets'
 import { defaultWineVersion } from '../../util'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
@@ -78,13 +80,19 @@ export default function GamesSettings() {
   const { platform } = useContext(ContextProvider)
   const { game, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const [isNative, setIsNative] = useState(false)
+  const [nativeFromApi, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
+  const steamTargets = useSteamLaunchTargets(game, gameInfo, isLinux)
+  // Steam: follows the chosen game version
+  const steamPlatform = steamTargets.effective?.platform
+  const isNative = steamPlatform ? steamPlatform === 'linux' : nativeFromApi
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
   const showCloudSavesTab =
-    gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
+    gameInfo?.runner === 'gog' ||
+    gameInfo?.runner === 'legendary' ||
+    (gameInfo?.runner === 'steam' && gameInfo.is_installed)
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
 
@@ -212,6 +220,7 @@ export default function GamesSettings() {
             <EacRuntime />
           </>
         )}
+        <SteamLaunchTarget state={steamTargets} />
       </TabPanel>
 
       <TabPanel value={value} index={'advanced'}>

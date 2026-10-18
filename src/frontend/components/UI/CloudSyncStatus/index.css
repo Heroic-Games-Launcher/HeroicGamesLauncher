@@ -70,7 +70,7 @@
 
 /* ---- Modal ---- */
 
-.cloudSyncModal .cloudSyncActions {
+.cloudSyncPanel .cloudSyncActions {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs, 0.5rem);
@@ -78,7 +78,7 @@
 }
 
 /* Status banner: state icon, state line, and when it last ran. */
-.cloudSyncModal .cloudSyncSummary {
+.cloudSyncPanel .cloudSyncSummary {
   --cloud-sync-accent: var(--text-secondary, #8b8b8b);
 
   display: flex;
@@ -91,52 +91,52 @@
   background: var(--background-darker);
 }
 
-.cloudSyncModal .cloudSyncSummary.state-ok {
+.cloudSyncPanel .cloudSyncSummary.state-ok {
   --cloud-sync-accent: var(--success, #07c5ef);
 }
 
-.cloudSyncModal .cloudSyncSummary.state-syncing {
+.cloudSyncPanel .cloudSyncSummary.state-syncing {
   --cloud-sync-accent: var(--brand-primary, #07c5ef);
 }
 
-.cloudSyncModal .cloudSyncSummary.state-conflicts,
-.cloudSyncModal .cloudSyncSummary.state-failed {
+.cloudSyncPanel .cloudSyncSummary.state-conflicts,
+.cloudSyncPanel .cloudSyncSummary.state-failed {
   --cloud-sync-accent: var(--danger, #f45460);
 }
 
-.cloudSyncModal .cloudSyncSummary.state-incomplete {
+.cloudSyncPanel .cloudSyncSummary.state-incomplete {
   --cloud-sync-accent: var(--warning, #ffcc00);
 }
 
-.cloudSyncModal .cloudSyncSummaryIcon {
+.cloudSyncPanel .cloudSyncSummaryIcon {
   flex-shrink: 0;
   width: 32px;
   height: 32px;
   color: var(--cloud-sync-accent);
 }
 
-.cloudSyncModal .cloudSyncSummary.state-syncing .cloudSyncSummaryIcon {
+.cloudSyncPanel .cloudSyncSummary.state-syncing .cloudSyncSummaryIcon {
   animation: cloudSyncSpin 1.6s linear infinite;
 }
 
-.cloudSyncModal .cloudSyncSummaryText {
+.cloudSyncPanel .cloudSyncSummaryText {
   display: flex;
   flex-direction: column;
   gap: 2px;
   min-width: 0;
 }
 
-.cloudSyncModal .cloudSyncSummaryState {
+.cloudSyncPanel .cloudSyncSummaryState {
   font-weight: var(--medium, 500);
 }
 
-.cloudSyncModal .cloudSyncSummaryMeta {
+.cloudSyncPanel .cloudSyncSummaryMeta {
   font-size: var(--text-sm);
   color: var(--text-secondary, inherit);
 }
 
 /* Per-file outcome counts from the last sync. */
-.cloudSyncModal .cloudSyncCounts {
+.cloudSyncPanel .cloudSyncCounts {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2xs, 0.375rem);
@@ -145,7 +145,7 @@
   list-style: none;
 }
 
-.cloudSyncModal .cloudSyncCount {
+.cloudSyncPanel .cloudSyncCount {
   padding: 2px var(--space-xs, 0.5rem);
   border-radius: 999px;
   font-size: var(--text-xs);
@@ -153,16 +153,16 @@
   border: 1px solid currentColor;
 }
 
-.cloudSyncModal .cloudSyncCount.error {
+.cloudSyncPanel .cloudSyncCount.error {
   color: var(--danger, #f45460);
 }
 
-.cloudSyncModal .cloudSyncCount.warning {
+.cloudSyncPanel .cloudSyncCount.warning {
   color: var(--warning, #ffcc00);
 }
 
 /* Two-line action rows: what it does, and what it acts on. */
-.cloudSyncModal .cloudSyncAction {
+.cloudSyncPanel .cloudSyncAction {
   display: flex;
   align-items: center;
   gap: var(--space-sm, 0.75rem);
@@ -173,22 +173,22 @@
   transition: background 200ms;
 }
 
-.cloudSyncModal .cloudSyncAction > svg {
+.cloudSyncPanel .cloudSyncAction > svg {
   flex-shrink: 0;
 }
 
-.cloudSyncModal .cloudSyncActionText {
+.cloudSyncPanel .cloudSyncActionText {
   display: flex;
   flex-direction: column;
   gap: 1px;
   min-width: 0;
 }
 
-.cloudSyncModal .cloudSyncActionLabel {
+.cloudSyncPanel .cloudSyncActionLabel {
   overflow-wrap: anywhere;
 }
 
-.cloudSyncModal .cloudSyncActionHint {
+.cloudSyncPanel .cloudSyncActionHint {
   font-size: var(--text-xs);
   font-weight: normal;
   text-transform: none;
@@ -196,7 +196,7 @@
   overflow-wrap: anywhere;
 }
 
-.cloudSyncModal .cloudSyncBusy {
+.cloudSyncPanel .cloudSyncBusy {
   display: flex;
   align-items: center;
   gap: var(--space-xs, 0.5rem);
@@ -205,13 +205,13 @@
   color: var(--text-secondary, inherit);
 }
 
-.cloudSyncModal .cloudSyncBusyIcon {
+.cloudSyncPanel .cloudSyncBusyIcon {
   width: 18px;
   height: 18px;
   animation: cloudSyncSpin 1.6s linear infinite;
 }
 
-.cloudSyncModal .cloudSyncIssue {
+.cloudSyncPanel .cloudSyncIssue {
   display: flex;
   gap: var(--space-xs, 0.5rem);
   align-items: flex-start;
@@ -222,23 +222,23 @@
   border-left: 3px solid var(--danger, #f45460);
 }
 
-.cloudSyncModal .cloudSyncIssue.warning {
+.cloudSyncPanel .cloudSyncIssue.warning {
   border-left-color: var(--warning, #ffcc00);
 }
 
-.cloudSyncModal .cloudSyncIssueText {
+.cloudSyncPanel .cloudSyncIssueText {
   white-space: pre-wrap;
   font-size: var(--text-sm);
   margin: 0;
 }
 
-.cloudSyncModal .cloudSyncMeta {
+.cloudSyncPanel .cloudSyncMeta {
   font-size: var(--text-sm);
   color: var(--text-secondary, inherit);
   margin: 0 0 var(--space-sm, 0.75rem) 0;
 }
 
-.cloudSyncModal .cloudSyncFileList {
+.cloudSyncPanel .cloudSyncFileList {
   max-height: 45vh;
   overflow-y: auto;
   margin: 0 0 var(--space-sm, 0.75rem) 0;
@@ -248,7 +248,7 @@
   background: var(--background-darker);
 }
 
-.cloudSyncModal .cloudSyncFile {
+.cloudSyncPanel .cloudSyncFile {
   display: grid;
   grid-template-columns: 1fr auto auto;
   gap: var(--space-xs, 0.5rem);
@@ -258,29 +258,29 @@
   font-size: var(--text-sm);
 }
 
-.cloudSyncModal .cloudSyncFile:last-child {
+.cloudSyncPanel .cloudSyncFile:last-child {
   border-bottom: none;
 }
 
-.cloudSyncModal .cloudSyncFileName {
+.cloudSyncPanel .cloudSyncFileName {
   overflow-wrap: anywhere;
 }
 
-.cloudSyncModal .cloudSyncFileMeta {
+.cloudSyncPanel .cloudSyncFileMeta {
   color: var(--text-secondary, inherit);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-.cloudSyncModal .cloudSyncEmpty {
+.cloudSyncPanel .cloudSyncEmpty {
   padding: var(--space-md, 1rem) 0;
   text-align: center;
   color: var(--text-secondary, inherit);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cloudSyncModal .cloudSyncSummary.state-syncing .cloudSyncSummaryIcon,
-  .cloudSyncModal .cloudSyncBusyIcon {
+  .cloudSyncPanel .cloudSyncSummary.state-syncing .cloudSyncSummaryIcon,
+  .cloudSyncPanel .cloudSyncBusyIcon {
     animation: none;
   }
 }
