@@ -3,7 +3,13 @@ import { logError, LogPrefix, logInfo } from 'backend/logger'
 import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
-import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  realpathSync
+} from 'graceful-fs'
 import { homedir } from 'os'
 import { dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
@@ -18,6 +24,29 @@ import {
   userHome
 } from 'backend/constants/paths'
 import { isLinux, isMac } from 'backend/constants/environment'
+
+export function deduplicateWineInstallationsByRealPath(
+  installations: Iterable<WineInstallation>
+): Set<WineInstallation> {
+  const seenPaths = new Set<string>()
+  const uniqueInstallations = new Set<WineInstallation>()
+
+  for (const installation of installations) {
+    let realPath = installation.bin
+    try {
+      realPath = realpathSync(installation.bin)
+    } catch {
+      // Keep installations whose paths cannot be resolved distinct.
+    }
+
+    if (!seenPaths.has(realPath)) {
+      seenPaths.add(realPath)
+      uniqueInstallations.add(installation)
+    }
+  }
+
+  return uniqueInstallations
+}
 
 /**
  * Loads the default wine installation path and version.
@@ -199,7 +228,12 @@ export async function getLinuxWineSet(
     customWineSet = getCustomWinePaths()
   }
 
-  return new Set([...proton, ...altWine, ...defaultWineSet, ...customWineSet])
+  return new Set([
+    ...deduplicateWineInstallationsByRealPath(proton),
+    ...altWine,
+    ...defaultWineSet,
+    ...customWineSet
+  ])
 }
 
 /// --------------- MACOS ------------------
