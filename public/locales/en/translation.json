@@ -513,6 +513,7 @@
         "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
+        "enableMetalFX": "Lets games that support NVIDIA DLSS use Apple's MetalFX upscaling instead. Needs Game Porting Toolkit 3, CrossOver with D3DMetal 3 or a DXMT Wine build. Select DLSS in the game's graphics options afterwards.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -836,6 +837,7 @@
         "egs-sync": "Sync with Installed Epic Games",
         "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableMetalFX": "DLSS via MetalFX",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",

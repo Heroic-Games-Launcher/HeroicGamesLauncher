@@ -269,6 +269,7 @@ export interface GameSettings {
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
   enableQuickSavesMenu: boolean
+  enableMetalFX: boolean
 }
 
 export type Status =

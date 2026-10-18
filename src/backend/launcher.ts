@@ -68,6 +68,7 @@ import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
+import { getMacWineEnv, prepareMacWineLaunch } from './utils/macos'
 import {
   defaultUmuPath,
   sharedWinePrefix,
@@ -353,6 +354,10 @@ function filterGameSettingsForLog(
       delete gameSettings.gamescope.gameWidth
       delete gameSettings.gamescope.windowType
     }
+  }
+
+  if (!isMac || !notNative) {
+    delete gameSettings.enableMetalFX
   }
 
   // remove settings that are not used on Linux
@@ -972,6 +977,28 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
+  if (isMac && prefixOrBottleFolder) {
+    const { install_path, executable } = gameInfo.install
+    const gameRoots = [
+      install_path,
+      gameInfo.folder_name,
+      executable && dirname(executable)
+    ].filter((path): path is string => !!path && existsSync(path))
+    const setupLines = await prepareMacWineLaunch({
+      settings: gameSettings,
+      prefix: prefixOrBottleFolder,
+      gameRoots: [...new Set(gameRoots)],
+      runRegistryCommand: async (commandParts) => {
+        await runWineCommand({
+          commandParts,
+          gameSettings,
+          protonVerb: 'run'
+        })
+      }
+    })
+    await logWriter.logInfo(['Mac setup:', ...setupLines].join('\n  '))
+  }
+
   const envVars = setupWineEnvVars(gameSettings, gameInfo.folder_name)
 
   return { success: true, envVars: envVars }
@@ -1145,6 +1172,10 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     case 'toolkit':
       ret.WINEPREFIX = winePrefix
       break
+  }
+
+  if (isMac) {
+    Object.assign(ret, getMacWineEnv(gameSettings))
   }
 
   if (gameSettings.showFps) {
