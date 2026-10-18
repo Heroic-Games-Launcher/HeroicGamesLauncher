@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises'
 import { join } from 'path'
 
-export interface RegistryString {
+interface RegistryString {
   hive: 'HKCU' | 'HKLM'
   /** Key path below the hive, e.g. `Software\Wine\Mac Driver` */
   key: string

@@ -60,7 +60,7 @@ function shipsDLSS(gameRoots: string[]): boolean {
   })
 }
 
-export interface MacLaunchPreparation {
+interface MacLaunchPreparation {
   settings: GameSettings
   /** The Wine prefix or CrossOver bottle folder */
   prefix: string
