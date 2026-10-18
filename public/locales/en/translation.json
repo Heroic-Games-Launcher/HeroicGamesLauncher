@@ -1064,6 +1064,20 @@
         "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
         "steamIntegration": "Use Steam integration",
+        "steamLaunchTarget": {
+            "automatic": "Automatic",
+            "downloadBuild": "Download",
+            "fallback": "Until then, Play uses",
+            "host": "Host Steam",
+            "installRuntime": "Install Steam runtime",
+            "missingBuild": "not downloaded",
+            "missingHost": "Steam not installed on this system",
+            "missingRuntime": "Steam runtime not installed",
+            "native": "Native",
+            "none": "No Steam",
+            "runtime": "In-Wine Steam runtime",
+            "title": "Game version to launch"
+        },
         "steamRuntime": {
             "label": "Use Steam Runtime",
             "noRuntimeOption": "None"
