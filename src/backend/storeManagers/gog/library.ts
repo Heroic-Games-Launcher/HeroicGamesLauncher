@@ -38,6 +38,7 @@ import {
   logWarning
 } from 'backend/logger'
 import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
+import { gogUpdateAvailable } from './update_check'
 import {
   libraryStore,
   installedGamesStore,
@@ -1057,14 +1058,38 @@ export default class GOGLibraryManager implements LibraryManager {
     etag?: string,
     access_token?: string
   ) {
+    const installed = installedGames.get(appName)
+    let latestBuild: string | undefined
+    try {
+      const builds = await this.getBuilds(appName, platform, access_token)
+      latestBuild = builds.data?.items?.find(
+        (item: BuildItem) => !item.branch
+      )?.build_id
+    } catch (error) {
+      logWarning(
+        ['Failed to read GOG builds for', appName, error],
+        LogPrefix.Gog
+      )
+    }
+
     const metaResponse = await this.getMetaResponse(
       appName,
       platform,
       etag,
       access_token
     )
-
-    return metaResponse.status === 200 && metaResponse.etag !== etag
+    const decision = gogUpdateAvailable({
+      installedBuild: installed?.buildId,
+      latestBuild: installed?.branch ? undefined : latestBuild,
+      installedEtag: etag,
+      responseStatus: metaResponse.status,
+      responseEtag: metaResponse.etag
+    })
+    if (decision.etagToStore && installed) {
+      installed.versionEtag = decision.etagToStore
+      installedGamesStore.set('installed', Array.from(installedGames.values()))
+    }
+    return decision.update
   }
 
   /**
