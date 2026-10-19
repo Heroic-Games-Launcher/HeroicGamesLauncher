@@ -1089,6 +1089,36 @@ export async function moveOnWindows(
   return { status: 'done', installPath: newInstallPath }
 }
 
+/**
+ * Arguments for moving a folder with rsync. macOS ships openrsync, which
+ * lacks GNU rsync's `--info` and `--no-human-readable` but prints the same
+ * file names and progress lines with `--progress`
+ */
+export function getRsyncMoveArgs(
+  rsyncVersion: string,
+  origin: string,
+  destination: string
+): string[] {
+  if (rsyncVersion.includes('openrsync')) {
+    return [
+      '--archive',
+      '--remove-source-files',
+      '--progress',
+      origin,
+      destination
+    ]
+  }
+  return [
+    '--archive',
+    '--compress',
+    '--no-human-readable',
+    '--remove-source-files',
+    '--info=name,progress',
+    origin,
+    destination
+  ]
+}
+
 export async function moveOnUnix(
   newInstallPath: string,
   gameInfo: GameInfo
@@ -1107,30 +1137,20 @@ export async function moveOnUnix(
 
   let currentFile = ''
 
-  let rsyncExists = false
+  let rsyncVersion: string | undefined
   try {
-    await execAsync('which rsync')
-    rsyncExists = true
+    const { stdout, stderr } = await execAsync('rsync --version')
+    rsyncVersion = stdout + stderr
   } catch (error) {
-    logError(error, LogPrefix.Gog)
+    logError(error, LogPrefix.Backend)
   }
-  if (rsyncExists) {
+  if (rsyncVersion !== undefined) {
     const origin = install_path + '/'
-    logInfo(
-      `moving command: rsync --archive --compress --no-human-readable --remove-source-files --info=name,progress ${origin} ${destination} `,
-      LogPrefix.Backend
-    )
+    const rsyncArgs = getRsyncMoveArgs(rsyncVersion, origin, destination)
+    logInfo(`moving command: rsync ${rsyncArgs.join(' ')}`, LogPrefix.Backend)
     const { code, stderr } = await spawnAsync(
       'rsync',
-      [
-        '--archive',
-        '--compress',
-        '--no-human-readable',
-        '--remove-source-files',
-        '--info=name,progress',
-        origin,
-        destination
-      ],
+      rsyncArgs,
       { stdio: 'pipe' },
       (data) => {
         let percent = 0
@@ -1185,7 +1205,9 @@ export async function moveOnUnix(
         })
       }
     )
-    if (code !== 1) {
+    // Any other code (e.g. 23, a partial transfer) leaves files behind that
+    // only exist in the old location
+    if (code === 0) {
       logInfo(`Finished Moving ${title}`, LogPrefix.Backend)
       // remove the old install path
       await spawnAsync('rm', ['-rf', install_path])
@@ -1199,7 +1221,7 @@ export async function moveOnUnix(
       install_path,
       destination
     ])
-    if (code !== 1) {
+    if (code === 0) {
       return { status: 'done', installPath: destination }
     } else {
       logError(`Error: ${stderr}`, LogPrefix.Backend)
