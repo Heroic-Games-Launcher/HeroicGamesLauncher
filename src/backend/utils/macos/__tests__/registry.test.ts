@@ -96,4 +96,30 @@ describe('ensureRegistryStrings', () => {
     ])
     expect(changed.map(({ name }) => name)).toEqual(['FullPath'])
   })
+
+  test('treats a missing value as its default', async () => {
+    const runReg = jest.fn().mockResolvedValue(undefined)
+    const value = {
+      hive: 'HKCU' as const,
+      key: 'Software\\Wine\\Mac Driver',
+      name: 'CaptureDisplaysForFullscreen',
+      data: 'n'
+    }
+    const defaults = {
+      'Software\\Wine\\Mac Driver\\CaptureDisplaysForFullscreen': 'n'
+    }
+
+    expect(
+      await ensureRegistryStrings(prefix, [value], runReg, defaults)
+    ).toEqual([])
+    expect(runReg).not.toHaveBeenCalled()
+
+    await ensureRegistryStrings(
+      prefix,
+      [{ ...value, data: 'y' }],
+      runReg,
+      defaults
+    )
+    expect(runReg).toHaveBeenCalledTimes(1)
+  })
 })

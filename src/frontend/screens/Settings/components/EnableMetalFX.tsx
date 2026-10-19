@@ -34,7 +34,7 @@ const EnableMetalFX = () => {
       <InfoIcon
         text={t(
           'help.enableMetalFX',
-          "Lets games that support NVIDIA DLSS use Apple's MetalFX upscaling instead. Needs Game Porting Toolkit 3, CrossOver with D3DMetal 3 or a DXMT Wine build. Select DLSS in the game's graphics options afterwards."
+          "Lets games that support NVIDIA DLSS use Apple's MetalFX upscaling instead, and MetalFX frame interpolation for DLSS Frame Generation on macOS 26 or newer. Needs Game Porting Toolkit 3, CrossOver with D3DMetal 3 or a DXMT Wine build. Select DLSS in the game's graphics options afterwards."
         )}
       />
     </div>

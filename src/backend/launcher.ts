@@ -68,7 +68,15 @@ import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
-import { getMacWineEnv, prepareMacWineLaunch } from './utils/macos'
+import {
+  captureMetalPerformance,
+  finishMacWineSession,
+  formatPerformanceReport,
+  getMacWineEnv,
+  getPerformanceFilter,
+  prepareMacWineLaunch,
+  type MacGameFolders
+} from './utils/macos'
 import {
   defaultUmuPath,
   sharedWinePrefix,
@@ -98,7 +106,48 @@ import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 import { Game } from 'common/types/game_manager'
 import { getKnownFixesFor } from './known_fixes/utils'
 
-let powerDisplayId: number | null
+let powerDisplayId: number | null = null
+
+/**
+ * Writes the frame statistics macOS recorded while the game ran into its log.
+ * Processing a long session can take a while, so after a timeout the report
+ * goes to the general log instead of holding up the end of the session
+ */
+async function logMacPerformanceReport(
+  title: string,
+  start: Date,
+  filter: ReturnType<typeof getPerformanceFilter>,
+  logWriter: LogWriter
+) {
+  const report = captureMetalPerformance(start, new Date(), filter)
+    .then((result) =>
+      result ? formatPerformanceReport(result).join('\n') : ''
+    )
+    .catch(
+      (error) => `Could not read the Metal performance statistics: ${error}`
+    )
+
+  let timer: NodeJS.Timeout | undefined
+  const timeout = new Promise<null>((resolve) => {
+    timer = setTimeout(() => resolve(null), 30_000)
+  })
+  const text = await Promise.race([report, timeout])
+  clearTimeout(timer)
+
+  if (text === null) {
+    await logWriter.logInfo(
+      'The Metal performance report is still being processed and will be written to the general log'
+    )
+    void report.then(
+      (late) => late && logInfo([`${title}:`, late], LogPrefix.Backend)
+    )
+    return
+  }
+  if (text) {
+    await logWriter.logInfo(text)
+    logInfo([`${title}:`, text], LogPrefix.Backend)
+  }
+}
 
 const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   appName,
@@ -251,6 +300,17 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     })
     .finally(async () => {
       await runAfterLaunchScript(gameInfo, gameSettings, logWriter)
+      if (isMac && !isNative) {
+        await finishMacWineGame(gameInfo, gameSettings, logWriter)
+      }
+      if (isMac && gameSettings.macPerformanceReport) {
+        await logMacPerformanceReport(
+          title,
+          startPlayingDate,
+          getPerformanceFilter(isNative, gameInfo.install.executable),
+          logWriter
+        )
+      }
       await logWriter.close()
     })
 
@@ -262,6 +322,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   if (powerDisplayId !== null) {
     logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
     powerSaveBlocker.stop(powerDisplayId)
+    powerDisplayId = null
   }
 
   // Update playtime and last played date
@@ -358,6 +419,14 @@ function filterGameSettingsForLog(
 
   if (!isMac || !notNative) {
     delete gameSettings.enableMetalFX
+    delete gameSettings.macRayTracing
+    delete gameSettings.macRetinaMode
+    delete gameSettings.macUnrealTweaks
+    delete gameSettings.macHighestGraphics
+    delete gameSettings.macGamePatches
+  }
+  if (!isMac) {
+    delete gameSettings.macPerformanceReport
   }
 
   // remove settings that are not used on Linux
@@ -424,7 +493,6 @@ function filterGameSettingsForLog(
       if (wineType) {
         if (wineType.type === 'wine') {
           delete gameSettings.wineCrossoverBottle
-          delete gameSettings.advertiseAvxForRosetta
           if (wineType.name?.includes('DXMT')) {
             delete gameSettings.autoInstallDxvk
           }
@@ -766,6 +834,39 @@ async function getCrossoverBottleFolder(gameSettings: GameSettings) {
     })
 }
 
+function macGameFolders(
+  gameInfo: GameInfo,
+  gameSettings: GameSettings,
+  prefix: string
+): MacGameFolders {
+  const { install_path, executable } = gameInfo.install
+  const gameRoots = [
+    install_path,
+    gameInfo.folder_name,
+    executable && dirname(executable)
+  ].filter((path): path is string => !!path && existsSync(path))
+  return { settings: gameSettings, prefix, gameRoots: [...new Set(gameRoots)] }
+}
+
+/** Applies the Mac settings that need what a Wine game saved, after it exits */
+async function finishMacWineGame(
+  gameInfo: GameInfo,
+  gameSettings: GameSettings,
+  logWriter: LogWriter
+) {
+  const prefix =
+    gameSettings.wineVersion.type === 'crossover'
+      ? await getCrossoverBottleFolder(gameSettings)
+      : gameSettings.winePrefix
+  if (!prefix) return
+  const lines = await finishMacWineSession(
+    macGameFolders(gameInfo, gameSettings, prefix)
+  )
+  if (lines.length) {
+    await logWriter.logInfo(['After the game exited:', ...lines].join('\n  '))
+  }
+}
+
 async function prepareWineLaunch(
   game: Game,
   logWriter: LogWriter
@@ -962,6 +1063,7 @@ async function prepareWineLaunch(
   }
 
   if (
+    isLinux &&
     gameSettings.eacRuntime &&
     isOnline() &&
     !(await isInstalled('eac_runtime'))
@@ -970,6 +1072,7 @@ async function prepareWineLaunch(
   }
 
   if (
+    isLinux &&
     gameSettings.battlEyeRuntime &&
     isOnline() &&
     !(await isInstalled('battleye_runtime'))
@@ -978,16 +1081,8 @@ async function prepareWineLaunch(
   }
 
   if (isMac && prefixOrBottleFolder) {
-    const { install_path, executable } = gameInfo.install
-    const gameRoots = [
-      install_path,
-      gameInfo.folder_name,
-      executable && dirname(executable)
-    ].filter((path): path is string => !!path && existsSync(path))
     const setupLines = await prepareMacWineLaunch({
-      settings: gameSettings,
-      prefix: prefixOrBottleFolder,
-      gameRoots: [...new Set(gameRoots)],
+      ...macGameFolders(gameInfo, gameSettings, prefixOrBottleFolder),
       runRegistryCommand: async (commandParts) => {
         await runWineCommand({
           commandParts,
@@ -1142,24 +1237,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatpakHome, '.steam', 'steam')
   switch (wineVersion.type) {
-    case 'wine': {
+    case 'wine':
       ret.WINEPREFIX = winePrefix
-
-      // Disable Winemenubuilder to not mess with file associations
-      const wmbDisableString = 'winemenubuilder.exe=d'
-      // If the user already set WINEDLLOVERRIDES, append to the end
-      const dllOverridesVar = gameSettings.enviromentOptions.find(
-        ({ key }) => key.toLowerCase() === 'winedlloverrides'
-      )
-      if (dllOverridesVar) {
-        ret[dllOverridesVar.key] =
-          dllOverridesVar.value + ';' + wmbDisableString
-      } else {
-        ret.WINEDLLOVERRIDES = wmbDisableString
-      }
-
       break
-    }
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
       ret.WINEPREFIX = winePrefix
@@ -1172,6 +1252,20 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     case 'toolkit':
       ret.WINEPREFIX = winePrefix
       break
+  }
+
+  if (wineVersion.type === 'wine' || wineVersion.type === 'toolkit') {
+    // Disable Winemenubuilder to not mess with file associations
+    const wmbDisableString = 'winemenubuilder.exe=d'
+    // If the user already set WINEDLLOVERRIDES, append to the end
+    const dllOverridesVar = gameSettings.enviromentOptions.find(
+      ({ key }) => key.toLowerCase() === 'winedlloverrides'
+    )
+    if (dllOverridesVar) {
+      ret[dllOverridesVar.key] = dllOverridesVar.value + ';' + wmbDisableString
+    } else {
+      ret.WINEDLLOVERRIDES = wmbDisableString
+    }
   }
 
   if (isMac) {
@@ -1322,11 +1416,8 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       )
     }
   }
-  if (
-    gameSettings.advertiseAvxForRosetta &&
-    isMac &&
-    wineVersion.type === 'toolkit'
-  ) {
+  // A Rosetta feature (macOS 15+), so it works with every Wine build
+  if (gameSettings.advertiseAvxForRosetta && isMac) {
     ret.ROSETTA_ADVERTISE_AVX = '1'
   }
   // Workaround for Steam Input virtual gamepad not working for games launched through HGL from Steam
@@ -1569,6 +1660,7 @@ async function runWineCommand({
       env: env_vars,
       cwd: startFolder
     })
+
     child.stdout.setEncoding('utf-8')
     child.stderr.setEncoding('utf-8')
 
@@ -1627,7 +1719,9 @@ async function runWineCommand({
     })
 
     child.on('error', (error) => {
-      console.log(error)
+      logError(['Failed to run Wine command:', error], LogPrefix.Backend)
+      const response = { stderr: `${error}`, stdout: '', code: -1 }
+      res(response)
     })
   })
 }

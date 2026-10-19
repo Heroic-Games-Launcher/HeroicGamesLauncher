@@ -154,12 +154,11 @@ export default class SideloadGame implements Game {
         return true
       }
 
-      if (isMac && platform === 'Mac') {
+      const plat = platform.toLowerCase()
+      if (isMac && (plat === 'mac' || plat === 'osx')) {
         return true
       }
 
-      // small hack, but needs to fix the typings
-      const plat = platform.toLowerCase()
       if (isLinux && plat === 'linux') {
         return true
       }

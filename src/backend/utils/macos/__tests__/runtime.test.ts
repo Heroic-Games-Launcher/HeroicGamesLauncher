@@ -3,7 +3,20 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import type { GameSettings, WineInstallation } from 'common/types'
 import { findD3DMetalFramework, parseMajorVersion } from '../d3dmetal'
-import { getMacWineEnv } from '../index'
+import * as os from 'os'
+import {
+  appleChipGeneration,
+  getMacWineEnv,
+  getPerformanceFilter
+} from '../index'
+
+jest.mock('os', () => ({
+  ...jest.requireActual<typeof os>('os'),
+  cpus: jest.fn(() => [])
+}))
+
+const cpuModel = (model: string) =>
+  jest.mocked(os.cpus).mockReturnValue([{ model } as os.CpuInfo])
 
 const settings = (overrides: Partial<GameSettings>) =>
   ({
@@ -43,6 +56,20 @@ describe('getMacWineEnv', () => {
     expect(getMacWineEnv(settings({ wineVersion: toolkit }))).toEqual({})
   })
 
+  test('turns on asynchronous shader compilation for DXVK', () => {
+    expect(getMacWineEnv(settings({ autoInstallDxvk: true }))).toEqual({
+      DXVK_ASYNC: '1'
+    })
+  })
+
+  test('turns on DirectX Raytracing only on chips with ray tracing hardware', () => {
+    const rayTracing = settings({ wineVersion: toolkit, macRayTracing: true })
+    cpuModel('Apple M4 Max')
+    expect(getMacWineEnv(rayTracing)).toEqual({ D3DM_SUPPORT_DXR: '1' })
+    cpuModel('Apple M2 Pro')
+    expect(getMacWineEnv(rayTracing)).toEqual({})
+  })
+
   test("doesn't override variables the user set", () => {
     expect(
       getMacWineEnv(
@@ -53,6 +80,17 @@ describe('getMacWineEnv', () => {
         })
       )
     ).toEqual({})
+  })
+})
+
+describe('getPerformanceFilter', () => {
+  test('matches Wine processes or the native executable', () => {
+    expect(
+      getPerformanceFilter(false).layerName?.test('CAMetalLayer: WineMetalView')
+    ).toBe(true)
+    expect(getPerformanceFilter(true, '/Games/Game.app').processNames).toEqual([
+      'Game'
+    ])
   })
 })
 
@@ -94,6 +132,14 @@ describe('findD3DMetalFramework', () => {
       })
     ).toBeUndefined()
   })
+})
+
+test('appleChipGeneration', () => {
+  expect(appleChipGeneration('Apple M4 Max')).toBe(4)
+  expect(appleChipGeneration('Apple M10')).toBe(10)
+  expect(appleChipGeneration('Intel(R) Core(TM) i9-9980HK CPU @ 2.40GHz')).toBe(
+    0
+  )
 })
 
 test('parseMajorVersion', () => {

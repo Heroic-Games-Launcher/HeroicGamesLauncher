@@ -1,3 +1,12 @@
+const macOSCodenames: Record<number, string> = {
+  11: 'Big Sur',
+  12: 'Monterey',
+  13: 'Ventura',
+  14: 'Sonoma',
+  15: 'Sequoia',
+  26: 'Tahoe'
+}
+
 async function getOsInfo(): Promise<{ name: string; version?: string }> {
   switch (process.platform) {
     case 'win32': {
@@ -8,11 +17,11 @@ async function getOsInfo(): Promise<{ name: string; version?: string }> {
       const { osInfo_linux } = await import('./linux')
       return osInfo_linux()
     }
-    case 'darwin':
-      // FIXME: I'd like to return the OS's codename ("Monterey", "Ventura", and
-      //        so on) here, but the only way for applications to obtain those
-      //        seems to be scraping a license file (https://unix.stackexchange.com/questions/234104/get-osx-codename-from-command-line)
-      return { name: 'macOS' }
+    case 'darwin': {
+      const major = parseInt(process.getSystemVersion())
+      const codename = macOSCodenames[major]
+      return { name: codename ? `macOS ${codename}` : 'macOS' }
+    }
     default:
       return { name: '' }
   }

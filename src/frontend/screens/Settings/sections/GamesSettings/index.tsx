@@ -23,6 +23,12 @@ import {
   GameMode,
   LauncherArgs,
   LaunchOptionSelector,
+  MacGamePatches,
+  MacHighestGraphics,
+  MacPerformanceReport,
+  MacRayTracing,
+  MacRetinaMode,
+  MacUnrealTweaks,
   Mangohud,
   OfflineMode,
   PreferedLanguage,
@@ -204,6 +210,11 @@ export default function GamesSettings() {
           </>
         )}
         <EnableMetalFX />
+        <MacRayTracing />
+        <MacRetinaMode />
+        <MacHighestGraphics />
+        <MacUnrealTweaks />
+        <MacGamePatches />
       </TabPanel>
 
       <TabPanel value={value} index={'other'}>
@@ -229,6 +240,7 @@ export default function GamesSettings() {
           </>
         )}
         <VerboseLogs />
+        <MacPerformanceReport />
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />

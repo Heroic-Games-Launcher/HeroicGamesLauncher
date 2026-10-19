@@ -240,7 +240,13 @@ class GameConfigV0 extends GameConfig {
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta,
-      enableMetalFX
+      enableMetalFX,
+      macRayTracing,
+      macRetinaMode,
+      macUnrealTweaks,
+      macHighestGraphics,
+      macGamePatches,
+      macPerformanceReport
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -280,6 +286,12 @@ class GameConfigV0 extends GameConfig {
       verboseLogs,
       advertiseAvxForRosetta,
       enableMetalFX,
+      macRayTracing,
+      macRetinaMode,
+      macUnrealTweaks,
+      macHighestGraphics,
+      macGamePatches,
+      macPerformanceReport,
       enableQuickSavesMenu: false,
       steamRuntime: false
     } as GameSettings

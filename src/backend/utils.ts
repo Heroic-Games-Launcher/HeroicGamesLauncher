@@ -6,7 +6,8 @@ import {
   Release,
   GameInfo,
   GameSettings,
-  GameStatus
+  GameStatus,
+  Type
 } from 'common/types'
 import axios from 'axios'
 import https from 'node:https'
@@ -66,6 +67,7 @@ import {
 } from './utils/systeminfo/gpu/pci_ids'
 import type { AppSettings, WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
+import { rankMacRunners } from './utils/macos'
 import { getSystemInfo } from './utils/systeminfo'
 import { configStore } from './constants/key_value_stores'
 import { GITHUB_API } from './constants/urls'
@@ -816,7 +818,7 @@ function killPattern(pattern: string) {
 async function shutdownWine(gameSettings: GameSettings) {
   if (gameSettings.wineVersion.wineserver) {
     spawnSync(gameSettings.wineVersion.wineserver, ['-k'], {
-      env: { WINEPREFIX: gameSettings.winePrefix }
+      env: { ...process.env, WINEPREFIX: gameSettings.winePrefix }
     })
   } else {
     await runWineCommand({
@@ -897,18 +899,18 @@ export async function downloadDefaultWine() {
   // get list of wines on wineDownloaderInfoStore
   const availableWine = wineDownloaderInfoStore.get('wine-releases', [])
   const isMacOSUpToDate = await isMacSonomaOrHigher()
-  const release = availableWine.find((version) => {
-    if (isLinux) {
-      return version.type === 'Proton-CachyOS'
-    } else if (isMac) {
-      if (isIntelMac || !isMacOSUpToDate) {
-        return version.type === 'Wine-Crossover'
-      } else {
-        return version.type === 'Game-Porting-Toolkit'
-      }
-    }
-    return false
-  })
+  let preferredTypes: Type[] = []
+  if (isLinux) {
+    preferredTypes = ['Proton-CachyOS']
+  } else if (isMac) {
+    preferredTypes =
+      isIntelMac || !isMacOSUpToDate
+        ? ['Wine-Crossover']
+        : ['Game-Porting-Toolkit', 'Wine-Crossover']
+  }
+  const release = preferredTypes
+    .map((type) => availableWine.find((version) => version.type === type))
+    .find((version) => version !== undefined)
 
   if (!release) {
     logError('Could not find default wine version', LogPrefix.Backend)
@@ -924,7 +926,8 @@ export async function downloadDefaultWine() {
   if (result === 'success') {
     let downloadedWine = null
     try {
-      const wineList = await GlobalConfig.get().getAlternativeWine()
+      let wineList = await GlobalConfig.get().getAlternativeWine()
+      if (isMac) wineList = await rankMacRunners(wineList)
       // update the game config to use that wine
       downloadedWine = wineList[0]
       logInfo(`Changing wine version to ${downloadedWine.name}`)
@@ -992,7 +995,8 @@ export async function checkWineBeforeLaunch(
         return false
       }
     } else {
-      const wineList = await GlobalConfig.get().getAlternativeWine()
+      let wineList = await GlobalConfig.get().getAlternativeWine()
+      if (isMac) wineList = await rankMacRunners(wineList)
       const firstFoundWine = wineList[0]
 
       const isValidWine = await validWine(firstFoundWine)

@@ -513,7 +513,7 @@
         "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
-        "enableMetalFX": "Lets games that support NVIDIA DLSS use Apple's MetalFX upscaling instead. Needs Game Porting Toolkit 3, CrossOver with D3DMetal 3 or a DXMT Wine build. Select DLSS in the game's graphics options afterwards.",
+        "enableMetalFX": "Lets games that support NVIDIA DLSS use Apple's MetalFX upscaling instead, and MetalFX frame interpolation for DLSS Frame Generation on macOS 26 or newer. Needs Game Porting Toolkit 3, CrossOver with D3DMetal 3 or a DXMT Wine build. Select DLSS in the game's graphics options afterwards.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -535,6 +535,12 @@
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "hide-window-on-protocol-launch": "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'Add to Steam' feature.",
+        "macGamePatches": "Patches known game executables that refuse to start on the GPU Wine reports, for example by skipping a graphics driver check. Only exact, known file versions are changed, and turning this off restores the original bytes.",
+        "macHighestGraphics": "Supported games (currently Senua's Saga: Hellblade II) benchmark the GPU on their first launch and pick low settings under D3DMetal. Heroic raises every graphics setting to the highest the game offers once, renders at the size of the game's window and turns off dynamic resolution. With DLSS via MetalFX on, it selects the sharpest DLSS mode the GPU renders smoothly (Ultra Performance on a 5120x1440 display with a 32-core GPU) and turns on DLSS Frame Generation where the runner supports it. On by default on Macs with a GPU of 30 or more cores. Changes you make in the game afterwards are kept.",
+        "macPerformanceReport": "When the game closes, reads the frame statistics macOS recorded while it ran (with metalperftrace) and writes the measured frame rate, frame times, GPU time and the likely bottleneck to the game log.",
+        "macRayTracing": "Lets Direct3D 12 games use DirectX Raytracing through D3DMetal, so they can offer ray-traced effects in their graphics options. Needs an M3 or newer chip. Ray tracing looks better but lowers the frame rate, and games without ray-traced effects don't change.",
+        "macRetinaMode": "Lets the game render at the full pixel resolution of Retina displays instead of having macOS upscale it. The image is sharper, but the GPU has to render up to four times as many pixels.",
+        "macUnrealTweaks": "For supported Unreal Engine games (currently Senua's Saga: Hellblade II), removes the letterbox bars, lens softness, chromatic aberration, lens distortion and film grain through the game's Engine.ini. Turning this off removes the changes again.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "nvidiaprime": {
@@ -943,6 +949,12 @@
                 }
             }
         },
+        "macGamePatches": "Game compatibility patches",
+        "macHighestGraphics": "Start at the highest graphics settings",
+        "macPerformanceReport": "Performance report after playing",
+        "macRayTracing": "Hardware ray tracing (DXR)",
+        "macRetinaMode": "Retina mode",
+        "macUnrealTweaks": "Unreal Engine image tweaks",
         "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
         "manualsync": {
             "download": "Download",

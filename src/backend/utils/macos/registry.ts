@@ -55,23 +55,23 @@ async function readHive(prefix: string, hive: RegistryString['hive']) {
  * running wineserver would overwrite direct edits of the files when it exits.
  * `runReg` is only called for values that actually need to change.
  *
+ * @param defaults Values Wine assumes when a value is absent, so setting them is a no-op
  * @returns The values that were changed
  */
 export async function ensureRegistryStrings(
   prefix: string,
   values: RegistryString[],
-  runReg: (args: string[]) => Promise<void>
+  runReg: (args: string[]) => Promise<void>,
+  defaults: Partial<Record<string, string>> = {}
 ): Promise<RegistryString[]> {
   const hives: Partial<Record<RegistryString['hive'], string>> = {}
   const changed: RegistryString[] = []
 
   for (const value of values) {
     hives[value.hive] ??= await readHive(prefix, value.hive)
-    const current = readRegistryString(
-      hives[value.hive]!,
-      value.key,
-      value.name
-    )
+    const current =
+      readRegistryString(hives[value.hive]!, value.key, value.name) ??
+      defaults[`${value.key}\\${value.name}`]
     if (current === value.data) continue
 
     await runReg([

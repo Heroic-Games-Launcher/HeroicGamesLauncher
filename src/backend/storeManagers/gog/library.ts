@@ -667,7 +667,7 @@ export default class GOGLibraryManager implements LibraryManager {
       }
     }
 
-    if (!isOnline) {
+    if (!isOnline()) {
       logWarning('App offline, unable to get install info')
       return
     }
