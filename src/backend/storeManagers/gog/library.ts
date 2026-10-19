@@ -38,6 +38,7 @@ import {
   logWarning
 } from 'backend/logger'
 import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
+import { gogUpdateAvailable } from './update_check'
 import {
   libraryStore,
   installedGamesStore,
@@ -1024,10 +1025,11 @@ export default class GOGLibraryManager implements LibraryManager {
           'If-None-Match': etag
         }
       : undefined
-    const metaUrls =
-      buildData.data?.items?.find((build: BuildItem) => !build.branch)?.urls ||
-      buildData.data?.items[0]?.urls ||
-      []
+    const targetBuild: BuildItem | undefined =
+      buildData.data?.items?.find((build: BuildItem) => !build.branch) ||
+      buildData.data?.items?.[0]
+    const buildId = targetBuild?.build_id
+    const metaUrls = targetBuild?.urls || []
 
     for (const metaUrl of metaUrls) {
       try {
@@ -1036,7 +1038,11 @@ export default class GOGLibraryManager implements LibraryManager {
           validateStatus: (status) => status === 200 || status === 304
         })
 
-        return { status: metaResponse.status, etag: metaResponse.headers.etag }
+        return {
+          status: metaResponse.status,
+          etag: metaResponse.headers.etag,
+          buildId
+        }
       } catch (e) {
         logDebug(
           `Failed to obtain manifest from CDN for ${appName}, ignoring ${e}`,
@@ -1048,7 +1054,7 @@ export default class GOGLibraryManager implements LibraryManager {
       }
     }
 
-    return { status: 304, etag: etag }
+    return { status: 304, etag: etag, buildId }
   }
 
   async checkForGameUpdate(
@@ -1057,14 +1063,32 @@ export default class GOGLibraryManager implements LibraryManager {
     etag?: string,
     access_token?: string
   ) {
+    const installed = installedGames.get(appName)
+    const installedBuild =
+      installed?.buildId || this.readInfoFile(appName)?.buildId
     const metaResponse = await this.getMetaResponse(
       appName,
       platform,
       etag,
       access_token
     )
-
-    return metaResponse.status === 200 && metaResponse.etag !== etag
+    const decision = gogUpdateAvailable({
+      installedBuild,
+      latestBuild: installed?.branch ? undefined : metaResponse.buildId,
+      installedEtag: etag,
+      responseStatus: metaResponse.status,
+      responseEtag: metaResponse.etag
+    })
+    if (
+      installed &&
+      (decision.etagToStore || (!installed.buildId && installedBuild))
+    ) {
+      if (decision.etagToStore) installed.versionEtag = decision.etagToStore
+      if (!installed.buildId && installedBuild)
+        installed.buildId = installedBuild
+      installedGamesStore.set('installed', Array.from(installedGames.values()))
+    }
+    return decision.update
   }
 
   /**
