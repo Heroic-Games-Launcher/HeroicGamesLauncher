@@ -64,15 +64,19 @@ export default class SideloadLibraryManager implements LibraryManager {
 
     const gameIndex = current.findIndex((value) => value.app_name === app_name)
 
-    // edit app in case it exists
-    if (gameIndex !== -1) {
-      current[gameIndex] = { ...current[gameIndex], ...game }
-    } else {
+    const isNew = gameIndex === -1
+    if (isNew) {
       current.push(game)
-      addShortcuts(new SideloadGame(app_name))
+    } else {
+      current[gameIndex] = { ...current[gameIndex], ...game }
     }
 
     libraryStore.set('games', current)
+
+    // SideloadGame reads the game from the store
+    if (isNew) {
+      addShortcuts(new SideloadGame(app_name))
+    }
 
     sendFrontendMessage('refreshLibrary', 'sideload')
 
