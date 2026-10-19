@@ -60,6 +60,7 @@ import {
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
+import { macAppMenuTemplate } from './utils/macos/app_menu'
 
 import {
   getDiskInfo,
@@ -229,6 +230,10 @@ async function initializeWindow(): Promise<BrowserWindow> {
   const startHash =
     isCLIConsoleMode || globalConf.startInConsoleMode ? '/console' : undefined
 
+  if (isMac) {
+    Menu.setApplicationMenu(Menu.buildFromTemplate(macAppMenuTemplate()))
+  }
+
   if (process.env.ELECTRON_RENDERER_URL) {
     await import('electron-devtools-installer').then(
       ({ installExtension, REACT_DEVELOPER_TOOLS }) =>
@@ -242,7 +247,9 @@ async function initializeWindow(): Promise<BrowserWindow> {
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
-    Menu.setApplicationMenu(null)
+    if (!isMac) {
+      Menu.setApplicationMenu(null)
+    }
     mainWindow.loadFile(
       join(publicDir, 'index.html'),
       startHash ? { hash: startHash } : undefined
