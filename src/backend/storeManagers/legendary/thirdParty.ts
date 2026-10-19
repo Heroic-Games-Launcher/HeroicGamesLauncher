@@ -70,6 +70,7 @@ const removeInstalledGame = async (appName: string) => {
     )
   }
   const index = installedAppNames.findIndex((a) => a[0] === appName)
+  if (index === -1) return
   installedAppNames.splice(index, 1)
 
   try {

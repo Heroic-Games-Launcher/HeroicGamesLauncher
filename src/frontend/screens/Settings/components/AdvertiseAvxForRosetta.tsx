@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import SettingsContext from '../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
-import { defaultWineVersion } from '../util'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AdvertiseAvxForRosetta = () => {
@@ -12,14 +11,13 @@ const AdvertiseAvxForRosetta = () => {
   const { platform } = useContext(ContextProvider)
   const { isMacNative } = useContext(SettingsContext)
   const isMac = platform === 'darwin'
-  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [advertiseAvxForRosetta, setAdvertiseAvxForRosetta] = useSetting(
     'advertiseAvxForRosetta',
     false
   )
 
-  // Only show on macOS when using toolkit wine or commercial crossover, and not native games
-  if (!isMac || isMacNative || wineVersion.type === 'wine') {
+  // Rosetta translates AVX on macOS 15+ regardless of the Wine build
+  if (!isMac || isMacNative) {
     return <></>
   }
 

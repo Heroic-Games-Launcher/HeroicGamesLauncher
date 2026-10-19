@@ -1,4 +1,10 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  realpathSync,
+  writeFileSync
+} from 'graceful-fs'
 
 import {
   AppSettings,
@@ -10,14 +16,18 @@ import { currentGlobalConfigVersion } from 'backend/constants/others'
 import { logError, logInfo, LogPrefix } from './logger'
 import {
   getCrossover,
+  getCustomWinePaths,
   getDefaultWine,
   getGamePortingToolkitWine,
+  getHomebrewWine,
   getLinuxWineSet,
   getSystemGamePortingToolkitWine,
   getWhisky,
   getWineOnMac,
   getWineskinWine
 } from './utils/compatibility_layers'
+import { HIGHEST_GRAPHICS_MIN_GPU_CORES } from './utils/macos/graphics_presets'
+import { getAppleGpuCoreCount } from './utils/systeminfo/gpu/mac'
 import { backendEvents } from './backend_events'
 import { configStore } from './constants/key_value_stores'
 import { isFlatpak, isLinux, isMac, isWindows } from './constants/environment'
@@ -161,7 +171,9 @@ abstract class GlobalConfig {
    * @returns Promise<Set<WineInstallation>>
    * @memberof GlobalConfig
    **/
-  public async getMacOsWineSet(): Promise<Set<WineInstallation>> {
+  public async getMacOsWineSet(
+    scanCustom = true
+  ): Promise<Set<WineInstallation>> {
     if (!isMac) {
       return new Set<WineInstallation>()
     }
@@ -172,15 +184,32 @@ abstract class GlobalConfig {
     const wineOnMac = await getWineOnMac()
     const wineskinWine = await getWineskinWine()
     const whiskyWine = await getWhisky()
+    const homebrewWine = await getHomebrewWine()
+    const customWine = scanCustom
+      ? getCustomWinePaths()
+      : new Set<WineInstallation>()
 
-    return new Set([
-      ...getGPTKWine,
-      ...getSystemGPTK,
-      ...crossover,
-      ...wineOnMac,
-      ...wineskinWine,
-      ...whiskyWine
-    ])
+    // Homebrew casks and custom paths can point at an already listed build
+    const seenBins = new Set<string>()
+    const isFirstOccurrence = ({ bin }: WineInstallation) => {
+      const resolved = existsSync(bin) ? realpathSync(bin) : bin
+      if (seenBins.has(resolved)) return false
+      seenBins.add(resolved)
+      return true
+    }
+
+    return new Set(
+      [
+        ...getGPTKWine,
+        ...getSystemGPTK,
+        ...crossover,
+        ...wineOnMac,
+        ...wineskinWine,
+        ...whiskyWine,
+        ...homebrewWine,
+        ...customWine
+      ].filter(isFirstOccurrence)
+    )
   }
 
   /**
@@ -196,7 +225,7 @@ abstract class GlobalConfig {
     }
 
     if (isMac) {
-      const macOsWineSet = await this.getMacOsWineSet()
+      const macOsWineSet = await this.getMacOsWineSet(scanCustom)
       return [...macOsWineSet]
     }
 
@@ -373,6 +402,16 @@ class GlobalConfigV0 extends GlobalConfig {
       verboseLogs: true,
       downloadProtonToSteam: false,
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
+      enableMetalFX: false,
+      macRayTracing: false,
+      macRetinaMode: false,
+      macUnrealTweaks: false,
+      // At High, Hellblade II renders about 18 FPS on a 32-core M4 Max GPU,
+      // so smaller GPUs keep the settings the game picks
+      macHighestGraphics:
+        isMac && getAppleGpuCoreCount() >= HIGHEST_GRAPHICS_MIN_GPU_CORES,
+      macGamePatches: isMac,
+      macPerformanceReport: isMac,
       noTrayIcon: false,
       showValveProton: false,
       steamGridDbApiKey: '',

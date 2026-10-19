@@ -19,10 +19,10 @@ async function getGpuInfo(): Promise<GPUInfo[]> {
       partialGpus = await getGpuInfo_linux()
       break
     }
-    case 'darwin':
-      // FIXME
-      partialGpus = []
-      break
+    case 'darwin': {
+      const { getGpuInfo_mac } = await import('./mac')
+      return getGpuInfo_mac()
+    }
     default:
       return []
   }

@@ -1,11 +1,17 @@
 import { GlobalConfig } from 'backend/config'
 import { logError, LogPrefix, logInfo } from 'backend/logger'
 import { execAsync, getSteamLibraries } from 'backend/utils'
-import { execSync } from 'child_process'
+import { execFile, execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
-import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  realpathSync
+} from 'graceful-fs'
 import { homedir } from 'os'
-import { dirname, join } from 'path'
+import { basename, dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
 import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
@@ -18,6 +24,9 @@ import {
   userHome
 } from 'backend/constants/paths'
 import { isLinux, isMac } from 'backend/constants/environment'
+import { promisify } from 'util'
+
+const execFileAsync = promisify(execFile)
 
 /**
  * Loads the default wine installation path and version.
@@ -48,7 +57,7 @@ export function getDefaultWine(): WineInstallation {
   }
 }
 
-function getCustomWinePaths(): Set<WineInstallation> {
+export function getCustomWinePaths(): Set<WineInstallation> {
   const customPaths = new Set<WineInstallation>()
   // skips this on new installations to avoid infinite loops
   if (existsSync(configPath)) {
@@ -237,11 +246,14 @@ export async function getWineOnMac(): Promise<Set<WineInstallation>> {
   winePaths.forEach((winePath) => {
     const infoFilePath = join(winePath, 'Contents/Info.plist')
     if (winePath && existsSync(infoFilePath)) {
-      const info = plistParse(
-        readFileSync(infoFilePath, 'utf-8')
-      ) as PlistObject
+      let info: PlistObject = {}
+      try {
+        info = plistParse(readFileSync(infoFilePath, 'utf-8')) as PlistObject
+      } catch {
+        // Binary plists can't be parsed as XML
+      }
       const version = info['CFBundleShortVersionString'] || ''
-      const name = info['CFBundleName'] || ''
+      const name = info['CFBundleName'] || basename(winePath, '.app')
       let wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
       if (!existsSync(wineBin)) {
         // Fallback to wine if wine64 is not found
@@ -420,11 +432,13 @@ export async function getSystemGamePortingToolkitWine(): Promise<
 
   logInfo('Searching for Gaming Porting Toolkit Wine', LogPrefix.GlobalConfig)
   const { stdout } = await execAsync('mdfind wine64')
-  const wineBin = stdout.split('\n').filter((p) => {
-    return p.match(/^(?!.*heroic\/tools).*game-porting-toolkit.*\/wine64$/)
-  })[0]
+  const wineBin = stdout
+    .split('\n')
+    .find((p) =>
+      p.match(/^(?!.*heroic\/tools).*game-porting-toolkit.*\/wine64$/)
+    )
 
-  if (existsSync(wineBin)) {
+  if (wineBin && existsSync(wineBin)) {
     logInfo(
       `Found Game Porting Toolkit Wine at ${dirname(wineBin)}`,
       LogPrefix.GlobalConfig
@@ -502,6 +516,49 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
   }
 
   return whisky
+}
+
+/**
+ * Detects Wine installed with Homebrew, including casks that link into a
+ * Wine app bundle
+ *
+ * @returns Promise<Set<WineInstallation>>
+ */
+export async function getHomebrewWine(): Promise<Set<WineInstallation>> {
+  const homebrewWine = new Set<WineInstallation>()
+  if (!isMac) {
+    return homebrewWine
+  }
+
+  const seen = new Set<string>()
+  for (const prefix of ['/opt/homebrew', '/usr/local']) {
+    for (const name of ['wine64', 'wine']) {
+      const link = join(prefix, 'bin', name)
+      if (!existsSync(link)) continue
+      const wineBin = realpathSync(link)
+      if (seen.has(wineBin)) continue
+      seen.add(wineBin)
+      try {
+        const { stdout } = await execFileAsync(wineBin, ['--version'])
+        const libDir = join(dirname(wineBin), '../lib')
+        homebrewWine.add({
+          bin: wineBin,
+          name: `Homebrew - ${stdout.split('\n')[0].trim()}`,
+          type: 'wine',
+          lib: libDir,
+          lib32: libDir,
+          ...getWineExecs(wineBin)
+        })
+      } catch (error) {
+        logError(
+          [`Error getting wine version for ${wineBin}:`, error],
+          LogPrefix.GlobalConfig
+        )
+      }
+    }
+  }
+
+  return homebrewWine
 }
 
 export type AllowedWineFlags = Pick<
