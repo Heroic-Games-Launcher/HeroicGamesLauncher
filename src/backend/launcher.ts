@@ -46,7 +46,7 @@ import { GlobalConfig } from './config'
 import { DXVK, runWineCommandOnGame, Winetricks } from './tools'
 import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
-import { spawn, spawnSync } from 'child_process'
+import { execFileSync, spawn, spawnSync } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
@@ -89,6 +89,7 @@ import {
   flatpakRuntimeVersion
 } from './constants/environment'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
+import { crossoverBottlesRoot } from './utils/crossover_bottles'
 import { gameAnticheatInfo } from './anticheat/utils'
 
 import type { PartialDeep } from 'type-fest'
@@ -761,6 +762,24 @@ async function getCrossoverBottleFolder(gameSettings: GameSettings) {
     })
 }
 
+function crossoverBottleDirectory(): string {
+  for (const id of [
+    'com.codeweavers.CrossOver',
+    'com.codeweavers.CrossOverPreview'
+  ]) {
+    try {
+      const dir = execFileSync('/usr/bin/defaults', ['read', id, 'BottleDir'], {
+        encoding: 'utf-8',
+        timeout: 3000
+      }).trim()
+      if (dir && existsSync(dir)) return dir
+    } catch {
+      // CrossOver keeps the default until the user picks another folder
+    }
+  }
+  return crossoverBottlesRoot(userHome, undefined)
+}
+
 async function prepareWineLaunch(
   game: Game,
   logWriter: LogWriter
@@ -785,8 +804,7 @@ async function prepareWineLaunch(
   if (isMac && gameSettings.wineVersion.type === 'crossover') {
     const bottleExists = existsSync(
       join(
-        userHome,
-        'Library/Application Support/CrossOver/Bottles',
+        crossoverBottleDirectory(),
         gameSettings.wineCrossoverBottle,
         'cxbottle.conf'
       )
