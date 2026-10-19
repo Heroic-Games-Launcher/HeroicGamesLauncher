@@ -7,6 +7,7 @@ import {
 } from 'common/types'
 
 import {
+  chmodSync,
   existsSync,
   readFileSync,
   writeFile,
@@ -55,11 +56,11 @@ import {
 import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
 import { toolsPath, userHome } from 'backend/constants/paths'
 import {
-  isIntelMac,
-  isLinux,
-  isMac,
-  isWindows
-} from 'backend/constants/environment'
+  findCommand,
+  MAC_PACKAGE_BIN_DIRS,
+  withMacToolPath
+} from './winetricks_path'
+import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import './dxmt'
 import { Game } from '../../common/types/game_manager'
 
@@ -526,6 +527,19 @@ export const DXVK = {
 }
 
 let installingComponent = ''
+
+function macWinetricksPath(): string {
+  const base = withMacToolPath(process.env.PATH)
+  if (findCommand(['7z'], MAC_PACKAGE_BIN_DIRS, existsSync)) return base
+  const sevenZz = findCommand(['7zz'], MAC_PACKAGE_BIN_DIRS, existsSync)
+  if (!sevenZz) return base
+  const dir = join(toolsPath, 'bin')
+  mkdirSync(dir, { recursive: true })
+  const shim = join(dir, '7z')
+  writeFileSync(shim, `#!/bin/sh\nexec "${sevenZz}" "$@"\n`)
+  chmodSync(shim, 0o755)
+  return `${dir}:${base}`
+}
 export const Winetricks = {
   download: async () => {
     if (isWindows) {
@@ -631,9 +645,7 @@ export const Winetricks = {
         WINESERVER: wineServer,
         WINE: wineBin,
         WINE64: wineBin,
-        PATH: isIntelMac
-          ? `/opt/local/bin:/usr/local/bin:${process.env.PATH}`
-          : `/opt/local/bin:/opt/homebrew/bin:${process.env.PATH}`
+        PATH: macWinetricksPath()
       }
 
       const envs = isMac ? macEnvs : linuxEnvs
