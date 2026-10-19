@@ -38,6 +38,9 @@ import {
   libraryStore
 } from './electronStores'
 import { callRunner } from '../../launcher'
+import { GameConfig } from 'backend/game_config'
+import { GlobalConfig } from 'backend/config'
+import { gamesConfigPath } from 'backend/constants/paths'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { LegendaryCommand } from './commands'
@@ -56,6 +59,18 @@ const fallBackImage = 'fallback'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
+
+function hasChosenWinePrefix(appName: string): boolean {
+  const path = join(gamesConfigPath, `${appName}.json`)
+  if (!existsSync(path)) return false
+  try {
+    const stored = JSON.parse(readFileSync(path, 'utf-8'))
+    const settings = stored[appName] ?? {}
+    return typeof settings.winePrefix === 'string'
+  } catch {
+    return false
+  }
+}
 const library: Map<string, GameInfo> = new Map()
 
 export default class LegendaryLibraryManager implements LibraryManager {
@@ -780,6 +795,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
       }
     }
 
+    const knownGames = new Set(installedGames.keys())
     const command: LegendaryCommand = {
       subcommand: 'egl-sync',
       '-y': true
@@ -812,7 +828,30 @@ export default class LegendaryLibraryManager implements LibraryManager {
         logError(`${stderr}`, LogPrefix.Legendary)
         return 'Error'
       }
+      if (path_or_action !== 'unlink' && path_or_action !== 'windows') {
+        await this.pointSyncedGamesAt(knownGames, path_or_action)
+      }
       return `${stdout} - ${stderr}`
+    }
+  }
+
+  private async pointSyncedGamesAt(knownGames: Set<string>, eglPrefix: string) {
+    this.refreshInstalled()
+    const fallback = GlobalConfig.get().getSettings().winePrefix
+    for (const [appName, info] of installedGames) {
+      const added = !knownGames.has(appName)
+      const livesInPrefix = !!info.install_path?.startsWith(eglPrefix)
+      if (!added && !livesInPrefix) continue
+      const config = GameConfig.get(appName)
+      if (!added && hasChosenWinePrefix(appName)) continue
+      const settings = await config.getSettings()
+      if (settings.winePrefix === eglPrefix) continue
+      if (!added && settings.winePrefix !== fallback) continue
+      config.setSetting('winePrefix', eglPrefix)
+      logInfo(
+        `Using the Epic Games prefix for ${info.title}`,
+        LogPrefix.Legendary
+      )
     }
   }
 
