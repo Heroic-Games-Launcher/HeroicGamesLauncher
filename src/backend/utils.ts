@@ -1252,7 +1252,12 @@ function removeFolder(path: string, folderName: string) {
 }
 
 async function getPathDiskSize(path: string): Promise<number> {
-  const statData = await lstat(path)
+  let statData
+  try {
+    statData = await lstat(path)
+  } catch {
+    return 0
+  }
   let size = 0
   if (statData.isSymbolicLink()) {
     return 0
