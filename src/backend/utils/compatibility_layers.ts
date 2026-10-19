@@ -5,7 +5,7 @@ import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 import { homedir } from 'os'
-import { dirname, join } from 'path'
+import { basename, dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
 import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
@@ -264,36 +264,49 @@ export async function getWineOnMac(): Promise<Set<WineInstallation>> {
   return wineSet
 }
 
+/** wine64 when the engine has it, otherwise wine. Wrappers do not all ship both. */
+export function wrapperWineBinary(
+  binDir: string,
+  exists: (path: string) => boolean = existsSync
+): string | undefined {
+  return ['wine64', 'wine'].map((name) => join(binDir, name)).find(exists)
+}
+
 export async function getWineskinWine(): Promise<Set<WineInstallation>> {
   const wineSet = new Set<WineInstallation>()
   if (!isMac) {
     return wineSet
   }
-  const wineSkinPath = `${userHome}/Applications/Wineskin`
-  if (existsSync(wineSkinPath)) {
-    const apps = readdirSync(wineSkinPath)
-    for (const app of apps) {
-      if (app.includes('.app')) {
-        const wineBin = `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/bin/wine64`
-        if (existsSync(wineBin)) {
-          try {
-            const { stdout: out } = await execAsync(`'${wineBin}' --version`)
-            const version = out.split('\n')[0]
-            wineSet.add({
-              ...getWineExecs(wineBin),
-              lib: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-              lib32: `${userHome}/Applications/Wineskin/${app}/Contents/SharedSupport/wine/lib`,
-              name: `Wineskin - ${version}`,
-              type: 'wine',
-              bin: wineBin
-            })
-          } catch (error) {
-            logError(
-              [`Error getting wine version for ${wineBin}:`, error],
-              LogPrefix.GlobalConfig
-            )
-          }
-        }
+  // Sikarugir is the current Wineskin successor. Kegworks was its previous name.
+  const roots = ['Wineskin', 'Sikarugir'].map((name) => ({
+    name,
+    path: join(userHome, 'Applications', name)
+  }))
+  for (const root of roots) {
+    if (!existsSync(root.path)) continue
+    for (const app of readdirSync(root.path)) {
+      if (!app.endsWith('.app')) continue
+      const wineBin = wrapperWineBinary(
+        join(root.path, app, 'Contents/SharedSupport/wine/bin')
+      )
+      if (!wineBin) continue
+      const lib = join(root.path, app, 'Contents/SharedSupport/wine/lib')
+      try {
+        const { stdout: out } = await execAsync(`'${wineBin}' --version`)
+        const version = out.split('\n')[0]
+        wineSet.add({
+          ...getWineExecs(wineBin),
+          lib,
+          lib32: lib,
+          name: `${root.name} - ${basename(app, '.app')} (${version})`,
+          type: 'wine',
+          bin: wineBin
+        })
+      } catch (error) {
+        logError(
+          [`Error getting wine version for ${wineBin}:`, error],
+          LogPrefix.GlobalConfig
+        )
       }
     }
   }
