@@ -363,6 +363,12 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   if (url.startsWith('http')) {
     return shell.openExternal(url)
   }
+  const cleaned = url.replace(/\/+$/, '')
+  // A .app bundle is a directory. Opening it launches the game.
+  if (isMac && cleaned.toLowerCase().endsWith('.app')) {
+    showItemInFolder(cleaned)
+    return
+  }
   return shell.openPath(url)
 }
 
