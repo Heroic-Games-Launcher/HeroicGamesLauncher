@@ -548,7 +548,8 @@ export default class GOGGame implements Game {
       mangoHudCommand,
       gameScopeCommand,
       gameModeBin,
-      steamRuntime
+      steamRuntime,
+      launchPrefix
     } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
@@ -577,13 +578,16 @@ export default class GOGGame implements Game {
       ...getKnownFixesEnvVariables(this.id, 'gog')
     }
 
-    const wrappers = setupWrappers(
-      gameSettings,
-      mangoHudCommand,
-      gameModeBin,
-      gameScopeCommand,
-      steamRuntime?.length ? [...steamRuntime] : undefined
-    )
+    const wrappers = [
+      ...(launchPrefix ?? []),
+      ...setupWrappers(
+        gameSettings,
+        mangoHudCommand,
+        gameModeBin,
+        gameScopeCommand,
+        steamRuntime?.length ? [...steamRuntime] : undefined
+      )
+    ]
 
     let wineFlag: string[] = wrappers.length
       ? ['--wrapper', shlex.join(wrappers)]

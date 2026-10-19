@@ -16,6 +16,7 @@ import {
   EnableFSR,
   EnableFsync,
   EnableMsync,
+  MacRunWithRosetta,
   EnableWineWayland,
   EnableWoW64,
   EnvVariablesTable,
@@ -205,6 +206,7 @@ export default function GamesSettings() {
       </TabPanel>
 
       <TabPanel value={value} index={'other'}>
+        <MacRunWithRosetta />
         {!isNative && <ShowFPS />}
         <Mangohud />
         <GameMode />
