@@ -1,4 +1,10 @@
-import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState
+} from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
@@ -8,6 +14,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
+import { getWebviewPartition } from 'common/constants/webview'
 import {
   Dialog,
   DialogContent,
@@ -45,7 +52,14 @@ export default function WebView() {
     null
   )
   const navigate = useNavigate()
-  const webviewRef = useRef<Electron.WebviewTag>(null)
+  // Keep the webview element in state (via a callback ref) instead of a plain
+  // ref so that mounting/remounting it — e.g. when switching stores — triggers
+  // a re-render and propagates the live element to children like
+  // WebviewControls. A mutable ref wouldn't, leaving them with a stale webview.
+  const [webview, setWebview] = useState<Electron.WebviewTag | null>(null)
+  const webviewRef = useCallback((node: Electron.WebviewTag | null) => {
+    setWebview(node)
+  }, [])
 
   // `store` is set to epic/gog/amazon depending on which storefront we're
   // supposed to show, `runner` is set to a runner if we're supposed to show its
@@ -158,9 +172,8 @@ export default function WebView() {
   }, [])
 
   useLayoutEffect(() => {
-    const webview = webviewRef.current
     if (webview) {
-      const loadstop = async () => {
+      const loadstop = () => {
         setLoading({ ...loading, refresh: false })
         const userAgent =
           startUrl === epicLoginUrl
@@ -250,10 +263,9 @@ export default function WebView() {
       }
     }
     return
-  }, [webviewRef.current, amazonLoginData, runner, webviewPreloadPath])
+  }, [webview, amazonLoginData, runner, webviewPreloadPath])
 
   useEffect(() => {
-    const webview = webviewRef.current
     if (webview) {
       const onNavigate = () => {
         if (store) {
@@ -293,7 +305,7 @@ export default function WebView() {
     }
 
     return
-  }, [webviewRef.current, store, runner])
+  }, [webview, store, runner])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon' | 'zoom'
@@ -333,9 +345,7 @@ export default function WebView() {
 
   // Handle back/forward mouse buttons to navigate inside webview
   useEffect(() => {
-    if (!webviewRef.current) return
-
-    const webview = webviewRef.current
+    if (!webview) return
 
     const handleMouseBackForward = (ev: MouseEvent) => {
       // 3 and 4 are the typical `button` value for mouse back/forward buttons on mouseup events
@@ -360,7 +370,7 @@ export default function WebView() {
     return () => {
       document.removeEventListener('mouseup', handleMouseBackForward)
     }
-  }, [webviewRef.current])
+  }, [webview])
 
   if (!webviewPreloadPath) {
     return <></>
@@ -368,9 +378,10 @@ export default function WebView() {
 
   return (
     <div className="WebView">
-      {webviewRef.current && (
+      {webview && (
         <WebviewControls
-          webview={webviewRef.current}
+          key={`controls-${store}`}
+          webview={webview}
           initURL={startUrl}
           openInBrowser={!startUrl.startsWith('login')}
         />
@@ -380,7 +391,7 @@ export default function WebView() {
         key={store}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`}
+        partition={getWebviewPartition(store, runner)}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
