@@ -1,0 +1,50 @@
+name: Build Windows installer (custom icon)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-installer:
+    runs-on: windows-2025
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.5.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download Heroic helper binaries
+        run: pnpm download-helper-binaries
+
+      - name: Build application
+        run: pnpm build
+
+      - name: Apply custom Windows icon
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path build | Out-Null
+          Copy-Item public/win_icon.ico build/win_icon.ico -Force
+
+      - name: Package Windows installer
+        run: pnpm exec electron-builder --win nsis --x64 --publish never
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Heroic-Custom-Icon-Windows-Installer
+          path: dist/*Setup*.exe
+          if-no-files-found: error
+          retention-days: 14
