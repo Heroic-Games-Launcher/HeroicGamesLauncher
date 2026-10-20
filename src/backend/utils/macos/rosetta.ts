@@ -6,7 +6,7 @@ const execFileAsync = promisify(execFile)
 
 let installed: boolean | undefined
 
-export async function rosettaIsInstalled(): Promise<boolean> {
+async function rosettaIsInstalled(): Promise<boolean> {
   if (installed) return true
   try {
     await execFileAsync('/usr/bin/arch', ['-x86_64', '/usr/bin/true'], {
