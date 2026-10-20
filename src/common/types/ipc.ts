@@ -50,7 +50,7 @@ import type {
   CatalogProduct,
   GogDealsRegion
 } from './discounts'
-import type { GOGCloudSavesLocation, UserData } from './gog'
+import type { GOGBonusContent, GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
@@ -189,6 +189,12 @@ interface AsyncIPCFunctions {
     runner: Runner
   ) => Promise<GameSettings | null>
   getGOGLinuxInstallersLangs: (appName: string) => Promise<string[]>
+  getGOGExtras: (appName: string) => Promise<GOGBonusContent[]>
+  downloadGOGExtras: (
+    appName: string,
+    fileIds: string[],
+    destination: string
+  ) => Promise<{ downloaded: string[]; failed: string[] }>
   getInstallInfo: (
     appName: string,
     runner: Runner,

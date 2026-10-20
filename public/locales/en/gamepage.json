@@ -119,6 +119,16 @@
         "title": "Edit Game"
     },
     "enabled": "Enabled",
+    "extras": {
+        "chooseDestination": "Choose a folder for the extras",
+        "downloadFailed": "Could not download the selected extras.",
+        "downloading": "Downloading…",
+        "downloadResult": "Downloaded {{downloaded}} file(s); {{failed}} failed.",
+        "downloadSelected": "Download selected extras",
+        "loading": "Loading extras…",
+        "none": "No extras are available for this game.",
+        "title": "GOG Extras"
+    },
     "game": {
         "achievements": "Achievements",
         "branch": {
