@@ -46,7 +46,7 @@ import { GlobalConfig } from './config'
 import { DXVK, runWineCommandOnGame, Winetricks } from './tools'
 import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
-import { spawn, spawnSync } from 'child_process'
+import { execFileSync, spawn, spawnSync } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
@@ -89,6 +89,12 @@ import {
   flatpakRuntimeVersion
 } from './constants/environment'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
+import { macGameBinary, shouldLaunchWithRosetta } from './utils/macos/mach'
+import {
+  ensureRosetta,
+  isRosettaMissingError,
+  ROSETTA_LAUNCH_PREFIX
+} from './utils/macos/rosetta'
 import { gameAnticheatInfo } from './anticheat/utils'
 
 import type { PartialDeep } from 'type-fest'
@@ -724,6 +730,31 @@ async function prepareLaunch(
     steamRuntime = [await getUmuPath()]
   }
 
+  let launchPrefix: string[] | undefined
+  if (isMac && !isIntelMac && isNative) {
+    const binary = macGameBinary(
+      gameInfo.install.install_path,
+      gameInfo.install.executable,
+      readMacBundleExecutable
+    )
+    const header =
+      binary && existsSync(binary)
+        ? readFileSync(binary).subarray(0, 65536)
+        : undefined
+    if (shouldLaunchWithRosetta(header, !!gameSettings.runWithRosetta, true)) {
+      if (!(await ensureRosetta())) {
+        return {
+          success: false,
+          failureReason: i18next.t(
+            'box.error.rosetta',
+            'This game needs Rosetta, and Rosetta is not installed.'
+          )
+        }
+      }
+      launchPrefix = ROSETTA_LAUNCH_PREFIX
+    }
+  }
+
   return {
     success: true,
     rpcClient,
@@ -731,7 +762,28 @@ async function prepareLaunch(
     gameModeBin: gameModeBin ?? undefined,
     gameScopeCommand,
     steamRuntime,
+    launchPrefix,
     offlineMode
+  }
+}
+
+function readMacBundleExecutable(app: string): string | undefined {
+  try {
+    const name = execFileSync(
+      '/usr/bin/plutil',
+      [
+        '-extract',
+        'CFBundleExecutable',
+        'raw',
+        '-o',
+        '-',
+        join(app, 'Contents', 'Info.plist')
+      ],
+      { encoding: 'utf-8' }
+    ).trim()
+    return name || undefined
+  } catch {
+    return undefined
   }
 }
 
@@ -1796,7 +1848,7 @@ async function callRunner(
     .then(({ stdout, stderr }) => {
       return { stdout, stderr, fullCommand: safeCommand }
     })
-    .catch((error) => {
+    .catch(async (error) => {
       if (abortController.signal.aborted) {
         logInfo(['Abort command', `"${safeCommand}"`], runner.logPrefix)
 
@@ -1808,7 +1860,11 @@ async function callRunner(
         }
       }
 
-      errorHandler(error, appName, runner.name)
+      if (isMac && isRosettaMissingError(error)) {
+        await ensureRosetta()
+      } else {
+        errorHandler(error, appName, runner.name)
+      }
 
       logError(
         ['Error running', 'command', `"${safeCommand}":`, error],

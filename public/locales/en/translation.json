@@ -99,6 +99,7 @@
                     "title": "Error Removing Game from Steam"
                 }
             },
+            "rosetta": "This game needs Rosetta, and Rosetta is not installed.",
             "steam": {
                 "running": "Steam is running. Close Steam and try again, or restart Steam once to let Heroic manage shortcuts while Steam is running.",
                 "running-gamemode": "A one-time Steam restart is required before Heroic can manage Steam shortcuts on this device. Restart Steam and try again."
@@ -181,6 +182,8 @@
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
             "rosetta": {
+                "install": "Install Rosetta",
+                "later": "Not Now",
                 "message": "Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: \"softwareupdate --install-rosetta\" and restart Heroic. ",
                 "title": "Rosetta not found"
             },
@@ -547,6 +550,7 @@
             "part7": " to skip the launcher in some games, etc."
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
+        "runWithRosetta": "Starts this Mac game as an Intel app. Intel-only games already do this. Turn it on for a universal game that misbehaves on Apple Silicon.",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -965,6 +969,7 @@
         "runexe": {
             "title": "Run EXE on Prefix"
         },
+        "runWithRosetta": "Run with Rosetta",
         "savefolder": {
             "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Select the exact save games folder",

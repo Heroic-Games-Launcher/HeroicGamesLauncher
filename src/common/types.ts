@@ -269,6 +269,8 @@ export interface GameSettings {
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
   enableQuickSavesMenu: boolean
+  /** Launch a native Mac game with `arch -x86_64` even when it is universal */
+  runWithRosetta?: boolean
 }
 
 export type Status =
@@ -438,6 +440,7 @@ export interface LaunchPreperationResult {
   gameModeBin?: string
   gameScopeCommand?: string[]
   steamRuntime?: string[]
+  launchPrefix?: string[]
   offlineMode?: boolean
 }
 

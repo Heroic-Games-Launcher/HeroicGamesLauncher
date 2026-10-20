@@ -278,6 +278,7 @@ class GameConfigV0 extends GameConfig {
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta,
+      runWithRosetta: false,
       enableQuickSavesMenu: false,
       steamRuntime: false
     } as GameSettings
