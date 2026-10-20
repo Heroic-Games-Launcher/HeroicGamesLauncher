@@ -40,20 +40,23 @@ export default function WebviewControls({
 
   useEffect(() => {
     if (webview) {
-      const eventCallback = () => setUrl(webview.getURL())
-      webview.addEventListener('did-navigate-in-page', eventCallback)
-      webview.addEventListener('did-navigate', eventCallback)
-      webview.addEventListener('did-navigate-in-page', () => {
+      const updateNavigationState = () => {
+        setUrl(webview.getURL())
         setWebviewGoBack(webview.canGoBack())
         setCanGoForward(webview.canGoForward())
-      })
-      webview.addEventListener('did-navigate', () => {
-        setWebviewGoBack(webview.canGoBack())
-        setCanGoForward(webview.canGoForward())
-      })
+      }
+
+      webview.addEventListener('did-navigate-in-page', updateNavigationState)
+      webview.addEventListener('did-navigate', updateNavigationState)
+      webview.addEventListener('did-stop-loading', updateNavigationState)
+
       return () => {
-        webview.removeEventListener('did-navigate-in-page', eventCallback)
-        webview.removeEventListener('did-navigate', eventCallback)
+        webview.removeEventListener(
+          'did-navigate-in-page',
+          updateNavigationState
+        )
+        webview.removeEventListener('did-navigate', updateNavigationState)
+        webview.removeEventListener('did-stop-loading', updateNavigationState)
       }
     }
     return
