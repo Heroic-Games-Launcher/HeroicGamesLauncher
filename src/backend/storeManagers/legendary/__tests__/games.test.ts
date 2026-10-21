@@ -10,6 +10,16 @@ jest.mock('electron')
 jest.mock('backend/logger')
 jest.mock('backend/dialog/dialog')
 jest.mock('backend/config')
+jest.mock('backend/storeManagers', () => ({
+  libraryManagerMap: {
+    legendary: {
+      getGameInfo: jest.fn(),
+      getInstallInfo: jest.fn(),
+      runRunnerCommand: jest.fn(),
+      refreshInstalled: jest.fn()
+    }
+  }
+}))
 jest.mock('backend/utils/systeminfo/memory', () => ({
   getMemoryInfo: jest.fn()
 }))
@@ -66,14 +76,18 @@ describe('LegendaryGame shared memory retry', () => {
         download_size: 100 * MiB
       }
     })
-
-    libraryManagerMap['legendary'] = {
-      ...libraryManagerMap['legendary'],
-      getGameInfo: getGameInfoMock,
-      getInstallInfo: getInstallInfoMock,
-      runRunnerCommand: runRunnerCommandMock,
-      refreshInstalled: refreshInstalledMock
-    }
+    ;(libraryManagerMap.legendary.getGameInfo as jest.Mock).mockImplementation(
+      getGameInfoMock
+    )
+    ;(
+      libraryManagerMap.legendary.getInstallInfo as jest.Mock
+    ).mockImplementation(getInstallInfoMock)
+    ;(
+      libraryManagerMap.legendary.runRunnerCommand as jest.Mock
+    ).mockImplementation(runRunnerCommandMock)
+    ;(
+      libraryManagerMap.legendary.refreshInstalled as jest.Mock
+    ).mockImplementation(refreshInstalledMock)
   })
 
   it('retries update with required --max-shared-memory when available RAM is sufficient', async () => {

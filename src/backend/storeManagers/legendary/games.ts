@@ -487,10 +487,10 @@ export default class LegendaryGame implements Game {
   }
 
   private async applySharedMemoryFallback(
-    command: Extract<
-      LegendaryCommand,
-      { subcommand: 'install' | 'update' | 'repair' }
-    >,
+    command: {
+      '--max-shared-memory'?: PositiveInteger
+      '--enable-reordering'?: true
+    },
     output: string
   ) {
     const match = output.match(/--max-shared-memory (\d+)/)
