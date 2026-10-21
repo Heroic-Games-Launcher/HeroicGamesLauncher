@@ -485,11 +485,17 @@ export default class LegendaryGame implements Game {
     }
   }
 
+  private getRequiredSharedMemory(output: string): PositiveInteger {
+    const match = output.match(/--max-shared-memory (\d+)/)
+    const suggested = match ? Number(match[1]) : 0
+    return PositiveInteger.parse(Math.max(5000, suggested))
+  }
+
   /**
    * Update game.
    * Does NOT check for online connectivity.
    */
-  async update(): Promise<{ status: 'done' | 'error' }> {
+  async update(): Promise<{ status: 'done' | 'error' | 'abort' }> {
     sendGameStatusUpdate({
       appName: this.appName,
       runner: 'legendary',
@@ -524,18 +530,39 @@ export default class LegendaryGame implements Game {
       'legendary',
       'update'
     )
-    const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+    let res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
       logWriters: [updateLogWriter],
       onOutput,
       logMessagePrefix: `Updating ${this.appName}`
     })
 
+    // try to run the update again with higher memory limit
+    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+      command['--max-shared-memory'] = this.getRequiredSharedMemory(
+        `${res.stdout}\n${res.stderr}`
+      )
+      res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+        abortId: this.appName,
+        logWriters: [updateLogWriter],
+        onOutput,
+        logMessagePrefix: `Updating ${this.appName}`
+      })
+    }
+
     sendGameStatusUpdate({
       appName: this.appName,
       runner: 'legendary',
       status: 'done'
     })
+
+    if (res.abort) {
+      return { status: 'abort' }
+    }
+
+    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+      res.error ||= 'MemoryError: Failed to allocate shared memory for update'
+    }
 
     if (res.error) {
       logError(
@@ -630,17 +657,24 @@ export default class LegendaryGame implements Game {
     })
 
     // try to run the install again with higher memory limit
-    if (res.stderr.includes('MemoryError:')) {
-      command['--max-shared-memory'] = PositiveInteger.parse(5000)
+    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+      command['--max-shared-memory'] = this.getRequiredSharedMemory(
+        `${res.stdout}\n${res.stderr}`
+      )
       res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
         abortId: this.appName,
         logWriters: [installLogWriter],
-        onOutput
+        onOutput,
+        logMessagePrefix: `Installing ${this.appName}`
       })
     }
 
     if (res.abort) {
       return { status: 'abort' }
+    }
+
+    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+      res.error ||= 'MemoryError: Failed to allocate shared memory for install'
     }
 
     if (res.error) {
@@ -791,11 +825,27 @@ export default class LegendaryGame implements Game {
       'legendary',
       'repair'
     )
-    const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+    let res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
       logWriters: [repairLogWriter],
       logMessagePrefix: `Repairing ${this.appName}`
     })
+
+    // try to run the repair again with higher memory limit
+    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+      command['--max-shared-memory'] = this.getRequiredSharedMemory(
+        `${res.stdout}\n${res.stderr}`
+      )
+      res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+        abortId: this.appName,
+        logWriters: [repairLogWriter],
+        logMessagePrefix: `Repairing ${this.appName}`
+      })
+    }
+
+    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+      res.error ||= 'MemoryError: Failed to allocate shared memory for repair'
+    }
 
     if (res.error) {
       logError(
