@@ -73,6 +73,7 @@ import { configStore } from 'backend/constants/key_value_stores'
 import { epicRedistPath, legendaryInstalled } from './constants'
 import { isCLINoGui, isMac, isWindows } from 'backend/constants/environment'
 import { fakeEpicExePath } from 'backend/constants/paths'
+import { getMemoryInfo } from 'backend/utils/systeminfo/memory'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -485,10 +486,28 @@ export default class LegendaryGame implements Game {
     }
   }
 
-  private getRequiredSharedMemory(output: string): PositiveInteger {
+  private async applySharedMemoryFallback(
+    command: Extract<
+      LegendaryCommand,
+      { subcommand: 'install' | 'update' | 'repair' }
+    >,
+    output: string
+  ) {
     const match = output.match(/--max-shared-memory (\d+)/)
-    const suggested = match ? Number(match[1]) : 0
-    return PositiveInteger.parse(Math.max(5000, suggested))
+    const requiredMiB = match ? Number(match[1]) : 5000
+
+    const { total, used } = await getMemoryInfo()
+    const availableMiB =
+      total > used ? Math.floor((total - used) / (1024 * 1024)) : 0
+
+    if (total === 0 || availableMiB >= requiredMiB) {
+      command['--max-shared-memory'] = PositiveInteger.parse(requiredMiB)
+    } else {
+      command['--enable-reordering'] = true
+      if (availableMiB > 2048) {
+        command['--max-shared-memory'] = PositiveInteger.parse(availableMiB)
+      }
+    }
   }
 
   /**
@@ -539,7 +558,8 @@ export default class LegendaryGame implements Game {
 
     // try to run the update again with higher memory limit
     if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
-      command['--max-shared-memory'] = this.getRequiredSharedMemory(
+      await this.applySharedMemoryFallback(
+        command,
         `${res.stdout}\n${res.stderr}`
       )
       res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
@@ -658,7 +678,8 @@ export default class LegendaryGame implements Game {
 
     // try to run the install again with higher memory limit
     if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
-      command['--max-shared-memory'] = this.getRequiredSharedMemory(
+      await this.applySharedMemoryFallback(
+        command,
         `${res.stdout}\n${res.stderr}`
       )
       res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
@@ -833,7 +854,8 @@ export default class LegendaryGame implements Game {
 
     // try to run the repair again with higher memory limit
     if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
-      command['--max-shared-memory'] = this.getRequiredSharedMemory(
+      await this.applySharedMemoryFallback(
+        command,
         `${res.stdout}\n${res.stderr}`
       )
       res = await libraryManagerMap['legendary'].runRunnerCommand(command, {

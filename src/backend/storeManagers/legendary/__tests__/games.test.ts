@@ -3,12 +3,16 @@ import { libraryManagerMap } from 'backend/storeManagers'
 import { GlobalConfig } from 'backend/config'
 import { createGameLogWriter, logError } from 'backend/logger'
 import { sendGameStatusUpdate } from 'backend/utils'
+import { getMemoryInfo } from 'backend/utils/systeminfo/memory'
 import { LegendaryAppName } from '../commands/base'
 
 jest.mock('electron')
 jest.mock('backend/logger')
 jest.mock('backend/dialog/dialog')
 jest.mock('backend/config')
+jest.mock('backend/utils/systeminfo/memory', () => ({
+  getMemoryInfo: jest.fn()
+}))
 jest.mock('backend/utils', () => ({
   ...jest.requireActual('backend/utils'),
   sendGameStatusUpdate: jest.fn(),
@@ -18,6 +22,8 @@ jest.mock('backend/shortcuts/shortcuts/shortcuts', () => ({
   addShortcuts: jest.fn(),
   removeShortcuts: jest.fn()
 }))
+
+const MiB = 1024 * 1024
 
 describe('LegendaryGame shared memory retry', () => {
   const appName = '20f01ab5e0fa4e798c6d58eeb8d86989' as LegendaryAppName
@@ -40,6 +46,10 @@ describe('LegendaryGame shared memory retry', () => {
       logInfo: jest.fn(),
       logError: jest.fn()
     })
+    ;(getMemoryInfo as jest.Mock).mockResolvedValue({
+      total: 16384 * MiB,
+      used: 8192 * MiB
+    })
 
     getGameInfoMock.mockReturnValue({
       app_name: appName,
@@ -53,7 +63,7 @@ describe('LegendaryGame shared memory retry', () => {
 
     getInstallInfoMock.mockResolvedValue({
       manifest: {
-        download_size: 1024 * 1024 * 100
+        download_size: 100 * MiB
       }
     })
 
@@ -66,7 +76,7 @@ describe('LegendaryGame shared memory retry', () => {
     }
   })
 
-  it('retries update with --max-shared-memory when Legendary fails with MemoryError', async () => {
+  it('retries update with required --max-shared-memory when available RAM is sufficient', async () => {
     runRunnerCommandMock
       .mockResolvedValueOnce({
         stdout: '',
@@ -88,7 +98,7 @@ describe('LegendaryGame shared memory retry', () => {
       expect.objectContaining({
         subcommand: 'update',
         appName,
-        '--max-shared-memory': 5000
+        '--max-shared-memory': 3853
       }),
       expect.any(Object)
     )
@@ -99,7 +109,12 @@ describe('LegendaryGame shared memory retry', () => {
     })
   })
 
-  it('uses Legendary suggested --max-shared-memory when greater than 5000 MiB', async () => {
+  it('enables reordering and caps --max-shared-memory to available RAM when required memory exceeds available RAM', async () => {
+    ;(getMemoryInfo as jest.Mock).mockResolvedValue({
+      total: 8192 * MiB,
+      used: 5120 * MiB // 3072 MiB available
+    })
+
     runRunnerCommandMock
       .mockResolvedValueOnce({
         stdout: '',
@@ -121,10 +136,38 @@ describe('LegendaryGame shared memory retry', () => {
       expect.objectContaining({
         subcommand: 'update',
         appName,
-        '--max-shared-memory': 5938
+        '--enable-reordering': true,
+        '--max-shared-memory': 3072
       }),
       expect.any(Object)
     )
+  })
+
+  it('enables reordering without raising --max-shared-memory when available RAM is <= 2048 MiB', async () => {
+    ;(getMemoryInfo as jest.Mock).mockResolvedValue({
+      total: 8192 * MiB,
+      used: 6692 * MiB // 1500 MiB available
+    })
+
+    runRunnerCommandMock
+      .mockResolvedValueOnce({
+        stdout: '',
+        stderr:
+          'MemoryError: Current shared memory cache is smaller than required: 2048.0 MiB < 3821.0 MiB. Try running legendary with "--enable-reordering" to reduce memory usage, or use "--max-shared-memory 3853" to increase the limit.'
+      })
+      .mockResolvedValueOnce({
+        stdout: 'Update complete',
+        stderr: ''
+      })
+
+    const game = new LegendaryGame(appName)
+    const result = await game.update()
+
+    expect(result).toEqual({ status: 'done' })
+    expect(runRunnerCommandMock).toHaveBeenCalledTimes(2)
+    const secondCallCommand = runRunnerCommandMock.mock.calls[1][0]
+    expect(secondCallCommand['--enable-reordering']).toBe(true)
+    expect(secondCallCommand['--max-shared-memory']).toBeUndefined()
   })
 
   it('returns status error if MemoryError persists after retry during update', async () => {
@@ -166,7 +209,7 @@ describe('LegendaryGame shared memory retry', () => {
       expect.objectContaining({
         subcommand: 'repair',
         appName,
-        '--max-shared-memory': 5000
+        '--max-shared-memory': 3853
       }),
       expect.any(Object)
     )
