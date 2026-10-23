@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "從 Steam 移除 {{game}} 失敗，錯誤：{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1257,5 +1262,10 @@
             "wineMissing": "未選擇路徑"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "新增",
+        "cancel": "取消",
+        "warning": "警告"
+    }
 }

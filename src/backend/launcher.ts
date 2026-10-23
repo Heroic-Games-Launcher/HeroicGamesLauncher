@@ -713,8 +713,8 @@ async function prepareLaunch(
   const umuAvailable =
     (await isInstalled('umu')) || (await getUmuPath()) !== defaultUmuPath
   const useUmu =
-    (await isUmuSupported(gameSettings, false)) ||
-    (gameSettings.steamRuntime && isNative)
+    (!isNative && (await isUmuSupported(gameSettings, false))) ||
+    (isNative && gameSettings.steamRuntime)
 
   if (useUmu && !umuAvailable) {
     await download('umu')
