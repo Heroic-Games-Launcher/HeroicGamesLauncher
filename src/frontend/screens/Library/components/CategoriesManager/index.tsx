@@ -2,9 +2,9 @@ import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from '../../LibraryContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Dialog, DialogHeader } from 'frontend/components/UI/Dialog'
-import { DialogContent } from '@mui/material'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import { TextInputField } from 'frontend/components/UI'
+import Button from 'frontend/components/UI/Button'
 import './index.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -51,8 +51,8 @@ function CategoryItem({
   const leftButton = () => {
     if (renameMode) {
       return (
-        <button
-          className="button is-primary"
+        <Button
+          size="sm"
           onClick={() => rename()}
           title={t(
             'categories-manager.confirm-rename',
@@ -60,33 +60,32 @@ function CategoryItem({
             { oldName: name, newName }
           )}
           disabled={isNewNameEmptyOrEqualsOldName}
-        >
-          <FontAwesomeIcon icon={faCheck} />
-        </button>
+          icon={<FontAwesomeIcon icon={faCheck} />}
+        />
       )
     } else if (removeMode) {
       return (
-        <button
-          className="button is-danger"
+        <Button
+          size="sm"
+          variant="destructive"
           onClick={() => remove()}
           title={t(
             'categories-manager.confirm-remove',
             'Confirm removal of "{{name}}"',
             { name }
           )}
-        >
-          <FontAwesomeIcon icon={faCheck} />
-        </button>
+          icon={<FontAwesomeIcon icon={faCheck} />}
+        />
       )
     } else {
       return (
-        <button
-          className="button is-danger"
+        <Button
+          size="sm"
+          variant="destructive"
           onClick={() => setRemoveMode(true)}
           title={t('categories-manager.remove', 'Remove "{{name}}"', { name })}
-        >
-          <FontAwesomeIcon icon={faTrash} />
-        </button>
+          icon={<FontAwesomeIcon icon={faTrash} />}
+        />
       )
     }
   }
@@ -94,41 +93,41 @@ function CategoryItem({
   const rightButton = () => {
     if (renameMode) {
       return (
-        <button
-          className="button is-secondary"
+        <Button
+          size="sm"
+          variant="secondary"
           onClick={() => cancelEdit()}
           title={t(
             'categories-manager.cancel-rename',
             'Cancel rename of "{{name}}"',
             { name }
           )}
-        >
-          <FontAwesomeIcon icon={faCancel} />
-        </button>
+          icon={<FontAwesomeIcon icon={faCancel} />}
+        />
       )
     } else if (removeMode) {
       return (
-        <button
-          className="button is-secondary"
+        <Button
+          size="sm"
+          variant="secondary"
           onClick={() => setRemoveMode(false)}
           title={t(
             'categories-manager.cancel-remove',
             'Cancel removal of "{{name}}"',
             { name }
           )}
-        >
-          <FontAwesomeIcon icon={faCancel} />
-        </button>
+          icon={<FontAwesomeIcon icon={faCancel} />}
+        />
       )
     } else {
       return (
-        <button
-          className="button is-secondary"
+        <Button
+          size="sm"
+          variant="secondary"
           onClick={() => setRenameMode(true)}
           title={t('categories-manager.rename', 'Rename "{{name}}"', { name })}
-        >
-          <FontAwesomeIcon icon={faPencil} />
-        </button>
+          icon={<FontAwesomeIcon icon={faPencil} />}
+        />
       )
     }
   }
@@ -178,15 +177,16 @@ function CategoriesManager() {
   const categories = customCategories.listCategories()
 
   return (
-    <Dialog
+    <Modal
       showCloseButton
+      size="sm"
       onClose={() => setShowCategories(false)}
-      className="CategoriesManager__Dialog"
+      className="CategoriesManager__modal"
     >
-      <DialogHeader onClose={() => setShowCategories(false)}>
-        <div>{t('categories-manager.title', 'Manage Categories')}</div>
-      </DialogHeader>
-      <DialogContent>
+      <ModalHeader>
+        {t('categories-manager.title', 'Manage Categories')}
+      </ModalHeader>
+      <ModalContent>
         {categories.map((cat) => (
           <CategoryItem
             key={cat}
@@ -207,18 +207,17 @@ function CategoriesManager() {
             'Add new category'
           )}
           afterInput={
-            <button
-              className="button"
+            <Button
+              size="sm"
               onClick={() => addCategory()}
               title={t('categories-manager.add', 'Add')}
               disabled={isCategoryNameEmpty}
-            >
-              <FontAwesomeIcon icon={faAdd} />
-            </button>
+              icon={<FontAwesomeIcon icon={faAdd} />}
+            />
           }
         />
-      </DialogContent>
-    </Dialog>
+      </ModalContent>
+    </Modal>
   )
 }
 

@@ -1,9 +1,5 @@
 import { useMemo } from 'react'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import sanitizeHtml from 'sanitize-html'
 import { useTranslation } from 'react-i18next'
 
@@ -27,18 +23,18 @@ export default function GameChangeLog({
   }, [changelog])
 
   return (
-    <Dialog showCloseButton onClose={backdropClick}>
-      <DialogHeader onClose={backdropClick}>
+    <Modal showCloseButton onClose={backdropClick}>
+      <ModalHeader>
         {t('game.changelogFor', 'Changelog for {{gameTitle}}', {
           gameTitle: title
         })}
-      </DialogHeader>
-      <DialogContent className="changelogModalContent">
+      </ModalHeader>
+      <ModalContent className="changelogModalContent">
         <div
           dangerouslySetInnerHTML={santiziedChangeLog}
           className={'gameChangeLog'}
         />
-      </DialogContent>
-    </Dialog>
+      </ModalContent>
+    </Modal>
   )
 }

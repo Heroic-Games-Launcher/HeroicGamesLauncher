@@ -1,7 +1,5 @@
-.CategoriesManager__Dialog {
-  width: 400px;
-
-  .MuiDialogContent-root {
+.CategoriesManager__modal {
+  .Modal__content {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
