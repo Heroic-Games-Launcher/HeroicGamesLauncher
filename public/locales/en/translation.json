@@ -1231,6 +1231,8 @@
     "webview": {
         "controls": {
             "back": "Go back",
+            "disableGameInput": "Disable game input and return to Heroic navigation",
+            "enableGameInput": "Enable keyboard and controller input for the page",
             "forward": "Go forward",
             "home": "Go to store home",
             "openInBrowser": "Open in browser",

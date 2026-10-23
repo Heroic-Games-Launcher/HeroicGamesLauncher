@@ -14,6 +14,7 @@ import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
   isUsingGamepad,
+  setGamepadPassthrough,
   setWebviewInputTarget,
   toggleWebviewFocus
 } from 'frontend/helpers/gamepad'
@@ -66,6 +67,7 @@ export default function WebView() {
   )
   const [itchioOAuthUrl, setItchioOAuthUrl] = useState('')
   const itchioOAuthHandledRef = useRef(false)
+  const [gameInputMode, setGameInputMode] = useState(false)
   const navigate = useNavigate()
   // Keep the webview element in state (via a callback ref) instead of a plain
   // ref so that mounting/remounting it — e.g. when switching stores — triggers
@@ -138,6 +140,10 @@ export default function WebView() {
 
   const epicUserAgent =
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
+
+  const isItchioPage =
+    store === 'itchio' ||
+    (pathname.includes('store-page') && !!startUrl?.includes('itch.io'))
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
@@ -294,7 +300,9 @@ export default function WebView() {
         // (see the gamepad helper). Mouse users stay in the host so they can
         // still click the sidebar / URL bar; a later mouse→controller hand-off
         // is picked up by the gamepad helper's first-press detection.
-        if (isUsingGamepad()) {
+        if (gameInputMode) {
+          webview.focus()
+        } else if (isUsingGamepad()) {
           toggleWebviewFocus(true)
           webview.send('heroic-webview', { type: 'enter' })
         }
@@ -379,7 +387,7 @@ export default function WebView() {
       }
     }
     return
-  }, [webview, amazonLoginData, runner, webviewPreloadPath])
+  }, [webview, amazonLoginData, runner, webviewPreloadPath, gameInputMode])
 
   useEffect(() => {
     if (webview) {
@@ -503,6 +511,15 @@ export default function WebView() {
     setShowLoginWarningFor(null)
   }
 
+  useEffect(() => {
+    setGameInputMode(false)
+  }, [store, runner, pathname, search])
+
+  useEffect(() => {
+    setGamepadPassthrough(gameInputMode)
+    return () => setGamepadPassthrough(false)
+  }, [gameInputMode])
+
   // Register the webview as the gamepad input target while it's mounted so the
   // host's gamepad handler can forward processed inputs to the guest preload
   // (`src/webviewPreload/index.ts`) and trigger host-side actions: focus the
@@ -514,6 +531,17 @@ export default function WebView() {
 
     const onBlur = () => toggleWebviewFocus(false)
     webview.addEventListener('blur', onBlur)
+
+    if (gameInputMode) {
+      toggleWebviewFocus(false)
+      setWebviewInputTarget(null)
+      webview.send('heroic-webview', { type: 'exit' })
+      webview.focus()
+
+      return () => {
+        webview.removeEventListener('blur', onBlur)
+      }
+    }
 
     const focusUrlBar = () => {
       // Exit "webview drives gamepad" mode so the host handles input while
@@ -548,7 +576,7 @@ export default function WebView() {
       setWebviewInputTarget(null)
       toggleWebviewFocus(false)
     }
-  }, [webview])
+  }, [webview, gameInputMode])
 
   // Handle back/forward mouse buttons to navigate inside webview
   useEffect(() => {
@@ -591,6 +619,9 @@ export default function WebView() {
           webview={webview}
           initURL={startUrl}
           openInBrowser={runner !== 'itchio' && !startUrl.startsWith('login')}
+          showInputToggle={isItchioPage}
+          gameInputMode={gameInputMode}
+          onToggleInput={() => setGameInputMode((enabled) => !enabled)}
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
