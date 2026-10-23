@@ -1304,5 +1304,10 @@
             "title": "Afbryd opdatering?"
         }
     },
-    "next": "Næste"
+    "next": "Næste",
+    "common": {
+        "add": "Tilføj",
+        "cancel": "Annuller",
+        "warning": "Advarsel"
+    }
 }

@@ -96,13 +96,21 @@
             "steam": {
                 "error": "No s'ha trobat l'executable del Steam. És probable que l'usuari hagi cancel·lat la instal·lació, o hagi fallat per la banda del Steam.",
                 "message": "Ha fallat la instal·lació del Steam. Llegeix amb compte les instruccions i torna a provar-ho. {{paragraph}} {{error}}",
-                "title": "Error del Steam"
+                "title": "Error del Steam",
+                "running": "Steam s'està executant. Tanca'l i torna a provar-ho, o reinicia'l una vegada per a permetre que l'Heroic gestioni les dreceres mentre Steam s'executa.",
+                "running-gamemode": "Cal un reinici puntual del Steam abans que l'Heroic pugui gestionar les dreceres de Steam en el dispositiu. Reinicia Steam i torna a provar-ho."
             },
             "executableNotFound": "No s'ha trobat l'executable",
             "executableNotFoundMessage": "L'Heroic no pot trobar l'executable d'aquest joc. Configura'l manualment a la configuració del joc.",
             "dxmt": {
                 "message": "Error en baixar el DXMT! Comprova la connexió!",
                 "title": "Error de baixada del DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "{{game}} no s'ha pogut treure de l'Steam a causa de:{{newLine}} {{error}}",
+                    "title": "Error en suprimir el joc de Steam"
+                }
             }
         },
         "info": {
@@ -464,14 +472,16 @@
                 "steam": {
                     "corrupt": "{{game}} no s'ha pogut afegir a tots els usuaris del Steam. Consulta els registres per a més informació. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
                     "success": "{{game}} s'ha afegit correctament al Steam. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
-                    "title": "S'ha afegit al Steam"
+                    "title": "S'ha afegit al Steam",
+                    "success-no-restart": "S'ha afegit correctament {{game}} a Steam."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} no s'ha pogut suprimir de tots els usuaris del Steam. Consulta els registres per a més informació. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
                     "success": "{{game}} s'ha suprimit correctament del Steam. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
-                    "title": "S'ha suprimit del Steam"
+                    "title": "S'ha suprimit del Steam",
+                    "success-no-restart": "S'ha suprimit correctament {{game}} de Steam."
                 }
             },
             "reparing": "Ha finalitzat la reparació del joc"
@@ -517,16 +527,22 @@
             "placeHolderKey": "NOM",
             "placeHolderValue": "p.ex.: Ruta/A/FitxersAddicionals",
             "title": "Variables d'entorn",
-            "value": "Valor"
+            "value": "Valor",
+            "placeHolderV": "VALOR"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Els noms de les variables no es poden deixar buits",
                 "equal_sign_in_key": "Els noms de les variables no poden fer servir el signe «=»",
-                "space_in_key": "Els noms de les variables no poden contenir espais"
+                "space_in_key": "Els noms de les variables no poden contenir espais",
+                "duplicate_key": "Ja existeix una variable amb aquest nom"
             },
             "example": "No afegeixis el signe «=». Per exemple, per a una opció com ara \"MY_FLAG=123\", posa MY_FLAG a NOM i 123 a VALOR.",
-            "info": "Estableix les variables d'entorn que cal afegir a l'ordre."
+            "info": "Estableix les variables d'entorn que cal afegir a l'ordre.",
+            "add_new": "Afegeix una variable",
+            "bulk_edit": "Edició massiva",
+            "bulk_edit_error": "Algunes variables no són correctes. Comprova que totes les línies segueixen el format CLAU=VALOR.",
+            "clear_all_confirm": "Segur que vols esborrar totes les variables d'entorn?"
         },
         "gameargs": {
             "placeholder": "Introdueix aquí els arguments del llançador",
@@ -674,7 +690,7 @@
                     "title": "Vols pujar el fitxer de registre?",
                     "content": "Estàs segur que vols pujar «{{name}}»?"
                 },
-                "delete": "Sol·licitud per a esborrar el fitxer de registre",
+                "delete": "Sol·licita suprimir el fitxer de registre",
                 "done": {
                     "title": "La pujada s'ha completat",
                     "content": "S'ha pujat a {{url}} (la URL s'ha copiat al porta-retalls)"
@@ -704,7 +720,8 @@
                 "nile": "Registre d'Amazon/Nile",
                 "zoom": "Registre del Zoom"
             },
-            "show-uploads": "Mostra els fitxers de registre pujats"
+            "show-uploads": "Mostra els fitxers de registre pujats",
+            "error": "Error intern en llegir el fitxer de registres"
         },
         "mangohud": "Activa el Mangohud (cal que el Mangohud estigui instal·lat)",
         "manualsync": {
@@ -914,7 +931,7 @@
                 "help1": "Aquesta acció buidarà les memòries cau següents:",
                 "help3": "Informació de la biblioteca del Legendary (llista de jocs i informació dels jocs i dels diàlegs d'instal·lació)",
                 "help5": "Informació de la biblioteca d'Amazon (llista de jocs i informació dels diàlegs d'instal·lació)",
-                "help6": "Això NO esborrarà:",
+                "help6": "Això NO suprimirà:",
                 "help7": "Inici de sessió a la botiga",
                 "help4": "Informació de la biblioteca GOG (llista de jocs, informació dels diàlegs d'instal·lació i de l'api, com ara requisits)",
                 "help10": "Configuració de l'Heroic",
@@ -940,7 +957,8 @@
             "help": {
                 "description": "Aporta la teva clau de l'API del SteamGridDB per a poder cercar caràtules dels jocs. La clau s'emmagatzema de manera xifrada si el teu sistema ho permet. Pots obtenir-ne una a {{url}}"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Fes clic per a obrir el fitxer de configuració del joc"
     },
     "Settings": "Configuració",
     "sidebar": {
@@ -1326,5 +1344,16 @@
             "message": "El joc s'ha posat en cua per a baixar-lo. Vols suprimir-lo de la cua?"
         }
     },
-    "next": "Següent"
+    "next": "Següent",
+    "common": {
+        "add": "Afegeix",
+        "cancel": "Cancel·la",
+        "warning": "Avís",
+        "clear_all": "Esborra-ho tot",
+        "confirm": "Confirma",
+        "duplicate": "Duplica",
+        "edit": "Edita",
+        "remove": "Suprimeix",
+        "save": "Desa"
+    }
 }

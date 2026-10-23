@@ -98,7 +98,12 @@
                 "title": "DXMT:n latausvirhe"
             },
             "executableNotFound": "Sovellusta ei löytynyt",
-            "executableNotFoundMessage": "Heroic ei löytänyt tämän pelin sovellusta. Ole hyvä ja aseta se manuaalisesti peliasetuksissa."
+            "executableNotFoundMessage": "Heroic ei löytänyt tämän pelin sovellusta. Ole hyvä ja aseta se manuaalisesti peliasetuksissa.",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1308,5 +1313,10 @@
             "message": "Tämä peli on latausjonossa. Poista se jonosta?"
         }
     },
-    "next": "Seuraava"
+    "next": "Seuraava",
+    "common": {
+        "add": "Lisää",
+        "cancel": "Peruuta",
+        "warning": "Varoitus"
+    }
 }
