@@ -4,6 +4,7 @@ import {
   HomeOutlined,
   OpenInBrowser,
   Replay,
+  SportsEsports,
   SportsEsportsOutlined
 } from '@mui/icons-material'
 import cx from 'classnames'
@@ -158,7 +159,7 @@ export default function WebviewControls({
             }
             onClick={onToggleInput}
           >
-            <SportsEsportsOutlined />
+            {gameInputMode ? <SportsEsports /> : <SportsEsportsOutlined />}
           </SvgButton>
         )}
         <SvgButton
