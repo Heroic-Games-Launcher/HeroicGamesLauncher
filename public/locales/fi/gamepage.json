@@ -95,7 +95,8 @@
         "changelog": "Näytä muutosloki",
         "browse_files": "Selaa tiedostoja",
         "browse_wine_prefix": "Selaa Wine Prefixiä",
-        "play": "PELAA"
+        "play": "PELAA",
+        "edit-game": "Muokkaa sovellusta/peliä"
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
@@ -238,7 +239,9 @@
             "title": "Pelin/sovelluksen otsikko",
             "broser": "Selaimen URL-osoite",
             "useragent": "Oma \"User Agent\"",
-            "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)"
+            "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)",
+            "cover-hint": "Kansi/Sankaritaide (napsauta kuvan päällä etsiäksesi SteamGridDB:stä)",
+            "image-hint": "Neliötaide (napsauta kuvaa etsiäksesi SteamGridDB:stä)"
         },
         "placeholder": {
             "image": "Liitä kuvan URL tähän, tai valitse kuva laitteeltasi",
@@ -249,6 +252,9 @@
         "import-hint": {
             "content": "Älä käytä tätä ominaisuutta siihen.<br/>Sen sijaan, <3>kirjaudu</3> kauppaan, etsi peli kirjastostasi, avaa asennusdialogi, ja klikkaa &quot;Tuo peli&quot; painiketta",
             "title": "Tärkeää! Oletko lisäämässä peliä Epic/GOG/Amazon palvelusta? Klikkaa tästä!"
+        },
+        "images": {
+            "summary": "Kuvat"
         }
     },
     "specs": {
@@ -337,6 +343,21 @@
     "open-saves-folder": "Avaa pelitallennuskansio",
     "wikiLink": "Tärkeää tietoa tästä pelistä, lue tämä:&nbsp;<1>Avaa sivu</1>",
     "edit-game": {
-        "advanced": "Edistyneet"
+        "advanced": "Edistyneet",
+        "placeholder": {
+            "image": "Liitä kuvan URL tähän"
+        },
+        "title": "Muokkaa sovellusta/peliä",
+        "cover": "Kansitaide",
+        "info": {
+            "cover": "Kansikuva",
+            "square": "Neliökuva"
+        },
+        "reset": "Nollaa vakioihin",
+        "sgdb": {
+            "no-key-link": "Asetukset → Edistyneet",
+            "no-key-prefix": "Etsiäksesi SteamGridDB:stä kansitaidetta, lisää API-avain"
+        },
+        "square": "Neliömuotoinen taide"
     }
 }

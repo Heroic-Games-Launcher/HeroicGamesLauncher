@@ -95,7 +95,8 @@
         "changelog": "변경로그 표시",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "앱/게임 편집"
     },
     "cloud_save_unsupported": "지원되지 않음",
     "disabled": "비활성화됨",
@@ -336,6 +337,10 @@
     "open-saves-folder": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "고급"
+        "advanced": "고급",
+        "placeholder": {
+            "image": "여기에 이미지 URL 붙여넣기"
+        },
+        "title": "앱/게임 편집"
     }
 }

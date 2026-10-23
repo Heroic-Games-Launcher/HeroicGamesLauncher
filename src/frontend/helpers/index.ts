@@ -1,4 +1,4 @@
-import {
+import type {
   GameInfo,
   InstallProgress,
   Runner,
@@ -7,8 +7,8 @@ import {
   InstallInfo
 } from 'common/types'
 
-import { install, launch, repair, updateGame } from './library'
 import * as fileSize from 'filesize'
+
 const readFile = window.api.readConfig
 
 const writeConfig = window.api.writeConfig
@@ -162,16 +162,12 @@ export {
   getLegendaryConfig,
   getProgress,
   handleQuit,
-  install,
-  launch,
   loginPage,
   notify,
   openDiscordLink,
-  repair,
   sendKill,
   sidInfoPage,
   syncSaves,
-  updateGame,
   writeConfig,
   removeSpecialcharacters,
   getStoreName,

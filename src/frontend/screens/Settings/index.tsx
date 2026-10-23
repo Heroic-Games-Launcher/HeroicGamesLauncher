@@ -17,18 +17,12 @@ import {
   AdvancedSettings,
   SystemInfo
 } from './sections'
-import { AppSettings, WineInstallation } from 'common/types'
+import { AppSettings } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
 import { SettingsContextType } from 'frontend/types'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import { ContentCopy, FileOpen } from '@mui/icons-material'
-
-export const defaultWineVersion: WineInstallation = {
-  bin: '/usr/bin/wine',
-  name: 'Wine Default',
-  type: 'wine'
-}
 
 function Settings() {
   const { t } = useTranslation()
