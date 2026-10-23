@@ -216,7 +216,8 @@ const BUTLER_CHANNELS: Record<
     win32: 'windows-amd64'
   },
   arm64: {
-    darwin: 'darwin-arm64'
+    darwin: 'darwin-arm64',
+    linux: 'linux-arm64'
   }
 }
 
