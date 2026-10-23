@@ -154,13 +154,13 @@ export default function SidebarLinks() {
             />
             <SidebarItem
               className="SidebarLinks__subItem"
-              url="/store/amazon"
-              label={t('amazon-luna', 'Amazon Luna')}
+              url="/store/itchio"
+              label={t('itchio-store', 'itch.io Store')}
             />
             <SidebarItem
               className="SidebarLinks__subItem"
-              url="/store/itchio"
-              label={t('itchio-store', 'itch.io Store')}
+              url="/store/amazon"
+              label={t('amazon-luna', 'Amazon Luna')}
             />
             {zoom.enabled && (
               <SidebarItem
