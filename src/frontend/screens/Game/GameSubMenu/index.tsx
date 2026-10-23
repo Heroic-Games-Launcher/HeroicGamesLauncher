@@ -31,7 +31,8 @@ import {
   PictureInPicture as PictureInPictureIcon,
   Repartition as RepartitionIcon,
   Shortcut as ShortcutIcon,
-  ShoppingCart as ShoppingCartIcon
+  ShoppingCart as ShoppingCartIcon,
+  Download as DownloadIcon
 } from '@mui/icons-material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinux, faSteam } from '@fortawesome/free-brands-svg-icons'
@@ -49,6 +50,7 @@ interface Props {
   disableUpdate: boolean
   onShowRequirements?: () => void
   onShowModifyInstall?: () => void
+  onShowGOGExtras?: () => void
   gameInfo: GameInfo
 }
 
@@ -64,6 +66,7 @@ export default function GamesSubmenu({
   disableUpdate,
   onShowRequirements,
   onShowModifyInstall,
+  onShowGOGExtras,
   gameInfo
 }: Props) {
   const { refresh, platform, libraryStatus, showDialogModal } =
@@ -438,6 +441,15 @@ export default function GamesSubmenu({
             >
               <DesktopAccessDisabledIcon />
               {t('game.requirements', 'Requirements')}
+            </button>
+          )}
+          {runner === 'gog' && onShowGOGExtras && (
+            <button
+              onClick={onShowGOGExtras}
+              className="link button is-text is-link buttonWithIcon"
+            >
+              <DownloadIcon />
+              {t('extras.title', 'GOG Extras')}
             </button>
           )}
           {showModifyItem && (

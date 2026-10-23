@@ -24,9 +24,11 @@ import {
   GOGCredentials,
   GOGv1Manifest,
   GOGv2Manifest,
-  GOGSessionSyncQueueItem
+  GOGSessionSyncQueueItem,
+  GOGBonusContent
 } from 'common/types/gog'
-import { dirname, join } from 'node:path'
+import { basename, dirname, extname, join } from 'node:path'
+import sanitize from 'sanitize-filename'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import {
@@ -37,7 +39,12 @@ import {
   LogPrefix,
   logWarning
 } from 'backend/logger'
-import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
+import {
+  getGOGdlBin,
+  getFileSize,
+  axiosClient,
+  downloadFile
+} from '../../utils'
 import {
   libraryStore,
   installedGamesStore,
@@ -1461,6 +1468,163 @@ export default class GOGLibraryManager implements LibraryManager {
         }
     }
     return
+  }
+
+  async getExtras(appName: string): Promise<GOGBonusContent[] | null> {
+    const response = await this.getProductApi(appName, ['downloads'])
+    if (!response) return null
+    const bonusContent = response.data?.downloads?.bonus_content
+    if (!Array.isArray(bonusContent)) return []
+
+    return bonusContent.map((extra) => ({
+      id: extra.id,
+      name: extra.name,
+      type: extra.type,
+      total_size: extra.total_size,
+      files: (Array.isArray(extra.files) ? extra.files : [])
+        .filter((file) => this.isValidExtraUrl(file.downlink))
+        .map((file) => ({
+          id: `${extra.id}:${file.id}`,
+          filename: this.getExtraFilename(file.downlink, file.id),
+          size: file.size
+        }))
+    }))
+  }
+
+  async downloadExtras(
+    appName: string,
+    fileIds: string[],
+    destination: string
+  ): Promise<{ downloaded: string[]; failed: string[] }> {
+    const selectedIds = new Set(
+      Array.isArray(fileIds)
+        ? fileIds.filter(
+            (fileId): fileId is string => typeof fileId === 'string'
+          )
+        : []
+    )
+    if (!selectedIds.size || !destination || !existsSync(destination)) {
+      return { downloaded: [], failed: [...selectedIds] }
+    }
+    try {
+      if (!statSync(destination).isDirectory()) {
+        return { downloaded: [], failed: [...selectedIds] }
+      }
+    } catch {
+      return { downloaded: [], failed: [...selectedIds] }
+    }
+
+    const response = await this.getProductApi(appName, ['downloads'])
+    const bonusContent = response?.data?.downloads?.bonus_content
+    const selectedFiles = (
+      Array.isArray(bonusContent) ? bonusContent : []
+    ).flatMap((extra) =>
+      (Array.isArray(extra.files) ? extra.files : [])
+        .filter(
+          (file) =>
+            selectedIds.has(`${extra.id}:${file.id}`) &&
+            this.isValidExtraUrl(file.downlink)
+        )
+        .map((file) => ({
+          id: `${extra.id}:${file.id}`,
+          filename: this.getExtraFilename(file.downlink, file.id),
+          url: file.downlink
+        }))
+    )
+
+    const matchedIds = new Set(selectedFiles.map((file) => file.id))
+    const downloaded: string[] = []
+    const failed = [...selectedIds].filter((id) => !matchedIds.has(id))
+    const usedNames = new Set<string>()
+
+    for (const file of selectedFiles) {
+      const filename = this.getAvailableExtraFilename(
+        file.filename,
+        destination,
+        usedNames
+      )
+      const destinationPath = join(destination, filename)
+      try {
+        await downloadFile({ url: file.url, dest: destinationPath })
+        usedNames.add(filename.toLocaleLowerCase())
+        downloaded.push(filename)
+      } catch (error) {
+        logError(
+          [`Failed to download GOG extra ${file.id}:`, error],
+          LogPrefix.Gog
+        )
+        try {
+          rmSync(destinationPath, { force: true })
+        } catch (cleanupError) {
+          logError(
+            [`Failed to remove partial GOG extra ${file.id}:`, cleanupError],
+            LogPrefix.Gog
+          )
+        }
+        failed.push(file.id)
+      }
+    }
+
+    return { downloaded, failed }
+  }
+
+  private getExtraFilename(url: string, fallbackId: string): string {
+    const safeFallbackId = sanitize(fallbackId).replace(/[. ]+$/, '') || 'file'
+    try {
+      const parsedUrl = new URL(url)
+      if (parsedUrl.protocol !== 'https:') return `extra-${safeFallbackId}`
+      const encodedFilename = basename(parsedUrl.pathname)
+      const filename = decodeURIComponent(encodedFilename)
+      const sanitizedFilename = sanitize(filename)
+        .replace(/[. ]+$/, '')
+        .trim()
+      if (
+        !sanitizedFilename ||
+        sanitizedFilename === '.' ||
+        sanitizedFilename === '..'
+      ) {
+        return `extra-${safeFallbackId}`
+      }
+      const extension = extname(sanitizedFilename)
+      const name = extension
+        ? sanitizedFilename.slice(0, -extension.length)
+        : sanitizedFilename
+      return `${name.slice(0, 180)}${extension.slice(0, 32)}`
+    } catch {
+      return `extra-${safeFallbackId}`
+    }
+  }
+
+  private isValidExtraUrl(url: string): boolean {
+    try {
+      const parsedUrl = new URL(url)
+      return (
+        parsedUrl.protocol === 'https:' &&
+        !parsedUrl.username &&
+        !parsedUrl.password
+      )
+    } catch {
+      return false
+    }
+  }
+
+  private getAvailableExtraFilename(
+    filename: string,
+    destination: string,
+    usedNames: Set<string>
+  ): string {
+    const extension = extname(filename)
+    const name = extension ? filename.slice(0, -extension.length) : filename
+    let candidate = filename
+    let suffix = 1
+    while (
+      usedNames.has(candidate.toLocaleLowerCase()) ||
+      existsSync(join(destination, candidate))
+    ) {
+      candidate = `${name} (${suffix})${extension}`
+      suffix += 1
+    }
+    return candidate
   }
 
   /**

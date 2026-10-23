@@ -13,6 +13,7 @@ import GameRequirements from '../../GameRequirements'
 import { useTranslation } from 'react-i18next'
 import GameChangeLog from '../../GameChangeLog'
 import ModifyInstallModal from '../../ModifyInstallModal'
+import GOGExtrasDialog from '../../GOGExtrasDialog'
 
 interface Props {
   gameInfo: GameInfo
@@ -26,6 +27,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
   const [showRequirements, setShowRequirements] = useState(false)
   const [showChangelog, setShowChangelog] = useState(false)
   const [showModifyInstallModal, setShowModifyInstallModal] = useState(false)
+  const [showGOGExtras, setShowGOGExtras] = useState(false)
 
   const { is_installed, title } = gameInfo
 
@@ -57,6 +59,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
             hasRequirements ? () => setShowRequirements(true) : undefined
           }
           onShowModifyInstall={() => setShowModifyInstallModal(true)}
+          onShowGOGExtras={() => setShowGOGExtras(true)}
           gameInfo={gameInfo}
         />
       </div>
@@ -77,6 +80,13 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
           gameInfo={gameInfo}
           gameInstallInfo={gameInstallInfo}
           onClose={() => setShowModifyInstallModal(false)}
+        />
+      )}
+
+      {showGOGExtras && (
+        <GOGExtrasDialog
+          appName={appName}
+          onClose={() => setShowGOGExtras(false)}
         />
       )}
 
