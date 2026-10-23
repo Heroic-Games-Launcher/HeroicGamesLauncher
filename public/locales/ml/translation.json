@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -1260,5 +1265,9 @@
             "wineMissing": "No path selected"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }

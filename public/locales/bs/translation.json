@@ -1255,5 +1255,9 @@
             "wineMissing": "No path selected"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }
