@@ -189,7 +189,7 @@ interface AsyncIPCFunctions {
     runner: Runner
   ) => Promise<GameSettings | null>
   getGOGLinuxInstallersLangs: (appName: string) => Promise<string[]>
-  getGOGExtras: (appName: string) => Promise<GOGBonusContent[]>
+  getGOGExtras: (appName: string) => Promise<GOGBonusContent[] | null>
   downloadGOGExtras: (
     appName: string,
     fileIds: string[],

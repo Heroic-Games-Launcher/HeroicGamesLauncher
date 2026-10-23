@@ -125,6 +125,8 @@
         "downloading": "Downloading…",
         "downloadResult": "Downloaded {{downloaded}} file(s); {{failed}} failed.",
         "downloadSelected": "Download selected extras",
+        "keepOpen": "Please keep this dialog open until the downloads finish.",
+        "loadFailed": "Could not load extras. Please try again.",
         "loading": "Loading extras…",
         "none": "No extras are available for this game.",
         "title": "GOG Extras"

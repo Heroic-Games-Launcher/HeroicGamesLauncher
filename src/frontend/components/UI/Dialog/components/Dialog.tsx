@@ -19,6 +19,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 interface DialogProps {
   className?: string
   children: ReactNode
+  disableClose?: boolean
   showCloseButton: boolean
   onClose: () => void
 }
@@ -38,6 +39,7 @@ export const Dialog: React.FC<DialogProps> = ({
   children,
   className,
   showCloseButton = false,
+  disableClose = false,
   onClose
 }) => {
   const [open, setOpen] = useState(true)
@@ -53,9 +55,10 @@ export const Dialog: React.FC<DialogProps> = ({
   }, [])
 
   const close = useCallback(() => {
+    if (disableClose) return
     setOpen(false)
     onClose()
-  }, [onClose])
+  }, [disableClose, onClose])
 
   return (
     <MuiDialog
@@ -80,6 +83,7 @@ export const Dialog: React.FC<DialogProps> = ({
       <>
         <IconButton
           aria-label="close"
+          disabled={disableClose}
           onClick={close}
           sx={{
             position: 'absolute',
