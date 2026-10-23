@@ -1470,9 +1470,10 @@ export default class GOGLibraryManager implements LibraryManager {
     return
   }
 
-  async getExtras(appName: string): Promise<GOGBonusContent[]> {
+  async getExtras(appName: string): Promise<GOGBonusContent[] | null> {
     const response = await this.getProductApi(appName, ['downloads'])
-    const bonusContent = response?.data?.downloads?.bonus_content
+    if (!response) return null
+    const bonusContent = response.data?.downloads?.bonus_content
     if (!Array.isArray(bonusContent)) return []
 
     return bonusContent.map((extra) => ({
@@ -1537,19 +1538,29 @@ export default class GOGLibraryManager implements LibraryManager {
     const usedNames = new Set<string>()
 
     for (const file of selectedFiles) {
+      const filename = this.getAvailableExtraFilename(
+        file.filename,
+        destination,
+        usedNames
+      )
+      const destinationPath = join(destination, filename)
       try {
-        const filename = this.getAvailableExtraFilename(
-          file.filename,
-          destination,
-          usedNames
-        )
-        await downloadFile({ url: file.url, dest: join(destination, filename) })
+        await downloadFile({ url: file.url, dest: destinationPath })
+        usedNames.add(filename.toLocaleLowerCase())
         downloaded.push(filename)
       } catch (error) {
         logError(
           [`Failed to download GOG extra ${file.id}:`, error],
           LogPrefix.Gog
         )
+        try {
+          rmSync(destinationPath, { force: true })
+        } catch (cleanupError) {
+          logError(
+            [`Failed to remove partial GOG extra ${file.id}:`, cleanupError],
+            LogPrefix.Gog
+          )
+        }
         failed.push(file.id)
       }
     }
@@ -1613,7 +1624,6 @@ export default class GOGLibraryManager implements LibraryManager {
       candidate = `${name} (${suffix})${extension}`
       suffix += 1
     }
-    usedNames.add(candidate.toLocaleLowerCase())
     return candidate
   }
 

@@ -1,10 +1,10 @@
 import { Checkbox, FormControlLabel } from '@mui/material'
 import { GOGBonusContent } from 'common/types/gog'
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+  Modal,
+  ModalContent,
+  ModalHeader
+} from 'frontend/components/UI/Modal'
 import { size } from 'frontend/helpers'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -18,6 +18,7 @@ export default function GOGExtrasDialog({ appName, onClose }: Props) {
   const { t } = useTranslation('gamepage')
   const [extras, setExtras] = useState<GOGBonusContent[]>([])
   const [selectedFiles, setSelectedFiles] = useState<string[]>([])
+  const [loadFailed, setLoadFailed] = useState(false)
   const [loading, setLoading] = useState(true)
   const [downloading, setDownloading] = useState(false)
   const [status, setStatus] = useState('')
@@ -27,13 +28,21 @@ export default function GOGExtrasDialog({ appName, onClose }: Props) {
 
   useEffect(() => {
     let active = true
+    setLoading(true)
+    setLoadFailed(false)
+    setExtras([])
+    setSelectedFiles([])
+    setStatus('')
     window.api
       .getGOGExtras(appName)
       .then((result) => {
-        if (active) setExtras(result)
+        if (active) {
+          setExtras(result ?? [])
+          setLoadFailed(result === null)
+        }
       })
       .catch(() => {
-        if (active) setExtras([])
+        if (active) setLoadFailed(true)
       })
       .finally(() => {
         if (active) setLoading(false)
@@ -76,13 +85,17 @@ export default function GOGExtrasDialog({ appName, onClose }: Props) {
   }
 
   return (
-    <Dialog showCloseButton onClose={onClose}>
-      <DialogHeader onClose={onClose}>
+    <Modal showCloseButton disableClose={downloading} onClose={onClose}>
+      <ModalHeader>
         <div>{t('extras.title', 'GOG Extras')}</div>
-      </DialogHeader>
-      <DialogContent>
+      </ModalHeader>
+      <ModalContent>
         {loading ? (
           <p>{t('extras.loading', 'Loading extras…')}</p>
+        ) : loadFailed ? (
+          <p role="alert">
+            {t('extras.loadFailed', 'Could not load extras. Please try again.')}
+          </p>
         ) : allFileIds.length ? (
           <>
             {extras.map((extra) =>
@@ -94,6 +107,7 @@ export default function GOGExtrasDialog({ appName, onClose }: Props) {
                       key={file.id}
                       control={
                         <Checkbox
+                          disabled={downloading}
                           checked={selectedFiles.includes(file.id)}
                           onChange={(event) => {
                             setSelectedFiles((current) =>
@@ -123,8 +137,16 @@ export default function GOGExtrasDialog({ appName, onClose }: Props) {
         ) : (
           <p>{t('extras.none', 'No extras are available for this game.')}</p>
         )}
+        {downloading && (
+          <p role="status">
+            {t(
+              'extras.keepOpen',
+              'Please keep this dialog open until the downloads finish.'
+            )}
+          </p>
+        )}
         {status && <p role="status">{status}</p>}
-      </DialogContent>
-    </Dialog>
+      </ModalContent>
+    </Modal>
   )
 }
