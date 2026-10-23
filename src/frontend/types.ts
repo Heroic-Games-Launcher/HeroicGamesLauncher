@@ -17,6 +17,12 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
+import {
+  ItchioLoginData,
+  ItchioOAuthCodeData,
+  ItchioOAuthLoginData,
+  ItchioRegisterData
+} from 'common/types/itchio'
 
 export type Category =
   | 'all'
@@ -25,6 +31,7 @@ export type Category =
   | 'sideload'
   | 'nile'
   | 'zoom'
+  | 'itchio'
 
 export interface ContextType {
   error: boolean
@@ -94,6 +101,15 @@ export interface ContextType {
     login: (url: string) => Promise<string>
     logout: () => Promise<void>
     enabled: boolean
+  }
+  itchio: {
+    library: GameInfo[]
+    username?: string
+    getLoginData: () => Promise<ItchioLoginData>
+    getOAuthUrl: () => Promise<ItchioOAuthLoginData>
+    login: (data: ItchioRegisterData) => Promise<string>
+    loginWithOAuthCode: (data: ItchioOAuthCodeData) => Promise<string>
+    logout: () => Promise<void>
   }
   installingEpicGame: boolean
   allTilesInColor: boolean
@@ -212,6 +228,7 @@ export interface StoresFilters {
   nile: boolean
   sideload: boolean
   zoom: boolean
+  itchio: boolean
 }
 
 export interface PlatformsFilters {

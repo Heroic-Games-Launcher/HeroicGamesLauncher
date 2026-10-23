@@ -18,6 +18,7 @@ import {
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
+import { ItchioUserData } from './itchio'
 import { ZoomCredentials } from './zoom'
 
 export interface StoreStructure {
@@ -81,6 +82,10 @@ export interface StoreStructure {
   }
   nileConfigStore: {
     userData?: NileUserData
+  }
+  itchioConfigStore: {
+    userData?: ItchioUserData
+    profileId?: number
   }
   sideloadedStore: {
     games: GameInfo[]

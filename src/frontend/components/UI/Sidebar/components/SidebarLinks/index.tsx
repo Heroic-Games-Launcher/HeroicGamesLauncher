@@ -39,6 +39,7 @@ export default function SidebarLinks() {
     epic,
     gog,
     zoom,
+    itchio,
     platform,
     refreshLibrary,
     handleExternalLinkDialog
@@ -51,7 +52,11 @@ export default function SidebarLinks() {
   const isWin = platform === 'win32'
 
   const loggedIn =
-    epic.username || gog.username || amazon.user_id || zoom.username
+    epic.username ||
+    gog.username ||
+    amazon.user_id ||
+    zoom.username ||
+    itchio.username
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -60,7 +65,8 @@ export default function SidebarLinks() {
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length) ||
       (amazon.user_id && !amazon.library.length) ||
-      (zoom.username && !zoom.library.length)
+      (zoom.username && !zoom.library.length) ||
+      (itchio.username && !itchio.library.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })
     }
@@ -145,6 +151,11 @@ export default function SidebarLinks() {
               className="SidebarLinks__subItem"
               url="/store/gog"
               label={t('gog-store', 'GOG Store')}
+            />
+            <SidebarItem
+              className="SidebarLinks__subItem"
+              url="/store/itchio"
+              label={t('itchio-store', 'itch.io Store')}
             />
             <SidebarItem
               className="SidebarLinks__subItem"
