@@ -54,6 +54,8 @@ import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type {
   ItchioLoginData,
+  ItchioOAuthCodeData,
+  ItchioOAuthLoginData,
   ItchioRegisterData,
   ItchioUserData
 } from './itchio'
@@ -219,6 +221,11 @@ interface AsyncIPCFunctions {
     user: NileUserData | undefined
   }>
   authItchio: (data: ItchioRegisterData) => Promise<{
+    status: 'done' | 'failed'
+    user: ItchioUserData | undefined
+  }>
+  getItchioOAuthUrl: () => Promise<ItchioOAuthLoginData>
+  authItchioOAuth: (data: ItchioOAuthCodeData) => Promise<{
     status: 'done' | 'failed'
     user: ItchioUserData | undefined
   }>
@@ -426,6 +433,7 @@ interface FrontendMessages {
       { title?: string; art_cover?: string; art_square?: string }
     >
   ) => void
+  itchioOAuthCallback: (url: string) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

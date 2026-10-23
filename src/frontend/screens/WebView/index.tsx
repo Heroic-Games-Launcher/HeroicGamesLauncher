@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useLayoutEffect,
+  useRef,
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +20,7 @@ import {
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
+import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
 import {
   Dialog,
   DialogContent,
@@ -50,7 +52,8 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, connectivity } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, itchio, connectivity } =
+    useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -61,6 +64,8 @@ export default function WebView() {
   const [amazonLoginData, setAmazonLoginData] = useState<NileLoginData | null>(
     null
   )
+  const [itchioOAuthUrl, setItchioOAuthUrl] = useState('')
+  const itchioOAuthHandledRef = useRef(false)
   const navigate = useNavigate()
   // Keep the webview element in state (via a callback ref) instead of a plain
   // ref so that mounting/remounting it — e.g. when switching stores — triggers
@@ -110,7 +115,8 @@ export default function WebView() {
     '/loginweb/legendary': epicLoginUrl,
     '/loginweb/gog': gogLoginUrl,
     '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
-    '/loginweb/zoom': zoomLoginUrl
+    '/loginweb/zoom': zoomLoginUrl,
+    '/loginweb/itchio': itchioOAuthUrl
   }
   let startUrl = urls[pathname]
 
@@ -150,6 +156,42 @@ export default function WebView() {
     })
   }, [pathname])
 
+  useEffect(() => {
+    if (pathname !== '/loginweb/itchio') return
+    console.log('Loading itch.io OAuth URL')
+
+    let cancelled = false
+    itchioOAuthHandledRef.current = false
+    setItchioOAuthUrl('')
+    setLoading({
+      refresh: true,
+      message: t('status.preparing_login', 'Preparing Login...')
+    })
+
+    itchio
+      .getOAuthUrl()
+      .then((data) => {
+        if (cancelled) return
+        if (!data.url) {
+          setLoading((previous) => ({ ...previous, refresh: false }))
+          navigate('/login')
+          return
+        }
+        setItchioOAuthUrl(data.url)
+        setLoading((previous) => ({ ...previous, refresh: false }))
+      })
+      .catch(() => {
+        if (cancelled) return
+        setLoading((previous) => ({ ...previous, refresh: false }))
+        navigate('/login')
+      })
+
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
+
   const handleAmazonLogin = (code: string) => {
     if (!amazonLoginData) {
       console.error('Could not login to Amazon because login data is missing')
@@ -174,6 +216,57 @@ export default function WebView() {
 
   const handleSuccessfulLogin = () => {
     navigate('/login')
+  }
+
+  const handleItchioOAuthCallback = (callbackUrl: string) => {
+    if (
+      itchioOAuthHandledRef.current ||
+      !callbackUrl.startsWith(ITCHIO_OAUTH_REDIRECT_URI)
+    ) {
+      return
+    }
+
+    let parsedUrl: URL
+    try {
+      parsedUrl = new URL(callbackUrl)
+    } catch {
+      return
+    }
+
+    const code = parsedUrl.searchParams.get('code')
+    const state = parsedUrl.searchParams.get('state')
+    const error = parsedUrl.searchParams.get('error')
+
+    if (error || !code || !state) {
+      itchioOAuthHandledRef.current = true
+      console.error(
+        `itch.io OAuth callback rejected: ${error ?? 'missing code/state'}`
+      )
+      setLoading((previous) => ({ ...previous, refresh: false }))
+      navigate('/login')
+      return
+    }
+
+    itchioOAuthHandledRef.current = true
+    setLoading({
+      refresh: true,
+      message: t('status.logging', 'Logging In...')
+    })
+
+    itchio
+      .loginWithOAuthCode({ code, state })
+      .then((status) => {
+        if (status === 'done') {
+          handleSuccessfulLogin()
+        } else {
+          setLoading((previous) => ({ ...previous, refresh: false }))
+          navigate('/login')
+        }
+      })
+      .catch(() => {
+        setLoading((previous) => ({ ...previous, refresh: false }))
+        navigate('/login')
+      })
   }
 
   const [webviewPreloadPath, setWebviewPreloadPath] = useState('')
@@ -330,6 +423,50 @@ export default function WebView() {
     return
   }, [webview, store, runner])
 
+  useEffect(() => {
+    if (!webview || runner !== 'itchio') return
+
+    const onWillNavigate = (event: Electron.WillNavigateEvent) => {
+      handleItchioOAuthCallback(event.url)
+    }
+    const onDidNavigate = (event: Electron.DidNavigateEvent) => {
+      handleItchioOAuthCallback(event.url)
+    }
+    const onDidNavigateInPage = (event: Electron.DidNavigateInPageEvent) => {
+      handleItchioOAuthCallback(event.url)
+    }
+    const onDidRedirect = (event: Electron.DidRedirectNavigationEvent) => {
+      handleItchioOAuthCallback(event.url)
+    }
+    const onDidFailLoad = (event: Electron.DidFailLoadEvent) => {
+      handleItchioOAuthCallback(event.validatedURL)
+    }
+
+    webview.addEventListener('will-navigate', onWillNavigate)
+    webview.addEventListener('did-navigate', onDidNavigate)
+    webview.addEventListener('did-navigate-in-page', onDidNavigateInPage)
+    webview.addEventListener('did-redirect-navigation', onDidRedirect)
+    webview.addEventListener('did-fail-load', onDidFailLoad)
+
+    return () => {
+      webview.removeEventListener('will-navigate', onWillNavigate)
+      webview.removeEventListener('did-navigate', onDidNavigate)
+      webview.removeEventListener('did-navigate-in-page', onDidNavigateInPage)
+      webview.removeEventListener('did-redirect-navigation', onDidRedirect)
+      webview.removeEventListener('did-fail-load', onDidFailLoad)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [webview, runner])
+
+  useEffect(() => {
+    if (runner !== 'itchio') return
+
+    return window.api.onItchioOAuthCallback((_event, url) => {
+      handleItchioOAuthCallback(url)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [runner])
+
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon' | 'zoom'
   >(null)
@@ -442,7 +579,7 @@ export default function WebView() {
     }
   }, [webview])
 
-  if (!webviewPreloadPath) {
+  if (!webviewPreloadPath || (runner === 'itchio' && !itchioOAuthUrl)) {
     return <></>
   }
 
@@ -453,7 +590,7 @@ export default function WebView() {
           key={`controls-${store}`}
           webview={webview}
           initURL={startUrl}
-          openInBrowser={!startUrl.startsWith('login')}
+          openInBrowser={runner !== 'itchio' && !startUrl.startsWith('login')}
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}

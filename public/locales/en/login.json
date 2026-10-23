@@ -11,7 +11,7 @@
     },
     "itchio": {
         "api_key_placeholder": "Paste your API key",
-        "instructions": "itch.io desktop integration uses a personal API key. Visit your itch.io API keys page, generate a key, and paste it below.",
+        "instructions": "If the regular itch.io login doesn't work, you can connect with a personal API key instead. Visit your itch.io API keys page, generate a key, and paste it below.",
         "paste_and_login": "Paste from clipboard and log in"
     },
     "message": {

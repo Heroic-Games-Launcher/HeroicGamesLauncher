@@ -17,7 +17,12 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
-import { ItchioLoginData, ItchioRegisterData } from 'common/types/itchio'
+import {
+  ItchioLoginData,
+  ItchioOAuthCodeData,
+  ItchioOAuthLoginData,
+  ItchioRegisterData
+} from 'common/types/itchio'
 
 export type Category =
   | 'all'
@@ -101,7 +106,9 @@ export interface ContextType {
     library: GameInfo[]
     username?: string
     getLoginData: () => Promise<ItchioLoginData>
+    getOAuthUrl: () => Promise<ItchioOAuthLoginData>
     login: (data: ItchioRegisterData) => Promise<string>
+    loginWithOAuthCode: (data: ItchioOAuthCodeData) => Promise<string>
     logout: () => Promise<void>
   }
   installingEpicGame: boolean

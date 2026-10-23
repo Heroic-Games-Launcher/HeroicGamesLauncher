@@ -42,7 +42,7 @@ import {
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
-import { ItchioRegisterData } from 'common/types/itchio'
+import { ItchioOAuthCodeData, ItchioRegisterData } from 'common/types/itchio'
 import useGlobalState from './GlobalStateV2'
 
 const storage: Storage = window.localStorage
@@ -681,6 +681,26 @@ class GlobalState extends PureComponent<Props> {
 
   getItchioLoginData = async () => window.api.getItchioLoginData()
 
+  getItchioOAuthUrl = async () => window.api.getItchioOAuthUrl()
+
+  itchioOAuthLogin = async (data: ItchioOAuthCodeData) => {
+    console.log('logging itch.io with OAuth')
+    const response = await window.api.authItchioOAuth(data)
+
+    if (response.status === 'done') {
+      this.setState({
+        itchio: {
+          library: [],
+          username: response.user?.username
+        }
+      })
+
+      this.handleSuccessfulLogin('itchio')
+    }
+
+    return response.status
+  }
+
   zoomLogin = async (url: string) => {
     console.log('logging zoom')
     const response = await window.api.authZoom(url)
@@ -1243,7 +1263,9 @@ class GlobalState extends PureComponent<Props> {
             library: itchio.library,
             username: itchio.username,
             getLoginData: this.getItchioLoginData,
+            getOAuthUrl: this.getItchioOAuthUrl,
             login: this.itchioLogin,
+            loginWithOAuthCode: this.itchioOAuthLogin,
             logout: this.itchioLogout
           },
           installingEpicGame,

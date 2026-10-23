@@ -34,7 +34,9 @@ const initialContext: ContextType = {
   itchio: {
     library: [],
     getLoginData: async () => Promise.resolve({ apiKeysUrl: '' }),
+    getOAuthUrl: async () => Promise.resolve({ url: '' }),
     login: async () => Promise.resolve(''),
+    loginWithOAuthCode: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
   installingEpicGame: false,

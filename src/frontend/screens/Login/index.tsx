@@ -176,7 +176,7 @@ export default React.memo(function NewLogin() {
               buttonText={t('login.itchio', 'itch.io Login')}
               icon={() => <ItchioLogo />}
               loginUrl={itchioLoginPath}
-              loginAction={() => setShowItchioLogin(true)}
+              alternativeLoginAction={() => setShowItchioLogin(true)}
               isLoggedIn={isItchioLoggedIn}
               user={itchio.username || 'Unknown'}
               logoutAction={itchio.logout}

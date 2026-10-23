@@ -100,7 +100,7 @@ export default function ItchioLogin({ backdropClick }: Props) {
           <p>
             {t(
               'itchio.instructions',
-              'itch.io desktop integration uses a personal API key. Visit your itch.io API keys page, generate a key, and paste it below.'
+              "If the regular itch.io login doesn't work, you can connect with a personal API key instead. Visit your itch.io API keys page, generate a key, and paste it below."
             )}
           </p>
         </div>

@@ -1,6 +1,11 @@
+import { createHash, randomBytes } from 'crypto'
+
 import { LogPrefix, logError, logInfo, logWarning } from 'backend/logger'
 import {
+  ITCHIO_OAUTH_REDIRECT_URI,
   ItchioLoginData,
+  ItchioOAuthCodeData,
+  ItchioOAuthLoginData,
   ItchioRegisterData,
   ItchioUserData
 } from 'common/types/itchio'
@@ -22,6 +27,10 @@ interface LoginWithAPIKeyResult {
   profile: ButlerdProfile
 }
 
+interface LoginWithOAuthCodeResult {
+  profile: ButlerdProfile
+}
+
 interface ProfileListResult {
   profiles: ButlerdProfile[]
 }
@@ -32,6 +41,31 @@ interface UseSavedLoginResult {
 
 const API_KEYS_URL = 'https://itch.io/user/settings/api-keys'
 
+const OAUTH_CLIENT_ID = '85252daf268d27fbefac93e1ac462bfd'
+const OAUTH_SCOPE = 'itch'
+const OAUTH_AUTHORIZE_URL = 'https://itch.io/user/oauth'
+
+const OAUTH_FLOW_TTL_MS = 10 * 60 * 1000
+
+interface PendingOAuthFlow {
+  state: string
+  codeVerifier: string
+  redirectUri: string
+  clientId: string
+  createdAt: number
+}
+
+const pendingOAuthFlows = new Map<string, PendingOAuthFlow>()
+const MAX_PENDING_OAUTH_FLOWS = 10
+
+function base64UrlEncode(buffer: Buffer): string {
+  return buffer
+    .toString('base64')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '')
+}
+
 export class ItchioUser {
   /**
    * Tell the renderer where to send the user to generate a personal API key.
@@ -39,6 +73,102 @@ export class ItchioUser {
    */
   static getLoginData(): Promise<ItchioLoginData> {
     return Promise.resolve({ apiKeysUrl: API_KEYS_URL })
+  }
+
+  static getOAuthUrl(): ItchioOAuthLoginData {
+    const codeVerifier = base64UrlEncode(randomBytes(32))
+    const codeChallenge = base64UrlEncode(
+      createHash('sha256').update(codeVerifier).digest()
+    )
+    const state = base64UrlEncode(randomBytes(32))
+
+    pendingOAuthFlows.set(state, {
+      state,
+      codeVerifier,
+      redirectUri: ITCHIO_OAUTH_REDIRECT_URI,
+      clientId: OAUTH_CLIENT_ID,
+      createdAt: Date.now()
+    })
+
+    const now = Date.now()
+    for (const [key, flow] of pendingOAuthFlows) {
+      if (now - flow.createdAt > OAUTH_FLOW_TTL_MS) {
+        pendingOAuthFlows.delete(key)
+      }
+    }
+    while (pendingOAuthFlows.size > MAX_PENDING_OAUTH_FLOWS) {
+      const oldest = pendingOAuthFlows.keys().next().value
+      if (oldest === undefined) break
+      pendingOAuthFlows.delete(oldest)
+    }
+
+    const params = new URLSearchParams({
+      client_id: OAUTH_CLIENT_ID,
+      scope: OAUTH_SCOPE,
+      redirect_uri: ITCHIO_OAUTH_REDIRECT_URI,
+      response_type: 'code',
+      state,
+      code_challenge: codeChallenge,
+      code_challenge_method: 'S256'
+    })
+
+    return { url: `${OAUTH_AUTHORIZE_URL}?${params.toString()}` }
+  }
+
+  static async loginWithOAuthCode(
+    data: ItchioOAuthCodeData
+  ): Promise<{ status: 'done' | 'failed'; user: ItchioUserData | undefined }> {
+    const pending = pendingOAuthFlows.get(data.state)
+    if (!pending) {
+      logError(
+        'itch.io OAuth login called without a pending flow',
+        LogPrefix.Itchio
+      )
+      return { status: 'failed', user: undefined }
+    }
+
+    if (Date.now() - pending.createdAt > OAUTH_FLOW_TTL_MS) {
+      logError('itch.io OAuth flow expired', LogPrefix.Itchio)
+      pendingOAuthFlows.delete(data.state)
+      return { status: 'failed', user: undefined }
+    }
+
+    if (!data.code) {
+      logError(
+        'itch.io OAuth callback rejected (missing code)',
+        LogPrefix.Itchio
+      )
+      return { status: 'failed', user: undefined }
+    }
+
+    try {
+      const client = await getClient()
+      const result = await client.call<LoginWithOAuthCodeResult>(
+        'Profile.LoginWithOAuthCode',
+        {
+          code: data.code,
+          codeVerifier: pending.codeVerifier,
+          redirectUri: pending.redirectUri,
+          clientId: pending.clientId
+        }
+      )
+      const { profile } = result
+      configStore.set('profileId', profile.id)
+      configStore.set('userData', profile.user)
+      pendingOAuthFlows.delete(data.state)
+      logInfo(
+        `itch.io OAuth login succeeded as ${profile.user.username}`,
+        LogPrefix.Itchio
+      )
+      return { status: 'done', user: profile.user }
+    } catch (err) {
+      logError(
+        ['itch.io OAuth login failed:', (err as Error).message],
+        LogPrefix.Itchio
+      )
+      pendingOAuthFlows.delete(data.state)
+      return { status: 'failed', user: undefined }
+    }
   }
 
   static async login(

@@ -30,11 +30,17 @@ export interface ItchioUserData {
   gamer?: boolean
 }
 
-// Data returned to the renderer when starting an itch.io login. itch.io
-// doesn't expose a CORS-friendly OAuth flow for desktop clients, so Heroic
-// uses an API-key paste flow: the renderer shows `apiKeysUrl` to the user,
-// they generate a personal API key on the site, and paste it back as
-// `ItchioRegisterData.apiKey`.
+export const ITCHIO_OAUTH_REDIRECT_URI = 'itch://oauth-callback'
+
+export interface ItchioOAuthLoginData {
+  url: string
+}
+
+export interface ItchioOAuthCodeData {
+  code: string
+  state: string
+}
+
 export interface ItchioLoginData {
   apiKeysUrl: string
 }
