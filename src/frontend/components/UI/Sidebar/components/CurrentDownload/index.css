@@ -1,13 +1,13 @@
 .Sidebar {
   .currentDownload {
-    font-size: var(--text-sm);
+    font-size: var(--body-sm);
     padding: var(--space-md) 0;
     transition: 300ms;
     margin-top: var(--space-sm);
     align-self: end;
 
     & > .gameTitle {
-      font-size: var(--text-md);
+      font-size: var(--body-md);
       transition: 600ms;
       font-weight: var(--bold);
     }
@@ -22,8 +22,8 @@
       font-family: var(--secondary-font-family);
       font-style: italic;
       font-weight: normal;
-      font-size: var(--text-sm);
-      line-height: var(--text-sm);
+      font-size: var(--body-sm);
+      line-height: 1.3;
     }
 
     .MuiLinearProgress-bar1Determinate {

@@ -4,7 +4,8 @@ import { GameInfo, InstallProgress } from 'common/types'
 import { getProgress } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { LinearProgress } from '@mui/material'
+import classNames from 'classnames'
+import { ProgressBar } from 'frontend/components/UI'
 
 interface Props {
   gameInfo: GameInfo
@@ -73,7 +74,7 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
         ? ''
         : `${
             percent && bytes
-              ? `${percent}% [${bytes}] ${eta ? `ETA: ${eta}` : ''}`
+              ? `${bytes}${eta ? ` \u00b7 ETA ${eta}` : ''}`
               : '...'
           }`
 
@@ -113,40 +114,41 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
     }
 
     if (is_installed) {
-      return t('status.installed')
+      return null
     }
 
     return t('status.notinstalled')
   }
 
+  const label = getInstallLabel(
+    gameInfo.is_installed,
+    is.notAvailable,
+    statusContext
+  )
+  const showProgress = is.installing || is.updating
+
+  if (!label && !showProgress) {
+    return null
+  }
+
   return (
     <div className="gameStatus">
-      {(is.installing || is.updating) && (
-        <LinearProgress
-          variant="determinate"
+      {showProgress && (
+        <ProgressBar
+          tone="success"
+          size="md"
+          showValue
           className="installProgress"
           value={getProgress(progress)}
+          label={t('status.installing', 'Installing')}
         />
       )}
       <p
-        style={{
-          color: is.installing
-            ? 'var(--success)'
-            : 'var(--status-warning,  var(--warning))',
-          fontStyle: 'italic'
-        }}
+        className={classNames('gameStatus__label', {
+          'gameStatus__label--busy': is.installing
+        })}
       >
-        {is.installing && (
-          <Link to={'/download-manager'}>
-            {getInstallLabel(gameInfo.is_installed, is.notAvailable)}
-          </Link>
-        )}
-        {!is.installing &&
-          getInstallLabel(
-            gameInfo.is_installed,
-            is.notAvailable,
-            statusContext
-          )}
+        {is.installing ? <Link to={'/download-manager'}>{label}</Link> : label}
       </p>
     </div>
   )

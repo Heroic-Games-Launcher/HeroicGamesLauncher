@@ -2,9 +2,8 @@ import './index.css'
 
 import React, { useEffect, useState } from 'react'
 
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import ContextMenu from '../Library/components/ContextMenu'
 import SettingsContext from './SettingsContext'
@@ -18,7 +17,13 @@ import {
   SystemInfo
 } from './sections'
 import { AppSettings } from 'common/types'
-import { UpdateComponent } from 'frontend/components/UI'
+import {
+  Button,
+  Icon,
+  PageHeader,
+  UpdateComponent
+} from 'frontend/components/UI'
+import { Copy } from 'lucide-react'
 import { SettingsContextType } from 'frontend/types'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -29,6 +34,13 @@ function Settings() {
 
   const [currentConfig, setCurrentConfig] =
     useState<Partial<AppSettings> | null>(null)
+  const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
+
+  useEffect(() => {
+    if (!isCopiedToClipboard) return
+    const timer = setTimeout(() => setCopiedToClipboard(false), 3000)
+    return () => clearTimeout(timer)
+  }, [isCopiedToClipboard])
 
   const { type = 'general' } = useParams()
   const appName = 'default'
@@ -74,7 +86,66 @@ function Settings() {
     return <UpdateComponent />
   }
 
+  const pageTitle = isGeneralSettings
+    ? t('settings.navbar.general', 'General')
+    : isGamesSettings
+      ? t('settings.navbar.games_settings_defaults', 'Game Defaults')
+      : isAdvancedSetting
+        ? t('settings.navbar.advanced', 'Advanced')
+        : isSystemInfo
+          ? t('settings.navbar.systemInformation', 'System Information')
+          : isLogSettings
+            ? t('settings.navbar.log', 'Log')
+            : t('settings.navbar.sync', 'Sync')
+
+  const pageDescription = isGeneralSettings
+    ? t('settings.pageSubtitle.general', 'Configure your launcher preferences')
+    : isGamesSettings
+      ? t(
+          'settings.pageSubtitle.games_settings_defaults',
+          'Defaults applied to newly installed games'
+        )
+      : isAdvancedSetting
+        ? t(
+            'settings.pageSubtitle.advanced',
+            'Binaries, experimental features and maintenance'
+          )
+        : isSystemInfo
+          ? t(
+              'settings.pageSubtitle.systeminfo',
+              'Your hardware and the versions Heroic runs'
+            )
+          : isLogSettings
+            ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
+            : undefined
+
   const title = t('globalSettings', 'Global Settings')
+
+  const copySettingsToClipboard = () => {
+    if (isSystemInfo) {
+      window.api.systemInfo.copyToClipboard()
+    } else {
+      window.api.clipboardWriteText(
+        JSON.stringify({ appName, title, ...currentConfig }, null, 2)
+      )
+    }
+    setCopiedToClipboard(true)
+  }
+
+  const copyButton = (
+    <Button
+      variant={isCopiedToClipboard ? 'primary' : 'ghost'}
+      size="sm"
+      icon={<Icon glyph={Copy} size="md" />}
+      onClick={copySettingsToClipboard}
+    >
+      {isCopiedToClipboard
+        ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
+        : isSystemInfo
+          ? t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')
+          : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
+    </Button>
+  )
 
   return (
     <ContextMenu
@@ -102,12 +173,14 @@ function Settings() {
       <SettingsContext.Provider value={contextValues}>
         <div className={`Settings ${type}`}>
           <div role="list" className="settingsWrapper">
-            <NavLink to="/library" role="link" className="backButton">
-              <ArrowCircleLeftIcon />
-            </NavLink>
-            <h1 className="headerTitle" data-testid="headerTitle">
-              {title}
-            </h1>
+            <PageHeader
+              backTo={isGeneralSettings ? '/library' : undefined}
+              backLabel={t('button.backToLibrary', 'Back to Library')}
+              title={pageTitle}
+              description={pageDescription}
+              className="headerTitle"
+              actions={!isLogSettings ? copyButton : undefined}
+            />
 
             {isGeneralSettings && <GeneralSettings />}
             {isGamesSettings && <GamesSettings />}

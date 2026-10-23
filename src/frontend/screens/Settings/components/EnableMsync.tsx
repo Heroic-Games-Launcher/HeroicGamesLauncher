@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import SettingsContext from '../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 import { defaultWineVersion } from '../util'
 
 const EnableMsync = () => {
@@ -20,21 +19,20 @@ const EnableMsync = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="msyncToggle"
-        value={enableMsync || false}
-        handleChange={() => setEnableMsync(!enableMsync)}
-        title={t('setting.msync', 'Enable Msync')}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.msync',
-          'Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.msync',
+        'Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
+      )}
+      description={t(
+        'setting.msync.description',
+        'Speed up multi-threaded games using macOS synchronisation primitives'
+      )}
+      htmlId="msyncToggle"
+      value={enableMsync || false}
+      handleChange={() => setEnableMsync(!enableMsync)}
+      title={t('setting.msync', 'Enable Msync')}
+    />
   )
 }
 

@@ -12,7 +12,8 @@ import {
   Paper,
   styled
 } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+import { X } from 'lucide-react'
+import Icon from '../../Icon'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 
@@ -83,16 +84,20 @@ export const Dialog: React.FC<DialogProps> = ({
           onClick={close}
           sx={{
             position: 'absolute',
-            right: 8,
+            right: 12,
             // showCloseButton used for gamepad back actions, should always be in DOM
             display: showCloseButton ? 'auto' : 'none',
-            top: 8,
+            top: 12,
             color: 'var(--text-default)'
           }}
         >
-          <CloseIcon />
+          <Icon glyph={X} size="lg" />
         </IconButton>
-        <DialogContent>{children}</DialogContent>
+        <DialogContent
+          sx={showCloseButton ? { paddingTop: '56px' } : undefined}
+        >
+          {children}
+        </DialogContent>
       </>
     </MuiDialog>
   )

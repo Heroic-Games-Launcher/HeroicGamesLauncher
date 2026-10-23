@@ -69,6 +69,7 @@
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
+        "backToLibrary": "Back to Library",
         "browse_files": "Browse Files",
         "browse_wine_prefix": "Browse Wine Prefix",
         "cancel": "Pause/Cancel",
@@ -76,6 +77,7 @@
         "continue": "Continue Downloading",
         "details": "Details",
         "edit-game": "Edit Game",
+        "favourite": "Add to Favourites",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
@@ -94,6 +96,7 @@
         "sideload": {
             "edit": "Edit App/Game"
         },
+        "unfavourite": "Remove from Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Uninstall",
         "update": "Update"
@@ -120,6 +123,7 @@
     },
     "enabled": "Enabled",
     "game": {
+        "about": "About This Game",
         "achievements": "Achievements",
         "branch": {
             "disabled": "Disabled",
@@ -133,19 +137,24 @@
             "version": "Version"
         },
         "changelogFor": "Changelog for {{gameTitle}}",
+        "details": "Game Details",
         "downloadSize": "Download Size",
-        "extra_info": "Extra info",
+        "extra_info": "Extra",
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
         "getting-install-size": "Getting install size",
-        "install_info": "Install info",
+        "hoursPlayed": "{{hours}} hours played",
+        "hoursPlayedShort": "{{hours}} hours",
+        "install_info": "Installation Info",
         "installSize": "Install Size",
         "language": "Language",
         "lastPlayed": "Last Played",
         "modify": "Modify Installation",
         "neverPlayed": "Never",
+        "overview": "Overview",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
+        "tabs": "Game information",
         "totalPlayed": "Time Played"
     },
     "gamecard": {
@@ -173,15 +182,21 @@
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
-        "apple-gaming-wiki": "AppleGamingWiki Rating",
         "canRunOffline": "Online Required",
         "clickToOpen": "Click to open",
+        "developer": "Developer",
         "game-scores": "Game Scores",
-        "installedInfo": "Installed Information",
+        "genres": "Genres",
         "installedPlatform": "Installed Platform",
         "path": "Install Path",
         "protondb-compatibility-info": "Proton Compatibility Tier",
         "size": "Size",
+        "steamdeck": {
+            "playable": "Playable",
+            "unknown": "Unknown",
+            "unsupported": "Unsupported",
+            "verified": "Verified"
+        },
         "steamdeck-compatibility-info": "SteamDeck Compatibility",
         "syncsaves": "Sync Saves",
         "third-party-app": "Third-Party Manager",
@@ -212,11 +227,13 @@
         },
         "launching": "Launching",
         "playing": {
-            "start": "Play Now",
-            "start_with_logs": "Play Now (with logs)",
+            "start": "Play",
+            "start_with_logs": "Play with Logs",
+            "start_with_logs_hint": "Launches the game while recording a detailed log, useful when you need to report a problem",
             "stop": "Playing (Stop)"
         },
         "redist": "Installing Redistributables",
+        "releaseDate": "Release Date",
         "saves": {
             "syncing": "Syncing Saves"
         },
@@ -330,6 +347,7 @@
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "logs": "Logs",
+        "more": "More",
         "move": "Move Game",
         "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",

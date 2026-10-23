@@ -68,7 +68,7 @@
   background: transparent;
   color: var(--text-default);
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--semibold);
   transition:
     background-color 150ms ease,
@@ -97,7 +97,7 @@
   border-radius: 999px;
   background: var(--accent);
   color: var(--text-tertiary);
-  font-size: calc(var(--text-sm) * 0.8);
+  font-size: calc(var(--text-xs) * 0.8);
   font-weight: var(--bold);
   line-height: 1;
 }
@@ -154,7 +154,7 @@
   background: transparent;
   color: var(--accent);
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--semibold);
   transition:
     background-color 150ms ease,
@@ -277,7 +277,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2xs);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--semibold);
   color: var(--text-secondary);
   letter-spacing: 0.01em;
@@ -289,14 +289,14 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-default);
-  font-size: calc(var(--text-sm) * 0.9);
+  font-size: calc(var(--text-xs) * 0.9);
   font-weight: var(--semibold);
   text-transform: none;
 }
 
 .discountFilters__labelValue {
   color: var(--accent);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--semibold);
   text-transform: none;
 }
@@ -358,7 +358,7 @@
   border-radius: calc(var(--space-3xs) - 2px);
   background: transparent;
   color: var(--text-secondary);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--semibold);
   cursor: pointer;
   transition:
@@ -393,7 +393,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: calc(-1 * var(--space-2xs));
-  font-size: calc(var(--text-sm) * 0.9);
+  font-size: calc(var(--text-xs) * 0.9);
   color: var(--text-secondary);
   opacity: 0.7;
 }

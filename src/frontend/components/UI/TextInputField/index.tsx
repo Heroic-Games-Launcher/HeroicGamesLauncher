@@ -1,5 +1,6 @@
 import React, { ReactNode, useContext, useEffect, useRef } from 'react'
 import classnames from 'classnames'
+import InfoTooltip from '../InfoTooltip'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 
@@ -11,6 +12,7 @@ interface TextInputFieldProps extends Omit<
   inputIcon?: ReactNode
   afterInput?: ReactNode
   label?: string
+  info?: ReactNode
   placeholder?: string
   extraClass?: string
   warning?: ReactNode
@@ -21,6 +23,7 @@ interface TextInputFieldProps extends Omit<
 const TextInputField = ({
   htmlId,
   label,
+  info,
   extraClass = '',
   inputIcon,
   afterInput,
@@ -55,7 +58,12 @@ const TextInputField = ({
         isRTL
       })}
     >
-      {label && <label htmlFor={htmlId}>{label}</label>}
+      {label && (
+        <label htmlFor={htmlId}>
+          {label}
+          {info && <InfoTooltip content={info} label={label} />}
+        </label>
+      )}
       {inputIcon}
       <input
         type="text"

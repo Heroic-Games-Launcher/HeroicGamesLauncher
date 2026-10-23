@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { useTour } from '../../state/TourContext'
 import './TourButton.scss'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-import { IconButton, Tooltip } from '@mui/material'
+import { IconButton } from '@mui/material'
+import Tooltip from 'frontend/components/UI/Tooltip'
 
 interface TourButtonProps {
   tourId: string
@@ -29,11 +30,12 @@ const TourButton: React.FC<TourButtonProps> = ({
   const buttonLabel = label || t('tour.startTour', 'Start Tour')
 
   return (
-    <Tooltip title={buttonLabel}>
+    <Tooltip content={buttonLabel} asChild>
       <IconButton
         onClick={handleStartTour}
         className={`tour-button ${className}`}
         data-tour-button={tourId}
+        aria-label={buttonLabel}
         size="small"
       >
         <HelpOutlineIcon fontSize="small" />

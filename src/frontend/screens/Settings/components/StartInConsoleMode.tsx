@@ -11,6 +11,10 @@ const StartInConsoleMode = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.start-in-console-mode.description',
+        'Open Heroic in the big-picture interface built for controllers'
+      )}
       htmlId="startInConsoleMode"
       value={startInConsoleMode}
       handleChange={() => setStartInConsoleMode(!startInConsoleMode)}

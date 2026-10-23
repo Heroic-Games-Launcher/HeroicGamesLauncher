@@ -1,0 +1,52 @@
+.SettingsCard {
+  background: var(--panel-background-raised, var(--panel-background));
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: start;
+}
+
+.SettingsCard__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm-fixed);
+  margin-block-end: var(--space-md);
+}
+
+.SettingsCard__icon {
+  color: var(--navbar-accent, var(--accent));
+  flex-shrink: 0;
+}
+
+.SettingsCard__title {
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--title-md);
+  font-weight: var(--medium);
+  line-height: var(--leading-tight, 1.15);
+  color: var(--on-panel, var(--text-default));
+}
+
+.SettingsCard__header:has(+ .SettingsCard__description) {
+  margin-block-end: var(--space-2xs);
+}
+
+.SettingsCard__description {
+  margin: 0 0 var(--space-lg);
+  font-size: var(--body-md);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.SettingsCard__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.SettingsCard__body > *:empty {
+  display: none;
+}
+
+.SettingsCard:not(:has(.SettingsCard__body > *)) {
+  display: none;
+}

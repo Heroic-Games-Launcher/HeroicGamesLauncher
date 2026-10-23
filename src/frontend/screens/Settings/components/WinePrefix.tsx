@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
+import { PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import { defaultWineVersion } from '../util'
 
@@ -31,24 +31,16 @@ const WinePrefix = () => {
       pathDialogTitle={t('box.wineprefix')}
       pathDialogDefaultPath={winePrefix}
       noDeleteButton
-      afterInput={
-        <InfoBox text={t('infobox.wine-prefix.title', 'Wine Prefix')}>
+      info={
+        <>
           {t(
             'infobox.wine-repfix.message',
             'Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored.'
-          )}
-
-          <br />
-          <br />
-          <a>
-            <span
-              className="winefaq"
-              onClick={() => window.api.openWinePrefixFAQ()}
-            >
-              WinePrefix FAQ
-            </span>
-          </a>
-        </InfoBox>
+          )}{' '}
+          <span className="link" onClick={() => window.api.openWinePrefixFAQ()}>
+            WinePrefix FAQ
+          </span>
+        </>
       }
     />
   )

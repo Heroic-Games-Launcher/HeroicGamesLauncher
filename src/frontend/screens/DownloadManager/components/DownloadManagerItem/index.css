@@ -86,7 +86,7 @@
 }
 
 .downloadManagerTitleList > img {
-  width: var(--space-2xl-fixed);
+  width: var(--space-5xl-fixed);
   margin-inline-end: var(--space-md-fixed);
 }
 

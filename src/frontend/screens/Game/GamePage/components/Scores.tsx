@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import GameContext from '../../GameContext'
-import { Star } from '@mui/icons-material'
-import PopoverComponent from 'frontend/components/UI/PopoverComponent'
-import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
+import { Gamepad2 } from 'lucide-react'
 import { GameInfo } from 'common/types'
+import { createNewWindow } from 'frontend/helpers'
+import { Icon, Panel, Score } from 'frontend/components/UI'
+import GameContext from '../../GameContext'
 
 interface Props {
   gameInfo: GameInfo
@@ -14,45 +14,88 @@ const Scores = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { wikiInfo } = useContext(GameContext)
 
-  if (!wikiInfo) {
-    return null
-  }
+  const pcgamingwiki = wikiInfo?.pcgamingwiki
+  const applegamingwiki = wikiInfo?.applegamingwiki
 
-  const pcgamingwiki = wikiInfo.pcgamingwiki
-
-  if (!pcgamingwiki) {
-    return null
-  }
+  const { metacritic, opencritic, igdb } = pcgamingwiki ?? {}
 
   const hasScores =
-    pcgamingwiki?.metacritic.score ||
-    pcgamingwiki?.igdb.score ||
-    pcgamingwiki?.opencritic.score
+    metacritic?.score ||
+    opencritic?.score ||
+    igdb?.score ||
+    applegamingwiki?.crossoverRating
 
   if (!hasScores) {
     return null
   }
 
-  if (hasScores) {
-    return <GameScore info={pcgamingwiki} title={gameInfo.title} />
-  }
+  const title = gameInfo.overrides?.title || gameInfo.title
 
   return (
-    <PopoverComponent
-      item={
-        <div
-          className="iconWithText"
-          title={t('info.clickToOpen', 'Click to open')}
-        >
-          <Star />
-          {t('info.game-scores', 'Game Scores')}
-        </div>
-      }
-    >
-      <div className="poppedElement">
-        <GameScore info={pcgamingwiki} title={gameInfo.title} />
+    <Panel tone="glass" padding="sm" className="gameScores">
+      <span className="gameScores__title">
+        <Icon glyph={Gamepad2} size="sm" />
+        {t('info.game-scores', 'Game Scores')}
+      </span>
+      <div className="gameScores__list">
+        {opencritic?.score && (
+          <Score
+            label="Open Critic"
+            value={opencritic.score}
+            title={t('info.clickToOpen', 'Click to open')}
+            onClick={() =>
+              createNewWindow(
+                opencritic.urlid
+                  ? `https://opencritic.com/game/${opencritic.urlid}`
+                  : `https://opencritic.com/search?criteria=${title}`
+              )
+            }
+          />
+        )}
+        {metacritic?.score && (
+          <Score
+            label="MetaCritic"
+            value={metacritic.score}
+            title={t('info.clickToOpen', 'Click to open')}
+            onClick={() =>
+              createNewWindow(
+                metacritic.urlid
+                  ? `https://www.metacritic.com/game/pc/${metacritic.urlid}`
+                  : `https://www.metacritic.com/search/all/${title}/results`
+              )
+            }
+          />
+        )}
+        {igdb?.score && (
+          <Score
+            label="IGDB"
+            value={igdb.score}
+            title={t('info.clickToOpen', 'Click to open')}
+            onClick={() =>
+              createNewWindow(
+                metacritic?.urlid
+                  ? `https://www.igdb.com/games/${metacritic.urlid}`
+                  : `https://www.igdb.com/search?type=1&q=${title}`
+              )
+            }
+          />
+        )}
+        {applegamingwiki?.crossoverRating && (
+          <Score
+            label="AppleGamingWiki"
+            value={applegamingwiki.crossoverRating}
+            title={t('info.clickToOpen', 'Click to open')}
+            onClick={() =>
+              createNewWindow(
+                applegamingwiki.crossoverLink
+                  ? `https://www.codeweavers.com/compatibility/crossover/${applegamingwiki.crossoverLink}`
+                  : `https://www.codeweavers.com/compatibility?name=${title}&search=app#results`
+              )
+            }
+          />
+        )}
       </div>
-    </PopoverComponent>
+    </Panel>
   )
 }
 

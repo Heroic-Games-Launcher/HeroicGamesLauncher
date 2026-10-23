@@ -1,10 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
-import Grid from '@mui/material/Grid'
-
+import { SpecCard } from 'frontend/components/UI'
 import VendorLogo from './vendorLogo'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
@@ -28,31 +25,25 @@ function GPUCard({ gpu, gpuNumber, showNumber }: GPUCardProps) {
   const { t } = useTranslation()
 
   const headingText = showNumber
-    ? t('settings.systemInformation.gpuWithNumber', 'GPU {{number}}:', {
+    ? t('settings.systemInformation.gpuWithNumber', 'GPU {{number}}', {
         number: gpuNumber + 1
       })
-    : t('settings.systemInformation.gpu', 'GPU:')
+    : t('settings.systemInformation.gpu', 'GPU')
 
   return (
-    <Paper sx={{ padding: 1, height: '100%' }} square>
-      <Typography variant="h6">{headingText}</Typography>
-      <Grid container spacing={1}>
-        <Grid item xs={2}>
-          <VendorLogo model={vendorString} />
-        </Grid>
-        <Grid item xs={10}>
-          {deviceString}
-          <br />
-          DID={deviceId} VID={vendorId}, DSID={subdeviceId} VSID={subvendorId}
-          <br />
-          {t(
-            'settings.systemInformation.gpuDriver',
-            'Driver: {{driverVersion}}',
-            { driverVersion }
-          )}
-        </Grid>
-      </Grid>
-    </Paper>
+    <SpecCard title={headingText} media={<VendorLogo model={vendorString} />}>
+      <span className="SpecCard__value">{deviceString}</span>
+      <span className="SpecCard__meta">
+        {t(
+          'settings.systemInformation.gpuDriver',
+          'Driver: {{driverVersion}}',
+          { driverVersion }
+        )}
+      </span>
+      <span className="SpecCard__meta">
+        DID={deviceId} VID={vendorId}, DSID={subdeviceId} VSID={subvendorId}
+      </span>
+    </SpecCard>
   )
 }
 
