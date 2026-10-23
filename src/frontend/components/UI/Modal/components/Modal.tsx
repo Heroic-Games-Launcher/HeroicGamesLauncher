@@ -23,6 +23,7 @@ interface ModalProps {
   tone?: ModalTone
   fullHeight?: boolean
   showCloseButton?: boolean
+  disableClose?: boolean
   className?: string
   disableBackdropClose?: boolean
 }
@@ -34,6 +35,7 @@ export const Modal: React.FC<ModalProps> = ({
   tone = 'default',
   fullHeight = false,
   showCloseButton = false,
+  disableClose = false,
   className,
   disableBackdropClose = false
 }) => {
@@ -56,9 +58,10 @@ export const Modal: React.FC<ModalProps> = ({
   }, [])
 
   const close = useCallback(() => {
+    if (disableClose) return
     setOpen(false)
     onClose()
-  }, [onClose])
+  }, [disableClose, onClose])
 
   return (
     <MuiDialog
@@ -83,6 +86,7 @@ export const Modal: React.FC<ModalProps> = ({
       <IconButton
         aria-label="close"
         className="Modal__closeButton"
+        disabled={disableClose}
         onClick={close}
         // showCloseButton used for gamepad back actions, should always be in DOM
         sx={{ display: showCloseButton ? 'inline-flex' : 'none' }}
