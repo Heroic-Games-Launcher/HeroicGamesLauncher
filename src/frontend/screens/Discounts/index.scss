@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints';
+
 .discountsScreen {
   display: flex;
   flex-direction: column;
@@ -21,7 +23,7 @@
   align-items: baseline;
   gap: var(--space-md);
   margin: 0;
-  font-size: var(--text-2xl);
+  font-size: var(--heading-5);
 }
 
 .discountsScreen__storeTabs {
@@ -31,7 +33,7 @@
   gap: 2px;
   background-color: var(--input-background, var(--background));
   border: 1px solid var(--divider, rgba(255, 255, 255, 0.12));
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   margin-inline-end: auto;
 }
 
@@ -39,11 +41,11 @@
   min-width: 90px;
   padding: 0 var(--space-sm);
   border: none;
-  border-radius: calc(var(--space-3xs) - 1px);
+  border-radius: calc(var(--radius-xs) - 1px);
   background: transparent;
   color: var(--text-secondary);
-  font-size: var(--text-md);
-  font-weight: var(--semibold);
+  font-size: var(--body-md);
+  font-weight: var(--weight-semibold);
   cursor: pointer;
 }
 
@@ -65,8 +67,8 @@
 }
 
 .discountsScreen__regionLabel {
-  font-size: var(--text-sm);
-  font-weight: var(--semibold);
+  font-size: var(--body-sm);
+  font-weight: var(--weight-semibold);
   color: var(--text-secondary);
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -89,7 +91,7 @@
   min-height: 40px;
   background-color: var(--input-background, var(--background));
   color: var(--text-default);
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
 }
 
 .discountsScreen .MuiOutlinedInput-notchedOutline {
@@ -108,15 +110,15 @@
 .discountsScreen__regionCurrency {
   margin-left: auto;
   padding: 1px var(--space-2xs);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-secondary);
-  font-size: calc(var(--text-sm) * 0.85);
-  font-weight: var(--semibold);
+  font-size: calc(var(--body-sm) * 0.85);
+  font-weight: var(--weight-semibold);
   letter-spacing: 0.02em;
 }
 
-@media (max-width: 700px) {
+@include breakpoints.for-compact-window {
   .discountsScreen__region {
     width: 100%;
   }

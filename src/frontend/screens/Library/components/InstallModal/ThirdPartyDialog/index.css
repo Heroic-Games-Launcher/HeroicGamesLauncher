@@ -3,7 +3,7 @@
   max-width: 560px;
   gap: 0.4rem;
   padding: var(--space-md);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   background-color: var(--current-background);
   margin-bottom: var(--space-lg);
   border: 2px solid var(--anticheat-supported);

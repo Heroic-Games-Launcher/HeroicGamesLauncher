@@ -23,7 +23,7 @@ import {
   type PegiAge,
   type ViewMode
 } from '../../helpers'
-import './index.css'
+import './index.scss'
 
 interface Props {
   sortBy: DiscountSort

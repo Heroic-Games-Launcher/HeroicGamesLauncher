@@ -1,20 +1,19 @@
 import {
-  faBorderAll,
-  faList,
-  faSyncAlt,
-  faArrowDownAZ,
-  faArrowDownZA,
-  faHardDrive as hardDriveSolid,
-  faFilter,
-  faFilterCircleXmark
-} from '@fortawesome/free-solid-svg-icons'
-import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
+  ArrowDownAZ,
+  ArrowDownZA,
+  HardDrive,
+  LayoutGrid,
+  List,
+  ListFilter,
+  FilterX,
+  RefreshCw
+} from 'lucide-react'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import FormControl from '../FormControl'
+import Icon from '../Icon'
 import './index.css'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
@@ -30,6 +29,26 @@ export default React.memo(function ActionIcons({
 }: ActionIconsProps = {}) {
   const { t } = useTranslation()
   const { refreshLibrary, refreshing } = useContext(ContextProvider)
+  const [spinning, setSpinning] = useState(false)
+  const spinTimeout = useRef<ReturnType<typeof setTimeout>>()
+
+  useEffect(
+    () => () => {
+      if (spinTimeout.current) clearTimeout(spinTimeout.current)
+    },
+    []
+  )
+
+  const handleRefresh = async () => {
+    if (spinTimeout.current) clearTimeout(spinTimeout.current)
+    setSpinning(true)
+    const startedAt = Date.now()
+    await refreshLibrary({ checkForUpdates: true })
+    spinTimeout.current = setTimeout(
+      () => setSpinning(false),
+      Math.max(0, 700 - (Date.now() - startedAt))
+    )
+  }
 
   const {
     handleLayout,
@@ -51,9 +70,9 @@ export default React.memo(function ActionIcons({
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
             onClick={() => handleLayout('list')}
           >
-            <FontAwesomeIcon
-              className="FormControl__segmentedFaIcon"
-              icon={faList}
+            <Icon
+              glyph={List}
+              className="FormControl__segmentedLucideIcon"
               data-tour="library-view-toggle"
             />
           </button>
@@ -63,9 +82,9 @@ export default React.memo(function ActionIcons({
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
             onClick={() => handleLayout('grid')}
           >
-            <FontAwesomeIcon
-              className="FormControl__segmentedFaIcon"
-              icon={faBorderAll}
+            <Icon
+              glyph={LayoutGrid}
+              className="FormControl__segmentedLucideIcon"
               data-tour="library-view-toggle"
             />
           </button>
@@ -79,20 +98,31 @@ export default React.memo(function ActionIcons({
           }
           onClick={() => setSortDescending(!sortDescending)}
         >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
-            data-tour="library-sort-az"
-          />
+          {sortDescending ? (
+            <Icon
+              glyph={ArrowDownZA}
+              className="FormControl__segmentedLucideIcon"
+              data-tour="library-sort-az"
+            />
+          ) : (
+            <Icon
+              glyph={ArrowDownAZ}
+              className="FormControl__segmentedLucideIcon"
+              data-tour="library-sort-az"
+            />
+          )}
         </button>
         <button
           className="FormControl__button"
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => setSortInstalled(!sortInstalled)}
         >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={sortInstalled ? hardDriveSolid : hardDriveLight}
+          <Icon
+            glyph={HardDrive}
+            className="FormControl__segmentedLucideIcon"
+            strokeWidth={sortInstalled ? 2.25 : undefined}
+            fill={sortInstalled ? 'currentColor' : 'none'}
+            fillOpacity={sortInstalled ? 0.15 : 0}
             data-tour="library-sort-installed"
           />
         </button>
@@ -105,28 +135,31 @@ export default React.memo(function ActionIcons({
           }
           onClick={onToggleAlphabetFilter}
         >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={showAlphabetFilter ? faFilterCircleXmark : faFilter}
-          />
+          {showAlphabetFilter ? (
+            <Icon
+              glyph={FilterX}
+              className="FormControl__segmentedLucideIcon"
+            />
+          ) : (
+            <Icon
+              glyph={ListFilter}
+              className="FormControl__segmentedLucideIcon"
+            />
+          )}
         </button>
         <button
           className={classNames('FormControl__button', {
-            active: refreshing
+            active: refreshing || spinning
           })}
           title={t('generic.library.refresh', 'Refresh Library')}
-          onClick={async () =>
-            refreshLibrary({
-              checkForUpdates: true
-            })
-          }
+          onClick={handleRefresh}
         >
-          <FontAwesomeIcon
-            className={classNames('FormControl__segmentedFaIcon', {
-              ['fa-spin']: refreshing
+          <Icon
+            glyph={RefreshCw}
+            className={classNames('FormControl__segmentedLucideIcon', {
+              ['lucide-spin']: refreshing || spinning
             })}
             data-tour="library-refresh"
-            icon={faSyncAlt}
           />
         </button>
         <TourButton tourId={LIBRARY_TOUR_ID} className="library-tour-button" />

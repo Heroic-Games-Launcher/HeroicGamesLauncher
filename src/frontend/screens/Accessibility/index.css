@@ -9,13 +9,13 @@ input[type='range']::-webkit-slider-runnable-track {
   height: 10px;
   cursor: pointer;
   background: var(--accent);
-  border-radius: 5px;
+  border-radius: var(--radius-xs);
 }
 
 input[type='range']::-webkit-slider-thumb {
   height: 30px;
   width: 8px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: var(--text-default);
   cursor: pointer;
   appearance: none;
@@ -41,11 +41,11 @@ input[type='range']::-webkit-slider-thumb {
 .Accessibility span,
 .Accessibility select,
 .Accessibility option {
-  font-size: var(--text-xl) !important;
+  font-size: var(--title) !important;
 }
 
 .Accessibility .zoomHint span {
-  font-size: var(--text-md);
+  font-size: var(--body-md);
 }
 
 .Accessibility .fonts-label {

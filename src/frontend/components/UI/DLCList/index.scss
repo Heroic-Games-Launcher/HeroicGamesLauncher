@@ -3,7 +3,7 @@
   grid-template-columns: 3fr 1fr 1fr;
   grid-template-rows: auto;
   grid-gap: 10px;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--text-default);
 
   .title {

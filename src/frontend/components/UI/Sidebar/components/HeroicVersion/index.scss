@@ -13,7 +13,7 @@
   .heroicVersion {
     display: flex;
     gap: 5px;
-    font-size: var(--text-sm);
+    font-size: var(--body-sm);
     cursor: pointer;
     transition: 300ms;
     color: var(--brand-text-01);
@@ -27,7 +27,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    font-size: var(--text-sm);
+    font-size: var(--body-sm);
 
     & > a {
       color: var(--accent);
@@ -55,7 +55,7 @@
     }
 
     .heroicVersion {
-      font-size: var(--text-xs);
+      font-size: var(--caption-sm);
       text-align: center;
     }
 

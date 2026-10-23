@@ -1,14 +1,3 @@
-.noResultsMessage {
-  font-size: 2rem;
-  max-width: 500px;
-  margin: auto;
-  padding-bottom: 20%;
-  .sideloadGameButton {
-    margin: 0;
-    display: inline;
-    vertical-align: text-bottom;
-  }
-  & a {
-    text-decoration: underline;
-  }
+.noResultsMessage .sideloadGameButton {
+  margin: 0;
 }

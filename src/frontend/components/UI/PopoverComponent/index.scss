@@ -2,9 +2,9 @@
   position: relative;
   .popover {
     background-color: var(--background);
-    color: var(--text-primary);
+    color: var(--text-default);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     box-shadow: 0 0 0 1px var(--border-color);
     padding: 16px;
     width: fit-content;

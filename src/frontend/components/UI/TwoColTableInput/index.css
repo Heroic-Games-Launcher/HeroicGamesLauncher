@@ -16,7 +16,7 @@
 
 .tableFieldWrapper th {
   color: var(--accent);
-  font-size: var(--text-lg);
+  font-size: var(--body-lg);
   padding: var(--space-xs-fixed);
   text-align: start;
   white-space: nowrap;

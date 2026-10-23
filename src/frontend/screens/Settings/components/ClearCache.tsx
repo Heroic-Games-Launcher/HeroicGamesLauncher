@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox } from 'frontend/components/UI'
+import { Button, InfoBox } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { CleaningServicesOutlined } from '@mui/icons-material'
 
@@ -61,8 +61,9 @@ const ClearCache = () => {
           </li>
         </ul>
       </InfoBox>
-      <button
-        className="button is-footer is-danger"
+      <Button
+        variant="danger"
+        className="is-footer"
         onClick={async () => clearHeroicCache()}
       >
         <div className="button-icontext-flex">
@@ -73,7 +74,7 @@ const ClearCache = () => {
             {t('settings.clear-cache', 'Clear Heroic Cache')}
           </span>
         </div>
-      </button>
+      </Button>
     </>
   )
 }

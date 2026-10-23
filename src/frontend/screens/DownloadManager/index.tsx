@@ -3,7 +3,7 @@ import './index.css'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DMQueueElement, DownloadManagerState } from 'common/types'
-import { UpdateComponent } from 'frontend/components/UI'
+import { Button, UpdateComponent } from 'frontend/components/UI'
 import ProgressHeader from './components/ProgressHeader'
 import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
@@ -160,12 +160,9 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
             <span>
               <h5 className="downloadManagerQueuedSectionTitle">
                 {t('queue.label.finished', 'Completed')}
-                <button
-                  className="button is-text"
-                  onClick={() => handleClearList()}
-                >
+                <Button variant="ghost" onClick={() => handleClearList()}>
                   {t('queue.label.clear', 'Clear List')}
-                </button>
+                </Button>
               </h5>
             </span>
             <div className="dmItemList">

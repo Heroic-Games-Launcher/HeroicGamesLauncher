@@ -1,7 +1,7 @@
 .changelogModalContent {
   a {
     color: var(--accent);
-    font-weight: 700;
+    font-weight: var(--weight-bold);
   }
 
   img,
@@ -10,6 +10,6 @@
     max-width: 80%;
     height: auto;
     margin: 1rem auto;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
   }
 }

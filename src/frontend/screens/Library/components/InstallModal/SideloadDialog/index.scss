@@ -28,7 +28,7 @@
     cursor: pointer;
     margin-bottom: var(--space-md);
     width: 210px;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     border: 3px solid var(--neutral-02);
     transition: 200ms;
@@ -106,11 +106,21 @@
   .advancedFields {
     summary {
       cursor: pointer;
-      font-size: var(--font-size-sm);
-      color: var(--neutral-06);
-      font-weight: bold;
+      font-family: var(--primary-font-family);
+      font-size: var(--body-md);
+      font-weight: var(--weight-semibold);
+      color: var(--text-secondary);
       padding: var(--space-xs) 0;
       user-select: none;
+      transition: color 150ms ease;
+
+      &:hover {
+        color: var(--text-default);
+      }
+
+      &::marker {
+        color: var(--primary-action);
+      }
     }
 
     &[open] {

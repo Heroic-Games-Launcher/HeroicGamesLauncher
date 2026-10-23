@@ -40,7 +40,7 @@ import {
   type StoreTab,
   type ViewMode
 } from './helpers'
-import './index.css'
+import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function Discounts() {

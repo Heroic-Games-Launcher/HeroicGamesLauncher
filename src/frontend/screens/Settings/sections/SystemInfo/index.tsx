@@ -4,14 +4,14 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import { StyledEngineProvider } from '@mui/material/styles'
 
+import { Button, Icon } from 'frontend/components/UI'
 import { useAwaited } from 'frontend/hooks/useAwaited'
 
 import SteamDeckLogo from 'frontend/assets/steam-deck-logo.svg?react'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { Copy } from 'lucide-react'
 
 import CPUCard from './cpu'
 import MemoryProgress from './memory'
@@ -124,9 +124,9 @@ export default function SystemInfo() {
           </Grid>
         </Grid>
         <Button
-          className="copyToClipboardButton button is-primary"
-          variant="contained"
-          startIcon={<ContentCopyIcon />}
+          className="copyToClipboardButton"
+          variant="primary"
+          icon={<Icon glyph={Copy} size="md" />}
           onClick={() => window.api.systemInfo.copyToClipboard()}
         >
           {t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')}
