@@ -31,6 +31,9 @@ test('accepts Flatpak and Electron architecture names', () => {
 
 test('x86_64 keeps its SDK and runtime compatibility extensions', () => {
   const manifest = createManifest(getArchitecture('x86_64'), localSource)
+  assert(
+    manifest['finish-args'].includes('--env=APPIMAGE_EXTRACT_AND_RUN=1')
+  )
   assert.deepEqual(manifest['sdk-extensions'], [
     'org.freedesktop.Sdk.Compat.i386',
     'org.freedesktop.Sdk.Extension.toolchain-i386'
@@ -49,6 +52,9 @@ test('x86_64 keeps its SDK and runtime compatibility extensions', () => {
 
 test('aarch64 has native paths without unavailable x86 extensions', () => {
   const manifest = createManifest(getArchitecture('aarch64'), localSource)
+  assert(
+    manifest['finish-args'].includes('--env=APPIMAGE_EXTRACT_AND_RUN=1')
+  )
   assert(!manifest['sdk-extensions']?.length)
   assert(!Object.keys(manifest['add-extensions'] || {}).length)
   assert(
