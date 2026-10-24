@@ -28,7 +28,8 @@ import {
   HideWindowOnProtocolLaunch,
   ResetHeroic,
   GamePadDelayRepeat,
-  SteamGridDbApiKey
+  SteamGridDbApiKey,
+  LegendaryTimeout
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
 
@@ -197,6 +198,8 @@ export default function AdvancedSetting() {
       <HideWindowOnProtocolLaunch />
 
       {isLinux && <ShowValveProton />}
+
+      <LegendaryTimeout />
 
       <hr />
 
