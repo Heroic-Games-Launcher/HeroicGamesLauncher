@@ -142,6 +142,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { wineDownloaderInfoStore } from './wine/manager/utils'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -166,14 +167,25 @@ async function initializeWindow(): Promise<BrowserWindow> {
   setTimeout(async () => {
     // Will download Wine/GPTK if none was found
     const availableWine = await GlobalConfig.get().getAlternativeWine()
+    const installedWines = wineDownloaderInfoStore
+      .get('wine-releases', [])
+      .filter((wineInfo) => wineInfo.isInstalled)
+
     let shouldDownloadWine = !availableWine.length
 
     if (isMac && !isIntelMac) {
       const toolkitDownloaded = availableWine.some(
         (wine) => wine.type === 'toolkit'
       )
+      const crossoverDownloaded = availableWine.some(
+        (wine) => wine.type === 'crossover'
+      )
 
-      if (!toolkitDownloaded) {
+      if (
+        !toolkitDownloaded &&
+        !crossoverDownloaded &&
+        installedWines.length === 0
+      ) {
         shouldDownloadWine = true
       }
     }
