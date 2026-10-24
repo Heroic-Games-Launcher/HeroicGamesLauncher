@@ -701,7 +701,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
     if (command.subcommand) {
       const { legendaryTimeout } = GlobalConfig.get().getSettings()
       command['--api-timeout'] = legendaryTimeout
-      switch (options.subcommand) {
+      switch (command.subcommand) {
         case 'install':
         case 'download':
         case 'update':
