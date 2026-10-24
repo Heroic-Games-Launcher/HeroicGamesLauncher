@@ -17,7 +17,7 @@ import {
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
-import { existsSync, mkdirSync } from 'graceful-fs'
+import { existsSync, mkdirSync, statSync } from 'graceful-fs'
 import { join, dirname, isAbsolute } from 'path'
 
 import {
@@ -46,7 +46,7 @@ import { GlobalConfig } from './config'
 import { DXVK, runWineCommandOnGame, Winetricks } from './tools'
 import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
-import { spawn, spawnSync } from 'child_process'
+import { execFileSync, spawn, spawnSync } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
@@ -89,6 +89,13 @@ import {
   flatpakRuntimeVersion
 } from './constants/environment'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
+import { readFirstBytes } from './utils/filesystem/read_first_bytes'
+import { macGameBinary, shouldLaunchWithRosetta } from './utils/macos/mach'
+import {
+  ensureRosetta,
+  isRosettaMissingError,
+  ROSETTA_LAUNCH_PREFIX
+} from './utils/macos/rosetta'
 import { gameAnticheatInfo } from './anticheat/utils'
 
 import type { PartialDeep } from 'type-fest'
@@ -353,6 +360,10 @@ function filterGameSettingsForLog(
       delete gameSettings.gamescope.gameWidth
       delete gameSettings.gamescope.windowType
     }
+  }
+
+  if (!isMac || notNative) {
+    delete gameSettings.runWithRosetta
   }
 
   // remove settings that are not used on Linux
@@ -724,6 +735,28 @@ async function prepareLaunch(
     steamRuntime = [await getUmuPath()]
   }
 
+  let launchPrefix: string[] | undefined
+  if (isMac && !isIntelMac && isNative) {
+    const binary = macGameBinary(
+      gameInfo.install.install_path,
+      gameSettings.targetExe || gameInfo.install.executable,
+      readMacBundleExecutable
+    )
+    const header = await readBinaryHeader(binary)
+    if (shouldLaunchWithRosetta(header, !!gameSettings.runWithRosetta, true)) {
+      if (!(await ensureRosetta())) {
+        return {
+          success: false,
+          failureReason: i18next.t(
+            'box.error.rosetta',
+            'This game needs Rosetta, and Rosetta is not installed.'
+          )
+        }
+      }
+      launchPrefix = ROSETTA_LAUNCH_PREFIX
+    }
+  }
+
   return {
     success: true,
     rpcClient,
@@ -731,7 +764,40 @@ async function prepareLaunch(
     gameModeBin: gameModeBin ?? undefined,
     gameScopeCommand,
     steamRuntime,
+    launchPrefix,
     offlineMode
+  }
+}
+
+async function readBinaryHeader(
+  binary: string | undefined
+): Promise<Buffer | undefined> {
+  if (!binary) return undefined
+  try {
+    if (!statSync(binary).isFile()) return undefined
+    return await readFirstBytes(binary, 65536)
+  } catch {
+    return undefined
+  }
+}
+
+function readMacBundleExecutable(app: string): string | undefined {
+  try {
+    const name = execFileSync(
+      '/usr/bin/plutil',
+      [
+        '-extract',
+        'CFBundleExecutable',
+        'raw',
+        '-o',
+        '-',
+        join(app, 'Contents', 'Info.plist')
+      ],
+      { encoding: 'utf-8' }
+    ).trim()
+    return name || undefined
+  } catch {
+    return undefined
   }
 }
 
@@ -1796,7 +1862,7 @@ async function callRunner(
     .then(({ stdout, stderr }) => {
       return { stdout, stderr, fullCommand: safeCommand }
     })
-    .catch((error) => {
+    .catch(async (error) => {
       if (abortController.signal.aborted) {
         logInfo(['Abort command', `"${safeCommand}"`], runner.logPrefix)
 
@@ -1808,7 +1874,33 @@ async function callRunner(
         }
       }
 
-      errorHandler(error, appName, runner.name)
+      if (isMac && isRosettaMissingError(error)) {
+        if (await ensureRosetta()) {
+          showDialogBoxModalAuto({
+            title: i18next.t(
+              'box.info.rosetta-installed.title',
+              'Rosetta installed'
+            ),
+            message: i18next.t(
+              'box.info.rosetta-installed.message',
+              'Rosetta is now installed. Launch the game again to start it.'
+            ),
+            type: 'MESSAGE'
+          })
+        } else {
+          showDialogBoxModalAuto({
+            title: i18next.t('box.error.launchAborted', 'Launch aborted'),
+            message: i18next.t(
+              'box.error.rosetta',
+              'This game needs Rosetta, and Rosetta is not installed.'
+            ),
+            type: 'ERROR'
+          })
+          errorHandler(`${error}`, appName, runner.name)
+        }
+      } else {
+        errorHandler(error, appName, runner.name)
+      }
 
       logError(
         ['Error running', 'command', `"${safeCommand}":`, error],

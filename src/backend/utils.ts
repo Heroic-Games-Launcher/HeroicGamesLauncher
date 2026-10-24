@@ -70,6 +70,7 @@ import { getSystemInfo } from './utils/systeminfo'
 import { configStore } from './constants/key_value_stores'
 import { GITHUB_API } from './constants/urls'
 import { isLinux, isMac, isIntelMac, isWindows } from './constants/environment'
+import { ensureRosetta } from './utils/macos/rosetta'
 import {
   configPath,
   fixAsarPath,
@@ -1288,21 +1289,7 @@ export async function checkRosettaInstall() {
   )
 
   if (!result) {
-    // show a dialog saying that Heroic wont run without rosetta and add information on how to install it
-    await dialog.showMessageBox({
-      title: i18next.t('box.warning.rosetta.title', 'Rosetta not found'),
-      message: i18next.t(
-        'box.warning.rosetta.message',
-        'Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: "softwareupdate --install-rosetta" and restart Heroic. '
-      ),
-      buttons: ['OK'],
-      icon: windowIcon
-    })
-
-    logInfo(
-      'Rosetta is not available, install it with: softwareupdate --install-rosetta from the terminal',
-      LogPrefix.Backend
-    )
+    await ensureRosetta()
   }
 }
 

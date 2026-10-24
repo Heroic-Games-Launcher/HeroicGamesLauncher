@@ -310,7 +310,8 @@ export default class NileGameManager implements Game {
       mangoHudCommand,
       gameModeBin,
       gameScopeCommand,
-      steamRuntime
+      steamRuntime,
+      launchPrefix
     } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
 
     if (!launchPrepSuccess) {
@@ -340,13 +341,16 @@ export default class NileGameManager implements Game {
       ...getKnownFixesEnvVariables(this.id, 'nile')
     }
 
-    const wrappers = setupWrappers(
-      gameSettings,
-      mangoHudCommand,
-      gameModeBin,
-      gameScopeCommand,
-      steamRuntime?.length ? [...steamRuntime] : undefined
-    )
+    const wrappers = [
+      ...(launchPrefix ?? []),
+      ...setupWrappers(
+        gameSettings,
+        mangoHudCommand,
+        gameModeBin,
+        gameScopeCommand,
+        steamRuntime?.length ? [...steamRuntime] : undefined
+      )
+    ]
 
     let wineFlag: string[] = wrappers.length
       ? ['--wrapper', shlex.join(wrappers)]

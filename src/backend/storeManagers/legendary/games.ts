@@ -895,6 +895,7 @@ export default class LegendaryGame implements Game {
       gameModeBin,
       gameScopeCommand,
       steamRuntime,
+      launchPrefix,
       offlineMode
     } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
@@ -941,13 +942,16 @@ export default class LegendaryGame implements Game {
       }
     }
 
-    const wrappers = setupWrappers(
-      gameSettings,
-      mangoHudCommand,
-      gameModeBin,
-      gameScopeCommand,
-      steamRuntime?.length ? [...steamRuntime] : undefined
-    )
+    const wrappers = [
+      ...(launchPrefix ?? []),
+      ...setupWrappers(
+        gameSettings,
+        mangoHudCommand,
+        gameModeBin,
+        gameScopeCommand,
+        steamRuntime?.length ? [...steamRuntime] : undefined
+      )
+    ]
 
     let wineFlags: AllowedWineFlags = wrappers.length
       ? { '--wrapper': NonEmptyString.parse(shlex.join(wrappers)) }
