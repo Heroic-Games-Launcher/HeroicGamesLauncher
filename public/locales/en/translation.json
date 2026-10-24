@@ -119,6 +119,10 @@
             }
         },
         "info": {
+            "rosetta-installed": {
+                "message": "Rosetta is now installed. Launch the game again to start it.",
+                "title": "Rosetta installed"
+            },
             "update": {
                 "detail": "Do you want to download the update in the background?",
                 "detailNoAutoupdate": "Automatic updates are not supported for your packaging format. Please use your package manager to update.",
@@ -184,8 +188,8 @@
             "rosetta": {
                 "install": "Install Rosetta",
                 "later": "Not Now",
-                "message": "Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: \"softwareupdate --install-rosetta\" and restart Heroic. ",
-                "title": "Rosetta not found"
+                "message": "Intel games and Wine need Rosetta on this Mac. Heroic can install it now. macOS will ask for your password.",
+                "title": "Rosetta is not installed"
             },
             "sideload": {
                 "confirmExit": {

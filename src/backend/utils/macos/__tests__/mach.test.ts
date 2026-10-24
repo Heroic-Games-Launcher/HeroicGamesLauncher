@@ -33,11 +33,16 @@ describe('Rosetta launch decision', () => {
     expect(shouldLaunchWithRosetta(intel, true, false)).toBe(false)
   })
 
-  test('resolves the executable inside an app bundle', () => {
+  test('resolves the executable inside an app bundle regardless of trailing slash or case', () => {
     expect(
       macGameBinary('/Games', 'Resonance.app', (app) =>
         app.endsWith('Resonance.app') ? 'AGS' : undefined
       )
     ).toBe('/Games/Resonance.app/Contents/MacOS/AGS')
+    expect(
+      macGameBinary('/Games/Resonance.App/', '', (app) =>
+        app === '/Games/Resonance.App' ? 'AGS' : undefined
+      )
+    ).toBe('/Games/Resonance.App/Contents/MacOS/AGS')
   })
 })

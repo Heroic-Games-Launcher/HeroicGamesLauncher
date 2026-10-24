@@ -68,9 +68,11 @@ export function macGameBinary(
   if (installPath) candidates.push(installPath)
 
   for (const candidate of candidates) {
-    if (!candidate.endsWith('.app')) return candidate
-    const name = bundleExecutable(candidate)
-    if (name) return join(candidate, 'Contents', 'MacOS', name)
+    const cleaned = candidate.replace(/\/+$/, '')
+    if (!cleaned) continue
+    if (!cleaned.toLowerCase().endsWith('.app')) return cleaned
+    const name = bundleExecutable(cleaned)
+    if (name) return join(cleaned, 'Contents', 'MacOS', name)
   }
   return undefined
 }

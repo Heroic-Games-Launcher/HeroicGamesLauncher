@@ -17,7 +17,7 @@ import {
 // This handles launching games, prefix creation etc..
 
 import i18next from 'i18next'
-import { existsSync, mkdirSync } from 'graceful-fs'
+import { existsSync, mkdirSync, statSync } from 'graceful-fs'
 import { join, dirname, isAbsolute } from 'path'
 
 import {
@@ -89,6 +89,7 @@ import {
   flatpakRuntimeVersion
 } from './constants/environment'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
+import { readFirstBytes } from './utils/filesystem/read_first_bytes'
 import { macGameBinary, shouldLaunchWithRosetta } from './utils/macos/mach'
 import {
   ensureRosetta,
@@ -359,6 +360,10 @@ function filterGameSettingsForLog(
       delete gameSettings.gamescope.gameWidth
       delete gameSettings.gamescope.windowType
     }
+  }
+
+  if (!isMac || notNative) {
+    delete gameSettings.runWithRosetta
   }
 
   // remove settings that are not used on Linux
@@ -734,13 +739,10 @@ async function prepareLaunch(
   if (isMac && !isIntelMac && isNative) {
     const binary = macGameBinary(
       gameInfo.install.install_path,
-      gameInfo.install.executable,
+      gameSettings.targetExe || gameInfo.install.executable,
       readMacBundleExecutable
     )
-    const header =
-      binary && existsSync(binary)
-        ? readFileSync(binary).subarray(0, 65536)
-        : undefined
+    const header = await readBinaryHeader(binary)
     if (shouldLaunchWithRosetta(header, !!gameSettings.runWithRosetta, true)) {
       if (!(await ensureRosetta())) {
         return {
@@ -764,6 +766,18 @@ async function prepareLaunch(
     steamRuntime,
     launchPrefix,
     offlineMode
+  }
+}
+
+async function readBinaryHeader(
+  binary: string | undefined
+): Promise<Buffer | undefined> {
+  if (!binary) return undefined
+  try {
+    if (!statSync(binary).isFile()) return undefined
+    return await readFirstBytes(binary, 65536)
+  } catch {
+    return undefined
   }
 }
 
@@ -1861,7 +1875,29 @@ async function callRunner(
       }
 
       if (isMac && isRosettaMissingError(error)) {
-        await ensureRosetta()
+        if (await ensureRosetta()) {
+          showDialogBoxModalAuto({
+            title: i18next.t(
+              'box.info.rosetta-installed.title',
+              'Rosetta installed'
+            ),
+            message: i18next.t(
+              'box.info.rosetta-installed.message',
+              'Rosetta is now installed. Launch the game again to start it.'
+            ),
+            type: 'MESSAGE'
+          })
+        } else {
+          showDialogBoxModalAuto({
+            title: i18next.t('box.error.launchAborted', 'Launch aborted'),
+            message: i18next.t(
+              'box.error.rosetta',
+              'This game needs Rosetta, and Rosetta is not installed.'
+            ),
+            type: 'ERROR'
+          })
+          errorHandler(`${error}`, appName, runner.name)
+        }
       } else {
         errorHandler(error, appName, runner.name)
       }
