@@ -155,7 +155,10 @@ async function updateWineVersionInfos(
   // In offline mode we never call out, we just use the local cache.
   if (fetch && getNetworkMode() === 'offline') {
     fetch = false
-    logInfo('Offline mode, using cached wine releases', LogPrefix.WineDownloader)
+    logInfo(
+      'Offline mode, using cached wine releases',
+      LogPrefix.WineDownloader
+    )
   }
   if (fetch) {
     logInfo('Fetching upstream information...', LogPrefix.WineDownloader)

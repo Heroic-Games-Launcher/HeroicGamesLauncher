@@ -151,10 +151,7 @@ export const initOnlineMonitor = () => {
 
   // the frontend asks for the current network mode (auto/online/offline).
   // `mode` is read lazily so the answer is always up to date.
-  addHandler(
-    'getForkMode',
-    (): NetworkMode => getNetworkMode()
-  )
+  addHandler('getForkMode', (): NetworkMode => getNetworkMode())
 
   addListener('set-connectivity-online', () => {
     setStatus('online')

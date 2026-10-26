@@ -99,7 +99,11 @@ interface StateProps {
   titlesAlwaysVisible: boolean
   sidebarCollapsed: boolean
   activeController: string
-  connectivity: { status: ConnectivityStatus; retryIn: number; mode: NetworkMode }
+  connectivity: {
+    status: ConnectivityStatus
+    retryIn: number
+    mode: NetworkMode
+  }
   forkMode: NetworkMode
   dialogModalOptions: DialogModalOptions
   externalLinkDialogOptions: ExternalLinkDialogOptions
@@ -1033,10 +1037,11 @@ class GlobalState extends PureComponent<Props> {
     })
 
     // listen for the network mode being changed (auto/online/offline)
-    this.removeNetworkModeChangedListener =
-      window.api.handleNetworkModeChanged((_, mode) => {
+    this.removeNetworkModeChangedListener = window.api.handleNetworkModeChanged(
+      (_, mode) => {
         this.setState({ forkMode: mode })
-      })
+      }
+    )
 
     // get the current status (includes the mode) and the current mode
     window.api
@@ -1045,9 +1050,7 @@ class GlobalState extends PureComponent<Props> {
         this.setState({ connectivity, forkMode: connectivity.mode })
       )
 
-    window.api
-      .getForkMode()
-      .then((mode) => this.setState({ forkMode: mode }))
+    window.api.getForkMode().then((mode) => this.setState({ forkMode: mode }))
 
     this.setPrimaryFontFamily(this.state.primaryFontFamily, false)
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)

@@ -104,7 +104,11 @@ export interface ContextType {
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
   activeController: string
-  connectivity: { status: ConnectivityStatus; retryIn: number; mode: NetworkMode }
+  connectivity: {
+    status: ConnectivityStatus
+    retryIn: number
+    mode: NetworkMode
+  }
   forkMode: NetworkMode
   setSecondaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
   setPrimaryFontFamily: (newFontFamily: string, saveToFile?: boolean) => void
