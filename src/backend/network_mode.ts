@@ -15,9 +15,8 @@
 import { readFileSync } from 'graceful-fs'
 import { configPath } from 'backend/constants/paths'
 import { logDebug, LogPrefix } from 'backend/logger'
+import { NetworkMode } from 'common/types'
 import { isOnline } from './online_monitor'
-
-export type NetworkMode = 'auto' | 'online' | 'offline'
 
 export const defaultNetworkMode: NetworkMode = 'auto'
 
