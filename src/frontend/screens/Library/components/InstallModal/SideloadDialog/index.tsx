@@ -19,7 +19,7 @@ import {
   removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
@@ -70,6 +70,8 @@ export default function SideloadDialog({
   const [addingApp, setAddingApp] = useState(false)
   const [sgdbTarget, setSgdbTarget] = useState<'cover' | 'square' | null>(null)
   const [hasSgdbKey, setHasSgdbKey] = useState(false)
+  const defaultTitle = useRef(title)
+  const lastImageSearchTitle = useRef<string | null>(null)
   const editMode = Boolean(appName)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
@@ -82,6 +84,10 @@ export default function SideloadDialog({
   function handleTitle(value: string) {
     value = removeSpecialcharacters(value)
     setTitle(value)
+    if (!value) {
+      setImageUrl('')
+      lastImageSearchTitle.current = null
+    }
   }
 
   const appPlatform = gameInfo.install?.platform || platformToInstall
@@ -131,7 +137,20 @@ export default function SideloadDialog({
     }
   }, [])
 
+  function clearTitleInput() {
+    if (title === defaultTitle.current) {
+      setTitle('')
+      setImageUrl('')
+      lastImageSearchTitle.current = null
+    }
+  }
+
   async function searchImage() {
+    if (!title || title === defaultTitle.current) return
+    if (title === lastImageSearchTitle.current) return
+
+    lastImageSearchTitle.current = title
+
     if (hasSgdbKey) {
       setSgdbTarget('square')
       return
@@ -158,6 +177,15 @@ export default function SideloadDialog({
     } finally {
       setSearching(false)
     }
+  }
+
+  function handleTitleBlur() {
+    if (!title) {
+      setTitle(defaultTitle.current)
+      return
+    }
+
+    void searchImage()
   }
 
   async function handleSelectLocalImage(target: 'cover' | 'square') {
@@ -412,8 +440,9 @@ export default function SideloadDialog({
                     'sideload.placeholder.title',
                     'Add a title to your Game/App'
                   )}
+                  onClick={() => clearTitleInput()}
                   onChange={(newValue) => handleTitle(newValue)}
-                  onBlur={async () => searchImage()}
+                  onBlur={handleTitleBlur}
                   htmlId="sideload-title"
                   value={title}
                   maxLength={40}
