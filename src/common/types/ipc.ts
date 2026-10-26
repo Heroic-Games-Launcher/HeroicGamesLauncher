@@ -6,8 +6,10 @@ import type {
   AntiCheatInfo,
   AppSettings,
   ButtonOptions,
+  ConnectivityState,
   ConnectivityStatus,
   DialogType,
+  NetworkMode,
   DiskSpaceData,
   DMQueueElement,
   DownloadManagerState,
@@ -297,10 +299,8 @@ interface AsyncIPCFunctions {
     finished: DMQueueElement[]
     state: DownloadManagerState
   }
-  'get-connectivity-status': () => {
-    status: ConnectivityStatus
-    retryIn: number
-  }
+  'get-connectivity-status': () => ConnectivityState
+  getForkMode: () => NetworkMode
   getSystemInfo: (cache?: boolean) => Promise<SystemInformation>
   removeRecent: (appName: string) => Promise<void>
   getWikiGameInfo: (
@@ -391,10 +391,8 @@ interface FrontendMessages {
   fullscreen: (status: boolean) => void
   refreshLibrary: (runner?: Runner) => void
   openScreen: (screen: string) => void
-  'connectivity-changed': (status: {
-    status: ConnectivityStatus
-    retryIn: number
-  }) => void
+  'connectivity-changed': (status: ConnectivityState) => void
+  'networkMode-changed': (mode: NetworkMode) => void
   launchGame: (appName: string, runner: Runner, args: string[]) => void
   installGame: (appName: string, runner: Runner) => void
   recentGamesChanged: (newRecentGames: RecentGame[]) => void

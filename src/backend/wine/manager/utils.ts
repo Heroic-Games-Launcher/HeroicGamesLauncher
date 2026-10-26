@@ -25,6 +25,7 @@ import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from '../../config'
 import { join } from 'path'
 import { backendEvents } from 'backend/backend_events'
+import { getNetworkMode } from '../../network_mode'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
@@ -151,6 +152,11 @@ async function updateWineVersionInfos(
     (!!release.installDir && existsSync(release.installDir))
 
   logInfo('Updating wine versions info', LogPrefix.WineDownloader)
+  // In offline mode we never call out, we just use the local cache.
+  if (fetch && getNetworkMode() === 'offline') {
+    fetch = false
+    logInfo('Offline mode, using cached wine releases', LogPrefix.WineDownloader)
+  }
   if (fetch) {
     logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
 
@@ -248,7 +254,10 @@ async function updateWineVersionInfos(
   }
 
   logInfo('wine versions updated', LogPrefix.WineDownloader)
-  sendFrontendMessage('wineVersionsUpdated')
+  if (fetch) {
+    // only tell the frontend the list changed when we actually fetched new data
+    sendFrontendMessage('wineVersionsUpdated')
+  }
   return releases
 }
 

@@ -694,6 +694,7 @@
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com and{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
+        "offline-mode": "Offline Mode (no online checks)",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
@@ -955,6 +956,13 @@
         "maxworkers": "Maximum Number of Workers when downloading",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "msync": "Enable Msync",
+        "networkModeLabel": "Online/Offline Mode",
+        "networkMode": {
+            "_desc": "Controls when Heroic performs online checks (launcher self-updates, wine/tool release lookups, Winetricks and DXVK refresh, default wine download).",
+            "auto": "Auto (follow connection)",
+            "online": "Online (always check for updates)",
+            "offline": "Offline (never check for updates)"
+        },
         "no-tray-icon": "Hide System Tray Icon (requires restart)",
         "nvidiaprime": {
             "description": "Force use of NVIDIA Optimus or AMD Dynamic Switchable Graphics dGPU. ONLY use this for OpenGL and Vulkan games."
