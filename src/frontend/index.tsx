@@ -2,7 +2,7 @@ import { I18nextProvider, initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
 import { lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import i18next from 'i18next'
+import i18next, { Resource, ResourceLanguage } from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
 import './index.scss'
@@ -58,8 +58,7 @@ const App = lazy(async () => import('./App'))
 // network connection, even if the initial i18n load would otherwise hang.
 const BUNDLED_NAMESPACES = ['translation', 'gamepage', 'login']
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const bundledResources: Record<string, Record<string, any>> = {}
+const bundledResources: Resource = {}
 
 // Fetch with a hard timeout so a stalled local request can never block
 // i18next.init() (and therefore the first paint) forever.
@@ -71,8 +70,8 @@ function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   )
 }
 
-async function preloadBundledLanguage(lng: string): Promise<Record<string, any>> {
-  const data: Record<string, any> = {}
+async function preloadBundledLanguage(lng: string): Promise<ResourceLanguage> {
+  const data: ResourceLanguage = {}
   for (const ns of BUNDLED_NAMESPACES) {
     try {
       const res = await fetchWithTimeout(`locales/${lng}/${ns}.json`, 4000)

@@ -30,7 +30,6 @@ import { execOptions } from 'backend/constants/others'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
-import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import {
   runWineCommand,
