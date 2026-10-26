@@ -19,7 +19,13 @@ import {
   removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
