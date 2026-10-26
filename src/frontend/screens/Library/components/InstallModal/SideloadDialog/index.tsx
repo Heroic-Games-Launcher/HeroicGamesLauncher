@@ -93,7 +93,7 @@ export default function SideloadDialog({
   const appPlatform = gameInfo.install?.platform || platformToInstall
 
   useEffect(() => {
-    window.api.steamgriddb.hasApiKey().then(setHasSgdbKey)
+    void window.api.steamgriddb.hasApiKey().then(setHasSgdbKey)
 
     if (appName) {
       void getGameInfo(appName, 'sideload').then((info) => {
@@ -135,7 +135,7 @@ export default function SideloadDialog({
     } else {
       setApp_name(short.generate().toString())
     }
-  }, [])
+  }, [appName, setTitle])
 
   function clearTitleInput() {
     if (title === defaultTitle.current) {
@@ -173,7 +173,7 @@ export default function SideloadDialog({
         throw new Error('Fetch failed')
       }
     } catch (error) {
-      window.api.logError(`${error}`)
+      window.api.logError(String(error))
     } finally {
       setSearching(false)
     }
