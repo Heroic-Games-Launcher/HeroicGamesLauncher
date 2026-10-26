@@ -15,6 +15,7 @@ import {
   MaxWorkers,
   MinimizeOnGameLaunch,
   Shortcuts,
+  OnlineMode,
   StartInConsoleMode,
   TraySettings,
   UseDarkTrayIcon,
@@ -44,6 +45,8 @@ export default function GeneralSettings() {
       <EgsSettings />
 
       <CheckUpdatesOnStartup />
+
+      <OnlineMode />
 
       <AutoUpdateGames />
 

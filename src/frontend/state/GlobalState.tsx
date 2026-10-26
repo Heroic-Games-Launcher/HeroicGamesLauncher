@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 
 import {
   ConnectivityStatus,
+  NetworkMode,
   FavouriteGame,
   GameInfo,
   GameStatus,
@@ -98,7 +99,12 @@ interface StateProps {
   titlesAlwaysVisible: boolean
   sidebarCollapsed: boolean
   activeController: string
-  connectivity: { status: ConnectivityStatus; retryIn: number }
+  connectivity: {
+    status: ConnectivityStatus
+    retryIn: number
+    mode: NetworkMode
+  }
+  forkMode: NetworkMode
   dialogModalOptions: DialogModalOptions
   externalLinkDialogOptions: ExternalLinkDialogOptions
   sideloadedLibrary: GameInfo[]
@@ -143,6 +149,8 @@ const applyGameOverrides = (
 ) => attachGameOverrides(lib, overrides)
 
 class GlobalState extends PureComponent<Props> {
+  private removeNetworkModeChangedListener: (() => void) | undefined
+
   loadLegendaryLibrary = (
     overrides: Record<string, GameOverride> = currentOverrides()
   ): Array<GameInfo> => {
@@ -245,7 +253,8 @@ class GlobalState extends PureComponent<Props> {
     allTilesInColor: configStore.get('allTilesInColor', false),
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     activeController: '',
-    connectivity: { status: 'offline', retryIn: 0 },
+    connectivity: { status: 'offline', retryIn: 0, mode: 'auto' },
+    forkMode: 'auto',
     showInstallModal: {
       show: false,
       appName: '',
@@ -1027,10 +1036,21 @@ class GlobalState extends PureComponent<Props> {
       this.setState({ connectivity })
     })
 
-    // get the current status
+    // listen for the network mode being changed (auto/online/offline)
+    this.removeNetworkModeChangedListener = window.api.handleNetworkModeChanged(
+      (_, mode) => {
+        this.setState({ forkMode: mode })
+      }
+    )
+
+    // get the current status (includes the mode) and the current mode
     window.api
       .getConnectivityStatus()
-      .then((connectivity) => this.setState({ connectivity }))
+      .then((connectivity) =>
+        this.setState({ connectivity, forkMode: connectivity.mode })
+      )
+
+    window.api.getForkMode().then((mode) => this.setState({ forkMode: mode }))
 
     this.setPrimaryFontFamily(this.state.primaryFontFamily, false)
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)

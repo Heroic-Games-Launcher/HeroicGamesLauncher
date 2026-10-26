@@ -2,7 +2,7 @@ import { I18nextProvider, initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
 import { lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import i18next from 'i18next'
+import i18next, { Resource, ResourceLanguage } from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
 import './index.scss'
@@ -49,86 +49,146 @@ window.api
   .then(window.setCustomCSS)
   .catch(() => {})
 
-i18next
-  // load translation using http -> see /public/locales
-  // learn more: https://github.com/i18next/i18next-http-backend
-  .use(Backend)
-  // detect user language
-  // learn more: https://github.com/i18next/i18next-browser-languageDetector
-  .use(initReactI18next)
-  .init({
-    returnEmptyString: false,
-    returnNull: false,
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false
-    },
-    lng: languageCode,
-    react: {
-      useSuspense: true
-    },
-    supportedLngs: [
-      'ar',
-      'az',
-      'be',
-      'bg',
-      'bs',
-      'ca',
-      'cs',
-      'de',
-      'el',
-      'en',
-      'es',
-      'et',
-      'eu',
-      'fa',
-      'fi',
-      'fr',
-      'ga',
-      'gl',
-      'he',
-      'hr',
-      'hu',
-      'ja',
-      'ko',
-      'lt',
-      'id',
-      'it',
-      'ml',
-      'nb_NO',
-      'nl',
-      'pl',
-      'pt',
-      'pt_BR',
-      'ro',
-      'ru',
-      'sr',
-      'sk',
-      'sv',
-      'ta',
-      'tr',
-      'uk',
-      'vi',
-      'zh_Hans',
-      'zh_Hant'
-    ]
-  })
-
 const container = document.getElementById('root')
 const root = createRoot(container!) // createRoot(container!) if you use TypeScript
 const App = lazy(async () => import('./App'))
 
-root.render(
-  // <React.StrictMode>
-  <GlobalState>
-    <I18nextProvider i18n={i18next}>
-      <Suspense fallback={<Loading />}>
-        <App />
-      </Suspense>
-    </I18nextProvider>
-  </GlobalState>
-  // </React.StrictMode>
-)
+// Namespaces the app actually uses. Preloading these for the active language
+// (and the English fallback) lets the UI render immediately and without a
+// network connection, even if the initial i18n load would otherwise hang.
+const BUNDLED_NAMESPACES = ['translation', 'gamepage', 'login']
+
+const bundledResources: Resource = {}
+
+// Fetch with a hard timeout so a stalled local request can never block
+// i18next.init() (and therefore the first paint) forever.
+function fetchWithTimeout(url: string, ms: number): Promise<Response> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), ms)
+  return fetch(url, { signal: controller.signal }).finally(() =>
+    clearTimeout(timer)
+  )
+}
+
+async function preloadBundledLanguage(lng: string): Promise<ResourceLanguage> {
+  const data: ResourceLanguage = {}
+  for (const ns of BUNDLED_NAMESPACES) {
+    try {
+      const res = await fetchWithTimeout(`locales/${lng}/${ns}.json`, 4000)
+      if (res.ok) data[ns] = await res.json()
+    } catch {
+      // ignore; the http backend will still attempt to load this namespace
+    }
+  }
+  return data
+}
+
+// i18next resolves a stored language code to a supported one (e.g. fr-CA ->
+// fr, en-GB -> en). Preload both the raw code and its base form so the bundle
+// i18next actually looks up is always present.
+function resolvedLanguageCodes(code: string): string[] {
+  const base = code.split('-')[0].toLowerCase()
+  const codes = new Set<string>([code, base, 'en'])
+  return [...codes]
+}
+
+// The whole tree (including the <Loading/> fallback) suspends on i18next via
+// react-i18next's `useSuspense`. If the initial resource load ever stalls
+// (e.g. a network adapter is present but has no usable route) the UI would be
+// left frozen before it finishes initializing. Preloading the active language
+// into i18next's resource store guarantees those namespaces are already
+// loaded, so the Suspense boundary releases right away and first paint no
+// longer depends on the network.
+async function bootstrapI18n() {
+  await Promise.all(
+    resolvedLanguageCodes(languageCode).map(async (lng) => {
+      bundledResources[lng] = await preloadBundledLanguage(lng)
+    })
+  )
+
+  i18next
+    // load translation using http -> see /public/locales
+    // learn more: https://github.com/i18next/i18next-http-backend
+    .use(Backend)
+    // detect user language
+    // learn more: https://github.com/i18next/i18next-browser-languageDetector
+    .use(initReactI18next)
+    .init({
+      returnEmptyString: false,
+      returnNull: false,
+      fallbackLng: 'en',
+      interpolation: {
+        escapeValue: false
+      },
+      lng: languageCode,
+      react: {
+        useSuspense: true
+      },
+      // the active language (and English fallback) are preloaded above, so
+      // they never need a network fetch; other languages still load on demand
+      resources: bundledResources,
+      partialBundledLanguages: true,
+      supportedLngs: [
+        'ar',
+        'az',
+        'be',
+        'bg',
+        'bs',
+        'ca',
+        'cs',
+        'de',
+        'el',
+        'en',
+        'es',
+        'et',
+        'eu',
+        'fa',
+        'fi',
+        'fr',
+        'ga',
+        'gl',
+        'he',
+        'hr',
+        'hu',
+        'ja',
+        'ko',
+        'lt',
+        'id',
+        'it',
+        'ml',
+        'nb_NO',
+        'nl',
+        'pl',
+        'pt',
+        'pt_BR',
+        'ro',
+        'ru',
+        'sr',
+        'sk',
+        'sv',
+        'ta',
+        'tr',
+        'uk',
+        'vi',
+        'zh_Hans',
+        'zh_Hant'
+      ]
+    })
+
+  root.render(
+    // <React.StrictMode>
+    <GlobalState>
+      <I18nextProvider i18n={i18next}>
+        <Suspense fallback={<Loading />}>
+          <App />
+        </Suspense>
+      </I18nextProvider>
+    </GlobalState>
+    // </React.StrictMode>
+  )
+}
+
+void bootstrapI18n()
 
 // helper function to set the theme class and load custom css if needed
 window.setTheme = async (themeClass: string) => {

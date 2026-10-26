@@ -88,8 +88,11 @@ export type ExperimentalFeatures = {
   zoomPlatform?: boolean
 }
 
+export type NetworkMode = 'auto' | 'online' | 'offline'
+
 export interface AppSettings extends GameSettings {
   analyticsOptIn: boolean
+  networkMode: NetworkMode
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   addSteamShortcuts: boolean
@@ -613,6 +616,12 @@ export type InstallPlatform =
   | 'Browser'
 
 export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
+
+export interface ConnectivityState {
+  status: ConnectivityStatus
+  retryIn: number
+  mode: NetworkMode
+}
 
 export interface Tools {
   exe?: string

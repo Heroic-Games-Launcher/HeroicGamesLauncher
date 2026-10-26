@@ -6,16 +6,21 @@ import './index.scss'
 
 const OfflineMessage = () => {
   const { t } = useTranslation()
-  const { connectivity } = useContext(ContextProvider)
+  const { connectivity, forkMode } = useContext(ContextProvider)
+
+  const isOffline = forkMode === 'offline' || connectivity.status === 'offline'
+  const isChecking = connectivity.status === 'check-online'
 
   // render nothing if online
-  if (connectivity.status === 'online') {
+  if (!isOffline && !isChecking) {
     return <></>
   }
 
   let content = t('offline-message.offline', 'Offline')
 
-  if (connectivity.status === 'check-online') {
+  if (forkMode === 'offline') {
+    content = t('offline-message.offline-mode', 'Offline Mode (manual)')
+  } else if (connectivity.status === 'check-online') {
     if (connectivity.retryIn) {
       content = t('offline-message.offline-retry-in', {
         defaultValue: 'Offline. Retrying in {{seconds}} seconds.',

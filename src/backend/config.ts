@@ -21,6 +21,7 @@ import {
 import { backendEvents } from './backend_events'
 import { configStore } from './constants/key_value_stores'
 import { isFlatpak, isLinux, isMac, isWindows } from './constants/environment'
+import { defaultNetworkMode } from './network_mode'
 import {
   configPath,
   sharedWinePrefix,
@@ -326,6 +327,7 @@ class GlobalConfigV0 extends GlobalConfig {
 
     const settings: Partial<AppSettings> = {
       analyticsOptIn: false,
+      networkMode: defaultNetworkMode,
       checkUpdatesInterval: 10,
       enableUpdates: false,
       addDesktopShortcuts: false,

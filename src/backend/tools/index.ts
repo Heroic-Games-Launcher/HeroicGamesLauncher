@@ -30,7 +30,6 @@ import { execOptions } from 'backend/constants/others'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
-import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import {
   runWineCommand,
@@ -47,6 +46,7 @@ import {
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
 import { libraryManagerMap } from '../storeManagers'
+import { shouldRunOnlineChecks } from '../network_mode'
 import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
@@ -165,9 +165,9 @@ export const DXVK = {
     if (isWindows) {
       return
     }
-    if (!isOnline()) {
+    if (!shouldRunOnlineChecks()) {
       logWarning(
-        'App offline, skipping possible DXVK update.',
+        'Offline, skipping possible DXVK update.',
         LogPrefix.ToolInstaller
       )
       return
@@ -536,7 +536,7 @@ export const Winetricks = {
       'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
     const path = `${toolsPath}/winetricks`
 
-    if (!isOnline()) {
+    if (!shouldRunOnlineChecks()) {
       return
     }
 

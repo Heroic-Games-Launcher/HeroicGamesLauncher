@@ -22,6 +22,7 @@ import {
 import 'backend/updater'
 import 'backend/discounts'
 import { autoUpdater } from 'electron-updater'
+import { shouldRunOnlineChecks } from './network_mode'
 import { cpus } from 'os'
 import { existsSync, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
@@ -247,7 +248,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
       join(publicDir, 'index.html'),
       startHash ? { hash: startHash } : undefined
     )
-    if (globalConf.checkForUpdatesOnStartup) {
+    if (globalConf.checkForUpdatesOnStartup && shouldRunOnlineChecks()) {
       autoUpdater.checkForUpdates()
     }
   }
@@ -420,7 +421,10 @@ if (!gotTheLock) {
       (settings.startInTray && !settings.noTrayIcon)
     if (!headless) {
       const isWayland = Boolean(process.env.WAYLAND_DISPLAY)
+      let windowShown = false
       const showWindow = () => {
+        if (windowShown || mainWindow.isDestroyed()) return
+        windowShown = true
         const props = configStore.get_nodefault('window-props')
         mainWindow.show()
         // Apply maximize only if we show the window
@@ -434,6 +438,9 @@ if (!gotTheLock) {
       } else {
         mainWindow.once('ready-to-show', showWindow)
       }
+      // Safety net: never leave the window hidden if the show event never
+      // fires (e.g. a stalled first paint while there is no network).
+      setTimeout(showWindow, 5000)
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
@@ -656,7 +663,7 @@ addHandler('showUpdateSetting', () => !isFlatpak)
 
 addHandler('getLatestReleases', async () => {
   const { checkForUpdatesOnStartup } = GlobalConfig.get().getSettings()
-  if (checkForUpdatesOnStartup) {
+  if (checkForUpdatesOnStartup && shouldRunOnlineChecks()) {
     return getLatestReleases()
   } else {
     return []
@@ -664,6 +671,9 @@ addHandler('getLatestReleases', async () => {
 })
 
 addHandler('getCurrentChangelog', async () => {
+  if (!shouldRunOnlineChecks()) {
+    return null
+  }
   return getCurrentChangelog()
 })
 
