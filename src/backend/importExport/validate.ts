@@ -48,7 +48,8 @@ const BackupManifestSchema = z.object({
     themesIncluded: z.boolean(),
     wineVersions: z.number(),
     sideloadGames: z.number(),
-    categories: z.number().optional()
+    categories: z.number().optional(),
+    playtimeGames: z.number().optional()
   })
 })
 

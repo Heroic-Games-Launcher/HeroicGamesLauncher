@@ -77,6 +77,14 @@ export default function StepSummary({ validation, currentPlatform }: Props) {
             <dd>{manifest.counts.categories ?? 0}</dd>
           </div>
         )}
+        {manifest.stages.includes('playtime') && (
+          <div>
+            <dt>
+              {t('import-export.stage.playtime', 'Playtime and play history')}
+            </dt>
+            <dd>{manifest.counts.playtimeGames ?? 0}</dd>
+          </div>
+        )}
       </dl>
       {!platformMatches && (
         <div className="ImportExportWizard__warningCard">

@@ -13,6 +13,8 @@ interface Props {
   setOverwriteGlobal: (v: boolean) => void
   includeCategories: boolean
   setIncludeCategories: (v: boolean) => void
+  includePlaytime: boolean
+  setIncludePlaytime: (v: boolean) => void
 }
 
 export default function StepGlobalSettings({
@@ -22,7 +24,9 @@ export default function StepGlobalSettings({
   overwriteGlobal,
   setOverwriteGlobal,
   includeCategories,
-  setIncludeCategories
+  setIncludeCategories,
+  includePlaytime,
+  setIncludePlaytime
 }: Props) {
   const { t } = useTranslation()
   const { manifest } = validation
@@ -93,6 +97,28 @@ export default function StepGlobalSettings({
             {t(
               'import-export.step3.categoriesHint',
               'Replaces your current custom categories with the ones from the backup.'
+            )}
+          </p>
+        </div>
+      )}
+      {manifest.stages.includes('playtime') && (
+        <div className="ImportExportWizard__categoriesToggle">
+          <ToggleSwitch
+            htmlId="ie-include-playtime"
+            title={t(
+              'import-export.step3.playtime',
+              'Import playtime and play history ({{count}} games)',
+              {
+                count: manifest.counts.playtimeGames ?? 0
+              }
+            )}
+            value={includePlaytime}
+            handleChange={() => setIncludePlaytime(!includePlaytime)}
+          />
+          <p className="ImportExportWizard__hint">
+            {t(
+              'import-export.step3.playtimeHint',
+              'Updates local play history with the data in the backup; other games are unchanged.'
             )}
           </p>
         </div>

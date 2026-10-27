@@ -3,6 +3,7 @@ import type { Runner } from '../types'
 export type HeroicBackupStageId =
   | 'globalSettings'
   | 'perGameSettings'
+  | 'playtime'
   | 'credentials'
   | 'libraryCache'
   | 'wineMetadata'
@@ -26,6 +27,7 @@ export interface HeroicBackupManifest {
     wineVersions: number
     sideloadGames: number
     categories?: number
+    playtimeGames?: number
   }
 }
 

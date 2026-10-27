@@ -49,7 +49,8 @@ import {
 } from 'backend/wine/manager/utils'
 import {
   configStore,
-  importExportRollbackStore
+  importExportRollbackStore,
+  tsStore
 } from 'backend/constants/key_value_stores'
 import { GlobalConfig } from 'backend/config'
 
@@ -57,6 +58,7 @@ import { exportHeroicBackup } from './export'
 import { isHeroicBackupManifest } from './validate'
 import { BACKUP_FORMAT_VERSION, BACKUP_PATHS } from './constants'
 import { sourcePaths } from './paths'
+import { countPlaytimeGames, isPlaytimeData, mergePlaytime } from './playtime'
 
 const ROLLBACK_FILENAME = 'heroic-import-rollback.zip'
 
@@ -629,6 +631,24 @@ function applyCategories(zip: AdmZip): HeroicApplyStageResult {
   }
 }
 
+function applyPlaytime(zip: AdmZip, restore = false): HeroicApplyStageResult {
+  const entry = zip.getEntry(BACKUP_PATHS.playtime.file)
+  if (!entry) return { stage: 'playtime', ok: true, message: 'Not in backup' }
+
+  const data = safeJsonFromEntry<unknown>(zip, BACKUP_PATHS.playtime.file)
+  if (!isPlaytimeData(data)) throw new Error('Invalid playtime data in backup.')
+
+  // Keep unrelated local games during import, but restore the exact snapshot
+  // during rollback (including removing newly imported games).
+  const timestamps = restore ? data : mergePlaytime(tsStore.raw_store, data)
+  tsStore.replace(timestamps as typeof tsStore.raw_store)
+  return {
+    stage: 'playtime',
+    ok: true,
+    message: `${countPlaytimeGames(data)} game(s)`
+  }
+}
+
 interface WineImportTracker {
   total: number
   pending: Set<string>
@@ -839,6 +859,9 @@ async function doApplyHeroicBackup(
     }
     if (options.stages.includes('perGameSettings')) {
       stages.push(applyPerGameSettings(zip, options, rollbackMode))
+    }
+    if (options.stages.includes('playtime')) {
+      stages.push(applyPlaytime(zip, rollbackMode))
     }
     if (options.stages.includes('credentials')) {
       stages.push(await applyCredentials(zip, options, warnings, rollbackMode))

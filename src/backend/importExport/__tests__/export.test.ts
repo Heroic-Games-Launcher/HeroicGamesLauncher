@@ -48,8 +48,20 @@ const mockConfigStore = {
   set: jest.fn(),
   delete: jest.fn()
 }
+const mockTimestamps = {
+  game1: {
+    firstPlayed: '2026-01-01T00:00:00.000Z',
+    lastPlayed: '2026-04-01T00:00:00.000Z',
+    totalPlayed: 123
+  },
+  namespace: {
+    game2: { totalPlayed: 15 },
+    game3: { firstPlayed: '2026-01-01' }
+  }
+}
 jest.mock('backend/constants/key_value_stores', () => ({
-  configStore: mockConfigStore
+  configStore: mockConfigStore,
+  tsStore: { raw_store: mockTimestamps }
 }))
 
 jest.mock('backend/storeManagers', () => {
@@ -313,7 +325,8 @@ describe('exportHeroicBackup', () => {
         'credentials',
         'libraryCache',
         'sideloadLibrary',
-        'wineMetadata'
+        'wineMetadata',
+        'playtime'
       ]
     })
 
@@ -357,6 +370,11 @@ describe('exportHeroicBackup', () => {
 
     // Wine
     expect(zip.getEntry(BACKUP_PATHS.wineMetadata.store)).toBeTruthy()
+
+    expect(
+      JSON.parse(zip.getEntry(BACKUP_PATHS.playtime.file)!.getData().toString())
+    ).toEqual(mockTimestamps)
+    expect(result.manifest?.counts.playtimeGames).toBe(3)
 
     // Manifest
     const manifestEntry = zip.getEntry(BACKUP_PATHS.manifest)
@@ -403,6 +421,7 @@ describe('exportHeroicBackup', () => {
     expect(zip.getEntry(BACKUP_PATHS.credentials.legendaryUser)).toBeFalsy()
     expect(zip.getEntry(BACKUP_PATHS.libraryCache.legendaryLibrary)).toBeFalsy()
     expect(zip.getEntry(BACKUP_PATHS.categories.file)).toBeFalsy()
+    expect(zip.getEntry(BACKUP_PATHS.playtime.file)).toBeFalsy()
   })
 
   it('exports custom categories with a count in the manifest', async () => {

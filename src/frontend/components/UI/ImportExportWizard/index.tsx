@@ -69,6 +69,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   const [overwriteGlobal, setOverwriteGlobal] = useState(false)
   const [includeGlobal, setIncludeGlobal] = useState(true)
   const [includeCategories, setIncludeCategories] = useState(true)
+  const [includePlaytime, setIncludePlaytime] = useState(true)
   const [includedApps, setIncludedApps] = useState<Set<string>>(new Set())
   const [appFilter, setAppFilter] = useState('')
   const [includedCredentials, setIncludedCredentials] =
@@ -98,6 +99,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
       setOverwriteGlobal(false)
       setIncludeGlobal(true)
       setIncludeCategories(true)
+      setIncludePlaytime(true)
       setIncludedCredentials(DEFAULT_CREDENTIALS)
       setDownloadMissingGames(true)
     }
@@ -136,6 +138,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     return validation.manifest.stages.filter((s) => {
       if (s === 'globalSettings') return includeGlobal
       if (s === 'categories') return includeCategories
+      if (s === 'playtime') return includePlaytime
       if (s === 'credentials') {
         return Object.values(includedCredentials).some(Boolean)
       }
@@ -146,6 +149,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     validation,
     includeGlobal,
     includeCategories,
+    includePlaytime,
     includedApps,
     includedCredentials
   ])
@@ -333,6 +337,8 @@ export default function ImportExportWizard({ open, onClose }: Props) {
               setOverwriteGlobal={setOverwriteGlobal}
               includeCategories={includeCategories}
               setIncludeCategories={setIncludeCategories}
+              includePlaytime={includePlaytime}
+              setIncludePlaytime={setIncludePlaytime}
             />
           )}
           {step === 3 && validation && (

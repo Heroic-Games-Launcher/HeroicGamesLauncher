@@ -11,6 +11,7 @@ export function stageLabels(
       'import-export.stage.perGameSettings',
       'Per-game settings'
     ),
+    playtime: t('import-export.stage.playtime', 'Playtime and play history'),
     credentials: t('import-export.stage.credentials', 'Store logins'),
     libraryCache: t(
       'import-export.stage.libraryCache',
@@ -31,6 +32,7 @@ export function stageLabels(
 export const ALL_STAGES: HeroicBackupStageId[] = [
   'globalSettings',
   'perGameSettings',
+  'playtime',
   'credentials',
   'libraryCache',
   'sideloadLibrary',

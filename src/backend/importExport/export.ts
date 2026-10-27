@@ -3,7 +3,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'graceful-fs'
 import AdmZip from 'adm-zip'
 
 import { logError, logInfo, LogPrefix } from 'backend/logger'
-import { configStore } from 'backend/constants/key_value_stores'
+import { configStore, tsStore } from 'backend/constants/key_value_stores'
 import { libraryManagerMap } from 'backend/storeManagers'
 import type { Runner } from 'common/types'
 import type {
@@ -15,6 +15,7 @@ import type {
 
 import { BACKUP_FORMAT_VERSION, BACKUP_PATHS } from './constants'
 import { sourcePaths } from './paths'
+import { countPlaytimeGames } from './playtime'
 
 function addFileIfExists(
   zip: AdmZip,
@@ -150,6 +151,15 @@ export async function exportHeroicBackup(
       manifest.counts.perGameSettings = countJsonFiles(
         sourcePaths.gamesConfigDir()
       )
+    }
+
+    if (stages.includes('playtime')) {
+      const timestamps = tsStore.raw_store
+      zip.addFile(
+        BACKUP_PATHS.playtime.file,
+        Buffer.from(JSON.stringify(timestamps, null, 2), 'utf-8')
+      )
+      manifest.counts.playtimeGames = countPlaytimeGames(timestamps)
     }
 
     const runners = Object.keys(libraryManagerMap) as Runner[]

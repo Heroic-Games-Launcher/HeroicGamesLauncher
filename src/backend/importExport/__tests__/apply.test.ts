@@ -117,14 +117,21 @@ const mockConfigStore = {
   set: jest.fn(),
   delete: jest.fn()
 }
+const mockTsStore = {
+  raw_store: {} as Record<string, unknown>,
+  replace(data: Record<string, unknown>) {
+    mockTsStore.raw_store = data
+  }
+}
 jest.mock('backend/constants/key_value_stores', () => ({
   importExportRollbackStore: mockRollbackStore,
-  configStore: mockConfigStore
+  configStore: mockConfigStore,
+  tsStore: mockTsStore
 }))
 
 import type { DMQueueElement } from 'common/types'
 
-import { applyHeroicBackup } from '../apply'
+import { applyHeroicBackup, rollbackLastImport } from '../apply'
 import { BACKUP_FORMAT_VERSION, BACKUP_PATHS } from '../constants'
 
 const addJson = (zip: AdmZip, path: string, data: unknown) => {
@@ -370,6 +377,109 @@ describe('applyHeroicBackup patch semantics', () => {
     expect(mockConfigStore.set).toHaveBeenCalledWith('games.customCategories', {
       Favorites: ['game1', 'game2']
     })
+  })
+
+  it('imports play history, preserves other games, and rolls back exactly', async () => {
+    const src = join(tmpRoot, 'playtime.zip')
+    const zip = new AdmZip()
+    addJson(zip, BACKUP_PATHS.manifest, { ...manifest, stages: ['playtime'] })
+    const imported = {
+      game1: {
+        firstPlayed: '2020-01-01',
+        lastPlayed: '2021-01-01',
+        totalPlayed: 120
+      },
+      game2: { totalPlayed: 45 },
+      namespace: { imported: { totalPlayed: 20 } }
+    }
+    addJson(zip, BACKUP_PATHS.playtime.file, imported)
+    zip.writeZip(src)
+
+    const previous = {
+      game1: { firstPlayed: '2022-01-01', totalPlayed: 10 },
+      localOnly: { lastPlayed: '2023-01-01', totalPlayed: 15 },
+      namespace: { existing: { totalPlayed: 30 } }
+    }
+    mockTsStore.raw_store = previous
+    mockRollbackStore.set.mockClear()
+
+    const result = await applyHeroicBackup({
+      sourcePath: src,
+      stages: ['playtime'],
+      overwriteGlobalSettings: false,
+      includedAppNames: [],
+      includedCredentials: {},
+      perGameOverrides: [],
+      includedWineVersions: []
+    })
+    expect(result.ok).toBe(true)
+    expect(mockTsStore.raw_store).toEqual({
+      ...previous,
+      ...imported,
+      namespace: { ...previous.namespace, ...imported.namespace }
+    })
+
+    const snapshot = mockRollbackStore.set.mock.calls[0][1]
+    mockRollbackStore.get_nodefault.mockReturnValue(snapshot)
+    expect((await rollbackLastImport()).ok).toBe(true)
+    expect(mockTsStore.raw_store).toEqual(previous)
+  })
+
+  it('leaves playtime untouched when the entry is missing or invalid', async () => {
+    const previous = { local: { totalPlayed: 10 } }
+    const options = {
+      stages: ['playtime'] as const,
+      overwriteGlobalSettings: false,
+      includedAppNames: [],
+      includedCredentials: {},
+      perGameOverrides: [],
+      includedWineVersions: []
+    }
+    for (const [name, data] of [
+      ['missing', undefined],
+      ['invalid', { game: { totalPlayed: 'not a number' } }]
+    ] as const) {
+      const src = join(tmpRoot, `${name}-playtime.zip`)
+      const zip = new AdmZip()
+      addJson(zip, BACKUP_PATHS.manifest, { ...manifest, stages: ['playtime'] })
+      if (data) addJson(zip, BACKUP_PATHS.playtime.file, data)
+      zip.writeZip(src)
+      mockTsStore.raw_store = previous
+      const result = await applyHeroicBackup({
+        ...options,
+        stages: [...options.stages],
+        sourcePath: src
+      })
+      expect(result.ok).toBe(name === 'missing')
+      expect(mockTsStore.raw_store).toEqual(previous)
+    }
+  })
+
+  it('rolls back an import when the original playtime store was empty', async () => {
+    const src = join(tmpRoot, 'playtime-empty-snapshot.zip')
+    const zip = new AdmZip()
+    addJson(zip, BACKUP_PATHS.manifest, { ...manifest, stages: ['playtime'] })
+    addJson(zip, BACKUP_PATHS.playtime.file, { game: { totalPlayed: 50 } })
+    zip.writeZip(src)
+    mockTsStore.raw_store = {}
+    mockRollbackStore.set.mockClear()
+
+    const result = await applyHeroicBackup({
+      sourcePath: src,
+      stages: ['playtime'],
+      overwriteGlobalSettings: false,
+      includedAppNames: [],
+      includedCredentials: {},
+      perGameOverrides: [],
+      includedWineVersions: []
+    })
+    expect(result.ok).toBe(true)
+    expect(mockTsStore.raw_store).toEqual({ game: { totalPlayed: 50 } })
+    mockRollbackStore.get_nodefault.mockReturnValue(
+      mockRollbackStore.set.mock.calls[0][1]
+    )
+    expect((await rollbackLastImport()).ok).toBe(true)
+    expect(mockTsStore.raw_store).toEqual({})
   })
 
   it('rejects zip entries that traverse outside the destination (zip-slip)', async () => {

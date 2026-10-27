@@ -640,6 +640,7 @@
             "globalSettings": "Global settings",
             "libraryCache": "Installed games and library",
             "perGameSettings": "Per-game settings",
+            "playtime": "Playtime and play history",
             "sideloadLibrary": "Sideloaded games",
             "wineMetadata": "Wine / Proton versions"
         },
@@ -661,6 +662,9 @@
             "overwrite": "Overwrite current global settings",
             "overwriteBody": "Off by default. Turn this on to replace your current Heroic settings with the ones in the backup.",
             "overwriteTitle": "Overwrite my current global settings",
+            "playtime_one": "Import playtime and play history ({{count}} games)",
+            "playtime_other": "Import playtime and play history ({{count}} games)",
+            "playtimeHint": "Updates local play history with the data in the backup; other games are unchanged.",
             "title": "Global settings",
             "toggle": "Import global settings"
         },

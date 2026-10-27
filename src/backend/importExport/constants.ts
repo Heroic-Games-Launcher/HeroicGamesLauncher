@@ -12,6 +12,9 @@ export const BACKUP_PATHS = {
   perGameSettings: {
     dir: 'perGameSettings/'
   },
+  playtime: {
+    file: 'playtime/timestamp.json'
+  },
   credentials: {
     legendaryUser: 'credentials/legendary/user.json',
     nileUser: 'credentials/nile/user.json',
