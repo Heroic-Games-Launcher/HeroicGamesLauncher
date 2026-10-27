@@ -31,9 +31,9 @@ import {
   size,
   getInstallInfo,
   writeConfig,
-  install,
   getPreferredInstallLanguage
 } from 'frontend/helpers'
+import { install } from 'frontend/helpers/library'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { InstallProgress } from 'frontend/types'
 import React, {

@@ -17,7 +17,7 @@ export default tseslint.config(
   reactHooks.configs['recommended-latest'],
   prettier,
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['**/*.ts', '**/*.tsx', '**/*.mts'],
     rules: {
       // React hooks rules
       'react-hooks/rules-of-hooks': 'warn',

@@ -1,14 +1,16 @@
 import axios from 'axios'
 import { app } from 'electron'
+import i18next from 'i18next'
+import CacheStore from 'backend/cache'
 import { addHandler } from 'backend/ipc'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import type { CatalogProduct } from 'common/types/discounts'
 
 const GMG_FEED_URL_TEMPLATE =
-  'https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/gmg-feed/gmg-discounts-{currency}.json'
+  'https://raw.githubusercontent.com/Heroic-Games-Launcher/deals-listing/gmg-feed/gmg-discounts-{currency}.json'
 
 // Keep in sync with GMG_CURRENCIES in frontend/screens/Discounts/helpers.ts
-// and the files published by .github/workflows/gmg-feed.yml.
+// and the feeds published by the deals-listing repo.
 const GMG_CURRENCIES = [
   'GBP',
   'USD',
@@ -22,9 +24,7 @@ const GMG_CURRENCIES = [
 ]
 const GMG_FALLBACK_CURRENCY = 'USD'
 
-const PAGE_SIZE = 1000
-const MAX_PAGES = 20
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000
+const CACHE_LIFESPAN_MINUTES = 24 * 60
 
 interface ImpactCatalogItem {
   CatalogItemId?: string
@@ -38,9 +38,7 @@ interface ImpactCatalogItem {
   Text1?: string
 }
 
-interface ImpactCatalogItemsResponse {
-  '@page'?: string
-  '@numpages'?: string
+interface ImpactCatalogFeed {
   Items?: ImpactCatalogItem[]
 }
 
@@ -56,15 +54,16 @@ const platformFromSku = (sku: string): string[] | undefined => {
   return undefined
 }
 
+const SUPPORTED_CURRENCIES = new Set(Intl.supportedValuesOf('currency'))
+
 const formatPrice = (amount: number, currency: string): string => {
-  try {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency
-    }).format(amount)
-  } catch {
+  if (!SUPPORTED_CURRENCIES.has(currency)) {
     return `${currency} ${amount.toFixed(2)}`
   }
+  return new Intl.NumberFormat(i18next.language?.replace('_', '-') || 'en-US', {
+    style: 'currency',
+    currency
+  }).format(amount)
 }
 
 const normalizeItem = (item: ImpactCatalogItem): CatalogProduct | null => {
@@ -108,33 +107,15 @@ const normalizeItem = (item: ImpactCatalogItem): CatalogProduct | null => {
   }
 }
 
-const fetchPage = async (
-  url: string,
-  page: number
-): Promise<ImpactCatalogItemsResponse> => {
-  const { data } = await axios.get<ImpactCatalogItemsResponse>(url, {
+const fetchFeed = async (url: string): Promise<CatalogProduct[]> => {
+  const { data } = await axios.get<ImpactCatalogFeed>(url, {
     timeout: 30000,
-    params: { PageSize: PAGE_SIZE, Page: page },
     headers: { 'User-Agent': `HeroicGamesLauncher/${app.getVersion()}` }
   })
-  return data
-}
-
-const fetchAllItems = async (url: string): Promise<CatalogProduct[]> => {
-  const first = await fetchPage(url, 1)
-  const numPages = Math.min(
-    parseInt(first['@numpages'] ?? '1', 10) || 1,
-    MAX_PAGES
-  )
-
-  const items = [...(first.Items ?? [])]
-  for (let page = 2; page <= numPages; page++) {
-    items.push(...((await fetchPage(url, page)).Items ?? []))
-  }
 
   const products: CatalogProduct[] = []
   const seen = new Set<string>()
-  for (const item of items) {
+  for (const item of data.Items ?? []) {
     const product = normalizeItem(item)
     if (!product || seen.has(product.id)) continue
     seen.add(product.id)
@@ -148,17 +129,16 @@ const resolveCurrency = (currencyCode?: string): string => {
   return GMG_CURRENCIES.includes(requested) ? requested : GMG_FALLBACK_CURRENCY
 }
 
-interface GmgCache {
-  products: CatalogProduct[]
-  fetchedAt: number
-}
-const cache = new Map<string, GmgCache>()
+const dealsCache = new CacheStore<CatalogProduct[]>(
+  'gmg_deals',
+  CACHE_LIFESPAN_MINUTES
+)
 const inflight = new Map<string, Promise<CatalogProduct[]>>()
 
 const refreshCache = async (currency: string): Promise<CatalogProduct[]> => {
   const url = GMG_FEED_URL_TEMPLATE.replace('{currency}', currency)
-  const products = await fetchAllItems(url)
-  cache.set(currency, { products, fetchedAt: Date.now() })
+  const products = await fetchFeed(url)
+  dealsCache.set(currency, products)
   logInfo(
     `Fetched ${products.length} GMG discounts (${currency})`,
     LogPrefix.Backend
@@ -170,10 +150,8 @@ const getGmgDiscounts = async (
   currencyCode?: string
 ): Promise<CatalogProduct[]> => {
   const currency = resolveCurrency(currencyCode)
-  const cached = cache.get(currency)
-  if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS) {
-    return cached.products
-  }
+  const cached = dealsCache.get(currency)
+  if (cached) return cached
 
   let pending = inflight.get(currency)
   if (!pending) {
@@ -190,7 +168,6 @@ const getGmgDiscounts = async (
       `Failed to fetch GMG discounts (${currency}): ${String(err)}`,
       LogPrefix.Backend
     )
-    if (cached) return cached.products
     throw err
   }
 }

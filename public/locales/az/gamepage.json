@@ -96,7 +96,8 @@
         "changelog": "Dəyişikliklər jurnalını göstərin",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "Edit App/Game"
     },
     "cloud_save_unsupported": "Dəstəklənmir",
     "disabled": "Əlil",
@@ -332,5 +333,11 @@
     },
     "open-saves-folder": "",
     "Open": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Edit App/Game"
+    }
 }

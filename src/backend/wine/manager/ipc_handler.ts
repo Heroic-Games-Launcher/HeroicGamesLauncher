@@ -10,6 +10,7 @@ import type { WineManagerStatus } from 'common/types'
 import { notify } from '../../dialog/dialog'
 import { t } from 'i18next'
 import { backendEvents } from 'backend/backend_events'
+import { isWindows } from 'backend/constants/environment'
 
 addHandler('installWineVersion', async (e, release) => {
   const onProgress = (state: WineManagerStatus) => {
@@ -59,6 +60,8 @@ addHandler('removeWineVersion', async (e, release) => {
 })
 
 backendEvents.on('releasesInfoReady', (releasesInfo) => {
+  if (isWindows) return
+
   logDebug('Releases info ready, checking wine releases', LogPrefix.Backend)
   void updateWineListsIfOutdated(releasesInfo)
 })

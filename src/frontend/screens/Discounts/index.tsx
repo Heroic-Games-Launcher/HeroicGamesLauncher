@@ -7,7 +7,8 @@ import type {
   CatalogFeature,
   CatalogGenre,
   CatalogProduct,
-  DiscountStore
+  DiscountStore,
+  GogDealsRegion
 } from 'common/types/discounts'
 import DiscountCard from './components/DiscountCard'
 import DiscountFilters from './components/DiscountFilters'
@@ -29,13 +30,15 @@ import {
   RATING_SCALE_MAX,
   REGION_OPTIONS,
   saveStoredFilters,
+  STORE_LABELS,
   STORE_OPTIONS,
   setStoredGmgCurrency,
   setStoredRegionOverride,
   type DiscountSort,
   type OsOption,
   type PegiAge,
-  type StoreTab
+  type StoreTab,
+  type ViewMode
 } from './helpers'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -45,9 +48,26 @@ export default function Discounts() {
   const [regionOverride, setRegionOverride] = useState<string | null>(() =>
     getStoredRegionOverride()
   )
+  const [gogRegion, setGogRegion] = useState<GogDealsRegion | null | undefined>(
+    undefined
+  )
+
+  useEffect(() => {
+    let cancelled = false
+    void window.api
+      .getGogDealsRegion()
+      .catch(() => null)
+      .then((region) => {
+        if (!cancelled) setGogRegion(region)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   const localeSettings = useMemo(
-    () => getLocaleSettings(i18n.language, regionOverride),
-    [i18n.language, regionOverride]
+    () => getLocaleSettings(i18n.language, regionOverride, gogRegion),
+    [i18n.language, regionOverride, gogRegion]
   )
   const [gmgCurrencyOverride, setGmgCurrencyOverride] = useState<string | null>(
     () => getStoredGmgCurrency()
@@ -111,6 +131,9 @@ export default function Discounts() {
   const [storeTab, setStoreTab] = useState<StoreTab>(
     storedFilters.storeTab ?? 'all'
   )
+  const [viewMode, setViewMode] = useState<ViewMode>(
+    storedFilters.viewMode ?? 'grid'
+  )
   // Price and release-year ranges are bound to the loaded data's min/max,
   // which changes with the active tab, region, and currency — so they are
   // seeded fresh on each load rather than persisted (a stored range from
@@ -151,6 +174,7 @@ export default function Discounts() {
       selectedFeatures,
       selectedOS,
       storeTab,
+      viewMode,
       ratingRange,
       maxPegiAge,
       searchQuery,
@@ -165,6 +189,7 @@ export default function Discounts() {
     selectedFeatures,
     selectedOS,
     storeTab,
+    viewMode,
     ratingRange,
     maxPegiAge,
     searchQuery,
@@ -174,7 +199,19 @@ export default function Discounts() {
     pageSize
   ])
 
+  const [wishlistIds, setWishlistIds] = useState<Set<string>>(new Set())
+
+  // The "Wishlist Only" and "Hide Owned" checkboxes are hidden in the filter
+  // bar when the user is logged out of GOG, but the toggle state still lives
+  // in localStorage from a previous logged-in session. Treat them as off
+  // while logged out so the persisted preference doesn't silently filter the
+  // grid or trigger an authenticated refetch the backend can't fulfill.
+  const effectiveWishlistOnly = isGogLoggedIn && wishlistOnly
+  const effectiveHideOwned = isGogLoggedIn && hideOwned
+
   useEffect(() => {
+    if (gogRegion === undefined) return
+
     let cancelled = false
 
     const load = async () => {
@@ -183,16 +220,22 @@ export default function Discounts() {
       setProducts([])
 
       try {
-        // A GMG feed failure must not take down the GOG deals
-        const [gogResult, gmgResult] = await Promise.all([
-          window.api.getGogDiscounts(localeSettings, hideOwned, wishlistOnly),
+        // A GMG or Humble feed failure must not take down the GOG deals
+        const [gogResult, gmgResult, humbleResult] = await Promise.all([
+          window.api.getGogDiscounts(localeSettings, effectiveHideOwned),
           window.api.getGmgDiscounts(gmgCurrency).catch((err: unknown) => {
             window.api.logError(`Failed to fetch GMG discounts: ${String(err)}`)
             return [] as CatalogProduct[]
+          }),
+          window.api.getHumbleDiscounts().catch((err: unknown) => {
+            window.api.logError(
+              `Failed to fetch Humble discounts: ${String(err)}`
+            )
+            return []
           })
         ])
         if (!cancelled) {
-          setProducts([...gogResult, ...gmgResult])
+          setProducts([...gogResult, ...gmgResult, ...humbleResult])
           // Only clear data-bound ranges when this is a reload caused by a
           // locale change. On the very first load after mount we keep the
           // values restored from localStorage so persisted filters survive.
@@ -221,7 +264,34 @@ export default function Discounts() {
     return () => {
       cancelled = true
     }
-  }, [localeSettings, gmgCurrency, hideOwned, wishlistOnly, t])
+  }, [gogRegion, localeSettings, gmgCurrency, effectiveHideOwned, t])
+
+  // Wishlist is fetched separately and applied client-side, so toggling the
+  // "Wishlist Only" filter never wipes the loaded products. Without this,
+  // a wishlist with no items currently on sale would empty the grid and hide
+  // the filter bar, leaving the user with no way to untoggle. See issue #5588.
+  useEffect(() => {
+    let cancelled = false
+
+    if (!isGogLoggedIn) {
+      setWishlistIds(new Set())
+      return
+    }
+
+    const loadWishlist = async () => {
+      try {
+        const ids = await window.api.getGogWishlist()
+        if (!cancelled) setWishlistIds(new Set(ids))
+      } catch (err) {
+        if (!cancelled) window.api.logError(String(err))
+      }
+    }
+
+    void loadWishlist()
+    return () => {
+      cancelled = true
+    }
+  }, [isGogLoggedIn])
 
   // Filter options and bounds derive from the active tab's products.
   const tabProducts = useMemo(
@@ -298,15 +368,16 @@ export default function Discounts() {
     for (const p of products) present.add(p.store ?? 'gog')
     return STORE_OPTIONS.filter((s) => present.has(s))
   }, [products])
-  const gmgPresent = storeOptions.includes('gmg')
+  const nonGogPresent = storeOptions.some((s) => s !== 'gog')
 
   // Rating/PEGI/genre/release-year/DLC data only exists on GOG items, so
   // those filters are hidden AND skipped unless the shown set is GOG-only:
-  // the GOG tab, or any tab when GMG contributes nothing.
-  const showGogOnlyFilters = storeTab === 'gog' || !gmgPresent
+  // the GOG tab, or any tab when no other store contributes.
+  const showGogOnlyFilters = storeTab === 'gog' || !nonGogPresent
   // The price range needs a single currency; on the mixed "all" tab (region
-  // currency for GOG, gmgCurrency for GMG) it is hidden and not applied.
-  const showPriceFilter = !(storeTab === 'all' && gmgPresent)
+  // currency for GOG, its own currency for each external store) it is hidden
+  // and not applied.
+  const showPriceFilter = !(storeTab === 'all' && nonGogPresent)
 
   const osOptions = useMemo<OsOption[]>(() => {
     const present = new Set<string>()
@@ -379,6 +450,13 @@ export default function Discounts() {
       if (search && !p.title.toLowerCase().includes(search)) return false
 
       if (showGogOnlyFilters && hideDlcs && p.productType === 'dlc')
+        return false
+
+      if (
+        effectiveWishlistOnly &&
+        (p.store ?? 'gog') === 'gog' &&
+        !wishlistIds.has(p.id)
+      )
         return false
 
       if (showPriceFilter) {
@@ -503,6 +581,8 @@ export default function Discounts() {
     featureOptions,
     searchQuery,
     hideDlcs,
+    effectiveWishlistOnly,
+    wishlistIds,
     sortBy
   ])
 
@@ -523,8 +603,8 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
-    hideOwned,
-    wishlistOnly,
+    effectiveHideOwned,
+    effectiveWishlistOnly,
     pageSize,
     products
   ])
@@ -545,8 +625,8 @@ export default function Discounts() {
     ratingRange[1] !== RATING_SCALE_MAX ||
     maxPegiAge !== null ||
     hideDlcs ||
-    hideOwned ||
-    wishlistOnly ||
+    effectiveHideOwned ||
+    effectiveWishlistOnly ||
     (releaseYearRange !== null &&
       (releaseYearRange[0] !== releaseYearBounds[0] ||
         releaseYearRange[1] !== releaseYearBounds[1]))
@@ -607,13 +687,13 @@ export default function Discounts() {
               >
                 {tab === 'all'
                   ? t('discounts.tabs.all', 'All stores')
-                  : tab.toUpperCase()}
+                  : STORE_LABELS[tab]}
               </button>
             ))}
           </div>
         )}
 
-        {storeTab === 'gmg' ? (
+        {storeTab === 'humble' ? null : storeTab === 'gmg' ? (
           <div className="discountsScreen__region">
             <label
               className="discountsScreen__regionLabel"
@@ -727,13 +807,13 @@ export default function Discounts() {
 
       {!loading && error && <p className="discountsScreen__message">{error}</p>}
 
-      {!loading && !error && products.length === 0 && (
+      {!loading && !error && products.length === 0 && !hasActiveFilters && (
         <p className="discountsScreen__message">
           {t('discounts.empty', 'No discounted games available right now.')}
         </p>
       )}
 
-      {!loading && !error && products.length > 0 && (
+      {!loading && !error && (products.length > 0 || hasActiveFilters) && (
         <>
           <DiscountFilters
             sortBy={sortBy}
@@ -742,7 +822,11 @@ export default function Discounts() {
             priceRange={priceRange ?? [0, priceMax]}
             onPriceChange={setPriceRange}
             currencyCode={
-              storeTab === 'gmg' ? gmgCurrency : localeSettings.currencyCode
+              storeTab === 'gmg'
+                ? gmgCurrency
+                : storeTab === 'humble'
+                  ? 'USD'
+                  : localeSettings.currencyCode
             }
             ratingRange={ratingRange}
             onRatingChange={setRatingRange}
@@ -775,6 +859,8 @@ export default function Discounts() {
             onPageSizeChange={setPageSize}
             onReset={handleReset}
             hasActiveFilters={hasActiveFilters}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
           />
 
           {paginated.length === 0 ? (
@@ -782,7 +868,11 @@ export default function Discounts() {
               {t('discounts.noMatches', 'No games match the current filters.')}
             </p>
           ) : (
-            <div className="discountsScreen__grid">
+            <div
+              className={`discountsScreen__grid${
+                viewMode === 'list' ? ' discountsScreen__grid--list' : ''
+              }`}
+            >
               {paginated.map((product) => (
                 <DiscountCard key={product.id} product={product} />
               ))}

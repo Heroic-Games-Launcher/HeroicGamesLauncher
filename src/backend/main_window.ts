@@ -1,6 +1,6 @@
 import { AppSettings, WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
-import path from 'path'
+import { mainPreloadPath } from './constants/paths'
 import { configStore } from './constants/key_value_stores'
 
 let mainWindow: BrowserWindow | null = null
@@ -64,7 +64,7 @@ export const createMainWindow = () => {
       contextIsolation: true,
       nodeIntegration: true,
       // sandbox: false,
-      preload: path.join(__dirname, '../preload/index.js')
+      preload: mainPreloadPath
     }
   })
 

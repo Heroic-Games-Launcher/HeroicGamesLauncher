@@ -22,7 +22,7 @@ import type {
   InstallInfo,
   InstallParams,
   InstallPlatform,
-  KnowFixesInfo,
+  KnownFixesInfo,
   LaunchOption,
   LaunchParams,
   MoveGameArgs,
@@ -45,7 +45,11 @@ import type {
   WineManagerStatus,
   WineVersionInfo
 } from '../types'
-import type { CatalogLocaleSettings, CatalogProduct } from './discounts'
+import type {
+  CatalogLocaleSettings,
+  CatalogProduct,
+  GogDealsRegion
+} from './discounts'
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
@@ -247,17 +251,17 @@ interface AsyncIPCFunctions {
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
   isNative: (args: { appName: string; runner: Runner }) => boolean
-  getLogContent: (args: GetLogFileArgs) => string
+  getLogContent: (args: GetLogFileArgs) => Promise<string>
   installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
   removeWineVersion: (release: WineVersionInfo) => Promise<void>
   'wine.isValidVersion': (release: WineInstallation) => Promise<boolean>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
-  removeFromSteam: (appName: string, runner: Runner) => Promise<void>
+  removeFromSteam: (appName: string, runner: Runner) => Promise<boolean>
   isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
   getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
-  getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
+  getKnownFixes: (appName: string, runner: Runner) => KnownFixesInfo | null
   getGameMetadataOverride: (appName: string) => Promise<{
     title?: string
     art_cover?: string
@@ -345,12 +349,14 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  getGogDealsRegion: () => Promise<GogDealsRegion | null>
   getGogDiscounts: (
     locale: CatalogLocaleSettings,
-    hideOwned?: boolean,
-    wishlistOnly?: boolean
+    hideOwned?: boolean
   ) => Promise<CatalogProduct[]>
+  getGogWishlist: () => Promise<string[]>
   getGmgDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
+  getHumbleDiscounts: (currencyCode?: string) => Promise<CatalogProduct[]>
   'steamgriddb.hasApiKey': () => Promise<boolean>
   'steamgriddb.setApiKey': (key: string) => Promise<void>
   'steamgriddb.searchGame': (

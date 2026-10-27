@@ -21,7 +21,7 @@ export interface CatalogRating {
   ageRating: string
 }
 
-export type DiscountStore = 'gog' | 'gmg'
+export type DiscountStore = 'gog' | 'gmg' | 'humble'
 
 export interface CatalogProduct {
   id: string
@@ -46,5 +46,10 @@ export interface CatalogProduct {
 export interface CatalogLocaleSettings {
   countryCode: string
   locale: string
+  currencyCode: string
+}
+
+export interface GogDealsRegion {
+  countryCode: string
   currencyCode: string
 }

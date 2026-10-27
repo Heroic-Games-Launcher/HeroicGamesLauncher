@@ -233,7 +233,6 @@ class GameConfigV0 extends GameConfig {
       winePrefix,
       wineCrossoverBottle,
       wineVersion,
-      useSteamRuntime,
       eacRuntime,
       battlEyeRuntime,
       beforeLaunchScriptPath,
@@ -271,7 +270,6 @@ class GameConfigV0 extends GameConfig {
       showMangohud,
       targetExe,
       useGameMode,
-      useSteamRuntime,
       battlEyeRuntime,
       eacRuntime,
       language: '', // we want to fallback to '' always here, fallback lang for games should be ''
@@ -280,7 +278,8 @@ class GameConfigV0 extends GameConfig {
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta,
-      enableQuickSavesMenu: false
+      enableQuickSavesMenu: false,
+      steamRuntime: false
     } as GameSettings
 
     let gameSettings = {} as GameSettings

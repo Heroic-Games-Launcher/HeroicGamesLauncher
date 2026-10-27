@@ -177,11 +177,6 @@
             "rosetta": {
                 "message": "Heroic are nevoie de Rosetta pentru a rula corect pe macOS cu chip-urile Apple Silicon. Te rugăm să-l reinstalezi din terminalul macOS folosing următoarea comandă : \"softwareupdate --install-rosetta\"  și repornește Heroic. ",
                 "title": "Rosetta nu a fost găsit"
-            },
-            "snap": {
-                "checkbox": "Nu mai arăta acest mesaj",
-                "message": "Unele funcții nu sunt disponibile deocamdată în versiunea Snap a aplicației și încercăm sa o remediem.{{newLine}}Limitările curente sunt:{{newLine}}Heroic nu va putea localiza Proton de la Steam sau Wine de la Lutris.{{newLine}}{{newLine}}Gamescope, Gamemode și MangoHud, de asemenea, nu vor funcționa din moment ce Heroic nu are acces la acestea.{{newLine}}{{newLine}}Pentru a obține acces la această funcție vă rugăm instalați Heroic sub forma Flatpak, DEB sau din AppImage.",
-                "title": "Heroic rulează ca și Snap"
             }
         },
         "wineprefix": "Selectați folderul WinePrefix",
@@ -218,7 +213,12 @@
             "scroll": "Sul",
             "select": "Select",
             "space": "Spaţiu",
-            "update_game": "Actualizați jocul"
+            "update_game": "Actualizați jocul",
+            "exit": "Ieșire",
+            "move_focus": "Mută focalizarea",
+            "next_page": "Pagina următoare",
+            "previous_page": "Pagina anterioară",
+            "search": "Caută"
         }
     },
     "docs": "Documentație",
@@ -261,7 +261,7 @@
         "library": {
             "refresh": "Actualizează biblioteca"
         },
-        "abort": "",
+        "abort": "Despre",
         "install": "Install",
         "uninstall": "Dezinstalează"
     },
@@ -666,7 +666,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "Încărcați",
                     "content": ""
                 },
                 "open": "",
@@ -1174,9 +1174,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Toate",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Detalii",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1198,12 +1199,16 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Detalii"
     },
     "steamgriddb": {
         "error": {
             "no-games": "Nu s-au găsit jocuri",
-            "no-grids": "",
+            "no-grids": "Nu a fost găsit niciun jurnal pentru acest joc",
             "search": "",
             "grids": ""
         },
@@ -1220,35 +1225,54 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Sortează",
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
         },
-        "quit": "",
+        "quit": "Ieși din consolă",
         "hints": {
-            "launch": "",
-            "sort": "",
-            "navigate": "",
+            "launch": "Lansează",
+            "sort": "Sortează",
+            "navigate": "Navigați",
             "quit": "Părăsește",
-            "change_store": ""
+            "change_store": "Schimbați magazinul"
         },
-        "launching": "",
+        "launching": "Se lansează",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Necesită actualizare"
         },
         "filter": {
             "sideload": "Other",
             "all": "Toate"
         },
-        "empty": "",
+        "empty": "Nu există jocuri instalate de afișat. Instalează mai întâi un joc.",
         "games": "Jocuri instalate",
-        "quitApp": "",
-        "loading": "",
+        "quitApp": "Ieși din aplicație",
+        "loading": "Se încarcă biblioteca ta…",
         "install": {
             "platform": "Platform",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "Instalează în",
+            "title": "Instalează jocul",
+            "wineMissing": "Nici o cale selectată",
+            "wine": "Wine"
+        },
+        "cancelInstall": {
+            "title": "Anulezi instalarea?"
+        },
+        "cancelUpdate": {
+            "message": "Acest joc se descarcă în prezent. Anulezi actualizarea în curs?",
+            "title": "Anulezi actualizarea?"
+        },
+        "removeFromQueue": {
+            "message": "Acest joc se află în coada de descărcare. Îl elimini din coadă?"
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Adaugă",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }

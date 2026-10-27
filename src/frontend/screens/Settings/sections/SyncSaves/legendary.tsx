@@ -103,6 +103,7 @@ export default function LegendarySyncSaves({
           onClose={() => {
             setManuallyOutputShow(false)
           }}
+          hideProgress
         />
       )}
       <div className="defaults-hint">

@@ -9,6 +9,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
 import { nileUserData } from './constants'
+import { session } from 'electron'
 
 function authLogSanitizer(line: string) {
   try {
@@ -99,6 +100,10 @@ export class NileUser {
 
     configStore.delete('userData')
     clearCache('nile')
+    const ses = session.fromPartition('persist:amazon')
+    ses.clearStorageData().catch(() => {})
+    ses.clearCache().catch(() => {})
+    ses.clearAuthCache().catch(() => {})
   }
 
   static async getUserData(): Promise<NileUserData | undefined> {

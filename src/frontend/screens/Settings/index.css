@@ -99,6 +99,22 @@
   color: #5a5e5f;
 }
 
+.appNameButton {
+  cursor: pointer;
+  transition: 300ms;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  user-select: all;
+}
+
+.appNameButton:hover,
+.appNameButton:focus-visible {
+  color: var(--text-secondary);
+}
+
 .save > .material-icons {
   font-size: var(--text-2xl);
   margin-inline-start: 6px;
