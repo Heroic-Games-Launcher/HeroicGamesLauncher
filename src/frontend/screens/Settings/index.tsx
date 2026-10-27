@@ -15,7 +15,8 @@ import {
   GamesSettings,
   SyncSaves,
   AdvancedSettings,
-  SystemInfo
+  SystemInfo,
+  ImportExportSettings
 } from './sections'
 import { AppSettings } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
@@ -38,6 +39,7 @@ function Settings() {
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
+  const isImportExport = type === 'importexport'
 
   // TODO: Adding this comment translation here for now to not lose the
   // translation. This should be removed from here when the help is added
@@ -115,7 +117,8 @@ function Settings() {
             {isAdvancedSetting && <AdvancedSettings />}
             {isLogSettings && <LogSettings />}
             {isSystemInfo && <SystemInfo />}
-            <FooterInfo />
+            {isImportExport && <ImportExportSettings />}
+            {!isImportExport && <FooterInfo />}
           </div>
         </div>
       </SettingsContext.Provider>

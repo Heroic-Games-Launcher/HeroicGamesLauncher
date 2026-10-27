@@ -55,4 +55,8 @@ export class TypeCheckedStoreBackend<
   public get raw_store() {
     return this.store.store as StoreStructure[Name]
   }
+
+  public replace(data: StoreStructure[Name]) {
+    this.store.store = data
+  }
 }

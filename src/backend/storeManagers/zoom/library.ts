@@ -26,9 +26,10 @@ import {
   installInfoStore
 } from './electronStores'
 import { isOnline } from '../../online_monitor'
-import { apiUrl } from './constants'
+import { apiUrl, tokenPath, zoomConfigPath } from './constants'
 import { GlobalConfig } from 'backend/config'
-import { LibraryManager } from 'common/types/game_manager'
+import { LibraryManager, RunnerBackupPaths } from 'common/types/game_manager'
+import { BACKUP_PATHS } from 'backend/importExport/constants'
 
 const libraryCache = new CacheStore<ZoomGameInfo[]>('zoom-library')
 const library: Map<string, GameInfo> = new Map()
@@ -439,6 +440,28 @@ export default class ZoomLibraryManager implements LibraryManager {
       return
     if (library.has(game.app_name)) {
       library.set(game.app_name, game)
+    }
+  }
+
+  getBackupPaths(): RunnerBackupPaths {
+    return {
+      credentials: [
+        {
+          source: () => zoomConfigPath,
+          destInZip: BACKUP_PATHS.credentials.zoomConfig
+        },
+        {
+          source: () => tokenPath,
+          destInZip: BACKUP_PATHS.credentials.zoomToken,
+          indicatesLogin: false
+        }
+      ],
+      libraryCache: [
+        {
+          source: () => libraryStore.path,
+          destInZip: BACKUP_PATHS.libraryCache.zoomLibrary
+        }
+      ]
     }
   }
 }
