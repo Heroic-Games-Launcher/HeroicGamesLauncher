@@ -95,7 +95,8 @@
         "changelog": "顯示更新日誌",
         "play": "開始游戲",
         "browse_wine_prefix": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "編輯應用程式/遊戲"
     },
     "cloud_save_unsupported": "不支援",
     "disabled": "已關閉",
@@ -334,6 +335,10 @@
     "open-saves-folder": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "進階"
+        "advanced": "進階",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "編輯應用程式/遊戲"
     }
 }

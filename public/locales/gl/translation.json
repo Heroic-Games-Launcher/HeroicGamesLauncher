@@ -96,13 +96,21 @@
             "steam": {
                 "title": "Erro de Steam",
                 "message": "A installación de Steam fallou! Por favor, lea atentamente as instruccións e inténteo de novo! {{paragraph}} {{error}}",
-                "error": "Non se atopou o executábel de Steam. Probablemente a instalación foi cancelada polo usuario ou fallou no lado de Steam."
+                "error": "Non se atopou o executábel de Steam. Probablemente a instalación foi cancelada polo usuario ou fallou no lado de Steam.",
+                "running": "Steam estase a executar. Cerre Steam e inténteo de novo, o reinicie Steam para permitir que Heroic administre os ataxos mentres Steam execútase.",
+                "running-gamemode": "Un reinicio de Steam é precisado antes de que Heroic poda manexar os seus ataxos. Reinicie Steam e inténteo de novo."
             },
             "executableNotFound": "Non se atopou o executable",
             "executableNotFoundMessage": "Heroic non puido atopar o executable deste xogo. Por favor, configúreo manualmente na configuración do xogo.",
             "dxmt": {
                 "title": "Erro ao descargar DXMT",
                 "message": "Erro ao descargar DXMT! Comprobe a súa conexión!"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Error ao Eliminar o Xogo dende Steam"
+                }
             }
         },
         "info": {
@@ -179,11 +187,6 @@
                     "message": "Calquera progreso non gardado podería perderse"
                 }
             },
-            "snap": {
-                "checkbox": "Non volver a amosar esta mensaxe",
-                "title": "Heroic está a funcionar coma un Snap",
-                "message": "Algunhas funcións aínda non se encontran dispoñíbeis na versión de Snap da aplicación e seguimos a traballar para reparalas.{{newLine}}As limitacións actuais son:{{newLine}}Heroic non poderá atopar Proton dende Steam ou Wine dende Lutris.{{newLine}}{{newLine}}Gamescope, GameMode e MangoHud tampouco han funcionar, xa que Heroic non pode acceder a eles.{{newLine}}{{newLine}}Para acceder a esta funcionalidade instala Heroic coma un Flatpak, DEB ou dende a AppImage."
-            },
             "rosetta": {
                 "title": "Non se puido atopar Rosetta",
                 "message": "Heroic necesita Rosetta para poder funcionar correctamente en macOS con chips de Apple Silicon. Por favor, instáleo dende a terminal empregando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicia Heroic. "
@@ -226,7 +229,13 @@
             "scroll": "Scroll",
             "select": "Seleccionar",
             "space": "Espazo",
-            "update_game": "Actualizar o xogo"
+            "update_game": "Actualizar o xogo",
+            "exit": "Saír",
+            "move_focus": "Mover o foco",
+            "next_page": "Seguinte Páxina",
+            "previous_page": "Anterior Páxina",
+            "search": "Búsqueda",
+            "url_bar": "Barra de URL"
         }
     },
     "docs": "Documentación",
@@ -271,7 +280,7 @@
         },
         "install": "Instalar",
         "uninstall": "Desinstalar",
-        "abort": ""
+        "abort": "Abortar"
     },
     "globalSettings": "Preferencias globais",
     "GOG": "GOG",
@@ -382,8 +391,10 @@
         "analytics": "Permite a Heroic recoller información de uso 100% anónima para axudar a mellorar a aplicación. É necesario reiniciar para que faga efecto.",
         "WoW64": "O modo WoW64 de Wine permite executar xogos de Windows de 32-bits no Wine de 64-bits. Habilitalo pode mellorar o rendemento, mais podería corromper xogos de 32-bits máis vellos.",
         "nvidiaprime": {
-            "details": "Usa a tarxeta gráfica dedicada para renderizar o xogo en sistemas con múltiples GPU. Só é necesario en porátiles para xogos ou de sobremesa que teñen unha GPU \"headless\" para renderizar (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Usa a tarxeta gráfica dedicada para renderizar o xogo en sistemas con múltiples GPU. Só é necesario en porátiles para xogos ou de sobremesa que teñen unha GPU \"headless\" para renderizar (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Consulta máis detalles na nosa wiki"
+        },
+        "hide-window-on-protocol-launch": "Mantén a ventá de Heroic oculta cando se inicia un xogo desde un atallo externo, como a función 'Engadir a Steam'."
     },
     "info": {
         "heroic": {
@@ -460,14 +471,16 @@
                 "steam": {
                     "corrupt": "{{game}} non se puido engadir a todos os usuarios de Steam atopados. Revisa os rexistros para máis información. É necesario reiniciar Steam para que os cambios teñan efecto.",
                     "success": "{{game}} engadiuse correctamente a Steam. É necesario reiniciar Steam para que os cambios teñan efecto.",
-                    "title": "Engadido a Steam"
+                    "title": "Engadido a Steam",
+                    "success-no-restart": "{{game}} foi engadido correctamente a Steam."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} non se puido eliminar de todos os usuarios de Steam. Revisa os rexistros para máis información. É necesario reiniciar Steam para que os cambios teñan efecto.",
                     "success": "{{game}} eliminouse correctamente de Steam. É necesario reiniciar Steam para que os cambios teñan efecto.",
-                    "title": "Eliminado de Steam"
+                    "title": "Eliminado de Steam",
+                    "success-no-restart": "{{game}} foi eliminado correctamente de Steam."
                 }
             },
             "reparing": "Reparación rematada"
@@ -513,20 +526,26 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "ex.: Ruta/A/Arquivo",
             "title": "Variables de entorno",
-            "value": "Valor"
+            "value": "Valor",
+            "placeHolderV": "VALOR"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Os nomes das variables non poden estar baleiros",
                 "equal_sign_in_key": "Os nomes das variables non poden conter o símbolo \"=\"",
-                "space_in_key": "Os nomes das variables non poden conter espazos"
+                "space_in_key": "Os nomes das variables non poden conter espazos",
+                "duplicate_key": "Xa existe unha variable con este nome"
             },
             "example": "Non uses o símbolo \"=\", ex.: para unha configuración como \"A_MIÑA_VARIABLE=123\", pon A_MIÑA_VARIABLE en NOME e 123 en VALOR.",
-            "info": "Establece variables de entorno para engadir ao comando."
+            "info": "Establece variables de entorno para engadir ao comando.",
+            "add_new": "Engadir Nova Variable",
+            "bulk_edit": "Edición en Masa",
+            "bulk_edit_error": "Algunhas variables son incorrectas. Comprobe que todas as liñas seguen o formato CHAVE=VALOR.",
+            "clear_all_confirm": "Está seguro de eliminar todas as variables de entorno?"
         },
         "gameargs": {
             "placeholder": "Escribe aquí os argumentos de lanzamento",
-            "title": "Argumentos do xgo (para executar despois da orde):",
+            "title": "Argumentos do xogo (engadidos aos comandos de inicio):",
             "error": {
                 "command": "A sintaxe %command% de Steam non é válida como argumento para o xogo.",
                 "env": "As variables do entorno deber configurarse na táboa de abaixo."
@@ -570,7 +589,7 @@
         "custom_themes_path": "Selecciona a ruta para buscar arquivos CSS personalizados",
         "dxvkfpsvalue": "Valor enteiro positivo (ex. 30, 60, ...)",
         "egs-prefix": "Prefixo onde está instalado EGS",
-        "prefered_language": "Código de dous caracteres (ex.: \"en\", \"fr\" ou \"gl\")",
+        "prefered_language": "Código de 2 ou 4 caracteres (ex.: \"fr\" ou \"pr-BR\")",
         "alt-nile-bin": "Usando o binario incorporado de Nile..."
     },
     "platforms": {
@@ -700,7 +719,8 @@
                 "zoom": "Rexistro de Zoom"
             },
             "join-heroic-discord": "Únete ao noso Discord",
-            "show-uploads": "Amosar os rexistros subidos"
+            "show-uploads": "Amosar os rexistros subidos",
+            "error": "Erro interno ao ler o arquivo de rexistro"
         },
         "mangohud": "Habilitar Mangohud (precísase instalar Mangohud)",
         "manualsync": {
@@ -812,8 +832,17 @@
         "WoW64": "Activar WoW64 (Experimental)",
         "enable-quick-sync-menu": "Habilitar o menú de gardar e sincronizar rapidamente na páxina do xogo",
         "scripts": "Secuencia de comandos (Scripts):",
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "start-in-console-mode": "Iniciar en Modo Consola",
+        "disable_gog_presence": "Deshabilitar Actualizacións de Presencia de GOG",
+        "steamRuntime": {
+            "label": "Usar o Runtime de Steam",
+            "noRuntimeOption": "None"
+        },
+        "gamepad-repeat-frequency": "Frecuendia de Repetición da Entrada do Gamepad",
+        "hide-window-on-protocol-launch": "Esconder Heroic ao lanzar un xogo dende os enlaces heroic://",
+        "nvidiaprime": {
+            "description": "Forzar o uso de NVIDIA Optimus or AMD Dynamic Switchable Graphics dGPU. SÓ usar isto para xogos de OpenGL e Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -922,20 +951,21 @@
         "legacy_warning": "Advertencia: A maior parte dos axustes nesta lapela están obsoletos e é posible que non funcionen.",
         "steamgriddb": {
             "apikey": {
-                "title": "",
-                "placeholder": "",
-                "placeholder_saved": ""
+                "title": "Clave de API de SteamGridDB",
+                "placeholder": "Inserte a súa Clave de API SteamGridDB aquí",
+                "placeholder_saved": "Clave gardada — Escriba para reemplazar, limpar ou eliminar"
             },
             "help": {
-                "description": ""
+                "description": "Proporcione a súa clave de API de SteamGridDB para habilitar a búsqueda de portadas. Esta clave encríptase e gárdase se o seu sistema o soporta. Podes conseguir unha en {{url}}"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Clic para abrir o arquivo de configuración do xogo"
     },
     "Settings": "Preferencias",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "Modo Consola"
     },
     "status": {
         "installing": "Instalando",
@@ -984,7 +1014,8 @@
             "back": "Regresar",
             "forward": "Avanzar",
             "openInBrowser": "Abrir no navegador",
-            "reload": "Recargar páxina"
+            "reload": "Recargar páxina",
+            "home": "Ir ao inicio da tenda"
         }
     },
     "wine": {
@@ -996,10 +1027,10 @@
             "unzipping": "Descomprimindo",
             "settings": "Preferencias",
             "update": "Actualizar",
-            "search": "",
-            "loading": "",
-            "open_folder": "",
-            "no-results": ""
+            "search": "Buscar versións…",
+            "loading": "Cargando versións de Wine…",
+            "open_folder": "Abrir cartafol",
+            "no-results": "Ningunha versión de Wine coincide coa túa busca."
         },
         "release": "Data de publicación",
         "size": "Tamaño",
@@ -1126,7 +1157,7 @@
         "enable": "Activar",
         "info": {
             "pt1": "Para mellorar a app, Heroic recolle información 100% anónima.",
-            "pt2": "Heroic usa a plataforma de código aberto Plausible Analytics para recoller información básica: Versión da App, Sistema Operativo, Tendas Conectadas e País.",
+            "pt2": "Heroic usa a plataforma de código aberto Plausible Analytics, hosteada polo equipo de Heroic, para recoller información básica: Versión da App, Sistema Operativo, Tendas Conectadas e Localidade.",
             "pt3": "Nunca recollerá ningunha información persoal, incluído o seu nome de usuario, dirección IP ou email.",
             "pt4": "Esta información sírvenos para saber en que centrarnos, debido aos nosos limitados recursos e comentarios dos usuarios.",
             "pt5": "Plausible Analytics cumpre completamente cos GDPR, CCPA e PECR.",
@@ -1137,9 +1168,11 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton é unha variante de Proton creada por Glorious Eggroll. Está deseñada para usarse xunto co lanzador umu (predeterminado en Heroic).",
-        "gpt": "",
-        "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-ge": "Wine-GE-Proton é unha variante de Wine creada por Glorious Eggroll. Quedou obsoleta en favor de GE-Proton co lanzador umu.",
+        "gpt": "Game Porting Toolkit é desenvolvido por Apple e recoméndase para Macs con Apple Silicon con chips M1+ . Funciona mellor con xogos máis recentes que usan DX12.",
+        "wine-crossover": "Wine-Crossover está baseado no proxecto de código aberto Crossover Wine e recoméndase para Macs con Intel e para xogos con DX11 ou anteriores.",
+        "wine-staging-macos": "Wine-Staging-macOS está baseado no proxecto principal de Wine e recoméndase para Macs con Intel e para xogos con DX11 ou anteriores, especialmente combinado coa ferramenta DXMT.",
+        "proton-cachyos": "Proton-CachyOS é unha variante de Proton mantida polo equipo de CachyOS. Inclúe ferramentas adicionais como DXVK-Sarek e D7VK."
     },
     "amazon-luna": "Amazon Luna",
     "zoom-store": "Tenda de Zoom",
@@ -1149,94 +1182,116 @@
     "steamgriddb": {
         "error": {
             "no-games": "Non se atoparon xogos",
-            "no-grids": "",
-            "search": "",
-            "grids": ""
+            "no-grids": "Non se atopou o rexistro para este xogo",
+            "search": "Erro ao buscar xogos, comprobe a súa clave de API de SteamGridDB e inténteo de novo",
+            "grids": "Erro ao recoller cadrículas"
         },
         "picker": {
-            "search": "",
-            "title": "",
-            "select-game": ""
+            "search": "Buscar xogos",
+            "title": "Portadas de SteamGridDB",
+            "select-game": "Selecciona un Xogo:"
         }
     },
     "discounts": {
         "filters": {
             "ageRatingAll": "Todos",
             "os": "Sistema operativo:",
-            "moreFilters": "",
-            "ageRating": "",
-            "price": "",
-            "activeCount_other": "",
-            "hideDlcs": "",
-            "ageRatingOption": "",
-            "genres": "",
-            "activeCount_one": "",
-            "lessFilters": "",
-            "rating": "",
-            "sort": "",
-            "genresPlaceholder": "",
-            "features": "",
-            "featuresPlaceholder": "",
-            "pageSize": "",
-            "releaseYear": ""
+            "moreFilters": "Máis filtros",
+            "ageRating": "Axeitado para a idade",
+            "price": "Prezo",
+            "activeCount_other": "{{count}} activos",
+            "hideDlcs": "Ocultar DLCs",
+            "ageRatingOption": "Amosar xogos clasificados PEGI {{age}} ou inferior",
+            "genres": "Xéneros",
+            "activeCount_one": "{{count}} activos",
+            "lessFilters": "Menos filtros",
+            "rating": "Puntuación",
+            "sort": "Ordenar por",
+            "genresPlaceholder": "Calquera xénero",
+            "features": "Funcións",
+            "featuresPlaceholder": "Calquera función",
+            "pageSize": "Por páxina",
+            "releaseYear": "Ano de lanzamento",
+            "hideOwned": "Ocultar Propios",
+            "wishlistOnly": "Só lista de desexos",
+            "platform": "Platform"
         },
         "region": {
             "countries": {
-                "IT": "",
-                "ES": "",
-                "FI": "",
-                "GR": "",
-                "RO": "",
-                "NO": "",
-                "KR": "",
-                "US": "",
-                "HU": "",
-                "PT": "",
-                "NL": "",
-                "AU": "",
-                "TW": "",
-                "IL": "",
-                "JP": "",
-                "DK": "",
-                "DE": "",
-                "CZ": "",
-                "FR": "",
-                "UA": "",
-                "GB": "",
-                "SE": "",
-                "CN": "",
-                "RU": "",
-                "CA": "",
-                "PL": "",
-                "BR": "",
-                "CH": "",
-                "TR": ""
+                "IT": "Italia",
+                "ES": "España",
+                "FI": "Finlandia",
+                "GR": "Grecia",
+                "RO": "Romanía",
+                "NO": "Noruega",
+                "KR": "Corea do Sur",
+                "US": "Estados Unidos",
+                "HU": "Hungría",
+                "PT": "Portugal",
+                "NL": "Países Baixos",
+                "AU": "Australia",
+                "TW": "Taiwán",
+                "IL": "Israel",
+                "JP": "Xapón",
+                "DK": "Dinamarca",
+                "DE": "Alemaña",
+                "CZ": "Chequia",
+                "FR": "Francia",
+                "UA": "Ucraína",
+                "GB": "Reino Unido",
+                "SE": "Suecia",
+                "CN": "China",
+                "RU": "Rusia",
+                "CA": "Canadá",
+                "PL": "Polonia",
+                "BR": "Brasil",
+                "CH": "Suíza",
+                "TR": "Turquía",
+                "ZA": "Sudáfrica"
             },
-            "auto": "",
-            "label": ""
+            "auto": "Automático {{code}}",
+            "label": "Rexión da tenda"
         },
-        "sidebar": "",
+        "sidebar": "Ofertas",
         "sort": {
-            "priceDesc": "",
-            "trending": "",
-            "priceAsc": "",
-            "releaseDesc": "",
-            "ratingAsc": "",
-            "releaseAsc": "",
-            "ratingDesc": "",
-            "discount": ""
+            "priceDesc": "Prezo: de maior a menor",
+            "trending": "Tendencias",
+            "priceAsc": "Prezo: de menor a maior",
+            "releaseDesc": "Data de lanzamento: de novo a antigo",
+            "ratingAsc": "Clasificación: de baixa a alta",
+            "releaseAsc": "Data de lanzamento: antiga a nova",
+            "ratingDesc": "Clasificación: de alta a baixa",
+            "discount": "Maior desconto"
         },
-        "noMatches": "",
+        "noMatches": "Non hai xogos que coincidan cos filtros actuais.",
         "aria": {
-            "pagination": "",
-            "rating": ""
+            "pagination": "Paxinación",
+            "rating": "Puntuación {{rating}} de 10"
         },
-        "error": "",
-        "empty": "",
-        "loading": "",
-        "title": "",
+        "error": "Non se puideron cargar os descontos. Téntao de novo máis tarde.",
+        "empty": "Non hay xogos en desconto dispoñibles agora mesmo.",
+        "loading": "Cargando xogos con desconto…",
+        "title": "Ofertas de GOG",
         "pagination": {
-            "prev": ""
+            "prev": "Anterior"
+        },
+        "tabs": {
+            "label": "Store",
+            "all": "Todas as tendas"
+        },
+        "titleMulti": "Ofertas",
+        "currency": {
+            "label": "Divisa"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — Clave {{drm}}, reclamada dende Heroic",
+            "gmgHint": "Green Man Gaming — clave dunha tenda externa, non instalable por Heroic",
+            "humbleHint": "Humble Bundle — clave dunha tenda externa, non instalable por Heroic"
+        },
+        "view": {
+            "grid": "Cadrícula",
+            "label": "Modo de visualización",
+            "list": "Lista"
         }
     },
     "next": "Seguinte",
@@ -1248,10 +1303,10 @@
         "games": "Xogos instalados",
         "hints": {
             "quit": "Saír",
-            "launch": "",
-            "sort": "",
-            "navigate": "",
-            "change_store": ""
+            "launch": "Lanzando",
+            "sort": "Ordenar",
+            "navigate": "Navegar",
+            "change_store": "Cambiar de tenda"
         },
         "launching": "Lanzando",
         "update": {
@@ -1260,25 +1315,47 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Ordenar",
         "cancel": {
-            "hintSuffix": "",
-            "hintPrefix": ""
+            "hintSuffix": "durante 3 segundos para cancelar",
+            "hintPrefix": "Mantenga"
         },
-        "quit": "",
+        "quit": "Saír da consola",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Precisa actualización"
         },
-        "empty": "",
-        "quitApp": "",
-        "loading": "",
+        "empty": "Non hai xogos instalados para amosar. Instala algo primeiro.",
+        "quitApp": "Saír da App",
+        "loading": "Cargando a túa biblioteca…",
         "cancelInstall": {
-            "title": "Cancelar Instalación"
+            "title": "Cancelar Instalación ?",
+            "message": "Este xogo está a instalarse actualmente. Queres cancelar a instalación?"
         },
         "install": {
             "platform": "Platform",
             "title": "Instalar xogo",
-            "wineLoading": "Cargando"
+            "wineLoading": "Cargando…",
+            "path": "Instalar en",
+            "wineMissing": "Ningunha localización seleccionada",
+            "wine": "Wine"
+        },
+        "cancelUpdate": {
+            "message": "Este xogo está a descargarse actualmente. Queres cancelar a actualización en curso?",
+            "title": "Cancelar actualización?"
+        },
+        "removeFromQueue": {
+            "message": "Este xogo está na cola de descarga. Queres eliminalo da cola?"
         }
+    },
+    "common": {
+        "add": "Engadir",
+        "cancel": "Cancelar",
+        "warning": "Advertencia",
+        "clear_all": "Limpar Todo",
+        "confirm": "Confirmar",
+        "duplicate": "Duplicar",
+        "edit": "Editar",
+        "remove": "Eliminar",
+        "save": "Gardar"
     }
 }

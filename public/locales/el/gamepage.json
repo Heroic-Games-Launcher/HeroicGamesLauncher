@@ -95,7 +95,8 @@
         "changelog": "Εμφάνιση αρχείου αλλαγών",
         "browse_files": "Περιήγηση Αρχείων",
         "browse_wine_prefix": "Περιήγηση στο πρόθεμα Wine",
-        "play": "ΠΑΙΞΤΕ"
+        "play": "ΠΑΙΞΤΕ",
+        "edit-game": "Edit App/Game"
     },
     "cloud_save_unsupported": "Μη υποστηριζόμενο",
     "disabled": "Απενεργοποιημένο",
@@ -334,6 +335,10 @@
         "notice2": "Αφού κάνετε κλικ στην Εγκατάσταση, το Heroic θα εκτελέσει την εφαρμογή για να ολοκληρώσει τη διαδικασία εγκατάστασης"
     },
     "edit-game": {
-        "advanced": "Προχωρημένες"
+        "advanced": "Προχωρημένες",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Edit App/Game"
     }
 }

@@ -96,7 +96,8 @@
         "changelog": "عرض سجل التغيير",
         "browse_files": "تصفح الملفات",
         "browse_wine_prefix": "تصفح سابقة Wine",
-        "play": "العب"
+        "play": "العب",
+        "edit-game": "حرِّر التطبيق/اللعبة"
     },
     "cloud_save_unsupported": "غير مدعوم",
     "disabled": "معطّل",
@@ -338,6 +339,7 @@
     "wikiLink": "معلومات مهمة حول هذه اللعبة, اقرأ هذا: &nbsp;<1>افتح الصفحة</1>",
     "open-saves-folder": "",
     "edit-game": {
-        "advanced": "الإعدادات المتقدمة"
+        "advanced": "الإعدادات المتقدمة",
+        "title": "حرِّر التطبيق/اللعبة"
     }
 }

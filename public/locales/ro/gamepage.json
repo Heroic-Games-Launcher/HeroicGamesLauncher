@@ -241,7 +241,7 @@
             "fullscreen": ""
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
+            "image": "Lipește adresa URL a unei imagini sau selectează una de pe computer",
             "title": "Add a title to your Game/App",
             "url": "Lipiți adresa URL a jocului aici",
             "useragent": ""
@@ -300,7 +300,7 @@
         "verify": "Verificați și Reparați",
         "extraInfo": "Informații suplimentare",
         "logs": "Bușteni",
-        "categories": ""
+        "categories": "Categorii"
     },
     "help": {
         "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud.",
@@ -329,13 +329,13 @@
         "versionCollapsable": ""
     },
     "third-party-managed": {
-        "header": "",
-        "notice2": "",
-        "notice1": ""
+        "header": "Acest joc este gestionat de o aplicație terță",
+        "notice2": "După ce apăsați pe Instalează, Heroic va rula aplicația pentru a finaliza procesul de instalare",
+        "notice1": "Acest joc este gestionat de o aplicație terță: \"{{application_name}}\""
     },
     "open-saves-folder": "",
     "Open": "",
-    "wikiLink": "",
+    "wikiLink": "Informații importante despre acest joc, citește-le:&nbsp;<1>Deschide pagina</1>",
     "edit-game": {
         "advanced": "Avansat",
         "cover": "Copertă",

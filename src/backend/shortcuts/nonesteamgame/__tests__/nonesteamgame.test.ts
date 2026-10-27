@@ -5,8 +5,11 @@ import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { GlobalConfig } from 'backend/config'
 import { logInfo, logError, logWarning } from 'backend/logger'
+import { app } from 'electron'
+import * as pathUtils from 'backend/utils/os/path'
 import type { Game } from 'common/types/game_manager'
 
+jest.mock('electron')
 jest.mock('backend/logger')
 jest.mock('backend/dialog/dialog')
 jest.mock('backend/utils')
@@ -47,17 +50,27 @@ describe('NonSteamGame', () => {
     tmpDir.removeCallback()
   })
 
-  test('Already exist in shortcuts.vdf', async () => {
+  test('Does not touch shortcuts with the same title from other tools', async () => {
     copyTestFile('shortcuts_valid.vdf')
     const shortcutFilePath = join(tmpSteamUserConfigDir, 'shortcuts.vdf')
 
     const contentBefore = readFileSync(shortcutFilePath).toString()
+    // shortcuts_valid.vdf already contains a non-heroic "Discord" entry
     const game = makeGameMock('Discord', 'Discord')
 
     await addNonSteamGame(game)
 
+    const contentBetween = readFileSync(shortcutFilePath).toString()
+
+    await removeNonSteamGame(game)
+
     const contentAfter = readFileSync(shortcutFilePath).toString()
-    expect(contentBefore).toStrictEqual(contentAfter)
+    // heroic creates its own entry instead of reusing the existing one
+    expect(contentBetween).not.toBe(contentBefore)
+    expect(contentBetween).toContain('heroic://launch')
+    // and removing only removes heroic's entry
+    expect(contentAfter).toStrictEqual(contentBefore)
+    expect(contentAfter).toContain('Discord')
     expect(logInfo).toBeCalledWith(
       `${game.getGameInfo().title} was successfully added to Steam.`,
       'Shortcuts'
@@ -96,6 +109,23 @@ describe('NonSteamGame', () => {
       `Remove Steam images for ${game.getGameInfo().title}`,
       'Shortcuts'
     )
+  })
+
+  test('Remove game even if title changed since it was added', async () => {
+    copyTestFile('shortcuts_valid.vdf')
+    const shortcutFilePath = join(tmpSteamUserConfigDir, 'shortcuts.vdf')
+    const contentBefore = readFileSync(shortcutFilePath).toString()
+
+    await addNonSteamGame(makeGameMock('MyGame', 'Game'))
+
+    const contentBetween = readFileSync(shortcutFilePath).toString()
+
+    // the launch url still points to the same app_name
+    await removeNonSteamGame(makeGameMock('Renamed Title', 'Game'))
+
+    const contentAfter = readFileSync(shortcutFilePath).toString()
+    expect(contentBetween).toContain('MyGame')
+    expect(contentBefore).toStrictEqual(contentAfter)
   })
 
   test('Create shortcuts.vdf if not exist', async () => {
@@ -231,5 +261,19 @@ describe('NonSteamGame', () => {
       expect(logError).not.toBeCalled()
       expect(showDialogBoxModalAuto).not.toBeCalled()
     }
+  })
+
+  test('Searches for Heroic wrapper if executable is not `heroic`', async () => {
+    const game = makeGameMock()
+
+    const getPathSpy = jest
+      .spyOn(app, 'getPath')
+      .mockImplementation(() => '/usr/bin/electron43')
+    const searchExeSpy = jest.spyOn(pathUtils, 'searchForExecutableOnPath')
+
+    await addNonSteamGame(game)
+
+    expect(getPathSpy).toHaveBeenCalled()
+    expect(searchExeSpy).toHaveBeenCalledWith('heroic')
   })
 })
