@@ -183,13 +183,15 @@ export default function WebView() {
     if (webview) {
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
-        const userAgent =
-          startUrl === epicLoginUrl
-            ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
-            : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0'
-        if (webview.getUserAgent() != userAgent) {
+
+        // only set a custom user agent for Epic, setting a user agent seems to break Cloudflare bot
+        // checks in the GOG login
+        if (startUrl === epicLoginUrl) {
+          const userAgent =
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
           webview.setUserAgent(userAgent)
         }
+
         // Arm gamepad forwarding when the user got here with a controller so
         // the preload's spatial navigation takes effect. We must NOT focus the
         // webview element — that blurs the host and stops its gamepad polling
