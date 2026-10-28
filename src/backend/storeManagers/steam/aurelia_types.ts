@@ -14,6 +14,23 @@ export interface AureliaProgressEvent {
   file?: string
 }
 
+/** One `aurelia install list --json` row. */
+export interface AureliaInstallListEntry {
+  app_id: number
+  name?: string
+  /** `running`, `paused`, `aborted`, `interrupted`. */
+  state?: string
+  downloaded_bytes?: number
+  total_bytes?: number
+  percent?: number
+  status?: string
+  /** Backlog only: `windows` or `linux`. */
+  platform?: string
+  /** Backlog only: library root. */
+  library?: string
+  error_type?: string | null
+}
+
 /** Artwork URLs baked into Aurelia's responses (see `aurelia list`/`info`). */
 interface AureliaAssets {
   header?: string

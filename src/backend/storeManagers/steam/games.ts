@@ -1,5 +1,5 @@
 import { existsSync } from 'graceful-fs'
-import { dirname } from 'path'
+import { dirname, normalize } from 'path'
 import { dialog } from 'electron'
 import { t } from 'i18next'
 import { GameConfig } from '../../game_config'
@@ -29,6 +29,7 @@ import { sendFrontendMessage } from 'backend/ipc'
 import { isLinux } from 'backend/constants/environment'
 import { libraryManagerMap } from '..'
 import { configStore, extraInfoStore } from './electronStores'
+import { getSteamBacklogEntry } from './backlog'
 import {
   getCloudSyncStatus,
   markCloudSyncing,
@@ -472,13 +473,16 @@ export default class SteamGame extends Game {
     )
 
     const platformArg = aureliaPlatform(platformToInstall)
-    const commandParts = [
-      'install',
-      this.id,
-      ...(platformArg ? ['-p', platformArg] : []),
-      // Install into the chosen Steam library folder
-      ...(libraryRoot ? ['--library', libraryRoot] : [])
-    ]
+    const commandParts = (await this.canResumeInstall(libraryRoot, platformArg))
+      ? // Same options; reuses the partial files.
+        ['install', 'resume', this.id]
+      : [
+          'install',
+          this.id,
+          ...(platformArg ? ['-p', platformArg] : []),
+          // Install into the chosen Steam library folder
+          ...(libraryRoot ? ['--library', libraryRoot] : [])
+        ]
 
     const result = await this.runStreamingCommand(
       commandParts,
@@ -1024,6 +1028,28 @@ export default class SteamGame extends Game {
         )
       }
     }
+  }
+
+  /** Whether Aurelia's backlog matches this install. */
+  private async canResumeInstall(
+    libraryRoot: string | undefined,
+    platform: string | undefined
+  ): Promise<boolean> {
+    const entry = await getSteamBacklogEntry(this.id)
+    if (!entry) return false
+    const sameLibrary =
+      !libraryRoot ||
+      normalize(entry.library ?? '').replace(/[/\\]+$/, '') ===
+        normalize(libraryRoot).replace(/[/\\]+$/, '')
+    const samePlatform = !platform || entry.platform === platform
+    if (sameLibrary && samePlatform) {
+      logInfo(
+        `Resuming ${this.id} from the Steam install backlog (${entry.state})`,
+        LogPrefix.Steam
+      )
+      return true
+    }
+    return false
   }
 
   /** Pause or stop this game's download. */
