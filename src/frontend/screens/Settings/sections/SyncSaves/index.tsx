@@ -6,11 +6,12 @@ import SettingsContext from '../../SettingsContext'
 import { defaultWineVersion } from '../../util'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
+import SteamSyncSaves from './steam'
 import { ToggleSwitch } from 'frontend/components/UI'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
-  const { runner, gameInfo } = useContext(SettingsContext)
+  const { game, gameInfo } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -48,9 +49,12 @@ const SyncSaves = () => {
     )
   }
 
-  if (runner === 'legendary') {
+  if (!game) return <></>
+
+  if (game.runner === 'legendary') {
     return (
       <LegendarySyncSaves
+        game={game}
         featureSupported={!!gameInfo?.cloud_save_enabled}
         savesPath={savesPath}
         setSavesPath={setSavesPath}
@@ -64,9 +68,14 @@ const SyncSaves = () => {
     )
   }
 
-  if (runner === 'gog') {
+  if (game.runner === 'steam') {
+    return <SteamSyncSaves game={game} />
+  }
+
+  if (game.runner === 'gog') {
     return (
       <GOGSyncSaves
+        game={game}
         featureSupported={!!gameInfo?.cloud_save_enabled}
         isLinuxNative={gameInfo?.install.platform === 'linux'}
         gogSaves={gogSavesLocations}

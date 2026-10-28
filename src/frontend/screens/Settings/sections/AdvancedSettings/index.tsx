@@ -13,13 +13,13 @@ import {
 import classNames from 'classnames'
 import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameStatus } from 'common/types'
 import {
   AllowInstallationBrokenAnticheat,
   ShowValveProton,
   AltGOGdlBin,
   AltLegendaryBin,
   AltNileBin,
+  AltAureliaBin,
   ClearCache,
   CustomCSS,
   DisableLogs,
@@ -83,10 +83,9 @@ export default function AdvancedSetting() {
   }, [])
 
   useEffect(() => {
-    const { status } =
-      libraryStatus.filter(
-        (game: GameStatus) => game.appName === eosOverlayAppName
-      )[0] || {}
+    const status = libraryStatus.find(
+      (game) => game.appName === eosOverlayAppName
+    )?.status
     setEosOverlayInstallingOrUpdating(
       status === 'installing' || status === 'updating'
     )
@@ -153,10 +152,10 @@ export default function AdvancedSetting() {
 
   async function toggleEosOverlay() {
     if (eosOverlayEnabledGlobally) {
-      await window.api.disableEosOverlay('')
+      await window.api.disableEosOverlay()
       setEosOverlayEnabledGlobally(false)
     } else {
-      const { wasEnabled } = await window.api.enableEosOverlay('')
+      const { wasEnabled } = await window.api.enableEosOverlay()
       setEosOverlayEnabledGlobally(wasEnabled)
     }
   }
@@ -183,6 +182,8 @@ export default function AdvancedSetting() {
       <AltGOGdlBin />
 
       <AltNileBin />
+
+      <AltAureliaBin />
 
       <DownloadNoHTTPS />
 

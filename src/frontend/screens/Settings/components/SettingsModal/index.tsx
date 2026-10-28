@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { GameInfo } from 'common/types'
 import {
   Dialog,
   DialogContent,
@@ -11,29 +10,23 @@ import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import LogSettings from '../../sections/LogSettings'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
-import { SettingsContextType } from 'frontend/types'
 import CategorySettings from '../../sections/CategorySettings'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 export type GameSettingsModalType = 'settings' | 'log' | 'category'
 
 type Props = {
-  gameInfo: GameInfo
+  game: GameHandle
   type: GameSettingsModalType
 }
 
-function SettingsModal({ gameInfo, type }: Props) {
+function SettingsModal({ game, type }: Props) {
   const { t } = useTranslation()
   const { closeSettingsModal } = useGlobalState.keys('closeSettingsModal')
 
-  const { app_name: appName, runner, title } = gameInfo
-
   // create setting context functions
-  const contextValues: SettingsContextType | null = useSettingsContext({
-    appName,
-    gameInfo,
-    runner
-  })
+  const contextValues = useSettingsContext(game)
 
   const titleType = useMemo(() => {
     const titleTypeLiterals = {
@@ -56,13 +49,13 @@ function SettingsModal({ gameInfo, type }: Props) {
       className={'InstallModal__dialog'}
     >
       <DialogHeader onClose={() => closeSettingsModal()}>
-        {`${title} (${titleType})`}
+        {`${contextValues.gameInfo?.title} (${titleType})`}
       </DialogHeader>
       <DialogContent className="settingsDialogContent">
         <SettingsContext.Provider value={contextValues}>
           {type === 'settings' && <GamesSettings />}
           {type === 'log' && <LogSettings />}
-          {type === 'category' && <CategorySettings />}
+          {type === 'category' && <CategorySettings game={game} />}
         </SettingsContext.Provider>
       </DialogContent>
     </Dialog>

@@ -18,7 +18,7 @@ interface Props {
 
 export default function WineManagerSettingsModal({ onClose }: Props) {
   const { t } = useTranslation()
-  const contextValues = useSettingsContext({ appName: 'default' })
+  const contextValues = useSettingsContext(null)
 
   if (!contextValues) {
     return <UpdateComponent />

@@ -1,6 +1,6 @@
 import { useAwaited } from './useAwaited'
-import { Runner } from 'common/types'
+import type { GameHandle } from '../helpers/ipc'
 
-export const useKnownFixes = (appName: string, runner: Runner) => {
-  return useAwaited(window.api.getKnownFixes, appName, runner)
+export const useKnownFixes = (game: GameHandle) => {
+  return useAwaited(window.api.getKnownFixes, game)
 }

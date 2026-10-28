@@ -28,6 +28,8 @@ import {
   PreferSystemLibs,
   ShowFPS,
   SteamRuntime,
+  SteamIntegration,
+  SteamLaunchTarget,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -45,6 +47,7 @@ import SettingsContext from '../../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import useSetting from 'frontend/hooks/useSetting'
+import { useSteamLaunchTargets } from 'frontend/hooks/useSteamLaunchTargets'
 import { defaultWineVersion } from '../../util'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
@@ -75,15 +78,21 @@ function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
 export default function GamesSettings() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo } = useContext(SettingsContext)
+  const { game, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const [isNative, setIsNative] = useState(false)
+  const [nativeFromApi, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
+  const steamTargets = useSteamLaunchTargets(game, gameInfo, isLinux)
+  // Steam: follows the chosen game version
+  const steamPlatform = steamTargets.effective?.platform
+  const isNative = steamPlatform ? steamPlatform === 'linux' : nativeFromApi
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
   const showCloudSavesTab =
-    gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
+    gameInfo?.runner === 'gog' ||
+    gameInfo?.runner === 'legendary' ||
+    (gameInfo?.runner === 'steam' && gameInfo.is_installed)
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
 
@@ -119,24 +128,17 @@ export default function GamesSettings() {
   }
 
   useEffect(() => {
-    if (gameInfo) {
-      const getIsNative = async () => {
-        const isNative = await window.api.isNative({
-          appName: gameInfo?.app_name,
-          runner: gameInfo?.runner
-        })
-        setIsNative(isNative)
-      }
-      void getIsNative()
+    if (game) {
+      void window.api.isNative(game).then(setIsNative)
     }
-  }, [gameInfo])
+  }, [game])
 
   const showOtherTab = shouldShowSettings('other')
   const showWineTab = shouldShowSettings('wine')
 
   return (
     <>
-      {isDefault && (
+      {!game && (
         <p className="defaults-hint">
           <FontAwesomeIcon icon={faInfoCircle} />
           {t(
@@ -210,6 +212,7 @@ export default function GamesSettings() {
         <GameMode />
         {isLinux && <PreferSystemLibs />}
         <SteamRuntime />
+        <SteamIntegration />
         <NvidiaPrime />
         {!isNative && (
           <>
@@ -217,6 +220,7 @@ export default function GamesSettings() {
             <EacRuntime />
           </>
         )}
+        <SteamLaunchTarget state={steamTargets} />
       </TabPanel>
 
       <TabPanel value={value} index={'advanced'}>
@@ -262,7 +266,7 @@ export default function GamesSettings() {
         </TabPanel>
       )}
 
-      {!isDefault && <FooterInfo />}
+      <FooterInfo />
     </>
   )
 }

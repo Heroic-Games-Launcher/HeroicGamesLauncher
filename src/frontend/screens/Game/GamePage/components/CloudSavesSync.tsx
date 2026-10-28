@@ -10,12 +10,13 @@ import { syncSaves } from 'frontend/helpers'
 import { Menu, MenuItem, Divider } from '@mui/material'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
-
+import type { GameHandle } from 'frontend/helpers/ipc'
 interface Props {
+  game: GameHandle
   gameInfo: GameInfo
 }
 
-const CloudSavesSync = ({ gameInfo }: Props) => {
+const CloudSavesSync = ({ game, gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { t: tCommon } = useTranslation()
   const { gameSettings, is } = useContext(GameContext)
@@ -99,28 +100,23 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
       let locations = gogSaves
       if (!locations.length) {
         locations = (await window.api.getDefaultSavePath(
-          gameInfo.app_name,
-          'gog',
+          game,
           []
         )) as GOGCloudSavesLocation[]
       }
 
       await window.api
-        .syncGOGSaves(locations, gameInfo.app_name, syncType)
+        .syncGOGSaves(game, locations, syncType)
         .then((stderr) => {
           window.api.logError(stderr)
         })
     } else {
       let path = savesPath
       if (!path) {
-        path = (await window.api.getDefaultSavePath(
-          gameInfo.app_name,
-          'legendary',
-          []
-        )) as string
+        path = (await window.api.getDefaultSavePath(game, [])) as string
       }
 
-      await syncSaves(path, gameInfo.app_name, gameInfo.runner, syncType)
+      await syncSaves(game, path, syncType)
     }
 
     setIsSyncing(false)

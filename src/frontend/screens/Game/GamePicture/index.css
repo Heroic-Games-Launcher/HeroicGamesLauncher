@@ -34,12 +34,3 @@
   border-radius: 0;
   object-fit: cover;
 }
-
-.gamePicture > .gameLogo {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  z-index: 2;
-}

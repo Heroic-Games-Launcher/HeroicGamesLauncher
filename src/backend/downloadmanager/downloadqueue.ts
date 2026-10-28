@@ -1,7 +1,12 @@
 import { libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
-import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
+import {
+  getFileSize,
+  getGame,
+  removeFolder,
+  sendGameStatusUpdate
+} from '../utils'
 import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../ipc'
@@ -9,6 +14,10 @@ import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
+import {
+  forgetSteamInstall,
+  pruneSteamBacklog
+} from 'backend/storeManagers/steam/backlog'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 import { onConnectivityChange } from 'backend/online_monitor'
@@ -80,6 +89,15 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 */
 
 async function initQueue() {
+  // Drop Steam backlog entries we cancelled.
+  const queuedSteam = new Set(
+    downloadManager
+      .get('queue', [])
+      .filter((e) => e.params.runner === 'steam')
+      .map((e) => e.params.appName)
+  )
+  await pruneSteamBacklog(queuedSteam)
+
   let element = getFirstQueueElement()
 
   while (element) {
@@ -124,9 +142,8 @@ async function addToQueue(element: DMQueueElement) {
     return
   }
 
-  sendGameStatusUpdate({
-    appName: element.params.appName,
-    runner: element.params.runner,
+  const game = getGame(element.params.appName, element.params.runner)
+  sendGameStatusUpdate(game, {
     folder: element.params.path,
     status: 'queued'
   })
@@ -202,15 +219,13 @@ function removeFromQueue(appName: string) {
       (queueElement) => queueElement?.params.appName === appName
     )
     if (index !== -1) {
+      const element = elements[index]
+      const game = getGame(appName, element.params.runner)
+      sendGameStatusUpdate(game, 'done')
+
       elements.splice(index, 1)
-      downloadManager.delete('queue')
       downloadManager.set('queue', elements)
     }
-
-    sendGameStatusUpdate({
-      appName,
-      status: 'done'
-    })
 
     logInfo(
       [appName, 'removed from download manager.'],
@@ -241,11 +256,12 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
     }
     removeFromQueue(currentElement.params.appName)
 
-    if (removeDownloaded) {
-      const { appName, runner } = currentElement.params
-      const { folder_name } = libraryManagerMap[runner]
-        .getGame(appName)
-        .getGameInfo()
+    const { appName, runner } = currentElement.params
+    if (runner === 'steam') {
+      // Aurelia knows the safe folder.
+      void forgetSteamInstall(appName, removeDownloaded)
+    } else if (removeDownloaded) {
+      const { folder_name } = getGame(appName, runner).getGameInfo()
       if (folder_name) {
         removeFolder(currentElement.params.path, folder_name)
       }
@@ -255,10 +271,11 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
 }
 
 function pauseCurrentDownload() {
+  // Set first: runners check isPaused().
+  queueState = 'paused'
   if (currentElement) {
     stopCurrentDownload()
   }
-  queueState = 'paused'
   autoPaused = false
   sendFrontendMessage(
     'changedDMQueueInformation',
@@ -275,7 +292,7 @@ function resumeCurrentDownload() {
 function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
-  libraryManagerMap[runner].getGame(appName).stop(false)
+  getGame(appName, runner).stop(false)
 }
 
 // notify the user based on the status of the element and the status of the queue
@@ -287,9 +304,10 @@ function processNotification(element: DMQueueElement, status: DMStatus) {
   ) {
     return
   }
-  const { title } = libraryManagerMap[element.params.runner]
-    .getGame(element.params.appName)
-    .getGameInfo()
+  const { title } = getGame(
+    element.params.appName,
+    element.params.runner
+  ).getGameInfo()
 
   if (status === 'abort') {
     if (isPaused()) {
@@ -340,5 +358,6 @@ export {
   cancelCurrentDownload,
   pauseCurrentDownload,
   resumeCurrentDownload,
-  isRunning
+  isRunning,
+  isPaused
 }

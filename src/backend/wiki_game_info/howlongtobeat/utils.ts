@@ -93,7 +93,7 @@ async function getGameDataById(
 async function getGogHLTBGameData(
   game: Game
 ): Promise<HeroicHowLongToBeatEntry | null> {
-  const { app_name, title } = game.getGameInfo()
+  const { title } = game.getGameInfo()
   const { storeUrl } = await game.getExtraInfo()
   if (!storeUrl) return null
 
@@ -156,7 +156,7 @@ async function getGogHLTBGameData(
     }
   } catch (error) {
     logError(
-      [`Error fetching HLTB game data for ID ${app_name}:`, error],
+      [`Error fetching HLTB game data for ${game}:`, error],
       LogPrefix.ExtraGameInfo
     )
     return null

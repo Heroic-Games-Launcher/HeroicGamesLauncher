@@ -12,7 +12,7 @@ const AutoVKD3D = () => {
     'autoInstallVkd3d',
     false
   )
-  const { appName } = useContext(SettingsContext)
+  const { game } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [autoInstallDxvk] = useSetting('autoInstallDxvk', false)
   const [installingVKD3D, setInstallingVKD3D] = React.useState(false)
@@ -26,10 +26,7 @@ const AutoVKD3D = () => {
   const handleAutoInstallVkd3d = async () => {
     const action = autoInstallVkd3d ? 'restore' : 'backup'
     setInstallingVKD3D(true)
-    const res = await window.api.toggleVKD3D({
-      appName,
-      action
-    })
+    const res = game ? await window.api.toggleVKD3D(game, action) : true
 
     setInstallingVKD3D(false)
     if (res) {

@@ -1,17 +1,15 @@
 import React from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo, GameStatus, Status } from 'common/types'
+import { GameInfo, Status } from 'common/types'
 import { hasProgress } from './hasProgress'
 import { useTranslation } from 'react-i18next'
 import { getStatusLabel, handleNonAvailableGames } from './constants'
+import type { GameHandle } from '../helpers/ipc'
 
-export function hasStatus(gameInfo: GameInfo, gameSize?: string) {
-  const appName = gameInfo.app_name
+export function hasStatus(game: GameHandle, gameSize?: string) {
   const { libraryStatus, epic, gog } = React.useContext(ContextProvider)
-  const [progress] = hasProgress(gameInfo.app_name, gameInfo.runner)
-  const [newGameInfo, setNewGameInfo] = React.useState<GameInfo | undefined>(
-    gameInfo
-  )
+  const [progress] = hasProgress(game)
+  const [gameInfo, setGameInfo] = React.useState<GameInfo>()
   const { t } = useTranslation('gamepage')
 
   const [gameStatus, setGameStatus] = React.useState<{
@@ -27,23 +25,17 @@ export function hasStatus(gameInfo: GameInfo, gameSize?: string) {
     runner = 'sideload',
     isEAManaged,
     isUbisoftManaged
-  } = { ...newGameInfo }
+  } = { ...gameInfo }
 
   React.useEffect(() => {
-    if (newGameInfo) {
-      return
-    }
     const getGameInfo = async () => {
-      const updatedInfo = await window.api.getGameInfo(
-        appName,
-        runner || 'sideload'
-      )
+      const updatedInfo = await window.api.getGameInfo(game)
       if (updatedInfo) {
-        setNewGameInfo(updatedInfo)
+        setGameInfo(updatedInfo)
       }
     }
     getGameInfo()
-  }, [appName, gameInfo])
+  }, [game])
 
   React.useEffect(() => {
     const checkGameStatus = async () => {
@@ -51,8 +43,7 @@ export function hasStatus(gameInfo: GameInfo, gameSize?: string) {
         status,
         folder,
         context: statusContext
-      } = libraryStatus.find((game: GameStatus) => game.appName === appName) ||
-      {}
+      } = libraryStatus.find((s) => s.appName === game.id) || {}
 
       if (status && status !== 'done') {
         const label = getStatusLabel({
@@ -80,7 +71,7 @@ export function hasStatus(gameInfo: GameInfo, gameSize?: string) {
       }
 
       if (is_installed && !thirdPartyManagedApp) {
-        const gameAvailable = await handleNonAvailableGames(appName, runner)
+        const gameAvailable = await handleNonAvailableGames(game)
         if (!gameAvailable) {
           const label = getStatusLabel({
             status: 'notAvailable',
@@ -108,7 +99,7 @@ export function hasStatus(gameInfo: GameInfo, gameSize?: string) {
     checkGameStatus()
   }, [
     libraryStatus,
-    appName,
+    game,
     epic.library,
     gog.library,
     is_installed,

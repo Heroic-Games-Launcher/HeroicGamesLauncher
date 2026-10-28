@@ -1,6 +1,5 @@
-import { libraryManagerMap } from 'backend/storeManagers'
 import { logError, LogPrefix, logWarning } from 'backend/logger'
-import { isEpicServiceOffline, sendGameStatusUpdate } from '../utils'
+import { getGame, isEpicServiceOffline, sendGameStatusUpdate } from '../utils'
 import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
@@ -24,7 +23,8 @@ async function installQueueElement(params: InstallParams): Promise<{
     build,
     branch
   } = params
-  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+  const game = getGame(appName, runner)
+  const { title } = game.getGameInfo()
 
   if (!isOnline()) {
     logWarning(
@@ -56,9 +56,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     if (existsSync(manifestPath)) rmSync(manifestPath)
   }
 
-  sendGameStatusUpdate({
-    appName,
-    runner,
+  sendGameStatusUpdate(game, {
     status: 'installing',
     folder: path
   })
@@ -76,17 +74,15 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status, error } = await libraryManagerMap[runner]
-      .getGame(appName)
-      .install({
-        path: path.replaceAll("'", ''),
-        installDlcs,
-        sdlList: sdlList.filter((el) => el !== ''),
-        platformToInstall,
-        installLanguage,
-        build,
-        branch
-      })
+    const { status, error } = await getGame(appName, runner).install({
+      path: path.replaceAll("'", ''),
+      installDlcs,
+      sdlList: sdlList.filter((el) => el !== ''),
+      platformToInstall,
+      installLanguage,
+      build,
+      branch
+    })
 
     if (status === 'error') {
       errorMessage(error ?? '')
@@ -97,11 +93,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     errorMessage(`${error}`)
     return { status: 'error' }
   } finally {
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'done'
-    })
+    sendGameStatusUpdate(game, 'done')
   }
 }
 
@@ -110,7 +102,8 @@ async function updateQueueElement(params: InstallParams): Promise<{
   error?: string | undefined
 }> {
   const { appName, runner } = params
-  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+  const game = getGame(appName, runner)
+  const { title } = game.getGameInfo()
 
   if (!isOnline()) {
     logWarning(
@@ -135,11 +128,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
     }
   }
 
-  sendGameStatusUpdate({
-    appName,
-    runner,
-    status: 'updating'
-  })
+  sendGameStatusUpdate(game, 'updating')
 
   notify({
     title,
@@ -154,7 +143,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status } = await libraryManagerMap[runner].getGame(appName).update({
+    const { status } = await getGame(appName, runner).update({
       build: params.build,
       branch: params.branch,
       language: params.installLanguage,
@@ -171,11 +160,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
     errorMessage(`${error}`)
     return { status: 'error' }
   } finally {
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'done'
-    })
+    sendGameStatusUpdate(game, 'done')
   }
 }
 

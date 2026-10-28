@@ -19,7 +19,7 @@ import {
 import { DMQueueElement } from 'common/types'
 import { GOGUser } from './user'
 import { isOnline } from 'backend/online_monitor'
-import { axiosClient } from 'backend/utils'
+import { axiosClient, getGame } from 'backend/utils'
 import { gogdlConfigPath, gogRedistPath } from './constants'
 import { gamesConfigPath } from 'backend/constants/paths'
 import LogWriter from '../../logger/log_writer'
@@ -112,7 +112,8 @@ async function pushRedistUpdateToQueue() {
 }
 
 export function createRedistDMQueueElement(): DMQueueElement {
-  const gameInfo = libraryManagerMap['gog'].getGame('gog-redist').getGameInfo()
+  const game = getGame('gog-redist', 'gog')
+  const gameInfo = game.getGameInfo()
   const newElement: DMQueueElement = {
     params: {
       appName: 'gog-redist',

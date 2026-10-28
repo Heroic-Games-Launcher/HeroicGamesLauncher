@@ -1,24 +1,16 @@
-import { AppSettings, GameInfo, Runner } from 'common/types'
+import { AppSettings, GameInfo } from 'common/types'
 import { SettingsContextType } from 'frontend/types'
-import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { GameHandle } from '../helpers/ipc'
 
-import useGlobalState from 'frontend/state/GlobalStateV2'
-
-type Props = {
-  appName: string
-  gameInfo?: GameInfo
-  runner?: Runner
-}
-
-const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
+const useSettingsContext = (
+  game: GameHandle | null
+): SettingsContextType | null => {
   const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
-  const { i18n } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { settingsModalProps } = useGlobalState.keys('settingsModalProps')
+  const [gameInfo, setGameInfo] = useState<GameInfo | null>(null)
 
-  const isDefault = appName === 'default'
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
   const isMacNative =
@@ -27,16 +19,26 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
   const isLinuxNative =
     isLinux && (gameInfo?.install.platform === 'linux' || false)
 
+  useEffect(() => {
+    if (game) void window.api.getGameInfo(game).then(setGameInfo)
+  }, [game])
+
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
     const getSettings = async () => {
-      const config = isDefault
-        ? await window.api.requestAppSettings()
-        : await window.api.requestGameSettings(appName)
+      const config = game
+        ? await window.api.requestGameSettings(game)
+        : await window.api.requestAppSettings()
       setCurrentConfig(config)
     }
     void getSettings()
-  }, [appName, isDefault, i18n.language, settingsModalProps.isOpen])
+  }, [game])
+
+  const nonDefaultValues:
+    | { game: GameHandle; isDefault: false }
+    | { game: null; isDefault: true } = game
+    ? { game, isDefault: false }
+    : { game, isDefault: true }
 
   const contextValues: SettingsContextType = {
     getSetting: (key, fallback) => currentConfig[key] ?? fallback,
@@ -47,12 +49,10 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
         if (noChange) return
       }
       setCurrentConfig({ ...currentConfig, [key]: value })
-      window.api.setSetting({ appName, key, value })
+      window.api.setSetting(game, key, value)
     },
     config: currentConfig,
-    isDefault,
-    appName,
-    runner,
+    ...nonDefaultValues,
     gameInfo,
     isLinuxNative,
     isMacNative
