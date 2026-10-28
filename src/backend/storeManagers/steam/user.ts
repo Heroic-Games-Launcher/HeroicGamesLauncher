@@ -21,11 +21,36 @@ function isCancellationError(message: string): boolean {
   return /\b(cancelled|canceled|FileNotFound|Expired)\b/i.test(message)
 }
 
+/** How long a QR `cancel` may take. */
+const QR_CANCEL_GRACE_MS = 3_000
+
+/** Frontend error code for a QR outcome. */
+function qrErrorCode(error: AureliaError): string | undefined {
+  switch (error.kind) {
+    case 'cancelled':
+    case 'input_closed':
+      return 'cancelled'
+    case 'login_denied':
+      return 'denied'
+    case 'login_expired':
+    case 'timeout':
+      return 'expired'
+    case 'offline':
+    case 'network_timeout':
+      return 'offline'
+    default:
+      return undefined
+  }
+}
+
 export class SteamUser {
   /**
    * login process
    */
   private static loginProcess: ChildProcess | null = null
+
+  /** Running QR login, for `cancel`. */
+  private static qrProcess: ChildProcess | null = null
 
   /**
    * Signs in with a username and password {@link submitGuardCode}
@@ -119,19 +144,29 @@ export class SteamUser {
   }> {
     logInfo('Logging in to Steam through Aurelia (QR code)', LogPrefix.Steam)
 
+    const onQr = makeAureliaQrHandler(
+      (url) => sendFrontendMessage('steamQrChallenge', url),
+      () => sendFrontendMessage('steamQrScanned')
+    )
+    this.qrProcess = null
     try {
       const res = await runAureliaCommand(['login', '--qr', '--json'], {
         abortId: QR_LOGIN_ABORT_ID,
-        onOutput: makeAureliaQrHandler(
-          (url) => sendFrontendMessage('steamQrChallenge', url),
-          () => sendFrontendMessage('steamQrScanned')
-        )
+        onOutput: (data, child) => {
+          this.qrProcess = child
+          onQr(data)
+        }
       })
+      // Last line: `result` (v0.1.41+) or `logged_in`.
       const result = parseAureliaJson<{
         logged_in?: boolean
         account?: string
+        event?: string
+        ok?: boolean
       }>(res)
-      if (!result.logged_in) {
+      const approved =
+        result.event === 'result' ? result.ok === true : result.logged_in
+      if (!approved) {
         logError('Steam QR login did not succeed', LogPrefix.Steam)
         return { status: 'error', error: 'Login was not successful' }
       }
@@ -142,6 +177,13 @@ export class SteamUser {
         logInfo('Steam QR login cancelled', LogPrefix.Steam)
         return { status: 'error', error: 'cancelled' }
       }
+      // Typed outcome from v0.1.41 on.
+      const code =
+        error instanceof AureliaError ? qrErrorCode(error) : undefined
+      if (code) {
+        logInfo(`Steam QR login ended: ${code}`, LogPrefix.Steam)
+        return { status: 'error', error: code }
+      }
       const message =
         error instanceof AureliaError ? error.message : String(error)
       if (isCancellationError(message)) {
@@ -150,11 +192,23 @@ export class SteamUser {
       }
       logError(['Steam QR login failed', message], LogPrefix.Steam)
       return { status: 'error', error: message }
+    } finally {
+      this.qrProcess = null
     }
   }
 
   static cancelQrLogin(): void {
-    callAbortController(QR_LOGIN_ABORT_ID)
+    const child = this.qrProcess
+    if (!child?.stdin?.writable) {
+      callAbortController(QR_LOGIN_ABORT_ID)
+      return
+    }
+    // Lets Aurelia drop Steam's auth session.
+    child.stdin.write('cancel\n')
+    setTimeout(() => {
+      // Older Aurelia ignores `cancel`.
+      if (this.qrProcess === child) callAbortController(QR_LOGIN_ABORT_ID)
+    }, QR_CANCEL_GRACE_MS)
   }
 
   private static async getAccount(): Promise<AureliaAccount | undefined> {

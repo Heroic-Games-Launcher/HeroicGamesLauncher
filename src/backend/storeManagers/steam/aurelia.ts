@@ -22,10 +22,16 @@ import type { SteamInstallLibrary } from 'common/types/steam'
 
 export class AureliaError extends Error {
   readonly aborted: boolean
-  constructor(message: string, aborted = false) {
+  /** Aurelia's error `type`, e.g. `disk_full`. */
+  readonly kind?: string
+  /** Aurelia's suggestion for the user. */
+  readonly hint?: string
+  constructor(message: string, aborted = false, kind?: string, hint?: string) {
     super(message)
     this.name = 'AureliaError'
     this.aborted = aborted
+    this.kind = kind
+    this.hint = hint
   }
 }
 
@@ -330,7 +336,14 @@ export function parseAureliaJson<T>(res: ExecResult): T {
     'error' in parsed &&
     parsed.error
   ) {
-    throw new AureliaError(String(parsed.error))
+    // Errors and failed result lines.
+    const { type, hint } = parsed as { type?: unknown; hint?: unknown }
+    throw new AureliaError(
+      String(parsed.error),
+      false,
+      typeof type === 'string' ? type : undefined,
+      typeof hint === 'string' ? hint : undefined
+    )
   }
   return parsed as T
 }

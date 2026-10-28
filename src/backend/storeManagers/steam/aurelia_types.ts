@@ -5,6 +5,8 @@ export interface AureliaProgressEvent {
   event?: string
   state?: string
   bytes_downloaded?: number
+  /** Part of `bytes_downloaded` reused from disk. */
+  reused_bytes?: number
   total_bytes?: number
   percent?: number
   speed_bps?: number

@@ -29,7 +29,10 @@
         "password": "Password",
         "qr": {
             "caption": "Use the Steam Mobile App to sign in via QR",
+            "denied": "The sign-in was declined in the Steam Mobile app.",
             "error": "QR sign-in failed. Please try again.",
+            "expired": "The QR code expired before it was approved. Please try again.",
+            "offline": "Couldn't reach Steam. Check your internet connection.",
             "scanned": "Scanned — approve the sign-in in your Steam Mobile app.",
             "title": "Or sign in with QR"
         },

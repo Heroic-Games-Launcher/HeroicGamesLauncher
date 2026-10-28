@@ -405,21 +405,24 @@ export default class SteamGame extends Game {
     if (res.abort) {
       return { status: 'abort' }
     }
-    if (res.error && !res.error.includes('signal')) {
-      logError([`Failed to ${status} ${this.id}`, res.error], LogPrefix.Steam)
-      return { status: 'error', error: res.error }
-    }
     try {
       parseAureliaJson(res)
     } catch (error) {
-      if (error instanceof AureliaError && error.aborted) {
+      // Paused or stopped, not failed.
+      if (
+        error instanceof AureliaError &&
+        (error.aborted || error.kind === 'cancelled')
+      ) {
         return { status: 'abort' }
       }
-      logError(
-        [`Failed to ${status} ${this.id}`, describeError(error)],
-        LogPrefix.Steam
-      )
-      return { status: 'error', error: describeError(error) }
+      // Typed result beats spawn noise.
+      const typed = error instanceof AureliaError && error.kind
+      const message =
+        !typed && res.error && !res.error.includes('signal')
+          ? res.error
+          : describeError(error)
+      logError([`Failed to ${status} ${this.id}`, message], LogPrefix.Steam)
+      return { status: 'error', error: message }
     }
     return { status: 'done' }
   }
@@ -1010,7 +1013,7 @@ export default class SteamGame extends Game {
     logInfo(`Stopping ${gameInfo.title} (${this.id})`, LogPrefix.Steam)
     // This is invoked both to stop a running game and a download
     const results = await Promise.allSettled([
-      runAurelia(['install', 'stop', this.id]),
+      this.stopDownload(),
       runAurelia(['stop', this.id])
     ])
     for (const result of results) {
@@ -1020,6 +1023,22 @@ export default class SteamGame extends Game {
           LogPrefix.Steam
         )
       }
+    }
+  }
+
+  /** Pause or stop this game's download. */
+  private async stopDownload(): Promise<unknown> {
+    // Lazy: the queue imports the store managers.
+    const { isPaused } = await import('backend/downloadmanager/downloadqueue')
+    if (!isPaused()) {
+      return runAurelia(['install', 'stop', this.id])
+    }
+    try {
+      // Keeps Aurelia's backlog state `paused`.
+      return await runAurelia(['install', 'pause', this.id])
+    } catch {
+      // Older Aurelia has no `pause`.
+      return runAurelia(['install', 'stop', this.id])
     }
   }
 

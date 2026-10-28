@@ -13,7 +13,9 @@ export function isSteamImportEnabled(): boolean {
 }
 
 export function describeError(error: unknown): string {
-  return error instanceof AureliaError ? error.message : String(error)
+  if (!(error instanceof AureliaError)) return String(error)
+  // Aurelia's hint says what to do.
+  return error.hint ? `${error.message} (${error.hint})` : error.message
 }
 
 /** Platform string recorded in `InstalledInfo`. */

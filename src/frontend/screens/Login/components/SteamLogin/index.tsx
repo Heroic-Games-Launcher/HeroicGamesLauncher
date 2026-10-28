@@ -45,6 +45,29 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
     backdropClick()
   }
 
+  // Typed QR outcomes from the backend.
+  const qrErrorMessage = (code: string) => {
+    switch (code) {
+      case 'denied':
+        return t(
+          'steam.qr.denied',
+          'The sign-in was declined in the Steam Mobile app.'
+        )
+      case 'expired':
+        return t(
+          'steam.qr.expired',
+          'The QR code expired before it was approved. Please try again.'
+        )
+      case 'offline':
+        return t(
+          'steam.qr.offline',
+          "Couldn't reach Steam. Check your internet connection."
+        )
+      default:
+        return t('steam.qr.error', 'QR sign-in failed. Please try again.')
+    }
+  }
+
   // (Re) start the QR flow
   const startQr = () => {
     qrDone.current = false
@@ -71,7 +94,7 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
         result.error !== 'cancelled' &&
         mounted.current
       ) {
-        setQrError(t('steam.qr.error', 'QR sign-in failed. Please try again.'))
+        setQrError(qrErrorMessage(result.error))
       }
     })
   }

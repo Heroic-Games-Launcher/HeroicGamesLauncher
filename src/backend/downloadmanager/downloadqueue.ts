@@ -255,10 +255,11 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
 }
 
 function pauseCurrentDownload() {
+  // Set first: runners check isPaused().
+  queueState = 'paused'
   if (currentElement) {
     stopCurrentDownload()
   }
-  queueState = 'paused'
   autoPaused = false
   sendFrontendMessage(
     'changedDMQueueInformation',
@@ -341,5 +342,6 @@ export {
   cancelCurrentDownload,
   pauseCurrentDownload,
   resumeCurrentDownload,
-  isRunning
+  isRunning,
+  isPaused
 }
