@@ -157,7 +157,7 @@
   aspect-ratio: 16/10;
 }
 
-.gameCard > .icons > .svg-button {
+.gameCard > .icons > button {
   pointer-events: auto;
 }
 
