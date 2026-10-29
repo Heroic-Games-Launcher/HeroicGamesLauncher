@@ -1,161 +1,239 @@
-.downloadManagerListItem > .icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 0 1rem;
-  align-self: center;
-  flex-wrap: wrap;
-}
-
-.downloadManagerListItem > .icons > .material-icons.settings.folder {
-  position: initial;
-}
-
-.downloadManagerListItem > .icons > a > svg,
-.downloadManagerListItem > .icons > svg {
-  width: min(calc(1vw + 9px), 36px);
-  height: min(calc(1vw + 9px), 36px);
-  min-width: 22px;
-  min-height: 22px;
-  margin-inline-start: 12px;
-}
-
-.downloadManagerListItem .cancelIcon circle {
-  fill: var(--cancel-button, var(--danger));
-}
-
-.downloadManagerListItem .cancelIcon:hover circle {
-  fill: var(--cancel-button-hover, var(--danger-hover));
-}
-
-.downloadManagerListItem .playIcon circle {
-  fill: var(--brand-secondary, var(--success));
-}
-
-.downloadManagerListItem .playIcon:hover circle {
-  fill: var(--brand-primary, var(--success-hover));
-}
-
-.downloadManagerListItem .installIcon circle {
-  fill: var(--install-button, var(--accent));
-}
-
-.downloadManagerListItem .installIcon:hover circle {
-  fill: var(--install-button-hover, var(--accent-overlay));
-}
-
-.downloadManagerListItem {
+.DownloadItem {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 10%;
-  grid-template-areas: 'name store platform action';
   width: 100%;
-  align-items: center;
-  justify-items: baseline;
-  position: relative;
-  cursor: default;
-  place-self: center;
-  border-top: 1px solid var(--divider);
-  padding: var(--space-md) 0;
-}
-
-.downloadManagerListItem:hover {
-  background-color: var(--background-hover);
-}
-
-.downloadManagerTitleList {
-  grid-area: name;
-  font-size: 1em;
-  font-weight: bold;
-  text-transform: capitalize;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
   text-align: start;
+  font-family: var(--primary-font-family);
+  color: var(--on-panel, var(--text-default));
 }
 
-.titleSize {
+.DownloadItem__game {
+  grid-area: game;
   display: flex;
-  flex-direction: column;
-  align-items: baseline;
+  align-items: center;
+  gap: var(--space-sm-fixed);
+  min-width: 0;
 }
 
-.titleSize span {
-  font-size: 12px;
-  color: var(--text-secondary);
+.DownloadItem__position {
+  flex-shrink: 0;
+  min-width: 2ch;
+  font-size: var(--body-md);
+  font-variant-numeric: tabular-nums;
+  color: var(--on-panel-faint, var(--text-secondary));
 }
 
-.downloadManagerTitleList > img {
-  width: var(--space-5xl-fixed);
-  margin-inline-end: var(--space-md-fixed);
+.DownloadItem__cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 72px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--input-background);
+  color: var(--on-panel-faint, var(--text-secondary));
+  cursor: pointer;
 }
 
-.downloadManagerListItem > a {
-  grid-area: cover;
-  max-width: 15vh;
+.DownloadItem__cover--static {
+  cursor: default;
+}
+
+.DownloadItem__cover img {
   width: 100%;
   height: 100%;
-}
-
-.downloadManagerListItem > .icons > button {
-  margin-inline-start: 0;
-  padding-inline-start: 4px;
-}
-
-.downloadManagerListItem > .progress {
-  z-index: 5;
-  grid-area: cover;
-  font-weight: 500;
-  background: var(--background-gradient);
-  padding: 2px 5px;
-  border-radius: 4px;
-  color: var(--success);
-  position: relative;
-  bottom: -38px;
-  left: -38px;
-  color: var(--success);
-  font-family: var(--actions-font-family);
-  font-style: italic;
-  font-weight: normal;
-  line-height: 12px;
-}
-
-.downloadManagerListItem > .progress > .MuiSvgIcon-root {
-  position: relative;
-  bottom: 0;
-  top: 0;
-}
-
-.react-contextmenu--visible {
-  background-color: var(--background);
-  padding: 14px 22px;
-  border-radius: 6px;
-  z-index: 99;
-}
-
-.react-contextmenu-item {
-  color: var(--text-default);
-  font-size: 14px;
-  line-height: 26px;
-  font-family: var(--actions-font-family);
-  cursor: pointer;
-  text-align: start;
-}
-
-.react-contextmenu-item:hover {
-  color: var(--download-button);
-}
-
-.react-contextmenu-item.disabled {
-  color: var(--icon-disabled);
-  cursor: initial;
-}
-
-.downloadManagerListItem span:nth-child(3) {
-  text-transform: capitalize;
-}
-
-.downloadManagerTitleList > img {
-  aspect-ratio: 16/9;
   object-fit: cover;
+}
+
+.DownloadItem__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+  min-width: 0;
+}
+
+.DownloadItem__titleRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+}
+
+.DownloadItem__title {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--body-lg);
+  font-weight: var(--medium);
+  line-height: var(--leading-snug, 1.3);
+  color: var(--on-panel, var(--text-default));
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.DownloadItem__title:hover,
+.DownloadItem__title:focus-visible {
+  color: var(--on-panel-link, var(--accent));
+}
+
+.DownloadItem__title--static {
+  cursor: default;
+}
+
+.DownloadItem__title--static:hover {
+  color: var(--on-panel, var(--text-default));
+}
+
+.DownloadItem__details {
+  font-size: var(--body-sm);
+  color: var(--on-panel-muted, var(--text-secondary));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.DownloadItem__type {
+  grid-area: type;
+}
+
+.DownloadItem__store {
+  grid-area: store;
+  display: inline-flex;
+  align-items: center;
+}
+
+.DownloadItem__store .StoreBadge {
+  width: 28px;
+  height: 28px;
+}
+
+.DownloadItem__time {
+  grid-area: time;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  font-size: var(--body-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--on-panel-muted, var(--text-secondary));
+  white-space: nowrap;
+}
+
+.DownloadItem__time svg {
+  color: var(--on-panel-faint, var(--text-secondary));
+}
+
+.DownloadItem__actions {
+  grid-area: actions;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-xs-fixed);
+}
+
+.DownloadItem__noAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  color: var(--on-panel-faint, var(--text-secondary));
+}
+
+.DownloadItem--canceled .DownloadItem__title,
+.DownloadItem--canceled .DownloadItem__cover img {
+  opacity: 0.75;
+}
+
+/* Rows inside the queue and completed lists */
+
+.DownloadItem--row {
+  grid-template-columns: var(--dm-columns);
+  grid-template-areas: 'game type store time actions';
+  align-items: center;
+  gap: var(--space-md-fixed);
+  padding: var(--space-sm-fixed) var(--space-xs-fixed);
+  margin-inline: calc(var(--space-xs-fixed) * -1);
+  border-radius: 12px;
+  transition: background-color 150ms ease;
+}
+
+.DownloadItem--row:hover,
+.DownloadItem--row:focus-within {
+  background: var(--input-background);
+}
+
+/* The hero card for the download in progress */
+
+.DownloadItem--hero {
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'game game game actions'
+    'type store time actions';
+  align-items: center;
+  gap: var(--space-md-fixed);
+}
+
+.DownloadItem--hero .DownloadItem__game {
+  gap: var(--space-md-fixed);
+  align-items: flex-start;
+}
+
+.DownloadItem--hero .DownloadItem__cover {
+  width: 136px;
+  border-radius: 12px;
+}
+
+.DownloadItem--hero .DownloadItem__text {
+  flex: 1 1 auto;
+  gap: var(--space-2xs-fixed);
+}
+
+.DownloadItem--hero .DownloadItem__title {
+  font-size: var(--title-md);
+  white-space: normal;
+  overflow: visible;
+}
+
+.DownloadItem__progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs-fixed);
+  width: 100%;
+  margin-block-start: var(--space-xs-fixed);
+}
+
+.DownloadItem__progressMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md-fixed);
+  font-size: var(--body-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.DownloadItem__eta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs-fixed);
+}
+
+@container main-content (max-width: 900px) {
+  .DownloadItem--row,
+  .DownloadItem--hero {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'game game game actions'
+      'type store time .';
+    row-gap: var(--space-xs-fixed);
+    column-gap: var(--space-sm-fixed);
+  }
+}
+
+@container main-content (max-width: 620px) {
+  .DownloadItem--hero .DownloadItem__cover {
+    width: 96px;
+  }
 }

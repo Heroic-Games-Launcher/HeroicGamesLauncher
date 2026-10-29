@@ -419,6 +419,13 @@
     },
     "docs": "Documentation",
     "download-manager": {
+        "empty": {
+            "current": "Games you install or update show their progress here.",
+            "queue": {
+                "description": "Downloads you start while another one is running wait here.",
+                "title": "Queue is empty"
+            }
+        },
         "ETA": "Estimated time",
         "install-type": {
             "install": "Install",
@@ -426,9 +433,11 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": "MB/s"
         },
         "link": "Downloads",
+        "pageSubtitle": "What is installing now, what comes next and what is already done",
         "queue": {
             "end-time": "Finished at",
             "queue-time": "Added at",
@@ -784,6 +793,7 @@
             "downloading": "Downloading",
             "empty": "Nothing to download",
             "finished": "Completed",
+            "paused": "Paused",
             "queued": "Queued"
         }
     },

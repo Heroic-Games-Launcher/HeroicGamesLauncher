@@ -1,49 +1,75 @@
-.dmItemList > .gameListHeader {
-  padding: var(--space-md) 0;
-  grid-template-columns: 2fr 1fr 1fr 1fr 10%;
+.DownloadManager {
+  grid-area: content;
+  width: 100%;
+  padding: var(--space-3xl-fixed) var(--space-5xl-fixed);
 }
 
-.downloadManager
-  > .MuiTabs-root
-  > .MuiTabs-scroller
-  > .MuiTabs-flexContainer
-  > .MuiTab-root {
-  color: var(--text-default);
+.DownloadManager__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl-fixed);
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
 }
 
-.downloadManager
-  > .MuiTabs-root
-  > .MuiTabs-scroller
-  > .MuiTabs-flexContainer
-  > .Mui-selected {
-  color: var(--accent);
+.DownloadManager__current {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+  gap: var(--space-2xl-fixed);
+  align-items: center;
 }
 
-.downloadManager > .MuiTabs-root > .MuiTabs-scroller > .MuiTabs-indicator {
-  background-color: var(--accent);
+.DownloadManager__current--idle {
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.downloadManager {
-  padding: 0;
-  margin: 0;
+.DownloadList {
+  /* fr columns with a 0 minimum so every row resolves to the same widths
+     and the rows line up under the column labels */
+  --dm-columns: minmax(0, 2.6fr) minmax(0, 0.9fr) minmax(0, 0.5fr)
+    minmax(0, 1.1fr) 72px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+  width: 100%;
 }
 
-.downloadManagerCurrentSectionTitle {
-  margin: 0px;
-  text-align: initial;
-  padding-inline-start: 30px;
+.DownloadList__head {
+  display: grid;
+  grid-template-columns: var(--dm-columns);
+  gap: var(--space-md-fixed);
+  align-items: center;
+  padding: 0 var(--space-xs-fixed) var(--space-xs-fixed);
+  margin-inline: calc(var(--space-xs-fixed) * -1);
+  border-bottom: 1px solid var(--panel-divider, var(--divider));
+  font-family: var(--primary-font-family);
+  font-size: var(--eyebrow);
+  font-weight: var(--medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-panel-muted, var(--text-secondary));
+  text-align: start;
 }
 
-.downloadManagerQueuedSectionTitle {
-  margin: 30px 0px 0px;
-  text-align: initial;
-  padding-inline-start: 30px;
+.DownloadList__headActions {
+  text-align: end;
 }
 
-.dmItemList {
-  border: solid 2px var(--input-background);
-  background-color: var(--input-background);
-  border-radius: 6px;
-  margin: var(--space-3xs) var(--space-lg);
-  padding: 0 var(--space-sm-fixed);
+@container main-content (max-width: 1100px) {
+  .DownloadManager {
+    padding: var(--space-2xl-fixed) var(--space-xl-fixed);
+  }
+
+  .DownloadManager__current {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg-fixed);
+  }
+}
+
+@container main-content (max-width: 900px) {
+  .DownloadList__head {
+    display: none;
+  }
 }

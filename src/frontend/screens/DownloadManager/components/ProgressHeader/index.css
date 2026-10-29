@@ -1,85 +1,36 @@
-.downloadRateStats {
+.DownloadStats {
   display: flex;
-  flex-direction: row;
-  position: relative;
+  flex-direction: column;
+  gap: var(--space-md-fixed);
+  width: 100%;
   cursor: default;
-  padding: 1rem 0;
 }
 
-.progressHeader {
-  border: solid 2px var(--input-background);
-  background-color: var(--input-background);
-  border-radius: 6px;
-  margin: var(--space-3xs) var(--space-lg) var(--space-md);
-  padding: 0 var(--space-md);
+.DownloadStats__chart {
+  width: 100%;
+  min-width: 0;
 }
 
-.downloadBar {
-  margin: var(--space-3xs) var(--space-lg) var(--space-xl);
-  width: 400px;
+.DownloadStats__cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm-fixed);
 }
 
-.linearProgress {
-  margin-top: 0.25em;
-  background-color: var(--text-default);
-}
-
-.linearProgress > .MuiLinearProgress-bar {
-  background-color: var(--success);
-}
-
-.progressChartValues {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  justify-items: start;
-}
-
-.downloadProgressStats {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-}
-
-.downloadProgress {
-  padding: 1em 0em;
-}
-
-.downloadStat {
-  color: var(--text-default);
-  margin: 0;
-  padding: 0;
-}
-
-.realtimeDownloadStat {
-  white-space: nowrap;
-  margin: 0px;
-  width: 6em;
+.DownloadStats__card {
+  min-width: 0;
+  align-items: flex-start;
   text-align: start;
 }
 
-.realtimeDownloadStatLabel {
-  margin: auto;
-  padding: auto;
-  text-align: start;
-  height: auto;
+.DownloadStats__card .StatCard__value {
+  font-size: var(--title-sm);
 }
 
-.realtimeDownloadStatContainer {
-  align-self: center;
-  margin: 1em;
+.DownloadStats__card--download svg {
+  color: var(--navbar-accent, var(--accent));
 }
 
-.downloadRateChart {
-  flex-grow: 1;
-  /* overflow: hidden; */
-  position: relative;
-}
-
-.downLabel {
-  color: var(--accent);
-}
-
-.diskLabel {
+.DownloadStats__card--disk svg {
   color: var(--primary);
 }
