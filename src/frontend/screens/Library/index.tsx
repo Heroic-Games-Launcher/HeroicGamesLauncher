@@ -10,7 +10,7 @@ import React, {
 } from 'react'
 
 import ArrowDropUp from '@mui/icons-material/ArrowDropUpOutlined'
-import { UpdateComponent } from 'frontend/components/UI'
+import { SectionHeader, UpdateComponent } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
@@ -26,7 +26,8 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
-  normalizeTitle
+  normalizeTitle,
+  countGames
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -691,7 +692,7 @@ export default React.memo(function Library(): JSX.Element {
 
       <div className="listing">
         <span id="top" />
-        <LibraryHeader list={libraryToShow} />
+        <LibraryHeader />
 
         {showAlphabetFilter && <AlphabetFilter />}
 
@@ -705,9 +706,15 @@ export default React.memo(function Library(): JSX.Element {
 
         {showFavourites && !showFavouritesLibrary && (
           <>
-            <div className="library-section-header" data-tour="library-header">
-              <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
-            </div>
+            <SectionHeader
+              className="librarySectionHeader"
+              title={t('favourites', 'Favourites')}
+              subtitle={t('library.gamesCount', {
+                count: countGames(favourites),
+                defaultValue_one: '{{count}} game',
+                defaultValue_other: '{{count}} games'
+              })}
+            />
             <GamesList
               library={favourites}
               handleGameCardClick={handleModal}
@@ -718,6 +725,22 @@ export default React.memo(function Library(): JSX.Element {
         )}
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent />}
+
+        {(!refreshing || refreshingInTheBackground) && (
+          <SectionHeader
+            className="librarySectionHeader"
+            title={
+              showFavourites
+                ? t('favourites', 'Favourites')
+                : t('title.allGames', 'All Games')
+            }
+            subtitle={t('library.gamesCount', {
+              count: countGames(libraryToShow),
+              defaultValue_one: '{{count}} game',
+              defaultValue_other: '{{count}} games'
+            })}
+          />
+        )}
 
         {libraryToShow.length === 0 && <EmptyLibraryMessage />}
 

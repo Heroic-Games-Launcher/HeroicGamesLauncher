@@ -169,6 +169,14 @@ export default function GamesSettings() {
 
   return (
     <>
+      <Tabs
+        items={settingsTabs}
+        value={value}
+        onChange={handleChange}
+        aria-label={t('settings.navbar.tabs', 'Settings sections')}
+        className="settingsTabs"
+      />
+
       {isDefault && (
         <Alert variant="warning">
           {t(
@@ -177,14 +185,6 @@ export default function GamesSettings() {
           )}
         </Alert>
       )}
-
-      <Tabs
-        items={settingsTabs}
-        value={value}
-        onChange={handleChange}
-        aria-label={t('settings.navbar.tabs', 'Settings sections')}
-        className="settingsTabs"
-      />
 
       <TabPanel value={value} index={'wine'}>
         <SettingsCard

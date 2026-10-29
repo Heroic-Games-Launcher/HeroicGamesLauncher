@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import ContextMenu from '../Library/components/ContextMenu'
@@ -22,9 +22,12 @@ import {
   Icon,
   NavList,
   PageHeader,
+  Tabs,
   UpdateComponent
 } from 'frontend/components/UI'
 import type { NavListItem } from 'frontend/components/UI/NavList'
+import type { TabItem } from 'frontend/components/UI/Tabs'
+import useMediaQuery from 'frontend/hooks/useMediaQuery'
 import {
   Copy,
   FileText,
@@ -42,6 +45,8 @@ import { ContentCopy, FileOpen } from '@mui/icons-material'
 function Settings() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
+  const navigate = useNavigate()
+  const isNarrow = useMediaQuery('(max-width: 1100px)')
   const isWin = platform === 'win32'
 
   const [currentConfig, setCurrentConfig] =
@@ -133,9 +138,9 @@ function Settings() {
 
   const title = t('globalSettings', 'Global Settings')
 
-  const sections: NavListItem[] = [
+  const sections: TabItem<string>[] = [
     {
-      to: '/settings/general',
+      value: 'general',
       label: t('settings.navbar.general'),
       glyph: SlidersHorizontal
     },
@@ -143,7 +148,7 @@ function Settings() {
       ? []
       : [
           {
-            to: '/settings/games_settings',
+            value: 'games_settings',
             label: t(
               'settings.navbar.games_settings_defaults',
               'Game Defaults'
@@ -152,21 +157,27 @@ function Settings() {
           }
         ]),
     {
-      to: '/settings/advanced',
+      value: 'advanced',
       label: t('settings.navbar.advanced', 'Advanced'),
       glyph: Wrench
     },
     {
-      to: '/settings/systeminfo',
+      value: 'systeminfo',
       label: t('settings.navbar.systemInformation', 'System Information'),
       glyph: MonitorCog
     },
     {
-      to: '/settings/log',
+      value: 'log',
       label: t('settings.navbar.log', 'Log'),
       glyph: FileText
     }
   ]
+
+  const navItems: NavListItem[] = sections.map(({ value, label, glyph }) => ({
+    to: `/settings/${value}`,
+    label,
+    glyph
+  }))
 
   const copySettingsToClipboard = () => {
     if (isSystemInfo) {
@@ -230,11 +241,21 @@ function Settings() {
             />
 
             <div className="settingsLayout">
-              <NavList
-                items={sections}
-                className="settingsNav"
-                aria-label={t('Settings', 'Settings')}
-              />
+              {isNarrow ? (
+                <Tabs
+                  items={sections}
+                  value={type}
+                  onChange={(value) => navigate(`/settings/${value}`)}
+                  aria-label={t('Settings', 'Settings')}
+                  className="settingsNav settingsNav--tabs"
+                />
+              ) : (
+                <NavList
+                  items={navItems}
+                  className="settingsNav"
+                  aria-label={t('Settings', 'Settings')}
+                />
+              )}
               <div className="settingsPane">
                 {isGeneralSettings && <GeneralSettings />}
                 {isGamesSettings && <GamesSettings />}
