@@ -6,7 +6,7 @@ import { DMQueueElement, DownloadManagerState } from 'common/types'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
-import { getGameInfo, getStoreName } from 'frontend/helpers'
+import { getGameInfo, getIntlLocale, getStoreName } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -26,8 +26,9 @@ const options: Intl.DateTimeFormatOptions = {
   minute: 'numeric'
 }
 
-function convertToTime(time: number, locale: string) {
+function convertToTime(time: number, language: string) {
   const date = time ? new Date(time) : new Date()
+  const locale = getIntlLocale(language)
   const hour = new Intl.DateTimeFormat(locale, options).format(date)
   return {
     hour,

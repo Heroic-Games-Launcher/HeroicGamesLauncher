@@ -2,6 +2,7 @@ import { Clock } from 'lucide-react'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import Icon from '../Icon'
+import { getIntlLocale } from 'frontend/helpers'
 import './index.css'
 
 interface PlaytimeProps {
@@ -22,11 +23,13 @@ export default function Playtime({
   }
 
   const hours = minutes ? Math.round((minutes / 60) * 10) / 10 : null
-  const lastPlayedDate = lastPlayed
-    ? new Intl.DateTimeFormat(i18n.language, { dateStyle: 'medium' }).format(
-        new Date(lastPlayed)
-      )
-    : null
+  const played = lastPlayed ? new Date(lastPlayed) : null
+  const lastPlayedDate =
+    played && !Number.isNaN(played.getTime())
+      ? new Intl.DateTimeFormat(getIntlLocale(i18n.language), {
+          dateStyle: 'medium'
+        }).format(played)
+      : null
 
   return (
     <span className={classNames('Playtime', className)}>
