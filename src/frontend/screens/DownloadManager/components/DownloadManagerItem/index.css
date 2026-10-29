@@ -1,6 +1,7 @@
 .DownloadItem {
   display: grid;
-  width: 100%;
+  /* no width here: the rows carry negative inline margins, so they have to
+     stretch past the card padding like the column labels do */
   text-align: start;
   font-family: var(--primary-font-family);
   color: var(--on-panel, var(--text-default));
