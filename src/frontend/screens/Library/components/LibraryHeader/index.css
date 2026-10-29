@@ -1,31 +1,59 @@
-.libraryTitle {
-  grid-area: title;
+.libraryHeaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-md);
+}
+
+.libraryToolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.libraryToolbar .ActionIcons {
+  justify-self: auto;
+  flex-shrink: 0;
+}
+
+.libraryToolbar .ActionIcons .FormControl {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--input-background);
+  margin-inline-end: 0;
 }
 
 .sideloadGameButton {
-  font-family: var(--secondary-font-family);
-  border-radius: var(--space-md);
-  color: var(--text-tertiary);
-  background: var(--primary-button, var(--accent));
-  padding: var(--space-xs) var(--space-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 20px;
   border: none;
-  margin: 0 var(--space-lg);
+  border-radius: 999px;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-md);
+  font-weight: var(--semibold);
+  color: var(--background-darker, #06121a);
+  background: var(--navbar-accent, var(--accent));
   cursor: pointer;
-  text-transform: uppercase;
-  transition: 300ms;
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .sideloadGameButton:hover,
-.sideloadGameButton:focus-within {
-  background: var(--primary-button, var(--accent-overlay));
-  box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
+.sideloadGameButton:focus-visible {
+  background: var(--accent-overlay, var(--accent));
+  box-shadow: 0 8px 24px -8px var(--navbar-accent, var(--accent));
 }
 
-.numberOfgames {
-  font-size: var(--text-md);
-  font-weight: var(--regular);
-  background: var(--input-background);
-  padding: var(--space-xs);
-  margin-inline-start: var(--space-sm, 4px);
-  border-radius: var(--space-3xs);
+.sideloadGameButton svg {
+  flex-shrink: 0;
 }

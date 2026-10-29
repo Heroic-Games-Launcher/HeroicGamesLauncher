@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
+import { PathSelectionBox } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -28,8 +28,6 @@ const DefaultSteamPath = () => {
     <p>{helpContent}</p>
   )
 
-  const steamPathInfo = <InfoBox text="infobox.help">{helpContent}</InfoBox>
-
   return (
     <PathSelectionBox
       type="directory"
@@ -40,7 +38,7 @@ const DefaultSteamPath = () => {
       label={t('setting.default-steam-path', 'Default Steam path')}
       htmlId="default_steam_path"
       noDeleteButton
-      afterInput={steamPathInfo}
+      info={helpContent}
     />
   )
 }

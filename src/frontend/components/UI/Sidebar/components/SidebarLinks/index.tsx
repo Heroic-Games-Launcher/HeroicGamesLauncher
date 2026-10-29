@@ -1,38 +1,36 @@
 import {
-  faBookOpen,
-  faGamepad,
-  faSlidersH,
-  faStore,
-  faUser,
-  faUniversalAccess,
-  faCoffee,
-  faUserAlt,
-  faWineGlass,
-  faBarsProgress,
-  faTv,
-  faTags
-} from '@fortawesome/free-solid-svg-icons'
-import { useLocation } from 'react-router-dom'
-import { useContext } from 'react'
-import { useTranslation } from 'react-i18next'
+  BookOpen,
+  Gamepad2,
+  Settings as SettingsIcon,
+  Store,
+  LogIn,
+  Accessibility,
+  Coffee,
+  UserCircle,
+  Wine,
+  Download,
+  Tag,
+  Tv
+} from 'lucide-react'
 import {
   faDiscord,
   faGithub,
   faPatreon
 } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useLocation } from 'react-router-dom'
+import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { openDiscordLink } from 'frontend/helpers'
-
 import ContextProvider from 'frontend/state/ContextProvider'
 import QuitButton from '../QuitButton'
 import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
 import SidebarItem from '../SidebarItem'
-
-type PathSplit = [a: undefined, b: undefined, type: string]
+import { Icon } from 'frontend/components/UI'
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
   const location = useLocation() as { pathname: string }
-  const [, , type] = location.pathname.split('/') as PathSplit
 
   const {
     amazon,
@@ -41,8 +39,13 @@ export default function SidebarLinks() {
     zoom,
     platform,
     refreshLibrary,
+    libraryStatus,
     handleExternalLinkDialog
   } = useContext(ContextProvider)
+
+  const activeDownloads = libraryStatus.filter(
+    (st) => st.status === 'installing' || st.status === 'queued'
+  ).length
 
   const inWebviewScreen =
     location.pathname.includes('store') ||
@@ -108,10 +111,14 @@ export default function SidebarLinks() {
   }
 
   return (
-    <div className="SidebarLinks Sidebar__section" data-tour="sidebar-menu">
+    <div
+      className="SidebarLinks Sidebar__section scrollbar--none"
+      data-tour="sidebar-menu"
+    >
+      <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
       {!loggedIn && (
         <SidebarItem
-          icon={faUser}
+          icon={<Icon glyph={LogIn} />}
           label={t('button.login', 'Login')}
           url="/login"
           dataTour="sidebar-login"
@@ -120,7 +127,7 @@ export default function SidebarLinks() {
       <SidebarItem
         isActiveFallback={location.pathname.includes('gamepage')}
         url="/"
-        icon={faGamepad}
+        icon={<Icon glyph={Gamepad2} />}
         label={t('Library')}
         onClick={async () => handleRefresh()}
         dataTour="sidebar-library"
@@ -130,7 +137,7 @@ export default function SidebarLinks() {
         <SidebarItem
           isActiveFallback={location.pathname.includes('store')}
           url={`/store/${defaultStore}`}
-          icon={faStore}
+          icon={<Icon glyph={Store} />}
           label={t('stores', 'Stores')}
           dataTour="sidebar-stores"
         />
@@ -163,110 +170,71 @@ export default function SidebarLinks() {
       </div>
       <SidebarItem
         url="/discounts"
-        icon={faTags}
+        icon={<Icon glyph={Tag} />}
         label={t('discounts.sidebar', 'Deals')}
         dataTour="sidebar-discounts"
-      />
-      <div className="divider" />
-      <div className="SidebarItemWithSubmenu">
-        <SidebarItem
-          isActiveFallback={location.pathname.includes('settings')}
-          icon={faSlidersH}
-          label={t('Settings', 'Settings')}
-          url="/settings/general"
-          dataTour="sidebar-settings"
-        />
-        {isSettings && (
-          <div className="SidebarSubmenu settings">
-            <SidebarItem
-              url="/settings/general"
-              isActiveFallback={type === 'general'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.general')}
-            />
-
-            {!isWin && (
-              <SidebarItem
-                url="/settings/games_settings"
-                isActiveFallback={type === 'games_settings'}
-                className="SidebarLinks__subItem"
-                label={t(
-                  'settings.navbar.games_settings_defaults',
-                  'Game Defaults'
-                )}
-              />
-            )}
-
-            <SidebarItem
-              url="/settings/advanced"
-              isActiveFallback={type === 'advanced'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.advanced', 'Advanced')}
-            />
-
-            <SidebarItem
-              url="/settings/systeminfo"
-              isActiveFallback={type === 'systeminfo'}
-              className="SidebarLinks__subItem"
-              label={t(
-                'settings.navbar.systemInformation',
-                'System Information'
-              )}
-            />
-
-            <SidebarItem
-              url="/settings/log"
-              isActiveFallback={type === 'log'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.log', 'Log')}
-            />
-          </div>
-        )}
-      </div>
-      <SidebarItem
-        url="/console"
-        icon={faTv}
-        label={t('sidebar.console', 'Console Mode')}
-        dataTour="sidebar-console"
       />
 
       <SidebarItem
         url="/download-manager"
-        icon={faBarsProgress}
+        icon={<Icon glyph={Download} />}
         label={t('download-manager.link', 'Downloads')}
+        badge={activeDownloads > 0 ? activeDownloads : undefined}
         dataTour="sidebar-downloads"
       />
 
       {!isWin && (
         <SidebarItem
           url="/wine-manager"
-          icon={faWineGlass}
+          icon={<Icon glyph={Wine} />}
           label={t('wine.manager.link', 'Wine Manager')}
           dataTour="sidebar-wine"
         />
       )}
 
-      {loggedIn && (
-        <SidebarItem
-          url="/login"
-          icon={faUserAlt}
-          label={t('userselector.manageaccounts', 'Manage Accounts')}
-          dataTour="sidebar-manage-accounts"
-        />
-      )}
-
       <SidebarItem
         url="/accessibility"
-        icon={faUniversalAccess}
+        icon={<Icon glyph={Accessibility} />}
         label={t('accessibility.title', 'Accessibility')}
         dataTour="sidebar-accessibility"
       />
 
-      <div className="divider" />
+      <SidebarItem
+        url="/console"
+        icon={<Icon glyph={Tv} />}
+        label={t('sidebar.console', 'Console Mode')}
+        dataTour="sidebar-console"
+      />
+
+      <SidebarItem
+        isActiveFallback={isSettings}
+        icon={<Icon glyph={SettingsIcon} />}
+        label={t('Settings', 'Settings')}
+        url="/settings/general"
+        dataTour="sidebar-settings"
+      />
+
+      <QuitButton dataTour="sidebar-quit" />
+
+      {loggedIn && (
+        <>
+          <div className="Sidebar__sectionLabel">
+            {t('Accounts', 'Accounts')}
+          </div>
+          <SidebarItem
+            url="/login"
+            icon={<Icon glyph={UserCircle} />}
+            label={t('userselector.manage', 'Manage')}
+            dataTour="sidebar-manage-accounts"
+          />
+        </>
+      )}
+
+      <div className="Sidebar__sectionLabel">{t('Community', 'Community')}</div>
 
       <SidebarItem
         url="/wiki"
-        icon={faBookOpen}
+        icon={<Icon glyph={BookOpen} />}
         label={t('docs', 'Documentation')}
         dataTour="sidebar-docs"
       />
@@ -275,33 +243,31 @@ export default function SidebarLinks() {
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(openDiscordLink)}
-          icon={faDiscord}
+          icon={<FontAwesomeIcon icon={faDiscord} />}
           label={t('userselector.discord', 'Discord')}
         />
 
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(window.api.openPatreonPage)}
-          icon={faPatreon}
+          icon={<FontAwesomeIcon icon={faPatreon} />}
           label="Patreon"
         />
 
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(window.api.openKofiPage)}
-          icon={faCoffee}
+          icon={<Icon glyph={Coffee} />}
           label="Ko-fi"
         />
 
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(window.api.openGithubSponsorsPage)}
-          icon={faGithub}
+          icon={<FontAwesomeIcon icon={faGithub} />}
           label="GitHub Sponsors"
         />
       </div>
-
-      <QuitButton dataTour="sidebar-quit" />
     </div>
   )
 }

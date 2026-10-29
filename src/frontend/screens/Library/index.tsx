@@ -9,8 +9,8 @@ import React, {
   useLayoutEffect
 } from 'react'
 
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
-import { Header, UpdateComponent } from 'frontend/components/UI'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUpOutlined'
+import { SectionHeader, UpdateComponent } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
@@ -26,7 +26,8 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
-  normalizeTitle
+  normalizeTitle,
+  countGames
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -638,40 +639,6 @@ export default React.memo(function Library(): JSX.Element {
     installing
   ])
 
-  // we need this to do proper `position: sticky` of the Add Game area
-  // the height of the Header can change at runtime with different font families
-  // and when resizing the window
-  useEffect(() => {
-    let timer: NodeJS.Timeout | null = null
-
-    const setHeaderHightCSS = () => {
-      if (timer) clearTimeout(timer)
-
-      // adding a timeout so we don't run this for every resize event
-      timer = setTimeout(() => {
-        const header = document.querySelector('.Header')
-        if (header) {
-          const headerHeight = header.getBoundingClientRect().height
-          const libraryHeader =
-            document.querySelector<HTMLDivElement>('.libraryHeader')
-          if (libraryHeader)
-            libraryHeader.style.setProperty(
-              '--header-height',
-              `${headerHeight}px`
-            )
-        }
-      }, 50)
-    }
-    // set when mounted
-    setHeaderHightCSS()
-    // also listen the resize event
-    window.addEventListener('resize', setHeaderHightCSS)
-
-    return () => {
-      window.removeEventListener('resize', setHeaderHightCSS)
-    }
-  }, [])
-
   if (!epic && !gog && !amazon && !zoom) {
     return (
       <ErrorComponent
@@ -721,11 +688,14 @@ export default React.memo(function Library(): JSX.Element {
         setAlphabetFilterLetter
       }}
     >
-      <Header />
       <LibraryTour />
 
       <div className="listing">
         <span id="top" />
+        <LibraryHeader />
+
+        {showAlphabetFilter && <AlphabetFilter />}
+
         {showRecentGames && (
           <RecentlyPlayed
             handleModal={handleModal}
@@ -736,9 +706,15 @@ export default React.memo(function Library(): JSX.Element {
 
         {showFavourites && !showFavouritesLibrary && (
           <>
-            <div className="library-section-header" data-tour="library-header">
-              <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
-            </div>
+            <SectionHeader
+              className="librarySectionHeader"
+              title={t('favourites', 'Favourites')}
+              subtitle={t('library.gamesCount', {
+                count: countGames(favourites),
+                defaultValue_one: '{{count}} game',
+                defaultValue_other: '{{count}} games'
+              })}
+            />
             <GamesList
               library={favourites}
               handleGameCardClick={handleModal}
@@ -748,11 +724,23 @@ export default React.memo(function Library(): JSX.Element {
           </>
         )}
 
-        <LibraryHeader list={libraryToShow} />
-
-        {showAlphabetFilter && <AlphabetFilter />}
-
         {refreshing && !refreshingInTheBackground && <UpdateComponent />}
+
+        {(!refreshing || refreshingInTheBackground) && (
+          <SectionHeader
+            className="librarySectionHeader"
+            title={
+              showFavourites
+                ? t('favourites', 'Favourites')
+                : t('title.allGames', 'All Games')
+            }
+            subtitle={t('library.gamesCount', {
+              count: countGames(libraryToShow),
+              defaultValue_one: '{{count}} game',
+              defaultValue_other: '{{count}} games'
+            })}
+          />
+        )}
 
         {libraryToShow.length === 0 && <EmptyLibraryMessage />}
 

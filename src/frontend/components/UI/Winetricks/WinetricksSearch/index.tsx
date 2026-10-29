@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import SearchBar from '../../SearchBar'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'frontend/components/UI'
 
 interface Props {
   allComponents: string[]
@@ -43,9 +44,9 @@ export default function WinetricksSearchBar({
     return (
       <li key={component}>
         <span>{component}</span>
-        <button className="button" onClick={() => install(component)}>
+        <Button variant="primary" onClick={() => install(component)}>
           {t('winetricks.install', 'Install')}
-        </button>
+        </Button>
       </li>
     )
   })

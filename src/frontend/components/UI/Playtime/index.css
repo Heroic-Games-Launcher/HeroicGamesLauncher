@@ -1,0 +1,25 @@
+.Playtime {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs-fixed) var(--space-md-fixed);
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  font-weight: var(--regular);
+  color: var(--text-muted, var(--text-secondary));
+}
+
+.Playtime__entry {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Playtime svg {
+  flex-shrink: 0;
+}

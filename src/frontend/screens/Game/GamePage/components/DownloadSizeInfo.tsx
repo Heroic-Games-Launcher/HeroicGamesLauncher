@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import GameContext from '../../GameContext'
-import { CloudDownload, Storage, Assignment } from '@mui/icons-material'
-import { size } from 'frontend/helpers'
+import { CloudDownload, HardDrive, Package } from 'lucide-react'
 import { GameInfo } from 'common/types'
+import { size } from 'frontend/helpers'
+import { DetailList, Panel } from 'frontend/components/UI'
+import type { DetailItem } from 'frontend/components/UI/DetailList'
 import ContextProvider from 'frontend/state/ContextProvider'
+import GameContext from '../../GameContext'
 
 interface Props {
   gameInfo: GameInfo
@@ -15,50 +17,56 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
   const { gameInstallInfo, runner } = useContext(GameContext)
   const { connectivity } = useContext(ContextProvider)
 
-  if (connectivity.status !== 'online') {
-    return null
-  }
-
-  if (gameInfo.is_installed) {
-    return null
-  }
-
-  if (runner === 'sideload') {
+  if (
+    connectivity.status !== 'online' ||
+    gameInfo.is_installed ||
+    runner === 'sideload'
+  ) {
     return null
   }
 
   if (gameInfo.thirdPartyManagedApp) {
     return (
-      <div className="iconWithText">
-        <Assignment />
-        <b>{t('info.third-party-app', 'Third-Party Manager')}</b>
-        {gameInfo.isEAManaged ? 'EA app' : gameInfo.thirdPartyManagedApp}
-      </div>
+      <Panel tone="glass" className="downloadSizeInfo">
+        <DetailList
+          items={[
+            {
+              glyph: Package,
+              label: t('info.third-party-app', 'Third-Party Manager'),
+              value: gameInfo.isEAManaged
+                ? 'EA app'
+                : gameInfo.thirdPartyManagedApp
+            }
+          ]}
+        />
+      </Panel>
     )
   }
 
-  const downloadSize =
-    gameInstallInfo?.manifest?.download_size &&
-    size(Number(gameInstallInfo?.manifest?.download_size))
-  const installSize =
-    gameInstallInfo?.manifest?.disk_size &&
-    size(Number(gameInstallInfo?.manifest?.disk_size))
+  const downloadSize = gameInstallInfo?.manifest?.download_size
+  const installSize = gameInstallInfo?.manifest?.disk_size
+
+  const items: DetailItem[] = [
+    {
+      glyph: CloudDownload,
+      label: t('game.downloadSize', 'Download Size'),
+      value: downloadSize
+        ? size(Number(downloadSize))
+        : `${t('game.getting-download-size', 'Geting download size')}...`
+    },
+    {
+      glyph: HardDrive,
+      label: t('game.installSize', 'Install Size'),
+      value: installSize
+        ? size(Number(installSize))
+        : `${t('game.getting-install-size', 'Geting install size')}...`
+    }
+  ]
 
   return (
-    <>
-      <div className="iconWithText">
-        <CloudDownload />
-        <b>{t('game.downloadSize', 'Download Size')}:</b>
-        {downloadSize ??
-          `${t('game.getting-download-size', 'Geting download size')}...`}
-      </div>
-      <div className="iconWithText">
-        <Storage />
-        <b>{t('game.installSize', 'Install Size')}:</b>
-        {installSize ??
-          `${t('game.getting-install-size', 'Geting install size')}...`}
-      </div>
-    </>
+    <Panel tone="glass" className="downloadSizeInfo">
+      <DetailList items={items} columns={2} />
+    </Panel>
   )
 }
 

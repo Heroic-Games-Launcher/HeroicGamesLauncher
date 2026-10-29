@@ -1,0 +1,86 @@
+@mixin surfaceSystem {
+  --panel-base: var(--background-darker, var(--body-background));
+  --nav-base: var(--navbar-background, var(--body-background));
+  --nav-ink: var(--navbar-active, var(--text-default));
+
+  /* Text is neutral in every theme: the hue is dropped (chroma 0) and the
+     lightness flips to the readable side of whatever surface it sits on, so
+     a theme never ends up with one tinted tone for every piece of text.
+     Only links and status messages keep a hue. */
+  --on-panel: oklch(
+    from var(--panel-base) clamp(0.14, (0.62 - l) * 1000, 0.97) 0 h
+  );
+  --on-panel-muted: oklch(
+    from var(--panel-base) clamp(0.36, (0.62 - l) * 1000, 0.79) 0 h
+  );
+  --on-panel-faint: oklch(
+    from var(--panel-base) clamp(0.5, (0.62 - l) * 1000, 0.6) 0 h
+  );
+  --on-nav: oklch(
+    from var(--nav-base) clamp(0.14, (0.62 - l) * 1000, 0.97) 0 h
+  );
+  --on-nav-muted: oklch(
+    from var(--nav-base) clamp(0.34, (0.62 - l) * 1000, 0.84) 0 h
+  );
+  --on-nav-strong: oklch(
+    from var(--nav-base) clamp(0.1, (0.62 - l) * 1000, 0.99) 0 h
+  );
+
+  /* The "classic" theme variants differ from their base theme only by
+     --navbar-accent, so the active sidebar item has to keep that hue. It is
+     lifted towards white so themes with a dark accent still clear AA. */
+  --on-nav-accent: color-mix(
+    in oklab,
+    var(--navbar-accent, var(--accent)) 38%,
+    #ffffff
+  );
+
+  /* Links keep the accent hue but borrow enough of the page text colour to
+     clear AA on themes whose accent is close to their background. */
+  --on-panel-link: color-mix(in oklab, var(--accent) 55%, var(--on-panel));
+
+  /* Status text keeps its hue but is pulled towards the page text colour so
+     it stays legible on both light and dark surfaces. */
+  --on-panel-warning: color-mix(
+    in oklab,
+    var(--status-warning, #f59e0b) 52%,
+    var(--on-panel)
+  );
+  --on-panel-success: color-mix(
+    in oklab,
+    var(--success, #10b981) 68%,
+    var(--on-panel)
+  );
+  --on-panel-danger: color-mix(
+    in oklab,
+    var(--danger, #ef4444) 70%,
+    var(--on-panel)
+  );
+
+  /* Ink for anything painted on the accent colour. The clamp resolves to 0
+     (black) on light accents and 1 (white) on dark ones, so it stays legible
+     whatever the theme's accent is. */
+  --ink-on-accent: oklch(
+    from var(--navbar-accent, var(--accent)) clamp(0, (0.62 - l) * 1000, 1) 0 h
+  );
+
+  /* Card overlay chips are a dark scrim in every theme, so their ink is a
+     light neutral rather than something derived from the page text colour. */
+  --ink-on-overlay: #f2f5fa;
+
+  --text-muted: var(--on-panel-muted);
+  --text-faint: var(--on-panel-faint);
+
+  /* Cards are lifted off the page: the surface is nudged towards the text
+     colour so a panel reads as a box rather than an outline, on light and
+     dark themes alike. */
+  --panel-surface: color-mix(in oklab, var(--panel-base) 93%, var(--on-panel));
+  --panel-background: color-mix(
+    in oklab,
+    var(--panel-surface) 94%,
+    transparent
+  );
+  --panel-glass: color-mix(in oklab, var(--panel-surface) 70%, transparent);
+  --panel-border: color-mix(in oklab, var(--on-panel) 18%, transparent);
+  --panel-divider: color-mix(in oklab, var(--on-panel) 16%, transparent);
+}

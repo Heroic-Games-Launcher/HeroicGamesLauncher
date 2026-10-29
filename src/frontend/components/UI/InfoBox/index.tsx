@@ -1,7 +1,8 @@
 import './index.css'
 
 import { useTranslation } from 'react-i18next'
-import Info from '@mui/icons-material/Info'
+import { Info } from 'lucide-react'
+import Icon from '../Icon'
 import React from 'react'
 import PopoverComponent from '../PopoverComponent'
 
@@ -24,7 +25,7 @@ export default function InfoBox({ children, text }: Props) {
     <PopoverComponent
       item={
         <span className="helpLink">
-          <Info />
+          <Icon glyph={Info} size="md" />
           <span>{t(text)}</span>
         </span>
       }

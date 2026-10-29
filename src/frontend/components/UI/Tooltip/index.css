@@ -1,0 +1,28 @@
+.Tooltip__anchor {
+  display: inline-flex;
+}
+
+.MuiTooltip-tooltip.Tooltip__popper {
+  max-width: 320px;
+  padding: var(--space-sm-fixed) var(--space-sm-fixed);
+  border-radius: 10px;
+  border: 1px solid var(--panel-divider, var(--divider));
+  background: var(--background-darker, #0a0e13);
+  color: var(--on-panel, var(--text-default));
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--regular);
+  line-height: var(--leading-normal, 1.5);
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.9);
+}
+
+.MuiTooltip-tooltip.Tooltip__popper .MuiTooltip-arrow {
+  color: var(--background-darker, #0a0e13);
+}
+
+.Tooltip__content a,
+.Tooltip__content .link {
+  color: var(--on-panel-link, var(--accent));
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -4,7 +4,9 @@ import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
+  Button,
   CachedImage,
+  Icon,
   TextInputField,
   PathSelectionBox,
   ToggleSwitch,
@@ -28,7 +30,7 @@ import classNames from 'classnames'
 import axios from 'axios'
 import { NavLink, useNavigate } from 'react-router-dom'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
-import Folder from '@mui/icons-material/Folder'
+import { Folder, LoaderCircle } from 'lucide-react'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -432,7 +434,7 @@ export default function SideloadDialog({
                     onChange={(newValue: string) => setImageUrl(newValue)}
                     htmlId="sideload-image"
                     value={imageUrl}
-                    icon={<Folder />}
+                    icon={<Icon glyph={Folder} size="md" />}
                     onIconClick={() => handleSelectLocalImage('square')}
                   />
                   <TextInputWithIconField
@@ -447,7 +449,7 @@ export default function SideloadDialog({
                     onChange={(newValue: string) => setHeroUrl(newValue)}
                     htmlId="sideload-cover"
                     value={heroUrl}
-                    icon={<Folder />}
+                    icon={<Icon glyph={Folder} size="md" />}
                     onIconClick={() => handleSelectLocalImage('cover')}
                   />
                 </details>
@@ -527,24 +529,28 @@ export default function SideloadDialog({
       </DialogContent>
       <DialogFooter>
         {shouldShowRunExe && (
-          <button
-            onClick={async () => handleRunExe()}
-            className={`button is-secondary`}
+          <Button
+            variant="ghost"
+            onClick={() => handleRunExe()}
             disabled={runningSetup || !title.length}
           >
             {runningSetup
               ? t('button.running-setup', 'Running Setup')
               : t('button.run-exe-first', 'Run Installer First')}
-          </button>
+          </Button>
         )}
-        <button
-          onClick={async () => handleInstall()}
-          className={`button is-success`}
+        <Button
+          variant="primary"
+          onClick={() => handleInstall()}
           disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
+          icon={
+            addingApp ? (
+              <Icon glyph={LoaderCircle} size="md" className="lucide-spin" />
+            ) : null
+          }
         >
-          {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
-          {!addingApp && t('button.finish', 'Finish')}
-        </button>
+          {addingApp ? '' : t('button.finish', 'Finish')}
+        </Button>
       </DialogFooter>
     </>
   )

@@ -11,6 +11,7 @@ import { Runner } from 'common/types'
 import ToggleSwitch from '../ToggleSwitch'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { Button } from 'frontend/components/UI'
 
 interface UninstallModalProps {
   appName: string
@@ -120,9 +121,9 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
               )}
             </DialogContent>
             <DialogFooter>
-              <button onClick={onClose} className={`button outline`}>
+              <Button variant="secondary" onClick={onClose}>
                 {t('box.close', 'Close')}
-              </button>
+              </Button>
             </DialogFooter>
           </Dialog>
         )}
@@ -146,9 +147,9 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
               })}
             </DialogContent>
             <DialogFooter>
-              <button onClick={onClose} className={`button outline`}>
+              <Button variant="secondary" onClick={onClose}>
                 {t('box.close', 'Close')}
-              </button>
+              </Button>
             </DialogFooter>
           </Dialog>
         )}
@@ -216,15 +217,12 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
             )}
           </DialogContent>
           <DialogFooter>
-            <button
-              onClick={uninstallGame}
-              className={`button is-secondary outline`}
-            >
+            <Button variant="secondary" onClick={uninstallGame}>
               {t('box.yes')}
-            </button>
-            <button onClick={onClose} className={`button is-secondary outline`}>
+            </Button>
+            <Button variant="secondary" onClick={onClose}>
               {t('box.no')}
-            </button>
+            </Button>
           </DialogFooter>
         </Dialog>
       )}

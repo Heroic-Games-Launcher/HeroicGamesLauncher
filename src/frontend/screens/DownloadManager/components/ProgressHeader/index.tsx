@@ -1,10 +1,11 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import { useEffect, useState } from 'react'
-import { AreaChart, Area, ResponsiveContainer } from 'recharts'
-import { Box, LinearProgress, Typography } from '@mui/material'
+import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 import { useTranslation } from 'react-i18next'
+import { ArrowDownToLine, HardDrive } from 'lucide-react'
 import { DownloadManagerState, Runner } from 'common/types'
+import { StatCard } from 'frontend/components/UI'
 
 interface Point {
   download: number
@@ -51,89 +52,69 @@ export default function ProgressHeader(props: {
     setAvgDownloadSpeed([...avgSpeed])
   }, [progress, props.state])
 
+  const speedUnit = t('download-manager.label.unit', 'MB/s')
+
   return (
-    <>
-      <div className="progressHeader">
-        <div className="downloadRateStats">
-          <div className="downloadRateChart">
-            <div
-              style={{
-                width: '100%',
-                height: '100px',
-                position: 'absolute',
-                top: 0,
-                left: 0
-              }}
-            >
-              <ResponsiveContainer height={80}>
-                <AreaChart data={avgSpeed} margin={{ top: 0, right: 0 }}>
-                  <Area
-                    isAnimationActive={false}
-                    type="monotone"
-                    dataKey="download"
-                    strokeWidth="0px"
-                    fill="var(--accent)"
-                    fillOpacity={0.5}
-                  />
-                  <Area
-                    isAnimationActive={false}
-                    type="monotone"
-                    dataKey="disk"
-                    stroke="var(--primary)"
-                    strokeWidth="2px"
-                    fillOpacity={0}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-          <div className="realtimeDownloadStatContainer">
-            <h5 className="realtimeDownloadStat">
-              {roundToNearestHundredth(avgSpeed.at(-1)?.download)} MB/s
-            </h5>
-            <div className="realtimeDownloadStatLabel downLabel">
-              {t('download-manager.label.speed', 'Download')}{' '}
-            </div>
-          </div>
-          <div className="realtimeDownloadStatContainer">
-            <h5 className="realtimeDownloadStat">
-              {roundToNearestHundredth(avgSpeed.at(-1)?.disk)} MB/s
-            </h5>
-            <div className="realtimeDownloadStatLabel diskLabel">
-              {t('download-manager.label.disk', 'Disk')}{' '}
-            </div>
-          </div>
-        </div>
+    <div className="DownloadStats">
+      <div className="DownloadStats__chart">
+        <ResponsiveContainer width="100%" height={88}>
+          <AreaChart data={avgSpeed} margin={{ top: 4, right: 0, bottom: 0 }}>
+            {/* keeps the baseline at the bottom of the chart while idle */}
+            <YAxis
+              hide
+              domain={[0, (dataMax: number) => Math.max(dataMax, 1)]}
+            />
+            <defs>
+              <linearGradient id="downloadRate" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0%"
+                  stopColor="var(--navbar-accent, var(--accent))"
+                  stopOpacity={0.55}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="var(--navbar-accent, var(--accent))"
+                  stopOpacity={0.05}
+                />
+              </linearGradient>
+            </defs>
+            <Area
+              isAnimationActive={false}
+              type="monotone"
+              dataKey="download"
+              stroke="var(--navbar-accent, var(--accent))"
+              strokeWidth="1.5px"
+              fill="url(#downloadRate)"
+            />
+            <Area
+              isAnimationActive={false}
+              type="monotone"
+              dataKey="disk"
+              stroke="var(--primary)"
+              strokeWidth="2px"
+              strokeDasharray="4 3"
+              fillOpacity={0}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
-      {props.state !== 'idle' && props.appName && progress.eta && (
-        <div className="downloadBar">
-          <div className="downloadProgressStats">
-            <p className="downloadStat" color="var(--text-default)">{`${
-              progress.percent ?? 0
-            }% [${progress.bytes ?? ''}] `}</p>
-          </div>
-          <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
-            <Box sx={{ width: '100%', mr: 1 }}>
-              <LinearProgress
-                style={{ height: 10 }}
-                variant="determinate"
-                className="linearProgress"
-                value={progress.percent || 0}
-              />
-            </Box>
-            <Box sx={{ minWidth: 35 }}>
-              <Typography
-                variant="subtitle1"
-                title={t('download-manager.ETA', 'Estimated Time')}
-              >
-                {props.state === 'running'
-                  ? (progress.eta ?? '00.00.00')
-                  : 'Paused'}
-              </Typography>
-            </Box>
-          </Box>
-        </div>
-      )}
-    </>
+
+      <div className="DownloadStats__cards">
+        <StatCard
+          glyph={ArrowDownToLine}
+          label={t('download-manager.label.speed', 'Download')}
+          value={`${roundToNearestHundredth(
+            avgSpeed.at(-1)?.download
+          )} ${speedUnit}`}
+          className="DownloadStats__card DownloadStats__card--download"
+        />
+        <StatCard
+          glyph={HardDrive}
+          label={t('download-manager.label.disk', 'Disk')}
+          value={`${roundToNearestHundredth(avgSpeed.at(-1)?.disk)} ${speedUnit}`}
+          className="DownloadStats__card DownloadStats__card--disk"
+        />
+      </div>
+    </div>
   )
 }

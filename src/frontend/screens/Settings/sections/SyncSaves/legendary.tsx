@@ -1,11 +1,10 @@
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  InfoBox,
+  Alert,
   PathSelectionBox,
   SelectField,
+  SettingRow,
   ToggleSwitch
 } from 'frontend/components/UI'
 import { syncSaves } from 'frontend/helpers'
@@ -15,6 +14,7 @@ import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 import { MenuItem } from '@mui/material'
+import { Button } from 'frontend/components/UI'
 
 interface Props {
   autoSyncSaves: boolean
@@ -83,13 +83,12 @@ export default function LegendarySyncSaves({
 
   if (!featureSupported) {
     return (
-      <div className="defaults-hint">
-        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+      <Alert variant="info">
         {t(
           'settings.saves.not_supported',
           'This game does not support Cloud Saves.'
         )}
-      </div>
+      </Alert>
     )
   }
 
@@ -106,13 +105,12 @@ export default function LegendarySyncSaves({
           hideProgress
         />
       )}
-      <div className="defaults-hint">
-        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
+      <Alert variant="warning">
         {t(
           'settings.saves.warning',
           'Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)'
         )}
-      </div>
+      </Alert>
       {isLoading ? (
         <TextWithProgress
           text={t(
@@ -123,6 +121,25 @@ export default function LegendarySyncSaves({
         />
       ) : (
         <>
+          <Alert
+            variant={savesPath ? 'info' : 'warning'}
+            actions={
+              <Button variant="ghost" size="sm" onClick={() => setRetry(true)}>
+                {t('setting.savefolder.retry', 'Detect again')}
+              </Button>
+            }
+          >
+            {savesPath
+              ? t(
+                  'setting.savefolder.warning',
+                  'Please check twice if the path is correct (click to retry)'
+                )
+              : t(
+                  'setting.savefolder.not-found',
+                  'Save folder not found, please select it manually (click to retry)'
+                )}
+          </Alert>
+
           <PathSelectionBox
             htmlId="inputSavePath"
             type="directory"
@@ -131,56 +148,45 @@ export default function LegendarySyncSaves({
             placeholder={t('setting.savefolder.placeholder')}
             pathDialogTitle={t('box.sync.title')}
             canEditPath={!isSyncing}
-            afterInput={
-              <span
-                role={'button'}
-                onClick={() => setRetry(true)}
-                className="smallMessage"
-              >
-                {savesPath
-                  ? t(
-                      'setting.savefolder.warning',
-                      'Please check twice if the path is correct (click to retry)'
-                    )
-                  : t(
-                      'setting.savefolder.not-found',
-                      'Save folder not found, please select it manually (click to retry)'
-                    )}
-              </span>
+            label={t('setting.savefolder.title', 'Save folder')}
+            info={
+              <ul>
+                <li>{t('help.sync.part1')}</li>
+                {!isWin && <li>{t('help.sync.part2')}</li>}
+                <li>{t('help.sync.part3')}</li>
+                <li>{t('help.sync.part4')}</li>
+              </ul>
             }
           />
 
-          <SelectField
+          <SettingRow
             label={t('setting.manualsync.title')}
-            htmlId="selectSyncType"
-            onChange={(event) => setSyncType(event.target.value as SyncType)}
-            value={syncType}
-            disabled={!savesPath.length}
-            extraClass="rightButtons"
-            // style={{ marginRight: '12px' }}
-            afterSelect={
-              <button
-                data-testid="setSync"
-                onClick={async () => handleSync()}
-                disabled={isSyncing || !savesPath.length}
-                className={`button is-small ${
-                  isSyncing ? 'is-primary' : 'settings'
-                }`}
-              >
-                {`${
-                  isSyncing
-                    ? t('setting.manualsync.syncing')
-                    : t('setting.manualsync.sync')
-                }`}
-              </button>
-            }
+            htmlFor="selectSyncType"
           >
-            {syncCommands.map((el, i) => (
-              <MenuItem value={el.value} key={i}>
-                {el.name}
-              </MenuItem>
-            ))}
-          </SelectField>
+            <SelectField
+              htmlId="selectSyncType"
+              onChange={(event) => setSyncType(event.target.value as SyncType)}
+              value={syncType}
+              disabled={!savesPath.length}
+            >
+              {syncCommands.map((el, i) => (
+                <MenuItem value={el.value} key={i}>
+                  {el.name}
+                </MenuItem>
+              ))}
+            </SelectField>
+            <Button
+              variant="primary"
+              data-testid="setSync"
+              onClick={async () => handleSync()}
+              disabled={isSyncing || !savesPath.length}
+            >
+              {isSyncing
+                ? t('setting.manualsync.syncing')
+                : t('setting.manualsync.sync')}
+            </Button>
+          </SettingRow>
+
           <ToggleSwitch
             htmlId="autosync"
             value={autoSyncSaves}
@@ -189,14 +195,6 @@ export default function LegendarySyncSaves({
             title={t('setting.autosync')}
           />
           {savesPath.length > 0 ? <QuickSavesToggle /> : null}
-          <InfoBox text="infobox.help">
-            <ul>
-              <li>{t('help.sync.part1')}</li>
-              {!isWin && <li>{t('help.sync.part2')}</li>}
-              <li>{t('help.sync.part3')}</li>
-              <li>{t('help.sync.part4')}</li>
-            </ul>
-          </InfoBox>
         </>
       )}
     </>
