@@ -16,8 +16,7 @@
   font-family: var(--secondary-font-family);
   text-align: start;
   background: var(--sidebar-background);
-  overflow: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-app-region: drag;
 
   .Sidebar__brand {
@@ -85,6 +84,10 @@
 
   .SidebarLinks {
     grid-area: links;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
   }
 
   .heroicVersion {

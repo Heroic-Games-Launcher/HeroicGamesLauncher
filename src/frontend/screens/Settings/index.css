@@ -198,9 +198,9 @@ a {
 .footerFlex {
   margin-inline-start: 6px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   flex-direction: row;
-  gap: 16px;
+  gap: var(--space-sm-fixed);
 }
 
 .button-icontext-flex {
@@ -516,13 +516,6 @@ a {
   border: 1px solid var(--panel-divider, var(--divider));
   background: var(--panel-background, var(--background-darker));
   padding: var(--space-sm);
-}
-
-.Settings .logs-wrapper .buttons,
-.Settings .logs-wrapper .footerFlex {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
 }
 
 .Settings .log-box {
