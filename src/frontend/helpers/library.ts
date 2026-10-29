@@ -465,6 +465,17 @@ const updateGame = (args: UpdateParams) => {
   return window.api.updateGame(args)
 }
 
+export const countGames = (list: GameInfo[] | undefined) => {
+  if (!list) {
+    return 0
+  }
+  const dlcCount = list.filter(
+    (lib) => lib.runner !== 'sideload' && lib.install.is_dlc
+  ).length
+  const total = list.length - dlcCount
+  return total > 0 ? total : 0
+}
+
 export const normalizeTitle = (title: string) => {
   return title.replace(/[^\w\s]/g, '').toLowerCase()
 }
