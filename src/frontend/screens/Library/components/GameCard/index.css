@@ -425,7 +425,7 @@
   align-items: center;
   gap: 14px;
   width: 100%;
-  --list-row-pad-block: 10px;
+  --list-row-pad-block: 12px;
   --list-row-pad-inline: 12px;
   padding: var(--list-row-pad-block) var(--list-row-pad-inline);
   position: relative;
@@ -493,7 +493,7 @@
   grid-area: info;
   align-items: flex-start;
   padding: 0;
-  gap: 3px;
+  gap: 6px;
   min-width: 0;
 }
 
@@ -510,6 +510,8 @@
 
 .gameListItem .Playtime {
   display: flex;
+  width: 100%;
+  min-width: 0;
 }
 
 .gameCard .Playtime__last {

@@ -691,6 +691,10 @@ export default React.memo(function Library(): JSX.Element {
 
       <div className="listing">
         <span id="top" />
+        <LibraryHeader list={libraryToShow} />
+
+        {showAlphabetFilter && <AlphabetFilter />}
+
         {showRecentGames && (
           <RecentlyPlayed
             handleModal={handleModal}
@@ -712,10 +716,6 @@ export default React.memo(function Library(): JSX.Element {
             />
           </>
         )}
-
-        <LibraryHeader list={libraryToShow} />
-
-        {showAlphabetFilter && <AlphabetFilter />}
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent />}
 
