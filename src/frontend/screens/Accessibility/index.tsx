@@ -1,5 +1,4 @@
 import React, {
-  ChangeEvent,
   CSSProperties,
   useContext,
   useEffect,
@@ -8,10 +7,15 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import classNames from 'classnames'
-import { SelectField } from 'frontend/components/UI'
+import { LayoutGrid, MousePointerClick, Palette, Type } from 'lucide-react'
+import {
+  PageHeader,
+  SelectField,
+  SettingsCard,
+  SliderField,
+  ToggleSwitch
+} from 'frontend/components/UI'
 import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
-import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import useSetting from '../../hooks/useSetting'
 import SettingsContext from '../Settings/SettingsContext'
 import useSettingsContext from '../../hooks/useSettingsContext'
@@ -19,10 +23,14 @@ import './index.css'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
 
+const ZOOM_MARKS = [60, 100, 150, 200].map((value) => ({
+  value,
+  label: `${value}%`
+}))
+
 const Accessibility = React.memo(function Accessibility() {
   const { t } = useTranslation()
   const {
-    isRTL,
     zoomPercent,
     setZoomPercent,
     allTilesInColor,
@@ -81,10 +89,6 @@ const Accessibility = React.memo(function Accessibility() {
     setContentFont(secondaryFont.trim())
   }, [])
 
-  const handleZoomLevel = (event: ChangeEvent<HTMLInputElement>) => {
-    setZoomPercent(parseInt(event.target.value))
-  }
-
   const handleContentFontFamily = (event: SelectChangeEvent) => {
     setSecondaryFontFamily(event.target.value)
     setContentFont(event.target.value)
@@ -109,150 +113,124 @@ const Accessibility = React.memo(function Accessibility() {
   return (
     <div className="Accessibility Settings">
       <div className="settingsWrapper">
-        <h1 className="headerTitle">
-          {t('accessibility.title', 'Accessibility')}
-        </h1>
-
-        <span className="rangeWrapper Field">
-          <label className={classNames({ isRTL: isRTL })}>
-            {t('accessibility.zoom', 'Zoom')} ({zoomPercent}%)
-          </label>
-          <input
-            type="range"
-            value={zoomPercent}
-            onChange={handleZoomLevel}
-            min="60"
-            max="200"
-            step="10"
-            list="zoom-levels"
-          />
-          <span className="zoomHint">
-            {[60, 80, 100, 120, 140, 160, 180, 200].map((zoom) => (
-              <span key={zoom}>{zoom}</span>
-            ))}
-          </span>
-          <datalist id="zoom-levels">
-            {[60, 80, 100, 120, 140, 160, 180, 200].map((zoom) => (
-              <option key={zoom} value={zoom}>
-                {zoom}
-              </option>
-            ))}
-          </datalist>
-        </span>
-
-        <span className="setting">
-          <span className="fonts-label">
-            {t('accessibility.fonts', 'Fonts')}
-          </span>
-        </span>
-
-        <SelectField
-          htmlId="content-font-family"
-          value={contentFont}
-          onChange={handleContentFontFamily}
-          label={t(
-            'accessibility.content_font_family_default',
-            'Content Font Family (Default: {{fontFamily}})',
-            { fontFamily: defaultSecondaryFont.split(',')[0].trim() }
+        <PageHeader
+          backTo="/library"
+          backLabel={t('button.backToLibrary', 'Back to Library')}
+          title={t('accessibility.title', 'Accessibility')}
+          description={t(
+            'accessibility.subtitle',
+            'Adjust how Heroic looks and behaves'
           )}
-        >
-          {options}
-        </SelectField>
+          className="headerTitle"
+        />
 
-        <SelectField
-          htmlId="actions-font-family"
-          value={actionFont}
-          onChange={handleActionsFontFamily}
-          label={t(
-            'accessibility.actions_font_family_default',
-            'Actions Font Family (Default: {{fontFamily}})',
-            { fontFamily: defaultPrimaryFont.split(',')[0].trim() }
-          )}
-        >
-          {options}
-        </SelectField>
+        <div className="settingsSections">
+          <SettingsCard
+            glyph={Palette}
+            title={t('accessibility.section.appearance', 'Appearance')}
+          >
+            <SliderField
+              htmlId="zoomLevel"
+              label={`${t('accessibility.zoom', 'Zoom')} (${zoomPercent}%)`}
+              value={zoomPercent}
+              onChange={setZoomPercent}
+              min={60}
+              max={200}
+              step={10}
+              marks={ZOOM_MARKS}
+            />
+            <ThemeSelector />
+          </SettingsCard>
 
-        <ThemeSelector />
+          <SettingsCard glyph={Type} title={t('accessibility.fonts', 'Fonts')}>
+            <SelectField
+              htmlId="content-font-family"
+              value={contentFont}
+              onChange={handleContentFontFamily}
+              label={t(
+                'accessibility.content_font_family_default',
+                'Content Font Family (Default: {{fontFamily}})',
+                { fontFamily: defaultSecondaryFont.split(',')[0].trim() }
+              )}
+            >
+              {options}
+            </SelectField>
 
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <SelectField
+              htmlId="actions-font-family"
+              value={actionFont}
+              onChange={handleActionsFontFamily}
+              label={t(
+                'accessibility.actions_font_family_default',
+                'Actions Font Family (Default: {{fontFamily}})',
+                { fontFamily: defaultPrimaryFont.split(',')[0].trim() }
+              )}
+            >
+              {options}
+            </SelectField>
+          </SettingsCard>
+
+          <SettingsCard
+            glyph={LayoutGrid}
+            title={t('accessibility.section.library', 'Library')}
+          >
             <ToggleSwitch
               htmlId="setAllTitlesInColor"
               value={allTilesInColor}
-              handleChange={() => {
-                setAllTilesInColor(!allTilesInColor)
-              }}
+              handleChange={() => setAllTilesInColor(!allTilesInColor)}
               title={t(
                 'accessibility.all_tiles_in_color',
                 'Show all game tiles in color'
               )}
             />
-          </label>
-        </span>
-
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
             <ToggleSwitch
               htmlId="setTitlesAlwaysVisible"
               value={titlesAlwaysVisible}
-              handleChange={() => {
-                setTitlesAlwaysVisible(!titlesAlwaysVisible)
-              }}
+              handleChange={() => setTitlesAlwaysVisible(!titlesAlwaysVisible)}
               title={t(
                 'accessibility.titles_always_visible',
                 'Always show titles in library'
               )}
             />
-          </label>
-        </span>
+          </SettingsCard>
 
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="disableDialogBackdropClose"
-              value={disableDialogBackdropClose}
-              handleChange={() => {
-                setDisableDialogBackdropClose(!disableDialogBackdropClose)
-              }}
-              title={t(
-                'accessibility.disable_dialog_backdrop_close',
-                'Disable closing dialogs by clicking outside'
-              )}
-            />
-          </label>
-        </span>
-
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
-            <ToggleSwitch
-              htmlId="disableSmoothScrolling"
-              value={smoothScrollingDisabled}
-              handleChange={() => {
-                setSmoothScrollingDisabled(!smoothScrollingDisabled)
-              }}
-              title={t(
-                'accessibility.disable_smooth_scrolling',
-                'Disable smooth scrolling (requires restart)'
-              )}
-            />
-          </label>
-        </span>
-
-        <span className="setting">
-          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+          <SettingsCard
+            glyph={MousePointerClick}
+            title={t('accessibility.section.motion', 'Motion & Interaction')}
+          >
             <ToggleSwitch
               htmlId="disableAnimations"
               value={disableAnimations}
-              handleChange={() => {
-                setDisableAnimations(!disableAnimations)
-              }}
+              handleChange={() => setDisableAnimations(!disableAnimations)}
               title={t(
                 'accessibility.disable_animations',
                 'Disable UI animations'
               )}
             />
-          </label>
-        </span>
+            <ToggleSwitch
+              htmlId="disableSmoothScrolling"
+              value={smoothScrollingDisabled}
+              handleChange={() =>
+                setSmoothScrollingDisabled(!smoothScrollingDisabled)
+              }
+              title={t(
+                'accessibility.disable_smooth_scrolling',
+                'Disable smooth scrolling (requires restart)'
+              )}
+            />
+            <ToggleSwitch
+              htmlId="disableDialogBackdropClose"
+              value={disableDialogBackdropClose}
+              handleChange={() =>
+                setDisableDialogBackdropClose(!disableDialogBackdropClose)
+              }
+              title={t(
+                'accessibility.disable_dialog_backdrop_close',
+                'Disable closing dialogs by clicking outside'
+              )}
+            />
+          </SettingsCard>
+        </div>
       </div>
     </div>
   )
