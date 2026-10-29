@@ -116,14 +116,6 @@ export default function SidebarLinks() {
       data-tour="sidebar-menu"
     >
       <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
-      {!loggedIn && (
-        <SidebarItem
-          icon={<Icon glyph={LogIn} />}
-          label={t('button.login', 'Login')}
-          url="/login"
-          dataTour="sidebar-login"
-        />
-      )}
       <SidebarItem
         isActiveFallback={location.pathname.includes('gamepage')}
         url="/"
@@ -213,6 +205,15 @@ export default function SidebarLinks() {
         url="/settings/general"
         dataTour="sidebar-settings"
       />
+
+      {!loggedIn && (
+        <SidebarItem
+          icon={<Icon glyph={LogIn} />}
+          label={t('sidebar.storesLogin', 'Stores Login')}
+          url="/login"
+          dataTour="sidebar-login"
+        />
+      )}
 
       <QuitButton dataTour="sidebar-quit" />
 
