@@ -53,6 +53,10 @@ body {
   padding: 0 !important;
 }
 
+body:has(.MuiDialog-root) {
+  overflow: hidden !important;
+}
+
 .simple-keyboard-wrapper {
   display: none;
   &[open] {
