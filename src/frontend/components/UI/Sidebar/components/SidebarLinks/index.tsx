@@ -19,7 +19,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { openDiscordLink } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -28,12 +28,9 @@ import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/Ex
 import SidebarItem from '../SidebarItem'
 import { Icon } from 'frontend/components/UI'
 
-type PathSplit = [a: undefined, b: undefined, type: string]
-
 export default function SidebarLinks() {
   const { t } = useTranslation()
   const location = useLocation() as { pathname: string }
-  const [, , type] = location.pathname.split('/') as PathSplit
 
   const {
     amazon,
@@ -54,11 +51,6 @@ export default function SidebarLinks() {
     location.pathname.includes('store') ||
     location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
-  const [settingsSubmenuOpen, setSettingsSubmenuOpen] = useState(isSettings)
-
-  useEffect(() => {
-    if (isSettings) setSettingsSubmenuOpen(true)
-  }, [isSettings])
   const isWin = platform === 'win32'
 
   const loggedIn =
@@ -214,67 +206,13 @@ export default function SidebarLinks() {
         dataTour="sidebar-console"
       />
 
-      <div className="SidebarItemWithSubmenu">
-        <SidebarItem
-          isActiveFallback={isSettings}
-          icon={<Icon glyph={SettingsIcon} />}
-          label={t('Settings', 'Settings')}
-          url="/settings/general"
-          dataTour="sidebar-settings"
-          onClick={(event) => {
-            if (isSettings) {
-              event.preventDefault()
-              setSettingsSubmenuOpen((open) => !open)
-            }
-          }}
-        />
-        {isSettings && settingsSubmenuOpen && (
-          <div className="SidebarSubmenu settings">
-            <SidebarItem
-              url="/settings/general"
-              isActiveFallback={type === 'general'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.general')}
-            />
-
-            {!isWin && (
-              <SidebarItem
-                url="/settings/games_settings"
-                isActiveFallback={type === 'games_settings'}
-                className="SidebarLinks__subItem"
-                label={t(
-                  'settings.navbar.games_settings_defaults',
-                  'Game Defaults'
-                )}
-              />
-            )}
-
-            <SidebarItem
-              url="/settings/advanced"
-              isActiveFallback={type === 'advanced'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.advanced', 'Advanced')}
-            />
-
-            <SidebarItem
-              url="/settings/systeminfo"
-              isActiveFallback={type === 'systeminfo'}
-              className="SidebarLinks__subItem"
-              label={t(
-                'settings.navbar.systemInformation',
-                'System Information'
-              )}
-            />
-
-            <SidebarItem
-              url="/settings/log"
-              isActiveFallback={type === 'log'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.log', 'Log')}
-            />
-          </div>
-        )}
-      </div>
+      <SidebarItem
+        isActiveFallback={isSettings}
+        icon={<Icon glyph={SettingsIcon} />}
+        label={t('Settings', 'Settings')}
+        url="/settings/general"
+        dataTour="sidebar-settings"
+      />
 
       <QuitButton dataTour="sidebar-quit" />
 

@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -20,10 +20,20 @@ import { AppSettings } from 'common/types'
 import {
   Button,
   Icon,
+  NavList,
   PageHeader,
   UpdateComponent
 } from 'frontend/components/UI'
-import { Copy } from 'lucide-react'
+import type { NavListItem } from 'frontend/components/UI/NavList'
+import {
+  Copy,
+  FileText,
+  Gamepad2,
+  MonitorCog,
+  SlidersHorizontal,
+  Wrench
+} from 'lucide-react'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { SettingsContextType } from 'frontend/types'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -31,6 +41,8 @@ import { ContentCopy, FileOpen } from '@mui/icons-material'
 
 function Settings() {
   const { t } = useTranslation()
+  const { platform } = useContext(ContextProvider)
+  const isWin = platform === 'win32'
 
   const [currentConfig, setCurrentConfig] =
     useState<Partial<AppSettings> | null>(null)
@@ -121,6 +133,41 @@ function Settings() {
 
   const title = t('globalSettings', 'Global Settings')
 
+  const sections: NavListItem[] = [
+    {
+      to: '/settings/general',
+      label: t('settings.navbar.general'),
+      glyph: SlidersHorizontal
+    },
+    ...(isWin
+      ? []
+      : [
+          {
+            to: '/settings/games_settings',
+            label: t(
+              'settings.navbar.games_settings_defaults',
+              'Game Defaults'
+            ),
+            glyph: Gamepad2
+          }
+        ]),
+    {
+      to: '/settings/advanced',
+      label: t('settings.navbar.advanced', 'Advanced'),
+      glyph: Wrench
+    },
+    {
+      to: '/settings/systeminfo',
+      label: t('settings.navbar.systemInformation', 'System Information'),
+      glyph: MonitorCog
+    },
+    {
+      to: '/settings/log',
+      label: t('settings.navbar.log', 'Log'),
+      glyph: FileText
+    }
+  ]
+
   const copySettingsToClipboard = () => {
     if (isSystemInfo) {
       window.api.systemInfo.copyToClipboard()
@@ -174,7 +221,7 @@ function Settings() {
         <div className={`Settings ${type}`}>
           <div role="list" className="settingsWrapper">
             <PageHeader
-              backTo={isGeneralSettings ? '/library' : undefined}
+              backTo="/library"
               backLabel={t('button.backToLibrary', 'Back to Library')}
               title={pageTitle}
               description={pageDescription}
@@ -182,13 +229,22 @@ function Settings() {
               actions={!isLogSettings ? copyButton : undefined}
             />
 
-            {isGeneralSettings && <GeneralSettings />}
-            {isGamesSettings && <GamesSettings />}
-            {isSyncSettings && <SyncSaves />}
-            {isAdvancedSetting && <AdvancedSettings />}
-            {isLogSettings && <LogSettings />}
-            {isSystemInfo && <SystemInfo />}
-            <FooterInfo />
+            <div className="settingsLayout">
+              <NavList
+                items={sections}
+                className="settingsNav"
+                aria-label={t('Settings', 'Settings')}
+              />
+              <div className="settingsPane">
+                {isGeneralSettings && <GeneralSettings />}
+                {isGamesSettings && <GamesSettings />}
+                {isSyncSettings && <SyncSaves />}
+                {isAdvancedSetting && <AdvancedSettings />}
+                {isLogSettings && <LogSettings />}
+                {isSystemInfo && <SystemInfo />}
+                <FooterInfo />
+              </div>
+            </div>
           </div>
         </div>
       </SettingsContext.Provider>
