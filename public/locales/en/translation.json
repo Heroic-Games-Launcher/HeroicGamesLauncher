@@ -1318,12 +1318,12 @@
         "actions": "Action",
         "manager": {
             "link": "Wine Manager",
-            "loading": "Loading wine versions...",
             "no-results": "No Wine versions match your search.",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "open_folder": "Open Folder",
             "search": "Search versions...",
             "settings": "Settings",
+            "subtitle": "Download and manage the Wine, Proton and CrossOver builds Heroic can use",
             "title": "Wine Manager",
             "unzipping": "Unzipping",
             "update": "Update"
