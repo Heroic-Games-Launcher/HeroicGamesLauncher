@@ -246,7 +246,7 @@ interface AsyncIPCFunctions {
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
   getWebviewPreloadPath: () => string
-  clipboardReadText: () => string
+  clipboardReadText: () => Promise<string>
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
   isNative: (args: { appName: string; runner: Runner }) => boolean
