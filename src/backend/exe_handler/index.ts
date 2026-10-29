@@ -56,7 +56,7 @@ function findExeInArgs(args: string[], workingDirectory?: string): Path | null {
         ? exePath
         : path.join(workingDirectory, exePath)
 
-    const windowsExecutableExtensions = ['.exe', '.msi', '.bat']
+    const windowsExecutableExtensions = ['.exe', '.msi', '.bat', '.reg']
     const parsed = Path.safeParse(exePath)
     const isValid =
       parsed.success &&

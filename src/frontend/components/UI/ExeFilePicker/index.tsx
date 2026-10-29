@@ -9,11 +9,7 @@ import {
 } from '@mui/material'
 import WarningIcon from '@mui/icons-material/Warning'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import CachedImage from 'frontend/components/UI/CachedImage'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useGlobalState from 'frontend/state/GlobalStateV2'
@@ -106,11 +102,9 @@ export default function ExeFilePicker() {
   return (
     <>
       {open && (
-        <Dialog onClose={handleClose} showCloseButton>
-          <DialogHeader onClose={handleClose}>
-            {t('exeFilePicker.title', 'Open EXE')}
-          </DialogHeader>
-          <DialogContent>
+        <Modal onClose={handleClose} showCloseButton>
+          <ModalHeader>{t('exeFilePicker.title', 'Open EXE')}</ModalHeader>
+          <ModalContent>
             <Box
               width={'50vw'}
               minHeight={'50vh'}
@@ -231,8 +225,8 @@ export default function ExeFilePicker() {
                 </Box>
               )}
             </Box>
-          </DialogContent>
-        </Dialog>
+          </ModalContent>
+        </Modal>
       )}
     </>
   )
