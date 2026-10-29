@@ -32,12 +32,9 @@
   aspect-ratio: 3/4;
 }
 
-.gameCard.justPlayed > a {
-  aspect-ratio: 275/205;
-}
-
+.gameCard.justPlayed > a,
 .gameCard.gamepad.justPlayed > a {
-  aspect-ratio: 328/205;
+  aspect-ratio: 16/10;
 }
 
 .gameCard:focus-within {
@@ -135,10 +132,6 @@
   color: var(--text-default);
 }
 
-.gameListItem .Playtime {
-  display: none;
-}
-
 .gameCard .runner {
   display: inline-block;
   font-family: var(--primary-font-family);
@@ -161,7 +154,7 @@
 }
 
 .gameCard.justPlayed > .icons {
-  aspect-ratio: 275/205;
+  aspect-ratio: 16/10;
 }
 
 .gameCard > .icons > .svg-button {
@@ -261,14 +254,6 @@
 
 .gameListItem .GameActionButton .Button__label {
   font-size: var(--text-xs);
-}
-
-.gameCard.justPlayed > .icons {
-  aspect-ratio: 275/205;
-}
-
-.gameCard > .icons > .svg-button {
-  pointer-events: auto;
 }
 
 .gameCard > .icons > .settingsIcon {
