@@ -353,15 +353,19 @@ a {
     gap: var(--space-lg-fixed);
   }
 
-  .settingsNav {
-    position: static;
-    flex-direction: row;
+  .settingsNav--tabs {
+    position: sticky;
+    top: var(--settings-header-block);
+    z-index: 2;
+    background: var(--body-background);
+    padding-block-end: var(--space-2xs-fixed);
     flex-wrap: wrap;
-    gap: var(--space-xs-fixed);
+    overflow-x: visible;
   }
 
-  .settingsNav .NavList__chevron {
-    display: none;
+  .settingsNav--tabs .Tabs__tab {
+    padding-inline: var(--space-sm-fixed);
+    font-size: var(--body-md);
   }
 }
 
