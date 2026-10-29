@@ -7,7 +7,14 @@ import {
   SettingsCard,
   UpdateComponent
 } from 'frontend/components/UI'
-import { Cloud, FolderOpen, LifeBuoy, Upload } from 'lucide-react'
+import {
+  ArrowDownToLine,
+  ArrowUpToLine,
+  Cloud,
+  FolderOpen,
+  LifeBuoy,
+  Upload
+} from 'lucide-react'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -25,6 +32,9 @@ interface LogBoxProps {
 
 const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
   const { t } = useTranslation()
+  const boxRef = useRef<HTMLSpanElement>(null)
+  const [atEnd, setAtEnd] = useState(false)
+  const [scrollable, setScrollable] = useState(false)
   const maxLines = 1000
   let sliced = false
   let lines = logFileContent.split('\n')
@@ -32,6 +42,29 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
     lines = ['...', ...lines.slice(-maxLines)]
     sliced = true
   }
+
+  const syncScrollState = () => {
+    const box = boxRef.current
+    if (!box) return
+    const overflow = box.scrollHeight - box.clientHeight
+    setScrollable(overflow > 8)
+    setAtEnd(box.scrollTop >= overflow - 8)
+  }
+
+  useEffect(syncScrollState, [logFileContent])
+
+  const jump = () => {
+    const box = boxRef.current
+    if (!box) return
+    box.scrollTo({
+      top: atEnd ? 0 : box.scrollHeight,
+      behavior: 'smooth'
+    })
+  }
+
+  const jumpLabel = atEnd
+    ? t('setting.log.jump-to-start', 'Jump to the start of the log')
+    : t('setting.log.jump-to-end', 'Jump to the end of the log')
 
   return (
     <>
@@ -43,29 +76,48 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
           )}
         </span>
       )}
-      <span className="setting log-box">
-        {lines.map((line, key) => {
-          if (line.toLowerCase().includes(' err')) {
-            return (
-              <p key={key} className="log-error">
-                {line}
-              </p>
-            )
-          } else if (line.toLowerCase().includes(' warn')) {
-            return (
-              <p key={key} className="log-warning">
-                {line}
-              </p>
-            )
-          } else {
-            return (
-              <p key={key} className="log-info">
-                {line}
-              </p>
-            )
-          }
-        })}
-      </span>
+      <div className="log-box-wrapper">
+        {scrollable && (
+          <Button
+            className="log-jump"
+            variant="secondary"
+            size="sm"
+            icon={
+              <Icon glyph={atEnd ? ArrowUpToLine : ArrowDownToLine} size="sm" />
+            }
+            onClick={jump}
+            title={jumpLabel}
+            aria-label={jumpLabel}
+          />
+        )}
+        <span
+          className="setting log-box"
+          ref={boxRef}
+          onScroll={syncScrollState}
+        >
+          {lines.map((line, key) => {
+            if (line.toLowerCase().includes(' err')) {
+              return (
+                <p key={key} className="log-error">
+                  {line}
+                </p>
+              )
+            } else if (line.toLowerCase().includes(' warn')) {
+              return (
+                <p key={key} className="log-warning">
+                  {line}
+                </p>
+              )
+            } else {
+              return (
+                <p key={key} className="log-info">
+                  {line}
+                </p>
+              )
+            }
+          })}
+        </span>
+      </div>
     </>
   )
 }
