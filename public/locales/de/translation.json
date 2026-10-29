@@ -96,7 +96,9 @@
             "steam": {
                 "message": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!",
                 "error": "Steam konnte nicht ausgeführt werden. Installation wurde wahrscheinlich durch den Nutzer gestoppt oder ist bei Steam fehlgeschlagen.",
-                "title": "Fehler bei Steam"
+                "title": "Fehler bei Steam",
+                "running": "Steam ist derzeit geöffnet. Schließen Sie Steam und versuchen Sie es erneut, oder starten Sie Steam einmal neu, damit Heroic die Verknüpfungen verwalten kann, während Steam läuft.",
+                "running-gamemode": "Bevor Heroic die Steam-Verknüpfungen auf diesem Gerät verwalten kann, muss Steam einmal neu gestartet werden. Starte Steam neu und versuche es erneut."
             },
             "executableNotFound": "Ausführbare Datei nicht gefunden",
             "executableNotFoundMessage": "Heroic konnte die Ausführdatei für dieses Spiel nicht finden. Bitte setze es manuell in den Spieleinstellungen.",
@@ -106,7 +108,8 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Das Entfernen von {{game}} aus Steam schlug fehl mit:{{newLine}} {{error}}"
+                    "body": "Das Entfernen von {{game}} aus Steam schlug fehl mit:{{newLine}} {{error}}",
+                    "title": "Fehler beim Entfernen eines Spiels aus Steam"
                 }
             }
         },
@@ -468,14 +471,16 @@
                 "steam": {
                     "corrupt": "{{game}} konnte nicht zu allen gefundenen Steam-Benutzern hinzugefügt werden. Siehe Logs für weitere Informationen. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
                     "success": "{{game}} wurde erfolgreich zu Steam hinzugefügt. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
-                    "title": "Zu Steam hinzugefügt"
+                    "title": "Zu Steam hinzugefügt",
+                    "success-no-restart": "{{game}} wurde erfolgreich zu Steam hinzugefügt."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} konnte nicht von allen gefundenen Steam-Benutzern entfernt werden. Siehe Logs für weitere Informationen. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
                     "success": "{{game}} wurde erfolgreich aus Steam entfernt. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
-                    "title": "Aus Steam entfernt"
+                    "title": "Aus Steam entfernt",
+                    "success-no-restart": "{{game}} wurde erfolgreich aus Steam entfernt."
                 }
             },
             "reparing": "Reparatur abgeschlossen"
@@ -521,16 +526,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "z. B.: Pfad/Zu/ExtraDateien",
             "title": "Umgebungsvariablen",
-            "value": "Wert"
+            "value": "Wert",
+            "placeHolderV": "WERT"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Variablennamen dürfen nicht leer sein",
                 "equal_sign_in_key": "Variablennamen dürfen nicht das Zeichen „=“ enthalten",
-                "space_in_key": "Variablennamen dürfen keine Leerzeichen enthalten"
+                "space_in_key": "Variablennamen dürfen keine Leerzeichen enthalten",
+                "duplicate_key": "Eine Variable mit diesem Namen existiert bereits"
             },
             "example": "Füge das „=“-Zeichen NICHT ein, z. B.: für eine Einstellung wie „MY_FLAG=123“, setze MY_FLAG in NAME und 123 in VALUE ein.",
-            "info": "Setze Umgebungsvariablen, die an den Befehl angehängt werden."
+            "info": "Setze Umgebungsvariablen, die an den Befehl angehängt werden.",
+            "add_new": "Neue Variable hinzufügen",
+            "bulk_edit": "Massenbearbeitung",
+            "bulk_edit_error": "Einige Variablen sind falsch. Bitte überprüfen Sie, ob alle Zeilen dem Format SCHLÜSSEL=WERT entsprechen.",
+            "clear_all_confirm": "Möchten Sie wirklich alle Umgebungsvariablen löschen?"
         },
         "gameargs": {
             "placeholder": "Lege hier die Spiel-Argumente fest",
@@ -708,7 +719,8 @@
                 "nile": "Amazon / Nile Log",
                 "zoom": "Zoom-Log"
             },
-            "show-uploads": "Hochgeladene Log-Dateien anzeigen"
+            "show-uploads": "Hochgeladene Log-Dateien anzeigen",
+            "error": "Interner Fehler beim Lesen der Protokolldatei"
         },
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
         "manualsync": {
@@ -944,7 +956,8 @@
             "help": {
                 "description": "Gebe Deinen eigenen SteamGridDB API-Schlüssel ein, um die Spiele-Cover Suche zu aktivieren. Der Schlüssel wird verschlüsselt gespeichert, wenn Dein System es unterstützt. Du kannst einen API-Schlüssel unter {{url}} erhalten"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Klicken Sie hier, um die Spielkonfigurationsdatei zu öffnen"
     },
     "Settings": "Einstellungen",
     "sidebar": {
@@ -1334,6 +1347,12 @@
     "common": {
         "add": "Hinzufügen",
         "cancel": "Absagen",
-        "warning": "Warnung"
+        "warning": "Warnung",
+        "clear_all": "Alle löschen",
+        "confirm": "Bestätigen",
+        "duplicate": "Duplizieren",
+        "edit": "Bearbeiten",
+        "remove": "Entfernen",
+        "save": "Speichern"
     }
 }
