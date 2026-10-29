@@ -15,6 +15,10 @@
   padding-block: var(--space-xs-fixed);
 }
 
+.sliderFieldWrapper--withMarks .sliderStyle {
+  margin-block-end: var(--space-2xl-fixed);
+}
+
 .sliderFieldWrapper .MuiSlider-markLabel {
   color: var(--on-panel-muted, var(--text-secondary));
 }
