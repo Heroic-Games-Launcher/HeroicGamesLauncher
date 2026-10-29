@@ -157,7 +157,9 @@
   aspect-ratio: 16/10;
 }
 
-.gameCard > .icons > .svg-button {
+/* the overlay itself lets clicks through to the cover link, every control
+   on top of it has to take its own clicks */
+.gameCard > .icons > * {
   pointer-events: auto;
 }
 
