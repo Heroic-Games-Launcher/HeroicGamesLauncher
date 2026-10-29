@@ -1,0 +1,7 @@
+.exeFilePicker__gameIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
