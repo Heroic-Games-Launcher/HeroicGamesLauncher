@@ -104,11 +104,13 @@
   grid-area: store;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
 
 .DownloadItem__store .StoreBadge {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
+  padding: var(--space-2xs-fixed);
 }
 
 .DownloadItem__time {
