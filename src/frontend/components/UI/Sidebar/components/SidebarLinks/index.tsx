@@ -119,7 +119,10 @@ export default function SidebarLinks() {
   }
 
   return (
-    <div className="SidebarLinks Sidebar__section" data-tour="sidebar-menu">
+    <div
+      className="SidebarLinks Sidebar__section scrollbar--none"
+      data-tour="sidebar-menu"
+    >
       <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
       {!loggedIn && (
         <SidebarItem
