@@ -3,6 +3,7 @@ import { Clock, MonitorPlay } from 'lucide-react'
 import { GameInfo } from 'common/types'
 import { StatCard } from 'frontend/components/UI'
 import { hasPlaytime } from 'frontend/hooks/hasPlaytime'
+import { getIntlLocale } from 'frontend/helpers'
 
 interface Props {
   gameInfo: GameInfo
@@ -35,15 +36,18 @@ function formatRelative(date: Date, locale: string) {
 const GameStats = ({ gameInfo }: Props) => {
   const { t, i18n } = useTranslation('gamepage')
   const { totalPlayed, firstPlayed, lastPlayed } = hasPlaytime(gameInfo)
+  const locale = getIntlLocale(i18n.language)
 
   const hours = totalPlayed ? Math.round((totalPlayed / 60) * 10) / 10 : 0
   const lastPlayedDate = lastPlayed ? new Date(lastPlayed) : null
-  const firstPlayedTitle = firstPlayed
-    ? `${t('game.firstPlayed', 'First Played')}: ${new Intl.DateTimeFormat(
-        i18n.language,
-        { dateStyle: 'medium' }
-      ).format(new Date(firstPlayed))}`
-    : undefined
+  const firstPlayedDate = firstPlayed ? new Date(firstPlayed) : null
+  const firstPlayedTitle =
+    firstPlayedDate && !Number.isNaN(firstPlayedDate.getTime())
+      ? `${t('game.firstPlayed', 'First Played')}: ${new Intl.DateTimeFormat(
+          locale,
+          { dateStyle: 'medium' }
+        ).format(firstPlayedDate)}`
+      : undefined
 
   return (
     <div className="gameStats">
@@ -58,12 +62,12 @@ const GameStats = ({ gameInfo }: Props) => {
         label={t('game.lastPlayed', 'Last Played')}
         value={
           lastPlayedDate && !Number.isNaN(lastPlayedDate.getTime())
-            ? formatRelative(lastPlayedDate, i18n.language)
+            ? formatRelative(lastPlayedDate, locale)
             : t('game.neverPlayed', 'Never')
         }
         title={
           lastPlayedDate && !Number.isNaN(lastPlayedDate.getTime())
-            ? new Intl.DateTimeFormat(i18n.language, {
+            ? new Intl.DateTimeFormat(locale, {
                 dateStyle: 'medium',
                 timeStyle: 'short'
               }).format(lastPlayedDate)

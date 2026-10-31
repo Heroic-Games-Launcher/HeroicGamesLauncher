@@ -78,3 +78,18 @@
   flex-direction: column;
   flex-grow: 1;
 }
+
+.librarySectionHeader {
+  padding-inline: var(--space-md-fixed);
+  margin-block: var(--space-2xl-fixed) var(--space-md-fixed);
+}
+
+.librarySectionHeader:first-of-type {
+  margin-block-start: var(--space-md-fixed);
+}
+
+.frameless:not(.fullscreen) .librarySectionHeader {
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px) + 10px
+  );
+}

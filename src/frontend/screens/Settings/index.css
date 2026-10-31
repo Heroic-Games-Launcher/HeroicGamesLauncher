@@ -6,7 +6,7 @@
   width: 100%;
   border-radius: 1rem;
   grid-area: content;
-  padding: var(--space-3xl-fixed) var(--space-5xl-fixed);
+  padding: var(--space-xl-fixed) var(--space-5xl-fixed) var(--space-3xl-fixed);
   position: relative;
   margin-bottom: 35px;
 }
@@ -198,9 +198,9 @@ a {
 .footerFlex {
   margin-inline-start: 6px;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   flex-direction: row;
-  gap: 16px;
+  gap: var(--space-sm-fixed);
 }
 
 .button-icontext-flex {
@@ -311,10 +311,62 @@ a {
 }
 
 .Settings .settingsWrapper {
-  max-width: 920px;
+  --settings-nav-width: 232px;
+  --settings-pane-width: 920px;
+  --settings-header-height: 61px;
+  --settings-header-block: calc(
+    var(--settings-header-height) + var(--space-md-fixed) * 2
+  );
+
+  max-width: calc(
+    var(--settings-nav-width) + var(--settings-pane-width) +
+      var(--space-2xl-fixed)
+  );
   margin-inline: 0 auto;
   place-self: start;
   gap: var(--space-md);
+}
+
+.settingsLayout {
+  display: grid;
+  grid-template-columns: var(--settings-nav-width) minmax(0, 1fr);
+  gap: var(--space-2xl-fixed);
+  align-items: start;
+  width: 100%;
+}
+
+.settingsNav {
+  position: sticky;
+  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+}
+
+.settingsPane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+@media screen and (max-width: 1100px) {
+  .settingsLayout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg-fixed);
+  }
+
+  .settingsNav--tabs {
+    position: sticky;
+    top: var(--settings-header-block);
+    z-index: 2;
+    background: var(--body-background);
+    padding-block-end: var(--space-2xs-fixed);
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .settingsNav--tabs .Tabs__tab {
+    padding-inline: var(--space-sm-fixed);
+    font-size: var(--body-md);
+  }
 }
 
 .Settings .settingsWrapper > .BackButton {
@@ -323,7 +375,13 @@ a {
 }
 
 .Settings .headerTitle {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   margin: 0;
+  min-height: var(--settings-header-height);
+  padding-block: var(--space-md-fixed);
+  background: var(--body-background);
 }
 
 .settingsSections {
@@ -431,7 +489,9 @@ a {
 /* --- settings tabs: consistent width and rhythm --- */
 
 .Settings .settingsWrapper > div,
-.Settings .settingsWrapper > section {
+.Settings .settingsWrapper > section,
+.Settings .settingsPane > div,
+.Settings .settingsPane > section {
   width: 100%;
 }
 
@@ -518,18 +578,12 @@ a {
   padding: var(--space-sm);
 }
 
-.Settings .logs-wrapper .buttons,
-.Settings .logs-wrapper .footerFlex {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-}
-
 .Settings .log-box {
   border-radius: 14px;
 }
 
 .Settings .settingsWrapper > p,
+.Settings .settingsPane > p,
 .Settings .logs-wrapper > p {
   max-width: none;
 }

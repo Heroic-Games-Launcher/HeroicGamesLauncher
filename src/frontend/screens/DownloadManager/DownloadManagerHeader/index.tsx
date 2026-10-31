@@ -4,7 +4,7 @@ type Props = {
   time: 'started' | 'finished' | 'queued'
 }
 
-export default function GameListHeader({ time }: Props) {
+export default function DownloadManagerHeader({ time }: Props) {
   const { t } = useTranslation()
 
   const getTimeLabel = () => {
@@ -19,12 +19,14 @@ export default function GameListHeader({ time }: Props) {
   }
 
   return (
-    <div className="gameListHeader">
+    <div className="DownloadList__head">
       <span>{t('game.title', 'Game Title')}</span>
-      <span>{getTimeLabel()}</span>
       <span>{t('download-manager.queue.type', 'Type')}</span>
       <span>{t('game.store', 'Store')}</span>
-      <span>{t('wine.actions', 'Action')}</span>
+      <span>{getTimeLabel()}</span>
+      <span className="DownloadList__headActions">
+        {t('wine.actions', 'Action')}
+      </span>
     </div>
   )
 }

@@ -16,8 +16,7 @@
   font-family: var(--secondary-font-family);
   text-align: start;
   background: var(--sidebar-background);
-  overflow: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-app-region: drag;
 
   .Sidebar__brand {
@@ -26,8 +25,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: var(--space-md) var(--sidebar-horizontal-padding) var(--space-md);
+    padding: var(--space-sm) var(--sidebar-horizontal-padding);
     text-align: center;
     -webkit-app-region: drag;
   }
@@ -36,35 +34,6 @@
     width: 48px;
     height: 48px;
     flex-shrink: 0;
-  }
-
-  .Sidebar__brandText {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.1;
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .Sidebar__brandName {
-    font-family: 'Zen Dots', var(--primary-font-family), sans-serif;
-    font-size: var(--text-lg);
-    font-weight: 400;
-    color: var(--text-default);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    line-height: 1;
-  }
-
-  .Sidebar__brandTag {
-    font-family: var(--primary-font-family);
-    font-size: 10px;
-    font-weight: var(--medium);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--text-muted, var(--navbar-inactive));
-    margin-top: 6px;
   }
 
   &.collapsed {
@@ -77,14 +46,15 @@
       width: 32px;
       height: 32px;
     }
-
-    .Sidebar__brandText {
-      display: none;
-    }
   }
 
   .SidebarLinks {
     grid-area: links;
+    /* only the links scroll, so the logo and the version stay put and the
+       sidebar itself never shows a scrollbar */
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .heroicVersion {

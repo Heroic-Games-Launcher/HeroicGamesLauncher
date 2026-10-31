@@ -10,6 +10,8 @@ interface SettingsCardProps {
   children: ReactNode
   glyph?: LucideIcon
   description?: string
+  meta?: ReactNode
+  actions?: ReactNode
   className?: string
 }
 
@@ -18,6 +20,8 @@ export default function SettingsCard({
   children,
   glyph,
   description,
+  meta,
+  actions,
   className
 }: SettingsCardProps) {
   return (
@@ -27,6 +31,8 @@ export default function SettingsCard({
           <Icon glyph={glyph} size="lg" className="SettingsCard__icon" />
         )}
         <h3 className="SettingsCard__title">{title}</h3>
+        {meta && <span className="SettingsCard__meta">{meta}</span>}
+        {actions && <div className="SettingsCard__actions">{actions}</div>}
       </div>
       {description && (
         <p className="SettingsCard__description">{description}</p>

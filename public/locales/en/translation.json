@@ -419,6 +419,13 @@
     },
     "docs": "Documentation",
     "download-manager": {
+        "empty": {
+            "current": "Games you install or update show their progress here.",
+            "queue": {
+                "description": "Downloads you start while another one is running wait here.",
+                "title": "Queue is empty"
+            }
+        },
         "ETA": "Estimated time",
         "install-type": {
             "install": "Install",
@@ -426,9 +433,11 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": "MB/s"
         },
         "link": "Downloads",
+        "pageSubtitle": "What is installing now, what comes next and what is already done",
         "queue": {
             "end-time": "Finished at",
             "queue-time": "Added at",
@@ -784,6 +793,7 @@
             "downloading": "Downloading",
             "empty": "Nothing to download",
             "finished": "Completed",
+            "paused": "Paused",
             "queued": "Queued"
         }
     },
@@ -934,6 +944,8 @@
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "join-heroic-discord": "Join our Discord",
+            "jump-to-end": "Jump to the end of the log",
+            "jump-to-start": "Jump to the start of the log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder",
             "show-uploads": "Show uploaded log files",

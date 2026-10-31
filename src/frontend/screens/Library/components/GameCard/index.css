@@ -32,12 +32,9 @@
   aspect-ratio: 3/4;
 }
 
-.gameCard.justPlayed > a {
-  aspect-ratio: 275/205;
-}
-
+.gameCard.justPlayed > a,
 .gameCard.gamepad.justPlayed > a {
-  aspect-ratio: 328/205;
+  aspect-ratio: 16/10;
 }
 
 .gameCard:focus-within {
@@ -135,10 +132,6 @@
   color: var(--text-default);
 }
 
-.gameListItem .Playtime {
-  display: none;
-}
-
 .gameCard .runner {
   display: inline-block;
   font-family: var(--primary-font-family);
@@ -161,10 +154,10 @@
 }
 
 .gameCard.justPlayed > .icons {
-  aspect-ratio: 275/205;
+  aspect-ratio: 16/10;
 }
 
-.gameCard > .icons > .svg-button {
+.gameCard > .icons > button {
   pointer-events: auto;
 }
 
@@ -261,14 +254,6 @@
 
 .gameListItem .GameActionButton .Button__label {
   font-size: var(--text-xs);
-}
-
-.gameCard.justPlayed > .icons {
-  aspect-ratio: 275/205;
-}
-
-.gameCard > .icons > .svg-button {
-  pointer-events: auto;
 }
 
 .gameCard > .icons > .settingsIcon {
@@ -440,7 +425,7 @@
   align-items: center;
   gap: 14px;
   width: 100%;
-  --list-row-pad-block: 10px;
+  --list-row-pad-block: 12px;
   --list-row-pad-inline: 12px;
   padding: var(--list-row-pad-block) var(--list-row-pad-inline);
   position: relative;
@@ -508,7 +493,7 @@
   grid-area: info;
   align-items: flex-start;
   padding: 0;
-  gap: 3px;
+  gap: 6px;
   min-width: 0;
 }
 
@@ -525,6 +510,8 @@
 
 .gameListItem .Playtime {
   display: flex;
+  width: 100%;
+  min-width: 0;
 }
 
 .gameCard .Playtime__last {

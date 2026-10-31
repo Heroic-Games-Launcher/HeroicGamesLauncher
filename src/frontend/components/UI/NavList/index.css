@@ -1,0 +1,65 @@
+.NavList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+}
+
+.NavList__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm-fixed);
+  padding: var(--space-sm-fixed) var(--space-md-fixed);
+  border-radius: 12px;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--medium);
+  line-height: var(--leading-snug);
+  color: var(--on-panel-muted);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+.NavList__label {
+  flex: 1;
+  min-width: 0;
+}
+
+.NavList__glyph,
+.NavList__chevron {
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.NavList__chevron {
+  opacity: 0.5;
+}
+
+.NavList__item:hover {
+  background-color: color-mix(in oklab, var(--on-panel) 8%, transparent);
+  color: var(--on-panel);
+}
+
+.NavList__item:focus-visible {
+  outline: 2px solid var(--on-panel-link);
+  outline-offset: -2px;
+}
+
+.NavList__item--active {
+  background-color: color-mix(
+    in oklab,
+    var(--navbar-accent, var(--accent)) 12%,
+    transparent
+  );
+  box-shadow: inset 0 0 0 1px
+    color-mix(in oklab, var(--navbar-accent, var(--accent)) 24%, transparent);
+  color: var(--on-panel);
+  font-weight: var(--semibold);
+}
+
+.NavList__item--active .NavList__chevron {
+  opacity: 1;
+}

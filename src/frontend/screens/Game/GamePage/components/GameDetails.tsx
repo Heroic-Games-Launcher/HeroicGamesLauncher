@@ -4,6 +4,7 @@ import { CalendarDays, Code2, MonitorPlay, Tags } from 'lucide-react'
 import { GameInfo } from 'common/types'
 import { DetailList, Panel, StoreBadge } from 'frontend/components/UI'
 import type { DetailItem } from 'frontend/components/UI/DetailList'
+import { getIntlLocale } from 'frontend/helpers'
 import { getReleaseDate } from 'frontend/helpers/releaseDate'
 import GameContext from '../../GameContext'
 
@@ -27,7 +28,7 @@ const GameDetails = ({ gameInfo }: Props) => {
     wikiInfo?.pcgamingwiki?.releaseDate,
     gameExtraInfo?.releaseDate,
     is,
-    i18n.language
+    getIntlLocale(i18n.language)
   )
   const installPlatform = gameInfo.install.platform
 
