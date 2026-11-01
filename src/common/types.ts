@@ -269,6 +269,14 @@ export interface GameSettings {
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
   enableQuickSavesMenu: boolean
+  // Windows only: PnP instance ID of a GPU to disable while the game starts
+  hideGpuDuringLaunch?: string
+}
+
+export interface WindowsDisplayDevice {
+  name: string
+  instanceId: string
+  disabled: boolean
 }
 
 export type Status =

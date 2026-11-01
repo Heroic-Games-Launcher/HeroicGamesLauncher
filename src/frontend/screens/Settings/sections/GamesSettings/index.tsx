@@ -36,7 +36,8 @@ import {
   Gamescope,
   BeforeLaunchScriptPath,
   AfterLaunchScriptPath,
-  NvidiaPrime
+  NvidiaPrime,
+  HideGpuDuringLaunch
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -230,6 +231,7 @@ export default function GamesSettings() {
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />
+        <HideGpuDuringLaunch />
         <div className="Field">
           <label>{t('setting.scripts', 'Scripts:')}</label>
           <BeforeLaunchScriptPath />

@@ -237,6 +237,7 @@ class GameConfigV0 extends GameConfig {
       battlEyeRuntime,
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
+      hideGpuDuringLaunch,
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta
@@ -275,6 +276,7 @@ class GameConfigV0 extends GameConfig {
       language: '', // we want to fallback to '' always here, fallback lang for games should be ''
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
+      hideGpuDuringLaunch,
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta,

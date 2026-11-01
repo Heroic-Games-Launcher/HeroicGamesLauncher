@@ -96,6 +96,7 @@ import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 import { Game } from 'common/types/game_manager'
 import { getKnownFixesFor } from './known_fixes/utils'
+import { hideGpuDuringLaunch } from './utils/graphics/windows_hide_gpu'
 
 let powerDisplayId: number | null
 
@@ -220,6 +221,18 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
   await runBeforeLaunchScript(gameInfo, gameSettings, logWriter)
 
+  const restoreHiddenGpu =
+    isWindows && gameSettings.hideGpuDuringLaunch
+      ? await hideGpuDuringLaunch(
+          gameSettings.hideGpuDuringLaunch,
+          gameInfo.install.install_path ||
+            (gameInfo.install.executable
+              ? dirname(gameInfo.install.executable)
+              : ''),
+          logWriter
+        )
+      : undefined
+
   sendGameStatusUpdate({
     appName,
     runner,
@@ -249,6 +262,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       return false
     })
     .finally(async () => {
+      await restoreHiddenGpu?.()
       await runAfterLaunchScript(gameInfo, gameSettings, logWriter)
       await logWriter.close()
     })

@@ -32,6 +32,7 @@ win:
     - build/bin/x64/win32/nile.exe
     - build/bin/x64/win32/GalaxyCommunication.exe
     - build/bin/x64/win32/EpicGamesLauncher.exe
+    - build/bin/x64/win32/hide_gpu_during_launch.ps1
 
 portable:
   artifactName: ${productName}-${version}-Portable-${arch}.${ext}

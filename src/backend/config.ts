@@ -369,6 +369,7 @@ class GlobalConfigV0 extends GlobalConfig {
       hideWindowOnProtocolLaunch: false,
       beforeLaunchScriptPath: '',
       afterLaunchScriptPath: '',
+      hideGpuDuringLaunch: '',
       disableUMU: false,
       verboseLogs: true,
       downloadProtonToSteam: false,
