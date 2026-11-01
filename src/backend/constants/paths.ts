@@ -59,6 +59,10 @@ export const galaxyCommunicationExePath = fixAsarPath(
   join(publicDir, 'bin', 'x64', 'win32', 'GalaxyCommunication.exe')
 )
 
+export const hideGpuScriptPath = fixAsarPath(
+  join(publicDir, 'bin', 'x64', 'win32', 'hide_gpu_during_launch.ps1')
+)
+
 export const webviewPreloadPath = fixAsarPath(
   join('file://', preloadDir, 'webviewPreload.js')
 )

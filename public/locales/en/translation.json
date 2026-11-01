@@ -533,6 +533,11 @@
             "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
+        "hide_gpu_during_launch": {
+            "admin": "Disabling a GPU needs administrator rights, so you will see a UAC prompt every time you launch the game. Do not select the GPU your displays are connected to.",
+            "default": "This applies to all games. A game can pick a different GPU, or none, in its own settings.",
+            "details": "On PCs with more than one GPU, some games ignore the GPU chosen in Windows' graphics settings, the GPU driver's control panel and launch arguments like -graphicsadapter, and end up on the wrong GPU. While the game starts, this disables the selected GPU so the game can't pick it, and enables it again once the game has chosen a GPU."
+        },
         "hide-window-on-protocol-launch": "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'Add to Steam' feature.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
@@ -884,6 +889,11 @@
             "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
+        "hide_gpu_during_launch": {
+            "missing": "GPU not found",
+            "none": "Don't hide any GPU",
+            "title": "Hide GPU from game"
+        },
         "hide-window-on-protocol-launch": "Hide Heroic window when launching games from heroic:// links",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",

@@ -40,6 +40,7 @@ import type {
   UploadedLogData,
   UserInfo,
   WikiInfo,
+  WindowsDisplayDevice,
   WineCommandArgs,
   WineInstallation,
   WineManagerStatus,
@@ -302,6 +303,7 @@ interface AsyncIPCFunctions {
     retryIn: number
   }
   getSystemInfo: (cache?: boolean) => Promise<SystemInformation>
+  getWindowsDisplayDevices: () => Promise<WindowsDisplayDevice[]>
   removeRecent: (appName: string) => Promise<void>
   getWikiGameInfo: (
     title: string,
