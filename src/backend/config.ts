@@ -49,18 +49,30 @@ function getSteamCompatFolder() {
       '.var/app/com.valvesoftware.Steam/.steam/steam'
     )
 
-    if (existsSync(flatpakSteamPath)) {
-      // check if steam is really installed via flatpak
-      const { status } = spawnSync('flatpak', [
-        'info',
-        'com.valvesoftware.Steam'
-      ])
+    const nativeSteamPath = join(userHome, '.steam/steam')
 
-      if (status === 0) {
-        return flatpakSteamPath
+    if (existsSync(flatpakSteamPath)) {
+      if (isFlatpak) {
+        // There is no `flatpak` command inside Heroic's own sandbox to ask
+        // whether Steam is installed. The manifest gives us access to Steam's
+        // data folder, which stays around after Steam is uninstalled, so only
+        // use it when there is no native Steam to prefer instead.
+        if (!existsSync(nativeSteamPath)) {
+          return flatpakSteamPath
+        }
+      } else {
+        // check if steam is really installed via flatpak
+        const { status } = spawnSync('flatpak', [
+          'info',
+          'com.valvesoftware.Steam'
+        ])
+
+        if (status === 0) {
+          return flatpakSteamPath
+        }
       }
     }
-    return join(userHome, '.steam/steam')
+    return nativeSteamPath
   }
 }
 
