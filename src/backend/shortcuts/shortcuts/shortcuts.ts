@@ -7,11 +7,11 @@ import {
   rm,
   unlink,
   unlinkSync,
-  writeFile,
   writeFileSync
 } from 'graceful-fs'
 import { IconIcns } from '@shockpkg/icon-encoder'
-import { join } from 'path'
+import { dirname, join } from 'path'
+import { mkdir, writeFile as writeFileAsync } from 'fs/promises'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { GlobalConfig } from '../../config'
 import { GameInfo } from 'common/types'
@@ -23,6 +23,7 @@ import { libraryManagerMap } from 'backend/storeManagers'
 import { isMac } from 'backend/constants/environment'
 import { userHome } from 'backend/constants/paths'
 import type { Game } from 'common/types/game_manager'
+import { getExeIcon, resolveIconExecutable } from '../exeIcon'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
@@ -38,14 +39,20 @@ async function addShortcuts(game: Game, fromMenu?: boolean) {
   const { app_name, runner, title } = gameInfo
 
   logInfo(`Adding shortcuts for ${title}`, LogPrefix.Backend)
-  const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
-    GlobalConfig.get().getSettings()
+  const {
+    addDesktopShortcuts,
+    addStartMenuShortcuts,
+    addSteamShortcuts,
+    useExeShortcutIcons
+  } = GlobalConfig.get().getSettings()
 
   if (addSteamShortcuts) {
-    addNonSteamGame(game)
+    void addNonSteamGame(game).catch((error) =>
+      logError(['Could not add Steam shortcut:', error], LogPrefix.Backend)
+    )
   }
 
-  const launchWithProtocol = `heroic://launch?appName=${app_name}&runner=${runner}`
+  const launchWithProtocol = `heroic://launch?appName=${encodeURIComponent(app_name)}&runner=${runner}`
   const [desktopFile, menuFile] = shortcutFiles(gameInfo.title)
   if (!desktopFile || !menuFile) {
     return
@@ -53,26 +60,24 @@ async function addShortcuts(game: Game, fromMenu?: boolean) {
 
   switch (process.platform) {
     case 'linux': {
-      const icon = await getIcon(gameInfo.app_name, gameInfo)
+      if (!addDesktopShortcuts && !addStartMenuShortcuts && !fromMenu) break
+      let icon: string | undefined
+      if (useExeShortcutIcons) icon = await getGameExeIcon(game, gameInfo)
+      icon ??= await getIcon(gameInfo.app_name, gameInfo)
       const shortcut = `[Desktop Entry]
-Name=${gameInfo.title}
+Name=${escapeDesktopValue(gameInfo.title)}
 Exec=xdg-open ${launchWithProtocol}
 Terminal=false
 Type=Application
-Icon=${icon}
+Icon=${escapeDesktopValue(icon)}
 Categories=Game;
 `
 
       if (addDesktopShortcuts || fromMenu) {
-        //777 = -rwxrwxrwx
-        writeFile(desktopFile, shortcut, { mode: 0o777 }, () => {
-          logInfo(`Shortcut saved on ${desktopFile}`, LogPrefix.Backend)
-        })
+        await saveLinuxShortcut(desktopFile, shortcut, 0o755)
       }
       if (addStartMenuShortcuts || fromMenu) {
-        writeFile(menuFile, shortcut, () => {
-          logInfo(`Shortcut saved on ${menuFile}`, LogPrefix.Backend)
-        })
+        await saveLinuxShortcut(menuFile, shortcut, 0o644)
       }
       break
     }
@@ -113,6 +118,63 @@ Categories=Game;
       }
       break
     }
+  }
+}
+
+async function getGameExeIcon(game: Game, info: GameInfo) {
+  const candidates = [info.install.executable]
+  if (info.runner === 'gog') {
+    try {
+      candidates.unshift(libraryManagerMap.gog.getExecutable(info.app_name))
+    } catch (error) {
+      logError(
+        ['Could not resolve GOG shortcut executable:', error],
+        LogPrefix.Backend
+      )
+    }
+  }
+  try {
+    candidates.unshift((await game.getSettings()).targetExe)
+  } catch (error) {
+    logError(
+      ['Could not read shortcut executable override:', error],
+      LogPrefix.Backend
+    )
+  }
+  const seen = new Set<string>()
+  for (const candidate of candidates) {
+    const path =
+      candidate && resolveIconExecutable(candidate, info.install.install_path)
+    if (!path || seen.has(path)) continue
+    seen.add(path)
+    try {
+      const icon = await getExeIcon(path)
+      if (icon) return icon
+    } catch (error) {
+      logError(
+        ['Could not extract shortcut EXE icon:', error],
+        LogPrefix.Backend
+      )
+    }
+  }
+  return undefined
+}
+
+function escapeDesktopValue(value: string) {
+  return value
+    .replaceAll('\\', '\\\\')
+    .replaceAll('\n', '\\n')
+    .replaceAll('\r', '\\r')
+    .replaceAll('\t', '\\t')
+}
+
+async function saveLinuxShortcut(path: string, content: string, mode: number) {
+  try {
+    await mkdir(dirname(path), { recursive: true })
+    await writeFileAsync(path, content, { mode })
+    logInfo(`Shortcut saved on ${path}`, LogPrefix.Backend)
+  } catch (error) {
+    logError([`Could not save shortcut on ${path}:`, error], LogPrefix.Backend)
   }
 }
 

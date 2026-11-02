@@ -69,10 +69,14 @@ export default class SideloadLibraryManager implements LibraryManager {
       current[gameIndex] = { ...current[gameIndex], ...game }
     } else {
       current.push(game)
-      addShortcuts(new SideloadGame(app_name))
     }
 
     libraryStore.set('games', current)
+
+    // Shortcut creation reads the game back from the library, so persist it first.
+    if (gameIndex === -1) {
+      addShortcuts(new SideloadGame(app_name)).catch(logWarning)
+    }
 
     sendFrontendMessage('refreshLibrary', 'sideload')
 

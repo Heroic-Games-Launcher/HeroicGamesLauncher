@@ -25,6 +25,10 @@ const Shortcuts = () => {
     'addSteamShortcuts',
     false
   )
+  const [useExeShortcutIcons, setUseExeShortcutIcons] = useSetting(
+    'useExeShortcutIcons',
+    false
+  )
 
   if (!isDefault) {
     return <></>
@@ -68,6 +72,21 @@ const Shortcuts = () => {
         handleChange={() => setAddSteamShortcuts(!addSteamShortcuts)}
         title={t('setting.addgamestosteam', 'Add games to Steam automatically')}
       />
+      {isLinux && (
+        <ToggleSwitch
+          htmlId="useExeShortcutIcons"
+          value={useExeShortcutIcons}
+          handleChange={() => setUseExeShortcutIcons(!useExeShortcutIcons)}
+          title={t(
+            'setting.useexeshortcuticons',
+            'Use icons from game EXEs for desktop and application menu shortcuts'
+          )}
+          description={t(
+            'setting.useexeshortcuticons_description',
+            'Prefer the embedded game icon, falling back to cover art. Recreate existing shortcuts to update their icons.'
+          )}
+        />
+      )}
     </>
   )
 }

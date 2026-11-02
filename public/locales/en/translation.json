@@ -791,6 +791,8 @@
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestoapplications": "Add games to Applications automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
+        "useexeshortcuticons": "Use icons from game EXEs for desktop and application menu shortcuts",
+        "useexeshortcuticons_description": "Prefer the embedded game icon, falling back to cover art. Recreate existing shortcuts to update their icons.",
         "addgamestosteam": "Add games to Steam automatically",
         "advertiseAvxForRosetta": "Advertise AVX for Rosetta",
         "after-launch-script-path": "Select a script to run after the game exits",
