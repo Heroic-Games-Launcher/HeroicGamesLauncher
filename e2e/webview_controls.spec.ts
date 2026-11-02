@@ -2,6 +2,10 @@ import { expect, test } from '@playwright/test'
 import { electronTest } from './helpers'
 import { WebviewTag } from 'electron'
 
+// Google may add a query parameter during history navigation (for example ?zx=...).
+// Still require the exact host and root path, rather than a different page.
+const googleHomeUrl = /^https:\/\/www\.google\.com\/(?:\?[^#]*)?$/
+
 electronTest('webview', async (app) => {
   const page = await app.firstWindow()
 
@@ -29,7 +33,7 @@ electronTest('webview', async (app) => {
 
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      'https://www.google.com/'
+      googleHomeUrl
     )
 
     // go back to previous page in webview's history
@@ -43,7 +47,7 @@ electronTest('webview', async (app) => {
     await page.getByTitle('Go forward').click()
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      'https://www.google.com/'
+      googleHomeUrl
     )
     await page.waitForTimeout(600)
 
@@ -67,7 +71,7 @@ electronTest('webview', async (app) => {
     })
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      'https://www.google.com/'
+      googleHomeUrl
     )
     await page.waitForTimeout(600)
 
