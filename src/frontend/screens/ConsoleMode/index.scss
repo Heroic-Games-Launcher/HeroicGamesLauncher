@@ -274,6 +274,24 @@
   object-fit: cover;
 }
 
+.consoleCardStoreIcon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+  border-radius: 8px;
+  background: color-mix(
+    in srgb,
+    var(--background-darker, #1a1a20) 80%,
+    transparent
+  );
+  fill: var(--text-default, #eae8e5);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .consoleCardBadge {
   position: absolute;
   top: 8px;

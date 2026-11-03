@@ -36,6 +36,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 
 import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
+import CloudSyncStatus from 'frontend/components/UI/CloudSyncStatus'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
@@ -576,6 +577,10 @@ const GameCard = ({
               {getStoreName(runner, t2('Other'))}
             </span>
           </Link>
+          <CloudSyncStatus
+            gameInfo={gameInfo}
+            className="store-icon cloud-sync-icon"
+          />
           <>
             <span className="icons">
               {showUpdateButton && (

@@ -90,7 +90,9 @@ export default function GamesSettings() {
   const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
   const showCloudSavesTab =
-    gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
+    gameInfo?.runner === 'gog' ||
+    gameInfo?.runner === 'legendary' ||
+    (gameInfo?.runner === 'steam' && gameInfo.is_installed)
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
 

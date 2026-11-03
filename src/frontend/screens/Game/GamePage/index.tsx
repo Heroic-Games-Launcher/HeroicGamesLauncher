@@ -16,6 +16,7 @@ import { getGameInfo, getInstallInfo, sendKill } from 'frontend/helpers'
 import { launch, updateGame, install } from 'frontend/helpers/library'
 import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
+import CloudSyncStatus from 'frontend/components/UI/CloudSyncStatus'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
@@ -461,6 +462,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       />
                       <div className="store-icon">
                         <StoreLogos runner={runner} />
+                        <CloudSyncStatus
+                          gameInfo={gameInfo}
+                          className="gamePageCloudSync"
+                        />
                       </div>
 
                       <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
