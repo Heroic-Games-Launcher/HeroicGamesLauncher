@@ -259,6 +259,51 @@
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
+    "cloudSync": {
+        "back": "Back",
+        "count": {
+            "conflicts_one": "{{count}} conflicting",
+            "conflicts_other": "{{count}} conflicting",
+            "failed_one": "{{count}} failed",
+            "failed_other": "{{count}} failed",
+            "skipped_one": "{{count}} skipped",
+            "skipped_other": "{{count}} skipped"
+        },
+        "filesTitle": "Steam Cloud files — {{game}}",
+        "genericIssue": "The last sync had a problem.",
+        "hint": {
+            "checking": "Checking Steam Cloud…",
+            "cloudCopy": "Cloud copy from {{when}}",
+            "cloudEmpty": "Nothing in Steam Cloud yet",
+            "discardCloud": "Discards the Cloud copy from {{when}}",
+            "fileCount_one": "{{count}} file · {{size}}",
+            "fileCount_other": "{{count}} files · {{size}}",
+            "firstUpload": "Creates the first Cloud copy",
+            "lastSync": "Last synced {{when}}",
+            "neverSynced": "Not synced from Heroic yet",
+            "replaceCloud": "Replaces the Cloud copy from {{when}}"
+        },
+        "keepCloud": "Resolve: keep Steam Cloud saves",
+        "keepLocal": "Resolve: keep this PC's saves",
+        "lastSync": "Last sync: {{when}}",
+        "loadingFiles": "Loading Cloud files…",
+        "never": "Never",
+        "noFiles": "No files in Steam Cloud for this game.",
+        "pull": "Download saves from Cloud",
+        "push": "Upload local saves to Cloud",
+        "state": {
+            "conflicts": "Steam Cloud saves conflict with this PC",
+            "failed": "Steam Cloud sync failed",
+            "incomplete": "Steam Cloud sync incomplete",
+            "ok": "Steam Cloud saves are up to date",
+            "syncing": "Syncing Steam Cloud saves…",
+            "unknown": "Steam Cloud saves — not synced yet"
+        },
+        "sync": "Sync now (both ways)",
+        "syncing": "Syncing… please wait.",
+        "title": "Steam Cloud saves — {{game}}",
+        "viewFiles": "View Cloud save files"
+    },
     "common": {
         "add": "Add",
         "cancel": "Cancel",
@@ -308,6 +353,9 @@
             "wineLoading": "Loading…",
             "wineMissing": "Not selected"
         },
+        "launchError": "Failed to launch game. Check the logs for details.",
+        "launchErrorNotLoggedIn": "Failed to launch game. You must log in to Steam first.",
+        "launchErrorPrefix": "Failed to launch game:",
         "launching": "Launching",
         "loading": "Loading your library…",
         "quit": "Quit Console",
@@ -315,7 +363,12 @@
         "removeFromQueue": {
             "message": "This game is queued for download. Remove it from the queue?"
         },
-        "sort": "Sort"
+        "sort": {
+            "alpha_asc": "A → Z",
+            "alpha_desc": "Z → A",
+            "label": "Sort",
+            "last_played": "Last Played"
+        }
     },
     "controller": {
         "hints": {

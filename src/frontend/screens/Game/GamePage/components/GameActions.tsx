@@ -8,6 +8,7 @@ import GameContext from '../../GameContext'
 import DotsMenu from './DotsMenu'
 import MainButton from './MainButton'
 import SettingsButton from './SettingsButton'
+import CloudSyncStatus from 'frontend/components/UI/CloudSyncStatus'
 
 interface Props {
   gameInfo: GameInfo
@@ -84,6 +85,8 @@ const GameActions = ({
           icon={<Icon glyph={RefreshCw} size="lg" />}
         />
       )}
+
+      <CloudSyncStatus gameInfo={gameInfo} className="gamePageCloudSync" />
     </div>
   )
 }

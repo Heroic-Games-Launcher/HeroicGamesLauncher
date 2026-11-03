@@ -51,6 +51,7 @@ import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 
 import classNames from 'classnames'
+import CloudSyncStatus from 'frontend/components/UI/CloudSyncStatus'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
@@ -566,6 +567,7 @@ const GameCard = ({
               {getStoreName(runner, t2('Other'))}
             </span>
           </div>
+          <CloudSyncStatus gameInfo={gameInfo} className="cloud-sync-icon" />
           <>
             <span className="icons">
               {showUpdateButton && (
