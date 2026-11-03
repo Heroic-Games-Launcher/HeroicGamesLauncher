@@ -5,10 +5,15 @@ import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgam
 import type { GameInfo } from 'common/types'
 
 jest.mock('../electronStores', () => ({
-  libraryStore: { get: jest.fn(), set: jest.fn() }
+  libraryStore: {
+    get: jest.fn(),
+    set: jest.fn()
+  }
 }))
 jest.mock('backend/game_config', () => ({}))
-jest.mock('backend/utils', () => ({ sendGameStatusUpdate: jest.fn() }))
+jest.mock('backend/utils', () => ({
+  sendGameStatusUpdate: jest.fn()
+}))
 jest.mock('backend/logger', () => ({
   logInfo: jest.fn(),
   LogPrefix: { Backend: 'Backend' }
@@ -19,7 +24,9 @@ jest.mock('backend/shortcuts/shortcuts/shortcuts', () => ({
 jest.mock('backend/shortcuts/nonesteamgame/nonesteamgame', () => ({
   removeNonSteamGame: jest.fn()
 }))
-jest.mock('backend/dialog/dialog', () => ({ notify: jest.fn() }))
+jest.mock('backend/dialog/dialog', () => ({
+  notify: jest.fn()
+}))
 jest.mock('backend/storeManagers/storeManagerCommon/games', () => ({}))
 jest.mock('backend/utils/uninstaller', () => ({}))
 jest.mock('backend/recent_games/recent_games', () => ({
@@ -37,7 +44,9 @@ describe('sideloaded game removal', () => {
 
   beforeEach(() => {
     let games = [gameInfo]
-    jest.mocked(libraryStore).get.mockImplementation(() => games)
+    jest.mocked(libraryStore).get.mockImplementation(() => {
+      return games
+    })
     jest.mocked(libraryStore).set.mockImplementation((_key, value) => {
       games = value as GameInfo[]
       return libraryStore
