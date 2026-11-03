@@ -67,7 +67,7 @@ export default function LibraryFilters() {
     setShowUpdatesOnly(!showUpdatesOnly)
   }
 
-  const toggleStoreFilter = (store: Runner) => {
+  const toggleStoreFilter = (store: Exclude<Runner, 'steam'>) => {
     const currentValue = storesFilters[store]
     const newFilters = { ...storesFilters, [store]: !currentValue }
     setStoresFilters(newFilters)
@@ -133,7 +133,7 @@ export default function LibraryFilters() {
   // t('GOG', 'GOG')
   // t('Amazon Games', 'Amazon Games')
   // t('Other', 'Other')
-  const storeToggle = (store: Runner) => {
+  const storeToggle = (store: Exclude<Runner, 'steam'>) => {
     const toggle = (
       <ToggleSwitch
         key={store}
