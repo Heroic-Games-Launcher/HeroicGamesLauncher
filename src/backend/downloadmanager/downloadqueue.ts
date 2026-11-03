@@ -9,6 +9,10 @@ import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
+import {
+  forgetSteamInstall,
+  pruneSteamBacklog
+} from 'backend/storeManagers/steam/backlog'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 import { onConnectivityChange } from 'backend/online_monitor'
@@ -80,6 +84,15 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 */
 
 async function initQueue() {
+  // Drop Steam backlog entries we cancelled.
+  const queuedSteam = new Set(
+    downloadManager
+      .get('queue', [])
+      .filter((e) => e.params.runner === 'steam')
+      .map((e) => e.params.appName)
+  )
+  await pruneSteamBacklog(queuedSteam)
+
   let element = getFirstQueueElement()
 
   while (element) {
@@ -241,8 +254,11 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
     }
     removeFromQueue(currentElement.params.appName)
 
-    if (removeDownloaded) {
-      const { appName, runner } = currentElement.params
+    const { appName, runner } = currentElement.params
+    if (runner === 'steam') {
+      // Aurelia knows the safe folder.
+      void forgetSteamInstall(appName, removeDownloaded)
+    } else if (removeDownloaded) {
       const { folder_name } = libraryManagerMap[runner]
         .getGame(appName)
         .getGameInfo()
@@ -255,10 +271,11 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
 }
 
 function pauseCurrentDownload() {
+  // Set first: runners check isPaused().
+  queueState = 'paused'
   if (currentElement) {
     stopCurrentDownload()
   }
-  queueState = 'paused'
   autoPaused = false
   sendFrontendMessage(
     'changedDMQueueInformation',
@@ -340,5 +357,6 @@ export {
   cancelCurrentDownload,
   pauseCurrentDownload,
   resumeCurrentDownload,
-  isRunning
+  isRunning,
+  isPaused
 }
