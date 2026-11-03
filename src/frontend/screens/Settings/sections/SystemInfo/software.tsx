@@ -21,7 +21,8 @@ function SoftwareInfo({ software }: Props) {
     legendaryVersion,
     gogdlVersion,
     cometVersion,
-    nileVersion
+    nileVersion,
+    aureliaVersion
   } = software
 
   return (
@@ -69,6 +70,14 @@ function SoftwareInfo({ software }: Props) {
             'Nile: {{nileVersion}}',
             {
               nileVersion
+            }
+          )}
+          <br />
+          {t(
+            'settings.systemInformation.aureliaVersion',
+            'Aurelia: {{aureliaVersion}}',
+            {
+              aureliaVersion
             }
           )}
         </Grid>

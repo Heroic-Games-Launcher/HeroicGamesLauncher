@@ -1,3 +1,4 @@
+import type { GameStatus } from 'common/types'
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -13,13 +14,13 @@ import {
 import classNames from 'classnames'
 import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameStatus } from 'common/types'
 import {
   AllowInstallationBrokenAnticheat,
   ShowValveProton,
   AltGOGdlBin,
   AltLegendaryBin,
   AltNileBin,
+  AltAureliaBin,
   ClearCache,
   CustomCSS,
   DisableLogs,
@@ -183,6 +184,8 @@ export default function AdvancedSetting() {
       <AltGOGdlBin />
 
       <AltNileBin />
+
+      <AltAureliaBin />
 
       <DownloadNoHTTPS />
 
