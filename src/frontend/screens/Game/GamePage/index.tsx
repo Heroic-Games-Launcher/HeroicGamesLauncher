@@ -163,12 +163,19 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const updateAchievements = async () => {
       if (!isPlaying && previousIsPlaying.current)
         window.api.clearAchievementCache(appName)
-      setAchievements(await window.api.getAchievements(appName, runner))
+      // Only Aurelia localizes achievements by the UI language
+      setAchievements(
+        await window.api.getAchievements(
+          appName,
+          runner,
+          runner === 'steam' ? i18n.language : undefined
+        )
+      )
     }
 
     updateAchievements()
     previousIsPlaying.current = isPlaying
-  }, [isPlaying, appName])
+  }, [isPlaying, appName, i18n.language])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -177,11 +184,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
         if (newInfo) {
           setGameInfo(newInfo)
         }
-        setExtraInfo(await window.api.getExtraInfo(appName, runner))
+        setExtraInfo(
+          await window.api.getExtraInfo(
+            appName,
+            runner,
+            runner === 'steam' ? i18n.language : undefined
+          )
+        )
       }
     }
     updateGameInfo()
-  }, [status, gog.library, epic.library, isMoving])
+  }, [status, gog.library, epic.library, isMoving, i18n.language])
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -407,9 +420,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
       <SettingsContext.Provider value={settingsContextValues}>
         <GameContext.Provider value={contextValues}>
           <div className="gameConfigContainer">
-            {!!(art_background ?? art_cover) && (
+            {!!(extraInfo?.background || art_background || art_cover) && (
               <CachedImage
-                src={art_background || art_cover}
+                src={extraInfo?.background || art_background || art_cover}
                 className="backgroundImage"
               />
             )}

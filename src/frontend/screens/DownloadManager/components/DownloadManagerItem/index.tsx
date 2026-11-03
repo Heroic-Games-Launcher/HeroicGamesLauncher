@@ -75,7 +75,7 @@ const DownloadManagerItem = ({
   variant = 'row',
   handleClearItem
 }: Props) => {
-  const { amazon, epic, gog, itchio, showDialogModal } =
+  const { amazon, epic, gog, itchio, zoom, steam, showDialogModal } =
     useContext(ContextProvider)
   const { t, i18n } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
@@ -88,7 +88,9 @@ const DownloadManagerItem = ({
     ...epic.library,
     ...gog.library,
     ...amazon.library,
-    ...itchio.library
+    ...itchio.library,
+    ...zoom.library,
+    ...steam.library
   ]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
