@@ -4,6 +4,7 @@ import LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import NileLibraryManager from 'backend/storeManagers/nile/library'
 import ZoomLibraryManager from 'backend/storeManagers/zoom/library'
 import ItchioLibraryManager from 'backend/storeManagers/itchio/library'
+import SteamLibraryManager from 'backend/storeManagers/steam/library'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
@@ -17,7 +18,8 @@ export const libraryManagerMap = {
   legendary: new LegendaryLibraryManager(),
   nile: new NileLibraryManager(),
   zoom: new ZoomLibraryManager(),
-  itchio: new ItchioLibraryManager()
+  itchio: new ItchioLibraryManager(),
+  steam: new SteamLibraryManager()
 } satisfies Record<Runner, LibraryManager>
 
 function getDMElement(gameInfo: GameInfo, appName: string) {

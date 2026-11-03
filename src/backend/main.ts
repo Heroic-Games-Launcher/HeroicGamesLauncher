@@ -1,4 +1,8 @@
-import { initImagesCache } from './images_cache'
+import {
+  initImagesCache,
+  clearImagesCache,
+  removeImageFromCache
+} from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
@@ -39,6 +43,7 @@ import { NileUser } from './storeManagers/nile/user'
 import { ItchioUser } from './storeManagers/itchio/user'
 import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
 import { ZoomUser } from './storeManagers/zoom/user'
+import { SteamUser } from './storeManagers/steam/user'
 import {
   clearCache,
   isEpicServiceOffline,
@@ -59,6 +64,7 @@ import {
   writeConfig,
   createNecessaryFolders,
   clearAchievementCache,
+  focusGameWindow,
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
@@ -572,7 +578,11 @@ addHandler('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
 addHandler('isFrameless', () => isFrameless())
 addHandler('isMinimized', () => !!getMainWindow()?.isMinimized())
 addHandler('isMaximized', () => !!getMainWindow()?.isMaximized())
+addHandler('focusGameWindow', () => {
+  focusGameWindow()
+})
 addListener('minimizeWindow', () => getMainWindow()?.minimize())
+addListener('showWindow', () => getMainWindow()?.show())
 addListener('maximizeWindow', () => getMainWindow()?.maximize())
 addListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 addListener('closeWindow', () => getMainWindow()?.close())
@@ -710,6 +720,15 @@ addListener('clearAchievementCache', (event, appName: string) => {
   )
 })
 
+addHandler('clearImagesCache', () => {
+  clearImagesCache()
+  logInfo('Image cache was cleared', LogPrefix.Backend)
+})
+
+addHandler('removeImageFromCache', (event, url: string) => {
+  removeImageFromCache(url)
+})
+
 addListener('resetHeroic', () => resetHeroic())
 
 addListener('createNewWindow', (e, url) => {
@@ -746,7 +765,7 @@ addHandler(
   }
 )
 
-addHandler('getExtraInfo', async (event, appName, runner) => {
+addHandler('getExtraInfo', async (event, appName, runner, lang) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
   if (
     runner === 'legendary' &&
@@ -754,7 +773,7 @@ addHandler('getExtraInfo', async (event, appName, runner) => {
   ) {
     return null
   }
-  return libraryManagerMap[runner].getGame(appName).getExtraInfo()
+  return libraryManagerMap[runner].getGame(appName).getExtraInfo(lang)
 })
 
 addHandler('getGameSettings', async (event, appName, runner) => {
@@ -831,6 +850,39 @@ addHandler('authZoom', async (event, url) => {
 
 addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
+
+addHandler('loginSteam', async (event, credentials) => {
+  const login = await SteamUser.login(credentials)
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addHandler('loginSteamQr', async () => {
+  const login = await SteamUser.loginQr()
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addListener('cancelSteamQrLogin', () => {
+  SteamUser.cancelQrLogin()
+})
+
+addListener('cancelSteamLogin', () => {
+  SteamUser.cancelLogin()
+})
+
+addListener('submitSteamGuardCode', (_e, code) => {
+  SteamUser.submitGuardCode(code)
+})
+
+addListener('logoutSteam', () => {
+  void SteamUser.logout()
+})
+addHandler('getSteamUserInfo', async () => SteamUser.getUserDetails())
 
 addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
@@ -1140,6 +1192,7 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
 
   // add a default option if there are other options but no default
   if (
+    runner !== 'steam' &&
     availableLaunchOptions.length > 0 &&
     !availableLaunchOptions.some(
       (option) =>
@@ -1480,3 +1533,5 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
+import './storeManagers/steam/ipc_handler'
+import './storeManagers/steam/ipc_handler'

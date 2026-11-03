@@ -59,6 +59,7 @@
             "message": "Heroic cache cleared.",
             "title": "Cache cleared"
         },
+        "cancel": "Cancel",
         "changelog": "Changelog",
         "choose": "Choose",
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
@@ -172,6 +173,18 @@
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "message-remove-mac": "Shortcuts were removed from the Applications folder",
             "title": "Shortcuts"
+        },
+        "steam": {
+            "cloudConflict": {
+                "keepCloud": "Use Steam Cloud save",
+                "keepLocal": "Use this PC’s save",
+                "message": "The Cloud and local saves for {{game}} have diverged — both were changed since they last matched. Choose which copy to keep:\n\n{{files}}",
+                "title": "Steam Cloud save conflict"
+            },
+            "cloudIncomplete": {
+                "message": "Not all Cloud saves for {{game}} could be downloaded, so the saves on this PC are incomplete. Playing now may overwrite the missing progress in the Cloud.\n\n{{details}}",
+                "title": "Steam Cloud saves incomplete"
+            }
         },
         "sync": {
             "error": "Invalid Path",
