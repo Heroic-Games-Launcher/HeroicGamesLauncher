@@ -15,15 +15,23 @@ import {
   EyeOff,
   WifiOff,
   Package,
-  RefreshCw
+  RefreshCw,
+  UserCheck
 } from 'lucide-react'
 import './index.css'
 
-type StoreKey = 'legendary' | 'gog' | 'nile' | 'zoom' | 'sideload' | 'itchio'
+type StoreKey =
+  | 'legendary'
+  | 'gog'
+  | 'nile'
+  | 'zoom'
+  | 'sideload'
+  | 'itchio'
+  | 'steam'
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon, zoom, itchio } =
+  const { platform, epic, gog, amazon, zoom, itchio, steam } =
     useContext(ContextProvider)
   const {
     setShowFavourites,
@@ -43,7 +51,9 @@ export default function LibraryFilters() {
     showThirdPartyManagedOnly,
     setShowThirdPartyManagedOnly,
     showUpdatesOnly,
-    setShowUpdatesOnly
+    setShowUpdatesOnly,
+    showSteamOwnedOnly,
+    setShowSteamOwnedOnly
   } = useContext(LibraryContext)
 
   const toggleStore = (store: StoreKey) => {
@@ -64,7 +74,8 @@ export default function LibraryFilters() {
       nile: true,
       sideload: true,
       zoom: true,
-      itchio: true
+      itchio: true,
+      steam: true
     })
     setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
     setShowHidden(true)
@@ -74,6 +85,7 @@ export default function LibraryFilters() {
     setShowSupportOfflineOnly(false)
     setShowThirdPartyManagedOnly(false)
     setShowUpdatesOnly(false)
+    setShowSteamOwnedOnly(false)
   }
 
   type StoreDef = {
@@ -107,6 +119,12 @@ export default function LibraryFilters() {
       label: 'itch.io',
       runner: 'itchio',
       show: !!itchio.username
+    },
+    {
+      key: 'steam',
+      label: 'Steam',
+      runner: 'steam',
+      show: steam.enabled
     },
     {
       key: 'sideload',
@@ -219,6 +237,15 @@ export default function LibraryFilters() {
         >
           <span>{t('header.show_updates_only', 'With updates')}</span>
         </Chip>
+        {steam.enabled && (
+          <Chip
+            active={showSteamOwnedOnly}
+            onClick={() => setShowSteamOwnedOnly(!showSteamOwnedOnly)}
+            icon={<Icon glyph={UserCheck} size="md" />}
+          >
+            <span>{t('header.show_steam_owned_only', 'Steam owned only')}</span>
+          </Chip>
+        )}
         <Chip
           active={showSupportOfflineOnly}
           onClick={() => setShowSupportOfflineOnly(!showSupportOfflineOnly)}

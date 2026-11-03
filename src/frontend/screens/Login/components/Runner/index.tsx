@@ -17,6 +17,8 @@ interface RunnerProps {
   loginAction?: () => any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   alternativeLoginAction?: () => any
+  // Clicking the primary login button runs this instead of navigating to `loginUrl`
+  onLogin?: () => void
   buttonText: string
   disabled: boolean
 }

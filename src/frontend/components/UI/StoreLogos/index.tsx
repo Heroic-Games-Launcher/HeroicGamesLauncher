@@ -5,6 +5,7 @@ import SideLoad from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
 import ItchioLogo from 'frontend/assets/itchio-logo.svg?react'
+import SteamLogo from 'frontend/assets/steam-logo.svg?react'
 
 type Props = { runner: Runner; className?: string }
 
@@ -23,6 +24,8 @@ export default function StoreLogos({
       return <ZoomLogo className={className} />
     case 'itchio':
       return <ItchioLogo className={className} />
+    case 'steam':
+      return <SteamLogo className={className} />
     default:
       return <SideLoad className={className} />
   }

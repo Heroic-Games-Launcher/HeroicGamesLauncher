@@ -241,6 +241,7 @@
         "saves": {
             "syncing": "Syncing Saves"
         },
+        "steam-family-share": "Steam Family Sharing",
         "winetricks": "Installing Winetricks Packages"
     },
     "launch": {

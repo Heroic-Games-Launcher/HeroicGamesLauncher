@@ -15,6 +15,11 @@ const ClearCache = () => {
     return refreshLibrary({ runInBackground: true })
   }
 
+  async function clearImagesCacheOnly() {
+    await window.api.clearImagesCache()
+    refreshLibrary({ runInBackground: true })
+  }
+
   const details = (
     <>
       {t(
@@ -60,27 +65,47 @@ const ClearCache = () => {
   )
 
   return (
-    <SettingRow
-      label={t('settings.advanced.title.clearCache', 'Clear Cache')}
-      labelAfter={
-        <InfoTooltip
-          content={details}
-          label={t('settings.advanced.title.clearCache', 'Clear Cache')}
-        />
-      }
-      description={t(
-        'settings.advanced.clearCache.description',
-        'Drops the cached game and store data so Heroic fetches it again. Your games, logins and settings are kept.'
-      )}
-    >
-      <Button
-        variant="dangerSubtle"
-        icon={<Icon glyph={Brush} size="md" />}
-        onClick={async () => clearHeroicCache()}
+    <>
+      <SettingRow
+        label={t('settings.advanced.title.clearCache', 'Clear Cache')}
+        labelAfter={
+          <InfoTooltip
+            content={details}
+            label={t('settings.advanced.title.clearCache', 'Clear Cache')}
+          />
+        }
+        description={t(
+          'settings.advanced.clearCache.description',
+          'Drops the cached game and store data so Heroic fetches it again. Your games, logins and settings are kept.'
+        )}
       >
-        {t('settings.clear-cache', 'Clear Heroic Cache')}
-      </Button>
-    </SettingRow>
+        <Button
+          variant="dangerSubtle"
+          icon={<Icon glyph={Brush} size="md" />}
+          onClick={async () => clearHeroicCache()}
+        >
+          {t('settings.clear-cache', 'Clear Heroic Cache')}
+        </Button>
+      </SettingRow>
+      <SettingRow
+        label={t(
+          'settings.advanced.title.clearImagesCache',
+          'Clear Images Cache'
+        )}
+        description={t(
+          'settings.advanced.clearImagesCache.description',
+          'Drops only the downloaded cover artwork so it is re-downloaded, with rate limiting.'
+        )}
+      >
+        <Button
+          variant="dangerSubtle"
+          icon={<Icon glyph={Brush} size="md" />}
+          onClick={async () => clearImagesCacheOnly()}
+        >
+          {t('settings.clear-images-cache', 'Clear Images Cache')}
+        </Button>
+      </SettingRow>
+    </>
   )
 }
 

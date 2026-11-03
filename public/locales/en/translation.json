@@ -62,6 +62,7 @@
         "cancel": "Cancel",
         "changelog": "Changelog",
         "choose": "Choose",
+        "choose-aurelia-binary": "Select Aurelia binary",
         "choose-egs-prefix": "Choose Prefix where EGS is installed",
         "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
         "choose-legendary-binary": "Select Legendary binary",
@@ -176,9 +177,9 @@
         },
         "steam": {
             "cloudConflict": {
-                "keepCloud": "Use Steam Cloud save",
-                "keepLocal": "Use this PC’s save",
-                "message": "The Cloud and local saves for {{game}} have diverged — both were changed since they last matched. Choose which copy to keep:\n\n{{files}}",
+                "keepCloud": "Use Cloud save",
+                "keepLocal": "Use Local save",
+                "message": "The Cloud and Local saves for {{game}} have diverged, choose which copy to keep:\n\n{{files}}",
                 "title": "Steam Cloud save conflict"
             },
             "cloudIncomplete": {
@@ -528,6 +529,7 @@
         "select_all": "Select All",
         "show_favourites_only": "Show Favourites only",
         "show_installed_only": "Show Installed only",
+        "show_steam_owned_only": "Show Steam owned games only",
         "show_support_offline_only": "Show offline-supported only",
         "show_third_party_managed_only": "Show third-party managed only",
         "show_updates_only": "Show games with updates only",
@@ -680,6 +682,7 @@
         "itchio": "itch.io Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
+        "steam_add": "Add Steam Account",
         "zoom": "Zoom Login"
     },
     "message": {
@@ -801,6 +804,7 @@
         }
     },
     "other": {
+        "aurelia-version": "Aurelia Version: ",
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "nile-version": "Nile Version: ",
@@ -808,6 +812,7 @@
     },
     "Other": "Other",
     "placeholder": {
+        "alt-aurelia-bin": "Using built-in Aurelia binary...",
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "alt-nile-bin": "Using built-in Nile binary...",
@@ -854,6 +859,7 @@
         "allow-broken-anticheat": {
             "description": "Install titles even when their anticheat is known not to work on this system"
         },
+        "alt-aurelia-bin": "Choose an Alternative Aurelia Binary",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
@@ -929,6 +935,7 @@
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
             "enableNewDesign": "New design",
+            "steamImport": "Steam library integration",
             "zoomPlatform": "Zoom Platform support (only Linux)"
         },
         "experimental_features_description": {
@@ -978,6 +985,7 @@
                 "itchio": "itch.io log",
                 "legendary": "Epic Games / Legendary log",
                 "nile": "Amazon / Nile log",
+                "steam": "Steam / Aurelia log",
                 "zoom": "Zoom log"
             },
             "error": "Internal error reading log file",
@@ -1120,12 +1128,16 @@
                 "help8": "Installed games",
                 "help9": "Games settings"
             },
+            "clearImagesCache": {
+                "description": "Drops only the downloaded cover artwork so it is re-downloaded, with rate limiting."
+            },
             "resetHeroic": {
                 "description": "Restores Heroic to its defaults. Installed games and store logins are kept.",
                 "help": "This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards."
             },
             "title": {
                 "clearCache": "Clear Cache",
+                "clearImagesCache": "Clear Images Cache",
                 "resetHeroic": "Reset Heroic"
             }
         },
@@ -1135,6 +1147,7 @@
             "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "Clear Heroic Cache",
+        "clear-images-cache": "Clear Images Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
         "custom_css": {
@@ -1258,6 +1271,7 @@
         "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
     },
+    "steam-store": "Steam Store",
     "steamgriddb": {
         "error": {
             "grids": "Failed to fetch grids",

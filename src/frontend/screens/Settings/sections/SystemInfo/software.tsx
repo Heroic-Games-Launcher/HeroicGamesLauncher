@@ -18,7 +18,8 @@ function SoftwareInfo({ software }: Props) {
     legendaryVersion,
     gogdlVersion,
     cometVersion,
-    nileVersion
+    nileVersion,
+    aureliaVersion
   } = software
 
   const rows = [
@@ -26,7 +27,8 @@ function SoftwareInfo({ software }: Props) {
     { key: 'Legendary', value: legendaryVersion },
     { key: 'Gogdl', value: gogdlVersion },
     { key: 'Comet', value: cometVersion },
-    { key: 'Nile', value: nileVersion }
+    { key: 'Nile', value: nileVersion },
+    { key: 'Aurelia', value: aureliaVersion }
   ]
 
   return (

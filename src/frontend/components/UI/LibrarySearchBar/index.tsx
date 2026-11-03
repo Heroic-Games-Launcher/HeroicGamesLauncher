@@ -17,11 +17,12 @@ const RUNNER_TO_STORE: Partial<Record<Runner, string>> = {
   gog: 'GOG',
   nile: 'Amazon',
   zoom: 'Zoom',
-  itchio: 'itch.io'
+  itchio: 'itch.io',
+  steam: 'Steam'
 }
 
 export default function LibrarySearchBar() {
-  const { epic, gog, sideloadedLibrary, amazon, zoom, itchio } =
+  const { epic, gog, sideloadedLibrary, amazon, zoom, itchio, steam } =
     useContext(ContextProvider)
   const { handleSearch, filterText } = useContext(LibraryContext)
   const navigate = useNavigate()
@@ -39,7 +40,8 @@ export default function LibrarySearchBar() {
       ...(sideloadedLibrary ?? []),
       ...(amazon.library ?? []),
       ...(zoom.library ?? []),
-      ...(itchio.library ?? [])
+      ...(itchio.library ?? []),
+      ...(steam.library ?? [])
     ]
       .filter(Boolean)
       .filter((el) => {
@@ -56,6 +58,7 @@ export default function LibrarySearchBar() {
     sideloadedLibrary,
     zoom.library,
     itchio.library,
+    steam.library,
     normalizedFilterText
   ])
 

@@ -178,6 +178,11 @@ export default function SidebarLinks() {
                 label={t('zoom-store', 'Zoom Store')}
               />
             )}
+            <SidebarItem
+              className="SidebarLinks__subItem"
+              url="/store/steam"
+              label={t('steam-store', 'Steam Store')}
+            />
           </div>
         )}
       </div>
