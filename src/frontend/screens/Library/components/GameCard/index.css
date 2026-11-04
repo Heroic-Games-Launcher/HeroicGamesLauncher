@@ -257,6 +257,14 @@
   min-width: 0;
   width: 36px;
   padding: 0;
+  background: var(--background-darker, #0a0e13);
+  border: 1px solid var(--divider);
+  color: var(--text-secondary);
+}
+
+.gameListItem .GameActionButton.Button--iconOnly:hover {
+  color: var(--text-default);
+  border-color: var(--navbar-accent, var(--accent));
 }
 
 .gameListItem > .icons > button > svg {
