@@ -135,6 +135,11 @@ export interface AureliaLaunchOptionsResponse {
   launch_options: AureliaLaunchOption[]
 }
 
+/** Result of `aurelia capabilities <command> --json`. */
+export interface AureliaCapabilitiesResponse {
+  flags?: Array<{ long: string }>
+}
+
 /** One entry from `aurelia launch-targets <id> --json`. */
 export interface AureliaLaunchTarget {
   id: string

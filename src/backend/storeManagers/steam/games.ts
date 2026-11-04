@@ -10,6 +10,7 @@ import {
   GameSettings,
   ExecResult,
   InstallArgs,
+  LaunchOption,
   Status
 } from 'common/types'
 import {
@@ -37,6 +38,7 @@ import {
   recordCloudSyncResult
 } from './cloud_sync_status'
 import {
+  aureliaSupportsLaunchOption,
   runAurelia,
   fetchAureliaInfo,
   parseAureliaJson,
@@ -204,15 +206,76 @@ export default class SteamGame implements Game {
       return undefined
     }
     const selected = configStore.get('steamLaunchTarget', {})[this.id]
-    const chosen = targets.find(
-      (target) => target.id === selected && target.available
-    )
+    const chosen = this.chosenLaunchTarget(targets)
     if (selected && !chosen) {
       await logWriter.logWarning(
         `Launch target ${selected} is not available, using the default`
       )
     }
     return chosen ?? targets.find((target) => target.default)
+  }
+
+  private chosenLaunchTarget(
+    targets: AureliaLaunchTarget[]
+  ): AureliaLaunchTarget | undefined {
+    const selected = configStore.get('steamLaunchTarget', {})[this.id]
+    return targets.find((target) => target.id === selected && target.available)
+  }
+
+  /**
+   * The platform Play would start.
+   */
+  async getLaunchPlatform(): Promise<string> {
+    const installed = String(this.getGameInfo().install.platform ?? '')
+    try {
+      const targets = await this.fetchLaunchTargets()
+      const target =
+        this.chosenLaunchTarget(targets) ??
+        targets.find((value) => value.default)
+      return target?.platform ?? installed
+    } catch (error) {
+      logWarning(
+        [`Failed to list launch targets for ${this.id}`, describeError(error)],
+        LogPrefix.Steam
+      )
+      return installed
+    }
+  }
+
+  /**
+   * Usable `--launch-option` id for Play.
+   */
+  private async resolveLaunchOptionId(
+    launchArguments: LaunchOption | undefined,
+    logWriter: LogWriter
+  ): Promise<string | undefined> {
+    if (!launchArguments || launchArguments.type === 'dlc') return undefined
+    if (launchArguments.type === 'altExe') return undefined
+    const id = launchArguments.steamLaunchId
+    if (!id) return undefined
+
+    const options = await libraryManagerMap['steam'].getLaunchOptions(this.id)
+    const usable = options.some(
+      (option) =>
+        (option.type === undefined || option.type === 'basic') &&
+        option.steamLaunchId === id
+    )
+    if (!usable) {
+      await logWriter.logWarning(
+        `Launch option ${id} does not match this build, using the default`
+      )
+      return undefined
+    }
+    // One option needs no flag
+    if (options.length < 2) return undefined
+
+    if (!(await aureliaSupportsLaunchOption())) {
+      await logWriter.logWarning(
+        'This Aurelia version cannot select launch options, using the default'
+      )
+      return undefined
+    }
+    return id
   }
 
   async getExtraInfo(lang = 'en-US'): Promise<ExtraInfo> {
@@ -765,7 +828,10 @@ export default class SteamGame implements Game {
     }
   }
 
-  async launch(logWriter: LogWriter): Promise<boolean> {
+  async launch(
+    logWriter: LogWriter,
+    launchArguments?: LaunchOption
+  ): Promise<boolean> {
     if (!isSteamImportEnabled()) {
       logWarning(
         `Steam import is disabled, cannot launch ${this.id}`,
@@ -828,6 +894,15 @@ export default class SteamGame implements Game {
       if (this.getSteamIntegrationEnabled()) {
         playCommand.push('--steam')
       }
+    }
+
+    const launchOptionId = await this.resolveLaunchOptionId(
+      launchArguments,
+      logWriter
+    )
+    if (launchOptionId) {
+      await logWriter.logInfo(`Launch option: ${launchOptionId}`)
+      playCommand.push('--launch-option', launchOptionId)
     }
 
     const res = await libraryManagerMap['steam'].runRunnerCommand(playCommand, {

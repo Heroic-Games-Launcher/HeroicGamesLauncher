@@ -7,13 +7,16 @@ interface UseLaunchOptionsProps {
   runner: Runner | undefined
   lastUsedOption?: LaunchOption
   onSelectionChange?: (option: LaunchOption | undefined, index: number) => void
+  // Refetches once a game gets installed
+  isInstalled?: boolean
 }
 
 export const useLaunchOptions = ({
   appName,
   runner,
   lastUsedOption,
-  onSelectionChange
+  onSelectionChange,
+  isInstalled
 }: UseLaunchOptionsProps) => {
   const { t } = useTranslation('gamepage')
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
@@ -37,7 +40,7 @@ export const useLaunchOptions = ({
     if (appName && runner) {
       void fetchOptions()
     }
-  }, [appName, runner])
+  }, [appName, runner, isInstalled])
 
   // Find and set the previously used option
   useMemo(() => {
