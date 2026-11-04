@@ -75,6 +75,7 @@
     "simple-keyboard": "^3.8.53"
   },
   "devDependencies": {
+    "@bufbuild/protobuf": "^2.10.1",
     "@emotion/styled": "^11.14.1",
     "@eslint/js": "^9.29.0",
     "@fontsource/cabin": "^4.5.10",
@@ -132,6 +133,7 @@
     "js-yaml": "^4.1.1",
     "node-gyp": "^10.3.1",
     "prettier": "^3.7.4",
+    "qrcode.react": "^4.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^12.3.1",

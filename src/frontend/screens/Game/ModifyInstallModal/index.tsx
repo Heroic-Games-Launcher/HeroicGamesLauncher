@@ -13,6 +13,7 @@ import { ZoomInstallInfo, ZoomInstalledInfo } from 'common/types/zoom'
 import { useTranslation } from 'react-i18next'
 import LegendaryModifyInstallModal from './Legendary'
 import GOGModifyInstallModal from './GOG'
+import { SteamInstallInfo } from 'common/types/steam'
 
 interface ModifyInstallProps {
   gameInfo: GameInfo
@@ -22,6 +23,7 @@ interface ModifyInstallProps {
     | NileInstallInfo
     | ZoomInstalledInfo
     | ZoomInstallInfo
+    | SteamInstallInfo
     | null
   onClose: () => void
 }

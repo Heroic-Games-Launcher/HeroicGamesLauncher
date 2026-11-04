@@ -14,6 +14,7 @@ import {
   ZoomInstalledInfo,
   ZoomInstallInfo
 } from './types/zoom'
+import { SteamInstallInfo } from './types/steam'
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
@@ -21,7 +22,13 @@ import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 import type { SteamRuntimeName } from './types/umu'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+export type Runner =
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'zoom'
+  | 'steam'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -50,6 +57,8 @@ interface BaseLaunchOption {
   type?: 'basic'
   name: string
   parameters: string
+  // Steam launch entry id
+  steamLaunchId?: string
 }
 
 // Option to launch an alternative executable instead
@@ -86,6 +95,7 @@ export type ExperimentalFeatures = {
   cometSupport: boolean
   umuSupport?: boolean
   zoomPlatform?: boolean
+  steamImport?: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -97,6 +107,7 @@ export interface AppSettings extends GameSettings {
   altCometBin: string
   altLegendaryBin: string
   altNileBin: string
+  altAureliaBin: string
   autoUpdateGames: boolean
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
@@ -162,6 +173,10 @@ export interface ExtraInfo {
   storeUrl?: string
   changelog?: string
   genres?: string[]
+  background?: string
+  cover?: string
+  score?: string
+  platforms?: InstallPlatform[]
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -183,7 +198,7 @@ export type GOGAchievement = {
 export type GameAchievement = GOGAchievement
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+  runner: Runner
   store_url?: string
   app_name: string
   art_cover: string
@@ -211,6 +226,8 @@ export interface GameInfo {
   isUbisoftManaged?: boolean
   is_mac_native?: boolean
   is_linux_native?: boolean
+  // True for Steam games that come from a Steam Family member's library
+  isFamilyShare?: boolean
   browserUrl?: string
   description?: string
   //used for store release versions. if remote !== local, then update
@@ -701,7 +718,10 @@ export interface ToolArgs {
   action: 'backup' | 'restore'
 }
 
-export type StatusPromise = Promise<{ status: 'done' | 'error' | 'abort' }>
+export type StatusPromise = Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string
+}>
 
 export interface GameScoreInfo {
   score: string
@@ -716,6 +736,7 @@ export interface PCGamingWikiInfo {
   direct3DVersions: string[]
   genres: string[]
   releaseDate: string[]
+  cover?: string
 }
 
 export interface AppleGamingWikiInfo {
@@ -836,6 +857,7 @@ export type InstallInfo =
   | NileInstallInfo
   | ZoomInstalledInfo
   | ZoomInstallInfo
+  | SteamInstallInfo
 
 export interface KnownFixesInfo {
   title: string
@@ -851,6 +873,8 @@ export interface KnownFixesFile {
   epic: Record<string, KnownFixesInfo>
   gog: Record<string, KnownFixesInfo>
   zoom: Record<string, KnownFixesInfo>
+  // Not published upstream yet
+  steam?: Record<string, KnownFixesInfo>
 }
 
 export interface UploadedLogData {
