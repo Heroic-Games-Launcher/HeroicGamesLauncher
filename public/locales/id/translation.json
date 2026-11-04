@@ -103,6 +103,10 @@
                 "steam": {
                     "body": "Gagal menghapus {{game}} dari Steam dengan:{{newLine}} {{error}}"
                 }
+            },
+            "steam": {
+                "running": "Steam sedang berjalan. Tutup Steam dan coba lagi, atau mulai ulang Steam satu kali agar Heroic dapat mengelola pintasan saat Steam berjalan.",
+                "running-gamemode": "Steam perlu dimulai ulang satu kali agar Heroic dapat mengelola pintasan Steam di perangkat ini. Mulai ulang Steam dan coba lagi."
             }
         },
         "info": {
@@ -461,14 +465,16 @@
                 "steam": {
                     "corrupt": "{{game}} tidak dapat ditambahkan dari pengguna Steam yang ditemukan. Lihat log untuk lebih banyak info. Steam perlu dijalankan ulang untuk melihat perubahan ini.",
                     "success": "{{game}} berhasil ditambahkan ke Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
-                    "title": "Ditambahkan ke Steam"
+                    "title": "Ditambahkan ke Steam",
+                    "success-no-restart": "{{game}} berhasil ditambahkan ke Steam."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} tidak dapat dihapus dari pengguna Steam yang ditemukan. Lihat log untuk lebih banyak info. Steam perlu dijalankan ulang untuk melihat perubahan ini.",
                     "success": "{{game}} berhasil dihapus dari Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
-                    "title": "Dihapus dari Steam"
+                    "title": "Dihapus dari Steam",
+                    "success-no-restart": "{{game}} berhasil dihapus dari Steam."
                 }
             },
             "reparing": "Perbaikan Selesai"
@@ -514,16 +520,22 @@
             "placeHolderKey": "NAMA",
             "placeHolderValue": "Misalnya: Lokasi/Ke/BerkasEkstra",
             "title": "Variabel Lingkungan",
-            "value": "Nilai"
+            "value": "Nilai",
+            "placeHolderV": "NILAI"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Nama variabel tidak bisa dikosongkan",
                 "equal_sign_in_key": "Nama variabel tidak dapat mengandung tanda \"=\"",
-                "space_in_key": "Nama variabel tidak dapat mengandung karakter spasi"
+                "space_in_key": "Nama variabel tidak dapat mengandung karakter spasi",
+                "duplicate_key": "Variabel dengan nama ini sudah ada"
             },
             "example": "Mohon JANGAN menambahkan tanda \"=\" , contoh: untuk pengaturan seperti \"MY_FLAG=123\", tolong set MY_FLAG di NAME dan 123 di VALUE.",
-            "info": "Set lingkungan variabel untuk menambahkan ke dalam pertintah command."
+            "info": "Set lingkungan variabel untuk menambahkan ke dalam pertintah command.",
+            "add_new": "Tambahkan Variabel Baru",
+            "bulk_edit": "Edit Massal",
+            "bulk_edit_error": "Beberapa variabel tidak valid. Pastikan semua baris mengikuti format KEY=VALUE.",
+            "clear_all_confirm": "Anda yakin ingin menghapus semua variabel lingkungan?"
         },
         "gameargs": {
             "placeholder": "Letakkan Argumen Peluncur di sini",
@@ -701,7 +713,8 @@
                 "zoom": "Log Zoom"
             },
             "join-heroic-discord": "Bergabunglah dengan Discord kami",
-            "show-uploads": "Tampilkan file log yang diunggah"
+            "show-uploads": "Tampilkan file log yang diunggah",
+            "error": "Kesalahan internal saat membaca file log"
         },
         "mangohud": "Aktifkan Mangohud (Mangohud perlu diinstal)",
         "manualsync": {
@@ -929,7 +942,8 @@
             "help": {
                 "description": "Berikan kunci API SteamGridDB Anda sendiri untuk mengaktifkan pencarian sampul game. Kunci disimpan dalam bentuk terenkripsi jika sistem Anda mendukungnya. Anda bisa mendapatkannya di [{{url}}](https://{{url}})"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Klik untuk membuka file setelan game"
     },
     "Settings": "Pengaturan",
     "sidebar": {
@@ -1312,6 +1326,12 @@
     "common": {
         "add": "Tambah",
         "cancel": "Batalkan",
-        "warning": "Peringatan"
+        "warning": "Peringatan",
+        "clear_all": "Hapus Semua",
+        "confirm": "Konfirmasi",
+        "duplicate": "Duplikasikan",
+        "edit": "Edit",
+        "remove": "Hapus",
+        "save": "Simpan"
     }
 }
