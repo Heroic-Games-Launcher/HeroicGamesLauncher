@@ -26,7 +26,8 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
-  normalizeTitle
+  normalizeTitle,
+  compareGameTitles
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -375,11 +376,7 @@ export default React.memo(function Library(): JSX.Element {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
-    return tempArray.sort((a, b) => {
-      const gameA = a.title.toUpperCase().replace('THE ', '')
-      const gameB = b.title.toUpperCase().replace('THE ', '')
-      return gameA.localeCompare(gameB)
-    })
+    return tempArray.sort(compareGameTitles)
   }, [
     showFavourites,
     showFavouritesLibrary,
@@ -610,13 +607,9 @@ export default React.memo(function Library(): JSX.Element {
     }
 
     // sort
-    library = library.sort((a, b) => {
-      const gameA = a.title.toUpperCase().replace('THE ', '')
-      const gameB = b.title.toUpperCase().replace('THE ', '')
-      return sortDescending
-        ? -gameA.localeCompare(gameB)
-        : gameA.localeCompare(gameB)
-    })
+    library = library.sort((a, b) =>
+      sortDescending ? compareGameTitles(b, a) : compareGameTitles(a, b)
+    )
     const installed = library.filter((game) => game?.is_installed)
     const notInstalled = library.filter(
       (game) => !game?.is_installed && !installing.includes(game?.app_name)

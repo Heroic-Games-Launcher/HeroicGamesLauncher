@@ -14,7 +14,7 @@ import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill } from 'frontend/helpers'
-import { updateGame } from 'frontend/helpers/library'
+import { compareGameTitles, updateGame } from 'frontend/helpers/library'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -155,10 +155,9 @@ export default function ConsoleMode() {
       filteredGames = filteredGames.filter((g) => g.runner === activeStore)
     }
 
-    return filteredGames.sort((a, b) => {
-      const cmp = a.title.localeCompare(b.title)
-      return ascending ? cmp : -cmp
-    })
+    return filteredGames.sort((a, b) =>
+      ascending ? compareGameTitles(a, b) : compareGameTitles(b, a)
+    )
   }, [allGames, filteringByInstalled, activeStore, ascending])
 
   const storesWithGames = useMemo(() => {

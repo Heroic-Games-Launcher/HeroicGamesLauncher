@@ -469,6 +469,14 @@ export const normalizeTitle = (title: string) => {
   return title.replace(/[^\w\s]/g, '').toLowerCase()
 }
 
+const getSortTitle = (game: Pick<GameInfo, 'title'>) =>
+  game.title.replace(/^the\s+/i, '').toUpperCase()
+
+export const compareGameTitles = (
+  a: Pick<GameInfo, 'title'>,
+  b: Pick<GameInfo, 'title'>
+) => getSortTitle(a).localeCompare(getSortTitle(b))
+
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
