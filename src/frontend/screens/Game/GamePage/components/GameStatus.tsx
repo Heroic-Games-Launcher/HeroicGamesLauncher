@@ -9,12 +9,10 @@ import { ProgressBar } from 'frontend/components/UI'
 
 interface Props {
   gameInfo: GameInfo
-  handleUpdate: () => void
-  hasUpdate: boolean
   progress: InstallProgress
 }
 
-const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
+const GameStatus = ({ gameInfo, progress }: Props) => {
   const { t } = useTranslation('gamepage')
   const { runner, is, statusContext } = useContext(GameContext)
 
@@ -100,17 +98,6 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
 
     if (is.queued) {
       return `${t('status.queued', 'Queued')}`
-    }
-
-    if (hasUpdate) {
-      return (
-        <span onClick={async () => handleUpdate()} className="updateText">
-          {`${t('status.installed')} - ${t(
-            'status.hasUpdates',
-            'New Version Available!'
-          )} (${t('status.clickToUpdate', 'Click to Update')})`}
-        </span>
-      )
     }
 
     if (is_installed) {

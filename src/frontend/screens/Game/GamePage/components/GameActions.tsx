@@ -1,6 +1,6 @@
 import { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Heart } from 'lucide-react'
+import { Heart, RefreshCw } from 'lucide-react'
 import { GameInfo } from 'common/types'
 import { Button, Icon } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -16,13 +16,15 @@ interface Props {
     is_installed: boolean
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
   handleUpdate: () => void
+  hasUpdate: boolean
 }
 
 const GameActions = ({
   gameInfo,
   handlePlay,
   handleInstall,
-  handleUpdate
+  handleUpdate,
+  hasUpdate
 }: Props) => {
   const { t } = useTranslation('gamepage')
   const { favouriteGames } = useContext(ContextProvider)
@@ -71,6 +73,17 @@ const GameActions = ({
           />
         }
       />
+
+      {hasUpdate && (
+        <Button
+          variant="ghost"
+          className="gameActions__update"
+          title={t('button.update', 'Update')}
+          aria-label={t('status.hasUpdates', 'New Version Available!')}
+          onClick={handleUpdate}
+          icon={<Icon glyph={RefreshCw} size="lg" />}
+        />
+      )}
     </div>
   )
 }

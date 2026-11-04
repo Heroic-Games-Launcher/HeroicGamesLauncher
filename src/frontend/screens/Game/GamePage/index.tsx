@@ -441,14 +441,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     handlePlay={handlePlay}
                     handleInstall={handleInstall}
                     handleUpdate={handleUpdate}
-                  />
-
-                  <GameStatus
-                    gameInfo={gameInfo}
-                    progress={progress}
-                    handleUpdate={handleUpdate}
                     hasUpdate={hasUpdate}
                   />
+
+                  <GameStatus gameInfo={gameInfo} progress={progress} />
                   <LaunchOptionSelector showTitle={false} />
                   {wikiLink}
                 </div>
