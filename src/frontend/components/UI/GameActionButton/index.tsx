@@ -49,6 +49,7 @@ interface GameActionButtonProps {
   label: string
   title?: string
   disabled?: boolean
+  iconOnly?: boolean
   className?: string
   onClick?: () => void
 }
@@ -58,6 +59,7 @@ export default function GameActionButton({
   label,
   title,
   disabled = false,
+  iconOnly = false,
   className,
   onClick
 }: GameActionButtonProps) {
@@ -71,8 +73,9 @@ export default function GameActionButton({
       onClick={onClick}
       className={classNames('GameActionButton', legacyClass, className)}
       icon={glyph ? <Icon glyph={glyph} size="xl" strokeWidth={2} /> : null}
+      aria-label={iconOnly ? label : undefined}
     >
-      {label}
+      {iconOnly ? null : label}
     </Button>
   )
 }

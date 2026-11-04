@@ -143,7 +143,6 @@
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
         "getting-install-size": "Getting install size",
-        "hoursPlayed": "{{hours}} hours played",
         "hoursPlayedShort": "{{hours}} hours",
         "install_info": "Installation Info",
         "installSize": "Install Size",
@@ -311,7 +310,6 @@
         "recommended": "Recommended"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
         "downloading": "Downloading",
         "extracting": "Extracting",
         "gameNotAvailable": "Game not available",

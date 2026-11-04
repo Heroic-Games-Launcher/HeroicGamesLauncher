@@ -109,10 +109,6 @@
   padding: 12px 14px 14px;
 }
 
-.gameCard .Playtime {
-  display: none;
-}
-
 .gameCard .gameTitle {
   min-height: calc(2 * 1.25em);
   font-family: var(--primary-font-family);
@@ -247,13 +243,24 @@
 
 .gameListItem .GameActionButton {
   height: 36px;
-  min-width: 124px;
-  padding: 0 12px;
+  min-width: 110px;
+  gap: var(--space-xs-fixed);
+  padding: 0 var(--space-sm-fixed);
   border-radius: 10px;
 }
 
 .gameListItem .GameActionButton .Button__label {
-  font-size: var(--text-xs);
+  font-size: var(--body-sm);
+}
+
+.gameListItem .GameActionButton.Button--iconOnly {
+  min-width: 0;
+  width: 36px;
+  padding: 0;
+}
+
+.gameListItem > .icons > button > svg {
+  height: 18px;
 }
 
 .gameCard > .icons > .settingsIcon {
@@ -484,9 +491,17 @@
 
 .gameListItem .gameLogo,
 .gameListItem .gameListInfo,
-.gameListItem .runner,
 .gameListItem .gameCardUpdateBadge {
   display: none;
+}
+
+.gameListItem .runner {
+  display: block;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  font-weight: var(--regular);
+  line-height: var(--leading-snug);
+  color: var(--on-panel-muted);
 }
 
 .gameListItem > .gameCardCaption {
@@ -506,16 +521,6 @@
   font-weight: var(--semibold);
   line-height: 1.25;
   color: var(--text-default);
-}
-
-.gameListItem .Playtime {
-  display: flex;
-  width: 100%;
-  min-width: 0;
-}
-
-.gameCard .Playtime__last {
-  display: none;
 }
 
 .gameListItem > .gameCardStatus {
