@@ -32,7 +32,7 @@ const RELEASE_TAGS = {
   gogdl: 'v1.3.0',
   nile: 'v1.2.0',
   comet: 'v0.2.0',
-  aurelia: 'v0.1.41',
+  aurelia: 'v0.1.43',
   'epic-integration': 'v0.4',
   // butler is distributed via itch.io's broth channel system rather than
   // GitHub releases; "LATEST" resolves the channel's newest version at

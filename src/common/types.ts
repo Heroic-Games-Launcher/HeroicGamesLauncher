@@ -68,6 +68,8 @@ interface BaseLaunchOption {
   type?: 'basic'
   name: string
   parameters: string
+  // Steam launch entry id
+  steamLaunchId?: string
 }
 
 // Option to launch an alternative executable instead

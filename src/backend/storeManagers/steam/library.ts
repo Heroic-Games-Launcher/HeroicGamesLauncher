@@ -31,6 +31,7 @@ import {
   getSteamInstallLibraries
 } from './aurelia'
 import {
+  aureliaPlatform,
   currentOsList,
   describeError,
   installedPlatformFor,
@@ -164,7 +165,6 @@ export default class SteamLibraryManager implements LibraryManager {
       art_cover: assets.header ?? '',
       art_square: assets.capsule ?? '',
       art_background: assets.hero ?? '',
-      art_logo: assets.logo,
       store_url: game.store_url,
       folder_name: game.name,
       install: {},
@@ -263,7 +263,7 @@ export default class SteamLibraryManager implements LibraryManager {
           ...platformArgs(platform)
         ])
 
-        const launchOptions = await this.getLaunchOptions(appName)
+        const launchOptions = await this.fetchLaunchOptions(appName, platform)
         const libraryPath = await getSteamLibraryPath()
         const installPath = libraryPath
           ? join(libraryPath, 'steamapps', 'common')
@@ -423,6 +423,21 @@ export default class SteamLibraryManager implements LibraryManager {
   }
 
   async getLaunchOptions(appName: string): Promise<LaunchOption[]> {
+    if (!this.getGameInfo(appName)?.is_installed) {
+      return []
+    }
+    const platform = await this.getGame(appName).getLaunchPlatform()
+    return this.fetchLaunchOptions(appName, platform)
+  }
+
+  /**
+   * Launch options for one platform.
+   */
+  private async fetchLaunchOptions(
+    appName: string,
+    platform: string
+  ): Promise<LaunchOption[]> {
+    const osList = aureliaPlatform(platform) ?? currentOsList
     return steamCall<LaunchOption[]>(
       async () => {
         const response = await runAurelia<AureliaLaunchOptionsResponse>([
@@ -431,12 +446,10 @@ export default class SteamLibraryManager implements LibraryManager {
         ])
         return (
           (response.launch_options ?? [])
-            // Aurelia lists options for every platform
-            // only show current OS's.
+            // Aurelia lists every platform's options
             .filter(
               (option) =>
-                !option.oslist ||
-                option.oslist.toLowerCase().includes(currentOsList)
+                !option.oslist || option.oslist.toLowerCase().includes(osList)
             )
             .map((option) => ({
               type: 'basic',
@@ -444,7 +457,8 @@ export default class SteamLibraryManager implements LibraryManager {
                 option.description ||
                 option.executable ||
                 `Option ${option.id}`,
-              parameters: option.arguments ?? ''
+              parameters: option.arguments ?? '',
+              steamLaunchId: String(option.id)
             }))
         )
       },

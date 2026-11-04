@@ -13,6 +13,7 @@ import { appFolder } from 'backend/constants/paths'
 import { logError, logInfo, logWarning, LogPrefix } from 'backend/logger'
 import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
 import type {
+  AureliaCapabilitiesResponse,
   AureliaConfigShowResponse,
   AureliaInfoResponse,
   AureliaLibrariesResponse,
@@ -472,6 +473,22 @@ export async function fetchAureliaInfo(
     ...(options.language ? ['-l', options.language] : [])
   ])
   return Array.isArray(result) ? result : [result]
+}
+
+/**
+ * Does `play` accept `--launch-option`?
+ */
+export async function aureliaSupportsLaunchOption(): Promise<boolean> {
+  try {
+    const { flags } = await runAurelia<AureliaCapabilitiesResponse>([
+      'capabilities',
+      'play'
+    ])
+    return (flags ?? []).some((flag) => flag.long === '--launch-option')
+  } catch (error) {
+    logWarning(['Unable to read Aurelia capabilities', error], LogPrefix.Steam)
+    return false
+  }
 }
 
 export async function getSteamLibraryPath(): Promise<string | undefined> {
