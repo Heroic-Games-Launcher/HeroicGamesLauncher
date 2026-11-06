@@ -1,7 +1,7 @@
-import { GameInfo } from 'common/types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { TriangleAlert } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { GameInfo } from 'common/types'
+import { Button, Icon } from 'frontend/components/UI'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 
 interface Props {
@@ -11,24 +11,20 @@ interface Props {
 const ReportIssue = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { openGameLogsModal } = useGlobalState.keys('openGameLogsModal')
-  const showReportIssue =
-    gameInfo.is_installed && gameInfo.install.platform !== 'Browser'
 
-  if (!showReportIssue) {
+  if (!gameInfo.is_installed || gameInfo.install.platform === 'Browser') {
     return null
   }
 
   return (
-    <span
+    <Button
+      variant="warning"
+      className="reportProblem"
       onClick={() => openGameLogsModal(gameInfo)}
-      className="clickable reportProblem"
-      role={'button'}
+      icon={<Icon glyph={TriangleAlert} size="md" />}
     >
-      <>
-        {<FontAwesomeIcon icon={faTriangleExclamation} />}
-        {t('report_problem', 'Report a problem running this game')}
-      </>
-    </span>
+      {t('report_problem', 'Report a problem running this game')}
+    </Button>
   )
 }
 

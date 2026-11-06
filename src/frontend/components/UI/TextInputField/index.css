@@ -18,7 +18,7 @@
   box-shadow: none;
   font-family: var(--primary-font-family), 'Noto Color Emoji';
   font-size: var(--body-md);
-  font-weight: var(--weight-regular);
+  font-weight: var(--regular);
   color: var(--field-color);
   cursor: text;
   transition:
@@ -48,10 +48,10 @@
 .textInputFieldWrapper label {
   grid-area: label;
   text-align: start;
-  margin-bottom: 6px;
+  margin-bottom: var(--space-xs-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
-  font-weight: var(--weight-medium);
+  font-weight: var(--medium);
   color: var(--field-label-color);
 }
 

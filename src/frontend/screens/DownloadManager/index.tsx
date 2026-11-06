@@ -2,8 +2,19 @@ import './index.css'
 
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
+import { CircleCheck, Download, Inbox, ListOrdered, Trash2 } from 'lucide-react'
 import { DMQueueElement, DownloadManagerState } from 'common/types'
-import { Button, UpdateComponent } from 'frontend/components/UI'
+import {
+  Badge,
+  Button,
+  EmptyState,
+  Icon,
+  PageHeader,
+  Panel,
+  SettingsCard,
+  UpdateComponent
+} from 'frontend/components/UI'
 import ProgressHeader from './components/ProgressHeader'
 import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
@@ -89,96 +100,118 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       })) ||
     []
 
-  /*
-    Other Keys:
-    t('queue.label.empty', 'Nothing to download')
-    t('download-manager.install-type.install', 'Install')
-    t('download-manager.install-type.update', 'Update')
-    */
-
   return (
-    <>
-      <h4
-        style={{
-          padding: 'var(--space-xl) var(--space-md) 0',
-          textAlign: 'start'
-        }}
-      >
-        {t('download-manager.title', 'Downloads')}
-      </h4>
-      {
-        <>
-          <ProgressHeader
-            state={state}
-            appName={currentElement?.params?.appName ?? ''}
-            runner={currentElement?.params?.runner ?? 'legendary'}
-          />
-          {currentElement && (
-            <div className="downloadManager">
-              <div
-                style={
-                  !currentElement ? { backgroundColor: 'transparent' } : {}
-                }
-                className="downloadList"
-              >
-                <h5 className="downloadManagerCurrentSectionTitle">
-                  {t('queue.label.downloading', 'Downloading')}
-                </h5>
-                <div className="dmItemList">
-                  <DownloadManagerHeader time="started" />
-                  <DownloadManagerItem
-                    element={currentElement}
-                    current={true}
-                    state={state}
-                  />
-                </div>
-              </div>
-            </div>
+    <div className="DownloadManager">
+      <div className="DownloadManager__wrapper">
+        <PageHeader
+          title={t('download-manager.title', 'Downloads')}
+          description={t(
+            'download-manager.pageSubtitle',
+            'What is installing now, what comes next and what is already done'
           )}
-          <h5 className="downloadManagerQueuedSectionTitle">
-            {t('queue.label.queued', 'Queued')}
-          </h5>
-          <div className="dmItemList">
-            <DownloadManagerHeader time="queued" />
+        />
+
+        <Panel
+          tone="glass"
+          padding="lg"
+          className={classNames('DownloadManager__current', {
+            'DownloadManager__current--idle': !currentElement
+          })}
+        >
+          {currentElement ? (
+            <>
+              <DownloadManagerItem
+                element={currentElement}
+                current={true}
+                state={state}
+                variant="hero"
+              />
+              <ProgressHeader
+                state={state}
+                appName={currentElement.params.appName}
+                runner={currentElement.params.runner}
+              />
+            </>
+          ) : (
+            <EmptyState
+              glyph={Download}
+              title={t('queue.label.empty', 'Nothing to download')}
+              description={t(
+                'download-manager.empty.current',
+                'Games you install or update show their progress here.'
+              )}
+            />
+          )}
+        </Panel>
+
+        {/* with nothing downloading and nothing queued the hero already says
+            the queue is empty, so the section would only repeat it */}
+        {(currentElement || plannendElements.length > 0) && (
+          <SettingsCard
+            title={t('queue.label.queued', 'Queued')}
+            glyph={ListOrdered}
+            meta={<Badge>{plannendElements.length}</Badge>}
+            className="DownloadManager__section"
+          >
             {plannendElements.length > 0 ? (
-              plannendElements.map((el) => (
-                <DownloadManagerItem
-                  key={el.params.appName}
-                  element={el}
-                  current={false}
-                />
-              ))
+              <div className="DownloadList">
+                <DownloadManagerHeader time="queued" />
+                {plannendElements.map((el, index) => (
+                  <DownloadManagerItem
+                    key={el.params.appName}
+                    element={el}
+                    current={false}
+                    position={index + 1}
+                  />
+                ))}
+              </div>
             ) : (
-              <DownloadManagerItem current={false} />
+              <EmptyState
+                glyph={Inbox}
+                title={t(
+                  'download-manager.empty.queue.title',
+                  'Queue is empty'
+                )}
+                description={t(
+                  'download-manager.empty.queue.description',
+                  'Downloads you start while another one is running wait here.'
+                )}
+              />
             )}
-          </div>
-        </>
-      }
-      {!!doneElements?.length && (
-        <div className="downloadManager">
-          <div className="downloadList">
-            <span>
-              <h5 className="downloadManagerQueuedSectionTitle">
-                {t('queue.label.finished', 'Completed')}
-                <Button variant="ghost" onClick={() => handleClearList()}>
-                  {t('queue.label.clear', 'Clear List')}
-                </Button>
-              </h5>
-            </span>
-            <div className="dmItemList">
+          </SettingsCard>
+        )}
+
+        {!!doneElements.length && (
+          <SettingsCard
+            title={t('queue.label.finished', 'Completed')}
+            glyph={CircleCheck}
+            meta={<Badge>{doneElements.length}</Badge>}
+            actions={
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={<Icon glyph={Trash2} size="md" />}
+                onClick={() => handleClearList()}
+              >
+                {t('queue.label.clear', 'Clear List')}
+              </Button>
+            }
+            className="DownloadManager__section"
+          >
+            <div className="DownloadList">
               <DownloadManagerHeader time="finished" />
-              {doneElements.map((el, key) => (
+              {doneElements.map((el) => (
                 <DownloadManagerItem
-                  key={key}
+                  key={`${el.params.appName}-${el.endTime}`}
                   element={el}
                   current={false}
                   handleClearItem={handleClearItem}
                 />
               ))}
             </div>
-          </div>
-        </div>
-      )}
-    </>
+          </SettingsCard>
+        )}
+      </div>
+    </div>
   )
 })

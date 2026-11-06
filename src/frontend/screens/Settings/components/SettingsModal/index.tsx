@@ -33,9 +33,9 @@ function SettingsModal({ gameInfo, type }: Props) {
 
   const titleType = useMemo(() => {
     const titleTypeLiterals = {
-      settings: t('Settings', 'Settings'),
+      settings: t('game.settings', 'Game settings'),
       log: t('settings.navbar.log', 'Log'),
-      category: 'Categories'
+      category: t('settings.navbar.categories', 'Categories')
     }
 
     return titleTypeLiterals[type]
@@ -52,7 +52,10 @@ function SettingsModal({ gameInfo, type }: Props) {
       size="lg"
       fullHeight={type === 'settings'}
     >
-      <ModalHeader>{`${title} (${titleType})`}</ModalHeader>
+      <ModalHeader>
+        <span className="settingsModal__title">{titleType}</span>
+        <span className="settingsModal__subtitle">{title}</span>
+      </ModalHeader>
       <ModalContent className="settingsDialogContent">
         <SettingsContext.Provider value={contextValues}>
           {type === 'settings' && <GamesSettings />}

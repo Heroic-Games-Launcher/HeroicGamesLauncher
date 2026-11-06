@@ -1,5 +1,5 @@
 .GameActionButton {
-  border-radius: var(--radius-md);
+  border-radius: 14px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
 }
 
@@ -11,7 +11,7 @@
 
 .GameActionButton .Button__label {
   font-size: var(--body-lg);
-  font-weight: var(--weight-bold);
+  font-weight: var(--bold);
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }

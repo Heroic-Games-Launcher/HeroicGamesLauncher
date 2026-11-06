@@ -1,0 +1,139 @@
+.Settings.log .settingsWrapper {
+  max-width: none;
+}
+
+.logs-wrapper {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: 1fr;
+  gap: 0.5rem;
+  height: 25em;
+  width: 100%;
+
+  .log-buttongroup {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    gap: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    grid-row: 1 / 3;
+    height: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .log-box-wrapper {
+    grid-column: 2;
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .setting.log-box {
+    display: block;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding-block: 4px;
+    padding-inline: 6px;
+    overflow: auto;
+    user-select: text;
+    height: 100%;
+  }
+}
+
+.logs-wrapper.game-log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100vw;
+  max-width: 900px;
+}
+
+@media screen and (max-width: 1024px) {
+  .logs-wrapper.game-log {
+    width: calc(80vw - 24px);
+  }
+}
+
+dialog .logs-wrapper {
+  grid-template-columns: 1fr;
+  flex-grow: 1;
+  height: 15em;
+  .log-buttongroup {
+    display: none;
+  }
+  .log-box-wrapper {
+    grid-column: 1;
+  }
+}
+
+.log-buttons.log-choosen,
+.log-buttons.log-choosen:hover {
+  color: var(--accent);
+  transition: all 350ms ease-out 0s;
+  transform: scale(1.1);
+  text-decoration: underline;
+}
+
+.log-buttons {
+  cursor: pointer;
+  text-align: start;
+  transform-origin: 0% 50%;
+}
+
+.log-buttons:hover {
+  color: var(--text-hover);
+}
+
+.log-error,
+.log-warning,
+.log-info {
+  text-align: start;
+  margin-block: 0;
+  min-height: 1em;
+  height: max-content;
+  white-space: pre;
+  font-family: monospace;
+}
+
+.log-error {
+  color: #c18672;
+}
+
+.log-warning {
+  color: var(--text-log);
+}
+
+.log-info {
+  color: rgb(175, 172, 172);
+}
+
+.long-log-hint {
+  font-style: italic;
+  color: var(--text-log);
+}
+
+.icon {
+  font-size: var(--text-4xl);
+  animation: refreshing 1.5s infinite;
+}
+
+.report-problem-instructions {
+  text-align: start;
+  max-width: 513px;
+}
+
+.log-jump {
+  position: absolute;
+  z-index: 1;
+  inset-block-end: var(--space-sm-fixed);
+  inset-inline-end: var(--space-md-fixed);
+  opacity: 0.85;
+}
+
+.log-jump:hover,
+.log-jump:focus-visible {
+  opacity: 1;
+}

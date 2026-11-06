@@ -1,7 +1,7 @@
 .FilterSection {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-sm-fixed);
 }
 
 .FilterSection + .FilterSection {
@@ -11,30 +11,30 @@
 
 .FilterSection__label {
   font-family: var(--primary-font-family);
-  font-size: var(--caption-sm);
-  font-weight: var(--weight-semibold);
+  font-size: var(--body-sm);
+  font-weight: var(--semibold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-muted, var(--text-secondary));
 }
 
 .FilterSection__items {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
 }
 
 .FilterSection__empty {
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
   color: var(--text-secondary);
-  line-height: var(--line-height-normal);
+  line-height: 1.4;
 }
 
 .FilterActions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   padding-top: var(--space-sm);
   border-top: 1px solid var(--divider);
 }

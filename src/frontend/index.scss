@@ -4,11 +4,12 @@
 @use './styles/buttons';
 @use './styles/forms';
 @use './styles/radius';
+@use './styles/surfaces';
+@use './styles/scrollbars';
 :root {
   @include typography.typeSystem;
   @include spacing.spacingSystem;
   @include colors.colorSystem;
-  @include radius.radiusSystem;
 
   overflow-y: overlay;
   /* Effects */
@@ -33,6 +34,9 @@ html {
 
 body {
   @include forms.formSystem;
+  @include radius.radiusSystem;
+  @include surfaces.surfaceSystem;
+  @include scrollbars.scrollbarSystem;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -51,38 +55,8 @@ body {
   padding: 0 !important;
 }
 
-/* Overlay Scrollbar*/
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  background: var(--current-background, var(--body-background));
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  display: none;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: var(--text-secondary);
-  border-radius: var(--radius-xs);
-  margin: 2px;
-  border: 2px solid var(--current-background, var(--body-background));
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-overlay);
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: var(--accent);
-}
-
-::-webkit-scrollbar-corner,
-::-webkit-resizer {
-  background: var(--gradient-body-background, var(--body-background));
+body:has(.MuiDialog-root) {
+  overflow: hidden !important;
 }
 
 .simple-keyboard-wrapper {
@@ -98,7 +72,7 @@ body {
 }
 
 .smallInputInfo {
-  font-size: var(--body-sm);
+  font-size: var(--text-xs);
   align-self: flex-start;
   margin-block: var(--space-xs) var(--space-3xs);
   margin-inline: var(--space-xs) 0;

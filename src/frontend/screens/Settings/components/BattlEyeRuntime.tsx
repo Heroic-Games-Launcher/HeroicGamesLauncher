@@ -38,6 +38,10 @@ const BattlEyeRuntime = () => {
   return (
     <div className="toggleRow">
       <ToggleSwitch
+        description={t(
+          'settings.battlEyeRuntime.hint',
+          'Install the runtime required by games protected with BattlEye'
+        )}
         htmlId="battlEyeRuntime"
         value={battlEyeRuntime}
         handleChange={handleBattlEyeRuntime}

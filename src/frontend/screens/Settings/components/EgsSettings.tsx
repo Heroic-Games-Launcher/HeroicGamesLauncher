@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { InfoBox, ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
+import { ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
 
 const EgsSettings = () => {
   const { t } = useTranslation()
@@ -75,9 +75,9 @@ const EgsSettings = () => {
         pathDialogTitle={t('box.choose-egs-prefix')}
         canEditPath={!isSyncing}
         label={t('setting.egs-sync')}
+        info={t('help.general')}
         htmlId="set_epic_sync_path"
       />
-      <InfoBox text="infobox.help">{t('help.general')}</InfoBox>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, TextInputField } from 'frontend/components/UI'
+import { TextInputField } from 'frontend/components/UI'
 
 export default function SteamGridDbApiKey() {
   const { t } = useTranslation()
@@ -36,17 +36,11 @@ export default function SteamGridDbApiKey() {
       value={value}
       htmlId="steamgriddb-api-key"
       type="password"
-      afterInput={
-        <InfoBox text={t('settings.advanced.details', 'Details')}>
-          <span style={{ userSelect: 'text' }}>
-            {t(
-              'settings.steamgriddb.help.description',
-              'Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}',
-              { url }
-            )}
-          </span>
-        </InfoBox>
-      }
+      info={t(
+        'settings.steamgriddb.help.description',
+        'Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}',
+        { url }
+      )}
     />
   )
 }
