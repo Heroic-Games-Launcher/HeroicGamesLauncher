@@ -3,12 +3,13 @@ import {
   useContext,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
-import { Button, ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
+import { ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -99,36 +100,61 @@ export default function WebView() {
 
   const trueAsStr = 'true' as unknown as boolean | undefined
 
-  const urls: { [pathname: string]: string } = {
-    '/store/epic': epicStore,
-    '/store/gog': gogStore,
-    '/store/amazon': amazonStore,
-    '/store/zoom': zoomStore,
-    '/wiki': wikiURL,
-    '/loginEpic': epicLoginUrl,
-    '/loginGOG': gogLoginUrl,
-    '/loginweb/legendary': epicLoginUrl,
-    '/loginweb/gog': gogLoginUrl,
-    '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
-    '/loginweb/zoom': zoomLoginUrl
-  }
-  let startUrl = urls[pathname]
-
-  if (store) {
-    sessionStorage.setItem('last-store', store)
-    const lastUrl = sessionStorage.getItem(`last-url-${store}`)
-    if (lastUrl && validStoredUrl(lastUrl, store)) {
-      startUrl = lastUrl
+  const startUrl = useMemo(() => {
+    const urls: { [pathname: string]: string } = {
+      '/store/epic': epicStore,
+      '/store/gog': gogStore,
+      '/store/amazon': amazonStore,
+      '/store/zoom': zoomStore,
+      '/wiki': wikiURL,
+      '/loginEpic': epicLoginUrl,
+      '/loginGOG': gogLoginUrl,
+      '/loginweb/legendary': epicLoginUrl,
+      '/loginweb/gog': gogLoginUrl,
+      '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
+      '/loginweb/zoom': zoomLoginUrl
     }
-  }
+    let url = urls[pathname]
 
-  if (pathname.match(/store-page/)) {
-    const searchParams = new URLSearchParams(search)
-    const queryParam = searchParams.get('store-url')
-    if (queryParam) {
-      startUrl = queryParam
+    if (store) {
+      sessionStorage.setItem('last-store', store)
+      const lastUrl = sessionStorage.getItem(`last-url-${store}`)
+      if (
+        lastUrl &&
+        validStoredUrl(lastUrl, store) &&
+        !(
+          store === 'gog' &&
+          disableGOGAffiliate &&
+          (/^https?:\/\/af\.gog\.com(?=[:/?#]|$)/i.test(lastUrl) ||
+            /[?&](?:utm_source=adtraction|as=1838482841)(?:&|#|$)/i.test(
+              lastUrl
+            ))
+        )
+      ) {
+        url = lastUrl
+      }
     }
-  }
+
+    if (pathname.match(/store-page/)) {
+      const queryParam = new URLSearchParams(search).get('store-url')
+      if (queryParam) url = queryParam
+    }
+    return url
+  }, [
+    pathname,
+    search,
+    store,
+    disableGOGAffiliate,
+    epicStore,
+    gogStore,
+    amazonStore,
+    zoomStore,
+    wikiURL,
+    epicLoginUrl,
+    gogLoginUrl,
+    zoomLoginUrl,
+    amazonLoginData
+  ])
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
@@ -342,13 +368,11 @@ export default function WebView() {
     useState<boolean>(false)
 
   const [showGogAffiliatePrompt, setShowGogAffiliatePrompt] = useState(false)
-  const [gogAffiliateOptIn, setGogAffiliateOptIn] = useState(false)
 
   useEffect(() => {
     if (pathname !== '/store/gog') return
     if (!disableGOGAffiliate) return
     if (localStorage.getItem(GOG_AFFILIATE_PROMPT_KEY) === 'true') return
-    setGogAffiliateOptIn(false)
     setShowGogAffiliatePrompt(true)
   }, [pathname, disableGOGAffiliate])
 
@@ -357,17 +381,14 @@ export default function WebView() {
     setShowGogAffiliatePrompt(false)
   }
 
-  const saveGogAffiliatePreference = () => {
+  const setGogAffiliatePreference = (enabled: boolean) => {
     localStorage.setItem(GOG_AFFILIATE_PROMPT_KEY, 'true')
-    if (gogAffiliateOptIn) {
-      setDisableGOGAffiliate(false)
-      window.api.setSetting({
-        appName: 'default',
-        key: 'disableGOGAffiliate',
-        value: false
-      })
-    }
-    setShowGogAffiliatePrompt(false)
+    setDisableGOGAffiliate(!enabled)
+    window.api.setSetting({
+      appName: 'default',
+      key: 'enableGOGAffiliate',
+      value: enabled
+    })
   }
 
   useEffect(() => {
@@ -488,7 +509,7 @@ export default function WebView() {
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
       <webview
-        key={store}
+        key={store === 'gog' ? `${store}-${disableGOGAffiliate}` : store}
         ref={webviewRef}
         className="WebView__webview"
         partition={`persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`}
@@ -496,7 +517,7 @@ export default function WebView() {
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
       />
-      {showLoginWarningFor && (
+      {showLoginWarningFor && !showGogAffiliatePrompt && (
         <LoginWarning
           warnLoginForStore={showLoginWarningFor}
           onClose={onLoginWarningClosed}
@@ -557,15 +578,10 @@ export default function WebView() {
             </p>
             <ToggleSwitch
               htmlId="enable-gog-affiliate"
-              value={gogAffiliateOptIn}
-              handleChange={(e) => setGogAffiliateOptIn(e.target.checked)}
+              value={!disableGOGAffiliate}
+              handleChange={(e) => setGogAffiliatePreference(e.target.checked)}
               title={t('affiliate.gogPrompt.toggle', 'Use GOG affiliate links')}
             />
-            <div className="GogAffiliatePrompt__actions">
-              <Button variant="primary" onClick={saveGogAffiliatePreference}>
-                {t('affiliate.gogPrompt.save', 'Save preference')}
-              </Button>
-            </div>
           </ModalContent>
         </Modal>
       )}

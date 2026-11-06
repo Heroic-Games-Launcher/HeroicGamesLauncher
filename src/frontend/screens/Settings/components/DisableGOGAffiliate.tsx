@@ -6,22 +6,22 @@ import ContextProvider from 'frontend/state/ContextProvider'
 
 const DisableGOGAffiliate = () => {
   const { t } = useTranslation()
-  const [disableGOGAffiliate, setDisableGOGAffiliate] = useSetting(
-    'disableGOGAffiliate',
+  const [enableGOGAffiliate, setEnableGOGAffiliate] = useSetting(
+    'enableGOGAffiliate',
     false
   )
   const { setDisableGOGAffiliate: setDisableGOGAffiliateContext } =
     useContext(ContextProvider)
 
   const handleChange = () => {
-    setDisableGOGAffiliate(!disableGOGAffiliate)
-    setDisableGOGAffiliateContext(!disableGOGAffiliate)
+    setEnableGOGAffiliate(!enableGOGAffiliate)
+    setDisableGOGAffiliateContext(enableGOGAffiliate)
   }
 
   return (
     <ToggleSwitch
       htmlId="disableGOGAffiliate"
-      value={disableGOGAffiliate}
+      value={!enableGOGAffiliate}
       handleChange={handleChange}
       title={t('setting.disableGOGAffiliate', 'Disable GOG affiliate link')}
     />

@@ -27,7 +27,6 @@
     "affiliate": {
         "gogPrompt": {
             "description": "Heroic can use GOG affiliate links when you visit the GOG store. If you buy something after clicking through from Heroic, GOG shares a small commission with us — at no extra cost to you. We don't see or track which games you buy, or anything else about your purchases: GOG only knows that someone came from Heroic. This is off by default, and you can change it whenever you like in Heroic's Advanced settings.",
-            "save": "Save preference",
             "title": "Support Heroic with your GOG purchases",
             "toggle": "Use GOG affiliate links"
         }

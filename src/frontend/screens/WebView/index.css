@@ -33,9 +33,3 @@
     display: none;
   }
 }
-
-.GogAffiliatePrompt__actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: var(--space-lg);
-}

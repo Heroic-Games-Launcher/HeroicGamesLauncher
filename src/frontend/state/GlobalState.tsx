@@ -259,7 +259,7 @@ class GlobalState extends PureComponent<Props> {
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     disableDiscounts: globalSettings?.disableDiscounts || false,
-    disableGOGAffiliate: globalSettings?.disableGOGAffiliate ?? true,
+    disableGOGAffiliate: globalSettings?.enableGOGAffiliate !== true,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     helpItems: {},
     experimentalFeatures: {
@@ -355,6 +355,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   setDisableGOGAffiliate = (value: boolean) => {
+    sessionStorage.removeItem('last-url-gog')
     this.setState({ disableGOGAffiliate: value })
   }
 
