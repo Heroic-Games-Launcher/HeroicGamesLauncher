@@ -664,8 +664,6 @@
             "sideloadLibrary": "Sideloaded games",
             "wineMetadata": "Wine / Proton versions"
         },
-        "summaryProperty": "Property",
-        "summaryValue": "Value",
         "step-counter": "Step {{current}} of {{total}}",
         "step1": {
             "browse": "Browse for a backup file",
@@ -748,6 +746,8 @@
             "pick-file": "Pick a backup file",
             "summary": "Summary"
         },
+        "summaryProperty": "Property",
+        "summaryValue": "Value",
         "unsupported-format": "This backup uses a newer format than this build of Heroic supports.",
         "validating": "Validating...",
         "version": "Heroic version",
