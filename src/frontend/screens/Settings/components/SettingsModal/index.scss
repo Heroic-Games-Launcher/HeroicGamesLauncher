@@ -1,3 +1,9 @@
+.Modal__title:has(.settingsModal__title) {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .settingsModal__title {
   font-family: var(--primary-font-family);
   font-size: var(--title-md);
@@ -20,6 +26,11 @@
 
   .log-box {
     width: 100%;
+  }
+
+  > .Alert,
+  > .settingsTabs {
+    flex: 0 0 auto;
   }
 
   .settingsTabs {
