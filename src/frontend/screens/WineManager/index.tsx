@@ -1,27 +1,48 @@
 import './index.css'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { UpdateComponent } from 'frontend/components/UI'
+import {
+  Alert,
+  Button,
+  Icon,
+  PageHeader,
+  Panel,
+  Table,
+  Tabs,
+  Tooltip
+} from 'frontend/components/UI'
+import type { TableColumn } from 'frontend/components/UI'
 
-import React, { lazy, useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Tab, Tabs } from '@mui/material'
 import { wineDownloaderInfoStore } from 'frontend/helpers/electronStores'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faSyncAlt, faCog } from '@fortawesome/free-solid-svg-icons'
+import { RefreshCw, Settings } from 'lucide-react'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
 import SearchBar from 'frontend/components/UI/SearchBar'
 import WineManagerSettingsModal from './components/WineManagerSettingsModal'
+import WineVersionActions from './components/WineVersionActions'
+import WineVersionSize from './components/WineVersionSize'
 import { hasHelp } from 'frontend/hooks/hasHelp'
-import classNames from 'classnames'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 
-const WineItem = lazy(
-  async () => import('frontend/screens/WineManager/components/WineItem')
-)
+function formatReleaseDate(date: string, locale: string) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date)
+  if (!match) return date
+
+  const [, year, month, day] = match
+  return new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day)
+  ).toLocaleDateString(locale, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  })
+}
 
 export default function WineManager(): JSX.Element | null {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   hasHelp(
     'wineManager',
@@ -82,10 +103,10 @@ export default function WineManager(): JSX.Element | null {
   const [search, setSearch] = useState('')
   const [showSettingsModal, setShowSettingsModal] = useState(false)
 
-  const handleChangeTab = (
-    _e: React.SyntheticEvent,
-    repo: WineManagerUISettings
-  ) => {
+  const handleChangeTab = (value: string) => {
+    const repo = repositories.find((setting) => setting.value === value)
+    if (!repo) return
+
     setRepository(repo)
     setWineVersions(getWineVersions(repo.type))
     setSearch('')
@@ -103,57 +124,32 @@ export default function WineManager(): JSX.Element | null {
   const wineVersionExplanation = useMemo(() => {
     switch (repository.type) {
       case 'GE-Proton':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faCheck} color={'green'} />
-            {t(
-              'wineExplanation.proton-ge',
-              'GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).'
-            )}
-          </div>
+        return t(
+          'wineExplanation.proton-ge',
+          'GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).'
         )
       case 'Game-Porting-Toolkit':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faCheck} color={'green'} />
-            {t(
-              'wineExplanation.gpt',
-              'Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.'
-            )}
-          </div>
+        return t(
+          'wineExplanation.gpt',
+          'Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.'
         )
       case 'Wine-Crossover':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faCheck} color={'green'} />
-            {t(
-              'wineExplanation.wine-crossover',
-              'Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.'
-            )}
-          </div>
+        return t(
+          'wineExplanation.wine-crossover',
+          'Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.'
         )
       case 'Wine-Staging-macOS':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faCheck} color={'green'} />
-            {t(
-              'wineExplanation.wine-staging-macos',
-              'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool.'
-            )}
-          </div>
+        return t(
+          'wineExplanation.wine-staging-macos',
+          'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool.'
         )
       case 'Proton-CachyOS':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faCheck} color={'green'} />
-            {t(
-              'wineExplanation.proton-cachyos',
-              'Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.'
-            )}
-          </div>
+        return t(
+          'wineExplanation.proton-cachyos',
+          'Proton-CachyOS is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.'
         )
       default:
-        return <></>
+        return null
     }
   }, [repository.type, t])
 
@@ -164,90 +160,124 @@ export default function WineManager(): JSX.Element | null {
     return wineVersions.filter((v) => v.version.toLowerCase().includes(query))
   }, [wineVersions, search])
 
-  return (
-    <>
-      <div className="wineManagerHeader">
-        <h4>{t('wine.manager.title', 'Wine Manager')}</h4>
-        <div className="wineManagerToolbar">
-          <SearchBar
-            placeholder={t('wine.manager.search', 'Search versions...')}
-            value={search}
-            onInputChanged={setSearch}
-          />
-          <button
-            className="toolbarBtn"
-            title={t('generic.library.refresh', 'Refresh Library')}
-            onClick={() => {
-              refreshWineVersions(true)
-            }}
-          >
-            <FontAwesomeIcon
-              className={classNames({ 'fa-spin': refreshingWineVersions })}
-              icon={faSyncAlt}
-            />
-          </button>
-          {isLinux && (
+  const columns: TableColumn<WineVersionInfo>[] = useMemo(
+    () => [
+      {
+        key: 'version',
+        header: t('info.version', 'Wine Version'),
+        width: '40%',
+        render: (wineVersion) => (
+          <Tooltip content={t('wine.notes', 'Notes')} asChild>
             <button
-              className="toolbarBtn"
-              title={t('wine.manager.settings', 'Settings')}
-              onClick={() => setShowSettingsModal(true)}
-            >
-              <FontAwesomeIcon icon={faCog} />
-            </button>
-          )}
-        </div>
-      </div>
-
-      <div className="wineManager">
-        <div className="tabsWrapper">
-          <Tabs
-            className="tabs"
-            value={repository.value}
-            onChange={(e, value) => {
-              const repo = repositories.find(
-                (setting) => setting.value === value
-              )
-              if (repo) {
-                handleChangeTab(e, repo)
+              type="button"
+              className="WineManager__version"
+              onClick={() =>
+                window.api.openWebviewPage(wineVersion.release_notes_link)
               }
-            }}
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            {repositories.map(({ type, value }) => (
-              <Tab value={value} label={type} key={value} />
-            ))}
-          </Tabs>
-        </div>
+            >
+              {wineVersion.version}
+            </button>
+          </Tooltip>
+        )
+      },
+      {
+        key: 'date',
+        header: t('wine.release', 'Release Date'),
+        width: '22%',
+        collapseOnNarrow: true,
+        className: 'WineManager__date',
+        render: (wineVersion) =>
+          formatReleaseDate(wineVersion.date, i18n.language)
+      },
+      {
+        key: 'size',
+        header: t('wine.size', 'Size'),
+        width: '20%',
+        render: (wineVersion) => <WineVersionSize {...wineVersion} />
+      },
+      {
+        key: 'actions',
+        header: t('wine.actions', 'Action'),
+        width: '18%',
+        align: 'end',
+        render: (wineVersion) => (
+          <WineVersionActions wineVersion={wineVersion} />
+        )
+      }
+    ],
+    [t, i18n.language]
+  )
 
-        {wineVersionExplanation}
+  const tabItems = useMemo(
+    () =>
+      repositories.map(({ type, value }) => ({ value, label: type as string })),
+    [repositories]
+  )
 
-        {refreshingWineVersions ? (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faSyncAlt} color={'orange'} />
-            {t('wine.manager.loading', 'Loading wine versions...')}
-          </div>
-        ) : filteredWineVersions.length ? (
-          <div className="wineList">
-            <div className="gameListHeader">
-              <span className="version">
-                {t('info.version', 'Wine Version')}
-              </span>
-              <span className="release">
-                {t('wine.release', 'Release Date')}
-              </span>
-              <span className="size">{t('wine.size', 'Size')}</span>
-              <span className="actions">{t('wine.actions', 'Action')}</span>
-            </div>
-            {refreshingWineVersions && <UpdateComponent />}
-            {!refreshingWineVersions &&
-              filteredWineVersions.map((release) => {
-                return <WineItem key={release.version} {...release} />
-              })}
-          </div>
-        ) : (
-          <div className="infoBox errorState">
-            {search
+  return (
+    <div className="WineManager">
+      <PageHeader
+        title={t('wine.manager.title', 'Wine Manager')}
+        description={t(
+          'wine.manager.subtitle',
+          'Download and manage the Wine, Proton and CrossOver builds Heroic can use'
+        )}
+        actions={
+          <>
+            <SearchBar
+              placeholder={t('wine.manager.search', 'Search versions...')}
+              value={search}
+              onInputChanged={setSearch}
+            />
+            <Tooltip content={t('generic.library.refresh', 'Refresh Library')}>
+              <Button
+                variant="ghost"
+                aria-label={t('generic.library.refresh', 'Refresh Library')}
+                onClick={() => refreshWineVersions(true)}
+                icon={
+                  <Icon
+                    glyph={RefreshCw}
+                    className={
+                      refreshingWineVersions ? 'lucide-spin' : undefined
+                    }
+                  />
+                }
+              />
+            </Tooltip>
+            {isLinux && (
+              <Tooltip content={t('wine.manager.settings', 'Settings')}>
+                <Button
+                  variant="ghost"
+                  aria-label={t('wine.manager.settings', 'Settings')}
+                  onClick={() => setShowSettingsModal(true)}
+                  icon={<Icon glyph={Settings} />}
+                />
+              </Tooltip>
+            )}
+          </>
+        }
+      />
+
+      <Tabs
+        items={tabItems}
+        value={repository.value}
+        onChange={handleChangeTab}
+        aria-label={t('wine.manager.title', 'Wine Manager')}
+      />
+
+      {wineVersionExplanation && (
+        <Alert variant="info">{wineVersionExplanation}</Alert>
+      )}
+
+      <Panel padding="none" className="WineManager__panel">
+        <Table
+          columns={columns}
+          rows={filteredWineVersions}
+          rowKey={(wineVersion) => wineVersion.version}
+          caption={t('wine.manager.title', 'Wine Manager')}
+          loading={refreshingWineVersions}
+          empty={
+            search
               ? t(
                   'wine.manager.no-results',
                   'No Wine versions match your search.'
@@ -255,14 +285,14 @@ export default function WineManager(): JSX.Element | null {
               : t(
                   'wine.manager.not-found',
                   'No Wine versions found. Please click the refresh icon to try again.'
-                )}
-          </div>
-        )}
-      </div>
+                )
+          }
+        />
+      </Panel>
 
       {showSettingsModal && (
         <WineManagerSettingsModal onClose={() => setShowSettingsModal(false)} />
       )}
-    </>
+    </div>
   )
 }
