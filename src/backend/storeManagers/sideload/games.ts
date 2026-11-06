@@ -119,7 +119,6 @@ export default class SideloadGame implements Game {
     if (shouldRemovePrefix) {
       removePrefix(this.id, 'sideload')
     }
-    libraryStore.set('games', current)
 
     if (deleteFiles && executable !== undefined) {
       rmSync(dirname(executable), { recursive: true })
@@ -127,9 +126,10 @@ export default class SideloadGame implements Game {
 
     notify({ title, body: i18next.t('notify.uninstalled') })
 
-    removeShortcutsUtil(this)
+    await removeShortcutsUtil(this)
     removeRecentGame(this.id)
-    removeNonSteamGame(this)
+    await removeNonSteamGame(this)
+    libraryStore.set('games', current)
 
     sendGameStatusUpdate({
       appName: this.id,
