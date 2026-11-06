@@ -11,7 +11,7 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0;
+    border-radius: var(--radius-none);
     background-color: var(--titlebar-color);
     color: var(--titlebar-symbol-color);
     height: var(--overlay-controls-height);

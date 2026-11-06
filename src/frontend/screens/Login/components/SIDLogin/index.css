@@ -18,7 +18,7 @@
   display: grid;
   place-items: center;
   background: var(--background-darker);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   z-index: 7;
   padding: var(--space-lg);
   height: fit-content;
@@ -27,13 +27,13 @@
   overflow: auto;
   max-height: 100vh;
   max-width: 90%;
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   margin: 2rem;
 }
 
 .loginInstructions > strong {
   color: var(--text-hover);
-  font-size: var(--text-xl);
+  font-size: var(--title);
 }
 
 .loginInstructions .epicLink {
@@ -92,13 +92,13 @@
 
 .sid-modal > .sid-input {
   color: var(--text-secondary);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   padding: var(--space-2xs);
   background-color: var(--input-background);
   border: none;
   height: 40px;
   width: 60%;
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   margin-bottom: var(--space-md);
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   font-family: var(--primary-font-family);

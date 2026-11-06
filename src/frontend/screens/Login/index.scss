@@ -1,3 +1,5 @@
+@use '../../styles/breakpoints';
+
 .loginPage {
   --wrapper-padding: 30px;
   --message-padding: 40px;
@@ -42,7 +44,7 @@
   background-color: var(--body-background);
   opacity: 0.96;
   padding: var(--wrapper-padding);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   min-width: 400px;
 }
 
@@ -59,14 +61,14 @@
 .goToLibrary {
   position: relative;
   font-family: var(--font-primary-bold);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--background);
   background: var(--primary-button, var(--accent));
   border: none;
   padding: 10px 40px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-default);
-  border-radius: var(--space-2xs);
+  border-radius: var(--radius-xs);
   cursor: pointer;
   transition: 0.2s;
   width: fit-content;
@@ -102,15 +104,15 @@
 
 .title {
   font-family: var(--actions-font-family);
-  font-size: 18px;
+  font-size: var(--title-sm);
   margin: 0;
   color: var(--accent);
 }
 
 .subtitle {
-  font-size: 12px;
+  font-size: var(--caption);
   font-family: var(--actions-font-family);
-  font-weight: 400;
+  font-weight: var(--weight-regular);
   color: var(--text-default);
 }
 
@@ -154,7 +156,7 @@
   padding: 1rem;
 }
 
-@media screen and (min-width: 850px) {
+@include breakpoints.for-default-up {
   .loginContentWrapper {
     width: max(500px, 75%);
     height: auto;
