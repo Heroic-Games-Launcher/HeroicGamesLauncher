@@ -93,7 +93,7 @@ const initialContext: ContextType = {
   setHideChangelogsOnStartup: () => null,
   disableDiscounts: false,
   setDisableDiscounts: () => null,
-  disableGOGAffiliate: false,
+  disableGOGAffiliate: true,
   setDisableGOGAffiliate: () => null,
   lastChangelogShown: null,
   setLastChangelogShown: () => null,

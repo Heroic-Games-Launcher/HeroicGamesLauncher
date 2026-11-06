@@ -259,7 +259,7 @@ class GlobalState extends PureComponent<Props> {
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     disableDiscounts: globalSettings?.disableDiscounts || false,
-    disableGOGAffiliate: globalSettings?.disableGOGAffiliate || false,
+    disableGOGAffiliate: globalSettings?.disableGOGAffiliate ?? true,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     helpItems: {},
     experimentalFeatures: {

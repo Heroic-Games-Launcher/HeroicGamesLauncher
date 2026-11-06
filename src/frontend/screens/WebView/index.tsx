@@ -8,11 +8,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
-import {
-  DismissibleBanner,
-  ToggleSwitch,
-  UpdateComponent
-} from 'frontend/components/UI'
+import { Button, ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -24,6 +20,8 @@ import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
 import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
+
+const GOG_AFFILIATE_PROMPT_KEY = 'gog-affiliate-prompt-shown'
 
 const validStoredUrl = (url: string, store: string) => {
   switch (store) {
@@ -44,8 +42,15 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, connectivity, disableGOGAffiliate } =
-    useContext(ContextProvider)
+  const {
+    epic,
+    gog,
+    amazon,
+    zoom,
+    connectivity,
+    disableGOGAffiliate,
+    setDisableGOGAffiliate
+  } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -336,6 +341,35 @@ export default function WebView() {
   const [dontShowAdtractionWarning, setDontShowAdtractionWarning] =
     useState<boolean>(false)
 
+  const [showGogAffiliatePrompt, setShowGogAffiliatePrompt] = useState(false)
+  const [gogAffiliateOptIn, setGogAffiliateOptIn] = useState(false)
+
+  useEffect(() => {
+    if (pathname !== '/store/gog') return
+    if (!disableGOGAffiliate) return
+    if (localStorage.getItem(GOG_AFFILIATE_PROMPT_KEY) === 'true') return
+    setGogAffiliateOptIn(false)
+    setShowGogAffiliatePrompt(true)
+  }, [pathname, disableGOGAffiliate])
+
+  const closeGogAffiliatePrompt = () => {
+    localStorage.setItem(GOG_AFFILIATE_PROMPT_KEY, 'true')
+    setShowGogAffiliatePrompt(false)
+  }
+
+  const saveGogAffiliatePreference = () => {
+    localStorage.setItem(GOG_AFFILIATE_PROMPT_KEY, 'true')
+    if (gogAffiliateOptIn) {
+      setDisableGOGAffiliate(false)
+      window.api.setSetting({
+        appName: 'default',
+        key: 'disableGOGAffiliate',
+        value: false
+      })
+    }
+    setShowGogAffiliatePrompt(false)
+  }
+
   useEffect(() => {
     if (
       startUrl.match(/epicgames\.com/) &&
@@ -444,14 +478,6 @@ export default function WebView() {
 
   return (
     <div className="WebView">
-      {pathname === '/store/gog' && !disableGOGAffiliate && (
-        <DismissibleBanner storageKey="gog-affiliate-banner-dismissed">
-          {t(
-            'affiliate.gogBanner',
-            'The GOG store uses an affiliate link. Buying games through it helps fund Heroic development.'
-          )}
-        </DismissibleBanner>
-      )}
       {webview && (
         <WebviewControls
           key={`controls-${store}`}
@@ -507,6 +533,39 @@ export default function WebView() {
                 "Don't show this warning again"
               )}
             />
+          </ModalContent>
+        </Modal>
+      )}
+      {showGogAffiliatePrompt && (
+        <Modal
+          showCloseButton={true}
+          size="sm"
+          onClose={closeGogAffiliatePrompt}
+        >
+          <ModalHeader>
+            {t(
+              'affiliate.gogPrompt.title',
+              'Support Heroic with your GOG purchases'
+            )}
+          </ModalHeader>
+          <ModalContent>
+            <p>
+              {t(
+                'affiliate.gogPrompt.description',
+                "Heroic can use GOG affiliate links when you visit the GOG store. If you buy something after clicking through from Heroic, GOG shares a small commission with us — at no extra cost to you. We don't see or track which games you buy, or anything else about your purchases: GOG only knows that someone came from Heroic. This is off by default, and you can change it whenever you like in Heroic's Advanced settings."
+              )}
+            </p>
+            <ToggleSwitch
+              htmlId="enable-gog-affiliate"
+              value={gogAffiliateOptIn}
+              handleChange={(e) => setGogAffiliateOptIn(e.target.checked)}
+              title={t('affiliate.gogPrompt.toggle', 'Use GOG affiliate links')}
+            />
+            <div className="GogAffiliatePrompt__actions">
+              <Button variant="primary" onClick={saveGogAffiliatePreference}>
+                {t('affiliate.gogPrompt.save', 'Save preference')}
+              </Button>
+            </div>
           </ModalContent>
         </Modal>
       )}

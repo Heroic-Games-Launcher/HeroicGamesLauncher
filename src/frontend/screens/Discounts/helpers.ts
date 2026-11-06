@@ -265,7 +265,7 @@ const AFFILIATE_STRATEGIES: Record<DiscountStore, AffiliateStrategy> = {
 
 export const getAffiliateLink = (
   product: CatalogProduct,
-  disableGOGAffiliate = false
+  disableGOGAffiliate = true
 ): string => {
   const store = product.store ?? 'gog'
   if (store === 'gog' && disableGOGAffiliate) return product.storeLink
