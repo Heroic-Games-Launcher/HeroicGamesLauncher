@@ -28,7 +28,7 @@
     cursor: pointer;
     margin-bottom: var(--space-md);
     width: 210px;
-    border-radius: var(--radius-md);
+    border-radius: 10px;
     overflow: hidden;
     border: 3px solid var(--neutral-02);
     transition: 200ms;
@@ -107,8 +107,8 @@
     summary {
       cursor: pointer;
       font-family: var(--primary-font-family);
-      font-size: var(--body-md);
-      font-weight: var(--weight-semibold);
+      font-size: var(--text-md);
+      font-weight: var(--semibold);
       color: var(--text-secondary);
       padding: var(--space-xs) 0;
       user-select: none;
@@ -119,7 +119,7 @@
       }
 
       &::marker {
-        color: var(--primary-action);
+        color: var(--navbar-accent, var(--accent));
       }
     }
 

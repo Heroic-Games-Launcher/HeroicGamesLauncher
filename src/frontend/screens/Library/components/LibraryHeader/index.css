@@ -1,33 +1,8 @@
 .libraryHeaderWrapper {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-end;
   gap: var(--space-md);
-}
-
-.libraryTitleBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.libraryTitle {
-  grid-area: title;
-  margin: 0;
-  font-family: var(--primary-font-family);
-  font-size: var(--heading-5);
-  font-weight: var(--weight-bold);
-  line-height: var(--line-height-tight);
-  letter-spacing: -0.02em;
-  color: var(--text-default);
-}
-
-.numberOfgames {
-  font-size: var(--body-sm);
-  font-weight: var(--weight-regular);
-  line-height: var(--line-height-tight);
-  color: var(--text-secondary);
 }
 
 .libraryToolbar {
@@ -47,7 +22,7 @@
   align-items: center;
   height: 44px;
   padding: 0 6px;
-  border-radius: var(--radius-pill);
+  border-radius: 999px;
   background: var(--input-background);
   margin-inline-end: 0;
 }
@@ -61,12 +36,12 @@
   height: 44px;
   padding: 0 20px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: 999px;
   font-family: var(--primary-font-family);
-  font-size: var(--body-md);
-  font-weight: var(--weight-semibold);
-  color: var(--text-on-accent, var(--background-darker));
-  background: var(--primary-action);
+  font-size: var(--text-md);
+  font-weight: var(--semibold);
+  color: var(--background-darker, #06121a);
+  background: var(--navbar-accent, var(--accent));
   cursor: pointer;
   transition:
     background-color 150ms ease,
@@ -76,7 +51,7 @@
 .sideloadGameButton:hover,
 .sideloadGameButton:focus-visible {
   background: var(--accent-overlay, var(--accent));
-  box-shadow: 0 8px 24px -8px var(--primary-action);
+  box-shadow: 0 8px 24px -8px var(--navbar-accent, var(--accent));
 }
 
 .sideloadGameButton svg {

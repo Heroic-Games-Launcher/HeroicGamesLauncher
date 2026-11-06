@@ -24,23 +24,23 @@
   justify-content: center;
   width: 18px;
   height: 18px;
-  border-radius: var(--radius-xs);
+  border-radius: 4px;
   font-family: var(--primary-font-family);
-  font-size: var(--caption-xs);
-  font-weight: var(--weight-bold);
+  font-size: 10px;
+  font-weight: var(--bold);
   color: #fff;
   flex-shrink: 0;
 }
 
 .filterPlatformTag--win {
-  background: #2563eb;
+  background: #3b82f6;
 }
 .filterPlatformTag--mac {
-  background: #4b5563;
+  background: #9ca3af;
 }
 .filterPlatformTag--linux {
-  background: #b45309;
+  background: #f59e0b;
 }
 .filterPlatformTag--browser {
-  background: #7c3aed;
+  background: #8b5cf6;
 }

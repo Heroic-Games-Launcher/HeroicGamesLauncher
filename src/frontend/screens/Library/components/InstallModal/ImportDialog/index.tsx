@@ -7,12 +7,13 @@ import {
   Runner,
   WineInstallation
 } from 'common/types'
-import { Button, PathSelectionBox } from 'frontend/components/UI'
+import { PathSelectionBox } from 'frontend/components/UI'
 import {
-  DialogHeader,
-  DialogFooter,
-  DialogContent
-} from 'frontend/components/UI/Dialog'
+  ModalHeader,
+  ModalFooter,
+  ModalContent
+} from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import ContextProvider from 'frontend/state/ContextProvider'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -83,7 +84,7 @@ export default function ImportDialog({
 
   return (
     <>
-      <DialogHeader onClose={backdropClick}>
+      <ModalHeader>
         {title ? title : '...'}
         {availablePlatforms.map((p) => (
           <FontAwesomeIcon
@@ -92,8 +93,8 @@ export default function ImportDialog({
             key={p.value}
           />
         ))}
-      </DialogHeader>
-      <DialogContent>
+      </ModalHeader>
+      <ModalContent>
         <PathSelectionBox
           type={pickFile ? 'file' : 'directory'}
           onPathChange={setImportPath}
@@ -106,19 +107,20 @@ export default function ImportDialog({
           noDeleteButton
         />
         {children}
-      </DialogContent>
-      <DialogFooter>
+      </ModalContent>
+      <ModalFooter>
         <Button
-          variant="primary"
           onClick={handleImport}
           disabled={!importPath || isImportingThisGame}
+          icon={
+            isImportingThisGame ? (
+              <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
+            ) : null
+          }
         >
-          {isImportingThisGame ? (
-            <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
-          ) : null}
           {t('button.import', 'Import')}
         </Button>
-      </DialogFooter>
+      </ModalFooter>
     </>
   )
 }

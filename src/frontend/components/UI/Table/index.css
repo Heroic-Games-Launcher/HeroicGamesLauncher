@@ -1,0 +1,138 @@
+.Table {
+  --table-row-height: 56px;
+  --table-cell-padding-inline: var(--space-xl-fixed);
+  --table-cell-padding-block: var(--space-sm-fixed);
+
+  --table-radius: 0px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.Table--compact {
+  --table-row-height: 44px;
+  --table-cell-padding-inline: var(--space-md-fixed);
+  --table-cell-padding-block: var(--space-xs-fixed);
+}
+
+.Table__table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: start;
+}
+
+.Table__caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.Table__headCell {
+  padding: var(--space-sm-fixed) var(--table-cell-padding-inline);
+  background: var(--panel-surface, var(--background-darker));
+  border-bottom: 1px solid var(--panel-divider, var(--divider));
+  font-family: var(--primary-font-family);
+  font-size: var(--eyebrow);
+  font-weight: var(--semibold);
+  line-height: var(--leading-snug, 1.3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-panel-muted, var(--text-secondary));
+  white-space: nowrap;
+}
+
+.Table--stickyHeader .Table__headCell {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.Table__head tr > :first-child {
+  border-start-start-radius: var(--table-radius);
+}
+
+.Table__head tr > :last-child {
+  border-start-end-radius: var(--table-radius);
+}
+
+.Table__body tr:last-child > :first-child {
+  border-end-start-radius: var(--table-radius);
+}
+
+.Table__body tr:last-child > :last-child {
+  border-end-end-radius: var(--table-radius);
+}
+
+.Table__row {
+  transition: background-color 150ms ease;
+}
+
+.Table__body .Table__row:not(:last-child) .Table__cell {
+  border-bottom: 1px solid var(--panel-divider, var(--divider));
+}
+
+.Table__body .Table__row:hover {
+  background: color-mix(in oklab, var(--on-panel) 7%, transparent);
+}
+
+.Table__row--clickable {
+  cursor: pointer;
+}
+
+.Table__row--clickable:focus-visible {
+  outline: 2px solid var(--navbar-accent, var(--accent));
+  outline-offset: -2px;
+}
+
+.Table__cell {
+  height: var(--table-row-height);
+  padding: var(--table-cell-padding-block) var(--table-cell-padding-inline);
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  color: var(--on-panel, var(--text-default));
+  vertical-align: middle;
+}
+
+.Table__cellInner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+}
+
+.Table__cell--center .Table__cellInner {
+  justify-content: center;
+}
+
+.Table__cell--end .Table__cellInner {
+  justify-content: flex-end;
+}
+
+.Table__cell--center {
+  text-align: center;
+}
+
+.Table__cell--end {
+  text-align: end;
+}
+
+.Table__emptyCell {
+  padding: var(--space-3xl-fixed) var(--table-cell-padding-inline);
+  text-align: center;
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+@container main-content (max-width: 760px) {
+  .Table {
+    --table-cell-padding-inline: var(--space-md-fixed);
+  }
+
+  .Table__cell--collapse {
+    display: none;
+  }
+}

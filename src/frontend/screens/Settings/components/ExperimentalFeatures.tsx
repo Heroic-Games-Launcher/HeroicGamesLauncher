@@ -40,11 +40,23 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.zoomPlatform', 'Zoom Platform support (only Linux)')
   */
 
+  const descriptions: Partial<Record<keyof IExperimentalFeatures, string>> = {
+    enableHelp: t(
+      'setting.experimental_features_description.enableHelp',
+      'Show an in-app help panel explaining the setting you are hovering'
+    ),
+    cometSupport: t(
+      'setting.experimental_features_description.cometSupport',
+      'Enable GOG Galaxy features such as achievements and multiplayer'
+    ),
+    zoomPlatform: t(
+      'setting.experimental_features_description.zoomPlatform',
+      'Add the Zoom Platform store to your library'
+    )
+  }
+
   return (
     <>
-      <h3>
-        {t('settings.experimental_features.title', 'Experimental Features')}
-      </h3>
       {FEATURES.map((feature) => {
         return (
           <div key={feature}>
@@ -53,6 +65,7 @@ const ExperimentalFeatures = () => {
               value={experimentalFeatures[feature]}
               handleChange={() => toggleFeature(feature)}
               title={t(`setting.experimental_features.${feature}`, feature)}
+              description={descriptions[feature]}
             />
           </div>
         )

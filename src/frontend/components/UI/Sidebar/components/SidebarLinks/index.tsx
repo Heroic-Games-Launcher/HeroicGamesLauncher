@@ -28,12 +28,9 @@ import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/Ex
 import SidebarItem from '../SidebarItem'
 import { Icon } from 'frontend/components/UI'
 
-type PathSplit = [a: undefined, b: undefined, type: string]
-
 export default function SidebarLinks() {
   const { t } = useTranslation()
   const location = useLocation() as { pathname: string }
-  const [, , type] = location.pathname.split('/') as PathSplit
 
   const {
     amazon,
@@ -115,16 +112,11 @@ export default function SidebarLinks() {
   }
 
   return (
-    <div className="SidebarLinks Sidebar__section" data-tour="sidebar-menu">
+    <div
+      className="SidebarLinks Sidebar__section scrollbar--none"
+      data-tour="sidebar-menu"
+    >
       <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
-      {!loggedIn && (
-        <SidebarItem
-          icon={<Icon glyph={LogIn} />}
-          label={t('button.login', 'Login')}
-          url="/login"
-          dataTour="sidebar-login"
-        />
-      )}
       <SidebarItem
         isActiveFallback={location.pathname.includes('gamepage')}
         url="/"
@@ -209,61 +201,22 @@ export default function SidebarLinks() {
         dataTour="sidebar-console"
       />
 
-      <div className="SidebarItemWithSubmenu">
+      <SidebarItem
+        isActiveFallback={isSettings}
+        icon={<Icon glyph={SettingsIcon} />}
+        label={t('Settings', 'Settings')}
+        url="/settings/general"
+        dataTour="sidebar-settings"
+      />
+
+      {!loggedIn && (
         <SidebarItem
-          isActiveFallback={location.pathname.includes('settings')}
-          icon={<Icon glyph={SettingsIcon} />}
-          label={t('Settings', 'Settings')}
-          url="/settings/general"
-          dataTour="sidebar-settings"
+          icon={<Icon glyph={LogIn} />}
+          label={t('sidebar.storesLogin', 'Stores Login')}
+          url="/login"
+          dataTour="sidebar-login"
         />
-        {isSettings && (
-          <div className="SidebarSubmenu settings">
-            <SidebarItem
-              url="/settings/general"
-              isActiveFallback={type === 'general'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.general')}
-            />
-
-            {!isWin && (
-              <SidebarItem
-                url="/settings/games_settings"
-                isActiveFallback={type === 'games_settings'}
-                className="SidebarLinks__subItem"
-                label={t(
-                  'settings.navbar.games_settings_defaults',
-                  'Game Defaults'
-                )}
-              />
-            )}
-
-            <SidebarItem
-              url="/settings/advanced"
-              isActiveFallback={type === 'advanced'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.advanced', 'Advanced')}
-            />
-
-            <SidebarItem
-              url="/settings/systeminfo"
-              isActiveFallback={type === 'systeminfo'}
-              className="SidebarLinks__subItem"
-              label={t(
-                'settings.navbar.systemInformation',
-                'System Information'
-              )}
-            />
-
-            <SidebarItem
-              url="/settings/log"
-              isActiveFallback={type === 'log'}
-              className="SidebarLinks__subItem"
-              label={t('settings.navbar.log', 'Log')}
-            />
-          </div>
-        )}
-      </div>
+      )}
 
       <QuitButton dataTour="sidebar-quit" />
 

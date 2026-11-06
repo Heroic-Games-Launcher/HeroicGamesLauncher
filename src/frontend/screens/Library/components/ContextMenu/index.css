@@ -1,7 +1,7 @@
 .contextMenu > .MuiPaper-root {
   background: var(--modal-background, var(--background));
   border: 1px solid var(--divider);
-  border-radius: var(--radius-md);
+  border-radius: 14px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
   overflow: hidden;
 }
@@ -15,10 +15,10 @@
 .contextMenu .MuiMenuItem-root {
   gap: 10px;
   padding: 9px 12px;
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   font-family: var(--primary-font-family);
-  font-size: var(--body-md);
-  font-weight: var(--weight-medium);
+  font-size: var(--text-md);
+  font-weight: var(--medium);
   color: var(--text-default);
   transition:
     background-color 150ms ease,
@@ -33,11 +33,11 @@
 
 .contextMenu .MuiListItemIcon-root {
   min-width: 0;
-  color: var(--text-secondary);
+  color: var(--text-muted, var(--text-secondary));
 }
 
 .contextMenu .MuiMenuItem-root:hover .MuiListItemIcon-root {
-  color: var(--primary-action);
+  color: var(--navbar-accent, var(--accent));
 }
 
 .contextMenu .MuiListItemIcon-root svg {

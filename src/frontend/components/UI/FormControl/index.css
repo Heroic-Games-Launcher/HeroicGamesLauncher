@@ -32,7 +32,7 @@
 .FormControl__select,
 .FormControl__input {
   font-size: var(--body-md);
-  line-height: var(--line-height-none);
+  line-height: 1.4;
 }
 
 .FormControl__input::placeholder {
@@ -49,7 +49,7 @@
 }
 
 .FormControl--clearable > input {
-  padding-inline-end: 40px;
+  padding-inline-end: var(--space-3xl-fixed);
 }
 
 .FormControl--hasSideButton > input {
@@ -62,7 +62,7 @@
 
 .FormControl--select > select {
   cursor: pointer;
-  padding-inline-end: 40px;
+  padding-inline-end: var(--space-3xl-fixed);
 }
 
 .FormControl--segmented > button {
@@ -71,7 +71,7 @@
   cursor: pointer;
   font-size: var(--body-sm);
   text-transform: uppercase;
-  font-weight: var(--weight-semibold);
+  font-weight: var(--semibold);
   color: var(--action-icon);
 }
 
@@ -121,7 +121,7 @@
   outline: none;
   background: none;
   color: var(--text-default);
-  border-radius: var(--radius-sm);
+  border-radius: 10px;
 }
 
 .FormControl__leftButton {

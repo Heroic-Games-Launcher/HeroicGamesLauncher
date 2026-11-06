@@ -15,7 +15,7 @@
     from var(--alphabet-filter-accent-color) r g b / 0.25
   );
 
-  --alphabet-filter-border-radius: var(--radius-sm);
+  --alphabet-filter-border-radius: 8px;
   --alphabet-filter-transition-speed: 0.2s ease-in-out;
 }
 
@@ -32,8 +32,8 @@
   border: 1px solid transparent;
   color: var(--text-default, var(--alphabet-filter-accent-color));
   font-family: var(--primary-font-family);
-  font-size: var(--body-sm);
-  font-weight: var(--weight-semibold);
+  font-size: var(--text-xs);
+  font-weight: var(--semibold);
   letter-spacing: 0.02em;
   cursor: pointer;
 
@@ -63,8 +63,8 @@
 .alphabet-filter-button--active {
   background-color: var(--alphabet-filter-accent-color);
   border-color: var(--alphabet-filter-accent-color);
-  color: var(--text-on-accent, var(--background-darker));
-  font-weight: var(--weight-bold);
+  color: var(--background-darker, #06121a);
+  font-weight: var(--bold);
   box-shadow: 0 4px 12px -2px var(--alphabet-filter-shadow-color);
 }
 
@@ -76,8 +76,7 @@
 .alphabet-filter-button--disabled {
   background-color: transparent;
   border-color: transparent;
-  color: var(--text-secondary);
-  opacity: 0.55;
-  font-weight: var(--weight-medium);
+  color: var(--text-faint, var(--text-secondary));
+  font-weight: var(--medium);
   cursor: auto;
 }

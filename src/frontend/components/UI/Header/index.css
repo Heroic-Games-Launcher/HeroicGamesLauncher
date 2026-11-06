@@ -23,7 +23,6 @@
 .Header__search {
   flex: 1 1 auto;
   min-width: 0;
-  max-width: 720px;
 }
 
 .Header__search .FormControl {
@@ -34,7 +33,7 @@
   grid-area: summary;
   text-align: end;
   white-space: nowrap;
-  margin-inline-start: 8px;
+  margin-inline-start: var(--space-xs-fixed);
 }
 
 /* TODO move following styles to the components which use them */

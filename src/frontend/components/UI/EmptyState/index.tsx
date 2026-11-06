@@ -1,20 +1,20 @@
 import { ReactNode } from 'react'
-import classNames from 'classnames'
 import type { LucideIcon } from 'lucide-react'
+import classNames from 'classnames'
 import Icon from '../Icon'
 import './index.css'
 
 interface EmptyStateProps {
-  glyph?: LucideIcon
   title: ReactNode
+  glyph?: LucideIcon
   description?: ReactNode
   action?: ReactNode
   className?: string
 }
 
 export default function EmptyState({
-  glyph,
   title,
+  glyph,
   description,
   action,
   className
@@ -26,7 +26,7 @@ export default function EmptyState({
           <Icon glyph={glyph} size="xl" />
         </span>
       )}
-      <h2 className="EmptyState__title">{title}</h2>
+      <p className="EmptyState__title">{title}</p>
       {description && <p className="EmptyState__description">{description}</p>}
       {action && <div className="EmptyState__action">{action}</div>}
     </div>

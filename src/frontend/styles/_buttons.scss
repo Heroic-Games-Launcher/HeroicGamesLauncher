@@ -1,6 +1,6 @@
 @mixin buttonDefaultStyle {
   font-family: var(--secondary-font-family);
-  border-radius: var(--radius-xs);
+  border-radius: var(--space-3xs);
   color: #161616;
 }
 
@@ -10,15 +10,15 @@ button {
 
 .button {
   @include buttonDefaultStyle();
-  --line-height: var(--line-height-tight);
+  --line-height: 17px;
   cursor: pointer;
   padding: var(--space-sm);
   background: var(--primary);
   color: var(--text-tertiary);
   text-transform: uppercase;
   font-style: normal;
-  font-weight: var(--weight-medium);
-  font-size: var(--body-md);
+  font-weight: var(--medium);
+  font-size: var(--text-md);
   line-height: var(--line-height);
   border: none;
   max-height: 40px;
@@ -155,7 +155,7 @@ button {
   text-transform: none;
   min-width: fit-content;
   font-family: var(--content-font-family);
-  font-size: var(--body-sm);
+  font-size: var(--text-xs);
   padding: var(--space-xs);
   margin-inline-start: var(--space-sm);
   margin-bottom: var(--space-sm);
@@ -168,9 +168,9 @@ button {
 .button.is-link {
   font-family: var(--secondary-font-family);
   font-style: normal;
-  font-weight: var(--weight-regular);
-  font-size: var(--body-md);
-  line-height: var(--line-height-tight);
+  font-weight: normal;
+  font-size: var(--text-md);
+  line-height: 17px;
   color: var(--text-default);
   margin: var(--space-3xs) 0em;
   cursor: pointer;

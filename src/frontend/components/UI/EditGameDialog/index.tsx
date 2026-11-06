@@ -9,7 +9,8 @@ import {
   WarningMessage
 } from 'frontend/components/UI'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
-import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
+import { ModalFooter } from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -17,7 +18,6 @@ import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import classNames from 'classnames'
 import ContentPaste from '@mui/icons-material/ContentPaste'
 import Clear from '@mui/icons-material/Clear'
-import { Button } from 'frontend/components/UI'
 
 type Props = {
   gameInfo: GameInfo
@@ -86,140 +86,136 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
 
   return (
     <div className="EditGameDialog">
-      <DialogContent>
-        <div className="editGameGrid">
-          <div className="editGameForm">
-            <TextInputField
-              label={t('sideload.info.title', 'Game/App Title')}
+      <div className="editGameGrid">
+        <div className="editGameForm">
+          <TextInputField
+            label={t('sideload.info.title', 'Game/App Title')}
+            placeholder={t(
+              'sideload.placeholder.title',
+              'Add a title to your Game/App'
+            )}
+            onChange={setTitle}
+            htmlId="edit-game-title"
+            value={title}
+            maxLength={40}
+          />
+          <details className="advancedFields">
+            <summary>{t('edit-game.advanced', 'Advanced')}</summary>
+            <TextInputWithIconField
+              label={t('edit-game.info.cover', 'Cover Image')}
               placeholder={t(
-                'sideload.placeholder.title',
-                'Add a title to your Game/App'
+                'edit-game.placeholder.image',
+                'Paste an image URL'
               )}
-              onChange={setTitle}
-              htmlId="edit-game-title"
-              value={title}
-              maxLength={40}
+              onChange={setArtCover}
+              htmlId="edit-game-cover"
+              value={artCover}
+              icon={artCover ? <Clear /> : <ContentPaste />}
+              onIconClick={() =>
+                artCover ? setArtCover('') : handlePasteFromClipboard('cover')
+              }
             />
-            <details className="advancedFields">
-              <summary>{t('edit-game.advanced', 'Advanced')}</summary>
-              <TextInputWithIconField
-                label={t('edit-game.info.cover', 'Cover Image')}
-                placeholder={t(
-                  'edit-game.placeholder.image',
-                  'Paste an image URL'
-                )}
-                onChange={setArtCover}
-                htmlId="edit-game-cover"
-                value={artCover}
-                icon={artCover ? <Clear /> : <ContentPaste />}
-                onIconClick={() =>
-                  artCover ? setArtCover('') : handlePasteFromClipboard('cover')
-                }
-              />
-              <TextInputWithIconField
-                label={t('edit-game.info.square', 'Square Image')}
-                placeholder={t(
-                  'edit-game.placeholder.image',
-                  'Paste an image URL'
-                )}
-                onChange={setArtSquare}
-                htmlId="edit-game-square"
-                value={artSquare}
-                icon={artSquare ? <Clear /> : <ContentPaste />}
-                onIconClick={() =>
-                  artSquare
-                    ? setArtSquare('')
-                    : handlePasteFromClipboard('square')
-                }
-              />
-            </details>
-            {!hasSgdbKey && (
-              <WarningMessage>
-                {t(
-                  'edit-game.sgdb.no-key-prefix',
-                  'To search SteamGridDB for cover art, add an API key in'
-                )}{' '}
-                <a
-                  role="button"
-                  tabIndex={0}
-                  onClick={goToAdvancedSettings}
-                  className="sgdbWarningLink"
-                >
-                  {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
-                </a>
-                .
-              </WarningMessage>
-            )}
-            {sgdbTarget && (
-              <SteamGridDBPicker
-                initialTitle={title}
-                mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
-                onClose={() => setSgdbTarget(null)}
-                onSelect={(url: string) => {
-                  if (sgdbTarget === 'cover') setArtCover(url)
-                  else setArtSquare(url)
-                  setSgdbTarget(null)
-                }}
-              />
-            )}
-          </div>
-          <div className="imageIcons">
-            <div className="previewItem">
-              <span className="previewLabel">
-                {t('edit-game.cover', 'Cover Art')}
-              </span>
-              <div
-                className={classNames('appImageContainer', { hasSgdbKey })}
-                onClick={() => openSgdbPicker('cover')}
+            <TextInputWithIconField
+              label={t('edit-game.info.square', 'Square Image')}
+              placeholder={t(
+                'edit-game.placeholder.image',
+                'Paste an image URL'
+              )}
+              onChange={setArtSquare}
+              htmlId="edit-game-square"
+              value={artSquare}
+              icon={artSquare ? <Clear /> : <ContentPaste />}
+              onIconClick={() =>
+                artSquare
+                  ? setArtSquare('')
+                  : handlePasteFromClipboard('square')
+              }
+            />
+          </details>
+          {!hasSgdbKey && (
+            <WarningMessage>
+              {t(
+                'edit-game.sgdb.no-key-prefix',
+                'To search SteamGridDB for cover art, add an API key in'
+              )}{' '}
+              <a
+                role="button"
+                tabIndex={0}
+                onClick={goToAdvancedSettings}
+                className="sgdbWarningLink"
               >
-                <CachedImage
-                  className={classNames('appImage')}
-                  src={artCover || gameInfo.art_cover || fallbackImage}
-                />
-                {hasSgdbKey && (
-                  <div className="imageHoverOverlay">
-                    <FontAwesomeIcon icon={faSearch} size="3x" />
-                  </div>
-                )}
-              </div>
+                {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
+              </a>
+              .
+            </WarningMessage>
+          )}
+          {sgdbTarget && (
+            <SteamGridDBPicker
+              initialTitle={title}
+              mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
+              onClose={() => setSgdbTarget(null)}
+              onSelect={(url: string) => {
+                if (sgdbTarget === 'cover') setArtCover(url)
+                else setArtSquare(url)
+                setSgdbTarget(null)
+              }}
+            />
+          )}
+        </div>
+        <div className="imageIcons">
+          <div className="previewItem">
+            <span className="previewLabel">
+              {t('edit-game.cover', 'Cover Art')}
+            </span>
+            <div
+              className={classNames('appImageContainer', { hasSgdbKey })}
+              onClick={() => openSgdbPicker('cover')}
+            >
+              <CachedImage
+                className={classNames('appImage')}
+                src={artCover || gameInfo.art_cover || fallbackImage}
+              />
+              {hasSgdbKey && (
+                <div className="imageHoverOverlay">
+                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                </div>
+              )}
             </div>
-            <div className="previewItem">
-              <span className="previewLabel">
-                {t('edit-game.square', 'Square Art')}
-              </span>
-              <div
-                className={classNames('appImageContainer', { hasSgdbKey })}
-                onClick={() => openSgdbPicker('square')}
-              >
-                <CachedImage
-                  className={classNames('appImage square')}
-                  src={
-                    artSquare ||
-                    gameInfo.art_square ||
-                    gameInfo.art_cover ||
-                    fallbackImage
-                  }
-                />
-                {hasSgdbKey && (
-                  <div className="imageHoverOverlay">
-                    <FontAwesomeIcon icon={faSearch} size="3x" />
-                  </div>
-                )}
-              </div>
+          </div>
+          <div className="previewItem">
+            <span className="previewLabel">
+              {t('edit-game.square', 'Square Art')}
+            </span>
+            <div
+              className={classNames('appImageContainer', { hasSgdbKey })}
+              onClick={() => openSgdbPicker('square')}
+            >
+              <CachedImage
+                className={classNames('appImage square')}
+                src={
+                  artSquare ||
+                  gameInfo.art_square ||
+                  gameInfo.art_cover ||
+                  fallbackImage
+                }
+              />
+              {hasSgdbKey && (
+                <div className="imageHoverOverlay">
+                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </DialogContent>
-      <DialogFooter>
+      </div>
+      <ModalFooter>
+        <Button onClick={handleSave}>{t('button.finish', 'Finish')}</Button>
         {hasOverride && (
-          <Button variant="ghost" type="button" onClick={handleReset}>
+          <Button variant="secondary" onClick={handleReset}>
             {t('edit-game.reset', 'Reset to default')}
           </Button>
         )}
-        <Button variant="primary" onClick={handleSave}>
-          {t('button.finish', 'Finish')}
-        </Button>
-      </DialogFooter>
+      </ModalFooter>
     </div>
   )
 }

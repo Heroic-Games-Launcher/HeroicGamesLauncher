@@ -36,6 +36,10 @@ const OfflineMode = () => {
   return (
     <>
       <ToggleSwitch
+        description={t(
+          'setting.offlinemode.description',
+          'Launch this game without connecting to the store'
+        )}
         htmlId="offlinemode"
         value={offlineMode}
         handleChange={() => setOfflineMode(!offlineMode)}

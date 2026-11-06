@@ -2,9 +2,9 @@ import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CircularProgress } from '@mui/material'
 
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from '../Dialog'
+import { Modal, ModalContent, ModalFooter, ModalHeader } from '../Modal'
+import Button from '../Button'
 import useGlobalState from 'frontend/state/GlobalStateV2'
-import { Button } from 'frontend/components/UI'
 
 export default function LogUploadDialog() {
   const { t } = useTranslation()
@@ -56,10 +56,8 @@ export default function LogUploadDialog() {
           { name: uploadLogFileProps.name }
         ),
         <>
-          <Button onClick={doUpload} variant="primary">
-            {t('box.yes')}
-          </Button>
-          <Button onClick={onClose} variant="danger">
+          <Button onClick={doUpload}>{t('box.yes')}</Button>
+          <Button variant="secondary" onClick={onClose}>
             {t('box.no')}
           </Button>
         </>
@@ -90,9 +88,9 @@ export default function LogUploadDialog() {
           )}
         </>,
         <>
-          <Button onClick={onClose} variant="ghost">
+          <button onClick={onClose} className={'button is-secondary'}>
             {t('box.ok')}
-          </Button>
+          </button>
         </>
       ]
     return [
@@ -105,9 +103,7 @@ export default function LogUploadDialog() {
         }
       ),
       <>
-        <Button onClick={onClose} variant="ghost">
-          {t('box.ok')}
-        </Button>
+        <Button onClick={onClose}>{t('box.ok')}</Button>
       </>
     ]
   }, [uploadLogFileProps, confirmed, uploading, error, uploadUrl])
@@ -115,14 +111,15 @@ export default function LogUploadDialog() {
   if (!uploadLogFileProps) return <></>
 
   return (
-    <Dialog
+    <Modal
       onClose={onClose}
-      showCloseButton={false}
+      size="sm"
+      tone={error ? 'error' : 'default'}
       className="log-upload-result"
     >
-      <DialogHeader>{dialogTitle}</DialogHeader>
-      <DialogContent>{dialogContent}</DialogContent>
-      <DialogFooter>{dialogFooter}</DialogFooter>
-    </Dialog>
+      <ModalHeader>{dialogTitle}</ModalHeader>
+      <ModalContent>{dialogContent}</ModalContent>
+      <ModalFooter>{dialogFooter}</ModalFooter>
+    </Modal>
   )
 }

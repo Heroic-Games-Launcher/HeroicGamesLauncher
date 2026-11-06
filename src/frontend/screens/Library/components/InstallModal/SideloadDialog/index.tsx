@@ -4,9 +4,7 @@ import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
-  Button,
   CachedImage,
-  Icon,
   TextInputField,
   PathSelectionBox,
   ToggleSwitch,
@@ -14,7 +12,8 @@ import {
   SteamGridDBPicker,
   WarningMessage
 } from 'frontend/components/UI'
-import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
+import { ModalContent, ModalFooter } from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import {
   getGameInfo,
   getGameSettings,
@@ -30,7 +29,7 @@ import classNames from 'classnames'
 import axios from 'axios'
 import { NavLink, useNavigate } from 'react-router-dom'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
-import { Folder, LoaderCircle } from 'lucide-react'
+import Folder from '@mui/icons-material/Folder'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -322,7 +321,7 @@ export default function SideloadDialog({
 
   return (
     <>
-      <DialogContent>
+      <ModalContent>
         <div className="sideloadGrid">
           <div className="imageIcons">
             <div
@@ -434,7 +433,7 @@ export default function SideloadDialog({
                     onChange={(newValue: string) => setImageUrl(newValue)}
                     htmlId="sideload-image"
                     value={imageUrl}
-                    icon={<Icon glyph={Folder} size="md" />}
+                    icon={<Folder />}
                     onIconClick={() => handleSelectLocalImage('square')}
                   />
                   <TextInputWithIconField
@@ -449,7 +448,7 @@ export default function SideloadDialog({
                     onChange={(newValue: string) => setHeroUrl(newValue)}
                     htmlId="sideload-cover"
                     value={heroUrl}
-                    icon={<Icon glyph={Folder} size="md" />}
+                    icon={<Folder />}
                     onIconClick={() => handleSelectLocalImage('cover')}
                   />
                 </details>
@@ -526,12 +525,19 @@ export default function SideloadDialog({
             )}
           </div>
         </div>
-      </DialogContent>
-      <DialogFooter>
+      </ModalContent>
+      <ModalFooter>
+        <Button
+          onClick={async () => handleInstall()}
+          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
+          icon={addingApp ? <FontAwesomeIcon icon={faSpinner} spin /> : null}
+        >
+          {t('button.finish', 'Finish')}
+        </Button>
         {shouldShowRunExe && (
           <Button
-            variant="ghost"
-            onClick={() => handleRunExe()}
+            variant="secondary"
+            onClick={async () => handleRunExe()}
             disabled={runningSetup || !title.length}
           >
             {runningSetup
@@ -539,19 +545,7 @@ export default function SideloadDialog({
               : t('button.run-exe-first', 'Run Installer First')}
           </Button>
         )}
-        <Button
-          variant="primary"
-          onClick={() => handleInstall()}
-          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
-          icon={
-            addingApp ? (
-              <Icon glyph={LoaderCircle} size="md" className="lucide-spin" />
-            ) : null
-          }
-        >
-          {addingApp ? '' : t('button.finish', 'Finish')}
-        </Button>
-      </DialogFooter>
+      </ModalFooter>
     </>
   )
 }

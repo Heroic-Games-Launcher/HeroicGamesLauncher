@@ -20,6 +20,10 @@ const DisableUMU = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.disableUMU.description',
+        'Launch Proton directly instead of going through the umu launcher'
+      )}
       htmlId="disableUMU"
       value={disableUMU}
       handleChange={() => setDisableUMU(!disableUMU)}

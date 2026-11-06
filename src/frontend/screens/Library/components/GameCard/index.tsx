@@ -32,10 +32,10 @@ import { install, launch, updateGame } from 'frontend/helpers/library'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
+  Badge,
   CachedImage,
   GameActionButton,
   Icon,
-  Playtime,
   StoreBadge,
   SvgButton
 } from 'frontend/components/UI'
@@ -48,7 +48,6 @@ import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
-import { timestampStore } from 'frontend/helpers/electronStores'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import EditGameDialog from 'frontend/components/UI/EditGameDialog'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
@@ -178,15 +177,6 @@ const GameCard = ({
   const handleRemoveFromQueue = () => {
     window.api.removeFromDMQueue(appName)
   }
-
-  const [playedMinutes, setPlayedMinutes] = useState<number | undefined>()
-  const [lastPlayed, setLastPlayed] = useState<string | undefined>()
-
-  useEffect(() => {
-    const timestamps = timestampStore.get_nodefault(appName)
-    setPlayedMinutes(timestamps?.totalPlayed)
-    setLastPlayed(timestamps?.lastPlayed)
-  }, [appName, status])
 
   const renderIcon = () => {
     if (!isInstallable) {
@@ -467,11 +457,15 @@ const GameCard = ({
           data-app-name={appName}
           data-tour={dataTour}
         >
-          {haveStatus && <span className="gameCardStatus">{label}</span>}
+          {haveStatus && (
+            <Badge variant="success" onOverlay className="gameCardStatus">
+              {label}
+            </Badge>
+          )}
           {showUpdateBadge && (
-            <span className="gameCardUpdateBadge">
+            <Badge variant="info" onOverlay className="gameCardUpdateBadge">
               {t('status.hasUpdates')}
-            </span>
+            </Badge>
           )}
           <Link
             to={`/gamepage/${runner}/${appName}`}
@@ -529,7 +523,6 @@ const GameCard = ({
             >
               {getStoreName(runner, t2('Other'))}
             </span>
-            <Playtime minutes={playedMinutes} lastPlayed={lastPlayed} />
           </div>
           <>
             <span className="icons">
@@ -538,6 +531,7 @@ const GameCard = ({
                   action="update"
                   label={t('button.update')}
                   title={`${t('button.update')} (${title})`}
+                  iconOnly={!grid}
                   onClick={() => handleUpdate()}
                 />
               )}

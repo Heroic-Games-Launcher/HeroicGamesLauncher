@@ -1,15 +1,15 @@
 .Chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-xs-fixed);
   background: var(--input-background);
-  color: var(--text-secondary);
+  color: var(--on-panel, var(--text-default));
   border: 1px solid transparent;
-  border-radius: var(--radius-pill);
-  padding: 8px 14px;
+  border-radius: 999px;
+  padding: var(--space-xs-fixed) var(--space-md-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-md);
-  font-weight: var(--weight-medium);
+  font-weight: var(--medium);
   cursor: pointer;
   white-space: nowrap;
   transition:
@@ -20,7 +20,7 @@
 
 .Chip:hover {
   border-color: var(--divider);
-  color: var(--text-default);
+  color: var(--on-panel, var(--text-default));
 }
 
 .Chip:focus-visible {
@@ -31,7 +31,7 @@
 .Chip--active {
   background: color-mix(in oklab, var(--accent) 18%, var(--input-background));
   border-color: color-mix(in oklab, var(--accent) 55%, transparent);
-  color: var(--text-default);
+  color: var(--on-panel, var(--text-default));
 }
 
 .Chip svg {

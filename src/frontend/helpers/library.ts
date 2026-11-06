@@ -380,7 +380,6 @@ async function checkLaunchOptionsAndLaunch({
           { seconds: secondsRemaining }
         ),
         buttons: optionButtons,
-        className: 'launchOptionsDialog',
         onClose: () => {
           if (timeoutId) {
             clearTimeout(timeoutId)
@@ -413,6 +412,7 @@ async function checkLaunchOptionsAndLaunch({
 
       return {
         text: label,
+        variant: 'secondary' as const,
         onClick: () => {
           hasSelected = true
           if (timeoutId) {
@@ -463,6 +463,17 @@ async function checkLaunchOptionsAndLaunch({
 
 const updateGame = (args: UpdateParams) => {
   return window.api.updateGame(args)
+}
+
+export const countGames = (list: GameInfo[] | undefined) => {
+  if (!list) {
+    return 0
+  }
+  const dlcCount = list.filter(
+    (lib) => lib.runner !== 'sideload' && lib.install.is_dlc
+  ).length
+  const total = list.length - dlcCount
+  return total > 0 ? total : 0
 }
 
 export const normalizeTitle = (title: string) => {

@@ -26,6 +26,7 @@ interface Props {
   // when the user clicks the icon
   noDeleteButton?: boolean
   label?: string
+  info?: ReactNode
   afterInput?: ReactNode
   disabled?: boolean
 }
@@ -42,6 +43,7 @@ const PathSelectionBox = ({
   noDeleteButton = false,
   htmlId,
   label,
+  info,
   afterInput,
   disabled = false
 }: Props) => {
@@ -94,6 +96,7 @@ const PathSelectionBox = ({
       disabled={!canEditPath || disabled}
       htmlId={htmlId}
       label={label}
+      info={info}
       afterInput={afterInput}
     />
   )

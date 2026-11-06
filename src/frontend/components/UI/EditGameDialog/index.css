@@ -1,6 +1,5 @@
 .EditGameDialog {
-  width: 700px;
-  max-width: 100%;
+  width: 100%;
 
   .editGameGrid {
     display: flex;
@@ -20,7 +19,7 @@
         gap: var(--space-xs);
 
         .previewLabel {
-          font-size: var(--font-size-sm);
+          font-size: var(--body-sm);
           color: var(--neutral-06);
           font-weight: var(--weight-bold);
         }
@@ -95,7 +94,7 @@
     .advancedFields {
       summary {
         cursor: pointer;
-        font-size: var(--font-size-sm);
+        font-size: var(--body-sm);
         color: var(--neutral-06);
         font-weight: var(--weight-bold);
         padding: var(--space-xs) 0;

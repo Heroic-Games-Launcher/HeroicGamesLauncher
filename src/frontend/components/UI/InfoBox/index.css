@@ -3,16 +3,16 @@
   width: 100%;
   padding: var(--space-sm) var(--space-lg);
   font-size: var(--body-md);
-  line-height: var(--line-height-normal);
+  line-height: 1.5;
   background-color: var(--input-background);
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   text-align: start;
 }
 
 .helpLink {
   margin-block-start: var(--space-3xs);
   transition: 500ms;
-  color: var(--accent);
+  color: var(--on-panel-link, var(--accent));
   cursor: pointer;
   display: flex;
   height: 40px;
