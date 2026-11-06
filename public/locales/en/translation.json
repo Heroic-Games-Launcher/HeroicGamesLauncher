@@ -203,8 +203,7 @@
         "backToLibrary": "Back to Library",
         "cancel": "Cancel",
         "continue": "Continue",
-        "go_to_library": "Go to Library",
-        "login": "Log in"
+        "go_to_library": "Go to Library"
     },
     "categories-manager": {
         "add": "Add",
@@ -1208,7 +1207,8 @@
     },
     "Settings": "Settings",
     "sidebar": {
-        "console": "Console Mode"
+        "console": "Console Mode",
+        "storesLogin": "Stores Login"
     },
     "status": {
         "installed": "Installed",

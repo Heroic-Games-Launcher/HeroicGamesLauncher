@@ -53,6 +53,10 @@
   text-align: start;
 }
 
+.DownloadList__headStore {
+  text-align: center;
+}
+
 .DownloadList__headActions {
   text-align: end;
 }
