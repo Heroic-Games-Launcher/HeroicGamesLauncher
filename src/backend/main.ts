@@ -57,7 +57,8 @@ import {
   writeConfig,
   createNecessaryFolders,
   clearAchievementCache,
-  getGame
+  getGame,
+  getMoveInstallError
 } from './utils'
 import { startPlausible } from './utils/plausible'
 
@@ -968,14 +969,12 @@ addHandler(
       })
     }
 
-    if (path.startsWith(install.install_path!)) {
-      // we don't want to move a game in a subfolder of the current install directory
-      // it will cause all game files to be deleted since moving moves all files to the
-      // new directory and deletes the old one
+    const moveError = getMoveInstallError(install.install_path!, path)
+    if (moveError) {
+      // moving deletes the original files, so an overlapping destination
+      // would delete the game
       validNewPath = false
-
-      const error = `New install path (${path}) cannot be inside the current install path (${install.install_path}).`
-      onMoveError(error)
+      onMoveError(moveError)
     }
 
     if (validNewPath) {
