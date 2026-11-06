@@ -23,6 +23,8 @@ import {
   ClearCache,
   CustomCSS,
   DisableLogs,
+  DisableDiscounts,
+  DisableGOGAffiliate,
   DownloadNoHTTPS,
   ExperimentalFeatures,
   HideWindowOnProtocolLaunch,
@@ -190,6 +192,10 @@ export default function AdvancedSetting() {
       <DisableLogs />
 
       <DisableGOGPresence />
+
+      <DisableDiscounts />
+
+      <DisableGOGAffiliate />
 
       <AllowInstallationBrokenAnticheat />
 

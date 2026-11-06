@@ -8,7 +8,11 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
-import { ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
+import {
+  DismissibleBanner,
+  ToggleSwitch,
+  UpdateComponent
+} from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -44,7 +48,8 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, connectivity } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, connectivity, disableGOGAffiliate } =
+    useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -78,7 +83,9 @@ export default function WebView() {
   const epicLoginUrl = 'https://www.epicgames.com/id/login?responseType=code'
 
   const epicStore = `https://www.epicgames.com/store/${lang}/`
-  const gogStore = `https://af.gog.com?as=1838482841`
+  const gogStore = disableGOGAffiliate
+    ? 'https://www.gog.com'
+    : `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
   const zoomStore = `https://www.zoom-platform.com`
   const wikiURL =
@@ -441,6 +448,14 @@ export default function WebView() {
 
   return (
     <div className="WebView">
+      {pathname === '/store/gog' && !disableGOGAffiliate && (
+        <DismissibleBanner storageKey="gog-affiliate-banner-dismissed">
+          {t(
+            'affiliate.gogBanner',
+            'The GOG store uses an affiliate link. Buying games through it helps fund Heroic development.'
+          )}
+        </DismissibleBanner>
+      )}
       {webview && (
         <WebviewControls
           key={`controls-${store}`}

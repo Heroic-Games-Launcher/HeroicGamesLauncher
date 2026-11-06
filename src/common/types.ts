@@ -113,6 +113,8 @@ export interface AppSettings extends GameSettings {
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
   disableLogs: boolean
+  disableDiscounts: boolean
+  disableGOGAffiliate: boolean
   disableAnimations: boolean
   discordRPC: boolean
   disableGOGPresence: boolean

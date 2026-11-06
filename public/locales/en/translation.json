@@ -18,6 +18,9 @@
         "dont-show-again": "Don't show this warning again",
         "title": "Adtraction is blocked"
     },
+    "affiliate": {
+        "gogBanner": "The GOG store uses an affiliate link. Buying games through it helps fund Heroic development."
+    },
     "amazon-luna": "Amazon Luna",
     "analyticsModal": {
         "disable": "Disable",
@@ -201,6 +204,7 @@
     },
     "button": {
         "cancel": "Cancel",
+        "close": "Close",
         "continue": "Continue",
         "go_to_library": "Go to Library",
         "login": "Log in"
@@ -310,6 +314,7 @@
         }
     },
     "discounts": {
+        "affiliateBanner": "The links on this page are affiliate links. Buying games through them helps fund Heroic development.",
         "aria": {
             "pagination": "Pagination",
             "rating": "Rating {{rating}} out of 10"
@@ -833,6 +838,8 @@
         "disable_controller": "Disable Heroic navigation using controller",
         "disable_gog_presence": "Disable GOG Presence updates",
         "disable_logs": "Disable Logs",
+        "disableDiscounts": "Disable Deals page",
+        "disableGOGAffiliate": "Disable GOG affiliate link",
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
         "discordRPC": "Enable Discord Rich Presence",

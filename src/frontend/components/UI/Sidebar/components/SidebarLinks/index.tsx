@@ -41,6 +41,7 @@ export default function SidebarLinks() {
     gog,
     zoom,
     platform,
+    disableDiscounts,
     refreshLibrary,
     libraryStatus,
     handleExternalLinkDialog
@@ -168,12 +169,14 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
-      <SidebarItem
-        url="/discounts"
-        icon={<Icon glyph={Tag} />}
-        label={t('discounts.sidebar', 'Deals')}
-        dataTour="sidebar-discounts"
-      />
+      {!disableDiscounts && (
+        <SidebarItem
+          url="/discounts"
+          icon={<Icon glyph={Tag} />}
+          label={t('discounts.sidebar', 'Deals')}
+          dataTour="sidebar-discounts"
+        />
+      )}
 
       <SidebarItem
         url="/download-manager"

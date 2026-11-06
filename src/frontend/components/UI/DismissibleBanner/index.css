@@ -1,0 +1,18 @@
+.DismissibleBanner {
+  position: relative;
+  margin: 0 0 var(--space-md);
+}
+
+.DismissibleBanner .WarningMessage {
+  padding-inline-end: 36px;
+}
+
+.DismissibleBanner .Button {
+  position: absolute;
+  top: var(--space-xs);
+  inset-inline-end: var(--space-xs);
+  width: 24px;
+  height: 24px;
+  min-width: 0;
+  padding: 0;
+}

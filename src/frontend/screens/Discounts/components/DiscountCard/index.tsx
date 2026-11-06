@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CachedImage } from 'frontend/components/UI'
@@ -12,6 +13,7 @@ import {
   parseDiscountPercent
 } from '../../helpers'
 import './index.css'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 interface Props {
   product: CatalogProduct
@@ -20,6 +22,7 @@ interface Props {
 const DiscountCard = ({ product }: Props) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { disableGOGAffiliate } = useContext(ContextProvider)
   const cover =
     product.coverVertical || product.coverHorizontal || fallBackImage
   const discountPercent = parseDiscountPercent(product.price.discount)
@@ -32,7 +35,7 @@ const DiscountCard = ({ product }: Props) => {
   const drm = isExternalKey ? product.features?.[0]?.name : undefined
 
   const handleClick = () => {
-    const target = getAffiliateLink(product)
+    const target = getAffiliateLink(product, disableGOGAffiliate)
     if (isExternalKey) {
       window.api.openExternalUrl(target)
       return
