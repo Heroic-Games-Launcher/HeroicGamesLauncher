@@ -20,6 +20,10 @@ const ShowFPS = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.showfps.description',
+        'Draw a frame rate counter on top of the game'
+      )}
       htmlId="showFPS"
       value={showFps}
       handleChange={() => setShowFps(!showFps)}

@@ -1,0 +1,79 @@
+.ProgressBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  width: 100%;
+}
+
+.ProgressBar__track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--input-background);
+  overflow: hidden;
+}
+
+.ProgressBar--md .ProgressBar__track {
+  height: 10px;
+}
+
+.ProgressBar--md .ProgressBar__value {
+  font-size: var(--body-md);
+  font-weight: var(--medium);
+  color: var(--on-panel, var(--text-default));
+}
+
+.ProgressBar__fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 300ms ease;
+}
+
+.ProgressBar__value {
+  flex: 0 0 auto;
+  min-width: 4ch;
+  text-align: start;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.ProgressBar--accent .ProgressBar__fill {
+  background: var(--navbar-accent, var(--accent));
+}
+
+.ProgressBar--success .ProgressBar__fill {
+  background: var(--success);
+}
+
+.ProgressBar--warning .ProgressBar__fill {
+  background: var(--status-warning);
+}
+
+.ProgressBar--indeterminate .ProgressBar__fill {
+  position: absolute;
+  inset-block: 0;
+  width: 40%;
+  transition: none;
+  animation: progressBarSweep 1.3s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes progressBarSweep {
+  0% {
+    inset-inline-start: -40%;
+  }
+  100% {
+    inset-inline-start: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ProgressBar--indeterminate .ProgressBar__fill {
+    inset-inline-start: 0;
+    width: 100%;
+    animation: none;
+    opacity: 0.5;
+  }
+}

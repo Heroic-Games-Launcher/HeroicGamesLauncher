@@ -45,10 +45,14 @@ const AltLegendaryBin = () => {
         'Select Legendary Binary (needs restart)'
       )}
       afterInput={
-        <span className="smallMessage">
-          {t('other.legendary-version', 'Legendary Version: ')}
-          {legendaryVersion}
-        </span>
+        legendaryVersion ? (
+          <span className="fieldCaption">
+            <span className="fieldCaption__label">
+              {t('other.legendary-version', 'Legendary Version: ')}
+            </span>
+            <span className="fieldCaption__value">{legendaryVersion}</span>
+          </span>
+        ) : undefined
       }
     />
   )

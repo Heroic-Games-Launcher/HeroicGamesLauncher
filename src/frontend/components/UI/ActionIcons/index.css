@@ -2,3 +2,8 @@
   grid-area: action;
   justify-self: flex-end;
 }
+
+.FormControl__segmentedLucideIcon {
+  display: block;
+  flex-shrink: 0;
+}

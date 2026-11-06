@@ -1,0 +1,123 @@
+.WineManager {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg-fixed);
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--space-3xl-fixed) var(--space-5xl-fixed);
+  min-height: 0;
+}
+
+.WineManager .PageHeader__actions {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  gap: var(--space-sm-fixed);
+  min-width: 0;
+}
+
+.WineManager .PageHeader__actions .SearchBar {
+  max-width: 400px;
+  width: 100%;
+}
+
+.WineManager__panel {
+  margin-bottom: var(--space-2xl-fixed);
+}
+
+.WineManager__panel .Table {
+  --table-radius: 15px;
+}
+
+.WineManager__version {
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--medium);
+  text-align: start;
+  color: var(--on-panel, var(--text-default));
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.WineManager__version:hover,
+.WineManager__version:focus-visible {
+  color: var(--on-panel-link, var(--accent));
+  text-decoration: underline;
+}
+
+.WineManager__date {
+  color: var(--on-panel-muted, var(--text-secondary));
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@container main-content (max-width: 900px) {
+  .WineManager {
+    padding: var(--space-xl-fixed) var(--space-lg-fixed);
+  }
+
+  .WineManager .PageHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .WineManager .PageHeader__actions .SearchBar {
+    max-width: none;
+  }
+}
+
+.wineManagerSettingsContent {
+  min-width: 600px;
+
+  .wineSettingsModalWrapper {
+    margin-inline-end: auto;
+    max-width: 513px;
+    display: flex;
+    flex-direction: column;
+    place-self: center;
+    place-items: flex-start;
+    width: 100%;
+    padding-bottom: var(--space-xs);
+
+    .Field {
+      padding: var(--space-md) 0px;
+      width: 100%;
+
+      label {
+        cursor: default;
+        margin-bottom: var(--space-md);
+        font: var(--font-secondary-regular);
+        font-size: var(--text-md);
+        line-height: var(--space-lg);
+        color: var(--text-secondary);
+        display: block;
+      }
+    }
+
+    .toggleRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wineManagerSettingsContent {
+    min-width: auto;
+    width: 100%;
+    padding: 16px;
+  }
+}

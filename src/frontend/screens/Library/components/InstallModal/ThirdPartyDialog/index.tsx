@@ -7,10 +7,11 @@ import {
 } from 'common/types'
 import Anticheat from 'frontend/components/UI/Anticheat'
 import {
-  DialogFooter,
-  DialogHeader,
-  DialogContent
-} from 'frontend/components/UI/Dialog'
+  ModalFooter,
+  ModalHeader,
+  ModalContent
+} from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import { writeConfig } from 'frontend/helpers'
 import { install } from 'frontend/helpers/library'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
@@ -88,7 +89,7 @@ export default function ThirdPartyDialog({
 
   return (
     <>
-      <DialogHeader onClose={backdropClick}>
+      <ModalHeader>
         {gameInfo.overrides?.title || gameInfo.title}
         {availablePlatforms.map((p) => (
           <FontAwesomeIcon
@@ -97,8 +98,8 @@ export default function ThirdPartyDialog({
             key={p.value}
           />
         ))}
-      </DialogHeader>
-      <DialogContent>
+      </ModalHeader>
+      <ModalContent>
         <div className="thirdPartyNotice">
           <div className="noticeIcon">
             <AllowedIcon />
@@ -131,16 +132,12 @@ export default function ThirdPartyDialog({
         </div>
         <Anticheat anticheatInfo={anticheatInfo} />
         {children}
-      </DialogContent>
-      <DialogFooter>
-        <button
-          className={`button is-secondary`}
-          onClick={handleInstall}
-          disabled={runner !== 'legendary'}
-        >
+      </ModalContent>
+      <ModalFooter>
+        <Button onClick={handleInstall} disabled={runner !== 'legendary'}>
           {t('button.install')}
-        </button>
-      </DialogFooter>
+        </Button>
+      </ModalFooter>
     </>
   )
 }

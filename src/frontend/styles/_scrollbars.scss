@@ -1,0 +1,53 @@
+@mixin scrollbarSystem {
+  --scrollbar-size: 10px;
+  --scrollbar-radius: 999px;
+  --scrollbar-inset: 2px;
+  --scrollbar-thumb: color-mix(in oklab, var(--on-panel) 24%, transparent);
+  --scrollbar-thumb-hover: color-mix(
+    in oklab,
+    var(--on-panel) 40%,
+    transparent
+  );
+  --scrollbar-thumb-active: var(--navbar-accent, var(--accent));
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-size, 10px);
+  height: var(--scrollbar-size, 10px);
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, rgba(255, 255, 255, 0.24));
+  border: var(--scrollbar-inset, 2px) solid transparent;
+  border-radius: var(--scrollbar-radius, 999px);
+  background-clip: content-box;
+  transition: background-color 150ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover, rgba(255, 255, 255, 0.4));
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active, var(--accent));
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-resizer {
+  background: transparent;
+}
+
+.scrollbar--none {
+  scrollbar-width: none;
+}
+
+.scrollbar--none::-webkit-scrollbar {
+  display: none;
+}

@@ -5,7 +5,6 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../SettingsContext'
 import { defaultWineVersion } from '../util'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableDXVKFpsLimit = () => {
   const { t } = useTranslation()
@@ -31,21 +30,20 @@ const EnableDXVKFpsLimit = () => {
 
   return (
     <>
-      <div className="toggleRow">
-        <ToggleSwitch
-          htmlId="enableDXVKFpsLimit"
-          value={enableDXVKFpsLimit || false}
-          handleChange={() => setDXVKFpsLimit(!enableDXVKFpsLimit)}
-          title={t('setting.dxfpslimit', 'Limit DirectX Games FPS')}
-        />
-
-        <InfoIcon
-          text={t(
-            'help.dxfpslimit',
-            'Sets a frame rate cap for DirectX Games (9-12)'
-          )}
-        />
-      </div>
+      <ToggleSwitch
+        info={t(
+          'help.dxfpslimit',
+          'Sets a frame rate cap for DirectX Games (9-12)'
+        )}
+        description={t(
+          'setting.dxfpslimit.description',
+          'Cap the frame rate of DirectX games to reduce heat and power draw'
+        )}
+        htmlId="enableDXVKFpsLimit"
+        value={enableDXVKFpsLimit || false}
+        handleChange={() => setDXVKFpsLimit(!enableDXVKFpsLimit)}
+        title={t('setting.dxfpslimit', 'Limit DirectX Games FPS')}
+      />
 
       {enableDXVKFpsLimit && (
         <TextInputField
