@@ -137,7 +137,9 @@ export default React.memo(function Sidebar() {
 
   return (
     <aside ref={sidebarEl} className="Sidebar">
-      <HeroicIcon className="heroicIcon" />
+      <div className="Sidebar__brand">
+        <HeroicIcon className="heroicIcon" />
+      </div>
       <SidebarLinks />
       <div className="currentDownloads" data-tour="sidebar-downloads">
         {currentDMElement && (

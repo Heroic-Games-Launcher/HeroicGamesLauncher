@@ -6,6 +6,8 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
 import DownloadingIcon from '@mui/icons-material/Downloading'
 
+import { Button } from 'frontend/components/UI'
+
 import type { HeroicApplyResult } from 'common/types/importExport'
 
 import { stageLabels } from '../labels'
@@ -182,14 +184,9 @@ export default function StepDone({
                 'Some settings are cached in memory and only take effect after a restart.'
               )}
             </p>
-            <button
-              type="button"
-              className="button is-primary"
-              onClick={restart}
-              disabled={wineBusy}
-            >
+            <Button variant="primary" onClick={restart} disabled={wineBusy}>
               {t('import-export.step7.restart-btn', 'Restart now')}
-            </button>
+            </Button>
           </div>
         </div>
       )}

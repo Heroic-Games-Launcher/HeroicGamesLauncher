@@ -1,5 +1,8 @@
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber'
+
+import { Table } from 'frontend/components/UI'
 
 import type { HeroicBackupValidationReport } from 'common/types/importExport'
 import type { Runner } from 'common/types'
@@ -22,70 +25,99 @@ export default function StepSummary({ validation, currentPlatform }: Props) {
   const { manifest, platformMatches, formatSupported, warnings, errors } =
     validation
   const created = new Date(manifest.createdAt).toLocaleString()
+
+  const rows: { key: string; label: string; value: ReactNode }[] = [
+    {
+      key: 'created',
+      label: t('import-export.created', 'Created'),
+      value: created
+    },
+    {
+      key: 'version',
+      label: t('import-export.version', 'Heroic version'),
+      value: manifest.heroicVersion
+    },
+    {
+      key: 'platform',
+      label: t('import-export.platform', 'Platform'),
+      value: (
+        <>
+          {platformName(manifest.platform)}
+          {!platformMatches && (
+            <span className="ImportExportWizard__summaryWarning">
+              <WarningAmberIcon fontSize="inherit" />
+              {t(
+                'import-export.different-platform',
+                'different from current ({{current}})',
+                { current: platformName(currentPlatform) }
+              )}
+            </span>
+          )}
+        </>
+      )
+    },
+    {
+      key: 'perGame',
+      label: t('import-export.per-game', 'Per-game settings'),
+      value: manifest.counts.perGameSettings
+    },
+    {
+      key: 'installedGames',
+      label: t('import-export.installed-games', 'Installed games'),
+      value:
+        Object.entries(manifest.counts.installedGames)
+          .map(
+            ([runner, count]) => `${runnerLabel(runner as Runner, t)}: ${count}`
+          )
+          .join(', ') || '0'
+    },
+    {
+      key: 'wineVersions',
+      label: t('import-export.wine-versions', 'Wine versions'),
+      value: manifest.counts.wineVersions
+    }
+  ]
+
+  if (manifest.stages.includes('categories')) {
+    rows.push({
+      key: 'categories',
+      label: t('import-export.categories', 'Custom categories'),
+      value: manifest.counts.categories ?? 0
+    })
+  }
+
+  if (manifest.stages.includes('playtime')) {
+    rows.push({
+      key: 'playtime',
+      label: t('import-export.stage.playtime', 'Playtime and play history'),
+      value: manifest.counts.playtimeGames ?? 0
+    })
+  }
+
   return (
     <section>
       <h3 className="ImportExportWizard__heading">
         {t('import-export.step2.title', 'Backup summary')}
       </h3>
-      <dl className="ImportExportWizard__summary">
-        <div>
-          <dt>{t('import-export.created', 'Created')}</dt>
-          <dd>{created}</dd>
-        </div>
-        <div>
-          <dt>{t('import-export.version', 'Heroic version')}</dt>
-          <dd>{manifest.heroicVersion}</dd>
-        </div>
-        <div>
-          <dt>{t('import-export.platform', 'Platform')}</dt>
-          <dd>
-            {platformName(manifest.platform)}
-            {!platformMatches && (
-              <span className="ImportExportWizard__warningTag">
-                <WarningAmberIcon fontSize="inherit" />
-                {t(
-                  'import-export.different-platform',
-                  'different from current ({{current}})',
-                  { current: platformName(currentPlatform) }
-                )}
-              </span>
-            )}
-          </dd>
-        </div>
-        <div>
-          <dt>{t('import-export.per-game', 'Per-game settings')}</dt>
-          <dd>{manifest.counts.perGameSettings}</dd>
-        </div>
-        <div>
-          <dt>{t('import-export.installed-games', 'Installed games')}</dt>
-          <dd>
-            {Object.entries(manifest.counts.installedGames)
-              .map(
-                ([runner, count]) =>
-                  `${runnerLabel(runner as Runner, t)}: ${count}`
-              )
-              .join(', ') || '0'}
-          </dd>
-        </div>
-        <div>
-          <dt>{t('import-export.wine-versions', 'Wine versions')}</dt>
-          <dd>{manifest.counts.wineVersions}</dd>
-        </div>
-        {manifest.stages.includes('categories') && (
-          <div>
-            <dt>{t('import-export.categories', 'Custom categories')}</dt>
-            <dd>{manifest.counts.categories ?? 0}</dd>
-          </div>
-        )}
-        {manifest.stages.includes('playtime') && (
-          <div>
-            <dt>
-              {t('import-export.stage.playtime', 'Playtime and play history')}
-            </dt>
-            <dd>{manifest.counts.playtimeGames ?? 0}</dd>
-          </div>
-        )}
-      </dl>
+      <Table
+        columns={[
+          {
+            key: 'label',
+            header: t('import-export.summaryProperty', 'Property'),
+            render: (row) => row.label,
+            width: '40%'
+          },
+          {
+            key: 'value',
+            header: t('import-export.summaryValue', 'Value'),
+            render: (row) => row.value
+          }
+        ]}
+        rows={rows}
+        rowKey={(row) => row.key}
+        density="compact"
+        stickyHeader={false}
+      />
       {!platformMatches && (
         <div className="ImportExportWizard__warningCard">
           <WarningAmberIcon />

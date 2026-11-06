@@ -53,14 +53,15 @@ export default function StepCredentials({
             <ToggleSwitch
               htmlId={`ie-cred-${cred.runner}`}
               title={t('import-export.step5.include', 'Include')}
-              value={!!included[cred.runner]}
+              value={cred.present && !!included[cred.runner]}
               disabled={!cred.present}
-              handleChange={() =>
+              handleChange={() => {
+                if (!cred.present) return
                 setIncluded({
                   ...included,
                   [cred.runner]: !included[cred.runner]
                 })
-              }
+              }}
             />
           </li>
         ))}

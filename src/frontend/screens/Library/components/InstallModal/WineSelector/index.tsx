@@ -8,8 +8,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { WineInstallation } from 'common/types'
 import { Trans, useTranslation } from 'react-i18next'
 import { removeSpecialcharacters } from 'frontend/helpers'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWarning } from '@fortawesome/free-solid-svg-icons'
+import { TriangleAlert } from 'lucide-react'
+import { Icon } from 'frontend/components/UI'
 import { WineVersionListItem } from 'frontend/screens/Settings/components/WineVersionSelector'
 import { MenuItem } from '@mui/material'
 import { useAwaited } from 'frontend/hooks/useAwaited'
@@ -101,7 +101,7 @@ export default function WineSelector({
           />
           {useSharedPrefix && (
             <div className="infoBox">
-              <FontAwesomeIcon icon={faWarning} />
+              <Icon glyph={TriangleAlert} size="sm" />
               <Trans
                 i18n={i18n}
                 i18nKey="setting.warn-use-shared-wine-config"

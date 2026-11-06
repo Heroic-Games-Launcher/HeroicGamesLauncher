@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const GameMode = () => {
   const { t } = useTranslation()
@@ -45,21 +44,20 @@ const GameMode = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="gamemode"
-        value={useGameMode}
-        handleChange={handleGameMode}
-        title={t('setting.gamemode')}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.gamemode',
-          'Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.gamemode',
+        'Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.'
+      )}
+      description={t(
+        'setting.gamemode.description',
+        'Ask the system to prioritise the game while it runs'
+      )}
+      htmlId="gamemode"
+      value={useGameMode}
+      handleChange={handleGameMode}
+      title={t('setting.gamemode')}
+    />
   )
 }
 

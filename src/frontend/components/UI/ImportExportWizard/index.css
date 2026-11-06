@@ -1,9 +1,10 @@
 .ImportExportWizard {
   width: min(820px, 95vw);
+  text-align: start;
 }
 
-.ImportExportWizard .MuiDialog-paper {
-  background-color: var(--modal-background);
+.ImportExportWizard .Modal__title {
+  color: var(--text-secondary);
 }
 
 .ImportExportWizard__titleRow {
@@ -169,41 +170,13 @@
   }
 }
 
-.ImportExportWizard__summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-md);
-  margin: var(--space-md) 0;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3xs);
-  }
-
-  dt {
-    font-size: var(--text-xs);
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  dd {
-    margin: 0;
-    font-size: var(--text-md);
-    display: flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    word-break: break-word;
-  }
-}
-
-.ImportExportWizard__warningTag {
+.ImportExportWizard__summaryWarning {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3xs);
   color: var(--status-warning);
   font-size: var(--text-sm);
+  margin-inline-start: var(--space-2xs);
 }
 
 .ImportExportWizard__warningBox,
@@ -286,11 +259,29 @@
   gap: var(--space-2xs);
   align-items: center;
   margin: var(--space-sm) 0;
+}
 
-  .button.is-tertiary {
-    font-size: var(--text-sm);
-    padding: var(--space-3xs) var(--space-sm);
-  }
+.ImportExportWizard__listControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin: var(--space-sm) 0;
+  padding: var(--space-2xs) var(--space-sm);
+}
+
+.ImportExportWizard__selectAll {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  font-weight: var(--bold);
+}
+
+.ImportExportWizard__selectAll input {
+  width: 1em;
+  height: 1em;
+  accent-color: var(--accent);
 }
 
 .ImportExportWizard__filter {
@@ -433,11 +424,30 @@
   border-radius: 8px;
   padding: var(--space-sm) var(--space-md);
 
-  summary {
+  > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
     font-weight: var(--bold);
     cursor: pointer;
     padding: var(--space-2xs) 0;
+    list-style: none;
   }
+
+  > summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.ImportExportWizard__chevron {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  transition: transform 150ms ease;
+}
+
+.ImportExportWizard__details[open] > summary .ImportExportWizard__chevron {
+  transform: rotate(90deg);
 }
 
 .ImportExportWizard__issueCard {
@@ -502,22 +512,11 @@
   margin-top: var(--space-2xs);
 }
 
-.ImportExportWizard__pathActions .button.is-tertiary {
-  font-size: var(--text-sm);
-  padding: var(--space-3xs) var(--space-sm);
-}
-
-.ImportExportWizard__pathActions .button.is-tertiary.is-selected {
-  background: var(--accent);
-  color: var(--background);
-}
-
 .ImportExportWizard__footer {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-sm);
-  padding: var(--space-md);
-  border-top: 1px solid color-mix(in srgb, var(--text-default) 8%, transparent);
+  width: 100%;
 }
 
 .ImportExportWizard__done {

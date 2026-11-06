@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 
@@ -52,33 +51,21 @@ export default function StepGlobalSettings({
             value={includeGlobal}
             handleChange={() => setIncludeGlobal(!includeGlobal)}
           />
-          <div className="ImportExportWizard__warningCard">
-            <WarningAmberIcon />
-            <div>
-              <strong>
-                {t(
-                  'import-export.step3.overwriteTitle',
-                  'Overwrite my current global settings'
-                )}
-              </strong>
-              <p>
-                {t(
-                  'import-export.step3.overwriteBody',
-                  'Off by default. Turn this on to replace your current Heroic settings with the ones in the backup.'
-                )}
-              </p>
-              <ToggleSwitch
-                htmlId="ie-overwrite-global"
-                title={t(
-                  'import-export.step3.overwrite',
-                  'Overwrite current global settings'
-                )}
-                value={overwriteGlobal}
-                handleChange={() => setOverwriteGlobal(!overwriteGlobal)}
-                disabled={!includeGlobal}
-              />
-            </div>
-          </div>
+          {includeGlobal && (
+            <ToggleSwitch
+              htmlId="ie-overwrite-global"
+              title={t(
+                'import-export.step3.overwrite',
+                'Overwrite current global settings'
+              )}
+              description={t(
+                'import-export.step3.overwriteBody',
+                'Off by default. Turn this on to replace your current Heroic settings with the ones in the backup.'
+              )}
+              value={overwriteGlobal}
+              handleChange={() => setOverwriteGlobal(!overwriteGlobal)}
+            />
+          )}
         </>
       )}
       {hasCategories && (

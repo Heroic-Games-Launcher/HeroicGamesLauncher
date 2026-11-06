@@ -1,0 +1,39 @@
+.SectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md-fixed);
+  width: 100%;
+  text-align: start;
+}
+
+.SectionHeader__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+  min-width: 0;
+}
+
+.SectionHeader__title {
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--title-lg);
+  font-weight: var(--bold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  color: var(--on-panel);
+}
+
+.SectionHeader__subtitle {
+  font-size: var(--body-sm);
+  font-weight: var(--regular);
+  line-height: var(--leading-snug);
+  color: var(--on-panel-muted);
+}
+
+.SectionHeader__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  flex-shrink: 0;
+}

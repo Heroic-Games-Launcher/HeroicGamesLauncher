@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import type { TFunction } from 'i18next'
 
+import { Button } from 'frontend/components/UI'
+
 import type { Runner } from 'common/types'
 
 type PathAction = 'browse' | 'ignore' | 'skip' | 'download' | 'default-prefix'
@@ -80,59 +82,49 @@ export function PathActionRow({
       </div>
       <div className="ImportExportWizard__pathActions">
         {actions.includes('browse') && (
-          <button
-            type="button"
-            className={classNames('button is-tertiary', {
-              'is-selected': action === 'browse'
-            })}
+          <Button
+            variant={action === 'browse' ? 'primary' : 'secondary'}
+            size="sm"
             onClick={pickPath}
           >
             {t('import-export.action.browse', 'Browse')}
-          </button>
+          </Button>
         )}
         {actions.includes('ignore') && (
-          <button
-            type="button"
-            className={classNames('button is-tertiary', {
-              'is-selected': action === 'ignore'
-            })}
+          <Button
+            variant={action === 'ignore' ? 'primary' : 'secondary'}
+            size="sm"
             onClick={() => onAction('ignore')}
           >
             {t('import-export.action.ignore', 'Keep')}
-          </button>
+          </Button>
         )}
         {actions.includes('skip') && (
-          <button
-            type="button"
-            className={classNames('button is-tertiary', {
-              'is-selected': action === 'skip'
-            })}
+          <Button
+            variant={action === 'skip' ? 'primary' : 'secondary'}
+            size="sm"
             onClick={() => onAction('skip')}
           >
             {t('import-export.action.skip', 'Skip game')}
-          </button>
+          </Button>
         )}
         {actions.includes('download') && (
-          <button
-            type="button"
-            className={classNames('button is-tertiary', {
-              'is-selected': action === 'download'
-            })}
+          <Button
+            variant={action === 'download' ? 'primary' : 'secondary'}
+            size="sm"
             onClick={() => onAction('download')}
           >
             {t('import-export.action.download', 'Download missing')}
-          </button>
+          </Button>
         )}
         {actions.includes('default-prefix') && (
-          <button
-            type="button"
-            className={classNames('button is-tertiary', {
-              'is-selected': action === 'default-prefix'
-            })}
+          <Button
+            variant={action === 'default-prefix' ? 'primary' : 'secondary'}
+            size="sm"
             onClick={() => onAction('default-prefix')}
           >
             {t('import-export.action.defaultPrefix', 'Use default prefix')}
-          </button>
+          </Button>
         )}
       </div>
     </div>

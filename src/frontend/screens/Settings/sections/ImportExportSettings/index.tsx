@@ -6,7 +6,9 @@ import { useTranslation } from 'react-i18next'
 import RestoreIcon from '@mui/icons-material/Restore'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
 import DownloadIcon from '@mui/icons-material/Download'
+import { ChevronRight } from 'lucide-react'
 
+import { Button } from 'frontend/components/UI'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import ImportExportWizard from 'frontend/components/UI/ImportExportWizard'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -172,15 +174,18 @@ export default function ImportExportSettings() {
             <DownloadIcon />
             {t('import-export.export.title', 'Export Heroic')}
           </span>
-          <span className="ImportExportSettings__summaryMeta">
-            {t(
-              'import-export.export.summary',
-              '{{count}} of {{total}} included',
-              {
-                count: selectedStages.size,
-                total: ALL_STAGES.length
-              }
-            )}
+          <span className="ImportExportSettings__summaryEnd">
+            <span className="ImportExportSettings__summaryMeta">
+              {t(
+                'import-export.export.summary',
+                '{{count}} of {{total}} included',
+                {
+                  count: selectedStages.size,
+                  total: ALL_STAGES.length
+                }
+              )}
+            </span>
+            <ChevronRight className="ImportExportSettings__chevron" size={18} />
           </span>
         </summary>
 
@@ -221,13 +226,9 @@ export default function ImportExportSettings() {
                     'Pick a folder...'
                   )}
                 />
-                <button
-                  type="button"
-                  className="button is-tertiary"
-                  onClick={pickOutputDir}
-                >
+                <Button variant="secondary" size="sm" onClick={pickOutputDir}>
                   {t('import-export.browse', 'Browse')}
-                </button>
+                </Button>
               </div>
             </div>
             <div className="ImportExportSettings__filename">
@@ -235,16 +236,15 @@ export default function ImportExportSettings() {
               <code>{outputName}</code>
             </div>
           </div>
-          <button
-            type="button"
-            className="button is-primary"
+          <Button
+            variant="primary"
             disabled={exportInFlight || selectedStages.size === 0 || !outputDir}
             onClick={runExport}
           >
             {exportInFlight
               ? t('import-export.export.running', 'Exporting...')
               : t('import-export.export.run', 'Export')}
-          </button>
+          </Button>
         </div>
 
         {exportResult?.success && (
@@ -267,6 +267,7 @@ export default function ImportExportSettings() {
             <UploadFileIcon />
             {t('import-export.import.title', 'Import a Heroic backup')}
           </span>
+          <ChevronRight className="ImportExportSettings__chevron" size={18} />
         </summary>
         <p className="ImportExportSettings__hint">
           {t(
@@ -275,13 +276,9 @@ export default function ImportExportSettings() {
           )}
         </p>
         <div className="ImportExportSettings__importRow">
-          <button
-            type="button"
-            className="button is-primary"
-            onClick={() => setWizardOpen(true)}
-          >
+          <Button variant="primary" onClick={() => setWizardOpen(true)}>
             {t('import-export.import.open', 'Open import wizard')}
-          </button>
+          </Button>
 
           {rollbackSnapshot && (
             <div className="ImportExportSettings__rollback">
@@ -291,18 +288,16 @@ export default function ImportExportSettings() {
                   'A rollback snapshot was saved during the last import. Use this button to revert to that state.'
                 )}
               </p>
-              <button
-                type="button"
-                className="button is-tertiary"
+              <Button
+                variant="secondary"
+                icon={<RestoreIcon fontSize="small" />}
                 onClick={confirmRollback}
                 disabled={rollbackInFlight}
               >
-                <RestoreIcon fontSize="small" />
-                &nbsp;
                 {rollbackInFlight
                   ? t('import-export.rollback.running', 'Rolling back...')
                   : t('import-export.rollback.run', 'Rollback last import')}
-              </button>
+              </Button>
               <div className="ImportExportSettings__rollbackMeta">
                 {t('import-export.rollback.saved', 'Saved')}{' '}
                 {new Date(rollbackSnapshot.createdAt).toLocaleString()}

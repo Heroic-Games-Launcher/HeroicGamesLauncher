@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import { ChevronRight } from 'lucide-react'
 
+import { Button } from 'frontend/components/UI'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 
 import type { HeroicBackupValidationReport } from 'common/types/importExport'
@@ -94,6 +96,7 @@ export default function StepLibrarySystem({
               'Missing Wine / Proton versions ({{count}})',
               { count: missingWineVersions.length }
             )}
+            <ChevronRight className="ImportExportWizard__chevron" size={18} />
           </summary>
           <p className="ImportExportWizard__hint">
             {t(
@@ -102,20 +105,20 @@ export default function StepLibrarySystem({
             )}
           </p>
           <div className="ImportExportWizard__toolbar">
-            <button
-              type="button"
-              className="button is-tertiary"
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => selectAllWine(true)}
             >
               {t('import-export.step4.selectAll', 'Select all')}
-            </button>
-            <button
-              type="button"
-              className="button is-tertiary"
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => selectAllWine(false)}
             >
               {t('import-export.step4.deselectAll', 'Deselect all')}
-            </button>
+            </Button>
           </div>
           <ul className="ImportExportWizard__appList">
             {missingWineVersions.map((v) => {
@@ -160,6 +163,7 @@ export default function StepLibrarySystem({
               'Games with missing install paths ({{count}})',
               { count: installIssues.length }
             )}
+            <ChevronRight className="ImportExportWizard__chevron" size={18} />
           </summary>
           <p className="ImportExportWizard__hint">
             {t(
@@ -177,22 +181,22 @@ export default function StepLibrarySystem({
             handleChange={() => setDownloadMissingGames(!downloadMissingGames)}
           />
           <div className="ImportExportWizard__toolbar">
-            <button
-              type="button"
-              className="button is-tertiary"
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => selectAllInstall(true)}
               disabled={!downloadMissingGames}
             >
               {t('import-export.step4.selectAll', 'Select all')}
-            </button>
-            <button
-              type="button"
-              className="button is-tertiary"
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => selectAllInstall(false)}
               disabled={!downloadMissingGames}
             >
               {t('import-export.step4.deselectAll', 'Deselect all')}
-            </button>
+            </Button>
           </div>
           <ul className="ImportExportWizard__appList">
             {installIssues.map((issue) => {
@@ -236,6 +240,7 @@ export default function StepLibrarySystem({
               'Games with missing Wine prefixes ({{count}})',
               { count: prefixIssues.length }
             )}
+            <ChevronRight className="ImportExportWizard__chevron" size={18} />
           </summary>
           <p className="ImportExportWizard__hint">
             {t(
@@ -282,6 +287,7 @@ export default function StepLibrarySystem({
               'Games found and ready ({{count}})',
               { count: validation.installedOK.length }
             )}
+            <ChevronRight className="ImportExportWizard__chevron" size={18} />
           </summary>
           <p className="ImportExportWizard__hint">
             {t(

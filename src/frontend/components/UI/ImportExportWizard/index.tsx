@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+  Modal,
+  ModalContent,
+  ModalFooter,
+  ModalHeader
+} from 'frontend/components/UI/Modal'
+import { Button } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import type {
@@ -274,13 +275,14 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   }
 
   return (
-    <Dialog
+    <Modal
       className="ImportExportWizard"
+      size="lg"
       onClose={guardedClose}
       showCloseButton={!wineBusy && !applying}
       disableBackdropClose
     >
-      <DialogHeader onClose={guardedClose}>
+      <ModalHeader>
         <div className="ImportExportWizard__titleRow">
           <span>{t('import-export.wizard-title', 'Import Heroic backup')}</span>
           <span className="ImportExportWizard__stepCounter">
@@ -290,7 +292,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
             })}
           </span>
         </div>
-      </DialogHeader>
+      </ModalHeader>
 
       <div className="ImportExportWizard__stepper" role="tablist">
         {stepTitles.map((title, idx) => (
@@ -313,7 +315,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
         ))}
       </div>
 
-      <DialogContent className="ImportExportWizard__body">
+      <ModalContent className="ImportExportWizard__body">
         <div key={step} className="ImportExportWizard__stepContent fadeIn">
           {step === 0 && (
             <StepPickFile
@@ -378,13 +380,12 @@ export default function ImportExportWizard({ open, onClose }: Props) {
             />
           )}
         </div>
-      </DialogContent>
+      </ModalContent>
 
-      <DialogFooter>
+      <ModalFooter>
         <div className="ImportExportWizard__footer">
-          <button
-            type="button"
-            className="button is-tertiary"
+          <Button
+            variant="secondary"
             onClick={prevStep}
             disabled={
               step === 0 ||
@@ -393,33 +394,26 @@ export default function ImportExportWizard({ open, onClose }: Props) {
             }
           >
             {t('import-export.back', 'Back')}
-          </button>
+          </Button>
           {step < 5 && (
-            <button
-              type="button"
-              className="button is-primary"
+            <Button
+              variant="primary"
               disabled={!validation || validating}
               onClick={nextStep}
             >
               {t('import-export.next', 'Next')}
-            </button>
+            </Button>
           )}
           {step === 5 && (
-            <button
-              type="button"
-              className="button is-primary"
-              onClick={applyBackup}
-              disabled={applying}
-            >
+            <Button variant="primary" onClick={applyBackup} disabled={applying}>
               {applying
                 ? t('import-export.applying', 'Applying...')
                 : t('import-export.apply', 'Apply backup')}
-            </button>
+            </Button>
           )}
           {step === 6 && (
-            <button
-              type="button"
-              className="button is-primary"
+            <Button
+              variant="primary"
               onClick={onClose}
               disabled={wineBusy}
               title={
@@ -432,10 +426,10 @@ export default function ImportExportWizard({ open, onClose }: Props) {
               }
             >
               {t('import-export.close', 'Close')}
-            </button>
+            </Button>
           )}
         </div>
-      </DialogFooter>
-    </Dialog>
+      </ModalFooter>
+    </Modal>
   )
 }

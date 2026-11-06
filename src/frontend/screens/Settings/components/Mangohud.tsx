@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const Mangohud = () => {
   const { t } = useTranslation()
@@ -16,21 +15,20 @@ const Mangohud = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="mongohud"
-        value={showMangohud}
-        handleChange={() => setShowMangohud(!showMangohud)}
-        title={t('setting.mangohud')}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.mangohud',
-          'MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.mangohud',
+        'MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
+      )}
+      description={t(
+        'setting.mangohud.description',
+        'Show an overlay with frame rate, temperatures and system load'
+      )}
+      htmlId="mongohud"
+      value={showMangohud}
+      handleChange={() => setShowMangohud(!showMangohud)}
+      title={t('setting.mangohud')}
+    />
   )
 }
 

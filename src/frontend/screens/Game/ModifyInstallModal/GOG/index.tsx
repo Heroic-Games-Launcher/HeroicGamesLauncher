@@ -19,6 +19,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGripLines } from '@fortawesome/free-solid-svg-icons'
 import { faXmarkCircle } from '@fortawesome/free-regular-svg-icons'
 import BranchSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/BranchSelector'
+import { ModalContent, ModalFooter } from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 
 interface GOGModifyInstallModal {
   gameInfo: GameInfo
@@ -231,194 +233,203 @@ export default function GOGModifyInstallModal({
 
   return gameInstallInfo ? (
     <>
-      <Tabs
-        value={currentTab}
-        onChange={(e, newVal) => setCurrentTab(newVal)}
-        aria-label="settings tabs"
-        variant="scrollable"
-      >
-        <Tab
-          value={'updates'}
-          label={t('modifyInstall.versionCollapsable', 'Game Version')}
-        />
-        <Tab value={'dlc'} label={t('modifyInstall.dlcsCollapsible', 'DLC')} />
-        {redModInstalled && (
+      <ModalContent>
+        <Tabs
+          value={currentTab}
+          onChange={(e, newVal) => setCurrentTab(newVal)}
+          aria-label="settings tabs"
+          variant="scrollable"
+        >
           <Tab
-            value={'redmod'}
-            label={t('modifyInstall.redMod.collapsible', 'REDmod Integration')}
+            value={'updates'}
+            label={t('modifyInstall.versionCollapsable', 'Game Version')}
           />
-        )}
-      </Tabs>
-      <TabPanel value={currentTab} index={'updates'}>
-        {!!branches.length && (
-          <div className="ModifyInstall__branch">
-            <BranchSelector
-              appName={gameInfo.app_name}
-              branches={branches}
-              branch={branch}
-              setBranch={setBranch}
-              savedBranchPassword={savedBranchPassword}
-              onPasswordChange={(newPasswd) =>
-                setSavedBranchPassword(newPasswd)
-              }
-            />
-          </div>
-        )}
-
-        <div className="ModifyInstall__languages">
-          <GameLanguageSelector
-            installLanguages={installLanguages}
-            setInstallLanguage={setInstallLanguage}
-            installPlatform={gameInfo.install.platform ?? 'windows'}
-            installLanguage={installLanguage}
+          <Tab
+            value={'dlc'}
+            label={t('modifyInstall.dlcsCollapsible', 'DLC')}
           />
-        </div>
-
-        {!!builds.length && (
-          <div className="ModifyInstall__version">
-            <BuildSelector
-              gameBuilds={builds}
-              selectedBuild={selectedBuild}
-              setSelectedBuild={setSelectedBuild}
+          {redModInstalled && (
+            <Tab
+              value={'redmod'}
+              label={t(
+                'modifyInstall.redMod.collapsible',
+                'REDmod Integration'
+              )}
             />
-          </div>
-        )}
-      </TabPanel>
-      <TabPanel value={currentTab} index={'dlc'}>
-        <div className="ModifyInstall__gogDlcs">
-          {DLCList.length > 0 ? (
-            <DLCDownloadListing
-              DLCList={DLCList}
-              dlcsToInstall={installedDlcs}
-              setDlcsToInstall={setInstalledDlcs}
-            />
-          ) : (
-            <div className="emptyState">
-              <FontAwesomeIcon icon={faXmarkCircle} />
-              <p>{t('modifyInstall.nodlcs', 'No DLC available')}</p>
+          )}
+        </Tabs>
+        <TabPanel value={currentTab} index={'updates'}>
+          {!!branches.length && (
+            <div className="ModifyInstall__branch">
+              <BranchSelector
+                appName={gameInfo.app_name}
+                branches={branches}
+                branch={branch}
+                setBranch={setBranch}
+                savedBranchPassword={savedBranchPassword}
+                onPasswordChange={(newPasswd) =>
+                  setSavedBranchPassword(newPasswd)
+                }
+              />
             </div>
           )}
-        </div>
-      </TabPanel>
 
-      {/* REDMod compatibility */}
-      <TabPanel value={currentTab} index={'redmod'}>
-        <DragDropContext
-          onDragEnd={(result) => {
-            const { source, destination } = result
-
-            if (!destination) {
-              return
-            }
-
-            if (
-              destination.droppableId === source.droppableId &&
-              destination.index === source.index
-            ) {
-              return
-            }
-
-            const newModsArray = [...detectedMods]
-            const removed = newModsArray.splice(source.index, 1)
-            newModsArray.splice(destination.index, 0, ...removed)
-
-            setDetectedMods(newModsArray)
-          }}
-        >
-          <div className="ModifyInstall__redMod">
-            <label htmlFor="REDenableMods">
-              <ToggleSwitch
-                htmlId="REDenableMods"
-                value={modsEnabled}
-                handleChange={() => setModsEnabled(!modsEnabled)}
-                title={t('modifyInstall.redMod.enable', 'Enable mods')}
-              />
-            </label>
-
-            <div className="modsHelpWrapper">
-              <InfoBox text="infobox.help">
-                <p>The list below contains all mods detected by REDmod.</p>
-                <p>
-                  Mods can be reordered, which will alter the load order. E.g if
-                  two mods modify same file, the mod that is lower in the list
-                  will overwrite the changes of the other one.
-                </p>
-                <p>At least one mod has to be enabled</p>
-                <p>
-                  Checkbox &quot;Enable mods&quot; decides whether the game
-                  should be launched with mods. Mod deployment log can be found
-                  within the game log
-                </p>
-              </InfoBox>
-            </div>
-
-            <Droppable droppableId="mods">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  className={classNames('mods', {
-                    draggingOver: snapshot.isDraggingOver
-                  })}
-                  {...provided.droppableProps}
-                >
-                  {detectedMods.map((mod, index) => (
-                    <Draggable
-                      key={`mod-${mod}`}
-                      draggableId={mod}
-                      index={index}
-                    >
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          className="modDraggable"
-                        >
-                          <label htmlFor={`mod-${mod}`}>
-                            <ToggleSwitch
-                              htmlId={`mod-${mod}`}
-                              title={mod}
-                              value={enabledModsList.includes(mod)}
-                              handleChange={() => {
-                                const enabled = enabledModsList.includes(mod)
-                                const enabledList = [...enabledModsList]
-                                if (enabled) {
-                                  // We need to have at least one mod enabled for this feature to work
-                                  if (enabledModsList.length === 1) {
-                                    return
-                                  }
-                                  // Remove
-                                  const index = enabledList.findIndex(
-                                    (modL) => modL === mod
-                                  )
-                                  enabledList.splice(index, 1)
-                                } else {
-                                  // Add
-                                  enabledList.push(mod)
-                                }
-                                setEnabledModsList(enabledList)
-                              }}
-                            />
-                          </label>
-                          <div {...provided.dragHandleProps}>
-                            <FontAwesomeIcon icon={faGripLines} width={40} />
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
+          <div className="ModifyInstall__languages">
+            <GameLanguageSelector
+              installLanguages={installLanguages}
+              setInstallLanguage={setInstallLanguage}
+              installPlatform={gameInfo.install.platform ?? 'windows'}
+              installLanguage={installLanguage}
+            />
           </div>
-        </DragDropContext>
-      </TabPanel>
 
-      <button className="button is-success" onClick={handleConfirm}>
-        {tr('box.apply', 'Apply')}
-      </button>
+          {!!builds.length && (
+            <div className="ModifyInstall__version">
+              <BuildSelector
+                gameBuilds={builds}
+                selectedBuild={selectedBuild}
+                setSelectedBuild={setSelectedBuild}
+              />
+            </div>
+          )}
+        </TabPanel>
+        <TabPanel value={currentTab} index={'dlc'}>
+          <div className="ModifyInstall__gogDlcs">
+            {DLCList.length > 0 ? (
+              <DLCDownloadListing
+                DLCList={DLCList}
+                dlcsToInstall={installedDlcs}
+                setDlcsToInstall={setInstalledDlcs}
+              />
+            ) : (
+              <div className="emptyState">
+                <FontAwesomeIcon icon={faXmarkCircle} />
+                <p>{t('modifyInstall.nodlcs', 'No DLC available')}</p>
+              </div>
+            )}
+          </div>
+        </TabPanel>
+
+        {/* REDMod compatibility */}
+        <TabPanel value={currentTab} index={'redmod'}>
+          <DragDropContext
+            onDragEnd={(result) => {
+              const { source, destination } = result
+
+              if (!destination) {
+                return
+              }
+
+              if (
+                destination.droppableId === source.droppableId &&
+                destination.index === source.index
+              ) {
+                return
+              }
+
+              const newModsArray = [...detectedMods]
+              const removed = newModsArray.splice(source.index, 1)
+              newModsArray.splice(destination.index, 0, ...removed)
+
+              setDetectedMods(newModsArray)
+            }}
+          >
+            <div className="ModifyInstall__redMod">
+              <label htmlFor="REDenableMods">
+                <ToggleSwitch
+                  htmlId="REDenableMods"
+                  value={modsEnabled}
+                  handleChange={() => setModsEnabled(!modsEnabled)}
+                  title={t('modifyInstall.redMod.enable', 'Enable mods')}
+                />
+              </label>
+
+              <div className="modsHelpWrapper">
+                <InfoBox text="infobox.help">
+                  <p>The list below contains all mods detected by REDmod.</p>
+                  <p>
+                    Mods can be reordered, which will alter the load order. E.g
+                    if two mods modify same file, the mod that is lower in the
+                    list will overwrite the changes of the other one.
+                  </p>
+                  <p>At least one mod has to be enabled</p>
+                  <p>
+                    Checkbox &quot;Enable mods&quot; decides whether the game
+                    should be launched with mods. Mod deployment log can be
+                    found within the game log
+                  </p>
+                </InfoBox>
+              </div>
+
+              <Droppable droppableId="mods">
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    className={classNames('mods', {
+                      draggingOver: snapshot.isDraggingOver
+                    })}
+                    {...provided.droppableProps}
+                  >
+                    {detectedMods.map((mod, index) => (
+                      <Draggable
+                        key={`mod-${mod}`}
+                        draggableId={mod}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            className="modDraggable"
+                          >
+                            <label htmlFor={`mod-${mod}`}>
+                              <ToggleSwitch
+                                htmlId={`mod-${mod}`}
+                                title={mod}
+                                value={enabledModsList.includes(mod)}
+                                handleChange={() => {
+                                  const enabled = enabledModsList.includes(mod)
+                                  const enabledList = [...enabledModsList]
+                                  if (enabled) {
+                                    // We need to have at least one mod enabled for this feature to work
+                                    if (enabledModsList.length === 1) {
+                                      return
+                                    }
+                                    // Remove
+                                    const index = enabledList.findIndex(
+                                      (modL) => modL === mod
+                                    )
+                                    enabledList.splice(index, 1)
+                                  } else {
+                                    // Add
+                                    enabledList.push(mod)
+                                  }
+                                  setEnabledModsList(enabledList)
+                                }}
+                              />
+                            </label>
+                            <div {...provided.dragHandleProps}>
+                              <FontAwesomeIcon icon={faGripLines} width={40} />
+                            </div>
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </div>
+          </DragDropContext>
+        </TabPanel>
+      </ModalContent>
+      <ModalFooter>
+        <Button onClick={handleConfirm}>{tr('box.apply', 'Apply')}</Button>
+      </ModalFooter>
     </>
   ) : (
-    <UpdateComponent />
+    <ModalContent>
+      <UpdateComponent />
+    </ModalContent>
   )
 }

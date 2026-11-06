@@ -42,10 +42,14 @@ const AltNileBin = () => {
         'Select Nile Binary (needs restart)'
       )}
       afterInput={
-        <span className="smallMessage">
-          {t('other.nile-version', 'Nile Version: ')}
-          {nileVersion}
-        </span>
+        nileVersion ? (
+          <span className="fieldCaption">
+            <span className="fieldCaption__label">
+              {t('other.nile-version', 'Nile Version: ')}
+            </span>
+            <span className="fieldCaption__value">{nileVersion}</span>
+          </span>
+        ) : undefined
       }
     />
   )

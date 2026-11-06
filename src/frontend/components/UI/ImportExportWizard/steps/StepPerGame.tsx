@@ -23,6 +23,9 @@ export default function StepPerGame({
 }: Props) {
   const { t } = useTranslation()
   const filter = appFilter.trim().toLowerCase()
+  const allSelected =
+    validation.perGameAppNames.length > 0 &&
+    includedApps.size === validation.perGameAppNames.length
   const visible = validation.perGameAppNames.filter((appName) => {
     if (!filter) return true
     const info = validation.gameTitles[appName]
@@ -45,20 +48,26 @@ export default function StepPerGame({
           onChange={(e) => setAppFilter(e.target.value)}
           className="ImportExportWizard__filter"
         />
-        <button
-          type="button"
-          className="button is-tertiary"
-          onClick={() => setAllApps(true)}
-        >
-          {t('import-export.step4.selectAll', 'Select all')}
-        </button>
-        <button
-          type="button"
-          className="button is-tertiary"
-          onClick={() => setAllApps(false)}
-        >
-          {t('import-export.step4.deselectAll', 'Deselect all')}
-        </button>
+      </div>
+      <div className="ImportExportWizard__listControls">
+        <label className="ImportExportWizard__selectAll">
+          <input
+            type="checkbox"
+            checked={allSelected}
+            onChange={() => setAllApps(!allSelected)}
+          />
+          {t('import-export.step4.selectAllGames', 'Select all games')}
+        </label>
+        <span className="ImportExportWizard__meta">
+          {t(
+            'import-export.step4.selected',
+            '{{selected}} of {{total}} selected',
+            {
+              selected: includedApps.size,
+              total: validation.perGameAppNames.length
+            }
+          )}
+        </span>
       </div>
       <ul className="ImportExportWizard__appList">
         {visible.map((appName) => {

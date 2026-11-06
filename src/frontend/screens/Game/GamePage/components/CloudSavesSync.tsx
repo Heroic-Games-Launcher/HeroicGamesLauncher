@@ -1,21 +1,23 @@
-import { useContext, useState } from 'react'
+import { ReactNode, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
-import { CloudOff, CloudQueue } from '@mui/icons-material'
+import { Cloud, CloudOff } from 'lucide-react'
 import { GameInfo, SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
+import type { DetailItem } from 'frontend/components/UI/DetailList'
 import useSetting from 'frontend/hooks/useSetting'
 import { syncSaves } from 'frontend/helpers'
 import { Menu, MenuItem, Divider } from '@mui/material'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-interface Props {
-  gameInfo: GameInfo
+interface CloudSaveDetail {
+  item: DetailItem | null
+  menu: ReactNode
 }
 
-const CloudSavesSync = ({ gameInfo }: Props) => {
+export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
   const { t } = useTranslation('gamepage')
   const { t: tCommon } = useTranslation()
   const { gameSettings, is } = useContext(GameContext)
@@ -30,21 +32,11 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
   const [isSyncing, setIsSyncing] = useState(false)
   const open = Boolean(anchorEl)
 
-  if (!gameSettings) {
-    return null
-  }
-
-  if (!gameInfo.is_installed) {
-    return null
-  }
-
-  if (gameInfo.runner === 'sideload') {
-    return null
-  }
-
-  if (!gameInfo.cloud_save_enabled) {
-    return null
-  }
+  const unavailable =
+    !gameSettings ||
+    !gameInfo.is_installed ||
+    gameInfo.runner === 'sideload' ||
+    !gameInfo.cloud_save_enabled
 
   const cloud_save_enabled = gameInfo.cloud_save_enabled || false
   const showCloudSaveInfo = cloud_save_enabled && !is.linuxNative
@@ -152,101 +144,85 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
     (gameInfo.runner === 'legendary' && savesPath === '') ||
     (gameInfo.runner === 'gog' && !gogSaves.some((save) => save.location))
 
-  return (
-    <>
-      {showCloudSaveInfo && (
-        <>
-          <p
-            style={{
-              color: autoSyncSaves ? '#07C5EF' : '',
-              margin: 0,
-              cursor: enableQuickSavesMenu ? 'pointer' : 'default',
-              textDecoration: 'underline'
-            }}
-            className="iconWithText"
-            onMouseEnter={handleOpen}
-            aria-owns={open ? 'mouse-over-popover' : undefined}
-            aria-haspopup="true"
-          >
-            <CloudQueue />
-            {isSyncing ? (
-              <b>{`${tCommon('setting.manualsync.syncing')}... ${tCommon(
-                'please-wait'
-              )}`}</b>
-            ) : (
-              <>
-                <b>{t('info.syncsaves')}:</b>
-                {autoSyncSaves ? t('enabled') : t('disabled')}
-              </>
-            )}
-          </p>
+  const statusLabel = isSyncing
+    ? `${tCommon('setting.manualsync.syncing')}... ${tCommon('please-wait')}`
+    : autoSyncSaves
+      ? t('enabled')
+      : t('disabled')
 
-          {enableQuickSavesMenu && (
-            <Menu
-              id="mouse-over-popover"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                onMouseLeave: handleClose,
-                style: { pointerEvents: 'auto' }
-              }}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left'
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
-              }}
-            >
-              {syncCommands.map((command) => (
-                <MenuItem
-                  key={command.value}
-                  onClick={() => handleSync(command.value as SyncType)}
-                  disabled={disableItem || isSyncing}
-                >
-                  {command.name}
-                </MenuItem>
-              ))}
-              <Divider />
-              <MenuItem onClick={handleOpenFolder} disabled={disableItem}>
-                {t('open-saves-folder', 'Open Saves Folder')}
-              </MenuItem>
-              <MenuItem style={{ paddingLeft: '4px' }}>
-                <ToggleSwitch
-                  title={tCommon('setting.autosync')}
-                  htmlId="autosync"
-                  value={autoSyncSaves}
-                  handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
-                  disabled={disableItem || isSyncing}
-                />
-              </MenuItem>
-            </Menu>
+  const supportedItem: DetailItem = {
+    glyph: Cloud,
+    label: t('info.syncsaves'),
+    value: enableQuickSavesMenu ? (
+      <button
+        type="button"
+        className="cloudSaves__trigger"
+        onClick={handleOpen}
+        aria-haspopup="true"
+        aria-expanded={open}
+      >
+        {statusLabel}
+      </button>
+    ) : (
+      statusLabel
+    )
+  }
+
+  const unsupportedItem: DetailItem = {
+    glyph: CloudOff,
+    label: t('info.syncsaves'),
+    value: (
+      <span className="cloudSaves__unsupported">
+        {t('cloud_save_unsupported', 'Unsupported')}
+        <InfoIcon
+          text={t(
+            'help.cloud_save_unsupported',
+            'This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system'
           )}
-        </>
-      )}
-      {!showCloudSaveInfo && (
-        <p
-          style={{
-            color: '#F45460'
-          }}
-          className="iconWithText"
-        >
-          <CloudOff />
-          <b>{t('info.syncsaves')}</b>
-          {': '}
-          {t('cloud_save_unsupported', 'Unsupported')}
-          <InfoIcon
-            text={t(
-              'help.cloud_save_unsupported',
-              'This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system'
-            )}
-          />
-        </p>
-      )}
-    </>
-  )
-}
+        />
+      </span>
+    )
+  }
 
-export default CloudSavesSync
+  if (unavailable) {
+    return { item: null, menu: null }
+  }
+
+  return {
+    item: showCloudSaveInfo ? supportedItem : unsupportedItem,
+    menu:
+      showCloudSaveInfo && enableQuickSavesMenu ? (
+        <Menu
+          id="cloud-saves-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+        >
+          {syncCommands.map((command) => (
+            <MenuItem
+              key={command.value}
+              onClick={() => handleSync(command.value as SyncType)}
+              disabled={disableItem || isSyncing}
+            >
+              {command.name}
+            </MenuItem>
+          ))}
+          <Divider />
+          <MenuItem onClick={handleOpenFolder} disabled={disableItem}>
+            {t('open-saves-folder', 'Open Saves Folder')}
+          </MenuItem>
+          <MenuItem>
+            <ToggleSwitch
+              title={tCommon('setting.autosync')}
+              htmlId="autosync"
+              value={autoSyncSaves}
+              handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
+              disabled={disableItem || isSyncing}
+            />
+          </MenuItem>
+        </Menu>
+      ) : null
+  }
+}

@@ -3,7 +3,9 @@
   flex-direction: column;
   gap: var(--space-md);
   margin-bottom: var(--space-lg);
-  width: 513px;
+  width: 100%;
+  max-width: 720px;
+  text-align: start;
 }
 
 .ImportExportSettings__card {
@@ -20,7 +22,6 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-2xs) 0;
-  min-width: 400px;
 }
 
 .ImportExportSettings__card > summary::-webkit-details-marker {
@@ -29,6 +30,22 @@
 
 .ImportExportSettings__card[open] > summary {
   margin-bottom: var(--space-sm);
+}
+
+.ImportExportSettings__summaryEnd {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.ImportExportSettings__chevron {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  transition: transform 150ms ease;
+}
+
+.ImportExportSettings__card[open] > summary .ImportExportSettings__chevron {
+  transform: rotate(90deg);
 }
 
 .ImportExportSettings__cardTitle {
@@ -98,7 +115,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: var(--space-md);
   margin-top: var(--space-sm);
 }
@@ -144,4 +161,5 @@
   font-size: var(--text-sm);
   line-height: 1.45;
   max-width: 65ch;
+  text-align: start;
 }

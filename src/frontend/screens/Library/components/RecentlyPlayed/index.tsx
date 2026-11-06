@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
+import { SectionHeader } from 'frontend/components/UI'
+import { countGames } from 'frontend/helpers/library'
 import { configStore } from 'frontend/helpers/electronStores'
 
 interface Props {
@@ -96,7 +98,15 @@ export default React.memo(function RecentlyPlayed({
 
   return (
     <>
-      <h5 className="libraryHeader">{t('Recent', 'Played Recently')}</h5>
+      <SectionHeader
+        className="librarySectionHeader"
+        title={t('Recent', 'Played Recently')}
+        subtitle={t('library.gamesCount', {
+          count: countGames(recentGames),
+          defaultValue_one: '{{count}} game',
+          defaultValue_other: '{{count}} games'
+        })}
+      />
       <GamesList
         library={recentGames}
         isFirstLane
