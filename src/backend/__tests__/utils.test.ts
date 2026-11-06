@@ -1,5 +1,17 @@
 import { axiosClient } from 'backend/utils'
+import type { GameInfo } from 'common/types'
 import { app } from 'electron'
+import {
+  chmodSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync
+} from 'fs'
+import { tmpdir } from 'os'
+import { join } from 'path'
 import { logError } from '../logger'
 import * as utils from '../utils'
 import { test_data } from './test_data/github-api-heroic-test-data.json'
@@ -128,6 +140,96 @@ describe('backend/utils.ts', () => {
         'Backend'
       )
       expect(releases).toMatchInlineSnapshot(`[]`)
+    })
+  })
+
+  describe('getRsyncMoveArgs', () => {
+    test('uses only the options openrsync (macOS) understands', () => {
+      expect(
+        utils.getRsyncMoveArgs(
+          'openrsync: protocol version 29\nrsync version 2.6.9 compatible\n',
+          '/a/',
+          '/b'
+        )
+      ).toEqual([
+        '--archive',
+        '--remove-source-files',
+        '--progress',
+        '/a/',
+        '/b'
+      ])
+    })
+
+    test('reports progress per file with GNU rsync', () => {
+      expect(
+        utils.getRsyncMoveArgs(
+          'rsync  version 3.4.1  protocol version 32\n',
+          '/a/',
+          '/b'
+        )
+      ).toEqual([
+        '--archive',
+        '--compress',
+        '--no-human-readable',
+        '--remove-source-files',
+        '--info=name,progress',
+        '/a/',
+        '/b'
+      ])
+    })
+  })
+
+  describe('moveOnUnix', () => {
+    let root: string
+    const gameInfo = (install_path: string) =>
+      ({
+        app_name: 'game',
+        runner: 'gog',
+        title: 'Game',
+        install: { install_path }
+      }) as GameInfo
+
+    beforeEach(() => {
+      root = mkdtempSync(join(tmpdir(), 'heroic-move-'))
+      mkdirSync(join(root, 'from', 'Game', 'Data'), { recursive: true })
+      writeFileSync(join(root, 'from', 'Game', 'game.exe'), 'exe')
+      writeFileSync(join(root, 'from', 'Game', 'Data', 'pak0'), 'data')
+      mkdirSync(join(root, 'to'))
+    })
+    afterEach(() => {
+      chmodSync(join(root, 'to'), 0o755)
+      rmSync(root, { recursive: true, force: true })
+    })
+
+    test('moves the game folder', async () => {
+      const result = await utils.moveOnUnix(
+        join(root, 'to'),
+        gameInfo(join(root, 'from', 'Game'))
+      )
+
+      expect(result).toEqual({
+        status: 'done',
+        installPath: join(root, 'to', 'Game')
+      })
+      expect(
+        readFileSync(join(root, 'to', 'Game', 'Data', 'pak0'), 'utf-8')
+      ).toBe('data')
+      expect(existsSync(join(root, 'from', 'Game'))).toBe(false)
+    })
+
+    const asUser = process.getuid?.() === 0 ? test.skip : test
+    asUser('keeps the original when the copy fails', async () => {
+      chmodSync(join(root, 'to'), 0o555)
+
+      const result = await utils.moveOnUnix(
+        join(root, 'to'),
+        gameInfo(join(root, 'from', 'Game'))
+      )
+
+      expect(result.status).toBe('error')
+      expect(
+        readFileSync(join(root, 'from', 'Game', 'game.exe'), 'utf-8')
+      ).toBe('exe')
     })
   })
 })
