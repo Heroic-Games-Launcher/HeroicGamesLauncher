@@ -1,10 +1,6 @@
 import { useMemo } from 'react'
 import { GameInfo } from 'common/types'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import { GamesSettings } from '../../sections'
 import SettingsContext from '../../SettingsContext'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
@@ -50,23 +46,24 @@ function SettingsModal({ gameInfo, type }: Props) {
   }
 
   return (
-    <Dialog
+    <Modal
       onClose={() => closeSettingsModal()}
       showCloseButton
-      className={'InstallModal__dialog'}
+      size="lg"
+      fullHeight={type === 'settings'}
     >
-      <DialogHeader onClose={() => closeSettingsModal()}>
+      <ModalHeader>
         <span className="settingsModal__title">{titleType}</span>
         <span className="settingsModal__subtitle">{title}</span>
-      </DialogHeader>
-      <DialogContent className="settingsDialogContent">
+      </ModalHeader>
+      <ModalContent className="settingsDialogContent">
         <SettingsContext.Provider value={contextValues}>
           {type === 'settings' && <GamesSettings />}
           {type === 'log' && <LogSettings />}
           {type === 'category' && <CategorySettings />}
         </SettingsContext.Provider>
-      </DialogContent>
-    </Dialog>
+      </ModalContent>
+    </Modal>
   )
 }
 

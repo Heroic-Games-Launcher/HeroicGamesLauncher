@@ -1,12 +1,3 @@
-.progressDialog {
-  max-width: min(700px, 85vw);
-  width: 100%;
-}
-
-.progressDialog .Dialog__content {
-  width: 100%;
-}
-
 .progressDialog.log-box {
   background-color: #1e1e1e;
   border-radius: 10px;

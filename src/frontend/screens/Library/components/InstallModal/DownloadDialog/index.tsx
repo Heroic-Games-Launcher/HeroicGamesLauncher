@@ -19,13 +19,14 @@ import {
   DLCInfo as LegendaryDLCInfo
 } from 'common/types/legendary'
 import { BuildItem, DLCInfo as GOGDLCInfo } from 'common/types/gog'
-import { Button, PathSelectionBox, ToggleSwitch } from 'frontend/components/UI'
+import { PathSelectionBox, ToggleSwitch } from 'frontend/components/UI'
 import Anticheat from 'frontend/components/UI/Anticheat'
 import {
-  DialogHeader,
-  DialogFooter,
-  DialogContent
-} from 'frontend/components/UI/Dialog'
+  ModalHeader,
+  ModalFooter,
+  ModalContent
+} from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import {
   getProgress,
   size,
@@ -587,7 +588,7 @@ export default function DownloadDialog({
 
   return (
     <>
-      <DialogHeader onClose={backdropClick}>
+      <ModalHeader>
         {title ? title : '...'}
         {availablePlatforms.map((p) => (
           <FontAwesomeIcon
@@ -596,9 +597,9 @@ export default function DownloadDialog({
             key={p.value}
           />
         ))}
-      </DialogHeader>
+      </ModalHeader>
       <Anticheat anticheatInfo={anticheatInfo} />
-      <DialogContent>
+      <ModalContent>
         <div className="InstallModal__sizes">
           <div className="InstallModal__size">
             <FontAwesomeIcon
@@ -781,22 +782,23 @@ export default function DownloadDialog({
           />
         )}
         {children}
-      </DialogContent>
-      <DialogFooter>
-        <Button variant="ghost" onClick={handleSwitchToImport}>
-          {t('button.import', 'Import Game')}
-        </Button>
+      </ModalContent>
+      <ModalFooter>
         <Button
-          variant="primary"
           onClick={async () => handleInstall()}
           disabled={!readyToInstall}
+          icon={
+            !readyToInstall ? (
+              <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
+            ) : null
+          }
         >
-          {!readyToInstall ? (
-            <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
-          ) : null}
           {getInstallLabel()}
         </Button>
-      </DialogFooter>
+        <Button variant="secondary" onClick={handleSwitchToImport}>
+          {t('button.import', 'Import Game')}
+        </Button>
+      </ModalFooter>
     </>
   )
 }

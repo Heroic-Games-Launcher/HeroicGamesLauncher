@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EnviromentVariable } from 'common/types'
 import { validateEnvKey } from './EnvVariableRow'
-import { Button } from 'frontend/components/UI'
+import { ModalContent, ModalFooter } from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 
 interface BulkEditModalProps {
   initialEnvs: EnviromentVariable[]
@@ -61,26 +62,26 @@ const BulkEditModal = ({
   }
 
   return (
-    <div className="bulk-edit-wrapper">
-      <textarea
-        className="bulk-edit-textarea"
-        defaultValue={initialText}
-        onChange={(e) => {
-          setCurrentText(e.target.value)
-          setError('')
-        }}
-        placeholder="KEY=VALUE"
-      />
-      {error && <div className="env-var-error">{error}</div>}
-      <div className="bulk-edit-actions">
-        <Button variant="ghost" onClick={onCancel}>
+    <>
+      <ModalContent className="bulk-edit-wrapper">
+        <textarea
+          className="bulk-edit-textarea"
+          defaultValue={initialText}
+          onChange={(e) => {
+            setCurrentText(e.target.value)
+            setError('')
+          }}
+          placeholder="KEY=VALUE"
+        />
+        {error && <div className="env-var-error">{error}</div>}
+      </ModalContent>
+      <ModalFooter>
+        <Button onClick={handleSave}>{t('common.save', 'Save')}</Button>
+        <Button variant="secondary" onClick={onCancel}>
           {t('common.cancel', 'Cancel')}
         </Button>
-        <Button variant="primary" onClick={handleSave}>
-          {t('common.save', 'Save')}
-        </Button>
-      </div>
-    </div>
+      </ModalFooter>
+    </>
   )
 }
 

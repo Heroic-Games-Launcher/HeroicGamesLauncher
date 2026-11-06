@@ -1,9 +1,5 @@
 import './index.scss'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import { useTranslation } from 'react-i18next'
 import {
   amazonLoginPath,
@@ -11,7 +7,8 @@ import {
   gogLoginPath,
   zoomLoginPath
 } from '../..'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Button from 'frontend/components/UI/Button'
 
 interface LoginWarningProps {
   warnLoginForStore: null | 'epic' | 'gog' | 'amazon' | 'zoom'
@@ -23,6 +20,7 @@ const LoginWarning = function ({
   onClose
 }: LoginWarningProps) {
   const { t } = useTranslation('gamepage')
+  const navigate = useNavigate()
 
   if (!warnLoginForStore) {
     return null
@@ -57,21 +55,28 @@ const LoginWarning = function ({
   }
 
   return (
-    <Dialog onClose={onClose} className="notLoggedIn" showCloseButton={true}>
-      <DialogHeader onClose={onClose}>
+    <Modal
+      onClose={onClose}
+      size="sm"
+      className="notLoggedIn"
+      showCloseButton={true}
+    >
+      <ModalHeader>
         {t('not_logged_in.title', 'You are NOT logged in')}
-      </DialogHeader>
-      <DialogContent>
+      </ModalHeader>
+      <ModalContent>
         <p>{textContent}</p>
-        <NavLink
-          className="Button Button--primary Button--md"
-          to={loginPath}
-          onClick={onClose}
+        <Button
+          className="notLoggedIn__loginButton"
+          onClick={() => {
+            onClose()
+            navigate(loginPath)
+          }}
         >
-          <span>{t('not_logged_in.login', 'Log in')}</span>
-        </NavLink>
-      </DialogContent>
-    </Dialog>
+          {t('not_logged_in.login', 'Log in')}
+        </Button>
+      </ModalContent>
+    </Modal>
   )
 }
 

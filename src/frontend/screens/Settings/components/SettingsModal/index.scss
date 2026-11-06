@@ -1,28 +1,3 @@
-.MuiDialog-paper.InstallModal__dialog:has(.settingsDialogContent) {
-  width: min(880px, 90vw);
-  max-width: min(880px, 90vw);
-  min-width: 0;
-  min-height: min(64vh, 100%);
-  overflow: hidden;
-  border-radius: 16px;
-
-  .MuiDialogTitle-root {
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 auto;
-    gap: 2px;
-    padding: var(--space-lg) 0 var(--space-md);
-    padding-inline-end: var(--space-3xl-fixed);
-  }
-
-  .MuiDialogContent-root {
-    flex: 1 1 0;
-    min-height: 0;
-    overflow-y: auto;
-    padding: 0 var(--space-3xl-fixed) var(--space-3xl-fixed);
-  }
-}
-
 .settingsModal__title {
   font-family: var(--primary-font-family);
   font-size: var(--title-md);
@@ -39,10 +14,9 @@
   color: var(--on-panel-muted, var(--text-secondary));
 }
 
-.InstallModal__dialog .settingsDialogContent {
+.Modal__content.settingsDialogContent {
   display: flex;
   flex-direction: column;
-  gap: 0;
 
   .log-box {
     width: 100%;

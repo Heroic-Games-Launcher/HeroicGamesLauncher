@@ -4,11 +4,7 @@ import { EllipsisVertical } from 'lucide-react'
 import GameSubMenu from '../../GameSubMenu'
 import { Button, Icon } from 'frontend/components/UI'
 import { GameInfo } from 'common/types'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import GameRequirements from '../../GameRequirements'
 import { useTranslation } from 'react-i18next'
 import GameChangeLog from '../../GameChangeLog'
@@ -65,14 +61,12 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
       </div>
 
       {showRequirements && (
-        <Dialog showCloseButton onClose={() => setShowRequirements(false)}>
-          <DialogHeader onClose={() => setShowRequirements(false)}>
-            <div>{t('game.requirements', 'Requirements')}</div>
-          </DialogHeader>
-          <DialogContent>
+        <Modal showCloseButton onClose={() => setShowRequirements(false)}>
+          <ModalHeader>{t('game.requirements', 'Requirements')}</ModalHeader>
+          <ModalContent>
             <GameRequirements reqs={gameExtraInfo?.reqs} />
-          </DialogContent>
-        </Dialog>
+          </ModalContent>
+        </Modal>
       )}
 
       {showModifyInstallModal && (

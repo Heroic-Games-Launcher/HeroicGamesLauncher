@@ -10,7 +10,7 @@ import {
   Runner,
   WineInstallation
 } from 'common/types'
-import { Dialog } from 'frontend/components/UI/Dialog'
+import { Modal } from 'frontend/components/UI/Modal'
 
 import './index.scss'
 
@@ -165,9 +165,10 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
 
   return (
     <div className="InstallModal">
-      <Dialog
+      <Modal
         onClose={closeModal}
         showCloseButton
+        size="lg"
         className="InstallModal__dialog"
       >
         {isThirdPartyManagedApp ? (
@@ -280,7 +281,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             ) : null}
           </SideloadDialog>
         )}
-      </Dialog>
+      </Modal>
     </div>
   )
 }

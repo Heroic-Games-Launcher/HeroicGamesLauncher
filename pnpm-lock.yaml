@@ -396,7 +396,7 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1
       lucide-react:
-        specifier: ^1.8.0
+        specifier: ^1.48.0
         version: 1.61.0(@types/react@18.3.21)(react@18.3.1)
       node-gyp:
         specifier: ^10.3.1
