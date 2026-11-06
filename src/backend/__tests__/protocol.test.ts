@@ -25,7 +25,11 @@ jest.mock('../config', () => ({
   }
 }))
 
-import { handleProtocol, shouldHideWindowForProtocolArgs } from '../protocol'
+import {
+  handleProtocol,
+  isGameLaunchArgs,
+  shouldHideWindowForProtocolArgs
+} from '../protocol'
 import { app, dialog } from 'electron'
 import { libraryManagerMap } from '../storeManagers'
 import { getMainWindow } from '../main_window'
@@ -361,6 +365,26 @@ describe('protocol.ts --no-gui behavior', () => {
       expect(
         shouldHideWindowForProtocolArgs(['/path/to/heroic', '--some-flag'])
       ).toBe(false)
+    })
+  })
+
+  describe('isGameLaunchArgs', () => {
+    test('returns true for old-style launch URLs', () => {
+      expect(isGameLaunchArgs(['heroic://launch/test-game'])).toBe(true)
+    })
+
+    test('returns true for new-style launch URLs', () => {
+      expect(
+        isGameLaunchArgs(['heroic://launch?appName=test-game&runner=legendary'])
+      ).toBe(true)
+    })
+
+    test('returns false for non-launch protocol URLs', () => {
+      expect(isGameLaunchArgs(['heroic://ping'])).toBe(false)
+    })
+
+    test('returns false when no heroic URL is present', () => {
+      expect(isGameLaunchArgs(['/path/to/heroic', '--some-flag'])).toBe(false)
     })
   })
 })
