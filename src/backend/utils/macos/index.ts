@@ -3,7 +3,14 @@ import { join } from 'path'
 import type { GameSettings } from 'common/types'
 import { detectD3DMetal, type D3DMetalRuntime } from './d3dmetal'
 import { installMetalFXIntoPrefix, removeMetalFXFromPrefix } from './metalfx'
-import { ensureRegistryStrings, type RegistryString } from './registry'
+import { ensureRegistryStrings } from './registry'
+
+interface RegistryValue {
+  hive: 'HKCU' | 'HKLM'
+  key: string
+  name: string
+  data: string
+}
 
 function isDXMT(settings: GameSettings) {
   return settings.wineVersion.name.endsWith('-DXMT')
@@ -81,7 +88,7 @@ function describeRuntime(
   return 'Graphics translation: WineD3D (OpenGL)'
 }
 
-function dllOverride(name: string, data: 'native' | 'builtin'): RegistryString {
+function dllOverride(name: string, data: 'native' | 'builtin'): RegistryValue {
   return {
     hive: 'HKCU',
     key: 'Software\\Wine\\DllOverrides',
@@ -99,7 +106,7 @@ async function clearMetalFX(
 ): Promise<string[]> {
   const restored = await removeMetalFXFromPrefix(preparation.prefix)
   if (restored.length) {
-    const overrides: RegistryString[] = [
+    const overrides: RegistryValue[] = [
       dllOverride('nvngx', 'builtin'),
       dllOverride('nvapi64', 'builtin')
     ]
@@ -180,7 +187,7 @@ async function syncMetalFX(
   // The NGX loader linked into games finds nvngx.dll through FullPath.
   // native overrides load those prefix copies instead of the runner's DLLs,
   // so a system GPTK or Whisky install is never modified
-  const registryValues: RegistryString[] = [
+  const registryValues: RegistryValue[] = [
     {
       hive: 'HKLM',
       key: 'Software\\NVIDIA Corporation\\Global\\NGXCore',
