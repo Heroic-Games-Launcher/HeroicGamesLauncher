@@ -7,6 +7,12 @@
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
         "disable_smooth_scrolling": "Disable smooth scrolling (requires restart)",
         "fonts": "Fonts",
+        "section": {
+            "appearance": "Appearance",
+            "library": "Library",
+            "motion": "Motion & Interaction"
+        },
+        "subtitle": "Adjust how Heroic looks and behaves",
         "title": "Accessibility",
         "titles_always_visible": "Always show titles in library",
         "zoom": "Zoom"
