@@ -75,7 +75,7 @@ async function copyAtomic(source: string, target: string) {
   await rename(temporary, target)
 }
 
-export interface MetalFXInstall {
+interface MetalFXInstall {
   /** False when this runner has no MetalFX NGX (`nvngx-on-metalfx.dll`) */
   available: boolean
   copied: string[]

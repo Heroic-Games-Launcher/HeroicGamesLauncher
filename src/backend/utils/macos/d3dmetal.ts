@@ -1,4 +1,5 @@
 import { execFile } from 'child_process'
+import { readFile } from 'fs/promises'
 import { promisify } from 'util'
 import { existsSync, readdirSync, statSync } from 'graceful-fs'
 import { dirname, join, resolve } from 'path'
@@ -73,6 +74,15 @@ export function parseMajorVersion(version: string): number {
   return Number.isNaN(major) ? 0 : major
 }
 
+/** XML plists can be read anywhere. Binary plists need macOS `plutil`. */
+function xmlShortVersion(text: string): string {
+  if (!text.includes('<plist')) return ''
+  const match = text.match(
+    /<key>\s*CFBundleShortVersionString\s*<\/key>\s*<string>([^<]*)<\/string>/
+  )
+  return match?.[1]?.trim() ?? ''
+}
+
 async function readBundleVersion(frameworkPath: string): Promise<string> {
   const plists = [
     join(frameworkPath, 'Resources', 'Info.plist'),
@@ -81,8 +91,12 @@ async function readBundleVersion(frameworkPath: string): Promise<string> {
   ]
   for (const plist of plists) {
     if (!existsSync(plist)) continue
+    const xmlVersion = xmlShortVersion(
+      await readFile(plist, 'utf-8').catch(() => '')
+    )
+    if (xmlVersion) return xmlVersion
     try {
-      // These plists are binary, which the `plist` package can't read
+      // GPTK ships a binary plist, which the `plist` package can't read
       const { stdout } = await execFileAsync('/usr/bin/plutil', [
         '-extract',
         'CFBundleShortVersionString',
