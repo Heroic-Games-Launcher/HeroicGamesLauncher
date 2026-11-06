@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Button, SelectField, TextInputField } from 'frontend/components/UI'
+import { SelectField, TextInputField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
-import { Dialog, DialogContent } from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalFooter } from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import { MenuItem } from '@mui/material'
 
 interface BranchSelectorProps {
@@ -36,11 +37,8 @@ export default function BranchSelector({
   return (
     <div>
       {showBranchPasswordInput && (
-        <Dialog
-          showCloseButton={false}
-          onClose={() => setShowBranchPasswordInput(false)}
-        >
-          <DialogContent className="ModifyInstall__branchPassword">
+        <Modal size="sm" onClose={() => setShowBranchPasswordInput(false)}>
+          <ModalContent className="ModifyInstall__branchPassword">
             <TextInputField
               htmlId="private-branch-password-input"
               value={branchPassword}
@@ -51,32 +49,31 @@ export default function BranchSelector({
                 'Set private channel password'
               )}
             />
-            <div className="controls">
-              <Button
-                variant="danger"
-                onClick={() => {
-                  setShowBranchPasswordInput(false)
-                  setBranchPassword(savedBranchPassword)
-                }}
-              >
-                {tr('button.cancel', 'Cancel')}
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  setShowBranchPasswordInput(false)
-                  window.api
-                    .setPrivateBranchPassword(appName, branchPassword)
-                    .finally(() => {
-                      onPasswordChange(branchPassword)
-                    })
-                }}
-              >
-                {tr('box.ok', 'OK')}
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+          </ModalContent>
+          <ModalFooter>
+            <Button
+              onClick={() => {
+                setShowBranchPasswordInput(false)
+                window.api
+                  .setPrivateBranchPassword(appName, branchPassword)
+                  .finally(() => {
+                    onPasswordChange(branchPassword)
+                  })
+              }}
+            >
+              {tr('box.ok', 'OK')}
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setShowBranchPasswordInput(false)
+                setBranchPassword(savedBranchPassword)
+              }}
+            >
+              {tr('button.cancel', 'Cancel')}
+            </Button>
+          </ModalFooter>
+        </Modal>
       )}
 
       <SelectField

@@ -2,9 +2,9 @@ import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from '../../LibraryContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Dialog, DialogHeader } from 'frontend/components/UI/Dialog'
-import { DialogContent } from '@mui/material'
-import { Button, Icon, TextInputField } from 'frontend/components/UI'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
+import { Icon, TextInputField } from 'frontend/components/UI'
+import Button from 'frontend/components/UI/Button'
 import './index.css'
 import { Check, Pencil, Plus, Trash2, X } from 'lucide-react'
 
@@ -45,7 +45,6 @@ function CategoryItem({
     if (renameMode) {
       return (
         <Button
-          variant="primary"
           size="sm"
           onClick={() => rename()}
           title={t(
@@ -60,8 +59,8 @@ function CategoryItem({
     } else if (removeMode) {
       return (
         <Button
-          variant="danger"
           size="sm"
+          variant="dangerSubtle"
           onClick={() => remove()}
           title={t(
             'categories-manager.confirm-remove',
@@ -74,8 +73,8 @@ function CategoryItem({
     } else {
       return (
         <Button
-          variant="danger"
           size="sm"
+          variant="dangerSubtle"
           onClick={() => setRemoveMode(true)}
           title={t('categories-manager.remove', 'Remove "{{name}}"', { name })}
           icon={<Icon glyph={Trash2} size="md" />}
@@ -88,8 +87,8 @@ function CategoryItem({
     if (renameMode) {
       return (
         <Button
-          variant="ghost"
           size="sm"
+          variant="secondary"
           onClick={() => cancelEdit()}
           title={t(
             'categories-manager.cancel-rename',
@@ -102,8 +101,8 @@ function CategoryItem({
     } else if (removeMode) {
       return (
         <Button
-          variant="ghost"
           size="sm"
+          variant="secondary"
           onClick={() => setRemoveMode(false)}
           title={t(
             'categories-manager.cancel-remove',
@@ -116,8 +115,8 @@ function CategoryItem({
     } else {
       return (
         <Button
-          variant="ghost"
           size="sm"
+          variant="secondary"
           onClick={() => setRenameMode(true)}
           title={t('categories-manager.rename', 'Rename "{{name}}"', { name })}
           icon={<Icon glyph={Pencil} size="md" />}
@@ -171,15 +170,16 @@ function CategoriesManager() {
   const categories = customCategories.listCategories()
 
   return (
-    <Dialog
+    <Modal
       showCloseButton
+      size="sm"
       onClose={() => setShowCategories(false)}
-      className="CategoriesManager__Dialog"
+      className="CategoriesManager__modal"
     >
-      <DialogHeader onClose={() => setShowCategories(false)}>
-        <div>{t('categories-manager.title', 'Manage Categories')}</div>
-      </DialogHeader>
-      <DialogContent>
+      <ModalHeader>
+        {t('categories-manager.title', 'Manage Categories')}
+      </ModalHeader>
+      <ModalContent>
         {categories.map((cat) => (
           <CategoryItem
             key={cat}
@@ -201,7 +201,7 @@ function CategoriesManager() {
           )}
           afterInput={
             <Button
-              variant="primary"
+              size="sm"
               onClick={() => addCategory()}
               title={t('categories-manager.add', 'Add')}
               disabled={isCategoryNameEmpty}
@@ -209,8 +209,8 @@ function CategoriesManager() {
             />
           }
         />
-      </DialogContent>
-    </Dialog>
+      </ModalContent>
+    </Modal>
   )
 }
 

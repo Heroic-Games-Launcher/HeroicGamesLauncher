@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react'
-import { Dialog, DialogContent, DialogFooter } from '../Dialog'
+import { Modal, ModalContent, ModalFooter } from '../Modal'
+import Button from '../Button'
 import ContextProvider from '../../../state/ContextProvider'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'frontend/components/UI'
 
 export const SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY = 'show_external_link_dialog'
 
@@ -33,8 +33,8 @@ export default function ExternalLinkDialog() {
   }
 
   return externalLinkDialogOptions.showDialog ? (
-    <Dialog onClose={onClose} showCloseButton={false}>
-      <DialogContent>
+    <Modal onClose={onClose} size="sm">
+      <ModalContent>
         {t('externalLink.warning', 'You are about to open an external link.')}
         <br></br>
         <br></br>
@@ -44,15 +44,13 @@ export default function ExternalLinkDialog() {
           value={showDialog}
           title={t('externalLink.dontAskAgain', "Don't ask again")}
         ></ToggleSwitch>
-      </DialogContent>
-      <DialogFooter>
-        <Button variant="primary" onClick={onContinue}>
-          {t('button.continue', 'Continue')}
-        </Button>
-        <Button variant="ghost" onClick={onClose}>
+      </ModalContent>
+      <ModalFooter>
+        <Button onClick={onContinue}>{t('button.continue', 'Continue')}</Button>
+        <Button variant="secondary" onClick={onClose}>
           {t('button.cancel', 'Cancel')}
         </Button>
-      </DialogFooter>
-    </Dialog>
+      </ModalFooter>
+    </Modal>
   ) : null
 }
