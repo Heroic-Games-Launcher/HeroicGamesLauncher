@@ -24,6 +24,13 @@
         "dont-show-again": "Don't show this warning again",
         "title": "Adtraction is blocked"
     },
+    "affiliate": {
+        "gogPrompt": {
+            "description": "Heroic can use GOG affiliate links when you visit the GOG store. If you buy something after clicking through from Heroic, GOG shares a small commission with us — at no extra cost to you. We don't see or track which games you buy, or anything else about your purchases: GOG only knows that someone came from Heroic. This is off by default, and you can change it whenever you like in Heroic's Advanced settings.",
+            "title": "Support Heroic with your GOG purchases",
+            "toggle": "Use GOG affiliate links"
+        }
+    },
     "amazon-luna": "Amazon Luna",
     "analyticsModal": {
         "disable": "Disable",
@@ -208,6 +215,7 @@
     "button": {
         "backToLibrary": "Back to Library",
         "cancel": "Cancel",
+        "close": "Close",
         "continue": "Continue",
         "go_to_library": "Go to Library"
     },
@@ -316,6 +324,7 @@
         }
     },
     "discounts": {
+        "affiliateBanner": "The links on this page are affiliate links. Buying games through them helps fund Heroic development.",
         "aria": {
             "pagination": "Pagination",
             "rating": "Rating {{rating}} out of 10"
@@ -861,6 +870,8 @@
         "disableController": {
             "description": "Stop Heroic from responding to gamepad input"
         },
+        "disableDiscounts": "Disable Deals page",
+        "disableGOGAffiliate": "Disable GOG affiliate link",
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
         "discordRPC": "Enable Discord Rich Presence",
