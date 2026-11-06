@@ -7,6 +7,12 @@
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
         "disable_smooth_scrolling": "Disable smooth scrolling (requires restart)",
         "fonts": "Fonts",
+        "section": {
+            "appearance": "Appearance",
+            "library": "Library",
+            "motion": "Motion & Interaction"
+        },
+        "subtitle": "Adjust how Heroic looks and behaves",
         "title": "Accessibility",
         "titles_always_visible": "Always show titles in library",
         "zoom": "Zoom"
@@ -203,8 +209,7 @@
         "backToLibrary": "Back to Library",
         "cancel": "Cancel",
         "continue": "Continue",
-        "go_to_library": "Go to Library",
-        "login": "Log in"
+        "go_to_library": "Go to Library"
     },
     "categories-manager": {
         "add": "Add",
@@ -1208,7 +1213,8 @@
     },
     "Settings": "Settings",
     "sidebar": {
-        "console": "Console Mode"
+        "console": "Console Mode",
+        "storesLogin": "Stores Login"
     },
     "status": {
         "installed": "Installed",
@@ -1330,12 +1336,12 @@
         "actions": "Action",
         "manager": {
             "link": "Wine Manager",
-            "loading": "Loading wine versions...",
             "no-results": "No Wine versions match your search.",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "open_folder": "Open Folder",
             "search": "Search versions...",
             "settings": "Settings",
+            "subtitle": "Download and manage the Wine, Proton and CrossOver builds Heroic can use",
             "title": "Wine Manager",
             "unzipping": "Unzipping",
             "update": "Update"

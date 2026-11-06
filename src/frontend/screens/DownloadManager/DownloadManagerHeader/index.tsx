@@ -22,7 +22,9 @@ export default function DownloadManagerHeader({ time }: Props) {
     <div className="DownloadList__head">
       <span>{t('game.title', 'Game Title')}</span>
       <span>{t('download-manager.queue.type', 'Type')}</span>
-      <span>{t('game.store', 'Store')}</span>
+      <span className="DownloadList__headStore">
+        {t('game.store', 'Store')}
+      </span>
       <span>{getTimeLabel()}</span>
       <span className="DownloadList__headActions">
         {t('wine.actions', 'Action')}

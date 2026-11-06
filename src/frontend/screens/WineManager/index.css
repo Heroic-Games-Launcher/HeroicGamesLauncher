@@ -1,165 +1,71 @@
-.wineManagerHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-md) var(--space-3xl-fixed);
-  gap: 16px;
-  flex-wrap: wrap;
-  max-width: 2000px;
-
-  h4 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-
-  .wineManagerToolbar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-grow: 1;
-    justify-content: flex-end;
-
-    .SearchBar {
-      max-width: 400px;
-      width: 100%;
-    }
-
-    .toolbarBtn {
-      background: var(--body-background);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 8px 12px;
-      color: var(--text-primary);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 40px;
-      width: 40px;
-
-      &:hover {
-        color: var(--accent);
-        border-color: var(--accent);
-      }
-    }
-  }
-}
-
-.wineManager {
-  height: 100%;
+.WineManager {
   display: flex;
   flex-direction: column;
-  padding: 0 var(--space-xs-fixed);
-  max-width: 2000px;
+  gap: var(--space-lg-fixed);
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--space-3xl-fixed) var(--space-5xl-fixed);
+  min-height: 0;
+}
 
-  .tabsWrapper {
-    display: flex;
-    width: 100%;
-    margin-bottom: 16px;
-    background: var(--body-background);
-    border-radius: 12px;
-    padding: 4px;
+.WineManager .PageHeader__actions {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  gap: var(--space-sm-fixed);
+  min-width: 0;
+}
 
-    .MuiTabs-root {
-      min-height: 40px;
-      width: 100%;
+.WineManager .PageHeader__actions .SearchBar {
+  max-width: 400px;
+  width: 100%;
+}
 
-      .MuiTabs-indicator {
-        display: none;
-      }
+.WineManager__panel {
+  margin-bottom: var(--space-2xl-fixed);
+}
 
-      .MuiTab-root {
-        min-height: 36px;
-        padding: 8px 16px;
-        border-radius: 8px;
-        color: var(--text-secondary);
-        text-transform: none;
-        font-weight: 600;
-        transition: all 0.2s ease;
+.WineManager__panel .Table {
+  --table-radius: 15px;
+}
 
-        &.Mui-selected {
-          background: var(--background);
-          color: var(--text-primary);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+.WineManager__version {
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--medium);
+  text-align: start;
+  color: var(--on-panel, var(--text-default));
+  cursor: pointer;
+  transition: color 150ms ease;
+}
 
-        &:hover:not(.Mui-selected) {
-          color: var(--text-primary);
-        }
-      }
-    }
+.WineManager__version:hover,
+.WineManager__version:focus-visible {
+  color: var(--on-panel-link, var(--accent));
+  text-decoration: underline;
+}
+
+.WineManager__date {
+  color: var(--on-panel-muted, var(--text-secondary));
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@container main-content (max-width: 900px) {
+  .WineManager {
+    padding: var(--space-xl-fixed) var(--space-lg-fixed);
   }
 
-  .wineList {
-    margin-top: 16px;
-    display: flex;
+  .WineManager .PageHeader {
     flex-direction: column;
-    flex-grow: 1;
-    background: var(--body-background);
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    overflow: auto;
-    margin-bottom: 32px;
-
-    .gameListHeader {
-      display: grid;
-      gap: 0;
-      grid-template-columns: 33% 30% 20% 17%;
-      padding: 12px 24px;
-      background: var(--bg-primary);
-      border-bottom: 1px solid var(--border-color);
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 2;
-
-      span {
-        text-align: start;
-        font-weight: 700;
-        color: white;
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        letter-spacing: 0.05em;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .actions {
-        place-self: end;
-      }
-    }
-
-    .loadingState {
-      padding: 32px 16px;
-      text-align: center;
-      color: var(--text-secondary);
-    }
+    align-items: stretch;
   }
 
-  .infoBox {
-    width: 80%;
-    margin: 16px auto;
-    background: var(--body-background);
-    border-radius: 8px;
-    padding: 12px 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    svg {
-      margin-inline-end: 0.5rem;
-      width: 16px;
-      height: 16px;
-    }
-
-    &.errorState {
-      justify-content: center;
-      color: var(--error);
-      font-weight: 500;
-    }
+  .WineManager .PageHeader__actions .SearchBar {
+    max-width: none;
   }
 }
 
@@ -208,63 +114,10 @@
   }
 }
 
-/* Responsive adjustments */
-@media (max-width: 800px) {
-  .wineManagerHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-
-    .wineManagerToolbar {
-      width: 100%;
-
-      .SearchBar {
-        max-width: none;
-      }
-    }
-  }
-
-  .wineManager .wineList {
-    overflow-x: auto;
-
-    .gameListHeader {
-      grid-template-columns: 1.5fr 1.5fr;
-
-      .release,
-      .size {
-        display: none;
-      }
-
-      .actions {
-        grid-column: 2;
-      }
-    }
-  }
-}
-
 @media (max-width: 480px) {
   .wineManagerSettingsContent {
     min-width: auto;
     width: 100%;
     padding: 16px;
-  }
-
-  .wineItem {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'version'
-      'notes'
-      'release'
-      'size'
-      'actions';
-    text-align: center;
-    .actions {
-      justify-content: center;
-      margin-top: 8px;
-    }
-    .release,
-    .size {
-      text-align: center;
-    }
   }
 }
