@@ -1,4 +1,4 @@
-import './index.css'
+import './index.scss'
 
 import { WineVersionInfo } from 'common/types'
 import DownIcon from 'frontend/assets/down-icon.svg?react'

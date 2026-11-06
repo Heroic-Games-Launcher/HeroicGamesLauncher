@@ -27,10 +27,18 @@ export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
 export type DialogType = 'MESSAGE' | 'ERROR'
 
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'danger'
+  | 'dangerSubtle'
+  | 'warning'
+
 export interface ButtonOptions {
   text: string
   onClick?: () => void
-  variant?: 'primary' | 'secondary' | 'destructive'
+  variant?: ButtonVariant
 }
 
 export type LaunchParams = {

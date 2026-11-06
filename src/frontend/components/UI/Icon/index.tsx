@@ -21,6 +21,7 @@ interface IconProps {
   label?: string
   fill?: string
   fillOpacity?: number
+  'data-tour'?: string
 }
 
 export default function Icon({
@@ -30,7 +31,8 @@ export default function Icon({
   className,
   label,
   fill = 'none',
-  fillOpacity
+  fillOpacity,
+  'data-tour': dataTour
 }: IconProps) {
   return (
     <Glyph
@@ -39,6 +41,7 @@ export default function Icon({
       strokeWidth={strokeWidth ?? DEFAULT_STROKE}
       fill={fill}
       {...(fillOpacity === undefined ? {} : { fillOpacity })}
+      {...(dataTour === undefined ? {} : { 'data-tour': dataTour })}
       aria-hidden={label ? undefined : true}
       aria-label={label}
     />

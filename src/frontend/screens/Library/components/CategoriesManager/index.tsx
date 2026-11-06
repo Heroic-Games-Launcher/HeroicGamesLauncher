@@ -3,17 +3,10 @@ import { useTranslation } from 'react-i18next'
 import LibraryContext from '../../LibraryContext'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
-import { TextInputField } from 'frontend/components/UI'
+import { Icon, TextInputField } from 'frontend/components/UI'
 import Button from 'frontend/components/UI/Button'
 import './index.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faAdd,
-  faCancel,
-  faCheck,
-  faPencil,
-  faTrash
-} from '@fortawesome/free-solid-svg-icons'
+import { Check, Pencil, Plus, Trash2, X } from 'lucide-react'
 
 interface CategoryItemProps {
   name: string
@@ -60,31 +53,31 @@ function CategoryItem({
             { oldName: name, newName }
           )}
           disabled={isNewNameEmptyOrEqualsOldName}
-          icon={<FontAwesomeIcon icon={faCheck} />}
+          icon={<Icon glyph={Check} size="md" />}
         />
       )
     } else if (removeMode) {
       return (
         <Button
           size="sm"
-          variant="destructive"
+          variant="dangerSubtle"
           onClick={() => remove()}
           title={t(
             'categories-manager.confirm-remove',
             'Confirm removal of "{{name}}"',
             { name }
           )}
-          icon={<FontAwesomeIcon icon={faCheck} />}
+          icon={<Icon glyph={Check} size="md" />}
         />
       )
     } else {
       return (
         <Button
           size="sm"
-          variant="destructive"
+          variant="dangerSubtle"
           onClick={() => setRemoveMode(true)}
           title={t('categories-manager.remove', 'Remove "{{name}}"', { name })}
-          icon={<FontAwesomeIcon icon={faTrash} />}
+          icon={<Icon glyph={Trash2} size="md" />}
         />
       )
     }
@@ -102,7 +95,7 @@ function CategoryItem({
             'Cancel rename of "{{name}}"',
             { name }
           )}
-          icon={<FontAwesomeIcon icon={faCancel} />}
+          icon={<Icon glyph={X} size="md" />}
         />
       )
     } else if (removeMode) {
@@ -116,7 +109,7 @@ function CategoryItem({
             'Cancel removal of "{{name}}"',
             { name }
           )}
-          icon={<FontAwesomeIcon icon={faCancel} />}
+          icon={<Icon glyph={X} size="md" />}
         />
       )
     } else {
@@ -126,7 +119,7 @@ function CategoryItem({
           variant="secondary"
           onClick={() => setRenameMode(true)}
           title={t('categories-manager.rename', 'Rename "{{name}}"', { name })}
-          icon={<FontAwesomeIcon icon={faPencil} />}
+          icon={<Icon glyph={Pencil} size="md" />}
         />
       )
     }
@@ -212,7 +205,7 @@ function CategoriesManager() {
               onClick={() => addCategory()}
               title={t('categories-manager.add', 'Add')}
               disabled={isCategoryNameEmpty}
-              icon={<FontAwesomeIcon icon={faAdd} />}
+              icon={<Icon glyph={Plus} size="md" />}
             />
           }
         />

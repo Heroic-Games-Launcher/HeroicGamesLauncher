@@ -507,7 +507,7 @@ class GlobalState extends PureComponent<Props> {
       buttons: [
         {
           text: t('box.yes'),
-          variant: 'destructive',
+          variant: 'dangerSubtle',
           onClick: window.api.resetHeroic
         },
         { text: t('box.no') }

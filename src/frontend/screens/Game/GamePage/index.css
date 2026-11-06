@@ -4,7 +4,7 @@
   grid-template-rows: min-content 1fr min-content;
   padding: var(--space-md);
   gap: var(--space-md);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   height: 100%;
   max-height: 100vh;
   max-width: 2400px;
@@ -50,7 +50,7 @@
     padding: 6px;
     color: var(--status-default-hover);
     background-color: var(--navbar-background);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     display: grid;
     place-items: center;
     border: none;
@@ -122,7 +122,7 @@
   .extraInfo {
     outline: 3px solid #8a8a8a;
     outline-offset: -3px;
-    border-radius: 15px;
+    border-radius: var(--radius-md);
     isolation: isolate;
     position: relative;
     overflow: hidden;
@@ -173,7 +173,7 @@
         top: 2px;
         right: 2px;
         z-index: -1;
-        border-radius: 10px;
+        border-radius: var(--radius-md);
         overflow: hidden;
 
         &::after {
@@ -191,8 +191,8 @@
       }
 
       h1 {
-        font-size: 34px;
-        line-height: 39px;
+        font-size: var(--heading-3);
+        line-height: var(--line-height-tight);
         padding: var(--space-xs) 0;
         margin-bottom: 0.8rem;
         color: var(--text-title);
@@ -202,20 +202,20 @@
       .developer {
         margin-bottom: 0.5rem;
         color: var(--brand-text-02);
-        font-size: var(--text-md);
+        font-size: var(--body-md);
         font-style: italic;
       }
 
       .releaseDate {
         margin-bottom: 0.3rem;
         color: var(--neutral-05);
-        font-size: var(--text-xs);
+        font-size: var(--caption-sm);
       }
 
       .summary {
         overflow: auto;
-        font-size: var(--text-md);
-        line-height: 1.5em;
+        font-size: var(--body-md);
+        line-height: var(--line-height-normal);
         text-align: left;
         flex-grow: 1;
         margin-top: var(--space-xs);
@@ -226,7 +226,7 @@
       .timeContainerLabel {
         margin-top: 0.8rem;
         color: var(--neutral-05);
-        font-size: var(--text-md);
+        font-size: var(--body-md);
       }
 
       .genres {
@@ -239,10 +239,10 @@
           background: var(--accent-02);
           color: var(--brand-text-05);
           padding: 4px 8px;
-          border-radius: 16px;
+          border-radius: var(--radius-lg);
           border: 1px solid var(--accent-02);
-          font-size: var(--text-sm);
-          font-weight: 600;
+          font-size: var(--body-sm);
+          font-weight: var(--weight-semibold);
         }
       }
 
@@ -265,7 +265,7 @@
         justify-content: flex-start;
         align-items: center;
         margin-top: 15px;
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
 
         .buttonWithIcon > svg {
           display: flex;
@@ -339,7 +339,7 @@
 
         & .mainBtn {
           min-width: 200px;
-          font-size: var(--text-md);
+          font-size: var(--body-md);
           display: flex;
           justify-content: center;
           white-space: nowrap;
@@ -363,7 +363,7 @@
         }
 
         & .delBtn {
-          font-size: var(--text-md);
+          font-size: var(--body-md);
           min-width: 150px;
           & svg {
             margin-inline-end: 0;
@@ -389,7 +389,7 @@
           overflow: hidden;
           text-align: end;
           font-size: var(--space-unit-fixed);
-          line-height: 24px;
+          line-height: var(--line-height-normal);
           gap: var(--space-md-fixed);
           padding: var(--space-unit-fixed);
           align-items: center;
@@ -483,7 +483,7 @@
             width: 60px;
 
             img {
-              border-radius: var(--space-3xs);
+              border-radius: var(--radius-xs);
               height: 100%;
               width: auto;
               object-fit: cover;
@@ -501,15 +501,15 @@
             flex-direction: column;
 
             .achievement-title {
-              font-size: var(--text-md);
+              font-size: var(--body-md);
               color: var(--text-title);
             }
             .achievement-desc {
-              font-size: var(--text-xs);
+              font-size: var(--caption-sm);
               color: var(--neutral-06);
             }
             .achievement-rarity {
-              font-size: var(--text-xs);
+              font-size: var(--caption-sm);
               color: var(--neutral-05);
             }
           }
@@ -547,7 +547,7 @@
   }
 
   .store-icon {
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     padding: var(--space-3xs);
     place-content: center;
     fill: var(--text-default);
@@ -557,7 +557,7 @@
       width: 46px;
       height: 46px;
       padding: var(--space-2xs);
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
 
       &.gogIcon {
         padding: 0px var(--space-3xs) var(--space-3xs);
@@ -571,7 +571,7 @@
     padding: 6px;
     color: var(--navbar-inactive);
     background-color: var(--navbar-background);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     display: grid;
     place-items: center;
     height: 44px;
@@ -595,7 +595,7 @@
       align-self: flex-end;
       border: none;
       color: var(--navbar-inactive);
-      font-size: var(--text-2xl);
+      font-size: var(--heading-5);
       padding: var(--space-xs-fixed);
       cursor: pointer;
       position: relative;
@@ -605,7 +605,7 @@
       width: 44px;
       height: 44px;
       background-color: var(--navbar-background);
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
     }
 
     &:focus-within .toggle,
@@ -620,7 +620,7 @@
       pointer-events: all;
       transition: all 0.2s;
       background-color: var(--navbar-background);
-      border-radius: 5px;
+      border-radius: var(--radius-xs);
       z-index: 2;
       padding: 0;
       max-height: 0px;
@@ -762,7 +762,7 @@
       background-color: var(--neutral-02);
       opacity: 0.35;
     }
-    border-radius: var(--space-xs);
+    border-radius: var(--radius-sm);
 
     .MuiTabs-indicator {
       display: none;

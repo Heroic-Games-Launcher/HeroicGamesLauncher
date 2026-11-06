@@ -109,7 +109,7 @@ const EnvVariablesTable = () => {
       buttons: [
         {
           text: t('common.confirm', 'Confirm'),
-          variant: 'destructive',
+          variant: 'dangerSubtle',
           onClick: () => setEnvironmentOptions([])
         },
         {

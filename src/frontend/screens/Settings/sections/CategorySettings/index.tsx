@@ -109,7 +109,7 @@ const CategorySettings = () => {
           </ModalContent>
           <ModalFooter>
             <Button
-              variant="destructive"
+              variant="dangerSubtle"
               onClick={() => handleRemoveCategory(categoryToDelete)}
             >
               {t('category-settings.remove-category', 'Remove Category')}
@@ -161,7 +161,7 @@ const CategorySettings = () => {
             />
             <Button
               size="sm"
-              variant="destructive"
+              variant="dangerSubtle"
               title={t('category-settings.remove-category', 'Remove Category')}
               onClick={() => {
                 handleShowRemoveCategoryConfirmation(category)

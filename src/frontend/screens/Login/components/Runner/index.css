@@ -1,6 +1,6 @@
 .runnerWrapper {
   background-color: var(--input-background);
-  border-radius: var(--space-xs);
+  border-radius: var(--radius-sm);
   min-width: min(500px, 30%);
   display: flex;
   flex-direction: row;
@@ -27,10 +27,10 @@
 
 .runnerLogin {
   padding: var(--space-lg);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   border: none;
   transition: 0.2s;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   text-transform: uppercase;
   text-align: center;
 }
@@ -79,7 +79,7 @@
 .userData {
   color: var(--text-secondary);
   /* For longer nicknames */
-  font-size: var(--text-lg);
+  font-size: var(--body-lg);
   margin: var(--space-sm) 0px;
   padding: 0px 10px;
 }

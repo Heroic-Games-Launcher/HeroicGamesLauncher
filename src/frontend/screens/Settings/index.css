@@ -4,7 +4,7 @@
   justify-content: flex-start;
   grid-template-columns: 1fr 5fr;
   width: 100%;
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
   grid-area: content;
   padding: var(--space-xl-fixed) var(--space-2xl-fixed);
   position: relative;
@@ -26,8 +26,8 @@
   cursor: default;
   margin-bottom: var(--space-md);
   font: var(--font-secondary-regular);
-  font-size: var(--text-md);
-  line-height: var(--space-lg);
+  font-size: var(--body-md);
+  line-height: var(--line-height-normal);
   color: var(--text-secondary);
 }
 
@@ -81,8 +81,8 @@
   align-items: center;
   justify-content: space-between;
   font: var(--font-secondary-regular-italic);
-  font-size: var(--text-sm);
-  line-height: var(--space-md);
+  font-size: var(--body-sm);
+  line-height: var(--line-height-none);
   /* identical to box height */
   color: var(--text-secondary);
 }
@@ -93,8 +93,8 @@
   display: flex;
   align-items: center;
   font: var(--font-secondary-regular-italic);
-  font-size: var(--text-sm);
-  line-height: var(--space-md);
+  font-size: var(--body-sm);
+  line-height: var(--line-height-none);
   /* identical to box height */
   color: #5a5e5f;
 }
@@ -116,32 +116,32 @@
 }
 
 .save > .material-icons {
-  font-size: var(--text-2xl);
+  font-size: var(--heading-5);
   margin-inline-start: 6px;
 }
 
 .warning {
   color: var(--status-warning);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
   padding-top: var(--space-3xs);
-  font-weight: bold;
+  font-weight: var(--weight-bold);
 }
 
 .error {
   color: var(--danger);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
   padding-top: var(--space-3xs);
-  font-weight: bold;
+  font-weight: var(--weight-bold);
 }
 
 .smallLink {
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
@@ -182,7 +182,7 @@ a {
 .button.is-danger.is-footer {
   background: var(--status-warning);
   color: var(--text-tertiary);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .button.is-danger.is-footer:hover,
@@ -220,7 +220,7 @@ a {
 
 .button-icontext-flex .button-icon-text {
   margin-block: auto;
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
 }
 
 .button-icon-flex {
@@ -246,8 +246,8 @@ a {
 }
 
 .infoBox.saves-warning {
-  font-weight: var(--semibold);
-  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  font-size: var(--body-lg);
 }
 
 .infoBox.saves-warning svg {
@@ -255,14 +255,14 @@ a {
 }
 
 .customCSSArea {
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   width: 100%;
   min-height: 200px;
   background: var(--input-background);
   font-family: var(--primary-font-family), 'Noto Color Emoji';
-  font-weight: normal;
-  font-size: var(--text-md);
-  line-height: 19px;
+  font-weight: var(--weight-regular);
+  font-size: var(--body-md);
+  line-height: var(--line-height-normal);
   color: var(--text-secondary);
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -282,5 +282,5 @@ a {
   padding: var(--space-md);
   display: flex;
   gap: var(--space-md);
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
 }

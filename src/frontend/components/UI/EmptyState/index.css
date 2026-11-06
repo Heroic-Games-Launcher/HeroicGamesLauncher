@@ -1,0 +1,50 @@
+.EmptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xs-fixed);
+  max-width: 420px;
+  margin: var(--space-xl-fixed) auto;
+  padding: var(--space-lg-fixed) var(--space-md-fixed);
+  background: var(--input-background);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-lg);
+}
+
+.EmptyState__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-3xs-fixed);
+  border-radius: var(--radius-circle);
+  background: var(--body-background);
+  color: var(--text-secondary);
+}
+
+.EmptyState__title {
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--title-sm);
+  font-weight: var(--weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--text-default);
+}
+
+.EmptyState__description {
+  margin: 0;
+  font-size: var(--body-md);
+  line-height: var(--line-height-normal);
+  color: var(--text-secondary);
+}
+
+.EmptyState__description a {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.EmptyState__action {
+  margin-top: var(--space-xs-fixed);
+}

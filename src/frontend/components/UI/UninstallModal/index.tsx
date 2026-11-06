@@ -223,7 +223,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
             )}
           </ModalContent>
           <ModalFooter>
-            <Button variant="destructive" onClick={uninstallGame}>
+            <Button variant="dangerSubtle" onClick={uninstallGame}>
               {t('box.yes')}
             </Button>
             <Button variant="secondary" onClick={onClose}>

@@ -2,12 +2,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-sm-fixed);
   border: 1px solid transparent;
   border-radius: 12px;
-  padding: 0 18px;
+  padding: 0 var(--space-lg-fixed);
   font-family: var(--primary-font-family);
-  font-size: var(--text-md);
+  font-size: var(--button-md);
   font-weight: var(--semibold);
   line-height: 1;
   letter-spacing: -0.01em;
@@ -27,8 +27,8 @@
 
 .Button--sm {
   height: 36px;
-  padding: 0 14px;
-  font-size: var(--text-sm);
+  padding: 0 var(--space-md-fixed);
+  font-size: var(--button-sm);
 }
 
 .Button--fullWidth {
@@ -48,14 +48,12 @@
   flex-shrink: 0;
 }
 
-.Button:focus-visible {
-  outline: 2px solid var(--navbar-accent, var(--accent));
-  outline-offset: 2px;
-}
-
 .Button--primary {
-  background: var(--navbar-accent, var(--accent));
+  --button-surface: var(--navbar-accent, var(--accent));
+
+  background: var(--button-surface);
   color: var(--background-darker, #06121a);
+  color: oklch(from var(--button-surface) clamp(0, (0.62 - l) * 1000, 1) 0 h);
 }
 
 .Button--primary:hover:not(:disabled),
@@ -65,8 +63,10 @@
 }
 
 .Button--secondary {
-  background: var(--background-darker, #0a0e13);
-  color: var(--navbar-accent, var(--accent));
+  --button-surface: var(--background-darker, #0a0e13);
+
+  background: var(--button-surface);
+  color: var(--on-panel-link, var(--navbar-accent, var(--accent)));
   border-color: color-mix(in oklab, var(--accent) 35%, transparent);
 }
 
@@ -77,8 +77,10 @@
 }
 
 .Button--ghost {
-  background: var(--input-background);
-  color: var(--text-secondary);
+  --button-surface: var(--input-background);
+
+  background: var(--button-surface);
+  color: var(--on-panel, var(--text-default));
 }
 
 .Button--ghost:hover:not(:disabled),
@@ -87,29 +89,58 @@
   color: var(--text-default);
 }
 
-.Button--destructive {
-  background: var(--background-darker, #0a0e13);
-  color: var(--status-danger);
-  border-color: color-mix(in oklab, var(--status-danger) 40%, transparent);
+.Button--danger {
+  --button-surface: var(--cancel-button, var(--danger));
+
+  background: var(--button-surface);
+  color: var(--text-default);
+  color: oklch(from var(--button-surface) clamp(0, (0.62 - l) * 1000, 1) 0 h);
 }
 
-.Button--destructive:hover:not(:disabled),
-.Button--destructive:focus-visible:not(:disabled) {
-  border-color: var(--status-danger);
+.Button--dangerSubtle {
+  --button-surface: var(--danger, #ef4444);
+
+  background: color-mix(in oklab, var(--button-surface) 16%, transparent);
+  border-color: color-mix(in oklab, var(--button-surface) 46%, transparent);
+  color: var(--on-panel-danger, var(--danger));
+}
+
+.Button--dangerSubtle:hover:not(:disabled),
+.Button--dangerSubtle:focus-visible:not(:disabled) {
+  background: color-mix(in oklab, var(--button-surface) 28%, transparent);
+  border-color: var(--button-surface);
+}
+
+.Button--warning {
+  --button-surface: var(--status-warning, #f59e0b);
+
   background: color-mix(
     in oklab,
-    var(--status-danger) 12%,
-    var(--background-darker)
+    var(--button-surface) 22%,
+    var(--panel-surface, var(--background-darker))
   );
+  border-color: color-mix(in oklab, var(--button-surface) 55%, transparent);
+  color: var(--on-panel-warning, var(--status-warning));
 }
 
-.Button--destructive:focus-visible {
-  outline-color: var(--status-danger);
+.Button--warning:hover:not(:disabled),
+.Button--warning:focus-visible:not(:disabled) {
+  background: color-mix(
+    in oklab,
+    var(--button-surface) 34%,
+    var(--panel-surface, var(--background-darker))
+  );
+  border-color: var(--button-surface);
+}
+
+.Button--danger:hover:not(:disabled),
+.Button--danger:focus-visible:not(:disabled) {
+  background: var(--cancel-button-overlay, var(--danger-hover));
 }
 
 .Button:disabled {
   background: var(--disabled-button, var(--background-secondary));
-  color: var(--text-secondary);
+  color: var(--text-muted, var(--text-secondary));
   border-color: transparent;
   cursor: not-allowed;
   box-shadow: none;

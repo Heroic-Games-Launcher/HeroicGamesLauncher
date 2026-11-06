@@ -11,13 +11,15 @@
   --space-3xl: 8.5em;
 
   --space-unit-fixed: 16px;
-  --space-2xs-fixed: calc(0.25 * var(--space-unit-fixed));
+  --space-3xs-fixed: calc(0.25 * var(--space-unit-fixed));
+  --space-2xs-fixed: calc(0.375 * var(--space-unit-fixed));
   --space-xs-fixed: calc(0.5 * var(--space-unit-fixed));
   --space-sm-fixed: calc(0.75 * var(--space-unit-fixed));
   --space-md-fixed: calc(1 * var(--space-unit-fixed));
-  --space-lg-fixed: calc(1.2 * var(--space-unit-fixed));
-  --space-xl-fixed: calc(2.5 * var(--space-unit-fixed));
+  --space-lg-fixed: calc(1.5 * var(--space-unit-fixed));
+  --space-xl-fixed: calc(3 * var(--space-unit-fixed));
   --space-2xl-fixed: calc(4.5 * var(--space-unit-fixed));
+  --space-3xl-fixed: calc(8.5 * var(--space-unit-fixed));
 }
 
 h1,

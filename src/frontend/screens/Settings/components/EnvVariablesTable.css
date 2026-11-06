@@ -14,7 +14,7 @@
 }
 
 .env-vars-title {
-  font-size: var(--text-lg);
+  font-size: var(--body-lg);
   margin: 0;
 }
 
@@ -36,7 +36,7 @@
   gap: var(--space-sm-fixed);
   padding: var(--space-xs-fixed) var(--space-sm-fixed);
   background: var(--input-background);
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   transition: background 0.2s;
   min-height: 48px;
 }
@@ -55,7 +55,7 @@
 }
 
 .env-var-key {
-  font-weight: bold;
+  font-weight: var(--weight-bold);
   color: var(--text-default);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,7 +64,7 @@
 
 .env-var-connector {
   color: var(--text-secondary);
-  font-weight: bold;
+  font-weight: var(--weight-bold);
 }
 
 .env-var-value {
@@ -104,13 +104,13 @@
   margin-top: var(--space-sm-fixed);
   padding: var(--space-md-fixed);
   border: 1px dashed var(--divider, var(--text-secondary));
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
 }
 
 .env-var-add-title {
-  font-weight: bold;
+  font-weight: var(--weight-bold);
   color: var(--text-default);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
 }
 
 .env-var-add-inputs {
@@ -132,7 +132,7 @@
   color: var(--text-default);
   padding: var(--space-sm-fixed);
   font-family: monospace;
-  border-radius: var(--space-3xs);
+  border-radius: var(--radius-xs);
   resize: vertical;
 }
 
