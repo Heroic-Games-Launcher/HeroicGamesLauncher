@@ -1,0 +1,38 @@
+.categoriesFilter .dropdown {
+  min-width: 340px;
+  max-width: 420px;
+}
+
+.categoryChip {
+  display: inline-flex;
+  align-items: center;
+}
+
+.categoryOnly {
+  max-width: 0;
+  margin-inline-start: 0;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  font-weight: var(--semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  color: var(--navbar-accent, var(--accent));
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    max-width 150ms ease,
+    margin-inline-start 150ms ease,
+    opacity 150ms ease;
+}
+
+.categoryChip:hover .categoryOnly,
+.categoryChip:focus-within .categoryOnly {
+  max-width: 10rem;
+  margin-inline-start: var(--space-xs-fixed);
+  opacity: 1;
+}

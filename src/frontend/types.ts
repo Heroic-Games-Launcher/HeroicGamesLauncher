@@ -130,6 +130,10 @@ export interface ContextType {
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void
+  disableDiscounts: boolean
+  setDisableDiscounts: (value: boolean) => void
+  disableGOGAffiliate: boolean
+  setDisableGOGAffiliate: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
   help: {

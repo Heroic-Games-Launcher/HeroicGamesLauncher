@@ -1,11 +1,12 @@
 import './index.css'
 import React, { ReactElement, useMemo } from 'react'
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+  Modal,
+  ModalContent,
+  ModalFooter,
+  ModalHeader
+} from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { DialogType, ButtonOptions } from 'common/types'
@@ -42,22 +43,18 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   }, [props.message])
 
   const getButtons = function () {
-    const allButtons = []
-    for (let i = 0; i < props.buttons.length; ++i) {
-      allButtons.push(
-        <button
-          onClick={() => {
-            props.onClose()
-            props.buttons[i].onClick?.()
-          }}
-          className={`button is-secondary outline`}
-          key={'messageBoxModalButton_' + i.toString()}
-        >
-          {props.buttons[i].text}
-        </button>
-      )
-    }
-    return allButtons
+    return props.buttons.map((button, i) => (
+      <Button
+        key={'messageBoxModalButton_' + i.toString()}
+        variant={button.variant ?? (i === 0 ? 'primary' : 'secondary')}
+        onClick={() => {
+          props.onClose()
+          button.onClick?.()
+        }}
+      >
+        {button.text}
+      </Button>
+    ))
   }
 
   const getContent = () => {
@@ -71,26 +68,27 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
             <div className="errorDialog error-box">{message}</div>
           </>
         )
-        break
       default:
         return props.message
-        break
     }
   }
 
   return (
-    <Dialog
+    <Modal
       onClose={props.onClose}
       showCloseButton
+      tone={props.type === 'ERROR' ? 'error' : 'default'}
       className={classNames(
         { errorDialog: props.type === 'ERROR' },
         customClassName
       )}
     >
-      <DialogHeader onClose={props.onClose}>{props.title}</DialogHeader>
-      <DialogContent>{getContent()}</DialogContent>
-      <DialogFooter>{getButtons()}</DialogFooter>
-    </Dialog>
+      <ModalHeader>{props.title}</ModalHeader>
+      <ModalContent>{getContent()}</ModalContent>
+      <ModalFooter layout={props.buttons.length > 2 ? 'stacked' : 'inline'}>
+        {getButtons()}
+      </ModalFooter>
+    </Modal>
   )
 }
 

@@ -20,14 +20,14 @@
   flex-direction: column;
   gap: var(--space-md);
   background: var(--background-darker);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   z-index: 7;
   padding: var(--space-xl) var(--space-lg) var(--space-lg);
   width: min(560px, calc(100vw - 4rem));
   max-height: calc(100vh - 4rem);
   overflow: auto;
   border: solid 1px var(--background);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   box-shadow: 0 24px 48px rgb(0 0 0 / 40%);
   margin: 2rem;
 }
@@ -41,7 +41,7 @@
   color: var(--text-secondary);
   cursor: pointer;
   padding: var(--space-2xs);
-  border-radius: var(--space-xs);
+  border-radius: var(--radius-xs);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,7 +68,7 @@
 
 .loginInstructions > strong {
   color: var(--text-hover);
-  font-size: var(--text-2xl);
+  font-size: var(--title-lg);
   font-weight: var(--semibold);
   text-align: center;
 }
@@ -76,7 +76,7 @@
 .loginInstructions > p {
   color: var(--text-secondary);
   margin: 0;
-  line-height: 1.5;
+  line-height: var(--leading-normal);
   text-align: center;
 }
 
@@ -90,7 +90,7 @@
 
 .loginInstructions li {
   text-align: start;
-  line-height: 1.5;
+  line-height: var(--leading-normal);
 }
 
 .loginInstructions li::marker {
@@ -115,7 +115,7 @@
   align-items: center;
   background-color: var(--input-background);
   border: 1px solid var(--background);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   color: var(--text-default);
   padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-md);
   gap: var(--space-sm);
@@ -133,7 +133,7 @@
 .sid-modal .login-link .MuiTypography-subtitle1,
 .sid-modal .login-link h6 {
   padding-inline-start: 0;
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
   color: var(--text-secondary);
   word-break: break-all;
   flex: 1 1 200px;
@@ -171,13 +171,13 @@
 
 .sid-modal .sid-input {
   color: var(--text-default);
-  font-size: var(--text-md);
+  font-size: var(--body-md);
   padding: 0 var(--space-md);
   background-color: var(--input-background);
   border: 1px solid var(--background);
   height: 44px;
   width: 100%;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   box-shadow: 0px 2px 4px rgb(0 0 0 / 15%);
   font-family: var(--primary-font-family);
   transition:
@@ -203,7 +203,7 @@
   border: none;
   background: transparent;
   color: var(--accent);
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   cursor: pointer;
   transition:
     150ms color,

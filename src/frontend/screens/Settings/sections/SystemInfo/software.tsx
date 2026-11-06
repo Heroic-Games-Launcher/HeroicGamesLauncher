@@ -1,9 +1,6 @@
 import React from 'react'
 
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
-import Grid from '@mui/material/Grid'
-
+import { SpecCard } from 'frontend/components/UI'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
@@ -24,56 +21,28 @@ function SoftwareInfo({ software }: Props) {
     nileVersion
   } = software
 
+  const rows = [
+    { key: 'Heroic', value: heroicVersion },
+    { key: 'Legendary', value: legendaryVersion },
+    { key: 'Gogdl', value: gogdlVersion },
+    { key: 'Comet', value: cometVersion },
+    { key: 'Nile', value: nileVersion }
+  ]
+
   return (
-    <Paper sx={{ padding: 1 }} square>
-      <Typography variant="h6">
-        {t('settings.systemInformation.software', 'Software:')}
-      </Typography>
-      <Grid container>
-        <Grid item xs={2}>
-          <HeroicIcon className="heroic-icon" />
-        </Grid>
-        <Grid item xs={10}>
-          {t(
-            'settings.systemInformation.heroicVersion',
-            'Heroic: {{heroicVersion}}',
-            {
-              heroicVersion
-            }
-          )}
-          <br />
-          {t(
-            'settings.systemInformation.legendaryVersion',
-            'Legendary: {{legendaryVersion}}',
-            { legendaryVersion }
-          )}
-          <br />
-          {t(
-            'settings.systemInformation.gogdlVersion',
-            'Gogdl: {{gogdlVersion}}',
-            {
-              gogdlVersion
-            }
-          )}
-          <br />
-          {t(
-            'settings.systemInformation.cometVersion',
-            'Comet: {{cometVersion}}',
-            {
-              cometVersion
-            }
-          )}
-          <br />
-          {t(
-            'settings.systemInformation.nileVersion',
-            'Nile: {{nileVersion}}',
-            {
-              nileVersion
-            }
-          )}
-        </Grid>
-      </Grid>
-    </Paper>
+    <SpecCard
+      title={t('settings.systemInformation.software', 'Software')}
+      media={<HeroicIcon className="heroic-icon" />}
+    >
+      <ul className="SpecCard__list">
+        {rows.map(({ key, value }) => (
+          <li key={key} className="SpecCard__listRow">
+            <span className="SpecCard__listKey">{key}</span>
+            <span className="SpecCard__listValue">{value}</span>
+          </li>
+        ))}
+      </ul>
+    </SpecCard>
   )
 }
 

@@ -2,8 +2,8 @@
   cursor: default;
   width: 100%;
   padding: var(--space-sm) var(--space-lg);
-  font-size: var(--text-md);
-  line-height: 19px;
+  font-size: var(--body-md);
+  line-height: 1.5;
   background-color: var(--input-background);
   border-radius: 10px;
   text-align: start;
@@ -12,7 +12,7 @@
 .helpLink {
   margin-block-start: var(--space-3xs);
   transition: 500ms;
-  color: var(--accent);
+  color: var(--on-panel-link, var(--accent));
   cursor: pointer;
   display: flex;
   height: 40px;

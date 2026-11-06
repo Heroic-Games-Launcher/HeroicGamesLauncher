@@ -99,6 +99,10 @@ const initialContext: ContextType = {
   handleExternalLinkDialog: () => null,
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
+  disableDiscounts: false,
+  setDisableDiscounts: () => null,
+  disableGOGAffiliate: true,
+  setDisableGOGAffiliate: () => null,
   lastChangelogShown: null,
   setLastChangelogShown: () => null,
   help: {

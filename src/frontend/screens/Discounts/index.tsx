@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, Select } from '@mui/material'
 
-import { UpdateComponent } from 'frontend/components/UI'
+import { DismissibleBanner, UpdateComponent } from 'frontend/components/UI'
 import type {
   CatalogFeature,
   CatalogGenre,
@@ -40,7 +40,7 @@ import {
   type StoreTab,
   type ViewMode
 } from './helpers'
-import './index.css'
+import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function Discounts() {
@@ -663,6 +663,12 @@ export default function Discounts() {
 
   return (
     <div className="discountsScreen">
+      <DismissibleBanner storageKey="deals-affiliate-banner-dismissed">
+        {t(
+          'discounts.affiliateBanner',
+          'The links on this page are affiliate links. Buying games through them helps fund Heroic development.'
+        )}
+      </DismissibleBanner>
       <div className="discountsScreen__topbar">
         <h2 className="discountsScreen__header">
           {t('discounts.titleMulti', 'Deals')}

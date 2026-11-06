@@ -9,7 +9,7 @@ export const SIDEBAR_TOUR_ID = 'sidebar-tour'
 const SidebarTour: React.FC = () => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
-  const { epic, gog, amazon, zoom, platform, isRTL } =
+  const { epic, gog, amazon, zoom, itchio, platform, isRTL } =
     useContext(ContextProvider)
 
   // Check if the user is logged into any store
@@ -17,7 +17,8 @@ const SidebarTour: React.FC = () => {
     epic.username ||
     gog.username ||
     amazon.user_id ||
-    (zoom.enabled && zoom.username)
+    (zoom.enabled && zoom.username) ||
+    itchio.username
   )
   const isWin = platform === 'win32'
 
@@ -46,7 +47,7 @@ const SidebarTour: React.FC = () => {
       element: '[data-tour="sidebar-stores"]',
       intro: t(
         'tour.sidebar.stores',
-        'Browse and shop for games in different stores including Epic, GOG, Amazon, and Zoom.'
+        'Browse and shop for games in different stores including Epic, GOG, Amazon, itch.io, and Zoom.'
       ),
       position
     },

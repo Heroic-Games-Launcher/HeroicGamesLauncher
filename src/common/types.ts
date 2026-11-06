@@ -34,9 +34,18 @@ export type Runner =
 
 export type DialogType = 'MESSAGE' | 'ERROR'
 
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'danger'
+  | 'dangerSubtle'
+  | 'warning'
+
 export interface ButtonOptions {
   text: string
   onClick?: () => void
+  variant?: ButtonVariant
 }
 
 export type LaunchParams = {
@@ -121,6 +130,8 @@ export interface AppSettings extends GameSettings {
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
   disableLogs: boolean
+  disableDiscounts: boolean
+  enableGOGAffiliate: boolean
   disableAnimations: boolean
   discordRPC: boolean
   disableGOGPresence: boolean

@@ -1,14 +1,11 @@
-import './index.scss'
-
 import { useContext, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
-import classNames from 'classnames'
 import { getGameInfo } from 'frontend/helpers'
 
 import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Winetricks } from 'frontend/components/UI'
+import { Button, SettingRow, Winetricks } from 'frontend/components/UI'
 
 export default function Tools() {
   const { t } = useTranslation()
@@ -74,35 +71,62 @@ export default function Tools() {
 
   return (
     <>
-      <div data-testid="toolsSettings" className="settingsTools">
-        {winetricksRunning && (
-          <Winetricks onClose={winetricksDialogClosed} runner={runner} />
+      {winetricksRunning && (
+        <Winetricks onClose={winetricksDialogClosed} runner={runner} />
+      )}
+
+      <SettingRow
+        label="Winecfg"
+        description={t(
+          'setting.winecfg.description',
+          'Open the Wine configuration panel for this prefix'
         )}
-        <div className="toolsWrapper">
-          <button
-            data-testid="wineCFG"
-            className={classNames('button outline', { active: winecfgRunning })}
-            onClick={async () => callTools('winecfg')}
-          >
-            <span className="toolTitle">Winecfg</span>
-          </button>
-          <button
-            data-testid="wineTricks"
-            className="button outline"
-            onClick={async () => openWinetricksDialog()}
-          >
-            <span className="toolTitle">Winetricks</span>
-          </button>
-          <a
-            className={classNames('button outline', {
-              active: runExeRunning
-            })}
-            onClick={handleRunExe}
-          >
-            {t('setting.runexe.title')}
-          </a>
-        </div>
-      </div>
+      >
+        <Button
+          data-testid="wineCFG"
+          variant="secondary"
+          disabled={winecfgRunning}
+          onClick={async () => callTools('winecfg')}
+        >
+          {winecfgRunning
+            ? t('setting.tools.running', 'Running...')
+            : t('setting.tools.open', 'Open')}
+        </Button>
+      </SettingRow>
+
+      <SettingRow
+        label="Winetricks"
+        description={t(
+          'setting.winetricks.description',
+          'Install Windows libraries and components into this prefix'
+        )}
+      >
+        <Button
+          data-testid="wineTricks"
+          variant="secondary"
+          onClick={() => openWinetricksDialog()}
+        >
+          {t('setting.tools.open', 'Open')}
+        </Button>
+      </SettingRow>
+
+      <SettingRow
+        label={t('setting.runexe.title')}
+        description={t(
+          'setting.runexe.description',
+          'Run any executable inside this prefix, such as an installer'
+        )}
+      >
+        <Button
+          variant="secondary"
+          disabled={runExeRunning}
+          onClick={handleRunExe}
+        >
+          {runExeRunning
+            ? t('setting.tools.running', 'Running...')
+            : t('setting.tools.selectExe', 'Select EXE')}
+        </Button>
+      </SettingRow>
     </>
   )
 }

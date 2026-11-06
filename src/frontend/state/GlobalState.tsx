@@ -110,6 +110,8 @@ interface StateProps {
   externalLinkDialogOptions: ExternalLinkDialogOptions
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
+  disableDiscounts: boolean
+  disableGOGAffiliate: boolean
   lastChangelogShown: string | null
   showInstallModal: {
     show: boolean
@@ -274,6 +276,8 @@ class GlobalState extends PureComponent<Props> {
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
+    disableDiscounts: globalSettings?.disableDiscounts || false,
+    disableGOGAffiliate: globalSettings?.enableGOGAffiliate !== true,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     helpItems: {},
     experimentalFeatures: {
@@ -362,6 +366,15 @@ class GlobalState extends PureComponent<Props> {
 
   setHideChangelogsOnStartup = (value: boolean) => {
     this.setState({ hideChangelogsOnStartup: value })
+  }
+
+  setDisableDiscounts = (value: boolean) => {
+    this.setState({ disableDiscounts: value })
+  }
+
+  setDisableGOGAffiliate = (value: boolean) => {
+    sessionStorage.removeItem('last-url-gog')
+    this.setState({ disableGOGAffiliate: value })
   }
 
   setLastChangelogShown = (value: string) => {
@@ -523,7 +536,11 @@ class GlobalState extends PureComponent<Props> {
         "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards."
       ),
       buttons: [
-        { text: t('box.yes'), onClick: window.api.resetHeroic },
+        {
+          text: t('box.yes'),
+          variant: 'dangerSubtle',
+          onClick: window.api.resetHeroic
+        },
         { text: t('box.no') }
       ]
     })
@@ -1306,6 +1323,8 @@ class GlobalState extends PureComponent<Props> {
           handleExternalLinkDialog: this.handleExternalLinkDialog,
           hideChangelogsOnStartup: hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
+          setDisableDiscounts: this.setDisableDiscounts,
+          setDisableGOGAffiliate: this.setDisableGOGAffiliate,
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           setCurrentCustomCategories: this.setCurrentCustomCategories,

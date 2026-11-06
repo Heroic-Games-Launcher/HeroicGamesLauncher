@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox } from 'frontend/components/UI'
+import {} from 'frontend/components/UI'
 import {
   ColumnProps,
   TableInput
@@ -37,12 +37,12 @@ const WrappersTable = () => {
   }
 
   const wrapperInfo = (
-    <InfoBox text="infobox.help">
+    <>
       {t(
         'options.wrapper.arguments_example',
         'Arguments example: --arg; --extra-file="file-path/ with/spaces"'
       )}
-    </InfoBox>
+    </>
   )
 
   return (
@@ -68,7 +68,7 @@ const WrappersTable = () => {
           )}`}
         </span>
       }
-      afterInput={wrapperInfo}
+      info={wrapperInfo}
     />
   )
 }

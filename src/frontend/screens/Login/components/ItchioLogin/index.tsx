@@ -1,13 +1,16 @@
 import { useContext, useEffect, useState } from 'react'
-import CloseIcon from '@mui/icons-material/Close'
-import ContentPasteIcon from '@mui/icons-material/ContentPaste'
-import LinkIcon from '@mui/icons-material/Link'
-import PublicIcon from '@mui/icons-material/Public'
-import { Autorenew } from '@mui/icons-material'
-import { Button, Paper, Stack, Typography } from '@mui/material'
+import {
+  ClipboardPaste,
+  Globe,
+  Link as LinkIcon,
+  RefreshCw,
+  X
+} from 'lucide-react'
+import { Paper, Stack, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
 import ContextProvider from 'frontend/state/ContextProvider'
+import { Button, Icon } from 'frontend/components/UI'
 import '../SIDLogin/index.css'
 
 interface Props {
@@ -93,7 +96,7 @@ export default function ItchioLogin({ backdropClick }: Props) {
           aria-label={t('button.close', 'Close')}
           type="button"
         >
-          <CloseIcon fontSize="small" />
+          <Icon glyph={X} size="sm" />
         </button>
         <div className="loginInstructions">
           <strong>{t('welcome', 'Welcome!')}</strong>
@@ -108,20 +111,18 @@ export default function ItchioLogin({ backdropClick }: Props) {
           <Typography variant="subtitle1">{apiKeysUrl}</Typography>
           <Stack direction="row" spacing={1}>
             <Button
-              className={linkCopied ? 'icon-button-success' : 'icon-button'}
+              variant="secondary"
+              size="sm"
               onClick={handleCopyLink}
-              endIcon={<LinkIcon fontSize="small" />}
-              variant="outlined"
-              size="small"
+              icon={<Icon glyph={LinkIcon} size="sm" />}
             >
               {linkCopied ? t('button.copied') : t('button.copy')}
             </Button>
             <Button
-              className="icon-button"
-              endIcon={<PublicIcon fontSize="small" />}
+              variant="secondary"
+              size="sm"
               onClick={handleOpen}
-              size="small"
-              variant="outlined"
+              icon={<Icon glyph={Globe} size="sm" />}
             >
               {t('button.open')}
             </Button>
@@ -159,19 +160,21 @@ export default function ItchioLogin({ backdropClick }: Props) {
               'Paste from clipboard and log in'
             )}
           >
-            <ContentPasteIcon fontSize="small" />
+            <Icon glyph={ClipboardPaste} size="sm" />
           </button>
         </div>
-        <p className="message">
-          {loading && <Autorenew className="material-icons refreshing" />}
-        </p>
-        <button
+        {loading && (
+          <p className="message">
+            <Icon glyph={RefreshCw} className="lucide-spin" />{' '}
+          </p>
+        )}
+        <Button
+          variant="primary"
           onClick={async () => handleLogin(input)}
-          className="button is-primary"
           disabled={loading || input.trim().length < 20 || error}
         >
           {getButtonLabel()}
-        </button>
+        </Button>
       </div>
     </div>
   )

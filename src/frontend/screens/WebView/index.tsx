@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState
 } from 'react'
@@ -22,11 +23,9 @@ import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
 import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
+
+const GOG_AFFILIATE_PROMPT_KEY = 'gog-affiliate-prompt-shown'
 
 const isCloudflareChallengeUrl = (url: string) => url.includes('__cf_chl_')
 
@@ -53,8 +52,16 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, itchio, connectivity } =
-    useContext(ContextProvider)
+  const {
+    epic,
+    gog,
+    amazon,
+    zoom,
+    itchio,
+    connectivity,
+    disableGOGAffiliate,
+    setDisableGOGAffiliate
+  } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -91,7 +98,9 @@ export default function WebView() {
   const epicLoginUrl = 'https://www.epicgames.com/id/login?responseType=code'
 
   const epicStore = `https://www.epicgames.com/store/${lang}/`
-  const gogStore = `https://af.gog.com?as=1838482841`
+  const gogStore = disableGOGAffiliate
+    ? 'https://www.gog.com'
+    : `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
   const itchioStore = `https://itch.io`
   const zoomStore = `https://www.zoom-platform.com`
@@ -105,38 +114,65 @@ export default function WebView() {
 
   const trueAsStr = 'true' as unknown as boolean | undefined
 
-  const urls: { [pathname: string]: string } = {
-    '/store/epic': epicStore,
-    '/store/gog': gogStore,
-    '/store/amazon': amazonStore,
-    '/store/itchio': itchioStore,
-    '/store/zoom': zoomStore,
-    '/wiki': wikiURL,
-    '/loginEpic': epicLoginUrl,
-    '/loginGOG': gogLoginUrl,
-    '/loginweb/legendary': epicLoginUrl,
-    '/loginweb/gog': gogLoginUrl,
-    '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
-    '/loginweb/zoom': zoomLoginUrl,
-    '/loginweb/itchio': itchioOAuthUrl
-  }
-  let startUrl = urls[pathname]
-
-  if (store) {
-    sessionStorage.setItem('last-store', store)
-    const lastUrl = sessionStorage.getItem(`last-url-${store}`)
-    if (lastUrl && validStoredUrl(lastUrl, store)) {
-      startUrl = lastUrl
+  const startUrl = useMemo(() => {
+    const urls: { [pathname: string]: string } = {
+      '/store/epic': epicStore,
+      '/store/gog': gogStore,
+      '/store/amazon': amazonStore,
+      '/store/itchio': itchioStore,
+      '/store/zoom': zoomStore,
+      '/wiki': wikiURL,
+      '/loginEpic': epicLoginUrl,
+      '/loginGOG': gogLoginUrl,
+      '/loginweb/legendary': epicLoginUrl,
+      '/loginweb/gog': gogLoginUrl,
+      '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
+      '/loginweb/zoom': zoomLoginUrl,
+      '/loginweb/itchio': itchioOAuthUrl
     }
-  }
+    let url = urls[pathname]
 
-  if (pathname.match(/store-page/)) {
-    const searchParams = new URLSearchParams(search)
-    const queryParam = searchParams.get('store-url')
-    if (queryParam) {
-      startUrl = queryParam
+    if (store) {
+      sessionStorage.setItem('last-store', store)
+      const lastUrl = sessionStorage.getItem(`last-url-${store}`)
+      if (
+        lastUrl &&
+        validStoredUrl(lastUrl, store) &&
+        !(
+          store === 'gog' &&
+          disableGOGAffiliate &&
+          (/^https?:\/\/af\.gog\.com(?=[:/?#]|$)/i.test(lastUrl) ||
+            /[?&](?:utm_source=adtraction|as=1838482841)(?:&|#|$)/i.test(
+              lastUrl
+            ))
+        )
+      ) {
+        url = lastUrl
+      }
     }
-  }
+
+    if (pathname.match(/store-page/)) {
+      const queryParam = new URLSearchParams(search).get('store-url')
+      if (queryParam) url = queryParam
+    }
+    return url
+  }, [
+    pathname,
+    search,
+    store,
+    disableGOGAffiliate,
+    epicStore,
+    gogStore,
+    amazonStore,
+    itchioStore,
+    zoomStore,
+    wikiURL,
+    epicLoginUrl,
+    gogLoginUrl,
+    zoomLoginUrl,
+    amazonLoginData,
+    itchioOAuthUrl
+  ])
 
   const epicUserAgent =
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
@@ -485,6 +521,30 @@ export default function WebView() {
   const [dontShowAdtractionWarning, setDontShowAdtractionWarning] =
     useState<boolean>(false)
 
+  const [showGogAffiliatePrompt, setShowGogAffiliatePrompt] = useState(false)
+
+  useEffect(() => {
+    if (pathname !== '/store/gog') return
+    if (!disableGOGAffiliate) return
+    if (localStorage.getItem(GOG_AFFILIATE_PROMPT_KEY) === 'true') return
+    setShowGogAffiliatePrompt(true)
+  }, [pathname, disableGOGAffiliate])
+
+  const closeGogAffiliatePrompt = () => {
+    localStorage.setItem(GOG_AFFILIATE_PROMPT_KEY, 'true')
+    setShowGogAffiliatePrompt(false)
+  }
+
+  const setGogAffiliatePreference = (enabled: boolean) => {
+    localStorage.setItem(GOG_AFFILIATE_PROMPT_KEY, 'true')
+    setDisableGOGAffiliate(!enabled)
+    window.api.setSetting({
+      appName: 'default',
+      key: 'enableGOGAffiliate',
+      value: enabled
+    })
+  }
+
   useEffect(() => {
     if (
       startUrl.match(/epicgames\.com/) &&
@@ -626,7 +686,7 @@ export default function WebView() {
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
       <webview
-        key={store}
+        key={store === 'gog' ? `${store}-${disableGOGAffiliate}` : store}
         ref={webviewRef}
         className="WebView__webview"
         partition={`persist:${store ?? (runner === 'legendary' ? 'epic' : runner === 'nile' ? 'amazon' : runner)}`}
@@ -634,31 +694,26 @@ export default function WebView() {
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
       />
-      {showLoginWarningFor && (
+      {showLoginWarningFor && !showGogAffiliatePrompt && (
         <LoginWarning
           warnLoginForStore={showLoginWarningFor}
           onClose={onLoginWarningClosed}
         />
       )}
       {showAdtractionWarning && (
-        <Dialog
+        <Modal
           showCloseButton={true}
+          size="sm"
           onClose={() => {
             setShowAdtractionWarning(false)
             if (dontShowAdtractionWarning)
               localStorage.setItem('adtraction-warning', 'true')
           }}
         >
-          <DialogHeader
-            onClose={() => {
-              setShowAdtractionWarning(false)
-              if (dontShowAdtractionWarning)
-                localStorage.setItem('adtraction-warning', 'true')
-            }}
-          >
+          <ModalHeader>
             {t('adtraction-locked.title', 'Adtraction is blocked')}
-          </DialogHeader>
-          <DialogContent>
+          </ModalHeader>
+          <ModalContent>
             <p>
               {t(
                 'adtraction-locked.description',
@@ -676,8 +731,36 @@ export default function WebView() {
                 "Don't show this warning again"
               )}
             />
-          </DialogContent>
-        </Dialog>
+          </ModalContent>
+        </Modal>
+      )}
+      {showGogAffiliatePrompt && (
+        <Modal
+          showCloseButton={true}
+          size="sm"
+          onClose={closeGogAffiliatePrompt}
+        >
+          <ModalHeader>
+            {t(
+              'affiliate.gogPrompt.title',
+              'Support Heroic with your GOG purchases'
+            )}
+          </ModalHeader>
+          <ModalContent>
+            <p>
+              {t(
+                'affiliate.gogPrompt.description',
+                "Heroic can use GOG affiliate links when you visit the GOG store. If you buy something after clicking through from Heroic, GOG shares a small commission with us — at no extra cost to you. We don't see or track which games you buy, or anything else about your purchases: GOG only knows that someone came from Heroic. This is off by default, and you can change it whenever you like in Heroic's Advanced settings."
+              )}
+            </p>
+            <ToggleSwitch
+              htmlId="enable-gog-affiliate"
+              value={!disableGOGAffiliate}
+              handleChange={(e) => setGogAffiliatePreference(e.target.checked)}
+              title={t('affiliate.gogPrompt.toggle', 'Use GOG affiliate links')}
+            />
+          </ModalContent>
+        </Modal>
       )}
     </div>
   )

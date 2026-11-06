@@ -45,6 +45,10 @@ const UseFramelessWindow = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.framelessWindow.description',
+        'Hide the native title bar and use Heroic’s own window controls'
+      )}
       htmlId="framelessWindow"
       value={framelessWindow}
       handleChange={toggleFramelessWindow}

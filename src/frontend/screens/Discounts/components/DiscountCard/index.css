@@ -115,7 +115,7 @@
   background: rgba(0, 0, 0, 0.7);
   color: #ffffff;
   font-weight: var(--bold);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   padding: var(--space-3xs) var(--space-xs);
   border-radius: var(--space-3xs);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -148,7 +148,7 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-xs);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
 }
 
 .discountCard__basePrice {
