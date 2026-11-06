@@ -23,6 +23,7 @@ interface ModalProps {
   fullHeight?: boolean
   showCloseButton?: boolean
   className?: string
+  disableBackdropClose?: boolean
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -32,7 +33,8 @@ export const Modal: React.FC<ModalProps> = ({
   tone = 'default',
   fullHeight = false,
   showCloseButton = false,
-  className
+  className,
+  disableBackdropClose = false
 }) => {
   const [open, setOpen] = useState(true)
   const { disableDialogBackdropClose } = useContext(ContextProvider)
@@ -55,6 +57,7 @@ export const Modal: React.FC<ModalProps> = ({
     <MuiDialog
       open={open}
       onClose={(e, reason) => {
+        if (disableBackdropClose && reason === 'backdropClick') return
         if (disableDialogBackdropClose && reason === 'backdropClick') return
         close()
       }}

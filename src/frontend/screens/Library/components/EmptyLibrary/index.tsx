@@ -40,11 +40,22 @@ function EmptyLibraryMessage() {
       glyph={LibraryBig}
       title={t('emptyLibrary.title', 'Your library is empty.')}
       description={
-        <Trans i18n={i18n} i18nKey="emptyLibrary.description">
-          <NavLink to="/login">Log in</NavLink> with your Epic, GOG.com, Amazon
-          or Zoom accounts and your games will show up here. You can also add
-          games from other sources manually.
-        </Trans>
+        <>
+          <Trans i18n={i18n} i18nKey="emptyLibrary.description">
+            <NavLink to="/login">Log in</NavLink> with your Epic, GOG.com,
+            Amazon or Zoom accounts and your games will show up here. You can
+            also add games from other sources manually.
+          </Trans>
+          <span className="noResultsMessage__backupHint">
+            <Trans i18n={i18n} i18nKey="emptyLibrary.backupHint">
+              Have a Heroic backup?{' '}
+              <NavLink to="/settings/importexport" state={{ openImport: true }}>
+                Restore from it to pick up where you left off
+              </NavLink>
+              .
+            </Trans>
+          </span>
+        </>
       }
       action={<AddGameButton />}
     />
