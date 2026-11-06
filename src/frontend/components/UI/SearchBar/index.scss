@@ -56,8 +56,8 @@
       }
 
       &:hover {
-        background-color: var(--accent);
-        color: var(--text-muted, var(--text-secondary));
+        background-color: var(--navbar-accent, var(--accent));
+        color: var(--ink-on-accent);
 
         span {
           opacity: 0.8;
