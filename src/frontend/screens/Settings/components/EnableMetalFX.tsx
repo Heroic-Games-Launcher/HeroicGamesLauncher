@@ -45,7 +45,7 @@ const EnableMetalFX = () => {
                 "Lets games that support NVIDIA DLSS use Apple's MetalFX upscaling instead. Needs Game Porting Toolkit 3, CrossOver with D3DMetal 3 or a DXMT Wine build. Select DLSS in the game's graphics options afterwards."
               )
             : t(
-                'help.enableMetalFX.unsupported',
+                'help.metalFXUnsupported',
                 'This Wine build cannot translate DLSS. DLSS via MetalFX needs Game Porting Toolkit, CrossOver, or a DXMT build, so the toggle stays disabled.'
               )
         }
