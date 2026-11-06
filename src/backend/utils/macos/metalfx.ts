@@ -1,127 +1,153 @@
-import { createHash } from 'crypto'
-import { existsSync, realpathSync } from 'graceful-fs'
-import { copyFile, readFile, rename, rm, writeFile } from 'fs/promises'
+import { existsSync } from 'graceful-fs'
+import { copyFile, readFile, rename, rm, stat, writeFile } from 'fs/promises'
 import { join } from 'path'
 
-const STOCK_SUFFIX = '.heroic-stock'
 const BACKUP_SUFFIX = '.heroic-backup'
 const PREFIX_MANIFEST = '.heroic-metalfx.json'
-const PREFIX_DLLS = ['nvngx.dll', 'nvapi64.dll']
 
-async function sha256(path: string): Promise<string | undefined> {
-  try {
-    return createHash('sha256')
-      .update(await readFile(path))
-      .digest('hex')
-  } catch {
-    return undefined
-  }
+/** What gets copied into the prefix, and which runner file it comes from */
+const PREFIX_DLLS = [
+  { name: 'nvngx.dll', sourceName: 'nvngx-on-metalfx.dll' },
+  { name: 'nvapi64.dll', sourceName: 'nvapi64.dll' }
+]
+
+interface ManifestEntry {
+  state: 'backup' | 'none'
+  sourceSize: number
+  sourceMtimeMs: number
 }
 
-async function sameContent(a: string, b: string): Promise<boolean> {
-  if (!existsSync(a) || !existsSync(b)) return false
-  const [hashA, hashB] = await Promise.all([sha256(a), sha256(b)])
-  return !!hashA && hashA === hashB
-}
-
-function sameTarget(a: string, b: string): boolean {
-  try {
-    return realpathSync(a) === realpathSync(b)
-  } catch {
-    return false
-  }
-}
-
-async function swapIn(source: string, target: string): Promise<boolean> {
-  if (!existsSync(source)) return false
-  if (sameTarget(source, target) || (await sameContent(source, target))) {
-    return true
-  }
-  if (existsSync(target) && !existsSync(target + STOCK_SUFFIX)) {
-    await rename(target, target + STOCK_SUFFIX)
-  }
-  await copyFile(source, target)
-  return true
-}
-
-/**
- * GPTK 3 ships two NGX implementations: the default `nvngx` reports DLSS as
- * unsupported, `nvngx-on-metalfx` implements it with MetalFX. Apple's
- * instructions are to replace the former with the latter; the original stays
- * next to it as `*.heroic-stock`. D3DMetal only exposes DLSS when
- * `D3DM_ENABLE_METALFX=1`, so games launched without it are unaffected.
- *
- * @param windowsDllDir The runner's `lib/wine/x86_64-windows` folder
- * @returns false if this runner has no MetalFX-backed NGX
- */
-export async function enableMetalFXInRunner(
-  windowsDllDir: string
-): Promise<boolean> {
-  const dllReady = await swapIn(
-    join(windowsDllDir, 'nvngx-on-metalfx.dll'),
-    join(windowsDllDir, 'nvngx.dll')
-  )
-  if (!dllReady) return false
-
-  // In Gcenx's builds both .so files are symlinks to libd3dshared.dylib, making this a no-op
-  const unixDir = join(windowsDllDir, '..', 'x86_64-unix')
-  await swapIn(join(unixDir, 'nvngx-on-metalfx.so'), join(unixDir, 'nvngx.so'))
-  return true
-}
-
-type PrefixManifest = Record<string, 'backup' | 'none'>
-
-async function readManifest(prefix: string): Promise<PrefixManifest | null> {
-  try {
-    const manifest = await readFile(join(prefix, PREFIX_MANIFEST), 'utf-8')
-    return JSON.parse(manifest) as PrefixManifest
-  } catch {
-    return null
-  }
-}
+type PrefixManifest = Record<string, ManifestEntry>
 
 function system32(prefix: string) {
   return join(prefix, 'drive_c', 'windows', 'system32')
 }
 
+function isInstallState(value: unknown): value is 'backup' | 'none' {
+  return value === 'backup' || value === 'none'
+}
+
+function parseManifest(raw: string): PrefixManifest | null {
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(raw)
+  } catch {
+    return null
+  }
+  if (!parsed || typeof parsed !== 'object') return null
+
+  const manifest: PrefixManifest = {}
+  for (const [dll, value] of Object.entries(parsed)) {
+    // Manifests written before the size/mtime check stored only 'backup' | 'none'
+    if (isInstallState(value)) {
+      manifest[dll] = { state: value, sourceSize: -1, sourceMtimeMs: -1 }
+      continue
+    }
+    if (!value || typeof value !== 'object' || !('state' in value)) continue
+    const entry = value as {
+      state?: unknown
+      sourceSize?: unknown
+      sourceMtimeMs?: unknown
+    }
+    if (!isInstallState(entry.state)) continue
+    manifest[dll] = {
+      state: entry.state,
+      sourceSize: typeof entry.sourceSize === 'number' ? entry.sourceSize : -1,
+      sourceMtimeMs:
+        typeof entry.sourceMtimeMs === 'number' ? entry.sourceMtimeMs : -1
+    }
+  }
+  return manifest
+}
+
+async function readManifest(prefix: string): Promise<PrefixManifest | null> {
+  try {
+    return parseManifest(await readFile(join(prefix, PREFIX_MANIFEST), 'utf-8'))
+  } catch {
+    return null
+  }
+}
+
+/** Copies onto `target` by writing a temp file and renaming it into place */
+async function copyAtomic(source: string, target: string) {
+  const temporary = `${target}.heroic-tmp`
+  await copyFile(source, temporary)
+  await rename(temporary, target)
+}
+
+export interface MetalFXInstall {
+  /** False when this runner has no MetalFX NGX (`nvngx-on-metalfx.dll`) */
+  available: boolean
+  copied: string[]
+}
+
 /**
- * Copies the runner's `nvngx.dll` and `nvapi64.dll` into the prefix's
- * system32, where games and NGX look for them. Files that were already there
- * are kept as `*.heroic-backup` and a manifest records what to undo
+ * Copies the runner's MetalFX `nvngx` and `nvapi64.dll` into the prefix's
+ * system32. The runner itself is left untouched, including system Game
+ * Porting Toolkit and Whisky installs Heroic does not own. Files that were
+ * already in system32 are kept as `*.heroic-backup`.
  *
- * @returns The DLLs that were copied (empty if everything was up to date)
+ * A launch skips the copy when the source file's size and mtime match the
+ * last copy recorded in the manifest.
+ *
+ * @returns `available: false` when the runner has no MetalFX NGX
  */
 export async function installMetalFXIntoPrefix(
   prefix: string,
   windowsDllDir: string
-): Promise<string[]> {
+): Promise<MetalFXInstall> {
+  const ngxSource = join(windowsDllDir, 'nvngx-on-metalfx.dll')
+  if (!existsSync(ngxSource)) return { available: false, copied: [] }
+
   const targetDir = system32(prefix)
-  if (!existsSync(targetDir)) return []
+  if (!existsSync(targetDir)) return { available: true, copied: [] }
 
   const manifest: PrefixManifest = (await readManifest(prefix)) ?? {}
   const copied: string[] = []
 
   for (const dll of PREFIX_DLLS) {
-    const source = join(windowsDllDir, dll)
-    const target = join(targetDir, dll)
-    if (!existsSync(source) || (await sameContent(source, target))) continue
+    const source = join(windowsDllDir, dll.sourceName)
+    const target = join(targetDir, dll.name)
+    if (!existsSync(source)) continue
 
-    if (!manifest[dll]) {
-      if (existsSync(target)) {
-        await rename(target, target + BACKUP_SUFFIX)
-        manifest[dll] = 'backup'
-      } else {
-        manifest[dll] = 'none'
-      }
+    const sourceStat = await stat(source)
+    const recorded = manifest[dll.name]
+    if (
+      recorded &&
+      recorded.sourceSize === sourceStat.size &&
+      recorded.sourceMtimeMs === sourceStat.mtimeMs &&
+      existsSync(target)
+    ) {
+      continue
     }
-    await copyFile(source, target)
-    copied.push(dll)
+
+    if (!recorded) {
+      if (existsSync(target)) {
+        await copyAtomic(target, target + BACKUP_SUFFIX)
+        manifest[dll.name] = {
+          state: 'backup',
+          sourceSize: sourceStat.size,
+          sourceMtimeMs: sourceStat.mtimeMs
+        }
+      } else {
+        manifest[dll.name] = {
+          state: 'none',
+          sourceSize: sourceStat.size,
+          sourceMtimeMs: sourceStat.mtimeMs
+        }
+      }
+    } else {
+      recorded.sourceSize = sourceStat.size
+      recorded.sourceMtimeMs = sourceStat.mtimeMs
+    }
+    await copyAtomic(source, target)
+    copied.push(dll.name)
   }
 
   if (Object.keys(manifest).length) {
     await writeFile(join(prefix, PREFIX_MANIFEST), JSON.stringify(manifest))
   }
-  return copied
+  return { available: true, copied }
 }
 
 /**
@@ -137,15 +163,14 @@ export async function removeMetalFXFromPrefix(
 
   const targetDir = system32(prefix)
   const restored: string[] = []
-  for (const [dll, state] of Object.entries(manifest)) {
+  for (const [dll, entry] of Object.entries(manifest)) {
     const target = join(targetDir, dll)
-    if (state === 'backup' && existsSync(target + BACKUP_SUFFIX)) {
+    if (entry.state === 'backup' && existsSync(target + BACKUP_SUFFIX)) {
       await rename(target + BACKUP_SUFFIX, target)
-      restored.push(dll)
-    } else if (state === 'none') {
+    } else if (entry.state === 'none') {
       await rm(target, { force: true })
-      restored.push(dll)
     }
+    restored.push(dll)
   }
   await rm(join(prefix, PREFIX_MANIFEST), { force: true })
   return restored

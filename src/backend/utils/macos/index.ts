@@ -2,12 +2,8 @@ import { existsSync, readdirSync } from 'graceful-fs'
 import { join } from 'path'
 import type { GameSettings } from 'common/types'
 import { detectD3DMetal, type D3DMetalRuntime } from './d3dmetal'
-import {
-  enableMetalFXInRunner,
-  installMetalFXIntoPrefix,
-  removeMetalFXFromPrefix
-} from './metalfx'
-import { ensureRegistryStrings } from './registry'
+import { installMetalFXIntoPrefix, removeMetalFXFromPrefix } from './metalfx'
+import { ensureRegistryStrings, type RegistryString } from './registry'
 
 function isDXMT(settings: GameSettings) {
   return settings.wineVersion.name.endsWith('-DXMT')
@@ -85,6 +81,37 @@ function describeRuntime(
   return 'Graphics translation: WineD3D (OpenGL)'
 }
 
+function dllOverride(name: string, data: 'native' | 'builtin'): RegistryString {
+  return {
+    hive: 'HKCU',
+    key: 'Software\\Wine\\DllOverrides',
+    name,
+    data
+  }
+}
+
+/**
+ * Drops the prefix copies. When a previous launch had installed them, the
+ * Wine overrides go back to the runner's builtin DLLs
+ */
+async function clearMetalFX(
+  preparation: MacLaunchPreparation
+): Promise<string[]> {
+  const restored = await removeMetalFXFromPrefix(preparation.prefix)
+  if (restored.length) {
+    const overrides: RegistryString[] = [
+      dllOverride('nvngx', 'builtin'),
+      dllOverride('nvapi64', 'builtin')
+    ]
+    await ensureRegistryStrings(
+      preparation.prefix,
+      overrides,
+      preparation.runRegistryCommand
+    )
+  }
+  return restored
+}
+
 async function syncMetalFX(
   preparation: MacLaunchPreparation,
   d3dmetal: D3DMetalRuntime | undefined
@@ -93,7 +120,7 @@ async function syncMetalFX(
   const wine = settings.wineVersion
 
   if (!settings.enableMetalFX) {
-    const restored = await removeMetalFXFromPrefix(prefix)
+    const restored = await clearMetalFX(preparation)
     const lines = restored.length
       ? [
           `DLSS via MetalFX disabled: restored ${restored.join(', ')} in the prefix`
@@ -107,58 +134,82 @@ async function syncMetalFX(
     return lines
   }
 
+  // A stale nvngx.dll in system32 takes precedence over DXMT's own NVEXT
   if (isDXMT(settings)) {
+    await clearMetalFX(preparation)
     return [
       "DLSS via MetalFX: on through DXMT (Direct3D 11 games). Select DLSS in the game's graphics options"
     ]
   }
   if (!d3dmetal) {
+    await clearMetalFX(preparation)
     return [
       `DLSS via MetalFX needs D3DMetal 3 (Game Porting Toolkit 3) or DXMT, ${wine.name} has neither`
     ]
   }
   if (d3dmetal.major < 3) {
+    await clearMetalFX(preparation)
     return [
       `DLSS via MetalFX needs D3DMetal 3, but ${wine.name} ships D3DMetal ${d3dmetal.version}. Install Game Porting Toolkit 3 from the Wine Manager and select it for this game`
     ]
   }
+  if (!d3dmetal.windowsDllDir) {
+    await clearMetalFX(preparation)
+    return [
+      `DLSS via MetalFX: ${wine.name} doesn't include nvngx-on-metalfx.dll, so DLSS stays unavailable`
+    ]
+  }
+
+  const installed = await installMetalFXIntoPrefix(
+    prefix,
+    d3dmetal.windowsDllDir
+  )
+  if (!installed.available) {
+    await clearMetalFX(preparation)
+    return [
+      `DLSS via MetalFX: ${wine.name} doesn't include nvngx-on-metalfx.dll, so DLSS stays unavailable`
+    ]
+  }
 
   const lines: string[] = []
-  if (wine.type !== 'crossover') {
-    if (
-      !d3dmetal.windowsDllDir ||
-      !(await enableMetalFXInRunner(d3dmetal.windowsDllDir))
-    ) {
-      return [
-        `DLSS via MetalFX: ${wine.name} doesn't include nvngx-on-metalfx.dll, so DLSS stays unavailable`
-      ]
-    }
-    const copied = await installMetalFXIntoPrefix(
-      prefix,
-      d3dmetal.windowsDllDir
-    )
-    if (copied.length) {
-      lines.push(`Copied ${copied.join(', ')} into the prefix's system32`)
-    }
-    // The NGX loader linked into games finds nvngx.dll through this value
-    await ensureRegistryStrings(
-      prefix,
-      [
-        {
-          hive: 'HKLM',
-          key: 'Software\\NVIDIA Corporation\\Global\\NGXCore',
-          name: 'FullPath',
-          data: 'C:\\Windows\\System32'
-        }
-      ],
-      preparation.runRegistryCommand
+  if (installed.copied.length) {
+    lines.push(
+      `Copied ${installed.copied.join(', ')} into the prefix's system32`
     )
   }
+  // The NGX loader linked into games finds nvngx.dll through FullPath.
+  // native overrides load those prefix copies instead of the runner's DLLs,
+  // so a system GPTK or Whisky install is never modified
+  const registryValues: RegistryString[] = [
+    {
+      hive: 'HKLM',
+      key: 'Software\\NVIDIA Corporation\\Global\\NGXCore',
+      name: 'FullPath',
+      data: 'C:\\Windows\\System32'
+    },
+    dllOverride('nvngx', 'native'),
+    dllOverride('nvapi64', 'native')
+  ]
+  await ensureRegistryStrings(
+    prefix,
+    registryValues,
+    preparation.runRegistryCommand
+  )
 
   lines.push(
     `DLSS via MetalFX: on (D3DMetal ${d3dmetal.version}). Select DLSS in the game's graphics options`
   )
   return lines
+}
+
+/** A setup line that means the toggle is on but DLSS will not actually run */
+export function metalFXProblem(lines: string[]): string | undefined {
+  return lines.find(
+    (line) =>
+      line.startsWith('DLSS via MetalFX needs') ||
+      line.includes("doesn't include nvngx-on-metalfx.dll") ||
+      line.startsWith('DLSS via MetalFX failed')
+  )
 }
 
 /**

@@ -49,7 +49,10 @@ import nileSetup from './storeManagers/nile/setup'
 import { spawn, spawnSync } from 'child_process'
 import shlex from 'shlex'
 import { isOnline } from './online_monitor'
-import { showDialogBoxModalAuto } from './dialog/dialog'
+import { notify, showDialogBoxModalAuto } from './dialog/dialog'
+
+/** One notice per game per Heroic session when DLSS via MetalFX cannot be turned on */
+const metalFXNotified = new Set<string>()
 import { legendarySetup } from './storeManagers/legendary/setup'
 import { libraryManagerMap } from 'backend/storeManagers'
 import { readFileSync, writeFileSync } from 'fs'
@@ -68,7 +71,11 @@ import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
-import { getMacWineEnv, prepareMacWineLaunch } from './utils/macos'
+import {
+  getMacWineEnv,
+  metalFXProblem,
+  prepareMacWineLaunch
+} from './utils/macos'
 import {
   defaultUmuPath,
   sharedWinePrefix,
@@ -997,6 +1004,18 @@ async function prepareWineLaunch(
       }
     })
     await logWriter.logInfo(['Mac setup:', ...setupLines].join('\n  '))
+    const problem = metalFXProblem(setupLines)
+    if (
+      problem &&
+      gameSettings.enableMetalFX &&
+      !metalFXNotified.has(gameInfo.app_name)
+    ) {
+      metalFXNotified.add(gameInfo.app_name)
+      notify({
+        title: 'DLSS via MetalFX',
+        body: `${problem} Details are in the game log.`
+      })
+    }
   }
 
   const envVars = setupWineEnvVars(gameSettings, gameInfo.folder_name)

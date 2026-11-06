@@ -2,7 +2,11 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import type { GameSettings, WineInstallation } from 'common/types'
-import { findD3DMetalFramework, parseMajorVersion } from '../d3dmetal'
+import {
+  detectD3DMetal,
+  findD3DMetalFramework,
+  parseMajorVersion
+} from '../d3dmetal'
 import { getMacWineEnv } from '../index'
 
 const settings = (overrides: Partial<GameSettings>) =>
@@ -100,4 +104,33 @@ test('parseMajorVersion', () => {
   expect(parseMajorVersion('3.0')).toBe(3)
   expect(parseMajorVersion('2.1.1')).toBe(2)
   expect(parseMajorVersion('')).toBe(0)
+})
+
+test('detectD3DMetal reuses the result while the framework plist is unchanged', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'heroic-d3dmetal-'))
+  try {
+    const framework = join(root, 'lib/external/D3DMetal.framework')
+    mkdirSync(join(framework, 'Resources'), { recursive: true })
+    mkdirSync(join(root, 'lib/wine/x86_64-windows'), { recursive: true })
+    writeFileSync(
+      join(framework, 'Resources/Info.plist'),
+      `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>CFBundleShortVersionString</key><string>3.1.2</string>
+</dict></plist>`
+    )
+    const wine = {
+      bin: join(root, 'bin/wine64'),
+      lib: join(root, 'lib'),
+      name: 'Game Porting Toolkit',
+      type: 'toolkit' as const
+    }
+    const first = await detectD3DMetal(wine)
+    const second = await detectD3DMetal(wine)
+    expect(first).toMatchObject({ version: '3.1.2', major: 3 })
+    expect(second).toBe(first)
+  } finally {
+    rmSync(root, { recursive: true, force: true })
+  }
 })

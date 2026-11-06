@@ -1,6 +1,6 @@
 import { execFile } from 'child_process'
 import { promisify } from 'util'
-import { existsSync, readdirSync } from 'graceful-fs'
+import { existsSync, readdirSync, statSync } from 'graceful-fs'
 import { dirname, join, resolve } from 'path'
 import type { WineInstallation } from 'common/types'
 
@@ -100,9 +100,29 @@ async function readBundleVersion(frameworkPath: string): Promise<string> {
   return ''
 }
 
+const detectedRuntimes = new Map<string, D3DMetalRuntime | undefined>()
+
+function detectionKey(wine: WineInstallation, frameworkPath: string): string {
+  const plists = [
+    join(frameworkPath, 'Resources', 'Info.plist'),
+    join(frameworkPath, 'Versions', 'A', 'Resources', 'Info.plist'),
+    join(frameworkPath, 'Resources', 'version.plist')
+  ]
+  const plist = plists.find((path) => existsSync(path))
+  const stamp = plist
+    ? (() => {
+        const info = statSync(plist)
+        return `${info.size}:${info.mtimeMs}`
+      })()
+    : 'none'
+  return `${wine.bin}\0${frameworkPath}\0${stamp}`
+}
+
 /**
  * Finds the D3DMetal framework a Wine build ships and reads its version.
- * D3DMetal 3.0 (GPTK 3) is the first release that translates DLSS to MetalFX
+ * D3DMetal 3.0 (GPTK 3) is the first release that translates DLSS to MetalFX.
+ * The result is cached per Wine binary and framework plist, so launching a
+ * game does not run `plutil` again while that build is unchanged
  */
 export async function detectD3DMetal(
   wine: WineInstallation
@@ -111,12 +131,17 @@ export async function detectD3DMetal(
   const found = findD3DMetalFramework(wine)
   if (!found) return
 
+  const key = detectionKey(wine, found.frameworkPath)
+  if (detectedRuntimes.has(key)) return detectedRuntimes.get(key)
+
   const version = await readBundleVersion(found.frameworkPath)
   const windowsDllDir = join(found.libRoot, 'wine', 'x86_64-windows')
-  return {
+  const runtime: D3DMetalRuntime = {
     version: version || 'unknown',
     major: parseMajorVersion(version),
     frameworkPath: found.frameworkPath,
     windowsDllDir: existsSync(windowsDllDir) ? windowsDllDir : undefined
   }
+  detectedRuntimes.set(key, runtime)
+  return runtime
 }
