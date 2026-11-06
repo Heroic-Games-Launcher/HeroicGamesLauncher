@@ -11,8 +11,8 @@
   position: absolute;
   top: var(--space-xs);
   inset-inline-end: var(--space-xs);
-  width: 24px;
-  height: 24px;
+  width: var(--space-xl-fixed);
+  height: var(--space-xl-fixed);
   min-width: 0;
   padding: 0;
 }
