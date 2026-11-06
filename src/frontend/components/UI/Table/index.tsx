@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import Skeleton from '../Skeleton'
 import './index.css'
 
-export type TableAlign = 'start' | 'center' | 'end'
+type TableAlign = 'start' | 'center' | 'end'
 
 export interface TableColumn<T> {
   key: string
