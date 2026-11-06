@@ -1,6 +1,6 @@
 import TextInputWithIconField from '../TextInputWithIconField'
-import Backspace from '@mui/icons-material/Backspace'
-import Folder from '@mui/icons-material/Folder'
+import { Delete, Folder } from 'lucide-react'
+import Icon from '../Icon'
 import { ReactNode, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { FileFilter } from 'electron'
@@ -84,7 +84,13 @@ const PathSelectionBox = ({
       onBlur={(e) => onPathChange(e.target.value)}
       onIconClick={handleIconClick}
       placeholder={placeholder}
-      icon={!noDeleteButton && path ? <Backspace /> : <Folder />}
+      icon={
+        !noDeleteButton && path ? (
+          <Icon glyph={Delete} size="md" />
+        ) : (
+          <Icon glyph={Folder} size="md" />
+        )
+      }
       disabled={!canEditPath || disabled}
       htmlId={htmlId}
       label={label}

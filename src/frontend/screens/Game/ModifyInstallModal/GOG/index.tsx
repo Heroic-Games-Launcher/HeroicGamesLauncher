@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGripLines } from '@fortawesome/free-solid-svg-icons'
 import { faXmarkCircle } from '@fortawesome/free-regular-svg-icons'
 import BranchSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/BranchSelector'
+import { Button } from 'frontend/components/UI'
 
 interface GOGModifyInstallModal {
   gameInfo: GameInfo
@@ -414,9 +415,9 @@ export default function GOGModifyInstallModal({
         </DragDropContext>
       </TabPanel>
 
-      <button className="button is-success" onClick={handleConfirm}>
+      <Button variant="primary" onClick={handleConfirm}>
         {tr('box.apply', 'Apply')}
-      </button>
+      </Button>
     </>
   ) : (
     <UpdateComponent />

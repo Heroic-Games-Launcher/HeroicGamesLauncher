@@ -66,7 +66,7 @@
 .downloadManagerTitleList {
   grid-area: name;
   font-size: 1em;
-  font-weight: bold;
+  font-weight: var(--weight-bold);
   text-transform: capitalize;
   cursor: pointer;
   display: flex;
@@ -81,7 +81,7 @@
 }
 
 .titleSize span {
-  font-size: 12px;
+  font-size: var(--caption);
   color: var(--text-secondary);
 }
 
@@ -105,10 +105,10 @@
 .downloadManagerListItem > .progress {
   z-index: 5;
   grid-area: cover;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   background: var(--background-gradient);
   padding: 2px 5px;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   color: var(--success);
   position: relative;
   bottom: -38px;
@@ -116,8 +116,8 @@
   color: var(--success);
   font-family: var(--actions-font-family);
   font-style: italic;
-  font-weight: normal;
-  line-height: 12px;
+  font-weight: var(--weight-regular);
+  line-height: var(--line-height-none);
 }
 
 .downloadManagerListItem > .progress > .MuiSvgIcon-root {
@@ -129,14 +129,14 @@
 .react-contextmenu--visible {
   background-color: var(--background);
   padding: 14px 22px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   z-index: 99;
 }
 
 .react-contextmenu-item {
   color: var(--text-default);
-  font-size: 14px;
-  line-height: 26px;
+  font-size: var(--body-md);
+  line-height: var(--line-height-relaxed);
   font-family: var(--actions-font-family);
   cursor: pointer;
   text-align: start;

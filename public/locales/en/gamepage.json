@@ -138,6 +138,7 @@
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
         "getting-install-size": "Getting install size",
+        "hoursPlayed": "{{hours}} hours played",
         "install_info": "Install info",
         "installSize": "Install Size",
         "language": "Language",

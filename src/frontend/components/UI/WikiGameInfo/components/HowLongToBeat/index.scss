@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 50%; /* change to a circle */
+    border-radius: var(--radius-circle); /* change to a circle */
     border: 2px solid; /* add a border */
     color: var(--text-secondary);
     padding: 0 var(--space-xs);
@@ -40,7 +40,7 @@
     .circle__value {
       font-size: 1.2rem;
       white-space: nowrap;
-      font-weight: var(--bold);
+      font-weight: var(--weight-bold);
     }
   }
   .circle {

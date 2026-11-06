@@ -55,9 +55,9 @@ function Root() {
       MuiTooltip: {
         styleOverrides: {
           tooltip: {
-            fontSize: 'var(--text-md)',
+            fontSize: 'var(--body-md)',
             backgroundColor: 'var(--background-darker)',
-            color: 'var(--text-primary)',
+            color: 'var(--text-default)',
             padding: 'var(--space-md)',
             borderRadius: 'var(--space-sm)',
             maxWidth: '350px'

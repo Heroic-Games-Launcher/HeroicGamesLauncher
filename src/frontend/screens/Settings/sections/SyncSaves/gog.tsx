@@ -15,6 +15,7 @@ import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 import { MenuItem } from '@mui/material'
+import { Button } from 'frontend/components/UI'
 
 interface Props {
   gogSaves: GOGCloudSavesLocation[]
@@ -190,22 +191,22 @@ export default function GOGSyncSaves({
             extraClass="rightButtons"
             // style={{ marginRight: '12px' }}
             afterSelect={
-              <button
+              <Button
+                variant="primary"
+                size="sm"
+                className="${ isSyncing ? 'is-primary' : 'settings' }"
                 data-testid="setSync"
                 onClick={async () => handleSync()}
                 disabled={
                   isSyncing || !gogSaves.every((value) => value.location.length)
                 }
-                className={`button is-small ${
-                  isSyncing ? 'is-primary' : 'settings'
-                }`}
               >
                 {`${
                   isSyncing
                     ? t('setting.manualsync.syncing')
                     : t('setting.manualsync.sync')
                 }`}
-              </button>
+              </Button>
             }
           >
             {syncCommands.map((el, i) => (

@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next'
 import AllowedIcon from 'frontend/assets/rounded_checkmark_icon.svg?react'
 import { AvailablePlatforms } from '..'
 import './index.css'
+import { Button } from 'frontend/components/UI'
 
 interface Props {
   backdropClick: () => void
@@ -133,13 +134,13 @@ export default function ThirdPartyDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button
-          className={`button is-secondary`}
+        <Button
+          variant="ghost"
           onClick={handleInstall}
           disabled={runner !== 'legendary'}
         >
           {t('button.install')}
-        </button>
+        </Button>
       </DialogFooter>
     </>
   )

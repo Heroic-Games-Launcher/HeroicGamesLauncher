@@ -4,7 +4,7 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UpdateComponent } from 'frontend/components/UI'
 import SettingsContext from '../../SettingsContext'
-import './index.css'
+import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from 'common/types'
 import { openDiscordLink } from 'frontend/helpers'
@@ -240,7 +240,7 @@ export default function LogSettings() {
             <a
               onClick={showLogFileInFolder}
               title={t('setting.log.show-in-folder', 'Show log file in folder')}
-              className="button is-footer"
+              className="Button Button--ghost Button--md"
             >
               <div className="button-icontext-flex">
                 <div className="button-icon-flex">
@@ -259,7 +259,7 @@ export default function LogSettings() {
                 })
               }}
               title={t('setting.log.upload.button', 'Upload log file')}
-              className="button is-footer"
+              className="Button Button--ghost Button--md"
             >
               <div className="button-icontext-flex">
                 <div className="button-icon-flex">
@@ -273,7 +273,7 @@ export default function LogSettings() {
             <a
               onClick={openDiscordLink}
               title={t('setting.log.join-heroic-discord', 'Join our Discord')}
-              className="button is-footer"
+              className="Button Button--ghost Button--md"
             >
               <div className="button-icontext-flex">
                 <div className="button-icon-flex">
@@ -293,7 +293,7 @@ export default function LogSettings() {
                 useGlobalState.setState({ showUploadedLogFileList: true })
               }
               title={t('setting.log.show-uploads', 'Show uploaded log files')}
-              className="button is-footer"
+              className="Button Button--ghost Button--md"
             >
               <div className="button-icontext-flex">
                 <div className="button-icon-flex">

@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogFooter } from '../Dialog'
 import ContextProvider from '../../../state/ContextProvider'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'frontend/components/UI'
 
 export const SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY = 'show_external_link_dialog'
 
@@ -45,12 +46,12 @@ export default function ExternalLinkDialog() {
         ></ToggleSwitch>
       </DialogContent>
       <DialogFooter>
-        <button onClick={onContinue} className={`button is-primary`}>
+        <Button variant="primary" onClick={onContinue}>
           {t('button.continue', 'Continue')}
-        </button>
-        <button className={`button is-secondary`} onClick={onClose}>
+        </Button>
+        <Button variant="ghost" onClick={onClose}>
           {t('button.cancel', 'Cancel')}
-        </button>
+        </Button>
       </DialogFooter>
     </Dialog>
   ) : null

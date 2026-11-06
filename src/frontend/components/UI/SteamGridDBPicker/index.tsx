@@ -11,6 +11,7 @@ import {
 import CachedImage from 'frontend/components/UI/CachedImage'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { SGDBGame, SGDBGrid } from 'common/types'
+import { Button } from 'frontend/components/UI'
 
 interface Props {
   initialTitle: string
@@ -124,15 +125,15 @@ export default function SteamGridDBPicker({
       <div className="SteamGridDBPicker__header">
         <div className="SteamGridDBPicker__title-group">
           {selectedGameId && (
-            <button className="button is-ghost" onClick={goBack}>
+            <Button variant="primary" className="is-ghost" onClick={goBack}>
               <FontAwesomeIcon icon={faArrowLeft} />
-            </button>
+            </Button>
           )}
           <h3>{t('steamgriddb.picker.title', 'SteamGridDB Covers')}</h3>
         </div>
-        <button className="button is-ghost" onClick={onClose}>
+        <Button variant="primary" className="is-ghost" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
-        </button>
+        </Button>
       </div>
 
       {!selectedGameId && (
