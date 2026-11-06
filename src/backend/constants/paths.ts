@@ -15,6 +15,13 @@ if (process.env.CI === 'e2e') {
   )
   configFolder = temp_dir.name
   mkdirSync(join(configFolder, 'heroic'))
+
+  // Isolate Electron's userData as well. It holds the renderer localStorage
+  // (language, session URLs, etc.) and the electron-store databases, so a
+  // developer's local setup would otherwise leak into the tests.
+  const userDataFolder = join(configFolder, 'userData')
+  mkdirSync(userDataFolder)
+  app.setPath('userData', userDataFolder)
 }
 
 export const flatpakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
