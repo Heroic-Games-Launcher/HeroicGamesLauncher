@@ -51,7 +51,7 @@
         "close": "关闭",
         "select-install-path": "选择 Steam 安装路径",
         "selectLaunchOption": {
-            "body": "请为该游戏选择一个启动选项（稍候可在游戏设置中更改）：",
+            "body": "请为该游戏选择一个启动选项（稍后可在游戏设置中更改）：",
             "title": "选择启动选项（{{seconds}}s）"
         },
         "warning": {
@@ -64,7 +64,7 @@
         "ok": "是",
         "offline_warning": {
             "message": "这款游戏可能无法在离线状态下正常运行。还是要玩吗？",
-            "playAnyway": "玩",
+            "playAnyway": "仍然运行",
             "title": "离线警告"
         }
     },

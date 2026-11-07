@@ -96,7 +96,9 @@
             "steam": {
                 "error": "Steam çalıştırılabilir dosyası bulunamadı. Kurulum muhtemelen kullanıcı tarafından iptal edildi veya Steam tarafında başarısız oldu.",
                 "message": "Steam kurulumu başarısız oldu! Lütfen talimatları dikkatlice okuyun ve tekrar deneyin! {{paragraph}} {{error}}",
-                "title": "Steam hata"
+                "title": "Steam hata",
+                "running": "Steam çalışıyor. Steam'i kapatıp tekrar deneyin, ya da Steam çalışırken Heroic'in kısayolları yönetebilmesi için Steam'i bir kez yeniden başlatın.",
+                "running-gamemode": "Heroic'in bu cihazdaki kısayolları yönetebilmesi için tek seferliğine Steam'in yeniden başlatılması gerekiyor. Steam'i yeniden başlatıp tekrar deneyin."
             },
             "executableNotFound": "Yürütülebilir dosya bulunamadı",
             "executableNotFoundMessage": "Heroic, bu oyun için yürütülebilir dosya bulamadı. Lütfen oyun ayarlarından el ile seçiniz.",
@@ -106,7 +108,8 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": "Oyun Steam'den Kaldırılırken Bir Sorun Oluştu"
                 }
             }
         },
@@ -466,14 +469,16 @@
                 "steam": {
                     "corrupt": "{{game}} bulunan tüm Steam kullanıcılarına eklenemedi. Daha fazla bilgi için günlüklere bakın. Değişikliklerin etkili olması için Steam'in yeniden başlatılması gerekmektedir.",
                     "success": "{{game}} Steam'e başarıyla eklendi. Değişikliklerin etkili olması için Steam'in yeniden başlatılması gerekmektedir.",
-                    "title": "Steam'e eklendi"
+                    "title": "Steam'e eklendi",
+                    "success-no-restart": "{{game}} başarıyla Steam'e eklendi."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} bulunan tüm Steam kullanıcılarından kaldırılamadı. Daha fazla bilgi için günlüklere bakın. Değişikliklerin etkili olması için Steam'in yeniden başlatılması gerekmektedir.",
                     "success": "{{game}} Steam'den başarıyla kaldırıldı. Değişikliklerin etkili olması için Steam'in yeniden başlatılması gerekmektedir.",
-                    "title": "Steam'den kaldırıldı"
+                    "title": "Steam'den kaldırıldı",
+                    "success-no-restart": "{{game}} başarıyla Steam'den kaldırıldı."
                 }
             },
             "reparing": "Onarım Tamamlandı"
@@ -519,16 +524,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "Ör.: Ek/Dosya/Yolu",
             "title": "Ortam Değişkenleri",
-            "value": "Değer"
+            "value": "Değer",
+            "placeHolderV": "DEĞER"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Değişken isimler boş bırakılamaz",
                 "equal_sign_in_key": "Değişken isimler \"=\" işaretini bulunduramaz",
-                "space_in_key": "Değişken isimler boşluk içeremez"
+                "space_in_key": "Değişken isimler boşluk içeremez",
+                "duplicate_key": "Bu isimle bir değişken zaten var"
             },
             "example": "\"=\" işaretini İÇERMESİN, örneğin: \"MY_FLAG=123\" gibi bir ayar için, NAME'de MY_FLAG'ı ve VALUE'da 123 olarak ayarlayın.",
-            "info": "Komuta eklenecek ortam değişkenlerini ayarlayın."
+            "info": "Komuta eklenecek ortam değişkenlerini ayarlayın.",
+            "add_new": "Yeni Değişken Ekle",
+            "bulk_edit": "Çoklu Düzenle",
+            "bulk_edit_error": "Bazı değişkenler yanlış. Lütfen tüm satırların ANAHTAR=DEĞER formatında olduğundan emin olun.",
+            "clear_all_confirm": "Tüm ortam değişkenlerini silmek istediğinden emin misin?"
         },
         "gameargs": {
             "placeholder": "Başlatma Parametrelerini buraya girin",
@@ -706,7 +717,8 @@
                 "nile": "Amazon / Nile kaydı",
                 "zoom": "Zoom kaydı"
             },
-            "show-uploads": "Yüklenmiş günlük dosyalarını göster"
+            "show-uploads": "Yüklenmiş günlük dosyalarını göster",
+            "error": "Log dosyasını okurken dahili bir hata oluştu"
         },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
@@ -947,7 +959,8 @@
             "help": {
                 "description": "Oyun kapağı aramasını etkinleştirmek için kendi SteamGridDB API anahtarınızı girin. Sisteminiz destekliyorsa, anahtar şifrelenmiş olarak saklanır. Anahtarı {{url}} adresinden alabilirsiniz"
             }
-        }
+        },
+        "open-game-settings-file-hint": "Oyun ayarları dosyasını açmak için tıkla"
     },
     "Settings": "Ayarlar",
     "sidebar": {
@@ -1337,6 +1350,12 @@
     "common": {
         "add": "Ekle",
         "cancel": "İptal",
-        "warning": "Uyarı"
+        "warning": "Uyarı",
+        "clear_all": "Hepsini Temizle",
+        "confirm": "Onayla",
+        "duplicate": "Klonla",
+        "edit": "Düzenle",
+        "remove": "Kaldır",
+        "save": "Kaydet"
     }
 }
