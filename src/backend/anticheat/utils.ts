@@ -4,12 +4,12 @@ import { AntiCheatInfo } from 'common/types'
 import { runOnceWhenOnline } from '../online_monitor'
 import { axiosClient } from 'backend/utils'
 import { join } from 'node:path'
-import { appFolder } from 'backend/constants/paths'
+import { heroicCachePath } from 'backend/constants/paths'
 import { isMac, isWindows } from 'backend/constants/environment'
 import { createMD5 } from 'backend/utils/releases'
 import { existsSync } from 'graceful-fs'
 
-const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
+const anticheatDataPath = join(heroicCachePath, 'areweanticheatyet.json')
 
 async function downloadAntiCheatData(latestFileHash?: string) {
   if (process.env.CI === 'e2e') return
