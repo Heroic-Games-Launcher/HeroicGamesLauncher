@@ -97,7 +97,9 @@
         "browse_files": "Dateien durchsuchen",
         "browse_wine_prefix": "Wine-Präfix durchsuchen",
         "play": "Spielen",
-        "edit-game": "Bearbeite Spiel"
+        "edit-game": "Bearbeite Spiel",
+        "favourite": "Zu Favoriten hinzufügen",
+        "unfavourite": "Aus Favoriten entfernen"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -133,7 +135,8 @@
         "modify": "Installation anpassen",
         "extra_info": "Zusatzinfo",
         "install_info": "Installationsinfo",
-        "achievements": "Erfolge"
+        "achievements": "Erfolge",
+        "details": "Spieldetails"
     },
     "gamecard": {
         "moving": "Wird verschoben",
@@ -163,7 +166,11 @@
         "installedInfo": "Installierte Informationen",
         "protondb-compatibility-info": "Proton-Kompatibilitätsstufe",
         "steamdeck-compatibility-info": "Steam-Deck-Kompatibilität",
-        "third-party-app": "Externer Manager"
+        "third-party-app": "Externer Manager",
+        "genres": "Genre",
+        "steamdeck": {
+            "unsupported": "Nicht unterstützt"
+        }
     },
     "install": {
         "disk-space-left": "Verfügbarer Speicherplatz",
@@ -228,7 +235,8 @@
             "specificVersion-pt1": "Dies wird eine spezifische Steamversion herunterladen, von",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "durch Heroic nutzbar gemacht, da neuere Steam-Versionen nicht unter macOS funktionieren."
-        }
+        },
+        "releaseDate": "Veröffentlicht"
     },
     "launch": {
         "options": "Startoptionen …",
