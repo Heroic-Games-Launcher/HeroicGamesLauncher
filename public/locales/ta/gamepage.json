@@ -97,7 +97,9 @@
         "browse_files": "கோப்புகளை உலாவுக",
         "browse_wine_prefix": "மது முன்னொட்டை உலாவுக",
         "play": "விளையாடு",
-        "edit-game": "செயலி/விளையாட்டு ஐ திருத்து"
+        "edit-game": "செயலி/விளையாட்டு ஐ திருத்து",
+        "favourite": "விருப்ப பட்டியலில் சேர்",
+        "unfavourite": "பிடித்தவையிலிருந்து அகற்று"
     },
     "cloud_save_unsupported": "ஆதரவற்ற",
     "disabled": "முடக்கப்பட்டது",
@@ -133,7 +135,8 @@
         "extra_info": "கூடுதல் செய்தி",
         "install_info": "தகவலை நிறுவவும்",
         "modify": "நிறுவலை மாற்றவும்",
-        "achievements": "சாதனைகள்"
+        "achievements": "சாதனைகள்",
+        "details": "விளையாட்டு விவரங்கள்"
     },
     "gamecard": {
         "moving": "நகரும்",
@@ -163,7 +166,10 @@
         "installedInfo": "நிறுவப்பட்ட தகவல்",
         "protondb-compatibility-info": "புரோட்டான் பொருந்தக்கூடிய அடுக்கு",
         "steamdeck-compatibility-info": "SteamDeck இணக்கத்தன்மை",
-        "third-party-app": "மூன்றாம் தரப்பு மேலாளர்"
+        "third-party-app": "மூன்றாம் தரப்பு மேலாளர்",
+        "steamdeck": {
+            "unsupported": "ஆதரவற்ற"
+        }
     },
     "install": {
         "disk-space-left": "இடம் கிடைக்கிறது",
@@ -227,7 +233,8 @@
             "specificVersion-pt1": "இது நீராவியின் குறிப்பிட்ட பதிப்பைப் பதிவிறக்கும்",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "நீராவியின் புதிய பதிப்புகள் மேகோசில் வேலை செய்யாது என்பதால் வீரத்தின் மூலம் வேலை செய்யப்பட்டது."
-        }
+        },
+        "releaseDate": "வெளியிட்டு தேதி"
     },
     "launch": {
         "options": "துவக்க விருப்பங்கள்...",
