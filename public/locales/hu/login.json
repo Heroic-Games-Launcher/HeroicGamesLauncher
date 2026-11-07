@@ -5,7 +5,9 @@
         "copy": "Másolat",
         "copied": "Másolva!",
         "error": "Hiba, próbálkozz másik kóddal",
-        "loading": "Betöltés…"
+        "loading": "Betöltés…",
+        "close": "Bezárás",
+        "itchio_error": "Hiba, próbálkozz másik kóddal"
     },
     "message": {
         "part1": "Hogy be tudj jelentkezni és le tudd tölteni a játékaidat, először követned kell az itt felsoroltakat:",
