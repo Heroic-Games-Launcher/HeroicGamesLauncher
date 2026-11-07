@@ -11,7 +11,10 @@
         "actions_font_family_default": "操作字族（默认：{{fontFamily}}）",
         "content_font_family_default": "内容字族（默认：{{fontFamily}}）",
         "disable_smooth_scrolling": "禁用平滑滚动（需要重启）",
-        "disable_animations": "禁用界面动画"
+        "disable_animations": "禁用界面动画",
+        "section": {
+            "library": "仓库"
+        }
     },
     "add_game": "添加游戏",
     "All": "全部",
@@ -207,7 +210,8 @@
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "取消同步",
-        "continue": "继续"
+        "continue": "继续",
+        "close": "关闭"
     },
     "controller": {
         "hints": {
@@ -266,7 +270,8 @@
         "status": "状态",
         "store": "商店",
         "title": "游戏标题",
-        "modify": "修改安装"
+        "modify": "修改安装",
+        "settings": "游戏设置"
     },
     "generic": {
         "error": {
@@ -302,7 +307,9 @@
         "categories": "分类",
         "show_support_offline_only": "仅显示支持离线玩的游戏",
         "show_third_party_managed_only": "仅显示受第三方管理的游戏",
-        "show_updates_only": "仅显示有更新的游戏"
+        "show_updates_only": "仅显示有更新的游戏",
+        "platforms": "Platform",
+        "stores": "商店"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
@@ -833,6 +840,10 @@
         "steamRuntime": {
             "label": "使用 Steam 运行时",
             "noRuntimeOption": "无"
+        },
+        "tools": {
+            "open": "打开",
+            "selectExe": "选择 EXE"
         }
     },
     "settings": {
@@ -871,7 +882,8 @@
             "wineExt": "Wine 扩展",
             "systemInformation": "系统信息",
             "gamescope": "Gamescope",
-            "legacy": "老古董"
+            "legacy": "老古董",
+            "categories": "分类"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -949,13 +961,21 @@
             "help": {
                 "description": "提供您的 SteamGridDB API 密钥以启用封面搜索。系统支持时密钥加密存储。在此获取：{{url}}"
             }
+        },
+        "section": {
+            "downloads": "下载",
+            "experimental": "实验性功能",
+            "launch": "启动选项",
+            "wineTools": "工具",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "设置",
     "sidebar": {
         "collapse": "收起侧栏",
         "uncollapse": "展开侧栏",
-        "console": "主机模式"
+        "console": "主机模式",
+        "storesLogin": "存储登录信息"
     },
     "status": {
         "installing": "安装中",
@@ -986,7 +1006,8 @@
         "show": "显示"
     },
     "two_col_table": {
-        "save_hint": "此表中的更改不会自动保存。 单击 + 按钮"
+        "save_hint": "此表中的更改不会自动保存。 单击 + 按钮",
+        "add": "添加"
     },
     "Update Available!": "有更新可用！",
     "userselector": {
@@ -1076,7 +1097,8 @@
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
-        "noGames": "你的仓库是空的。<br /><br />单击<4>此处</4>登录你的 Epic、GOG.com 或 Amazon 账号。登录后，你的游戏会出现在库中。<br /><br />要使用其它来源的应用或游戏，请单击手动添加。"
+        "noGames": "你的仓库是空的。<br /><br />单击<4>此处</4>登录你的 Epic、GOG.com 或 Amazon 账号。登录后，你的游戏会出现在库中。<br /><br />要使用其它来源的应用或游戏，请单击手动添加。",
+        "noResultsTitle": "未找到游戏"
     },
     "adtraction-locked": {
         "dont-show-again": "不再显示此警告",
@@ -1327,5 +1349,6 @@
         "add": "添加",
         "cancel": "取消",
         "warning": "警告"
-    }
+    },
+    "General": "常规"
 }
