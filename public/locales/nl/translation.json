@@ -11,7 +11,10 @@
         "actions_font_family_default": "Acties Lettertypefamilie (Standaard: {{fontFamily}})",
         "content_font_family_default": "Content Font Family (Default:",
         "disable_animations": "UI animaties uitschakelen",
-        "disable_smooth_scrolling": "Glad scrollen uitschakelen (vereist herstart)"
+        "disable_smooth_scrolling": "Glad scrollen uitschakelen (vereist herstart)",
+        "section": {
+            "library": "Bibliotheek"
+        }
     },
     "add_game": "Voeg game toe",
     "All": "Allemaal",
@@ -199,7 +202,8 @@
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren",
-        "continue": "Continue"
+        "continue": "Continue",
+        "close": "sluit"
     },
     "controller": {
         "hints": {
@@ -253,7 +257,8 @@
         "status": "Status",
         "store": "Store",
         "title": "Game Title",
-        "modify": "Pas installatie aan"
+        "modify": "Pas installatie aan",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -288,7 +293,9 @@
         "select_all": "Selecteer Alles",
         "only": "slechts",
         "reset": "Reset",
-        "show_updates_only": "Toon slechts spelletjes met updates"
+        "show_updates_only": "Toon slechts spelletjes met updates",
+        "platforms": "Platform",
+        "stores": "Stores"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -804,6 +811,10 @@
         "steamRuntime": {
             "label": "Use Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Open de",
+            "selectExe": "Selecteer EXE"
         }
     },
     "settings": {
@@ -842,7 +853,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeeminformatie",
             "gamescope": "Gamescope",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Categorieën"
         },
         "open-config-file": "Open Config Bestand",
         "reset-heroic": "Reset Heroic",
@@ -920,13 +932,20 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Experimentele Functies",
+            "launch": "Opstartopties",
+            "wineTools": "Tools"
         }
     },
     "Settings": "Instellingen",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Winkellogin"
     },
     "status": {
         "installing": "Installeren",
@@ -957,7 +976,8 @@
         "show": "Tonen"
     },
     "two_col_table": {
-        "save_hint": "Aanpassingen in deze tabel worden niet automatisch opgeslagen. Klik op de + knop"
+        "save_hint": "Aanpassingen in deze tabel worden niet automatisch opgeslagen. Klik op de + knop",
+        "add": "Voeg toe"
     },
     "Update Available!": "Update Beschikbaar!",
     "userselector": {
@@ -1040,7 +1060,8 @@
     },
     "emptyLibrary": {
         "noResults": "De huidige filters produceerden geen resultaten.",
-        "noGames": "Jouw bibliotheek is leeg.<br /><br />Klik <4>hier</4> om in te loggen met je Epic, GOG.com of Amazon accounts. Dan zullen je spellen hier in de biblotheek zichtbaar worden.<br /><br />Om spelletjes of apps vanuit andere bronnen te gebruiken, klik <br /> om ze handmatig toe te voegen."
+        "noGames": "Jouw bibliotheek is leeg.<br /><br />Klik <4>hier</4> om in te loggen met je Epic, GOG.com of Amazon accounts. Dan zullen je spellen hier in de biblotheek zichtbaar worden.<br /><br />Om spelletjes of apps vanuit andere bronnen te gebruiken, klik <br /> om ze handmatig toe te voegen.",
+        "noResultsTitle": "Geen spellen gevonden"
     },
     "adtraction-locked": {
         "title": "Adtraction is geblokkeerd",
@@ -1276,5 +1297,6 @@
         "add": "Voeg toe",
         "cancel": "Cancel",
         "warning": "Warning"
-    }
+    },
+    "General": "Algemeen"
 }
