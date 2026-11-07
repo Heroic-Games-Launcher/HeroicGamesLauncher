@@ -5,7 +5,9 @@
         "error": "Napaka, poskusi z drugo kodo",
         "loading": "Nalagam",
         "login": "Vpis",
-        "open": "Odpri povezavo"
+        "open": "Odpri povezavo",
+        "close": "Zapri",
+        "itchio_error": "Napaka, poskusi z drugo kodo"
     },
     "message": {
         "part1": "Za vpis in namestitev vaših iger morate slediti spodnjim navodilom:",
