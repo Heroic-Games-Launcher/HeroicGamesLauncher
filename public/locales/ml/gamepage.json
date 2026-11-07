@@ -96,7 +96,9 @@
         "browse_wine_prefix": "",
         "play": "",
         "browse_files": "",
-        "edit-game": "Edit App/Game"
+        "edit-game": "Edit App/Game",
+        "favourite": "Add To Favourites",
+        "unfavourite": "Remove From Favourites"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "പ്രവര്ത്തനരഹിതം",
@@ -132,7 +134,8 @@
         "modify": "",
         "install_info": "Installing",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game details"
     },
     "gamecard": {
         "moving": "മാറ്റുന്നു",
@@ -162,7 +165,10 @@
         "installedInfo": "ഇൻസ്റ്റാൾ ചെയ്ത വിവരങ്ങൾ",
         "protondb-compatibility-info": "പ്രോട്ടോൺ കോംപാറ്റിബിലിറ്റി ടയർ",
         "steamdeck-compatibility-info": "SteamDeck അനുയോജ്യത",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "unsupported": "Unsupported"
+        }
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -203,7 +209,8 @@
             "installation": "നടീല് നിര്ത്തൂ"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "വിക്ഷേപണ ബദലുകൾ...",
