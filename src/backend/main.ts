@@ -1299,7 +1299,9 @@ addHandler('getWebviewPreloadPath', () => webviewPreloadPath)
 
 addHandler('clipboardReadText', () => clipboard.readText())
 
-addListener('clipboardWriteText', (e, text) => clipboard.writeText(text))
+addListener('clipboardWriteText', async (e, text) => {
+  await clipboard.writeText(text)
+})
 
 addHandler('getCustomThemes', async () => {
   const { customThemesPath } = GlobalConfig.get().getSettings()

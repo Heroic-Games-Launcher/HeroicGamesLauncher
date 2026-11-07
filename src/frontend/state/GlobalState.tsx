@@ -103,6 +103,8 @@ interface StateProps {
   externalLinkDialogOptions: ExternalLinkDialogOptions
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
+  disableDiscounts: boolean
+  disableGOGAffiliate: boolean
   lastChangelogShown: string | null
   showInstallModal: {
     show: boolean
@@ -256,6 +258,8 @@ class GlobalState extends PureComponent<Props> {
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
+    disableDiscounts: globalSettings?.disableDiscounts || false,
+    disableGOGAffiliate: globalSettings?.enableGOGAffiliate !== true,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     helpItems: {},
     experimentalFeatures: {
@@ -344,6 +348,15 @@ class GlobalState extends PureComponent<Props> {
 
   setHideChangelogsOnStartup = (value: boolean) => {
     this.setState({ hideChangelogsOnStartup: value })
+  }
+
+  setDisableDiscounts = (value: boolean) => {
+    this.setState({ disableDiscounts: value })
+  }
+
+  setDisableGOGAffiliate = (value: boolean) => {
+    sessionStorage.removeItem('last-url-gog')
+    this.setState({ disableGOGAffiliate: value })
   }
 
   setLastChangelogShown = (value: string) => {
@@ -1191,6 +1204,8 @@ class GlobalState extends PureComponent<Props> {
           handleExternalLinkDialog: this.handleExternalLinkDialog,
           hideChangelogsOnStartup: hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
+          setDisableDiscounts: this.setDisableDiscounts,
+          setDisableGOGAffiliate: this.setDisableGOGAffiliate,
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           setCurrentCustomCategories: this.setCurrentCustomCategories,

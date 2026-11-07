@@ -349,6 +349,8 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultWinePrefix: defaultWinePrefixDir,
       defaultWinePrefixDir: defaultWinePrefixDir,
       hideChangelogsOnStartup: false,
+      disableDiscounts: false,
+      enableGOGAffiliate: false,
       language: 'en',
       maxWorkers: 0,
       minimizeOnLaunch: false,
