@@ -11,7 +11,10 @@
         "content_font_family_default": "Família de Fontes para Conteúdos (Predefinição: {{fontFamily}})",
         "actions_font_family_default": "Família de Fontes para Ações (Predefinição: {{fontFamily}})",
         "disable_smooth_scrolling": "Desativar o deslocamento suave (é necessário reiniciar a aplicação)",
-        "disable_animations": "Desativar animações da interface do utilizador"
+        "disable_animations": "Desativar animações da interface do utilizador",
+        "section": {
+            "library": "Biblioteca"
+        }
     },
     "add_game": "Adicionar Jogo",
     "All": "Tudo",
@@ -207,7 +210,8 @@
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar",
-        "continue": "Continuar"
+        "continue": "Continuar",
+        "close": "Fechar"
     },
     "controller": {
         "hints": {
@@ -261,7 +265,8 @@
         "status": "Estado",
         "store": "Loja",
         "title": "Título do Jogo",
-        "modify": "Modificar a Instalação"
+        "modify": "Modificar a Instalação",
+        "settings": "Configurações do jogo"
     },
     "generic": {
         "error": {
@@ -296,7 +301,9 @@
         "uncategorized": "Sem Categoria",
         "show_support_offline_only": "Mostrar apenas com Suporte Offline",
         "show_third_party_managed_only": "Mostrar apenas Geridos por Terceiros",
-        "show_updates_only": "Mostrar apenas Com Atualizações"
+        "show_updates_only": "Mostrar apenas Com Atualizações",
+        "platforms": "Platform",
+        "stores": "Lojas"
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a impulsionar os fotogramas por segundo (FPS) ao aumentar a escala de resoluções mais baixas (upscaling) no modo de Ecrã Inteiro. A qualidade da imagem aumenta de 5 a 1 com um pequeno custo a nível do desempenho. O desempenho pode aumentar se ativar esta opção.",
@@ -823,6 +830,10 @@
         "steamRuntime": {
             "label": "Use Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Abra",
+            "selectExe": "Selecionar EXE"
         }
     },
     "settings": {
@@ -861,7 +872,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Informações do Sistema",
             "gamescope": "Gamescope",
-            "legacy": "Antigo"
+            "legacy": "Antigo",
+            "categories": "Categorias"
         },
         "open-config-file": "Abrir Ficheiro de Configuração",
         "reset-heroic": "Restaurar o Heroic",
@@ -939,13 +951,21 @@
             "help": {
                 "description": "Forneça a sua própria chave API do SteamGridDB para ativar a pesquisa de capas do jogo. A chave é armazenada encriptada caso o seu sistema o suporte. Pode obter uma em {{url}}"
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Funcionalidades Experimentais",
+            "launch": "Opções de execução",
+            "wineTools": "Ferramentas",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "Definições",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": "Mode de Consola"
+        "console": "Mode de Consola",
+        "storesLogin": "Login da loja"
     },
     "status": {
         "installing": "A Instalar",
@@ -976,7 +996,8 @@
         "show": "Mostrar"
     },
     "two_col_table": {
-        "save_hint": "As alterações feitas nesta tabela não vão ser gravadas automaticamente. Clique no botão +"
+        "save_hint": "As alterações feitas nesta tabela não vão ser gravadas automaticamente. Clique no botão +",
+        "add": "Adicionar"
     },
     "Update Available!": "Atualização Disponível!",
     "userselector": {
@@ -1076,7 +1097,8 @@
     },
     "emptyLibrary": {
         "noResults": "Não foram obtidos resultados com os filtros atuais.",
-        "noGames": "A sua biblioteca está vazia. <br /><br />Clique <4>aqui</4> para iniciar sessão nas suas contas Epic, GOG.com ou Amazon. Depois os seus jogos irão aparecer aqui, na Biblioteca. <br /><br /> Para adicionar jogos ou aplicações a partir de outras fontes, clique <br /> para adicionar manualmente."
+        "noGames": "A sua biblioteca está vazia. <br /><br />Clique <4>aqui</4> para iniciar sessão nas suas contas Epic, GOG.com ou Amazon. Depois os seus jogos irão aparecer aqui, na Biblioteca. <br /><br /> Para adicionar jogos ou aplicações a partir de outras fontes, clique <br /> para adicionar manualmente.",
+        "noResultsTitle": "Nenhum Jogo encontrado."
     },
     "wineExplanation": {
         "proton-ge": "O GE-Proton é uma variante do Proton criada por Glorious Eggroll. É suposto ser usada juntamente com o lançador umu (que é a predefinição no Heroic).",
@@ -1313,5 +1335,6 @@
         "add": "Adicionar",
         "cancel": "Cancelar",
         "warning": "Aviso"
-    }
+    },
+    "General": "Geral"
 }

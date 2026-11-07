@@ -97,7 +97,9 @@
         "browse_files": "Pesquisar Ficheiros",
         "browse_wine_prefix": "Pesquisar o Prefixo Wine",
         "play": "JOGAR",
-        "edit-game": "Editar Jogo"
+        "edit-game": "Editar Jogo",
+        "favourite": "Adicionar aos Favoritos",
+        "unfavourite": "Remover dos Favoritos"
     },
     "cloud_save_unsupported": "Não é suportado",
     "disabled": "Desativado",
@@ -133,7 +135,8 @@
         "modify": "Modificar a Instalação",
         "extra_info": "Informação extra",
         "install_info": "Informação da instalação",
-        "achievements": "Conquistas"
+        "achievements": "Conquistas",
+        "details": "Detalhes do Jogo"
     },
     "gamecard": {
         "moving": "A mover",
@@ -163,7 +166,11 @@
         "installedInfo": "Informação Instalada",
         "protondb-compatibility-info": "Níveis de Compatibilidade com o Proton",
         "steamdeck-compatibility-info": "Compatibilidade com a SteamDeck",
-        "third-party-app": "Gestor de Terceiros"
+        "third-party-app": "Gestor de Terceiros",
+        "genres": "Géneros",
+        "steamdeck": {
+            "unsupported": "Não é suportado"
+        }
     },
     "install": {
         "disk-space-left": "Espaço Disponível",
@@ -227,7 +234,8 @@
             "launch": "Iniciar o Steam usando Camada de Compatibilidade do Heroic",
             "specificVersion-pt1": "Isso vai fazer o download de uma versão especifica do Steam",
             "specificVersion-pt2": "archive.org"
-        }
+        },
+        "releaseDate": "Data de Lançamento"
     },
     "launch": {
         "options": "Opções de Arranque...",
