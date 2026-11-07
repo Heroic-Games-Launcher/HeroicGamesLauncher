@@ -36,6 +36,8 @@ import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
+import { ItchioUser } from './storeManagers/itchio/user'
+import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
 import { ZoomUser } from './storeManagers/zoom/user'
 import {
   clearCache,
@@ -318,6 +320,21 @@ if (!gotTheLock) {
     }
 
     handleProtocol(argv)
+  })
+
+  app.on('web-contents-created', (_event, contents) => {
+    if (contents.getType() !== 'webview') return
+
+    const interceptItchioOAuth = (event: Electron.Event, url: string) => {
+      if (!url.startsWith(ITCHIO_OAUTH_REDIRECT_URI)) return
+
+      event.preventDefault()
+      logInfo('Intercepted itch.io OAuth callback', LogPrefix.Itchio)
+      sendFrontendMessage('itchioOAuthCallback', url)
+    }
+
+    contents.on('will-navigate', interceptItchioOAuth)
+    contents.on('will-redirect', interceptItchioOAuth)
   })
   app.whenReady().then(async () => {
     initLogger()
@@ -794,6 +811,15 @@ addListener('logoutGOG', () => GOGUser.logout())
 addHandler('getAmazonLoginData', () => NileUser.getLoginData())
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
 addHandler('logoutAmazon', () => NileUser.logout())
+
+addHandler('getItchioUserInfo', async () => ItchioUser.getUserData())
+addHandler('getItchioLoginData', async () => ItchioUser.getLoginData())
+addHandler('authItchio', async (_event, data) => ItchioUser.login(data))
+addHandler('getItchioOAuthUrl', async () => ItchioUser.getOAuthUrl())
+addHandler('authItchioOAuth', async (_event, data) =>
+  ItchioUser.loginWithOAuthCode(data)
+)
+addHandler('logoutItchio', async () => ItchioUser.logout())
 
 addHandler('authZoom', async (event, url) => {
   const login = await ZoomUser.login(url)

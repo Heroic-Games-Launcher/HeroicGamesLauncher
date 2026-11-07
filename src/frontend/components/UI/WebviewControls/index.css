@@ -43,6 +43,10 @@
   color: var(--accent);
 }
 
+.WebviewControls__icon--active {
+  color: var(--accent);
+}
+
 .WebviewControls__icon:disabled {
   color: var(--icon-disabled);
   cursor: default;

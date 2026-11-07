@@ -4,6 +4,7 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
+  useRef,
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -14,17 +15,23 @@ import WebviewControls from 'frontend/components/UI/WebviewControls'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
   isUsingGamepad,
+  setGamepadPassthrough,
   setWebviewInputTarget,
   toggleWebviewFocus
 } from 'frontend/helpers/gamepad'
 import './index.css'
 import LoginWarning from '../Login/components/LoginWarning'
 import { NileLoginData } from 'common/types/nile'
+import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
 import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 
 const GOG_AFFILIATE_PROMPT_KEY = 'gog-affiliate-prompt-shown'
 
+const isCloudflareChallengeUrl = (url: string) => url.includes('__cf_chl_')
+
 const validStoredUrl = (url: string, store: string) => {
+  if (isCloudflareChallengeUrl(url)) return false
+
   switch (store) {
     case 'epic':
       return url.includes('epicgames.com')
@@ -34,6 +41,8 @@ const validStoredUrl = (url: string, store: string) => {
       return url.includes('gaming.amazon.com')
     case 'zoom':
       return url.includes('zoom-platform.com')
+    case 'itchio':
+      return url.includes('itch.io')
     default:
       return false
   }
@@ -48,6 +57,7 @@ export default function WebView() {
     gog,
     amazon,
     zoom,
+    itchio,
     connectivity,
     disableGOGAffiliate,
     setDisableGOGAffiliate
@@ -62,6 +72,9 @@ export default function WebView() {
   const [amazonLoginData, setAmazonLoginData] = useState<NileLoginData | null>(
     null
   )
+  const [itchioOAuthUrl, setItchioOAuthUrl] = useState('')
+  const itchioOAuthHandledRef = useRef(false)
+  const [gameInputMode, setGameInputMode] = useState(false)
   const navigate = useNavigate()
   // Keep the webview element in state (via a callback ref) instead of a plain
   // ref so that mounting/remounting it — e.g. when switching stores — triggers
@@ -89,6 +102,7 @@ export default function WebView() {
     ? 'https://www.gog.com'
     : `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
+  const itchioStore = `https://itch.io`
   const zoomStore = `https://www.zoom-platform.com`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
@@ -105,6 +119,7 @@ export default function WebView() {
       '/store/epic': epicStore,
       '/store/gog': gogStore,
       '/store/amazon': amazonStore,
+      '/store/itchio': itchioStore,
       '/store/zoom': zoomStore,
       '/wiki': wikiURL,
       '/loginEpic': epicLoginUrl,
@@ -112,7 +127,8 @@ export default function WebView() {
       '/loginweb/legendary': epicLoginUrl,
       '/loginweb/gog': gogLoginUrl,
       '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
-      '/loginweb/zoom': zoomLoginUrl
+      '/loginweb/zoom': zoomLoginUrl,
+      '/loginweb/itchio': itchioOAuthUrl
     }
     let url = urls[pathname]
 
@@ -148,13 +164,22 @@ export default function WebView() {
     epicStore,
     gogStore,
     amazonStore,
+    itchioStore,
     zoomStore,
     wikiURL,
     epicLoginUrl,
     gogLoginUrl,
     zoomLoginUrl,
-    amazonLoginData
+    amazonLoginData,
+    itchioOAuthUrl
   ])
+
+  const epicUserAgent =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
+
+  const isItchioPage =
+    store === 'itchio' ||
+    (pathname.includes('store-page') && !!startUrl?.includes('itch.io'))
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
@@ -171,6 +196,42 @@ export default function WebView() {
         refresh: false
       })
     })
+  }, [pathname])
+
+  useEffect(() => {
+    if (pathname !== '/loginweb/itchio') return
+    console.log('Loading itch.io OAuth URL')
+
+    let cancelled = false
+    itchioOAuthHandledRef.current = false
+    setItchioOAuthUrl('')
+    setLoading({
+      refresh: true,
+      message: t('status.preparing_login', 'Preparing Login...')
+    })
+
+    itchio
+      .getOAuthUrl()
+      .then((data) => {
+        if (cancelled) return
+        if (!data.url) {
+          setLoading((previous) => ({ ...previous, refresh: false }))
+          navigate('/login')
+          return
+        }
+        setItchioOAuthUrl(data.url)
+        setLoading((previous) => ({ ...previous, refresh: false }))
+      })
+      .catch(() => {
+        if (cancelled) return
+        setLoading((previous) => ({ ...previous, refresh: false }))
+        navigate('/login')
+      })
+
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   const handleAmazonLogin = (code: string) => {
@@ -199,6 +260,57 @@ export default function WebView() {
     navigate('/login')
   }
 
+  const handleItchioOAuthCallback = (callbackUrl: string) => {
+    if (
+      itchioOAuthHandledRef.current ||
+      !callbackUrl.startsWith(ITCHIO_OAUTH_REDIRECT_URI)
+    ) {
+      return
+    }
+
+    let parsedUrl: URL
+    try {
+      parsedUrl = new URL(callbackUrl)
+    } catch {
+      return
+    }
+
+    const code = parsedUrl.searchParams.get('code')
+    const state = parsedUrl.searchParams.get('state')
+    const error = parsedUrl.searchParams.get('error')
+
+    if (error || !code || !state) {
+      itchioOAuthHandledRef.current = true
+      console.error(
+        `itch.io OAuth callback rejected: ${error ?? 'missing code/state'}`
+      )
+      setLoading((previous) => ({ ...previous, refresh: false }))
+      navigate('/login')
+      return
+    }
+
+    itchioOAuthHandledRef.current = true
+    setLoading({
+      refresh: true,
+      message: t('status.logging', 'Logging In...')
+    })
+
+    itchio
+      .loginWithOAuthCode({ code, state })
+      .then((status) => {
+        if (status === 'done') {
+          handleSuccessfulLogin()
+        } else {
+          setLoading((previous) => ({ ...previous, refresh: false }))
+          navigate('/login')
+        }
+      })
+      .catch(() => {
+        setLoading((previous) => ({ ...previous, refresh: false }))
+        navigate('/login')
+      })
+  }
+
   const [webviewPreloadPath, setWebviewPreloadPath] = useState('')
   useEffect(() => {
     const fetchWebviewPreloadPath = async () => {
@@ -214,12 +326,8 @@ export default function WebView() {
       const loadstop = () => {
         setLoading({ ...loading, refresh: false })
 
-        // only set a custom user agent for Epic, setting a user agent seems to break Cloudflare bot
-        // checks in the GOG login
         if (startUrl === epicLoginUrl) {
-          const userAgent =
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
-          webview.setUserAgent(userAgent)
+          webview.setUserAgent(epicUserAgent)
         }
 
         // Arm gamepad forwarding when the user got here with a controller so
@@ -228,7 +336,9 @@ export default function WebView() {
         // (see the gamepad helper). Mouse users stay in the host so they can
         // still click the sidebar / URL bar; a later mouse→controller hand-off
         // is picked up by the gamepad helper's first-press detection.
-        if (isUsingGamepad()) {
+        if (gameInputMode) {
+          webview.focus()
+        } else if (isUsingGamepad()) {
           toggleWebviewFocus(true)
           webview.send('heroic-webview', { type: 'enter' })
         }
@@ -313,7 +423,7 @@ export default function WebView() {
       }
     }
     return
-  }, [webview, amazonLoginData, runner, webviewPreloadPath])
+  }, [webview, amazonLoginData, runner, webviewPreloadPath, gameInputMode])
 
   useEffect(() => {
     if (webview) {
@@ -356,6 +466,50 @@ export default function WebView() {
 
     return
   }, [webview, store, runner])
+
+  useEffect(() => {
+    if (!webview || runner !== 'itchio') return
+
+    const onWillNavigate = (event: Electron.WillNavigateEvent) => {
+      handleItchioOAuthCallback(event.url)
+    }
+    const onDidNavigate = (event: Electron.DidNavigateEvent) => {
+      handleItchioOAuthCallback(event.url)
+    }
+    const onDidNavigateInPage = (event: Electron.DidNavigateInPageEvent) => {
+      handleItchioOAuthCallback(event.url)
+    }
+    const onDidRedirect = (event: Electron.DidRedirectNavigationEvent) => {
+      handleItchioOAuthCallback(event.url)
+    }
+    const onDidFailLoad = (event: Electron.DidFailLoadEvent) => {
+      handleItchioOAuthCallback(event.validatedURL)
+    }
+
+    webview.addEventListener('will-navigate', onWillNavigate)
+    webview.addEventListener('did-navigate', onDidNavigate)
+    webview.addEventListener('did-navigate-in-page', onDidNavigateInPage)
+    webview.addEventListener('did-redirect-navigation', onDidRedirect)
+    webview.addEventListener('did-fail-load', onDidFailLoad)
+
+    return () => {
+      webview.removeEventListener('will-navigate', onWillNavigate)
+      webview.removeEventListener('did-navigate', onDidNavigate)
+      webview.removeEventListener('did-navigate-in-page', onDidNavigateInPage)
+      webview.removeEventListener('did-redirect-navigation', onDidRedirect)
+      webview.removeEventListener('did-fail-load', onDidFailLoad)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [webview, runner])
+
+  useEffect(() => {
+    if (runner !== 'itchio') return
+
+    return window.api.onItchioOAuthCallback((_event, url) => {
+      handleItchioOAuthCallback(url)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [runner])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon' | 'zoom'
@@ -417,6 +571,15 @@ export default function WebView() {
     setShowLoginWarningFor(null)
   }
 
+  useEffect(() => {
+    setGameInputMode(false)
+  }, [store, runner, pathname, search])
+
+  useEffect(() => {
+    setGamepadPassthrough(gameInputMode)
+    return () => setGamepadPassthrough(false)
+  }, [gameInputMode])
+
   // Register the webview as the gamepad input target while it's mounted so the
   // host's gamepad handler can forward processed inputs to the guest preload
   // (`src/webviewPreload/index.ts`) and trigger host-side actions: focus the
@@ -428,6 +591,17 @@ export default function WebView() {
 
     const onBlur = () => toggleWebviewFocus(false)
     webview.addEventListener('blur', onBlur)
+
+    if (gameInputMode) {
+      toggleWebviewFocus(false)
+      setWebviewInputTarget(null)
+      webview.send('heroic-webview', { type: 'exit' })
+      webview.focus()
+
+      return () => {
+        webview.removeEventListener('blur', onBlur)
+      }
+    }
 
     const focusUrlBar = () => {
       // Exit "webview drives gamepad" mode so the host handles input while
@@ -462,7 +636,7 @@ export default function WebView() {
       setWebviewInputTarget(null)
       toggleWebviewFocus(false)
     }
-  }, [webview])
+  }, [webview, gameInputMode])
 
   // Handle back/forward mouse buttons to navigate inside webview
   useEffect(() => {
@@ -493,7 +667,7 @@ export default function WebView() {
     }
   }, [webview])
 
-  if (!webviewPreloadPath) {
+  if (!webviewPreloadPath || (runner === 'itchio' && !itchioOAuthUrl)) {
     return <></>
   }
 
@@ -504,7 +678,10 @@ export default function WebView() {
           key={`controls-${store}`}
           webview={webview}
           initURL={startUrl}
-          openInBrowser={!startUrl.startsWith('login')}
+          openInBrowser={runner !== 'itchio' && !startUrl.startsWith('login')}
+          showInputToggle={isItchioPage}
+          gameInputMode={gameInputMode}
+          onToggleInput={() => setGameInputMode((enabled) => !enabled)}
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}

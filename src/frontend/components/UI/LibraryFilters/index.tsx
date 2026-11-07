@@ -19,11 +19,12 @@ import {
 } from 'lucide-react'
 import './index.css'
 
-type StoreKey = 'legendary' | 'gog' | 'nile' | 'zoom' | 'sideload'
+type StoreKey = 'legendary' | 'gog' | 'nile' | 'zoom' | 'sideload' | 'itchio'
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon, zoom } = useContext(ContextProvider)
+  const { platform, epic, gog, amazon, zoom, itchio } =
+    useContext(ContextProvider)
   const {
     setShowFavourites,
     setShowHidden,
@@ -62,7 +63,8 @@ export default function LibraryFilters() {
       gog: true,
       nile: true,
       sideload: true,
-      zoom: true
+      zoom: true,
+      itchio: true
     })
     setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
     setShowHidden(true)
@@ -99,6 +101,12 @@ export default function LibraryFilters() {
       label: 'ZOOM',
       runner: 'zoom',
       show: !!(zoom.enabled && zoom.username)
+    },
+    {
+      key: 'itchio',
+      label: 'itch.io',
+      runner: 'itchio',
+      show: !!itchio.username
     },
     {
       key: 'sideload',
