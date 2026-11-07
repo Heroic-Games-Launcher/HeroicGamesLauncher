@@ -190,7 +190,10 @@
         "actions_font_family_default": "Handlinger Skrifttypefamilie (Standard: {{fontFamily}})",
         "content_font_family_default": "Indhold skrifttypefamilie (Standard: {{fontFamily}})",
         "disable_animations": "Deaktivér grænseflade-animationer",
-        "disable_smooth_scrolling": "Deaktivér jævn rulning (kræver genstart)"
+        "disable_smooth_scrolling": "Deaktivér jævn rulning (kræver genstart)",
+        "section": {
+            "library": "Bibliotek"
+        }
     },
     "info": {
         "version": "Wine-version",
@@ -238,7 +241,8 @@
         "unsync": "Fjern synkronisering",
         "login": "Log ind",
         "cancel": "Afbryd",
-        "continue": "Fortsæt"
+        "continue": "Fortsæt",
+        "close": "Luk"
     },
     "help": {
         "esync": "Esync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen.",
@@ -590,7 +594,11 @@
         "scripts": "",
         "enable-quick-sync-menu": "",
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "tools": {
+            "open": "Åbn",
+            "selectExe": "Vælg EXE"
+        }
     },
     "wine": {
         "manager": {
@@ -663,7 +671,8 @@
             "games_settings_defaults": "Spilstandarder",
             "gamescope": "Gamescope",
             "systemInformation": "Systemoplysninger",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kategorier"
         },
         "battlEyeRuntime": {
             "installing": "Installerer BattlEye Runtime...",
@@ -738,6 +747,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "experimental": "Eksperimentelle funktioner",
+            "launch": "Opstartsinstillinger...",
+            "wineTools": "Værktøjer"
         }
     },
     "title": {
@@ -782,7 +796,8 @@
         "status": "Status",
         "store": "butik",
         "title": "Spiltitel",
-        "modify": "Ændre installation"
+        "modify": "Ændre installation",
+        "settings": "Spilindstilinger"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -888,7 +903,8 @@
     "sidebar": {
         "collapse": "Skjul sidebjælken",
         "uncollapse": "Luk sidebjælken ud",
-        "console": ""
+        "console": "",
+        "storesLogin": "Butikslogin"
     },
     "userselector": {
         "discord": "Uenighed",
@@ -964,7 +980,8 @@
         }
     },
     "two_col_table": {
-        "save_hint": "Ændringer i denne tabel gemmes ikke automatisk. Klik på knappen +"
+        "save_hint": "Ændringer i denne tabel gemmes ikke automatisk. Klik på knappen +",
+        "add": "Tilføj"
     },
     "progress": "Fremskridt",
     "download": {
