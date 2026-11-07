@@ -64,6 +64,7 @@ import type { GetLogFileArgs } from 'backend/logger/paths'
 import type {
   HeroicApplyOptions,
   HeroicApplyResult,
+  HeroicBackupDiscoveryResult,
   HeroicBackupValidationReport,
   HeroicExportOptions,
   HeroicExportResult,
@@ -399,6 +400,7 @@ interface AsyncIPCFunctions {
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
   getHomeDir: () => Promise<string>
+  listHeroicBackups: () => Promise<HeroicBackupDiscoveryResult>
   getWineImportProgress: () => Promise<{
     completed: number
     total: number

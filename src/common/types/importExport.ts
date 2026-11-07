@@ -45,6 +45,18 @@ export interface HeroicExportResult {
   manifest?: HeroicBackupManifest
 }
 
+export interface HeroicDiscoveredBackup {
+  path: string
+  fileName: string
+  modifiedAt: number
+  size: number
+}
+
+export interface HeroicBackupDiscoveryResult {
+  directory: string
+  backups: HeroicDiscoveredBackup[]
+}
+
 type CredentialStatus = 'valid' | 'expired' | 'missing'
 
 export interface CredentialValidation {

@@ -7,6 +7,7 @@ import { handleExit } from 'backend/utils'
 import { userHome } from 'backend/constants/paths'
 
 import { exportHeroicBackup } from './export'
+import { discoverHeroicBackups } from './discover'
 import { validateHeroicBackup } from './validate'
 import {
   applyHeroicBackup,
@@ -15,6 +16,8 @@ import {
 } from './apply'
 
 addHandler('getHomeDir', () => Promise.resolve(userHome))
+
+addHandler('listHeroicBackups', () => Promise.resolve(discoverHeroicBackups()))
 
 addHandler('getWineImportProgress', () =>
   Promise.resolve(getWineImportProgressSnapshot())
