@@ -23,7 +23,7 @@ const ExperimentalFeatures = () => {
       steamImport: false
     }
   )
-  const { handleExperimentalFeatures } = useContext(ContextProvider)
+  const { handleExperimentalFeatures, platform } = useContext(ContextProvider)
 
   const toggleFeature = (feature: keyof IExperimentalFeatures) => {
     const newFeatures = {
@@ -60,7 +60,10 @@ const ExperimentalFeatures = () => {
 
   return (
     <>
-      {FEATURES.map((feature) => {
+      {FEATURES.filter(
+        // Steam unsupported on macOS
+        (feature) => !(feature === 'steamImport' && platform === 'darwin')
+      ).map((feature) => {
         return (
           <div key={feature}>
             <ToggleSwitch

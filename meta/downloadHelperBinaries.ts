@@ -32,7 +32,7 @@ const RELEASE_TAGS = {
   gogdl: 'v1.3.0',
   nile: 'v1.2.0',
   comet: 'v0.2.0',
-  aurelia: 'v0.1.43',
+  aurelia: 'v0.2.0',
   'epic-integration': 'v0.4',
   // butler is distributed via itch.io's broth channel system rather than
   // GitHub releases; "LATEST" resolves the channel's newest version at
@@ -288,12 +288,10 @@ async function downloadAurelia() {
     {
       x64: {
         linux: 'aurelia_linux_x86_64',
-        darwin: 'aurelia_macOS_x86_64',
         win32: 'aurelia_windows_x86_64.exe'
       },
       arm64: {
         linux: 'aurelia_linux_arm64',
-        darwin: 'aurelia_macOS_arm64',
         win32: 'aurelia_windows_arm64.exe'
       }
     }

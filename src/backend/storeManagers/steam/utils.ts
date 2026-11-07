@@ -9,6 +9,8 @@ import { AureliaError } from './aurelia'
 export const STEAM_DISABLED = 'Steam import disabled'
 
 export function isSteamImportEnabled(): boolean {
+  // No Aurelia binaries for macOS
+  if (isMac) return false
   return !!GlobalConfig.get().getSettings().experimentalFeatures?.steamImport
 }
 

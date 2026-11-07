@@ -260,7 +260,9 @@ class GlobalState extends PureComponent<Props> {
     steam: {
       library: this.loadSteamLibrary(),
       username: steamConfigStore.get_nodefault('username'),
-      enabled: !!globalSettings?.experimentalFeatures?.steamImport,
+      enabled:
+        window.platform !== 'darwin' &&
+        !!globalSettings?.experimentalFeatures?.steamImport,
       users: []
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
@@ -589,7 +591,7 @@ class GlobalState extends PureComponent<Props> {
 
   handleExperimentalFeatures = (value: ExperimentalFeatures) => {
     const steamWasEnabled = this.state.steam.enabled
-    const steamNowEnabled = !!value.steamImport
+    const steamNowEnabled = window.platform !== 'darwin' && !!value.steamImport
 
     this.setState({
       experimentalFeatures: value,
