@@ -97,7 +97,9 @@
         "browse_wine_prefix": "Abrir Prefixo de Wine",
         "changelog": "Amosar rexistro de cambios",
         "play": "XOGAR",
-        "edit-game": "Editar Xogo"
+        "edit-game": "Editar Xogo",
+        "favourite": "Engadir a favoritos",
+        "unfavourite": "Eliminar dos favoritos"
     },
     "cloud_save_unsupported": "Non compatible",
     "disabled": "Deshabilitar",
@@ -133,7 +135,8 @@
         "changelogFor": "Rexistro de cambios para {{gameTitle}}",
         "extra_info": "Información adicional",
         "install_info": "Información sobre a instación",
-        "achievements": "Logros"
+        "achievements": "Logros",
+        "details": "Detalles do xogo"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -163,7 +166,11 @@
         "installedInfo": "Información instalada",
         "protondb-compatibility-info": "Nivel de compatibilidade de Proton",
         "steamdeck-compatibility-info": "Compatibilidade con SteamDeck",
-        "third-party-app": "Administrador de terceiros"
+        "third-party-app": "Administrador de terceiros",
+        "genres": "Xéneros",
+        "steamdeck": {
+            "unsupported": "Non compatible"
+        }
     },
     "install": {
         "disk-space-left": "Espazo dispoñible",
@@ -225,7 +232,8 @@
             "specificVersion-pt3": "feita para que funcione a través de Heroic, xa que as novas versións de Steam non funcionan en macOS."
         },
         "redist": "Instalando redistribuíbles",
-        "winetricks": "Instalando paquetes de Winetricks"
+        "winetricks": "Instalando paquetes de Winetricks",
+        "releaseDate": "Data de publicación"
     },
     "launch": {
         "options": "Opcións de arrinque...",
