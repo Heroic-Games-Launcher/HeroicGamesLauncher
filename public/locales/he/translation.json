@@ -183,7 +183,8 @@
         "login": "היכנס",
         "cancel": "ביטול",
         "continue": "המשך",
-        "go_to_library": "ללכת לספריה"
+        "go_to_library": "ללכת לספריה",
+        "close": "לסגור"
     },
     "controller": {
         "hints": {
@@ -540,6 +541,10 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "השתמש בSteam Runtime"
+        },
+        "tools": {
+            "open": "פתוח",
+            "selectExe": "בחרו EXE"
         }
     },
     "status": {
@@ -561,7 +566,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "ספריה"
+        }
     },
     "docs": "תיעוד",
     "epic": {
@@ -578,7 +586,8 @@
         "status": "סטטוס",
         "store": "חנות",
         "title": "כותרת משחק",
-        "modify": ""
+        "modify": "",
+        "settings": "הגדרות משחק"
     },
     "generic": {
         "library": {
@@ -610,7 +619,9 @@
         "show_updates_only": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "פלטפורמה",
+        "stores": "חנויות"
     },
     "help": {
         "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
@@ -885,6 +896,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "הורדות",
+            "experimental": "תכונות ניסיוניות",
+            "launch": "פותח הגדרות..."
         }
     },
     "Settings": "הגדרות",
@@ -1247,5 +1263,6 @@
     "common": {
         "cancel": "בטל",
         "warning": "אזהרה"
-    }
+    },
+    "General": "כללי"
 }
