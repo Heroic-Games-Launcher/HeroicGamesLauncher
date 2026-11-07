@@ -5,7 +5,8 @@
         "copy": "Copiar",
         "copied": "Copiado!",
         "error": "Erro, tente um código diferente",
-        "loading": "Carregando"
+        "loading": "Carregando",
+        "close": "Fechar"
     },
     "message": {
         "part1": "Para fazer login e instalar seus jogos, primeiro precisa seguir as etapas abaixo:",
