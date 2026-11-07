@@ -20,7 +20,7 @@ export function getKnownFixesFor(appName: string, runner: Runner) {
       readFileSync(fixesPath, 'utf-8')
     ) as KnownFixesFile
 
-    return fixesContent[storeMap[runner]][appName]
+    return fixesContent[storeMap[runner]]?.[appName] ?? null
   } catch (error) {
     // if we fail to download the json file, it can be malformed causing
     // JSON.parse to throw an exception

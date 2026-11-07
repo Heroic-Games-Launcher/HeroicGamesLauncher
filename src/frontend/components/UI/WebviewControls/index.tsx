@@ -3,7 +3,9 @@ import {
   ArrowForwardRounded,
   HomeOutlined,
   OpenInBrowser,
-  Replay
+  Replay,
+  SportsEsports,
+  SportsEsportsOutlined
 } from '@mui/icons-material'
 import cx from 'classnames'
 import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
@@ -15,6 +17,9 @@ interface WebviewControlsProps {
   webview: Electron.WebviewTag | null
   initURL: string
   openInBrowser: boolean
+  showInputToggle?: boolean
+  gameInputMode?: boolean
+  onToggleInput?: () => void
 }
 
 function removeSelection(event: SyntheticEvent<unknown>) {
@@ -31,7 +36,10 @@ function removeSelection(event: SyntheticEvent<unknown>) {
 export default function WebviewControls({
   webview,
   initURL,
-  openInBrowser
+  openInBrowser,
+  showInputToggle = false,
+  gameInputMode = false,
+  onToggleInput
 }: WebviewControlsProps) {
   const [url, setUrl] = React.useState(initURL)
   const { t } = useTranslation()
@@ -133,6 +141,27 @@ export default function WebviewControls({
         )}
       </span>
       <div className="WebviewControls__icons">
+        {showInputToggle && onToggleInput && (
+          <SvgButton
+            className={cx('WebviewControls__icon', {
+              'WebviewControls__icon--active': gameInputMode
+            })}
+            title={
+              gameInputMode
+                ? t(
+                    'webview.controls.disableGameInput',
+                    'Disable game input and return to Heroic navigation'
+                  )
+                : t(
+                    'webview.controls.enableGameInput',
+                    'Enable keyboard and controller input for the page'
+                  )
+            }
+            onClick={onToggleInput}
+          >
+            {gameInputMode ? <SportsEsports /> : <SportsEsportsOutlined />}
+          </SvgButton>
+        )}
         <SvgButton
           className="WebviewControls__icon"
           title={t('webview.controls.openInBrowser')}

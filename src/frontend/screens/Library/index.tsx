@@ -26,6 +26,7 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
+  itchioCategories,
   normalizeTitle,
   countGames
 } from 'frontend/helpers/library'
@@ -58,6 +59,7 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     zoom,
+    itchio,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -94,7 +96,8 @@ export default React.memo(function Library(): JSX.Element {
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoom.enabled && zoomCategories.includes(storedCategory)
+      zoom: zoom.enabled && zoomCategories.includes(storedCategory),
+      itchio: itchioCategories.includes(storedCategory)
     }
   }
 
@@ -375,6 +378,9 @@ export default React.memo(function Library(): JSX.Element {
       zoom.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      itchio.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -389,7 +395,8 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     sideloadedLibrary,
-    zoom
+    zoom,
+    itchio
   ])
 
   const favouritesIds = useMemo(() => {
@@ -413,6 +420,9 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['zoom'] && zoom.username) {
       displayedStores.push('zoom')
     }
+    if (storesFilters['itchio'] && itchio.username) {
+      displayedStores.push('itchio')
+    }
 
     if (!displayedStores.length) {
       displayedStores = Object.keys(storesFilters)
@@ -423,19 +433,22 @@ export default React.memo(function Library(): JSX.Element {
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
     const showSideloaded = displayedStores.includes('sideload')
     const showZoom = zoom.username && displayedStores.includes('zoom')
+    const showItchio = itchio.username && displayedStores.includes('itchio')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
     const zoomLibrary = showZoom ? zoom.library : []
+    const itchioLibrary = showItchio ? itchio.library : []
 
     return [
       ...sideloadedApps,
       ...epicLibrary,
       ...gogLibrary,
       ...amazonLibrary,
-      ...zoomLibrary
+      ...zoomLibrary,
+      ...itchioLibrary
     ]
   }
 

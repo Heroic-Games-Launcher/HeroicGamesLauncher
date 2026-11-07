@@ -75,7 +75,8 @@ const DownloadManagerItem = ({
   variant = 'row',
   handleClearItem
 }: Props) => {
-  const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
+  const { amazon, epic, gog, itchio, showDialogModal } =
+    useContext(ContextProvider)
   const { t, i18n } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
@@ -83,7 +84,12 @@ const DownloadManagerItem = ({
 
   const navigate = useNavigate()
 
-  const library = [...epic.library, ...gog.library, ...amazon.library]
+  const library = [
+    ...epic.library,
+    ...gog.library,
+    ...amazon.library,
+    ...itchio.library
+  ]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const {

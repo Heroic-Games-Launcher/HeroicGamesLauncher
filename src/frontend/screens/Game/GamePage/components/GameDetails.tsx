@@ -16,6 +16,8 @@ const STORE_NAMES: Record<string, string> = {
   legendary: 'Epic Games',
   gog: 'GOG',
   nile: 'Amazon Games',
+  zoom: 'ZOOM',
+  itchio: 'itch.io',
   sideload: 'Sideloaded'
 }
 

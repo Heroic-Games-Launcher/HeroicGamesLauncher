@@ -3,14 +3,14 @@
     margin-bottom: var(--space-md);
   }
 
+  .SettingRow + .SettingRow {
+    margin-top: var(--space-md);
+  }
+
   .default-wine-warning {
     padding: var(--space-xs);
     color: var(--text-default);
     padding-top: 0;
     margin-top: var(--space-xs);
-  }
-
-  label + .hiddenCheckbox + label {
-    margin-top: var(--space-sm);
   }
 }
