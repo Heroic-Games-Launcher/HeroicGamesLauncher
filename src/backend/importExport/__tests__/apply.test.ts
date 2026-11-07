@@ -133,6 +133,7 @@ import type { DMQueueElement } from 'common/types'
 
 import { applyHeroicBackup, rollbackLastImport } from '../apply'
 import { BACKUP_FORMAT_VERSION, BACKUP_PATHS } from '../constants'
+import { libraryStore as itchioLibraryStore } from 'backend/storeManagers/itchio/electronStores'
 
 const addJson = (zip: AdmZip, path: string, data: unknown) => {
   zip.addFile(path, Buffer.from(JSON.stringify(data, null, 2), 'utf-8'))
@@ -480,6 +481,81 @@ describe('applyHeroicBackup patch semantics', () => {
     )
     expect((await rollbackLastImport()).ok).toBe(true)
     expect(mockTsStore.raw_store).toEqual({})
+  })
+
+  it('patches itch.io library paths and queues missing installs', async () => {
+    const src = join(tmpRoot, 'itchio.zip')
+    const zip = new AdmZip()
+    addJson(zip, BACKUP_PATHS.manifest, {
+      ...manifest,
+      stages: ['libraryCache'],
+      counts: { ...manifest.counts, installedGames: { itchio: 2 } }
+    })
+    addJson(zip, BACKUP_PATHS.libraryCache.itchioLibrary, {
+      library: [
+        {
+          app_name: 'itchio-1',
+          title: 'Itch 1',
+          is_installed: true,
+          folder_name: '/old',
+          caveId: 'cave-1',
+          install: {
+            install_path: '/old',
+            executable: '/old/game.exe',
+            platform: 'windows'
+          }
+        },
+        {
+          app_name: 'itchio-2',
+          title: 'Itch 2',
+          is_installed: true,
+          folder_name: '/gone',
+          caveId: 'cave-2',
+          install: {
+            install_path: '/gone',
+            executable: '/gone/game.exe',
+            platform: 'windows'
+          }
+        },
+        { app_name: 'itchio-3', title: 'Itch 3', is_installed: false }
+      ],
+      __timestamp: { library: '2026-01-01' }
+    })
+    zip.writeZip(src)
+
+    const result = await applyHeroicBackup({
+      sourcePath: src,
+      stages: ['libraryCache'],
+      overwriteGlobalSettings: false,
+      includedAppNames: [],
+      includedCredentials: {},
+      perGameOverrides: [
+        { appName: 'itchio-1', installPath: '/new' },
+        { appName: 'itchio-2', installAfterImport: true }
+      ],
+      includedWineVersions: []
+    })
+
+    expect(result.ok).toBe(true)
+    expect(result.gamesQueuedForDownload).toEqual(['itchio-2'])
+
+    const written = JSON.parse(
+      readFileSync(itchioLibraryStore.path, 'utf-8')
+    ) as {
+      library: Array<Record<string, unknown>>
+      __timestamp: Record<string, unknown>
+    }
+    const [moved, queued, untouched] = written.library
+    expect((moved.install as Record<string, unknown>).install_path).toBe('/new')
+    expect((moved.install as Record<string, unknown>).executable).toBe(
+      join('/new', 'game.exe')
+    )
+    expect(moved.folder_name).toBe('/new')
+    expect(queued.is_installed).toBe(false)
+    expect(queued.install).toBeUndefined()
+    expect(queued.caveId).toBeUndefined()
+    expect(untouched.is_installed).toBe(false)
+    expect(written.__timestamp).toEqual({ library: '2026-01-01' })
   })
 
   it('rejects zip entries that traverse outside the destination (zip-slip)', async () => {

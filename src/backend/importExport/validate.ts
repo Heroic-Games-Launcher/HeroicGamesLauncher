@@ -60,6 +60,7 @@ export function isHeroicBackupManifest(v: unknown): v is HeroicBackupManifest {
 interface ZipGameInfo {
   app_name: string
   title?: string
+  is_installed?: boolean
   install?: { install_path?: string; platform?: string }
 }
 
@@ -106,6 +107,10 @@ function buildGameTitleMap(
   push(
     readLibraryEntry(zip, BACKUP_PATHS.libraryCache.zoomLibrary, 'games'),
     'zoom'
+  )
+  push(
+    readLibraryEntry(zip, BACKUP_PATHS.libraryCache.itchioLibrary, 'library'),
+    'itchio'
   )
   const sideload = zip.getEntry(BACKUP_PATHS.sideloadLibrary.library)
   if (sideload) {
@@ -167,6 +172,20 @@ function buildInstallMap(zip: AdmZip): Record<string, InstallInfo> {
     }
   }
 
+  const itchio = readLibraryEntry(
+    zip,
+    BACKUP_PATHS.libraryCache.itchioLibrary,
+    'library'
+  )
+  for (const g of itchio) {
+    if (g?.is_installed && g.install?.install_path) {
+      out[g.app_name] = {
+        runner: 'itchio',
+        installPath: g.install.install_path
+      }
+    }
+  }
+
   const sideload = safeJsonParse<{
     games?: Array<{ app_name?: string; install?: { install_path?: string } }>
   }>(zip.getEntry(BACKUP_PATHS.sideloadLibrary.library)?.getData())
@@ -215,7 +234,8 @@ function buildCredentialsReport(
     legendary: false,
     gog: false,
     nile: false,
-    zoom: false
+    zoom: false,
+    itchio: false
   }
   const entries: Array<{
     runner: Runner
@@ -229,7 +249,12 @@ function buildCredentialsReport(
     },
     { runner: 'nile', key: 'nile', path: BACKUP_PATHS.credentials.nileUser },
     { runner: 'gog', key: 'gog', path: BACKUP_PATHS.credentials.gogConfig },
-    { runner: 'zoom', key: 'zoom', path: BACKUP_PATHS.credentials.zoomConfig }
+    { runner: 'zoom', key: 'zoom', path: BACKUP_PATHS.credentials.zoomConfig },
+    {
+      runner: 'itchio',
+      key: 'itchio',
+      path: BACKUP_PATHS.credentials.itchioConfig
+    }
   ]
   return entries.map(({ runner, key, path }) => {
     const inZip = !!zip.getEntry(path)
@@ -272,6 +297,11 @@ function credentialDisplayName(
   if (runner === 'zoom') {
     const username = data['username']
     return typeof username === 'string' ? username : undefined
+  }
+  if (runner === 'itchio') {
+    const userData = data['userData'] as Record<string, unknown> | undefined
+    const name = userData?.['displayName'] ?? userData?.['username']
+    return typeof name === 'string' ? name : undefined
   }
   return undefined
 }
@@ -447,7 +477,8 @@ function emptyReport(
           legendary: false,
           gog: false,
           nile: false,
-          zoom: false
+          zoom: false,
+          itchio: false
         },
         fixesIncluded: false,
         themesIncluded: false,

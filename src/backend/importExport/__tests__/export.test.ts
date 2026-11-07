@@ -203,6 +203,36 @@ jest.mock('backend/storeManagers', () => {
           ]
         })
       },
+      itchio: {
+        getBackupPaths: () => {
+          const libraryPath = join(cacheDir, 'itchio_library.json')
+          return {
+            credentials: [
+              file(
+                join(userData, 'itchio_store', 'config.json'),
+                dest.credentials.itchioConfig
+              ),
+              {
+                ...file(
+                  join(appFolder, 'itchio_config', 'butler.db'),
+                  dest.credentials.itchioButlerDb
+                ),
+                indicatesLogin: false
+              }
+            ],
+            libraryCache: [file(libraryPath, dest.libraryCache.itchioLibrary)],
+            installedGames: {
+              ...file(libraryPath, dest.libraryCache.itchioLibrary),
+              countGames: () => {
+                const data = readJson(libraryPath) as {
+                  library?: Array<{ is_installed?: boolean }>
+                } | null
+                return data?.library?.filter((g) => g.is_installed).length ?? 0
+              }
+            }
+          }
+        }
+      },
       sideload: {
         getBackupPaths: () => ({
           credentials: [],
@@ -286,6 +316,15 @@ describe('exportHeroicBackup', () => {
       installed: [{ appName: 'gog1' }, { appName: 'gog2' }]
     })
 
+    // itch.io
+    mkdirSync(join(userData, 'itchio_store'), { recursive: true })
+    writeJson(join(userData, 'itchio_store', 'config.json'), {
+      profileId: 1,
+      userData: { username: 'itch-user' }
+    })
+    mkdirSync(join(appFolder, 'itchio_config'), { recursive: true })
+    writeFileSync(join(appFolder, 'itchio_config', 'butler.db'), 'db')
+
     // Sideload library
     mkdirSync(join(userData, 'sideload_apps'), { recursive: true })
     writeJson(join(userData, 'sideload_apps', 'library.json'), {
@@ -299,6 +338,12 @@ describe('exportHeroicBackup', () => {
     })
     writeJson(join(userData, 'store_cache', 'gog_library.json'), {
       games: [{ app_name: 'gog1', title: 'GOG 1' }]
+    })
+    writeJson(join(userData, 'store_cache', 'itchio_library.json'), {
+      library: [
+        { app_name: 'itchio-1', title: 'Itch 1', is_installed: true },
+        { app_name: 'itchio-2', title: 'Itch 2', is_installed: false }
+      ]
     })
 
     // Wine downloader store
@@ -355,6 +400,8 @@ describe('exportHeroicBackup', () => {
     expect(zip.getEntry(BACKUP_PATHS.credentials.legendaryUser)).toBeTruthy()
     expect(zip.getEntry(BACKUP_PATHS.credentials.nileUser)).toBeTruthy()
     expect(zip.getEntry(BACKUP_PATHS.credentials.gogConfig)).toBeTruthy()
+    expect(zip.getEntry(BACKUP_PATHS.credentials.itchioConfig)).toBeTruthy()
+    expect(zip.getEntry(BACKUP_PATHS.credentials.itchioButlerDb)).toBeTruthy()
 
     // Library cache
     expect(
@@ -364,6 +411,14 @@ describe('exportHeroicBackup', () => {
       zip.getEntry(BACKUP_PATHS.libraryCache.legendaryInstalled)
     ).toBeTruthy()
     expect(zip.getEntry(BACKUP_PATHS.libraryCache.gogInstalled)).toBeTruthy()
+    expect(zip.getEntry(BACKUP_PATHS.libraryCache.itchioLibrary)).toBeTruthy()
+    // itch.io's library and installed games share one file, so the archive
+    // must contain it exactly once even though both entries point at it.
+    expect(
+      zip
+        .getEntries()
+        .filter((e) => e.entryName === BACKUP_PATHS.libraryCache.itchioLibrary)
+    ).toHaveLength(1)
 
     // Sideload
     expect(zip.getEntry(BACKUP_PATHS.sideloadLibrary.library)).toBeTruthy()
@@ -397,12 +452,14 @@ describe('exportHeroicBackup', () => {
     expect(manifest.counts.installedGames.legendary).toBe(1)
     expect(manifest.counts.installedGames.gog).toBe(2)
     expect(manifest.counts.installedGames.nile).toBe(1)
+    expect(manifest.counts.installedGames.itchio).toBe(1)
     expect(manifest.counts.sideloadGames).toBe(1)
     expect(manifest.counts.credentials).toEqual({
       legendary: true,
       nile: true,
       gog: true,
-      zoom: false
+      zoom: false,
+      itchio: true
     })
     expect(manifest.counts.fixesIncluded).toBe(true)
     expect(manifest.counts.wineVersions).toBe(1)

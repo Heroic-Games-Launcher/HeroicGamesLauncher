@@ -21,7 +21,9 @@ export const BACKUP_PATHS = {
     gogConfig: 'credentials/gog/config.json',
     gogAuth: 'credentials/gog/auth.json',
     zoomConfig: 'credentials/zoom/config.json',
-    zoomToken: 'credentials/zoom/.zoom.token'
+    zoomToken: 'credentials/zoom/.zoom.token',
+    itchioConfig: 'credentials/itchio/config.json',
+    itchioButlerDb: 'credentials/itchio/butler.db'
   },
   libraryCache: {
     legendaryLibrary: 'libraryCache/legendary_library.json',
@@ -33,7 +35,8 @@ export const BACKUP_PATHS = {
     legendaryMetadataDir: 'libraryCache/legendary/metadata/',
     gogInstalled: 'libraryCache/gog/installed.json',
     nileInstalled: 'libraryCache/nile/installed.json',
-    nileLibraryFile: 'libraryCache/nile/library.json'
+    nileLibraryFile: 'libraryCache/nile/library.json',
+    itchioLibrary: 'libraryCache/itchio/library.json'
   },
   sideloadLibrary: {
     library: 'sideloadLibrary/library.json'

@@ -108,7 +108,8 @@ export async function exportHeroicBackup(
         legendary: false,
         gog: false,
         nile: false,
-        zoom: false
+        zoom: false,
+        itchio: false
       },
       fixesIncluded: false,
       themesIncluded: false,
@@ -188,15 +189,20 @@ export async function exportHeroicBackup(
             addFileIfExists(zip, file.source(), file.destInZip)
           }
         }
-        if (
-          installedGames &&
-          addFileIfExists(
-            zip,
-            installedGames.source(),
-            installedGames.destInZip
-          )
-        ) {
-          manifest.counts.installedGames[runner] = installedGames.countGames()
+        if (installedGames) {
+          // Some managers (itch.io) keep installed state in the same file as
+          // the library cache, so only add it once but still report the count.
+          const alreadyAdded = !!zip.getEntry(installedGames.destInZip)
+          if (
+            alreadyAdded ||
+            addFileIfExists(
+              zip,
+              installedGames.source(),
+              installedGames.destInZip
+            )
+          ) {
+            manifest.counts.installedGames[runner] = installedGames.countGames()
+          }
         }
       }
     }

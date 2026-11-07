@@ -8,7 +8,7 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { app } from 'electron'
-import { isAbsolute, join, normalize } from 'path'
+import { isAbsolute, join, normalize, relative } from 'path'
 
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { sendFrontendMessage } from 'backend/ipc'
@@ -31,6 +31,11 @@ import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { NileUser } from 'backend/storeManagers/nile/user'
 import { configStore as gogConfigStore } from 'backend/storeManagers/gog/electronStores'
 import { configStore as zoomConfigStore } from 'backend/storeManagers/zoom/electronStores'
+import {
+  configStore as itchioConfigStore,
+  libraryStore as itchioLibraryStore
+} from 'backend/storeManagers/itchio/electronStores'
+import { itchioStoreConfigPath } from 'backend/storeManagers/itchio/constants'
 import { legendaryInstalled } from 'backend/storeManagers/legendary/constants'
 import { nileInstalled } from 'backend/storeManagers/nile/constants'
 import {
@@ -385,6 +390,15 @@ async function applyCredentials(
       restore
     )
   }
+  if (includeRunner('itchio')) {
+    syncElectronStoreFromDisk(
+      itchioConfigStore,
+      itchioStoreConfigPath,
+      warnings,
+      'itch.io',
+      restore
+    )
+  }
 
   return {
     stage: 'credentials',
@@ -492,6 +506,77 @@ function patchNileInstalled(
   return patched
 }
 
+interface ItchioLibraryEntry extends Record<string, unknown> {
+  app_name?: unknown
+  is_installed?: boolean
+  folder_name?: string
+  caveId?: string
+  install?: Record<string, unknown>
+}
+
+function patchItchioLibrary(
+  raw: { library?: ItchioLibraryEntry[] } & Record<string, unknown>,
+  overrides: Map<string, PerGamePathOverride>,
+  queuedDownloads: QueuedGameDownload[]
+): { library: ItchioLibraryEntry[] } & Record<string, unknown> {
+  const list = Array.isArray(raw.library) ? raw.library : []
+  const patched: ItchioLibraryEntry[] = []
+  for (const entry of list) {
+    const appName = asStringKey(entry.app_name)
+    const override = overrides.get(appName)
+    if (!override) {
+      patched.push(entry)
+      continue
+    }
+
+    const install = { ...(entry.install ?? {}) }
+    if (override.skipInstallPath || override.installAfterImport) {
+      if (override.installAfterImport) {
+        queuedDownloads.push({
+          appName,
+          runner: 'itchio',
+          platform: entryPlatform(install['platform'], 'Windows')
+        })
+      }
+      // Keep the store entry so the game stays in the library, but drop the
+      // stale install data so Heroic doesn't try to launch a missing folder.
+      const rest: ItchioLibraryEntry = { ...entry }
+      delete rest.install
+      delete rest.caveId
+      delete rest.folder_name
+      patched.push({ ...rest, is_installed: false })
+      continue
+    }
+
+    if (override.installPath) {
+      const oldPath =
+        typeof install['install_path'] === 'string'
+          ? install['install_path']
+          : undefined
+      const executable =
+        typeof install['executable'] === 'string'
+          ? install['executable']
+          : undefined
+      if (oldPath && executable?.startsWith(oldPath)) {
+        install['executable'] = join(
+          override.installPath,
+          relative(oldPath, executable)
+        )
+      }
+      install['install_path'] = override.installPath
+      patched.push({
+        ...entry,
+        install,
+        folder_name: override.installPath
+      })
+      continue
+    }
+
+    patched.push(entry)
+  }
+  return { ...raw, library: patched }
+}
+
 function applyLibraryCache(
   zip: AdmZip,
   options: HeroicApplyOptions,
@@ -537,7 +622,21 @@ function applyLibraryCache(
     rmSync(nileInstalled, { force: true })
   }
 
+  const itchioRaw = safeJsonFromEntry<
+    { library?: ItchioLibraryEntry[] } & Record<string, unknown>
+  >(zip, BACKUP_PATHS.libraryCache.itchioLibrary)
+  if (itchioRaw) {
+    ensureDir(dirOf(itchioLibraryStore.path))
+    const patched = patchItchioLibrary(itchioRaw, overrides, queuedDownloads)
+    writeFileSync(itchioLibraryStore.path, JSON.stringify(patched, null, 2))
+  } else if (restore) {
+    rmSync(itchioLibraryStore.path, { force: true })
+  }
+
   for (const runner of Object.keys(libraryManagerMap) as Runner[]) {
+    // itch.io's library file is patched above (installed games live in the
+    // same file as the library), so don't overwrite it with the raw entry.
+    if (runner === 'itchio') continue
     const { libraryCache } = libraryManagerMap[runner].getBackupPaths()
     for (const file of libraryCache) {
       if (file.kind === 'dir') {
@@ -1007,7 +1106,8 @@ export async function rollbackLastImport(): Promise<HeroicApplyResult> {
         legendary: true,
         gog: true,
         nile: true,
-        zoom: true
+        zoom: true,
+        itchio: true
       },
       perGameOverrides: [],
       includedWineVersions: []

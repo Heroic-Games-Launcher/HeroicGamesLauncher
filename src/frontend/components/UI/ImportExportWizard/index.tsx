@@ -38,7 +38,8 @@ const DEFAULT_CREDENTIALS: Partial<Record<Runner, boolean>> = {
   legendary: true,
   gog: true,
   nile: true,
-  zoom: true
+  zoom: true,
+  itchio: true
 }
 
 interface Props {

@@ -26,6 +26,8 @@ export function runnerLabel(
       return 'GOG'
     case 'nile':
       return 'Amazon'
+    case 'itchio':
+      return 'itch.io'
     case 'zoom':
       return 'ZOOM'
     default:
