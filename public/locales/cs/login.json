@@ -5,7 +5,8 @@
         "open": "Otevřít Odkaz",
         "copy": "Kopírovat",
         "error": "Chyba, zkuste jiný kód",
-        "loading": "Načítání"
+        "loading": "Načítání",
+        "close": "Zavřít"
     },
     "message": {
         "part1": "Aby jste se mohli přihlásit a instalovat vaše hry, musíte postupovat podle kroků níže:",
