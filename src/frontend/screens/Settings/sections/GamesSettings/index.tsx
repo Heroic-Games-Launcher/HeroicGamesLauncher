@@ -28,7 +28,6 @@ import {
   PreferSystemLibs,
   ShowFPS,
   SteamRuntime,
-  SteamIntegration,
   SteamLaunchTarget,
   WinePrefix,
   WineVersionSelector,
@@ -275,7 +274,6 @@ export default function GamesSettings() {
             glyph={Gamepad2}
             title={t('settings.section.steam', 'Steam')}
           >
-            <SteamIntegration />
             <SteamLaunchTarget state={steamTargets} />
           </SettingsCard>
         )}

@@ -118,34 +118,64 @@ export default class SteamGame implements Game {
     )
   }
 
-  getSteamIntegrationEnabled(): boolean {
-    const info = libraryManagerMap['steam'].getGameInfo(this.id)
-    if (info?.isFamilyShare) {
-      return true
-    }
-    return configStore.get('steamIntegration', {})[this.id] === true
-  }
-
   /**
-   * Persist the user's "run with Steam integration" choice for this game.
-   */
-  setSteamIntegrationEnabled(enabled: boolean): void {
-    const map = configStore.get('steamIntegration', {})
-    map[this.id] = enabled
-    configStore.set('steamIntegration', map)
-  }
-
-  /**
-   * Installed builds and Steam modes Aurelia can launch, with the `play` flags
-   * for each. The default mirrors the Steam integration toggle.
+   * Builds and Steam modes Aurelia can launch, with the `play` flags for each.
+   * Only viable choices are returned.
    */
   private async fetchLaunchTargets(): Promise<AureliaLaunchTarget[]> {
-    const args = ['launch-targets', this.id]
-    if (this.getSteamIntegrationEnabled()) {
-      args.push('--steam')
+    const res = await runAurelia<AureliaLaunchTargetsResponse>([
+      'launch-targets',
+      this.id
+    ])
+    return this.viableLaunchTargets(res.targets ?? [])
+  }
+
+  /**
+   * Split native Linux by Steam mode, drop impossible choices.
+   */
+  private viableLaunchTargets(
+    targets: AureliaLaunchTarget[]
+  ): AureliaLaunchTarget[] {
+    const familyShare = !!libraryManagerMap['steam'].getGameInfo(this.id)
+      ?.isFamilyShare
+    const hostMissing = targets.some(
+      (target) => target.missing === 'host-steam'
+    )
+
+    const expanded = targets.flatMap((target): AureliaLaunchTarget[] => {
+      if (target.platform !== 'linux') return [target]
+      // Aurelia adds --steam for Family Sharing
+      const baseFlags = target.flags.filter((flag) => flag !== '--steam')
+      const hostTarget: AureliaLaunchTarget = {
+        ...target,
+        id: 'linux-host',
+        steam_mode: 'host',
+        flags: [...baseFlags, '--steam'],
+        missing: target.missing ?? (hostMissing ? 'host-steam' : null),
+        available: target.available && !hostMissing,
+        default: familyShare && target.default
+      }
+      const standalone: AureliaLaunchTarget = {
+        ...target,
+        steam_mode: 'none',
+        flags: baseFlags,
+        default: !familyShare && target.default
+      }
+      return [standalone, hostTarget]
+    })
+
+    // Borrowed licences need a Steam client
+    const viable = expanded.filter(
+      (target) =>
+        target.missing !== 'host-steam' &&
+        !(familyShare && target.steam_mode === 'none')
+    )
+
+    if (viable.length && !viable.some((target) => target.default)) {
+      const first = viable.find((target) => target.available)
+      if (first) first.default = true
     }
-    const res = await runAurelia<AureliaLaunchTargetsResponse>(args)
-    return res.targets ?? []
+    return viable
   }
 
   async getLaunchTargets(): Promise<SteamLaunchTargets> {
@@ -886,13 +916,6 @@ export default class SteamGame implements Game {
       // Ignore on native Linux handling
       if (isLinux && !gameInfo.is_linux_native) {
         await pushProton()
-      }
-
-      // Opt-in: run with real Steam integration so Steamworks online features stay
-      // enabled (Aurelia bridges to the host Steam client, starting it silently if
-      // needed). Aurelia also forces this on for Family-Shared games.
-      if (this.getSteamIntegrationEnabled()) {
-        playCommand.push('--steam')
       }
     }
 

@@ -46,10 +46,6 @@ addHandler('setSteamDlcEnabled', async (_e, dlcAppId, enabled) =>
   libraryManagerMap['steam'].getGame(dlcAppId).setDlcEnabled(dlcAppId, enabled)
 )
 
-addHandler('getSteamIntegrationEnabled', (_e, appName) =>
-  libraryManagerMap['steam'].getGame(appName).getSteamIntegrationEnabled()
-)
-
 addHandler('getSteamLaunchTargets', async (_e, appName) =>
   libraryManagerMap['steam'].getGame(appName).getLaunchTargets()
 )
@@ -70,12 +66,6 @@ addHandler('installSteamWineRuntime', async () => {
     )
     return { status: 'error' as const, error: describeError(error) }
   }
-})
-
-addListener('setSteamIntegrationEnabled', (_e, appName, enabled) => {
-  libraryManagerMap['steam']
-    .getGame(appName)
-    .setSteamIntegrationEnabled(enabled)
 })
 
 addListener('logoutSteamAccount', (_e, steamId) => {

@@ -657,8 +657,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamIntegration": "Run the game with real Steam integration, online features stay enabled. Off runs the game without Steam.",
-        "steamIntegrationFamilyShare": "This game is shared via Steam Family Sharing, which always requires a running Steam client.",
         "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic tries to guess the right save folder and this will work on the majority of cases. In case the folder is wrong, use the override box to change it.",
@@ -1143,15 +1141,18 @@
         "showMetalOverlay": "Show Stats Overlay",
         "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
-        "steamIntegration": "Start Steam silently for Online Features and DRM",
         "steamLaunchTarget": {
             "automatic": "Automatic",
             "downloadBuild": "Download",
             "fallback": "Until then, Play uses",
             "host": "Host Steam",
+            "info": {
+                "host": "Host Steam: starts your installed Steam client silently in the background. Needed for online play, multiplayer and DRM.",
+                "none": "No Steam: starts the game without Steam. Online features and DRM-protected games may not work.",
+                "runtime": "In-Wine Steam runtime: runs a separate Steam client inside Wine, for when Steam is not installed on your system."
+            },
             "installRuntime": "Install Steam runtime",
             "missingBuild": "not downloaded",
-            "missingHost": "Steam not installed on this system",
             "missingRuntime": "Steam runtime not installed",
             "native": "Native",
             "none": "No Steam",

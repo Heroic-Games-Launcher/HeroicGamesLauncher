@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
-import { Warning } from '@mui/icons-material'
 import DownIcon from 'frontend/assets/down-icon.svg?react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
@@ -71,11 +70,6 @@ const SteamLaunchTarget = ({ state }: Props) => {
           'setting.steamLaunchTarget.missingRuntime',
           'Steam runtime not installed'
         )
-      case 'host-steam':
-        return t(
-          'setting.steamLaunchTarget.missingHost',
-          'Steam not installed on this system'
-        )
       default:
         return ''
     }
@@ -125,6 +119,28 @@ const SteamLaunchTarget = ({ state }: Props) => {
     <SelectField
       htmlId="steamLaunchTarget"
       label={t('setting.steamLaunchTarget.title', 'Game version to launch')}
+      info={
+        <ul>
+          <li>
+            {t(
+              'setting.steamLaunchTarget.info.host',
+              'Host Steam: starts your installed Steam client silently in the background. Needed for online play, multiplayer and DRM.'
+            )}
+          </li>
+          <li>
+            {t(
+              'setting.steamLaunchTarget.info.runtime',
+              'In-Wine Steam runtime: runs a separate Steam client inside Wine, for when Steam is not installed on your system.'
+            )}
+          </li>
+          <li>
+            {t(
+              'setting.steamLaunchTarget.info.none',
+              'No Steam: starts the game without Steam. Online features and DRM-protected games may not work.'
+            )}
+          </li>
+        </ul>
+      }
       value={selected || AUTOMATIC}
       onChange={handleChange}
       afterSelect={
@@ -169,7 +185,7 @@ const SteamLaunchTarget = ({ state }: Props) => {
                 title={missingLabel(target)}
                 aria-label={missingLabel(target)}
               >
-                {target.missing === 'host-steam' ? <Warning /> : <DownIcon />}
+                <DownIcon />
               </span>
             )}
           </span>

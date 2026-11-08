@@ -151,7 +151,6 @@ interface SyncIPCFunctions {
   cancelSteamLogin: () => void
   submitSteamGuardCode: (code: string) => void
   logoutSteamAccount: (steamId: string) => void
-  setSteamIntegrationEnabled: (appName: string, enabled: boolean) => void
   setGameMetadataOverride: (args: {
     appName: string
     title?: string
@@ -248,7 +247,6 @@ interface AsyncIPCFunctions {
   setSteamDownloadLimit: (kbit: number) => Promise<number>
   focusGameWindow: () => Promise<void>
   setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
-  getSteamIntegrationEnabled: (appName: string) => boolean
   getSteamLaunchTargets: (appName: string) => Promise<SteamLaunchTargets>
   setSteamLaunchTarget: (appName: string, targetId: string) => void
   installSteamWineRuntime: () => Promise<{
