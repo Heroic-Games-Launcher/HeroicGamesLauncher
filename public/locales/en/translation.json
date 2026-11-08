@@ -298,7 +298,6 @@
         "keepCloud": "Resolve: keep Steam Cloud saves",
         "keepLocal": "Resolve: keep this PC's saves",
         "lastSync": "Last sync: {{when}}",
-        "loadingFiles": "Loading Cloud files…",
         "never": "Never",
         "noFiles": "No files in Steam Cloud for this game.",
         "pull": "Download saves from Cloud",
