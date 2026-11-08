@@ -18,14 +18,15 @@ jobs:
         run: pnpm test:ci
   storybook:
     # Pinned: the Playwright version used by the stories has no Chromium build
-    # for ubuntu-latest (26.04) yet.
+    # for ubuntu-latest (26.04) yet. The image already ships Chromium and its
+    # system dependencies, so there is no browser install step to hang on.
     runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.55.1-noble
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
-      - name: Install Playwright Chromium
-        run: pnpm exec playwright install --with-deps chromium
       - name: Test Storybook
         run: pnpm test:storybook
       - name: Build Storybook
