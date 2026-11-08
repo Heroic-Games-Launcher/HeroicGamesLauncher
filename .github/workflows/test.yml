@@ -16,6 +16,18 @@ jobs:
       - uses: ./.github/actions/install-deps
       - name: Test CI
         run: pnpm test:ci
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository.
+        uses: actions/checkout@v6
+      - uses: ./.github/actions/install-deps
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Test Storybook
+        run: pnpm test:storybook
+      - name: Build Storybook
+        run: pnpm build-storybook
   e2e:
     runs-on: ubuntu-latest
     steps:
