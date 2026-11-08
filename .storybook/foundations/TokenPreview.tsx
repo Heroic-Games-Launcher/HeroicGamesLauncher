@@ -153,6 +153,67 @@ export function Page({ children }: { children: ReactNode }) {
   )
 }
 
+export function Ramp({
+  tokens,
+  name
+}: {
+  tokens: readonly string[]
+  name: string
+}) {
+  const values = useTokenValues(tokens)
+  const step = (token: string) => token.slice(token.lastIndexOf('-') + 1)
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-2xs-fixed)'
+      }}
+    >
+      <span style={{ ...nameStyle, color: 'var(--on-panel)' }}>{name}</span>
+      <div
+        style={{
+          border: '1px solid var(--panel-border)',
+          borderRadius: 'var(--radius-md)',
+          display: 'grid',
+          gridTemplateColumns: `repeat(${tokens.length}, minmax(0, 1fr))`,
+          overflow: 'hidden'
+        }}
+      >
+        {tokens.map((token, index) => (
+          <div key={token} style={{ minWidth: 0 }}>
+            <div
+              style={{
+                background: `var(${token})`,
+                height: '4rem',
+                borderInlineEnd:
+                  index === tokens.length - 1
+                    ? undefined
+                    : '1px solid var(--panel-border)'
+              }}
+            />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-3xs-fixed)',
+                padding: 'var(--space-xs-fixed) var(--space-sm-fixed)',
+                background: 'var(--panel-surface)'
+              }}
+            >
+              <span style={nameStyle}>{step(token)}</span>
+              <span style={{ ...valueStyle, overflowWrap: 'anywhere' }}>
+                {values[token] || '—'}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export function Swatches({ tokens }: { tokens: readonly string[] }) {
   const values = useTokenValues(tokens)
 

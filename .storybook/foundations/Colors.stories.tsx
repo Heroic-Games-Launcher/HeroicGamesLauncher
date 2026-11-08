@@ -1,7 +1,7 @@
 import { expect } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Page, Section, Swatches, useTokenValues } from './TokenPreview'
+import { Page, Ramp, Section, Swatches, useTokenValues } from './TokenPreview'
 
 const textTokens = [
   '--text-neutral',
@@ -123,7 +123,63 @@ const surfaceTokens = [
 const gradients = [
   '--gradient-brand',
   '--gradient-01',
-  '--gradient-02'
+  '--gradient-02',
+  '--gradient-gamecard'
+] as const
+
+/* Primitives: the ramps from the `.color-primitive` collection in Figma. Every
+   group uses the same scale, so a step means the same lightness in each ramp. */
+const rampSteps = [
+  50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950
+] as const
+
+const ramp = (group: string) =>
+  rampSteps.map((step) => `--color-${group}-${step}`)
+
+const primitiveRamps = [
+  {
+    name: 'brand',
+    description:
+      'The primary hue. Cyan, used for primary actions and the active accent.',
+    tokens: ramp('brand')
+  },
+  {
+    name: 'secondary',
+    description:
+      'The secondary hue. Purple, used for secondary actions and accents.',
+    tokens: ramp('secondary')
+  },
+  {
+    name: 'grey',
+    description: 'Neutral surfaces, borders and text.',
+    tokens: ramp('grey')
+  },
+  {
+    name: 'success',
+    description: 'Confirmation and healthy states.',
+    tokens: ramp('success')
+  },
+  {
+    name: 'warning',
+    description: 'Caution and states that need attention.',
+    tokens: ramp('warning')
+  },
+  {
+    name: 'error',
+    description: 'Failures and destructive actions.',
+    tokens: ramp('error')
+  }
+] as const
+
+const overlayPrimitives = [
+  '--color-overlay-100',
+  '--color-overlay-200',
+  '--color-overlay-300'
+] as const
+
+const primitiveTokens = [
+  ...primitiveRamps.flatMap(({ tokens }) => tokens),
+  ...overlayPrimitives
 ] as const
 
 const semanticTokens = [
@@ -207,24 +263,49 @@ export const Roles: Story = {
 }
 
 export const Primitives: Story = {
+  name: 'Color primitives',
   render: () => (
     <Page>
       <Section
-        title="neutral"
-        description="The greyscale ramp, 01 is darkest. All text resolves to a step of this ramp."
+        title="Color primitives"
+        description="Every ramp runs from 50, the lightest, to 950, the darkest, so the same step means the same lightness in each group. These are the only place a color is written as a hex value; the role tokens and the components read from them."
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-lg-fixed)'
+          }}
+        >
+          {primitiveRamps.map(({ name, tokens }) => (
+            <Ramp key={name} name={name} tokens={tokens} />
+          ))}
+        </div>
+      </Section>
+      <Section
+        title="opacity"
+        description="Scrims built from the darkest grey of the ramp, at 80 %, 60 % and 40 %. Backdrops, image overlays and the card title gradient all come from these."
+      >
+        <Swatches tokens={overlayPrimitives} />
+      </Section>
+    </Page>
+  )
+}
+
+export const LegacyTokens: Story = {
+  name: 'Legacy tokens',
+  render: () => (
+    <Page>
+      <Section
+        title="Legacy primitives"
+        description="The tokens the app used before the color primitives. They still resolve, but new work should use the ramps above or a semantic token."
       >
         <Swatches tokens={neutralPrimitives} />
       </Section>
-      <Section
-        title="brand"
-        description="The primary brand hue and its tints. Decorative only, never used for body text."
-      >
+      <Section title="brand">
         <Swatches tokens={brandPrimitives} />
       </Section>
-      <Section
-        title="accent"
-        description="The secondary brand hue. This is where the purple tints live."
-      >
+      <Section title="accent">
         <Swatches tokens={accentPrimitives} />
       </Section>
       <Section title="success">
@@ -248,7 +329,7 @@ export const Gradients: Story = {
     <Page>
       <Section
         title="Gradients"
-        description="--gradient-brand is what the primary button fades to on hover."
+        description="Every gradient is a pair of ramp steps: --gradient-brand follows the theme's role colors for the primary button, while 01, 02 and the game card overlay run between the brand, secondary and opacity ramps."
       >
         <Swatches tokens={gradients} />
       </Section>
@@ -277,6 +358,33 @@ export const EverySemanticTokenResolves: Story = {
     const items = await canvas.findAllByRole('listitem')
 
     await expect(items).toHaveLength(semanticTokens.length)
+    for (const item of items) {
+      await expect(item).not.toBeEmptyDOMElement()
+    }
+  }
+}
+
+function PrimitiveProbe() {
+  const values = useTokenValues(primitiveTokens)
+
+  return (
+    <ul data-testid="primitive-probe">
+      {primitiveTokens.map((token) => (
+        <li key={token} data-token={token}>
+          {values[token] || ''}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export const EveryPrimitiveTokenResolves: Story = {
+  tags: ['!autodocs'],
+  render: () => <PrimitiveProbe />,
+  play: async ({ canvas }) => {
+    const items = await canvas.findAllByRole('listitem')
+
+    await expect(items).toHaveLength(primitiveTokens.length)
     for (const item of items) {
       await expect(item).not.toBeEmptyDOMElement()
     }
