@@ -9,8 +9,7 @@ const ExperimentalFeatures = () => {
   const FEATURES: (keyof IExperimentalFeatures)[] = [
     'enableHelp',
     'cometSupport',
-    'zoomPlatform',
-    'steamImport'
+    'zoomPlatform'
   ]
 
   const { t } = useTranslation()
@@ -19,11 +18,10 @@ const ExperimentalFeatures = () => {
     {
       enableHelp: false,
       cometSupport: true,
-      zoomPlatform: false,
-      steamImport: false
+      zoomPlatform: false
     }
   )
-  const { handleExperimentalFeatures, platform } = useContext(ContextProvider)
+  const { handleExperimentalFeatures } = useContext(ContextProvider)
 
   const toggleFeature = (feature: keyof IExperimentalFeatures) => {
     const newFeatures = {
@@ -40,7 +38,6 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.enableHelp', 'Help component')
     t('setting.experimental_features.cometSupport', 'Comet support')
     t('setting.experimental_features.zoomPlatform', 'Zoom Platform support (only Linux)')
-    t('setting.experimental_features.steamImport', 'Steam library integration')
   */
 
   const descriptions: Partial<Record<keyof IExperimentalFeatures, string>> = {
@@ -60,10 +57,7 @@ const ExperimentalFeatures = () => {
 
   return (
     <>
-      {FEATURES.filter(
-        // Steam unsupported on macOS
-        (feature) => !(feature === 'steamImport' && platform === 'darwin')
-      ).map((feature) => {
+      {FEATURES.map((feature) => {
         return (
           <div key={feature}>
             <ToggleSwitch

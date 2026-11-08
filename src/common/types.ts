@@ -106,7 +106,6 @@ export type ExperimentalFeatures = {
   cometSupport: boolean
   umuSupport?: boolean
   zoomPlatform?: boolean
-  steamImport?: boolean
 }
 
 export interface AppSettings extends GameSettings {

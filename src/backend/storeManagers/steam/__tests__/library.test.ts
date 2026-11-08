@@ -27,10 +27,10 @@ jest.mock('../utils', () => ({
   currentOsList: 'linux',
   describeError: String,
   installedPlatformFor: jest.fn(),
-  isSteamImportEnabled: () => true,
+  isSteamSupported: () => true,
   platformArgs: jest.fn(),
   steamCall: <T>(task: () => Promise<T>) => task(),
-  STEAM_DISABLED: 'disabled'
+  STEAM_UNSUPPORTED: 'disabled'
 }))
 jest.mock('backend/logger', () => ({
   getRunnerLogWriter: jest.fn(),

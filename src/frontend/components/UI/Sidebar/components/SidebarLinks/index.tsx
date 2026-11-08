@@ -166,6 +166,13 @@ export default function SidebarLinks() {
               url="/store/itchio"
               label={t('itchio-store', 'itch.io Store')}
             />
+            {platform !== 'darwin' && (
+              <SidebarItem
+                className="SidebarLinks__subItem"
+                url="/store/steam"
+                label={t('steam-store', 'Steam Store')}
+              />
+            )}
             <SidebarItem
               className="SidebarLinks__subItem"
               url="/store/amazon"
@@ -176,13 +183,6 @@ export default function SidebarLinks() {
                 className="SidebarLinks__subItem"
                 url="/store/zoom"
                 label={t('zoom-store', 'Zoom Store')}
-              />
-            )}
-            {platform !== 'darwin' && (
-              <SidebarItem
-                className="SidebarLinks__subItem"
-                url="/store/steam"
-                label={t('steam-store', 'Steam Store')}
               />
             )}
           </div>

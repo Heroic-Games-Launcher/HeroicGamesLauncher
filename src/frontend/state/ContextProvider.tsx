@@ -122,8 +122,7 @@ const initialContext: ContextType = {
   experimentalFeatures: {
     enableHelp: false,
     cometSupport: true,
-    zoomPlatform: false,
-    steamImport: false
+    zoomPlatform: false
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,

@@ -990,7 +990,6 @@
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
             "enableNewDesign": "New design",
-            "steamImport": "Steam library integration",
             "zoomPlatform": "Zoom Platform support (only Linux)"
         },
         "experimental_features_description": {

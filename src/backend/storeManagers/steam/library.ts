@@ -35,10 +35,10 @@ import {
   currentOsList,
   describeError,
   installedPlatformFor,
-  isSteamImportEnabled,
+  isSteamSupported,
   platformArgs,
   steamCall,
-  STEAM_DISABLED
+  STEAM_UNSUPPORTED
 } from './utils'
 import type { SteamInstallLibrary } from 'common/types/steam'
 import { join } from 'path'
@@ -58,7 +58,7 @@ const installedGames: Map<string, InstalledInfo> = new Map()
  */
 export default class SteamLibraryManager implements LibraryManager {
   async init(): Promise<void> {
-    if (!isSteamImportEnabled()) return
+    if (!isSteamSupported()) return
     await this.refresh()
   }
 
@@ -74,8 +74,8 @@ export default class SteamLibraryManager implements LibraryManager {
   }
 
   async refresh(): Promise<ExecResult | null> {
-    if (!isSteamImportEnabled()) {
-      return { stdout: '', stderr: STEAM_DISABLED }
+    if (!isSteamSupported()) {
+      return { stdout: '', stderr: STEAM_UNSUPPORTED }
     }
 
     logInfo('Refreshing Steam library', LogPrefix.Steam)
@@ -240,7 +240,7 @@ export default class SteamLibraryManager implements LibraryManager {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     options?: { branch?: string; build?: string; lang?: string }
   ): Promise<InstallInfo | undefined> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       return undefined
     }
 
@@ -416,7 +416,7 @@ export default class SteamLibraryManager implements LibraryManager {
    * drive-selection dropdown.
    */
   async getInstallLibraries(): Promise<SteamInstallLibrary[]> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       return []
     }
     return getSteamInstallLibraries()

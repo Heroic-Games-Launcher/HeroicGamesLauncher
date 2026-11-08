@@ -173,6 +173,23 @@ export default React.memo(function NewLogin() {
               logoutAction={gog.logout}
               disabled={oldMac}
             />
+            {steam.enabled && (
+              <Runner
+                class="steam"
+                buttonText={t('login.steam_add', 'Add Steam Account')}
+                icon={() => <SteamLogo />}
+                loginUrl="/login"
+                isLoggedIn={Boolean(steamUser)}
+                user={steamUser?.username}
+                logoutAction={
+                  steamUser
+                    ? () => steam.logoutUser(steamUser.steamId)
+                    : steam.logout
+                }
+                loginAction={() => setShowSteamLogin(true)}
+                disabled={oldMac}
+              />
+            )}
             <Runner
               class="nile"
               buttonText={t('login.amazon', 'Amazon Login')}
@@ -203,23 +220,6 @@ export default React.memo(function NewLogin() {
                 isLoggedIn={isZoomLoggedIn}
                 user={zoom.username}
                 logoutAction={zoom.logout}
-                disabled={oldMac}
-              />
-            )}
-            {steam.enabled && (
-              <Runner
-                class="steam"
-                buttonText={t('login.steam_add', 'Add Steam Account')}
-                icon={() => <SteamLogo />}
-                loginUrl="/login"
-                isLoggedIn={Boolean(steamUser)}
-                user={steamUser?.username}
-                logoutAction={
-                  steamUser
-                    ? () => steam.logoutUser(steamUser.steamId)
-                    : steam.logout
-                }
-                loginAction={() => setShowSteamLogin(true)}
                 disabled={oldMac}
               />
             )}

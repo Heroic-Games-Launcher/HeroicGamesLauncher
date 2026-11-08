@@ -21,7 +21,7 @@ jest.mock('../aurelia', () => {
 })
 jest.mock('../utils', () => ({
   // Plain function: the config resets mocks.
-  isSteamImportEnabled: () => true,
+  isSteamSupported: () => true,
   describeError: (e: unknown) => (e instanceof Error ? e.message : String(e))
 }))
 jest.mock('backend/logger', () => ({

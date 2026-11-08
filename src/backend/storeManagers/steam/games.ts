@@ -48,10 +48,10 @@ import {
 import {
   aureliaPlatform,
   describeError,
-  isSteamImportEnabled,
+  isSteamSupported,
   steamCall,
   toSteamLibraryRoot,
-  STEAM_DISABLED
+  STEAM_UNSUPPORTED
 } from './utils'
 import {
   buildReqs,
@@ -149,7 +149,7 @@ export default class SteamGame implements Game {
   }
 
   async getLaunchTargets(): Promise<SteamLaunchTargets> {
-    if (!isSteamImportEnabled() || !this.getGameInfo().is_installed) {
+    if (!isSteamSupported() || !this.getGameInfo().is_installed) {
       return { targets: [] }
     }
     try {
@@ -295,7 +295,7 @@ export default class SteamGame implements Game {
       genres: []
     }
 
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       return empty
     }
 
@@ -389,7 +389,7 @@ export default class SteamGame implements Game {
    * (see {@link applyPendingDlcChanges}) to make it permanent.
    */
   async setDlcEnabled(dlcAppId: string, enabled: boolean): Promise<void> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       return
     }
     const verb = enabled ? 'enable' : 'disable'
@@ -487,8 +487,8 @@ export default class SteamGame implements Game {
   }
 
   async importGame(path: string): Promise<ExecResult> {
-    if (!isSteamImportEnabled()) {
-      return { stdout: '', stderr: STEAM_DISABLED }
+    if (!isSteamSupported()) {
+      return { stdout: '', stderr: STEAM_UNSUPPORTED }
     }
     const importLogWriter = await createGameLogWriter(
       this.id,
@@ -517,12 +517,12 @@ export default class SteamGame implements Game {
     platformToInstall,
     path
   }: InstallArgs): Promise<InstallResult> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       logWarning(
         `Steam import is disabled, cannot install ${this.id}`,
         LogPrefix.Steam
       )
-      return { status: 'error', error: STEAM_DISABLED }
+      return { status: 'error', error: STEAM_UNSUPPORTED }
     }
 
     const gameInfo = this.getGameInfo()
@@ -832,7 +832,7 @@ export default class SteamGame implements Game {
     logWriter: LogWriter,
     launchArguments?: LaunchOption
   ): Promise<boolean> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       logWarning(
         `Steam import is disabled, cannot launch ${this.id}`,
         LogPrefix.Steam
@@ -937,8 +937,8 @@ export default class SteamGame implements Game {
   }
 
   async moveInstall(newInstallPath: string): Promise<InstallResult> {
-    if (!isSteamImportEnabled()) {
-      return { status: 'error', error: STEAM_DISABLED }
+    if (!isSteamSupported()) {
+      return { status: 'error', error: STEAM_UNSUPPORTED }
     }
 
     const gameInfo = this.getGameInfo()
@@ -961,8 +961,8 @@ export default class SteamGame implements Game {
   }
 
   async repair(): Promise<ExecResult> {
-    if (!isSteamImportEnabled()) {
-      return { stdout: '', stderr: STEAM_DISABLED }
+    if (!isSteamSupported()) {
+      return { stdout: '', stderr: STEAM_UNSUPPORTED }
     }
     const result = await this.runStreamingCommand(
       ['verify', this.id],
@@ -976,7 +976,7 @@ export default class SteamGame implements Game {
   }
 
   async syncSaves(arg: string, path: string): Promise<string> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       return ''
     }
     const direction: 'up' | 'down' | undefined = /upload/i.test(arg)
@@ -1029,12 +1029,12 @@ export default class SteamGame implements Game {
   }
 
   async uninstall({ deleteFiles }: RemoveArgs): Promise<ExecResult> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       logWarning(
         `Steam import is disabled, cannot uninstall ${this.id}`,
         LogPrefix.Steam
       )
-      return { stdout: '', stderr: STEAM_DISABLED }
+      return { stdout: '', stderr: STEAM_UNSUPPORTED }
     }
 
     const gameInfo = this.getGameInfo()
@@ -1067,8 +1067,8 @@ export default class SteamGame implements Game {
   }
 
   async update(): Promise<InstallResult> {
-    if (!isSteamImportEnabled()) {
-      return { status: 'error', error: STEAM_DISABLED }
+    if (!isSteamSupported()) {
+      return { status: 'error', error: STEAM_UNSUPPORTED }
     }
     const result = await this.runStreamingCommand(
       ['update', this.id],
@@ -1088,7 +1088,7 @@ export default class SteamGame implements Game {
   }
 
   async stop(): Promise<void> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       return
     }
     const gameInfo = this.getGameInfo()
@@ -1147,7 +1147,7 @@ export default class SteamGame implements Game {
   }
 
   async isGameAvailable(): Promise<boolean> {
-    if (!isSteamImportEnabled()) {
+    if (!isSteamSupported()) {
       return false
     }
 

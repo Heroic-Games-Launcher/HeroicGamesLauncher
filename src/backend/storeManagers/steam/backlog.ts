@@ -1,7 +1,7 @@
 import { logInfo, logWarning, LogPrefix } from 'backend/logger'
 import { AureliaError, runAurelia } from './aurelia'
 import type { AureliaInstallListEntry } from './aurelia_types'
-import { describeError, isSteamImportEnabled } from './utils'
+import { describeError, isSteamSupported } from './utils'
 
 /** Backlog states (Aurelia v0.1.41+). */
 const BACKLOG_STATES = new Set(['paused', 'aborted', 'interrupted'])
@@ -16,7 +16,7 @@ function sleep(ms: number): Promise<void> {
 
 /** Aurelia's unfinished installs, not running ones. */
 export async function getSteamBacklog(): Promise<AureliaInstallListEntry[]> {
-  if (!isSteamImportEnabled()) return []
+  if (!isSteamSupported()) return []
   try {
     const entries = await runAurelia<AureliaInstallListEntry[]>([
       'install',
@@ -47,7 +47,7 @@ export async function forgetSteamInstall(
   appId: string,
   deleteFiles = false
 ): Promise<void> {
-  if (!isSteamImportEnabled()) return
+  if (!isSteamSupported()) return
   const args = ['install', 'forget', appId, ...(deleteFiles ? ['-d'] : [])]
   for (let attempt = 0; attempt < FORGET_RETRIES; attempt++) {
     try {

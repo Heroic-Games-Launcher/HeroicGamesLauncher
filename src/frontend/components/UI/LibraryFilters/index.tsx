@@ -103,6 +103,12 @@ export default function LibraryFilters() {
     },
     { key: 'gog', label: 'GOG', runner: 'gog', show: !!gog.username },
     {
+      key: 'steam',
+      label: 'Steam',
+      runner: 'steam',
+      show: steam.enabled
+    },
+    {
       key: 'nile',
       label: 'Amazon Games',
       runner: 'nile',
@@ -119,12 +125,6 @@ export default function LibraryFilters() {
       label: 'itch.io',
       runner: 'itchio',
       show: !!itchio.username
-    },
-    {
-      key: 'steam',
-      label: 'Steam',
-      runner: 'steam',
-      show: steam.enabled
     },
     {
       key: 'sideload',

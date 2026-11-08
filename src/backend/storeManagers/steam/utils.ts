@@ -1,17 +1,15 @@
 import { sep } from 'path'
-import { GlobalConfig } from 'backend/config'
 import { logError, logWarning, LogPrefix } from 'backend/logger'
 import { isMac, isWindows } from 'backend/constants/environment'
 import type { InstallPlatform } from 'common/types'
 import { AureliaError } from './aurelia'
 
-/** Returned by every command when the integration is off. */
-export const STEAM_DISABLED = 'Steam import disabled'
+/** Returned by every command on macOS. */
+export const STEAM_UNSUPPORTED = 'Steam is not supported on macOS'
 
-export function isSteamImportEnabled(): boolean {
-  // No Aurelia binaries for macOS
-  if (isMac) return false
-  return !!GlobalConfig.get().getSettings().experimentalFeatures?.steamImport
+// No Aurelia binaries for macOS
+export function isSteamSupported(): boolean {
+  return !isMac
 }
 
 export function describeError(error: unknown): string {
@@ -84,13 +82,13 @@ interface SteamCallOptions<T> {
 }
 
 /**
- * Runs an Aurelia-backed task behind the integration toggle
+ * Runs an Aurelia-backed task on supported platforms
  */
 export async function steamCall<T>(
   task: () => Promise<T>,
   { fallback, failure, level = 'error' }: SteamCallOptions<T>
 ): Promise<T> {
-  if (!isSteamImportEnabled()) return fallback
+  if (!isSteamSupported()) return fallback
   try {
     return await task()
   } catch (error) {
