@@ -5,7 +5,8 @@
         "copy": "Kopírovať",
         "copied": "Skopírované!",
         "loading": "Načítavam",
-        "error": "Chyba, skúste iný kód"
+        "error": "Chyba, skúste iný kód",
+        "close": "Zavrieť"
     },
     "message": {
         "part1": "In order for you to be able to log in and install your games, we first need you to follow the steps below:",

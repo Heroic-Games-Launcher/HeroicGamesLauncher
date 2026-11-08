@@ -177,7 +177,8 @@
         "login": "เข้าสู่ระบบ",
         "go_to_library": "",
         "continue": "",
-        "cancel": ""
+        "cancel": "",
+        "close": "ปิด"
     },
     "controller": {
         "hints": {
@@ -646,7 +647,8 @@
             "systemInformation": "",
             "sync": "",
             "legacy": "",
-            "other": ""
+            "other": "",
+            "categories": "หมวดหมู่"
         },
         "legacy_warning": "",
         "eacRuntime": {
@@ -726,6 +728,9 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "กำลังดาวน์โหลด"
         }
     },
     "Settings": "การตั้งค่า",

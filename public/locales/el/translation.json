@@ -11,7 +11,10 @@
         "content_font_family_default": "Γραμματοσειρά Περιεχομένου (Προεπιλογή: {{fontFamily}})",
         "actions_font_family_default": "Γραμματοσειρά Ενεργειών (Προεπιλογή: {{fontFamily}})",
         "disable_smooth_scrolling": "Απενεργοποίηση ομαλής κύλισης (απαιτείται επανεκκίνηση)",
-        "disable_animations": "Απενεργοποίηση κινούμενων εικόνων UI"
+        "disable_animations": "Απενεργοποίηση κινούμενων εικόνων UI",
+        "section": {
+            "library": "Συλλογή"
+        }
     },
     "add_game": "Προσθήκη Παιχνιδιού",
     "All": "Όλα",
@@ -199,7 +202,8 @@
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
         "unsync": "Αποσυγχρονισμός",
-        "continue": "Συνέχεια"
+        "continue": "Συνέχεια",
+        "close": "Kλείσιμο"
     },
     "controller": {
         "hints": {
@@ -252,7 +256,8 @@
         "status": "Κατάσταση",
         "store": "Κατάστημα",
         "title": "Τίτλος παιχνιδιού",
-        "modify": "Τροποποίηση Εγκατάστασης"
+        "modify": "Τροποποίηση Εγκατάστασης",
+        "settings": "Ρυθμίσεις παιχνιδιού"
     },
     "generic": {
         "error": {
@@ -287,7 +292,9 @@
         "only": "μόνο",
         "show_updates_only": "Εμφάνιση μόνο παιχνιδιών με ενημερώσεις",
         "show_support_offline_only": "Εμφάνιση μόνο όσων υποστηρίζονται εκτός σύνδεσης",
-        "show_third_party_managed_only": "Εμφάνιση μόνο όσων διαχειρίζονται τρίτοι"
+        "show_third_party_managed_only": "Εμφάνιση μόνο όσων διαχειρίζονται τρίτοι",
+        "platforms": "Platform",
+        "stores": "Καταστήματα"
     },
     "help": {
         "amdfsr": "Το FSR της AMD συμβάλλει στην ενίσχυση του ρυθμού καρέ αναβαθμίζοντας χαμηλότερες αναλύσεις σε λειτουργία πλήρους οθόνης. Η ποιότητα της εικόνας αυξάνεται από 5 σε 1 με το κόστος μιας μικρής μείωσης της απόδοσης. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
@@ -803,6 +810,10 @@
         "steamRuntime": {
             "label": "Χρήση Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Άνοιγμα",
+            "selectExe": "Επιλογή αρχείου EXE"
         }
     },
     "settings": {
@@ -841,7 +852,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "Πληροφορίες Συστήματος",
-            "legacy": "Legacy"
+            "legacy": "Legacy",
+            "categories": "Κατηγορίες"
         },
         "open-config-file": "Άνοιγμα αρχείου παραμετροποίησης",
         "reset-heroic": "Επαναφορά Heroic",
@@ -919,13 +931,20 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Πειραματικές Λειτουργίες",
+            "launch": "Ρυθμίσεις Εκκίνησης",
+            "wineTools": "Εργαλεία"
         }
     },
     "Settings": "Ρυθμίσεις",
     "sidebar": {
         "collapse": "Σύμπτυξη πλαϊνής γραμμής",
         "uncollapse": "Κατάργηση σύμπτυξης πλαϊνής γραμμής",
-        "console": "Λειτουργία κονσόλας"
+        "console": "Λειτουργία κονσόλας",
+        "storesLogin": "Σύνδεση στο κατάστημα"
     },
     "status": {
         "installing": "Εγκατάσταση",
@@ -956,7 +975,8 @@
         "show": "Εμφάνιση"
     },
     "two_col_table": {
-        "save_hint": "Οι αλλαγές σε αυτόν τον πίνακα δεν αποθηκεύονται αυτόματα. Κάντε κλικ στο κουμπί +"
+        "save_hint": "Οι αλλαγές σε αυτόν τον πίνακα δεν αποθηκεύονται αυτόματα. Κάντε κλικ στο κουμπί +",
+        "add": "Προσθήκη"
     },
     "Update Available!": "Ενημέρωση διαθέσιμη!",
     "userselector": {

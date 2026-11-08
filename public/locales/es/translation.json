@@ -11,7 +11,10 @@
         "actions_font_family_default": "Tipografía de acciones (Por Defecto: {{fontFamily}})",
         "content_font_family_default": "Tipografía de contenido (Por Defecto: {{fontFamily}})",
         "disable_smooth_scrolling": "Desactivar scroll suave (requiere reiniciar)",
-        "disable_animations": "Desactivar animaciones de la interfaz de usuario (IU)"
+        "disable_animations": "Desactivar animaciones de la interfaz de usuario (IU)",
+        "section": {
+            "library": "Biblioteca"
+        }
     },
     "add_game": "Añadir juego",
     "All": "Todos",
@@ -207,7 +210,8 @@
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Desincronizar",
-        "continue": "Continuar"
+        "continue": "Continuar",
+        "close": "Cerrar"
     },
     "controller": {
         "hints": {
@@ -261,7 +265,8 @@
         "status": "Estado",
         "store": "Tienda",
         "title": "Título del juego",
-        "modify": "Modificar instalación"
+        "modify": "Modificar instalación",
+        "settings": "Configuración del juego"
     },
     "generic": {
         "error": {
@@ -297,7 +302,9 @@
         "categories": "Categorías",
         "show_support_offline_only": "Mostrar solo compatible sin conexión",
         "show_third_party_managed_only": "Mostrar sólo administrados por terceros",
-        "show_updates_only": "Mostrar sólo juegos con actualizaciones"
+        "show_updates_only": "Mostrar sólo juegos con actualizaciones",
+        "platforms": "Platform",
+        "stores": "Tiendas"
     },
     "help": {
         "amdfsr": "El FSR de AMD ayuda a aumentar la velocidad de los fotogramas mediante el escalado de las resoluciones más bajas en el modo de pantalla completa. La calidad de la imagen aumenta de 5 a 1 a costa de un ligero impacto en el rendimiento. Su activación puede mejorar el rendimiento.",
@@ -829,6 +836,10 @@
         "steamRuntime": {
             "label": "Usar Steam Runtime",
             "noRuntimeOption": "Nada"
+        },
+        "tools": {
+            "open": "Abrir",
+            "selectExe": "Seleccione EXE"
         }
     },
     "settings": {
@@ -867,7 +878,8 @@
             "wineExt": "Extensiones de Wine",
             "systemInformation": "Información del sistema",
             "gamescope": "Gamescope",
-            "legacy": "Obsoleto"
+            "legacy": "Obsoleto",
+            "categories": "Categorías"
         },
         "open-config-file": "Abrir archivo de configuración",
         "reset-heroic": "Restablecer Heroic",
@@ -945,13 +957,20 @@
             "help": {
                 "description": "Proporciona tu propia clave API de SteamGridDB para habilitar la búsqueda de carátulas de juegos. La clave se almacena cifrada si tu sistema lo admite. Puedes obtener una en {{url}}"
             }
+        },
+        "section": {
+            "downloads": "Descargas",
+            "experimental": "Funciones experimentales",
+            "launch": "Opciones de arranque",
+            "wineTools": "Herramientas"
         }
     },
     "Settings": "Ajustes",
     "sidebar": {
         "collapse": "Colapsar barra lateral",
         "uncollapse": "Expandir barra lateral",
-        "console": "Modo consola"
+        "console": "Modo consola",
+        "storesLogin": "Sesión iniciada en la tienda"
     },
     "status": {
         "installing": "Instalando",
@@ -982,7 +1001,8 @@
         "show": "Mostrar"
     },
     "two_col_table": {
-        "save_hint": "Los cambios en esta tabla no se guardan automáticamente. Haz clic en el botón «+»"
+        "save_hint": "Los cambios en esta tabla no se guardan automáticamente. Haz clic en el botón «+»",
+        "add": "Añadir"
     },
     "Update Available!": "¡Actualización disponible!",
     "userselector": {
@@ -1070,7 +1090,8 @@
     },
     "emptyLibrary": {
         "noResults": "Los filtros actuales no produjeron resultados.",
-        "noGames": "Tu biblioteca está vacía.<br /><br />Haz clic <4>aquí</4> para iniciar sesión con tus cuentas de Epic, GOG.com o Amazon. Después, tus juegos aparecerán aquí, en la Biblioteca.<br /><br />Para usar juegos o aplicaciones de otras fuentes, haz clic en <br /> para añadirlos manualmente."
+        "noGames": "Tu biblioteca está vacía.<br /><br />Haz clic <4>aquí</4> para iniciar sesión con tus cuentas de Epic, GOG.com o Amazon. Después, tus juegos aparecerán aquí, en la Biblioteca.<br /><br />Para usar juegos o aplicaciones de otras fuentes, haz clic en <br /> para añadirlos manualmente.",
+        "noResultsTitle": "No se han encontrado juegos."
     },
     "categories-manager": {
         "add-placeholder": "Añadir una nueva categoría",
@@ -1319,5 +1340,6 @@
         "add": "Añadir",
         "cancel": "Cancelar",
         "warning": "Advertencia"
-    }
+    },
+    "General": "General"
 }

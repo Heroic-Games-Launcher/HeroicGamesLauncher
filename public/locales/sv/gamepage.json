@@ -96,7 +96,9 @@
         "browse_files": "Bläddra bland filer",
         "browse_wine_prefix": "Bläddra i Wine-prefix",
         "play": "SPELA",
-        "edit-game": "Redigera program/spel"
+        "edit-game": "Redigera program/spel",
+        "favourite": "Lägg till i Favoriter",
+        "unfavourite": "Ta bort från Favoriter"
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
@@ -132,7 +134,8 @@
         "modify": "Ändra installation",
         "extra_info": "Ytterligare information",
         "install_info": "Installationsinformation",
-        "achievements": "Prestationer"
+        "achievements": "Prestationer",
+        "details": "Speldetaljer"
     },
     "gamecard": {
         "moving": "Flyttar",
@@ -162,7 +165,11 @@
         "installedInfo": "Information om installationen",
         "protondb-compatibility-info": "Proton-kompatibilitetsnivå",
         "steamdeck-compatibility-info": "Steam Deck-kompatibilitet",
-        "third-party-app": "Tredjepartshanterare"
+        "third-party-app": "Tredjepartshanterare",
+        "genres": "Genrer",
+        "steamdeck": {
+            "unsupported": "Stöds ej"
+        }
     },
     "install": {
         "disk-space-left": "Utrymme tillgängligt",
@@ -208,7 +215,8 @@
             "compatibility": "Var medveten om att alla spel inte fungerar, även om de fungerar kanske de inte fungerar som förväntat.",
             "abort": "Avbryt installation",
             "installation": "Avbryt installationen"
-        }
+        },
+        "releaseDate": "Utgivningsdatum"
     },
     "launch": {
         "options": "Startalternativ...",

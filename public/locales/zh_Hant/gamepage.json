@@ -96,7 +96,9 @@
         "play": "開始游戲",
         "browse_wine_prefix": "",
         "browse_files": "",
-        "edit-game": "編輯應用程式/遊戲"
+        "edit-game": "編輯應用程式/遊戲",
+        "favourite": "加入我的最愛",
+        "unfavourite": "自我的最愛移除"
     },
     "cloud_save_unsupported": "不支援",
     "disabled": "已關閉",
@@ -132,7 +134,8 @@
         "modify": "修改安裝",
         "changelogFor": "{{gameTitle}} 更新日誌",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "遊戲內容"
     },
     "gamecard": {
         "moving": "移動中",
@@ -162,7 +165,10 @@
         "installedInfo": "安裝訊息",
         "protondb-compatibility-info": "Proton 相容性等級",
         "steamdeck-compatibility-info": "SteamDeck 相容性",
-        "third-party-app": "第三方管理器"
+        "third-party-app": "第三方管理器",
+        "steamdeck": {
+            "unsupported": "不支援"
+        }
     },
     "install": {
         "disk-space-left": "可用空間",
@@ -202,7 +208,8 @@
             "installing": "正在安裝"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "發行日期"
     },
     "launch": {
         "options": "啟動選項…",

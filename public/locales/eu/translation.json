@@ -199,7 +199,8 @@
         "sync": "Sinkronizatu",
         "syncing": "Sinkronizatzen",
         "unsync": "Desinkronizatu",
-        "continue": "Jarraitu"
+        "continue": "Jarraitu",
+        "close": "Itxi"
     },
     "controller": {
         "hints": {
@@ -253,7 +254,8 @@
         "status": "Egoera",
         "store": "Denda",
         "title": "Jokoaren izenburua",
-        "modify": "Aldatu Instalazioa"
+        "modify": "Aldatu Instalazioa",
+        "settings": "Game Settings"
     },
     "generic": {
         "error": {
@@ -288,7 +290,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Store"
     },
     "help": {
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
@@ -795,7 +799,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "tools": {
+            "selectExe": "Hautatu EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -911,6 +918,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Jaurtiketa-aukerak...",
+            "wineTools": "Tresnak"
         }
     },
     "Settings": "Ezarpenak",

@@ -11,7 +11,10 @@
         "disable_animations": "Tắt hoạt ảnh UI",
         "disable_dialog_backdrop_close": "Vô hiệu hóa việc đóng hộp thoại bằng cách nhấp vào bên ngoài",
         "disable_smooth_scrolling": "Tắt tính năng cuộn mượt mà (yêu cầu khởi động lại)",
-        "titles_always_visible": "Luôn hiển thị tiêu đề trong thư viện"
+        "titles_always_visible": "Luôn hiển thị tiêu đề trong thư viện",
+        "section": {
+            "library": "Thư viện"
+        }
     },
     "add_game": "Thêm Trò Chơi",
     "All": "Tất cả",
@@ -199,7 +202,8 @@
         "sync": "Đồng bộ",
         "syncing": "Đang đồng bộ",
         "unsync": "Hủy đồng bộ",
-        "continue": "Tiếp Tục"
+        "continue": "Tiếp Tục",
+        "close": "Đóng"
     },
     "controller": {
         "hints": {
@@ -253,7 +257,8 @@
         "status": "Trạng Thái",
         "store": "Cửa Hàng",
         "title": "Tiêu Đề Trò Chơi",
-        "modify": "Sửa Đổi Cài Đặt"
+        "modify": "Sửa Đổi Cài Đặt",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -288,7 +293,9 @@
         "show_support_offline_only": "Chỉ hiển thị được hỗ trợ ngoại tuyến",
         "show_third_party_managed_only": "Chỉ hiển thị do bên thứ ba quản lý",
         "show_updates_only": "Chỉ hiển thị các trò chơi có bản cập nhật",
-        "uncategorized": "Chưa được phân loại"
+        "uncategorized": "Chưa được phân loại",
+        "platforms": "Platform",
+        "stores": "Cửa hàng"
     },
     "help": {
         "amdfsr": "FSR của AMD giúp tăng tốc độ khung hình bằng cách nâng cấp độ phân giải thấp hơn ở Chế độ toàn màn hình. Chất lượng hình ảnh tăng từ 5 lên 1 với cái giá phải trả là hiệu suất bị giảm nhẹ. Việc kích hoạt có thể cải thiện hiệu suất.",
@@ -799,6 +806,10 @@
         "steamRuntime": {
             "label": "Sử dụng Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Mở",
+            "selectExe": "Chọn file EXE"
         }
     },
     "settings": {
@@ -837,7 +848,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "Thông Tin Hệ Thống",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Phân Loại"
         },
         "open-config-file": "Mở Tệp Cấu Hình",
         "reset-heroic": "Đặt Lại Heroic",
@@ -915,13 +927,20 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Tính Năng Thử Nghiệm",
+            "launch": "Tùy chọn khởi chạy",
+            "wineTools": "Công cụ"
         }
     },
     "Settings": "Cài Đặt",
     "sidebar": {
         "collapse": "Thu gọn sidebar",
         "uncollapse": "Hủy thu gọn sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Đăng nhập cửa hàng"
     },
     "status": {
         "installing": "Đang Cài Đặt",
@@ -952,7 +971,8 @@
         "show": "Hiển Thị"
     },
     "two_col_table": {
-        "save_hint": "Những thay đổi trong bảng này không được lưu tự động. Nhấp vào nút +"
+        "save_hint": "Những thay đổi trong bảng này không được lưu tự động. Nhấp vào nút +",
+        "add": "Thêm"
     },
     "Update Available!": "Cập Nhật Có Sẵn!",
     "userselector": {
@@ -1113,7 +1133,8 @@
     },
     "emptyLibrary": {
         "noGames": "Thư viện của bạn trống.<br /><br />Nhấp vào <4>đây</4> để đăng nhập bằng tài khoản Epic, GOG.com hoặc Amazon của bạn. Sau đó, trò chơi của bạn sẽ hiển thị tại đây trong Thư Viện.<br /><br />Để sử dụng trò chơi hoặc ứng dụng từ các nguồn khác, hãy nhấp vào <br /> để thêm chúng theo cách thủ công.",
-        "noResults": "Các bộ lọc hiện tại không cho ra kết quả nào."
+        "noResults": "Các bộ lọc hiện tại không cho ra kết quả nào.",
+        "noResultsTitle": "Không tìm thấy game nào"
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton là một biến thể Proton được tạo ra bởi Glorious Eggroll. Nó được sử dụng cùng với trình khởi chạy umu (mặc định trong Heroic).",
@@ -1268,5 +1289,6 @@
         "add": "Thêm",
         "cancel": "Cancel",
         "warning": "Warning"
-    }
+    },
+    "General": "Tổng quan"
 }

@@ -946,6 +946,9 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "launch": "Ishga tushirish parametrlari..."
         }
     },
     "Settings": "Sozlamalar",

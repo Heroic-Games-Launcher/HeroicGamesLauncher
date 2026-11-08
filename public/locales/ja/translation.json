@@ -11,7 +11,10 @@
         "actions_font_family_default": "アクション用フォント （既定: {{fontFamily}}）",
         "content_font_family_default": "コンテンツ用フォント （既定: {{fontFamily}}）",
         "disable_smooth_scrolling": "スムーズスクロールを無効化（要再起動）",
-        "disable_animations": "UIアニメーションを無効化"
+        "disable_animations": "UIアニメーションを無効化",
+        "section": {
+            "library": "ライブラリ"
+        }
     },
     "add_game": "ゲームを追加",
     "All": "すべて",
@@ -205,7 +208,8 @@
         "sync": "同期",
         "syncing": "同期しています",
         "unsync": "非同期",
-        "continue": "続ける"
+        "continue": "続ける",
+        "close": "閉じる"
     },
     "controller": {
         "hints": {
@@ -264,7 +268,8 @@
         "status": "状態",
         "store": "ストア",
         "title": "ゲームタイトル",
-        "modify": "インストールの変更"
+        "modify": "インストールの変更",
+        "settings": "ゲームの設定"
     },
     "generic": {
         "error": {
@@ -300,7 +305,9 @@
         "no_categories": "カスタムカテゴリーがありません。各ゲームメニューからカテゴリーを追加してください。",
         "show_support_offline_only": "オフライン対応のゲームのみ表示する",
         "show_third_party_managed_only": "サードパーティで管理しているゲームのみ表示",
-        "show_updates_only": "更新のあるゲームのみを表示する"
+        "show_updates_only": "更新のあるゲームのみを表示する",
+        "platforms": "Platform",
+        "stores": "ストア"
     },
     "help": {
         "amdfsr": "AMDのFSRは、フルスクリーンモードで低い解像度をアップスケーリングすることでフレームレートを向上させます。パフォーマンスに若干の影響を及ぼしますが、画質は5から1に向上します。有効にするとパフォーマンスが向上する可能性があります。",
@@ -836,6 +843,10 @@
         "hide-window-on-protocol-launch": "heroic:// リンクからゲームを起動する際、Heroicのウィンドウを非表示にする",
         "nvidiaprime": {
             "description": "NVIDIA Optimus または AMD Dynamic Switchable Graphics の dGPU の使用を強制します。これは OpenGL および Vulkan ゲームにのみ使用してください。"
+        },
+        "tools": {
+            "open": "開く",
+            "selectExe": "EXEを選択"
         }
     },
     "settings": {
@@ -874,7 +885,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "システム情報",
-            "legacy": "レガシー設定"
+            "legacy": "レガシー設定",
+            "categories": "カテゴリー"
         },
         "open-config-file": "構成ファイルを開く",
         "reset-heroic": "Heroicをリセット",
@@ -897,7 +909,7 @@
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
             "osVersion": "バージョン {{versionNumber}}",
             "osNameFlatpak": "{{osName}} （Flatpak内）",
-            "software": "ソフトウェア:",
+            "software": "ソフトウェア：",
             "memoryStats": "{{percentUsed}}% 使用中 ({{usedGib}} / {{totalGib}}",
             "systemModel": "システムモデル:",
             "showDetailed": "詳細なシステム仕様を表示",
@@ -953,13 +965,21 @@
                 "description": "ゲームのカバー画像の検索を有効にするには、ご自身のSteamGridDB APIキーを入力してください。お使いのシステムが対応している場合、このキーは暗号化されて保存されます。APIキーは {{url}} から取得できます。"
             }
         },
-        "open-game-settings-file-hint": "クリックしてゲーム設定ファイルを開く"
+        "open-game-settings-file-hint": "クリックしてゲーム設定ファイルを開く",
+        "section": {
+            "downloads": "ダウンロード",
+            "experimental": "実験的機能",
+            "launch": "起動オプション…",
+            "wineTools": "Tools",
+            "wineVersion": "Wine"
+        }
     },
     "Settings": "設定",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": "コンソールモード"
+        "console": "コンソールモード",
+        "storesLogin": "ログイン情報の保存"
     },
     "status": {
         "installing": "インストール中",
@@ -990,7 +1010,8 @@
         "show": "表示"
     },
     "two_col_table": {
-        "save_hint": "この表の変更は自動的には保存されません。+ボタンをクリックしてください"
+        "save_hint": "この表の変更は自動的には保存されません。+ボタンをクリックしてください",
+        "add": "追加"
     },
     "Update Available!": "アップデートが利用可能です!",
     "userselector": {
@@ -1098,7 +1119,8 @@
     },
     "emptyLibrary": {
         "noResults": "現在のフィルターでは検索結果がありません。",
-        "noGames": "ライブラリが空です。<br /><br /><4>こちら</4>をクリックして、Epic、GOG.com、またはAmazonアカウントでログインしてください。<br /><br />その他のゲームやアプリを登録するには、「ゲームの追加」をクリックして手動で追加してください。"
+        "noGames": "ライブラリが空です。<br /><br /><4>こちら</4>をクリックして、Epic、GOG.com、またはAmazonアカウントでログインしてください。<br /><br />その他のゲームやアプリを登録するには、「ゲームの追加」をクリックして手動で追加してください。",
+        "noResultsTitle": "ゲームが見つかりません"
     },
     "tour": {
         "done": "完了",
@@ -1350,5 +1372,6 @@
         "edit": "編集",
         "remove": "削除",
         "save": "保存"
-    }
+    },
+    "General": "一般"
 }

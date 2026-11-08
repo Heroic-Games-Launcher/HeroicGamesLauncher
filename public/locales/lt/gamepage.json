@@ -97,7 +97,9 @@
         "browse_files": "Naršyti failus",
         "browse_wine_prefix": "Naršyti „Wine“ prielinksnį/priešdėlį",
         "play": "ŽAISTI",
-        "edit-game": "Redaguoti žaidimą"
+        "edit-game": "Redaguoti žaidimą",
+        "favourite": "Pridėti prie mėgstamiausių",
+        "unfavourite": "Pašalinti iš mėgstamiausių"
     },
     "cloud_save_unsupported": "Nepalaikoma/-s",
     "game": {
@@ -127,7 +129,8 @@
         "getting-install-size": "Gaunamas įdiegimo dydis",
         "modify": "Redaguoti įdiegimą",
         "platform": "Pasirinkti platformos versiją, kurią įdiegti",
-        "achievements": "Pasiekimai"
+        "achievements": "Pasiekimai",
+        "details": "Žaidimo išsamumas"
     },
     "gamecard": {
         "repairing": "Taisoma/-s",
@@ -176,7 +179,8 @@
             "installing": "Įdiegiama",
             "pleaseWait": "Prašome palaukti...",
             "installation": "Stabdyti įdiegimą"
-        }
+        },
+        "releaseDate": "Išleidimo data"
     },
     "modifyInstall": {
         "dlcsCollapsible": "„DLC“",
@@ -214,7 +218,11 @@
         "canRunOffline": "Reikalinga interneto prieiga",
         "game-scores": "Žaidimo taškai",
         "protondb-compatibility-info": "„Proton“ palaikymo sluoksnis/pakopa",
-        "third-party-app": "Trečiosios šalies tvarkytuvas/-ė"
+        "third-party-app": "Trečiosios šalies tvarkytuvas/-ė",
+        "genres": "Žanrai",
+        "steamdeck": {
+            "unsupported": "Nepalaikoma/-s"
+        }
     },
     "howLongToBeat": "Laikas įveikti",
     "sideload": {

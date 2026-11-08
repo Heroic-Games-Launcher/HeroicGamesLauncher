@@ -98,7 +98,10 @@
         "browse_wine_prefix": "Bla gjennom Wine Prefix",
         "browse_files": "Bla gjennom filer",
         "play": "SPILL",
-        "edit-game": "Rediger spill"
+        "edit-game": "Rediger spill",
+        "backToLibrary": "Tilbake til biblioteket",
+        "favourite": "Legg til i favoritter",
+        "unfavourite": "Fjern fra favoritter"
     },
     "cloud_save_unsupported": "Ustøttet",
     "disabled": "Deaktivert",
@@ -132,9 +135,15 @@
         },
         "modify": "Endre installasjonen",
         "changelogFor": "Endringslogg for {{gameTitle}}",
-        "extra_info": "Ekstra info",
+        "extra_info": "Ekstra",
         "install_info": "Installasjonsinfo",
-        "achievements": "Prestasjoner"
+        "achievements": "Prestasjoner",
+        "hoursPlayed": "{{hours}} timer spilt",
+        "about": "Om dette spillet",
+        "details": "Spilldetaljer",
+        "hoursPlayedShort": "{{hours}} timer",
+        "overview": "Oversikt",
+        "tabs": "Spillinformasjon"
     },
     "gamecard": {
         "moving": "Flytter",
@@ -164,7 +173,15 @@
         "installedInfo": "Installert informasjon",
         "protondb-compatibility-info": "Proton-kompatibilitetsnivå",
         "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
-        "third-party-app": "Tredjepartsbehandler"
+        "third-party-app": "Tredjepartsbehandler",
+        "developer": "Utvikler",
+        "genres": "Sjanger",
+        "steamdeck": {
+            "playable": "Spillbart",
+            "unknown": "Ukjent",
+            "unsupported": "Ikke kompatibelt",
+            "verified": "Verifisert"
+        }
     },
     "install": {
         "disk-space-left": "Plass tilgjengelig",
@@ -190,9 +207,10 @@
             "not-installable-game": "Spillet kan IKKE installeres"
         },
         "playing": {
-            "start": "Spill nå",
+            "start": "Spill",
             "stop": "Spiller (Stopp)",
-            "start_with_logs": "Spill nå (med logger)"
+            "start_with_logs": "Spill med logging",
+            "start_with_logs_hint": "Starter spillet og loggfører hva spillet gjør, noe som kan hjelpe deg hvis du vil rapportere inn et problem"
         },
         "saves": {
             "syncing": "Synkroniserer spill-lagringer"
@@ -226,7 +244,8 @@
             "specificVersion-pt1": "Dette vil laste den en spesifikk versjon av Steam fra",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "som har blitt modifisert for å fungere gjennom Heroic, siden nyere versjoner av Steam ikke fungerer på macOS."
-        }
+        },
+        "releaseDate": "Utgivelsesdato"
     },
     "launch": {
         "options": "Startalternativer...",
@@ -327,7 +346,8 @@
         "verify": "Bekreft og reparer",
         "extraInfo": "Ekstra info",
         "logs": "Logger",
-        "categories": "Kategorier"
+        "categories": "Kategorier",
+        "more": "Mer"
     },
     "help": {
         "cloud_save_unsupported": "Dette spillet støtter ikke skylagring. Denne informasjonen er gitt av spillutviklerne. Noen spill implementerer sitt eget skylagringssystem.",

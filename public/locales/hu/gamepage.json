@@ -97,7 +97,9 @@
         "browse_files": "Fájlok tallózása",
         "browse_wine_prefix": "Wine-környezet tallózása",
         "play": "INDÍTÁS",
-        "edit-game": "Játék szerkesztése"
+        "edit-game": "Játék szerkesztése",
+        "favourite": "Hozzáadás a kedvencekhez",
+        "unfavourite": "Eltávolítás a kedvencek közül"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -133,7 +135,8 @@
         "modify": "Telepítés módosítása",
         "extra_info": "További információk",
         "install_info": "Telepítési információk",
-        "achievements": "Eredmények"
+        "achievements": "Eredmények",
+        "details": "Játék adatai"
     },
     "gamecard": {
         "moving": "Áthelyezés",
@@ -163,7 +166,11 @@
         "installedInfo": "Telepített információk",
         "protondb-compatibility-info": "Proton kompatibilitási szint",
         "steamdeck-compatibility-info": "SteamDeck kompatibilitás",
-        "third-party-app": "Külső kezelő"
+        "third-party-app": "Külső kezelő",
+        "genres": "Műfajok",
+        "steamdeck": {
+            "unsupported": "Nem támogatott"
+        }
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",
@@ -227,7 +234,8 @@
             "recommended": "A jobb élmény érdekében javasolt specifikációk",
             "select-path": "A Steam telepítési mappájának kiválasztása",
             "specificVersion-pt1": "Ez letölti a Steam egy olyan verzióját az"
-        }
+        },
+        "releaseDate": "Kiadás dátuma"
     },
     "launch": {
         "options": "Indítási kapcsolók…",

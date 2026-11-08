@@ -11,7 +11,10 @@
         "titles_always_visible": "Mostrar sempre os títulos na biblioteca",
         "disable_dialog_backdrop_close": "Desactivar o peche das caixas de diálogo ao premer fóra delas",
         "disable_smooth_scrolling": "Desactivar o suavizado de scroll (precisa reiniciar)",
-        "disable_animations": "Desactivar animacións da interfaz de usuario (UI)"
+        "disable_animations": "Desactivar animacións da interfaz de usuario (UI)",
+        "section": {
+            "library": "Biblioteca"
+        }
     },
     "add_game": "Engadir xogo",
     "All": "Todos",
@@ -210,7 +213,8 @@
         "sync": "Sincronizar",
         "syncing": "Sincronizando",
         "unsync": "Desincronizar",
-        "continue": "Continuar"
+        "continue": "Continuar",
+        "close": "Pechar"
     },
     "controller": {
         "hints": {
@@ -269,7 +273,8 @@
         "status": "Status",
         "store": "Tenda",
         "title": "Título do xogo",
-        "modify": "Modificar instalación"
+        "modify": "Modificar instalación",
+        "settings": "Configuración do xogo"
     },
     "generic": {
         "error": {
@@ -304,7 +309,9 @@
         "show_third_party_managed_only": "Amosar só os xogos xestionados por terceiros",
         "no_categories": "Non hai categorías personalizadas. Engade categorías empregando o menú de cada xogo.",
         "show_updates_only": "Amosar só os xogos con actualizacións",
-        "only": "soamente"
+        "only": "soamente",
+        "platforms": "Platform",
+        "stores": "Tendas"
     },
     "help": {
         "amdfsr": "O FSR de AMD axuda a mellorar os fotogramas por segundo mediante o reescalado desde resolucións máis baixas no modo de pantalla completa. A calidade da imaxe aumenta desde 5 ata 1 a consta dun lixeiro impacto no rendemento. Activalo pode aumentar o rendemento.",
@@ -842,6 +849,10 @@
         "hide-window-on-protocol-launch": "Esconder Heroic ao lanzar un xogo dende os enlaces heroic://",
         "nvidiaprime": {
             "description": "Forzar o uso de NVIDIA Optimus or AMD Dynamic Switchable Graphics dGPU. SÓ usar isto para xogos de OpenGL e Vulkan."
+        },
+        "tools": {
+            "open": "Abrir",
+            "selectExe": "Seleccionar EXE"
         }
     },
     "settings": {
@@ -880,7 +891,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "Información do sistema",
-            "legacy": "Obsoleto"
+            "legacy": "Obsoleto",
+            "categories": "Categorías"
         },
         "open-config-file": "Abrir arquivo de configuración",
         "reset-heroic": "Restabelecer Heroic",
@@ -959,13 +971,21 @@
                 "description": "Proporcione a súa clave de API de SteamGridDB para habilitar a búsqueda de portadas. Esta clave encríptase e gárdase se o seu sistema o soporta. Podes conseguir unha en {{url}}"
             }
         },
-        "open-game-settings-file-hint": "Clic para abrir o arquivo de configuración do xogo"
+        "open-game-settings-file-hint": "Clic para abrir o arquivo de configuración do xogo",
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Funcións experimentais",
+            "launch": "Opcións de arranque",
+            "wineTools": "Tools",
+            "wineVersion": "Wine"
+        }
     },
     "Settings": "Preferencias",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": "Modo Consola"
+        "console": "Modo Consola",
+        "storesLogin": "Inicio de sesión da tenda"
     },
     "status": {
         "installing": "Instalando",
@@ -996,7 +1016,8 @@
         "show": "Mostrar"
     },
     "two_col_table": {
-        "save_hint": "Os cambios nesta táboa non se gardan automaticamente. Fai clic no botón +"
+        "save_hint": "Os cambios nesta táboa non se gardan automaticamente. Fai clic no botón +",
+        "add": "Engadir"
     },
     "Update Available!": "Actualización dispoñible!",
     "userselector": {
@@ -1144,7 +1165,8 @@
     },
     "emptyLibrary": {
         "noResults": "Non se atopou ningún resultado cos filtros actuais.",
-        "noGames": "A biblioteca está baleira.<br /><br />Fai clic <4>aquí</4> para iniciar sesión coa túa conta de Epic, GOG.com ou Amazon. Despois, os teus xogos aparecerán aquí na Biblioteca.<br /><br />Para usar xogos ou aplicacións de outras fontes, fai clic <br /> para engadilos manualmente."
+        "noGames": "A biblioteca está baleira.<br /><br />Fai clic <4>aquí</4> para iniciar sesión coa túa conta de Epic, GOG.com ou Amazon. Despois, os teus xogos aparecerán aquí na Biblioteca.<br /><br />Para usar xogos ou aplicacións de outras fontes, fai clic <br /> para engadilos manualmente.",
+        "noResultsTitle": "Non se atoparon xogos"
     },
     "notification": {
         "steam": {
@@ -1357,5 +1379,6 @@
         "edit": "Editar",
         "remove": "Eliminar",
         "save": "Gardar"
-    }
+    },
+    "General": "Xeral"
 }

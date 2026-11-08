@@ -51,7 +51,7 @@
         "close": "关闭",
         "select-install-path": "选择 Steam 安装路径",
         "selectLaunchOption": {
-            "body": "请为该游戏选择一个启动选项（稍候可在游戏设置中更改）：",
+            "body": "请为该游戏选择一个启动选项（稍后可在游戏设置中更改）：",
             "title": "选择启动选项（{{seconds}}s）"
         },
         "warning": {
@@ -64,7 +64,7 @@
         "ok": "是",
         "offline_warning": {
             "message": "这款游戏可能无法在离线状态下正常运行。还是要玩吗？",
-            "playAnyway": "玩",
+            "playAnyway": "仍然运行",
             "title": "离线警告"
         }
     },
@@ -97,7 +97,9 @@
         "browse_files": "浏览文件",
         "browse_wine_prefix": "浏览 Wine Prefix",
         "play": "开始游戏",
-        "edit-game": "编辑应用/游戏"
+        "edit-game": "编辑应用/游戏",
+        "favourite": "添加到收藏",
+        "unfavourite": "从收藏夹移除"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -133,7 +135,8 @@
         "modify": "修改安装",
         "extra_info": "附加信息",
         "install_info": "安装信息",
-        "achievements": "成就"
+        "achievements": "成就",
+        "details": "游戏详情"
     },
     "gamecard": {
         "moving": "移动中",
@@ -163,7 +166,10 @@
         "installedInfo": "已安装信息",
         "protondb-compatibility-info": "Proton 兼容性级别",
         "steamdeck-compatibility-info": "SteamDeck 兼容性",
-        "third-party-app": "第三方管理器"
+        "third-party-app": "第三方管理器",
+        "steamdeck": {
+            "unsupported": "不支持"
+        }
     },
     "install": {
         "disk-space-left": "可用空间",
@@ -228,7 +234,8 @@
             "specificVersion-pt3": "该版本经过调整以通过 Heroic 运行，因为新版本的 Steam 无法在 macOS 上运行。",
             "installing": "安装中",
             "pleaseWait": "请等待"
-        }
+        },
+        "releaseDate": "发行日期"
     },
     "launch": {
         "options": "启动选项...",

@@ -11,7 +11,10 @@
         "content_font_family_default": "Obsah Font Family (Default: {{fontFamily}})",
         "actions_font_family_default": "Akcie Font Family (Default: {{fontFamily}})",
         "disable_smooth_scrolling": "Vypnúť smooth scrolling (vyžaduje reštart)",
-        "disable_animations": ""
+        "disable_animations": "",
+        "section": {
+            "library": "Knižnica"
+        }
     },
     "add_game": "Pridať Hru",
     "All": "Všetky",
@@ -199,7 +202,8 @@
         "sync": "Synchronizovať",
         "syncing": "Prebieha synchronizácia",
         "unsync": "Zrušiť synchronizáciu",
-        "continue": "ďalej"
+        "continue": "ďalej",
+        "close": "Zavrieť"
     },
     "controller": {
         "hints": {
@@ -253,7 +257,8 @@
         "status": "Status",
         "store": "Store",
         "title": "Game Title",
-        "modify": "Zmeniť Inštaláciu"
+        "modify": "Zmeniť Inštaláciu",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -288,7 +293,9 @@
         "show_support_offline_only": "Zobraziť iba podporované offline",
         "categories": "Kategórie",
         "show_third_party_managed_only": "Zobraziť iba spravované tretími stranami",
-        "show_updates_only": ""
+        "show_updates_only": "",
+        "platforms": "Platform",
+        "stores": "Stores"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -806,6 +813,9 @@
         "steamRuntime": {
             "label": "Use Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "selectExe": "Vyberte EXE"
         }
     },
     "settings": {
@@ -844,7 +854,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "Informácie o Systéme",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kategórie"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -922,13 +933,20 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Experimentálne Funkcie",
+            "launch": "Možnosti spustenia...",
+            "wineTools": "Nástroje"
         }
     },
     "Settings": "nastavenie",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Prihlásenie do obchodu"
     },
     "status": {
         "installing": "Inštaluje sa",
@@ -959,7 +977,8 @@
         "show": "Šou"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Changes in this table are not saved automatically. Click the + button",
+        "add": "Pridať"
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -1275,5 +1294,6 @@
         "add": "Pridať",
         "cancel": "Cancel",
         "warning": "Warning"
-    }
+    },
+    "General": "generál"
 }

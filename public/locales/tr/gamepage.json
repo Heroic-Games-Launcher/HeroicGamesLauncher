@@ -97,7 +97,9 @@
         "browse_files": "Dosyalara Göz At",
         "browse_wine_prefix": "Wine Prefix'e Göz At",
         "play": "OYNA",
-        "edit-game": "Oyunu Düzenle"
+        "edit-game": "Oyunu Düzenle",
+        "favourite": "Favorilere Ekle",
+        "unfavourite": "Favorilerden Kaldır"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
@@ -133,7 +135,8 @@
         "modify": "Kurulumu Düzenle",
         "install_info": "Kurulum bilgisi",
         "extra_info": "Ek bilgi",
-        "achievements": "Başarımlar"
+        "achievements": "Başarımlar",
+        "details": "Oyun ayrıntıları"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -163,7 +166,11 @@
         "installedInfo": "Kurulu Bilgiler",
         "protondb-compatibility-info": "Proton Uyumluluk Katmanı",
         "steamdeck-compatibility-info": "SteamDeck Uyumluluğu",
-        "third-party-app": "Üçüncü Parti Yönetici"
+        "third-party-app": "Üçüncü Parti Yönetici",
+        "genres": "Türler",
+        "steamdeck": {
+            "unsupported": "Desteklenmiyor"
+        }
     },
     "install": {
         "disk-space-left": "Kullanılabilir Alan",
@@ -228,7 +235,8 @@
             "install-tooltip": "Bu işlem, Steam'in Windows sürümünü yükleyecek ve uygulama, bir Heroic Uyumluluk Katmanı kullanılarak çalıştırılacaktır. \n\n    Bazı oyunlar, özellikle de eski oyunlar, yeni 3D oyunlar veya hile koruma yazılımına sahip olanlar düzgün çalışmayabilir. \n\n    ",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "Steam'in yeni sürümleri macOS'ta çalışmadığı için, Heroic üzerinden çalışır hale getirdik."
-        }
+        },
+        "releaseDate": "Çıkış Tarihi"
     },
     "launch": {
         "options": "Başlatma Seçenekleri...",

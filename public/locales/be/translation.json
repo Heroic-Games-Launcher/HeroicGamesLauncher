@@ -11,7 +11,10 @@
         "actions_font_family_default": "Шрыфт для дзеянняў (Прадвызначаны: {{fontFamily}})",
         "content_font_family_default": "Шрыфт для змесціва (Прадвызначаны: {{fontFamily}})",
         "disable_smooth_scrolling": "Адключыць плаўную пракрутку (патрабуецца перазапуск)",
-        "disable_animations": "Адключыць анімацыі інтэрфейсу"
+        "disable_animations": "Адключыць анімацыі інтэрфейсу",
+        "section": {
+            "library": "Бібліятэка"
+        }
     },
     "add_game": "Дадаць гульню",
     "All": "Усе",
@@ -207,7 +210,8 @@
         "sync": "Сінхранізацыя",
         "syncing": "Сінхранізацыя",
         "unsync": "Адмяніць сінхранізацыю",
-        "continue": "Працягнуць"
+        "continue": "Працягнуць",
+        "close": "Закрыць"
     },
     "controller": {
         "hints": {
@@ -261,7 +265,8 @@
         "status": "Status",
         "store": "Крама",
         "title": "Назва гульні",
-        "modify": "Змяніць усталёўку"
+        "modify": "Змяніць усталёўку",
+        "settings": "Налады гульні"
     },
     "generic": {
         "error": {
@@ -297,7 +302,9 @@
         "no_categories": "Няма карыстальніцкіх катэгорый. Дадайце катэгорыі з дапамогай меню кожнай гульні.",
         "show_support_offline_only": "Паказваць толькі падтрымліваючыя працу без сеткі",
         "show_third_party_managed_only": "Паказваць толькі пад кіраваннем старонніх праграм",
-        "show_updates_only": "Паказаць толькі гульні з абнаўленнямі"
+        "show_updates_only": "Паказаць толькі гульні з абнаўленнямі",
+        "platforms": "Platform",
+        "stores": "Крамы"
     },
     "help": {
         "amdfsr": "FSR ад AMD дапамагае павысіць частату кадраў за кошт павелічэння больш нізкага дазволу ў поўнаэкранным рэжыме. Якасць выявы павялічваецца з 5 да 1 за кошт невялікага зніжэння прадукцыйнасці. Уключэнне можа палепшыць прадукцыйнасць.",
@@ -817,6 +824,10 @@
         "steamRuntime": {
             "label": "Выкарыстоўвайце Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Адкрыць",
+            "selectExe": "Выберыце EXE"
         }
     },
     "settings": {
@@ -855,7 +866,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Інфармацыя аб сістэме",
             "gamescope": "Gamescope",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Катэгорыі"
         },
         "open-config-file": "Адкрыйце файл канфігурацыі",
         "reset-heroic": "Скінуць Heroic",
@@ -933,13 +945,20 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Спампоўкі",
+            "experimental": "Эксперыментальныя асаблівасці",
+            "launch": "Параметры запуску...",
+            "wineTools": "інструменты"
         }
     },
     "Settings": "Налады",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Уваход у краму"
     },
     "status": {
         "installing": "Усталяванне",
@@ -970,7 +989,8 @@
         "show": "Паказаць"
     },
     "two_col_table": {
-        "save_hint": "Змены ў гэтай табліцы не захоўваюцца аўтаматычна. Націсніце кнопку +"
+        "save_hint": "Змены ў гэтай табліцы не захоўваюцца аўтаматычна. Націсніце кнопку +",
+        "add": "Дадаць"
     },
     "Update Available!": "Даступна абнаўленне!",
     "userselector": {
@@ -1296,5 +1316,6 @@
         "add": "Дадаць",
         "cancel": "Скасаваць",
         "warning": "Папярэджанне"
-    }
+    },
+    "General": "Агульныя"
 }

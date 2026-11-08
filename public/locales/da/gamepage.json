@@ -97,7 +97,9 @@
         "browse_files": "Gennemse Filer",
         "play": "SPIL",
         "browse_wine_prefix": "Gennemse Wine Præfiks",
-        "edit-game": "Redigér Spil"
+        "edit-game": "Redigér Spil",
+        "favourite": "Tilføj til favorit",
+        "unfavourite": "Fjern fra favoritter"
     },
     "disabled": "Deaktiveret",
     "dlc": {
@@ -154,7 +156,10 @@
         "installedInfo": "Installeret information",
         "protondb-compatibility-info": "Protonkompatibilitetsniveau",
         "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
-        "third-party-app": "Tredjeparts-manager"
+        "third-party-app": "Tredjeparts-manager",
+        "steamdeck": {
+            "unsupported": "Ikke kompatibel"
+        }
     },
     "install": {
         "path": "Vælg Installations Sti",
@@ -194,7 +199,8 @@
         "steam": {
             "installing": "Installerer",
             "installation": "Stop installationen"
-        }
+        },
+        "releaseDate": "Udgivelsesdato"
     },
     "launch": {
         "options": "Opstartsinstillinger...",

@@ -11,7 +11,10 @@
         "content_font_family_default": "Schriftfamilie-Inhalt (Standard: {{fontFamily}})",
         "actions_font_family_default": "Schriftfamilie-Aktionen (Standard: {{fontFamily}})",
         "disable_smooth_scrolling": "Sanftes Scrollen deaktivieren (benötigt Neustart)",
-        "disable_animations": "Deaktiviere die Animationen des Nutzerinterfaces"
+        "disable_animations": "Deaktiviere die Animationen des Nutzerinterfaces",
+        "section": {
+            "library": "Bibliothek"
+        }
     },
     "add_game": "Spiel hinzufügen",
     "All": "Alle",
@@ -96,7 +99,9 @@
             "steam": {
                 "message": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!",
                 "error": "Steam konnte nicht ausgeführt werden. Installation wurde wahrscheinlich durch den Nutzer gestoppt oder ist bei Steam fehlgeschlagen.",
-                "title": "Fehler bei Steam"
+                "title": "Fehler bei Steam",
+                "running": "Steam ist derzeit geöffnet. Schließen Sie Steam und versuchen Sie es erneut, oder starten Sie Steam einmal neu, damit Heroic die Verknüpfungen verwalten kann, während Steam läuft.",
+                "running-gamemode": "Bevor Heroic die Steam-Verknüpfungen auf diesem Gerät verwalten kann, muss Steam einmal neu gestartet werden. Starte Steam neu und versuche es erneut."
             },
             "executableNotFound": "Ausführbare Datei nicht gefunden",
             "executableNotFoundMessage": "Heroic konnte die Ausführdatei für dieses Spiel nicht finden. Bitte setze es manuell in den Spieleinstellungen.",
@@ -106,7 +111,8 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Das Entfernen von {{game}} aus Steam schlug fehl mit:{{newLine}} {{error}}"
+                    "body": "Das Entfernen von {{game}} aus Steam schlug fehl mit:{{newLine}} {{error}}",
+                    "title": "Fehler beim Entfernen eines Spiels aus Steam"
                 }
             }
         },
@@ -206,7 +212,8 @@
         "sync": "Synchronisieren",
         "syncing": "Synchronisiere",
         "unsync": "Nicht mehr synchronisieren",
-        "continue": "Weiter"
+        "continue": "Weiter",
+        "close": "Schließen"
     },
     "controller": {
         "hints": {
@@ -265,7 +272,8 @@
         "status": "Status",
         "store": "Store",
         "title": "Spieltitel",
-        "modify": "Installation anpassen"
+        "modify": "Installation anpassen",
+        "settings": "Spiel-Einstellungen"
     },
     "generic": {
         "error": {
@@ -301,7 +309,9 @@
         "select_all": "Alle auswählen",
         "show_support_offline_only": "Nur offline lauffähige Spiele anzeigen",
         "show_third_party_managed_only": "Nur von Drittanbietern verwaltete anzeigen",
-        "show_updates_only": "Nur Spiele mit Updates anzeigen"
+        "show_updates_only": "Nur Spiele mit Updates anzeigen",
+        "platforms": "Platform",
+        "stores": "Shops"
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Bildrate durch Hochskalieren niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
@@ -468,14 +478,16 @@
                 "steam": {
                     "corrupt": "{{game}} konnte nicht zu allen gefundenen Steam-Benutzern hinzugefügt werden. Siehe Logs für weitere Informationen. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
                     "success": "{{game}} wurde erfolgreich zu Steam hinzugefügt. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
-                    "title": "Zu Steam hinzugefügt"
+                    "title": "Zu Steam hinzugefügt",
+                    "success-no-restart": "{{game}} wurde erfolgreich zu Steam hinzugefügt."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} konnte nicht von allen gefundenen Steam-Benutzern entfernt werden. Siehe Logs für weitere Informationen. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
                     "success": "{{game}} wurde erfolgreich aus Steam entfernt. Ein Neustart von Steam ist erforderlich, damit die Änderungen wirksam werden.",
-                    "title": "Aus Steam entfernt"
+                    "title": "Aus Steam entfernt",
+                    "success-no-restart": "{{game}} wurde erfolgreich aus Steam entfernt."
                 }
             },
             "reparing": "Reparatur abgeschlossen"
@@ -521,16 +533,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "z. B.: Pfad/Zu/ExtraDateien",
             "title": "Umgebungsvariablen",
-            "value": "Wert"
+            "value": "Wert",
+            "placeHolderV": "WERT"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Variablennamen dürfen nicht leer sein",
                 "equal_sign_in_key": "Variablennamen dürfen nicht das Zeichen „=“ enthalten",
-                "space_in_key": "Variablennamen dürfen keine Leerzeichen enthalten"
+                "space_in_key": "Variablennamen dürfen keine Leerzeichen enthalten",
+                "duplicate_key": "Eine Variable mit diesem Namen existiert bereits"
             },
             "example": "Füge das „=“-Zeichen NICHT ein, z. B.: für eine Einstellung wie „MY_FLAG=123“, setze MY_FLAG in NAME und 123 in VALUE ein.",
-            "info": "Setze Umgebungsvariablen, die an den Befehl angehängt werden."
+            "info": "Setze Umgebungsvariablen, die an den Befehl angehängt werden.",
+            "add_new": "Neue Variable hinzufügen",
+            "bulk_edit": "Massenbearbeitung",
+            "bulk_edit_error": "Einige Variablen sind falsch. Bitte überprüfen Sie, ob alle Zeilen dem Format SCHLÜSSEL=WERT entsprechen.",
+            "clear_all_confirm": "Möchten Sie wirklich alle Umgebungsvariablen löschen?"
         },
         "gameargs": {
             "placeholder": "Lege hier die Spiel-Argumente fest",
@@ -708,7 +726,8 @@
                 "nile": "Amazon / Nile Log",
                 "zoom": "Zoom-Log"
             },
-            "show-uploads": "Hochgeladene Log-Dateien anzeigen"
+            "show-uploads": "Hochgeladene Log-Dateien anzeigen",
+            "error": "Interner Fehler beim Lesen der Protokolldatei"
         },
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
         "manualsync": {
@@ -828,6 +847,10 @@
         "steamRuntime": {
             "label": "Steam Runtime verwenden",
             "noRuntimeOption": "Nichts"
+        },
+        "tools": {
+            "open": "Öffnen",
+            "selectExe": "EXE auswählen"
         }
     },
     "settings": {
@@ -866,7 +889,8 @@
             "wineExt": "Wine-Erweiterungen",
             "systemInformation": "Systeminformationen",
             "gamescope": "Gamescope",
-            "legacy": "Veraltet"
+            "legacy": "Veraltet",
+            "categories": "Kategorien"
         },
         "open-config-file": "Konfigurationsdatei öffnen",
         "reset-heroic": "Heroic zurücksetzen",
@@ -944,13 +968,22 @@
             "help": {
                 "description": "Gebe Deinen eigenen SteamGridDB API-Schlüssel ein, um die Spiele-Cover Suche zu aktivieren. Der Schlüssel wird verschlüsselt gespeichert, wenn Dein System es unterstützt. Du kannst einen API-Schlüssel unter {{url}} erhalten"
             }
+        },
+        "open-game-settings-file-hint": "Klicken Sie hier, um die Spielkonfigurationsdatei zu öffnen",
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Experimentelle Funktionen",
+            "launch": "Startoptionen",
+            "wineTools": "Werkzeuge",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "Einstellungen",
     "sidebar": {
         "collapse": "Seitenleiste einklappen",
         "uncollapse": "Seitenleiste ausklappen",
-        "console": "Konsolen-Modus"
+        "console": "Konsolen-Modus",
+        "storesLogin": "Login Informationen speichern"
     },
     "status": {
         "installing": "Wird installiert",
@@ -981,7 +1014,8 @@
         "show": "Anzeigen"
     },
     "two_col_table": {
-        "save_hint": "Änderungen in dieser Tabelle werden nicht automatisch gespeichert. Klicke auf die +-Schaltfläche"
+        "save_hint": "Änderungen in dieser Tabelle werden nicht automatisch gespeichert. Klicke auf die +-Schaltfläche",
+        "add": "Hinzufügen"
     },
     "Update Available!": "Aktualisierung verfügbar!",
     "userselector": {
@@ -1072,7 +1106,8 @@
     },
     "emptyLibrary": {
         "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht.",
-        "noGames": "Deine Bibliothek ist leer.<br /><br />Klicke <4>hier</4> um dich mit deinen Epic-, GOG.com-, oder Amazon-Konten anzumelden. Danach werden deine Spiele hier in der Bibliothek auftauchen.<br /><br />Um Spiele oder Apps aus anderen Quellen zu nutzen, klicke <br /> um sie manuell hinzuzufügen."
+        "noGames": "Deine Bibliothek ist leer.<br /><br />Klicke <4>hier</4> um dich mit deinen Epic-, GOG.com-, oder Amazon-Konten anzumelden. Danach werden deine Spiele hier in der Bibliothek auftauchen.<br /><br />Um Spiele oder Apps aus anderen Quellen zu nutzen, klicke <br /> um sie manuell hinzuzufügen.",
+        "noResultsTitle": "Keine Spiele gefunden."
     },
     "categories-manager": {
         "add-placeholder": "Neue Kategorie hinzufügen",
@@ -1334,6 +1369,13 @@
     "common": {
         "add": "Hinzufügen",
         "cancel": "Absagen",
-        "warning": "Warnung"
-    }
+        "warning": "Warnung",
+        "clear_all": "Alle löschen",
+        "confirm": "Bestätigen",
+        "duplicate": "Duplizieren",
+        "edit": "Bearbeiten",
+        "remove": "Entfernen",
+        "save": "Speichern"
+    },
+    "General": "Allgemein"
 }

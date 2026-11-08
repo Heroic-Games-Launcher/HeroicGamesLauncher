@@ -11,7 +11,10 @@
         "actions_font_family_default": "Typsnitt för åtgärder (standard: {{fontFamily}})",
         "content_font_family_default": "Typsnitt för innehåll (standard: {{fontFamily}})",
         "disable_smooth_scrolling": "Inaktivera mjuk rullning (kräver omstart)",
-        "disable_animations": "Inaktivera gränssnittsanimationer"
+        "disable_animations": "Inaktivera gränssnittsanimationer",
+        "section": {
+            "library": "Bibliotek"
+        }
     },
     "add_game": "Lägg till spel",
     "All": "Alla",
@@ -199,7 +202,8 @@
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
         "unsync": "Avbryt synkronisering",
-        "continue": "Fortsätt"
+        "continue": "Fortsätt",
+        "close": "Stäng"
     },
     "controller": {
         "hints": {
@@ -256,7 +260,8 @@
         "status": "Status",
         "store": "Butik",
         "title": "Speltitel",
-        "modify": "Ändra installation"
+        "modify": "Ändra installation",
+        "settings": "Spelinställningar"
     },
     "generic": {
         "error": {
@@ -292,7 +297,9 @@
         "categories": "Kategorier",
         "show_support_offline_only": "Visa endast spel med offlinestöd",
         "show_third_party_managed_only": "Visa endast spel som hanteras av tredje part",
-        "show_updates_only": "Visa endast spel med uppdateringar"
+        "show_updates_only": "Visa endast spel med uppdateringar",
+        "platforms": "Platform",
+        "stores": "Butiker"
     },
     "help": {
         "amdfsr": "AMD FSR kan öka bildfrekvensen genom att skala upp lägre upplösningar i helskärmsläge. Bildkvalitetsläget går från 5 till 1, där högre kvalitet innebär en mindre prestandaförlust. Aktivering kan förbättra prestandan.",
@@ -810,6 +817,10 @@
         "steamRuntime": {
             "label": "Använd Steam Runtime",
             "noRuntimeOption": "Ingen"
+        },
+        "tools": {
+            "open": "Öppna",
+            "selectExe": "Ange programfil"
         }
     },
     "settings": {
@@ -848,7 +859,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformation",
             "gamescope": "Gamescope",
-            "legacy": "Äldre"
+            "legacy": "Äldre",
+            "categories": "Kategorier"
         },
         "open-config-file": "Öppna konfigurationsfilen",
         "reset-heroic": "Återställ Heroic",
@@ -926,13 +938,21 @@
             "help": {
                 "description": "Ange din egen API-nyckel för SteamGridDB för att aktivera sökning efter spelomslag. Nyckeln lagras krypterad om systemet stöder det. Du kan hämta en på {{url}}"
             }
+        },
+        "section": {
+            "downloads": "Nedladdningar",
+            "experimental": "Experimentella funktioner",
+            "launch": "Startalternativ",
+            "wineTools": "Tools",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "Inställningar",
     "sidebar": {
         "collapse": "Dölj sidofältet",
         "uncollapse": "Visa sidofältet",
-        "console": "Konsolläge"
+        "console": "Konsolläge",
+        "storesLogin": "Butik inloggning"
     },
     "status": {
         "installing": "Installerar",
@@ -963,7 +983,8 @@
         "show": "Visa"
     },
     "two_col_table": {
-        "save_hint": "Ändringar i den här tabellen sparas inte automatiskt. Klicka på +-knappen."
+        "save_hint": "Ändringar i den här tabellen sparas inte automatiskt. Klicka på +-knappen.",
+        "add": "Lägg till"
     },
     "Update Available!": "Uppdatering tillgänglig!",
     "userselector": {
@@ -1052,7 +1073,8 @@
     },
     "emptyLibrary": {
         "noResults": "De nuvarande filtren gav inga resultat.",
-        "noGames": "Ditt bibliotek är tomt.<br /><br />Klicka <4>här</4> för att logga in med ditt Epic-, GOG.com- eller Amazon-konto. Därefter visas spelen i biblioteket.<br /><br />Om du vill använda spel eller program från andra källor klickar du <br /> för att lägga till dem manuellt."
+        "noGames": "Ditt bibliotek är tomt.<br /><br />Klicka <4>här</4> för att logga in med ditt Epic-, GOG.com- eller Amazon-konto. Därefter visas spelen i biblioteket.<br /><br />Om du vill använda spel eller program från andra källor klickar du <br /> för att lägga till dem manuellt.",
+        "noResultsTitle": "Inga spel hittades"
     },
     "adtraction-locked": {
         "description": "Det verkar som om domänen track.adtraction.com inte kunde laddas eller är blockerad. Alla köp du gör i GOG-butiken via Heroic bidrar ekonomiskt till Heroic. Överväg att ta bort blockeringen om du vill bidra.",
@@ -1287,5 +1309,6 @@
         "add": "Lägg till",
         "cancel": "Avbryt",
         "warning": "Varning"
-    }
+    },
+    "General": "Allmänt"
 }

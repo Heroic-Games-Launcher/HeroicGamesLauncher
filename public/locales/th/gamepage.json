@@ -95,7 +95,9 @@
         "running-setup": "",
         "play": "",
         "no-path-selected": "",
-        "browse_files": ""
+        "browse_files": "",
+        "favourite": "เพิ่มไปยังรายการโปรด",
+        "unfavourite": "ลบออกจากรายการโปรด"
     },
     "cloud_save_unsupported": "ไม่ได้สนับสนุน",
     "disabled": "ปิดใช้งานแล้ว",
@@ -161,7 +163,10 @@
         "protondb-compatibility-info": "",
         "apple-gaming-wiki": "",
         "third-party-app": "",
-        "installedPlatform": ""
+        "installedPlatform": "",
+        "steamdeck": {
+            "unsupported": "ไม่ได้สนับสนุน"
+        }
     },
     "label": {
         "launching": "กำลังเปิด",
