@@ -1,5 +1,8 @@
 # Frotend Design System
 
+The tokens described here are browsable in Storybook under **Foundations**, with
+the values read from the live stylesheet. See [storybook.md](storybook.md).
+
 ## Type System
 
 the type system is adjustable with two variables. Like you've seen, font-size sets the medium font size (1rem) and --text-scale-ratio adjusts the difference between text size steps. By keeping these as variables instead of hardcoding all the --text-<size> values in rem units, we ensure that each step is exactly 20% (if --text-scale-ratio equals 1.2) different from the next step. This ensures visual consistency and gives options uniformly along the range of text sizes we want to support. This makes it easy to iterate, add breakpoints, and prevents the situation where one font size is updated but the others are not whether that be in a breakpoint or in the \_typography.scss file. It also isn't much of a limitation at all on the design side of things.
