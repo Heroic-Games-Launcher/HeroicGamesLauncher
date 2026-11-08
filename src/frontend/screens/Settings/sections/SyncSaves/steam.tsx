@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Cloud } from 'lucide-react'
 import type { SteamCloudSyncStatus } from 'common/types/steam'
+import { EmptyState } from 'frontend/components/UI'
 import SteamCloudSyncPanel from 'frontend/components/UI/CloudSyncStatus/SteamCloudSyncPanel'
 import 'frontend/components/UI/CloudSyncStatus/index.css'
 
@@ -33,9 +35,10 @@ export default function SteamSyncSaves({ appName }: Props) {
 
   if (!status) {
     return (
-      <p className="cloudSyncEmpty">
-        {t('cloudSync.hint.checking', 'Checking Steam Cloud…')}
-      </p>
+      <EmptyState
+        glyph={Cloud}
+        title={t('cloudSync.hint.checking', 'Checking Steam Cloud…')}
+      />
     )
   }
 

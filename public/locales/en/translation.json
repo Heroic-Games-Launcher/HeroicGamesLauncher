@@ -261,6 +261,18 @@
     },
     "cloudSync": {
         "back": "Back",
+        "button": {
+            "download": "Download",
+            "keep": "Keep",
+            "sync": "Sync",
+            "upload": "Upload",
+            "view": "View"
+        },
+        "column": {
+            "file": "File",
+            "modified": "Modified",
+            "size": "Size"
+        },
         "count": {
             "conflicts_one": "{{count}} conflicting",
             "conflicts_other": "{{count}} conflicting",
@@ -269,7 +281,7 @@
             "skipped_one": "{{count}} skipped",
             "skipped_other": "{{count}} skipped"
         },
-        "filesTitle": "Steam Cloud files — {{game}}",
+        "filesTitle": "Steam Cloud files  {{game}}",
         "genericIssue": "The last sync had a problem.",
         "hint": {
             "checking": "Checking Steam Cloud…",
@@ -291,17 +303,21 @@
         "noFiles": "No files in Steam Cloud for this game.",
         "pull": "Download saves from Cloud",
         "push": "Upload local saves to Cloud",
+        "section": {
+            "actions": "Sync actions",
+            "files": "Cloud files"
+        },
         "state": {
             "conflicts": "Steam Cloud saves conflict with this PC",
             "failed": "Steam Cloud sync failed",
             "incomplete": "Steam Cloud sync incomplete",
             "ok": "Steam Cloud saves are up to date",
             "syncing": "Syncing Steam Cloud saves…",
-            "unknown": "Steam Cloud saves — not synced yet"
+            "unknown": "Steam Cloud saves  not synced yet"
         },
         "sync": "Sync now (both ways)",
         "syncing": "Syncing… please wait.",
-        "title": "Steam Cloud saves — {{game}}",
+        "title": "Steam Cloud saves  {{game}}",
         "viewFiles": "View Cloud save files"
     },
     "common": {

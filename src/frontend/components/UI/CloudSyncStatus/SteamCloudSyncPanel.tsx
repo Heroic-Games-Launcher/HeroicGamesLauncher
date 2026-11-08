@@ -1,22 +1,36 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  ArrowBack,
-  Autorenew,
+  ArrowLeft,
+  Cloud,
+  CloudAlert,
+  CloudCheck,
   CloudDownload,
+  CloudOff,
   CloudUpload,
   FolderOpen,
-  Sync
-} from '@mui/icons-material'
+  RefreshCw
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
+import Alert from '../Alert'
+import type { AlertVariant } from '../Alert'
+import Badge from '../Badge'
+import Button from '../Button'
+import EmptyState from '../EmptyState'
+import Icon from '../Icon'
+import SettingRow from '../SettingRow'
+import SettingsCard from '../SettingsCard'
+import Table from '../Table'
+import type { TableColumn } from '../Table'
 import type {
   SteamCloudFile,
   SteamCloudSyncDirection,
+  SteamCloudSyncState,
   SteamCloudSyncStatus
 } from 'common/types/steam'
 
-import { CLOUD_SYNC_ICONS, useCloudSyncStateLabels } from './state'
+import { useCloudSyncStateLabels } from './state'
 import './index.css'
 
 interface Props {
@@ -50,7 +64,6 @@ const RELATIVE_UNITS: Array<[Intl.RelativeTimeFormatUnit, number]> = [
   ['year', 365 * 24 * 60 * 60 * 1000]
 ]
 
-/** "2 hours ago" — timestamps are more readable as an age than as a date. */
 function formatRelative(when: number, language: string): string {
   const difference = when - Date.now()
   const magnitude = Math.abs(difference)
@@ -69,39 +82,52 @@ function formatRelative(when: number, language: string): string {
   )
 }
 
+/** Alert tone and glyph per state. */
+const STATE_ALERT: Record<
+  SteamCloudSyncState,
+  { variant: AlertVariant; glyph: LucideIcon }
+> = {
+  unknown: { variant: 'neutral', glyph: Cloud },
+  ok: { variant: 'success', glyph: CloudCheck },
+  syncing: { variant: 'info', glyph: RefreshCw },
+  conflicts: { variant: 'error', glyph: CloudAlert },
+  incomplete: { variant: 'warning', glyph: CloudAlert },
+  failed: { variant: 'error', glyph: CloudOff }
+}
+
 interface ActionProps {
-  icon: ReactNode
+  glyph: LucideIcon
   label: string
   /** Second line: the timestamp or size context for this action. */
   hint?: string
+  button: string
   primary?: boolean
   disabled?: boolean
   onClick: () => void
 }
 
 function CloudSyncAction({
-  icon,
+  glyph,
   label,
   hint,
+  button,
   primary,
   disabled,
   onClick
 }: ActionProps) {
   return (
-    <button
-      type="button"
-      className={`button cloudSyncAction ${
-        primary ? 'is-primary' : 'is-secondary'
-      }`}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {icon}
-      <span className="cloudSyncActionText">
-        <span className="cloudSyncActionLabel">{label}</span>
-        {hint && <span className="cloudSyncActionHint">{hint}</span>}
-      </span>
-    </button>
+    <SettingRow label={label} description={hint}>
+      <Button
+        variant={primary ? 'primary' : 'secondary'}
+        size="sm"
+        className="cloudSyncActionButton"
+        icon={<Icon glyph={glyph} size="sm" />}
+        disabled={disabled}
+        onClick={onClick}
+      >
+        {button}
+      </Button>
+    </SettingRow>
   )
 }
 
@@ -173,7 +199,7 @@ export default function SteamCloudSyncPanel({
     [appName, loadFiles]
   )
 
-  /** Newest first — the most recent save is what people look for. */
+  // Newest first
   const sortedFiles = useMemo(
     () => (files ? [...files].sort((a, b) => b.timestamp - a.timestamp) : null),
     [files]
@@ -202,7 +228,6 @@ export default function SteamCloudSyncPanel({
     ? formatRelative(current.lastSync, language)
     : t('cloudSync.never', 'Never')
 
-  // Age of the newest Cloud file — what every Cloud-side action acts on.
   const cloudAge = cloudStats
     ? formatRelative(cloudStats.newest, language)
     : undefined
@@ -255,128 +280,147 @@ export default function SteamCloudSyncPanel({
       ? checkingHint
       : cloudEmptyHint
 
-  const StateIcon = CLOUD_SYNC_ICONS[current.state]
+  const stateAlert = STATE_ALERT[current.state]
+
+  const fileColumns: TableColumn<SteamCloudFile>[] = [
+    {
+      key: 'name',
+      header: t('cloudSync.column.file', 'File'),
+      render: (file) => (
+        <span className="cloudSyncFileName">{file.filename}</span>
+      )
+    },
+    {
+      key: 'size',
+      header: t('cloudSync.column.size', 'Size'),
+      align: 'end',
+      render: (file) => formatSize(file.size)
+    },
+    {
+      key: 'modified',
+      header: t('cloudSync.column.modified', 'Modified'),
+      align: 'end',
+      render: (file) => (
+        <span title={new Date(file.timestamp * 1000).toLocaleString()}>
+          {formatRelative(file.timestamp * 1000, language)}
+        </span>
+      )
+    }
+  ]
 
   return (
     <div className="cloudSyncPanel">
       {showFiles ? (
         <>
-          <p className="cloudSyncMeta">{fileCountHint}</p>
-
-          {loadingFiles && (
-            <p className="cloudSyncEmpty">
-              {t('cloudSync.loadingFiles', 'Loading Cloud files…')}
-            </p>
-          )}
-          {!loadingFiles && !sortedFiles?.length && (
-            <p className="cloudSyncEmpty">
-              {t('cloudSync.noFiles', 'No files in Steam Cloud for this game.')}
-            </p>
-          )}
-          {!loadingFiles && !!sortedFiles?.length && (
-            <ul className="cloudSyncFileList">
-              {sortedFiles.map((file) => (
-                <li className="cloudSyncFile" key={file.filename}>
-                  <span className="cloudSyncFileName">{file.filename}</span>
-                  <span className="cloudSyncFileMeta">
-                    {formatSize(file.size)}
-                  </span>
-                  <span
-                    className="cloudSyncFileMeta"
-                    title={new Date(file.timestamp * 1000).toLocaleString()}
-                  >
-                    {formatRelative(file.timestamp * 1000, language)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <div className="cloudSyncActions">
-            <CloudSyncAction
-              icon={<ArrowBack />}
-              label={t('cloudSync.back', 'Back')}
-              onClick={() => setShowFiles(false)}
+          <SettingsCard
+            glyph={FolderOpen}
+            title={t('cloudSync.section.files', 'Cloud files')}
+            meta={fileCountHint}
+            actions={
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={<Icon glyph={ArrowLeft} size="sm" />}
+                onClick={() => setShowFiles(false)}
+              >
+                {t('cloudSync.back', 'Back')}
+              </Button>
+            }
+          >
+            <Table
+              className="cloudSyncFileTable"
+              density="compact"
+              columns={fileColumns}
+              rows={sortedFiles ?? []}
+              rowKey={(file) => file.filename}
+              loading={loadingFiles}
+              loadingRows={4}
+              empty={
+                <EmptyState
+                  glyph={Cloud}
+                  title={t(
+                    'cloudSync.noFiles',
+                    'No files in Steam Cloud for this game.'
+                  )}
+                />
+              }
             />
-          </div>
+          </SettingsCard>
         </>
       ) : (
         <>
-          <div className={`cloudSyncSummary state-${current.state}`}>
-            <StateIcon className="cloudSyncSummaryIcon" />
-            <span className="cloudSyncSummaryText">
-              <span className="cloudSyncSummaryState">
-                {stateLabels[current.state]}
-              </span>
-              <span className="cloudSyncSummaryMeta" title={lastSyncExact}>
-                {t('cloudSync.lastSync', 'Last sync: {{when}}', {
-                  when: lastSyncLabel
-                })}
-              </span>
+          <Alert
+            variant={stateAlert.variant}
+            glyph={stateAlert.glyph}
+            title={stateLabels[current.state]}
+            className={`cloudSyncSummary state-${current.state}`}
+          >
+            <span title={lastSyncExact}>
+              {t('cloudSync.lastSync', 'Last sync: {{when}}', {
+                when: lastSyncLabel
+              })}
             </span>
-          </div>
-
-          {!!(current.conflicts || current.failed || current.skipped) && (
-            <ul className="cloudSyncCounts">
-              {!!current.conflicts && (
-                <li className="cloudSyncCount error">
-                  {t('cloudSync.count.conflicts', '{{count}} conflicting', {
-                    count: current.conflicts
-                  })}
-                </li>
-              )}
-              {!!current.failed && (
-                <li className="cloudSyncCount error">
-                  {t('cloudSync.count.failed', '{{count}} failed', {
-                    count: current.failed
-                  })}
-                </li>
-              )}
-              {!!current.skipped && (
-                <li className="cloudSyncCount warning">
-                  {t('cloudSync.count.skipped', '{{count}} skipped', {
-                    count: current.skipped
-                  })}
-                </li>
-              )}
-            </ul>
-          )}
-
-          {hasIssue && (
-            <div
-              className={`cloudSyncIssue${
-                current.state === 'incomplete' ? ' warning' : ''
-              }`}
-            >
-              <p className="cloudSyncIssueText">
+            {hasIssue && (
+              <span className="cloudSyncIssueText">
                 {current.message ??
                   t('cloudSync.genericIssue', 'The last sync had a problem.')}
-              </p>
-            </div>
-          )}
+              </span>
+            )}
+            {!!(current.conflicts || current.failed || current.skipped) && (
+              <span className="cloudSyncCounts">
+                {!!current.conflicts && (
+                  <Badge variant="error">
+                    {t('cloudSync.count.conflicts', '{{count}} conflicting', {
+                      count: current.conflicts
+                    })}
+                  </Badge>
+                )}
+                {!!current.failed && (
+                  <Badge variant="error">
+                    {t('cloudSync.count.failed', '{{count}} failed', {
+                      count: current.failed
+                    })}
+                  </Badge>
+                )}
+                {!!current.skipped && (
+                  <Badge variant="warning">
+                    {t('cloudSync.count.skipped', '{{count}} skipped', {
+                      count: current.skipped
+                    })}
+                  </Badge>
+                )}
+              </span>
+            )}
+          </Alert>
 
-          <div className="cloudSyncActions">
+          <SettingsCard
+            className="cloudSyncActions"
+            glyph={Cloud}
+            title={t('cloudSync.section.actions', 'Sync actions')}
+          >
             {current.state === 'conflicts' && (
               <>
                 <CloudSyncAction
                   primary
-                  icon={<CloudDownload />}
+                  glyph={CloudDownload}
                   label={t(
                     'cloudSync.keepCloud',
                     'Resolve: keep Steam Cloud saves'
                   )}
                   hint={cloudCopyHint}
+                  button={t('cloudSync.button.keep', 'Keep')}
                   disabled={busy}
                   onClick={() => resolve('cloud')}
                 />
                 <CloudSyncAction
                   primary
-                  icon={<CloudUpload />}
+                  glyph={CloudUpload}
                   label={t(
                     'cloudSync.keepLocal',
                     "Resolve: keep this PC's saves"
                   )}
                   hint={discardCloudHint}
+                  button={t('cloudSync.button.keep', 'Keep')}
                   disabled={busy}
                   onClick={() => resolve('local')}
                 />
@@ -384,21 +428,23 @@ export default function SteamCloudSyncPanel({
             )}
 
             <CloudSyncAction
-              icon={<CloudDownload />}
+              glyph={CloudDownload}
               label={t('cloudSync.pull', 'Download saves from Cloud')}
               hint={cloudCopyHint}
+              button={t('cloudSync.button.download', 'Download')}
               disabled={busy}
               onClick={() => runSync('down')}
             />
             <CloudSyncAction
-              icon={<CloudUpload />}
+              glyph={CloudUpload}
               label={t('cloudSync.push', 'Upload local saves to Cloud')}
               hint={replaceCloudHint}
+              button={t('cloudSync.button.upload', 'Upload')}
               disabled={busy}
               onClick={() => runSync('up')}
             />
             <CloudSyncAction
-              icon={<Sync />}
+              glyph={RefreshCw}
               label={t('cloudSync.sync', 'Sync now (both ways)')}
               hint={
                 current.lastSync
@@ -410,21 +456,23 @@ export default function SteamCloudSyncPanel({
                       'Not synced from Heroic yet'
                     )
               }
+              button={t('cloudSync.button.sync', 'Sync')}
               disabled={busy}
               onClick={() => runSync('both')}
             />
             <CloudSyncAction
-              icon={<FolderOpen />}
+              glyph={FolderOpen}
               label={t('cloudSync.viewFiles', 'View Cloud save files')}
               hint={fileCountHint}
+              button={t('cloudSync.button.view', 'View')}
               disabled={busy}
               onClick={() => setShowFiles(true)}
             />
-          </div>
+          </SettingsCard>
 
           {busy && (
             <p className="cloudSyncBusy">
-              <Autorenew className="cloudSyncBusyIcon" />
+              <Icon glyph={RefreshCw} size="sm" className="lucide-spin" />
               {t('cloudSync.syncing', 'Syncing… please wait.')}
             </p>
           )}
