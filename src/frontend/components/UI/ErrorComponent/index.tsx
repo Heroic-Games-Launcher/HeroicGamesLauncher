@@ -1,12 +1,13 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { faHeartCrack, faSyncAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Brush, HeartCrack, RefreshCw, Trash2 } from 'lucide-react'
 
-import { CleaningServicesOutlined, DeleteOutline } from '@mui/icons-material'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Button } from 'frontend/components/UI'
+import Button from '../Button'
+import EmptyState from '../EmptyState'
+import Icon from '../Icon'
+import Panel from '../Panel'
 
 export default function ErrorComponent({ message }: { message: string }) {
   const { t } = useTranslation()
@@ -14,59 +15,48 @@ export default function ErrorComponent({ message }: { message: string }) {
 
   return (
     <div className="errorComponent">
-      <FontAwesomeIcon icon={faHeartCrack} />
-      <span className="errorText">{message}</span>
-      <span className="buttonsWrapper">
-        <Button
-          variant="primary"
-          className="is-footer"
-          onClick={async () =>
-            refreshLibrary({
-              checkForUpdates: true,
-              runInBackground: false
-            })
+      <Panel className="errorComponent__panel" padding="lg" tone="solid">
+        <EmptyState
+          action={
+            <div className="errorComponent__actions">
+              <Button
+                fullWidth
+                icon={<Icon glyph={RefreshCw} size="sm" />}
+                onClick={async () =>
+                  refreshLibrary({
+                    checkForUpdates: true,
+                    runInBackground: false
+                  })
+                }
+              >
+                {t('generic.library.refresh', 'Refresh Library')}
+              </Button>
+              <Button
+                fullWidth
+                icon={<Icon glyph={Brush} size="sm" />}
+                onClick={() => window.api.clearCache(true)}
+                variant="ghost"
+              >
+                {t('settings.clear-cache', 'Clear Heroic Cache')}
+              </Button>
+              <Button
+                fullWidth
+                icon={<Icon glyph={Trash2} size="sm" />}
+                onClick={showResetDialog}
+                variant="danger"
+              >
+                {t('settings.reset-heroic', 'Reset Heroic')}
+              </Button>
+            </div>
           }
-        >
-          <div className="button-icontext-flex">
-            <div className="button-icon-flex">
-              <FontAwesomeIcon className="refreshIcon" icon={faSyncAlt} />
-            </div>
-            <span className="button-icon-text">
-              {t('generic.library.refresh', 'Refresh Library')}
-            </span>
-          </div>
-        </Button>
-
-        <Button
-          variant="danger"
-          className="is-footer"
-          onClick={() => window.api.clearCache(true)}
-        >
-          <div className="button-icontext-flex">
-            <div className="button-icon-flex">
-              <CleaningServicesOutlined />
-            </div>
-            <span className="button-icon-text">
-              {t('settings.clear-cache', 'Clear Heroic Cache')}
-            </span>
-          </div>
-        </Button>
-
-        <Button
-          variant="danger"
-          className="is-footer"
-          onClick={showResetDialog}
-        >
-          <div className="button-icontext-flex">
-            <div className="button-icon-flex">
-              <DeleteOutline />
-            </div>
-            <span className="button-icon-text">
-              {t('settings.reset-heroic', 'Reset Heroic')}
-            </span>
-          </div>
-        </Button>
-      </span>
+          description={t(
+            'error.recovery',
+            'Refreshing the library usually fixes it. Clearing the cache or resetting Heroic are the next steps if it does not.'
+          )}
+          glyph={HeartCrack}
+          title={message}
+        />
+      </Panel>
     </div>
   )
 }
