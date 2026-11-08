@@ -4,8 +4,8 @@ body {
   --text-tertiary: var(--ink-on-accent);
   --tertiary-button: var(--status-warning);
   --tertiary-button-overlay: var(--status-warning-hover);
-  --cancel-button: var(--status-warning);
-  --cancel-button-overlay: var(--status-warning-hover);
+  --cancel-button: var(--status-danger);
+  --cancel-button-overlay: var(--status-danger-hover);
   --background-darker-80: var(--eighty-percent-black);
 
   --anticheat-denied: #a25d21;
@@ -77,8 +77,8 @@ body.midnightMirage {
   --disabled-button-overlay: var(--neutral-05);
   --play-button: var(--primary-button);
   --install-button: var(--secondary-button);
-  --cancel-button: var(--status-warning);
-  --cancel-button-overlay: var(--status-warning-hover);
+  --cancel-button: var(--status-danger);
+  --cancel-button-overlay: var(--status-danger-hover);
   --link-highlight: var(--accent);
   --success-button: var(--status-success);
   --secondary-button: var(--brand-primary);
