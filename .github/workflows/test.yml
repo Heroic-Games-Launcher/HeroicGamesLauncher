@@ -17,7 +17,9 @@ jobs:
       - name: Test CI
         run: pnpm test:ci
   storybook:
-    runs-on: ubuntu-latest
+    # Pinned: the Playwright version used by the stories has no Chromium build
+    # for ubuntu-latest (26.04) yet.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository.
         uses: actions/checkout@v6
