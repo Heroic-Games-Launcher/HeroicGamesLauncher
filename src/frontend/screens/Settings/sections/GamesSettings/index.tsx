@@ -15,6 +15,7 @@ import {
   EnableEsync,
   EnableFSR,
   EnableFsync,
+  EnableMetalFX,
   EnableMsync,
   EnableWineWayland,
   EnableWoW64,
@@ -230,6 +231,7 @@ export default function GamesSettings() {
             </SettingsCard>
           </>
         )}
+        <EnableMetalFX />
       </TabPanel>
 
       <TabPanel value={value} index={'other'}>
