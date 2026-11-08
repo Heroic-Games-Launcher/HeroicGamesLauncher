@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { QRCodeSVG } from 'qrcode.react'
 import { Autorenew } from '@mui/icons-material'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { Button } from 'frontend/components/UI'
 import '../SIDLogin/index.css'
 import './index.css'
 
@@ -15,9 +16,47 @@ interface Props {
 type Phase = 'idle' | 'submitting' | 'guard' | 'device'
 
 /**
+ * Steam sign-in, gated behind a limitations notice
+ */
+export default function SteamLogin(props: Props) {
+  const { t } = useTranslation('login')
+  const [agreed, setAgreed] = useState(false)
+
+  if (agreed) return <SteamLoginForm {...props} />
+
+  // Only "I Agree" closes this
+  return (
+    <div className="SIDLoginModal">
+      <span className="backdrop"></span>
+      <div
+        className="sid-modal steam-notice-modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="steam-notice-title"
+      >
+        <div className="loginInstructions">
+          <strong id="steam-notice-title">
+            {t('steam.notice.title', 'Attention')}
+          </strong>
+          <p>
+            {t(
+              'steam.notice.text',
+              "The Steam client must be installed to use this feature.\n\nSteam support is new, so some games may not start, including games made by Valve, like Half-Life 2.\n\nOnline games may need the Steam client running, and games with anti-cheat probably won't work.\n\nPlease report problems on Discord or GitHub."
+            )}
+          </p>
+        </div>
+        <Button variant="primary" autoFocus onClick={() => setAgreed(true)}>
+          {t('steam.notice.agree', 'I Agree')}
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+/**
  * Credentials form for signing in to Steam
  */
-export default function SteamLogin({ backdropClick, onSuccess }: Props) {
+function SteamLoginForm({ backdropClick, onSuccess }: Props) {
   const { steam } = useContext(ContextProvider)
   const { t } = useTranslation('login')
 

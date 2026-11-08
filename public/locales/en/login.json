@@ -37,6 +37,11 @@
             "email": "Enter the code sent to your email",
             "placeholder": "Steam Guard code"
         },
+        "notice": {
+            "agree": "I Agree",
+            "text": "The Steam client must be installed to use this feature.\n\nSteam support is new, so some games may not start, including games made by Valve, like Half-Life 2.\n\nOnline games may need the Steam client running, and games with anti-cheat probably won't work.\n\nPlease report problems on Discord or GitHub.",
+            "title": "Attention"
+        },
         "password": "Password",
         "qr": {
             "caption": "Use the Steam Mobile App to sign in via QR",

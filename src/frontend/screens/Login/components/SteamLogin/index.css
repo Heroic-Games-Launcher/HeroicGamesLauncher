@@ -137,3 +137,8 @@
     height: 1px;
   }
 }
+
+.steam-notice-modal .loginInstructions > p {
+  color: var(--text-hover);
+  white-space: pre-line;
+}
