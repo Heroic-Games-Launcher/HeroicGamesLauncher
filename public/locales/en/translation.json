@@ -50,6 +50,7 @@
         "anticheats": "Anticheats",
         "multiplayer_may_not_work": "Multiplayer features may not work due to denied or broken anticheat support.",
         "reference": "Reference",
+        "removed": "Anticheat removed",
         "source": "Source",
         "status": "Status",
         "title": "This game includes anticheat software"
@@ -476,7 +477,9 @@
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
-    "error": "Error",
+    "error": {
+        "recovery": "Refreshing the library usually fixes it. Clearing the cache or resetting Heroic are the next steps if it does not."
+    },
     "externalLink": {
         "dontAskAgain": "Don't ask again",
         "warning": "You are about to open an external link."
