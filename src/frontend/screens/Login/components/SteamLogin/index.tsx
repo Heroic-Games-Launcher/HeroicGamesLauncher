@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { QRCodeSVG } from 'qrcode.react'
-import { Autorenew } from '@mui/icons-material'
+import { RefreshCw, X } from 'lucide-react'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Button } from 'frontend/components/UI'
+import { Alert, Button, Icon } from 'frontend/components/UI'
 import '../SIDLogin/index.css'
 import './index.css'
 
@@ -171,6 +171,14 @@ function SteamLoginForm({ backdropClick, onSuccess }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') backdropClick()
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [backdropClick])
+
   const handleLogin = async () => {
     setError(false)
     setStatusMessage(null)
@@ -226,10 +234,20 @@ function SteamLoginForm({ backdropClick, onSuccess }: Props) {
       ? t('steam.guard.email', 'Enter the code sent to your email')
       : t('steam.guard.device', 'Enter your Steam Guard code')
 
+  const spinner = <Icon glyph={RefreshCw} size="sm" className="lucide-spin" />
+
   return (
-    <div className="SIDLoginModal">
+    <div className="SIDLoginModal" role="dialog" aria-modal="true">
       <span className="backdrop" onClick={backdropClick}></span>
       <div className="sid-modal steam-login-modal">
+        <button
+          className="sid-modal__close"
+          onClick={backdropClick}
+          aria-label={t('button.close', 'Close')}
+          type="button"
+        >
+          <Icon glyph={X} size="sm" />
+        </button>
         <div className="loginInstructions">
           <strong>{t('steam.welcome', 'Sign in to Steam')}</strong>
         </div>
@@ -239,7 +257,11 @@ function SteamLoginForm({ backdropClick, onSuccess }: Props) {
             <span className="steam-section-title">
               {t('steam.accountName', 'Sign in with account name')}
             </span>
+            <label className="steam-field-label" htmlFor="steam-username">
+              {t('steam.username', 'Username')}
+            </label>
             <input
+              id="steam-username"
               type="text"
               className="sid-input"
               placeholder={t('steam.username', 'Username')}
@@ -248,10 +270,11 @@ function SteamLoginForm({ backdropClick, onSuccess }: Props) {
               disabled={busy}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <span className="steam-field-label">
+            <label className="steam-field-label" htmlFor="steam-password">
               {t('steam.password', 'Password')}
-            </span>
+            </label>
             <input
+              id="steam-password"
               type="password"
               className="sid-input"
               placeholder={t('steam.password', 'Password')}
@@ -267,8 +290,11 @@ function SteamLoginForm({ backdropClick, onSuccess }: Props) {
 
             {phase === 'guard' && (
               <>
-                <span className="steam-field-label">{guardLabel}</span>
+                <label className="steam-field-label" htmlFor="steam-guard">
+                  {guardLabel}
+                </label>
                 <input
+                  id="steam-guard"
                   type="text"
                   className="sid-input"
                   placeholder={t('steam.guard.placeholder', 'Steam Guard code')}
@@ -283,31 +309,32 @@ function SteamLoginForm({ backdropClick, onSuccess }: Props) {
             )}
 
             {phase === 'device' && (
-              <p className="message steam-status">
+              <Alert variant="info">
                 {t(
                   'steam.guard.deviceConfirmation',
                   'Approve this sign-in in your Steam Mobile app.'
                 )}
+              </Alert>
+            )}
+
+            {phase === 'submitting' && (
+              <p className="steam-status">
+                {spinner}
+                {statusMessage ?? t('steam.signingIn', 'Signing in…')}
               </p>
             )}
 
-            {busy && (
-              <p className="message steam-status">
-                <Autorenew className="material-icons refreshing" />{' '}
-                {phase === 'submitting' &&
-                  (statusMessage ?? t('steam.signingIn', 'Signing in…'))}
-              </p>
-            )}
+            {error && <Alert variant="error">{error}</Alert>}
 
-            {error && <p className="message steam-login-error">{error}</p>}
-
-            <button
+            <Button
+              variant="primary"
+              fullWidth
+              className="steam-signin-btn"
               onClick={onPrimary}
-              className="button is-primary steam-signin-btn"
               disabled={primaryDisabled}
             >
               {primaryLabel()}
-            </button>
+            </Button>
           </div>
 
           <div className="steam-login-divider" role="separator"></div>
@@ -316,31 +343,25 @@ function SteamLoginForm({ backdropClick, onSuccess }: Props) {
             <span className="steam-section-title">
               {t('steam.qr.title', 'Or sign in with QR')}
             </span>
-            {qrScanned ? (
-              <div className="steam-qr-placeholder">
-                <Autorenew className="material-icons refreshing" />
-              </div>
-            ) : qrUrl ? (
+            {qrUrl && !qrScanned ? (
               <div className="steam-qr-code">
                 <QRCodeSVG value={qrUrl} size={200} marginSize={2} />
               </div>
             ) : (
-              <div className="steam-qr-placeholder">
-                <Autorenew className="material-icons refreshing" />
-              </div>
+              <div className="steam-qr-placeholder">{spinner}</div>
             )}
             <p className="steam-qr-caption">
               {qrScanned
                 ? t(
                     'steam.qr.scanned',
-                    'Scanned — approve the sign-in in your Steam Mobile app.'
+                    'Scanned, approve the sign-in in your Steam Mobile app.'
                   )
                 : t(
                     'steam.qr.caption',
                     'Use the Steam Mobile App to sign in via QR'
                   )}
             </p>
-            {qrError && <p className="message steam-login-error">{qrError}</p>}
+            {qrError && <Alert variant="error">{qrError}</Alert>}
           </div>
         </div>
       </div>
