@@ -1143,7 +1143,7 @@
         "showMetalOverlay": "Show Stats Overlay",
         "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
-        "steamIntegration": "Use Steam integration",
+        "steamIntegration": "Start Steam silently for Online Features and DRM",
         "steamLaunchTarget": {
             "automatic": "Automatic",
             "downloadBuild": "Download",

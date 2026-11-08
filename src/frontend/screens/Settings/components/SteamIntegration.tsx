@@ -44,7 +44,10 @@ const SteamIntegration = () => {
         value={isFamilyShare || steamIntegration}
         disabled={isFamilyShare}
         handleChange={handleChange}
-        title={t('setting.steamIntegration', 'Use Steam integration')}
+        title={t(
+          'setting.steamIntegration',
+          'Start Steam silently for Online Features and DRM'
+        )}
       />
 
       <InfoIcon
