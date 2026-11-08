@@ -171,12 +171,15 @@
 /* The hero card for the download in progress */
 
 .DownloadItem--hero {
-  grid-template-columns: auto auto minmax(0, 1fr) auto;
-  grid-template-areas:
-    'game game game actions'
-    'type store time actions';
-  align-items: center;
-  gap: var(--space-md-fixed);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'game';
+  align-items: start;
+}
+
+.DownloadItem--hero .DownloadItem__actions {
+  align-self: flex-start;
+  justify-content: flex-start;
+  margin-block-start: var(--space-md-fixed);
 }
 
 .DownloadItem--hero .DownloadItem__game {
@@ -186,7 +189,8 @@
 
 .DownloadItem--hero .DownloadItem__cover {
   width: 136px;
-  border-radius: 12px;
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
 }
 
 .DownloadItem--hero .DownloadItem__text {
@@ -203,29 +207,20 @@
 .DownloadItem__progress {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xs-fixed);
+  gap: var(--space-3xs-fixed);
   width: 100%;
-  margin-block-start: var(--space-xs-fixed);
+  margin-block-start: 0;
 }
 
-.DownloadItem__progressMeta {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md-fixed);
+.DownloadItem__progressSummary {
+  align-self: flex-end;
   font-size: var(--body-sm);
   font-variant-numeric: tabular-nums;
   color: var(--on-panel-muted, var(--text-secondary));
 }
 
-.DownloadItem__eta {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xs-fixed);
-}
-
 @container main-content (max-width: 900px) {
-  .DownloadItem--row,
-  .DownloadItem--hero {
+  .DownloadItem--row {
     grid-template-columns: auto auto minmax(0, 1fr) auto;
     grid-template-areas:
       'game game game actions'

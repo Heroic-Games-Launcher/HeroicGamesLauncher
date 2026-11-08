@@ -165,7 +165,6 @@
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper {
   margin-top: var(--space-xs-fixed);
-  border: 1px solid var(--divider);
   border-radius: var(--field-radius, 12px);
   background: var(--modal-background, var(--background));
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);

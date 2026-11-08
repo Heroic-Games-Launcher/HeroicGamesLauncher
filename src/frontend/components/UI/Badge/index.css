@@ -14,7 +14,11 @@
   white-space: nowrap;
   background: color-mix(in oklab, var(--badge-color) 20%, transparent);
   border-color: color-mix(in oklab, var(--badge-color) 42%, transparent);
-  color: oklch(from var(--panel-base) clamp(0.3, (0.62 - l) * 1000, 0.88) 0 0);
+  color: color-mix(
+    in oklab,
+    var(--badge-color) 72%,
+    var(--on-panel, var(--text-default))
+  );
 }
 
 .Badge svg {
@@ -30,7 +34,7 @@
 }
 
 .Badge--info {
-  --badge-color: var(--status-info, var(--accent));
+  --badge-color: var(--primary, var(--status-info, var(--accent)));
 }
 
 .Badge--success {

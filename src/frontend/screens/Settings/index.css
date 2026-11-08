@@ -573,7 +573,6 @@ a {
 /* --- log page --- */
 
 .Settings .log-box {
-  border: 1px solid var(--panel-divider, var(--divider));
   background: var(--panel-background, var(--background-darker));
   padding: var(--space-sm);
 }

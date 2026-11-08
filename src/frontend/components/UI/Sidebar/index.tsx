@@ -5,7 +5,7 @@ import SidebarLinks from './components/SidebarLinks'
 import './index.scss'
 import HeroicVersion from './components/HeroicVersion'
 import SidebarTour from './components/SidebarTour'
-import { DMQueueElement } from 'common/types'
+import { DMQueueElement, DownloadManagerState } from 'common/types'
 
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import { useNavigate } from 'react-router-dom'
@@ -19,22 +19,25 @@ const collapsedWidth = 120
 export default React.memo(function Sidebar() {
   const sidebarEl = useRef<HTMLDivElement | null>(null)
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
+  const [dmState, setDmState] = useState<DownloadManagerState>('idle')
 
   const navigate = useNavigate()
 
   useEffect(() => {
     window.api
       .getDMQueueInformation()
-      .then(({ elements }) => {
+      .then(({ elements, state }) => {
         setCurrentDMElement(elements[0])
+        setDmState(state)
       })
       .catch((error) => {
         console.error('Failed to get DM queue information:', error)
       })
 
     const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (e, elements) => {
+      (e, elements, state) => {
         setCurrentDMElement(elements[0])
+        setDmState(state)
       }
     )
 
@@ -147,6 +150,7 @@ export default React.memo(function Sidebar() {
             key={currentDMElement.params.appName}
             appName={currentDMElement.params.appName}
             runner={currentDMElement.params.runner}
+            state={dmState}
           />
         )}
       </div>
