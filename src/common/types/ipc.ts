@@ -244,6 +244,8 @@ interface AsyncIPCFunctions {
   ) => Promise<SteamCloudSyncStatus>
   listSteamCloudFiles: (appName: string) => Promise<SteamCloudFile[]>
   getSteamInstallLibraries: () => Promise<SteamInstallLibrary[]>
+  getSteamDownloadLimit: () => Promise<number>
+  setSteamDownloadLimit: (kbit: number) => Promise<number>
   focusGameWindow: () => Promise<void>
   setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
   getSteamIntegrationEnabled: (appName: string) => boolean

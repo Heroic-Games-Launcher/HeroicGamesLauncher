@@ -15,6 +15,7 @@ import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
 import type {
   AureliaCapabilitiesResponse,
   AureliaConfigShowResponse,
+  AureliaDownloadLimitResponse,
   AureliaInfoResponse,
   AureliaLibrariesResponse,
   AureliaProgressEvent
@@ -505,6 +506,32 @@ export async function getSteamLibraryPath(): Promise<string | undefined> {
     )
     return undefined
   }
+}
+
+/** Global download limit, kbit/s. */
+export async function getSteamDownloadLimit(): Promise<number> {
+  try {
+    const result = await runAurelia<AureliaDownloadLimitResponse>([
+      'config',
+      'download-limit'
+    ])
+    return result.download_limit_kbit ?? 0
+  } catch (error) {
+    logWarning(['Unable to read Steam download limit', error], LogPrefix.Steam)
+    return 0
+  }
+}
+
+/** Zero removes the limit. */
+export async function setSteamDownloadLimit(kbit: number): Promise<number> {
+  const value = kbit > 0 ? String(Math.round(kbit)) : 'off'
+  const result = await runAurelia<AureliaDownloadLimitResponse>([
+    'config',
+    'download-limit',
+    value
+  ])
+  logInfo(['Steam download limit set to', value], LogPrefix.Steam)
+  return result.download_limit_kbit ?? 0
 }
 
 /**

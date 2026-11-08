@@ -1,6 +1,6 @@
 import './index.css'
 
-import { useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 
 import { DMQueueElement, DownloadManagerState } from 'common/types'
 import {
@@ -37,6 +37,7 @@ type Props = {
   state?: DownloadManagerState
   position?: number
   variant?: 'row' | 'hero'
+  headerAction?: ReactNode
   handleClearItem?: (appName: string) => void
 }
 
@@ -73,6 +74,7 @@ const DownloadManagerItem = ({
   state,
   position,
   variant = 'row',
+  headerAction,
   handleClearItem
 }: Props) => {
   const { amazon, epic, gog, itchio, zoom, steam, showDialogModal } =
@@ -291,9 +293,13 @@ const DownloadManagerItem = ({
   return (
     <div
       className={classNames('DownloadItem', `DownloadItem--${variant}`, {
-        'DownloadItem--canceled': canceled
+        'DownloadItem--canceled': canceled,
+        'DownloadItem--withHeaderAction': isHero && !!headerAction
       })}
     >
+      {isHero && headerAction && (
+        <div className="DownloadItem__headerAction">{headerAction}</div>
+      )}
       <div className="DownloadItem__game">
         {position !== undefined && (
           <span className="DownloadItem__position">{position}</span>

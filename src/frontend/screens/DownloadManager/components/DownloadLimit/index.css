@@ -1,0 +1,10 @@
+.DownloadLimit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.DownloadLimit__select {
+  min-width: 140px;
+}

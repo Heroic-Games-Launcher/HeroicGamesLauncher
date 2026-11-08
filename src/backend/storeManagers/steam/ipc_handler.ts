@@ -1,7 +1,11 @@
 import { addHandler, addListener } from 'backend/ipc'
 import { SteamUser } from './user'
 import { libraryManagerMap } from '..'
-import { runAurelia } from './aurelia'
+import {
+  getSteamDownloadLimit,
+  runAurelia,
+  setSteamDownloadLimit
+} from './aurelia'
 import { describeError } from './utils'
 import { logError, LogPrefix } from 'backend/logger'
 
@@ -13,6 +17,12 @@ addHandler('getSteamDlcInfo', async (_e, appName) =>
 
 addHandler('getSteamInstallLibraries', async () =>
   libraryManagerMap['steam'].getInstallLibraries()
+)
+
+addHandler('getSteamDownloadLimit', async () => getSteamDownloadLimit())
+
+addHandler('setSteamDownloadLimit', async (_e, kbit) =>
+  setSteamDownloadLimit(kbit)
 )
 
 addHandler('getSteamCloudSyncStatus', (_e, appName) =>

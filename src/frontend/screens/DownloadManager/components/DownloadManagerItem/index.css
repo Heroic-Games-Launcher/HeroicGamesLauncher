@@ -223,6 +223,20 @@
   gap: var(--space-2xs-fixed);
 }
 
+/* Steam download limit, top right */
+.DownloadItem--hero.DownloadItem--withHeaderAction {
+  grid-template-areas:
+    'game game game header'
+    'game game game actions'
+    'type store time actions';
+}
+
+.DownloadItem__headerAction {
+  grid-area: header;
+  justify-self: end;
+  align-self: start;
+}
+
 @container main-content (max-width: 900px) {
   .DownloadItem--row,
   .DownloadItem--hero {
@@ -232,6 +246,13 @@
       'type store time .';
     row-gap: var(--space-xs-fixed);
     column-gap: var(--space-sm-fixed);
+  }
+
+  .DownloadItem--hero.DownloadItem--withHeaderAction {
+    grid-template-areas:
+      'game game game header'
+      'game game game actions'
+      'type store time .';
   }
 }
 

@@ -523,6 +523,10 @@
             "speed": "Download",
             "unit": "MB/s"
         },
+        "limit": {
+            "label": "Download limit",
+            "unlimited": "Unlimited"
+        },
         "link": "Downloads",
         "pageSubtitle": "What is installing now, what comes next and what is already done",
         "queue": {

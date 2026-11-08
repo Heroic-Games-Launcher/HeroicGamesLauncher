@@ -114,6 +114,11 @@ export interface AureliaConfigShowResponse {
   steam_library_path: string
 }
 
+/** Result of `aurelia config download-limit --json`. */
+export interface AureliaDownloadLimitResponse {
+  download_limit_kbit: number
+}
+
 /** Result of `aurelia libraries --json`. */
 export interface AureliaLibrariesResponse {
   libraries: Array<{ path: string; free_bytes: number | null }>
