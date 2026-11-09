@@ -144,6 +144,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { shouldUpdateDxvkTools } from './utils/config_helper'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -180,10 +181,9 @@ async function initializeWindow(): Promise<BrowserWindow> {
       }
     }
 
-    const { autoInstallDxvk, autoInstallVkd3d, autoInstallDxvkNvapi } =
-      GlobalConfig.get().getSettings()
+    const settings = GlobalConfig.get().getSettings()
 
-    if (autoInstallDxvk || autoInstallVkd3d || autoInstallDxvkNvapi) {
+    if (shouldUpdateDxvkTools(settings)) {
       void DXVK.getLatest()
     }
 
