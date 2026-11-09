@@ -5,18 +5,14 @@ import {
   Store,
   LogIn,
   Accessibility,
-  Coffee,
+  Heart,
   UserCircle,
   Wine,
   Download,
   Tag,
   Tv
 } from 'lucide-react'
-import {
-  faDiscord,
-  faGithub,
-  faPatreon
-} from '@fortawesome/free-brands-svg-icons'
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
@@ -272,24 +268,10 @@ export default function SidebarLinks() {
         />
 
         <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openPatreonPage)}
-          icon={<FontAwesomeIcon icon={faPatreon} />}
-          label="Patreon"
-        />
-
-        <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openKofiPage)}
-          icon={<Icon glyph={Coffee} />}
-          label="Ko-fi"
-        />
-
-        <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openGithubSponsorsPage)}
-          icon={<FontAwesomeIcon icon={faGithub} />}
-          label="GitHub Sponsors"
+          url="/support"
+          icon={<Icon glyph={Heart} />}
+          label={t('support.title', 'Support Us')}
+          dataTour="sidebar-support"
         />
       </div>
     </div>

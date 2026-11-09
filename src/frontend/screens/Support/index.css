@@ -1,0 +1,86 @@
+.Support {
+  width: 100%;
+  padding: var(--space-xl-fixed) clamp(16px, 2.5vw, 32px) var(--space-5xl-fixed);
+}
+
+.Support__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+.Support__sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.Support .SettingsCard__body > *:not(.Alert) {
+  padding-block: 20px;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  border-bottom: 1px solid var(--panel-divider, var(--divider));
+}
+
+.Support .SettingsCard__body > *:not(.Alert):first-child {
+  padding-top: 0;
+}
+
+.Support .SettingsCard__body > *:not(.Alert):last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.Support__brand,
+.Support__storeLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.Support__brand {
+  width: 20px;
+  height: 20px;
+  font-size: 18px;
+}
+
+.Support__brand svg {
+  width: 18px;
+  height: 18px;
+}
+
+.Support__brand--patreon {
+  color: #ff424d;
+}
+
+.Support__brand--kofi {
+  color: #ff5e5b;
+}
+
+.Support__brand--paypal {
+  color: #0070ba;
+}
+
+.Support__brand--github {
+  color: var(--text-default);
+}
+
+.Support__storeLogo {
+  width: 28px;
+  height: 28px;
+  padding: var(--space-3xs);
+  border-radius: 10px;
+  background: var(--background-darker);
+  fill: var(--text-default);
+}
+
+.Support__storeLogo svg {
+  width: 100%;
+  height: 100%;
+}

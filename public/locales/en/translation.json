@@ -1260,6 +1260,52 @@
     },
     "store": "Epic Store",
     "stores": "Stores",
+    "support": {
+        "actions": {
+            "copyEmail": "Copy email",
+            "open": "Open",
+            "sendEmail": "Send email",
+            "shop": "Shop"
+        },
+        "affiliates": {
+            "description": "Buy through our links and Heroic earns a small commission at no extra cost to you.",
+            "gmg": {
+                "description": "Official game keys at great prices."
+            },
+            "gog": {
+                "description": "DRM-free games and classics."
+            },
+            "humble": {
+                "description": "Games, books and bundles for charity."
+            },
+            "title": "Affiliates"
+        },
+        "description": "Heroic is free and open source. Donations and affiliate purchases keep it that way.",
+        "donations": {
+            "description": "Choose how you'd like to support Heroic's development.",
+            "github": {
+                "description": "Sponsor Heroic through GitHub and show your support publicly."
+            },
+            "kofi": {
+                "description": "A one-time tip that goes straight into development."
+            },
+            "patreon": {
+                "description": "Recurring membership with behind-the-scenes updates."
+            },
+            "paypal": {
+                "description": "One-time or recurring donation in the currency you prefer."
+            },
+            "title": "Donations"
+        },
+        "email": {
+            "label": "Email"
+        },
+        "partnerships": {
+            "description": "For sponsorships, brand partnerships or press enquiries, get in touch.",
+            "title": "Partnerships & press"
+        },
+        "title": "Support Us"
+    },
     "title": {
         "allGames": "All Games"
     },
