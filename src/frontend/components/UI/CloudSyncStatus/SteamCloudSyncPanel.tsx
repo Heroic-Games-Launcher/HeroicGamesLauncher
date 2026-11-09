@@ -36,8 +36,6 @@ import './index.css'
 interface Props {
   appName: string
   status: SteamCloudSyncStatus
-  // Lets a host retitle on file view
-  onShowFilesChange?: (showFiles: boolean) => void
 }
 
 /** Formats a byte count for the file list. */
@@ -135,11 +133,7 @@ function CloudSyncAction({
  * Steam Cloud status, sync actions and file list, shared by the game-page
  * dialog and the per-game Cloud Saves settings tab.
  */
-export default function SteamCloudSyncPanel({
-  appName,
-  status,
-  onShowFilesChange
-}: Props) {
+export default function SteamCloudSyncPanel({ appName, status }: Props) {
   const { t, i18n } = useTranslation()
   const stateLabels = useCloudSyncStateLabels()
 
@@ -147,14 +141,7 @@ export default function SteamCloudSyncPanel({
   const [busy, setBusy] = useState(false)
   const [files, setFiles] = useState<SteamCloudFile[] | null>(null)
   const [loadingFiles, setLoadingFiles] = useState(false)
-  const [showFiles, setShowFilesState] = useState(false)
-  const setShowFiles = useCallback(
-    (show: boolean) => {
-      setShowFilesState(show)
-      onShowFilesChange?.(show)
-    },
-    [onShowFilesChange]
-  )
+  const [showFiles, setShowFiles] = useState(false)
 
   // Keep in step with syncs triggered elsewhere.
   useEffect(() => setCurrent(status), [status])

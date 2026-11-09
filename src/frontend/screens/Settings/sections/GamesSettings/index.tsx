@@ -84,7 +84,12 @@ function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
   }
 }
 
-export default function GamesSettings() {
+interface Props {
+  // Overrides the remembered tab
+  initialTab?: string
+}
+
+export default function GamesSettings({ initialTab }: Props = {}) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isDefault, appName, gameInfo } = useContext(SettingsContext)
@@ -129,7 +134,9 @@ export default function GamesSettings() {
     ? `${gameInfo.app_name}-setting_tab`
     : 'default'
   const latestTabIndex =
-    localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)
+    initialTab ||
+    localStorage.getItem(localStorageKey) ||
+    getStartingTab(platform, gameInfo)
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (newValue: string) => {

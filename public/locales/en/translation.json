@@ -281,7 +281,6 @@
             "skipped_one": "{{count}} skipped",
             "skipped_other": "{{count}} skipped"
         },
-        "filesTitle": "Steam Cloud files  {{game}}",
         "genericIssue": "The last sync had a problem.",
         "hint": {
             "checking": "Checking Steam Cloud…",
@@ -316,7 +315,6 @@
         },
         "sync": "Sync now (both ways)",
         "syncing": "Syncing… please wait.",
-        "title": "Steam Cloud saves  {{game}}",
         "viewFiles": "View Cloud save files"
     },
     "common": {

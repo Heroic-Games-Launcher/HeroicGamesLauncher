@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { GameInfo } from 'common/types'
 import type { SteamCloudSyncStatus } from 'common/types/steam'
 
-import CloudSyncModal from './CloudSyncModal'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 import { CLOUD_SYNC_ICONS, issueLevel, useCloudSyncStateLabels } from './state'
 import './index.css'
 
@@ -18,9 +18,9 @@ interface Props {
 export default function CloudSyncStatus({ gameInfo, className }: Props) {
   const labels = useCloudSyncStateLabels()
   const [status, setStatus] = useState<SteamCloudSyncStatus | null>(null)
-  const [showModal, setShowModal] = useState(false)
+  const { openGameSettingsModal } = useGlobalState.keys('openGameSettingsModal')
 
-  const { app_name: appName, runner, title } = gameInfo
+  const { app_name: appName, runner } = gameInfo
   const supported = runner === 'steam' && gameInfo.is_installed
 
   useEffect(() => {
@@ -45,11 +45,15 @@ export default function CloudSyncStatus({ gameInfo, className }: Props) {
     }
   }, [supported, appName])
 
-  const openModal = useCallback((event: React.MouseEvent) => {
-    event.preventDefault()
-    event.stopPropagation()
-    setShowModal(true)
-  }, [])
+  // Open settings on the saves tab
+  const openSettings = useCallback(
+    (event: React.MouseEvent) => {
+      event.preventDefault()
+      event.stopPropagation()
+      openGameSettingsModal(gameInfo, 'saves')
+    },
+    [openGameSettingsModal, gameInfo]
+  )
 
   if (!supported || !status) return null
 
@@ -57,33 +61,23 @@ export default function CloudSyncStatus({ gameInfo, className }: Props) {
   const level = issueLevel(status.state)
 
   return (
-    <>
-      <button
-        type="button"
-        className={`cloudSyncStatusButton state-${status.state}${
-          className ? ` ${className}` : ''
-        }`}
-        title={labels[status.state]}
-        aria-label={labels[status.state]}
-        onClick={openModal}
-      >
-        <Icon />
-        {level !== 'none' && (
-          <span
-            className={`cloudSyncStatusDot${
-              level === 'warning' ? ' warning' : ''
-            }`}
-          />
-        )}
-      </button>
-      {showModal && (
-        <CloudSyncModal
-          appName={appName}
-          title={title}
-          status={status}
-          onClose={() => setShowModal(false)}
+    <button
+      type="button"
+      className={`cloudSyncStatusButton state-${status.state}${
+        className ? ` ${className}` : ''
+      }`}
+      title={labels[status.state]}
+      aria-label={labels[status.state]}
+      onClick={openSettings}
+    >
+      <Icon />
+      {level !== 'none' && (
+        <span
+          className={`cloudSyncStatusDot${
+            level === 'warning' ? ' warning' : ''
+          }`}
         />
       )}
-    </>
+    </button>
   )
 }
