@@ -180,7 +180,12 @@ async function initializeWindow(): Promise<BrowserWindow> {
       }
     }
 
-    void DXVK.getLatest()
+    const { autoInstallDxvk, autoInstallVkd3d, autoInstallDxvkNvapi } =
+      GlobalConfig.get().getSettings()
+
+    if (autoInstallDxvk || autoInstallVkd3d || autoInstallDxvkNvapi) {
+      void DXVK.getLatest()
+    }
 
     Winetricks.download()
     if (shouldDownloadWine) {
