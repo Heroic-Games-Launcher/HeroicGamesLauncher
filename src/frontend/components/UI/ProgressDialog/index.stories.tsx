@@ -23,6 +23,7 @@ const meta = {
   },
   parameters: {
     docs: {
+      story: { inline: false, height: '560px' },
       description: {
         component:
           'Streaming log dialog used by Winetricks and the Wine manager. Lines containing err or warn are coloured, and the log auto-scrolls until the user scrolls away from the bottom.'

@@ -33,6 +33,7 @@ const meta = {
   },
   parameters: {
     docs: {
+      story: { inline: false, height: '480px' },
       description: {
         component:
           'Dialog shell built on the MUI Dialog. Header, content and footer are separate exports so every dialog in the app lays out the same way.'

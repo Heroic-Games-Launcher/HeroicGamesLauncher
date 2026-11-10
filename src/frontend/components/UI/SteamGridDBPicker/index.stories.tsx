@@ -22,6 +22,7 @@ const meta = {
   },
   parameters: {
     docs: {
+      story: { inline: false, height: '680px' },
       description: {
         component:
           'Artwork browser backed by SteamGridDB. Without an API key configured it only shows the key prompt, which is the first story here.'

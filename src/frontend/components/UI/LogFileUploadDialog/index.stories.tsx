@@ -9,6 +9,7 @@ const meta = {
   component: LogFileUploadDialog,
   parameters: {
     docs: {
+      story: { inline: false, height: '420px' },
       description: {
         component:
           'Asks for confirmation before a log file leaves the machine, then shows the paste link once the upload finishes. It is driven by the global uploadLogFileProps state.'

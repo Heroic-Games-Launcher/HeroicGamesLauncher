@@ -31,6 +31,7 @@ const meta = {
   component: ExternalLinkDialog,
   parameters: {
     docs: {
+      story: { inline: false, height: '380px' },
       description: {
         component:
           'Confirmation shown before Heroic hands a link to the system browser. It is driven by the global context, so the stories provide their own.'

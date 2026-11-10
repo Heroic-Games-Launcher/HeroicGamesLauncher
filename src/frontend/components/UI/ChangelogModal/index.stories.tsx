@@ -38,6 +38,7 @@ const meta = {
   },
   parameters: {
     docs: {
+      story: { inline: false, height: '620px' },
       description: {
         component:
           'Release notes shown after an update. The markdown body comes straight from the GitHub release.'

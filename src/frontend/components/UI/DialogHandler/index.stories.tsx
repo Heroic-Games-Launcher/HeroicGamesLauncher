@@ -39,6 +39,7 @@ const meta = {
   component: DialogHandler,
   parameters: {
     docs: {
+      story: { inline: false, height: '440px' },
       description: {
         component:
           'Mounted once in the app shell, it listens for dialog requests from the backend and renders them as a MessageBoxModal.'

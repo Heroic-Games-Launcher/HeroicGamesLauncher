@@ -18,6 +18,7 @@ const meta = {
   },
   parameters: {
     docs: {
+      story: { inline: false, height: '440px' },
       description: {
         component:
           'The dialog the backend drives through the showDialog channel. Newlines in the message are turned into paragraphs, and the first button defaults to the primary variant.'

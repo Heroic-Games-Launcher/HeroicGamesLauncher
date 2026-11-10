@@ -27,6 +27,7 @@ const meta = {
   },
   parameters: {
     docs: {
+      story: { inline: false, height: '640px' },
       description: {
         component:
           'Lets the user override a game’s title and artwork. The magnifier next to each art field opens the SteamGridDB picker.'

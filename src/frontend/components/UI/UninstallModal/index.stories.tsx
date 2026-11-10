@@ -36,6 +36,7 @@ const meta = {
   },
   parameters: {
     docs: {
+      story: { inline: false, height: '560px' },
       description: {
         component:
           'Uninstall confirmation. For Wine games it also offers to delete the prefix and the stored game settings.'
