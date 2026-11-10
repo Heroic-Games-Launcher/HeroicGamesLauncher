@@ -49,18 +49,30 @@ function getSteamCompatFolder() {
       '.var/app/com.valvesoftware.Steam/.steam/steam'
     )
 
-    if (existsSync(flatpakSteamPath)) {
-      // check if steam is really installed via flatpak
-      const { status } = spawnSync('flatpak', [
-        'info',
-        'com.valvesoftware.Steam'
-      ])
+    const nativeSteamPath = join(userHome, '.steam/steam')
 
-      if (status === 0) {
-        return flatpakSteamPath
+    if (existsSync(flatpakSteamPath)) {
+      if (isFlatpak) {
+        // There is no `flatpak` command inside Heroic's own sandbox to ask
+        // whether Steam is installed. The manifest gives us access to Steam's
+        // data folder, which stays around after Steam is uninstalled, so only
+        // use it when there is no native Steam to prefer instead.
+        if (!existsSync(nativeSteamPath)) {
+          return flatpakSteamPath
+        }
+      } else {
+        // check if steam is really installed via flatpak
+        const { status } = spawnSync('flatpak', [
+          'info',
+          'com.valvesoftware.Steam'
+        ])
+
+        if (status === 0) {
+          return flatpakSteamPath
+        }
       }
     }
-    return join(userHome, '.steam/steam')
+    return nativeSteamPath
   }
 }
 
@@ -311,10 +323,24 @@ class GlobalConfigV0 extends GlobalConfig {
       ? defaultSettings?.winePrefix?.replace('~', userHome)
       : ''
 
+    const factoryDefaults = this.getFactoryDefaults()
+
+    // The first start stores every default in config.json, so an install that
+    // ran before Flatpak Steam was detected keeps the native path forever. If
+    // that stored path does not exist and Steam was found elsewhere, follow
+    // the detected folder. A path the user set by hand is left alone.
+    const nativeSteamPath = join(userHome, '.steam/steam')
+    const storedSteamPath = defaultSettings.defaultSteamPath
+    const defaultSteamPath =
+      storedSteamPath === nativeSteamPath && !existsSync(nativeSteamPath)
+        ? factoryDefaults.defaultSteamPath
+        : (storedSteamPath ?? factoryDefaults.defaultSteamPath)
+
     settings = {
-      ...this.getFactoryDefaults(),
+      ...factoryDefaults,
       ...defaultSettings,
-      winePrefix
+      winePrefix,
+      defaultSteamPath
     } as AppSettings
 
     return settings
