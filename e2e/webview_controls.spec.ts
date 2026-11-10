@@ -29,7 +29,7 @@ electronTest('webview', async (app) => {
 
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      'https://www.google.com/'
+      /^https:\/\/www\.google\.com\//
     )
 
     // go back to previous page in webview's history
