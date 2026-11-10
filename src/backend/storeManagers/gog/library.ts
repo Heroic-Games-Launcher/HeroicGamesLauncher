@@ -1487,11 +1487,20 @@ export default class GOGLibraryManager implements LibraryManager {
     }
     options.env.GOGDL_CONFIG_PATH = dirname(gogdlConfigPath)
 
-    return callRunner(
+    const res = await callRunner(
       ['--auth-config-path', authConfig, ...commandParts],
       { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
       options
     )
+    // gogdl reports a failed download (e.g. a patch that can't be applied) only through its exit code.
+    // Not checked for other commands: `launch` exits with the game's own status.
+    const isDownload = ['download', 'update', 'repair', 'redist'].includes(
+      commandParts[0]
+    )
+    if (isDownload && res.exitCode && !res.error && !res.abort) {
+      res.error = `gogdl exited with code ${res.exitCode}`
+    }
+    return res
   }
 
   /* eslint-disable @typescript-eslint/no-unused-vars */

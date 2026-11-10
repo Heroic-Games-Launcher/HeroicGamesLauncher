@@ -172,6 +172,7 @@ export type ExecResult = {
   fullCommand?: string
   error?: string
   abort?: boolean
+  exitCode?: number | null
 }
 
 export interface ExtraInfo {
