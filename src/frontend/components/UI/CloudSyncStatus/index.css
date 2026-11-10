@@ -77,8 +77,20 @@
   margin-top: var(--space-2xs, 0.375rem);
 }
 
-.cloudSyncPanel .cloudSyncActions .SettingsCard__body {
-  gap: var(--space-sm-fixed, 0.75rem);
+/* Divided rows, like settings cards */
+.cloudSyncPanel .cloudSyncActions .SettingsCard__body > * {
+  padding-block: 20px;
+  margin: 0;
+  border-bottom: 1px solid var(--panel-divider, var(--divider));
+}
+
+.cloudSyncPanel .cloudSyncActions .SettingsCard__body > *:first-child {
+  padding-top: 0;
+}
+
+.cloudSyncPanel .cloudSyncActions .SettingsCard__body > *:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 /* Same width for every action button */
