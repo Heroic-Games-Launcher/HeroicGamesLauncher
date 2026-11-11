@@ -1,10 +1,12 @@
 .Button {
+  --focus-ring: color-mix(in oklab, var(--on-panel) 45%, transparent);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-sm-fixed);
   border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 0 var(--space-lg-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--button-md);
@@ -49,60 +51,82 @@
 }
 
 .Button--primary {
-  --button-surface: var(--navbar-accent, var(--accent));
+  --button-surface: var(--bg-brand);
 
+  position: relative;
   background: var(--button-surface);
-  color: var(--background-darker, #06121a);
-  color: oklch(from var(--button-surface) clamp(0, (0.62 - l) * 1000, 1) 0 h);
+  color: var(--text-on-brand);
+}
+
+.Button--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.Button--primary > * {
+  position: relative;
+}
+
+.Button--primary:hover:not(:disabled)::before,
+.Button--primary:focus-visible:not(:disabled)::before {
+  opacity: 1;
 }
 
 .Button--primary:hover:not(:disabled),
 .Button--primary:focus-visible:not(:disabled) {
-  background: var(--accent-overlay, var(--accent));
-  box-shadow: 0 8px 24px -8px var(--navbar-accent, var(--accent));
+  box-shadow: 0 8px 24px -8px var(--bg-brand);
 }
 
 .Button--secondary {
-  --button-surface: var(--background-darker, #0a0e13);
+  --button-surface: var(--panel-base);
 
   background: var(--button-surface);
-  color: var(--on-panel-link, var(--navbar-accent, var(--accent)));
-  border-color: color-mix(in oklab, var(--accent) 35%, transparent);
+  color: var(--text-brand);
+  border-color: var(--border-brand);
 }
 
 .Button--secondary:hover:not(:disabled),
 .Button--secondary:focus-visible:not(:disabled) {
-  border-color: var(--navbar-accent, var(--accent));
-  background: color-mix(in oklab, var(--accent) 12%, var(--background-darker));
+  border-color: var(--bg-brand);
+  background: var(--bg-brand-subtle);
 }
 
 .Button--ghost {
-  --button-surface: var(--input-background);
+  --button-surface: var(--bg-surface-raised);
 
   background: var(--button-surface);
-  color: var(--on-panel, var(--text-default));
+  color: var(--text-neutral);
 }
 
 .Button--ghost:hover:not(:disabled),
 .Button--ghost:focus-visible:not(:disabled) {
-  border-color: var(--divider);
-  color: var(--text-default);
+  border-color: var(--border-subtle);
+  background: color-mix(in oklab, var(--on-panel) 18%, var(--panel-base));
 }
 
 .Button--danger {
-  --button-surface: var(--cancel-button, var(--danger));
+  --button-surface: var(--panel-base);
 
   background: var(--button-surface);
-  color: var(--text-default);
-  color: oklch(from var(--button-surface) clamp(0, (0.62 - l) * 1000, 1) 0 h);
+  color: var(--text-neutral);
+  border-color: var(--border-subtle);
+}
+
+.Button--danger svg {
+  color: var(--role-destructive);
 }
 
 .Button--dangerSubtle {
-  --button-surface: var(--danger, #ef4444);
+  --button-surface: var(--bg-destructive);
 
-  background: color-mix(in oklab, var(--button-surface) 16%, transparent);
-  border-color: color-mix(in oklab, var(--button-surface) 46%, transparent);
-  color: var(--on-panel-danger, var(--danger));
+  background: var(--bg-destructive-subtle);
+  border-color: var(--border-destructive);
+  color: var(--text-destructive);
 }
 
 .Button--dangerSubtle:hover:not(:disabled),
@@ -112,15 +136,11 @@
 }
 
 .Button--warning {
-  --button-surface: var(--status-warning, #f59e0b);
+  --button-surface: var(--bg-warning);
 
-  background: color-mix(
-    in oklab,
-    var(--button-surface) 22%,
-    var(--panel-surface, var(--background-darker))
-  );
-  border-color: color-mix(in oklab, var(--button-surface) 55%, transparent);
-  color: var(--on-panel-warning, var(--status-warning));
+  background: var(--bg-warning-subtle);
+  border-color: var(--border-warning);
+  color: var(--text-warning);
 }
 
 .Button--warning:hover:not(:disabled),
@@ -133,15 +153,43 @@
   border-color: var(--button-surface);
 }
 
-.Button--danger:hover:not(:disabled),
-.Button--danger:focus-visible:not(:disabled) {
-  background: var(--cancel-button-overlay, var(--danger-hover));
+.Button--danger:hover:not(:disabled) {
+  background: color-mix(
+    in oklab,
+    var(--role-destructive) 12%,
+    var(--button-surface)
+  );
+  border-color: var(--border-destructive);
+}
+
+.Button--danger:active:not(:disabled) svg {
+  color: color-mix(in oklab, var(--role-destructive) 70%, #ff0033);
+}
+
+.Button:disabled svg {
+  color: inherit;
 }
 
 .Button:disabled {
-  background: var(--disabled-button, var(--background-secondary));
-  color: var(--text-muted, var(--text-secondary));
-  border-color: transparent;
+  background: var(--bg-disabled);
+  color: var(--text-neutral-faint);
+  border-color: var(--border-subtle);
+  border-style: dashed;
   cursor: not-allowed;
   box-shadow: none;
+  opacity: 0.65;
+  filter: saturate(0.2);
+}
+
+.Button--primary:disabled::before {
+  opacity: 0;
+}
+
+.Button:focus-visible {
+  outline: none;
+}
+
+.Button:focus-visible:not(:disabled) {
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 2px var(--focus-ring);
 }

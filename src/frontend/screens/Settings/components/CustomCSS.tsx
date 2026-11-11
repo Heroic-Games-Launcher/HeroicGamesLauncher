@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
-import { WarningMessage } from 'frontend/components/UI'
+import { Alert } from 'frontend/components/UI'
 
 const CustomCSS = () => {
   const { t } = useTranslation()
@@ -24,12 +24,12 @@ const CustomCSS = () => {
         onChange={handleCustomCSS}
         rows={5}
       />
-      <WarningMessage>
+      <Alert variant="warning">
         {t(
           'setting.custom_css.warning',
           "Warning: this applies to the whole frontend. That means the wrong style can render Heroic unusable. If needed, the setting can be changes manually in `~/.config/heroic/config.json`. Do NOT copy styles from sources you don't trust."
         )}
-      </WarningMessage>
+      </Alert>
     </div>
   )
 }

@@ -23,7 +23,7 @@ const EnableFsync = () => {
         'Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
       )}
       description={t(
-        'setting.fsync.description',
+        'setting.fsync-description',
         'Speed up multi-threaded games using futex synchronisation'
       )}
       htmlId="fsyncToggle"

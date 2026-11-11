@@ -12,7 +12,7 @@ const TraySettings = () => {
     <>
       <ToggleSwitch
         description={t(
-          'setting.exit-to-tray.description',
+          'setting.exit-to-tray-description',
           'Keep Heroic running in the system tray instead of quitting'
         )}
         htmlId="noTrayIcon"

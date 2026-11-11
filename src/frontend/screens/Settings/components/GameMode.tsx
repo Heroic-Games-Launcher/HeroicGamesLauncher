@@ -50,7 +50,7 @@ const GameMode = () => {
         'Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.'
       )}
       description={t(
-        'setting.gamemode.description',
+        'setting.gamemode-description',
         'Ask the system to prioritise the game while it runs'
       )}
       htmlId="gamemode"

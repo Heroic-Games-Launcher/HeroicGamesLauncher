@@ -43,7 +43,7 @@ const AutoVKD3D = () => {
         'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.'
       )}
       description={t(
-        'setting.autovkd3d.description',
+        'setting.autovkd3d-description',
         'Translate DirectX 12 calls to Vulkan'
       )}
       htmlId="autovkd3d"
