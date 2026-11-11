@@ -26,7 +26,7 @@ const EnableFSR = () => {
           "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
         )}
         description={t(
-          'setting.enableFSRHack.description',
+          'setting.enableFSRHack-description',
           'Render the game at a lower resolution and upscale it to gain frames'
         )}
         htmlId="enableFSR"

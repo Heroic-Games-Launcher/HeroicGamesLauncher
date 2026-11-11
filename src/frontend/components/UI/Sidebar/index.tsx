@@ -11,13 +11,17 @@ import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import { useNavigate } from 'react-router-dom'
 import { WebviewTag } from 'electron'
 
-let sidebarSize = localStorage.getItem('sidebar-width') || 240
+const defaultWidth = 240
 const minWidth = 60
 const maxWidth = 400
 const collapsedWidth = 120
 
+const storedWidth = () =>
+  Number(localStorage.getItem('sidebar-width')) || defaultWidth
+
 export default React.memo(function Sidebar() {
   const sidebarEl = useRef<HTMLDivElement | null>(null)
+  const sidebarSize = useRef(defaultWidth)
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
   const [dmState, setDmState] = useState<DownloadManagerState>('idle')
 
@@ -49,13 +53,16 @@ export default React.memo(function Sidebar() {
   useEffect(() => {
     if (!sidebarEl.current) return
 
-    if (Number(sidebarSize) < collapsedWidth) {
-      sidebarEl.current.classList.add('collapsed')
-    } else {
-      sidebarEl.current.classList.remove('collapsed')
-    }
+    sidebarSize.current = storedWidth()
 
-    sidebarEl.current.style.setProperty('--sidebar-width', `${sidebarSize}px`)
+    sidebarEl.current.classList.toggle(
+      'collapsed',
+      sidebarSize.current < collapsedWidth
+    )
+    sidebarEl.current.style.setProperty(
+      '--sidebar-width',
+      `${sidebarSize.current}px`
+    )
   }, [sidebarEl])
 
   useEffect(() => {
@@ -89,7 +96,7 @@ export default React.memo(function Sidebar() {
       document.body.removeEventListener('mouseup', finishDrag)
       document.body.removeEventListener('mouseleave', finishDrag)
       dragging = false
-      localStorage.setItem('sidebar-width', sidebarSize.toString())
+      localStorage.setItem('sidebar-width', sidebarSize.current.toString())
 
       // Re-enable pointer events on webview element
       const webviewEl = document.querySelector<WebviewTag>('webview')
@@ -118,15 +125,13 @@ export default React.memo(function Sidebar() {
         newWidth = maxWidth
       }
 
-      if (sidebarSize !== newWidth) {
-        sidebarSize = newWidth
+      if (sidebarSize.current !== newWidth) {
+        sidebarSize.current = newWidth
 
-        if (sidebarSize < collapsedWidth) {
-          sidebarEl.current.classList.add('collapsed')
-        } else {
-          sidebarEl.current.classList.remove('collapsed')
-        }
-
+        sidebarEl.current.classList.toggle(
+          'collapsed',
+          newWidth < collapsedWidth
+        )
         sidebarEl.current.style.setProperty('--sidebar-width', `${newWidth}px`)
       }
 

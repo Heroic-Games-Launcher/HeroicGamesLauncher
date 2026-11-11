@@ -49,7 +49,7 @@ const AutoDXVK = () => {
         'DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.'
       )}
       description={t(
-        'setting.autodxvk.description',
+        'setting.autodxvk-description',
         'Translate DirectX 9, 10 and 11 calls to Vulkan for better performance'
       )}
       htmlId="autodxvk"

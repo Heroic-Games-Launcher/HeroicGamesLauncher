@@ -18,7 +18,7 @@ const HideChangelogOnStartup = () => {
   return (
     <ToggleSwitch
       description={t(
-        'setting.hideChangelogsOnStartup.description',
+        'setting.hideChangelogsOnStartup-description',
         'Skip the release notes shown after Heroic updates'
       )}
       htmlId="hideChangelogsOnStartup"

@@ -1,15 +1,118 @@
 @mixin colorSystem {
+  /* Color primitives, from the `.color-primitive` collection in Figma.
+     Every ramp runs from 50 (lightest) to 950 (darkest). These are the only
+     place a color may be written as a hex value: role tokens, gradients and
+     overlays below all reference a step of a ramp.
+
+     The values are the dark mode of the collection. Do not use these directly
+     in a component; pick a semantic token instead. */
+  /* Brand */
+  --color-brand-50: #ebfeff;
+  --color-brand-100: #cdfaff;
+  --color-brand-200: #a1f3ff;
+  --color-brand-300: #60e8ff;
+  --color-brand-400: #39d9f9;
+  --color-brand-500: #00b5de;
+  --color-brand-600: #0090ba;
+  --color-brand-700: #087396;
+  --color-brand-800: #146788;
+  --color-brand-900: #0f4962;
+  --color-brand-950: #053247;
+
+  /* Secondary */
+  --color-secondary-50: #f4f3ff;
+  --color-secondary-100: #ece8ff;
+  --color-secondary-200: #dad5ff;
+  --color-secondary-300: #bfb3ff;
+  --color-secondary-400: #a088fd;
+  --color-secondary-500: #855dfa;
+  --color-secondary-600: #7236f1;
+  --color-secondary-700: #6324dd;
+  --color-secondary-800: #521dba;
+  --color-secondary-900: #451a98;
+  --color-secondary-950: #290e67;
+
+  /* Grey */
+  --color-grey-50: #eef5ff;
+  --color-grey-100: #d9e2f0;
+  --color-grey-200: #a8b3c4;
+  --color-grey-300: #7e8a9d;
+  --color-grey-400: #59667a;
+  --color-grey-500: #455164;
+  --color-grey-600: #3d4655;
+  --color-grey-700: #1e2530;
+  --color-grey-800: #1d232c;
+  --color-grey-900: #171c24;
+  --color-grey-950: #0f1216;
+
+  /* Success */
+  --color-success-50: #eafff7;
+  --color-success-100: #cdfeea;
+  --color-success-200: #a0fada;
+  --color-success-300: #63f2c7;
+  --color-success-400: #1dd7a6;
+  --color-success-500: #00c99a;
+  --color-success-600: #00a37f;
+  --color-success-700: #008369;
+  --color-success-800: #006754;
+  --color-success-900: #005547;
+  --color-success-950: #003029;
+
+  /* Warning */
+  --color-warning-50: #fff8e9;
+  --color-warning-100: #fef1d6;
+  --color-warning-200: #fbcead;
+  --color-warning-300: #f8ae79;
+  --color-warning-400: #f49843;
+  --color-warning-500: #f17c27;
+  --color-warning-600: #e26b14;
+  --color-warning-700: #bc4f12;
+  --color-warning-800: #953d17;
+  --color-warning-900: #6e2f15;
+  --color-warning-950: #411a09;
+
+  /* Error */
+  --color-error-50: #feeeee;
+  --color-error-100: #fed6d6;
+  --color-error-200: #fbadb1;
+  --color-error-300: #f97881;
+  --color-error-400: #f5425a;
+  --color-error-500: #f61d44;
+  --color-error-600: #e31346;
+  --color-error-700: #bc1244;
+  --color-error-800: #961641;
+  --color-error-900: #791536;
+  --color-error-950: #330516;
+
+  /* Opacity. The collection's 100/200/300 are the darkest grey at 80 %, 60 %
+     and 40 %, so they are built from the ramp rather than written as rgba(). */
+  --color-overlay-100: color-mix(
+    in srgb,
+    var(--color-grey-950) 80%,
+    transparent
+  );
+  --color-overlay-200: color-mix(
+    in srgb,
+    var(--color-grey-950) 60%,
+    transparent
+  );
+  --color-overlay-300: color-mix(
+    in srgb,
+    var(--color-grey-950) 40%,
+    transparent
+  );
+
   /* General Colors as on Figma. Do not add new colors here */
   /* Brand */
   --brand-primary: #1de8f5;
   --brand-primary-hover: #0db4be;
-  --brand-secondary: #bfb3ff;
-  --brand-secondary-hover: #dad5ff;
-  --brand-text-01: #caf3fd;
-  --brand-text-02: #a5edfd;
-  --brand-text-03: #6fd9f7;
-  --brand-text-04: #e0d0ff;
-  --brand-text-05: #9ea3fd;
+  --brand-primary-tint-01: #caf3fd;
+  --brand-primary-tint-02: #a5edfd;
+  --brand-primary-tint-03: #6fd9f7;
+  --brand-secondary: var(--color-secondary-300);
+  --brand-secondary-hover: var(--color-secondary-200);
+  --brand-secondary-tint-01: #e0d0ff;
+  --brand-secondary-tint-02: #9ea3fd;
 
   /* Neutral */
   --neutral-01: #070a0b;
@@ -24,8 +127,8 @@
   /* Status */
   --status-default: #d2d2d2;
   --status-success: #0ce396;
-  --status-warning: #f8ae79;
-  --status-danger: #f97881;
+  --status-warning: var(--color-warning-300);
+  --status-danger: var(--color-error-300);
   --status-info: #2ceac7;
   --primary-hover: #0db4be;
   --primary-active: #88ebf1;
@@ -46,16 +149,27 @@
   --accent: #8bffff; // accent-01 on figma
   --accent-02: #484daf5b; // accent-02 on figma
   --accent-overlay: #b098e2; // accent-02 on figma
-  --eighty-percent-black: #000000cc;
-  --sixty-percent-black: #00000099;
+
+  /* Scrims. Kept under their old names for the themes that already use them,
+     but both now resolve to the opacity ramp. */
+  --eighty-percent-black: var(--color-overlay-100);
+  --sixty-percent-black: var(--color-overlay-200);
 
   /* Gradient */
-  --gradient-01: linear-gradient(270.36deg, #86b6ff 1.57%, #18dfec 96.46%);
-  --gradient-02: linear-gradient(270.36deg, #1de8f5 1.57%, #4b93ff 96.46%);
+  --gradient-01: linear-gradient(
+    270.36deg,
+    var(--color-secondary-300) 1.57%,
+    var(--color-brand-400) 96.46%
+  );
+  --gradient-02: linear-gradient(
+    270.36deg,
+    var(--color-brand-500) 1.57%,
+    var(--color-secondary-500) 96.46%
+  );
   --gamecard-title-color: var(--eighty-percent-black);
   --gradient-gamecard: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.418) 1.8%,
+    var(--color-overlay-300) 1.8%,
     var(--gamecard-title-color) 45%
   );
   --gradient-body-background: linear-gradient(

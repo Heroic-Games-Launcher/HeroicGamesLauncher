@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import { ProgressDialog } from '../ProgressDialog'
 import WinetricksSearchBar from './WinetricksSearch'
+import Button from '../Button'
 import { useTranslation } from 'react-i18next'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import { Runner } from 'common/types'
@@ -125,13 +126,13 @@ export default function Winetricks({ onClose, runner }: Props) {
                 installed={installed}
                 onInstallClicked={install}
               />
-              <button
-                className="button outline"
-                onClick={async () => launchWinetricks()}
+              <Button
                 disabled={installing}
+                onClick={async () => launchWinetricks()}
+                variant="secondary"
               >
                 {t('winetricks.openGUI', 'Open Winetricks GUI')}
-              </button>
+              </Button>
             </div>
           )}
           {loadingAvailable && (

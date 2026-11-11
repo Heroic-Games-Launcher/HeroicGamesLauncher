@@ -15,7 +15,7 @@ const DownloadNoHTTPS = () => {
       value={downloadNoHttps}
       handleChange={() => setDownloadNoHttps(!downloadNoHttps)}
       description={t(
-        'setting.download-no-https.description',
+        'setting.download-no-https-description',
         'Skip HTTPS when fetching game files, useful with a local CDN cache'
       )}
       title={t(

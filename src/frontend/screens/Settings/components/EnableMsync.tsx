@@ -25,7 +25,7 @@ const EnableMsync = () => {
         'Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
       )}
       description={t(
-        'setting.msync.description',
+        'setting.msync-description',
         'Speed up multi-threaded games using macOS synchronisation primitives'
       )}
       htmlId="msyncToggle"

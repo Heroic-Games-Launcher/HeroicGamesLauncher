@@ -1,61 +1,63 @@
 .Badge {
-  --badge-color: var(--text-secondary);
+  --badge-color: var(--text-neutral-muted);
+  --badge-surface: color-mix(
+    in oklab,
+    var(--badge-color) 26%,
+    var(--panel-base)
+  );
 
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs-fixed);
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: var(--space-2xs-fixed) var(--space-sm-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--eyebrow);
-  font-weight: var(--medium);
+  font-weight: var(--semibold);
   line-height: var(--leading-snug, 1.3);
   white-space: nowrap;
-  background: color-mix(in oklab, var(--badge-color) 20%, transparent);
-  border-color: color-mix(in oklab, var(--badge-color) 42%, transparent);
-  color: color-mix(
-    in oklab,
-    var(--badge-color) 72%,
-    var(--on-panel, var(--text-default))
-  );
+  background: var(--badge-surface);
+  color: color-mix(in oklab, var(--badge-color) 62%, var(--on-panel));
 }
 
 .Badge svg {
   flex-shrink: 0;
+  color: var(--badge-color);
 }
 
 .Badge--neutral {
-  --badge-color: var(--text-secondary);
+  --badge-color: var(--text-neutral-muted);
+  --badge-surface: var(--bg-surface-raised);
 }
 
 .Badge--accent {
-  --badge-color: var(--secondary, var(--accent));
+  --badge-color: var(--role-accent);
 }
 
 .Badge--info {
-  --badge-color: var(--primary, var(--status-info, var(--accent)));
+  --badge-color: var(--role-info);
 }
 
 .Badge--success {
-  --badge-color: var(--success, #10b981);
+  --badge-color: var(--role-success);
 }
 
 .Badge--warning {
-  --badge-color: var(--status-warning, #f59e0b);
+  --badge-color: var(--role-warning);
 }
 
 .Badge--error {
-  --badge-color: var(--danger, #ef4444);
+  --badge-color: var(--role-destructive);
 }
 
 .Badge--onOverlay {
-  background: color-mix(
+  --badge-surface: color-mix(
     in oklab,
     var(--badge-color) 34%,
     var(--card-overlay-bg, rgba(10, 14, 19, 0.88))
   );
-  border-color: color-mix(in oklab, var(--badge-color) 70%, transparent);
+
   color: var(--ink-on-overlay, #f2f5fa);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
