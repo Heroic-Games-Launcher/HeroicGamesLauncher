@@ -5,7 +5,8 @@
         "copy": "Kopiera",
         "copied": "Kopierat!",
         "loading": "Laddar",
-        "error": "Fel, försök med en annan kod"
+        "error": "Fel, försök med en annan kod",
+        "close": "Stäng"
     },
     "message": {
         "part1": "För att logga in och installera spel behöver du först följa stegen nedan:",

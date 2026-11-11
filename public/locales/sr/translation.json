@@ -252,7 +252,8 @@
         "store": "Продавница",
         "title": "Наслов игре",
         "status": "Статус",
-        "modify": "Измена инсталације"
+        "modify": "Измена инсталације",
+        "settings": "Подешавања игре"
     },
     "GameSettings": "Подешавања игре",
     "generic": {
@@ -287,7 +288,9 @@
         "uncategorized": "Некатегоризовано",
         "show_updates_only": "Прикажи само игре са ажурирањима",
         "show_third_party_managed_only": "",
-        "only": ""
+        "only": "",
+        "platforms": "Платформа",
+        "stores": "Продавница"
     },
     "favourites": "Омиљено",
     "gog-store": "Продавница GOG",
@@ -727,7 +730,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "tools": {
+            "selectExe": "Изабери EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -754,7 +760,8 @@
             "wineExt": "Вине Ектенсионс",
             "gamescope": "",
             "systemInformation": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Категорије"
         },
         "default_hint": "Промене у овом одељку се примењују само као подразумеване вредности приликом инсталирања игара. Ако желите да промените подешавања већ инсталиране игре, користите дугме Подешавања на страници игре.",
         "eacRuntime": {
@@ -844,6 +851,10 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Преузимања",
+            "launch": "Опције покретања..."
         }
     },
     "toolbox": {

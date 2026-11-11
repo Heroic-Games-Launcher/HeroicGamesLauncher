@@ -1,0 +1,9 @@
+body {
+  height: auto;
+  min-height: 100vh;
+  padding: 0 !important;
+}
+
+.sb-show-main.sb-main-padded {
+  padding: var(--space-lg-fixed, 20px);
+}

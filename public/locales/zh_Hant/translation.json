@@ -11,7 +11,10 @@
         "actions_font_family_default": "Actions Font Family (Default:",
         "content_font_family_default": "內容字型家族（預設：",
         "disable_smooth_scrolling": "",
-        "disable_animations": ""
+        "disable_animations": "",
+        "section": {
+            "library": "遊戲庫"
+        }
     },
     "add_game": "新增遊戲",
     "All": "全部",
@@ -199,7 +202,8 @@
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步",
-        "continue": "繼續"
+        "continue": "繼續",
+        "close": "關閉"
     },
     "controller": {
         "hints": {
@@ -252,7 +256,8 @@
         "status": "狀態",
         "store": "商店",
         "title": "遊戲名稱",
-        "modify": "修改安裝"
+        "modify": "修改安裝",
+        "settings": "遊戲設定"
     },
     "generic": {
         "error": {
@@ -287,7 +292,9 @@
         "uncategorized": "未分類",
         "only": "僅",
         "show_updates_only": "",
-        "no_categories": ""
+        "no_categories": "",
+        "platforms": "Platform",
+        "stores": "商店"
     },
     "help": {
         "amdfsr": "AMD FSR 通過在全螢幕模式下提高較低解析度來提高畫面幀率。影像品質從 5 提高到 1，但代價是效能稍有下降。啟用可能會提高效能。",
@@ -798,6 +805,10 @@
         "steamRuntime": {
             "label": "使用 Steam 執行環境",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "開啟",
+            "selectExe": "選擇 EXE"
         }
     },
     "settings": {
@@ -836,7 +847,8 @@
             "wineExt": "Wine 擴充元件",
             "systemInformation": "系統資訊",
             "gamescope": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "分類"
         },
         "open-config-file": "開啟配置檔案",
         "reset-heroic": "重置 Heroic",
@@ -914,13 +926,20 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "下載",
+            "experimental": "實驗性功能",
+            "launch": "啟動選項…",
+            "wineTools": "工具"
         }
     },
     "Settings": "設定",
     "sidebar": {
         "collapse": "收起側邊欄",
         "uncollapse": "展開側邊欄",
-        "console": ""
+        "console": "",
+        "storesLogin": "儲存登入訊息"
     },
     "status": {
         "installing": "正在安裝",
@@ -951,7 +970,8 @@
         "show": "顯示"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Changes in this table are not saved automatically. Click the + button",
+        "add": "新增"
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -1267,5 +1287,6 @@
         "add": "新增",
         "cancel": "取消",
         "warning": "警告"
-    }
+    },
+    "General": "一般"
 }

@@ -11,7 +11,10 @@
         "actions_font_family_default": "Famiglia Font Azioni (Predefinito: {{fontFamily}})",
         "content_font_family_default": "Famiglia Font Contenuto (Predefinito: {{fontFamily}})",
         "disable_smooth_scrolling": "Disabilita lo smooth scrolling (richiede il riavvio)",
-        "disable_animations": "Disattiva le animazioni dell’interfaccia"
+        "disable_animations": "Disattiva le animazioni dell’interfaccia",
+        "section": {
+            "library": "Libreria"
+        }
     },
     "add_game": "Aggiungi Gioco",
     "All": "Tutto",
@@ -207,7 +210,8 @@
         "sync": "Sincronizza",
         "syncing": "Sincronizzazione in corso",
         "unsync": "Annulla sincronizzazione",
-        "continue": "Continua"
+        "continue": "Continua",
+        "close": "Chiudi"
     },
     "controller": {
         "hints": {
@@ -261,7 +265,8 @@
         "status": "Stato",
         "store": "Negozio",
         "title": "Titolo del gioco",
-        "modify": "Modifica Installazione"
+        "modify": "Modifica Installazione",
+        "settings": "Impostazioni di gioco"
     },
     "generic": {
         "error": {
@@ -296,7 +301,9 @@
         "select_all": "Seleziona Tutto",
         "no_categories": "Nessuna categoria personalizzata. Aggiungi categorie utilizzando il menu di ogni gioco.",
         "show_third_party_managed_only": "Mostra solo quelle gestite da terze parti",
-        "show_updates_only": "Mostra giochi solo con aggiornamenti"
+        "show_updates_only": "Mostra giochi solo con aggiornamenti",
+        "platforms": "Platform",
+        "stores": "Negozi"
     },
     "help": {
         "amdfsr": "FSR di AMD aiuta a incrementare il framerate grazie all'upscaling delle risoluzioni più basse in modalità schermo intero. La qualità dell'immagine aumenta da 5 a 1 al costo di un leggero calo delle prestazioni. L'attivazione può migliorare le prestazioni.",
@@ -825,6 +832,10 @@
         "steamRuntime": {
             "label": "Usa Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Apri",
+            "selectExe": "Seleziona l'EXE"
         }
     },
     "settings": {
@@ -863,7 +874,8 @@
             "wineExt": "Estensioni di Wine",
             "systemInformation": "Informazioni di Sistema",
             "gamescope": "Gamescope",
-            "legacy": "Legacy"
+            "legacy": "Legacy",
+            "categories": "Categorie"
         },
         "open-config-file": "Apri File di Configurazione",
         "reset-heroic": "Reset Heroic",
@@ -941,13 +953,21 @@
             "help": {
                 "description": "Fornisci la tua chiave API SteamGridDB per abilitare la ricerca delle copertine dei giochi. La chiave viene memorizzata in forma crittografata se il tuo sistema lo supporta. Puoi ottenerne una su {{url}}"
             }
+        },
+        "section": {
+            "downloads": "Download",
+            "experimental": "Funzioni Sperimentali",
+            "launch": "Opzioni di avvio",
+            "wineTools": "Strumenti",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "Impostazioni",
     "sidebar": {
         "collapse": "Nascondi barra laterale",
         "uncollapse": "Mostra barra laterale",
-        "console": "Modalità Console"
+        "console": "Modalità Console",
+        "storesLogin": "Memorizza login"
     },
     "status": {
         "installing": "Installazione in corso",
@@ -978,7 +998,8 @@
         "show": "Mostra"
     },
     "two_col_table": {
-        "save_hint": "Le modifiche a questa tabella non sono salvate automaticamente. Clicca il pulsante +"
+        "save_hint": "Le modifiche a questa tabella non sono salvate automaticamente. Clicca il pulsante +",
+        "add": "Aggiungi"
     },
     "Update Available!": "Aggiornamento Disponibile!",
     "userselector": {
@@ -1085,7 +1106,8 @@
     },
     "emptyLibrary": {
         "noResults": "I filtri attuali non hanno prodotto risultati.",
-        "noGames": "La tua libreria è vuota.<br /><br />Clicca <4>qui</4> per accedere con i tuoi account Epic, GOG.com e Amazon. I tuoi giochi appariranno qui nella Libreria.<br /><br />Per usare giochi o app da altre sorgenti, clicca <br /> per aggiungerli manualmente."
+        "noGames": "La tua libreria è vuota.<br /><br />Clicca <4>qui</4> per accedere con i tuoi account Epic, GOG.com e Amazon. I tuoi giochi appariranno qui nella Libreria.<br /><br />Per usare giochi o app da altre sorgenti, clicca <br /> per aggiungerli manualmente.",
+        "noResultsTitle": "Nessun gioco trovato."
     },
     "tour": {
         "back": "Indietro",
@@ -1330,5 +1352,6 @@
         "add": "Aggiungi",
         "cancel": "Annulla",
         "warning": "Avviso"
-    }
+    },
+    "General": "Generale"
 }

@@ -97,7 +97,9 @@
         "browse_files": "Parcourir les fichiers",
         "browse_wine_prefix": "Parcourir le préfixe Wine",
         "play": "JOUER",
-        "edit-game": "Modifier l'application/le jeu"
+        "edit-game": "Modifier l'application/le jeu",
+        "favourite": "Ajouter aux favoris",
+        "unfavourite": "Retirer des favoris"
     },
     "cloud_save_unsupported": "Non-compatible",
     "disabled": "Désactivé",
@@ -133,7 +135,8 @@
         "modify": "Modifier l’installation",
         "extra_info": "Informations complémentaires",
         "install_info": "Installation",
-        "achievements": "Accomplissements"
+        "achievements": "Accomplissements",
+        "details": "Caractéristiques du jeu"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -163,7 +166,11 @@
         "installedInfo": "Informations sur l’installation",
         "protondb-compatibility-info": "Niveau de compatibilité Proton",
         "steamdeck-compatibility-info": "Compatibilité avec le SteamDeck",
-        "third-party-app": "Gestionnaire tiers"
+        "third-party-app": "Gestionnaire tiers",
+        "genres": "Genres",
+        "steamdeck": {
+            "unsupported": "Non-supporté"
+        }
     },
     "install": {
         "disk-space-left": "Espace disponible",
@@ -227,7 +234,8 @@
             "select-path": "Choisissez un dossier d'installation pour Steam",
             "specificVersion-pt1": "Ceci téléchargera une version de Steam spécifique depuis",
             "specificVersion-pt2": "archive.org"
-        }
+        },
+        "releaseDate": "Date de publication"
     },
     "launch": {
         "options": "Paramètres de lancement...",

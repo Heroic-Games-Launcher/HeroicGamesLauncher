@@ -153,7 +153,10 @@
         "protondb-compatibility-info": "",
         "apple-gaming-wiki": "",
         "third-party-app": "",
-        "installedPlatform": ""
+        "installedPlatform": "",
+        "steamdeck": {
+            "unsupported": "მხარდაუწერელი"
+        }
     },
     "install": {
         "anticheat-warning": {

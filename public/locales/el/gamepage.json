@@ -96,7 +96,9 @@
         "browse_files": "Περιήγηση Αρχείων",
         "browse_wine_prefix": "Περιήγηση στο πρόθεμα Wine",
         "play": "ΠΑΙΞΤΕ",
-        "edit-game": "Edit App/Game"
+        "edit-game": "Edit App/Game",
+        "favourite": "Προσθήκη στα Αγαπημένα",
+        "unfavourite": "Κατάργηση από τα Αγαπημένα"
     },
     "cloud_save_unsupported": "Μη υποστηριζόμενο",
     "disabled": "Απενεργοποιημένο",
@@ -132,7 +134,8 @@
         "modify": "Τροποποίηση Εγκατάστασης",
         "install_info": "Πληροφορίες εγκατάστασης",
         "extra_info": "Επιπρόσθετες πληροφορίες",
-        "achievements": "Επιτεύγματα"
+        "achievements": "Επιτεύγματα",
+        "details": "Πληροφορίες παιχνιδιού"
     },
     "gamecard": {
         "moving": "Μετακίνηση",
@@ -162,7 +165,10 @@
         "installedInfo": "Εγκατεστημένες πληροφορίες",
         "protondb-compatibility-info": "Επίπεδο συμβατότητας πρωτονίων",
         "steamdeck-compatibility-info": "Συμβατότητα SteamDeck",
-        "third-party-app": "Third-Party Διαχειριστής"
+        "third-party-app": "Third-Party Διαχειριστής",
+        "steamdeck": {
+            "unsupported": "Unsupported"
+        }
     },
     "install": {
         "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",
@@ -202,7 +208,8 @@
         "steam": {
             "installing": "Εγκατάσταση",
             "pleaseWait": "Please wait..."
-        }
+        },
+        "releaseDate": "Ημερομηνία κυκλοφορίας"
     },
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης...",

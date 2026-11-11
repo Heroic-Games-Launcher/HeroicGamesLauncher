@@ -97,7 +97,9 @@
         "browse_files": "Navegar pelos arquivos",
         "browse_wine_prefix": "Navegar pelo prefixo Wine",
         "play": "JOGAR",
-        "edit-game": "Editar jogo"
+        "edit-game": "Editar jogo",
+        "favourite": "Adicionar aos favoritos",
+        "unfavourite": "Remover dos favoritos"
     },
     "cloud_save_unsupported": "Não suportado",
     "disabled": "Desabilitado",
@@ -133,7 +135,8 @@
         "modify": "Modificar instalação",
         "extra_info": "Informações extras",
         "install_info": "Dados da instalação",
-        "achievements": "Conquistas"
+        "achievements": "Conquistas",
+        "details": "Game details"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -163,7 +166,11 @@
         "game-scores": "Pontuações do jogo",
         "protondb-compatibility-info": "Compatibilidade com o Proton",
         "steamdeck-compatibility-info": "Compatibilidade com o Steam Deck",
-        "third-party-app": "Gerenciador de aplicativos de terceiros"
+        "third-party-app": "Gerenciador de aplicativos de terceiros",
+        "genres": "Gêneros",
+        "steamdeck": {
+            "unsupported": "Não suportado"
+        }
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
@@ -228,7 +235,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "feito para funcionar através do Heroic, desde que as versões da Steam não irão funcionar no macOS.",
             "hardware": "Apple Silicon M1+ (Para Macs Intel, a Steam irá funcionar com Crossover)"
-        }
+        },
+        "releaseDate": "Data de lançamento"
     },
     "launch": {
         "options": "Opções de inicialização...",

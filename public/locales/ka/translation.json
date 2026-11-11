@@ -369,7 +369,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "tools": {
+            "open": "გახსნა"
+        }
     },
     "window": {
         "close": "დახურვა",
@@ -424,7 +427,8 @@
         "show_updates_only": "",
         "show_installed_only": "",
         "show_available_games": "",
-        "no_categories": ""
+        "no_categories": "",
+        "stores": "მაღაზიები"
     },
     "help": {
         "title": {
@@ -599,7 +603,8 @@
             "games_settings_defaults": "",
             "systemInformation": "",
             "sync": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "კატეგორიები"
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -679,6 +684,9 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "გადმოწერები"
         }
     },
     "Settings": "პარამეტრები",
@@ -721,7 +729,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "ბიბლიოთეკა"
+        }
     },
     "anticheat": {
         "anticheats": "ანტიჩიტები",
@@ -749,7 +760,8 @@
         "cancel": "გაუქმება",
         "continue": "გაგრძელება",
         "go_to_library": "",
-        "login": "შესვლა"
+        "login": "შესვლა",
+        "close": "დახურვა"
     },
     "categories-manager": {
         "add": "დამატება",
@@ -1014,7 +1026,8 @@
     "amazon-luna": "",
     "gog-store": "",
     "two_col_table": {
-        "save_hint": ""
+        "save_hint": "",
+        "add": "დამატება"
     },
     "login": {
         "amazon": "",
@@ -1199,5 +1212,6 @@
         "add": "დამატება",
         "cancel": "გაუქმება",
         "warning": "გაფრთხილება"
-    }
+    },
+    "General": "ზოგადი"
 }

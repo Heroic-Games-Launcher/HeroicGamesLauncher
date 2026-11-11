@@ -50,6 +50,7 @@
         "anticheats": "Anticheats",
         "multiplayer_may_not_work": "Multiplayer features may not work due to denied or broken anticheat support.",
         "reference": "Reference",
+        "removed": "Anticheat removed",
         "source": "Source",
         "status": "Status",
         "title": "This game includes anticheat software"
@@ -560,7 +561,9 @@
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
-    "error": "Error",
+    "error": {
+        "recovery": "Refreshing the library usually fixes it. Clearing the cache or resetting Heroic are the next steps if it does not."
+    },
     "externalLink": {
         "dontAskAgain": "Don't ask again",
         "warning": "You are about to open an external link."
@@ -916,7 +919,9 @@
         "addgamestoapplications": "Add games to Applications automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam-description": "Create a Steam shortcut whenever a game is installed",
         "advertiseAvxForRosetta": "Advertise AVX for Rosetta",
+        "advertiseAvxForRosetta-description": "Tell games that AVX is available, required by some titles under Rosetta",
         "after-launch-script-path": "Select a script to run after the game exits",
         "allow_installation_broken_anticheat": {
             "confirmation": {
@@ -938,13 +943,18 @@
         },
         "analyticsOptIn": "Send anonymous data to help Heroic development",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autodxvk-description": "Translate DirectX 9, 10 and 11 calls to Vulkan for better performance",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
+        "autodxvknvapi-description": "Expose NVIDIA features such as DLSS to games running through DXVK",
         "autosync": "Autosync Saves",
         "autoUpdateGames": "Automatically update games",
+        "autoUpdateGames-description": "Download game updates as soon as they are released",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "autovkd3d-description": "Translate DirectX 12 calls to Vulkan",
         "before-launch-script-path": "Select a script to run before the game is launched",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
+        "checkForUpdatesOnStartup-description": "Look for a new Heroic version every time the app opens",
         "crossover-version": "Crossover/Wine Version",
         "custom_css": {
             "warning": "Warning: this applies to the whole frontend. That means the wrong style can render Heroic unusable. If needed, the setting can be changed manually in `~/.config/heroic/config.json`. Do NOT copy styles from sources you don't trust."
@@ -971,13 +981,18 @@
         "disableGOGAffiliate": "Disable GOG affiliate link",
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
+        "disableUMU-description": "Launch Proton directly instead of going through the umu launcher",
         "discordRPC": "Enable Discord Rich Presence",
+        "discordRPC-description": "Show the game you are playing on your Discord profile",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https-description": "Skip HTTPS when fetching game files, useful with a local CDN cache",
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
+        "dxfpslimit-description": "Cap the frame rate of DirectX games to reduce heat and power draw",
         "egs-sync": "Sync with Installed Epic Games",
         "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
+        "enableFSRHack-description": "Render the game at a lower resolution and upscale it to gain frames",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -1000,7 +1015,9 @@
             "updating": "Updating..."
         },
         "esync": "Enable Esync",
+        "esync-description": "Speed up multi-threaded games using eventfd synchronisation",
         "exit-to-tray": "Exit to System Tray",
+        "exit-to-tray-description": "Keep Heroic running in the system tray instead of quitting",
         "experimental_features": {
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
@@ -1024,7 +1041,9 @@
         },
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
+        "fsync-description": "Speed up multi-threaded games using futex synchronisation",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
+        "gamemode-description": "Ask the system to prioritise the game while it runs",
         "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
         "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
@@ -1035,9 +1054,12 @@
             "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
+        "hdr-description": "Run the game through Wayland so HDR output can be used",
         "hide-window-on-protocol-launch": "Hide Heroic window when launching games from heroic:// links",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup-description": "Skip the release notes shown after Heroic updates",
         "ignoreGameUpdates": "Ignore game updates",
+        "ignoreGameUpdates-description": "Never update this game, even when a new version is available",
         "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",
@@ -1097,6 +1119,7 @@
             }
         },
         "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
+        "mangohud-description": "Show an overlay with frame rate, temperatures and system load",
         "manualsync": {
             "download": "Download",
             "forcedownload": "Force Download",
@@ -1113,6 +1136,7 @@
             "description": "Send Heroic to the background once a game starts"
         },
         "msync": "Enable Msync",
+        "msync-description": "Speed up multi-threaded games using macOS synchronisation primitives",
         "no-tray-icon": "Hide System Tray Icon (requires restart)",
         "nvidiaprime": {
             "description": "Force use of NVIDIA Optimus or AMD Dynamic Switchable Graphics dGPU. ONLY use this for OpenGL and Vulkan games."
@@ -1121,11 +1145,13 @@
             "description": "Run the game on the dedicated NVIDIA GPU instead of the integrated one"
         },
         "offlinemode": "Run Game Offline",
+        "offlinemode-description": "Launch this game without connecting to the store",
         "playtimeSync": {
             "description": "Keep your recorded playtime in sync with the store"
         },
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
+        "preferSystemLibs-description": "Use the libraries installed on your system instead of the bundled ones",
         "runexe": {
             "description": "Run any executable inside this prefix, such as an installer",
             "title": "Run EXE on Prefix"
@@ -1151,8 +1177,10 @@
             "wine_selector_warning": "Valve versions of Proton are ignored by default, enable them in the Advanced global settings"
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
+        "showfps-description": "Draw a frame rate counter on top of the game",
         "showMetalOverlay": "Show Stats Overlay",
         "start-in-console-mode": "Start in Console Mode",
+        "start-in-console-mode-description": "Open Heroic in the big-picture interface built for controllers",
         "start-in-tray": "Start Minimized",
         "steamLaunchTarget": {
             "automatic": "Automatic",

@@ -1,6 +1,10 @@
 .InfoIcon {
   position: relative;
 
+  & > .helpIcon {
+    color: var(--accent);
+  }
+
   & > span {
     display: none;
     right: 0px;

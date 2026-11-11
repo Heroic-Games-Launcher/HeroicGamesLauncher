@@ -11,7 +11,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "കളിശാല"
+        }
     },
     "add_game": "Add Game",
     "All": "എല്ലാം",
@@ -199,7 +202,8 @@
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ",
-        "continue": "തുടരുക"
+        "continue": "തുടരുക",
+        "close": "അടയ്ക്കുക"
     },
     "controller": {
         "hints": {
@@ -253,7 +257,8 @@
         "status": "Status",
         "store": "Store",
         "title": "Game Title",
-        "modify": ""
+        "modify": "",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -288,7 +293,9 @@
         "uncategorized": "വർഗ്ഗീകരിക്കാത്തത്",
         "show_support_offline_only": "",
         "show_third_party_managed_only": "",
-        "show_updates_only": ""
+        "show_updates_only": "",
+        "platforms": "Platform",
+        "stores": "Stores"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -799,6 +806,10 @@
         "steamRuntime": {
             "label": "Use Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "തുറക്കൂ",
+            "selectExe": "EXE തിരഞ്ഞെടുക്കൂ"
         }
     },
     "settings": {
@@ -837,7 +848,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "ഗെയിംസ്കോപ്",
             "systemInformation": "സിസ്റ്റം വിവരങ്ങൾ",
-            "legacy": ""
+            "legacy": "",
+            "categories": "വിഭാഗങ്ങൾ"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -915,6 +927,12 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "പരീക്ഷണാത്മകമായ ഫീച്ചറുകൾ",
+            "launch": "വിക്ഷേപണ ബദലുകൾ...",
+            "wineTools": "Tools"
         }
     },
     "Settings": "ക്രമീകരണങ്ങള്",
@@ -1116,7 +1134,8 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "noResultsTitle": "കളികളൊന്നും കണ്ടെത്തിയില്ല"
     },
     "zoom-store": "",
     "wineExplanation": {
@@ -1269,5 +1288,6 @@
     "common": {
         "cancel": "Cancel",
         "warning": "Warning"
-    }
+    },
+    "General": "പൊതുവായവ"
 }

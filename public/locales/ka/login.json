@@ -5,7 +5,8 @@
         "loading": "იტვირთება",
         "open": "",
         "login": "შესვლა",
-        "error": ""
+        "error": "",
+        "close": "დახურვა"
     },
     "welcome": "მოგესალმებით!",
     "message": {

@@ -11,7 +11,10 @@
         "titles_always_visible": "Uvijek prikazuj naslove u knjižnici",
         "disable_smooth_scrolling": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "Biblioteka"
+        }
     },
     "add_game": "Dodaj igru",
     "All": "Sve",
@@ -199,7 +202,8 @@
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj",
-        "continue": "Nastavi"
+        "continue": "Nastavi",
+        "close": "Zatvori"
     },
     "controller": {
         "hints": {
@@ -253,7 +257,8 @@
         "status": "Status",
         "store": "Trgovina",
         "title": "Naslov igre",
-        "modify": "Promjeni instalaciju"
+        "modify": "Promjeni instalaciju",
+        "settings": "Postavke igre"
     },
     "generic": {
         "error": {
@@ -288,7 +293,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Stores"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -799,6 +806,10 @@
         "steamRuntime": {
             "label": "Koristi radno vrijeme Steama",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Otvori",
+            "selectExe": "Odaberi EXE"
         }
     },
     "settings": {
@@ -837,7 +848,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "",
             "systemInformation": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kategorije"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -915,6 +927,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Opcije za pokretanje...",
+            "wineTools": "Alati"
         }
     },
     "Settings": "Postavke",
@@ -952,7 +969,8 @@
         "show": "Pokaži"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Changes in this table are not saved automatically. Click the + button",
+        "add": "Dodaj"
     },
     "Update Available!": "Dostupno ažuriranje!",
     "userselector": {
@@ -1116,7 +1134,8 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "noResultsTitle": "Igrice nisu pronađene"
     },
     "zoom-store": "",
     "wineExplanation": {
@@ -1268,5 +1287,6 @@
         "add": "Dodaj",
         "cancel": "Odustani",
         "warning": "Upozorenje"
-    }
+    },
+    "General": "Općenito"
 }

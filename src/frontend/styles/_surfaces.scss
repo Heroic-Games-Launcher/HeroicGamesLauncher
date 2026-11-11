@@ -14,7 +14,7 @@
     from var(--panel-base) clamp(0.36, (0.62 - l) * 1000, 0.79) 0 h
   );
   --on-panel-faint: oklch(
-    from var(--panel-base) clamp(0.5, (0.62 - l) * 1000, 0.6) 0 h
+    from var(--panel-base) clamp(0.44, (0.62 - l) * 1000, 0.66) 0 h
   );
   --on-nav: oklch(
     from var(--nav-base) clamp(0.14, (0.62 - l) * 1000, 0.97) 0 h
@@ -83,4 +83,83 @@
   --panel-glass: color-mix(in oklab, var(--panel-surface) 70%, transparent);
   --panel-border: color-mix(in oklab, var(--on-panel) 18%, transparent);
   --panel-divider: color-mix(in oklab, var(--on-panel) 16%, transparent);
+
+  --role-brand: var(--navbar-accent, var(--accent));
+  --role-accent: var(--brand-secondary);
+  --role-warning: var(--status-warning);
+  --role-destructive: var(--status-danger);
+  --role-success: var(--status-success);
+  --role-info: var(--status-info);
+
+  --text-neutral: var(--on-panel);
+  --text-neutral-muted: var(--on-panel-muted);
+  --text-neutral-faint: var(--on-panel-faint);
+  --text-brand: color-mix(in oklab, var(--role-brand) 55%, var(--on-panel));
+  --text-accent: color-mix(in oklab, var(--role-accent) 55%, var(--on-panel));
+  --text-warning: color-mix(in oklab, var(--role-warning) 48%, var(--on-panel));
+  --text-destructive: color-mix(
+    in oklab,
+    var(--role-destructive) 58%,
+    var(--on-panel)
+  );
+  --text-success: color-mix(in oklab, var(--role-success) 52%, var(--on-panel));
+  --text-on-brand: oklch(
+    from var(--role-brand) clamp(0, (0.62 - l) * 1000, 1) 0 h
+  );
+
+  --bg-surface: var(--panel-surface);
+  --bg-surface-raised: color-mix(
+    in oklab,
+    var(--panel-base) 86%,
+    var(--on-panel)
+  );
+  --bg-brand: var(--role-brand);
+  --bg-brand-subtle: color-mix(in oklab, var(--role-brand) 16%, transparent);
+  --bg-accent: var(--role-accent);
+  --bg-accent-subtle: color-mix(in oklab, var(--role-accent) 16%, transparent);
+  --bg-warning: var(--role-warning);
+  --bg-warning-subtle: color-mix(
+    in oklab,
+    var(--role-warning) 16%,
+    transparent
+  );
+  --bg-destructive: var(--role-destructive);
+  --bg-destructive-subtle: color-mix(
+    in oklab,
+    var(--role-destructive) 16%,
+    transparent
+  );
+  --bg-success: var(--role-success);
+  --bg-success-subtle: color-mix(
+    in oklab,
+    var(--role-success) 16%,
+    transparent
+  );
+  --bg-info-subtle: color-mix(in oklab, var(--role-info) 16%, transparent);
+  --bg-disabled: color-mix(in oklab, var(--on-panel) 12%, var(--panel-base));
+
+  --icon-neutral: var(--on-panel);
+  --icon-neutral-muted: var(--on-panel-muted);
+  --icon-brand: var(--text-brand);
+  --icon-accent: var(--text-accent);
+  --icon-warning: var(--text-warning);
+  --icon-destructive: var(--text-destructive);
+  --icon-success: var(--text-success);
+
+  --border-subtle: var(--panel-border);
+  --border-brand: color-mix(in oklab, var(--role-brand) 46%, transparent);
+  --border-warning: color-mix(in oklab, var(--role-warning) 46%, transparent);
+  --border-destructive: color-mix(
+    in oklab,
+    var(--role-destructive) 46%,
+    transparent
+  );
+  --border-success: color-mix(in oklab, var(--role-success) 46%, transparent);
+  --border-accent: color-mix(in oklab, var(--role-accent) 46%, transparent);
+
+  --gradient-brand: linear-gradient(
+    100deg,
+    var(--role-brand) 0%,
+    var(--role-accent) 100%
+  );
 }

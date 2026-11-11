@@ -29,7 +29,7 @@ const AdvertiseAvxForRosetta = () => {
         'Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.'
       )}
       description={t(
-        'setting.advertiseAvxForRosetta.description',
+        'setting.advertiseAvxForRosetta-description',
         'Tell games that AVX is available, required by some titles under Rosetta'
       )}
       htmlId="advertiseAvxForRosettaToggle"

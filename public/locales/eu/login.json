@@ -5,7 +5,9 @@
         "copy": "Kopiatu",
         "copied": "Kopiatu da!",
         "error": "Errore bat gertatu da, saiatu beste kode batekin",
-        "loading": "Kargatzen"
+        "loading": "Kargatzen",
+        "close": "Itxi",
+        "itchio_error": "Errore bat gertatu da, saiatu beste kode batekin"
     },
     "message": {
         "part1": "Saioa hasteko eta jolasak instalatzeko, lehenik eta behin, jarraitu beharreko pausoak:",

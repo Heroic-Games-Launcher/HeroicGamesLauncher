@@ -1,18 +1,18 @@
 .Alert {
-  --alert-tone: var(--on-panel-muted, var(--text-secondary));
+  --alert-tone: var(--text-neutral-muted);
 
   display: flex;
   align-items: flex-start;
   gap: var(--space-sm-fixed);
   width: 100%;
   padding: var(--space-md-fixed) var(--space-md-fixed);
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   border: 1px solid color-mix(in oklab, var(--alert-tone) 38%, transparent);
   background: color-mix(in oklab, var(--alert-tone) 14%, var(--panel-base));
   font-family: var(--primary-font-family);
   font-size: var(--body-md);
   line-height: var(--leading-normal, 1.5);
-  color: var(--on-panel, var(--text-default));
+  color: var(--text-neutral);
   text-align: start;
 }
 
@@ -32,11 +32,11 @@
 
 .Alert__title {
   font-weight: var(--semibold);
-  color: var(--on-panel, var(--text-default));
+  color: var(--text-neutral);
 }
 
 .Alert__message {
-  color: var(--on-panel-muted, var(--text-secondary));
+  color: var(--text-neutral-muted);
 }
 
 .Alert__actions {
@@ -47,21 +47,21 @@
 }
 
 .Alert--neutral {
-  --alert-tone: var(--on-panel-muted, var(--text-secondary));
+  --alert-tone: var(--text-neutral-muted);
 }
 
 .Alert--info {
-  --alert-tone: var(--status-info, var(--accent));
+  --alert-tone: var(--role-info);
 }
 
 .Alert--success {
-  --alert-tone: var(--success, #10b981);
+  --alert-tone: var(--role-success);
 }
 
 .Alert--warning {
-  --alert-tone: var(--status-warning, #f59e0b);
+  --alert-tone: var(--role-warning);
 }
 
 .Alert--error {
-  --alert-tone: var(--danger, #ef4444);
+  --alert-tone: var(--role-destructive);
 }

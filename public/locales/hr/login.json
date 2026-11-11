@@ -5,7 +5,8 @@
         "copy": "Kopirati",
         "copied": "Kopirano!",
         "error": "Pogreška, pokušajte s drugim kodom",
-        "loading": "Učitavanje"
+        "loading": "Učitavanje",
+        "close": "Zatvori"
     },
     "message": {
         "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate slijediti sljedeće korake:",

@@ -6,7 +6,7 @@ import {
   CachedImage,
   TextInputField,
   SteamGridDBPicker,
-  WarningMessage
+  Alert
 } from 'frontend/components/UI'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { ModalFooter } from 'frontend/components/UI/Modal'
@@ -133,7 +133,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
             />
           </details>
           {!hasSgdbKey && (
-            <WarningMessage>
+            <Alert variant="warning">
               {t(
                 'edit-game.sgdb.no-key-prefix',
                 'To search SteamGridDB for cover art, add an API key in'
@@ -147,7 +147,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                 {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
               </a>
               .
-            </WarningMessage>
+            </Alert>
           )}
           {sgdbTarget && (
             <SteamGridDBPicker

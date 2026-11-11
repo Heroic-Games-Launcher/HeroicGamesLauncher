@@ -97,7 +97,9 @@
         "browse_wine_prefix": "Переглянути префікс Wine",
         "browse_files": "Переглянути файли",
         "play": "ГРАТИ",
-        "edit-game": "Редагувати гру"
+        "edit-game": "Редагувати гру",
+        "favourite": "Додати до обраного",
+        "unfavourite": "Вилучити з обраного"
     },
     "cloud_save_unsupported": "Не підтримується",
     "disabled": "Вимкнено",
@@ -133,7 +135,8 @@
         "modify": "Змінити встановлення",
         "extra_info": "Додаткова інформація",
         "install_info": "Інформація про встановлення",
-        "achievements": "Досягнення"
+        "achievements": "Досягнення",
+        "details": "Про гру"
     },
     "gamecard": {
         "moving": "Переміщення",
@@ -163,7 +166,11 @@
         "installedInfo": "Інформація про встановлення",
         "protondb-compatibility-info": "Рейтинг сумісності з Proton",
         "steamdeck-compatibility-info": "Сумісність із SteamDeck",
-        "third-party-app": "Сторонній менеджер"
+        "third-party-app": "Сторонній менеджер",
+        "genres": "Жанри",
+        "steamdeck": {
+            "unsupported": "Не Підтримується"
+        }
     },
     "install": {
         "disk-space-left": "Доступно на диску",
@@ -228,7 +235,8 @@
             "specificVersion-pt1": "Це завантажить певну версію Steam з",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "створено для роботи через Heroic, оскільки нові версії Steam не працюватимуть на macOS."
-        }
+        },
+        "releaseDate": "Дата виходу"
     },
     "launch": {
         "options": "Параметри запуску...",

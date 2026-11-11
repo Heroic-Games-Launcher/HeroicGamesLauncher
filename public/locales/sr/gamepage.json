@@ -149,7 +149,8 @@
         },
         "install_info": "",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "Детаљи игре"
     },
     "gamecard": {
         "moving": "Кретање",

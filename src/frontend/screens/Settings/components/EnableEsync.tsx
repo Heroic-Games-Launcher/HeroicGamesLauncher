@@ -14,7 +14,7 @@ const EnableEsync = () => {
         'Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.'
       )}
       description={t(
-        'setting.esync.description',
+        'setting.esync-description',
         'Speed up multi-threaded games using eventfd synchronisation'
       )}
       htmlId="esyncToggle"

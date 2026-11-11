@@ -5,7 +5,9 @@
         "copy": "Kopiuj",
         "copied": "Skopiowane!",
         "loading": "Wczytywanie",
-        "error": "Błąd, spróbuj użyć innego kodu"
+        "error": "Błąd, spróbuj użyć innego kodu",
+        "close": "Zamknij",
+        "itchio_error": "Błąd, spróbuj użyć innego kodu"
     },
     "message": {
         "part1": "Żeby się zalogować i móc instalować gry, wykonaj najpierw następujące kroki:",
@@ -21,5 +23,14 @@
         "error": "Błąd",
         "loading": "Ładowanie listy gier, proszę czekać"
     },
-    "welcome": "Witaj!"
+    "welcome": "Witaj!",
+    "itchio": {
+        "api_key_placeholder": "Wklej swój klucz API",
+        "instructions": "Jeśli zwykłe logowanie itch.io nie działa, możesz użyć osobistego klucza API. Odwiedź swoją stronę kluczy API na itch.io, wygeneruj klucz i wklej go poniżej.",
+        "paste_and_login": "Wklej ze schowka i zaloguj się"
+    },
+    "sid": {
+        "paste_and_login": "Wklej ze schowka i zaloguj się",
+        "placeholder": "Wklej tutaj kod SID"
+    }
 }

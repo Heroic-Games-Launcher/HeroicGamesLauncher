@@ -32,7 +32,7 @@ const PreferSystemLibs = () => {
         'Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.'
       )}
       description={t(
-        'setting.preferSystemLibs.description',
+        'setting.preferSystemLibs-description',
         'Use the libraries installed on your system instead of the bundled ones'
       )}
       htmlId="systemLibsToggle"
