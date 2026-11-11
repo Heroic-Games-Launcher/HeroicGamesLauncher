@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: 999px;
-  color: var(--on-panel, var(--text-default));
+  border-radius: var(--radius-pill, 999px);
+  color: var(--on-panel, var(--text-neutral));
 }
 
 .IconBadge--md {
@@ -18,12 +18,12 @@
 }
 
 .IconBadge--surface {
-  background: var(--input-background, var(--background-darker));
+  background: var(--bg-surface-raised, var(--panel-base));
 }
 
 .IconBadge--accent {
-  background: color-mix(in oklab, var(--accent) 16%, transparent);
-  color: var(--on-panel-link, var(--accent));
+  background: color-mix(in oklab, var(--role-accent) 16%, transparent);
+  color: var(--role-accent);
 }
 
 .IconBadge svg {

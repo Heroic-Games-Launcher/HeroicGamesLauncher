@@ -10,7 +10,8 @@ const variants = [
   'info',
   'success',
   'warning',
-  'error'
+  'error',
+  'gradient'
 ] as const
 
 const meta = {
