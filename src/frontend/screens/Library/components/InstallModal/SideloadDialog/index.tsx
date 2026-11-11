@@ -10,7 +10,7 @@ import {
   ToggleSwitch,
   InfoBox,
   SteamGridDBPicker,
-  WarningMessage
+  Alert
 } from 'frontend/components/UI'
 import { ModalContent, ModalFooter } from 'frontend/components/UI/Modal'
 import Button from 'frontend/components/UI/Button'
@@ -453,7 +453,7 @@ export default function SideloadDialog({
                   />
                 </details>
                 {!hasSgdbKey && (
-                  <WarningMessage>
+                  <Alert variant="warning">
                     {t(
                       'edit-game.sgdb.no-key-prefix',
                       'To search SteamGridDB for cover art, add an API key in'
@@ -467,7 +467,7 @@ export default function SideloadDialog({
                       {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
                     </a>
                     .
-                  </WarningMessage>
+                  </Alert>
                 )}
                 {!editMode && children}
                 {showSideloadExe && (
