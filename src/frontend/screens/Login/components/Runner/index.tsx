@@ -103,7 +103,7 @@ export default function Runner(props: RunnerProps) {
             >
               {`${props.class} ${t(
                 'login.alternative_method',
-                'Alternative Login Method'
+                'Alternative login method'
               )}`}
             </div>
           </div>

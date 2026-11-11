@@ -63,12 +63,12 @@ const EacRuntime = () => {
         htmlId="eacRuntime"
         value={eacRuntime}
         handleChange={handleEacRuntime}
-        title={t('settings.eacRuntime.name', 'EasyAntiCheat Runtime')}
+        title={t('settings.eacRuntime.name', 'EasyAntiCheat runtime')}
       />
       {installing && (
         <span>
           <FontAwesomeIcon className="fa-spin" icon={faSyncAlt} />
-          {t('settings.eacRuntime.installing', 'Installing EAC Runtime...')}
+          {t('settings.eacRuntime.installing', 'Installing EAC runtime...')}
         </span>
       )}
     </div>

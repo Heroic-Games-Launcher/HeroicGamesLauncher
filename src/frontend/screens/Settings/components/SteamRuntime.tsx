@@ -47,7 +47,7 @@ function SteamRuntime() {
         gap={2}
       >
         <Typography>
-          {t('setting.steamRuntime.label', 'Use Steam Runtime')}
+          {t('setting.steamRuntime.label', 'Use Steam runtime')}
         </Typography>
         <Box
           display="flex"

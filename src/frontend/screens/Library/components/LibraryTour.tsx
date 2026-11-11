@@ -25,14 +25,14 @@ const LibraryTour: React.FC = () => {
     {
       intro: t(
         'tour.library.welcome.intro',
-        'Welcome to the Heroic Library! This is where you can see all your games across different stores.'
+        'Welcome to the Heroic library! This is where you can see all your games across different stores.'
       ),
       title: t('tour.library.welcome.title', 'Welcome to Heroic!')
     },
     {
       intro: t(
         'tour.library.welcome.intro2',
-        'If the library is empty, make sure to login with your accounts using the Manage accounts on the sidebar or add your own games using the Add Game button above.'
+        'If the library is empty, make sure to login with your accounts using the manage accounts on the sidebar or add your own games using the add game button above.'
       ),
       title: t('tour.library.welcome.title2', 'Managing the library!')
     }
@@ -45,7 +45,7 @@ const LibraryTour: React.FC = () => {
           element: '[data-tour="library-game-card"]',
           intro: t(
             'tour.library.gameCard',
-            'Left-Click on the game card to navigate to the game page and to see details and adjust settings or Right-click to open the context menu.'
+            'Left-click on the game card to navigate to the game page and to see details and adjust settings or right-click to open the context menu.'
           )
         }
       ]
@@ -57,7 +57,7 @@ const LibraryTour: React.FC = () => {
       element: '[data-tour="library-search"]',
       intro: t(
         'tour.library.search',
-        'Use the Search bar to search for your games.'
+        'Use the search bar to search for your games.'
       ),
       position: 'bottom'
     },
@@ -110,7 +110,7 @@ const LibraryTour: React.FC = () => {
       element: '[data-tour="library-add-game"]',
       intro: t(
         'tour.library.addGame',
-        'Add your own games or apps to the library by clicking here. They can be basically anything, even Browser URLs.'
+        'Add your own games or apps to the library by clicking here. They can be basically anything, even browser URLs.'
       ),
       position: 'left'
     }

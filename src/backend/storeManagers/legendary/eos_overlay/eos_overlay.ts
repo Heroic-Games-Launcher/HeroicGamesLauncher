@@ -160,7 +160,7 @@ async function remove(): Promise<boolean> {
     ),
     message: t(
       'setting.eosOverlay.removeConfirm',
-      'Are you sure you want to uninstall the EOS Overlay?'
+      'Are you sure you want to uninstall the EOS overlay?'
     ),
     buttons: [t('box.yes'), t('box.no')]
   })
@@ -190,7 +190,7 @@ async function enable(
       title: t('setting.eosOverlay.notInstalledTitle', 'Overlay not installed'),
       message: t(
         'setting.eosOverlay.notInstalledMsg',
-        'The EOS Overlay is not installed. Do you want to install it now?'
+        'The EOS overlay is not installed. Do you want to install it now?'
       ),
       buttons: [t('box.yes'), t('box.no')]
     })

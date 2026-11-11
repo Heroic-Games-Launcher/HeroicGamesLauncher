@@ -19,7 +19,7 @@ export default function AnalyticsDialog() {
 
       showDialogModal({
         showDialog: true,
-        title: t('analyticsModal.title', 'Send Anonymous Analytics'),
+        title: t('analyticsModal.title', 'Send anonymous analytics'),
         message: (
           <>
             {t(
@@ -30,7 +30,7 @@ export default function AnalyticsDialog() {
               <li>
                 {t(
                   'analyticsModal.info.pt2',
-                  'Heroic uses the open-source Plausible Analytics platform, self-hosted by the Heroic team, to gather basic data: App Version, OS, System Architecture, Linux Distribution, Stores Connected and Country.'
+                  'Heroic uses the open-source Plausible Analytics platform, self-hosted by the Heroic team, to gather basic data: App version, OS, system architecture, Linux distribution, stores connected and country.'
                 )}
               </li>
               <li>
@@ -60,7 +60,7 @@ export default function AnalyticsDialog() {
             </ul>
             {t(
               'analyticsModal.info.pt7',
-              'You can change this setting at any time in the App Settings.'
+              'You can change this setting at any time in the app settings.'
             )}
           </>
         ),

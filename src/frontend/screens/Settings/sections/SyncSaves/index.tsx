@@ -42,7 +42,7 @@ const SyncSaves = () => {
         handleChange={() => setEnableQuickSavesMenu(!enableQuickSavesMenu)}
         title={t(
           'setting.enable-quick-sync-menu',
-          'Enable Quick Save-Sync Menu on game page'
+          'Enable quick save-sync menu on game page'
         )}
       />
     )

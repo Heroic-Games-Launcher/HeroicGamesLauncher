@@ -115,7 +115,7 @@ const Accessibility = React.memo(function Accessibility() {
       <div className="settingsWrapper">
         <PageHeader
           backTo="/library"
-          backLabel={t('button.backToLibrary', 'Back to Library')}
+          backLabel={t('button.backToLibrary', 'Back to library')}
           title={t('accessibility.title', 'Accessibility')}
           description={t(
             'accessibility.subtitle',
@@ -149,7 +149,7 @@ const Accessibility = React.memo(function Accessibility() {
               onChange={handleContentFontFamily}
               label={t(
                 'accessibility.content_font_family_default',
-                'Content Font Family (Default: {{fontFamily}})',
+                'Content font family (default: {{fontFamily}})',
                 { fontFamily: defaultSecondaryFont.split(',')[0].trim() }
               )}
             >
@@ -162,7 +162,7 @@ const Accessibility = React.memo(function Accessibility() {
               onChange={handleActionsFontFamily}
               label={t(
                 'accessibility.actions_font_family_default',
-                'Actions Font Family (Default: {{fontFamily}})',
+                'Actions font family (default: {{fontFamily}})',
                 { fontFamily: defaultPrimaryFont.split(',')[0].trim() }
               )}
             >
@@ -196,7 +196,7 @@ const Accessibility = React.memo(function Accessibility() {
 
           <SettingsCard
             glyph={MousePointerClick}
-            title={t('accessibility.section.motion', 'Motion & Interaction')}
+            title={t('accessibility.section.motion', 'Motion & interaction')}
           >
             <ToggleSwitch
               htmlId="disableAnimations"

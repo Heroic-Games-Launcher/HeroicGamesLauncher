@@ -23,13 +23,13 @@ const WinePrefixesBasePath = () => {
   return (
     <PathSelectionBox
       htmlId="selectDefaultWinePrefix"
-      label={t('setting.defaultWinePrefix', 'Set Folder for new Wine Prefixes')}
+      label={t('setting.defaultWinePrefix', 'Set folder for new Wine prefixes')}
       path={defaultWinePrefixDir}
       onPathChange={setDefaultWinePrefixDir}
       type="directory"
       pathDialogTitle={t(
         'toolbox.settings.wineprefix',
-        'Select a Folder for new Wine Prefixes'
+        'Select a folder for new Wine prefixes'
       )}
       noDeleteButton
       pathDialogDefaultPath={defaultWinePrefixDir}

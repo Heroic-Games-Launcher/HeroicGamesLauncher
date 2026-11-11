@@ -23,7 +23,7 @@ const DownloadProtonToSteam = () => {
     <ToggleSwitch
       info={t(
         'help.download_proton_steam',
-        "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'Default Steam path' setting above."
+        "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'default Steam path' setting above."
       )}
       title={t(
         'setting.download-proton-steam',

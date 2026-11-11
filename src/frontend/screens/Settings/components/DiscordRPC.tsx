@@ -22,7 +22,7 @@ const DiscordRPC = () => {
       htmlId="discordRPC"
       value={discordRPC}
       handleChange={() => setDiscordRPC(!discordRPC)}
-      title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
+      title={t('setting.discordRPC', 'Enable Discord rich presence')}
     />
   )
 }

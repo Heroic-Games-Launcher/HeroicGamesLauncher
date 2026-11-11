@@ -92,7 +92,7 @@ function showErrorInFrontend(props: {
     ? i18next.t('box.error.add.steam.title', 'Error Adding Game to Steam')
     : i18next.t(
         'box.error.remove.steam.title',
-        'Error Removing Game from Steam'
+        'Error removing game from Steam'
       )
 
   showDialogBoxModalAuto({ title, message: error, type: 'ERROR' })

@@ -330,7 +330,7 @@ const DiscountFilters = ({
         <SearchBar
           value={searchQuery}
           onInputChanged={onSearchChange}
-          placeholder={t('search', 'Search for Games')}
+          placeholder={t('search', 'Search for games')}
         />
         {isGogLoggedIn && showGogOnlyFilters && (
           <>
@@ -343,7 +343,7 @@ const DiscountFilters = ({
                   onChange={(e) => onWishlistOnlyChange(e.target.checked)}
                 />
               }
-              label={t('discounts.filters.wishlistOnly', 'Wishlist Only')}
+              label={t('discounts.filters.wishlistOnly', 'Wishlist only')}
             />
             <FormControlLabel
               className="discountFilters__hideOwned"
@@ -354,7 +354,7 @@ const DiscountFilters = ({
                   onChange={(e) => onHideOwnedChange(e.target.checked)}
                 />
               }
-              label={t('discounts.filters.hideOwned', 'Hide Owned')}
+              label={t('discounts.filters.hideOwned', 'Hide owned')}
             />
           </>
         )}

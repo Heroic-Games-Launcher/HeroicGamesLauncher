@@ -30,7 +30,7 @@ const EnableWoW64 = () => {
         htmlId="WoW64Toggle"
         value={enableWoW64 || false}
         handleChange={() => setEnableWoW64(!enableWoW64)}
-        title={t('setting.WoW64', 'Enable WoW64 (Experimental)')}
+        title={t('setting.WoW64', 'Enable WoW64 (experimental)')}
       />
     </>
   )

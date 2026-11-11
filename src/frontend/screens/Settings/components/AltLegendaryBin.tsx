@@ -48,7 +48,7 @@ const AltLegendaryBin = () => {
         legendaryVersion ? (
           <span className="fieldCaption">
             <span className="fieldCaption__label">
-              {t('other.legendary-version', 'Legendary Version: ')}
+              {t('other.legendary-version', 'Legendary version: ')}
             </span>
             <span className="fieldCaption__value">{legendaryVersion}</span>
           </span>

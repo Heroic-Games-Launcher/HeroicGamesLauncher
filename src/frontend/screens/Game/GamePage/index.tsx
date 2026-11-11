@@ -376,7 +376,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     if (hasRequirements) {
       tabs.push({
         value: 'requirements',
-        label: t('game.requirements', 'System Requirements')
+        label: t('game.requirements', 'System requirements')
       })
     }
 
@@ -418,7 +418,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
             <div className="topRowWrapper">
               <BackButton
                 to={backRoute}
-                label={t('button.backToLibrary', 'Back to Library')}
+                label={t('button.backToLibrary', 'Back to library')}
               />
             </div>
 
