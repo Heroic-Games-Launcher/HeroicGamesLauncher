@@ -18,11 +18,16 @@
     width: var(--overlay-controls-height);
 
     &:hover {
-      background-color: var(--secondary-hover);
+      background-color: color-mix(
+        in oklab,
+        var(--titlebar-symbol-color) 18%,
+        transparent
+      );
     }
 
     &.close:hover {
       background-color: var(--status-danger-hover);
+      color: var(--ink-on-overlay);
     }
   }
 }

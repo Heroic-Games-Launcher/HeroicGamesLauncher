@@ -1,3 +1,9 @@
+.changelogModal .Modal__title {
+  font-size: var(--title-lg);
+  font-weight: var(--bold);
+  line-height: var(--leading-tight);
+}
+
 .changelogModalContent {
   color: var(--text-neutral-muted);
   font-size: var(--body-md);
@@ -30,11 +36,17 @@
   }
 
   li {
-    margin-block-end: var(--space-2xs-fixed);
+    margin-block-end: var(--space-sm-fixed);
+    line-height: 1.6;
   }
 
   li::marker {
     color: var(--text-neutral-faint);
+  }
+
+  .changelogMention {
+    color: var(--text-accent);
+    font-weight: var(--semibold);
   }
 
   code {
@@ -47,6 +59,12 @@
   a {
     color: var(--text-brand);
     font-weight: var(--semibold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  a:hover {
+    color: var(--on-panel-link);
   }
 
   img,
@@ -57,4 +75,26 @@
     margin: var(--space-md-fixed) auto;
     border-radius: var(--radius-sm);
   }
+}
+
+.changelogModalFullLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs-fixed);
+  margin-block-start: var(--space-md-fixed);
+  padding: var(--space-xs-fixed) var(--space-md-fixed);
+  border-radius: var(--radius-pill);
+  background: var(--bg-brand-subtle);
+  border: 1px solid var(--border-brand);
+  color: var(--text-brand);
+  font-weight: var(--semibold);
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.changelogModalFullLink:hover {
+  background: color-mix(in oklab, var(--role-brand) 26%, transparent);
+  border-color: var(--role-brand);
 }

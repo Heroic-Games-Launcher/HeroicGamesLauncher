@@ -26,12 +26,13 @@
     from var(--nav-base) clamp(0.1, (0.62 - l) * 1000, 0.99) 0 h
   );
 
-  /* The "classic" theme variants differ from their base theme only by
-     --navbar-accent, so the active sidebar item has to keep that hue. It is
-     lifted towards white so themes with a dark accent still clear AA. */
+  /* The active sidebar item keeps the theme accent hue so the selected text
+     and icon stand out, lifted only slightly towards white so themes with a
+     dark accent still clear AA on the sidebar. Light-sidebar themes override
+     this with their own --on-nav-accent. */
   --on-nav-accent: color-mix(
     in oklab,
-    var(--navbar-accent, var(--accent)) 38%,
+    var(--navbar-accent, var(--accent)) 85%,
     #ffffff
   );
 
@@ -62,6 +63,15 @@
      whatever the theme's accent is. */
   --ink-on-accent: oklch(
     from var(--navbar-accent, var(--accent)) clamp(0, (0.62 - l) * 1000, 1) 0 h
+  );
+
+  /* Ink for text/icons painted on a solid status colour (e.g. the discount
+     badge on the --success green), black on light fills and white on dark. */
+  --ink-on-success: oklch(
+    from var(--success, #10b981) clamp(0, (0.62 - l) * 1000, 1) 0 h
+  );
+  --ink-on-danger: oklch(
+    from var(--danger, #ef4444) clamp(0, (0.62 - l) * 1000, 1) 0 h
   );
 
   /* Card overlay chips are a dark scrim in every theme, so their ink is a
@@ -160,6 +170,6 @@
   --gradient-brand: linear-gradient(
     100deg,
     var(--role-brand) 0%,
-    var(--role-accent) 100%
+    var(--accent-overlay, var(--role-accent)) 100%
   );
 }

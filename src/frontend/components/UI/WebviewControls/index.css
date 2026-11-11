@@ -36,7 +36,7 @@
 }
 
 .WebviewControls__icon:hover {
-  color: var(--text-hover);
+  color: var(--text-neutral);
 }
 
 .WebviewControls__icon:active {
@@ -48,7 +48,7 @@
 }
 
 .WebviewControls__icon:disabled {
-  color: var(--icon-disabled);
+  color: var(--text-neutral-faint);
   cursor: default;
 }
 
@@ -91,14 +91,9 @@
 }
 
 .WebviewControls__urlInput--warning {
-  color: var(--text-danger);
+  color: var(--text-destructive);
 }
 
 .WebviewControls__urlInput--warning::selection {
-  background: var(--danger);
-}
-
-/* TODO check if it's not used in other part of app and it can be safely removed */
-.MuiSvgIcon-root {
-  cursor: pointer;
+  background: var(--role-destructive);
 }

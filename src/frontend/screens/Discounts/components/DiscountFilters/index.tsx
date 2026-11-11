@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Autocomplete,
@@ -11,8 +11,10 @@ import {
   TextField,
   Tooltip
 } from '@mui/material'
-import { ExpandMore, ViewList, ViewModule } from '@mui/icons-material'
+import { ChevronDown } from 'lucide-react'
 import SearchBar from 'frontend/components/UI/SearchBar'
+import Button from 'frontend/components/UI/Button'
+import Icon from 'frontend/components/UI/Icon'
 import type { CatalogFeature, CatalogGenre } from 'common/types/discounts'
 import {
   PAGE_SIZE_OPTIONS,
@@ -20,12 +22,12 @@ import {
   RATING_SCALE_MAX,
   type DiscountSort,
   type OsOption,
-  type PegiAge,
-  type ViewMode
+  type PegiAge
 } from '../../helpers'
 import './index.scss'
 
 interface Props {
+  regionSelector?: ReactNode
   sortBy: DiscountSort
   onSortChange: (sort: DiscountSort) => void
   priceMax: number
@@ -63,8 +65,6 @@ interface Props {
   onPageSizeChange: (value: number) => void
   onReset: () => void
   hasActiveFilters: boolean
-  viewMode: ViewMode
-  onViewModeChange: (mode: ViewMode) => void
 }
 
 const OS_PLATFORM_KEY: Partial<Record<OsOption, 'win' | 'linux' | 'mac'>> = {
@@ -198,8 +198,7 @@ const DiscountFilters = ({
   onPageSizeChange,
   onReset,
   hasActiveFilters,
-  viewMode,
-  onViewModeChange
+  regionSelector
 }: Props) => {
   const { t } = useTranslation()
   const [expanded, setExpanded] = useState(false)
@@ -245,93 +244,63 @@ const DiscountFilters = ({
         <h3 className="discountFilters__title">
           {t('header.filters', 'Filters')}
         </h3>
-        <div className="discountFilters__headerActions">
-          <div
-            className="discountFilters__viewToggle"
-            role="group"
-            aria-label={t('discounts.view.label', 'View mode')}
-          >
-            <button
-              type="button"
-              className={`discountFilters__viewButton${
-                viewMode === 'grid'
-                  ? ' discountFilters__viewButton--active'
-                  : ''
-              }`}
-              aria-pressed={viewMode === 'grid'}
-              aria-label={t('discounts.view.grid', 'Grid')}
-              title={t('discounts.view.grid', 'Grid')}
-              onClick={() => onViewModeChange('grid')}
-            >
-              <ViewModule fontSize="small" />
-            </button>
-            <button
-              type="button"
-              className={`discountFilters__viewButton${
-                viewMode === 'list'
-                  ? ' discountFilters__viewButton--active'
-                  : ''
-              }`}
-              aria-pressed={viewMode === 'list'}
-              aria-label={t('discounts.view.list', 'List')}
-              title={t('discounts.view.list', 'List')}
-              onClick={() => onViewModeChange('list')}
-            >
-              <ViewList fontSize="small" />
-            </button>
-          </div>
-          <button
-            type="button"
-            className={`discountFilters__toggle${
-              collapsedActiveCount > 0
-                ? ' discountFilters__toggle--hasActive'
-                : ''
-            }`}
-            onClick={() => setExpanded((v) => !v)}
-            aria-expanded={expanded}
-            aria-controls="discountFilters__collapsible"
-          >
-            <span>
-              {expanded
-                ? t('discounts.filters.lessFilters', 'Less filters')
-                : t('discounts.filters.moreFilters', 'More filters')}
-            </span>
-            {collapsedActiveCount > 0 && (
-              <span
-                className="discountFilters__toggleBadge"
-                aria-label={t(
-                  'discounts.filters.activeCount',
-                  '{{count}} active',
-                  { count: collapsedActiveCount }
-                )}
-              >
-                {collapsedActiveCount}
-              </span>
-            )}
-            <ExpandMore
-              fontSize="small"
-              className={`discountFilters__toggleIcon${
-                expanded ? ' discountFilters__toggleIcon--open' : ''
-              }`}
-            />
-          </button>
-          <button
-            type="button"
-            className="discountFilters__reset"
-            onClick={onReset}
-            disabled={!hasActiveFilters}
-          >
-            {t('header.reset', 'Reset')}
-          </button>
-        </div>
-      </header>
-
-      <div className="discountFilters__row discountFilters__row--search">
         <SearchBar
           value={searchQuery}
           onInputChanged={onSearchChange}
           placeholder={t('search', 'Search for Games')}
         />
+        {regionSelector}
+        <Button
+          variant="ghost"
+          size="sm"
+          className={`discountFilters__toggle${
+            collapsedActiveCount > 0
+              ? ' discountFilters__toggle--hasActive'
+              : ''
+          }`}
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          aria-controls="discountFilters__collapsible"
+        >
+          <span>
+            {expanded
+              ? t('discounts.filters.lessFilters', 'Less filters')
+              : t('discounts.filters.moreFilters', 'More filters')}
+          </span>
+          {collapsedActiveCount > 0 && (
+            <span
+              className="discountFilters__toggleBadge"
+              aria-label={t(
+                'discounts.filters.activeCount',
+                '{{count}} active',
+                { count: collapsedActiveCount }
+              )}
+            >
+              {collapsedActiveCount}
+            </span>
+          )}
+          <Icon
+            glyph={ChevronDown}
+            size="sm"
+            className={`discountFilters__toggleIcon${
+              expanded ? ' discountFilters__toggleIcon--open' : ''
+            }`}
+          />
+        </Button>
+        <div className="discountFilters__headerActions">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="discountFilters__reset"
+            onClick={onReset}
+            disabled={!hasActiveFilters}
+          >
+            {t('header.reset', 'Reset')}
+          </Button>
+        </div>
+      </header>
+
+      <div className="discountFilters__row discountFilters__row--search">
         {isGogLoggedIn && showGogOnlyFilters && (
           <>
             <FormControlLabel

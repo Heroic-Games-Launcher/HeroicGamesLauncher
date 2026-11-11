@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { CircleHelp } from 'lucide-react'
 import { useTour } from '../../state/TourContext'
-import './TourButton.scss'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-import { IconButton } from '@mui/material'
+import Icon from 'frontend/components/UI/Icon'
 import Tooltip from 'frontend/components/UI/Tooltip'
+import './TourButton.scss'
 
 interface TourButtonProps {
   tourId: string
@@ -31,15 +31,15 @@ const TourButton: React.FC<TourButtonProps> = ({
 
   return (
     <Tooltip content={buttonLabel} asChild>
-      <IconButton
+      <button
+        type="button"
         onClick={handleStartTour}
         className={`tour-button ${className}`}
         data-tour-button={tourId}
         aria-label={buttonLabel}
-        size="small"
       >
-        <HelpOutlineIcon fontSize="small" />
-      </IconButton>
+        <Icon glyph={CircleHelp} size="lg" />
+      </button>
     </Tooltip>
   )
 }

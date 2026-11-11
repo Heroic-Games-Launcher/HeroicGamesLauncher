@@ -3,7 +3,7 @@
   --sidebar-vertical-padding: var(--space-lg);
   --sidebar-width: 268px;
   --sidebar-background: var(--navbar-background);
-  --sidebar-divider-color: var(--divider);
+  --sidebar-divider-color: color-mix(in oklab, var(--on-nav) 16%, transparent);
 
   width: var(--sidebar-width);
   position: relative;

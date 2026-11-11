@@ -1,8 +1,24 @@
 .tour-button {
-  color: var(--tour-button-color, var(--brand-primary)) !important;
-  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3xs);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--tour-button-color, var(--brand-primary));
+  cursor: pointer;
   opacity: 1;
-  svg {
-    font-size: 22px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background: color-mix(in oklab, var(--on-panel) 10%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 }

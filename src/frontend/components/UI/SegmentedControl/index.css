@@ -1,0 +1,44 @@
+.SegmentedControl {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs-fixed);
+  padding: var(--space-3xs-fixed);
+  background: var(--input-background);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-pill);
+}
+
+.SegmentedControl__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  padding: var(--space-xs-fixed) var(--space-md-fixed);
+  border: none;
+  background: transparent;
+  color: var(--text-neutral-muted);
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--semibold);
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.SegmentedControl__item:hover:not(.SegmentedControl__item--active) {
+  color: var(--text-neutral);
+  background: color-mix(in oklab, var(--on-panel) 8%, transparent);
+}
+
+.SegmentedControl__item--active {
+  background: var(--bg-brand);
+  color: var(--text-on-brand);
+}
+
+.SegmentedControl__item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

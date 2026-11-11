@@ -1,8 +1,10 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MenuItem, Select } from '@mui/material'
+import { MenuItem } from '@mui/material'
+import SelectField from 'frontend/components/UI/SelectField'
 
 import { DismissibleBanner, UpdateComponent } from 'frontend/components/UI'
+import SegmentedControl from 'frontend/components/UI/SegmentedControl'
 import type {
   CatalogFeature,
   CatalogGenre,
@@ -131,9 +133,7 @@ export default function Discounts() {
   const [storeTab, setStoreTab] = useState<StoreTab>(
     storedFilters.storeTab ?? 'all'
   )
-  const [viewMode, setViewMode] = useState<ViewMode>(
-    storedFilters.viewMode ?? 'grid'
-  )
+  const viewMode: ViewMode = 'grid'
   // Price and release-year ranges are bound to the loaded data's min/max,
   // which changes with the active tab, region, and currency — so they are
   // seeded fresh on each load rather than persisted (a stored range from
@@ -661,6 +661,86 @@ export default function Discounts() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const regionSelector =
+    storeTab === 'humble' ? null : storeTab === 'gmg' ? (
+      <div className="discountsScreen__region">
+        <label
+          className="discountsScreen__regionLabel"
+          htmlFor="discountsScreen__currencySelect"
+        >
+          {t('discounts.currency.label', 'Currency')}
+        </label>
+        <SelectField
+          htmlId="discountsScreen__currencySelect"
+          value={gmgCurrencyOverride ?? ''}
+          onChange={(e) => {
+            const value = e.target.value
+            handleGmgCurrencyChange(value === '' ? null : value)
+          }}
+          extraClass="discountsScreen__regionSelect"
+        >
+          <MenuItem value="">
+            {t('discounts.region.auto', 'Auto ({{code}})', {
+              code: gmgCurrency
+            })}
+          </MenuItem>
+          {GMG_CURRENCIES.map((currency) => (
+            <MenuItem key={currency} value={currency}>
+              {currencyName(currency)}
+              <span className="discountsScreen__regionCurrency">
+                {currency}
+              </span>
+            </MenuItem>
+          ))}
+        </SelectField>
+      </div>
+    ) : (
+      <div className="discountsScreen__region">
+        <label
+          className="discountsScreen__regionLabel"
+          htmlFor="discountsScreen__regionSelect"
+        >
+          {t('discounts.region.label', 'Store region')}
+        </label>
+        <SelectField
+          htmlId="discountsScreen__regionSelect"
+          value={regionOverride ?? ''}
+          onChange={(e) => {
+            const value = e.target.value
+            handleRegionChange(value === '' ? null : value)
+          }}
+          extraClass="discountsScreen__regionSelect"
+        >
+          <MenuItem value="">
+            {t('discounts.region.auto', 'Auto ({{code}})', {
+              code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
+            })}
+          </MenuItem>
+          {REGION_OPTIONS.map((r) => ({
+            ...r,
+            localizedLabel: t(
+              `discounts.region.countries.${r.countryCode}`,
+              r.label
+            )
+          }))
+            .sort((a, b) =>
+              a.localizedLabel.localeCompare(
+                b.localizedLabel,
+                i18n.language.replace('_', '-')
+              )
+            )
+            .map((r) => (
+              <MenuItem key={r.countryCode} value={r.countryCode}>
+                {r.localizedLabel}
+                <span className="discountsScreen__regionCurrency">
+                  {r.currencyCode}
+                </span>
+              </MenuItem>
+            ))}
+        </SelectField>
+      </div>
+    )
+
   return (
     <div className="discountsScreen">
       <DismissibleBanner storageKey="deals-affiliate-banner-dismissed">
@@ -675,133 +755,19 @@ export default function Discounts() {
         </h2>
 
         {storeOptions.length > 1 && (
-          <div
+          <SegmentedControl
             className="discountsScreen__storeTabs"
-            role="tablist"
             aria-label={t('discounts.tabs.label', 'Store')}
-          >
-            {(['all', ...storeOptions] as StoreTab[]).map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                role="tab"
-                aria-selected={storeTab === tab}
-                className={`discountsScreen__storeTab${
-                  storeTab === tab ? ' discountsScreen__storeTab--active' : ''
-                }`}
-                onClick={() => setStoreTab(tab)}
-              >
-                {tab === 'all'
+            value={storeTab}
+            onChange={setStoreTab}
+            items={(['all', ...storeOptions] as StoreTab[]).map((tab) => ({
+              value: tab,
+              label:
+                tab === 'all'
                   ? t('discounts.tabs.all', 'All stores')
-                  : STORE_LABELS[tab]}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {storeTab === 'humble' ? null : storeTab === 'gmg' ? (
-          <div className="discountsScreen__region">
-            <label
-              className="discountsScreen__regionLabel"
-              htmlFor="discountsScreen__currencySelect"
-            >
-              {t('discounts.currency.label', 'Currency')}
-            </label>
-            <Select
-              id="discountsScreen__currencySelect"
-              size="small"
-              value={gmgCurrencyOverride ?? ''}
-              onChange={(e) => {
-                const value = e.target.value
-                handleGmgCurrencyChange(value === '' ? null : value)
-              }}
-              className="discountsScreen__regionSelect"
-              renderValue={(value) => {
-                if (!value) {
-                  return t('discounts.region.auto', 'Auto ({{code}})', {
-                    code: gmgCurrency
-                  })
-                }
-                return `${currencyName(value)} · ${value}`
-              }}
-            >
-              <MenuItem value="">
-                {t('discounts.region.auto', 'Auto ({{code}})', {
-                  code: gmgCurrency
-                })}
-              </MenuItem>
-              {GMG_CURRENCIES.map((currency) => (
-                <MenuItem key={currency} value={currency}>
-                  {currencyName(currency)}
-                  <span className="discountsScreen__regionCurrency">
-                    {currency}
-                  </span>
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-        ) : (
-          <div className="discountsScreen__region">
-            <label
-              className="discountsScreen__regionLabel"
-              htmlFor="discountsScreen__regionSelect"
-            >
-              {t('discounts.region.label', 'Store region')}
-            </label>
-            <Select
-              id="discountsScreen__regionSelect"
-              size="small"
-              value={regionOverride ?? ''}
-              onChange={(e) => {
-                const value = e.target.value
-                handleRegionChange(value === '' ? null : value)
-              }}
-              className="discountsScreen__regionSelect"
-              renderValue={(value) => {
-                if (!value) {
-                  return t('discounts.region.auto', 'Auto ({{code}})', {
-                    code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
-                  })
-                }
-                const match = REGION_OPTIONS.find(
-                  (r) => r.countryCode === value
-                )
-                if (!match) return value
-                const label = t(
-                  `discounts.region.countries.${match.countryCode}`,
-                  match.label
-                )
-                return `${label} · ${match.currencyCode}`
-              }}
-            >
-              <MenuItem value="">
-                {t('discounts.region.auto', 'Auto ({{code}})', {
-                  code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
-                })}
-              </MenuItem>
-              {REGION_OPTIONS.map((r) => ({
-                ...r,
-                localizedLabel: t(
-                  `discounts.region.countries.${r.countryCode}`,
-                  r.label
-                )
-              }))
-                .sort((a, b) =>
-                  a.localizedLabel.localeCompare(
-                    b.localizedLabel,
-                    i18n.language.replace('_', '-')
-                  )
-                )
-                .map((r) => (
-                  <MenuItem key={r.countryCode} value={r.countryCode}>
-                    {r.localizedLabel}
-                    <span className="discountsScreen__regionCurrency">
-                      {r.currencyCode}
-                    </span>
-                  </MenuItem>
-                ))}
-            </Select>
-          </div>
+                  : STORE_LABELS[tab]
+            }))}
+          />
         )}
       </div>
 
@@ -822,6 +788,7 @@ export default function Discounts() {
       {!loading && !error && (products.length > 0 || hasActiveFilters) && (
         <>
           <DiscountFilters
+            regionSelector={regionSelector}
             sortBy={sortBy}
             onSortChange={setSortBy}
             priceMax={priceMax}
@@ -865,8 +832,6 @@ export default function Discounts() {
             onPageSizeChange={setPageSize}
             onReset={handleReset}
             hasActiveFilters={hasActiveFilters}
-            viewMode={viewMode}
-            onViewModeChange={setViewMode}
           />
 
           {paginated.length === 0 ? (
@@ -874,11 +839,7 @@ export default function Discounts() {
               {t('discounts.noMatches', 'No games match the current filters.')}
             </p>
           ) : (
-            <div
-              className={`discountsScreen__grid${
-                viewMode === 'list' ? ' discountsScreen__grid--list' : ''
-              }`}
-            >
+            <div className="discountsScreen__grid">
               {paginated.map((product) => (
                 <DiscountCard key={product.id} product={product} />
               ))}

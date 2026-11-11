@@ -19,7 +19,7 @@
       --on-nav-muted,
       var(--navbar-inactive, var(--navbar-accent))
     );
-    --sidebar-hover-text-color: var(--text-hover);
+    --sidebar-hover-text-color: var(--on-nav-strong, var(--text-hover));
     --sidebar-item-active-text-color: var(
       --on-nav-accent,
       var(--navbar-accent, var(--navbar-active, var(--accent)))
@@ -70,7 +70,7 @@
       padding: 0 9px;
       border-radius: 999px;
       background: var(--navbar-accent, var(--accent));
-      color: var(--background-darker, #000);
+      color: var(--ink-on-accent);
       font-family: var(--primary-font-family);
       font-size: var(--body-sm);
       font-weight: var(--bold);
@@ -126,7 +126,10 @@
     }
 
     &:hover {
-      background-color: var(--navbar-active-background);
+      background-color: var(
+        --sidebar-item-hover-bg,
+        color-mix(in oklab, var(--navbar-background) 76%, #000000)
+      );
       color: var(--sidebar-hover-text-color, var(--text-default));
     }
 
