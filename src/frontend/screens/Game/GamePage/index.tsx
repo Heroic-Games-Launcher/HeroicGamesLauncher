@@ -52,6 +52,9 @@ import {
   Requirements,
   Scores
 } from './components'
+import SteamLoginBanner, {
+  useSteamDataFailures
+} from './components/SteamLoginBanner'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import { useKnownFixes } from 'frontend/hooks/hasKnownFixes'
@@ -97,6 +100,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
   const [progress, previousProgress] = hasProgress(appName, runner)
+  const steamFailures = useSteamDataFailures(appName, runner)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
     gameInfo.extra || null
@@ -217,6 +221,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
         ) {
           getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
+              // Steam fails when logged out
+              if (!info && runner === 'steam') {
+                window.api.logError(
+                  `Steam install info unavailable for ${appName}, possibly not logged in`
+                )
+                return
+              }
               if (!info) {
                 throw new Error('Cannot get game info')
               }
@@ -233,6 +244,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
             .catch((error) => {
               console.error(error)
               window.api.logError(`${`${error}`}`)
+              // Keep Steam page usable
+              if (runner === 'steam') return
               setHasError({ error: true, message: `${error}` })
             })
         }
@@ -436,6 +449,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
             </div>
 
             <div className="gamePage__content">
+              {runner === 'steam' && (
+                <SteamLoginBanner appName={appName} failures={steamFailures} />
+              )}
               <Panel tone="glass" padding="lg" className="gamePage__hero">
                 <div className="gamePage__heroMain">
                   <h1 className="gamePage__title">{title}</h1>

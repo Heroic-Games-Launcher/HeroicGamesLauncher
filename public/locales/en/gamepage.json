@@ -356,6 +356,20 @@
         "updating": "Updating Game",
         "winetricks": "Applying Winetricks fixes"
     },
+    "steam": {
+        "data": {
+            "achievements": "achievements",
+            "dlc": "DLC",
+            "installInfo": "download size",
+            "launchOptions": "launch options",
+            "storeInfo": "store information"
+        },
+        "loggedOut": {
+            "failed": "Retrieving {{data}} failed.",
+            "message": "Online features might not work.",
+            "title": "Steam account not logged in to Heroic"
+        }
+    },
     "submenu": {
         "addShortcut": "Add shortcut",
         "addToSteam": "Add to Steam",

@@ -228,6 +228,7 @@ export default class SteamLibraryManager implements LibraryManager {
       {
         fallback: [],
         failure: `Unable to get Steam DLC for ${appId}`,
+        report: { appId, data: 'dlc' },
         level: 'warning'
       }
     )
@@ -293,7 +294,8 @@ export default class SteamLibraryManager implements LibraryManager {
       },
       {
         fallback: undefined,
-        failure: `Unable to get Steam install info for ${appName}`
+        failure: `Unable to get Steam install info for ${appName}`,
+        report: { appId: appName, data: 'installInfo' }
       }
     )
   }
@@ -465,6 +467,7 @@ export default class SteamLibraryManager implements LibraryManager {
       {
         fallback: [],
         failure: `Unable to get Steam launch options for ${appName}`,
+        report: { appId: appName, data: 'launchOptions' },
         level: 'warning'
       }
     )

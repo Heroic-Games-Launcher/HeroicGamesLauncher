@@ -109,3 +109,19 @@ export interface SteamCloudFile {
 }
 
 export type SteamCloudSyncDirection = 'up' | 'down' | 'both'
+
+/** Game page data fetched through Aurelia. */
+export type SteamDataKind =
+  | 'storeInfo'
+  | 'achievements'
+  | 'dlc'
+  | 'installInfo'
+  | 'launchOptions'
+
+/** Emitted when a per-game Aurelia fetch fails. */
+export interface SteamDataFetchFailure {
+  appId: string
+  data: SteamDataKind
+  /** Aurelia reported no login. */
+  authRequired: boolean
+}

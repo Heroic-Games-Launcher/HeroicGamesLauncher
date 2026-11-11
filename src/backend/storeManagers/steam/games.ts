@@ -378,7 +378,8 @@ export default class SteamGame implements Game {
       },
       {
         fallback: empty,
-        failure: `Unable to get Steam store info for ${this.id}`
+        failure: `Unable to get Steam store info for ${this.id}`,
+        report: { appId: this.id, data: 'storeInfo' }
       }
     )
   }
@@ -409,6 +410,7 @@ export default class SteamGame implements Game {
       {
         fallback: [],
         failure: `Unable to get Steam achievements for ${this.id}`,
+        report: { appId: this.id, data: 'achievements' },
         level: 'warning'
       }
     )

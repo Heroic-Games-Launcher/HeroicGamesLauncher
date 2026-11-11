@@ -38,6 +38,8 @@ const SteamDlcList = ({ appName }: Props) => {
     try {
       await window.api.setSteamDlcEnabled(dlc.appId, dlc.disabled)
       await loadDlcs()
+    } catch (error) {
+      window.api.logError(`Failed to toggle Steam DLC: ${String(error)}`)
     } finally {
       setBusy((prev) => {
         const next = new Set(prev)

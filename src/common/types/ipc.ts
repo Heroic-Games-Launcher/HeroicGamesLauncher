@@ -66,6 +66,7 @@ import type {
   SteamCloudFile,
   SteamCloudSyncDirection,
   SteamCloudSyncStatus,
+  SteamDataFetchFailure,
   SteamDLCInfo,
   SteamInstallLibrary,
   SteamLaunchTargets,
@@ -483,6 +484,7 @@ interface FrontendMessages {
   steamGuardRequired: (type: string) => void
   steamLoginStatus: (status: { state: string; message?: string }) => void
   steamCloudSyncStatusChanged: (status: SteamCloudSyncStatus) => void
+  steamDataFetchFailed: (failure: SteamDataFetchFailure) => void
   metadataChanged: (
     overrides: Record<
       string,
