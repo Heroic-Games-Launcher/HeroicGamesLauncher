@@ -31,7 +31,7 @@
   color: var(--text-hover, var(--text-default));
 }
 
-.contextMenu .MuiListItemIcon-root {
+.contextMenu .MuiMenuItem-root .MuiListItemIcon-root {
   min-width: 0;
   color: var(--text-muted, var(--text-secondary));
 }
