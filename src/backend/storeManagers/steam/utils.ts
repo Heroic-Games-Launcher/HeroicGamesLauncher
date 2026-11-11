@@ -21,7 +21,7 @@ export function describeError(error: unknown): string {
 }
 
 /** Aurelia failed for lack of login. */
-export function isAuthRequired(error: unknown): boolean {
+function isAuthRequired(error: unknown): boolean {
   return error instanceof AureliaError && error.kind === 'auth_required'
 }
 
