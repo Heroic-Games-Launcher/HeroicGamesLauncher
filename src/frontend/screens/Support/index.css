@@ -6,78 +6,71 @@
 .Support__wrapper {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-3xl-fixed);
   width: 100%;
-  max-width: 920px;
+  max-width: 1040px;
   margin-inline: auto;
 }
 
-.Support__sections {
+.Support__hero {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  width: 100%;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm-fixed);
+  padding-block: var(--space-xl-fixed);
 }
 
-.Support .SettingsCard__body > *:not(.Alert) {
-  padding-block: 20px;
+.Support__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.Support__title {
   margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--display-lg);
+  font-weight: var(--bold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--on-panel, var(--text-default));
+}
+
+.Support__subtitle {
+  margin: 0;
+  max-width: 60ch;
+  font-size: var(--body-lg);
+  line-height: var(--leading-normal);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.Support__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg-fixed);
   width: 100%;
-  max-width: 100%;
-  border-bottom: 1px solid var(--panel-divider, var(--divider));
 }
 
-.Support .SettingsCard__body > *:not(.Alert):first-child {
-  padding-top: 0;
+.Support__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-md-fixed);
+  width: 100%;
 }
 
-.Support .SettingsCard__body > *:not(.Alert):last-child {
-  padding-bottom: 0;
-  border-bottom: none;
+.Support .SectionHeader__subtitle {
+  font-size: var(--body-md);
+  line-height: var(--leading-normal);
 }
 
-.Support__brand,
 .Support__storeLogo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-}
-
-.Support__brand {
-  width: 20px;
-  height: 20px;
-  font-size: 18px;
-}
-
-.Support__brand svg {
-  width: 18px;
-  height: 18px;
-}
-
-.Support__brand--patreon {
-  color: #ff424d;
-}
-
-.Support__brand--kofi {
-  color: #ff5e5b;
-}
-
-.Support__brand--paypal {
-  color: #0070ba;
-}
-
-.Support__brand--github {
-  color: var(--text-default);
-}
-
-.Support__storeLogo {
-  width: 28px;
-  height: 28px;
-  padding: var(--space-3xs);
-  border-radius: 10px;
-  background: var(--background-darker);
-  fill: var(--text-default);
+  width: 22px;
+  height: 22px;
+  fill: var(--on-panel, var(--text-default));
 }
 
 .Support__storeLogo svg {

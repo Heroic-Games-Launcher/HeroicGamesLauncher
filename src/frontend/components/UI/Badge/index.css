@@ -45,6 +45,22 @@
   --badge-color: var(--danger, #ef4444);
 }
 
+.Badge--gradient {
+  background: linear-gradient(
+    120deg,
+    var(--badge-gradient-from, #4fe6f0) 0%,
+    var(--badge-gradient-via, #5f8ef6) 52%,
+    var(--badge-gradient-to, #7c5cf6) 100%
+  );
+  border-color: transparent;
+  color: var(--badge-gradient-ink, #0a0e13);
+  font-weight: var(--bold);
+}
+
+.Badge--gradient svg {
+  color: var(--badge-gradient-ink, #0a0e13);
+}
+
 .Badge--onOverlay {
   background: color-mix(
     in oklab,

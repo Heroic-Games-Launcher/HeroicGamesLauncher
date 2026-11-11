@@ -1280,7 +1280,7 @@
             },
             "title": "Affiliates"
         },
-        "description": "Heroic is free and open source. Donations and affiliate purchases keep it that way.",
+        "description": "Heroic is free and open source, and always will be. Your support gives the developers more time to improve it: buying games to test new features against, fixing bugs, and building the things the community asks for.",
         "donations": {
             "description": "Choose how you'd like to support Heroic's development.",
             "github": {
@@ -1300,9 +1300,19 @@
         "email": {
             "label": "Email"
         },
+        "headline": "Help us make Heroic even better",
         "partnerships": {
             "description": "For sponsorships, brand partnerships or press enquiries, get in touch.",
             "title": "Partnerships & press"
+        },
+        "tags": {
+            "bundles": "Bundles",
+            "donation": "Donation",
+            "drmFree": "DRM-free",
+            "gameKeys": "Game keys",
+            "membership": "Membership",
+            "sponsor": "Sponsor",
+            "tip": "One-time tip"
         },
         "title": "Support Us"
     },

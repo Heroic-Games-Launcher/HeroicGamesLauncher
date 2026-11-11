@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Coffee, Copy, ExternalLink, Heart, Mail, Store } from 'lucide-react'
+import { ArrowUpRight, Coffee, Copy, Mail } from 'lucide-react'
 import {
   faGithub,
   faPatreon,
@@ -8,11 +8,12 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  Badge,
   Button,
+  FeatureCard,
   Icon,
-  PageHeader,
-  SettingsCard,
-  SettingRow
+  IconBadge,
+  SectionHeader
 } from 'frontend/components/UI'
 import GOGLogo from 'frontend/assets/gog-logo.svg?react'
 import GMGLogo from 'frontend/assets/gmg-logo.svg?react'
@@ -34,235 +35,246 @@ export default memo(function Support() {
     void navigator.clipboard.writeText(SUPPORT_EMAIL)
   }
 
+  const openCta = (onClick: () => void, label: string) => (
+    <Button
+      variant="ghost"
+      size="md"
+      fullWidth
+      icon={<Icon glyph={ArrowUpRight} size="sm" />}
+      onClick={onClick}
+    >
+      {label}
+    </Button>
+  )
+
   return (
     <div className="Support">
       <div className="Support__wrapper">
-        <PageHeader
-          title={t('support.title', 'Support Us')}
-          description={t(
-            'support.description',
-            'Heroic is free and open source. Donations and affiliate purchases keep it that way.'
-          )}
-        />
+        <header className="Support__hero">
+          <Badge variant="gradient" className="Support__eyebrow">
+            {t('support.title', 'Support Us')}
+          </Badge>
+          <h1 className="Support__title">
+            {t('support.headline', 'Help us make Heroic even better')}
+          </h1>
+          <p className="Support__subtitle">
+            {t(
+              'support.description',
+              'Heroic is free and open source, and always will be. Your support gives the developers more time to improve it: buying games to test new features against, fixing bugs, and building the things the community asks for.'
+            )}
+          </p>
+        </header>
 
-        <div className="Support__sections">
-          <SettingsCard
-            glyph={Heart}
+        <section className="Support__section">
+          <SectionHeader
             title={t('support.donations.title', 'Donations')}
-            description={t(
+            subtitle={t(
               'support.donations.description',
               "Choose how you'd like to support Heroic's development."
             )}
-          >
-            <SettingRow
-              label={
-                <>
-                  <span className="Support__brand Support__brand--patreon">
-                    <FontAwesomeIcon icon={faPatreon} />
-                  </span>
-                  Patreon
-                </>
+          />
+          <div className="Support__grid">
+            <FeatureCard
+              icon={
+                <IconBadge>
+                  <FontAwesomeIcon icon={faPatreon} />
+                </IconBadge>
               }
+              title="Patreon"
               description={t(
                 'support.donations.patreon.description',
                 'Recurring membership with behind-the-scenes updates.'
               )}
-            >
-              <Button
-                variant="secondary"
-                size="sm"
-                icon={<Icon glyph={ExternalLink} size="sm" />}
-                onClick={() => window.api.openPatreonPage()}
-              >
-                {t('support.actions.open', 'Open')}
-              </Button>
-            </SettingRow>
-
-            <SettingRow
-              label={
-                <>
-                  <span className="Support__brand Support__brand--kofi">
-                    <Icon glyph={Coffee} size="md" />
-                  </span>
-                  Ko-fi
-                </>
+              meta={
+                <Badge variant="neutral">
+                  {t('support.tags.membership', 'Membership')}
+                </Badge>
               }
+              action={openCta(
+                () => window.api.openPatreonPage(),
+                t('support.actions.open', 'Open')
+              )}
+            />
+            <FeatureCard
+              icon={<IconBadge glyph={Coffee} />}
+              title="Ko-fi"
               description={t(
                 'support.donations.kofi.description',
                 'A one-time tip that goes straight into development.'
               )}
-            >
-              <Button
-                variant="secondary"
-                size="sm"
-                icon={<Icon glyph={ExternalLink} size="sm" />}
-                onClick={() => window.api.openKofiPage()}
-              >
-                {t('support.actions.open', 'Open')}
-              </Button>
-            </SettingRow>
-
-            <SettingRow
-              label={
-                <>
-                  <span className="Support__brand Support__brand--paypal">
-                    <FontAwesomeIcon icon={faPaypal} />
-                  </span>
-                  PayPal
-                </>
+              meta={
+                <Badge variant="neutral">
+                  {t('support.tags.tip', 'One-time tip')}
+                </Badge>
               }
+              action={openCta(
+                () => window.api.openKofiPage(),
+                t('support.actions.open', 'Open')
+              )}
+            />
+            <FeatureCard
+              icon={
+                <IconBadge>
+                  <FontAwesomeIcon icon={faPaypal} />
+                </IconBadge>
+              }
+              title="PayPal"
               description={t(
                 'support.donations.paypal.description',
                 'One-time or recurring donation in the currency you prefer.'
               )}
-            >
-              <Button
-                variant="secondary"
-                size="sm"
-                icon={<Icon glyph={ExternalLink} size="sm" />}
-                onClick={() => openExternal(PAYPAL_URL)}
-              >
-                {t('support.actions.open', 'Open')}
-              </Button>
-            </SettingRow>
-
-            <SettingRow
-              label={
-                <>
-                  <span className="Support__brand Support__brand--github">
-                    <FontAwesomeIcon icon={faGithub} />
-                  </span>
-                  GitHub Sponsors
-                </>
+              meta={
+                <Badge variant="neutral">
+                  {t('support.tags.donation', 'Donation')}
+                </Badge>
               }
+              action={openCta(
+                () => openExternal(PAYPAL_URL),
+                t('support.actions.open', 'Open')
+              )}
+            />
+            <FeatureCard
+              icon={
+                <IconBadge>
+                  <FontAwesomeIcon icon={faGithub} />
+                </IconBadge>
+              }
+              title="GitHub Sponsors"
               description={t(
                 'support.donations.github.description',
                 'Sponsor Heroic through GitHub and show your support publicly.'
               )}
-            >
-              <Button
-                variant="secondary"
-                size="sm"
-                icon={<Icon glyph={ExternalLink} size="sm" />}
-                onClick={() => window.api.openGithubSponsorsPage()}
-              >
-                {t('support.actions.open', 'Open')}
-              </Button>
-            </SettingRow>
-          </SettingsCard>
+              meta={
+                <Badge variant="neutral">
+                  {t('support.tags.sponsor', 'Sponsor')}
+                </Badge>
+              }
+              action={openCta(
+                () => window.api.openGithubSponsorsPage(),
+                t('support.actions.open', 'Open')
+              )}
+            />
+          </div>
+        </section>
 
-          <SettingsCard
-            glyph={Store}
+        <section className="Support__section">
+          <SectionHeader
             title={t('support.affiliates.title', 'Affiliates')}
-            description={t(
+            subtitle={t(
               'support.affiliates.description',
               'Buy through our links and Heroic earns a small commission at no extra cost to you.'
             )}
-          >
-            <SettingRow
-              label={
-                <>
+          />
+          <div className="Support__grid">
+            <FeatureCard
+              icon={
+                <IconBadge>
                   <span className="Support__storeLogo">
                     <GOGLogo />
                   </span>
-                  GOG
-                </>
+                </IconBadge>
               }
+              title="GOG"
               description={t(
                 'support.affiliates.gog.description',
                 'DRM-free games and classics.'
               )}
-            >
-              <Button
-                variant="secondary"
-                size="sm"
-                icon={<Icon glyph={ExternalLink} size="sm" />}
-                onClick={() => openExternal(GOG_URL)}
-              >
-                {t('support.actions.shop', 'Shop')}
-              </Button>
-            </SettingRow>
-
-            <SettingRow
-              label={
-                <>
+              meta={
+                <Badge variant="neutral">
+                  {t('support.tags.drmFree', 'DRM-free')}
+                </Badge>
+              }
+              action={openCta(
+                () => openExternal(GOG_URL),
+                t('support.actions.shop', 'Shop')
+              )}
+            />
+            <FeatureCard
+              icon={
+                <IconBadge>
                   <span className="Support__storeLogo">
                     <GMGLogo />
                   </span>
-                  Green Man Gaming
-                </>
+                </IconBadge>
               }
+              title="Green Man Gaming"
               description={t(
                 'support.affiliates.gmg.description',
                 'Official game keys at great prices.'
               )}
-            >
-              <Button
-                variant="secondary"
-                size="sm"
-                icon={<Icon glyph={ExternalLink} size="sm" />}
-                onClick={() => openExternal(GMG_URL)}
-              >
-                {t('support.actions.shop', 'Shop')}
-              </Button>
-            </SettingRow>
-
-            <SettingRow
-              label={
-                <>
+              meta={
+                <Badge variant="neutral">
+                  {t('support.tags.gameKeys', 'Game keys')}
+                </Badge>
+              }
+              action={openCta(
+                () => openExternal(GMG_URL),
+                t('support.actions.shop', 'Shop')
+              )}
+            />
+            <FeatureCard
+              icon={
+                <IconBadge>
                   <span className="Support__storeLogo">
                     <HumbleLogo />
                   </span>
-                  Humble Bundle
-                </>
+                </IconBadge>
               }
+              title="Humble Bundle"
               description={t(
                 'support.affiliates.humble.description',
                 'Games, books and bundles for charity.'
               )}
-            >
-              <Button
-                variant="secondary"
-                size="sm"
-                icon={<Icon glyph={ExternalLink} size="sm" />}
-                onClick={() => openExternal(HUMBLE_URL)}
-              >
-                {t('support.actions.shop', 'Shop')}
-              </Button>
-            </SettingRow>
-          </SettingsCard>
+              meta={
+                <Badge variant="neutral">
+                  {t('support.tags.bundles', 'Bundles')}
+                </Badge>
+              }
+              action={openCta(
+                () => openExternal(HUMBLE_URL),
+                t('support.actions.shop', 'Shop')
+              )}
+            />
+          </div>
+        </section>
 
-          <SettingsCard
-            glyph={Mail}
+        <section className="Support__section">
+          <SectionHeader
             title={t('support.partnerships.title', 'Partnerships & press')}
-            description={t(
+            subtitle={t(
               'support.partnerships.description',
               'For sponsorships, brand partnerships or press enquiries, get in touch.'
             )}
-          >
-            <SettingRow
-              label={t('support.email.label', 'Email')}
+          />
+          <div className="Support__grid">
+            <FeatureCard
+              icon={<IconBadge glyph={Mail} />}
+              title={t('support.email.label', 'Email us')}
               description={SUPPORT_EMAIL}
-            >
-              <Button
-                variant="ghost"
-                size="sm"
-                title={t('support.actions.copyEmail', 'Copy email')}
-                aria-label={t('support.actions.copyEmail', 'Copy email')}
-                icon={<Icon glyph={Copy} size="sm" />}
-                onClick={copyEmail}
-              />
-              <Button
-                variant="primary"
-                size="sm"
-                icon={<Icon glyph={Mail} size="sm" />}
-                onClick={() => openExternal(`mailto:${SUPPORT_EMAIL}`)}
-              >
-                {t('support.actions.sendEmail', 'Send email')}
-              </Button>
-            </SettingRow>
-          </SettingsCard>
-        </div>
+              action={
+                <>
+                  <Button
+                    variant="primary"
+                    size="md"
+                    fullWidth
+                    icon={<Icon glyph={Mail} size="sm" />}
+                    onClick={() => openExternal(`mailto:${SUPPORT_EMAIL}`)}
+                  >
+                    {t('support.actions.sendEmail', 'Send email')}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="md"
+                    title={t('support.actions.copyEmail', 'Copy email')}
+                    aria-label={t('support.actions.copyEmail', 'Copy email')}
+                    icon={<Icon glyph={Copy} size="sm" />}
+                    onClick={copyEmail}
+                  />
+                </>
+              }
+            />
+          </div>
+        </section>
       </div>
     </div>
   )
