@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "Yumuşak kaydırmayı devre dışı bırak (yeniden başlatma gerekir)",
         "disable_animations": "Arayüz animasyonlarını devre dışı bırak",
         "section": {
-            "library": "Kütüphane"
-        }
+            "library": "Kütüphane",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Oyun Ekle",
     "All": "Tümü",
@@ -193,6 +196,12 @@
             "rosetta": {
                 "message": "Heroic, Rosetta Apple Silicon yongalarına sahip macOS üstünde düzgün çalışmasını gerektirir. Lütfen aşağıdaki komutu kullanarak macOS terminalinden kurun: \"softwareupdate --install-rosetta\" ve Heroic yeniden başlatılmalı. ",
                 "title": "Rosetta bulunamadı"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "WinePrefix Klasörünü Seç",
@@ -211,7 +220,8 @@
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır",
         "continue": "Devam",
-        "close": "Kapat"
+        "close": "Kapat",
+        "backToLibrary": "Kütüphaneye Dön"
     },
     "controller": {
         "hints": {
@@ -247,7 +257,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "İndirme"
+            "speed": "İndirme",
+            "unit": ""
         },
         "link": "İndirilenler",
         "queue": {
@@ -257,7 +268,15 @@
             "type": "Tip"
         },
         "title": "İndirilenler",
-        "ETA": "Tahmini süre"
+        "ETA": "Tahmini süre",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
@@ -309,7 +328,10 @@
         "show_third_party_managed_only": "Yalnızca üçüncü taraf tarafından yönetilenleri göster",
         "show_updates_only": "Yalnızca güncellenen oyunları göster",
         "platforms": "Platform",
-        "stores": "Mağazalar"
+        "stores": "Mağazalar",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD'nin FSR özelliği, Tam Ekran Modunda daha düşük çözünürlükleri yükselterek kare hızını artırmaya yardımcı olur. Küçük bir performans artışı pahasına görüntü kalitesi 5'ten 1'e yükselir. Etkinleştirmek performansı artırabilir.",
@@ -446,7 +468,9 @@
             "list": "Liste düzenine geç"
         },
         "hideAlphabetFilter": "Alfabe Filtresini Gizle",
-        "showAlphabetFilter": "Alfabe Filtresini Göster"
+        "showAlphabetFilter": "Alfabe Filtresini Göster",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Kütüphane",
     "loading": {
@@ -460,7 +484,8 @@
         "message": "Platformunuz ile giriş yapın. Aynı anda birden fazla platforma giriş yapabilirsiniz.",
         "amazon": "Amazon Girişi",
         "old-mac": "MacOS sürümünüz {{version}}. Oturum açmak için macOS 12 veya daha yeni bir sürüm gereklidir.",
-        "zoom": "Zoom Girişi"
+        "zoom": "Zoom Girişi",
+        "itchio": ""
     },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
@@ -615,7 +640,8 @@
             "queued": "Sıraya Alındı",
             "remove": "İndirilenlerden kaldır",
             "pause": "İndirmeyi duraklat",
-            "resume": "İndirmeye devam et"
+            "resume": "İndirmeye devam et",
+            "paused": ""
         }
     },
     "Recent": "Yakın Zamanda Oynanan",
@@ -662,7 +688,8 @@
             "removeConfirm": "EOS Arayüzünü kaldırmak istediğinizden emin misiniz?",
             "removeConfirmTitle": "Arayüzün kaldırılmasını onaylayın",
             "updateNow": "Güncelle",
-            "updating": "Güncelleniyor..."
+            "updating": "Güncelleniyor...",
+            "description": ""
         },
         "esync": "Esync'i Etkinleştir",
         "exit-to-tray": "Sistem tepsisine küçült",
@@ -722,10 +749,13 @@
                 "game-log": "{{gameTitle}} oyun kaydı",
                 "legendary": "Epic Games / Legendary kaydı",
                 "nile": "Amazon / Nile kaydı",
-                "zoom": "Zoom kaydı"
+                "zoom": "Zoom kaydı",
+                "itchio": ""
             },
             "show-uploads": "Yüklenmiş günlük dosyalarını göster",
-            "error": "Log dosyasını okurken dahili bir hata oluştu"
+            "error": "Log dosyasını okurken dahili bir hata oluştu",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
@@ -745,12 +775,15 @@
         "preferSystemLibs": "Sistem kitaplıklarını tercih et",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
-            "title": "Prefix'te EXE Çalıştır"
+            "title": "Prefix'te EXE Çalıştır",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Kaydetme klasörü bulunamadı, lütfen manuel olarak seçin (tekrar denemek için tıklayın)",
             "placeholder": "Tam oyun kaydetme klasörünü seçin",
-            "warning": "Lütfen yolun doğruluğunu iki kez denetleyin (tekrar denemek için tıklayın)"
+            "warning": "Lütfen yolun doğruluğunu iki kez denetleyin (tekrar denemek için tıklayın)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Tema Seç",
         "showfps": "FPS Göster (DX9, 10 and 11)",
@@ -808,7 +841,8 @@
             "warning": "Uyarı: Bu değişiklik tüm arayüzü etkiler. Bu, yanlış bir stilin Heroic'i kullanılamaz hale getirebileceği anlamına gelir. Gerekirse, ayar `~/.config/heroic/config.json` dosyası üzerinden elle değiştirilebilir. Güvenmediğiniz kaynaklardan stil KOPYALAMAYIN."
         },
         "verboseLogs": {
-            "description": "Ayrıntılı günlükleri etkinleştir"
+            "description": "Ayrıntılı günlükleri etkinleştir",
+            "hint": ""
         },
         "allow_non_ge_proton": {
             "confirmation": {
@@ -853,13 +887,83 @@
         },
         "tools": {
             "open": "Aç",
-            "selectExe": "EXE dosyası seçin"
-        }
+            "selectExe": "EXE dosyası seçin",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEye Çalışma Zamanı Kuruluyor...",
-            "name": "BattlEye AntiCheat Çalışma Zamanı"
+            "name": "BattlEye AntiCheat Çalışma Zamanı",
+            "hint": ""
         },
         "clear-cache": "Heroic Önbelleğini Temizle",
         "copiedToClipboard": "Panoya kopyalandı!",
@@ -871,7 +975,8 @@
                 "title": "GameMode gerekli"
             },
             "installing": "EAC Çalışma Zamanı Kuruluyor...",
-            "name": "EasyAntiCheat Çalışma Zamanı"
+            "name": "EasyAntiCheat Çalışma Zamanı",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -893,7 +998,8 @@
             "systemInformation": "Sistem bilgisi",
             "gamescope": "Gamescope",
             "legacy": "Klasik",
-            "categories": "Kategoriler"
+            "categories": "Kategoriler",
+            "tabs": ""
         },
         "open-config-file": "Yapılandırma Dosyasını Aç",
         "reset-heroic": "Heroic'i Sıfırla",
@@ -924,7 +1030,10 @@
             "copyToClipboard": "Panoya kopyala",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Deneysel Özellikler"
@@ -946,7 +1055,8 @@
                 "help4": "GOG kütüphane bilgisi (oyunların listesi, indirme diyalogu bilgisi, API bilgisi -yani gereksinimler-)",
                 "help3": "Legendary kütüphane bilgisi (oyunların listesi, yükleme iletişim kutusu bilgisi, oyun bilgisi)",
                 "help2": "Üçüncü parti oyun bilgileri (skorlar, steam uyumluluğu, howlongtobeat, pcgamingwiki, applegamingwiki)",
-                "help5": "Amazon kütüphane bilgisi (oyunların listesi, indirme kutusu bilgisi)"
+                "help5": "Amazon kütüphane bilgisi (oyunların listesi, indirme kutusu bilgisi)",
+                "description": ""
             },
             "title": {
                 "resetHeroic": "Heroic'i Sıfırla",
@@ -954,7 +1064,8 @@
             },
             "details": "Ayrıntılar",
             "resetHeroic": {
-                "help": "Bu, tüm Ayarları ve Önbelleği kaldıracak ancak Kurulu oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacaktır. Heroic taşınabilir sürümlerinin (AppImage, WinPortable, ...) daha sonra el ile yeniden başlatılması gerekir."
+                "help": "Bu, tüm Ayarları ve Önbelleği kaldıracak ancak Kurulu oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacaktır. Heroic taşınabilir sürümlerinin (AppImage, WinPortable, ...) daha sonra el ile yeniden başlatılması gerekir.",
+                "description": ""
             }
         },
         "custom_css": {
@@ -978,7 +1089,30 @@
             "experimental": "Deneysel Özellikler",
             "launch": "Başlatma Seçenekleri",
             "wineTools": "Araçlar",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Ayarlar",
@@ -1029,7 +1163,8 @@
         "manageaccounts": "Hesapları Yönet",
         "quit": "Çık",
         "cancel": "İptal et",
-        "quitMessage": "Çıkmak istediğinden emin misin?"
+        "quitMessage": "Çıkmak istediğinden emin misin?",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -1037,7 +1172,9 @@
             "forward": "İleri",
             "openInBrowser": "Tarayıcıda aç",
             "reload": "Sayfayı yeniden yükle",
-            "home": "Mağazanın ana sayfasına git"
+            "home": "Mağazanın ana sayfasına git",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1052,7 +1189,8 @@
             "search": "Sürümleri ara…",
             "loading": "Wine sürümleri yükleniyor…",
             "open_folder": "Klasör Aç",
-            "no-results": "Aramanızla eşleşen bir wine sürümü bulunamadı."
+            "no-results": "Aramanızla eşleşen bir wine sürümü bulunamadı.",
+            "subtitle": ""
         },
         "release": "Yayınlanma Tarihi",
         "size": "Boyut",
@@ -1103,7 +1241,9 @@
     "emptyLibrary": {
         "noResults": "Geçerli filtrelere uygun bir sonuç bulunamadı.",
         "noGames": "Kütüphaneniz boş.<br /><br />Epic, GOG.com veya Amazon hesaplarınızla giriş yapmak için <4>buraya</4> tıklayın. Oyunlarınız kütüphanede burada görünecektir.<br /><br />Diğer kaynaklardan oyun veya uygulama kullanmak için, bunları el ile eklemek üzere <br /> öğesine tıklayın.",
-        "noResultsTitle": "Oyun Bulunamadı"
+        "noResultsTitle": "Oyun Bulunamadı",
+        "description": "",
+        "title": ""
     },
     "adtraction-locked": {
         "description": "track.adtraction.com alan adı yüklenememiş veya engellenmiş gibi görünüyor. Adtraction ile GOG mağazasında yaptığınız her satın alma işlemi Heroic'e maddi destek sağlar. Katkıda bulunmak istiyorsanız, engellemeyi kaldırmayı düşünebilirsiniz.",
@@ -1314,7 +1454,8 @@
             "grid": "Izgara",
             "label": "Görünüm modu",
             "list": "Liste"
-        }
+        },
+        "affiliateBanner": ""
     },
     "next": "Sonraki",
     "console": {
@@ -1380,5 +1521,15 @@
         "remove": "Kaldır",
         "save": "Kaydet"
     },
-    "General": "Genel"
+    "General": "Genel",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

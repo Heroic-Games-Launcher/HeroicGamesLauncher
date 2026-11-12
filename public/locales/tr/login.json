@@ -6,7 +6,8 @@
         "copied": "Kopyalandı!",
         "error": "Hata, farklı bir Kod deneyin",
         "loading": "Yükleniyor",
-        "close": "Kapat"
+        "close": "Kapat",
+        "itchio_error": "Hata, başka bir API anahtarı deneyin"
     },
     "message": {
         "part1": "Oturum açıp oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
@@ -22,5 +23,14 @@
         "error": "Hata",
         "loading": "Oyun listesi yükleniyor, lütfen bekleyin"
     },
-    "welcome": "Hoş Geldiniz!"
+    "welcome": "Hoş Geldiniz!",
+    "itchio": {
+        "api_key_placeholder": "API anahtarını yapıştır",
+        "instructions": "Eğer normal itch.io giriş yapma çalışmıyorsa, bir kişisel API anahtarı ile de bağlanabilirsin. itch.io'da API anahtarları sayfasından anahtar oluşturduktan sonra aşağıya yapıştır.",
+        "paste_and_login": "Panodan yapıştır ve giriş yap"
+    },
+    "sid": {
+        "paste_and_login": "Panodan yapıştır ve giriş yap",
+        "placeholder": "SID kodunu buraya yapıştır"
+    }
 }
