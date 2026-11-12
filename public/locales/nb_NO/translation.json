@@ -14,8 +14,10 @@
         "disable_animations": "Skru av animasjoner i brukergrensesnittet",
         "section": {
             "appearance": "Utseende",
-            "library": "Bibliotek"
-        }
+            "library": "Bibliotek",
+            "motion": "Bevegelser og interaksjon"
+        },
+        "subtitle": ""
     },
     "add_game": "Legg til spill",
     "All": "Alle",
@@ -194,6 +196,12 @@
             "rosetta": {
                 "message": "Heroic krevet at Rosetta er installert for å fungere på Apple Silicon-maskiner. Vennligst installer det fra macOS-terminalen med følgende kommando: «softwareupdate --install-rosetta». Start deretter Heroic på nytt. ",
                 "title": "Rosetta ble ikke funnet"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Velg Wine-prefiksmappe",
@@ -478,7 +486,8 @@
         "message": "Logg inn med plattformen din. Du kan være innlogget i flere plattformer samtidig.",
         "amazon": "Amazon-pålogging",
         "old-mac": "MacOS-versjonen din er {{version}}. macOS 12 eller nyere kreves for å logge på.",
-        "zoom": "Logg inn på Zoom"
+        "zoom": "Logg inn på Zoom",
+        "itchio": "itch.io-innlogging"
     },
     "message": {
         "sync": "Synkronisering fullført",
@@ -681,7 +690,8 @@
             "removeConfirm": "Er du sikker på at du vil avinstallere EOS Overlay?",
             "removeConfirmTitle": "Bekreft fjerning av overlegg",
             "updateNow": "Oppdater",
-            "updating": "Oppdaterer..."
+            "updating": "Oppdaterer...",
+            "description": ""
         },
         "esync": "Aktiver Esync",
         "exit-to-tray": "Avslutt til systemkurv",
@@ -740,7 +750,8 @@
                 "legendary": "Epic Games- / Legendary-logg",
                 "nile": "Amazon- / Nile-logg",
                 "gog": "GOG-logg",
-                "zoom": "Zoom-logg"
+                "zoom": "Zoom-logg",
+                "itchio": "itch.io-logg"
             },
             "show-uploads": "Vis opplastede loggfiler",
             "join-heroic-discord": "Bli med i vår discord",
@@ -766,12 +777,15 @@
         "preferSystemLibs": "Foretrekker systembiblioteker",
         "runexe": {
             "message": "Dra og slipp filer her",
-            "title": "Kjør EXE på prefiks"
+            "title": "Kjør EXE på prefiks",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Lagringsmappe ikke funnet, vennligst velg den manuelt (klikk for å prøve på nytt)",
             "placeholder": "Velg den nøyaktige mappen for lagring av spill",
-            "warning": "Klikk her to ganger hvis stien er riktig (klikk for å prøve på nytt)"
+            "warning": "Klikk her to ganger hvis stien er riktig (klikk for å prøve på nytt)",
+            "retry": "Finn igjen",
+            "title": ""
         },
         "select_theme": "Velg Tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",
@@ -822,7 +836,8 @@
         },
         "disableUMU": "Skru av umu",
         "verboseLogs": {
-            "description": "Aktiver detaljerte logger"
+            "description": "Aktiver detaljerte logger",
+            "hint": ""
         },
         "custom_css": {
             "warning": "Advarsel: dette gjelder hele brukerflaten. Det betyr at feil stil kan gjøre Heroic ubrukelig. Om nødvendig kan innstillingen endres manuelt i «~/.config/heroic/config.json». IKKE kopier stiler fra kilder du ikke stoler på."
@@ -867,7 +882,8 @@
         "gamepad-repeat-frequency": "Gjentakelsesfrekvens for kontrollerinput",
         "tools": {
             "open": "Åpne",
-            "selectExe": "Velg EXE"
+            "selectExe": "Velg EXE",
+            "running": ""
         },
         "allow-broken-anticheat": {
             "description": "Installer spill selv om det er kjent at anticheat hindrer det i å fungere på dette systemet"
@@ -885,19 +901,64 @@
             "description": "Hindre Heroic fra bli styrt av kontrollere"
         },
         "experimental_features_description": {
-            "cometSupport": "Aktiver GOG Galaxys funksjonalitet, blant annet utmerkelser og flerspiller"
+            "cometSupport": "Aktiver GOG Galaxys funksjonalitet, blant annet utmerkelser og flerspiller",
+            "enableHelp": "",
+            "zoomPlatform": ""
         },
         "minimizeOnLaunch": {
             "description": "Send Heroic til bakgrunnen når et spill starter"
         },
         "nvidiaPrime": {
             "description": "Kjør spillet med det dedikerte grafikkortet fra Nvidia istedenfor det integrerte"
-        }
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "autoUpdateGames-description": "",
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "autovkd3d-description": "",
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Installerer BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "clear-cache": "Tøm Heroic hurtigbuffer",
         "copiedToClipboard": "Kopiert til utklippstavlen!",
@@ -909,7 +970,8 @@
                 "title": "Spillmodus kreves"
             },
             "installing": "Installerer EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -931,7 +993,8 @@
             "systemInformation": "Systeminformasjon",
             "gamescope": "Gamescope",
             "legacy": "Foreldret",
-            "categories": "Kategorier"
+            "categories": "Kategorier",
+            "tabs": ""
         },
         "open-config-file": "Åpne konfigurasjonsfil",
         "reset-heroic": "Tilbakestill Heroic",
@@ -952,7 +1015,8 @@
                 "help10": "Heroic konfigurering",
                 "help2": "Tredjeparts spillinformasjon (score, steam-kompatibilitet, howlongtobeat, pcgamingwiki, applegamingwiki)",
                 "help6": "Dette vil IKKE slette:",
-                "help3": "Legendarisk bibliotekinformasjon (liste over spill, installeringsdialoginformasjon, spillinformasjon)"
+                "help3": "Legendarisk bibliotekinformasjon (liste over spill, installeringsdialoginformasjon, spillinformasjon)",
+                "description": ""
             },
             "details": "Detaljer",
             "title": {
@@ -960,7 +1024,8 @@
                 "resetHeroic": "Tilbakestill Heroic"
             },
             "resetHeroic": {
-                "help": "Dette vil fjerne alle innstillinger og hurtigbufring, men vil ikke fjerne de installerte spillene dine eller Epic-legitimasjonen din. Bærbare versjoner (AppImage, WinPortable, ...) av Heroic må startes på nytt manuelt etterpå."
+                "help": "Dette vil fjerne alle innstillinger og hurtigbufring, men vil ikke fjerne de installerte spillene dine eller Epic-legitimasjonen din. Bærbare versjoner (AppImage, WinPortable, ...) av Heroic må startes på nytt manuelt etterpå.",
+                "description": ""
             }
         },
         "experimental_features": {
@@ -987,7 +1052,10 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "gpu": "GPU:",
             "gpuDriver": "Driver: {{driverVersion}}",
-            "gogdlVersion": "Gogdl: {{gogdlVersion}}"
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "gamescope": {
             "searchMsg": "Søker etter gamescope-kjørbar fil."
@@ -1016,7 +1084,30 @@
             "downloads": "Nedlastninger",
             "experimental": "Eksperimentelle funksjoner",
             "launch": "Startalternativer",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "wineTools": "",
+            "runtimes": "",
+            "gameplay": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Innstillinger",
@@ -1076,7 +1167,9 @@
             "forward": "Gå framover",
             "openInBrowser": "Åpne i nettleseren",
             "reload": "Last inn siden på nytt",
-            "home": "Gå til butikksiden"
+            "home": "Gå til butikksiden",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1091,7 +1184,8 @@
             "open_folder": "Åpne mappe",
             "update": "Update",
             "settings": "Innstillinger",
-            "no-results": "Ingen Wine-versjoner passer søket ditt."
+            "no-results": "Ingen Wine-versjoner passer søket ditt.",
+            "subtitle": ""
         },
         "release": "Utgivelsesdato",
         "size": "Størrelse",
@@ -1342,7 +1436,8 @@
             "list": "Liste",
             "grid": "Rutenett",
             "label": "Visningsmodus"
-        }
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1423,5 +1518,13 @@
     },
     "Accounts": "Kontoer",
     "Community": "Fellesskap",
-    "General": "Generelle"
+    "General": "Generelle",
+    "itchio-store": "itech.io-butikken",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    }
 }

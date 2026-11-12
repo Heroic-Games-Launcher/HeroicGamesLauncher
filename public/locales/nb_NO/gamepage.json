@@ -400,5 +400,10 @@
         },
         "square": "Stående forsidekunst",
         "title": "Rediger spill"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Mapper installert av itch.io-appen er fullstendig importert, inkludert oppdateringer. For alle andre mapper kan ikke Heroic finne oppdateringer, og avinstallering vil ikke slette spillfilene."
+        }
     }
 }
