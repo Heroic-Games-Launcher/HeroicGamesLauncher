@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "Desativar rolagem suave (O Heroic precisará ser reiniciado)",
         "disable_animations": "Desativar animações da interface de usuário",
         "section": {
-            "library": "Biblioteca"
-        }
+            "library": "Biblioteca",
+            "motion": "Movimento e interação",
+            "appearance": "Aparencia"
+        },
+        "subtitle": "Ajusta como o Heroic funciona e aparece"
     },
     "add_game": "Adicionar jogo",
     "All": "Todos",
@@ -99,7 +102,9 @@
             "steam": {
                 "error": "Executável do Steam não encontrado. Instalação foi provavelmente cancelada pelo usuário ou houve uma falha do Steam.",
                 "message": "Instalação do Steam falhou. Leia as instruções cuidadosamente e tente novamente! {{paragraph}} {{error}}",
-                "title": "Erro no Steam"
+                "title": "Erro no Steam",
+                "running": "",
+                "running-gamemode": ""
             },
             "executableNotFound": "Arquivo executável não encontrado",
             "executableNotFoundMessage": "O Heroic não pôde encontrar o arquivo executável deste jogo. Por favor, o defina manualmente nas configurações do jogo.",
@@ -109,7 +114,8 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Erro ao remover {{game}} da Steam:{{newLine}} {{error}}"
+                    "body": "Erro ao remover {{game}} da Steam:{{newLine}} {{error}}",
+                    "title": ""
                 }
             }
         },
@@ -190,6 +196,12 @@
             "rosetta": {
                 "title": "Rosetta não encontrado",
                 "message": "O Heroic necessita do Rosetta para funcionar corretamente no MacOS com chips Apple Silicon. Instale-o através do terminal macOS usando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicie o Heroic. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
@@ -211,7 +223,8 @@
         "syncing": "Sincronizando",
         "unsync": "Dessincronizar",
         "continue": "Continuar",
-        "close": "Fechar"
+        "close": "Fechar",
+        "backToLibrary": "Voltar à biblioteca"
     },
     "controller": {
         "hints": {
@@ -247,7 +260,8 @@
         },
         "label": {
             "disk": "Disco",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": ""
         },
         "link": "Downloads",
         "queue": {
@@ -257,7 +271,15 @@
             "type": "Tipo"
         },
         "title": "Downloads",
-        "ETA": "Tempo estimado"
+        "ETA": "Tempo estimado",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Serviços online podem não funcionar totalmente, os servidores da Epic Games estão offline!",
@@ -309,7 +331,10 @@
         "show_third_party_managed_only": "Mostrar somente gerenciados por terceiros",
         "show_updates_only": "Somente mostrar jogos com atualizações",
         "platforms": "Platform",
-        "stores": "Lojas"
+        "stores": "Lojas",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a aumentar a taxa de quadros aumentando as resoluções mais baixas no modo de tela cheia. A qualidade da imagem aumenta de 5 para 1 ao custo de um pequeno impacto no desempenho. A ativação pode melhorar o desempenho.",
@@ -446,7 +471,9 @@
             "list": "Alternar para um layout de lista"
         },
         "hideAlphabetFilter": "Esconder filtro de alfabeto",
-        "showAlphabetFilter": "Mostrar filtro de alfabeto"
+        "showAlphabetFilter": "Mostrar filtro de alfabeto",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Biblioteca",
     "loading": {
@@ -460,7 +487,8 @@
         "message": "Faça login com sua plataforma. Você pode acessar mais de uma plataforma ao mesmo tempo.",
         "amazon": "Login da Amazon",
         "old-mac": "Sua versão do macOS é {{version}}. O macOS 12 ou mais recente é necessário para fazer login.",
-        "zoom": "Login no Zoom"
+        "zoom": "Login no Zoom",
+        "itchio": ""
     },
     "message": {
         "sync": "Sincronização completa",
@@ -476,14 +504,16 @@
                 "steam": {
                     "corrupt": "{{game}} não pôde ser adicionado a todos os usuários do Steam encontrados. Consulte os registros para obter mais informações. É necessário reiniciar o Steam para as alterações terem efeito.",
                     "success": "{{game}} foi adicionado com sucesso ao Steam. É necessário reiniciar o Steam para as alterações terem efeito.",
-                    "title": "Adicionado ao Steam"
+                    "title": "Adicionado ao Steam",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} não pôde ser removido de todos os usuários do Steam encontrados. Consulte os registros para obter mais informações. É necessário reiniciar o Steam para as alterações terem efeito.",
                     "success": "{{game}} foi removido com sucesso do Steam. É necessário reiniciar o Steam para as alterações terem efeito.",
-                    "title": "Removido do Steam"
+                    "title": "Removido do Steam",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Reparo concluído"
@@ -529,16 +559,22 @@
             "placeHolderKey": "NOME",
             "placeHolderValue": "Por exemplo: Caminho/Para/ArquivosExtra",
             "title": "Variáveis de ambiente",
-            "value": "Valor"
+            "value": "Valor",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "Os nomes das variáveis não podem estar vazios",
                 "equal_sign_in_key": "Nomes de variáveis não podem conter o sinal \"=\"",
-                "space_in_key": "Nomes de variáveis não podem conter espaços"
+                "space_in_key": "Nomes de variáveis não podem conter espaços",
+                "duplicate_key": ""
             },
             "example": "NÃO inclua o sinal \"=\", por exemplo: para uma configuração como \"MY_FLAG=123\", defina MY_FLAG em NOME e 123 em VALOR.",
-            "info": "Defina as variáveis de ambiente para anexar ao comando."
+            "info": "Defina as variáveis de ambiente para anexar ao comando.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "Adicione os argumentos de inicialização aqui",
@@ -607,7 +643,8 @@
             "queued": "Na fila",
             "remove": "Remover da fila",
             "pause": "Pausar download",
-            "resume": "Retomar download"
+            "resume": "Retomar download",
+            "paused": ""
         }
     },
     "Recent": "Jogados recentemente",
@@ -654,7 +691,8 @@
             "removeConfirm": "Tem a certeza de que quer desinstalar o EOS Overlay?",
             "removeConfirmTitle": "Confirme a remoção do overlay",
             "updateNow": "Atualizar",
-            "updating": "Atualizando..."
+            "updating": "Atualizando...",
+            "description": ""
         },
         "esync": "Habilitar Esync",
         "exit-to-tray": "Fechar para o indicador de aplicativo",
@@ -714,9 +752,13 @@
                 "legendary": "Registro Epic Games / Legendary",
                 "nile": "Registro Amazon / Nile",
                 "game-log": "Registro do jogo {{gameTitle}}",
-                "zoom": "Registro do Zoom"
+                "zoom": "Registro do Zoom",
+                "itchio": ""
             },
-            "show-uploads": "Exibir arquivos de registro enviados"
+            "show-uploads": "Exibir arquivos de registro enviados",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Habilitar o MangoHud (precisa estar instalado)",
         "manualsync": {
@@ -736,12 +778,15 @@
         "preferSystemLibs": "Preferir as bibliotecas do sistema",
         "runexe": {
             "message": "Arraste e solte arquivos aqui",
-            "title": "Executar EXE no prefixo"
+            "title": "Executar EXE no prefixo",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Pasta de saves não encontrada, selecione manualmente (Clique para tentar novamente )",
             "placeholder": "Selecione a pasta exata com os saves",
-            "warning": "Verifique duas vezes se o caminho está correto (Clique para tentar novamente)"
+            "warning": "Verifique duas vezes se o caminho está correto (Clique para tentar novamente)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Selecione um tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
@@ -794,7 +839,8 @@
         "before-launch-script-path": "Selecione um script para executar antes do jogo ser iniciado",
         "after-launch-script-path": "Selecione um script para executar após o jogo ser fechado",
         "verboseLogs": {
-            "description": "Habilitar logs detalhados"
+            "description": "Habilitar logs detalhados",
+            "hint": ""
         },
         "disableUMU": "Desabilitar umu",
         "custom_css": {
@@ -846,13 +892,83 @@
         },
         "tools": {
             "open": "Abrir",
-            "selectExe": "Selecionar EXE"
-        }
+            "selectExe": "Selecionar EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Instalando o BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copiado para a área de Transferência!",
@@ -864,7 +980,8 @@
                 "title": "GameMode necessário"
             },
             "installing": "Instalando o EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -886,7 +1003,8 @@
             "systemInformation": "Informações do sistema",
             "gamescope": "Gamescope",
             "legacy": "Legado",
-            "categories": "Categorias"
+            "categories": "Categorias",
+            "tabs": ""
         },
         "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic",
@@ -917,7 +1035,10 @@
             "copyToClipboard": "Copiar para área de transferência",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Recursos experimentais"
@@ -939,7 +1060,8 @@
                 "help3": "Informações da Biblioteca do Legendary (lista de jogos, diálogo de informações de instalação, informação do jogo)",
                 "help6": "Isto NÃO apagará:",
                 "help4": "Informações da Biblioteca do GOG (lista de jogos, diálogo de informações de instalação, informação da api -ex: requisitos-)",
-                "help5": "Informações da Biblioteca da Amazon (lista de jogos, diálogo de informações de instalação)"
+                "help5": "Informações da Biblioteca da Amazon (lista de jogos, diálogo de informações de instalação)",
+                "description": ""
             },
             "title": {
                 "resetHeroic": "Redefinir o Heroic",
@@ -947,7 +1069,8 @@
             },
             "details": "Detalhes",
             "resetHeroic": {
-                "help": "Isso irá remover todas as Configurações e Cache, mas não removerá seus jogos Instalados ou suas credenciais Epic. Versões portáteis (AppImage, WinPortable, ...) do Heroic precisam ser reiniciadas manualmente logo depois."
+                "help": "Isso irá remover todas as Configurações e Cache, mas não removerá seus jogos Instalados ou suas credenciais Epic. Versões portáteis (AppImage, WinPortable, ...) do Heroic precisam ser reiniciadas manualmente logo depois.",
+                "description": ""
             }
         },
         "custom_css": {
@@ -970,7 +1093,31 @@
             "experimental": "Recursos experimentais",
             "launch": "Opções de inicialização",
             "wineTools": "Ferramentas",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Configurações",
@@ -1021,7 +1168,8 @@
         "manageaccounts": "Gerenciar contas",
         "quit": "Sair",
         "cancel": "Cancelar",
-        "quitMessage": "Tem certeza que deseja sair?"
+        "quitMessage": "Tem certeza que deseja sair?",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -1029,7 +1177,9 @@
             "forward": "Avançar",
             "openInBrowser": "Abrir no navegador",
             "reload": "Recarregar página",
-            "home": "Ir para a página inicial da loja"
+            "home": "Ir para a página inicial da loja",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1044,7 +1194,8 @@
             "open_folder": "Abrir pasta",
             "update": "Atualizar",
             "settings": "Configurações",
-            "no-results": "Nenhuma versão do Wine corresponde à sua busca."
+            "no-results": "Nenhuma versão do Wine corresponde à sua busca.",
+            "subtitle": ""
         },
         "release": "Data de lançamento",
         "size": "Tamanho",
@@ -1095,7 +1246,9 @@
     "emptyLibrary": {
         "noResults": "Os filtros atuais não geraram resultados.",
         "noGames": "A sua biblioteca está vazia.<br /><br />Clique <4>aqui</4> para fazer login com a sua conta Epic, GOG.com ou Amazon. Após isso, seus jogos serão exibidos.<br /><br />Para usar jogos ou aplicativos de outras fontes, clique <br/> para adicioná-los manualmente.",
-        "noResultsTitle": "Nenhum Jogo Encontrado."
+        "noResultsTitle": "Nenhum Jogo Encontrado.",
+        "description": "",
+        "title": ""
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton é uma variante Proton criada por Glorious Eggroll. Deve ser usada com o umu launcher (ativado por padrão no Heroic).",
@@ -1293,7 +1446,8 @@
             "grid": "Grade",
             "label": "Modo de exibição",
             "list": "Lista"
-        }
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1364,7 +1518,23 @@
     "common": {
         "add": "Adicionar",
         "cancel": "Cancelar",
-        "warning": "Aviso"
+        "warning": "Aviso",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "Config. Gerais"
+    "General": "Config. Gerais",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "Contas",
+    "itchio-store": ""
 }
