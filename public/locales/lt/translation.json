@@ -62,7 +62,8 @@
                 }
             },
             "steam": {
-                "running": "„Steam“ veikia. Uždarykite „Steam“ ir bandykite dar kartą, arba iš naujo paleiskite „Steam“ vienam kartui, kad „Heroic“ galėtų valdyti nuorodas, kol jis veikia."
+                "running": "„Steam“ veikia. Uždarykite „Steam“ ir bandykite dar kartą, arba iš naujo paleiskite „Steam“ vienam kartui, kad „Heroic“ galėtų valdyti nuorodas, kol jis veikia.",
+                "running-gamemode": ""
             }
         },
         "no": "NE",
@@ -114,6 +115,12 @@
             "rosetta": {
                 "title": "„Rotsetta“ nerasta",
                 "message": "„Heroic“ reikalauja „Rosetta“, kad veiktų teisingai ant „macOS“ su „Apple Silicon“ lustais. Prašome jį įdiegti iš „macOS“ terminalo su šia komanda: „softwareupdate --install-rosetta“ ir paleiskite iš naujo „Heroic“. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "downloadNow": "Atsisiųsti dabar",
@@ -167,14 +174,16 @@
                 "steam": {
                     "title": "Pridėti prie „Steam“",
                     "success": "„{{game}}“ buvo sėkmingai pridėtas prie „Steam“. „Steam“ paleidimas iš naujo yra reikalingas, norint, kad pokyčiai būtų įtvirtinti.",
-                    "corrupt": "„{{game}}“ negalėjo būt pridėtas prie visų rastų „Steam“ vartotojų/naudotojų. Peržiūrėkite žurnalą, norint sužinoti daugiau. „Steam“ paleidimas iš naujo yra reikalingas, norint, kad pokyčiai būtų įtvirtinti."
+                    "corrupt": "„{{game}}“ negalėjo būt pridėtas prie visų rastų „Steam“ vartotojų/naudotojų. Peržiūrėkite žurnalą, norint sužinoti daugiau. „Steam“ paleidimas iš naujo yra reikalingas, norint, kad pokyčiai būtų įtvirtinti.",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "title": "Pašalinti iš „Steam“",
                     "corrupt": "„{{game}}“ negalėjo būt pašalintas iš visų rastų „Steam“ vartotojų/naudotojų. Peržiūrėkite žurnalą, norint sužinoti daugiau. „Steam“ paleidimas iš naujo yra reikalingas, norint, kad pokyčiai būtų įtvirtinti.",
-                    "success": "„{{game}}“ buvo sėkmingai pašalintas iš „Steam“. „Steam“ paleidimas iš naujo yra reikalingas, norint, kad pokyčiai būtų įtvirtinti."
+                    "success": "„{{game}}“ buvo sėkmingai pašalintas iš „Steam“. „Steam“ paleidimas iš naujo yra reikalingas, norint, kad pokyčiai būtų įtvirtinti.",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Baigta taisyti"
@@ -214,7 +223,8 @@
         "continue": "Tęsti",
         "cancel": "Atšaukti",
         "go_to_library": "Eiti į biblioteką",
-        "close": "Uždaryti"
+        "close": "Uždaryti",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -256,7 +266,8 @@
         },
         "label": {
             "disk": "Diskas",
-            "speed": "Atsisiųsti"
+            "speed": "Atsisiųsti",
+            "unit": ""
         },
         "link": "Atsisiuntimai",
         "queue": {
@@ -266,7 +277,15 @@
             "start-time": "Pradėta –"
         },
         "ETA": "Numatytas laikas",
-        "title": "Atsisiuntimai"
+        "title": "Atsisiuntimai",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "game": {
         "modify": "Redaguoti įdiegimą",
@@ -291,7 +310,10 @@
         "select_all": "Pažymėti visus",
         "show_updates_only": "Rodyti tik žaidimus su atnaujinimais",
         "platforms": "Platforma",
-        "stores": "Parduotuvės"
+        "stores": "Parduotuvės",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "title": {
@@ -429,7 +451,8 @@
             "finished": "Baigta",
             "pause": "Sustabdyti atsisiuntimą",
             "remove": "Pašalinti iš atsisiuntimų",
-            "resume": "Pratęsti atsisiuntimą"
+            "resume": "Pratęsti atsisiuntimą",
+            "paused": ""
         }
     },
     "setting": {
@@ -451,7 +474,8 @@
             "notInstalledTitle": "Perdanga nėra įdiegta",
             "removeConfirm": "Ar Jūs tikrai norite išdiegti „EOS“ perdangą?",
             "removeConfirmTitle": "Patvirtinti perdangos pašalinimą",
-            "notInstalled": "„EOS“ perdanga nėra įdiegta"
+            "notInstalled": "„EOS“ perdanga nėra įdiegta",
+            "description": ""
         },
         "library_top_option": {
             "disabled": "Išjungta/Neįgalinta (-as/-i)",
@@ -534,14 +558,18 @@
                 "heroic": "Bendras „Heroic“ žurnalas",
                 "legendary": "„Epic Games“ / „Legendary“ žurnalas",
                 "nile": "„Amazon“ / „Nile“ žurnalas",
-                "zoom": "„Zoom“ žurnalas"
+                "zoom": "„Zoom“ žurnalas",
+                "itchio": ""
             },
             "join-heroic-discord": "Prisijunkite prie mūsų „Discord“",
             "show-in-folder": "Rodyti žurnalo failą aplanke/-ale",
             "show-uploads": "Rodyti įkeltus žurnalo failus",
             "instructions_title": "Kaip pranešti apie problemą?",
             "no-file": "Joks žurnalo failas nebuvo rastas",
-            "instructions": "Prisijunkite prie mūsų „Discord“ ir paieškokite – „#-support“ skyriaus. Peržiūrėkite prisegta – „Read Me First | Frequently Asked Questions“ giją ir sekite instrukcijas kaip bendrinti šiuos žurnalus ir visą susijusią informaciją apie Jūsų problemą."
+            "instructions": "Prisijunkite prie mūsų „Discord“ ir paieškokite – „#-support“ skyriaus. Peržiūrėkite prisegta – „Read Me First | Frequently Asked Questions“ giją ir sekite instrukcijas kaip bendrinti šiuos žurnalus ir visą susijusią informaciją apie Jūsų problemą.",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "after-launch-script-path": "Pasirinkti skriptą, kurį vykdyti po žaidimo išjungimo",
         "before-launch-script-path": "Pasirinkti skriptą, kurį vykdyti prieš paleidžiant žaidimą",
@@ -552,7 +580,9 @@
         "savefolder": {
             "not-found": "Išsaugojimo aplankas/-las nebuvo rastas, prašome jį pasirinkti rankiniu būdu (spauskite, norint bandyti dar kartą)",
             "warning": "Prašome patikrinti dar kartą ar šis kelias yra teisingas (spausti, norint bandyti iš naujo)",
-            "placeholder": "Pažymėkite tikslų žaidimų išsaugojimų aplanką/-alą"
+            "placeholder": "Pažymėkite tikslų žaidimų išsaugojimų aplanką/-alą",
+            "retry": "",
+            "title": ""
         },
         "showfps": "Rodyti kdr./sek. („DX9/10/11“)",
         "steamruntime": "Naudoti „Steam“ vykdantįjį",
@@ -584,7 +614,8 @@
         "egs-sync": "Sinchronizuoti su įdiegtu „Epic Games“",
         "runexe": {
             "title": "Vykdyti „*.EXE“ ant prielinksnio/priešdėlio",
-            "message": "Vilkti ir nutempti failus čia"
+            "message": "Vilkti ir nutempti failus čia",
+            "description": ""
         },
         "alt-gogdl-bin": "Pasirinkite kurią pakaitinę „GOGDL“ dvejetainę naudoti",
         "alt-legendary-bin": "Pasirinkite kurią pakaitinę „Legendary“ dvejetainę naudoti",
@@ -635,7 +666,8 @@
         "no-tray-icon": "Slėpti sistemos juostelėje randančią piktogramą (reikalauja paleidimo iš naujo)",
         "analyticsOptIn": "Siųsti ananomiškus duomenis, siekiant padėti „Heroic“ kūrimą",
         "verboseLogs": {
-            "description": "Įjungti derinimo veikseną"
+            "description": "Įjungti derinimo veikseną",
+            "hint": ""
         },
         "advertiseAvxForRosetta": "Pranešti „AVX“ „Rosetta“ palaikymui",
         "custom_css": {
@@ -650,12 +682,82 @@
         "gamepad-initial-repeat-delay": "Valdiklio įvesties atkartojimo pradinė delsa",
         "gamepad-repeat-frequency": "Valdiklio įvesties atkartojimo dažnis",
         "steamRuntime": {
-            "label": "Naudoti „Steam“ vykdantįjį"
+            "label": "Naudoti „Steam“ vykdantįjį",
+            "noRuntimeOption": ""
         },
         "tools": {
             "open": "Atidaryti",
-            "selectExe": "Pasirinkti „.*EXE“"
-        }
+            "selectExe": "Pasirinkti „.*EXE“",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "advanced": {
@@ -670,14 +772,16 @@
                 "help5": "„Amazon“ bibliotekos informacija (žaidimų sąrašas, įdiegimo lentelės ir pan. informacija)",
                 "help6": "Šis NEIŠTRINS:",
                 "help1": "Šis veiksmas išvalys šias/-uos talpyklas/podėlius:",
-                "help2": "Trečių šalių informacija apie žaidimus (įvertinimai, „Steam“ palaikymas, laikas įveikti, „pcgamingwiki“, „applegamingwiki“)"
+                "help2": "Trečių šalių informacija apie žaidimus (įvertinimai, „Steam“ palaikymas, laikas įveikti, „pcgamingwiki“, „applegamingwiki“)",
+                "description": ""
             },
             "title": {
                 "clearCache": "Išvalyti talpyklą/podėlį",
                 "resetHeroic": "Atstatyti „Heroic“"
             },
             "resetHeroic": {
-                "help": "Šis pašalins visus nustatymus ir talpyklas/podėlius, bet nepašalins Jūsų įdiegtų žaidimų ar „Epic“ kredencialų. Perkeliamos „Heroic“ versijos („AppImage“, „WinPortable“ ir t.t.) reikalauja, kad būtų perleisto rankiniu būdo po šio."
+                "help": "Šis pašalins visus nustatymus ir talpyklas/podėlius, bet nepašalins Jūsų įdiegtų žaidimų ar „Epic“ kredencialų. Perkeliamos „Heroic“ versijos („AppImage“, „WinPortable“ ir t.t.) reikalauja, kad būtų perleisto rankiniu būdo po šio.",
+                "description": ""
             }
         },
         "navbar": {
@@ -690,7 +794,8 @@
             "advanced": "Pažangūs",
             "general": "Bendri",
             "legacy": "Pasenusio standarto",
-            "categories": "Kategorijos"
+            "categories": "Kategorijos",
+            "tabs": ""
         },
         "systemInformation": {
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
@@ -713,7 +818,10 @@
             "memoryStats": "{{percentUsed}}% naudojama ({{usedGib}} / {{totalGib}}",
             "osNameFlatpak": "{{osName}} („Flatpak“ viduje)",
             "showDetailed": "Rodyti išsamias sistemos specifikacijas",
-            "steamDeck": "„Steam Deck {{model}}“"
+            "steamDeck": "„Steam Deck {{model}}“",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Eksperimentinės funkcijos"
@@ -727,7 +835,8 @@
             "gameModeRequired": {
                 "title": "Reikalinga žaidimo veiksena",
                 "message": "Žaidimo veiksena reikalauja „EAC“ vykdančiojo, kad veiktų ant „Flatpak“. Ar Jūs norite jį įjungti/įgalinti dabar?"
-            }
+            },
+            "hint": ""
         },
         "open-config-file": "Atidaryti konfigūracijos failą",
         "clear-cache": "Išvalyti „Heroic“ talpyklą/podėlį",
@@ -739,7 +848,8 @@
         },
         "battlEyeRuntime": {
             "installing": "Įdiagiamas „BattlEye“ vykdantysis...",
-            "name": "„BattlEye AntiCheat“ vykdantysis"
+            "name": "„BattlEye AntiCheat“ vykdantysis",
+            "hint": ""
         },
         "offline": {
             "warning": "Šis žaidimas nurodomai nepalaiko neprisijungusią veikseną, įjunkite šį savo nuožiūrą. Žaidimas gali neveikti."
@@ -775,7 +885,32 @@
             "downloads": "Atsisiuntimai",
             "experimental": "Eksperimentinės funkcijos",
             "launch": "Paleidimo parinktys",
-            "wineVersion": "„Wine“"
+            "wineVersion": "„Wine“",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "wineTools": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Nustatymai",
@@ -805,7 +940,8 @@
             "search": "Ieškoti versijų...",
             "loading": "Kraunamos „Wine“ versijos...",
             "open_folder": "Atidaryti aplankalą",
-            "no-results": "Nėra „Wine“ versijų, atitinkančių Jūsų paiešką."
+            "no-results": "Nėra „Wine“ versijų, atitinkančių Jūsų paiešką.",
+            "subtitle": ""
         },
         "release": "Išleidimo data",
         "notes": "Lapeliai"
@@ -835,8 +971,11 @@
         "disable_smooth_scrolling": "Išjungti švelnų slinkimą (reikalauja paleidimo iš naujo)",
         "disable_animations": "Išjungti grafinės sąsajos animacijas",
         "section": {
-            "library": "Biblioteka"
-        }
+            "library": "Biblioteka",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Pridėti žaidimą",
     "anticheat": {
@@ -883,7 +1022,8 @@
         "epic": "„Epic Games“ prisijungimas",
         "message": "Prisijunkite su savo platforma. Jūs galite prisijungti prie daugiau nei vieną platformą vienu metu.",
         "old-mac": "Jūsų „macOS“ versija yra – {{version}}. „macOS 12“ ar naujesnė yra reikalinga, norint prisijungti.",
-        "zoom": "„Zoom“ prisijungimas"
+        "zoom": "„Zoom“ prisijungimas",
+        "itchio": ""
     },
     "offline-message": {
         "ignore": "Ignoruoti",
@@ -921,16 +1061,22 @@
             "placeHolderKey": "PAVADINIMAS",
             "placeHolderValue": "Pvz.: Kelias/Į/Papildomi failai",
             "key": "Kintamas vardas/pavadinimas",
-            "title": "Aplinkos kintamieji"
+            "title": "Aplinkos kintamieji",
+            "placeHolderV": ""
         },
         "env_variables": {
             "example": "Neįtraukite „=“ rašmens, pvz.: nustatymui kaip – „MY_FLAG=123“, nustatykite „MY_FLAG“ pavadinime ir „123“ reikšmėje.",
             "error": {
                 "empty_key": "Kintamieji vardai/pavadinimai negali būt tušti",
                 "equal_sign_in_key": "Kintamieji vardai/pavadinimai negali turėti „=“ rašmens",
-                "space_in_key": "Kintamieji vardai/pavadinimai negali būt su tarpais"
+                "space_in_key": "Kintamieji vardai/pavadinimai negali būt su tarpais",
+                "duplicate_key": ""
             },
-            "info": "Nustatyti aplinkos kintamuosius, kad papildytu komandai."
+            "info": "Nustatyti aplinkos kintamuosius, kad papildytu komandai.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "Įveskite paleidiklio argumentus čia",
@@ -974,7 +1120,8 @@
         "logout_confirmation": "Ar Jūs tikrai norite atsijungti?",
         "manageaccounts": "Tvarkyti paskyras",
         "quit": "Išeiti",
-        "quitMessage": "Ar Jūs tikrai norite išeiti?"
+        "quitMessage": "Ar Jūs tikrai norite išeiti?",
+        "manage": ""
     },
     "error": "Klaida",
     "favourites": "Mėgstamiausi",
@@ -1018,14 +1165,18 @@
             "openInBrowser": "Atidaryti naršyklėje",
             "forward": "Eiti tolyn",
             "reload": "Perkrauti puslapį",
-            "home": "Eiti į parduotuvės pagrindinį puslapį"
+            "home": "Eiti į parduotuvės pagrindinį puslapį",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "Recent": "Neseniai žaista",
     "emptyLibrary": {
         "noResults": "Dabartiniai filtrai nedavė jokių rezultatų.",
         "noGames": "Jūsų biblioteka yra tuščia.<br /><br />Spustelėkite <4>čia</4>, norint prisijungti su savo „Epic“, „GOG.com“ ar „Amazon“ paskyromis. Tada Jūsų žaidimai atras šitoje bibliotekoje.<br /><br />Norint žaisti/naudotis žaidimais ar programėlėmis iš kitų šaltinių, spustelėkite <br />, kad pridėtumėte juos rankiniu būdu.",
-        "noResultsTitle": "Nerasta žaidimų."
+        "noResultsTitle": "Nerasta žaidimų.",
+        "description": "",
+        "title": ""
     },
     "generic": {
         "error": {
@@ -1048,7 +1199,9 @@
         },
         "refresh": "Įkelti iš naujo",
         "hideAlphabetFilter": "Slėpti abėcėlės filtrą",
-        "showAlphabetFilter": "Rodyti abėcėlės filtrą"
+        "showAlphabetFilter": "Rodyti abėcėlės filtrą",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "wineExplanation": {
         "proton-ge": "„GE-Proton“ yra „Proton“ variantas sukurtas „Glorious Eggroll“. Jis yra skirtas, naudojant „Steam“, bet kai kurie žaidimai, neveikiantys „Steam“ gali veikti geriau su šiuo variantu. Jis pateikia daugmaž nereikšmingus žurnalus derinimui.",
@@ -1231,7 +1384,8 @@
             "grid": "Tinklelis",
             "label": "Peržiūra/Žiūrėsena",
             "list": "Sąrašas"
-        }
+        },
+        "affiliateBanner": ""
     },
     "console": {
         "filter": {
@@ -1306,7 +1460,23 @@
     "common": {
         "add": "Pridėti",
         "cancel": "Atšaukti",
-        "warning": "Įspėjimas"
+        "warning": "Įspėjimas",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "Bendri"
+    "General": "Bendri",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

@@ -99,7 +99,8 @@
         "play": "ŽAISTI",
         "edit-game": "Redaguoti žaidimą",
         "favourite": "Pridėti prie mėgstamiausių",
-        "unfavourite": "Pašalinti iš mėgstamiausių"
+        "unfavourite": "Pašalinti iš mėgstamiausių",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Nepalaikoma/-s",
     "game": {
@@ -130,7 +131,11 @@
         "modify": "Redaguoti įdiegimą",
         "platform": "Pasirinkti platformos versiją, kurią įdiegti",
         "achievements": "Pasiekimai",
-        "details": "Žaidimo išsamumas"
+        "details": "Žaidimo išsamumas",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "repairing": "Taisoma/-s",
@@ -164,7 +169,8 @@
         "playing": {
             "start": "Žaisti dabar",
             "stop": "Žaidžia/-ma (Stabdyti)",
-            "start_with_logs": "Žaisti dabar (su žurnalinimu)"
+            "start_with_logs": "Žaisti dabar (su žurnalinimu)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sinchronizuojami (žaidimo) išsaugojimai"
@@ -221,8 +227,12 @@
         "third-party-app": "Trečiosios šalies tvarkytuvas/-ė",
         "genres": "Žanrai",
         "steamdeck": {
-            "unsupported": "Nepalaikoma/-s"
-        }
+            "unsupported": "Nepalaikoma/-s",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": ""
     },
     "howLongToBeat": "Laikas įveikti",
     "sideload": {
@@ -317,7 +327,8 @@
         "removeShortcut": "Pašalinti nuorodas",
         "verify": "Patikrinti/Patvirtinti ir sutaisyti",
         "disableEosOverlay": "Išjungti „EOS“ uždangą",
-        "enableEosOverlay": "Įjungti „EOS“ uždangą"
+        "enableEosOverlay": "Įjungti „EOS“ uždangą",
+        "more": ""
     },
     "launch": {
         "options": "Paleidimo parinktys...",
@@ -359,5 +370,10 @@
         },
         "square": "Kvadratinis menas",
         "title": "Redaguoti žaidimą"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }
