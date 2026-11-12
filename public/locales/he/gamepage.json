@@ -98,7 +98,8 @@
         "browse_files": "",
         "edit-game": "ערוך אפליקציה/משחק",
         "favourite": "הוסף למועדפים",
-        "unfavourite": "הסר ממועדפים"
+        "unfavourite": "הסר ממועדפים",
+        "backToLibrary": ""
     },
     "gamecard": {
         "repairing": "מתקן",
@@ -119,8 +120,13 @@
         "protondb-compatibility-info": "רמת תאימות Proton",
         "third-party-app": "",
         "steamdeck": {
-            "unsupported": "לא נתמך"
-        }
+            "unsupported": "לא נתמך",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "sideload": {
         "info": {
@@ -129,7 +135,9 @@
             "image": "תמונת אפליקציה",
             "title": "כותרת אפליקציה/משחק",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "title": "הוסיפו כותרת למשחק/אפליקציה שלכם",
@@ -143,6 +151,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "status": {
@@ -189,7 +200,8 @@
         "addShortcut": "הוסף קיצור דרך",
         "addToSteam": "הוסף ל-Steam",
         "verify": "אמת קבצים ותקן",
-        "categories": ""
+        "categories": "",
+        "more": ""
     },
     "cloud_save_unsupported": "לא נתמך",
     "enabled": "מופעל",
@@ -223,7 +235,11 @@
         "install_info": "מתקין",
         "extra_info": "",
         "achievements": "",
-        "details": "פרטי משחק"
+        "details": "פרטי משחק",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "dlc": {
         "installDlcs": "התקן את כל הDLCים"
@@ -257,7 +273,8 @@
         "playing": {
             "stop": "משחק (עצור)",
             "start": "שחקו עכשיו",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "ubisoft": "מתקין Ubisoft Connect",
         "saves": {
@@ -348,6 +365,22 @@
         "placeholder": {
             "image": "הדבק קישור תמונה לפה"
         },
-        "title": "ערוך אפליקציה/משחק"
+        "title": "ערוך אפליקציה/משחק",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }
