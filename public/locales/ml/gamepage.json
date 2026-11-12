@@ -98,7 +98,8 @@
         "browse_files": "",
         "edit-game": "Edit App/Game",
         "favourite": "Add To Favourites",
-        "unfavourite": "Remove From Favourites"
+        "unfavourite": "Remove From Favourites",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "പ്രവര്ത്തനരഹിതം",
@@ -135,7 +136,11 @@
         "install_info": "Installing",
         "extra_info": "",
         "achievements": "",
-        "details": "Game details"
+        "details": "Game details",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "മാറ്റുന്നു",
@@ -167,8 +172,13 @@
         "steamdeck-compatibility-info": "SteamDeck അനുയോജ്യത",
         "third-party-app": "",
         "steamdeck": {
-            "unsupported": "Unsupported"
-        }
+            "unsupported": "Unsupported",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -196,7 +206,8 @@
         "playing": {
             "start": "കളിക്കാം",
             "stop": "നടക്കുന്നു(നിര്ത്തൂ)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "സൂക്ഷിപ്പുകള് ഒന്നിപ്പിക്കുന്നു"
@@ -244,7 +255,9 @@
             "title": "Game/App Title",
             "broser": "ബ്രൗസർURL",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Paste an Image URL here",
@@ -255,6 +268,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -306,7 +322,8 @@
         "verify": "കണ്ടെത്തി നന്നാക്കൂ",
         "extraInfo": "അധിക വിവരങ്ങൾ",
         "logs": "രേഖകൾ",
-        "categories": "വിഭാഗങ്ങൾ"
+        "categories": "വിഭാഗങ്ങൾ",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "ഈ ഗെയിം ക്ലൗഡ് സേവുകളെ പിന്തുണയ്ക്കുന്നില്ല. ഗെയിം ഡെവലപ്പർമാരാണ് ഈ വിവരങ്ങൾ നൽകിയിരിക്കുന്നത്. ചില ഗെയിമുകൾ അവരുടെ സ്വന്തം ക്ലൗഡ് സേവ് സിസ്റ്റം നടപ്പിലാക്കുന്നു",
@@ -347,6 +364,22 @@
         "placeholder": {
             "image": "Paste an Image URL here"
         },
-        "title": "Edit App/Game"
+        "title": "Edit App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

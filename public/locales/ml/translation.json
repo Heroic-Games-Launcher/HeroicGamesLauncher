@@ -13,8 +13,11 @@
         "disable_animations": "",
         "disable_dialog_backdrop_close": "",
         "section": {
-            "library": "കളിശാല"
-        }
+            "library": "കളിശാല",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Add Game",
     "All": "എല്ലാം",
@@ -104,8 +107,13 @@
             "executableNotFoundMessage": "",
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": ""
                 }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "info": {
@@ -185,6 +193,12 @@
             "rosetta": {
                 "title": "",
                 "message": ""
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "വൈൻ പ്രിഫിക്സ് ഫോൾഡർ തിരഞ്ഞെടുക്കൂ",
@@ -203,7 +217,8 @@
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ",
         "continue": "തുടരുക",
-        "close": "അടയ്ക്കുക"
+        "close": "അടയ്ക്കുക",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -223,7 +238,12 @@
             "select": "Select",
             "space": "Space",
             "update_game": "Update game",
-            "exit": "പുറത്തിറക്ക്"
+            "exit": "പുറത്തിറക്ക്",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "Documentation",
@@ -234,7 +254,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": ""
         },
         "link": "Downloads",
         "queue": {
@@ -244,7 +265,15 @@
             "type": "Type"
         },
         "title": "Downloads",
-        "ETA": "കണക്കാക്കിയ സമയം"
+        "ETA": "കണക്കാക്കിയ സമയം",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
@@ -295,7 +324,10 @@
         "show_third_party_managed_only": "",
         "show_updates_only": "",
         "platforms": "Platform",
-        "stores": "Stores"
+        "stores": "Stores",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -382,8 +414,10 @@
         "advertiseAvxForRosetta": "",
         "analytics": "",
         "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -430,7 +464,9 @@
             "list": "Toggle to a list layout"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "കളിശാല",
     "loading": {
@@ -444,7 +480,8 @@
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "amazon": "ആമസോൺ ലോഗിൻ",
         "old-mac": "നിങ്ങളുടെ macOS വർഷൻ {{version}} ആണ്. macOS 12 അല്ലെങ്കിൽ പുതിയത് ലോഗിൻ ചെയ്യുവാൻ ആവശ്യമാണ്.",
-        "zoom": ""
+        "zoom": "",
+        "itchio": ""
     },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
@@ -460,14 +497,16 @@
                 "steam": {
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Added to Steam"
+                    "title": "Added to Steam",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Removed from Steam"
+                    "title": "Removed from Steam",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "നന്നാക്കിക്കഴിഞ്ഞു"
@@ -513,16 +552,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "Environment Variables",
-            "value": "Value"
+            "value": "Value",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "Variable names can't be empty",
                 "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "space_in_key": "Variable names can't contain spaces",
+                "duplicate_key": ""
             },
             "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "info": "Set environment variables to append to the command.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "ഇവിടെ ലോഞ്ചര് വാദങ്ങള് ഇടൂ",
@@ -591,7 +636,8 @@
             "queued": "Queued",
             "remove": "Remove from Downloads",
             "pause": "ഡൗൺലോഡ് താൽക്കാലികമായി നിർത്തുക",
-            "resume": "ഡൗൺലോഡ് പുനരാരംഭിക്കുക"
+            "resume": "ഡൗൺലോഡ് പുനരാരംഭിക്കുക",
+            "paused": ""
         }
     },
     "Recent": "പതിവ് കളികള്",
@@ -638,7 +684,8 @@
             "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
             "removeConfirmTitle": "Confirm overlay removal",
             "updateNow": "Update",
-            "updating": "Updating..."
+            "updating": "Updating...",
+            "description": ""
         },
         "esync": "Esync വയ്ക്കൂ",
         "exit-to-tray": "സംവിധാന താലത്തിലേക്ക്(സിസ്റ്റം ട്രേ) ചുരുക്കുക",
@@ -698,9 +745,13 @@
                 "gog": "",
                 "zoom": "",
                 "game-log": "",
-                "heroic": ""
+                "heroic": "",
+                "itchio": ""
             },
-            "show-uploads": ""
+            "show-uploads": "",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "മാന്ഘൗട്ട് ഉപയോഗിക്കൂ(മാന്ഘൗട്ട് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
         "manualsync": {
@@ -720,12 +771,15 @@
         "preferSystemLibs": "Prefer system libraries",
         "runexe": {
             "message": "രേഖകള് ഇവിടെനിന്നും വലിച്ചെടുക്കുക/ഇടുക",
-            "title": "ഉപസഗ്ഗ഻ത്തില് EXE ഓടിക്കുക"
+            "title": "ഉപസഗ്ഗ഻ത്തില് EXE ഓടിക്കുക",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "കളി സൂക്ഷിക്കാനുള്ള കൃത്യമായ സ്ഥലം നല്കൂ",
-            "warning": "Please check twice if the path is correct (click to retry)"
+            "warning": "Please check twice if the path is correct (click to retry)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Select Theme",
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
@@ -793,7 +847,8 @@
         "no-tray-icon": "",
         "analyticsOptIn": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "before-launch-script-path": "",
         "disableUMU": "",
@@ -809,13 +864,89 @@
         },
         "tools": {
             "open": "തുറക്കൂ",
-            "selectExe": "EXE തിരഞ്ഞെടുക്കൂ"
-        }
+            "selectExe": "EXE തിരഞ്ഞെടുക്കൂ",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Installing BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -827,7 +958,8 @@
                 "title": "GameMode required"
             },
             "installing": "Installing EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -849,7 +981,8 @@
             "gamescope": "ഗെയിംസ്കോപ്",
             "systemInformation": "സിസ്റ്റം വിവരങ്ങൾ",
             "legacy": "",
-            "categories": "വിഭാഗങ്ങൾ"
+            "categories": "വിഭാഗങ്ങൾ",
+            "tabs": ""
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -886,7 +1019,10 @@
             "systemModel": "",
             "memory": "",
             "heroicVersion": "",
-            "nileVersion": ""
+            "nileVersion": "",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "advanced": {
             "title": {
@@ -903,10 +1039,12 @@
                 "help5": "",
                 "help6": "",
                 "help2": "",
-                "help4": ""
+                "help4": "",
+                "description": ""
             },
             "resetHeroic": {
-                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "description": ""
             },
             "details": ""
         },
@@ -932,14 +1070,40 @@
             "downloads": "Downloads",
             "experimental": "പരീക്ഷണാത്മകമായ ഫീച്ചറുകൾ",
             "launch": "വിക്ഷേപണ ബദലുകൾ...",
-            "wineTools": "Tools"
+            "wineTools": "Tools",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "ക്രമീകരണങ്ങള്",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": ""
     },
     "status": {
         "installing": "Installing",
@@ -970,7 +1134,8 @@
         "show": "കാണിക്കൂ"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Changes in this table are not saved automatically. Click the + button",
+        "add": ""
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -981,14 +1146,18 @@
         "manageaccounts": "Manage Accounts",
         "quit": "പുറത്തുകടക്കൂ",
         "cancel": "Cancel",
-        "quitMessage": "നിങ്ങള് വിട്ടു പോകുകയാണ് എന്ന് ഉറപ്പാണോ?"
+        "quitMessage": "നിങ്ങള് വിട്ടു പോകുകയാണ് എന്ന് ഉറപ്പാണോ?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "മടങ്ങിപ്പോവുക",
             "forward": "മുന്നോട്ട് പോകുക",
             "openInBrowser": "ബ്രൗസറിൽ തുറക്കുക",
-            "reload": "പേജ് റീലോഡ് ചെയ്യുക"
+            "reload": "പേജ് റീലോഡ് ചെയ്യുക",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1003,7 +1172,8 @@
             "open_folder": "",
             "update": "Update",
             "settings": "ക്രമീകരണങ്ങള്",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "Release Date",
         "size": "Size",
@@ -1135,14 +1305,17 @@
     "emptyLibrary": {
         "noGames": "",
         "noResults": "",
-        "noResultsTitle": "കളികളൊന്നും കണ്ടെത്തിയില്ല"
+        "noResultsTitle": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
+        "description": "",
+        "title": ""
     },
     "zoom-store": "",
     "wineExplanation": {
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "discounts": {
         "region": {
@@ -1175,7 +1348,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1199,7 +1373,9 @@
             "ageRatingAll": "എല്ലാം",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "Platform"
+            "platform": "Platform",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "",
         "sort": {
@@ -1225,8 +1401,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "Store"
-        }
+            "label": "Store",
+            "all": ""
+        },
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "titleMulti": "",
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1274,20 +1466,46 @@
         "quitApp": "",
         "loading": "",
         "cancelUpdate": {
-            "title": "പുതുക്കല്‍ നിര്‍ത്തൂ"
+            "title": "പുതുക്കല്‍ നിര്‍ത്തൂ",
+            "message": ""
         },
         "install": {
             "platform": "Platform",
             "title": "Install game",
             "wineLoading": "Loading",
             "path": "ഇവിടെ നടൂ",
-            "wineMissing": "No path selected"
+            "wineMissing": "No path selected",
+            "wine": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
     "next": "",
     "common": {
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "edit": "",
+        "save": "",
+        "add": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "പൊതുവായവ"
+    "General": "പൊതുവായവ",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

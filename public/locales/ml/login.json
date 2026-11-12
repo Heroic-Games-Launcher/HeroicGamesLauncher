@@ -6,7 +6,8 @@
         "copied": "പകർത്തി!",
         "error": "പിശക്, മറ്റൊരു കോഡ് പരീക്ഷിക്കുക",
         "loading": "Loading",
-        "close": "അടയ്ക്കുക"
+        "close": "അടയ്ക്കുക",
+        "itchio_error": ""
     },
     "message": {
         "part1": "കയറി കളികള് സ്ഥാപിക്കാനായി ആദ്യം താഴെപ്പറയുന്നവ പടിക്ക് ചെയ്യുക:",
@@ -22,5 +23,14 @@
         "error": "കുഴപ്പമായല്ലോ",
         "loading": "കളികള് എടുത്തുകൊണ്ടിരിക്കുന്നു, ഒന്നു കാക്കൂ"
     },
-    "welcome": "സ്വാഗതം!"
+    "welcome": "സ്വാഗതം!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }
