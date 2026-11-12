@@ -6,7 +6,8 @@
         "copy": "Kopírovat",
         "error": "Chyba, zkuste jiný kód",
         "loading": "Načítání",
-        "close": "Zavřít"
+        "close": "Zavřít",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Aby jste se mohli přihlásit a instalovat vaše hry, musíte postupovat podle kroků níže:",
@@ -22,5 +23,14 @@
         "error": "Chyba",
         "loading": "Načítám seznam her, čekejte prosím"
     },
-    "welcome": "Vítejte!"
+    "welcome": "Vítejte!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

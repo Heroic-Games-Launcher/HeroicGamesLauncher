@@ -196,6 +196,12 @@
             "rosetta": {
                 "title": "Rosetta nebyla nalezena",
                 "message": "Heroic vyžaduje Rosettu, aby správně fungoval na macOS s čipy Apple Silicon. Prosím, nainstalujte ji z terminálu macOS pomocí následujícího příkazu: \"softwareupdate --install-rosetta\" a restartujte Heroic. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
@@ -481,7 +487,8 @@
         "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
         "amazon": "Přihlášení s účtem Amazon",
         "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější.",
-        "zoom": "Přihlášení přes Zoom"
+        "zoom": "Přihlášení přes Zoom",
+        "itchio": ""
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -745,7 +752,8 @@
                 "game-log": "Protokol hry {{gameTitle}}",
                 "legendary": "Protokol Epic Games / Legendary",
                 "nile": "Protokol Amazon / Nile",
-                "zoom": "Zoom log"
+                "zoom": "Zoom log",
+                "itchio": ""
             },
             "show-uploads": "Zobrazit nahrané soubory protokolů",
             "error": "Vnitřní chyba při čtení souboru protokolu",
@@ -927,7 +935,34 @@
         },
         "wow64": {
             "description": "Spouštějte 32bitové hry v rámci 64bitového prefixu, není třeba žádný samostatný prefix"
-        }
+        },
+        "autodxvk-description": "",
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "autoUpdateGames-description": "",
+        "fsync-description": "",
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "autovkd3d-description": "",
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "dxfpslimit-description": "",
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1142,7 +1177,9 @@
             "forward": "Jít vpřed",
             "openInBrowser": "Otevřít v prohlížeči",
             "reload": "Znovu načíst stránku",
-            "home": "Přejít na úvodní stránku obchodu"
+            "home": "Přejít na úvodní stránku obchodu",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1409,7 +1446,8 @@
             "grid": "Mřížka",
             "label": "Režim zobrazení",
             "list": "Seznam"
-        }
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1490,5 +1528,13 @@
     },
     "General": "Obecné",
     "Accounts": "Účty",
-    "Community": "Komunita"
+    "Community": "Komunita",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "itchio-store": ""
 }
