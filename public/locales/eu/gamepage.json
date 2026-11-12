@@ -99,7 +99,8 @@
         "browse_files": "",
         "edit-game": "Edit App/Game",
         "favourite": "Gehitu gogokoetara",
-        "unfavourite": "Kendu gogokoenetik"
+        "unfavourite": "Kendu gogokoenetik",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Onartu gabe",
     "disabled": "Desgaituta",
@@ -136,7 +137,11 @@
         "install_info": "",
         "extra_info": "",
         "achievements": "",
-        "details": "Game Defaults"
+        "details": "Game Defaults",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Mugitzen",
@@ -166,7 +171,15 @@
         "installedInfo": "Instalatutako informazioa",
         "protondb-compatibility-info": "Protoien bateragarritasun maila",
         "steamdeck-compatibility-info": "SteamDeck bateragarritasuna",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "verified": "",
+            "unknown": "",
+            "playable": "",
+            "unsupported": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "Espazio erabilgarria",
@@ -196,7 +209,8 @@
         "playing": {
             "start": "Jokatu orain",
             "stop": "Ugalketa (Detener)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Zaintza-zaindegien sinkronizazioa"
@@ -207,7 +221,8 @@
             "pleaseWait": "Please wait..."
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": ""
     },
     "launch": {
         "options": "Jaurtiketa-aukerak...",
@@ -241,7 +256,9 @@
             "title": "Game/App Title",
             "broser": "ArakatzailearenURLa",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Paste an Image URL here",
@@ -252,6 +269,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -303,7 +323,8 @@
         "verify": "Egiaztatzea eta konpontzea",
         "extraInfo": "Informazio gehigarria",
         "logs": "Erregistroak",
-        "categories": ""
+        "categories": "",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Joko honek ez du onartzen hodeian gordetzea. Informazio hau jokoen garatzaileek ematen dute. Zenbait jokok hodeian gordetzeko sistema propioa ezartzen dute",
@@ -343,6 +364,23 @@
         "placeholder": {
             "image": "Paste an Image URL here"
         },
-        "title": "Edit App/Game"
+        "title": "Edit App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "advanced": "",
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }
