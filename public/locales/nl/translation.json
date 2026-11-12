@@ -13,8 +13,11 @@
         "disable_animations": "UI animaties uitschakelen",
         "disable_smooth_scrolling": "Glad scrollen uitschakelen (vereist herstart)",
         "section": {
-            "library": "Bibliotheek"
-        }
+            "library": "Bibliotheek",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Voeg game toe",
     "All": "Allemaal",
@@ -104,8 +107,13 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": ""
                 }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "info": {
@@ -185,6 +193,12 @@
             "rosetta": {
                 "message": "Heroic vereist Rosetta om correct te werken op macOS met Apple Silicon chips. Installeer het alstublieft via de macOS commandlijn met de volgende commando:  \"softwareupdate --install-rosetta\" en herstart Heroic. ",
                 "title": "Rosetta niet gevonden"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Selecteer WinePrefix Map",
@@ -203,7 +217,8 @@
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren",
         "continue": "Continue",
-        "close": "sluit"
+        "close": "sluit",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -223,7 +238,12 @@
             "select": "Select",
             "space": "Space",
             "update_game": "Update game",
-            "exit": "Afsluiten"
+            "exit": "Afsluiten",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "Documentation",
@@ -234,7 +254,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": ""
         },
         "link": "Downloads",
         "queue": {
@@ -244,7 +265,15 @@
             "type": "Type"
         },
         "title": "Downloads",
-        "ETA": "Geschatte tijd"
+        "ETA": "Geschatte tijd",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Online services werken mogelijk niet, sinds Epic Games servers offline zijn!",
@@ -295,7 +324,10 @@
         "reset": "Reset",
         "show_updates_only": "Toon slechts spelletjes met updates",
         "platforms": "Platform",
-        "stores": "Stores"
+        "stores": "Stores",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -382,8 +414,10 @@
         "WoW64": "De Wine WoW64 modus staat toe dat 32-bit Windows spellen kunnen werken op 64-bit Wine. Het inschakelen ervan kan de prestatie verbeteren, maar kan ook kritieke fouten veroorzaken bij oudere 32-bit spelletjes.",
         "advertiseAvxForRosetta": "",
         "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -430,7 +464,9 @@
             "list": "Toggle to a list layout"
         },
         "hideAlphabetFilter": "Verstop Alfabet Filter",
-        "showAlphabetFilter": "Toon Alfabet Filter"
+        "showAlphabetFilter": "Toon Alfabet Filter",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Bibliotheek",
     "loading": {
@@ -444,7 +480,8 @@
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "amazon": "Amazon-login",
         "old-mac": "Uw macOS versie is {{version}}. macOS 12 of nieuwer is nodig om in te loggen.",
-        "zoom": ""
+        "zoom": "",
+        "itchio": ""
     },
     "message": {
         "sync": "Synchronisatie compleet",
@@ -460,14 +497,16 @@
                 "steam": {
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Added to Steam"
+                    "title": "Added to Steam",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Removed from Steam"
+                    "title": "Removed from Steam",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Klaar met de reparatie"
@@ -513,16 +552,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "Environment Variables",
-            "value": "Value"
+            "value": "Value",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "Variable names can't be empty",
                 "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "space_in_key": "Variable names can't contain spaces",
+                "duplicate_key": ""
             },
             "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "info": "Set environment variables to append to the command.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "Hier je lanceer opties plaatsen",
@@ -591,7 +636,8 @@
             "queued": "In wachtrij",
             "remove": "Remove from Downloads",
             "pause": "Pauzeer het downloaden",
-            "resume": "Download hervatten"
+            "resume": "Download hervatten",
+            "paused": ""
         }
     },
     "Recent": "Recentelijk Gespeeld",
@@ -638,7 +684,8 @@
             "removeConfirm": "Weet je zeker dat je de EOS Overlay wil verwijderen?",
             "removeConfirmTitle": "Bevestig verwijderen van overlay",
             "updateNow": "Updaten",
-            "updating": "Bezig met updaten..."
+            "updating": "Bezig met updaten...",
+            "description": ""
         },
         "esync": "Esync Inschakelen",
         "exit-to-tray": "Afsluiten naar Systeemvak",
@@ -698,9 +745,13 @@
                 "heroic": "Algemene Heroic logboek",
                 "legendary": "Epic Games / Legendarisch logboek",
                 "nile": "Amazon / Nile logboek",
-                "zoom": "Zoom logboek"
+                "zoom": "Zoom logboek",
+                "itchio": ""
             },
-            "show-uploads": "Laat geüploade logboek-bestanden zien"
+            "show-uploads": "Laat geüploade logboek-bestanden zien",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
         "manualsync": {
@@ -720,12 +771,15 @@
         "preferSystemLibs": "Systeem-bibliotheken verkiezen",
         "runexe": {
             "message": "Sleep de bestanden hier",
-            "title": "Voer EXE uit op Prefix"
+            "title": "Voer EXE uit op Prefix",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Save mapje niet gevonden, selecteer het handmatig a.u.b. (klik om opnieuw te proberen)",
             "placeholder": "Selecteer de exacte spel-opslagmap",
-            "warning": "Dubbelcheck of het pad correct is a.u.b. (klik om opnieuw te proberen)"
+            "warning": "Dubbelcheck of het pad correct is a.u.b. (klik om opnieuw te proberen)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Selecteer Thema",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
@@ -793,7 +847,8 @@
         "no-tray-icon": "Systeemvak Icoontje verbergen (vereist herstart)",
         "scripts": "Scripts:",
         "verboseLogs": {
-            "description": "Breedsprakige logboeken inschakelen"
+            "description": "Breedsprakige logboeken inschakelen",
+            "hint": ""
         },
         "wineWayland": "Schakel Wine-Wayland in (Experimenteel) (Wine versie moet het ondersteunen)",
         "WoW64": "Schakel WoW64 in (Experimenteel)",
@@ -814,13 +869,89 @@
         },
         "tools": {
             "open": "Open de",
-            "selectExe": "Selecteer EXE"
-        }
+            "selectExe": "Selecteer EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEye Runtime installeren...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "clear-cache": "Heroic-Cache legen",
         "copiedToClipboard": "Gekopieerd naar Klembord!",
@@ -832,7 +963,8 @@
                 "title": "GameMode vereist"
             },
             "installing": "EAC Runtime installeren...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -854,7 +986,8 @@
             "systemInformation": "Systeeminformatie",
             "gamescope": "Gamescope",
             "legacy": "",
-            "categories": "Categorieën"
+            "categories": "Categorieën",
+            "tabs": ""
         },
         "open-config-file": "Open Config Bestand",
         "reset-heroic": "Reset Heroic",
@@ -875,14 +1008,16 @@
                 "help5": "Amazon bibliotheek info (lijst van spellen, installatiedialoog info)",
                 "help6": "Dit zal NIET verwijderen:",
                 "help7": "Winkellogin",
-                "help1": "Deze actie zal de volgende caches legen:"
+                "help1": "Deze actie zal de volgende caches legen:",
+                "description": ""
             },
             "title": {
                 "resetHeroic": "Heroic Resetten",
                 "clearCache": "Cache Leegmaken"
             },
             "resetHeroic": {
-                "help": "Dit zal alle Instellingen en Cache verwijderen, maar niet je Geïnstalleerde spellen of Epic-gegevens. Verplaatsbare versies (AppImage, WinPortable, ...) van Heroic moeten achteraf handmatig herstart worden."
+                "help": "Dit zal alle Instellingen en Cache verwijderen, maar niet je Geïnstalleerde spellen of Epic-gegevens. Verplaatsbare versies (AppImage, WinPortable, ...) van Heroic moeten achteraf handmatig herstart worden.",
+                "description": ""
             },
             "details": "Details"
         },
@@ -907,7 +1042,10 @@
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "software": "Software:"
+            "software": "Software:",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Experimentele Functies"
@@ -937,7 +1075,32 @@
             "downloads": "Downloads",
             "experimental": "Experimentele Functies",
             "launch": "Opstartopties",
-            "wineTools": "Tools"
+            "wineTools": "Tools",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Instellingen",
@@ -988,14 +1151,18 @@
         "manageaccounts": "Accounts Beheren",
         "quit": "Sluiten",
         "cancel": "Annuleer",
-        "quitMessage": "weet u zeker dat u wil uitloggen?"
+        "quitMessage": "weet u zeker dat u wil uitloggen?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "Ga terug",
             "forward": "Ga voorwaards",
             "openInBrowser": "Openen in de browser",
-            "reload": "Herlaad pagina"
+            "reload": "Herlaad pagina",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1010,7 +1177,8 @@
             "open_folder": "",
             "update": "Update",
             "settings": "Instellingen",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "Datum van Uitgave",
         "size": "Grootte",
@@ -1061,7 +1229,9 @@
     "emptyLibrary": {
         "noResults": "De huidige filters produceerden geen resultaten.",
         "noGames": "Jouw bibliotheek is leeg.<br /><br />Klik <4>hier</4> om in te loggen met je Epic, GOG.com of Amazon accounts. Dan zullen je spellen hier in de biblotheek zichtbaar worden.<br /><br />Om spelletjes of apps vanuit andere bronnen te gebruiken, klik <br /> om ze handmatig toe te voegen.",
-        "noResultsTitle": "Geen spellen gevonden"
+        "noResultsTitle": "Geen spellen gevonden",
+        "description": "",
+        "title": ""
     },
     "adtraction-locked": {
         "title": "Adtraction is geblokkeerd",
@@ -1144,7 +1314,8 @@
         "proton-ge": "GE-Proton is een Proton variant gemaakt door Glorious Eggrol. Het is bedoelt in gebruikt te worden met de umu launcher (standaard in Heroic).",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "zoom-store": "Zoom Winkel",
     "amazon-luna": "Amazon Luna",
@@ -1182,7 +1353,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1206,7 +1378,9 @@
             "ageRatingAll": "Allemaal",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "Platform"
+            "platform": "Platform",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "Details",
         "sort": {
@@ -1232,9 +1406,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "Winkel"
+            "label": "Winkel",
+            "all": ""
         },
-        "titleMulti": "Details"
+        "titleMulti": "Details",
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1282,21 +1471,46 @@
         "quitApp": "",
         "loading": "",
         "cancelUpdate": {
-            "title": "Update annuleren"
+            "title": "Update annuleren",
+            "message": ""
         },
         "install": {
             "platform": "Platform",
             "title": "Install game",
             "wineLoading": "Loading",
             "path": "Installeer op",
-            "wineMissing": "Geen pad geselecteerd"
+            "wineMissing": "Geen pad geselecteerd",
+            "wine": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
     "next": "Volgende",
     "common": {
         "add": "Voeg toe",
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "Algemeen"
+    "General": "Algemeen",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }
