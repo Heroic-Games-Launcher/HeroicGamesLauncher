@@ -98,7 +98,8 @@
         "browse_files": "",
         "edit-game": "Upraviť nastavenie App/Game",
         "favourite": "Pridať do obľúbených",
-        "unfavourite": "Odstrániť z obľúbených"
+        "unfavourite": "Odstrániť z obľúbených",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Nepodporované",
     "disabled": "Zakázané",
@@ -135,7 +136,11 @@
         "extra_info": "Extra Informácie",
         "install_info": "Informácie o inštalácii",
         "achievements": "",
-        "details": "Game details"
+        "details": "Game details",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Presúvanie",
@@ -167,8 +172,13 @@
         "steamdeck-compatibility-info": "Kompatibilita so Steam Deck",
         "third-party-app": "Správca z Tretej Strany",
         "steamdeck": {
-            "unsupported": "Nepodporované"
-        }
+            "unsupported": "Nepodporované",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "Uložisko k dispozícii",
@@ -196,7 +206,8 @@
         "playing": {
             "start": "Hrať teraz",
             "stop": "Hráš (Stop)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Synchronizácia uloženia"
@@ -244,7 +255,9 @@
             "title": "Game/App Názov",
             "broser": "Adresa URL prehliadača",
             "fullscreen": "Spustiť na celú obrazovku (ukončiť z F11)",
-            "useragent": "Vlastný Useragent"
+            "useragent": "Vlastný Useragent",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Sem prilepte adresu URL obrázka",
@@ -255,6 +268,9 @@
         "import-hint": {
             "title": "Dôležité! Pridáte hru z Epic/GOG/Amazon? Kliknite tu!",
             "content": "Nepoužívajte túto funkciu.<br />Namiesto, <3>log do</3> obchod, hľadať hru vo vašej knižnici, otvorte inštalačný dialóg a kliknite na \"Import Game \" tlačidlo"
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -306,7 +322,8 @@
         "verify": "Overiť a opraviť",
         "extraInfo": "Ďalšie informácie",
         "logs": "Denníky",
-        "categories": "Kategórie"
+        "categories": "Kategórie",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Táto hra nepodporuje ukladanie do cloudu. Tieto informácie poskytujú vývojári hry. Niektoré hry implementujú svoj vlastný systém ukladania do cloudu",
@@ -347,6 +364,22 @@
         "placeholder": {
             "image": "Sem prilepte adresu URL obrázka"
         },
-        "title": "Upraviť nastavenie App/Game"
+        "title": "Upraviť nastavenie App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }
