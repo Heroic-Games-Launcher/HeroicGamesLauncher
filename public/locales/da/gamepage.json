@@ -99,7 +99,8 @@
         "browse_wine_prefix": "Gennemse Wine Præfiks",
         "edit-game": "Redigér Spil",
         "favourite": "Tilføj til favorit",
-        "unfavourite": "Fjern fra favoritter"
+        "unfavourite": "Fjern fra favoritter",
+        "backToLibrary": ""
     },
     "disabled": "Deaktiveret",
     "dlc": {
@@ -137,7 +138,12 @@
         "install_info": "Installations infomation",
         "modify": "Ændre installation",
         "changelogFor": "Ændringslog for {{gameTitle}}",
-        "achievements": "Bedrifter"
+        "achievements": "Bedrifter",
+        "tabs": "",
+        "overview": "",
+        "details": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Flytter",
@@ -158,8 +164,13 @@
         "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
         "third-party-app": "Tredjeparts-manager",
         "steamdeck": {
-            "unsupported": "Ikke kompatibel"
-        }
+            "unsupported": "Ikke kompatibel",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "path": "Vælg Installations Sti",
@@ -183,7 +194,8 @@
         "playing": {
             "start": "Spil Nu",
             "stop": "Spiller (Stop)",
-            "start_with_logs": "Spil nu (med logfiler)"
+            "start_with_logs": "Spil nu (med logfiler)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Synkroniserer Saves"
@@ -259,7 +271,8 @@
         "enableEosOverlay": "Aktivér EOS Overlejring",
         "extraInfo": "Ekstra info",
         "logs": "Logger",
-        "categories": "Kategorier"
+        "categories": "Kategorier",
+        "more": ""
     },
     "generic": {
         "error": "Ukendt fejl",
@@ -293,7 +306,9 @@
             "title": "Spil/App titel",
             "broser": "BrowserURL",
             "fullscreen": "Start Fuld Skærm (F11 for at forlade)",
-            "useragent": "Brugerdefineret User Agent"
+            "useragent": "Brugerdefineret User Agent",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Indsæt en billed-URL her, eller vælg en fra din computer",
@@ -304,6 +319,9 @@
         "import-hint": {
             "content": "Brug IKKE denne funktionalitet til dettte. .<br />Istedet, skal du <3>logge ind</3> butikken, finde spillet i dit biblotek, åben installationsdialogkassen og kikke &quot;Import Game&quot; knappen",
             "title": "Vigtigt! Vil du tilfølge et spil fra Epic/GOG/Amazon? Klik her!"
+        },
+        "images": {
+            "summary": ""
         }
     },
     "setting": {
@@ -362,5 +380,10 @@
         "reset": "Nulstil til standard",
         "square": "Kvadratisk Illustration",
         "title": "Redigér Spil"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }
