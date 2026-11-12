@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "Отключить плавную прокрутку (требуется перезапуск)",
         "disable_animations": "Отключить анимации пользовательского интерфейса",
         "section": {
-            "library": "Библиотека"
-        }
+            "library": "Библиотека",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Добавить игру",
     "All": "Все",
@@ -193,6 +196,12 @@
             "rosetta": {
                 "message": "Heroic нужен Rosetta что бы корректно функционировать на macOS с чипами Apple Silicon. Пожалуйста установите Rosetta через терминал macOS используя данную команду: \"softwareupdate --install-rosetta\" и перезапустите Heroic. ",
                 "title": "Rosetta не был найден"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Выбрать папку WinePrefix",
@@ -211,7 +220,8 @@
         "syncing": "Синхронизация",
         "unsync": "Рассинхронизировать",
         "continue": "Продолжить",
-        "close": "Закрыть"
+        "close": "Закрыть",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -247,7 +257,8 @@
         },
         "label": {
             "disk": "Диск",
-            "speed": "Загрузка"
+            "speed": "Загрузка",
+            "unit": ""
         },
         "link": "Загрузки",
         "queue": {
@@ -257,7 +268,15 @@
             "type": "Тип"
         },
         "title": "Загрузки",
-        "ETA": "Расчетное время"
+        "ETA": "Расчетное время",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут не работать полноценно, так как серверы Epic Games отключены!",
@@ -309,7 +328,10 @@
         "show_third_party_managed_only": "Показывать только управляемые третьей стороной",
         "show_updates_only": "Показывать только игры с обновлениями",
         "platforms": "Platform",
-        "stores": "Магазины"
+        "stores": "Магазины",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD FSR помогает увеличить частоту кадров за счет увеличения масштаба разрешения в полноэкранном режиме. Качество изображения увеличивается с 5 до 1 за счет небольшого снижения производительности. Включение может повысить производительность.",
@@ -446,7 +468,9 @@
             "list": "Переключить на список"
         },
         "hideAlphabetFilter": "Скрыть фильтр по алфавиту",
-        "showAlphabetFilter": "Показать алфавитный фильтр"
+        "showAlphabetFilter": "Показать алфавитный фильтр",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Библиотека",
     "loading": {
@@ -460,7 +484,8 @@
         "message": "Войдите с помощью своей платформы. Вы можете войти одновременно в несколько платформ.",
         "amazon": "Войти через Амазон",
         "old-mac": "Ваша версия macOS: {{version}}. Для входа требуется macOS 12 или новее.",
-        "zoom": "Вход в Zoom"
+        "zoom": "Вход в Zoom",
+        "itchio": ""
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -615,7 +640,8 @@
             "queued": "Очередь",
             "remove": "Удалить из загрузок",
             "pause": "Приостановить загрузку",
-            "resume": "Возобновить загрузку"
+            "resume": "Возобновить загрузку",
+            "paused": ""
         }
     },
     "Recent": "Запускались недавно",
@@ -662,7 +688,8 @@
             "removeConfirm": "Вы точно хотите удалить оверлей EOS?",
             "removeConfirmTitle": "Подтверждение удаления оверлея",
             "updateNow": "Обновить",
-            "updating": "Обновление..."
+            "updating": "Обновление...",
+            "description": ""
         },
         "esync": "Включить Esync",
         "exit-to-tray": "Сворачивать в системный трей",
@@ -722,10 +749,13 @@
                 "heroic": "Общий журнал Heroic",
                 "legendary": "Журнал Epic Games и Legendary",
                 "nile": "Журнал Amazon и Nile",
-                "zoom": "Логи Zoom"
+                "zoom": "Логи Zoom",
+                "itchio": ""
             },
             "show-uploads": "Показать отправленные журналы",
-            "error": "Внутренняя ошибка чтения файла журнала"
+            "error": "Внутренняя ошибка чтения файла журнала",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Включить Mangohud (требуется установленный Mangohud)",
         "manualsync": {
@@ -745,12 +775,15 @@
         "preferSystemLibs": "Предпочитать системные библиотеки",
         "runexe": {
             "message": "Перетащите файлы сюда",
-            "title": "Запустить EXE в префиксе"
+            "title": "Запустить EXE в префиксе",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Папка для сохранений не найдена, пожалуйста выберите ее вручную (нажмите, чтобы повторить)",
             "placeholder": "Выберите точную папку для сохранений игр",
-            "warning": "Пожалуйста, проверьте дважды, правильно ли указан путь (нажмите, чтобы повторить попытку)"
+            "warning": "Пожалуйста, проверьте дважды, правильно ли указан путь (нажмите, чтобы повторить попытку)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Выбор темы",
         "showfps": "Показывать FPS (DX9, 10 и 11)",
@@ -828,7 +861,8 @@
         "hdr": "Включить HDR",
         "no-tray-icon": "Скрыть значок в системном трее (требуется перезагрузка)",
         "verboseLogs": {
-            "description": "Включить подробные журналы"
+            "description": "Включить подробные журналы",
+            "hint": ""
         },
         "wineWayland": "Включить Wine-Wayland (экспериментальная функция) (версия Wine должна поддерживать эту функцию)",
         "WoW64": "Включить WoW64 (экспериментально)",
@@ -848,13 +882,83 @@
         "gamepad-initial-repeat-delay": "Начальная задержка повтора ввода с геймпада",
         "tools": {
             "open": "Открыть",
-            "selectExe": "Выбрать EXE"
-        }
+            "selectExe": "Выбрать EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Установка среды выполнения BattlEye...",
-            "name": "Среда выполнения BattlEye AntiCheat"
+            "name": "Среда выполнения BattlEye AntiCheat",
+            "hint": ""
         },
         "clear-cache": "Очистить кэш Heroic",
         "copiedToClipboard": "Скопировано в буфер обмена!",
@@ -866,7 +970,8 @@
                 "title": "Требуется GameMode"
             },
             "installing": "Установка среды выполнения EAC...",
-            "name": "Среда выполнения EasyAntiCheat"
+            "name": "Среда выполнения EasyAntiCheat",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -888,7 +993,8 @@
             "systemInformation": "Информация о системе",
             "gamescope": "Gamescope",
             "legacy": "Старые",
-            "categories": "Категории"
+            "categories": "Категории",
+            "tabs": ""
         },
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",
@@ -919,7 +1025,10 @@
             "copyToClipboard": "Копировать в буфер обмена",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Версия Comet: {{cometVersion}}"
+            "cometVersion": "Версия Comet: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Экспериментальные возможности"
@@ -941,7 +1050,8 @@
                 "help2": "Информация о сторонних играх (оценки, совместимость со steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
                 "help4": "Информация о библиотеке GOG (список игр, информация о диалоге установки, информация об API - т.е. требования)",
                 "help3": "Информация о библиотеке Legendary (список игр, информация о диалоге установки, информация об игре)",
-                "help5": "Информация о библиотеке Amazon (список игр, информация о диалоге установки)"
+                "help5": "Информация о библиотеке Amazon (список игр, информация о диалоге установки)",
+                "description": ""
             },
             "title": {
                 "resetHeroic": "Сброс Heroic",
@@ -949,7 +1059,8 @@
             },
             "details": "Подробности",
             "resetHeroic": {
-                "help": "Это удалит все настройки и кэширование, но не удалит установленные игры или учетные данные Epic. Портативные версии (AppImage, WinPortable, ...) Heroic после этого необходимо перезапустить вручную."
+                "help": "Это удалит все настройки и кэширование, но не удалит установленные игры или учетные данные Epic. Портативные версии (AppImage, WinPortable, ...) Heroic после этого необходимо перезапустить вручную.",
+                "description": ""
             }
         },
         "custom_css": {
@@ -973,7 +1084,30 @@
             "experimental": "Экспериментальные возможности",
             "launch": "Параметры запуска",
             "wineTools": "Инструменты",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Настройки",
@@ -1024,7 +1158,8 @@
         "manageaccounts": "Аккаунты",
         "quit": "Выйти",
         "cancel": "Отмена",
-        "quitMessage": "Вы уверены, что хотите выйти?"
+        "quitMessage": "Вы уверены, что хотите выйти?",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -1032,7 +1167,9 @@
             "forward": "Вперёд",
             "openInBrowser": "Открыть в браузере",
             "reload": "Перезагрузить страницу",
-            "home": "Перейти на домашнюю страницу магазина"
+            "home": "Перейти на домашнюю страницу магазина",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1047,7 +1184,8 @@
             "open_folder": "Открыть папку",
             "update": "Обновление",
             "settings": "Настройки",
-            "no-results": "По вашему запросу не найдено ни одной версии Wine."
+            "no-results": "По вашему запросу не найдено ни одной версии Wine.",
+            "subtitle": ""
         },
         "release": "Дата выхода",
         "size": "Размер",
@@ -1098,7 +1236,9 @@
     "emptyLibrary": {
         "noResults": "Текущие фильтры не дали результатов.",
         "noGames": "Ваша библиотека пуста.<br /><br />Нажмите <4>здесь</4> чтобы войти в ваши аккаунты Epic, GOG.com, или Amazon. После этого ваши игры будут показаны в Библиотеке.<br /><br />Чтобы использовать игры или приложения из других источников, нажмите <br /> чтобы добавить их вручную.",
-        "noResultsTitle": "Игры не найдены."
+        "noResultsTitle": "Игры не найдены.",
+        "description": "",
+        "title": ""
     },
     "adtraction-locked": {
         "dont-show-again": "Не показывать это предупреждение снова",
@@ -1294,7 +1434,8 @@
             "grid": "Сетка",
             "label": "Режим просмотра",
             "list": "Список"
-        }
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1373,5 +1514,15 @@
         "remove": "Удалить",
         "save": "Сохранить"
     },
-    "General": "Основные"
+    "General": "Основные",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }
