@@ -99,7 +99,8 @@
         "browse_files": "",
         "edit-game": "Edit App/Game",
         "favourite": "Dodaj u favorite",
-        "unfavourite": "Otkloni iz favorita"
+        "unfavourite": "Otkloni iz favorita",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Nepodržano",
     "disabled": "Onemogućeno",
@@ -136,7 +137,11 @@
         "install_info": "Instalira se",
         "extra_info": "",
         "achievements": "",
-        "details": "Game Defaults"
+        "details": "Game Defaults",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Premještanje",
@@ -166,7 +171,15 @@
         "installedInfo": "Instalirane informacije",
         "protondb-compatibility-info": "Proton Compatibility Tier",
         "steamdeck-compatibility-info": "SteamDeck kompatibilnost",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "verified": "",
+            "unknown": "",
+            "playable": "",
+            "unsupported": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
@@ -194,7 +207,8 @@
         "playing": {
             "start": "Igraj sada",
             "stop": "Igra se (Prekini)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sinhoniziranje podataka"
@@ -242,7 +256,9 @@
             "title": "Game/App Title",
             "broser": "BrowserURL",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Paste an Image URL here",
@@ -253,6 +269,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -304,7 +323,8 @@
         "verify": "Provjeri i popravi",
         "extraInfo": "Extra Info",
         "logs": "Dnevnici",
-        "categories": ""
+        "categories": "",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Ova igra ne podržava spremanje u oblaku. Ove informacije daju programeri igre. Neke igre implementiraju sopstveni sistem čuvanja u oblaku",
@@ -345,6 +365,22 @@
         "placeholder": {
             "image": "Paste an Image URL here"
         },
-        "title": "Edit App/Game"
+        "title": "Edit App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

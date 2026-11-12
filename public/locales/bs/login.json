@@ -5,7 +5,9 @@
         "open": "Otvorite vezu",
         "copied": "Kopirano!",
         "error": "Greška, pokušajte s drugim kodom",
-        "loading": "Loading"
+        "loading": "Loading",
+        "itchio_error": "",
+        "close": ""
     },
     "message": {
         "part1": "Da biste se prijavili i instalirali svoje igre, prvo morate slijediti korake u nastavku:",
@@ -21,5 +23,14 @@
         "error": "Greška",
         "loading": "Učitavanje liste video igara, sačekajte"
     },
-    "welcome": "Dobrodošli!"
+    "welcome": "Dobrodošli!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }
