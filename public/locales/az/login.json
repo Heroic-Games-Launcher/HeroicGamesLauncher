@@ -6,7 +6,8 @@
         "copied": "Kopyalandı!",
         "error": "Xəta, başqa kodu sınayın",
         "loading": "Yüklənir",
-        "close": "Bağla"
+        "close": "Bağla",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Oyunlarınızı daxil etmək və quraşdırmaq üçün əvvəlcə aşağıdakı addımları yerinə yetirməlisiniz:",
@@ -22,5 +23,14 @@
         "error": "Xəta",
         "loading": "Oyun siyahısı yüklənir, gözləyin"
     },
-    "welcome": "Xoş gəldiniz!"
+    "welcome": "Xoş gəldiniz!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }
