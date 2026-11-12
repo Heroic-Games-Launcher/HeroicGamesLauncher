@@ -28,7 +28,10 @@
         "browse_wine_prefix": "",
         "play": "",
         "browse_files": "",
-        "edit-game": "Измените апликацију/игру"
+        "edit-game": "Измените апликацију/игру",
+        "backToLibrary": "",
+        "favourite": "",
+        "unfavourite": ""
     },
     "cloud_save_unsupported": "Неподржано",
     "submenu": {
@@ -46,7 +49,8 @@
         "verify": "Провери и поправи",
         "extraInfo": "Ектра Инфо",
         "logs": "Дневници",
-        "categories": "Категорије"
+        "categories": "Категорије",
+        "more": ""
     },
     "box": {
         "change": {
@@ -150,7 +154,11 @@
         "install_info": "",
         "extra_info": "",
         "achievements": "",
-        "details": "Детаљи игре"
+        "details": "Детаљи игре",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Кретање",
@@ -180,7 +188,15 @@
         "installedInfo": "Инсталиране информације",
         "protondb-compatibility-info": "Протонски ниво компатибилности",
         "steamdeck-compatibility-info": "СтеамДецк компатибилност",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "verified": "",
+            "unknown": "",
+            "playable": "",
+            "unsupported": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "Доступан простор",
@@ -208,7 +224,8 @@
         "playing": {
             "start": "Играј сад",
             "stop": "Игра се (заустави)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Синхронизовање чувања"
@@ -216,7 +233,8 @@
         "launching": "Лансирање",
         "ubisoft": "Инсталирање Убисофт Цоннецт-а",
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": ""
     },
     "launch": {
         "options": "Опције покретања...",
@@ -250,7 +268,9 @@
             "title": "Игра/Наслов апликације",
             "broser": "БровсерУРЛ",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Налепите URL слике овде",
@@ -261,6 +281,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -335,6 +358,23 @@
         "placeholder": {
             "image": "Налепите URL слике овде"
         },
-        "title": "Измените апликацију/игру"
+        "title": "Измените апликацију/игру",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "advanced": "",
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

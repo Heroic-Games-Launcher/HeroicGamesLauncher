@@ -70,8 +70,13 @@
             "executableNotFoundMessage": "",
             "remove": {
                 "steam": {
-                    "body": "Додавање {{game}} на Steam није успело са:{{newLine}} {{error}}"
+                    "body": "Додавање {{game}} на Steam није успело са:{{newLine}} {{error}}",
+                    "title": ""
                 }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "quit": {
@@ -157,6 +162,12 @@
                     "title": "",
                     "message": ""
                 }
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Изаберите WinePrefix мапу",
@@ -188,7 +199,13 @@
         "disable_animations": "Онемогући анимације интерфејса",
         "titles_always_visible": "Увек приказуј наслове у библиотеци игара",
         "disable_smooth_scrolling": "Онемогући глатко скроловање (потребно је поновно покретање)",
-        "disable_dialog_backdrop_close": "Онемогућите затварање дијалога кликом ван"
+        "disable_dialog_backdrop_close": "Онемогућите затварање дијалога кликом ван",
+        "section": {
+            "motion": "",
+            "library": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Додај игру",
     "All": "Све",
@@ -199,7 +216,9 @@
         "syncing": "Синхронизовање",
         "unsync": "Десинхронизуј",
         "login": "Пријави се",
-        "continue": "Настави"
+        "continue": "Настави",
+        "backToLibrary": "",
+        "close": ""
     },
     "controller": {
         "hints": {
@@ -219,7 +238,12 @@
             "update_game": "Ажурирај игру",
             "options": "Опције",
             "space": "Размак",
-            "exit": "Изађи"
+            "exit": "Изађи",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "Документација",
@@ -230,7 +254,8 @@
         },
         "label": {
             "disk": "Диск",
-            "speed": "Преузимање"
+            "speed": "Преузимање",
+            "unit": ""
         },
         "link": "Преузимања",
         "queue": {
@@ -240,7 +265,15 @@
             "type": "Тип"
         },
         "title": "Преузимања",
-        "ETA": "Процењено време"
+        "ETA": "Процењено време",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-title": "ван мреже",
@@ -290,7 +323,10 @@
         "show_third_party_managed_only": "",
         "only": "",
         "platforms": "Платформа",
-        "stores": "Продавница"
+        "stores": "Продавница",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "favourites": "Омиљено",
     "gog-store": "Продавница GOG",
@@ -377,7 +413,12 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "infobox": {
         "help": "Помоћ",
@@ -412,7 +453,8 @@
         "gog": "ГОГ Логин",
         "amazon": "Амазон Логин",
         "old-mac": "",
-        "zoom": ""
+        "zoom": "",
+        "itchio": ""
     },
     "message": {
         "sync": "Синхронизација је завршена",
@@ -428,14 +470,16 @@
                 "steam": {
                     "success": "[Кс0Кс] је успешно додат у Стеам. Потребно је поновно покретање Стеам-а да би промене ступиле на снагу.",
                     "title": "Додато у Стеам",
-                    "corrupt": "[Кс0Кс] није било могуће додати свим пронађеним Стеам корисницима. Погледајте дневнике за више информација. Потребно је поновно покретање Стеам-а да би промене ступиле на снагу."
+                    "corrupt": "[Кс0Кс] није било могуће додати свим пронађеним Стеам корисницима. Погледајте дневнике за више информација. Потребно је поновно покретање Стеам-а да би промене ступиле на снагу.",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "title": "Уклони из Steam-а",
                     "corrupt": "[Кс0Кс] није било могуће уклонити са свих пронађених Стеам корисника. Погледајте дневнике за више информација. Потребно је поновно покретање Стеам-а да би промене ступиле на снагу.",
-                    "success": "[Кс0Кс] је успешно уклоњен из Стеам-а. Потребно је поновно покретање Стеам-а да би промене ступиле на снагу."
+                    "success": "[Кс0Кс] је успешно уклоњен из Стеам-а. Потребно је поновно покретање Стеам-а да би промене ступиле на снагу.",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Финисхед Репаиринг"
@@ -472,10 +516,15 @@
             "error": {
                 "space_in_key": "Називи променљивих не могу да садрже размаке",
                 "equal_sign_in_key": "Имена променљивих не могу да садрже знак „=\"",
-                "empty_key": "Називи променљивих не могу да буду празни"
+                "empty_key": "Називи променљивих не могу да буду празни",
+                "duplicate_key": ""
             },
             "example": "НЕМОЈТЕ укључивати знак \"=\", нпр.: за подешавање као што је \"МИ_ФЛАГ=123\", поставите МИ_ФЛАГ у НАМЕ и 123 у ВАЛУЕ.",
-            "info": "Подесите променљиве окружења које се додају команди."
+            "info": "Подесите променљиве окружења које се додају команди.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "wrapper": {
             "exe": "Враппер",
@@ -490,7 +539,8 @@
             "title": "Променљиве окружења",
             "value": "Валуе",
             "key": "Име променљиве",
-            "placeHolderKey": "НАМЕ"
+            "placeHolderKey": "НАМЕ",
+            "placeHolderV": ""
         },
         "gameargs": {
             "placeholder": "Ставите овде аргументе покретача",
@@ -551,7 +601,8 @@
             "notInstalledTitle": "Преклапање није инсталирано",
             "remove": "Деинсталирај",
             "updateNow": "Ажурирај",
-            "updating": "Ажурирање..."
+            "updating": "Ажурирање...",
+            "description": ""
         },
         "library_top_section": "Горњи одељак библиотеке",
         "log": {
@@ -598,9 +649,13 @@
                 "gog": "",
                 "zoom": "",
                 "game-log": "",
-                "heroic": ""
+                "heroic": "",
+                "itchio": ""
             },
-            "show-uploads": ""
+            "show-uploads": "",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "winecrossoverbottle": "ЦроссОвер Боттле",
         "wineprefix": "ВинеПрефик фолдер",
@@ -616,7 +671,9 @@
         "savefolder": {
             "placeholder": "Изаберите тачан фолдер за чување игара",
             "not-found": "Сачувај фолдер није пронађен, изаберите га ручно (кликните да покушате поново)",
-            "warning": "Проверите двапут да ли је путања тачна (кликните да покушате поново)"
+            "warning": "Проверите двапут да ли је путања тачна (кликните да покушате поново)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Изаберите Тема",
         "adddesktopshortcuts": "Аутоматски додајте пречице на радној површини",
@@ -657,7 +714,8 @@
         "preferSystemLibs": "Преферирајте системске библиотеке",
         "runexe": {
             "message": "Превуците и отпустите датотеке овде",
-            "title": "Покрените ЕКСЕ на Префиксу"
+            "title": "Покрените ЕКСЕ на Префиксу",
+            "description": ""
         },
         "showfps": "Прикажи ФПС (ДКС9, 10 и 11)",
         "start-in-tray": "Покрени минимизирано",
@@ -720,7 +778,8 @@
         "analyticsOptIn": "",
         "disablePlaytimeSync": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "before-launch-script-path": "",
         "disableUMU": "",
@@ -732,13 +791,94 @@
         "start-in-console-mode": "",
         "disable_gog_presence": "",
         "tools": {
-            "selectExe": "Изабери EXE"
-        }
+            "selectExe": "Изабери EXE",
+            "open": "",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "steamRuntime": {
+            "label": "",
+            "noRuntimeOption": ""
+        },
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Инсталирање БаттлЕие Рунтиме-а...",
-            "name": "БаттлЕие АнтиЦхеат Рунтиме"
+            "name": "БаттлЕие АнтиЦхеат Рунтиме",
+            "hint": ""
         },
         "clear-cache": "Очисти херојски кеш",
         "copiedToClipboard": "Копирано у међуспремник!",
@@ -761,7 +901,8 @@
             "gamescope": "",
             "systemInformation": "",
             "legacy": "",
-            "categories": "Категорије"
+            "categories": "Категорије",
+            "tabs": ""
         },
         "default_hint": "Промене у овом одељку се примењују само као подразумеване вредности приликом инсталирања игара. Ако желите да промените подешавања већ инсталиране игре, користите дугме Подешавања на страници игре.",
         "eacRuntime": {
@@ -770,7 +911,8 @@
                 "title": "Потребан је ГамеМоде"
             },
             "installing": "Инсталирање ЕАЦ Рунтиме-а...",
-            "name": "ЕасиАнтиЦхеат Рунтиме"
+            "name": "ЕасиАнтиЦхеат Рунтиме",
+            "hint": ""
         },
         "log": {
             "long-log-hint": "Дневник је скраћен, приказано је последњих 1000 редова!"
@@ -798,10 +940,12 @@
                 "help5": "",
                 "help6": "",
                 "help2": "",
-                "help4": ""
+                "help4": "",
+                "description": ""
             },
             "resetHeroic": {
-                "help": "Да ли сте сигурни да желите да ресетујете Heroic? Ово ће избрисати сва подешавања и кеширања али неће избрисати ваше инсталиране игре или ваше Epic податке за пријаву. Преносиве верзије Heroic-а (AppImage, WinPortable, итд.) се морају после ручно рестартовати."
+                "help": "Да ли сте сигурни да желите да ресетујете Heroic? Ово ће избрисати сва подешавања и кеширања али неће избрисати ваше инсталиране игре или ваше Epic податке за пријаву. Преносиве верзије Heroic-а (AppImage, WinPortable, итд.) се морају после ручно рестартовати.",
+                "description": ""
             },
             "details": ""
         },
@@ -828,7 +972,10 @@
             "memory": "",
             "copyToClipboard": "",
             "heroicVersion": "",
-            "nileVersion": ""
+            "nileVersion": "",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": ""
@@ -854,7 +1001,34 @@
         },
         "section": {
             "downloads": "Преузимања",
-            "launch": "Опције покретања..."
+            "launch": "Опције покретања...",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "experimental": "",
+            "binaries": "",
+            "graphics": "",
+            "wineTools": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "toolbox": {
@@ -878,7 +1052,8 @@
             "open_folder": "",
             "update": "Ажурирај",
             "settings": "",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "actions": "поступак",
         "release": "Датум изласка",
@@ -909,7 +1084,9 @@
             "list": "Пребаците се на изглед листе"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "status": {
         "logging": "Пријављивањем...",
@@ -921,7 +1098,8 @@
     "sidebar": {
         "collapse": "Скупи бочну траку",
         "uncollapse": "Поништи бочну траку",
-        "console": ""
+        "console": "",
+        "storesLogin": ""
     },
     "userselector": {
         "discord": "Дисцорд",
@@ -931,14 +1109,18 @@
         "manageaccounts": "Управљајте налозима",
         "quit": "Одустати",
         "cancel": "Откажи",
-        "quitMessage": "Јесте ли сигурни да желите да прекинете?"
+        "quitMessage": "Јесте ли сигурни да желите да прекинете?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "Вратити се",
             "forward": "Иди напред",
             "openInBrowser": "Отвори у претраживачу",
-            "reload": "Поново учитај страницу"
+            "reload": "Поново учитај страницу",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "tray": {
@@ -948,7 +1130,8 @@
         "reload": "Освежи"
     },
     "two_col_table": {
-        "save_hint": "Промене у овој табели се не чувају аутоматски. Кликните на дугме +"
+        "save_hint": "Промене у овој табели се не чувају аутоматски. Кликните на дугме +",
+        "add": ""
     },
     "offline-message": {
         "hint": "Проверавамо повезаност са:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com and{{newline}}cloudflare-dns.com",
@@ -984,7 +1167,8 @@
             "queued": "У реду",
             "remove": "Уклони из преузимања",
             "pause": "Паузирајте преузимање",
-            "resume": "Настави преузимање"
+            "resume": "Настави преузимање",
+            "paused": ""
         }
     },
     "Recent": "Играно недавно",
@@ -1101,7 +1285,10 @@
     "amazon-luna": "Амазон Луна",
     "emptyLibrary": {
         "noResults": "Тренутни филтери нису дали резултате.",
-        "noGames": "Ваша библиотека је празна.<br /><br />Кликните <4>овде</4> да бисте се пријавили са својим Epic, GOG.com или Amazon налозима. Затим ће се ваше игре појавити овде у библиотеци.<br /><br />Да бисте користили игре или апликације из других извора, кликните на <br /> да бисте их ручно додали."
+        "noGames": "Ваша библиотека је празна.<br /><br />Кликните <4>овде</4> да бисте се пријавили са својим Epic, GOG.com или Amazon налозима. Затим ће се ваше игре појавити овде у библиотеци.<br /><br />Да бисте користили игре или апликације из других извора, кликните на <br /> да бисте их ручно додали.",
+        "description": "",
+        "noResultsTitle": "",
+        "title": ""
     },
     "launch": {
         "options": "Опције покретања..."
@@ -1129,7 +1316,8 @@
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "discounts": {
         "region": {
@@ -1162,7 +1350,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1186,7 +1375,9 @@
             "ageRatingAll": "Све",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "Платформа"
+            "platform": "Платформа",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "",
         "sort": {
@@ -1212,8 +1403,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "Продавница"
-        }
+            "label": "Продавница",
+            "all": ""
+        },
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "titleMulti": "",
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1264,12 +1471,43 @@
             "platform": "Платформа",
             "title": "Инсталирај игру",
             "wineLoading": "Лоадинг",
-            "path": "Инсталирај"
+            "path": "Инсталирај",
+            "wine": "",
+            "wineMissing": ""
+        },
+        "cancelUpdate": {
+            "title": "",
+            "message": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
     "next": "",
     "common": {
         "cancel": "Откажи",
-        "warning": "Упозорење"
-    }
+        "warning": "Упозорење",
+        "edit": "",
+        "save": "",
+        "add": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
+    },
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "General": "",
+    "itchio-store": ""
 }
