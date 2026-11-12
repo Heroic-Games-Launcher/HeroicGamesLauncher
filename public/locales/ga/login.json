@@ -19,5 +19,14 @@
         "part7": "uimhir chód údaraithe",
         "part8": "sa bhosca ionchuir thíos agus cliceáil ar an gcnaipe logáil isteach."
     },
-    "welcome": "Fáilte!"
+    "welcome": "Fáilte!",
+    "itchio": {
+        "api_key_placeholder": "Greamaigh d’eochair API",
+        "instructions": "Mura n-oibríonn an gnáth-logáil isteach ar itch.io, is féidir leat nascadh trí eochair API phearsanta a úsáid ina áit. Téigh chuig do leathanach eochracha API ar itch.io, gineadh eochair, agus greamaigh thíos í.",
+        "paste_and_login": "Greamaigh ón ngearrthaisce agus logáil isteach"
+    },
+    "sid": {
+        "paste_and_login": "Greamaigh ón ngearrthaisce agus logáil isteach",
+        "placeholder": "Greamaigh an cód SID anseo"
+    }
 }

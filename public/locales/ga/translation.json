@@ -202,6 +202,12 @@
             "wine-change": {
                 "message": "Ní raibh muid in ann an leagan roghnaithe den fhíon a aimsiú chun an teideal seo a sheoladh ({{selectedWine}}). {{newline}} Fuaireamar ceann eile, ar mhaith leat leanúint ar aghaidh ag seoladh ag baint úsáide as {{foundWine}}?",
                 "title": "Wine gan aimsiú!"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "Braitheann Heroic gur suiteálaí é an comhad inrite le haghaidh \"{{title}}\" ({{exe}}).\n\nDéanfaidh Heroic iarracht é a rith go ciúin agus an cluiche a shuiteáil anseo:\n{{path}}\n\nMura n-osclaíonn an cluiche ina dhiaidh sin, téigh chuig socruithe an chluiche > Casta > Comhad inrite eile, agus roghnaigh an comhad inrite ceart don chluiche.\n\nAr mhaith leat leanúint ar aghaidh leis an seoladh?",
+                    "title": "Aimsíodh suiteálaí"
+                }
             }
         },
         "wineprefix": "Roghnaigh Fillteán WinePrefix",
@@ -417,7 +423,8 @@
                 "heroic": "Log Heroic Ginearálta",
                 "legendary": "Cluichí Epic / Logáil Finscéalta",
                 "nile": "Log Amazon / Níle",
-                "zoom": "Log súmáil"
+                "zoom": "Log súmáil",
+                "itchio": "loga itch.io"
             },
             "instructions": "Bí linn inár Discord agus féach ar an rannóg \"#-support\". Léigh an snáithe bioráilte \"Léigh Mé Ar dtús | Ceisteanna Coitianta\" agus lean na treoracha chun na logaí seo agus aon fhaisnéis ábhartha faoi do fhadhb a roinnt.",
             "instructions_title": "Conas fadhb a thuairisciú?",
@@ -570,7 +577,34 @@
         },
         "wow64": {
             "description": "Rith cluichí 32-giotán laistigh de réimír 64-giotán; ní gá réimír ar leith"
-        }
+        },
+        "disableDiscounts": "Díchumasaigh an leathanach margaí",
+        "disableGOGAffiliate": "Díchumasaigh nasc cleamhnaithe GOG",
+        "autodxvk-description": "",
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "autoUpdateGames-description": "",
+        "fsync-description": "",
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "autovkd3d-description": "",
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "exit-to-tray-description": "",
+        "dxfpslimit-description": "",
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "button": {
         "login": "Logáil isteach",
@@ -786,7 +820,8 @@
         "gog": "Logáil Isteach GOG",
         "message": "Logáil isteach le do ardán. Is féidir leat logáil isteach i níos mó ná ardán amháin ag an am céanna.",
         "old-mac": "Is é {{version}} do leagan macOS. Tá macOS 12 nó níos nuaí ag teastáil le logáil isteach.",
-        "zoom": "Logáil Isteach ar Zoom"
+        "zoom": "Logáil Isteach ar Zoom",
+        "itchio": "Logáil isteach ar itch.io"
     },
     "message": {
         "sync": "Sioncrónú Críochnaithe",
@@ -1184,7 +1219,9 @@
             "forward": "Téigh ar aghaidh",
             "openInBrowser": "Oscail sa bhrabhsálaí",
             "reload": "Athlódáil an leathanach",
-            "home": "Téigh go dtí an siopa baile"
+            "home": "Téigh go dtí an siopa baile",
+            "disableGameInput": "Díchumasaigh ionchur cluiche agus fill ar an nascleanúint Heroic",
+            "enableGameInput": "Cumasaigh ionchur ón méarchlár agus ón rialtóir don leathanach"
         }
     },
     "window": {
@@ -1335,7 +1372,8 @@
             "grid": "Eangach",
             "label": "Mód radhairc",
             "list": "Liosta"
-        }
+        },
+        "affiliateBanner": "Is naisc chleamhnaithe iad na naisc ar an leathanach seo. Má cheannaíonn tú cluichí tríothu, cabhraíonn sé le forbairt Heroic a mhaoiniú."
     },
     "next": "Ar Aghaidh",
     "console": {
@@ -1420,5 +1458,13 @@
     },
     "General": "Ginearálta",
     "Accounts": "Cuntais",
-    "Community": "Pobal"
+    "Community": "Pobal",
+    "affiliate": {
+        "gogPrompt": {
+            "description": "Is féidir le Heroic naisc chleamhnaithe GOG a úsáid nuair a thugann tú cuairt ar an siopa GOG. Má cheannaíonn tú rud éigin tar éis duit cliceáil tríd ó Heroic, roinneann GOG coimisiún beag linn — gan aon chostas breise ort féin. Ní fheicimid ná ní rianaímid na cluichí a cheannaíonn tú, ná aon rud eile a bhaineann le do cheannacháin: níl a fhios ag GOG ach gur tháinig duine éigin ó Heroic. Tá an ghné seo díchumasaithe de réir réamhshocraithe, ach is féidir leat é a athrú am ar bith i socruithe ardleibhéil Heroic.",
+            "title": "Tacaigh le Heroic trí do cheannacháin ar GOG",
+            "toggle": "Úsáid naisc chleamhnaithe GOG"
+        }
+    },
+    "itchio-store": "Siopa itch.io"
 }
