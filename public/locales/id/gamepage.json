@@ -98,7 +98,8 @@
         "play": "MAIN",
         "edit-game": "Edit Game",
         "favourite": "Tambahkan Ke Favorit",
-        "unfavourite": "Hapus Dari Favorit"
+        "unfavourite": "Hapus Dari Favorit",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
@@ -135,7 +136,11 @@
         "extra_info": "Info tambahan",
         "install_info": "Info instalasi",
         "achievements": "Pencapaian",
-        "details": "Detail gim"
+        "details": "Detail gim",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Memindahkan",
@@ -168,8 +173,12 @@
         "third-party-app": "Manajer Pihak Ketiga",
         "genres": "Genre",
         "steamdeck": {
-            "unsupported": "Tak Didukung"
-        }
+            "unsupported": "Tak Didukung",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": ""
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
@@ -199,7 +208,8 @@
         "playing": {
             "start": "Mainkan sekarang",
             "stop": "Memainkan (Berhenti)",
-            "start_with_logs": "Main Sekarang (dengan log)"
+            "start_with_logs": "Main Sekarang (dengan log)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Menyinkronkan Penyimpanan"
@@ -314,7 +324,8 @@
         "verify": "Verifikasi dan Perbaiki",
         "extraInfo": "Informasi tambahan",
         "logs": "Log",
-        "categories": "Kategori"
+        "categories": "Kategori",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Gim ini tidak mendukung penyimpanan cloud. Informasi ini disediakan oleh pengembang gim. Beberapa gim menerapkan sistem penyimpanan cloud mereka sendiri",
@@ -367,5 +378,10 @@
             "no-key-prefix": "Untuk mencari gambar sampul di SteamGridDB, tambahkan API key di"
         },
         "square": "Gambar Persegi"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }
