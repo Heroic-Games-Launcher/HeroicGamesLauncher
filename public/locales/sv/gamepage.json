@@ -98,7 +98,8 @@
         "play": "SPELA",
         "edit-game": "Redigera program/spel",
         "favourite": "Lägg till i Favoriter",
-        "unfavourite": "Ta bort från Favoriter"
+        "unfavourite": "Ta bort från Favoriter",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
@@ -135,7 +136,11 @@
         "extra_info": "Ytterligare information",
         "install_info": "Installationsinformation",
         "achievements": "Prestationer",
-        "details": "Speldetaljer"
+        "details": "Speldetaljer",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Flyttar",
@@ -168,8 +173,12 @@
         "third-party-app": "Tredjepartshanterare",
         "genres": "Genrer",
         "steamdeck": {
-            "unsupported": "Stöds ej"
-        }
+            "unsupported": "Stöds ej",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": ""
     },
     "install": {
         "disk-space-left": "Utrymme tillgängligt",
@@ -199,7 +208,8 @@
         "playing": {
             "start": "Spela nu",
             "stop": "Stoppa spelet",
-            "start_with_logs": "Spela nu (med loggar)"
+            "start_with_logs": "Spela nu (med loggar)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Synkroniserar sparfiler"
@@ -250,7 +260,9 @@
             "title": "Spel-/programtitel",
             "broser": "Webbläsar-URL",
             "useragent": "Anpassad användaragent",
-            "fullscreen": "Starta i helskärm (F11 för att avsluta)"
+            "fullscreen": "Starta i helskärm (F11 för att avsluta)",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Klistra in en URL till en bild eller välj en från din dator",
@@ -316,7 +328,8 @@
         "verify": "Verifiera och reparera",
         "extraInfo": "Ytterligare information",
         "logs": "Loggar",
-        "categories": "Kategorier"
+        "categories": "Kategorier",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnet. Informationen tillhandahålls av spelutvecklarna. Vissa spel har ett eget system för molnsparning.",
@@ -359,7 +372,20 @@
         },
         "title": "Redigera program/spel",
         "sgdb": {
-            "no-key-link": "Inställningar → Avancerat"
+            "no-key-link": "Inställningar → Avancerat",
+            "no-key-prefix": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
         }
     }
 }

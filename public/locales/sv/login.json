@@ -6,7 +6,8 @@
         "copied": "Kopierat!",
         "loading": "Laddar",
         "error": "Fel, försök med en annan kod",
-        "close": "Stäng"
+        "close": "Stäng",
+        "itchio_error": ""
     },
     "message": {
         "part1": "För att logga in och installera spel behöver du först följa stegen nedan:",
@@ -22,5 +23,14 @@
         "error": "Problem",
         "loading": "Laddar spellistan, vänligen vänta"
     },
-    "welcome": "Välkommen!"
+    "welcome": "Välkommen!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }
