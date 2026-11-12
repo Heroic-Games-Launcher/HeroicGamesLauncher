@@ -6,7 +6,8 @@
         "copied": "Kopeeritud!",
         "loading": "Laadimine",
         "error": "Viga, proovige teist koodi",
-        "close": "Sulge"
+        "close": "Sulge",
+        "itchio_error": "Viga, proovige teist API võtit"
     },
     "message": {
         "part1": "Sisse logimiseks ja mängude paigaldamiseks peate kõigepealt järgima alljärgnevaid samme:",
@@ -22,5 +23,14 @@
         "error": "Viga",
         "loading": "Mängude loendi laadimine, palun oodake"
     },
-    "welcome": "Tere tulemast!"
+    "welcome": "Tere tulemast!",
+    "itchio": {
+        "api_key_placeholder": "Kleepige oma API võti",
+        "instructions": "Kui tavaline itch.io sisselogimine ei toimi, võite üritada ühenduda isikliku API võtmega. Külastage oma itch.io API võtmete lehekülge, genereerige võti ja kleepige see siia.",
+        "paste_and_login": "Kleepige lõikelaualt ja logige sisse"
+    },
+    "sid": {
+        "paste_and_login": "Kleepige lõikelaualt ja logige sisse",
+        "placeholder": "Kleepige SID kood siia"
+    }
 }

@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "Keela sujuv kerimine (nõuab restarti)",
         "disable_animations": "Keela kasutajaliidese animatsioonid",
         "section": {
-            "library": "Varamu"
-        }
+            "library": "Varamu",
+            "appearance": "Väljanägemine",
+            "motion": "Liikumine & interaktsioon"
+        },
+        "subtitle": "Muuda seda, kuidas Heroic välja näeb ja käitub"
     },
     "add_game": "Lisa mäng",
     "All": "Kõik",
@@ -99,7 +102,9 @@
             "steam": {
                 "error": "Steami programmi ei leitud. Paigaldamine oli ilmselt kasutaja poolt tühistatud või ebaõnnestus Steami poolel.",
                 "message": "Steami paigaldamine ebaõnnestus! Palun lugege hoolikalt juhiseid ja proovige uuesti! {{paragraph}}{{error}}",
-                "title": "Steami viga"
+                "title": "Steami viga",
+                "running": "Steam töötab. Sulgege Steam ja proovige uuesti, või taaskäivitage Steam ühe korra, et Heroic saaks hallata otseteid samal ajal, kui Steam töötab.",
+                "running-gamemode": "Peate Steami ühe korra taaskäivitama, et Heroic saaks sellel seadmel Steami otseteid hallata. Taaskäivitage Steam ja proovige uuesti."
             },
             "executableNotFound": "Käivitatavat programmi ei leitud",
             "executableNotFoundMessage": "Heroic ei leidnud selle mängu jaoks käivitatavat programmi. Palun määrake see käsitsi mängu seadetes.",
@@ -191,6 +196,12 @@
             "rosetta": {
                 "title": "Rosettat ei leitud",
                 "message": "Heroic nõuab Rosettat, et Apple Siliconi kiipidega macOS süsteemidel korralikult toimida. Palun paigaldage see macOS-i terminalist kasutades järgmist käsku: \"softwareupdate --install-rosetta\" ja taaskäivitage Heroic. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "Heroic tuvastas, et käivitatav programm \"{{title}}\" jaoks on paigaldusprogramm ({{exe}})\n\nHeroic üritab programmi vaikselt käivitada ja paigaldada mängu asukohta:\n{{path}}\n\nKui mäng seejärel ei käivitu, avage mängu seaded > Täpsem > Vali alternatiivne exe käivitamiseks, ja siis valige tegelik käivitatav programm.\n\nJätkata käivitamisega?",
+                    "title": "Paigaldusprogramm tuvastatud"
+                }
             }
         },
         "wineprefix": "Valige WinePrefiksi kaust",
@@ -212,7 +223,8 @@
         "syncing": "Sünkroonimine",
         "unsync": "Mittesünkroniseerimine",
         "continue": "Jätka",
-        "close": "Sulge"
+        "close": "Sulge",
+        "backToLibrary": "Tagasi varamusse"
     },
     "controller": {
         "hints": {
@@ -248,7 +260,8 @@
         },
         "label": {
             "disk": "Ketas",
-            "speed": "Allalaadimine"
+            "speed": "Allalaadimine",
+            "unit": "MB/s"
         },
         "link": "Allalaadimised",
         "queue": {
@@ -258,7 +271,15 @@
             "type": "Tüüp"
         },
         "title": "Allalaadimised",
-        "ETA": "Eeldatav kellaaeg"
+        "ETA": "Eeldatav kellaaeg",
+        "empty": {
+            "current": "Mängud, mida paigaldate või uuendate, näitavad oma kulgu siin.",
+            "queue": {
+                "description": "Allalaadimised, mida alustate siis, kui teine on käsil, ootavad siin.",
+                "title": "Järjekord on tühi"
+            }
+        },
+        "pageSubtitle": "Mida praegu paigaldatakse, mis tuleb järgmisena, ja mis on juba valmis"
     },
     "epic": {
         "offline-notification-body": "Võrguteenused ei pruugi täielikult töötada, kuna Epic Gamesi serverid on võrguühenduseta!",
@@ -283,7 +304,7 @@
         },
         "abort": "Katkesta",
         "install": "Paigaldus",
-        "uninstall": "Eemalda"
+        "uninstall": "Desinstalleeri"
     },
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
@@ -309,7 +330,10 @@
         "show_third_party_managed_only": "Näita ainult kolmanda osapoole hallatud",
         "show_updates_only": "Näita ainult uuendustega mänge",
         "platforms": "Platform",
-        "stores": "Poed"
+        "stores": "Poed",
+        "display": "Kuva",
+        "hidden": "Peidetud",
+        "non_available": "Pole saadaval"
     },
     "help": {
         "amdfsr": "AMD FSR aitab suurendada kaadrisagedust, suurendades madalamaid resolutsioone täisekraani režiimis. Pildikvaliteet suureneb 5-st 1-le, mis toob aga kaasa kerge jõudluse vähenemise. Lubamine võib parandada jõudlust.",
@@ -446,7 +470,9 @@
             "list": "Vaheta loendi paigutusele"
         },
         "hideAlphabetFilter": "Peida tähestiku filter",
-        "showAlphabetFilter": "Näita tähestiku filtrit"
+        "showAlphabetFilter": "Näita tähestiku filtrit",
+        "gamesCount_one": "{{count}} mäng",
+        "gamesCount_other": "{{count}} mängu"
     },
     "Library": "Varamu",
     "loading": {
@@ -460,7 +486,8 @@
         "message": "Logi sisse oma platvormiga. Võite samaaegselt olla sisse logitud mitmesse platvormi.",
         "amazon": "Amazoni sisselogimine",
         "old-mac": "Teie macOS versioon on {{version}}. Sisselogimiseks on vajalik macOS 12 või uuem.",
-        "zoom": "Zoomi sisselogimine"
+        "zoom": "Zoomi sisselogimine",
+        "itchio": "itch.io sisselogimine"
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -476,14 +503,16 @@
                 "steam": {
                     "corrupt": "Mängu {{game}} ei saanud lisada kõigile leitud Steami kasutajatele. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "success": "Mäng {{game}} lisati edukalt Steami. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
-                    "title": "Lisatud Steami"
+                    "title": "Lisatud Steami",
+                    "success-no-restart": "{{game}} lisati edukalt Steami."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "Mängu {{game}} ei saanud eemaldada kõigilt leitud Steami kasutajatelt. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "success": "Mäng {{game}} eemaldati edukalt Steamist. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
-                    "title": "Steamist eemaldatud"
+                    "title": "Steamist eemaldatud",
+                    "success-no-restart": "{{game}} edukalt eemaldati Steamist."
                 }
             },
             "reparing": "Parandamine lõpetatud"
@@ -503,7 +532,7 @@
         "refresh": {
             "error": "Ei saanud hankida väljalaskeid upstream'ist, võib-olla Githubi API piirangute tõttu! Proovige hiljem uuesti."
         },
-        "uninstalled": "Eemaldatud",
+        "uninstalled": "Desinstalleeritud",
         "update": {
             "canceled": "Uuendus tühistatud",
             "finished": "Uuendus lõpetatud",
@@ -529,16 +558,22 @@
             "placeHolderKey": "NIMI",
             "placeHolderValue": "Nt: Teekond/Lisa/Failideni",
             "title": "Keskkonnamuutujad",
-            "value": "Väärtus"
+            "value": "Väärtus",
+            "placeHolderV": "VÄÄRTUS"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Muutujate nimed ei saa olla tühjad",
                 "equal_sign_in_key": "Muutujate nimed ei tohi sisaldada märki \"=\"",
-                "space_in_key": "Muutujate nimed ei tohi sisaldada tühikuid"
+                "space_in_key": "Muutujate nimed ei tohi sisaldada tühikuid",
+                "duplicate_key": "Selle nimega muutuja on juba olemas"
             },
             "example": "ÄRGE lisage märki \"=\", nt: sellise seadistuse nagu \"MY_FLAG=123\" puhul määrake NAME-sse MY_FLAG ja VALUE-sse 123.",
-            "info": "Määra keskkonnamuutujad, mis lisatakse käsule."
+            "info": "Määra keskkonnamuutujad, mis lisatakse käsule.",
+            "add_new": "Lisa uus muutuja",
+            "bulk_edit": "Massiline redigeerimine",
+            "bulk_edit_error": "Mõned muutujad on väärad. Palun kontrollige, et iga rida on VÕTI=VÄÄRTUS formaadis.",
+            "clear_all_confirm": "Kas soovite kindlasti lähtestada kõik keskkonnamuutujad?"
         },
         "gameargs": {
             "placeholder": "Pange siia käiviti argumendid",
@@ -607,7 +642,8 @@
             "queued": "Järjekorras",
             "remove": "Eemalda allalaadimistest",
             "pause": "Pane pausile",
-            "resume": "Jätkake allalaadimist"
+            "resume": "Jätkake allalaadimist",
+            "paused": "Pausil"
         }
     },
     "Recent": "Hiljuti mängitud",
@@ -650,11 +686,12 @@
             "notInstalled": "EOS-i ülekate ei ole paigaldatud",
             "notInstalledMsg": "EOS-i ülekate pole paigaldatud. Kas soovite selle kohe paigaldada?",
             "notInstalledTitle": "Ülekate pole paigaldatud",
-            "remove": "Eemalda",
-            "removeConfirm": "Kas olete kindel, et soovite EOS-i ülekatte eemaldada?",
+            "remove": "Desinstalleeri",
+            "removeConfirm": "Kas olete kindel, et soovite EOS-i ülekatte desinstalleerida?",
             "removeConfirmTitle": "Ülekatte eemaldamise kinnitamine",
             "updateNow": "Uuenda",
-            "updating": "Uuendamine..."
+            "updating": "Uuendamine...",
+            "description": "Epicu mängisisene ülekate, mida mõned Epicu mängud nõuavad sõprade ja saavutuste jaoks"
         },
         "esync": "Luba Esync",
         "exit-to-tray": "Välju süsteemiriiulisse",
@@ -714,9 +751,13 @@
                 "game-log": "{{gameTitle}} mängu logi",
                 "gog": "GOG logi",
                 "nile": "Amazon / Nile logi",
-                "zoom": "Zoomi logi"
+                "zoom": "Zoomi logi",
+                "itchio": "itch.io logi"
             },
-            "show-uploads": "Näita üles laetud logifaile"
+            "show-uploads": "Näita üles laetud logifaile",
+            "error": "Sisemine viga logifaili lugemisel",
+            "jump-to-end": "Hüppa logi lõppu",
+            "jump-to-start": "Hüppa logi algusesse"
         },
         "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
         "manualsync": {
@@ -736,12 +777,15 @@
         "preferSystemLibs": "Eelista süsteemiteeke",
         "runexe": {
             "message": "Lohistage failid siia",
-            "title": "Käivita EXE prefiksil"
+            "title": "Käivita EXE prefiksil",
+            "description": "Käivita mis tahes käivitatav programm selles prefiksis, näiteks paigaldusprogramm"
         },
         "savefolder": {
             "not-found": "Salvestuste kausta ei leitud, palun valige see käsitsi (klikkige, et uuesti proovida)",
             "placeholder": "Valige täpne mängude salvestiste kaust",
-            "warning": "Palun kontrollige veelkord, kas tee on õige (klikkige, et uuesti proovida)"
+            "warning": "Palun kontrollige veelkord, kas tee on õige (klikkige, et uuesti proovida)",
+            "retry": "Tuvasta uuesti",
+            "title": "Salvesta kaust"
         },
         "select_theme": "Valige teema",
         "showfps": "Näita kaadrisagedust (DX9, 10 ja 11)",
@@ -794,7 +838,8 @@
         },
         "disableUMU": "Keela umu",
         "verboseLogs": {
-            "description": "Luba üksikasjalised logid"
+            "description": "Luba üksikasjalised logid",
+            "hint": "Salvesta üksikasjalik logi igal käivitusel, kasulik probleemidest teavitamiseks"
         },
         "custom_css": {
             "warning": "Hoiatus: see rakendub tervele eesliidesele. See tähendab, et vale stiil võib teha Heroicu kasutuskõlbmatuks. Kui vaja, võib seda sätet käsitsi muuta failis `~/.config/heroic/config.json`. ÄRGE KOPEERIGE stiile allikatest, mida te ei usalda."
@@ -829,7 +874,7 @@
             "info_label": "Valve'i Protoni versioonid eiratud"
         },
         "WoW64": "Luba WoW64 (eksperimentaalne)",
-        "scripts": "Skriptid:",
+        "scripts": "Skriptid",
         "enable-quick-sync-menu": "Luba kiire salvestuste sünkroonimine mängu lehel",
         "disable_gog_presence": "Keela GOG Presence'i uuendused",
         "start-in-console-mode": "Alusta Konsoolirežiimis",
@@ -845,13 +890,83 @@
         },
         "tools": {
             "open": "Ava",
-            "selectExe": "Vali EXE"
-        }
+            "selectExe": "Vali EXE",
+            "running": "Jookseb..."
+        },
+        "allow-broken-anticheat": {
+            "description": "Paigalda mänge ka siis, kui on teada, et nende sohivastane tarkvara sellel süsteemil ei toimi"
+        },
+        "analytics": {
+            "description": "Jaga anonüümseid kasutusandmeid, et aidata teha Heroicut paremaks"
+        },
+        "darktrayicon": {
+            "description": "Kasuta süsteemisalve ikooni tumedat varianti, mis näeb heledas parem välja"
+        },
+        "disable-gog-presence": {
+            "description": "Ära enam jaga sõpradega, millist GOG-i mängu te mängite"
+        },
+        "disableController": {
+            "description": "Ära luba Heroicul enam reageerida mängupuldi sisenditele"
+        },
+        "disableDiscounts": "Keela Allahindluste leht",
+        "disableGOGAffiliate": "Keela GOG partnerlink",
+        "experimental_features_description": {
+            "cometSupport": "Luba GOG Galaxy funktsioonid, näiteks saavutused ja mitmikmäng",
+            "enableHelp": "Näita äpisisest abipaneeli, mis seletab seadet, mille kohal kursorit hoiate",
+            "zoomPlatform": "Lisa Zoom Platformi pood varamusse"
+        },
+        "framelessWindow": {
+            "description": "Peida süsteemi tiitliriba ja kasuta Heroicu enda aknaliidest"
+        },
+        "minimizeOnLaunch": {
+            "description": "Saada Heroic taustale, kui mäng käivitub"
+        },
+        "nvidiaPrime": {
+            "description": "Käivita mäng pühendatud NVIDIA GPU-l, mitte integreeritud graafikaprotsessoril"
+        },
+        "playtimeSync": {
+            "description": "Hoia mõõdetud mänguaeg sünkroonis poega"
+        },
+        "winecfg": {
+            "description": "Ava Wine-i konfiguratsioonipaneel selle prefiksi jaoks"
+        },
+        "winetricks": {
+            "description": "Paigalda Windowsi teegid ja komponendid sellesse prefiksi"
+        },
+        "wow64": {
+            "description": "Käivita 32-bitiseid mänge 64-bitise prefiksi sees, eraldi prefiks pole vajalik"
+        },
+        "autodxvk-description": "",
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "autoUpdateGames-description": "",
+        "fsync-description": "",
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "autovkd3d-description": "",
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "exit-to-tray-description": "",
+        "dxfpslimit-description": "",
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEye Runtime paigaldamine...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": "Paigalda runtime, mida BattleEye poolt kaitstud mängud nõuavad"
         },
         "clear-cache": "Tühjenda Heroicu vahemälu",
         "copiedToClipboard": "Kopeeritud lõikelauale!",
@@ -863,7 +978,8 @@
                 "title": "GameMode on vajalik"
             },
             "installing": "EAC Runtime paigaldamine...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": "Paigalda runtime, mida EasyAntiCheati poolt kaitstud mängud nõuavad"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -885,7 +1001,8 @@
             "systemInformation": "Süsteemi teave",
             "gamescope": "Gamescope",
             "legacy": "Igand",
-            "categories": "Kategooriad"
+            "categories": "Kategooriad",
+            "tabs": "Seadete sektsioonid"
         },
         "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic",
@@ -906,39 +1023,44 @@
                 "help1": "See toiming lähtestab järgmised vahemälud:",
                 "help10": "Heroicu konfiguratsioon",
                 "help2": "Kolmanda osapoole mängude teave (skoorid, steam compatibility, howlongtobeat, pcgamingwiki, applegamingwiki)",
-                "help5": "Amazon varamu teave (mängude loend, installeerimisdialoogi teave)"
+                "help5": "Amazon varamu teave (mängude loend, installeerimisdialoogi teave)",
+                "description": "Kukutab vahemälus olevad mängu- ja poeandmed, et Heroic saaks need uuesti tõmmata. Teie mängud, sisselogimised ja seaded jäävad alles."
             },
             "title": {
                 "resetHeroic": "Lähtesta Heroic",
                 "clearCache": "Tühjenda vahemälu"
             },
             "resetHeroic": {
-                "help": "See eemaldab kõik seaded ja vahemälud, aga ei eemalda teie installeeritud mänge ega Epicu sisselogimise seisundit. Heroicu kompaktseid versioone (AppImage, WinPortable jne.) peab pärast käsitsi taaskäivitama."
+                "help": "See eemaldab kõik seaded ja vahemälud, aga ei eemalda teie installeeritud mänge ega Epicu sisselogimise seisundit. Heroicu kompaktseid versioone (AppImage, WinPortable jne.) peab pärast käsitsi taaskäivitama.",
+                "description": "Lähtestab Heroicu vaikeseadetele. Paigaldatud mängud ja poodide sisselogimised jäävad alles."
             },
             "details": "Üksikasjad"
         },
         "systemInformation": {
             "osVersion": "Versioon {{versionNumber}}",
-            "software": "Tarkvara:",
+            "software": "Tarkvara",
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "gpuDriver": "Draiver: {{driverVersion}}",
-            "gpuWithNumber": "Graafikaprotsessor {{number}}:",
-            "systemModel": "Süsteemi mudel:",
-            "os": "Operatsioonisüsteem:",
+            "gpuWithNumber": "Graafikaprotsessor {{number}}",
+            "systemModel": "Süsteemi mudel",
+            "os": "Operatsioonisüsteem",
             "memoryStats": "{{percentUsed}}% kasutuses ({{usedGib}} / {{totalGib}}",
             "copyToClipboard": "Kopeeri lõikelauale",
-            "cpu": "Protsessor:",
+            "cpu": "Protsessor",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
-            "gpu": "Graafikaprotsessor:",
+            "gpu": "Graafikaprotsessor",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "memory": "Mälu:",
+            "memory": "Mälu",
             "nileVersion": "Nile: {{nileVersion}}",
             "osNameFlatpak": "{{osName}} (Flatpakis)",
             "showDetailed": "Näita üksikasjalikke süsteemi omadusi",
             "steamDeck": "Steam Deck {{model}}",
             "systemSpecifications": "Süsteemi üksikasjad:",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "cpuCores": "{{numOfCores}} tuuma",
+            "memoryPercent": "{{percentUsed}}% kasutuses",
+            "memoryUsage": "{{usedGib}} kokku {{totalGib}}-st"
         },
         "offline": {
             "warning": "Mäng ei luba ilma võrguühenduseta režiimi, lülitage see sisse vaid omaenda vastutusel. Mäng ei pruugi toimida."
@@ -969,7 +1091,31 @@
             "experimental": "Eksperimentaalsed funktsioonid",
             "launch": "Käivitusvalikud",
             "wineTools": "Tööriistad",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "appearance": "Väljanägemine",
+            "behaviour": "Käitumine",
+            "binaries": "Alternatiivsed binaarprogrammid",
+            "controller": "Mängupult",
+            "environment": "Ümbris & keskkond",
+            "gameplay": "Mängukogemus",
+            "graphics": "Graafika & tõlge",
+            "integrations": "Integratsioonid",
+            "language": "Keel & regioon",
+            "locations": "Asukohad",
+            "maintenance": "Kohandamine & hooldus",
+            "performance": "Jõudlus & ülekatted",
+            "privacy": "Privaatsus",
+            "runtimes": "Runtimed",
+            "system": "Süsteem",
+            "winePerformance": "Jõudlus"
+        },
+        "open-game-settings-file-hint": "Kliki, et avada mängu seadete fail",
+        "pageSubtitle": {
+            "advanced": "Binaarprogrammid, eksperimentaalsed funktsioonid ja hooldus",
+            "games_settings_defaults": "Vaikimisi seaded, mis rakenduvad äsja paigaldatud mängudele",
+            "general": "Seadista oma käivitaja eelistused",
+            "log": "Loe ja jaga Heroicu logisid",
+            "systeminfo": "Teie riistvara ja versioonid, mida Heroic kasutab"
         }
     },
     "Settings": "Seaded",
@@ -1020,7 +1166,8 @@
         "manageaccounts": "Kontode haldamine",
         "quit": "Lahku",
         "cancel": "Tühista",
-        "quitMessage": "Kas olete kindel, et soovite lõpetada?"
+        "quitMessage": "Kas olete kindel, et soovite lõpetada?",
+        "manage": "Halda"
     },
     "webview": {
         "controls": {
@@ -1028,7 +1175,9 @@
             "forward": "Edasi",
             "openInBrowser": "Ava veebilehitsejas",
             "reload": "Laadi leht uuesti",
-            "home": "Mine poe koju"
+            "home": "Mine poe koju",
+            "disableGameInput": "Keela mängu sisend ja naase Heroicu navigatsiooni",
+            "enableGameInput": "Luba klaviatuuri ja mängupuldi sisend lehe puhul"
         }
     },
     "wine": {
@@ -1043,7 +1192,8 @@
             "open_folder": "Ava kaust",
             "update": "Uuendus",
             "settings": "Seaded",
-            "no-results": "Teie otsing ei vastanud ühelegi Wine'i otsingule."
+            "no-results": "Teie otsing ei vastanud ühelegi Wine'i otsingule.",
+            "subtitle": "Lae alla ja halda Wine-i, Protoni ja CrossOveri versioone, mida Heroic võib kasutada"
         },
         "release": "Väljalaske kuupäev",
         "size": "Suurus",
@@ -1118,7 +1268,9 @@
     "emptyLibrary": {
         "noResults": "Praegused filtrid ei toonud tulemusi.",
         "noGames": "Teie varamu on tühi.<br /><br />Klikkige <4>siia,</4> et sisse logida oma Epicu, GOG.com või Amazoni kontodega. Siis ilmuvad teie mängud siia varamusse.<br /><br />Et kasutada mänge või rakendusi teistest allikatest, klikkige <br /> et need käsitsi lisada.",
-        "noResultsTitle": "Mänge ei leitud."
+        "noResultsTitle": "Mänge ei leitud",
+        "description": "<0>Logi sisse</0> oma Epicu, GOG.com-i, Amazoni, itch.io või Zoomi kontodega, ja teie mängud ilmuvad siia. Võite muudest allikatest mänge käsitsi lisada.",
+        "title": "Teie varamu on tühi."
     },
     "tour": {
         "back": "Tagasi",
@@ -1292,7 +1444,8 @@
             "grid": "Ruudustik",
             "label": "Vaaterežiim",
             "list": "Loend"
-        }
+        },
+        "affiliateBanner": "Lingid sellel lehel on partnerlingid. Nende läbi ostmine toetab Heroicu arendamist rahaliselt."
     },
     "steamgriddb": {
         "error": {
@@ -1363,7 +1516,23 @@
     "common": {
         "add": "Lisa",
         "cancel": "Tühista",
-        "warning": "Hoiatus"
+        "warning": "Hoiatus",
+        "clear_all": "Tühjenda kõik",
+        "confirm": "Kinnita",
+        "duplicate": "Loo duplikaat",
+        "edit": "Redigeeri",
+        "remove": "Eemalda",
+        "save": "Salvesta"
     },
-    "General": "Üldine"
+    "General": "Üldine",
+    "Accounts": "Kontod",
+    "affiliate": {
+        "gogPrompt": {
+            "description": "Heroic võib kasutada GOG partnerlinke, kui külastate GOG poodi. Kui ostate midagi läbi Heroicu lingi, jagab GOG meiega väikest komisjonitasu — te ei pea seetõttu lisatasu maksma. Me ei näe ega jälgi, milliseid mänge te ostate, ega ka midagi muud teie ostude kohta: GOG teab vaid seda, et keegi tuli läbi Heroicu. See on vaikimisi välja lülitatud, ning võite seda muuta millal iganes tahate läbi Heroicu täpsemate seadete.",
+            "title": "Toetage Heroicut oma GOG ostudega",
+            "toggle": "Kasuta GOG partnerlinke"
+        }
+    },
+    "Community": "Kogukond",
+    "itchio-store": "itch.io pood"
 }
