@@ -4,7 +4,9 @@ import { MenuItem } from '@mui/material'
 import SelectField from 'frontend/components/UI/SelectField'
 
 import { DismissibleBanner, UpdateComponent } from 'frontend/components/UI'
-import SegmentedControl from 'frontend/components/UI/SegmentedControl'
+import SegmentedControl, {
+  type SegmentedControlItem
+} from 'frontend/components/UI/SegmentedControl'
 import type {
   CatalogFeature,
   CatalogGenre,
@@ -760,13 +762,15 @@ export default function Discounts() {
             aria-label={t('discounts.tabs.label', 'Store')}
             value={storeTab}
             onChange={setStoreTab}
-            items={(['all', ...storeOptions] as StoreTab[]).map((tab) => ({
-              value: tab,
-              label:
-                tab === 'all'
-                  ? t('discounts.tabs.all', 'All stores')
-                  : STORE_LABELS[tab]
-            }))}
+            items={(['all', ...storeOptions] as StoreTab[]).map(
+              (tab): SegmentedControlItem<StoreTab> => ({
+                value: tab,
+                label:
+                  tab === 'all'
+                    ? t('discounts.tabs.all', 'All stores')
+                    : STORE_LABELS[tab]
+              })
+            )}
           />
         )}
       </div>
