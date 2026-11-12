@@ -99,7 +99,8 @@
         "play": "开始游戏",
         "edit-game": "编辑应用/游戏",
         "favourite": "添加到收藏",
-        "unfavourite": "从收藏夹移除"
+        "unfavourite": "从收藏夹移除",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -136,7 +137,11 @@
         "extra_info": "附加信息",
         "install_info": "安装信息",
         "achievements": "成就",
-        "details": "游戏详情"
+        "details": "游戏详情",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "移动中",
@@ -168,8 +173,13 @@
         "steamdeck-compatibility-info": "SteamDeck 兼容性",
         "third-party-app": "第三方管理器",
         "steamdeck": {
-            "unsupported": "不支持"
-        }
+            "unsupported": "不支持",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "可用空间",
@@ -199,7 +209,8 @@
         "playing": {
             "start": "开始游戏",
             "stop": "游戏中（停止）",
-            "start_with_logs": "开始游戏（带日志）"
+            "start_with_logs": "开始游戏（带日志）",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "存档同步中"
@@ -269,7 +280,9 @@
             "title": "游戏/应用标题",
             "broser": "浏览器网址",
             "useragent": "自定义 User Agent",
-            "fullscreen": "启动全屏（按 F11 退出）"
+            "fullscreen": "启动全屏（按 F11 退出）",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "粘贴图片 URL 计算机中选择一张",
@@ -335,7 +348,8 @@
         "verify": "验证和修复",
         "extraInfo": "额外信息",
         "logs": "日志",
-        "categories": "分类"
+        "categories": "分类",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云存档系统。",
@@ -388,5 +402,10 @@
         },
         "reset": "重设为默认",
         "square": "方形艺术"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }
