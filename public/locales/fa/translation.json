@@ -13,8 +13,11 @@
         "disable_animations": "",
         "disable_dialog_backdrop_close": "",
         "section": {
-            "library": "کتابخانه"
-        }
+            "library": "کتابخانه",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "افزودن بازی",
     "All": "همه",
@@ -104,8 +107,13 @@
             "executableNotFoundMessage": "",
             "remove": {
                 "steam": {
-                    "body": "حذف کردن {{game}} از استیم با مشکل مواجه شد:{{newLine}} {{error}}"
+                    "body": "حذف کردن {{game}} از استیم با مشکل مواجه شد:{{newLine}} {{error}}",
+                    "title": ""
                 }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "info": {
@@ -185,6 +193,12 @@
             "rosetta": {
                 "title": "",
                 "message": ""
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "انتخاب پوشه WinePrefix",
@@ -203,7 +217,8 @@
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی",
         "continue": "ادامه",
-        "close": "بستن"
+        "close": "بستن",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -223,7 +238,12 @@
             "select": "انتخاب",
             "space": "فضا",
             "update_game": "به روزرسانی بازی",
-            "exit": "خروج"
+            "exit": "خروج",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "Documentation",
@@ -234,7 +254,8 @@
         },
         "label": {
             "disk": "دیسک",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": ""
         },
         "link": "Downloads",
         "queue": {
@@ -244,7 +265,15 @@
             "type": "Type"
         },
         "title": "Downloads",
-        "ETA": "زمان تخمینی"
+        "ETA": "زمان تخمینی",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
@@ -295,7 +324,10 @@
         "no_categories": "",
         "uncategorized": "",
         "platforms": "Platform",
-        "stores": "فروشگاهها"
+        "stores": "فروشگاهها",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
@@ -382,8 +414,10 @@
         "advertiseAvxForRosetta": "",
         "analytics": "",
         "nvidiaprime": {
-            "details": "استفاده از کارت گرافیک اختصاصی برای رندر بازی در سیستم های حاوی چندین کارت گرافیک. فقط برای سیستم ها و لب تاپ هایی که از headless GPU برای رندر کردن استفاده می کنند (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "استفاده از کارت گرافیک اختصاصی برای رندر بازی در سیستم های حاوی چندین کارت گرافیک. فقط برای سیستم ها و لب تاپ هایی که از headless GPU برای رندر کردن استفاده می کنند (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -430,7 +464,9 @@
             "list": "تغییر به چیدمان لیستی"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "کتابخانه",
     "loading": {
@@ -444,7 +480,8 @@
         "message": "با پلتفرم خود وارد شوید. شما می توانید همزمان از چندین پلتفرم وارد شوید.",
         "amazon": "ورود به آمازون",
         "old-mac": "",
-        "zoom": ""
+        "zoom": "",
+        "itchio": ""
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -460,14 +497,16 @@
                 "steam": {
                     "corrupt": "{{game}} به تمام کاربرهای پیدا شده استیم افزوده نشد. برای اطلاعات بیشتر به لاگ ها مراجعه کنید. راه اندازی مجدد برای اعمال تغییرات لازم است.",
                     "success": "{{game}} موفقانه به استیم افزوده شد. راه اندازی مجدد استیم برای اعمال تغییرات الزامی است.",
-                    "title": "به استیم افزوده شد"
+                    "title": "به استیم افزوده شد",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} از تمامی کابرهای پیدا شده استیم حذف نشد. برای اطلاعات بیشتر به لاگ ها مراجعه کنید. راه اندازی مجدد استیم برای اعمال تغییرات الزامی است.",
                     "success": "{{game}} موفقانه از استیم حذف شد. راه اندازی مجدد استیم برای اعمال تغییرات الزامی است.",
-                    "title": "از استیم حذف شد"
+                    "title": "از استیم حذف شد",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "تعمیر کردن کامل شد"
@@ -513,16 +552,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "مثال: Path/To/ExtraFiles",
             "title": "متغیرهای محیطی",
-            "value": "مقدار"
+            "value": "مقدار",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "نام متغیر نمی تواند خالی باشد",
                 "equal_sign_in_key": "نام متغیر نمی تواند شامل علامت \"=\" باشد",
-                "space_in_key": "نام متغیر نمیتواند شامل فاصله باشد"
+                "space_in_key": "نام متغیر نمیتواند شامل فاصله باشد",
+                "duplicate_key": ""
             },
             "example": "از علامت \"=\" استفاده نکنید، به عنوان مثال: برای یک متن مانند \"MY_FLAG=123\"،‌ در قسمت اسم، MY_FLAG و در قسمت مقدار، 123 را درج کنید.",
-            "info": "تنظیم متغیرهای محیطی برای افزودن به دستور."
+            "info": "تنظیم متغیرهای محیطی برای افزودن به دستور.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "آرگومانهای لانچر را اینجا بگذارید",
@@ -591,7 +636,8 @@
             "queued": "در صف",
             "remove": "پاک کردن از دانلودها",
             "pause": "توقف دانلود",
-            "resume": "ادامه دانلود"
+            "resume": "ادامه دانلود",
+            "paused": ""
         }
     },
     "Recent": "اخیرا بازی شده",
@@ -638,7 +684,8 @@
             "removeConfirm": "آیا مطمئن هستید که می خواهید EOS Overlay را حذف کنید؟",
             "removeConfirmTitle": "تایید حذف overlay",
             "updateNow": "Update",
-            "updating": "در حال به روزرسانی..."
+            "updating": "در حال به روزرسانی...",
+            "description": ""
         },
         "esync": "فعالسازی Esync",
         "exit-to-tray": "خروج به میزکار سیستم",
@@ -698,9 +745,13 @@
                 "gog": "",
                 "zoom": "",
                 "game-log": "",
-                "heroic": ""
+                "heroic": "",
+                "itchio": ""
             },
-            "show-uploads": ""
+            "show-uploads": "",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "فعالسازی Mangohud (Mangohud باید نصب شده باشد)",
         "manualsync": {
@@ -720,12 +771,15 @@
         "preferSystemLibs": "ارجحیت کتابخانه های سیستم",
         "runexe": {
             "message": "فایلها را اینجا درج کنید",
-            "title": "اجرای EXE در محل"
+            "title": "اجرای EXE در محل",
+            "description": ""
         },
         "savefolder": {
             "not-found": "پوشه سیو ها یافت نشد، لطفا به صورت دستی انتخاب کنید (برای تلاش مجدد کلیک کنید)",
             "placeholder": "پوشه ی دقیق سیو بازی ها را انتخاب کنید",
-            "warning": "لطفا برای درست بودن مسیر مجددا آن را چک کنید (برای تلاش مجدد کلیک کنید)"
+            "warning": "لطفا برای درست بودن مسیر مجددا آن را چک کنید (برای تلاش مجدد کلیک کنید)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "انتخاب تم",
         "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
@@ -793,7 +847,8 @@
         "analyticsOptIn": "",
         "disablePlaytimeSync": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "before-launch-script-path": "",
         "disableUMU": "",
@@ -809,13 +864,89 @@
         },
         "tools": {
             "open": "باز کردن",
-            "selectExe": "انتخاب EXE"
-        }
+            "selectExe": "انتخاب EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "در حال نصب ران تایم BattlEye...",
-            "name": "ران تایم BattlEye AntiCheat"
+            "name": "ران تایم BattlEye AntiCheat",
+            "hint": ""
         },
         "clear-cache": "پاک کردن کش Heroic",
         "copiedToClipboard": "در کليپ بورد کپی شد!",
@@ -827,7 +958,8 @@
                 "title": "GameMode الزامی است"
             },
             "installing": "در حال نصب ران تایم EAC...",
-            "name": "ران تایم Easy AntiCheat"
+            "name": "ران تایم Easy AntiCheat",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -848,7 +980,9 @@
             "wineExt": "افزونه های Wine",
             "gamescope": "",
             "systemInformation": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "",
+            "tabs": ""
         },
         "open-config-file": "باز کردن فایل پیکربندی",
         "reset-heroic": "Reset Heroic",
@@ -869,14 +1003,16 @@
                 "help5": "",
                 "help6": "",
                 "help2": "",
-                "help4": ""
+                "help4": "",
+                "description": ""
             },
             "title": {
                 "resetHeroic": "Reset Heroic",
                 "clearCache": ""
             },
             "resetHeroic": {
-                "help": "آیا از بازنشانی Heroic مطمئن هستید؟ این کار تمام تنظیمات و کش ها را پاک می کند اما بازی های نصب شده شما یا اعتبارهای Epic شما را پاک نمی کند. نسخه های پورتابل (AppImage, WinPortable, ...) نیازمند راه اندازی مجدد دستی پس از آن هستند."
+                "help": "آیا از بازنشانی Heroic مطمئن هستید؟ این کار تمام تنظیمات و کش ها را پاک می کند اما بازی های نصب شده شما یا اعتبارهای Epic شما را پاک نمی کند. نسخه های پورتابل (AppImage, WinPortable, ...) نیازمند راه اندازی مجدد دستی پس از آن هستند.",
+                "description": ""
             },
             "details": ""
         },
@@ -901,7 +1037,10 @@
             "showDetailed": "",
             "memory": "",
             "heroicVersion": "",
-            "nileVersion": ""
+            "nileVersion": "",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "launchOptions": "گزینه های اجرا...",
         "legacy_warning": "",
@@ -930,14 +1069,41 @@
         "section": {
             "downloads": "Downloads",
             "launch": "گزینه های اجرا...",
-            "wineTools": "ابزارها"
+            "wineTools": "ابزارها",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "experimental": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "تنظیمات",
     "sidebar": {
         "collapse": "بستن ساید بار",
         "uncollapse": "باز کردن سایدبار",
-        "console": ""
+        "console": "",
+        "storesLogin": ""
     },
     "status": {
         "installing": "در حال نصب",
@@ -968,7 +1134,8 @@
         "show": "نمایش"
     },
     "two_col_table": {
-        "save_hint": "بازی های این جدول به صورت خودکار ذخیره نشده اند. بر روی دکمه + کلیک کنید"
+        "save_hint": "بازی های این جدول به صورت خودکار ذخیره نشده اند. بر روی دکمه + کلیک کنید",
+        "add": ""
     },
     "Update Available!": "به روزرسانی موجود است!",
     "userselector": {
@@ -979,14 +1146,18 @@
         "manageaccounts": "مدیریت حسابها",
         "quit": "خروج",
         "cancel": "لغو",
-        "quitMessage": "آیا مطمئن هستید که می خواهید خارج شوید؟"
+        "quitMessage": "آیا مطمئن هستید که می خواهید خارج شوید؟",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "بازگشت به عقب",
             "forward": "بازگشت به جلو",
             "openInBrowser": "باز کردن در مرورگر",
-            "reload": "تازه کردن صفحه"
+            "reload": "تازه کردن صفحه",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1001,7 +1172,8 @@
             "open_folder": "",
             "update": "Update",
             "settings": "تنظیمات",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "Release Date",
         "size": "اندازه",
@@ -1133,14 +1305,17 @@
     "emptyLibrary": {
         "noGames": "",
         "noResults": "",
-        "noResultsTitle": "بازی یافت نشد"
+        "noResultsTitle": "بازی یافت نشد",
+        "description": "",
+        "title": ""
     },
     "zoom-store": "",
     "wineExplanation": {
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "discounts": {
         "region": {
@@ -1173,7 +1348,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1197,7 +1373,9 @@
             "ageRatingAll": "همه",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "Platform"
+            "platform": "Platform",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "",
         "sort": {
@@ -1223,8 +1401,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "Store"
-        }
+            "label": "Store",
+            "all": ""
+        },
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "titleMulti": "",
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1276,13 +1470,42 @@
             "title": "نصب بازی",
             "wineLoading": "درحال بارگذاری",
             "path": "نصب در",
-            "wineMissing": "مسیری انتخاب نشده است"
+            "wineMissing": "مسیری انتخاب نشده است",
+            "wine": ""
+        },
+        "cancelUpdate": {
+            "title": "",
+            "message": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
     "next": "",
     "common": {
         "cancel": "انصراف",
-        "warning": "هشدار"
+        "warning": "هشدار",
+        "edit": "",
+        "save": "",
+        "add": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "عمومی"
+    "General": "عمومی",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }
