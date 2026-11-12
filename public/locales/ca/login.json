@@ -6,7 +6,8 @@
         "copied": "S'ha copiat",
         "loading": "Es carrega",
         "error": "Error, prova amb un codi diferent",
-        "close": "Tanca"
+        "close": "Tanca",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Per a iniciar sessió i instal·lar jocs, cal que segueixis primer les passes de sota:",
@@ -22,5 +23,14 @@
         "error": "Error",
         "loading": "S'està carregant la llista de jocs, espera"
     },
-    "welcome": "Et donem la benvinguda!"
+    "welcome": "Et donem la benvinguda!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }
