@@ -98,7 +98,8 @@
         "play": "ΠΑΙΞΤΕ",
         "edit-game": "Edit App/Game",
         "favourite": "Προσθήκη στα Αγαπημένα",
-        "unfavourite": "Κατάργηση από τα Αγαπημένα"
+        "unfavourite": "Κατάργηση από τα Αγαπημένα",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Μη υποστηριζόμενο",
     "disabled": "Απενεργοποιημένο",
@@ -135,7 +136,11 @@
         "install_info": "Πληροφορίες εγκατάστασης",
         "extra_info": "Επιπρόσθετες πληροφορίες",
         "achievements": "Επιτεύγματα",
-        "details": "Πληροφορίες παιχνιδιού"
+        "details": "Πληροφορίες παιχνιδιού",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Μετακίνηση",
@@ -167,8 +172,13 @@
         "steamdeck-compatibility-info": "Συμβατότητα SteamDeck",
         "third-party-app": "Third-Party Διαχειριστής",
         "steamdeck": {
-            "unsupported": "Unsupported"
-        }
+            "unsupported": "Unsupported",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",
@@ -196,7 +206,8 @@
         "playing": {
             "start": "Παίξτε τώρα",
             "stop": "Σε παιχνίδι (Διακοπή)",
-            "start_with_logs": "Παίξτε Τώρα (με αρχεία καταγραφής)"
+            "start_with_logs": "Παίξτε Τώρα (με αρχεία καταγραφής)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Συγχρονισμός save"
@@ -243,7 +254,9 @@
             "title": "Τίτλος Παιχνιδιού/Εφαρμογής",
             "broser": "Διεύθυνση URL",
             "useragent": "Προσαρμοσμένος πράκτορας χρήστη",
-            "fullscreen": "Εκκίνηση πλήρους οθόνης (F11 για έξοδο)"
+            "fullscreen": "Εκκίνηση πλήρους οθόνης (F11 για έξοδο)",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Επικολλήστε μια διεύθυνση URL μιας εικόνας ή επιλέξτε μία από τον υπολογιστή σας",
@@ -254,6 +267,9 @@
         "import-hint": {
             "title": "Σημαντικό! Προσθέτετε ένα παιχνίδι από τα Epic/GOG/Amazon; Πατήστε εδώ!",
             "content": "ΜΗΝ χρησιμοποιείτε αυτήν τη λειτουργία για αυτό.<br />Αντίθετα, <3>συνδεθείτε</3> στο κατάστημα, αναζητήστε το παιχνίδι στη συλλογή σας, ανοίξτε το παράθυρο διαλόγου εγκατάστασης και κάντε κλικ στο κουμπί &quot;Εισαγωγή παιχνιδιού&quot;"
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -305,7 +321,8 @@
         "verify": "Επαλήθευση και Επιδιόρθωση",
         "extraInfo": "Extra Πληροφορίες",
         "logs": "κούτσουρα",
-        "categories": "Κατηγορίες"
+        "categories": "Κατηγορίες",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Αυτό το παιχνίδι δεν υποστηρίζει αποθήκευση στο cloud. Αυτές οι πληροφορίες παρέχονται από τους προγραμματιστές παιχνιδιών. Ορισμένα παιχνίδια εφαρμόζουν το δικό τους σύστημα αποθήκευσης cloud",
@@ -346,6 +363,22 @@
         "placeholder": {
             "image": "Paste an Image URL here"
         },
-        "title": "Edit App/Game"
+        "title": "Edit App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }
