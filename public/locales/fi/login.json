@@ -6,7 +6,8 @@
         "copied": "Kopioitu!",
         "error": "Virhe, kokeile toista koodia",
         "loading": "Ladataan",
-        "close": "Sulje"
+        "close": "Sulje",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, suorita alla mainitut vaiheet:",
@@ -22,5 +23,14 @@
         "error": "Virhe",
         "loading": "Ladataan pelilistaa, odota hetki"
     },
-    "welcome": "Tervetuloa!"
+    "welcome": "Tervetuloa!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }
