@@ -179,4 +179,55 @@ describe('sideloaded game removal', () => {
       status: 'done'
     })
   })
+
+  test('handles concurrent uninstalls of multiple games cleanly', async () => {
+    const game2Info = {
+      ...gameInfo,
+      app_name: 'game-2',
+      title: 'Game 2'
+    } as GameInfo
+
+    let games = [gameInfo, game2Info]
+    jest.mocked(libraryStore).get.mockImplementation(() => games)
+    jest.mocked(libraryStore).set.mockImplementation((_key, value) => {
+      games = value as GameInfo[]
+      return libraryStore
+    })
+
+    // Simulate async work during cleanup
+    jest.mocked(removeShortcuts).mockImplementation(async () => {
+      await Promise.resolve()
+    })
+
+    const game1 = new SideloadGame(gameInfo.app_name)
+    const game2 = new SideloadGame(game2Info.app_name)
+
+    await Promise.all([
+      game1.uninstall({ shouldRemovePrefix: false }),
+      game2.uninstall({ shouldRemovePrefix: false })
+    ])
+
+    expect(libraryStore.get('games', [])).toEqual([])
+  })
+
+  test('handles concurrent duplicate uninstalls of the same game safely', async () => {
+    jest.mocked(removeShortcuts).mockImplementation(async () => {
+      await Promise.resolve()
+    })
+
+    const game1 = new SideloadGame(gameInfo.app_name)
+    const game2 = new SideloadGame(gameInfo.app_name)
+
+    await Promise.all([
+      game1.uninstall({ shouldRemovePrefix: false }),
+      game2.uninstall({ shouldRemovePrefix: false })
+    ])
+
+    expect(libraryStore.get('games', [])).toEqual([])
+    expect(sendGameStatusUpdate).toHaveBeenCalledWith({
+      appName: gameInfo.app_name,
+      runner: 'sideload',
+      status: 'done'
+    })
+  })
 })
