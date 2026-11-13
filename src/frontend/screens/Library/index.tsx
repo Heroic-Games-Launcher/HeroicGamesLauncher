@@ -757,7 +757,8 @@ export default React.memo(function Library(): JSX.Element {
           />
         )}
 
-        {libraryToShow.length === 0 && <EmptyLibraryMessage />}
+        {libraryToShow.length === 0 &&
+          (!refreshing || refreshingInTheBackground) && <EmptyLibraryMessage />}
 
         {libraryToShow.length > 0 &&
           (!refreshing || refreshingInTheBackground) && (

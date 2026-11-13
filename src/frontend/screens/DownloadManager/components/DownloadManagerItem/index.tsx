@@ -6,9 +6,9 @@ import { DMQueueElement, DownloadManagerState } from 'common/types'
 import {
   CircleCheck,
   CircleX,
-  Clock,
   Download,
   Gamepad2,
+  Loader,
   Pause,
   Play,
   Trash2,
@@ -28,6 +28,7 @@ import { handleStopInstallation } from 'frontend/helpers/library'
 import { getGameInfo, getIntlLocale, getStoreName } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import { useInstallProgress } from 'frontend/state/InstallProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 
@@ -120,6 +121,9 @@ const DownloadManagerItem = ({
   } = gameInfo || {}
 
   const [progress] = hasProgress(appName, runner)
+  const liveProgress = useInstallProgress(
+    (state) => state[`${appName}_${runner}`]
+  )
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' || (status === 'abort' && !current)
@@ -232,12 +236,19 @@ const DownloadManagerItem = ({
 
   const statusBadge = () => {
     if (isHero) {
+      if (isPreparing) {
+        return (
+          <Badge variant="info" glyph={Loader}>
+            {t2('queue.label.preparing', 'Preparing')}
+          </Badge>
+        )
+      }
       return isPaused ? (
         <Badge variant="warning" glyph={Pause}>
           {t2('queue.label.paused', 'Paused')}
         </Badge>
       ) : (
-        <Badge variant="accent" glyph={Download}>
+        <Badge variant="success" glyph={Download}>
           {t2('queue.label.downloading', 'Downloading')}
         </Badge>
       )
@@ -274,7 +285,7 @@ const DownloadManagerItem = ({
     return null
   }
 
-  const cover = art_cover || art_square
+  const cover = isHero ? art_square || art_cover : art_cover || art_square
 
   const translatedTypes = {
     install: t2('download-manager.install-type.install', 'Install'),
@@ -283,8 +294,59 @@ const DownloadManagerItem = ({
 
   const { fullDate, hour, date } = getTime()
   const platform = platformToInstall === 'osx' ? 'Mac' : platformToInstall
-  const details = [size, platform].filter(Boolean).join(' · ')
-  const eta = isPaused ? undefined : progress.eta
+  const storeName = getStoreName(runner, t2('Other'))
+  const details = isHero
+    ? `${date} ${hour}`
+    : [size, platform].filter(Boolean).join(' · ')
+
+  const hasStarted =
+    Boolean(liveProgress?.downSpeed) || Boolean(liveProgress?.percent)
+  const isPreparing =
+    current && !isPaused && !finished && !canceled && !hasStarted
+
+  const progressSummary = [
+    size,
+    `(${progress.bytes} · ${Math.round(progress.percent ?? 0)}%)`
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  const actionButtons = (
+    <span className="DownloadItem__actions">
+      {current && (
+        <Tooltip content={secondaryIconTitle()}>
+          <Button
+            variant="ghost"
+            size={isHero ? 'md' : 'sm'}
+            onClick={handleSecondaryActionClick}
+            aria-label={secondaryIconTitle()}
+            icon={secondaryActionIcon()}
+          >
+            {isHero ? secondaryIconTitle() : undefined}
+          </Button>
+        </Tooltip>
+      )}
+      {finished && is_dlc ? (
+        <span className="DownloadItem__noAction">—</span>
+      ) : (
+        <Tooltip content={mainIconTitle()}>
+          <Button
+            variant={mainActionVariant()}
+            size={isHero ? 'md' : 'sm'}
+            onClick={handleMainActionClick}
+            aria-label={mainIconTitle()}
+            icon={mainActionIcon()}
+          >
+            {isHero
+              ? current && !finished
+                ? t2('common.cancel', 'Cancel')
+                : mainIconTitle()
+              : undefined}
+          </Button>
+        </Tooltip>
+      )}
+    </span>
+  )
 
   return (
     <div
@@ -334,78 +396,53 @@ const DownloadManagerItem = ({
               {title}
             </span>
             {statusBadge()}
+            {isHero && <Badge variant="info">{storeName}</Badge>}
+            {isHero && platform && <Badge variant="accent">{platform}</Badge>}
           </div>
           <span className="DownloadItem__details" title={path}>
             {details}
           </span>
           {isHero && (
             <div className="DownloadItem__progress">
+              <span className="DownloadItem__progressSummary">
+                {isPreparing
+                  ? `${t2('queue.label.preparing', 'Preparing')}…`
+                  : progressSummary}
+              </span>
               <ProgressBar
                 size="md"
-                showValue
-                tone={isPaused ? 'warning' : 'success'}
-                value={progress.percent}
+                tone={isPreparing ? 'accent' : isPaused ? 'warning' : 'success'}
+                value={isPreparing ? undefined : progress.percent}
                 label={t2('queue.label.downloading', 'Downloading')}
               />
-              <span className="DownloadItem__progressMeta">
-                {progress.bytes}
-                {eta && (
-                  <span
-                    className="DownloadItem__eta"
-                    title={t2('download-manager.ETA', 'Estimated time')}
-                  >
-                    <Icon glyph={Clock} size="xs" />
-                    {eta}
-                  </span>
-                )}
-              </span>
             </div>
           )}
+          {isHero && actionButtons}
         </div>
       </div>
 
-      <span className="DownloadItem__type">
-        <Badge variant={type === 'update' ? 'info' : 'neutral'}>
-          {translatedTypes[type]}
-        </Badge>
-      </span>
+      {!isHero && (
+        <span className="DownloadItem__type">
+          <Badge variant={type === 'update' ? 'info' : 'neutral'}>
+            {translatedTypes[type]}
+          </Badge>
+        </span>
+      )}
 
-      <span className="DownloadItem__store">
-        <StoreBadge runner={runner} title={getStoreName(runner, t2('Other'))} />
-      </span>
+      {!isHero && (
+        <span className="DownloadItem__store">
+          <StoreBadge runner={runner} title={storeName} />
+        </span>
+      )}
 
-      <span className="DownloadItem__time" title={fullDate}>
-        {isHero && <Icon glyph={Clock} size="sm" />}
-        <span className="DownloadItem__date">{date}</span>
-        <span className="DownloadItem__hour">{hour}</span>
-      </span>
+      {!isHero && (
+        <span className="DownloadItem__time" title={fullDate}>
+          <span className="DownloadItem__date">{date}</span>
+          <span className="DownloadItem__hour">{hour}</span>
+        </span>
+      )}
 
-      <span className="DownloadItem__actions">
-        {current && (
-          <Tooltip content={secondaryIconTitle()}>
-            <Button
-              variant="ghost"
-              size={isHero ? 'md' : 'sm'}
-              onClick={handleSecondaryActionClick}
-              aria-label={secondaryIconTitle()}
-              icon={secondaryActionIcon()}
-            />
-          </Tooltip>
-        )}
-        {finished && is_dlc ? (
-          <span className="DownloadItem__noAction">—</span>
-        ) : (
-          <Tooltip content={mainIconTitle()}>
-            <Button
-              variant={mainActionVariant()}
-              size={isHero ? 'md' : 'sm'}
-              onClick={handleMainActionClick}
-              aria-label={mainIconTitle()}
-              icon={mainActionIcon()}
-            />
-          </Tooltip>
-        )}
-      </span>
+      {!isHero && actionButtons}
     </div>
   )
 }
