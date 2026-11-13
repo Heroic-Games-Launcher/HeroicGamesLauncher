@@ -317,13 +317,28 @@ export default function DownloadDialog({
         const fetchedPlatform = platformToInstall
         const fetchedBuild = selectedBuild
         setGettingInstallInfo(true)
-        const gameInstallInfo = await getInstallInfo(
+        const installInfoPromise = getInstallInfo(
           appName,
           runner,
           platformToInstall,
           selectedBuild,
           branch
         )
+        const gameInstallInfo =
+          runner === 'legendary'
+            ? await Promise.race([
+                installInfoPromise,
+                new Promise<null>((resolve) =>
+                  setTimeout(() => resolve(null), 15000)
+                )
+              ])
+            : await installInfoPromise
+
+        if (!gameInstallInfo) {
+          setGameInstallInfo(null)
+          setGettingInstallInfo(false)
+          return
+        }
 
         if (
           gameInstallInfo?.manifest &&
@@ -377,11 +392,14 @@ export default function DownloadDialog({
         }
 
         if (gameInstallInfo) {
-          if (
+          const manifestBuilds =
             gameInstallInfo.manifest &&
-            'builds' in gameInstallInfo.manifest
-          ) {
-            const builds = (gameInstallInfo.manifest.builds || [])
+            'builds' in gameInstallInfo.manifest &&
+            Array.isArray(gameInstallInfo.manifest.builds)
+              ? gameInstallInfo.manifest.builds
+              : []
+          if (manifestBuilds.length) {
+            const builds = manifestBuilds
               .filter(
                 // We either take branch when both are falsy (null | undefined)
                 // or when they are equal
@@ -436,6 +454,7 @@ export default function DownloadDialog({
     platformToInstall,
     selectedBuild,
     branch,
+    runner,
     savedBranchPassword
   ])
 
@@ -580,8 +599,17 @@ export default function DownloadDialog({
     return t('button.no-path-selected', 'No path selected')
   }
 
+  const showUnknownSize = runner === 'legendary' && !gettingInstallInfo
+  const displayedDownloadSize =
+    downloadSize || (showUnknownSize ? t('game.size-unknown', 'Unknown') : '')
+  const displayedInstallSize =
+    installSize || (showUnknownSize ? t('game.size-unknown', 'Unknown') : '')
+
   const readyToInstall =
-    installPath && !!diskSize && !gettingInstallInfo && validFlatpakPath
+    installPath &&
+    (!!diskSize || runner === 'legendary') &&
+    !gettingInstallInfo &&
+    validFlatpakPath
 
   const showDlcSelector =
     ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0
@@ -604,16 +632,18 @@ export default function DownloadDialog({
           <div className="InstallModal__size">
             <FontAwesomeIcon
               className={classNames('InstallModal__sizeIcon', {
-                'fa-spin-pulse': !downloadSize
+                'fa-spin-pulse': !displayedDownloadSize
               })}
-              icon={downloadSize ? faDownload : faSpinner}
+              icon={displayedDownloadSize ? faDownload : faSpinner}
             />
-            {downloadSize ? (
+            {displayedDownloadSize ? (
               <>
                 <div className="InstallModal__sizeLabel">
                   {t('game.downloadSize', 'Download Size')}:
                 </div>
-                <div className="InstallModal__sizeValue">{downloadSize}</div>
+                <div className="InstallModal__sizeValue">
+                  {displayedDownloadSize}
+                </div>
               </>
             ) : (
               `${t('game.getting-download-size', 'Geting download size')}...`
@@ -622,16 +652,18 @@ export default function DownloadDialog({
           <div className="InstallModal__size">
             <FontAwesomeIcon
               className={classNames('InstallModal__sizeIcon', {
-                'fa-spin-pulse': !downloadSize
+                'fa-spin-pulse': !displayedInstallSize
               })}
-              icon={downloadSize ? faHardDrive : faSpinner}
+              icon={displayedInstallSize ? faHardDrive : faSpinner}
             />
-            {downloadSize ? (
+            {displayedInstallSize ? (
               <>
                 <div className="InstallModal__sizeLabel">
                   {t('game.installSize', 'Install Size')}:
                 </div>
-                <div className="InstallModal__sizeValue">{installSize}</div>
+                <div className="InstallModal__sizeValue">
+                  {displayedInstallSize}
+                </div>
               </>
             ) : (
               `${t('game.getting-install-size', 'Geting install size')}...`
@@ -672,7 +704,7 @@ export default function DownloadDialog({
           label={t('install.path', 'Select Install Path')}
           noDeleteButton
           afterInput={
-            downloadSize ? (
+            displayedDownloadSize ? (
               <span className="smallInputInfo">
                 {validPath && validFlatpakPath && (
                   <>
