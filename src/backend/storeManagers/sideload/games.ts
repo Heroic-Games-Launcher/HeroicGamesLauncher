@@ -8,7 +8,7 @@ import {
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
-import { logInfo, LogPrefix, logWarning } from 'backend/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { dirname } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
@@ -107,9 +107,6 @@ export default class SideloadGame implements Game {
       status: 'uninstalling'
     })
 
-    const old = libraryStore.get('games', [])
-    const current = old.filter((a: GameInfo) => a.app_name !== this.id)
-
     const gameInfo = this.getGameInfo()
     const {
       title,
@@ -126,10 +123,31 @@ export default class SideloadGame implements Game {
 
     notify({ title, body: i18next.t('notify.uninstalled') })
 
-    await removeShortcutsUtil(this)
+    // Shortcut cleanup resolves the game details through getGameInfo(), so the
+    // library entry has to stay in place until both helpers have run. Failures
+    // are logged instead of aborting the uninstall, which would leave the game
+    // stuck in the 'uninstalling' state.
+    try {
+      await removeShortcutsUtil(this)
+      await removeNonSteamGame(this)
+    } catch (error) {
+      logError(
+        ['Failed to remove shortcuts for', this.id, error],
+        LogPrefix.Backend
+      )
+    }
+
     removeRecentGame(this.id)
-    await removeNonSteamGame(this)
-    libraryStore.set('games', current)
+
+    // Re-read the library instead of reusing a snapshot taken before the
+    // cleanup above: another install/uninstall finishing in the meantime would
+    // otherwise be overwritten with stale data.
+    libraryStore.set(
+      'games',
+      libraryStore
+        .get('games', [])
+        .filter((a: GameInfo) => a.app_name !== this.id)
+    )
 
     sendGameStatusUpdate({
       appName: this.id,

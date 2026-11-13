@@ -2,6 +2,8 @@ import SideloadGame from '../games'
 import { libraryStore } from '../electronStores'
 import { removeShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
+import { logError, LogPrefix } from 'backend/logger'
+import { sendGameStatusUpdate } from 'backend/utils'
 import type { GameInfo } from 'common/types'
 
 jest.mock('../electronStores', () => ({
@@ -16,6 +18,7 @@ jest.mock('backend/utils', () => ({
 }))
 jest.mock('backend/logger', () => ({
   logInfo: jest.fn(),
+  logError: jest.fn(),
   LogPrefix: { Backend: 'Backend' }
 }))
 jest.mock('backend/shortcuts/shortcuts/shortcuts', () => ({
@@ -73,5 +76,45 @@ describe('sideloaded game removal', () => {
     expect(removeShortcuts).toHaveBeenCalledWith(game)
     expect(removeNonSteamGame).toHaveBeenCalledWith(game)
     expect(libraryStore.get('games', [])).toEqual([])
+  })
+
+  test('finishes the uninstall and logs when shortcut cleanup fails', async () => {
+    const failure = new Error('shortcut cleanup failed')
+    jest.mocked(removeShortcuts).mockRejectedValue(failure)
+
+    const game = new SideloadGame(gameInfo.app_name)
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(logError).toHaveBeenCalledWith(
+      ['Failed to remove shortcuts for', gameInfo.app_name, failure],
+      LogPrefix.Backend
+    )
+    expect(libraryStore.get('games', [])).toEqual([])
+    expect(sendGameStatusUpdate).toHaveBeenLastCalledWith({
+      appName: gameInfo.app_name,
+      runner: 'sideload',
+      status: 'done'
+    })
+  })
+
+  test('does not overwrite library changes made while cleanup runs', async () => {
+    const otherGame = {
+      ...gameInfo,
+      app_name: 'other-game',
+      title: 'Other Game'
+    } as GameInfo
+
+    jest.mocked(removeShortcuts).mockImplementation(async () => {
+      // Another game is added while this uninstall is still cleaning up, so
+      // the concurrent write lands before the library entry is dropped.
+      jest.mocked(libraryStore).set('games', [gameInfo, otherGame])
+    })
+
+    const game = new SideloadGame(gameInfo.app_name)
+    await game.uninstall({ shouldRemovePrefix: false })
+
+    expect(libraryStore.get('games', [])).toEqual([otherGame])
   })
 })
