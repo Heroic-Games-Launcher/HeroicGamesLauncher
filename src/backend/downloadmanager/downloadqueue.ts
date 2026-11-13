@@ -124,13 +124,6 @@ async function addToQueue(element: DMQueueElement) {
     return
   }
 
-  sendGameStatusUpdate({
-    appName: element.params.appName,
-    runner: element.params.runner,
-    folder: element.params.path,
-    status: 'queued'
-  })
-
   const elements = downloadManager.get('queue', [])
 
   const elementIndex = elements.findIndex(
@@ -138,6 +131,20 @@ async function addToQueue(element: DMQueueElement) {
       el.params.appName === element.params.appName &&
       el.params.runner === element.params.runner
   )
+
+  const isCurrentlyProcessing =
+    isRunning() &&
+    currentElement?.params.appName === element.params.appName &&
+    currentElement?.params.runner === element.params.runner
+
+  if (!isCurrentlyProcessing) {
+    sendGameStatusUpdate({
+      appName: element.params.appName,
+      runner: element.params.runner,
+      folder: element.params.path,
+      status: 'queued'
+    })
+  }
 
   if (elementIndex >= 0) {
     elements[elementIndex] = element
