@@ -116,7 +116,17 @@ export default class SideloadGame implements Game {
     }
 
     if (deleteFiles && executable !== undefined) {
-      rmSync(dirname(executable), { recursive: true })
+      const folder = dirname(executable)
+      if (folder && folder !== '.' && folder !== '/' && existsSync(folder)) {
+        try {
+          rmSync(folder, { recursive: true })
+        } catch (error) {
+          logError(
+            ['Failed to delete game files for', this.id, error],
+            LogPrefix.Backend
+          )
+        }
+      }
     }
 
     notify({ title, body: i18next.t('notify.uninstalled') })

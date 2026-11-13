@@ -4,6 +4,7 @@ import { removeShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { logError, LogPrefix } from 'backend/logger'
+import { existsSync, rmSync } from 'graceful-fs'
 import { sendGameStatusUpdate } from 'backend/utils'
 import type { GameInfo } from 'common/types'
 
@@ -35,6 +36,10 @@ jest.mock('backend/storeManagers/storeManagerCommon/games', () => ({}))
 jest.mock('backend/utils/uninstaller', () => ({}))
 jest.mock('backend/recent_games/recent_games', () => ({
   removeRecentGame: jest.fn()
+}))
+jest.mock('graceful-fs', () => ({
+  existsSync: jest.fn(),
+  rmSync: jest.fn()
 }))
 jest.mock('backend/constants/environment', () => ({}))
 
@@ -229,5 +234,108 @@ describe('sideloaded game removal', () => {
       runner: 'sideload',
       status: 'done'
     })
+  })
+
+  test('safely deletes files when deleteFiles is true and directory exists', async () => {
+    const gameWithExe = {
+      ...gameInfo,
+      install: { is_dlc: false, executable: '/home/user/Games/MyGame/game.exe' }
+    } as GameInfo
+    let games = [gameWithExe]
+    jest.mocked(libraryStore).get.mockImplementation(() => games)
+    jest.mocked(libraryStore).set.mockImplementation((_key, value) => {
+      games = value as GameInfo[]
+      return libraryStore
+    })
+    jest.mocked(existsSync).mockReturnValue(true)
+
+    const game = new SideloadGame(gameWithExe.app_name)
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false, deleteFiles: true })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(existsSync).toHaveBeenCalledWith('/home/user/Games/MyGame')
+    expect(rmSync).toHaveBeenCalledWith('/home/user/Games/MyGame', {
+      recursive: true
+    })
+    expect(libraryStore.get('games', [])).toEqual([])
+  })
+
+  test('skips file deletion when deleteFiles is true but directory does not exist', async () => {
+    const gameWithExe = {
+      ...gameInfo,
+      install: { is_dlc: false, executable: '/home/user/Games/MyGame/game.exe' }
+    } as GameInfo
+    let games = [gameWithExe]
+    jest.mocked(libraryStore).get.mockImplementation(() => games)
+    jest.mocked(libraryStore).set.mockImplementation((_key, value) => {
+      games = value as GameInfo[]
+      return libraryStore
+    })
+    jest.mocked(existsSync).mockReturnValue(false)
+
+    const game = new SideloadGame(gameWithExe.app_name)
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false, deleteFiles: true })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(existsSync).toHaveBeenCalledWith('/home/user/Games/MyGame')
+    expect(rmSync).not.toHaveBeenCalled()
+    expect(libraryStore.get('games', [])).toEqual([])
+  })
+
+  test('finishes uninstall and logs when rmSync throws an error', async () => {
+    const gameWithExe = {
+      ...gameInfo,
+      install: { is_dlc: false, executable: '/home/user/Games/MyGame/game.exe' }
+    } as GameInfo
+    let games = [gameWithExe]
+    jest.mocked(libraryStore).get.mockImplementation(() => games)
+    jest.mocked(libraryStore).set.mockImplementation((_key, value) => {
+      games = value as GameInfo[]
+      return libraryStore
+    })
+    jest.mocked(existsSync).mockReturnValue(true)
+    const rmError = new Error('EACCES: permission denied')
+    jest.mocked(rmSync).mockImplementation(() => {
+      throw rmError
+    })
+
+    const game = new SideloadGame(gameWithExe.app_name)
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false, deleteFiles: true })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(logError).toHaveBeenCalledWith(
+      ['Failed to delete game files for', gameWithExe.app_name, rmError],
+      LogPrefix.Backend
+    )
+    expect(libraryStore.get('games', [])).toEqual([])
+    expect(sendGameStatusUpdate).toHaveBeenLastCalledWith({
+      appName: gameWithExe.app_name,
+      runner: 'sideload',
+      status: 'done'
+    })
+  })
+
+  test('avoids deleting current directory or root if executable has no directory path', async () => {
+    const gameWithBareExe = {
+      ...gameInfo,
+      install: { is_dlc: false, executable: 'game.exe' }
+    } as GameInfo
+    let games = [gameWithBareExe]
+    jest.mocked(libraryStore).get.mockImplementation(() => games)
+    jest.mocked(libraryStore).set.mockImplementation((_key, value) => {
+      games = value as GameInfo[]
+      return libraryStore
+    })
+
+    const game = new SideloadGame(gameWithBareExe.app_name)
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false, deleteFiles: true })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(rmSync).not.toHaveBeenCalled()
+    expect(libraryStore.get('games', [])).toEqual([])
   })
 })
