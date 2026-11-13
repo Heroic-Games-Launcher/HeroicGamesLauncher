@@ -108,10 +108,8 @@ export default class SideloadGame implements Game {
     })
 
     const gameInfo = this.getGameInfo()
-    const {
-      title,
-      install: { executable }
-    } = gameInfo
+    const title = gameInfo.title || this.id
+    const executable = gameInfo.install?.executable
 
     if (shouldRemovePrefix) {
       removePrefix(this.id, 'sideload')
@@ -145,7 +143,14 @@ export default class SideloadGame implements Game {
       )
     }
 
-    removeRecentGame(this.id)
+    try {
+      await removeRecentGame(this.id)
+    } catch (error) {
+      logError(
+        ['Failed to remove recent game for', this.id, error],
+        LogPrefix.Backend
+      )
+    }
 
     // Re-read the library instead of reusing a snapshot taken before the
     // cleanup above: another install/uninstall finishing in the meantime would

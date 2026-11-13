@@ -2,6 +2,7 @@ import SideloadGame from '../games'
 import { libraryStore } from '../electronStores'
 import { removeShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
+import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { logError, LogPrefix } from 'backend/logger'
 import { sendGameStatusUpdate } from 'backend/utils'
 import type { GameInfo } from 'common/types'
@@ -141,5 +142,41 @@ describe('sideloaded game removal', () => {
     await game.uninstall({ shouldRemovePrefix: false })
 
     expect(libraryStore.get('games', [])).toEqual([otherGame])
+  })
+
+  test('handles uninstall cleanly when game is missing from library or has undefined install info', async () => {
+    jest.mocked(libraryStore).get.mockReturnValue([])
+
+    const game = new SideloadGame('non-existent-game')
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false, deleteFiles: true })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(sendGameStatusUpdate).toHaveBeenLastCalledWith({
+      appName: 'non-existent-game',
+      runner: 'sideload',
+      status: 'done'
+    })
+  })
+
+  test('finishes the uninstall and logs when removeRecentGame fails', async () => {
+    const failure = new Error('recent game removal failed')
+    jest.mocked(removeRecentGame).mockRejectedValueOnce(failure)
+
+    const game = new SideloadGame(gameInfo.app_name)
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(logError).toHaveBeenCalledWith(
+      ['Failed to remove recent game for', gameInfo.app_name, failure],
+      LogPrefix.Backend
+    )
+    expect(libraryStore.get('games', [])).toEqual([])
+    expect(sendGameStatusUpdate).toHaveBeenLastCalledWith({
+      appName: gameInfo.app_name,
+      runner: 'sideload',
+      status: 'done'
+    })
   })
 })
