@@ -129,10 +129,18 @@ export default class SideloadGame implements Game {
     // stuck in the 'uninstalling' state.
     try {
       await removeShortcutsUtil(this)
-      await removeNonSteamGame(this)
     } catch (error) {
       logError(
         ['Failed to remove shortcuts for', this.id, error],
+        LogPrefix.Backend
+      )
+    }
+
+    try {
+      await removeNonSteamGame(this)
+    } catch (error) {
+      logError(
+        ['Failed to remove Steam shortcuts for', this.id, error],
         LogPrefix.Backend
       )
     }
