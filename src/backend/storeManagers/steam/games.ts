@@ -51,7 +51,10 @@ import {
   isSteamSupported,
   steamCall,
   toSteamLibraryRoot,
-  STEAM_UNSUPPORTED
+  STEAM_UNSUPPORTED,
+  isSteamRunningError,
+  reportSteamRunning,
+  steamRunningMessage
 } from './utils'
 import {
   buildReqs,
@@ -533,6 +536,8 @@ export default class SteamGame implements Game {
     )
     if (res.error) {
       logError(['Failed to import', this.id, res.error], LogPrefix.Steam)
+      // Error JSON may name it.
+      reportSteamRunning(`${res.error}\n${res.stdout}\n${res.stderr}`)
       return { stdout: '', stderr: res.error }
     }
     await libraryManagerMap['steam'].refresh()
@@ -981,6 +986,9 @@ export default class SteamGame implements Game {
     if (result.status === 'done') {
       await libraryManagerMap['steam'].refresh()
       sendFrontendMessage('refreshLibrary', 'steam')
+    }
+    if (result.status === 'error' && isSteamRunningError(result.error)) {
+      return { status: 'error', error: steamRunningMessage() }
     }
     return result
   }

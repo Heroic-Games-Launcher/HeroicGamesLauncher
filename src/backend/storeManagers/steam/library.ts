@@ -38,7 +38,8 @@ import {
   isSteamSupported,
   platformArgs,
   steamCall,
-  STEAM_UNSUPPORTED
+  STEAM_UNSUPPORTED,
+  reportSteamRunning
 } from './utils'
 import type { SteamInstallLibrary } from 'common/types/steam'
 import { join } from 'path'
@@ -329,7 +330,10 @@ export default class SteamLibraryManager implements LibraryManager {
       async () => {
         // `relink` points Steam/Aurelia at an existing install at `newPath`
         // without moving any files.
-        await runAurelia(['relink', appName, newPath])
+        await runAurelia(['relink', appName, newPath]).catch((error) => {
+          reportSteamRunning(error)
+          throw error
+        })
         await this.refresh()
         sendFrontendMessage('refreshLibrary', 'steam')
       },

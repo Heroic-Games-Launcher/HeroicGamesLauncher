@@ -4,6 +4,8 @@ import { isMac, isWindows } from 'backend/constants/environment'
 import type { InstallPlatform } from 'common/types'
 import type { SteamDataKind } from 'common/types/steam'
 import { sendFrontendMessage } from 'backend/ipc'
+import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
+import { t } from 'i18next'
 import { AureliaError } from './aurelia'
 
 /** Returned by every command on macOS. */
@@ -18,6 +20,29 @@ export function describeError(error: unknown): string {
   if (!(error instanceof AureliaError)) return String(error)
   // Aurelia's hint says what to do.
   return error.hint ? `${error.message} (${error.hint})` : error.message
+}
+
+/** Aurelia refuses while Steam runs. */
+export function isSteamRunningError(error: unknown): boolean {
+  const text = error instanceof Error ? error.message : String(error)
+  return text.includes('Steam is running')
+}
+
+export function steamRunningMessage(): string {
+  return t(
+    'box.error.steam-running',
+    'Steam is running. Close Steam, then try again.'
+  )
+}
+
+/** Dialog when Steam blocks the change. */
+export function reportSteamRunning(error: unknown): void {
+  if (!isSteamRunningError(error)) return
+  showDialogBoxModalAuto({
+    title: t('box.error.title', 'Error'),
+    message: steamRunningMessage(),
+    type: 'ERROR'
+  })
 }
 
 /** Aurelia failed for lack of login. */
