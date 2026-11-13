@@ -4,7 +4,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm-fixed);
+  gap: var(--space-xs-fixed);
   border: 1px solid transparent;
   border-radius: var(--radius-md);
   padding: 0 var(--space-lg-fixed);

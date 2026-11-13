@@ -97,15 +97,9 @@
     &.active:not(.SidebarLinks__subItem) {
       background-color: color-mix(
         in oklab,
-        var(--navbar-accent, var(--accent)) 10%,
+        var(--primary, var(--brand-primary, var(--accent))) 18%,
         transparent
       );
-      box-shadow: inset 0 0 0 1px
-        color-mix(
-          in oklab,
-          var(--navbar-accent, var(--accent)) 18%,
-          transparent
-        );
     }
 
     &.SidebarLinks__subItem {
