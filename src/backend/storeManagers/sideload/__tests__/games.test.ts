@@ -6,6 +6,10 @@ import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { logError, LogPrefix } from 'backend/logger'
 import { existsSync, rmSync } from 'graceful-fs'
 import { sendGameStatusUpdate } from 'backend/utils'
+import { sendFrontendMessage } from 'backend/ipc'
+import { removePrefix } from 'backend/utils/uninstaller'
+import { notify } from 'backend/dialog/dialog'
+import { userHome } from 'backend/constants/paths'
 import type { GameInfo } from 'common/types'
 
 jest.mock('../electronStores', () => ({
@@ -33,7 +37,12 @@ jest.mock('backend/dialog/dialog', () => ({
   notify: jest.fn()
 }))
 jest.mock('backend/storeManagers/storeManagerCommon/games', () => ({}))
-jest.mock('backend/utils/uninstaller', () => ({}))
+jest.mock('backend/utils/uninstaller', () => ({
+  removePrefix: jest.fn()
+}))
+jest.mock('backend/ipc', () => ({
+  sendFrontendMessage: jest.fn()
+}))
 jest.mock('backend/recent_games/recent_games', () => ({
   removeRecentGame: jest.fn()
 }))
@@ -331,6 +340,95 @@ describe('sideloaded game removal', () => {
     })
 
     const game = new SideloadGame(gameWithBareExe.app_name)
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false, deleteFiles: true })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(rmSync).not.toHaveBeenCalled()
+    expect(libraryStore.get('games', [])).toEqual([])
+  })
+
+  test('notifies frontend to refresh sideload library on successful uninstall', async () => {
+    const game = new SideloadGame(gameInfo.app_name)
+    await game.uninstall({ shouldRemovePrefix: false })
+
+    expect(sendFrontendMessage).toHaveBeenCalledWith(
+      'refreshLibrary',
+      'sideload'
+    )
+  })
+
+  test('finishes uninstall and logs when removePrefix throws an error', async () => {
+    const prefixError = new Error('EBUSY: resource busy or locked')
+    jest.mocked(removePrefix).mockImplementation(() => {
+      throw prefixError
+    })
+
+    const game = new SideloadGame(gameInfo.app_name)
+    await expect(game.uninstall({ shouldRemovePrefix: true })).resolves.toEqual(
+      { stderr: '', stdout: '' }
+    )
+
+    expect(logError).toHaveBeenCalledWith(
+      ['Failed to remove prefix for', gameInfo.app_name, prefixError],
+      LogPrefix.Backend
+    )
+    expect(libraryStore.get('games', [])).toEqual([])
+    expect(sendGameStatusUpdate).toHaveBeenLastCalledWith({
+      appName: gameInfo.app_name,
+      runner: 'sideload',
+      status: 'done'
+    })
+  })
+
+  test('finishes uninstall and logs when notify throws an error', async () => {
+    const notifyError = new Error('Notification daemon crashed')
+    jest.mocked(notify).mockImplementation(() => {
+      throw notifyError
+    })
+
+    const game = new SideloadGame(gameInfo.app_name)
+    await expect(
+      game.uninstall({ shouldRemovePrefix: false })
+    ).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(logError).toHaveBeenCalledWith(
+      ['Failed to show notification for', gameInfo.app_name, notifyError],
+      LogPrefix.Backend
+    )
+    expect(removeShortcuts).toHaveBeenCalledWith(game)
+    expect(removeNonSteamGame).toHaveBeenCalledWith(game)
+    expect(libraryStore.get('games', [])).toEqual([])
+    expect(sendGameStatusUpdate).toHaveBeenLastCalledWith({
+      appName: gameInfo.app_name,
+      runner: 'sideload',
+      status: 'done'
+    })
+  })
+
+  test('supports calling uninstall with no arguments', async () => {
+    const game = new SideloadGame(gameInfo.app_name)
+    await expect(game.uninstall()).resolves.toEqual({ stderr: '', stdout: '' })
+
+    expect(removeShortcuts).toHaveBeenCalledWith(game)
+    expect(removeNonSteamGame).toHaveBeenCalledWith(game)
+    expect(libraryStore.get('games', [])).toEqual([])
+  })
+
+  test('avoids deleting root or user home directory when deleteFiles is true', async () => {
+    const gameInHome = {
+      ...gameInfo,
+      install: { is_dlc: false, executable: `${userHome}/game.sh` }
+    } as GameInfo
+    let games = [gameInHome]
+    jest.mocked(libraryStore).get.mockImplementation(() => games)
+    jest.mocked(libraryStore).set.mockImplementation((_key, value) => {
+      games = value as GameInfo[]
+      return libraryStore
+    })
+    jest.mocked(existsSync).mockReturnValue(true)
+
+    const game = new SideloadGame(gameInHome.app_name)
     await expect(
       game.uninstall({ shouldRemovePrefix: false, deleteFiles: true })
     ).resolves.toEqual({ stderr: '', stdout: '' })

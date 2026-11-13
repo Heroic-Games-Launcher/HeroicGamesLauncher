@@ -9,7 +9,7 @@ import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
-import { dirname } from 'path'
+import { dirname, parse, resolve } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
 import {
@@ -22,7 +22,9 @@ import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { removePrefix } from 'backend/utils/uninstaller'
 import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import { userHome } from 'backend/constants/paths'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
+import { sendFrontendMessage } from 'backend/ipc'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -98,9 +100,9 @@ export default class SideloadGame implements Game {
   }
 
   async uninstall({
-    shouldRemovePrefix,
+    shouldRemovePrefix = false,
     deleteFiles = false
-  }: RemoveArgs): Promise<ExecResult> {
+  }: RemoveArgs = {}): Promise<ExecResult> {
     sendGameStatusUpdate({
       appName: this.id,
       runner: 'sideload',
@@ -112,12 +114,29 @@ export default class SideloadGame implements Game {
     const executable = gameInfo.install?.executable
 
     if (shouldRemovePrefix) {
-      removePrefix(this.id, 'sideload')
+      try {
+        await removePrefix(this.id, 'sideload')
+      } catch (error) {
+        logError(
+          ['Failed to remove prefix for', this.id, error],
+          LogPrefix.Backend
+        )
+      }
     }
 
     if (deleteFiles && executable !== undefined) {
       const folder = dirname(executable)
-      if (folder && folder !== '.' && folder !== '/' && existsSync(folder)) {
+      const resolved = folder ? resolve(folder) : ''
+      const isRoot = !resolved || parse(resolved).root === resolved
+      const isHome = resolved === userHome
+
+      if (
+        folder &&
+        folder !== '.' &&
+        !isRoot &&
+        !isHome &&
+        existsSync(folder)
+      ) {
         try {
           rmSync(folder, { recursive: true })
         } catch (error) {
@@ -129,7 +148,14 @@ export default class SideloadGame implements Game {
       }
     }
 
-    notify({ title, body: i18next.t('notify.uninstalled') })
+    try {
+      notify({ title, body: i18next.t('notify.uninstalled') })
+    } catch (error) {
+      logError(
+        ['Failed to show notification for', this.id, error],
+        LogPrefix.Backend
+      )
+    }
 
     // Shortcut cleanup resolves the game details through getGameInfo(), so the
     // library entry has to stay in place until both helpers have run. Failures
@@ -171,6 +197,8 @@ export default class SideloadGame implements Game {
         .get('games', [])
         .filter((a: GameInfo) => a.app_name !== this.id)
     )
+
+    sendFrontendMessage('refreshLibrary', 'sideload')
 
     sendGameStatusUpdate({
       appName: this.id,
