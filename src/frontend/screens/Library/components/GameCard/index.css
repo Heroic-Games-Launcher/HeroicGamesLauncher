@@ -37,6 +37,24 @@
   aspect-ratio: 16/10;
 }
 
+.gameCard[data-invisible]::before {
+  content: '';
+  display: block;
+  width: 100%;
+  aspect-ratio: 3/4;
+}
+
+.gameCard.justPlayed[data-invisible]::before {
+  aspect-ratio: 16/10;
+}
+
+.gameCard[data-invisible]::after {
+  content: '';
+  display: block;
+  min-height: calc(2 * 1.25em);
+  margin: 12px 14px 14px;
+}
+
 .gameCard:focus-within {
   outline: -webkit-focus-ring-color auto 1px;
 }
