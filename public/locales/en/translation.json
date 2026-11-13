@@ -17,7 +17,6 @@
         "titles_always_visible": "Always show titles in library",
         "zoom": "Zoom"
     },
-    "Accounts": "Accounts",
     "add_game": "Add Game",
     "adtraction-locked": {
         "description": "It seems the track.adtraction.com domain was unable to load or is blocked. With adtraction, any purchase you make in the GOG store supports Heroic financially. Consider removing the block if you wish to contribute.",
@@ -31,7 +30,6 @@
             "toggle": "Use GOG affiliate links"
         }
     },
-    "amazon-luna": "Amazon Luna",
     "analyticsModal": {
         "disable": "Disable",
         "enable": "Enable",
@@ -223,8 +221,7 @@
         "backToLibrary": "Back to Library",
         "cancel": "Cancel",
         "close": "Close",
-        "continue": "Continue",
-        "go_to_library": "Go to Library"
+        "continue": "Continue"
     },
     "categories-manager": {
         "add": "Add",
@@ -273,6 +270,11 @@
         },
         "card": {
             "needsUpdate": "Needs update"
+        },
+        "confirm": {
+            "enter": "Enter Console Mode",
+            "message": "Console Mode is a fullscreen, controller friendly interface. The sidebar and window controls will be hidden.",
+            "title": "Enter Console Mode?"
         },
         "empty": "No installed games to show. Install something first.",
         "filter": {
@@ -504,7 +506,6 @@
         "uninstall": "Uninstall"
     },
     "globalSettings": "Global Settings",
-    "gog-store": "GOG Store",
     "header": {
         "categories": "Categories",
         "display": "Display",
@@ -637,7 +638,6 @@
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         }
     },
-    "itchio-store": "itch.io Store",
     "label": {
         "loading": "Loading"
     },
@@ -663,14 +663,27 @@
         "website": "Loading Website"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "amazon": "Amazon Login",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "itchio": "itch.io Login",
+        "alternative_method": "Alternative login method",
+        "browse_store": "Browse store",
+        "button": "Log in",
+        "description_amazon": "Claim and play games with Amazon Prime Gaming.",
+        "description_epic": "Buy and play games from the Epic Games Store.",
+        "description_gog": "Buy and play DRM free games from GOG.com.",
+        "description_itchio": "Discover and play indie games from itch.io.",
+        "description_zoom": "Buy and play DRM free games from Zoom Platform.",
+        "gog_support": "Buying GOG games through Heroic helps support and maintain the project.",
+        "logged_in_as": "Logged in as",
+        "logout_confirm": {
+            "message": "Are you sure you want to log out of {{store}}?",
+            "title": "Log out?"
+        },
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
-        "zoom": "Zoom Login"
+        "title_amazon": "Amazon Games",
+        "title_epic": "Epic Games",
+        "title_gog": "GOG",
+        "title_itchio": "itch.io",
+        "title_zoom": "Zoom Platform"
     },
     "message": {
         "sync": "Sync Complete",
@@ -1263,8 +1276,7 @@
     },
     "Settings": "Settings",
     "sidebar": {
-        "console": "Console Mode",
-        "storesLogin": "Stores Login"
+        "console": "Console Mode"
     },
     "status": {
         "installed": "Installed",
@@ -1287,7 +1299,6 @@
             "title": "SteamGridDB Covers"
         }
     },
-    "store": "Epic Store",
     "stores": "Stores",
     "title": {
         "allGames": "All Games"
@@ -1364,7 +1375,6 @@
         "logging_out": "Logging out",
         "logout": "Log out",
         "logout_confirmation": "Are you sure you want to log out?",
-        "manage": "Manage",
         "quit": "Quit",
         "quitMessage": "Are you sure you want to quit?"
     },
@@ -1420,6 +1430,5 @@
         "nothingYet": "Nothing was installed by Winetricks yet",
         "openGUI": "Open Winetricks GUI",
         "search": "Search fonts or components"
-    },
-    "zoom-store": "Zoom Store"
+    }
 }

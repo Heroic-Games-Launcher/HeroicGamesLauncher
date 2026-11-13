@@ -1,11 +1,12 @@
 .WebviewControls {
   display: flex;
   align-items: center;
+  gap: var(--space-sm-fixed);
   box-sizing: border-box;
   width: inherit;
-  height: 40px;
-  padding: 0 var(--space-3xs);
-  border-bottom: 1px solid var(--accent);
+  height: 48px;
+  padding: 0 var(--space-sm-fixed);
+  border-bottom: 1px solid var(--divider);
   background: var(--background-darker);
   user-select: text;
 }
@@ -18,7 +19,9 @@
 
 .WebviewControls__icons {
   display: flex;
-  flex: 0 1 120px;
+  align-items: center;
+  gap: var(--space-3xs-fixed);
+  flex: 0 0 auto;
   flex-wrap: nowrap;
 }
 
@@ -27,22 +30,27 @@
 }
 
 .WebviewControls__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
   border: none;
-  margin: var(--space-3xs);
-  padding: var(--space-3xs);
+  border-radius: var(--radius-sm);
   background: none;
-  color: inherit;
-  transition: 250ms color;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
 }
 
-.WebviewControls__icon:hover {
-  color: var(--text-hover);
+.WebviewControls__icon:hover:not(:disabled) {
+  color: var(--text-default);
+  background: color-mix(in oklab, var(--on-panel) 12%, transparent);
 }
 
-.WebviewControls__icon:active {
-  color: var(--accent);
-}
-
+.WebviewControls__icon:active:not(:disabled),
 .WebviewControls__icon--active {
   color: var(--accent);
 }
@@ -52,37 +60,43 @@
   cursor: default;
 }
 
-.WebviewControls__icon:disabled svg {
-  cursor: default;
-}
-
 .WebviewControls__icon:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: -2px;
 }
 
 .WebviewControls__url {
+  display: flex;
+  justify-content: center;
   flex: 1 1 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  min-width: 0;
   user-select: text;
-  font-size: var(--body-sm);
 }
 
 .WebviewControls__urlInput {
   width: 100%;
-  border: none;
-  background: none;
+  max-width: 640px;
+  height: 34px;
+  padding: 0 var(--space-md-fixed);
+  border: 1px solid var(--divider);
+  border-radius: 999px;
+  background: var(--input-background);
   font-family: inherit;
   font-size: var(--body-sm);
-  color: inherit;
+  color: var(--text-default);
   text-align: center;
+  text-overflow: ellipsis;
   user-select: text;
+  transition: border-color 150ms ease;
+}
+
+.WebviewControls__urlInput:hover {
+  border-color: var(--border-subtle, var(--divider));
 }
 
 .WebviewControls__urlInput:focus {
   outline: none;
+  border-color: var(--accent);
 }
 
 .WebviewControls__urlInput::selection {
@@ -92,13 +106,9 @@
 
 .WebviewControls__urlInput--warning {
   color: var(--text-danger);
+  border-color: var(--border-destructive, var(--danger));
 }
 
 .WebviewControls__urlInput--warning::selection {
   background: var(--danger);
-}
-
-/* TODO check if it's not used in other part of app and it can be safely removed */
-.MuiSvgIcon-root {
-  cursor: pointer;
 }

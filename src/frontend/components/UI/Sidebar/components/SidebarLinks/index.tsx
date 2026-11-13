@@ -3,14 +3,11 @@ import {
   Gamepad2,
   Settings as SettingsIcon,
   Store,
-  LogIn,
   Accessibility,
   Coffee,
-  UserCircle,
   Wine,
   Download,
-  Tag,
-  Tv
+  Tag
 } from 'lucide-react'
 import {
   faDiscord,
@@ -49,18 +46,8 @@ export default function SidebarLinks() {
     (st) => st.status === 'installing' || st.status === 'queued'
   ).length
 
-  const inWebviewScreen =
-    location.pathname.includes('store') ||
-    location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
-
-  const loggedIn =
-    epic.username ||
-    gog.username ||
-    amazon.user_id ||
-    zoom.username ||
-    itchio.username
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -92,40 +79,6 @@ export default function SidebarLinks() {
     }
   }
 
-  // By default, open Epic Store
-  let defaultStore = 'epic'
-  if (
-    zoom.enabled &&
-    !epic.username &&
-    !gog.username &&
-    !amazon.user_id &&
-    zoom.username
-  ) {
-    // Prioritize Zoom if only Zoom is logged in
-    defaultStore = 'zoom'
-  } else if (
-    !epic.username &&
-    !gog.username &&
-    !amazon.user_id &&
-    !zoom.username &&
-    itchio.username
-  ) {
-    // Prioritize itch.io if only itch.io is logged in
-    defaultStore = 'itchio'
-  } else if (!epic.username && !gog.username && amazon.user_id) {
-    // If only logged in to Amazon Games, open Amazon Gaming
-    defaultStore = 'amazon'
-  } else if (!epic.username && gog.username) {
-    // Otherwise, if not logged in to Epic Games, open GOG Store
-    defaultStore = 'gog'
-  }
-
-  // if we have a stored last-url, default to the `/last-url` route
-  const lastStore = sessionStorage.getItem('last-store')
-  if (lastStore) {
-    defaultStore = lastStore
-  }
-
   return (
     <div
       className="SidebarLinks Sidebar__section scrollbar--none"
@@ -141,46 +94,16 @@ export default function SidebarLinks() {
         dataTour="sidebar-library"
       />
 
-      <div className="SidebarItemWithSubmenu">
-        <SidebarItem
-          isActiveFallback={location.pathname.includes('store')}
-          url={`/store/${defaultStore}`}
-          icon={<Icon glyph={Store} />}
-          label={t('stores', 'Stores')}
-          dataTour="sidebar-stores"
-        />
-        {inWebviewScreen && (
-          <div className="SidebarSubmenu">
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/store/epic"
-              label={t('store', 'Epic Store')}
-            />
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/store/gog"
-              label={t('gog-store', 'GOG Store')}
-            />
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/store/itchio"
-              label={t('itchio-store', 'itch.io Store')}
-            />
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/store/amazon"
-              label={t('amazon-luna', 'Amazon Luna')}
-            />
-            {zoom.enabled && (
-              <SidebarItem
-                className="SidebarLinks__subItem"
-                url="/store/zoom"
-                label={t('zoom-store', 'Zoom Store')}
-              />
-            )}
-          </div>
-        )}
-      </div>
+      <SidebarItem
+        isActiveFallback={
+          location.pathname.includes('store') ||
+          location.pathname.includes('login')
+        }
+        url="/login"
+        icon={<Icon glyph={Store} />}
+        label={t('stores', 'Stores')}
+        dataTour="sidebar-stores"
+      />
       {!disableDiscounts && (
         <SidebarItem
           url="/discounts"
@@ -215,13 +138,6 @@ export default function SidebarLinks() {
       />
 
       <SidebarItem
-        url="/console"
-        icon={<Icon glyph={Tv} />}
-        label={t('sidebar.console', 'Console Mode')}
-        dataTour="sidebar-console"
-      />
-
-      <SidebarItem
         isActiveFallback={isSettings}
         icon={<Icon glyph={SettingsIcon} />}
         label={t('Settings', 'Settings')}
@@ -229,30 +145,7 @@ export default function SidebarLinks() {
         dataTour="sidebar-settings"
       />
 
-      {!loggedIn && (
-        <SidebarItem
-          icon={<Icon glyph={LogIn} />}
-          label={t('sidebar.storesLogin', 'Stores Login')}
-          url="/login"
-          dataTour="sidebar-login"
-        />
-      )}
-
       <QuitButton dataTour="sidebar-quit" />
-
-      {loggedIn && (
-        <>
-          <div className="Sidebar__sectionLabel">
-            {t('Accounts', 'Accounts')}
-          </div>
-          <SidebarItem
-            url="/login"
-            icon={<Icon glyph={UserCircle} />}
-            label={t('userselector.manage', 'Manage')}
-            dataTour="sidebar-manage-accounts"
-          />
-        </>
-      )}
 
       <div className="Sidebar__sectionLabel">{t('Community', 'Community')}</div>
 

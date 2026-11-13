@@ -1,16 +1,16 @@
 import {
-  ArrowBackOutlined,
-  ArrowForwardRounded,
-  HomeOutlined,
-  OpenInBrowser,
-  Replay,
-  SportsEsports,
-  SportsEsportsOutlined
-} from '@mui/icons-material'
+  ArrowLeft,
+  ArrowRight,
+  ExternalLink,
+  Gamepad2,
+  House,
+  RotateCw
+} from 'lucide-react'
 import cx from 'classnames'
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SvgButton from '../SvgButton'
+import Icon from '../Icon'
 import './index.css'
 
 interface WebviewControlsProps {
@@ -41,7 +41,7 @@ export default function WebviewControls({
   gameInputMode = false,
   onToggleInput
 }: WebviewControlsProps) {
-  const [url, setUrl] = React.useState(initURL)
+  const [url, setUrl] = useState(initURL)
   const { t } = useTranslation()
   const [webviewGoBack, setWebviewGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)
@@ -101,7 +101,7 @@ export default function WebviewControls({
           title={t('webview.controls.back')}
           onClick={() => handleButtons('back')}
         >
-          <ArrowBackOutlined />
+          <Icon glyph={ArrowLeft} size="md" />
         </SvgButton>
         <SvgButton
           className="WebviewControls__icon"
@@ -109,21 +109,21 @@ export default function WebviewControls({
           onClick={() => handleButtons('forward')}
           disabled={!canGoForward}
         >
-          <ArrowForwardRounded />
+          <Icon glyph={ArrowRight} size="md" />
         </SvgButton>
         <SvgButton
           className="WebviewControls__icon"
           title={t('webview.controls.reload')}
           onClick={() => handleButtons('reload')}
         >
-          <Replay />
+          <Icon glyph={RotateCw} size="md" />
         </SvgButton>
         <SvgButton
           className="WebviewControls__icon"
           title={t('webview.controls.home')}
           onClick={() => handleButtons('home')}
         >
-          <HomeOutlined />
+          <Icon glyph={House} size="md" />
         </SvgButton>
       </div>
       <span className="WebviewControls__url">
@@ -159,7 +159,7 @@ export default function WebviewControls({
             }
             onClick={onToggleInput}
           >
-            {gameInputMode ? <SportsEsports /> : <SportsEsportsOutlined />}
+            <Icon glyph={Gamepad2} size="md" />
           </SvgButton>
         )}
         <SvgButton
@@ -168,7 +168,7 @@ export default function WebviewControls({
           disabled={!openInBrowser || !url}
           onClick={() => window.api.openWebviewPage(url)}
         >
-          <OpenInBrowser />
+          <Icon glyph={ExternalLink} size="md" />
         </SvgButton>
       </div>
     </div>
