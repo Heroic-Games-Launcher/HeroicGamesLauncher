@@ -1,6 +1,5 @@
 .contextMenu > .MuiPaper-root {
   background: var(--modal-background, var(--background));
-  border: 1px solid var(--divider);
   border-radius: 14px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
   overflow: hidden;
@@ -31,7 +30,7 @@
   color: var(--text-hover, var(--text-default));
 }
 
-.contextMenu .MuiListItemIcon-root {
+.contextMenu .MuiMenuItem-root .MuiListItemIcon-root {
   min-width: 0;
   color: var(--text-muted, var(--text-secondary));
 }

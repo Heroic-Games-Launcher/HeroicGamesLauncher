@@ -4,6 +4,9 @@
   gap: var(--space-md-fixed);
   width: 100%;
   cursor: default;
+  background: var(--panel-surface);
+  border-radius: 16px;
+  padding: var(--space-md-fixed);
 }
 
 .DownloadStats__chart {
@@ -28,9 +31,9 @@
 }
 
 .DownloadStats__card--download svg {
-  color: var(--navbar-accent, var(--accent));
+  color: var(--success, #10b981);
 }
 
 .DownloadStats__card--disk svg {
-  color: var(--primary);
+  color: var(--secondary, var(--accent));
 }
