@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid var(--divider);
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
   animation: fade-in 0.15s ease-in;
   transition:
@@ -35,6 +35,24 @@
 .gameCard.justPlayed > a,
 .gameCard.gamepad.justPlayed > a {
   aspect-ratio: 16/10;
+}
+
+.gameCard[data-invisible]::before {
+  content: '';
+  display: block;
+  width: 100%;
+  aspect-ratio: 3/4;
+}
+
+.gameCard.justPlayed[data-invisible]::before {
+  aspect-ratio: 16/10;
+}
+
+.gameCard[data-invisible]::after {
+  content: '';
+  display: block;
+  min-height: calc(2 * 1.25em);
+  margin: 12px 14px 14px;
 }
 
 .gameCard:focus-within {
@@ -157,9 +175,10 @@
   left: 10px;
   width: 36px;
   height: 36px;
-  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  background: var(--card-overlay-bg-strong, rgba(6, 9, 13, 0.92));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--navbar-accent, var(--accent));
   border-radius: 10px;
   display: inline-flex;
   align-items: center;
@@ -188,12 +207,6 @@
   height: 40px;
   padding: 0;
   border-radius: 10px;
-  opacity: 0;
-  transition: opacity 180ms ease;
-}
-
-.gameCard:hover > .icons > .updateIcon,
-.gameCard:focus-within > .icons > .updateIcon {
   opacity: 1;
 }
 
@@ -271,9 +284,10 @@
   left: 10px;
   width: 36px;
   height: 36px;
-  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  background: var(--card-overlay-bg-strong, rgba(6, 9, 13, 0.92));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--navbar-accent, var(--accent));
   border-radius: 10px;
   display: inline-flex;
   align-items: center;
@@ -308,10 +322,6 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  opacity: 0;
-  transition: opacity 180ms ease;
-}
-.gameCard:hover > .icons > .updateIcon {
   opacity: 1;
 }
 
@@ -345,7 +355,7 @@
   color: var(--on-panel-link, var(--navbar-accent, var(--accent)));
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+    inset 0 0 0 1px var(--navbar-accent, var(--accent));
 }
 
 .gameCard > .icons > .playIcon > svg,

@@ -7,7 +7,6 @@
   width: 100%;
   padding: var(--space-md-fixed) var(--space-md-fixed);
   border-radius: var(--radius-md);
-  border: 1px solid color-mix(in oklab, var(--alert-tone) 38%, transparent);
   background: color-mix(in oklab, var(--alert-tone) 14%, var(--panel-base));
   font-family: var(--primary-font-family);
   font-size: var(--body-md);

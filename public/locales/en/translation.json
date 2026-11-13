@@ -1385,6 +1385,7 @@
         "installed": "Installed",
         "installing": "Installing",
         "logging": "Logging In...",
+        "preparing": "Preparing…",
         "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
     },
