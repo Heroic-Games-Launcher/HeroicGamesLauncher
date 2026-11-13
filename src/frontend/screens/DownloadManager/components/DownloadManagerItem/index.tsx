@@ -38,7 +38,8 @@ type Props = {
   state?: DownloadManagerState
   position?: number
   variant?: 'row' | 'hero'
-  headerAction?: ReactNode
+  /** Leading hero action, e.g. limiter. */
+  extraAction?: ReactNode
   handleClearItem?: (appName: string) => void
 }
 
@@ -75,7 +76,7 @@ const DownloadManagerItem = ({
   state,
   position,
   variant = 'row',
-  headerAction,
+  extraAction,
   handleClearItem
 }: Props) => {
   const { amazon, epic, gog, itchio, zoom, steam, showDialogModal } =
@@ -349,19 +350,16 @@ const DownloadManagerItem = ({
           </Button>
         </Tooltip>
       )}
+      {isHero && extraAction}
     </span>
   )
 
   return (
     <div
       className={classNames('DownloadItem', `DownloadItem--${variant}`, {
-        'DownloadItem--canceled': canceled,
-        'DownloadItem--withHeaderAction': isHero && !!headerAction
+        'DownloadItem--canceled': canceled
       })}
     >
-      {isHero && headerAction && (
-        <div className="DownloadItem__headerAction">{headerAction}</div>
-      )}
       <div className="DownloadItem__game">
         {position !== undefined && (
           <span className="DownloadItem__position">{position}</span>

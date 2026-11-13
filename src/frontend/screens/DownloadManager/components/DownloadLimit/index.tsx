@@ -53,13 +53,13 @@ export default function DownloadLimit() {
   return (
     <Tooltip content={label}>
       <div className="DownloadLimit">
-        <Icon glyph={Gauge} size="sm" />
         <SelectField
           htmlId="steam_download_limit"
           value={limit === undefined ? '' : String(limit)}
           onChange={(event) => void handleChange(event)}
           disabled={limit === undefined || saving}
           extraClass="DownloadLimit__select"
+          startIcon={<Icon glyph={Gauge} size="sm" />}
         >
           <MenuItem value="0">
             {t('download-manager.limit.unlimited', 'Unlimited')}

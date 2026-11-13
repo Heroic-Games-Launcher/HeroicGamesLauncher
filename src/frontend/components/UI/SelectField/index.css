@@ -52,6 +52,24 @@
   right: 14px;
 }
 
+/* Icon inset matches plain text */
+.selectFieldWrapper.hasStartIcon .MuiOutlinedInput-root {
+  padding-inline-start: var(--space-md-fixed);
+}
+
+.selectFieldWrapper.hasStartIcon
+  .MuiInputAdornment-root.MuiInputAdornment-positionStart {
+  margin: 0;
+  margin-inline-end: var(--space-xs-fixed);
+  color: var(--text-secondary);
+}
+
+.selectFieldWrapper.hasStartIcon:not(.isRTL)
+  .MuiSelect-select.MuiSelect-select.MuiSelect-select {
+  /* Divider sits 40px from edge */
+  padding-inline: 0 calc(40px + var(--space-md-fixed));
+}
+
 .selectFieldWrapper.isRTL .MuiSelect-select.MuiSelect-select.MuiSelect-select {
   padding-inline: 44px var(--space-md-fixed);
 }

@@ -219,19 +219,6 @@
   color: var(--on-panel-muted, var(--text-secondary));
 }
 
-/* Steam download limit, top right */
-.DownloadItem--hero.DownloadItem--withHeaderAction {
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: 'game header';
-  column-gap: var(--space-md-fixed);
-}
-
-.DownloadItem__headerAction {
-  grid-area: header;
-  justify-self: end;
-  align-self: start;
-}
-
 @container main-content (max-width: 900px) {
   .DownloadItem--row {
     grid-template-columns: auto auto minmax(0, 1fr) auto;

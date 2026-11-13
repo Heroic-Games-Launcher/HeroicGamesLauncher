@@ -126,7 +126,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                 current={true}
                 state={state}
                 variant="hero"
-                headerAction={
+                extraAction={
                   currentElement.params.runner === 'steam' ? (
                     <DownloadLimit />
                   ) : undefined
