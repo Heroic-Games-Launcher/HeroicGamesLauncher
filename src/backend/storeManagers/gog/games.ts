@@ -406,6 +406,17 @@ export default class GOGGame implements Game {
       return { status: 'error', error: res.error }
     }
 
+    // gogdl exits with a non-zero code if the download failed (e. g. not
+    // enough disk space), without the process itself erroring out
+    if (res.exitCode) {
+      const error = `gogdl exited with code ${res.exitCode}`
+      logError(
+        ['Failed to install GOG game ', `${this.id}:`, error],
+        LogPrefix.Gog
+      )
+      return { status: 'error', error }
+    }
+
     // Installation succeded
     // Save new game info to installed games store
     const installInfo = await libraryManagerMap['gog'].getInstallInfo(
@@ -1165,8 +1176,15 @@ export default class GOGGame implements Game {
       return { status: 'done' }
     }
 
-    if (res.error) {
-      logError(['Failed to update', `${this.id}:`, res.error], LogPrefix.Gog)
+    if (res.error || res.exitCode) {
+      logError(
+        [
+          'Failed to update',
+          `${this.id}:`,
+          res.error ?? `gogdl exited with code ${res.exitCode}`
+        ],
+        LogPrefix.Gog
+      )
       sendGameStatusUpdate({
         appName: this.id,
         runner: 'gog',

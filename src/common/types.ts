@@ -177,6 +177,8 @@ export type ExecResult = {
   fullCommand?: string
   error?: string
   abort?: boolean
+  // `null` if the process was ended by a signal
+  exitCode?: number | null
 }
 
 export interface ExtraInfo {
