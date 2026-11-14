@@ -100,16 +100,16 @@ export default function AdvancedSetting() {
         'The EOS Overlay is being updated...'
       )
     if (eosOverlayInstalled && !eosOverlayInstallingOrUpdating)
-      return t('setting.eosOverlay.installed', 'The EOS Overlay is installed')
+      return t('setting.eosOverlay.installed', 'The EOS overlay is installed')
     if (!eosOverlayInstalled && eosOverlayInstallingOrUpdating)
       return t(
         'setting.eosOverlay.installing',
-        'The EOS Overlay is being installed...'
+        'The EOS overlay is being installed...'
       )
     if (!eosOverlayInstalled && !eosOverlayInstallingOrUpdating)
       return t(
         'setting.eosOverlay.notInstalled',
-        'The EOS Overlay is not installed'
+        'The EOS overlay is not installed'
       )
     return ''
   }
@@ -172,7 +172,7 @@ export default function AdvancedSetting() {
 
       <SettingsCard
         glyph={Binary}
-        title={t('settings.section.binaries', 'Alternative Binaries')}
+        title={t('settings.section.binaries', 'Alternative binaries')}
       >
         <AltLegendaryBin />
         <AltGOGdlBin />
@@ -215,11 +215,11 @@ export default function AdvancedSetting() {
             eosOverlayInstalled && !eosOverlayInstallingOrUpdating
               ? `${t(
                   'setting.eosOverlay.currentVersion',
-                  'Current Version: {{version}}',
+                  'Current version: {{version}}',
                   { version: eosOverlayVersion }
                 )} · ${t(
                   'setting.eosOverlay.latestVersion',
-                  'Latest Version: {{version}}',
+                  'Latest version: {{version}}',
                   { version: eosOverlayLatestVersion }
                 )}`
               : undefined
@@ -309,14 +309,14 @@ export default function AdvancedSetting() {
 
       <SettingsCard
         glyph={Bug}
-        title={t('settings.section.experimental', 'Experimental Features')}
+        title={t('settings.section.experimental', 'Experimental features')}
       >
         <ExperimentalFeatures />
       </SettingsCard>
 
       <SettingsCard
         glyph={Terminal}
-        title={t('settings.section.maintenance', 'Customisation & Maintenance')}
+        title={t('settings.section.maintenance', 'Customisation & maintenance')}
       >
         <CustomCSS />
         <ClearCache />

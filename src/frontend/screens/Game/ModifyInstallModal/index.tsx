@@ -40,7 +40,7 @@ export default function ModifyInstallModal({
       onClose={() => onClose()}
       className={'ModifyInstall__dialog'}
     >
-      <ModalHeader>{t('game.modify', 'Modify Installation')}</ModalHeader>
+      <ModalHeader>{t('game.modify', 'Modify installation')}</ModalHeader>
       {gameInstallInfo ? (
         <>
           {gameInfo.runner === 'gog' && (

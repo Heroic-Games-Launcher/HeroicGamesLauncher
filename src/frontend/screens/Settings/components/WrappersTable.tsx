@@ -57,8 +57,8 @@ const WrappersTable = () => {
       fullFills={{ key: true, value: false }}
       onChange={onWrappersChange}
       inputPlaceHolder={{
-        key: t('options.wrapper.placeHolderKey', 'New Wrapper'),
-        value: t('options.wrapper.placeHolderValue', 'Wrapper Arguments')
+        key: t('options.wrapper.placeHolderKey', 'New wrapper'),
+        value: t('options.wrapper.placeHolderValue', 'Wrapper arguments')
       }}
       warning={
         <span className="warning">

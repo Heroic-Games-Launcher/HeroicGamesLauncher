@@ -69,7 +69,7 @@ export default function WebView() {
     message: string
   }>(() => ({
     refresh: true,
-    message: t('loading.website', 'Loading Website')
+    message: t('loading.website', 'Loading website')
   }))
   const [amazonLoginData, setAmazonLoginData] = useState<NileLoginData | null>(
     null
@@ -246,7 +246,7 @@ export default function WebView() {
 
     setLoading({
       refresh: true,
-      message: t('status.logging', 'Logging In...')
+      message: t('status.logging', 'Logging in...')
     })
     amazon
       .login({
@@ -296,7 +296,7 @@ export default function WebView() {
     itchioOAuthHandledRef.current = true
     setLoading({
       refresh: true,
-      message: t('status.logging', 'Logging In...')
+      message: t('status.logging', 'Logging in...')
     })
 
     itchio
@@ -357,7 +357,7 @@ export default function WebView() {
             if (code) {
               setLoading({
                 refresh: true,
-                message: t('status.logging', 'Logging In...')
+                message: t('status.logging', 'Logging in...')
               })
               gog.login(code).then(() => handleSuccessfulLogin())
             }
@@ -379,7 +379,7 @@ export default function WebView() {
             if (code) {
               setLoading({
                 refresh: true,
-                message: t('status.logging', 'Logging In...')
+                message: t('status.logging', 'Logging in...')
               })
               epic.login(code).then(() => handleSuccessfulLogin())
             }
@@ -467,7 +467,7 @@ export default function WebView() {
             loginHandled = true
             setLoading({
               refresh: true,
-              message: t('status.logging', 'Logging In...')
+              message: t('status.logging', 'Logging in...')
             })
             zoom.login(pageURL).then(() => handleSuccessfulLogin())
           }
@@ -791,7 +791,7 @@ export default function WebView() {
             <p>
               {t(
                 'affiliate.gogPrompt.description',
-                "Heroic can use GOG affiliate links when you visit the GOG store. If you buy something after clicking through from Heroic, GOG shares a small commission with us — at no extra cost to you. We don't see or track which games you buy, or anything else about your purchases: GOG only knows that someone came from Heroic. This is off by default, and you can change it whenever you like in Heroic's Advanced settings."
+                "Heroic can use GOG affiliate links when you visit the GOG store. If you buy something after clicking through from Heroic, GOG shares a small commission with us — at no extra cost to you. We don't see or track which games you buy, or anything else about your purchases: GOG only knows that someone came from Heroic. This is off by default, and you can change it whenever you like in Heroic's advanced settings."
               )}
             </p>
             <ToggleSwitch

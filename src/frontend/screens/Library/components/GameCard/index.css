@@ -5,13 +5,13 @@
 
 .gameCard {
   height: 100%;
-  background-color: var(--input-background);
+  background-color: var(--bg-surface, var(--input-background));
   text-align: start;
   width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--divider);
+  border: 1px solid var(--panel-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
   animation: fade-in 0.15s ease-in;
@@ -265,7 +265,7 @@
   width: 36px;
   padding: 0;
   background: var(--background-darker, #0a0e13);
-  border: 1px solid var(--divider);
+  border: 1px solid var(--panel-border);
   color: var(--text-secondary);
 }
 
@@ -448,10 +448,15 @@
 
 .gameCard:hover,
 .gameCard:focus-within {
-  border-color: var(--navbar-accent, var(--accent));
+  --card-hover-glow: var(
+    --card-hover-accent,
+    var(--navbar-accent, var(--accent))
+  );
+
+  border-color: var(--card-hover-glow);
   box-shadow:
-    0 0 0 1px var(--navbar-accent, var(--accent)),
-    0 0 28px -6px var(--navbar-accent, var(--accent)),
+    0 0 0 1px var(--card-hover-glow),
+    0 0 28px -6px var(--card-hover-glow),
     0 16px 40px rgba(0, 0, 0, 0.55);
 }
 
@@ -483,7 +488,7 @@
   padding: var(--list-row-pad-block) var(--list-row-pad-inline);
   position: relative;
   background: var(--input-background);
-  border: 1px solid var(--divider);
+  border: 1px solid var(--panel-border);
   border-radius: 12px;
   transition:
     border-color 0.2s ease,
@@ -600,7 +605,7 @@
   height: 36px;
   border-radius: 10px;
   background: var(--background-darker, #0a0e13);
-  border: 1px solid var(--divider);
+  border: 1px solid var(--panel-border);
   color: var(--text-secondary);
   opacity: 1;
   transform: none;

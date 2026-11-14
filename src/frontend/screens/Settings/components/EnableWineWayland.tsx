@@ -34,7 +34,7 @@ const EnableWineWayland = () => {
           handleChange={() => setEnableWineWayland(!enableWineWayland)}
           title={t(
             'setting.wineWayland',
-            'Enable Wine-Wayland (Experimental) (Wine version needs to support it)'
+            'Enable Wine-Wayland (experimental) (Wine version needs to support it)'
           )}
         />
 

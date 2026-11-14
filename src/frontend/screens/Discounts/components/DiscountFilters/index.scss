@@ -3,88 +3,40 @@
   flex-direction: column;
   gap: var(--space-md);
   margin-bottom: var(--space-md);
-  padding: var(--space-md);
-  background: var(--gradient-gamecard, var(--background-darker));
-  border: 1px solid var(--divider, rgba(255, 255, 255, 0.08));
-  border-radius: var(--space-xs);
+  padding: var(--space-md) 0;
+  background: transparent;
+  border: none;
 }
 
 .discountFilters__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.discountFilters__header .SearchBar {
+  flex: 1 1 280px;
+  min-width: 220px;
 }
 
 .discountFilters__headerActions {
   display: flex;
   align-items: center;
   gap: var(--space-2xs);
+  flex-shrink: 0;
+  margin-inline-start: auto;
 }
 
-.discountFilters__viewToggle {
-  display: inline-flex;
-  height: 32px;
-  padding: 3px;
-  gap: 2px;
-  background-color: var(--input-background, var(--background));
-  border: 1px solid var(--divider, rgba(255, 255, 255, 0.12));
-  border-radius: var(--space-3xs);
+.discountFilters__toggle.Button,
+.discountFilters__reset.Button {
+  border-radius: var(--radius-pill);
 }
 
-.discountFilters__viewButton {
+.discountFilters__toggle .Button__label {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 34px;
-  border: none;
-  border-radius: calc(var(--space-3xs) - 2px);
-  background: transparent;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition:
-    background-color 150ms ease,
-    color 150ms ease;
-}
-
-.discountFilters__viewButton:hover:not(.discountFilters__viewButton--active) {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: var(--text-default);
-}
-
-.discountFilters__viewButton--active {
-  background-color: var(--accent);
-  color: var(--text-tertiary);
-}
-
-.discountFilters__toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3xs);
-  height: 32px;
-  padding: 0 var(--space-sm);
-  border: 1px solid var(--divider, rgba(255, 255, 255, 0.12));
-  border-radius: var(--space-3xs);
-  background: transparent;
-  color: var(--text-default);
-  cursor: pointer;
-  font-size: var(--text-xs);
-  font-weight: var(--semibold);
-  transition:
-    background-color 150ms ease,
-    border-color 150ms ease,
-    color 150ms ease;
-}
-
-.discountFilters__toggle:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.discountFilters__toggle--hasActive {
-  border-color: var(--accent);
-  color: var(--accent);
+  gap: var(--space-2xs);
 }
 
 .discountFilters__toggleBadge {
@@ -144,32 +96,6 @@
   color: var(--text-default);
   letter-spacing: 0.02em;
   text-transform: uppercase;
-}
-
-.discountFilters__reset {
-  height: 32px;
-  padding: 0 var(--space-sm);
-  border: 1px solid transparent;
-  border-radius: var(--space-3xs);
-  background: transparent;
-  color: var(--accent);
-  cursor: pointer;
-  font-size: var(--text-xs);
-  font-weight: var(--semibold);
-  transition:
-    background-color 150ms ease,
-    color 150ms ease,
-    border-color 150ms ease;
-}
-
-.discountFilters__reset:hover:not(:disabled) {
-  background: var(--accent);
-  color: var(--text-tertiary);
-}
-
-.discountFilters__reset:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
 }
 
 .discountFilters__row {
@@ -287,7 +213,7 @@
 .discountFilters__labelMeta {
   padding: 1px var(--space-2xs);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in oklab, var(--on-panel) 8%, transparent);
   color: var(--text-default);
   font-size: calc(var(--text-xs) * 0.9);
   font-weight: var(--semibold);
@@ -345,7 +271,7 @@
   padding: 3px;
   gap: 2px;
   background-color: var(--input-background, var(--background));
-  border: 1px solid var(--divider, rgba(255, 255, 255, 0.12));
+  border: 1px solid var(--panel-border);
   border-radius: var(--space-3xs);
   width: 100%;
 }
@@ -370,7 +296,7 @@
 }
 
 .discountFilters__segment:hover:not(.discountFilters__segment--active) {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: color-mix(in oklab, var(--on-panel) 8%, transparent);
   color: var(--text-default);
 }
 

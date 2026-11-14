@@ -113,7 +113,7 @@ export default memo(function RecentlyPlayed({
     <>
       <SectionHeader
         className="librarySectionHeader"
-        title={t('Recent', 'Played Recently')}
+        title={t('Recent', 'Played recently')}
         subtitle={t('library.gamesCount', {
           count: countGames(recentGames),
           defaultValue_one: '{{count}} game',

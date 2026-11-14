@@ -52,7 +52,7 @@ const AutoVKD3D = () => {
       title={
         installingVKD3D
           ? t('please-wait', 'Please wait...')
-          : t('setting.autovkd3d', 'Auto Install/Update VKD3D on Prefix')
+          : t('setting.autovkd3d', 'Auto install/update VKD3D on prefix')
       }
       fading={installingVKD3D}
       disabled={!autoInstallDxvk || installingVKD3D}

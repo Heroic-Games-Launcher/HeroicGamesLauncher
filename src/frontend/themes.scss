@@ -187,9 +187,7 @@ body.heroicTheme {
   --alphabet-filter-accent-hover: var(--accent-overlay);
 }
 
-body.classic,
-body.cyberSpaceOasis,
-body.cyberSpaceOasisAlt {
+body.cyberSpaceOasis {
   --background: #151f3d;
   --background-darker: #0d0f1c;
   --background-darker-80: #0d0f1ce0;
@@ -270,9 +268,10 @@ body.cyberSpaceOasisAlt {
 }
 
 body.gruvbox_dark {
-  --accent: #b57614;
-  --accent-overlay: #d79921;
-  --navbar-accent: #f9f5d7;
+  --accent: #d1b24a;
+  --accent-overlay: #e0c76a;
+  --navbar-accent: #d1b24a;
+  --accent-icon: #8ec07c;
   --background: #1d2021;
   --body-background: #282828;
   --background-darker: var(--body-background);
@@ -288,12 +287,14 @@ body.gruvbox_dark {
   --input-background: #32302f;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #70b430;
-  --success-hover: #9bce6b;
-  --primary: #458588;
-  --primary-hover: #83a598;
+  --success: #97b72d;
+  --success-hover: #b2cf52;
+  --primary: #db7b51;
+  --primary-hover: #e89a77;
   --danger: #9e2c28;
   --danger-hover: #f05d4d;
+  --status-warning: #d1b24a;
+  --status-warning-hover: #e0c76a;
   --anticheat-denied: #9e2c28;
   --anticheat-broken: #af3a03;
   --anticheat-running: #076678;
@@ -302,11 +303,11 @@ body.gruvbox_dark {
   --text-title: var(--on-panel);
   --icons-background: #3c3836;
   --action-icon: #f9f5d7;
-  --action-icon-hover: #b16286;
-  --action-icon-active: #8ec07c;
+  --action-icon-hover: #db7b51;
+  --action-icon-active: #85b09a;
   --icon-disabled: #928374;
-  --success-button: #9bce6b;
-  --secondary-button: #e2951a;
+  --success-button: #97b72d;
+  --secondary-button: #db7b51;
   --osk-button-background: var(--input-background);
 }
 
@@ -320,7 +321,8 @@ body.high-contrast {
   --current-background: var(--body-background);
   --navbar-background: #121212ff;
   --navbar-active-background: #202020ff;
-  --gradient-body-background: var(--background);
+  --gradient-body-background: var(--body-background);
+  --divider: rgba(255, 255, 255, 0.45);
   --input-background: #262937ff;
   --modal-background: var(--background);
   --modal-border: #ffffffff;
@@ -343,49 +345,74 @@ body.high-contrast {
 
   --success-button: #00ddff;
 
+  --on-panel-muted: #e4e8eb;
+  --on-panel-faint: #c7cbce;
+  --panel-surface: #2b2b2b;
+  --panel-border: #ffffff;
+  --panel-divider: rgba(255, 255, 255, 0.5);
+  --border-subtle: #ffffff;
+  --border-brand: var(--accent);
+  --border-warning: var(--status-warning);
+  --border-destructive: var(--danger);
+  --border-success: var(--success);
+  --field-border: #ffffff;
+  --field-border-hover: #ffffff;
+  --field-border-focus: var(--accent);
+
+  .Button--ghost {
+    border-color: var(--border-subtle);
+  }
+
+  .Sidebar {
+    --sidebar-divider-color: rgba(255, 255, 255, 0.5);
+  }
+
   .heroicVersion {
     color: var(--text-default);
   }
 }
 
-body.dracula,
-body.dracula-classic {
+body.dracula {
   --accent: #bd93f9;
-  --accent-overlay: #d5b8ff;
-  --navbar-accent: #eae8e5;
-  --background: #090b1c;
-  --body-background: #282a35;
+  --accent-overlay: #d6b6ff;
+  --navbar-accent: #bd93f9;
+  --background: #21222c;
+  --body-background: #282a36;
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
-  --navbar-background: #44475a;
+  --navbar-background: #21222c;
   --navbar-active: var(--accent);
-  --navbar-active-background: #282a36;
+  --navbar-active-background: #343746;
   --gradient-body-background: linear-gradient(
     90deg,
     var(--background-darker) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #44475a;
+  --input-background: #343746;
   --modal-background: var(--body-background);
-  --modal-border: var(--body-background);
+  --modal-border: #44475a;
   --success: #50fa7b;
-  --success-hover: #66f389;
+  --success-hover: #69fb90;
   --primary: #ff79c6;
-  --primary-hover: #f560b4;
+  --primary-hover: #ff92d0;
   --danger: #ff5555;
+  --danger-hover: #ff7878;
+  --status-warning: #f1fa8c;
+  --status-warning-hover: #f6fcaa;
   --text-title: var(--on-panel);
   --text-default: var(--on-panel);
-  --icons-background: #17131c;
+  --icons-background: #21222c;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
   --action-icon: var(--text-default);
-  --action-icon-hover: var(--text-hover);
-  --action-icon-active: var(--accent);
-  --install-button: #b889fa;
-  --secondary-button: #b889fa;
   --action-icon-hover: var(--accent);
+  --action-icon-active: var(--accent);
+  --primary-button: #bd93f9;
+  --install-button: #8be9fd;
+  --secondary-button: #8be9fd;
+  --success-button: #50fa7b;
   .heroicVersion {
     color: var(--text-default);
   }
@@ -397,6 +424,8 @@ body.nord-light {
   --body-background: var(--background-light);
   --accent-overlay: #81a1c1;
   --navbar-accent: #81a1c1;
+  --on-nav-accent: #b0d8e4;
+  --accent-icon: #3b5a86;
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
   --navbar-active-background: #2e3440;
@@ -410,7 +439,7 @@ body.nord-light {
   --modal-border: var(--body-background);
   --primary: #b48ead;
   --primary-hover: #a17399;
-  --danger: #bf616a;
+  --danger: #b0505a;
   --text-tertiary: var(--on-panel-faint);
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
@@ -419,7 +448,7 @@ body.nord-light {
   --action-icon-active: var(--text-default);
   --navbar-inactive: #ffffff;
   --navbar-active: #d0ddff;
-  --success-button: #3687a9;
+  --success-button: #2e7593;
   --secondary-button: #15a3e0;
   --icons-background: #6f738f;
   --tertiary-button: #6f738f;
@@ -439,7 +468,7 @@ body.nord-light {
   --text-secondary: var(--on-panel-muted);
   --text-hover: var(--on-panel);
   --action-icon: #748aa0;
-  --status-warning: #b86901;
+  --status-warning: #a85f00;
   --gamecard-title-color: #ccdaf8cc;
   --install-button: var(--primary);
   --status-success-hover: #5e81ac;
@@ -554,45 +583,47 @@ body.nord-light {
 }
 
 body.nord-dark {
-  --accent: #a5dceb;
-  --accent-overlay: #cbeef8;
-  --navbar-accent: #afc4eb;
-  --background: #191c22;
+  --accent: #88c0d0;
+  --accent-overlay: #a3d0dc;
+  --navbar-accent: #88c0d0;
+  --background: #242933;
   --body-background: var(--background);
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
   --navbar-background: #2e3440;
-  --navbar-active-background: #191c22;
+  --navbar-active-background: #20242e;
   --gradient-body-background: linear-gradient(
     90deg,
     var(--background-darker) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #2e3440;
+  --input-background: #3b4252;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #94f1ab;
-  --success-hover: #75e08f;
-  --primary: #b48ead;
-  --primary-hover: #a17399;
-  --danger: #bf616a;
+  --success: #a3be8c;
+  --success-hover: #b7cda6;
+  --primary: #88c0d0;
+  --primary-hover: #a3d0dc;
+  --danger: #b0505a;
+  --danger-hover: #d08088;
+  --status-warning: #ebcb8b;
+  --status-warning-hover: #f0d7a5;
   --text-title: var(--on-panel);
   --text-default: var(--on-panel);
   --text-secondary: var(--on-panel-muted);
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
-  --action-icon: #748aa0;
+  --action-icon: #8491a8;
   --action-icon-hover: var(--accent-overlay);
   --action-icon-active: var(--text-default);
   --download-button: var(--brand-primary);
-  --success-button: #94f1ab;
-  --secondary-button: #a5dceb;
+  --success-button: #a3be8c;
+  --secondary-button: #81a1c1;
 }
 
-body.marine,
-body.marine-classic {
+body.marine {
   --accent: #d39f37;
   --accent-overlay: #d39f37;
   --background: #031b22;
@@ -610,8 +641,10 @@ body.marine-classic {
   --input-background: #063442;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #66e9fd;
-  --success-hover: #5dc6f7;
+  --success: #80d8d0;
+  --success-hover: #9ae3dc;
+  --status-warning: #f4a261;
+  --status-warning-hover: #f6b580;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
@@ -619,48 +652,50 @@ body.marine-classic {
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--accent);
   --navbar-accent: var(--accent);
-  --primary: #34aaf8;
-  --secondary-button: #d39f37;
-  --success-button: #66e9fd;
+  --primary: #336699;
+  --primary-hover: #4a7eb0;
+  --primary-button: #336699;
+  --secondary-button: #004b87;
+  --success-button: #80d8d0;
   --icons-background: #134c5c;
 }
 
-body.zombie,
-body.zombie-classic {
-  --accent: #59c627;
-  --accent-overlay: #83da5b;
+body.zombie {
+  --accent: #5ef83b;
+  --accent-overlay: #84ff64;
   --navbar-accent: var(--accent);
-  --background: #1d1f1f;
+  --background: #211b12;
   --body-background: var(--background);
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
-  --navbar-background: #323232;
-  --navbar-active-background: #232525;
+  --navbar-background: #312a1b;
+  --navbar-active-background: #1a150e;
   --gradient-body-background: linear-gradient(
     90deg,
     var(--background-darker) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #323232;
+  --input-background: #312a1b;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #d8d784;
-  --success-hover: #5af15a;
+  --primary: #5ef83b;
+  --primary-hover: #84ff64;
+  --success: #5ef83b;
+  --success-hover: #84ff64;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
-  --osk-button-border: #434343;
+  --osk-button-border: #413726;
   --action-icon: var(--text-default);
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--accent);
-  --primary-button: #14e8c8;
-  --secondary-button: #59c627;
-  --success-button: #d8d784;
-  --icons-background: #323232;
+  --primary-button: #5ef83b;
+  --secondary-button: #a39382;
+  --success-button: #6cf04a;
+  --icons-background: #312a1b;
 }
 
-body.zombie .alphabet-filter-button--active,
-body.zombie-classic .alphabet-filter-button--active {
+body.zombie .alphabet-filter-button--active {
   --alphabet-filter-accent-color: var(--primary-button);
   --alphabet-filter-accent-hover: var(
     --primary-button-hover,
@@ -689,6 +724,8 @@ body.old-school {
   --modal-border: var(--body-background);
   --success: #0bd48c;
   --success-hover: #28f028;
+  --status-warning: #ffcf3f;
+  --status-warning-hover: #ffde73;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: #434343;
@@ -697,10 +734,9 @@ body.old-school {
   --action-icon-active: var(--accent);
   --primary-button: var(--status-success);
   --success-button: #0bd48c;
-  --secondary-button: #ffa800;
+  --secondary-button: #ffcf3f;
   --icons-background: #323232;
 }
-body.classic .sid-input,
 body.old-school .sid-input {
   background: var(--background);
 }
@@ -710,19 +746,11 @@ body.old-school .alphabet-filter-button--active {
   --alphabet-filter-accent-hover: var(--status-success-hover);
 }
 
-body.classic,
-body.cyberSpaceOasisAlt,
-body.dracula-classic,
-body.marine-classic,
-body.zombie-classic {
-  --navbar-accent: var(--text-default);
-}
-
 body.sweet,
 body.sweet-dark {
   --accent: #ff9af7;
   --accent-overlay: #eea6e8;
-  --navbar-accent: #d4c2d6;
+  --navbar-accent: #c48fdc;
   --background: #110111;
   --body-background: #110111;
   --background-darker: #110111;
@@ -738,11 +766,11 @@ body.sweet-dark {
   --input-background: #360a36;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #9a8de7;
-  --success-hover: #7f148e;
-  --primary: #c28cb8;
-  --primary-hover: #a17399;
-  --danger: #bf61a2;
+  --success: #8f93e0;
+  --success-hover: #a7abeb;
+  --primary: #d774c6;
+  --primary-hover: #e49ad8;
+  --danger: #d85fb0;
   --text-log: #8c909b;
   --text-title: var(--on-panel);
   --text-default: var(--on-panel);
@@ -754,7 +782,333 @@ body.sweet-dark {
   --action-icon: #ab92a8;
   --action-icon-hover: var(--accent-overlay);
   --action-icon-active: var(--text-default);
-  --success-button: #9a8de7;
-  --secondary-button: #ff9af7;
+  --success-button: #8f93e0;
+  --secondary-button: #e0888e;
   --icons-background: #302530;
+}
+
+body.candy {
+  --accent: #f48cb0;
+  --accent-overlay: #f8a9c4;
+  --navbar-accent: #f48cb0;
+  --accent-icon: #22d6f5;
+  --background: #2d1f26;
+  --body-background: var(--background);
+  --background-darker: var(--body-background);
+  --current-background: var(--body-background);
+  --navbar-background: #3a2a33;
+  --navbar-active-background: #33232b;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #3a2a33;
+  --modal-background: var(--body-background);
+  --modal-border: #473640;
+  --primary: #d0e4f6;
+  --primary-hover: #e4f0fb;
+  --success: #cbecda;
+  --success-hover: #ddf2e7;
+  --status-warning: #fbefca;
+  --status-warning-hover: #fdf6e0;
+  --danger: #f1a0b4;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: #473640;
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--accent);
+  --action-icon-active: var(--accent);
+  --primary-button: #d0e4f6;
+  --secondary-button: #e1d1ee;
+  --success-button: #cbecda;
+  --icons-background: #3a2a33;
+}
+
+body.candy-light {
+  --accent: #c2487a;
+  --accent-overlay: #d06a93;
+  --navbar-accent: #c2487a;
+  --on-nav-accent: var(--navbar-accent);
+  --accent-icon: #0e8043;
+  --background: #faf1f5;
+  --body-background: var(--background);
+  --background-darker: #d7e6fb;
+  --current-background: var(--body-background);
+  --navbar-background: #f3e3ea;
+  --navbar-active-background: #fbe8f0;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #d6e4fb;
+  --modal-background: #eff5fd;
+  --modal-border: #f0dde6;
+  --primary: #7aa9d9;
+  --primary-hover: #6a9bce;
+  --status-success: #10b981;
+  --success: #6ec199;
+  --success-hover: #5bb189;
+  --status-warning: #e0b44e;
+  --status-warning-hover: #d1a63c;
+  --danger: #e07a8f;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: #ead3dd;
+  --action-icon: #a98b99;
+  --action-icon-hover: var(--accent);
+  --action-icon-active: var(--accent);
+  --primary-button: #7aa9d9;
+  --secondary-button: #c89ad6;
+  --success-button: #6ec199;
+  --icons-background: #f3e3ea;
+}
+
+body.vampyria {
+  --accent: #e01f45;
+  --accent-overlay: #ff4d6e;
+  --navbar-accent: #e01f45;
+  --background: #1a0608;
+  --body-background: var(--background);
+  --background-darker: var(--body-background);
+  --current-background: var(--body-background);
+  --navbar-background: #2a080e;
+  --navbar-active-background: #210609;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #2a080e;
+  --modal-background: var(--body-background);
+  --modal-border: #3a0c14;
+  --primary: #e01f45;
+  --primary-hover: #ff4d6e;
+  --success: #5fcf84;
+  --success-hover: #7ddc9b;
+  --danger: #ff4d4d;
+  --danger-hover: #ff7a7a;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: #3a0c14;
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--accent);
+  --action-icon-active: var(--accent);
+  --primary-button: #c90335;
+  --secondary-button: #880a39;
+  --success-button: #5fcf84;
+  --icons-background: #2a080e;
+}
+
+body.forest {
+  --accent: #4fc97e;
+  --accent-overlay: #6fd996;
+  --navbar-accent: #4fc97e;
+  --background: #0d1510;
+  --body-background: var(--background);
+  --background-darker: var(--body-background);
+  --current-background: var(--body-background);
+  --navbar-background: #15201a;
+  --navbar-active-background: #0f1812;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --input-background: #15201a;
+  --modal-background: var(--body-background);
+  --modal-border: #1d2b22;
+  --primary: #4fc97e;
+  --primary-hover: #6fd996;
+  --success: #4fc97e;
+  --success-hover: #6fd996;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: #1d2b22;
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--accent);
+  --action-icon-active: var(--accent);
+  --primary-button: #2a7e3c;
+  --secondary-button: #a8d5ba;
+  --success-button: #4fc97e;
+  --icons-background: #15201a;
+}
+
+body.midnightMirage {
+  --gradient-brand: linear-gradient(
+    100deg,
+    var(--role-brand) 0%,
+    var(--brand-secondary) 100%
+  );
+}
+
+body.heroicTheme {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #a78bfa 100%);
+}
+
+body.cyberSpaceOasis {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #07c5ef 100%);
+}
+
+body.gruvbox_dark {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #db7b51 100%);
+}
+
+body.high-contrast {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #00ddff 100%);
+}
+
+body.dracula {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #ff79c6 100%);
+}
+
+body.nord-light {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #b48ead 100%);
+}
+
+body.nord-dark {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #81a1c1 100%);
+}
+
+body.marine {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #80d8d0 100%);
+}
+
+body.zombie {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #2fa31c 100%);
+}
+
+body.old-school {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #ffa800 100%);
+}
+
+body.sweet {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #ff9af7 100%);
+}
+
+body.candy {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #d0e4f6 100%);
+}
+
+body.candy-light {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #935bb8 100%);
+}
+
+body.vampyria {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #880a39 100%);
+}
+
+body.forest {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #7ee0a0 100%);
+}
+
+body.onePiece {
+  --accent: #1f6fb2;
+  --accent-overlay: #2a84cf;
+  --navbar-accent: #d62828;
+  --on-nav-accent: #ffd84d;
+  --card-hover-accent: #ffcf33;
+  --border-brand: #e0a800;
+  --sidebar-item-hover-bg: color-mix(
+    in oklab,
+    var(--navbar-accent) 12%,
+    transparent
+  );
+  --sidebar-hover-text-color: #ffd84d;
+  --accent-icon: #1f6fb2;
+  --background: #fbf6e4;
+  --body-background: var(--background);
+  --background-darker: #fdf9ee;
+  --panel-glass: color-mix(in srgb, #faf2db 85%, transparent);
+  --panel-background: color-mix(in srgb, #fbf4de 92%, transparent);
+  --current-background: var(--body-background);
+  --navbar-background: #1f6fb2;
+  --navbar-active-background: #1a5f9b;
+  --on-nav-muted: #e6f1fc;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #1f6fb2 100%);
+  --input-background: #eadfbc;
+  --modal-background: #fffdf5;
+  --modal-border: #ece2c8;
+  --primary: #1f6fb2;
+  --primary-hover: #2a84cf;
+  --success: #2e9e6a;
+  --success-hover: #37b87c;
+  --danger: #d62828;
+  --danger-hover: #e94444;
+  --status-warning: #e0a800;
+  --status-warning-hover: #f0bb20;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: #ece2c8;
+  --action-icon: #7a7158;
+  --action-icon-hover: var(--accent);
+  --action-icon-active: var(--accent);
+  --primary-button: #d62828;
+  --secondary-button: #e0a800;
+  --success-button: #2e9e6a;
+  --icons-background: #f1ead6;
+
+  .Chip--active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+  }
+
+  .Button--secondary:hover:not(:disabled),
+  .Button--secondary:focus-visible:not(:disabled),
+  .Button--ghost:hover:not(:disabled),
+  .Button--ghost:focus-visible:not(:disabled) {
+    background: color-mix(in oklab, var(--on-panel) 7%, var(--panel-base));
+    border-color: var(--border-brand);
+  }
+
+  .Sidebar {
+    .heroicVersion:hover,
+    .heroicNewReleases > a,
+    .heroicNewReleases > a:hover,
+    .sidebar-tour-button,
+    .sidebar-tour-button:hover {
+      color: var(--on-nav-accent);
+    }
+
+    .Sidebar__item.active:not(.SidebarLinks__subItem) {
+      background-color: #a83a3a;
+      box-shadow: none;
+    }
+  }
+}
+
+body.onePiece .Sidebar__brand {
+  position: relative;
+}
+
+body.onePiece .Sidebar__brand::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: calc(var(--space-sm) - 8px);
+  width: 46px;
+  aspect-ratio: 1703 / 1347;
+  transform: translateX(-50%) translateX(3px) rotate(-10deg);
+  transform-origin: center bottom;
+  background: url('./assets/straw-hat.png') no-repeat center / contain;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+  z-index: 3;
+}
+
+body.onePiece .Sidebar.collapsed .Sidebar__brand::after {
+  width: 34px;
+  top: calc(var(--space-sm) - 6px);
 }

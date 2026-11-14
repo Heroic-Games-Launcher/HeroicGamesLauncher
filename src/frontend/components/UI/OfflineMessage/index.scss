@@ -21,10 +21,17 @@
     &.hint-hover {
       justify-self: flex-end;
       align-self: center;
-      width: 20px;
-      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
       border-radius: var(--radius-pill);
       line-height: 1;
+
+      &:hover {
+        background: color-mix(in oklab, var(--on-panel) 14%, transparent);
+      }
     }
     &.ignore {
       text-decoration: underline;

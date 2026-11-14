@@ -23,7 +23,7 @@ const EnableFSR = () => {
       <ToggleSwitch
         info={t(
           'help.amdfsr',
-          "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
+          "AMD's FSR helps boost framerate by upscaling lower resolutions in fullscreen mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
         )}
         description={t(
           'setting.enableFSRHack-description',
@@ -34,7 +34,7 @@ const EnableFSR = () => {
         handleChange={() => setEnableFSR(!enableFSR)}
         title={t(
           'setting.enableFSRHack',
-          'Enable FSR Hack (Wine version needs to support it)'
+          'Enable FSR hack (Wine version needs to support it)'
         )}
       />
 
@@ -43,7 +43,7 @@ const EnableFSR = () => {
           htmlId="setFsrSharpness"
           onChange={(event) => setFsrSharpness(Number(event.target.value))}
           value={maxSharpness.toString()}
-          label={t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
+          label={t('setting.FsrSharpnessStrenght', 'FSR sharpness strength')}
           extraClass="smaller"
         >
           {Array.from(Array(5).keys()).map((n) => (

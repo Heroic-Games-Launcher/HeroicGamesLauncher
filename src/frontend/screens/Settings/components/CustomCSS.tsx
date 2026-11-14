@@ -15,7 +15,7 @@ const CustomCSS = () => {
   return (
     <div className="customCSSField">
       <label className="customCSSLabel" htmlFor="customCSSArea">
-        {t('settings.custom_css.title', 'Custom CSS Style')}
+        {t('settings.custom_css.title', 'Custom CSS style')}
       </label>
       <textarea
         id="customCSSArea"

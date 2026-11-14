@@ -177,7 +177,7 @@ function CategoriesManager() {
       className="CategoriesManager__modal"
     >
       <ModalHeader>
-        {t('categories-manager.title', 'Manage Categories')}
+        {t('categories-manager.title', 'Manage categories')}
       </ModalHeader>
       <ModalContent>
         {categories.map((cat) => (

@@ -34,7 +34,7 @@ async function showAutoupdateDialog() {
 
   let { response } = await dialog.showMessageBox({
     title: t('box.info.update.title', 'Heroic Games Launcher'),
-    message: t('box.info.update.message', 'There is a new Version available!'),
+    message: t('box.info.update.message', 'There is a new version available!'),
     detail: messageDetail,
 
     icon: nativeImage.createFromPath(windowIcon),
@@ -59,7 +59,7 @@ async function showAutoupdateDialog() {
 autoUpdater.on('update-available', showAutoupdateDialog)
 autoUpdater.on('update-downloaded', async () => {
   const { response } = await dialog.showMessageBox({
-    title: t('box.info.update.title-finished', 'Update Finished'),
+    title: t('box.info.update.title-finished', 'Update finished'),
     message: t(
       'box.info.update.message-finished',
       'Do you want to restart Heroic now?'
@@ -76,7 +76,7 @@ autoUpdater.on('update-downloaded', async () => {
 
 autoUpdater.on('error', (error) => {
   showDialogBoxModalAuto({
-    title: t('box.error.update.title', 'Update Error'),
+    title: t('box.error.update.title', 'Update error'),
     message: t(
       'box.error.update.message',
       'Something went wrong with the update, please check the logs or try again later!'

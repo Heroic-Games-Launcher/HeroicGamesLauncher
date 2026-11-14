@@ -65,6 +65,14 @@
   display: block;
 }
 
+.tableFieldWrapper__editButton {
+  color: var(--icon-brand);
+}
+
+.tableFieldWrapper__deleteButton {
+  color: var(--icon-destructive);
+}
+
 .tableFieldWrapper__add {
   display: flex;
   align-items: flex-end;

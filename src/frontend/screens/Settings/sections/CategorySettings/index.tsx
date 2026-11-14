@@ -112,7 +112,7 @@ const CategorySettings = () => {
               variant="dangerSubtle"
               onClick={() => handleRemoveCategory(categoryToDelete)}
             >
-              {t('category-settings.remove-category', 'Remove Category')}
+              {t('category-settings.remove-category', 'Remove category')}
             </Button>
             <Button variant="secondary" onClick={() => setCategoryToDelete('')}>
               {t('category-settings.cancel', 'Cancel')}
@@ -162,7 +162,7 @@ const CategorySettings = () => {
             <Button
               size="sm"
               variant="dangerSubtle"
-              title={t('category-settings.remove-category', 'Remove Category')}
+              title={t('category-settings.remove-category', 'Remove category')}
               onClick={() => {
                 handleShowRemoveCategoryConfirmation(category)
               }}

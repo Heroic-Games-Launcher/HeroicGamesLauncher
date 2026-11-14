@@ -13,13 +13,17 @@ const release: Release = {
   id: 1,
   type: 'stable',
   body: [
-    '## Added',
-    '- itch.io store integration',
-    '- Settings to disable the discounts page',
+    'Small hotfix to fix the GOG Login and UMU issue.',
     '',
-    '## Fixed',
-    '- Gamepad navigation in the library filters',
-    '- Contrast of the sidebar on light themes'
+    "## What's Changed",
+    '- itch.io store integration by @flavioislima in https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5706',
+    '- Settings to disable the discounts page by @arielj in https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5979',
+    '- Gamepad navigation in the library filters by @CommandMC in https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5915',
+    '',
+    '## New Contributors',
+    '- @wehrwolfmann made their first contribution in https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5793',
+    '',
+    '**Full Changelog**: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/compare/v2.22.3...v2.22.4'
   ].join('\n')
 }
 
@@ -59,8 +63,9 @@ export const RendersTheMarkdownBody: Story = {
       await screen.findByRole('heading', { name: release.name })
     ).toBeInTheDocument()
     await expect(
-      await screen.findByText('itch.io store integration')
+      await screen.findByText(/itch.io store integration/)
     ).toBeInTheDocument()
+    await expect(await screen.findByText('@wehrwolfmann')).toBeInTheDocument()
   }
 }
 

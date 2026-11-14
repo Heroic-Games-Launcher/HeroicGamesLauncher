@@ -18,7 +18,7 @@ const StartInConsoleMode = () => {
       htmlId="startInConsoleMode"
       value={startInConsoleMode}
       handleChange={() => setStartInConsoleMode(!startInConsoleMode)}
-      title={t('setting.start-in-console-mode', 'Start in Console Mode')}
+      title={t('setting.start-in-console-mode', 'Start in console mode')}
     />
   )
 }

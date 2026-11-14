@@ -175,7 +175,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
   if (showCloudSavesTab)
     settingsTabs.push({
       value: 'saves',
-      label: t('settings.navbar.sync', 'Cloud Saves Sync')
+      label: t('settings.navbar.sync', 'Cloud saves sync')
     })
   if (isLinux)
     settingsTabs.push({
@@ -202,7 +202,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         <Alert variant="warning">
           {t(
             'settings.default_hint',
-            'Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.'
+            'Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the settings button in the game page.'
           )}
         </Alert>
       )}
@@ -220,7 +220,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
           <>
             <SettingsCard
               glyph={MonitorCog}
-              title={t('settings.section.graphics', 'Graphics & Translation')}
+              title={t('settings.section.graphics', 'Graphics & translation')}
             >
               <AutoDXVK />
               {isLinux && (
@@ -256,7 +256,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
       <TabPanel value={value} index={'other'}>
         <SettingsCard
           glyph={Gauge}
-          title={t('settings.section.performance', 'Performance & Overlays')}
+          title={t('settings.section.performance', 'Performance & overlays')}
         >
           {!isNative && <ShowFPS />}
           <Mangohud />
@@ -289,7 +289,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
       <TabPanel value={value} index={'advanced'}>
         <SettingsCard
           glyph={SlidersHorizontal}
-          title={t('settings.section.launch', 'Launch Options')}
+          title={t('settings.section.launch', 'Launch options')}
         >
           {!isSideloaded && (
             <>
@@ -311,7 +311,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         </SettingsCard>
         <SettingsCard
           glyph={TerminalSquare}
-          title={t('settings.section.environment', 'Wrapper & Environment')}
+          title={t('settings.section.environment', 'Wrapper & environment')}
         >
           <WrappersTable />
           <EnvVariablesTable />
@@ -319,7 +319,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         {!isSideloaded && (
           <SettingsCard
             glyph={Globe}
-            title={t('settings.section.language', 'Language & Region')}
+            title={t('settings.section.language', 'Language & region')}
           >
             <PreferedLanguage />
           </SettingsCard>
@@ -329,7 +329,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
       <TabPanel value={value} index={'saves'}>
         <SettingsCard
           glyph={Save}
-          title={t('settings.navbar.sync', 'Cloud Saves Sync')}
+          title={t('settings.navbar.sync', 'Cloud saves sync')}
         >
           <SyncSaves />
         </SettingsCard>

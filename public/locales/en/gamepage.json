@@ -86,7 +86,7 @@
         "import": "Import Game",
         "install": "Install",
         "no-path-selected": "No path selected",
-        "play": "PLAY",
+        "play": "Play",
         "queue": {
             "remove": "Remove from Queue"
         },
@@ -125,7 +125,7 @@
     },
     "enabled": "Enabled",
     "game": {
-        "about": "About This Game",
+        "about": "About",
         "achievements": "Achievements",
         "branch": {
             "disabled": "Disabled",

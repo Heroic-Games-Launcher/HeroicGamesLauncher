@@ -33,7 +33,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
 
   hasHelp(
     'downloadManager',
-    t('help.title.downloadManager', 'Download Manager'),
+    t('help.title.downloadManager', 'Download manager'),
     <p>
       {t('help.content.downloadManager', 'Shows current and past downloads.')}
     </p>
@@ -199,7 +199,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                 icon={<Icon glyph={Trash2} size="md" />}
                 onClick={() => handleClearList()}
               >
-                {t('queue.label.clear', 'Clear List')}
+                {t('queue.label.clear', 'Clear list')}
               </Button>
             }
             className="DownloadManager__section"

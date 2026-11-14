@@ -56,7 +56,7 @@ const LauncherArgs = () => {
       }
       label={t(
         'options.gameargs.title',
-        'Game Arguments (appended to game launch command)'
+        'Game arguments (appended to game launch command)'
       )}
       htmlId="launcherArgs"
       placeholder={t('options.gameargs.placeholder')}

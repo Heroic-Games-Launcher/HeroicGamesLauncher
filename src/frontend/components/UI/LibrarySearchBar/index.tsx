@@ -86,7 +86,7 @@ export default function LibrarySearchBar() {
         suggestionsListItems={suggestions}
         onInputChanged={onInputChanged}
         value={filterText}
-        placeholder={t('search', 'Search for Games')}
+        placeholder={t('search', 'Search for games')}
       />
     </div>
   )

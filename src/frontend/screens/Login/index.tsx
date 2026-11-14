@@ -152,7 +152,7 @@ export default React.memo(function NewLogin() {
           <div className="runnerGroup">
             <Runner
               class="epic"
-              buttonText={t('login.epic', 'Epic Games Login')}
+              buttonText={t('login.epic', 'Epic Games login')}
               loginUrl={epicLoginPath}
               icon={() => <EpicLogo />}
               isLoggedIn={isEpicLoggedIn}
@@ -165,7 +165,7 @@ export default React.memo(function NewLogin() {
             />
             <Runner
               class="gog"
-              buttonText={t('login.gog', 'GOG Login')}
+              buttonText={t('login.gog', 'GOG login')}
               icon={() => <GOGLogo />}
               loginUrl={gogLoginPath}
               isLoggedIn={isGogLoggedIn}
@@ -192,7 +192,7 @@ export default React.memo(function NewLogin() {
             )}
             <Runner
               class="nile"
-              buttonText={t('login.amazon', 'Amazon Login')}
+              buttonText={t('login.amazon', 'Amazon login')}
               icon={() => <AmazonLogo />}
               loginUrl={amazonLoginPath}
               isLoggedIn={isAmazonLoggedIn}
@@ -202,7 +202,7 @@ export default React.memo(function NewLogin() {
             />
             <Runner
               class="itchio"
-              buttonText={t('login.itchio', 'itch.io Login')}
+              buttonText={t('login.itchio', 'itch.io login')}
               icon={() => <ItchioLogo />}
               loginUrl={itchioLoginPath}
               alternativeLoginAction={() => setShowItchioLogin(true)}
@@ -214,7 +214,7 @@ export default React.memo(function NewLogin() {
             {zoom.enabled && (
               <Runner
                 class="zoom"
-                buttonText={t('login.zoom', 'Zoom Login')}
+                buttonText={t('login.zoom', 'Zoom login')}
                 icon={() => <ZoomLogo />}
                 loginUrl={zoomLoginPath}
                 isLoggedIn={isZoomLoggedIn}
@@ -229,7 +229,7 @@ export default React.memo(function NewLogin() {
           onClick={async () => handleLibraryClick()}
           className="goToLibrary"
         >
-          {t('button.go_to_library', 'Go to Library')}
+          {t('button.go_to_library', 'Go to library')}
         </button>
       </div>
     </div>

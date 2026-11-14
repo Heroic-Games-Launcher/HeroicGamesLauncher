@@ -738,9 +738,11 @@ export default React.memo(function Library(): JSX.Element {
 
       <div className="listing">
         <span id="top" />
-        <LibraryHeader />
+        <div className="libraryStickyTop">
+          <LibraryHeader />
 
-        {showAlphabetFilter && <AlphabetFilter />}
+          {showAlphabetFilter && <AlphabetFilter />}
+        </div>
 
         {showRecentGames && (
           <RecentlyPlayed
@@ -778,7 +780,7 @@ export default React.memo(function Library(): JSX.Element {
             title={
               showFavourites
                 ? t('favourites', 'Favourites')
-                : t('title.allGames', 'All Games')
+                : t('title.allGames', 'All games')
             }
             subtitle={t('library.gamesCount', {
               count: countGames(libraryToShow),

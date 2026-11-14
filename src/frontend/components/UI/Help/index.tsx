@@ -26,8 +26,8 @@ export default function Help({ items }: Props) {
         onClick={() => toggleOpen()}
         title={
           open
-            ? t('help.button.close', 'Close Help')
-            : t('help.button.open', 'Open Help')
+            ? t('help.button.close', 'Close help')
+            : t('help.button.open', 'Open help')
         }
       >
         ?

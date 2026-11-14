@@ -1,6 +1,8 @@
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { CircleHelp } from 'lucide-react'
+import Icon from '../Icon'
 
 import './index.scss'
 
@@ -44,7 +46,15 @@ const OfflineMessage = () => {
           ({t('offline-message.ignore', 'Ignore')})
         </button>
       </span>
-      <button className="hint-hover">?</button>
+      <button
+        className="hint-hover"
+        aria-label={t(
+          'offline-message.hint-label',
+          'Connectivity check details'
+        )}
+      >
+        <Icon glyph={CircleHelp} size="sm" />
+      </button>
       <span
         className="retry-hint"
         dangerouslySetInnerHTML={{ __html: hintHtml }}

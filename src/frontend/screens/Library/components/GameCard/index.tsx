@@ -274,7 +274,7 @@ const GameCard = ({
       return (
         <GameActionButton
           action={notAvailable ? 'unavailable' : 'play'}
-          label={t('button.play', 'PLAY')}
+          label={t('button.play', 'Play')}
           title={`${t('label.playing.start')} (${title})`}
           disabled={disabled}
           onClick={() => handlePlay(runner)}

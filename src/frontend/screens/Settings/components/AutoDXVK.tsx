@@ -58,7 +58,7 @@ const AutoDXVK = () => {
       title={
         installingDxvk
           ? t('please-wait', 'Please wait...')
-          : t('setting.autodxvk', 'Auto Install/Update DXVK on Prefix')
+          : t('setting.autodxvk', 'Auto install/update DXVK on prefix')
       }
       fading={installingDxvk}
       disabled={

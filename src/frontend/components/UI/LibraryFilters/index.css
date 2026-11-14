@@ -44,3 +44,13 @@
 .filterPlatformTag--browser {
   background: #8b5cf6;
 }
+
+.FilterActions {
+  margin-top: var(--space-md-fixed);
+}
+
+.FilterActions .Button {
+  width: 100%;
+  justify-content: center;
+  border-color: var(--border-subtle);
+}

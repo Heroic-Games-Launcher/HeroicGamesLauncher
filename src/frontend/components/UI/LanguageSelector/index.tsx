@@ -162,7 +162,7 @@ export default function LanguageSelector({
         htmlId="languageSelector"
         onChange={(event) => handleChangeLanguage(event.target.value)}
         value={currentLanguage}
-        label={t('setting.language', 'Choose App Language')}
+        label={t('setting.language', 'Choose app language')}
         extraClass="languageSelector"
         afterSelect={afterSelect}
       >
