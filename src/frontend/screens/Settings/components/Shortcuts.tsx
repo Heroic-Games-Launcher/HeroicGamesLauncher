@@ -64,6 +64,10 @@ const Shortcuts = () => {
         value={addStartMenuShortcuts}
         handleChange={() => setAddStartMenuShortcuts(!addStartMenuShortcuts)}
         title={menuShortcutsLabel}
+        description={t(
+          'setting.addgamestoapplications-description',
+          'Create an app shortcut whenever a game is installed.'
+        )}
       />
 
       <ToggleSwitch
@@ -71,6 +75,10 @@ const Shortcuts = () => {
         value={addSteamShortcuts}
         handleChange={() => setAddSteamShortcuts(!addSteamShortcuts)}
         title={t('setting.addgamestosteam', 'Add games to Steam automatically')}
+        description={t(
+          'setting.addgamestosteam-real-description',
+          'Add each installed game to your Steam library as a shortcut.'
+        )}
       />
     </>
   )

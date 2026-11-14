@@ -21,6 +21,10 @@ const MaxWorkers = () => {
     <SelectField
       htmlId="max_workers"
       label={t('setting.maxworkers')}
+      description={t(
+        'setting.maxworkers-description',
+        'More workers download faster but use more CPU and bandwidth. Max uses every core.'
+      )}
       onChange={(event) => setMaxWorkers(Number(event.target.value))}
       value={maxWorkers.toString()}
       extraClass="smaller"
