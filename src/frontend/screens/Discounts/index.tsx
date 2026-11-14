@@ -219,7 +219,6 @@ export default function Discounts() {
     const load = async () => {
       setLoading(true)
       setError(null)
-      setProducts([])
 
       try {
         // A GMG or Humble feed failure must not take down the GOG deals
@@ -777,7 +776,7 @@ export default function Discounts() {
         )}
       </div>
 
-      {loading && (
+      {loading && products.length === 0 && !hasActiveFilters && (
         <UpdateComponent
           message={t('discounts.loading', 'Loading discounted games...')}
         />
@@ -791,7 +790,7 @@ export default function Discounts() {
         </p>
       )}
 
-      {!loading && !error && (products.length > 0 || hasActiveFilters) && (
+      {!error && (products.length > 0 || hasActiveFilters) && (
         <div className="discountsScreen__body">
           <DiscountFilters
             regionSelector={regionSelector}
@@ -841,7 +840,11 @@ export default function Discounts() {
           />
 
           <div className="discountsScreen__main">
-            {paginated.length === 0 ? (
+            {loading ? (
+              <UpdateComponent
+                message={t('discounts.loading', 'Loading discounted games...')}
+              />
+            ) : paginated.length === 0 ? (
               <p className="discountsScreen__message">
                 {t(
                   'discounts.noMatches',
@@ -849,18 +852,20 @@ export default function Discounts() {
                 )}
               </p>
             ) : (
-              <div className="discountsScreen__grid">
-                {paginated.map((product) => (
-                  <DiscountCard key={product.id} product={product} />
-                ))}
-              </div>
-            )}
+              <>
+                <div className="discountsScreen__grid">
+                  {paginated.map((product) => (
+                    <DiscountCard key={product.id} product={product} />
+                  ))}
+                </div>
 
-            <DiscountPagination
-              page={clampedPage}
-              totalPages={totalPages}
-              onChange={handlePageChange}
-            />
+                <DiscountPagination
+                  page={clampedPage}
+                  totalPages={totalPages}
+                  onChange={handlePageChange}
+                />
+              </>
+            )}
           </div>
         </div>
       )}

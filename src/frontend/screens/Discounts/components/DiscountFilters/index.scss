@@ -1,14 +1,22 @@
-/* Left filter rail: a sticky vertical panel of FilterSections beside the grid */
+/* Left filter rail: a sticky header (search + reset) over a scrolling list of
+   filter sections, beside the results grid. */
 .discountFilters {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  position: sticky;
-  top: var(--space-md-fixed);
-  align-self: start;
-  max-height: calc(100vh - var(--space-3xl-fixed));
-  overflow-y: auto;
-  padding-inline-end: var(--space-sm);
+  min-height: 0;
+  height: 100%;
+}
+
+/* Header stays put while the sections below scroll */
+.discountFilters__sticky {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* match the sections' inline padding so the search bar and header line up
+     with the controls below */
+  padding-inline: var(--space-2xs) var(--space-sm);
 }
 
 .discountFilters__head {
@@ -27,6 +35,25 @@
   color: var(--text-default);
 }
 
+.discountFilters__sections {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  /* vertical scroll only; never a horizontal scrollbar */
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* small inline padding so control borders and focus rings aren't clipped by
+     the scroll container, with extra room on the end for the overlay scrollbar */
+  padding-inline: var(--space-2xs) var(--space-sm);
+}
+
+/* Dropdowns fill the width of their section */
+.discountFilters__dropdown {
+  width: 100%;
+}
+
 /* Store region (rendered from the parent) reads as a filter section */
 .discountFilters__regionSection .discountsScreen__region {
   width: 100%;
@@ -38,30 +65,13 @@
   color: var(--text-muted, var(--text-secondary));
 }
 
-/* Range sliders live inside a FilterSection */
-.discountFilters__sliderField {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
-  width: 100%;
-  padding-inline: var(--space-2xs);
-}
+/* Stacked layout: the sidebar grows naturally and scrolls with the page */
+@media (max-width: 900px) {
+  .discountFilters {
+    height: auto;
+  }
 
-.discountFilters__sliderValue {
-  align-self: flex-end;
-  color: var(--accent);
-  font-size: var(--text-xs);
-  font-weight: var(--semibold);
-}
-
-.discountFilters__slider {
-  width: 100%;
-}
-
-.discountFilters__sliderBounds {
-  display: flex;
-  justify-content: space-between;
-  font-size: calc(var(--text-xs) * 0.9);
-  color: var(--text-secondary);
-  opacity: 0.7;
+  .discountFilters__sections {
+    overflow: visible;
+  }
 }

@@ -1,10 +1,21 @@
+/* The screen is pinned to the viewport height and never scrolls as a whole;
+   only the filter rail and the results grid scroll, each on its own. A fixed
+   height is needed because the app content area is only min-height:100vh, so a
+   flex-grow child would still grow and scroll the body. */
 .discountsScreen {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  height: 100vh;
   min-width: 20vw;
-  padding: var(--space-md-fixed);
+  padding: var(--space-md-fixed) var(--space-xl-fixed);
+  overflow: hidden;
   color: var(--text-default);
+}
+
+/* Banner and topbar stay fixed at the top of the screen */
+.discountsScreen > .DismissibleBanner,
+.discountsScreen__topbar {
+  flex-shrink: 0;
 }
 
 .discountsScreen__topbar {
@@ -12,7 +23,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-xl);
   flex-wrap: wrap;
 }
 
@@ -53,26 +64,12 @@
   min-width: 160px;
 }
 
-/* Shared MUI outlined-input appearance for all inputs in the Discounts screen.
-   Keeps per-component styles from each re-declaring the same overrides. */
-.discountsScreen .MuiOutlinedInput-root {
+/* The borderless/rounded dropdown look now lives in SelectField itself; here we
+   only tint the inputs with the Deals palette. */
+.discountsScreen .selectFieldWrapper .MuiOutlinedInput-root {
   min-height: 40px;
   background-color: var(--input-background, var(--background));
   color: var(--text-default);
-  border-radius: var(--space-3xs);
-}
-
-.discountsScreen .MuiOutlinedInput-notchedOutline {
-  border-color: var(--panel-border);
-  transition: border-color 150ms ease;
-}
-
-.discountsScreen .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
-.discountsScreen
-  .MuiOutlinedInput-root.Mui-focused
-  .MuiOutlinedInput-notchedOutline {
-  border-color: var(--accent);
-  border-width: 1px;
 }
 
 .discountsScreen__regionCurrency {
@@ -96,29 +93,36 @@
   }
 }
 
-/* Two-column layout: filter rail on the left, results on the right */
+/* Two-column layout filling the remaining height: filter rail on the left,
+   results on the right. Each column scrolls independently. */
 .discountsScreen__body {
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
   grid-template-columns: minmax(230px, 270px) minmax(0, 1fr);
   gap: var(--space-xl-fixed);
-  align-items: start;
+  overflow: hidden;
 }
 
 .discountsScreen__main {
   min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  /* inner padding so card shadows and the last column aren't clipped or hidden
+     behind the overlay scrollbar at the edges of the scroll area */
+  padding: var(--space-3xs) var(--space-sm) var(--space-md);
 }
 
 @media (max-width: 900px) {
   .discountsScreen__body {
     grid-template-columns: 1fr;
+    overflow-y: auto;
   }
 
-  .discountFilters {
-    position: static;
-    max-height: none;
+  .discountsScreen__main {
     overflow: visible;
   }
 }
@@ -126,7 +130,8 @@
 .discountsScreen__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  grid-gap: var(--space-md);
+  column-gap: var(--space-md);
+  row-gap: var(--space-2xl-fixed);
   /* Cards can differ in height (portrait vs landscape covers); keep them
      top-aligned instead of stretching the shorter ones. */
   align-items: start;
