@@ -7,7 +7,10 @@ import ItchioLibraryManager from 'backend/storeManagers/itchio/library'
 import SteamLibraryManager from 'backend/storeManagers/steam/library'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
-import { addToQueue } from 'backend/downloadmanager/downloadqueue'
+import {
+  addToQueue,
+  hasFailedUpdate
+} from 'backend/downloadmanager/downloadqueue'
 
 import type { DMQueueElement, GameInfo, Runner } from 'common/types'
 import type { LibraryManager } from 'common/types/game_manager'
@@ -50,7 +53,13 @@ export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
     const { ignoreGameUpdates } = await game.getSettings()
     const gameInfo = game.getGameInfo()
     const gameIsAvailable = await game.isGameAvailable()
-    if (!ignoreGameUpdates && gameIsAvailable) {
+    if (hasFailedUpdate(appName, runner)) {
+      // Stops the update retry loop.
+      logInfo(
+        `Skipping auto-update for ${gameInfo.title}: its last update failed`,
+        logPrefix
+      )
+    } else if (!ignoreGameUpdates && gameIsAvailable) {
       logInfo(`Auto-Updating ${gameInfo.title}`, logPrefix)
       const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
       addToQueue(dmQueueElement)

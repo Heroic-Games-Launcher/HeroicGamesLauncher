@@ -31,6 +31,9 @@ let currentElement: DMQueueElement | null = null
 let autoPaused = false
 // Running loop stops overlapping runs.
 let queueLoop: Promise<void> | null = null
+// Failed updates; auto-update skips them.
+const failedUpdates = new Set<string>()
+const updateKey = (appName: string, runner: string) => `${runner}:${appName}`
 
 onConnectivityChange((status) => {
   if (status === 'offline' && isRunning()) {
@@ -123,6 +126,12 @@ async function runQueue() {
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
 
+    if (element.type === 'update') {
+      const key = updateKey(element.params.appName, element.params.runner)
+      if (status === 'error') failedUpdates.add(key)
+      else if (status === 'done') failedUpdates.delete(key)
+    }
+
     processNotification(element, status)
 
     if (!isPaused()) {
@@ -139,7 +148,19 @@ async function runQueue() {
   }
 }
 
-async function addToQueue(element: DMQueueElement) {
+/** Whether this session's update failed. */
+function hasFailedUpdate(appName: string, runner: string): boolean {
+  return failedUpdates.has(updateKey(appName, runner))
+}
+
+/**
+ * Queue a download. `userStarted` lets it
+ * jump ahead of a paused download.
+ */
+async function addToQueue(
+  element: DMQueueElement,
+  { userStarted = false }: { userStarted?: boolean } = {}
+) {
   if (!element) {
     logError(
       'Can not add undefined element to queue!',
@@ -155,24 +176,22 @@ async function addToQueue(element: DMQueueElement) {
     status: 'queued'
   })
 
+  if (userStarted) {
+    // Manual retry clears the failure.
+    failedUpdates.delete(
+      updateKey(element.params.appName, element.params.runner)
+    )
+  }
+
   // Let a pausing run wind down.
   if (isPaused()) await queueLoop
 
-  const elements = downloadManager.get('queue', [])
-
-  const elementIndex = elements.findIndex(
-    (el) =>
-      el.params.appName === element.params.appName &&
-      el.params.runner === element.params.runner
-  )
-
-  // Paused head yields to new download.
-  const displacePaused = elementIndex < 0 && isPaused() && elements.length > 0
+  const sameElement = (el: DMQueueElement) =>
+    el.params.appName === element.params.appName &&
+    el.params.runner === element.params.runner
   const added: DMQueueElement[] = []
 
-  if (elementIndex >= 0) {
-    elements[elementIndex] = element
-  } else {
+  if (!downloadManager.get('queue', []).some(sameElement)) {
     const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
       element.params.appName
     )
@@ -210,6 +229,18 @@ async function addToQueue(element: DMQueueElement) {
     } else {
       element.params.size = '?? MB'
     }
+  }
+
+  // No awaits below: concurrent adds stay ordered.
+  const elements = downloadManager.get('queue', [])
+  const elementIndex = elements.findIndex(sameElement)
+  // Paused head yields to user downloads.
+  const displacePaused =
+    elementIndex < 0 && userStarted && isPaused() && elements.length > 0
+
+  if (elementIndex >= 0) {
+    elements[elementIndex] = element
+  } else {
     added.push(element)
     if (displacePaused) {
       elements[0] = { ...elements[0], pausedAt: Date.now() }
@@ -417,6 +448,7 @@ export {
   getQueueInformation,
   cancelCurrentDownload,
   cancelQueuedDownload,
+  hasFailedUpdate,
   pauseCurrentDownload,
   resumeCurrentDownload,
   isRunning,

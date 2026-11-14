@@ -48,14 +48,18 @@ jest.mock('backend/storeManagers', () => {
 type Utils = typeof import('../utils')
 type Backlog = typeof import('backend/storeManagers/steam/backlog')
 let install: jest.MockedFunction<Utils['installQueueElement']>
+let update: jest.MockedFunction<Utils['updateQueueElement']>
 let forget: jest.MockedFunction<Backlog['forgetSteamInstall']>
 
 // One open install per app.
 const pending = new Map<string, (status: DMStatus) => void>()
 
-function element(appName: string): DMQueueElement {
+function element(
+  appName: string,
+  type: DMQueueElement['type'] = 'install'
+): DMQueueElement {
   return {
-    type: 'install',
+    type,
     params: {
       appName,
       runner: 'steam',
@@ -79,15 +83,17 @@ beforeEach(async () => {
   pending.clear()
   jest.resetModules()
   // Fresh registry: refetch the mocks.
-  install = (await import('../utils')).installQueueElement as typeof install
+  const utils = await import('../utils')
+  install = utils.installQueueElement as typeof install
+  update = utils.updateQueueElement as typeof update
   forget = (await import('backend/storeManagers/steam/backlog'))
     .forgetSteamInstall as typeof forget
-  install.mockImplementation(
-    async (params) =>
-      new Promise((resolve) =>
-        pending.set(params.appName, (status) => resolve({ status }))
-      )
-  )
+  const run = async (params: { appName: string }) =>
+    new Promise<{ status: DMStatus }>((resolve) =>
+      pending.set(params.appName, (status) => resolve({ status }))
+    )
+  install.mockImplementation(run)
+  update.mockImplementation(run)
   dm = await import('../downloadqueue')
 })
 
@@ -107,7 +113,7 @@ describe('starting a download while one is paused', () => {
   it('starts the new one and queues the paused one', async () => {
     await pauseFirstDownload()
 
-    await dm.addToQueue(element('new'))
+    await dm.addToQueue(element('new'), { userStarted: true })
     await flush()
 
     expect(queued()).toEqual(['new', 'paused'])
@@ -120,7 +126,7 @@ describe('starting a download while one is paused', () => {
 
   it('resumes the paused one after the new one finishes', async () => {
     await pauseFirstDownload()
-    await dm.addToQueue(element('new'))
+    await dm.addToQueue(element('new'), { userStarted: true })
     await flush()
 
     pending.get('new')!('done')
@@ -135,7 +141,7 @@ describe('starting a download while one is paused', () => {
 
   it('cancels the queued paused game and its files', async () => {
     await pauseFirstDownload()
-    await dm.addToQueue(element('new'))
+    await dm.addToQueue(element('new'), { userStarted: true })
     await flush()
 
     dm.cancelQueuedDownload('paused', true)
@@ -152,5 +158,51 @@ describe('starting a download while one is paused', () => {
 
     expect(queued()).toEqual(['first', 'second'])
     expect(dm.getQueueInformation().elements[1].pausedAt).toBeUndefined()
+  })
+})
+
+describe('auto-updates', () => {
+  it('queue behind a paused download instead of replacing it', async () => {
+    await pauseFirstDownload()
+
+    // autoUpdate adds without awaiting.
+    await Promise.all([
+      dm.addToQueue(element('a', 'update')),
+      dm.addToQueue(element('b', 'update')),
+      dm.addToQueue(element('c', 'update'))
+    ])
+
+    expect(queued()).toEqual(['paused', 'a', 'b', 'c'])
+    expect(dm.isPaused()).toBe(true)
+    expect(
+      dm.getQueueInformation().elements.filter((e) => e.pausedAt)
+    ).toHaveLength(0)
+  })
+
+  it('keep user downloads in start order when added together', async () => {
+    await pauseFirstDownload()
+
+    await Promise.all([
+      dm.addToQueue(element('x'), { userStarted: true }),
+      dm.addToQueue(element('y'), { userStarted: true })
+    ])
+    await flush()
+
+    expect(queued()).toEqual(['x', 'paused', 'y'])
+    expect(
+      dm.getQueueInformation().elements.map((e) => Boolean(e.pausedAt))
+    ).toEqual([false, true, false])
+  })
+
+  it('remember a failed update until the user retries', async () => {
+    await dm.addToQueue(element('rust', 'update'))
+    await flush()
+    pending.get('rust')!('error')
+    await flush()
+
+    expect(dm.hasFailedUpdate('rust', 'steam')).toBe(true)
+
+    await dm.addToQueue(element('rust', 'update'), { userStarted: true })
+    expect(dm.hasFailedUpdate('rust', 'steam')).toBe(false)
   })
 })

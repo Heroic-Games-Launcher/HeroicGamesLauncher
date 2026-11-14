@@ -20,7 +20,7 @@ addHandler('install', async (_e, args) => {
     startTime: 0
   }
 
-  await addToQueue(dmQueueElement)
+  await addToQueue(dmQueueElement, { userStarted: true })
 
   // Add Dlcs to the queue
   if (
@@ -59,7 +59,7 @@ addHandler('updateGame', async (_e, args) => {
     startTime: 0
   }
 
-  await addToQueue(dmQueueElement)
+  await addToQueue(dmQueueElement, { userStarted: true })
 })
 
 addListener('removeFromDMQueue', (e, appName) => removeFromQueue(appName))
