@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios'
-import { ProductsEndpointData } from 'common/types/gog'
+import { GOGCredentials, ProductsEndpointData } from 'common/types/gog'
 import {
   existsSync,
   mkdtempSync,
@@ -10,6 +10,7 @@ import {
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import GOGLibraryManager from '../library'
+import { GOGUser } from '../user'
 import { downloadFile } from '../../../utils'
 
 jest.mock('electron')
@@ -52,6 +53,9 @@ describe('GOG Extras', () => {
 
   beforeEach(() => {
     destination = mkdtempSync(join(tmpdir(), 'heroic-gog-extras-'))
+    jest.mocked(GOGUser.getCredentials).mockResolvedValue({
+      access_token: 'test-token'
+    } as GOGCredentials)
   })
 
   afterEach(() => {
@@ -60,25 +64,27 @@ describe('GOG Extras', () => {
   })
 
   it('returns downloadable product bonus files and excludes unsafe links', async () => {
-    jest.spyOn(manager, 'getProductApi').mockResolvedValue(
-      makeResponse([
-        {
-          id: 12,
-          name: 'Manuals',
-          type: 'manual',
-          count: 2,
-          total_size: 50,
-          files: [
-            {
-              id: 'a',
-              size: 25,
-              downlink: 'https://cdn.gog.com/Manual%20One.pdf'
-            },
-            { id: 'b', size: 25, downlink: 'javascript:alert(1)' }
-          ]
-        }
-      ])
-    )
+    const getProductApi = jest
+      .spyOn(manager, 'getProductApi')
+      .mockResolvedValue(
+        makeResponse([
+          {
+            id: 12,
+            name: 'Manuals',
+            type: 'manual',
+            count: 2,
+            total_size: 50,
+            files: [
+              {
+                id: 'a',
+                size: 25,
+                downlink: 'https://cdn.gog.com/Manual%20One.pdf'
+              },
+              { id: 'b', size: 25, downlink: 'javascript:alert(1)' }
+            ]
+          }
+        ])
+      )
 
     await expect(manager.getExtras('123')).resolves.toEqual([
       {
@@ -89,6 +95,11 @@ describe('GOG Extras', () => {
         files: [{ id: '12:a', filename: 'Manual One.pdf', size: 25 }]
       }
     ])
+    expect(getProductApi).toHaveBeenCalledWith(
+      '123',
+      ['downloads'],
+      'test-token'
+    )
   })
 
   it('distinguishes a failed request from a product with no extras', async () => {

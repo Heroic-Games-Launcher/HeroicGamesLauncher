@@ -1471,7 +1471,14 @@ export default class GOGLibraryManager implements LibraryManager {
   }
 
   async getExtras(appName: string): Promise<GOGBonusContent[] | null> {
-    const response = await this.getProductApi(appName, ['downloads'])
+    const credentials = await GOGUser.getCredentials().catch(() => undefined)
+    if (!credentials) return null
+
+    const response = await this.getProductApi(
+      appName,
+      ['downloads'],
+      credentials.access_token
+    )
     if (!response) return null
     const bonusContent = response.data?.downloads?.bonus_content
     if (!Array.isArray(bonusContent)) return []
@@ -1514,7 +1521,16 @@ export default class GOGLibraryManager implements LibraryManager {
       return { downloaded: [], failed: [...selectedIds] }
     }
 
-    const response = await this.getProductApi(appName, ['downloads'])
+    const credentials = await GOGUser.getCredentials().catch(() => undefined)
+    if (!credentials) {
+      return { downloaded: [], failed: [...selectedIds] }
+    }
+
+    const response = await this.getProductApi(
+      appName,
+      ['downloads'],
+      credentials.access_token
+    )
     const bonusContent = response?.data?.downloads?.bonus_content
     const selectedFiles = (
       Array.isArray(bonusContent) ? bonusContent : []

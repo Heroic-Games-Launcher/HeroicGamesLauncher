@@ -1,10 +1,6 @@
 import { Checkbox, FormControlLabel } from '@mui/material'
 import { GOGBonusContent } from 'common/types/gog'
-import {
-  Modal,
-  ModalContent,
-  ModalHeader
-} from 'frontend/components/UI/Modal'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import { size } from 'frontend/helpers'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'

@@ -20,6 +20,7 @@ import EditGameDialog from 'frontend/components/UI/EditGameDialog'
 import {
   ArrowUpCircle,
   CircleCheck,
+  Download,
   ExternalLink,
   FileSearch,
   FolderOpen,
@@ -437,7 +438,7 @@ export default function GamesSubmenu({
               onClick={onShowGOGExtras}
               className="link button is-text is-link buttonWithIcon"
             >
-              <DownloadIcon />
+              <Icon glyph={Download} />
               {t('extras.title', 'GOG Extras')}
             </button>
           )}
