@@ -183,6 +183,13 @@ export default function SidebarLinks() {
               url="/store/itchio"
               label={t('itchio-store', 'itch.io store')}
             />
+            {platform !== 'darwin' && (
+              <SidebarItem
+                className="SidebarLinks__subItem"
+                url="/store/steam"
+                label={t('steam-store', 'Steam Store')}
+              />
+            )}
             <SidebarItem
               className="SidebarLinks__subItem"
               url="/store/amazon"

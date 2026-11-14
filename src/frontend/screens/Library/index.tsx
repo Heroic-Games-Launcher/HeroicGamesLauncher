@@ -27,6 +27,7 @@ import {
   sideloadedCategories,
   zoomCategories,
   itchioCategories,
+  steamCategories,
   normalizeTitle,
   countGames
 } from 'frontend/helpers/library'
@@ -60,6 +61,7 @@ export default React.memo(function Library(): JSX.Element {
     amazon,
     zoom,
     itchio,
+    steam,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -97,7 +99,8 @@ export default React.memo(function Library(): JSX.Element {
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
       zoom: zoom.enabled && zoomCategories.includes(storedCategory),
-      itchio: itchioCategories.includes(storedCategory)
+      itchio: itchioCategories.includes(storedCategory),
+      steam: steam.enabled && steamCategories.includes(storedCategory)
     }
   }
 
@@ -193,6 +196,15 @@ export default React.memo(function Library(): JSX.Element {
   const handleShowUpdatesOnly = (value: boolean) => {
     storage.setItem('show_updates_only', JSON.stringify(value))
     setShowUpdatesOnly(value)
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const [showSteamOwnedOnly, setShowSteamOwnedOnly] = useState(
+    JSON.parse(storage.getItem('show_steam_owned_only') || 'false')
+  )
+  const handleShowSteamOwnedOnly = (value: boolean) => {
+    storage.setItem('show_steam_owned_only', JSON.stringify(value))
+    setShowSteamOwnedOnly(value)
   }
 
   const [showCategories, setShowCategories] = useState(false)
@@ -381,6 +393,9 @@ export default React.memo(function Library(): JSX.Element {
       itchio.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      steam.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -396,7 +411,8 @@ export default React.memo(function Library(): JSX.Element {
     amazon,
     sideloadedLibrary,
     zoom,
-    itchio
+    itchio,
+    steam
   ])
 
   const favouritesIds = useMemo(() => {
@@ -423,6 +439,9 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['itchio'] && itchio.username) {
       displayedStores.push('itchio')
     }
+    if (storesFilters['steam'] && steam.enabled) {
+      displayedStores.push('steam')
+    }
 
     if (!displayedStores.length) {
       displayedStores = Object.keys(storesFilters)
@@ -434,6 +453,7 @@ export default React.memo(function Library(): JSX.Element {
     const showSideloaded = displayedStores.includes('sideload')
     const showZoom = zoom.username && displayedStores.includes('zoom')
     const showItchio = itchio.username && displayedStores.includes('itchio')
+    const showSteam = steam.enabled && displayedStores.includes('steam')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
@@ -441,6 +461,7 @@ export default React.memo(function Library(): JSX.Element {
     const amazonLibrary = showAmazon ? amazon.library : []
     const zoomLibrary = showZoom ? zoom.library : []
     const itchioLibrary = showItchio ? itchio.library : []
+    const steamLibrary = showSteam ? steam.library : []
 
     return [
       ...sideloadedApps,
@@ -448,7 +469,8 @@ export default React.memo(function Library(): JSX.Element {
       ...gogLibrary,
       ...amazonLibrary,
       ...zoomLibrary,
-      ...itchioLibrary
+      ...itchioLibrary,
+      ...steamLibrary
     ]
   }
 
@@ -507,6 +529,12 @@ export default React.memo(function Library(): JSX.Element {
 
       if (showUpdatesOnly) {
         library = library.filter((game) => gameUpdates.includes(game.app_name))
+      }
+
+      if (showSteamOwnedOnly) {
+        // Only hides Steam family-shared games; games from other stores (and
+        // owned Steam games) are left untouched.
+        library = library.filter((game) => !game.isFamilyShare)
       }
 
       if (!showNonAvailable) {
@@ -583,6 +611,8 @@ export default React.memo(function Library(): JSX.Element {
     gog.library,
     amazon.library,
     zoom.library,
+    steam.library,
+    steam.enabled,
     sideloadedLibrary,
     platform,
     filterText,
@@ -597,6 +627,7 @@ export default React.memo(function Library(): JSX.Element {
     showSupportOfflineOnly,
     showThirdPartyManagedOnly,
     showUpdatesOnly,
+    showSteamOwnedOnly,
     gameUpdates
   ])
 
@@ -690,6 +721,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
         showUpdatesOnly,
         setShowUpdatesOnly: handleShowUpdatesOnly,
+        showSteamOwnedOnly,
+        setShowSteamOwnedOnly: handleShowSteamOwnedOnly,
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),

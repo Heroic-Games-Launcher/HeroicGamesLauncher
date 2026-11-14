@@ -6,11 +6,12 @@ import SettingsContext from '../../SettingsContext'
 import { defaultWineVersion } from '../../util'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
+import SteamSyncSaves from './steam'
 import { ToggleSwitch } from 'frontend/components/UI'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
-  const { runner, gameInfo } = useContext(SettingsContext)
+  const { appName, runner, gameInfo } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -62,6 +63,10 @@ const SyncSaves = () => {
         quickSavesToggle={QuickSavesToggle}
       />
     )
+  }
+
+  if (runner === 'steam') {
+    return <SteamSyncSaves appName={appName} />
   }
 
   if (runner === 'gog') {

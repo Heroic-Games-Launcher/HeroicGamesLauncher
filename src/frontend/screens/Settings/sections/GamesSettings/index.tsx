@@ -28,6 +28,7 @@ import {
   PreferSystemLibs,
   ShowFPS,
   SteamRuntime,
+  SteamLaunchTarget,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -42,6 +43,7 @@ import { Alert, SettingsCard, TabPanel, Tabs } from 'frontend/components/UI'
 import type { TabItem } from 'frontend/components/UI/Tabs'
 import {
   FlaskConical,
+  Gamepad2,
   Gauge,
   Globe,
   MonitorCog,
@@ -55,6 +57,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'
+import { useSteamLaunchTargets } from 'frontend/hooks/useSteamLaunchTargets'
 import { defaultWineVersion } from '../../util'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
@@ -81,18 +84,34 @@ function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
   }
 }
 
-export default function GamesSettings() {
+interface Props {
+  // Overrides the remembered tab
+  initialTab?: string
+}
+
+export default function GamesSettings({ initialTab }: Props = {}) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo } = useContext(SettingsContext)
+  const { isDefault, appName, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const [isNative, setIsNative] = useState(false)
+  const [nativeFromApi, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
+  const steamTargets = useSteamLaunchTargets(appName, gameInfo, isLinux)
+  // Steam: follows the chosen game version
+  const steamPlatform = steamTargets.effective?.platform
+  const isNative = steamPlatform ? steamPlatform === 'linux' : nativeFromApi
+  // Hide card when both rows hide
+  const showSteamCard =
+    gameInfo?.runner === 'steam' &&
+    !isDefault &&
+    (isLinux || steamTargets.targets.length > 1)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
   const showCloudSavesTab =
-    gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
+    gameInfo?.runner === 'gog' ||
+    gameInfo?.runner === 'legendary' ||
+    (gameInfo?.runner === 'steam' && gameInfo.is_installed)
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
 
@@ -115,7 +134,9 @@ export default function GamesSettings() {
     ? `${gameInfo.app_name}-setting_tab`
     : 'default'
   const latestTabIndex =
-    localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)
+    initialTab ||
+    localStorage.getItem(localStorageKey) ||
+    getStartingTab(platform, gameInfo)
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (newValue: string) => {
@@ -255,6 +276,14 @@ export default function GamesSettings() {
             </>
           )}
         </SettingsCard>
+        {showSteamCard && (
+          <SettingsCard
+            glyph={Gamepad2}
+            title={t('settings.section.steam', 'Steam')}
+          >
+            <SteamLaunchTarget state={steamTargets} />
+          </SettingsCard>
+        )}
       </TabPanel>
 
       <TabPanel value={value} index={'advanced'}>
