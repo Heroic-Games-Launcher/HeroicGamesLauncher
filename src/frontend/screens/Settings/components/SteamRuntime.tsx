@@ -79,7 +79,7 @@ function SteamRuntime() {
           <InfoIcon
             text={t(
               'help.steamruntime',
-              'Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.'
+              'Custom libraries provided by Steam to help run linux and windows (Proton) games. Enabling might improve compatibility.'
             )}
           />
         </Box>

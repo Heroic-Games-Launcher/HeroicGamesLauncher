@@ -22,7 +22,7 @@ const EnableMsync = () => {
     <ToggleSwitch
       info={t(
         'help.msync',
-        'Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
+        'Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported linux kernels.'
       )}
       description={t(
         'setting.msync-description',

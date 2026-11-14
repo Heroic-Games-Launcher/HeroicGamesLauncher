@@ -131,17 +131,17 @@ export default function WineManager(): JSX.Element | null {
       case 'Game-Porting-Toolkit':
         return t(
           'wineExplanation.gpt',
-          'Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.'
+          'Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon macs with the M1+ chips and works best for newer games that use DX12.'
         )
       case 'Wine-Crossover':
         return t(
           'wineExplanation.wine-crossover',
-          'Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.'
+          'Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel macs and for DX11 or older games.'
         )
       case 'Wine-Staging-macOS':
         return t(
           'wineExplanation.wine-staging-macos',
-          'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool.'
+          'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel macs and for DX11 or older games, especially when paired with the DXMT tool.'
         )
       case 'Proton-CachyOS':
         return t(

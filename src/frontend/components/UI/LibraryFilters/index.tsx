@@ -123,22 +123,22 @@ export default function LibraryFilters() {
     show: boolean
   }
   const platforms: PlatformDef[] = [
-    { key: 'win', label: t('platforms.win', 'Windows'), tag: 'W', show: true },
+    { key: 'win', label: t('platforms.win', 'windows'), tag: 'W', show: true },
     {
       key: 'linux',
-      label: t('platforms.linux', 'Linux'),
+      label: t('platforms.linux', 'linux'),
       tag: 'L',
       show: platform === 'linux'
     },
     {
       key: 'mac',
-      label: t('platforms.mac', 'Mac'),
+      label: t('platforms.mac', 'mac'),
       tag: 'M',
       show: platform === 'darwin'
     },
     {
       key: 'browser',
-      label: t('platforms.browser', 'Browser'),
+      label: t('platforms.browser', 'browser'),
       tag: 'B',
       show: true
     }

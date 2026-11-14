@@ -101,7 +101,7 @@ export default function GOGSyncSaves({
         {isLinuxNative &&
           t(
             'settings.saves.gog_linux_native_warning',
-            "Linux native games do not support GOG's cloud saves feature. Use the Windows version instead."
+            "linux native games do not support GOG's cloud saves feature. Use the windows version instead."
           )}
         <br />
         {!featureSupported &&

@@ -30,7 +30,7 @@ export default function AnalyticsDialog() {
               <li>
                 {t(
                   'analyticsModal.info.pt2',
-                  'Heroic uses the open-source Plausible Analytics platform, self-hosted by the Heroic team, to gather basic data: App version, OS, system architecture, Linux distribution, stores connected and country.'
+                  'Heroic uses the open-source Plausible Analytics platform, self-hosted by the Heroic team, to gather basic data: App version, OS, system architecture, linux distribution, stores connected and country.'
                 )}
               </li>
               <li>

@@ -98,7 +98,7 @@ export default function Tools() {
         label="Winetricks"
         description={t(
           'setting.winetricks.description',
-          'Install Windows libraries and components into this prefix'
+          'Install windows libraries and components into this prefix'
         )}
       >
         <Button
