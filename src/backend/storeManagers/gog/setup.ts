@@ -14,7 +14,7 @@ import {
   LogPrefix,
   logWarning
 } from 'backend/logger'
-import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
+import { getWinePaths, runWineCommand, verifyWinePrefix } from '../../launcher'
 import { libraryManagerMap } from '..'
 import { readFile } from 'node:fs/promises'
 import shlex from 'shlex'
@@ -161,16 +161,13 @@ async function setup(
   // When there is no scummvm in dependencies, proceed with windows paths
   if (!isWindows) {
     if (!dependencies.find((dep) => dep.toLowerCase() === 'scummvm')) {
-      gameSupportDir = await getWinePath({
-        path: gameSupportDir,
+      const [supportDirWinPath, gameDirWinPath] = await getWinePaths({
+        paths: [gameSupportDir, gameDirectoryPath],
         gameSettings,
         variant: 'win'
       })
-      gameDirectoryPath = await getWinePath({
-        path: gameDirectoryPath,
-        gameSettings,
-        variant: 'win'
-      })
+      gameSupportDir = supportDirWinPath
+      gameDirectoryPath = gameDirWinPath
     }
   }
 
