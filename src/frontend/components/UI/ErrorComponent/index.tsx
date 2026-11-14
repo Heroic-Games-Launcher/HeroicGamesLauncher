@@ -29,7 +29,7 @@ export default function ErrorComponent({ message }: { message: string }) {
                   })
                 }
               >
-                {t('generic.library.refresh', 'Refresh Library')}
+                {t('generic.library.refresh', 'Refresh library')}
               </Button>
               <Button
                 fullWidth
@@ -37,7 +37,7 @@ export default function ErrorComponent({ message }: { message: string }) {
                 onClick={() => window.api.clearCache(true)}
                 variant="ghost"
               >
-                {t('settings.clear-cache', 'Clear Heroic Cache')}
+                {t('settings.clear-cache', 'Clear Heroic cache')}
               </Button>
               <Button
                 fullWidth

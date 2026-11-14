@@ -26,7 +26,7 @@ const HideChangelogOnStartup = () => {
       handleChange={handleChange}
       title={t(
         'setting.hideChangelogsOnStartup',
-        "Don't show changelogs on Startup"
+        "Don't show changelogs on startup"
       )}
     />
   )

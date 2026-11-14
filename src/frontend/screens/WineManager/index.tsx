@@ -46,7 +46,7 @@ export default function WineManager(): JSX.Element | null {
 
   hasHelp(
     'wineManager',
-    t('help.title.wineManager', 'Wine Manager'),
+    t('help.title.wineManager', 'Wine manager'),
     <p>
       {t(
         'help.content.wineManager',
@@ -131,17 +131,17 @@ export default function WineManager(): JSX.Element | null {
       case 'Game-Porting-Toolkit':
         return t(
           'wineExplanation.gpt',
-          'Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.'
+          'Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon macs with the M1+ chips and works best for newer games that use DX12.'
         )
       case 'Wine-Crossover':
         return t(
           'wineExplanation.wine-crossover',
-          'Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.'
+          'Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel macs and for DX11 or older games.'
         )
       case 'Wine-Staging-macOS':
         return t(
           'wineExplanation.wine-staging-macos',
-          'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool.'
+          'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel macs and for DX11 or older games, especially when paired with the DXMT tool.'
         )
       case 'Proton-CachyOS':
         return t(
@@ -164,7 +164,7 @@ export default function WineManager(): JSX.Element | null {
     () => [
       {
         key: 'version',
-        header: t('info.version', 'Wine Version'),
+        header: t('info.version', 'Wine version'),
         width: '40%',
         render: (wineVersion) => (
           <Tooltip content={t('wine.notes', 'Notes')} asChild>
@@ -182,7 +182,7 @@ export default function WineManager(): JSX.Element | null {
       },
       {
         key: 'date',
-        header: t('wine.release', 'Release Date'),
+        header: t('wine.release', 'Release date'),
         width: '22%',
         collapseOnNarrow: true,
         className: 'WineManager__date',
@@ -217,7 +217,7 @@ export default function WineManager(): JSX.Element | null {
   return (
     <div className="WineManager">
       <PageHeader
-        title={t('wine.manager.title', 'Wine Manager')}
+        title={t('wine.manager.title', 'Wine manager')}
         description={t(
           'wine.manager.subtitle',
           'Download and manage the Wine, Proton and CrossOver builds Heroic can use'
@@ -229,10 +229,10 @@ export default function WineManager(): JSX.Element | null {
               value={search}
               onInputChanged={setSearch}
             />
-            <Tooltip content={t('generic.library.refresh', 'Refresh Library')}>
+            <Tooltip content={t('generic.library.refresh', 'Refresh library')}>
               <Button
                 variant="ghost"
-                aria-label={t('generic.library.refresh', 'Refresh Library')}
+                aria-label={t('generic.library.refresh', 'Refresh library')}
                 onClick={() => refreshWineVersions(true)}
                 icon={
                   <Icon
@@ -262,7 +262,7 @@ export default function WineManager(): JSX.Element | null {
         items={tabItems}
         value={repository.value}
         onChange={handleChangeTab}
-        aria-label={t('wine.manager.title', 'Wine Manager')}
+        aria-label={t('wine.manager.title', 'Wine manager')}
       />
 
       {wineVersionExplanation && (
@@ -274,7 +274,7 @@ export default function WineManager(): JSX.Element | null {
           columns={columns}
           rows={filteredWineVersions}
           rowKey={(wineVersion) => wineVersion.version}
-          caption={t('wine.manager.title', 'Wine Manager')}
+          caption={t('wine.manager.title', 'Wine manager')}
           loading={refreshingWineVersions}
           empty={
             search

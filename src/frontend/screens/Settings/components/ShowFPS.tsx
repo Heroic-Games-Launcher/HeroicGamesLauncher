@@ -30,7 +30,7 @@ const ShowFPS = () => {
       title={
         isLinux
           ? t('setting.showfps')
-          : t('setting.showMetalOverlay', 'Show Stats Overlay')
+          : t('setting.showMetalOverlay', 'Show stats overlay')
       }
     />
   )

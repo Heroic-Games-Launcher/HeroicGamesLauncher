@@ -86,7 +86,7 @@ export default function LegendarySyncSaves({
       <Alert variant="info">
         {t(
           'settings.saves.not_supported',
-          'This game does not support Cloud Saves.'
+          'This game does not support cloud saves.'
         )}
       </Alert>
     )
@@ -108,7 +108,7 @@ export default function LegendarySyncSaves({
       <Alert variant="warning">
         {t(
           'settings.saves.warning',
-          'Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)'
+          'Cloud saves feature is in beta, please backup your saves before syncing (in case something goes wrong)'
         )}
       </Alert>
       {isLoading ? (

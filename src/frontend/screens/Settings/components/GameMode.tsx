@@ -26,7 +26,7 @@ const GameMode = () => {
           ),
           message: t(
             'settings.gameMode.eacRuntimeEnabled.message',
-            "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?"
+            "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC runtime and GameMode?"
           ),
           buttons: [
             {

@@ -154,17 +154,17 @@ export default function SidebarLinks() {
             <SidebarItem
               className="SidebarLinks__subItem"
               url="/store/epic"
-              label={t('store', 'Epic Store')}
+              label={t('store', 'Epic store')}
             />
             <SidebarItem
               className="SidebarLinks__subItem"
               url="/store/gog"
-              label={t('gog-store', 'GOG Store')}
+              label={t('gog-store', 'GOG store')}
             />
             <SidebarItem
               className="SidebarLinks__subItem"
               url="/store/itchio"
-              label={t('itchio-store', 'itch.io Store')}
+              label={t('itchio-store', 'itch.io store')}
             />
             <SidebarItem
               className="SidebarLinks__subItem"
@@ -175,7 +175,7 @@ export default function SidebarLinks() {
               <SidebarItem
                 className="SidebarLinks__subItem"
                 url="/store/zoom"
-                label={t('zoom-store', 'Zoom Store')}
+                label={t('zoom-store', 'Zoom store')}
               />
             )}
           </div>
@@ -202,7 +202,7 @@ export default function SidebarLinks() {
         <SidebarItem
           url="/wine-manager"
           icon={<Icon glyph={Wine} />}
-          label={t('wine.manager.link', 'Wine Manager')}
+          label={t('wine.manager.link', 'Wine manager')}
           dataTour="sidebar-wine"
         />
       )}
@@ -217,7 +217,7 @@ export default function SidebarLinks() {
       <SidebarItem
         url="/console"
         icon={<Icon glyph={Tv} />}
-        label={t('sidebar.console', 'Console Mode')}
+        label={t('sidebar.console', 'Console mode')}
         dataTour="sidebar-console"
       />
 
@@ -232,7 +232,7 @@ export default function SidebarLinks() {
       {!loggedIn && (
         <SidebarItem
           icon={<Icon glyph={LogIn} />}
-          label={t('sidebar.storesLogin', 'Stores Login')}
+          label={t('sidebar.storesLogin', 'Stores login')}
           url="/login"
           dataTour="sidebar-login"
         />

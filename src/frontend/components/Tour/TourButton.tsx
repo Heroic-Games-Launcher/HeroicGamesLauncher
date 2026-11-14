@@ -27,7 +27,7 @@ const TourButton: React.FC<TourButtonProps> = ({
     startTour(tourId)
   }
 
-  const buttonLabel = label || t('tour.startTour', 'Start Tour')
+  const buttonLabel = label || t('tour.startTour', 'Start tour')
 
   return (
     <Tooltip content={buttonLabel} asChild>

@@ -45,7 +45,7 @@ const AltNileBin = () => {
         nileVersion ? (
           <span className="fieldCaption">
             <span className="fieldCaption__label">
-              {t('other.nile-version', 'Nile Version: ')}
+              {t('other.nile-version', 'Nile version: ')}
             </span>
             <span className="fieldCaption__value">{nileVersion}</span>
           </span>

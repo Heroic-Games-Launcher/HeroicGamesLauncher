@@ -508,7 +508,7 @@ process.on('uncaughtException', async (err) => {
   showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
-      'Uncaught Exception occured!'
+      'Uncaught exception occured!'
     ),
     message: i18next.t('box.error.uncaught-exception.message', {
       defaultValue:
@@ -943,7 +943,7 @@ addHandler('repair', async (event, appName, runner) => {
   } catch (error) {
     notify({
       title,
-      body: i18next.t('notify.error.reparing', 'Error Repairing')
+      body: i18next.t('notify.error.reparing', 'Error repairing')
     })
     logError(error, LogPrefix.Backend)
   }
@@ -969,7 +969,7 @@ addHandler(
     const { title, install } = libraryManagerMap[runner]
       .getGame(appName)
       .getGameInfo()
-    notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
+    notify({ title, body: i18next.t('notify.moving', 'Moving game') })
 
     let validNewPath = true
 
@@ -987,7 +987,7 @@ addHandler(
       showDialogBoxModalAuto({
         event,
         title: i18next.t('box.error.title', 'Error'),
-        message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
+        message: i18next.t('box.error.moving', 'Error moving game {{error}}', {
           error
         }),
         type: 'ERROR'
@@ -1048,7 +1048,7 @@ addHandler(
           title: i18next.t('box.warning.title', 'Warning'),
           message: i18next.t(
             'box.warning.epic.import',
-            'Epic Servers are having major outage right now, the game cannot be imported!'
+            'Epic servers are having major outage right now, the game cannot be imported!'
           ),
           type: 'ERROR'
         })
@@ -1066,7 +1066,7 @@ addHandler(
     const abortMessage = () => {
       notify({
         title,
-        body: i18next.t('notify.import.failed', 'Importing Failed')
+        body: i18next.t('notify.import.failed', 'Importing failed')
       })
       sendGameStatusUpdate({
         appName,
@@ -1101,7 +1101,7 @@ addHandler(
 
     notify({
       title,
-      body: i18next.t('notify.install.imported', 'Game Imported')
+      body: i18next.t('notify.install.imported', 'Game imported')
     })
     sendGameStatusUpdate({
       appName,

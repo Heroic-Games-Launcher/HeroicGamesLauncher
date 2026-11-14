@@ -745,7 +745,7 @@ export default React.memo(function Library(): JSX.Element {
             title={
               showFavourites
                 ? t('favourites', 'Favourites')
-                : t('title.allGames', 'All Games')
+                : t('title.allGames', 'All games')
             }
             subtitle={t('library.gamesCount', {
               count: countGames(libraryToShow),

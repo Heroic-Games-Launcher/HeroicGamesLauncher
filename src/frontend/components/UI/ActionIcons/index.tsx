@@ -109,16 +109,16 @@ export default React.memo(function ActionIcons({
         <Tooltip
           content={
             sortDescending
-              ? t('library.sortDescending', 'Sort Descending')
-              : t('library.sortAscending', 'Sort Ascending')
+              ? t('library.sortDescending', 'Sort descending')
+              : t('library.sortAscending', 'Sort ascending')
           }
           asChild
         >
           <button
             aria-label={
               sortDescending
-                ? t('library.sortDescending', 'Sort Descending')
-                : t('library.sortAscending', 'Sort Ascending')
+                ? t('library.sortDescending', 'Sort descending')
+                : t('library.sortAscending', 'Sort ascending')
             }
             className="FormControl__button"
             onClick={() => setSortDescending(!sortDescending)}
@@ -138,9 +138,9 @@ export default React.memo(function ActionIcons({
             )}
           </button>
         </Tooltip>
-        <Tooltip content={t('library.sortByStatus', 'Sort by Status')} asChild>
+        <Tooltip content={t('library.sortByStatus', 'Sort by status')} asChild>
           <button
-            aria-label={t('library.sortByStatus', 'Sort by Status')}
+            aria-label={t('library.sortByStatus', 'Sort by status')}
             className="FormControl__button"
             onClick={() => setSortInstalled(!sortInstalled)}
           >
@@ -157,16 +157,16 @@ export default React.memo(function ActionIcons({
         <Tooltip
           content={
             showAlphabetFilter
-              ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter')
-              : t('library.showAlphabetFilter', 'Show Alphabet Filter')
+              ? t('library.hideAlphabetFilter', 'Hide alphabet filter')
+              : t('library.showAlphabetFilter', 'Show alphabet filter')
           }
           asChild
         >
           <button
             aria-label={
               showAlphabetFilter
-                ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter')
-                : t('library.showAlphabetFilter', 'Show Alphabet Filter')
+                ? t('library.hideAlphabetFilter', 'Hide alphabet filter')
+                : t('library.showAlphabetFilter', 'Show alphabet filter')
             }
             className="FormControl__button"
             onClick={onToggleAlphabetFilter}
@@ -185,11 +185,11 @@ export default React.memo(function ActionIcons({
           </button>
         </Tooltip>
         <Tooltip
-          content={t('generic.library.refresh', 'Refresh Library')}
+          content={t('generic.library.refresh', 'Refresh library')}
           asChild
         >
           <button
-            aria-label={t('generic.library.refresh', 'Refresh Library')}
+            aria-label={t('generic.library.refresh', 'Refresh library')}
             className={classNames('FormControl__button', {
               active: refreshing || spinning
             })}

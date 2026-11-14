@@ -22,7 +22,7 @@ const LibraryTopSection = () => {
 
   return (
     <SelectField
-      label={t('setting.library_top_section', 'Library Top Section')}
+      label={t('setting.library_top_section', 'Library top section')}
       htmlId="library_top_section_selector"
       onChange={onSectionChange}
       value={libraryTopSection}
@@ -30,17 +30,17 @@ const LibraryTopSection = () => {
       <MenuItem value="recently_played">
         {t(
           'setting.library_top_option.recently_played',
-          'Recently Played Games'
+          'Recently played games'
         )}
       </MenuItem>
       <MenuItem value="recently_played_installed">
         {t(
           'setting.library_top_option.recently_played_installed',
-          'Recently Played Games (Only Installed)'
+          'Recently played games (only installed)'
         )}
       </MenuItem>
       <MenuItem value="favourites">
-        {t('setting.library_top_option.favourites', 'Favourite Games')}
+        {t('setting.library_top_option.favourites', 'Favourite games')}
       </MenuItem>
       <MenuItem value="disabled">
         {t('setting.library_top_option.disabled', 'Disabled')}

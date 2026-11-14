@@ -201,7 +201,7 @@ export default function Discounts() {
 
   const [wishlistIds, setWishlistIds] = useState<Set<string>>(new Set())
 
-  // The "Wishlist Only" and "Hide Owned" checkboxes are hidden in the filter
+  // The "Wishlist only" and "Hide owned" checkboxes are hidden in the filter
   // bar when the user is logged out of GOG, but the toggle state still lives
   // in localStorage from a previous logged-in session. Treat them as off
   // while logged out so the persisted preference doesn't silently filter the
@@ -267,7 +267,7 @@ export default function Discounts() {
   }, [gogRegion, localeSettings, gmgCurrency, effectiveHideOwned, t])
 
   // Wishlist is fetched separately and applied client-side, so toggling the
-  // "Wishlist Only" filter never wipes the loaded products. Without this,
+  // "Wishlist only" filter never wipes the loaded products. Without this,
   // a wishlist with no items currently on sale would empty the grid and hide
   // the filter bar, leaving the user with no way to untoggle. See issue #5588.
   useEffect(() => {

@@ -67,11 +67,11 @@ export default function WineVersionActions({ wineVersion }: Props) {
 
   return (
     <div className="WineVersionActions">
-      <Tooltip content={t('wine.manager.open_folder', 'Open Folder')}>
+      <Tooltip content={t('wine.manager.open_folder', 'Open folder')}>
         <Button
           variant="ghost"
           size="sm"
-          aria-label={t('wine.manager.open_folder', 'Open Folder')}
+          aria-label={t('wine.manager.open_folder', 'Open folder')}
           onClick={openInstallDir}
           icon={<Icon glyph={FolderOpen} size="md" />}
         />

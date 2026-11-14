@@ -426,7 +426,7 @@ export default function GamesSubmenu({
               glyph={HardDriveDownload}
               onClick={async () => onShowModifyInstall()}
             >
-              {t('game.modify', 'Modify Installation')}
+              {t('game.modify', 'Modify installation')}
             </MenuItem>
           )}
           {isInstalled && (

@@ -129,7 +129,7 @@ export default function SteamGridDBPicker({
               <FontAwesomeIcon icon={faArrowLeft} />
             </Button>
           )}
-          <h3>{t('steamgriddb.picker.title', 'SteamGridDB Covers')}</h3>
+          <h3>{t('steamgriddb.picker.title', 'SteamGridDB covers')}</h3>
         </div>
         <Button variant="primary" className="is-ghost" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
@@ -139,7 +139,7 @@ export default function SteamGridDBPicker({
       {!selectedGameId && (
         <TextInputWithIconField
           htmlId="steamgriddb-search"
-          label={t('steamgriddb.picker.search', 'Search Game')}
+          label={t('steamgriddb.picker.search', 'Search game')}
           value={query}
           onChange={setQuery}
           icon={<FontAwesomeIcon icon={faSearch} />}
@@ -162,7 +162,7 @@ export default function SteamGridDBPicker({
 
       {!loading && games.length > 1 && !selectedGameId && (
         <div className="SteamGridDBPicker__games">
-          <h4>{t('steamgriddb.picker.select-game', 'Select a Game:')}</h4>
+          <h4>{t('steamgriddb.picker.select-game', 'Select a game:')}</h4>
           <ul>
             {games.map((game) => (
               <li key={game.id} onClick={() => void handleSelectGame(game.id)}>
