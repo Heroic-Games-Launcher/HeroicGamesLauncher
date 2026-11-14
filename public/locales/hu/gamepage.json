@@ -99,7 +99,8 @@
         "play": "INDÍTÁS",
         "edit-game": "Játék szerkesztése",
         "favourite": "Hozzáadás a kedvencekhez",
-        "unfavourite": "Eltávolítás a kedvencek közül"
+        "unfavourite": "Eltávolítás a kedvencek közül",
+        "backToLibrary": "Vissza a könyvtárhoz"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -136,7 +137,11 @@
         "extra_info": "További információk",
         "install_info": "Telepítési információk",
         "achievements": "Eredmények",
-        "details": "Játék adatai"
+        "details": "Játék adatai",
+        "hoursPlayedShort": "{{hours}} óra",
+        "overview": "Áttekintés",
+        "tabs": "Játékinformációk",
+        "about": "A játékról"
     },
     "gamecard": {
         "moving": "Áthelyezés",
@@ -169,8 +174,12 @@
         "third-party-app": "Külső kezelő",
         "genres": "Műfajok",
         "steamdeck": {
-            "unsupported": "Nem támogatott"
-        }
+            "unsupported": "Nem támogatott",
+            "playable": "Játszható",
+            "unknown": "Ismeretlen",
+            "verified": "Ellenőrizve"
+        },
+        "developer": "Fejlesztő"
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",
@@ -198,9 +207,10 @@
             "not-installable-game": "A játék NEM telepíthető"
         },
         "playing": {
-            "start": "Indítás most",
+            "start": "Játék",
             "stop": "Játékban (leállítás)",
-            "start_with_logs": "Indítás most (naplóval)"
+            "start_with_logs": "Játék naplóval",
+            "start_with_logs_hint": "Elindítja a játékot részletes napló készítése mellett, ami hasznos lehet a problémák bejelentésekor"
         },
         "saves": {
             "syncing": "Mentések szinkronizálása"
@@ -336,7 +346,8 @@
         "verify": "Ellenőrzés és javítás",
         "extraInfo": "Extra Info",
         "logs": "Naplók",
-        "categories": "Kategóriák"
+        "categories": "Kategóriák",
+        "more": "Továbbiak"
     },
     "help": {
         "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak.",
@@ -389,5 +400,10 @@
         },
         "square": "Négyzetes grafika",
         "title": "Játék szerkesztése"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Az itch.io alkalmazással telepített mappák teljes egészükben importálásra kerülnek, a frissítésekkel együtt. Más mappák esetében a Heroic nem tudja ellenőrizni az elérhető frissítéseket, és eltávolításkor a játékfájlok sem törlődnek."
+        }
     }
 }

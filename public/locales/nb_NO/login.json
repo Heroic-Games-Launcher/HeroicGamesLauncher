@@ -26,7 +26,8 @@
     "welcome": "Velkommen!",
     "itchio": {
         "api_key_placeholder": "Lim inn API-nøkkelen din",
-        "paste_and_login": "Lim inn fra utklippstavlen"
+        "paste_and_login": "Lim inn fra utklippstavlen",
+        "instructions": "Hvis du ikke får logget inn til itch.io på vanlig måte, kan du koble deg til kontoen med en personlig API-nøkkel istedenfor. Naviger til itchios API-nøkkelside, generer en nøkkel, og lim den inn nedenfor."
     },
     "sid": {
         "paste_and_login": "Lim inn fra utklippstavlen",

@@ -98,7 +98,8 @@
         "browse_files": "",
         "edit-game": "앱/게임 편집",
         "favourite": "즐겨찾기에 추가",
-        "unfavourite": "즐겨찾기에서 제거"
+        "unfavourite": "즐겨찾기에서 제거",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "지원되지 않음",
     "disabled": "비활성화됨",
@@ -135,7 +136,11 @@
         "install_info": "설치 정보",
         "extra_info": "추가 정보",
         "achievements": "",
-        "details": "게임 세부 정보"
+        "details": "게임 세부 정보",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "이동하는 중",
@@ -167,8 +172,13 @@
         "steamdeck-compatibility-info": "스팀덱 호환성",
         "third-party-app": "타사 관리자",
         "steamdeck": {
-            "unsupported": "지원되지 않음"
-        }
+            "unsupported": "지원되지 않음",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",
@@ -197,7 +207,8 @@
         "playing": {
             "start": "지금 실행하기",
             "stop": "플레이 중 (중지)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "저장 동기화 중"
@@ -245,7 +256,9 @@
             "title": "게임/앱 제목",
             "broser": "브라우저URL",
             "useragent": "커스텀 사용자 에이전트",
-            "fullscreen": "전체 화면 실행 (나가려면 F11)"
+            "fullscreen": "전체 화면 실행 (나가려면 F11)",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "여기에 이미지 URL 붙여넣기",
@@ -256,6 +269,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -307,7 +323,8 @@
         "verify": "확인 및 복구",
         "extraInfo": "추가 정보",
         "logs": "로그",
-        "categories": "범주"
+        "categories": "범주",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "이 게임은 클라우드 저장을 지원하지 않습니다. 이 정보는 게임 개발자에 의해 제공됩니다. 일부 게임은 자체 클라우드 저장 시스템을 지원합니다",
@@ -348,6 +365,22 @@
         "placeholder": {
             "image": "여기에 이미지 URL 붙여넣기"
         },
-        "title": "앱/게임 편집"
+        "title": "앱/게임 편집",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

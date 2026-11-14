@@ -6,7 +6,8 @@
         "copied": "已复制！",
         "error": "错误，尝试不同的代码",
         "loading": "加载中",
-        "close": "关闭"
+        "close": "关闭",
+        "itchio_error": ""
     },
     "message": {
         "part1": "为了登录并安装游戏，你需要按以下步骤操作：",
@@ -22,5 +23,14 @@
         "error": "错误",
         "loading": "正在加载游戏列表，请稍后"
     },
-    "welcome": "欢迎你！"
+    "welcome": "欢迎你！",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

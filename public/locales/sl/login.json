@@ -19,5 +19,14 @@
         "part7": "avtorizacijsko kodo",
         "part8": "v spodnje polje in kliknite na gumb za vpis."
     },
-    "welcome": "Dobrodošli!"
+    "welcome": "Dobrodošli!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

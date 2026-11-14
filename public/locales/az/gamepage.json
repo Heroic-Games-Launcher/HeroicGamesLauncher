@@ -97,7 +97,10 @@
         "browse_wine_prefix": "",
         "play": "",
         "browse_files": "",
-        "edit-game": "Edit App/Game"
+        "edit-game": "Edit App/Game",
+        "backToLibrary": "",
+        "favourite": "",
+        "unfavourite": ""
     },
     "cloud_save_unsupported": "Dəstəklənmir",
     "disabled": "Əlil",
@@ -134,7 +137,11 @@
         },
         "changelogFor": "{{gameTitle}} üçün dəyişiklik jurnalı",
         "achievements": "",
-        "details": "Game Defaults"
+        "details": "Game Defaults",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Hərəkət edir",
@@ -164,7 +171,15 @@
         "installedInfo": "Quraşdırılmış Məlumat",
         "protondb-compatibility-info": "Proton Uyğunluq Səviyyəsi",
         "steamdeck-compatibility-info": "SteamDeck Uyğunluğu",
-        "third-party-app": "Üçüncü-Tərəf İdarəedici"
+        "third-party-app": "Üçüncü-Tərəf İdarəedici",
+        "steamdeck": {
+            "verified": "",
+            "unknown": "",
+            "playable": "",
+            "unsupported": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "Yer Mövcuddur",
@@ -192,7 +207,8 @@
         "playing": {
             "start": "İndi oyna",
             "stop": "Oynanır (Dayandır)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sinxronizasiya Saxlamalar"
@@ -203,7 +219,8 @@
         "redist": "Redistributables-Lazımi Fayllar Quraşdırılır",
         "steam": {
             "pleaseWait": "Please wait..."
-        }
+        },
+        "releaseDate": ""
     },
     "launch": {
         "options": "Başlama Seçimləri...",
@@ -237,7 +254,9 @@
             "title": "Game/App Title",
             "broser": "BrowserURL",
             "fullscreen": "Tam Ekranda Başlat (çıxmaq üçün F11-ə basın)",
-            "useragent": "Özəl İstifadəçi Agenti"
+            "useragent": "Özəl İstifadəçi Agenti",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Paste an Image URL here",
@@ -248,6 +267,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -299,7 +321,8 @@
         "verify": "Doğrulayın və Təmir edin",
         "extraInfo": "Əlavə məlumat",
         "logs": "Qeydlər",
-        "categories": "Kateqoriyalar"
+        "categories": "Kateqoriyalar",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Bu oyun bulud qənaətlərini dəstəkləmir. Bu məlumat oyun tərtibatçıları tərəfindən verilir. Bəzi oyunlar öz bulud qənaət sistemini tətbiq edir",
@@ -339,6 +362,23 @@
         "placeholder": {
             "image": "Paste an Image URL here"
         },
-        "title": "Edit App/Game"
+        "title": "Edit App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "advanced": "",
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

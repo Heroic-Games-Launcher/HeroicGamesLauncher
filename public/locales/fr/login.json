@@ -23,5 +23,14 @@
         "error": "Erreur",
         "loading": "Chargement de la liste des jeux, veuillez patienter"
     },
-    "welcome": "Bienvenue !"
+    "welcome": "Bienvenue !",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

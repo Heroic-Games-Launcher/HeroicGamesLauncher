@@ -391,5 +391,10 @@
         },
         "square": "Ealaín Chearnógach",
         "title": "Cuir Cluiche in Eagar"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Déantar fillteáin a shuiteáiltear tríd an aip itch.io a iompórtáil go hiomlán, nuashonruithe san áireamh. I gcás aon fhillteáin eile, ní féidir le Heroic seiceáil an bhfuil nuashonruithe ar fáil, agus ní scriosfar comhaid an chluiche má dhéantar an clár a dhíshuiteáil."
+        }
     }
 }

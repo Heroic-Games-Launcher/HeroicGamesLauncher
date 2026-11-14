@@ -6,7 +6,8 @@
         "copied": "Copiado!",
         "error": "Produciuse un erro, proba cun código diferente",
         "loading": "Cargando",
-        "close": "Pechar"
+        "close": "Pechar",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Para que poidas iniciar sesión e instalar os teus xogos, primeiro debes seguir os pasos a continuación:",
@@ -22,5 +23,14 @@
         "error": "Erro",
         "loading": "Cargando lista de xogos, agarde"
     },
-    "welcome": "Benvida/o!"
+    "welcome": "Benvida/o!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

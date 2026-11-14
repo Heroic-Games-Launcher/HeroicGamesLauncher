@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "Sanftes Scrollen deaktivieren (benötigt Neustart)",
         "disable_animations": "Deaktiviere die Animationen des Nutzerinterfaces",
         "section": {
-            "library": "Bibliothek"
-        }
+            "library": "Bibliothek",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Spiel hinzufügen",
     "All": "Alle",
@@ -193,6 +196,12 @@
             "rosetta": {
                 "title": "Rosetta wurde nicht gefunden",
                 "message": "Heroic benötigt Rosetta, um auf macOS mit Apple-Silicon-Chips korrekt zu funktionieren. Bitte installiere Rosetta über das Terminal mit folgendem Befehl: „softwareupdate --install-rosetta“ und starte Heroic anschließend neu. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
@@ -213,7 +222,8 @@
         "syncing": "Synchronisiere",
         "unsync": "Nicht mehr synchronisieren",
         "continue": "Weiter",
-        "close": "Schließen"
+        "close": "Schließen",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -249,7 +259,8 @@
         },
         "label": {
             "disk": "Festplatte",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": ""
         },
         "link": "Downloads",
         "queue": {
@@ -259,7 +270,15 @@
             "type": "Typ"
         },
         "title": "Downloads",
-        "ETA": "Geschätzte Zeit"
+        "ETA": "Geschätzte Zeit",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Online-Dienste funktionieren möglicherweise nicht vollständig, da die Server von Epic Games offline sind!",
@@ -311,7 +330,10 @@
         "show_third_party_managed_only": "Nur von Drittanbietern verwaltete anzeigen",
         "show_updates_only": "Nur Spiele mit Updates anzeigen",
         "platforms": "Platform",
-        "stores": "Shops"
+        "stores": "Shops",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Bildrate durch Hochskalieren niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
@@ -448,7 +470,9 @@
             "list": "Auf Listenansicht umschalten"
         },
         "hideAlphabetFilter": "Verstecke den Alphabet-Filter",
-        "showAlphabetFilter": "Zeige den Alphabet-Filter"
+        "showAlphabetFilter": "Zeige den Alphabet-Filter",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Bibliothek",
     "loading": {
@@ -462,7 +486,8 @@
         "message": "Melde dich bei deiner Plattform an. Du kannst auch bei mehreren gleichzeitig angemeldet sein.",
         "amazon": "Amazon-Anmeldung",
         "old-mac": "Deine macOS Version ist {{version}}. Um sich anzumelden wird mindestens macOS 12 benötigt.",
-        "zoom": "Login mit Zoom"
+        "zoom": "Login mit Zoom",
+        "itchio": ""
     },
     "message": {
         "sync": "Synchronisation abgeschlossen",
@@ -617,7 +642,8 @@
             "queued": "In Warteschlange",
             "remove": "Aus Downloads entfernen",
             "pause": "Download pausieren",
-            "resume": "Download fortsetzen"
+            "resume": "Download fortsetzen",
+            "paused": ""
         }
     },
     "Recent": "Zuletzt gespielte Spiele",
@@ -664,7 +690,8 @@
             "removeConfirm": "Bist du sicher, dass du das EOS-Overlay deinstallieren möchtest?",
             "removeConfirmTitle": "Overlay-Entfernung bestätigen",
             "updateNow": "Aktualisieren",
-            "updating": "Wird aktualisiert …"
+            "updating": "Wird aktualisiert …",
+            "description": ""
         },
         "esync": "Esync aktivieren",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
@@ -724,10 +751,13 @@
                 "gog": "GOG-Log",
                 "legendary": "Epic Games / Legendary Log",
                 "nile": "Amazon / Nile Log",
-                "zoom": "Zoom-Log"
+                "zoom": "Zoom-Log",
+                "itchio": ""
             },
             "show-uploads": "Hochgeladene Log-Dateien anzeigen",
-            "error": "Interner Fehler beim Lesen der Protokolldatei"
+            "error": "Interner Fehler beim Lesen der Protokolldatei",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
         "manualsync": {
@@ -747,12 +777,15 @@
         "preferSystemLibs": "Systembibliotheken bevorzugen",
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
-            "title": "EXE in Präfix starten"
+            "title": "EXE in Präfix starten",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Ordner für Speicherdaten nicht gefunden, bitte wähle ihn manuell aus (klicken, um es erneut zu versuchen)",
             "placeholder": "Wähle den genauen Ordner der Spielstände",
-            "warning": "Überprüfe zweimal, ob der Pfad richtig angegeben ist (klicken, um es erneut zu versuchen)"
+            "warning": "Überprüfe zweimal, ob der Pfad richtig angegeben ist (klicken, um es erneut zu versuchen)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Design",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
@@ -808,7 +841,8 @@
             "warning": "Achtung: Dies bezieht sich auf das gesamte Frontend. Das bedeutet, das ein falscher Style Heroic unbenutzbar machen kann. Falls nötig, kann diese Einstellung manuell in `~/.config/heroic/config.json` geändert werden. Kopiere KEINE Styles aus Quellen, denen du nicht vertraust."
         },
         "verboseLogs": {
-            "description": "Aktiviere ausführliche Logs"
+            "description": "Aktiviere ausführliche Logs",
+            "hint": ""
         },
         "download-proton-steam": "Lade GE-Proton in das Steam-Verzeichnis herunter",
         "advertiseAvxForRosetta": "AVX für Rosetta anzeigen",
@@ -850,13 +884,83 @@
         },
         "tools": {
             "open": "Öffnen",
-            "selectExe": "EXE auswählen"
-        }
+            "selectExe": "EXE auswählen",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEye-Runtime wird installiert …",
-            "name": "BattlEye-AntiCheat-Runtime"
+            "name": "BattlEye-AntiCheat-Runtime",
+            "hint": ""
         },
         "clear-cache": "Heroic-Cache leeren",
         "copiedToClipboard": "In die Zwischenablage kopiert!",
@@ -868,7 +972,8 @@
                 "title": "GameMode erforderlich"
             },
             "installing": "EAC-Runtime wird installiert …",
-            "name": "EasyAntiCheat-Runtime"
+            "name": "EasyAntiCheat-Runtime",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -890,7 +995,8 @@
             "systemInformation": "Systeminformationen",
             "gamescope": "Gamescope",
             "legacy": "Veraltet",
-            "categories": "Kategorien"
+            "categories": "Kategorien",
+            "tabs": ""
         },
         "open-config-file": "Konfigurationsdatei öffnen",
         "reset-heroic": "Heroic zurücksetzen",
@@ -921,7 +1027,10 @@
             "memory": "Arbeitsspeicher:",
             "osNameFlatpak": "{{osName}} (in Flatpak)",
             "systemModel": "Systemmodell:",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Experimentelle Funktionen"
@@ -943,7 +1052,8 @@
                 "help6": "Das Folgende wird NICHT gelöscht:",
                 "help9": "Spieleinstellungen",
                 "help1": "Diese Aktion wird die folgenden Caches leeren:",
-                "help2": "Informationen über externe Spiele (Scores, Steam-Kompatibilität, howlongtobeat, pcgamingwiki, applegamingwiki)"
+                "help2": "Informationen über externe Spiele (Scores, Steam-Kompatibilität, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "description": ""
             },
             "details": "Details",
             "title": {
@@ -951,7 +1061,8 @@
                 "clearCache": "Cache löschen"
             },
             "resetHeroic": {
-                "help": "Dadurch werden alle Einstellungen und der Cache gelöscht, aber deine installierten Spiele und Epic-Anmeldedaten bleiben erhalten. Portable Versionen (AppImage, WinPortable, …) von Heroic müssen anschließend manuell neu gestartet werden."
+                "help": "Dadurch werden alle Einstellungen und der Cache gelöscht, aber deine installierten Spiele und Epic-Anmeldedaten bleiben erhalten. Portable Versionen (AppImage, WinPortable, …) von Heroic müssen anschließend manuell neu gestartet werden.",
+                "description": ""
             }
         },
         "custom_css": {
@@ -975,7 +1086,30 @@
             "experimental": "Experimentelle Funktionen",
             "launch": "Startoptionen",
             "wineTools": "Werkzeuge",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Einstellungen",
@@ -1026,7 +1160,8 @@
         "manageaccounts": "Konten verwalten",
         "quit": "Beenden",
         "cancel": "Abbrechen",
-        "quitMessage": "Möchtest du Heroic wirklich beenden?"
+        "quitMessage": "Möchtest du Heroic wirklich beenden?",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -1034,7 +1169,9 @@
             "forward": "Vorwärts",
             "openInBrowser": "Im Browser öffnen",
             "reload": "Seite neu laden",
-            "home": "Gehe zum Anfang des Stores"
+            "home": "Gehe zum Anfang des Stores",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1049,7 +1186,8 @@
             "open_folder": "Öffne Ordner",
             "update": "Update",
             "settings": "Einstellungen",
-            "no-results": "Keine zu Deiner Suche passende Wine Version gefunden."
+            "no-results": "Keine zu Deiner Suche passende Wine Version gefunden.",
+            "subtitle": ""
         },
         "release": "Veröffentlicht",
         "size": "Größe",
@@ -1107,7 +1245,9 @@
     "emptyLibrary": {
         "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht.",
         "noGames": "Deine Bibliothek ist leer.<br /><br />Klicke <4>hier</4> um dich mit deinen Epic-, GOG.com-, oder Amazon-Konten anzumelden. Danach werden deine Spiele hier in der Bibliothek auftauchen.<br /><br />Um Spiele oder Apps aus anderen Quellen zu nutzen, klicke <br /> um sie manuell hinzuzufügen.",
-        "noResultsTitle": "Keine Spiele gefunden."
+        "noResultsTitle": "Keine Spiele gefunden.",
+        "description": "",
+        "title": ""
     },
     "categories-manager": {
         "add-placeholder": "Neue Kategorie hinzufügen",
@@ -1298,7 +1438,8 @@
             "grid": "Gitter",
             "label": "Ansichtsmodus",
             "list": "Liste"
-        }
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1377,5 +1518,15 @@
         "remove": "Entfernen",
         "save": "Speichern"
     },
-    "General": "Allgemein"
+    "General": "Allgemein",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

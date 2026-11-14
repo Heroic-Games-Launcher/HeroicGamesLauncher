@@ -99,7 +99,8 @@
         "play": "Spielen",
         "edit-game": "Bearbeite Spiel",
         "favourite": "Zu Favoriten hinzufügen",
-        "unfavourite": "Aus Favoriten entfernen"
+        "unfavourite": "Aus Favoriten entfernen",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -136,7 +137,11 @@
         "extra_info": "Zusatzinfo",
         "install_info": "Installationsinfo",
         "achievements": "Erfolge",
-        "details": "Spieldetails"
+        "details": "Spieldetails",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Wird verschoben",
@@ -169,8 +174,12 @@
         "third-party-app": "Externer Manager",
         "genres": "Genre",
         "steamdeck": {
-            "unsupported": "Nicht unterstützt"
-        }
+            "unsupported": "Nicht unterstützt",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": ""
     },
     "install": {
         "disk-space-left": "Verfügbarer Speicherplatz",
@@ -200,7 +209,8 @@
         "playing": {
             "start": "Jetzt spielen",
             "stop": "Anhalten",
-            "start_with_logs": "Spielen (mit Logs)"
+            "start_with_logs": "Spielen (mit Logs)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Spielstände werden synchronisiert"
@@ -338,7 +348,8 @@
         "verify": "Auf Fehler überprüfen und Reparieren",
         "extraInfo": "Zusatzinformation",
         "logs": "Logs",
-        "categories": "Kategorien"
+        "categories": "Kategorien",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem.",
@@ -389,6 +400,12 @@
         "info": {
             "cover": "Titelbild",
             "square": "Quadratisches Bild"
+        },
+        "square": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
         }
     }
 }

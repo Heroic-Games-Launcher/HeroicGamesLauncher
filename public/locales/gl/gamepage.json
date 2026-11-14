@@ -99,7 +99,8 @@
         "play": "XOGAR",
         "edit-game": "Editar Xogo",
         "favourite": "Engadir a favoritos",
-        "unfavourite": "Eliminar dos favoritos"
+        "unfavourite": "Eliminar dos favoritos",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Non compatible",
     "disabled": "Deshabilitar",
@@ -136,7 +137,11 @@
         "extra_info": "Información adicional",
         "install_info": "Información sobre a instación",
         "achievements": "Logros",
-        "details": "Detalles do xogo"
+        "details": "Detalles do xogo",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Movendo",
@@ -169,8 +174,12 @@
         "third-party-app": "Administrador de terceiros",
         "genres": "Xéneros",
         "steamdeck": {
-            "unsupported": "Non compatible"
-        }
+            "unsupported": "Non compatible",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": ""
     },
     "install": {
         "disk-space-left": "Espazo dispoñible",
@@ -198,7 +207,8 @@
         "playing": {
             "start": "Xogar",
             "stop": "Deter",
-            "start_with_logs": "Xogar (con rexistros)"
+            "start_with_logs": "Xogar (con rexistros)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sincronización de gardados"
@@ -334,7 +344,8 @@
         "verify": "Verificar e reparar",
         "extraInfo": "Información extra",
         "logs": "Rexistros",
-        "categories": "Categorías"
+        "categories": "Categorías",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Este xogo non admite gardados na nube. Esta información é proporcionada polos desenvolvedores do xogo. Algúns xogos implementan o seu propio sistema de gardado na nube.",
@@ -387,5 +398,10 @@
             "square": "Imaxe Cadrada"
         },
         "square": "Arte Cadrada"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

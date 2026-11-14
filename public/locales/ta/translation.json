@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "மென்மையான ச்க்ரோலிங் முடக்கு (மறுதொடக்கம் தேவை)",
         "disable_animations": "இடைமுகம் அனிமேசன்களை முடக்கு",
         "section": {
-            "library": "விளையாட்டு பட்டியல்"
-        }
+            "library": "விளையாட்டு பட்டியல்",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "விளையாட்டைச் சேர்க்கவும்",
     "All": "அனைத்தும்",
@@ -99,7 +102,9 @@
             "steam": {
                 "error": "நீராவி இயங்கக்கூடியதாக இல்லை. நிறுவல் பயனரால் ரத்து செய்யப்படலாம் அல்லது நீராவி பக்கத்தில் தோல்வியுற்றது.",
                 "message": "நீராவி நிறுவல் தோல்வியடைந்தது! தயவுசெய்து வழிமுறைகளை கவனமாகப் படித்து மீண்டும் முயற்சிக்கவும்! {{paragraph}} {{error}}",
-                "title": "நீராவி பிழை"
+                "title": "நீராவி பிழை",
+                "running": "",
+                "running-gamemode": ""
             },
             "executableNotFound": "இயங்கக்கூடியது கிடைக்கவில்லை",
             "dxmt": {
@@ -109,7 +114,8 @@
             "executableNotFoundMessage": "இந்த கேமிற்கான எக்சிகியூடபிள்சை ஈரோயிக் கண்டுபிடிக்க முடியவில்லை. கேம் அமைப்புகளில் அதை கைமுறையாக அமைக்கவும்.",
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": ""
                 }
             }
         },
@@ -190,6 +196,12 @@
             "rosetta": {
                 "message": "ஆப்பிள் சிலிக்கான் சில்லுகளுடன் மேகோசில் ரோசெட்டா சரியாக இயங்க வேண்டும். தயவுசெய்து பின்வரும் கட்டளையைப் பயன்படுத்தி மேகோச் முனையத்திலிருந்து இதை நிறுவவும்: \"மென்பொருள்அபே டேட்--ரோசெட்டா-ரோசெட்டா\" மற்றும் வீரத்தை மறுதொடக்கம் செய்யுங்கள். ",
                 "title": "ரொசெட்டா கண்டுபிடிக்கப்படவில்லை"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "WinePrefix கோப்புறையைத் தேர்ந்தெடு",
@@ -211,7 +223,8 @@
         "syncing": "ஒத்திசைவு செய்யப்படுகிறது",
         "unsync": "ஒத்திசைவை செயல்தவிர்",
         "continue": "தொடரவும்",
-        "close": "மூடு"
+        "close": "மூடு",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -231,7 +244,12 @@
             "select": "தேர்ந்தெடு",
             "space": "வெற்றிடம்",
             "update_game": "விளையாட்டை புதுப்பிக்கவும்",
-            "exit": "வெளியேறு"
+            "exit": "வெளியேறு",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "ஆவணப்படுத்தல்",
@@ -242,7 +260,8 @@
         },
         "label": {
             "disk": "வட்டு",
-            "speed": "பதிவிறக்கு"
+            "speed": "பதிவிறக்கு",
+            "unit": ""
         },
         "link": "பதிவிறக்கங்கள்",
         "queue": {
@@ -252,7 +271,15 @@
             "type": "வகை"
         },
         "title": "பதிவிறக்கங்கள்",
-        "ETA": "கணிக்கப்பட்ட நேரம்"
+        "ETA": "கணிக்கப்பட்ட நேரம்",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "எபிக் கேம்ஸ் சர்வர்கள் ஆஃப்லைனில் இருப்பதால் ஆன்லைன் சேவைகள் முழுமையாக வேலை செய்யாமல் போகலாம்!",
@@ -303,7 +330,10 @@
         "show_support_offline_only": "இணைப்பில்லாத உதவி மட்டுமே காண்பி",
         "show_updates_only": "புதுப்பிப்புகளுடன் மட்டுமே விளையாட்டுகளைக் காட்டு",
         "platforms": "Platform",
-        "stores": "கடைகள்"
+        "stores": "கடைகள்",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD இன் FSR ஆனது முழுத்திரை பயன்முறையில் குறைந்த தெளிவுத்திறனை அதிகரிப்பதன் மூலம் ஃப்ரேம்ரேட்டை அதிகரிக்க உதவுகிறது. ஒரு சிறிய செயல்திறன் வெற்றியின் விலையில் படத்தின் தரம் 5 முதல் 1 வரை அதிகரிக்கிறது. இயக்குவது செயல்திறனை மேம்படுத்தலாம்.",
@@ -390,8 +420,10 @@
         "wine-wayland": "ஒயின்-வேலண்ட் ஆய்வு இயக்கி, வேலண்ட் காட்சி நெறிமுறையின் கீழ் கேம்களை சொந்தமாக இயக்க அனுமதிக்கிறது. இயக்குவது சில கேம்களை உடைக்கக்கூடும்.",
         "analytics": "பயன்பாட்டை மேம்படுத்த உதவும் 100% அநாமதேய பயன்பாட்டுத் தரவைச் சேகரிக்க Heroic ஐ இயக்குகிறது. நடைமுறைக்கு வர மீண்டும் தொடங்க வேண்டும்.",
         "nvidiaprime": {
-            "details": "மல்டி-ஜிபியு சிஸ்டங்களில் கேமை வழங்க, பிரத்யேக கிராபிக்ஸ் கார்டைப் பயன்படுத்தவும். கேமிங் மடிக்கணினிகள் அல்லது டெஸ்க்டாப்களில் மட்டுமே தேவைப்படும், அவை ரெண்டரிங் செய்வதற்கு ஹெட்லெஸ் ஜிபியுவைப் பயன்படுத்துகின்றன (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "மல்டி-ஜிபியு சிஸ்டங்களில் கேமை வழங்க, பிரத்யேக கிராபிக்ஸ் கார்டைப் பயன்படுத்தவும். கேமிங் மடிக்கணினிகள் அல்லது டெஸ்க்டாப்களில் மட்டுமே தேவைப்படும், அவை ரெண்டரிங் செய்வதற்கு ஹெட்லெஸ் ஜிபியுவைப் பயன்படுத்துகின்றன (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -438,7 +470,9 @@
             "list": "பட்டியல் தளவமைப்பிற்கு மாறவும்"
         },
         "hideAlphabetFilter": "எழுத்துக்கள் வடிகட்டியை மறைக்கவும்",
-        "showAlphabetFilter": "எழுத்துக்கள் வடிகட்டியைக் காட்டு"
+        "showAlphabetFilter": "எழுத்துக்கள் வடிகட்டியைக் காட்டு",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "விளையாட்டு பட்டியல்",
     "loading": {
@@ -452,7 +486,8 @@
         "message": "உங்கள் தளத்துடன் உள்நுழைக. நீங்கள் ஒரே நேரத்தில் ஒன்றுக்கும் மேற்பட்ட தளங்களில் உள்நுழையலாம்.",
         "amazon": "அமேசான் உள்நுழைவு",
         "old-mac": "உங்கள் macOS பதிப்பு {{version}}. உள்நுழைய macOS 12 அல்லது புதியது தேவை.",
-        "zoom": "பெரிதாக்கு உள்நுழைவு"
+        "zoom": "பெரிதாக்கு உள்நுழைவு",
+        "itchio": ""
     },
     "message": {
         "sync": "ஒத்திசைவு நிறைவடைந்தது",
@@ -468,14 +503,16 @@
                 "steam": {
                     "corrupt": "கண்டுபிடிக்கப்பட்ட அனைத்து Steam பயனர்களிடமும் {{game}} ஐ சேர்க்க முடியவில்லை. மேலும் தகவலுக்கு பதிவுகளைப் பார்க்கவும். மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
                     "success": "{{game}} வெற்றிகரமாக நீராவியில் சேர்க்கப்பட்டது. மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
-                    "title": "நீராவியில் சேர்க்கப்பட்டது"
+                    "title": "நீராவியில் சேர்க்கப்பட்டது",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "கண்டறியப்பட்ட அனைத்து Steam பயனர்களிடமிருந்தும் {{game}} ஐ அகற்ற முடியவில்லை. மேலும் தகவலுக்கு பதிவுகளைப் பார்க்கவும். மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
                     "success": "ஸ்டீமில் இருந்து {{game}} வெற்றிகரமாக அகற்றப்பட்டது. மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
-                    "title": "நீராவியில் இருந்து அகற்றப்பட்டது"
+                    "title": "நீராவியில் இருந்து அகற்றப்பட்டது",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "பழுதுபார்ப்பு முடிவடைந்தது"
@@ -521,16 +558,22 @@
             "placeHolderKey": "பெயர்",
             "placeHolderValue": "எ.கா.: பாதை/செல்ல/கூடுதல் கோப்புகள்",
             "title": "சுற்றுச்சூழல் மாறிகள்",
-            "value": "மதிப்பு"
+            "value": "மதிப்பு",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "மாறி பெயர்கள் காலியாக இருக்கக்கூடாது",
                 "equal_sign_in_key": "மாறி பெயர்களில் \"=\" அடையாளம் இருக்கக்கூடாது",
-                "space_in_key": "மாறி பெயர்களில் இடைவெளிகள் இருக்கக்கூடாது"
+                "space_in_key": "மாறி பெயர்களில் இடைவெளிகள் இருக்கக்கூடாது",
+                "duplicate_key": ""
             },
             "example": "\"=\" அடையாளத்தைச் சேர்க்க வேண்டாம், எ.கா: \"MY_FLAG=123\" போன்ற அமைப்பிற்கு, NAME இல் MY_FLAG ஐயும் VALUE இல் 123 ஐயும் அமைக்கவும்.",
-            "info": "கட்டளையுடன் இணைக்க சூழல் மாறிகளை அமைக்கவும்."
+            "info": "கட்டளையுடன் இணைக்க சூழல் மாறிகளை அமைக்கவும்.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "துவக்கி வாதங்களை இங்கே உள்ளிடவும்",
@@ -599,7 +642,8 @@
             "queued": "வரிசையில் நிற்கிறது",
             "remove": "பதிவிறக்கங்களிலிருந்து அகற்று",
             "pause": "பதிவிறக்கத்தை இடைநிறுத்து",
-            "resume": "பதிவிறக்கத்தை மீண்டும் தொடங்கவும்"
+            "resume": "பதிவிறக்கத்தை மீண்டும் தொடங்கவும்",
+            "paused": ""
         }
     },
     "Recent": "சமீபத்தில் விளையாடியவை",
@@ -646,7 +690,8 @@
             "removeConfirm": "EOS மேலடுக்கை நிறுவல் நீக்க நிச்சயமாக விரும்புகிறீர்களா?",
             "removeConfirmTitle": "மேலடுக்கு அகற்றத்தை உறுதிப்படுத்தவும்",
             "updateNow": "Update",
-            "updating": "புதுப்பிக்கிறது..."
+            "updating": "புதுப்பிக்கிறது...",
+            "description": ""
         },
         "esync": "Esync ஐ இயக்கு",
         "exit-to-tray": "கணினி தட்டிற்கு வெளியேறு",
@@ -705,10 +750,14 @@
                 "gog": "கோக் பதிவு",
                 "legendary": "காவிய விளையாட்டுகள் / புகழ்பெற்ற பதிவு",
                 "nile": "அமேசான் / நைல் பதிவு",
-                "zoom": "பெரிதாக்கு பதிவு"
+                "zoom": "பெரிதாக்கு பதிவு",
+                "itchio": ""
             },
             "show-uploads": "பதிவேற்றிய பதிவு கோப்புகளைக் காண்பி",
-            "join-heroic-discord": "எங்கள் கருத்து வேறுபாட்டில் சேரவும்"
+            "join-heroic-discord": "எங்கள் கருத்து வேறுபாட்டில் சேரவும்",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Mangohud ஐ இயக்கு (Mangohud நிறுவப்பட்டிருக்க வேண்டும்)",
         "manualsync": {
@@ -728,12 +777,15 @@
         "preferSystemLibs": "கணினி நூலகங்களை விரும்பு",
         "runexe": {
             "message": "கோப்புகளை இங்கே இழுத்து விடுங்கள்",
-            "title": "முன்னொட்டில் EXE ஐ இயக்கு"
+            "title": "முன்னொட்டில் EXE ஐ இயக்கு",
+            "description": ""
         },
         "savefolder": {
             "not-found": "சேமிப்பு கோப்புறை கிடைக்கவில்லை, தயவுசெய்து அதை கைமுறையாக தேர்ந்தெடுக்கவும் (மீண்டும் முயற்சிக்க கிளிக் செய்யவும்)",
             "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு",
-            "warning": "பாதை சரியாக உள்ளதா என இருமுறை சரிபார்க்கவும் (மீண்டும் முயற்சிக்க கிளிக் செய்யவும்)"
+            "warning": "பாதை சரியாக உள்ளதா என இருமுறை சரிபார்க்கவும் (மீண்டும் முயற்சிக்க கிளிக் செய்யவும்)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "தீம் தேர்ந்தெடுக்கவும்",
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
@@ -790,7 +842,8 @@
         "download-proton-steam": "நீராவி கோப்பகத்திற்கு GE-புரோட்டானைப் பதிவிறக்கவும்",
         "dxfpslimit": "டைரக்ட்எக்ச் கேம்ச் எஃப்.பி.எச்",
         "verboseLogs": {
-            "description": "வாய்மொழி பதிவுகளை இயக்கவும்"
+            "description": "வாய்மொழி பதிவுகளை இயக்கவும்",
+            "hint": ""
         },
         "allow_non_ge_proton": {
             "confirmation": {
@@ -823,13 +876,89 @@
         },
         "tools": {
             "open": "திறக்க",
-            "selectExe": "EXE ஐத் தேர்ந்தெடுக்கவும்"
-        }
+            "selectExe": "EXE ஐத் தேர்ந்தெடுக்கவும்",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "பேட்டில்-ஐ இயக்க நேரத்தை நிறுவுகிறது...",
-            "name": "பேடில்-ஐ ஏமாற்று எதிர்ப்பு இயக்க முறைமை"
+            "name": "பேடில்-ஐ ஏமாற்று எதிர்ப்பு இயக்க முறைமை",
+            "hint": ""
         },
         "clear-cache": "ஹீரோயிக் தற்காலிக சேமிப்பு நிக்கம்",
         "copiedToClipboard": "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!",
@@ -841,7 +970,8 @@
                 "title": "கேம்மோட் தேவை"
             },
             "installing": "EAC இயக்க முறைமை ஐ நிறுவுகிறது...",
-            "name": "EasyAntiCheat இயக்க முறைமை"
+            "name": "EasyAntiCheat இயக்க முறைமை",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -863,7 +993,8 @@
             "gamescope": "கேம்ஸ்கோப்",
             "systemInformation": "கணினி தகவல்",
             "legacy": "மரபு",
-            "categories": "வகைகள்"
+            "categories": "வகைகள்",
+            "tabs": ""
         },
         "open-config-file": "கட்டமைப்பு கோப்பைத் திறக்கவும்",
         "reset-heroic": "Reset Heroic",
@@ -894,7 +1025,10 @@
             "copyToClipboard": "கிளிப்போர்டுக்கு நகலெடுக்கவும்",
             "heroicVersion": "வீரம்: {{heroicVersion}}",
             "nileVersion": "நைல்: {{nileVersion}}",
-            "cometVersion": "வால்மீன்: {{cometVersion}}"
+            "cometVersion": "வால்மீன்: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "பரிசோதனை அம்சங்கள்"
@@ -913,14 +1047,16 @@
                 "help10": "வீர கட்டமைப்பு",
                 "help2": "மூன்றாம் தரப்பு விளையாட்டு செய்தி (மதிப்பெண்கள், நீராவி பொருந்தக்கூடிய தன்மை, அவுலோங்டோபீட், பி.சி.காமிங்விக்கி, ஆப்பிள் கேமிங்விகி)",
                 "help4": "GOG நூலக செய்தி (கேம்களின் பட்டியல், உரையாடல் தகவலை நிறுவவும், பநிஇ செய்தி -i.e: தேவைகள்-)",
-                "help6": "இது நீக்காது:"
+                "help6": "இது நீக்காது:",
+                "description": ""
             },
             "title": {
                 "resetHeroic": "வீரத்தை மீட்டமை",
                 "clearCache": "தெளிவான தற்காலிக சேமிப்பு"
             },
             "resetHeroic": {
-                "help": "இது அனைத்து அமைப்புகளையும் தற்காலிக சேமிப்பையும் அகற்றும், ஆனால் உங்கள் நிறுவப்பட்ட விளையாட்டுகள் அல்லது உங்கள் காவிய சான்றுகளை அகற்றாது. வீரத்தின் சிறிய பதிப்புகள் (அபிமேச், வின்போர்டபிள், ...) கைமுறையாக மறுதொடக்கம் செய்யப்பட வேண்டும்."
+                "help": "இது அனைத்து அமைப்புகளையும் தற்காலிக சேமிப்பையும் அகற்றும், ஆனால் உங்கள் நிறுவப்பட்ட விளையாட்டுகள் அல்லது உங்கள் காவிய சான்றுகளை அகற்றாது. வீரத்தின் சிறிய பதிப்புகள் (அபிமேச், வின்போர்டபிள், ...) கைமுறையாக மறுதொடக்கம் செய்யப்பட வேண்டும்.",
+                "description": ""
             },
             "details": "விவரங்கள்"
         },
@@ -946,7 +1082,32 @@
             "downloads": "பதிவிறக்கங்கள்",
             "experimental": "பரிசோதனை அம்சங்கள்",
             "launch": "துவக்க விருப்பங்கள்",
-            "wineTools": "Tools"
+            "wineTools": "Tools",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "அமைப்புகள்",
@@ -997,14 +1158,18 @@
         "manageaccounts": "கணக்குகளை நிர்வகிக்கவும்",
         "quit": "வெளியேறு",
         "cancel": "ரத்து செய்",
-        "quitMessage": "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?"
+        "quitMessage": "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "பின்செல்",
             "forward": "முன்செல்",
             "openInBrowser": "Browser இல் திற",
-            "reload": "பக்கத்தை reload செய்"
+            "reload": "பக்கத்தை reload செய்",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1019,7 +1184,8 @@
             "open_folder": "",
             "update": "புதுப்பிப்பு",
             "settings": "அமைப்புகள்",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "வெளியிட்டு தேதி",
         "size": "அளவு",
@@ -1083,7 +1249,8 @@
         "proton-ge": "புரோட்டான்-சி.இ-புரோட்டான் என்பது புகழுடைய முட்டைஉருளையால் உருவாக்கப்பட்ட ஒரு புரோட்டான் வகையாகும். இது யுஎம்யு லாஞ்சருடன் (ஈரோயிக்கில் இயல்புநிலை) இணைந்து பயன்படுத்தப்பட வேண்டும்.",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "adtraction-locked": {
         "description": "டிராக்.அட்ராக்சன்.காம் டொமைன் ஏற்ற முடியவில்லை அல்லது தடுக்கப்பட்டதாகத் தெரிகிறது. சுருக்கத்துடன், GOG கடையில் நீங்கள் செய்யும் எந்தவொரு கொள்முதலும் வீர பொருள் ரீதியாக ஆதரிக்கிறது. நீங்கள் பங்களிக்க விரும்பினால் தொகுதியை அகற்றுவதைக் கவனியுங்கள்.",
@@ -1093,7 +1260,9 @@
     "emptyLibrary": {
         "noResults": "தற்போதைய வடிப்பான்கள் எந்த முடிவுகளையும் உருவாக்கவில்லை.",
         "noGames": "உங்கள் நூலகம் காலியாகிவிட்டது. பின்னர், உங்கள் விளையாட்டுகள் இங்கே நூலகத்தில் காண்பிக்கப்படும். <Br /> <br /> பிற மூலங்களிலிருந்து விளையாட்டுகள் அல்லது பயன்பாடுகளைப் பயன்படுத்த, அவற்றை கைமுறையாகச் சேர்க்க <br /> என்பதைக் சொடுக்கு செய்க.",
-        "noResultsTitle": "தேடலுக்குரிய கேம்கள் கிடைக்கவில்லை."
+        "noResultsTitle": "தேடலுக்குரிய கேம்கள் கிடைக்கவில்லை.",
+        "description": "",
+        "title": ""
     },
     "tour": {
         "back": "பின்னே",
@@ -1198,7 +1367,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1222,7 +1392,9 @@
             "ageRatingAll": "அனைத்தும்",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "Platform"
+            "platform": "Platform",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "விவரங்கள்",
         "sort": {
@@ -1248,9 +1420,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "கடை"
+            "label": "கடை",
+            "all": ""
         },
-        "titleMulti": "விவரங்கள்"
+        "titleMulti": "விவரங்கள்",
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1298,24 +1485,46 @@
         "quitApp": "",
         "loading": "",
         "cancelInstall": {
-            "title": "நிறுவலை இரத்து செய்ய விரும்புகிறீர்களா?"
+            "title": "நிறுவலை இரத்து செய்ய விரும்புகிறீர்களா?",
+            "message": ""
         },
         "cancelUpdate": {
-            "title": "புதுப்பிப்பை இரத்து செய்ய விரும்புகிறீர்களா?"
+            "title": "புதுப்பிப்பை இரத்து செய்ய விரும்புகிறீர்களா?",
+            "message": ""
         },
         "install": {
             "platform": "Platform",
             "title": "விளையாட்டை நிறுவவும்",
             "wineLoading": "ஏற்றுகிறது…",
             "path": "இதில் நிறுவு",
-            "wineMissing": "பாதை எதுவும் தேர்ந்தெடுக்கப்படவில்லை"
+            "wineMissing": "பாதை எதுவும் தேர்ந்தெடுக்கப்படவில்லை",
+            "wine": ""
+        },
+        "removeFromQueue": {
+            "message": ""
         }
     },
     "next": "அடுத்தது",
     "common": {
         "add": "கூட்டு",
         "cancel": "ரத்து செய்",
-        "warning": "எச்சரிக்கை"
+        "warning": "எச்சரிக்கை",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "பொதுவானவை"
+    "General": "பொதுவானவை",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

@@ -99,7 +99,8 @@
         "play": "JOGAR",
         "edit-game": "Editar jogo",
         "favourite": "Adicionar aos favoritos",
-        "unfavourite": "Remover dos favoritos"
+        "unfavourite": "Remover dos favoritos",
+        "backToLibrary": "Voltar à biblioteca"
     },
     "cloud_save_unsupported": "Não suportado",
     "disabled": "Desabilitado",
@@ -133,10 +134,14 @@
         },
         "changelogFor": "Log de alterações para {{gameTitle}}",
         "modify": "Modificar instalação",
-        "extra_info": "Informações extras",
-        "install_info": "Dados da instalação",
+        "extra_info": "Informações adicionais",
+        "install_info": "Informação da instalação",
         "achievements": "Conquistas",
-        "details": "Game details"
+        "details": "Game details",
+        "tabs": "Sobre o jogo",
+        "overview": "Sobre",
+        "hoursPlayedShort": "{{hours}} Horas",
+        "about": "Sobre este jogo"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -169,8 +174,12 @@
         "third-party-app": "Gerenciador de aplicativos de terceiros",
         "genres": "Gêneros",
         "steamdeck": {
-            "unsupported": "Não suportado"
-        }
+            "unsupported": "Não suportado",
+            "verified": "Verificado",
+            "unknown": "Desconhecido",
+            "playable": "Jogavel"
+        },
+        "developer": "Desenvolvedor"
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
@@ -200,7 +209,8 @@
         "playing": {
             "start": "Jogar",
             "stop": "Jogando (parar)",
-            "start_with_logs": "Jogar agora (com logs)"
+            "start_with_logs": "Jogar (com registros)",
+            "start_with_logs_hint": "Inicia o jogo enquanto faz um registro sobre, útil quando você precisa saber de um erro"
         },
         "saves": {
             "syncing": "Sincronizando saves"
@@ -338,7 +348,8 @@
         "verify": "Verificar e reparar",
         "extraInfo": "Informação extra",
         "logs": "Registros",
-        "categories": "Categorias"
+        "categories": "Categorias",
+        "more": "Mais"
     },
     "help": {
         "cloud_save_unsupported": "Este jogo não suporta salvamentos em nuvem (Informação fornecida por desenvolvedores do jogo). Alguns jogos possuem sistema próprio de salvamento em nuvem.",
@@ -391,5 +402,10 @@
         },
         "square": "Arte quadrada",
         "title": "Editar Jogo"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Pastas instaladas pelo app do itch.io são totalmente importadas, incluindo atualizações. Para qualquer outra pasta, o Heroic não pode procurar atualizações e desinstalar não vai deletar os arquivos do jogo."
+        }
     }
 }

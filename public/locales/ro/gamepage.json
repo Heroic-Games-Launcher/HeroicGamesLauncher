@@ -97,7 +97,10 @@
         "browse_wine_prefix": "Răsfoiește Wine Prefix",
         "changelog": "Arată Jurnalul modificărilor",
         "play": "JOACĂ",
-        "edit-game": "Editează jocul"
+        "edit-game": "Editează jocul",
+        "backToLibrary": "",
+        "favourite": "",
+        "unfavourite": ""
     },
     "cloud_save_unsupported": "Neacceptat",
     "disabled": "Dezactivat",
@@ -134,7 +137,11 @@
         "install_info": "Instalează info",
         "modify": "Modifică Instalarea",
         "achievements": "Realizări",
-        "details": "Game Defaults"
+        "details": "Game Defaults",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Mutare",
@@ -164,7 +171,15 @@
         "installedInfo": "Informații instalate",
         "protondb-compatibility-info": "Nivelul de compatibilitate cu protoni",
         "steamdeck-compatibility-info": "Compatibilitate cu SteamDeck",
-        "third-party-app": "Manager Third-Party"
+        "third-party-app": "Manager Third-Party",
+        "steamdeck": {
+            "verified": "",
+            "unknown": "",
+            "playable": "",
+            "unsupported": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "Spatiu disponibil",
@@ -192,7 +207,8 @@
         "playing": {
             "start": "Joacă Acum",
             "stop": "în joc (Stop)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sincronizează Salvările"
@@ -205,7 +221,8 @@
             "installation": "Opriți instalarea"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": ""
     },
     "launch": {
         "options": "Opțiuni de Lansare...",
@@ -239,7 +256,9 @@
             "title": "Game/App Title",
             "broser": "URL browser",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Lipește adresa URL a unei imagini sau selectează una de pe computer",
@@ -250,6 +269,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -301,7 +323,8 @@
         "verify": "Verificați și Reparați",
         "extraInfo": "Informații suplimentare",
         "logs": "Bușteni",
-        "categories": "Categorii"
+        "categories": "Categorii",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud.",
@@ -354,5 +377,10 @@
         },
         "square": "Artă pătrată",
         "title": "Editează jocul"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

@@ -1,1 +1,32 @@
-{}
+{
+    "button": {
+        "itchio_error": "",
+        "copied": "",
+        "loading": "",
+        "copy": "",
+        "close": "",
+        "open": "",
+        "login": "",
+        "error": ""
+    },
+    "welcome": "",
+    "message": {
+        "part2": "",
+        "part7": "",
+        "part8": "",
+        "part1": "",
+        "part3": "",
+        "part5": "",
+        "part6": "",
+        "part4": ""
+    },
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
+}

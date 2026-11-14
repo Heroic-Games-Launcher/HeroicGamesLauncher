@@ -66,8 +66,13 @@
             "executableNotFoundMessage": "",
             "remove": {
                 "steam": {
-                    "body": "הוספת {{game}} לSteam נכשל בשל: {{newLine}}{{error}}"
+                    "body": "הוספת {{game}} לSteam נכשל בשל: {{newLine}}{{error}}",
+                    "title": ""
                 }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "runexe": {
@@ -98,6 +103,12 @@
             "rosetta": {
                 "title": "",
                 "message": ""
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "בחר תיקיית WinePrefix",
@@ -174,7 +185,8 @@
             "open_folder": "",
             "update": "עדכן",
             "settings": "הגדרות",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "תאריך יציאה",
         "notes": ""
@@ -184,7 +196,8 @@
         "cancel": "ביטול",
         "continue": "המשך",
         "go_to_library": "ללכת לספריה",
-        "close": "לסגור"
+        "close": "לסגור",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -204,7 +217,12 @@
             "play_game": "שחק משחק",
             "open_virtual_keyboard": "פתח מקלדת וירטואלית",
             "scroll": "גללו",
-            "exit": "יציאה"
+            "exit": "יציאה",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "dlc": {
@@ -221,7 +239,8 @@
         },
         "label": {
             "disk": "דיסק",
-            "speed": "הורדה"
+            "speed": "הורדה",
+            "unit": ""
         },
         "link": "הורדות",
         "queue": {
@@ -231,7 +250,15 @@
             "type": "סוג"
         },
         "title": "הורדות",
-        "ETA": "זמן משוער"
+        "ETA": "זמן משוער",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "info": {
         "version": "גרסת Wine",
@@ -276,14 +303,16 @@
                 "steam": {
                     "title": "התווסף לSteam",
                     "corrupt": "לא היה ניתן להוסיף את {{game}} לכל משתמשי הSteam שנמצאו. הסתכלו בלוג למידע נוסף. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף.",
-                    "success": "{{game}} התווסף בהצלחה לSteam. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף."
+                    "success": "{{game}} התווסף בהצלחה לSteam. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף.",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "לא היה ניתן להסיר את {{game}} מכל משתמשי הSteam שנמצאו. הסתכלו בלוג למידע נוסף. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף.",
                     "success": "{{game}} הוסר בהצלחה מSteam. אתחול של Sאקשצ נדרש כדי שהשינויים יכנסו לתוקף.",
-                    "title": "הוסר מSteam"
+                    "title": "הוסר מSteam",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "התיקון הסתיים"
@@ -328,7 +357,8 @@
             "pause": "השהה הורדה",
             "queued": "בתור",
             "remove": "הסר מהורדות",
-            "resume": "המשך הורדה"
+            "resume": "המשך הורדה",
+            "paused": ""
         }
     },
     "setting": {
@@ -350,7 +380,8 @@
             "notInstalledTitle": "שכבת העל לא מותקנת",
             "removeConfirm": "אתם בטוחים שאתם רוצים להסיר את ההתקנה של שכבת העל EOS?",
             "removeConfirmTitle": "אשר הורדת שכבת העל",
-            "updating": "מעדכן..."
+            "updating": "מעדכן...",
+            "description": ""
         },
         "library_top_option": {
             "disabled": "מושבת",
@@ -425,9 +456,13 @@
                 "gog": "",
                 "zoom": "",
                 "game-log": "",
-                "heroic": ""
+                "heroic": "",
+                "itchio": ""
             },
-            "show-uploads": ""
+            "show-uploads": "",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "הפעל Mangohud (צריכה להיות התקנה של Mangohud)",
         "manualsync": {
@@ -446,12 +481,15 @@
         "preferSystemLibs": "העדף ספריות מערכת",
         "runexe": {
             "title": "הפעל EXE על Prefix",
-            "message": "גררו קבצים לפה"
+            "message": "גררו קבצים לפה",
+            "description": ""
         },
         "savefolder": {
             "not-found": "תיקיית שמירות לא נמצאה, נא לבחור אותה ידנית (לחצו על מנת לנסות מחדש)",
             "placeholder": "בחרו את תיקיית המשחקים המדויקת",
-            "warning": "נא לבדוק שוב אם הנתיב נכון (לחצו כדי לנסות שוב)"
+            "warning": "נא לבדוק שוב אם הנתיב נכון (לחצו כדי לנסות שוב)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "בחרו ערכת נושא",
         "showMetalOverlay": "הצג סטטיסטיקות מעל המסך",
@@ -529,7 +567,8 @@
         "analyticsOptIn": "",
         "disablePlaytimeSync": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "before-launch-script-path": "",
         "disableUMU": "",
@@ -540,12 +579,88 @@
         "start-in-console-mode": "",
         "disable_gog_presence": "",
         "steamRuntime": {
-            "label": "השתמש בSteam Runtime"
+            "label": "השתמש בSteam Runtime",
+            "noRuntimeOption": ""
         },
         "tools": {
             "open": "פתוח",
-            "selectExe": "בחרו EXE"
-        }
+            "selectExe": "בחרו EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "status": {
         "processing": "מעבד קבצים, נא לחכות",
@@ -568,8 +683,11 @@
         "disable_animations": "",
         "disable_dialog_backdrop_close": "",
         "section": {
-            "library": "ספריה"
-        }
+            "library": "ספריה",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "docs": "תיעוד",
     "epic": {
@@ -621,7 +739,10 @@
         "no_categories": "",
         "uncategorized": "",
         "platforms": "פלטפורמה",
-        "stores": "חנויות"
+        "stores": "חנויות",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
@@ -708,8 +829,10 @@
         "advertiseAvxForRosetta": "",
         "analytics": "",
         "nvidiaprime": {
-            "details": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "Library": "ספריה",
     "message": {
@@ -723,16 +846,22 @@
             "placeHolderValue": "לדוגמה: Path/To/ExtraFiles",
             "key": "שם משתנה",
             "placeHolderKey": "שם",
-            "title": "משתני הסביבה"
+            "title": "משתני הסביבה",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "שמות משתנים לא יכולים להיות ריקים",
                 "equal_sign_in_key": "שמות משתנים אינם יכולים להכיל את הסימן \"=\"",
-                "space_in_key": "שמות משתנים אינם יכולים להכיל רווחים"
+                "space_in_key": "שמות משתנים אינם יכולים להכיל רווחים",
+                "duplicate_key": ""
             },
             "example": "אל תכללו את סימן ה\"=\", למשל: להגדרה כגון \"MY_FLAG=123\", שימו את MY_FLAG בתוך NAME(שם) ואת 123 בתוך VALUE(ערך).",
-            "info": "בחרו משתני סביבה להוסיף לפקודה."
+            "info": "בחרו משתני סביבה להוסיף לפקודה.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "שימו פה ארגומנטים של הלאוונצר",
@@ -794,7 +923,8 @@
                 "title": "GameMode נדרש"
             },
             "name": "EasyAntiCheat Runtime",
-            "installing": "מתקין EAC Runtime..."
+            "installing": "מתקין EAC Runtime...",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -814,13 +944,16 @@
             "sync": "סנכרן שמירות בענן",
             "systemInformation": "מידע מערכת",
             "gamescope": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "",
+            "tabs": ""
         },
         "open-config-file": "פתח את קובץ התצורה",
         "reset-heroic": "אפס את Heroic",
         "battlEyeRuntime": {
             "installing": "מתקין BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "copiedToClipboard": "הועתק!",
         "saves": {
@@ -849,7 +982,10 @@
             "copyToClipboard": "העתק ללוח הגזירים",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": ""
+            "cometVersion": "",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "תכונות ניסיוניות"
@@ -870,10 +1006,12 @@
                 "help5": "",
                 "help6": "",
                 "help2": "",
-                "help4": ""
+                "help4": "",
+                "description": ""
             },
             "resetHeroic": {
-                "help": "האם אתה בטוח שברצונך לאפס את Heroic? פעולה זו תסיר את כל ההגדרות והמטמון, אך לא תסיר את המשחקים המותקנים שלך או את האישורים של Epic. גרסאות ניידות (AppImage, WinPortable,...) של Heroic צריכות להיות מופעלות מחדש באופן ידני לאחר מכן."
+                "help": "האם אתה בטוח שברצונך לאפס את Heroic? פעולה זו תסיר את כל ההגדרות והמטמון, אך לא תסיר את המשחקים המותקנים שלך או את האישורים של Epic. גרסאות ניידות (AppImage, WinPortable,...) של Heroic צריכות להיות מופעלות מחדש באופן ידני לאחר מכן.",
+                "description": ""
             }
         },
         "launchOptions": "פותח הגדרות...",
@@ -900,7 +1038,33 @@
         "section": {
             "downloads": "הורדות",
             "experimental": "תכונות ניסיוניות",
-            "launch": "פותח הגדרות..."
+            "launch": "פותח הגדרות...",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "wineTools": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "הגדרות",
@@ -925,7 +1089,8 @@
         "quit": "יציאה"
     },
     "two_col_table": {
-        "save_hint": "שינויים בטבלה זו אינם נשמרים באופן אוטומטי. לחץ על כפתור +"
+        "save_hint": "שינויים בטבלה זו אינם נשמרים באופן אוטומטי. לחץ על כפתור +",
+        "add": ""
     },
     "Update Available!": "עדכון זמין!",
     "userselector": {
@@ -936,14 +1101,18 @@
         "logout_confirmation": "אתם בטוחים שאתם רוצים להתנתק?",
         "manageaccounts": "ניהול חשבונות",
         "quit": "יציאה",
-        "quitMessage": "אתה בטוח שאתה רוצה לסגור את התוכנה?"
+        "quitMessage": "אתה בטוח שאתה רוצה לסגור את התוכנה?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "חזור",
             "forward": "התקדם קדימה",
             "openInBrowser": "פתח בדפדפן",
-            "reload": "טען עמוד מחדש"
+            "reload": "טען עמוד מחדש",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "All": "הכל",
@@ -969,7 +1138,8 @@
         "epic": "כניסה עם Epic Games",
         "message": "הכנס עם הפלטפורמה שלך. אתה יכול להתחבר ליותר מפלטפורמה אחת בו זמנית.",
         "old-mac": "גרסת ה-macOS שלך היא {{version}}. macOS 12 או יותר נדרשת כדי להיכנס.",
-        "zoom": ""
+        "zoom": "",
+        "itchio": ""
     },
     "library": {
         "refresh": "רענן",
@@ -981,7 +1151,9 @@
             "list": "בחרו אם להיות בפריסת רשימה"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "offline-message": {
         "offline": "לא מחובר לרשת",
@@ -1109,14 +1281,18 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "description": "",
+        "noResultsTitle": "",
+        "title": ""
     },
     "zoom-store": "",
     "wineExplanation": {
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "discounts": {
         "region": {
@@ -1149,7 +1325,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1173,7 +1350,9 @@
             "ageRatingAll": "הכל",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "פלטפורמה"
+            "platform": "פלטפורמה",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "פרטים",
         "sort": {
@@ -1199,9 +1378,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "חנות"
+            "label": "חנות",
+            "all": ""
         },
-        "titleMulti": "פרטים"
+        "titleMulti": "פרטים",
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1253,16 +1447,46 @@
             "title": "התקן משחק",
             "wineLoading": "טוען",
             "path": "התקן",
-            "wineMissing": "לא נבחר מיקום"
+            "wineMissing": "לא נבחר מיקום",
+            "wine": ""
+        },
+        "cancelUpdate": {
+            "title": "",
+            "message": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
     "next": "",
     "sidebar": {
-        "console": ""
+        "console": "",
+        "storesLogin": ""
     },
     "common": {
         "cancel": "בטל",
-        "warning": "אזהרה"
+        "warning": "אזהרה",
+        "edit": "",
+        "save": "",
+        "add": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "כללי"
+    "General": "כללי",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

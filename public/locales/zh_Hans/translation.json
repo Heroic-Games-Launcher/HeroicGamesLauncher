@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "禁用平滑滚动（需要重启）",
         "disable_animations": "禁用界面动画",
         "section": {
-            "library": "仓库"
-        }
+            "library": "仓库",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "添加游戏",
     "All": "全部",
@@ -99,7 +102,9 @@
             "steam": {
                 "error": "未找到 Steam 可执行文件。安装可能被用户取消或在 Steam 端失败。",
                 "message": "Steam 安装失败！请仔细阅读说明并重试！ {{paragraph}} {{error}}",
-                "title": "Steam 错误"
+                "title": "Steam 错误",
+                "running": "",
+                "running-gamemode": ""
             },
             "executableNotFound": "未找到可执行文件",
             "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。",
@@ -109,7 +114,8 @@
             },
             "remove": {
                 "steam": {
-                    "body": "从 Steam 删除 {{game}} 失败，错误：{{newLine}} {{error}}"
+                    "body": "从 Steam 删除 {{game}} 失败，错误：{{newLine}} {{error}}",
+                    "title": ""
                 }
             }
         },
@@ -190,6 +196,12 @@
             "rosetta": {
                 "title": "未找到 Rosetta",
                 "message": "Heroic 需要 Rosetta 在配备 Apple Silicon 芯片的 macOS 上正确运行。请用以下命令从 macOS 终端安装它：\"softwareupdate --install-rosetta\"，并重启 Heroic。 "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "选择 Wine 前缀文件夹",
@@ -211,7 +223,8 @@
         "syncing": "正在同步",
         "unsync": "取消同步",
         "continue": "继续",
-        "close": "关闭"
+        "close": "关闭",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -247,7 +260,8 @@
         },
         "label": {
             "disk": "磁盘",
-            "speed": "下载"
+            "speed": "下载",
+            "unit": ""
         },
         "link": "下载",
         "queue": {
@@ -257,7 +271,15 @@
             "type": "类型"
         },
         "title": "下载",
-        "ETA": "预计时间"
+        "ETA": "预计时间",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
@@ -309,7 +331,10 @@
         "show_third_party_managed_only": "仅显示受第三方管理的游戏",
         "show_updates_only": "仅显示有更新的游戏",
         "platforms": "Platform",
-        "stores": "商店"
+        "stores": "商店",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
@@ -396,7 +421,8 @@
         "analytics": "允许 Heroic 收集 100% 匿名的使用数据帮助改进应用。需要重启才能生效。",
         "WoW64": "Wine WoW64 模式允许在 64 位 Wine 上运行 32 位 Windows 游戏。启用该选项可能会提高性能，但也可能会无法运行较早的 32 位游戏。",
         "nvidiaprime": {
-            "details": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)"
+            "details": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
         },
         "hide-window-on-protocol-launch": "从外部快捷方式（如“添加到 Steam”）启动游戏时，保持 Heroic 窗口隐藏。"
     },
@@ -445,7 +471,9 @@
             "list": "切换到列表布局"
         },
         "hideAlphabetFilter": "隐藏字母表筛选器",
-        "showAlphabetFilter": "显示字母表筛选器"
+        "showAlphabetFilter": "显示字母表筛选器",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "游戏库",
     "loading": {
@@ -459,7 +487,8 @@
         "message": "登录你的平台。你可以同时登录多个平台。",
         "amazon": "Amazon 登录",
         "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。",
-        "zoom": "Zoom 登录"
+        "zoom": "Zoom 登录",
+        "itchio": ""
     },
     "message": {
         "sync": "同步完成",
@@ -475,14 +504,16 @@
                 "steam": {
                     "corrupt": "{{game}} 不能被添加到所有找到的 Steam 用户。查看日志了解更多信息。 需要重启 Steam 更改才能生效。",
                     "success": "成功添加 {{game}} 到 Steam。需要重启 Steam 更改才能生效。",
-                    "title": "已添加到 Steam"
+                    "title": "已添加到 Steam",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "无法从所有找到的 Steam 用户删除 {{game}}。查看日志了解更多信息。需要重启 Steam 更改才能生效。",
                     "success": "成功从 Steam 删除了 {{game}}。需要重启 Steam 更改才能生效。",
-                    "title": "已从 Steam 删除"
+                    "title": "已从 Steam 删除",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "已完成修复"
@@ -528,16 +559,22 @@
             "placeHolderKey": "名称",
             "placeHolderValue": "例：Path/To/ExtraFiles",
             "title": "环境变量",
-            "value": "值"
+            "value": "值",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "变量名不能为空",
                 "equal_sign_in_key": "变量名不能包含“=”符号",
-                "space_in_key": "变量名不能包含空格"
+                "space_in_key": "变量名不能包含空格",
+                "duplicate_key": ""
             },
             "example": "不要包含“=”符号，例如：对于像“MY_FLAG=123”这样的设置，在 NAME 中设置 MY_FLAG，在 VALUE 中设置 123。",
-            "info": "设置要附加到命令的环境变量。"
+            "info": "设置要附加到命令的环境变量。",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "将启动器参数放在这里",
@@ -606,7 +643,8 @@
             "queued": "已加入队列",
             "remove": "从下载中删除",
             "pause": "暂停下载",
-            "resume": "恢复下载"
+            "resume": "恢复下载",
+            "paused": ""
         }
     },
     "Recent": "最近玩过",
@@ -653,7 +691,8 @@
             "removeConfirm": "你确定要卸载 EOS 叠加吗？",
             "removeConfirmTitle": "确认删除叠加",
             "updateNow": "更新",
-            "updating": "更新中..."
+            "updating": "更新中...",
+            "description": ""
         },
         "esync": "启用 Esync",
         "exit-to-tray": "退出到系统托盘",
@@ -713,9 +752,13 @@
                 "heroic": "常规 Heroic 日志",
                 "legendary": "Epic Games / Legendary 日志",
                 "nile": "Amazon / Nile 日志",
-                "zoom": "Zoom 日志"
+                "zoom": "Zoom 日志",
+                "itchio": ""
             },
-            "show-uploads": "显示上传的日志文件"
+            "show-uploads": "显示上传的日志文件",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "启用 MangoHud（需要已安装 Mangohud）",
         "manualsync": {
@@ -735,12 +778,15 @@
         "preferSystemLibs": "首选系统库",
         "runexe": {
             "message": "将文件拖放到此处",
-            "title": "在当前 Prefix 上运行 EXE"
+            "title": "在当前 Prefix 上运行 EXE",
+            "description": ""
         },
         "savefolder": {
             "not-found": "未找到保存文件夹，请手动选择（单击重试）",
             "placeholder": "选择存档的保存位置",
-            "warning": "请确保路径正确无误（单击重试）"
+            "warning": "请确保路径正确无误（单击重试）",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
@@ -797,7 +843,8 @@
             "warning": "警告：这应用到整个前端，意味着错误样式可以造成 Heroic 不稳定。如果有需要，可以手动在 `~/.config/heroic/config.json`文件中更改设置。不要从你不信任的来源复制样式。"
         },
         "verboseLogs": {
-            "description": "启用详细记录"
+            "description": "启用详细记录",
+            "hint": ""
         },
         "download-proton-steam": "下载 GE-Proton 到 Steam 目录",
         "dxfpslimit": "限制 DirectX 游戏的每秒帧率",
@@ -843,13 +890,85 @@
         },
         "tools": {
             "open": "打开",
-            "selectExe": "选择 EXE"
-        }
+            "selectExe": "选择 EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "安装 BattlEye 运行时中...",
-            "name": "BattlEye 反作弊运行时"
+            "name": "BattlEye 反作弊运行时",
+            "hint": ""
         },
         "clear-cache": "清理 Heroic 缓存",
         "copiedToClipboard": "已复制到剪贴板！",
@@ -861,7 +980,8 @@
                 "title": "必须启用 GameMode"
             },
             "installing": "安装 EAC 运行时中...",
-            "name": "EasyAntiCheat 运行时"
+            "name": "EasyAntiCheat 运行时",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -883,7 +1003,8 @@
             "systemInformation": "系统信息",
             "gamescope": "Gamescope",
             "legacy": "老古董",
-            "categories": "分类"
+            "categories": "分类",
+            "tabs": ""
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -917,7 +1038,10 @@
             "copyToClipboard": "复制到剪贴板",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Comet：{{cometVersion}}"
+            "cometVersion": "Comet：{{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "gamescope": {
             "searchMsg": "搜索 Gamescope 可执行文件。"
@@ -936,10 +1060,12 @@
                 "help5": "Amazon 库信息（游戏列表、安装对话框信息）",
                 "help6": "这不会删除：",
                 "help9": "游戏设置",
-                "help8": "已安装游戏"
+                "help8": "已安装游戏",
+                "description": ""
             },
             "resetHeroic": {
-                "help": "这会删除所有设置和环迅但不会删除你已安装的游戏或 Epic 凭据。在此之后，需要手动重启 Heroic 便携版本（AppImage、WinPortable, ...）。"
+                "help": "这会删除所有设置和环迅但不会删除你已安装的游戏或 Epic 凭据。在此之后，需要手动重启 Heroic 便携版本（AppImage、WinPortable, ...）。",
+                "description": ""
             },
             "title": {
                 "clearCache": "清除缓存",
@@ -967,7 +1093,31 @@
             "experimental": "实验性功能",
             "launch": "启动选项",
             "wineTools": "工具",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "设置",
@@ -1018,14 +1168,18 @@
         "manageaccounts": "管理账号",
         "quit": "退出",
         "cancel": "取消",
-        "quitMessage": "你确定要退出吗？"
+        "quitMessage": "你确定要退出吗？",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "返回",
             "forward": "前进",
             "openInBrowser": "在浏览器中打开",
-            "reload": "重新加载页面"
+            "reload": "重新加载页面",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1040,7 +1194,8 @@
             "open_folder": "打开文件夹",
             "update": "更新",
             "settings": "设置",
-            "no-results": "未找到匹配的 Wine 版本。"
+            "no-results": "未找到匹配的 Wine 版本。",
+            "subtitle": ""
         },
         "release": "发布日期",
         "size": "大小",
@@ -1098,7 +1253,9 @@
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
         "noGames": "你的仓库是空的。<br /><br />单击<4>此处</4>登录你的 Epic、GOG.com 或 Amazon 账号。登录后，你的游戏会出现在库中。<br /><br />要使用其它来源的应用或游戏，请单击手动添加。",
-        "noResultsTitle": "未找到游戏"
+        "noResultsTitle": "未找到游戏",
+        "description": "",
+        "title": ""
     },
     "adtraction-locked": {
         "dont-show-again": "不再显示此警告",
@@ -1220,7 +1377,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1272,12 +1430,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "Store"
+            "label": "Store",
+            "all": ""
         },
         "titleMulti": "优惠",
         "currency": {
             "label": "货币"
-        }
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1348,7 +1518,23 @@
     "common": {
         "add": "添加",
         "cancel": "取消",
-        "warning": "警告"
+        "warning": "警告",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "常规"
+    "General": "常规",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

@@ -13,8 +13,11 @@
         "actions_font_family_default": "",
         "content_font_family_default": "",
         "section": {
-            "library": "المكتبة"
-        }
+            "library": "المكتبة",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "أضف لعبة",
     "All": "الكل",
@@ -104,8 +107,13 @@
             },
             "remove": {
                 "steam": {
-                    "body": "فشلت إضافة {{game}} إلى ستيم مع: {{newLine}} {{error}}"
+                    "body": "فشلت إضافة {{game}} إلى ستيم مع: {{newLine}} {{error}}",
+                    "title": ""
                 }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "info": {
@@ -185,6 +193,12 @@
             "rosetta": {
                 "title": "لم يتم العثور على روزيتا",
                 "message": "هيرويك يتطلب روزيتا للعمل بشكل صحيح على نظام ماك مع شرائح أبل سيليكون. الرجاء تحميله من تيرمنال نظام ماك باستخدام الأمر التالي: \"softwareupdate --install-rosetta\" ثم أعد التشغيل "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "اختر مجلَّد سابقة واين",
@@ -203,7 +217,8 @@
         "syncing": "يزامن",
         "unsync": "ألغ المزامنة",
         "continue": "تابِع",
-        "close": "أغلق"
+        "close": "أغلق",
+        "backToLibrary": "العودة إلى المكتبة"
     },
     "controller": {
         "hints": {
@@ -227,7 +242,8 @@
             "move_focus": "حرك التركيز",
             "next_page": "الصفحة التالية",
             "previous_page": "الصفحة السابقة",
-            "search": "ابحث"
+            "search": "ابحث",
+            "url_bar": ""
         }
     },
     "docs": "التوثيق",
@@ -238,7 +254,8 @@
         },
         "label": {
             "disk": "القرص",
-            "speed": "التنزيل"
+            "speed": "التنزيل",
+            "unit": ""
         },
         "link": "التنزيلات",
         "queue": {
@@ -248,7 +265,15 @@
             "type": "النوع"
         },
         "title": "التنزيلات",
-        "ETA": "الوقت المقدَّر"
+        "ETA": "الوقت المقدَّر",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "قد لا تعمل الخدمات عبر الإنترنت بشكل كامل لأن خوادم أَبِك جيمز غير متصلة بالإنترنت!",
@@ -300,7 +325,10 @@
         "show_third_party_managed_only": "أظهر من الأطراف الثالثة فقط",
         "show_updates_only": "أظهر الألعاب التي تحتاج تحديثًا فقط",
         "platforms": "منصة",
-        "stores": "المتاجر"
+        "stores": "المتاجر",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "تساعد تقنية إف.إس.آر من أي.إم.دي على رفع معدل الإطارات من خلال رفع جودة الدقة المنخفضة في وضع ملء الشاشة. تزداد جودة الصورة من 5 إلى 1 على حساب انخفاض طفيف في الأداء. قد يؤدي التمكين إلى تحسين الأداء.",
@@ -387,8 +415,10 @@
         "advertiseAvxForRosetta": "",
         "analytics": "",
         "nvidiaprime": {
-            "details": "استخدم بطاقة رسوميات مخصصة لعرض اللعبة على أنظمة متعددة وحدات معالجة الرسوميات. مطلوب فقط على أجهزة الكمبيوتر المحمولة أو أجهزة الكمبيوتر المكتبية المخصصة للألعاب التي تستخدم وحدة معالجة رسوميات بدون رأس للعرض (إنفيديا.أُبتِمُس و أي.إم.دي كُرُوسفَيَر)"
-        }
+            "details": "استخدم بطاقة رسوميات مخصصة لعرض اللعبة على أنظمة متعددة وحدات معالجة الرسوميات. مطلوب فقط على أجهزة الكمبيوتر المحمولة أو أجهزة الكمبيوتر المكتبية المخصصة للألعاب التي تستخدم وحدة معالجة رسوميات بدون رأس للعرض (إنفيديا.أُبتِمُس و أي.إم.دي كُرُوسفَيَر)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -435,7 +465,9 @@
             "list": "بدّل لتمكين تخطيط القوائم"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "المكتبة",
     "loading": {
@@ -449,7 +481,8 @@
         "message": "سجل الدخول باستخدام منصة من اختيارك. يمكنك تسجيل الدخول بأكثر من منصة في نفس الوقت.",
         "amazon": "الولوج في أمازون",
         "old-mac": "إصدار ماك عندك هو {{version}}، والإصدارات من بعد ١٢ تتطلَّب الولوج.",
-        "zoom": ""
+        "zoom": "",
+        "itchio": ""
     },
     "message": {
         "sync": "اكتملت عملية المزامنة",
@@ -465,14 +498,16 @@
                 "steam": {
                     "corrupt": "تعذرت إضافة {{game}} لجميع مستخدمي ستيم المعثور عليهم. راجع السجلات لمزيد من المعلومات. تتطلب إعادة تشغيل ستيم لتطبيق التغييرات.",
                     "success": "تمت إضافة {{game}} بنجاح إلى ستيم. تتطلب إعادة تشغيل ستيم لتطبيق التغييرات.",
-                    "title": "أُضيف لستيم"
+                    "title": "أُضيف لستيم",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} لم يتمكن من ازالتها لكل مستخدمي ستيم المعثور عليهم. راجع السجلات لمزيد من المعلومات. تتطلب إعادة تشغيل ستيم لتطبيق التغييرات.",
                     "success": "تمت إزالة {{game}} بنجاح من ستيم. تتطلب إعادة تشغيل ستيم لتطبيق التغييرات.",
-                    "title": "أٌزيل من ستيم"
+                    "title": "أٌزيل من ستيم",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "اكتمل الإصلاح"
@@ -518,16 +553,22 @@
             "placeHolderKey": "الاسم",
             "placeHolderValue": "على سبيل المثال: المسار/إلى/الملفات الإضافية",
             "title": "متغيرات البيئة",
-            "value": "القيمة"
+            "value": "القيمة",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "لا يجوز أن تكون أسماء المتغيرات فارغة",
                 "equal_sign_in_key": "لا يمكن أن تحتوي أسماء المتغيرات على علامة \"=\"",
-                "space_in_key": "لا يمكن أن تحتوي أسماء المتغيرات على مسافات"
+                "space_in_key": "لا يمكن أن تحتوي أسماء المتغيرات على مسافات",
+                "duplicate_key": ""
             },
             "example": "لا تقم بتضمين علامة \"=\"، على سبيل المثال: لإعداد مثل \"MY_FLAG = 123\"، قم بتعيين MY_FLAG في NAME و 123 في VALUE.",
-            "info": "قم بتعيين متغيرات البيئة لإلحاق الأمر."
+            "info": "قم بتعيين متغيرات البيئة لإلحاق الأمر.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "ضع هنا معطيات المشغل",
@@ -596,7 +637,8 @@
             "queued": "في قائمة الانتظار",
             "remove": "أزل من التنزيلات",
             "pause": "أوقف التنزيل مؤقَّتًا",
-            "resume": "استأنف التنزيل"
+            "resume": "استأنف التنزيل",
+            "paused": ""
         }
     },
     "Recent": "لُعبت مؤخرا",
@@ -643,7 +685,8 @@
             "removeConfirm": "هل أنت متأكد من أنك تريد إلغاء تثبيت واجهة إي.أو.إس؟",
             "removeConfirmTitle": "تأكيد إزالة الواجهة",
             "updateNow": "حدّث",
-            "updating": "قيد التحديث..."
+            "updating": "قيد التحديث...",
+            "description": ""
         },
         "esync": "مكِّن إي.سِنك",
         "exit-to-tray": "صغّر للوحة النظام عند الإغلاق",
@@ -703,9 +746,13 @@
                 "gog": "",
                 "zoom": "",
                 "game-log": "سجل التغيير لـ {{gameTitle}}",
-                "heroic": ""
+                "heroic": "",
+                "itchio": ""
             },
-            "show-uploads": ""
+            "show-uploads": "",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "مكِّن مانجو.هَد (يجب تثبيت مانجو.هَد)",
         "manualsync": {
@@ -725,12 +772,15 @@
         "preferSystemLibs": "فضّل مكتبات النظام",
         "runexe": {
             "message": "اسحب الملفات وأفلتها هنا",
-            "title": "قم بتشغيل الملف التنفيذي في السابقة"
+            "title": "قم بتشغيل الملف التنفيذي في السابقة",
+            "description": ""
         },
         "savefolder": {
             "not-found": "لم يُعثر على مجلَّد ملفَّات التخزين، عليك تحديده يدويًّا (انقر لتعيد المحاولة)",
             "placeholder": "حدد مجلد ملفات تخزين الألعاب بالضبط",
-            "warning": "تحقَّق من صحَّة المسار مرَّتين (انقر لتعيد المحاولة)"
+            "warning": "تحقَّق من صحَّة المسار مرَّتين (انقر لتعيد المحاولة)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "اختر سِمة",
         "showfps": "عرض معدل الإطارات (دايركت.إكس 9 و 10 و 11)",
@@ -807,7 +857,8 @@
         "no-tray-icon": "",
         "analyticsOptIn": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "disableUMU": "",
         "advertiseAvxForRosetta": "",
@@ -817,17 +868,94 @@
         "start-in-console-mode": "",
         "disable_gog_presence": "",
         "steamRuntime": {
-            "label": "استخدم بيئة تشغيل ستيم"
+            "label": "استخدم بيئة تشغيل ستيم",
+            "noRuntimeOption": ""
         },
         "tools": {
             "open": "افتح",
-            "selectExe": "اختر ملفًا تنفيذيًا"
-        }
+            "selectExe": "اختر ملفًا تنفيذيًا",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "قيد تثبيت بيئة تشغيل باتل.آي...",
-            "name": "بيئة تشغيل برنامج باتل.آي لمكافحة الغش"
+            "name": "بيئة تشغيل برنامج باتل.آي لمكافحة الغش",
+            "hint": ""
         },
         "clear-cache": "امسح ذاكرة التخزين المؤقت لهِرُوِك",
         "copiedToClipboard": "تم النسخ إلى الحافظة!",
@@ -839,7 +967,8 @@
                 "title": "جيم.مود مطلوب"
             },
             "installing": "قيد تثبيت بيئة تشغيل إي.أيه.سي...",
-            "name": "بيئة تشغيل إيزي.أنتي.تشيت"
+            "name": "بيئة تشغيل إيزي.أنتي.تشيت",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -861,7 +990,8 @@
             "systemInformation": "معلومات النظام",
             "gamescope": "Gamescope",
             "legacy": "",
-            "categories": "الفئات"
+            "categories": "الفئات",
+            "tabs": ""
         },
         "open-config-file": "افتح ملف التكوين",
         "reset-heroic": "إعادة تعيين هِرُوِك",
@@ -895,7 +1025,10 @@
             "copyToClipboard": "انسخه",
             "heroicVersion": "هِرُوِك: {{heroicVersion}}",
             "nileVersion": "النِّيل: {{nileVersion}}",
-            "cometVersion": "كوميت: {{cometVersion}}"
+            "cometVersion": "كوميت: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "gamescope": {
             "searchMsg": "أَبحث عن ملفِّ تنفيذ gamescope."
@@ -911,7 +1044,8 @@
                 "help2": "معلومات طرف ثالث الخاص بالعبة (scores, steam compatibility, howlongtobeat, pcgamingwiki, applegamingwiki)",
                 "help4": "معلومات مكتبة GOG (قائمة الألعاب، معلومات مربع حوار التثبيت، معلومات واجهة برمجة التطبيقات مثل: المتطلبات-)",
                 "help5": "معلومات مكتبة أمازون (قائمة الألعاب، معلومات حوار التثبيت)",
-                "help6": "لن يؤدي هذا إلى حذف:"
+                "help6": "لن يؤدي هذا إلى حذف:",
+                "description": ""
             },
             "details": "التفاصيل",
             "title": {
@@ -919,7 +1053,8 @@
                 "clearCache": "مسح ذاكرة التخزين المؤقت"
             },
             "resetHeroic": {
-                "help": "سيؤدي هذا إلى إزالة جميع الإعدادات والتخزين المؤقت، لكنه لن يؤدي إلى إزالة الألعاب المثبتة أو بيانات اعتماد Epic الخاصة بك. يجب إعادة تشغيل الإصدارات المحمولة (AppImage، WinPortable، ...) من heroic يدويًا بعد ذلك."
+                "help": "سيؤدي هذا إلى إزالة جميع الإعدادات والتخزين المؤقت، لكنه لن يؤدي إلى إزالة الألعاب المثبتة أو بيانات اعتماد Epic الخاصة بك. يجب إعادة تشغيل الإصدارات المحمولة (AppImage، WinPortable، ...) من heroic يدويًا بعد ذلك.",
+                "description": ""
             }
         },
         "offline": {
@@ -945,7 +1080,31 @@
             "experimental": "مزايا تجريبية",
             "launch": "خيارات التشغيل...",
             "wineTools": "الأدوات",
-            "wineVersion": "برنامج واين"
+            "wineVersion": "برنامج واين",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "الإعدادات",
@@ -996,14 +1155,18 @@
         "manageaccounts": "أدر الحسابات",
         "quit": "اخرج",
         "cancel": "ألغِ",
-        "quitMessage": "هل أنت متأكد من إرادتك للخروج؟"
+        "quitMessage": "هل أنت متأكد من إرادتك للخروج؟",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "ارجع",
             "forward": "تقدم للأمام",
             "openInBrowser": "افتح في المتصفح",
-            "reload": "تحديث الصفحة"
+            "reload": "تحديث الصفحة",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1018,7 +1181,8 @@
             "open_folder": "",
             "update": "حدّث",
             "settings": "الإعدادات",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "تاريخ الإصدار",
         "size": "الحجم",
@@ -1069,13 +1233,16 @@
     "emptyLibrary": {
         "noResults": "لم تسفر التصنيفات الحالية عن أية نتائج.",
         "noGames": "",
-        "noResultsTitle": "لم يتم العثور على ألعاب"
+        "noResultsTitle": "لم يتم العثور على ألعاب",
+        "description": "",
+        "title": ""
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton هو نوع Proton تم إنشاؤه بواسطة Glorious Eggroll. من المفترض استخدامه في Steam، لكن بعض الألعاب خارج Steam قد تعمل بشكل أفضل مع هذا المتغير. ويوفر سجلات غير مجدية في الغالب لاستكشاف الأخطاء وإصلاحها.",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "categories-manager": {
         "add-placeholder": "أضف فئةً",
@@ -1190,7 +1357,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1215,7 +1383,8 @@
             "pageSize": "",
             "releaseYear": "",
             "platform": "منصة",
-            "hideOwned": "أخفي المملوك"
+            "hideOwned": "أخفي المملوك",
+            "wishlistOnly": ""
         },
         "sidebar": "التفاصيل",
         "sort": {
@@ -1241,12 +1410,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "المتجر"
+            "label": "المتجر",
+            "all": ""
         },
         "titleMulti": "التفاصيل",
         "currency": {
             "label": "العملة"
-        }
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1308,13 +1489,32 @@
         "cancelUpdate": {
             "message": "هذه اللعبة تحمل حاليا. هل ترغب بإلغاء التحديث الجاري؟",
             "title": "إلغاء التحديث؟"
+        },
+        "removeFromQueue": {
+            "message": ""
         }
     },
     "next": "",
     "common": {
         "add": "أضيف",
         "cancel": "ألغِ",
-        "warning": "تحذير"
+        "warning": "تحذير",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "عام"
+    "General": "عام",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

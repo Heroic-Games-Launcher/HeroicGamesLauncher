@@ -98,7 +98,8 @@
         "browse_files": "ファイルを閲覧",
         "edit-game": "App/ゲームを編集",
         "favourite": "お気に入りに追加",
-        "unfavourite": "お気に入りから削除"
+        "unfavourite": "お気に入りから削除",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -135,7 +136,11 @@
         "extra_info": "追加情報",
         "install_info": "インストール情報",
         "achievements": "実績",
-        "details": "ゲームの詳細"
+        "details": "ゲームの詳細",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "移動中",
@@ -168,8 +173,12 @@
         "third-party-app": "サードパーティマネージャー",
         "genres": "ジャンル",
         "steamdeck": {
-            "unsupported": "非対応"
-        }
+            "unsupported": "非対応",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": ""
     },
     "install": {
         "disk-space-left": "空き領域",
@@ -199,7 +208,8 @@
         "playing": {
             "start": "今すぐプレイ",
             "stop": "プレイ中（中止）",
-            "start_with_logs": "今すぐプレイ (ログを出力する)"
+            "start_with_logs": "今すぐプレイ (ログを出力する)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "セーブデータを同期中"
@@ -316,7 +326,8 @@
         "verify": "検証と修復",
         "extraInfo": "追加情報",
         "logs": "ログ",
-        "categories": "カテゴリー"
+        "categories": "カテゴリー",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブ機能を実装しているものもあります。",
@@ -369,5 +380,10 @@
             "no-key-link": "[設定] → [詳細]"
         },
         "square": "正方形アート"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

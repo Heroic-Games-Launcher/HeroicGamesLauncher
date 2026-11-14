@@ -4,7 +4,29 @@
         "copy": "Eilañ",
         "loading": "O kargañ",
         "login": "Kevreañ",
-        "open": "Heuliañ al liamm"
+        "open": "Heuliañ al liamm",
+        "close": "Serriñ",
+        "itchio_error": "",
+        "error": ""
     },
-    "welcome": "Donemat !"
+    "welcome": "Donemat !",
+    "message": {
+        "part2": "",
+        "part7": "",
+        "part8": "",
+        "part1": "",
+        "part3": "",
+        "part5": "",
+        "part6": "",
+        "part4": ""
+    },
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

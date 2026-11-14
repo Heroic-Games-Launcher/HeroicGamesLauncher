@@ -97,7 +97,9 @@
         "no-path-selected": "",
         "browse_files": "",
         "favourite": "เพิ่มไปยังรายการโปรด",
-        "unfavourite": "ลบออกจากรายการโปรด"
+        "unfavourite": "ลบออกจากรายการโปรด",
+        "edit-game": "",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "ไม่ได้สนับสนุน",
     "disabled": "ปิดใช้งานแล้ว",
@@ -129,7 +131,12 @@
         "totalPlayed": "",
         "firstPlayed": "",
         "platform": "",
-        "achievements": ""
+        "achievements": "",
+        "tabs": "",
+        "overview": "",
+        "details": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "กำลังย้าย",
@@ -165,15 +172,21 @@
         "third-party-app": "",
         "installedPlatform": "",
         "steamdeck": {
-            "unsupported": "ไม่ได้สนับสนุน"
-        }
+            "unsupported": "ไม่ได้สนับสนุน",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "label": {
         "launching": "กำลังเปิด",
         "playing": {
             "start": "เล่นตอนนี้",
             "stop": "กำลังเล่น (หยุด)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "winetricks": "",
         "redist": "",
@@ -183,7 +196,8 @@
         },
         "saves": {
             "syncing": ""
-        }
+        },
+        "releaseDate": ""
     },
     "modifyInstall": {
         "versionCollapsable": "เวอร์ชั่นเกม",
@@ -209,7 +223,9 @@
             "broser": "",
             "title": "",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "url": "",
@@ -223,6 +239,9 @@
         },
         "field": {
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -272,7 +291,8 @@
         "change": "เลือกตำแหน่งการติดตั้งใหม่",
         "logs": "",
         "enableEosOverlay": "",
-        "disableEosOverlay": ""
+        "disableEosOverlay": "",
+        "more": ""
     },
     "third-party-managed": {
         "header": "",
@@ -325,5 +345,28 @@
         "noDescription": ""
     },
     "report_problem": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "placeholder": {
+            "image": ""
+        },
+        "square": "",
+        "title": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "advanced": "",
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    }
 }

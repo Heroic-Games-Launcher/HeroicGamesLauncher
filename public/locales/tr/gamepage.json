@@ -99,7 +99,8 @@
         "play": "OYNA",
         "edit-game": "Oyunu Düzenle",
         "favourite": "Favorilere Ekle",
-        "unfavourite": "Favorilerden Kaldır"
+        "unfavourite": "Favorilerden Kaldır",
+        "backToLibrary": "Kütüphaneye Dön"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
@@ -133,10 +134,14 @@
         },
         "changelogFor": "{{gameTitle}} değişiklik günlükleri",
         "modify": "Kurulumu Düzenle",
-        "install_info": "Kurulum bilgisi",
-        "extra_info": "Ek bilgi",
+        "install_info": "Kurulum Bilgisi",
+        "extra_info": "Daha fazla",
         "achievements": "Başarımlar",
-        "details": "Oyun ayrıntıları"
+        "details": "Oyun ayrıntıları",
+        "about": "Oyun Hakkında",
+        "hoursPlayedShort": "{{hours}} saat",
+        "overview": "Genel Bakış",
+        "tabs": "Oyun bilgisi"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -169,8 +174,12 @@
         "third-party-app": "Üçüncü Parti Yönetici",
         "genres": "Türler",
         "steamdeck": {
-            "unsupported": "Desteklenmiyor"
-        }
+            "unsupported": "Desteklenmiyor",
+            "playable": "Oynanabilir",
+            "unknown": "Bilinmiyor",
+            "verified": "Onaylandı"
+        },
+        "developer": "Geliştirici"
     },
     "install": {
         "disk-space-left": "Kullanılabilir Alan",
@@ -198,9 +207,10 @@
             "not-installable-game": "Oyun Kurulamıyor"
         },
         "playing": {
-            "start": "Şimdi Oyna",
+            "start": "Oyna",
             "stop": "Oynanıyor (Durdur)",
-            "start_with_logs": "Şimdi Oyna (loglar ile)"
+            "start_with_logs": "Oyna (Loglar ile)",
+            "start_with_logs_hint": "Oyunu başlatırken ayrıntılı bir log kaydı tutar; bu, bir sorunu bildirmeniz gerektiğinde işe yarar"
         },
         "saves": {
             "syncing": "Kayıtlar Eşzamanlanıyor"
@@ -338,7 +348,8 @@
         "verify": "Doğrula ve Onar",
         "extraInfo": "Fazladan bilgi",
         "logs": "Kayıtlar",
-        "categories": "Kategoriler"
+        "categories": "Kategoriler",
+        "more": "Daha fazla"
     },
     "help": {
         "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendine ait buluta kaydetme sistemini uygular.",
@@ -391,5 +402,10 @@
         },
         "title": "Oyunu Düzenle",
         "square": "Kare Görsel"
+    },
+    "itchio": {
+        "import": {
+            "warning": "itch.io uygulaması tarafından yüklenen klasörler, güncellemeler dahil olmak üzere tamamen içe aktarılır. Diğer klasörler için ise Heroic, güncelleme kontrolü yapamaz ve uygulamanın kaldırılması oyun dosyalarını silmez."
+        }
     }
 }

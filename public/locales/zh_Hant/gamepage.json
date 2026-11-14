@@ -98,7 +98,8 @@
         "browse_files": "",
         "edit-game": "編輯應用程式/遊戲",
         "favourite": "加入我的最愛",
-        "unfavourite": "自我的最愛移除"
+        "unfavourite": "自我的最愛移除",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "不支援",
     "disabled": "已關閉",
@@ -135,7 +136,11 @@
         "changelogFor": "{{gameTitle}} 更新日誌",
         "extra_info": "",
         "achievements": "",
-        "details": "遊戲內容"
+        "details": "遊戲內容",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "移動中",
@@ -167,8 +172,13 @@
         "steamdeck-compatibility-info": "SteamDeck 相容性",
         "third-party-app": "第三方管理器",
         "steamdeck": {
-            "unsupported": "不支援"
-        }
+            "unsupported": "不支援",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": ""
     },
     "install": {
         "disk-space-left": "可用空間",
@@ -196,7 +206,8 @@
         "playing": {
             "start": "開始遊戲",
             "stop": "停止遊戲",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "存檔同步中"
@@ -243,7 +254,9 @@
             "title": "Game/App Title",
             "broser": "瀏覽器網址",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Paste an Image URL here",
@@ -254,6 +267,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
@@ -305,7 +321,8 @@
         "verify": "驗證並修復遊戲檔案",
         "extraInfo": "額外信息",
         "logs": "日誌",
-        "categories": "分類"
+        "categories": "分類",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "本遊戲不支援雲端存檔。此訊息由遊戲開發商提供。有些遊戲確實實現了自己的雲端存檔系統",
@@ -346,6 +363,22 @@
         "placeholder": {
             "image": "Paste an Image URL here"
         },
-        "title": "編輯應用程式/遊戲"
+        "title": "編輯應用程式/遊戲",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

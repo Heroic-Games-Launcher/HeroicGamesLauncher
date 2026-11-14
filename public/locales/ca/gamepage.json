@@ -99,7 +99,8 @@
         "play": "JUGAR",
         "edit-game": "Edita el joc",
         "favourite": "Afegeix a preferits",
-        "unfavourite": "Suprimeix dels preferits"
+        "unfavourite": "Suprimeix dels preferits",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
@@ -136,7 +137,11 @@
         "extra_info": "Informació addicional",
         "install_info": "Informació de la instal·lació",
         "achievements": "Assoliments",
-        "details": "Detalls del joc"
+        "details": "Detalls del joc",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "S'està movent",
@@ -169,8 +174,12 @@
         "third-party-app": "Gestor de tercers",
         "genres": "Gèneres",
         "steamdeck": {
-            "unsupported": "No compatible"
-        }
+            "unsupported": "No compatible",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": ""
     },
     "install": {
         "disk-space-left": "Espai disponible",
@@ -200,7 +209,8 @@
         "playing": {
             "start": "Juga",
             "stop": "En execució (Atura)",
-            "start_with_logs": "Juga (amb registres)"
+            "start_with_logs": "Juga (amb registres)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "S'estan sincronitzant les partides"
@@ -338,7 +348,8 @@
         "verify": "Verifica i repara",
         "extraInfo": "Informació extra",
         "logs": "Registres",
-        "categories": "Categories"
+        "categories": "Categories",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Aquest joc no admet partides desades al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desament al núvol.",
@@ -391,5 +402,10 @@
         },
         "square": "Art quadrada",
         "title": "Edita el joc"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
     }
 }

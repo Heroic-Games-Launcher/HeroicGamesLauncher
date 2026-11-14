@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "Kytke pois sulava vieritys (uudelleenkäynnistys vaaditaan)",
         "disable_animations": "Poista käyttöliittymän animoinnit käytöstä",
         "section": {
-            "library": "Kirjasto"
-        }
+            "library": "Kirjasto",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Lisää peli",
     "All": "Kaikki",
@@ -104,8 +107,13 @@
             "executableNotFoundMessage": "Heroic ei löytänyt tämän pelin sovellusta. Ole hyvä ja aseta se manuaalisesti peliasetuksissa.",
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": ""
                 }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "info": {
@@ -185,6 +193,12 @@
             "rosetta": {
                 "title": "Rosettaa ei löytynyt",
                 "message": "Heroic vaatii Rosetta:n jotta sitä voidaan ajaa asianmukaisesti macOS:llä Apple Silicon -piireillä. Asenna se macOS:n päätteestä seuraavalla käskyllä: \"softwareupdate --install-rosetta\" ja uudelleenkäynnistä Heroic. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Valitse WinePrefix-kansio",
@@ -203,7 +217,8 @@
         "syncing": "Synkronoidaan",
         "unsync": "Älä synkronoi",
         "continue": "Jatka",
-        "close": "Sulje"
+        "close": "Sulje",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -239,7 +254,8 @@
         },
         "label": {
             "disk": "Levy",
-            "speed": "Lataa"
+            "speed": "Lataa",
+            "unit": ""
         },
         "link": "Lataukset",
         "queue": {
@@ -249,7 +265,15 @@
             "type": "Laji"
         },
         "title": "Lataukset",
-        "ETA": "Arvioitu aika"
+        "ETA": "Arvioitu aika",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi täysin Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
@@ -300,7 +324,10 @@
         "no_categories": "Muovattuja luokituksia ei ole. Lisää luokkia käyttäen pelivalikkoja.",
         "show_updates_only": "Näytä vain pelit joihin on päivityksiä",
         "platforms": "Platform",
-        "stores": "Kaupat"
+        "stores": "Kaupat",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD FSR auttaa parantamaan ruudunpäivitysnopeutta ylösskaalaamalla alemman resoluution kuvaa koko näytön tilassa. Kuvanlaatu paranee asteikolla 5–1 pienen suorituskykyvaikutuksen kustannuksella. Käyttöönotto saattaa parantaa suorituskykyä.",
@@ -437,7 +464,9 @@
             "list": "Vaihda luettelonäkymään"
         },
         "hideAlphabetFilter": "Piilota aakkossuodatin",
-        "showAlphabetFilter": "Näytä aakkossuodatin"
+        "showAlphabetFilter": "Näytä aakkossuodatin",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Kirjasto",
     "loading": {
@@ -451,7 +480,8 @@
         "message": "Sisäänkirjaudu valitsemallasi alustalla. Voit kirjautua enempäänkin kuin yhteen alustaan samaan aikaan.",
         "amazon": "Amazon:iin kirjautuminen",
         "old-mac": "macOS versiosi on {{version}}. macOS 12 tai sitä uudempi vaaditaan sisäänkirjautumiseen.",
-        "zoom": "Zoom:iin kirjautuminen"
+        "zoom": "Zoom:iin kirjautuminen",
+        "itchio": ""
     },
     "message": {
         "sync": "Synkronointi valmis",
@@ -467,14 +497,16 @@
                 "steam": {
                     "corrupt": "{{game}} ei lisäytynyt kaikille Steam-käyttäjille. Lue lokikirjaukset lisätietoja varten. Steam pitää uudelleenkäynnistä jotta muutokset astuvat voimaan.",
                     "success": "{{game}} lisättiin Steam:iin onnistuneesti. Steam pitää uudelleenkäynnistää jotta muutokset astuvat voimaan.",
-                    "title": "Lisätty Steam:iin"
+                    "title": "Lisätty Steam:iin",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} ei poistunut kaikilta löytyneiltä Steam-käyttäjiltä. Lue lokikirjaukset lisätietoja varten. Steam pitää uudelleenkäynnistä jotta muutokset astuvat voimaan.",
                     "success": "{{game}} poistettiin Steam:ista onnistuneesti. Steam pitää uudelleenkäynnistää jotta muutokset astuvat voimaan.",
-                    "title": "Poistettu Steam:ista"
+                    "title": "Poistettu Steam:ista",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Korjaus valmis"
@@ -520,16 +552,22 @@
             "placeHolderKey": "NIMI",
             "placeHolderValue": "Esim.: polku/johtaen/lisätiedostoihin",
             "title": "Ympäristömuuttujat",
-            "value": "Arvo"
+            "value": "Arvo",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "Muunnosnimet eivät voi olla tyhjää",
                 "equal_sign_in_key": "Muutosnimet eivät voi sisältää \"=\" -merkkiä",
-                "space_in_key": "Muutosnimet eivät voi sisältää välejä"
+                "space_in_key": "Muutosnimet eivät voi sisältää välejä",
+                "duplicate_key": ""
             },
             "example": "ÄLÄ sisällytä \"=\" -merkkiä, esim.: asetukselle kuten \"MINUN_LIPPUNI=123\", aseta MINUN_LIPPUNI NIMEEN ja 123 arvoon.",
-            "info": "Aseta ympäristömuuttujat yhteneväksi komennon kanssa."
+            "info": "Aseta ympäristömuuttujat yhteneväksi komennon kanssa.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "Laita tähän käynnistyskäskyt",
@@ -598,7 +636,8 @@
             "queued": "Jonossa",
             "remove": "Poista latauksista",
             "pause": "Tauota lataus",
-            "resume": "Jatka latausta"
+            "resume": "Jatka latausta",
+            "paused": ""
         }
     },
     "Recent": "Viimeksi pelatut",
@@ -645,7 +684,8 @@
             "removeConfirm": "Haluatko varmasti poistaa EOS-päällisen asennuksen?",
             "removeConfirmTitle": "Vahvista päällisen poisto",
             "updateNow": "Päivitä",
-            "updating": "Päivitetään..."
+            "updating": "Päivitetään...",
+            "description": ""
         },
         "esync": "Ota Esync käyttöön",
         "exit-to-tray": "Sulje ilmaisinalueelle",
@@ -705,9 +745,13 @@
                 "gog": "GOG lokitiedot",
                 "zoom": "Zoom lokitiedot",
                 "game-log": "Pelin {{gameTitle}} lokitiedot",
-                "heroic": "Yleiset Heroic lokitiedot"
+                "heroic": "Yleiset Heroic lokitiedot",
+                "itchio": ""
             },
-            "show-uploads": "Näytä lähetetyt lokitiedot"
+            "show-uploads": "Näytä lähetetyt lokitiedot",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Ota Mangohud käyttöön (Mangohudin tulee olla asennettu)",
         "manualsync": {
@@ -727,12 +771,15 @@
         "preferSystemLibs": "Suosi järjestelmäkirjastoja",
         "runexe": {
             "message": "Raahaa ja pudota tiedostoja tänne",
-            "title": "Aja EXE etusasteessa"
+            "title": "Aja EXE etusasteessa",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Tallennuskansiota ei löytynyt, valitsethan sen itse (napsauta uudellenyritystä vasten)",
             "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
-            "warning": "Tarkista kaksikin kertaa että polku on oikein (napsauta uudelleenyritystä varten)"
+            "warning": "Tarkista kaksikin kertaa että polku on oikein (napsauta uudelleenyritystä varten)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Valitse teema",
         "showfps": "Näytä ruudunpäivitys (DX9, 10 ja 11)",
@@ -790,7 +837,8 @@
         },
         "WoW64": "Salli WoW64 (kokeellinen)",
         "verboseLogs": {
-            "description": "Salli laajat lokit"
+            "description": "Salli laajat lokit",
+            "hint": ""
         },
         "advertiseAvxForRosetta": "Mainosta AVX:ää Rosettalle",
         "download-proton-steam": "Lataa GE-Proton Steam-kansioon",
@@ -828,13 +876,83 @@
         },
         "tools": {
             "open": "Avaa",
-            "selectExe": "Valitse EXE"
-        }
+            "selectExe": "Valitse EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Asennetaan BattlEye-ajoympäristö...",
-            "name": "BattlEye AntiCheat (huijauksenesto) ajoympäristö"
+            "name": "BattlEye AntiCheat (huijauksenesto) ajoympäristö",
+            "hint": ""
         },
         "clear-cache": "Tyhjennä Heroicin välimuisti",
         "copiedToClipboard": "Kopioitu leikepöydälle!",
@@ -846,7 +964,8 @@
                 "title": "GameMode vaaditaan"
             },
             "installing": "Asennetaan EAC-ajoympäristö...",
-            "name": "EasyAntiCheat-huijaukseneston ajoympäristö"
+            "name": "EasyAntiCheat-huijaukseneston ajoympäristö",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -868,7 +987,8 @@
             "systemInformation": "Järjestelmätiedot",
             "gamescope": "Gamescope",
             "legacy": "Vanhentuneet",
-            "categories": "Kategoriat"
+            "categories": "Kategoriat",
+            "tabs": ""
         },
         "open-config-file": "Avaa asetustiedosto",
         "reset-heroic": "Nollaa Heroic",
@@ -899,7 +1019,10 @@
             "copyToClipboard": "Kopioi leikepöydälle",
             "heroicVersion": "Heroic-julkaisu: {{heroicVersion}}",
             "nileVersion": "Nile-julkaisu: {{nileVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Kokeelliset ominaisuudet"
@@ -915,14 +1038,16 @@
                 "help7": "Kaupan kirjautuminen",
                 "help5": "Amazon kirjastotiedot (pelilista, asennuskehotteen tiedot)",
                 "help6": "Tämä EI poista:",
-                "help4": "GOG:n kirjastotiedot (pelilista, asennuskehotteen tiedot, rajapintatiedot, eli: vaatimukset)"
+                "help4": "GOG:n kirjastotiedot (pelilista, asennuskehotteen tiedot, rajapintatiedot, eli: vaatimukset)",
+                "description": ""
             },
             "title": {
                 "resetHeroic": "Nollaa Heroic",
                 "clearCache": "Tyhjennä välimuisti"
             },
             "resetHeroic": {
-                "help": "Haluatko varmasti nollata Heroic:in? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei asentamiasi pelejä eikä Epic-tietojasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:istä pitää uudelleenkäynnistää manuaalisesti jälkeenpäin."
+                "help": "Haluatko varmasti nollata Heroic:in? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei asentamiasi pelejä eikä Epic-tietojasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:istä pitää uudelleenkäynnistää manuaalisesti jälkeenpäin.",
+                "description": ""
             },
             "details": "Yksityiskohdat"
         },
@@ -952,7 +1077,31 @@
             "experimental": "Kokeelliset ominaisuudet",
             "launch": "Käynnistysasetukset...",
             "wineTools": "Tools",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Asetukset",
@@ -1003,7 +1152,8 @@
         "manageaccounts": "Hallitse tilejä",
         "quit": "Poistu",
         "quitMessage": "Oletko varma, että haluat lopettaa?",
-        "cancel": "Keskeytä"
+        "cancel": "Keskeytä",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -1011,7 +1161,9 @@
             "forward": "Mene eteenpäin",
             "openInBrowser": "Avaa selaimessa",
             "reload": "Lataa sivu uudelleen",
-            "home": "Siirry kaupan pääsivulle"
+            "home": "Siirry kaupan pääsivulle",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1026,7 +1178,8 @@
             "open_folder": "Avaa kansio",
             "update": "Päivitä",
             "settings": "Asetukset",
-            "no-results": "Hakusi ei vastannut yhtäkään Wine-julkaisua."
+            "no-results": "Hakusi ei vastannut yhtäkään Wine-julkaisua.",
+            "subtitle": ""
         },
         "release": "Julkaisupäivä",
         "size": "Koko",
@@ -1094,7 +1247,9 @@
     "emptyLibrary": {
         "noResults": "Nämä suodattimet eivät tuottaneet tuloksia.",
         "noGames": "Kirjastosi on tyhjä.<br /><br />Napsauta <4>tässä</4> kirjautuaksesi sisään Epic, GOG.com, tai Amazon -tilillesi. Tämän jälkeen pelisi ilmestyvät tähän kirjastonäkymään.<br /><br />Käyttääksesi pelejä- tai sovelluksia muista lähteistä, napsauta <br /> lisätäksesi ne manuaalisesti.",
-        "noResultsTitle": "Pelejä ei löydetty"
+        "noResultsTitle": "Pelejä ei löydetty",
+        "description": "",
+        "title": ""
     },
     "tour": {
         "back": "Takaisin",
@@ -1268,7 +1423,8 @@
             "grid": "Ruudukko",
             "label": "Näkymätila",
             "list": "Luettelo"
-        }
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1339,7 +1495,23 @@
     "common": {
         "add": "Lisää",
         "cancel": "Peruuta",
-        "warning": "Varoitus"
+        "warning": "Varoitus",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
     },
-    "General": "Yleiset"
+    "General": "Yleiset",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }

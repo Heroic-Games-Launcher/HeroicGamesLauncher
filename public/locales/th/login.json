@@ -19,5 +19,14 @@
         "part7": "เลขรหัสยืนยัน",
         "part8": "ในช่องป้อนข้อมูลด้านล่าง และคลิกปุ่มเข้าสู่ระบบ"
     },
-    "welcome": "ยินดีต้อนรับ!"
+    "welcome": "ยินดีต้อนรับ!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

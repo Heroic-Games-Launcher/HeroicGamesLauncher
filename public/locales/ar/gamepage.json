@@ -99,7 +99,8 @@
         "play": "العب",
         "edit-game": "حرِّر التطبيق/اللعبة",
         "favourite": "أضف للمفضلة",
-        "unfavourite": "احذف من المفضلة"
+        "unfavourite": "احذف من المفضلة",
+        "backToLibrary": "العودة إلى المكتبة"
     },
     "cloud_save_unsupported": "غير مدعوم",
     "disabled": "معطّل",
@@ -136,7 +137,11 @@
         "extra_info": "معلومات إضافية",
         "install_info": "معلومات التثبيت",
         "achievements": "الإنجازات",
-        "details": "الإعدادات الافتراضية للألعاب"
+        "details": "تفاصيل اللعبة",
+        "tabs": "معلومات اللعبة",
+        "overview": "ملخص",
+        "hoursPlayedShort": "{{hours}} ساعات",
+        "about": "عن اللعبة"
     },
     "gamecard": {
         "moving": "قيد النقل",
@@ -167,7 +172,14 @@
         "protondb-compatibility-info": "طبقة توافق البروتون",
         "steamdeck-compatibility-info": "التوافق مع SteamDeck",
         "third-party-app": "إدارة الأطراف الثالثة",
-        "genres": "التصنيفات"
+        "genres": "التصنيفات",
+        "steamdeck": {
+            "verified": "موثق",
+            "unknown": "مجهول",
+            "playable": "قابل للعب",
+            "unsupported": "غير مدعومة"
+        },
+        "developer": "المطور"
     },
     "install": {
         "disk-space-left": "المساحة المتوفرة",
@@ -197,7 +209,8 @@
         "playing": {
             "start": "إلعب الآن",
             "stop": "مشغّلة (أوقفها)",
-            "start_with_logs": "العب الأن (مع سجلات)"
+            "start_with_logs": "العب الأن (مع سجلات)",
+            "start_with_logs_hint": "يتم تشغيل اللعبة مع تسجيل سجل مفصل، مفيد عند الابلاغ عن مشكلة"
         },
         "saves": {
             "syncing": "قيد مزامنة ملفات التخزين"
@@ -312,7 +325,8 @@
         "verify": "تحقق وأصلح",
         "extraInfo": "معلومات إضافية",
         "logs": "السجلَّات",
-        "categories": "الفئات"
+        "categories": "الفئات",
+        "more": "المزيد"
     },
     "help": {
         "cloud_save_unsupported": "هذه اللعبة لا تدعم ملفَّات التخزين عبر السحابة. يوفِّر مطوِّروا اللعبة هذه المعلومات. تطبِّق بعض الألعاب أنظمة تخزين عبر السحابة خاصة بهم",
@@ -365,5 +379,10 @@
             "no-key-prefix": "للبحث على \"SteamGridDB\" على صورة غلاف، أضف مفتاح الـAPI"
         },
         "square": "صورة مربعة فنية"
+    },
+    "itchio": {
+        "import": {
+            "warning": "يتم رفع جميع المجلدات المثبتة عن طريق itch.io، بما فيهم التحديثات. لأي مجلد آخر، Heroic لا يمكنه التحقق من التحديثات والغاء التثبيت لن يقوم بإزالة ملفات اللعبة."
+        }
     }
 }

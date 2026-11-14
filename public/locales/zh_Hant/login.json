@@ -6,7 +6,8 @@
         "copied": "已複製！",
         "error": "錯誤，嘗試不同的代碼",
         "loading": "載入中",
-        "close": "關閉"
+        "close": "關閉",
+        "itchio_error": ""
     },
     "message": {
         "part1": "為了讓您能夠登入並安裝您的遊戲，您首先需要按照以下步驟操作：",
@@ -22,5 +23,14 @@
         "error": "錯誤",
         "loading": "正在讀取遊戲列表，請稍候"
     },
-    "welcome": "歡迎您！"
+    "welcome": "歡迎您！",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

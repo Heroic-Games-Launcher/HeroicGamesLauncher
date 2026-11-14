@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "スムーズスクロールを無効化（要再起動）",
         "disable_animations": "UIアニメーションを無効化",
         "section": {
-            "library": "ライブラリ"
-        }
+            "library": "ライブラリ",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "ゲームを追加",
     "All": "すべて",
@@ -191,6 +194,12 @@
             "rosetta": {
                 "title": "Rosettaが見つかりません",
                 "message": "Apple Siliconチップ搭載のmacOSでHeroicを正常に動作させるには、Rosettaが必要です。macOSのターミナルで次のコマンド「softwareupdate --install-rosetta」を実行してインストールし、Heroicを再起動してください。 "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "WinePrefixフォルダを選択",
@@ -209,7 +218,8 @@
         "syncing": "同期しています",
         "unsync": "非同期",
         "continue": "続ける",
-        "close": "閉じる"
+        "close": "閉じる",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -245,7 +255,8 @@
         },
         "label": {
             "disk": "ディスク",
-            "speed": "ダウンロード"
+            "speed": "ダウンロード",
+            "unit": ""
         },
         "link": "ダウンロード",
         "queue": {
@@ -255,7 +266,15 @@
             "type": "種類"
         },
         "title": "ダウンロード",
-        "ETA": "推定残り時間"
+        "ETA": "推定残り時間",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Epic Gamesサーバーがオフラインであるため、オンラインサービスが完全には機能しない可能性があります!",
@@ -307,7 +326,10 @@
         "show_third_party_managed_only": "サードパーティで管理しているゲームのみ表示",
         "show_updates_only": "更新のあるゲームのみを表示する",
         "platforms": "Platform",
-        "stores": "ストア"
+        "stores": "ストア",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMDのFSRは、フルスクリーンモードで低い解像度をアップスケーリングすることでフレームレートを向上させます。パフォーマンスに若干の影響を及ぼしますが、画質は5から1に向上します。有効にするとパフォーマンスが向上する可能性があります。",
@@ -444,7 +466,9 @@
             "list": "リストレイアウトに切り替え"
         },
         "hideAlphabetFilter": "アルファベットフィルターを非表示",
-        "showAlphabetFilter": "アルファベットフィルターを表示"
+        "showAlphabetFilter": "アルファベットフィルターを表示",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "ライブラリ",
     "loading": {
@@ -458,7 +482,8 @@
         "message": "お使いのプラットフォームにログインします。同時に複数のプラットフォームにログインすることができます。",
         "amazon": "Amazonログイン",
         "old-mac": "このmacOSのバージョンは {{version}} です。 ログインするにはmacOS 12以降が必要です。",
-        "zoom": "Zoomへのログイン"
+        "zoom": "Zoomへのログイン",
+        "itchio": ""
     },
     "message": {
         "sync": "同期を完了しました",
@@ -613,7 +638,8 @@
             "queued": "キューに追加済み",
             "remove": "ダウンロードリストから削除",
             "pause": "ダウンロードを一時停止",
-            "resume": "ダウンロードを再開"
+            "resume": "ダウンロードを再開",
+            "paused": ""
         }
     },
     "Recent": "最近プレイしたゲーム",
@@ -660,7 +686,8 @@
             "removeConfirm": "EOSオーバーレイをアンインストールしてもよろしいですか?",
             "removeConfirmTitle": "オーバーレイ削除の確認",
             "updateNow": "アップデート",
-            "updating": "アップデート中…"
+            "updating": "アップデート中…",
+            "description": ""
         },
         "esync": "Esyncを有効にする",
         "exit-to-tray": "システムトレイに常駐",
@@ -720,10 +747,13 @@
                 "gog": "GOGログ",
                 "legendary": "Epic Games / Legendaryログ",
                 "nile": "Amazon / Nileログ",
-                "zoom": "Zoom ログ"
+                "zoom": "Zoom ログ",
+                "itchio": ""
             },
             "show-uploads": "アップロードされたログファイルを表示する",
-            "error": "ログファイルの読み込み中に内部エラーが発生しました"
+            "error": "ログファイルの読み込み中に内部エラーが発生しました",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Mangohudを有効にする（Mangohudがインストールされている必要があります）",
         "manualsync": {
@@ -743,12 +773,15 @@
         "preferSystemLibs": "システムライブラリを優先",
         "runexe": {
             "message": "ここにファイルをドラッグアンドドロップ",
-            "title": "環境上でEXEを実行"
+            "title": "環境上でEXEを実行",
+            "description": ""
         },
         "savefolder": {
             "not-found": "セーブデータフォルダが見つかりません。手動で選択してください（クリックして再試行）",
             "placeholder": "正しいセーブデータフォルダを選択してください",
-            "warning": "パスが正しいか再度確認してください（クリックして再試行）"
+            "warning": "パスが正しいか再度確認してください（クリックして再試行）",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "テーマを選択",
         "showfps": "FPSを表示（DX9、10、11）",
@@ -804,7 +837,8 @@
             "warning": "警告：これはフロントエンド全体に適用されます。間違ったCSSスタイルはHeroicを利用できなくなる可能性があります。必要に応じて、設定は`~/.config/heroic/config.json`で手動で変更できます。信頼できないソースからCSSスタイルをコピーしないでください。"
         },
         "verboseLogs": {
-            "description": "詳細なログを有効にする"
+            "description": "詳細なログを有効にする",
+            "hint": ""
         },
         "hdr": "HDRを有効化",
         "wineWayland": "【実験的機能】Wine-Waylandを有効にする（Wineのバージョンがサポートしている必要があります）",
@@ -846,13 +880,83 @@
         },
         "tools": {
             "open": "開く",
-            "selectExe": "EXEを選択"
-        }
+            "selectExe": "EXEを選択",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEyeランタイムをインストール中…",
-            "name": "BattlEyeアンチチートランタイム"
+            "name": "BattlEyeアンチチートランタイム",
+            "hint": ""
         },
         "clear-cache": "Heroicのキャッシュを消去",
         "copiedToClipboard": "クリップボードにコピーしました!",
@@ -864,7 +968,8 @@
                 "title": "GameModeが必要です"
             },
             "installing": "EACランタイムをインストール中…",
-            "name": "EasyAntiCheatランタイム"
+            "name": "EasyAntiCheatランタイム",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -886,7 +991,8 @@
             "gamescope": "Gamescope",
             "systemInformation": "システム情報",
             "legacy": "レガシー設定",
-            "categories": "カテゴリー"
+            "categories": "カテゴリー",
+            "tabs": ""
         },
         "open-config-file": "構成ファイルを開く",
         "reset-heroic": "Heroicをリセット",
@@ -917,7 +1023,10 @@
             "copyToClipboard": "クリップボードにコピー",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "実験的機能"
@@ -944,10 +1053,12 @@
                 "help4": "GOGライブラリ情報 (ゲームリスト、インストールダイアログ情報、api 情報 - 要件など)",
                 "help5": "Amazonライブラリ情報 (ゲームのリスト、インストールダイアログ情報)",
                 "help6": "以下は削除されません:",
-                "help7": "ログイン情報の保存"
+                "help7": "ログイン情報の保存",
+                "description": ""
             },
             "resetHeroic": {
-                "help": "これにより、すべての設定とキャッシュが削除されますが、インストール済みのゲームやEpicの認証情報は削除されません。また、Heroicのポータブル版（AppImage、WinPortable、...）を手動で再起動する必要があります。"
+                "help": "これにより、すべての設定とキャッシュが削除されますが、インストール済みのゲームやEpicの認証情報は削除されません。また、Heroicのポータブル版（AppImage、WinPortable、...）を手動で再起動する必要があります。",
+                "description": ""
             }
         },
         "custom_css": {
@@ -971,7 +1082,30 @@
             "experimental": "実験的機能",
             "launch": "起動オプション…",
             "wineTools": "Tools",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "設定",
@@ -1022,7 +1156,8 @@
         "manageaccounts": "アカウント管理",
         "quit": "終了",
         "cancel": "キャンセル",
-        "quitMessage": "終了してもよろしいですか?"
+        "quitMessage": "終了してもよろしいですか?",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -1030,7 +1165,9 @@
             "forward": "進む",
             "openInBrowser": "ブラウザで開く",
             "reload": "ページを再読み込み",
-            "home": "ストアのホームへ移動"
+            "home": "ストアのホームへ移動",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1045,7 +1182,8 @@
             "open_folder": "フォルダを開く",
             "update": "Update",
             "settings": "設定",
-            "no-results": "検索条件に一致するWineのバージョンはありません。"
+            "no-results": "検索条件に一致するWineのバージョンはありません。",
+            "subtitle": ""
         },
         "release": "リリース日",
         "size": "サイズ",
@@ -1120,7 +1258,9 @@
     "emptyLibrary": {
         "noResults": "現在のフィルターでは検索結果がありません。",
         "noGames": "ライブラリが空です。<br /><br /><4>こちら</4>をクリックして、Epic、GOG.com、またはAmazonアカウントでログインしてください。<br /><br />その他のゲームやアプリを登録するには、「ゲームの追加」をクリックして手動で追加してください。",
-        "noResultsTitle": "ゲームが見つかりません"
+        "noResultsTitle": "ゲームが見つかりません",
+        "description": "",
+        "title": ""
     },
     "tour": {
         "done": "完了",
@@ -1346,7 +1486,8 @@
             "grid": "グリッド",
             "label": "表示モード",
             "list": "リスト"
-        }
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1373,5 +1514,15 @@
         "remove": "削除",
         "save": "保存"
     },
-    "General": "一般"
+    "General": "一般",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": ""
 }
