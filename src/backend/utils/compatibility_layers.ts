@@ -5,7 +5,7 @@ import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 import { homedir } from 'os'
-import { dirname, join } from 'path'
+import { basename, dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
 import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
@@ -18,6 +18,7 @@ import {
   userHome
 } from 'backend/constants/paths'
 import { isLinux, isMac } from 'backend/constants/environment'
+import { macWineDisplayName } from './macos/wine_names'
 
 /**
  * Loads the default wine installation path and version.
@@ -240,8 +241,14 @@ export async function getWineOnMac(): Promise<Set<WineInstallation>> {
       const info = plistParse(
         readFileSync(infoFilePath, 'utf-8')
       ) as PlistObject
-      const version = info['CFBundleShortVersionString'] || ''
-      const name = info['CFBundleName'] || ''
+      const version =
+        typeof info['CFBundleShortVersionString'] === 'string'
+          ? info['CFBundleShortVersionString']
+          : ''
+      const name =
+        typeof info['CFBundleName'] === 'string' && info['CFBundleName']
+          ? info['CFBundleName']
+          : basename(winePath, '.app')
       let wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
       if (!existsSync(wineBin)) {
         // Fallback to wine if wine64 is not found
@@ -253,7 +260,7 @@ export async function getWineOnMac(): Promise<Set<WineInstallation>> {
           lib: `${winePath}/Contents/Resources/wine/lib`,
           lib32: `${winePath}/Contents/Resources/wine/lib`,
           bin: wineBin,
-          name: `${name} - ${version}`,
+          name: macWineDisplayName(basename(winePath), name, version),
           type: 'wine',
           ...getWineExecs(wineBin)
         })
