@@ -5,19 +5,22 @@
 
 .gameCard {
   height: 100%;
-  background-color: var(--bg-surface, var(--input-background));
+  /* a distinct surface colour sets the card apart from the page, so no border
+     is needed; use the same surface token as the search bar so the two always
+     match across every theme */
+  background-color: var(--search-bar-background, var(--input-background));
   text-align: start;
   width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--panel-border);
+  border: none;
   border-radius: var(--radius-xl);
+  /* inset the cover art and caption from the card edge */
+  padding: var(--space-xs-fixed);
   overflow: hidden;
   animation: fade-in 0.15s ease-in;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .gameCard > a {
@@ -26,6 +29,8 @@
   width: 100%;
   aspect-ratio: 3/4;
   background-color: var(--gradient-gamecard);
+  /* the cover art is rounded on all four corners inside the card padding */
+  border-radius: var(--radius-lg);
 }
 
 .gameCard.gamepad > a {
@@ -52,7 +57,7 @@
   content: '';
   display: block;
   min-height: calc(2 * 1.25em);
-  margin: 12px 14px 14px;
+  margin: var(--space-xs-fixed) 0 0;
 }
 
 .gameCard:focus-within {
@@ -62,8 +67,8 @@
 .gameCard > .gameCardStatus {
   position: absolute;
   z-index: 5;
-  top: var(--space-xs-fixed);
-  left: var(--space-xs-fixed);
+  top: calc(var(--space-xs-fixed) + 10px);
+  left: calc(var(--space-xs-fixed) + 10px);
   max-width: calc(100% - 64px);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -72,8 +77,8 @@
 .gameCard .gameCardUpdateBadge {
   position: absolute;
   z-index: 5;
-  top: var(--space-xs-fixed);
-  left: var(--space-xs-fixed);
+  top: calc(var(--space-xs-fixed) + 10px);
+  left: calc(var(--space-xs-fixed) + 10px);
   max-width: calc(100% - 64px);
   pointer-events: none;
 }
@@ -124,13 +129,13 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 12px 14px 14px;
+  padding: var(--space-xs-fixed) var(--space-2xs) var(--space-2xs);
 }
 
 .gameCard .gameTitle {
   min-height: calc(2 * 1.25em);
   font-family: var(--primary-font-family);
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   font-weight: var(--semibold);
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -156,9 +161,9 @@
 
 .gameCard > .icons {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: var(--space-xs-fixed);
+  left: var(--space-xs-fixed);
+  width: calc(100% - 2 * var(--space-xs-fixed));
   aspect-ratio: 3/4;
   background: transparent;
   display: block;
@@ -426,9 +431,7 @@
     var(--navbar-accent, var(--accent))
   );
 
-  border-color: var(--card-hover-glow);
   box-shadow:
-    0 0 0 1px var(--card-hover-glow),
     0 0 28px -6px var(--card-hover-glow),
     0 16px 40px rgba(0, 0, 0, 0.55);
 }
