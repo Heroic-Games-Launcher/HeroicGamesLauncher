@@ -107,86 +107,6 @@ body.midnightMirage {
   --secondary: var(--brand-secondary);
 }
 
-body.heroicTheme {
-  /* Heroic Theme — dark minimal, cyan accent */
-
-  --background: #141a24;
-  --background-darker: #0a0e13;
-  --background-darker-80: #0a0e13e0;
-  --background-lighter: #1a2030;
-  --background-secondary: #222a3c;
-
-  --body-background: var(--background-darker);
-  --current-background: var(--body-background);
-  --input-background: var(--background-lighter);
-  --modal-background: var(--background);
-  --modal-backdrop: var(--background-darker-80);
-  --modal-border: #242c3e;
-  --osk-background: var(--body-background);
-  --osk-button-background: var(--input-background);
-  --osk-button-border: #242c3e;
-  --search-bar-background: var(--background);
-  --search-bar-border: #242c3e;
-
-  /* Text */
-  --text-default: var(--on-panel);
-  --text-secondary: var(--on-panel-muted);
-  --text-tertiary: var(--on-panel-faint);
-  --text-quartenary: var(--on-panel-faint);
-  --text-hover: var(--on-panel);
-
-  /* Accent / primary */
-  --accent: #22d3ee;
-  --accent-overlay: #67e8f9;
-  --primary: #22d3ee;
-  --primary-hover: #67e8f9;
-  --secondary: #a78bfa;
-  --link-highlight: #22d3ee;
-
-  /* Action icons */
-  --action-icon: #a6b1c5;
-  --action-icon-hover: #ffffff;
-  --action-icon-active: #22d3ee;
-  --icon-disabled: #2e374d;
-  --icon-disabled-overlay: #4a5468;
-  --icons-background: var(--background);
-
-  /* Buttons */
-  --primary-button: #22d3ee;
-  --primary-button-overlay: #67e8f9;
-  --secondary-button: #a78bfa;
-  --secondary-button-overlay: #c4b5fd;
-  --tertiary-button: #f59e0b;
-  --tertiary-button-overlay: #fbbf24;
-  --button-stroke: #22d3ee;
-  --success-button: #10b981;
-  --disabled-button: #2e374d;
-  --disabled-button-overlay: #4a5468;
-  --play-button: var(--primary-button);
-  --install-button: var(--secondary-button);
-  --cancel-button: #ef4444;
-  --cancel-button-overlay: #f87171;
-
-  /* Sidebar */
-  --navbar-background: #171c24;
-  --navbar-active: #ffffff;
-  --navbar-inactive: #b4beca;
-  --navbar-active-background: var(--background-lighter);
-  --navbar-accent: #22d3ee;
-  --divider: #2a3346;
-
-  /* Status */
-  --success: #10b981;
-  --success-hover: #34d399;
-  --danger: #ef4444;
-  --danger-hover: #f87171;
-  --status-warning: #f59e0b;
-  --status-warning-hover: #fbbf24;
-
-  --alphabet-filter-accent-color: var(--accent);
-  --alphabet-filter-accent-hover: var(--accent-overlay);
-}
-
 body.cyberSpaceOasis {
   --background: #151f3d;
   --background-darker: #0d0f1c;
@@ -323,7 +243,7 @@ body.high-contrast {
   --navbar-active-background: #202020ff;
   --gradient-body-background: var(--body-background);
   --divider: rgba(255, 255, 255, 0.45);
-  --input-background: #262937ff;
+  --input-background: #2a2a2a;
   --modal-background: var(--background);
   --modal-border: #ffffffff;
   --download-button: #44475a;
@@ -836,14 +756,11 @@ body.candy-light {
   --body-background: var(--background);
   --background-darker: #d7e6fb;
   --current-background: var(--body-background);
-  --navbar-background: #f3e3ea;
+  --navbar-background: #ecd7e0;
   --navbar-active-background: #fbe8f0;
-  --gradient-body-background: linear-gradient(
-    90deg,
-    var(--background-darker) -32px,
-    var(--body-background) 64px,
-    var(--body-background) 100%
-  );
+  /* flat body background: the blue-tinted gradient read as a glow against the
+     sidebar, so keep it a solid colour here */
+  --gradient-body-background: var(--body-background);
   --input-background: #d6e4fb;
   --modal-background: #eff5fd;
   --modal-border: #f0dde6;
@@ -947,10 +864,6 @@ body.midnightMirage {
   );
 }
 
-body.heroicTheme {
-  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #a78bfa 100%);
-}
-
 body.cyberSpaceOasis {
   --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #07c5ef 100%);
 }
@@ -1037,7 +950,7 @@ body.onePiece {
     var(--body-background) 100%
   );
   --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #1f6fb2 100%);
-  --input-background: #eadfbc;
+  --input-background: #e1d4a6;
   --modal-background: #fffdf5;
   --modal-border: #ece2c8;
   --primary: #1f6fb2;
