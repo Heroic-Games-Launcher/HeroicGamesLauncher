@@ -9,6 +9,7 @@ type Props = {
   className?: string
   buttonClass?: string
   popUpOnHover?: boolean
+  dataTour?: string
 }
 
 export default function Dropdown({
@@ -16,7 +17,8 @@ export default function Dropdown({
   children,
   className,
   buttonClass,
-  popUpOnHover = false
+  popUpOnHover = false,
+  dataTour
 }: Props) {
   const [isExpanded, setIsExpanded] = useState(false)
   const closeTimeout = useRef<ReturnType<typeof setTimeout>>()
@@ -59,6 +61,7 @@ export default function Dropdown({
         onMouseEnter={() => handlePopup('enter')}
         onMouseLeave={() => handlePopup('leave')}
         className={`dropdownButton ${buttonClass ? buttonClass : ''}`}
+        data-tour={dataTour}
         onClick={() => {
           // focus first component when expanding
           if (!isExpanded) {

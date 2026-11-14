@@ -154,7 +154,7 @@ export default function LibraryFilters() {
         </>
       }
       className="libraryFilters"
-      data-tour="library-filters"
+      dataTour="library-filters"
       popUpOnHover
     >
       <FilterSection label={t('header.stores', 'Stores')}>
