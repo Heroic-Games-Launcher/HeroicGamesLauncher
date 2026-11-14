@@ -11,6 +11,7 @@ type BadgeVariant =
   | 'success'
   | 'warning'
   | 'error'
+  | 'gradient'
 
 interface BadgeProps {
   children: ReactNode
