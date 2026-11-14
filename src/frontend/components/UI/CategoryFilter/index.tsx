@@ -59,7 +59,7 @@ export default function CategoryFilter() {
     <Dropdown
       buttonClass="pill"
       className="categoriesFilter"
-      data-tour="library-categories"
+      dataTour="library-categories"
       title={
         <>
           <Icon glyph={LayoutGrid} size="md" />

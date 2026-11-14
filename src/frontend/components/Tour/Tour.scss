@@ -1,144 +1,277 @@
-/* Custom styling for intro.js elements */
-.introjs-tooltip {
-  background: var(--bg-surface);
-  color: var(--text-neutral);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  min-width: 450px;
-  max-width: 650px;
+.introjs-overlay {
+  background: var(--tour-overlay-background, #000);
 }
 
-// Add the tooltip class styling
+.introjs-tooltipReferenceLayer,
+.introjs-tooltip {
+  font-family: var(--primary-font-family);
+  box-sizing: border-box;
+}
+
+.introjs-tooltip,
 .heroic-tour-tooltip {
-  background: var(--tour-popup-background, var(--bg-surface));
+  --tour-surface: var(--tour-popup-background, var(--bg-surface));
+
+  box-sizing: border-box;
+  min-width: min(340px, calc(100vw - 32px));
+  max-width: min(560px, calc(100vw - 32px));
+  background: var(--tour-surface);
   color: var(--text-neutral);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
-  border: 1px solid var(--border-brand);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 24px 64px -16px rgb(0 0 0 / 0.55),
+    0 8px 24px -12px rgb(0 0 0 / 0.4);
+  overflow: visible;
+}
+
+.heroic-tour-tooltip {
+  border-color: var(--border-brand);
+}
+
+.introjs-tooltip-header {
+  position: relative;
+  min-height: 0;
+  padding: var(--space-lg-fixed) var(--space-lg-fixed) 0;
+}
+
+.introjs-tooltip-title {
+  width: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  padding-inline-end: 64px;
+  color: var(--text-neutral);
+  font-family: var(--primary-font-family);
+  font-size: var(--title-sm);
+  font-weight: var(--semibold);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.01em;
 }
 
 .introjs-tooltiptext {
-  color: var(--text-neutral);
-  font-size: var(--body-lg);
+  padding: var(--space-sm-fixed) var(--space-lg-fixed) var(--space-md-fixed);
+  color: var(--text-neutral-muted);
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--regular);
   line-height: var(--leading-normal);
-  padding: var(--space-md);
 }
 
-.introjs-tooltipbuttons {
-  border-top: 1px solid var(--panel-divider);
-  padding: var(--space-sm);
-}
-
-.introjs-button {
-  background: var(--bg-surface-raised);
-  border: 1px solid var(--panel-border);
-  color: var(--text-neutral);
-  border-radius: var(--radius-xs);
+.introjs-skipbutton {
+  position: absolute;
+  top: var(--space-sm-fixed);
+  right: var(--space-md-fixed);
+  width: auto;
+  height: auto;
+  padding: var(--space-3xs-fixed) var(--space-xs-fixed);
+  color: var(--text-neutral-faint);
+  font-family: var(--primary-font-family);
   font-size: var(--body-sm);
-  padding: 6px 12px;
-  text-shadow: none;
-  transition: background-color 0.2s;
+  font-weight: var(--medium);
+  line-height: var(--leading-snug);
+  text-transform: none;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
 
   &:hover,
   &:focus {
-    background-color: color-mix(
-      in oklab,
-      var(--on-panel) 12%,
-      var(--panel-base)
-    );
     color: var(--text-neutral);
-    border-color: var(--panel-border);
+    background: color-mix(in oklab, var(--on-panel) 10%, transparent);
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+.introjs-tooltipbuttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  padding: var(--space-sm-fixed) var(--space-lg-fixed) var(--space-lg-fixed);
+  border-top: 1px solid var(--panel-divider);
+  white-space: normal;
+}
+
+.introjs-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs-fixed);
+  height: 36px;
+  padding: 0 var(--space-md-fixed);
+  background: var(--bg-surface-raised);
+  color: var(--text-neutral);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  font-weight: var(--semibold);
+  line-height: 1;
+  text-shadow: none;
+  box-shadow: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+
+  &:hover,
+  &:focus {
+    background: color-mix(
+      in oklab,
+      var(--on-panel) 14%,
+      var(--bg-surface-raised)
+    );
+    border-color: var(--border-subtle);
+    color: var(--text-neutral);
     box-shadow: none;
+    outline: none;
     text-decoration: none;
   }
 
   &:active {
-    background-color: color-mix(
+    background: color-mix(
       in oklab,
-      var(--on-panel) 16%,
-      var(--panel-base)
+      var(--on-panel) 20%,
+      var(--bg-surface-raised)
     );
   }
 }
 
-.introjs-nextbutton {
-  background-color: var(--role-brand);
+.introjs-prevbutton {
+  order: 1;
+  margin-inline-end: auto;
+}
+
+.introjs-nextbutton,
+.introjs-donebutton {
+  order: 2;
+  margin-inline-start: auto;
+  background: var(--bg-brand);
   color: var(--text-on-brand);
   border-color: transparent;
 
   &:hover,
   &:focus {
-    background-color: color-mix(
-      in oklab,
-      var(--role-brand) 85%,
-      var(--on-panel)
-    );
-    color: var(--text-on-brand);
+    background-color: var(--bg-brand);
+    background-image: var(--gradient-brand);
     border-color: transparent;
+    color: var(--text-on-brand);
+    box-shadow: 0 8px 24px -8px var(--bg-brand);
   }
 
   &:active {
-    background-color: color-mix(
-      in oklab,
-      var(--role-brand) 78%,
-      var(--on-panel)
-    );
+    background-color: var(--bg-brand);
+    background-image: var(--gradient-brand);
   }
 }
 
-.introjs-skipbutton {
-  color: var(--tour-popup-skip-color, var(--text-neutral-muted));
-  font-size: var(--eyebrow);
-  text-transform: lowercase;
-  font-weight: var(--regular);
+.introjs-button.introjs-disabled,
+.introjs-button.introjs-disabled:hover,
+.introjs-button.introjs-disabled:focus {
+  background: var(--bg-disabled);
+  color: var(--text-neutral-faint);
+  border-color: transparent;
+  box-shadow: none;
+  opacity: 0.7;
+  cursor: default;
+}
 
-  &:hover,
-  &:focus {
-    color: var(--tour-popup-skip-color-hover, var(--text-neutral));
-  }
+.introjs-helperLayer {
+  box-sizing: border-box;
+  border: 2px solid var(--role-brand);
+  border-radius: var(--radius-md);
+  background: transparent;
+  transition:
+    border-color 150ms ease,
+    top 300ms ease-out,
+    left 300ms ease-out,
+    width 300ms ease-out,
+    height 300ms ease-out;
+}
+
+.heroic-tour-highlight {
+  border-radius: var(--radius-md) !important;
+  background: color-mix(
+    in oklab,
+    var(--role-brand) 10%,
+    transparent
+  ) !important;
+  box-sizing: border-box;
+}
+
+.introjs-progress {
+  box-sizing: border-box;
+  height: 4px;
+  margin: 0 var(--space-lg-fixed) var(--space-md-fixed);
+  overflow: hidden;
+  background: var(--panel-divider);
+  border-radius: var(--radius-pill);
+}
+
+.introjs-progressbar {
+  height: 100%;
+  background: var(--gradient-brand);
+  border-radius: inherit;
 }
 
 .introjs-bullets {
+  padding: var(--space-2xs-fixed) 0 var(--space-sm-fixed);
+
   ul {
+    display: inline-flex;
+    gap: var(--space-xs-fixed);
+
     li {
+      margin: 0;
+
       a {
-        background: var(--tour-bullet-inactive, var(--panel-border));
+        width: 8px;
+        height: 8px;
+        background: var(--panel-divider);
+        border-radius: var(--radius-pill);
+        transition:
+          width 150ms ease,
+          background-color 150ms ease;
+
+        &:hover,
+        &:focus {
+          width: 20px;
+          background: var(--text-neutral-faint);
+          outline: none;
+        }
 
         &.active {
-          background: var(--tour-bullet-active, var(--role-brand));
+          width: 20px;
+          background: var(--role-brand);
         }
       }
     }
   }
 }
 
-.introjs-progress {
-  background-color: var(--panel-divider);
+.introjs-arrow.top,
+.introjs-arrow.top-right,
+.introjs-arrow.top-middle {
+  border-bottom-color: var(--tour-surface);
 }
 
-.introjs-progressbar {
-  background-color: var(--role-brand);
+.introjs-arrow.right,
+.introjs-arrow.right-bottom {
+  border-left-color: var(--tour-surface);
 }
 
-.introjs-helperLayer {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--border-brand);
-  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.6);
+.introjs-arrow.bottom,
+.introjs-arrow.bottom-right,
+.introjs-arrow.bottom-middle {
+  border-top-color: var(--tour-surface);
 }
 
-.heroic-tour-highlight {
-  background: color-mix(
-    in oklab,
-    var(--role-brand) 12%,
-    transparent
-  ) !important;
-  border: 2px solid var(--role-brand) !important;
-  box-sizing: border-box;
-}
-
-.introjs-tooltip-title {
-  color: var(--text-brand);
-  font-size: var(--body-lg);
-  font-weight: var(--bold);
-  margin-bottom: var(--space-xs);
+.introjs-arrow.left,
+.introjs-arrow.left-bottom {
+  border-right-color: var(--tour-surface);
 }

@@ -22,6 +22,7 @@ const storedWidth = () =>
 export default React.memo(function Sidebar() {
   const sidebarEl = useRef<HTMLDivElement | null>(null)
   const sidebarSize = useRef(defaultWidth)
+  const [isCollapsed, setIsCollapsed] = useState(false)
   const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
   const [dmState, setDmState] = useState<DownloadManagerState>('idle')
 
@@ -55,6 +56,7 @@ export default React.memo(function Sidebar() {
 
     sidebarSize.current = storedWidth()
 
+    setIsCollapsed(sidebarSize.current < collapsedWidth)
     sidebarEl.current.classList.toggle(
       'collapsed',
       sidebarSize.current < collapsedWidth
@@ -126,12 +128,12 @@ export default React.memo(function Sidebar() {
       }
 
       if (sidebarSize.current !== newWidth) {
+        const wasCollapsed = sidebarSize.current < collapsedWidth
         sidebarSize.current = newWidth
+        const collapsed = newWidth < collapsedWidth
 
-        sidebarEl.current.classList.toggle(
-          'collapsed',
-          newWidth < collapsedWidth
-        )
+        if (wasCollapsed !== collapsed) setIsCollapsed(collapsed)
+        sidebarEl.current.classList.toggle('collapsed', collapsed)
         sidebarEl.current.style.setProperty('--sidebar-width', `${newWidth}px`)
       }
 
@@ -145,11 +147,11 @@ export default React.memo(function Sidebar() {
 
   return (
     <aside ref={sidebarEl} className="Sidebar">
-      <div className="Sidebar__brand">
+      <div className="Sidebar__brand" data-tour="sidebar-brand">
         <HeroicIcon className="heroicIcon" />
       </div>
       <SidebarLinks />
-      <div className="currentDownloads" data-tour="sidebar-downloads">
+      <div className="currentDownloads" data-tour="sidebar-current-download">
         {currentDMElement && (
           <CurrentDownload
             key={currentDMElement.params.appName}
@@ -161,7 +163,10 @@ export default React.memo(function Sidebar() {
       </div>
       <HeroicVersion />
       <div className="resizer" onMouseDown={handleDragStart} />
-      <SidebarTour />
+      <SidebarTour
+        hasCurrentDownload={Boolean(currentDMElement)}
+        isCollapsed={isCollapsed}
+      />
     </aside>
   )
 })

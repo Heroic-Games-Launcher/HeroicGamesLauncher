@@ -50,7 +50,10 @@ const AlphabetFilter: React.FC = () => {
   }
 
   return (
-    <div className="alphabet-filter-container">
+    <div
+      className="alphabet-filter-container"
+      data-tour="library-alphabet-filter"
+    >
       {CHARS.map((char) => {
         const isInteractable =
           availableChars.has(char) || char === currentFilter

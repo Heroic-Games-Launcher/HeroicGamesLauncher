@@ -148,7 +148,9 @@ export default function SidebarLinks() {
           </linearGradient>
         </defs>
       </svg>
-      <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
+      <div className="Sidebar__sectionLabel" data-tour="sidebar-general-label">
+        {t('General', 'General')}
+      </div>
       <SidebarItem
         isActiveFallback={location.pathname.includes('gamepage')}
         url="/"
@@ -266,7 +268,10 @@ export default function SidebarLinks() {
 
       {loggedIn && (
         <>
-          <div className="Sidebar__sectionLabel">
+          <div
+            className="Sidebar__sectionLabel"
+            data-tour="sidebar-accounts-label"
+          >
             {t('Accounts', 'Accounts')}
           </div>
           <SidebarItem
@@ -278,7 +283,12 @@ export default function SidebarLinks() {
         </>
       )}
 
-      <div className="Sidebar__sectionLabel">{t('Community', 'Community')}</div>
+      <div
+        className="Sidebar__sectionLabel"
+        data-tour="sidebar-community-label"
+      >
+        {t('Community', 'Community')}
+      </div>
 
       <SidebarItem
         url="/wiki"
@@ -293,6 +303,7 @@ export default function SidebarLinks() {
           onClick={() => handleExternalLink(openDiscordLink)}
           icon={<FontAwesomeIcon icon={faDiscord} />}
           label={t('userselector.discord', 'Discord')}
+          dataTour="sidebar-discord"
         />
 
         <SidebarItem
