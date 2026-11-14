@@ -14,7 +14,8 @@ import {
   GamesSettings,
   SyncSaves,
   AdvancedSettings,
-  SystemInfo
+  SystemInfo,
+  ImportExportSettings
 } from './sections'
 import { AppSettings } from 'common/types'
 import {
@@ -29,6 +30,7 @@ import type { NavListItem } from 'frontend/components/UI/NavList'
 import type { TabItem } from 'frontend/components/UI/Tabs'
 import useMediaQuery from 'frontend/hooks/useMediaQuery'
 import {
+  ArchiveRestore,
   Copy,
   FileText,
   Gamepad2,
@@ -67,6 +69,7 @@ function Settings() {
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
+  const isImportExport = type === 'importexport'
 
   // TODO: Adding this comment translation here for now to not lose the
   // translation. This should be removed from here when the help is added
@@ -113,7 +116,9 @@ function Settings() {
           ? t('settings.navbar.systemInformation', 'System information')
           : isLogSettings
             ? t('settings.navbar.log', 'Log')
-            : t('settings.navbar.sync', 'Sync')
+            : isImportExport
+              ? t('settings.navbar.importExport', 'Import / Export')
+              : t('settings.navbar.sync', 'Sync')
 
   const pageDescription = isGeneralSettings
     ? t('settings.pageSubtitle.general', 'Configure your launcher preferences')
@@ -134,7 +139,12 @@ function Settings() {
             )
           : isLogSettings
             ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
-            : undefined
+            : isImportExport
+              ? t(
+                  'settings.pageSubtitle.importExport',
+                  'Back up or restore your Heroic setup'
+                )
+              : undefined
 
   const title = t('globalSettings', 'Global settings')
 
@@ -170,6 +180,11 @@ function Settings() {
       value: 'log',
       label: t('settings.navbar.log', 'Log'),
       glyph: FileText
+    },
+    {
+      value: 'importexport',
+      label: t('settings.navbar.importExport', 'Import / Export'),
+      glyph: ArchiveRestore
     }
   ]
 
@@ -263,6 +278,7 @@ function Settings() {
                 {isAdvancedSetting && <AdvancedSettings />}
                 {isLogSettings && <LogSettings />}
                 {isSystemInfo && <SystemInfo />}
+                {isImportExport && <ImportExportSettings />}
                 <FooterInfo />
               </div>
             </div>

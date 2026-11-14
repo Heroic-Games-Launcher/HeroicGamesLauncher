@@ -11,15 +11,22 @@ import {
   ItchioUpload
 } from 'common/types/itchio'
 import { ItchioGameInfo } from './types'
-import { Game, LibraryManager } from 'common/types/game_manager'
+import {
+  Game,
+  LibraryManager,
+  RunnerBackupPaths
+} from 'common/types/game_manager'
 
 import { join, relative } from 'path'
+import { readFileSync } from 'graceful-fs'
 
 import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger'
 import { isLinux } from 'backend/constants/environment'
+import { BACKUP_PATHS } from 'backend/importExport/constants'
 
 import { getClient } from './butlerd'
 import { configStore, installStore, libraryStore } from './electronStores'
+import { butlerDbPath, itchioStoreConfigPath } from './constants'
 import { ItchioUser } from './user'
 import ItchioGameManager from './games'
 import setupItchio from './setup'
@@ -425,5 +432,50 @@ export default class ItchioLibraryManager implements LibraryManager {
 
   getLaunchOptions(appName: string): LaunchOption[] {
     return getLaunchOptions(appName)
+  }
+
+  getBackupPaths(): RunnerBackupPaths {
+    return {
+      credentials: [
+        {
+          source: () => itchioStoreConfigPath,
+          destInZip: BACKUP_PATHS.credentials.itchioConfig
+        },
+        {
+          // butlerd keeps the authenticated profile (the API token lives in
+          // its sqlite db), so restoring the config alone is not enough to
+          // keep the user logged in.
+          source: () => butlerDbPath,
+          destInZip: BACKUP_PATHS.credentials.itchioButlerDb,
+          indicatesLogin: false
+        }
+      ],
+      libraryCache: [
+        {
+          source: () => libraryStore.path,
+          destInZip: BACKUP_PATHS.libraryCache.itchioLibrary
+        }
+      ],
+      installedGames: {
+        // itch.io records installed state in the same library file, so reuse
+        // the entry that is already in the archive and just report a count.
+        source: () => libraryStore.path,
+        destInZip: BACKUP_PATHS.libraryCache.itchioLibrary,
+        countGames: () => {
+          try {
+            const data = JSON.parse(
+              readFileSync(libraryStore.path, 'utf-8')
+            ) as {
+              library?: Array<{ is_installed?: boolean }>
+            }
+            return Array.isArray(data.library)
+              ? data.library.filter((g) => g?.is_installed).length
+              : 0
+          } catch {
+            return 0
+          }
+        }
+      }
+    }
   }
 }
