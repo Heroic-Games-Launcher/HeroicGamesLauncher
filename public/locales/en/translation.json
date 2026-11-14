@@ -246,6 +246,9 @@
         "remove-category": "Remove category",
         "warning": "Warning"
     },
+    "changelog": {
+        "view_full": "View full changelog on GitHub"
+    },
     "common": {
         "add": "Add",
         "cancel": "Cancel",
@@ -424,12 +427,7 @@
             "all": "All stores",
             "label": "Store"
         },
-        "titleMulti": "Deals",
-        "view": {
-            "grid": "Grid",
-            "label": "View mode",
-            "list": "List"
-        }
+        "titleMulti": "Deals"
     },
     "dlc": {
         "actions": "Actions",
@@ -730,6 +728,7 @@
     },
     "offline-message": {
         "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com and{{newline}}cloudflare-dns.com",
+        "hint-label": "Connectivity check details",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -1355,6 +1354,8 @@
     },
     "two_col_table": {
         "add": "Add",
+        "edit": "Edit",
+        "remove": "Remove",
         "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
     "Update available!": "Update available!",

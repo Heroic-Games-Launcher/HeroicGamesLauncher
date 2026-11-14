@@ -71,7 +71,7 @@
   right: 8px;
   z-index: 2;
   background: var(--success, #18ad57);
-  color: var(--text-tertiary, #ffffff);
+  color: var(--ink-on-success, #ffffff);
   font-weight: var(--bold);
   font-size: var(--text-md);
   padding: var(--space-3xs) var(--space-xs);
@@ -158,7 +158,7 @@
 }
 
 .discountCard__finalPrice {
-  color: var(--success, #18ad57);
+  color: var(--text-success, var(--success, #18ad57));
   font-weight: var(--bold);
   font-size: var(--text-md);
 }

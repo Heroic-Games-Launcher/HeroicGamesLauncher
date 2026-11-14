@@ -24,14 +24,17 @@
   margin: var(--space-md) 0;
 }
 
+.libraryStickyTop {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--gradient-body-background, var(--body-background));
+}
+
 .libraryHeader {
   text-align: start;
   padding: var(--space-md) var(--space-md-fixed);
   margin: 0;
-  background: var(--gradient-body-background, var(--body-background));
-  position: sticky;
-  top: 0;
-  z-index: 10;
   font-size: var(--text-xl);
   font-weight: var(--semibold);
   letter-spacing: -0.01em;

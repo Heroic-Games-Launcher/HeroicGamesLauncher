@@ -705,9 +705,11 @@ export default React.memo(function Library(): JSX.Element {
 
       <div className="listing">
         <span id="top" />
-        <LibraryHeader />
+        <div className="libraryStickyTop">
+          <LibraryHeader />
 
-        {showAlphabetFilter && <AlphabetFilter />}
+          {showAlphabetFilter && <AlphabetFilter />}
+        </div>
 
         {showRecentGames && (
           <RecentlyPlayed

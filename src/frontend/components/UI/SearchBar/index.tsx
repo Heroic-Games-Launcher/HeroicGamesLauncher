@@ -89,6 +89,11 @@ export default function SearchBar({
         id="search"
         className="searchBarInput"
       />
+      {value.length === 0 && (
+        <kbd className="searchKbd" aria-hidden>
+          /
+        </kbd>
+      )}
       {value.length > 0 && (
         <>
           <ul className="autoComplete">

@@ -11,18 +11,20 @@ export const defaultThemes: Record<string, string> = {
   midnightMirage: 'Midnight Mirage',
   heroicTheme: 'Heroic Theme',
   cyberSpaceOasis: 'Cyberspace Oasis',
-  cyberSpaceOasisAlt: 'Cyberspace Oasis Classic',
   'high-contrast': 'High Contrast',
   'old-school': 'Old School Heroic',
   dracula: 'Dracula',
   marine: 'Marine',
-  'marine-classic': 'Marine Classic',
   zombie: 'Zombie',
-  'zombie-classic': 'Zombie Classic',
   'nord-light': 'Nord Light',
   'nord-dark': 'Nord Dark',
   gruvbox_dark: 'Gruvbox Dark',
-  sweet: 'Sweet'
+  sweet: 'Sweet',
+  candy: 'Candy Dark',
+  'candy-light': 'Candy Light',
+  vampyria: 'Vampyria',
+  forest: 'Forest',
+  onePiece: 'One Piece'
 }
 
 export const ThemeSelector = () => {
