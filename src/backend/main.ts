@@ -591,9 +591,12 @@ addListener('showWindow', () => getMainWindow()?.show())
 addListener('maximizeWindow', () => getMainWindow()?.maximize())
 addListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 addListener('closeWindow', () => getMainWindow()?.close())
-addListener('setFullscreen', (_e, enabled) =>
+addListener('setFullscreen', (_e, enabled) => {
+  // Making the hidden window fullscreen shows it, so console mode would
+  // otherwise pop the GUI up on --no-gui game launches
+  if (isCLINoGui) return
   getMainWindow()?.setFullScreen(enabled)
-)
+})
 addListener('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common
