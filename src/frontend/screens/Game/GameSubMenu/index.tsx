@@ -433,7 +433,7 @@ export default function GamesSubmenu({
               {t('game.requirements', 'Requirements')}
             </MenuItem>
           )}
-          {runner === 'gog' && onShowGOGExtras && (
+          {runner === 'gog' && isInstalled && onShowGOGExtras && (
             <button
               onClick={onShowGOGExtras}
               className="link button is-text is-link buttonWithIcon"
