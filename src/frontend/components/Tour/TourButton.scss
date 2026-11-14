@@ -2,23 +2,58 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-3xs);
-  border: none;
-  border-radius: var(--radius-pill);
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
   background: transparent;
-  color: var(--tour-button-color, var(--brand-primary));
+  color: var(--action-icon, var(--text-neutral-muted));
   cursor: pointer;
-  opacity: 1;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+
+  svg {
+    display: block;
+    flex-shrink: 0;
+  }
 
   &:hover {
-    background: color-mix(in oklab, var(--on-panel) 10%, transparent);
+    background: color-mix(in oklab, var(--on-panel) 12%, transparent);
+    color: var(--text-neutral);
+  }
+
+  &:active {
+    background: color-mix(in oklab, var(--on-panel) 18%, transparent);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--role-brand);
     outline-offset: 2px;
   }
+}
+
+.FormControl--segmented > .tour-button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin-inline-start: var(--space-xs);
+  text-transform: none;
+}
+
+.sidebar-tour-button {
+  width: 24px;
+  height: 24px;
+  color: var(--on-nav-muted);
+
+  &:hover {
+    color: var(--on-nav-strong, var(--on-nav));
+    background: color-mix(in oklab, var(--on-nav) 14%, transparent);
+  }
+}
+
+.heroicVersionWrapper .sidebar-tour-button {
+  padding: 0;
 }

@@ -474,11 +474,6 @@ body.nord-light {
   --status-success-hover: #5e81ac;
   --text-log: var(--status-warning);
   --tour-popup-background: var(--input-background);
-  --tour-bullet-active: var(--accent);
-  --tour-bullet-inactive: var(--accent-overlay);
-  --tour-popup-title: var(--text-title);
-  --tour-popup-skip-color: var(--text-secondary);
-  --tour-popup-skip-color-hover: var(--text-title);
 
   .developer,
   .releaseDate,
@@ -567,14 +562,6 @@ body.nord-light {
         }
       }
     }
-  }
-
-  .tour-button {
-    --tour-button-color: var(--accent);
-  }
-
-  .Sidebar .tour-button {
-    --tour-button-color: var(--primary-active);
   }
 
   .alternative > svg {
