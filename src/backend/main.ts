@@ -144,6 +144,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { shouldUpdateDxvkTools } from './utils/config_helper'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -180,7 +181,11 @@ async function initializeWindow(): Promise<BrowserWindow> {
       }
     }
 
-    void DXVK.getLatest()
+    const settings = GlobalConfig.get().getSettings()
+
+    if (shouldUpdateDxvkTools(settings)) {
+      void DXVK.getLatest()
+    }
 
     Winetricks.download()
     if (shouldDownloadWine) {
