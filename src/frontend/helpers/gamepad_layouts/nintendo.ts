@@ -2,6 +2,49 @@
 
 import { ValidGamepadAction } from 'common/types'
 
+export function checkN64Switch(
+  buttons: readonly GamepadButton[],
+  axes: readonly number[],
+  controllerIndex: number,
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
+) {
+  const B = buttons[1], 
+    A = buttons[0], 
+    L = buttons[4], 
+    R = buttons[5], 
+    Z = buttons[6], 
+    Start = buttons[9], 
+    CUp = buttons[8],
+    CDown = buttons[3],
+    CLeft = buttons[2],
+    CRight = buttons[17],
+    up = buttons[12],
+    down = buttons[13],
+    left = buttons[14],
+    right = buttons[15],
+    guideButton = buttons[16],
+    AxisX = axes[0],
+    AxisY = axes[1]
+
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', CDown?.pressed, controllerIndex)
+  checkAction('rightClick', CLeft?.pressed, controllerIndex)
+  checkAction('rightStickLeft', AxisX < -0.5, controllerIndex)
+  checkAction('rightStickRight', AxisX > 0.5, controllerIndex)
+  checkAction('rightStickUp', AxisY < -0.5, controllerIndex)
+  checkAction('rightStickDown', AxisY > 0.5, controllerIndex)
+  checkAction('padUp', up?.pressed, controllerIndex)
+  checkAction('padDown', down?.pressed, controllerIndex)
+  checkAction('padLeft', left?.pressed, controllerIndex)
+  checkAction('padRight', right?.pressed, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
+}
+
 export function checkGameCube(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
@@ -71,6 +114,48 @@ export function checkNintendo(
     left = buttons[14],
     right = buttons[15],
     guideButton = buttons[16],
+    leftAxisX = axes[0],
+    leftAxisY = axes[1],
+    rightAxisX = axes[2],
+    rightAxisY = axes[3]
+
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', Y?.pressed, controllerIndex)
+  checkAction('rightClick', X?.pressed, controllerIndex)
+  checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
+  checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
+  checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
+  checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
+  checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
+  checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
+  checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
+  checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
+  checkAction('padUp', up?.pressed, controllerIndex)
+  checkAction('padDown', down?.pressed, controllerIndex)
+  checkAction('padLeft', left?.pressed, controllerIndex)
+  checkAction('padRight', right?.pressed, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
+}
+export function checkWiiU(
+  buttons: readonly GamepadButton[],
+  axes: readonly number[],
+  controllerIndex: number,
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
+) {
+  const B = buttons[0], // bottom button
+    A = buttons[1], // right button
+    Y = buttons[3], // left button
+    X = buttons[2], // top button
+    up = buttons[13],
+    down = buttons[14],
+    left = buttons[15],
+    right = buttons[16],
+    guideButton = buttons[10],
     leftAxisX = axes[0],
     leftAxisY = axes[1],
     rightAxisX = axes[2],
