@@ -310,10 +310,14 @@ export async function askForceUninstall(game: Game) {
 }
 
 async function errorHandler(
-  error: string,
+  error: unknown,
   appName: string,
   runner: Runner
 ): Promise<void> {
+  const errStr =
+    typeof error === 'string'
+      ? error
+      : ((error as { message?: string } | null)?.message ?? String(error))
   const plat = runner === 'legendary' ? 'Legendary (Epic Games)' : runner
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
@@ -326,18 +330,18 @@ async function errorHandler(
     'RequestsDependencyWarning'
   ]
 
-  if (!error) return
+  if (!errStr) return
 
-  if (ignoreMessages.some((msg) => error.includes(msg))) return
+  if (ignoreMessages.some((msg) => errStr.includes(msg))) return
 
-  if (error.includes(deletedFolderMsg) && appName) {
+  if (errStr.includes(deletedFolderMsg) && appName) {
     await askForceUninstall(getGame(appName, runner))
     return
   }
 
-  if (legendaryRegex.test(error)) {
+  if (legendaryRegex.test(errStr)) {
     const MemoryError = 'MemoryError: '
-    if (error.includes(MemoryError)) {
+    if (errStr.includes(MemoryError)) {
       return
     }
 
@@ -346,13 +350,13 @@ async function errorHandler(
       message: i18next.t(
         'box.error.legendary.generic',
         'An error has occurred! Try to logout and login on your Epic account. {{newline}}  {{error}}',
-        { error, newline: '\n' }
+        { error: errStr, newline: '\n' }
       ),
       type: 'ERROR'
     })
   }
 
-  if (error.includes(expiredCredentials)) {
+  if (errStr.includes(expiredCredentials)) {
     return showDialogBoxModalAuto({
       title: plat,
       message: i18next.t(
