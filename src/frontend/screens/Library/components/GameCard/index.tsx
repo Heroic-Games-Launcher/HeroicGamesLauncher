@@ -379,6 +379,13 @@ const GameCard = ({
       icon: <Icon glyph={ExternalLink} size="md" />
     },
     {
+      // store page
+      label: t('submenu.store', 'Store Page'),
+      onclick: () => navigate(`/store-page?store-url=${gameInfo.store_url}`),
+      show: gameInfo.runner !== 'sideload' && !!gameInfo.store_url,
+      icon: <OpenInNew />
+    },
+    {
       // settings
       label: t('submenu.settings', 'Settings'),
       onclick: () => openGameSettingsModal(gameInfo),
