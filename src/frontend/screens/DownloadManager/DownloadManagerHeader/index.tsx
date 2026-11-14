@@ -2,9 +2,10 @@ import { useTranslation } from 'react-i18next'
 
 type Props = {
   time: 'started' | 'finished' | 'queued'
+  showStatus?: boolean
 }
 
-export default function DownloadManagerHeader({ time }: Props) {
+export default function DownloadManagerHeader({ time, showStatus }: Props) {
   const { t } = useTranslation()
 
   const getTimeLabel = () => {
@@ -21,6 +22,9 @@ export default function DownloadManagerHeader({ time }: Props) {
   return (
     <div className="DownloadList__head">
       <span>{t('game.title', 'Game Title')}</span>
+      {showStatus && (
+        <span>{t('download-manager.queue.status', 'State')}</span>
+      )}
       <span>{t('download-manager.queue.type', 'Type')}</span>
       <span className="DownloadList__headStore">
         {t('game.store', 'Store')}

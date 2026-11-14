@@ -183,7 +183,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
 
         {!!doneElements.length && (
           <SettingsCard
-            title={t('queue.label.finished', 'Completed')}
+            title={t('download-manager.completed.title', 'Status')}
             glyph={CircleCheck}
             meta={<Badge>{doneElements.length}</Badge>}
             actions={
@@ -198,13 +198,14 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
             }
             className="DownloadManager__section"
           >
-            <div className="DownloadList">
-              <DownloadManagerHeader time="finished" />
+            <div className="DownloadList DownloadList--withStatus">
+              <DownloadManagerHeader time="finished" showStatus />
               {doneElements.map((el) => (
                 <DownloadManagerItem
                   key={`${el.params.appName}-${el.endTime}`}
                   element={el}
                   current={false}
+                  showStatus
                   handleClearItem={handleClearItem}
                 />
               ))}

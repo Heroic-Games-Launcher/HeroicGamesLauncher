@@ -38,6 +38,7 @@ type Props = {
   state?: DownloadManagerState
   position?: number
   variant?: 'row' | 'hero'
+  showStatus?: boolean
   handleClearItem?: (appName: string) => void
 }
 
@@ -74,6 +75,7 @@ const DownloadManagerItem = ({
   state,
   position,
   variant = 'row',
+  showStatus = false,
   handleClearItem
 }: Props) => {
   const { amazon, epic, gog, itchio, showDialogModal } =
@@ -395,7 +397,7 @@ const DownloadManagerItem = ({
             >
               {title}
             </span>
-            {statusBadge()}
+            {isHero && statusBadge()}
             {isHero && <Badge variant="info">{storeName}</Badge>}
             {isHero && platform && <Badge variant="accent">{platform}</Badge>}
           </div>
@@ -420,6 +422,10 @@ const DownloadManagerItem = ({
           {isHero && actionButtons}
         </div>
       </div>
+
+      {!isHero && showStatus && (
+        <span className="DownloadItem__statusCell">{statusBadge()}</span>
+      )}
 
       {!isHero && (
         <span className="DownloadItem__type">

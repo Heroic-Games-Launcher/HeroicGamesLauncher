@@ -123,14 +123,14 @@ export default React.memo(function NewLogin() {
           storeRoute="/store/gog"
           logout={gog.logout}
           notice={
-            disableGOGAffiliate ? undefined : (
+            disableGOGAffiliate ? (
               <Alert variant="info">
                 {t(
                   'login.gog_support',
-                  'Buying GOG games through Heroic helps support and maintain the project.'
+                  'GOG affiliate links are disabled. Enable them to help support Heroic when you buy games here.'
                 )}
               </Alert>
-            )
+            ) : undefined
           }
           disabled={oldMac}
         />

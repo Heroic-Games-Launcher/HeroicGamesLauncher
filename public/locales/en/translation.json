@@ -442,6 +442,9 @@
     },
     "docs": "Documentation",
     "download-manager": {
+        "completed": {
+            "title": "Status"
+        },
         "empty": {
             "current": "Games you install or update show their progress here.",
             "queue": {
@@ -465,6 +468,7 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
+            "status": "State",
             "type": "Type"
         },
         "title": "Downloads"
@@ -671,7 +675,7 @@
         "description_gog": "Buy and play DRM free games from GOG.com.",
         "description_itchio": "Discover and play indie games from itch.io.",
         "description_zoom": "Buy and play DRM free games from Zoom Platform.",
-        "gog_support": "Buying GOG games through Heroic helps support and maintain the project.",
+        "gog_support": "GOG affiliate links are disabled. Enable them to help support Heroic when you buy games here.",
         "logged_in_as": "Logged in as",
         "logout_confirm": {
             "message": "Are you sure you want to log out of {{store}}?",
