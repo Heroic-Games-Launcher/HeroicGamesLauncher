@@ -81,6 +81,7 @@ import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import { readdir, readFile } from 'fs/promises'
 import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
+import { redModDeployFailed } from './redmod'
 import { spawn } from 'child_process'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import { gogdlConfigPath, gogSupportPath } from './constants'
@@ -707,13 +708,13 @@ export default class GOGGame implements Game {
         logWriter.writeString(
           `\nMods deploy log:\n${result.stdout}\n\n${result.stderr}\n\n\n`
         )
-        if (result.stderr.includes('deploy has succeeded')) {
+        if (redModDeployFailed(result)) {
           showDialogBoxModalAuto({
             title: 'Mod deploy failed',
             message: `Following logs are also available in game log\n\nredMod log:\n ${result.stdout}\n\n\n${result.stderr}`,
             type: 'ERROR'
           })
-          return true
+          return false
         }
         commandParts.push('--prefer-task', '0')
       } else {
