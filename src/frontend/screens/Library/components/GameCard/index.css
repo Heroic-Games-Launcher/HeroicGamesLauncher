@@ -480,6 +480,7 @@
 .gameListItem {
   text-align: start;
   height: 100%;
+  min-height: 76px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;
   grid-template-areas: 'thumb info status actions';
