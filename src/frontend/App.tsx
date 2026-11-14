@@ -15,6 +15,7 @@ import DialogHandler from './components/UI/DialogHandler'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
+import { useHideIdleCursor } from './hooks/useHideIdleCursor'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import LogFileUploadDialog from './components/UI/LogFileUploadDialog'
 import UploadedLogFilesList from './screens/Settings/sections/LogSettings/components/UploadedLogFilesList'
@@ -37,6 +38,7 @@ function Root() {
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
 
   const isConsoleMode = useLocation().pathname.startsWith('/console')
+  useHideIdleCursor(isConsoleMode && isFullscreen)
 
   const theme = createTheme({
     direction: isRTL ? 'rtl' : 'ltr',
