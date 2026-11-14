@@ -282,42 +282,13 @@ export default class LegendaryLibraryManager implements LibraryManager {
    * @returns App names of updateable games.
    */
   async listUpdateableGames(): Promise<string[]> {
-    const isLoggedIn = LegendaryUser.isLoggedIn()
-
-    if (!isLoggedIn || !isOnline()) {
-      return []
-    }
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline) {
-      logWarning(
-        'Epic servers are offline, cannot check for game updates',
-        LogPrefix.Backend
-      )
+    if (!LegendaryUser.isLoggedIn() || !isOnline()) {
       return []
     }
 
-    const res = await this.runRunnerCommand(
-      { subcommand: 'list', '--third-party': true },
-      {
-        abortId: 'legendary-check-updates',
-        logMessagePrefix: 'Checking for game updates'
-      }
-    )
-
-    if (res.abort) {
-      return []
-    }
-
-    if (res.error) {
-      logError(
-        ['Failed to check for game updates:', res.error],
-        LogPrefix.Legendary
-      )
-      return []
-    }
-
-    // Once we ran `legendary list`, `assets.json` will be updated with the newest
-    // game versions, and `installed.json` has our currently installed ones
+    // `refresh()` already ran `legendary list` and wrote assets.json with the
+    // newest game versions; installed.json has our currently installed ones.
+    // No network call needed here — just compare the two local files.
     const installedJsonFile = join(legendaryConfigPath, 'installed.json')
     let installedJson: Record<string, InstalledJsonMetadata> = {}
     try {
