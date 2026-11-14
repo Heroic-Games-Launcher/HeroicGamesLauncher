@@ -135,28 +135,4 @@
       color: var(--text-neutral-muted);
     }
   }
-
-  .searchKbd {
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 32px;
-    height: 32px;
-    padding: 0 10px;
-    margin-inline-end: 4px;
-    border-radius: 8px;
-    background: var(--input-background);
-    border: 1px solid var(--panel-border);
-    color: var(--text-neutral-muted);
-    font-family: var(--primary-font-family);
-    font-size: var(--text-xs);
-    font-weight: var(--semibold);
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  &:focus-within .searchKbd {
-    display: none;
-  }
 }

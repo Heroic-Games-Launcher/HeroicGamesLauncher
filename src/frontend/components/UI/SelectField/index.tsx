@@ -17,10 +17,12 @@ interface SelectFieldProps {
   children: ReactNode
   afterSelect?: ReactNode
   label?: string
+  description?: ReactNode
   info?: ReactNode
   prompt?: string
   disabled?: boolean
   extraClass?: string
+  displayEmpty?: boolean
   /** Icon shown inside, before value. */
   startIcon?: ReactNode
 }
@@ -30,10 +32,12 @@ export default function SelectField({
   value,
   onChange,
   label,
+  description,
   info,
   prompt,
   disabled = false,
   extraClass = '',
+  displayEmpty = false,
   afterSelect,
   startIcon,
   children
@@ -53,12 +57,16 @@ export default function SelectField({
           {info && <InfoTooltip content={info} label={label} />}
         </label>
       )}
+      {description && (
+        <span className="selectFieldWrapper__description">{description}</span>
+      )}
       <Select
         id={htmlId}
         value={value}
         tabIndex={-1}
         onChange={onChange}
         disabled={disabled}
+        displayEmpty={displayEmpty}
         startAdornment={
           startIcon ? (
             <InputAdornment position="start">{startIcon}</InputAdornment>

@@ -1,0 +1,4 @@
+.selectFieldPlaceholder {
+  color: var(--text-secondary);
+  opacity: 0.85;
+}

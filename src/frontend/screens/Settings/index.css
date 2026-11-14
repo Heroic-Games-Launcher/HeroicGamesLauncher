@@ -392,15 +392,17 @@ a {
 }
 
 /* Field components rendered inside a card become plain rows: the card owns
-   the vertical rhythm and the dividers. Components that already draw their own
-   box, like Alert, keep their own padding and border. */
+   the vertical rhythm and a very subtle, theme-adaptive divider (a low-alpha
+   mix of the panel text colour). Components that already draw their own box,
+   like Alert, keep their own padding and border. */
 .Settings .SettingsCard__body > *:not(.Alert),
 .settingsDialogContent .SettingsCard__body > *:not(.Alert) {
   padding-block: 20px;
   margin: 0;
   width: 100%;
   max-width: 100%;
-  border-bottom: 1px solid var(--panel-divider, var(--divider));
+  border-bottom: 1px solid
+    color-mix(in oklab, var(--on-panel, var(--text-default)) 7%, transparent);
 }
 
 .Settings .SettingsCard__body > *:not(.Alert):first-child,
@@ -430,6 +432,14 @@ a {
   grid-template-columns: minmax(0, 1fr) minmax(200px, 340px);
   align-items: center;
   column-gap: var(--space-lg);
+}
+
+/* Label + description stack on the left, the control stays centered on the
+   right across both rows. */
+.SettingsCard .selectFieldWrapper:has(.selectFieldWrapper__description) {
+  grid-template-areas:
+    'label select'
+    'description select';
 }
 
 .SettingsCard .selectFieldWrapper.small,
@@ -503,7 +513,12 @@ a {
 }
 
 .Settings .settingsTabs {
+  position: sticky;
+  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+  z-index: 2;
   margin-block-end: var(--space-sm);
+  padding-block: var(--space-2xs);
+  background: var(--body-background, var(--background));
 }
 
 .Settings .defaults-hint {
