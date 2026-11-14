@@ -28,7 +28,7 @@ export default class SideloadLibraryManager implements LibraryManager {
     customUserAgent,
     launchFullScreen
   }: GameInfo): void {
-    const game: GameInfo = {
+    const gameInfo: GameInfo = {
       runner: 'sideload',
       app_name,
       title,
@@ -52,7 +52,7 @@ export default class SideloadLibraryManager implements LibraryManager {
       const macAppExecutable = readdirSync(
         join(executable, 'Contents', 'MacOS')
       )[0]
-      game.install.executable = join(
+      gameInfo.install.executable = join(
         executable,
         'Contents',
         'MacOS',
@@ -62,17 +62,24 @@ export default class SideloadLibraryManager implements LibraryManager {
 
     const current = libraryStore.get('games', [])
 
-    const gameIndex = current.findIndex((value) => value.app_name === app_name)
+    const gameIndex: number = current.findIndex(
+      (value) => value.app_name === app_name
+    )
+    const isNewGame: boolean = gameIndex === -1
 
-    // edit app in case it exists
-    if (gameIndex !== -1) {
-      current[gameIndex] = { ...current[gameIndex], ...game }
+    if (isNewGame) {
+      current.push(gameInfo)
     } else {
-      current.push(game)
-      addShortcuts(new SideloadGame(app_name))
+      // edit app in case it exists
+      current[gameIndex] = { ...current[gameIndex], ...gameInfo }
     }
 
     libraryStore.set('games', current)
+
+    // the store must be written first: SideloadGame.getGameInfo() reads from it
+    if (isNewGame) {
+      addShortcuts(new SideloadGame(app_name))
+    }
 
     sendFrontendMessage('refreshLibrary', 'sideload')
 
