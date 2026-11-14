@@ -56,7 +56,5 @@ export const Rating: Story = {
 }
 
 export const Disabled: Story = {
-  render: (args) => (
-    <Controlled {...args} disabled valueLabel="BRL 0 – 215" />
-  )
+  render: (args) => <Controlled {...args} disabled valueLabel="BRL 0 – 215" />
 }

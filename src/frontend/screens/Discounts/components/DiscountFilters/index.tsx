@@ -198,7 +198,10 @@ const DiscountFilters = ({
               htmlId="discountFilters__genres"
               values={selectedGenres}
               onChange={onGenresChange}
-              placeholder={t('discounts.filters.genresPlaceholder', 'Any genre')}
+              placeholder={t(
+                'discounts.filters.genresPlaceholder',
+                'Any genre'
+              )}
               options={genreOptions.map((genre) => ({
                 value: genre.slug,
                 label: genre.name

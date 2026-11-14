@@ -1,7 +1,12 @@
 import { useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { ListItemText, MenuItem, Select, SelectChangeEvent } from '@mui/material'
+import {
+  ListItemText,
+  MenuItem,
+  Select,
+  SelectChangeEvent
+} from '@mui/material'
 import Checkbox from 'frontend/components/UI/Checkbox'
 import 'frontend/components/UI/SelectField/index.css'
 import './index.css'
@@ -80,10 +85,7 @@ export default function MultiSelectField({
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
-            <Checkbox
-              size="small"
-              checked={values.includes(option.value)}
-            />
+            <Checkbox size="small" checked={values.includes(option.value)} />
             <ListItemText primary={option.label} />
           </MenuItem>
         ))}
