@@ -794,6 +794,14 @@ addHandler('getGOGLinuxInstallersLangs', async (event, appName) =>
   libraryManagerMap['gog'].getLinuxInstallersLanguages(appName)
 )
 
+addHandler('getGOGExtras', async (event, appName) =>
+  libraryManagerMap['gog'].getExtras(appName)
+)
+
+addHandler('downloadGOGExtras', async (event, appName, fileIds, destination) =>
+  libraryManagerMap['gog'].downloadExtras(appName, fileIds, destination)
+)
+
 addHandler(
   'getInstallInfo',
   async (event, appName, runner, installPlatform, build, branch) => {

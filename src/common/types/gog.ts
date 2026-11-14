@@ -356,6 +356,18 @@ interface ProductsEndpointBonusContent {
   files: Array<ProductsEndpointFile>
 }
 
+export interface GOGBonusContent {
+  id: number
+  name: string
+  type: string
+  total_size: number
+  files: Array<{
+    id: string
+    filename: string
+    size: number
+  }>
+}
+
 interface ProductsEndpointInstaller {
   id: string
   name: string

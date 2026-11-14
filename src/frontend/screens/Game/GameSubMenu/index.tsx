@@ -20,6 +20,7 @@ import EditGameDialog from 'frontend/components/UI/EditGameDialog'
 import {
   ArrowUpCircle,
   CircleCheck,
+  Download,
   ExternalLink,
   FileSearch,
   FolderOpen,
@@ -49,6 +50,7 @@ interface Props {
   disableUpdate: boolean
   onShowRequirements?: () => void
   onShowModifyInstall?: () => void
+  onShowGOGExtras?: () => void
   gameInfo: GameInfo
 }
 
@@ -64,6 +66,7 @@ export default function GamesSubmenu({
   disableUpdate,
   onShowRequirements,
   onShowModifyInstall,
+  onShowGOGExtras,
   gameInfo
 }: Props) {
   const { refresh, platform, libraryStatus, showDialogModal } =
@@ -429,6 +432,15 @@ export default function GamesSubmenu({
             >
               {t('game.requirements', 'Requirements')}
             </MenuItem>
+          )}
+          {runner === 'gog' && onShowGOGExtras && (
+            <button
+              onClick={onShowGOGExtras}
+              className="link button is-text is-link buttonWithIcon"
+            >
+              <Icon glyph={Download} />
+              {t('extras.title', 'GOG Extras')}
+            </button>
           )}
           {showModifyItem && (
             <MenuItem
