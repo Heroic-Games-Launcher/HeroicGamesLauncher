@@ -20,6 +20,7 @@ import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
+import DownloadLimit from './components/DownloadLimit'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export default React.memo(function DownloadManager(): JSX.Element | null {
@@ -125,6 +126,11 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                 current={true}
                 state={state}
                 variant="hero"
+                extraAction={
+                  currentElement.params.runner === 'steam' ? (
+                    <DownloadLimit />
+                  ) : undefined
+                }
               />
               <ProgressHeader
                 state={state}

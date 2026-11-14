@@ -90,6 +90,12 @@ export default function GamesSubmenu({
   const isThirdPartyManaged = !!gameInfo.thirdPartyManagedApp
 
   async function onMoveInstallYesClick() {
+    // Steam manages the move (and destination drive selection) in its own
+    // Storage Manager, so skip Heroic's directory picker and hand off to Steam.
+    if (runner === 'steam') {
+      await window.api.moveInstall({ appName, path: '', runner })
+      return
+    }
     const { defaultInstallPath } = await window.api.requestAppSettings()
     const path = await window.api.openDialog({
       buttonLabel: t('box.choose'),
@@ -105,7 +111,8 @@ export default function GamesSubmenu({
   function handleMoveInstall() {
     showDialogModal({
       showDialog: true,
-      message: t('box.move.message'),
+      message:
+        runner === 'steam' ? t('box.move.steamMessage') : t('box.move.message'),
       title: t('box.move.title'),
       buttons: [
         { text: t('box.yes'), onClick: onMoveInstallYesClick },
@@ -363,22 +370,24 @@ export default function GamesSubmenu({
                 ))}
             </>
           )}
-          {steamRefresh ? (
-            refreshCircle()
-          ) : (
-            <MenuItem
-              icon={
-                <SvgIcon>
-                  <FontAwesomeIcon icon={faSteam} />
-                </SvgIcon>
-              }
-              onClick={async () => handleAddToSteam()}
-            >
-              {addedToSteam
-                ? t('submenu.removeFromSteam', 'Remove from Steam')
-                : t('submenu.addToSteam', 'Add to Steam')}
-            </MenuItem>
-          )}
+          {/* Steam games already live in Steam */}
+          {runner !== 'steam' &&
+            (steamRefresh ? (
+              refreshCircle()
+            ) : (
+              <MenuItem
+                icon={
+                  <SvgIcon>
+                    <FontAwesomeIcon icon={faSteam} />
+                  </SvgIcon>
+                }
+                onClick={async () => handleAddToSteam()}
+              >
+                {addedToSteam
+                  ? t('submenu.removeFromSteam', 'Remove from Steam')
+                  : t('submenu.addToSteam', 'Add to Steam')}
+              </MenuItem>
+            ))}
           <MenuItem
             glyph={List}
             onClick={() => openGameCategoriesModal(gameInfo)}

@@ -23,6 +23,7 @@ type DownloadedBinary =
   | 'gogdl'
   | 'nile'
   | 'comet'
+  | 'aurelia'
   | 'epic-integration'
   | 'butler'
 
@@ -31,6 +32,7 @@ const RELEASE_TAGS = {
   gogdl: 'v1.3.0',
   nile: 'v1.2.0',
   comet: 'v0.2.0',
+  aurelia: 'v0.2.5',
   'epic-integration': 'v0.4',
   // butler is distributed via itch.io's broth channel system rather than
   // GitHub releases; "LATEST" resolves the channel's newest version at
@@ -278,6 +280,24 @@ async function downloadButler() {
   await Promise.all(promises)
 }
 
+async function downloadAurelia() {
+  return downloadGithubAssets(
+    'aurelia',
+    'Drackrath/Aurelia',
+    RELEASE_TAGS['aurelia'],
+    {
+      x64: {
+        linux: 'aurelia_linux_x86_64',
+        win32: 'aurelia_windows_x86_64.exe'
+      },
+      arm64: {
+        linux: 'aurelia_linux_arm64',
+        win32: 'aurelia_windows_arm64.exe'
+      }
+    }
+  )
+}
+
 async function downloadEpicIntegration() {
   return downloadGithubAssets(
     'EpicGamesLauncher',
@@ -305,7 +325,15 @@ async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
   try {
     storedTagsParsed = JSON.parse(storedTagsText)
   } catch {
-    return ['legendary', 'gogdl', 'nile', 'comet', 'epic-integration', 'butler']
+    return [
+      'legendary',
+      'gogdl',
+      'nile',
+      'comet',
+      'aurelia',
+      'epic-integration',
+      'butler'
+    ]
   }
   const binariesToDownload: DownloadedBinary[] = []
   for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {
@@ -348,6 +376,8 @@ async function main() {
   if (binariesToDownload.includes('nile')) promisesToAwait.push(downloadNile())
   if (binariesToDownload.includes('comet'))
     promisesToAwait.push(downloadComet())
+  if (binariesToDownload.includes('aurelia'))
+    promisesToAwait.push(downloadAurelia())
   if (binariesToDownload.includes('epic-integration'))
     promisesToAwait.push(downloadEpicIntegration())
   if (binariesToDownload.includes('butler'))

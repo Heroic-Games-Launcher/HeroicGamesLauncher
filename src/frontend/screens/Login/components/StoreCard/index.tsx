@@ -25,10 +25,12 @@ interface StoreCardProps {
   description: string
   isLoggedIn: boolean
   user?: string
-  loginUrl: string
+  loginUrl?: string
   storeRoute: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   logout: () => any
+  /** Primary login via a custom action (e.g. a modal) instead of loginUrl */
+  loginAction?: () => void
   alternativeLoginAction?: () => void
   notice?: ReactNode
   disabled?: boolean
@@ -46,6 +48,7 @@ export default function StoreCard({
   loginUrl,
   storeRoute,
   logout,
+  loginAction,
   alternativeLoginAction,
   notice,
   disabled = false
@@ -94,7 +97,11 @@ export default function StoreCard({
 
   const handleLogin = (event: MouseEvent) => {
     event.stopPropagation()
-    navigate(loginUrl)
+    if (loginAction) {
+      loginAction()
+    } else if (loginUrl) {
+      navigate(loginUrl)
+    }
   }
 
   const handleAltLogin = (event: MouseEvent) => {

@@ -9,6 +9,10 @@ import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
+import {
+  forgetSteamInstall,
+  pruneSteamBacklog
+} from 'backend/storeManagers/steam/backlog'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 import { onConnectivityChange } from 'backend/online_monitor'
@@ -25,6 +29,11 @@ const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
 let queueState: DownloadManagerState = 'idle'
 let currentElement: DMQueueElement | null = null
 let autoPaused = false
+// Running loop stops overlapping runs.
+let queueLoop: Promise<void> | null = null
+// Failed updates; auto-update skips them.
+const failedUpdates = new Set<string>()
+const updateKey = (appName: string, runner: string) => `${runner}:${appName}`
 
 onConnectivityChange((status) => {
   if (status === 'offline' && isRunning()) {
@@ -79,12 +88,30 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 #### Public ####
 */
 
-async function initQueue() {
+function initQueue(): Promise<void> {
+  queueLoop ??= runQueue().finally(() => {
+    queueLoop = null
+  })
+  return queueLoop
+}
+
+async function runQueue() {
+  // Drop Steam backlog entries we cancelled.
+  const queuedSteam = new Set(
+    downloadManager
+      .get('queue', [])
+      .filter((e) => e.params.runner === 'steam')
+      .map((e) => e.params.appName)
+  )
+  await pruneSteamBacklog(queuedSteam)
+
   let element = getFirstQueueElement()
 
   while (element) {
     const queuedElements = downloadManager.get('queue', [])
     element.startTime = Date.now()
+    // Resumes now; no longer paused.
+    delete element.pausedAt
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)
 
@@ -98,6 +125,12 @@ async function initQueue() {
         ? await installQueueElement(element.params)
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
+
+    if (element.type === 'update') {
+      const key = updateKey(element.params.appName, element.params.runner)
+      if (status === 'error') failedUpdates.add(key)
+      else if (status === 'done') failedUpdates.delete(key)
+    }
 
     processNotification(element, status)
 
@@ -115,7 +148,19 @@ async function initQueue() {
   }
 }
 
-async function addToQueue(element: DMQueueElement) {
+/** Whether this session's update failed. */
+function hasFailedUpdate(appName: string, runner: string): boolean {
+  return failedUpdates.has(updateKey(appName, runner))
+}
+
+/**
+ * Queue a download. `userStarted` lets it
+ * jump ahead of a paused download.
+ */
+async function addToQueue(
+  element: DMQueueElement,
+  { userStarted = false }: { userStarted?: boolean } = {}
+) {
   if (!element) {
     logError(
       'Can not add undefined element to queue!',
@@ -131,17 +176,22 @@ async function addToQueue(element: DMQueueElement) {
     status: 'queued'
   })
 
-  const elements = downloadManager.get('queue', [])
+  if (userStarted) {
+    // Manual retry clears the failure.
+    failedUpdates.delete(
+      updateKey(element.params.appName, element.params.runner)
+    )
+  }
 
-  const elementIndex = elements.findIndex(
-    (el) =>
-      el.params.appName === element.params.appName &&
-      el.params.runner === element.params.runner
-  )
+  // Let a pausing run wind down.
+  if (isPaused()) await queueLoop
 
-  if (elementIndex >= 0) {
-    elements[elementIndex] = element
-  } else {
+  const sameElement = (el: DMQueueElement) =>
+    el.params.appName === element.params.appName &&
+    el.params.runner === element.params.runner
+  const added: DMQueueElement[] = []
+
+  if (!downloadManager.get('queue', []).some(sameElement)) {
     const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
       element.params.appName
     )
@@ -173,13 +223,48 @@ async function addToQueue(element: DMQueueElement) {
           // create redist element
           const redistElement = createRedistDMQueueElement()
           redistElement.params.dependencies = newDependencies
-          elements.push(redistElement)
+          added.push(redistElement)
         }
       }
     } else {
       element.params.size = '?? MB'
     }
-    elements.push(element)
+  }
+
+  // No awaits below: concurrent adds stay ordered.
+  const elements = downloadManager.get('queue', [])
+  const elementIndex = elements.findIndex(sameElement)
+  // Paused head yields to user downloads.
+  const displacePaused =
+    elementIndex < 0 && userStarted && isPaused() && elements.length > 0
+
+  if (elementIndex >= 0) {
+    elements[elementIndex] = element
+  } else {
+    added.push(element)
+    if (displacePaused) {
+      elements[0] = { ...elements[0], pausedAt: Date.now() }
+      elements.unshift(...added)
+    } else {
+      elements.push(...added)
+    }
+  }
+
+  if (displacePaused) {
+    // Paused game now waits in queue.
+    const paused = elements[added.length]
+    sendGameStatusUpdate({
+      appName: paused.params.appName,
+      runner: paused.params.runner,
+      folder: paused.params.path,
+      status: 'queued'
+    })
+    currentElement = null
+    queueState = 'idle'
+    logInfo(
+      [paused.params.appName, 'paused; queued behind', element.params.appName],
+      LogPrefix.DownloadManager
+    )
   }
 
   downloadManager.set('queue', elements)
@@ -228,37 +313,59 @@ function getQueueInformation() {
   return { elements, finished, state: queueState }
 }
 
+/** Drop an element and its partial files. */
+function cancelElement(element: DMQueueElement, removeDownloaded: boolean) {
+  if (Array.isArray(element.params.installDlcs)) {
+    for (const dlc of element.params.installDlcs) {
+      removeFromQueue(dlc)
+    }
+  }
+  removeFromQueue(element.params.appName)
+
+  const { appName, runner } = element.params
+  if (runner === 'steam') {
+    // Aurelia knows the safe folder.
+    void forgetSteamInstall(appName, removeDownloaded)
+  } else if (removeDownloaded) {
+    const { folder_name } = libraryManagerMap[runner]
+      .getGame(appName)
+      .getGameInfo()
+    if (folder_name) {
+      removeFolder(element.params.path, folder_name)
+    }
+  }
+}
+
 function cancelCurrentDownload({ removeDownloaded = false }) {
   if (currentElement) {
-    if (Array.isArray(currentElement.params.installDlcs)) {
-      const dlcsToRemove = currentElement.params.installDlcs
-      for (const dlc of dlcsToRemove) {
-        removeFromQueue(dlc)
-      }
-    }
     if (isRunning()) {
       stopCurrentDownload()
     }
-    removeFromQueue(currentElement.params.appName)
-
-    if (removeDownloaded) {
-      const { appName, runner } = currentElement.params
-      const { folder_name } = libraryManagerMap[runner]
-        .getGame(appName)
-        .getGameInfo()
-      if (folder_name) {
-        removeFolder(currentElement.params.path, folder_name)
-      }
-    }
+    cancelElement(currentElement, removeDownloaded)
     currentElement = null
   }
 }
 
+/** Cancel a paused game waiting in queue. */
+function cancelQueuedDownload(appName: string, removeDownloaded = false) {
+  if (currentElement?.params.appName === appName) {
+    cancelCurrentDownload({ removeDownloaded })
+    return
+  }
+  const element = downloadManager
+    .get('queue', [])
+    .find((el) => el.params.appName === appName)
+  if (element) {
+    cancelElement(element, removeDownloaded)
+  }
+}
+
 function pauseCurrentDownload() {
+  // Set first: runners check isPaused().
+  queueState = 'paused'
   if (currentElement) {
     stopCurrentDownload()
   }
-  queueState = 'paused'
   autoPaused = false
   sendFrontendMessage(
     'changedDMQueueInformation',
@@ -267,8 +374,10 @@ function pauseCurrentDownload() {
   )
 }
 
-function resumeCurrentDownload() {
+async function resumeCurrentDownload() {
   autoPaused = false
+  // Let a pausing run wind down.
+  await queueLoop
   void initQueue()
 }
 
@@ -338,7 +447,10 @@ export {
   removeFromQueue,
   getQueueInformation,
   cancelCurrentDownload,
+  cancelQueuedDownload,
+  hasFailedUpdate,
   pauseCurrentDownload,
   resumeCurrentDownload,
-  isRunning
+  isRunning,
+  isPaused
 }

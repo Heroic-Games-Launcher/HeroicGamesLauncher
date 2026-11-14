@@ -1,6 +1,6 @@
 import './index.css'
 
-import { useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 
 import { DMQueueElement, DownloadManagerState } from 'common/types'
 import {
@@ -38,6 +38,8 @@ type Props = {
   state?: DownloadManagerState
   position?: number
   variant?: 'row' | 'hero'
+  /** Leading hero action, e.g. limiter. */
+  extraAction?: ReactNode
   handleClearItem?: (appName: string) => void
 }
 
@@ -74,9 +76,10 @@ const DownloadManagerItem = ({
   state,
   position,
   variant = 'row',
+  extraAction,
   handleClearItem
 }: Props) => {
-  const { amazon, epic, gog, itchio, showDialogModal } =
+  const { amazon, epic, gog, itchio, zoom, steam, showDialogModal } =
     useContext(ContextProvider)
   const { t, i18n } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
@@ -89,7 +92,9 @@ const DownloadManagerItem = ({
     ...epic.library,
     ...gog.library,
     ...amazon.library,
-    ...itchio.library
+    ...itchio.library,
+    ...zoom.library,
+    ...steam.library
   ]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
@@ -127,6 +132,8 @@ const DownloadManagerItem = ({
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' || (status === 'abort' && !current)
+  // Paused game waiting in the queue.
+  const waitingPaused = !current && Boolean(element.pausedAt) && !status
 
   const stopInstallation = async () => {
     if (!gameInfo) {
@@ -141,7 +148,8 @@ const DownloadManagerItem = ({
       t,
       progress,
       runner,
-      showDialogModal
+      showDialogModal,
+      waitingPaused
     )
   }
 
@@ -163,7 +171,7 @@ const DownloadManagerItem = ({
       handleClearItem(appName)
     }
 
-    if (current) stopInstallation()
+    if (current || waitingPaused) stopInstallation()
     else window.api.removeFromDMQueue(appName)
   }
 
@@ -194,7 +202,7 @@ const DownloadManagerItem = ({
       return 'secondary'
     }
 
-    return current ? 'dangerSubtle' : 'ghost'
+    return current || waitingPaused ? 'dangerSubtle' : 'ghost'
   }
 
   const secondaryActionIcon = () => {
@@ -221,7 +229,7 @@ const DownloadManagerItem = ({
       return t('Open')
     }
 
-    return current
+    return current || waitingPaused
       ? t('button.cancel', 'Cancel')
       : t('queue.label.remove', 'Remove from Downloads')
   }
@@ -266,6 +274,14 @@ const DownloadManagerItem = ({
       return (
         <Badge variant="error" glyph={CircleX}>
           {t('queue.label.canceled', 'Canceled')}
+        </Badge>
+      )
+    }
+
+    if (waitingPaused) {
+      return (
+        <Badge variant="warning" glyph={Pause}>
+          {t2('queue.label.paused', 'Paused')}
         </Badge>
       )
     }
@@ -345,6 +361,7 @@ const DownloadManagerItem = ({
           </Button>
         </Tooltip>
       )}
+      {isHero && extraAction}
     </span>
   )
 

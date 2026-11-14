@@ -6,6 +6,7 @@ import { Alert, UpdateComponent } from '../../components/UI'
 import StoreCard from './components/StoreCard'
 import SIDLogin from './components/SIDLogin'
 import ItchioLogin from './components/ItchioLogin'
+import SteamLogin from './components/SteamLogin'
 import ContextProvider from '../../state/ContextProvider'
 import { useAwaited } from '../../hooks/useAwaited'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -17,7 +18,7 @@ export const zoomLoginPath = '/loginweb/zoom'
 export const itchioLoginPath = '/loginweb/itchio'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, zoom, itchio, disableGOGAffiliate } =
+  const { epic, gog, amazon, zoom, itchio, steam, disableGOGAffiliate } =
     useContext(ContextProvider)
   const { t } = useTranslation()
 
@@ -30,6 +31,7 @@ export default React.memo(function NewLogin() {
   const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
   const [showItchioLogin, setShowItchioLogin] = useState(false)
+  const [showSteamLogin, setShowSteamLogin] = useState(false)
   const [isEpicLoggedIn, setIsEpicLoggedIn] = useState(Boolean(epic.username))
   const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
@@ -39,6 +41,11 @@ export default React.memo(function NewLogin() {
   const [isItchioLoggedIn, setIsItchioLoggedIn] = useState(
     Boolean(itchio.username)
   )
+  const [isSteamLoggedIn, setIsSteamLoggedIn] = useState(
+    Boolean(steam.users?.[0])
+  )
+
+  const steamUser = steam.users[0]
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 
@@ -66,13 +73,14 @@ export default React.memo(function NewLogin() {
     setIsAmazonLoggedIn(Boolean(amazon.user_id))
     setIsZoomLoggedIn(Boolean(zoom.username))
     setIsItchioLoggedIn(Boolean(itchio.username))
+    setIsSteamLoggedIn(Boolean(steam.users?.[0]))
   }, [
     epic.username,
     gog.username,
     amazon.user_id,
     zoom.username,
     itchio.username,
-    t
+    steam.users
   ])
 
   if (loading) {
@@ -92,6 +100,13 @@ export default React.memo(function NewLogin() {
         <ItchioLogin
           backdropClick={() => {
             setShowItchioLogin(false)
+          }}
+        />
+      )}
+      {showSteamLogin && (
+        <SteamLogin
+          backdropClick={() => {
+            setShowSteamLogin(false)
           }}
         />
       )}
@@ -195,6 +210,27 @@ export default React.memo(function NewLogin() {
             loginUrl={zoomLoginPath}
             storeRoute="/store/zoom"
             logout={zoom.logout}
+            disabled={oldMac}
+          />
+        )}
+        {steam.enabled && (
+          <StoreCard
+            storeKey="steam"
+            runner="steam"
+            title={t('login.title_steam', 'Steam')}
+            description={t(
+              'login.description_steam',
+              'Buy and play games from Steam.'
+            )}
+            isLoggedIn={isSteamLoggedIn}
+            user={steamUser?.username || 'Unknown'}
+            storeRoute="/store/steam"
+            logout={
+              steamUser
+                ? () => steam.logoutUser(steamUser.steamId)
+                : steam.logout
+            }
+            loginAction={() => setShowSteamLogin(true)}
             disabled={oldMac}
           />
         )}

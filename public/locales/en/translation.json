@@ -58,8 +58,10 @@
             "message": "Heroic cache cleared.",
             "title": "Cache cleared"
         },
+        "cancel": "Cancel",
         "changelog": "Changelog",
         "choose": "Choose",
+        "choose-aurelia-binary": "Select Aurelia binary",
         "choose-egs-prefix": "Choose prefix where EGS is installed",
         "choose-gogdl-binary": "Select GOGDL binary (needs restart)",
         "choose-legendary-binary": "Select Legendary binary",
@@ -115,6 +117,7 @@
                 "running": "Steam is running. Close Steam and try again, or restart Steam once to let Heroic manage shortcuts while Steam is running.",
                 "running-gamemode": "A one-time Steam restart is required before Heroic can manage Steam shortcuts on this device. Restart Steam and try again."
             },
+            "steam-running": "Steam is running. Close Steam, then try again.",
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -171,6 +174,18 @@
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "message-remove-mac": "Shortcuts were removed from the applications folder",
             "title": "Shortcuts"
+        },
+        "steam": {
+            "cloudConflict": {
+                "keepCloud": "Use Cloud save",
+                "keepLocal": "Use Local save",
+                "message": "The Cloud and Local saves for {{game}} have diverged, choose which copy to keep:\n\n{{files}}",
+                "title": "Steam Cloud save conflict"
+            },
+            "cloudIncomplete": {
+                "message": "Not all Cloud saves for {{game}} could be downloaded, so the saves on this PC are incomplete. Playing now may overwrite the missing progress in the Cloud.\n\n{{details}}",
+                "title": "Steam Cloud saves incomplete"
+            }
         },
         "sync": {
             "error": "Invalid path",
@@ -246,6 +261,64 @@
     "changelog": {
         "view_full": "View full changelog on GitHub"
     },
+    "cloudSync": {
+        "back": "Back",
+        "button": {
+            "download": "Download",
+            "keep": "Keep",
+            "sync": "Sync",
+            "upload": "Upload",
+            "view": "View"
+        },
+        "column": {
+            "file": "File",
+            "modified": "Modified",
+            "size": "Size"
+        },
+        "count": {
+            "conflicts_one": "{{count}} conflicting",
+            "conflicts_other": "{{count}} conflicting",
+            "failed_one": "{{count}} failed",
+            "failed_other": "{{count}} failed",
+            "skipped_one": "{{count}} skipped",
+            "skipped_other": "{{count}} skipped"
+        },
+        "genericIssue": "The last sync had a problem.",
+        "hint": {
+            "checking": "Checking Steam Cloud…",
+            "cloudCopy": "Cloud copy from {{when}}",
+            "cloudEmpty": "Nothing in Steam Cloud yet",
+            "discardCloud": "Discards the Cloud copy from {{when}}",
+            "fileCount_one": "{{count}} file · {{size}}",
+            "fileCount_other": "{{count}} files · {{size}}",
+            "firstUpload": "Creates the first Cloud copy",
+            "lastSync": "Last synced {{when}}",
+            "neverSynced": "Not synced from Heroic yet",
+            "replaceCloud": "Replaces the Cloud copy from {{when}}"
+        },
+        "keepCloud": "Resolve: keep Steam Cloud saves",
+        "keepLocal": "Resolve: keep this PC's saves",
+        "lastSync": "Last sync: {{when}}",
+        "never": "Never",
+        "noFiles": "No files in Steam Cloud for this game.",
+        "pull": "Download saves from Cloud",
+        "push": "Upload local saves to Cloud",
+        "section": {
+            "actions": "Sync actions",
+            "files": "Cloud files"
+        },
+        "state": {
+            "conflicts": "Steam Cloud saves conflict with this PC",
+            "failed": "Steam Cloud sync failed",
+            "incomplete": "Steam Cloud sync incomplete",
+            "ok": "Steam Cloud saves are up to date",
+            "syncing": "Syncing Steam Cloud saves…",
+            "unknown": "Steam Cloud saves  not synced yet"
+        },
+        "sync": "Sync now (both ways)",
+        "syncing": "Syncing… please wait.",
+        "viewFiles": "View Cloud save files"
+    },
     "common": {
         "add": "Add",
         "cancel": "Cancel",
@@ -300,6 +373,9 @@
             "wineLoading": "Loading…",
             "wineMissing": "Not selected"
         },
+        "launchError": "Failed to launch game. Check the logs for details.",
+        "launchErrorNotLoggedIn": "Failed to launch game. You must log in to Steam first.",
+        "launchErrorPrefix": "Failed to launch game:",
         "launching": "Launching",
         "loading": "Loading your library…",
         "quit": "Quit console",
@@ -307,7 +383,12 @@
         "removeFromQueue": {
             "message": "This game is queued for download. Remove it from the queue?"
         },
-        "sort": "Sort"
+        "sort": {
+            "alpha_asc": "A → Z",
+            "alpha_desc": "Z → A",
+            "label": "Sort",
+            "last_played": "Last Played"
+        }
     },
     "controller": {
         "hints": {
@@ -454,6 +535,10 @@
             "speed": "Download",
             "unit": "MB/s"
         },
+        "limit": {
+            "label": "Download limit",
+            "unlimited": "Unlimited"
+        },
         "link": "Downloads",
         "pageSubtitle": "What is installing now, what comes next and what is already done",
         "queue": {
@@ -514,6 +599,7 @@
         "select_all": "Select all",
         "show_favourites_only": "Show favourites only",
         "show_installed_only": "Show installed only",
+        "show_steam_owned_only": "Show Steam owned games only",
         "show_support_offline_only": "Show offline-supported only",
         "show_third_party_managed_only": "Show third-party managed only",
         "show_updates_only": "Show games with updates only",
@@ -665,6 +751,7 @@
         "description_epic": "Buy and play games from the Epic Games Store.",
         "description_gog": "Buy and play DRM free games from GOG.com.",
         "description_itchio": "Discover and play indie games from itch.io.",
+        "description_steam": "Buy and play games from Steam.",
         "description_zoom": "Buy and play DRM free games from Zoom Platform.",
         "gog_support": "GOG affiliate links are disabled. Enable them to help support Heroic when you buy games here.",
         "logged_in_as": "Logged in as",
@@ -678,6 +765,7 @@
         "title_epic": "Epic Games",
         "title_gog": "GOG",
         "title_itchio": "itch.io",
+        "title_steam": "Steam",
         "title_zoom": "Zoom Platform"
     },
     "message": {
@@ -800,6 +888,7 @@
         }
     },
     "other": {
+        "aurelia-version": "Aurelia Version: ",
         "gogdl-version": "GOGDL version: ",
         "legendary-version": "Legendary version: ",
         "nile-version": "Nile version: ",
@@ -807,6 +896,7 @@
     },
     "Other": "Other",
     "placeholder": {
+        "alt-aurelia-bin": "Using built-in Aurelia binary...",
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "alt-nile-bin": "Using built-in Nile binary...",
@@ -857,6 +947,7 @@
         "allow-broken-anticheat": {
             "description": "Install titles even when their anticheat is known not to work on this system"
         },
+        "alt-aurelia-bin": "Choose an Alternative Aurelia Binary",
         "alt-gogdl-bin": "Choose an alternative GOGDL binary to use",
         "alt-legendary-bin": "Choose an alternative Legendary binary",
         "alt-nile-bin": "Choose an alternative Nile binary",
@@ -999,6 +1090,7 @@
                 "itchio": "itch.io log",
                 "legendary": "Epic Games / Legendary log",
                 "nile": "Amazon / Nile log",
+                "steam": "Steam / Aurelia log",
                 "zoom": "Zoom log"
             },
             "error": "Internal error reading log file",
@@ -1105,6 +1197,24 @@
         "start-in-console-mode": "Start in console mode",
         "start-in-console-mode-description": "Open Heroic in the big-picture interface built for controllers",
         "start-in-tray": "Start minimized",
+        "steamLaunchTarget": {
+            "automatic": "Automatic",
+            "downloadBuild": "Download",
+            "fallback": "Until then, Play uses",
+            "host": "Host Steam",
+            "info": {
+                "host": "Host Steam: starts your installed Steam client silently in the background. Needed for online play, multiplayer and DRM.",
+                "none": "No Steam: starts the game without Steam. Online features and DRM-protected games may not work.",
+                "runtime": "In-Wine Steam runtime: runs a separate Steam client inside Wine, for when Steam is not installed on your system."
+            },
+            "installRuntime": "Install Steam runtime",
+            "missingBuild": "not downloaded",
+            "missingRuntime": "Steam runtime not installed",
+            "native": "Native",
+            "none": "No Steam",
+            "runtime": "In-Wine Steam runtime",
+            "title": "Game version to launch"
+        },
         "steamRuntime": {
             "label": "Use Steam runtime",
             "noRuntimeOption": "None"
@@ -1148,12 +1258,16 @@
                 "help8": "Installed games",
                 "help9": "Games settings"
             },
+            "clearImagesCache": {
+                "description": "Drops only the downloaded cover artwork so it is re-downloaded, with rate limiting."
+            },
             "resetHeroic": {
                 "description": "Restores Heroic to its defaults. Installed games and store logins are kept.",
                 "help": "This will remove all settings and caching but won't remove your installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards."
             },
             "title": {
                 "clearCache": "Clear cache",
+                "clearImagesCache": "Clear images cache",
                 "resetHeroic": "Reset Heroic"
             }
         },
@@ -1163,6 +1277,7 @@
             "name": "BattlEye AntiCheat runtime"
         },
         "clear-cache": "Clear Heroic cache",
+        "clear-images-cache": "Clear images cache",
         "copiedToClipboard": "Copied to clipboard!",
         "copyToClipboard": "Copy all settings to clipboard",
         "custom_css": {
@@ -1241,6 +1356,7 @@
             "performance": "Performance & overlays",
             "privacy": "Privacy",
             "runtimes": "Runtimes",
+            "steam": "Steam",
             "system": "System",
             "winePerformance": "Performance",
             "wineTools": "Tools",

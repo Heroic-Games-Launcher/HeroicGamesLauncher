@@ -1,7 +1,15 @@
 import './index.css'
 
-import { useContext, CSSProperties, useMemo, useState, useEffect } from 'react'
+import {
+  useContext,
+  CSSProperties,
+  useMemo,
+  useRef,
+  useState,
+  useEffect
+} from 'react'
 
+import FamilyShareIcon from 'frontend/assets/ico_familysharing.svg?react'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -43,6 +51,7 @@ import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 
 import classNames from 'classnames'
+import CloudSyncStatus from 'frontend/components/UI/CloudSyncStatus'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
@@ -94,6 +103,11 @@ const GameCard = ({
   const [gameInfo, setGameInfo] = useState<GameInfo>(gameInfoFromProps)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
+  // A cover fetched from the store API to replace a missing/unreachable Steam
+  // library image (see handleCoverError).
+  const [steamCover, setSteamCover] = useState<string>()
+  const triedSteamCover = useRef(false)
+  const coverErrorCount = useRef(0)
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
@@ -128,6 +142,25 @@ const GameCard = ({
     gameInfoFromProps.overrides?.art_cover || gameInfoFromProps.art_cover
   const cover =
     gameInfoFromProps.overrides?.art_square || gameInfoFromProps.art_square
+
+  // Steam's library_600x900 portrait is often missing
+  // only after its real CDN URL fails fetch a wiki portrait.
+  const handleCoverError = (): void => {
+    if (runner !== 'steam' || triedSteamCover.current) return
+    coverErrorCount.current += 1
+    if (coverErrorCount.current < 2) return
+    triedSteamCover.current = true
+    if (cover?.startsWith('http')) {
+      void window.api.removeImageFromCache(cover)
+    }
+    window.api
+      .getWikiGameInfo(gameInfo.title, appName, runner)
+      .then((info) => {
+        const wikiCover = info?.pcgamingwiki?.cover
+        if (wikiCover) setSteamCover(wikiCover)
+      })
+      .catch(() => undefined)
+  }
 
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
@@ -475,6 +508,14 @@ const GameCard = ({
             }
           >
             <StoreBadge runner={runner} />
+            {gameInfo.isFamilyShare && (
+              <span
+                className="family-share-icon"
+                title={t('label.steam-family-share', 'Steam Family Sharing')}
+              >
+                <FamilyShareIcon />
+              </span>
+            )}
             {justPlayed ? (
               <CachedImage
                 src={art_cover || fallBackImage}
@@ -483,9 +524,11 @@ const GameCard = ({
               />
             ) : (
               <CachedImage
-                src={getImageFormatting(cover, runner)}
+                src={steamCover || getImageFormatting(cover, runner)}
+                fallback={art_cover}
                 className={imgClasses}
                 alt="cover"
+                onError={handleCoverError}
               />
             )}
             {(justPlayed || runner !== 'nile') && logo && (
@@ -524,6 +567,7 @@ const GameCard = ({
               {getStoreName(runner, t2('Other'))}
             </span>
           </div>
+          <CloudSyncStatus gameInfo={gameInfo} className="cloud-sync-icon" />
           <>
             <span className="icons">
               {showUpdateButton && (

@@ -584,3 +584,109 @@
 .game-actions .gameTools .link svg {
   flex-shrink: 0;
 }
+
+/* Steam DLC list in install panel. */
+.installationInfo .steamDlcInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  text-align: start;
+}
+
+.installationInfo .steamDlcList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs, 2px);
+}
+
+.installationInfo .steamDlcRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-3xs, 2px) 0;
+}
+
+.installationInfo .steamDlcImage {
+  width: 92px;
+  height: 43px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 4px;
+  background: var(--neutral-04);
+}
+
+.installationInfo .steamDlcTitle {
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.installationInfo .steamDlcStatus {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.installationInfo .steamDlcStatus svg {
+  width: 22px;
+  height: 22px;
+}
+
+.installationInfo .steamDlcStatus.installed {
+  color: var(--success);
+}
+
+.installationInfo .steamDlcStatus.notInstalled {
+  color: var(--accent);
+}
+
+.installationInfo .steamDlcStatus.notBought {
+  color: var(--text-secondary);
+}
+
+.installationInfo .steamDlcStoreBtn {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.installationInfo .steamDlcStoreBtn:hover,
+.installationInfo .steamDlcStoreBtn:focus-visible {
+  color: var(--text-default);
+}
+
+.installationInfo .steamDlcStoreBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Steam Cloud, styled as ghost button. */
+.gameActions .gamePageCloudSync {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 11px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: var(--input-background);
+  color: var(--on-panel, var(--text-default));
+  transition: border-color 150ms ease;
+}
+
+.gameActions .gamePageCloudSync:hover,
+.gameActions .gamePageCloudSync:focus-visible {
+  border-color: var(--divider);
+  color: var(--text-default);
+}

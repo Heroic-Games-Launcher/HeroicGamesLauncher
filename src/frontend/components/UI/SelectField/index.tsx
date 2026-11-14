@@ -1,7 +1,12 @@
 import { ReactNode, useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Select, MenuItem, SelectChangeEvent } from '@mui/material'
+import {
+  InputAdornment,
+  Select,
+  MenuItem,
+  SelectChangeEvent
+} from '@mui/material'
 import InfoTooltip from '../InfoTooltip'
 import './index.css'
 
@@ -18,6 +23,8 @@ interface SelectFieldProps {
   disabled?: boolean
   extraClass?: string
   displayEmpty?: boolean
+  /** Icon shown inside, before value. */
+  startIcon?: ReactNode
 }
 
 export default function SelectField({
@@ -32,6 +39,7 @@ export default function SelectField({
   extraClass = '',
   displayEmpty = false,
   afterSelect,
+  startIcon,
   children
 }: SelectFieldProps) {
   const { isRTL } = useContext(ContextProvider)
@@ -39,7 +47,8 @@ export default function SelectField({
   return (
     <div
       className={classnames(`selectFieldWrapper Field ${extraClass}`, {
-        isRTL
+        isRTL,
+        hasStartIcon: !!startIcon
       })}
     >
       {label && (
@@ -58,6 +67,11 @@ export default function SelectField({
         onChange={onChange}
         disabled={disabled}
         displayEmpty={displayEmpty}
+        startAdornment={
+          startIcon ? (
+            <InputAdornment position="start">{startIcon}</InputAdornment>
+          ) : undefined
+        }
         sx={{
           '& .MuiSelect-icon': { display: 'none' },
           '& .MuiOutlinedInput-notchedOutline legend': { width: 0 },
