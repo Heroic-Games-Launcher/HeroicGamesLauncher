@@ -12,6 +12,7 @@ interface SelectFieldProps {
   children: ReactNode
   afterSelect?: ReactNode
   label?: string
+  description?: ReactNode
   info?: ReactNode
   prompt?: string
   disabled?: boolean
@@ -24,6 +25,7 @@ export default function SelectField({
   value,
   onChange,
   label,
+  description,
   info,
   prompt,
   disabled = false,
@@ -45,6 +47,9 @@ export default function SelectField({
           {label}
           {info && <InfoTooltip content={info} label={label} />}
         </label>
+      )}
+      {description && (
+        <span className="selectFieldWrapper__description">{description}</span>
       )}
       <Select
         id={htmlId}

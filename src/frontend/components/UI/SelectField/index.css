@@ -5,7 +5,7 @@
 
 .selectStyle,
 .selectFieldWrapper .MuiOutlinedInput-root {
-  border-radius: var(--field-radius);
+  border-radius: 8px;
   grid-area: select;
   width: 100%;
   height: var(--field-height);
@@ -40,6 +40,11 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   min-width: 100px;
+}
+
+/* Borderless: drop MUI's outlined fieldset border too */
+.selectFieldWrapper .MuiOutlinedInput-notchedOutline {
+  border: none;
 }
 
 .selectFieldWrapper .MuiSelect-select.MuiSelect-select.MuiSelect-select {
@@ -84,6 +89,20 @@
   text-align: start;
   grid-area: label;
   align-self: center;
+}
+
+.selectFieldWrapper__description {
+  grid-area: description;
+  margin-top: var(--space-3xs);
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--field-label-color, var(--text-secondary));
+}
+
+/* Make room for the description row when one is present */
+.selectFieldWrapper:has(.selectFieldWrapper__description) {
+  grid-template-areas: 'label' 'description' 'select';
 }
 
 .selectFieldWrapper select:disabled {
@@ -175,7 +194,7 @@
 }
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root {
-  gap: var(--space-sm-fixed);
+  gap: var(--space-xs-fixed);
   padding: var(--space-xs-fixed) var(--space-sm-fixed);
   border-radius: 8px;
   font-family: var(--primary-font-family);
