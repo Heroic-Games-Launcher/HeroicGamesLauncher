@@ -680,6 +680,7 @@ export default function Discounts() {
             handleGmgCurrencyChange(value === '' ? null : value)
           }}
           extraClass="discountsScreen__regionSelect"
+          displayEmpty
         >
           <MenuItem value="">
             {t('discounts.region.auto', 'Auto ({{code}})', {
@@ -712,6 +713,7 @@ export default function Discounts() {
             handleRegionChange(value === '' ? null : value)
           }}
           extraClass="discountsScreen__regionSelect"
+          displayEmpty
         >
           <MenuItem value="">
             {t('discounts.region.auto', 'Auto ({{code}})', {
@@ -790,7 +792,7 @@ export default function Discounts() {
       )}
 
       {!loading && !error && (products.length > 0 || hasActiveFilters) && (
-        <>
+        <div className="discountsScreen__body">
           <DiscountFilters
             regionSelector={regionSelector}
             sortBy={sortBy}
@@ -838,24 +840,29 @@ export default function Discounts() {
             hasActiveFilters={hasActiveFilters}
           />
 
-          {paginated.length === 0 ? (
-            <p className="discountsScreen__message">
-              {t('discounts.noMatches', 'No games match the current filters.')}
-            </p>
-          ) : (
-            <div className="discountsScreen__grid">
-              {paginated.map((product) => (
-                <DiscountCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
+          <div className="discountsScreen__main">
+            {paginated.length === 0 ? (
+              <p className="discountsScreen__message">
+                {t(
+                  'discounts.noMatches',
+                  'No games match the current filters.'
+                )}
+              </p>
+            ) : (
+              <div className="discountsScreen__grid">
+                {paginated.map((product) => (
+                  <DiscountCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
 
-          <DiscountPagination
-            page={clampedPage}
-            totalPages={totalPages}
-            onChange={handlePageChange}
-          />
-        </>
+            <DiscountPagination
+              page={clampedPage}
+              totalPages={totalPages}
+              onChange={handlePageChange}
+            />
+          </div>
+        </div>
       )}
     </div>
   )

@@ -16,6 +16,7 @@ interface SelectFieldProps {
   prompt?: string
   disabled?: boolean
   extraClass?: string
+  displayEmpty?: boolean
 }
 
 export default function SelectField({
@@ -27,6 +28,7 @@ export default function SelectField({
   prompt,
   disabled = false,
   extraClass = '',
+  displayEmpty = false,
   afterSelect,
   children
 }: SelectFieldProps) {
@@ -50,6 +52,7 @@ export default function SelectField({
         tabIndex={-1}
         onChange={onChange}
         disabled={disabled}
+        displayEmpty={displayEmpty}
         sx={{
           '& .MuiSelect-icon': { display: 'none' },
           '& .MuiOutlinedInput-notchedOutline legend': { width: 0 },
