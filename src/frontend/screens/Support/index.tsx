@@ -60,7 +60,7 @@ export default memo(function Support() {
           <p className="Support__subtitle">
             {t(
               'support.description',
-              'Heroic is free and open source, and always will be. Your support gives the developers more time to improve it: buying games to test new features against, fixing bugs, and building the things the community asks for.'
+              'Heroic is free and open source, and always will be. Your support gives the developers more time to improve it, buying games to test new features against, fixing bugs, and building the things the community asks for.'
             )}
           </p>
         </header>
