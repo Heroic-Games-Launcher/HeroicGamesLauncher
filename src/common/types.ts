@@ -666,6 +666,8 @@ export interface DMQueueElement {
   startTime: number
   endTime: number
   status?: DMStatus
+  /** Set while a paused game waits. */
+  pausedAt?: number
 }
 
 type ProtonVerb =

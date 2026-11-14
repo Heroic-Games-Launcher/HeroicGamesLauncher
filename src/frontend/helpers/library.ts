@@ -105,8 +105,14 @@ function handleStopInstallation(
   t: TFunction<'gamepage'>,
   progress: InstallProgress,
   runner: Runner,
-  showDialogModal: (options: DialogModalOptions) => void
+  showDialogModal: (options: DialogModalOptions) => void,
+  queued = false
 ) {
+  // Queued paused games cancel by name.
+  const cancel = (removeDownloaded: boolean) =>
+    queued
+      ? window.api.cancelQueuedDownload(appName, removeDownloaded)
+      : window.api.cancelDownload(removeDownloaded)
   showDialogModal({
     title: t('gamepage:box.stopInstall.title'),
     message: t('gamepage:box.stopInstall.message'),
@@ -119,13 +125,13 @@ function handleStopInstallation(
             appName,
             JSON.stringify({ ...progress, folder: path })
           )
-          window.api.cancelDownload(false)
+          cancel(false)
         }
       },
       {
         text: t('box.no'),
         onClick: () => {
-          window.api.cancelDownload(true)
+          cancel(true)
           storage.removeItem(appName)
         }
       }

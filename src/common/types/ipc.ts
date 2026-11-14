@@ -128,6 +128,7 @@ interface SyncIPCFunctions {
   resumeCurrentDownload: () => void
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
+  cancelQueuedDownload: (appName: string, removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
   minimizeWindow: () => void
   showWindow: () => void

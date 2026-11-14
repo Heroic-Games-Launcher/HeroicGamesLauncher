@@ -29,6 +29,8 @@ const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
 let queueState: DownloadManagerState = 'idle'
 let currentElement: DMQueueElement | null = null
 let autoPaused = false
+// Running loop stops overlapping runs.
+let queueLoop: Promise<void> | null = null
 
 onConnectivityChange((status) => {
   if (status === 'offline' && isRunning()) {
@@ -83,7 +85,14 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 #### Public ####
 */
 
-async function initQueue() {
+function initQueue(): Promise<void> {
+  queueLoop ??= runQueue().finally(() => {
+    queueLoop = null
+  })
+  return queueLoop
+}
+
+async function runQueue() {
   // Drop Steam backlog entries we cancelled.
   const queuedSteam = new Set(
     downloadManager
@@ -98,6 +107,8 @@ async function initQueue() {
   while (element) {
     const queuedElements = downloadManager.get('queue', [])
     element.startTime = Date.now()
+    // Resumes now; no longer paused.
+    delete element.pausedAt
     queuedElements[0] = element
     downloadManager.set('queue', queuedElements)
 
@@ -144,6 +155,9 @@ async function addToQueue(element: DMQueueElement) {
     status: 'queued'
   })
 
+  // Let a pausing run wind down.
+  if (isPaused()) await queueLoop
+
   const elements = downloadManager.get('queue', [])
 
   const elementIndex = elements.findIndex(
@@ -151,6 +165,10 @@ async function addToQueue(element: DMQueueElement) {
       el.params.appName === element.params.appName &&
       el.params.runner === element.params.runner
   )
+
+  // Paused head yields to new download.
+  const displacePaused = elementIndex < 0 && isPaused() && elements.length > 0
+  const added: DMQueueElement[] = []
 
   if (elementIndex >= 0) {
     elements[elementIndex] = element
@@ -186,13 +204,36 @@ async function addToQueue(element: DMQueueElement) {
           // create redist element
           const redistElement = createRedistDMQueueElement()
           redistElement.params.dependencies = newDependencies
-          elements.push(redistElement)
+          added.push(redistElement)
         }
       }
     } else {
       element.params.size = '?? MB'
     }
-    elements.push(element)
+    added.push(element)
+    if (displacePaused) {
+      elements[0] = { ...elements[0], pausedAt: Date.now() }
+      elements.unshift(...added)
+    } else {
+      elements.push(...added)
+    }
+  }
+
+  if (displacePaused) {
+    // Paused game now waits in queue.
+    const paused = elements[added.length]
+    sendGameStatusUpdate({
+      appName: paused.params.appName,
+      runner: paused.params.runner,
+      folder: paused.params.path,
+      status: 'queued'
+    })
+    currentElement = null
+    queueState = 'idle'
+    logInfo(
+      [paused.params.appName, 'paused; queued behind', element.params.appName],
+      LogPrefix.DownloadManager
+    )
   }
 
   downloadManager.set('queue', elements)
@@ -241,32 +282,50 @@ function getQueueInformation() {
   return { elements, finished, state: queueState }
 }
 
+/** Drop an element and its partial files. */
+function cancelElement(element: DMQueueElement, removeDownloaded: boolean) {
+  if (Array.isArray(element.params.installDlcs)) {
+    for (const dlc of element.params.installDlcs) {
+      removeFromQueue(dlc)
+    }
+  }
+  removeFromQueue(element.params.appName)
+
+  const { appName, runner } = element.params
+  if (runner === 'steam') {
+    // Aurelia knows the safe folder.
+    void forgetSteamInstall(appName, removeDownloaded)
+  } else if (removeDownloaded) {
+    const { folder_name } = libraryManagerMap[runner]
+      .getGame(appName)
+      .getGameInfo()
+    if (folder_name) {
+      removeFolder(element.params.path, folder_name)
+    }
+  }
+}
+
 function cancelCurrentDownload({ removeDownloaded = false }) {
   if (currentElement) {
-    if (Array.isArray(currentElement.params.installDlcs)) {
-      const dlcsToRemove = currentElement.params.installDlcs
-      for (const dlc of dlcsToRemove) {
-        removeFromQueue(dlc)
-      }
-    }
     if (isRunning()) {
       stopCurrentDownload()
     }
-    removeFromQueue(currentElement.params.appName)
-
-    const { appName, runner } = currentElement.params
-    if (runner === 'steam') {
-      // Aurelia knows the safe folder.
-      void forgetSteamInstall(appName, removeDownloaded)
-    } else if (removeDownloaded) {
-      const { folder_name } = libraryManagerMap[runner]
-        .getGame(appName)
-        .getGameInfo()
-      if (folder_name) {
-        removeFolder(currentElement.params.path, folder_name)
-      }
-    }
+    cancelElement(currentElement, removeDownloaded)
     currentElement = null
+  }
+}
+
+/** Cancel a paused game waiting in queue. */
+function cancelQueuedDownload(appName: string, removeDownloaded = false) {
+  if (currentElement?.params.appName === appName) {
+    cancelCurrentDownload({ removeDownloaded })
+    return
+  }
+  const element = downloadManager
+    .get('queue', [])
+    .find((el) => el.params.appName === appName)
+  if (element) {
+    cancelElement(element, removeDownloaded)
   }
 }
 
@@ -284,8 +343,10 @@ function pauseCurrentDownload() {
   )
 }
 
-function resumeCurrentDownload() {
+async function resumeCurrentDownload() {
   autoPaused = false
+  // Let a pausing run wind down.
+  await queueLoop
   void initQueue()
 }
 
@@ -355,6 +416,7 @@ export {
   removeFromQueue,
   getQueueInformation,
   cancelCurrentDownload,
+  cancelQueuedDownload,
   pauseCurrentDownload,
   resumeCurrentDownload,
   isRunning,

@@ -132,6 +132,8 @@ const DownloadManagerItem = ({
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' || (status === 'abort' && !current)
+  // Paused game waiting in the queue.
+  const waitingPaused = !current && Boolean(element.pausedAt) && !status
 
   const stopInstallation = async () => {
     if (!gameInfo) {
@@ -146,7 +148,8 @@ const DownloadManagerItem = ({
       t,
       progress,
       runner,
-      showDialogModal
+      showDialogModal,
+      waitingPaused
     )
   }
 
@@ -168,7 +171,7 @@ const DownloadManagerItem = ({
       handleClearItem(appName)
     }
 
-    if (current) stopInstallation()
+    if (current || waitingPaused) stopInstallation()
     else window.api.removeFromDMQueue(appName)
   }
 
@@ -199,7 +202,7 @@ const DownloadManagerItem = ({
       return 'secondary'
     }
 
-    return current ? 'dangerSubtle' : 'ghost'
+    return current || waitingPaused ? 'dangerSubtle' : 'ghost'
   }
 
   const secondaryActionIcon = () => {
@@ -226,7 +229,7 @@ const DownloadManagerItem = ({
       return t('Open')
     }
 
-    return current
+    return current || waitingPaused
       ? t('button.cancel', 'Cancel')
       : t('queue.label.remove', 'Remove from Downloads')
   }
@@ -271,6 +274,14 @@ const DownloadManagerItem = ({
       return (
         <Badge variant="error" glyph={CircleX}>
           {t('queue.label.canceled', 'Canceled')}
+        </Badge>
+      )
+    }
+
+    if (waitingPaused) {
+      return (
+        <Badge variant="warning" glyph={Pause}>
+          {t2('queue.label.paused', 'Paused')}
         </Badge>
       )
     }
