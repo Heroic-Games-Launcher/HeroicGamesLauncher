@@ -29,7 +29,7 @@ export default function InstallOverlay({
   onDismiss: () => void
 }) {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
+  const { platform, isLinuxArm } = useContext(ContextProvider)
   const [progress] = hasProgress(game.app_name, game.runner)
 
   const isWin = platform === 'win32'
@@ -52,7 +52,7 @@ export default function InstallOverlay({
 
   const defaultPlatform: InstallPlatform =
     (isMac && game.is_mac_native && 'Mac') ||
-    (isLinux && game.is_linux_native && 'linux') ||
+    (isLinux && !isLinuxArm && game.is_linux_native && 'linux') ||
     'Windows'
 
   const [platformIndex, setPlatformIndex] = useState(() => {

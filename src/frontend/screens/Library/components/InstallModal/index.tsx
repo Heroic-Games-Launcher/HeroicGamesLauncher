@@ -18,7 +18,7 @@ import DownloadDialog from './DownloadDialog'
 import ImportDialog from './ImportDialog'
 import SideloadDialog from './SideloadDialog'
 import WineSelector from './WineSelector'
-import { SelectField } from 'frontend/components/UI'
+import { SelectField, WarningMessage } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import ThirdPartyDialog from './ThirdPartyDialog'
 import { Box, MenuItem, SvgIcon } from '@mui/material'
@@ -42,7 +42,7 @@ export type AvailablePlatforms = {
 }[]
 
 function InstallModal({ appName, runner, gameInfo = null }: Props) {
-  const { platform } = useContext(ContextProvider)
+  const { platform, isLinuxArm } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { action = 'install' } = useInstallGameModal()
 
@@ -133,27 +133,39 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
       return null
     }
     const disabledPlatformSelection = Boolean(runner === 'sideload' && appName)
+    const showArmWarning =
+      isLinuxArm && !isSideload && platformToInstall === 'linux'
     return (
-      <SelectField
-        label={`${t('game.platform', 'Select Platform Version to Install')}:`}
-        htmlId="platformPick"
-        value={platformToInstall}
-        disabled={disabledPlatformSelection}
-        onChange={(e) =>
-          setPlatformToInstall(e.target.value as InstallPlatform)
-        }
-      >
-        {availablePlatforms.map((p, i) => (
-          <MenuItem value={p.value} key={i}>
-            <Box sx={{ display: 'flex', placeItems: 'center' }}>
-              <SvgIcon sx={{ marginInlineEnd: 1 }}>
-                <FontAwesomeIcon icon={p.icon} />
-              </SvgIcon>
-              {p.name}
-            </Box>
-          </MenuItem>
-        ))}
-      </SelectField>
+      <>
+        <SelectField
+          label={`${t('game.platform', 'Select Platform Version to Install')}:`}
+          htmlId="platformPick"
+          value={platformToInstall}
+          disabled={disabledPlatformSelection}
+          onChange={(e) =>
+            setPlatformToInstall(e.target.value as InstallPlatform)
+          }
+        >
+          {availablePlatforms.map((p, i) => (
+            <MenuItem value={p.value} key={i}>
+              <Box sx={{ display: 'flex', placeItems: 'center' }}>
+                <SvgIcon sx={{ marginInlineEnd: 1 }}>
+                  <FontAwesomeIcon icon={p.icon} />
+                </SvgIcon>
+                {p.name}
+              </Box>
+            </MenuItem>
+          ))}
+        </SelectField>
+        {showArmWarning && (
+          <WarningMessage>
+            {t(
+              'install.linux-arm-native-warning',
+              'Native Linux games are built for x86_64 and need an emulator like FEX to run on ARM. Installing the Windows version is recommended.'
+            )}
+          </WarningMessage>
+        )}
+      </>
     )
   }
 
