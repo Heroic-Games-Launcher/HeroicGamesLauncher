@@ -53,7 +53,7 @@ const AutoDXVKNVAPI = () => {
           ? t('please-wait', 'Please wait...')
           : t(
               'setting.autodxvknvapi',
-              'Auto Install/Update DXVK-NVAPI on Prefix'
+              'Auto install/update DXVK-NVAPI on prefix'
             )
       }
       fading={installingDxvkNvapi}

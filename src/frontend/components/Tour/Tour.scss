@@ -1,8 +1,8 @@
 /* Custom styling for intro.js elements */
 .introjs-tooltip {
-  background: var(--neutral-02);
-  color: var(--text-default);
-  border: 1px solid var(--neutral-04);
+  background: var(--bg-surface);
+  color: var(--text-neutral);
+  border: 1px solid var(--panel-border);
   border-radius: var(--radius-sm);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   min-width: 450px;
@@ -11,28 +11,28 @@
 
 // Add the tooltip class styling
 .heroic-tour-tooltip {
-  background: var(--tour-popup-background, var(--neutral-02));
-  color: var(--text-default);
+  background: var(--tour-popup-background, var(--bg-surface));
+  color: var(--text-neutral);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
-  border: 1px solid var(--brand-primary);
+  border: 1px solid var(--border-brand);
 }
 
 .introjs-tooltiptext {
-  color: var(--text-default);
+  color: var(--text-neutral);
   font-size: var(--body-lg);
-  line-height: var(--line-height-normal);
-  padding: 16px;
+  line-height: var(--leading-normal);
+  padding: var(--space-md);
 }
 
 .introjs-tooltipbuttons {
-  border-top: 1px solid var(--neutral-04);
-  padding: 12px;
+  border-top: 1px solid var(--panel-divider);
+  padding: var(--space-sm);
 }
 
 .introjs-button {
-  background: var(--neutral-03);
-  border: 1px solid var(--neutral-04);
-  color: var(--text-default);
+  background: var(--bg-surface-raised);
+  border: 1px solid var(--panel-border);
+  color: var(--text-neutral);
   border-radius: var(--radius-xs);
   font-size: var(--body-sm);
   padding: 6px 12px;
@@ -41,44 +41,60 @@
 
   &:hover,
   &:focus {
-    background-color: var(--neutral-04);
-    color: var(--text-default);
-    border-color: var(--neutral-05);
+    background-color: color-mix(
+      in oklab,
+      var(--on-panel) 12%,
+      var(--panel-base)
+    );
+    color: var(--text-neutral);
+    border-color: var(--panel-border);
     box-shadow: none;
     text-decoration: none;
   }
 
   &:active {
-    background-color: var(--neutral-04);
+    background-color: color-mix(
+      in oklab,
+      var(--on-panel) 16%,
+      var(--panel-base)
+    );
   }
 }
 
 .introjs-nextbutton {
-  background-color: var(--brand-primary);
-  color: var(--neutral-01);
-  border-color: var(--primary-active);
+  background-color: var(--role-brand);
+  color: var(--text-on-brand);
+  border-color: transparent;
 
   &:hover,
   &:focus {
-    background-color: var(--primary-hover);
-    color: var(--neutral-01);
-    border-color: var(--primary-active);
+    background-color: color-mix(
+      in oklab,
+      var(--role-brand) 85%,
+      var(--on-panel)
+    );
+    color: var(--text-on-brand);
+    border-color: transparent;
   }
 
   &:active {
-    background-color: var(--primary-active);
+    background-color: color-mix(
+      in oklab,
+      var(--role-brand) 78%,
+      var(--on-panel)
+    );
   }
 }
 
 .introjs-skipbutton {
-  color: var(--tour-popup-skip-color, var(--neutral-05));
-  font-size: var(--caption-sm); /* Reduced from default size */
+  color: var(--tour-popup-skip-color, var(--text-neutral-muted));
+  font-size: var(--eyebrow);
   text-transform: lowercase;
-  font-weight: var(--weight-regular);
+  font-weight: var(--regular);
 
   &:hover,
   &:focus {
-    color: var(--tour-popup-skip-color-hover, var(--neutral-06));
+    color: var(--tour-popup-skip-color-hover, var(--text-neutral));
   }
 }
 
@@ -86,10 +102,10 @@
   ul {
     li {
       a {
-        background: var(--tour-bullet-inactive, var(--neutral-04));
+        background: var(--tour-bullet-inactive, var(--panel-border));
 
         &.active {
-          background: var(--tour-bullet-active, var(--brand-primary));
+          background: var(--tour-bullet-active, var(--role-brand));
         }
       }
     }
@@ -97,28 +113,32 @@
 }
 
 .introjs-progress {
-  background-color: var(--neutral-04);
+  background-color: var(--panel-divider);
 }
 
 .introjs-progressbar {
-  background-color: var(--brand-primary);
+  background-color: var(--role-brand);
 }
 
 .introjs-helperLayer {
   background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--brand-primary);
+  border: 1px solid var(--border-brand);
   box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.6);
 }
 
 .heroic-tour-highlight {
-  background: rgba(29, 232, 245, 0.1) !important;
-  border: 2px solid var(--brand-primary) !important;
+  background: color-mix(
+    in oklab,
+    var(--role-brand) 12%,
+    transparent
+  ) !important;
+  border: 2px solid var(--role-brand) !important;
   box-sizing: border-box;
 }
 
 .introjs-tooltip-title {
-  color: var(--tour-popup-title, var(--brand-primary));
+  color: var(--text-brand);
   font-size: var(--body-lg);
-  font-weight: var(--weight-bold);
-  margin-bottom: 8px;
+  font-weight: var(--bold);
+  margin-bottom: var(--space-xs);
 }

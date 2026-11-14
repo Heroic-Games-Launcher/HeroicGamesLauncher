@@ -123,7 +123,7 @@ export default function WineVersionSelector() {
       label={
         isLinux
           ? t('setting.wineversion')
-          : t('setting.crossover-version', 'Crossover/Wine Version')
+          : t('setting.crossover-version', 'Crossover/Wine version')
       }
       htmlId="setWineVersion"
       onChange={(event) =>
@@ -138,7 +138,7 @@ export default function WineVersionSelector() {
             <Link to={'/wine-manager'} className="smallInputInfo danger">
               {t(
                 'infobox.wine-path-none-found',
-                'No Wine version was found, download one from the Wine Manager'
+                'No Wine version was found, download one from the Wine manager'
               )}
             </Link>
           )}
@@ -146,7 +146,7 @@ export default function WineVersionSelector() {
             <span className="smallInputInfo danger">
               {t(
                 'infobox.wine-path-invalid',
-                'Wine Path is invalid, please select another one.'
+                'Wine path is invalid, please select another one.'
               )}
             </span>
           )}
@@ -160,13 +160,13 @@ export default function WineVersionSelector() {
               <span>
                 {t(
                   'setting.show_valve_proton.wine_selector_warning',
-                  'Valve versions of Proton are ignored by default, enable them in the Advanced global settings'
+                  'Valve versions of Proton are ignored by default, enable them in the advanced global settings'
                 )}
               </span>
             </InfoBox>
           )}
           {isLinux && (
-            <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
+            <InfoBox text={t('infobox.wine-path', 'Wine path')}>
               <span>{wineVersion.bin}</span>
             </InfoBox>
           )}

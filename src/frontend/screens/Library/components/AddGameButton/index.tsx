@@ -20,7 +20,7 @@ function AddGameButton({ 'data-tour': dataTour }: AddGameButtonProps = {}) {
       onClick={handleAddGameButtonClick}
       data-tour={dataTour || 'library-add-game'}
     >
-      {t('add_game', 'Add Game')}
+      {t('add_game', 'Add game')}
     </Button>
   )
 }

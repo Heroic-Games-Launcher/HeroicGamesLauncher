@@ -15,7 +15,7 @@
     box-shadow 150ms ease;
 
   &:hover {
-    border-color: var(--line-strong, var(--divider));
+    border-color: var(--panel-border);
   }
 
   &:focus-within {
@@ -77,7 +77,7 @@
   .SearchBar > .searchButton,
   .SearchBar .searchButton {
     padding: 0;
-    color: var(--text-secondary);
+    color: var(--text-neutral-muted);
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
@@ -98,14 +98,14 @@
     transition: color 250ms;
     background: transparent;
     border: none;
-    color: var(--text-secondary);
+    color: var(--text-neutral-muted);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
     &:hover {
-      color: var(--text-default);
+      color: var(--text-neutral);
     }
 
     svg,
@@ -128,11 +128,11 @@
     border: none;
     outline: none;
     transition: color 250ms;
-    color: var(--text-default, var(--text-secondary));
+    color: var(--text-neutral);
 
     &::placeholder {
       opacity: 0.6;
-      color: var(--text-muted, var(--text-secondary));
+      color: var(--text-neutral-muted);
     }
   }
 
@@ -147,8 +147,8 @@
     margin-inline-end: 4px;
     border-radius: 8px;
     background: var(--input-background);
-    border: 1px solid var(--divider);
-    color: var(--text-secondary);
+    border: 1px solid var(--panel-border);
+    color: var(--text-neutral-muted);
     font-family: var(--primary-font-family);
     font-size: var(--text-xs);
     font-weight: var(--semibold);

@@ -106,11 +106,11 @@ function Settings() {
   const pageTitle = isGeneralSettings
     ? t('settings.navbar.general', 'General')
     : isGamesSettings
-      ? t('settings.navbar.games_settings_defaults', 'Game Defaults')
+      ? t('settings.navbar.games_settings_defaults', 'Game defaults')
       : isAdvancedSetting
         ? t('settings.navbar.advanced', 'Advanced')
         : isSystemInfo
-          ? t('settings.navbar.systemInformation', 'System Information')
+          ? t('settings.navbar.systemInformation', 'System information')
           : isLogSettings
             ? t('settings.navbar.log', 'Log')
             : t('settings.navbar.sync', 'Sync')
@@ -136,7 +136,7 @@ function Settings() {
             ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
             : undefined
 
-  const title = t('globalSettings', 'Global Settings')
+  const title = t('globalSettings', 'Global settings')
 
   const sections: TabItem<string>[] = [
     {
@@ -151,7 +151,7 @@ function Settings() {
             value: 'games_settings',
             label: t(
               'settings.navbar.games_settings_defaults',
-              'Game Defaults'
+              'Game defaults'
             ),
             glyph: Gamepad2
           }
@@ -163,7 +163,7 @@ function Settings() {
     },
     {
       value: 'systeminfo',
-      label: t('settings.navbar.systemInformation', 'System Information'),
+      label: t('settings.navbar.systemInformation', 'System information'),
       glyph: MonitorCog
     },
     {
@@ -198,10 +198,10 @@ function Settings() {
       onClick={copySettingsToClipboard}
     >
       {isCopiedToClipboard
-        ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
+        ? t('settings.copiedToClipboard', 'Copied to clipboard!')
         : isSystemInfo
           ? t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')
-          : t('settings.copyToClipboard', 'Copy All Settings to Clipboard')}
+          : t('settings.copyToClipboard', 'Copy all settings to clipboard')}
     </Button>
   )
 
@@ -211,7 +211,7 @@ function Settings() {
         {
           label: t(
             'settings.copyToClipboard',
-            'Copy All Settings to Clipboard'
+            'Copy all settings to clipboard'
           ),
           onclick: async () =>
             window.api.clipboardWriteText(
@@ -221,7 +221,7 @@ function Settings() {
           icon: <ContentCopy />
         },
         {
-          label: t('settings.open-config-file', 'Open Config File'),
+          label: t('settings.open-config-file', 'Open config file'),
           onclick: () => window.api.showConfigFileInFolder(appName),
           show: !isLogSettings,
           icon: <FileOpen />
@@ -233,7 +233,7 @@ function Settings() {
           <div role="list" className="settingsWrapper">
             <PageHeader
               backTo="/library"
-              backLabel={t('button.backToLibrary', 'Back to Library')}
+              backLabel={t('button.backToLibrary', 'Back to library')}
               title={pageTitle}
               description={pageDescription}
               className="headerTitle"

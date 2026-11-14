@@ -11,7 +11,7 @@ const HideWindowOnProtocolLaunch = () => {
     <ToggleSwitch
       info={t(
         'help.hide-window-on-protocol-launch',
-        "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'Add to Steam' feature."
+        "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'add to Steam' feature."
       )}
       htmlId="hideWindowOnProtocolLaunch"
       value={hideWindowOnProtocolLaunch}

@@ -43,7 +43,7 @@ export const Closed: Story = {}
 
 export const OpensOnClick: Story = {
   play: async ({ canvas, canvasElement, userEvent }) => {
-    await userEvent.click(canvas.getByTitle('Open Help'))
+    await userEvent.click(canvas.getByTitle('Open help'))
 
     await expect(canvasElement.querySelector('.HelpContent')).toHaveClass(
       'open'

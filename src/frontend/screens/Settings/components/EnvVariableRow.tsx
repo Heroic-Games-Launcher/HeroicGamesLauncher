@@ -114,7 +114,7 @@ const EnvVariableRow = ({ env, onSave, onRemove, onDuplicate }: Props) => {
               setError(validateEnvKey(nextKey, t))
             }}
             placeholder={t('options.advanced.placeHolderKey', 'NAME')}
-            aria-label={t('options.advanced.key', 'Variable Name')}
+            aria-label={t('options.advanced.key', 'Variable name')}
           />
           <span className="env-var-connector">=</span>
           <TextInputField

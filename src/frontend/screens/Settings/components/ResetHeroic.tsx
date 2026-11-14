@@ -15,7 +15,7 @@ const ResetHeroic = () => {
         <InfoTooltip
           content={t(
             'settings.advanced.resetHeroic.help',
-            "This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards."
+            "This will remove all settings and caching but won't remove your installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards."
           )}
           label={t('settings.advanced.title.resetHeroic', 'Reset Heroic')}
         />

@@ -21,7 +21,7 @@ export default function DownloadManagerHeader({ time, showStatus }: Props) {
 
   return (
     <div className="DownloadList__head">
-      <span>{t('game.title', 'Game Title')}</span>
+      <span>{t('game.title', 'Game title')}</span>
       {showStatus && (
         <span>{t('download-manager.queue.status', 'State')}</span>
       )}

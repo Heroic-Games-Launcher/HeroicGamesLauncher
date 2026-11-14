@@ -123,7 +123,7 @@ export async function installOrUpdateTool(tool: Tool) {
     let message = ''
 
     if (tool.name === 'dxmt') {
-      title = i18next.t('box.error.dxmt.title', 'DXMT Download Error')
+      title = i18next.t('box.error.dxmt.title', 'DXMT download error')
       message = i18next.t(
         'box.error.dxmt.message',
         'Error downloading DXMT! Check your connection!'

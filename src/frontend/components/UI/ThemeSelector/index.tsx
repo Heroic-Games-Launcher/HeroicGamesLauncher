@@ -11,18 +11,20 @@ export const defaultThemes: Record<string, string> = {
   midnightMirage: 'Midnight Mirage',
   heroicTheme: 'Heroic Theme',
   cyberSpaceOasis: 'Cyberspace Oasis',
-  cyberSpaceOasisAlt: 'Cyberspace Oasis Classic',
   'high-contrast': 'High Contrast',
   'old-school': 'Old School Heroic',
   dracula: 'Dracula',
   marine: 'Marine',
-  'marine-classic': 'Marine Classic',
   zombie: 'Zombie',
-  'zombie-classic': 'Zombie Classic',
   'nord-light': 'Nord Light',
   'nord-dark': 'Nord Dark',
   gruvbox_dark: 'Gruvbox Dark',
-  sweet: 'Sweet'
+  sweet: 'Sweet',
+  candy: 'Candy Dark',
+  'candy-light': 'Candy Light',
+  vampyria: 'Vampyria',
+  forest: 'Forest',
+  onePiece: 'One Piece'
 }
 
 export const ThemeSelector = () => {
@@ -34,7 +36,7 @@ export const ThemeSelector = () => {
 
   hasHelp(
     'customThemesPath',
-    t('setting.custom_themes_path', 'Custom Themes Path'),
+    t('setting.custom_themes_path', 'Custom themes path'),
     <p>{t('help.content.customThemesPath', 'Check our wiki.')}</p>
   )
 
@@ -72,7 +74,7 @@ export const ThemeSelector = () => {
     <>
       <SelectField
         htmlId="theme_selector"
-        label={t('setting.select_theme', 'Select Theme')}
+        label={t('setting.select_theme', 'Select theme')}
         onChange={(event) => setTheme(event.target.value)}
         value={theme}
       >
@@ -84,7 +86,7 @@ export const ThemeSelector = () => {
       </SelectField>
 
       <PathSelectionBox
-        label={t('setting.custom_themes_path', 'Custom Themes Path')}
+        label={t('setting.custom_themes_path', 'Custom themes path')}
         htmlId="custom_themes_path"
         placeholder={t(
           'placeholder.custom_themes_path',

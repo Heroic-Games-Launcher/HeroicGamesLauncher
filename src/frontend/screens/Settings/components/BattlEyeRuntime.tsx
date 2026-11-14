@@ -45,14 +45,14 @@ const BattlEyeRuntime = () => {
         htmlId="battlEyeRuntime"
         value={battlEyeRuntime}
         handleChange={handleBattlEyeRuntime}
-        title={t('settings.battlEyeRuntime.name', 'BattlEye AntiCheat Runtime')}
+        title={t('settings.battlEyeRuntime.name', 'BattlEye AntiCheat runtime')}
       />
       {installing && (
         <span>
           <FontAwesomeIcon className="fa-spin" icon={faSyncAlt} />
           {t(
             'settings.battlEyeRuntime.installing',
-            'Installing BattlEye Runtime...'
+            'Installing BattlEye runtime...'
           )}
         </span>
       )}

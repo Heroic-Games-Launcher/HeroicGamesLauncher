@@ -131,7 +131,7 @@ export default function Winetricks({ onClose, runner }: Props) {
                 onClick={async () => launchWinetricks()}
                 variant="secondary"
               >
-                {t('winetricks.openGUI', 'Open Winetricks GUI')}
+                {t('winetricks.openGUI', 'Open winetricks GUI')}
               </Button>
             </div>
           )}
@@ -167,7 +167,7 @@ export default function Winetricks({ onClose, runner }: Props) {
           <span>
             {t(
               'winetricks.nothingYet',
-              'Nothing was installed by Winetricks yet'
+              'Nothing was installed by winetricks yet'
             )}
           </span>
         )}

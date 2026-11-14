@@ -1,6 +1,5 @@
 import './index.css'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ClipboardPaste, Search, X } from 'lucide-react'
 import { GameInfo } from 'common/types'
 import {
   CachedImage,
@@ -8,6 +7,7 @@ import {
   SteamGridDBPicker,
   Alert
 } from 'frontend/components/UI'
+import Icon from 'frontend/components/UI/Icon'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { ModalFooter } from 'frontend/components/UI/Modal'
 import Button from 'frontend/components/UI/Button'
@@ -16,8 +16,6 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import classNames from 'classnames'
-import ContentPaste from '@mui/icons-material/ContentPaste'
-import Clear from '@mui/icons-material/Clear'
 
 type Props = {
   gameInfo: GameInfo
@@ -110,7 +108,13 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               onChange={setArtCover}
               htmlId="edit-game-cover"
               value={artCover}
-              icon={artCover ? <Clear /> : <ContentPaste />}
+              icon={
+                artCover ? (
+                  <Icon glyph={X} size="sm" />
+                ) : (
+                  <Icon glyph={ClipboardPaste} size="sm" />
+                )
+              }
               onIconClick={() =>
                 artCover ? setArtCover('') : handlePasteFromClipboard('cover')
               }
@@ -124,7 +128,13 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               onChange={setArtSquare}
               htmlId="edit-game-square"
               value={artSquare}
-              icon={artSquare ? <Clear /> : <ContentPaste />}
+              icon={
+                artSquare ? (
+                  <Icon glyph={X} size="sm" />
+                ) : (
+                  <Icon glyph={ClipboardPaste} size="sm" />
+                )
+              }
               onIconClick={() =>
                 artSquare
                   ? setArtSquare('')
@@ -177,7 +187,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               />
               {hasSgdbKey && (
                 <div className="imageHoverOverlay">
-                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                  <Icon glyph={Search} size="xl" />
                 </div>
               )}
             </div>
@@ -201,7 +211,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               />
               {hasSgdbKey && (
                 <div className="imageHoverOverlay">
-                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                  <Icon glyph={Search} size="xl" />
                 </div>
               )}
             </div>

@@ -61,11 +61,11 @@ const ClearCache = () => {
 
   return (
     <SettingRow
-      label={t('settings.advanced.title.clearCache', 'Clear Cache')}
+      label={t('settings.advanced.title.clearCache', 'Clear cache')}
       labelAfter={
         <InfoTooltip
           content={details}
-          label={t('settings.advanced.title.clearCache', 'Clear Cache')}
+          label={t('settings.advanced.title.clearCache', 'Clear cache')}
         />
       }
       description={t(
@@ -78,7 +78,7 @@ const ClearCache = () => {
         icon={<Icon glyph={Brush} size="md" />}
         onClick={async () => clearHeroicCache()}
       >
-        {t('settings.clear-cache', 'Clear Heroic Cache')}
+        {t('settings.clear-cache', 'Clear Heroic cache')}
       </Button>
     </SettingRow>
   )

@@ -255,7 +255,7 @@ export default function SideloadDialog({
     const path = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
-      title: t('box.runexe.title', 'Select EXE to Run'),
+      title: t('box.runexe.title', 'Select EXE to run'),
       filters: fileFilters(appPlatform)
     })
     if (path) {

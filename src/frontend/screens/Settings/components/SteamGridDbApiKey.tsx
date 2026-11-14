@@ -25,12 +25,12 @@ export default function SteamGridDbApiKey() {
       )
     : t(
         'settings.steamgriddb.apikey.placeholder',
-        'Enter your SteamGridDB API Key here'
+        'Enter your SteamGridDB API key here'
       )
 
   return (
     <TextInputField
-      label={t('settings.steamgriddb.apikey.title', 'SteamGridDB API Key')}
+      label={t('settings.steamgriddb.apikey.title', 'SteamGridDB API key')}
       placeholder={placeholder}
       onChange={onChange}
       value={value}

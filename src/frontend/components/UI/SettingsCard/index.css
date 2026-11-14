@@ -14,7 +14,7 @@
 }
 
 .SettingsCard__icon {
-  color: var(--navbar-accent, var(--accent));
+  color: var(--accent-icon, var(--navbar-accent, var(--accent)));
   flex-shrink: 0;
 }
 

@@ -37,7 +37,7 @@ const Shortcuts = () => {
   if (!isLinux && !isWin) {
     menuShortcutsLabel = t(
       'setting.addgamestoapplications',
-      'Add games to Applications automatically'
+      'Add games to applications automatically'
     )
   }
 

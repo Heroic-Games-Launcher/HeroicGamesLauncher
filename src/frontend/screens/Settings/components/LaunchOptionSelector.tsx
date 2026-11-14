@@ -53,7 +53,7 @@ const LaunchOptionSelector = ({
   return (
     <div className="Field">
       {showTitle && (
-        <label>{t('settings.launchOptions', 'Launch Options')}</label>
+        <label>{t('settings.launchOptions', 'Launch options')}</label>
       )}
       <div className="SettingsField">
         <SelectField
@@ -63,7 +63,7 @@ const LaunchOptionSelector = ({
         >
           {selectedIndex === -1 ? (
             <MenuItem key={'-1'} value={-1}>
-              {t('launch.options', 'Launch Options...')}
+              {t('launch.options', 'Launch options...')}
             </MenuItem>
           ) : null}
           {launchOptions.map((option, index) => (

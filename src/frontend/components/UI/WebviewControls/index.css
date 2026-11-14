@@ -56,7 +56,7 @@
 }
 
 .WebviewControls__icon:disabled {
-  color: var(--icon-disabled);
+  color: var(--text-neutral-faint);
   cursor: default;
 }
 

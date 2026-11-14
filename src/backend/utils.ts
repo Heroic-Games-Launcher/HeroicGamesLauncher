@@ -333,7 +333,7 @@ async function errorHandler(
       title: plat,
       message: i18next.t(
         'box.error.legendary.generic',
-        'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
+        'An error has occurred! Try to logout and login on your Epic account. {{newline}}  {{error}}',
         { error, newline: '\n' }
       ),
       type: 'ERROR'
@@ -769,7 +769,7 @@ const getLatestReleases = async (): Promise<Release[]> => {
 
     if (newReleases.length) {
       notify({
-        title: t('Update Available!'),
+        title: t('Update available!'),
         body: t(
           'notify.new-heroic-version',
           'A new Heroic version was released!'

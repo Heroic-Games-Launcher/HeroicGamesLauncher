@@ -4,16 +4,12 @@ import {
   Settings as SettingsIcon,
   Store,
   Accessibility,
-  Coffee,
+  Heart,
   Wine,
   Download,
   Tag
 } from 'lucide-react'
-import {
-  faDiscord,
-  faGithub,
-  faPatreon
-} from '@fortawesome/free-brands-svg-icons'
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
@@ -84,6 +80,27 @@ export default function SidebarLinks() {
       className="SidebarLinks Sidebar__section scrollbar--none"
       data-tour="sidebar-menu"
     >
+      <svg
+        width="0"
+        height="0"
+        aria-hidden="true"
+        focusable="false"
+        style={{ position: 'absolute' }}
+      >
+        <defs>
+          <linearGradient
+            id="heroicSupportGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#4fe6f0" />
+            <stop offset="52%" stopColor="#5f8ef6" />
+            <stop offset="100%" stopColor="#7c5cf6" />
+          </linearGradient>
+        </defs>
+      </svg>
       <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
       <SidebarItem
         isActiveFallback={location.pathname.includes('gamepage')}
@@ -125,7 +142,7 @@ export default function SidebarLinks() {
         <SidebarItem
           url="/wine-manager"
           icon={<Icon glyph={Wine} />}
-          label={t('wine.manager.link', 'Wine Manager')}
+          label={t('wine.manager.link', 'Wine manager')}
           dataTour="sidebar-wine"
         />
       )}
@@ -165,24 +182,16 @@ export default function SidebarLinks() {
         />
 
         <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openPatreonPage)}
-          icon={<FontAwesomeIcon icon={faPatreon} />}
-          label="Patreon"
-        />
-
-        <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openKofiPage)}
-          icon={<Icon glyph={Coffee} />}
-          label="Ko-fi"
-        />
-
-        <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openGithubSponsorsPage)}
-          icon={<FontAwesomeIcon icon={faGithub} />}
-          label="GitHub Sponsors"
+          url="/support"
+          icon={
+            <Icon
+              glyph={Heart}
+              className="Sidebar__supportIcon"
+              fill="url(#heroicSupportGradient)"
+            />
+          }
+          label={t('support.title', 'Support Us')}
+          dataTour="sidebar-support"
         />
       </div>
     </div>

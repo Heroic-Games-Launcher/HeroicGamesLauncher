@@ -32,7 +32,7 @@ function OSInfo({ os, isFlatpak }: OSInfoProps) {
 
   return (
     <SpecCard
-      title={t('settings.systemInformation.os', 'Operating System')}
+      title={t('settings.systemInformation.os', 'Operating system')}
       media={<OSLogo platform={os.platform} />}
     >
       <span className="SpecCard__value">

@@ -20,8 +20,8 @@
 
         .previewLabel {
           font-size: var(--body-sm);
-          color: var(--neutral-06);
-          font-weight: var(--weight-bold);
+          color: var(--text-neutral-muted);
+          font-weight: var(--semibold);
         }
       }
     }
@@ -30,7 +30,7 @@
       position: relative;
       border-radius: var(--radius-sm);
       overflow: hidden;
-      border: 2px solid var(--neutral-02);
+      border: 2px solid var(--panel-border);
       transition: 200ms;
       width: 400px;
 
@@ -42,7 +42,7 @@
         cursor: pointer;
 
         &:hover {
-          border-color: var(--primary);
+          border-color: var(--accent);
           transform: scale(1.02);
 
           .imageHoverOverlay {
@@ -77,9 +77,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
       transition: 200ms;
-      color: white;
+      color: var(--ink-on-overlay);
       pointer-events: none;
       opacity: 0;
     }
@@ -95,8 +95,8 @@
       summary {
         cursor: pointer;
         font-size: var(--body-sm);
-        color: var(--neutral-06);
-        font-weight: var(--weight-bold);
+        color: var(--text-neutral-muted);
+        font-weight: var(--semibold);
         padding: var(--space-xs) 0;
         user-select: none;
       }

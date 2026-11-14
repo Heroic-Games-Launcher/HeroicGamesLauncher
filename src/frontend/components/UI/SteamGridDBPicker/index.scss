@@ -9,8 +9,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--panel-divider);
+    padding-bottom: var(--space-xs);
 
     h3 {
       margin: 0;
@@ -30,9 +30,9 @@
   }
 
   &__error {
-    color: var(--danger);
-    padding: 1rem;
-    background: rgba(var(--danger-rgb), 0.1);
+    color: var(--text-destructive);
+    padding: var(--space-md);
+    background: var(--bg-destructive-subtle);
     border-radius: var(--radius-xs);
   }
 
@@ -55,7 +55,7 @@
         border-radius: var(--radius-xs);
 
         &:hover {
-          background: var(--background-hover);
+          background: color-mix(in oklab, var(--on-panel) 10%, transparent);
         }
       }
     }
@@ -83,7 +83,7 @@
 
     &:hover {
       transform: scale(1.05);
-      outline: 2px solid var(--primary);
+      outline: 2px solid var(--accent);
     }
 
     img {
@@ -100,7 +100,7 @@
 
   &__no-results {
     text-align: center;
-    padding: 1rem;
-    color: var(--text-tertiary);
+    padding: var(--space-md);
+    color: var(--text-neutral-muted);
   }
 }
