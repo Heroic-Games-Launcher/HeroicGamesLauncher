@@ -1066,8 +1066,8 @@ class GlobalState extends PureComponent<Props> {
 
     // when error or done we remove it from the status info
     if (['error', 'done'].includes(status)) {
-      // also remove from updates if it was updating
-      if (currentApp.status === 'updating') {
+      // also remove from updates if it was updating; GOG updates end with a redist setup step
+      if (['updating', 'redist'].includes(currentApp.status)) {
         const updatedGamesUpdates = gameUpdates.filter(
           (game) => game !== appName
         )
