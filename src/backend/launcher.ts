@@ -125,7 +125,18 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   }
 
   const gameSettings = await game.getSettings()
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const { autoSyncSaves } = gameSettings
+  let { savesPath, gogSaves = [] } = gameSettings
+
+  const refreshSavePaths = async () => {
+    const { refreshSavePathsIfConfigurationChanged } =
+      await import('./save_sync')
+    if (await refreshSavePathsIfConfigurationChanged(appName, runner)) {
+      const updated = await game.getSettings()
+      savesPath = updated.savesPath
+      gogSaves = updated.gogSaves ?? []
+    }
+  }
 
   if (!launchArguments && gameSettings.lastUsedLaunchOption) {
     launchArguments = gameSettings.lastUsedLaunchOption
@@ -144,6 +155,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   logInfo(`Launching ${title} (${appName})`, LogPrefix.Backend)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -300,6 +313,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   await addRecentGame(gameInfo)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,

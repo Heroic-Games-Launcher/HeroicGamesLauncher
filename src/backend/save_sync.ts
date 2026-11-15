@@ -3,6 +3,8 @@ import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { logDebug, LogPrefix, logInfo, logError, logWarning } from './logger'
 import { getShellPath } from './utils'
+import { GameConfig } from './game_config'
+import { getSavePathFingerprint } from './cloud_saves/fingerprint'
 import { parseLegendaryOutput } from './cloud_saves/parse'
 import {
   existsSync,
@@ -251,4 +253,56 @@ async function getDefaultGogSavePaths(
   return resolvedLocations
 }
 
-export { getDefaultSavePath }
+async function refreshSavePathsIfConfigurationChanged(
+  appName: string,
+  runner: Runner
+): Promise<boolean> {
+  if (runner !== 'gog' && runner !== 'legendary') {
+    return false
+  }
+
+  const game = libraryManagerMap[runner].getGame(appName)
+  const settings = await game.getSettings()
+  const fingerprint = getSavePathFingerprint(game.getGameInfo(), settings)
+  if (settings.savesPathFingerprint === fingerprint) {
+    return false
+  }
+
+  try {
+    const paths = await getDefaultSavePath(
+      appName,
+      runner,
+      settings.gogSaves ?? []
+    )
+    const gameConfig = GameConfig.get(appName)
+
+    if (runner === 'gog') {
+      const locations = paths as GOGCloudSavesLocation[]
+      if (!locations.length) {
+        return false
+      }
+      gameConfig.setSetting('gogSaves', locations)
+    } else {
+      const path = paths as string
+      if (!path) {
+        return false
+      }
+      gameConfig.setSetting('savesPath', path)
+    }
+
+    gameConfig.setSetting('savesPathFingerprint', fingerprint)
+    logInfo(
+      ['Wine configuration changed, recalculated save paths for', appName],
+      LogPrefix.Backend
+    )
+    return true
+  } catch (error) {
+    logError(
+      ['Failed to recalculate save paths for', appName, `${error}`],
+      LogPrefix.Backend
+    )
+    return false
+  }
+}
+
+export { getDefaultSavePath, refreshSavePathsIfConfigurationChanged }

@@ -292,6 +292,7 @@ export interface GameSettings {
   wineVersion: WineInstallation
   wrapperOptions: WrapperVariable[]
   savesPath: string
+  savesPathFingerprint?: string
   gogSaves?: GOGCloudSavesLocation[]
   beforeLaunchScriptPath: string
   afterLaunchScriptPath: string

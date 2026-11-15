@@ -97,7 +97,11 @@ import {
 } from './online_monitor'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { callAbortController } from './utils/aborthandler/aborthandler'
-import { getDefaultSavePath } from './save_sync'
+import {
+  getDefaultSavePath,
+  refreshSavePathsIfConfigurationChanged
+} from './save_sync'
+import { getSavePathFingerprint } from './cloud_saves/fingerprint'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import { createMainWindow, getMainWindow, isFrameless } from './main_window'
 
@@ -1187,9 +1191,15 @@ addHandler('egsSync', async (event, args) => {
   return libraryManagerMap['legendary'].toggleGamesSync(args)
 })
 
-addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  libraryManagerMap['gog'].getGame(appName).syncSaves(arg, '', gogSaves)
-)
+addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) => {
+  const game = libraryManagerMap['gog'].getGame(appName)
+  const changed = await refreshSavePathsIfConfigurationChanged(appName, 'gog')
+  if (!changed) {
+    return game.syncSaves(arg, '', gogSaves)
+  }
+  const { gogSaves: refreshed } = await game.getSettings()
+  return game.syncSaves(arg, '', refreshed?.length ? refreshed : gogSaves)
+})
 
 addHandler('getLaunchOptions', async (event, appName, runner) => {
   const availableLaunchOptions =
@@ -1246,6 +1256,13 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
     }
   }
 
+  await refreshSavePathsIfConfigurationChanged(appName, runner)
+  if (runner === 'legendary') {
+    path =
+      (await libraryManagerMap[runner].getGame(appName).getSettings())
+        .savesPath || path
+  }
+
   const result = await libraryManagerMap[runner]
     .getGame(appName)
     .syncSaves(arg, path)
@@ -1255,8 +1272,22 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
 
 addHandler(
   'getDefaultSavePath',
-  async (event, appName, runner, alreadyDefinedGogSaves) =>
-    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
+  async (event, appName, runner, alreadyDefinedGogSaves) => {
+    const result = await getDefaultSavePath(
+      appName,
+      runner,
+      alreadyDefinedGogSaves
+    )
+    if (runner === 'gog' || runner === 'legendary') {
+      const game = libraryManagerMap[runner].getGame(appName)
+      const settings = await game.getSettings()
+      GameConfig.get(appName).setSetting(
+        'savesPathFingerprint',
+        getSavePathFingerprint(game.getGameInfo(), settings)
+      )
+    }
+    return result
+  }
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used
