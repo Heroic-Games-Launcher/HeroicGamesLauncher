@@ -54,23 +54,22 @@ export default function GOGSyncSaves({
   useEffect(() => {
     const getLocations = async () => {
       setIsLoading(true)
-      let locations = (await window.api.getDefaultSavePath(
+      const locations = (await window.api.getDefaultSavePath(
         appName,
         'gog',
         gogSaves
       )) as GOGCloudSavesLocation[]
 
-      // For some reason, some games returns an empty array and this makes the input to not be shown.
-      if (locations.length === 0) {
-        locations = [
-          {
-            name: '',
-            location: ''
-          }
-        ]
+      // Detection can be temporarily unavailable; keep what the user had.
+      if (locations.length === 0 && gogSaves.length > 0) {
+        setIsSyncing(false)
+        setIsLoading(false)
+        return
       }
 
-      setGogSaves(locations)
+      setGogSaves(
+        locations.length ? locations : [{ name: '__default', location: '' }]
+      )
       setIsSyncing(false)
       setIsLoading(false)
     }

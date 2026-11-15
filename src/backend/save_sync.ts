@@ -129,21 +129,34 @@ async function getDefaultGogSavePaths(
 ): Promise<GOGCloudSavesLocation[]> {
   const game = libraryManagerMap['gog'].getGame(appName)
   const gameSettings = await game.getSettings()
-  const installInfo = game.getGameInfo().install as InstalledInfo
-  const gog_save_location = await libraryManagerMap['gog'].getSaveSyncLocation(
-    appName,
-    installInfo
-  )
+  const installInfo = game.getGameInfo().install as InstalledInfo | undefined
+
+  if (!installInfo?.install_path) {
+    logWarning(
+      ['Unable to resolve save paths for', appName, 'without install data'],
+      LogPrefix.Gog
+    )
+    return alreadyDefinedGogSaves
+  }
+
+  let gog_save_location: GOGCloudSavesLocation[] | undefined
+  try {
+    gog_save_location = await libraryManagerMap['gog'].getSaveSyncLocation(
+      appName,
+      installInfo
+    )
+  } catch (error) {
+    logError(
+      ['Failed to get save locations for', appName, `${error}`],
+      LogPrefix.Gog
+    )
+    return alreadyDefinedGogSaves
+  }
 
   const { platform: installed_platform, install_path } = installInfo
-  if (!gog_save_location || !install_path) {
-    logError([
-      'gog_save_location/install_path undefined. gog_save_location = ',
-      gog_save_location,
-      'install_path = ',
-      install_path
-    ])
-    return []
+  if (!gog_save_location) {
+    logWarning(['Unable to get save locations for', appName], LogPrefix.Gog)
+    return alreadyDefinedGogSaves
   }
 
   // If no save locations are defined, assume the default
