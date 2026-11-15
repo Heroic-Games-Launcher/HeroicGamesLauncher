@@ -225,7 +225,11 @@
 .MuiPopover-root
   .MuiPaper-root.MuiMenu-paper
   .MuiMenuItem-root.Mui-focusVisible {
-  background-color: var(--input-background);
+  background-color: color-mix(
+    in oklab,
+    var(--selected, var(--accent)) 12%,
+    var(--input-background)
+  );
 }
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root.Mui-selected {
