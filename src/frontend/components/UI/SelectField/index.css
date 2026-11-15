@@ -231,7 +231,7 @@
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root.Mui-selected {
   background-color: color-mix(
     in oklab,
-    var(--accent) 18%,
+    var(--selected, var(--accent)) 18%,
     var(--input-background)
   );
   color: var(--text-default);
