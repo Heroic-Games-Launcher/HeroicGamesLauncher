@@ -64,16 +64,29 @@ const Backups = ({ runner }: Props) => {
               .restoreSaveBackup(appName, runner, backup.id)
               .then((result) => {
                 if (result.status === 'done') {
-                  window.api.notify({
-                    title: t(
-                      'setting.backups-restored-title',
-                      'Saves restored'
-                    ),
-                    body: t(
-                      'setting.backups-restored-body',
-                      'The save files were restored from the selected backup'
-                    )
-                  })
+                  if (result.alreadyCurrent) {
+                    window.api.notify({
+                      title: t(
+                        'setting.backups-already-current-title',
+                        'Saves already up to date'
+                      ),
+                      body: t(
+                        'setting.backups-already-current-body',
+                        'This backup matches your current saves'
+                      )
+                    })
+                  } else {
+                    window.api.notify({
+                      title: t(
+                        'setting.backups-restored-title',
+                        'Saves restored'
+                      ),
+                      body: t(
+                        'setting.backups-restored-body',
+                        'The save files were restored from the selected backup'
+                      )
+                    })
+                  }
                 } else {
                   window.api.notify({
                     title: t(
@@ -108,15 +121,20 @@ const Backups = ({ runner }: Props) => {
           <SettingRow
             key={backup.id}
             label={formatBackupDate(backup.createdAt, i18n.language)}
-            description={t(
+            description={`${t(
               'setting.backups-summary',
               '{{changed}} changed files, {{deleted}} deleted files',
               { changed: backup.changed, deleted: backup.deleted }
-            )}
+            )}${
+              backup.isCurrent
+                ? ` — ${t('setting.backups-current', 'Matches your current saves')}`
+                : ''
+            }`}
           >
             <Button
               variant="secondary"
               size="sm"
+              disabled={backup.isCurrent}
               onClick={() => restore(backup)}
             >
               {t('setting.backups-restore-button', 'Restore')}

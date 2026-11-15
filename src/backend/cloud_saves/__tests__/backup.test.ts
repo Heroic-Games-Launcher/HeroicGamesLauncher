@@ -368,3 +368,89 @@ describe('backup retention', () => {
     )
   })
 })
+
+describe('backup state hashes', () => {
+  const pause = () => new Promise((resolve) => setTimeout(resolve, 5))
+
+  test('marks only the backup that matches the current saves', () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    expect(listSaveBackups('Game', backupRoot)[0].isCurrent).toBe(true)
+
+    writeFileSync(join(saveDir, 'a.sav'), 'changed outside of a backup')
+    expect(
+      listSaveBackups('Game', backupRoot).every(
+        (backup) => backup.isCurrent !== true
+      )
+    ).toBe(true)
+  })
+
+  test('does not restore or create a snapshot when the state matches', () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const backups = listSaveBackups('Game', backupRoot)
+    const restored = restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backups[0].id,
+      backupRoot
+    })
+
+    expect(restored?.alreadyCurrent).toBe(true)
+    expect(listSaveBackups('Game', backupRoot)).toHaveLength(backups.length)
+  })
+
+  test('marks the restored backup as current', async () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'first')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    await pause()
+    writeFileSync(join(saveDir, 'a.sav'), 'second')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const backups = listSaveBackups('Game', backupRoot)
+    expect(backups).toHaveLength(2)
+    const older = backups[1]
+
+    restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: older.id,
+      backupRoot
+    })
+
+    const restored = listSaveBackups('Game', backupRoot).find(
+      (backup) => backup.id === older.id
+    )
+    expect(restored?.isCurrent).toBe(true)
+    expect(readFileSync(join(saveDir, 'a.sav'), 'utf-8')).toBe('first')
+  })
+})

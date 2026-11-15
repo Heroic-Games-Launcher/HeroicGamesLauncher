@@ -19,6 +19,7 @@ import { logInfo, logWarning, LogPrefix } from 'backend/logger'
 interface FileState {
   size: number
   mtimeMs: number
+  hash?: string
 }
 
 interface BackupManifest {
@@ -28,6 +29,7 @@ interface BackupManifest {
   location: string
   files: Record<string, FileState>
   createdAt: string
+  stateHash?: string
 }
 
 const toPosixPath = (path: string) => path.split(sep).join('/')
@@ -48,7 +50,13 @@ export const getBackupFolderName = (
   return sanitized || appName
 }
 
-const collectFiles = (root: string): Record<string, FileState> => {
+const fileHash = (path: string) =>
+  createHash('md5').update(readFileSync(path)).digest('hex')
+
+const collectFiles = (
+  root: string,
+  previous?: Record<string, FileState>
+): Record<string, FileState> => {
   const files: Record<string, FileState> = {}
 
   const walk = (dir: string) => {
@@ -58,9 +66,18 @@ const collectFiles = (root: string): Record<string, FileState> => {
         walk(absolute)
       } else if (entry.isFile()) {
         const stat = statSync(absolute)
-        files[toPosixPath(relative(root, absolute))] = {
+        const relativePath = toPosixPath(relative(root, absolute))
+        const previousFile = previous?.[relativePath]
+        files[relativePath] = {
           size: stat.size,
-          mtimeMs: stat.mtimeMs
+          mtimeMs: stat.mtimeMs,
+          hash:
+            previousFile &&
+            previousFile.size === stat.size &&
+            previousFile.mtimeMs === stat.mtimeMs &&
+            previousFile.hash
+              ? previousFile.hash
+              : fileHash(absolute)
         }
       }
     }
@@ -68,6 +85,35 @@ const collectFiles = (root: string): Record<string, FileState> => {
 
   walk(root)
   return files
+}
+
+const stateHash = (files: Record<string, FileState>): string =>
+  createHash('md5')
+    .update(
+      Object.keys(files)
+        .sort()
+        .map((file) => `${file}:${files[file].hash ?? ''}`)
+        .join('\n')
+    )
+    .digest('hex')
+
+const locationStateHash = (
+  location: string,
+  previous?: Record<string, FileState>
+): string | undefined => {
+  if (!location || !existsSync(location)) {
+    return undefined
+  }
+
+  try {
+    if (!statSync(location).isDirectory()) {
+      return undefined
+    }
+  } catch {
+    return undefined
+  }
+
+  return stateHash(collectFiles(location, previous))
 }
 
 const readManifest = (dir: string): BackupManifest | undefined => {
@@ -265,8 +311,9 @@ export const backupSaveLocations = ({
       continue
     }
 
-    const current = collectFiles(location)
     const previous = readManifest(locationDir)
+    const current = collectFiles(location, previous?.files)
+    const currentStateHash = stateHash(current)
     const changed = getChangedFiles(previous?.files, current)
     const deleted = previous
       ? Object.keys(previous.files).filter((file) => !(file in current))
@@ -294,7 +341,15 @@ export const backupSaveLocations = ({
     writeFileSync(
       join(snapshotDir, 'snapshot.json'),
       JSON.stringify(
-        { createdAt, appName, title, location, changed, deleted },
+        {
+          createdAt,
+          appName,
+          title,
+          location,
+          changed,
+          deleted,
+          stateHash: currentStateHash
+        },
         null,
         2
       )
@@ -302,7 +357,15 @@ export const backupSaveLocations = ({
     writeFileSync(
       join(locationDir, 'manifest.json'),
       JSON.stringify(
-        { version: 1, appName, title, location, files: current, createdAt },
+        {
+          version: 1,
+          appName,
+          title,
+          location,
+          files: current,
+          createdAt,
+          stateHash: currentStateHash
+        },
         null,
         2
       )
@@ -363,6 +426,7 @@ interface SnapshotInfo {
   changed?: string[]
   carried?: string[]
   deleted?: string[]
+  stateHash?: string
 }
 
 const getBackupRoot = () =>
@@ -438,9 +502,15 @@ export const listSaveBackups = (
     const appFolder = relative(backupRoot, appDir)
     for (const entry of readdirSync(appDir, { withFileTypes: true })) {
       if (!entry.isDirectory()) continue
-      for (const { folderName, snapshot } of readSnapshots(
-        join(appDir, entry.name)
-      )) {
+      const locationDir = join(appDir, entry.name)
+      const snapshots = readSnapshots(locationDir)
+      if (!snapshots.length) continue
+
+      const manifest = readManifest(locationDir)
+      const location = snapshots[snapshots.length - 1].snapshot.location
+      const currentHash = locationStateHash(location, manifest?.files)
+
+      for (const { folderName, snapshot } of snapshots) {
         entries.push({
           id: [appFolder, entry.name, folderName].join('/'),
           createdAt:
@@ -448,7 +518,11 @@ export const listSaveBackups = (
             snapshot.createdAt,
           location: snapshot.location,
           changed: snapshot.changed?.length ?? 0,
-          deleted: snapshot.deleted?.length ?? 0
+          deleted: snapshot.deleted?.length ?? 0,
+          isCurrent:
+            snapshot.stateHash && currentHash
+              ? snapshot.stateHash === currentHash
+              : undefined
         })
       }
     }
@@ -467,7 +541,7 @@ export const restoreSaveBackup = ({
   title?: string
   backupId: string
   backupRoot: string
-}): SaveBackupEntry | undefined => {
+}): (SaveBackupEntry & { alreadyCurrent?: boolean }) | undefined => {
   const [appFolder, locationKey, targetFolder] = backupId.split('/')
   if (!appFolder || !locationKey || !targetFolder) {
     return undefined
@@ -485,6 +559,19 @@ export const restoreSaveBackup = ({
   const { dir: targetDir, snapshot: target } = snapshots[targetIndex]
   if (!target.location) {
     return undefined
+  }
+
+  const manifest = readManifest(locationDir)
+  const currentHash = locationStateHash(target.location, manifest?.files)
+  if (target.stateHash && currentHash && target.stateHash === currentHash) {
+    return {
+      id: backupId,
+      createdAt: target.createdAt,
+      location: target.location,
+      changed: 0,
+      deleted: 0,
+      alreadyCurrent: true
+    }
   }
 
   backupSaveLocations({
@@ -541,7 +628,7 @@ export const restoreSaveBackupById = ({
   appName: string
   title?: string
   backupId: string
-}): { status: 'done' | 'error'; error?: string } => {
+}): { status: 'done' | 'error'; error?: string; alreadyCurrent?: boolean } => {
   try {
     const restored = restoreSaveBackup({
       appName,
@@ -551,6 +638,9 @@ export const restoreSaveBackupById = ({
     })
     if (!restored) {
       return { status: 'error', error: 'Backup not found' }
+    }
+    if (restored.alreadyCurrent) {
+      return { status: 'done', alreadyCurrent: true }
     }
     return { status: 'done' }
   } catch (error) {

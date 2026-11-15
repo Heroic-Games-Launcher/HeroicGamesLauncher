@@ -280,9 +280,10 @@ interface AsyncIPCFunctions {
     user: ItchioUserData | undefined
   }>
   authZoom: (url: string) => Promise<{ status: 'done' | 'error' }>
-  loginSteam: (
-    credentials: SteamLoginData
-  ) => Promise<{ status: 'done' | 'error'; error?: string }>
+  loginSteam: (credentials: SteamLoginData) => Promise<{
+    status: 'done' | 'error'
+    error?: string
+  }>
   loginSteamQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
@@ -323,7 +324,11 @@ interface AsyncIPCFunctions {
     appName: string,
     runner: Runner,
     backupId: string
-  ) => Promise<{ status: 'done' | 'error'; error?: string }>
+  ) => Promise<{
+    status: 'done' | 'error'
+    error?: string
+    alreadyCurrent?: boolean
+  }>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>

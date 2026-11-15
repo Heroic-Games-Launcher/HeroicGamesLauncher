@@ -433,6 +433,7 @@ export interface SaveBackupEntry {
   location: string
   changed: number
   deleted: number
+  isCurrent?: boolean
 }
 
 export type UserInfo = {
