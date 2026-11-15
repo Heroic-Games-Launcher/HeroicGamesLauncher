@@ -1236,6 +1236,7 @@
         },
         "winecrossoverbottle": "CrossOver bottle",
         "wineprefix": "WinePrefix folder",
+        "wineprefix-save-warning": "Changing the Wine prefix or the Wine/Proton version can make Heroic lose track of where this game saves its data. Check the Cloud Saves tab before launching the game.",
         "winetricks": {
             "description": "Install windows libraries and components into this prefix"
         },
