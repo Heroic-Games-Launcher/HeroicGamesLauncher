@@ -472,3 +472,94 @@ describe('backup safety', () => {
     ).not.toThrow()
   })
 })
+
+describe('restore safety', () => {
+  const pause = () => new Promise((resolve) => setTimeout(resolve, 5))
+  const snapshotPath = (backupRoot: string, id: string) =>
+    join(backupRoot, ...id.split('/'))
+
+  test('removes files created after the restored snapshot', async () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    await pause()
+    writeFileSync(join(saveDir, 'new.sav'), 'new')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const backups = listSaveBackups('Game', backupRoot)
+    restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backups[1].id,
+      backupRoot
+    })
+
+    expect(existsSync(join(saveDir, 'new.sav'))).toBe(false)
+    expect(readFileSync(join(saveDir, 'a.sav'), 'utf-8')).toBe('a')
+  })
+
+  test('reports an incomplete backup instead of restoring it', () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const [backup] = listSaveBackups('Game', backupRoot)
+    rmSync(join(snapshotPath(backupRoot, backup.id), 'files', 'a.sav'))
+
+    const restored = restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backup.id,
+      backupRoot
+    })
+    expect(restored?.error).toBe('backup-incomplete')
+  })
+
+  test('rejects backup ids from another game or with path traversal', () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const [backup] = listSaveBackups('Game', backupRoot)
+    expect(
+      restoreSaveBackup({
+        appName: 'Other',
+        title: 'Title',
+        backupId: backup.id,
+        backupRoot
+      })
+    ).toBeUndefined()
+    expect(
+      restoreSaveBackup({
+        appName: 'Game',
+        title: 'Title',
+        backupId: '../../etc/passwd',
+        backupRoot
+      })
+    ).toBeUndefined()
+  })
+})

@@ -513,6 +513,11 @@ interface SnapshotInfo {
 const getBackupRoot = () =>
   join(GlobalConfig.get().getSettings().defaultInstallPath, 'Saves_Backup')
 
+const getMaxBackupBytes = () => {
+  const { maxSaveBackupSize } = GlobalConfig.get().getSettings()
+  return Math.max(maxSaveBackupSize || 1, 1) * GIGABYTE
+}
+
 const findAppBackupFolders = (
   appName: string,
   backupRoot: string
@@ -622,9 +627,30 @@ export const restoreSaveBackup = ({
   title?: string
   backupId: string
   backupRoot: string
-}): (SaveBackupEntry & { alreadyCurrent?: boolean }) | undefined => {
-  const [appFolder, locationKey, targetFolder] = backupId.split('/')
-  if (!appFolder || !locationKey || !targetFolder) {
+}):
+  | (SaveBackupEntry & { alreadyCurrent?: boolean; error?: string })
+  | undefined => {
+  const parts = backupId.split('/')
+  if (parts.length !== 3) {
+    return undefined
+  }
+
+  const [appFolder, locationKey, targetFolder] = parts
+  if (
+    !appFolder ||
+    !locationKey ||
+    !targetFolder ||
+    [appFolder, locationKey, targetFolder].some(
+      (part) => part.includes('\\') || part.includes('..')
+    )
+  ) {
+    return undefined
+  }
+
+  const belongsToApp = findAppBackupFolders(appName, backupRoot).some(
+    (appDir) => relative(backupRoot, appDir) === appFolder
+  )
+  if (!belongsToApp) {
     return undefined
   }
 
@@ -637,9 +663,31 @@ export const restoreSaveBackup = ({
     return undefined
   }
 
-  const { dir: targetDir, snapshot: target } = snapshots[targetIndex]
+  const { snapshot: target } = snapshots[targetIndex]
   if (!target.location) {
     return undefined
+  }
+
+  for (const { dir, snapshot } of snapshots.slice(0, targetIndex + 1)) {
+    for (const file of [
+      ...(snapshot.carried ?? []),
+      ...(snapshot.changed ?? [])
+    ]) {
+      if (!existsSync(join(dir, 'files', file))) {
+        logWarning(
+          ['Save backup is missing files, cannot restore', targetFolder],
+          LogPrefix.Backend
+        )
+        return {
+          id: backupId,
+          createdAt: target.createdAt,
+          location: target.location,
+          changed: 0,
+          deleted: 0,
+          error: 'backup-incomplete'
+        }
+      }
+    }
   }
 
   const manifest = readManifest(locationDir)
@@ -661,13 +709,45 @@ export const restoreSaveBackup = ({
     appName,
     title,
     locations: [target.location],
-    backupRoot
+    backupRoot,
+    maxBytes: getMaxBackupBytes()
+  })
+
+  const refreshed = readSnapshots(locationDir)
+  const targetIndexAfter = refreshed.findIndex(
+    ({ folderName }) => folderName === targetFolder
+  )
+  if (targetIndexAfter < 0) {
+    logWarning(
+      ['Save backup was pruned before it could be restored', targetFolder],
+      LogPrefix.Backend
+    )
+    return {
+      id: backupId,
+      createdAt: target.createdAt,
+      location: target.location,
+      changed: 0,
+      deleted: 0,
+      error: 'backup-removed'
+    }
+  }
+
+  const firstSeen = new Map<string, number>()
+  refreshed.forEach(({ snapshot }, index) => {
+    for (const file of [
+      ...(snapshot.carried ?? []),
+      ...(snapshot.changed ?? [])
+    ]) {
+      if (!firstSeen.has(file)) {
+        firstSeen.set(file, index)
+      }
+    }
   })
 
   const restoredFiles = new Set<string>()
   const deletedFiles = new Set<string>()
 
-  for (const { dir, snapshot } of snapshots.slice(0, targetIndex + 1)) {
+  for (const { dir, snapshot } of refreshed.slice(0, targetIndexAfter + 1)) {
     for (const file of [
       ...(snapshot.carried ?? []),
       ...(snapshot.changed ?? [])
@@ -681,6 +761,15 @@ export const restoreSaveBackup = ({
     }
     for (const file of snapshot.deleted ?? []) {
       rmSync(join(target.location, file), { force: true })
+      deletedFiles.add(file)
+    }
+  }
+
+  for (const [file, index] of firstSeen) {
+    if (index <= targetIndexAfter) continue
+    const newerFile = join(target.location, file)
+    if (existsSync(newerFile)) {
+      rmSync(newerFile, { force: true })
       deletedFiles.add(file)
     }
   }
@@ -704,7 +793,7 @@ export const restoreSaveBackup = ({
   }
 
   logInfo(
-    ['Restored save backup', targetDir, 'for', appName],
+    ['Restored save backup', targetFolder, 'for', appName],
     LogPrefix.Backend
   )
 
@@ -744,6 +833,9 @@ export const restoreSaveBackupById = ({
     })
     if (!restored) {
       return { status: 'error', error: 'Backup not found' }
+    }
+    if (restored.error) {
+      return { status: 'error', error: restored.error }
     }
     if (restored.alreadyCurrent) {
       return { status: 'done', alreadyCurrent: true }
