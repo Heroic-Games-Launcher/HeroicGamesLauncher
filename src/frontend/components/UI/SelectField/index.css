@@ -231,7 +231,7 @@
     in oklab,
     var(--selected, var(--accent)) 12%,
     var(--input-background)
-  );
+  ) !important;
 }
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root.Mui-selected {
@@ -239,8 +239,8 @@
     in oklab,
     var(--selected, var(--accent)) 18%,
     var(--input-background)
-  );
-  color: var(--text-default);
+  ) !important;
+  color: var(--text-default) !important;
 }
 
 .wineVersionOption {
