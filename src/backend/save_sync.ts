@@ -3,6 +3,7 @@ import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { logDebug, LogPrefix, logInfo, logError, logWarning } from './logger'
 import { getShellPath } from './utils'
+import { parseLegendaryOutput } from './cloud_saves/parse'
 import {
   existsSync,
   readFileSync,
@@ -71,7 +72,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   }
 
   logInfo(['Computing default save path for', appName], LogPrefix.Legendary)
-  await libraryManagerMap['legendary'].runRunnerCommand(
+  const res = await libraryManagerMap['legendary'].runRunnerCommand(
     {
       subcommand: 'sync-saves',
       appName: LegendaryAppName.parse(appName),
@@ -86,11 +87,31 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     }
   )
 
-  // If the save path was computed successfully, Legendary will have saved
-  // this path in `installed.json` (so the GameInfo)
-  const { save_path: new_save_path } = libraryManagerMap[
-    'legendary'
-  ].getGameInfo(appName, true)!
+  const parsed = parseLegendaryOutput(res.stdout, res.stderr)
+
+  if (parsed.state === 'failed') {
+    logError(
+      [
+        'Unable to compute default save path for',
+        appName,
+        `(${parsed.reason})`
+      ],
+      LogPrefix.Legendary
+    )
+    return ''
+  }
+
+  if (parsed.computedPath) {
+    libraryManagerMap['legendary'].refreshInstalled()
+    logInfo(['Computed save path:', parsed.computedPath], LogPrefix.Legendary)
+    return parsed.computedPath
+  }
+
+  // Legendary writes the path to `installed.json`, so refresh the cached copy
+  // before reading it back.
+  libraryManagerMap['legendary'].refreshInstalled()
+  const new_save_path =
+    libraryManagerMap['legendary'].getGameInfo(appName)?.save_path
   if (!new_save_path) {
     logError(
       ['Unable to compute default save path for', appName],
