@@ -21,8 +21,8 @@
   grid-auto-rows: minmax(76px, auto);
   align-items: stretch;
   gap: 10px;
-  min-height: 2vh;
-  padding: 0 var(--space-md-fixed) var(--space-3xl);
+  min-height: 0;
+  padding: 0 var(--space-md-fixed) var(--space-md);
   margin: var(--space-md) 0;
 }
 
