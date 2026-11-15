@@ -10,7 +10,11 @@ import {
 import { tmpdir } from 'os'
 import { join } from 'path'
 
-import { backupSaveLocations, getChangedFiles } from '../backup'
+import {
+  backupSaveLocations,
+  getBackupFolderName,
+  getChangedFiles
+} from '../backup'
 
 jest.mock('../../config', () => ({
   GlobalConfig: {
@@ -32,9 +36,11 @@ const makeDir = () => {
   return dir
 }
 
-const snapshots = (backupRoot: string, appName: string) => {
-  const locationKey = readdirSync(join(backupRoot, appName))[0]
-  const locationDir = join(backupRoot, appName, locationKey)
+const snapshots = (backupRoot: string, folderName: string) => {
+  const locationKey = readdirSync(join(backupRoot, folderName), {
+    withFileTypes: true
+  }).find((entry) => entry.isDirectory())?.name as string
+  const locationDir = join(backupRoot, folderName, locationKey)
   return {
     locationDir,
     dirs: readdirSync(locationDir)
@@ -89,7 +95,9 @@ describe('backupSaveLocations', () => {
       existsSync(join(first.locationDir, first.dirs[0], 'files', 'a.sav'))
     ).toBe(true)
     expect(
-      existsSync(join(first.locationDir, first.dirs[0], 'files', 'sub', 'b.sav'))
+      existsSync(
+        join(first.locationDir, first.dirs[0], 'files', 'sub', 'b.sav')
+      )
     ).toBe(true)
 
     writeFileSync(join(saveDir, 'a.sav'), 'second save with more data')
@@ -98,9 +106,9 @@ describe('backupSaveLocations', () => {
     const second = snapshots(backupRoot, 'Game')
     expect(second.dirs).toHaveLength(2)
     const latest = second.dirs[1]
-    expect(
-      existsSync(join(second.locationDir, latest, 'files', 'a.sav'))
-    ).toBe(true)
+    expect(existsSync(join(second.locationDir, latest, 'files', 'a.sav'))).toBe(
+      true
+    )
     expect(
       existsSync(join(second.locationDir, latest, 'files', 'sub', 'b.sav'))
     ).toBe(false)
@@ -132,5 +140,62 @@ describe('backupSaveLocations', () => {
     )
     expect(snapshot.deleted).toEqual(['b.sav'])
     expect(snapshot.changed).toEqual([])
+  })
+})
+
+describe('getBackupFolderName', () => {
+  test('sanitizes characters that are invalid in folder names', () => {
+    expect(getBackupFolderName('DOOM 3: BFG Edition', 'app')).toBe(
+      'DOOM 3_ BFG Edition'
+    )
+    expect(getBackupFolderName('A/B\\C', 'app')).toBe('A_B_C')
+  })
+
+  test('falls back to the app name when the title is unusable', () => {
+    expect(getBackupFolderName(undefined, 'app')).toBe('app')
+    expect(getBackupFolderName('  ..  ', 'app')).toBe('app')
+  })
+})
+
+describe('backupSaveLocations with game titles', () => {
+  test('stores backups under the game title', () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+
+    backupSaveLocations({
+      appName: 'abc123',
+      title: 'My Game: Deluxe',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const folder = getBackupFolderName('My Game: Deluxe', 'abc123')
+    expect(folder).toBe('My Game_ Deluxe')
+    expect(snapshots(backupRoot, folder).dirs).toHaveLength(1)
+  })
+
+  test('avoids colliding when two games share the same title', () => {
+    const saveA = makeDir()
+    const saveB = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveA, 'a.sav'), 'a')
+    writeFileSync(join(saveB, 'b.sav'), 'b')
+
+    backupSaveLocations({
+      appName: 'appA',
+      title: 'Shared',
+      locations: [saveA],
+      backupRoot
+    })
+    backupSaveLocations({
+      appName: 'appB',
+      title: 'Shared',
+      locations: [saveB],
+      backupRoot
+    })
+
+    expect(existsSync(join(backupRoot, 'Shared'))).toBe(true)
+    expect(existsSync(join(backupRoot, 'Shared (appB)'))).toBe(true)
   })
 })

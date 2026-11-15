@@ -888,7 +888,12 @@ export default class LegendaryGame implements Game {
 
     const parsed = parseLegendaryOutput(res.stdout, res.stderr)
     if (parsed.state !== 'failed') {
-      backupSaves(this.appName, 'legendary', [path])
+      backupSaves({
+        appName: this.appName,
+        runner: 'legendary',
+        title: this.getGameInfo().title,
+        locations: [path]
+      })
     }
 
     return {

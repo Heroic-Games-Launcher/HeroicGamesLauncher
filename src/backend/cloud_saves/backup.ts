@@ -21,12 +21,28 @@ interface FileState {
 
 interface BackupManifest {
   version: 1
+  appName: string
+  title: string
   location: string
   files: Record<string, FileState>
   createdAt: string
 }
 
 const toPosixPath = (path: string) => path.split(sep).join('/')
+
+const INVALID_FILENAME_CHARS = /[<>:"/\\|?*\p{Cc}]/gu
+
+export const getBackupFolderName = (
+  title: string | undefined,
+  appName: string
+): string => {
+  const sanitized = (title ?? '')
+    .replace(INVALID_FILENAME_CHARS, '_')
+    .replace(/[. ]+$/g, '')
+    .trim()
+    .slice(0, 120)
+  return sanitized || appName
+}
 
 const collectFiles = (root: string): Record<string, FileState> => {
   const files: Record<string, FileState> = {}
@@ -75,13 +91,29 @@ export const getChangedFiles = (
 
 export const backupSaveLocations = ({
   appName,
+  title,
   locations,
   backupRoot
 }: {
   appName: string
+  title?: string
   locations: string[]
   backupRoot: string
 }): void => {
+  const folderName = getBackupFolderName(title, appName)
+  let appBackupRoot = join(backupRoot, folderName)
+
+  try {
+    const marker = JSON.parse(
+      readFileSync(join(appBackupRoot, 'app.json'), 'utf-8')
+    ) as { appName?: string }
+    if (marker.appName && marker.appName !== appName) {
+      appBackupRoot = join(backupRoot, `${folderName} (${appName})`)
+    }
+  } catch {
+    // No marker yet, the folder name is free.
+  }
+
   for (const location of locations) {
     if (
       !location ||
@@ -95,7 +127,7 @@ export const backupSaveLocations = ({
       .update(location)
       .digest('hex')
       .slice(0, 8)
-    const locationDir = join(backupRoot, appName, locationKey)
+    const locationDir = join(appBackupRoot, locationKey)
     if (locationDir.startsWith(location)) {
       continue
     }
@@ -111,8 +143,13 @@ export const backupSaveLocations = ({
       continue
     }
 
-    const createdAt = new Date().toISOString().replace(/[:.]/g, '-')
-    const snapshotDir = join(locationDir, createdAt)
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
+    let createdAt = timestamp
+    let snapshotDir = join(locationDir, createdAt)
+    for (let suffix = 1; existsSync(snapshotDir); suffix++) {
+      createdAt = `${timestamp}-${suffix}`
+      snapshotDir = join(locationDir, createdAt)
+    }
     for (const file of changed) {
       const destination = join(snapshotDir, 'files', file)
       mkdirSync(dirname(destination), { recursive: true })
@@ -122,15 +159,23 @@ export const backupSaveLocations = ({
     mkdirSync(snapshotDir, { recursive: true })
     writeFileSync(
       join(snapshotDir, 'snapshot.json'),
-      JSON.stringify({ createdAt, location, changed, deleted }, null, 2)
+      JSON.stringify(
+        { createdAt, appName, title, location, changed, deleted },
+        null,
+        2
+      )
     )
     writeFileSync(
       join(locationDir, 'manifest.json'),
       JSON.stringify(
-        { version: 1, location, files: current, createdAt },
+        { version: 1, appName, title, location, files: current, createdAt },
         null,
         2
       )
+    )
+    writeFileSync(
+      join(appBackupRoot, 'app.json'),
+      JSON.stringify({ appName, title }, null, 2)
     )
     logInfo(
       [
@@ -146,11 +191,16 @@ export const backupSaveLocations = ({
   }
 }
 
-export const backupSaves = (
-  appName: string,
-  _runner: Runner,
+export const backupSaves = ({
+  appName,
+  title,
+  locations
+}: {
+  appName: string
+  title?: string
+  runner: Runner
   locations: string[]
-): void => {
+}): void => {
   const { backupSaves: enabled, defaultInstallPath } =
     GlobalConfig.get().getSettings()
   if (!enabled) {
@@ -159,6 +209,7 @@ export const backupSaves = (
 
   backupSaveLocations({
     appName,
+    title,
     locations,
     backupRoot: join(defaultInstallPath, 'Saves_Backup')
   })

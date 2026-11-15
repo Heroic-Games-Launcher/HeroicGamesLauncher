@@ -985,13 +985,14 @@ export default class GOGGame implements Game {
     }
 
     if (state !== 'failed') {
-      backupSaves(
-        this.id,
-        'gog',
-        gogSaves
+      backupSaves({
+        appName: this.id,
+        runner: 'gog',
+        title: this.getGameInfo().title,
+        locations: gogSaves
           .filter((location) => isAbsolute(location.location))
           .map((location) => location.location)
-      )
+      })
     }
 
     return { ...result, state, reason, counts, output }
