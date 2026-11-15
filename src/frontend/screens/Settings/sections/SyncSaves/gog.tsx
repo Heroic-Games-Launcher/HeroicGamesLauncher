@@ -136,12 +136,6 @@ export default function GOGSyncSaves({
           hideProgress
         />
       )}
-      <Alert variant="warning">
-        {t(
-          'settings.saves.warning',
-          'Cloud saves feature is in beta, please backup your saves before syncing (in case something goes wrong)'
-        )}
-      </Alert>
       {isLoading ? (
         <TextWithProgress
           text={t(

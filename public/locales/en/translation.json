@@ -1356,8 +1356,7 @@
         "reset-heroic": "Reset Heroic",
         "saves": {
             "gog_linux_native_warning": "linux native games do not support GOG's cloud saves feature. Use the windows version instead.",
-            "not_supported": "This game does not support cloud saves.",
-            "warning": "Cloud saves feature is in beta, please backup your saves before syncing (in case something goes wrong)"
+            "not_supported": "This game does not support cloud saves."
         },
         "section": {
             "appearance": "Appearance",
