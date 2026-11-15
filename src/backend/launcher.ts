@@ -1948,12 +1948,21 @@ async function getWinePath({
     ignoreLogging: true
   })
 
-  const result = stdout.trim()
-  if (!result) {
+  // umu-appended status can end up glued to the path on stdout
+  const result = stdout
+    .trim()
+    .replace(/\s*Command exited with status: \d+$/, '')
+  const isValid =
+    variant === 'unix'
+      ? isAbsolute(result) && !result.includes('\n')
+      : /^(?:[a-zA-Z]:[\\/]|\\\\)/.test(result)
+
+  if (!result || !isValid) {
     logError(
       `Couldn't get wine path for ${path}.\n${stderr}`,
       LogPrefix.Backend
     )
+    return ''
   }
 
   return result
