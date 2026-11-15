@@ -71,13 +71,6 @@
         "default-steam-path": "Steam path.",
         "dontShowAgain": "Don't show again",
         "downloadNow": "Download now",
-        "saveConflict": {
-            "cancel": "Cancel",
-            "keepCloud": "Use cloud saves",
-            "keepLocal": "Use this PC's saves",
-            "message": "The cloud and local saves for {{game}} have diverged. Choose which copy to keep.",
-            "title": "Save conflict"
-        },
         "error": {
             "add": {
                 "steam": {
@@ -169,6 +162,13 @@
         },
         "runexe": {
             "title": "Select EXE to run"
+        },
+        "saveConflict": {
+            "cancel": "Cancel",
+            "keepCloud": "Use cloud saves",
+            "keepLocal": "Use this PC's saves",
+            "message": "The cloud and local saves for {{game}} have diverged. Choose which copy to keep.",
+            "title": "Save conflict"
         },
         "select": {
             "button": "Select",
@@ -617,6 +617,7 @@
         "advertiseAvxForRosetta": "Enables AVX instruction set support when running windows games through Rosetta on Apple Silicon macs. This may be required for some games like Death Stranding that need AVX support.",
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in fullscreen mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
         "analytics": "Enables Heroic to collect 100% anonymous usage data to help improve the application. Needs restart to take effect.",
+        "backupSaves": "Backups are incremental and stored in the Saves_Backup folder inside your default install path",
         "button": {
             "close": "Close help",
             "open": "Open help"
@@ -635,7 +636,6 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
-        "backupSaves": "Backups are incremental and stored in the Saves_Backup folder inside your default install path",
         "disablePlaytimeSync": "Disables playtime synchronization with given store's servers (currently only GOG is supported)",
         "download_proton_steam": "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'default Steam path' setting above.",
         "dxfpslimit": "Sets a frame rate cap for DirectX games (9-12)",
@@ -972,6 +972,20 @@
         "autoUpdateGames-description": "Download game updates as soon as they are released",
         "autovkd3d": "Auto install/update VKD3D on prefix",
         "autovkd3d-description": "Translate DirectX 12 calls to Vulkan",
+        "backups": "Save backups",
+        "backups-already-current-body": "This backup matches your current saves",
+        "backups-already-current-title": "Saves already up to date",
+        "backups-current": "Matches your current saves",
+        "backups-open-folder": "Open backups folder",
+        "backups-restore": "Restore save backup",
+        "backups-restore-button": "Restore",
+        "backups-restore-confirm": "Restore the save files from {{date}}?",
+        "backups-restore-failed": "Could not restore the backup",
+        "backups-restored-body": "The save files were restored from the selected backup",
+        "backups-restored-title": "Saves restored",
+        "backups-summary": "{{changed}} changed files, {{deleted}} deleted files",
+        "backupSaves": "Back up saves on every sync",
+        "backupSaves-description": "Store a backup of changed save files on every sync",
         "before-launch-script-path": "Select a script to run before the game is launched",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic updates on startup",
@@ -1001,21 +1015,6 @@
         "disableDiscounts": "Disable deals page",
         "disableGOGAffiliate": "Disable GOG affiliate link",
         "disableGOGAffiliateDescription": "Buying GOG games through Heroic helps support the project.",
-        "backupSaves": "Back up saves on every sync",
-        "backupSaves-description": "Store a backup of changed save files on every sync",
-        "backups": "Save backups",
-        "backups-already-current-body": "This backup matches your current saves",
-        "backups-already-current-title": "Saves already up to date",
-        "backups-current": "Matches your current saves",
-        "maxSaveBackupSize": "Backup size limit",
-        "backups-open-folder": "Open backups folder",
-        "backups-restore": "Restore save backup",
-        "backups-restore-button": "Restore",
-        "backups-restore-confirm": "Restore the save files from {{date}}?",
-        "backups-restore-failed": "Could not restore the backup",
-        "backups-restored-body": "The save files were restored from the selected backup",
-        "backups-restored-title": "Saves restored",
-        "backups-summary": "{{changed}} changed files, {{deleted}} deleted files",
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
         "disableUMU-description": "Launch Proton directly instead of going through the umu launcher",
@@ -1166,6 +1165,7 @@
             "upload": "Upload"
         },
         "maxRecentGames": "Played recently to show",
+        "maxSaveBackupSize": "Backup size limit",
         "maxworkers": "Maximum number of workers when downloading",
         "maxworkers-description": "More workers download faster but use more CPU and bandwidth. Max uses every core.",
         "minimize-on-launch": "Minimize Heroic after game launch",
