@@ -337,7 +337,7 @@ class GlobalConfigV0 extends GlobalConfig {
       preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
       autoUpdateGames: false,
-      backupSaves: false,
+      backupSaves: true,
       customWinePaths: [],
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',

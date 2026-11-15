@@ -7,7 +7,7 @@ import SettingsContext from '../SettingsContext'
 const BackupSaves = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const [backupSaves, setBackupSaves] = useSetting('backupSaves', false)
+  const [backupSaves, setBackupSaves] = useSetting('backupSaves', true)
 
   if (!isDefault) {
     return <></>
