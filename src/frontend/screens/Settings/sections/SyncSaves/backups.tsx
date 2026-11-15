@@ -95,21 +95,35 @@ const Backups = ({ runner }: Props) => {
   return (
     <div>
       <h4>{t('setting.backups', 'Save backups')}</h4>
-      {backups.map((backup) => (
-        <SettingRow
-          key={backup.id}
-          label={formatBackupDate(backup.createdAt, i18n.language)}
-          description={t(
-            'setting.backups-summary',
-            '{{changed}} changed files, {{deleted}} deleted files',
-            { changed: backup.changed, deleted: backup.deleted }
-          )}
-        >
-          <Button variant="secondary" size="sm" onClick={() => restore(backup)}>
-            {t('setting.backups-restore-button', 'Restore')}
-          </Button>
-        </SettingRow>
-      ))}
+      <div
+        style={{
+          maxHeight: 'min(50vh, 22rem)',
+          overflowY: 'auto',
+          overscrollBehavior: 'contain',
+          scrollbarGutter: 'stable',
+          paddingRight: 'var(--space-2xs-fixed)'
+        }}
+      >
+        {backups.map((backup) => (
+          <SettingRow
+            key={backup.id}
+            label={formatBackupDate(backup.createdAt, i18n.language)}
+            description={t(
+              'setting.backups-summary',
+              '{{changed}} changed files, {{deleted}} deleted files',
+              { changed: backup.changed, deleted: backup.deleted }
+            )}
+          >
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => restore(backup)}
+            >
+              {t('setting.backups-restore-button', 'Restore')}
+            </Button>
+          </SettingRow>
+        ))}
+      </div>
       <div
         style={{
           display: 'flex',
