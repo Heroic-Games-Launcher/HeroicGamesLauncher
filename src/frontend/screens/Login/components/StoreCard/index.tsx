@@ -61,6 +61,10 @@ export default function StoreCard({
   const openStore = () => navigate(storeRoute)
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    // Only open the store when the card itself is focused. When a child
+    // button (e.g. "Log in") is focused, let that button handle Enter/Space
+    // so it does not also trigger store navigation.
+    if (event.target !== event.currentTarget) return
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       openStore()
@@ -149,6 +153,7 @@ export default function StoreCard({
                   fullWidth
                   disabled={isLoggingOut}
                   onClick={handleLogout}
+                  onKeyDown={(e) => e.stopPropagation()}
                 >
                   {isLoggingOut
                     ? `${t('userselector.logging_out', 'Logging out')}...`
@@ -162,6 +167,7 @@ export default function StoreCard({
                     fullWidth
                     disabled={disabled}
                     onClick={handleLogin}
+                    onKeyDown={(e) => e.stopPropagation()}
                   >
                     {t('login.button', 'Log in')}
                   </Button>
@@ -172,6 +178,7 @@ export default function StoreCard({
                       fullWidth
                       disabled={disabled}
                       onClick={handleAltLogin}
+                      onKeyDown={(e) => e.stopPropagation()}
                     >
                       {t(
                         'login.alternative_method',
