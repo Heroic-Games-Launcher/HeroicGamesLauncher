@@ -436,6 +436,12 @@
   fill: #0a0e13;
 }
 
+/* Outside cover link. */
+.gameCard .cloud-sync-icon {
+  right: calc(10px + var(--space-xs-fixed));
+  top: calc(56px + var(--space-xs-fixed));
+}
+
 /* Cloud badge only on installed games. */
 .gameCard:has(.cloud-sync-icon) .family-share-icon {
   top: 102px;
