@@ -110,7 +110,13 @@ const Backups = ({ runner }: Props) => {
           </Button>
         </SettingRow>
       ))}
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          marginTop: 'var(--space-lg-fixed)'
+        }}
+      >
         <Button variant="ghost" size="sm" onClick={openFolder}>
           {t('setting.backups-open-folder', 'Open backups folder')}
         </Button>
