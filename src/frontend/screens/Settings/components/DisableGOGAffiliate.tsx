@@ -24,6 +24,10 @@ const DisableGOGAffiliate = () => {
       value={!enableGOGAffiliate}
       handleChange={handleChange}
       title={t('setting.disableGOGAffiliate', 'Disable GOG affiliate link')}
+      description={t(
+        'setting.disableGOGAffiliateDescription',
+        'Buying GOG games through Heroic helps support the project.'
+      )}
     />
   )
 }

@@ -1,7 +1,6 @@
 export { default as InfoBox } from './InfoBox'
 export { default as InfoTooltip } from './InfoTooltip'
 export { default as Tooltip } from './Tooltip'
-export { default as LanguageSelector } from './LanguageSelector'
 export { default as SelectField } from './SelectField'
 export { default as SliderField } from './SliderField'
 export { default as TabPanel } from './TabPanel'

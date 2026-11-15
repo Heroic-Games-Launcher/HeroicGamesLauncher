@@ -7,6 +7,7 @@ import { MenuItem } from '@mui/material'
 
 const storage: Storage = window.localStorage
 
+// ts-prune-ignore-next
 export enum FlagPosition {
   NONE = 'none',
   PREPEND = 'prepend',

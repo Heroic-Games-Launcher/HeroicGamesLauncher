@@ -7,7 +7,7 @@ import {
   RotateCw
 } from 'lucide-react'
 import cx from 'classnames'
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SvgButton from '../SvgButton'
 import Icon from '../Icon'
@@ -41,7 +41,7 @@ export default function WebviewControls({
   gameInputMode = false,
   onToggleInput
 }: WebviewControlsProps) {
-  const [url, setUrl] = React.useState(initURL)
+  const [url, setUrl] = useState(initURL)
   const { t } = useTranslation()
   const [webviewGoBack, setWebviewGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)

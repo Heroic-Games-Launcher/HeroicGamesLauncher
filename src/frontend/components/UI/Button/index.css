@@ -174,7 +174,7 @@
   background: var(--bg-disabled);
   color: var(--text-neutral-faint);
   border-color: var(--border-subtle);
-  border-style: dashed;
+  border-style: solid;
   cursor: not-allowed;
   box-shadow: none;
   opacity: 0.65;

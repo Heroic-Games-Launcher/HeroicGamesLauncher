@@ -4,7 +4,6 @@ import { Trans, useTranslation } from 'react-i18next'
 import { LibraryBig, SearchX } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import EmptyState from 'frontend/components/UI/EmptyState'
-import './index.css'
 import AddGameButton from '../AddGameButton'
 
 function EmptyLibraryMessage() {

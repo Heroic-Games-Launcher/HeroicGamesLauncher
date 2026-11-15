@@ -1,19 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
-import Runner from './components/Runner'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
-import EpicLogo from 'frontend/assets/epic-logo.svg?react'
-import GOGLogo from 'frontend/assets/gog-logo.svg?react'
-import HeroicLogo from 'frontend/assets/heroic-icon.svg?react'
-import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
-import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
-import ItchioLogo from 'frontend/assets/itchio-logo.svg?react'
-import SteamLogo from 'frontend/assets/steam-logo.svg?react'
-
-import { LanguageSelector, UpdateComponent } from '../../components/UI'
-import { FlagPosition } from '../../components/UI/LanguageSelector'
+import { Alert, UpdateComponent } from '../../components/UI'
+import StoreCard from './components/StoreCard'
 import SIDLogin from './components/SIDLogin'
 import ItchioLogin from './components/ItchioLogin'
 import SteamLogin from './components/SteamLogin'
@@ -28,7 +18,7 @@ export const zoomLoginPath = '/loginweb/zoom'
 export const itchioLoginPath = '/loginweb/itchio'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, zoom, itchio, steam, refreshLibrary } =
+  const { epic, gog, amazon, zoom, itchio, steam, disableGOGAffiliate } =
     useContext(ContextProvider)
   const { t } = useTranslation()
 
@@ -38,7 +28,6 @@ export default React.memo(function NewLogin() {
     <p>{t('help.content.login', 'Log in into the different stores.')}</p>
   )
 
-  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
   const [showItchioLogin, setShowItchioLogin] = useState(false)
@@ -52,6 +41,11 @@ export default React.memo(function NewLogin() {
   const [isItchioLoggedIn, setIsItchioLoggedIn] = useState(
     Boolean(itchio.username)
   )
+  const [isSteamLoggedIn, setIsSteamLoggedIn] = useState(
+    Boolean(steam.users?.[0])
+  )
+
+  const steamUser = steam.users[0]
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 
@@ -69,13 +63,6 @@ export default React.memo(function NewLogin() {
     }
   }
 
-  const loginMessage = t(
-    'login.message',
-    'Login with your platform. You can login to more than one platform at the same time.'
-  )
-
-  const steamUser = steam.users[0]
-
   useEffect(() => {
     setLoading(false)
   }, [epic, gog])
@@ -86,26 +73,22 @@ export default React.memo(function NewLogin() {
     setIsAmazonLoggedIn(Boolean(amazon.user_id))
     setIsZoomLoggedIn(Boolean(zoom.username))
     setIsItchioLoggedIn(Boolean(itchio.username))
+    setIsSteamLoggedIn(Boolean(steam.users?.[0]))
   }, [
     epic.username,
     gog.username,
     amazon.user_id,
     zoom.username,
     itchio.username,
-    t
+    steam.users
   ])
-
-  async function handleLibraryClick() {
-    await refreshLibrary({ runInBackground: false })
-    navigate('/')
-  }
 
   if (loading) {
     return <UpdateComponent />
   }
 
   return (
-    <div className="loginPage">
+    <div className="storesPage">
       {showSidLogin && (
         <SIDLogin
           backdropClick={() => {
@@ -127,110 +110,130 @@ export default React.memo(function NewLogin() {
           }}
         />
       )}
-      <div className="loginBackground"></div>
 
-      <div className="loginContentWrapper">
-        <div className="runnerList">
-          <div className="runnerHeader">
-            <HeroicLogo className="runnerHeaderIcon" />
-            <div className="runnerHeaderText">
-              <h1 className="title">Heroic</h1>
-              <h2 className="subtitle">Games Launcher</h2>
-            </div>
+      <header className="storesPage__hero">
+        <h1 className="storesPage__title">{t('stores', 'Stores')}</h1>
+        <p className="storesPage__subtitle">
+          {t(
+            'login.message',
+            'Login with your platform. You can login to more than one platform at the same time.'
+          )}
+        </p>
+      </header>
 
-            {!loading && (
-              <LanguageSelector
-                flagPossition={FlagPosition.PREPEND}
-                showWeblateLink={true}
-              />
+      {oldMac && <p className="disabledMessage">{oldMacMessage}</p>}
+
+      <div className="storeCardGrid">
+        <StoreCard
+          storeKey="gog"
+          runner="gog"
+          title={t('login.title_gog', 'GOG')}
+          description={t(
+            'login.description_gog',
+            'Buy and play DRM free games from GOG.com.'
+          )}
+          isLoggedIn={isGogLoggedIn}
+          user={gog.username}
+          loginUrl={gogLoginPath}
+          storeRoute="/store/gog"
+          logout={gog.logout}
+          notice={
+            disableGOGAffiliate ? (
+              <Alert variant="info">
+                {t(
+                  'login.gog_support',
+                  'GOG affiliate links are disabled. Enable them to help support Heroic when you buy games here.'
+                )}
+              </Alert>
+            ) : undefined
+          }
+          disabled={oldMac}
+        />
+        <StoreCard
+          storeKey="epic"
+          runner="legendary"
+          title={t('login.title_epic', 'Epic Games')}
+          description={t(
+            'login.description_epic',
+            'Buy and play games from the Epic Games Store.'
+          )}
+          isLoggedIn={isEpicLoggedIn}
+          user={epic.username}
+          loginUrl={epicLoginPath}
+          storeRoute="/store/epic"
+          logout={epic.logout}
+          alternativeLoginAction={() => setShowSidLogin(true)}
+          disabled={oldMac}
+        />
+        <StoreCard
+          storeKey="nile"
+          runner="nile"
+          title={t('login.title_amazon', 'Amazon Games')}
+          description={t(
+            'login.description_amazon',
+            'Claim and play games with Amazon Prime Gaming.'
+          )}
+          isLoggedIn={isAmazonLoggedIn}
+          user={amazon.username || 'Unknown'}
+          loginUrl={amazonLoginPath}
+          storeRoute="/store/amazon"
+          logout={amazon.logout}
+          disabled={oldMac}
+        />
+        <StoreCard
+          storeKey="itchio"
+          runner="itchio"
+          title={t('login.title_itchio', 'itch.io')}
+          description={t(
+            'login.description_itchio',
+            'Discover and play indie games from itch.io.'
+          )}
+          isLoggedIn={isItchioLoggedIn}
+          user={itchio.username || 'Unknown'}
+          loginUrl={itchioLoginPath}
+          storeRoute="/store/itchio"
+          logout={itchio.logout}
+          alternativeLoginAction={() => setShowItchioLogin(true)}
+          disabled={oldMac}
+        />
+        {zoom.enabled && (
+          <StoreCard
+            storeKey="zoom"
+            runner="zoom"
+            title={t('login.title_zoom', 'Zoom Platform')}
+            description={t(
+              'login.description_zoom',
+              'Buy and play DRM free games from Zoom Platform.'
             )}
-          </div>
-
-          <p className="runnerMessage">{loginMessage}</p>
-          {oldMac && <p className="disabledMessage">{oldMacMessage}</p>}
-
-          <div className="runnerGroup">
-            <Runner
-              class="epic"
-              buttonText={t('login.epic', 'Epic Games login')}
-              loginUrl={epicLoginPath}
-              icon={() => <EpicLogo />}
-              isLoggedIn={isEpicLoggedIn}
-              user={epic.username}
-              logoutAction={epic.logout}
-              alternativeLoginAction={() => {
-                setShowSidLogin(true)
-              }}
-              disabled={oldMac}
-            />
-            <Runner
-              class="gog"
-              buttonText={t('login.gog', 'GOG login')}
-              icon={() => <GOGLogo />}
-              loginUrl={gogLoginPath}
-              isLoggedIn={isGogLoggedIn}
-              user={gog.username}
-              logoutAction={gog.logout}
-              disabled={oldMac}
-            />
-            {steam.enabled && (
-              <Runner
-                class="steam"
-                buttonText={t('login.steam_add', 'Add Steam Account')}
-                icon={() => <SteamLogo />}
-                loginUrl="/login"
-                isLoggedIn={Boolean(steamUser)}
-                user={steamUser?.username}
-                logoutAction={
-                  steamUser
-                    ? () => steam.logoutUser(steamUser.steamId)
-                    : steam.logout
-                }
-                loginAction={() => setShowSteamLogin(true)}
-                disabled={oldMac}
-              />
+            isLoggedIn={isZoomLoggedIn}
+            user={zoom.username}
+            loginUrl={zoomLoginPath}
+            storeRoute="/store/zoom"
+            logout={zoom.logout}
+            disabled={oldMac}
+          />
+        )}
+        {steam.enabled && (
+          <StoreCard
+            storeKey="steam"
+            runner="steam"
+            title={t('login.title_steam', 'Steam')}
+            description={t(
+              'login.description_steam',
+              'Buy and play games from Steam.'
             )}
-            <Runner
-              class="nile"
-              buttonText={t('login.amazon', 'Amazon login')}
-              icon={() => <AmazonLogo />}
-              loginUrl={amazonLoginPath}
-              isLoggedIn={isAmazonLoggedIn}
-              user={amazon.username || 'Unknown'}
-              logoutAction={amazon.logout}
-              disabled={oldMac}
-            />
-            <Runner
-              class="itchio"
-              buttonText={t('login.itchio', 'itch.io login')}
-              icon={() => <ItchioLogo />}
-              loginUrl={itchioLoginPath}
-              alternativeLoginAction={() => setShowItchioLogin(true)}
-              isLoggedIn={isItchioLoggedIn}
-              user={itchio.username || 'Unknown'}
-              logoutAction={itchio.logout}
-              disabled={oldMac}
-            />
-            {zoom.enabled && (
-              <Runner
-                class="zoom"
-                buttonText={t('login.zoom', 'Zoom login')}
-                icon={() => <ZoomLogo />}
-                loginUrl={zoomLoginPath}
-                isLoggedIn={isZoomLoggedIn}
-                user={zoom.username}
-                logoutAction={zoom.logout}
-                disabled={oldMac}
-              />
-            )}
-          </div>
-        </div>
-        <button
-          onClick={async () => handleLibraryClick()}
-          className="goToLibrary"
-        >
-          {t('button.go_to_library', 'Go to library')}
-        </button>
+            isLoggedIn={isSteamLoggedIn}
+            user={steamUser?.username || 'Unknown'}
+            storeRoute="/store/steam"
+            logout={
+              steamUser
+                ? () => steam.logoutUser(steamUser.steamId)
+                : steam.logout
+            }
+            loginAction={() => setShowSteamLogin(true)}
+            disabled={oldMac}
+          />
+        )}
       </div>
     </div>
   )

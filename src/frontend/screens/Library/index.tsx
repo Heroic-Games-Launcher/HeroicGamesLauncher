@@ -39,6 +39,8 @@ import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
 import AlphabetFilter from './components/AlphabetFilter'
+import AddGameButton from './components/AddGameButton'
+import ConsoleModeButton from './components/ConsoleModeButton'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 const storage = window.localStorage
@@ -79,6 +81,7 @@ export default React.memo(function Library(): JSX.Element {
   )
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
+  const [hasRecentGames, setHasRecentGames] = useState(false)
   const handleLayout = (layout: string) => {
     storage.setItem('layout', layout)
     setLayout(layout)
@@ -749,6 +752,7 @@ export default React.memo(function Library(): JSX.Element {
             handleModal={handleModal}
             onlyInstalled={libraryTopSection.endsWith('installed')}
             showHidden={showHidden}
+            onRecentGamesChange={setHasRecentGames}
           />
         )}
 
@@ -787,6 +791,14 @@ export default React.memo(function Library(): JSX.Element {
               defaultValue_one: '{{count}} game',
               defaultValue_other: '{{count}} games'
             })}
+            actions={
+              hasRecentGames ? undefined : (
+                <>
+                  <ConsoleModeButton data-tour="library-console-mode" />
+                  <AddGameButton data-tour="library-add-game" />
+                </>
+              )
+            }
           />
         )}
 
