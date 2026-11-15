@@ -274,3 +274,81 @@ describe('listSaveBackups and restoreSaveBackup', () => {
     expect(readFileSync(join(saveDir, 'b.sav'), 'utf-8')).toBe('b')
   })
 })
+
+describe('backup retention', () => {
+  test('removes superseded versions to stay within the size limit', () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a'.repeat(400))
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot,
+      maxBytes: 600
+    })
+
+    writeFileSync(join(saveDir, 'a.sav'), 'b'.repeat(400))
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot,
+      maxBytes: 600
+    })
+
+    const backups = listSaveBackups('Game', backupRoot)
+    expect(backups).toHaveLength(1)
+
+    restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backups[0].id,
+      backupRoot
+    })
+    expect(readFileSync(join(saveDir, 'a.sav'), 'utf-8')).toBe('b'.repeat(400))
+  })
+
+  test('carries unchanged files into the next snapshot when pruning', () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'big.sav'), 'b'.repeat(600))
+    writeFileSync(join(saveDir, 'small.sav'), 's'.repeat(10))
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    writeFileSync(join(saveDir, 'big.sav'), 'B'.repeat(600))
+    writeFileSync(join(saveDir, 'c.sav'), 'c'.repeat(10))
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot,
+      maxBytes: 700
+    })
+
+    const backups = listSaveBackups('Game', backupRoot)
+    expect(backups).toHaveLength(1)
+
+    rmSync(join(saveDir, 'big.sav'))
+    rmSync(join(saveDir, 'small.sav'))
+    rmSync(join(saveDir, 'c.sav'))
+    restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backups[0].id,
+      backupRoot
+    })
+    expect(readFileSync(join(saveDir, 'big.sav'), 'utf-8')).toBe(
+      'B'.repeat(600)
+    )
+    expect(readFileSync(join(saveDir, 'c.sav'), 'utf-8')).toBe('c'.repeat(10))
+    expect(readFileSync(join(saveDir, 'small.sav'), 'utf-8')).toBe(
+      's'.repeat(10)
+    )
+  })
+})

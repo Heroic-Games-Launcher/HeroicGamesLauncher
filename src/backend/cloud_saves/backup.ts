@@ -13,7 +13,7 @@ import { dirname, join, relative, sep } from 'path'
 
 import type { Runner, SaveBackupEntry } from 'common/types'
 import { GlobalConfig } from '../config'
-import { logInfo, LogPrefix } from 'backend/logger'
+import { logInfo, logWarning, LogPrefix } from 'backend/logger'
 
 interface FileState {
   size: number
@@ -32,6 +32,8 @@ interface BackupManifest {
 const toPosixPath = (path: string) => path.split(sep).join('/')
 
 const INVALID_FILENAME_CHARS = /[<>:"/\\|?*\p{Cc}]/gu
+
+export const MAX_BACKUP_BYTES = 1024 * 1024 * 1024
 
 export const getBackupFolderName = (
   title: string | undefined,
@@ -90,16 +92,131 @@ export const getChangedFiles = (
     )
   })
 
+const sumStoredSaveSize = (dir: string, insideFiles = false): number => {
+  let total = 0
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const absolute = join(dir, entry.name)
+    if (entry.isDirectory()) {
+      total += sumStoredSaveSize(
+        absolute,
+        insideFiles || entry.name === 'files'
+      )
+    } else if (insideFiles && entry.isFile()) {
+      total += statSync(absolute).size
+    }
+  }
+  return total
+}
+
+const appSnapshots = (appBackupRoot: string) => {
+  const snapshots: {
+    locationDir: string
+    dir: string
+    folderName: string
+    snapshot: SnapshotInfo
+  }[] = []
+
+  for (const entry of readdirSync(appBackupRoot, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    const locationDir = join(appBackupRoot, entry.name)
+    for (const snapshot of readSnapshots(locationDir)) {
+      snapshots.push({ locationDir, ...snapshot })
+    }
+  }
+
+  return snapshots.sort((a, b) =>
+    a.snapshot.createdAt.localeCompare(b.snapshot.createdAt)
+  )
+}
+
+const carrySnapshot = (
+  source: { dir: string; snapshot: SnapshotInfo },
+  target: { dir: string; snapshot: SnapshotInfo }
+) => {
+  const changed = new Set(target.snapshot.changed ?? [])
+  const carried = new Set(target.snapshot.carried ?? [])
+  const deleted = new Set(target.snapshot.deleted ?? [])
+
+  for (const file of [
+    ...(source.snapshot.carried ?? []),
+    ...(source.snapshot.changed ?? [])
+  ]) {
+    if (changed.has(file) || carried.has(file)) continue
+    const sourceFile = join(source.dir, 'files', file)
+    if (!existsSync(sourceFile)) continue
+    const destination = join(target.dir, 'files', file)
+    mkdirSync(dirname(destination), { recursive: true })
+    copyFileSync(sourceFile, destination)
+    carried.add(file)
+  }
+
+  for (const file of source.snapshot.deleted ?? []) {
+    if (!changed.has(file)) {
+      deleted.add(file)
+    }
+  }
+
+  target.snapshot.carried = [...carried]
+  target.snapshot.deleted = [...deleted]
+  writeFileSync(
+    join(target.dir, 'snapshot.json'),
+    JSON.stringify(target.snapshot, null, 2)
+  )
+}
+
+const pruneBackups = (appBackupRoot: string, maxBytes: number) => {
+  if (!existsSync(appBackupRoot)) return
+
+  let total = sumStoredSaveSize(appBackupRoot)
+  let snapshots = appSnapshots(appBackupRoot)
+
+  while (total > maxBytes && snapshots.length) {
+    const target = snapshots[0]
+    const locationSnapshots = snapshots.filter(
+      (snapshot) => snapshot.locationDir === target.locationDir
+    )
+    const index = locationSnapshots.findIndex(
+      (snapshot) => snapshot.dir === target.dir
+    )
+    const next = locationSnapshots[index + 1]
+
+    if (next) {
+      carrySnapshot(target, next)
+    }
+
+    rmSync(target.dir, { recursive: true, force: true })
+    snapshots = snapshots.filter((snapshot) => snapshot.dir !== target.dir)
+    total = sumStoredSaveSize(appBackupRoot)
+    logInfo(
+      [
+        'Removed old save backup',
+        target.dir,
+        'to stay within the backup size limit'
+      ],
+      LogPrefix.Backend
+    )
+  }
+
+  if (total > maxBytes) {
+    logWarning(
+      ['Save backups for this game still exceed the size limit', `${total}`],
+      LogPrefix.Backend
+    )
+  }
+}
+
 export const backupSaveLocations = ({
   appName,
   title,
   locations,
-  backupRoot
+  backupRoot,
+  maxBytes = MAX_BACKUP_BYTES
 }: {
   appName: string
   title?: string
   locations: string[]
   backupRoot: string
+  maxBytes?: number
 }): void => {
   const folderName = getBackupFolderName(title, appName)
   let appBackupRoot = join(backupRoot, folderName)
@@ -191,6 +308,8 @@ export const backupSaveLocations = ({
       LogPrefix.Backend
     )
   }
+
+  pruneBackups(appBackupRoot, maxBytes)
 }
 
 export const backupSaves = ({
@@ -221,6 +340,7 @@ interface SnapshotInfo {
   createdAt: string
   location: string
   changed?: string[]
+  carried?: string[]
   deleted?: string[]
 }
 
@@ -352,7 +472,10 @@ export const restoreSaveBackup = ({
   })
 
   for (const { dir, snapshot } of snapshots.slice(0, targetIndex + 1)) {
-    for (const file of snapshot.changed ?? []) {
+    for (const file of [
+      ...(snapshot.carried ?? []),
+      ...(snapshot.changed ?? [])
+    ]) {
       const source = join(dir, 'files', file)
       if (!existsSync(source)) continue
       const destination = join(target.location, file)
