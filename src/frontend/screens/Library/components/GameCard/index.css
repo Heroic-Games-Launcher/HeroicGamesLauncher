@@ -492,7 +492,7 @@
   padding: var(--list-row-pad-block) var(--list-row-pad-inline);
   position: relative;
   background: var(--input-background);
-  border: 1px solid var(--panel-border);
+  border: none;
   border-radius: 12px;
   transition:
     border-color 0.2s ease,
@@ -501,8 +501,11 @@
 
 .gameListItem:hover,
 .gameListItem:focus-within {
-  border-color: var(--navbar-accent, var(--accent));
-  box-shadow: 0 0 0 1px var(--navbar-accent, var(--accent));
+  background: color-mix(
+    in oklab,
+    var(--input-background) 88%,
+    var(--navbar-accent, var(--accent))
+  );
 }
 
 .gameListItem > a {
