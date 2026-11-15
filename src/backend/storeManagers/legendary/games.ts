@@ -864,6 +864,16 @@ export default class LegendaryGame implements Game {
       return { ...result, reason: 'no-path', output: 'No path provided.' }
     }
 
+    if (arg === '--skip-upload' || arg === '--force-download') {
+      backupSaves({
+        appName: this.appName,
+        runner: 'legendary',
+        title: this.getGameInfo().title,
+        locations: [path],
+        force: true
+      })
+    }
+
     const command: LegendaryCommand = {
       subcommand: 'sync-saves',
       appName: this.appName,

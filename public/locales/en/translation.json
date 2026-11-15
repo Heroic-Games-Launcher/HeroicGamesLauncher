@@ -71,6 +71,13 @@
         "default-steam-path": "Steam path.",
         "dontShowAgain": "Don't show again",
         "downloadNow": "Download now",
+        "saveConflict": {
+            "cancel": "Cancel",
+            "keepCloud": "Use cloud saves",
+            "keepLocal": "Use this PC's saves",
+            "message": "The cloud and local saves for {{game}} have diverged. Choose which copy to keep.",
+            "title": "Save conflict"
+        },
         "error": {
             "add": {
                 "steam": {
