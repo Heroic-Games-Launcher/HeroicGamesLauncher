@@ -101,7 +101,6 @@ import {
   getDefaultSavePath,
   refreshSavePathsIfConfigurationChanged
 } from './save_sync'
-import { getSavePathFingerprint } from './cloud_saves/fingerprint'
 import {
   getSaveBackupFolder,
   getSaveBackups,
@@ -1288,22 +1287,8 @@ addHandler('restoreSaveBackup', async (event, appName, runner, backupId) => {
 
 addHandler(
   'getDefaultSavePath',
-  async (event, appName, runner, alreadyDefinedGogSaves) => {
-    const result = await getDefaultSavePath(
-      appName,
-      runner,
-      alreadyDefinedGogSaves
-    )
-    if (runner === 'gog' || runner === 'legendary') {
-      const game = libraryManagerMap[runner].getGame(appName)
-      const settings = await game.getSettings()
-      GameConfig.get(appName).setSetting(
-        'savesPathFingerprint',
-        getSavePathFingerprint(game.getGameInfo(), settings)
-      )
-    }
-    return result
-  }
+  async (event, appName, runner, alreadyDefinedGogSaves) =>
+    getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used

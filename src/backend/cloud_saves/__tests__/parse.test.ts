@@ -113,6 +113,17 @@ describe('parseLegendaryOutput', () => {
     expect(parsed.reason).toBe('unresolved-vars')
   })
 
+  test('reports core errors as failures', () => {
+    const parsed = parseLegendaryOutput(
+      '',
+      `[cli] INFO: Downloading remote savegame...
+[Core] ERROR: Download failed, status code: 500`
+    )
+
+    expect(parsed.state).toBe('failed')
+    expect(parsed.reason).toBe('provider-error')
+  })
+
   test('reports lock and missing save path failures', () => {
     expect(
       parseLegendaryOutput(

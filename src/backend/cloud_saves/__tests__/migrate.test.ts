@@ -54,6 +54,14 @@ describe('copyMissingSaveFiles', () => {
     expect(copyMissingSaveFiles(join(from, 'missing'), to)).toBe(0)
   })
 
+  test('does nothing when the destination is a parent of the source', () => {
+    const root = makeDir()
+    const from = mkdtempSync(join(root, 'child-'))
+    writeFileSync(join(from, 'a.sav'), 'a')
+
+    expect(copyMissingSaveFiles(from, root)).toBe(0)
+  })
+
   test('does nothing when both paths are the same', () => {
     const dir = makeDir()
     writeFileSync(join(dir, 'a.sav'), 'a')

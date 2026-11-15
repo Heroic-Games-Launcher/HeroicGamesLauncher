@@ -898,6 +898,11 @@ export default class LegendaryGame implements Game {
     }
 
     const parsed = parseLegendaryOutput(res.stdout, res.stderr)
+    if (res.error || res.abort) {
+      parsed.state = 'failed'
+      parsed.reason = 'provider-error'
+    }
+
     if (parsed.state !== 'failed') {
       backupSaves({
         appName: this.appName,

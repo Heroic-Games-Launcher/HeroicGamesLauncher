@@ -138,8 +138,6 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     }
   }
 
-  await refreshSavePaths()
-
   if (!launchArguments && gameSettings.lastUsedLaunchOption) {
     launchArguments = gameSettings.lastUsedLaunchOption
   }
@@ -157,6 +155,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   logInfo(`Launching ${title} (${appName})`, LogPrefix.Backend)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -313,6 +313,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   await addRecentGame(gameInfo)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,

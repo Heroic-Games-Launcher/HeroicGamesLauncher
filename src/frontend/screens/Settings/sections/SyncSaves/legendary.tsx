@@ -75,7 +75,6 @@ export default function LegendarySyncSaves({
 
         if (newSavePath) {
           setSavesPath(newSavePath)
-          setSavesPathFingerprint(savePathFingerprint)
         }
         setRetry(false)
       } catch (error) {

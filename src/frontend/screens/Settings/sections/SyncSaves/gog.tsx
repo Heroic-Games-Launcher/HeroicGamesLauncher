@@ -74,7 +74,6 @@ export default function GOGSyncSaves({
 
         if (locations.length > 0) {
           setGogSaves(locations)
-          setSavesPathFingerprint(savePathFingerprint)
         } else if (gogSaves.length === 0) {
           setGogSaves([{ name: '__default', location: '' }])
         }

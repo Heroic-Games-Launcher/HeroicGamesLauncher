@@ -8,7 +8,13 @@ import {
 import { dirname, join, relative, sep } from 'path'
 
 export const copyMissingSaveFiles = (from: string, to: string): number => {
-  if (!from || !to || from === to || to.startsWith(from + sep)) {
+  if (
+    !from ||
+    !to ||
+    from === to ||
+    to.startsWith(from + sep) ||
+    from.startsWith(to + sep)
+  ) {
     return 0
   }
 

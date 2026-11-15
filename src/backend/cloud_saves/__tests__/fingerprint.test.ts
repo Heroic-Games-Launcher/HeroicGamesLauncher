@@ -25,6 +25,20 @@ describe('getSavePathFingerprint', () => {
     ).not.toBe(getSavePathFingerprint(gameInfo, settings))
   })
 
+  test('can ignore the wine configuration', () => {
+    const wineSettings = {
+      ...settings,
+      wineVersion: {
+        bin: '/wine',
+        name: 'Wine - Wine-GE',
+        type: 'wine' as const
+      }
+    }
+    expect(getSavePathFingerprint(gameInfo, wineSettings, false)).toBe(
+      getSavePathFingerprint(gameInfo, settings, false)
+    )
+  })
+
   test('changes when the wine version type changes', () => {
     expect(
       getSavePathFingerprint(gameInfo, {

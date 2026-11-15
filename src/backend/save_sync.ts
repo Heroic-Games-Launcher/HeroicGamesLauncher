@@ -13,6 +13,7 @@ import { copyMissingSaveFiles } from './cloud_saves/migrate'
 import { resolveEpicSavePath } from './cloud_saves/epic_resolver'
 import { LegendaryUser } from './storeManagers/legendary/user'
 import { parseLegendaryOutput } from './cloud_saves/parse'
+import { isAbsolute } from 'path'
 import {
   existsSync,
   readFileSync,
@@ -191,8 +192,10 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   // Legendary writes the path to `installed.json`, so refresh the cached copy
   // before reading it back.
   libraryManagerMap['legendary'].refreshInstalled()
-  const new_save_path =
-    libraryManagerMap['legendary'].getGameInfo(appName)?.save_path
+  const new_save_path = libraryManagerMap['legendary'].getGameInfo(
+    appName,
+    true
+  )?.save_path
   if (!new_save_path) {
     logError(
       ['Unable to compute default save path for', appName],
@@ -240,7 +243,7 @@ async function getDefaultGogSavePaths(
     return alreadyDefinedGogSaves
   }
 
-  const gog_save_location = saveInfo.locations
+  const gog_save_location = [...saveInfo.locations]
 
   // If no save locations are defined, assume the default
   if (!gog_save_location.length) {
@@ -325,6 +328,14 @@ async function getDefaultGogSavePaths(
       }
     }
 
+    if (!absolutePath || !isAbsolute(absolutePath)) {
+      logWarning(
+        ['Could not resolve save location', location.name, 'for', appName],
+        LogPrefix.Gog
+      )
+      continue
+    }
+
     resolvedLocations.push({
       name: location.name,
       location: absolutePath
@@ -333,6 +344,12 @@ async function getDefaultGogSavePaths(
 
   return resolvedLocations
 }
+
+const isValidGogLocations = (locations: GOGCloudSavesLocation[]): boolean =>
+  locations.length > 0 &&
+  locations.every(
+    (location) => location.location.length > 0 && isAbsolute(location.location)
+  )
 
 async function refreshSavePathsIfConfigurationChanged(
   appName: string,
@@ -344,7 +361,11 @@ async function refreshSavePathsIfConfigurationChanged(
 
   const game = libraryManagerMap[runner].getGame(appName)
   const settings = await game.getSettings()
-  const fingerprint = getSavePathFingerprint(game.getGameInfo(), settings)
+  const fingerprint = getSavePathFingerprint(
+    game.getGameInfo(),
+    settings,
+    process.platform !== 'win32'
+  )
   const gameConfig = GameConfig.get(appName)
 
   // Existing installs have no fingerprint; adopt their current configuration
@@ -363,21 +384,25 @@ async function refreshSavePathsIfConfigurationChanged(
   }
 
   try {
-    const paths = await getDefaultSavePath(
-      appName,
-      runner,
-      settings.gogSaves ?? []
-    )
+    const paths = await getDefaultSavePath(appName, runner, [])
 
     if (runner === 'gog') {
       const locations = paths as GOGCloudSavesLocation[]
-      if (!locations.length) {
+      if (!isValidGogLocations(locations)) {
+        logWarning(
+          ['Could not recalculate save paths for', appName, 'skipping'],
+          LogPrefix.Backend
+        )
         return false
       }
       gameConfig.setSetting('gogSaves', locations)
     } else {
       const path = paths as string
-      if (!path) {
+      if (!path || !isAbsolute(path)) {
+        logWarning(
+          ['Could not recalculate save path for', appName, 'skipping'],
+          LogPrefix.Backend
+        )
         return false
       }
       gameConfig.setSetting('savesPath', path)

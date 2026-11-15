@@ -1,4 +1,5 @@
 import { app } from 'electron'
+import { isAbsolute } from 'path'
 import type { GameInfo, GameSettings } from 'common/types'
 import { getWinePath } from '../launcher'
 import { resolveEpicTemplate } from './epic_template'
@@ -31,20 +32,37 @@ export const resolveEpicSavePath = async ({
     return undefined
   }
 
+  const isWindowsHost = process.platform === 'win32'
+  const homeDir = isWindowsHost
+    ? (process.env.USERPROFILE ?? app.getPath('home'))
+    : app.getPath('home')
+
   const vars = {
     installPath: gameInfo.install?.install_path ?? '',
     accountId: accountId ?? '',
-    home: app.getPath('home'),
+    home: homeDir,
     appData: app.getPath('appData'),
-    documents: app.getPath('documents'),
-    windows: false
+    documents: isWindowsHost
+      ? `${homeDir}/Documents`
+      : app.getPath('documents'),
+    windows: false,
+    localAppData: isWindowsHost ? process.env.LOCALAPPDATA : undefined,
+    roaming: isWindowsHost ? process.env.APPDATA : undefined,
+    savedGames: isWindowsHost ? `${homeDir}/Saved Games` : undefined,
+    localLow: isWindowsHost ? `${homeDir}/AppData/LocalLow` : undefined
   }
 
   const hasWindowsVars = WINDOWS_VARS.test(template)
 
+  const isValid = (path: string): boolean =>
+    !!path &&
+    !UNRESOLVED_TOKEN.test(path) &&
+    !path.includes('%') &&
+    isAbsolute(path.replace(/\\/g, '/'))
+
   if (isNative || !hasWindowsVars) {
-    const resolved = resolveEpicTemplate(template, vars)
-    return UNRESOLVED_TOKEN.test(resolved) ? undefined : resolved
+    const resolved = resolveEpicTemplate(template, vars).replace(/\\/g, '/')
+    return isValid(resolved) ? resolved : undefined
   }
 
   if (/\{installdir\}/i.test(template)) {
@@ -56,6 +74,8 @@ export const resolveEpicSavePath = async ({
     return undefined
   }
 
-  const resolved = await getWinePath({ path: windowsPath, gameSettings })
-  return resolved || undefined
+  const resolved = (
+    await getWinePath({ path: windowsPath, gameSettings })
+  ).replace(/\\/g, '/')
+  return isValid(resolved) ? resolved : undefined
 }

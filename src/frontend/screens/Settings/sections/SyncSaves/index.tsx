@@ -30,7 +30,11 @@ const SyncSaves = () => {
   )
 
   const savePathFingerprint = gameInfo
-    ? getSavePathFingerprint(gameInfo, { winePrefix, wineVersion })
+    ? getSavePathFingerprint(
+        gameInfo,
+        { winePrefix, wineVersion },
+        platform !== 'win32'
+      )
     : ''
 
   const syncCommands = [

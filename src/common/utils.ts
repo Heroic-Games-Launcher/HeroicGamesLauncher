@@ -16,14 +16,19 @@ export const REQS_NOTES_TITLE = '__notes__'
 
 export const getSavePathFingerprint = (
   gameInfo: Pick<GameInfo, 'install'>,
-  settings: Pick<GameSettings, 'winePrefix' | 'wineVersion'>
+  settings: Pick<GameSettings, 'winePrefix' | 'wineVersion'>,
+  includeWine = true
 ): string =>
   [
     gameInfo.install?.install_path ?? '',
     gameInfo.install?.platform ?? '',
-    settings.winePrefix ?? '',
-    settings.wineVersion?.type ?? '',
-    settings.wineVersion?.name ?? ''
+    ...(includeWine
+      ? [
+          settings.winePrefix ?? '',
+          settings.wineVersion?.type ?? '',
+          settings.wineVersion?.name ?? ''
+        ]
+      : [])
   ].join('|')
 
 export const parseBackupDate = (value: string): Date | undefined => {
