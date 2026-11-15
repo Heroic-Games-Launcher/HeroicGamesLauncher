@@ -5,12 +5,13 @@ import {
   mkdirSync,
   readFileSync,
   readdirSync,
+  rmSync,
   statSync,
   writeFileSync
 } from 'graceful-fs'
 import { dirname, join, relative, sep } from 'path'
 
-import type { Runner } from 'common/types'
+import type { Runner, SaveBackupEntry } from 'common/types'
 import { GlobalConfig } from '../config'
 import { logInfo, LogPrefix } from 'backend/logger'
 
@@ -143,12 +144,13 @@ export const backupSaveLocations = ({
       continue
     }
 
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
-    let createdAt = timestamp
-    let snapshotDir = join(locationDir, createdAt)
+    const createdAt = new Date().toISOString()
+    const folderBase = createdAt.replace(/[:.]/g, '-')
+    let folderName = folderBase
+    let snapshotDir = join(locationDir, folderName)
     for (let suffix = 1; existsSync(snapshotDir); suffix++) {
-      createdAt = `${timestamp}-${suffix}`
-      snapshotDir = join(locationDir, createdAt)
+      folderName = `${folderBase}-${suffix}`
+      snapshotDir = join(locationDir, folderName)
     }
     for (const file of changed) {
       const destination = join(snapshotDir, 'files', file)
@@ -213,4 +215,193 @@ export const backupSaves = ({
     locations,
     backupRoot: join(defaultInstallPath, 'Saves_Backup')
   })
+}
+
+interface SnapshotInfo {
+  createdAt: string
+  location: string
+  changed?: string[]
+  deleted?: string[]
+}
+
+const getBackupRoot = () =>
+  join(GlobalConfig.get().getSettings().defaultInstallPath, 'Saves_Backup')
+
+const findAppBackupFolders = (
+  appName: string,
+  backupRoot: string
+): string[] => {
+  const folders: string[] = []
+  if (!existsSync(backupRoot)) {
+    return folders
+  }
+
+  for (const entry of readdirSync(backupRoot, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    const appDir = join(backupRoot, entry.name)
+    try {
+      const marker = JSON.parse(
+        readFileSync(join(appDir, 'app.json'), 'utf-8')
+      ) as { appName?: string }
+      if (marker.appName === appName) {
+        folders.push(appDir)
+      }
+    } catch {
+      continue
+    }
+  }
+
+  return folders
+}
+
+const readSnapshots = (
+  locationDir: string
+): { dir: string; folderName: string; snapshot: SnapshotInfo }[] => {
+  const snapshots: {
+    dir: string
+    folderName: string
+    snapshot: SnapshotInfo
+  }[] = []
+
+  if (!existsSync(locationDir)) {
+    return snapshots
+  }
+
+  for (const entry of readdirSync(locationDir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    const dir = join(locationDir, entry.name)
+    try {
+      const snapshot = JSON.parse(
+        readFileSync(join(dir, 'snapshot.json'), 'utf-8')
+      ) as SnapshotInfo
+      snapshots.push({ dir, folderName: entry.name, snapshot })
+    } catch {
+      continue
+    }
+  }
+
+  return snapshots.sort((a, b) =>
+    (a.snapshot.createdAt ?? a.folderName).localeCompare(
+      b.snapshot.createdAt ?? b.folderName
+    )
+  )
+}
+
+export const listSaveBackups = (
+  appName: string,
+  backupRoot: string
+): SaveBackupEntry[] => {
+  const entries: SaveBackupEntry[] = []
+
+  for (const appDir of findAppBackupFolders(appName, backupRoot)) {
+    const appFolder = relative(backupRoot, appDir)
+    for (const entry of readdirSync(appDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue
+      for (const { folderName, snapshot } of readSnapshots(
+        join(appDir, entry.name)
+      )) {
+        entries.push({
+          id: [appFolder, entry.name, folderName].join('/'),
+          createdAt: snapshot.createdAt,
+          location: snapshot.location,
+          changed: snapshot.changed?.length ?? 0,
+          deleted: snapshot.deleted?.length ?? 0
+        })
+      }
+    }
+  }
+
+  return entries.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+}
+
+export const restoreSaveBackup = ({
+  appName,
+  title,
+  backupId,
+  backupRoot
+}: {
+  appName: string
+  title?: string
+  backupId: string
+  backupRoot: string
+}): SaveBackupEntry | undefined => {
+  const [appFolder, locationKey, targetFolder] = backupId.split('/')
+  if (!appFolder || !locationKey || !targetFolder) {
+    return undefined
+  }
+
+  const locationDir = join(backupRoot, appFolder, locationKey)
+  const snapshots = readSnapshots(locationDir)
+  const targetIndex = snapshots.findIndex(
+    ({ folderName }) => folderName === targetFolder
+  )
+  if (targetIndex < 0) {
+    return undefined
+  }
+
+  const { dir: targetDir, snapshot: target } = snapshots[targetIndex]
+  if (!target.location) {
+    return undefined
+  }
+
+  backupSaveLocations({
+    appName,
+    title,
+    locations: [target.location],
+    backupRoot
+  })
+
+  for (const { dir, snapshot } of snapshots.slice(0, targetIndex + 1)) {
+    for (const file of snapshot.changed ?? []) {
+      const source = join(dir, 'files', file)
+      if (!existsSync(source)) continue
+      const destination = join(target.location, file)
+      mkdirSync(dirname(destination), { recursive: true })
+      copyFileSync(source, destination)
+    }
+    for (const file of snapshot.deleted ?? []) {
+      rmSync(join(target.location, file), { force: true })
+    }
+  }
+
+  logInfo(
+    ['Restored save backup', targetDir, 'for', appName],
+    LogPrefix.Backend
+  )
+
+  return {
+    id: backupId,
+    createdAt: target.createdAt,
+    location: target.location,
+    changed: target.changed?.length ?? 0,
+    deleted: target.deleted?.length ?? 0
+  }
+}
+
+export const getSaveBackups = (appName: string): SaveBackupEntry[] =>
+  listSaveBackups(appName, getBackupRoot())
+
+export const restoreSaveBackupById = ({
+  appName,
+  title,
+  backupId
+}: {
+  appName: string
+  title?: string
+  backupId: string
+}): { status: 'done' | 'error'; error?: string } => {
+  try {
+    const restored = restoreSaveBackup({
+      appName,
+      title,
+      backupId,
+      backupRoot: getBackupRoot()
+    })
+    if (!restored) {
+      return { status: 'error', error: 'Backup not found' }
+    }
+    return { status: 'done' }
+  } catch (error) {
+    return { status: 'error', error: `${error}` }
+  }
 }

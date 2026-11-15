@@ -8,6 +8,7 @@ import type {
   ButtonOptions,
   CloudSyncResult,
   ConnectivityStatus,
+  SaveBackupEntry,
   DialogType,
   DiskSpaceData,
   DMQueueElement,
@@ -313,6 +314,15 @@ interface AsyncIPCFunctions {
     arg: string
   ) => Promise<CloudSyncResult>
   syncSaves: (args: SaveSyncArgs) => Promise<CloudSyncResult>
+  getSaveBackups: (
+    appName: string,
+    runner: Runner
+  ) => Promise<SaveBackupEntry[]>
+  restoreSaveBackup: (
+    appName: string,
+    runner: Runner,
+    backupId: string
+  ) => Promise<{ status: 'done' | 'error'; error?: string }>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>

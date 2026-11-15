@@ -426,6 +426,14 @@ export interface CloudSyncResult {
   output: string
 }
 
+export interface SaveBackupEntry {
+  id: string
+  createdAt: string
+  location: string
+  changed: number
+  deleted: number
+}
+
 export type UserInfo = {
   account_id: string
   displayName: string

@@ -13,7 +13,9 @@ import { join } from 'path'
 import {
   backupSaveLocations,
   getBackupFolderName,
-  getChangedFiles
+  getChangedFiles,
+  listSaveBackups,
+  restoreSaveBackup
 } from '../backup'
 
 jest.mock('../../config', () => ({
@@ -197,5 +199,78 @@ describe('backupSaveLocations with game titles', () => {
 
     expect(existsSync(join(backupRoot, 'Shared'))).toBe(true)
     expect(existsSync(join(backupRoot, 'Shared (appB)'))).toBe(true)
+  })
+})
+
+describe('listSaveBackups and restoreSaveBackup', () => {
+  const pause = () => new Promise((resolve) => setTimeout(resolve, 5))
+
+  test('lists backups newest first and restores an older snapshot', async () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'first')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    await pause()
+    writeFileSync(join(saveDir, 'a.sav'), 'second')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const backups = listSaveBackups('Game', backupRoot)
+    expect(backups).toHaveLength(2)
+    expect(backups[0].createdAt > backups[1].createdAt).toBe(true)
+
+    const restored = restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backups[1].id,
+      backupRoot
+    })
+    expect(restored).toBeTruthy()
+    expect(readFileSync(join(saveDir, 'a.sav'), 'utf-8')).toBe('first')
+  })
+
+  test('restores files that were deleted from the save folder', async () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+    writeFileSync(join(saveDir, 'b.sav'), 'b')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    await pause()
+    rmSync(join(saveDir, 'b.sav'))
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const backups = listSaveBackups('Game', backupRoot)
+    const withDeletion = backups.find((backup) => backup.deleted > 0)
+    expect(withDeletion).toBeTruthy()
+    expect(backups[0].deleted).toBe(1)
+
+    restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backups[1].id,
+      backupRoot
+    })
+    expect(readFileSync(join(saveDir, 'b.sav'), 'utf-8')).toBe('b')
   })
 })

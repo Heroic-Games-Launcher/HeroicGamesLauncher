@@ -7,6 +7,7 @@ import { defaultWineVersion } from '../../util'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
 import SteamSyncSaves from './steam'
+import Backups from './backups'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { getSavePathFingerprint } from 'common/utils'
 
@@ -60,20 +61,23 @@ const SyncSaves = () => {
 
   if (runner === 'legendary') {
     return (
-      <LegendarySyncSaves
-        featureSupported={!!gameInfo?.cloud_save_enabled}
-        savesPath={savesPath}
-        setSavesPath={setSavesPath}
-        autoSyncSaves={autoSyncSaves}
-        setAutoSyncSaves={setAutoSyncSaves}
-        isProton={!isWin && wineVersion.type === 'proton'}
-        winePrefix={winePrefix}
-        savePathFingerprint={savePathFingerprint}
-        savesPathFingerprint={savesPathFingerprint}
-        setSavesPathFingerprint={setSavesPathFingerprint}
-        syncCommands={syncCommands}
-        quickSavesToggle={QuickSavesToggle}
-      />
+      <>
+        <LegendarySyncSaves
+          featureSupported={!!gameInfo?.cloud_save_enabled}
+          savesPath={savesPath}
+          setSavesPath={setSavesPath}
+          autoSyncSaves={autoSyncSaves}
+          setAutoSyncSaves={setAutoSyncSaves}
+          isProton={!isWin && wineVersion.type === 'proton'}
+          winePrefix={winePrefix}
+          savePathFingerprint={savePathFingerprint}
+          savesPathFingerprint={savesPathFingerprint}
+          setSavesPathFingerprint={setSavesPathFingerprint}
+          syncCommands={syncCommands}
+          quickSavesToggle={QuickSavesToggle}
+        />
+        <Backups runner="legendary" />
+      </>
     )
   }
 
@@ -83,19 +87,22 @@ const SyncSaves = () => {
 
   if (runner === 'gog') {
     return (
-      <GOGSyncSaves
-        featureSupported={!!gameInfo?.cloud_save_enabled}
-        isLinuxNative={gameInfo?.install.platform === 'linux'}
-        gogSaves={gogSavesLocations}
-        setGogSaves={setGogSavesLocations}
-        savePathFingerprint={savePathFingerprint}
-        savesPathFingerprint={savesPathFingerprint}
-        setSavesPathFingerprint={setSavesPathFingerprint}
-        autoSyncSaves={autoSyncSaves}
-        setAutoSyncSaves={setAutoSyncSaves}
-        syncCommands={syncCommands}
-        quickSavesToggle={QuickSavesToggle}
-      />
+      <>
+        <GOGSyncSaves
+          featureSupported={!!gameInfo?.cloud_save_enabled}
+          isLinuxNative={gameInfo?.install.platform === 'linux'}
+          gogSaves={gogSavesLocations}
+          setGogSaves={setGogSavesLocations}
+          savePathFingerprint={savePathFingerprint}
+          savesPathFingerprint={savesPathFingerprint}
+          setSavesPathFingerprint={setSavesPathFingerprint}
+          autoSyncSaves={autoSyncSaves}
+          setAutoSyncSaves={setAutoSyncSaves}
+          syncCommands={syncCommands}
+          quickSavesToggle={QuickSavesToggle}
+        />
+        <Backups runner="gog" />
+      </>
     )
   }
 

@@ -102,6 +102,7 @@ import {
   refreshSavePathsIfConfigurationChanged
 } from './save_sync'
 import { getSavePathFingerprint } from './cloud_saves/fingerprint'
+import { getSaveBackups, restoreSaveBackupById } from './cloud_saves/backup'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import { createMainWindow, getMainWindow, isFrameless } from './main_window'
 
@@ -1268,6 +1269,13 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
     .syncSaves(arg, path)
   logInfo(result.output, LogPrefix.Backend)
   return result
+})
+
+addHandler('getSaveBackups', async (event, appName) => getSaveBackups(appName))
+
+addHandler('restoreSaveBackup', async (event, appName, runner, backupId) => {
+  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
+  return restoreSaveBackupById({ appName, title, backupId })
 })
 
 addHandler(
