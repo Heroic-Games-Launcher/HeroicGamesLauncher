@@ -859,7 +859,7 @@ body.forest {
 body.cyberpunk {
   --accent: #00f0ff;
   --accent-overlay: #33f5ff;
-  --navbar-accent: #ff00ff;
+  --navbar-accent: #f8f006;
   --on-nav-accent: #f8f006;
   --card-hover-accent: #ff00ff;
   --border-brand: #00f0ff;
@@ -869,15 +869,17 @@ body.cyberpunk {
     transparent
   );
   --sidebar-hover-text-color: #f8f006;
-  --accent-icon: #00f0ff;
-  --background: #0a0a14;
-  --body-background: #0f0e1c;
-  --background-darker: #0a0a14;
-  --panel-glass: color-mix(in srgb, #1a1a2e 85%, transparent);
-  --panel-background: color-mix(in srgb, #1a1a2e 92%, transparent);
+  --accent-icon: #f8f006;
+  --icon-neutral: #f8f006;
+  --icon-neutral-muted: #f8f006;
+  --background: #0f1438;
+  --body-background: #1a1f4a;
+  --background-darker: #0f1438;
+  --panel-glass: color-mix(in srgb, #1a1f4a 85%, transparent);
+  --panel-background: color-mix(in srgb, #1a1f4a 92%, transparent);
   --current-background: var(--body-background);
-  --navbar-background: #1a1a2e;
-  --navbar-active-background: #2a2a4a;
+  --navbar-background: #1a1f4a;
+  --navbar-active-background: #2a2f6a;
   --on-nav-muted: #e0e0ff;
   --gradient-body-background: linear-gradient(
     90deg,
@@ -886,9 +888,9 @@ body.cyberpunk {
     var(--body-background) 100%
   );
   --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #ff00ff 100%);
-  --input-background: #1a1a2e;
+  --input-background: #2a2f6a;
   --modal-background: var(--body-background);
-  --modal-border: #3a3a6a;
+  --modal-border: #3a3f8a;
   --primary: #ff00ff;
   --primary-hover: #ff33ff;
   --success: #00ff9f;
@@ -899,19 +901,19 @@ body.cyberpunk {
   --status-warning-hover: #faf633;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
-  --osk-button-border: #3a3a6a;
-  --action-icon: var(--text-default);
+  --osk-button-border: #3a3f8a;
+  --action-icon: #f8f006;
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--accent);
-  --primary-button: #ff00ff;
-  --secondary-button: #00f0ff;
+  --primary-button: #f8f006;
+  --secondary-button: #f8f006;
   --success-button: #00ff9f;
-  --icons-background: #0a0a14;
+  --icons-background: #0f1438;
 
   .Chip--active {
     background: var(--accent);
     border-color: var(--accent);
-    color: #0a0a14;
+    color: #0f1438;
   }
 
   .Button--secondary:hover:not(:disabled),
@@ -988,7 +990,7 @@ body.forest {
 }
 
 body.cyberpunk {
-  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #ff00ff 100%);
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #f8f006 100%);
 }
 
 body.onePiece {
