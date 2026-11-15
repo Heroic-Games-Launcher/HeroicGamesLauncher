@@ -27,6 +27,7 @@ jest.mock('../../config', () => ({
 }))
 jest.mock('backend/logger', () => ({
   logInfo: jest.fn(),
+  logWarning: jest.fn(),
   LogPrefix: { Backend: 'Backend' }
 }))
 
@@ -307,6 +308,21 @@ describe('backup retention', () => {
       backupRoot
     })
     expect(readFileSync(join(saveDir, 'a.sav'), 'utf-8')).toBe('b'.repeat(400))
+  })
+
+  test('keeps the newest snapshot even when it exceeds the limit', () => {
+    const saveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a'.repeat(400))
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot,
+      maxBytes: 100
+    })
+
+    expect(listSaveBackups('Game', backupRoot)).toHaveLength(1)
   })
 
   test('carries unchanged files into the next snapshot when pruning', () => {

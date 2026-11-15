@@ -121,6 +121,7 @@ export interface AppSettings extends GameSettings {
   altAureliaBin: string
   autoUpdateGames: boolean
   backupSaves: boolean
+  maxSaveBackupSize: number
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
   customCSS: string

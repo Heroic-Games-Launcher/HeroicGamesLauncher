@@ -33,7 +33,7 @@ const toPosixPath = (path: string) => path.split(sep).join('/')
 
 const INVALID_FILENAME_CHARS = /[<>:"/\\|?*\p{Cc}]/gu
 
-const MAX_BACKUP_BYTES = 1024 * 1024 * 1024
+const GIGABYTE = 1024 * 1024 * 1024
 
 export const getBackupFolderName = (
   title: string | undefined,
@@ -170,8 +170,22 @@ const pruneBackups = (appBackupRoot: string, maxBytes: number) => {
   let total = sumStoredSaveSize(appBackupRoot)
   let snapshots = appSnapshots(appBackupRoot)
 
-  while (total > maxBytes && snapshots.length) {
-    const target = snapshots[0]
+  while (total > maxBytes) {
+    const locationCounts = new Map<string, number>()
+    for (const snapshot of snapshots) {
+      locationCounts.set(
+        snapshot.locationDir,
+        (locationCounts.get(snapshot.locationDir) ?? 0) + 1
+      )
+    }
+
+    const target = snapshots.find(
+      (snapshot) => (locationCounts.get(snapshot.locationDir) ?? 0) > 1
+    )
+    if (!target) {
+      break
+    }
+
     const locationSnapshots = snapshots.filter(
       (snapshot) => snapshot.locationDir === target.locationDir
     )
@@ -210,7 +224,7 @@ export const backupSaveLocations = ({
   title,
   locations,
   backupRoot,
-  maxBytes = MAX_BACKUP_BYTES
+  maxBytes = GIGABYTE
 }: {
   appName: string
   title?: string
@@ -315,16 +329,21 @@ export const backupSaveLocations = ({
 export const backupSaves = ({
   appName,
   title,
-  locations
+  locations,
+  force = false
 }: {
   appName: string
   title?: string
   runner: Runner
   locations: string[]
+  force?: boolean
 }): void => {
-  const { backupSaves: enabled, defaultInstallPath } =
-    GlobalConfig.get().getSettings()
-  if (!enabled) {
+  const {
+    backupSaves: enabled,
+    maxSaveBackupSize,
+    defaultInstallPath
+  } = GlobalConfig.get().getSettings()
+  if (!enabled && !force) {
     return
   }
 
@@ -332,7 +351,8 @@ export const backupSaves = ({
     appName,
     title,
     locations,
-    backupRoot: join(defaultInstallPath, 'Saves_Backup')
+    backupRoot: join(defaultInstallPath, 'Saves_Backup'),
+    maxBytes: Math.max(maxSaveBackupSize || 1, 1) * GIGABYTE
   })
 }
 

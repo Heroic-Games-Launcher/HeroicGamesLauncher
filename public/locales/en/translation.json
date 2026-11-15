@@ -997,6 +997,7 @@
         "backupSaves": "Back up saves on every sync",
         "backupSaves-description": "Store a backup of changed save files on every sync",
         "backups": "Save backups",
+        "maxSaveBackupSize": "Backup size limit",
         "backups-open-folder": "Open backups folder",
         "backups-restore": "Restore save backup",
         "backups-restore-button": "Restore",
