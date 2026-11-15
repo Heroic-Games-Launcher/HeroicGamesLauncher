@@ -4,6 +4,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { SectionHeader } from 'frontend/components/UI'
+import LibraryContext from '../../LibraryContext'
 import { countGames } from 'frontend/helpers/library'
 import { configStore } from 'frontend/helpers/electronStores'
 
@@ -43,6 +44,7 @@ export default memo(function RecentlyPlayed({
   const { t } = useTranslation()
   const { epic, gog, sideloadedLibrary, amazon, zoom, itchio, steam } =
     useContext(ContextProvider)
+  const { layout } = useContext(LibraryContext)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const hiddenGames = useContext(ContextProvider).hiddenGames
@@ -122,6 +124,7 @@ export default memo(function RecentlyPlayed({
       />
       <GamesList
         library={recentGames}
+        layout={layout}
         isFirstLane
         handleGameCardClick={handleModal}
         onlyInstalled={onlyInstalled}
