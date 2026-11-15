@@ -81,6 +81,7 @@ export default React.memo(function Library(): JSX.Element {
   )
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
+  const [hasRecentGames, setHasRecentGames] = useState(false)
   const handleLayout = (layout: string) => {
     storage.setItem('layout', layout)
     setLayout(layout)
@@ -751,6 +752,7 @@ export default React.memo(function Library(): JSX.Element {
             handleModal={handleModal}
             onlyInstalled={libraryTopSection.endsWith('installed')}
             showHidden={showHidden}
+            onRecentGamesChange={setHasRecentGames}
           />
         )}
 
@@ -790,10 +792,12 @@ export default React.memo(function Library(): JSX.Element {
               defaultValue_other: '{{count}} games'
             })}
             actions={
-              <>
-                <ConsoleModeButton data-tour="library-console-mode" />
-                <AddGameButton data-tour="library-add-game" />
-              </>
+              hasRecentGames ? undefined : (
+                <>
+                  <ConsoleModeButton data-tour="library-console-mode" />
+                  <AddGameButton data-tour="library-add-game" />
+                </>
+              )
             }
           />
         )}
