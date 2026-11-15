@@ -4,6 +4,7 @@ import type { GameInfo } from 'common/types'
 import type { SteamCloudSyncStatus } from 'common/types/steam'
 
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import Tooltip from '../Tooltip'
 import { CLOUD_SYNC_ICONS, issueLevel, useCloudSyncStateLabels } from './state'
 import './index.css'
 
@@ -61,23 +62,24 @@ export default function CloudSyncStatus({ gameInfo, className }: Props) {
   const level = issueLevel(status.state)
 
   return (
-    <button
-      type="button"
-      className={`cloudSyncStatusButton state-${status.state}${
-        className ? ` ${className}` : ''
-      }`}
-      title={labels[status.state]}
-      aria-label={labels[status.state]}
-      onClick={openSettings}
-    >
-      <Icon />
-      {level !== 'none' && (
-        <span
-          className={`cloudSyncStatusDot${
-            level === 'warning' ? ' warning' : ''
-          }`}
-        />
-      )}
-    </button>
+    <Tooltip content={labels[status.state]} asChild>
+      <button
+        type="button"
+        className={`cloudSyncStatusButton state-${status.state}${
+          className ? ` ${className}` : ''
+        }`}
+        aria-label={labels[status.state]}
+        onClick={openSettings}
+      >
+        <Icon />
+        {level !== 'none' && (
+          <span
+            className={`cloudSyncStatusDot${
+              level === 'warning' ? ' warning' : ''
+            }`}
+          />
+        )}
+      </button>
+    </Tooltip>
   )
 }

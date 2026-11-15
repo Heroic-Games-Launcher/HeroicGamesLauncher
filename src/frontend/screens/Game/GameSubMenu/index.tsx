@@ -309,8 +309,8 @@ export default function GamesSubmenu({
             <>
               <MenuItem glyph={Pencil} onClick={async () => handleEdit()}>
                 {isSideloaded
-                  ? t('button.sideload.edit', 'Edit App/Game')
-                  : t('button.edit-game', 'Edit Game')}
+                  ? t('button.sideload.edit', 'Edit app/game')
+                  : t('button.edit-game', 'Edit game')}
               </MenuItem>{' '}
               <MenuItem glyph={ExternalLink} onClick={() => handleShortcuts()}>
                 {hasShortcuts
@@ -330,7 +330,7 @@ export default function GamesSubmenu({
                   onClick={async () => handleUpdate()}
                   disabled={disableUpdate}
                 >
-                  {t('button.force_update', 'Force Update if Available')}
+                  {t('button.force_update', 'Force update if available')}
                 </MenuItem>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
@@ -338,7 +338,7 @@ export default function GamesSubmenu({
                   glyph={HardDriveDownload}
                   onClick={async () => handleMoveInstall()}
                 >
-                  {t('submenu.move', 'Move Game')}
+                  {t('submenu.move', 'Move game')}
                 </MenuItem>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
@@ -346,7 +346,7 @@ export default function GamesSubmenu({
                   glyph={FileSearch}
                   onClick={async () => handleChangeInstall()}
                 >
-                  {t('submenu.change', 'Change Install Location')}
+                  {t('submenu.change', 'Change install path')}
                 </MenuItem>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
@@ -354,7 +354,7 @@ export default function GamesSubmenu({
                   glyph={CircleCheck}
                   onClick={async () => handleRepair(appName)}
                 >
-                  {t('submenu.verify', 'Verify and Repair')}
+                  {t('submenu.verify', 'Verify and repair')}
                 </MenuItem>
               )}{' '}
               {isLinux &&
@@ -364,8 +364,8 @@ export default function GamesSubmenu({
                 ) : (
                   <MenuItem glyph={PictureInPicture} onClick={handleEosOverlay}>
                     {eosOverlayEnabled
-                      ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
-                      : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
+                      ? t('submenu.disableEosOverlay', 'Disable EOS overlay')
+                      : t('submenu.enableEosOverlay', 'Enable EOS overlay')}
                   </MenuItem>
                 ))}
             </>
@@ -407,7 +407,7 @@ export default function GamesSubmenu({
           )}
           {!isSideloaded && !!changelog?.length && (
             <MenuItem glyph={Info} onClick={() => handleChangeLog()}>
-              {t('button.changelog', 'Show Changelog')}
+              {t('button.changelog', 'Show changelog')}
             </MenuItem>
           )}{' '}
           {!isSideloaded && isLinux && (
@@ -419,7 +419,7 @@ export default function GamesSubmenu({
               }
               onClick={() => createNewWindow(protonDBurl)}
             >
-              {t('submenu.protondb', 'Check Compatibility')}
+              {t('submenu.protondb', 'Check compatibility')}
             </MenuItem>
           )}
           {onShowRequirements && (
@@ -427,7 +427,7 @@ export default function GamesSubmenu({
               glyph={MonitorX}
               onClick={async () => onShowRequirements()}
             >
-              {t('game.requirements', 'Requirements')}
+              {t('game.requirements', 'System requirements')}
             </MenuItem>
           )}
           {showModifyItem && (
@@ -440,12 +440,12 @@ export default function GamesSubmenu({
           )}
           {isInstalled && (
             <MenuItem glyph={FolderOpen} onClick={async () => onBrowseFiles()}>
-              {t('button.browse_files', 'Browse Files')}
+              {t('button.browse_files', 'Browse files')}
             </MenuItem>
           )}
           {hasWine && (
             <MenuItem glyph={Wine} onClick={async () => onBrowsePrefix()}>
-              {t('button.browse_wine_prefix', 'Browse Wine Prefix')}
+              {t('button.browse_wine_prefix', 'Browse Wine prefix')}
             </MenuItem>
           )}
         </div>

@@ -44,7 +44,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   if (installPlatform === 'Browser') {
     items.push({
       glyph: MonitorPlay,
-      label: t('info.installedPlatform', 'Installed Platform'),
+      label: t('info.installedPlatform', 'Installed platform'),
       value: installPlatform
     })
 
@@ -70,7 +70,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
 
   items.push({
     glyph: MonitorPlay,
-    label: t('info.installedPlatform', 'Installed Platform'),
+    label: t('info.installedPlatform', 'Installed platform'),
     value: installPlatform === 'osx' ? 'macOS' : installPlatform
   })
 

@@ -115,12 +115,19 @@
   gap: 8px;
 }
 
+.gamePage__badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .gameActions {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  margin-block-start: 0;
+  margin-block-start: var(--space-sm-fixed);
 }
 
 .gameActions .playButtons,
@@ -162,6 +169,10 @@
 
 .gameActions__update {
   position: relative;
+}
+
+.gameActions__update svg {
+  color: var(--success, var(--status-success));
 }
 
 .gameActions__update::after {
@@ -217,6 +228,8 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  container-type: inline-size;
+  container-name: gameScores;
 }
 
 .gameScores__title {
@@ -239,6 +252,18 @@
   content: '·';
   margin-inline-start: 20px;
   color: var(--text-faint, var(--text-secondary));
+}
+
+@container gameScores (max-width: 380px) {
+  .gameScores__list {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .gameScores__list > *:not(:last-child)::after {
+    content: none;
+    margin-inline-start: 0;
+  }
 }
 
 .gamePage__tabs {

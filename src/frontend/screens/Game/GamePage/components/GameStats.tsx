@@ -43,7 +43,7 @@ const GameStats = ({ gameInfo }: Props) => {
   const firstPlayedDate = firstPlayed ? new Date(firstPlayed) : null
   const firstPlayedTitle =
     firstPlayedDate && !Number.isNaN(firstPlayedDate.getTime())
-      ? `${t('game.firstPlayed', 'First Played')}: ${new Intl.DateTimeFormat(
+      ? `${t('game.firstPlayed', 'First played')}: ${new Intl.DateTimeFormat(
           locale,
           { dateStyle: 'medium' }
         ).format(firstPlayedDate)}`
@@ -53,13 +53,13 @@ const GameStats = ({ gameInfo }: Props) => {
     <div className="gameStats">
       <StatCard
         glyph={Clock}
-        label={t('game.totalPlayed', 'Time Played')}
+        label={t('game.totalPlayed', 'Time played')}
         value={t('game.hoursPlayedShort', '{{hours}} hours', { hours })}
         title={firstPlayedTitle}
       />
       <StatCard
         glyph={MonitorPlay}
-        label={t('game.lastPlayed', 'Last Played')}
+        label={t('game.lastPlayed', 'Last played')}
         value={
           lastPlayedDate && !Number.isNaN(lastPlayedDate.getTime())
             ? formatRelative(lastPlayedDate, locale)

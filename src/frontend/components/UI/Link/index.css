@@ -1,0 +1,23 @@
+.Link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs-fixed);
+  color: var(--text-brand);
+  font-weight: var(--semibold);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.Link__label {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.Link:hover {
+  color: var(--on-panel-link);
+}
+
+.Link__icon {
+  flex-shrink: 0;
+}

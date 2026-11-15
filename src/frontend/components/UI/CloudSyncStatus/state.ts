@@ -1,26 +1,26 @@
 import { useTranslation } from 'react-i18next'
 import {
-  Autorenew,
-  CloudDone,
+  Cloud,
+  CloudAlert,
+  CloudCheck,
   CloudOff,
-  CloudQueue,
-  SyncProblem
-} from '@mui/icons-material'
+  RefreshCw
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
 import type { SteamCloudSyncState } from 'common/types/steam'
 
 /** Icon shown for each sync outcome, in the library and in the modal. */
-export const CLOUD_SYNC_ICONS: Record<SteamCloudSyncState, typeof CloudQueue> =
-  {
-    unknown: CloudQueue,
-    ok: CloudDone,
-    // A plain circling arrow — a spinning cloud reads as odd. Arrows point
-    // clockwise to match the spin direction.
-    syncing: Autorenew,
-    conflicts: SyncProblem,
-    incomplete: SyncProblem,
-    failed: CloudOff
-  }
+export const CLOUD_SYNC_ICONS: Record<SteamCloudSyncState, LucideIcon> = {
+  unknown: Cloud,
+  ok: CloudCheck,
+  // A plain circling arrow — a spinning cloud reads as odd. Arrows point
+  // clockwise to match the spin direction.
+  syncing: RefreshCw,
+  conflicts: CloudAlert,
+  incomplete: CloudAlert,
+  failed: CloudOff
+}
 
 /** States that warrant the attention dot. */
 export function issueLevel(

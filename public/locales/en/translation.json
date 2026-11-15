@@ -545,6 +545,7 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
+            "status": "Status",
             "type": "Type"
         },
         "title": "Downloads"
@@ -753,13 +754,21 @@
         "description_itchio": "Discover and play indie games from itch.io.",
         "description_steam": "Buy and play games from Steam.",
         "description_zoom": "Buy and play DRM free games from Zoom Platform.",
-        "gog_support": "GOG affiliate links are disabled. Enable them to help support Heroic when you buy games here.",
+        "gog_affiliate": {
+            "activate": "Activate now",
+            "confirm": {
+                "message": "Heroic will use affiliate links when you buy games from GOG, which helps fund development at no extra cost to you. You can turn this off anytime in the advanced settings.",
+                "title": "Enable GOG affiliate links?"
+            }
+        },
+        "gog_support": "Enable GOG affiliate links to help support Heroic.",
+        "logged_in": "Logged in",
         "logged_in_as": "Logged in as",
         "logout_confirm": {
             "message": "Are you sure you want to log out of {{store}}?",
             "title": "Log out?"
         },
-        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "message": "Log in to any store where you have an active account to see all your games in your Library. You can be logged in to all of them at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
         "title_amazon": "Amazon Games",
         "title_epic": "Epic Games",
@@ -1470,7 +1479,7 @@
             "sponsor": "Sponsor",
             "tip": "One-time tip"
         },
-        "title": "Support Us"
+        "title": "Support us"
     },
     "title": {
         "allGames": "All games"

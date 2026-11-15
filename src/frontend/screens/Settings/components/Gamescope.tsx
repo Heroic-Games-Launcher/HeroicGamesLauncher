@@ -1,6 +1,7 @@
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
+  Alert,
   SelectField,
   TextInputField,
   ToggleSwitch,
@@ -77,7 +78,7 @@ const Gamescope = () => {
 
   if (!isInstalled) {
     return (
-      <div style={{ color: 'red' }}>
+      <Alert variant="error">
         {window.isFlatpak
           ? t(
               'setting.gamescope.warningFlatpak',
@@ -88,7 +89,7 @@ const Gamescope = () => {
               'setting.gamescope.missingMsg',
               'We could not find gamescope on the PATH. Install it or add it to the PATH.'
             )}
-      </div>
+      </Alert>
     )
   }
 

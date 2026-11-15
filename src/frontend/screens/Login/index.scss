@@ -12,7 +12,7 @@
 .storeCardGrid,
 .storesPage .disabledMessage {
   width: 100%;
-  max-width: 1040px;
+  max-width: 1200px;
 }
 
 .storesPage__hero {
@@ -45,8 +45,8 @@
 
 .storeCardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-md-fixed);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg-fixed);
 }
 
 .storesPage .disabledMessage {

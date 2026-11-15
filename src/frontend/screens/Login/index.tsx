@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import { useTranslation } from 'react-i18next'
 
-import { Alert, UpdateComponent } from '../../components/UI'
+import { Alert, Button, UpdateComponent } from '../../components/UI'
 import StoreCard from './components/StoreCard'
 import SIDLogin from './components/SIDLogin'
 import ItchioLogin from './components/ItchioLogin'
@@ -10,6 +10,7 @@ import SteamLogin from './components/SteamLogin'
 import ContextProvider from '../../state/ContextProvider'
 import { useAwaited } from '../../hooks/useAwaited'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import useSetting from 'frontend/hooks/useSetting'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
@@ -18,9 +19,44 @@ export const zoomLoginPath = '/loginweb/zoom'
 export const itchioLoginPath = '/loginweb/itchio'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, zoom, itchio, steam, disableGOGAffiliate } =
-    useContext(ContextProvider)
+  const {
+    epic,
+    gog,
+    amazon,
+    zoom,
+    itchio,
+    steam,
+    disableGOGAffiliate,
+    setDisableGOGAffiliate,
+    showDialogModal
+  } = useContext(ContextProvider)
   const { t } = useTranslation()
+
+  const [, setEnableGOGAffiliate] = useSetting('enableGOGAffiliate', false)
+
+  const handleActivateGOGAffiliate = () => {
+    showDialogModal({
+      title: t(
+        'login.gog_affiliate.confirm.title',
+        'Enable GOG affiliate links?'
+      ),
+      message: t(
+        'login.gog_affiliate.confirm.message',
+        'Heroic will use affiliate links when you buy games from GOG, which helps fund development at no extra cost to you. You can turn this off anytime in the advanced settings.'
+      ),
+      buttons: [
+        {
+          text: t('box.yes', 'Yes'),
+          onClick: () => {
+            setEnableGOGAffiliate(true)
+            setDisableGOGAffiliate(false)
+          }
+        },
+        { text: t('box.no', 'No') }
+      ],
+      type: 'MESSAGE'
+    })
+  }
 
   hasHelp(
     'login',
@@ -116,7 +152,7 @@ export default React.memo(function NewLogin() {
         <p className="storesPage__subtitle">
           {t(
             'login.message',
-            'Login with your platform. You can login to more than one platform at the same time.'
+            'Log in to any store where you have an active account to see all your games in your Library. You can be logged in to all of them at the same time.'
           )}
         </p>
       </header>
@@ -139,10 +175,22 @@ export default React.memo(function NewLogin() {
           logout={gog.logout}
           notice={
             disableGOGAffiliate ? (
-              <Alert variant="info">
+              <Alert
+                variant="info"
+                actionsPlacement="block"
+                actions={
+                  <Button
+                    variant="link"
+                    size="sm"
+                    onClick={handleActivateGOGAffiliate}
+                  >
+                    {t('login.gog_affiliate.activate', 'Activate now')}
+                  </Button>
+                }
+              >
                 {t(
                   'login.gog_support',
-                  'GOG affiliate links are disabled. Enable them to help support Heroic when you buy games here.'
+                  'Enable GOG affiliate links to help support Heroic.'
                 )}
               </Alert>
             ) : undefined
@@ -165,54 +213,6 @@ export default React.memo(function NewLogin() {
           alternativeLoginAction={() => setShowSidLogin(true)}
           disabled={oldMac}
         />
-        <StoreCard
-          storeKey="nile"
-          runner="nile"
-          title={t('login.title_amazon', 'Amazon Games')}
-          description={t(
-            'login.description_amazon',
-            'Claim and play games with Amazon Prime Gaming.'
-          )}
-          isLoggedIn={isAmazonLoggedIn}
-          user={amazon.username || 'Unknown'}
-          loginUrl={amazonLoginPath}
-          storeRoute="/store/amazon"
-          logout={amazon.logout}
-          disabled={oldMac}
-        />
-        <StoreCard
-          storeKey="itchio"
-          runner="itchio"
-          title={t('login.title_itchio', 'itch.io')}
-          description={t(
-            'login.description_itchio',
-            'Discover and play indie games from itch.io.'
-          )}
-          isLoggedIn={isItchioLoggedIn}
-          user={itchio.username || 'Unknown'}
-          loginUrl={itchioLoginPath}
-          storeRoute="/store/itchio"
-          logout={itchio.logout}
-          alternativeLoginAction={() => setShowItchioLogin(true)}
-          disabled={oldMac}
-        />
-        {zoom.enabled && (
-          <StoreCard
-            storeKey="zoom"
-            runner="zoom"
-            title={t('login.title_zoom', 'Zoom Platform')}
-            description={t(
-              'login.description_zoom',
-              'Buy and play DRM free games from Zoom Platform.'
-            )}
-            isLoggedIn={isZoomLoggedIn}
-            user={zoom.username}
-            loginUrl={zoomLoginPath}
-            storeRoute="/store/zoom"
-            logout={zoom.logout}
-            disabled={oldMac}
-          />
-        )}
         {steam.enabled && (
           <StoreCard
             storeKey="steam"
@@ -231,6 +231,54 @@ export default React.memo(function NewLogin() {
                 : steam.logout
             }
             loginAction={() => setShowSteamLogin(true)}
+            disabled={oldMac}
+          />
+        )}
+        <StoreCard
+          storeKey="itchio"
+          runner="itchio"
+          title={t('login.title_itchio', 'itch.io')}
+          description={t(
+            'login.description_itchio',
+            'Discover and play indie games from itch.io.'
+          )}
+          isLoggedIn={isItchioLoggedIn}
+          user={itchio.username || 'Unknown'}
+          loginUrl={itchioLoginPath}
+          storeRoute="/store/itchio"
+          logout={itchio.logout}
+          alternativeLoginAction={() => setShowItchioLogin(true)}
+          disabled={oldMac}
+        />
+        <StoreCard
+          storeKey="nile"
+          runner="nile"
+          title={t('login.title_amazon', 'Amazon Games')}
+          description={t(
+            'login.description_amazon',
+            'Claim and play games with Amazon Prime Gaming.'
+          )}
+          isLoggedIn={isAmazonLoggedIn}
+          user={amazon.username || 'Unknown'}
+          loginUrl={amazonLoginPath}
+          storeRoute="/store/amazon"
+          logout={amazon.logout}
+          disabled={oldMac}
+        />
+        {zoom.enabled && (
+          <StoreCard
+            storeKey="zoom"
+            runner="zoom"
+            title={t('login.title_zoom', 'Zoom Platform')}
+            description={t(
+              'login.description_zoom',
+              'Buy and play DRM free games from Zoom Platform.'
+            )}
+            isLoggedIn={isZoomLoggedIn}
+            user={zoom.username}
+            loginUrl={zoomLoginPath}
+            storeRoute="/store/zoom"
+            logout={zoom.logout}
             disabled={oldMac}
           />
         )}

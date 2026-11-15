@@ -190,7 +190,7 @@ export default function SidebarLinks() {
               fill="url(#heroicSupportGradient)"
             />
           }
-          label={t('support.title', 'Support Us')}
+          label={t('support.title', 'Support us')}
           dataTour="sidebar-support"
         />
       </div>
