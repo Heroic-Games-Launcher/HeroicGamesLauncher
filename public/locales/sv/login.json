@@ -6,7 +6,8 @@
         "copied": "Kopierat!",
         "loading": "Laddar",
         "error": "Fel, försök med en annan kod",
-        "close": "Stäng"
+        "close": "Stäng",
+        "itchio_error": "Fel, prova en annan API-nyckel"
     },
     "message": {
         "part1": "För att logga in och installera spel behöver du först följa stegen nedan:",
@@ -22,5 +23,43 @@
         "error": "Problem",
         "loading": "Laddar spellistan, vänligen vänta"
     },
-    "welcome": "Välkommen!"
+    "welcome": "Välkommen!",
+    "itchio": {
+        "paste_and_login": "Klistra in från urklipp och logga in",
+        "api_key_placeholder": "Klistra in din API-nyckel",
+        "instructions": "Om den vanliga inloggningen till itch.io inte fungerar kan du ansluta med en personlig API-nyckel i stället. Gå till sidan för itch.io API-nycklar, skapa en nyckel och klistra in den nedan."
+    },
+    "sid": {
+        "paste_and_login": "Klistra in från urklipp och logga in",
+        "placeholder": "Klistra in SID-koden här"
+    },
+    "steam": {
+        "accountName": "Logga in med kontonamn",
+        "error": "Inloggningen misslyckades. Kontrollera dina inloggningsuppgifter och Steam Guard-kod.",
+        "guard": {
+            "device": "Ange din Steam Guard-kod",
+            "deviceConfirmation": "Godkänn den här inloggningen i Steam Mobile-appen.",
+            "email": "Ange koden som skickades till din e-post",
+            "placeholder": "Steam Guard-kod"
+        },
+        "notice": {
+            "agree": "Jag godkänner",
+            "text": "Steam-klienten måste vara installerad för att använda den här funktionen.\n\nSteam-stödet är nytt, så vissa spel kanske inte startar, inklusive spel från Valve som Half-Life 2.\n\nOnlinespel kan behöva att Steam-klienten körs, och spel med anti-cheat fungerar sannolikt inte.\n\nRapportera gärna problem på Discord eller GitHub.",
+            "title": "Observera"
+        },
+        "password": "Lösenord",
+        "qr": {
+            "caption": "Använd Steam Mobile-appen för att logga in via QR",
+            "denied": "Inloggningen nekades i Steam Mobile-appen.",
+            "error": "QR-inloggningen misslyckades. Försök igen.",
+            "expired": "QR-koden gick ut innan den godkändes. Försök igen.",
+            "offline": "Det gick inte att nå Steam. Kontrollera internetanslutningen.",
+            "scanned": "Skannad – godkänn inloggningen i Steam Mobile-appen.",
+            "title": "Eller logga in med QR"
+        },
+        "signingIn": "Loggar in…",
+        "submitCode": "Skicka kod",
+        "username": "Användarnamn",
+        "welcome": "Logga in på Steam"
+    }
 }
