@@ -6,21 +6,60 @@
         "copied": "Kopyalandı!",
         "error": "Hata, farklı bir Kod deneyin",
         "loading": "Yükleniyor",
-        "close": "Kapat"
+        "close": "Kapat",
+        "itchio_error": "Hata, başka bir API anahtarı deneyin"
     },
     "message": {
         "part1": "Oturum açıp oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
-        "part2": "Aç",
-        "part3": "Epic Store burada",
-        "part4": "açın, hesabınıza giriş yapın ve",
-        "part5": "yetkilendirme kodu bilgi numarası",
-        "part6": "yapıştırın",
-        "part7": "yetkilendirme kodu numarası",
-        "part8": "yapıştırın ve oturum aç düğmesine tıklayın."
+        "part2": "Buradan",
+        "part3": "Epic Store'u açın",
+        "part4": ", hesabınıza giriş yapın ve",
+        "part5": "yetkilendirme kodunuzu kopyalayın",
+        "part6": "Kopyaladığınız",
+        "part7": "yetkilendirme kodunu",
+        "part8": "aşağıdaki kutuya yapıştırın ve Oturum Aç düğmesine tıklayın."
     },
     "status": {
         "error": "Hata",
         "loading": "Oyun listesi yükleniyor, lütfen bekleyin"
     },
-    "welcome": "Hoş Geldiniz!"
+    "welcome": "Hoş Geldiniz!",
+    "itchio": {
+        "api_key_placeholder": "API anahtarını yapıştır",
+        "instructions": "Eğer normal itch.io giriş yapma çalışmıyorsa, bir kişisel API anahtarı ile de bağlanabilirsin. itch.io'da API anahtarları sayfasından anahtar oluşturduktan sonra aşağıya yapıştır.",
+        "paste_and_login": "Panodan yapıştır ve giriş yap"
+    },
+    "sid": {
+        "paste_and_login": "Panodan yapıştır ve giriş yap",
+        "placeholder": "SID kodunu buraya yapıştır"
+    },
+    "steam": {
+        "accountName": "Hesap adıyla oturum aç",
+        "error": "Oturum açılamadı. Kimlik bilgilerinizi ve Steam Guard kodunuzu kontrol edin.",
+        "guard": {
+            "device": "Steam Guard kodunuzu girin",
+            "deviceConfirmation": "Bu oturum açma isteğini Steam Mobil uygulamanızdan onaylayın.",
+            "email": "E-postanıza gönderilen kodu girin",
+            "placeholder": "Steam Guard kodu"
+        },
+        "notice": {
+            "agree": "Kabul Ediyorum",
+            "text": "Bu özelliği kullanmak için Steam istemcisinin kurulu olması gerekir.\n\nSteam desteği yeni olduğundan Half-Life 2 gibi Valve yapımı oyunlar dahil bazı oyunlar başlamayabilir.\n\nÇevrim içi oyunlar için Steam istemcisinin çalışıyor olması gerekebilir. Hile korumalı oyunlar ise büyük olasılıkla çalışmaz.\n\nLütfen sorunları Discord veya GitHub üzerinden bildirin.",
+            "title": "Dikkat"
+        },
+        "password": "Şifre",
+        "qr": {
+            "caption": "QR ile oturum açmak için Steam Mobil uygulamasını kullanın",
+            "denied": "Oturum açma isteği Steam Mobil uygulamasında reddedildi.",
+            "error": "QR ile oturum açılamadı. Lütfen yeniden deneyin.",
+            "expired": "QR kodunun süresi onaylanmadan doldu. Lütfen yeniden deneyin.",
+            "offline": "Steam'e ulaşılamadı. İnternet bağlantınızı kontrol edin.",
+            "scanned": "Tarandı. Oturum açma isteğini Steam Mobil uygulamanızdan onaylayın.",
+            "title": "Ya da QR ile oturum açın"
+        },
+        "signingIn": "Oturum açılıyor…",
+        "submitCode": "Kodu gönder",
+        "username": "Kullanıcı adı",
+        "welcome": "Steam'de oturum açın"
+    }
 }

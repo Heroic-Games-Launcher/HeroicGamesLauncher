@@ -5,27 +5,31 @@
         "content_font_family_no_default": "İçerik Yazı Tipi Ailesi (Öntanımlı: ",
         "fonts": "Yazı Tipleri",
         "title": "Erişilebilirlik",
-        "zoom": "Yakınlaştır",
-        "disable_dialog_backdrop_close": "Dışarı tıklayarak diyalog penceresini kapatmayı devre dışı bırakın",
+        "zoom": "Yakınlaştırma",
+        "disable_dialog_backdrop_close": "Dışarı tıklanınca iletişim kutularının kapanmasını devre dışı bırak",
         "titles_always_visible": "Kütüphanede her zaman başlıkları göster",
         "content_font_family_default": "İçerik Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
         "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
         "disable_smooth_scrolling": "Yumuşak kaydırmayı devre dışı bırak (yeniden başlatma gerekir)",
         "disable_animations": "Arayüz animasyonlarını devre dışı bırak",
         "section": {
-            "library": "Kütüphane"
-        }
+            "library": "Kütüphane",
+            "motion": "Hareket ve etkileşim",
+            "appearance": "Görünüm"
+        },
+        "subtitle": "Heroic'in görünümünü ve davranışını ayarlayın"
     },
     "add_game": "Oyun Ekle",
     "All": "Tümü",
     "anticheat": {
-        "anticheats": "Hile engelleyiciler",
+        "anticheats": "Anti-hile yazılımları",
         "may_not_work": "Anti hile desteği reddedildiği veya bozulduğu için çalışmayabilir.",
         "reference": "Referans",
         "source": "Kaynak",
         "status": "Durum",
-        "title": "Bu oyun hile önleyici yazılım içerir",
-        "multiplayer_may_not_work": "Hile önleme desteği bozuk olduğu veya reddedildiği için çoklu-oyuncu özellikleri çalışmayabilir."
+        "title": "Bu oyun anti-hile yazılımı içerir",
+        "multiplayer_may_not_work": "Anti-hile desteği reddedildiği veya bozuk olduğu için çok oyunculu özellikler çalışmayabilir.",
+        "removed": "Anti-hile kaldırıldı"
     },
     "box": {
         "cache-cleared": {
@@ -33,11 +37,11 @@
             "title": "Önbellek temizlendi"
         },
         "choose": "Seç",
-        "choose-egs-prefix": "EGS'nin kurulu olduğu Prefix'i seçin",
-        "choose-gogdl-binary": "GOGDL İkili Dosyasını Seçin (yeniden başlatma gerektirir)",
-        "choose-legendary-binary": "Legendary binary dosyasını seçin",
-        "customWine": "Wine veya Proton binary dosyasını seçin",
-        "default-install-path": "Öntanımlı Kurulum Yolunu Seç",
+        "choose-egs-prefix": "EGS'nin kurulu olduğu prefix'i seçin",
+        "choose-gogdl-binary": "GOGDL çalıştırılabilir dosyasını seçin (yeniden başlatma gerektirir)",
+        "choose-legendary-binary": "Legendary çalıştırılabilir dosyasını seçin",
+        "customWine": "Wine veya Proton çalıştırılabilir dosyasını seçin",
+        "default-install-path": "Varsayılan kurulum yolunu seçin",
         "default-steam-path": "Steam yolu.",
         "downloadNow": "Şimdi indir",
         "error": {
@@ -67,16 +71,16 @@
             },
             "generic": {
                 "message": "genel hata mesajı",
-                "title": "Çalıştırılacak EXE (yürütülebilir) dosyasını seçin"
+                "title": "Çalıştırılacak EXE dosyasını seçin"
             },
             "launchAborted": "Başlatma iptal edildi",
             "title": "Hata",
             "uncaught-exception": {
-                "message": "Bilinmeyen özel bir durum oluştu :{{newLine}}{{error}}{{newLine}}{{newLine}} Durumu GitHub depomuz üzerinden raporlayınız.",
-                "title": "Bilinmeyen Özel Durum Oluştu!"
+                "message": "Yakalanmamış bir istisna oluştu:{{newLine}}{{error}}{{newLine}}{{newLine}} Lütfen bu hatayı GitHub depomuzda bildirin.",
+                "title": "Yakalanmamış Bir Hata Oluştu!"
             },
             "update": {
-                "message": "Güncellemeyle ilgili bir şey yolunda gitmedi, lütfen günlük kayıtlarına göz atın veya daha sonra tekrar deneyin!",
+                "message": "Güncelleme sırasında bir sorun oluştu, lütfen günlükleri kontrol edin veya daha sonra tekrar deneyin!",
                 "title": "Güncelleme Hatası"
             },
             "wine-not-found": {
@@ -85,16 +89,16 @@
                 "title": "Wine Bulunamadı"
             },
             "winetricks": {
-                "message": "Winetricks başlarken şu hatayı verdi :{{newLine}}{{error}}",
+                "message": "Winetricks çalışırken şu hatayı verdi:{{newLine}}{{error}}",
                 "title": "Winetricks hatası"
             },
-            "moving": "Oyunu Taşıma Hatası {{error}}",
+            "moving": "Oyun taşınırken hata oluştu {{error}}",
             "ubisoft-connect": {
                 "message": "Ubisoft Connect'in oyun önekine yüklenmesi başarısız oldu. Manuel olarak kurmak için https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac adresindeki wiki sayfamızı kontrol edin.",
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "Bir hata oluştu! Epic hesabınızdan çıkış yapıp tekrar giriş yapmayı deneyin. {{newline}}  {{error}}"
+                "generic": "Bir hata oluştu! Epic hesabınızda oturumu kapatıp yeniden açmayı deneyin. {{newline}}  {{error}}"
             },
             "steam": {
                 "error": "Steam çalıştırılabilir dosyası bulunamadı. Kurulum muhtemelen kullanıcı tarafından iptal edildi veya Steam tarafında başarısız oldu.",
@@ -103,18 +107,19 @@
                 "running": "Steam çalışıyor. Steam'i kapatıp tekrar deneyin, ya da Steam çalışırken Heroic'in kısayolları yönetebilmesi için Steam'i bir kez yeniden başlatın.",
                 "running-gamemode": "Heroic'in bu cihazdaki kısayolları yönetebilmesi için tek seferliğine Steam'in yeniden başlatılması gerekiyor. Steam'i yeniden başlatıp tekrar deneyin."
             },
-            "executableNotFound": "Yürütülebilir dosya bulunamadı",
-            "executableNotFoundMessage": "Heroic, bu oyun için yürütülebilir dosya bulamadı. Lütfen oyun ayarlarından el ile seçiniz.",
+            "executableNotFound": "Çalıştırılabilir dosya bulunamadı",
+            "executableNotFoundMessage": "Heroic bu oyunun çalıştırılabilir dosyasını bulamadı. Lütfen oyun ayarlarından elle seçin.",
             "dxmt": {
-                "message": "DXMT indirmede hata! Bağlantınızı kontrol edin!",
+                "message": "DXMT indirilirken hata oluştu! Bağlantınızı kontrol edin!",
                 "title": "DXMT İndirme Hatası"
             },
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "body": "{{game}} Steam'den kaldırılamadı:{{newLine}} {{error}}",
                     "title": "Oyun Steam'den Kaldırılırken Bir Sorun Oluştu"
                 }
-            }
+            },
+            "steam-running": "Steam çalışıyor. Steam'i kapatıp yeniden deneyin."
         },
         "info": {
             "update": {
@@ -122,13 +127,13 @@
                 "detail": "Güncellemeyi arka planda indirmek istiyor musunuz?",
                 "message": "Yeni bir sürüm var!",
                 "message-finished": "Heroic'i şimdi yeniden başlatmak istiyor musunuz?",
-                "title": "Heroic Games Başlatıcısı",
+                "title": "Heroic Games Launcher",
                 "title-finished": "Güncelleme Tamamlandı",
                 "detailNoAutoupdate": "Otomatik güncellemeler paketleme formatınız için desteklenmiyor. Lütfen güncelleme yapmak için paket yöneticinizi kullanın."
             }
         },
         "no": "HAYIR",
-        "ok": "TAMAM",
+        "ok": "Tamam",
         "protocol": {
             "install": {
                 "not_installed": "Kurulu değil. Kurmak ister misiniz?"
@@ -140,12 +145,12 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Heroic'i sıfırlamak istediğinizden emin misiniz? Bu işlem tüm Ayarları ve Önbelleği kaldıracak ancak yüklü oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacaktır. Heroic'in taşınabilir sürümlerinin (AppImage, WinPortable, ...) daha sonra manuel olarak yeniden başlatılması gerekir.",
+                "message": "Heroic'i sıfırlamak istediğinizden emin misiniz? Bu işlem tüm ayarları ve önbelleği kaldıracak ancak kurulu oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacaktır. Heroic'in taşınabilir sürümlerinin (AppImage, WinPortable, ...) daha sonra el ile yeniden başlatılması gerekir.",
                 "title": "Heroic'i Sıfırla"
             }
         },
         "runexe": {
-            "title": "Çalıştırmak için EXE dosyası seçin"
+            "title": "Çalıştırılacak EXE dosyasını seçin"
         },
         "select": {
             "button": "Seç",
@@ -176,32 +181,52 @@
         "warning": {
             "epic": {
                 "import": "Epic Sunucuları şu anda büyük bir kesinti yaşıyor, oyun içe aktarılamıyor!",
-                "install": "Epic Sunucuları şu anda büyük bir kesinti yaşıyor, oyun kurulamıyor!",
+                "install": "Epic sunucuları şu anda büyük bir kesinti yaşıyor, oyun kurulamıyor!",
                 "update": "Epic Sunucuları şu anda büyük bir kesinti yaşıyor, oyun güncellenemiyor!"
             },
             "title": "Uyarı",
             "wine-change": {
-                "message": "Bu başlığı başlatmak için seçilen Wine sürümünü bulamadık ({{selectedWine}}). {{newline}} Başka bir tane bulduk, {{foundWine}} kullanarak başlatmaya devam etmek istiyor musunuz?",
+                "message": "Bu oyunu başlatmak için seçilen Wine sürümü ({{selectedWine}}) bulunamadı. {{newline}} Başka bir sürüm bulundu, {{foundWine}} ile başlatmaya devam etmek istiyor musunuz?",
                 "title": "Wine bulunamadı!"
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Çıkmak istediğinden emin misin?",
+                    "title": "Çıkmak istediğinizden emin misiniz?",
                     "message": "Kaydedilmemiş ilerlemeler kaybolabilir"
                 }
             },
             "rosetta": {
-                "message": "Heroic, Rosetta Apple Silicon yongalarına sahip macOS üstünde düzgün çalışmasını gerektirir. Lütfen aşağıdaki komutu kullanarak macOS terminalinden kurun: \"softwareupdate --install-rosetta\" ve Heroic yeniden başlatılmalı. ",
+                "message": "Heroic'in Apple Silicon yongalı macOS'ta düzgün çalışması için Rosetta gerekir. Lütfen macOS terminalinde şu komutla kurun: \"softwareupdate --install-rosetta\" ve ardından Heroic'i yeniden başlatın. ",
                 "title": "Rosetta bulunamadı"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "Heroic, \"{{title}}\" için çalıştırılabilir dosyanın bir yükleyici ({{exe}}) olduğunu algıladı.\n\nHeroic onu sessizce çalıştırmayı ve oyunu şu konuma kurmayı deneyecek:\n{{path}}\n\nOyun bundan sonra başlamazsa oyun ayarları > gelişmiş > alternatif exe bölümünü açın ve asıl oyun çalıştırılabilir dosyasını seçin.\n\nBaşlatmaya devam edilsin mi?",
+                    "title": "Yükleyici algılandı"
+                }
             }
         },
         "wineprefix": "WinePrefix Klasörünü Seç",
         "yes": "EVET",
         "dontShowAgain": "Tekrar gösterme",
-        "choose-nile-binary": "Nile binary dosyasını seçin",
+        "choose-nile-binary": "Nile çalıştırılabilir dosyasını seçin",
         "update": "Güncelle",
         "postpone": "Ertele",
-        "changelog": "Değişiklikler"
+        "changelog": "Değişiklik günlüğü",
+        "cancel": "İptal",
+        "choose-aurelia-binary": "Aurelia çalıştırılabilir dosyasını seçin",
+        "steam": {
+            "cloudConflict": {
+                "keepCloud": "Bulut kaydını kullan",
+                "keepLocal": "Yerel kaydı kullan",
+                "message": "{{game}} için Bulut ve Yerel kayıtlar birbirinden farklılaştı, hangi kopyanın tutulacağını seçin:\n\n{{files}}",
+                "title": "Steam Bulut kayıt çakışması"
+            },
+            "cloudIncomplete": {
+                "message": "{{game}} için Bulut kayıtlarının tümü indirilemedi, bu nedenle bu bilgisayardaki kayıtlar eksik. Şimdi oynamak Buluttaki eksik ilerlemenin üzerine yazabilir.\n\n{{details}}",
+                "title": "Steam Bulut kayıtları eksik"
+            }
+        }
     },
     "button": {
         "cancel": "İptal",
@@ -211,7 +236,8 @@
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır",
         "continue": "Devam",
-        "close": "Kapat"
+        "close": "Kapat",
+        "backToLibrary": "Kütüphaneye Dön"
     },
     "controller": {
         "hints": {
@@ -219,19 +245,19 @@
             "backspace": "Backspace",
             "close_dialog": "İletişim kutusunu kapat",
             "close_keyboard": "Klavyeyi kapat",
-            "close_options": "Seçenekleri Kapat",
+            "close_options": "Seçenekleri kapat",
             "game_details": "Oyun ayrıntıları",
             "game_settings": "Oyun ayarları",
             "install_game": "Oyunu kur",
             "move_cursor": "İmleci hareket ettir",
-            "open_virtual_keyboard": "Sanal klavyeyi açın",
+            "open_virtual_keyboard": "Sanal klavyeyi aç",
             "options": "Seçenekler",
-            "play_game": "Oyun oyna",
+            "play_game": "Oyunu oyna",
             "scroll": "Kaydır",
             "select": "Seç",
             "space": "Boşluk",
             "update_game": "Oyunu güncelle",
-            "exit": "Çıkış",
+            "exit": "Çık",
             "move_focus": "Odağı taşı",
             "next_page": "Sonraki sayfa",
             "previous_page": "Önceki sayfa",
@@ -242,35 +268,50 @@
     "docs": "Dokümantasyon",
     "download-manager": {
         "install-type": {
-            "install": "Kur",
-            "update": "Güncelle"
+            "install": "Kurulum",
+            "update": "Güncelleme"
         },
         "label": {
             "disk": "Disk",
-            "speed": "İndirme"
+            "speed": "İndirme",
+            "unit": "MB/sn"
         },
         "link": "İndirilenler",
         "queue": {
-            "end-time": "Tamamlandı",
-            "queue-time": "Eklendi",
-            "start-time": "Başladı",
-            "type": "Tip"
+            "end-time": "Bitiş zamanı",
+            "queue-time": "Eklenme zamanı",
+            "start-time": "Başlangıç zamanı",
+            "type": "Tür"
         },
         "title": "İndirilenler",
-        "ETA": "Tahmini süre"
+        "ETA": "Tahmini süre",
+        "empty": {
+            "queue": {
+                "description": "Başka bir indirme sürerken başlattığınız indirmeler burada bekler.",
+                "title": "Kuyruk boş"
+            },
+            "current": "Kurduğunuz veya güncellediğiniz oyunların ilerlemesi burada görünür."
+        },
+        "pageSubtitle": "Şu anda kurulanlar, sırada bekleyenler ve tamamlananlar",
+        "limit": {
+            "label": "İndirme sınırı",
+            "unlimited": "Sınırsız"
+        }
     },
     "epic": {
         "offline-notification-body": "Epic Games sunucuları çevrim dışı olduğundan çevrim içi hizmetler tam olarak çalışmayabilir!",
-        "offline-notification-title": "çevrim dışı"
+        "offline-notification-title": "Çevrim dışı"
     },
     "Epic Games": "Epic Games",
-    "error": "Hata",
+    "error": {
+        "recovery": "Kütüphaneyi yenilemek genellikle sorunu çözer. Çözmezse sonraki adımlar önbelleği temizlemek veya Heroic'i sıfırlamaktır."
+    },
     "favourites": "Favoriler",
     "game": {
         "status": "Durum",
         "store": "Mağaza",
         "title": "Oyun Adı",
-        "modify": "Kurulumu Düzenle",
+        "modify": "Kurulumu düzenle",
         "settings": "Oyun ayarları"
     },
     "generic": {
@@ -278,10 +319,10 @@
             "component": "Oyun bulunamadı - Oturumu kapatıp tekrar açmayı veya aşağıdaki seçeneklerden birini deneyin"
         },
         "library": {
-            "refresh": "Kütüphaneyi Yenile"
+            "refresh": "Kütüphaneyi yenile"
         },
         "install": "Kur",
-        "uninstall": "Kurulumu sil",
+        "uninstall": "Kaldır",
         "abort": "İptal"
     },
     "globalSettings": "Genel Ayarlar",
@@ -305,14 +346,18 @@
         "select_all": "Tümünü Seç",
         "only": "sadece",
         "reset": "Sıfırla",
-        "no_categories": "Özel kategori yok. Her oyuna menüsünden kategori ekleyin.",
+        "no_categories": "Özel kategori yok. Her oyunun menüsünden kategori ekleyin.",
         "show_third_party_managed_only": "Yalnızca üçüncü taraf tarafından yönetilenleri göster",
-        "show_updates_only": "Yalnızca güncellenen oyunları göster",
-        "platforms": "Platform",
-        "stores": "Mağazalar"
+        "show_updates_only": "Yalnızca güncellemesi olan oyunları göster",
+        "platforms": "Platformlar",
+        "stores": "Mağazalar",
+        "display": "Görüntüleme",
+        "hidden": "Gizli",
+        "non_available": "Mevcut olmayan",
+        "show_steam_owned_only": "Yalnızca sahip olunan Steam oyunlarını göster"
     },
     "help": {
-        "amdfsr": "AMD'nin FSR özelliği, Tam Ekran Modunda daha düşük çözünürlükleri yükselterek kare hızını artırmaya yardımcı olur. Küçük bir performans artışı pahasına görüntü kalitesi 5'ten 1'e yükselir. Etkinleştirmek performansı artırabilir.",
+        "amdfsr": "AMD'nin FSR özelliği, tam ekran modunda düşük çözünürlükleri yükselterek kare hızını artırmaya yardımcı olur. Hafif bir performans kaybı pahasına görüntü kalitesi 5'ten 1'e doğru artar. Etkinleştirmek performansı artırabilir.",
         "custom_themes_path": "Güvenilmeyen kaynaklardan gelen CSS dosyalarını kullanmayın. Şüpheye düştüğünüzde, Discord kanalımızda incelenmesini isteyin.",
         "custom_themes_wiki": "Özel tema ekleme hakkında daha fazla bilgi için Wiki'ye göz atın. Buraya tıklayın.",
         "dxvk": "DXVK, Vulkan tabanlı bir çeviri katmanıdır ve DirectX 9, 10 ve 11 oyunları için kullanılır. Etkinleştirmek uyumluluğu artırabilir. Özellikle daha eski DirectX oyunları için sorunlara neden olabilir.",
@@ -326,33 +371,33 @@
         },
         "gamemode": "Feral GameMode, oyunları çalıştırırken sisteme otomatik ve geçici ince ayarlar uygular. Etkinleştirmek performansı artırabilir.",
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşitleyin.",
-        "mangohud": "MangoHUD, FPS'yi, sıcaklıkları, CPU/GPU yükünü ve diğer sistem kaynaklarını görüntüleyen ve izleyen bir arayüzdür.",
+        "mangohud": "MangoHUD; FPS'yi, sıcaklıkları, CPU/GPU yükünü ve diğer sistem kaynaklarını gösteren ve izleyen bir ekran katmanıdır.",
         "other": {
             "part4": "Oyunu başlatma komutuna eklenmesi için ",
-            "part5": "Oyun Parametleri",
+            "part5": "Oyun parametreleri",
             "part6": " 'ni kullanın, örneğin bazı oyunlarda başlatıcıyı atlamak için: ",
             "part7": " gibi."
         },
         "preferSystemLibs": "Özel Wine sürümleri (Wine-GE, Wine-Lutris) kitaplık bağımlılıklarıyla birlikte gelir. Bu seçeneği etkinleştirdiğinizde gelen bu kitaplıklar yok sayılacak ve Wine bunun yerine sistem kitaplıklarını yükleyecektir. Uyarı! Bağımlılıklar karşılanmazsa sorunlar ortaya çıkabilir.",
         "primerun": "Çoklu GPU sistemlerinde oyun işlemek için özel grafik kartı kullanın. Yalnızca işleme için başsız GPU kullanan dizüstü oyun bilgisayarlarında veya masaüstü bilgisayarlarda gereklidir (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "Bu yol, Heroic'in Steam dışı oyunları Steam'e eklemek için hangi Proton Steam sürümünün kullanılacağını belirlemesini sağlar."
+            "info": "Bu yol, Steam dışı oyunları Steam'e eklerken Heroic'in Steam'in hangi Proton sürümünü kullandığını belirlemesini sağlar."
         },
         "steamruntime": "Linux ve Windows (Proton) oyunlarını çalıştırmaya yardımcı olmak için Steam tarafından sağlanan özel kitaplıklar. Etkinleştirmek uyumluluğu artırabilir.",
         "sync": {
-            "part1": "Heroic doğru kayıt klasörünü algılamaya çalışır ve bu çoğu zaman çalışıyor. Eğer klasör yanlışsa, değiştirmek için geçersiz kıl kutucuğunu kullan.",
+            "part1": "Heroic doğru kayıt klasörünü tahmin etmeye çalışır ve bu çoğu durumda işe yarar. Klasör yanlışsa değiştirmek için geçersiz kılma kutusunu kullanın.",
             "part2": "Wine veya Proton için prefix klasörünü değiştirmeniz durumunda, yolu tekrar kontrol etmeniz gerekecektir. Çünkü Proton farklı bir prefix (/pfx) ve kullanıcı adı (steamuser) kullanır. Bu yüzden mevcut yolu silip senkronizasyon ayarları sayfasından çıkarak ve tekrar geri dönerek Heroic'in klasörü doğru prefix ile bir kez daha tahmin etmesini sağlayabilirsiniz.",
-            "part3": "Elle Eşzamanla: Bulutta depolanan oyun kayıtlarını indirmek için İndir seçeneğini seçin. Yerel kayıtları buluta yüklemek için Yükle seçeneğini seçin. İndirmeye Zorla ve Yüklemeye Zorla yerel ya da buluttaki sürümü dikkate almayacaktır.",
-            "part4": "Kayıtları Otomatik Eşzamanla, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşzamanlayacak."
+            "part3": "Elle eşitleme: Buluttaki oyun kayıtlarını indirmek için İndir'i, yerel kayıtları buluta yüklemek için Yükle'yi seçin. Zorla İndir ve Zorla Yükle, yerel ya da buluttaki sürümü yok sayar.",
+            "part4": "Kayıtları Otomatik Eşitle seçeneği, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşitler."
         },
         "vkd3d": "VKD3D, DirectX 12 oyunları için Vulkan tabanlı bir çeviri katmanıdır. Etkinleştirilmesi uyumluluğu önemli ölçüde artırabilir. Eski DirectX oyunlarında etkisi yoktur, DXVK gerektirir.",
         "wine": {
             "part1": "Heroic; Wine, Proton ve CrossOver sürümlerini şu klasörlerde arar:",
-            "part2": "Diğer yerler için bu klasörlerden birisine sembolik bağlantı kullanın"
+            "part2": "Diğer konumlar için bu klasörlerden birine sembolik bağlantı kullanın"
         },
         "disable_logs": "Günlük dosyalarına yazma işlemlerinin çoğunu devre dışı bırakmak için bu onay kutusunu AÇIK konuma getirin (kritik bilgiler her zaman günlüğe kaydedilir). Herhangi bir sorunu bildirmeden önce bu ayarı KAPALI konuma getirdiğinizden emin olun.",
         "dxvknvapi": "DXVK-NVAPI, DXVK ve Linux yerel NVAPI üzerine kurulu bir NVAPI uygulamasıdır. Nvidia GPU'larda DLSS kullanımına izin verir.",
-        "disablePlaytimeSync": "Belirtilen mağazanın sunucularıyla oynatma süresi senkronizasyonunu devre dışı bırakır (şu anda yalnızca GOG desteklenmektedir)",
+        "disablePlaytimeSync": "Oynama süresinin ilgili mağazanın sunucularıyla eşitlenmesini devre dışı bırakır (şu anda yalnızca GOG destekleniyor)",
         "gamescope": {
             "upscaleMethod": "Gamescope'un kullanması gereken görüntü yükseltme yöntemi.",
             "gameWidth": "Oyunun kullanacağı yatay çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
@@ -360,20 +405,20 @@
             "gameHeight": "Oyunun kullanacağı dikey çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
             "upscaleHeight": "Gamescope'un kullanacağı dikey çözünürlük. 16:9 en boy oranı varsayılır.",
             "fpsLimiter": "Gamescope'un kaç kareye sınırlaması gerektiği. Örn. 60",
-            "fpsLimiterNoFocus": "Oyuna odaklanılmamışsa gamescope kare hızı sınırı saniye başına sınırlandırılmalıdır.",
+            "fpsLimiterNoFocus": "Oyun odakta değilken gamescope'un uygulayacağı saniyelik kare hızı sınırı.",
             "additionalOptions": "Gamescope'a aktarılacak ek komut satırı bayrakları.",
-            "forceGrabCursor": "İmleç görünürlüğüne bağlı olarak çevirmek yerine her zaman göreceli fare modunu kullanın. (Uygulamalar odak kaybetmeye devam ettiğinde yararlıdır)"
+            "forceGrabCursor": "İmleç görünürlüğüne göre mod değiştirmek yerine her zaman göreli fare modunu kullanır. (Uygulamalar sürekli odağı kaybettiğinde yararlıdır)"
         },
         "content": {
             "defaultInstallPath": "Bu, oyunlar kurulurken seçili gelen varsayılan yoldur.",
             "settingsDefault": "Tüm Heroic ayarlarını ve oyunların varsayılanlarını gösterir.",
-            "settingsGame": "Oyunla ilgili tüm ayarları göster.",
+            "settingsGame": "Bir oyunun tüm ayarlarını gösterir.",
             "downloadManager": "Şimdiki ve geçmiş indirmeleri gösterir.",
-            "wineManager": "Wine, Proton, Crossover ve benzerlerinin farklı sürümlerini kur.",
+            "wineManager": "Wine, Proton, CrossOver vb. araçların farklı sürümlerini kurun.",
             "library": "Sahip olunan tüm oyunları gösterir.",
             "customThemesPath": "Wiki sayfamıza göz atın.",
             "accessibility": "Erişilebilirlik ayarlarını gösterir.",
-            "login": "Farklı mağazalarda oturum aç."
+            "login": "Farklı mağazalarda oturum açın."
         },
         "button": {
             "open": "Yardımı Aç",
@@ -381,23 +426,23 @@
         },
         "title": {
             "accessibility": "Erişilebilirlik",
-            "login": "Giriş",
+            "login": "Oturum Aç",
             "settings": "Ayarlar",
             "downloadManager": "İndirme Yöneticisi",
             "wineManager": "Wine Yöneticisi",
             "library": "Kütüphane"
         },
-        "msync": "Msync, İşlemci yoğun oyunlarda wine sunucu yükünü azaltmayı amaçlar. Etkinleştirmek, desteklenen Linux çekirdeklerinde başarımı artırabilir.",
-        "dxfpslimit": "DirectX Oyunları için bir kare hızı sınırı belirler (9-12)",
+        "msync": "Msync, CPU ağırlıklı oyunlarda wineserver ek yükünü azaltmayı amaçlar. Etkinleştirmek, desteklenen Linux çekirdeklerinde performansı artırabilir.",
+        "dxfpslimit": "DirectX oyunları için kare hızı sınırı belirler (9-12)",
         "advertiseAvxForRosetta": "Rosetta üzerinden Apple Silicon Mac'lerde Windows oyunları çalıştırırken AVX komut seti desteğini etkinleştirir. Bu, AVX desteğine ihtiyaç duyan Death Stranding gibi bazı oyunlar için gerekli olabilir.",
-        "download_proton_steam": "Etkinleştirildiğinde, GE-Proton varsayılan Heroic yolu yerine doğrudan Steam uyumluluk araçları dizinine indirilecektir. Yukarıdaki 'Varsayılan Steam yolu' ayarında ayarlanan Steam yolunu kullanacaktır.",
+        "download_proton_steam": "Etkinleştirildiğinde GE-Proton, varsayılan Heroic yolu yerine doğrudan Steam uyumluluk araçları dizinine indirilir. Yukarıdaki 'Varsayılan Steam Yolu' ayarında belirlenen Steam yolu kullanılır.",
         "analytics": "Uygulamayı geliştirmeye yardımcı olacak %100 anonim kullanım verilerinin toplanmasını etkinleştirir. Değişikliğin etkinleşmesi için yeniden başlatma gerekir.",
-        "wine-hdr": "HDR; daha aydınlık sahneler ve daha belirgin kontrastlar sağlayarak renkleri daha canlı ve gerçekçi hale getirir. Bu özelliğin çalışabilmesi için hem ekranınızın hem de oyunun HDR'ı desteklemesi şarttır.",
+        "wine-hdr": "HDR, daha parlak vurgular ve daha derin kontrast sağlayarak renkleri iyileştirir. HDR'nin çalışması için hem ekranın hem de oyunun bunu desteklemesi gerekir.",
         "wine-wayland": "Wine-Wayland deneysel sürücüsü, oyunların Wayland görüntüleme protokolüyle yerel olarak çalışmasını sağlar. Bu özelliği etkinleştirmek bazı oyunlarda sorunlara yol açabilir.",
         "WoW64": "Wine WoW64 modu, 32-bit Windows oyunlarının 64-bit Wine'da çalıştırılmasını sağlar. Açmak performansı iyileştirebilir ama aynı zamanda daha eski 32-bit oyunlarda sorun çıkarabilir.",
         "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-            "link": "Daha fazla detayı wikimizde bulabilirsin"
+            "details": "Çoklu GPU’lu sistemlerde oyunu ayrık ekran kartıyla işler. Yalnızca oyun dizüstü bilgisayarlarında veya işleme için ekransız GPU kullanan masaüstlerinde gereklidir (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Daha fazla ayrıntı için wiki sayfamıza göz atın"
         },
         "hide-window-on-protocol-launch": "Oyun, \"Steam'e Ekle\" özelliği gibi harici bir kısayol aracılığıyla başlatıldığında Heroic penceresini gizli tutar."
     },
@@ -406,14 +451,14 @@
             "beta": "Beta",
             "click-to-see-changelog": "Değişiklik günlüğünü görmek için tıklayın",
             "newReleases": "Güncelleme Mevcut!",
-            "stable": "Stabil",
+            "stable": "Kararlı",
             "version": "Heroic Sürümü"
         },
         "save-sync": {
-            "searching": "Doğru kaydetme klasörü algılanmaya çalışılıyor (iptal etmek için tıklayın)"
+            "searching": "Doğru kayıt klasörü algılanmaya çalışılıyor (iptal etmek için tıklayın)"
         },
         "settings": "Ayarlar otomatik kaydedilir",
-        "version": "Wine Sürümü"
+        "version": "Wine sürümü"
     },
     "infobox": {
         "help": "Yardım",
@@ -427,7 +472,7 @@
             "message": "Wine, Windows uygulamalarını kapsüllemek için WINEPREFIX adı verilen bir yapı kullanır. Bu prefix, Wine yapılandırma dosyalarını ve C:'nin (Windows işletim sistemindeki ana disk) dosya hiyerarşisinin bir kopyasını içerir. C: sürücüsünün bu kopyasında, oyun kayıt dosyalarınız ve winetricks aracılığıyla yüklenen bağımlılıklar depolanır."
         },
         "wine-path-invalid": "Wine Yolu geçersiz, lütfen başka bir yol seçin.",
-        "wine-path-none-found": "Wine sürümü bulunamadı, Wine Yöneticisinden bir tane indirin"
+        "wine-path-none-found": "Wine sürümü bulunamadı, Wine Yöneticisi'nden bir tane indirin"
     },
     "install": {
         "path": "Kurulum Yolunu Seçin"
@@ -446,7 +491,9 @@
             "list": "Liste düzenine geç"
         },
         "hideAlphabetFilter": "Alfabe Filtresini Gizle",
-        "showAlphabetFilter": "Alfabe Filtresini Göster"
+        "showAlphabetFilter": "Alfabe Filtresini Göster",
+        "gamesCount_one": "{{count}} oyun",
+        "gamesCount_other": "{{count}} oyun"
     },
     "Library": "Kütüphane",
     "loading": {
@@ -454,17 +501,38 @@
         "website": "Web Sitesi Yükleniyor"
     },
     "login": {
-        "alternative_method": "Alternatif Giriş Yöntemi",
+        "alternative_method": "Alternatif oturum açma yöntemi",
         "epic": "Epic Games Giriş",
         "gog": "GOG Giriş",
-        "message": "Platformunuz ile giriş yapın. Aynı anda birden fazla platforma giriş yapabilirsiniz.",
+        "message": "Platformunuzla oturum açın. Aynı anda birden fazla platformda oturum açabilirsiniz.",
         "amazon": "Amazon Girişi",
-        "old-mac": "MacOS sürümünüz {{version}}. Oturum açmak için macOS 12 veya daha yeni bir sürüm gereklidir.",
-        "zoom": "Zoom Girişi"
+        "old-mac": "macOS sürümünüz {{version}}. Oturum açmak için macOS 12 veya daha yeni bir sürüm gereklidir.",
+        "zoom": "Zoom Girişi",
+        "itchio": "",
+        "button": "Oturum Aç",
+        "logout_confirm": {
+            "message": "{{store}} oturumunu kapatmak istediğinizden emin misiniz?",
+            "title": "Oturum kapatılsın mı?"
+        },
+        "title_amazon": "Amazon Games",
+        "title_epic": "Epic Games",
+        "title_gog": "GOG",
+        "browse_store": "Mağazaya göz at",
+        "description_amazon": "Amazon Prime Gaming ile oyunları talep edin ve oynayın.",
+        "description_epic": "Epic Games Store'dan oyun satın alın ve oynayın.",
+        "description_gog": "GOG.com'dan DRM'siz oyunlar satın alın ve oynayın.",
+        "description_itchio": "itch.io'daki bağımsız oyunları keşfedin ve oynayın.",
+        "description_steam": "Steam'den oyun satın alın ve oynayın.",
+        "description_zoom": "Zoom Platform'dan DRM'siz oyunlar satın alın ve oynayın.",
+        "gog_support": "GOG ortaklık bağlantıları devre dışı. Buradan oyun satın alırken Heroic'e destek olmak için bunları etkinleştirin.",
+        "logged_in_as": "Oturum açan hesap",
+        "title_itchio": "itch.io",
+        "title_steam": "Steam",
+        "title_zoom": "Zoom Platform"
     },
     "message": {
-        "sync": "Eşzamanlama Tamamlandı",
-        "unsync": "Eşzamanlamayı Kaldırma Tamamlandı"
+        "sync": "Eşitleme Tamamlandı",
+        "unsync": "Eşitleme kaldırıldı"
     },
     "notify": {
         "error": {
@@ -474,7 +542,7 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} bulunan tüm Steam kullanıcılarına eklenemedi. Daha fazla bilgi için günlüklere bakın. Değişikliklerin etkili olması için Steam'in yeniden başlatılması gerekmektedir.",
+                    "corrupt": "{{game}}, bulunan tüm Steam kullanıcılarına eklenemedi. Daha fazla bilgi için günlüklere bakın. Değişikliklerin geçerli olması için Steam'in yeniden başlatılması gerekiyor.",
                     "success": "{{game}} Steam'e başarıyla eklendi. Değişikliklerin etkili olması için Steam'in yeniden başlatılması gerekmektedir.",
                     "title": "Steam'e eklendi",
                     "success-no-restart": "{{game}} başarıyla Steam'e eklendi."
@@ -482,7 +550,7 @@
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} bulunan tüm Steam kullanıcılarından kaldırılamadı. Daha fazla bilgi için günlüklere bakın. Değişikliklerin etkili olması için Steam'in yeniden başlatılması gerekmektedir.",
+                    "corrupt": "{{game}}, bulunan tüm Steam kullanıcılarından kaldırılamadı. Daha fazla bilgi için günlüklere bakın. Değişikliklerin geçerli olması için Steam'in yeniden başlatılması gerekiyor.",
                     "success": "{{game}} Steam'den başarıyla kaldırıldı. Değişikliklerin etkili olması için Steam'in yeniden başlatılması gerekmektedir.",
                     "title": "Steam'den kaldırıldı",
                     "success-no-restart": "{{game}} başarıyla Steam'den kaldırıldı."
@@ -510,7 +578,7 @@
             "canceled": "Güncelleme İptal Edildi",
             "finished": "Güncelleme Tamamlandı",
             "started": "Güncelleme Başladı",
-            "failed": "Güncelleme başarısız oldu",
+            "failed": "Güncelleme Başarısız",
             "paused": "Güncelleme Duraklatıldı"
         },
         "import": {
@@ -520,15 +588,16 @@
     "offline-message": {
         "hint": "Bağlantıyı kontrol ediyoruz:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com ve{{newline}}cloudflare-dns.com",
         "ignore": "Görmezden Gel",
-        "offline": "Çevrimdışı",
-        "offline-retry-in": "Çevrimdışı.{{seconds}} saniye sonra tekrar denenecek.",
-        "retrying": "Tekrar deneniyor"
+        "offline": "Çevrim dışı",
+        "offline-retry-in": "Çevrim dışı. {{seconds}} saniye sonra tekrar denenecek.",
+        "retrying": "Tekrar deneniyor",
+        "hint-label": "Bağlantı denetimi ayrıntıları"
     },
     "Open": "Aç",
     "options": {
         "advanced": {
-            "key": "Variable Name",
-            "placeHolderKey": "NAME",
+            "key": "Değişken adı",
+            "placeHolderKey": "AD",
             "placeHolderValue": "Ör.: Ek/Dosya/Yolu",
             "title": "Ortam Değişkenleri",
             "value": "Değer",
@@ -536,47 +605,47 @@
         },
         "env_variables": {
             "error": {
-                "empty_key": "Değişken isimler boş bırakılamaz",
-                "equal_sign_in_key": "Değişken isimler \"=\" işaretini bulunduramaz",
-                "space_in_key": "Değişken isimler boşluk içeremez",
+                "empty_key": "Değişken adları boş bırakılamaz",
+                "equal_sign_in_key": "Değişken adları \"=\" işareti içeremez",
+                "space_in_key": "Değişken adları boşluk içeremez",
                 "duplicate_key": "Bu isimle bir değişken zaten var"
             },
-            "example": "\"=\" işaretini İÇERMESİN, örneğin: \"MY_FLAG=123\" gibi bir ayar için, NAME'de MY_FLAG'ı ve VALUE'da 123 olarak ayarlayın.",
+            "example": "\"=\" işaretini EKLEMEYİN; örneğin \"MY_FLAG=123\" gibi bir ayar için AD alanına MY_FLAG, DEĞER alanına 123 yazın.",
             "info": "Komuta eklenecek ortam değişkenlerini ayarlayın.",
             "add_new": "Yeni Değişken Ekle",
-            "bulk_edit": "Çoklu Düzenle",
+            "bulk_edit": "Toplu Düzenle",
             "bulk_edit_error": "Bazı değişkenler yanlış. Lütfen tüm satırların ANAHTAR=DEĞER formatında olduğundan emin olun.",
-            "clear_all_confirm": "Tüm ortam değişkenlerini silmek istediğinden emin misin?"
+            "clear_all_confirm": "Tüm ortam değişkenlerini silmek istediğinizden emin misiniz?"
         },
         "gameargs": {
-            "placeholder": "Başlatma Parametrelerini buraya girin",
-            "title": "Oyun Parametreleri (oyun başlatma komutuna eklenir)",
+            "placeholder": "Başlatıcı argümanlarını buraya girin",
+            "title": "Oyun argümanları (oyun başlatma komutuna eklenir)",
             "error": {
                 "env": "Ortam değişkenleri aşağıdaki tabloda yapılandırılmalıdır.",
                 "command": "Steam'in %command% sözdizimi oyun argümanları olarak geçerli değil."
             }
         },
-        "quote-args-with-spaces": "Uyarı: Argümanları çift tırnak ile yazdığınızdan emin olun! Ör.: \"boşluklu/yol örneği/\"",
+        "quote-args-with-spaces": "Uyarı: Boşluk içeren argümanları tırnak içine aldığınızdan emin olun! Ör.: \"boşluklu/yol örneği/\"",
         "wrapper": {
             "args": "Argümanlar",
-            "arguments_example": "Argüman örneği: --arg; --extra-file=\"dosya-yolu/ ama/boşluklu\"",
-            "exe": "Paketleyici",
-            "placeHolderKey": "Yeni Paketleyici",
-            "placeHolderValue": "Sarmalayıcı Argümanları",
-            "title": "Paketleyici komutu:"
+            "arguments_example": "Argüman örneği: --arg; --extra-file=\"dosya-yolu/ boşluk/içeren\"",
+            "exe": "Sarmalayıcı",
+            "placeHolderKey": "Yeni sarmalayıcı",
+            "placeHolderValue": "Sarmalayıcı argümanları",
+            "title": "Sarmalayıcı komutu:"
         },
         "gamescope": {
             "nis": "NVIDIA görüntü ölçeklendirme (NIS)",
-            "borderless": "Penceresiz",
+            "borderless": "Çerçevesiz Tam Ekran",
             "fpsLimiter": "FPS Sınırlayıcı",
             "fullscreen": "Tam Ekran",
             "fpsLimiterNoFocus": "FPS Sınırlayıcı (Odak dışı)",
             "gameHeight": "Oyun Yüksekliği",
-            "upscaleWidth": "Genişliği Artır",
+            "upscaleWidth": "Ölçekleme genişliği",
             "gameWidth": "Oyun Genişliği",
-            "upscaleHeight": "Yüksekliği Artır",
+            "upscaleHeight": "Ölçekleme yüksekliği",
             "stretch": "Görüntüyü Uzat",
-            "interger": "Tamsayı Artırma",
+            "interger": "Tam sayı ölçekleme",
             "additionalOptions": "Ek Seçenekler",
             "windowed": "Pencereli"
         }
@@ -584,18 +653,20 @@
     "other": {
         "gogdl-version": "GOGDL Sürümü: ",
         "legendary-version": "Legendary Sürümü: ",
-        "weblate": "Heroic'i çevirmeye yardımcı ol.",
-        "nile-version": "Nile Sürümü: "
+        "weblate": "Heroic'i çevirmeye yardımcı olun.",
+        "nile-version": "Nile Sürümü: ",
+        "aurelia-version": "Aurelia Sürümü: "
     },
     "Other": "Diğer",
     "placeholder": {
-        "alt-gogdl-bin": "Yerleşik GOGDL çalıştırılabilir dosyasını kullanılıyor...",
-        "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor...",
+        "alt-gogdl-bin": "Yerleşik GOGDL çalıştırılabilir dosyası kullanılıyor…",
+        "alt-legendary-bin": "Yerleşik Legendary çalıştırılabilir dosyası kullanılıyor…",
         "custom_themes_path": "Özel CSS dosyalarının aranacağı yolu seçin",
         "dxvkfpsvalue": "Pozitif tamsayı değeri (ör. 30, 60, ...)",
         "egs-prefix": "EGS'nin kurulu olduğu prefix",
         "prefered_language": "2 karakterli veya 4 karakterli kod (örneğin: \"fr\" veya \"pt-BR\")",
-        "alt-nile-bin": "Yerleşik Nile binary dosyası kullanılıyor..."
+        "alt-nile-bin": "Yerleşik Nile çalıştırılabilir dosyası kullanılıyor…",
+        "alt-aurelia-bin": "Yerleşik Aurelia çalıştırılabilir dosyası kullanılıyor…"
     },
     "platforms": {
         "linux": "Linux",
@@ -612,10 +683,11 @@
             "downloading": "İndiriliyor",
             "empty": "İndirilecek bir şey yok",
             "finished": "Tamamlandı",
-            "queued": "Sıraya Alındı",
+            "queued": "Sırada",
             "remove": "İndirilenlerden kaldır",
             "pause": "İndirmeyi duraklat",
-            "resume": "İndirmeye devam et"
+            "resume": "İndirmeye devam et",
+            "paused": "Duraklatıldı"
         }
     },
     "Recent": "Yakın Zamanda Oynanan",
@@ -624,10 +696,10 @@
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
         "addgamestosteam": "Oyunları Steam'e otomatik ekle",
-        "alt-gogdl-bin": "Alternatif bir GOGDL çalıştırılabilir dosyasını seçin",
-        "alt-legendary-bin": "Alternatif bir Legendary dosyası seçin",
+        "alt-gogdl-bin": "Kullanılacak alternatif GOGDL çalıştırılabilir dosyasını seçin",
+        "alt-legendary-bin": "Alternatif bir Legendary çalıştırılabilir dosyası seçin",
         "autodxvk": "Prefix'e Otomatik DXVK Kur/Güncelle",
-        "autosync": "Kayıtları Otomatik Eşzamanla",
+        "autosync": "Kayıtları Otomatik Eşitle",
         "autovkd3d": "Prefix'e Otomatik VKD3D Kur/Güncelle",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Başlangıçta Heroic Güncellemelerini kontrol et",
@@ -636,7 +708,7 @@
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Koyu tepsi simgesi kullan",
         "default-install-path": "Öntanımlı Kurulum Yolu",
-        "default-steam-path": "Öntanımlı Steam Yolu",
+        "default-steam-path": "Varsayılan Steam Yolu",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
@@ -662,7 +734,8 @@
             "removeConfirm": "EOS Arayüzünü kaldırmak istediğinizden emin misiniz?",
             "removeConfirmTitle": "Arayüzün kaldırılmasını onaylayın",
             "updateNow": "Güncelle",
-            "updating": "Güncelleniyor..."
+            "updating": "Güncelleniyor...",
+            "description": "Epic'in oyun içi arayüzü; bazı Epic oyunlarında arkadaşlar ve başarımlar için gereklidir"
         },
         "esync": "Esync'i Etkinleştir",
         "exit-to-tray": "Sistem tepsisine küçült",
@@ -704,9 +777,9 @@
                     "title": "Yükleme başarısız",
                     "manual_upload": "\"GÜNLÜK DOSYASINI KLASÖRDE GÖSTER\"e tıklayın ve \"launch.log\" dosyasını elle Discord'a ya da herhangi bir dosya paylaşım sitesine yükleyin."
                 },
-                "header": "Kayıt dosyaları yüklendi",
-                "hours-ago": "Yüklendi {{hoursAgo, relativetime(hours)}}",
-                "minutes-ago": "Yüklendi {{minutesAgo, relativetime(minutes)}}",
+                "header": "Yüklenen günlük dosyaları",
+                "hours-ago": "{{hoursAgo, relativetime(hours)}} yüklendi",
+                "minutes-ago": "{{minutesAgo, relativetime(minutes)}} yüklendi",
                 "no-files": "Hiçbir kayıt dosyası yüklenmedi",
                 "open": "Kayıt dosyası yüklemeyi aç",
                 "title": "Kayıt başlığı",
@@ -722,15 +795,19 @@
                 "game-log": "{{gameTitle}} oyun kaydı",
                 "legendary": "Epic Games / Legendary kaydı",
                 "nile": "Amazon / Nile kaydı",
-                "zoom": "Zoom kaydı"
+                "zoom": "Zoom kaydı",
+                "itchio": "itch.io günlüğü",
+                "steam": "Steam / Aurelia günlüğü"
             },
             "show-uploads": "Yüklenmiş günlük dosyalarını göster",
-            "error": "Log dosyasını okurken dahili bir hata oluştu"
+            "error": "Log dosyasını okurken dahili bir hata oluştu",
+            "jump-to-start": "Günlüğün başına git",
+            "jump-to-end": "Günlüğün sonuna git"
         },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
             "download": "İndir",
-            "forcedownload": "İndirmeye Zorla",
+            "forcedownload": "Zorla İndir",
             "forceupload": "Yüklemeye Zorla",
             "sync": "Eşitle",
             "syncing": "Eşitleniyor",
@@ -738,33 +815,36 @@
             "upload": "Yükle"
         },
         "maxRecentGames": "Gösterilecek Son Oynananlar",
-        "maxworkers": "İndirme sırasında en yüksek bağlantı noktaları",
+        "maxworkers": "İndirme sırasında azami işçi sayısı",
         "minimize-on-launch": "Oyun Başlatıldıktan Sonra Heroic'i Simge Durumuna Küçült",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
         "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitaplıklarını tercih et",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
-            "title": "Prefix'te EXE Çalıştır"
+            "title": "Prefix'te EXE Çalıştır",
+            "description": "Bu prefix içinde yükleyici gibi herhangi bir çalıştırılabilir dosyayı çalıştır"
         },
         "savefolder": {
             "not-found": "Kaydetme klasörü bulunamadı, lütfen manuel olarak seçin (tekrar denemek için tıklayın)",
             "placeholder": "Tam oyun kaydetme klasörünü seçin",
-            "warning": "Lütfen yolun doğruluğunu iki kez denetleyin (tekrar denemek için tıklayın)"
+            "warning": "Lütfen yolun doğruluğunu iki kez denetleyin (tekrar denemek için tıklayın)",
+            "retry": "Yeniden algıla",
+            "title": "Kayıt klasörü"
         },
         "select_theme": "Tema Seç",
         "showfps": "FPS Göster (DX9, 10 and 11)",
         "start-in-tray": "Simge Durumunda Başlat",
         "steamruntime": "Steam Çalışma Zamanını Kullan",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "CrossOver Şişesi",
         "wineprefix": "WinePrefix klasörü",
-        "wineversion": "Wine Sürümü",
+        "wineversion": "Wine sürümü",
         "autoUpdateGames": "Oyunları otomatik olarak güncelle",
         "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
-        "disable_logs": "Günlükleri Devre Dışı Bırak",
+        "disable_logs": "Günlükleri devre dışı bırak",
         "showMetalOverlay": "İstatistik Kaplamasını Göster",
         "addgamestoapplications": "Oyunları Uygulamalara otomatik ekle",
-        "alt-nile-bin": "Alternatif bir Nile İkili Dosyası Seçin",
+        "alt-nile-bin": "Alternatif bir Nile çalıştırılabilir dosyası seçin",
         "autodxvknvapi": "Prefix'e Otomatik DXVK-NVAPI Kur/Güncelle",
         "disablePlaytimeSync": "Oynama süresi eşzamanlamasını devre dışı bırak",
         "experimental_features": {
@@ -785,7 +865,7 @@
         "gamescope": {
             "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir",
             "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
-            "missingMsg": "Yolda gamesscope bulamadık. Kurun veya yola ekleyin.",
+            "missingMsg": "PATH üzerinde gamescope bulunamadı. Kurun veya PATH'e ekleyin.",
             "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir",
             "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
         },
@@ -796,7 +876,7 @@
             "confirmation": {
                 "understand": "Anladım",
                 "title": "Emin misiniz?",
-                "message": "Hile engelleme özelliği bozuk olan veya reddedilen oyunlar çalıştırılabilir fakat çoklu oyuncu özellikleri kullanılamaz. Bunu bilerek indiriyorsanız bu konuda destek istemeyiniz."
+                "message": "Anti-hile desteği bozuk veya reddedilmiş oyunlar çalışabilir, ancak çok oyunculu özellikler kullanılamaz. Bunu bilerek kuruyorsanız destek istemeyin."
             },
             "label": "Hile engelleme özelliği bozuk olan veya reddedilen oyunların kurulmasına izin ver"
         },
@@ -808,7 +888,8 @@
             "warning": "Uyarı: Bu değişiklik tüm arayüzü etkiler. Bu, yanlış bir stilin Heroic'i kullanılamaz hale getirebileceği anlamına gelir. Gerekirse, ayar `~/.config/heroic/config.json` dosyası üzerinden elle değiştirilebilir. Güvenmediğiniz kaynaklardan stil KOPYALAMAYIN."
         },
         "verboseLogs": {
-            "description": "Ayrıntılı günlükleri etkinleştir"
+            "description": "Ayrıntılı günlükleri etkinleştir",
+            "hint": "Her başlatmada ayrıntılı bir günlük kaydet; sorun bildirirken kullanışlıdır"
         },
         "allow_non_ge_proton": {
             "confirmation": {
@@ -833,12 +914,12 @@
                 "message": "Valve'ın Proton sürümlerinde winetrick ve protofix bulunmadığından, Heroic ile birlikte özel Proton çatallarını (GE-Proton, Proton-CachyOS vb.) kullanmanızı öneririz. Yine de isterseniz Valve'ın Proton sürümlerini kullanabilirsiniz."
             },
             "label": "Oyunları çalıştırmak için Valve'ın Proton sürümlerini kullanmaya izin ver",
-            "wine_selector_warning": "GE olmayan Proton sürümleri varsayılan olarak yoksayılır. Bu sürümleri, Gelişmiş genel ayarlardan etkinleştirebilirsiniz",
+            "wine_selector_warning": "Valve Proton sürümleri varsayılan olarak yoksayılır; bunları Gelişmiş genel ayarlardan etkinleştirebilirsiniz.",
             "info_label": "Valve Proton sürümleri göz ardı edildi"
         },
-        "WoW64": "WoW64'ü aç (Deneysel)",
+        "WoW64": "WoW64'ü Etkinleştir (Deneysel)",
         "enable-quick-sync-menu": "Oyun sayfasında Hızlı Kaydet-Eşitle Menüsü'nü etkinleştir",
-        "scripts": "Betikler:",
+        "scripts": "Betikler",
         "disable_gog_presence": "GOG Durum güncellemelerini devre dışı bırak",
         "start-in-console-mode": "Konsol Modunda başlat",
         "hide-window-on-protocol-launch": "heroic://bağlantılardan oyun başlatılırken Heroic penceresini gizle",
@@ -849,17 +930,110 @@
         "gamepad-repeat-frequency": "Oyun kumandası giriş tekrarlama sıklığı",
         "steamRuntime": {
             "label": "Steam Çalışma Zamanını Kullan",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "Yok"
         },
         "tools": {
             "open": "Aç",
-            "selectExe": "EXE dosyası seçin"
-        }
+            "selectExe": "EXE dosyası seçin",
+            "running": "Çalışıyor..."
+        },
+        "minimizeOnLaunch": {
+            "description": "Bir oyun başladığında Heroic'i arka plana al"
+        },
+        "autodxvk-description": "Daha iyi performans için DirectX 9, 10 ve 11 çağrılarını Vulkan'a çevir",
+        "framelessWindow": {
+            "description": "Sistemin başlık çubuğunu gizle ve Heroic'in kendi pencere denetimlerini kullan"
+        },
+        "start-in-console-mode-description": "Heroic'i oyun kumandaları için tasarlanmış büyük ekran arayüzünde aç",
+        "msync-description": "macOS eşzamanlama temel öğelerini kullanarak çok iş parçacıklı oyunları hızlandır",
+        "winecfg": {
+            "description": "Bu prefix için Wine yapılandırma panelini aç"
+        },
+        "experimental_features_description": {
+            "enableHelp": "Üzerine geldiğiniz ayarı açıklayan uygulama içi bir yardım paneli göster",
+            "cometSupport": "Başarımlar ve çok oyunculu mod gibi GOG Galaxy özelliklerini etkinleştir",
+            "zoomPlatform": "Zoom Platform mağazasını kütüphanenize ekleyin"
+        },
+        "autoUpdateGames-description": "Oyun güncellemelerini yayınlanır yayınlanmaz indir",
+        "analytics": {
+            "description": "Heroic'in geliştirilmesine yardımcı olmak için anonim kullanım verilerini paylaş"
+        },
+        "nvidiaPrime": {
+            "description": "Oyunu tümleşik GPU yerine ayrık NVIDIA GPU'da çalıştır"
+        },
+        "fsync-description": "futex eşzamanlamasını kullanarak çok iş parçacıklı oyunları hızlandır",
+        "winetricks": {
+            "description": "Bu prefix'e Windows kütüphaneleri ve bileşenleri kur"
+        },
+        "wow64": {
+            "description": "32 bit oyunları 64 bit bir prefix içinde çalıştır; ayrı bir prefix gerekmez"
+        },
+        "hdr-description": "HDR çıkışı kullanılabilmesi için oyunu Wayland üzerinden çalıştır",
+        "showfps-description": "Oyunun üzerinde bir kare hızı sayacı göster",
+        "hideChangelogsOnStartup-description": "Heroic güncellendikten sonra gösterilen sürüm notlarını atla",
+        "disableGOGAffiliate": "GOG ortaklık bağlantısını devre dışı bırak",
+        "allow-broken-anticheat": {
+            "description": "Hile korumasının bu sistemde çalışmadığı bilinse bile oyunları kur"
+        },
+        "autovkd3d-description": "DirectX 12 çağrılarını Vulkan'a çevir",
+        "disableController": {
+            "description": "Heroic'in oyun kumandası girdilerine yanıt vermesini engelle"
+        },
+        "addgamestosteam-description": "Bir oyun kurulduğunda Steam kısayolu oluştur",
+        "mangohud-description": "Kare hızı, sıcaklıklar ve sistem yükünü gösteren bir katman göster",
+        "advertiseAvxForRosetta-description": "Oyunlara AVX'in kullanılabilir olduğunu bildir; Rosetta altında bazı oyunlar için gereklidir",
+        "ignoreGameUpdates-description": "Yeni bir sürüm çıksa bile bu oyunu asla güncelleme",
+        "autodxvknvapi-description": "DXVK üzerinden çalışan oyunlara DLSS gibi NVIDIA özelliklerini sun",
+        "disableDiscounts": "Fırsatlar sayfasını devre dışı bırak",
+        "exit-to-tray-description": "Heroic'i kapatmak yerine sistem tepsisinde çalışmaya devam ettir",
+        "playtimeSync": {
+            "description": "Kaydedilen oynama sürenizi mağazayla eşitlenmiş tut"
+        },
+        "dxfpslimit-description": "Isıyı ve güç tüketimini azaltmak için DirectX oyunlarının kare hızını sınırla",
+        "darktrayicon": {
+            "description": "Tepsi simgesinin koyu sürümünü kullan; açık renkli panellerde daha iyi görünür"
+        },
+        "download-no-https-description": "Oyun dosyalarını alırken HTTPS'i atla; yerel bir CDN önbelleğiyle kullanışlıdır",
+        "discordRPC-description": "Oynadığınız oyunu Discord profilinizde göster",
+        "preferSystemLibs-description": "Paketle gelen kütüphaneler yerine sisteminizde kurulu kütüphaneleri kullan",
+        "esync-description": "eventfd eşzamanlamasını kullanarak çok iş parçacıklı oyunları hızlandır",
+        "disable-gog-presence": {
+            "description": "Hangi GOG oyununu oynadığınızı arkadaşlarınızla paylaşmayı durdur"
+        },
+        "enableFSRHack-description": "Kare hızını artırmak için oyunu daha düşük çözünürlükte işleyip ölçeklendir",
+        "offlinemode-description": "Bu oyunu mağazaya bağlanmadan başlat",
+        "checkForUpdatesOnStartup-description": "Uygulama her açıldığında yeni bir Heroic sürümü olup olmadığını denetle",
+        "disableUMU-description": "Proton'u umu başlatıcısı üzerinden değil, doğrudan başlat",
+        "gamemode-description": "Oyun çalışırken sistemden oyuna öncelik vermesini iste",
+        "alt-aurelia-bin": "Alternatif bir Aurelia çalıştırılabilir dosyası seçin",
+        "steamLaunchTarget": {
+            "downloadBuild": "İndirme",
+            "missingBuild": "indirilmedi",
+            "missingRuntime": "Steam çalışma ortamı kurulu değil",
+            "automatic": "Otomatik",
+            "fallback": "O zamana kadar Oyna şunu kullanır",
+            "host": "Sistem Steam'i",
+            "info": {
+                "host": "Sistem Steam'i: Kurulu Steam istemcinizi arka planda sessizce başlatır. Çevrim içi oyun, çok oyunculu mod ve DRM için gereklidir.",
+                "none": "Steam yok: Oyunu Steam olmadan başlatır. Çevrim içi özellikler ve DRM korumalı oyunlar çalışmayabilir.",
+                "runtime": "Wine içi Steam çalışma ortamı: Sisteminizde Steam kurulu olmadığında Wine içinde ayrı bir Steam istemcisi çalıştırır."
+            },
+            "installRuntime": "Steam çalışma ortamını kur",
+            "native": "Yerel",
+            "none": "Steam yok",
+            "runtime": "Wine içi Steam çalışma ortamı",
+            "title": "Başlatılacak oyun sürümü"
+        },
+        "addgamestoapplications-description": "Bir oyun kurulduğunda uygulama kısayolu oluştur.",
+        "addgamestosteam-real-description": "Kurulan her oyunu Steam kütüphanenize kısayol olarak ekleyin.",
+        "disableGOGAffiliateDescription": "GOG oyunlarını Heroic üzerinden satın almak projeye destek olur.",
+        "maxworkers-description": "Daha fazla işçi daha hızlı indirir ancak daha fazla CPU ve bant genişliği kullanır. En fazla seçeneği tüm çekirdekleri kullanır."
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEye Çalışma Zamanı Kuruluyor...",
-            "name": "BattlEye AntiCheat Çalışma Zamanı"
+            "name": "BattlEye AntiCheat Çalışma Zamanı",
+            "hint": "BattlEye ile korunan oyunların gerektirdiği çalışma ortamını kur"
         },
         "clear-cache": "Heroic Önbelleğini Temizle",
         "copiedToClipboard": "Panoya kopyalandı!",
@@ -871,7 +1045,8 @@
                 "title": "GameMode gerekli"
             },
             "installing": "EAC Çalışma Zamanı Kuruluyor...",
-            "name": "EasyAntiCheat Çalışma Zamanı"
+            "name": "EasyAntiCheat Çalışma Zamanı",
+            "hint": "EasyAntiCheat ile korunan oyunların gerektirdiği çalışma ortamını kur"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -893,7 +1068,8 @@
             "systemInformation": "Sistem bilgisi",
             "gamescope": "Gamescope",
             "legacy": "Klasik",
-            "categories": "Kategoriler"
+            "categories": "Kategoriler",
+            "tabs": "Ayar bölümleri"
         },
         "open-config-file": "Yapılandırma Dosyasını Aç",
         "reset-heroic": "Heroic'i Sıfırla",
@@ -904,27 +1080,30 @@
             "gog_linux_native_warning": "Linux tabanlı oyunlar GOG'un Buluta Kaydetme özelliğini desteklemez. Bunun yerine Windows sürümünü kullanın."
         },
         "systemInformation": {
-            "cpu": "CPU:",
-            "gpuWithNumber": "GPU {{number}}:",
+            "cpu": "CPU",
+            "gpuWithNumber": "GPU {{number}}",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Sistem Özellikleri:",
             "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Sürücü: {{driverVersion}}",
-            "os": "İşletim sistemi:",
-            "gpu": "GPU:",
+            "os": "İşletim sistemi",
+            "gpu": "GPU",
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
             "osVersion": "Sürüm {{versionNumber}}",
             "osNameFlatpak": "{{osName}} (Flatpak'ın içinde)",
-            "software": "Yazılım:",
+            "software": "Yazılım",
             "memoryStats": "%{{percentUsed}} kullanılmış ({{usedGib}} / {{totalGib}}",
-            "systemModel": "Sistem Modeli:",
+            "systemModel": "Sistem modeli",
             "showDetailed": "Ayrıntılı sistem özelliklerini göster",
-            "memory": "Hafıza:",
+            "memory": "Hafıza",
             "copyToClipboard": "Panoya kopyala",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "memoryUsage": "{{usedGib}} / {{totalGib}}",
+            "cpuCores": "{{numOfCores}} çekirdek",
+            "memoryPercent": "%{{percentUsed}} kullanımda"
         },
         "experimental_features": {
             "title": "Deneysel Özellikler"
@@ -933,7 +1112,7 @@
             "searchMsg": "Gamescope çalıştırılabilir dosyası aranıyor."
         },
         "offline": {
-            "warning": "Bu oyun açıkça çevrimdışı moda izin vermiyor. Oyunu açarsanız oluşacak risklerin sorumluluğu size aittir. Oyun çalışmayabilir."
+            "warning": "Bu oyun çevrim dışı moda resmi olarak izin vermiyor; bu seçeneği etkinleştirmenin riski size aittir. Oyun çalışmayabilir."
         },
         "advanced": {
             "clearCache": {
@@ -946,15 +1125,21 @@
                 "help4": "GOG kütüphane bilgisi (oyunların listesi, indirme diyalogu bilgisi, API bilgisi -yani gereksinimler-)",
                 "help3": "Legendary kütüphane bilgisi (oyunların listesi, yükleme iletişim kutusu bilgisi, oyun bilgisi)",
                 "help2": "Üçüncü parti oyun bilgileri (skorlar, steam uyumluluğu, howlongtobeat, pcgamingwiki, applegamingwiki)",
-                "help5": "Amazon kütüphane bilgisi (oyunların listesi, indirme kutusu bilgisi)"
+                "help5": "Amazon kütüphane bilgisi (oyunların listesi, indirme kutusu bilgisi)",
+                "description": "Önbelleğe alınmış oyun ve mağaza verilerini siler, böylece Heroic bunları yeniden alır. Oyunlarınız, oturumlarınız ve ayarlarınız korunur."
             },
             "title": {
                 "resetHeroic": "Heroic'i Sıfırla",
-                "clearCache": "Ön Belleği Temizle"
+                "clearCache": "Ön Belleği Temizle",
+                "clearImagesCache": "Görsel önbelleğini temizle"
             },
             "details": "Ayrıntılar",
             "resetHeroic": {
-                "help": "Bu, tüm Ayarları ve Önbelleği kaldıracak ancak Kurulu oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacaktır. Heroic taşınabilir sürümlerinin (AppImage, WinPortable, ...) daha sonra el ile yeniden başlatılması gerekir."
+                "help": "Bu, tüm Ayarları ve Önbelleği kaldıracak ancak Kurulu oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacaktır. Heroic taşınabilir sürümlerinin (AppImage, WinPortable, ...) daha sonra el ile yeniden başlatılması gerekir.",
+                "description": "Heroic'i varsayılan ayarlarına döndürür. Kurulu oyunlar ve mağaza oturumları korunur."
+            },
+            "clearImagesCache": {
+                "description": "Yalnızca indirilmiş kapak görsellerini siler, böylece hız sınırlamasıyla yeniden indirilirler."
             }
         },
         "custom_css": {
@@ -978,8 +1163,33 @@
             "experimental": "Deneysel Özellikler",
             "launch": "Başlatma Seçenekleri",
             "wineTools": "Araçlar",
-            "wineVersion": "Wine"
-        }
+            "wineVersion": "Wine",
+            "environment": "Sarmalayıcı ve ortam",
+            "system": "Sistem",
+            "maintenance": "Özelleştirme ve bakım",
+            "behaviour": "Davranış",
+            "binaries": "Alternatif çalıştırılabilir dosyalar",
+            "graphics": "Grafikler ve çeviri",
+            "runtimes": "Çalışma ortamları",
+            "gameplay": "Oynanış",
+            "appearance": "Görünüm",
+            "performance": "Performans ve katmanlar",
+            "locations": "Konumlar",
+            "winePerformance": "Performans",
+            "integrations": "Entegrasyonlar",
+            "controller": "Oyun kumandası",
+            "language": "Dil ve bölge",
+            "privacy": "Gizlilik",
+            "steam": "Steam"
+        },
+        "pageSubtitle": {
+            "log": "Heroic günlüklerini okuyun ve paylaşın",
+            "games_settings_defaults": "Yeni kurulan oyunlara uygulanan varsayılanlar",
+            "general": "Başlatıcı tercihlerinizi yapılandırın",
+            "systeminfo": "Donanımınız ve Heroic'in çalıştırdığı sürümler",
+            "advanced": "Çalıştırılabilir dosyalar, deneysel özellikler ve bakım"
+        },
+        "clear-images-cache": "Görsel önbelleğini temizle"
     },
     "Settings": "Ayarlar",
     "sidebar": {
@@ -993,7 +1203,8 @@
         "logging": "Oturum Açılıyor…",
         "processing": "Dosyalar işleniyor, lütfen bekleyin",
         "preparing_login": "Oturum açmaya hazırlanıyor... ",
-        "installed": "Kuruldu"
+        "installed": "Kurulu",
+        "preparing": "Hazırlanıyor…"
     },
     "store": "Epic Mağazası",
     "stores": "Mağazalar",
@@ -1003,7 +1214,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "Yeni yapılandırmalar için öntanımlı prefix klasörünü seçin",
-            "wineprefix": "Yeni Wine Prefix'leri için bir Klasör Seçin"
+            "wineprefix": "Yeni Wine prefix'leri için bir klasör seçin"
         }
     },
     "tooltip": {
@@ -1018,7 +1229,9 @@
     },
     "two_col_table": {
         "save_hint": "Bu tablodaki değişiklikler otomatik olarak kaydedilmez. + düğmesine tıklayın",
-        "add": "Ekle"
+        "add": "Ekle",
+        "edit": "Düzenle",
+        "remove": "Kaldır"
     },
     "Update Available!": "Güncelleme Mevcut!",
     "userselector": {
@@ -1028,8 +1241,9 @@
         "logout_confirmation": "Oturumu kapatmak istediğinizden emin misiniz?",
         "manageaccounts": "Hesapları Yönet",
         "quit": "Çık",
-        "cancel": "İptal et",
-        "quitMessage": "Çıkmak istediğinden emin misin?"
+        "cancel": "İptal",
+        "quitMessage": "Çıkmak istediğinden emin misin?",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -1037,7 +1251,9 @@
             "forward": "İleri",
             "openInBrowser": "Tarayıcıda aç",
             "reload": "Sayfayı yeniden yükle",
-            "home": "Mağazanın ana sayfasına git"
+            "home": "Mağazanın ana sayfasına git",
+            "enableGameInput": "Sayfa için klavye ve oyun kumandası girdisini etkinleştir",
+            "disableGameInput": "Oyun girdisini devre dışı bırak ve Heroic gezinmesine dön"
         }
     },
     "wine": {
@@ -1048,13 +1264,14 @@
             "title": "Wine Yöneticisi",
             "unzipping": "Çıkartılıyor",
             "settings": "Ayarlar",
-            "update": "Update",
+            "update": "Güncelle",
             "search": "Sürümleri ara…",
             "loading": "Wine sürümleri yükleniyor…",
             "open_folder": "Klasör Aç",
-            "no-results": "Aramanızla eşleşen bir wine sürümü bulunamadı."
+            "no-results": "Aramanızla eşleşen bir wine sürümü bulunamadı.",
+            "subtitle": "Heroic'in kullanabileceği Wine, Proton ve CrossOver sürümlerini indirin ve yönetin"
         },
-        "release": "Yayınlanma Tarihi",
+        "release": "Çıkış Tarihi",
         "size": "Boyut",
         "notes": "Notlar"
     },
@@ -1087,23 +1304,25 @@
         "loading-available": "Mevcut bileşenler yükleniyor..."
     },
     "window": {
-        "minimize": "Simge durumuna",
+        "minimize": "Pencereyi simge durumuna küçült",
         "maximize": "Pencereyi büyüt",
         "close": "Kapat",
         "restore": "Pencereyi eski boyutuna getir"
     },
     "category-settings": {
-        "cancel": "İptal et",
+        "cancel": "İptal",
         "warning": "Uyarı",
         "remove-category": "Kategoriyi Kaldır",
         "delete-question": "Bu işlem, kategoriyi ve oyun atamalarını kalıcı olarak kaldıracak. Devam edilsin mi?",
         "new-category": "Yeni Kategori",
-        "add-new-category": "Yeni Kategori Ekle"
+        "add-new-category": "Yeni kategori ekle"
     },
     "emptyLibrary": {
         "noResults": "Geçerli filtrelere uygun bir sonuç bulunamadı.",
         "noGames": "Kütüphaneniz boş.<br /><br />Epic, GOG.com veya Amazon hesaplarınızla giriş yapmak için <4>buraya</4> tıklayın. Oyunlarınız kütüphanede burada görünecektir.<br /><br />Diğer kaynaklardan oyun veya uygulama kullanmak için, bunları el ile eklemek üzere <br /> öğesine tıklayın.",
-        "noResultsTitle": "Oyun Bulunamadı"
+        "noResultsTitle": "Oyun Bulunamadı",
+        "description": "Epic, GOG.com, Amazon, itch.io veya Zoom hesaplarınızla <0>oturum açın</0>, oyunlarınız burada görünsün. Diğer kaynaklardan oyunları elle de ekleyebilirsiniz.",
+        "title": "Kütüphaneniz boş."
     },
     "adtraction-locked": {
         "description": "track.adtraction.com alan adı yüklenememiş veya engellenmiş gibi görünüyor. Adtraction ile GOG mağazasında yaptığınız her satın alma işlemi Heroic'e maddi destek sağlar. Katkıda bulunmak istiyorsanız, engellemeyi kaldırmayı düşünebilirsiniz.",
@@ -1111,7 +1330,7 @@
         "title": "Adtraction engellendi"
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar.",
+        "proton-ge": "GE-Proton, Glorious Eggroll tarafından oluşturulmuş bir Proton varyantıdır. umu başlatıcısıyla (Heroic'te varsayılan) birlikte kullanılmak üzere tasarlanmıştır.",
         "gpt": "Game Porting Toolkit, Apple tarafından geliştirilmiştir; M1+ yongalarına sahip Apple Silicon Mac'ler için önerilir ve DX12 kullanan yeni oyunlarda en iyi performansı gösterir.",
         "wine-crossover": "Wine-Crossover, Crossover OpenSource Wine projesine dayanmaktadır ve İntel tabanlı Mac'ler ile DX11 veya daha eski sürümdeki oyunlar için önerilmektedir.",
         "wine-staging-macos": "Wine-Staging-macOS, ana Wine projesine dayanmaktadır ve İntel Mac'ler ile DX11 veya daha eski sürümdeki oyunlar için, özellikle de DXMT aracıyla birlikte kullanıldığında tavsiye edilmektedir.",
@@ -1124,7 +1343,7 @@
         "no-categories": "Henüz bir kategori mevcut değil.",
         "cancel-remove": "Kaldırmayı iptal et: \"{{name}}\"",
         "confirm-remove": "Kaldırmayı onayla: \"{{name}}\"",
-        "confirm-rename": "\"{{oldName}}\"i \"{{newName}}\" olarak adlandırmayı onayla",
+        "confirm-rename": "Yeniden adlandırmayı onayla: \"{{oldName}}\" → \"{{newName}}\"",
         "rename": "Yeniden adlandır: \"{{name}}\"",
         "title": "Kategorileri Yönet",
         "remove": "Kaldır: \"{{name}}\""
@@ -1188,7 +1407,7 @@
         "info": {
             "pt1": "Heroic uygulamayı geliştirmek için %100 anonim veri toplar.",
             "pt3": "Heroic; kullanıcı adınız, IP adresiniz ya da e-postanız gibi kişisel bilgilerinizi asla toplamaz.",
-            "pt6": "Şeffaf olmak açısından, toplanılan verileri Heroic kayıtlarında görebilirsiniz.",
+            "pt6": "Şeffaflık adına, topladığımız verileri Heroic günlüklerinde görebilirsiniz.",
             "pt7": "Bu ayarı dilediğiniz zaman uygulama ayarlarından değiştirebilirsiniz.",
             "pt2": "Heroic, şu temel verileri toplamak için Heroic ekibi tarafından kendi sunucularında barındırılan açık kaynaklı Plausible Analytics platformunu kullanır: Uygulama Sürümü, İşletim Sistemi, Sistem Mimarisi, Linux Dağıtımı, Bağlı Mağazalar ve Ülke.",
             "pt4": "Bu veriler, kısıtlı kaynaklarımız ve kullanıcı geri bildirimleri doğrultusunda, bir sonraki adımda neye odaklanmamız gerektiği konusunda bize yol göstermek için kullanılır.",
@@ -1203,7 +1422,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "Oyun Bulunamadı",
+            "no-games": "Oyun bulunamadı.",
             "no-grids": "Bu oyun için bir kapak bulunamadı.",
             "search": "Oyun arama işlemi başarısız oldu, lütfen SteamGridDB API anahtarınızı kontrol edin ve tekrar deneyin",
             "grids": "Kapaklar yüklenemedi"
@@ -1219,24 +1438,25 @@
             "ageRatingAll": "Tümü",
             "os": "İşletim sistemi",
             "moreFilters": "Daha fazla filtre",
-            "ageRating": "Uygun olan yaş",
+            "ageRating": "Yaş sınırı",
             "price": "Fiyat",
             "activeCount_other": "{{count}} aktif",
             "hideDlcs": "DLC'leri gizle",
-            "ageRatingOption": "PEGI {{age}} veya daha düşük yaş derecesine sahip oyunları göster",
+            "ageRatingOption": "PEGI {{age}} veya altı",
             "genres": "Türler",
             "activeCount_one": "{{count}} aktif",
             "lessFilters": "Daha az filtre",
             "rating": "Puan",
-            "sort": "Sırala",
+            "sort": "Sıralama",
             "genresPlaceholder": "Herhangi bir tür",
             "features": "Özellikler",
             "featuresPlaceholder": "Herhangi bir özellik",
             "pageSize": "Sayfa başına",
             "releaseYear": "Çıkış yılı",
-            "hideOwned": "Sahip Olunanları gizle",
-            "wishlistOnly": "Yalnızca İstek Listesi",
-            "platform": "Platform"
+            "hideOwned": "Sahip olunanları gizle",
+            "wishlistOnly": "Yalnızca istek listesi",
+            "platform": "Platform",
+            "platformAny": "Herhangi bir platform"
         },
         "region": {
             "countries": {
@@ -1247,7 +1467,7 @@
                 "RO": "Romanya",
                 "NO": "Norveç",
                 "KR": "Güney Kore",
-                "US": "Amerika",
+                "US": "Amerika Birleşik Devletleri",
                 "HU": "Macaristan",
                 "PT": "Portekiz",
                 "NL": "Hollanda",
@@ -1277,7 +1497,7 @@
         "sidebar": "Fırsatlar",
         "sort": {
             "priceDesc": "Fiyat: yüksekten düşüğe",
-            "trending": "Trend",
+            "trending": "Popüler",
             "priceAsc": "Fiyat: düşükten yükseğe",
             "releaseDesc": "Çıkış tarihi: yeniden eskiye",
             "ratingAsc": "Puan: düşükten yükseğe",
@@ -1287,7 +1507,7 @@
         },
         "noMatches": "Şu anki filtrelerle eşleşen bir oyun yok.",
         "aria": {
-            "pagination": "Numaralandırma",
+            "pagination": "Sayfalandırma",
             "rating": "10 üzerinden {{rating}} puan"
         },
         "error": "İndirimler yüklenemedi. Lütfen daha sonra tekrar deneyin.",
@@ -1303,24 +1523,25 @@
         },
         "titleMulti": "Fırsatlar",
         "currency": {
-            "label": "Döviz"
+            "label": "Para birimi"
         },
         "storeBadge": {
-            "gmgDrmHint": "Green Man Gaming — {{drm}} anahtarı, Heroic dışında kullanıldı",
+            "gmgDrmHint": "Green Man Gaming - {{drm}} anahtarı, Heroic dışında etkinleştirilir",
             "gmgHint": "Green Man Gaming — harici bir mağaza için anahtar, Heroic aracılığıyla yüklenemez",
-            "humbleHint": "Humble Bundle — harici bir mağaza için anahtar; Heroic üzerinden yüklenemez"
+            "humbleHint": "Humble Bundle - harici bir mağaza için anahtar, Heroic aracılığıyla yüklenemez"
         },
         "view": {
             "grid": "Izgara",
             "label": "Görünüm modu",
             "list": "Liste"
-        }
+        },
+        "affiliateBanner": "Bu sayfadaki bağlantılar ortaklık bağlantılarıdır. Oyunları bu bağlantılar üzerinden satın almak Heroic'in geliştirilmesine destek olur."
     },
     "next": "Sonraki",
     "console": {
         "filter": {
             "all": "Tümü",
-            "sideload": "Other"
+            "sideload": "Diğer"
         },
         "games": "Kurulu oyunlar",
         "hints": {
@@ -1337,25 +1558,30 @@
             "title": "Güncelleme gerekli",
             "hintSuffix": "geri gitmek için"
         },
-        "sort": "Sırala",
+        "sort": {
+            "label": "Sırala",
+            "last_played": "Son Oynanan",
+            "alpha_asc": "A → Z",
+            "alpha_desc": "Z → A"
+        },
         "cancel": {
-            "hintSuffix": "iptal etmek için 3s",
-            "hintPrefix": "Tut"
+            "hintSuffix": "tuşunu 3 sn basılı tutun",
+            "hintPrefix": "İptal etmek için"
         },
         "quit": "Konsoldan Çık",
         "card": {
             "needsUpdate": "Güncelleme gerekli"
         },
-        "empty": "Gösterilecek indirilmiş bir oyun yok. Önce bir oyun indirin.",
+        "empty": "Gösterilecek kurulu oyun yok. Önce bir oyun kurun.",
         "quitApp": "Uygulamadan Çık",
         "loading": "Kütüphaneniz yükleniyor…",
         "cancelInstall": {
-            "title": "Kurulumu İptal Et?",
-            "message": "Bu oyun şu anda yükleniyor. Yüklemeyi iptal et?"
+            "title": "Kurulum iptal edilsin mi?",
+            "message": "Bu oyun şu anda kuruluyor. Kurulum iptal edilsin mi?"
         },
         "cancelUpdate": {
-            "title": "Güncellemeyi İptal Et?",
-            "message": "Bu oyun şu anda indiriliyor. Devam eden güncellemeyi iptal et?"
+            "title": "Güncelleme iptal edilsin mi?",
+            "message": "Bu oyun şu anda indiriliyor. Devam eden güncelleme iptal edilsin mi?"
         },
         "install": {
             "platform": "Platform",
@@ -1366,19 +1592,155 @@
             "path": "Şuraya kur"
         },
         "removeFromQueue": {
-            "message": "Bu oyun indirmek için kuyrukta. Kuyruktan çıkar?"
-        }
+            "message": "Bu oyun indirme kuyruğunda. Kuyruktan çıkarılsın mı?"
+        },
+        "confirm": {
+            "enter": "Konsol Moduna Geç",
+            "message": "Konsol Modu, tam ekran ve oyun kumandası dostu bir arayüzdür. Kenar çubuğu ve pencere denetimleri gizlenecektir.",
+            "title": "Konsol Moduna geçilsin mi?"
+        },
+        "launchError": "Oyun başlatılamadı. Ayrıntılar için günlüklere bakın.",
+        "launchErrorNotLoggedIn": "Oyun başlatılamadı. Önce Steam'de oturum açmanız gerekiyor.",
+        "launchErrorPrefix": "Oyun başlatılamadı:"
     },
     "common": {
         "add": "Ekle",
         "cancel": "İptal",
         "warning": "Uyarı",
-        "clear_all": "Hepsini Temizle",
+        "clear_all": "Tümünü Temizle",
         "confirm": "Onayla",
-        "duplicate": "Klonla",
+        "duplicate": "Çoğalt",
         "edit": "Düzenle",
         "remove": "Kaldır",
         "save": "Kaydet"
     },
-    "General": "Genel"
+    "General": "Genel",
+    "Community": "Topluluk",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "GOG satın alımlarınızla Heroic'i destekleyin",
+            "toggle": "GOG ortaklık bağlantılarını kullan",
+            "description": "Heroic, GOG mağazasını ziyaret ettiğinizde GOG ortaklık bağlantılarını kullanabilir. Heroic üzerinden yönlendirildikten sonra bir şey satın alırsanız GOG bizimle küçük bir komisyon paylaşır; bu size ek bir maliyet getirmez. Hangi oyunları satın aldığınızı veya satın alımlarınızla ilgili başka herhangi bir bilgiyi görmeyiz ve takip etmeyiz: GOG yalnızca birinin Heroic'ten geldiğini bilir. Bu özellik varsayılan olarak kapalıdır ve istediğiniz zaman Heroic'in gelişmiş ayarlarından değiştirebilirsiniz."
+        }
+    },
+    "Accounts": "",
+    "itchio-store": "",
+    "Update available!": "Güncelleme Mevcut!",
+    "support": {
+        "actions": {
+            "open": "Aç",
+            "copyEmail": "E-postayı kopyala",
+            "sendEmail": "E-posta gönder",
+            "shop": "Mağazaya git"
+        },
+        "title": "Bizi Destekleyin",
+        "affiliates": {
+            "description": "Bağlantılarımız üzerinden satın alın, Heroic size ek bir maliyet olmadan küçük bir komisyon kazansın.",
+            "gmg": {
+                "description": "Uygun fiyatlı resmi oyun anahtarları."
+            },
+            "gog": {
+                "description": "DRM'siz oyunlar ve klasikler."
+            },
+            "humble": {
+                "description": "Hayır amaçlı oyunlar, kitaplar ve paketler."
+            },
+            "title": "Ortaklıklar"
+        },
+        "description": "Heroic ücretsiz ve açık kaynaklıdır, her zaman da öyle kalacak. Desteğiniz geliştiricilere uygulamayı iyileştirmek, yeni özellikleri test etmek için oyun satın almak, hataları düzeltmek ve topluluğun istediği şeyleri geliştirmek için daha fazla zaman kazandırır.",
+        "donations": {
+            "description": "Heroic'in geliştirilmesini nasıl desteklemek istediğinizi seçin.",
+            "github": {
+                "description": "Heroic'e GitHub üzerinden sponsor olun ve desteğinizi herkese gösterin."
+            },
+            "kofi": {
+                "description": "Doğrudan geliştirmeye giden tek seferlik bir bağış."
+            },
+            "patreon": {
+                "description": "Perde arkası güncellemeleriyle düzenli üyelik."
+            },
+            "paypal": {
+                "description": "Tercih ettiğiniz para biriminde tek seferlik veya düzenli bağış."
+            },
+            "title": "Bağışlar"
+        },
+        "email": {
+            "label": "E-posta"
+        },
+        "headline": "Heroic'i daha da iyi hale getirmemize yardım edin",
+        "partnerships": {
+            "description": "Sponsorluk, marka ortaklıkları veya basın talepleri için bizimle iletişime geçin.",
+            "title": "Ortaklıklar ve basın"
+        },
+        "tags": {
+            "bundles": "Paketler",
+            "donation": "Bağış",
+            "drmFree": "DRM'siz",
+            "gameKeys": "Oyun anahtarları",
+            "membership": "Üyelik",
+            "sponsor": "Sponsor",
+            "tip": "Tek seferlik bağış"
+        }
+    },
+    "cloudSync": {
+        "back": "Geri",
+        "button": {
+            "download": "İndir",
+            "sync": "Eşitle",
+            "upload": "Yükle",
+            "keep": "Koru",
+            "view": "Görüntüle"
+        },
+        "column": {
+            "file": "Dosya",
+            "size": "Boyut",
+            "modified": "Son Değişiklik"
+        },
+        "never": "Hiç",
+        "count": {
+            "conflicts_one": "{{count}} çakışan",
+            "conflicts_other": "{{count}} çakışan",
+            "failed_one": "{{count}} başarısız",
+            "failed_other": "{{count}} başarısız",
+            "skipped_one": "{{count}} atlanan",
+            "skipped_other": "{{count}} atlanan"
+        },
+        "genericIssue": "Son eşitlemede bir sorun oluştu.",
+        "hint": {
+            "checking": "Steam Bulut denetleniyor…",
+            "cloudCopy": "{{when}} alınan Bulut kopyası",
+            "cloudEmpty": "Steam Bulut'ta henüz bir şey yok",
+            "discardCloud": "{{when}} alınan Bulut kopyasını siler",
+            "fileCount_one": "{{count}} dosya · {{size}}",
+            "fileCount_other": "{{count}} dosya · {{size}}",
+            "firstUpload": "İlk Bulut kopyasını oluşturur",
+            "lastSync": "{{when}} eşitlendi",
+            "neverSynced": "Henüz Heroic üzerinden eşitlenmedi",
+            "replaceCloud": "{{when}} alınan Bulut kopyasının yerine geçer"
+        },
+        "keepCloud": "Çöz: Steam Bulut kayıtlarını tut",
+        "keepLocal": "Çöz: bu bilgisayarın kayıtlarını tut",
+        "lastSync": "Son eşitleme: {{when}}",
+        "noFiles": "Bu oyun için Steam Bulut'ta dosya yok.",
+        "pull": "Kayıtları Buluttan indir",
+        "push": "Yerel kayıtları Buluta yükle",
+        "section": {
+            "actions": "Eşitleme işlemleri",
+            "files": "Bulut dosyaları"
+        },
+        "state": {
+            "conflicts": "Steam Bulut kayıtları bu bilgisayardakilerle çakışıyor",
+            "failed": "Steam Bulut eşitlemesi başarısız oldu",
+            "incomplete": "Steam Bulut eşitlemesi tamamlanmadı",
+            "ok": "Steam Bulut kayıtları güncel",
+            "syncing": "Steam Bulut kayıtları eşitleniyor…",
+            "unknown": "Steam Bulut kayıtları henüz eşitlenmedi"
+        },
+        "sync": "Şimdi eşitle (iki yönlü)",
+        "syncing": "Eşitleniyor… lütfen bekleyin.",
+        "viewFiles": "Bulut kayıt dosyalarını görüntüle"
+    },
+    "changelog": {
+        "view_full": "Tüm değişiklik günlüğünü GitHub'da görüntüle"
+    }
 }
