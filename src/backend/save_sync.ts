@@ -6,6 +6,8 @@ import { getShellPath } from './utils'
 import { GameConfig } from './game_config'
 import { getSavePathFingerprint } from './cloud_saves/fingerprint'
 import { copyMissingSaveFiles } from './cloud_saves/migrate'
+import { resolveEpicSavePath } from './cloud_saves/epic_resolver'
+import { LegendaryUser } from './storeManagers/legendary/user'
 import { parseLegendaryOutput } from './cloud_saves/parse'
 import {
   existsSync,
@@ -102,6 +104,23 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     ['Computing save path for save folder', save_folder],
     LogPrefix.Legendary
   )
+
+  const accountId = LegendaryUser.getUserInfo()?.account_id
+  const gameSettings = await game.getSettings()
+  const resolvedSavePath = await resolveEpicSavePath({
+    gameInfo: game.getGameInfo(),
+    gameSettings,
+    accountId,
+    isNative: game.isNative()
+  })
+  if (resolvedSavePath) {
+    logInfo(
+      ['Resolved save path locally:', resolvedSavePath],
+      LogPrefix.Legendary
+    )
+    return resolvedSavePath
+  }
+
   if (save_path) {
     logDebug(
       ['Legendary has a save path stored, discarding it:', save_path],
@@ -125,7 +144,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   }
 
   if (!game.isNative()) {
-    await verifyWinePrefix(await game.getSettings())
+    await verifyWinePrefix(gameSettings)
   }
 
   logInfo(['Computing default save path for', appName], LogPrefix.Legendary)
@@ -140,7 +159,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     {
       abortId: appName + '-savePath',
       logMessagePrefix: 'Getting default save path',
-      env: game.isNative() ? {} : setupWineEnvVars(await game.getSettings())
+      env: game.isNative() ? {} : setupWineEnvVars(gameSettings)
     }
   )
 
