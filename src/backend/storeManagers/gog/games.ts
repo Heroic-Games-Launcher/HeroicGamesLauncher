@@ -961,8 +961,10 @@ export default class GOGGame implements Game {
         const message = `Not syncing "${location.name}": "${location.location}" is not an absolute path`
         logError(message, LogPrefix.Gog)
         output += `${message}\n`
-        state = 'failed'
-        reason ??= 'no-path'
+        if (state !== 'conflicts') {
+          state = 'failed'
+          reason ??= 'no-path'
+        }
         continue
       }
 

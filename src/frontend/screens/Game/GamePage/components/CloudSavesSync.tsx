@@ -169,7 +169,7 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
         type="button"
         className="cloudSaves__trigger"
         onClick={handleOpen}
-        aria-haspopup="true"
+        aria-haspopup="menu"
         aria-expanded={open}
       >
         {statusLabel}

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -55,11 +55,15 @@ export default function GOGSyncSaves({
 
   const { appName } = useContext(SettingsContext)
 
+  const detectionId = useRef(0)
+
   useEffect(() => {
     const getLocations = async () => {
+      const requestId = ++detectionId.current
       setIsLoading(true)
       const legacy = !savesPathFingerprint
       const stale = !legacy && savesPathFingerprint !== savePathFingerprint
+      const force = retry || stale
       try {
         if (legacy && gogSaves.length) {
           setSavesPathFingerprint(savePathFingerprint)
@@ -69,11 +73,14 @@ export default function GOGSyncSaves({
         const locations = (await window.api.getDefaultSavePath(
           appName,
           'gog',
-          stale ? [] : gogSaves
+          force ? [] : gogSaves
         )) as GOGCloudSavesLocation[]
+
+        if (requestId !== detectionId.current) return
 
         if (locations.length > 0) {
           setGogSaves(locations)
+          setRetry(false)
         } else if (gogSaves.length === 0) {
           setGogSaves([{ name: '__default', location: '' }])
         }
@@ -82,15 +89,15 @@ export default function GOGSyncSaves({
           `Could not detect save path for ${appName}: ${error}`
         )
       } finally {
-        setIsSyncing(false)
-        setIsLoading(false)
+        if (requestId === detectionId.current) {
+          setIsLoading(false)
+        }
       }
     }
     if (featureSupported && !isLinuxNative) getLocations()
   }, [retry, savePathFingerprint, savesPathFingerprint])
 
   const handleRetry = () => {
-    setGogSaves([])
     setRetry(!retry)
   }
 
@@ -101,6 +108,7 @@ export default function GOGSyncSaves({
       const result = await window.api.syncGOGSaves(gogSaves, appName, syncType)
       setManuallyOutput(result.output.split('\n'))
       setManuallyOutputShow(true)
+      window.dispatchEvent(new Event('cloud-saves-synced'))
     } catch (error) {
       window.api.logError(`Sync saves failed for ${appName}: ${error}`)
     } finally {
@@ -110,19 +118,19 @@ export default function GOGSyncSaves({
 
   if (isLinuxNative || !featureSupported) {
     return (
-      <div style={{ color: 'red' }}>
+      <Alert variant="warning">
         {isLinuxNative &&
           t(
             'settings.saves.gog_linux_native_warning',
             "linux native games do not support GOG's cloud saves feature. Use the windows version instead."
           )}
-        <br />
+        {isLinuxNative && !featureSupported ? <br /> : null}
         {!featureSupported &&
           t(
             'settings.saves.not_supported',
             'Cloud Saves are not supported by this game.'
           )}
-      </div>
+      </Alert>
     )
   }
 
@@ -146,7 +154,7 @@ export default function GOGSyncSaves({
             'Trying to detect the correct save folder (click to cancel)'
           )}
           onClick={() => {
-            window.api.abort(`${appName}-savePath`)
+            detectionId.current += 1
             setIsLoading(false)
           }}
         />

@@ -95,6 +95,7 @@ export default function LegendarySyncSaves({
       const result = await syncSaves(savesPath, appName, 'legendary', syncType)
       setManuallyOutput(result.output.split('\n'))
       setManuallyOutputShow(true)
+      window.dispatchEvent(new Event('cloud-saves-synced'))
     } catch (error) {
       window.api.logError(`Sync saves failed for ${appName}: ${error}`)
     } finally {

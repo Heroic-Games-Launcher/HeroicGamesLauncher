@@ -44,7 +44,7 @@ const BackupSaves = () => {
         >
           {[1, 2, 5, 10].map((size) => (
             <MenuItem key={size} value={size}>
-              {`${size} GB`}
+              {t('setting.backupSize', '{{size}} GB', { size })}
             </MenuItem>
           ))}
         </SelectField>

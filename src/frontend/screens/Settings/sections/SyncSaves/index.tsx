@@ -60,7 +60,7 @@ const SyncSaves = () => {
           setSavesPathFingerprint={setSavesPathFingerprint}
           syncCommands={syncCommands}
         />
-        <Backups runner="legendary" />
+        {gameInfo?.cloud_save_enabled ? <Backups runner="legendary" /> : null}
       </>
     )
   }
@@ -84,7 +84,7 @@ const SyncSaves = () => {
           setAutoSyncSaves={setAutoSyncSaves}
           syncCommands={syncCommands}
         />
-        <Backups runner="gog" />
+        {gameInfo?.cloud_save_enabled ? <Backups runner="gog" /> : null}
       </>
     )
   }

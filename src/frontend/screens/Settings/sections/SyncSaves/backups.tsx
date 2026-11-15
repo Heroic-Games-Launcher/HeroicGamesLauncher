@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Runner, SaveBackupEntry } from 'common/types'
-import { Button, SettingRow } from 'frontend/components/UI'
+import { Alert, Button, SettingRow } from 'frontend/components/UI'
 import { parseBackupDate, toIntlLocale } from 'common/utils'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
+import './backups.css'
 
 interface Props {
   runner: Runner
@@ -33,20 +34,28 @@ const Backups = ({ runner }: Props) => {
   const [backups, setBackups] = useState<SaveBackupEntry[]>([])
 
   const refresh = () => {
-    void window.api.getSaveBackups(appName, runner).then(setBackups)
+    void window.api
+      .getSaveBackups(appName, runner)
+      .then(setBackups)
+      .catch((error) =>
+        window.api.logError(`Could not load save backups: ${error}`)
+      )
   }
 
   const openFolder = () => {
     void window.api
       .getSaveBackupPath(appName)
       .then((path) => window.api.openFolder(path))
+      .catch((error) =>
+        window.api.logError(`Could not open the backups folder: ${error}`)
+      )
   }
 
-  useEffect(refresh, [appName, runner])
-
-  if (!backups.length) {
-    return <></>
-  }
+  useEffect(() => {
+    refresh()
+    window.addEventListener('cloud-saves-synced', refresh)
+    return () => window.removeEventListener('cloud-saves-synced', refresh)
+  }, [appName, runner])
 
   const restore = (backup: SaveBackupEntry) => {
     showDialogModal({
@@ -98,6 +107,9 @@ const Backups = ({ runner }: Props) => {
                 }
                 refresh()
               })
+              .catch((error) =>
+                window.api.logError(`Could not restore the backup: ${error}`)
+              )
           }
         },
         { text: t('box.no'), onClick: () => null }
@@ -105,50 +117,45 @@ const Backups = ({ runner }: Props) => {
     })
   }
 
+  const locationName = (location: string) =>
+    location.split(/[\\/]/).filter(Boolean).pop()
+
   return (
     <div>
       <h4>{t('setting.backups', 'Save backups')}</h4>
-      <div
-        style={{
-          maxHeight: 'min(50vh, 22rem)',
-          overflowY: 'auto',
-          overscrollBehavior: 'contain',
-          scrollbarGutter: 'stable',
-          paddingRight: 'var(--space-2xs-fixed)'
-        }}
-      >
-        {backups.map((backup) => (
-          <SettingRow
-            key={backup.id}
-            label={formatBackupDate(backup.createdAt, i18n.language)}
-            description={`${t(
-              'setting.backups-summary',
-              '{{changed}} changed files, {{deleted}} deleted files',
-              { changed: backup.changed, deleted: backup.deleted }
-            )}${
-              backup.isCurrent
-                ? ` — ${t('setting.backups-current', 'Matches your current saves')}`
-                : ''
-            }`}
-          >
-            <Button
-              variant="secondary"
-              size="sm"
-              disabled={backup.isCurrent}
-              onClick={() => restore(backup)}
+      {backups.length === 0 ? (
+        <Alert variant="info">
+          {t('setting.backups-empty', 'No save backups yet')}
+        </Alert>
+      ) : (
+        <div className="savesBackups__list">
+          {backups.map((backup) => (
+            <SettingRow
+              key={backup.id}
+              label={formatBackupDate(backup.createdAt, i18n.language)}
+              description={`${t(
+                'setting.backups-summary',
+                '{{changed}} changed, {{deleted}} deleted',
+                { changed: backup.changed, deleted: backup.deleted }
+              )}${locationName(backup.location) ? ` · ${locationName(backup.location)}` : ''}${
+                backup.isCurrent
+                  ? ` — ${t('setting.backups-current', 'Matches your current saves')}`
+                  : ''
+              }`}
             >
-              {t('setting.backups-restore-button', 'Restore')}
-            </Button>
-          </SettingRow>
-        ))}
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          marginTop: 'var(--space-lg-fixed)'
-        }}
-      >
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={backup.isCurrent}
+                onClick={() => restore(backup)}
+              >
+                {t('setting.backups-restore-button', 'Restore')}
+              </Button>
+            </SettingRow>
+          ))}
+        </div>
+      )}
+      <div className="savesBackups__actions">
         <Button variant="ghost" size="sm" onClick={openFolder}>
           {t('setting.backups-open-folder', 'Open backups folder')}
         </Button>
