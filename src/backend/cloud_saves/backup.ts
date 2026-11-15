@@ -87,6 +87,66 @@ const collectFiles = (
   return files
 }
 
+const collectFileStats = (
+  root: string
+): Record<string, { size: number; mtimeMs: number }> => {
+  const files: Record<string, { size: number; mtimeMs: number }> = {}
+
+  const walk = (dir: string) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const absolute = join(dir, entry.name)
+      if (entry.isDirectory()) {
+        walk(absolute)
+      } else if (entry.isFile()) {
+        const stat = statSync(absolute)
+        files[toPosixPath(relative(root, absolute))] = {
+          size: stat.size,
+          mtimeMs: stat.mtimeMs
+        }
+      }
+    }
+  }
+
+  walk(root)
+  return files
+}
+
+const isDirectory = (path: string): boolean => {
+  try {
+    return existsSync(path) && statSync(path).isDirectory()
+  } catch {
+    return false
+  }
+}
+
+const currentStateHashFromManifest = (
+  location: string,
+  manifest: BackupManifest | undefined
+): string | undefined => {
+  if (!manifest?.stateHash || !location || !isDirectory(location)) {
+    return undefined
+  }
+
+  const current = collectFileStats(location)
+  const files = manifest.files
+  const currentPaths = Object.keys(current)
+
+  if (currentPaths.length !== Object.keys(files).length) {
+    return undefined
+  }
+
+  const matches = currentPaths.every((file) => {
+    const previous = files[file]
+    return (
+      !!previous &&
+      previous.size === current[file].size &&
+      previous.mtimeMs === current[file].mtimeMs
+    )
+  })
+
+  return matches ? manifest.stateHash : undefined
+}
+
 const stateHash = (files: Record<string, FileState>): string =>
   createHash('md5')
     .update(
@@ -529,7 +589,7 @@ export const listSaveBackups = (
 
       const manifest = readManifest(locationDir)
       const location = snapshots[snapshots.length - 1].snapshot.location
-      const currentHash = locationStateHash(location, manifest?.files)
+      const currentHash = currentStateHashFromManifest(location, manifest)
 
       for (const { folderName, snapshot } of snapshots) {
         entries.push({
@@ -583,7 +643,9 @@ export const restoreSaveBackup = ({
   }
 
   const manifest = readManifest(locationDir)
-  const currentHash = locationStateHash(target.location, manifest?.files)
+  const currentHash =
+    currentStateHashFromManifest(target.location, manifest) ??
+    locationStateHash(target.location, manifest?.files)
   if (target.stateHash && currentHash && target.stateHash === currentHash) {
     return {
       id: backupId,
@@ -602,6 +664,9 @@ export const restoreSaveBackup = ({
     backupRoot
   })
 
+  const restoredFiles = new Set<string>()
+  const deletedFiles = new Set<string>()
+
   for (const { dir, snapshot } of snapshots.slice(0, targetIndex + 1)) {
     for (const file of [
       ...(snapshot.carried ?? []),
@@ -612,10 +677,30 @@ export const restoreSaveBackup = ({
       const destination = join(target.location, file)
       mkdirSync(dirname(destination), { recursive: true })
       copyFileSync(source, destination)
+      restoredFiles.add(file)
     }
     for (const file of snapshot.deleted ?? []) {
       rmSync(join(target.location, file), { force: true })
+      deletedFiles.add(file)
     }
+  }
+
+  if (manifest) {
+    for (const file of restoredFiles) {
+      if (deletedFiles.has(file)) continue
+      const restored = join(target.location, file)
+      if (!existsSync(restored)) continue
+      const stat = statSync(restored)
+      manifest.files[file] = { size: stat.size, mtimeMs: stat.mtimeMs }
+    }
+    for (const file of deletedFiles) {
+      delete manifest.files[file]
+    }
+    manifest.stateHash = target.stateHash
+    writeFileSync(
+      join(locationDir, 'manifest.json'),
+      JSON.stringify(manifest, null, 2)
+    )
   }
 
   logInfo(
