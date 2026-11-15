@@ -294,100 +294,114 @@ export const backupSaveLocations = ({
   }
 
   for (const location of locations) {
-    if (
-      !location ||
-      !existsSync(location) ||
-      !statSync(location).isDirectory()
-    ) {
-      continue
-    }
+    try {
+      if (
+        !location ||
+        !existsSync(location) ||
+        !statSync(location).isDirectory()
+      ) {
+        continue
+      }
 
-    const locationKey = createHash('md5')
-      .update(location)
-      .digest('hex')
-      .slice(0, 8)
-    const locationDir = join(appBackupRoot, locationKey)
-    if (locationDir.startsWith(location)) {
-      continue
-    }
+      const locationKey = createHash('md5')
+        .update(location)
+        .digest('hex')
+        .slice(0, 8)
+      const locationDir = join(appBackupRoot, locationKey)
+      if (locationDir.startsWith(location)) {
+        continue
+      }
 
-    const previous = readManifest(locationDir)
-    const current = collectFiles(location, previous?.files)
-    const currentStateHash = stateHash(current)
-    const changed = getChangedFiles(previous?.files, current)
-    const deleted = previous
-      ? Object.keys(previous.files).filter((file) => !(file in current))
-      : []
+      const previous = readManifest(locationDir)
+      const current = collectFiles(location, previous?.files)
+      const currentStateHash = stateHash(current)
+      const changed = getChangedFiles(previous?.files, current)
+      const deleted = previous
+        ? Object.keys(previous.files).filter((file) => !(file in current))
+        : []
 
-    if (!changed.length && !deleted.length) {
-      continue
-    }
+      if (!changed.length && !deleted.length) {
+        continue
+      }
 
-    const createdAt = new Date().toISOString()
-    const folderBase = createdAt.replace(/[:.]/g, '-')
-    let folderName = folderBase
-    let snapshotDir = join(locationDir, folderName)
-    for (let suffix = 1; existsSync(snapshotDir); suffix++) {
-      folderName = `${folderBase}-${suffix}`
-      snapshotDir = join(locationDir, folderName)
-    }
-    for (const file of changed) {
-      const destination = join(snapshotDir, 'files', file)
-      mkdirSync(dirname(destination), { recursive: true })
-      copyFileSync(join(location, file), destination)
-    }
+      const createdAt = new Date().toISOString()
+      const folderBase = createdAt.replace(/[:.]/g, '-')
+      let folderName = folderBase
+      let snapshotDir = join(locationDir, folderName)
+      for (let suffix = 1; existsSync(snapshotDir); suffix++) {
+        folderName = `${folderBase}-${suffix}`
+        snapshotDir = join(locationDir, folderName)
+      }
+      for (const file of changed) {
+        const destination = join(snapshotDir, 'files', file)
+        mkdirSync(dirname(destination), { recursive: true })
+        copyFileSync(join(location, file), destination)
+      }
 
-    mkdirSync(snapshotDir, { recursive: true })
-    writeFileSync(
-      join(snapshotDir, 'snapshot.json'),
-      JSON.stringify(
-        {
-          createdAt,
-          appName,
-          title,
-          location,
-          changed,
-          deleted,
-          stateHash: currentStateHash
-        },
-        null,
-        2
+      mkdirSync(snapshotDir, { recursive: true })
+      writeFileSync(
+        join(snapshotDir, 'snapshot.json'),
+        JSON.stringify(
+          {
+            createdAt,
+            appName,
+            title,
+            location,
+            changed,
+            deleted,
+            stateHash: currentStateHash
+          },
+          null,
+          2
+        )
       )
-    )
-    writeFileSync(
-      join(locationDir, 'manifest.json'),
-      JSON.stringify(
-        {
-          version: 1,
-          appName,
-          title,
-          location,
-          files: current,
-          createdAt,
-          stateHash: currentStateHash
-        },
-        null,
-        2
+      writeFileSync(
+        join(locationDir, 'manifest.json'),
+        JSON.stringify(
+          {
+            version: 1,
+            appName,
+            title,
+            location,
+            files: current,
+            createdAt,
+            stateHash: currentStateHash
+          },
+          null,
+          2
+        )
       )
-    )
-    writeFileSync(
-      join(appBackupRoot, 'app.json'),
-      JSON.stringify({ appName, title }, null, 2)
-    )
-    logInfo(
-      [
-        'Backed up',
-        `${changed.length}`,
-        'changed save files for',
-        appName,
-        'to',
-        snapshotDir
-      ],
+      writeFileSync(
+        join(appBackupRoot, 'app.json'),
+        JSON.stringify({ appName, title }, null, 2)
+      )
+      logInfo(
+        [
+          'Backed up',
+          `${changed.length}`,
+          'changed save files for',
+          appName,
+          'to',
+          snapshotDir
+        ],
+        LogPrefix.Backend
+      )
+    } catch (error) {
+      logWarning(
+        ['Failed to back up saves in', location, `${error}`],
+        LogPrefix.Backend
+      )
+    }
+  }
+
+  try {
+    pruneBackups(appBackupRoot, maxBytes)
+  } catch (error) {
+    logWarning(
+      ['Failed to prune save backups for', appName, `${error}`],
       LogPrefix.Backend
     )
   }
-
-  pruneBackups(appBackupRoot, maxBytes)
 }
 
 export const backupSaves = ({
@@ -402,22 +416,29 @@ export const backupSaves = ({
   locations: string[]
   force?: boolean
 }): void => {
-  const {
-    backupSaves: enabled,
-    maxSaveBackupSize,
-    defaultInstallPath
-  } = GlobalConfig.get().getSettings()
-  if (!enabled && !force) {
-    return
-  }
+  try {
+    const {
+      backupSaves: enabled,
+      maxSaveBackupSize,
+      defaultInstallPath
+    } = GlobalConfig.get().getSettings()
+    if (!enabled && !force) {
+      return
+    }
 
-  backupSaveLocations({
-    appName,
-    title,
-    locations,
-    backupRoot: join(defaultInstallPath, 'Saves_Backup'),
-    maxBytes: Math.max(maxSaveBackupSize || 1, 1) * GIGABYTE
-  })
+    backupSaveLocations({
+      appName,
+      title,
+      locations,
+      backupRoot: join(defaultInstallPath, 'Saves_Backup'),
+      maxBytes: Math.max(maxSaveBackupSize || 1, 1) * GIGABYTE
+    })
+  } catch (error) {
+    logWarning(
+      ['Failed to back up saves for', appName, `${error}`],
+      LogPrefix.Backend
+    )
+  }
 }
 
 interface SnapshotInfo {

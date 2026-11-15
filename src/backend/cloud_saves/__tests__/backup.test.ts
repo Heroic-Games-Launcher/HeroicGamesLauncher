@@ -454,3 +454,21 @@ describe('backup state hashes', () => {
     expect(readFileSync(join(saveDir, 'a.sav'), 'utf-8')).toBe('first')
   })
 })
+
+describe('backup safety', () => {
+  test('does not throw when the backup folder cannot be created', () => {
+    const saveDir = makeDir()
+    const root = makeDir()
+    const blocked = join(root, 'blocked')
+    writeFileSync(blocked, 'not a directory')
+
+    expect(() =>
+      backupSaveLocations({
+        appName: 'Game',
+        title: 'Title',
+        locations: [saveDir],
+        backupRoot: join(blocked, 'nested')
+      })
+    ).not.toThrow()
+  })
+})
