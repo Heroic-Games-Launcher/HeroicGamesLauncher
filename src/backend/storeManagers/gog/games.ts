@@ -946,7 +946,8 @@ export default class GOGGame implements Game {
         {
           abortId: this.id,
           logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
-          onOutput: (chunk) => (output += chunk)
+          onOutput: (chunk) => (output += chunk),
+          waitForChildProcesses: false
         }
       )
 

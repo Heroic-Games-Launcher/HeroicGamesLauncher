@@ -876,7 +876,8 @@ export default class LegendaryGame implements Game {
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
       logMessagePrefix: `Syncing saves for ${this.getGameInfo().title}`,
-      onOutput: (output) => (fullOutput += output)
+      onOutput: (output) => (fullOutput += output),
+      waitForChildProcesses: false
     })
 
     if (res.error) {

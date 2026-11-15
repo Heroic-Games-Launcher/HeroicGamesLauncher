@@ -530,6 +530,7 @@ export interface CallRunnerOptions {
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
   cwd?: string
+  waitForChildProcesses?: boolean
 }
 
 export interface EnviromentVariable {

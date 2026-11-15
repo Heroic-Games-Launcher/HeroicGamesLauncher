@@ -159,7 +159,8 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     {
       abortId: appName + '-savePath',
       logMessagePrefix: 'Getting default save path',
-      env: game.isNative() ? {} : setupWineEnvVars(gameSettings)
+      env: game.isNative() ? {} : setupWineEnvVars(gameSettings),
+      waitForChildProcesses: false
     }
   )
 
