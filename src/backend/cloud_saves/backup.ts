@@ -504,6 +504,12 @@ export const restoreSaveBackup = ({
 export const getSaveBackups = (appName: string): SaveBackupEntry[] =>
   listSaveBackups(appName, getBackupRoot())
 
+export const getSaveBackupFolder = (appName: string): string => {
+  const backupRoot = getBackupRoot()
+  const [folder] = findAppBackupFolders(appName, backupRoot)
+  return folder ?? backupRoot
+}
+
 export const restoreSaveBackupById = ({
   appName,
   title,

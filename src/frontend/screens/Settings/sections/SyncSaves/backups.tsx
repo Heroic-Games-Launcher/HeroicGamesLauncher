@@ -24,6 +24,12 @@ const Backups = ({ runner }: Props) => {
     void window.api.getSaveBackups(appName, runner).then(setBackups)
   }
 
+  const openFolder = () => {
+    void window.api
+      .getSaveBackupPath(appName)
+      .then((path) => window.api.openFolder(path))
+  }
+
   useEffect(refresh, [appName, runner])
 
   if (!backups.length) {
@@ -92,6 +98,9 @@ const Backups = ({ runner }: Props) => {
           </Button>
         </SettingRow>
       ))}
+      <Button variant="ghost" size="sm" onClick={openFolder}>
+        {t('setting.backups-open-folder', 'Open backups folder')}
+      </Button>
     </div>
   )
 }

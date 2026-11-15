@@ -318,6 +318,7 @@ interface AsyncIPCFunctions {
     appName: string,
     runner: Runner
   ) => Promise<SaveBackupEntry[]>
+  getSaveBackupPath: (appName: string) => Promise<string>
   restoreSaveBackup: (
     appName: string,
     runner: Runner,
