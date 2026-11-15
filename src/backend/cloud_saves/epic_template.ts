@@ -1,4 +1,4 @@
-export interface EpicTemplateVars {
+interface EpicTemplateVars {
   installPath: string
   accountId: string
   home: string

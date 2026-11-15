@@ -33,7 +33,7 @@ const toPosixPath = (path: string) => path.split(sep).join('/')
 
 const INVALID_FILENAME_CHARS = /[<>:"/\\|?*\p{Cc}]/gu
 
-export const MAX_BACKUP_BYTES = 1024 * 1024 * 1024
+const MAX_BACKUP_BYTES = 1024 * 1024 * 1024
 
 export const getBackupFolderName = (
   title: string | undefined,

@@ -4,7 +4,7 @@ import type {
   CloudSyncState
 } from 'common/types'
 
-export interface ParsedSyncOutput {
+interface ParsedSyncOutput {
   state: CloudSyncState
   action?: 'upload' | 'download' | 'none'
   reason?: CloudSyncReason
