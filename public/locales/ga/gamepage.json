@@ -29,7 +29,7 @@
         "totalPlayed": "Am Imeartha",
         "achievements": "Éachtaí",
         "details": "Sonraí an chluiche",
-        "about": "Maidir leis an gCluiche Seo",
+        "about": "Maidir",
         "hoursPlayedShort": "{{hours}} uair an chloig",
         "overview": "Forléargas",
         "tabs": "Eolas faoin gcluiche"
@@ -131,7 +131,7 @@
         "unhide_game": "Nocht Cluiche",
         "uninstall": "Díshuiteáil",
         "update": "Nuashonrú",
-        "play": "IMIR",
+        "play": "Imir",
         "edit-game": "Cuir Cluiche in Eagar",
         "favourite": "Cuir le Rogha",
         "unfavourite": "Bain De Cheanáin",
@@ -184,7 +184,8 @@
             "unknown": "Anaithnid",
             "verified": "Fíoraithe"
         },
-        "developer": "Forbróir"
+        "developer": "Forbróir",
+        "dlcs": "DLC"
     },
     "install": {
         "anticheat-warning": {
@@ -319,7 +320,9 @@
     },
     "specs": {
         "minimum": "Íosmhéid",
-        "recommended": "Molta"
+        "recommended": "Molta",
+        "notes": "Nótaí",
+        "other": "Eile"
     },
     "status": {
         "clickToUpdate": "Cliceáil chun Nuashonrú",
@@ -391,5 +394,18 @@
         },
         "square": "Ealaín Chearnógach",
         "title": "Cuir Cluiche in Eagar"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Déantar fillteáin a shuiteáiltear tríd an aip itch.io a iompórtáil go hiomlán, nuashonruithe san áireamh. I gcás aon fhillteáin eile, ní féidir le Heroic seiceáil an bhfuil nuashonruithe ar fáil, agus ní scriosfar comhaid an chluiche má dhéantar an clár a dhíshuiteáil."
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Éachtaí",
+            "dlc": "DLC",
+            "installInfo": "Méid Íoslódála",
+            "launchOptions": "Roghanna Seolta"
+        }
     }
 }
