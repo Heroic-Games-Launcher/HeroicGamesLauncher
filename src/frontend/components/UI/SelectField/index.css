@@ -224,7 +224,9 @@
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root:hover,
 .MuiPopover-root
   .MuiPaper-root.MuiMenu-paper
-  .MuiMenuItem-root.Mui-focusVisible {
+  .MuiMenuItem-root.Mui-focusVisible,
+.MuiMenuItem-root:hover,
+.MuiMenuItem-root.Mui-focusVisible {
   background-color: color-mix(
     in oklab,
     var(--selected, var(--accent)) 12%,
