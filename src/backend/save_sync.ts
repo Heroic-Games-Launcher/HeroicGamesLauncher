@@ -345,6 +345,19 @@ async function refreshSavePathsIfConfigurationChanged(
   const game = libraryManagerMap[runner].getGame(appName)
   const settings = await game.getSettings()
   const fingerprint = getSavePathFingerprint(game.getGameInfo(), settings)
+  const gameConfig = GameConfig.get(appName)
+
+  // Existing installs have no fingerprint; adopt their current configuration
+  // instead of overwriting manually configured save paths on first launch.
+  if (!settings.savesPathFingerprint) {
+    gameConfig.setSetting('savesPathFingerprint', fingerprint)
+    logInfo(
+      ['Adopted the current save path configuration for', appName],
+      LogPrefix.Backend
+    )
+    return false
+  }
+
   if (settings.savesPathFingerprint === fingerprint) {
     return false
   }
@@ -355,7 +368,6 @@ async function refreshSavePathsIfConfigurationChanged(
       runner,
       settings.gogSaves ?? []
     )
-    const gameConfig = GameConfig.get(appName)
 
     if (runner === 'gog') {
       const locations = paths as GOGCloudSavesLocation[]

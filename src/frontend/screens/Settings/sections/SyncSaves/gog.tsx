@@ -58,8 +58,14 @@ export default function GOGSyncSaves({
   useEffect(() => {
     const getLocations = async () => {
       setIsLoading(true)
-      const stale = savesPathFingerprint !== savePathFingerprint
+      const legacy = !savesPathFingerprint
+      const stale = !legacy && savesPathFingerprint !== savePathFingerprint
       try {
+        if (legacy && gogSaves.length) {
+          setSavesPathFingerprint(savePathFingerprint)
+          return
+        }
+
         const locations = (await window.api.getDefaultSavePath(
           appName,
           'gog',
@@ -82,7 +88,7 @@ export default function GOGSyncSaves({
       }
     }
     if (featureSupported && !isLinuxNative) getLocations()
-  }, [retry, savePathFingerprint])
+  }, [retry, savePathFingerprint, savesPathFingerprint])
 
   const handleRetry = () => {
     setGogSaves([])

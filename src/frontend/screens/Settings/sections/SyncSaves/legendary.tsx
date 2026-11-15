@@ -56,8 +56,13 @@ export default function LegendarySyncSaves({
 
   useEffect(() => {
     const setDefaultSaveFolder = async () => {
-      const stale = savesPathFingerprint !== savePathFingerprint
-      if (savesPath.length && !retry && !stale) {
+      const legacy = !savesPathFingerprint
+      const stale = !legacy && savesPathFingerprint !== savePathFingerprint
+      if (legacy && savesPath.length) {
+        setSavesPathFingerprint(savePathFingerprint)
+        return
+      }
+      if (!legacy && !stale && savesPath.length && !retry) {
         return
       }
       setLoading(true)
@@ -82,7 +87,7 @@ export default function LegendarySyncSaves({
       }
     }
     if (featureSupported) setDefaultSaveFolder()
-  }, [winePrefix, isProton, retry, savePathFingerprint])
+  }, [winePrefix, isProton, retry, savePathFingerprint, savesPathFingerprint])
 
   async function handleSync() {
     setIsSyncing(true)
