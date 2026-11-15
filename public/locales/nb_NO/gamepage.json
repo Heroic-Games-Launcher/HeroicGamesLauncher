@@ -10,7 +10,8 @@
         "move": {
             "message": "Dette kan ta lang tid, er du sikker?",
             "path": "Velg hvor du ønsker å flytte filene",
-            "title": "Flytt spill-installasjon"
+            "title": "Flytt spill-installasjon",
+            "steamMessage": "Steams lagringshåndterer vil nå flytte spillet til en annen diskstasjon. Heroic vil oppdatere seg når Steam er ferdig."
         },
         "no": "NEI",
         "repair": {
@@ -97,11 +98,12 @@
         "changelog": "Vis endringslogg",
         "browse_wine_prefix": "Bla gjennom Wine Prefix",
         "browse_files": "Bla gjennom filer",
-        "play": "SPILL",
+        "play": "Spill",
         "edit-game": "Rediger spill",
         "backToLibrary": "Tilbake til biblioteket",
         "favourite": "Legg til i favoritter",
-        "unfavourite": "Fjern fra favoritter"
+        "unfavourite": "Fjern fra favoritter",
+        "steamStore": "Åpne Steam-side"
     },
     "cloud_save_unsupported": "Ustøttet",
     "disabled": "Deaktivert",
@@ -139,7 +141,7 @@
         "install_info": "Installasjonsinfo",
         "achievements": "Prestasjoner",
         "hoursPlayed": "{{hours}} timer spilt",
-        "about": "Om dette spillet",
+        "about": "Om",
         "details": "Spilldetaljer",
         "hoursPlayedShort": "{{hours}} timer",
         "overview": "Oversikt",
@@ -181,6 +183,12 @@
             "unknown": "Ukjent",
             "unsupported": "Ikke kompatibelt",
             "verified": "Verifisert"
+        },
+        "dlcs": "DLC",
+        "dlc": {
+            "disabled": "Deaktivert — trykk for å aktivere",
+            "enabled": "Aktivert — trykk for å deaktivere",
+            "notBought": "Ikke eid"
         }
     },
     "install": {
@@ -199,7 +207,10 @@
             "cancel": "Nei",
             "title": "Anti-juks ødelagt/avvist"
         },
-        "flatpak-path-not-writtable": "Feil: Sandkassetilgang ikke gitt til denne stien, datatap vil forekomme."
+        "flatpak-path-not-writtable": "Feil: Sandkassetilgang ikke gitt til denne stien, datatap vil forekomme.",
+        "free": "gratis",
+        "steam-no-libraries": "Ingen biblioteksmapper fra Steam ble funnet — legg til en diskstasjon i Steam først.",
+        "steam-path": "Installasjonssti (Steam-bibliotek)"
     },
     "label": {
         "game": {
@@ -245,7 +256,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "som har blitt modifisert for å fungere gjennom Heroic, siden nyere versjoner av Steam ikke fungerer på macOS."
         },
-        "releaseDate": "Utgivelsesdato"
+        "releaseDate": "Utgivelsesdato",
+        "steam-family-share": "Steam Familiedeling"
     },
     "launch": {
         "options": "Startalternativer...",
@@ -299,7 +311,9 @@
     },
     "specs": {
         "minimum": "Minimum",
-        "recommended": "Anbefalt"
+        "recommended": "Anbefalt",
+        "notes": "Bemerkninger",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Klikk for å oppdatere",
@@ -400,5 +414,24 @@
         },
         "square": "Stående forsidekunst",
         "title": "Rediger spill"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Mapper installert av itch.io-appen er fullstendig importert, inkludert oppdateringer. For alle andre mapper kan ikke Heroic finne oppdateringer, og avinstallering vil ikke slette spillfilene."
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Prestasjoner",
+            "dlc": "DLC",
+            "installInfo": "Nedlastningsstørrelse",
+            "launchOptions": "Startalternativer",
+            "storeInfo": "Systeminformasjon"
+        },
+        "loggedOut": {
+            "failed": "Innhenting av {{data}} mislyktes.",
+            "message": "Det kan hende at nettfunksjoner ikke fungerer.",
+            "title": "Steam-konto er ikke logget inn på Heroic"
+        }
     }
 }
