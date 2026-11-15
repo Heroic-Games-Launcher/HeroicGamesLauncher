@@ -856,6 +856,73 @@ body.forest {
   --icons-background: #15201a;
 }
 
+body.cyberpunk {
+  --accent: #00f0ff;
+  --accent-overlay: #33f5ff;
+  --navbar-accent: #ff00ff;
+  --on-nav-accent: #f8f006;
+  --card-hover-accent: #ff00ff;
+  --border-brand: #00f0ff;
+  --sidebar-item-hover-bg: color-mix(
+    in oklab,
+    var(--navbar-accent) 12%,
+    transparent
+  );
+  --sidebar-hover-text-color: #f8f006;
+  --accent-icon: #00f0ff;
+  --background: #0a0a14;
+  --body-background: #0f0e1c;
+  --background-darker: #0a0a14;
+  --panel-glass: color-mix(in srgb, #1a1a2e 85%, transparent);
+  --panel-background: color-mix(in srgb, #1a1a2e 92%, transparent);
+  --current-background: var(--body-background);
+  --navbar-background: #1a1a2e;
+  --navbar-active-background: #2a2a4a;
+  --on-nav-muted: #e0e0ff;
+  --gradient-body-background: linear-gradient(
+    90deg,
+    var(--background-darker) -32px,
+    var(--body-background) 64px,
+    var(--body-background) 100%
+  );
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #ff00ff 100%);
+  --input-background: #1a1a2e;
+  --modal-background: var(--body-background);
+  --modal-border: #3a3a6a;
+  --primary: #ff00ff;
+  --primary-hover: #ff33ff;
+  --success: #00ff9f;
+  --success-hover: #33ffb2;
+  --danger: #ff003c;
+  --danger-hover: #ff3366;
+  --status-warning: #f8f006;
+  --status-warning-hover: #faf633;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: #3a3a6a;
+  --action-icon: var(--text-default);
+  --action-icon-hover: var(--accent);
+  --action-icon-active: var(--accent);
+  --primary-button: #ff00ff;
+  --secondary-button: #00f0ff;
+  --success-button: #00ff9f;
+  --icons-background: #0a0a14;
+
+  .Chip--active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a0a14;
+  }
+
+  .Button--secondary:hover:not(:disabled),
+  .Button--secondary:focus-visible:not(:disabled),
+  .Button--ghost:hover:not(:disabled),
+  .Button--ghost:focus-visible:not(:disabled) {
+    background: color-mix(in oklab, var(--on-panel) 7%, var(--panel-base));
+    border-color: var(--border-brand);
+  }
+}
+
 body.midnightMirage {
   --gradient-brand: linear-gradient(
     100deg,
@@ -918,6 +985,10 @@ body.vampyria {
 
 body.forest {
   --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #7ee0a0 100%);
+}
+
+body.cyberpunk {
+  --gradient-brand: linear-gradient(100deg, var(--role-brand) 0%, #ff00ff 100%);
 }
 
 body.onePiece {

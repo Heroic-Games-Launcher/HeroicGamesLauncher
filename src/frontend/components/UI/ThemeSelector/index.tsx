@@ -23,7 +23,8 @@ export const defaultThemes: Record<string, string> = {
   'candy-light': 'Candy Light',
   vampyria: 'Vampyria',
   forest: 'Mint',
-  onePiece: 'One Piece'
+  onePiece: 'One Piece',
+  cyberpunk: 'Cyberpunk'
 }
 
 export const ThemeSelector = () => {
