@@ -1,5 +1,9 @@
 import { InstalledInfo, Runner } from 'common/types'
-import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
+import {
+  GOGCloudSavesInfo,
+  GOGCloudSavesLocation,
+  SaveFolderVariable
+} from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { logDebug, LogPrefix, logInfo, logError, logWarning } from './logger'
 import { getShellPath } from './utils'
@@ -216,9 +220,9 @@ async function getDefaultGogSavePaths(
     return alreadyDefinedGogSaves
   }
 
-  let gog_save_location: GOGCloudSavesLocation[] | undefined
+  let saveInfo: GOGCloudSavesInfo | undefined
   try {
-    gog_save_location = await libraryManagerMap['gog'].getSaveSyncLocation(
+    saveInfo = await libraryManagerMap['gog'].getSaveSyncLocation(
       appName,
       installInfo
     )
@@ -231,10 +235,12 @@ async function getDefaultGogSavePaths(
   }
 
   const { platform: installed_platform, install_path } = installInfo
-  if (!gog_save_location) {
+  if (!saveInfo || !saveInfo.enabled) {
     logWarning(['Unable to get save locations for', appName], LogPrefix.Gog)
     return alreadyDefinedGogSaves
   }
+
+  const gog_save_location = saveInfo.locations
 
   // If no save locations are defined, assume the default
   if (!gog_save_location.length) {
