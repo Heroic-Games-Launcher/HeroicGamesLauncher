@@ -124,7 +124,11 @@ export default function StoreCard({
         className={classNames('storeCard', storeKey, { disabled })}
         role="link"
         tabIndex={0}
-        onClick={openStore}
+        onClick={(event) => {
+          if ((event.target as HTMLElement).closest('.storeCard__actions'))
+            return
+          openStore()
+        }}
         onKeyDown={handleKeyDown}
       >
         <FeatureCard
