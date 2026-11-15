@@ -99,20 +99,6 @@ export default function StoreCard({
     })
   }
 
-  const handleLogin = (event: MouseEvent) => {
-    event.stopPropagation()
-    if (loginAction) {
-      loginAction()
-    } else if (loginUrl) {
-      navigate(loginUrl)
-    }
-  }
-
-  const handleAltLogin = (event: MouseEvent) => {
-    event.stopPropagation()
-    alternativeLoginAction?.()
-  }
-
   const displayName = user
     ? String(user).slice(0, maxNameLength) +
       (String(user).length > maxNameLength ? '...' : '')
@@ -156,7 +142,10 @@ export default function StoreCard({
                   size="md"
                   fullWidth
                   disabled={isLoggingOut}
-                  onClick={handleLogout}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleLogout(e)
+                  }}
                   onKeyDown={(e) => e.stopPropagation()}
                 >
                   {isLoggingOut
@@ -170,7 +159,11 @@ export default function StoreCard({
                     size="md"
                     fullWidth
                     disabled={disabled}
-                    onClick={handleLogin}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      if (loginAction) loginAction()
+                      else if (loginUrl) navigate(loginUrl)
+                    }}
                     onKeyDown={(e) => e.stopPropagation()}
                   >
                     {t('login.button', 'Log in')}
@@ -181,7 +174,10 @@ export default function StoreCard({
                       size="md"
                       fullWidth
                       disabled={disabled}
-                      onClick={handleAltLogin}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        alternativeLoginAction?.()
+                      }}
                       onKeyDown={(e) => e.stopPropagation()}
                     >
                       {t(
