@@ -23,6 +23,9 @@ interface Props {
   setAutoSyncSaves: (value: boolean) => void
   setSavesPath: (value: string) => void
   winePrefix?: string
+  savePathFingerprint: string
+  savesPathFingerprint: string
+  setSavesPathFingerprint: (value: string) => void
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
   quickSavesToggle: () => React.ReactNode
@@ -35,6 +38,9 @@ export default function LegendarySyncSaves({
   setAutoSyncSaves,
   isProton,
   winePrefix,
+  savePathFingerprint,
+  savesPathFingerprint,
+  setSavesPathFingerprint,
   syncCommands,
   featureSupported,
   quickSavesToggle: QuickSavesToggle
@@ -52,7 +58,8 @@ export default function LegendarySyncSaves({
 
   useEffect(() => {
     const setDefaultSaveFolder = async () => {
-      if (savesPath.length && !retry) {
+      const stale = savesPathFingerprint !== savePathFingerprint
+      if (savesPath.length && !retry && !stale) {
         return
       }
       setLoading(true)
@@ -65,6 +72,7 @@ export default function LegendarySyncSaves({
 
         if (newSavePath) {
           setSavesPath(newSavePath)
+          setSavesPathFingerprint(savePathFingerprint)
         }
         setRetry(false)
       } catch (error) {
@@ -76,7 +84,7 @@ export default function LegendarySyncSaves({
       }
     }
     if (featureSupported) setDefaultSaveFolder()
-  }, [winePrefix, isProton, retry])
+  }, [winePrefix, isProton, retry, savePathFingerprint])
 
   async function handleSync() {
     setIsSyncing(true)

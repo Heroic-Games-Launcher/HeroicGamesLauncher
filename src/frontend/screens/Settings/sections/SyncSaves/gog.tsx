@@ -19,6 +19,9 @@ import { Button } from 'frontend/components/UI'
 interface Props {
   gogSaves: GOGCloudSavesLocation[]
   setGogSaves: (saves: GOGCloudSavesLocation[]) => void
+  savePathFingerprint: string
+  savesPathFingerprint: string
+  setSavesPathFingerprint: (value: string) => void
   autoSyncSaves: boolean
   setAutoSyncSaves: (value: boolean) => void
   syncCommands: { name: string; value: string }[]
@@ -30,6 +33,9 @@ interface Props {
 export default function GOGSyncSaves({
   gogSaves,
   setGogSaves,
+  savePathFingerprint,
+  savesPathFingerprint,
+  setSavesPathFingerprint,
   autoSyncSaves,
   setAutoSyncSaves,
   syncCommands,
@@ -54,15 +60,17 @@ export default function GOGSyncSaves({
   useEffect(() => {
     const getLocations = async () => {
       setIsLoading(true)
+      const stale = savesPathFingerprint !== savePathFingerprint
       try {
         const locations = (await window.api.getDefaultSavePath(
           appName,
           'gog',
-          gogSaves
+          stale ? [] : gogSaves
         )) as GOGCloudSavesLocation[]
 
         if (locations.length > 0) {
           setGogSaves(locations)
+          setSavesPathFingerprint(savePathFingerprint)
         } else if (gogSaves.length === 0) {
           setGogSaves([{ name: '__default', location: '' }])
         }
@@ -76,7 +84,7 @@ export default function GOGSyncSaves({
       }
     }
     if (featureSupported && !isLinuxNative) getLocations()
-  }, [retry])
+  }, [retry, savePathFingerprint])
 
   const handleRetry = () => {
     setGogSaves([])

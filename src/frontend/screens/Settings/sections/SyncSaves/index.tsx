@@ -8,6 +8,7 @@ import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
 import SteamSyncSaves from './steam'
 import { ToggleSwitch } from 'frontend/components/UI'
+import { getSavePathFingerprint } from 'common/utils'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
@@ -27,6 +28,14 @@ const SyncSaves = () => {
   const [winePrefix] = useSetting('winePrefix', sharedWinePrefix)
 
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [savesPathFingerprint, setSavesPathFingerprint] = useSetting(
+    'savesPathFingerprint',
+    ''
+  )
+
+  const savePathFingerprint = gameInfo
+    ? getSavePathFingerprint(gameInfo, { winePrefix, wineVersion })
+    : ''
 
   const syncCommands = [
     { name: t('setting.manualsync.download'), value: '--skip-upload' },
@@ -59,6 +68,9 @@ const SyncSaves = () => {
         setAutoSyncSaves={setAutoSyncSaves}
         isProton={!isWin && wineVersion.type === 'proton'}
         winePrefix={winePrefix}
+        savePathFingerprint={savePathFingerprint}
+        savesPathFingerprint={savesPathFingerprint}
+        setSavesPathFingerprint={setSavesPathFingerprint}
         syncCommands={syncCommands}
         quickSavesToggle={QuickSavesToggle}
       />
@@ -76,6 +88,9 @@ const SyncSaves = () => {
         isLinuxNative={gameInfo?.install.platform === 'linux'}
         gogSaves={gogSavesLocations}
         setGogSaves={setGogSavesLocations}
+        savePathFingerprint={savePathFingerprint}
+        savesPathFingerprint={savesPathFingerprint}
+        setSavesPathFingerprint={setSavesPathFingerprint}
         autoSyncSaves={autoSyncSaves}
         setAutoSyncSaves={setAutoSyncSaves}
         syncCommands={syncCommands}
