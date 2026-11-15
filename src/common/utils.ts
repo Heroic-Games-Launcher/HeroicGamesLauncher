@@ -25,3 +25,22 @@ export const getSavePathFingerprint = (
     settings.wineVersion?.type ?? '',
     settings.wineVersion?.name ?? ''
   ].join('|')
+
+export const parseBackupDate = (value: string): Date | undefined => {
+  const iso = new Date(value)
+  if (!Number.isNaN(iso.getTime())) {
+    return iso
+  }
+
+  // Backups created before createdAt was stored as ISO keep the sanitized name.
+  const match =
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2})-(\d{2})-(\d{3})Z/.exec(value)
+  if (!match) {
+    return undefined
+  }
+
+  const [, year, month, day, hour, minute, second, ms] = match
+  return new Date(
+    Date.UTC(+year, +month - 1, +day, +hour, +minute, +second, +ms)
+  )
+}

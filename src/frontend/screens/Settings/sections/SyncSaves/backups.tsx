@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Runner, SaveBackupEntry } from 'common/types'
 import { Button, SettingRow } from 'frontend/components/UI'
+import { parseBackupDate } from 'common/utils'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
 
@@ -9,13 +10,20 @@ interface Props {
   runner: Runner
 }
 
-const formatBackupDate = (value: string) => {
-  const parsed = new Date(value)
-  return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString()
+const formatBackupDate = (value: string, locale: string) => {
+  const parsed = parseBackupDate(value)
+  if (!parsed) {
+    return value
+  }
+
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  }).format(parsed)
 }
 
 const Backups = ({ runner }: Props) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { appName } = useContext(SettingsContext)
   const { showDialogModal } = useContext(ContextProvider)
   const [backups, setBackups] = useState<SaveBackupEntry[]>([])
@@ -42,7 +50,7 @@ const Backups = ({ runner }: Props) => {
       message: t(
         'setting.backups-restore-confirm',
         'Restore the save files from {{date}}?',
-        { date: formatBackupDate(backup.createdAt) }
+        { date: formatBackupDate(backup.createdAt, i18n.language) }
       ),
       buttons: [
         {
@@ -86,7 +94,7 @@ const Backups = ({ runner }: Props) => {
       {backups.map((backup) => (
         <SettingRow
           key={backup.id}
-          label={formatBackupDate(backup.createdAt)}
+          label={formatBackupDate(backup.createdAt, i18n.language)}
           description={t(
             'setting.backups-summary',
             '{{changed}} changed files, {{deleted}} deleted files',
@@ -98,9 +106,11 @@ const Backups = ({ runner }: Props) => {
           </Button>
         </SettingRow>
       ))}
-      <Button variant="ghost" size="sm" onClick={openFolder}>
-        {t('setting.backups-open-folder', 'Open backups folder')}
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button variant="ghost" size="sm" onClick={openFolder}>
+          {t('setting.backups-open-folder', 'Open backups folder')}
+        </Button>
+      </div>
     </div>
   )
 }

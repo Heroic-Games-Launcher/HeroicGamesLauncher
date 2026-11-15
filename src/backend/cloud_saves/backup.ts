@@ -12,6 +12,7 @@ import {
 import { dirname, join, relative, sep } from 'path'
 
 import type { Runner, SaveBackupEntry } from 'common/types'
+import { parseBackupDate } from 'common/utils'
 import { GlobalConfig } from '../config'
 import { logInfo, logWarning, LogPrefix } from 'backend/logger'
 
@@ -442,7 +443,9 @@ export const listSaveBackups = (
       )) {
         entries.push({
           id: [appFolder, entry.name, folderName].join('/'),
-          createdAt: snapshot.createdAt,
+          createdAt:
+            parseBackupDate(snapshot.createdAt)?.toISOString() ??
+            snapshot.createdAt,
           location: snapshot.location,
           changed: snapshot.changed?.length ?? 0,
           deleted: snapshot.deleted?.length ?? 0
