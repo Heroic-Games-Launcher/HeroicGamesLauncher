@@ -87,6 +87,19 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
   const executeSync = async (syncType: SyncType) => {
     setIsSyncing(true)
 
+    try {
+      await runSync(syncType)
+    } catch (error) {
+      window.api.logError(
+        `Cloud save sync failed for ${gameInfo.app_name}: ${error}`
+      )
+    } finally {
+      setIsSyncing(false)
+      handleClose()
+    }
+  }
+
+  const runSync = async (syncType: SyncType) => {
     if (gameInfo.runner === 'gog') {
       let locations = gogSaves
       if (!locations.length) {
@@ -116,9 +129,6 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
 
       await syncSaves(path, gameInfo.app_name, gameInfo.runner, syncType)
     }
-
-    setIsSyncing(false)
-    handleClose()
   }
 
   const handleOpenFolder = () => {

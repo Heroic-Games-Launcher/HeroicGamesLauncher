@@ -56,15 +56,24 @@ export default function LegendarySyncSaves({
         return
       }
       setLoading(true)
-      const newSavePath = (await window.api.getDefaultSavePath(
-        appName,
-        'legendary',
-        []
-      )) as string
+      try {
+        const newSavePath = (await window.api.getDefaultSavePath(
+          appName,
+          'legendary',
+          []
+        )) as string
 
-      setSavesPath(newSavePath)
-      setLoading(false)
-      setRetry(false)
+        if (newSavePath) {
+          setSavesPath(newSavePath)
+        }
+        setRetry(false)
+      } catch (error) {
+        window.api.logError(
+          `Could not detect save path for ${appName}: ${error}`
+        )
+      } finally {
+        setLoading(false)
+      }
     }
     if (featureSupported) setDefaultSaveFolder()
   }, [winePrefix, isProton, retry])
@@ -72,13 +81,15 @@ export default function LegendarySyncSaves({
   async function handleSync() {
     setIsSyncing(true)
 
-    await syncSaves(savesPath, appName, 'legendary', syncType).then(
-      (result) => {
-        setManuallyOutput(result.output.split('\n'))
-        setManuallyOutputShow(true)
-      }
-    )
-    setIsSyncing(false)
+    try {
+      const result = await syncSaves(savesPath, appName, 'legendary', syncType)
+      setManuallyOutput(result.output.split('\n'))
+      setManuallyOutputShow(true)
+    } catch (error) {
+      window.api.logError(`Sync saves failed for ${appName}: ${error}`)
+    } finally {
+      setIsSyncing(false)
+    }
   }
 
   if (!featureSupported) {
@@ -117,7 +128,10 @@ export default function LegendarySyncSaves({
             'info.save-sync.searching',
             'Trying to detect the correct save folder (click to cancel)'
           )}
-          onClick={() => setLoading(false)}
+          onClick={() => {
+            window.api.abort(`${appName}-savePath`)
+            setLoading(false)
+          }}
         />
       ) : (
         <>

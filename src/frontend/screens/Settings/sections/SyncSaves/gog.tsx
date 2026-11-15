@@ -54,24 +54,26 @@ export default function GOGSyncSaves({
   useEffect(() => {
     const getLocations = async () => {
       setIsLoading(true)
-      const locations = (await window.api.getDefaultSavePath(
-        appName,
-        'gog',
-        gogSaves
-      )) as GOGCloudSavesLocation[]
+      try {
+        const locations = (await window.api.getDefaultSavePath(
+          appName,
+          'gog',
+          gogSaves
+        )) as GOGCloudSavesLocation[]
 
-      // Detection can be temporarily unavailable; keep what the user had.
-      if (locations.length === 0 && gogSaves.length > 0) {
+        if (locations.length > 0) {
+          setGogSaves(locations)
+        } else if (gogSaves.length === 0) {
+          setGogSaves([{ name: '__default', location: '' }])
+        }
+      } catch (error) {
+        window.api.logError(
+          `Could not detect save path for ${appName}: ${error}`
+        )
+      } finally {
         setIsSyncing(false)
         setIsLoading(false)
-        return
       }
-
-      setGogSaves(
-        locations.length ? locations : [{ name: '__default', location: '' }]
-      )
-      setIsSyncing(false)
-      setIsLoading(false)
     }
     if (featureSupported && !isLinuxNative) getLocations()
   }, [retry])
@@ -84,14 +86,15 @@ export default function GOGSyncSaves({
   const handleSync = async () => {
     setIsSyncing(true)
 
-    await window.api
-      .syncGOGSaves(gogSaves, appName, syncType)
-      .then((result) => {
-        setManuallyOutput(result.output.split('\n'))
-        setManuallyOutputShow(true)
-      })
-
-    setIsSyncing(false)
+    try {
+      const result = await window.api.syncGOGSaves(gogSaves, appName, syncType)
+      setManuallyOutput(result.output.split('\n'))
+      setManuallyOutputShow(true)
+    } catch (error) {
+      window.api.logError(`Sync saves failed for ${appName}: ${error}`)
+    } finally {
+      setIsSyncing(false)
+    }
   }
 
   if (isLinuxNative || !featureSupported) {
@@ -137,7 +140,10 @@ export default function GOGSyncSaves({
             'info.save-sync.searching',
             'Trying to detect the correct save folder (click to cancel)'
           )}
-          onClick={() => setIsLoading(false)}
+          onClick={() => {
+            window.api.abort(`${appName}-savePath`)
+            setIsLoading(false)
+          }}
         />
       ) : (
         <>
