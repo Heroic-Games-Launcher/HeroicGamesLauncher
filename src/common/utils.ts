@@ -44,3 +44,14 @@ export const parseBackupDate = (value: string): Date | undefined => {
     Date.UTC(+year, +month - 1, +day, +hour, +minute, +second, +ms)
   )
 }
+
+export const toIntlLocale = (language: string): string => {
+  const candidate = language.replace(/_/g, '-')
+  try {
+    return Intl.DateTimeFormat.supportedLocalesOf([candidate]).length
+      ? candidate
+      : 'en'
+  } catch {
+    return 'en'
+  }
+}

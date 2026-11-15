@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Runner, SaveBackupEntry } from 'common/types'
 import { Button, SettingRow } from 'frontend/components/UI'
-import { parseBackupDate } from 'common/utils'
+import { parseBackupDate, toIntlLocale } from 'common/utils'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
 
@@ -16,10 +16,14 @@ const formatBackupDate = (value: string, locale: string) => {
     return value
   }
 
-  return new Intl.DateTimeFormat(locale, {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }).format(parsed)
+  try {
+    return new Intl.DateTimeFormat(toIntlLocale(locale), {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }).format(parsed)
+  } catch {
+    return parsed.toLocaleString()
+  }
 }
 
 const Backups = ({ runner }: Props) => {

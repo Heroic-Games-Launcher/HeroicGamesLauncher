@@ -1,4 +1,4 @@
-import { parseBackupDate } from 'common/utils'
+import { parseBackupDate, toIntlLocale } from 'common/utils'
 
 describe('parseBackupDate', () => {
   test('parses ISO timestamps', () => {
@@ -18,5 +18,16 @@ describe('parseBackupDate', () => {
 
   test('returns undefined for unknown formats', () => {
     expect(parseBackupDate('yesterday')).toBeUndefined()
+  })
+})
+
+describe('toIntlLocale', () => {
+  test('accepts underscore locale tags', () => {
+    expect(toIntlLocale('pt_BR')).toBe('pt-BR')
+    expect(toIntlLocale('en')).toBe('en')
+  })
+
+  test('falls back to english for unsupported tags', () => {
+    expect(toIntlLocale('not-a-locale')).toBe('en')
   })
 })
