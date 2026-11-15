@@ -5,6 +5,7 @@ import { logDebug, LogPrefix, logInfo, logError, logWarning } from './logger'
 import { getShellPath } from './utils'
 import { GameConfig } from './game_config'
 import { getSavePathFingerprint } from './cloud_saves/fingerprint'
+import { copyMissingSaveFiles } from './cloud_saves/migrate'
 import { parseLegendaryOutput } from './cloud_saves/parse'
 import {
   existsSync,
@@ -17,27 +18,81 @@ import { libraryManagerMap } from 'backend/storeManagers'
 import { LegendaryAppName } from './storeManagers/legendary/commands/base'
 import { legendaryInstalled } from './storeManagers/legendary/constants'
 
+const migrateSavePaths = async (
+  appName: string,
+  runner: Runner,
+  newPaths: string | GOGCloudSavesLocation[]
+): Promise<void> => {
+  const settings = await libraryManagerMap[runner]
+    .getGame(appName)
+    .getSettings()
+
+  if (runner === 'gog') {
+    for (const newLocation of newPaths as GOGCloudSavesLocation[]) {
+      const oldLocation = (settings.gogSaves ?? []).find(
+        ({ name }) => name === newLocation.name
+      )
+      if (!oldLocation?.location) continue
+
+      const copied = copyMissingSaveFiles(
+        oldLocation.location,
+        newLocation.location
+      )
+      if (copied > 0) {
+        logInfo(
+          [
+            'Copied',
+            `${copied}`,
+            'save files from the old location',
+            oldLocation.location,
+            'to',
+            newLocation.location
+          ],
+          LogPrefix.Backend
+        )
+      }
+    }
+    return
+  }
+
+  if (typeof newPaths === 'string') {
+    const copied = copyMissingSaveFiles(settings.savesPath, newPaths)
+    if (copied > 0) {
+      logInfo(
+        [
+          'Copied',
+          `${copied}`,
+          'save files from the old location',
+          settings.savesPath,
+          'to',
+          newPaths
+        ],
+        LogPrefix.Backend
+      )
+    }
+  }
+}
+
 async function getDefaultSavePath(
   appName: string,
   runner: Runner,
   alreadyDefinedGogSaves: GOGCloudSavesLocation[]
 ): Promise<string | GOGCloudSavesLocation[]> {
+  let result: string | GOGCloudSavesLocation[]
+
   switch (runner) {
     case 'legendary':
-      return getDefaultLegendarySavePath(appName)
+      result = await getDefaultLegendarySavePath(appName)
+      break
     case 'gog':
-      return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
-    case 'nile':
-      return ''
-    case 'sideload':
-      return ''
-    case 'zoom':
-      return ''
-    case 'itchio':
-      return ''
-    case 'steam':
+      result = await getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
+      break
+    default:
       return ''
   }
+
+  await migrateSavePaths(appName, runner, result)
+  return result
 }
 
 async function getDefaultLegendarySavePath(appName: string): Promise<string> {
