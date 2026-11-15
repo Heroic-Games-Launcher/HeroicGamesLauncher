@@ -491,7 +491,7 @@
   --list-row-pad-inline: 12px;
   padding: var(--list-row-pad-block) var(--list-row-pad-inline);
   position: relative;
-  background: var(--input-background);
+  background: var(--search-bar-background, var(--input-background));
   border: none;
   border-radius: 12px;
   transition:
@@ -503,7 +503,7 @@
 .gameListItem:focus-within {
   background: color-mix(
     in oklab,
-    var(--input-background) 88%,
+    var(--search-bar-background, var(--input-background)) 88%,
     var(--navbar-accent, var(--accent))
   );
 }
