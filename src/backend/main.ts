@@ -1226,19 +1226,31 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
         'Epic is offline right now, cannot sync saves!',
         LogPrefix.Backend
       )
-      return 'Epic is offline right now, cannot sync saves!'
+      return {
+        appName,
+        runner,
+        state: 'failed',
+        reason: 'offline',
+        output: 'Epic is offline right now, cannot sync saves!'
+      }
     }
   }
   if (!isOnline()) {
     logWarning('App is offline, cannot sync saves!', LogPrefix.Backend)
-    return 'App is offline, cannot sync saves!'
+    return {
+      appName,
+      runner,
+      state: 'failed',
+      reason: 'offline',
+      output: 'App is offline, cannot sync saves!'
+    }
   }
 
-  const output = await libraryManagerMap[runner]
+  const result = await libraryManagerMap[runner]
     .getGame(appName)
     .syncSaves(arg, path)
-  logInfo(output, LogPrefix.Backend)
-  return output
+  logInfo(result.output, LogPrefix.Backend)
+  return result
 })
 
 addHandler(

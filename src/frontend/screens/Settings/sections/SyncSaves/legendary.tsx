@@ -73,8 +73,8 @@ export default function LegendarySyncSaves({
     setIsSyncing(true)
 
     await syncSaves(savesPath, appName, 'legendary', syncType).then(
-      (response: string) => {
-        setManuallyOutput(response.split('\n'))
+      (result) => {
+        setManuallyOutput(result.output.split('\n'))
         setManuallyOutputShow(true)
       }
     )

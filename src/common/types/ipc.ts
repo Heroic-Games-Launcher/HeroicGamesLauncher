@@ -6,6 +6,7 @@ import type {
   AntiCheatInfo,
   AppSettings,
   ButtonOptions,
+  CloudSyncResult,
   ConnectivityStatus,
   DialogType,
   DiskSpaceData,
@@ -310,8 +311,8 @@ interface AsyncIPCFunctions {
     gogSaves: GOGCloudSavesLocation[],
     appname: string,
     arg: string
-  ) => Promise<string>
-  syncSaves: (args: SaveSyncArgs) => Promise<string>
+  ) => Promise<CloudSyncResult>
+  syncSaves: (args: SaveSyncArgs) => Promise<CloudSyncResult>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>

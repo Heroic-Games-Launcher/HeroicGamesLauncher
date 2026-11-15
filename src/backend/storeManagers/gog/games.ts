@@ -24,7 +24,8 @@ import {
   InstalledInfo,
   InstallProgress,
   LaunchOption,
-  GOGAchievement
+  GOGAchievement,
+  CloudSyncResult
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -866,22 +867,41 @@ export default class GOGGame implements Game {
     arg: string,
     path: string,
     gogSaves?: GOGCloudSavesLocation[]
-  ): Promise<string> {
+  ): Promise<CloudSyncResult> {
+    const result: CloudSyncResult = {
+      appName: this.id,
+      runner: 'gog',
+      state: 'failed',
+      output: ''
+    }
+
     if (!gogSaves) {
-      return 'Unable to sync saves, gogSaves is undefined'
+      return {
+        ...result,
+        reason: 'no-path',
+        output: 'Unable to sync saves, gogSaves is undefined'
+      }
     }
 
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
-      return 'Unable to sync saves, no credentials'
+      return {
+        ...result,
+        reason: 'provider-error',
+        output: 'Unable to sync saves, no credentials'
+      }
     }
 
     const gameInfo = this.getGameInfo()
     if (!gameInfo || !gameInfo.install.platform) {
-      return 'Unable to sync saves, game info not found'
+      return {
+        ...result,
+        reason: 'provider-error',
+        output: 'Unable to sync saves, game info not found'
+      }
     }
 
-    let fullOutput = ''
+    let output = ''
 
     for (const location of gogSaves) {
       const commandParts = [
@@ -904,7 +924,7 @@ export default class GOGGame implements Game {
         {
           abortId: this.id,
           logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
-          onOutput: (output) => (fullOutput += output)
+          onOutput: (chunk) => (output += chunk)
         }
       )
 
@@ -919,7 +939,7 @@ export default class GOGGame implements Game {
       }
     }
 
-    return fullOutput
+    return { ...result, state: 'ok', output }
   }
 
   async uninstall({ shouldRemovePrefix }: RemoveArgs): Promise<ExecResult> {

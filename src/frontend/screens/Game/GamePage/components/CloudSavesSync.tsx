@@ -99,8 +99,10 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
 
       await window.api
         .syncGOGSaves(locations, gameInfo.app_name, syncType)
-        .then((stderr) => {
-          window.api.logError(stderr)
+        .then((result) => {
+          if (result.state !== 'ok') {
+            window.api.logError(result.output)
+          }
         })
     } else {
       let path = savesPath

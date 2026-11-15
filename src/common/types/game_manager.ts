@@ -7,7 +7,8 @@ import {
   InstallArgs,
   InstallInfo,
   LaunchOption,
-  GOGAchievement
+  GOGAchievement,
+  CloudSyncResult
 } from 'common/types'
 import { GOGCloudSavesLocation } from './gog'
 import type LogWriter from 'backend/logger/log_writer'
@@ -48,7 +49,7 @@ export interface Game {
     arg: string,
     path: string,
     gogSaves?: GOGCloudSavesLocation[]
-  ) => Promise<string>
+  ) => Promise<CloudSyncResult>
   uninstall: (args: RemoveArgs) => Promise<ExecResult>
   update: (updateOverwrites?: {
     build?: string

@@ -151,8 +151,15 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     })
     logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
     try {
-      await game.syncSaves('--skip-upload', savesPath, gogSaves)
-      logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      const result = await game.syncSaves('--skip-upload', savesPath, gogSaves)
+      if (result.state === 'ok') {
+        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      } else {
+        logWarning(
+          `Could not download saves for ${title}: ${result.state}${result.reason ? ` (${result.reason})` : ''}`,
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(
         `Error while downloading saves for ${title}. ${error}`,
@@ -307,8 +314,19 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
     logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
     try {
-      await game.syncSaves('--skip-download', savesPath, gogSaves)
-      logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      const result = await game.syncSaves(
+        '--skip-download',
+        savesPath,
+        gogSaves
+      )
+      if (result.state === 'ok') {
+        logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      } else {
+        logWarning(
+          `Could not upload saves for ${title}: ${result.state}${result.reason ? ` (${result.reason})` : ''}`,
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(
         `Error uploading saves for ${title}. Error: ${error}`,

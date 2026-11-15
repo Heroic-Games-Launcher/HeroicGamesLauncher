@@ -87,8 +87,8 @@ export default function GOGSyncSaves({
 
     await window.api
       .syncGOGSaves(gogSaves, appName, syncType)
-      .then(async (stderr) => {
-        setManuallyOutput(stderr.split('\n'))
+      .then((result) => {
+        setManuallyOutput(result.output.split('\n'))
         setManuallyOutputShow(true)
       })
 

@@ -5,7 +5,8 @@ import {
   GameSettings,
   InstallArgs,
   InstallProgress,
-  LaunchOption
+  LaunchOption,
+  CloudSyncResult
 } from 'common/types'
 import { Game, InstallResult } from 'common/types/game_manager'
 import { libraryManagerMap } from '..'
@@ -487,9 +488,15 @@ export default class NileGameManager implements Game {
     return res
   }
 
-  async syncSaves(): Promise<string> {
+  async syncSaves(): Promise<CloudSyncResult> {
     // Amazon Games doesn't support cloud saves
-    return ''
+    return {
+      appName: this.id,
+      runner: 'nile',
+      state: 'failed',
+      reason: 'not-supported',
+      output: ''
+    }
   }
 
   // FIXME: This doesn't respect the `RemoveArgs` passed to it

@@ -8,7 +8,8 @@ import {
   InstallArgs,
   InstallPlatform,
   InstallProgress,
-  LaunchOption
+  LaunchOption,
+  CloudSyncResult
 } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
@@ -53,6 +54,7 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
 import { Game } from 'common/types/game_manager'
+import { parseLegendaryOutput } from 'backend/cloud_saves/parse'
 import {
   AllowedWineFlags,
   getWineFlags,
@@ -845,13 +847,20 @@ export default class LegendaryGame implements Game {
    * Sync saves.
    * Does NOT check for online connectivity.
    */
-  async syncSaves(arg: string, path: string): Promise<string> {
+  async syncSaves(arg: string, path: string): Promise<CloudSyncResult> {
+    const result: CloudSyncResult = {
+      appName: this.appName,
+      runner: 'legendary',
+      state: 'failed',
+      output: ''
+    }
+
     if (!path) {
       logError(
         'No path provided for SavesSync, check your settings!',
         LogPrefix.Legendary
       )
-      return 'No path provided.'
+      return { ...result, reason: 'no-path', output: 'No path provided.' }
     }
 
     const command: LegendaryCommand = {
@@ -875,7 +884,17 @@ export default class LegendaryGame implements Game {
         LogPrefix.Legendary
       )
     }
-    return fullOutput
+
+    const parsed = parseLegendaryOutput(res.stdout, res.stderr)
+    return {
+      ...result,
+      state: parsed.state,
+      action: parsed.action,
+      reason: parsed.reason,
+      remoteDate: parsed.remoteDate,
+      localDate: parsed.localDate,
+      output: fullOutput
+    }
   }
 
   async launch(
