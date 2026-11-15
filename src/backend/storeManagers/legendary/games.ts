@@ -55,6 +55,7 @@ import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
 import { Game } from 'common/types/game_manager'
 import { parseLegendaryOutput } from 'backend/cloud_saves/parse'
+import { backupSaves } from 'backend/cloud_saves/backup'
 import {
   AllowedWineFlags,
   getWineFlags,
@@ -886,6 +887,10 @@ export default class LegendaryGame implements Game {
     }
 
     const parsed = parseLegendaryOutput(res.stdout, res.stderr)
+    if (parsed.state !== 'failed') {
+      backupSaves(this.appName, 'legendary', [path])
+    }
+
     return {
       ...result,
       state: parsed.state,

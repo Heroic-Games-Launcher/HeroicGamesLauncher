@@ -120,6 +120,7 @@ export interface AppSettings extends GameSettings {
   altButlerBin: string
   altAureliaBin: string
   autoUpdateGames: boolean
+  backupSaves: boolean
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
   customCSS: string

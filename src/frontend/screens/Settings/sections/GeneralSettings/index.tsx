@@ -31,7 +31,8 @@ import {
   UseFramelessWindow,
   WinePrefixesBasePath,
   PlaytimeSync,
-  AnalyticsOptIn
+  AnalyticsOptIn,
+  BackupSaves
 } from '../../components'
 
 export default function GeneralSettings() {
@@ -82,6 +83,7 @@ export default function GeneralSettings() {
         <MinimizeOnGameLaunch />
         <DisableController />
         <PlaytimeSync />
+        <BackupSaves />
         <Shortcuts />
       </SettingsCard>
 

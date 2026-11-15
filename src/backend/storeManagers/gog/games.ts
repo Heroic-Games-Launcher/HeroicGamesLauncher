@@ -49,6 +49,7 @@ import {
 } from 'backend/logger'
 import { GOGUser } from './user'
 import { parseGogdlOutput } from 'backend/cloud_saves/parse'
+import { backupSaves } from 'backend/cloud_saves/backup'
 import {
   getKnownFixesEnvVariables,
   getWinePath,
@@ -981,6 +982,16 @@ export default class GOGGame implements Game {
       ) {
         state = 'incomplete'
       }
+    }
+
+    if (state !== 'failed') {
+      backupSaves(
+        this.id,
+        'gog',
+        gogSaves
+          .filter((location) => isAbsolute(location.location))
+          .map((location) => location.location)
+      )
     }
 
     return { ...result, state, reason, counts, output }
