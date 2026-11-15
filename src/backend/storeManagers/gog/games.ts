@@ -1,5 +1,5 @@
 import { libraryManagerMap } from '..'
-import { join } from 'path'
+import { isAbsolute, join } from 'path'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
 import {
@@ -25,7 +25,10 @@ import {
   InstallProgress,
   LaunchOption,
   GOGAchievement,
-  CloudSyncResult
+  CloudSyncCounts,
+  CloudSyncReason,
+  CloudSyncResult,
+  CloudSyncState
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -45,6 +48,7 @@ import {
   getRunnerLogWriter
 } from 'backend/logger'
 import { GOGUser } from './user'
+import { parseGogdlOutput } from 'backend/cloud_saves/parse'
 import {
   getKnownFixesEnvVariables,
   getWinePath,
@@ -875,11 +879,11 @@ export default class GOGGame implements Game {
       output: ''
     }
 
-    if (!gogSaves) {
+    if (!gogSaves?.length) {
       return {
         ...result,
         reason: 'no-path',
-        output: 'Unable to sync saves, gogSaves is undefined'
+        output: 'No save locations configured for this game'
       }
     }
 
@@ -901,9 +905,26 @@ export default class GOGGame implements Game {
       }
     }
 
+    const counts: CloudSyncCounts = {
+      local: 0,
+      cloud: 0,
+      deletedLocal: 0,
+      deletedCloud: 0
+    }
     let output = ''
+    let state: CloudSyncState = 'ok'
+    let reason: CloudSyncReason | undefined
 
     for (const location of gogSaves) {
+      if (!isAbsolute(location.location)) {
+        const message = `Not syncing "${location.name}": "${location.location}" is not an absolute path`
+        logError(message, LogPrefix.Gog)
+        output += `${message}\n`
+        state = 'failed'
+        reason ??= 'no-path'
+        continue
+      }
+
       const commandParts = [
         'save-sync',
         location.location,
@@ -934,12 +955,35 @@ export default class GOGGame implements Game {
           LogPrefix.Gog
         )
       }
-      if (res.stdout) {
-        syncStore.set(`${this.id}.${location.name}`, res.stdout.trim())
+
+      const parsed = parseGogdlOutput(res.stdout, res.stderr)
+
+      if (parsed.timestamp) {
+        syncStore.set(`${this.id}.${location.name}`, parsed.timestamp)
+      }
+
+      counts.local = (counts.local ?? 0) + (parsed.counts?.local ?? 0)
+      counts.cloud = (counts.cloud ?? 0) + (parsed.counts?.cloud ?? 0)
+      counts.deletedLocal =
+        (counts.deletedLocal ?? 0) + (parsed.counts?.deletedLocal ?? 0)
+      counts.deletedCloud =
+        (counts.deletedCloud ?? 0) + (parsed.counts?.deletedCloud ?? 0)
+
+      if (parsed.state === 'conflicts') {
+        state = 'conflicts'
+        reason = 'conflict'
+      } else if (parsed.state === 'failed' && state !== 'conflicts') {
+        state = 'failed'
+        reason ??= parsed.reason
+      } else if (
+        (parsed.state === 'incomplete' || parsed.state === 'unknown') &&
+        state === 'ok'
+      ) {
+        state = 'incomplete'
       }
     }
 
-    return { ...result, state: 'ok', output }
+    return { ...result, state, reason, counts, output }
   }
 
   async uninstall({ shouldRemovePrefix }: RemoveArgs): Promise<ExecResult> {
