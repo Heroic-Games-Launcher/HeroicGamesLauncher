@@ -19,5 +19,14 @@
         "part2": "Atidaryti –",
         "part8": "įvesties lauke (randamas apačioje); ir paspauskite – „prisijungti“ mygtuką."
     },
-    "welcome": "Sveiki!"
+    "welcome": "Sveiki!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }
