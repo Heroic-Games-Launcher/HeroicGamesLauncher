@@ -369,8 +369,6 @@ function filterGameSettingsForLog(
   const gameSettings: PartialDeep<GameSettings> =
     structuredClone(originalSettings)
 
-  // this is irrelevant for support
-  delete gameSettings.enableQuickSavesMenu
   // if this is visible, it means verboseLogs is true, no need to print it
   delete gameSettings.verboseLogs
 

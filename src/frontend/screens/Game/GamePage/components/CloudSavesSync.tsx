@@ -26,7 +26,6 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
   const [savesPath] = useSetting('savesPath', '')
   const [gogSaves] = useSetting('gogSaves', [])
-  const [enableQuickSavesMenu] = useSetting('enableQuickSavesMenu', false)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [isSyncing, setIsSyncing] = useState(false)
@@ -165,7 +164,7 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
   const supportedItem: DetailItem = {
     glyph: Cloud,
     label: t('info.syncsaves'),
-    value: enableQuickSavesMenu ? (
+    value: (
       <button
         type="button"
         className="cloudSaves__trigger"
@@ -175,8 +174,6 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
       >
         {statusLabel}
       </button>
-    ) : (
-      statusLabel
     )
   }
 
@@ -202,39 +199,38 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
 
   return {
     item: showCloudSaveInfo ? supportedItem : unsupportedItem,
-    menu:
-      showCloudSaveInfo && enableQuickSavesMenu ? (
-        <Menu
-          id="cloud-saves-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        >
-          {syncCommands.map((command) => (
-            <MenuItem
-              key={command.value}
-              onClick={() => handleSync(command.value as SyncType)}
-              disabled={disableItem || isSyncing}
-            >
-              {command.name}
-            </MenuItem>
-          ))}
-          <Divider />
-          <MenuItem onClick={handleOpenFolder} disabled={disableItem}>
-            {t('open-saves-folder', 'Open Saves Folder')}
+    menu: showCloudSaveInfo ? (
+      <Menu
+        id="cloud-saves-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+      >
+        {syncCommands.map((command) => (
+          <MenuItem
+            key={command.value}
+            onClick={() => handleSync(command.value as SyncType)}
+            disabled={disableItem || isSyncing}
+          >
+            {command.name}
           </MenuItem>
-          <MenuItem>
-            <ToggleSwitch
-              title={tCommon('setting.autosync')}
-              htmlId="autosync"
-              value={autoSyncSaves}
-              handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
-              disabled={disableItem || isSyncing}
-            />
-          </MenuItem>
-        </Menu>
-      ) : null
+        ))}
+        <Divider />
+        <MenuItem onClick={handleOpenFolder} disabled={disableItem}>
+          {t('open-saves-folder', 'Open Saves Folder')}
+        </MenuItem>
+        <MenuItem>
+          <ToggleSwitch
+            title={tCommon('setting.autosync')}
+            htmlId="autosync"
+            value={autoSyncSaves}
+            handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
+            disabled={disableItem || isSyncing}
+          />
+        </MenuItem>
+      </Menu>
+    ) : null
   }
 }

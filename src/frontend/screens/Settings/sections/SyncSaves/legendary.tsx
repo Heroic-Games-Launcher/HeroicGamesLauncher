@@ -28,7 +28,6 @@ interface Props {
   setSavesPathFingerprint: (value: string) => void
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
-  quickSavesToggle: () => React.ReactNode
 }
 
 export default function LegendarySyncSaves({
@@ -42,8 +41,7 @@ export default function LegendarySyncSaves({
   savesPathFingerprint,
   setSavesPathFingerprint,
   syncCommands,
-  featureSupported,
-  quickSavesToggle: QuickSavesToggle
+  featureSupported
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -210,7 +208,6 @@ export default function LegendarySyncSaves({
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
-          {savesPath.length > 0 ? <QuickSavesToggle /> : null}
         </>
       )}
     </>

@@ -1027,7 +1027,6 @@
         "dxfpslimit": "Limit DirectX games FPS",
         "dxfpslimit-description": "Cap the frame rate of DirectX games to reduce heat and power draw",
         "egs-sync": "Sync with installed Epic Games",
-        "enable-quick-sync-menu": "Enable quick save-sync menu on game page",
         "enableFSRHack": "Enable FSR hack (Wine version needs to support it)",
         "enableFSRHack-description": "Render the game at a lower resolution and upscale it to gain frames",
         "eosOverlay": {

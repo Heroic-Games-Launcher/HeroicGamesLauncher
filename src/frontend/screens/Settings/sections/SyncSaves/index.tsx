@@ -8,7 +8,6 @@ import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
 import SteamSyncSaves from './steam'
 import Backups from './backups'
-import { ToggleSwitch } from 'frontend/components/UI'
 import { getSavePathFingerprint } from 'common/utils'
 
 const SyncSaves = () => {
@@ -20,10 +19,6 @@ const SyncSaves = () => {
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
   const [savesPath, setSavesPath] = useSetting('savesPath', '')
   const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
-  const [enableQuickSavesMenu, setEnableQuickSavesMenu] = useSetting(
-    'enableQuickSavesMenu',
-    false
-  )
 
   const [sharedWinePrefix] = useSetting('sharedWinePrefix', '')
   const [winePrefix] = useSetting('winePrefix', sharedWinePrefix)
@@ -45,20 +40,6 @@ const SyncSaves = () => {
     { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
   ]
 
-  const QuickSavesToggle = () => {
-    return (
-      <ToggleSwitch
-        htmlId="enableQuickSavesMenu"
-        value={enableQuickSavesMenu}
-        handleChange={() => setEnableQuickSavesMenu(!enableQuickSavesMenu)}
-        title={t(
-          'setting.enable-quick-sync-menu',
-          'Enable quick save-sync menu on game page'
-        )}
-      />
-    )
-  }
-
   if (runner === 'legendary') {
     return (
       <>
@@ -74,7 +55,6 @@ const SyncSaves = () => {
           savesPathFingerprint={savesPathFingerprint}
           setSavesPathFingerprint={setSavesPathFingerprint}
           syncCommands={syncCommands}
-          quickSavesToggle={QuickSavesToggle}
         />
         <Backups runner="legendary" />
       </>
@@ -99,7 +79,6 @@ const SyncSaves = () => {
           autoSyncSaves={autoSyncSaves}
           setAutoSyncSaves={setAutoSyncSaves}
           syncCommands={syncCommands}
-          quickSavesToggle={QuickSavesToggle}
         />
         <Backups runner="gog" />
       </>

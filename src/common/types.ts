@@ -301,7 +301,6 @@ export interface GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
-  enableQuickSavesMenu: boolean
 }
 
 export type Status =
