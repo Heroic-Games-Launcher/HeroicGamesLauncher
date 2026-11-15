@@ -389,6 +389,41 @@ export interface Reqs {
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
+export type CloudSyncState =
+  | 'ok'
+  | 'conflicts'
+  | 'incomplete'
+  | 'failed'
+  | 'unknown'
+
+export type CloudSyncReason =
+  | 'no-path'
+  | 'offline'
+  | 'lock'
+  | 'unresolved-vars'
+  | 'conflict'
+  | 'not-supported'
+  | 'provider-error'
+
+export interface CloudSyncCounts {
+  local?: number
+  cloud?: number
+  deletedLocal?: number
+  deletedCloud?: number
+}
+
+export interface CloudSyncResult {
+  appName: string
+  runner: Runner
+  state: CloudSyncState
+  action?: 'upload' | 'download' | 'none'
+  reason?: CloudSyncReason
+  remoteDate?: string
+  localDate?: string
+  counts?: CloudSyncCounts
+  output: string
+}
+
 export type UserInfo = {
   account_id: string
   displayName: string
