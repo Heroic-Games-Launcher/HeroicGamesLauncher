@@ -66,6 +66,10 @@ const defaults: Record<string, unknown> = {
   },
   wine: {
     isValidVersion: () => Promise.resolve(true)
+  },
+  exe_handler: {
+    launchWithExeFile: () => Promise.resolve(),
+    handleShowExeFilePicker: unsubscribe
   }
 }
 
