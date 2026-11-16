@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
+import { TextInputField } from 'frontend/components/UI'
+
 import type { HeroicBackupValidationReport } from 'common/types/importExport'
 
 import { runnerLabel } from '../shared'
@@ -41,12 +43,11 @@ export default function StepPerGame({
         {t('import-export.step4.title', 'Per-game settings to import')}
       </h3>
       <div className="ImportExportWizard__toolbar">
-        <input
-          type="text"
+        <TextInputField
+          htmlId="ie-app-filter"
           placeholder={t('import-export.step4.filter', 'Filter games')}
           value={appFilter}
-          onChange={(e) => setAppFilter(e.target.value)}
-          className="ImportExportWizard__filter"
+          onChange={setAppFilter}
         />
       </div>
       <div className="ImportExportWizard__listControls">

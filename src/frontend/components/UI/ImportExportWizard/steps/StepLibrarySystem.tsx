@@ -3,7 +3,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { ChevronRight } from 'lucide-react'
 
-import { Button } from 'frontend/components/UI'
+import { Alert, Button } from 'frontend/components/UI'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 
 import type { HeroicBackupValidationReport } from 'common/types/importExport'
@@ -320,15 +320,12 @@ export default function StepLibrarySystem({
       )}
 
       {missingWineVersions.length === 0 && pathIssues.length === 0 && (
-        <div className="ImportExportWizard__successBox">
-          <CheckCircleOutlineIcon />
-          <span>
-            {t(
-              'import-export.step6.allGood',
-              'All install paths and wine versions are present on this system.'
-            )}
-          </span>
-        </div>
+        <Alert variant="success">
+          {t(
+            'import-export.step6.allGood',
+            'All install paths and wine versions are present on this system.'
+          )}
+        </Alert>
       )}
     </section>
   )

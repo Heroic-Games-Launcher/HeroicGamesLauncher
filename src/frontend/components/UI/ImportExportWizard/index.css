@@ -203,46 +203,6 @@
   font-size: var(--text-xs);
 }
 
-.ImportExportWizard__filePicker {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-sm);
-  align-items: center;
-  margin-top: var(--space-md);
-  padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-sm);
-  background: var(--input-background);
-  border: 1px solid transparent;
-  border-radius: 6px;
-
-  &:focus-within {
-    border-color: var(--accent);
-  }
-
-  input {
-    background: transparent;
-    border: none;
-    color: var(--text-default);
-    font: inherit;
-    padding: var(--space-2xs) 0;
-    width: 100%;
-    cursor: default;
-    outline: none;
-
-    &::placeholder {
-      color: var(--text-secondary);
-    }
-  }
-}
-
-.ImportExportWizard__filePickerIcon {
-  color: var(--text-default);
-
-  svg {
-    width: 1.4em;
-    height: 1.4em;
-  }
-}
-
 .ImportExportWizard__summaryWarning {
   display: inline-flex;
   align-items: center;
@@ -250,36 +210,6 @@
   color: var(--status-warning);
   font-size: var(--text-sm);
   margin-inline-start: var(--space-2xs);
-}
-
-.ImportExportWizard__warningBox,
-.ImportExportWizard__errorBox,
-.ImportExportWizard__successBox {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: 8px;
-  margin-top: var(--space-sm);
-  line-height: 1.4;
-}
-
-.ImportExportWizard__warningBox {
-  background: color-mix(in srgb, var(--status-warning) 14%, transparent);
-  color: var(--text-default);
-  border-left: 3px solid var(--status-warning);
-}
-
-.ImportExportWizard__errorBox {
-  background: color-mix(in srgb, var(--status-danger) 14%, transparent);
-  color: var(--text-default);
-  border-left: 3px solid var(--status-danger);
-}
-
-.ImportExportWizard__successBox {
-  background: color-mix(in srgb, var(--status-success) 12%, transparent);
-  color: var(--text-default);
-  border-left: 3px solid var(--status-success);
 }
 
 .ImportExportWizard__warningCard {
@@ -334,6 +264,14 @@
   margin: var(--space-sm) 0;
 }
 
+.ImportExportWizard__toolbar .textInputFieldWrapper {
+  flex: 1;
+}
+
+.ImportExportWizard__body .Alert {
+  margin-top: var(--space-sm);
+}
+
 .ImportExportWizard__listControls {
   display: flex;
   align-items: center;
@@ -355,21 +293,6 @@
   width: 1em;
   height: 1em;
   accent-color: var(--accent);
-}
-
-.ImportExportWizard__filter {
-  flex: 1;
-  background: var(--input-background);
-  border: 1px solid transparent;
-  color: var(--text-default);
-  padding: var(--space-2xs) var(--space-sm);
-  border-radius: 6px;
-  font: inherit;
-
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
 }
 
 .ImportExportWizard__appList,

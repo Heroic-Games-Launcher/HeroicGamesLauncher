@@ -706,7 +706,6 @@
         "apply": "Apply backup",
         "applying": "Applying...",
         "back": "Back",
-        "browse": "Browse",
         "categories": "Custom categories",
         "close": "Close",
         "created": "Created",
@@ -728,6 +727,7 @@
         "import": {
             "hint": "Start a step-by-step wizard to preview and apply a previously exported Heroic backup.",
             "open": "Open import wizard",
+            "row": "Restore from a backup file",
             "title": "Import a Heroic backup"
         },
         "installed-games": "Installed games",
@@ -766,7 +766,6 @@
         },
         "step-counter": "Step {{current}} of {{total}}",
         "step1": {
-            "browse": "Browse for a backup file",
             "found": "Backups found in {{folder}}",
             "hint": "Pick a Heroic backup archive (.zip) previously exported from Heroic. Backups in your default folder are listed below.",
             "none": "No Heroic backups found in this folder. You can still browse for one.",

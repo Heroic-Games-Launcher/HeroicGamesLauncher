@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 
-import { Table } from 'frontend/components/UI'
+import { Alert, Table } from 'frontend/components/UI'
 
 import type { HeroicBackupValidationReport } from 'common/types/importExport'
 import type { Runner } from 'common/types'
@@ -158,27 +158,22 @@ export default function StepSummary({ validation, currentPlatform }: Props) {
         </div>
       )}
       {warnings.map((w) => (
-        <div key={w} className="ImportExportWizard__warningBox">
-          <WarningAmberIcon />
-          <span>{w}</span>
-        </div>
+        <Alert key={w} variant="warning">
+          {w}
+        </Alert>
       ))}
       {errors.map((e) => (
-        <div key={e} className="ImportExportWizard__errorBox">
-          <WarningAmberIcon />
-          <span>{e}</span>
-        </div>
+        <Alert key={e} variant="error">
+          {e}
+        </Alert>
       ))}
       {!formatSupported && (
-        <div className="ImportExportWizard__errorBox">
-          <WarningAmberIcon />
-          <span>
-            {t(
-              'import-export.unsupported-format',
-              'This backup uses a newer format than this build of Heroic supports.'
-            )}
-          </span>
-        </div>
+        <Alert variant="error">
+          {t(
+            'import-export.unsupported-format',
+            'This backup uses a newer format than this build of Heroic supports.'
+          )}
+        </Alert>
       )}
     </section>
   )

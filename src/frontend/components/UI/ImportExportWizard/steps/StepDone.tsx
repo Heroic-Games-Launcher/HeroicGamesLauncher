@@ -6,7 +6,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
 import DownloadingIcon from '@mui/icons-material/Downloading'
 
-import { Button } from 'frontend/components/UI'
+import { Alert, Button } from 'frontend/components/UI'
 
 import type { HeroicApplyResult } from 'common/types/importExport'
 
@@ -137,26 +137,24 @@ export default function StepDone({
       </ul>
 
       {applyResult.errors.map((e) => (
-        <div key={e} className="ImportExportWizard__errorBox" role="alert">
-          <WarningAmberIcon />
-          <span>{e}</span>
-        </div>
+        <Alert key={e} variant="error">
+          {e}
+        </Alert>
       ))}
       {applyResult.warnings.map((w) => (
-        <div key={w} className="ImportExportWizard__warningBox">
-          <WarningAmberIcon />
-          <span>{w}</span>
-        </div>
+        <Alert key={w} variant="warning">
+          {w}
+        </Alert>
       ))}
 
       {applyResult.gamesQueuedForDownload.length > 0 && (
-        <div className="ImportExportWizard__successBox">
+        <Alert variant="success">
           {t(
             'import-export.step7.queued',
             '{{count}} game(s) were added to the download queue.',
             { count: applyResult.gamesQueuedForDownload.length }
           )}
-        </div>
+        </Alert>
       )}
 
       {rollbackHintPath && (

@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'
-import FolderIcon from '@mui/icons-material/Folder'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 
-import SvgButton from 'frontend/components/UI/SvgButton'
+import { Alert, PathSelectionBox } from 'frontend/components/UI'
 
 import type { HeroicBackupDiscoveryResult } from 'common/types/importExport'
 
@@ -51,17 +49,6 @@ export default function StepPickFile({
       cancelled = true
     }
   }, [])
-
-  async function chooseFile() {
-    const selected = await window.api.openDialog({
-      title: t('import-export.pick-backup', 'Choose a Heroic backup archive'),
-      properties: ['openFile'],
-      filters: [{ name: 'Heroic backup', extensions: ['zip'] }]
-    })
-    if (typeof selected === 'string') {
-      onPick(selected)
-    }
-  }
 
   return (
     <section>
@@ -122,37 +109,29 @@ export default function StepPickFile({
         </div>
       )}
 
-      <div className="ImportExportWizard__filePicker">
-        <input
-          id="heroic-import-file"
-          type="text"
-          value={filePath}
-          readOnly
-          placeholder={t(
-            'import-export.step1.placeholder',
-            'No backup file selected'
-          )}
-        />
-        <SvgButton
-          onClick={chooseFile}
-          disabled={validating}
-          title={t('import-export.step1.browse', 'Browse for a backup file')}
-          className="ImportExportWizard__filePickerIcon"
-        >
-          <FolderIcon />
-        </SvgButton>
-      </div>
+      <PathSelectionBox
+        htmlId="heroic-import-file"
+        type="file"
+        onPathChange={onPick}
+        path={filePath}
+        placeholder={t(
+          'import-export.step1.placeholder',
+          'No backup file selected'
+        )}
+        pathDialogTitle={t(
+          'import-export.pick-backup',
+          'Choose a Heroic backup archive'
+        )}
+        pathDialogFilters={[{ name: 'Heroic backup', extensions: ['zip'] }]}
+        noDeleteButton
+        disabled={validating}
+      />
       {validating && (
         <p className="ImportExportWizard__hint">
           {t('import-export.validating', 'Validating...')}
         </p>
       )}
-      {error && (
-        <div className="ImportExportWizard__errorBox" role="alert">
-          <WarningAmberIcon />
-          <span>{error}</span>
-        </div>
-      )}
+      {error && <Alert variant="error">{error}</Alert>}
     </section>
   )
 }

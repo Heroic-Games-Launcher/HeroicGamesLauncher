@@ -30,6 +30,8 @@ export function runnerLabel(
       return 'itch.io'
     case 'zoom':
       return 'ZOOM'
+    case 'steam':
+      return 'Steam'
     default:
       return t('import-export.sideloaded', 'Sideloaded')
   }

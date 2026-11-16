@@ -1,15 +1,17 @@
-import './index.css'
-
 import { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import RestoreIcon from '@mui/icons-material/Restore'
-import UploadFileIcon from '@mui/icons-material/UploadFile'
-import DownloadIcon from '@mui/icons-material/Download'
-import { ChevronRight } from 'lucide-react'
+import { Download, RotateCcw, Upload } from 'lucide-react'
 
-import { Button } from 'frontend/components/UI'
-import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
+import {
+  Alert,
+  Button,
+  Icon,
+  PathSelectionBox,
+  SettingRow,
+  SettingsCard,
+  ToggleSwitch
+} from 'frontend/components/UI'
 import ImportExportWizard from 'frontend/components/UI/ImportExportWizard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -84,22 +86,8 @@ export default function ImportExportSettings() {
     })
   }
 
-  async function pickOutputDir() {
-    const picked = await window.api.openDialog({
-      properties: ['openDirectory'],
-      title: t(
-        'import-export.export.pickDir',
-        'Choose where to save the backup'
-      )
-    })
-    if (typeof picked === 'string') setOutputDir(picked)
-  }
-
   async function runExport() {
-    if (!outputDir) {
-      await pickOutputDir()
-      return
-    }
+    if (!outputDir) return
     setExportInFlight(true)
     setExportResult(null)
     try {
@@ -163,79 +151,55 @@ export default function ImportExportSettings() {
   }
 
   return (
-    <div className="ImportExportSettings">
-      <h3 className="settingSubheader">
-        {t('settings.navbar.importExport', 'Import / Export')}
-      </h3>
+    <div className="settingsSections">
+      <SettingsCard
+        glyph={Download}
+        title={t('import-export.export.title', 'Export Heroic')}
+        description={t(
+          'import-export.export.hint',
+          'Bundle Heroic settings, logins and library into a single zip file you can restore later or move to another machine.'
+        )}
+        meta={t(
+          'import-export.export.summary',
+          '{{count}} of {{total}} included',
+          {
+            count: selectedStages.size,
+            total: ALL_STAGES.length
+          }
+        )}
+      >
+        {ALL_STAGES.map((stage) => (
+          <ToggleSwitch
+            key={stage}
+            htmlId={`ie-export-${stage}`}
+            title={stageLabels(t)[stage]}
+            value={selectedStages.has(stage)}
+            handleChange={() => toggleStage(stage)}
+          />
+        ))}
 
-      <details className="ImportExportSettings__card" open={!openImportFromNav}>
-        <summary>
-          <span className="ImportExportSettings__cardTitle">
-            <DownloadIcon />
-            {t('import-export.export.title', 'Export Heroic')}
-          </span>
-          <span className="ImportExportSettings__summaryEnd">
-            <span className="ImportExportSettings__summaryMeta">
-              {t(
-                'import-export.export.summary',
-                '{{count}} of {{total}} included',
-                {
-                  count: selectedStages.size,
-                  total: ALL_STAGES.length
-                }
-              )}
-            </span>
-            <ChevronRight className="ImportExportSettings__chevron" size={18} />
-          </span>
-        </summary>
-
-        <p className="ImportExportSettings__hint">
-          {t(
-            'import-export.export.hint',
-            'Bundle Heroic settings, logins and library into a single zip file you can restore later or move to another machine.'
+        <PathSelectionBox
+          htmlId="ie-export-dir"
+          type="directory"
+          label={t('import-export.export.output', 'Output folder')}
+          path={outputDir}
+          onPathChange={setOutputDir}
+          pathDialogTitle={t(
+            'import-export.export.pickDir',
+            'Choose where to save the backup'
           )}
-        </p>
+          pathDialogDefaultPath={outputDir}
+          placeholder={t(
+            'import-export.export.output-placeholder',
+            'Pick a folder...'
+          )}
+          noDeleteButton
+        />
 
-        <ul className="ImportExportSettings__stageList">
-          {ALL_STAGES.map((stage) => (
-            <li key={stage}>
-              <ToggleSwitch
-                htmlId={`ie-export-${stage}`}
-                title={stageLabels(t)[stage]}
-                value={selectedStages.has(stage)}
-                handleChange={() => toggleStage(stage)}
-              />
-            </li>
-          ))}
-        </ul>
-
-        <div className="ImportExportSettings__exportRow">
-          <div className="ImportExportSettings__outputDir">
-            <div className="Field">
-              <label htmlFor="ie-export-dir">
-                {t('import-export.export.output', 'Output folder')}
-              </label>
-              <div className="ImportExportSettings__dirInput">
-                <input
-                  id="ie-export-dir"
-                  type="text"
-                  value={outputDir}
-                  readOnly
-                  placeholder={t(
-                    'import-export.export.output-placeholder',
-                    'Pick a folder...'
-                  )}
-                />
-                <Button variant="secondary" size="sm" onClick={pickOutputDir}>
-                  {t('import-export.browse', 'Browse')}
-                </Button>
-              </div>
-            </div>
-            <div className="ImportExportSettings__filename">
-              {t('import-export.export.filename', 'Filename')}:{' '}
-              <code>{outputName}</code>
-            </div>
-          </div>
+        <SettingRow
+          label={t('import-export.export.filename', 'Filename')}
+          description={outputName}
+        >
           <Button
             variant="primary"
             disabled={exportInFlight || selectedStages.size === 0 || !outputDir}
@@ -245,82 +209,86 @@ export default function ImportExportSettings() {
               ? t('import-export.export.running', 'Exporting...')
               : t('import-export.export.run', 'Export')}
           </Button>
-        </div>
+        </SettingRow>
 
         {exportResult?.success && (
-          <div className="ImportExportSettings__successBox">
+          <Alert variant="success">
             {t('import-export.export.done', 'Saved to')}&nbsp;
             <code>{exportResult.path}</code>
-          </div>
+          </Alert>
         )}
         {exportResult && !exportResult.success && (
-          <div className="ImportExportSettings__errorBox" role="alert">
+          <Alert variant="error">
             {t('import-export.export.failed', 'Export failed')}:{' '}
             {exportResult.error}
-          </div>
+          </Alert>
         )}
-      </details>
+      </SettingsCard>
 
-      <details className="ImportExportSettings__card" open={openImportFromNav}>
-        <summary>
-          <span className="ImportExportSettings__cardTitle">
-            <UploadFileIcon />
-            {t('import-export.import.title', 'Import a Heroic backup')}
-          </span>
-          <ChevronRight className="ImportExportSettings__chevron" size={18} />
-        </summary>
-        <p className="ImportExportSettings__hint">
-          {t(
+      <SettingsCard
+        glyph={Upload}
+        title={t('import-export.import.title', 'Import a Heroic backup')}
+      >
+        <SettingRow
+          label={t('import-export.import.row', 'Restore from a backup file')}
+          description={t(
             'import-export.import.hint',
             'Start a step-by-step wizard to preview and apply a previously exported Heroic backup.'
           )}
-        </p>
-        <div className="ImportExportSettings__importRow">
+        >
           <Button variant="primary" onClick={() => setWizardOpen(true)}>
             {t('import-export.import.open', 'Open import wizard')}
           </Button>
+        </SettingRow>
 
-          {rollbackSnapshot && (
-            <div className="ImportExportSettings__rollback">
-              <p className="ImportExportSettings__hint">
+        {rollbackSnapshot && (
+          <SettingRow
+            label={t('import-export.rollback.run', 'Rollback last import')}
+            description={
+              <>
                 {t(
                   'import-export.rollback.hint',
                   'A rollback snapshot was saved during the last import. Use this button to revert to that state.'
                 )}
-              </p>
-              <Button
-                variant="secondary"
-                icon={<RestoreIcon fontSize="small" />}
-                onClick={confirmRollback}
-                disabled={rollbackInFlight}
-              >
-                {rollbackInFlight
-                  ? t('import-export.rollback.running', 'Rolling back...')
-                  : t('import-export.rollback.run', 'Rollback last import')}
-              </Button>
-              <div className="ImportExportSettings__rollbackMeta">
-                {t('import-export.rollback.saved', 'Saved')}{' '}
-                {new Date(rollbackSnapshot.createdAt).toLocaleString()}
-              </div>
-            </div>
-          )}
-        </div>
+                <span className="fieldCaption">
+                  <span className="fieldCaption__label">
+                    {t('import-export.rollback.saved', 'Saved')}
+                  </span>
+                  <span className="fieldCaption__value">
+                    {new Date(rollbackSnapshot.createdAt).toLocaleString()}
+                  </span>
+                </span>
+              </>
+            }
+          >
+            <Button
+              variant="dangerSubtle"
+              icon={<Icon glyph={RotateCcw} size="md" />}
+              onClick={confirmRollback}
+              disabled={rollbackInFlight}
+            >
+              {rollbackInFlight
+                ? t('import-export.rollback.running', 'Rolling back...')
+                : t('import-export.rollback.run', 'Rollback last import')}
+            </Button>
+          </SettingRow>
+        )}
 
         {rollbackResult?.ok && (
-          <div className="ImportExportSettings__successBox">
+          <Alert variant="success">
             {t(
               'import-export.rollback.done',
               'Rollback applied. Restart Heroic to apply all changes.'
             )}
-          </div>
+          </Alert>
         )}
         {rollbackResult && !rollbackResult.ok && (
-          <div className="ImportExportSettings__errorBox" role="alert">
+          <Alert variant="error">
             {t('import-export.rollback.failed', 'Rollback failed')}:{' '}
             {rollbackResult.errors.join(', ')}
-          </div>
+          </Alert>
         )}
-      </details>
+      </SettingsCard>
 
       <ImportExportWizard
         open={wizardOpen}
