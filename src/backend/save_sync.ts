@@ -1,4 +1,9 @@
-import { InstalledInfo, Runner } from 'common/types'
+import {
+  DetectSavePathsResult,
+  GameSettings,
+  InstalledInfo,
+  Runner
+} from 'common/types'
 import {
   GOGCloudSavesInfo,
   GOGCloudSavesLocation,
@@ -207,10 +212,11 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   return new_save_path
 }
 
-async function getDefaultGogSavePaths(
+async function resolveGogSaveLocations(
   appName: string,
-  alreadyDefinedGogSaves: GOGCloudSavesLocation[]
-): Promise<GOGCloudSavesLocation[]> {
+  alreadyDefinedGogSaves: GOGCloudSavesLocation[],
+  reuseDefined = true
+): Promise<{ locations: GOGCloudSavesLocation[]; complete: boolean }> {
   const game = libraryManagerMap['gog'].getGame(appName)
   const gameSettings = await game.getSettings()
   const installInfo = game.getGameInfo().install as InstalledInfo | undefined
@@ -220,7 +226,7 @@ async function getDefaultGogSavePaths(
       ['Unable to resolve save paths for', appName, 'without install data'],
       LogPrefix.Gog
     )
-    return alreadyDefinedGogSaves
+    return { locations: alreadyDefinedGogSaves, complete: false }
   }
 
   let saveInfo: GOGCloudSavesInfo | undefined
@@ -234,13 +240,13 @@ async function getDefaultGogSavePaths(
       ['Failed to get save locations for', appName, `${error}`],
       LogPrefix.Gog
     )
-    return alreadyDefinedGogSaves
+    return { locations: alreadyDefinedGogSaves, complete: false }
   }
 
   const { platform: installed_platform, install_path } = installInfo
   if (!saveInfo || !saveInfo.enabled) {
     logWarning(['Unable to get save locations for', appName], LogPrefix.Gog)
-    return alreadyDefinedGogSaves
+    return { locations: alreadyDefinedGogSaves, complete: false }
   }
 
   const gog_save_location = [...saveInfo.locations]
@@ -269,6 +275,7 @@ async function getDefaultGogSavePaths(
       : '%USERPROFILE%\\Documents'
   } satisfies Record<SaveFolderVariable, string>
   const resolvedLocations: GOGCloudSavesLocation[] = []
+  let incomplete = false
   for (const location of gog_save_location) {
     // If a location with the same name already has a path set,
     // skip doing all this work
@@ -276,7 +283,7 @@ async function getDefaultGogSavePaths(
       ({ name }) => name === location.name
     )
 
-    if (potAlreadyDefinedLocation?.location.length) {
+    if (reuseDefined && potAlreadyDefinedLocation?.location.length) {
       resolvedLocations.push(potAlreadyDefinedLocation)
       continue
     }
@@ -333,6 +340,11 @@ async function getDefaultGogSavePaths(
         ['Could not resolve save location', location.name, 'for', appName],
         LogPrefix.Gog
       )
+      incomplete = true
+      resolvedLocations.push({
+        name: location.name,
+        location: potAlreadyDefinedLocation?.location ?? ''
+      })
       continue
     }
 
@@ -342,14 +354,82 @@ async function getDefaultGogSavePaths(
     })
   }
 
-  return resolvedLocations
+  const complete =
+    !incomplete &&
+    resolvedLocations.length === gog_save_location.length &&
+    resolvedLocations.every(
+      (location) =>
+        location.location.length > 0 && isAbsolute(location.location)
+    )
+
+  return { locations: resolvedLocations, complete }
 }
 
-const isValidGogLocations = (locations: GOGCloudSavesLocation[]): boolean =>
-  locations.length > 0 &&
-  locations.every(
+async function getDefaultGogSavePaths(
+  appName: string,
+  alreadyDefinedGogSaves: GOGCloudSavesLocation[]
+): Promise<GOGCloudSavesLocation[]> {
+  return (await resolveGogSaveLocations(appName, alreadyDefinedGogSaves))
+    .locations
+}
+
+const isUsableLegendaryConfiguration = (settings: GameSettings): boolean =>
+  !!settings.savesPath && isAbsolute(settings.savesPath)
+
+const isUsableGogConfiguration = (settings: GameSettings): boolean =>
+  (settings.gogSaves ?? []).some(
     (location) => location.location.length > 0 && isAbsolute(location.location)
   )
+
+async function detectAndPersistSavePaths(
+  appName: string,
+  runner: Runner
+): Promise<DetectSavePathsResult> {
+  const game = libraryManagerMap[runner].getGame(appName)
+  const settings = await game.getSettings()
+  const fingerprint = getSavePathFingerprint(
+    game.getGameInfo(),
+    settings,
+    process.platform !== 'win32'
+  )
+  const gameConfig = GameConfig.get(appName)
+
+  try {
+    if (runner === 'gog') {
+      const { locations, complete } = await resolveGogSaveLocations(
+        appName,
+        settings.gogSaves ?? [],
+        false
+      )
+      if (!complete) {
+        logWarning(
+          ['Could not fully resolve save locations for', appName],
+          LogPrefix.Backend
+        )
+        return { paths: locations, updated: false }
+      }
+
+      gameConfig.setSetting('gogSaves', locations)
+      gameConfig.setSetting('savesPathFingerprint', fingerprint)
+      return { paths: locations, updated: true }
+    }
+
+    const path = await getDefaultLegendarySavePath(appName)
+    if (!path || !isAbsolute(path)) {
+      return { paths: path, updated: false }
+    }
+
+    gameConfig.setSetting('savesPath', path)
+    gameConfig.setSetting('savesPathFingerprint', fingerprint)
+    return { paths: path, updated: true }
+  } catch (error) {
+    logError(
+      ['Failed to detect save paths for', appName, `${error}`],
+      LogPrefix.Backend
+    )
+    return { paths: '', updated: false }
+  }
+}
 
 async function refreshSavePathsIfConfigurationChanged(
   appName: string,
@@ -367,10 +447,14 @@ async function refreshSavePathsIfConfigurationChanged(
     process.platform !== 'win32'
   )
   const gameConfig = GameConfig.get(appName)
+  const usable =
+    runner === 'gog'
+      ? isUsableGogConfiguration(settings)
+      : isUsableLegendaryConfiguration(settings)
 
-  // Existing installs have no fingerprint; adopt their current configuration
-  // instead of overwriting manually configured save paths on first launch.
-  if (!settings.savesPathFingerprint) {
+  // Existing installs have no fingerprint; adopt their configuration only when
+  // it is usable, otherwise let the detection below try to resolve it.
+  if (!settings.savesPathFingerprint && usable) {
     gameConfig.setSetting('savesPathFingerprint', fingerprint)
     logInfo(
       ['Adopted the current save path configuration for', appName],
@@ -383,44 +467,17 @@ async function refreshSavePathsIfConfigurationChanged(
     return false
   }
 
-  try {
-    const paths = await getDefaultSavePath(appName, runner, [])
-
-    if (runner === 'gog') {
-      const locations = paths as GOGCloudSavesLocation[]
-      if (!isValidGogLocations(locations)) {
-        logWarning(
-          ['Could not recalculate save paths for', appName, 'skipping'],
-          LogPrefix.Backend
-        )
-        return false
-      }
-      gameConfig.setSetting('gogSaves', locations)
-    } else {
-      const path = paths as string
-      if (!path || !isAbsolute(path)) {
-        logWarning(
-          ['Could not recalculate save path for', appName, 'skipping'],
-          LogPrefix.Backend
-        )
-        return false
-      }
-      gameConfig.setSetting('savesPath', path)
-    }
-
-    gameConfig.setSetting('savesPathFingerprint', fingerprint)
+  const result = await detectAndPersistSavePaths(appName, runner)
+  if (result.updated) {
     logInfo(
       ['Wine configuration changed, recalculated save paths for', appName],
       LogPrefix.Backend
     )
-    return true
-  } catch (error) {
-    logError(
-      ['Failed to recalculate save paths for', appName, `${error}`],
-      LogPrefix.Backend
-    )
-    return false
   }
+  return result.updated
 }
-
-export { getDefaultSavePath, refreshSavePathsIfConfigurationChanged }
+export {
+  detectAndPersistSavePaths,
+  getDefaultSavePath,
+  refreshSavePathsIfConfigurationChanged
+}

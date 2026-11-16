@@ -48,7 +48,7 @@ export default function LegendarySyncSaves({
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
-  const [retry, setRetry] = useState<boolean>(false)
+  const [retry, setRetry] = useState(0)
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -62,21 +62,17 @@ export default function LegendarySyncSaves({
         setSavesPathFingerprint(savePathFingerprint)
         return
       }
-      if (!legacy && !stale && savesPath.length && !retry) {
+      if (!legacy && !stale && savesPath.length && retry === 0) {
         return
       }
       setLoading(true)
       try {
-        const newSavePath = (await window.api.getDefaultSavePath(
-          appName,
-          'legendary',
-          []
-        )) as string
+        const result = await window.api.detectSavePaths(appName, 'legendary')
+        const newSavePath = result.paths as string
 
-        if (newSavePath) {
+        if (result.updated && newSavePath) {
           setSavesPath(newSavePath)
         }
-        setRetry(false)
       } catch (error) {
         window.api.logError(
           `Could not detect save path for ${appName}: ${error}`
@@ -143,7 +139,11 @@ export default function LegendarySyncSaves({
           <Alert
             variant={savesPath ? 'info' : 'warning'}
             actions={
-              <Button variant="ghost" size="sm" onClick={() => setRetry(true)}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setRetry(retry + 1)}
+              >
                 {t('setting.savefolder.retry', 'Detect again')}
               </Button>
             }

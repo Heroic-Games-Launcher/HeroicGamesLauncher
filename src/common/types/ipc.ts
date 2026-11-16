@@ -8,6 +8,7 @@ import type {
   ButtonOptions,
   CloudSyncResult,
   ConnectivityStatus,
+  DetectSavePathsResult,
   SaveBackupEntry,
   DialogType,
   DiskSpaceData,
@@ -320,6 +321,10 @@ interface AsyncIPCFunctions {
     runner: Runner
   ) => Promise<SaveBackupEntry[]>
   getSaveBackupPath: (appName: string) => Promise<string>
+  detectSavePaths: (
+    appName: string,
+    runner: Runner
+  ) => Promise<DetectSavePathsResult>
   restoreSaveBackup: (
     appName: string,
     runner: Runner,

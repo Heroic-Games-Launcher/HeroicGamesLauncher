@@ -113,6 +113,15 @@ describe('parseLegendaryOutput', () => {
     expect(parsed.reason).toBe('unresolved-vars')
   })
 
+  test('ignores non fatal core errors', () => {
+    const parsed = parseLegendaryOutput(
+      '',
+      '[Core] ERROR: EGL ProgramData path ("C:/ProgramData/Epic/...") is invalid! Disabling sync...'
+    )
+
+    expect(parsed.state).not.toBe('failed')
+  })
+
   test('reports core errors as failures', () => {
     const parsed = parseLegendaryOutput(
       '',

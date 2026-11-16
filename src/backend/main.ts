@@ -98,6 +98,7 @@ import {
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import {
+  detectAndPersistSavePaths,
   getDefaultSavePath,
   refreshSavePathsIfConfigurationChanged
 } from './save_sync'
@@ -1289,6 +1290,10 @@ addHandler(
   'getDefaultSavePath',
   async (event, appName, runner, alreadyDefinedGogSaves) =>
     getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
+)
+
+addHandler('detectSavePaths', async (event, appName, runner) =>
+  detectAndPersistSavePaths(appName, runner)
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used

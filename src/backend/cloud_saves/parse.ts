@@ -83,7 +83,7 @@ export const parseGogdlOutput = (
 }
 
 const LEGENDARY_ERROR =
-  /Login failed!|Game not installed:|\[Core\] ERROR:|Traceback \(most recent call last\)/i
+  /Login failed!|Game not installed:|\[Core\] ERROR: (?:Download|Upload|Failed)|Traceback \(most recent call last\)/i
 
 export const parseLegendaryOutput = (
   stdout: string,

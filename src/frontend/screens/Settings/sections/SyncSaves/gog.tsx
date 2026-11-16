@@ -46,7 +46,7 @@ export default function GOGSyncSaves({
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
-  const [retry, setRetry] = useState<boolean>(false)
+  const [retry, setRetry] = useState(0)
 
   const { t } = useTranslation()
 
@@ -62,25 +62,17 @@ export default function GOGSyncSaves({
       const requestId = ++detectionId.current
       setIsLoading(true)
       const legacy = !savesPathFingerprint
-      const stale = !legacy && savesPathFingerprint !== savePathFingerprint
-      const force = retry || stale
       try {
-        if (legacy && gogSaves.length) {
+        if (legacy && gogSaves.some((save) => save.location.length)) {
           setSavesPathFingerprint(savePathFingerprint)
           return
         }
 
-        const locations = (await window.api.getDefaultSavePath(
-          appName,
-          'gog',
-          force ? [] : gogSaves
-        )) as GOGCloudSavesLocation[]
-
+        const result = await window.api.detectSavePaths(appName, 'gog')
         if (requestId !== detectionId.current) return
 
-        if (locations.length > 0) {
-          setGogSaves(locations)
-          setRetry(false)
+        if (result.updated) {
+          setGogSaves(result.paths as GOGCloudSavesLocation[])
         } else if (gogSaves.length === 0) {
           setGogSaves([{ name: '__default', location: '' }])
         }
@@ -98,7 +90,7 @@ export default function GOGSyncSaves({
   }, [retry, savePathFingerprint, savesPathFingerprint])
 
   const handleRetry = () => {
-    setRetry(!retry)
+    setRetry(retry + 1)
   }
 
   const handleSync = async () => {

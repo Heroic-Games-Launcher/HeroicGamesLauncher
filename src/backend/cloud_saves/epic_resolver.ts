@@ -42,9 +42,7 @@ export const resolveEpicSavePath = async ({
     accountId: accountId ?? '',
     home: homeDir,
     appData: app.getPath('appData'),
-    documents: isWindowsHost
-      ? `${homeDir}/Documents`
-      : app.getPath('documents'),
+    documents: app.getPath('documents'),
     windows: false,
     localAppData: isWindowsHost ? process.env.LOCALAPPDATA : undefined,
     roaming: isWindowsHost ? process.env.APPDATA : undefined,

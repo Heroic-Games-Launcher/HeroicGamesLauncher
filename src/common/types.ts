@@ -426,6 +426,11 @@ export interface CloudSyncResult {
   output: string
 }
 
+export interface DetectSavePathsResult {
+  paths: string | GOGCloudSavesLocation[]
+  updated: boolean
+}
+
 export interface SaveBackupEntry {
   id: string
   createdAt: string
