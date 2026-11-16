@@ -110,7 +110,8 @@ export default function StepSummary({ validation, currentPlatform }: Props) {
           {
             key: 'value',
             header: t('import-export.summaryValue', 'Value'),
-            render: (row) => row.value
+            render: (row) => row.value,
+            align: 'end'
           }
         ]}
         rows={rows}
