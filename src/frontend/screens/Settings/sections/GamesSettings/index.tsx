@@ -28,6 +28,7 @@ import {
   PreferSystemLibs,
   ShowFPS,
   SteamRuntime,
+  SteamLaunchTarget,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -42,6 +43,7 @@ import { Alert, SettingsCard, TabPanel, Tabs } from 'frontend/components/UI'
 import type { TabItem } from 'frontend/components/UI/Tabs'
 import {
   FlaskConical,
+  Gamepad2,
   Gauge,
   Globe,
   MonitorCog,
@@ -55,6 +57,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'
+import { useSteamLaunchTargets } from 'frontend/hooks/useSteamLaunchTargets'
 import { defaultWineVersion } from '../../util'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
@@ -81,18 +84,34 @@ function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
   }
 }
 
-export default function GamesSettings() {
+interface Props {
+  // Overrides the remembered tab
+  initialTab?: string
+}
+
+export default function GamesSettings({ initialTab }: Props = {}) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo } = useContext(SettingsContext)
+  const { isDefault, appName, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const [isNative, setIsNative] = useState(false)
+  const [nativeFromApi, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
+  const steamTargets = useSteamLaunchTargets(appName, gameInfo, isLinux)
+  // Steam: follows the chosen game version
+  const steamPlatform = steamTargets.effective?.platform
+  const isNative = steamPlatform ? steamPlatform === 'linux' : nativeFromApi
+  // Hide card when both rows hide
+  const showSteamCard =
+    gameInfo?.runner === 'steam' &&
+    !isDefault &&
+    (isLinux || steamTargets.targets.length > 1)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
   const showCloudSavesTab =
-    gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
+    gameInfo?.runner === 'gog' ||
+    gameInfo?.runner === 'legendary' ||
+    (gameInfo?.runner === 'steam' && gameInfo.is_installed)
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
 
@@ -115,7 +134,9 @@ export default function GamesSettings() {
     ? `${gameInfo.app_name}-setting_tab`
     : 'default'
   const latestTabIndex =
-    localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)
+    initialTab ||
+    localStorage.getItem(localStorageKey) ||
+    getStartingTab(platform, gameInfo)
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (newValue: string) => {
@@ -154,7 +175,7 @@ export default function GamesSettings() {
   if (showCloudSavesTab)
     settingsTabs.push({
       value: 'saves',
-      label: t('settings.navbar.sync', 'Cloud Saves Sync')
+      label: t('settings.navbar.sync', 'Cloud saves sync')
     })
   if (isLinux)
     settingsTabs.push({
@@ -181,7 +202,7 @@ export default function GamesSettings() {
         <Alert variant="warning">
           {t(
             'settings.default_hint',
-            'Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.'
+            'Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the settings button in the game page.'
           )}
         </Alert>
       )}
@@ -199,7 +220,7 @@ export default function GamesSettings() {
           <>
             <SettingsCard
               glyph={MonitorCog}
-              title={t('settings.section.graphics', 'Graphics & Translation')}
+              title={t('settings.section.graphics', 'Graphics & translation')}
             >
               <AutoDXVK />
               {isLinux && (
@@ -235,7 +256,7 @@ export default function GamesSettings() {
       <TabPanel value={value} index={'other'}>
         <SettingsCard
           glyph={Gauge}
-          title={t('settings.section.performance', 'Performance & Overlays')}
+          title={t('settings.section.performance', 'Performance & overlays')}
         >
           {!isNative && <ShowFPS />}
           <Mangohud />
@@ -255,12 +276,20 @@ export default function GamesSettings() {
             </>
           )}
         </SettingsCard>
+        {showSteamCard && (
+          <SettingsCard
+            glyph={Gamepad2}
+            title={t('settings.section.steam', 'Steam')}
+          >
+            <SteamLaunchTarget state={steamTargets} />
+          </SettingsCard>
+        )}
       </TabPanel>
 
       <TabPanel value={value} index={'advanced'}>
         <SettingsCard
           glyph={SlidersHorizontal}
-          title={t('settings.section.launch', 'Launch Options')}
+          title={t('settings.section.launch', 'Launch options')}
         >
           {!isSideloaded && (
             <>
@@ -282,7 +311,7 @@ export default function GamesSettings() {
         </SettingsCard>
         <SettingsCard
           glyph={TerminalSquare}
-          title={t('settings.section.environment', 'Wrapper & Environment')}
+          title={t('settings.section.environment', 'Wrapper & environment')}
         >
           <WrappersTable />
           <EnvVariablesTable />
@@ -290,7 +319,7 @@ export default function GamesSettings() {
         {!isSideloaded && (
           <SettingsCard
             glyph={Globe}
-            title={t('settings.section.language', 'Language & Region')}
+            title={t('settings.section.language', 'Language & region')}
           >
             <PreferedLanguage />
           </SettingsCard>
@@ -300,7 +329,7 @@ export default function GamesSettings() {
       <TabPanel value={value} index={'saves'}>
         <SettingsCard
           glyph={Save}
-          title={t('settings.navbar.sync', 'Cloud Saves Sync')}
+          title={t('settings.navbar.sync', 'Cloud saves sync')}
         >
           <SyncSaves />
         </SettingsCard>

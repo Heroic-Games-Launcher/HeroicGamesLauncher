@@ -16,6 +16,8 @@ const STORE_NAMES: Record<string, string> = {
   legendary: 'Epic Games',
   gog: 'GOG',
   nile: 'Amazon Games',
+  zoom: 'ZOOM',
+  itchio: 'itch.io',
   sideload: 'Sideloaded'
 }
 
@@ -45,7 +47,7 @@ const GameDetails = ({ gameInfo }: Props) => {
   if (releaseDate) {
     items.push({
       glyph: CalendarDays,
-      label: t('label.releaseDate', 'Release Date'),
+      label: t('label.releaseDate', 'Release date'),
       value: releaseDate
     })
   }

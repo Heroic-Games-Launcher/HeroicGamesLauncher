@@ -142,7 +142,7 @@ const EnvVariablesTable = () => {
       {showBulkEdit && (
         <Modal showCloseButton onClose={() => setShowBulkEdit(false)}>
           <ModalHeader>
-            {t('options.env_variables.bulk_edit', 'Bulk Edit')}
+            {t('options.env_variables.bulk_edit', 'Bulk edit')}
           </ModalHeader>
           <BulkEditModal
             initialEnvs={environmentOptions}
@@ -156,10 +156,10 @@ const EnvVariablesTable = () => {
       )}
       <div className="env-vars-header">
         <span className="env-vars-title">
-          {t('options.advanced.title', 'Environment Variables')}
+          {t('options.advanced.title', 'Environment variables')}
           <InfoTooltip
             content={envVariablesInfo}
-            label={t('options.advanced.title', 'Environment Variables')}
+            label={t('options.advanced.title', 'Environment variables')}
           />
         </span>
         <div className="env-vars-actions">
@@ -167,7 +167,7 @@ const EnvVariablesTable = () => {
             variant="ghost"
             size="sm"
             onClick={() => setShowBulkEdit(true)}
-            title={t('options.env_variables.bulk_edit', 'Bulk Edit')}
+            title={t('options.env_variables.bulk_edit', 'Bulk edit')}
             icon={<Icon glyph={ListChecks} size="md" />}
           />
           <Button
@@ -175,7 +175,7 @@ const EnvVariablesTable = () => {
             size="sm"
             className="env-vars-clear"
             onClick={handleClearAll}
-            title={t('common.clear_all', 'Clear All')}
+            title={t('common.clear_all', 'Clear all')}
             disabled={environmentOptions.length === 0}
             icon={<Icon glyph={Eraser} size="md" />}
           />
@@ -198,7 +198,7 @@ const EnvVariablesTable = () => {
 
       <div className="env-var-add-section">
         <span className="env-var-add-title">
-          {t('options.env_variables.add_new', 'Add New Variable')}
+          {t('options.env_variables.add_new', 'Add new variable')}
         </span>
         <div className="env-var-add-inputs">
           <TextInputField
@@ -217,7 +217,7 @@ const EnvVariablesTable = () => {
               setFormError(validateEnvKey(nextKey, t))
             }}
             placeholder={t('options.advanced.placeHolderKey', 'NAME')}
-            aria-label={t('options.advanced.key', 'Variable Name')}
+            aria-label={t('options.advanced.key', 'Variable name')}
           />
           <span className="env-var-connector">=</span>
           <TextInputField

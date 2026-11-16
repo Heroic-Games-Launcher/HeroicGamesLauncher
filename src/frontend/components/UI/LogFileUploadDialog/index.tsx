@@ -1,9 +1,10 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CircularProgress } from '@mui/material'
+import { LoaderCircle } from 'lucide-react'
 
 import { Modal, ModalContent, ModalFooter, ModalHeader } from '../Modal'
 import Button from '../Button'
+import Icon from '../Icon'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 
 export default function LogUploadDialog() {
@@ -66,7 +67,7 @@ export default function LogUploadDialog() {
       return [
         t('setting.log.upload.uploading.title', 'Uploading'),
         <>
-          <CircularProgress />
+          <Icon glyph={LoaderCircle} size="xl" className="lucide-spin" />
           <br />
           {t('setting.log.upload.uploading.content', 'Uploading log file...')}
         </>,
@@ -88,9 +89,9 @@ export default function LogUploadDialog() {
           )}
         </>,
         <>
-          <button onClick={onClose} className={'button is-secondary'}>
+          <Button variant="secondary" onClick={onClose}>
             {t('box.ok')}
-          </button>
+          </Button>
         </>
       ]
     return [

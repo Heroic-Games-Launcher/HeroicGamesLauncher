@@ -6,9 +6,11 @@ import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
 import { NileInstallInfo } from 'common/types/nile'
 import { ZoomInstallInfo, ZoomInstalledInfo } from 'common/types/zoom'
+import { ItchioInstallInfo } from 'common/types/itchio'
 import { useTranslation } from 'react-i18next'
 import LegendaryModifyInstallModal from './Legendary'
 import GOGModifyInstallModal from './GOG'
+import { SteamInstallInfo } from 'common/types/steam'
 
 interface ModifyInstallProps {
   gameInfo: GameInfo
@@ -18,6 +20,8 @@ interface ModifyInstallProps {
     | NileInstallInfo
     | ZoomInstalledInfo
     | ZoomInstallInfo
+    | ItchioInstallInfo
+    | SteamInstallInfo
     | null
   onClose: () => void
 }
@@ -36,7 +40,7 @@ export default function ModifyInstallModal({
       onClose={() => onClose()}
       className={'ModifyInstall__dialog'}
     >
-      <ModalHeader>{t('game.modify', 'Modify Installation')}</ModalHeader>
+      <ModalHeader>{t('game.modify', 'Modify installation')}</ModalHeader>
       {gameInstallInfo ? (
         <>
           {gameInfo.runner === 'gog' && (

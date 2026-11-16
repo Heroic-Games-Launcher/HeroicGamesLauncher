@@ -33,16 +33,16 @@ const EnableDXVKFpsLimit = () => {
       <ToggleSwitch
         info={t(
           'help.dxfpslimit',
-          'Sets a frame rate cap for DirectX Games (9-12)'
+          'Sets a frame rate cap for DirectX games (9-12)'
         )}
         description={t(
-          'setting.dxfpslimit.description',
+          'setting.dxfpslimit-description',
           'Cap the frame rate of DirectX games to reduce heat and power draw'
         )}
         htmlId="enableDXVKFpsLimit"
         value={enableDXVKFpsLimit || false}
         handleChange={() => setDXVKFpsLimit(!enableDXVKFpsLimit)}
-        title={t('setting.dxfpslimit', 'Limit DirectX Games FPS')}
+        title={t('setting.dxfpslimit', 'Limit DirectX games FPS')}
       />
 
       {enableDXVKFpsLimit && (

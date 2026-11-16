@@ -20,7 +20,7 @@ const IgnoreGameUpdates = () => {
   return (
     <ToggleSwitch
       description={t(
-        'setting.ignoreGameUpdates.description',
+        'setting.ignoreGameUpdates-description',
         'Never update this game, even when a new version is available'
       )}
       htmlId="ignoreGameUpdates"

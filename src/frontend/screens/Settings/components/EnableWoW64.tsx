@@ -21,7 +21,7 @@ const EnableWoW64 = () => {
       <ToggleSwitch
         info={t(
           'help.WoW64',
-          'The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games.'
+          'The Wine WoW64 mode allows 32-bit windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games.'
         )}
         description={t(
           'setting.wow64.description',
@@ -30,7 +30,7 @@ const EnableWoW64 = () => {
         htmlId="WoW64Toggle"
         value={enableWoW64 || false}
         handleChange={() => setEnableWoW64(!enableWoW64)}
-        title={t('setting.WoW64', 'Enable WoW64 (Experimental)')}
+        title={t('setting.WoW64', 'Enable WoW64 (experimental)')}
       />
     </>
   )

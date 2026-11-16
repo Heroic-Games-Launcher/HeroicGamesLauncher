@@ -11,7 +11,10 @@
         "titles_always_visible": "Címek megjelenítése mindig a könyvtárban",
         "actions_font_family_default": "Műveletek betűkészlete (Alapértelmezett: {{fontFamily}})",
         "disable_smooth_scrolling": "Sima görgetés letiltása (újraindítást igényel)",
-        "disable_animations": "A felhasználói felület animációinak letiltása"
+        "disable_animations": "A felhasználói felület animációinak letiltása",
+        "section": {
+            "library": "Könyvtár"
+        }
     },
     "add_game": "Játék hozzáadása",
     "All": "Összes",
@@ -210,7 +213,8 @@
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
         "unsync": "Deszinkronizálás",
-        "continue": "Folytatás"
+        "continue": "Folytatás",
+        "close": "Bezárás"
     },
     "controller": {
         "hints": {
@@ -269,7 +273,8 @@
         "status": "Állapot",
         "store": "Áruház",
         "title": "Játék címe",
-        "modify": "Telepítés módosítása"
+        "modify": "Telepítés módosítása",
+        "settings": "Játék beállításai"
     },
     "generic": {
         "error": {
@@ -304,7 +309,9 @@
         "uncategorized": "Kategorizálatlan",
         "show_support_offline_only": "Csak az offline támogatásúak megjelenítése",
         "show_third_party_managed_only": "Csak a külső kezelésűek megjelenítése",
-        "show_updates_only": "Csak a frissítésekkel rendelkező játékok megjelenítése"
+        "show_updates_only": "Csak a frissítésekkel rendelkező játékok megjelenítése",
+        "platforms": "Platform",
+        "stores": "Áruházak"
     },
     "help": {
         "amdfsr": "Az AMD FSR segít a képkockasebesség növelésében az alacsonyabb felbontások felskálázásával teljes képernyős módban. A képminőség 5-ről 1-re növekszik, némi teljesítménycsökkenés mellett. Engedélyezése javíthat a teljesítményen.",
@@ -846,6 +853,10 @@
         "steamRuntime": {
             "label": "Steam futtatókörnyezet használata",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Megnyitás",
+            "selectExe": "EXE kiválasztása"
         }
     },
     "settings": {
@@ -884,7 +895,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Rendszer-információk",
             "gamescope": "Gamescope",
-            "legacy": "Örökölt"
+            "legacy": "Örökölt",
+            "categories": "Kategóriák"
         },
         "open-config-file": "Beállítófájl megnyitása",
         "reset-heroic": "A Heroic visszaállítása",
@@ -963,13 +975,21 @@
                 "description": "Add meg a saját SteamGridDB API-kulcsodat a játékborítók keresésének engedélyezéséhez. A kulcs titkosítva kerül tárolásra, ha a rendszered támogatja. Itt szerezhetsz egyet: {{url}}"
             }
         },
-        "open-game-settings-file-hint": "Kattints a játék beállításfájljának megnyitásához"
+        "open-game-settings-file-hint": "Kattints a játék beállításfájljának megnyitásához",
+        "section": {
+            "downloads": "Letöltések",
+            "experimental": "Kísérleti funkciók",
+            "launch": "Indítási kapcsolók…",
+            "wineTools": "Ezközök",
+            "wineVersion": "Wine"
+        }
     },
     "Settings": "Beállítások",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": "Konzol mód"
+        "console": "Konzol mód",
+        "storesLogin": "Áruházi bejelentkezések"
     },
     "status": {
         "installing": "Telepítés…",
@@ -1000,7 +1020,8 @@
         "show": "Megjelenítés"
     },
     "two_col_table": {
-        "save_hint": "A táblázat módosításai nem kerülnek automatikusan mentésre. Kattints a + gombra."
+        "save_hint": "A táblázat módosításai nem kerülnek automatikusan mentésre. Kattints a + gombra.",
+        "add": "Hozzáadás"
     },
     "Update Available!": "Frissítés érhető el.",
     "userselector": {
@@ -1084,7 +1105,8 @@
     },
     "emptyLibrary": {
         "noResults": "A jelenlegi szűrők nem adtak találatokat.",
-        "noGames": "A könyvtárad üres.<br /><br />Kattints <4>ide</4>, hogy bejelentkezz az Epic, GOG.com vagy Amazon-fiókodba. Ezután a játékai meg fognak itt jelenni a Könyvtárban.<br /><br />A más forrásból származó játékok vagy alkalmazások használatához, kattints <br /> a kézi hozzáadásukhoz."
+        "noGames": "A könyvtárad üres.<br /><br />Kattints <4>ide</4>, hogy bejelentkezz az Epic, GOG.com vagy Amazon-fiókodba. Ezután a játékai meg fognak itt jelenni a Könyvtárban.<br /><br />A más forrásból származó játékok vagy alkalmazások használatához, kattints <br /> a kézi hozzáadásukhoz.",
+        "noResultsTitle": "Nem található játék"
     },
     "wineExplanation": {
         "proton-ge": "A GE-Proton egy olyan Proton változat, melyet GloriousEggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
@@ -1360,5 +1382,6 @@
         "edit": "Szerkesztés",
         "remove": "Eltávolítás",
         "save": "Mentés"
-    }
+    },
+    "General": "Általános"
 }

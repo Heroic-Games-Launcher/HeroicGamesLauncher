@@ -21,7 +21,7 @@ const Mangohud = () => {
         'MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
       )}
       description={t(
-        'setting.mangohud.description',
+        'setting.mangohud-description',
         'Show an overlay with frame rate, temperatures and system load'
       )}
       htmlId="mongohud"

@@ -5,7 +5,7 @@
 
 .selectStyle,
 .selectFieldWrapper .MuiOutlinedInput-root {
-  border-radius: var(--field-radius);
+  border-radius: 8px;
   grid-area: select;
   width: 100%;
   height: var(--field-height);
@@ -42,6 +42,11 @@
   min-width: 100px;
 }
 
+/* Borderless: drop MUI's outlined fieldset border too */
+.selectFieldWrapper .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+
 .selectFieldWrapper .MuiSelect-select.MuiSelect-select.MuiSelect-select {
   display: flex;
   align-items: center;
@@ -50,6 +55,24 @@
 
 .selectFieldWrapper .MuiSelect-icon {
   right: 14px;
+}
+
+/* Icon inset matches plain text */
+.selectFieldWrapper.hasStartIcon .MuiOutlinedInput-root {
+  padding-inline-start: var(--space-md-fixed);
+}
+
+.selectFieldWrapper.hasStartIcon
+  .MuiInputAdornment-root.MuiInputAdornment-positionStart {
+  margin: 0;
+  margin-inline-end: var(--space-xs-fixed);
+  color: var(--text-secondary);
+}
+
+.selectFieldWrapper.hasStartIcon:not(.isRTL)
+  .MuiSelect-select.MuiSelect-select.MuiSelect-select {
+  /* Divider sits 40px from edge */
+  padding-inline: 0 calc(40px + var(--space-md-fixed));
 }
 
 .selectFieldWrapper.isRTL .MuiSelect-select.MuiSelect-select.MuiSelect-select {
@@ -84,6 +107,20 @@
   text-align: start;
   grid-area: label;
   align-self: center;
+}
+
+.selectFieldWrapper__description {
+  grid-area: description;
+  margin-top: var(--space-3xs);
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--field-label-color, var(--text-secondary));
+}
+
+/* Make room for the description row when one is present */
+.selectFieldWrapper:has(.selectFieldWrapper__description) {
+  grid-template-areas: 'label' 'description' 'select';
 }
 
 .selectFieldWrapper select:disabled {
@@ -165,7 +202,6 @@
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper {
   margin-top: var(--space-xs-fixed);
-  border: 1px solid var(--divider);
   border-radius: var(--field-radius, 12px);
   background: var(--modal-background, var(--background));
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
@@ -176,7 +212,7 @@
 }
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root {
-  gap: var(--space-sm-fixed);
+  gap: var(--space-xs-fixed);
   padding: var(--space-xs-fixed) var(--space-sm-fixed);
   border-radius: 8px;
   font-family: var(--primary-font-family);
@@ -188,17 +224,23 @@
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root:hover,
 .MuiPopover-root
   .MuiPaper-root.MuiMenu-paper
-  .MuiMenuItem-root.Mui-focusVisible {
-  background-color: var(--input-background);
+  .MuiMenuItem-root.Mui-focusVisible,
+.MuiMenuItem-root:hover,
+.MuiMenuItem-root.Mui-focusVisible {
+  background-color: color-mix(
+    in oklab,
+    var(--selected, var(--accent)) 12%,
+    var(--input-background)
+  ) !important;
 }
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper .MuiMenuItem-root.Mui-selected {
   background-color: color-mix(
     in oklab,
-    var(--accent) 18%,
+    var(--selected, var(--accent)) 18%,
     var(--input-background)
-  );
-  color: var(--text-default);
+  ) !important;
+  color: var(--text-default) !important;
 }
 
 .wineVersionOption {

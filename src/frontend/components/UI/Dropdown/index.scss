@@ -57,7 +57,7 @@
     border-radius: 14px;
     flex-direction: column;
     background: var(--modal-background, var(--background));
-    border: 1px solid var(--divider);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
     opacity: 0;
     transition: all 200ms;
     pointer-events: none;

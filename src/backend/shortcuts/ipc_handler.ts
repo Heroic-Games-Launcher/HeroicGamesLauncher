@@ -21,7 +21,7 @@ addListener('addShortcut', async (event, appName, runner, fromMenu) => {
 
   const bodyMac = i18next.t(
     'box.shortcuts.message-mac',
-    'Shortcuts were created on the Applications folder'
+    'Shortcuts were created on the applications folder'
   )
 
   notify({
@@ -48,7 +48,7 @@ addListener('removeShortcut', async (event, appName, runner) => {
 
   const bodyMac = i18next.t(
     'box.shortcuts.message-remove-mac',
-    'Shortcuts were removed from the Applications folder'
+    'Shortcuts were removed from the applications folder'
   )
 
   notify({

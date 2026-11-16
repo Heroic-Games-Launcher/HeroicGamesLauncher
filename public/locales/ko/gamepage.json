@@ -96,7 +96,9 @@
         "browse_wine_prefix": "",
         "play": "",
         "browse_files": "",
-        "edit-game": "앱/게임 편집"
+        "edit-game": "앱/게임 편집",
+        "favourite": "즐겨찾기에 추가",
+        "unfavourite": "즐겨찾기에서 제거"
     },
     "cloud_save_unsupported": "지원되지 않음",
     "disabled": "비활성화됨",
@@ -132,7 +134,8 @@
         "modify": "설치 수정",
         "install_info": "설치 정보",
         "extra_info": "추가 정보",
-        "achievements": ""
+        "achievements": "",
+        "details": "게임 세부 정보"
     },
     "gamecard": {
         "moving": "이동하는 중",
@@ -162,7 +165,10 @@
         "installedInfo": "설치 정보",
         "protondb-compatibility-info": "프로톤 호환성 수준",
         "steamdeck-compatibility-info": "스팀덱 호환성",
-        "third-party-app": "타사 관리자"
+        "third-party-app": "타사 관리자",
+        "steamdeck": {
+            "unsupported": "지원되지 않음"
+        }
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",
@@ -204,7 +210,8 @@
             "installing": "Installing",
             "pleaseWait": "잠시만 기다려 주세요....",
             "installation": "설치 중지"
-        }
+        },
+        "releaseDate": "출시일"
     },
     "launch": {
         "options": "실행 옵션...",

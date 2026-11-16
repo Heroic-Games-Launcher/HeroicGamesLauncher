@@ -61,7 +61,13 @@ jest.mock('../storeManagers', () => ({
     nile: {
       getGame: jest.fn()
     },
+    zoom: {
+      getGame: jest.fn()
+    },
     sideload: {
+      getGame: jest.fn()
+    },
+    steam: {
       getGame: jest.fn()
     }
   }
@@ -139,7 +145,13 @@ describe('protocol.ts --no-gui behavior', () => {
     ;(libraryManagerMap.nile.getGame as jest.Mock).mockReturnValue(
       emptyGameInfoMock
     )
+    ;(libraryManagerMap.zoom.getGame as jest.Mock).mockReturnValue(
+      emptyGameInfoMock
+    )
     ;(libraryManagerMap.sideload.getGame as jest.Mock).mockReturnValue(
+      emptyGameInfoMock
+    )
+    ;(libraryManagerMap.steam.getGame as jest.Mock).mockReturnValue(
       emptyGameInfoMock
     )
   })

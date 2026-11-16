@@ -51,7 +51,7 @@ export default function GeneralSettings() {
 
       <SettingsCard
         glyph={Globe}
-        title={t('settings.section.language', 'Language & Region')}
+        title={t('settings.section.language', 'Language & region')}
       >
         <LanguageSelector />
       </SettingsCard>

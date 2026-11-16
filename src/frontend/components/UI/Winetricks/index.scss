@@ -6,15 +6,15 @@
 
   .installedWrapper {
     b {
-      margin-inline-end: 0.5rem;
+      margin-inline-end: var(--space-xs);
     }
   }
 
   .installWrapper {
-    margin-block: 1rem;
+    margin-block: var(--space-md);
     .actions {
       display: grid;
-      column-gap: 1rem;
+      column-gap: var(--space-md);
       grid-template-columns: 1fr 1fr;
       align-items: center;
       .SearchBar {
@@ -32,8 +32,8 @@
             }
             button {
               display: inline;
-              margin-inline-start: 0.5rem;
-              font-size: 0.7rem;
+              margin-inline-start: var(--space-xs);
+              font-size: var(--body-sm);
             }
           }
         }

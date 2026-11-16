@@ -96,7 +96,9 @@
         "browse_wine_prefix": "",
         "play": "",
         "browse_files": "",
-        "edit-game": "Edit App/Game"
+        "edit-game": "Edit App/Game",
+        "favourite": "Dodaj u omiljene",
+        "unfavourite": "Makni iz omiljenih"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Onemogućeno",
@@ -132,7 +134,8 @@
         "changelogFor": "",
         "install_info": "Instaliranje u tijeku",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "Detalji igre"
     },
     "gamecard": {
         "moving": "Premještanje",
@@ -162,7 +165,10 @@
         "installedInfo": "Instalirane informacije",
         "protondb-compatibility-info": "Razina kompatibilnosti protona",
         "steamdeck-compatibility-info": "Kompatibilnost sa SteamDeckom",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "unsupported": "Unsupported"
+        }
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
@@ -203,7 +209,8 @@
             "installation": "Zaustavi instalaciju"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "Opcije za pokretanje...",

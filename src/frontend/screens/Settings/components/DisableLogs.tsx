@@ -15,7 +15,7 @@ const DisableLogs = () => {
       htmlId="disableLogs"
       value={disableLogs}
       handleChange={() => setDisableLogs(!disableLogs)}
-      title={t('setting.disable_logs', 'Disable Logs')}
+      title={t('setting.disable_logs', 'Disable logs')}
     />
   )
 }

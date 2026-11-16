@@ -17,21 +17,26 @@
 
 .gameListLayout {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(76px, auto);
+  align-items: stretch;
   gap: 10px;
-  min-height: 2vh;
-  padding: 0 var(--space-md-fixed) var(--space-3xl);
+  min-height: 0;
+  padding: 0 var(--space-md-fixed) var(--space-md);
   margin: var(--space-md) 0;
+}
+
+.libraryStickyTop {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--gradient-body-background, var(--body-background));
 }
 
 .libraryHeader {
   text-align: start;
   padding: var(--space-md) var(--space-md-fixed);
   margin: 0;
-  background: var(--gradient-body-background, var(--body-background));
-  position: sticky;
-  top: 0;
-  z-index: 10;
   font-size: var(--text-xl);
   font-weight: var(--semibold);
   letter-spacing: -0.01em;

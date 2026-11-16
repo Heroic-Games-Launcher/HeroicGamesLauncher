@@ -3,20 +3,13 @@ import {
   Gamepad2,
   Settings as SettingsIcon,
   Store,
-  LogIn,
   Accessibility,
-  Coffee,
-  UserCircle,
+  Heart,
   Wine,
   Download,
-  Tag,
-  Tv
+  Tag
 } from 'lucide-react'
-import {
-  faDiscord,
-  faGithub,
-  faPatreon
-} from '@fortawesome/free-brands-svg-icons'
+import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
@@ -37,7 +30,9 @@ export default function SidebarLinks() {
     epic,
     gog,
     zoom,
+    itchio,
     platform,
+    disableDiscounts,
     refreshLibrary,
     libraryStatus,
     handleExternalLinkDialog
@@ -47,14 +42,8 @@ export default function SidebarLinks() {
     (st) => st.status === 'installing' || st.status === 'queued'
   ).length
 
-  const inWebviewScreen =
-    location.pathname.includes('store') ||
-    location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
-
-  const loggedIn =
-    epic.username || gog.username || amazon.user_id || zoom.username
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -63,7 +52,8 @@ export default function SidebarLinks() {
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length) ||
       (amazon.user_id && !amazon.library.length) ||
-      (zoom.username && !zoom.library.length)
+      (zoom.username && !zoom.library.length) ||
+      (itchio.username && !itchio.library.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })
     }
@@ -85,36 +75,32 @@ export default function SidebarLinks() {
     }
   }
 
-  // By default, open Epic Store
-  let defaultStore = 'epic'
-  if (
-    zoom.enabled &&
-    !epic.username &&
-    !gog.username &&
-    !amazon.user_id &&
-    zoom.username
-  ) {
-    // Prioritize Zoom if only Zoom is logged in
-    defaultStore = 'zoom'
-  } else if (!epic.username && !gog.username && amazon.user_id) {
-    // If only logged in to Amazon Games, open Amazon Gaming
-    defaultStore = 'amazon'
-  } else if (!epic.username && gog.username) {
-    // Otherwise, if not logged in to Epic Games, open GOG Store
-    defaultStore = 'gog'
-  }
-
-  // if we have a stored last-url, default to the `/last-url` route
-  const lastStore = sessionStorage.getItem('last-store')
-  if (lastStore) {
-    defaultStore = lastStore
-  }
-
   return (
     <div
       className="SidebarLinks Sidebar__section scrollbar--none"
       data-tour="sidebar-menu"
     >
+      <svg
+        width="0"
+        height="0"
+        aria-hidden="true"
+        focusable="false"
+        style={{ position: 'absolute' }}
+      >
+        <defs>
+          <linearGradient
+            id="heroicSupportGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#4fe6f0" />
+            <stop offset="52%" stopColor="#5f8ef6" />
+            <stop offset="100%" stopColor="#7c5cf6" />
+          </linearGradient>
+        </defs>
+      </svg>
       <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
       <SidebarItem
         isActiveFallback={location.pathname.includes('gamepage')}
@@ -125,47 +111,24 @@ export default function SidebarLinks() {
         dataTour="sidebar-library"
       />
 
-      <div className="SidebarItemWithSubmenu">
-        <SidebarItem
-          isActiveFallback={location.pathname.includes('store')}
-          url={`/store/${defaultStore}`}
-          icon={<Icon glyph={Store} />}
-          label={t('stores', 'Stores')}
-          dataTour="sidebar-stores"
-        />
-        {inWebviewScreen && (
-          <div className="SidebarSubmenu">
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/store/epic"
-              label={t('store', 'Epic Store')}
-            />
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/store/gog"
-              label={t('gog-store', 'GOG Store')}
-            />
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/store/amazon"
-              label={t('amazon-luna', 'Amazon Luna')}
-            />
-            {zoom.enabled && (
-              <SidebarItem
-                className="SidebarLinks__subItem"
-                url="/store/zoom"
-                label={t('zoom-store', 'Zoom Store')}
-              />
-            )}
-          </div>
-        )}
-      </div>
       <SidebarItem
-        url="/discounts"
-        icon={<Icon glyph={Tag} />}
-        label={t('discounts.sidebar', 'Deals')}
-        dataTour="sidebar-discounts"
+        isActiveFallback={
+          location.pathname.includes('store') ||
+          location.pathname.includes('login')
+        }
+        url="/login"
+        icon={<Icon glyph={Store} />}
+        label={t('stores', 'Stores')}
+        dataTour="sidebar-stores"
       />
+      {!disableDiscounts && (
+        <SidebarItem
+          url="/discounts"
+          icon={<Icon glyph={Tag} />}
+          label={t('discounts.sidebar', 'Deals')}
+          dataTour="sidebar-discounts"
+        />
+      )}
 
       <SidebarItem
         url="/download-manager"
@@ -179,7 +142,7 @@ export default function SidebarLinks() {
         <SidebarItem
           url="/wine-manager"
           icon={<Icon glyph={Wine} />}
-          label={t('wine.manager.link', 'Wine Manager')}
+          label={t('wine.manager.link', 'Wine manager')}
           dataTour="sidebar-wine"
         />
       )}
@@ -192,13 +155,6 @@ export default function SidebarLinks() {
       />
 
       <SidebarItem
-        url="/console"
-        icon={<Icon glyph={Tv} />}
-        label={t('sidebar.console', 'Console Mode')}
-        dataTour="sidebar-console"
-      />
-
-      <SidebarItem
         isActiveFallback={isSettings}
         icon={<Icon glyph={SettingsIcon} />}
         label={t('Settings', 'Settings')}
@@ -206,30 +162,7 @@ export default function SidebarLinks() {
         dataTour="sidebar-settings"
       />
 
-      {!loggedIn && (
-        <SidebarItem
-          icon={<Icon glyph={LogIn} />}
-          label={t('sidebar.storesLogin', 'Stores Login')}
-          url="/login"
-          dataTour="sidebar-login"
-        />
-      )}
-
       <QuitButton dataTour="sidebar-quit" />
-
-      {loggedIn && (
-        <>
-          <div className="Sidebar__sectionLabel">
-            {t('Accounts', 'Accounts')}
-          </div>
-          <SidebarItem
-            url="/login"
-            icon={<Icon glyph={UserCircle} />}
-            label={t('userselector.manage', 'Manage')}
-            dataTour="sidebar-manage-accounts"
-          />
-        </>
-      )}
 
       <div className="Sidebar__sectionLabel">{t('Community', 'Community')}</div>
 
@@ -249,24 +182,16 @@ export default function SidebarLinks() {
         />
 
         <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openPatreonPage)}
-          icon={<FontAwesomeIcon icon={faPatreon} />}
-          label="Patreon"
-        />
-
-        <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openKofiPage)}
-          icon={<Icon glyph={Coffee} />}
-          label="Ko-fi"
-        />
-
-        <SidebarItem
-          elementType="button"
-          onClick={() => handleExternalLink(window.api.openGithubSponsorsPage)}
-          icon={<FontAwesomeIcon icon={faGithub} />}
-          label="GitHub Sponsors"
+          url="/support"
+          icon={
+            <Icon
+              glyph={Heart}
+              className="Sidebar__supportIcon"
+              fill="url(#heroicSupportGradient)"
+            />
+          }
+          label={t('support.title', 'Support Us')}
+          dataTour="sidebar-support"
         />
       </div>
     </div>

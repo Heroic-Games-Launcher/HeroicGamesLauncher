@@ -28,6 +28,11 @@
 
 .Tabs__tab:hover {
   color: var(--on-panel, var(--text-default));
+  background-color: color-mix(
+    in oklab,
+    var(--selected, var(--accent)) 12%,
+    transparent
+  );
 }
 
 .Tabs__tab:focus-visible {
@@ -39,5 +44,5 @@
 .Tabs__tab--active {
   color: var(--on-panel, var(--text-default));
   font-weight: var(--semibold);
-  border-bottom-color: var(--navbar-accent, var(--accent));
+  border-bottom-color: var(--selected, var(--navbar-accent, var(--accent)));
 }

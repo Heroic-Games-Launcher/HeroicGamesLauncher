@@ -129,6 +129,10 @@ const getStoreName = (runner: Runner, other: string) => {
       return 'GOG'
     case 'nile':
       return 'Amazon Games'
+    case 'itchio':
+      return 'itch.io'
+    case 'steam':
+      return 'Steam'
     default:
       return other
   }

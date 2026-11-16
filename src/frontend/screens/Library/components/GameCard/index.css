@@ -5,19 +5,22 @@
 
 .gameCard {
   height: 100%;
-  background-color: var(--input-background);
+  /* a distinct surface colour sets the card apart from the page, so no border
+     is needed; use the same surface token as the search bar so the two always
+     match across every theme */
+  background-color: var(--search-bar-background, var(--input-background));
   text-align: start;
   width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--divider);
-  border-radius: 16px;
+  border: none;
+  border-radius: var(--radius-xl);
+  /* inset the cover art and caption from the card edge */
+  padding: var(--space-xs-fixed);
   overflow: hidden;
   animation: fade-in 0.15s ease-in;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .gameCard > a {
@@ -26,6 +29,8 @@
   width: 100%;
   aspect-ratio: 3/4;
   background-color: var(--gradient-gamecard);
+  /* the cover art is rounded on all four corners inside the card padding */
+  border-radius: var(--radius-lg);
 }
 
 .gameCard.gamepad > a {
@@ -37,6 +42,24 @@
   aspect-ratio: 16/10;
 }
 
+.gameCard[data-invisible]::before {
+  content: '';
+  display: block;
+  width: 100%;
+  aspect-ratio: 3/4;
+}
+
+.gameCard.justPlayed[data-invisible]::before {
+  aspect-ratio: 16/10;
+}
+
+.gameCard[data-invisible]::after {
+  content: '';
+  display: block;
+  min-height: calc(2 * 1.25em);
+  margin: var(--space-xs-fixed) 0 0;
+}
+
 .gameCard:focus-within {
   outline: -webkit-focus-ring-color auto 1px;
 }
@@ -44,8 +67,8 @@
 .gameCard > .gameCardStatus {
   position: absolute;
   z-index: 5;
-  top: var(--space-xs-fixed);
-  left: var(--space-xs-fixed);
+  top: calc(var(--space-xs-fixed) + 10px);
+  left: calc(var(--space-xs-fixed) + 10px);
   max-width: calc(100% - 64px);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -54,8 +77,8 @@
 .gameCard .gameCardUpdateBadge {
   position: absolute;
   z-index: 5;
-  top: var(--space-xs-fixed);
-  left: var(--space-xs-fixed);
+  top: calc(var(--space-xs-fixed) + 10px);
+  left: calc(var(--space-xs-fixed) + 10px);
   max-width: calc(100% - 64px);
   pointer-events: none;
 }
@@ -90,14 +113,6 @@
   width: 100%;
 }
 
-.gameCard .gameLogo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-}
-
 .gameCard .gameListInfo {
   display: none;
 }
@@ -106,13 +121,13 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 12px 14px 14px;
+  padding: var(--space-xs-fixed) var(--space-2xs) var(--space-2xs);
 }
 
 .gameCard .gameTitle {
   min-height: calc(2 * 1.25em);
   font-family: var(--primary-font-family);
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   font-weight: var(--semibold);
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -138,9 +153,9 @@
 
 .gameCard > .icons {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: var(--space-xs-fixed);
+  left: var(--space-xs-fixed);
+  width: calc(100% - 2 * var(--space-xs-fixed));
   aspect-ratio: 3/4;
   background: transparent;
   display: block;
@@ -165,9 +180,10 @@
   left: 10px;
   width: 36px;
   height: 36px;
-  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  background: var(--card-overlay-bg-strong, rgba(6, 9, 13, 0.92));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--navbar-accent, var(--accent));
   border-radius: 10px;
   display: inline-flex;
   align-items: center;
@@ -196,12 +212,6 @@
   height: 40px;
   padding: 0;
   border-radius: 10px;
-  opacity: 0;
-  transition: opacity 180ms ease;
-}
-
-.gameCard:hover > .icons > .updateIcon,
-.gameCard:focus-within > .icons > .updateIcon {
   opacity: 1;
 }
 
@@ -260,7 +270,7 @@
   width: 36px;
   padding: 0;
   background: var(--background-darker, #0a0e13);
-  border: 1px solid var(--divider);
+  border: 1px solid var(--panel-border);
   color: var(--text-secondary);
 }
 
@@ -279,9 +289,10 @@
   left: 10px;
   width: 36px;
   height: 36px;
-  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  background: var(--card-overlay-bg-strong, rgba(6, 9, 13, 0.92));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--navbar-accent, var(--accent));
   border-radius: 10px;
   display: inline-flex;
   align-items: center;
@@ -316,10 +327,6 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  opacity: 0;
-  transition: opacity 180ms ease;
-}
-.gameCard:hover > .icons > .updateIcon {
   opacity: 1;
 }
 
@@ -353,7 +360,7 @@
   color: var(--on-panel-link, var(--navbar-accent, var(--accent)));
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+    inset 0 0 0 1px var(--navbar-accent, var(--accent));
 }
 
 .gameCard > .icons > .playIcon > svg,
@@ -409,17 +416,54 @@
   z-index: 2;
 }
 
+/* Status badges stacked under StoreBadge. */
+.gameCard .cloud-sync-icon,
+.gameCard .family-share-icon {
+  position: absolute;
+  right: 10px;
+  top: 56px;
+  z-index: 2;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: var(--space-xs-fixed);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  color: #0a0e13;
+  fill: #0a0e13;
+}
+
+/* Cloud badge only on installed games. */
+.gameCard:has(.cloud-sync-icon) .family-share-icon {
+  top: 102px;
+}
+
+.gameCard .family-share-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.gameListItem .cloud-sync-icon,
+.gameListItem .family-share-icon {
+  display: none;
+}
+
 .gameCard:hover,
 .gameCard:focus-within {
-  border-color: var(--navbar-accent, var(--accent));
+  --card-hover-glow: var(
+    --card-hover-accent,
+    var(--navbar-accent, var(--accent))
+  );
+
   box-shadow:
-    0 0 0 1px var(--navbar-accent, var(--accent)),
-    0 0 28px -6px var(--navbar-accent, var(--accent)),
+    0 0 28px -6px var(--card-hover-glow),
     0 16px 40px rgba(0, 0, 0, 0.55);
 }
 
-.gameCard.hidden .gameImg,
-.gameCard.hidden .gameLogo {
+.gameCard.hidden .gameImg {
   opacity: 0.2;
 }
 
@@ -436,6 +480,7 @@
 .gameListItem {
   text-align: start;
   height: 100%;
+  min-height: 76px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;
   grid-template-areas: 'thumb info status actions';
@@ -446,8 +491,8 @@
   --list-row-pad-inline: 12px;
   padding: var(--list-row-pad-block) var(--list-row-pad-inline);
   position: relative;
-  background: var(--input-background);
-  border: 1px solid var(--divider);
+  background: var(--search-bar-background, var(--input-background));
+  border: none;
   border-radius: 12px;
   transition:
     border-color 0.2s ease,
@@ -456,8 +501,11 @@
 
 .gameListItem:hover,
 .gameListItem:focus-within {
-  border-color: var(--navbar-accent, var(--accent));
-  box-shadow: 0 0 0 1px var(--navbar-accent, var(--accent));
+  background: color-mix(
+    in oklab,
+    var(--search-bar-background, var(--input-background)) 88%,
+    var(--navbar-accent, var(--accent))
+  );
 }
 
 .gameListItem > a {
@@ -564,7 +612,7 @@
   height: 36px;
   border-radius: 10px;
   background: var(--background-darker, #0a0e13);
-  border: 1px solid var(--divider);
+  border: 1px solid var(--panel-border);
   color: var(--text-secondary);
   opacity: 1;
   transform: none;
@@ -603,22 +651,18 @@
   z-index: 7;
 }
 
-.gameImg,
-.gameLogo {
+.gameImg {
   transition:
     all 0.2s,
     opacity 0.5s;
 }
 
-.gameImg:not(.installed),
-.gameLogo:not(.installed) {
+.gameImg:not(.installed) {
   filter: grayscale(var(--installing-effect));
 }
 
 .gameCard:hover .gameImg:not(.installed),
-.gameCard:hover .gameLogo:not(.installed),
-.allTilesInColor .gameImg,
-.allTilesInColor .gameLogo {
+.allTilesInColor .gameImg {
   filter: grayscale(0);
 }
 
@@ -750,4 +794,12 @@
   100% {
     opacity: 1;
   }
+}
+
+.gameCard .gameLogo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
 }

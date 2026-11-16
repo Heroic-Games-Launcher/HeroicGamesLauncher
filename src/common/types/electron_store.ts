@@ -18,7 +18,13 @@ import {
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
+import { ItchioUserData } from './itchio'
 import { ZoomCredentials } from './zoom'
+import {
+  SteamAccount,
+  SteamCloudSyncStatus,
+  SteamPendingDlcChange
+} from './steam'
 
 export interface StoreStructure {
   configStore: {
@@ -59,6 +65,9 @@ export interface StoreStructure {
   zoomInstalledGamesStore: {
     installed: InstalledInfo[]
   }
+  steamInstalledGamesStore: {
+    installed: InstalledInfo[]
+  }
   timestampStore: {
     [K: string]: {
       firstPlayed: string
@@ -79,8 +88,23 @@ export interface StoreStructure {
     isLoggedIn: boolean
     username?: string
   }
+  steamConfigStore: {
+    isLoggedIn: boolean
+    steamId?: string
+    username?: string
+    accounts?: SteamAccount[]
+    pendingDlc?: SteamPendingDlcChange[]
+    // Per-game chosen `aurelia launch-targets` id
+    steamLaunchTarget?: Record<string, string>
+    // Last Cloud sync outcome per app id, so the library can show sync state
+    cloudSync?: Record<string, SteamCloudSyncStatus>
+  }
   nileConfigStore: {
     userData?: NileUserData
+  }
+  itchioConfigStore: {
+    userData?: ItchioUserData
+    profileId?: number
   }
   sideloadedStore: {
     games: GameInfo[]

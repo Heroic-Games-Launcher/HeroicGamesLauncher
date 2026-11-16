@@ -11,7 +11,10 @@
         "actions_font_family_default": "Toimintojen kirjasinperhe (vakio: {{fontFamily}})",
         "content_font_family_default": "Sisältöjen kirjasinperhe (vakio: {{fontFamily}})",
         "disable_smooth_scrolling": "Kytke pois sulava vieritys (uudelleenkäynnistys vaaditaan)",
-        "disable_animations": "Poista käyttöliittymän animoinnit käytöstä"
+        "disable_animations": "Poista käyttöliittymän animoinnit käytöstä",
+        "section": {
+            "library": "Kirjasto"
+        }
     },
     "add_game": "Lisää peli",
     "All": "Kaikki",
@@ -199,7 +202,8 @@
         "sync": "Synkronoi",
         "syncing": "Synkronoidaan",
         "unsync": "Älä synkronoi",
-        "continue": "Jatka"
+        "continue": "Jatka",
+        "close": "Sulje"
     },
     "controller": {
         "hints": {
@@ -258,7 +262,8 @@
         "status": "Tila",
         "store": "Kauppa",
         "title": "Pelinimike",
-        "modify": "Muokkaa Asennusta"
+        "modify": "Muokkaa Asennusta",
+        "settings": "Peliasetukset"
     },
     "generic": {
         "error": {
@@ -293,7 +298,9 @@
         "show_installed_only": "Näytä vain asennetut",
         "show_third_party_managed_only": "Näytä vain kolmansien osapuolten ylläpitämät",
         "no_categories": "Muovattuja luokituksia ei ole. Lisää luokkia käyttäen pelivalikkoja.",
-        "show_updates_only": "Näytä vain pelit joihin on päivityksiä"
+        "show_updates_only": "Näytä vain pelit joihin on päivityksiä",
+        "platforms": "Platform",
+        "stores": "Kaupat"
     },
     "help": {
         "amdfsr": "AMD FSR auttaa parantamaan ruudunpäivitysnopeutta ylösskaalaamalla alemman resoluution kuvaa koko näytön tilassa. Kuvanlaatu paranee asteikolla 5–1 pienen suorituskykyvaikutuksen kustannuksella. Käyttöönotto saattaa parantaa suorituskykyä.",
@@ -818,6 +825,10 @@
         "steamRuntime": {
             "label": "Käytä Steam Runtimea",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Avaa",
+            "selectExe": "Valitse EXE"
         }
     },
     "settings": {
@@ -856,7 +867,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Järjestelmätiedot",
             "gamescope": "Gamescope",
-            "legacy": "Vanhentuneet"
+            "legacy": "Vanhentuneet",
+            "categories": "Kategoriat"
         },
         "open-config-file": "Avaa asetustiedosto",
         "reset-heroic": "Nollaa Heroic",
@@ -934,13 +946,21 @@
             "help": {
                 "description": "Anna oma SteamGridDB API-avain pelin kansihaun mahdollistamiseksi. Avain tallennetaan salattuna, kun järjestelmäsi tukee sitä. Saat sellaisen osoitteesta {{url}}"
             }
+        },
+        "section": {
+            "downloads": "Lataukset",
+            "experimental": "Kokeelliset ominaisuudet",
+            "launch": "Käynnistysasetukset...",
+            "wineTools": "Tools",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "Asetukset",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": "Päätetila"
+        "console": "Päätetila",
+        "storesLogin": "Kaupan kirjautuminen"
     },
     "status": {
         "installing": "Asennetaan",
@@ -971,7 +991,8 @@
         "show": "Näytä"
     },
     "two_col_table": {
-        "save_hint": "Tämän osion muutokset eivät tallennu automaattisesti. Napsauta + painiketta"
+        "save_hint": "Tämän osion muutokset eivät tallennu automaattisesti. Napsauta + painiketta",
+        "add": "Lisää"
     },
     "Update Available!": "Päivitys saatavilla!",
     "userselector": {
@@ -1072,7 +1093,8 @@
     },
     "emptyLibrary": {
         "noResults": "Nämä suodattimet eivät tuottaneet tuloksia.",
-        "noGames": "Kirjastosi on tyhjä.<br /><br />Napsauta <4>tässä</4> kirjautuaksesi sisään Epic, GOG.com, tai Amazon -tilillesi. Tämän jälkeen pelisi ilmestyvät tähän kirjastonäkymään.<br /><br />Käyttääksesi pelejä- tai sovelluksia muista lähteistä, napsauta <br /> lisätäksesi ne manuaalisesti."
+        "noGames": "Kirjastosi on tyhjä.<br /><br />Napsauta <4>tässä</4> kirjautuaksesi sisään Epic, GOG.com, tai Amazon -tilillesi. Tämän jälkeen pelisi ilmestyvät tähän kirjastonäkymään.<br /><br />Käyttääksesi pelejä- tai sovelluksia muista lähteistä, napsauta <br /> lisätäksesi ne manuaalisesti.",
+        "noResultsTitle": "Pelejä ei löydetty"
     },
     "tour": {
         "back": "Takaisin",
@@ -1318,5 +1340,6 @@
         "add": "Lisää",
         "cancel": "Peruuta",
         "warning": "Varoitus"
-    }
+    },
+    "General": "Yleiset"
 }

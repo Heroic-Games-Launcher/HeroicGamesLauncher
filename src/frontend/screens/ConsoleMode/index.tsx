@@ -33,6 +33,15 @@ import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
 import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
+import { timestampStore } from 'frontend/helpers/electronStores'
+
+type ConsoleSortMode = 'last_played' | 'alpha_asc' | 'alpha_desc'
+
+const SORT_MODE_ORDER: ConsoleSortMode[] = [
+  'last_played',
+  'alpha_asc',
+  'alpha_desc'
+]
 
 type StoreKey = Runner | 'all'
 
@@ -63,7 +72,9 @@ export default function ConsoleMode() {
     epic,
     gog,
     amazon,
+    steam,
     zoom,
+    itchio,
     libraryStatus,
     sideloadedLibrary,
     refreshLibrary,
@@ -73,7 +84,7 @@ export default function ConsoleMode() {
   } = useContext(ContextProvider)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
-  const [ascending, setAscending] = useState(true)
+  const [sortMode, setSortMode] = useState<ConsoleSortMode>('last_played')
   const [filteringByInstalled, setFilteringByInstalled] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
@@ -105,7 +116,9 @@ export default function ConsoleMode() {
       epic.library.length === 0 &&
       gog.library.length === 0 &&
       amazon.library.length === 0 &&
-      zoom.library.length === 0
+      zoom.library.length === 0 &&
+      itchio.library.length === 0 &&
+      steam.library.length === 0
     ) {
       void refreshLibrary({ runInBackground: true })
     }
@@ -123,7 +136,9 @@ export default function ConsoleMode() {
       ...epic.library,
       ...gog.library,
       ...amazon.library,
+      ...steam.library,
       ...zoom.library,
+      ...itchio.library,
       ...sideloadedLibrary
     ]
     return all.filter(
@@ -136,7 +151,9 @@ export default function ConsoleMode() {
     epic.library,
     gog.library,
     amazon.library,
+    steam.library,
     zoom.library,
+    itchio.library,
     sideloadedLibrary,
     hiddenGames
   ])
@@ -155,10 +172,20 @@ export default function ConsoleMode() {
       filteredGames = filteredGames.filter((g) => g.runner === activeStore)
     }
 
-    return filteredGames.sort((a, b) =>
-      ascending ? compareGameTitles(a, b) : compareGameTitles(b, a)
-    )
-  }, [allGames, filteringByInstalled, activeStore, ascending])
+    return filteredGames.sort((a, b) => {
+      if (sortMode === 'last_played') {
+        const ta = timestampStore.get_nodefault(a.app_name)?.lastPlayed ?? ''
+        const tb = timestampStore.get_nodefault(b.app_name)?.lastPlayed ?? ''
+        if (!ta && !tb) return compareGameTitles(a, b)
+        if (!ta) return 1
+        if (!tb) return -1
+        return tb.localeCompare(ta)
+      }
+      return sortMode === 'alpha_asc'
+        ? compareGameTitles(a, b)
+        : compareGameTitles(b, a)
+    })
+  }, [allGames, filteringByInstalled, activeStore, sortMode])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<Runner>()
@@ -182,12 +209,18 @@ export default function ConsoleMode() {
       },
       { key: 'gog', label: 'GOG', enabled: storesWithGames.has('gog') },
       { key: 'nile', label: 'Amazon', enabled: storesWithGames.has('nile') },
+      { key: 'steam', label: 'Steam', enabled: storesWithGames.has('steam') },
       {
         key: 'sideload',
         label: t('console.filter.sideload', 'Other'),
         enabled: storesWithGames.has('sideload')
       },
-      { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') }
+      { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') },
+      {
+        key: 'itchio',
+        label: 'itch.io',
+        enabled: storesWithGames.has('itchio')
+      }
     ],
     [t, storesWithGames, allGames.length]
   )
@@ -398,11 +431,17 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const toggleSort = useCallback(() => setAscending((v) => !v), [])
+  const cycleSort = useCallback(() => {
+    setSortMode((current) => {
+      const idx = SORT_MODE_ORDER.indexOf(current)
+      const next = (idx + 1) % SORT_MODE_ORDER.length
+      return SORT_MODE_ORDER[next]
+    })
+  }, [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
-  useGamepadButtonPress(BTN_R2, toggleSort, idle)
+  useGamepadButtonPress(BTN_R2, cycleSort, idle)
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -441,25 +480,29 @@ export default function ConsoleMode() {
         <div className="consoleTopRight">
           <button
             className="consoleChip"
-            onClick={toggleSort}
-            aria-label={t('console.sort', 'Sort')}
+            onClick={cycleSort}
+            aria-label={t('console.sort.label', 'Sort')}
             disabled={!!launchingGame}
           >
-            {ascending ? 'A → Z' : 'Z → A'}
+            {sortMode === 'last_played'
+              ? t('console.sort.last_played', 'Last Played')
+              : sortMode === 'alpha_asc'
+                ? t('console.sort.alpha_asc', 'A → Z')
+                : t('console.sort.alpha_desc', 'Z → A')}
           </button>
           <button
             className="consoleQuitButton"
             onClick={quit}
             disabled={!!launchingGame}
           >
-            {t('console.quit', 'Quit Console')}
+            {t('console.quit', 'Quit console')}
           </button>
           <button
             className="consoleQuitButton danger"
             onClick={() => window.api.quit()}
             disabled={!!launchingGame}
           >
-            {t('console.quitApp', 'Quit App')}
+            {t('console.quitApp', 'Quit app')}
           </button>
         </div>
       </div>

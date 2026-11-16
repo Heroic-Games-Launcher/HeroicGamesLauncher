@@ -14,11 +14,11 @@
         },
         "changelogFor": "Log athruithe do {{gameTitle}}",
         "downloadSize": "Méid Íoslódála",
-        "extra_info": "Eolas breise",
+        "extra_info": "Breise",
         "firstPlayed": "Imríodh ar dtús",
         "getting-download-size": "Méid íoslódála á fháil",
         "getting-install-size": "Méid suiteála á fháil",
-        "install_info": "Eolas suiteála",
+        "install_info": "Eolas faoi Shuiteáil",
         "installSize": "Méid Suiteála",
         "language": "Teanga",
         "lastPlayed": "Imríodh go deireanach",
@@ -27,7 +27,12 @@
         "platform": "Roghnaigh Leagan Ardáin le Suiteáil",
         "requirements": "Riachtanais an Chórais",
         "totalPlayed": "Am Imeartha",
-        "achievements": "Éachtaí"
+        "achievements": "Éachtaí",
+        "details": "Sonraí an chluiche",
+        "about": "Maidir leis an gCluiche Seo",
+        "hoursPlayedShort": "{{hours}} uair an chloig",
+        "overview": "Forléargas",
+        "tabs": "Eolas faoin gcluiche"
     },
     "box": {
         "change": {
@@ -127,7 +132,10 @@
         "uninstall": "Díshuiteáil",
         "update": "Nuashonrú",
         "play": "IMIR",
-        "edit-game": "Cuir Cluiche in Eagar"
+        "edit-game": "Cuir Cluiche in Eagar",
+        "favourite": "Cuir le Rogha",
+        "unfavourite": "Bain De Cheanáin",
+        "backToLibrary": "Ar ais chuig an Leabharlann"
     },
     "cloud_save_unsupported": "Gan tacaíocht",
     "enabled": "Cumasaithe",
@@ -168,7 +176,15 @@
         "steamdeck-compatibility-info": "Comhoiriúnacht SteamDeck",
         "syncsaves": "Sioncrónaigh Sábhálacha",
         "third-party-app": "Bainisteoir Tríú Páirtí",
-        "version": "Leagan"
+        "version": "Leagan",
+        "genres": "Seánraí",
+        "steamdeck": {
+            "unsupported": "Gan tacaíocht",
+            "playable": "In-imeartha",
+            "unknown": "Anaithnid",
+            "verified": "Fíoraithe"
+        },
+        "developer": "Forbróir"
     },
     "install": {
         "anticheat-warning": {
@@ -195,9 +211,10 @@
         },
         "launching": "Ag lainseáil",
         "playing": {
-            "start": "Imir Anois",
-            "start_with_logs": "Imir Anois (le logaí)",
-            "stop": "Ag imirt (Stop)"
+            "start": "Imir",
+            "start_with_logs": "Imir le logaí",
+            "stop": "Ag imirt (Stop)",
+            "start_with_logs_hint": "Seolann sé an cluiche agus é ag cruthú loga mionsonraithe; bíonn sé seo úsáideach nuair is gá duit fadhb a thuairisciú"
         },
         "redist": "Suiteáil In-athdháilte",
         "saves": {
@@ -229,7 +246,8 @@
             "specificVersion-pt3": "déanta chun oibriú trí Heroic ós rud é nach n-oibreoidh leaganacha nua de Steam ar macOS.",
             "compatibility-layer-not-available": "Níl an ciseal comhoiriúnachta ar fáil. Suiteáil ceann ó \"Socruithe > Bainisteoir Fíona\" ar dtús."
         },
-        "winetricks": "Ag Suiteáil Pacáistí Winetricks"
+        "winetricks": "Ag Suiteáil Pacáistí Winetricks",
+        "releaseDate": "Dáta Eisiúna"
     },
     "launch": {
         "options": "Roghanna Seolta...",
@@ -346,7 +364,8 @@
         "removeShortcut": "Bain na haicearraí",
         "settings": "Socruithe",
         "store": "Leathanach Siopa",
-        "verify": "Fíoraigh agus Deisigh"
+        "verify": "Fíoraigh agus Deisigh",
+        "more": "Tuilleadh"
     },
     "third-party-managed": {
         "header": "Tá an cluiche seo á bhainistiú ag feidhmchlár tríú páirtí",

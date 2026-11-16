@@ -11,7 +11,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "کتابخانه"
+        }
     },
     "add_game": "افزودن بازی",
     "All": "همه",
@@ -199,7 +202,8 @@
         "sync": "همگام سازی",
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی",
-        "continue": "ادامه"
+        "continue": "ادامه",
+        "close": "بستن"
     },
     "controller": {
         "hints": {
@@ -253,7 +257,8 @@
         "status": "Status",
         "store": "فروشگاه",
         "title": "عنوان بازی",
-        "modify": ""
+        "modify": "",
+        "settings": "تنظیمات بازی"
     },
     "generic": {
         "error": {
@@ -288,7 +293,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "فروشگاهها"
     },
     "help": {
         "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
@@ -799,6 +806,10 @@
         "steamRuntime": {
             "label": "استفاده از Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "باز کردن",
+            "selectExe": "انتخاب EXE"
         }
     },
     "settings": {
@@ -915,6 +926,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "گزینه های اجرا...",
+            "wineTools": "ابزارها"
         }
     },
     "Settings": "تنظیمات",
@@ -1116,7 +1132,8 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "noResultsTitle": "بازی یافت نشد"
     },
     "zoom-store": "",
     "wineExplanation": {
@@ -1266,5 +1283,6 @@
     "common": {
         "cancel": "انصراف",
         "warning": "هشدار"
-    }
+    },
+    "General": "عمومی"
 }

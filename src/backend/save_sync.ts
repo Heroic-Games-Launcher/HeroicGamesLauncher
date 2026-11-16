@@ -30,6 +30,10 @@ async function getDefaultSavePath(
       return ''
     case 'zoom':
       return ''
+    case 'itchio':
+      return ''
+    case 'steam':
+      return ''
   }
 }
 

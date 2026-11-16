@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { Download } from 'lucide-react'
 import { getGameInfo } from 'frontend/helpers'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { Runner } from 'common/types'
+import { useInstallProgress } from 'frontend/state/InstallProgress'
+import { DownloadManagerState, Runner } from 'common/types'
 import './index.css'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -14,10 +15,20 @@ import ProgressBar from '../../../ProgressBar'
 type Props = {
   appName: string
   runner: Runner
+  state?: DownloadManagerState
 }
 
-export default React.memo(function CurrentDownload({ appName, runner }: Props) {
+export default React.memo(function CurrentDownload({
+  appName,
+  runner,
+  state
+}: Props) {
   const [progress] = hasProgress(appName, runner)
+  const liveProgress = useInstallProgress((s) => s[`${appName}_${runner}`])
+  const isPaused = state ? ['idle', 'paused'].includes(state) : false
+  const hasStarted =
+    Boolean(liveProgress?.downSpeed) || Boolean(liveProgress?.percent)
+  const isPreparing = !isPaused && !hasStarted
   const [gameTitle, setGameTitle] = useState('')
   const { libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -40,6 +51,12 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   }, [appName])
 
   function getStatus() {
+    if (isPaused) {
+      return t('queue.label.paused', 'Paused')
+    }
+    if (isPreparing) {
+      return t('status.preparing', 'Preparing…')
+    }
     return progress.percent && progress.percent > 98
       ? t('status.processing', 'Processing files, please wait')
       : t('status.installing', 'Installing')
@@ -64,9 +81,9 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
         <span className="gameTitle">{gameTitle ?? 'GameName'}</span>
         <span className="downloadStatus">{getStatus()}</span>
         <ProgressBar
-          tone="success"
+          tone={isPaused ? 'warning' : 'success'}
           showValue
-          value={progress.percent}
+          value={isPreparing ? undefined : progress.percent}
           label={getStatus()}
         />
       </div>

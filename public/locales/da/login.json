@@ -5,7 +5,8 @@
         "copy": "Kopiér",
         "copied": "Kopieret!",
         "error": "Fejl, prøv en anden kode",
-        "loading": "Indlæser"
+        "loading": "Indlæser",
+        "close": "Luk"
     },
     "message": {
         "part1": "For at logge ind og installere dine spil, må du først følge trinene herunder:",

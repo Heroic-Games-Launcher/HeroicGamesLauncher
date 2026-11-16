@@ -1,4 +1,8 @@
-import { initImagesCache } from './images_cache'
+import {
+  initImagesCache,
+  clearImagesCache,
+  removeImageFromCache
+} from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
@@ -36,7 +40,10 @@ import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
+import { ItchioUser } from './storeManagers/itchio/user'
+import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
 import { ZoomUser } from './storeManagers/zoom/user'
+import { SteamUser } from './storeManagers/steam/user'
 import {
   clearCache,
   isEpicServiceOffline,
@@ -57,6 +64,7 @@ import {
   writeConfig,
   createNecessaryFolders,
   clearAchievementCache,
+  focusGameWindow,
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
@@ -142,6 +150,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { shouldUpdateDxvkTools } from './utils/config_helper'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -178,7 +187,11 @@ async function initializeWindow(): Promise<BrowserWindow> {
       }
     }
 
-    void DXVK.getLatest()
+    const settings = GlobalConfig.get().getSettings()
+
+    if (shouldUpdateDxvkTools(settings)) {
+      void DXVK.getLatest()
+    }
 
     Winetricks.download()
     if (shouldDownloadWine) {
@@ -318,6 +331,21 @@ if (!gotTheLock) {
     }
 
     handleProtocol(argv)
+  })
+
+  app.on('web-contents-created', (_event, contents) => {
+    if (contents.getType() !== 'webview') return
+
+    const interceptItchioOAuth = (event: Electron.Event, url: string) => {
+      if (!url.startsWith(ITCHIO_OAUTH_REDIRECT_URI)) return
+
+      event.preventDefault()
+      logInfo('Intercepted itch.io OAuth callback', LogPrefix.Itchio)
+      sendFrontendMessage('itchioOAuthCallback', url)
+    }
+
+    contents.on('will-navigate', interceptItchioOAuth)
+    contents.on('will-redirect', interceptItchioOAuth)
   })
   app.whenReady().then(async () => {
     initLogger()
@@ -491,7 +519,7 @@ process.on('uncaughtException', async (err) => {
   showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
-      'Uncaught Exception occured!'
+      'Uncaught exception occured!'
     ),
     message: i18next.t('box.error.uncaught-exception.message', {
       defaultValue:
@@ -555,7 +583,11 @@ addHandler('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
 addHandler('isFrameless', () => isFrameless())
 addHandler('isMinimized', () => !!getMainWindow()?.isMinimized())
 addHandler('isMaximized', () => !!getMainWindow()?.isMaximized())
+addHandler('focusGameWindow', () => {
+  focusGameWindow()
+})
 addListener('minimizeWindow', () => getMainWindow()?.minimize())
+addListener('showWindow', () => getMainWindow()?.show())
 addListener('maximizeWindow', () => getMainWindow()?.maximize())
 addListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 addListener('closeWindow', () => getMainWindow()?.close())
@@ -693,6 +725,15 @@ addListener('clearAchievementCache', (event, appName: string) => {
   )
 })
 
+addHandler('clearImagesCache', () => {
+  clearImagesCache()
+  logInfo('Image cache was cleared', LogPrefix.Backend)
+})
+
+addHandler('removeImageFromCache', (event, url: string) => {
+  removeImageFromCache(url)
+})
+
 addListener('resetHeroic', () => resetHeroic())
 
 addListener('createNewWindow', (e, url) => {
@@ -729,7 +770,7 @@ addHandler(
   }
 )
 
-addHandler('getExtraInfo', async (event, appName, runner) => {
+addHandler('getExtraInfo', async (event, appName, runner, lang) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
   if (
     runner === 'legendary' &&
@@ -737,7 +778,7 @@ addHandler('getExtraInfo', async (event, appName, runner) => {
   ) {
     return null
   }
-  return libraryManagerMap[runner].getGame(appName).getExtraInfo()
+  return libraryManagerMap[runner].getGame(appName).getExtraInfo(lang)
 })
 
 addHandler('getGameSettings', async (event, appName, runner) => {
@@ -795,6 +836,15 @@ addHandler('getAmazonLoginData', () => NileUser.getLoginData())
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
 addHandler('logoutAmazon', () => NileUser.logout())
 
+addHandler('getItchioUserInfo', async () => ItchioUser.getUserData())
+addHandler('getItchioLoginData', async () => ItchioUser.getLoginData())
+addHandler('authItchio', async (_event, data) => ItchioUser.login(data))
+addHandler('getItchioOAuthUrl', async () => ItchioUser.getOAuthUrl())
+addHandler('authItchioOAuth', async (_event, data) =>
+  ItchioUser.loginWithOAuthCode(data)
+)
+addHandler('logoutItchio', async () => ItchioUser.logout())
+
 addHandler('authZoom', async (event, url) => {
   const login = await ZoomUser.login(url)
   if (login.status === 'done') {
@@ -805,6 +855,39 @@ addHandler('authZoom', async (event, url) => {
 
 addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
+
+addHandler('loginSteam', async (event, credentials) => {
+  const login = await SteamUser.login(credentials)
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addHandler('loginSteamQr', async () => {
+  const login = await SteamUser.loginQr()
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addListener('cancelSteamQrLogin', () => {
+  SteamUser.cancelQrLogin()
+})
+
+addListener('cancelSteamLogin', () => {
+  SteamUser.cancelLogin()
+})
+
+addListener('submitSteamGuardCode', (_e, code) => {
+  SteamUser.submitGuardCode(code)
+})
+
+addListener('logoutSteam', () => {
+  void SteamUser.logout()
+})
+addHandler('getSteamUserInfo', async () => SteamUser.getUserDetails())
 
 addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
@@ -917,7 +1000,7 @@ addHandler('repair', async (event, appName, runner) => {
   } catch (error) {
     notify({
       title,
-      body: i18next.t('notify.error.reparing', 'Error Repairing')
+      body: i18next.t('notify.error.reparing', 'Error repairing')
     })
     logError(error, LogPrefix.Backend)
   }
@@ -943,7 +1026,7 @@ addHandler(
     const { title, install } = libraryManagerMap[runner]
       .getGame(appName)
       .getGameInfo()
-    notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
+    notify({ title, body: i18next.t('notify.moving', 'Moving game') })
 
     let validNewPath = true
 
@@ -961,7 +1044,7 @@ addHandler(
       showDialogBoxModalAuto({
         event,
         title: i18next.t('box.error.title', 'Error'),
-        message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
+        message: i18next.t('box.error.moving', 'Error moving game {{error}}', {
           error
         }),
         type: 'ERROR'
@@ -1022,7 +1105,7 @@ addHandler(
           title: i18next.t('box.warning.title', 'Warning'),
           message: i18next.t(
             'box.warning.epic.import',
-            'Epic Servers are having major outage right now, the game cannot be imported!'
+            'Epic servers are having major outage right now, the game cannot be imported!'
           ),
           type: 'ERROR'
         })
@@ -1040,7 +1123,7 @@ addHandler(
     const abortMessage = () => {
       notify({
         title,
-        body: i18next.t('notify.import.failed', 'Importing Failed')
+        body: i18next.t('notify.import.failed', 'Importing failed')
       })
       sendGameStatusUpdate({
         appName,
@@ -1075,7 +1158,7 @@ addHandler(
 
     notify({
       title,
-      body: i18next.t('notify.install.imported', 'Game Imported')
+      body: i18next.t('notify.install.imported', 'Game imported')
     })
     sendGameStatusUpdate({
       appName,
@@ -1114,6 +1197,7 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
 
   // add a default option if there are other options but no default
   if (
+    runner !== 'steam' &&
     availableLaunchOptions.length > 0 &&
     !availableLaunchOptions.some(
       (option) =>
@@ -1454,3 +1538,5 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
+import './storeManagers/steam/ipc_handler'
+import './storeManagers/steam/ipc_handler'

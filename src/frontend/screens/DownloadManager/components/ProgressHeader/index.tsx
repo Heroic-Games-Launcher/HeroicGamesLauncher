@@ -68,12 +68,12 @@ export default function ProgressHeader(props: {
               <linearGradient id="downloadRate" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="0%"
-                  stopColor="var(--navbar-accent, var(--accent))"
+                  stopColor="var(--success, #10b981)"
                   stopOpacity={0.55}
                 />
                 <stop
                   offset="100%"
-                  stopColor="var(--navbar-accent, var(--accent))"
+                  stopColor="var(--success, #10b981)"
                   stopOpacity={0.05}
                 />
               </linearGradient>
@@ -82,7 +82,7 @@ export default function ProgressHeader(props: {
               isAnimationActive={false}
               type="monotone"
               dataKey="download"
-              stroke="var(--navbar-accent, var(--accent))"
+              stroke="var(--success, #10b981)"
               strokeWidth="1.5px"
               fill="url(#downloadRate)"
             />
@@ -90,7 +90,7 @@ export default function ProgressHeader(props: {
               isAnimationActive={false}
               type="monotone"
               dataKey="disk"
-              stroke="var(--primary)"
+              stroke="var(--secondary, var(--accent))"
               strokeWidth="2px"
               strokeDasharray="4 3"
               fillOpacity={0}

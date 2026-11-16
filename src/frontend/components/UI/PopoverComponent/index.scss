@@ -3,9 +3,8 @@
   .popover {
     background-color: var(--background);
     color: var(--text-default);
-    border: 1px solid var(--border-color);
     border-radius: var(--radius-xs);
-    box-shadow: 0 0 0 1px var(--border-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     padding: 16px;
     width: fit-content;
     max-width: 500px;

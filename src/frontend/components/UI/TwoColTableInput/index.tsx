@@ -1,17 +1,13 @@
 import { ReactNode, useContext, useEffect, useState } from 'react'
 import SvgButton from '../SvgButton'
 import TextInputField from '../TextInputField'
-import { Plus } from 'lucide-react'
+import { ArrowUp, Pencil, Trash2, Plus } from 'lucide-react'
 import Button from '../Button'
 import InfoTooltip from '../InfoTooltip'
 import Icon from '../Icon'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons'
-import EditIcon from '@mui/icons-material/Edit'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'react-i18next'
 
 export interface ColumnProps {
@@ -159,17 +155,19 @@ export function TableInput({
               )}
               <span className="tableFieldWrapper__value">{row.value}</span>
               <span className="tableFieldWrapper__rowActions">
-                <SvgButton onClick={() => editRow(row)}>
-                  <EditIcon
-                    style={{ color: 'var(--accent)' }}
-                    fontSize="large"
-                  />
+                <SvgButton
+                  className="tableFieldWrapper__editButton"
+                  onClick={() => editRow(row)}
+                  title={t('two_col_table.edit', 'Edit')}
+                >
+                  <Icon glyph={Pencil} size="md" />
                 </SvgButton>
-                <SvgButton onClick={() => removeRow(row)}>
-                  <RemoveCircleIcon
-                    style={{ color: 'var(--danger)' }}
-                    fontSize="large"
-                  />
+                <SvgButton
+                  className="tableFieldWrapper__deleteButton"
+                  onClick={() => removeRow(row)}
+                  title={t('two_col_table.remove', 'Remove')}
+                >
+                  <Icon glyph={Trash2} size="md" />
                 </SvgButton>
               </span>
             </li>
@@ -215,7 +213,7 @@ export function TableInput({
             'two_col_table.save_hint',
             'Changes in this table are not saved automatically. Click the + button'
           )}
-          <FontAwesomeIcon icon={faArrowUp} />
+          <Icon glyph={ArrowUp} size="sm" />
         </p>
       )}
 

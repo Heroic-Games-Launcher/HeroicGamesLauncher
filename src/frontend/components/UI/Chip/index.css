@@ -29,8 +29,16 @@
 }
 
 .Chip--active {
-  background: color-mix(in oklab, var(--accent) 18%, var(--input-background));
-  border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  background: color-mix(
+    in oklab,
+    var(--selected, var(--accent)) 18%,
+    var(--input-background)
+  );
+  border-color: color-mix(
+    in oklab,
+    var(--selected, var(--accent)) 55%,
+    transparent
+  );
   color: var(--on-panel, var(--text-default));
 }
 

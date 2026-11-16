@@ -15,10 +15,11 @@
   .heroicVersion {
     display: flex;
     gap: 5px;
+    min-width: 0;
     font-size: var(--text-xs);
     cursor: pointer;
     transition: 300ms;
-    color: var(--brand-text-01);
+    color: var(--on-nav-muted);
 
     &:hover {
       color: var(--accent);
@@ -57,8 +58,17 @@
     }
 
     .heroicVersion {
+      max-width: 100%;
       font-size: var(--text-xs);
       text-align: center;
+      overflow: hidden;
+
+      strong {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
 
     .heroicVersion__title {

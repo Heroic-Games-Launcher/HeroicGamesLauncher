@@ -15,15 +15,24 @@ import {
   EyeOff,
   WifiOff,
   Package,
-  RefreshCw
+  RefreshCw,
+  UserCheck
 } from 'lucide-react'
 import './index.css'
 
-type StoreKey = 'legendary' | 'gog' | 'nile' | 'zoom' | 'sideload'
+type StoreKey =
+  | 'legendary'
+  | 'gog'
+  | 'nile'
+  | 'zoom'
+  | 'sideload'
+  | 'itchio'
+  | 'steam'
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon, zoom } = useContext(ContextProvider)
+  const { platform, epic, gog, amazon, zoom, itchio, steam } =
+    useContext(ContextProvider)
   const {
     setShowFavourites,
     setShowHidden,
@@ -42,7 +51,9 @@ export default function LibraryFilters() {
     showThirdPartyManagedOnly,
     setShowThirdPartyManagedOnly,
     showUpdatesOnly,
-    setShowUpdatesOnly
+    setShowUpdatesOnly,
+    showSteamOwnedOnly,
+    setShowSteamOwnedOnly
   } = useContext(LibraryContext)
 
   const toggleStore = (store: StoreKey) => {
@@ -62,7 +73,9 @@ export default function LibraryFilters() {
       gog: true,
       nile: true,
       sideload: true,
-      zoom: true
+      zoom: true,
+      itchio: true,
+      steam: true
     })
     setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
     setShowHidden(true)
@@ -72,6 +85,7 @@ export default function LibraryFilters() {
     setShowSupportOfflineOnly(false)
     setShowThirdPartyManagedOnly(false)
     setShowUpdatesOnly(false)
+    setShowSteamOwnedOnly(false)
   }
 
   type StoreDef = {
@@ -89,6 +103,12 @@ export default function LibraryFilters() {
     },
     { key: 'gog', label: 'GOG', runner: 'gog', show: !!gog.username },
     {
+      key: 'steam',
+      label: 'Steam',
+      runner: 'steam',
+      show: steam.enabled
+    },
+    {
       key: 'nile',
       label: 'Amazon Games',
       runner: 'nile',
@@ -99,6 +119,12 @@ export default function LibraryFilters() {
       label: 'ZOOM',
       runner: 'zoom',
       show: !!(zoom.enabled && zoom.username)
+    },
+    {
+      key: 'itchio',
+      label: 'itch.io',
+      runner: 'itchio',
+      show: !!itchio.username
     },
     {
       key: 'sideload',
@@ -115,22 +141,22 @@ export default function LibraryFilters() {
     show: boolean
   }
   const platforms: PlatformDef[] = [
-    { key: 'win', label: t('platforms.win', 'Windows'), tag: 'W', show: true },
+    { key: 'win', label: t('platforms.win', 'windows'), tag: 'W', show: true },
     {
       key: 'linux',
-      label: t('platforms.linux', 'Linux'),
+      label: t('platforms.linux', 'linux'),
       tag: 'L',
       show: platform === 'linux'
     },
     {
       key: 'mac',
-      label: t('platforms.mac', 'Mac'),
+      label: t('platforms.mac', 'mac'),
       tag: 'M',
       show: platform === 'darwin'
     },
     {
       key: 'browser',
-      label: t('platforms.browser', 'Browser'),
+      label: t('platforms.browser', 'browser'),
       tag: 'B',
       show: true
     }
@@ -211,6 +237,15 @@ export default function LibraryFilters() {
         >
           <span>{t('header.show_updates_only', 'With updates')}</span>
         </Chip>
+        {steam.enabled && (
+          <Chip
+            active={showSteamOwnedOnly}
+            onClick={() => setShowSteamOwnedOnly(!showSteamOwnedOnly)}
+            icon={<Icon glyph={UserCheck} size="md" />}
+          >
+            <span>{t('header.show_steam_owned_only', 'Steam owned only')}</span>
+          </Chip>
+        )}
         <Chip
           active={showSupportOfflineOnly}
           onClick={() => setShowSupportOfflineOnly(!showSupportOfflineOnly)}

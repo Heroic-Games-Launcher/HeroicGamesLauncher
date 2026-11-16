@@ -5,7 +5,7 @@
             "path": "Vyberte novou cestu pro instalaci",
             "title": "Změnit cestu instalace her"
         },
-        "choose": "Vybrat",
+        "choose": "Vyberte",
         "importpath": "Vyberte složku hry pro importování",
         "move": {
             "message": "Toto může trvat dlouho, jste si jisti?",
@@ -21,7 +21,7 @@
             "title": "Vyberte EXE ke spuštění"
         },
         "select": {
-            "button": "Zvolit",
+            "button": "Vybrat",
             "image": "Vybrat Obrázek"
         },
         "sideload": {
@@ -97,7 +97,10 @@
         "browse_files": "Procházet soubory",
         "browse_wine_prefix": "Procházet předpony Wine",
         "play": "HRÁT",
-        "edit-game": "Upravit Hru"
+        "edit-game": "Upravit Hru",
+        "favourite": "Přidat do oblíbených",
+        "unfavourite": "Odebrat z oblíbených",
+        "backToLibrary": "Zpět do knihovny"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
@@ -131,9 +134,14 @@
         },
         "changelogFor": "Seznam změn hry {{gameTitle}}",
         "modify": "Upravit instalaci",
-        "extra_info": "Další informace",
-        "install_info": "Informace o instalaci",
-        "achievements": "Úspěchy"
+        "extra_info": "Extra",
+        "install_info": "Informace k instalaci",
+        "achievements": "Úspěchy",
+        "details": "Podrobnosti o hře",
+        "about": "O této hře",
+        "hoursPlayedShort": "{{hours}} hodin",
+        "overview": "Přehled",
+        "tabs": "Informace o hře"
     },
     "gamecard": {
         "moving": "Přesouvám",
@@ -163,7 +171,15 @@
         "installedInfo": "Instalované informace",
         "protondb-compatibility-info": "Úroveň protonové kompatibility",
         "steamdeck-compatibility-info": "Kompatibilita se SteamDeck",
-        "third-party-app": "Správce třetí strany"
+        "third-party-app": "Správce třetí strany",
+        "genres": "Žánry",
+        "steamdeck": {
+            "unsupported": "Nepodporováno",
+            "playable": "Hratelné",
+            "unknown": "Neznámé",
+            "verified": "Ověřené"
+        },
+        "developer": "Vývojář"
     },
     "install": {
         "disk-space-left": "Volné místo",
@@ -193,7 +209,8 @@
         "playing": {
             "start": "Hrát",
             "stop": "Hraji (Zastavit)",
-            "start_with_logs": "Hrát nyní (s protokoly)"
+            "start_with_logs": "Hrát (s logy)",
+            "start_with_logs_hint": "Spustí hru a zároveň zaznamená podrobný log, což se hodí, když potřebujete nahlásit problém"
         },
         "saves": {
             "syncing": "Synchronizuji uložené soubory"
@@ -228,7 +245,8 @@
             "specificVersion-pt1": "Tím se stáhne určitá verze služby Steam z",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "zprovozněna přes Heroic, protože nové verze Steamu v systému MacOS nefungují."
-        }
+        },
+        "releaseDate": "Datum Vydání"
     },
     "launch": {
         "options": "Možnosti spuštění...",
@@ -330,7 +348,8 @@
         "verify": "Zkontrolovat a opravit",
         "extraInfo": "Další informace",
         "logs": "Protokoly",
-        "categories": "Kategorie"
+        "categories": "Kategorie",
+        "more": "Více"
     },
     "help": {
         "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání.",
@@ -383,5 +402,10 @@
         },
         "square": "Čtvercová Ikona",
         "title": "Upravit Hru"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Složky nainstalované itch.io se importují v plném rozsahu, včetně aktualizací. U ostatních složek nemůže Heroic kontrolovat dostupnost aktualizací a jejich odinstalování nevede k odstranění herních souborů."
+        }
     }
 }

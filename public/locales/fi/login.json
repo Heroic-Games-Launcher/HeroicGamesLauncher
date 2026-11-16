@@ -5,7 +5,8 @@
         "copy": "Kopioi",
         "copied": "Kopioitu!",
         "error": "Virhe, kokeile toista koodia",
-        "loading": "Ladataan"
+        "loading": "Ladataan",
+        "close": "Sulje"
     },
     "message": {
         "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, suorita alla mainitut vaiheet:",

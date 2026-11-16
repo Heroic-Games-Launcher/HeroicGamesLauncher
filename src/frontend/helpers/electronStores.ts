@@ -153,12 +153,35 @@ const zoomConfigStore = new TypeCheckedStoreFrontend('zoomConfigStore', {
   cwd: 'zoom_store'
 })
 
+const steamLibraryStore = new CacheStore<GameInfo[], 'games'>(
+  'steam_library',
+  null
+)
+const steamInstalledGamesStore = new TypeCheckedStoreFrontend(
+  'steamInstalledGamesStore',
+  {
+    cwd: 'steam_store',
+    name: 'installed'
+  }
+)
+const steamConfigStore = new TypeCheckedStoreFrontend('steamConfigStore', {
+  cwd: 'steam_store'
+})
+
 const nileLibraryStore = new CacheStore<GameInfo[], 'library'>(
   'nile_library',
   null
 )
 const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
   cwd: 'nile_store'
+})
+
+const itchioLibraryStore = new CacheStore<GameInfo[], 'library'>(
+  'itchio_library',
+  null
+)
+const itchioConfigStore = new TypeCheckedStoreFrontend('itchioConfigStore', {
+  cwd: 'itchio_store'
 })
 
 const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
@@ -193,8 +216,13 @@ export {
   downloadManagerStore,
   nileLibraryStore,
   nileConfigStore,
+  itchioLibraryStore,
+  itchioConfigStore,
   zoomLibraryStore,
   zoomInstalledGamesStore,
   zoomConfigStore,
+  steamLibraryStore,
+  steamInstalledGamesStore,
+  steamConfigStore,
   gameOverridesStore
 }

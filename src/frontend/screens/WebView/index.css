@@ -2,6 +2,8 @@
   grid-area: content;
   position: relative;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 
   .login-warning {
     position: absolute;
@@ -23,7 +25,8 @@
   }
 
   .WebView__webview {
-    height: calc(100vh - 40px);
+    flex: 1;
+    min-height: 0;
   }
 
   &:has(.UpdateComponent) .WebView__webview {

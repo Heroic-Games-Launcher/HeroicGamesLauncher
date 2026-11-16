@@ -1,24 +1,25 @@
 .errorComponent {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  justify-content: center;
+  min-height: 100%;
+  padding: var(--space-xl-fixed);
 }
 
-.errorComponent > svg {
-  font-size: var(--display-lg);
+.errorComponent__panel {
+  width: 100%;
+  max-width: 44rem;
 }
 
-.errorComponent > .errorText {
-  font-size: var(--display-md);
-}
-
-.errorComponent > .buttonsWrapper {
-  display: initial;
-}
-
-.button-icon-flex > .refreshIcon {
+.errorComponent .EmptyState__title {
   font-size: var(--title-md);
-  padding-inline-end: var(--space-3xs-fixed);
+}
+
+.errorComponent__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs-fixed);
+  margin-inline: auto;
+  width: 100%;
+  max-width: 18rem;
 }
