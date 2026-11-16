@@ -57,6 +57,33 @@ const Backups = ({ runner }: Props) => {
     return () => window.removeEventListener('cloud-saves-synced', refresh)
   }, [appName, runner])
 
+  const restoreErrorMessage = (code?: string) => {
+    switch (code) {
+      case 'backup-incomplete':
+        return t(
+          'setting.backups-error-incomplete',
+          'This backup is incomplete and cannot be restored'
+        )
+      case 'backup-removed':
+        return t(
+          'setting.backups-error-removed',
+          'This backup was removed by the size limit'
+        )
+      case 'backup-failed':
+        return t(
+          'setting.backups-error-failed',
+          'Could not create a safety backup before restoring'
+        )
+      case 'location-changed':
+        return t(
+          'setting.backups-error-location',
+          'The save location changed since this backup was taken'
+        )
+      default:
+        return code ?? ''
+    }
+  }
+
   const restore = (backup: SaveBackupEntry) => {
     showDialogModal({
       title: t('setting.backups-restore', 'Restore save backup'),
@@ -102,7 +129,7 @@ const Backups = ({ runner }: Props) => {
                       'setting.backups-restore-failed',
                       'Could not restore the backup'
                     ),
-                    body: result.error ?? ''
+                    body: restoreErrorMessage(result.error)
                   })
                 }
                 refresh()

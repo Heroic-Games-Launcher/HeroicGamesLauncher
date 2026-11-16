@@ -338,7 +338,8 @@ export const backupSaveLocations = ({
   locations: string[]
   backupRoot: string
   maxBytes?: number
-}): void => {
+}): boolean => {
+  let success = true
   const folderName = getBackupFolderName(title, appName)
   let appBackupRoot = join(backupRoot, folderName)
 
@@ -447,6 +448,7 @@ export const backupSaveLocations = ({
         LogPrefix.Backend
       )
     } catch (error) {
+      success = false
       logWarning(
         ['Failed to back up saves in', location, `${error}`],
         LogPrefix.Backend
@@ -462,6 +464,8 @@ export const backupSaveLocations = ({
       LogPrefix.Backend
     )
   }
+
+  return success
 }
 
 export const backupSaves = ({
@@ -475,7 +479,7 @@ export const backupSaves = ({
   runner: Runner
   locations: string[]
   force?: boolean
-}): void => {
+}): boolean => {
   try {
     const {
       backupSaves: enabled,
@@ -483,10 +487,10 @@ export const backupSaves = ({
       defaultInstallPath
     } = GlobalConfig.get().getSettings()
     if (!enabled && !force) {
-      return
+      return true
     }
 
-    backupSaveLocations({
+    return backupSaveLocations({
       appName,
       title,
       locations,
@@ -498,6 +502,7 @@ export const backupSaves = ({
       ['Failed to back up saves for', appName, `${error}`],
       LogPrefix.Backend
     )
+    return false
   }
 }
 
@@ -621,12 +626,14 @@ export const restoreSaveBackup = ({
   appName,
   title,
   backupId,
-  backupRoot
+  backupRoot,
+  currentLocations
 }: {
   appName: string
   title?: string
   backupId: string
   backupRoot: string
+  currentLocations?: string[]
 }):
   | (SaveBackupEntry & { alreadyCurrent?: boolean; error?: string })
   | undefined => {
@@ -690,28 +697,70 @@ export const restoreSaveBackup = ({
     }
   }
 
+  const configuredLocations = currentLocations ?? []
+  let restoreLocation = target.location
+  if (configuredLocations.length) {
+    if (configuredLocations.includes(target.location)) {
+      restoreLocation = target.location
+    } else if (configuredLocations.length === 1) {
+      restoreLocation = configuredLocations[0]
+      logInfo(
+        ['Restoring backup into the current save location', restoreLocation],
+        LogPrefix.Backend
+      )
+    } else {
+      return {
+        id: backupId,
+        createdAt: target.createdAt,
+        location: target.location,
+        changed: 0,
+        deleted: 0,
+        error: 'location-changed'
+      }
+    }
+  }
+
   const manifest = readManifest(locationDir)
   const currentHash =
-    currentStateHashFromManifest(target.location, manifest) ??
-    locationStateHash(target.location, manifest?.files)
-  if (target.stateHash && currentHash && target.stateHash === currentHash) {
+    currentStateHashFromManifest(restoreLocation, manifest) ??
+    locationStateHash(restoreLocation, manifest?.files)
+  if (
+    restoreLocation === target.location &&
+    target.stateHash &&
+    currentHash &&
+    target.stateHash === currentHash
+  ) {
     return {
       id: backupId,
       createdAt: target.createdAt,
-      location: target.location,
+      location: restoreLocation,
       changed: 0,
       deleted: 0,
       alreadyCurrent: true
     }
   }
 
-  backupSaveLocations({
+  const safetyBackup = backupSaveLocations({
     appName,
     title,
-    locations: [target.location],
+    locations: [restoreLocation],
     backupRoot,
     maxBytes: getMaxBackupBytes()
   })
+  if (!safetyBackup) {
+    logWarning(
+      ['Could not create a safety backup before restoring', targetFolder],
+      LogPrefix.Backend
+    )
+    return {
+      id: backupId,
+      createdAt: target.createdAt,
+      location: restoreLocation,
+      changed: 0,
+      deleted: 0,
+      error: 'backup-failed'
+    }
+  }
 
   const refreshed = readSnapshots(locationDir)
   const targetIndexAfter = refreshed.findIndex(
@@ -725,7 +774,7 @@ export const restoreSaveBackup = ({
     return {
       id: backupId,
       createdAt: target.createdAt,
-      location: target.location,
+      location: restoreLocation,
       changed: 0,
       deleted: 0,
       error: 'backup-removed'
@@ -754,20 +803,20 @@ export const restoreSaveBackup = ({
     ]) {
       const source = join(dir, 'files', file)
       if (!existsSync(source)) continue
-      const destination = join(target.location, file)
+      const destination = join(restoreLocation, file)
       mkdirSync(dirname(destination), { recursive: true })
       copyFileSync(source, destination)
       restoredFiles.add(file)
     }
     for (const file of snapshot.deleted ?? []) {
-      rmSync(join(target.location, file), { force: true })
+      rmSync(join(restoreLocation, file), { force: true })
       deletedFiles.add(file)
     }
   }
 
   for (const [file, index] of firstSeen) {
     if (index <= targetIndexAfter) continue
-    const newerFile = join(target.location, file)
+    const newerFile = join(restoreLocation, file)
     if (existsSync(newerFile)) {
       rmSync(newerFile, { force: true })
       deletedFiles.add(file)
@@ -777,7 +826,7 @@ export const restoreSaveBackup = ({
   if (manifest) {
     for (const file of restoredFiles) {
       if (deletedFiles.has(file)) continue
-      const restored = join(target.location, file)
+      const restored = join(restoreLocation, file)
       if (!existsSync(restored)) continue
       const stat = statSync(restored)
       manifest.files[file] = { size: stat.size, mtimeMs: stat.mtimeMs }
@@ -800,7 +849,7 @@ export const restoreSaveBackup = ({
   return {
     id: backupId,
     createdAt: target.createdAt,
-    location: target.location,
+    location: restoreLocation,
     changed: target.changed?.length ?? 0,
     deleted: target.deleted?.length ?? 0
   }
@@ -818,18 +867,21 @@ export const getSaveBackupFolder = (appName: string): string => {
 export const restoreSaveBackupById = ({
   appName,
   title,
-  backupId
+  backupId,
+  currentLocations
 }: {
   appName: string
   title?: string
   backupId: string
+  currentLocations?: string[]
 }): { status: 'done' | 'error'; error?: string; alreadyCurrent?: boolean } => {
   try {
     const restored = restoreSaveBackup({
       appName,
       title,
       backupId,
-      backupRoot: getBackupRoot()
+      backupRoot: getBackupRoot(),
+      currentLocations
     })
     if (!restored) {
       return { status: 'error', error: 'Backup not found' }

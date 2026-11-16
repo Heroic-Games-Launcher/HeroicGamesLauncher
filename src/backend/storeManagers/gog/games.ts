@@ -935,7 +935,7 @@ export default class GOGGame implements Game {
 
     const isDownload = arg === '--skip-upload' || arg === '--force-download'
     if (isDownload) {
-      backupSaves({
+      const backedUp = backupSaves({
         appName: this.id,
         runner: 'gog',
         title: gameInfo.title,
@@ -944,6 +944,14 @@ export default class GOGGame implements Game {
           .map((location) => location.location),
         force: true
       })
+      if (!backedUp) {
+        return {
+          ...result,
+          reason: 'provider-error',
+          output:
+            'Could not back up the current saves, aborting the download to protect them'
+        }
+      }
     }
 
     const counts: CloudSyncCounts = {

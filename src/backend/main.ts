@@ -1282,8 +1282,19 @@ addHandler('getSaveBackupPath', async (event, appName) =>
 )
 
 addHandler('restoreSaveBackup', async (event, appName, runner, backupId) => {
-  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
-  return restoreSaveBackupById({ appName, title, backupId })
+  const game = libraryManagerMap[runner].getGame(appName)
+  const { title } = game.getGameInfo()
+  const settings = await game.getSettings()
+  const currentLocations =
+    runner === 'gog'
+      ? (settings.gogSaves ?? [])
+          .map((location) => location.location)
+          .filter((location) => location.length > 0)
+      : settings.savesPath
+        ? [settings.savesPath]
+        : []
+
+  return restoreSaveBackupById({ appName, title, backupId, currentLocations })
 })
 
 addHandler(

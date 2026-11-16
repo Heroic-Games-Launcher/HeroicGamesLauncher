@@ -865,13 +865,21 @@ export default class LegendaryGame implements Game {
     }
 
     if (arg === '--skip-upload' || arg === '--force-download') {
-      backupSaves({
+      const backedUp = backupSaves({
         appName: this.appName,
         runner: 'legendary',
         title: this.getGameInfo().title,
         locations: [path],
         force: true
       })
+      if (!backedUp) {
+        return {
+          ...result,
+          reason: 'provider-error',
+          output:
+            'Could not back up the current saves, aborting the download to protect them'
+        }
+      }
     }
 
     const command: LegendaryCommand = {

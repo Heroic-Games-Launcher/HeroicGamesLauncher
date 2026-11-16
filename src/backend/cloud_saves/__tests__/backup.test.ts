@@ -460,16 +460,19 @@ describe('backup safety', () => {
     const saveDir = makeDir()
     const root = makeDir()
     const blocked = join(root, 'blocked')
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
     writeFileSync(blocked, 'not a directory')
 
-    expect(() =>
-      backupSaveLocations({
+    let result = true
+    expect(() => {
+      result = backupSaveLocations({
         appName: 'Game',
         title: 'Title',
         locations: [saveDir],
         backupRoot: join(blocked, 'nested')
       })
-    ).not.toThrow()
+    }).not.toThrow()
+    expect(result).toBe(false)
   })
 })
 
@@ -561,5 +564,56 @@ describe('restore safety', () => {
         backupRoot
       })
     ).toBeUndefined()
+  })
+})
+
+describe('restore into the current location', () => {
+  test('uses the current save location when it changed', () => {
+    const saveDir = makeDir()
+    const newSaveDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const [backup] = listSaveBackups('Game', backupRoot)
+    const restored = restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backup.id,
+      backupRoot,
+      currentLocations: [newSaveDir]
+    })
+
+    expect(restored?.error).toBeUndefined()
+    expect(readFileSync(join(newSaveDir, 'a.sav'), 'utf-8')).toBe('a')
+  })
+
+  test('refuses to guess between multiple current locations', () => {
+    const saveDir = makeDir()
+    const otherDir = makeDir()
+    const backupRoot = makeDir()
+    writeFileSync(join(saveDir, 'a.sav'), 'a')
+    backupSaveLocations({
+      appName: 'Game',
+      title: 'Title',
+      locations: [saveDir],
+      backupRoot
+    })
+
+    const [backup] = listSaveBackups('Game', backupRoot)
+    const restored = restoreSaveBackup({
+      appName: 'Game',
+      title: 'Title',
+      backupId: backup.id,
+      backupRoot,
+      currentLocations: [otherDir, join(otherDir, 'second')]
+    })
+
+    expect(restored?.error).toBe('location-changed')
   })
 })
