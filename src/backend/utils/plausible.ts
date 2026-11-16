@@ -7,6 +7,7 @@ import {
 } from 'backend/constants/environment'
 import { logInfo, logWarning, LogPrefix } from 'backend/logger'
 import { GOGUser } from 'backend/storeManagers/gog/user'
+import { ItchioUser } from 'backend/storeManagers/itchio/user'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { NileUser } from 'backend/storeManagers/nile/user'
 import { libraryStore } from 'backend/storeManagers/sideload/electronStores'
@@ -102,6 +103,7 @@ export async function startPlausible() {
     gog: !!GOGUser.isLoggedIn(),
     epic: !!LegendaryUser.isLoggedIn(),
     amazon: !!NileUser.isLoggedIn(),
+    itchio: ItchioUser.isLoggedIn(),
     zoom: ZoomUser.isLoggedInSync(),
     sideloaded: libraryStore.raw_store.games?.length > 0
   }
@@ -129,6 +131,7 @@ export async function startPlausible() {
     gog: providersObject.gog || false,
     epic: providersObject.epic || false,
     amazon: providersObject.amazon || false,
+    itchio: providersObject.itchio || false,
     zoom: providersObject.zoom || false,
     sideloaded: providersObject.sideloaded || false,
     providers: loggedInProviders.join(', '),

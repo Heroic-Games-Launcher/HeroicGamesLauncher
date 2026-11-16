@@ -119,7 +119,7 @@ export default function WineSelector({
               type="directory"
               onPathChange={setWinePrefix}
               path={winePrefix}
-              pathDialogTitle={t('box.wineprefix', 'Select WinePrefix Folder')}
+              pathDialogTitle={t('box.wineprefix', 'Select WinePrefix folder')}
               label={t('install.wineprefix', 'WinePrefix')}
               htmlId="setinstallpath"
               noDeleteButton
@@ -128,7 +128,7 @@ export default function WineSelector({
           )}
           {showBottle && (
             <TextInputField
-              label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
+              label={t('setting.winecrossoverbottle', 'CrossOver bottle')}
               htmlId="crossoverBottle"
               value={crossoverBottle}
               onChange={(newValue) => setCrossoverBottle(newValue)}

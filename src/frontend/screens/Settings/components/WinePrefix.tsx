@@ -35,7 +35,7 @@ const WinePrefix = () => {
         <>
           {t(
             'infobox.wine-repfix.message',
-            'Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored.'
+            'Wine uses what is called a WINEPREFIX to encapsulate windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored.'
           )}{' '}
           <span className="link" onClick={() => window.api.openWinePrefixFAQ()}>
             WinePrefix FAQ

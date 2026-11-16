@@ -97,7 +97,9 @@
         "browse_files": "Explora els fitxers",
         "browse_wine_prefix": "Explora el prefix Wine",
         "play": "JUGAR",
-        "edit-game": "Edita el joc"
+        "edit-game": "Edita el joc",
+        "favourite": "Afegeix a preferits",
+        "unfavourite": "Suprimeix dels preferits"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
@@ -133,7 +135,8 @@
         "modify": "Modifica la instal·lació",
         "extra_info": "Informació addicional",
         "install_info": "Informació de la instal·lació",
-        "achievements": "Assoliments"
+        "achievements": "Assoliments",
+        "details": "Detalls del joc"
     },
     "gamecard": {
         "moving": "S'està movent",
@@ -163,7 +166,11 @@
         "installedInfo": "Informació de la instal·lació",
         "protondb-compatibility-info": "Nivell de compatibilitat amb el Proton",
         "steamdeck-compatibility-info": "Compatibilitat amb l'SteamDeck",
-        "third-party-app": "Gestor de tercers"
+        "third-party-app": "Gestor de tercers",
+        "genres": "Gèneres",
+        "steamdeck": {
+            "unsupported": "No compatible"
+        }
     },
     "install": {
         "disk-space-left": "Espai disponible",
@@ -228,7 +235,8 @@
             "specificVersion-pt1": "Això baixarà una versió específica del Steam des de",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "feta perquè funcioni amb l'Heroic, ja que les versions noves del Steam no funcionen en macOS."
-        }
+        },
+        "releaseDate": "Data de llançament"
     },
     "launch": {
         "options": "Opcions d'execució...",

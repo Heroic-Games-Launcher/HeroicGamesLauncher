@@ -1,0 +1,63 @@
+.FeatureCard.Panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md-fixed);
+  border: none;
+  background: var(--panel-background, var(--background-darker));
+  height: 100%;
+  text-align: start;
+}
+
+.FeatureCard__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md-fixed);
+}
+
+.FeatureCard__icon {
+  display: flex;
+}
+
+.FeatureCard__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs-fixed);
+  flex: 1;
+}
+
+.FeatureCard__title {
+  margin: 0;
+  font-family: var(--primary-font-family);
+  font-size: var(--title-sm);
+  font-weight: var(--bold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+  color: var(--on-panel, var(--text-default));
+}
+
+.FeatureCard__description {
+  margin: 0;
+  font-size: var(--body-md);
+  line-height: var(--leading-normal);
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.FeatureCard__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-xs-fixed);
+  margin-top: auto;
+}
+
+.FeatureCard__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  font-size: var(--body-sm);
+  color: var(--on-panel-muted, var(--text-secondary));
+}

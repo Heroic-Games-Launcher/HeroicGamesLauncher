@@ -96,7 +96,9 @@
         "browse_files": "Selaa tiedostoja",
         "browse_wine_prefix": "Selaa Wine Prefixiä",
         "play": "PELAA",
-        "edit-game": "Muokkaa sovellusta/peliä"
+        "edit-game": "Muokkaa sovellusta/peliä",
+        "favourite": "Lisää suosikkeihin",
+        "unfavourite": "Poista suosikeista"
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
@@ -132,7 +134,8 @@
         "changelogFor": "{{gameTitle}} muutosloki",
         "extra_info": "Lisätiedot",
         "install_info": "Asennustiedot",
-        "achievements": "Saavutukset"
+        "achievements": "Saavutukset",
+        "details": "Pelitiedot"
     },
     "gamecard": {
         "moving": "Siirretään",
@@ -162,7 +165,11 @@
         "installedInfo": "Asennettu tiedot",
         "protondb-compatibility-info": "Protonien yhteensopivuustaso",
         "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus",
-        "third-party-app": "Hallinta kolmansien osapuolten asetuksille"
+        "third-party-app": "Hallinta kolmansien osapuolten asetuksille",
+        "genres": "Genret",
+        "steamdeck": {
+            "unsupported": "Ei tuettu"
+        }
     },
     "install": {
         "disk-space-left": "Tilaa saatavilla",
@@ -205,7 +212,8 @@
             "installing": "Installing",
             "pleaseWait": "Odota...",
             "installation": "Pysäytä asennus"
-        }
+        },
+        "releaseDate": "Julkaisupäivä"
     },
     "launch": {
         "options": "Käynnistysasetukset...",

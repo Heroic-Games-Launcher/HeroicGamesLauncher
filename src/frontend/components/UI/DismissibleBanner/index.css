@@ -1,18 +1,88 @@
 .DismissibleBanner {
-  position: relative;
+  --banner-color: var(--role-warning);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs-fixed);
+  width: 100%;
   margin: 0 0 var(--space-md);
+  padding: var(--space-xs-fixed) var(--space-sm-fixed);
+  border-radius: var(--radius-sm);
+  background: color-mix(in oklab, var(--banner-color) 30%, var(--panel-base));
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  line-height: var(--leading-snug, 1.3);
+  text-align: start;
 }
 
-.DismissibleBanner .WarningMessage {
-  padding-inline-end: 36px;
+.DismissibleBanner--titleOnly {
+  align-items: center;
 }
 
-.DismissibleBanner .Button {
-  position: absolute;
-  top: var(--space-xs);
-  inset-inline-end: var(--space-xs);
-  width: var(--space-xl-fixed);
-  height: var(--space-xl-fixed);
+.DismissibleBanner__icon {
+  flex-shrink: 0;
+  margin-block-start: 2px;
+  color: color-mix(in oklab, var(--banner-color) 70%, var(--on-panel));
+}
+
+.DismissibleBanner--titleOnly .DismissibleBanner__icon {
+  margin-block-start: 0;
+}
+
+.DismissibleBanner__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+  flex: 1;
   min-width: 0;
+}
+
+.DismissibleBanner__title {
+  font-weight: var(--semibold);
+  color: var(--on-panel);
+}
+
+.DismissibleBanner__message {
+  color: var(--on-panel-muted);
+}
+
+.DismissibleBanner__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
   padding: 0;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: color-mix(in oklab, var(--banner-color) 70%, var(--on-panel));
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.DismissibleBanner__close:hover,
+.DismissibleBanner__close:focus-visible {
+  background: color-mix(in oklab, var(--on-panel) 16%, transparent);
+}
+
+.DismissibleBanner--info {
+  --banner-color: var(--role-info);
+}
+
+.DismissibleBanner--accent {
+  --banner-color: var(--role-accent);
+}
+
+.DismissibleBanner--success {
+  --banner-color: var(--role-success);
+}
+
+.DismissibleBanner--warning {
+  --banner-color: var(--role-warning);
+}
+
+.DismissibleBanner--error {
+  --banner-color: var(--role-destructive);
 }

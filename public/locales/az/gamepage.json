@@ -133,7 +133,8 @@
             "version": "Versiya"
         },
         "changelogFor": "{{gameTitle}} üçün dəyişiklik jurnalı",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game Defaults"
     },
     "gamecard": {
         "moving": "Hərəkət edir",

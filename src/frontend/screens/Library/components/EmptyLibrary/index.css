@@ -1,7 +1,3 @@
-.noResultsMessage .sideloadGameButton {
-  margin: 0;
-}
-
 .noResultsMessage__backupHint {
   display: block;
   margin-top: var(--space-lg);

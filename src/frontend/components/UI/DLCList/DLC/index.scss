@@ -6,30 +6,30 @@
   grid-template-areas: 'title size action';
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
-  border-bottom: 1px solid #ccc;
+  padding: var(--space-md-fixed) 0;
+  border-bottom: 1px solid var(--panel-divider);
 
   &:last-child {
     border-bottom: none;
   }
   .title {
     grid-area: title;
-    font-weight: var(--weight-regular);
+    font-weight: var(--regular);
   }
   .size {
     grid-area: size;
-    font-weight: var(--weight-regular);
+    font-weight: var(--regular);
     text-align: center;
   }
   .action {
     grid-area: action;
-    font-weight: var(--weight-regular);
+    font-weight: var(--regular);
     text-align: center;
     cursor: pointer;
-    color: var(--primary);
+    color: var(--icon-brand);
     transition: color 0.2s ease-in-out;
     &:hover {
-      color: var(--secondary);
+      color: var(--icon-accent);
     }
   }
 }

@@ -96,7 +96,9 @@
         "browse_wine_prefix": "Wine Prefixを閲覧",
         "play": "プレイ",
         "browse_files": "ファイルを閲覧",
-        "edit-game": "App/ゲームを編集"
+        "edit-game": "App/ゲームを編集",
+        "favourite": "お気に入りに追加",
+        "unfavourite": "お気に入りから削除"
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -132,7 +134,8 @@
         "modify": "インストールの変更",
         "extra_info": "追加情報",
         "install_info": "インストール情報",
-        "achievements": "実績"
+        "achievements": "実績",
+        "details": "ゲームの詳細"
     },
     "gamecard": {
         "moving": "移動中",
@@ -162,7 +165,11 @@
         "installedInfo": "インストール情報",
         "protondb-compatibility-info": "Proton互換性レベル",
         "steamdeck-compatibility-info": "SteamDeck の互換性",
-        "third-party-app": "サードパーティマネージャー"
+        "third-party-app": "サードパーティマネージャー",
+        "genres": "ジャンル",
+        "steamdeck": {
+            "unsupported": "非対応"
+        }
     },
     "install": {
         "disk-space-left": "空き領域",
@@ -206,7 +213,8 @@
             "installing": "Installing",
             "pleaseWait": "Please wait...",
             "installation": "インストールを停止する"
-        }
+        },
+        "releaseDate": "リリース日"
     },
     "launch": {
         "options": "起動オプション…",

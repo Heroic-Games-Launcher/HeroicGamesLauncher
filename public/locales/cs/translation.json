@@ -11,7 +11,13 @@
         "actions_font_family_default": "Rodina písem akcí (výchozí: {{fontFamily}})",
         "content_font_family_default": "Rodina písem obsahu (výchozí: {{fontFamily}})",
         "disable_smooth_scrolling": "Zakázat plynulé posouvání (vyžaduje restart)",
-        "disable_animations": "Zakázat animace uživatelského rozhraní"
+        "disable_animations": "Zakázat animace uživatelského rozhraní",
+        "section": {
+            "library": "Knihovna",
+            "appearance": "Vzhled",
+            "motion": "Pohyb a interakce"
+        },
+        "subtitle": "Upravte vzhled a chování Heroic"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -29,7 +35,7 @@
             "message": "Mezipaměť Heroic vymazána.",
             "title": "Mezipaměť vymazána"
         },
-        "choose": "Vybrat",
+        "choose": "Vyberte",
         "choose-egs-prefix": "Vyberte prefix, kde je nainstalován EGS",
         "choose-gogdl-binary": "Vyberte spustitelný soubor GOGDL (vyžaduje restart)",
         "choose-legendary-binary": "Vyberte spustitelný soubor Legendary",
@@ -210,7 +216,9 @@
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
         "unsync": "Desynchroniozovat",
-        "continue": "Pokračovat"
+        "continue": "Pokračovat",
+        "backToLibrary": "Zpět do knihovny",
+        "close": "Zavřít"
     },
     "controller": {
         "hints": {
@@ -246,7 +254,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Stahování"
+            "speed": "Stahování",
+            "unit": "MB/s"
         },
         "link": "Stahování",
         "queue": {
@@ -256,7 +265,15 @@
             "type": "Typ"
         },
         "title": "Stahování",
-        "ETA": "Předpokládaný čas"
+        "ETA": "Předpokládaný čas",
+        "empty": {
+            "current": "Zde se zobrazuje průběh instalace nebo aktualizace her.",
+            "queue": {
+                "description": "Stahování, které spustíte, zatímco již probíhá jiné, se zde pozastaví.",
+                "title": "Fronta je prázdná"
+            }
+        },
+        "pageSubtitle": "Co se právě instaluje, co bude následovat a co je již hotovo"
     },
     "epic": {
         "offline-notification-body": "Online služby nemusí plně fungovat, protože servery Epic Games jsou offline!",
@@ -269,7 +286,8 @@
         "status": "Status",
         "store": "Obchod",
         "title": "Název hry",
-        "modify": "Upravit instalaci"
+        "modify": "Upravit instalaci",
+        "settings": "Nastavení hry"
     },
     "generic": {
         "error": {
@@ -305,7 +323,12 @@
         "categories": "Kategorie",
         "show_support_offline_only": "Zobrazit pouze s podporovaným režimem offline",
         "show_third_party_managed_only": "Zobrazit pouze hry spravované třetí stranou",
-        "show_updates_only": "Zobrazit pouze hry s aktualizacemi"
+        "show_updates_only": "Zobrazit pouze hry s aktualizacemi",
+        "platforms": "Platform",
+        "stores": "Obchody",
+        "display": "Zobrazované",
+        "hidden": "Skryté",
+        "non_available": "Nedostupné"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -442,7 +465,9 @@
             "list": "Přepnout na rozvržení seznamu"
         },
         "hideAlphabetFilter": "Skrýt filtr abecedy",
-        "showAlphabetFilter": "Zobrazit filtr abecedy"
+        "showAlphabetFilter": "Zobrazit filtr abecedy",
+        "gamesCount_one": "{{count}} hra",
+        "gamesCount_other": "{{count}} her"
     },
     "Library": "Knihovna",
     "loading": {
@@ -611,7 +636,8 @@
             "queued": "Ve frontě",
             "remove": "Odebrat ze stažených",
             "pause": "Pozastavit stahování",
-            "resume": "Obnovit stahování"
+            "resume": "Obnovit stahování",
+            "paused": "Pozastaveno"
         }
     },
     "Recent": "Nedávno hráno",
@@ -658,7 +684,8 @@
             "removeConfirm": "Opravdu chcete odinstalovat překrytí EOS?",
             "removeConfirmTitle": "Potvrdit odebrání překrytí",
             "updateNow": "Aktualizovat",
-            "updating": "Aktualizuji..."
+            "updating": "Aktualizuji...",
+            "description": "Herní overlay Epic, který je u některých her této společnosti nutný pro správu přátel a odemykání úspěchů"
         },
         "esync": "Povolit Esync",
         "exit-to-tray": "Ukončit do systémové oblasti",
@@ -721,7 +748,9 @@
                 "zoom": "Zoom log"
             },
             "show-uploads": "Zobrazit nahrané soubory protokolů",
-            "error": "Vnitřní chyba při čtení souboru protokolu"
+            "error": "Vnitřní chyba při čtení souboru protokolu",
+            "jump-to-end": "Přejít na konec logu",
+            "jump-to-start": "Přejít na začátek logu"
         },
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
         "manualsync": {
@@ -741,12 +770,15 @@
         "preferSystemLibs": "Preferovat systémové knihovny",
         "runexe": {
             "message": "Přetáhněte soubory sem",
-            "title": "Spustit EXE na prefixu"
+            "title": "Spustit EXE na prefixu",
+            "description": "Spusťte jakýkoli spustitelný soubor v tomto prefixu, například instalační program"
         },
         "savefolder": {
             "not-found": "Složka pro uložení nebyla nalezena, vyberte ji prosím ručně (klikněte pro opakování)",
             "placeholder": "Vyberte přesnou složku s uloženými soubory",
-            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná (klikněte pro opakování)"
+            "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná (klikněte pro opakování)",
+            "retry": "Znovu detekovat",
+            "title": "Uložit složku"
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
@@ -803,7 +835,8 @@
             "warning": "Upozornění: toto se vztahuje na celý frontend. To znamená, že nesprávný styl může způsobit, že Heroic nebude použitelný. V případě potřeby lze nastavení změnit ručně v souboru `~/.config/heroic/config.json`. NEKOPÍRUJTE styly ze zdrojů, kterým nedůvěřujete."
         },
         "verboseLogs": {
-            "description": "Povolit zobrazení protokolů"
+            "description": "Povolit zobrazení protokolů",
+            "hint": "Při každém spuštění zaznamenávejte podrobný log, který se hodí pro hlášení problémů"
         },
         "download-proton-steam": "Stáhnout GE-Proton do adresáře služby Steam",
         "advertiseAvxForRosetta": "Propagovat AVX pro Rosettu",
@@ -835,7 +868,7 @@
         },
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
         "WoW64": "Povolit WoW64 (experimentální)",
-        "scripts": "Skripty:",
+        "scripts": "Skripty",
         "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry",
         "disable_gog_presence": "Zakázat aktualizace GOG Presence",
         "start-in-console-mode": "Začít v konzolovém módu",
@@ -848,12 +881,59 @@
         "steamRuntime": {
             "label": "Použít služby Steam Runtime",
             "noRuntimeOption": "Žádný"
+        },
+        "tools": {
+            "open": "Otevřít",
+            "selectExe": "Vyberte EXE",
+            "running": "Spouštím..."
+        },
+        "allow-broken-anticheat": {
+            "description": "Nainstalovat tituly i v případě, že je známo, že jejich systém proti cheatování na tomto systému nefunguje"
+        },
+        "analytics": {
+            "description": "Sdílejte anonymní údaje o používání, abyste pomohli vylepšit Heroic"
+        },
+        "darktrayicon": {
+            "description": "Použijte tmavou verzi ikony v systémové liště, která lépe vynikne na světlých panelech"
+        },
+        "disable-gog-presence": {
+            "description": "Přestaňte sdílet se svými přáteli, kterou hru z GOG právě hrajete"
+        },
+        "disableController": {
+            "description": "Zabránit Heroic v reakci na vstup z gamepadu"
+        },
+        "experimental_features_description": {
+            "cometSupport": "Aktivujte funkce GOG Galaxy, jako jsou achievementy a multiplayer",
+            "enableHelp": "Zobrazit panel nápovědy v aplikaci s vysvětlením nastavení, nad kterým se právě nachází kurzor",
+            "zoomPlatform": "Přidejte obchod Zoom Platform do své knihovny"
+        },
+        "framelessWindow": {
+            "description": "Skrýt nativní lištu s názvem okna a použít vlastní ovládací prvky okna Heroic"
+        },
+        "minimizeOnLaunch": {
+            "description": "Jakmile se spustí hra, přesunout Heroic na pozadí"
+        },
+        "nvidiaPrime": {
+            "description": "Spusťte hru na vyhrazené grafické kartě NVIDIA namísto integrované"
+        },
+        "playtimeSync": {
+            "description": "Udržujte synchronizaci zaznamenané doby hraní s obchodem"
+        },
+        "winecfg": {
+            "description": "Otevřete konfigurační panel Wine pro tento prefix"
+        },
+        "winetricks": {
+            "description": "Nainstalujte knihovny a součásti systému Windows do tohoto prefixu"
+        },
+        "wow64": {
+            "description": "Spouštějte 32bitové hry v rámci 64bitového prefixu, není třeba žádný samostatný prefix"
         }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Instaluji BattleEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": "Nainstalujte si běhové prostředí požadované hrami chráněnými BattlEye"
         },
         "clear-cache": "Vymazat mezipaměť Heroic",
         "copiedToClipboard": "Zkopírováno do schránky!",
@@ -865,7 +945,8 @@
                 "title": "Je vyžadován GameMode"
             },
             "installing": "Instaluji EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": "Nainstalujte si běhové prostředí požadované hrami chráněnými EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -886,7 +967,9 @@
             "wineExt": "Wine rozšíření",
             "systemInformation": "Systémové informace",
             "gamescope": "Gamescope",
-            "legacy": "Zastaralé"
+            "legacy": "Zastaralé",
+            "categories": "Kategorie",
+            "tabs": "Sekce nastavení"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Resetovat Heroic",
@@ -900,27 +983,30 @@
             "title": "Experimentální funkce"
         },
         "systemInformation": {
-            "cpu": "CPU:",
-            "gpuWithNumber": "GPU {{number}}:",
+            "cpu": "CPU",
+            "gpuWithNumber": "GPU {{number}}",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
             "systemSpecifications": "Systémové specifikace:",
             "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Ovladač: {{driverVersion}}",
-            "os": "Operační systém:",
-            "gpu": "GPU:",
+            "os": "Operační systém",
+            "gpu": "GPU",
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
             "osVersion": "Verze {{versionNumber}}",
             "osNameFlatpak": "{{osName}} (uvnitř Flatpaku)",
-            "software": "Software:",
+            "software": "Software",
             "memoryStats": "Využito {{percentUsed}}% ({{usedGib}} / {{totalGib}}",
-            "systemModel": "Model systému:",
+            "systemModel": "Model systému",
             "showDetailed": "Zobrazit podrobné informace o systému",
-            "memory": "Paměť:",
+            "memory": "Paměť",
             "copyToClipboard": "Zkopírovat do schránky",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "cpuCores": "{{numOfCores}} jader",
+            "memoryPercent": "{{percentUsed}} % použito",
+            "memoryUsage": "{{usedGib}} z {{totalGib}}"
         },
         "gamescope": {
             "searchMsg": "Hledání spustitelného souboru gamescope."
@@ -944,10 +1030,12 @@
                 "help10": "Nastavení programu Heroic",
                 "help3": "Informace o knihovně Legendary (seznam her, informace v instalačním dialogu, informace o hrách)",
                 "help6": "Tato akce NEodstraní:",
-                "help7": "Přihlášení do obchodu"
+                "help7": "Přihlášení do obchodu",
+                "description": "Vymaže data hry a úložiště uložená v mezipaměti, aby je Heroic znovu načítal. Vaše hry, přihlašovací údaje a nastavení zůstanou zachovány."
             },
             "resetHeroic": {
-                "help": "Tato akce odstraní všechna nastavení a mezipaměť, ale neodstraní vaše nainstalované hry nebo přihlašovací údaje do služby Epic. Přenosné verze (AppImage, WinPortable, ...) je poté nutné restartovat ručně."
+                "help": "Tato akce odstraní všechna nastavení a mezipaměť, ale neodstraní vaše nainstalované hry nebo přihlašovací údaje do služby Epic. Přenosné verze (AppImage, WinPortable, ...) je poté nutné restartovat ručně.",
+                "description": "Obnoví výchozí nastavení Heroic. Nainstalované hry a přihlašovací údaje do obchodu zůstanou zachovány."
             }
         },
         "custom_css": {
@@ -965,13 +1053,44 @@
                 "description": "Poskytněte SteamGridDB API pro zapnutí vyhledávaní náhledu her. Tento klíč je šifrován při uložení když to podporuje systém. Můžete ho získat na {{url}}"
             }
         },
-        "open-game-settings-file-hint": "Kliknutím otevřete soubor s nastavením hry"
+        "open-game-settings-file-hint": "Kliknutím otevřete soubor s nastavením hry",
+        "section": {
+            "downloads": "Stahování",
+            "experimental": "Experimentální funkce",
+            "launch": "Možnosti spuštění",
+            "wineTools": "Nástroje",
+            "wineVersion": "Wine",
+            "appearance": "Vzhled",
+            "behaviour": "Chování",
+            "binaries": "Alternativní binární soubory",
+            "controller": "Řadič",
+            "environment": "Obal a prostředí",
+            "gameplay": "Hratelnost",
+            "graphics": "Grafika a překlady",
+            "integrations": "Integrace",
+            "language": "Jazyk a region",
+            "locations": "Místa",
+            "maintenance": "Přizpůsobení a údržba",
+            "performance": "Výkon a překryvy",
+            "privacy": "Ochrana osobních údajů",
+            "runtimes": "Běhové prostředí",
+            "system": "Systém",
+            "winePerformance": "Výkon"
+        },
+        "pageSubtitle": {
+            "advanced": "Binární soubory, experimentální funkce a údržba",
+            "games_settings_defaults": "Výchozí nastavení pro nově nainstalované hry",
+            "general": "Nastavte si předvolby spouštěče",
+            "log": "Přečtěte si a sdílejte logy z Heroic",
+            "systeminfo": "Váš hardware a verze, na které běží Heroic"
+        }
     },
     "Settings": "Nastavení",
     "sidebar": {
         "collapse": "Sbalit postranní panel",
         "uncollapse": "Rozbalit postranní panel",
-        "console": "Konzolový Mód"
+        "console": "Konzolový Mód",
+        "storesLogin": "Přihlášení do obchodu"
     },
     "status": {
         "installing": "Instaluji",
@@ -1002,7 +1121,8 @@
         "show": "Zobrazit"
     },
     "two_col_table": {
-        "save_hint": "Změny v této tabulce se neukládají automaticky. Klikněte na tlačítko +"
+        "save_hint": "Změny v této tabulce se neukládají automaticky. Klikněte na tlačítko +",
+        "add": "Přidat"
     },
     "Update Available!": "K dispozici je aktualizace!",
     "userselector": {
@@ -1013,7 +1133,8 @@
         "manageaccounts": "Spravovat účty",
         "quit": "Ukončit",
         "cancel": "Zrušit",
-        "quitMessage": "Jste si jisti, že chcete odejít?"
+        "quitMessage": "Jste si jisti, že chcete odejít?",
+        "manage": "Spravovat"
     },
     "webview": {
         "controls": {
@@ -1036,7 +1157,8 @@
             "open_folder": "Otevřít Složku",
             "update": "Aktualizovat",
             "settings": "Nastavení",
-            "no-results": "Žádné verze Wine neodpovídají hledání."
+            "no-results": "Žádné verze Wine neodpovídají hledání.",
+            "subtitle": "Stáhněte si a spravujte verze Wine, Proton a CrossOver, které může Heroic používat"
         },
         "release": "Release Date",
         "size": "Velikost",
@@ -1093,7 +1215,10 @@
     },
     "emptyLibrary": {
         "noGames": "Vaše knihovna je prázdná.<br /><br />Klikněte <4>zde</4> a přihlaste se pomocí účtu Epic, GOG.com nebo Amazon. Poté se vaše hry zobrazí zde v knihovně.<br /><br />Chcete-li používat hry nebo aplikace z jiných zdrojů, klikněte na <br /> a přidejte je ručně.",
-        "noResults": "Aktuálním filtrům nic neodpovídá."
+        "noResults": "Aktuálním filtrům nic neodpovídá.",
+        "noResultsTitle": "Nebyly nalezeny žádné hry",
+        "description": "<0>Přihlaste se</0> pomocí svého účtu Epic, GOG.com, Amazon nebo Zoom a vaše hry se zde zobrazí. Hry z jiných zdrojů můžete také přidat ručně.",
+        "title": "Vaše knihovna je prázdná."
     },
     "adtraction-locked": {
         "title": "Služba adtraction je blokována",
@@ -1362,5 +1487,8 @@
         "edit": "Upravit",
         "remove": "Odstranit",
         "save": "Uložit"
-    }
+    },
+    "General": "Obecné",
+    "Accounts": "Účty",
+    "Community": "Komunita"
 }

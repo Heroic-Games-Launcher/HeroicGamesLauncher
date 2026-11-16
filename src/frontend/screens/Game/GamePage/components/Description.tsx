@@ -19,7 +19,7 @@ const Description = () => {
 
   return (
     <section className="aboutGame">
-      <h2 className="aboutGame__title">{t('game.about', 'About This Game')}</h2>
+      <h2 className="aboutGame__title">{t('game.about', 'About')}</h2>
       <div className="summary">
         {paragraphs.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>

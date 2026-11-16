@@ -11,7 +11,10 @@
         "disable_animations": "Dezactivează animațiile UI",
         "disable_dialog_backdrop_close": "Dezactivează închiderea dialogurilor făcând clic în exterior",
         "disable_smooth_scrolling": "Dezactivează derulare lină",
-        "titles_always_visible": "Afișează întotdeauna titlurile în bibliotecă"
+        "titles_always_visible": "Afișează întotdeauna titlurile în bibliotecă",
+        "section": {
+            "library": "Bibliotecă"
+        }
     },
     "add_game": "Adaugă joc",
     "All": "Toate",
@@ -194,7 +197,8 @@
         "sync": "Sincronizează",
         "syncing": "Sincronizare",
         "unsync": "Desincronizare",
-        "continue": "Continua"
+        "continue": "Continua",
+        "close": "Închide"
     },
     "controller": {
         "hints": {
@@ -252,7 +256,8 @@
         "status": "stare",
         "store": "Magazin",
         "title": "Titlul jocului",
-        "modify": "Modifică Instalarea"
+        "modify": "Modifică Instalarea",
+        "settings": "Game Settings"
     },
     "generic": {
         "error": {
@@ -280,14 +285,16 @@
         "filters": "Filtru",
         "show_support_offline_only": "",
         "select_all": "",
-        "categories": "",
+        "categories": "Categorii",
         "show_third_party_managed_only": "",
         "only": "",
         "show_updates_only": "",
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Store"
     },
     "help": {
         "amdfsr": "FSR de la AMD ajută la creșterea ratei de cadre prin creșterea rezoluțiilor mai mici în modul Ecran complet. Calitatea imaginii crește de la 5 la 1 cu prețul unei ușoare atingeri de performanță. Activarea poate îmbunătăți performanța.",
@@ -794,7 +801,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "tools": {
+            "selectExe": "Selectați EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -832,7 +842,8 @@
             "wineExt": "Extensii de vin",
             "gamescope": "",
             "systemInformation": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Categorii"
         },
         "open-config-file": "Deschideți fișierul de configurare",
         "reset-heroic": "Resetează eroic",
@@ -910,6 +921,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Opțiuni de Lansare...",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "Setări",
@@ -947,7 +963,8 @@
         "show": "Arată"
     },
     "two_col_table": {
-        "save_hint": "Modificările din acest tabel nu sunt salvate automat. Faceți clic pe butonul +"
+        "save_hint": "Modificările din acest tabel nu sunt salvate automat. Faceți clic pe butonul +",
+        "add": "Adaugă"
     },
     "Update Available!": "Actualizare disponibila",
     "userselector": {
@@ -1111,7 +1128,8 @@
     },
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "noResultsTitle": "Nu s-au găsit jocuri"
     },
     "zoom-store": "",
     "wineExplanation": {

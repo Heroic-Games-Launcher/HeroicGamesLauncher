@@ -5,7 +5,9 @@
         "copy": "Copiar",
         "copied": "¡Copiado!",
         "loading": "Cargando",
-        "error": "Error, prueba con otro código"
+        "error": "Error, prueba con otro código",
+        "close": "Cerrar",
+        "itchio_error": "Error, prueba con otro código"
     },
     "message": {
         "part1": "Para iniciar la sesión e instalar tus juegos, primero debes seguir los siguientes pasos:",

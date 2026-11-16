@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler"
+  },
+  "include": [
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "src/common/typedefs/**/*.ts",
+    "src/common/types/proxy-types.ts",
+    "src/frontend/types.ts",
+    "src/**/*.stories.ts",
+    "src/**/*.stories.tsx",
+    "vitest.config.mts"
+  ],
+  "exclude": []
+}

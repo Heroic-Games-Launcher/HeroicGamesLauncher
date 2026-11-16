@@ -20,6 +20,7 @@ import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
+import DownloadLimit from './components/DownloadLimit'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export default React.memo(function DownloadManager(): JSX.Element | null {
@@ -32,7 +33,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
 
   hasHelp(
     'downloadManager',
-    t('help.title.downloadManager', 'Download Manager'),
+    t('help.title.downloadManager', 'Download manager'),
     <p>
       {t('help.content.downloadManager', 'Shows current and past downloads.')}
     </p>
@@ -125,6 +126,11 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                 current={true}
                 state={state}
                 variant="hero"
+                extraAction={
+                  currentElement.params.runner === 'steam' ? (
+                    <DownloadLimit />
+                  ) : undefined
+                }
               />
               <ProgressHeader
                 state={state}
@@ -193,7 +199,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                 icon={<Icon glyph={Trash2} size="md" />}
                 onClick={() => handleClearList()}
               >
-                {t('queue.label.clear', 'Clear List')}
+                {t('queue.label.clear', 'Clear list')}
               </Button>
             }
             className="DownloadManager__section"

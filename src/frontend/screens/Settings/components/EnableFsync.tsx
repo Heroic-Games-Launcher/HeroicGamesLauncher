@@ -20,10 +20,10 @@ const EnableFsync = () => {
     <ToggleSwitch
       info={t(
         'help.fsync',
-        'Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
+        'Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported linux kernels.'
       )}
       description={t(
-        'setting.fsync.description',
+        'setting.fsync-description',
         'Speed up multi-threaded games using futex synchronisation'
       )}
       htmlId="fsyncToggle"

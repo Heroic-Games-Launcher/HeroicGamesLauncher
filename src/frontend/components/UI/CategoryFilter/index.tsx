@@ -87,14 +87,14 @@ export default function CategoryFilter() {
 
       <div className="FilterActions">
         <Button variant="ghost" size="sm" onClick={() => selectAll()}>
-          {t('header.select_all', 'Select All')}
+          {t('header.select_all', 'Select all')}
         </Button>
         <Button
           variant="secondary"
           size="sm"
           onClick={() => setShowCategories(true)}
         >
-          {t('categories-manager.title', 'Manage Categories')}
+          {t('categories-manager.title', 'Manage categories')}
         </Button>
       </div>
     </Dropdown>

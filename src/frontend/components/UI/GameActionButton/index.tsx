@@ -72,7 +72,7 @@ export default function GameActionButton({
       disabled={disabled || !onClick}
       onClick={onClick}
       className={classNames('GameActionButton', legacyClass, className)}
-      icon={glyph ? <Icon glyph={glyph} size="xl" strokeWidth={2} /> : null}
+      icon={glyph ? <Icon glyph={glyph} size="sm" strokeWidth={2} /> : null}
       aria-label={iconOnly ? label : undefined}
     >
       {iconOnly ? null : label}

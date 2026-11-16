@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SvgButton from '../SvgButton'
-import {
-  Minimize as MinimizeIcon,
-  CropSquare as MaximizeIcon,
-  Close as CloseIcon
-} from '@mui/icons-material'
+import Icon from '../Icon'
+import { Minus, Square, X } from 'lucide-react'
 import RestoreIcon from './RestoreWindow'
 import './index.scss'
 
@@ -36,7 +33,7 @@ export default function WindowControls() {
         title={t('window.minimize', 'Minimize window')}
         onClick={handleMinimize}
       >
-        <MinimizeIcon />
+        <Icon glyph={Minus} size="lg" />
       </SvgButton>
       <SvgButton
         className="maximize"
@@ -47,14 +44,14 @@ export default function WindowControls() {
         }
         onClick={handleMaximize}
       >
-        {maximized ? <RestoreIcon /> : <MaximizeIcon />}
+        {maximized ? <RestoreIcon /> : <Icon glyph={Square} size="md" />}
       </SvgButton>
       <SvgButton
         className="close"
         title={t('window.close', 'Close')}
         onClick={handleClose}
       >
-        <CloseIcon />
+        <Icon glyph={X} size="lg" />
       </SvgButton>
     </div>
   )

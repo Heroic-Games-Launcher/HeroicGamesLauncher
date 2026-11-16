@@ -2,9 +2,14 @@
   display: grid;
   grid-template-columns: 3fr 1fr 1fr;
   grid-template-rows: auto;
-  grid-gap: 10px;
-  font-weight: var(--weight-bold);
-  color: var(--text-default);
+  grid-gap: var(--space-md-fixed);
+  padding: var(--space-xs-fixed) 0;
+  border-bottom: 1px solid var(--panel-divider);
+  font-size: var(--body-sm);
+  font-weight: var(--semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-neutral-muted);
 
   .title {
     grid-column: 1 / 2;
@@ -19,4 +24,10 @@
     grid-column: 3 / 4;
     text-align: center;
   }
+}
+
+.noDlcFound {
+  padding: var(--space-md-fixed) 0;
+  color: var(--text-neutral-muted);
+  text-align: center;
 }

@@ -31,7 +31,7 @@ const PreferedLanguage = () => {
     <TextInputField
       label={t(
         'setting.prefered_language',
-        'Prefered Language (Language Code)'
+        'Prefered language (language code)'
       )}
       htmlId="prefered-language"
       placeholder={t(

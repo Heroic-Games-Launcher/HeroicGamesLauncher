@@ -97,7 +97,9 @@
         "browse_wine_prefix": "Abrir prefijo de Wine",
         "browse_files": "Ver archivos",
         "play": "JUGAR",
-        "edit-game": "Editar juego"
+        "edit-game": "Editar juego",
+        "favourite": "Agregar a favoritos",
+        "unfavourite": "Eliminar de favoritos"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
@@ -133,7 +135,8 @@
         "changelogFor": "Registro de cambios de {{gameTitle}}",
         "extra_info": "Información adicional",
         "install_info": "Información sobre la instalación",
-        "achievements": "Logros"
+        "achievements": "Logros",
+        "details": "Detalles del juego"
     },
     "gamecard": {
         "moving": "Moviendo",
@@ -163,7 +166,11 @@
         "installedInfo": "Información de la instalación",
         "protondb-compatibility-info": "Nivel de compatibilidad con Proton",
         "steamdeck-compatibility-info": "Compatibilidad con SteamDeck",
-        "third-party-app": "Administrador de terceros"
+        "third-party-app": "Administrador de terceros",
+        "genres": "Géneros",
+        "steamdeck": {
+            "unsupported": "No compatible"
+        }
     },
     "install": {
         "disk-space-left": "Espacio disponible",
@@ -228,7 +235,8 @@
             "install-path": "Ruta de Instalación de Steam",
             "compatibility-layer-not-available": "Capa de compatibilidad no disponible. Por favor descargue una desde \"Ajustes > Wine Manager\" primero.",
             "patience": "Si desea continuar, por favor sea paciente ya que puede tomar unos minutos para terminar dependiendo de tu conexión a internet y tu configuración del sistema."
-        }
+        },
+        "releaseDate": "Fecha de lanzamiento"
     },
     "launch": {
         "options": "Opciones de arranque...",

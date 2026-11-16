@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { ExternalLink } from 'lucide-react'
 import { Modal, ModalContent, ModalHeader } from '../Modal'
+import Icon from '../Icon'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import classNames from 'classnames'
@@ -14,7 +17,20 @@ type Props = {
 const storage = window.localStorage
 const lastChangelog = storage.getItem('last_changelog')?.replaceAll('"', '')
 
+function enhanceChangelog(body: string): string {
+  const withMentions = body.replace(
+    /(^|[\s(])@([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?)/g,
+    '$1<span class="changelogMention">@$2</span>'
+  )
+  return withMentions.replace(
+    /(?<![\]("'=>])https?:\/\/[^\s<>()]+/g,
+    (url) =>
+      `<a href="${url}" target="_blank" rel="noreferrer" class="changelogLink">${url}</a>`
+  )
+}
+
 export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
+  const { t } = useTranslation()
   const [currentChangelog, setCurrentChangelog] = useState<Release | null>(null)
 
   useEffect(() => {
@@ -45,10 +61,21 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
                 linkTarget={'_blank'}
                 rehypePlugins={[rehypeRaw]}
               >
-                {currentChangelog.body}
+                {enhanceChangelog(currentChangelog.body)}
               </ReactMarkdown>
             )}
           </div>
+          {currentChangelog.html_url && (
+            <a
+              className="changelogModalFullLink"
+              href={currentChangelog.html_url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t('changelog.view_full', 'View full changelog on GitHub')}
+              <Icon glyph={ExternalLink} size="sm" />
+            </a>
+          )}
         </ModalContent>
       </Modal>
     </div>

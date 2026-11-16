@@ -46,7 +46,7 @@ function SteamDeckSystemSpecifications({
   return (
     <>
       <SpecCard
-        title={t('settings.systemInformation.systemModel', 'System Model')}
+        title={t('settings.systemInformation.systemModel', 'System model')}
         media={<SteamDeckLogo className="logo fillWithThemeColor" />}
       >
         <span className="SpecCard__value">

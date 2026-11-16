@@ -47,7 +47,7 @@ const GameDetails = ({ gameInfo }: Props) => {
   if (releaseDate) {
     items.push({
       glyph: CalendarDays,
-      label: t('label.releaseDate', 'Release Date'),
+      label: t('label.releaseDate', 'Release date'),
       value: releaseDate
     })
   }

@@ -1,0 +1,37 @@
+.IconBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-pill, 999px);
+  color: var(--on-panel, var(--text-neutral));
+}
+
+.IconBadge--md {
+  width: 40px;
+  height: 40px;
+}
+
+.IconBadge--lg {
+  width: 48px;
+  height: 48px;
+}
+
+.IconBadge--surface {
+  background: var(--bg-surface-raised, var(--panel-base));
+}
+
+.IconBadge--accent {
+  background: color-mix(in oklab, var(--role-accent) 16%, transparent);
+  color: var(--role-accent);
+}
+
+.IconBadge svg {
+  width: 20px;
+  height: 20px;
+}
+
+.IconBadge--lg svg {
+  width: 22px;
+  height: 22px;
+}

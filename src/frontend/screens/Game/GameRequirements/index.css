@@ -14,3 +14,19 @@
   text-align: start;
   text-transform: capitalize;
 }
+
+.gameRequirements__section {
+  grid-column: 1 / -1;
+}
+
+.gameRequirements__text,
+.gameRequirements .DetailList__value {
+  white-space: pre-line;
+}
+
+.gameRequirements__text {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  text-align: start;
+}

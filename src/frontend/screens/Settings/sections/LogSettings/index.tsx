@@ -135,7 +135,7 @@ export default function LogSettings() {
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
 
-  const { epic, gog, amazon, zoom, itchio, sideloadedLibrary } =
+  const { epic, gog, amazon, zoom, itchio, steam, sideloadedLibrary } =
     useContext(ContextProvider)
 
   const installedGames = useMemo<GameInfo[]>(
@@ -227,6 +227,8 @@ export default function LogSettings() {
       return t('setting.log.descriptiveNames.zoom', 'Zoom log')
     if (showLogOf.runner === 'itchio')
       return t('setting.log.descriptiveNames.itchio', 'itch.io log')
+    if (showLogOf.runner === 'steam')
+      return t('setting.log.descriptiveNames.steam', 'Steam / Aurelia log')
     return ''
   }, [showLogOf, installedGames, t])
 
@@ -243,6 +245,9 @@ export default function LogSettings() {
     if (itchio.username) {
       baseFiles.push({ title: 'itch.io', args: { runner: 'itchio' } })
     }
+    if (steam.enabled) {
+      baseFiles.push({ title: 'Aurelia', args: { runner: 'steam' } })
+    }
     const logsForInstalledGames = installedGames.map((game) => ({
       title: game.overrides?.title || game.title,
       args: {
@@ -251,7 +256,7 @@ export default function LogSettings() {
       }
     }))
     return baseFiles.concat(logsForInstalledGames)
-  }, [installedGames, zoom.enabled, itchio.username])
+  }, [installedGames, zoom.enabled, itchio.username, steam.enabled])
 
   return (
     <SettingsCard

@@ -194,7 +194,8 @@
         "sync": "Sinxronizasiya",
         "syncing": "Sinxronizasiya",
         "unsync": "Sinxronizasiyadan çıxarın",
-        "continue": "Davam et"
+        "continue": "Davam et",
+        "close": "Bağla"
     },
     "controller": {
         "hints": {
@@ -247,7 +248,8 @@
         "status": "Vəziyyət",
         "store": "Mağaza",
         "title": "Oyunun adı",
-        "modify": "Quraşdırmaya dəyişiklik et"
+        "modify": "Quraşdırmaya dəyişiklik et",
+        "settings": "Game Settings"
     },
     "generic": {
         "error": {
@@ -282,7 +284,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Store"
     },
     "help": {
         "amdfsr": "AMD-nin FSR tam ekran rejimində daha aşağı təsvir ölçüsünü artırmaqla kadr sürətini artırmağa kömək edir. Şəkil keyfiyyəti cüzi performans zərbəsi hesabına 5-dən 1-ə yüksəlir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
@@ -827,7 +831,8 @@
             "wineExt": "Şərab uzantıları",
             "gamescope": "",
             "systemInformation": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kateqoriyalar"
         },
         "open-config-file": "Konfiqurasiya faylını açın",
         "reset-heroic": "Qəhrəmanı sıfırlayın",
@@ -905,6 +910,10 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Başlama Seçimləri..."
         }
     },
     "Settings": "Parametrlər",

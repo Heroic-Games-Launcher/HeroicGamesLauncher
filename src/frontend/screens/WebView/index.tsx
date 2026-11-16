@@ -43,6 +43,8 @@ const validStoredUrl = (url: string, store: string) => {
       return url.includes('zoom-platform.com')
     case 'itchio':
       return url.includes('itch.io')
+    case 'steam':
+      return url.includes('steampowered.com')
     default:
       return false
   }
@@ -67,7 +69,7 @@ export default function WebView() {
     message: string
   }>(() => ({
     refresh: true,
-    message: t('loading.website', 'Loading Website')
+    message: t('loading.website', 'Loading website')
   }))
   const [amazonLoginData, setAmazonLoginData] = useState<NileLoginData | null>(
     null
@@ -104,6 +106,7 @@ export default function WebView() {
   const amazonStore = `https://gaming.amazon.com`
   const itchioStore = `https://itch.io`
   const zoomStore = `https://www.zoom-platform.com`
+  const steamStore = `https://store.steampowered.com/?l=${lang}`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
@@ -121,6 +124,7 @@ export default function WebView() {
       '/store/amazon': amazonStore,
       '/store/itchio': itchioStore,
       '/store/zoom': zoomStore,
+      '/store/steam': steamStore,
       '/wiki': wikiURL,
       '/loginEpic': epicLoginUrl,
       '/loginGOG': gogLoginUrl,
@@ -242,7 +246,7 @@ export default function WebView() {
 
     setLoading({
       refresh: true,
-      message: t('status.logging', 'Logging In...')
+      message: t('status.logging', 'Logging in...')
     })
     amazon
       .login({
@@ -292,7 +296,7 @@ export default function WebView() {
     itchioOAuthHandledRef.current = true
     setLoading({
       refresh: true,
-      message: t('status.logging', 'Logging In...')
+      message: t('status.logging', 'Logging in...')
     })
 
     itchio
@@ -353,7 +357,7 @@ export default function WebView() {
             if (code) {
               setLoading({
                 refresh: true,
-                message: t('status.logging', 'Logging In...')
+                message: t('status.logging', 'Logging in...')
               })
               gog.login(code).then(() => handleSuccessfulLogin())
             }
@@ -375,7 +379,7 @@ export default function WebView() {
             if (code) {
               setLoading({
                 refresh: true,
-                message: t('status.logging', 'Logging In...')
+                message: t('status.logging', 'Logging in...')
               })
               epic.login(code).then(() => handleSuccessfulLogin())
             }
@@ -436,30 +440,67 @@ export default function WebView() {
         }
       }
 
-      const onLoginNavigate = () => {
+      // Guards against processing the same login callback more than once (the
+      // callback URL can be observed by several navigation events).
+      let loginHandled = false
+
+      // Handles the OAuth/OpenID callback for runners that log in through the
+      // embedded webview. The callback URL is read from the navigation event so
+      // we capture every query parameter (e.g. Steam's `openid.sig`) *before*
+      // the storefront can redirect and strip them, which previously caused the
+      // login verification to fail.
+      const handleLoginCallback = (pageURL: string) => {
+        if (loginHandled || !pageURL) {
+          return
+        }
+
+        let parsedURL: URL
+        try {
+          parsedURL = new URL(pageURL)
+        } catch {
+          return
+        }
+
         if (runner === 'zoom') {
-          const pageURL = webview.getURL()
-          const parsedURL = new URL(pageURL)
           const token = parsedURL.searchParams.get('li_token')
           if (token) {
+            loginHandled = true
             setLoading({
               refresh: true,
-              message: t('status.logging', 'Logging In...')
+              message: t('status.logging', 'Logging in...')
             })
             zoom.login(pageURL).then(() => handleSuccessfulLogin())
           }
         }
       }
 
+      const onLoginStartNavigation = (e: Electron.DidStartNavigationEvent) => {
+        if (e.isMainFrame) {
+          handleLoginCallback(e.url)
+        }
+      }
+
+      const onLoginNavigate = () => {
+        handleLoginCallback(webview.getURL())
+      }
+
       // this one is needed for gog/amazon
       webview.addEventListener('did-navigate', onNavigate)
       // this one is needed for epic
       webview.addEventListener('did-navigate-in-page', onNavigate)
+      // Catch the login callback as early as possible (before any storefront
+      // redirect strips the auth query parameters), with `did-navigate` as a
+      // fallback for callbacks that only surface once navigation has committed.
+      webview.addEventListener('did-start-navigation', onLoginStartNavigation)
       webview.addEventListener('did-navigate', onLoginNavigate)
 
       return () => {
         webview.removeEventListener('did-navigate', onNavigate)
         webview.removeEventListener('did-navigate-in-page', onNavigate)
+        webview.removeEventListener(
+          'did-start-navigation',
+          onLoginStartNavigation
+        )
         webview.removeEventListener('did-navigate', onLoginNavigate)
       }
     }
@@ -750,7 +791,7 @@ export default function WebView() {
             <p>
               {t(
                 'affiliate.gogPrompt.description',
-                "Heroic can use GOG affiliate links when you visit the GOG store. If you buy something after clicking through from Heroic, GOG shares a small commission with us — at no extra cost to you. We don't see or track which games you buy, or anything else about your purchases: GOG only knows that someone came from Heroic. This is off by default, and you can change it whenever you like in Heroic's Advanced settings."
+                "Heroic can use GOG affiliate links when you visit the GOG store. If you buy something after clicking through from Heroic, GOG shares a small commission with us — at no extra cost to you. We don't see or track which games you buy, or anything else about your purchases: GOG only knows that someone came from Heroic. This is off by default, and you can change it whenever you like in Heroic's advanced settings."
               )}
             </p>
             <ToggleSwitch

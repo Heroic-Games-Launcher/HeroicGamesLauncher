@@ -11,7 +11,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "Biblioteka"
+        }
     },
     "add_game": "Add Game",
     "All": "Sve",
@@ -248,7 +251,8 @@
         "status": "Status",
         "store": "Trgovina",
         "title": "Ime video igre",
-        "modify": ""
+        "modify": "",
+        "settings": "Game Settings"
     },
     "generic": {
         "error": {
@@ -283,7 +287,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Trgovine"
     },
     "help": {
         "amdfsr": "AMD-ov FSR pomaže u povećanju frekvencije kadrova povećavajući niže rezolucije u načinu rada preko cijelog ekrana. Kvalitet slike se povećava sa 5 na 1 po cenu blagog smanjenja performansi. Omogućavanje može poboljšati performanse.",
@@ -793,6 +799,9 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "Koristi Steam Runtime"
+        },
+        "tools": {
+            "selectExe": "Izaberi EXE"
         }
     },
     "settings": {
@@ -909,6 +918,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Opcije za pokretanje...",
+            "wineTools": "Alati"
         }
     },
     "Settings": "Postavke",
@@ -1259,5 +1273,6 @@
     "common": {
         "cancel": "Cancel",
         "warning": "Warning"
-    }
+    },
+    "General": "Generalno"
 }

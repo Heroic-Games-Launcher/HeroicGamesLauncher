@@ -7,6 +7,7 @@ import { MenuItem } from '@mui/material'
 
 const storage: Storage = window.localStorage
 
+// ts-prune-ignore-next
 export enum FlagPosition {
   NONE = 'none',
   PREPEND = 'prepend',
@@ -162,7 +163,7 @@ export default function LanguageSelector({
         htmlId="languageSelector"
         onChange={(event) => handleChangeLanguage(event.target.value)}
         value={currentLanguage}
-        label={t('setting.language', 'Choose App Language')}
+        label={t('setting.language', 'Choose app language')}
         extraClass="languageSelector"
         afterSelect={afterSelect}
       >

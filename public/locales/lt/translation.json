@@ -213,7 +213,8 @@
         "login": "Prisijungti",
         "continue": "Tęsti",
         "cancel": "Atšaukti",
-        "go_to_library": "Eiti į biblioteką"
+        "go_to_library": "Eiti į biblioteką",
+        "close": "Uždaryti"
     },
     "controller": {
         "hints": {
@@ -271,7 +272,8 @@
         "modify": "Redaguoti įdiegimą",
         "store": "Parduotuvė",
         "status": "Būsena/Būklė",
-        "title": "Žaidimo titulas/pavadinimas"
+        "title": "Žaidimo titulas/pavadinimas",
+        "settings": "Žaidimo nustatymai"
     },
     "header": {
         "categories": "Kategorijos",
@@ -287,7 +289,9 @@
         "show_favourites_only": "Rodyti tik mėgstamiausius",
         "show_third_party_managed_only": "Rodyti tik valdomus trečios partijos",
         "select_all": "Pažymėti visus",
-        "show_updates_only": "Rodyti tik žaidimus su atnaujinimais"
+        "show_updates_only": "Rodyti tik žaidimus su atnaujinimais",
+        "platforms": "Platforma",
+        "stores": "Parduotuvės"
     },
     "help": {
         "title": {
@@ -647,6 +651,10 @@
         "gamepad-repeat-frequency": "Valdiklio įvesties atkartojimo dažnis",
         "steamRuntime": {
             "label": "Naudoti „Steam“ vykdantįjį"
+        },
+        "tools": {
+            "open": "Atidaryti",
+            "selectExe": "Pasirinkti „.*EXE“"
         }
     },
     "settings": {
@@ -681,7 +689,8 @@
             "sync": "Sinchronizavimas debesijos išsaugojimų",
             "advanced": "Pažangūs",
             "general": "Bendri",
-            "legacy": "Pasenusio standarto"
+            "legacy": "Pasenusio standarto",
+            "categories": "Kategorijos"
         },
         "systemInformation": {
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
@@ -761,6 +770,12 @@
             "help": {
                 "description": "Pateikite savo „SteamGridDB“ „API“ raktą, kad gautumėte žaidimų viršelių paiešką. Raktas yra laikomas užšifruotas, jei Jūsų sistema palaiko jį. Jūs galite gauti jį – {{url}}"
             }
+        },
+        "section": {
+            "downloads": "Atsisiuntimai",
+            "experimental": "Eksperimentinės funkcijos",
+            "launch": "Paleidimo parinktys",
+            "wineVersion": "„Wine“"
         }
     },
     "Settings": "Nustatymai",
@@ -818,7 +833,10 @@
         "actions_font_family_default": "Veiksmų šrifto „šeima“ (Numatyta: {{fontFamily}})",
         "content_font_family_default": "Turinio šrifto „šeima“ (Numatyta: {{fontFamily}})",
         "disable_smooth_scrolling": "Išjungti švelnų slinkimą (reikalauja paleidimo iš naujo)",
-        "disable_animations": "Išjungti grafinės sąsajos animacijas"
+        "disable_animations": "Išjungti grafinės sąsajos animacijas",
+        "section": {
+            "library": "Biblioteka"
+        }
     },
     "add_game": "Pridėti žaidimą",
     "anticheat": {
@@ -990,7 +1008,8 @@
         "removepath": "Pašalinti kelią"
     },
     "two_col_table": {
-        "save_hint": "Pakeitimai šioje lentelėje nėra automatiškai išsaugomi. Spauskite – „+“ mygtuką"
+        "save_hint": "Pakeitimai šioje lentelėje nėra automatiškai išsaugomi. Spauskite – „+“ mygtuką",
+        "add": "Pridėti"
     },
     "Update Available!": "Pasiekiamas atnaujinimas!",
     "webview": {
@@ -1005,7 +1024,8 @@
     "Recent": "Neseniai žaista",
     "emptyLibrary": {
         "noResults": "Dabartiniai filtrai nedavė jokių rezultatų.",
-        "noGames": "Jūsų biblioteka yra tuščia.<br /><br />Spustelėkite <4>čia</4>, norint prisijungti su savo „Epic“, „GOG.com“ ar „Amazon“ paskyromis. Tada Jūsų žaidimai atras šitoje bibliotekoje.<br /><br />Norint žaisti/naudotis žaidimais ar programėlėmis iš kitų šaltinių, spustelėkite <br />, kad pridėtumėte juos rankiniu būdu."
+        "noGames": "Jūsų biblioteka yra tuščia.<br /><br />Spustelėkite <4>čia</4>, norint prisijungti su savo „Epic“, „GOG.com“ ar „Amazon“ paskyromis. Tada Jūsų žaidimai atras šitoje bibliotekoje.<br /><br />Norint žaisti/naudotis žaidimais ar programėlėmis iš kitų šaltinių, spustelėkite <br />, kad pridėtumėte juos rankiniu būdu.",
+        "noResultsTitle": "Nerasta žaidimų."
     },
     "generic": {
         "error": {
@@ -1280,11 +1300,13 @@
     },
     "next": "Sekantis",
     "sidebar": {
-        "console": "Konsolės veiksena"
+        "console": "Konsolės veiksena",
+        "storesLogin": "Parduotuvės prisijungimas"
     },
     "common": {
         "add": "Pridėti",
         "cancel": "Atšaukti",
         "warning": "Įspėjimas"
-    }
+    },
+    "General": "Bendri"
 }

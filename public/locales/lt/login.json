@@ -5,7 +5,9 @@
         "open": "Atidaryti nuorodą",
         "copy": "Kopijuoti",
         "error": "Klaida, pabandykite kitą kodą",
-        "loading": "Kraunama"
+        "loading": "Kraunama",
+        "close": "Uždaryti",
+        "itchio_error": "Klaida, pabandykite kitą kodą"
     },
     "message": {
         "part1": "Norint prisijungti ir įdiegti žaidimus, Jums reikia sekti šiuos žingsnius:",

@@ -97,7 +97,10 @@
         "browse_files": "Przeglądaj pliki",
         "browse_wine_prefix": "Przeglądaj prefiks Wine",
         "play": "GRAJ",
-        "edit-game": "Edytuj grę"
+        "edit-game": "Edytuj grę",
+        "favourite": "Dodaj do ulubionych",
+        "unfavourite": "Usuń z ulubionych",
+        "backToLibrary": "Wróć do biblioteki"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -131,9 +134,14 @@
         },
         "changelogFor": "Lista zmian dla {{gameTitle}}",
         "modify": "Modyfikuj instalację",
-        "extra_info": "Dodatkowe informacje",
+        "extra_info": "Dodatkowe dane",
         "install_info": "Informacje o instalacji",
-        "achievements": "Osiągnięcia"
+        "achievements": "Osiągnięcia",
+        "details": "Szczegóły gry",
+        "about": "O tej grze",
+        "hoursPlayedShort": "{{hours}} godz.",
+        "overview": "Przegląd",
+        "tabs": "Informacje dot. gry"
     },
     "gamecard": {
         "moving": "Przenoszenie",
@@ -163,7 +171,15 @@
         "installedInfo": "Zainstalowane informacje",
         "protondb-compatibility-info": "Poziom zgodności Proton",
         "steamdeck-compatibility-info": "Zgodność ze SteamDeck",
-        "third-party-app": "Menedżer zewnętrzny"
+        "third-party-app": "Menedżer zewnętrzny",
+        "genres": "Gatunki",
+        "steamdeck": {
+            "unsupported": "Niewspierana",
+            "playable": "Grywalna",
+            "unknown": "Nieznana",
+            "verified": "Zweryfikowana"
+        },
+        "developer": "Producent"
     },
     "install": {
         "disk-space-left": "Dostępne miejsce",
@@ -193,7 +209,8 @@
         "playing": {
             "start": "Graj",
             "stop": "Gra uruchomiona (zatrzymaj)",
-            "start_with_logs": "Graj (z logami)"
+            "start_with_logs": "Graj (z logami)",
+            "start_with_logs_hint": "Uruchamia grę i tworzy szczegółowy log, przydatny wtedy, gdy trzeba zgłosić problem"
         },
         "saves": {
             "syncing": "Synchronizowanie zapisów"
@@ -228,7 +245,8 @@
             "select-path": "Wybierz katalog instalacji dla Steam",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "zoptymalizowanej do działania poprzez program Heroic, ponieważ nowe wersje Steam nie będą działać na macOS."
-        }
+        },
+        "releaseDate": "Data wydania"
     },
     "launch": {
         "options": "Opcje uruchamiania...",
@@ -330,7 +348,8 @@
         "verify": "Sprawdź spójność plików gry i napraw",
         "extraInfo": "Informacje dodatkowe",
         "logs": "Logi",
-        "categories": "Kategorie"
+        "categories": "Kategorie",
+        "more": "Więcej"
     },
     "help": {
         "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze.",
@@ -383,5 +402,10 @@
             "square": "Obraz ikony"
         },
         "square": "Ikona"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Foldery instalowane przez aplikację itch.io są importowane w całości (włącznie z aktualizacjami). W innych przypadkach Heroic nie może sprawdzać dostępności aktualizacji i odinstalowanie nie spowoduje usunięcia plików gry."
+        }
     }
 }

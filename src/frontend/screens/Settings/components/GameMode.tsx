@@ -26,7 +26,7 @@ const GameMode = () => {
           ),
           message: t(
             'settings.gameMode.eacRuntimeEnabled.message',
-            "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC Runtime and GameMode?"
+            "The EAC runtime is enabled, which won't function correctly without GameMode. Do you want to disable the EAC runtime and GameMode?"
           ),
           buttons: [
             {
@@ -50,7 +50,7 @@ const GameMode = () => {
         'Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.'
       )}
       description={t(
-        'setting.gamemode.description',
+        'setting.gamemode-description',
         'Ask the system to prioritise the game while it runs'
       )}
       htmlId="gamemode"

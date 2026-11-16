@@ -69,7 +69,7 @@
 }
 
 .DetailList__icon svg {
-  color: var(--navbar-accent, var(--accent));
+  color: var(--accent-icon, var(--navbar-accent, var(--accent)));
 }
 
 .DetailList__label {

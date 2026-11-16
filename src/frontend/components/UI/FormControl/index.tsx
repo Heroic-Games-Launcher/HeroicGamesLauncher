@@ -1,7 +1,7 @@
-import { faCaretDown, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ChevronDown, X } from 'lucide-react'
 import cx from 'classnames'
 import React, { ReactNode } from 'react'
+import Icon from '../Icon'
 import './index.css'
 
 interface FormControlProps {
@@ -44,12 +44,12 @@ const FormControl: React.FC<FormControlProps> = ({
       {children}
       {select && (
         <span className="FormControl__caret">
-          <FontAwesomeIcon icon={faCaretDown} />
+          <Icon glyph={ChevronDown} size="sm" />
         </span>
       )}
       {onClear && (
         <button className="FormControl__clear" onClick={onClear} tabIndex={-1}>
-          <FontAwesomeIcon icon={faXmark} />
+          <Icon glyph={X} size="sm" />
         </button>
       )}
       {sideButton && (

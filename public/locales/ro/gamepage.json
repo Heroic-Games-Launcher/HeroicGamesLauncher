@@ -133,7 +133,8 @@
         "extra_info": "Informații extra",
         "install_info": "Instalează info",
         "modify": "Modifică Instalarea",
-        "achievements": "Realizări"
+        "achievements": "Realizări",
+        "details": "Game Defaults"
     },
     "gamecard": {
         "moving": "Mutare",

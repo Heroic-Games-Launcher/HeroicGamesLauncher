@@ -10,10 +10,10 @@
   overflow: hidden;
   width: 100%;
   margin: 32px;
-  border: solid 1px var(--modal-border);
+  border: solid 1px var(--panel-border);
   border-radius: var(--modal-radius);
   background: var(--modal-background);
-  color: var(--text-default);
+  color: var(--text-neutral);
   text-align: start;
 }
 
@@ -42,12 +42,12 @@
   top: 12px;
   right: 12px;
   z-index: 3;
-  border-radius: 10px;
-  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  color: var(--text-neutral-muted);
 }
 
 .Modal__closeButton.MuiIconButton-root:hover {
-  color: var(--text-default);
+  color: var(--text-neutral);
 }
 
 .Modal__header {
@@ -62,19 +62,6 @@
   font-weight: var(--bold);
   line-height: 1.25;
   text-align: start;
-}
-
-.Modal--destructive .Modal__title,
-.Modal--error .Modal__title {
-  color: var(--status-danger);
-}
-
-.MuiDialog-paper.Modal--destructive {
-  border-color: color-mix(
-    in oklab,
-    var(--danger, var(--status-danger)) 40%,
-    var(--modal-border)
-  );
 }
 
 .Modal__content {

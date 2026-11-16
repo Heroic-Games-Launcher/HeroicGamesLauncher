@@ -42,7 +42,7 @@ const AutoDXVKNVAPI = () => {
         'DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.'
       )}
       description={t(
-        'setting.autodxvknvapi.description',
+        'setting.autodxvknvapi-description',
         'Expose NVIDIA features such as DLSS to games running through DXVK'
       )}
       htmlId="autodxvknvapi"
@@ -53,7 +53,7 @@ const AutoDXVKNVAPI = () => {
           ? t('please-wait', 'Please wait...')
           : t(
               'setting.autodxvknvapi',
-              'Auto Install/Update DXVK-NVAPI on Prefix'
+              'Auto install/update DXVK-NVAPI on prefix'
             )
       }
       fading={installingDxvkNvapi}

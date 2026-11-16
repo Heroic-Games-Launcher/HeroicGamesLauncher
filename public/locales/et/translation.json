@@ -11,7 +11,10 @@
         "actions_font_family_default": "Toimingute fondiperekond (Vaikimisi: {{fontFamily}})",
         "content_font_family_default": "Sisu fondiperekond (Vaikimisi: {{fontFamily}})",
         "disable_smooth_scrolling": "Keela sujuv kerimine (nõuab restarti)",
-        "disable_animations": "Keela kasutajaliidese animatsioonid"
+        "disable_animations": "Keela kasutajaliidese animatsioonid",
+        "section": {
+            "library": "Varamu"
+        }
     },
     "add_game": "Lisa mäng",
     "All": "Kõik",
@@ -208,7 +211,8 @@
         "sync": "Sünkrooni",
         "syncing": "Sünkroonimine",
         "unsync": "Mittesünkroniseerimine",
-        "continue": "Jätka"
+        "continue": "Jätka",
+        "close": "Sulge"
     },
     "controller": {
         "hints": {
@@ -267,7 +271,8 @@
         "status": "Olek",
         "store": "Pood",
         "title": "Mängu pealkiri",
-        "modify": "Muuda paigaldust"
+        "modify": "Muuda paigaldust",
+        "settings": "Mängu seaded"
     },
     "generic": {
         "error": {
@@ -302,7 +307,9 @@
         "show_support_offline_only": "Näita ainult ilma võrguühenduse toega",
         "only": "ainult",
         "show_third_party_managed_only": "Näita ainult kolmanda osapoole hallatud",
-        "show_updates_only": "Näita ainult uuendustega mänge"
+        "show_updates_only": "Näita ainult uuendustega mänge",
+        "platforms": "Platform",
+        "stores": "Poed"
     },
     "help": {
         "amdfsr": "AMD FSR aitab suurendada kaadrisagedust, suurendades madalamaid resolutsioone täisekraani režiimis. Pildikvaliteet suureneb 5-st 1-le, mis toob aga kaasa kerge jõudluse vähenemise. Lubamine võib parandada jõudlust.",
@@ -835,6 +842,10 @@
         "steamRuntime": {
             "label": "Kasuta Steam Runtime'i",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Ava",
+            "selectExe": "Vali EXE"
         }
     },
     "settings": {
@@ -873,7 +884,8 @@
             "wineExt": "Wine'i laiendused",
             "systemInformation": "Süsteemi teave",
             "gamescope": "Gamescope",
-            "legacy": "Igand"
+            "legacy": "Igand",
+            "categories": "Kategooriad"
         },
         "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic",
@@ -951,13 +963,21 @@
             "help": {
                 "description": "Varustage oma SteamGridDB API võti, et lubada mängude kaanepiltide otsing. Võti talletatakse krüpteeritult, kui teie süsteem seda toetab. Võite leida võtme aadressil {{url}}"
             }
+        },
+        "section": {
+            "downloads": "Allalaadimised",
+            "experimental": "Eksperimentaalsed funktsioonid",
+            "launch": "Käivitusvalikud",
+            "wineTools": "Tööriistad",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "Seaded",
     "sidebar": {
         "collapse": "Ahenda külgriba",
         "uncollapse": "Lahtista külgriba",
-        "console": "Konsoolirežiim"
+        "console": "Konsoolirežiim",
+        "storesLogin": "Sisselogimine poodi"
     },
     "status": {
         "installing": "Paigaldamine",
@@ -988,7 +1008,8 @@
         "show": "Näita"
     },
     "two_col_table": {
-        "save_hint": "Selles tabelis tehtud muudatusi ei salvestata automaatselt. Klikkige nuppu +"
+        "save_hint": "Selles tabelis tehtud muudatusi ei salvestata automaatselt. Klikkige nuppu +",
+        "add": "Lisa"
     },
     "Update Available!": "Uuendus saadaval!",
     "userselector": {
@@ -1096,7 +1117,8 @@
     },
     "emptyLibrary": {
         "noResults": "Praegused filtrid ei toonud tulemusi.",
-        "noGames": "Teie varamu on tühi.<br /><br />Klikkige <4>siia,</4> et sisse logida oma Epicu, GOG.com või Amazoni kontodega. Siis ilmuvad teie mängud siia varamusse.<br /><br />Et kasutada mänge või rakendusi teistest allikatest, klikkige <br /> et need käsitsi lisada."
+        "noGames": "Teie varamu on tühi.<br /><br />Klikkige <4>siia,</4> et sisse logida oma Epicu, GOG.com või Amazoni kontodega. Siis ilmuvad teie mängud siia varamusse.<br /><br />Et kasutada mänge või rakendusi teistest allikatest, klikkige <br /> et need käsitsi lisada.",
+        "noResultsTitle": "Mänge ei leitud."
     },
     "tour": {
         "back": "Tagasi",
@@ -1342,5 +1364,6 @@
         "add": "Lisa",
         "cancel": "Tühista",
         "warning": "Hoiatus"
-    }
+    },
+    "General": "Üldine"
 }

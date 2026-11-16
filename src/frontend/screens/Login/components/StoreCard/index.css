@@ -1,0 +1,67 @@
+.storeCard {
+  display: flex;
+  height: 100%;
+  background: var(--panel-surface, var(--background-darker));
+  border: none;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+  transition: box-shadow 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.storeCard:hover,
+.storeCard:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px var(--navbar-accent, var(--accent)),
+    0 8px 24px -12px var(--navbar-accent, var(--accent));
+}
+
+.storeCard .storeCard__card.Panel {
+  flex: 1;
+  background: transparent;
+  border-radius: 0;
+}
+
+.storeCard .storeCard__badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+}
+
+.storeCard__user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-3xs-fixed);
+  min-width: 0;
+  text-align: end;
+}
+
+.storeCard__loggedLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs-fixed);
+  color: var(--text-success);
+  font-weight: var(--semibold);
+}
+
+.storeCard__userName {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.storeCard__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-xs-fixed);
+  width: 100%;
+}
+
+.storeCard.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

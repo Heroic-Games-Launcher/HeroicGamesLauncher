@@ -33,7 +33,7 @@ const SidebarTour: React.FC = () => {
         'tour.sidebar.welcome.intro',
         'Welcome to Heroic! This sidebar contains all the navigation options to explore the app.'
       ),
-      title: t('tour.sidebar.welcome.title', 'Sidebar Navigation')
+      title: t('tour.sidebar.welcome.title', 'Sidebar navigation')
     },
     {
       element: '[data-tour="sidebar-library"]',

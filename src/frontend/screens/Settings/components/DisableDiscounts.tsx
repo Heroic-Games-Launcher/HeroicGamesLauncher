@@ -23,7 +23,7 @@ const DisableDiscounts = () => {
       htmlId="disableDiscounts"
       value={disableDiscounts}
       handleChange={handleChange}
-      title={t('setting.disableDiscounts', 'Disable Deals page')}
+      title={t('setting.disableDiscounts', 'Disable deals page')}
     />
   )
 }

@@ -16,9 +16,10 @@ export type GameSettingsModalType = 'settings' | 'log' | 'category'
 type Props = {
   gameInfo: GameInfo
   type: GameSettingsModalType
+  tab?: string
 }
 
-function SettingsModal({ gameInfo, type }: Props) {
+function SettingsModal({ gameInfo, type, tab }: Props) {
   const { t } = useTranslation()
   const { closeSettingsModal } = useGlobalState.keys('closeSettingsModal')
 
@@ -58,7 +59,7 @@ function SettingsModal({ gameInfo, type }: Props) {
       </ModalHeader>
       <ModalContent className="settingsDialogContent">
         <SettingsContext.Provider value={contextValues}>
-          {type === 'settings' && <GamesSettings />}
+          {type === 'settings' && <GamesSettings initialTab={tab} />}
           {type === 'log' && <LogSettings />}
           {type === 'category' && <CategorySettings />}
         </SettingsContext.Provider>

@@ -18,7 +18,7 @@ const DisableGOGPresence = () => {
         'setting.disable-gog-presence.description',
         'Stop sharing which GOG game you are playing with your friends'
       )}
-      title={t('setting.disable_gog_presence', 'Disable GOG Presence updates')}
+      title={t('setting.disable_gog_presence', 'Disable GOG presence updates')}
     />
   )
 }
