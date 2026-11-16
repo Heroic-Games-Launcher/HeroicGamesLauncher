@@ -15,6 +15,7 @@ import { getShellPath } from './utils'
 import { GameConfig } from './game_config'
 import { getSavePathFingerprint } from './cloud_saves/fingerprint'
 import { copyMissingSaveFiles } from './cloud_saves/migrate'
+import { getSavePathMigrations } from './cloud_saves/save_path_migrations'
 import { resolveEpicSavePath } from './cloud_saves/epic_resolver'
 import { LegendaryUser } from './storeManagers/legendary/user'
 import { parseLegendaryOutput } from './cloud_saves/parse'
@@ -39,45 +40,17 @@ const migrateSavePaths = async (
     .getGame(appName)
     .getSettings()
 
-  if (runner === 'gog') {
-    for (const newLocation of newPaths as GOGCloudSavesLocation[]) {
-      const oldLocation = (settings.gogSaves ?? []).find(
-        ({ name }) => name === newLocation.name
-      )
-      if (!oldLocation?.location) continue
-
-      const copied = copyMissingSaveFiles(
-        oldLocation.location,
-        newLocation.location
-      )
-      if (copied > 0) {
-        logInfo(
-          [
-            'Copied',
-            `${copied}`,
-            'save files from the old location',
-            oldLocation.location,
-            'to',
-            newLocation.location
-          ],
-          LogPrefix.Backend
-        )
-      }
-    }
-    return
-  }
-
-  if (typeof newPaths === 'string') {
-    const copied = copyMissingSaveFiles(settings.savesPath, newPaths)
+  for (const [from, to] of getSavePathMigrations(runner, settings, newPaths)) {
+    const copied = copyMissingSaveFiles(from, to)
     if (copied > 0) {
       logInfo(
         [
           'Copied',
           `${copied}`,
           'save files from the old location',
-          settings.savesPath,
+          from,
           'to',
-          newPaths
+          to
         ],
         LogPrefix.Backend
       )
@@ -373,6 +346,16 @@ async function getDefaultGogSavePaths(
     .locations
 }
 
+type PathDetectionOrigin = 'settings' | 'refresh'
+
+const cancelledPathDetections = new Set<string>()
+
+const pathDetectionKey = (
+  appName: string,
+  runner: Runner,
+  origin: PathDetectionOrigin
+) => `${origin}:${runner}:${appName}`
+
 const isUsableLegendaryConfiguration = (settings: GameSettings): boolean =>
   !!settings.savesPath && isAbsolute(settings.savesPath)
 
@@ -383,8 +366,16 @@ const isUsableGogConfiguration = (settings: GameSettings): boolean =>
 
 async function detectAndPersistSavePaths(
   appName: string,
-  runner: Runner
+  runner: Runner,
+  origin: PathDetectionOrigin = 'settings'
 ): Promise<DetectSavePathsResult> {
+  if (runner !== 'gog' && runner !== 'legendary') {
+    return { paths: '', updated: false }
+  }
+
+  const detectionKey = pathDetectionKey(appName, runner, origin)
+  cancelledPathDetections.delete(detectionKey)
+
   const game = libraryManagerMap[runner].getGame(appName)
   const settings = await game.getSettings()
   const fingerprint = getSavePathFingerprint(
@@ -409,6 +400,11 @@ async function detectAndPersistSavePaths(
         return { paths: locations, updated: false }
       }
 
+      if (cancelledPathDetections.delete(detectionKey)) {
+        return { paths: locations, updated: false }
+      }
+
+      await migrateSavePaths(appName, runner, locations)
       gameConfig.setSetting('gogSaves', locations)
       gameConfig.setSetting('savesPathFingerprint', fingerprint)
       return { paths: locations, updated: true }
@@ -419,16 +415,29 @@ async function detectAndPersistSavePaths(
       return { paths: path, updated: false }
     }
 
+    if (cancelledPathDetections.delete(detectionKey)) {
+      return { paths: path, updated: false }
+    }
+
+    await migrateSavePaths(appName, runner, path)
     gameConfig.setSetting('savesPath', path)
     gameConfig.setSetting('savesPathFingerprint', fingerprint)
     return { paths: path, updated: true }
   } catch (error) {
+    cancelledPathDetections.delete(detectionKey)
     logError(
       ['Failed to detect save paths for', appName, `${error}`],
       LogPrefix.Backend
     )
     return { paths: '', updated: false }
   }
+}
+
+const cancelSavePathsDetection = (appName: string, runner: Runner) => {
+  if (runner !== 'gog' && runner !== 'legendary') {
+    return
+  }
+  cancelledPathDetections.add(pathDetectionKey(appName, runner, 'settings'))
 }
 
 async function refreshSavePathsIfConfigurationChanged(
@@ -467,7 +476,7 @@ async function refreshSavePathsIfConfigurationChanged(
     return false
   }
 
-  const result = await detectAndPersistSavePaths(appName, runner)
+  const result = await detectAndPersistSavePaths(appName, runner, 'refresh')
   if (result.updated) {
     logInfo(
       ['Wine configuration changed, recalculated save paths for', appName],
@@ -477,6 +486,7 @@ async function refreshSavePathsIfConfigurationChanged(
   return result.updated
 }
 export {
+  cancelSavePathsDetection,
   detectAndPersistSavePaths,
   getDefaultSavePath,
   refreshSavePathsIfConfigurationChanged

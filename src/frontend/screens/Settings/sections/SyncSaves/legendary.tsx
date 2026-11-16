@@ -131,6 +131,7 @@ export default function LegendarySyncSaves({
           )}
           onClick={() => {
             window.api.abort(`${appName}-savePath`)
+            window.api.cancelSavePathsDetection(appName, 'legendary')
             setLoading(false)
           }}
         />

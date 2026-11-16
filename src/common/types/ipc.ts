@@ -78,6 +78,7 @@ import type {
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
+  cancelSavePathsDetection: (appName: string, runner: Runner) => void
   setZoomFactor: (zoomFactor: string) => void
   changeLanguage: (language: string) => void
   notify: (args: { title: string; body: string }) => void

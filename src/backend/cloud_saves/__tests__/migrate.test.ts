@@ -9,6 +9,7 @@ import { tmpdir } from 'os'
 import { join } from 'path'
 
 import { copyMissingSaveFiles } from '../migrate'
+import { getSavePathMigrations } from '../save_path_migrations'
 
 const directories: string[] = []
 
@@ -66,5 +67,38 @@ describe('copyMissingSaveFiles', () => {
     const dir = makeDir()
     writeFileSync(join(dir, 'a.sav'), 'a')
     expect(copyMissingSaveFiles(dir, dir)).toBe(0)
+  })
+})
+
+describe('getSavePathMigrations', () => {
+  const gogSettings = {
+    gogSaves: [
+      { name: 'main', location: '/old/main' },
+      { name: 'shared', location: '/old/shared' }
+    ]
+  } as never
+
+  test('pairs GOG locations by name and skips unchanged paths', () => {
+    expect(
+      getSavePathMigrations('gog', gogSettings, [
+        { name: 'main', location: '/new/main' },
+        { name: 'shared', location: '/old/shared' }
+      ])
+    ).toEqual([['/old/main', '/new/main']])
+  })
+
+  test('migrates a changed legendary path', () => {
+    const settings = { savesPath: '/old/saves' } as never
+    expect(getSavePathMigrations('legendary', settings, '/new/saves')).toEqual([
+      ['/old/saves', '/new/saves']
+    ])
+    expect(getSavePathMigrations('legendary', settings, '/old/saves')).toEqual(
+      []
+    )
+  })
+
+  test('does nothing when there is no previous configuration', () => {
+    expect(getSavePathMigrations('legendary', {} as never, '/new')).toEqual([])
+    expect(getSavePathMigrations('gog', {} as never, [])).toEqual([])
   })
 })
