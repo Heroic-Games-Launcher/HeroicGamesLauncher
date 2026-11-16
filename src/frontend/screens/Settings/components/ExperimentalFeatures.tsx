@@ -40,6 +40,7 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.enableHelp', 'Help component')
     t('setting.experimental_features.cometSupport', 'Comet support')
     t('setting.experimental_features.zoomPlatform', 'Zoom Platform support (only linux)')
+    t('setting.experimental_features.hideDuplicateGames', 'Hide duplicate games')
   */
 
   const descriptions: Partial<Record<keyof IExperimentalFeatures, string>> = {
@@ -54,6 +55,10 @@ const ExperimentalFeatures = () => {
     zoomPlatform: t(
       'setting.experimental_features_description.zoomPlatform',
       'Add the Zoom Platform store to your library'
+    ),
+    hideDuplicateGames: t(
+      'setting.experimental_features_description.hideDuplicateGames',
+      'Show games owned on several stores as a single library entry'
     )
   }
 
