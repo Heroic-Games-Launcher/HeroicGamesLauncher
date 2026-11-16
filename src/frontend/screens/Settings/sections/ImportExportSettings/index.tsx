@@ -1,5 +1,3 @@
-import './index.css'
-
 import { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +11,7 @@ import {
   SettingRow,
   SettingsCard
 } from 'frontend/components/UI'
+import Checkbox from 'frontend/components/UI/Checkbox'
 import ImportExportWizard from 'frontend/components/UI/ImportExportWizard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -175,10 +174,8 @@ export default function ImportExportSettings() {
             label={stageLabels(t)[stage]}
             htmlFor={`ie-export-${stage}`}
           >
-            <input
-              id={`ie-export-${stage}`}
-              type="checkbox"
-              className="ImportExportSettings__checkbox"
+            <Checkbox
+              inputProps={{ id: `ie-export-${stage}` }}
               checked={selectedStages.has(stage)}
               onChange={() => toggleStage(stage)}
             />
