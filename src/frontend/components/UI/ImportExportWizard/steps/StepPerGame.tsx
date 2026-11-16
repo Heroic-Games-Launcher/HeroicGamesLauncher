@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { TextInputField } from 'frontend/components/UI'
+import Checkbox from 'frontend/components/UI/Checkbox'
 
 import type { HeroicBackupValidationReport } from 'common/types/importExport'
 
@@ -52,8 +53,7 @@ export default function StepPerGame({
       </div>
       <div className="ImportExportWizard__listControls">
         <label className="ImportExportWizard__selectAll">
-          <input
-            type="checkbox"
+          <Checkbox
             checked={allSelected}
             onChange={() => setAllApps(!allSelected)}
           />
@@ -78,8 +78,7 @@ export default function StepPerGame({
           return (
             <li key={appName} className="ImportExportWizard__appRow">
               <label>
-                <input
-                  type="checkbox"
+                <Checkbox
                   checked={includedApps.has(appName)}
                   onChange={() => toggleApp(appName)}
                 />

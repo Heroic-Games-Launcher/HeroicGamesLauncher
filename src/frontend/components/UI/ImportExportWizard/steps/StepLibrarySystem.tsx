@@ -4,6 +4,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { ChevronRight } from 'lucide-react'
 
 import { Alert, Button } from 'frontend/components/UI'
+import Checkbox from 'frontend/components/UI/Checkbox'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 
 import type { HeroicBackupValidationReport } from 'common/types/importExport'
@@ -127,8 +128,7 @@ export default function StepLibrarySystem({
               return (
                 <li key={v.displayName} className="ImportExportWizard__appRow">
                   <label>
-                    <input
-                      type="checkbox"
+                    <Checkbox
                       checked={checked}
                       disabled={!v.downloadable}
                       onChange={() => toggleWineVersion(versionKey)}
@@ -205,8 +205,7 @@ export default function StepLibrarySystem({
               return (
                 <li key={issue.appName} className="ImportExportWizard__appRow">
                   <label>
-                    <input
-                      type="checkbox"
+                    <Checkbox
                       checked={checked}
                       disabled={!downloadMissingGames}
                       onChange={() =>

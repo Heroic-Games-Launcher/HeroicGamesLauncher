@@ -298,15 +298,14 @@
 .ImportExportWizard__selectAll {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-2xs);
   cursor: pointer;
   font-weight: var(--bold);
 }
 
-.ImportExportWizard__selectAll input {
-  width: 1em;
-  height: 1em;
-  accent-color: var(--accent);
+.ImportExportWizard__appRow .Checkbox.MuiCheckbox-root,
+.ImportExportWizard__selectAll .Checkbox.MuiCheckbox-root {
+  padding: 0;
 }
 
 .ImportExportWizard__appList,
