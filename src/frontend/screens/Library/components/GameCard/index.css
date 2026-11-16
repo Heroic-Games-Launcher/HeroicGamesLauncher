@@ -803,3 +803,26 @@
   transform: translate(-50%, -50%);
   width: 50%;
 }
+
+/* Several store badges for a deduplicated game group. */
+.gameCard .StoreBadgeGroup {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 2;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: var(--space-3xs);
+}
+
+.gameCard .StoreBadgeGroup .StoreBadge {
+  position: static;
+}
+
+.gameListItem .StoreBadgeGroup {
+  display: contents;
+}
+
+.gameListItem .StoreBadgeGroup .StoreBadge:not(:first-child) {
+  display: none;
+}

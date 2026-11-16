@@ -4,15 +4,22 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import { Info } from 'lucide-react'
 
-import { getGameInfo, getInstallInfo, sendKill } from 'frontend/helpers'
+import {
+  getGameInfo,
+  getInstallInfo,
+  getStoreName,
+  sendKill
+} from 'frontend/helpers'
 import { launch, updateGame, install } from 'frontend/helpers/library'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import classNames from 'classnames'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
   BackButton,
   CachedImage,
   Panel,
+  StoreBadge,
   TabPanel,
   Tabs,
   UpdateComponent
@@ -22,6 +29,7 @@ import type { TabItem } from 'frontend/components/UI/Tabs'
 import {
   ExtraInfo,
   GameInfo,
+  GameGroup,
   GameSettings,
   Runner,
   WikiInfo,
@@ -69,11 +77,12 @@ type GameTab = 'overview' | 'info' | 'achievements' | 'extra' | 'requirements'
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const location = useLocation() as {
-    state: { fromDM: boolean; gameInfo: GameInfo }
+    state: { fromDM: boolean; gameInfo: GameInfo | GameGroup }
   }
   const { t, i18n } = useTranslation('gamepage')
 
   const { gameInfo: locationGameInfo } = location.state
+  const navigate = useNavigate()
 
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
@@ -93,7 +102,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
     </p>
   )
 
-  const [gameInfo, setGameInfo] = useState(locationGameInfo)
+  const [gameInfo, setGameInfo] = useState<GameInfo>(
+    'games' in locationGameInfo
+      ? locationGameInfo.representative
+      : locationGameInfo
+  )
+  const [gameGroup, setGameGroup] = useState<GameGroup | null>(
+    'games' in locationGameInfo ? locationGameInfo : null
+  )
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
 
   const { status, folder, statusContext } = hasStatus(gameInfo)
@@ -164,6 +180,22 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const previousIsPlaying = useRef<boolean>(isPlaying)
   useEffect(() => {
+    if ('games' in locationGameInfo) {
+      const selectedGame =
+        locationGameInfo.games.find(
+          (game) => game.app_name === appName && game.runner === runner
+        ) || locationGameInfo.representative
+
+      setGameGroup(locationGameInfo)
+      setGameInfo(selectedGame)
+      return
+    }
+
+    setGameGroup(null)
+    setGameInfo(locationGameInfo)
+  }, [appName, runner, locationGameInfo])
+
+  useEffect(() => {
     const updateAchievements = async () => {
       if (!isPlaying && previousIsPlaying.current)
         window.api.clearAchievementCache(appName)
@@ -188,6 +220,31 @@ export default React.memo(function GamePage(): JSX.Element | null {
         if (newInfo) {
           setGameInfo(newInfo)
         }
+        if (gameGroup) {
+          const updatedGames = await Promise.all(
+            gameGroup.games.map(async (g) => {
+              if (g.app_name === appName && g.runner === runner && newInfo) {
+                return newInfo
+              }
+              const info = await getGameInfo(g.app_name, g.runner)
+              return info || g
+            })
+          )
+
+          const updatedRepresentative =
+            updatedGames.find(
+              (g) =>
+                g.app_name === gameGroup.representative.app_name &&
+                g.runner === gameGroup.representative.runner
+            ) || updatedGames[0]
+
+          setGameGroup({
+            ...gameGroup,
+            games: updatedGames,
+            representative: updatedRepresentative
+          })
+        }
+
         setExtraInfo(
           await window.api.getExtraInfo(
             appName,
@@ -455,6 +512,43 @@ export default React.memo(function GamePage(): JSX.Element | null {
               <Panel tone="glass" padding="lg" className="gamePage__hero">
                 <div className="gamePage__heroMain">
                   <h1 className="gamePage__title">{title}</h1>
+                  {gameGroup && gameGroup.games.length > 1 && (
+                    <div className="gamePage__stores">
+                      {gameGroup.games.map((game) => {
+                        const isSelected =
+                          game.runner === runner && game.app_name === appName
+                        const storeName = getStoreName(
+                          game.runner,
+                          t('Other', 'Other')
+                        )
+                        return (
+                          <button
+                            key={`${game.runner}-${game.app_name}`}
+                            type="button"
+                            className={classNames('gamePage__storeButton', {
+                              selected: isSelected
+                            })}
+                            title={storeName}
+                            aria-label={storeName}
+                            aria-pressed={isSelected}
+                            onClick={() =>
+                              navigate(
+                                `/gamepage/${game.runner}/${game.app_name}`,
+                                {
+                                  state: {
+                                    ...location.state,
+                                    gameInfo: gameGroup
+                                  }
+                                }
+                              )
+                            }
+                          >
+                            <StoreBadge runner={game.runner} />
+                          </button>
+                        )
+                      })}
+                    </div>
+                  )}
                   <div className="gamePage__meta">
                     <Genres
                       genres={

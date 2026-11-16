@@ -10,7 +10,13 @@ import {
 } from 'react'
 
 import FamilyShareIcon from 'frontend/assets/ico_familysharing.svg?react'
-import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
+import {
+  FavouriteGame,
+  GameInfo,
+  GameGroup,
+  HiddenGame,
+  Runner
+} from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   ArrowUpCircle,
@@ -66,7 +72,7 @@ interface Card {
   hasUpdate: boolean
   isRecent: boolean
   justPlayed: boolean
-  gameInfo: GameInfo
+  gameInfo: GameInfo | GameGroup
   forceCard?: boolean
   dataTour?: string
 }
@@ -88,7 +94,11 @@ const GameCard = ({
     // render an empty div until the card enters the viewport
     // check GameList for the other side of this detection
     const callback = (e: CustomEvent<{ appNames: string[] }>) => {
-      if (e.detail.appNames.includes(gameInfoFromProps.app_name)) {
+      const appName =
+        'games' in gameInfoFromProps
+          ? gameInfoFromProps.representative.app_name
+          : gameInfoFromProps.app_name
+      if (e.detail.appNames.includes(appName)) {
         setVisible(true)
       }
     }
@@ -100,7 +110,11 @@ const GameCard = ({
     }
   }, [])
 
-  const [gameInfo, setGameInfo] = useState<GameInfo>(gameInfoFromProps)
+  const [gameInfo, setGameInfo] = useState<GameInfo>(
+    'games' in gameInfoFromProps
+      ? gameInfoFromProps.representative
+      : gameInfoFromProps
+  )
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
   // A cover fetched from the store API to replace a missing/unreachable Steam
@@ -130,18 +144,22 @@ const GameCard = ({
 
   const { layout } = useContext(LibraryContext)
 
+  const actualGameInfo =
+    'games' in gameInfoFromProps
+      ? gameInfoFromProps.representative
+      : gameInfoFromProps
   const {
     art_logo: logo = undefined,
     app_name: appName,
     runner,
     is_installed: isInstalled,
     install: gameInstallInfo
-  } = { ...gameInfoFromProps }
-  const title = gameInfoFromProps.overrides?.title || gameInfoFromProps.title
+  } = { ...actualGameInfo }
+  const title = actualGameInfo.overrides?.title || actualGameInfo.title
   const art_cover =
-    gameInfoFromProps.overrides?.art_cover || gameInfoFromProps.art_cover
+    actualGameInfo.overrides?.art_cover || actualGameInfo.art_cover
   const cover =
-    gameInfoFromProps.overrides?.art_square || gameInfoFromProps.art_square
+    actualGameInfo.overrides?.art_square || actualGameInfo.art_square
 
   // Steam's library_600x900 portrait is often missing
   // only after its real CDN URL fails fetch a wiki portrait.
@@ -502,12 +520,26 @@ const GameCard = ({
           )}
           <Link
             to={`/gamepage/${runner}/${appName}`}
-            state={{ gameInfo }}
+            state={{ gameInfo: gameInfoFromProps }}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
-            <StoreBadge runner={runner} />
+            {'games' in gameInfoFromProps ? (
+              <span className="StoreBadgeGroup">
+                {Array.from(
+                  new Set(gameInfoFromProps.games.map((g) => g.runner))
+                ).map((r) => (
+                  <StoreBadge
+                    key={r}
+                    runner={r}
+                    title={getStoreName(r, t2('Other'))}
+                  />
+                ))}
+              </span>
+            ) : (
+              <StoreBadge runner={runner} />
+            )}
             {gameInfo.isFamilyShare && (
               <span
                 className="family-share-icon"
@@ -564,7 +596,15 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {getStoreName(runner, t2('Other'))}
+              {'games' in gameInfoFromProps
+                ? Array.from(
+                    new Set(
+                      gameInfoFromProps.games.map((g) =>
+                        getStoreName(g.runner, t2('Other'))
+                      )
+                    )
+                  ).join(', ')
+                : getStoreName(runner, t2('Other'))}
             </span>
           </div>
           <CloudSyncStatus gameInfo={gameInfo} className="cloud-sync-icon" />

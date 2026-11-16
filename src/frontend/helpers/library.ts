@@ -2,6 +2,7 @@ import {
   InstallPlatform,
   AppSettings,
   GameInfo,
+  GameGroup,
   InstallProgress,
   Runner,
   UpdateParams,
@@ -475,12 +476,13 @@ const updateGame = (args: UpdateParams) => {
   return window.api.updateGame(args)
 }
 
-export const countGames = (list: GameInfo[] | undefined) => {
+export const countGames = (list: (GameInfo | GameGroup)[] | undefined) => {
   if (!list) {
     return 0
   }
+  // GameGroups never contain DLCs since those are filtered out beforehand
   const dlcCount = list.filter(
-    (lib) => lib.runner !== 'sideload' && lib.install.is_dlc
+    (lib) => 'runner' in lib && lib.runner !== 'sideload' && lib.install.is_dlc
   ).length
   const total = list.length - dlcCount
   return total > 0 ? total : 0

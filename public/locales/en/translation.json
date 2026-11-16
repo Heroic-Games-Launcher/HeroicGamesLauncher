@@ -1036,11 +1036,13 @@
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
             "enableNewDesign": "New design",
+            "hideDuplicateGames": "Hide duplicate games",
             "zoomPlatform": "Zoom Platform support (only linux)"
         },
         "experimental_features_description": {
             "cometSupport": "Enable GOG Galaxy features such as achievements and multiplayer",
             "enableHelp": "Show an in-app help panel explaining the setting you are hovering",
+            "hideDuplicateGames": "Show games owned on several stores as a single library entry",
             "zoomPlatform": "Add the Zoom Platform store to your library"
         },
         "frameless-window": {

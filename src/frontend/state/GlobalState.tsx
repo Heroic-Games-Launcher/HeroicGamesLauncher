@@ -316,6 +316,7 @@ class GlobalState extends PureComponent<Props> {
       enableHelp: false,
       cometSupport: true,
       zoomPlatform: false,
+      hideDuplicateGames: false,
       ...(globalSettings?.experimentalFeatures || {})
     },
     disableDialogBackdropClose: configStore.get(

@@ -690,3 +690,35 @@
   border-color: var(--divider);
   color: var(--text-default);
 }
+
+/* Store switcher shown for deduplicated games available on several stores. */
+.gamePage__stores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.gamePage__storeButton {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.gamePage__storeButton:hover,
+.gamePage__storeButton.selected {
+  opacity: 1;
+}
+
+.gamePage__storeButton.selected {
+  outline: 2px solid var(--brand-primary, currentColor);
+  outline-offset: 2px;
+}
+
+.gamePage__storeButton:focus-visible {
+  outline: 2px solid var(--brand-primary, currentColor);
+  outline-offset: 2px;
+}
