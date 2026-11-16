@@ -2,7 +2,7 @@ import { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Heart, RefreshCw } from 'lucide-react'
 import { GameInfo } from 'common/types'
-import { Button, Icon } from 'frontend/components/UI'
+import { Button, Icon, Tooltip } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import GameContext from '../../GameContext'
 import DotsMenu from './DotsMenu'
@@ -52,38 +52,51 @@ const GameActions = ({
 
       {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
 
-      <Button
-        variant="ghost"
-        className="gameActions__favourite"
-        title={
+      <Tooltip
+        content={
           isFavourite
             ? t('button.unfavourite', 'Remove from Favourites')
             : t('button.favourite', 'Add to Favourites')
         }
-        aria-pressed={isFavourite}
-        onClick={() =>
-          isFavourite
-            ? favouriteGames.remove(appName)
-            : favouriteGames.add(appName, title)
-        }
-        icon={
-          <Icon
-            glyph={Heart}
-            size="lg"
-            fill={isFavourite ? 'currentColor' : 'none'}
-          />
-        }
-      />
-
-      {hasUpdate && (
+        asChild
+      >
         <Button
           variant="ghost"
-          className="gameActions__update"
-          title={t('button.update', 'Update')}
-          aria-label={t('status.hasUpdates', 'New Version Available!')}
-          onClick={handleUpdate}
-          icon={<Icon glyph={RefreshCw} size="lg" />}
+          className="gameActions__favourite"
+          aria-label={
+            isFavourite
+              ? t('button.unfavourite', 'Remove from Favourites')
+              : t('button.favourite', 'Add to Favourites')
+          }
+          aria-pressed={isFavourite}
+          onClick={() =>
+            isFavourite
+              ? favouriteGames.remove(appName)
+              : favouriteGames.add(appName, title)
+          }
+          icon={
+            <Icon
+              glyph={Heart}
+              size="lg"
+              fill={isFavourite ? 'currentColor' : 'none'}
+            />
+          }
         />
+      </Tooltip>
+
+      {hasUpdate && (
+        <Tooltip
+          content={t('status.hasUpdates', 'New Version Available!')}
+          asChild
+        >
+          <Button
+            variant="ghost"
+            className="gameActions__update"
+            aria-label={t('status.hasUpdates', 'New Version Available!')}
+            onClick={handleUpdate}
+            icon={<Icon glyph={RefreshCw} size="lg" />}
+          />
+        </Tooltip>
       )}
 
       <CloudSyncStatus gameInfo={gameInfo} className="gamePageCloudSync" />

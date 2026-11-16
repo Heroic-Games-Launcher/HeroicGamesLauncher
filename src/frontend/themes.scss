@@ -101,6 +101,8 @@ body.midnightMirage {
   --success-hover: var(--status-success-hover);
   --danger: var(--status-danger);
   --danger-hover: var(--status-danger-hover);
+  --status-info: var(--brand-secondary);
+  --status-info-hover: var(--brand-secondary-hover);
 
   /* Others for compatibility, probably can be refactored */
   --primary: var(--brand-primary);
@@ -933,6 +935,21 @@ body.midnightMirage {
     var(--role-brand) 0%,
     var(--brand-secondary) 100%
   );
+
+  .Button--secondary {
+    --button-surface: color-mix(
+      in oklab,
+      var(--role-brand) 18%,
+      var(--panel-base)
+    );
+
+    background: var(--button-surface);
+  }
+
+  .Button--secondary:hover:not(:disabled),
+  .Button--secondary:focus-visible:not(:disabled) {
+    background: color-mix(in oklab, var(--role-brand) 28%, var(--panel-base));
+  }
 }
 
 body.cyberSpaceOasis {

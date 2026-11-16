@@ -52,7 +52,7 @@ export default memo(function Support() {
       <div className="Support__wrapper">
         <header className="Support__hero">
           <Badge variant="gradient" className="Support__eyebrow">
-            {t('support.title', 'Support Us')}
+            {t('support.title', 'Support us')}
           </Badge>
           <h1 className="Support__title">
             {t('support.headline', 'Help us make Heroic even better')}

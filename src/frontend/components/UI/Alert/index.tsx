@@ -21,6 +21,7 @@ interface AlertProps {
   title?: string
   glyph?: LucideIcon
   actions?: ReactNode
+  actionsPlacement?: 'inline' | 'block'
   className?: string
 }
 
@@ -30,6 +31,7 @@ export default function Alert({
   title,
   glyph,
   actions,
+  actionsPlacement = 'inline',
   className
 }: AlertProps) {
   const Glyph = glyph ?? GLYPHS[variant]
@@ -43,8 +45,13 @@ export default function Alert({
       <div className="Alert__body">
         {title && <span className="Alert__title">{title}</span>}
         <span className="Alert__message">{children}</span>
+        {actions && actionsPlacement === 'block' && (
+          <div className="Alert__actions Alert__actions--block">{actions}</div>
+        )}
       </div>
-      {actions && <div className="Alert__actions">{actions}</div>}
+      {actions && actionsPlacement === 'inline' && (
+        <div className="Alert__actions">{actions}</div>
+      )}
     </div>
   )
 }

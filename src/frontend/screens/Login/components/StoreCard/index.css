@@ -21,6 +21,7 @@
   flex: 1;
   background: transparent;
   border-radius: 0;
+  gap: var(--space-lg-fixed);
 }
 
 .storeCard .storeCard__badge {
@@ -29,35 +30,25 @@
   border-radius: 14px;
 }
 
-.storeCard__user {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-3xs-fixed);
-  min-width: 0;
-  text-align: end;
-}
-
 .storeCard__loggedLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xs-fixed);
   color: var(--text-success);
-  font-weight: var(--semibold);
+  font-weight: var(--bold);
 }
 
-.storeCard__userName {
+.storeCard__loggedBadge .storeCard__userName {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--text-neutral);
+  font-weight: var(--regular);
 }
 
 .storeCard__actions {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: var(--space-xs-fixed);
+  gap: var(--space-sm-fixed);
   width: 100%;
 }
 

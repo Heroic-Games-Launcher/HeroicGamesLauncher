@@ -129,6 +129,12 @@
   color: var(--on-panel-faint, var(--text-secondary));
 }
 
+.DownloadItem__status {
+  grid-area: status;
+  display: inline-flex;
+  align-items: center;
+}
+
 .DownloadItem__actions {
   grid-area: actions;
   display: inline-flex;
@@ -161,6 +167,10 @@
   margin-inline: calc(var(--space-xs-fixed) * -1);
   border-radius: 12px;
   transition: background-color 150ms ease;
+}
+
+.DownloadList--finished .DownloadItem--row {
+  grid-template-areas: 'game status type store time actions';
 }
 
 .DownloadItem--row:hover,
@@ -227,6 +237,13 @@
       'type store time .';
     row-gap: var(--space-xs-fixed);
     column-gap: var(--space-sm-fixed);
+  }
+
+  .DownloadList--finished .DownloadItem--row {
+    grid-template-columns: auto auto auto minmax(0, 1fr);
+    grid-template-areas:
+      'game game game actions'
+      'status type store time';
   }
 }
 

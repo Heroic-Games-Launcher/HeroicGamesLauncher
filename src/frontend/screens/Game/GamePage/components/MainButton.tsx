@@ -201,7 +201,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             onClick={async () => launch(true)}
             icon={<Icon glyph={ScrollText} size="lg" strokeWidth={2} />}
           >
-            {t('label.playing.start_with_logs', 'Play with Logs')}
+            {t('label.playing.start_with_logs', 'Play with logs')}
           </Button>
         )}
       </div>
