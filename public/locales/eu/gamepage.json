@@ -96,7 +96,10 @@
         "changelog": "Aldaketak erakutsi",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "Edit App/Game",
+        "favourite": "Gehitu gogokoetara",
+        "unfavourite": "Kendu gogokoenetik"
     },
     "cloud_save_unsupported": "Onartu gabe",
     "disabled": "Desgaituta",
@@ -132,7 +135,8 @@
         "changelogFor": "{{gameTitle}}-(r)en aldaketak",
         "install_info": "",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game Defaults"
     },
     "gamecard": {
         "moving": "Mugitzen",
@@ -334,5 +338,11 @@
     },
     "open-saves-folder": "",
     "Open": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Edit App/Game"
+    }
 }

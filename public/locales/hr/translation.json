@@ -11,7 +11,10 @@
         "titles_always_visible": "Uvijek prikazuj naslove u knjižnici",
         "disable_smooth_scrolling": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "Biblioteka"
+        }
     },
     "add_game": "Dodaj igru",
     "All": "Sve",
@@ -98,7 +101,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -174,11 +182,6 @@
                     "message": ""
                 }
             },
-            "snap": {
-                "checkbox": "Ne prikazuj ovu poruku ponovno",
-                "title": "",
-                "message": ""
-            },
             "rosetta": {
                 "title": "",
                 "message": ""
@@ -199,7 +202,8 @@
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj",
-        "continue": "Nastavi"
+        "continue": "Nastavi",
+        "close": "Zatvori"
     },
     "controller": {
         "hints": {
@@ -218,7 +222,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Aktualiziraj igru"
+            "update_game": "Aktualiziraj igru",
+            "exit": "Exit"
         }
     },
     "docs": "Documentation",
@@ -252,18 +257,19 @@
         "status": "Status",
         "store": "Trgovina",
         "title": "Naslov igre",
-        "modify": "Promjeni instalaciju"
+        "modify": "Promjeni instalaciju",
+        "settings": "Postavke igre"
     },
     "generic": {
         "error": {
-            "component": "Nije pronađena nijedna igra – odjavi se i ponovo se prijavi ili pokušaj jednu od opcija u nastavku"
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
         },
         "library": {
             "refresh": "Osviježi knjižnicu"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "About",
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -287,7 +293,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Stores"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -372,7 +380,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -534,7 +545,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "Windows",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -663,7 +674,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "Prebaci",
                     "content": ""
                 },
                 "open": "",
@@ -707,13 +718,6 @@
         "offlinemode": "Pokreni igre bez internetske veze",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Use Dedicated Graphics Card"
-        },
         "runexe": {
             "message": "Povicute i pustite datoteke ovjde",
             "title": "Pokreni EXE na putu"
@@ -798,7 +802,15 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Koristi radno vrijeme Steama",
+            "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Otvori",
+            "selectExe": "Odaberi EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -836,7 +848,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "",
             "systemInformation": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kategorije"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -914,6 +927,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Opcije za pokretanje...",
+            "wineTools": "Alati"
         }
     },
     "Settings": "Postavke",
@@ -926,7 +944,8 @@
         "installing": "Instaliranje u tijeku",
         "logging": "Logging In...",
         "processing": "Obrada datoteka, pričekaj",
-        "preparing_login": "Priprema prijave... "
+        "preparing_login": "Priprema prijave... ",
+        "installed": "Instalirano"
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -950,7 +969,8 @@
         "show": "Pokaži"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Changes in this table are not saved automatically. Click the + button",
+        "add": "Dodaj"
     },
     "Update Available!": "Dostupno ažuriranje!",
     "userselector": {
@@ -981,8 +1001,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "Postavke",
             "no-results": ""
         },
         "release": "Release Date",
@@ -1114,11 +1134,11 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "noResultsTitle": "Igrice nisu pronađene"
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1176,11 +1196,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Sve",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Pojedinosti",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1202,17 +1223,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Pojedinosti"
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
-            "no-grids": "",
+            "no-games": "Igrice nisu pronađene",
+            "no-grids": "Dnevnik nije nađen za ovu igricu",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Traži igre",
             "title": "",
             "select-game": ""
         }
@@ -1234,7 +1259,7 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Odustani",
             "change_store": ""
         },
         "launching": "",
@@ -1242,13 +1267,26 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Sve"
         },
         "empty": "",
-        "games": "",
+        "games": "Installed Games",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading",
+            "path": "Instaliraj na",
+            "wineMissing": "Nijedna staza nije odabrana"
+        }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Dodaj",
+        "cancel": "Odustani",
+        "warning": "Upozorenje"
+    },
+    "General": "Općenito"
 }

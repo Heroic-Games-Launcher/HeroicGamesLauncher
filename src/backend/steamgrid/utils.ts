@@ -78,3 +78,40 @@ export async function getGrids(
 
   return response.data.data
 }
+
+/**
+ * Get heroes (wide hero/cover art) for a specific game.
+ */
+export async function getHeroes(
+  apiKey: string,
+  args: {
+    gameId: number
+    dimensions?: string[]
+    styles?: string[]
+  }
+): Promise<SGDBGrid[]> {
+  const params: Record<string, string> = {}
+  if (args.dimensions && args.dimensions.length > 0) {
+    params.dimensions = args.dimensions.join(',')
+  }
+  if (args.styles && args.styles.length > 0) {
+    params.styles = args.styles.join(',')
+  }
+
+  const response = await axios.get<SGDBResponse<SGDBGrid[]>>(
+    `${SGDB_API_URL}/heroes/game/${args.gameId}`,
+    {
+      params,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'User-Agent': userAgent
+      }
+    }
+  )
+
+  if (!response.data.success) {
+    throw new Error(response.data.errors?.join(', ') || 'Failed to get heroes')
+  }
+
+  return response.data.data
+}

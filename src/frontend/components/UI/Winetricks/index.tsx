@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import { ProgressDialog } from '../ProgressDialog'
 import WinetricksSearchBar from './WinetricksSearch'
+import Button from '../Button'
 import { useTranslation } from 'react-i18next'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import { Runner } from 'common/types'
@@ -102,12 +103,16 @@ export default function Winetricks({ onClose, runner }: Props) {
     }
   }, [])
 
+  const [guiOpen, setGuiOpen] = useState<boolean>(false)
   function launchWinetricks() {
-    window.api.callTool({
-      tool: 'winetricks',
-      appName,
-      runner
-    })
+    setGuiOpen(true)
+    window.api
+      .callTool({
+        tool: 'winetricks',
+        appName,
+        runner
+      })
+      .finally(() => setGuiOpen(false))
   }
 
   const dialogContent = (
@@ -121,13 +126,13 @@ export default function Winetricks({ onClose, runner }: Props) {
                 installed={installed}
                 onInstallClicked={install}
               />
-              <button
-                className="button outline"
-                onClick={async () => launchWinetricks()}
+              <Button
                 disabled={installing}
+                onClick={async () => launchWinetricks()}
+                variant="secondary"
               >
-                {t('winetricks.openGUI', 'Open Winetricks GUI')}
-              </button>
+                {t('winetricks.openGUI', 'Open winetricks GUI')}
+              </Button>
             </div>
           )}
           {loadingAvailable && (
@@ -162,7 +167,7 @@ export default function Winetricks({ onClose, runner }: Props) {
           <span>
             {t(
               'winetricks.nothingYet',
-              'Nothing was installed by Winetricks yet'
+              'Nothing was installed by winetricks yet'
             )}
           </span>
         )}
@@ -178,6 +183,9 @@ export default function Winetricks({ onClose, runner }: Props) {
       showCloseButton={true}
       onClose={onClose}
       className="winetricksDialog"
+      hideProgress={
+        !guiOpen && !installing && !loadingInstalled && !loadingAvailable
+      }
     >
       {dialogContent}
     </ProgressDialog>

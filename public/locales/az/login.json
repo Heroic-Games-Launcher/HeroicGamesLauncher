@@ -5,7 +5,8 @@
         "copy": "Kopyalayın",
         "copied": "Kopyalandı!",
         "error": "Xəta, başqa kodu sınayın",
-        "loading": "Yüklənir"
+        "loading": "Yüklənir",
+        "close": "Bağla"
     },
     "message": {
         "part1": "Oyunlarınızı daxil etmək və quraşdırmaq üçün əvvəlcə aşağıdakı addımları yerinə yetirməlisiniz:",

@@ -98,7 +98,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "{{game}} Steam-era gehitzeak huts egin du honekin:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -172,11 +177,6 @@
                 "title": "",
                 "message": ""
             },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",
@@ -199,7 +199,8 @@
         "sync": "Sinkronizatu",
         "syncing": "Sinkronizatzen",
         "unsync": "Desinkronizatu",
-        "continue": "Jarraitu"
+        "continue": "Jarraitu",
+        "close": "Itxi"
     },
     "controller": {
         "hints": {
@@ -218,7 +219,8 @@
             "scroll": "Korritu",
             "select": "Hautatu",
             "space": "Espazioa",
-            "update_game": "Eguneratu jokoa"
+            "update_game": "Eguneratu jokoa",
+            "exit": "Irten"
         }
     },
     "docs": "Dokumentazioa",
@@ -252,7 +254,8 @@
         "status": "Egoera",
         "store": "Denda",
         "title": "Jokoaren izenburua",
-        "modify": "Aldatu Instalazioa"
+        "modify": "Aldatu Instalazioa",
+        "settings": "Game Settings"
     },
     "generic": {
         "error": {
@@ -263,7 +266,7 @@
         },
         "abort": "",
         "install": "Install",
-        "uninstall": ""
+        "uninstall": "Uninstalling"
     },
     "globalSettings": "Ezarpen globalak",
     "GOG": "GOG",
@@ -287,7 +290,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Store"
     },
     "help": {
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
@@ -332,7 +337,7 @@
         "title": {
             "accessibility": "Erabilerraztasuna",
             "downloadManager": "Download Manager",
-            "login": "",
+            "login": "Log in",
             "settings": "",
             "wineManager": "",
             "library": ""
@@ -372,7 +377,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Erabili txartel grafiko dedikatua jokoa errendatzeko GPU anitzeko sistemetan. Errendatzeko bururik gabeko GPU bat erabiltzen duten joko-ordenagailu eramangarrietan edo mahaigainetan bakarrik behar da (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -686,7 +694,7 @@
                 "nile": "",
                 "gog": "",
                 "zoom": "",
-                "game-log": "",
+                "game-log": "{{gameTitle}}-(r)en aldaketak",
                 "heroic": ""
             },
             "show-uploads": ""
@@ -707,13 +715,6 @@
         "offlinemode": "Exekutatu jokoa lineaz kanpo",
         "prefered_language": "Lehenetsitako hizkuntza (Hizkuntza-kodea)",
         "preferSystemLibs": "Sistemaren liburutegiak hobetsi",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Erabili txartel grafiko dedikatua"
-        },
         "runexe": {
             "message": "Arrastatu eta Jaregin Fitxategiak hemen",
             "title": "Exekutatu EXE aurrizkian"
@@ -798,7 +799,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "tools": {
+            "selectExe": "Hautatu EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -914,6 +918,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Jaurtiketa-aukerak...",
+            "wineTools": "Tresnak"
         }
     },
     "Settings": "Ezarpenak",
@@ -926,7 +935,8 @@
         "installing": "Instalatzen",
         "logging": "Saioa hasi...",
         "processing": "Fitxategiak prozesatzen, itxaron mesedez",
-        "preparing_login": "Saioa hasteko prestatzen... "
+        "preparing_login": "Saioa hasteko prestatzen... ",
+        "installed": "Install"
     },
     "store": "Denda epikoa",
     "stores": "Dendak",
@@ -1118,7 +1128,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1178,9 +1187,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Dena",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Xehetasunak",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1202,12 +1212,16 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Xehetasunak"
     },
     "steamgriddb": {
         "error": {
             "no-games": "",
-            "no-grids": "",
+            "no-grids": "Ez zen aurkitu joko honetarako erregistroa",
             "search": "",
             "grids": ""
         },
@@ -1248,7 +1262,17 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Kargatzen",
+            "path": "Install",
+            "wineMissing": "No path selected"
+        }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "Ezeztatu",
+        "warning": "Warning"
+    }
 }

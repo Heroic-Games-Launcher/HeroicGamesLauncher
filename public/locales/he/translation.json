@@ -63,7 +63,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "הוספת {{game}} לSteam נכשל בשל: {{newLine}}{{error}}"
+                }
+            }
         },
         "runexe": {
             "title": "בחרו קובץ EXE להפעיל"
@@ -93,14 +98,9 @@
             "rosetta": {
                 "title": "",
                 "message": ""
-            },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
             }
         },
-        "wineprefix": "בחרו תיקיית wine prefix",
+        "wineprefix": "בחר תיקיית WinePrefix",
         "default-steam-path": "מיקום Steam.",
         "customWine": "בחרו קובץ הרצה של Wine או Proton",
         "dontShowAgain": "אל תראה שוב",
@@ -172,8 +172,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "עדכן",
+            "settings": "הגדרות",
             "no-results": ""
         },
         "release": "תאריך יציאה",
@@ -183,7 +183,8 @@
         "login": "היכנס",
         "cancel": "ביטול",
         "continue": "המשך",
-        "go_to_library": "ללכת לספריה"
+        "go_to_library": "ללכת לספריה",
+        "close": "לסגור"
     },
     "controller": {
         "hints": {
@@ -202,7 +203,8 @@
             "move_cursor": "הזז סמן",
             "play_game": "שחק משחק",
             "open_virtual_keyboard": "פתח מקלדת וירטואלית",
-            "scroll": "גללו"
+            "scroll": "גללו",
+            "exit": "יציאה"
         }
     },
     "dlc": {
@@ -399,7 +401,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "העלה",
                     "content": ""
                 },
                 "open": "",
@@ -442,13 +444,6 @@
         "offlinemode": "הפעל משחק ללא חיבור לרשת",
         "prefered_language": "שפה מועדפת (Language Code)",
         "preferSystemLibs": "העדף ספריות מערכת",
-        "primerun": {
-            "confirmation": {
-                "title": "רק כרטיס גרפי אחד זוהה",
-                "message": "רק כרטיס גרפי יחיד זוהה במערכת הזאת. שימו לב שאופציה זאת מיועדת למערכות עם יותר מכרטיס גרפי אחד שיש להם כרטיס גרפי ללא פלט ישיר למסך (כגון לפטופים מסויימים). במערכות עם כרטיס גרפי יחיד, השימוש בכרטיס הגרפי הוא אוטומטי והפעלה של אופציה זאת יכולה לגרום לבעיות. אתם באמת רוצים להפעיל אופציה זו?"
-            },
-            "description": "השתמש בכרטיס גרפי ייעודי"
-        },
         "runexe": {
             "title": "הפעל EXE על Prefix",
             "message": "גררו קבצים לפה"
@@ -543,13 +538,21 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "השתמש בSteam Runtime"
+        },
+        "tools": {
+            "open": "פתוח",
+            "selectExe": "בחרו EXE"
+        }
     },
     "status": {
         "processing": "מעבד קבצים, נא לחכות",
         "installing": "מתקין",
         "logging": "נכנס...",
-        "preparing_login": "מכין כניסה... "
+        "preparing_login": "מכין כניסה... ",
+        "installed": "מותקן"
     },
     "accessibility": {
         "content_font_family_no_default": "משפחת גופני תוכן (ברירת מחדל: ",
@@ -563,7 +566,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "ספריה"
+        }
     },
     "docs": "תיעוד",
     "epic": {
@@ -580,7 +586,8 @@
         "status": "סטטוס",
         "store": "חנות",
         "title": "כותרת משחק",
-        "modify": ""
+        "modify": "",
+        "settings": "הגדרות משחק"
     },
     "generic": {
         "library": {
@@ -589,9 +596,9 @@
         "error": {
             "component": "לא נמצאו משחקים - נסו לצאת ולהיכנס שוב או את אחד מהאפשרויות הבאות"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "אודות",
+        "install": "התקן",
+        "uninstall": "הסר התקנה"
     },
     "header": {
         "hide_non_available_games": "הסתר משחקים שאינם זמינים",
@@ -612,7 +619,9 @@
         "show_updates_only": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "פלטפורמה",
+        "stores": "חנויות"
     },
     "help": {
         "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
@@ -660,7 +669,7 @@
             "settings": "הגדרות",
             "wineManager": "מנהל גרסאות Wine",
             "library": "ספריה",
-            "login": "",
+            "login": "היכנס",
             "downloadManager": ""
         },
         "msync": "מטרת Fsync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים על הקרנלים של לינוקס הנתמכים.",
@@ -697,7 +706,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "Library": "ספריה",
     "message": {
@@ -743,7 +755,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "ווינדוס",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -851,7 +863,7 @@
             "clearCache": {
                 "help9": "הגדרות משחק",
                 "help1": "",
-                "help8": "",
+                "help8": "התקן משחק",
                 "help3": "",
                 "help10": "",
                 "help7": "",
@@ -884,6 +896,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "הורדות",
+            "experimental": "תכונות ניסיוניות",
+            "launch": "פותח הגדרות..."
         }
     },
     "Settings": "הגדרות",
@@ -1096,7 +1113,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1141,7 +1157,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "מערכת הפעלה:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1154,11 +1170,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "הכל",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "פלטפורמה"
         },
-        "sidebar": "",
+        "sidebar": "פרטים",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1180,7 +1197,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "חנות"
+        },
+        "titleMulti": "פרטים"
     },
     "steamgriddb": {
         "error": {
@@ -1190,7 +1211,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "חיפוש משחקים",
             "title": "",
             "select-game": ""
         }
@@ -1209,27 +1230,39 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "מפעיל",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "יציאה",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "מפעיל",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "אחר",
+            "all": "הכל"
         },
         "empty": "",
-        "games": "",
+        "games": "התקן משחק",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "פלטפורמה",
+            "title": "התקן משחק",
+            "wineLoading": "טוען",
+            "path": "התקן",
+            "wineMissing": "לא נבחר מיקום"
+        }
     },
     "next": "",
     "sidebar": {
         "console": ""
-    }
+    },
+    "common": {
+        "cancel": "בטל",
+        "warning": "אזהרה"
+    },
+    "General": "כללי"
 }

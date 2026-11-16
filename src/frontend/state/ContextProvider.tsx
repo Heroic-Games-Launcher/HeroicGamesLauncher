@@ -31,6 +31,23 @@ const initialContext: ContextType = {
     logout: async () => Promise.resolve(),
     enabled: false
   },
+  itchio: {
+    library: [],
+    getLoginData: async () => Promise.resolve({ apiKeysUrl: '' }),
+    getOAuthUrl: async () => Promise.resolve({ url: '' }),
+    login: async () => Promise.resolve(''),
+    loginWithOAuthCode: async () => Promise.resolve(''),
+    logout: async () => Promise.resolve()
+  },
+  steam: {
+    library: [],
+    login: async () => Promise.resolve({ status: 'error' as const }),
+    loginQr: async () => Promise.resolve({ status: 'error' as const }),
+    logout: async () => Promise.resolve(),
+    enabled: false,
+    users: [],
+    logoutUser: () => null
+  },
   installingEpicGame: false,
   sideloadedLibrary: [],
   error: false,
@@ -91,6 +108,10 @@ const initialContext: ContextType = {
   handleExternalLinkDialog: () => null,
   hideChangelogsOnStartup: false,
   setHideChangelogsOnStartup: () => null,
+  disableDiscounts: false,
+  setDisableDiscounts: () => null,
+  disableGOGAffiliate: true,
+  setDisableGOGAffiliate: () => null,
   lastChangelogShown: null,
   setLastChangelogShown: () => null,
   help: {

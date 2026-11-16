@@ -11,7 +11,11 @@
         "content_font_family_default": "Content Font Family (Standard: {{fontFamily}})",
         "actions_font_family_default": "Actions Font Family (Standard: {{fontFamily}}",
         "disable_smooth_scrolling": "Skru av jevn rulling (krever omstart)",
-        "disable_animations": "Skru av animasjoner i brukergrensesnittet"
+        "disable_animations": "Skru av animasjoner i brukergrensesnittet",
+        "section": {
+            "appearance": "Utseende",
+            "library": "Bibliotek"
+        }
     },
     "add_game": "Legg til spill",
     "All": "Alle",
@@ -96,13 +100,21 @@
             "steam": {
                 "message": "Installeringen av Steam mislyktes! Gå gjennom instruksjonene en gang til og prøv igjen! {{paragraph}} {{error}}",
                 "title": "Steam-feil",
-                "error": "Steams programfil ble ikke funnet. Installasjonen ble antagelig avbrutt eller mislyktes."
+                "error": "Steams programfil ble ikke funnet. Installasjonen ble antagelig avbrutt eller mislyktes.",
+                "running": "Steam kjører. Lukk Steam og prøv igjen, eller start Steam på nytt en gang for å la Heroic håndtere snarveier mens Steam kjører.",
+                "running-gamemode": "Steam må startes på nytt en gang før Heroic kan håndtere Steam-snarveier på denne enheten. Start Steam på nytt og prøv igjen."
             },
             "executableNotFound": "Programfil ikke funnet",
             "executableNotFoundMessage": "Heroic kunne ikke finne programfilen til spillet. Velg programfilen manuelt i spillinstillingene.",
             "dxmt": {
                 "message": "Kunne ikke laste ned DXMT! Sjekk internettilgangen din!",
                 "title": "Kunne ikke laste ned DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Fjerningen av {{game}} fra Steam mislyktes med:{{newLine}} {{error}}",
+                    "title": "En feil oppsto ved fjerning av et spill fra Steam"
+                }
             }
         },
         "info": {
@@ -173,11 +185,6 @@
                 "message": "Vi kunne ikke finne den valgte Wine-versjonen for å starte dette programmet ({{selectedWine}}). {{newline}} Vi fant en annen, vil du fortsette med {{foundWine}}?",
                 "title": "Fant ikke Wine!"
             },
-            "snap": {
-                "checkbox": "Ikke vis denne meldingen igjen",
-                "message": "Noen funksjoner er foreløpig ikke tilgjengelige i Snap-versjonen av appen, og vi jobber med å fikse det.{{newLine}}Nåværende begrensninger er:{{newLine}}Heroic vil ikke kunne finne Proton fra Steam eller Wine fra Lutris.{{newLine}}{{newLine}}Gamescope, GameMode og MangoHud vil heller ikke fungere, siden Heroic ikke har tilgang til dem.{{newLine}}{{newLine}}For å få tilgang til disse funksjonene, vennligst installer Heroic som en Flatpak, DEB eller fra AppImage.",
-                "title": "Heroic kjører som en Snap"
-            },
             "sideload": {
                 "confirmExit": {
                     "message": "Ulagret fremgang kan gå tapt",
@@ -207,7 +214,9 @@
         "sync": "Synkroniser",
         "syncing": "Synkroniserer …",
         "unsync": "Omgjør synkronisering",
-        "continue": "Fortsette"
+        "continue": "Fortsette",
+        "backToLibrary": "Tilbake til biblioteket",
+        "close": "Lukk"
     },
     "controller": {
         "hints": {
@@ -226,7 +235,13 @@
             "scroll": "Rull",
             "select": "Velg",
             "space": "Rom",
-            "update_game": "Oppdater spillet"
+            "update_game": "Oppdater spillet",
+            "exit": "Avslutt",
+            "move_focus": "Flytt fokus",
+            "next_page": "Neste side",
+            "previous_page": "Forrige side",
+            "search": "Søk",
+            "url_bar": "Addresselinje"
         }
     },
     "docs": "Dokumentasjon",
@@ -237,7 +252,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": "MB/s"
         },
         "link": "Nedlastninger",
         "queue": {
@@ -247,7 +263,15 @@
             "type": "Type"
         },
         "title": "Nedlastninger",
-        "ETA": "Beregnet tid"
+        "ETA": "Beregnet tid",
+        "empty": {
+            "current": "Spill som installeres eller oppdateres vises her.",
+            "queue": {
+                "description": "Nedlastinger du starter mens en allerede pågår vises her.",
+                "title": "Køen er tom"
+            }
+        },
+        "pageSubtitle": "Hva som installeres nå, hva som er neste på lista, og hva som allerede er ferdig"
     },
     "epic": {
         "offline-notification-body": "Netttjenester fungerer kanskje ikke fullt ut siden Epic Games-servere er offline!",
@@ -260,7 +284,8 @@
         "status": "Status",
         "store": "Butikk",
         "title": "Spilltittel",
-        "modify": "Endre installasjonen"
+        "modify": "Endre installasjonen",
+        "settings": "Spillinnstillinger"
     },
     "generic": {
         "error": {
@@ -269,9 +294,9 @@
         "library": {
             "refresh": "Oppdater biblioteket"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "Avbryt",
+        "install": "Installer",
+        "uninstall": "Avinstaller"
     },
     "globalSettings": "Globale innstillinger",
     "GOG": "GOG",
@@ -295,7 +320,12 @@
         "show_support_offline_only": "Vis kun støttet uten nett",
         "uncategorized": "Ukategorisert",
         "show_third_party_managed_only": "Vis kun tredjepartsadministrerte",
-        "show_updates_only": "Bare vis spill med oppdateringer"
+        "show_updates_only": "Bare vis spill med oppdateringer",
+        "platforms": "Platform",
+        "stores": "Butikk",
+        "display": "Skjerm",
+        "hidden": "Skjult",
+        "non_available": "Ikke tilgjengelig"
     },
     "help": {
         "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",
@@ -380,7 +410,12 @@
         "wine-hdr": "HDR forbedrer fargene ved å kunne vise lysere lyspunkter og mørkere kontraster. For at HDR skal fungere, må både skjermen og spillet støtte det.",
         "wine-wayland": "Den eksperimentelle Wine-Wayland-driveren lar spill kjøre uten mellomlag med Wayland-visningsprotokollen. Noen spill fungerer ikke med denne driveren.",
         "analytics": "Lar Heroic samle inn 100% anonyme brukerdata for å hjelpe oss forbedre appen. Appen må startes på nytt før innstillingen gjelder.",
-        "WoW64": "Wine WoW64-modusen lar 32-bit Windows-spill kjøre under 64-bit Wine. Å skru det på kan forbedre ytelse, men det kan også forhindre eldre 32-bit-spill i å fungere riktig."
+        "WoW64": "Wine WoW64-modusen lar 32-bit Windows-spill kjøre under 64-bit Wine. Å skru det på kan forbedre ytelse, men det kan også forhindre eldre 32-bit-spill i å fungere riktig.",
+        "nvidiaprime": {
+            "details": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Se flere detaljer på wikien vår"
+        },
+        "hide-window-on-protocol-launch": "Holder Heroic-vinduet skjult når et spill startes fra en ekstern snarvei, som «Legg til i Steam»-funksjonen."
     },
     "info": {
         "heroic": {
@@ -427,7 +462,9 @@
             "list": "Bytt til et listeoppsett"
         },
         "hideAlphabetFilter": "Gjem alfabetfilteret",
-        "showAlphabetFilter": "Vis alfabetfilteret"
+        "showAlphabetFilter": "Vis alfabetfilteret",
+        "gamesCount_one": "{{count}} spill",
+        "gamesCount_other": "{{count}} spill"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -457,14 +494,16 @@
                 "steam": {
                     "corrupt": "{{game}} kunne ikke legges til alle Steam-brukere som ble funnet. Se logger for mer info. En omstart av Steam er nødvendig, endringer trer i kraft.",
                     "success": "{{game}} ble lagt til Steam. En omstart av Steam er nødvendig, endringer trer i kraft.",
-                    "title": "Lagt til Steam"
+                    "title": "Lagt til Steam",
+                    "success-no-restart": "{{game}} ble lagt til i Steam."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} kunne ikke fjernes fra alle Steam-brukere som ble funnet. Se logger for mer info. En omstart av Steam er nødvendig, endringer trer i kraft.",
                     "success": "{{game}} ble fjernet til Steam. En omstart av Steam er nødvendig, endringer trer i kraft.",
-                    "title": "Fjernet fra Steam"
+                    "title": "Fjernet fra Steam",
+                    "success-no-restart": "{{game}} ble fjernet fra Steam."
                 }
             },
             "reparing": "Ferdig med reparasjon"
@@ -510,20 +549,26 @@
             "placeHolderKey": "NAVN",
             "placeHolderValue": "Eks.: Path/To/ExtraFiles",
             "title": "Avanserte alternativer (miljøvariabler)",
-            "value": "Verdi"
+            "value": "Verdi",
+            "placeHolderV": "VERDI"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Variabelnavn kan ikke være tomme",
                 "equal_sign_in_key": "Variabelnavn kan ikke inneholde \"=\"-tegnet",
-                "space_in_key": "Variabelnavn kan ikke inneholde mellomrom"
+                "space_in_key": "Variabelnavn kan ikke inneholde mellomrom",
+                "duplicate_key": "Et variabel med dette navnet finnes allerede"
             },
             "example": "IKKE ta med \"=\"-tegnet, f.eks. for en innstilling som \"MY_FLAG=123\", sett MY_FLAG i NAME og 123 i VALUE.",
-            "info": "Angi miljøvariabler som skal legges til kommandoen."
+            "info": "Angi miljøvariabler som skal legges til kommandoen.",
+            "add_new": "Legg til nytt variabel",
+            "bulk_edit": "Rediger flere samtidig",
+            "bulk_edit_error": "Noen variabler er stilt feil. Sjekk at alle linjer bruker NØKKEL=VERDI-formatet.",
+            "clear_all_confirm": "Er du sikker på at du vil slette alle miljøvariabler?"
         },
         "gameargs": {
             "placeholder": "Legg inn Launcher-argumentene her",
-            "title": "Spillargumenter (for å kjøre etter kommandoen):",
+            "title": "Spillargumenter (følger kommandoen som starter spillet)",
             "error": {
                 "env": "Miljøvariabler må være konfigurert i tabellen under.",
                 "command": "%command% syntaksen fra Steam er ikke gyldig som spillparametre."
@@ -588,7 +633,8 @@
             "queued": "I kø",
             "remove": "Fjern fra Nedlastninger",
             "pause": "Pause nedlasting",
-            "resume": "Fortsett nedlastingen"
+            "resume": "Fortsett nedlastingen",
+            "paused": "Satt på pause"
         }
     },
     "Recent": "Nylig spilt",
@@ -697,7 +743,10 @@
                 "zoom": "Zoom-logg"
             },
             "show-uploads": "Vis opplastede loggfiler",
-            "join-heroic-discord": "Bli med i vår discord"
+            "join-heroic-discord": "Bli med i vår discord",
+            "error": "En feil oppsto under lesing av loggfil",
+            "jump-to-end": "Hopp til slutten av loggen",
+            "jump-to-start": "Hopp til starten av loggen"
         },
         "mangohud": "Aktiver Mangohud (Mangohud må installeres)",
         "manualsync": {
@@ -715,13 +764,6 @@
         "offlinemode": "Kjør spillet frakoblet",
         "prefered_language": "Foretrukket språk (språkkode)",
         "preferSystemLibs": "Foretrekker systembiblioteker",
-        "primerun": {
-            "confirmation": {
-                "message": "Bare ett skjermkort ble funnet i systemet. Merk at denne innstillingen er ment å brukes i systemer med flere skjermkort og hodeløse skjermkort (som for eksempel laptopper). På systemer med bare ett skjermkort, velges den automatisk, og å skru på denne innstillingen kan forårsake problemer. Vil du likevel skru den på?",
-                "title": "Bare 1 skjermkort funnet"
-            },
-            "description": "Bruk dedikert grafikkort"
-        },
         "runexe": {
             "message": "Dra og slipp filer her",
             "title": "Kjør EXE på prefiks"
@@ -812,7 +854,45 @@
         "scripts": "Skript:",
         "enable-quick-sync-menu": "Aktiver hurtiglagrings-synkroniseringsmenyen på spillsiden",
         "disable_gog_presence": "Deaktiver GOG Presence-oppdateringer",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "Start i konsoll-modus",
+        "hide-window-on-protocol-launch": "Skjul Heroic-vinduet når du starter spill fra heroic://-lenker",
+        "nvidiaprime": {
+            "description": "Tving bruk av NVIDIA Optimus eller AMD Dynamic Switchable Graphics dGPU. Bruk dette KUN for OpenGL og Vulkan-spill."
+        },
+        "steamRuntime": {
+            "label": "Bruk Steam Runtime",
+            "noRuntimeOption": "Ingen"
+        },
+        "gamepad-initial-repeat-delay": "Innledende forsinkelse på gjentatt kontrollerinput",
+        "gamepad-repeat-frequency": "Gjentakelsesfrekvens for kontrollerinput",
+        "tools": {
+            "open": "Åpne",
+            "selectExe": "Velg EXE"
+        },
+        "allow-broken-anticheat": {
+            "description": "Installer spill selv om det er kjent at anticheat hindrer det i å fungere på dette systemet"
+        },
+        "analytics": {
+            "description": "Del anonyme bruksdata for å hjelpe å forbedre Heroic"
+        },
+        "darktrayicon": {
+            "description": "Bruk den mørke varianten av skuffikonet, fungerer bedre på lyse paneler"
+        },
+        "disable-gog-presence": {
+            "description": "Ikke del hvilket GOG-spill du spiller med vennene dine"
+        },
+        "disableController": {
+            "description": "Hindre Heroic fra bli styrt av kontrollere"
+        },
+        "experimental_features_description": {
+            "cometSupport": "Aktiver GOG Galaxys funksjonalitet, blant annet utmerkelser og flerspiller"
+        },
+        "minimizeOnLaunch": {
+            "description": "Send Heroic til bakgrunnen når et spill starter"
+        },
+        "nvidiaPrime": {
+            "description": "Kjør spillet med det dedikerte grafikkortet fra Nvidia istedenfor det integrerte"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -850,7 +930,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformasjon",
             "gamescope": "Gamescope",
-            "legacy": "Foreldret"
+            "legacy": "Foreldret",
+            "categories": "Kategorier"
         },
         "open-config-file": "Åpne konfigurasjonsfil",
         "reset-heroic": "Tilbakestill Heroic",
@@ -921,26 +1002,36 @@
         "legacy_warning": "Advarsel: Innstilingene på denne siden er stort sett foreldret og fungerer muligens ikke.",
         "steamgriddb": {
             "apikey": {
-                "title": "",
-                "placeholder": "",
-                "placeholder_saved": ""
+                "title": "SteamGridDB API-nøkkel",
+                "placeholder": "Skriv inn SteamGridDB API-nøkkelen din her",
+                "placeholder_saved": "Nøkkel lagret – skriv inn for å erstatte, fjern for å fjerne"
             },
             "help": {
-                "description": ""
+                "description": "Oppgi din egen SteamGridDB API-nøkkel for å aktivere søk etter omslagskunst for spill. Nøkkelen lagres kryptert dersom systemet ditt støtter det. Du kan skaffe en hos {{url}}"
             }
+        },
+        "open-game-settings-file-hint": "Klikk for å åpne filen med spillinnstillinger",
+        "section": {
+            "appearance": "Utseende",
+            "downloads": "Nedlastninger",
+            "experimental": "Eksperimentelle funksjoner",
+            "launch": "Startalternativer",
+            "wineVersion": "Wine"
         }
     },
     "Settings": "Innstillinger",
     "sidebar": {
         "collapse": "Skjul sidefeltet",
         "uncollapse": "Slå opp sidefeltet",
-        "console": ""
+        "console": "Konsollmodus",
+        "storesLogin": "Butikkpålogging"
     },
     "status": {
         "installing": "Installerer",
         "logging": "Logger inn...",
         "processing": "Behandler filer, vennligst vent",
-        "preparing_login": "Forbereder pålogging... "
+        "preparing_login": "Forbereder pålogging... ",
+        "installed": "Installert"
     },
     "store": "Epic butikken",
     "stores": "Butikker",
@@ -964,7 +1055,8 @@
         "show": "Vis"
     },
     "two_col_table": {
-        "save_hint": "Endringer i denne tabellen lagres ikke automatisk. Klikk på +-knappen"
+        "save_hint": "Endringer i denne tabellen lagres ikke automatisk. Klikk på +-knappen",
+        "add": "Legg til"
     },
     "Update Available!": "Ny versjon tilgjengelig!",
     "userselector": {
@@ -975,14 +1067,16 @@
         "manageaccounts": "Administrer kontoer",
         "quit": "Avslutt",
         "cancel": "Avbryt",
-        "quitMessage": "Er du sikker på at du vil slutte?"
+        "quitMessage": "Er du sikker på at du vil slutte?",
+        "manage": "Håndter"
     },
     "webview": {
         "controls": {
             "back": "Gå tilbake",
             "forward": "Gå framover",
             "openInBrowser": "Åpne i nettleseren",
-            "reload": "Last inn siden på nytt"
+            "reload": "Last inn siden på nytt",
+            "home": "Gå til butikksiden"
         }
     },
     "wine": {
@@ -992,12 +1086,12 @@
             "not-found": "Ingen Wine-versjoner funnet. Vennligst klikk på oppdateringsikonet for å prøve på nytt.",
             "title": "Wine-behandler",
             "unzipping": "Pakker ut",
-            "search": "",
-            "loading": "",
-            "open_folder": "",
-            "update": "",
-            "settings": "",
-            "no-results": ""
+            "search": "Søk etter versjoner...",
+            "loading": "Laster inn wine-versjoner...",
+            "open_folder": "Åpne mappe",
+            "update": "Update",
+            "settings": "Innstillinger",
+            "no-results": "Ingen Wine-versjoner passer søket ditt."
         },
         "release": "Utgivelsesdato",
         "size": "Størrelse",
@@ -1041,7 +1135,10 @@
     },
     "emptyLibrary": {
         "noResults": "De nåværende filtrene ga ingen resultater.",
-        "noGames": "Biblioteket ditt er tomt. <br /><br />Trykk <4>her</4> for å logge inn med Epic, GOG.com eller Amazon-kontoer. Deretter vil spillene dine vises her i Biblioteket.<br /><br />For å bruke spill eller apper fra andre kilder, klikk <br /> for å legge dem til manuelt."
+        "noGames": "Biblioteket ditt er tomt. <br /><br />Trykk <4>her</4> for å logge inn med Epic, GOG.com eller Amazon-kontoer. Deretter vil spillene dine vises her i Biblioteket.<br /><br />For å bruke spill eller apper fra andre kilder, klikk <br /> for å legge dem til manuelt.",
+        "noResultsTitle": "Ingen spill funnet.",
+        "description": "<0>Logg inn</0> med kontoen din hos Epic, GOG.com, Amazon eller Zoom, så vil spillene dine dukke opp her. Du kan også legge til spill fra andre kilder manuelt.",
+        "title": "biblioteket ditt er tomt."
     },
     "window": {
         "close": "Lukk",
@@ -1050,11 +1147,11 @@
         "maximize": "Maksimer vindu"
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton er en Wine-variant laget av Glorious Eggroll. Det er den anbefalte Wine-versjonen for bruk utenfor Steam. Den gir nyttige logger ved feilsøking.",
         "proton-ge": "GE-Proton er en Proton-variant opprettet av Glorious Eggroll. Den er ment for bruk i Steam, men noen spill utenfor Steam kan fungere bedre med denne varianten. Den gir stort sett ubrukelige logger for feilsøking.",
-        "gpt": "",
-        "wine-crossover": "",
-        "wine-staging-macos": ""
+        "gpt": "Game Porting Toolkit er utviklet av Apple og anbefales for Apple Silicon Mac-er med M1+prosessorer, og fungerer best for nyere spill som bruker DX12.",
+        "wine-crossover": "Wine-Crossover er basert på Crossover OpenSource Wine-prosjektet og anbefales for Intel Mac-er og for DX11 eller eldre spill.",
+        "wine-staging-macos": "Wine-Staging-macOS er basert på det vanlige Wine-prosjektet og anbefales for Intel Mac-er og for DX11 eller eldre spill, spesielt i samarbeid med DXMT-verktøyet.",
+        "proton-cachyos": "Proton-CachyOS er en Proton-variant som vedlikeholdes av CachyOS-teamet. Den inkluderer ekstra verktøy som DXVK-Sarek og D7VK."
     },
     "adtraction-locked": {
         "dont-show-again": "Ikke vis denne advarselen igjen",
@@ -1131,7 +1228,7 @@
         "enable": "Aktiver",
         "info": {
             "pt1": "For å forbedre appen samler Heroic inn 100% anonym data.",
-            "pt2": "Heroic bruker Plausible Analytics-plattformen, en plattform med åpen kildekode, for å samle inn grunnleggende data: appversjon, OS, tilkoblede markedsplasser og land.",
+            "pt2": "Heroic bruker Plausible Analytics-plattformen, en plattform med åpen kildekode, som Heroic-teamet driver selv, for å samle inn grunnleggende data: appversjon, OS, systemarkitektur, Linux-distribusjon, tilkoblede markedsplasser og land.",
             "pt3": "Det kommer aldri til å samle inn noen private data, herunder brukernavnet ditt, IP-adressen og e-posten din.",
             "pt4": "Disse dataene brukes for å for å hjelpe oss finne ut av hvor vi skal rette fokuset og ressursene våre og til tilbakemeldinger.",
             "pt5": "Plausible Analytics er fullstendig kompatibel med Personvernsforordningen (GDPR), CCPA og PECR.",
@@ -1148,94 +1245,116 @@
     "discounts": {
         "region": {
             "countries": {
-                "IT": "",
-                "ES": "",
-                "FI": "",
-                "GR": "",
-                "RO": "",
-                "NO": "",
-                "KR": "",
-                "US": "",
-                "HU": "",
-                "PT": "",
-                "NL": "",
-                "AU": "",
-                "TW": "",
-                "IL": "",
-                "JP": "",
-                "DK": "",
-                "DE": "",
-                "CZ": "",
-                "FR": "",
-                "UA": "",
-                "GB": "",
-                "SE": "",
-                "CN": "",
-                "RU": "",
-                "CA": "",
-                "PL": "",
-                "BR": "",
-                "CH": "",
-                "TR": ""
+                "IT": "Italia",
+                "ES": "Spania",
+                "FI": "Finland",
+                "GR": "Hellas",
+                "RO": "Romania",
+                "NO": "Norge",
+                "KR": "Sør-Korea",
+                "US": "USA",
+                "HU": "Ungarn",
+                "PT": "Portugal",
+                "NL": "Nederland",
+                "AU": "Australia",
+                "TW": "Taiwan",
+                "IL": "Israel",
+                "JP": "Japan",
+                "DK": "Danmark",
+                "DE": "Tyskland",
+                "CZ": "Tsjekkia",
+                "FR": "Frankrike",
+                "UA": "Ukraina",
+                "GB": "Storbritannia",
+                "SE": "Sverige",
+                "CN": "Kina",
+                "RU": "Russland",
+                "CA": "Canada",
+                "PL": "Polen",
+                "BR": "Brasil",
+                "CH": "Sveits",
+                "TR": "Tyrkia",
+                "ZA": "Sør-Afrika"
             },
-            "auto": "",
-            "label": ""
+            "auto": "Auto ({{code}})",
+            "label": "Butikkregion"
         },
         "filters": {
-            "moreFilters": "",
-            "ageRating": "",
-            "os": "",
-            "price": "",
-            "activeCount_other": "",
-            "hideDlcs": "",
-            "ageRatingOption": "",
-            "genres": "",
-            "activeCount_one": "",
-            "lessFilters": "",
-            "rating": "",
-            "sort": "",
-            "genresPlaceholder": "",
-            "features": "",
-            "featuresPlaceholder": "",
-            "ageRatingAll": "",
-            "pageSize": "",
-            "releaseYear": ""
+            "moreFilters": "Flere filtre",
+            "ageRating": "Passer for aldersgruppe",
+            "os": "Operativsystem:",
+            "price": "Pris",
+            "activeCount_other": "{{count}} aktive",
+            "hideDlcs": "Skjul DLC-er",
+            "ageRatingOption": "Vis spill rangert PEGI {{age}} eller lavere",
+            "genres": "Sjangere",
+            "activeCount_one": "{{count}} aktiv",
+            "lessFilters": "Færre filtre",
+            "rating": "Vurderingsgrad",
+            "sort": "Sorter etter",
+            "genresPlaceholder": "Enhver sjanger",
+            "features": "Funksjoner",
+            "featuresPlaceholder": "Enhver funksjon",
+            "ageRatingAll": "Alle",
+            "pageSize": "Per side",
+            "releaseYear": "Utgivelsesår",
+            "hideOwned": "Skjul eide spill",
+            "wishlistOnly": "Bare ønskeliste",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Tilbud",
         "sort": {
-            "priceDesc": "",
-            "trending": "",
-            "priceAsc": "",
-            "releaseDesc": "",
-            "ratingAsc": "",
-            "releaseAsc": "",
-            "ratingDesc": "",
-            "discount": ""
+            "priceDesc": "Pris: høy til lav",
+            "trending": "Populært",
+            "priceAsc": "Pris: lav til høy",
+            "releaseDesc": "Utgivelsesdato: nyeste til eldste",
+            "ratingAsc": "Vurderingsgrad: lav til høy",
+            "releaseAsc": "Utgivelsesdato: eldste til nyeste",
+            "ratingDesc": "Vurderingsgrad: høy til lav",
+            "discount": "Største avslag"
         },
-        "noMatches": "",
+        "noMatches": "Ingen spill samsvarer med de gjeldende filtrene.",
         "aria": {
-            "pagination": "",
-            "rating": ""
+            "pagination": "Sidetall",
+            "rating": "Vurderingsgrad {{rating}} av 10"
         },
-        "error": "",
-        "empty": "",
-        "loading": "",
-        "title": "",
+        "error": "Kunne ikke laste inn tilbud. Vennligst prøv igjen senere.",
+        "empty": "Ingen spilltilbud tilgjengelig akkurat nå.",
+        "loading": "Laster inn spill på salg...",
+        "title": "GOG tilbud",
         "pagination": {
-            "prev": ""
+            "prev": "Forrige"
+        },
+        "tabs": {
+            "label": "Butikk",
+            "all": "Alle markedsplasser"
+        },
+        "titleMulti": "Tilbud",
+        "currency": {
+            "label": "Valuta"
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming — {{drm}}-nøkkel, som er aktivert utenfor Heroic",
+            "gmgHint": "Green Man Gaming — nøkkel fra en ekstern markedsplass, kan ikke installeres gjennom Heroic",
+            "humbleHint": "Humble Bundle — nøkkel fra en ekstern markedsplass, kan ikke installeres gjennom Heroic"
+        },
+        "view": {
+            "list": "Liste",
+            "grid": "Rutenett",
+            "label": "Visningsmodus"
         }
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
-            "no-grids": "",
-            "search": "",
-            "grids": ""
+            "no-games": "Ingen spill funnet.",
+            "no-grids": "Ingen omslagskunst funnet for dette spillet.",
+            "search": "Klarte ikke å søke etter spill. Sjekk SteamGridDB API-nøkkelen din og prøv på nytt",
+            "grids": "Kunne ikke hente rutenettbilder"
         },
         "picker": {
-            "search": "",
-            "title": "",
-            "select-game": ""
+            "search": "Søk etter spill",
+            "title": "SteamGridDB omslagskunst",
+            "select-game": "Velg et spill:"
         }
     },
     "console": {
@@ -1245,31 +1364,64 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "Sorter",
         "cancel": {
-            "hintSuffix": "",
-            "hintPrefix": ""
+            "hintSuffix": "i 3s for å avbryte",
+            "hintPrefix": "Hold inne"
         },
-        "quit": "",
+        "quit": "Avslutt konsoll",
         "hints": {
-            "launch": "",
-            "sort": "",
-            "navigate": "",
-            "quit": "",
-            "change_store": ""
+            "launch": "Start",
+            "sort": "Sorter",
+            "navigate": "Naviger",
+            "quit": "Avslutt",
+            "change_store": "Endre butikk"
         },
-        "launching": "",
+        "launching": "Starter",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Trenger oppdatering"
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Alle"
         },
-        "empty": "",
-        "games": "",
-        "quitApp": "",
-        "loading": ""
+        "empty": "Ingen installerte spill å vise. Installer noe først.",
+        "games": "Installerte spill",
+        "quitApp": "Avslutt app",
+        "loading": "Laster inn biblioteket ditt…",
+        "cancelInstall": {
+            "title": "Avbryt installering?",
+            "message": "Dette spillet installeres for øyeblikket. Vil du avbryte installasjonen?"
+        },
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Laster…",
+            "path": "Installer til",
+            "title": "Installer spill",
+            "wine": "Wine",
+            "wineMissing": "Ikke valgt"
+        },
+        "cancelUpdate": {
+            "message": "Dette spillet lastes ned for øyeblikket. Vil du avbryte nedlastingen?",
+            "title": "Avbryt oppdatering?"
+        },
+        "removeFromQueue": {
+            "message": "Dette spillet står i nedlastingskø. Vil du fjerne det fra køen?"
+        }
     },
-    "next": ""
+    "next": "Neste",
+    "common": {
+        "add": "Legg til",
+        "cancel": "Avbryt",
+        "warning": "Advarsel",
+        "clear_all": "Fjern alt",
+        "confirm": "Bekreft",
+        "duplicate": "Dupliser",
+        "edit": "Rediger",
+        "remove": "Fjern",
+        "save": "Lagre"
+    },
+    "Accounts": "Kontoer",
+    "Community": "Fellesskap",
+    "General": "Generelle"
 }

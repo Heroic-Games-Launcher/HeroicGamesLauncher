@@ -1,6 +1,100 @@
+.changelogModal .Modal__title {
+  font-size: var(--title-lg);
+  font-weight: var(--bold);
+  line-height: var(--leading-tight);
+}
+
 .changelogModalContent {
-  a {
-    color: var(--accent);
-    font-weight: 700;
+  color: var(--text-neutral-muted);
+  font-size: var(--body-md);
+  line-height: var(--leading-normal);
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-block: var(--space-lg-fixed) var(--space-xs-fixed);
+    color: var(--text-neutral);
+    font-size: var(--title-sm);
+    font-weight: var(--semibold);
   }
+
+  h1:first-child,
+  h2:first-child,
+  h3:first-child {
+    margin-block-start: 0;
+  }
+
+  p {
+    margin-block: 0 var(--space-sm-fixed);
+  }
+
+  ul,
+  ol {
+    margin-block: 0 var(--space-md-fixed);
+    padding-inline-start: var(--space-lg-fixed);
+  }
+
+  li {
+    margin-block-end: var(--space-sm-fixed);
+    line-height: 1.6;
+  }
+
+  li::marker {
+    color: var(--text-neutral-faint);
+  }
+
+  .changelogMention {
+    color: var(--text-accent);
+    font-weight: var(--semibold);
+  }
+
+  code {
+    padding: 0 var(--space-2xs-fixed);
+    border-radius: var(--radius-xs);
+    background: var(--bg-surface-raised);
+    font-size: var(--body-sm);
+  }
+
+  a {
+    color: var(--text-brand);
+    font-weight: var(--semibold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  a:hover {
+    color: var(--on-panel-link);
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin: var(--space-md-fixed) auto;
+    border-radius: var(--radius-sm);
+  }
+}
+
+.changelogModalFullLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs-fixed);
+  margin-block-start: var(--space-md-fixed);
+  padding: var(--space-xs-fixed) var(--space-md-fixed);
+  border-radius: var(--radius-pill);
+  background: var(--bg-brand-subtle);
+  border: 1px solid var(--border-brand);
+  color: var(--text-brand);
+  font-weight: var(--semibold);
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.changelogModalFullLink:hover {
+  background: color-mix(in oklab, var(--role-brand) 26%, transparent);
+  border-color: var(--role-brand);
 }

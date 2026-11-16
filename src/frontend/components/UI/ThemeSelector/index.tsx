@@ -1,27 +1,30 @@
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { SelectField, InfoBox, PathSelectionBox } from '..'
+import { SelectField, PathSelectionBox } from '..'
 import { AppSettings } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import { MenuItem } from '@mui/material'
 
 export const defaultThemes: Record<string, string> = {
-  midnightMirage: 'Midnight Mirage',
+  midnightMirage: 'Heroic Theme',
   cyberSpaceOasis: 'Cyberspace Oasis',
-  cyberSpaceOasisAlt: 'Cyberspace Oasis Classic',
   'high-contrast': 'High Contrast',
   'old-school': 'Old School Heroic',
   dracula: 'Dracula',
   marine: 'Marine',
-  'marine-classic': 'Marine Classic',
   zombie: 'Zombie',
-  'zombie-classic': 'Zombie Classic',
   'nord-light': 'Nord Light',
   'nord-dark': 'Nord Dark',
   gruvbox_dark: 'Gruvbox Dark',
-  sweet: 'Sweet'
+  sweet: 'Sweet',
+  candy: 'Candy Dark',
+  'candy-light': 'Candy Light',
+  vampyria: 'Vampyria',
+  forest: 'Mint',
+  onePiece: 'One Piece',
+  cyberpunk: 'Cyberpunk'
 }
 
 export const ThemeSelector = () => {
@@ -33,7 +36,7 @@ export const ThemeSelector = () => {
 
   hasHelp(
     'customThemesPath',
-    t('setting.custom_themes_path', 'Custom Themes Path'),
+    t('setting.custom_themes_path', 'Custom themes path'),
     <p>{t('help.content.customThemesPath', 'Check our wiki.')}</p>
   )
 
@@ -71,7 +74,7 @@ export const ThemeSelector = () => {
     <>
       <SelectField
         htmlId="theme_selector"
-        label={t('setting.select_theme', 'Select Theme')}
+        label={t('setting.select_theme', 'Select theme')}
         onChange={(event) => setTheme(event.target.value)}
         value={theme}
       >
@@ -83,7 +86,7 @@ export const ThemeSelector = () => {
       </SelectField>
 
       <PathSelectionBox
-        label={t('setting.custom_themes_path', 'Custom Themes Path')}
+        label={t('setting.custom_themes_path', 'Custom themes path')}
         htmlId="custom_themes_path"
         placeholder={t(
           'placeholder.custom_themes_path',
@@ -93,25 +96,21 @@ export const ThemeSelector = () => {
         onPathChange={updatePath}
         pathDialogTitle={t('box.default-install-path')}
         type="directory"
-        afterInput={
+        info={
           <>
-            <InfoBox text="infobox.help">
-              <a
-                className="link"
-                onClick={() => window.api.openCustomThemesWiki()}
-              >
-                {t(
-                  'help.custom_themes_wiki',
-                  'Check the Wiki for more details on adding custom themes. Click here.'
-                )}
-              </a>
-            </InfoBox>
-            <InfoBox text="infobox.warning">
+            {t(
+              'help.custom_themes_path',
+              'Do not use CSS files from untrusted sources.'
+            )}{' '}
+            <a
+              className="link"
+              onClick={() => window.api.openCustomThemesWiki()}
+            >
               {t(
-                'help.custom_themes_path',
-                'Do not use CSS files from untrusted sources.'
+                'help.custom_themes_wiki',
+                'Check the Wiki for more details on adding custom themes. Click here.'
               )}
-            </InfoBox>
+            </a>
           </>
         }
       />

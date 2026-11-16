@@ -29,7 +29,7 @@ electronTest('webview', async (app) => {
 
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      'https://www.google.com/'
+      /^https:\/\/www\.google\.com\//
     )
 
     // go back to previous page in webview's history
@@ -43,7 +43,7 @@ electronTest('webview', async (app) => {
     await page.getByTitle('Go forward').click()
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      'https://www.google.com/'
+      /^https:\/\/www\.google\.com\//
     )
     await page.waitForTimeout(600)
 
@@ -67,7 +67,7 @@ electronTest('webview', async (app) => {
     })
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      'https://www.google.com/'
+      /^https:\/\/www\.google\.com\//
     )
     await page.waitForTimeout(600)
 

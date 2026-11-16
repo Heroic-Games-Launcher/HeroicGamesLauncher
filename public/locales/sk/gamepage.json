@@ -22,7 +22,7 @@
         },
         "select": {
             "button": "Vybrať",
-            "image": ""
+            "image": "Vyberte obrázok"
         },
         "sideload": {
             "exe": "Vyberte Spustiteľný Súbor"
@@ -52,11 +52,11 @@
         "warning": {
             "title": "Warning"
         },
-        "ok": "Ok",
+        "ok": "OK",
         "offline_warning": {
-            "message": "",
-            "playAnyway": "",
-            "title": ""
+            "message": "Táto hra nemusí fungovať správne bez internetového pripojenia. Prajete si pokračovať?",
+            "playAnyway": "Aj tak hrať",
+            "title": "Pozor, ste offline"
         },
         "selectLaunchOption": {
             "title": "",
@@ -95,7 +95,10 @@
         "changelog": "Zobraziť Changelog",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "Upraviť nastavenie App/Game",
+        "favourite": "Pridať do obľúbených",
+        "unfavourite": "Odstrániť z obľúbených"
     },
     "cloud_save_unsupported": "Nepodporované",
     "disabled": "Zakázané",
@@ -131,7 +134,8 @@
         "modify": "Zmeniť Inštaláciu",
         "extra_info": "Extra Informácie",
         "install_info": "Informácie o inštalácii",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game details"
     },
     "gamecard": {
         "moving": "Presúvanie",
@@ -161,7 +165,10 @@
         "installedInfo": "Informácie o Inštalácii",
         "protondb-compatibility-info": "Úroveň kompatibility Proton",
         "steamdeck-compatibility-info": "Kompatibilita so Steam Deck",
-        "third-party-app": "Správca z Tretej Strany"
+        "third-party-app": "Správca z Tretej Strany",
+        "steamdeck": {
+            "unsupported": "Nepodporované"
+        }
     },
     "install": {
         "disk-space-left": "Uložisko k dispozícii",
@@ -202,7 +209,8 @@
             "installing": "Inštaluje sa",
             "pleaseWait": "Please wait...",
             "installation": "Zastaviť inštaláciu"
-        }
+        },
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "Možnosti spustenia...",
@@ -333,5 +341,12 @@
     },
     "open-saves-folder": "",
     "Open": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "Sem prilepte adresu URL obrázka"
+        },
+        "title": "Upraviť nastavenie App/Game"
+    }
 }

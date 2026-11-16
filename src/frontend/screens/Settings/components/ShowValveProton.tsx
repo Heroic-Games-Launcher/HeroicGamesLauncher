@@ -23,7 +23,7 @@ const ShowValveProton = () => {
         ),
         message: t(
           'setting.show_valve_proton.confirmation.message',
-          "We recommend custom Proton forks (GE-Proton, Proton-CachyOS, etc.) to be used with Heroic because Valve's Proton builds lack winetricks and protofixes. You can still use then if you want."
+          "We recommend custom Proton forks (GE-Proton, Proton-CachyOS, etc.) to be used with Heroic because Valve's Proton builds lack winetricks and protofixes. You can still use them if you want."
         ),
         buttons: [
           {

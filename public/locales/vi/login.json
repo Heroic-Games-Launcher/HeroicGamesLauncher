@@ -5,7 +5,8 @@
         "copy": "Sao chép",
         "copied": "Đã sao chép!",
         "error": "Lỗi, hãy thử Mã khác",
-        "loading": "Đang tải"
+        "loading": "Đang tải",
+        "close": "Đóng"
     },
     "message": {
         "part1": "Để đăng nhập và cài đặt game, làm theo hướng dẫn sau:",

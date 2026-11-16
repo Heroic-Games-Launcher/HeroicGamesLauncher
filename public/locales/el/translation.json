@@ -11,7 +11,10 @@
         "content_font_family_default": "Γραμματοσειρά Περιεχομένου (Προεπιλογή: {{fontFamily}})",
         "actions_font_family_default": "Γραμματοσειρά Ενεργειών (Προεπιλογή: {{fontFamily}})",
         "disable_smooth_scrolling": "Απενεργοποίηση ομαλής κύλισης (απαιτείται επανεκκίνηση)",
-        "disable_animations": "Απενεργοποίηση κινούμενων εικόνων UI"
+        "disable_animations": "Απενεργοποίηση κινούμενων εικόνων UI",
+        "section": {
+            "library": "Συλλογή"
+        }
     },
     "add_game": "Προσθήκη Παιχνιδιού",
     "All": "Όλα",
@@ -98,7 +101,12 @@
                 "title": "Σφάλμα Λήψης DXMT"
             },
             "executableNotFound": "Δεν βρέθηκε εκτελέσιμο αρχείο",
-            "executableNotFoundMessage": "Το Heroic δεν μπόρεσε να βρει το εκτελέσιμο αρχείο για αυτό το παιχνίδι. Ορίστε το χειροκίνητα στις ρυθμίσεις του παιχνιδιού."
+            "executableNotFoundMessage": "Το Heroic δεν μπόρεσε να βρει το εκτελέσιμο αρχείο για αυτό το παιχνίδι. Ορίστε το χειροκίνητα στις ρυθμίσεις του παιχνιδιού.",
+            "remove": {
+                "steam": {
+                    "body": "Η κατάργηση του {{game}} από το Steam απέτυχε με:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -174,11 +182,6 @@
                     "message": "Οποιαδήποτε μη αποθηκευμένη πρόοδος μπορεί να χαθεί"
                 }
             },
-            "snap": {
-                "checkbox": "Μην εμφανίσετε ξανά αυτό το μήνυμα",
-                "title": "Το Heroic τρέχει ως Snap",
-                "message": "Ορισμένες λειτουργίες δεν είναι διαθέσιμες στην έκδοση Snap της εφαρμογής προς το παρόν και προσπαθούμε να τις διορθώσουμε.{{newLine}}Οι τρέχοντες περιορισμοί είναι: {{newLine}}}Το Heroic δεν θα είναι σε θέση να βρει το Proton από το Steam ή το Wine από το Lutris.{{newLine}}{{newLine}}{{newLine}}Τα Gamecope, GameMode και MangoHud δεν θα λειτουργούν επίσης, καθώς το Heroic δεν μπορεί να έχει πρόσβαση σε αυτά.{{newLine}}{{newLine}}{{newLine}}Για να έχετε πρόσβαση σε αυτό το χαρακτηριστικό, παρακαλούμε εγκαταστήστε το Heroic ως Flatpak, DEB ή από το AppImage."
-            },
             "rosetta": {
                 "message": "Το Heroic απαιτεί το Rosetta για να εκτελεστεί σωστά σε macOS με Apple Silicon τσιπ. Εγκαταστήστε το από το τερματικό macOS χρησιμοποιώντας την ακόλουθη εντολή: \"softwareupdate --install-rosetta\" και επανεκκινήστε το Heroic. ",
                 "title": "Το Rosetta δεν βρέθηκε"
@@ -199,7 +202,8 @@
         "sync": "Συγχρονισμός",
         "syncing": "Συγχρονισμός",
         "unsync": "Αποσυγχρονισμός",
-        "continue": "Συνέχεια"
+        "continue": "Συνέχεια",
+        "close": "Kλείσιμο"
     },
     "controller": {
         "hints": {
@@ -252,7 +256,8 @@
         "status": "Κατάσταση",
         "store": "Κατάστημα",
         "title": "Τίτλος παιχνιδιού",
-        "modify": "Τροποποίηση Εγκατάστασης"
+        "modify": "Τροποποίηση Εγκατάστασης",
+        "settings": "Ρυθμίσεις παιχνιδιού"
     },
     "generic": {
         "error": {
@@ -287,7 +292,9 @@
         "only": "μόνο",
         "show_updates_only": "Εμφάνιση μόνο παιχνιδιών με ενημερώσεις",
         "show_support_offline_only": "Εμφάνιση μόνο όσων υποστηρίζονται εκτός σύνδεσης",
-        "show_third_party_managed_only": "Εμφάνιση μόνο όσων διαχειρίζονται τρίτοι"
+        "show_third_party_managed_only": "Εμφάνιση μόνο όσων διαχειρίζονται τρίτοι",
+        "platforms": "Platform",
+        "stores": "Καταστήματα"
     },
     "help": {
         "amdfsr": "Το FSR της AMD συμβάλλει στην ενίσχυση του ρυθμού καρέ αναβαθμίζοντας χαμηλότερες αναλύσεις σε λειτουργία πλήρους οθόνης. Η ποιότητα της εικόνας αυξάνεται από 5 σε 1 με το κόστος μιας μικρής μείωσης της απόδοσης. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
@@ -372,7 +379,10 @@
         },
         "wine-hdr": "Το HDR βελτιώνει τα χρώματα παρέχοντας πιο φωτεινά σημεία και βαθύτερες αντιθέσεις. Για να λειτουργήσει το HDR, πρέπει να το υποστηρίζει τόσο η οθόνη όσο και το παιχνίδι.",
         "wine-wayland": "Το πειραματικό πρόγραμμα οδήγησης Wine-Wayland επιτρέπει στα παιχνίδια να εκτελούνται εγγενώς με το πρωτόκολλο εμφάνισης Wayland. Η ενεργοποίησή του ενδέχεται να προκαλέσει προβλήματα σε ορισμένα παιχνίδια.",
-        "WoW64": "Η λειτουργία Wine WoW64 επιτρέπει την εκτέλεση παιχνιδιών 32-bit Windows σε Wine 64-bit. Η ενεργοποίησή της μπορεί να βελτιώσει την απόδοση, αλλά θα μπορούσε επίσης να προκαλέσει προβλήματα σε παλαιότερα 32-bit παιχνίδια."
+        "WoW64": "Η λειτουργία Wine WoW64 επιτρέπει την εκτέλεση παιχνιδιών 32-bit Windows σε Wine 64-bit. Η ενεργοποίησή της μπορεί να βελτιώσει την απόδοση, αλλά θα μπορούσε επίσης να προκαλέσει προβλήματα σε παλαιότερα 32-bit παιχνίδια.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -707,13 +717,6 @@
         "offlinemode": "Εκτέλεση Παιχνιδιού Εκτός Δικτύου",
         "prefered_language": "Προτιμώμενη γλώσσα (Κωδικός γλώσσας)",
         "preferSystemLibs": "Προτίμηση βιβλιοθηκών συστήματος",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Χρήση κύριας κάρτας γραφικών"
-        },
         "runexe": {
             "message": "Εναποθέστε αρχεία εδώ",
             "title": "Εκτέλεση EXE με Πρόθημα"
@@ -803,7 +806,15 @@
         "WoW64": "Ενεργοποίηση του WoW64 (Experimental)",
         "enable-quick-sync-menu": "Ενεργοποίηση Quick Save-Sync Menu στο game page",
         "disable_gog_presence": "Απενεργοποίηση ενημερώσεων GOG Presence",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "",
+        "steamRuntime": {
+            "label": "Χρήση Steam Runtime",
+            "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Άνοιγμα",
+            "selectExe": "Επιλογή αρχείου EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -841,7 +852,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "Πληροφορίες Συστήματος",
-            "legacy": "Legacy"
+            "legacy": "Legacy",
+            "categories": "Κατηγορίες"
         },
         "open-config-file": "Άνοιγμα αρχείου παραμετροποίησης",
         "reset-heroic": "Επαναφορά Heroic",
@@ -919,19 +931,27 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Πειραματικές Λειτουργίες",
+            "launch": "Ρυθμίσεις Εκκίνησης",
+            "wineTools": "Εργαλεία"
         }
     },
     "Settings": "Ρυθμίσεις",
     "sidebar": {
         "collapse": "Σύμπτυξη πλαϊνής γραμμής",
         "uncollapse": "Κατάργηση σύμπτυξης πλαϊνής γραμμής",
-        "console": ""
+        "console": "Λειτουργία κονσόλας",
+        "storesLogin": "Σύνδεση στο κατάστημα"
     },
     "status": {
         "installing": "Εγκατάσταση",
         "logging": "Σύνδεση...",
         "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε",
-        "preparing_login": "Προετοιμασία σύνδεσης... "
+        "preparing_login": "Προετοιμασία σύνδεσης... ",
+        "installed": "Εγκατάσταση"
     },
     "store": "Κατάστημα Epic",
     "stores": "Καταστήματα",
@@ -955,7 +975,8 @@
         "show": "Εμφάνιση"
     },
     "two_col_table": {
-        "save_hint": "Οι αλλαγές σε αυτόν τον πίνακα δεν αποθηκεύονται αυτόματα. Κάντε κλικ στο κουμπί +"
+        "save_hint": "Οι αλλαγές σε αυτόν τον πίνακα δεν αποθηκεύονται αυτόματα. Κάντε κλικ στο κουμπί +",
+        "add": "Προσθήκη"
     },
     "Update Available!": "Ενημέρωση διαθέσιμη!",
     "userselector": {
@@ -1120,7 +1141,6 @@
     "amazon-luna": "Amazon Luna",
     "wineExplanation": {
         "proton-ge": "Το GE-Proton είναι μια παραλλαγή του Proton που δημιουργήθηκε από το Glorious Eggroll. Προορίζεται για χρήση μαζί με τον umu launcher (προεπιλογή στο Heroic).",
-        "wine-ge": "Το Wine-GE-Proton είναι μια παραλλαγή του Wine που δημιουργήθηκε από την Glorious Eggroll. Έχει καταργηθεί υπέρ του GE-Proton με τον umu launcher.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1181,11 +1201,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Όλα",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Προσφορές",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1201,23 +1222,27 @@
             "pagination": "",
             "rating": ""
         },
-        "error": "",
+        "error": "Δεν ήταν δυνατή η φόρτωση των προσφορών. Παρακαλώ δοκιμάστε αργότερα.",
         "empty": "",
         "loading": "",
-        "title": "",
+        "title": "Προσφορές GOG",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Κατάστημα"
+        },
+        "titleMulti": "Προσφορές"
     },
     "steamgriddb": {
         "error": {
             "no-games": "",
-            "no-grids": "",
+            "no-grids": "Δεν βρέθηκαν αρχεία καταγραφής για το παιχνίδι",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Αναζήτηση για Παιχνίδια",
             "title": "",
             "select-game": ""
         }
@@ -1244,16 +1269,28 @@
         },
         "launching": "",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Απαιτείται ενημέρωση"
         },
         "filter": {
-            "sideload": "Other",
-            "all": ""
+            "sideload": "Άλλο",
+            "all": "Όλα"
         },
         "empty": "",
         "games": "Εγκατεστημένα Παιχνίδια",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Εγκατάσταση παιχνιδιού",
+            "wineLoading": "Φόρτωση",
+            "path": "Εγκατάσταση",
+            "wineMissing": "No path selected"
+        }
     },
-    "next": "Επόμενο"
+    "next": "Επόμενο",
+    "common": {
+        "add": "Προσθήκη",
+        "cancel": "Ακύρωση",
+        "warning": "Προειδοποίηση"
+    }
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Badge } from 'frontend/components/UI'
 
 type GenresProps = {
   genres: string[]
@@ -12,9 +13,9 @@ const Genres: React.FC<GenresProps> = ({ genres }) => {
   return (
     <span className="genres">
       {genres.map((genre) => (
-        <span key={genre} className="genre">
+        <Badge key={genre} variant="accent" className="genre">
           {genre}
-        </span>
+        </Badge>
       ))}
     </span>
   )

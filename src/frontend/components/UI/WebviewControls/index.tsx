@@ -1,19 +1,25 @@
 import {
-  ArrowBackOutlined,
-  ArrowForwardRounded,
-  OpenInBrowser,
-  Replay
-} from '@mui/icons-material'
+  ArrowLeft,
+  ArrowRight,
+  ExternalLink,
+  Gamepad2,
+  House,
+  RotateCw
+} from 'lucide-react'
 import cx from 'classnames'
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react'
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SvgButton from '../SvgButton'
+import Icon from '../Icon'
 import './index.css'
 
 interface WebviewControlsProps {
   webview: Electron.WebviewTag | null
   initURL: string
   openInBrowser: boolean
+  showInputToggle?: boolean
+  gameInputMode?: boolean
+  onToggleInput?: () => void
 }
 
 function removeSelection(event: SyntheticEvent<unknown>) {
@@ -30,9 +36,12 @@ function removeSelection(event: SyntheticEvent<unknown>) {
 export default function WebviewControls({
   webview,
   initURL,
-  openInBrowser
+  openInBrowser,
+  showInputToggle = false,
+  gameInputMode = false,
+  onToggleInput
 }: WebviewControlsProps) {
-  const [url, setUrl] = React.useState(initURL)
+  const [url, setUrl] = useState(initURL)
   const { t } = useTranslation()
   const [webviewGoBack, setWebviewGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)
@@ -59,7 +68,7 @@ export default function WebviewControls({
   }, [webview])
 
   const handleButtons = useCallback(
-    (event: 'reload' | 'back' | 'forward') => {
+    (event: 'reload' | 'back' | 'forward' | 'home') => {
       try {
         if (event === 'reload') {
           return webview?.reload()
@@ -74,11 +83,14 @@ export default function WebviewControls({
         if (event === 'forward') {
           return webview?.goForward()
         }
+        if (event === 'home') {
+          return webview?.loadURL(initURL)
+        }
       } catch (error) {
         console.error(error)
       }
     },
-    [webview, webviewGoBack]
+    [webview, webviewGoBack, initURL]
   )
 
   return (
@@ -89,7 +101,7 @@ export default function WebviewControls({
           title={t('webview.controls.back')}
           onClick={() => handleButtons('back')}
         >
-          <ArrowBackOutlined />
+          <Icon glyph={ArrowLeft} size="md" />
         </SvgButton>
         <SvgButton
           className="WebviewControls__icon"
@@ -97,14 +109,21 @@ export default function WebviewControls({
           onClick={() => handleButtons('forward')}
           disabled={!canGoForward}
         >
-          <ArrowForwardRounded />
+          <Icon glyph={ArrowRight} size="md" />
         </SvgButton>
         <SvgButton
           className="WebviewControls__icon"
           title={t('webview.controls.reload')}
           onClick={() => handleButtons('reload')}
         >
-          <Replay />
+          <Icon glyph={RotateCw} size="md" />
+        </SvgButton>
+        <SvgButton
+          className="WebviewControls__icon"
+          title={t('webview.controls.home')}
+          onClick={() => handleButtons('home')}
+        >
+          <Icon glyph={House} size="md" />
         </SvgButton>
       </div>
       <span className="WebviewControls__url">
@@ -122,13 +141,34 @@ export default function WebviewControls({
         )}
       </span>
       <div className="WebviewControls__icons">
+        {showInputToggle && onToggleInput && (
+          <SvgButton
+            className={cx('WebviewControls__icon', {
+              'WebviewControls__icon--active': gameInputMode
+            })}
+            title={
+              gameInputMode
+                ? t(
+                    'webview.controls.disableGameInput',
+                    'Disable game input and return to Heroic navigation'
+                  )
+                : t(
+                    'webview.controls.enableGameInput',
+                    'Enable keyboard and controller input for the page'
+                  )
+            }
+            onClick={onToggleInput}
+          >
+            <Icon glyph={Gamepad2} size="md" />
+          </SvgButton>
+        )}
         <SvgButton
           className="WebviewControls__icon"
           title={t('webview.controls.openInBrowser')}
           disabled={!openInBrowser || !url}
           onClick={() => window.api.openWebviewPage(url)}
         >
-          <OpenInBrowser />
+          <Icon glyph={ExternalLink} size="md" />
         </SvgButton>
       </div>
     </div>

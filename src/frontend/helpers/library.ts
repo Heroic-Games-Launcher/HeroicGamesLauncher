@@ -2,6 +2,7 @@ import {
   InstallPlatform,
   AppSettings,
   GameInfo,
+  GameGroup,
   InstallProgress,
   Runner,
   UpdateParams,
@@ -105,8 +106,14 @@ function handleStopInstallation(
   t: TFunction<'gamepage'>,
   progress: InstallProgress,
   runner: Runner,
-  showDialogModal: (options: DialogModalOptions) => void
+  showDialogModal: (options: DialogModalOptions) => void,
+  queued = false
 ) {
+  // Queued paused games cancel by name.
+  const cancel = (removeDownloaded: boolean) =>
+    queued
+      ? window.api.cancelQueuedDownload(appName, removeDownloaded)
+      : window.api.cancelDownload(removeDownloaded)
   showDialogModal({
     title: t('gamepage:box.stopInstall.title'),
     message: t('gamepage:box.stopInstall.message'),
@@ -119,13 +126,13 @@ function handleStopInstallation(
             appName,
             JSON.stringify({ ...progress, folder: path })
           )
-          window.api.cancelDownload(false)
+          cancel(false)
         }
       },
       {
         text: t('box.no'),
         onClick: () => {
-          window.api.cancelDownload(true)
+          cancel(true)
           storage.removeItem(appName)
         }
       }
@@ -156,7 +163,10 @@ const launch = async ({
   showDialogModal,
   args,
   notPlayableOffline
-}: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
+}: LaunchOptions): Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string
+}> => {
   const proceedToLaunch = async () => {
     // First handle update dialog if needed
     if (hasUpdate) {
@@ -275,6 +285,7 @@ async function checkLaunchOptionsAndLaunch({
   skipVersionCheck = false
 }: LaunchOptions & { skipVersionCheck?: boolean }): Promise<{
   status: 'done' | 'error' | 'abort'
+  error?: string
 }> {
   // If launch arguments already provided, launch directly
   if (launchArguments) {
@@ -380,7 +391,6 @@ async function checkLaunchOptionsAndLaunch({
           { seconds: secondsRemaining }
         ),
         buttons: optionButtons,
-        className: 'launchOptionsDialog',
         onClose: () => {
           if (timeoutId) {
             clearTimeout(timeoutId)
@@ -413,6 +423,7 @@ async function checkLaunchOptionsAndLaunch({
 
       return {
         text: label,
+        variant: 'secondary' as const,
         onClick: () => {
           hasSelected = true
           if (timeoutId) {
@@ -465,6 +476,18 @@ const updateGame = (args: UpdateParams) => {
   return window.api.updateGame(args)
 }
 
+export const countGames = (list: (GameInfo | GameGroup)[] | undefined) => {
+  if (!list) {
+    return 0
+  }
+  // GameGroups never contain DLCs since those are filtered out beforehand
+  const dlcCount = list.filter(
+    (lib) => 'runner' in lib && lib.runner !== 'sideload' && lib.install.is_dlc
+  ).length
+  const total = list.length - dlcCount
+  return total > 0 ? total : 0
+}
+
 export const normalizeTitle = (title: string) => {
   return title.replace(/[^\w\s]/g, '').toLowerCase()
 }
@@ -474,5 +497,7 @@ export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
 export const amazonCategories = ['all', 'nile', 'amazon']
 export const zoomCategories = ['all', 'zoom']
+export const itchioCategories = ['all', 'itchio']
+export const steamCategories = ['all', 'steam']
 
 export { handleStopInstallation, install, launch, repair, updateGame }

@@ -5,7 +5,8 @@
         "copy": "Copiar",
         "copied": "Copiado!",
         "error": "Produciuse un erro, proba cun código diferente",
-        "loading": "Cargando"
+        "loading": "Cargando",
+        "close": "Pechar"
     },
     "message": {
         "part1": "Para que poidas iniciar sesión e instalar os teus xogos, primeiro debes seguir os pasos a continuación:",

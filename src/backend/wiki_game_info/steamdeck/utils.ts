@@ -7,7 +7,7 @@ export async function getSteamDeckComp(
   steamID: string | undefined
 ): Promise<SteamDeckComp | null> {
   if (!steamID) {
-    logDebug('No SteamID, not getting Stem Deck info')
+    logDebug('No SteamID, not getting Steam Deck info')
     return null
   }
   const url = `https://store.steampowered.com/saleaction/ajaxgetdeckappcompatibilityreport?nAppID=${steamID}`
@@ -17,7 +17,7 @@ export async function getSteamDeckComp(
     .catch((error: AxiosError) => {
       logError(
         [
-          `Was not able to get Stem Deck data for ${steamID}`,
+          `Was not able to get Steam Deck data for ${steamID}`,
           error.response?.data
         ],
         LogPrefix.ExtraGameInfo
@@ -26,7 +26,7 @@ export async function getSteamDeckComp(
     })
 
   if (!response) {
-    logDebug('No response when getting Stem Deck info')
+    logDebug('No response when getting Steam Deck info')
     return null
   }
   const resp_str = JSON.stringify(response.data)

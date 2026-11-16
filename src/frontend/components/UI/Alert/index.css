@@ -1,0 +1,66 @@
+.Alert {
+  --alert-tone: var(--text-neutral-muted);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm-fixed);
+  width: 100%;
+  padding: var(--space-md-fixed) var(--space-md-fixed);
+  border-radius: var(--radius-md);
+  background: color-mix(in oklab, var(--alert-tone) 14%, var(--panel-base));
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--text-neutral);
+  text-align: start;
+}
+
+.Alert__icon {
+  flex-shrink: 0;
+  margin-block-start: 1px;
+  color: var(--alert-tone);
+}
+
+.Alert__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+  min-width: 0;
+  flex: 1;
+}
+
+.Alert__title {
+  font-weight: var(--semibold);
+  color: var(--text-neutral);
+}
+
+.Alert__message {
+  color: var(--text-neutral-muted);
+}
+
+.Alert__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  flex-shrink: 0;
+}
+
+.Alert--neutral {
+  --alert-tone: var(--text-neutral-muted);
+}
+
+.Alert--info {
+  --alert-tone: var(--role-info);
+}
+
+.Alert--success {
+  --alert-tone: var(--role-success);
+}
+
+.Alert--warning {
+  --alert-tone: var(--role-warning);
+}
+
+.Alert--error {
+  --alert-tone: var(--role-destructive);
+}

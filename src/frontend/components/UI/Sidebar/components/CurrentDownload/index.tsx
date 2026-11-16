@@ -1,25 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import LinearProgress from '@mui/material/LinearProgress'
-import Typography from '@mui/material/Typography'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
-import Box from '@mui/material/Box'
+import { Download } from 'lucide-react'
 import { getGameInfo } from 'frontend/helpers'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { Runner } from 'common/types'
+import { useInstallProgress } from 'frontend/state/InstallProgress'
+import { DownloadManagerState, Runner } from 'common/types'
 import './index.css'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Badge from '@mui/material/Badge'
+import Icon from '../../../Icon'
+import ProgressBar from '../../../ProgressBar'
 
 type Props = {
   appName: string
   runner: Runner
+  state?: DownloadManagerState
 }
 
-export default React.memo(function CurrentDownload({ appName, runner }: Props) {
+export default React.memo(function CurrentDownload({
+  appName,
+  runner,
+  state
+}: Props) {
   const [progress] = hasProgress(appName, runner)
+  const liveProgress = useInstallProgress((s) => s[`${appName}_${runner}`])
+  const isPaused = state ? ['idle', 'paused'].includes(state) : false
+  const hasStarted =
+    Boolean(liveProgress?.downSpeed) || Boolean(liveProgress?.percent)
+  const isPreparing = !isPaused && !hasStarted
   const [gameTitle, setGameTitle] = useState('')
   const { libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -42,6 +51,12 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   }, [appName])
 
   function getStatus() {
+    if (isPaused) {
+      return t('queue.label.paused', 'Paused')
+    }
+    if (isPreparing) {
+      return t('status.preparing', 'Preparing…')
+    }
     return progress.percent && progress.percent > 98
       ? t('status.processing', 'Processing files, please wait')
       : t('status.installing', 'Installing')
@@ -58,28 +73,19 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
           badgeContent={`${Math.round(progress.percent ?? 0)}%`}
           color="primary"
         >
-          <FontAwesomeIcon icon={faDownload} />
+          <Icon glyph={Download} size="xl" />
         </Badge>
       </span>
 
       <div className="full-size">
         <span className="gameTitle">{gameTitle ?? 'GameName'}</span>
-        <br />
         <span className="downloadStatus">{getStatus()}</span>
-        <br />
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ width: '100%', mr: 1 }}>
-            <LinearProgress
-              variant="determinate"
-              value={progress.percent || 0}
-            />
-          </Box>
-          <Box sx={{ minWidth: 35 }}>
-            <Typography variant="body2">{`${Math.ceil(
-              progress.percent || 0
-            )}%`}</Typography>
-          </Box>
-        </Box>
+        <ProgressBar
+          tone={isPaused ? 'warning' : 'success'}
+          showValue
+          value={isPreparing ? undefined : progress.percent}
+          label={getStatus()}
+        />
       </div>
     </Link>
   )

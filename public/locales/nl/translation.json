@@ -11,7 +11,10 @@
         "actions_font_family_default": "Acties Lettertypefamilie (Standaard: {{fontFamily}})",
         "content_font_family_default": "Content Font Family (Default:",
         "disable_animations": "UI animaties uitschakelen",
-        "disable_smooth_scrolling": "Glad scrollen uitschakelen (vereist herstart)"
+        "disable_smooth_scrolling": "Glad scrollen uitschakelen (vereist herstart)",
+        "section": {
+            "library": "Bibliotheek"
+        }
     },
     "add_game": "Voeg game toe",
     "All": "Allemaal",
@@ -98,6 +101,11 @@
             "dxmt": {
                 "message": "",
                 "title": ""
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -174,17 +182,12 @@
                     "message": "Elke niet opgeslagen aanpassingen kunnen verloren gaan"
                 }
             },
-            "snap": {
-                "checkbox": "Toon dit bericht niet opnieuw",
-                "title": "Heroic voert uit als een Snap",
-                "message": "Sommige functies zijn momenteel niet beschikbaar in de Snap versie van de app en we proberen het op te lossen.{{newLine}}Huidige limitaties zijn:{{newLine}}Heroic kan Proton vanuit Steam of Wine vanuit Lutris niet vinden.{{newLine}}{{newLine}}Gamescope, GameMode en MangoHud zullen ook niet werken omdat Heroic er geen toegang tot heeft.{{newLine}}{{newLine}}Om toegang tot deze fuctie te krijgen, installeer Heroic a.u.b. als een Flatpak, DEB of vanuit een AppImage."
-            },
             "rosetta": {
                 "message": "Heroic vereist Rosetta om correct te werken op macOS met Apple Silicon chips. Installeer het alstublieft via de macOS commandlijn met de volgende commando:  \"softwareupdate --install-rosetta\" en herstart Heroic. ",
                 "title": "Rosetta niet gevonden"
             }
         },
-        "wineprefix": "Selecteer een Wine Prefix Folder",
+        "wineprefix": "Selecteer WinePrefix Map",
         "yes": "JA",
         "dontShowAgain": "Niet meer laten zien",
         "choose-nile-binary": "Selecteer Nijl binair",
@@ -199,7 +202,8 @@
         "sync": "Synchroniseer",
         "syncing": "Synchroniseren",
         "unsync": "De-synchroniseren",
-        "continue": "Continue"
+        "continue": "Continue",
+        "close": "sluit"
     },
     "controller": {
         "hints": {
@@ -218,7 +222,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "exit": "Afsluiten"
         }
     },
     "docs": "Documentation",
@@ -252,7 +257,8 @@
         "status": "Status",
         "store": "Store",
         "title": "Game Title",
-        "modify": "Pas installatie aan"
+        "modify": "Pas installatie aan",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -261,9 +267,9 @@
         "library": {
             "refresh": "Refresh Library"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "Over",
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Algemene instellingen",
     "GOG": "GOG",
@@ -287,7 +293,9 @@
         "select_all": "Selecteer Alles",
         "only": "slechts",
         "reset": "Reset",
-        "show_updates_only": "Toon slechts spelletjes met updates"
+        "show_updates_only": "Toon slechts spelletjes met updates",
+        "platforms": "Platform",
+        "stores": "Stores"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -372,7 +380,10 @@
         "wine-hdr": "HDR verbetert de kleuren door helderdere hoogtepunten en diepere contrasten te leveren. Om HDR te laten werken, moeten zowel het beeldscherm als het spel dit ondersteunen.",
         "wine-wayland": "Het experimentele stuurprogramma van Wine-Wayland staat toe dat spelletjes van nature werken onder het Wayland weergave protocol. Het inschakelen hiervan kan kritieke fouten veroorzaken in sommige spelletjes.",
         "WoW64": "De Wine WoW64 modus staat toe dat 32-bit Windows spellen kunnen werken op 64-bit Wine. Het inschakelen ervan kan de prestatie verbeteren, maar kan ook kritieke fouten veroorzaken bij oudere 32-bit spelletjes.",
-        "advertiseAvxForRosetta": ""
+        "advertiseAvxForRosetta": "",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -573,7 +584,7 @@
     "queue": {
         "label": {
             "canceled": "Canceled",
-            "clear": "Lijst Opschonen",
+            "clear": "Clear List",
             "downloading": "Aan het Downloaden",
             "empty": "Niets om te downloaden",
             "finished": "Afgerond",
@@ -705,15 +716,8 @@
         "maxworkers": "Maximale Hoeveelheid van Werkers tijdens het downloaden",
         "minimize-on-launch": "Heroic minimaliseren Na Opstarten Spel",
         "offlinemode": "Spel Offline Draaien",
-        "prefered_language": "Taal Voorkeur (Taal Code)",
+        "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Systeem-bibliotheken verkiezen",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Use Dedicated Graphics Card"
-        },
         "runexe": {
             "message": "Sleep de bestanden hier",
             "title": "Voer EXE uit op Prefix"
@@ -803,7 +807,15 @@
         "dxfpslimit": "Limiteer DirectX Games FPS",
         "enable-quick-sync-menu": "",
         "disable_gog_presence": "Schakel GOG Presence updates uit",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Open de",
+            "selectExe": "Selecteer EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -841,13 +853,14 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeeminformatie",
             "gamescope": "Gamescope",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Categorieën"
         },
         "open-config-file": "Open Config Bestand",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
-            "warning": "Cloudopslag functie is in Beta, maak een back-up van je opgeslagen spellen voordat je synchroniseerd (voor het geval er iets mis gaat)",
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)",
             "gog_linux_native_warning": "Linux-inheemse spellen ondersteunen GOG's Cloudopslag functie niet. Gebruik de Windows versie in plaats daarvan.",
             "not_supported": "Dit spel ondersteunt Cloudopslag niet."
         },
@@ -919,19 +932,27 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Experimentele Functies",
+            "launch": "Opstartopties",
+            "wineTools": "Tools"
         }
     },
     "Settings": "Instellingen",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Winkellogin"
     },
     "status": {
         "installing": "Installeren",
         "logging": "Aan het inloggen...",
         "processing": "Bestanden verwerken, een ogenblik geduld a.u.b.",
-        "preparing_login": "Inloggen Voorbereiden... "
+        "preparing_login": "Inloggen Voorbereiden... ",
+        "installed": "Geïnstalleerd"
     },
     "store": "Epic Winkel",
     "stores": "Winkels",
@@ -955,7 +976,8 @@
         "show": "Tonen"
     },
     "two_col_table": {
-        "save_hint": "Aanpassingen in deze tabel worden niet automatisch opgeslagen. Klik op de + knop"
+        "save_hint": "Aanpassingen in deze tabel worden niet automatisch opgeslagen. Klik op de + knop",
+        "add": "Voeg toe"
     },
     "Update Available!": "Update Beschikbaar!",
     "userselector": {
@@ -966,7 +988,7 @@
         "manageaccounts": "Accounts Beheren",
         "quit": "Sluiten",
         "cancel": "Annuleer",
-        "quitMessage": "Weet je zeker dat je wilt stoppen?"
+        "quitMessage": "weet u zeker dat u wil uitloggen?"
     },
     "webview": {
         "controls": {
@@ -986,8 +1008,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "Instellingen",
             "no-results": ""
         },
         "release": "Datum van Uitgave",
@@ -1038,7 +1060,8 @@
     },
     "emptyLibrary": {
         "noResults": "De huidige filters produceerden geen resultaten.",
-        "noGames": "Jouw bibliotheek is leeg.<br /><br />Klik <4>hier</4> om in te loggen met je Epic, GOG.com of Amazon accounts. Dan zullen je spellen hier in de biblotheek zichtbaar worden.<br /><br />Om spelletjes of apps vanuit andere bronnen te gebruiken, klik <br /> om ze handmatig toe te voegen."
+        "noGames": "Jouw bibliotheek is leeg.<br /><br />Klik <4>hier</4> om in te loggen met je Epic, GOG.com of Amazon accounts. Dan zullen je spellen hier in de biblotheek zichtbaar worden.<br /><br />Om spelletjes of apps vanuit andere bronnen te gebruiken, klik <br /> om ze handmatig toe te voegen.",
+        "noResultsTitle": "Geen spellen gevonden"
     },
     "adtraction-locked": {
         "title": "Adtraction is geblokkeerd",
@@ -1119,7 +1142,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton is een Proton variant gemaakt door Glorious Eggrol. Het is bedoelt in gebruikt te worden met de umu launcher (standaard in Heroic).",
-        "wine-ge": "Wine-GE-Proton is een Wine variant gemaakt door Glorious Eggrol. Het is verouderd en vervangen voor GE-Proton met de umu launcher.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1168,7 +1190,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "Besturingssysteem:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1181,11 +1203,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Allemaal",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Details",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1207,17 +1230,21 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Winkel"
+        },
+        "titleMulti": "Details"
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
-            "no-grids": "",
+            "no-games": "Geen spellen gevonden",
+            "no-grids": "Geen Log was gevonden voor dit spel",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Spelen zoeken",
             "title": "",
             "select-game": ""
         }
@@ -1239,7 +1266,7 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Stop",
             "change_store": ""
         },
         "launching": "",
@@ -1247,13 +1274,29 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Allemaal"
         },
         "empty": "",
-        "games": "",
+        "games": "Installed Games",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "Update annuleren"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading",
+            "path": "Installeer op",
+            "wineMissing": "Geen pad geselecteerd"
+        }
     },
-    "next": ""
+    "next": "Volgende",
+    "common": {
+        "add": "Voeg toe",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    },
+    "General": "Algemeen"
 }

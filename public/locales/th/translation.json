@@ -102,11 +102,6 @@
                 "message": ""
             },
             "title": "",
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",
@@ -182,7 +177,8 @@
         "login": "เข้าสู่ระบบ",
         "go_to_library": "",
         "continue": "",
-        "cancel": ""
+        "cancel": "",
+        "close": "ปิด"
     },
     "controller": {
         "hints": {
@@ -226,10 +222,10 @@
         },
         "label": {
             "disk": "",
-            "speed": ""
+            "speed": "กำลังดาวน์โหลด"
         },
-        "title": "",
-        "link": ""
+        "title": "กำลังดาวน์โหลด",
+        "link": "กำลังดาวน์โหลด"
     },
     "game": {
         "modify": "ปรับแต่งการติดตั้ง",
@@ -257,7 +253,7 @@
         "title": {
             "settings": "การตั้งค่า",
             "accessibility": "",
-            "login": "",
+            "login": "เข้าสู่ระบบ",
             "downloadManager": "",
             "wineManager": "",
             "library": ""
@@ -405,7 +401,7 @@
         "refresh": {
             "error": ""
         },
-        "moving": ""
+        "moving": "ย้ายเกม"
     },
     "queue": {
         "label": {
@@ -503,7 +499,7 @@
             "forceupload": "",
             "upload": "",
             "forcedownload": "",
-            "download": ""
+            "download": "กำลังดาวน์โหลด"
         },
         "disable_controller": "",
         "alt-gogdl-bin": "",
@@ -651,7 +647,8 @@
             "systemInformation": "",
             "sync": "",
             "legacy": "",
-            "other": ""
+            "other": "",
+            "categories": "หมวดหมู่"
         },
         "legacy_warning": "",
         "eacRuntime": {
@@ -731,6 +728,9 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "กำลังดาวน์โหลด"
         }
     },
     "Settings": "การตั้งค่า",
@@ -738,7 +738,8 @@
         "installing": "กำลังติดตั้ง",
         "preparing_login": "",
         "logging": "",
-        "processing": ""
+        "processing": "",
+        "installed": "ติดตั้งแล้ว"
     },
     "tray": {
         "about": "เกี่ยวกับ",
@@ -1054,7 +1055,6 @@
     "error": "",
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1117,7 +1117,7 @@
             "pageSize": "",
             "releaseYear": ""
         },
-        "sidebar": "",
+        "sidebar": "รายละเอียด",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1139,7 +1139,8 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "titleMulti": "รายละเอียด"
     },
     "steamgriddb": {
         "error": {
@@ -1168,7 +1169,7 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "กำลังเปิด",
             "sort": "",
             "navigate": "",
             "quit": "",
@@ -1185,7 +1186,11 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "wineLoading": "กำลังโหลด…",
+            "path": "ติดตั้ง"
+        }
     },
     "next": "",
     "sidebar": {

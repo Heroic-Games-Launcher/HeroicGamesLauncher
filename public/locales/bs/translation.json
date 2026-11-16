@@ -11,7 +11,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "Biblioteka"
+        }
     },
     "add_game": "Add Game",
     "All": "Sve",
@@ -177,14 +180,9 @@
             "rosetta": {
                 "title": "",
                 "message": ""
-            },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
             }
         },
-        "wineprefix": "Odaberite Wine Prefix mapu",
+        "wineprefix": "Izaberite WinePrefix mapu",
         "yes": "DA",
         "dontShowAgain": "Ne prikazuj ponovo",
         "choose-nile-binary": "Odaberite binarni Nil",
@@ -218,7 +216,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Prostor",
-            "update_game": "Ažurirajte igru"
+            "update_game": "Ažurirajte igru",
+            "exit": "Izlaz"
         }
     },
     "docs": "Dokumentacija",
@@ -252,7 +251,8 @@
         "status": "Status",
         "store": "Trgovina",
         "title": "Ime video igre",
-        "modify": ""
+        "modify": "",
+        "settings": "Game Settings"
     },
     "generic": {
         "error": {
@@ -261,9 +261,9 @@
         "library": {
             "refresh": "Osvježi biblioteku"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "U vezi sa",
+        "install": "Install",
+        "uninstall": "Deinstaliraj"
     },
     "globalSettings": "Globalne postavke",
     "GOG": "GOG",
@@ -287,7 +287,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Trgovine"
     },
     "help": {
         "amdfsr": "AMD-ov FSR pomaže u povećanju frekvencije kadrova povećavajući niže rezolucije u načinu rada preko cijelog ekrana. Kvalitet slike se povećava sa 5 na 1 po cenu blagog smanjenja performansi. Omogućavanje može poboljšati performanse.",
@@ -335,7 +337,7 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine menadžer",
             "library": "Biblioteka",
-            "login": ""
+            "login": "Log in"
         },
         "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "content": {
@@ -372,7 +374,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Koristite namjensku grafičku karticu za renderiranje igre na multi-GPU sistemima. Potrebno samo na laptop računarima ili desktop računarima koji koriste GPU bez glave za renderovanje (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -534,7 +539,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "Windows",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -663,7 +668,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "Učitaj",
                     "content": ""
                 },
                 "open": "",
@@ -707,13 +712,6 @@
         "offlinemode": "Pokreni igru izvan mreže",
         "prefered_language": "Željeni jezik (šifra jezika)",
         "preferSystemLibs": "Preferirajte sistemske biblioteke",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Koristite namjensku grafičku karticu"
-        },
         "runexe": {
             "message": "Povucite i ispustite datoteke ovdje",
             "title": "Pokrenite EXE na prefiksu"
@@ -798,7 +796,13 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Koristi Steam Runtime"
+        },
+        "tools": {
+            "selectExe": "Izaberi EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -914,6 +918,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Opcije za pokretanje...",
+            "wineTools": "Alati"
         }
     },
     "Settings": "Postavke",
@@ -926,7 +935,8 @@
         "installing": "Instalira se",
         "logging": "Prijavljivanje",
         "processing": "Obrada datoteka, pričekajte",
-        "preparing_login": "Priprema za prijavu... "
+        "preparing_login": "Priprema za prijavu... ",
+        "installed": "Instalirano"
     },
     "store": "Epic Store",
     "stores": "Trgovine",
@@ -981,8 +991,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "Postavke",
             "no-results": ""
         },
         "release": "Datum izlaska",
@@ -1118,7 +1128,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1176,9 +1185,10 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Sve",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
         "sidebar": "",
         "sort": {
@@ -1202,6 +1212,9 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Store"
         }
     },
     "steamgriddb": {
@@ -1212,7 +1225,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Potražite igre",
             "title": "",
             "select-game": ""
         }
@@ -1234,7 +1247,7 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Odustani",
             "change_store": ""
         },
         "launching": "",
@@ -1242,13 +1255,24 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Sve"
         },
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Loading",
+            "path": "Install",
+            "wineMissing": "No path selected"
+        }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "Cancel",
+        "warning": "Warning"
+    },
+    "General": "Generalno"
 }

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '..'
+import { defaultWineVersion } from '../util'
 
 export default function CrossoverBottle() {
   const { t } = useTranslation()
@@ -17,7 +17,7 @@ export default function CrossoverBottle() {
 
   return (
     <TextInputField
-      label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
+      label={t('setting.winecrossoverbottle', 'CrossOver bottle')}
       htmlId="crossoverBottle"
       value={wineCrossoverBottle}
       onChange={(newValue) => setWineCrossoverBottle(newValue)}

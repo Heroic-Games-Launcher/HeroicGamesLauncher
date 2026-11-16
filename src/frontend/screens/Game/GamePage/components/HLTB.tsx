@@ -1,69 +1,29 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import GameContext from '../../GameContext'
-import { Speed, ExpandMore } from '@mui/icons-material'
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
-import PopoverComponent from 'frontend/components/UI/PopoverComponent'
+import { Gauge } from 'lucide-react'
+import { Icon, Panel } from 'frontend/components/UI'
 import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLongToBeat'
+import GameContext from '../../GameContext'
 
 const HLTB = () => {
   const { t } = useTranslation('gamepage')
   const { wikiInfo } = useContext(GameContext)
 
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  function handleExpansionChange() {
-    setIsExpanded((prevExpanded) => !prevExpanded)
-  }
-
-  if (!wikiInfo) {
-    return null
-  }
-
-  const howlongtobeat = wikiInfo.howlongtobeat
+  const howlongtobeat = wikiInfo?.howlongtobeat
 
   if (!howlongtobeat) {
     return null
   }
 
-  if (howlongtobeat) {
-    return (
-      <div className="hltbWrapper">
-        <Accordion expanded={isExpanded} onChange={handleExpansionChange}>
-          <AccordionSummary
-            expandIcon={<ExpandMore />}
-            aria-controls="hltb-content"
-            id="hltb-header"
-            title={t('info.clickToOpen', 'Click to open')}
-          >
-            <Speed />
-            <b>{t('howLongToBeat', 'How Long To Beat')}</b>
-          </AccordionSummary>
-          <AccordionDetails>
-            <HowLongToBeat info={howlongtobeat} />
-          </AccordionDetails>
-        </Accordion>
-      </div>
-    )
-  } else {
-    return (
-      <PopoverComponent
-        item={
-          <div
-            className="iconWithText"
-            title={t('info.clickToOpen', 'Click to open')}
-          >
-            <Speed />
-            <b>{t('howLongToBeat', 'How Long To Beat')}</b>
-          </div>
-        }
-      >
-        <div className="poppedElement">
-          <HowLongToBeat info={howlongtobeat} />
-        </div>
-      </PopoverComponent>
-    )
-  }
+  return (
+    <Panel tone="glass" className="hltbWrapper">
+      <h3 className="extraTab__title">
+        <Icon glyph={Gauge} size="sm" />
+        {t('howLongToBeat', 'How Long To Beat')}
+      </h3>
+      <HowLongToBeat info={howlongtobeat} />
+    </Panel>
+  )
 }
 
 export default HLTB

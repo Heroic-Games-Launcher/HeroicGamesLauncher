@@ -11,6 +11,7 @@
         "move": {
             "message": "This can take a long time, are you sure?",
             "path": "Choose where you want to move",
+            "steamMessage": "Steam's Storage Manager will open to move this game to another drive. Heroic refreshes when it's done.",
             "title": "Move Game Installation"
         },
         "no": "NO",
@@ -69,12 +70,15 @@
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
+        "backToLibrary": "Back to Library",
         "browse_files": "Browse Files",
         "browse_wine_prefix": "Browse Wine Prefix",
         "cancel": "Pause/Cancel",
         "changelog": "Show Changelog",
         "continue": "Continue Downloading",
         "details": "Details",
+        "edit-game": "Edit Game",
+        "favourite": "Add to Favourites",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
@@ -82,7 +86,7 @@
         "import": "Import Game",
         "install": "Install",
         "no-path-selected": "No path selected",
-        "play": "PLAY",
+        "play": "Play",
         "queue": {
             "remove": "Remove from Queue"
         },
@@ -93,14 +97,35 @@
         "sideload": {
             "edit": "Edit App/Game"
         },
+        "steamStore": "Open Steam Page",
+        "unfavourite": "Remove from Favourites",
         "unhide_game": "Unhide Game",
         "uninstall": "Uninstall",
         "update": "Update"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
+    "edit-game": {
+        "advanced": "Advanced",
+        "cover": "Cover Art",
+        "info": {
+            "cover": "Cover Image",
+            "square": "Square Image"
+        },
+        "placeholder": {
+            "image": "Paste an image URL"
+        },
+        "reset": "Reset to default",
+        "sgdb": {
+            "no-key-link": "Settings → Advanced",
+            "no-key-prefix": "To search SteamGridDB for cover art, add an API key in"
+        },
+        "square": "Square Art",
+        "title": "Edit Game"
+    },
     "enabled": "Enabled",
     "game": {
+        "about": "About",
         "achievements": "Achievements",
         "branch": {
             "disabled": "Disabled",
@@ -114,19 +139,23 @@
             "version": "Version"
         },
         "changelogFor": "Changelog for {{gameTitle}}",
+        "details": "Game Details",
         "downloadSize": "Download Size",
-        "extra_info": "Extra info",
+        "extra_info": "Extra",
         "firstPlayed": "First Played",
         "getting-download-size": "Getting download size",
         "getting-install-size": "Getting install size",
-        "install_info": "Install info",
+        "hoursPlayedShort": "{{hours}} hours",
+        "install_info": "Installation Info",
         "installSize": "Install Size",
         "language": "Language",
         "lastPlayed": "Last Played",
         "modify": "Modify Installation",
         "neverPlayed": "Never",
+        "overview": "Overview",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
+        "tabs": "Game information",
         "totalPlayed": "Time Played"
     },
     "gamecard": {
@@ -154,15 +183,27 @@
     },
     "howLongToBeat": "How Long To Beat",
     "info": {
-        "apple-gaming-wiki": "AppleGamingWiki Rating",
         "canRunOffline": "Online Required",
         "clickToOpen": "Click to open",
+        "developer": "Developer",
+        "dlc": {
+            "disabled": "Disabled — click to enable",
+            "enabled": "Enabled — click to disable",
+            "notBought": "Not owned"
+        },
+        "dlcs": "DLCs",
         "game-scores": "Game Scores",
-        "installedInfo": "Installed Information",
+        "genres": "Genres",
         "installedPlatform": "Installed Platform",
         "path": "Install Path",
         "protondb-compatibility-info": "Proton Compatibility Tier",
         "size": "Size",
+        "steamdeck": {
+            "playable": "Playable",
+            "unknown": "Unknown",
+            "unsupported": "Unsupported",
+            "verified": "Verified"
+        },
         "steamdeck-compatibility-info": "SteamDeck Compatibility",
         "syncsaves": "Sync Saves",
         "third-party-app": "Third-Party Manager",
@@ -179,12 +220,20 @@
         },
         "disk-space-left": "Space Available",
         "flatpak-path-not-writtable": "Error: Sandbox access not granted to this path, data loss will occur.",
+        "free": "free",
         "not-enough-disk-space": "Not enough disk space",
         "path": "Select Install Path",
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
+        "steam-no-libraries": "No Steam library folders found — add a drive in Steam first.",
+        "steam-path": "Install Path (Steam library)",
         "wineprefix": "WinePrefix",
         "wineversion": "Wine version"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Folders installed by the itch.io app are fully imported, including updates. For any other folder, Heroic cannot check for updates and uninstalling will not delete the game files."
+        }
     },
     "label": {
         "game": {
@@ -193,14 +242,17 @@
         },
         "launching": "Launching",
         "playing": {
-            "start": "Play Now",
-            "start_with_logs": "Play Now (with logs)",
+            "start": "Play",
+            "start_with_logs": "Play with Logs",
+            "start_with_logs_hint": "Launches the game while recording a detailed log, useful when you need to report a problem",
             "stop": "Playing (Stop)"
         },
         "redist": "Installing Redistributables",
+        "releaseDate": "Release Date",
         "saves": {
             "syncing": "Syncing Saves"
         },
+        "steam-family-share": "Steam Family Sharing",
         "winetricks": "Installing Winetricks Packages"
     },
     "launch": {
@@ -247,15 +299,19 @@
         "field": {
             "title": "Title"
         },
+        "images": {
+            "summary": "Images"
+        },
         "import-hint": {
             "content": "Do NOT use this feature for that.<br />Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
             "title": "Important! Are you adding a game from Epic/GOG/Amazon? Click here!"
         },
         "info": {
             "broser": "BrowserURL",
+            "cover-hint": "Cover/Hero Art (click on the image to search on SteamGridDB)",
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
-            "image": "App Image",
+            "image-hint": "Square Art (click on the image to search on SteamGridDB)",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
         },
@@ -268,10 +324,11 @@
     },
     "specs": {
         "minimum": "Minimum",
+        "notes": "Notes",
+        "other": "Other",
         "recommended": "Recommended"
     },
     "status": {
-        "clickToUpdate": "Click to Update",
         "downloading": "Downloading",
         "extracting": "Extracting",
         "gameNotAvailable": "Game not available",
@@ -299,6 +356,20 @@
         "updating": "Updating Game",
         "winetricks": "Applying Winetricks fixes"
     },
+    "steam": {
+        "data": {
+            "achievements": "achievements",
+            "dlc": "DLC",
+            "installInfo": "download size",
+            "launchOptions": "launch options",
+            "storeInfo": "store information"
+        },
+        "loggedOut": {
+            "failed": "Retrieving {{data}} failed.",
+            "message": "Online features might not work.",
+            "title": "Steam account not logged in to Heroic"
+        }
+    },
     "submenu": {
         "addShortcut": "Add shortcut",
         "addToSteam": "Add to Steam",
@@ -307,6 +378,7 @@
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
         "logs": "Logs",
+        "more": "More",
         "move": "Move Game",
         "protondb": "Check Compatibility",
         "removeFromSteam": "Remove from Steam",

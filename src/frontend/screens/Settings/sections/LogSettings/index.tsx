@@ -1,8 +1,20 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UpdateComponent } from 'frontend/components/UI'
+import {
+  Button,
+  Icon,
+  SettingsCard,
+  UpdateComponent
+} from 'frontend/components/UI'
+import {
+  ArrowDownToLine,
+  ArrowUpToLine,
+  Cloud,
+  FolderOpen,
+  LifeBuoy,
+  Upload
+} from 'lucide-react'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -10,8 +22,6 @@ import { GameInfo } from 'common/types'
 import { openDiscordLink } from 'frontend/helpers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import useGlobalState from 'frontend/state/GlobalStateV2'
-import Upload from '@mui/icons-material/Upload'
-import Cloud from '@mui/icons-material/Cloud'
 import classNames from 'classnames'
 
 import type { GetLogFileArgs } from 'backend/logger/paths'
@@ -22,6 +32,9 @@ interface LogBoxProps {
 
 const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
   const { t } = useTranslation()
+  const boxRef = useRef<HTMLSpanElement>(null)
+  const [atEnd, setAtEnd] = useState(false)
+  const [scrollable, setScrollable] = useState(false)
   const maxLines = 1000
   let sliced = false
   let lines = logFileContent.split('\n')
@@ -29,6 +42,29 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
     lines = ['...', ...lines.slice(-maxLines)]
     sliced = true
   }
+
+  const syncScrollState = () => {
+    const box = boxRef.current
+    if (!box) return
+    const overflow = box.scrollHeight - box.clientHeight
+    setScrollable(overflow > 8)
+    setAtEnd(box.scrollTop >= overflow - 8)
+  }
+
+  useEffect(syncScrollState, [logFileContent])
+
+  const jump = () => {
+    const box = boxRef.current
+    if (!box) return
+    box.scrollTo({
+      top: atEnd ? 0 : box.scrollHeight,
+      behavior: 'smooth'
+    })
+  }
+
+  const jumpLabel = atEnd
+    ? t('setting.log.jump-to-start', 'Jump to the start of the log')
+    : t('setting.log.jump-to-end', 'Jump to the end of the log')
 
   return (
     <>
@@ -40,29 +76,48 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
           )}
         </span>
       )}
-      <span className="setting log-box">
-        {lines.map((line, key) => {
-          if (line.toLowerCase().includes(' err')) {
-            return (
-              <p key={key} className="log-error">
-                {line}
-              </p>
-            )
-          } else if (line.toLowerCase().includes(' warn')) {
-            return (
-              <p key={key} className="log-warning">
-                {line}
-              </p>
-            )
-          } else {
-            return (
-              <p key={key} className="log-info">
-                {line}
-              </p>
-            )
-          }
-        })}
-      </span>
+      <div className="log-box-wrapper">
+        {scrollable && (
+          <Button
+            className="log-jump"
+            variant="secondary"
+            size="sm"
+            icon={
+              <Icon glyph={atEnd ? ArrowUpToLine : ArrowDownToLine} size="sm" />
+            }
+            onClick={jump}
+            title={jumpLabel}
+            aria-label={jumpLabel}
+          />
+        )}
+        <span
+          className="setting log-box"
+          ref={boxRef}
+          onScroll={syncScrollState}
+        >
+          {lines.map((line, key) => {
+            if (line.toLowerCase().includes(' err')) {
+              return (
+                <p key={key} className="log-error">
+                  {line}
+                </p>
+              )
+            } else if (line.toLowerCase().includes(' warn')) {
+              return (
+                <p key={key} className="log-warning">
+                  {line}
+                </p>
+              )
+            } else {
+              return (
+                <p key={key} className="log-info">
+                  {line}
+                </p>
+              )
+            }
+          })}
+        </span>
+      </div>
     </>
   )
 }
@@ -80,39 +135,58 @@ export default function LogSettings() {
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
 
-  const { epic, gog, amazon, zoom, sideloadedLibrary } =
+  const { epic, gog, amazon, zoom, itchio, steam, sideloadedLibrary } =
     useContext(ContextProvider)
-  const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
 
-  useEffect(() => {
-    let games: GameInfo[] = []
-    games = games.concat(epic.library.filter((game) => game.is_installed))
-    games = games.concat(gog.library.filter((game) => game.is_installed))
-    games = games.concat(amazon.library.filter((game) => game.is_installed))
-    games = games.concat(zoom.library.filter((game) => game.is_installed))
-    games = games.concat(sideloadedLibrary.filter((game) => game.is_installed))
-    games = games.sort((game1, game2) => game1.title.localeCompare(game2.title))
+  const installedGames = useMemo<GameInfo[]>(
+    () =>
+      [
+        ...epic.library,
+        ...gog.library,
+        ...amazon.library,
+        ...zoom.library,
+        ...itchio.library,
+        ...sideloadedLibrary
+      ]
+        .filter((game) => game.is_installed)
+        .sort((a, b) => a.title.localeCompare(b.title)),
+    [
+      epic.library,
+      gog.library,
+      amazon.library,
+      sideloadedLibrary,
+      zoom.library,
+      itchio.library
+    ]
+  )
 
-    setInstalledGames(games)
-  }, [
-    epic.library,
-    gog.library,
-    amazon.library,
-    sideloadedLibrary,
-    zoom.library
-  ])
+  const isFetching = useRef<boolean>(false)
 
   const getLogContent = () => {
-    void window.api.getLogContent(showLogOf).then((content: string) => {
-      if (!content) {
-        setLogFileContent(t('setting.log.no-file', 'No log file found.'))
+    if (isFetching.current) return
+    isFetching.current = true
+    void window.api
+      .getLogContent(showLogOf)
+      .then((content: string) => {
+        if (!content) {
+          const fallback = t('setting.log.no-file', 'No log file found.')
+          setLogFileContent((prev) => (prev === fallback ? prev : fallback))
+          setLogFileExist(false)
+          return
+        }
+        setLogFileContent((prev) => (prev === content ? prev : content))
+        setLogFileExist(true)
+      })
+      .catch(() => {
+        setLogFileContent(
+          t('setting.log.error', 'Internal error reading log file')
+        )
         setLogFileExist(false)
-        return setRefreshing(false)
-      }
-      setLogFileContent(content)
-      setLogFileExist(true)
-      setRefreshing(false)
-    })
+      })
+      .finally(() => {
+        isFetching.current = false
+        setRefreshing(false)
+      })
   }
 
   useEffect(() => {
@@ -151,6 +225,10 @@ export default function LogSettings() {
       return t('setting.log.descriptiveNames.nile', 'Amazon / Nile log')
     if (showLogOf.runner === 'zoom')
       return t('setting.log.descriptiveNames.zoom', 'Zoom log')
+    if (showLogOf.runner === 'itchio')
+      return t('setting.log.descriptiveNames.itchio', 'itch.io log')
+    if (showLogOf.runner === 'steam')
+      return t('setting.log.descriptiveNames.steam', 'Steam / Aurelia log')
     return ''
   }, [showLogOf, installedGames, t])
 
@@ -164,25 +242,32 @@ export default function LogSettings() {
     if (zoom.enabled) {
       baseFiles.push({ title: 'Zoom', args: { runner: 'zoom' } })
     }
+    if (itchio.username) {
+      baseFiles.push({ title: 'itch.io', args: { runner: 'itchio' } })
+    }
+    if (steam.enabled) {
+      baseFiles.push({ title: 'Aurelia', args: { runner: 'steam' } })
+    }
     const logsForInstalledGames = installedGames.map((game) => ({
-      title: game.title,
+      title: game.overrides?.title || game.title,
       args: {
         appName: game.app_name,
         runner: game.runner
       }
     }))
     return baseFiles.concat(logsForInstalledGames)
-  }, [installedGames, zoom.enabled])
+  }, [installedGames, zoom.enabled, itchio.username, steam.enabled])
 
   return (
-    <>
-      <h3>{t('setting.log.instructions_title', 'How to report a problem?')}</h3>
-      <p className="report-problem-instructions">
-        {t(
-          'setting.log.instructions',
-          'Join our Discord and look for the "#-support" section. Read the pinned "Read Me First | Frequently Asked Questions" thread and follow the instructions to share these logs and any relevant information about your problem.'
-        )}
-      </p>
+    <SettingsCard
+      glyph={LifeBuoy}
+      title={t('setting.log.instructions_title', 'How to report a problem?')}
+      description={t(
+        'setting.log.instructions',
+        'Join our Discord and look for the "#-support" section. Read the pinned "Read Me First | Frequently Asked Questions" thread and follow the instructions to share these logs and any relevant information about your problem.'
+      )}
+      className="logSettingsCard"
+    >
       <div
         className={classNames('logs-wrapper', {
           'game-log': !isInSettingsMenu
@@ -222,21 +307,17 @@ export default function LogSettings() {
       <span className="footerFlex">
         {logFileExist && (
           <>
-            <a
+            <Button
+              variant="ghost"
+              icon={<Icon glyph={FolderOpen} size="md" />}
               onClick={showLogFileInFolder}
               title={t('setting.log.show-in-folder', 'Show log file in folder')}
-              className="button is-footer"
             >
-              <div className="button-icontext-flex">
-                <div className="button-icon-flex">
-                  <FontAwesomeIcon icon={faFolderOpen} />
-                </div>
-                <span className="button-icon-text">
-                  {t('setting.log.show-in-folder', 'Show log file in folder')}
-                </span>
-              </div>
-            </a>
-            <a
+              {t('setting.log.show-in-folder', 'Show log file in folder')}
+            </Button>
+            <Button
+              variant="ghost"
+              icon={<Icon glyph={Upload} size="md" />}
               onClick={() => {
                 setUploadLogFileProps({
                   logFileArgs: showLogOf,
@@ -244,54 +325,34 @@ export default function LogSettings() {
                 })
               }}
               title={t('setting.log.upload.button', 'Upload log file')}
-              className="button is-footer"
             >
-              <div className="button-icontext-flex">
-                <div className="button-icon-flex">
-                  <Upload />
-                </div>
-                <span className="button-icon-text">
-                  {t('setting.log.upload.button', 'Upload log file')}
-                </span>
-              </div>
-            </a>
-            <a
+              {t('setting.log.upload.button', 'Upload log file')}
+            </Button>
+            <Button
+              variant="ghost"
+              icon={<FontAwesomeIcon icon={faDiscord} />}
               onClick={openDiscordLink}
               title={t('setting.log.join-heroic-discord', 'Join our Discord')}
-              className="button is-footer"
             >
-              <div className="button-icontext-flex">
-                <div className="button-icon-flex">
-                  <FontAwesomeIcon icon={faDiscord} />
-                </div>
-                <span className="button-icon-text">
-                  {t('setting.log.join-heroic-discord', 'Join our Discord')}
-                </span>
-              </div>
-            </a>
+              {t('setting.log.join-heroic-discord', 'Join our Discord')}
+            </Button>
           </>
         )}
         {isInSettingsMenu && (
           <>
-            <a
+            <Button
+              variant="ghost"
+              icon={<Icon glyph={Cloud} size="md" />}
               onClick={() =>
                 useGlobalState.setState({ showUploadedLogFileList: true })
               }
               title={t('setting.log.show-uploads', 'Show uploaded log files')}
-              className="button is-footer"
             >
-              <div className="button-icontext-flex">
-                <div className="button-icon-flex">
-                  <Cloud />
-                </div>
-                <span className="button-icon-text">
-                  {t('setting.log.show-uploads', 'Show uploaded log files')}
-                </span>
-              </div>
-            </a>
+              {t('setting.log.show-uploads', 'Show uploaded log files')}
+            </Button>
           </>
         )}
       </span>
-    </>
+    </SettingsCard>
   )
 }

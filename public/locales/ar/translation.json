@@ -9,9 +9,12 @@
         "disable_dialog_backdrop_close": "قم بتعطيل مربعات الحوار الختامية من خلال النقر بالخارج",
         "titles_always_visible": "أظهر العنواين في المكتبة دائماً",
         "disable_animations": "عطّل تأثيرات الواجهة",
-        "disable_smooth_scrolling": "عطّل السحب السلس(يتطلب اعادة التشغيل)",
+        "disable_smooth_scrolling": "عطّل السحب السلس (يتطلب اعادة التشغيل)",
         "actions_font_family_default": "",
-        "content_font_family_default": ""
+        "content_font_family_default": "",
+        "section": {
+            "library": "المكتبة"
+        }
     },
     "add_game": "أضف لعبة",
     "All": "الكل",
@@ -96,8 +99,13 @@
             "executableNotFound": "لم يُعثر على الملف التنفيذي",
             "executableNotFoundMessage": "لم يعثر هيرويك على الملف التفيذي للعبة، رجاء عيّنه من اعدادات اللعبة.",
             "dxmt": {
-                "message": "",
-                "title": ""
+                "message": "حدث خلل أثناء تحميل DXMT! الرجاء التحقق من الاتصال بالانترنت!",
+                "title": "حدث خلل أثناء تحميل DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "فشلت إضافة {{game}} إلى ستيم مع: {{newLine}} {{error}}"
+                }
             }
         },
         "info": {
@@ -108,7 +116,7 @@
                 "message-finished": "هل تريد إعادة تشغيل هِرُوِك الأن؟",
                 "title": "مشغل الألعاب هِرُوِك",
                 "title-finished": "انتهى التحديث",
-                "detailNoAutoupdate": "التنسيق الذي تستخدمه غير مدعوم في التحديث التلقائي، لتحديث استخدم مدير الحزم."
+                "detailNoAutoupdate": "التنسيق الذي تستخدمه غير مدعوم في التحديث التلقائي، للتحديث استخدم مدير الحزم."
             }
         },
         "no": "لا",
@@ -124,7 +132,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "أتريد إعادة ضبط هِرُوِك؟ ستزال جميع الإعدادات والتخزين المؤقت، لن تزال الألعاب المثبتة أو بيانات اعتماد أََبِك.ان كنت تستخدم نسخة متنقلة (AppImage، WinPortable) وجب عليك اعادة التشغيل بعد الانتهاء.",
+                "message": "هل أنت متأكد من أنك تريد إعادة ضبط هِرُوِك؟ سيؤدي هذا إلى إزالة جميع الإعدادات وذاكرة التخزين المؤقتة ولكنه لن يزيل الألعاب المثبتة أو بيانات اعتماد أََبِك الخاصة بك.",
                 "title": "إعادة ضبط هِرُوِك"
             }
         },
@@ -174,14 +182,9 @@
                     "message": "ربما تفقد ما لم يُحفَظ"
                 }
             },
-            "snap": {
-                "checkbox": "لا تظهر هذا مجدَّدًا",
-                "title": "هذه نسخة سناب من هروك",
-                "message": "تنقص من نسخة سناب بعض الأشياء، ونحن نشتغل بإصلاح هذا النقص.{{newLine}}ومن النقص: {{newLine}}لن يجد هروك بروتون من ستيم ولا واين من لوترس.{{newLine}}{{newLine}}ولن يعمل Gamescope ولا GameMode ولا MangoHud لأن هروك لا يصل لهم.{{newLine}}{{newLine}}فإن أردت أن تستخدم هذه الأشياء ثبِّت نسخة فلاتباك أو deb أو AppImage."
-            },
             "rosetta": {
-                "title": "",
-                "message": ""
+                "title": "لم يتم العثور على روزيتا",
+                "message": "هيرويك يتطلب روزيتا للعمل بشكل صحيح على نظام ماك مع شرائح أبل سيليكون. الرجاء تحميله من تيرمنال نظام ماك باستخدام الأمر التالي: \"softwareupdate --install-rosetta\" ثم أعد التشغيل "
             }
         },
         "wineprefix": "اختر مجلَّد سابقة واين",
@@ -199,7 +202,8 @@
         "sync": "زامن",
         "syncing": "يزامن",
         "unsync": "ألغ المزامنة",
-        "continue": "تابِع"
+        "continue": "تابِع",
+        "close": "أغلق"
     },
     "controller": {
         "hints": {
@@ -218,7 +222,12 @@
             "scroll": "مرّر",
             "select": "اختر",
             "space": "مسافة",
-            "update_game": "حدث اللعبة"
+            "update_game": "حدث اللعبة",
+            "exit": "اخرج",
+            "move_focus": "حرك التركيز",
+            "next_page": "الصفحة التالية",
+            "previous_page": "الصفحة السابقة",
+            "search": "ابحث"
         }
     },
     "docs": "التوثيق",
@@ -252,7 +261,8 @@
         "status": "الحالة",
         "store": "المتجر",
         "title": "اسم اللعبة",
-        "modify": "تعديل التثبيت"
+        "modify": "تعديل التثبيت",
+        "settings": "إعدادات الألعاب"
     },
     "generic": {
         "error": {
@@ -261,9 +271,9 @@
         "library": {
             "refresh": "أعد تحميل المكتبة"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "عن",
+        "install": "ثبِّت",
+        "uninstall": "الغاء التثبيت"
     },
     "globalSettings": "الإعدادات العامة",
     "GOG": "جي.أو.جي",
@@ -288,7 +298,9 @@
         "no_categories": "لا فئات مخصَّصة، وإضافتها تكون بالقائمة عند كل لعبة.",
         "show_support_offline_only": "إظهار المدعوم بدون إنترنت فقط",
         "show_third_party_managed_only": "أظهر من الأطراف الثالثة فقط",
-        "show_updates_only": "أظهر الألعاب التي تحتاج تحديثًا فقط"
+        "show_updates_only": "أظهر الألعاب التي تحتاج تحديثًا فقط",
+        "platforms": "منصة",
+        "stores": "المتاجر"
     },
     "help": {
         "amdfsr": "تساعد تقنية إف.إس.آر من أي.إم.دي على رفع معدل الإطارات من خلال رفع جودة الدقة المنخفضة في وضع ملء الشاشة. تزداد جودة الصورة من 5 إلى 1 على حساب انخفاض طفيف في الأداء. قد يؤدي التمكين إلى تحسين الأداء.",
@@ -373,7 +385,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "استخدم بطاقة رسوميات مخصصة لعرض اللعبة على أنظمة متعددة وحدات معالجة الرسوميات. مطلوب فقط على أجهزة الكمبيوتر المحمولة أو أجهزة الكمبيوتر المكتبية المخصصة للألعاب التي تستخدم وحدة معالجة رسوميات بدون رأس للعرض (إنفيديا.أُبتِمُس و أي.إم.دي كُرُوسفَيَر)"
+        }
     },
     "info": {
         "heroic": {
@@ -544,7 +559,7 @@
             "fpsLimiterNoFocus": "حدُّ معدَّل الإطارات (دون التركيز)",
             "stretch": "مدِّد الصورة",
             "additionalOptions": "الإعدادات الإضافية",
-            "windowed": "داخل نافذة"
+            "windowed": "ويندوز"
         }
     },
     "other": {
@@ -665,7 +680,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "ارفع",
                     "content": ""
                 },
                 "open": "",
@@ -687,7 +702,7 @@
                 "nile": "",
                 "gog": "",
                 "zoom": "",
-                "game-log": "",
+                "game-log": "سجل التغيير لـ {{gameTitle}}",
                 "heroic": ""
             },
             "show-uploads": ""
@@ -708,13 +723,6 @@
         "offlinemode": "شغل اللعبة دون اتصال بالإنترنت",
         "prefered_language": "اللغة المفضلة (رمز اللغة)",
         "preferSystemLibs": "فضّل مكتبات النظام",
-        "primerun": {
-            "confirmation": {
-                "message": "اُكتشفت بطاقة رسوميات واحدة فقط في هذا النظام. ترجى ملاحظة أن هذا الخيار مخصص للأنظمة المتعددة وحدات معالجة الرسوميات بدون رأس (مثل أجهزة الحاسب المحمول). في أنظمة وحدة معالجة الرسوميات الفردية، يتم استخدام وحدة معالجة الرسوميات تلقائيًا ويمكن أن يؤدي تمكين هذا الخيار إلى حدوث مشكلات. هل تريد حقًا تمكين هذا الخيار؟",
-                "title": "اُكتشفت وحدة معالجة رسوميات واحدة فقط"
-            },
-            "description": "استخدم بطاقة الرسوميات المخصصة"
-        },
         "runexe": {
             "message": "اسحب الملفات وأفلتها هنا",
             "title": "قم بتشغيل الملف التنفيذي في السابقة"
@@ -807,7 +815,14 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "استخدم بيئة تشغيل ستيم"
+        },
+        "tools": {
+            "open": "افتح",
+            "selectExe": "اختر ملفًا تنفيذيًا"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -845,7 +860,8 @@
             "wineExt": "إضافات واين",
             "systemInformation": "معلومات النظام",
             "gamescope": "Gamescope",
-            "legacy": ""
+            "legacy": "",
+            "categories": "الفئات"
         },
         "open-config-file": "افتح ملف التكوين",
         "reset-heroic": "إعادة تعيين هِرُوِك",
@@ -923,19 +939,28 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "التنزيلات",
+            "experimental": "مزايا تجريبية",
+            "launch": "خيارات التشغيل...",
+            "wineTools": "الأدوات",
+            "wineVersion": "برنامج واين"
         }
     },
     "Settings": "الإعدادات",
     "sidebar": {
         "collapse": "اطوِ الشريط الجانبي",
         "uncollapse": "اكشف الشريط الجانبي",
-        "console": ""
+        "console": "",
+        "storesLogin": "تسجيل الدخول للمتجر"
     },
     "status": {
         "installing": "قيد التثبيت",
         "logging": "قيد تسجيل الدخول...",
         "processing": "قيد معالجة الملفات، يرجى الانتظار",
-        "preparing_login": "يحضِّر الولوج "
+        "preparing_login": "يحضِّر الولوج ",
+        "installed": "مثبت"
     },
     "store": "متجر أََبِك",
     "stores": "المتاجر",
@@ -959,7 +984,8 @@
         "show": "أظهر"
     },
     "two_col_table": {
-        "save_hint": "لا تُحفظ التغييرات في هذا الجدول تلقائيًا. انقر فوق زر +"
+        "save_hint": "لا تُحفظ التغييرات في هذا الجدول تلقائيًا. انقر فوق زر +",
+        "add": "أضيف"
     },
     "Update Available!": "يتوفَّر تحديث!",
     "userselector": {
@@ -990,8 +1016,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "حدّث",
+            "settings": "الإعدادات",
             "no-results": ""
         },
         "release": "تاريخ الإصدار",
@@ -1042,11 +1068,11 @@
     },
     "emptyLibrary": {
         "noResults": "لم تسفر التصنيفات الحالية عن أية نتائج.",
-        "noGames": ""
+        "noGames": "",
+        "noResultsTitle": "لم يتم العثور على ألعاب"
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton هو نوع Proton تم إنشاؤه بواسطة Glorious Eggroll. من المفترض استخدامه في Steam، لكن بعض الألعاب خارج Steam قد تعمل بشكل أفضل مع هذا المتغير. ويوفر سجلات غير مجدية في الغالب لاستكشاف الأخطاء وإصلاحها.",
-        "wine-ge": "Wine-GE-Proton هو نوع من Wine تم إنشاؤه بواسطة Glorious Eggroll. إنه Wine الموصى باستخدامه خارج Steam. يوفر هذا سجلات مفيدة عند استكشاف الأخطاء وإصلاحها.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1073,7 +1099,7 @@
         "enable": "فعّل",
         "info": {
             "pt1": "حتى يتم تحسين التطبيق، هيرويك يجمع البيانات دون الإفصاح عن هويتك مطلقا.",
-            "pt2": "هيرويك يستخدم منصة التحليلات المعقولة مفتوحة المصدر لتجميع البيانات الأساسية مثل: إصدار التطبيق، و نظام التشغيل، و المتاجر المرتبطة، و الدولة.",
+            "pt2": "هيرويك يستخدم منصة التحليلات المعقولة مفتوحة المصدر المستضافة من قبل فريق هيرويك, لتجميع البيانات الأساسية مثل: إصدار التطبيق، و نظام التشغيل، و عمارة النظام, و توزيعة لينكس, و المتاجر المرتبطة، و الدولة.",
             "pt3": "لن يجمع أي معلومات شخصية، مثل اسم المستخدم او عنوان IP او البريد الالكتروني.",
             "pt4": "هذه البيانات تستخدم لإعطائنا بصيرة على الأمور التي نركز عليها لاحقاً بسبب محدودية و مواردنا و التغذية الراجعة من المستخدمين.",
             "pt5": "منصة البيانات المعقولة منطبقة تماما مع GDPR، CCPA، PECR.",
@@ -1171,25 +1197,27 @@
         },
         "filters": {
             "moreFilters": "",
-            "ageRating": "",
-            "os": "",
+            "ageRating": "مناسب لعمر",
+            "os": "نظام التشغيل:",
             "price": "",
-            "activeCount_other": "",
-            "hideDlcs": "",
-            "ageRatingOption": "",
-            "genres": "",
-            "activeCount_one": "",
+            "activeCount_other": "{{count}} فعّال",
+            "hideDlcs": "أخفي المحتوى القابل للتحميل",
+            "ageRatingOption": "أظهر الالعاب المقيمة لعمر {{age}} او أقل من قبل PEGI",
+            "genres": "التصنيفات",
+            "activeCount_one": "{{count}} فعّال",
             "lessFilters": "",
             "rating": "",
             "sort": "",
-            "genresPlaceholder": "",
-            "features": "",
-            "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "genresPlaceholder": "أي تصنيف",
+            "features": "الميّزات",
+            "featuresPlaceholder": "أي ميّزة",
+            "ageRatingAll": "الكل",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "منصة",
+            "hideOwned": "أخفي المملوك"
         },
-        "sidebar": "",
+        "sidebar": "التفاصيل",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1203,25 +1231,32 @@
         "noMatches": "",
         "aria": {
             "pagination": "",
-            "rating": ""
+            "rating": "تقييم {{rating}} من 10"
         },
-        "error": "",
-        "empty": "",
+        "error": "لم يمكن تحميل التخفيضات. الرجاء المحاولة لاحقاً.",
+        "empty": "لا يوجد ألعاب مخفضة حالياً.",
         "loading": "",
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "المتجر"
+        },
+        "titleMulti": "التفاصيل",
+        "currency": {
+            "label": "العملة"
         }
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
-            "no-grids": "",
+            "no-games": "لم يتم العثور على ألعاب",
+            "no-grids": "لم يُعثر على سجلات لهذه اللعبة",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "ابحث عن ألعاب",
             "title": "",
             "select-game": ""
         }
@@ -1233,31 +1268,53 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": "رتب",
         "cancel": {
-            "hintSuffix": "",
-            "hintPrefix": ""
+            "hintSuffix": "ل3 ثواني للالغاء",
+            "hintPrefix": "اضغط"
         },
-        "quit": "",
+        "quit": "أخرج من وحدة التحكم",
         "hints": {
-            "launch": "",
-            "sort": "",
+            "launch": "شغِّل",
+            "sort": "رتب",
             "navigate": "",
-            "quit": "",
-            "change_store": ""
+            "quit": "اخرج",
+            "change_store": "غيّر المتجر"
         },
-        "launching": "",
+        "launching": "يشغَّل",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "تحتاج التحديث"
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "آخر",
+            "all": "الكل"
         },
-        "empty": "",
-        "games": "",
-        "quitApp": "",
-        "loading": ""
+        "empty": "لا يوجد ألعاب مثبتة. ثبت شيئاً أولاً.",
+        "games": "الألعاب المثبتة",
+        "quitApp": "أخرج من التطبيق",
+        "loading": "يتم تحميل مكتبتك…",
+        "install": {
+            "platform": "منصة",
+            "title": "ثبت اللعبة",
+            "wineLoading": "يحمَّل…",
+            "path": "ثبّت في",
+            "wineMissing": "لم يُحدد",
+            "wine": "برنامج واين"
+        },
+        "cancelInstall": {
+            "message": "هذه اللعبة تُثبت حاليا. هل ترغب بإلغاء الثبيت؟",
+            "title": "إلغاء التثبيت؟"
+        },
+        "cancelUpdate": {
+            "message": "هذه اللعبة تحمل حاليا. هل ترغب بإلغاء التحديث الجاري؟",
+            "title": "إلغاء التحديث؟"
+        }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "أضيف",
+        "cancel": "ألغِ",
+        "warning": "تحذير"
+    },
+    "General": "عام"
 }

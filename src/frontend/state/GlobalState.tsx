@@ -32,14 +32,21 @@ import {
   libraryStore,
   nileConfigStore,
   nileLibraryStore,
+  itchioConfigStore,
+  itchioLibraryStore,
   wineDownloaderInfoStore,
   sideloadLibrary,
   zoomConfigStore,
   zoomInstalledGamesStore,
-  zoomLibraryStore
+  zoomLibraryStore,
+  steamConfigStore,
+  steamInstalledGamesStore,
+  steamLibraryStore
 } from '../helpers/electronStores'
-import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
+import { ItchioOAuthCodeData, ItchioRegisterData } from 'common/types/itchio'
+import { SteamAccount, SteamLoginData } from 'common/types/steam'
+import useGlobalState from './GlobalStateV2'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -73,6 +80,16 @@ interface StateProps {
     username?: string
     enabled: boolean
   }
+  itchio: {
+    library: GameInfo[]
+    username?: string
+  }
+  steam: {
+    library: GameInfo[]
+    username?: string
+    enabled: boolean
+    users: SteamAccount[]
+  }
   wineVersions: WineVersionInfo[]
   error: boolean
   gameUpdates: string[]
@@ -102,6 +119,8 @@ interface StateProps {
   externalLinkDialogOptions: ExternalLinkDialogOptions
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
+  disableDiscounts: boolean
+  disableGOGAffiliate: boolean
   lastChangelogShown: string | null
   showInstallModal: {
     show: boolean
@@ -130,29 +149,60 @@ const loadCurrentCategories = () => {
   }
 }
 
+import { attachGameOverrides } from '../helpers/gameOverrides'
+
+type GameOverride = NonNullable<GameInfo['overrides']>
+
+const currentOverrides = () => useGlobalState.getState().gameOverrides
+
+const applyGameOverrides = (
+  lib: GameInfo[],
+  overrides: Record<string, GameOverride> = currentOverrides()
+) => attachGameOverrides(lib, overrides)
+
 class GlobalState extends PureComponent<Props> {
-  loadGOGLibrary = (): Array<GameInfo> => {
+  loadLegendaryLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
+    const games = libraryStore.get('library', [])
+    return applyGameOverrides(games, overrides)
+  }
+
+  loadGOGLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
     const games = gogLibraryStore.get('games', [])
 
     const installedGames = gogInstalledGamesStore.get('installed', [])
-    for (const igame in games) {
+    for (const game of games) {
       for (const installedGame of installedGames) {
-        if (installedGame.appName === games[igame].app_name) {
-          games[igame].install = installedGame
-          games[igame].is_installed = true
+        if (installedGame.appName === game.app_name) {
+          game.install = installedGame
+          game.is_installed = true
         }
       }
     }
 
-    return games
+    return applyGameOverrides(games, overrides)
   }
-  loadAmazonLibrary = (): Array<GameInfo> => {
+  loadAmazonLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
     const games = nileLibraryStore.get('library', [])
 
-    return games
+    return applyGameOverrides(games, overrides)
   }
 
-  loadZoomLibrary = (): Array<GameInfo> => {
+  loadItchioLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
+    const games = itchioLibraryStore.get('library', [])
+    return applyGameOverrides(games, overrides)
+  }
+
+  loadZoomLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
     const games = zoomLibraryStore.get('games', [])
     const installedGames = zoomInstalledGamesStore.get('installed', [])
     for (const game of games) {
@@ -164,12 +214,29 @@ class GlobalState extends PureComponent<Props> {
         game.is_installed = true
       }
     }
-    return games
+    return applyGameOverrides(games, overrides)
+  }
+
+  loadSteamLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
+    const games = steamLibraryStore.get('games', [])
+    const installedGames = steamInstalledGamesStore.get('installed', [])
+    for (const game of games) {
+      const igame = installedGames.find(
+        (igame) => igame.appName === game.app_name
+      )
+      if (igame) {
+        game.install = igame
+        game.is_installed = true
+      }
+    }
+    return applyGameOverrides(games, overrides)
   }
 
   state: StateProps = {
     epic: {
-      library: libraryStore.get('library', []),
+      library: this.loadLegendaryLibrary(),
       username: configStore.get_nodefault('userInfo.displayName')
     },
     gog: {
@@ -185,6 +252,16 @@ class GlobalState extends PureComponent<Props> {
       library: this.loadZoomLibrary(),
       username: zoomConfigStore.get_nodefault('username'),
       enabled: !!globalSettings?.experimentalFeatures?.zoomPlatform
+    },
+    itchio: {
+      library: this.loadItchioLibrary(),
+      username: itchioConfigStore.get_nodefault('userData.username')
+    },
+    steam: {
+      library: this.loadSteamLibrary(),
+      username: steamConfigStore.get_nodefault('username'),
+      enabled: window.platform !== 'darwin',
+      users: []
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -227,10 +304,12 @@ class GlobalState extends PureComponent<Props> {
       runner: 'legendary',
       gameInfo: null
     },
-    sideloadedLibrary: sideloadLibrary.get('games', []),
+    sideloadedLibrary: applyGameOverrides(sideloadLibrary.get('games', [])),
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
+    disableDiscounts: globalSettings?.disableDiscounts || false,
+    disableGOGAffiliate: globalSettings?.enableGOGAffiliate !== true,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
     helpItems: {},
     experimentalFeatures: {
@@ -320,6 +399,15 @@ class GlobalState extends PureComponent<Props> {
 
   setHideChangelogsOnStartup = (value: boolean) => {
     this.setState({ hideChangelogsOnStartup: value })
+  }
+
+  setDisableDiscounts = (value: boolean) => {
+    this.setState({ disableDiscounts: value })
+  }
+
+  setDisableGOGAffiliate = (value: boolean) => {
+    sessionStorage.removeItem('last-url-gog')
+    this.setState({ disableGOGAffiliate: value })
   }
 
   setLastChangelogShown = (value: string) => {
@@ -478,10 +566,14 @@ class GlobalState extends PureComponent<Props> {
       title: t('box.reset-heroic.question.title', 'Reset Heroic'),
       message: t(
         'box.reset-heroic.question.message',
-        "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards."
+        "Are you sure you want to reset Heroic? This will remove all settings and caching but won't remove your installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards."
       ),
       buttons: [
-        { text: t('box.yes'), onClick: window.api.resetHeroic },
+        {
+          text: t('box.yes'),
+          variant: 'dangerSubtle',
+          onClick: window.api.resetHeroic
+        },
         { text: t('box.no') }
       ]
     })
@@ -607,6 +699,58 @@ class GlobalState extends PureComponent<Props> {
 
   getAmazonLoginData = async () => window.api.getAmazonLoginData()
 
+  itchioLogin = async (data: ItchioRegisterData) => {
+    console.log('logging itch.io')
+    const response = await window.api.authItchio(data)
+
+    if (response.status === 'done') {
+      this.setState({
+        itchio: {
+          library: [],
+          username: response.user?.username
+        }
+      })
+
+      this.handleSuccessfulLogin('itchio')
+    }
+
+    return response.status
+  }
+
+  itchioLogout = async () => {
+    await window.api.logoutItchio()
+    this.setState({
+      itchio: {
+        library: [],
+        username: null
+      }
+    })
+    console.log('Logging out from itch.io')
+    window.location.reload()
+  }
+
+  getItchioLoginData = async () => window.api.getItchioLoginData()
+
+  getItchioOAuthUrl = async () => window.api.getItchioOAuthUrl()
+
+  itchioOAuthLogin = async (data: ItchioOAuthCodeData) => {
+    console.log('logging itch.io with OAuth')
+    const response = await window.api.authItchioOAuth(data)
+
+    if (response.status === 'done') {
+      this.setState({
+        itchio: {
+          library: [],
+          username: response.user?.username
+        }
+      })
+
+      this.handleSuccessfulLogin('itchio')
+    }
+
+    return response.status
+  }
+
   zoomLogin = async (url: string) => {
     console.log('logging zoom')
     const response = await window.api.authZoom(url)
@@ -640,20 +784,116 @@ class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
+  // Shared post-login handling for both the credentials and QR Steam flows.
+  private finishSteamLogin = async (response: {
+    status: 'done' | 'error'
+    error?: string
+  }) => {
+    if (response.status === 'done') {
+      const userInfo = await window.api.getSteamUserInfo()
+      this.setState({
+        steam: {
+          ...this.state.steam,
+          library: [],
+          username: userInfo?.username,
+          enabled: true
+        }
+      })
+
+      await this.loadSteamUsers()
+      this.handleSuccessfulLogin('steam')
+    }
+
+    return response
+  }
+
+  steamLogin = async (credentials: SteamLoginData) => {
+    console.log('logging steam')
+    const response = await window.api.loginSteam(credentials)
+    return this.finishSteamLogin(response)
+  }
+
+  steamLoginQr = async () => {
+    console.log('logging steam (QR)')
+    const response = await window.api.loginSteamQr()
+    return this.finishSteamLogin(response)
+  }
+
+  steamLogout = async () => {
+    window.api.logoutSteam()
+    this.setState({
+      steam: {
+        ...this.state.steam,
+        library: [],
+        username: null,
+        enabled: true
+      }
+    })
+    console.log('Logging out from steam')
+    window.location.reload()
+  }
+
+  loadSteamUsers = async () => {
+    const users = await window.api.getSteamUsers()
+    this.setState({
+      steam: { ...this.state.steam, users }
+    })
+  }
+
+  logoutSteamUser = (steamId: string) => {
+    window.api.logoutSteamAccount(steamId)
+    const users = this.state.steam.users.filter(
+      (user) => user.steamId !== steamId
+    )
+    this.setState({
+      steam: { ...this.state.steam, users }
+    })
+    void this.refreshLibrary({ runInBackground: true })
+  }
+
+  updateGameOverrides = (overrides: Record<string, GameOverride>) => {
+    useGlobalState.getState().setGameOverrides(overrides)
+    this.setState({
+      epic: {
+        ...this.state.epic,
+        library: this.loadLegendaryLibrary(overrides)
+      },
+      gog: {
+        ...this.state.gog,
+        library: this.loadGOGLibrary(overrides)
+      },
+      zoom: {
+        ...this.state.zoom,
+        library: this.loadZoomLibrary(overrides)
+      },
+      amazon: {
+        ...this.state.amazon,
+        library: this.loadAmazonLibrary(overrides)
+      },
+      sideloadedLibrary: applyGameOverrides(
+        sideloadLibrary.get('games', []),
+        overrides
+      )
+    })
+  }
+
   refresh = async (
     library?: Runner | 'all',
-    checkUpdates = false
+    checkUpdates = false,
+    overridesArg?: Record<string, GameOverride>
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, zoom, gameUpdates } = this.state
+    const { epic, gog, amazon, zoom, itchio, steam, gameUpdates } = this.state
+
+    const overrides = overridesArg || currentOverrides()
 
     let updates = gameUpdates
     if (checkUpdates) {
       try {
         updates = await window.api.checkGameUpdates()
       } catch (error) {
-        window.api.logError(`${error}`)
+        window.api.logError(`Game update check failed: ${String(error)}`)
       }
     }
 
@@ -666,20 +906,30 @@ class GlobalState extends PureComponent<Props> {
       epicLibrary = legendaryLibrary
     }
 
-    let gogLibrary = this.loadGOGLibrary()
+    let gogLibrary = this.loadGOGLibrary(overrides)
     if (gog.username && (!gogLibrary.length || !gog.library.length)) {
       window.api.logInfo('No cache found, getting data from gog...')
       await window.api.refreshLibrary('gog')
-      gogLibrary = this.loadGOGLibrary()
+      gogLibrary = this.loadGOGLibrary(overrides)
     }
 
     let zoomLibrary: GameInfo[] = []
     if (zoom.enabled) {
-      zoomLibrary = this.loadZoomLibrary()
+      zoomLibrary = this.loadZoomLibrary(overrides)
       if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
         window.api.logInfo('No cache found, getting data from zoom...')
         await window.api.refreshLibrary('zoom')
-        zoomLibrary = this.loadZoomLibrary()
+        zoomLibrary = this.loadZoomLibrary(overrides)
+      }
+    }
+
+    let steamLibrary: GameInfo[] = []
+    if (steam.enabled) {
+      steamLibrary = this.loadSteamLibrary(overrides)
+      if (!steamLibrary.length || !steam.library.length) {
+        window.api.logInfo('No cache found, getting data from steam...')
+        await window.api.refreshLibrary('steam')
+        steamLibrary = this.loadSteamLibrary(overrides)
       }
     }
 
@@ -687,14 +937,21 @@ class GlobalState extends PureComponent<Props> {
     if (amazon.user_id && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
       await window.api.refreshLibrary('nile')
-      amazonLibrary = this.loadAmazonLibrary()
+      amazonLibrary = this.loadAmazonLibrary(overrides)
+    }
+
+    let itchioLibrary = this.loadItchioLibrary(overrides)
+    if (itchio.username && (!itchioLibrary.length || !itchio.library.length)) {
+      window.api.logInfo('No cache found, getting data from itch.io...')
+      await window.api.refreshLibrary('itchio')
+      itchioLibrary = this.loadItchioLibrary(overrides)
     }
 
     const updatedSideload = sideloadLibrary.get('games', [])
 
     this.setState({
       epic: {
-        library: epicLibrary,
+        library: applyGameOverrides(epicLibrary, overrides),
         username: epic.username
       },
       gog: {
@@ -706,15 +963,25 @@ class GlobalState extends PureComponent<Props> {
         username: zoom.username,
         enabled: zoom.enabled
       },
+      steam: {
+        library: steamLibrary,
+        username: steam.username,
+        enabled: steam.enabled,
+        users: steam.users
+      },
       amazon: {
         library: amazonLibrary,
         user_id: amazon.user_id,
         username: amazon.username
       },
+      itchio: {
+        library: itchioLibrary,
+        username: itchio.username
+      },
       gameUpdates: updates,
       refreshing: false,
       refreshingInTheBackground: true,
-      sideloadedLibrary: updatedSideload
+      sideloadedLibrary: applyGameOverrides(updatedSideload, overrides)
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
@@ -739,7 +1006,7 @@ class GlobalState extends PureComponent<Props> {
       await window.api.refreshLibrary(library)
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
-      window.api.logError(`${error}`)
+      window.api.logError(`Library refresh failed: ${String(error)}`)
     }
   }
 
@@ -831,10 +1098,15 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       zoom,
+      steam,
       gameUpdates = [],
       libraryStatus,
       platform
     } = this.state
+
+    if (steam.enabled) {
+      void this.loadSteamUsers()
+    }
 
     window.api.handleInstallGame(async (e, appName, runner) => {
       const currentApp = libraryStatus.filter(
@@ -868,27 +1140,59 @@ class GlobalState extends PureComponent<Props> {
       })
     })
 
-    window.api.handleGamePush((e: IpcRendererEvent, args: GameInfo) => {
+    window.api.handleMetadataChanged((e, overrides) => {
+      this.updateGameOverrides(overrides)
+    })
+
+    window.api.handleGamePush((e, args) => {
       if (!args.app_name) return
-      if (args.runner === 'gog') {
-        const library = [...this.state.gog.library]
-        const index = library.findIndex(
-          (game) => game.app_name === args.app_name
-        )
+      // Use the functional setState form so a burst of pushes (e.g. hundreds of
+      // games streamed in during a library refresh) can't lose updates: each
+      // push must read the latest library, not a stale `this.state` snapshot
+      // from before the previous setState was applied.
+      const upsert = (library: GameInfo[]): GameInfo[] => {
+        const next = [...library]
+        const index = next.findIndex((game) => game.app_name === args.app_name)
         if (index !== -1) {
-          library[index] = args
+          next[index] = args
         } else {
-          library.push(args)
+          next.push(args)
         }
-        this.setState({
-          gog: {
-            library: [...library],
-            username: this.state.gog.username
+        return next
+      }
+      // `prevState` is typed via the component's (empty) State generic, while
+      // the real state shape is declared as `state: StateProps`; cast to read it.
+      if (args.runner === 'gog') {
+        this.setState((prev) => {
+          const prevState = prev as StateProps
+          return {
+            gog: { ...prevState.gog, library: upsert(prevState.gog.library) }
           }
         })
       } else if (args.runner === 'zoom') {
-        // Handle Zoom game push
-        const library = [...this.state.zoom.library]
+        this.setState((prev) => {
+          const prevState = prev as StateProps
+          return {
+            zoom: {
+              ...prevState.zoom,
+              library: upsert(prevState.zoom.library),
+              enabled: true
+            }
+          }
+        })
+      } else if (args.runner === 'steam') {
+        this.setState((prev) => {
+          const prevState = prev as StateProps
+          return {
+            steam: {
+              ...prevState.steam,
+              library: upsert(prevState.steam.library),
+              enabled: true
+            }
+          }
+        })
+      } else if (args.runner === 'itchio') {
+        const library = [...this.state.itchio.library]
         const index = library.findIndex(
           (game) => game.app_name === args.app_name
         )
@@ -898,10 +1202,9 @@ class GlobalState extends PureComponent<Props> {
           library.push(args)
         }
         this.setState({
-          zoom: {
-            library: [...library],
-            username: this.state.zoom.username,
-            enabled: true
+          itchio: {
+            ...this.state.itchio,
+            library
           }
         })
       }
@@ -915,16 +1218,16 @@ class GlobalState extends PureComponent<Props> {
       isFullscreen: await window.api.isFullscreen(),
       isFrameless: await window.api.isFrameless()
     })
-    window.api.handleFullscreen(
-      (e: IpcRendererEvent, isFullscreen: boolean) => {
-        this.setState({ isFullscreen })
-      }
-    )
+    window.api.handleFullscreen((e, isFullscreen) => {
+      this.setState({ isFullscreen })
+    })
 
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
     const zoomUser = zoomConfigStore.has('isLoggedIn')
+    const itchioUser = itchioConfigStore.has('userData')
+    const steamUser = steamConfigStore.has('isLoggedIn')
 
     if (legendaryUser) {
       await window.api.getUserInfo()
@@ -938,19 +1241,36 @@ class GlobalState extends PureComponent<Props> {
       await window.api.getZoomUserInfo()
     }
 
+    if (itchioUser) {
+      // Re-establish butlerd session and refresh cached profile data
+      await window.api.getItchioUserInfo()
+    }
+
+    if (steam.enabled && steamUser) {
+      await window.api.getSteamUserInfo()
+    }
+
     if (!gameUpdates.length) {
       const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    if (legendaryUser || gogUser || amazonUser || (zoom.enabled && zoomUser)) {
+    if (
+      legendaryUser ||
+      gogUser ||
+      amazonUser ||
+      (zoom.enabled && zoomUser) ||
+      itchioUser ||
+      (steam.enabled && steamUser)
+    ) {
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground:
           epic.library.length !== 0 ||
           gog.library.length !== 0 ||
           amazon.library.length !== 0 ||
-          ((this.state.zoom.enabled && zoom.library) || []).length !== 0
+          ((this.state.zoom.enabled && zoom.library) || []).length !== 0 ||
+          ((this.state.steam.enabled && steam.library) || []).length !== 0
       })
     }
 
@@ -1048,6 +1368,8 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       zoom,
+      itchio,
+      steam,
       favouriteGames,
       customCategories,
       hiddenGames,
@@ -1092,6 +1414,25 @@ class GlobalState extends PureComponent<Props> {
             logout: this.zoomLogout,
             enabled: this.state.zoom.enabled
           },
+          itchio: {
+            library: itchio.library,
+            username: itchio.username,
+            getLoginData: this.getItchioLoginData,
+            getOAuthUrl: this.getItchioOAuthUrl,
+            login: this.itchioLogin,
+            loginWithOAuthCode: this.itchioOAuthLogin,
+            logout: this.itchioLogout
+          },
+          steam: {
+            library: this.state.steam.enabled ? steam.library : [],
+            username: this.state.steam.enabled ? steam.username : undefined,
+            login: this.steamLogin,
+            loginQr: this.steamLoginQr,
+            logout: this.steamLogout,
+            enabled: this.state.steam.enabled,
+            users: this.state.steam.users,
+            logoutUser: this.logoutSteamUser
+          },
           installingEpicGame,
           setLanguage: this.setLanguage,
           isRTL,
@@ -1130,6 +1471,8 @@ class GlobalState extends PureComponent<Props> {
           handleExternalLinkDialog: this.handleExternalLinkDialog,
           hideChangelogsOnStartup: hideChangelogsOnStartup,
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
+          setDisableDiscounts: this.setDisableDiscounts,
+          setDisableGOGAffiliate: this.setDisableGOGAffiliate,
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           setCurrentCustomCategories: this.setCurrentCustomCategories,

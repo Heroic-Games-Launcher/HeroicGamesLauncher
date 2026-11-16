@@ -25,12 +25,16 @@ const EnableWineWayland = () => {
     <>
       <div className="toggleRow">
         <ToggleSwitch
+          description={t(
+            'setting.hdr-description',
+            'Run the game through Wayland so HDR output can be used'
+          )}
           htmlId="wineWaylandToggle"
           value={enableWineWayland || false}
           handleChange={() => setEnableWineWayland(!enableWineWayland)}
           title={t(
             'setting.wineWayland',
-            'Enable Wine-Wayland (Experimental) (Wine version needs to support it)'
+            'Enable Wine-Wayland (experimental) (Wine version needs to support it)'
           )}
         />
 

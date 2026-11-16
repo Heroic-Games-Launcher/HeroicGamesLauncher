@@ -1,10 +1,6 @@
 import { useMemo } from 'react'
 import { GameInfo } from 'common/types'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import { GamesSettings } from '../../sections'
 import SettingsContext from '../../SettingsContext'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
@@ -20,9 +16,10 @@ export type GameSettingsModalType = 'settings' | 'log' | 'category'
 type Props = {
   gameInfo: GameInfo
   type: GameSettingsModalType
+  tab?: string
 }
 
-function SettingsModal({ gameInfo, type }: Props) {
+function SettingsModal({ gameInfo, type, tab }: Props) {
   const { t } = useTranslation()
   const { closeSettingsModal } = useGlobalState.keys('closeSettingsModal')
 
@@ -37,9 +34,9 @@ function SettingsModal({ gameInfo, type }: Props) {
 
   const titleType = useMemo(() => {
     const titleTypeLiterals = {
-      settings: t('Settings', 'Settings'),
+      settings: t('game.settings', 'Game settings'),
       log: t('settings.navbar.log', 'Log'),
-      category: 'Categories'
+      category: t('settings.navbar.categories', 'Categories')
     }
 
     return titleTypeLiterals[type]
@@ -50,22 +47,24 @@ function SettingsModal({ gameInfo, type }: Props) {
   }
 
   return (
-    <Dialog
+    <Modal
       onClose={() => closeSettingsModal()}
       showCloseButton
-      className={'InstallModal__dialog'}
+      size="lg"
+      fullHeight={type === 'settings'}
     >
-      <DialogHeader onClose={() => closeSettingsModal()}>
-        {`${title} (${titleType})`}
-      </DialogHeader>
-      <DialogContent className="settingsDialogContent">
+      <ModalHeader>
+        <span className="settingsModal__title">{titleType}</span>
+        <span className="settingsModal__subtitle">{title}</span>
+      </ModalHeader>
+      <ModalContent className="settingsDialogContent">
         <SettingsContext.Provider value={contextValues}>
-          {type === 'settings' && <GamesSettings />}
+          {type === 'settings' && <GamesSettings initialTab={tab} />}
           {type === 'log' && <LogSettings />}
           {type === 'category' && <CategorySettings />}
         </SettingsContext.Provider>
-      </DialogContent>
-    </Dialog>
+      </ModalContent>
+    </Modal>
   )
 }
 

@@ -5,7 +5,9 @@
         "copy": "Copiar",
         "copied": "Copiado!",
         "error": "Erro, tente usar um código diferente",
-        "loading": "A Carregar"
+        "loading": "A Carregar",
+        "close": "Fechar",
+        "itchio_error": "Erro, tente usar um código diferente"
     },
     "message": {
         "part1": "Para que possa iniciar a sessão e instalar os seus jogos, é necessário seguir os seguintes passos:",

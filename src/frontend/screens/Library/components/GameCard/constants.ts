@@ -13,11 +13,7 @@ export function getImageFormatting(cover: string, runner: Runner) {
   }
 }
 
-export function getCardStatus(
-  status: string | undefined,
-  isInstalled: boolean,
-  layout: string
-) {
+export function getCardStatus(status: string | undefined) {
   const isInstalling =
     status === 'installing' || status === 'updating' || status === 'extracting'
   const isUpdating = status === 'updating'
@@ -46,8 +42,7 @@ export function getCardStatus(
     syncingSaves ||
     isLaunching ||
     isInstallingWinetricksPackages ||
-    isInstallingRedist ||
-    (isInstalled && layout !== 'grid')
+    isInstallingRedist
   return {
     isInstalling,
     notSupportedGame,

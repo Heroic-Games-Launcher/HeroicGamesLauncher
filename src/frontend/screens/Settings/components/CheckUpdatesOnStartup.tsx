@@ -22,6 +22,10 @@ const CheckUpdatesOnStartup = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.checkForUpdatesOnStartup-description',
+        'Look for a new Heroic version every time the app opens'
+      )}
       htmlId="checkForUpdatesOnStartup"
       value={checkForUpdatesOnStartup}
       handleChange={() =>
@@ -29,7 +33,7 @@ const CheckUpdatesOnStartup = () => {
       }
       title={t(
         'setting.checkForUpdatesOnStartup',
-        'Check for Heroic Updates on Startup'
+        'Check for Heroic updates on startup'
       )}
     />
   )

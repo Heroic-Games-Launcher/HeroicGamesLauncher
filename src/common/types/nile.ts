@@ -102,11 +102,8 @@ export interface FuelSchema {
 }
 
 export interface NileUserData {
-  account_pool: string
   user_id: string
-  home_region: string
   name: string
-  given_name: string
 }
 
 export interface NileLoginData {

@@ -5,6 +5,11 @@ interface Props {
   achievements: GameAchievement[]
 }
 
+const rarityFormatter = new Intl.NumberFormat(undefined, {
+  style: 'percent',
+  maximumFractionDigits: 2
+})
+
 const Achievements = ({ achievements }: Props) => {
   const sortedAchievements = useMemo(() => {
     const unlocked = achievements
@@ -46,7 +51,8 @@ const Achievements = ({ achievements }: Props) => {
                 {isHiddenAchievement ? '' : x.description}
               </span>
               <span className="achievement-rarity">
-                {x.rarity_level_description} · {x.rarity}%
+                {x.rarity_level_description} ·{' '}
+                {rarityFormatter.format(x.rarity / 100)}
               </span>
             </div>
           </div>

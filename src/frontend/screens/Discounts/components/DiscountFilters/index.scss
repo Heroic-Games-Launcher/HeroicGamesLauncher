@@ -1,0 +1,77 @@
+/* Left filter rail: a sticky header (search + reset) over a scrolling list of
+   filter sections, beside the results grid. */
+.discountFilters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-height: 0;
+  height: 100%;
+}
+
+/* Header stays put while the sections below scroll */
+.discountFilters__sticky {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* match the sections' inline padding so the search bar and header line up
+     with the controls below */
+  padding-inline: var(--space-2xs) var(--space-sm);
+}
+
+.discountFilters__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.discountFilters__title {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--semibold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-default);
+}
+
+.discountFilters__sections {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  /* vertical scroll only; never a horizontal scrollbar */
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* small inline padding so control borders and focus rings aren't clipped by
+     the scroll container, with extra room on the end for the overlay scrollbar */
+  padding-inline: var(--space-2xs) var(--space-sm);
+}
+
+/* Dropdowns fill the width of their section */
+.discountFilters__dropdown {
+  width: 100%;
+}
+
+/* Store region (rendered from the parent) reads as a filter section */
+.discountFilters__regionSection .discountsScreen__region {
+  width: 100%;
+}
+
+.discountFilters__regionSection .discountsScreen__regionLabel {
+  font-size: var(--body-sm);
+  letter-spacing: 0.08em;
+  color: var(--text-muted, var(--text-secondary));
+}
+
+/* Stacked layout: the sidebar grows naturally and scrolls with the page */
+@media (max-width: 900px) {
+  .discountFilters {
+    height: auto;
+  }
+
+  .discountFilters__sections {
+    overflow: visible;
+  }
+}

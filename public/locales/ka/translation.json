@@ -88,11 +88,6 @@
                 "title": "",
                 "message": ""
             },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",
@@ -169,7 +164,8 @@
             "game_details": "",
             "close_dialog": "",
             "close_options": "",
-            "update_game": ""
+            "update_game": "",
+            "exit": "გასვლა"
         }
     },
     "setting": {
@@ -195,7 +191,7 @@
         },
         "library_top_option": {
             "disabled": "გათიშულია",
-            "favourites": "",
+            "favourites": "რჩეულები",
             "recently_played_installed": "",
             "recently_played": ""
         },
@@ -373,7 +369,10 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "tools": {
+            "open": "გახსნა"
+        }
     },
     "window": {
         "close": "დახურვა",
@@ -385,7 +384,8 @@
         "installing": "მიმდინარეობს დაყენება",
         "preparing_login": "",
         "logging": "",
-        "processing": ""
+        "processing": "",
+        "installed": "დაყენებულია"
     },
     "dlc": {
         "size": "ზომა",
@@ -427,7 +427,8 @@
         "show_updates_only": "",
         "show_installed_only": "",
         "show_available_games": "",
-        "no_categories": ""
+        "no_categories": "",
+        "stores": "მაღაზიები"
     },
     "help": {
         "title": {
@@ -602,7 +603,8 @@
             "games_settings_defaults": "",
             "systemInformation": "",
             "sync": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "კატეგორიები"
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -682,6 +684,9 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "გადმოწერები"
         }
     },
     "Settings": "პარამეტრები",
@@ -696,8 +701,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "განახლება",
+            "settings": "პარამეტრები",
             "no-results": ""
         },
         "notes": "",
@@ -724,7 +729,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "ბიბლიოთეკა"
+        }
     },
     "anticheat": {
         "anticheats": "ანტიჩიტები",
@@ -752,7 +760,8 @@
         "cancel": "გაუქმება",
         "continue": "გაგრძელება",
         "go_to_library": "",
-        "login": ""
+        "login": "შესვლა",
+        "close": "დახურვა"
     },
     "categories-manager": {
         "add": "დამატება",
@@ -794,7 +803,7 @@
         "requirements": "სისტემური მოთხოვნები",
         "wine-path-none-found": "",
         "wine-prefix": {
-            "title": ""
+            "title": "Wine-ის პრეფიქსი"
         },
         "wine-repfix": {
             "message": ""
@@ -1017,7 +1026,8 @@
     "amazon-luna": "",
     "gog-store": "",
     "two_col_table": {
-        "save_hint": ""
+        "save_hint": "",
+        "add": "დამატება"
     },
     "login": {
         "amazon": "",
@@ -1046,15 +1056,14 @@
         "error": {
             "component": ""
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "შესახებ",
+        "install": "დაყენება",
+        "uninstall": "წაშლა"
     },
     "search": "",
     "store": "",
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1117,7 +1126,7 @@
             "pageSize": "",
             "releaseYear": ""
         },
-        "sidebar": "",
+        "sidebar": "დეტალები",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1139,7 +1148,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "მაღაზია"
+        },
+        "titleMulti": "დეტალები"
     },
     "steamgriddb": {
         "error": {
@@ -1168,27 +1181,37 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "ეშვება",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "გასვლა",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "ეშვება",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
+            "sideload": "სხვა",
             "all": ""
         },
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "wineLoading": "იტვირთება",
+            "path": "დაყენება"
+        }
     },
-    "next": "",
+    "next": "შემდეგი",
     "sidebar": {
         "console": ""
-    }
+    },
+    "common": {
+        "add": "დამატება",
+        "cancel": "გაუქმება",
+        "warning": "გაფრთხილება"
+    },
+    "General": "ზოგადი"
 }

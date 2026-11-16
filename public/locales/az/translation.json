@@ -172,11 +172,6 @@
                 "title": "",
                 "message": ""
             },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "",
@@ -199,7 +194,8 @@
         "sync": "Sinxronizasiya",
         "syncing": "Sinxronizasiya",
         "unsync": "Sinxronizasiyadan çıxarın",
-        "continue": "Davam et"
+        "continue": "Davam et",
+        "close": "Bağla"
     },
     "controller": {
         "hints": {
@@ -252,7 +248,8 @@
         "status": "Vəziyyət",
         "store": "Mağaza",
         "title": "Oyunun adı",
-        "modify": "Quraşdırmaya dəyişiklik et"
+        "modify": "Quraşdırmaya dəyişiklik et",
+        "settings": "Game Settings"
     },
     "generic": {
         "error": {
@@ -262,8 +259,8 @@
             "refresh": "Kitabxananı yeniləyin"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "Uninstalling"
     },
     "globalSettings": "Qlobal Parametrlər",
     "GOG": "GOG",
@@ -287,7 +284,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "Store"
     },
     "help": {
         "amdfsr": "AMD-nin FSR tam ekran rejimində daha aşağı təsvir ölçüsünü artırmaqla kadr sürətini artırmağa kömək edir. Şəkil keyfiyyəti cüzi performans zərbəsi hesabına 5-dən 1-ə yüksəlir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
@@ -332,7 +331,7 @@
         "title": {
             "downloadManager": "Download Manager",
             "accessibility": "",
-            "login": "",
+            "login": "Daxil ol",
             "settings": "",
             "wineManager": "",
             "library": ""
@@ -372,7 +371,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Multi-GPU sistemlərində oyunu göstərmək üçün xüsusi qrafik kartdan istifadə edin. Yalnız göstərmə üçün başsız GPU istifadə edən oyun noutbukları və ya stolüstü kompüterlərdə lazımdır (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -686,7 +688,7 @@
                 "nile": "",
                 "gog": "",
                 "zoom": "",
-                "game-log": "",
+                "game-log": "{{gameTitle}} üçün dəyişiklik jurnalı",
                 "heroic": ""
             },
             "show-uploads": ""
@@ -707,13 +709,6 @@
         "offlinemode": "Oyunu Oflayn Çalışın",
         "prefered_language": "Üstünlük Verilən Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitabxanalarına üstünlük verin",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Xüsusi Qrafik Kartdan istifadə edin"
-        },
         "runexe": {
             "message": "Faylları buraya sürükləyin və buraxın",
             "title": "Prefiksdə EXE-ni işə salın"
@@ -836,7 +831,8 @@
             "wineExt": "Şərab uzantıları",
             "gamescope": "",
             "systemInformation": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kateqoriyalar"
         },
         "open-config-file": "Konfiqurasiya faylını açın",
         "reset-heroic": "Qəhrəmanı sıfırlayın",
@@ -914,6 +910,10 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "Başlama Seçimləri..."
         }
     },
     "Settings": "Parametrlər",
@@ -926,7 +926,8 @@
         "installing": "Quraşdırılır",
         "logging": "Daxil olur...",
         "processing": "Fayllar emal olunur, gözləyin",
-        "preparing_login": "Giriş hazırlanır... "
+        "preparing_login": "Giriş hazırlanır... ",
+        "installed": "Install"
     },
     "store": "Epic Store",
     "stores": "Mağazalar",
@@ -981,7 +982,7 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
+            "update": "Update",
             "settings": "",
             "no-results": ""
         },
@@ -1118,7 +1119,6 @@
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1178,9 +1178,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Təfərrüatlar",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1202,7 +1203,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Təfərrüatlar"
     },
     "steamgriddb": {
         "error": {
@@ -1242,13 +1247,23 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
+            "sideload": "Other",
             "all": ""
         },
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Yüklənir",
+            "path": "Install",
+            "wineMissing": "No path selected"
+        }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "Cancel",
+        "warning": "Warning"
+    }
 }

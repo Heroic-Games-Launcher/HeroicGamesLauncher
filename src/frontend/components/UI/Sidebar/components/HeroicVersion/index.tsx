@@ -86,7 +86,7 @@ export default React.memo(function HeroicVersion() {
           onClick={() => setShowChangelogModalOnClick((current) => !current)}
         >
           <span className="heroicVersion__title">
-            <span>{t('info.heroic.version', 'Heroic Version')}: </span>
+            <span>{t('info.heroic.version', 'Heroic version')}: </span>
           </span>
           <strong>{version}</strong>
         </span>
@@ -94,7 +94,7 @@ export default React.memo(function HeroicVersion() {
       </div>
       {shouldShowUpdates && (
         <div className="heroicNewReleases">
-          <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
+          <span>{t('info.heroic.newReleases', 'Update available!')}</span>
           {newStable && (
             <a
               title={newStable.tag_name}

@@ -3,14 +3,15 @@ import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
-import { defaultWineVersion } from '../..'
+import { defaultWineVersion } from '../../util'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
+import SteamSyncSaves from './steam'
 import { ToggleSwitch } from 'frontend/components/UI'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
-  const { runner, gameInfo } = useContext(SettingsContext)
+  const { appName, runner, gameInfo } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -42,7 +43,7 @@ const SyncSaves = () => {
         handleChange={() => setEnableQuickSavesMenu(!enableQuickSavesMenu)}
         title={t(
           'setting.enable-quick-sync-menu',
-          'Enable Quick Save-Sync Menu on game page'
+          'Enable quick save-sync menu on game page'
         )}
       />
     )
@@ -62,6 +63,10 @@ const SyncSaves = () => {
         quickSavesToggle={QuickSavesToggle}
       />
     )
+  }
+
+  if (runner === 'steam') {
+    return <SteamSyncSaves appName={appName} />
   }
 
   if (runner === 'gog') {

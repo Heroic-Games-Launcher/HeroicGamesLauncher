@@ -4,17 +4,16 @@ import { InfoBox, SelectField } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '..'
+import { defaultWineVersion } from '../util'
 import { Link } from 'react-router-dom'
-import { Box, MenuItem, SvgIcon } from '@mui/material'
+import { MenuItem, SvgIcon } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
 import ProtonLogo from 'frontend/assets/proton_logo.svg?react'
 import CodeweaversLogo from 'frontend/assets/codeweavers_icon.svg?react'
 import { faApple } from '@fortawesome/free-brands-svg-icons'
-import Badge from '@mui/material/Badge'
-import { Autorenew as AutorenewIcon } from '@mui/icons-material'
 import GELogo from 'frontend/assets/ge-logo.svg?react'
+import CachyOSLogo from 'frontend/assets/cachyos-logo.svg?react'
 
 interface ListItemProps {
   version: WineInstallation
@@ -36,6 +35,7 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
         return <FontAwesomeIcon icon={faWineGlass} />
       case 'proton':
         if (name.includes('GE')) return <GELogo />
+        if (name.includes('CachyOS')) return <CachyOSLogo />
         return <ProtonLogo />
       case 'crossover':
         return <CodeweaversLogo />
@@ -44,24 +44,11 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
     }
   }, [name, type])
 
-  const icon = useMemo(() => {
-    if (name.includes('-latest'))
-      return (
-        <Box sx={{ marginInlineEnd: 1 }}>
-          <Badge badgeContent={<AutorenewIcon sx={{ fontSize: 17.5 }} />}>
-            <SvgIcon>{primaryIcon}</SvgIcon>
-          </Badge>
-        </Box>
-      )
-
-    return <SvgIcon sx={{ marginInlineEnd: 1 }}>{primaryIcon}</SvgIcon>
-  }, [name, primaryIcon])
-
   return (
-    <Box sx={{ display: 'flex', placeItems: 'center' }}>
-      {icon}
-      {substitutedName}
-    </Box>
+    <span className="wineVersionOption">
+      <SvgIcon className="wineVersionOption__icon">{primaryIcon}</SvgIcon>
+      <span className="wineVersionOption__name">{substitutedName}</span>
+    </span>
   )
 })
 
@@ -136,7 +123,7 @@ export default function WineVersionSelector() {
       label={
         isLinux
           ? t('setting.wineversion')
-          : t('setting.crossover-version', 'Crossover/Wine Version')
+          : t('setting.crossover-version', 'Crossover/Wine version')
       }
       htmlId="setWineVersion"
       onChange={(event) =>
@@ -151,7 +138,7 @@ export default function WineVersionSelector() {
             <Link to={'/wine-manager'} className="smallInputInfo danger">
               {t(
                 'infobox.wine-path-none-found',
-                'No Wine version was found, download one from the Wine Manager'
+                'No Wine version was found, download one from the Wine manager'
               )}
             </Link>
           )}
@@ -159,7 +146,7 @@ export default function WineVersionSelector() {
             <span className="smallInputInfo danger">
               {t(
                 'infobox.wine-path-invalid',
-                'Wine Path is invalid, please select another one.'
+                'Wine path is invalid, please select another one.'
               )}
             </span>
           )}
@@ -173,13 +160,13 @@ export default function WineVersionSelector() {
               <span>
                 {t(
                   'setting.show_valve_proton.wine_selector_warning',
-                  'Valve versions of Proton are ignored by default, enable them in the Advanced global settings'
+                  'Valve versions of Proton are ignored by default, enable them in the advanced global settings'
                 )}
               </span>
             </InfoBox>
           )}
           {isLinux && (
-            <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
+            <InfoBox text={t('infobox.wine-path', 'Wine path')}>
               <span>{wineVersion.bin}</span>
             </InfoBox>
           )}

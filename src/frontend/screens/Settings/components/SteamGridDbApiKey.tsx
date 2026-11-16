@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, TextInputField } from 'frontend/components/UI'
+import { TextInputField } from 'frontend/components/UI'
 
 export default function SteamGridDbApiKey() {
   const { t } = useTranslation()
   const [value, setValue] = useState('')
   const [hasKey, setHasKey] = useState(false)
-
+  const url = 'www.steamgriddb.com/profile/preferences/api'
   useEffect(() => {
     void window.api.steamgriddb.hasApiKey().then(setHasKey)
   }, [])
@@ -25,27 +25,22 @@ export default function SteamGridDbApiKey() {
       )
     : t(
         'settings.steamgriddb.apikey.placeholder',
-        'Enter your SteamGridDB API Key here'
+        'Enter your SteamGridDB API key here'
       )
 
   return (
     <TextInputField
-      label={t('settings.steamgriddb.apikey.title', 'SteamGridDB API Key')}
+      label={t('settings.steamgriddb.apikey.title', 'SteamGridDB API key')}
       placeholder={placeholder}
       onChange={onChange}
       value={value}
       htmlId="steamgriddb-api-key"
       type="password"
-      afterInput={
-        <InfoBox text={t('settings.advanced.details', 'Details')}>
-          <span style={{ userSelect: 'text' }}>
-            {t(
-              'settings.steamgriddb.help.description',
-              'Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at www.steamgriddb.com/profile/preferences/api'
-            )}
-          </span>
-        </InfoBox>
-      }
+      info={t(
+        'settings.steamgriddb.help.description',
+        'Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}',
+        { url }
+      )}
     />
   )
 }

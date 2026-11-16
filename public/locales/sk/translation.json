@@ -11,7 +11,10 @@
         "content_font_family_default": "Obsah Font Family (Default: {{fontFamily}})",
         "actions_font_family_default": "Akcie Font Family (Default: {{fontFamily}})",
         "disable_smooth_scrolling": "Vypnúť smooth scrolling (vyžaduje reštart)",
-        "disable_animations": ""
+        "disable_animations": "",
+        "section": {
+            "library": "Knižnica"
+        }
     },
     "add_game": "Pridať Hru",
     "All": "Všetky",
@@ -98,7 +101,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -112,7 +120,7 @@
             }
         },
         "no": "NIE",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -174,17 +182,12 @@
                     "message": "Akýkoľvek neuložený postup sa môže stratiť"
                 }
             },
-            "snap": {
-                "checkbox": "Už nikdy nezobrazovať túto správu",
-                "title": "Heroic beží ako Snap",
-                "message": "Niektoré funkcie nie sú momentálne dostupné vo verzii aplikácie Snap a snažíme sa to napraviť.{{newLine}}Aktuálne obmedzenia sú: {{newLine}}Heroic nebude môcť nájsť Proton zo Steamu alebo Wine z Lutris .{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud tiež nebudú fungovať, pretože Heroic k nim nemá prístup.{{newLine}}{{newLine}}Ak chcete získať prístup k tejto funkcii, nainštalujte si Heroic ako Flatpak , DEB alebo z AppImage."
-            },
             "rosetta": {
                 "title": "",
                 "message": ""
             }
         },
-        "wineprefix": "Vyberte Wine Prefix Folder",
+        "wineprefix": "Vyberte Priečinok WinePrefix",
         "yes": "ÁNO",
         "dontShowAgain": "Už nezobrazovať",
         "choose-nile-binary": "Vyberte binárny Níl",
@@ -199,7 +202,8 @@
         "sync": "Synchronizovať",
         "syncing": "Prebieha synchronizácia",
         "unsync": "Zrušiť synchronizáciu",
-        "continue": "ďalej"
+        "continue": "ďalej",
+        "close": "Zavrieť"
     },
     "controller": {
         "hints": {
@@ -218,7 +222,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "exit": "Exit"
         }
     },
     "docs": "Documentation",
@@ -252,7 +257,8 @@
         "status": "Status",
         "store": "Store",
         "title": "Game Title",
-        "modify": "Zmeniť Inštaláciu"
+        "modify": "Zmeniť Inštaláciu",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -261,9 +267,9 @@
         "library": {
             "refresh": "Obnoviť Knižnicu"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "About",
+        "install": "Inštalácia",
+        "uninstall": "Odinštalovať"
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -287,7 +293,9 @@
         "show_support_offline_only": "Zobraziť iba podporované offline",
         "categories": "Kategórie",
         "show_third_party_managed_only": "Zobraziť iba spravované tretími stranami",
-        "show_updates_only": ""
+        "show_updates_only": "",
+        "platforms": "Platform",
+        "stores": "Stores"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -372,7 +380,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -707,13 +718,6 @@
         "offlinemode": "Spustite hru offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Use Dedicated Graphics Card"
-        },
         "runexe": {
             "message": "Presuňte sem súbory",
             "title": "Select EXE to Run"
@@ -805,7 +809,14 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        },
+        "tools": {
+            "selectExe": "Vyberte EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -843,7 +854,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "Informácie o Systéme",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kategórie"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -921,19 +933,27 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Experimentálne Funkcie",
+            "launch": "Možnosti spustenia...",
+            "wineTools": "Nástroje"
         }
     },
     "Settings": "nastavenie",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Prihlásenie do obchodu"
     },
     "status": {
         "installing": "Inštaluje sa",
         "logging": "Logging In...",
         "processing": "Prebieha spracovanie súborov, čakajte",
-        "preparing_login": "Pripravuje sa prihlásenie... "
+        "preparing_login": "Pripravuje sa prihlásenie... ",
+        "installed": "Nainštalované"
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -957,7 +977,8 @@
         "show": "Šou"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Changes in this table are not saved automatically. Click the + button",
+        "add": "Pridať"
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -988,8 +1009,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Aktualizovať",
+            "settings": "Nastavenia",
             "no-results": ""
         },
         "release": "Release Date",
@@ -1040,7 +1061,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton je variant Proton vytvorený spoločnosťou Glorious Eggroll. Je určený na použitie v službe Steam, ale niektoré hry mimo služby Steam môžu s týmto variantom fungovať lepšie. Poskytuje väčšinou zbytočné protokoly na riešenie problémov.",
-        "wine-ge": "Wine-GE-Proton je variant Winu vytvorený spoločnosťou Glorious Eggroll. Je to odporúčaný Wine na použitie mimo služby Steam. To poskytuje užitočné protokoly pri riešení problémov.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1170,7 +1190,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "Operačný Systém:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1183,11 +1203,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Všetky",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Podrobnosti",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1209,7 +1230,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store"
+        },
+        "titleMulti": "Podrobnosti"
     },
     "steamgriddb": {
         "error": {
@@ -1219,7 +1244,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Vyhľadajte hry",
             "title": "",
             "select-game": ""
         }
@@ -1238,24 +1263,37 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "Spúšťam",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Quit",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "Spúšťam",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Všetky"
         },
         "empty": "",
-        "games": "",
+        "games": "Nainštalované hry",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Načítavam…",
+            "path": "Inštalácia",
+            "wineMissing": "Žiadna cesta nie je vybraná"
+        }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Pridať",
+        "cancel": "Cancel",
+        "warning": "Warning"
+    },
+    "General": "generál"
 }

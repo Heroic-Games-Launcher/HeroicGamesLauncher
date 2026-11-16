@@ -3,7 +3,6 @@ import {
   Runner,
   WineInstallation,
   RpcClient,
-  SteamRuntime,
   Release,
   GameInfo,
   GameSettings,
@@ -12,7 +11,13 @@ import {
 import axios from 'axios'
 import https from 'node:https'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
+import {
+  type ChildProcess,
+  exec,
+  spawn,
+  SpawnOptions,
+  spawnSync
+} from 'child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -25,7 +30,6 @@ import {
   logDebug
 } from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
-import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import {
   gameInfoStore,
   installStore,
@@ -42,6 +46,11 @@ import {
   installStore as nileInstallStore,
   libraryStore as nileLibraryStore
 } from './storeManagers/nile/electronStores'
+import {
+  installInfoStore as steamInstallInfoStore,
+  libraryStore as steamLibraryStore,
+  extraInfoStore as steamExtraInfoStore
+} from './storeManagers/steam/electronStores'
 import * as fileSize from 'filesize'
 import { Client as discordClient } from '@xhayper/discord-rpc'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -50,7 +59,7 @@ import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
-import { gameManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import {
   installWineVersion,
   updateWineVersionInfos,
@@ -60,6 +69,7 @@ import { readdir, lstat } from 'fs/promises'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
+import { clearImagesCache } from './images_cache'
 import EasyDl from 'easydl'
 
 import {
@@ -86,10 +96,13 @@ import { parse } from '@node-steam/vdf'
 import type LogWriter from 'backend/logger/log_writer'
 import { isRunning } from './downloadmanager/downloadqueue'
 import { isOnline } from './online_monitor'
+import type { Game } from 'common/types/game_manager'
 
 const execAsync = promisify(exec)
 
-const { showMessageBox } = dialog
+function getGame(id: string, runner: Runner): Game {
+  return libraryManagerMap[runner].getGame(id)
+}
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -242,7 +255,7 @@ async function handleExit() {
   const mainWindow = getMainWindow()
 
   if ((isLocked || isRunning()) && mainWindow) {
-    const { response } = await showMessageBox(mainWindow, {
+    const { response } = await dialog.showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
@@ -278,15 +291,9 @@ async function handleExit() {
   app.exit()
 }
 
-type ErrorHandlerMessage = {
-  error?: string
-  appName?: string
-  runner: string
-}
-
-export async function askForceUninstall(runner: Runner, appName: string) {
-  const { title } = gameManagerMap[runner].getGameInfo(appName)
-  const { response } = await showMessageBox({
+export async function askForceUninstall(game: Game) {
+  const { title } = game.getGameInfo()
+  const { response } = await dialog.showMessageBox({
     type: 'question',
     title,
     message: i18next.t(
@@ -297,17 +304,21 @@ export async function askForceUninstall(runner: Runner, appName: string) {
   })
 
   if (response === 1) {
-    await gameManagerMap[runner].forceUninstall(appName)
+    await game.forceUninstall()
   }
   return response
 }
 
-async function errorHandler({
-  error,
-  runner: r,
-  appName
-}: ErrorHandlerMessage): Promise<void> {
-  const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
+async function errorHandler(
+  error: unknown,
+  appName: string,
+  runner: Runner
+): Promise<void> {
+  const errStr =
+    typeof error === 'string'
+      ? error
+      : ((error as { message?: string } | null)?.message ?? String(error))
+  const plat = runner === 'legendary' ? 'Legendary (Epic Games)' : runner
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
@@ -319,18 +330,18 @@ async function errorHandler({
     'RequestsDependencyWarning'
   ]
 
-  if (!error) return
+  if (!errStr) return
 
-  if (ignoreMessages.some((msg) => error.includes(msg))) return
+  if (ignoreMessages.some((msg) => errStr.includes(msg))) return
 
-  if (error.includes(deletedFolderMsg) && appName) {
-    await askForceUninstall(r.toLocaleLowerCase() as Runner, appName)
+  if (errStr.includes(deletedFolderMsg) && appName) {
+    await askForceUninstall(getGame(appName, runner))
     return
   }
 
-  if (legendaryRegex.test(error)) {
+  if (legendaryRegex.test(errStr)) {
     const MemoryError = 'MemoryError: '
-    if (error.includes(MemoryError)) {
+    if (errStr.includes(MemoryError)) {
       return
     }
 
@@ -338,14 +349,14 @@ async function errorHandler({
       title: plat,
       message: i18next.t(
         'box.error.legendary.generic',
-        'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
-        { error, newline: '\n' }
+        'An error has occurred! Try to logout and login on your Epic account. {{newline}}  {{error}}',
+        { error: errStr, newline: '\n' }
       ),
       type: 'ERROR'
     })
   }
 
-  if (error.includes(expiredCredentials)) {
+  if (errStr.includes(expiredCredentials)) {
     return showDialogBoxModalAuto({
       title: plat,
       message: i18next.t(
@@ -365,14 +376,14 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
-  if (url.startsWith('http')) {
+  if (url.includes('://') && URL.canParse(url)) {
     return shell.openExternal(url)
   }
   return shell.openPath(url)
 }
 
 function clearCache(
-  library?: 'gog' | 'legendary' | 'nile' | 'zoom',
+  library?: 'gog' | 'legendary' | 'nile' | 'zoom' | 'steam',
   fromVersionChange = false
 ) {
   wikiGameInfoStore.clear()
@@ -386,7 +397,7 @@ function clearCache(
     installStore.clear()
     libraryStore.clear()
     gameInfoStore.clear()
-    runLegendaryCommand(
+    libraryManagerMap['legendary'].runRunnerCommand(
       { subcommand: 'cleanup' },
       { abortId: 'legandary-cleanup' }
     )
@@ -395,10 +406,21 @@ function clearCache(
     nileInstallStore.clear()
     nileLibraryStore.clear()
   }
+  if (library === 'steam' || !library) {
+    steamInstallInfoStore.clear()
+    steamLibraryStore.clear()
+    steamExtraInfoStore.clear()
+  }
 
   if (!fromVersionChange) {
     deviceNameCache.clear()
     vendorNameCache.clear()
+  }
+  // Clear the downloaded image cache so covers are re-fetched fresh.
+  try {
+    clearImagesCache()
+  } catch (e) {
+    logWarning(['Failed to clear images cache:', e], LogPrefix.Backend)
   }
 }
 
@@ -505,6 +527,36 @@ function getNileBin(): { dir: string; bin: string } {
   return splitPathAndName(fixAsarPath(defaultNilePath))
 }
 
+let defaultButlerPath: string | undefined = undefined
+function getButlerBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altButlerBin) {
+    return splitPathAndName(settings.altButlerBin)
+  }
+
+  if (!defaultButlerPath) defaultButlerPath = archSpecificBinary('butler')
+
+  return splitPathAndName(fixAsarPath(defaultButlerPath))
+}
+
+let defaultAureliaPath: string | undefined = undefined
+function getAureliaBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altAureliaBin) {
+    return splitPathAndName(settings.altAureliaBin)
+  }
+
+  if (!defaultAureliaPath) defaultAureliaPath = archSpecificBinary('aurelia')
+
+  const bundledPath = fixAsarPath(defaultAureliaPath)
+  // check PATH
+  if (!existsSync(bundledPath)) {
+    return { dir: '', bin: isWindows ? 'aurelia.exe' : 'aurelia' }
+  }
+
+  return splitPathAndName(bundledPath)
+}
+
 export function createNecessaryFolders() {
   const defaultFolders = [gamesConfigPath, heroicIconFolder]
 
@@ -555,55 +607,6 @@ export async function getSteamLibraries(): Promise<string[]> {
     LogPrefix.Backend
   )
   return libraries
-}
-
-async function getSteamRuntime(
-  requestedType: SteamRuntime['type']
-): Promise<SteamRuntime> {
-  const steamLibraries = await getSteamLibraries()
-  const runtimeTypes: SteamRuntime[] = [
-    {
-      path: 'steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point',
-      type: 'sniper',
-      args: ['--']
-    },
-    {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point',
-      type: 'soldier',
-      args: ['--']
-    },
-    {
-      path: 'ubuntu12_32/steam-runtime/run.sh',
-      type: 'scout',
-      args: []
-    }
-  ]
-  const allAvailableRuntimes: SteamRuntime[] = []
-  steamLibraries.forEach((library) => {
-    runtimeTypes.forEach(({ path, type, args }) => {
-      const fullPath = join(library, path)
-      if (existsSync(fullPath)) {
-        allAvailableRuntimes.push({ path: fullPath, type, args })
-      }
-    })
-  })
-  // Add dummy runtime at the end to not return `undefined`
-  allAvailableRuntimes.push({ path: '', type: 'scout', args: [] })
-  const requestedRuntime = allAvailableRuntimes.find(({ type }) => {
-    return type === requestedType
-  })
-  if (requestedRuntime) {
-    return requestedRuntime
-  }
-  logWarning(
-    [
-      'No runtimes of type',
-      requestedType,
-      'could be found, returning first available one'
-    ],
-    LogPrefix.Backend
-  )
-  return allAvailableRuntimes.pop()!
 }
 
 function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
@@ -811,7 +814,7 @@ const getLatestReleases = async (): Promise<Release[]> => {
 
     if (newReleases.length) {
       notify({
-        title: t('Update Available!'),
+        title: t('Update available!'),
         body: t(
           'notify.new-heroic-version',
           'A new Heroic version was released!'
@@ -849,10 +852,6 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
     )
     return null
   }
-}
-
-function getInfo(appName: string, runner: Runner): GameInfo {
-  return gameManagerMap[runner].getGameInfo(appName)
 }
 
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
@@ -957,7 +956,7 @@ export async function downloadDefaultWine() {
   const isMacOSUpToDate = await isMacSonomaOrHigher()
   const release = availableWine.find((version) => {
     if (isLinux) {
-      return version.type === 'GE-Proton'
+      return version.type === 'Proton-CachyOS'
     } else if (isMac) {
       if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
@@ -1333,11 +1332,12 @@ export async function checkRosettaInstall() {
     return
   }
 
-  const { stdout: rosettaCheck } = await execAsync(
+  // the spawn itself fails when Rosetta is not installed
+  const result = await execAsync(
     'arch -x86_64 /usr/sbin/sysctl sysctl.proc_translated'
   )
-
-  const result = rosettaCheck.split(':')[1].trim() === '1'
+    .then(() => true)
+    .catch(() => false)
 
   logInfo(
     `Rosetta is ${result ? 'available' : 'not available'} on this system.`,
@@ -1384,6 +1384,91 @@ export async function isMacSonomaOrHigher() {
 function sendGameStatusUpdate(payload: GameStatus) {
   sendFrontendMessage('gameStatusUpdate', payload)
   backendEvents.emit('gameStatusUpdate', payload)
+
+  // Bring the game window to the foreground once it starts playing.
+  if (payload.status === 'playing') {
+    focusGameWindow()
+  }
+}
+
+let activeFocusProcess: ChildProcess | null = null
+
+/**
+ * Polls for a newly-created game window and brings it to the foreground.
+ * On Windows, polls for up to 10 seconds (500ms intervals) using AppActivate,
+ * which is more robust than a single attempt since the game process may take
+ * time to start and create its window.
+ *
+ * Only one polling loop runs at a time — starting a new one cancels any
+ * in-progress focus attempt to prevent overlapping loops from activating the
+ * wrong window.
+ */
+function focusGameWindow() {
+  // Cancel any in-progress focus attempt.
+  if (activeFocusProcess) {
+    try {
+      activeFocusProcess.kill()
+    } catch {
+      // process may already be dead
+    }
+    activeFocusProcess = null
+  }
+
+  try {
+    let child: ChildProcess
+    if (isWindows) {
+      child = spawn(
+        'powershell',
+        [
+          '-NoProfile',
+          '-Command',
+          [
+            'Add-Type -AssemblyName Microsoft.VisualBasic;',
+            '$deadline = [DateTime]::Now.AddSeconds(10);',
+            'while ([DateTime]::Now -lt $deadline) {',
+            '  $p = Get-Process | Where-Object {',
+            '    $_.MainWindowHandle -ne 0 -and',
+            '    $_.ProcessName -ne "Heroic" -and',
+            '    $_.ProcessName -ne "HeroicGamesLauncher"',
+            '  } | Sort-Object StartTime -Descending | Select-Object -First 1;',
+            '  if ($p -and [Microsoft.VisualBasic.Interaction]::AppActivate($p.Id)) { break };',
+            '  Start-Sleep -Milliseconds 500',
+            '}'
+          ].join('')
+        ],
+        { timeout: 15000, stdio: 'ignore' }
+      )
+    } else if (isLinux) {
+      child = spawn(
+        'xdotool',
+        ['search', '--onlyvisible', '--class', '.', 'windowactivate'],
+        { timeout: 3000, stdio: 'ignore' }
+      )
+    } else if (isMac) {
+      child = spawn(
+        'osascript',
+        [
+          '-e',
+          'tell application "System Events" to set frontmost of (first process whose visible is true and name is not "Heroic") to true'
+        ],
+        { timeout: 3000, stdio: 'ignore' }
+      )
+    } else {
+      return
+    }
+
+    activeFocusProcess = child
+    child.on('error', () => {
+      // best-effort — process failed to start or was killed
+    })
+    child.on('close', () => {
+      if (activeFocusProcess === child) {
+        activeFocusProcess = null
+      }
+    })
+  } catch {
+    // best-effort
+  }
 }
 
 function sendProgressUpdate(payload: GameStatus) {
@@ -1634,10 +1719,16 @@ async function extractTarFile({
 
 const axiosClient = axios.create({
   timeout: 10 * 1000,
-  httpsAgent: new https.Agent({ keepAlive: true })
+  httpsAgent: new https.Agent({ keepAlive: true }),
+  headers: {
+    'User-Agent': `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
+  }
 })
 
-export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
+export const writeConfig = async (
+  appName: string,
+  config: Partial<AppSettings>
+) => {
   logInfo(
     `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
     LogPrefix.Backend
@@ -1645,7 +1736,7 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
   const oldConfig =
     appName === 'default'
       ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
+      : await GameConfig.get(appName).getSettings()
 
   // log only the changed setting
   const sharedKeys = (
@@ -1693,15 +1784,15 @@ export {
   getGOGdlBin,
   getCometBin,
   getNileBin,
+  getButlerBin,
+  getAureliaBin,
   formatEpicStoreUrl,
-  getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,
   removeQuoteIfNecessary,
   detectVCRedist,
   killPattern,
   shutdownWine,
-  getInfo,
   getShellPath,
   getLatestReleases,
   getWineFromProton,
@@ -1712,9 +1803,12 @@ export {
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,
+  formatTime,
   extractFiles,
   axiosClient,
-  parseSize
+  parseSize,
+  getGame,
+  focusGameWindow
 }
 
 // Exported only for testing purpose

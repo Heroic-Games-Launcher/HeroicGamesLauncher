@@ -11,6 +11,7 @@ import { isOnline } from '../../online_monitor'
 import { ZoomCredentials } from 'common/types/zoom'
 import { clearCache } from 'backend/utils'
 import { tokenPath, embedUrl, apiUrl } from './constants'
+import { session } from 'electron'
 
 export class ZoomUser {
   static async login(url: string): Promise<{
@@ -93,7 +94,15 @@ export class ZoomUser {
     if (existsSync(tokenPath)) {
       unlinkSync(tokenPath)
     }
+    const ses = session.fromPartition('persist:zoom')
+    ses.clearStorageData().catch(() => {})
+    ses.clearCache().catch(() => {})
+    ses.clearAuthCache().catch(() => {})
     logInfo('Logging user out from Zoom', LogPrefix.Zoom)
+  }
+
+  public static isLoggedInSync(): boolean {
+    return existsSync(tokenPath) && configStore.get('isLoggedIn', false)
   }
 
   public static async isLoggedIn(): Promise<boolean> {

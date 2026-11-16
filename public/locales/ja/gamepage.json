@@ -95,7 +95,10 @@
         "changelog": "変更履歴を確認",
         "browse_wine_prefix": "Wine Prefixを閲覧",
         "play": "プレイ",
-        "browse_files": "ファイルを閲覧"
+        "browse_files": "ファイルを閲覧",
+        "edit-game": "App/ゲームを編集",
+        "favourite": "お気に入りに追加",
+        "unfavourite": "お気に入りから削除"
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -131,7 +134,8 @@
         "modify": "インストールの変更",
         "extra_info": "追加情報",
         "install_info": "インストール情報",
-        "achievements": "実績"
+        "achievements": "実績",
+        "details": "ゲームの詳細"
     },
     "gamecard": {
         "moving": "移動中",
@@ -161,7 +165,11 @@
         "installedInfo": "インストール情報",
         "protondb-compatibility-info": "Proton互換性レベル",
         "steamdeck-compatibility-info": "SteamDeck の互換性",
-        "third-party-app": "サードパーティマネージャー"
+        "third-party-app": "サードパーティマネージャー",
+        "genres": "ジャンル",
+        "steamdeck": {
+            "unsupported": "非対応"
+        }
     },
     "install": {
         "disk-space-left": "空き領域",
@@ -205,7 +213,8 @@
             "installing": "Installing",
             "pleaseWait": "Please wait...",
             "installation": "インストールを停止する"
-        }
+        },
+        "releaseDate": "リリース日"
     },
     "launch": {
         "options": "起動オプション…",
@@ -239,7 +248,9 @@
             "title": "ゲーム/Appタイトル",
             "broser": "ブラウザURL",
             "useragent": "カスタムユーザーエージェント",
-            "fullscreen": "フルスクリーンで起動（F11で終了）"
+            "fullscreen": "フルスクリーンで起動（F11で終了）",
+            "cover-hint": "カバー／ヒーローアート (画像をクリックすると SteamGridDB で検索できます)",
+            "image-hint": "正方形アート (画像をクリックすると SteamGridDB で検索できます)"
         },
         "placeholder": {
             "image": "画像のURLを貼り付けるか、お使いのコンピュータから画像を選択してください",
@@ -250,6 +261,9 @@
         "import-hint": {
             "content": "そのためにこの機能を使用しないでください。<br />代わりに、ストアに<3>ログイン</3>し、ライブラリでゲームを探し、インストールダイアログを開いて「ゲームのインポート」ボタンをクリックします。",
             "title": "重要! Epic/GOG/Amazonからゲームを追加しますか? ここをクリックしてください!"
+        },
+        "images": {
+            "summary": "画像"
         }
     },
     "specs": {
@@ -337,5 +351,23 @@
         }
     },
     "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>",
-    "open-saves-folder": "保存フォルダを開く"
+    "open-saves-folder": "保存フォルダを開く",
+    "edit-game": {
+        "advanced": "詳細",
+        "placeholder": {
+            "image": "ここにイメージURLをペーストしてください"
+        },
+        "title": "App/ゲームを編集",
+        "cover": "カバーアート",
+        "info": {
+            "cover": "カバー画像",
+            "square": "正方形画像"
+        },
+        "reset": "デフォルト設定に戻す",
+        "sgdb": {
+            "no-key-prefix": "SteamGridDBでカバーアートを検索するには、APIキーを追加してください",
+            "no-key-link": "[設定] → [詳細]"
+        },
+        "square": "正方形アート"
+    }
 }

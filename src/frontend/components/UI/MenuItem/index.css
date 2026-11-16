@@ -1,0 +1,65 @@
+.MenuItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-sm-fixed);
+  width: 100%;
+  margin: 0;
+  padding: var(--space-xs-fixed) var(--space-sm-fixed);
+  border: none;
+  border-radius: 10px;
+  background: none;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--medium);
+  line-height: var(--leading-snug, 1.3);
+  color: var(--on-panel-muted, var(--text-secondary));
+  text-align: start;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.MenuItem__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  flex-shrink: 0;
+}
+
+.MenuItem__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.MenuItem__label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.MenuItem:hover:not(:disabled),
+.MenuItem:focus-visible:not(:disabled) {
+  background: var(--input-background);
+  color: var(--on-panel, var(--text-default));
+  outline: none;
+}
+
+.MenuItem--danger {
+  color: var(--danger, #ef4444);
+}
+
+.MenuItem--danger:hover:not(:disabled),
+.MenuItem--danger:focus-visible:not(:disabled) {
+  background: color-mix(in oklab, var(--danger) 18%, transparent);
+  color: var(--danger-hover, var(--danger));
+}
+
+.MenuItem:disabled {
+  color: var(--text-faint, var(--text-secondary));
+  cursor: not-allowed;
+}

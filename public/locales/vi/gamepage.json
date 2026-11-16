@@ -96,7 +96,10 @@
         "changelog": "Hiện Nhật Ký Thay Đổi",
         "browse_files": "Duyệt Tệp",
         "browse_wine_prefix": "Duyệt Wine Prefix",
-        "play": "CHƠI"
+        "play": "CHƠI",
+        "edit-game": "Sửa đổi App/Game",
+        "favourite": "Thêm vào mục ưa thích",
+        "unfavourite": "Xóa khỏi mục ưa thích"
     },
     "cloud_save_unsupported": "Không Hỗ Trợ",
     "disabled": "Tắt",
@@ -132,7 +135,8 @@
         "extra_info": "Thông tin thêm",
         "install_info": "Thông tin cài đặt",
         "modify": "Sửa Đổi Cài Đặt",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game details"
     },
     "gamecard": {
         "moving": "Đang Chuyển",
@@ -162,7 +166,10 @@
         "installedInfo": "Thông Tin Đã Cài Đặt",
         "protondb-compatibility-info": "Bậc Tương Thích Proton",
         "steamdeck-compatibility-info": "Khả Năng Tương Thích SteamDeck",
-        "third-party-app": "Trình Quản Lý Bên Thứ Ba"
+        "third-party-app": "Trình Quản Lý Bên Thứ Ba",
+        "steamdeck": {
+            "unsupported": "Không hỗ trợ"
+        }
     },
     "install": {
         "disk-space-left": "Dung Lượng Trống Khả Dụng",
@@ -204,7 +211,8 @@
             "install-path": "Chọn thư mục cài đặt Steam"
         },
         "redist": "Cài Đặt Bản Phân Phối Lại",
-        "winetricks": "Cài Đặt Gói Winetricks"
+        "winetricks": "Cài Đặt Gói Winetricks",
+        "releaseDate": "Ngày Phát Hành"
     },
     "launch": {
         "options": "Khởi Chạy Tuỳ Chọn ...",
@@ -335,5 +343,12 @@
         "notice2": "Sau khi nhấn Cài Đặt, Heroic sẽ chạy ứng dụng để hoàn tất quá trình cài đặt"
     },
     "wikiLink": "Thông tin quan trọng về trò chơi này, hãy đọc phần này: <1>Mở trang</1>",
-    "open-saves-folder": "Mở thư mục lưu"
+    "open-saves-folder": "Mở thư mục lưu",
+    "edit-game": {
+        "advanced": "Nâng cao",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Sửa đổi App/Game"
+    }
 }

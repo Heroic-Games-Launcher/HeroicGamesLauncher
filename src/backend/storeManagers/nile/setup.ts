@@ -6,7 +6,7 @@ import {
   logWarning,
   getRunnerLogWriter
 } from 'backend/logger'
-import { fetchFuelJSON, getGameInfo } from './library'
+import { libraryManagerMap } from '..'
 import { GameConfig } from 'backend/game_config'
 import {
   checkWineBeforeLaunch,
@@ -23,7 +23,7 @@ export default async function setup(
   appName: string,
   installedPath?: string
 ): Promise<void> {
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = libraryManagerMap['nile'].getGameInfo(appName)
   if (!gameInfo) {
     logError([`Could not find game info for ${appName}. Skipping setup`])
     return
@@ -39,7 +39,7 @@ export default async function setup(
     return
   }
 
-  const fuel = fetchFuelJSON(appName, basePath)
+  const fuel = libraryManagerMap['nile'].fetchFuelJSON(appName, basePath)
   if (!fuel) {
     logError(
       [

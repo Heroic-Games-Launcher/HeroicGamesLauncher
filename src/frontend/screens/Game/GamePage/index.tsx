@@ -2,34 +2,29 @@ import './index.css'
 
 import React, { useContext, useEffect, useRef, useState } from 'react'
 
-import {
-  ArrowBackIosNew,
-  Info,
-  Star,
-  Monitor,
-  EmojiEvents
-} from '@mui/icons-material'
-
-import { Tab, Tabs } from '@mui/material'
+import { Info } from 'lucide-react'
 
 import {
   getGameInfo,
   getInstallInfo,
-  launch,
-  sendKill,
-  updateGame
+  getStoreName,
+  sendKill
 } from 'frontend/helpers'
-import {
-  Link,
-  NavLink,
-  useLocation,
-  useNavigate,
-  useParams
-} from 'react-router-dom'
+import { launch, updateGame, install } from 'frontend/helpers/library'
+import classNames from 'classnames'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
-import UninstallModal from 'frontend/components/UI/UninstallModal'
+import {
+  BackButton,
+  CachedImage,
+  Panel,
+  StoreBadge,
+  TabPanel,
+  Tabs,
+  UpdateComponent
+} from 'frontend/components/UI'
+import type { TabItem } from 'frontend/components/UI/Tabs'
 
 import {
   ExtraInfo,
@@ -42,46 +37,42 @@ import {
   GameAchievement
 } from 'common/types'
 
-import GamePicture from '../GamePicture'
-import TimeContainer from '../TimeContainer'
-
-import { install } from 'frontend/helpers/library'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
 
-import StoreLogos from 'frontend/components/UI/StoreLogos'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import GameContext from '../GameContext'
 import { GameContextType } from 'frontend/types'
 import {
-  AppleWikiInfo,
-  CloudSavesSync,
+  Achievements,
   CompatibilityInfo,
   Description,
-  Developer,
-  DotsMenu,
   DownloadSizeInfo,
+  GameActions,
+  GameDetails,
+  GameStats,
   GameStatus,
+  Genres,
   HLTB,
   InstalledInfo,
-  MainButton,
   ReportIssue,
   Requirements,
-  Scores,
-  SettingsButton
+  Scores
 } from './components'
+import SteamLoginBanner, {
+  useSteamDataFailures
+} from './components/SteamLoginBanner'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import { hasHelp } from 'frontend/hooks/hasHelp'
-import Genres from './components/Genres'
-import ReleaseDate from './components/ReleaseDate'
-import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
+import { useKnownFixes } from 'frontend/hooks/hasKnownFixes'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
-import Achievements from './components/Achievements'
 import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
+
+type GameTab = 'overview' | 'info' | 'achievements' | 'extra' | 'requirements'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -89,12 +80,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
     state: { fromDM: boolean; gameInfo: GameInfo | GameGroup }
   }
   const { t, i18n } = useTranslation('gamepage')
-  const { t: t2 } = useTranslation()
 
   const { gameInfo: locationGameInfo } = location.state
   const navigate = useNavigate()
 
-  const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
   const { epic, gog, gameUpdates, platform, showDialogModal, connectivity } =
@@ -127,6 +116,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
   const [progress, previousProgress] = hasProgress(appName, runner)
+  const steamFailures = useSteamDataFailures(appName, runner)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
     gameInfo.extra || null
@@ -154,13 +144,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
-  const knownFixes = hasKnownFixes(appName, runner)
+  const knownFixes = useKnownFixes(appName, runner)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
   const isMac = platform === 'darwin'
   const isSideloaded = runner === 'sideload'
-  const isBrowserGame = gameInfo?.install.platform === 'Browser'
 
   const isInstalling = status === 'installing'
   const isImporting = status === 'importing'
@@ -178,7 +167,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const notSupportedGame =
     gameInfo.runner !== 'sideload' &&
     !!gameInfo.thirdPartyManagedApp &&
-    !gameInfo.isEAManaged
+    !gameInfo.isEAManaged &&
+    !gameInfo.isUbisoftManaged
   const isOffline = connectivity.status !== 'online'
   const notPlayableOffline = isOffline && !gameInfo.canRunOffline
 
@@ -186,9 +176,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const storage: Storage = window.localStorage
 
-  const [currentTab, setCurrentTab] = useState<
-    'info' | 'achievements' | 'extra' | 'requirements'
-  >('info')
+  const [currentTab, setCurrentTab] = useState<GameTab>('overview')
 
   const previousIsPlaying = useRef<boolean>(isPlaying)
   useEffect(() => {
@@ -211,12 +199,19 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const updateAchievements = async () => {
       if (!isPlaying && previousIsPlaying.current)
         window.api.clearAchievementCache(appName)
-      setAchievements(await window.api.getAchievements(appName, runner))
+      // Only Aurelia localizes achievements by the UI language
+      setAchievements(
+        await window.api.getAchievements(
+          appName,
+          runner,
+          runner === 'steam' ? i18n.language : undefined
+        )
+      )
     }
 
     updateAchievements()
     previousIsPlaying.current = isPlaying
-  }, [isPlaying, appName])
+  }, [isPlaying, appName, i18n.language])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -250,11 +245,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
           })
         }
 
-        setExtraInfo(await window.api.getExtraInfo(appName, runner))
+        setExtraInfo(
+          await window.api.getExtraInfo(
+            appName,
+            runner,
+            runner === 'steam' ? i18n.language : undefined
+          )
+        )
       }
     }
     updateGameInfo()
-  }, [status, gog.library, epic.library, isMoving])
+  }, [status, gog.library, epic.library, isMoving, i18n.language])
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -277,6 +278,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
         ) {
           getInstallInfo(appName, runner, installPlatform)
             .then((info) => {
+              // Steam fails when logged out
+              if (!info && runner === 'steam') {
+                window.api.logError(
+                  `Steam install info unavailable for ${appName}, possibly not logged in`
+                )
+                return
+              }
               if (!info) {
                 throw new Error('Cannot get game info')
               }
@@ -293,6 +301,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
             .catch((error) => {
               console.error(error)
               window.api.logError(`${`${error}`}`)
+              // Keep Steam page usable
+              if (runner === 'steam') return
               setHasError({ error: true, message: `${error}` })
             })
         }
@@ -353,13 +363,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
   if (gameInfo && gameInfo.install && settingsContextValues) {
     const {
       runner,
-      title,
-      art_cover,
       art_background,
-      art_logo,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
+    const title = gameInfo.overrides?.title || gameInfo.title
+    const art_cover = gameInfo.overrides?.art_cover || gameInfo.art_cover
 
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
@@ -386,7 +395,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const isMacNative = ['osx', 'Mac'].includes(installPlatform ?? '')
     const isLinuxNative = ['linux', 'Linux'].includes(installPlatform ?? '')
 
-    // create setting context functions
     const contextValues: GameContextType = {
       appName,
       gameInfo,
@@ -424,14 +432,40 @@ export default React.memo(function GamePage(): JSX.Element | null {
       wikiInfo
     }
 
-    const hasWikiInfo =
-      wikiInfo?.applegamingwiki ||
-      wikiInfo?.howlongtobeat ||
-      wikiInfo?.pcgamingwiki?.metacritic.score ||
-      wikiInfo?.pcgamingwiki?.opencritic.score ||
-      wikiInfo?.steamInfo
+    const hasExtraInfo =
+      wikiInfo?.howlongtobeat || wikiInfo?.steamInfo?.compatibilityLevel
 
     const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
+
+    const tabs: TabItem<GameTab>[] = [
+      { value: 'overview', label: t('game.overview', 'Overview') },
+      {
+        value: 'info',
+        label: t('game.install_info', 'Installation Info')
+      }
+    ]
+
+    if (hasAchievements) {
+      tabs.push({
+        value: 'achievements',
+        label: `${t('game.achievements', 'Achievements')} · ${achievementPercentage}%`
+      })
+    }
+
+    if (hasExtraInfo) {
+      tabs.push({ value: 'extra', label: t('game.extra_info', 'Extra') })
+    }
+
+    if (hasRequirements) {
+      tabs.push({
+        value: 'requirements',
+        label: t('game.requirements', 'System requirements')
+      })
+    }
+
+    const activeTab = tabs.some((tab) => tab.value === currentTab)
+      ? currentTab
+      : 'overview'
 
     let wikiLink = <></>
     if (knownFixes && knownFixes.wikiLink) {
@@ -448,207 +482,153 @@ export default React.memo(function GamePage(): JSX.Element | null {
       )
     }
 
+    if (!title) {
+      return <UpdateComponent />
+    }
+
     return (
       <SettingsContext.Provider value={settingsContextValues}>
-        <div className="gameConfigContainer">
-          {!!(art_background ?? art_cover) && (
-            <CachedImage
-              src={art_background || art_cover}
-              className="backgroundImage"
-            />
-          )}
-          {showUninstallModal && (
-            <UninstallModal
-              appName={appName}
-              runner={runner}
-              onClose={() => setShowUninstallModal(false)}
-              isDlc={false}
-            />
-          )}
+        <GameContext.Provider value={contextValues}>
+          <div className="gameConfigContainer">
+            {!!(extraInfo?.background || art_background || art_cover) && (
+              <CachedImage
+                src={extraInfo?.background || art_background || art_cover}
+                className="backgroundImage"
+              />
+            )}
+            <div className="gamePage__scrim" />
 
-          {title ? (
-            <>
-              <GameContext.Provider value={contextValues}>
-                {/* NEW DESIGN */}
-                <>
-                  <div className="topRowWrapper">
-                    <NavLink
-                      className="backButton"
-                      to={backRoute}
-                      title={t2('webview.controls.back', 'Go Back')}
-                    >
-                      <ArrowBackIosNew />
-                    </NavLink>
-                    <div className="topRowWapperInner">
-                      {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                      <DotsMenu
-                        gameInfo={gameInfo}
-                        handleUpdate={handleUpdate}
-                      />
-                    </div>
-                  </div>
-                  <div className="mainInfoWrapper">
-                    <div className="mainInfo">
-                      <GamePicture
-                        art_square={art_cover}
-                        art_logo={art_logo}
-                        store={runner}
-                      />
-                      <div className="store-icon">
-                        <StoreLogos
-                          runner={gameGroup ? undefined : runner}
-                          games={gameGroup?.games}
-                          selectedRunner={runner}
-                          onGameClick={(selectedGame) =>
-                            navigate(
-                              `/gamepage/${selectedGame.runner}/${selectedGame.app_name}`,
-                              {
-                                state: {
-                                  ...location.state,
-                                  gameInfo: gameGroup ?? locationGameInfo
+            <div className="topRowWrapper">
+              <BackButton
+                to={backRoute}
+                label={t('button.backToLibrary', 'Back to library')}
+              />
+            </div>
+
+            <div className="gamePage__content">
+              {runner === 'steam' && (
+                <SteamLoginBanner appName={appName} failures={steamFailures} />
+              )}
+              <Panel tone="glass" padding="lg" className="gamePage__hero">
+                <div className="gamePage__heroMain">
+                  <h1 className="gamePage__title">{title}</h1>
+                  {gameGroup && gameGroup.games.length > 1 && (
+                    <div className="gamePage__stores">
+                      {gameGroup.games.map((game) => {
+                        const isSelected =
+                          game.runner === runner && game.app_name === appName
+                        const storeName = getStoreName(
+                          game.runner,
+                          t('Other', 'Other')
+                        )
+                        return (
+                          <button
+                            key={`${game.runner}-${game.app_name}`}
+                            type="button"
+                            className={classNames('gamePage__storeButton', {
+                              selected: isSelected
+                            })}
+                            title={storeName}
+                            aria-label={storeName}
+                            aria-pressed={isSelected}
+                            onClick={() =>
+                              navigate(
+                                `/gamepage/${game.runner}/${game.app_name}`,
+                                {
+                                  state: {
+                                    ...location.state,
+                                    gameInfo: gameGroup
+                                  }
                                 }
-                              }
-                            )
-                          }
-                        />
-                      </div>
-
-                      <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
-                      <Genres
-                        genres={
-                          gameInfo.extra?.genres ||
-                          wikiInfo?.pcgamingwiki?.genres ||
-                          []
-                        }
-                      />
-                      <Developer gameInfo={gameInfo} />
-                      <ReleaseDate
-                        runnerDate={extraInfo?.releaseDate}
-                        date={wikiInfo?.pcgamingwiki?.releaseDate}
-                      />
-
-                      <Description />
-                      {!notInstallable && <TimeContainer gameInfo={gameInfo} />}
-                      <GameStatus
-                        gameInfo={gameInfo}
-                        progress={progress}
-                        handleUpdate={handleUpdate}
-                        hasUpdate={hasUpdate}
-                      />
-                      <LaunchOptionSelector showTitle={false} />
-                      <div className="buttons">
-                        <MainButton
-                          gameInfo={gameInfo}
-                          handlePlay={handlePlay}
-                          handleInstall={handleInstall}
-                        />
-                      </div>
-                      {wikiLink}
+                              )
+                            }
+                          >
+                            <StoreBadge runner={game.runner} />
+                          </button>
+                        )
+                      })}
                     </div>
+                  )}
+                  <div className="gamePage__meta">
+                    <Genres
+                      genres={
+                        extraInfo?.genres ||
+                        wikiInfo?.pcgamingwiki?.genres ||
+                        []
+                      }
+                    />
                   </div>
-                  <div className="extraInfoWrapper">
-                    <div className="extraInfo">
-                      <div className="extraInfoTabs">
-                        <Tabs
-                          className="gameInfoTabs"
-                          value={currentTab}
-                          onChange={(e, newVal) => setCurrentTab(newVal)}
-                          aria-label="gameinfo tabs"
-                          selectionFollowsFocus
-                          variant="scrollable"
-                          scrollButtons="auto"
-                        >
-                          <Tab
-                            className="tabButton"
-                            value={'info'}
-                            label={t('game.install_info', 'Install info')}
-                            iconPosition="start"
-                            icon={<Info className="gameInfoTabsIcon" />}
-                          />
-                          {hasAchievements && (
-                            <Tab
-                              className="tabButton"
-                              value={'achievements'}
-                              label={
-                                t('game.achievements', 'Achievements') +
-                                ` · ${achievementPercentage}%`
-                              }
-                              iconPosition="start"
-                              icon={
-                                <EmojiEvents className="gameInfoTabsIcon" />
-                              }
-                            />
-                          )}
-                          {hasWikiInfo && (
-                            <Tab
-                              className="tabButton"
-                              value={'extra'}
-                              label={t('game.extra_info', 'Extra info')}
-                              iconPosition="start"
-                              icon={<Star className="gameInfoTabsIcon" />}
-                            />
-                          )}
-                          {hasRequirements && (
-                            <Tab
-                              className="tabButton"
-                              value={'requirements'}
-                              label={t('game.requirements', 'Requirements')}
-                              iconPosition="start"
-                              icon={<Monitor className="gameInfoTabsIcon" />}
-                            />
-                          )}
-                        </Tabs>
-                      </div>
 
-                      <div>
-                        <TabPanel
-                          value={currentTab}
-                          index="achievements"
-                          className="achievementsTab"
-                        >
-                          <Achievements achievements={achievements} />
-                        </TabPanel>
-                        <TabPanel
-                          value={currentTab}
-                          index="info"
-                          className="infoTab"
-                        >
-                          <DownloadSizeInfo gameInfo={gameInfo} />
-                          <InstalledInfo gameInfo={gameInfo} />
-                          <CloudSavesSync gameInfo={gameInfo} />
-                        </TabPanel>
+                  <GameActions
+                    gameInfo={gameInfo}
+                    handlePlay={handlePlay}
+                    handleInstall={handleInstall}
+                    handleUpdate={handleUpdate}
+                    hasUpdate={hasUpdate}
+                  />
 
-                        <TabPanel
-                          value={currentTab}
-                          index="extra"
-                          className="extraTab"
-                        >
-                          <Scores gameInfo={gameInfo} />
-                          <HLTB />
-                          <CompatibilityInfo gameInfo={gameInfo} />
-                          <AppleWikiInfo gameInfo={gameInfo} />
-                        </TabPanel>
+                  <GameStatus gameInfo={gameInfo} progress={progress} />
+                  <LaunchOptionSelector showTitle={false} />
+                  {wikiLink}
+                </div>
 
-                        <TabPanel
-                          className="tabPanelRequirements"
-                          value={currentTab}
-                          index="requirements"
-                        >
-                          <Requirements />
-                        </TabPanel>
-                      </div>
-                    </div>
+                <div className="gamePage__heroAside">
+                  {!notInstallable && <GameStats gameInfo={gameInfo} />}
+                  <Scores gameInfo={gameInfo} />
+                </div>
+              </Panel>
 
-                    <Anticheat anticheatInfo={anticheatInfo} />
+              <Panel tone="glass" padding="lg" className="gamePage__tabs">
+                <Tabs
+                  items={tabs}
+                  value={activeTab}
+                  onChange={setCurrentTab}
+                  aria-label={t('game.tabs', 'Game information')}
+                />
+
+                <TabPanel
+                  value={activeTab}
+                  index="overview"
+                  className="overviewTab"
+                >
+                  <div className="overviewTab__main">
+                    <Description />
+                    <ReportIssue gameInfo={gameInfo} />
                   </div>
-                  <ReportIssue gameInfo={gameInfo} />
-                </>
-              </GameContext.Provider>
-            </>
-          ) : (
-            <UpdateComponent />
-          )}
-        </div>
+                  <GameDetails gameInfo={gameInfo} />
+                </TabPanel>
+
+                <TabPanel value={activeTab} index="info" className="infoTab">
+                  <DownloadSizeInfo gameInfo={gameInfo} />
+                  <InstalledInfo gameInfo={gameInfo} />
+                </TabPanel>
+
+                <TabPanel
+                  value={activeTab}
+                  index="achievements"
+                  className="achievementsTab"
+                >
+                  <Achievements achievements={achievements} />
+                </TabPanel>
+
+                <TabPanel value={activeTab} index="extra" className="extraTab">
+                  <HLTB />
+                  <CompatibilityInfo gameInfo={gameInfo} />
+                </TabPanel>
+
+                <TabPanel
+                  value={activeTab}
+                  index="requirements"
+                  className="requirementsTab"
+                >
+                  <Requirements />
+                </TabPanel>
+              </Panel>
+
+              <Anticheat anticheatInfo={anticheatInfo} />
+            </div>
+          </div>
+        </GameContext.Provider>
       </SettingsContext.Provider>
     )
   }

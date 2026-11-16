@@ -1,18 +1,16 @@
 import './index.scss'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import { UpdateComponent } from 'frontend/components/UI'
 import { GameInfo } from 'common/types'
 import { LegendaryInstallInfo } from 'common/types/legendary'
 import { GogInstallInfo } from 'common/types/gog'
 import { NileInstallInfo } from 'common/types/nile'
 import { ZoomInstallInfo, ZoomInstalledInfo } from 'common/types/zoom'
+import { ItchioInstallInfo } from 'common/types/itchio'
 import { useTranslation } from 'react-i18next'
 import LegendaryModifyInstallModal from './Legendary'
 import GOGModifyInstallModal from './GOG'
+import { SteamInstallInfo } from 'common/types/steam'
 
 interface ModifyInstallProps {
   gameInfo: GameInfo
@@ -22,6 +20,8 @@ interface ModifyInstallProps {
     | NileInstallInfo
     | ZoomInstalledInfo
     | ZoomInstallInfo
+    | ItchioInstallInfo
+    | SteamInstallInfo
     | null
   onClose: () => void
 }
@@ -34,32 +34,31 @@ export default function ModifyInstallModal({
   const { t } = useTranslation()
 
   return (
-    <Dialog
+    <Modal
       showCloseButton
+      size="lg"
       onClose={() => onClose()}
       className={'ModifyInstall__dialog'}
     >
-      <DialogHeader onClose={() => onClose()}>
-        <div>{t('game.modify', 'Modify Installation')}</div>
-      </DialogHeader>
-      <DialogContent>
-        {gameInstallInfo ? (
-          <>
-            {gameInfo.runner === 'gog' && (
-              <GOGModifyInstallModal gameInfo={gameInfo} onClose={onClose} />
-            )}
-            {gameInfo.runner === 'legendary' && (
-              <LegendaryModifyInstallModal
-                dlcs={(gameInstallInfo as LegendaryInstallInfo)?.game.owned_dlc}
-                gameInfo={gameInfo}
-                onClose={onClose}
-              />
-            )}
-          </>
-        ) : (
+      <ModalHeader>{t('game.modify', 'Modify installation')}</ModalHeader>
+      {gameInstallInfo ? (
+        <>
+          {gameInfo.runner === 'gog' && (
+            <GOGModifyInstallModal gameInfo={gameInfo} onClose={onClose} />
+          )}
+          {gameInfo.runner === 'legendary' && (
+            <LegendaryModifyInstallModal
+              dlcs={(gameInstallInfo as LegendaryInstallInfo)?.game.owned_dlc}
+              gameInfo={gameInfo}
+              onClose={onClose}
+            />
+          )}
+        </>
+      ) : (
+        <ModalContent>
           <UpdateComponent />
-        )}
-      </DialogContent>
-    </Dialog>
+        </ModalContent>
+      )}
+    </Modal>
   )
 }

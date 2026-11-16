@@ -95,7 +95,10 @@
         "changelog": "",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "ویرایش نرم افزار/بازی",
+        "favourite": "افزودن به مورد علاقه ها",
+        "unfavourite": "حذف کردن از مورد علاقه ها"
     },
     "cloud_save_unsupported": "پشتیبانی نشده",
     "disabled": "غیر فعال",
@@ -129,9 +132,10 @@
         },
         "changelogFor": "",
         "modify": "",
-        "install_info": "",
+        "install_info": "Installing",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "مشخصات بازی"
     },
     "gamecard": {
         "moving": "در حال انتقال",
@@ -161,7 +165,10 @@
         "installedInfo": "اطلاعات نصب شده",
         "protondb-compatibility-info": "ردیف سازگاری پروتون",
         "steamdeck-compatibility-info": "سازگاری SteamDeck",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "unsupported": "پشتیبانی نشده"
+        }
     },
     "install": {
         "disk-space-left": "فضای موجود",
@@ -204,7 +211,8 @@
             "installation": "توقف نصب"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "گزینه های اجرا...",
@@ -335,5 +343,12 @@
         "notice1": ""
     },
     "open-saves-folder": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "آدرس ایمیج را اینجا درج کنید"
+        },
+        "title": "ویرایش نرم افزار/بازی"
+    }
 }

@@ -95,7 +95,10 @@
         "changelog": "Εμφάνιση αρχείου αλλαγών",
         "browse_files": "Περιήγηση Αρχείων",
         "browse_wine_prefix": "Περιήγηση στο πρόθεμα Wine",
-        "play": "ΠΑΙΞΤΕ"
+        "play": "ΠΑΙΞΤΕ",
+        "edit-game": "Edit App/Game",
+        "favourite": "Προσθήκη στα Αγαπημένα",
+        "unfavourite": "Κατάργηση από τα Αγαπημένα"
     },
     "cloud_save_unsupported": "Μη υποστηριζόμενο",
     "disabled": "Απενεργοποιημένο",
@@ -131,7 +134,8 @@
         "modify": "Τροποποίηση Εγκατάστασης",
         "install_info": "Πληροφορίες εγκατάστασης",
         "extra_info": "Επιπρόσθετες πληροφορίες",
-        "achievements": "Επιτεύγματα"
+        "achievements": "Επιτεύγματα",
+        "details": "Πληροφορίες παιχνιδιού"
     },
     "gamecard": {
         "moving": "Μετακίνηση",
@@ -161,7 +165,10 @@
         "installedInfo": "Εγκατεστημένες πληροφορίες",
         "protondb-compatibility-info": "Επίπεδο συμβατότητας πρωτονίων",
         "steamdeck-compatibility-info": "Συμβατότητα SteamDeck",
-        "third-party-app": "Third-Party Διαχειριστής"
+        "third-party-app": "Third-Party Διαχειριστής",
+        "steamdeck": {
+            "unsupported": "Unsupported"
+        }
     },
     "install": {
         "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",
@@ -201,7 +208,8 @@
         "steam": {
             "installing": "Εγκατάσταση",
             "pleaseWait": "Please wait..."
-        }
+        },
+        "releaseDate": "Ημερομηνία κυκλοφορίας"
     },
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης...",
@@ -332,5 +340,12 @@
         "header": "Αυτό το παιχνίδι διαχειρίζεται από μια εφαρμογή τρίτου",
         "notice1": "Αυτό το παιχνίδι διαχειρίζεται από μια εφαρμογή τρίτου: \"{{application_name}}\"",
         "notice2": "Αφού κάνετε κλικ στην Εγκατάσταση, το Heroic θα εκτελέσει την εφαρμογή για να ολοκληρώσει τη διαδικασία εγκατάστασης"
+    },
+    "edit-game": {
+        "advanced": "Προχωρημένες",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Edit App/Game"
     }
 }

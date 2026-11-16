@@ -96,7 +96,10 @@
         "changelog": "",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "Edit App/Game",
+        "favourite": "Dodaj u favorite",
+        "unfavourite": "Otkloni iz favorita"
     },
     "cloud_save_unsupported": "Nepodržano",
     "disabled": "Onemogućeno",
@@ -130,9 +133,10 @@
         },
         "changelogFor": "",
         "modify": "",
-        "install_info": "",
+        "install_info": "Instalira se",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game Defaults"
     },
     "gamecard": {
         "moving": "Premještanje",
@@ -203,7 +207,8 @@
             "installation": "Zaustavi instalaciju"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "Datum izlaska"
     },
     "launch": {
         "options": "Opcije za pokretanje...",
@@ -334,5 +339,12 @@
     },
     "open-saves-folder": "",
     "Open": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "Napredno",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Edit App/Game"
+    }
 }

@@ -1,27 +1,32 @@
 import './index.scss'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faSpinner,
-  faSearch,
-  faTimes,
-  faArrowLeft
-} from '@fortawesome/free-solid-svg-icons'
+import { ArrowLeft, LoaderCircle, Search, X } from 'lucide-react'
+import Icon from 'frontend/components/UI/Icon'
 import CachedImage from 'frontend/components/UI/CachedImage'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { SGDBGame, SGDBGrid } from 'common/types'
+import { Button } from 'frontend/components/UI'
 
 interface Props {
   initialTitle: string
   onSelect: (url: string) => void
   onClose: () => void
+  mode?: 'grids' | 'heroes'
+  dimensions?: string[]
+  styles?: string[]
 }
+
+const DEFAULT_GRID_DIMENSIONS = ['600x900', '342x482', '660x930']
+const DEFAULT_GRID_STYLES = ['material', 'alternate', 'blurred']
 
 export default function SteamGridDBPicker({
   initialTitle,
   onSelect,
-  onClose
+  onClose,
+  mode = 'grids',
+  dimensions,
+  styles
 }: Props) {
   const { t } = useTranslation()
   const [query, setQuery] = useState(initialTitle)
@@ -38,10 +43,18 @@ export default function SteamGridDBPicker({
       setError(null)
       setGrids([])
       try {
-        const results = await window.api.steamgriddb.getGrids({
+        const fetcher =
+          mode === 'heroes'
+            ? window.api.steamgriddb.getHeroes
+            : window.api.steamgriddb.getGrids
+        const fetchDims =
+          dimensions ?? (mode === 'heroes' ? [] : DEFAULT_GRID_DIMENSIONS)
+        const fetchStyles =
+          styles ?? (mode === 'heroes' ? [] : DEFAULT_GRID_STYLES)
+        const results = await fetcher({
           gameId,
-          styles: ['material', 'alternate', 'blurred'],
-          dimensions: ['600x900', '342x482', '660x930']
+          styles: fetchStyles,
+          dimensions: fetchDims
         })
         setGrids(results)
         if (results.length === 0) {
@@ -56,7 +69,7 @@ export default function SteamGridDBPicker({
         setLoading(false)
       }
     },
-    [t]
+    [t, mode, dimensions, styles]
   )
 
   const searchGames = useCallback(
@@ -103,28 +116,28 @@ export default function SteamGridDBPicker({
   }, [initialTitle, searchGames])
 
   return (
-    <div className="SteamGridDBPicker">
+    <div className={`SteamGridDBPicker SteamGridDBPicker--${mode}`}>
       <div className="SteamGridDBPicker__header">
         <div className="SteamGridDBPicker__title-group">
           {selectedGameId && (
-            <button className="button is-ghost" onClick={goBack}>
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </button>
+            <Button variant="primary" className="is-ghost" onClick={goBack}>
+              <Icon glyph={ArrowLeft} size="md" />
+            </Button>
           )}
-          <h3>{t('steamgriddb.picker.title', 'SteamGridDB Covers')}</h3>
+          <h3>{t('steamgriddb.picker.title', 'SteamGridDB covers')}</h3>
         </div>
-        <button className="button is-ghost" onClick={onClose}>
-          <FontAwesomeIcon icon={faTimes} />
-        </button>
+        <Button variant="primary" className="is-ghost" onClick={onClose}>
+          <Icon glyph={X} size="md" />
+        </Button>
       </div>
 
       {!selectedGameId && (
         <TextInputWithIconField
           htmlId="steamgriddb-search"
-          label={t('steamgriddb.picker.search', 'Search Game')}
+          label={t('steamgriddb.picker.search', 'Search game')}
           value={query}
           onChange={setQuery}
-          icon={<FontAwesomeIcon icon={faSearch} />}
+          icon={<Icon glyph={Search} size="sm" />}
           onIconClick={() => void searchGames(query)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -136,7 +149,7 @@ export default function SteamGridDBPicker({
 
       {loading && (
         <div className="SteamGridDBPicker__loading">
-          <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+          <Icon glyph={LoaderCircle} size="xl" className="lucide-spin" />
         </div>
       )}
 
@@ -144,7 +157,7 @@ export default function SteamGridDBPicker({
 
       {!loading && games.length > 1 && !selectedGameId && (
         <div className="SteamGridDBPicker__games">
-          <h4>{t('steamgriddb.picker.select-game', 'Select a Game:')}</h4>
+          <h4>{t('steamgriddb.picker.select-game', 'Select a game:')}</h4>
           <ul>
             {games.map((game) => (
               <li key={game.id} onClick={() => void handleSelectGame(game.id)}>

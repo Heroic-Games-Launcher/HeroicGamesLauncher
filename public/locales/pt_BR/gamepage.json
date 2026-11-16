@@ -96,7 +96,10 @@
         "changelog": "Mostrar lista de mudanças",
         "browse_files": "Navegar pelos arquivos",
         "browse_wine_prefix": "Navegar pelo prefixo Wine",
-        "play": "JOGAR"
+        "play": "JOGAR",
+        "edit-game": "Editar jogo",
+        "favourite": "Adicionar aos favoritos",
+        "unfavourite": "Remover dos favoritos"
     },
     "cloud_save_unsupported": "Não suportado",
     "disabled": "Desabilitado",
@@ -132,7 +135,8 @@
         "modify": "Modificar instalação",
         "extra_info": "Informações extras",
         "install_info": "Dados da instalação",
-        "achievements": "Conquistas"
+        "achievements": "Conquistas",
+        "details": "Game details"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -162,7 +166,11 @@
         "game-scores": "Pontuações do jogo",
         "protondb-compatibility-info": "Compatibilidade com o Proton",
         "steamdeck-compatibility-info": "Compatibilidade com o Steam Deck",
-        "third-party-app": "Gerenciador de aplicativos de terceiros"
+        "third-party-app": "Gerenciador de aplicativos de terceiros",
+        "genres": "Gêneros",
+        "steamdeck": {
+            "unsupported": "Não suportado"
+        }
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
@@ -227,7 +235,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "feito para funcionar através do Heroic, desde que as versões da Steam não irão funcionar no macOS.",
             "hardware": "Apple Silicon M1+ (Para Macs Intel, a Steam irá funcionar com Crossover)"
-        }
+        },
+        "releaseDate": "Data de lançamento"
     },
     "launch": {
         "options": "Opções de inicialização...",
@@ -261,7 +270,9 @@
             "title": "Título do jogo/app",
             "broser": "URL do navegador",
             "useragent": "\"User Agent\" personalizado",
-            "fullscreen": "Inicie em tela cheia (F11 para sair)"
+            "fullscreen": "Inicie em tela cheia (F11 para sair)",
+            "image-hint": "Arte quadrada (clique na imagem para buscar no SteamGridDB)",
+            "cover-hint": "Arte da capa/herói (clique na imagem para buscar no SteamGridDB)"
         },
         "placeholder": {
             "image": "Cole uma URL de uma imagem ou selecione uma do seu computador",
@@ -272,6 +283,9 @@
         "import-hint": {
             "title": "Importante! Você está adicionando um jogo da Epic/GOG/Amazon? Clique aqui!",
             "content": "NÃO utilize essa função para isso.<br />Em vez disso, <3>faça o login</3> na loja, procure pelo jogo na sua biblioteca, abra o diálogo de instalação, e clique no botão &quot;Importar Jogo&quot;"
+        },
+        "images": {
+            "summary": "Imagens"
         }
     },
     "specs": {
@@ -327,7 +341,7 @@
         "categories": "Categorias"
     },
     "help": {
-        "cloud_save_unsupported": "Este jogo não suporta salvamentos em nuvem (Informação fornecida por desenvolvedores do jogo). Alguns jogos possuem sistema próprio de salvamento em nuvem",
+        "cloud_save_unsupported": "Este jogo não suporta salvamentos em nuvem (Informação fornecida por desenvolvedores do jogo). Alguns jogos possuem sistema próprio de salvamento em nuvem.",
         "title": {
             "gamePage": "Página do Jogo"
         },
@@ -359,5 +373,23 @@
     },
     "Open": "Abrir",
     "wikiLink": "Informação importante sobre esse jogo, leia isto:&nbsp;<1>Open page</1>",
-    "open-saves-folder": "Abrir a pasta dos saves"
+    "open-saves-folder": "Abrir a pasta dos saves",
+    "edit-game": {
+        "advanced": "Avançado",
+        "cover": "Arte da capa",
+        "info": {
+            "cover": "Imagem de capa",
+            "square": "Imagem quadrada"
+        },
+        "placeholder": {
+            "image": "Cole uma URL de imagem"
+        },
+        "reset": "Restaurar padrão",
+        "sgdb": {
+            "no-key-link": "Configurações → Avançado",
+            "no-key-prefix": "Para buscar arte da capa no SteamGridDB, adicione uma chave de API em"
+        },
+        "square": "Arte quadrada",
+        "title": "Editar Jogo"
+    }
 }

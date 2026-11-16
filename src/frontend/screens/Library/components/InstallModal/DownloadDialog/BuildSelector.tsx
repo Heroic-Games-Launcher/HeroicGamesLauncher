@@ -1,4 +1,5 @@
 import { SelectField, ToggleSwitch } from 'frontend/components/UI'
+import { getIntlLocale } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { BuildItem } from 'common/types/gog'
 import { MenuItem } from '@mui/material'
@@ -14,10 +15,10 @@ export default function BuildSelector({
   selectedBuild,
   setSelectedBuild
 }: BuildSelectorProps) {
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
 
   const getFormattedDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString(undefined)
+    return new Date(dateStr).toLocaleDateString(getIntlLocale(i18n.language))
   }
 
   return (

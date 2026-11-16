@@ -22,7 +22,7 @@
         },
         "select": {
             "button": "Selecteer",
-            "image": ""
+            "image": "Selecteer prent"
         },
         "sideload": {
             "exe": "Selecteer uitvoerbaar bestand"
@@ -48,15 +48,15 @@
         },
         "wineprefix": "Selecteer WinePrefix Map",
         "yes": "JA",
-        "close": "sluit",
+        "close": "Sluit",
         "warning": {
             "title": "Warning"
         },
         "ok": "OK",
         "offline_warning": {
-            "message": "",
-            "playAnyway": "",
-            "title": ""
+            "message": "Dit spel zal waarschijnlijk niet werken zonder internetverbinding. Wil je toch proberen te spelen ?",
+            "playAnyway": "Toch Spelen ?",
+            "title": "Geen Internetverbinding"
         },
         "selectLaunchOption": {
             "title": "",
@@ -95,7 +95,10 @@
         "changelog": "Toon Changelog",
         "browse_files": "Blader door Bestanden",
         "browse_wine_prefix": "Blader Wineprefix",
-        "play": ""
+        "play": "",
+        "edit-game": "Bewerk App/Game",
+        "favourite": "Voeg toe aan favorieten",
+        "unfavourite": "Verwijder uit favorieten"
     },
     "cloud_save_unsupported": "Niet ondersteund",
     "disabled": "Uitgeschakeld",
@@ -131,7 +134,8 @@
         "changelogFor": "Changelog van {{gameTitle}}",
         "extra_info": "Extra info",
         "install_info": "Installatie-info",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game details"
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",
@@ -161,7 +165,10 @@
         "installedInfo": "Geïnstalleerde informatie",
         "protondb-compatibility-info": "Proton-compatibiliteitslaag",
         "steamdeck-compatibility-info": "SteamDeck-compatibiliteit",
-        "third-party-app": "Beheerder van derden"
+        "third-party-app": "Beheerder van derden",
+        "steamdeck": {
+            "unsupported": "Niet ondersteund"
+        }
     },
     "install": {
         "disk-space-left": "Beschikbare ruimte",
@@ -204,7 +211,8 @@
             "installing": "Installing",
             "pleaseWait": "Please wait...",
             "installation": "Installatie stoppen"
-        }
+        },
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "Opstartopties...",
@@ -283,7 +291,7 @@
         "goodie": "Niet installeerbaar",
         "redist": "Herverdelers installeren {{redist}}",
         "winetricks": "Winetricks verbeteringen toepassen",
-        "importing": ""
+        "importing": "Importeren"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
@@ -335,5 +343,12 @@
         }
     },
     "wikiLink": "Belangrijke informatie over dit spel, lees dit:&nbsp;<1>Open pagina</1>",
-    "open-saves-folder": ""
+    "open-saves-folder": "",
+    "edit-game": {
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "Plak een foto URL hier"
+        },
+        "title": "Bewerk App/Game"
+    }
 }

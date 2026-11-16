@@ -14,11 +14,11 @@
         },
         "changelogFor": "Log athruithe do {{gameTitle}}",
         "downloadSize": "Méid Íoslódála",
-        "extra_info": "Eolas breise",
+        "extra_info": "Breise",
         "firstPlayed": "Imríodh ar dtús",
         "getting-download-size": "Méid íoslódála á fháil",
         "getting-install-size": "Méid suiteála á fháil",
-        "install_info": "Eolas suiteála",
+        "install_info": "Eolas faoi Shuiteáil",
         "installSize": "Méid Suiteála",
         "language": "Teanga",
         "lastPlayed": "Imríodh go deireanach",
@@ -27,7 +27,12 @@
         "platform": "Roghnaigh Leagan Ardáin le Suiteáil",
         "requirements": "Riachtanais an Chórais",
         "totalPlayed": "Am Imeartha",
-        "achievements": "Éachtaí"
+        "achievements": "Éachtaí",
+        "details": "Sonraí an chluiche",
+        "about": "Maidir leis an gCluiche Seo",
+        "hoursPlayedShort": "{{hours}} uair an chloig",
+        "overview": "Forléargas",
+        "tabs": "Eolas faoin gcluiche"
     },
     "box": {
         "change": {
@@ -126,7 +131,11 @@
         "unhide_game": "Nocht Cluiche",
         "uninstall": "Díshuiteáil",
         "update": "Nuashonrú",
-        "play": "IMIR"
+        "play": "IMIR",
+        "edit-game": "Cuir Cluiche in Eagar",
+        "favourite": "Cuir le Rogha",
+        "unfavourite": "Bain De Cheanáin",
+        "backToLibrary": "Ar ais chuig an Leabharlann"
     },
     "cloud_save_unsupported": "Gan tacaíocht",
     "enabled": "Cumasaithe",
@@ -139,7 +148,7 @@
         "noDescription": "Níl aon chur síos ar fáil"
     },
     "help": {
-        "cloud_save_unsupported": "Ní thacaíonn an cluiche seo le sábhálacha scamall. Cuireann forbróirí an chluiche an fhaisnéis seo ar fáil. Cuireann roinnt cluichí a gcóras sábhála scamall féin i bhfeidhm",
+        "cloud_save_unsupported": "Ní thacaíonn an cluiche seo le sábhálacha scamall. Cuireann forbróirí an chluiche an fhaisnéis seo ar fáil. Cuireann roinnt cluichí a gcóras sábhála scamall féin i bhfeidhm.",
         "content": {
             "gamePage": "Taispeáin sonraí agus gníomhartha an chluiche go léir. Úsáid an roghchlár 3 phonc le haghaidh tuilleadh roghanna."
         },
@@ -167,7 +176,15 @@
         "steamdeck-compatibility-info": "Comhoiriúnacht SteamDeck",
         "syncsaves": "Sioncrónaigh Sábhálacha",
         "third-party-app": "Bainisteoir Tríú Páirtí",
-        "version": "Leagan"
+        "version": "Leagan",
+        "genres": "Seánraí",
+        "steamdeck": {
+            "unsupported": "Gan tacaíocht",
+            "playable": "In-imeartha",
+            "unknown": "Anaithnid",
+            "verified": "Fíoraithe"
+        },
+        "developer": "Forbróir"
     },
     "install": {
         "anticheat-warning": {
@@ -194,9 +211,10 @@
         },
         "launching": "Ag lainseáil",
         "playing": {
-            "start": "Imir Anois",
-            "start_with_logs": "Imir Anois (le logaí)",
-            "stop": "Ag imirt (Stop)"
+            "start": "Imir",
+            "start_with_logs": "Imir le logaí",
+            "stop": "Ag imirt (Stop)",
+            "start_with_logs_hint": "Seolann sé an cluiche agus é ag cruthú loga mionsonraithe; bíonn sé seo úsáideach nuair is gá duit fadhb a thuairisciú"
         },
         "redist": "Suiteáil In-athdháilte",
         "saves": {
@@ -228,7 +246,8 @@
             "specificVersion-pt3": "déanta chun oibriú trí Heroic ós rud é nach n-oibreoidh leaganacha nua de Steam ar macOS.",
             "compatibility-layer-not-available": "Níl an ciseal comhoiriúnachta ar fáil. Suiteáil ceann ó \"Socruithe > Bainisteoir Fíona\" ar dtús."
         },
-        "winetricks": "Ag Suiteáil Pacáistí Winetricks"
+        "winetricks": "Ag Suiteáil Pacáistí Winetricks",
+        "releaseDate": "Dáta Eisiúna"
     },
     "launch": {
         "options": "Roghanna Seolta...",
@@ -284,13 +303,18 @@
             "fullscreen": "Seoladh Lánscáileáin (F11 le scoir)",
             "image": "Íomhá na hAipe",
             "title": "Teideal Cluiche/Aipe",
-            "useragent": "Gníomhaire Úsáideora Saincheaptha"
+            "useragent": "Gníomhaire Úsáideora Saincheaptha",
+            "cover-hint": "Ealaín Chlúdaigh/Laoch (cliceáil ar an íomhá le cuardach a dhéanamh ar SteamGridDB)",
+            "image-hint": "Ealaín Chearnógach (cliceáil ar an íomhá le cuardach a dhéanamh ar SteamGridDB)"
         },
         "placeholder": {
             "image": "Greamaigh URL Íomhá nó roghnaigh ceann ó do ríomhaire",
             "title": "Cuir teideal le do Chluiche/Aip",
             "url": "Greamaigh URL an Chluiche anseo",
             "useragent": "Scríobh gníomhaire úsáideora saincheaptha anseo le húsáid ar an aip/cluiche brabhsálaí seo"
+        },
+        "images": {
+            "summary": "Íomhánna"
         }
     },
     "specs": {
@@ -340,7 +364,8 @@
         "removeShortcut": "Bain na haicearraí",
         "settings": "Socruithe",
         "store": "Leathanach Siopa",
-        "verify": "Fíoraigh agus Deisigh"
+        "verify": "Fíoraigh agus Deisigh",
+        "more": "Tuilleadh"
     },
     "third-party-managed": {
         "header": "Tá an cluiche seo á bhainistiú ag feidhmchlár tríú páirtí",
@@ -348,5 +373,23 @@
         "notice2": "Tar éis cliceáil ar Suiteáil, rithfidh Heroic an feidhmchlár chun an próiseas suiteála a chríochnú"
     },
     "wikiLink": "Eolas tábhachtach faoin gcluiche seo, léigh seo:<1>Oscail an leathanach</1>",
-    "open-saves-folder": "Oscail Fillteán Sábhálann"
+    "open-saves-folder": "Oscail Fillteán Sábhálann",
+    "edit-game": {
+        "advanced": "Ardleibhéil",
+        "cover": "Ealaín Chlúdaigh",
+        "info": {
+            "cover": "Íomhá Chlúdaigh",
+            "square": "Íomhá Chearnógach"
+        },
+        "placeholder": {
+            "image": "Greamaigh URL íomhá"
+        },
+        "reset": "Athshocraigh go réamhshocraithe",
+        "sgdb": {
+            "no-key-link": "Socruithe → Ardleibhéil",
+            "no-key-prefix": "Chun cuardach a dhéanamh ar SteamGridDB le haghaidh ealaín chlúdaigh, cuir eochair API leis"
+        },
+        "square": "Ealaín Chearnógach",
+        "title": "Cuir Cluiche in Eagar"
+    }
 }

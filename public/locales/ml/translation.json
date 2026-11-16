@@ -11,7 +11,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "കളിശാല"
+        }
     },
     "add_game": "Add Game",
     "All": "എല്ലാം",
@@ -98,7 +101,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -174,17 +182,12 @@
                     "message": "സേവ് ചെയ്യാത്ത പ്രോഗ്രസ്സ് നഷ്ടപ്പെട്ടേക്കാം"
                 }
             },
-            "snap": {
-                "checkbox": "ഈ അറിയിപ്പ് വീണ്ടും കാണിക്കരുത്",
-                "title": "ഹീറോയ്ക്ക് സ്നാപ്പായിട്ട് ഓടുകയാണ്",
-                "message": "കുറച്ച് ഫീച്ചറുകൾ തൽക്കാലം Snap-ഇൽ ലഭ്യമല്ല. നമ്മൾ അത് പരിഹരിക്കുവാൻ ശ്രമിക്കുകയാണ്.{{newLine}}ഇപ്പോഴത്തെ പരിമിതികൾ ആണ് ഇവ:{{newLine}}ഹീറോയിക്കിന് പ്രോട്ടോണിനെ സ്റ്റീമിൽനിന്നും വൈനിനെ Lutris-യിൽ നിന്നും കണ്ടെത്താൻ പറ്റുകയില്ല.{{newLine}}{{newLine}}ഗെയിംസ്‌കോപ്പും മാങ്കോഹുഡും ഹെറോയിക്കിൽ പ്രവർത്തിക്കുകയില്ല.{{newLine}}{{newLine}}ഈ ഫീച്ചറുകൾ ലഭിക്കുവാൻ ഹീറോയ്ക്കിനെ ഫ്ലാറ്പാക്കിൽനിന്നോ DEB ഇൽനിന്നോ AppImage ഇൽനിന്നോ ഇൻസ്റ്റാൾ ചെയ്യുക."
-            },
             "rosetta": {
                 "title": "",
                 "message": ""
             }
         },
-        "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
+        "wineprefix": "വൈൻ പ്രിഫിക്സ് ഫോൾഡർ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി",
         "dontShowAgain": "വീണ്ടും കാണിക്കരുത്",
         "choose-nile-binary": "നൈൽ ബൈനറി തിരഞ്ഞെടുക്കുക",
@@ -199,7 +202,8 @@
         "sync": "ഒന്നിപ്പിക്കൂ",
         "syncing": "ഒന്നിപ്പിക്കുന്നു",
         "unsync": "പിരിക്കൂ",
-        "continue": "തുടരുക"
+        "continue": "തുടരുക",
+        "close": "അടയ്ക്കുക"
     },
     "controller": {
         "hints": {
@@ -218,7 +222,8 @@
             "scroll": "Scroll",
             "select": "Select",
             "space": "Space",
-            "update_game": "Update game"
+            "update_game": "Update game",
+            "exit": "പുറത്തിറക്ക്"
         }
     },
     "docs": "Documentation",
@@ -252,7 +257,8 @@
         "status": "Status",
         "store": "Store",
         "title": "Game Title",
-        "modify": ""
+        "modify": "",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -261,9 +267,9 @@
         "library": {
             "refresh": "Refresh Library"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "ഇതിനെക്കിറിച്ച്",
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
     "GOG": "GOG",
@@ -287,7 +293,9 @@
         "uncategorized": "വർഗ്ഗീകരിക്കാത്തത്",
         "show_support_offline_only": "",
         "show_third_party_managed_only": "",
-        "show_updates_only": ""
+        "show_updates_only": "",
+        "platforms": "Platform",
+        "stores": "Stores"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -372,7 +380,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -663,7 +674,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "കയറ്റിവയ്ക്കുൂ",
                     "content": ""
                 },
                 "open": "",
@@ -707,13 +718,6 @@
         "offlinemode": "ഓഫ്ലൈനില് കളിക്കുക",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "എന്വിഡിയ പ്രൈം റെന്റര് വയ്ക്കൂ"
-        },
         "runexe": {
             "message": "രേഖകള് ഇവിടെനിന്നും വലിച്ചെടുക്കുക/ഇടുക",
             "title": "ഉപസഗ്ഗ഻ത്തില് EXE ഓടിക്കുക"
@@ -798,7 +802,15 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Use Steam Runtime",
+            "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "തുറക്കൂ",
+            "selectExe": "EXE തിരഞ്ഞെടുക്കൂ"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -836,7 +848,8 @@
             "wineExt": "Wine Extensions",
             "gamescope": "ഗെയിംസ്കോപ്",
             "systemInformation": "സിസ്റ്റം വിവരങ്ങൾ",
-            "legacy": ""
+            "legacy": "",
+            "categories": "വിഭാഗങ്ങൾ"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -914,6 +927,12 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "പരീക്ഷണാത്മകമായ ഫീച്ചറുകൾ",
+            "launch": "വിക്ഷേപണ ബദലുകൾ...",
+            "wineTools": "Tools"
         }
     },
     "Settings": "ക്രമീകരണങ്ങള്",
@@ -926,7 +945,8 @@
         "installing": "Installing",
         "logging": "Logging In...",
         "processing": "Processing files, please wait",
-        "preparing_login": "ലോഗിൻ തയ്യാറാക്കുന്നു... "
+        "preparing_login": "ലോഗിൻ തയ്യാറാക്കുന്നു... ",
+        "installed": "നട്ടു"
     },
     "store": "കട",
     "stores": "Stores",
@@ -981,8 +1001,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "ക്രമീകരണങ്ങള്",
             "no-results": ""
         },
         "release": "Release Date",
@@ -1114,11 +1134,11 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "noResultsTitle": "കളികളൊന്നും കണ്ടെത്തിയില്ല"
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1176,9 +1196,10 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "എല്ലാം",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
         "sidebar": "",
         "sort": {
@@ -1202,12 +1223,15 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Store"
         }
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
-            "no-grids": "",
+            "no-games": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
+            "no-grids": "ഈ കളിയെക്കുറിച്ചുള്ള കുറിപ്പുകളൊന്നും കണ്ടെത്താനായില്ല",
             "search": "",
             "grids": ""
         },
@@ -1234,7 +1258,7 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "പുറത്തുകടക്കൂ",
             "change_store": ""
         },
         "launching": "",
@@ -1242,13 +1266,28 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "എല്ലാം"
         },
         "empty": "",
-        "games": "",
+        "games": "നട്ട കളികള്‍",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "പുതുക്കല്‍ നിര്‍ത്തൂ"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading",
+            "path": "ഇവിടെ നടൂ",
+            "wineMissing": "No path selected"
+        }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "Cancel",
+        "warning": "Warning"
+    },
+    "General": "പൊതുവായവ"
 }

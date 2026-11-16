@@ -1,9 +1,8 @@
-import { gameManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import { addListener, addHandler, sendFrontendMessage } from '../ipc'
 import { Winetricks, runWineCommandOnGame } from '.'
 import path from 'path'
-import { execAsync, sendGameStatusUpdate } from 'backend/utils'
-import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
+import { execAsync, getGame, sendGameStatusUpdate } from 'backend/utils'
 import { isWindows } from 'backend/constants/environment'
 
 addHandler(
@@ -24,7 +23,9 @@ addHandler(
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 addHandler('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const gameSettings = await libraryManagerMap[runner]
+    .getGame(appName)
+    .getSettings()
 
   switch (tool) {
     case 'winetricks':
@@ -51,8 +52,8 @@ addHandler('callTool', async (event, { tool, exe, appName, runner }) => {
   }
   if (runner === 'gog') {
     // Check if game was modified by offline installer / wine uninstaller
-    await GOGLibraryManager.checkForOfflineInstallerChanges(appName)
-    const maybeNewGameInfo = GOGLibraryManager.getGameInfo(appName)
+    await libraryManagerMap['gog'].checkForOfflineInstallerChanges(appName)
+    const maybeNewGameInfo = libraryManagerMap['gog'].getGameInfo(appName)
     if (maybeNewGameInfo)
       sendFrontendMessage('pushGameToLibrary', maybeNewGameInfo)
   }
@@ -73,9 +74,6 @@ addHandler('winetricksAvailable', async (event, runner, appName) => {
 })
 
 addHandler('winetricksInstalled', async (event, runner, appName) => {
-  try {
-    return await Winetricks.listInstalled(runner, appName)
-  } catch {
-    return []
-  }
+  const game = getGame(appName, runner)
+  return Winetricks.listInstalled(game)
 })

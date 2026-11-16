@@ -11,7 +11,10 @@
         "actions_font_family_default": "Шрыфт для дзеянняў (Прадвызначаны: {{fontFamily}})",
         "content_font_family_default": "Шрыфт для змесціва (Прадвызначаны: {{fontFamily}})",
         "disable_smooth_scrolling": "Адключыць плаўную пракрутку (патрабуецца перазапуск)",
-        "disable_animations": "Адключыць анімацыі інтэрфейсу"
+        "disable_animations": "Адключыць анімацыі інтэрфейсу",
+        "section": {
+            "library": "Бібліятэка"
+        }
     },
     "add_game": "Дадаць гульню",
     "All": "Усе",
@@ -103,7 +106,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Не ўдалося дадаць {{game}} у Steam:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -179,17 +187,12 @@
                     "title": "Сапраўды хочаце выйсці?"
                 }
             },
-            "snap": {
-                "checkbox": "Больш не паказваць гэта паведамленне",
-                "title": "Heroic працуе як Snap пакет",
-                "message": "Некаторыя функцыі на дадзены момант недаступныя ў Snap версіі праграмы, і мы спрабуем гэта выправіць. {{newLine}} Бягучыя абмежаванні: {{newLine}} Heroic не зможа знайсці Proton у Steam або Wine у Lutris. .{{newLine}}{{newLine}}Gamescope, GameMode і MangoHud таксама не будуць працаваць, паколькі ў Heroic няма доступу да іх.{{newLine}}{{newLine}}Каб атрымаць доступ да гэтай функцыі, ўсталюйце Heroic як Flatpak, DEB ці з AppImage."
-            },
             "rosetta": {
                 "message": "Для карэктнай працы Heroic на macOS з чыпамі Apple Silicon патрабуецца Rosetta. Калі ласка, усталюйце яе з тэрмінала macOS з дапамогай наступнай каманды: \"softwareupdate --install-rosetta\" і перазапусціце Heroic. ",
                 "title": "Rosetta не знойдзена"
             }
         },
-        "wineprefix": "Выберыце папку з прэфіксам Wine",
+        "wineprefix": "Аберыце папку WinePrefix",
         "yes": "ТАК",
         "dontShowAgain": "Больш не паказваць",
         "choose-nile-binary": "Выберыце выконвальны файл Nile",
@@ -207,7 +210,8 @@
         "sync": "Сінхранізацыя",
         "syncing": "Сінхранізацыя",
         "unsync": "Адмяніць сінхранізацыю",
-        "continue": "Працягнуць"
+        "continue": "Працягнуць",
+        "close": "Закрыць"
     },
     "controller": {
         "hints": {
@@ -226,7 +230,8 @@
             "scroll": "Scroll",
             "select": "Выбраць",
             "space": "Прабел",
-            "update_game": "Абнавіць гульню"
+            "update_game": "Абнавіць гульню",
+            "exit": "Выхад"
         }
     },
     "docs": "Дакументацыя",
@@ -260,7 +265,8 @@
         "status": "Status",
         "store": "Крама",
         "title": "Назва гульні",
-        "modify": "Змяніць усталёўку"
+        "modify": "Змяніць усталёўку",
+        "settings": "Налады гульні"
     },
     "generic": {
         "error": {
@@ -269,7 +275,7 @@
         "library": {
             "refresh": "Абнавіць бібліятэку"
         },
-        "abort": "",
+        "abort": "Аб праграме",
         "install": "Усталяванне",
         "uninstall": "Выдаліць"
     },
@@ -296,7 +302,9 @@
         "no_categories": "Няма карыстальніцкіх катэгорый. Дадайце катэгорыі з дапамогай меню кожнай гульні.",
         "show_support_offline_only": "Паказваць толькі падтрымліваючыя працу без сеткі",
         "show_third_party_managed_only": "Паказваць толькі пад кіраваннем старонніх праграм",
-        "show_updates_only": "Паказаць толькі гульні з абнаўленнямі"
+        "show_updates_only": "Паказаць толькі гульні з абнаўленнямі",
+        "platforms": "Platform",
+        "stores": "Крамы"
     },
     "help": {
         "amdfsr": "FSR ад AMD дапамагае павысіць частату кадраў за кошт павелічэння больш нізкага дазволу ў поўнаэкранным рэжыме. Якасць выявы павялічваецца з 5 да 1 за кошт невялікага зніжэння прадукцыйнасці. Уключэнне можа палепшыць прадукцыйнасць.",
@@ -381,7 +389,10 @@
         "analytics": "Дазваляе Heroic збіраць 100% ананімныя даныя аб выкарыстанні, каб палепшыць праграму. Для ўступлення ў сілу патрабуецца перазапуск.",
         "wine-hdr": "HDR паляпшае колеры, забяспечваючы больш яркія блікі і больш глыбокую кантрастнасць. Каб HDR працаваў, яго павінны падтрымліваць і дысплей, і гульня.",
         "wine-wayland": "Эксперыментальны драйвер Wine-Wayland дазваляе гульням запускацца з выкарыстаннем пратакола дысплея Wayland. Уключэнне драйвера можа прывесці да збою некаторых гульняў.",
-        "WoW64": "Рэжым Wine WoW64 дазваляе запускаць 32-бітныя гульні Windows на 64-бітным Wine. Уключэнне можа палепшыць прадукцыйнасць, але таксама можа прывесці да збою старых 32-бітных гульняў."
+        "WoW64": "Рэжым Wine WoW64 дазваляе запускаць 32-бітныя гульні Windows на 64-бітным Wine. Уключэнне можа палепшыць прадукцыйнасць, але таксама можа прывесці да збою старых 32-бітных гульняў.",
+        "nvidiaprime": {
+            "details": "Выкарыстоўвайце спецыяльную відэакарту для візуалізацыі гульні ў сістэмах з некалькімі графічнымі працэсарамі. Патрэбны толькі на гульнявых наўтбуках або настольных кампутарах, якія выкарыстоўваюць абезгалоўлены графічны працэсар для візуалізацыі (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -716,13 +727,6 @@
         "offlinemode": "Запусціць гульню ў аўтаномным рэжыме",
         "prefered_language": "Пажаданая мова (код мовы)",
         "preferSystemLibs": "Аддаю перавагу сістэмным бібліятэкам",
-        "primerun": {
-            "confirmation": {
-                "message": "У сістэме выяўлена толькі адна відэакарта. Звярніце ўвагу, што гэты параметр прызначаны для сістэм з некалькімі графічнымі працэсарамі і безгаловымі графічнымі працэсарамі (напрыклад, у ноўтбуках). У сістэмах з адным графічным працэсарам, працэсар выкарыстоўваецца аўтаматычна, а ўключэнне гэтага параметра можа выклікаць праблемы. Сапраўды хочаце ўключыць гэты параметр?",
-                "title": "Выяўлены толькі 1 графічны працэсар"
-            },
-            "description": "Выкарыстоўвайце выдзеленую відэакарту"
-        },
         "runexe": {
             "message": "Перацягніце файлы сюды",
             "title": "Select EXE to Run"
@@ -816,7 +820,15 @@
         "scripts": "",
         "enable-quick-sync-menu": "",
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "Выкарыстоўвайце Steam Runtime",
+            "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Адкрыць",
+            "selectExe": "Выберыце EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -854,7 +866,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Інфармацыя аб сістэме",
             "gamescope": "Gamescope",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Катэгорыі"
         },
         "open-config-file": "Адкрыйце файл канфігурацыі",
         "reset-heroic": "Скінуць Heroic",
@@ -932,19 +945,27 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Спампоўкі",
+            "experimental": "Эксперыментальныя асаблівасці",
+            "launch": "Параметры запуску...",
+            "wineTools": "інструменты"
         }
     },
     "Settings": "Налады",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Уваход у краму"
     },
     "status": {
         "installing": "Усталяванне",
         "logging": "Уваход...",
         "processing": "Апрацоўка файлаў, пачакайце",
-        "preparing_login": "Падрыхтоўка ўваходу... "
+        "preparing_login": "Падрыхтоўка ўваходу... ",
+        "installed": "Усталявана"
     },
     "store": "Epic Store",
     "stores": "Крамы",
@@ -968,7 +989,8 @@
         "show": "Паказаць"
     },
     "two_col_table": {
-        "save_hint": "Змены ў гэтай табліцы не захоўваюцца аўтаматычна. Націсніце кнопку +"
+        "save_hint": "Змены ў гэтай табліцы не захоўваюцца аўтаматычна. Націсніце кнопку +",
+        "add": "Дадаць"
     },
     "Update Available!": "Даступна абнаўленне!",
     "userselector": {
@@ -1051,7 +1073,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton - гэта варыянт Proton, створаны Glorious Eggroll. Ён прызначаны для выкарыстання ў Steam, але некаторыя гульні па-за Steam могуць працаваць лепш з гэтым варыянтам. Ён дае ў асноўным бескарысныя часопісы для выпраўлення непаладак.",
-        "wine-ge": "Wine-GE-Proton - гэта варыянт Wine, створаны Glorious Eggroll. Яго адмянілі на карысць GE-Proton з пускавой устаноўкай umu.",
         "gpt": "",
         "wine-crossover": "",
         "wine-staging-macos": ""
@@ -1201,11 +1222,12 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Усе",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
-        "sidebar": "",
+        "sidebar": "Падрабязнасці",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1227,7 +1249,11 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Крама"
+        },
+        "titleMulti": "Падрабязнасці"
     },
     "steamgriddb": {
         "error": {
@@ -1237,7 +1263,7 @@
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "Пошук гульняў",
             "title": "",
             "select-game": ""
         }
@@ -1268,12 +1294,28 @@
         },
         "filter": {
             "sideload": "Other",
-            "all": ""
+            "all": "Усе"
         },
         "empty": "",
         "games": "Усталяваныя гульні",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelInstall": {
+            "title": "Скасаваць усталяванне"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Усталяваць гульню",
+            "wineLoading": "Загрузка",
+            "path": "Усталяванне",
+            "wineMissing": "Шлях не выбраны"
+        }
     },
-    "next": "Далей"
+    "next": "Далей",
+    "common": {
+        "add": "Дадаць",
+        "cancel": "Скасаваць",
+        "warning": "Папярэджанне"
+    },
+    "General": "Агульныя"
 }

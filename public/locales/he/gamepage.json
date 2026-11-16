@@ -54,16 +54,16 @@
         },
         "ok": "אישור",
         "offline_warning": {
-            "message": "",
-            "playAnyway": "",
-            "title": ""
+            "message": "יתכן שהמשחק הזה לא יעבוד כראוי ללא גישה לאינטרנט. רוצה לנסות בכל זאת?",
+            "playAnyway": "שחק בכל מקרה",
+            "title": "אין רשת"
         },
         "selectLaunchOption": {
             "title": "",
-            "body": ""
+            "body": "אנא בחר אפשרות הרצה למשחק זה (ניתן שינוי מאוחר יותר בהגדרות המשחק):"
         },
         "sync": {
-            "force_download_warning": "",
+            "force_download_warning": "קבצים מקומיים שנשמרו ימחקו. מעוניין להמשיך?",
             "force_upload_warning": ""
         }
     },
@@ -95,7 +95,10 @@
         "changelog": "הצג שינויים",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "ערוך אפליקציה/משחק",
+        "favourite": "הוסף למועדפים",
+        "unfavourite": "הסר ממועדפים"
     },
     "gamecard": {
         "repairing": "מתקן",
@@ -114,7 +117,10 @@
         "steamdeck-compatibility-info": "התאמה לSteamDeck",
         "syncsaves": "סנכרון שמירות",
         "protondb-compatibility-info": "רמת תאימות Proton",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "unsupported": "לא נתמך"
+        }
     },
     "sideload": {
         "info": {
@@ -214,9 +220,10 @@
         },
         "changelogFor": "",
         "modify": "",
-        "install_info": "",
+        "install_info": "מתקין",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "פרטי משחק"
     },
     "dlc": {
         "installDlcs": "התקן את כל הDLCים"
@@ -262,7 +269,8 @@
             "installation": "הפסק התקנה"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "תאריך יציאה"
     },
     "install": {
         "wineversion": "גרסת Wine",
@@ -334,5 +342,12 @@
         "notice1": ""
     },
     "open-saves-folder": "",
-    "wikiLink": ""
+    "wikiLink": "",
+    "edit-game": {
+        "advanced": "מתקדם",
+        "placeholder": {
+            "image": "הדבק קישור תמונה לפה"
+        },
+        "title": "ערוך אפליקציה/משחק"
+    }
 }

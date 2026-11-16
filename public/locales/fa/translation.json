@@ -11,7 +11,10 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "library": "کتابخانه"
+        }
     },
     "add_game": "افزودن بازی",
     "All": "همه",
@@ -98,7 +101,12 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "حذف کردن {{game}} از استیم با مشکل مواجه شد:{{newLine}} {{error}}"
+                }
+            }
         },
         "info": {
             "update": {
@@ -177,14 +185,9 @@
             "rosetta": {
                 "title": "",
                 "message": ""
-            },
-            "snap": {
-                "checkbox": "",
-                "title": "",
-                "message": ""
             }
         },
-        "wineprefix": "انتخاب پوشه Wine Prefix",
+        "wineprefix": "انتخاب پوشه WinePrefix",
         "yes": "بله",
         "dontShowAgain": "عدم نمایش",
         "choose-nile-binary": "باینری Nile را انتخاب کنید",
@@ -199,7 +202,8 @@
         "sync": "همگام سازی",
         "syncing": "در حال همگام سازی",
         "unsync": "عدم همگام سازی",
-        "continue": "ادامه"
+        "continue": "ادامه",
+        "close": "بستن"
     },
     "controller": {
         "hints": {
@@ -218,7 +222,8 @@
             "scroll": "Scroll",
             "select": "انتخاب",
             "space": "فضا",
-            "update_game": "به روزرسانی بازی"
+            "update_game": "به روزرسانی بازی",
+            "exit": "خروج"
         }
     },
     "docs": "Documentation",
@@ -252,7 +257,8 @@
         "status": "Status",
         "store": "فروشگاه",
         "title": "عنوان بازی",
-        "modify": ""
+        "modify": "",
+        "settings": "تنظیمات بازی"
     },
     "generic": {
         "error": {
@@ -261,9 +267,9 @@
         "library": {
             "refresh": "تازه سازی کتابخانه"
         },
-        "abort": "",
-        "install": "",
-        "uninstall": ""
+        "abort": "درباره",
+        "install": "نصب کردن",
+        "uninstall": "حذف"
     },
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
@@ -287,7 +293,9 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "platforms": "Platform",
+        "stores": "فروشگاهها"
     },
     "help": {
         "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
@@ -372,7 +380,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "استفاده از کارت گرافیک اختصاصی برای رندر بازی در سیستم های حاوی چندین کارت گرافیک. فقط برای سیستم ها و لب تاپ هایی که از headless GPU برای رندر کردن استفاده می کنند (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -534,7 +545,7 @@
             "nis": "",
             "additionalOptions": "",
             "borderless": "",
-            "windowed": "",
+            "windowed": "ویندوز",
             "fpsLimiter": "",
             "gameHeight": "",
             "upscaleWidth": "",
@@ -663,7 +674,7 @@
                     "content": ""
                 },
                 "uploading": {
-                    "title": "",
+                    "title": "آپلود",
                     "content": ""
                 },
                 "open": "",
@@ -707,13 +718,6 @@
         "offlinemode": "اجرای آفلاین بازی",
         "prefered_language": "زبان ترجیحی (کد زبان)",
         "preferSystemLibs": "ارجحیت کتابخانه های سیستم",
-        "primerun": {
-            "confirmation": {
-                "message": "تنها یک کارت گرافیک در این سیستم تشخیص داده شد. به یاد داشته باشید این گزینه برای سیستم های حاوی چند کارت گرافیک با گرافیک های headless (مانند لب تاپ ها) طراحی شده است. در سیستم های تک کارت گرافیکی، کارت گرافیک به صورت خودکار مورد استفاده قرار می گیرد و فعال کردن این گزینه می تواند مشکل ایجاد کند. آیا می خواهید این گزینه را فعال کنید؟",
-                "title": "فقط یک گرافیک شناسایی شد"
-            },
-            "description": "استفاده از کارت گرافیک اختصاص یافته"
-        },
         "runexe": {
             "message": "فایلها را اینجا درج کنید",
             "title": "اجرای EXE در محل"
@@ -798,7 +802,15 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "استفاده از Steam Runtime",
+            "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "باز کردن",
+            "selectExe": "انتخاب EXE"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -914,6 +926,11 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "launch": "گزینه های اجرا...",
+            "wineTools": "ابزارها"
         }
     },
     "Settings": "تنظیمات",
@@ -926,7 +943,8 @@
         "installing": "در حال نصب",
         "logging": "در حال وارد شدن...",
         "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
-        "preparing_login": "در حال آماده سازی ورود... "
+        "preparing_login": "در حال آماده سازی ورود... ",
+        "installed": "نصب شده"
     },
     "store": "فروشگاه اپیک",
     "stores": "فروشگاهها",
@@ -981,8 +999,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "تنظیمات",
             "no-results": ""
         },
         "release": "Release Date",
@@ -1114,11 +1132,11 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "noResultsTitle": "بازی یافت نشد"
     },
     "zoom-store": "",
     "wineExplanation": {
-        "wine-ge": "",
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
@@ -1176,9 +1194,10 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "همه",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform"
         },
         "sidebar": "",
         "sort": {
@@ -1202,17 +1221,20 @@
         "title": "",
         "pagination": {
             "prev": ""
+        },
+        "tabs": {
+            "label": "Store"
         }
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
-            "no-grids": "",
+            "no-games": "بازی یافت نشد",
+            "no-grids": "برای این بازی لاگی پیدا نشد",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "جست و جو برای بازی ها",
             "title": "",
             "select-game": ""
         }
@@ -1231,24 +1253,36 @@
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "در حال راه اندازی",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "خروج",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "در حال راه اندازی",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "همه"
         },
         "empty": "",
-        "games": "",
+        "games": "بازی‌های نصب شده",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "نصب بازی",
+            "wineLoading": "درحال بارگذاری",
+            "path": "نصب در",
+            "wineMissing": "مسیری انتخاب نشده است"
+        }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "cancel": "انصراف",
+        "warning": "هشدار"
+    },
+    "General": "عمومی"
 }

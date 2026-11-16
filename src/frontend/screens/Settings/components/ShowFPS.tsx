@@ -20,13 +20,17 @@ const ShowFPS = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.showfps-description',
+        'Draw a frame rate counter on top of the game'
+      )}
       htmlId="showFPS"
       value={showFps}
       handleChange={() => setShowFps(!showFps)}
       title={
         isLinux
           ? t('setting.showfps')
-          : t('setting.showMetalOverlay', 'Show Stats Overlay')
+          : t('setting.showMetalOverlay', 'Show stats overlay')
       }
     />
   )

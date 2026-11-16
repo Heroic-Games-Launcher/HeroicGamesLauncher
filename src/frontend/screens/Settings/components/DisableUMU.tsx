@@ -4,7 +4,7 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { defaultWineVersion } from '..'
+import { defaultWineVersion } from '../util'
 
 const DisableUMU = () => {
   const { t } = useTranslation()
@@ -20,6 +20,10 @@ const DisableUMU = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.disableUMU-description',
+        'Launch Proton directly instead of going through the umu launcher'
+      )}
       htmlId="disableUMU"
       value={disableUMU}
       handleChange={() => setDisableUMU(!disableUMU)}

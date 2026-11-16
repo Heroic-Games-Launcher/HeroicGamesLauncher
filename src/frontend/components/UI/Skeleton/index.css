@@ -1,0 +1,26 @@
+.Skeleton {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    var(--panel-divider, rgba(255, 255, 255, 0.08)) 25%,
+    color-mix(in oklab, var(--on-panel) 14%, transparent) 37%,
+    var(--panel-divider, rgba(255, 255, 255, 0.08)) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeletonShimmer 1.4s ease infinite;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Skeleton {
+    animation: none;
+  }
+}

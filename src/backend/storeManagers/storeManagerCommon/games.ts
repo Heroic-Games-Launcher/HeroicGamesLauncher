@@ -1,4 +1,4 @@
-import { GameInfo, GameSettings, Runner } from 'common/types'
+import { GameSettings } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { basename, dirname } from 'path'
@@ -23,14 +23,14 @@ import {
   deleteAbortController
 } from '../../utils/aborthandler/aborthandler'
 import { BrowserWindow, dialog, Menu } from 'electron'
-import { gameManagerMap } from '../index'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
 import { windowIcon } from 'backend/constants/paths'
 
 import type LogWriter from 'backend/logger/log_writer'
+import { Game } from '../../../common/types/game_manager'
 
-async function getAppSettings(appName: string): Promise<GameSettings> {
+export async function getAppSettings(appName: string): Promise<GameSettings> {
   return (
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
@@ -114,15 +114,13 @@ const openNewBrowserGameWindow = async ({
 }
 
 export async function launchGame(
-  appName: string,
+  game: Game,
   logWriter: LogWriter,
-  gameInfo: GameInfo,
-  runner: Runner,
   args: string[] = []
 ): Promise<boolean> {
-  if (!gameInfo) {
-    return false
-  }
+  const gameInfo = game.getGameInfo()
+  const appName = gameInfo.app_name
+  const runner = gameInfo.runner
 
   let {
     install: { executable }
@@ -153,7 +151,7 @@ export async function launchGame(
   const extraArgsJoined = extraArgs.join(' ')
 
   if (executable) {
-    const isNative = gameManagerMap[runner].isNative(appName)
+    const isNative = game.isNative()
     const {
       success: launchPrepSuccess,
       failureReason: launchPrepFailReason,
@@ -165,7 +163,7 @@ export async function launchGame(
     } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative)
 
     if (!isNative) {
-      await prepareWineLaunch(runner, appName, logWriter)
+      await prepareWineLaunch(game, logWriter)
     }
 
     const wrappers = setupWrappers(
@@ -173,7 +171,13 @@ export async function launchGame(
       mangoHudCommand,
       gameModeBin,
       gameScopeCommand,
-      steamRuntime?.length ? [...steamRuntime] : undefined
+      // `steamRuntime` is the path to umu if the Steam runtime option is
+      // enabled. If we are running a game with Wine, we end up calling
+      // `runWineCommand` below. That function automatically adds an umu wrapper
+      // for us. If we thus add umu here again, we'd end up running umu inside
+      // umu, which won't go well. So, only add the wrapper here if we're
+      // running a native game
+      isNative && steamRuntime?.length ? [...steamRuntime] : undefined
     )
 
     if (!launchPrepSuccess) {
@@ -189,7 +193,7 @@ export async function launchGame(
 
     sendGameStatusUpdate({
       appName,
-      runner,
+      runner: gameInfo.runner,
       status: 'playing'
     })
 
@@ -241,10 +245,6 @@ export async function launchGame(
       )
 
       launchCleanup(rpcClient)
-      // TODO: check and revert to previous permissions
-      if (isLinux || (isMac && !executable.endsWith('.app'))) {
-        await chmod(executable, 0o775)
-      }
       return true
     }
 
