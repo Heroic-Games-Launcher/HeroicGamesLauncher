@@ -1,0 +1,13 @@
+.ImportExportSettings__checkbox {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--navbar-accent, var(--accent));
+  cursor: pointer;
+}
+
+.ImportExportSettings__checkbox:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

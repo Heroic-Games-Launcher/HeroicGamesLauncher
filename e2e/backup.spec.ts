@@ -152,9 +152,7 @@ test('restores an exported backup into a clean install', async () => {
 
     await openImportExport(pageA)
     // Avoid the Wine metadata stage so the test doesn't depend on network.
-    await pageA
-      .locator('label.ToggleSwitch__track[for="ie-export-wineMetadata"]')
-      .click()
+    await pageA.locator('#ie-export-wineMetadata').click()
     await expect(pageA.locator('#ie-export-wineMetadata')).not.toBeChecked()
     await expect(pageA.locator('#ie-export-dir')).toHaveValue(home)
     await pageA.getByRole('button', { name: 'Export', exact: true }).click()

@@ -764,7 +764,6 @@
             "sideloadLibrary": "Sideloaded games",
             "wineMetadata": "Wine / Proton versions"
         },
-        "step-counter": "Step {{current}} of {{total}}",
         "step1": {
             "found": "Backups found in {{folder}}",
             "hint": "Pick a Heroic backup archive (.zip) previously exported from Heroic. Backups in your default folder are listed below.",

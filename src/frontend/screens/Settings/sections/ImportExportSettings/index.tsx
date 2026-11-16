@@ -1,3 +1,5 @@
+import './index.css'
+
 import { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -9,8 +11,7 @@ import {
   Icon,
   PathSelectionBox,
   SettingRow,
-  SettingsCard,
-  ToggleSwitch
+  SettingsCard
 } from 'frontend/components/UI'
 import ImportExportWizard from 'frontend/components/UI/ImportExportWizard'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -169,13 +170,19 @@ export default function ImportExportSettings() {
         )}
       >
         {ALL_STAGES.map((stage) => (
-          <ToggleSwitch
+          <SettingRow
             key={stage}
-            htmlId={`ie-export-${stage}`}
-            title={stageLabels(t)[stage]}
-            value={selectedStages.has(stage)}
-            handleChange={() => toggleStage(stage)}
-          />
+            label={stageLabels(t)[stage]}
+            htmlFor={`ie-export-${stage}`}
+          >
+            <input
+              id={`ie-export-${stage}`}
+              type="checkbox"
+              className="ImportExportSettings__checkbox"
+              checked={selectedStages.has(stage)}
+              onChange={() => toggleStage(stage)}
+            />
+          </SettingRow>
         ))}
 
         <PathSelectionBox

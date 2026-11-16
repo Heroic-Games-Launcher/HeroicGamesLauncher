@@ -284,15 +284,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
       disableBackdropClose
     >
       <ModalHeader>
-        <div className="ImportExportWizard__titleRow">
-          <span>{t('import-export.wizard-title', 'Import Heroic backup')}</span>
-          <span className="ImportExportWizard__stepCounter">
-            {t('import-export.step-counter', 'Step {{current}} of {{total}}', {
-              current: step + 1,
-              total: stepTitles.length
-            })}
-          </span>
-        </div>
+        {t('import-export.wizard-title', 'Import Heroic backup')}
       </ModalHeader>
 
       <div className="ImportExportWizard__stepper" role="tablist">
