@@ -143,85 +143,87 @@ export default function ImagesStep({
           .
         </Alert>
       )}
-      <div className="sideloadImagesForm">
-        <TextInputWithIconField
-          label={t(
-            'sideload.info.image-hint',
-            'Square Art (click on the image to search on SteamGridDB)'
-          )}
-          placeholder={t(
-            'sideload.placeholder.image',
-            'Paste an URL of an Image or select one from your computer'
-          )}
-          onChange={(newValue: string) => setImageUrl(newValue)}
-          htmlId="sideload-image"
-          value={imageUrl}
-          icon={<Icon glyph={Folder} size="md" />}
-          onIconClick={() => handleSelectLocalImage('square')}
-        />
-        <TextInputWithIconField
-          label={t(
-            'sideload.info.cover-hint',
-            'Cover/Hero Art (click on the image to search on SteamGridDB)'
-          )}
-          placeholder={t(
-            'sideload.placeholder.image',
-            'Paste an URL of an Image or select one from your computer'
-          )}
-          onChange={(newValue: string) => setHeroUrl(newValue)}
-          htmlId="sideload-cover"
-          value={heroUrl}
-          icon={<Icon glyph={Folder} size="md" />}
-          onIconClick={() => handleSelectLocalImage('cover')}
-        />
-      </div>
-      <div className="sideloadImagesPreview">
-        <span className="sideloadImagesPreview__caption">
-          {t('sideload.images.preview', 'Preview')}
-        </span>
-        <div className="sideloadImages">
-          <div
-            className={classNames('appImageContainer', {
-              hasSgdbKey,
-              searching,
-              loading: imageLoading
-            })}
-            onClick={() => hasSgdbKey && setSgdbTarget('square')}
-          >
-            <CachedImage
-              className={classNames('appImage', {
-                blackWhiteImage: searching
+      <div className="sideloadImagesLayout">
+        <div className="sideloadImagesForm">
+          <TextInputWithIconField
+            label={t(
+              'sideload.info.image-hint',
+              'Square Art (click on the image to search on SteamGridDB)'
+            )}
+            placeholder={t(
+              'sideload.placeholder.image',
+              'Paste an URL of an Image or select one from your computer'
+            )}
+            onChange={(newValue: string) => setImageUrl(newValue)}
+            htmlId="sideload-image"
+            value={imageUrl}
+            icon={<Icon glyph={Folder} size="md" />}
+            onIconClick={() => handleSelectLocalImage('square')}
+          />
+          <TextInputWithIconField
+            label={t(
+              'sideload.info.cover-hint',
+              'Cover/Hero Art (click on the image to search on SteamGridDB)'
+            )}
+            placeholder={t(
+              'sideload.placeholder.image',
+              'Paste an URL of an Image or select one from your computer'
+            )}
+            onChange={(newValue: string) => setHeroUrl(newValue)}
+            htmlId="sideload-cover"
+            value={heroUrl}
+            icon={<Icon glyph={Folder} size="md" />}
+            onIconClick={() => handleSelectLocalImage('cover')}
+          />
+        </div>
+        <div className="sideloadImagesPreview">
+          <span className="sideloadImagesPreview__caption">
+            {t('sideload.images.preview', 'Preview')}
+          </span>
+          <div className="sideloadImages">
+            <div
+              className={classNames('appImageContainer', {
+                hasSgdbKey,
+                searching,
+                loading: imageLoading
               })}
-              src={imageUrl ? imageUrl : fallbackImage}
-              onLoad={() => setImageLoading(false)}
-              onError={() => setImageLoading(false)}
-            />
-            {(searching || imageLoading) && (
-              <div className="imageLoadingOverlay">
-                <Icon glyph={LoaderCircle} size="xl" className="spinner" />
-              </div>
-            )}
-            {hasSgdbKey && !searching && !imageLoading && (
-              <div className="imageHoverOverlay">
-                <Icon glyph={Search} size="xl" />
-              </div>
-            )}
-          </div>
-          <div
-            className={classNames('appImageContainer heroImageContainer', {
-              hasSgdbKey
-            })}
-            onClick={() => hasSgdbKey && setSgdbTarget('cover')}
-          >
-            <CachedImage
-              className="appImage heroImage"
-              src={heroUrl || imageUrl || fallbackImage}
-            />
-            {hasSgdbKey && (
-              <div className="imageHoverOverlay">
-                <Icon glyph={Search} size="xl" />
-              </div>
-            )}
+              onClick={() => hasSgdbKey && setSgdbTarget('square')}
+            >
+              <CachedImage
+                className={classNames('appImage', {
+                  blackWhiteImage: searching
+                })}
+                src={imageUrl ? imageUrl : fallbackImage}
+                onLoad={() => setImageLoading(false)}
+                onError={() => setImageLoading(false)}
+              />
+              {(searching || imageLoading) && (
+                <div className="imageLoadingOverlay">
+                  <Icon glyph={LoaderCircle} size="xl" className="spinner" />
+                </div>
+              )}
+              {hasSgdbKey && !searching && !imageLoading && (
+                <div className="imageHoverOverlay">
+                  <Icon glyph={Search} size="xl" />
+                </div>
+              )}
+            </div>
+            <div
+              className={classNames('appImageContainer heroImageContainer', {
+                hasSgdbKey
+              })}
+              onClick={() => hasSgdbKey && setSgdbTarget('cover')}
+            >
+              <CachedImage
+                className="appImage heroImage"
+                src={heroUrl || imageUrl || fallbackImage}
+              />
+              {hasSgdbKey && (
+                <div className="imageHoverOverlay">
+                  <Icon glyph={Search} size="xl" />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -63,13 +63,23 @@
   padding: var(--space-md);
 }
 
+.sideloadImagesLayout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
 .sideloadImagesForm {
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
 
 .sideloadImagesPreview {
+  flex: 0 0 auto;
+  width: 240px;
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -87,14 +97,14 @@
 }
 
 .sideloadImages {
-  display: grid;
-  gap: var(--space-lg);
-  grid-template-columns: 180px minmax(0, 400px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
   align-items: center;
-  justify-content: center;
 
   .appImageContainer {
     position: relative;
+    width: 100%;
     cursor: pointer;
     color: white;
     border-radius: var(--radius-md);
