@@ -6,7 +6,8 @@
         "copied": "Kopieret!",
         "error": "Fejl, prøv en anden kode",
         "loading": "Indlæser",
-        "close": "Luk"
+        "close": "Luk",
+        "itchio_error": ""
     },
     "message": {
         "part1": "For at logge ind og installere dine spil, må du først følge trinene herunder:",
@@ -22,5 +23,14 @@
         "error": "Fejl",
         "loading": "Indlæser spil liste, vent venligst"
     },
-    "welcome": "Velkommen!"
+    "welcome": "Velkommen!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

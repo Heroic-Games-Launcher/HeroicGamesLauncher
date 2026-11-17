@@ -6,7 +6,8 @@
         "copied": "Gekopieerd!",
         "error": "Fout, probeer een andere code",
         "loading": "Loading",
-        "close": "sluit"
+        "close": "sluit",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Om in te loggen en je spellen te installeren, moet je de volgende stappen volgen:",
@@ -22,5 +23,14 @@
         "error": "Error",
         "loading": "Spellen lijst word geladen, geduld alstublieft"
     },
-    "welcome": "Welkom!"
+    "welcome": "Welkom!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

@@ -23,5 +23,14 @@
         "error": "Hiba",
         "loading": "Játéklista betöltése, kérlek várj"
     },
-    "welcome": "Üdvözlünk!"
+    "welcome": "Üdvözlünk!",
+    "itchio": {
+        "api_key_placeholder": "Illeszd be az API-kulcsodat",
+        "instructions": "Ha a szokásos itch.io-bejelentkezés nem működik, személyes API-kulccsal is csatlakozhatsz. Látogass el az itch.io API-kulcsok oldalára, hozz létre egy kulcsot, majd illeszd be alább.",
+        "paste_and_login": "Beillesztés a vágólapról és bejelentkezés"
+    },
+    "sid": {
+        "paste_and_login": "Beillesztés a vágólapról és bejelentkezés",
+        "placeholder": "Illeszd be ide a SID-kódot"
+    }
 }

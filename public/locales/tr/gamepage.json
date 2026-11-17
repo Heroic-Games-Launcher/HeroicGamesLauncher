@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Bu, oyunun kurulum konumunu değiştirecek, emin misiniz?",
+            "message": "Bu işlem oyunun kurulum konumunu değiştirecek. Emin misiniz?",
             "path": "Yeni kurulum konumu seçin",
             "title": "Oyunların kurulum konumunu değiştir"
         },
@@ -10,7 +10,8 @@
         "move": {
             "message": "Bu biraz uzun sürebilir, emin misin?",
             "path": "Nereye taşımak istediğinizi seçin",
-            "title": "Oyun Kurulumunu Taşı"
+            "title": "Oyun Kurulumunu Taşı",
+            "steamMessage": "Bu oyunu başka bir sürücüye taşımak için Steam Depolama Yöneticisi açılacak. İşlem bitince Heroic yenilenir."
         },
         "no": "HAYIR",
         "repair": {
@@ -25,7 +26,7 @@
             "image": "Resim Seç"
         },
         "sideload": {
-            "exe": "Yürütülebilir Dosyayı Seçin"
+            "exe": "Çalıştırılabilir dosyayı seçin"
         },
         "stopInstall": {
             "keepInstalling": "Kuruluma Devam Et",
@@ -63,7 +64,7 @@
         },
         "ok": "Tamam",
         "offline_warning": {
-            "message": "Bu oyun çevrimdışı iken düzgün çalışmayabilir. Yine de oynamak ister misin?",
+            "message": "Bu oyun çevrim dışı iken düzgün çalışmayabilir. Yine de oynamak ister misin?",
             "playAnyway": "Yine De Oyna",
             "title": "İnternet Bağlantısı Yok"
         }
@@ -74,7 +75,7 @@
         "continue": "İndirmeye Devam Et",
         "finish": "Bitir",
         "force_update": "Varsa Güncellemeyi Zorunlu Kur",
-        "force-innstall": "Kuruluma Zorla",
+        "force-innstall": "Zorla Kur",
         "hide_game": "Oyunu Gizle",
         "import": "Oyunu İçe Aktar",
         "install": "Kur",
@@ -96,10 +97,12 @@
         "changelog": "Değişiklik Günlüğünü Göster",
         "browse_files": "Dosyalara Göz At",
         "browse_wine_prefix": "Wine Prefix'e Göz At",
-        "play": "OYNA",
+        "play": "Oyna",
         "edit-game": "Oyunu Düzenle",
         "favourite": "Favorilere Ekle",
-        "unfavourite": "Favorilerden Kaldır"
+        "unfavourite": "Favorilerden Kaldır",
+        "backToLibrary": "Kütüphaneye Dön",
+        "steamStore": "Steam Sayfasını Aç"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
@@ -133,10 +136,14 @@
         },
         "changelogFor": "{{gameTitle}} değişiklik günlükleri",
         "modify": "Kurulumu Düzenle",
-        "install_info": "Kurulum bilgisi",
-        "extra_info": "Ek bilgi",
+        "install_info": "Kurulum Bilgisi",
+        "extra_info": "Daha fazla",
         "achievements": "Başarımlar",
-        "details": "Oyun ayrıntıları"
+        "details": "Oyun ayrıntıları",
+        "about": "Hakkında",
+        "hoursPlayedShort": "{{hours}} saat",
+        "overview": "Genel Bakış",
+        "tabs": "Oyun bilgisi"
     },
     "gamecard": {
         "moving": "Taşınıyor",
@@ -169,7 +176,17 @@
         "third-party-app": "Üçüncü Parti Yönetici",
         "genres": "Türler",
         "steamdeck": {
-            "unsupported": "Desteklenmiyor"
+            "unsupported": "Desteklenmiyor",
+            "playable": "Oynanabilir",
+            "unknown": "Bilinmiyor",
+            "verified": "Onaylandı"
+        },
+        "developer": "Geliştirici",
+        "dlcs": "DLC'ler",
+        "dlc": {
+            "disabled": "Devre dışı, etkinleştirmek için tıklayın",
+            "enabled": "Etkin, devre dışı bırakmak için tıklayın",
+            "notBought": "Satın alınmadı"
         }
     },
     "install": {
@@ -188,9 +205,12 @@
             "install_anyway": "Evet (çoklu oyuncu özelliklerinin çalışmayabileceğini anlıyorum)",
             "multiplayer_message": "Hile koruması desteği bozuk veya engellenmiş. Oyun açılabilir ancak çok oyunculu özellikler çalışmayacaktır. Yine de yüklemek istiyor musunuz?",
             "ok": "Tamam",
-            "disabled_installation": "Bu oyun, işletim sisteminizle uyumlu olmayan veya geliştiriciler tarafından desteklenmeyen bir hile karşıtı yazılım kullanıyor. Bu nedenle çok oyunculu özellikler çalışmayacak ve ne siz ne de Heroic ekibi bu durumu değiştiremez.<br /><br />Yine de oyunu kurmayı denemek isterseniz, Ayarlar > Gelişmiş bölümüne giderek “bozuk veya desteklenmeyen anticheat'e sahip oyunların yüklenmesine izin ver” seçeneğini işaretleyin.<br /><br />Bu durumun bir çözümü olmadığını ve oyunda ban yeme riskiniz olduğunu unutmayın."
+            "disabled_installation": "Bu oyun, işletim sisteminizle uyumlu olmayan ya da oyun geliştiricileri tarafından desteği etkinleştirilmemiş bir anti-hile yazılımı kullanıyor. Bu, çok oyunculu özelliklerin çalışmayacağı ve sizin (ya da Heroic ekibinin) bu konuda yapabileceği hiçbir şey olmadığı anlamına gelir.<br /><br />Bu oyunu yine de kurup denemek için Ayarlar > Gelişmiş bölümüne gidin ve “Hile engelleme özelliği bozuk olan veya reddedilen oyunların kurulmasına izin ver” seçeneğini işaretleyin.<br /><br />Bunun bir çözümü olmadığını ve oyunda yasaklanma riskine gireceğinizi unutmayın."
         },
-        "flatpak-path-not-writtable": "Hata: Bu yola sandbox erişimi verilmedi, veri kaybı yaşanacak."
+        "flatpak-path-not-writtable": "Hata: Bu yola sandbox erişimi verilmedi, veri kaybı yaşanacak.",
+        "free": "boş",
+        "steam-no-libraries": "Steam kütüphane klasörü bulunamadı. Önce Steam'de bir sürücü ekleyin.",
+        "steam-path": "Kurulum Yolu (Steam kütüphanesi)"
     },
     "label": {
         "game": {
@@ -198,9 +218,10 @@
             "not-installable-game": "Oyun Kurulamıyor"
         },
         "playing": {
-            "start": "Şimdi Oyna",
+            "start": "Oyna",
             "stop": "Oynanıyor (Durdur)",
-            "start_with_logs": "Şimdi Oyna (loglar ile)"
+            "start_with_logs": "Oyna (Loglar ile)",
+            "start_with_logs_hint": "Oyunu başlatırken ayrıntılı bir log kaydı tutar; bu, bir sorunu bildirmeniz gerektiğinde işe yarar"
         },
         "saves": {
             "syncing": "Kayıtlar Eşzamanlanıyor"
@@ -236,7 +257,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "Steam'in yeni sürümleri macOS'ta çalışmadığı için, Heroic üzerinden çalışır hale getirdik."
         },
-        "releaseDate": "Çıkış Tarihi"
+        "releaseDate": "Çıkış Tarihi",
+        "steam-family-share": "Steam Aile Paylaşımı"
     },
     "launch": {
         "options": "Başlatma Seçenekleri...",
@@ -245,7 +267,7 @@
     "not_logged_in": {
         "epic": "Heroic'te Epic hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
         "gog": "Heroic'te GOG hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
-        "login": "Log in",
+        "login": "Giriş Yap",
         "title": "Giriş yapmadınız",
         "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:",
         "zoom": "Heroic'e Zoom hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine şu düğmeye tıklayın:"
@@ -265,7 +287,7 @@
             "title": "Başlık"
         },
         "info": {
-            "exe": "Yürütülebilir Dosyayı Seçin",
+            "exe": "Çalıştırılabilir dosyayı seçin",
             "image": "App Image",
             "title": "Oyun/Uygulama Adı",
             "broser": "Tarayıcı URL'si",
@@ -290,13 +312,15 @@
     },
     "specs": {
         "minimum": "Asgari",
-        "recommended": "Tavsiye edilen"
+        "recommended": "Tavsiye edilen",
+        "notes": "Notlar",
+        "other": "Diğer"
     },
     "status": {
         "clickToUpdate": "Güncellemek için tıklayın",
         "gameNotAvailable": "Oyun mevcut değil",
         "hasUpdates": "Yeni sürüm var!",
-        "installed": "Kuruldu",
+        "installed": "Kurulu",
         "installing": "Kuruluyor",
         "moving": "Kurulum taşınıyor, lütfen bekleyin",
         "notinstalled": "Bu oyun kurulu değil",
@@ -337,8 +361,9 @@
         "store": "Mağaza Sayfası",
         "verify": "Doğrula ve Onar",
         "extraInfo": "Fazladan bilgi",
-        "logs": "Kayıtlar",
-        "categories": "Kategoriler"
+        "logs": "Günlükler",
+        "categories": "Kategoriler",
+        "more": "Daha fazla"
     },
     "help": {
         "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendine ait buluta kaydetme sistemini uygular.",
@@ -363,7 +388,7 @@
         "notice1": "Bu oyun üçüncü parti {{application_name}} uygulaması tarafından yönetiliyor",
         "notice2": "Kur'a bastıktan sonra, Heroic kurulum işlemini bitirmek için uygulamayı çalıştıracak"
     },
-    "Open": "Epic Store'u",
+    "Open": "Aç",
     "queue": {
         "label": {
             "canceled": "İptal Edildi",
@@ -387,9 +412,28 @@
         "reset": "Varsayılana Sıfırla",
         "sgdb": {
             "no-key-link": "Ayarlar → Gelişmiş",
-            "no-key-prefix": "SteamGridDB'de kapak resmini aramak için bir API anahtarı ekleyin"
+            "no-key-prefix": "SteamGridDB'de kapak resmi aramak için şuradan bir API anahtarı ekleyin:"
         },
         "title": "Oyunu Düzenle",
         "square": "Kare Görsel"
+    },
+    "itchio": {
+        "import": {
+            "warning": "itch.io uygulamasıyla kurulan klasörler, güncellemeler dahil tamamen içe aktarılır. Diğer klasörlerde Heroic güncellemeleri denetleyemez ve oyunu kaldırmak oyun dosyalarını silmez."
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Başarımlar",
+            "dlc": "DLC",
+            "installInfo": "İndirme Boyutu",
+            "launchOptions": "Başlatma Seçenekleri",
+            "storeInfo": "mağaza bilgileri"
+        },
+        "loggedOut": {
+            "failed": "{{data}} alınamadı.",
+            "message": "Çevrim içi özellikler çalışmayabilir.",
+            "title": "Steam hesabı Heroic'te oturum açmamış"
+        }
     }
 }

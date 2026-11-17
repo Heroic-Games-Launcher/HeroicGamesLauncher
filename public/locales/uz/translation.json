@@ -68,7 +68,17 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
+            },
+            "remove": {
+                "steam": {
+                    "body": "",
+                    "title": ""
+                }
+            }
         },
         "choose": "Tanlang",
         "warning": {
@@ -90,6 +100,12 @@
                 "confirmExit": {
                     "title": "",
                     "message": ""
+                }
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
                 }
             }
         },
@@ -169,7 +185,13 @@
         "disable_smooth_scrolling": "",
         "titles_always_visible": "",
         "disable_animations": "",
-        "disable_dialog_backdrop_close": ""
+        "disable_dialog_backdrop_close": "",
+        "section": {
+            "motion": "",
+            "library": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "O'yin qo'shish",
     "All": "Hammasi",
@@ -193,7 +215,8 @@
         "browser": "Brauzer"
     },
     "two_col_table": {
-        "save_hint": "Ushbu jadvaldagi o'zgarishlar avtomatik ravishda saqlanmaydi. + tugmasini bosing"
+        "save_hint": "Ushbu jadvaldagi o'zgarishlar avtomatik ravishda saqlanmaydi. + tugmasini bosing",
+        "add": ""
     },
     "userselector": {
         "cancel": "Bekor qilish",
@@ -203,7 +226,8 @@
         "logout_confirmation": "Haqiqatan ham tizimdan chiqmoqchimisiz?",
         "manageaccounts": "Hisoblarni boshqarish",
         "quit": "Chiqish",
-        "quitMessage": "Chiqishni xohlayotganingizga ishonchingiz komilmi?"
+        "quitMessage": "Chiqishni xohlayotganingizga ishonchingiz komilmi?",
+        "manage": ""
     },
     "tray": {
         "show": "Ko'rsatish",
@@ -216,7 +240,10 @@
             "back": "Ortga qaytish",
             "forward": "Olg'a yurish",
             "openInBrowser": "Brauzerda oching",
-            "reload": "Sahifani qayta yuklash"
+            "reload": "Sahifani qayta yuklash",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wiki_info": {
@@ -234,7 +261,8 @@
             "open_folder": "",
             "update": "",
             "settings": "",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "Ishlab chiqarilish sanasi",
         "size": "Hajmi",
@@ -247,7 +275,9 @@
         "login": "Tizimga kirish",
         "sync": "Sinxronlash",
         "syncing": "Sinxronlash",
-        "unsync": "Sinxronizatsiyani bekor qilish"
+        "unsync": "Sinxronizatsiyani bekor qilish",
+        "backToLibrary": "",
+        "close": ""
     },
     "controller": {
         "hints": {
@@ -266,7 +296,13 @@
             "scroll": "aylantiring",
             "select": "Tanlang",
             "space": "Kosmos",
-            "update_game": "O'yinni yangilash"
+            "update_game": "O'yinni yangilash",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "exit": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "Hujjatlar",
@@ -277,7 +313,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Yuklab olish"
+            "speed": "Yuklab olish",
+            "unit": ""
         },
         "link": "Yuklashlar",
         "queue": {
@@ -287,7 +324,15 @@
             "type": "Turi"
         },
         "title": "Yuklashlar",
-        "ETA": "Taxminiy vaqt"
+        "ETA": "Taxminiy vaqt",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Onlayn xizmatlar to'liq ishlamasligi mumkin, chunki Epic Games serverlari oflayn!",
@@ -300,7 +345,8 @@
         "status": "Holat",
         "store": "Do'kon",
         "title": "O'yin nomi",
-        "modify": ""
+        "modify": "",
+        "settings": ""
     },
     "generic": {
         "error": {
@@ -335,7 +381,12 @@
         "reset": "",
         "show_installed_only": "",
         "no_categories": "",
-        "uncategorized": ""
+        "uncategorized": "",
+        "display": "",
+        "stores": "",
+        "hidden": "",
+        "non_available": "",
+        "platforms": ""
     },
     "help": {
         "amdfsr": "AMD ning FSR to'liq ekran rejimida pastroq piksellar sonini oshirish orqali kadrlar tezligini oshirishga yordam beradi. Tasvir sifati unchalik katta bo'lmagan samaradorlik evaziga 5 dan 1 gacha oshadi. Yoqish unumdorlikni oshirishi mumkin.",
@@ -420,7 +471,12 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -467,7 +523,9 @@
             "list": "Roʻyxat tartibiga oʻtish"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Kutubxona",
     "loading": {
@@ -481,7 +539,8 @@
         "message": "Platformangiz bilan tizimga kiring. Siz bir vaqtning o'zida bir nechta platformaga kirishingiz mumkin.",
         "amazon": "Amazonga kirish",
         "old-mac": "",
-        "zoom": ""
+        "zoom": "",
+        "itchio": ""
     },
     "message": {
         "sync": "Sinxronizatsiya tugallandi",
@@ -497,14 +556,16 @@
                 "steam": {
                     "corrupt": "{{game}} barcha topilgan Steam foydalanuvchilariga qoʻshib boʻlmadi. Qo'shimcha ma'lumot olish uchun jurnallarga qarang. O'zgarishlar kuchga kirishi uchun Steamni qayta ishga tushirish kerak.",
                     "success": "{{game}} Steam-ga muvaffaqiyatli qo'shildi. O'zgarishlar kuchga kirishi uchun Steamni qayta ishga tushirish kerak.",
-                    "title": "Steam-ga qo'shildi"
+                    "title": "Steam-ga qo'shildi",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} barcha topilgan Steam foydalanuvchilaridan olib tashlanmadi. Qo'shimcha ma'lumot olish uchun jurnallarga qarang. O'zgarishlar kuchga kirishi uchun Steamni qayta ishga tushirish kerak.",
                     "success": "{{game}} Steam'dan muvaffaqiyatli olib tashlandi. O'zgarishlar kuchga kirishi uchun Steamni qayta ishga tushirish kerak.",
-                    "title": "Steam'dan o'chirildi"
+                    "title": "Steam'dan o'chirildi",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Ta'mirlash tugallandi"
@@ -549,16 +610,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "Masalan: Path/To/ExtraFiles",
             "title": "Atrof-muhit o'zgaruvchilari",
-            "value": "Qiymat"
+            "value": "Qiymat",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "Oʻzgaruvchilar nomlari boʻsh boʻlishi mumkin emas",
                 "equal_sign_in_key": "Oʻzgaruvchilar nomlarida “=” belgisi boʻlishi mumkin emas",
-                "space_in_key": "Oʻzgaruvchilar nomlarida boʻshliq boʻlishi mumkin emas"
+                "space_in_key": "Oʻzgaruvchilar nomlarida boʻshliq boʻlishi mumkin emas",
+                "duplicate_key": ""
             },
             "example": "“=\" belgisini QO'SHILMAYIN, masalan: \"MY_FLAG=123\" kabi sozlama uchun NAME uchun MY_FLAG va VALUE uchun 123 belgilang.",
-            "info": "Buyruqga qo'shiladigan muhit o'zgaruvchilarini o'rnating."
+            "info": "Buyruqga qo'shiladigan muhit o'zgaruvchilarini o'rnating.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "Launcher argumentlarini bu yerga qo'ying",
@@ -621,7 +688,8 @@
             "queued": "Navbatda",
             "remove": "Yuklab olishlardan olib tashlash",
             "pause": "Yuklashni to'xtatib turish",
-            "resume": "Yuklashni davom ettirish"
+            "resume": "Yuklashni davom ettirish",
+            "paused": ""
         }
     },
     "Recent": "Yaqinda o'ynadi",
@@ -669,7 +737,8 @@
             "removeConfirm": "Haqiqatan ham EOS Overlayni oʻchirib tashlamoqchimisiz?",
             "removeConfirmTitle": "Qoplamani olib tashlashni tasdiqlang",
             "updateNow": "Yangilash",
-            "updating": "Yangilanmoqda..."
+            "updating": "Yangilanmoqda...",
+            "description": ""
         },
         "esync": "Esync-ni yoqing",
         "exit-to-tray": "Tizim tepsisiga chiqing",
@@ -731,9 +800,13 @@
                 "gog": "",
                 "zoom": "",
                 "game-log": "",
-                "heroic": ""
+                "heroic": "",
+                "itchio": ""
             },
-            "show-uploads": ""
+            "show-uploads": "",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Mangohudni yoqish (Mangohud o'rnatilishi kerak)",
         "manualsync": {
@@ -752,12 +825,15 @@
         "preferSystemLibs": "Tizim kutubxonalarini afzal ko'ring",
         "runexe": {
             "message": "Fayllarni bu yerga sudrab tashlang",
-            "title": "Prefiksda EXE-ni ishga tushiring"
+            "title": "Prefiksda EXE-ni ishga tushiring",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Saqlash jild topilmadi, uni qo'lda tanlang (qayta urinish uchun bosing)",
             "placeholder": "Aniq saqlash o'yinlari papkasini tanlang",
-            "warning": "Iltimos, yo'l to'g'ri yoki yo'qligini ikki marta tekshiring (qayta urinish uchun bosing)"
+            "warning": "Iltimos, yo'l to'g'ri yoki yo'qligini ikki marta tekshiring (qayta urinish uchun bosing)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Mavzuni tanlang",
         "showfps": "FPSni ko'rsatish (DX9, 10 va 11)",
@@ -822,7 +898,8 @@
         "analyticsOptIn": "",
         "disablePlaytimeSync": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "before-launch-script-path": "",
         "disableUMU": "",
@@ -832,12 +909,96 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "steamRuntime": {
+            "label": "",
+            "noRuntimeOption": ""
+        },
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "tools": {
+            "open": "",
+            "running": "",
+            "selectExe": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEye Runtime o'rnatilmoqda...",
-            "name": "BattlEye AntiCheat ish vaqti"
+            "name": "BattlEye AntiCheat ish vaqti",
+            "hint": ""
         },
         "clear-cache": "Qahramonlik keshini tozalang",
         "copiedToClipboard": "Buferga nusxalandi!",
@@ -849,7 +1010,8 @@
                 "title": "GameMode kerak"
             },
             "installing": "EAC Runtime oʻrnatilmoqda...",
-            "name": "EasyAntiCheat ish vaqti"
+            "name": "EasyAntiCheat ish vaqti",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -869,7 +1031,9 @@
             "sync": "Cloud Saves Sync",
             "gamescope": "",
             "systemInformation": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "",
+            "tabs": ""
         },
         "open-config-file": "Konfiguratsiya faylini oching",
         "reset-heroic": "Qahramonlikni tiklash",
@@ -890,7 +1054,8 @@
                 "help5": "",
                 "help6": "",
                 "help2": "",
-                "help4": ""
+                "help4": "",
+                "description": ""
             },
             "title": {
                 "resetHeroic": "",
@@ -898,7 +1063,8 @@
             },
             "details": "",
             "resetHeroic": {
-                "help": ""
+                "help": "",
+                "description": ""
             }
         },
         "legacy_warning": "",
@@ -923,7 +1089,10 @@
             "memory": "",
             "copyToClipboard": "",
             "heroicVersion": "",
-            "nileVersion": ""
+            "nileVersion": "",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": ""
@@ -948,7 +1117,35 @@
             }
         },
         "section": {
-            "launch": "Ishga tushirish parametrlari..."
+            "launch": "Ishga tushirish parametrlari...",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "experimental": "",
+            "binaries": "",
+            "graphics": "",
+            "wineTools": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "downloads": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Sozlamalar",
@@ -956,7 +1153,8 @@
         "installing": "Oʻrnatilmoqda",
         "logging": "Tizimga kirish...",
         "processing": "Fayllarga ishlov berilmoqda, kuting",
-        "preparing_login": "Kirish tayyorlanmoqda... "
+        "preparing_login": "Kirish tayyorlanmoqda... ",
+        "installed": ""
     },
     "store": "Epic Store",
     "stores": "Do'konlar",
@@ -1093,14 +1291,18 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "description": "",
+        "noResultsTitle": "",
+        "title": ""
     },
     "zoom-store": "",
     "wineExplanation": {
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "discounts": {
         "region": {
@@ -1133,7 +1335,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1156,7 +1359,10 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "hideOwned": "",
+            "wishlistOnly": "",
+            "platform": ""
         },
         "sidebar": "",
         "sort": {
@@ -1180,7 +1386,26 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "currency": {
+            "label": ""
+        },
+        "tabs": {
+            "label": "",
+            "all": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "titleMulti": "",
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1226,10 +1451,52 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelUpdate": {
+            "title": "",
+            "message": ""
+        },
+        "install": {
+            "title": "",
+            "wine": "",
+            "path": "",
+            "wineMissing": "",
+            "wineLoading": "",
+            "platform": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
+        }
     },
     "next": "",
     "sidebar": {
-        "console": ""
-    }
+        "console": "",
+        "storesLogin": ""
+    },
+    "common": {
+        "edit": "",
+        "save": "",
+        "add": "",
+        "clear_all": "",
+        "duplicate": "",
+        "cancel": "",
+        "warning": "",
+        "confirm": "",
+        "remove": ""
+    },
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "General": "",
+    "itchio-store": ""
 }
