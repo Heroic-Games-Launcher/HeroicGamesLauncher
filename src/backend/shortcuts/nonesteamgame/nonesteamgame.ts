@@ -589,6 +589,34 @@ async function addNonSteamGameViaSteamClient(props: {
         launchOptions,
         icon
       })
+
+      // Verify the shortcut was persisted completely: if the Steam
+      // client drops the launch options, the shortcut would only
+      // open Heroic instead of the game.
+      const stored = (await getSteamClientShortcuts()).find(
+        (shortcut) => shortcut.appid === appId
+      )
+      if (
+        !stored ||
+        !stored.launchOptions.includes(
+          `appName=${gameInfo.app_name}&runner=${gameInfo.runner}`
+        )
+      ) {
+        try {
+          await removeShortcutViaSteamClient(appId)
+        } catch (error) {
+          logWarning(
+            [
+              `Failed to remove the incomplete shortcut of ${gameInfo.title} with:`,
+              error
+            ],
+            LogPrefix.Shortcuts
+          )
+        }
+        throw new Error(
+          'The Steam client did not persist the shortcut launch options'
+        )
+      }
     }
 
     const shortAppId = appId >>> 0
