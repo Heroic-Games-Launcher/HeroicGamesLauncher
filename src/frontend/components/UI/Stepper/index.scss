@@ -50,8 +50,6 @@
   display: none;
 }
 
-// Filled segments: a completed step colors both of its halves; the active
-// step colors only the segment flowing into it (its "before" half).
 .Stepper__step--completed .Stepper__connector,
 .Stepper__step--active .Stepper__connector--before {
   background: var(--accent);

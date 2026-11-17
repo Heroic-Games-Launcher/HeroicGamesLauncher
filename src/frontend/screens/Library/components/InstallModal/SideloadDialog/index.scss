@@ -10,13 +10,9 @@
 .sideloadDialog {
   width: 100%;
   max-width: 100%;
-  // Size to the content; the MUI dialog paper caps the height at the viewport,
-  // so the inner scroll only kicks in when the screen is too small to fit it.
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  // Drop the horizontal padding so the scroll container can reach the modal
-  // edge; the inset is reapplied on the inner content below.
   padding-inline: 0;
 
   .spinner {
@@ -36,10 +32,6 @@
     padding-inline: var(--modal-padding-inline);
   }
 
-  // Keep a consistent, tight label-to-input gap across every field type (text,
-  // select, path). The install modal globally bumps this to --space-md; the
-  // extra .Modal__content qualifier wins over that rule and reverts all fields
-  // to the shared field default.
   &.Modal__content .Field label {
     margin-bottom: var(--space-xs-fixed);
   }
@@ -324,7 +316,6 @@
     color: var(--text-secondary);
   }
 
-  // Keep the navigation buttons on the left; metadata goes to the right.
   .sideloadFooterButtons {
     order: -1;
     display: flex;
