@@ -652,14 +652,17 @@
         "gamemode": "GameMode applies temporary system tweaks while the game runs. Most of its CPU-governor work is obsolete on modern kernels, and with umu it often cannot register the game process.",
         "gamescope": {
             "additionalOptions": "Additional commandline flags to pass into gamescope.",
+            "adaptiveSync": "Enable variable refresh rate for the game window when supported by the display.",
             "forceGrabCursor": "Always use relative mouse mode instead of flipping dependent on cursor visibility. (useful for when applications keep losing focus)",
             "fpsLimiter": "The amount of frames gamescope should limit to. E.g. 60",
             "fpsLimiterNoFocus": "The frame rate limit gamescope should limit per second if the game is not focused.",
             "gameHeight": "The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
             "gameWidth": "The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
+            "hdr": "Ask gamescope to enable HDR output. The display, compositor and game must support HDR.",
             "upscaleHeight": "The height resolution used by gamescope. A 16:9 aspect ratio is assumed.",
             "upscaleMethod": "The upscaling method gamescope should use.",
-            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
+            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed.",
+            "windowType": "How gamescope displays the game window."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "hide-window-on-protocol-launch": "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'add to Steam' feature.",
@@ -1050,8 +1053,10 @@
             "nis": "NVIDIA image scale (NIS)",
             "stretch": "Stretch image",
             "upscaleHeight": "Upscale height",
+            "upscaleMethod": "Upscale method",
             "upscaleWidth": "Upscale width",
-            "windowed": "Windowed"
+            "windowed": "Windowed",
+            "windowType": "Window type"
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -1246,7 +1251,9 @@
         "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
         "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
+            "enableAdaptiveSync": "Enable adaptive sync (VRR)",
             "enableForceGrabCursor": "Enable force grab cursor",
+            "enableHDR": "Enable HDR",
             "enableLimiter": "Enable FPS limiter",
             "enableUpscaling": "Enables upscaling",
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
@@ -1563,6 +1570,10 @@
             "epic": "Epic Games",
             "experimental": "Experimental features",
             "gameplay": "Gameplay",
+            "gamescopeAdditionalOptions": "Additional options",
+            "gamescopeDisplay": "Display",
+            "gamescopeLimiter": "Frame limiter",
+            "gamescopeUpscaling": "Upscaling",
             "gog": "GOG",
             "graphics": "Graphics & translation",
             "integrations": "Integrations",
