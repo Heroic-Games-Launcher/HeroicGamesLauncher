@@ -324,9 +324,8 @@ async function errorHandler(
   }
 
   if (legendaryRegex.test(error)) {
-    const isSharedMemoryError =
-      error.includes('MemoryError: ') || error.includes('shared_memory.py')
-    if (isSharedMemoryError) {
+    const MemoryError = 'MemoryError: '
+    if (error.includes(MemoryError)) {
       return
     }
 
