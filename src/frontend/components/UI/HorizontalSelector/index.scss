@@ -1,0 +1,50 @@
+.HorizontalSelector {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--space-md);
+  width: 100%;
+
+  &__option.Button {
+    flex: 1 1 0;
+    min-width: 0;
+    height: auto;
+    padding: var(--space-lg);
+    border: solid 1px var(--panel-border);
+    border-radius: var(--radius-md);
+    text-align: center;
+    white-space: normal;
+
+    .Button__label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  &__title {
+    font-size: var(--text-lg);
+    font-weight: var(--semibold);
+    color: var(--text-default);
+  }
+
+  &__subtitle {
+    font-size: var(--text-sm);
+    font-weight: var(--regular);
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+}

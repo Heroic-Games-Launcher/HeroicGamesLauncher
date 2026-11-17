@@ -72,6 +72,7 @@ import type {
   SteamLaunchTargets,
   SteamLoginData
 } from './steam'
+import { ParsedProtonShorctut } from './proton_shorctuts'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -443,6 +444,7 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  getProtonShortcuts: (prefix: string) => Promise<Array<ParsedProtonShorctut>>
 }
 
 interface FrontendMessages {

@@ -318,22 +318,25 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             platformToInstall={platformToInstall}
             appName={appName}
             crossoverBottle={crossoverBottle}
-          >
-            {platformSelection()}
-            {hasWine ? (
-              <WineSelector
-                appName={appName}
-                winePrefix={winePrefix}
-                wineVersion={wineVersion}
-                wineVersionList={wineVersionList}
-                setWinePrefix={setWinePrefix}
-                setWineVersion={setWineVersion}
-                crossoverBottle={crossoverBottle}
-                setCrossoverBottle={setCrossoverBottle}
-                title={sideloadTitle}
-              />
-            ) : null}
-          </SideloadDialog>
+            platformSelection={platformSelection()}
+            wineSelector={
+              hasWine ? (
+                <WineSelector
+                  appName={appName}
+                  winePrefix={winePrefix}
+                  wineVersion={wineVersion}
+                  wineVersionList={wineVersionList}
+                  setWinePrefix={setWinePrefix}
+                  setWineVersion={setWineVersion}
+                  crossoverBottle={crossoverBottle}
+                  setCrossoverBottle={setCrossoverBottle}
+                  title={sideloadTitle}
+                  initiallyOpen
+                  noDetails
+                />
+              ) : null
+            }
+          />
         )}
       </Modal>
     </div>

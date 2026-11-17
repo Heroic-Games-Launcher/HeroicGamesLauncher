@@ -1,34 +1,105 @@
-.sideloadGrid {
-  display: grid;
-  justify-content: space-around;
-  grid-template-columns: min-content 1fr;
+@keyframes sideloadSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sideloadDialog {
   width: 800px;
   max-width: 100%;
-  min-height: 70vh;
+  height: calc(100vh - 220px);
+  min-height: 420px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
-  /* When the form column scrolls, picker swaps in without bumping the dialog. */
-  .sideloadForm {
-    min-width: 0;
-    overflow-y: auto;
-    max-height: 70vh;
+  .spinner {
+    animation: sideloadSpin 1s linear infinite;
   }
 
-  .textInputFieldWrapper.Field .selectFieldWrapper.Field {
-    margin: 0 var(--space-xs);
+  .stepContentRenderer {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding-bottom: var(--space-lg);
+    overflow: auto;
   }
 
-  .imageIcons {
-    margin-block: var(--space-lg) 0;
-    margin-inline: 0 var(--space-lg);
-    width: auto;
+  // MUI Stepper themed with our design tokens
+  .sideloadStepper {
+    margin: 0 var(--space-md) var(--space-lg);
+
+    .MuiStepLabel-label {
+      color: var(--text-secondary);
+      font-family: var(--primary-font-family);
+
+      &.Mui-active {
+        color: var(--accent);
+        font-weight: var(--semibold);
+      }
+
+      &.Mui-completed {
+        color: var(--text-default);
+      }
+    }
+
+    .MuiStepIcon-root {
+      color: var(--neutral-04);
+
+      &.Mui-active {
+        color: var(--accent);
+      }
+
+      &.Mui-completed {
+        color: var(--accent);
+      }
+
+      .MuiStepIcon-text {
+        fill: var(--text-default);
+      }
+    }
+
+    .MuiStepConnector-line {
+      border-color: var(--panel-border);
+    }
   }
+}
+
+.sideloadMetadataForm {
+  height: 100%;
+  padding: var(--space-md);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sideloadImportHint {
+  line-height: 1.5;
+}
+
+.sideloadImagesForm {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sideloadImages {
+  display: grid;
+  padding: var(--space-md);
+  gap: var(--space-lg);
+  grid-template-columns: 180px minmax(0, 400px);
+  align-items: center;
+  justify-content: center;
 
   .appImageContainer {
     position: relative;
     cursor: pointer;
-    margin-bottom: var(--space-md);
-    width: 210px;
-    border-radius: 10px;
+    color: white;
+    border-radius: var(--radius-md);
     overflow: hidden;
     border: 3px solid var(--neutral-02);
     transition: 200ms;
@@ -70,7 +141,6 @@
 
   .heroImageContainer {
     width: 100%;
-    margin-bottom: var(--space-md);
   }
 
   .imageLoadingOverlay,
@@ -87,6 +157,11 @@
     transition: 200ms;
     color: white;
     pointer-events: none;
+
+    svg {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   .imageLoadingOverlay {
@@ -96,37 +171,121 @@
   .imageHoverOverlay {
     opacity: 0;
   }
+}
 
-  .titleIcon {
-    word-break: break-word;
-    display: flex;
-    justify-content: space-between;
+.sideloadInstallation {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+
+  &--running {
+    flex-direction: column;
+    gap: var(--space-md);
   }
 
-  .advancedFields {
-    summary {
-      cursor: pointer;
-      font-family: var(--primary-font-family);
-      font-size: var(--text-md);
-      font-weight: var(--semibold);
+  &__status {
+    font-size: var(--text-lg);
+    font-weight: var(--semibold);
+    color: var(--text-default);
+  }
+}
+
+.sideloadFinish {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+
+  .protonShortcutsTitle {
+    margin: 0;
+    font-size: var(--text-md);
+    font-weight: var(--semibold);
+    color: var(--text-secondary);
+  }
+
+  .proton-shortcuts {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+
+    .shortcutTile.Button {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      padding: var(--space-md);
+      border: solid 1px var(--panel-border);
+      border-radius: var(--radius-md);
+
+      &.shortcutTile--selected {
+        border-color: var(--accent);
+      }
+
+      .Button__label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-sm);
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .shortcutImage {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .shortcutName {
+      font-size: var(--text-sm);
       color: var(--text-secondary);
-      padding: var(--space-xs) 0;
-      user-select: none;
-      transition: color 150ms ease;
-
-      &:hover {
-        color: var(--text-default);
-      }
-
-      &::marker {
-        color: var(--navbar-accent, var(--accent));
-      }
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: normal;
     }
 
-    &[open] {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
+    .shortcutSelectedIcon {
+      position: absolute;
+      top: var(--space-xs);
+      right: var(--space-xs);
+      color: var(--accent);
     }
+  }
+}
+
+.Modal__footer.sideload {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .sideloadFooterMetadata {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-secondary);
+  }
+
+  .sideloadFooterButtons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
   }
 }
