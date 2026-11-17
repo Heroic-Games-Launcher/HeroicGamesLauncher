@@ -192,13 +192,45 @@
 
   &--running {
     flex-direction: column;
+    justify-content: flex-start;
     gap: var(--space-md);
   }
 
   &__status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
     font-size: var(--text-lg);
     font-weight: var(--semibold);
     color: var(--text-default);
+
+    .spinner {
+      animation: sideloadSpin 1s linear infinite;
+    }
+  }
+
+  &__log {
+    width: 100%;
+    height: 220px;
+    display: flex;
+  }
+
+  &__logPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-md);
+    background: #1e1e1e;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
   }
 }
 

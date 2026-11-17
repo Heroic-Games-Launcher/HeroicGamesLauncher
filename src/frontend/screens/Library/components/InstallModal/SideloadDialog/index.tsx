@@ -212,7 +212,8 @@ export default function SideloadDialog({
             ...gameSettings,
             winePrefix,
             wineVersion: wineVersion || gameSettings.wineVersion
-          }
+          },
+          logToApp: { appName: app_name, runner: 'sideload' }
         })
         setRunningSetup(false)
         handleNextStepClick()
@@ -313,9 +314,12 @@ export default function SideloadDialog({
       case 'install':
         return (
           <InstallationStep
+            appName={app_name}
+            title={title}
             runningSetup={runningSetup}
             handleRunExe={handleRunExe}
             onSkip={handleNextStepClick}
+            onFinish={handleInstall}
           />
         )
       case 'finish':

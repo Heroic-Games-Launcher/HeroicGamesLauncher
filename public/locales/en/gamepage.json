@@ -84,6 +84,7 @@
         "force_update": "Force update if available",
         "force-innstall": "Force Install",
         "hide_game": "Hide Game",
+        "hide-logs": "Hide logs",
         "import": "Import Game",
         "install": "Install",
         "next": "Next",
@@ -99,6 +100,7 @@
             "title": "Run installer"
         },
         "running-setup": "Running installer...",
+        "show-logs": "Show logs",
         "sideload": {
             "edit": "Edit app/game"
         },
@@ -331,6 +333,10 @@
             "proton-shortcuts": "Detected software",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
+        },
+        "install": {
+            "installing": "Installing {{title}}…",
+            "waiting-log": "Waiting for installer output…"
         },
         "placeholder": {
             "image": "Paste an URL of an Image or select one from your computer",

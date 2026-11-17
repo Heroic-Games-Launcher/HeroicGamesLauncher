@@ -85,7 +85,8 @@ import {
   logError,
   logInfo,
   LogPrefix,
-  logWarning
+  logWarning,
+  createGameLogWriter
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { launchEventCallback, runWineCommand, validWine } from './launcher'
@@ -651,7 +652,24 @@ addListener('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-addHandler('runWineCommand', async (e, args) => runWineCommand(args))
+addHandler('runWineCommand', async (e, args) => {
+  const { logToApp, ...rest } = args
+  if (logToApp) {
+    const logWriter = await createGameLogWriter(
+      logToApp.appName,
+      logToApp.runner,
+      'install'
+    )
+    return runWineCommand({
+      ...rest,
+      options: {
+        ...rest.options,
+        logWriters: [...(rest.options?.logWriters ?? []), logWriter]
+      }
+    })
+  }
+  return runWineCommand(rest)
+})
 
 /// IPC handlers begin here.
 
