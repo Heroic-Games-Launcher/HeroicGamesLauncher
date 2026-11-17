@@ -90,7 +90,7 @@ describe('LegendaryGame shared memory retry', () => {
     ).mockImplementation(refreshInstalledMock)
   })
 
-  it('retries update with required --max-shared-memory when available RAM is sufficient', async () => {
+  it('retries update with --enable-reordering and required --max-shared-memory when 80% of available RAM is sufficient', async () => {
     runRunnerCommandMock
       .mockResolvedValueOnce({
         stdout: '',
@@ -112,6 +112,7 @@ describe('LegendaryGame shared memory retry', () => {
       expect.objectContaining({
         subcommand: 'update',
         appName,
+        '--enable-reordering': true,
         '--max-shared-memory': 3853
       }),
       expect.any(Object)
@@ -123,10 +124,10 @@ describe('LegendaryGame shared memory retry', () => {
     })
   })
 
-  it('enables reordering and caps --max-shared-memory to available RAM when required memory exceeds available RAM', async () => {
+  it('caps --max-shared-memory to 80% of available RAM when required memory exceeds safe available RAM', async () => {
     ;(getMemoryInfo as jest.Mock).mockResolvedValue({
       total: 8192 * MiB,
-      used: 5120 * MiB // 3072 MiB available
+      used: 4192 * MiB // 4000 MiB available -> 3200 MiB safe limit
     })
 
     runRunnerCommandMock
@@ -151,16 +152,16 @@ describe('LegendaryGame shared memory retry', () => {
         subcommand: 'update',
         appName,
         '--enable-reordering': true,
-        '--max-shared-memory': 3072
+        '--max-shared-memory': 3200
       }),
       expect.any(Object)
     )
   })
 
-  it('enables reordering without raising --max-shared-memory when available RAM is <= 2048 MiB', async () => {
+  it('enables reordering without raising --max-shared-memory when 80% of available RAM is <= 1024 MiB', async () => {
     ;(getMemoryInfo as jest.Mock).mockResolvedValue({
       total: 8192 * MiB,
-      used: 6692 * MiB // 1500 MiB available
+      used: 6992 * MiB // 1200 MiB available -> 960 MiB safe limit
     })
 
     runRunnerCommandMock
@@ -184,6 +185,40 @@ describe('LegendaryGame shared memory retry', () => {
     expect(secondCallCommand['--max-shared-memory']).toBeUndefined()
   })
 
+  it('retries when multiprocessing shared_memory.py fails with OSError (e.g. WinError 1450)', async () => {
+    ;(getMemoryInfo as jest.Mock).mockResolvedValue({
+      total: 16384 * MiB,
+      used: 12384 * MiB // 4000 MiB available -> 3200 MiB safe limit
+    })
+
+    runRunnerCommandMock
+      .mockResolvedValueOnce({
+        stdout: '',
+        stderr:
+          'File "legendary\\downloader\\mp\\manager.py", line 658, in run_real\nFile "multiprocessing\\shared_memory.py", line 153, in __init__\nOSError: [WinError 1450] Insufficient system resources exist to complete the requested service'
+      })
+      .mockResolvedValueOnce({
+        stdout: 'Update complete',
+        stderr: ''
+      })
+
+    const game = new LegendaryGame(appName)
+    const result = await game.update()
+
+    expect(result).toEqual({ status: 'done' })
+    expect(runRunnerCommandMock).toHaveBeenCalledTimes(2)
+    expect(runRunnerCommandMock).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        subcommand: 'update',
+        appName,
+        '--enable-reordering': true,
+        '--max-shared-memory': 3200
+      }),
+      expect.any(Object)
+    )
+  })
+
   it('returns status error if MemoryError persists after retry during update', async () => {
     const memoryErrorStderr =
       'MemoryError: Current shared memory cache is smaller than required: 2048.0 MiB < 3821.0 MiB. Try running legendary with "--enable-reordering" to reduce memory usage, or use "--max-shared-memory 3853" to increase the limit.'
@@ -201,7 +236,7 @@ describe('LegendaryGame shared memory retry', () => {
     expect(logError).toHaveBeenCalled()
   })
 
-  it('retries repair with --max-shared-memory when Legendary fails with MemoryError', async () => {
+  it('retries repair with --enable-reordering and --max-shared-memory when Legendary fails with MemoryError', async () => {
     runRunnerCommandMock
       .mockResolvedValueOnce({
         stdout: '',
@@ -223,6 +258,7 @@ describe('LegendaryGame shared memory retry', () => {
       expect.objectContaining({
         subcommand: 'repair',
         appName,
+        '--enable-reordering': true,
         '--max-shared-memory': 3853
       }),
       expect.any(Object)

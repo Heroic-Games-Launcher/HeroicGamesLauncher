@@ -486,6 +486,12 @@ export default class LegendaryGame implements Game {
     }
   }
 
+  private hasSharedMemoryError(output: string): boolean {
+    return (
+      output.includes('MemoryError:') || output.includes('shared_memory.py')
+    )
+  }
+
   private async applySharedMemoryFallback(
     command: {
       '--max-shared-memory'?: PositiveInteger
@@ -496,16 +502,19 @@ export default class LegendaryGame implements Game {
     const match = output.match(/--max-shared-memory (\d+)/)
     const requiredMiB = match ? Number(match[1]) : 5000
 
+    command['--enable-reordering'] = true
+
     const { total, used } = await getMemoryInfo()
     const availableMiB =
       total > used ? Math.floor((total - used) / (1024 * 1024)) : 0
+    const safeAvailableMiB = Math.floor(availableMiB * 0.8)
 
-    if (total === 0 || availableMiB >= requiredMiB) {
+    if (total === 0) {
       command['--max-shared-memory'] = PositiveInteger.parse(requiredMiB)
     } else {
-      command['--enable-reordering'] = true
-      if (availableMiB > 2048) {
-        command['--max-shared-memory'] = PositiveInteger.parse(availableMiB)
+      const targetMiB = Math.min(requiredMiB, safeAvailableMiB)
+      if (targetMiB > 1024) {
+        command['--max-shared-memory'] = PositiveInteger.parse(targetMiB)
       }
     }
   }
@@ -557,7 +566,7 @@ export default class LegendaryGame implements Game {
     })
 
     // try to run the update again with higher memory limit
-    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+    if (this.hasSharedMemoryError(`${res.stdout}\n${res.stderr}`)) {
       await this.applySharedMemoryFallback(
         command,
         `${res.stdout}\n${res.stderr}`
@@ -580,7 +589,7 @@ export default class LegendaryGame implements Game {
       return { status: 'abort' }
     }
 
-    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+    if (this.hasSharedMemoryError(`${res.stdout}\n${res.stderr}`)) {
       res.error ||= 'MemoryError: Failed to allocate shared memory for update'
     }
 
@@ -677,7 +686,7 @@ export default class LegendaryGame implements Game {
     })
 
     // try to run the install again with higher memory limit
-    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+    if (this.hasSharedMemoryError(`${res.stdout}\n${res.stderr}`)) {
       await this.applySharedMemoryFallback(
         command,
         `${res.stdout}\n${res.stderr}`
@@ -694,7 +703,7 @@ export default class LegendaryGame implements Game {
       return { status: 'abort' }
     }
 
-    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+    if (this.hasSharedMemoryError(`${res.stdout}\n${res.stderr}`)) {
       res.error ||= 'MemoryError: Failed to allocate shared memory for install'
     }
 
@@ -853,7 +862,7 @@ export default class LegendaryGame implements Game {
     })
 
     // try to run the repair again with higher memory limit
-    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+    if (this.hasSharedMemoryError(`${res.stdout}\n${res.stderr}`)) {
       await this.applySharedMemoryFallback(
         command,
         `${res.stdout}\n${res.stderr}`
@@ -865,7 +874,7 @@ export default class LegendaryGame implements Game {
       })
     }
 
-    if (`${res.stdout}\n${res.stderr}`.includes('MemoryError:')) {
+    if (this.hasSharedMemoryError(`${res.stdout}\n${res.stderr}`)) {
       res.error ||= 'MemoryError: Failed to allocate shared memory for repair'
     }
 
