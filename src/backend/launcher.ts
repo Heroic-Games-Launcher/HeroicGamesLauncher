@@ -1255,8 +1255,20 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = process.env.SteamGameId || `heroic-${gameId}`
     ret.PROTON_LOG_DIR = flatpakHome
+    if (gameSettings.umuGameId?.trim()) {
+      ret.GAMEID = gameSettings.umuGameId.trim()
+    }
+    if (gameSettings.disableProtonFixes) {
+      ret.PROTONFIXES_DISABLE = '1'
+    }
     // add back default wine/dxvk debug logging
     if (gameSettings?.verboseLogs) {
+      if (
+        !gameSettings?.enviromentOptions.find((env) => env.key === 'PROTON_LOG')
+      )
+        ret.PROTON_LOG = '1'
+      if (!gameSettings?.enviromentOptions.find((env) => env.key === 'UMU_LOG'))
+        ret.UMU_LOG = '1'
       if (
         !gameSettings?.enviromentOptions.find((env) => env.key === 'WINEDEBUG')
       )

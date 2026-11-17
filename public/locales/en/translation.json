@@ -640,6 +640,8 @@
         "hdrMode": "Auto lets the game and compositor negotiate HDR. Force is useful on compositors that do not report HDR headroom (for example KDE Plasma or Hyprland). Off disables HDR for games with washed-out or broken output.",
         "nvapiMode": "Proton enables NVAPI by default. Turn it off if a game crashes or freezes on a non-NVIDIA GPU, or force it for games that do not enable DLSS automatically.",
         "disableNTSync": "NTSync is enabled automatically on kernels 6.14 and newer. Disabling it is only useful for troubleshooting regressions in specific games.",
+        "disableProtonFixes": "Use this when a Proton fix breaks the game. It only affects fixes applied by umu, not Proton itself.",
+        "umuGameId": "UMU uses GAMEID to apply Proton fixes and store metadata. Set this only when the game is missing from the UMU database or the wrong fixes are applied.",
         "fsr4Upgrade": "Requires GE-Proton, Proton-CachyOS or umu-protonfixes. Valve Proton may already ship the updated DLL.",
         "dlssUpgrade": "Requires GE-Proton or Proton-CachyOS and an NVIDIA RTX GPU. Valve Proton ignores these variables.",
         "game_language": {
@@ -1077,7 +1079,8 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
-        "prefered_language": "2-char or 4-char code (i.e.: \"fr\" or \"pt-BR\")"
+        "prefered_language": "2-char or 4-char code (i.e.: \"fr\" or \"pt-BR\")",
+        "umuGameId": "Leave blank to use the value from the UMU database"
     },
     "platforms": {
         "browser": "browser",
@@ -1172,6 +1175,8 @@
         "disableUMU-description": "Launch Proton directly instead of going through the umu launcher",
         "disableNTSync": "Disable NTSync (troubleshooting)",
         "disableNTSync-description": "Fall back to fsync/wineserver when a game hangs or stutters with NTSync",
+        "disableProtonFixes": "Disable UMU game fixes",
+        "disableProtonFixes-description": "Skip umu-protonfixes for this game",
         "dlssUpgrade": "Upgrade DLSS / Streamline",
         "dlssUpgrade-description": "Use newer DLSS and Streamline DLLs, including multi-frame generation",
         "discordRPC": "Enable Discord rich presence",
@@ -1417,9 +1422,10 @@
             "running": "Running...",
             "selectExe": "Select EXE"
         },
+        "umuGameId": "UMU GAMEID override",
         "verboseLogs": {
             "description": "Enable verbose logs",
-            "hint": "Record a detailed log on every launch, useful for reporting problems"
+            "hint": "Record a detailed log on every launch, including PROTON_LOG and UMU_LOG, useful for reporting problems"
         },
         "winecfg": {
             "description": "Open the Wine configuration panel for this prefix"
@@ -1568,6 +1574,7 @@
             "runtimes": "Runtimes",
             "steam": "Steam",
             "system": "System",
+            "umu": "UMU (Proton)",
             "winePerformance": "Performance",
             "wineTools": "Tools",
             "wineVersion": "Wine"

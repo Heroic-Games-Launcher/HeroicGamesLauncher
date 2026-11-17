@@ -22,6 +22,7 @@ import {
   DisableNTSync,
   ProtonNvapi,
   ProtonUpscaling,
+  UmuOptions,
   LauncherArgs,
   LaunchOptionSelector,
   Mangohud,
@@ -314,6 +315,14 @@ export default function GamesSettings({ initialTab }: Props = {}) {
           <WrappersTable />
           <EnvVariablesTable />
         </SettingsCard>
+        {isLinux && wineVersion?.type === 'proton' && !isNative && (
+          <SettingsCard
+            glyph={FlaskConical}
+            title={t('settings.section.umu', 'UMU (Proton)')}
+          >
+            <UmuOptions />
+          </SettingsCard>
+        )}
         {!isSideloaded && (
           <SettingsCard
             glyph={Globe}
