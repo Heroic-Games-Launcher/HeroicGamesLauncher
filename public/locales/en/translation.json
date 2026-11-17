@@ -630,20 +630,17 @@
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
+        "disableNTSync": "NTSync is enabled automatically on kernels 6.14 and newer. Disabling it is only useful for troubleshooting regressions in specific games.",
         "disablePlaytimeSync": "Disables playtime synchronization with given store's servers (currently only GOG is supported)",
+        "disableProtonFixes": "Use this when a Proton fix breaks the game. It only affects fixes applied by umu, not Proton itself.",
+        "dlssUpgrade": "Requires GE-Proton or Proton-CachyOS and an NVIDIA RTX GPU. Valve Proton ignores these variables.",
         "download_proton_steam": "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'default Steam path' setting above.",
         "dxfpslimit": "Sets a frame rate cap for DirectX games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
         "esync": "Esync is only relevant for Proton 10 and older patched Wine builds. It was removed from Proton 11 and is ignored by upstream Wine.",
-        "fsync": "Fsync is only used as a fallback when NTSync is unavailable, for example on kernels older than 6.14 or when /dev/ntsync is not available.",
-        "hdrMode": "Auto lets the game and compositor negotiate HDR. Force is useful on compositors that do not report HDR headroom (for example KDE Plasma or Hyprland). Off disables HDR for games with washed-out or broken output.",
-        "nvapiMode": "Proton enables NVAPI by default. Turn it off if a game crashes or freezes on a non-NVIDIA GPU, or force it for games that do not enable DLSS automatically.",
-        "disableNTSync": "NTSync is enabled automatically on kernels 6.14 and newer. Disabling it is only useful for troubleshooting regressions in specific games.",
-        "disableProtonFixes": "Use this when a Proton fix breaks the game. It only affects fixes applied by umu, not Proton itself.",
-        "umuGameId": "UMU uses GAMEID to apply Proton fixes and store metadata. Set this only when the game is missing from the UMU database or the wrong fixes are applied.",
         "fsr4Upgrade": "Requires GE-Proton, Proton-CachyOS or umu-protonfixes. Valve Proton may already ship the updated DLL.",
-        "dlssUpgrade": "Requires GE-Proton or Proton-CachyOS and an NVIDIA RTX GPU. Valve Proton ignores these variables.",
+        "fsync": "Fsync is only used as a fallback when NTSync is unavailable, for example on kernels older than 6.14 or when /dev/ntsync is not available.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
@@ -651,8 +648,8 @@
         },
         "gamemode": "GameMode applies temporary system tweaks while the game runs. Most of its CPU-governor work is obsolete on modern kernels, and with umu it often cannot register the game process.",
         "gamescope": {
-            "additionalOptions": "Additional commandline flags to pass into gamescope.",
             "adaptiveSync": "Enable variable refresh rate for the game window when supported by the display.",
+            "additionalOptions": "Additional commandline flags to pass into gamescope.",
             "forceGrabCursor": "Always use relative mouse mode instead of flipping dependent on cursor visibility. (useful for when applications keep losing focus)",
             "fpsLimiter": "The amount of frames gamescope should limit to. E.g. 60",
             "fpsLimiterNoFocus": "The frame rate limit gamescope should limit per second if the game is not focused.",
@@ -665,9 +662,11 @@
             "windowType": "How gamescope displays the game window."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
+        "hdrMode": "Auto lets the game and compositor negotiate HDR. Force is useful on compositors that do not report HDR headroom (for example KDE Plasma or Hyprland). Off disables HDR for games with washed-out or broken output.",
         "hide-window-on-protocol-launch": "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'add to Steam' feature.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported linux kernels.",
+        "nvapiMode": "Proton enables NVAPI by default. Turn it off if a game crashes or freezes on a non-NVIDIA GPU, or force it for games that do not enable DLSS automatically.",
         "nvidiaprime": {
             "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
             "link": "Check more details in our wiki"
@@ -697,12 +696,12 @@
             "settings": "Settings",
             "wineManager": "Wine manager"
         },
+        "umuGameId": "UMU uses GAMEID to apply Proton fixes and store metadata. Set this only when the game is missing from the UMU database or the wrong fixes are applied.",
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.",
         "wine": {
             "part1": "Heroic searches for versions of Wine, Proton, and CrossOver in the following folders:",
             "part2": "For other places, use a symbolic link to one of these folders"
         },
-        "wine-hdr": "HDR enhances colors by providing brighter highlights and deeper contrasts. For HDR to work, both the display and the game must support it.",
         "wine-wayland": "The Wine-Wayland driver allows games to run natively under the Wayland display protocol. It is still experimental and may break some games. On GE-Proton and Proton-CachyOS this uses PROTON_ENABLE_WAYLAND; Valve Proton may ignore it.",
         "WoW64": "The new WoW64 mode runs 32-bit Windows games on a 64-bit Wine prefix without 32-bit host libraries. It is fully supported in Wine 11, but still opt-in in Proton."
     },
@@ -1175,17 +1174,17 @@
         "disableDiscounts": "Disable deals page",
         "disableGOGAffiliate": "Disable GOG affiliate link",
         "disableGOGAffiliateDescription": "Buying GOG games through Heroic helps support the project.",
-        "disablePlaytimeSync": "Disable playtime synchronization",
-        "disableUMU": "Disable umu",
-        "disableUMU-description": "Launch Proton directly instead of going through the umu launcher",
         "disableNTSync": "Disable NTSync (troubleshooting)",
         "disableNTSync-description": "Fall back to fsync/wineserver when a game hangs or stutters with NTSync",
+        "disablePlaytimeSync": "Disable playtime synchronization",
         "disableProtonFixes": "Disable UMU game fixes",
         "disableProtonFixes-description": "Skip umu-protonfixes for this game",
-        "dlssUpgrade": "Upgrade DLSS / Streamline",
-        "dlssUpgrade-description": "Use newer DLSS and Streamline DLLs, including multi-frame generation",
+        "disableUMU": "Disable umu",
+        "disableUMU-description": "Launch Proton directly instead of going through the umu launcher",
         "discordRPC": "Enable Discord rich presence",
         "discordRPC-description": "Show the game you are playing on your Discord profile",
+        "dlssUpgrade": "Upgrade DLSS / Streamline",
+        "dlssUpgrade-description": "Use newer DLSS and Streamline DLLs, including multi-frame generation",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "download-no-https-description": "Skip HTTPS when fetching game files, useful with a local CDN cache",
         "download-proton-steam": "Download GE-Proton to Steam directory",
@@ -1241,9 +1240,9 @@
         "framelessWindow": {
             "description": "Hide the native title bar and use Heroic’s own window controls"
         },
-        "FsrSharpnessStrenght": "FSR sharpness strength",
         "fsr4Upgrade": "Upgrade FSR 3.1 to FSR 4",
         "fsr4Upgrade-description": "Replace the game FSR 3.1 DLL with FSR 4 when supported",
+        "FsrSharpnessStrenght": "FSR sharpness strength",
         "fsync": "Fsync fallback",
         "fsync-description": "Use fsync only when NTSync is unavailable",
         "gamemode": "GameMode (legacy tweaks)",
@@ -1259,8 +1258,6 @@
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
             "warningFlatpak": "We could not find a compatible version of gamescope. Install gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
-        "hdr": "Enable HDR",
-        "hdr-description": "Enable HDR output for this game",
         "hdrMode": {
             "auto": "Auto (recommended)",
             "force": "Force",
@@ -1351,14 +1348,14 @@
         "msync": "Enable Msync",
         "msync-description": "Speed up multi-threaded games using macOS synchronisation primitives",
         "no-tray-icon": "Hide system tray icon (requires restart)",
-        "nvidiaprime": {
-            "description": "PRIME render offload (NVIDIA Optimus / AMD switchable graphics)"
-        },
         "nvapiMode": {
             "auto": "Auto (recommended)",
             "force": "Force",
             "label": "NVAPI / DLSS",
             "off": "Off"
+        },
+        "nvidiaprime": {
+            "description": "PRIME render offload (NVIDIA Optimus / AMD switchable graphics)"
         },
         "nvidiaPrime": {
             "description": "Run the game on the dedicated NVIDIA GPU instead of the integrated one"
@@ -1395,7 +1392,6 @@
             "label": "Allow using Valve Proton builds to run games",
             "wine_selector_warning": "Valve versions of Proton are ignored by default, enable them in the advanced global settings"
         },
-        "showfps": "Show FPS (DX9, 10 and 11)",
         "showfps-description": "Draw a frame rate counter on top of the game",
         "showMetalOverlay": "Show stats overlay",
         "start-in-console-mode": "Start in console mode",
@@ -1560,8 +1556,8 @@
         },
         "section": {
             "amazon": "Amazon Games",
-            "appearance": "Appearance",
             "anticheat": "Anti-cheat runtimes",
+            "appearance": "Appearance",
             "behaviour": "Behaviour",
             "controller": "Controller",
             "downloads": "Downloads",
