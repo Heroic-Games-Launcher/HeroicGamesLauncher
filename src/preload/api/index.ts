@@ -6,6 +6,7 @@ import * as Settings from './settings'
 import * as Wine from './wine'
 import * as DownloadManager from './downloadmanager'
 import * as Zoom from './zoom'
+import * as ImportExport from './importExport'
 import * as Steam from './steam'
 
 export default {
@@ -17,5 +18,6 @@ export default {
   ...Wine,
   ...DownloadManager,
   ...Zoom,
+  ...ImportExport,
   ...Steam
 }
