@@ -36,13 +36,11 @@ function getWindowsSteamPid(): number | null {
 }
 
 function isSteamProcessRunning(): boolean {
-  // 'steam' is the client process name on Linux, 'Steam' on macOS
-  const processNames = isMac
-    ? ['Steam', 'steamwebhelper']
-    : ['steam', 'steamwebhelper']
-  return processNames.some(
-    (name) =>
-      spawnSync('pgrep', ['-x', name], { encoding: 'utf-8' }).status === 0
+  // 'steam' is the client process name on Linux, 'Steam' on macOS.
+  // steamwebhelper is not checked: it can outlive the client briefly.
+  const processName = isMac ? 'Steam' : 'steam'
+  return (
+    spawnSync('pgrep', ['-x', processName], { encoding: 'utf-8' }).status === 0
   )
 }
 
