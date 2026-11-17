@@ -11,9 +11,9 @@ import {
 import { dirname, join } from 'path'
 import { tmpdir } from 'os'
 import { Readable } from 'stream'
-import { finished } from 'stream/promises'
+import { finished, pipeline } from 'stream/promises'
 
-import extractZip from 'extract-zip'
+import { openPromise as openZip } from 'yauzl'
 
 import { setGlobalDispatcher, ProxyAgent } from 'undici'
 
@@ -48,6 +48,23 @@ const pathExists = async (path: string): Promise<boolean> =>
     () => true,
     () => false
   )
+
+/**
+ * Extracts a zip archive into `destDir`. yauzl validates every entry name
+ * (rejecting `..` segments, absolute paths and backslashes), so entries can
+ * only write inside `destDir`.
+ */
+async function extractZip(zipPath: string, destDir: string) {
+  const zipfile = await openZip(zipPath, { strictFileNames: true })
+  for await (const entry of zipfile.eachEntry()) {
+    // Directory entries end with '/'; parents are created per file below.
+    if (entry.fileName.endsWith('/')) continue
+    const target = join(destDir, entry.fileName)
+    await mkdir(dirname(target), { recursive: true })
+    const readStream = await zipfile.openReadStreamPromise(entry)
+    await pipeline(readStream, createWriteStream(target))
+  }
+}
 
 async function downloadFile(url: string, dst: string) {
   const response = await fetch(url, {
@@ -240,10 +257,10 @@ async function downloadButlerForChannel(
 
   const destDir = join('public', 'bin', arch, platform)
   await mkdir(destDir, { recursive: true })
-  // extract-zip writes into an existing directory; siblings from a previous
+  // Extraction writes into an existing directory; siblings from a previous
   // download stay put, which is fine since the same set of files just gets
   // overwritten.
-  await extractZip(tmpZip, { dir: join(process.cwd(), destDir) })
+  await extractZip(tmpZip, join(process.cwd(), destDir))
   await rm(tmpZip, { force: true })
 
   if (platform !== 'win32') {
