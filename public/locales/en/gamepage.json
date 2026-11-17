@@ -309,6 +309,11 @@
         "field": {
             "title": "Title"
         },
+        "images": {
+            "heading": "Choose game cover art",
+            "preview": "Preview",
+            "subheading": "Pick a square cover and a hero banner, or search SteamGridDB"
+        },
         "import-hint": {
             "content": "Do NOT use this feature for that.<br />Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
             "title": "Important! Are you adding a game from Epic/GOG/Amazon?"

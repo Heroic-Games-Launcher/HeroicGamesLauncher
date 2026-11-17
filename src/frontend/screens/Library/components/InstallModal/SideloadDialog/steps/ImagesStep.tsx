@@ -5,7 +5,8 @@ import {
   CachedImage,
   SteamGridDBPicker,
   Alert,
-  Icon
+  Icon,
+  SectionHeader
 } from 'frontend/components/UI'
 import { Folder, LoaderCircle, Search } from 'lucide-react'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
@@ -116,7 +117,15 @@ export default function ImagesStep({
   }
 
   return (
-    <>
+    <div className="sideloadImagesStep">
+      <SectionHeader
+        className="sideloadImagesHeader"
+        title={t('sideload.images.heading', 'Choose game cover art')}
+        subtitle={t(
+          'sideload.images.subheading',
+          'Pick a square cover and a hero banner, or search SteamGridDB'
+        )}
+      />
       {!hasSgdbKey && (
         <Alert variant="warning">
           {t(
@@ -134,51 +143,6 @@ export default function ImagesStep({
           .
         </Alert>
       )}
-      <div className="sideloadImages">
-        <div
-          className={classNames('appImageContainer', {
-            hasSgdbKey,
-            searching,
-            loading: imageLoading
-          })}
-          onClick={() => hasSgdbKey && setSgdbTarget('square')}
-        >
-          <CachedImage
-            className={classNames('appImage', {
-              blackWhiteImage: searching
-            })}
-            src={imageUrl ? imageUrl : fallbackImage}
-            onLoad={() => setImageLoading(false)}
-            onError={() => setImageLoading(false)}
-          />
-          {(searching || imageLoading) && (
-            <div className="imageLoadingOverlay">
-              <Icon glyph={LoaderCircle} size="xl" className="spinner" />
-            </div>
-          )}
-          {hasSgdbKey && !searching && !imageLoading && (
-            <div className="imageHoverOverlay">
-              <Icon glyph={Search} size="xl" />
-            </div>
-          )}
-        </div>
-        <div
-          className={classNames('appImageContainer heroImageContainer', {
-            hasSgdbKey
-          })}
-          onClick={() => hasSgdbKey && setSgdbTarget('cover')}
-        >
-          <CachedImage
-            className="appImage heroImage"
-            src={heroUrl || imageUrl || fallbackImage}
-          />
-          {hasSgdbKey && (
-            <div className="imageHoverOverlay">
-              <Icon glyph={Search} size="xl" />
-            </div>
-          )}
-        </div>
-      </div>
       <div className="sideloadImagesForm">
         <TextInputWithIconField
           label={t(
@@ -211,6 +175,56 @@ export default function ImagesStep({
           onIconClick={() => handleSelectLocalImage('cover')}
         />
       </div>
-    </>
+      <div className="sideloadImagesPreview">
+        <span className="sideloadImagesPreview__caption">
+          {t('sideload.images.preview', 'Preview')}
+        </span>
+        <div className="sideloadImages">
+          <div
+            className={classNames('appImageContainer', {
+              hasSgdbKey,
+              searching,
+              loading: imageLoading
+            })}
+            onClick={() => hasSgdbKey && setSgdbTarget('square')}
+          >
+            <CachedImage
+              className={classNames('appImage', {
+                blackWhiteImage: searching
+              })}
+              src={imageUrl ? imageUrl : fallbackImage}
+              onLoad={() => setImageLoading(false)}
+              onError={() => setImageLoading(false)}
+            />
+            {(searching || imageLoading) && (
+              <div className="imageLoadingOverlay">
+                <Icon glyph={LoaderCircle} size="xl" className="spinner" />
+              </div>
+            )}
+            {hasSgdbKey && !searching && !imageLoading && (
+              <div className="imageHoverOverlay">
+                <Icon glyph={Search} size="xl" />
+              </div>
+            )}
+          </div>
+          <div
+            className={classNames('appImageContainer heroImageContainer', {
+              hasSgdbKey
+            })}
+            onClick={() => hasSgdbKey && setSgdbTarget('cover')}
+          >
+            <CachedImage
+              className="appImage heroImage"
+              src={heroUrl || imageUrl || fallbackImage}
+            />
+            {hasSgdbKey && (
+              <div className="imageHoverOverlay">
+                <Icon glyph={Search} size="xl" />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

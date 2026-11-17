@@ -36,6 +36,12 @@
     margin: var(--space-lg) 0 var(--space-lg);
     padding-inline: var(--modal-padding-inline);
   }
+
+  // Tighten the label-to-input gap for the modal's text fields. The install
+  // modal globally bumps this to --space-md; revert to the field default here.
+  .textInputFieldWrapper.Field label {
+    margin-bottom: var(--space-xs-fixed);
+  }
 }
 
 .sideloadMetadataForm,
@@ -50,16 +56,38 @@
   line-height: 1.5;
 }
 
-.sideloadImagesForm {
+.sideloadImagesStep {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
   padding: var(--space-md);
+}
+
+.sideloadImagesForm {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
 
+.sideloadImagesPreview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border: 2px dashed var(--panel-border);
+  border-radius: var(--radius-md);
+}
+
+.sideloadImagesPreview__caption {
+  font-size: var(--text-sm);
+  font-weight: var(--medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
 .sideloadImages {
   display: grid;
-  padding: var(--space-md);
   gap: var(--space-lg);
   grid-template-columns: 180px minmax(0, 400px);
   align-items: center;
