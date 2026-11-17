@@ -20,6 +20,10 @@ import {
   EnableWoW64,
   EnvVariablesTable,
   GameMode,
+  HdrMode,
+  DisableNTSync,
+  ProtonNvapi,
+  ProtonUpscaling,
   LauncherArgs,
   LaunchOptionSelector,
   Mangohud,
@@ -227,17 +231,19 @@ export default function GamesSettings({ initialTab }: Props = {}) {
                 <>
                   {!window.isSteamDeck && <AutoDXVKNVAPI />}
                   <AutoVKD3D />
+                  <ProtonNvapi />
+                  <ProtonUpscaling />
                 </>
               )}
-              <EnableFSR />
+              <HdrMode />
               {isMac && <EnableDXVKFpsLimit />}
             </SettingsCard>
             <SettingsCard
               glyph={SlidersHorizontal}
               title={t('settings.section.winePerformance', 'Performance')}
             >
-              <EnableEsync />
               <EnableFsync />
+              <DisableNTSync />
               <EnableWineWayland />
               <EnableWoW64 />
               <EnableMsync />
@@ -347,6 +353,8 @@ export default function GamesSettings({ initialTab }: Props = {}) {
               'Warning: The settings on this tab are mostly deprecated and might not work at all.'
             )}
           </Alert>
+          <EnableEsync />
+          <EnableFSR />
           <EnableDXVKFpsLimit />
           <DisableUMU />
         </TabPanel>

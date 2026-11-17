@@ -805,16 +805,22 @@ function getDxvkUrl(): string {
     return ''
   }
 
-  if (any_gpu_supports_version([1, 3, 0])) {
+  if (any_gpu_supports_version([1, 4, 0])) {
     const instance_version = get_vulkan_instance_version()
-    if (instance_version && semverLt(instance_version.join('.'), '1.3.0')) {
-      // FIXME: How does the instance version matter? Even with 1.2, newer DXVK seems to work fine
+    if (instance_version && semverLt(instance_version.join('.'), '1.4.0')) {
       logWarning(
-        'Vulkan 1.3 is supported by GPUs in this system, but instance version is outdated',
+        'Vulkan 1.4 is supported by GPUs in this system, but instance version is outdated',
         LogPrefix.ToolInstaller
       )
     }
     return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
+  }
+  if (any_gpu_supports_version([1, 3, 0])) {
+    logInfo(
+      'The GPU(s) in this system support Vulkan 1.3, falling back to DXVK 2.7.1 for Wine',
+      LogPrefix.ToolInstaller
+    )
+    return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v2.7.1'
   }
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(

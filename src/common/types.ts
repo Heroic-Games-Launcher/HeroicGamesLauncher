@@ -258,6 +258,9 @@ export interface GameInfo {
   }
 }
 
+export type HDRMode = 'auto' | 'force' | 'off'
+export type NVAPIMode = 'auto' | 'off' | 'force'
+
 export interface GameSettings {
   autoInstallDxvk: boolean
   autoInstallVkd3d: boolean
@@ -272,7 +275,15 @@ export interface GameSettings {
   enableMsync: boolean
   enableFsync: boolean
   enableWineWayland: boolean
+  /** @deprecated use hdrMode */
   enableHDR: boolean
+  hdrMode?: HDRMode
+  nvapiMode?: NVAPIMode
+  disableNTSync?: boolean
+  fsr4Upgrade?: boolean
+  dlssUpgrade?: boolean
+  umuGameId?: string
+  disableProtonFixes?: boolean
   enableWoW64: boolean
   gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
@@ -859,6 +870,8 @@ interface GameScopeSettings {
   enableUpscaling: boolean
   enableLimiter: boolean
   enableForceGrabCursor: boolean
+  enableHDR: boolean
+  enableAdaptiveSync: boolean
   windowType: string
   gameWidth: string
   gameHeight: string

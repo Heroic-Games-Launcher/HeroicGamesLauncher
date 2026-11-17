@@ -311,6 +311,20 @@ class GlobalConfigV0 extends GlobalConfig {
     if (!defaultSettings.defaultWinePrefixDir)
       defaultSettings.defaultWinePrefixDir = defaultSettings.defaultWinePrefix
 
+    // migrate legacy booleans to their replacements
+    if (
+      defaultSettings.enableHDR === true &&
+      defaultSettings.hdrMode === undefined
+    ) {
+      defaultSettings.hdrMode = 'force'
+    }
+    if (
+      defaultSettings.nvapiMode === undefined &&
+      defaultSettings.autoInstallDxvkNvapi === false
+    ) {
+      defaultSettings.nvapiMode = 'off'
+    }
+
     // fix relative paths
     const winePrefix = !isWindows
       ? defaultSettings?.winePrefix?.replace('~', userHome)
@@ -358,20 +372,27 @@ class GlobalConfigV0 extends GlobalConfig {
       enviromentOptions: [],
       wrapperOptions: [],
       showFps: false,
-      useGameMode: isFlatpak,
+      useGameMode: false,
       wineCrossoverBottle: 'Heroic',
       winePrefix: isWindows ? '' : sharedWinePrefix,
       wineVersion: defaultWine,
-      enableEsync: true,
+      enableEsync: false,
       enableFsync: isLinux,
       enableMsync: isMac,
       enableWineWayland: false,
       enableHDR: false,
+      hdrMode: 'auto',
+      nvapiMode: 'auto',
+      disableNTSync: false,
+      fsr4Upgrade: false,
+      dlssUpgrade: false,
+      umuGameId: '',
+      disableProtonFixes: false,
       enableWoW64: false,
-      eacRuntime: isLinux,
+      eacRuntime: false,
       gamepadRepeatDelay: 50,
       gamepadInitialRepeatDelay: 300,
-      battlEyeRuntime: isLinux,
+      battlEyeRuntime: false,
       framelessWindow: false,
       hideWindowOnProtocolLaunch: false,
       beforeLaunchScriptPath: '',

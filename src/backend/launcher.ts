@@ -1190,17 +1190,28 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (isLinux && !gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
+  if (isLinux && gameSettings.disableNTSync && wineVersion.type === 'proton') {
+    ret.PROTON_NO_NTSYNC = '1'
+    // Proton-CachyOS uses the opposite spelling; unknown variables are ignored.
+    ret.PROTON_USE_NTSYNC = '0'
+  }
   if (isLinux && gameSettings.enableWineWayland) {
     if (wineVersion.type === 'proton') {
       ret.PROTON_ENABLE_WAYLAND = '1'
-      if (gameSettings.enableHDR) {
-        ret.PROTON_ENABLE_HDR = '1'
-      }
     } else {
       ret.DISPLAY = ''
-      if (gameSettings.enableHDR) {
-        ret.DXVK_HDR = '1'
+    }
+  }
+  if (isLinux) {
+    const hdrMode =
+      gameSettings.hdrMode ?? (gameSettings.enableHDR ? 'force' : 'auto')
+    if (hdrMode === 'off') {
+      ret.DXVK_NO_HDR = '1'
+    } else if (hdrMode === 'force') {
+      if (wineVersion.type === 'proton') {
+        ret.PROTON_FORCE_HDR = '1'
       }
+      ret.DXVK_HDR = '1'
     }
   }
   if (isLinux && gameSettings.enableWoW64) {
@@ -1211,13 +1222,20 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
   }
   if (wineVersion.type === 'proton') {
-    if (gameSettings.autoInstallDxvkNvapi) {
-      ret.PROTON_ENABLE_NVAPI = '1'
-      ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
-    }
-    // proton 9 enabled NVAPI by default
-    else {
+    const nvapiMode =
+      gameSettings.nvapiMode ??
+      (gameSettings.autoInstallDxvkNvapi === false ? 'off' : 'auto')
+    if (nvapiMode === 'off') {
       ret.PROTON_DISABLE_NVAPI = '1'
+    } else if (nvapiMode === 'force') {
+      ret.PROTON_FORCE_NVAPI = '1'
+    }
+    if (gameSettings.fsr4Upgrade) {
+      ret.PROTON_FSR4_UPGRADE = '1'
+    }
+    if (gameSettings.dlssUpgrade) {
+      ret.PROTON_DLSS_UPGRADE = '1'
+      ret.PROTON_STREAMLINE_UPGRADE = '1'
     }
   }
   if (

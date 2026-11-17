@@ -610,7 +610,7 @@
     },
     "help": {
         "advertiseAvxForRosetta": "Enables AVX instruction set support when running windows games through Rosetta on Apple Silicon macs. This may be required for some games like Death Stranding that need AVX support.",
-        "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in fullscreen mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "amdfsr": "AMD's FSR 1.0 fullscreen hack only works with GE-Proton/TKG under X11. It is not available in Valve Proton or upstream Wine and is incompatible with Wine-Wayland.",
         "analytics": "Enables Heroic to collect 100% anonymous usage data to help improve the application. Needs restart to take effect.",
         "button": {
             "close": "Close help",
@@ -635,8 +635,13 @@
         "dxfpslimit": "Sets a frame rate cap for DirectX games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
-        "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
-        "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported linux kernels.",
+        "esync": "Esync is only relevant for Proton 10 and older patched Wine builds. It was removed from Proton 11 and is ignored by upstream Wine.",
+        "fsync": "Fsync is only used as a fallback when NTSync is unavailable, for example on kernels older than 6.14 or when /dev/ntsync is not available.",
+        "hdrMode": "Auto lets the game and compositor negotiate HDR. Force is useful on compositors that do not report HDR headroom (for example KDE Plasma or Hyprland). Off disables HDR for games with washed-out or broken output.",
+        "nvapiMode": "Proton enables NVAPI by default. Turn it off if a game crashes or freezes on a non-NVIDIA GPU, or force it for games that do not enable DLSS automatically.",
+        "disableNTSync": "NTSync is enabled automatically on kernels 6.14 and newer. Disabling it is only useful for troubleshooting regressions in specific games.",
+        "fsr4Upgrade": "Requires GE-Proton, Proton-CachyOS or umu-protonfixes. Valve Proton may already ship the updated DLL.",
+        "dlssUpgrade": "Requires GE-Proton or Proton-CachyOS and an NVIDIA RTX GPU. Valve Proton ignores these variables.",
         "game_language": {
             "fallback": "Leave blank to use Heroic's language.",
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
@@ -693,8 +698,8 @@
             "part2": "For other places, use a symbolic link to one of these folders"
         },
         "wine-hdr": "HDR enhances colors by providing brighter highlights and deeper contrasts. For HDR to work, both the display and the game must support it.",
-        "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games.",
-        "WoW64": "The Wine WoW64 mode allows 32-bit windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games."
+        "wine-wayland": "The Wine-Wayland driver allows games to run natively under the Wayland display protocol. It is still experimental and may break some games. On GE-Proton and Proton-CachyOS this uses PROTON_ENABLE_WAYLAND; Valve Proton may ignore it.",
+        "WoW64": "The new WoW64 mode runs 32-bit Windows games on a 64-bit Wine prefix without 32-bit host libraries. It is fully supported in Wine 11, but still opt-in in Proton."
     },
     "import-export": {
         "action": {
@@ -1165,6 +1170,10 @@
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
         "disableUMU-description": "Launch Proton directly instead of going through the umu launcher",
+        "disableNTSync": "Disable NTSync (troubleshooting)",
+        "disableNTSync-description": "Fall back to fsync/wineserver when a game hangs or stutters with NTSync",
+        "dlssUpgrade": "Upgrade DLSS / Streamline",
+        "dlssUpgrade-description": "Use newer DLSS and Streamline DLLs, including multi-frame generation",
         "discordRPC": "Enable Discord rich presence",
         "discordRPC-description": "Show the game you are playing on your Discord profile",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
@@ -1174,8 +1183,8 @@
         "dxfpslimit-description": "Cap the frame rate of DirectX games to reduce heat and power draw",
         "egs-sync": "Sync with installed Epic Games",
         "enable-quick-sync-menu": "Enable quick save-sync menu on game page",
-        "enableFSRHack": "Enable FSR hack (Wine version needs to support it)",
-        "enableFSRHack-description": "Render the game at a lower resolution and upscale it to gain frames",
+        "enableFSRHack": "Wine FSR 1 (fshack, X11 only)",
+        "enableFSRHack-description": "Legacy fullscreen upscaling for DirectX games (X11 only)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
             "checkForUpdates": "Check for updates",
@@ -1197,8 +1206,8 @@
             "updateNow": "Update",
             "updating": "Updating..."
         },
-        "esync": "Enable Esync",
-        "esync-description": "Speed up multi-threaded games using eventfd synchronisation",
+        "esync": "Enable Esync (legacy)",
+        "esync-description": "Legacy eventfd synchronisation, only used by older Proton/Wine builds",
         "exit-to-tray": "Exit to system tray",
         "exit-to-tray-description": "Keep Heroic running in the system tray instead of quitting",
         "experimental_features": {
@@ -1223,8 +1232,10 @@
             "description": "Hide the native title bar and use Heroic’s own window controls"
         },
         "FsrSharpnessStrenght": "FSR sharpness strength",
-        "fsync": "Enable Fsync",
-        "fsync-description": "Speed up multi-threaded games using futex synchronisation",
+        "fsr4Upgrade": "Upgrade FSR 3.1 to FSR 4",
+        "fsr4Upgrade-description": "Replace the game FSR 3.1 DLL with FSR 4 when supported",
+        "fsync": "Fsync fallback",
+        "fsync-description": "Use fsync only when NTSync is unavailable",
         "gamemode": "Use GameMode (Feral game mode needs to be installed)",
         "gamemode-description": "Ask the system to prioritise the game while it runs",
         "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
@@ -1237,7 +1248,13 @@
             "warningFlatpak": "We could not find a compatible version of gamescope. Install gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
-        "hdr-description": "Run the game through Wayland so HDR output can be used",
+        "hdr-description": "Enable HDR output for this game",
+        "hdrMode": {
+            "auto": "Auto (recommended)",
+            "force": "Force",
+            "label": "HDR",
+            "off": "Off"
+        },
         "hide-window-on-protocol-launch": "Hide Heroic window when launching games from heroic:// links",
         "hideChangelogsOnStartup": "Don't show changelogs on startup",
         "hideChangelogsOnStartup-description": "Skip the release notes shown after Heroic updates",
@@ -1325,6 +1342,12 @@
         "nvidiaprime": {
             "description": "Force use of NVIDIA Optimus or AMD dynamic switchable graphics dGPU. ONLY use this for OpenGL and Vulkan games."
         },
+        "nvapiMode": {
+            "auto": "Auto (recommended)",
+            "force": "Force",
+            "label": "NVAPI / DLSS",
+            "off": "Off"
+        },
         "nvidiaPrime": {
             "description": "Run the game on the dedicated NVIDIA GPU instead of the integrated one"
         },
@@ -1406,11 +1429,12 @@
             "description": "Install windows libraries and components into this prefix"
         },
         "wineversion": "Wine version",
-        "wineWayland": "Enable Wine-Wayland (experimental) (Wine version needs to support it)",
+        "wineWayland": "Force Wine-Wayland (experimental)",
+        "wineWayland-description": "Run the game through the experimental Wine-Wayland driver",
         "wow64": {
             "description": "Run 32-bit games inside a 64-bit prefix, no separate prefix needed"
         },
-        "WoW64": "Enable WoW64 (experimental)"
+        "WoW64": "Force new WoW64 mode"
     },
     "settings": {
         "advanced": {

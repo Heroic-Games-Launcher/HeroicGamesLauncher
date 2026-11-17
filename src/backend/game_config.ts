@@ -217,6 +217,13 @@ class GameConfigV0 extends GameConfig {
       enableFsync,
       enableWineWayland,
       enableHDR,
+      hdrMode,
+      nvapiMode,
+      disableNTSync,
+      fsr4Upgrade,
+      dlssUpgrade,
+      umuGameId,
+      disableProtonFixes,
       enableDXVKFpsLimit,
       enableWoW64,
       maxSharpness,
@@ -257,6 +264,13 @@ class GameConfigV0 extends GameConfig {
       enableFsync,
       enableWineWayland,
       enableHDR,
+      hdrMode,
+      nvapiMode,
+      disableNTSync,
+      fsr4Upgrade,
+      dlssUpgrade,
+      umuGameId,
+      disableProtonFixes,
       enableWoW64,
       enableDXVKFpsLimit,
       maxSharpness,
@@ -288,6 +302,20 @@ class GameConfigV0 extends GameConfig {
       // read game's settings
       const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
       gameSettings = settings[this.appName] || ({} as GameSettings)
+
+      // migrate legacy booleans to their replacements
+      if (
+        gameSettings.enableHDR === true &&
+        gameSettings.hdrMode === undefined
+      ) {
+        gameSettings.hdrMode = 'force'
+      }
+      if (
+        gameSettings.nvapiMode === undefined &&
+        gameSettings.autoInstallDxvkNvapi === false
+      ) {
+        gameSettings.nvapiMode = 'off'
+      }
     } else {
       // only set the `disableUMU` default value when getting settings for a new game
       // we want it to be `undefined` for games that were installed already

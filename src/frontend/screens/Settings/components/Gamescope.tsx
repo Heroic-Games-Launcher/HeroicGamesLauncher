@@ -20,6 +20,8 @@ const Gamescope = () => {
     enableUpscaling: false,
     enableLimiter: false,
     enableForceGrabCursor: false,
+    enableHDR: false,
+    enableAdaptiveSync: false,
     windowType: 'fullscreen',
     gameWidth: '',
     gameHeight: '',
