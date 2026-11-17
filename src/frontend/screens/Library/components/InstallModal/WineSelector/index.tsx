@@ -3,7 +3,8 @@ import {
   ToggleSwitch,
   TextInputField,
   PathSelectionBox,
-  Icon
+  Icon,
+  Divider
 } from 'frontend/components/UI'
 import React, { useEffect, useMemo, useState } from 'react'
 import { WineInstallation } from 'common/types'
@@ -107,6 +108,7 @@ export default function WineSelector({
           </Trans>
         </div>
       )}
+      {noDetails && <Divider className="sideloadWineDivider" />}
       {showPrefix && (
         <PathSelectionBox
           type="directory"
