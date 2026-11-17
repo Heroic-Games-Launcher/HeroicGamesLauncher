@@ -24,7 +24,7 @@ export default function MetadataStep({
   return (
     <div className="sideloadMetadataForm">
       <Alert
-        variant="info"
+        variant="warning"
         title={t(
           'sideload.import-hint.title',
           'Important! Are you adding a game from Epic/GOG/Amazon?'

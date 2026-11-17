@@ -10,9 +10,8 @@
 .sideloadDialog {
   width: 100%;
   max-width: 100%;
-  height: calc(100vh - 220px);
-  min-height: 420px;
-  max-height: 600px;
+  // Size to the content; the MUI dialog paper caps the height at the viewport,
+  // so the inner scroll only kicks in when the screen is too small to fit it.
   overflow: hidden;
   display: flex;
   flex-direction: column;
