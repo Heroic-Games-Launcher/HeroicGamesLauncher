@@ -8,13 +8,16 @@
 }
 
 .sideloadDialog {
-  width: 800px;
+  width: 100%;
   max-width: 100%;
   height: calc(100vh - 220px);
   min-height: 420px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  // Drop the horizontal padding so the scroll container can reach the modal
+  // edge; the inset is reapplied on the inner content below.
+  padding-inline: 0;
 
   .spinner {
     animation: sideloadSpin 1s linear infinite;
@@ -23,12 +26,14 @@
   .stepContentRenderer {
     flex: 1 1 auto;
     min-height: 0;
+    padding-inline: var(--modal-padding-inline);
     padding-bottom: var(--space-lg);
     overflow: auto;
   }
 
   .sideloadStepper {
-    margin: 0 var(--space-md) var(--space-lg);
+    margin: 0 0 var(--space-lg);
+    padding-inline: var(--modal-padding-inline);
   }
 }
 
@@ -234,7 +239,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   .sideloadFooterMetadata {
     display: flex;
