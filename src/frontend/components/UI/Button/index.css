@@ -153,6 +153,66 @@
   border-color: var(--button-surface);
 }
 
+.Button--success {
+  --button-surface: var(--bg-success);
+
+  background: var(--bg-success-subtle);
+  border-color: var(--border-success);
+  color: var(--text-success);
+}
+
+.Button--success:hover:not(:disabled),
+.Button--success:focus-visible:not(:disabled) {
+  background: color-mix(
+    in oklab,
+    var(--button-surface) 34%,
+    var(--panel-surface, var(--background-darker))
+  );
+  border-color: var(--button-surface);
+}
+
+.Button--info {
+  --button-surface: var(--bg-info);
+
+  background: var(--bg-info-subtle);
+  border-color: var(--border-info);
+  color: var(--text-info);
+}
+
+.Button--info:hover:not(:disabled),
+.Button--info:focus-visible:not(:disabled) {
+  background: color-mix(
+    in oklab,
+    var(--button-surface) 34%,
+    var(--panel-surface, var(--background-darker))
+  );
+  border-color: var(--button-surface);
+}
+
+.Button.Button--link {
+  height: auto;
+  min-height: 0;
+  width: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: var(--text-brand);
+  font-size: inherit;
+  white-space: normal;
+}
+
+.Button--link .Button__label {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.Button--link:hover:not(:disabled),
+.Button--link:focus-visible:not(:disabled) {
+  color: var(--on-panel-link);
+  background: none;
+}
+
 .Button--danger:hover:not(:disabled) {
   background: color-mix(
     in oklab,

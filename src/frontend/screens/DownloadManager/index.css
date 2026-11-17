@@ -36,6 +36,11 @@
   width: 100%;
 }
 
+.DownloadList--finished {
+  --dm-columns: minmax(0, 2.6fr) minmax(0, 0.9fr) minmax(0, 0.9fr)
+    minmax(0, 0.5fr) minmax(0, 1.1fr) 72px;
+}
+
 .DownloadList__head {
   display: grid;
   grid-template-columns: var(--dm-columns);

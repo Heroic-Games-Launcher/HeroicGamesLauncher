@@ -4,6 +4,7 @@ import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
   Alert,
+  Button,
   PathSelectionBox,
   SelectField,
   SettingRow,
@@ -14,7 +15,6 @@ import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 import { MenuItem } from '@mui/material'
-import { Button } from 'frontend/components/UI'
 
 interface Props {
   gogSaves: GOGCloudSavesLocation[]
@@ -118,13 +118,13 @@ export default function GOGSyncSaves({
 
   if (isLinuxNative || !featureSupported) {
     return (
-      <Alert variant="warning">
+      <Alert variant="error">
         {isLinuxNative &&
           t(
             'settings.saves.gog_linux_native_warning',
             "linux native games do not support GOG's cloud saves feature. Use the windows version instead."
           )}
-        {isLinuxNative && !featureSupported ? <br /> : null}
+        {isLinuxNative && !featureSupported && <br />}
         {!featureSupported &&
           t(
             'settings.saves.not_supported',
@@ -162,7 +162,11 @@ export default function GOGSyncSaves({
       ) : (
         <>
           {gogSaves.map((value, index) => (
-            <div key={`saves-${value.name}`} style={{ width: '100%' }}>
+            <div
+              key={`saves-${value.name}`}
+              className="saveFolderGroup"
+              style={{ width: '100%' }}
+            >
               <PathSelectionBox
                 type="directory"
                 htmlId="inputSavePath"
@@ -230,7 +234,7 @@ export default function GOGSyncSaves({
               ))}
             </SelectField>
             <Button
-              variant="primary"
+              variant="ghost"
               data-testid="setSync"
               onClick={async () => handleSync()}
               disabled={

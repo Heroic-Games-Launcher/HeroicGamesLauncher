@@ -9,7 +9,6 @@ import {
   useEffect
 } from 'react'
 
-import FamilyShareIcon from 'frontend/assets/ico_familysharing.svg?react'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import {
@@ -28,6 +27,7 @@ import {
   Play,
   Settings,
   Trash2,
+  Users,
   X
 } from 'lucide-react'
 import {
@@ -45,7 +45,8 @@ import {
   GameActionButton,
   Icon,
   StoreBadge,
-  SvgButton
+  SvgButton,
+  Tooltip
 } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
@@ -471,9 +472,6 @@ const GameCard = ({
     )
   }
 
-  const showUpdateBadge =
-    hasUpdate && !isUpdating && !isQueued && activeController
-
   return (
     <div className="gameCardWrapper">
       {showUninstallModal && (
@@ -495,11 +493,6 @@ const GameCard = ({
               {label}
             </Badge>
           )}
-          {showUpdateBadge && (
-            <Badge variant="info" onOverlay className="gameCardUpdateBadge">
-              {t('status.hasUpdates')}
-            </Badge>
-          )}
           <Link
             to={`/gamepage/${runner}/${appName}`}
             state={{ gameInfo }}
@@ -509,12 +502,14 @@ const GameCard = ({
           >
             <StoreBadge runner={runner} />
             {gameInfo.isFamilyShare && (
-              <span
-                className="family-share-icon"
-                title={t('label.steam-family-share', 'Steam Family Sharing')}
+              <Tooltip
+                content={t('label.steam-family-share', 'Steam Family Sharing')}
+                asChild
               >
-                <FamilyShareIcon />
-              </span>
+                <span className="family-share-icon">
+                  <Users />
+                </span>
+              </Tooltip>
             )}
             {justPlayed ? (
               <CachedImage

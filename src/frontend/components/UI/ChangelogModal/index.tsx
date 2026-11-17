@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ExternalLink } from 'lucide-react'
 import { Modal, ModalContent, ModalHeader } from '../Modal'
-import Icon from '../Icon'
+import Link from '../Link'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import classNames from 'classnames'
@@ -66,15 +65,13 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
             )}
           </div>
           {currentChangelog.html_url && (
-            <a
+            <Link
               className="changelogModalFullLink"
               href={currentChangelog.html_url}
-              target="_blank"
-              rel="noreferrer"
+              external
             >
               {t('changelog.view_full', 'View full changelog on GitHub')}
-              <Icon glyph={ExternalLink} size="sm" />
-            </a>
+            </Link>
           )}
         </ModalContent>
       </Modal>

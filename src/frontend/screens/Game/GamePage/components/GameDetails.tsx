@@ -63,7 +63,7 @@ const GameDetails = ({ gameInfo }: Props) => {
   if (gameInfo.is_installed && installPlatform) {
     items.push({
       glyph: MonitorPlay,
-      label: t('info.installedPlatform', 'Installed Platform'),
+      label: t('info.installedPlatform', 'Installed platform'),
       value: installPlatform === 'osx' ? 'macOS' : installPlatform
     })
   }
@@ -72,7 +72,7 @@ const GameDetails = ({ gameInfo }: Props) => {
     <Panel tone="glass" className="gameDetails">
       <div className="gameDetails__header">
         <h3 className="gameDetails__title">
-          {t('game.details', 'Game Details')}
+          {t('game.details', 'Game details')}
         </h3>
         <StoreBadge runner={runner} title={STORE_NAMES[runner] ?? runner} />
       </div>

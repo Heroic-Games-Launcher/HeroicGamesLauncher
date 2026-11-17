@@ -42,6 +42,7 @@ import {
   Description,
   DownloadSizeInfo,
   GameActions,
+  GameBadges,
   GameDetails,
   GameStats,
   GameStatus,
@@ -384,7 +385,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       { value: 'overview', label: t('game.overview', 'Overview') },
       {
         value: 'info',
-        label: t('game.install_info', 'Installation Info')
+        label: t('game.install_info', 'Installation info')
       }
     ]
 
@@ -455,6 +456,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               <Panel tone="glass" padding="lg" className="gamePage__hero">
                 <div className="gamePage__heroMain">
                   <h1 className="gamePage__title">{title}</h1>
+                  <GameBadges gameInfo={gameInfo} runner={runner} />
                   <div className="gamePage__meta">
                     <Genres
                       genres={

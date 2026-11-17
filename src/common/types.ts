@@ -43,6 +43,9 @@ export type ButtonVariant =
   | 'danger'
   | 'dangerSubtle'
   | 'warning'
+  | 'success'
+  | 'info'
+  | 'link'
 
 export interface ButtonOptions {
   text: string

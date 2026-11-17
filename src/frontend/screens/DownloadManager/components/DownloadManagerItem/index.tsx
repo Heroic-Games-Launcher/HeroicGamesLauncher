@@ -41,6 +41,7 @@ type Props = {
   /** Leading hero action, e.g. limiter. */
   extraAction?: ReactNode
   handleClearItem?: (appName: string) => void
+  showStatusColumn?: boolean
 }
 
 /*
@@ -77,7 +78,8 @@ const DownloadManagerItem = ({
   position,
   variant = 'row',
   extraAction,
-  handleClearItem
+  handleClearItem,
+  showStatusColumn = false
 }: Props) => {
   const { amazon, epic, gog, itchio, zoom, steam, showDialogModal } =
     useContext(ContextProvider)
@@ -246,7 +248,7 @@ const DownloadManagerItem = ({
     if (isHero) {
       if (isPreparing) {
         return (
-          <Badge variant="info" glyph={Loader}>
+          <Badge variant="warning" glyph={Loader}>
             {t2('queue.label.preparing', 'Preparing')}
           </Badge>
         )
@@ -265,7 +267,17 @@ const DownloadManagerItem = ({
     if (finished) {
       return (
         <Badge variant="success" glyph={CircleCheck}>
-          {t2('queue.label.finished', 'Completed')}
+          {type === 'update'
+            ? t2('queue.label.updated', 'Updated')
+            : t2('queue.label.downloaded', 'Downloaded')}
+        </Badge>
+      )
+    }
+
+    if (status === 'error') {
+      return (
+        <Badge variant="error" glyph={CircleX}>
+          {t2('queue.label.failed', 'Failed')}
         </Badge>
       )
     }
@@ -412,7 +424,7 @@ const DownloadManagerItem = ({
             >
               {title}
             </span>
-            {statusBadge()}
+            {!showStatusColumn && statusBadge()}
             {isHero && <Badge variant="info">{storeName}</Badge>}
             {isHero && platform && <Badge variant="accent">{platform}</Badge>}
           </div>
@@ -428,7 +440,7 @@ const DownloadManagerItem = ({
               </span>
               <ProgressBar
                 size="md"
-                tone={isPreparing ? 'accent' : isPaused ? 'warning' : 'success'}
+                tone={isPreparing || isPaused ? 'warning' : 'success'}
                 value={isPreparing ? undefined : progress.percent}
                 label={t2('queue.label.downloading', 'Downloading')}
               />
@@ -437,6 +449,10 @@ const DownloadManagerItem = ({
           {isHero && actionButtons}
         </div>
       </div>
+
+      {showStatusColumn && (
+        <span className="DownloadItem__status">{statusBadge()}</span>
+      )}
 
       {!isHero && (
         <span className="DownloadItem__type">

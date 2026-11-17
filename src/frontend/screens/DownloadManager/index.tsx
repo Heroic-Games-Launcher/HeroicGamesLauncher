@@ -204,7 +204,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
             }
             className="DownloadManager__section"
           >
-            <div className="DownloadList">
+            <div className="DownloadList DownloadList--finished">
               <DownloadManagerHeader time="finished" />
               {doneElements.map((el) => (
                 <DownloadManagerItem
@@ -212,6 +212,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                   element={el}
                   current={false}
                   handleClearItem={handleClearItem}
+                  showStatusColumn
                 />
               ))}
             </div>

@@ -8,13 +8,12 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
-import { CircleCheck } from 'lucide-react'
 import { Runner } from 'common/types'
 import FeatureCard from 'frontend/components/UI/FeatureCard'
+import Badge from 'frontend/components/UI/Badge'
 import Button from 'frontend/components/UI/Button'
 import StoreBadge from 'frontend/components/UI/StoreBadge'
 import Tooltip from 'frontend/components/UI/Tooltip'
-import Icon from 'frontend/components/UI/Icon'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 
@@ -119,18 +118,18 @@ export default function StoreCard({
       >
         <FeatureCard
           className="storeCard__card"
+          layout="inline"
           icon={<StoreBadge runner={runner} className="storeCard__badge" />}
           title={title}
           description={description}
           meta={
             isLoggedIn && displayName ? (
-              <span className="storeCard__user">
+              <Badge variant="success" className="storeCard__loggedBadge">
                 <span className="storeCard__loggedLabel">
-                  <Icon glyph={CircleCheck} size="sm" />
-                  {t('login.logged_in_as', 'Logged in as')}
+                  {t('login.logged_in', 'Logged in')}:
                 </span>
                 <span className="storeCard__userName">{displayName}</span>
-              </span>
+              </Badge>
             ) : undefined
           }
           action={

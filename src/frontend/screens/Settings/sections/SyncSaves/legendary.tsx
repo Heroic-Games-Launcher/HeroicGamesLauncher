@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Alert,
+  Button,
   PathSelectionBox,
   SelectField,
   SettingRow,
@@ -14,7 +15,6 @@ import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 import { MenuItem } from '@mui/material'
-import { Button } from 'frontend/components/UI'
 
 interface Props {
   autoSyncSaves: boolean
@@ -137,47 +137,49 @@ export default function LegendarySyncSaves({
         />
       ) : (
         <>
-          <Alert
-            variant={savesPath ? 'info' : 'warning'}
-            actions={
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setRetry(retry + 1)}
-              >
-                {t('setting.savefolder.retry', 'Detect again')}
-              </Button>
-            }
-          >
-            {savesPath
-              ? t(
-                  'setting.savefolder.warning',
-                  'Please check twice if the path is correct (click to retry)'
-                )
-              : t(
-                  'setting.savefolder.not-found',
-                  'Save folder not found, please select it manually (click to retry)'
-                )}
-          </Alert>
+          <div className="saveFolderGroup">
+            <PathSelectionBox
+              htmlId="inputSavePath"
+              type="directory"
+              onPathChange={setSavesPath}
+              path={savesPath}
+              placeholder={t('setting.savefolder.placeholder')}
+              pathDialogTitle={t('box.sync.title')}
+              canEditPath={!isSyncing}
+              label={t('setting.savefolder.title', 'Save folder')}
+              info={
+                <ul>
+                  <li>{t('help.sync.part1')}</li>
+                  {!isWin && <li>{t('help.sync.part2')}</li>}
+                  <li>{t('help.sync.part3')}</li>
+                  <li>{t('help.sync.part4')}</li>
+                </ul>
+              }
+            />
 
-          <PathSelectionBox
-            htmlId="inputSavePath"
-            type="directory"
-            onPathChange={setSavesPath}
-            path={savesPath}
-            placeholder={t('setting.savefolder.placeholder')}
-            pathDialogTitle={t('box.sync.title')}
-            canEditPath={!isSyncing}
-            label={t('setting.savefolder.title', 'Save folder')}
-            info={
-              <ul>
-                <li>{t('help.sync.part1')}</li>
-                {!isWin && <li>{t('help.sync.part2')}</li>}
-                <li>{t('help.sync.part3')}</li>
-                <li>{t('help.sync.part4')}</li>
-              </ul>
-            }
-          />
+            <Alert
+              variant={savesPath ? 'info' : 'warning'}
+              actions={
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setRetry(retry + 1)}
+                >
+                  {t('setting.savefolder.retry', 'Detect again')}
+                </Button>
+              }
+            >
+              {savesPath
+                ? t(
+                    'setting.savefolder.warning',
+                    'Please check twice if the path is correct (click to retry)'
+                  )
+                : t(
+                    'setting.savefolder.not-found',
+                    'Save folder not found, please select it manually (click to retry)'
+                  )}
+            </Alert>
+          </div>
 
           <SettingRow
             label={t('setting.manualsync.title')}
@@ -196,7 +198,7 @@ export default function LegendarySyncSaves({
               ))}
             </SelectField>
             <Button
-              variant="primary"
+              variant="ghost"
               data-testid="setSync"
               onClick={async () => handleSync()}
               disabled={isSyncing || !savesPath.length}
