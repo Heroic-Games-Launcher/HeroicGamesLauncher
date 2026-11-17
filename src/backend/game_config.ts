@@ -246,7 +246,8 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
-      advertiseAvxForRosetta
+      advertiseAvxForRosetta,
+      defaultSteamRuntime
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -293,7 +294,7 @@ class GameConfigV0 extends GameConfig {
       verboseLogs,
       advertiseAvxForRosetta,
       enableQuickSavesMenu: false,
-      steamRuntime: false
+      steamRuntime: defaultSteamRuntime ?? false
     } as GameSettings
 
     let gameSettings = {} as GameSettings

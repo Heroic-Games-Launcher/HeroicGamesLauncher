@@ -47,16 +47,16 @@ const GameMode = () => {
     <ToggleSwitch
       info={t(
         'help.gamemode',
-        'Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.'
+        'GameMode applies temporary system tweaks while the game runs. Most of its CPU-governor work is obsolete on modern kernels, and with umu it often cannot register the game process.'
       )}
       description={t(
         'setting.gamemode-description',
-        'Ask the system to prioritise the game while it runs'
+        'Legacy CPU/scheduler tweaks for the running game'
       )}
       htmlId="gamemode"
       value={useGameMode}
       handleChange={handleGameMode}
-      title={t('setting.gamemode')}
+      title={t('setting.gamemode', 'GameMode (legacy tweaks)')}
     />
   )
 }

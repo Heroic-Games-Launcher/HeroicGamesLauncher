@@ -647,7 +647,7 @@
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
             "valid_codes": "Valid language codes are game-dependant."
         },
-        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "gamemode": "GameMode applies temporary system tweaks while the game runs. Most of its CPU-governor work is obsolete on modern kernels, and with umu it often cannot register the game process.",
         "gamescope": {
             "additionalOptions": "Additional commandline flags to pass into gamescope.",
             "forceGrabCursor": "Always use relative mouse mode instead of flipping dependent on cursor visibility. (useful for when applications keep losing focus)",
@@ -677,7 +677,7 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run linux and windows (Proton) games. Enabling might improve compatibility.",
+        "steamruntime": "Run native Linux games inside a Steam Linux Runtime container. The global default applies to games without an explicit per-game choice; Proton games are launched through umu automatically.",
         "sync": {
             "part1": "Heroic tries to guess the right save folder and this will work on the majority of cases. In case the folder is wrong, use the override box to change it.",
             "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
@@ -1236,8 +1236,8 @@
         "fsr4Upgrade-description": "Replace the game FSR 3.1 DLL with FSR 4 when supported",
         "fsync": "Fsync fallback",
         "fsync-description": "Use fsync only when NTSync is unavailable",
-        "gamemode": "Use GameMode (Feral game mode needs to be installed)",
-        "gamemode-description": "Ask the system to prioritise the game while it runs",
+        "gamemode": "GameMode (legacy tweaks)",
+        "gamemode-description": "Legacy CPU/scheduler tweaks for the running game",
         "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
         "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
@@ -1340,7 +1340,7 @@
         "msync-description": "Speed up multi-threaded games using macOS synchronisation primitives",
         "no-tray-icon": "Hide system tray icon (requires restart)",
         "nvidiaprime": {
-            "description": "Force use of NVIDIA Optimus or AMD dynamic switchable graphics dGPU. ONLY use this for OpenGL and Vulkan games."
+            "description": "PRIME render offload (NVIDIA Optimus / AMD switchable graphics)"
         },
         "nvapiMode": {
             "auto": "Auto (recommended)",
@@ -1408,8 +1408,9 @@
             "title": "Game version to launch"
         },
         "steamRuntime": {
-            "label": "Use Steam runtime",
-            "noRuntimeOption": "None"
+            "defaultLabel": "Default Steam runtime (native Linux games)",
+            "label": "Steam runtime (native Linux games)",
+            "noRuntimeOption": "None (run on host)"
         },
         "tools": {
             "open": "Open",

@@ -596,13 +596,10 @@ async function prepareLaunch(
       if (isFlatpak) {
         reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime ${flatpakRuntimeVersion} and restart Heroic.`
       }
-      return {
-        success: false,
-        failureReason: reason
-      }
+      logWarning(reason)
+    } else {
+      mangoHudCommand = [mangoHudBin]
     }
-
-    mangoHudCommand = [mangoHudBin, '--dlsym']
   }
 
   if (gameSettings.useGameMode) {
@@ -1154,9 +1151,8 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       break
   }
 
-  if (gameSettings.showFps) {
-    if (isMac) ret.MTL_HUD_ENABLED = '1'
-    else ret.DXVK_HUD = 'fps'
+  if (gameSettings.showFps && isMac) {
+    ret.MTL_HUD_ENABLED = '1'
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap

@@ -9,9 +9,7 @@ import {
   AutoDXVK,
   AutoDXVKNVAPI,
   AutoVKD3D,
-  BattlEyeRuntime,
   CrossoverBottle,
-  EacRuntime,
   EnableEsync,
   EnableFSR,
   EnableFsync,
@@ -275,12 +273,6 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         >
           {isLinux && <PreferSystemLibs />}
           <SteamRuntime />
-          {!isNative && (
-            <>
-              <BattlEyeRuntime />
-              <EacRuntime />
-            </>
-          )}
         </SettingsCard>
         {showSteamCard && (
           <SettingsCard

@@ -164,6 +164,7 @@ export interface AppSettings extends GameSettings {
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
   verboseLogs: boolean
+  defaultSteamRuntime: SteamRuntimeName | false
   showValveProton: boolean
   steamGridDbApiKey: string
 }
