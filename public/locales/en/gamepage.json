@@ -335,10 +335,15 @@
         },
         "step": {
             "compat": "Compatibility",
+            "compat-desc": "Wine / Proton setup",
             "finish": "Finish",
+            "finish-desc": "Executable and options",
             "images": "Images",
+            "images-desc": "Cover and hero art",
             "install": "Installation",
-            "meta": "Metadata"
+            "install-desc": "Run the installer",
+            "meta": "Metadata",
+            "meta-desc": "Name and platform"
         }
     },
     "specs": {

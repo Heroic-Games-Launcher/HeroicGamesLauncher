@@ -16,7 +16,8 @@ import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Box, Step, StepLabel, Stepper } from '@mui/material'
+import { Box } from '@mui/material'
+import { Stepper, StepperStep } from 'frontend/components/UI'
 import MetadataStep from './steps/MetadataStep'
 import InstallationStep from './steps/InstallationStep'
 import FinishStep from './steps/FinishStep'
@@ -239,12 +240,27 @@ export default function SideloadDialog({
 
   const shouldShowRunExe = platform !== 'win32' && appPlatform === 'Windows'
 
-  const stepLabels: Record<SupportedSteps, string> = {
-    meta: t('sideload.step.meta', 'Metadata'),
-    images: t('sideload.step.images', 'Images'),
-    compat: t('sideload.step.compat', 'Compatibility'),
-    install: t('sideload.step.install', 'Installation'),
-    finish: t('sideload.step.finish', 'Finish')
+  const stepInfo: Record<SupportedSteps, StepperStep> = {
+    meta: {
+      title: t('sideload.step.meta', 'Metadata'),
+      description: t('sideload.step.meta-desc', 'Name and platform')
+    },
+    images: {
+      title: t('sideload.step.images', 'Images'),
+      description: t('sideload.step.images-desc', 'Cover and hero art')
+    },
+    compat: {
+      title: t('sideload.step.compat', 'Compatibility'),
+      description: t('sideload.step.compat-desc', 'Wine / Proton setup')
+    },
+    install: {
+      title: t('sideload.step.install', 'Installation'),
+      description: t('sideload.step.install-desc', 'Run the installer')
+    },
+    finish: {
+      title: t('sideload.step.finish', 'Finish'),
+      description: t('sideload.step.finish-desc', 'Executable and options')
+    }
   }
 
   const flowSteps: SupportedSteps[] = useMemo(() => {
@@ -347,13 +363,11 @@ export default function SideloadDialog({
   return (
     <>
       <ModalContent className="sideloadDialog">
-        <Stepper className="sideloadStepper" activeStep={activeStep}>
-          {flowSteps.map((step) => (
-            <Step key={step}>
-              <StepLabel>{stepLabels[step]}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+        <Stepper
+          className="sideloadStepper"
+          activeStep={activeStep}
+          steps={flowSteps.map((step) => stepInfo[step])}
+        />
         <div className="stepContentRenderer">
           {renderDialogContent(flowSteps[activeStep])}
         </div>

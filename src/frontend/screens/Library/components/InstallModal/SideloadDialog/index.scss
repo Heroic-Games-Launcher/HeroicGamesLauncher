@@ -27,43 +27,8 @@
     overflow: auto;
   }
 
-  // MUI Stepper themed with our design tokens
   .sideloadStepper {
     margin: 0 var(--space-md) var(--space-lg);
-
-    .MuiStepLabel-label {
-      color: var(--text-secondary);
-      font-family: var(--primary-font-family);
-
-      &.Mui-active {
-        color: var(--accent);
-        font-weight: var(--semibold);
-      }
-
-      &.Mui-completed {
-        color: var(--text-default);
-      }
-    }
-
-    .MuiStepIcon-root {
-      color: var(--neutral-04);
-
-      &.Mui-active {
-        color: var(--accent);
-      }
-
-      &.Mui-completed {
-        color: var(--accent);
-      }
-
-      .MuiStepIcon-text {
-        fill: var(--text-default);
-      }
-    }
-
-    .MuiStepConnector-line {
-      border-color: var(--panel-border);
-    }
   }
 }
 

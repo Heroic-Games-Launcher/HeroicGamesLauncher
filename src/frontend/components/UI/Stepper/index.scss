@@ -1,0 +1,123 @@
+.Stepper {
+  --stepper-badge-size: 40px;
+  --stepper-line: 2px;
+
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.Stepper__step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.Stepper__indicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: var(--stepper-badge-size);
+}
+
+.Stepper__connector {
+  position: absolute;
+  top: calc(var(--stepper-badge-size) / 2 - var(--stepper-line) / 2);
+  height: var(--stepper-line);
+  background: var(--panel-border);
+  transition: background-color 200ms ease;
+}
+
+.Stepper__connector--before {
+  inset-inline: 0 calc(50% + var(--stepper-badge-size) / 2);
+}
+
+.Stepper__connector--after {
+  inset-inline: calc(50% + var(--stepper-badge-size) / 2) 0;
+}
+
+.Stepper__step:first-child .Stepper__connector--before,
+.Stepper__step:last-child .Stepper__connector--after {
+  display: none;
+}
+
+// Filled segments: a completed step colors both of its halves; the active
+// step colors only the segment flowing into it (its "before" half).
+.Stepper__step--completed .Stepper__connector,
+.Stepper__step--active .Stepper__connector--before {
+  background: var(--accent);
+}
+
+.Stepper__badge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--stepper-badge-size);
+  height: var(--stepper-badge-size);
+  border-radius: 50%;
+  border: var(--stepper-line) solid var(--neutral-04);
+  background: transparent;
+  color: var(--text-tertiary);
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+
+.Stepper__step--completed .Stepper__badge,
+.Stepper__step--active .Stepper__badge {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.Stepper__number {
+  font-size: var(--text-md);
+  font-weight: var(--bold);
+  line-height: 1;
+  color: var(--text-tertiary);
+}
+
+.Stepper__check {
+  color: var(--text-tertiary);
+}
+
+.Stepper__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs, 2px);
+  padding-inline: var(--space-xs);
+  text-align: center;
+}
+
+.Stepper__title {
+  font-size: var(--text-md);
+  font-weight: var(--bold);
+  color: var(--text-secondary);
+  line-height: 1.2;
+}
+
+.Stepper__description {
+  font-size: var(--text-sm);
+  font-weight: var(--regular);
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.Stepper__step--active .Stepper__title {
+  color: var(--text-default);
+}
+
+.Stepper__step--completed .Stepper__title {
+  color: var(--text-default);
+}
