@@ -10,3 +10,7 @@
 .Button.GameActionButton svg * {
   fill: none;
 }
+
+.GameActionButton.updateIcon svg {
+  color: var(--success, var(--status-success));
+}

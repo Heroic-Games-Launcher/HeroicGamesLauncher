@@ -81,7 +81,7 @@ export default React.memo(function CurrentDownload({
         <span className="gameTitle">{gameTitle ?? 'GameName'}</span>
         <span className="downloadStatus">{getStatus()}</span>
         <ProgressBar
-          tone={isPaused ? 'warning' : 'success'}
+          tone={isPreparing || isPaused ? 'warning' : 'success'}
           showValue
           value={isPreparing ? undefined : progress.percent}
           label={getStatus()}

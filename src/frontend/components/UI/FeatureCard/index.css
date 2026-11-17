@@ -15,6 +15,23 @@
   gap: var(--space-md-fixed);
 }
 
+.FeatureCard--inline .FeatureCard__header {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.FeatureCard__inlineContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm-fixed);
+  flex: 1;
+  min-width: 0;
+}
+
+.FeatureCard--inline .FeatureCard__meta {
+  align-self: flex-start;
+}
+
 .FeatureCard__icon {
   display: flex;
 }

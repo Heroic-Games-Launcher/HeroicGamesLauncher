@@ -10,7 +10,8 @@
         "move": {
             "message": "Detta kan ta lång tid. Vill du fortsätta?",
             "path": "Välj vart spelet ska flyttas",
-            "title": "Flytta spelinstallationen"
+            "title": "Flytta spelinstallationen",
+            "steamMessage": "Steams lagringshanterare öppnas för att flytta spelet till en annan enhet. Heroic uppdateras när det är klart."
         },
         "no": "Nej",
         "repair": {
@@ -95,10 +96,12 @@
         "changelog": "Visa ändringslogg",
         "browse_files": "Bläddra bland filer",
         "browse_wine_prefix": "Bläddra i Wine-prefix",
-        "play": "SPELA",
+        "play": "Spela",
         "edit-game": "Redigera program/spel",
         "favourite": "Lägg till i Favoriter",
-        "unfavourite": "Ta bort från Favoriter"
+        "unfavourite": "Ta bort från Favoriter",
+        "backToLibrary": "Tillbaka till biblioteket",
+        "steamStore": "Öppna Steam-sidan"
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
@@ -133,9 +136,13 @@
         "changelogFor": "Ändringslogg för {{gameTitle}}",
         "modify": "Ändra installation",
         "extra_info": "Ytterligare information",
-        "install_info": "Installationsinformation",
+        "install_info": "Installationsinfo",
         "achievements": "Prestationer",
-        "details": "Speldetaljer"
+        "details": "Speldetaljer",
+        "tabs": "Spelinformation",
+        "overview": "Översikt",
+        "hoursPlayedShort": "{{hours}} timmar",
+        "about": "Om"
     },
     "gamecard": {
         "moving": "Flyttar",
@@ -168,7 +175,17 @@
         "third-party-app": "Tredjepartshanterare",
         "genres": "Genrer",
         "steamdeck": {
-            "unsupported": "Stöds ej"
+            "unsupported": "Stöds ej",
+            "verified": "Verifierat",
+            "unknown": "Okänt",
+            "playable": "Spelbart"
+        },
+        "developer": "Utvecklare",
+        "dlcs": "DLC",
+        "dlc": {
+            "disabled": "Inaktiverad – klicka för att aktivera",
+            "enabled": "Aktiverad – klicka för att inaktivera",
+            "notBought": "Ägs inte"
         }
     },
     "install": {
@@ -189,7 +206,10 @@
             "ok": "OK",
             "disabled_installation": "Det här spelet använder antifuskprogramvara som inte är kompatibel med ditt operativsystem, eller så har spelutvecklarna inte aktiverat stödet. Det innebär att flerspelarfunktionerna inte kommer att fungera, och det finns inget du (eller Heroic-teamet) kan göra åt det.<br /><br />Om du ändå vill installera och prova spelet går du till Inställningar, Avancerat och markerar alternativet som tillåter installation av spel med trasigt eller nekat antifusk.<br /><br />Observera att det inte finns någon lösning på detta och att du riskerar att bli avstängd i spelet."
         },
-        "flatpak-path-not-writtable": "Fel: Sandlådeåtkomst har inte beviljats för den här sökvägen, vilket kan leda till dataförlust."
+        "flatpak-path-not-writtable": "Fel: Sandlådeåtkomst har inte beviljats för den här sökvägen, vilket kan leda till dataförlust.",
+        "free": "ledig",
+        "steam-no-libraries": "Inga Steam-biblioteksmappar hittades – lägg först till en enhet i Steam.",
+        "steam-path": "Installationssökväg (Steam-bibliotek)"
     },
     "label": {
         "game": {
@@ -197,9 +217,10 @@
             "not-installable-game": "Spelet kan inte installeras"
         },
         "playing": {
-            "start": "Spela nu",
+            "start": "Spela",
             "stop": "Stoppa spelet",
-            "start_with_logs": "Spela nu (med loggar)"
+            "start_with_logs": "Spela med loggar",
+            "start_with_logs_hint": "Startar spelet och sparar en detaljerad logg, användbart när du behöver rapportera ett problem"
         },
         "saves": {
             "syncing": "Synkroniserar sparfiler"
@@ -216,7 +237,8 @@
             "abort": "Avbryt installation",
             "installation": "Avbryt installationen"
         },
-        "releaseDate": "Utgivningsdatum"
+        "releaseDate": "Utgivningsdatum",
+        "steam-family-share": "Steam Family Sharing"
     },
     "launch": {
         "options": "Startalternativ...",
@@ -250,7 +272,9 @@
             "title": "Spel-/programtitel",
             "broser": "Webbläsar-URL",
             "useragent": "Anpassad användaragent",
-            "fullscreen": "Starta i helskärm (F11 för att avsluta)"
+            "fullscreen": "Starta i helskärm (F11 för att avsluta)",
+            "image-hint": "Kvadratisk bild (klicka på bilden för att söka på SteamGridDB)",
+            "cover-hint": "Omslagsbild/hero-bild (klicka på bilden för att söka på SteamGridDB)"
         },
         "placeholder": {
             "image": "Klistra in en URL till en bild eller välj en från din dator",
@@ -268,7 +292,9 @@
     },
     "specs": {
         "minimum": "Minimikrav",
-        "recommended": "Rekommenderat"
+        "recommended": "Rekommenderat",
+        "notes": "Anteckningar",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Klicka för att uppdatera",
@@ -316,7 +342,8 @@
         "verify": "Verifiera och reparera",
         "extraInfo": "Ytterligare information",
         "logs": "Loggar",
-        "categories": "Kategorier"
+        "categories": "Kategorier",
+        "more": "Mer"
     },
     "help": {
         "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnet. Informationen tillhandahålls av spelutvecklarna. Vissa spel har ett eget system för molnsparning.",
@@ -359,7 +386,34 @@
         },
         "title": "Redigera program/spel",
         "sgdb": {
-            "no-key-link": "Inställningar → Avancerat"
+            "no-key-link": "Inställningar → Avancerat",
+            "no-key-prefix": "För att söka efter omslagsbilder på SteamGridDB, lägg till en API-nyckel i"
+        },
+        "square": "Kvadratisk bild",
+        "info": {
+            "cover": "Omslagsbild",
+            "square": "Kvadratisk bild"
+        },
+        "reset": "Återställ till standard",
+        "cover": "Omslagsbilder"
+    },
+    "itchio": {
+        "import": {
+            "warning": "Mappar som installerats av itch.io-appen importeras helt, inklusive uppdateringar. För andra mappar kan Heroic inte kontrollera uppdateringar, och avinstallation tar inte bort spelfilerna."
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Prestationer",
+            "dlc": "DLC",
+            "installInfo": "Nedladdningsstorlek",
+            "launchOptions": "Startalternativ",
+            "storeInfo": "Systeminformation"
+        },
+        "loggedOut": {
+            "failed": "Hämtningen av {{data}} misslyckades.",
+            "message": "Onlinefunktioner kanske inte fungerar.",
+            "title": "Steam-kontot är inte inloggat i Heroic"
         }
     }
 }

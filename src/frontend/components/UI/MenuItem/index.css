@@ -44,7 +44,7 @@
 
 .MenuItem:hover:not(:disabled),
 .MenuItem:focus-visible:not(:disabled) {
-  background: var(--input-background);
+  background: color-mix(in oklab, var(--on-panel) 8%, transparent);
   color: var(--on-panel, var(--text-default));
   outline: none;
 }

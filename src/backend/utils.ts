@@ -1518,7 +1518,7 @@ export async function downloadFile({
   const connections = 5
   try {
     const response = await axiosClient.head(url)
-    fileSize = parseInt(response.headers['content-length'], 10)
+    fileSize = Number(response.headers['content-length'] ?? 0)
   } catch (err) {
     if (!ignoreFailure) {
       logError(

@@ -78,23 +78,5 @@
 }
 
 .changelogModalFullLink {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xs-fixed);
   margin-block-start: var(--space-md-fixed);
-  padding: var(--space-xs-fixed) var(--space-md-fixed);
-  border-radius: var(--radius-pill);
-  background: var(--bg-brand-subtle);
-  border: 1px solid var(--border-brand);
-  color: var(--text-brand);
-  font-weight: var(--semibold);
-  text-decoration: none;
-  transition:
-    background-color 150ms ease,
-    border-color 150ms ease;
-}
-
-.changelogModalFullLink:hover {
-  background: color-mix(in oklab, var(--role-brand) 26%, transparent);
-  border-color: var(--role-brand);
 }

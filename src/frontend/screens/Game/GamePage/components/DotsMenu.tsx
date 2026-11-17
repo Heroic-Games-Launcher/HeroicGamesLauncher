@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import GameContext from '../../GameContext'
 import { EllipsisVertical } from 'lucide-react'
 import GameSubMenu from '../../GameSubMenu'
-import { Button, Icon } from 'frontend/components/UI'
+import { Button, Icon, Tooltip } from 'frontend/components/UI'
 import { GameInfo } from 'common/types'
 import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import GameRequirements from '../../GameRequirements'
@@ -30,12 +30,14 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
   return (
     <>
       <div className="game-actions">
-        <Button
-          variant="ghost"
-          className="toggle"
-          title={t('submenu.more', 'More')}
-          icon={<Icon glyph={EllipsisVertical} size="lg" />}
-        />
+        <Tooltip content={t('submenu.more', 'More')} asChild>
+          <Button
+            variant="ghost"
+            className="toggle"
+            aria-label={t('submenu.more', 'More')}
+            icon={<Icon glyph={EllipsisVertical} size="lg" />}
+          />
+        </Tooltip>
 
         <GameSubMenu
           appName={appName}

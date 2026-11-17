@@ -6,7 +6,8 @@
         "copied": "Copiato!",
         "error": "Errore, prova un codice diverso",
         "loading": "Caricamento",
-        "close": "Chiudi"
+        "close": "Chiudi",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Per poter effettuare il login ed installare i tuoi giochi, dovrai prima seguire i passaggi indicati qui sotto:",
@@ -22,5 +23,14 @@
         "error": "Errore",
         "loading": "Caricamento elenco dei giochi, attendere"
     },
-    "welcome": "Benvenuto!"
+    "welcome": "Benvenuto!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

@@ -96,7 +96,7 @@
         "changelog": "Zobrazit seznam změn",
         "browse_files": "Procházet soubory",
         "browse_wine_prefix": "Procházet předpony Wine",
-        "play": "HRÁT",
+        "play": "Hrát",
         "edit-game": "Upravit Hru",
         "favourite": "Přidat do oblíbených",
         "unfavourite": "Odebrat z oblíbených",
@@ -138,7 +138,7 @@
         "install_info": "Informace k instalaci",
         "achievements": "Úspěchy",
         "details": "Podrobnosti o hře",
-        "about": "O této hře",
+        "about": "O aplikaci",
         "hoursPlayedShort": "{{hours}} hodin",
         "overview": "Přehled",
         "tabs": "Informace o hře"
@@ -179,7 +179,8 @@
             "unknown": "Neznámé",
             "verified": "Ověřené"
         },
-        "developer": "Vývojář"
+        "developer": "Vývojář",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Volné místo",
@@ -300,7 +301,9 @@
     },
     "specs": {
         "minimum": "Minimální",
-        "recommended": "Doporučené"
+        "recommended": "Doporučené",
+        "notes": "Poznámky",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Click to Update",
@@ -406,6 +409,15 @@
     "itchio": {
         "import": {
             "warning": "Složky nainstalované itch.io se importují v plném rozsahu, včetně aktualizací. U ostatních složek nemůže Heroic kontrolovat dostupnost aktualizací a jejich odinstalování nevede k odstranění herních souborů."
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Úspěchy",
+            "dlc": "DLC",
+            "installInfo": "Velikost ke stažení",
+            "launchOptions": "Možnosti spuštění",
+            "storeInfo": "Systémové informace"
         }
     }
 }

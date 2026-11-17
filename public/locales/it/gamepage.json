@@ -99,7 +99,8 @@
         "play": "GIOCA",
         "edit-game": "Modifica gioco",
         "favourite": "Aggiungi Ai Preferiti",
-        "unfavourite": "Rimuovi Dai Preferiti"
+        "unfavourite": "Rimuovi Dai Preferiti",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -136,7 +137,11 @@
         "extra_info": "Informazioni aggiuntive",
         "install_info": "Informazioni d'installazione",
         "achievements": "Trofei",
-        "details": "Dettagli del gioco"
+        "details": "Dettagli del gioco",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Informazioni su"
     },
     "gamecard": {
         "moving": "Spostamento in corso",
@@ -169,8 +174,13 @@
         "third-party-app": "Gestore Terze Parti",
         "genres": "Generi",
         "steamdeck": {
-            "unsupported": "Non supportato"
-        }
+            "unsupported": "Non supportato",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Spazio Disponibile",
@@ -200,7 +210,8 @@
         "playing": {
             "start": "Esegui ora",
             "stop": "In esecuzione (Stop)",
-            "start_with_logs": "Esegui (con log)"
+            "start_with_logs": "Esegui (con log)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sincronizzando i salvataggi"
@@ -289,7 +300,9 @@
     },
     "specs": {
         "minimum": "Minime",
-        "recommended": "Raccomandate"
+        "recommended": "Raccomandate",
+        "notes": "Note",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Clicca per aggiornare",
@@ -336,7 +349,8 @@
         "verify": "Verifica e ripara",
         "extraInfo": "Ulteriori informazioni",
         "logs": "Registri",
-        "categories": "Categorie"
+        "categories": "Categorie",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud.",
@@ -389,5 +403,19 @@
         },
         "square": "Grafica quadrata",
         "title": "Modifica gioco"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Trofei",
+            "dlc": "DLC",
+            "installInfo": "Dimensione del download",
+            "launchOptions": "Opzioni di avvio",
+            "storeInfo": "Informazioni di Sistema"
+        }
     }
 }

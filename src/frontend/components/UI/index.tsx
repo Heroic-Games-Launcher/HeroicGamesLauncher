@@ -25,6 +25,8 @@ export { default as StoreBadge } from './StoreBadge'
 export { default as Alert } from './Alert'
 export { default as BackButton } from './BackButton'
 export { default as Badge } from './Badge'
+// ts-prune-ignore-next
+export { default as Link } from './Link'
 export { default as IconBadge } from './IconBadge'
 export { default as FeatureCard } from './FeatureCard'
 export { default as DetailList } from './DetailList'

@@ -99,7 +99,8 @@
         "play": "JOUER",
         "edit-game": "Modifier l'application/le jeu",
         "favourite": "Ajouter aux favoris",
-        "unfavourite": "Retirer des favoris"
+        "unfavourite": "Retirer des favoris",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Non-compatible",
     "disabled": "Désactivé",
@@ -136,7 +137,11 @@
         "extra_info": "Informations complémentaires",
         "install_info": "Installation",
         "achievements": "Accomplissements",
-        "details": "Caractéristiques du jeu"
+        "details": "Caractéristiques du jeu",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "À propos"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -169,8 +174,13 @@
         "third-party-app": "Gestionnaire tiers",
         "genres": "Genres",
         "steamdeck": {
-            "unsupported": "Non-supporté"
-        }
+            "unsupported": "Non-supporté",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Espace disponible",
@@ -200,7 +210,8 @@
         "playing": {
             "start": "Jouer",
             "stop": "En cours d’exécution (arrêter)",
-            "start_with_logs": "Jouer (en consignant les événements)"
+            "start_with_logs": "Jouer (en consignant les événements)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Synchronisation des sauvegardes"
@@ -289,7 +300,9 @@
     },
     "specs": {
         "minimum": "Minimum",
-        "recommended": "Recommandé"
+        "recommended": "Recommandé",
+        "notes": "Notes",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Cliquez ici pour mettre à jour ce jeu",
@@ -336,7 +349,8 @@
         "verify": "Vérifier et réparer la structure des fichiers",
         "extraInfo": "Informations supplémentaires",
         "logs": "Journaux d'événements",
-        "categories": "Catégories"
+        "categories": "Catégories",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Ce jeu n’est pas compatible avec la sauvegarde à distance. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde à distance.",
@@ -389,5 +403,19 @@
             "no-key-prefix": "Pour rechercher une image d'illustration dans SteamGridDB, ajouter une clé API dans"
         },
         "square": "Image de jaquette"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Accomplissements",
+            "dlc": "Extension",
+            "installInfo": "Taille du téléchargement",
+            "launchOptions": "Options de lancement",
+            "storeInfo": "Informations Système"
+        }
     }
 }
