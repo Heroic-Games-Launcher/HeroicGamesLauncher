@@ -14,13 +14,16 @@ import CodeweaversLogo from 'frontend/assets/codeweavers_icon.svg?react'
 import { faApple } from '@fortawesome/free-brands-svg-icons'
 import GELogo from 'frontend/assets/ge-logo.svg?react'
 import CachyOSLogo from 'frontend/assets/cachyos-logo.svg?react'
+import { getWineVersionSourceLabels } from 'common/utils'
 
 interface ListItemProps {
   version: WineInstallation
+  sourceLabel?: string
 }
 
 export const WineVersionListItem = React.memo(function WineVersionListItem({
-  version
+  version,
+  sourceLabel
 }: ListItemProps) {
   const { name, type } = version
 
@@ -48,6 +51,9 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
     <span className="wineVersionOption">
       <SvgIcon className="wineVersionOption__icon">{primaryIcon}</SvgIcon>
       <span className="wineVersionOption__name">{substitutedName}</span>
+      {sourceLabel && (
+        <span className="wineVersionOption__source">{` (${sourceLabel})`}</span>
+      )}
     </span>
   )
 })
@@ -66,6 +72,10 @@ export default function WineVersionSelector() {
   const [refreshing, setRefreshing] = useState(true)
   const [showHiddenProtonsMessage, setShowHiddenProtonsMessage] =
     useState(false)
+  const sourceLabels = useMemo(
+    () => getWineVersionSourceLabels(altWine ?? []),
+    [altWine]
+  )
 
   useEffect(() => {
     const getAltWine = async () => {
@@ -126,12 +136,13 @@ export default function WineVersionSelector() {
           : t('setting.crossover-version', 'Crossover/Wine version')
       }
       htmlId="setWineVersion"
-      onChange={(event) =>
-        setWineVersion(
-          altWine.filter(({ name }) => name === event.target.value)[0]
+      onChange={(event) => {
+        const selectedWine = altWine.find(
+          ({ bin }) => bin === event.target.value
         )
-      }
-      value={wineVersion.name}
+        if (selectedWine) setWineVersion(selectedWine)
+      }}
+      value={wineVersion.bin}
       afterSelect={
         <>
           {!refreshing && !altWine.length && (
@@ -203,8 +214,11 @@ export default function WineVersionSelector() {
       }
     >
       {altWine.map((version, i) => (
-        <MenuItem key={i} value={version.name}>
-          <WineVersionListItem version={version} />
+        <MenuItem key={version.bin} value={version.bin}>
+          <WineVersionListItem
+            version={version}
+            sourceLabel={sourceLabels[i]}
+          />
         </MenuItem>
       ))}
     </SelectField>
