@@ -1,14 +1,10 @@
 import { useContext, useState } from 'react'
 import GameContext from '../../GameContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { EllipsisVertical } from 'lucide-react'
 import GameSubMenu from '../../GameSubMenu'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { Button, Icon, Tooltip } from 'frontend/components/UI'
 import { GameInfo } from 'common/types'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import GameRequirements from '../../GameRequirements'
 import { useTranslation } from 'react-i18next'
 import GameChangeLog from '../../GameChangeLog'
@@ -34,9 +30,14 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
   return (
     <>
       <div className="game-actions">
-        <button className="toggle">
-          <FontAwesomeIcon icon={faEllipsisV} />
-        </button>
+        <Tooltip content={t('submenu.more', 'More')} asChild>
+          <Button
+            variant="ghost"
+            className="toggle"
+            aria-label={t('submenu.more', 'More')}
+            icon={<Icon glyph={EllipsisVertical} size="lg" />}
+          />
+        </Tooltip>
 
         <GameSubMenu
           appName={appName}
@@ -62,14 +63,12 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
       </div>
 
       {showRequirements && (
-        <Dialog showCloseButton onClose={() => setShowRequirements(false)}>
-          <DialogHeader onClose={() => setShowRequirements(false)}>
-            <div>{t('game.requirements', 'Requirements')}</div>
-          </DialogHeader>
-          <DialogContent>
+        <Modal showCloseButton onClose={() => setShowRequirements(false)}>
+          <ModalHeader>{t('game.requirements', 'Requirements')}</ModalHeader>
+          <ModalContent>
             <GameRequirements reqs={gameExtraInfo?.reqs} />
-          </DialogContent>
-        </Dialog>
+          </ModalContent>
+        </Modal>
       )}
 
       {showModifyInstallModal && (

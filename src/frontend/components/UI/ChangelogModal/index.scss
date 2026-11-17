@@ -1,7 +1,70 @@
+.changelogModal .Modal__title {
+  font-size: var(--title-lg);
+  font-weight: var(--bold);
+  line-height: var(--leading-tight);
+}
+
 .changelogModalContent {
+  color: var(--text-neutral-muted);
+  font-size: var(--body-md);
+  line-height: var(--leading-normal);
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-block: var(--space-lg-fixed) var(--space-xs-fixed);
+    color: var(--text-neutral);
+    font-size: var(--title-sm);
+    font-weight: var(--semibold);
+  }
+
+  h1:first-child,
+  h2:first-child,
+  h3:first-child {
+    margin-block-start: 0;
+  }
+
+  p {
+    margin-block: 0 var(--space-sm-fixed);
+  }
+
+  ul,
+  ol {
+    margin-block: 0 var(--space-md-fixed);
+    padding-inline-start: var(--space-lg-fixed);
+  }
+
+  li {
+    margin-block-end: var(--space-sm-fixed);
+    line-height: 1.6;
+  }
+
+  li::marker {
+    color: var(--text-neutral-faint);
+  }
+
+  .changelogMention {
+    color: var(--text-accent);
+    font-weight: var(--semibold);
+  }
+
+  code {
+    padding: 0 var(--space-2xs-fixed);
+    border-radius: var(--radius-xs);
+    background: var(--bg-surface-raised);
+    font-size: var(--body-sm);
+  }
+
   a {
-    color: var(--accent);
-    font-weight: 700;
+    color: var(--text-brand);
+    font-weight: var(--semibold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  a:hover {
+    color: var(--on-panel-link);
   }
 
   img,
@@ -9,7 +72,11 @@
     display: block;
     max-width: 80%;
     height: auto;
-    margin: 1rem auto;
-    border-radius: 4px;
+    margin: var(--space-md-fixed) auto;
+    border-radius: var(--radius-sm);
   }
+}
+
+.changelogModalFullLink {
+  margin-block-start: var(--space-md-fixed);
 }

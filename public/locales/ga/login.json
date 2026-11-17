@@ -5,7 +5,9 @@
         "error": "Earráid, bain triail as cód difriúil",
         "loading": "Ag luchtú",
         "login": "Logáil isteach",
-        "open": "Oscail Nasc"
+        "open": "Oscail Nasc",
+        "close": "Dún",
+        "itchio_error": "Earráid, bain triail as cód difriúil"
     },
     "message": {
         "part1": "Chun logáil isteach agus do chluichí a shuiteáil, ní mór duit na céimeanna seo a leanas a leanúint ar dtús:",

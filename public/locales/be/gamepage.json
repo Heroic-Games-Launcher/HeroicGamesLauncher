@@ -97,7 +97,9 @@
         "browse_files": "Прагляд файлаў",
         "browse_wine_prefix": "Праглядзець Wine прэфікс",
         "play": "",
-        "edit-game": "Рэдагаваць праграму/гульню"
+        "edit-game": "Рэдагаваць праграму/гульню",
+        "favourite": "Дадаць у абранае",
+        "unfavourite": "Выдаліць з абранага"
     },
     "cloud_save_unsupported": "Не падтрымліваецца",
     "disabled": "Адключана",
@@ -133,7 +135,8 @@
         "modify": "Змяніць усталёўку",
         "extra_info": "Дадатковая інфармацыя",
         "install_info": "Звесткі пра ўсталяванне",
-        "achievements": ""
+        "achievements": "",
+        "details": "Дэталі гульні"
     },
     "gamecard": {
         "moving": "Перамяшчэнне",
@@ -163,7 +166,10 @@
         "installedInfo": "Звесткі пра ўсталяванне",
         "protondb-compatibility-info": "Узровень сумяшчальнасці Proton",
         "steamdeck-compatibility-info": "Сумяшчальнасць са SteamDeck",
-        "third-party-app": "Старонні менеджар"
+        "third-party-app": "Старонні менеджар",
+        "steamdeck": {
+            "unsupported": "Не Падтрымліваецца"
+        }
     },
     "install": {
         "disk-space-left": "Вольная прастора",
@@ -228,7 +234,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "зроблена для працы праз Heroic, бо новыя версіі Steam не будуць працаваць на macOS.",
             "launch": "Запусціце Steam, выкарыстоўваючы ўзровень сумяшчальнасці ў Heroic"
-        }
+        },
+        "releaseDate": "Дата выпуску"
     },
     "launch": {
         "options": "Параметры запуску...",

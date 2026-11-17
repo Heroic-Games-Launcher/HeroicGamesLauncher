@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox } from 'frontend/components/UI'
+import {} from 'frontend/components/UI'
 import {
   ColumnProps,
   TableInput
@@ -37,12 +37,12 @@ const WrappersTable = () => {
   }
 
   const wrapperInfo = (
-    <InfoBox text="infobox.help">
+    <>
       {t(
         'options.wrapper.arguments_example',
         'Arguments example: --arg; --extra-file="file-path/ with/spaces"'
       )}
-    </InfoBox>
+    </>
   )
 
   return (
@@ -57,8 +57,8 @@ const WrappersTable = () => {
       fullFills={{ key: true, value: false }}
       onChange={onWrappersChange}
       inputPlaceHolder={{
-        key: t('options.wrapper.placeHolderKey', 'New Wrapper'),
-        value: t('options.wrapper.placeHolderValue', 'Wrapper Arguments')
+        key: t('options.wrapper.placeHolderKey', 'New wrapper'),
+        value: t('options.wrapper.placeHolderValue', 'Wrapper arguments')
       }}
       warning={
         <span className="warning">
@@ -68,7 +68,7 @@ const WrappersTable = () => {
           )}`}
         </span>
       }
-      afterInput={wrapperInfo}
+      info={wrapperInfo}
     />
   )
 }

@@ -5,7 +5,9 @@
         "copy": "Kopiere",
         "copied": "Kopiert!",
         "loading": "Laster",
-        "error": "Feil, prøv en annen kode"
+        "error": "Feil, prøv en annen kode",
+        "close": "Lukk",
+        "itchio_error": "Feil prøv en annen API-nøkkel"
     },
     "message": {
         "part1": "Følg instruksen for å logge inn og installere spill:",
@@ -21,5 +23,13 @@
         "error": "Feil",
         "loading": "Laster inn liste over spill …"
     },
-    "welcome": "Velkommen!"
+    "welcome": "Velkommen!",
+    "itchio": {
+        "api_key_placeholder": "Lim inn API-nøkkelen din",
+        "paste_and_login": "Lim inn fra utklippstavlen"
+    },
+    "sid": {
+        "paste_and_login": "Lim inn fra utklippstavlen",
+        "placeholder": "Lim inn SID-kode her"
+    }
 }

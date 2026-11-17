@@ -46,6 +46,10 @@ const AllowInstallationBrokenAnticheat = () => {
         htmlId="disableAnticheatCheck"
         value={allowInstallation}
         handleChange={() => toggleConfig()}
+        description={t(
+          'setting.allow-broken-anticheat.description',
+          'Install titles even when their anticheat is known not to work on this system'
+        )}
         title={t(
           'setting.allow_installation_broken_anticheat.label',
           'Allow installation of games with broken or denied anticheat'

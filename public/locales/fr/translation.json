@@ -11,7 +11,10 @@
         "content_font_family_default": "Famille de polices pour les contenus (par défaut : {{fontFamily}})",
         "actions_font_family_default": "Famille de polices pour les actions (par défaut : {{fontFamily}})",
         "disable_smooth_scrolling": "Désactiver le défilement doux (requiert un redémarrage)",
-        "disable_animations": "Désactiver les animations de l'interface"
+        "disable_animations": "Désactiver les animations de l'interface",
+        "section": {
+            "library": "Bibliothèque"
+        }
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
@@ -210,7 +213,8 @@
         "sync": "Synchroniser",
         "syncing": "Synchronisation en cours",
         "unsync": "Désynchroniser",
-        "continue": "Continuer"
+        "continue": "Continuer",
+        "close": "Fermer"
     },
     "controller": {
         "hints": {
@@ -269,7 +273,8 @@
         "status": "État",
         "store": "Boutique",
         "title": "Titre du jeu",
-        "modify": "Modifier l’installation"
+        "modify": "Modifier l’installation",
+        "settings": "Paramètres"
     },
     "generic": {
         "error": {
@@ -305,7 +310,9 @@
         "no_categories": "Aucune catégorie personnalisée. Ajoutez des catégories en utilisant le menu de chaque jeu.",
         "show_support_offline_only": "N'afficher que les jeux hors-ligne",
         "show_third_party_managed_only": "N'afficher que les jeux dépendant d'une application tierce",
-        "show_updates_only": "N'afficher que les jeux pouvant être mis à jour"
+        "show_updates_only": "N'afficher que les jeux pouvant être mis à jour",
+        "platforms": "Système",
+        "stores": "Boutiques"
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -852,6 +859,10 @@
         "hide-window-on-protocol-launch": "Cacher la fenêtre Heroic lors du lancement de jeux via les liens Heroic",
         "nvidiaprime": {
             "description": "Forcer l'utilisation de NVIDIA Optimus ou AMD Dynamic Switchable Graphics dGPU. Utilisez-le uniquement pour les jeux OpenGL et Vulkan."
+        },
+        "tools": {
+            "open": "Ouvrir",
+            "selectExe": "Choisir le fichier EXE"
         }
     },
     "settings": {
@@ -890,7 +901,8 @@
             "wineExt": "Extensions de Wine",
             "systemInformation": "Caractéristiques du système",
             "gamescope": "Gamescope",
-            "legacy": "Obsolète"
+            "legacy": "Obsolète",
+            "categories": "Catégories"
         },
         "open-config-file": "Ouvrir le fichier de configuration",
         "reset-heroic": "Réinitialiser Heroic",
@@ -902,18 +914,18 @@
         },
         "systemInformation": {
             "cpu": "Processeurs :",
-            "gpuWithNumber": "Processeur graphique {{number}} :",
+            "gpuWithNumber": "Processeur graphique {{number}} :",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary : {{legendaryVersion}}",
             "systemSpecifications": "Configuration matérielle :",
             "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Pilote : {{driverVersion}}",
             "os": "Système d'exploitation :",
-            "gpu": "Processeur graphique :",
+            "gpu": "Processeur graphique :",
             "gogdlVersion": "Gogdl : {{gogdlVersion}}",
             "osVersion": "Version {{versionNumber}}",
             "osNameFlatpak": "{{osName}} (à l'intérieur de Flatpak)",
-            "software": "Logiciel :",
+            "software": "Logiciel :",
             "memoryStats": "{{percentUsed}}% utilisés ({{usedGib}} / {{totalGib}}",
             "showDetailed": "Afficher les caractéristiques détaillées du système",
             "memory": "Mémoire vive :",
@@ -969,13 +981,21 @@
                 "description": "Vous devez fournir votre propre clé API SteamGridDB pour activer la recherche d'image d'arrière plan. La clé est stockée encryptée si votre système le permet. Vous pouvez en obtenir une à {{url}}"
             }
         },
-        "open-game-settings-file-hint": "Cliquez pour ouvrir le fichier de paramètres du jeu"
+        "open-game-settings-file-hint": "Cliquez pour ouvrir le fichier de paramètres du jeu",
+        "section": {
+            "downloads": "Téléchargements",
+            "experimental": "Fonctionnalités expérimentales",
+            "launch": "Options de lancement",
+            "wineTools": "Tools",
+            "wineVersion": "Wine"
+        }
     },
     "Settings": "Options",
     "sidebar": {
         "collapse": "Réduire le menu latéral",
         "uncollapse": "Étendre le menu latéral",
-        "console": "Mode Console"
+        "console": "Mode Console",
+        "storesLogin": "Connexion à la boutique"
     },
     "status": {
         "installing": "Installation",
@@ -1006,7 +1026,8 @@
         "show": "Montrer"
     },
     "two_col_table": {
-        "save_hint": "Les changements faits dans cette liste ne sont pas enregistrés automatiquement. Cliquez sur le bouton « + »"
+        "save_hint": "Les changements faits dans cette liste ne sont pas enregistrés automatiquement. Cliquez sur le bouton « + »",
+        "add": "Ajouter"
     },
     "Update Available!": "Mise à jour disponible !",
     "userselector": {
@@ -1097,7 +1118,8 @@
     },
     "emptyLibrary": {
         "noResults": "Les filtres actuels n'ont retourné aucun résultat.",
-        "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la section « Bibliothèque ».<br /><br />Pour utiliser des jeux ou des applications provenant d'autres sources, cliquez pour les ajouter manuellement<br />."
+        "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la section « Bibliothèque ».<br /><br />Pour utiliser des jeux ou des applications provenant d'autres sources, cliquez pour les ajouter manuellement<br />.",
+        "noResultsTitle": "Aucun jeu trouvé."
     },
     "adtraction-locked": {
         "description": "Il semble que le domaine « track.adtraction.com » soit bloqué ou n'ait pas pu être atteint. Avec « adtraction », tous les achats que vous faites dans la boutique GOG contribuent au financement de Heroic. Si vous souhaitez nous soutenir ainsi, songez à autoriser ce domaine.",
@@ -1366,5 +1388,6 @@
         "remove": "Supprimer",
         "save": "Enregistrer",
         "clear_all": "Tout effacer"
-    }
+    },
+    "General": "Général"
 }

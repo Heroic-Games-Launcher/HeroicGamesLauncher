@@ -38,17 +38,21 @@ const BattlEyeRuntime = () => {
   return (
     <div className="toggleRow">
       <ToggleSwitch
+        description={t(
+          'settings.battlEyeRuntime.hint',
+          'Install the runtime required by games protected with BattlEye'
+        )}
         htmlId="battlEyeRuntime"
         value={battlEyeRuntime}
         handleChange={handleBattlEyeRuntime}
-        title={t('settings.battlEyeRuntime.name', 'BattlEye AntiCheat Runtime')}
+        title={t('settings.battlEyeRuntime.name', 'BattlEye AntiCheat runtime')}
       />
       {installing && (
         <span>
           <FontAwesomeIcon className="fa-spin" icon={faSyncAlt} />
           {t(
             'settings.battlEyeRuntime.installing',
-            'Installing BattlEye Runtime...'
+            'Installing BattlEye runtime...'
           )}
         </span>
       )}

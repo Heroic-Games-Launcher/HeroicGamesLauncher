@@ -10,9 +10,10 @@ import {
   ToggleSwitch,
   InfoBox,
   SteamGridDBPicker,
-  WarningMessage
+  Alert
 } from 'frontend/components/UI'
-import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
+import { ModalContent, ModalFooter } from 'frontend/components/UI/Modal'
+import Button from 'frontend/components/UI/Button'
 import {
   getGameInfo,
   getGameSettings,
@@ -254,7 +255,7 @@ export default function SideloadDialog({
     const path = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
-      title: t('box.runexe.title', 'Select EXE to Run'),
+      title: t('box.runexe.title', 'Select EXE to run'),
       filters: fileFilters(appPlatform)
     })
     if (path) {
@@ -320,7 +321,7 @@ export default function SideloadDialog({
 
   return (
     <>
-      <DialogContent>
+      <ModalContent>
         <div className="sideloadGrid">
           <div className="imageIcons">
             <div
@@ -452,7 +453,7 @@ export default function SideloadDialog({
                   />
                 </details>
                 {!hasSgdbKey && (
-                  <WarningMessage>
+                  <Alert variant="warning">
                     {t(
                       'edit-game.sgdb.no-key-prefix',
                       'To search SteamGridDB for cover art, add an API key in'
@@ -466,7 +467,7 @@ export default function SideloadDialog({
                       {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
                     </a>
                     .
-                  </WarningMessage>
+                  </Alert>
                 )}
                 {!editMode && children}
                 {showSideloadExe && (
@@ -524,28 +525,27 @@ export default function SideloadDialog({
             )}
           </div>
         </div>
-      </DialogContent>
-      <DialogFooter>
+      </ModalContent>
+      <ModalFooter>
+        <Button
+          onClick={async () => handleInstall()}
+          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
+          icon={addingApp ? <FontAwesomeIcon icon={faSpinner} spin /> : null}
+        >
+          {t('button.finish', 'Finish')}
+        </Button>
         {shouldShowRunExe && (
-          <button
+          <Button
+            variant="secondary"
             onClick={async () => handleRunExe()}
-            className={`button is-secondary`}
             disabled={runningSetup || !title.length}
           >
             {runningSetup
               ? t('button.running-setup', 'Running Setup')
               : t('button.run-exe-first', 'Run Installer First')}
-          </button>
+          </Button>
         )}
-        <button
-          onClick={async () => handleInstall()}
-          className={`button is-success`}
-          disabled={(!selectedExe.length && !gameUrl) || addingApp || searching}
-        >
-          {addingApp && <FontAwesomeIcon icon={faSpinner} spin />}
-          {!addingApp && t('button.finish', 'Finish')}
-        </button>
-      </DialogFooter>
+      </ModalFooter>
     </>
   )
 }

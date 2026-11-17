@@ -11,7 +11,10 @@
         "actions_font_family_default": "Tipus de lletra de les accions (per defecte, {{fontFamily}})",
         "content_font_family_default": "Tipus de lletra dels continguts (per defecte, {{fontFamily}})",
         "disable_smooth_scrolling": "Desactiva el desplaçament suau (cal reiniciar)",
-        "disable_animations": "Desactiva les animacions de la interfície"
+        "disable_animations": "Desactiva les animacions de la interfície",
+        "section": {
+            "library": "Biblioteca"
+        }
     },
     "add_game": "Afegeix un joc",
     "All": "Tot",
@@ -210,7 +213,8 @@
         "sync": "Sincronitza",
         "syncing": "S'està sincronitzant",
         "unsync": "Dessincronitza",
-        "continue": "Continua"
+        "continue": "Continua",
+        "close": "Tanca"
     },
     "controller": {
         "hints": {
@@ -269,7 +273,8 @@
         "status": "Estat",
         "store": "Botiga",
         "title": "Títol del joc",
-        "modify": "Modifica la instal·lació"
+        "modify": "Modifica la instal·lació",
+        "settings": "Configuració del joc"
     },
     "generic": {
         "error": {
@@ -305,7 +310,9 @@
         "select_all": "Selecciona-ho tot",
         "no_categories": "No existeixen categories personalitzades. Afegeix-ne des del menú de cada joc.",
         "show_third_party_managed_only": "Mostra només els gestionats per tercers",
-        "show_updates_only": "Mostra només els jocs amb actualitzacions"
+        "show_updates_only": "Mostra només els jocs amb actualitzacions",
+        "platforms": "Platform",
+        "stores": "Botigues"
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -841,6 +848,10 @@
         "steamRuntime": {
             "label": "Utilitza el Runtime del Steam",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Obre",
+            "selectExe": "Selecciona l'EXE"
         }
     },
     "settings": {
@@ -879,7 +890,8 @@
             "wineExt": "Extensions del Wine",
             "systemInformation": "Informació del sistema",
             "gamescope": "Gamescope",
-            "legacy": "Obsolets"
+            "legacy": "Obsolets",
+            "categories": "Categories"
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
@@ -958,13 +970,21 @@
                 "description": "Aporta la teva clau de l'API del SteamGridDB per a poder cercar caràtules dels jocs. La clau s'emmagatzema de manera xifrada si el teu sistema ho permet. Pots obtenir-ne una a {{url}}"
             }
         },
-        "open-game-settings-file-hint": "Fes clic per a obrir el fitxer de configuració del joc"
+        "open-game-settings-file-hint": "Fes clic per a obrir el fitxer de configuració del joc",
+        "section": {
+            "downloads": "Baixades",
+            "experimental": "Funcions experimentals",
+            "launch": "Opcions d'execució",
+            "wineTools": "Eines",
+            "wineVersion": "Wine"
+        }
     },
     "Settings": "Configuració",
     "sidebar": {
         "collapse": "Col·lapsa la barra lateral",
         "uncollapse": "Expandeix la barra lateral",
-        "console": "Mode consola"
+        "console": "Mode consola",
+        "storesLogin": "Inici de sessió a la botiga"
     },
     "status": {
         "installing": "S'està instal·lant",
@@ -995,7 +1015,8 @@
         "show": "Mostra"
     },
     "two_col_table": {
-        "save_hint": "Els canvis en aquesta taula no es desen automàticament. Fes clic al botó +"
+        "save_hint": "Els canvis en aquesta taula no es desen automàticament. Fes clic al botó +",
+        "add": "Afegeix"
     },
     "Update Available!": "Hi ha una actualització disponible",
     "userselector": {
@@ -1086,7 +1107,8 @@
     },
     "emptyLibrary": {
         "noResults": "Els filtres actuals no han produït cap resultat.",
-        "noGames": "La teva biblioteca està buida.<br /><br />Fes clic <4>aquí</4> per a iniciar la sessió als comptes d'Epic, GOG.com o Amazon. Es mostraran els jocs a la biblioteca.<br /><br />Per a fer servir jocs o aplicacions d'altres orígens, fes clic a <br /> per a afegir-los manualment."
+        "noGames": "La teva biblioteca està buida.<br /><br />Fes clic <4>aquí</4> per a iniciar la sessió als comptes d'Epic, GOG.com o Amazon. Es mostraran els jocs a la biblioteca.<br /><br />Per a fer servir jocs o aplicacions d'altres orígens, fes clic a <br /> per a afegir-los manualment.",
+        "noResultsTitle": "No s'ha trobat cap joc."
     },
     "categories-manager": {
         "add": "Afegeix",
@@ -1355,5 +1377,6 @@
         "edit": "Edita",
         "remove": "Suprimeix",
         "save": "Desa"
-    }
+    },
+    "General": "General"
 }

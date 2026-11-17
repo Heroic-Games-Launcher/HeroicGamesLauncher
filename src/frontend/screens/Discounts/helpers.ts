@@ -263,8 +263,13 @@ const AFFILIATE_STRATEGIES: Record<DiscountStore, AffiliateStrategy> = {
   humble: { kind: 'rewrite', rewrite: withHumbleAffiliate }
 }
 
-export const getAffiliateLink = (product: CatalogProduct): string => {
-  const strategy = AFFILIATE_STRATEGIES[product.store ?? 'gog']
+export const getAffiliateLink = (
+  product: CatalogProduct,
+  disableGOGAffiliate = true
+): string => {
+  const store = product.store ?? 'gog'
+  if (store === 'gog' && disableGOGAffiliate) return product.storeLink
+  const strategy = AFFILIATE_STRATEGIES[store]
   return strategy.kind === 'rewrite'
     ? strategy.rewrite(product.storeLink)
     : product.storeLink

@@ -96,7 +96,9 @@
         "browse_files": "Blader door Bestanden",
         "browse_wine_prefix": "Blader Wineprefix",
         "play": "",
-        "edit-game": "Bewerk App/Game"
+        "edit-game": "Bewerk App/Game",
+        "favourite": "Voeg toe aan favorieten",
+        "unfavourite": "Verwijder uit favorieten"
     },
     "cloud_save_unsupported": "Niet ondersteund",
     "disabled": "Uitgeschakeld",
@@ -132,7 +134,8 @@
         "changelogFor": "Changelog van {{gameTitle}}",
         "extra_info": "Extra info",
         "install_info": "Installatie-info",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game details"
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",
@@ -162,7 +165,10 @@
         "installedInfo": "Geïnstalleerde informatie",
         "protondb-compatibility-info": "Proton-compatibiliteitslaag",
         "steamdeck-compatibility-info": "SteamDeck-compatibiliteit",
-        "third-party-app": "Beheerder van derden"
+        "third-party-app": "Beheerder van derden",
+        "steamdeck": {
+            "unsupported": "Niet ondersteund"
+        }
     },
     "install": {
         "disk-space-left": "Beschikbare ruimte",
@@ -205,7 +211,8 @@
             "installing": "Installing",
             "pleaseWait": "Please wait...",
             "installation": "Installatie stoppen"
-        }
+        },
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "Opstartopties...",

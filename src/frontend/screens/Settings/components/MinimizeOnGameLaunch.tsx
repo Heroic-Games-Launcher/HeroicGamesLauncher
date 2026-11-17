@@ -12,12 +12,16 @@ const MinimizeOnGameLaunch = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.minimizeOnLaunch.description',
+        'Send Heroic to the background once a game starts'
+      )}
       htmlId="minimizeOnLaunch"
       value={minimizeOnLaunch && !noTrayIcon}
       handleChange={() => setMinimizeOnLaunch(!minimizeOnLaunch)}
       title={t(
         'setting.minimize-on-launch',
-        'Minimize Heroic After Game Launch'
+        'Minimize Heroic after game launch'
       )}
       disabled={noTrayIcon}
     />

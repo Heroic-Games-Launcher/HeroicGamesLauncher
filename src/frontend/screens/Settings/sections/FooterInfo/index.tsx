@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import SettingsContext from '../../SettingsContext'
+import './index.css'
 
 export default function FooterInfo() {
   const { t } = useTranslation()
@@ -9,11 +10,11 @@ export default function FooterInfo() {
   const openConfigFile = () => window.api.showConfigFileInFolder(appName)
 
   return (
-    <div>
-      <span className="save">{t('info.settings')}</span>
+    <div className="settingsFooter">
+      <span className="settingsFooter__hint">{t('info.settings')}</span>
       {!isDefault && (
-        <span className="appName">
-          AppName: &nbsp;
+        <span className="settingsFooter__appName">
+          AppName:&nbsp;
           <button
             type="button"
             className="appNameButton"

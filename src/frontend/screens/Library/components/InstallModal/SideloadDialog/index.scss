@@ -106,11 +106,21 @@
   .advancedFields {
     summary {
       cursor: pointer;
-      font-size: var(--font-size-sm);
-      color: var(--neutral-06);
-      font-weight: bold;
+      font-family: var(--primary-font-family);
+      font-size: var(--text-md);
+      font-weight: var(--semibold);
+      color: var(--text-secondary);
       padding: var(--space-xs) 0;
       user-select: none;
+      transition: color 150ms ease;
+
+      &:hover {
+        color: var(--text-default);
+      }
+
+      &::marker {
+        color: var(--navbar-accent, var(--accent));
+      }
     }
 
     &[open] {

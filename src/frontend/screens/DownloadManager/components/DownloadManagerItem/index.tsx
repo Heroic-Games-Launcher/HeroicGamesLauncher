@@ -1,38 +1,73 @@
 import './index.css'
 
-import { useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 
 import { DMQueueElement, DownloadManagerState } from 'common/types'
-import StopIcon from 'frontend/assets/stop-icon.svg?react'
-import { CachedImage, SvgButton } from 'frontend/components/UI'
+import {
+  CircleCheck,
+  CircleX,
+  Download,
+  Gamepad2,
+  Loader,
+  Pause,
+  Play,
+  Trash2,
+  X
+} from 'lucide-react'
+import classNames from 'classnames'
+import {
+  Badge,
+  Button,
+  CachedImage,
+  Icon,
+  ProgressBar,
+  StoreBadge,
+  Tooltip
+} from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
-import { getGameInfo, getStoreName } from 'frontend/helpers'
+import { getGameInfo, getIntlLocale, getStoreName } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import { useInstallProgress } from 'frontend/state/InstallProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
-import PlayIcon from 'frontend/assets/play-icon.svg?react'
-import PauseIcon from 'frontend/assets/pause-icon.svg?react'
 
 type Props = {
-  element?: DMQueueElement
+  element: DMQueueElement
   current: boolean
   state?: DownloadManagerState
+  position?: number
+  variant?: 'row' | 'hero'
+  /** Leading hero action, e.g. limiter. */
+  extraAction?: ReactNode
   handleClearItem?: (appName: string) => void
+  showStatusColumn?: boolean
 }
+
+/*
+  Keys read from the `translation` namespace through `t2`, listed here so the
+  i18n extractor keeps them:
+  t('queue.label.downloading', 'Downloading')
+  t('queue.label.paused', 'Paused')
+  t('queue.label.finished', 'Completed')
+  t('download-manager.ETA', 'Estimated time')
+  t('download-manager.install-type.install', 'Install')
+  t('download-manager.install-type.update', 'Update')
+*/
 
 const options: Intl.DateTimeFormatOptions = {
   hour: 'numeric',
   minute: 'numeric'
 }
 
-function convertToTime(time: number) {
+function convertToTime(time: number, language: string) {
   const date = time ? new Date(time) : new Date()
-  const hour = new Intl.DateTimeFormat(undefined, options).format(date)
+  const locale = getIntlLocale(language)
+  const hour = new Intl.DateTimeFormat(locale, options).format(date)
   return {
     hour,
-    date: date.toLocaleDateString(),
-    fullDate: date.toLocaleString()
+    date: date.toLocaleDateString(locale),
+    fullDate: date.toLocaleString(locale)
   }
 }
 
@@ -40,24 +75,29 @@ const DownloadManagerItem = ({
   element,
   current,
   state,
-  handleClearItem
+  position,
+  variant = 'row',
+  extraAction,
+  handleClearItem,
+  showStatusColumn = false
 }: Props) => {
-  const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
-  const { t } = useTranslation('gamepage')
+  const { amazon, epic, gog, itchio, zoom, steam, showDialogModal } =
+    useContext(ContextProvider)
+  const { t, i18n } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
+  const isHero = variant === 'hero'
 
   const navigate = useNavigate()
 
-  if (!element) {
-    return (
-      <h5 style={{ paddingTop: 'var(--space-xs' }}>
-        {t2('queue.label.empty', 'Nothing to download')}
-      </h5>
-    )
-  }
-
-  const library = [...epic.library, ...gog.library, ...amazon.library]
+  const library = [
+    ...epic.library,
+    ...gog.library,
+    ...amazon.library,
+    ...itchio.library,
+    ...zoom.library,
+    ...steam.library
+  ]
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const {
@@ -88,9 +128,14 @@ const DownloadManagerItem = ({
   } = gameInfo || {}
 
   const [progress] = hasProgress(appName, runner)
+  const liveProgress = useInstallProgress(
+    (state) => state[`${appName}_${runner}`]
+  )
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' || (status === 'abort' && !current)
+  // Paused game waiting in the queue.
+  const waitingPaused = !current && Boolean(element.pausedAt) && !status
 
   const stopInstallation = async () => {
     if (!gameInfo) {
@@ -105,7 +150,8 @@ const DownloadManagerItem = ({
       t,
       progress,
       runner,
-      showDialogModal
+      showDialogModal,
+      waitingPaused
     )
   }
 
@@ -127,7 +173,7 @@ const DownloadManagerItem = ({
       handleClearItem(appName)
     }
 
-    if (current) stopInstallation()
+    if (current || waitingPaused) stopInstallation()
     else window.api.removeFromDMQueue(appName)
   }
 
@@ -143,37 +189,40 @@ const DownloadManagerItem = ({
 
   const mainActionIcon = () => {
     if (finished) {
-      if (is_dlc) {
-        return <>-</>
-      }
-      return <PlayIcon className="playIcon" />
+      return <Icon glyph={Play} size="lg" />
     }
 
     if (canceled) {
-      return <StopIcon className="installIcon" />
+      return <Icon glyph={Trash2} size="lg" />
     }
 
-    return <StopIcon className="cancelIcon" />
+    return <Icon glyph={X} size="lg" />
+  }
+
+  const mainActionVariant = () => {
+    if (finished) {
+      return 'secondary'
+    }
+
+    return current || waitingPaused ? 'dangerSubtle' : 'ghost'
   }
 
   const secondaryActionIcon = () => {
     if (isPaused) {
-      return <PlayIcon className="playIcon" />
-    } else if (state === 'running') {
-      return <PauseIcon className="pauseIcon" />
-    } else {
-      return <></>
+      return <Icon glyph={Play} size="lg" />
     }
+
+    return <Icon glyph={Pause} size="lg" />
   }
 
   const getTime = () => {
     if (finished) {
-      return convertToTime(endTime)
+      return convertToTime(endTime, i18n.language)
     }
     if (current) {
-      return convertToTime(startTime)
+      return convertToTime(startTime, i18n.language)
     }
-    return convertToTime(addToQueueTime)
+    return convertToTime(addToQueueTime, i18n.language)
   }
 
   const mainIconTitle = () => {
@@ -182,7 +231,7 @@ const DownloadManagerItem = ({
       return t('Open')
     }
 
-    return current
+    return current || waitingPaused
       ? t('button.cancel', 'Cancel')
       : t('queue.label.remove', 'Remove from Downloads')
   }
@@ -190,35 +239,81 @@ const DownloadManagerItem = ({
   const secondaryIconTitle = () => {
     if (isPaused) {
       return t('queue.label.resume', 'Resume download')
-    } else if (state === 'running') {
-      return t('queue.label.pause', 'Pause download')
-    } else {
-      return ''
     }
+
+    return t('queue.label.pause', 'Pause download')
   }
 
-  const getStatusColor = () => {
-    if (element.status === 'done') {
-      return 'var(--success)'
+  const statusBadge = () => {
+    if (isHero) {
+      if (isPreparing) {
+        return (
+          <Badge variant="warning" glyph={Loader}>
+            {t2('queue.label.preparing', 'Preparing')}
+          </Badge>
+        )
+      }
+      return isPaused ? (
+        <Badge variant="warning" glyph={Pause}>
+          {t2('queue.label.paused', 'Paused')}
+        </Badge>
+      ) : (
+        <Badge variant="success" glyph={Download}>
+          {t2('queue.label.downloading', 'Downloading')}
+        </Badge>
+      )
+    }
+
+    if (finished) {
+      return (
+        <Badge variant="success" glyph={CircleCheck}>
+          {type === 'update'
+            ? t2('queue.label.updated', 'Updated')
+            : t2('queue.label.downloaded', 'Downloaded')}
+        </Badge>
+      )
+    }
+
+    if (status === 'error') {
+      return (
+        <Badge variant="error" glyph={CircleX}>
+          {t2('queue.label.failed', 'Failed')}
+        </Badge>
+      )
     }
 
     if (canceled) {
-      return 'var(--cancel-button, var(--danger))'
+      return (
+        <Badge variant="error" glyph={CircleX}>
+          {t('queue.label.canceled', 'Canceled')}
+        </Badge>
+      )
     }
 
-    return current ? 'var(--text-default)' : 'var(--accent)'
+    if (waitingPaused) {
+      return (
+        <Badge variant="warning" glyph={Pause}>
+          {t2('queue.label.paused', 'Paused')}
+        </Badge>
+      )
+    }
+
+    return null
   }
 
   const currentApp = library.find(
     (val) => val.app_name === appName && val.runner === runner
   )
 
-  if (!currentApp) {
+  // sideloaded games are not part of the store libraries, so fall back to the
+  // information the queue element was created with
+  const title = currentApp?.title || gameInfo?.title || DmGameInfo?.title
+
+  if (!title) {
     return null
   }
 
-  const { title } = currentApp
-  const cover = art_cover || art_square
+  const cover = isHero ? art_square || art_cover : art_cover || art_square
 
   const translatedTypes = {
     install: t2('download-manager.install-type.install', 'Install'),
@@ -226,46 +321,161 @@ const DownloadManagerItem = ({
   }
 
   const { fullDate, hour, date } = getTime()
+  const platform = platformToInstall === 'osx' ? 'Mac' : platformToInstall
+  const storeName = getStoreName(runner, t2('Other'))
+  const details = isHero
+    ? `${date} ${hour}`
+    : [size, platform].filter(Boolean).join(' · ')
+
+  const hasStarted =
+    Boolean(liveProgress?.downSpeed) || Boolean(liveProgress?.percent)
+  const isPreparing =
+    current && !isPaused && !finished && !canceled && !hasStarted
+
+  const progressSummary = [
+    size,
+    `(${progress.bytes} · ${Math.round(progress.percent ?? 0)}%)`
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  const actionButtons = (
+    <span className="DownloadItem__actions">
+      {current && (
+        <Tooltip content={secondaryIconTitle()}>
+          <Button
+            variant="ghost"
+            size={isHero ? 'md' : 'sm'}
+            onClick={handleSecondaryActionClick}
+            aria-label={secondaryIconTitle()}
+            icon={secondaryActionIcon()}
+          >
+            {isHero ? secondaryIconTitle() : undefined}
+          </Button>
+        </Tooltip>
+      )}
+      {finished && is_dlc ? (
+        <span className="DownloadItem__noAction">—</span>
+      ) : (
+        <Tooltip content={mainIconTitle()}>
+          <Button
+            variant={mainActionVariant()}
+            size={isHero ? 'md' : 'sm'}
+            onClick={handleMainActionClick}
+            aria-label={mainIconTitle()}
+            icon={mainActionIcon()}
+          >
+            {isHero
+              ? current && !finished
+                ? t2('common.cancel', 'Cancel')
+                : mainIconTitle()
+              : undefined}
+          </Button>
+        </Tooltip>
+      )}
+      {isHero && extraAction}
+    </span>
+  )
 
   return (
-    <div className="downloadManagerListItem">
-      <span
-        role="button"
-        onClick={() => goToGamePage()}
-        className="downloadManagerTitleList"
-        style={{
-          color: getStatusColor(),
-          cursor: is_dlc ? 'default' : 'pointer'
-        }}
-      >
-        {cover && <CachedImage src={cover} alt={title} />}
-        <span className="titleSize">
-          {title}
-          <span title={path}>
-            {size ?? ''} |{' '}
-            {platformToInstall === 'osx' ? 'Mac' : platformToInstall}
-            {canceled ? ` (${t('queue.label.canceled', 'Canceled')})` : ''}
-          </span>
-        </span>
-      </span>
-      <span title={fullDate}>
-        {date} {hour}
-      </span>
-      <span>{translatedTypes[type]}</span>
-      <span>{getStoreName(runner, t2('Other'))}</span>
-      <span className="icons">
-        <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
-          {mainActionIcon()}
-        </SvgButton>
-        {current && (
-          <SvgButton
-            onClick={handleSecondaryActionClick}
-            title={secondaryIconTitle()}
-          >
-            {secondaryActionIcon()}
-          </SvgButton>
+    <div
+      className={classNames('DownloadItem', `DownloadItem--${variant}`, {
+        'DownloadItem--canceled': canceled
+      })}
+    >
+      <div className="DownloadItem__game">
+        {position !== undefined && (
+          <span className="DownloadItem__position">{position}</span>
         )}
-      </span>
+        <span
+          role={is_dlc ? undefined : 'button'}
+          tabIndex={is_dlc ? undefined : 0}
+          onClick={() => goToGamePage()}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              goToGamePage()
+            }
+          }}
+          className={classNames('DownloadItem__cover', {
+            'DownloadItem__cover--static': is_dlc
+          })}
+          title={title}
+        >
+          {cover ? (
+            <CachedImage src={cover} alt={title} />
+          ) : (
+            <Icon glyph={Gamepad2} size="lg" />
+          )}
+        </span>
+        <div className="DownloadItem__text">
+          <div className="DownloadItem__titleRow">
+            <span
+              role={is_dlc ? undefined : 'button'}
+              tabIndex={is_dlc ? undefined : 0}
+              onClick={() => goToGamePage()}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  goToGamePage()
+                }
+              }}
+              className={classNames('DownloadItem__title', {
+                'DownloadItem__title--static': is_dlc
+              })}
+            >
+              {title}
+            </span>
+            {!showStatusColumn && statusBadge()}
+            {isHero && <Badge variant="info">{storeName}</Badge>}
+            {isHero && platform && <Badge variant="accent">{platform}</Badge>}
+          </div>
+          <span className="DownloadItem__details" title={path}>
+            {details}
+          </span>
+          {isHero && (
+            <div className="DownloadItem__progress">
+              <span className="DownloadItem__progressSummary">
+                {isPreparing
+                  ? `${t2('queue.label.preparing', 'Preparing')}…`
+                  : progressSummary}
+              </span>
+              <ProgressBar
+                size="md"
+                tone={isPreparing || isPaused ? 'warning' : 'success'}
+                value={isPreparing ? undefined : progress.percent}
+                label={t2('queue.label.downloading', 'Downloading')}
+              />
+            </div>
+          )}
+          {isHero && actionButtons}
+        </div>
+      </div>
+
+      {showStatusColumn && (
+        <span className="DownloadItem__status">{statusBadge()}</span>
+      )}
+
+      {!isHero && (
+        <span className="DownloadItem__type">
+          <Badge variant={type === 'update' ? 'info' : 'neutral'}>
+            {translatedTypes[type]}
+          </Badge>
+        </span>
+      )}
+
+      {!isHero && (
+        <span className="DownloadItem__store">
+          <StoreBadge runner={runner} title={storeName} />
+        </span>
+      )}
+
+      {!isHero && (
+        <span className="DownloadItem__time" title={fullDate}>
+          <span className="DownloadItem__date">{date}</span>
+          <span className="DownloadItem__hour">{hour}</span>
+        </span>
+      )}
+
+      {!isHero && actionButtons}
     </div>
   )
 }

@@ -1,0 +1,25 @@
+.settingsFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  width: 100%;
+  margin-block-start: var(--space-xl);
+  padding-block-start: var(--space-md);
+  border-top: 1px solid var(--panel-divider, var(--divider));
+  text-align: center;
+}
+
+.settingsFooter__hint {
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--on-panel-muted, var(--text-secondary));
+}
+
+.settingsFooter__appName {
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  color: var(--on-panel-muted, var(--text-secondary));
+}

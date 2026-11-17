@@ -2,8 +2,10 @@
   .heroicVersionWrapper {
     display: flex;
     gap: 5px;
-    align-items: flex-start;
-    margin-top: var(--space-sm);
+    align-items: center;
+    justify-content: center;
+    margin-block: var(--space-sm)
+      var(--sidebar-vertical-padding, var(--space-xs));
 
     button {
       padding: 0;
@@ -13,10 +15,11 @@
   .heroicVersion {
     display: flex;
     gap: 5px;
-    font-size: var(--text-sm);
+    min-width: 0;
+    font-size: var(--text-xs);
     cursor: pointer;
     transition: 300ms;
-    color: var(--brand-text-01);
+    color: var(--on-nav-muted);
 
     &:hover {
       color: var(--accent);
@@ -27,7 +30,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
 
     & > a {
       color: var(--accent);
@@ -55,8 +58,17 @@
     }
 
     .heroicVersion {
+      max-width: 100%;
       font-size: var(--text-xs);
       text-align: center;
+      overflow: hidden;
+
+      strong {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
 
     .heroicVersion__title {

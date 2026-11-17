@@ -11,7 +11,10 @@
         "disable_animations": "عطّل تأثيرات الواجهة",
         "disable_smooth_scrolling": "عطّل السحب السلس (يتطلب اعادة التشغيل)",
         "actions_font_family_default": "",
-        "content_font_family_default": ""
+        "content_font_family_default": "",
+        "section": {
+            "library": "المكتبة"
+        }
     },
     "add_game": "أضف لعبة",
     "All": "الكل",
@@ -199,7 +202,8 @@
         "sync": "زامن",
         "syncing": "يزامن",
         "unsync": "ألغ المزامنة",
-        "continue": "تابِع"
+        "continue": "تابِع",
+        "close": "أغلق"
     },
     "controller": {
         "hints": {
@@ -257,7 +261,8 @@
         "status": "الحالة",
         "store": "المتجر",
         "title": "اسم اللعبة",
-        "modify": "تعديل التثبيت"
+        "modify": "تعديل التثبيت",
+        "settings": "إعدادات الألعاب"
     },
     "generic": {
         "error": {
@@ -293,7 +298,9 @@
         "no_categories": "لا فئات مخصَّصة، وإضافتها تكون بالقائمة عند كل لعبة.",
         "show_support_offline_only": "إظهار المدعوم بدون إنترنت فقط",
         "show_third_party_managed_only": "أظهر من الأطراف الثالثة فقط",
-        "show_updates_only": "أظهر الألعاب التي تحتاج تحديثًا فقط"
+        "show_updates_only": "أظهر الألعاب التي تحتاج تحديثًا فقط",
+        "platforms": "منصة",
+        "stores": "المتاجر"
     },
     "help": {
         "amdfsr": "تساعد تقنية إف.إس.آر من أي.إم.دي على رفع معدل الإطارات من خلال رفع جودة الدقة المنخفضة في وضع ملء الشاشة. تزداد جودة الصورة من 5 إلى 1 على حساب انخفاض طفيف في الأداء. قد يؤدي التمكين إلى تحسين الأداء.",
@@ -811,6 +818,10 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "استخدم بيئة تشغيل ستيم"
+        },
+        "tools": {
+            "open": "افتح",
+            "selectExe": "اختر ملفًا تنفيذيًا"
         }
     },
     "settings": {
@@ -849,7 +860,8 @@
             "wineExt": "إضافات واين",
             "systemInformation": "معلومات النظام",
             "gamescope": "Gamescope",
-            "legacy": ""
+            "legacy": "",
+            "categories": "الفئات"
         },
         "open-config-file": "افتح ملف التكوين",
         "reset-heroic": "إعادة تعيين هِرُوِك",
@@ -927,13 +939,21 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "التنزيلات",
+            "experimental": "مزايا تجريبية",
+            "launch": "خيارات التشغيل...",
+            "wineTools": "الأدوات",
+            "wineVersion": "برنامج واين"
         }
     },
     "Settings": "الإعدادات",
     "sidebar": {
         "collapse": "اطوِ الشريط الجانبي",
         "uncollapse": "اكشف الشريط الجانبي",
-        "console": ""
+        "console": "",
+        "storesLogin": "تسجيل الدخول للمتجر"
     },
     "status": {
         "installing": "قيد التثبيت",
@@ -964,7 +984,8 @@
         "show": "أظهر"
     },
     "two_col_table": {
-        "save_hint": "لا تُحفظ التغييرات في هذا الجدول تلقائيًا. انقر فوق زر +"
+        "save_hint": "لا تُحفظ التغييرات في هذا الجدول تلقائيًا. انقر فوق زر +",
+        "add": "أضيف"
     },
     "Update Available!": "يتوفَّر تحديث!",
     "userselector": {
@@ -1047,7 +1068,8 @@
     },
     "emptyLibrary": {
         "noResults": "لم تسفر التصنيفات الحالية عن أية نتائج.",
-        "noGames": ""
+        "noGames": "",
+        "noResultsTitle": "لم يتم العثور على ألعاب"
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton هو نوع Proton تم إنشاؤه بواسطة Glorious Eggroll. من المفترض استخدامه في Steam، لكن بعض الألعاب خارج Steam قد تعمل بشكل أفضل مع هذا المتغير. ويوفر سجلات غير مجدية في الغالب لاستكشاف الأخطاء وإصلاحها.",
@@ -1293,5 +1315,6 @@
         "add": "أضيف",
         "cancel": "ألغِ",
         "warning": "تحذير"
-    }
+    },
+    "General": "عام"
 }

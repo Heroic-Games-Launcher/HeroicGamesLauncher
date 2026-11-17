@@ -2,6 +2,7 @@ import { addHandler, addListener } from '../ipc'
 import {
   addToQueue,
   cancelCurrentDownload,
+  cancelQueuedDownload,
   getQueueInformation,
   pauseCurrentDownload,
   removeFromQueue,
@@ -19,7 +20,7 @@ addHandler('install', async (_e, args) => {
     startTime: 0
   }
 
-  await addToQueue(dmQueueElement)
+  await addToQueue(dmQueueElement, { userStarted: true })
 
   // Add Dlcs to the queue
   if (
@@ -58,13 +59,16 @@ addHandler('updateGame', async (_e, args) => {
     startTime: 0
   }
 
-  await addToQueue(dmQueueElement)
+  await addToQueue(dmQueueElement, { userStarted: true })
 })
 
 addListener('removeFromDMQueue', (e, appName) => removeFromQueue(appName))
-addListener('resumeCurrentDownload', () => resumeCurrentDownload())
+addListener('resumeCurrentDownload', () => void resumeCurrentDownload())
 addListener('pauseCurrentDownload', () => pauseCurrentDownload())
 addListener('cancelDownload', (e, removeDownloaded) =>
   cancelCurrentDownload({ removeDownloaded })
+)
+addListener('cancelQueuedDownload', (e, appName, removeDownloaded) =>
+  cancelQueuedDownload(appName, removeDownloaded)
 )
 addHandler('getDMQueueInformation', getQueueInformation)

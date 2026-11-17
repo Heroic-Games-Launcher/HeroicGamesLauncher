@@ -5,7 +5,8 @@
         "open": "Obre l'enllaç",
         "copied": "S'ha copiat",
         "loading": "Es carrega",
-        "error": "Error, prova amb un codi diferent"
+        "error": "Error, prova amb un codi diferent",
+        "close": "Tanca"
     },
     "message": {
         "part1": "Per a iniciar sessió i instal·lar jocs, cal que segueixis primer les passes de sota:",

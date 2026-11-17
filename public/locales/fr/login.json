@@ -5,7 +5,9 @@
         "copy": "Copier",
         "copied": "Copié !",
         "error": "Erreur, essayez avec un code différent",
-        "loading": "Chargement"
+        "loading": "Chargement",
+        "close": "Fermer",
+        "itchio_error": "Erreur, essayez avec un code différent"
     },
     "message": {
         "part1": "Pour vous connecter et installer vos jeux, vous devez d’abord suivre les étapes ci-dessous :",

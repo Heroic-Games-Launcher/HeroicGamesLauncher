@@ -14,5 +14,5 @@
     "meta/**/*.mts",
     "eslint.config.mjs"
   ],
-  "exclude": []
+  "exclude": ["src/**/*.stories.ts", "src/**/*.stories.tsx"]
 }

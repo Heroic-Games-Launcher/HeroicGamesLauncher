@@ -96,7 +96,9 @@
         "browse_wine_prefix": "",
         "play": "",
         "browse_files": "",
-        "edit-game": "ערוך אפליקציה/משחק"
+        "edit-game": "ערוך אפליקציה/משחק",
+        "favourite": "הוסף למועדפים",
+        "unfavourite": "הסר ממועדפים"
     },
     "gamecard": {
         "repairing": "מתקן",
@@ -115,7 +117,10 @@
         "steamdeck-compatibility-info": "התאמה לSteamDeck",
         "syncsaves": "סנכרון שמירות",
         "protondb-compatibility-info": "רמת תאימות Proton",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "unsupported": "לא נתמך"
+        }
     },
     "sideload": {
         "info": {
@@ -217,7 +222,8 @@
         "modify": "",
         "install_info": "מתקין",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "פרטי משחק"
     },
     "dlc": {
         "installDlcs": "התקן את כל הDLCים"
@@ -263,7 +269,8 @@
             "installation": "הפסק התקנה"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "תאריך יציאה"
     },
     "install": {
         "wineversion": "גרסת Wine",

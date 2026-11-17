@@ -5,7 +5,8 @@
         "copy": "Kopyala",
         "copied": "Kopyalandı!",
         "error": "Hata, farklı bir Kod deneyin",
-        "loading": "Yükleniyor"
+        "loading": "Yükleniyor",
+        "close": "Kapat"
     },
     "message": {
         "part1": "Oturum açıp oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",

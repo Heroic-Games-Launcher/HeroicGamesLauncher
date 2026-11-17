@@ -37,7 +37,7 @@ const Shortcuts = () => {
   if (!isLinux && !isWin) {
     menuShortcutsLabel = t(
       'setting.addgamestoapplications',
-      'Add games to Applications automatically'
+      'Add games to applications automatically'
     )
   }
 
@@ -45,6 +45,10 @@ const Shortcuts = () => {
     <>
       {supportsDesktopShortcut && (
         <ToggleSwitch
+          description={t(
+            'setting.addgamestosteam-description',
+            'Create a Steam shortcut whenever a game is installed'
+          )}
           htmlId="shortcutsToDesktop"
           value={addDesktopShortcuts}
           handleChange={() => setAddDesktopShortcuts(!addDesktopShortcuts)}
@@ -60,6 +64,10 @@ const Shortcuts = () => {
         value={addStartMenuShortcuts}
         handleChange={() => setAddStartMenuShortcuts(!addStartMenuShortcuts)}
         title={menuShortcutsLabel}
+        description={t(
+          'setting.addgamestoapplications-description',
+          'Create an app shortcut whenever a game is installed.'
+        )}
       />
 
       <ToggleSwitch
@@ -67,6 +75,10 @@ const Shortcuts = () => {
         value={addSteamShortcuts}
         handleChange={() => setAddSteamShortcuts(!addSteamShortcuts)}
         title={t('setting.addgamestosteam', 'Add games to Steam automatically')}
+        description={t(
+          'setting.addgamestosteam-real-description',
+          'Add each installed game to your Steam library as a shortcut.'
+        )}
       />
     </>
   )

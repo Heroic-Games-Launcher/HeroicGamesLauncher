@@ -1,11 +1,7 @@
 import './index.css'
 
 import { useEffect, useRef, useState } from 'react'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import { LinearProgress } from '@mui/material'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
@@ -52,16 +48,14 @@ export function ProgressDialog(props: {
 
   return (
     <>
-      <Dialog
+      <Modal
         showCloseButton
         onClose={props.onClose}
         className={classNames('progressDialog', props.className)}
       >
-        <DialogHeader onClose={props.onClose}>
-          <div>{props.title}</div>
-        </DialogHeader>
+        <ModalHeader>{props.title}</ModalHeader>
         {props.children}
-        <DialogContent>
+        <ModalContent>
           <div className="progressDialog header">
             {t('progress', 'Progress')}:
           </div>
@@ -92,8 +86,8 @@ export function ProgressDialog(props: {
           {!props.hideProgress && (
             <LinearProgress className="progressDialog linearProgress" />
           )}
-        </DialogContent>
-      </Dialog>
+        </ModalContent>
+      </Modal>
     </>
   )
 }

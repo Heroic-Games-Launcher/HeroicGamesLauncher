@@ -5,7 +5,9 @@
         "copy": "Menyalin",
         "copied": "Disalin!",
         "error": "Terjadi kesalahan, coba Kode lainnya",
-        "loading": "Memuat"
+        "loading": "Memuat",
+        "close": "Tutup",
+        "itchio_error": "Terjadi kesalahan, coba Kode lainnya"
     },
     "message": {
         "part1": "Untuk masuk dan menginstal gim, Anda harus mengikuti langkah-langkah di bawah:",

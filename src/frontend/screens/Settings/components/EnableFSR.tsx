@@ -5,7 +5,6 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../SettingsContext'
 import { MenuItem } from '@mui/material'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableFSR = () => {
   const { t } = useTranslation()
@@ -21,31 +20,30 @@ const EnableFSR = () => {
 
   return (
     <>
-      <div className="toggleRow">
-        <ToggleSwitch
-          htmlId="enableFSR"
-          value={enableFSR || false}
-          handleChange={() => setEnableFSR(!enableFSR)}
-          title={t(
-            'setting.enableFSRHack',
-            'Enable FSR Hack (Wine version needs to support it)'
-          )}
-        />
-
-        <InfoIcon
-          text={t(
-            'help.amdfsr',
-            "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
-          )}
-        />
-      </div>
+      <ToggleSwitch
+        info={t(
+          'help.amdfsr',
+          "AMD's FSR helps boost framerate by upscaling lower resolutions in fullscreen mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
+        )}
+        description={t(
+          'setting.enableFSRHack-description',
+          'Render the game at a lower resolution and upscale it to gain frames'
+        )}
+        htmlId="enableFSR"
+        value={enableFSR || false}
+        handleChange={() => setEnableFSR(!enableFSR)}
+        title={t(
+          'setting.enableFSRHack',
+          'Enable FSR hack (Wine version needs to support it)'
+        )}
+      />
 
       {enableFSR && (
         <SelectField
           htmlId="setFsrSharpness"
           onChange={(event) => setFsrSharpness(Number(event.target.value))}
           value={maxSharpness.toString()}
-          label={t('setting.FsrSharpnessStrenght', 'FSR Sharpness Strength')}
+          label={t('setting.FsrSharpnessStrenght', 'FSR sharpness strength')}
           extraClass="smaller"
         >
           {Array.from(Array(5).keys()).map((n) => (

@@ -97,7 +97,9 @@
         "browse_files": "Sirvi faile",
         "browse_wine_prefix": "Sirvi Wine'i prefiksi",
         "play": "MÄNGI",
-        "edit-game": "Muuda rakendust/mängu"
+        "edit-game": "Muuda rakendust/mängu",
+        "favourite": "Lisa lemmikute hulka",
+        "unfavourite": "Eemalda lemmikutest"
     },
     "cloud_save_unsupported": "Mitte toetatud",
     "disabled": "Keelatud",
@@ -133,7 +135,8 @@
         "modify": "Muuda paigaldust",
         "extra_info": "Lisainfo",
         "install_info": "Paigaldamise info",
-        "achievements": "Saavutused"
+        "achievements": "Saavutused",
+        "details": "Mängu üksikasjad"
     },
     "gamecard": {
         "moving": "Liigutamine",
@@ -163,7 +166,11 @@
         "installedInfo": "Paigaldatud teave",
         "protondb-compatibility-info": "Protoni ühilduvustase",
         "steamdeck-compatibility-info": "SteamDecki ühilduvus",
-        "third-party-app": "Kolmanda osapoole haldur"
+        "third-party-app": "Kolmanda osapoole haldur",
+        "genres": "Žanrid",
+        "steamdeck": {
+            "unsupported": "Mitte toetatud"
+        }
     },
     "install": {
         "disk-space-left": "Vaba ruumi",
@@ -227,7 +234,8 @@
             "specificVersion-pt1": "See laeb alla konkreetse Steami versiooni asukohast",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "mis toimib läbi Heroicu, sest uued Steami versioonid ei tööta macOS-il."
-        }
+        },
+        "releaseDate": "Väljalaske kuupäev"
     },
     "launch": {
         "options": "Käivitusvalikud...",

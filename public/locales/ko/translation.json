@@ -11,7 +11,10 @@
         "content_font_family_default": "콘텐츠 글꼴 패밀리 (기본값:",
         "actions_font_family_default": "Actions Font Family (Default:",
         "disable_smooth_scrolling": "",
-        "disable_animations": ""
+        "disable_animations": "",
+        "section": {
+            "library": "라이브러리"
+        }
     },
     "add_game": "게임 추가",
     "All": "모두",
@@ -199,7 +202,8 @@
         "sync": "싱크",
         "syncing": "싱크중",
         "unsync": "싱크 해제",
-        "continue": "계속"
+        "continue": "계속",
+        "close": "닫기"
     },
     "controller": {
         "hints": {
@@ -253,7 +257,8 @@
         "status": "상태",
         "store": "스토어",
         "title": "게임 타이틀",
-        "modify": "설치 수정"
+        "modify": "설치 수정",
+        "settings": "게임 설정"
     },
     "generic": {
         "error": {
@@ -288,7 +293,9 @@
         "only": "전용",
         "show_third_party_managed_only": "타사 관리만 표시",
         "show_support_offline_only": "오프라인 지원만 표시",
-        "show_updates_only": ""
+        "show_updates_only": "",
+        "platforms": "Platform",
+        "stores": "스토어"
     },
     "help": {
         "amdfsr": "AMD의 FSR 기술은 전체화면 모드에서 저해상도를 업스케일링하여 프레임 향상에 도움을 줍니다. 약간의 성능을 잃으며 이미지 품질은 5에서 1로 갈수록 증가합니다. 사용하면 성능이 향상될 수도 있습니다.",
@@ -806,6 +813,10 @@
         "steamRuntime": {
             "label": "스팀 런타임 사용",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "열기",
+            "selectExe": "EXE 파일 선택"
         }
     },
     "settings": {
@@ -844,7 +855,8 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "시스템 정보",
             "gamescope": "Gamescope",
-            "legacy": ""
+            "legacy": "",
+            "categories": "범주"
         },
         "open-config-file": "구성 파일 열기",
         "reset-heroic": "Heroic 재설정",
@@ -922,13 +934,20 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "다운로드",
+            "experimental": "실험적 기능",
+            "launch": "실행 옵션...",
+            "wineTools": "도구"
         }
     },
     "Settings": "설정",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "스토어 로그인"
     },
     "status": {
         "installing": "설치 중",
@@ -959,7 +978,8 @@
         "show": "표시"
     },
     "two_col_table": {
-        "save_hint": "이 표의 변경 사항은 자동으로 저장되지 않습니다. + 버튼 클릭"
+        "save_hint": "이 표의 변경 사항은 자동으로 저장되지 않습니다. + 버튼 클릭",
+        "add": "추가"
     },
     "Update Available!": "사용 가능한 업데이트가 있습니다!",
     "userselector": {
@@ -1065,7 +1085,8 @@
     },
     "emptyLibrary": {
         "noResults": "현재 필터로는 결과가 생성되지 않았습니다.",
-        "noGames": ""
+        "noGames": "",
+        "noResultsTitle": "게임이 발견되지 않았습니다"
     },
     "tour": {
         "back": "뒤로",
@@ -1275,5 +1296,6 @@
         "add": "추가",
         "cancel": "취소",
         "warning": "경고"
-    }
+    },
+    "General": "일반"
 }

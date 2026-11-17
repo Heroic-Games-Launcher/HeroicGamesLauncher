@@ -3,7 +3,6 @@ import { GameInfo, Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { useTranslation } from 'react-i18next'
 
 interface Props {
   library: GameInfo[]
@@ -51,7 +50,6 @@ const GamesList = ({
 }: Props): JSX.Element => {
   const { gameUpdates, allTilesInColor, titlesAlwaysVisible } =
     useContext(ContextProvider)
-  const { t } = useTranslation()
   const listRef = useRef<HTMLDivElement | null>(null)
   const { activeController } = useContext(ContextProvider)
 
@@ -125,14 +123,6 @@ const GamesList = ({
       })}
       ref={listRef}
     >
-      {layout === 'list' && (
-        <div className="gameListHeader">
-          <span>{t('game.title', 'Game Title')}</span>
-          <span>{t('game.status', 'Status')}</span>
-          <span>{t('game.store', 'Store')}</span>
-          <span>{t('wine.actions', 'Action')}</span>
-        </div>
-      )}
       {!!library.length &&
         library.map((gameInfo, index) => {
           const { app_name, is_installed, runner } = gameInfo

@@ -22,9 +22,14 @@ const SCROLL_REPEAT_DELAY = 50
 let controllerIsDisabled = false
 let currentController = -1
 let webviewHasFocus = false
+let gamepadPassthrough = false
 
 export const toggleWebviewFocus = (focused: boolean) => {
   webviewHasFocus = focused
+}
+
+export const setGamepadPassthrough = (enabled: boolean) => {
+  gamepadPassthrough = enabled
 }
 
 export const isUsingGamepad = () => currentController !== -1
@@ -237,7 +242,7 @@ export const initGamepad = () => {
     pressed: boolean,
     controllerIndex: number
   ) {
-    if (controllerIsDisabled) return
+    if (controllerIsDisabled || gamepadPassthrough) return
 
     if (!isFocused) {
       // ignore gamepad events if Heroic is not the focused app
