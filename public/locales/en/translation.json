@@ -1472,9 +1472,9 @@
             }
         },
         "battlEyeRuntime": {
-            "hint": "Install the runtime required by games protected with BattlEye",
+            "hint": "Legacy runtime for games protected with BattlEye",
             "installing": "Installing BattlEye runtime...",
-            "name": "BattlEye AntiCheat runtime"
+            "name": "BattlEye AntiCheat runtime (legacy)"
         },
         "clear-cache": "Clear Heroic cache",
         "clear-images-cache": "Clear images cache",
@@ -1493,9 +1493,9 @@
                 "message": "GameMode is required for the EAC runtime to work on Flatpak. Do you want to enable it now?",
                 "title": "GameMode required"
             },
-            "hint": "Install the runtime required by games protected with EasyAntiCheat",
+            "hint": "Legacy runtime for games protected with EasyAntiCheat",
             "installing": "Installing EAC runtime...",
-            "name": "EasyAntiCheat runtime"
+            "name": "EasyAntiCheat runtime (legacy)"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -1507,7 +1507,7 @@
             "searchMsg": "Searching for gamescope executable."
         },
         "launchOptions": "Launch options",
-        "legacy_warning": "Warning: The settings on this tab are mostly deprecated and might not work at all.",
+        "legacy_warning": "Warning: these settings are deprecated or only apply to older Proton/Wine builds. They are kept for troubleshooting.",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -1554,6 +1554,7 @@
         "section": {
             "amazon": "Amazon Games",
             "appearance": "Appearance",
+            "anticheat": "Anti-cheat runtimes",
             "behaviour": "Behaviour",
             "controller": "Controller",
             "downloads": "Downloads",
@@ -1567,6 +1568,8 @@
             "integrations": "Integrations",
             "language": "Language & region",
             "launch": "Launch options",
+            "legacyGraphics": "Graphics",
+            "legacySync": "Synchronization",
             "locations": "Locations",
             "maintenance": "Customisation & maintenance",
             "performance": "Performance & overlays",

@@ -9,7 +9,9 @@ import {
   AutoDXVK,
   AutoDXVKNVAPI,
   AutoVKD3D,
+  BattlEyeRuntime,
   CrossoverBottle,
+  EacRuntime,
   EnableEsync,
   EnableFSR,
   EnableFsync,
@@ -52,6 +54,7 @@ import {
   MonitorCog,
   Save,
   ScrollText,
+  ShieldAlert,
   SlidersHorizontal,
   TerminalSquare,
   Wine as WineIcon
@@ -351,13 +354,35 @@ export default function GamesSettings({ initialTab }: Props = {}) {
           <Alert variant="warning">
             {t(
               'settings.legacy_warning',
-              'Warning: The settings on this tab are mostly deprecated and might not work at all.'
+              'Warning: these settings are deprecated or only apply to older Proton/Wine builds. They are kept for troubleshooting.'
             )}
           </Alert>
-          <EnableEsync />
-          <EnableFSR />
-          <EnableDXVKFpsLimit />
-          <DisableUMU />
+          <SettingsCard
+            glyph={Gauge}
+            title={t('settings.section.legacySync', 'Synchronization')}
+          >
+            <EnableEsync />
+          </SettingsCard>
+          <SettingsCard
+            glyph={MonitorCog}
+            title={t('settings.section.legacyGraphics', 'Graphics')}
+          >
+            <EnableFSR />
+            <EnableDXVKFpsLimit />
+          </SettingsCard>
+          <SettingsCard
+            glyph={ShieldAlert}
+            title={t('settings.section.anticheat', 'Anti-cheat runtimes')}
+          >
+            <EacRuntime />
+            <BattlEyeRuntime />
+          </SettingsCard>
+          <SettingsCard
+            glyph={FlaskConical}
+            title={t('settings.section.umu', 'UMU (Proton)')}
+          >
+            <DisableUMU />
+          </SettingsCard>
         </TabPanel>
       )}
 
