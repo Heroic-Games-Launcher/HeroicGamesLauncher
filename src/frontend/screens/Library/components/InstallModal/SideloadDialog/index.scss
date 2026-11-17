@@ -12,6 +12,7 @@
   max-width: 100%;
   height: calc(100vh - 220px);
   min-height: 420px;
+  max-height: 600px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -37,11 +38,10 @@
   }
 }
 
-.sideloadMetadataForm {
-  height: 100%;
+.sideloadMetadataForm,
+.sideloadCompatForm {
   padding: var(--space-md);
   display: flex;
-  justify-content: center;
   flex-direction: column;
   gap: var(--space-md);
 }

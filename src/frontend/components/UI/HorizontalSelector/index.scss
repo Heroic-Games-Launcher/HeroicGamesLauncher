@@ -5,21 +5,28 @@
   gap: var(--space-md);
   width: 100%;
 
-  &__option.Button {
+  &__option.Panel {
     flex: 1 1 0;
     min-width: 0;
-    height: auto;
-    padding: var(--space-lg);
-    border: solid 1px var(--panel-border);
-    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
     text-align: center;
-    white-space: normal;
+    cursor: pointer;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      transform 160ms ease;
 
-    .Button__label {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-sm);
+    &:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
   }
 

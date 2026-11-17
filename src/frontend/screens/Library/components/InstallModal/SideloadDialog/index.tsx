@@ -16,7 +16,6 @@ import { useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Box } from '@mui/material'
 import { Stepper, StepperStep } from 'frontend/components/UI'
 import MetadataStep from './steps/MetadataStep'
 import InstallationStep from './steps/InstallationStep'
@@ -310,16 +309,7 @@ export default function SideloadDialog({
           />
         )
       case 'compat':
-        return (
-          <Box
-            height={'100%'}
-            display={'flex'}
-            flexDirection={'column'}
-            justifyContent={'center'}
-          >
-            {wineSelector}
-          </Box>
-        )
+        return <div className="sideloadCompatForm">{wineSelector}</div>
       case 'install':
         return (
           <InstallationStep

@@ -1,4 +1,4 @@
-import { InfoBox, TextInputField } from 'frontend/components/UI'
+import { Alert, TextInputField } from 'frontend/components/UI'
 import { Trans, useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { removeSpecialcharacters } from 'frontend/helpers'
@@ -23,13 +23,14 @@ export default function MetadataStep({
 
   return (
     <div className="sideloadMetadataForm">
-      <InfoBox
-        text={t(
+      <Alert
+        variant="info"
+        title={t(
           'sideload.import-hint.title',
-          'Important! Are you adding a game from Epic/GOG/Amazon? Click here!'
+          'Important! Are you adding a game from Epic/GOG/Amazon?'
         )}
       >
-        <div className="sideloadImportHint">
+        <span className="sideloadImportHint">
           <Trans i18n={i18n} key="sideload.import-hint.content">
             Do NOT use this feature for that.
             <br />
@@ -37,8 +38,8 @@ export default function MetadataStep({
             for the game in your library, open the installation dialog, and
             click the &quot;Import Game&quot; button
           </Trans>
-        </div>
-      </InfoBox>
+        </span>
+      </Alert>
       <TextInputField
         label={t('sideload.info.title', 'Game/App Title')}
         placeholder={t(

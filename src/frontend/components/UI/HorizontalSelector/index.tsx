@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
-import Button from 'frontend/components/UI/Button'
+import { KeyboardEvent, ReactNode } from 'react'
+import Panel from 'frontend/components/UI/Panel'
 import './index.scss'
 
 interface SelectorOption {
@@ -17,16 +17,24 @@ export default function HorizontalSelector({ options }: Props) {
   return (
     <div className="HorizontalSelector">
       {options.map(({ icon, title, subtitle, onClick }, i) => (
-        <Button
+        <Panel
           key={i}
-          variant="ghost"
+          padding="lg"
           className="HorizontalSelector__option"
+          role="button"
+          tabIndex={0}
           onClick={onClick}
+          onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              onClick()
+            }
+          }}
         >
           <span className="HorizontalSelector__icon">{icon}</span>
           <span className="HorizontalSelector__title">{title}</span>
           <span className="HorizontalSelector__subtitle">{subtitle}</span>
-        </Button>
+        </Panel>
       ))}
     </div>
   )
