@@ -15,6 +15,9 @@ jest.mock('backend/dialog/dialog')
 jest.mock('backend/utils')
 jest.mock('backend/config')
 jest.mock('backend/wiki_game_info/wiki_game_info')
+jest.mock('../steamProcess', () => ({
+  isSteamRunning: jest.fn().mockReturnValue(false)
+}))
 
 let tmpDir = {} as DirResult
 let tmpSteamUserConfigDir = ''

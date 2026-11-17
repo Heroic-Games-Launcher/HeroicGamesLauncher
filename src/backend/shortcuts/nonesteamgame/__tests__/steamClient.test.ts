@@ -2,7 +2,8 @@ import axios from 'axios'
 import {
   addShortcutViaSteamClient,
   getSteamClientShortcuts,
-  isSteamClientApiAvailable
+  isSteamClientApiAvailable,
+  removeShortcutViaSteamClient
 } from '../steamClient'
 
 jest.mock('axios')
@@ -120,6 +121,16 @@ describe('steamClient', () => {
     evalException = 'SteamClient is not defined'
 
     await expect(isSteamClientApiAvailable()).resolves.toBe(false)
+  })
+
+  test('awaits RemoveShortcut before resolving', async () => {
+    evalValue = true
+
+    await removeShortcutViaSteamClient(1234)
+
+    expect(lastExpression()).toMatch(
+      /await\s+SteamClient\.Apps\.RemoveShortcut\(/
+    )
   })
 
   test('getSteamClientShortcuts collects startDir and shortcutPath', async () => {

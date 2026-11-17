@@ -232,7 +232,7 @@ async function addShortcutViaSteamClient(props: {
 async function removeShortcutViaSteamClient(appId: number): Promise<void> {
   await evalInSteamClient<boolean>(
     `(async () => {
-      SteamClient.Apps.RemoveShortcut(${Math.trunc(appId)})
+      await SteamClient.Apps.RemoveShortcut(${Math.trunc(appId)})
       return true
     })()`
   )
