@@ -65,9 +65,7 @@ async function getSharedJSContextSocketUrl(): Promise<string | null> {
 }
 
 async function isSteamClientApiAvailable(): Promise<boolean> {
-  // Only checking that the debugging endpoint responds is not enough:
-  // the SharedJSContext can be reachable while the SteamClient API is
-  // missing (older clients or API changes), so probe it for real.
+  // A reachable debugging socket does not guarantee the SteamClient API exists.
   try {
     const probe = await evalInSteamClient<boolean>(
       'typeof SteamClient !== "undefined" && !!SteamClient.Apps'
@@ -195,11 +193,7 @@ async function getSteamClientShortcuts(): Promise<SteamClientShortcut[]> {
   return shortcuts
 }
 
-/**
- * The shortcut config is built for shortcuts.vdf, where Steam stores
- * Exe and StartDir wrapped in double quotes. The SteamClient API
- * expects unquoted values, so strip the surrounding quotes here.
- */
+/** Strips the surrounding quotes used for shortcuts.vdf, which the SteamClient API does not expect. */
 function unquote(value: string): string {
   return value.length > 1 && value.startsWith('"') && value.endsWith('"')
     ? value.slice(1, -1)
