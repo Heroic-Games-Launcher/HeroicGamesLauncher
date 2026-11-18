@@ -405,8 +405,14 @@
   display: none;
 }
 
-// with a controller the card is a single focus target: launch and options are
-// on Y/X, so keep auxiliary buttons out of the focus order as well
+/* room for the sticky library header when a card is scrolled into view */
+.gameCard,
+.gameListItem {
+  scroll-margin-block-start: 220px;
+}
+
+/* with a controller the card is a single focus target: launch and options are
+   on Y/X, so keep auxiliary buttons out of the focus order as well */
 .gameCard.gamepad .cloud-sync-icon {
   display: none;
 }

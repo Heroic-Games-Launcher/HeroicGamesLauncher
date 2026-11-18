@@ -102,9 +102,9 @@
     transparent
   );
   color: var(--text-default, #eae8e5);
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: var(--radius-pill);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: var(--weight-medium);
   cursor: pointer;
   transition:
@@ -375,7 +375,7 @@
   gap: 6px 22px;
   padding-top: 4px;
   color: var(--text-secondary, #b1b1b1);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   opacity: 0.85;
 
   .hint {
@@ -445,7 +445,7 @@
 
 .consoleFocusTitle {
   margin: 0;
-  font-size: clamp(1.1rem, 1.6vw, 1.6rem);
+  font-size: clamp(1.4rem, 2.2vw, 2.1rem);
   font-weight: var(--weight-semibold);
   letter-spacing: 0.02em;
   color: var(--text-title, var(--text-default, #eae8e5));

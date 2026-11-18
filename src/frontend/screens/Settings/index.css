@@ -31,6 +31,11 @@
   color: var(--text-secondary);
 }
 
+/* leave room for the sticky settings header when focusing a row */
+body:has(.settingsWrapper) {
+  scroll-padding-top: 120px;
+}
+
 .settingsWrapper {
   margin-inline-end: auto;
   max-width: 513px;

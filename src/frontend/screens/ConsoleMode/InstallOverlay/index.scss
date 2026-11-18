@@ -79,7 +79,7 @@
 }
 
 .consoleInstallLabel {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: var(--weight-semibold);
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -87,7 +87,7 @@
 }
 
 .consoleInstallPath {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-default, #eae8e5);
   word-break: break-all;
   text-align: right;
@@ -101,7 +101,7 @@
 
   .consoleInstallSelectorControl {
     display: grid;
-    grid-template-columns: 28px 1fr 28px;
+    grid-template-columns: 36px 1fr 36px;
     align-items: center;
     justify-items: center;
     gap: 8px;

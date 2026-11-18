@@ -181,6 +181,38 @@ function handleWebviewAction(action: ValidGamepadAction): boolean {
 
 let actions: GamepadActionStatus
 
+const NAVIGATION_ACTIONS: ValidGamepadAction[] = [
+  'padUp',
+  'padDown',
+  'padLeft',
+  'padRight',
+  'leftStickUp',
+  'leftStickDown',
+  'leftStickLeft',
+  'leftStickRight'
+]
+
+/**
+ * Chromium scrolls a newly focused element into view, but it has no idea about
+ * sticky headers, so focus can end up hidden behind them. The library and
+ * settings items declare a `scroll-margin-block-start` and this call makes the
+ * browser honour it after a d-pad/stick move.
+ */
+function scrollFocusedIntoView() {
+  // two frames: the first lets Chromium apply the injected key event and move
+  // focus, the second measures the final layout
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const el = document.activeElement as HTMLElement | null
+      if (!el || el === document.body || el.id === 'app') return
+      // scroll the item container so its `scroll-margin` clears sticky chrome
+      const target =
+        el.closest<HTMLElement>('.gameCard, .gameListItem, .SettingRow') ?? el
+      target.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+    })
+  })
+}
+
 // called whenever we update the timings in the settings
 export const updateGamepadActions = async () => {
   const settings = await window.api.requestAppSettings()
@@ -466,7 +498,9 @@ export const initGamepad = () => {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
         if (action !== 'leftClick' && action !== 'rightClick') {
-          window.api.gamepadAction({ action })
+          void window.api.gamepadAction({ action }).then(() => {
+            if (NAVIGATION_ACTIONS.includes(action)) scrollFocusedIntoView()
+          })
         } else {
           const data = metadata()
           if (data) {

@@ -81,7 +81,8 @@ export default function ConsoleMode() {
     refreshing,
     gameUpdates,
     hiddenGames,
-    isFullscreen
+    isFullscreen,
+    disableAnimations
   } = useContext(ContextProvider)
 
   // Remembered so leaving console mode restores the previous window state
@@ -267,8 +268,11 @@ export default function ConsoleMode() {
     if (document.activeElement !== btn) {
       btn.focus({ preventScroll: true })
     }
-    btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-  }, [focusedIndex, visibleGames.length, idle])
+    btn.scrollIntoView({
+      block: 'nearest',
+      behavior: disableAnimations ? 'auto' : 'smooth'
+    })
+  }, [focusedIndex, visibleGames.length, idle, disableAnimations])
 
   const cycleStore = useCallback(
     (direction: 1 | -1) => {

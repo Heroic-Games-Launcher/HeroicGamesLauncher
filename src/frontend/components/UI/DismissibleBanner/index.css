@@ -51,8 +51,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: none;
   border-radius: var(--radius-xs);
