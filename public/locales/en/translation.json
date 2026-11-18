@@ -1250,6 +1250,8 @@
         "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
         "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
+            "additionalOptionsDocs": "Check the gamescope documentation",
+            "additionalOptionsWarning": "Options are passed to gamescope as-is. Invalid or unsupported flags can prevent the game from launching.",
             "enableAdaptiveSync": "Enable adaptive sync (VRR)",
             "enableForceGrabCursor": "Enable force grab cursor",
             "enableHDR": "Enable HDR",

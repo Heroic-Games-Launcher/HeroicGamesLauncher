@@ -18,6 +18,8 @@ import {
   TerminalSquare
 } from 'lucide-react'
 
+const GAMESCOPE_DOCS_URL = 'https://github.com/ValveSoftware/gamescope#options'
+
 const Gamescope = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
@@ -418,6 +420,25 @@ const Gamescope = () => {
             })
           }
         />
+        <Alert variant="warning">
+          {t(
+            'setting.gamescope.additionalOptionsWarning',
+            'Options are passed to gamescope as-is. Invalid or unsupported flags can prevent the game from launching.'
+          )}{' '}
+          <a
+            className="underlined"
+            href=""
+            onClick={(event) => {
+              event.preventDefault()
+              void window.api.openExternalUrl(GAMESCOPE_DOCS_URL)
+            }}
+          >
+            {t(
+              'setting.gamescope.additionalOptionsDocs',
+              'Check the gamescope documentation'
+            )}
+          </a>
+        </Alert>
       </SettingsCard>
     </div>
   )
