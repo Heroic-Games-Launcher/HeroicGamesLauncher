@@ -100,6 +100,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
   const { platform } = useContext(ContextProvider)
   const { isDefault, appName, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [disableUMU] = useSetting('disableUMU', false)
   const [nativeFromApi, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
   const steamTargets = useSteamLaunchTargets(appName, gameInfo, isLinux)
@@ -168,7 +169,11 @@ export default function GamesSettings({ initialTab }: Props = {}) {
   const showWineTab = shouldShowSettings('wine')
 
   const settingsTabs: TabItem<string>[] = []
-  if (showWineTab) settingsTabs.push({ value: 'wine', label: 'Wine' })
+  if (showWineTab)
+    settingsTabs.push({
+      value: 'wine',
+      label: t('settings.section.wineVersion', 'Wine')
+    })
   if (showOtherTab)
     settingsTabs.push({
       value: 'other',
@@ -194,11 +199,15 @@ export default function GamesSettings({ initialTab }: Props = {}) {
       label: t('settings.navbar.legacy', 'Legacy')
     })
 
+  const activeTab = settingsTabs.some((tab) => tab.value === value)
+    ? value
+    : settingsTabs[0].value
+
   return (
     <>
       <Tabs
         items={settingsTabs}
-        value={value}
+        value={activeTab}
         onChange={handleChange}
         aria-label={t('settings.navbar.tabs', 'Settings sections')}
         className="settingsTabs"
@@ -213,7 +222,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         </Alert>
       )}
 
-      <TabPanel value={value} index={'wine'}>
+      <TabPanel value={activeTab} index={'wine'}>
         <SettingsCard
           glyph={WineIcon}
           title={t('settings.section.wineVersion', 'Wine')}
@@ -261,7 +270,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         )}
       </TabPanel>
 
-      <TabPanel value={value} index={'other'}>
+      <TabPanel value={activeTab} index={'other'}>
         <SettingsCard
           glyph={Gauge}
           title={t('settings.section.performance', 'Performance & overlays')}
@@ -288,7 +297,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         )}
       </TabPanel>
 
-      <TabPanel value={value} index={'advanced'}>
+      <TabPanel value={activeTab} index={'advanced'}>
         <SettingsCard
           glyph={SlidersHorizontal}
           title={t('settings.section.launch', 'Launch options')}
@@ -318,14 +327,17 @@ export default function GamesSettings({ initialTab }: Props = {}) {
           <WrappersTable />
           <EnvVariablesTable />
         </SettingsCard>
-        {isLinux && wineVersion?.type === 'proton' && !isNative && (
-          <SettingsCard
-            glyph={FlaskConical}
-            title={t('settings.section.umu', 'UMU (Proton)')}
-          >
-            <UmuOptions />
-          </SettingsCard>
-        )}
+        {isLinux &&
+          wineVersion?.type === 'proton' &&
+          !isNative &&
+          !disableUMU && (
+            <SettingsCard
+              glyph={FlaskConical}
+              title={t('settings.section.umu', 'UMU (Proton)')}
+            >
+              <UmuOptions />
+            </SettingsCard>
+          )}
         {!isSideloaded && (
           <SettingsCard
             glyph={Globe}
@@ -336,7 +348,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         )}
       </TabPanel>
 
-      <TabPanel value={value} index={'saves'}>
+      <TabPanel value={activeTab} index={'saves'}>
         <SettingsCard
           glyph={Save}
           title={t('settings.navbar.sync', 'Cloud saves sync')}
@@ -345,12 +357,12 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         </SettingsCard>
       </TabPanel>
 
-      <TabPanel value={value} index={'gamescope'}>
+      <TabPanel value={activeTab} index={'gamescope'}>
         <Gamescope />
       </TabPanel>
 
       {isLinux && (
-        <TabPanel value={value} index={'legacy'}>
+        <TabPanel value={activeTab} index={'legacy'}>
           <Alert variant="warning">
             {t(
               'settings.legacy_warning',

@@ -1254,7 +1254,9 @@
             "enableForceGrabCursor": "Enable force grab cursor",
             "enableHDR": "Enable HDR",
             "enableLimiter": "Enable FPS limiter",
+            "enableLimiter-description": "Cap the frame rate through gamescope",
             "enableUpscaling": "Enables upscaling",
+            "enableUpscaling-description": "Scale the game below native resolution and upscale it",
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
             "warningFlatpak": "We could not find a compatible version of gamescope. Install gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },

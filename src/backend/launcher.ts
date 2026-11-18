@@ -680,14 +680,14 @@ async function prepareLaunch(
         if (gamescopeSettings.upscaleMethod === 'stretch' && !oldVersion) {
           gameScopeCommand.push('-S', 'stretch')
         }
-      }
 
-      // window type
-      if (gamescopeSettings.windowType === 'fullscreen') {
-        gameScopeCommand.push('-f')
-      }
-      if (gamescopeSettings.windowType === 'borderless') {
-        gameScopeCommand.push('-b')
+        // window type
+        if (gamescopeSettings.windowType === 'fullscreen') {
+          gameScopeCommand.push('-f')
+        }
+        if (gamescopeSettings.windowType === 'borderless') {
+          gameScopeCommand.push('-b')
+        }
       }
 
       if (gamescopeSettings.enableLimiter) {
@@ -703,11 +703,11 @@ async function prepareLaunch(
         gameScopeCommand.push('--force-grab-cursor')
       }
 
-      if (gamescopeSettings.enableHDR) {
+      if (gamescopeSettings.enableHDR && !oldVersion) {
         gameScopeCommand.push('--hdr-enabled')
       }
 
-      if (gamescopeSettings.enableAdaptiveSync) {
+      if (gamescopeSettings.enableAdaptiveSync && !oldVersion) {
         gameScopeCommand.push('--adaptive-sync')
       }
 

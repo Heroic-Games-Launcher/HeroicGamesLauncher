@@ -42,7 +42,7 @@ const Gamescope = () => {
   const [isInstalled, setIsInstalled] = useState(false)
 
   const [additionalOptions, setAdditionalOptions] = useState(
-    gamescope.additionalOptions
+    gamescope.additionalOptions ?? ''
   )
 
   useEffect(() => {
@@ -145,6 +145,10 @@ const Gamescope = () => {
             })
           }
           title={t('setting.gamescope.enableUpscaling', 'Enables upscaling')}
+          description={t(
+            'setting.gamescope.enableUpscaling-description',
+            'Scale the game below native resolution and upscale it'
+          )}
         />
         {gamescope.enableUpscaling && (
           <>
@@ -243,6 +247,27 @@ const Gamescope = () => {
                 }}
               />
             </div>
+            <SelectField
+              label={t('options.gamescope.windowType', 'Window type')}
+              htmlId="windowType"
+              info={t(
+                'help.gamescope.windowType',
+                'How gamescope displays the game window.'
+              )}
+              onChange={(event) =>
+                setGamescope({
+                  ...gamescope,
+                  windowType: event.target.value
+                })
+              }
+              value={gamescope.windowType}
+            >
+              {windowTypes.map((el) => (
+                <MenuItem value={el.value} key={el.value}>
+                  {el.name}
+                </MenuItem>
+              ))}
+            </SelectField>
           </>
         )}
       </SettingsCard>
@@ -261,6 +286,10 @@ const Gamescope = () => {
             })
           }
           title={t('setting.gamescope.enableLimiter', 'Enable FPS limiter')}
+          description={t(
+            'setting.gamescope.enableLimiter-description',
+            'Cap the frame rate through gamescope'
+          )}
         />
         {gamescope.enableLimiter && (
           <div className="row">
@@ -310,27 +339,6 @@ const Gamescope = () => {
         glyph={SlidersHorizontal}
         title={t('settings.section.gamescopeDisplay', 'Display')}
       >
-        <SelectField
-          label={t('options.gamescope.windowType', 'Window type')}
-          htmlId="windowType"
-          info={t(
-            'help.gamescope.windowType',
-            'How gamescope displays the game window.'
-          )}
-          onChange={(event) =>
-            setGamescope({
-              ...gamescope,
-              windowType: event.target.value
-            })
-          }
-          value={gamescope.windowType}
-        >
-          {windowTypes.map((el) => (
-            <MenuItem value={el.value} key={el.value}>
-              {el.name}
-            </MenuItem>
-          ))}
-        </SelectField>
         <ToggleSwitch
           htmlId="gamescopeForceGrabCursorToggle"
           value={gamescope.enableForceGrabCursor || false}
