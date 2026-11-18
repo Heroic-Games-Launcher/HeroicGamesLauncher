@@ -1,5 +1,6 @@
 import {
   KeyboardEvent,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -7,9 +8,9 @@ import {
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Search, X } from 'lucide-react'
 import classNames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
+import SearchBar from 'frontend/components/UI/SearchBar'
 import { resolveSettingsSearchEntries, searchSettings } from '../../search'
 import type {
   ResolvedSettingsSearchEntry,
@@ -30,10 +31,8 @@ interface Props {
 export default function SettingsSearch({ onSelect }: Props) {
   const { t, i18n } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const inputRef = useRef<HTMLInputElement>(null)
   const optionRefs = useRef<Array<HTMLLIElement | null>>([])
   const [query, setQuery] = useState('')
-  const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
 
   const entries = useMemo(
@@ -50,47 +49,26 @@ export default function SettingsSearch({ onSelect }: Props) {
   )
 
   useEffect(() => {
-    const onKey = (event: globalThis.KeyboardEvent) => {
-      const target = event.target as HTMLElement | null
-      const tag = target?.tagName
-      const typing =
-        tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable
-
-      if (event.key === '/' && !typing) {
-        event.preventDefault()
-        inputRef.current?.focus()
-      }
-    }
-
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [])
-
-  useEffect(() => {
-    if (!open) return
+    if (!query) return
     optionRefs.current[activeIndex]?.scrollIntoView({ block: 'nearest' })
-  }, [activeIndex, open])
+  }, [activeIndex, query])
 
   const selectEntry = (entry: ResolvedSettingsSearchEntry) => {
     onSelect(entry)
     setQuery('')
-    setOpen(false)
     setActiveIndex(0)
-    inputRef.current?.blur()
   }
 
-  const handleChange = (value: string) => {
+  const handleInputChanged = useCallback((value: string) => {
     setQuery(value)
     setActiveIndex(0)
-    setOpen(true)
-  }
+  }, [])
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (!query) return
 
     if (event.key === 'ArrowDown') {
       event.preventDefault()
-      setOpen(true)
       if (results.length > 0) {
         setActiveIndex((index) => Math.min(index + 1, results.length - 1))
       }
@@ -99,111 +77,75 @@ export default function SettingsSearch({ onSelect }: Props) {
       setActiveIndex((index) => Math.max(index - 1, 0))
     } else if (event.key === 'Enter') {
       const entry = results[activeIndex]
-      if (open && entry) {
+      if (entry) {
         event.preventDefault()
         selectEntry(entry)
       }
     } else if (event.key === 'Escape') {
       event.preventDefault()
-      if (query) {
-        setQuery('')
-        setOpen(false)
-      } else {
-        inputRef.current?.blur()
-      }
+      setQuery('')
+      setActiveIndex(0)
     }
   }
 
-  const showResults = open && query.length > 0
-  const activeOption =
-    showResults && results[activeIndex]
-      ? `settings-search-option-${activeIndex}`
-      : undefined
+  const suggestionItems: JSX.Element[] = results.map((entry, index) => (
+    <li
+      key={`${entry.tab}-${entry.titleKey}-${entry.id ?? index}`}
+      id={`settings-search-option-${index}`}
+      ref={(element) => {
+        optionRefs.current[index] = element
+      }}
+      className={classNames('SettingsSearch__result', {
+        'SettingsSearch__result--active': index === activeIndex
+      })}
+      role="option"
+      aria-selected={index === activeIndex}
+      onClick={() => selectEntry(entry)}
+      onMouseEnter={() => setActiveIndex(index)}
+    >
+      <span className="SettingsSearch__resultTitle">{entry.title}</span>
+      <span className="SettingsSearch__resultContext">
+        {`${t(TAB_LABELS[entry.tab])} · ${entry.section}`}
+      </span>
+    </li>
+  ))
+
+  if (query && results.length === 0) {
+    suggestionItems.push(
+      <li key="empty" className="SettingsSearch__empty" role="presentation">
+        {t('settings.search.noResults', 'No settings found')}
+      </li>
+    )
+  }
 
   return (
-    <div
-      className="SettingsSearch"
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-          setOpen(false)
-        }
-      }}
-    >
-      <div className="SettingsSearch__field">
-        <Search size={18} strokeWidth={1.75} aria-hidden />
-        <input
-          ref={inputRef}
-          id="search"
-          className="SettingsSearch__input"
-          type="text"
-          role="combobox"
-          aria-label={t('settings.search.placeholder', 'Search settings')}
-          aria-autocomplete="list"
-          aria-expanded={showResults}
-          aria-controls="settings-search-results"
-          aria-activedescendant={activeOption}
-          autoComplete="off"
-          spellCheck={false}
-          placeholder={t('settings.search.placeholder', 'Search settings')}
-          value={query}
-          onChange={(event) => handleChange(event.target.value)}
-          onFocus={() => {
-            if (query) setOpen(true)
-          }}
-          onKeyDown={handleKeyDown}
-        />
-        {query && (
-          <button
-            type="button"
-            className="SettingsSearch__clear"
-            aria-label={t('settings.search.clear', 'Clear search')}
-            onClick={() => {
-              setQuery('')
-              setOpen(false)
-              inputRef.current?.focus()
-            }}
-          >
-            <X size={18} strokeWidth={2} aria-hidden />
-          </button>
-        )}
-      </div>
-
-      {showResults && (
-        <ul
-          id="settings-search-results"
-          className="SettingsSearch__results"
-          role="listbox"
-          aria-label={t('settings.search.results', 'Settings results')}
-          onMouseDown={(event) => event.preventDefault()}
-        >
-          {results.map((entry, index) => (
-            <li
-              key={`${entry.tab}-${entry.titleKey}-${entry.id ?? index}`}
-              id={`settings-search-option-${index}`}
-              ref={(element) => {
-                optionRefs.current[index] = element
-              }}
-              className={classNames('SettingsSearch__result', {
-                'SettingsSearch__result--active': index === activeIndex
-              })}
-              role="option"
-              aria-selected={index === activeIndex}
-              onClick={() => selectEntry(entry)}
-              onMouseEnter={() => setActiveIndex(index)}
-            >
-              <span className="SettingsSearch__resultTitle">{entry.title}</span>
-              <span className="SettingsSearch__resultContext">
-                {`${t(TAB_LABELS[entry.tab])} · ${entry.section}`}
-              </span>
-            </li>
-          ))}
-          {results.length === 0 && (
-            <li className="SettingsSearch__empty" role="presentation">
-              {t('settings.search.noResults', 'No settings found')}
-            </li>
-          )}
-        </ul>
-      )}
+    <div className="SettingsSearch">
+      <SearchBar
+        value={query}
+        onInputChanged={handleInputChanged}
+        placeholder={t('settings.search.placeholder', 'Search settings')}
+        suggestionsListItems={query ? suggestionItems : []}
+        suggestionsListProps={{
+          id: 'settings-search-results',
+          role: 'listbox',
+          'aria-label': t('settings.search.results', 'Settings results'),
+          onMouseDown: (event) => event.preventDefault()
+        }}
+        inputProps={{
+          role: 'combobox',
+          'aria-label': t('settings.search.placeholder', 'Search settings'),
+          'aria-autocomplete': 'list',
+          'aria-expanded': Boolean(query),
+          'aria-controls': 'settings-search-results',
+          'aria-activedescendant':
+            query && results[activeIndex]
+              ? `settings-search-option-${activeIndex}`
+              : undefined,
+          autoComplete: 'off',
+          spellCheck: false,
+          onKeyDown: handleKeyDown
+        }}
+      />
     </div>
   )
 }

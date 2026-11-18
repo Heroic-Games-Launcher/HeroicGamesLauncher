@@ -77,6 +77,8 @@ function Settings() {
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
   const isImportExport = type === 'importexport'
+  const showSettingsSearch =
+    isGeneralSettings || isRunnersSettings || isAdvancedSetting
 
   useEffect(() => {
     if (!searchTarget || type !== searchTarget.tab) return
@@ -278,7 +280,7 @@ function Settings() {
     setCopiedToClipboard(true)
   }
 
-  const copyButton = (
+  const systemInfoCopyButton = (
     <Button
       variant={isCopiedToClipboard ? 'primary' : 'ghost'}
       size="sm"
@@ -287,11 +289,15 @@ function Settings() {
     >
       {isCopiedToClipboard
         ? t('settings.copiedToClipboard', 'Copied to clipboard!')
-        : isSystemInfo
-          ? t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')
-          : t('settings.copyToClipboard', 'Copy all settings to clipboard')}
+        : t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')}
     </Button>
   )
+
+  const settingsSearchRow = showSettingsSearch ? (
+    <div className="settingsSearchRow">
+      <SettingsSearch onSelect={handleSearchSelect} />
+    </div>
+  ) : null
 
   return (
     <ContextMenu
@@ -325,24 +331,22 @@ function Settings() {
               title={pageTitle}
               description={pageDescription}
               className="headerTitle"
-              actions={!isLogSettings ? copyButton : undefined}
+              actions={isSystemInfo ? systemInfoCopyButton : undefined}
             />
 
             <div className="settingsLayout">
               <div className="settingsSidebar">
-                {(isGeneralSettings ||
-                  isRunnersSettings ||
-                  isAdvancedSetting) && (
-                  <SettingsSearch onSelect={handleSearchSelect} />
-                )}
                 {isNarrow ? (
-                  <Tabs
-                    items={sections}
-                    value={type}
-                    onChange={(value) => navigate(`/settings/${value}`)}
-                    aria-label={t('Settings', 'Settings')}
-                    className="settingsNav settingsNav--tabs"
-                  />
+                  <>
+                    <Tabs
+                      items={sections}
+                      value={type}
+                      onChange={(value) => navigate(`/settings/${value}`)}
+                      aria-label={t('Settings', 'Settings')}
+                      className="settingsNav settingsNav--tabs"
+                    />
+                    {settingsSearchRow}
+                  </>
                 ) : (
                   <NavList
                     items={navItems}
@@ -352,11 +356,17 @@ function Settings() {
                 )}
               </div>
               <div className="settingsPane">
+                {!isNarrow && settingsSearchRow}
                 {isGeneralSettings && <GeneralSettings />}
                 {isGamesSettings && <GamesSettings />}
                 {isRunnersSettings && <RunnersSettings />}
                 {isSyncSettings && <SyncSaves />}
-                {isAdvancedSetting && <AdvancedSettings />}
+                {isAdvancedSetting && (
+                  <AdvancedSettings
+                    copiedToClipboard={isCopiedToClipboard}
+                    onCopySettings={copySettingsToClipboard}
+                  />
+                )}
                 {isLogSettings && <LogSettings />}
                 {isSystemInfo && <SystemInfo />}
                 {isImportExport && <ImportExportSettings />}
