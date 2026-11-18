@@ -64,11 +64,17 @@ const DetectedControllers = () => {
     const refresh = () => setControllers(readControllers())
     window.addEventListener('gamepadconnected', refresh)
     window.addEventListener('gamepaddisconnected', refresh)
+
+    // Chromium keeps every slot as `null` until the pad is used for the first
+    // time in this document, and it does not always fire `gamepadconnected`,
+    // so poll while the card is open.
+    const interval = window.setInterval(refresh, 1000)
     refresh()
 
     return () => {
       window.removeEventListener('gamepadconnected', refresh)
       window.removeEventListener('gamepaddisconnected', refresh)
+      window.clearInterval(interval)
     }
   }, [])
 
@@ -108,6 +114,14 @@ const DetectedControllers = () => {
 
   return (
     <div className="detectedControllers">
+      {!controllers.length && (
+        <p className="detectedControllers__empty">
+          {t(
+            'settings.gamepad.detected.notReported',
+            'The system reports a battery, but the controller is not visible to Heroic yet. Press a button on it.'
+          )}
+        </p>
+      )}
       {controllers.map((pad) => {
         const { vendor, product } = parseVendorProduct(pad.id)
         return (
