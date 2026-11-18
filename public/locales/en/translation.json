@@ -559,7 +559,6 @@
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
-    "Epic Games": "Epic Games",
     "error": {
         "recovery": "Refreshing the library usually fixes it. Clearing the cache or resetting Heroic are the next steps if it does not."
     },
@@ -1616,6 +1615,5 @@
         "nothingYet": "Nothing was installed by winetricks yet",
         "openGUI": "Open winetricks GUI",
         "search": "Search fonts or components"
-    },
-    "zoom-store": "Zoom Store"
+    }
 }
