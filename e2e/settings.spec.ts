@@ -32,12 +32,26 @@ electronTest('Settings', async (app, page) => {
     ])
   })
 
-  await test.step('shows the Runners settings', async () => {
+  await test.step('opens the Settings screen', async () => {
     await page
       .locator('.Sidebar')
       .locator('.Sidebar__item', { hasText: 'Settings' })
       .click()
     await expect(page.getByRole('heading', { name: 'General' })).toBeVisible()
+  })
+
+  await test.step('searches settings by name', async () => {
+    const search = page.getByRole('combobox', { name: 'Search settings' })
+
+    await search.fill('discord')
+    await expect(
+      page.getByRole('option', { name: /Discord rich presence/ })
+    ).toBeVisible()
+    await search.press('Enter')
+    await expect(page.getByLabel('Enable Discord rich presence')).toBeFocused()
+  })
+
+  await test.step('shows the Runners settings', async () => {
     await page.getByRole('link', { name: 'Runners' }).click()
   })
 

@@ -324,7 +324,7 @@ a {
   );
   margin-inline: 0 auto;
   place-self: start;
-  gap: var(--space-md);
+  gap: var(--space-2xl-fixed);
 }
 
 .settingsSidebar {
@@ -334,6 +334,11 @@ a {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+  min-width: 0;
+}
+
+.settingsSearchRow {
+  width: 100%;
   min-width: 0;
 }
 
@@ -366,6 +371,28 @@ a {
   flex-direction: column;
   gap: var(--space-md);
   min-width: 0;
+}
+
+@media screen and (min-width: 1101px) {
+  .settingsSearchRow {
+    position: sticky;
+    top: var(--settings-header-block);
+    z-index: 2;
+    padding-block: var(--space-xs);
+    background: var(--body-background, var(--background));
+  }
+
+  /* Cover the gap between the sticky header and the search row so scrolled
+     content cannot peek through. The header paints above this with its own
+     higher z-index. */
+  .settingsSearchRow::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: calc(-1 * var(--space-3xl-fixed));
+    height: var(--space-3xl-fixed);
+    background: inherit;
+  }
 }
 
 @media screen and (max-width: 1100px) {
