@@ -24,6 +24,15 @@ type Props = {
   setHeroUrl: (val: string) => void
 }
 
+function toFileUrl(path: string): string {
+  const normalized = path.replace(/\\/g, '/')
+  const encoded = encodeURI(normalized)
+    .replace(/#/g, '%23')
+    .replace(/\?/g, '%3F')
+
+  return `file://${encoded.startsWith('/') ? '' : '/'}${encoded}`
+}
+
 export default function ImagesStep({
   backdropClick,
   title,
@@ -93,8 +102,9 @@ export default function ImagesStep({
     })
 
     if (!path) return
-    if (target === 'cover') setHeroUrl(`file://${path}`)
-    else setImageUrl(`file://${path}`)
+    const fileUrl = toFileUrl(path)
+    if (target === 'cover') setHeroUrl(fileUrl)
+    else setImageUrl(fileUrl)
   }
 
   if (sgdbTarget) {
