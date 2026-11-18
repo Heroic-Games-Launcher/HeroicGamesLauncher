@@ -71,6 +71,22 @@ body:has(.MuiDialog-root) {
   }
 }
 
+// Single, theme-aware focus indicator for the whole app. Components with a
+// purpose-built ring override this; everything else (game cards, list rows,
+// menu items, on-screen keyboard keys) falls back to it so that focus is
+// always visible when navigating with a gamepad on a TV.
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+// These are always wrapped by a component that draws the ring itself.
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+}
+
 .smallInputInfo {
   font-size: var(--text-xs);
   align-self: flex-start;

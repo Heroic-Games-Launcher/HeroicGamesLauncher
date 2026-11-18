@@ -118,6 +118,11 @@
     outline: none;
   }
 
+  &:focus-visible {
+    outline: 3px solid var(--accent, #0080ff);
+    outline-offset: 2px;
+  }
+
   &:hover.active,
   &:focus-visible.active {
     border: 1px solid
@@ -264,6 +269,12 @@
       0 0 0 3px var(--accent, #0080ff),
       0 0 22px color-mix(in srgb, var(--accent, #0080ff) 40%, transparent);
     z-index: 2;
+  }
+
+  // the ring is drawn by the `.focused` class so it also follows the
+  // keyboard/pointer-driven focus index
+  &:focus-visible {
+    outline: none;
   }
 }
 

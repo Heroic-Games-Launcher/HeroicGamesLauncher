@@ -1370,6 +1370,16 @@ addHandler('gamepadAction', async (event, args) => {
         }
       )
       break
+    case 'enter':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'Return'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'Return'
+      })
+      break
   }
 
   if (inputEvents.length) {

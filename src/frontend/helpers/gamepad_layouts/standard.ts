@@ -53,5 +53,6 @@ export function checkStandard(
   checkAction('padLeft', left?.pressed, controllerIndex)
   checkAction('padRight', right?.pressed, controllerIndex)
   checkAction('rightClick', contextMenuButton?.pressed, controllerIndex)
+  checkAction('enter', buttons[10]?.pressed, controllerIndex) // L3
   checkAction('guide', guideButton?.pressed, controllerIndex)
 }

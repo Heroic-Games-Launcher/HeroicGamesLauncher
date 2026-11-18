@@ -24,7 +24,11 @@
 .discountCard:hover,
 .discountCard:focus-visible {
   transform: scale(1.05);
-  outline: none;
+}
+
+.discountCard:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .discountCard__image {

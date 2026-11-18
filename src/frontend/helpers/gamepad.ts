@@ -136,6 +136,7 @@ function handleWebviewAction(action: ValidGamepadAction): boolean {
       webviewTarget.exit()
       return true
     case 'mainAction':
+    case 'enter':
       webviewTarget.send({ type: 'click' })
       return true
     case 'altAction':
@@ -218,6 +219,7 @@ export const updateGamepadActions = async () => {
     tab: { triggeredAt: {}, repeatDelay: false },
     shiftTab: { triggeredAt: {}, repeatDelay: false },
     keyboardClick: { triggeredAt: {}, repeatDelay: false },
+    enter: { triggeredAt: {}, repeatDelay: false },
     guide: { triggeredAt: {}, repeatDelay: false }
   }
 }
@@ -230,10 +232,6 @@ export const initGamepad = () => {
   // store the current controllers
   let controllers: number[] = []
 
-  let isFocused = true
-  window.addEventListener('focus', () => (isFocused = true))
-  window.addEventListener('blur', () => (isFocused = false))
-
   updateGamepadActions()
 
   // check if an action should be triggered
@@ -244,11 +242,15 @@ export const initGamepad = () => {
   ) {
     if (controllerIsDisabled || gamepadPassthrough) return
 
-    if (!isFocused) {
+    if (!document.hasFocus()) {
       // ignore gamepad events if Heroic is not the focused app
       //
       // the browser still detects the gamepad interactions even
-      // if the screen is not focused when playing a game
+      // if the screen is not focused when playing a game.
+      //
+      // `document.hasFocus()` (instead of a `window.blur` flag) is
+      // intentional: focusing a store <webview> fires `blur` on the host but
+      // the window still owns focus, and a blur flag would disable the pad.
       return
     }
 
@@ -396,7 +398,7 @@ export const initGamepad = () => {
         case 'leftStickUp':
           if (!el) {
             // if we are not focusing anything, grab focus or we are stuck unable to move around
-            document.querySelector('body')?.focus()
+            document.getElementById('app')?.focus()
           } else {
             switch (action) {
               case 'padDown':
@@ -457,8 +459,13 @@ export const initGamepad = () => {
   }
 
   const currentElement = () => {
-    const el = document.querySelector<HTMLElement>(':focus')
-    if (!el) return
+    // `<body>` can't be a focus target, so `:focus` would return null there.
+    // Reading `activeElement` keeps the "nothing focused" state explicit.
+    const el = document.activeElement as HTMLElement | null
+    if (!el || el === document.body || el === document.documentElement) return
+
+    // `#app` is only focused to give spatial navigation a starting point
+    if (el.id === 'app') return
 
     // we can't call `click` in svg elements, so we use its parent
     if (el.tagName === 'svg') return el.parentElement

@@ -634,6 +634,7 @@ interface GamepadActionArgsWithoutMetadata {
     | 'tab'
     | 'shiftTab'
     | 'keyboardClick'
+    | 'enter'
     | 'guide'
   metadata?: undefined
 }

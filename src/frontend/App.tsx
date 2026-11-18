@@ -70,6 +70,8 @@ function Root() {
   return (
     <div
       id="app"
+      // focus target used by the gamepad handler when nothing else is focused
+      tabIndex={-1}
       className={classNames('App', {
         isRTL,
         frameless: isFrameless,
@@ -83,7 +85,19 @@ function Root() {
       <ThemeProvider theme={theme}>
         {isConsoleMode ? (
           <main className="content consoleContent">
+            {/* dialogs and the on-screen keyboard must be reachable from the
+                console UI too, e.g. launch-option pickers and errors */}
+            <DialogHandler />
+            <InstallGameWrapper />
+            <SettingsModalWrapper />
+            <ExternalLinkDialog />
+            <LogFileUploadDialog />
+            <UploadedLogFilesList />
             <Outlet />
+            <AnalyticsDialog />
+            <dialog className="simple-keyboard-wrapper">
+              <div className="simple-keyboard"></div>
+            </dialog>
           </main>
         ) : (
           <TourProvider>

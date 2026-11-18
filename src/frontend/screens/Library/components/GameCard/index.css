@@ -518,6 +518,11 @@
   );
 }
 
+.gameListItem:focus-within {
+  outline: 3px solid var(--navbar-accent, var(--accent));
+  outline-offset: -1px;
+}
+
 .gameListItem > a {
   grid-area: thumb;
   position: static;

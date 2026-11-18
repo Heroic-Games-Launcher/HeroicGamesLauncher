@@ -80,6 +80,7 @@ export function checkNintendo(
   checkAction('back', B?.pressed, controllerIndex)
   checkAction('altAction', Y?.pressed, controllerIndex)
   checkAction('rightClick', X?.pressed, controllerIndex)
+  checkAction('enter', buttons[10]?.pressed, controllerIndex) // L3
   checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
