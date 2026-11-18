@@ -7,6 +7,15 @@ import { runWineCommandOnGame } from '../tools'
 import { getGame } from '../utils'
 import { isAccessibleWithinFlatpakSandbox } from '../utils/filesystem'
 import { Path } from '../schemas'
+import { sendGameStatusUpdate } from '../utils'
+import { createGameLogWriter } from '../logger'
+import { addRecentGame } from '../recent_games/recent_games'
+import { tsStore } from '../constants/key_value_stores'
+import {
+  launchCleanup,
+  runBeforeLaunchScript,
+  runAfterLaunchScript
+} from '../launcher'
 
 import type { Runner } from 'common/types'
 
@@ -29,11 +38,44 @@ async function launchExe(
     LogPrefix.Backend
   )
 
-  await runWineCommandOnGame(runner, appName, {
-    commandParts: [exePath],
-    protonVerb: 'waitforexitandrun',
-    startFolder: path.dirname(exePath)
-  })
+  const gameInfo = game.getGameInfo()
+  const gameSettings = await game.getSettings()
+
+  sendGameStatusUpdate({ appName, runner, status: 'launching' })
+
+  const logWriter = await createGameLogWriter(appName, runner)
+  const startPlayingDate = new Date()
+
+  if (!tsStore.has(appName)) {
+    tsStore.set(`${appName}.firstPlayed`, startPlayingDate.toISOString())
+  }
+
+  await runBeforeLaunchScript(gameInfo, gameSettings, logWriter)
+
+  try {
+    await runWineCommandOnGame(runner, appName, {
+      commandParts: [exePath],
+      protonVerb: 'waitforexitandrun',
+      startFolder: path.dirname(exePath),
+      options: { logWriters: [logWriter] }
+    })
+  } finally {
+    await runAfterLaunchScript(gameInfo, gameSettings, logWriter)
+
+    const finishedPlayingDate = new Date()
+    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
+    const sessionPlaytime =
+      (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
+    const totalPlaytime =
+      sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
+    tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+
+    await addRecentGame(gameInfo)
+    await logWriter.close()
+
+    sendGameStatusUpdate({ appName, runner, status: 'done' })
+    launchCleanup()
+  }
 }
 
 function findExeInArgs(args: string[], workingDirectory?: string): Path | null {
@@ -56,7 +98,7 @@ function findExeInArgs(args: string[], workingDirectory?: string): Path | null {
         ? exePath
         : path.join(workingDirectory, exePath)
 
-    const windowsExecutableExtensions = ['.exe', '.msi', '.bat', '.reg']
+    const windowsExecutableExtensions = ['.exe', '.msi', '.bat']
     const parsed = Path.safeParse(exePath)
     const isValid =
       parsed.success &&

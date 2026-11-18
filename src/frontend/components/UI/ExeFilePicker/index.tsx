@@ -14,7 +14,6 @@ import type { GameInfo, Runner } from 'common/types'
 import './index.css'
 
 export default function ExeFilePicker() {
-  const [running, setRunning] = useState(false)
   const [search, setSearch] = useState('')
   const { epic, gog, amazon, zoom, sideloadedLibrary } =
     useContext(ContextProvider)
@@ -66,7 +65,6 @@ export default function ExeFilePicker() {
       : nonNativeGames
 
   const handleClose = useCallback(() => {
-    setRunning(false)
     setSearch('')
     useGlobalState.setState({ exeRunDialog: { open: false } })
   }, [])
@@ -74,12 +72,13 @@ export default function ExeFilePicker() {
   const handlePick = useCallback(
     async (appName: string, runner: Runner) => {
       if (!exePath) return
-      setRunning(true)
-      return window.api.exe_handler
+      // Close the dialog immediately — the exe runs in the background
+      handleClose()
+      // Fire-and-forget the launch; errors are logged by the backend
+      window.api.exe_handler
         .launchWithExeFile(exePath, appName, runner)
-        .then(handleClose)
         .catch(() => {
-          setRunning(false)
+
         })
     },
     [exePath, handleClose]
@@ -113,30 +112,7 @@ export default function ExeFilePicker() {
               flexDirection={'column'}
               gap={1}
             >
-              {running ? (
-                <Box
-                  flexGrow={1}
-                  display={'flex'}
-                  alignItems={'center'}
-                  justifyContent={'center'}
-                >
-                  <Box
-                    display={'flex'}
-                    flexDirection={'column'}
-                    alignItems={'center'}
-                    gap={1}
-                  >
-                    <CircularProgress
-                      sx={{
-                        color: 'var(--text-default)'
-                      }}
-                    />
-                    <Typography>
-                      {t('exeFilePicker.running', 'Running executable...')}
-                    </Typography>
-                  </Box>
-                </Box>
-              ) : filtered === null ? (
+              {filtered === null ? (
                 <Box
                   flexGrow={1}
                   display={'flex'}

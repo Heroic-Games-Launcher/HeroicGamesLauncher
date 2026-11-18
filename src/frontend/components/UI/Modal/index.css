@@ -67,7 +67,8 @@
 .Modal__content {
   flex: 1 1 auto;
   min-height: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: var(--modal-gap) var(--modal-padding-inline);
 }
 

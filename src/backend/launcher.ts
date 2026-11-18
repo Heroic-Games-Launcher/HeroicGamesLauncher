@@ -2055,5 +2055,7 @@ export {
   callRunner,
   getWinePath,
   launchEventCallback,
-  getKnownFixesEnvVariables
+  getKnownFixesEnvVariables,
+  runBeforeLaunchScript,
+  runAfterLaunchScript
 }

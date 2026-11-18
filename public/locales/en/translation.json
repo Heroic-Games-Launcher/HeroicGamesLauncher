@@ -569,7 +569,6 @@
         "loading": "Loading game list...",
         "noGames": "No games found",
         "noGamesDescription": "No non-native installed games match your search.",
-        "running": "Running executable...",
         "search": "Search games...",
         "title": "Open EXE"
     },
