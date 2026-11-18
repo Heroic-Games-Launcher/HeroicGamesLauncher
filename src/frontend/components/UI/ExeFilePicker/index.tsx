@@ -1,16 +1,11 @@
 import { useEffect, useCallback, useContext, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  Box,
-  Button,
-  CircularProgress,
-  TextField,
-  Typography
-} from '@mui/material'
+import { Box, Button, CircularProgress, Typography } from '@mui/material'
 import WarningIcon from '@mui/icons-material/Warning'
 
 import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import CachedImage from 'frontend/components/UI/CachedImage'
+import { EmptyState, TextInputField } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 
@@ -83,6 +78,9 @@ export default function ExeFilePicker() {
       return window.api.exe_handler
         .launchWithExeFile(exePath, appName, runner)
         .then(handleClose)
+        .catch(() => {
+          setRunning(false)
+        })
     },
     [exePath, handleClose]
   )
@@ -99,6 +97,8 @@ export default function ExeFilePicker() {
     return null
   }, [flatpakInaccessible, t])
 
+  const basename = exePath ? (exePath.split(/[/\\]/).pop() ?? exePath) : ''
+
   return (
     <>
       {open && (
@@ -113,7 +113,61 @@ export default function ExeFilePicker() {
               flexDirection={'column'}
               gap={1}
             >
-              {filtered && !running ? (
+              {running ? (
+                <Box
+                  flexGrow={1}
+                  display={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'center'}
+                >
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                    gap={1}
+                  >
+                    <CircularProgress
+                      sx={{
+                        color: 'var(--text-default)'
+                      }}
+                    />
+                    <Typography>
+                      {t('exeFilePicker.running', 'Running executable...')}
+                    </Typography>
+                  </Box>
+                </Box>
+              ) : filtered === null ? (
+                <Box
+                  flexGrow={1}
+                  display={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'center'}
+                >
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                    gap={1}
+                  >
+                    <CircularProgress
+                      sx={{
+                        color: 'var(--text-default)'
+                      }}
+                    />
+                    <Typography>
+                      {t('exeFilePicker.loading', 'Loading game list...')}
+                    </Typography>
+                  </Box>
+                </Box>
+              ) : filtered.length === 0 ? (
+                <EmptyState
+                  title={t('exeFilePicker.noGames', 'No games found')}
+                  description={t(
+                    'exeFilePicker.noGamesDescription',
+                    'No non-native installed games match your search.'
+                  )}
+                />
+              ) : (
                 <>
                   <Typography
                     variant={'subtitle2'}
@@ -126,6 +180,16 @@ export default function ExeFilePicker() {
                         'EXE file on.'
                     )}
                   </Typography>
+                  {basename && (
+                    <Typography
+                      variant={'body2'}
+                      sx={{ color: 'var(--text-secondary)', mt: 0.5 }}
+                    >
+                      {t('exeFilePicker.file', 'File: {file}', {
+                        file: basename
+                      })}
+                    </Typography>
+                  )}
                   {warning && (
                     <Box
                       display={'flex'}
@@ -145,31 +209,14 @@ export default function ExeFilePicker() {
                     </Box>
                   )}
 
-                  <TextField
-                    variant={'filled'}
-                    sx={{
-                      [`& .MuiFilledInput-root`]: {
-                        color: 'var(--text-default)',
-                        backgroundColor: 'var(--background-lighter) !important',
-                        ['&:hover:not(.Mui-disabled, .Mui-error):before']: {
-                          borderColor: 'var(--brand-primary-hover)'
-                        },
-                        [`& .MuiFilledInput-input`]: {
-                          padding: 1
-                        },
-                        [`&::before`]: {
-                          borderColor: 'var(--text-default)'
-                        },
-                        ['&::after']: {
-                          borderColor: 'var(--brand-primary)'
-                        }
-                      }
-                    }}
-                    placeholder={t('exeFilePicker.search', 'Search games...')}
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    fullWidth
-                  />
+                  <Box sx={{ width: '100%', mt: 1 }}>
+                    <TextInputField
+                      htmlId="exe-file-picker-search"
+                      placeholder={t('exeFilePicker.search', 'Search games...')}
+                      value={search}
+                      onChange={setSearch}
+                    />
+                  </Box>
                   <Box
                     flexGrow={1}
                     overflow={'auto'}
@@ -179,7 +226,7 @@ export default function ExeFilePicker() {
                   >
                     {filtered.map((g) => (
                       <Button
-                        key={g.app_name}
+                        key={`${g.runner}-${g.app_name}`}
                         onClick={() => handlePick(g.app_name, g.runner)}
                         sx={{
                           display: 'flex',
@@ -198,31 +245,6 @@ export default function ExeFilePicker() {
                     ))}
                   </Box>
                 </>
-              ) : (
-                <Box
-                  flexGrow={1}
-                  display={'flex'}
-                  alignItems={'center'}
-                  justifyContent={'center'}
-                >
-                  <Box
-                    display={'flex'}
-                    flexDirection={'column'}
-                    alignItems={'center'}
-                    gap={1}
-                  >
-                    <CircularProgress
-                      sx={{
-                        color: 'var(--text-default)'
-                      }}
-                    />
-                    <Typography>
-                      {running
-                        ? t('exeFilePicker.running', 'Running executable...')
-                        : t('exeFilePicker.loading', 'Loading game list...')}
-                    </Typography>
-                  </Box>
-                </Box>
               )}
             </Box>
           </ModalContent>

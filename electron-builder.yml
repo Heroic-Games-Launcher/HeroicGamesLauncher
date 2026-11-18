@@ -48,7 +48,11 @@ mac:
     - ext: exe
       name: Windows Executable
       description: Windows Executable
-      mimeType: application/x-ms-dos-executable
+      mimeType: application/x-msdownload
+    - ext: exe
+      name: Windows Executable
+      description: Windows Executable
+      mimeType: application/vnd.microsoft.portable-executable
     - ext: msi
       name: Windows Installer
       description: Windows Installer Package
@@ -84,7 +88,11 @@ linux:
     - ext: exe
       name: Windows Executable
       description: Windows Executable
-      mimeType: application/x-ms-dos-executable
+      mimeType: application/x-msdownload
+    - ext: exe
+      name: Windows Executable
+      description: Windows Executable
+      mimeType: application/vnd.microsoft.portable-executable
     - ext: msi
       name: Windows Installer
       description: Windows Installer Package

@@ -1,11 +1,14 @@
-import { findExeInArgs, handleExeFile, launchExe } from '.'
+import { findExeInArgs, handleExeFile } from '.'
 import { app, type Event } from 'electron'
-import { addHandler, addOneTimeListener } from '../ipc'
+import { addOneTimeListener } from '../ipc'
+import { Path } from '../schemas'
 
 interface Options {
   event?: Event
   workingDirectory?: string
 }
+
+let openExeArgument: Path | null = null
 
 function findAndHandle(
   argv: string[],
@@ -14,15 +17,19 @@ function findAndHandle(
   const maybeExePath = findExeInArgs(argv, workingDirectory)
   if (maybeExePath) {
     event?.preventDefault()
-    handleExeFile(maybeExePath)
+    if (!handleExeFile(maybeExePath)) {
+      openExeArgument = maybeExePath
+    }
   }
 }
 
-addHandler('exe_handler.launchWithExeFile', (_e, exePath, appName, runner) =>
-  launchExe(exePath, appName, runner)
-)
-
-addOneTimeListener('frontendReady', () => findAndHandle(process.argv))
+addOneTimeListener('frontendReady', () => {
+  findAndHandle(process.argv)
+  if (openExeArgument) {
+    handleExeFile(openExeArgument)
+    openExeArgument = null
+  }
+})
 
 app.on('second-instance', (event, argv, workingDirectory) =>
   findAndHandle(argv, { event, workingDirectory })

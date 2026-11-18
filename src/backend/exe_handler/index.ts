@@ -73,9 +73,9 @@ function findExeInArgs(args: string[], workingDirectory?: string): Path | null {
   return null
 }
 
-function handleExeFile(exePath: Path) {
-  if (process.platform === 'win32') return
-  sendFrontendMessage(
+function handleExeFile(exePath: Path): boolean {
+  if (process.platform === 'win32') return false
+  return sendFrontendMessage(
     'exe_handler.showExeFilePicker',
     exePath,
     !isAccessibleWithinFlatpakSandbox(exePath)
