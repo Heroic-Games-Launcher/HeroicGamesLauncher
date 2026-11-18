@@ -315,6 +315,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--text-secondary);
+
+    .InstallModal__platformIcon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      margin-inline-start: 0;
+    }
   }
 
   .sideloadFooterButtons {
