@@ -872,6 +872,7 @@
     "infobox": {
         "help": "Help",
         "requirements": "System requirements",
+        "steam-wineprefix": "Steam games run in the Proton prefix Steam uses for them, inside the Steam library the game is installed in. It cannot be changed here yet.",
         "warning": "Warning",
         "wine-path": "Wine path",
         "wine-path-invalid": "Wine path is invalid, please select another one.",
