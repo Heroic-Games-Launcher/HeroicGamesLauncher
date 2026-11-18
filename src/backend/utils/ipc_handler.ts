@@ -12,6 +12,7 @@ import {
 import { hasExecutable } from './os/path'
 import { formatSystemInfo, getSystemInfo } from './systeminfo'
 import { isIntelMac } from 'backend/constants/environment'
+import { loadProtonShortcutsEntries } from './proton_shortcuts'
 
 addListener('abort', (event, id) => {
   callAbortController(id)
@@ -34,3 +35,7 @@ addHandler('hasExecutable', async (event, executable) => {
 addHandler('isIntelMac', () => {
   return isIntelMac
 })
+
+addHandler('getProtonShortcuts', (e, prefix) =>
+  loadProtonShortcutsEntries(prefix)
+)

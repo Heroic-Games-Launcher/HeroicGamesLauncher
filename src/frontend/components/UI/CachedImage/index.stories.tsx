@@ -16,7 +16,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Image loader that routes remote URLs through the imagecache:// protocol, falls back to the direct URL, then to the fallback image. Local sources are loaded as-is.'
+          'Image loader that routes remote URLs and local file:// sources through the imagecache:// protocol, falls back to the direct URL, then to the fallback image.'
       }
     }
   }

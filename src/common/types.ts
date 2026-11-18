@@ -692,6 +692,7 @@ export type WineCommandArgs = {
   startFolder?: string
   skipPrefixCheckIKnowWhatImDoing?: boolean
   ignoreLogging?: boolean
+  logToApp?: { appName: string; runner: Runner }
 }
 
 export interface SaveSyncArgs {

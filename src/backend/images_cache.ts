@@ -9,7 +9,7 @@ import {
 import { createHash } from 'crypto'
 import { join } from 'path'
 import axios from 'axios'
-import { protocol } from 'electron'
+import { net, protocol } from 'electron'
 import { appFolder } from './constants/paths'
 
 const imagesCachePath = join(appFolder, 'images-cache')
@@ -117,6 +117,17 @@ async function downloadImage(
 
 const getImageFromCache = async (url: string): Promise<Response> => {
   const realUrl = decodeURIComponent(url.replace('imagecache://', ''))
+
+  // Local images can't be loaded directly by the renderer while it's served
+  // from the dev server (http origin), so proxy them through this protocol too.
+  if (realUrl.startsWith('file://')) {
+    try {
+      return await net.fetch(new URL(realUrl).toString())
+    } catch {
+      return new Response(null, { status: 404 })
+    }
+  }
+
   // digest of the image url for the file name
   const digest = createHash('sha256').update(realUrl).digest('hex')
   const cachePath = join(imagesCachePath, digest)
