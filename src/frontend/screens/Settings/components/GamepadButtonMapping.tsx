@@ -16,51 +16,15 @@ const DEFAULT_MAPPING: Record<RemappableGamepadAction, number | null> = {
   guide: 16
 }
 
-const ACTIONS: Array<{
-  action: RemappableGamepadAction
-  labelKey: string
-  fallbackLabel: string
-}> = [
-  {
-    action: 'mainAction',
-    labelKey: 'settings.gamepad.button.main',
-    fallbackLabel: 'Confirm / select'
-  },
-  {
-    action: 'back',
-    labelKey: 'settings.gamepad.button.back',
-    fallbackLabel: 'Back'
-  },
-  {
-    action: 'altAction',
-    labelKey: 'settings.gamepad.button.alt',
-    fallbackLabel: 'Play / install game'
-  },
-  {
-    action: 'rightClick',
-    labelKey: 'settings.gamepad.button.context',
-    fallbackLabel: 'Options menu'
-  },
-  {
-    action: 'prevPage',
-    labelKey: 'settings.gamepad.button.prevPage',
-    fallbackLabel: 'Page up'
-  },
-  {
-    action: 'nextPage',
-    labelKey: 'settings.gamepad.button.nextPage',
-    fallbackLabel: 'Page down'
-  },
-  {
-    action: 'enter',
-    labelKey: 'settings.gamepad.button.enter',
-    fallbackLabel: 'Submit / open keyboard'
-  },
-  {
-    action: 'guide',
-    labelKey: 'settings.gamepad.button.guide',
-    fallbackLabel: 'Console mode'
-  }
+const ACTIONS: RemappableGamepadAction[] = [
+  'mainAction',
+  'back',
+  'altAction',
+  'rightClick',
+  'prevPage',
+  'nextPage',
+  'enter',
+  'guide'
 ]
 
 const BUTTONS: Array<{ value: number; label: string }> = [
@@ -83,6 +47,18 @@ const GamepadButtonMapping = () => {
   const { t } = useTranslation()
   const [mapping, setMapping] = useSetting('gamepadButtonMapping', {})
 
+  // keys are written as literal `t()` calls so i18next-parser keeps them
+  const labels: Record<RemappableGamepadAction, string> = {
+    mainAction: t('settings.gamepad.button.main', 'Confirm / select'),
+    back: t('settings.gamepad.button.back', 'Back'),
+    altAction: t('settings.gamepad.button.alt', 'Play / install game'),
+    rightClick: t('settings.gamepad.button.context', 'Options menu'),
+    prevPage: t('settings.gamepad.button.prevPage', 'Page up'),
+    nextPage: t('settings.gamepad.button.nextPage', 'Page down'),
+    enter: t('settings.gamepad.button.enter', 'Submit / open keyboard'),
+    guide: t('settings.gamepad.button.guide', 'Console mode')
+  }
+
   const resolve = (action: RemappableGamepadAction) =>
     mapping[action] === undefined ? DEFAULT_MAPPING[action] : mapping[action]
 
@@ -96,9 +72,9 @@ const GamepadButtonMapping = () => {
     if (button !== null) {
       // a physical button can only drive one action, so free it from the
       // action that was using it
-      for (const entry of ACTIONS) {
-        if (entry.action !== action && resolve(entry.action) === button) {
-          next[entry.action] = null
+      for (const other of ACTIONS) {
+        if (other !== action && resolve(other) === button) {
+          next[other] = null
         }
       }
     }
@@ -114,11 +90,11 @@ const GamepadButtonMapping = () => {
 
   return (
     <div className="gamepadButtonMapping">
-      {ACTIONS.map(({ action, labelKey, fallbackLabel }) => (
+      {ACTIONS.map((action) => (
         <SelectField
           key={action}
           htmlId={`gamepad-binding-${action}`}
-          label={t(labelKey, fallbackLabel)}
+          label={labels[action]}
           value={String(resolve(action) ?? 'none')}
           onChange={(event) => update(action, event.target.value)}
         >

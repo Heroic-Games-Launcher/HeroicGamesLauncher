@@ -44,6 +44,30 @@ export const gamepadSearchEntries: SettingsSearchEntry[] = [
     titleKey: 'settings.gamepad.button.back'
   },
   {
+    id: 'gamepad-binding-altAction',
+    tab: 'gamepad',
+    sectionKey: 'settings.gamepad.buttonMapping.title',
+    titleKey: 'settings.gamepad.button.alt'
+  },
+  {
+    id: 'gamepad-binding-rightClick',
+    tab: 'gamepad',
+    sectionKey: 'settings.gamepad.buttonMapping.title',
+    titleKey: 'settings.gamepad.button.context'
+  },
+  {
+    id: 'gamepad-binding-prevPage',
+    tab: 'gamepad',
+    sectionKey: 'settings.gamepad.buttonMapping.title',
+    titleKey: 'settings.gamepad.button.prevPage'
+  },
+  {
+    id: 'gamepad-binding-nextPage',
+    tab: 'gamepad',
+    sectionKey: 'settings.gamepad.buttonMapping.title',
+    titleKey: 'settings.gamepad.button.nextPage'
+  },
+  {
     id: 'gamepad-binding-enter',
     tab: 'gamepad',
     sectionKey: 'settings.gamepad.buttonMapping.title',
