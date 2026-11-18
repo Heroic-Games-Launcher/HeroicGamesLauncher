@@ -1494,7 +1494,20 @@
                 "description": "Choose which physical button triggers each action",
                 "title": "Button mapping"
             },
-            "description": "Navigation, repeat speed and how forgiving the sticks are"
+            "description": "Navigation, repeat speed and how forgiving the sticks are",
+            "detected": {
+                "copy": "Copy details",
+                "custom": "Custom",
+                "description": "What the system reports for each connected controller. Handy for third-party pads that map incorrectly.",
+                "device": "Device",
+                "empty": "No controller detected. Press a button on it so the system reports it.",
+                "id": "System id",
+                "index": "Slot",
+                "layout": "Heroic layout",
+                "mapping": "Browser mapping",
+                "title": "Detected controller",
+                "vendor": "Vendor / product"
+            }
         },
         "gamescope": {
             "searchMsg": "Searching for gamescope executable."

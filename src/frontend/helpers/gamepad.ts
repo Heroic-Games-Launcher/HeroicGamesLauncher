@@ -189,6 +189,25 @@ let guideButtonDisabled = false
 
 export const GAMEPAD_MAPPING_CHANGED_EVENT = 'gamepad-mapping-changed'
 
+export type GamepadLayout =
+  | 'standard'
+  | 'nintendo'
+  | 'gamecube'
+  | 'ps3-clone'
+  | 'n64-clone'
+  | 'genius'
+
+// which button layout Heroic uses for a controller, based on the id reported by
+// the browser (`... Vendor: 054c Product: 0ce6 ...` or `054c-0ce6-name`)
+export const detectGamepadLayout = (id: string): GamepadLayout => {
+  if (/gamecube|0337/i.test(id)) return 'gamecube'
+  if (/2563.*0523/i.test(id)) return 'ps3-clone'
+  if (/0079.*0006/i.test(id)) return 'n64-clone'
+  if (/0583.*a009/i.test(id)) return 'genius'
+  if (/057e.*(2006|2007|2009)/i.test(id)) return 'nintendo'
+  return 'standard'
+}
+
 export const DEFAULT_GAMEPAD_BUTTONS: Record<
   RemappableGamepadAction,
   number | null
@@ -845,21 +864,26 @@ export const initGamepad = () => {
       const buttons = controller.buttons
       const axes = withStickHysteresis(controller.axes, index)
       try {
-        if (controller.id.match(/gamecube|0337/i)) {
-          checkGameCube(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/2563.*0523/i)) {
-          checkPS3Clone1(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/0079.*0006/i)) {
-          checkN64Clone1(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/0583.*a009/i)) {
-          checkGenius1(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/057e.*(2006|2007|2009)/i)) {
-          checkNintendo(buttons, axes, index, checkAction, buttonMapping)
-        } else {
-          // if not specific, fallback to the standard layout, seems
-          // to be the most common for now and if not exact it seems
-          // to cover at least the left stick and the main 2 buttons
-          checkStandard(buttons, axes, index, checkAction, buttonMapping)
+        switch (detectGamepadLayout(controller.id)) {
+          case 'gamecube':
+            checkGameCube(buttons, axes, index, checkAction)
+            break
+          case 'ps3-clone':
+            checkPS3Clone1(buttons, axes, index, checkAction)
+            break
+          case 'n64-clone':
+            checkN64Clone1(buttons, axes, index, checkAction)
+            break
+          case 'genius':
+            checkGenius1(buttons, axes, index, checkAction)
+            break
+          case 'nintendo':
+            checkNintendo(buttons, axes, index, checkAction, buttonMapping)
+            break
+          default:
+            // most controllers follow the standard mapping and, if not exact,
+            // it still covers the left stick and the main 2 buttons
+            checkStandard(buttons, axes, index, checkAction, buttonMapping)
         }
       } catch (error) {
         console.log('Gamepad error:', error)

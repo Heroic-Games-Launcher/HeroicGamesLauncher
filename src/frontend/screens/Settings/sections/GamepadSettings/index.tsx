@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { Joystick, SlidersHorizontal } from 'lucide-react'
+import { Joystick, SlidersHorizontal, Usb } from 'lucide-react'
 import { SettingsCard } from 'frontend/components/UI'
 import {
+  DetectedControllers,
   DisableController,
   DisableGuideButton,
   GamePadDelayRepeat,
@@ -37,6 +38,17 @@ export default function GamepadSettings() {
         )}
       >
         <GamepadButtonMapping />
+      </SettingsCard>
+
+      <SettingsCard
+        glyph={Usb}
+        title={t('settings.gamepad.detected.title', 'Detected controller')}
+        description={t(
+          'settings.gamepad.detected.description',
+          'What the system reports for each connected controller. Handy for third-party pads that map incorrectly.'
+        )}
+      >
+        <DetectedControllers />
       </SettingsCard>
     </div>
   )

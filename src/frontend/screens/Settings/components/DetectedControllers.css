@@ -1,0 +1,31 @@
+.detectedControllers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.detectedControllers__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.detectedControllers__item .SettingRow--inline {
+  align-items: flex-start;
+}
+
+.detectedControllers__id {
+  font-family: monospace;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  word-break: break-all;
+  text-align: start;
+}
+
+.detectedControllers__empty {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
