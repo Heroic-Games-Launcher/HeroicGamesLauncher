@@ -174,7 +174,7 @@ function handleWebviewAction(action: ValidGamepadAction): boolean {
       webviewTarget.send({ type: 'scroll', direction: 'down' })
       return true
     default:
-      // Other actions (esc, tab, shiftTab, keyboardClick, leftClick,
+      // Other actions (esc, tab, shiftTab, keyboardClick,
       // rightStickLeft/Right) aren't relevant while a webview is focused.
       return true
   }
@@ -256,7 +256,6 @@ export const updateGamepadActions = async () => {
     back: { triggeredAt: {}, repeatDelay: false },
     altAction: { triggeredAt: {}, repeatDelay: false },
     rightClick: { triggeredAt: {}, repeatDelay: false },
-    leftClick: { triggeredAt: {}, repeatDelay: false },
     prevPage: { triggeredAt: {}, repeatDelay: false },
     nextPage: { triggeredAt: {}, repeatDelay: false },
     esc: { triggeredAt: {}, repeatDelay: false },
@@ -389,9 +388,9 @@ export const initGamepad = () => {
       switch (action) {
         case 'mainAction':
           if (shouldSimulateClick()) {
-            // some tags require a simulated click, some require a javascript click() call
-            // if the current element requires a simulated click, change the action to `leftClick`
-            action = 'leftClick'
+            // selects open on Enter, which also works when the window is
+            // zoomed (a synthetic mouse click uses unzoomed coordinates)
+            action = 'enter'
           } else if (isGameCard()) {
             action = 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
@@ -509,7 +508,7 @@ export const initGamepad = () => {
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
-        if (action !== 'leftClick' && action !== 'rightClick') {
+        if (action !== 'rightClick') {
           void window.api.gamepadAction({ action }).then(() => {
             if (NAVIGATION_ACTIONS.includes(action)) scrollFocusedIntoView()
           })

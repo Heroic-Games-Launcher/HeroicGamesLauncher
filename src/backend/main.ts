@@ -1272,6 +1272,14 @@ addHandler('gamepadAction', async (event, args) => {
   const mainWindow = getMainWindow()!
 
   const { action, metadata } = args
+
+  // `metadata` comes from getBoundingClientRect() (CSS pixels) while
+  // sendInputEvent expects window coordinates, so a zoomed UI would click
+  // somewhere else entirely.
+  const zoomFactor = mainWindow.webContents.zoomFactor || 1
+  const clickX = metadata ? Math.round(metadata.x * zoomFactor) : 0
+  const clickY = metadata ? Math.round(metadata.y * zoomFactor) : 0
+
   const inputEvents: (
     | Electron.MouseInputEvent
     | Electron.MouseWheelInputEvent
@@ -1341,32 +1349,18 @@ addHandler('gamepadAction', async (event, args) => {
         keyCode: action.replace(/pad|leftStick/, '')
       })
       break
-    case 'leftClick':
-      inputEvents.push({
-        type: 'mouseDown',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      inputEvents.push({
-        type: 'mouseUp',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      break
     case 'rightClick':
       inputEvents.push({
         type: 'mouseDown',
         button: 'right',
-        x: metadata.x,
-        y: metadata.y
+        x: clickX,
+        y: clickY
       })
       inputEvents.push({
         type: 'mouseUp',
         button: 'right',
-        x: metadata.x,
-        y: metadata.y
+        x: clickX,
+        y: clickY
       })
       break
     case 'back':

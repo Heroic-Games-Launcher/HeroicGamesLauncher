@@ -621,7 +621,7 @@ export type GamepadActionArgs =
   | GamepadActionArgsWithoutMetadata
 
 interface GamepadActionArgsWithMetadata {
-  action: 'leftClick' | 'rightClick'
+  action: 'rightClick'
   metadata: {
     elementTag: string
     x: number
