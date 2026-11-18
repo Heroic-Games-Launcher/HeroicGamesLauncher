@@ -1486,6 +1486,7 @@
             "legacy": "Legacy",
             "log": "Log",
             "other": "Other",
+            "runners": "Runners",
             "sync": "Cloud saves sync",
             "systemInformation": "System information",
             "tabs": "Settings sections"
@@ -1496,11 +1497,12 @@
         "open-config-file": "Open config file",
         "open-game-settings-file-hint": "Click to open game settings file",
         "pageSubtitle": {
-            "advanced": "Binaries, experimental features and maintenance",
+            "advanced": "Behaviour, experimental features and maintenance",
             "games_settings_defaults": "Defaults applied to newly installed games",
             "general": "Configure your launcher preferences",
             "importExport": "Back up or restore your Heroic setup",
             "log": "Read and share Heroic logs",
+            "runners": "Store integrations and runner-specific options",
             "systeminfo": "Your hardware and the versions Heroic runs"
         },
         "reset-heroic": "Reset Heroic",
@@ -1509,15 +1511,24 @@
             "not_supported": "This game does not support cloud saves.",
             "warning": "Cloud saves feature is in beta, please backup your saves before syncing (in case something goes wrong)"
         },
+        "search": {
+            "clear": "Clear search",
+            "noResults": "No settings found",
+            "placeholder": "Search settings",
+            "results": "Settings results"
+        },
         "section": {
+            "amazon": "Amazon Games",
             "appearance": "Appearance",
             "behaviour": "Behaviour",
-            "binaries": "Alternative binaries",
             "controller": "Controller",
             "downloads": "Downloads",
             "environment": "Wrapper & environment",
+            "eosOverlay": "EOS Overlay",
+            "epic": "Epic Games",
             "experimental": "Experimental features",
             "gameplay": "Gameplay",
+            "gog": "GOG",
             "graphics": "Graphics & translation",
             "integrations": "Integrations",
             "language": "Language & region",

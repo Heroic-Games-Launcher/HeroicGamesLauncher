@@ -15,10 +15,8 @@ import {
   AutoUpdateGames,
   CheckUpdatesOnStartup,
   DefaultInstallPath,
-  DefaultSteamPath,
   DisableController,
   DiscordRPC,
-  EgsSettings,
   HideChangelogOnStartup,
   LibraryTopSection,
   MaxRecentGames,
@@ -62,8 +60,6 @@ export default function GeneralSettings() {
       >
         <DefaultInstallPath />
         <WinePrefixesBasePath />
-        <DefaultSteamPath />
-        <EgsSettings />
       </SettingsCard>
 
       <SettingsCard

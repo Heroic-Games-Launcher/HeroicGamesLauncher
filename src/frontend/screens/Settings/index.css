@@ -327,6 +327,16 @@ a {
   gap: var(--space-md);
 }
 
+.settingsSidebar {
+  position: sticky;
+  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
 .settingsLayout {
   display: grid;
   grid-template-columns: var(--settings-nav-width) minmax(0, 1fr);
@@ -335,9 +345,20 @@ a {
   width: 100%;
 }
 
+.SettingsSearchTarget {
+  border-radius: 10px;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 55%, transparent);
+  animation: settingsSearchTargetFade 2s ease forwards;
+}
+
+@keyframes settingsSearchTargetFade {
+  to {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+
 .settingsNav {
-  position: sticky;
-  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+  width: 100%;
 }
 
 .settingsPane {
@@ -353,12 +374,13 @@ a {
     gap: var(--space-lg-fixed);
   }
 
-  .settingsNav--tabs {
-    position: sticky;
+  .settingsSidebar {
     top: var(--settings-header-block);
-    z-index: 2;
     background: var(--body-background);
     padding-block-end: var(--space-2xs-fixed);
+  }
+
+  .settingsNav--tabs {
     flex-wrap: wrap;
     overflow-x: visible;
   }
