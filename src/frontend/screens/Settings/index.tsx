@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next'
 
 import ContextMenu from '../Library/components/ContextMenu'
 import SettingsContext from './SettingsContext'
+import SettingsSearch from './components/SettingsSearch'
+import type { ResolvedSettingsSearchEntry } from './search'
 import LogSettings from './sections/LogSettings'
 import FooterInfo from './sections/FooterInfo'
 import {
@@ -56,6 +58,8 @@ function Settings() {
   const [currentConfig, setCurrentConfig] =
     useState<Partial<AppSettings> | null>(null)
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
+  const [searchTarget, setSearchTarget] =
+    useState<ResolvedSettingsSearchEntry | null>(null)
 
   useEffect(() => {
     if (!isCopiedToClipboard) return
@@ -73,6 +77,53 @@ function Settings() {
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
   const isImportExport = type === 'importexport'
+
+  useEffect(() => {
+    if (!searchTarget || type !== searchTarget.tab) return
+
+    const timeout = window.setTimeout(() => {
+      const rowSelector =
+        '.SettingRow, .selectFieldWrapper, .Field, .customCSSField, .SettingsCard'
+      const control = searchTarget.id
+        ? document.getElementById(searchTarget.id)
+        : null
+      let row = control?.closest<HTMLElement>(rowSelector)
+
+      if (!row) {
+        const title = t(searchTarget.titleKey).trim()
+        const label = Array.from(
+          document.querySelectorAll<HTMLElement>(
+            '.SettingRow__label, .selectFieldWrapper > label, .customCSSLabel, .SettingsCard__title'
+          )
+        ).find((element) => element.textContent?.trim() === title)
+        row = label?.closest<HTMLElement>(rowSelector)
+      }
+
+      if (row) {
+        row.scrollIntoView({
+          block: 'center',
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+            .matches
+            ? 'auto'
+            : 'smooth'
+        })
+        row.classList.add('SettingsSearchTarget')
+        const focusable =
+          row.querySelector<HTMLElement>('[role="combobox"]') ??
+          control ??
+          row.querySelector<HTMLElement>('input, select, textarea, button')
+        focusable?.focus({ preventScroll: true })
+        window.setTimeout(
+          () => row?.classList.remove('SettingsSearchTarget'),
+          2000
+        )
+      }
+
+      setSearchTarget(null)
+    }, 60)
+
+    return () => window.clearTimeout(timeout)
+  }, [searchTarget, type, t])
 
   // TODO: Adding this comment translation here for now to not lose the
   // translation. This should be removed from here when the help is added
@@ -209,6 +260,13 @@ function Settings() {
     glyph
   }))
 
+  const handleSearchSelect = (entry: ResolvedSettingsSearchEntry) => {
+    setSearchTarget(entry)
+    if (entry.tab !== type) {
+      navigate(`/settings/${entry.tab}`)
+    }
+  }
+
   const copySettingsToClipboard = () => {
     if (isSystemInfo) {
       window.api.systemInfo.copyToClipboard()
@@ -269,6 +327,12 @@ function Settings() {
               className="headerTitle"
               actions={!isLogSettings ? copyButton : undefined}
             />
+
+            {(isGeneralSettings || isRunnersSettings || isAdvancedSetting) && (
+              <div className="settingsSearchRow">
+                <SettingsSearch onSelect={handleSearchSelect} />
+              </div>
+            )}
 
             <div className="settingsLayout">
               {isNarrow ? (
