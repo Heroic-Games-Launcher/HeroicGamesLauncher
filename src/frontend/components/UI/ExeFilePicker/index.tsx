@@ -77,9 +77,7 @@ export default function ExeFilePicker() {
       // Fire-and-forget the launch; errors are logged by the backend
       window.api.exe_handler
         .launchWithExeFile(exePath, appName, runner)
-        .catch(() => {
-
-        })
+        .catch(() => {})
     },
     [exePath, handleClose]
   )
