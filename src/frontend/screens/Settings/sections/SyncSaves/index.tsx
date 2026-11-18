@@ -15,7 +15,11 @@ const SyncSaves = () => {
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
-  const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
+  // Steam syncs by default
+  const [autoSyncSaves, setAutoSyncSaves] = useSetting(
+    'autoSyncSaves',
+    runner === 'steam'
+  )
   const [savesPath, setSavesPath] = useSetting('savesPath', '')
   const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
   const [enableQuickSavesMenu, setEnableQuickSavesMenu] = useSetting(
@@ -66,7 +70,13 @@ const SyncSaves = () => {
   }
 
   if (runner === 'steam') {
-    return <SteamSyncSaves appName={appName} />
+    return (
+      <SteamSyncSaves
+        appName={appName}
+        autoSyncSaves={autoSyncSaves}
+        setAutoSyncSaves={setAutoSyncSaves}
+      />
+    )
   }
 
   if (runner === 'gog') {

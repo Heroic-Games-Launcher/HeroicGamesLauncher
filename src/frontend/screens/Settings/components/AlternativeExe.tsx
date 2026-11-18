@@ -10,7 +10,8 @@ const AlternativeExe = () => {
 
   const [targetExe, setTargetExe] = useSetting('targetExe', '')
 
-  if (isDefault || runner === 'sideload') {
+  // Aurelia picks Steam's launch entry
+  if (isDefault || runner === 'sideload' || runner === 'steam') {
     return <></>
   }
 
