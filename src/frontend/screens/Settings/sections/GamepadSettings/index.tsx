@@ -3,6 +3,7 @@ import { Joystick, SlidersHorizontal } from 'lucide-react'
 import { SettingsCard } from 'frontend/components/UI'
 import {
   DisableController,
+  DisableGuideButton,
   GamePadDelayRepeat,
   GamepadButtonMapping,
   GamepadDeadzone
@@ -22,6 +23,7 @@ export default function GamepadSettings() {
         )}
       >
         <DisableController />
+        <DisableGuideButton />
         <GamepadDeadzone />
         <GamePadDelayRepeat />
       </SettingsCard>

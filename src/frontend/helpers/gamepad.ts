@@ -185,6 +185,7 @@ let actions: GamepadActionStatus
 // user preferences, refreshed by `updateGamepadActions`
 let stickDeadzone = 0.15
 let buttonMapping: Partial<Record<RemappableGamepadAction, number | null>> = {}
+let guideButtonDisabled = false
 
 const NAVIGATION_ACTIONS: ValidGamepadAction[] = [
   'padUp',
@@ -224,6 +225,7 @@ export const updateGamepadActions = async () => {
 
   stickDeadzone = settings.gamepadDeadzone ?? 0.15
   buttonMapping = settings.gamepadButtonMapping ?? {}
+  guideButtonDisabled = settings.disableGuideButton ?? false
 
   // input should be cloned to prevent variables from being re-used
   // across different controller indexes
@@ -347,7 +349,9 @@ export const initGamepad = () => {
 
       // Guide / PS button toggles Console Mode. Many OSes (Steam, Game Bar)
       // intercept it, so the sidebar entry is the reliable fallback.
+      // The shortcut can be turned off in Settings → Gamepad.
       if (action === 'guide') {
+        if (guideButtonDisabled) return
         if (document.body.classList.contains('console-launching')) return
         const inConsole = window.location.hash.startsWith('#/console')
         window.location.hash = inConsole ? '#/' : '#/console'

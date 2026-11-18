@@ -135,6 +135,7 @@ export interface AppSettings extends GameSettings {
   defaultWinePrefix: string // only here for backwards compatibility, don't use in new code
   defaultWinePrefixDir: string
   disableController: boolean
+  disableGuideButton: boolean
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
   disableLogs: boolean

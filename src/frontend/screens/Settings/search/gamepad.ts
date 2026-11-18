@@ -14,6 +14,12 @@ export const gamepadSearchEntries: SettingsSearchEntry[] = [
     titleKey: 'setting.gamepad-deadzone'
   },
   {
+    id: 'disableGuideButton',
+    tab: 'gamepad',
+    sectionKey: 'settings.section.controller',
+    titleKey: 'setting.disable_guide_button'
+  },
+  {
     id: 'gamePadDelayRepeat',
     tab: 'gamepad',
     sectionKey: 'settings.section.controller',

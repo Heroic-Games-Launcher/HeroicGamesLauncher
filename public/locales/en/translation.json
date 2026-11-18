@@ -1151,6 +1151,7 @@
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set folder for new Wine prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
+        "disable_guide_button": "Disable console mode shortcut",
         "disable_gog_presence": "Disable GOG presence updates",
         "disable_logs": "Disable logs",
         "disable-gog-presence": {
@@ -1158,6 +1159,9 @@
         },
         "disableController": {
             "description": "Stop Heroic from responding to gamepad input"
+        },
+        "disableGuideButton": {
+            "description": "Stop the Guide/PS button from opening console mode. You can still enter it from the library."
         },
         "disableDiscounts": "Disable deals page",
         "disableGOGAffiliate": "Disable GOG affiliate link",
