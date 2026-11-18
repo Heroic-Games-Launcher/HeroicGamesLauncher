@@ -1227,6 +1227,7 @@
         "fsync-description": "Speed up multi-threaded games using futex synchronisation",
         "gamemode": "Use GameMode (Feral game mode needs to be installed)",
         "gamemode-description": "Ask the system to prioritise the game while it runs",
+        "gamepad-deadzone": "Stick deadzone",
         "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
         "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
@@ -1468,6 +1469,17 @@
                 "title": "EAC runtime enabled"
             }
         },
+        "gamepad": {
+            "button": {
+                "reset": "Reset to defaults",
+                "unbound": "Not bound"
+            },
+            "buttonMapping": {
+                "description": "Choose which physical button triggers each action",
+                "title": "Button mapping"
+            },
+            "description": "Navigation, repeat speed and how forgiving the sticks are"
+        },
         "gamescope": {
             "searchMsg": "Searching for gamescope executable."
         },
@@ -1479,6 +1491,7 @@
         "navbar": {
             "advanced": "Advanced",
             "categories": "Categories",
+            "gamepad": "Gamepad",
             "games_settings_defaults": "Game defaults",
             "gamescope": "Gamescope",
             "general": "General",
@@ -1498,6 +1511,7 @@
         "open-game-settings-file-hint": "Click to open game settings file",
         "pageSubtitle": {
             "advanced": "Behaviour, experimental features and maintenance",
+            "gamepad": "Controller navigation, deadzone and button mapping",
             "games_settings_defaults": "Defaults applied to newly installed games",
             "general": "Configure your launcher preferences",
             "importExport": "Back up or restore your Heroic setup",

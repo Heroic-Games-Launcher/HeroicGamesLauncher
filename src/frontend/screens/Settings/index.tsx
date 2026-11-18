@@ -14,6 +14,7 @@ import FooterInfo from './sections/FooterInfo'
 import {
   GeneralSettings,
   GamesSettings,
+  GamepadSettings,
   RunnersSettings,
   SyncSaves,
   AdvancedSettings,
@@ -38,6 +39,7 @@ import {
   Copy,
   FileText,
   Gamepad2,
+  Joystick,
   MonitorCog,
   SlidersHorizontal,
   Wrench
@@ -72,6 +74,7 @@ function Settings() {
   const isGeneralSettings = type === 'general'
   const isSyncSettings = type === 'sync'
   const isGamesSettings = type === 'games_settings'
+  const isGamepadSettings = type === 'gamepad'
   const isRunnersSettings = type === 'runners'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced'
@@ -166,15 +169,17 @@ function Settings() {
       ? t('settings.navbar.games_settings_defaults', 'Game defaults')
       : isRunnersSettings
         ? t('settings.navbar.runners', 'Runners')
-        : isAdvancedSetting
-          ? t('settings.navbar.advanced', 'Advanced')
-          : isSystemInfo
-            ? t('settings.navbar.systemInformation', 'System information')
-            : isLogSettings
-              ? t('settings.navbar.log', 'Log')
-              : isImportExport
-                ? t('settings.navbar.importExport', 'Import / Export')
-                : t('settings.navbar.sync', 'Sync')
+        : isGamepadSettings
+          ? t('settings.navbar.gamepad', 'Gamepad')
+          : isAdvancedSetting
+            ? t('settings.navbar.advanced', 'Advanced')
+            : isSystemInfo
+              ? t('settings.navbar.systemInformation', 'System information')
+              : isLogSettings
+                ? t('settings.navbar.log', 'Log')
+                : isImportExport
+                  ? t('settings.navbar.importExport', 'Import / Export')
+                  : t('settings.navbar.sync', 'Sync')
 
   const pageDescription = isGeneralSettings
     ? t('settings.pageSubtitle.general', 'Configure your launcher preferences')
@@ -188,24 +193,29 @@ function Settings() {
             'settings.pageSubtitle.runners',
             'Store integrations and runner-specific options'
           )
-        : isAdvancedSetting
+        : isGamepadSettings
           ? t(
-              'settings.pageSubtitle.advanced',
-              'Behaviour, experimental features and maintenance'
+              'settings.pageSubtitle.gamepad',
+              'Controller navigation, deadzone and button mapping'
             )
-          : isSystemInfo
+          : isAdvancedSetting
             ? t(
-                'settings.pageSubtitle.systeminfo',
-                'Your hardware and the versions Heroic runs'
+                'settings.pageSubtitle.advanced',
+                'Behaviour, experimental features and maintenance'
               )
-            : isLogSettings
-              ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
-              : isImportExport
-                ? t(
-                    'settings.pageSubtitle.importExport',
-                    'Back up or restore your Heroic setup'
-                  )
-                : undefined
+            : isSystemInfo
+              ? t(
+                  'settings.pageSubtitle.systeminfo',
+                  'Your hardware and the versions Heroic runs'
+                )
+              : isLogSettings
+                ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
+                : isImportExport
+                  ? t(
+                      'settings.pageSubtitle.importExport',
+                      'Back up or restore your Heroic setup'
+                    )
+                  : undefined
 
   const title = t('globalSettings', 'Global settings')
 
@@ -231,6 +241,11 @@ function Settings() {
       value: 'runners',
       label: t('settings.navbar.runners', 'Runners'),
       glyph: Boxes
+    },
+    {
+      value: 'gamepad',
+      label: t('settings.navbar.gamepad', 'Gamepad'),
+      glyph: Joystick
     },
     {
       value: 'advanced',
@@ -331,6 +346,7 @@ function Settings() {
             <div className="settingsLayout">
               <div className="settingsSidebar">
                 {(isGeneralSettings ||
+                  isGamepadSettings ||
                   isRunnersSettings ||
                   isAdvancedSetting) && (
                   <SettingsSearch onSelect={handleSearchSelect} />
@@ -354,6 +370,7 @@ function Settings() {
               <div className="settingsPane">
                 {isGeneralSettings && <GeneralSettings />}
                 {isGamesSettings && <GamesSettings />}
+                {isGamepadSettings && <GamepadSettings />}
                 {isRunnersSettings && <RunnersSettings />}
                 {isSyncSettings && <SyncSaves />}
                 {isAdvancedSetting && <AdvancedSettings />}

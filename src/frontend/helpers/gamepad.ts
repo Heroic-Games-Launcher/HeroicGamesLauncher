@@ -1,6 +1,7 @@
 import {
   AppSettings,
   GamepadActionStatus,
+  RemappableGamepadAction,
   ValidGamepadAction
 } from 'common/types'
 import {
@@ -181,6 +182,10 @@ function handleWebviewAction(action: ValidGamepadAction): boolean {
 
 let actions: GamepadActionStatus
 
+// user preferences, refreshed by `updateGamepadActions`
+let stickDeadzone = 0.15
+let buttonMapping: Partial<Record<RemappableGamepadAction, number | null>> = {}
+
 const NAVIGATION_ACTIONS: ValidGamepadAction[] = [
   'padUp',
   'padDown',
@@ -216,6 +221,9 @@ function scrollFocusedIntoView() {
 // called whenever we update the timings in the settings
 export const updateGamepadActions = async () => {
   const settings = await window.api.requestAppSettings()
+
+  stickDeadzone = settings.gamepadDeadzone ?? 0.15
+  buttonMapping = settings.gamepadButtonMapping ?? {}
 
   // input should be cloned to prevent variables from being re-used
   // across different controller indexes
@@ -768,10 +776,10 @@ export const initGamepad = () => {
   }
 
   // Per axis/controller latch so sticks engage and release with different
-  // thresholds. Without it a worn stick parked near the 0.5 threshold repeats
-  // the same direction every frame.
-  const STICK_ENGAGE = 0.5
-  const STICK_RELEASE = 0.3
+  // thresholds. Without it a worn stick parked near the threshold repeats the
+  // same direction every frame.
+  const STICK_ENGAGE_OFFSET = 0.35
+  const STICK_RELEASE_OFFSET = 0.15
   const activeAxes = new Map<string, boolean>()
 
   function withStickHysteresis(
@@ -779,12 +787,21 @@ export const initGamepad = () => {
     controllerIndex: number
   ) {
     return axes.map((value, axisIndex) => {
+      // only the analog stick axes are normalised; d-pad axes (4+) must keep
+      // their raw values because the clone layouts read exact positions
+      if (axisIndex > 3) return value
+
       const key = `${controllerIndex}:${axisIndex}`
       const isActive = activeAxes.get(key) ?? false
-      const threshold = isActive ? STICK_RELEASE : STICK_ENGAGE
+      const threshold = isActive
+        ? stickDeadzone + STICK_RELEASE_OFFSET
+        : stickDeadzone + STICK_ENGAGE_OFFSET
       const nextActive = Math.abs(value) > threshold
       activeAxes.set(key, nextActive)
-      return nextActive ? value : 0
+
+      // the layouts only compare against a fixed threshold, so a pressed axis
+      // is reported as fully tilted
+      return nextActive ? Math.sign(value) : 0
     })
   }
 
@@ -810,12 +827,12 @@ export const initGamepad = () => {
         } else if (controller.id.match(/0583.*a009/i)) {
           checkGenius1(buttons, axes, index, checkAction)
         } else if (controller.id.match(/057e.*(2006|2007|2009)/i)) {
-          checkNintendo(buttons, axes, index, checkAction)
+          checkNintendo(buttons, axes, index, checkAction, buttonMapping)
         } else {
           // if not specific, fallback to the standard layout, seems
           // to be the most common for now and if not exact it seems
           // to cover at least the left stick and the main 2 buttons
-          checkStandard(buttons, axes, index, checkAction)
+          checkStandard(buttons, axes, index, checkAction, buttonMapping)
         }
       } catch (error) {
         console.log('Gamepad error:', error)

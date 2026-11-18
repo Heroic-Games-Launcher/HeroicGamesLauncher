@@ -150,6 +150,8 @@ export interface AppSettings extends GameSettings {
   exitToTray: boolean
   gamepadRepeatDelay: number
   gamepadInitialRepeatDelay: number
+  gamepadDeadzone: number
+  gamepadButtonMapping: Partial<Record<RemappableGamepadAction, number | null>>
   noTrayIcon: boolean
   experimentalFeatures?: ExperimentalFeatures
   framelessWindow: boolean
@@ -583,6 +585,21 @@ export interface WineVersionInfo extends VersionInfo {
   hasUpdate: boolean
   installDir: string
 }
+
+/**
+ * Actions that can be bound to a different physical button in
+ * Settings → Gamepad. Directions (d-pad/sticks) come from axes/buttons that
+ * are already conventional and are not remappable.
+ */
+export type RemappableGamepadAction =
+  | 'mainAction'
+  | 'back'
+  | 'altAction'
+  | 'rightClick'
+  | 'prevPage'
+  | 'nextPage'
+  | 'enter'
+  | 'guide'
 
 export type GamepadActionStatus = Record<
   ValidGamepadAction,

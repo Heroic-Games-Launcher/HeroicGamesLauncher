@@ -1,6 +1,8 @@
 // Holds layouts for different Nintendo official and clone controllers
 
-import { ValidGamepadAction } from 'common/types'
+import { RemappableGamepadAction, ValidGamepadAction } from 'common/types'
+
+type ButtonOverrides = Partial<Record<RemappableGamepadAction, number | null>>
 
 export function checkGameCube(
   buttons: readonly GamepadButton[],
@@ -60,7 +62,8 @@ export function checkNintendo(
     action: ValidGamepadAction,
     pressed: boolean,
     ctrlIdx: number
-  ) => void
+  ) => void,
+  overrides: ButtonOverrides = {}
 ) {
   const B = buttons[0], // bottom button
     A = buttons[1], // right button
@@ -76,11 +79,36 @@ export function checkNintendo(
     rightAxisX = axes[2],
     rightAxisY = axes[3]
 
-  checkAction('mainAction', A?.pressed, controllerIndex)
-  checkAction('back', B?.pressed, controllerIndex)
-  checkAction('altAction', Y?.pressed, controllerIndex)
-  checkAction('rightClick', X?.pressed, controllerIndex)
-  checkAction('enter', buttons[10]?.pressed, controllerIndex) // L3
+  const button = (
+    action: RemappableGamepadAction,
+    fallback: GamepadButton | undefined
+  ) => {
+    const override = overrides[action]
+    if (override === null) return undefined
+    return override === undefined ? fallback : buttons[override]
+  }
+
+  checkAction(
+    'mainAction',
+    button('mainAction', A)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction('back', button('back', B)?.pressed ?? false, controllerIndex)
+  checkAction(
+    'altAction',
+    button('altAction', Y)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'rightClick',
+    button('rightClick', X)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'enter',
+    button('enter', buttons[10])?.pressed ?? false,
+    controllerIndex
+  ) // L3
   checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
@@ -89,11 +117,15 @@ export function checkNintendo(
   checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
   checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
   checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
-  checkAction('padUp', up?.pressed, controllerIndex)
-  checkAction('padDown', down?.pressed, controllerIndex)
-  checkAction('padLeft', left?.pressed, controllerIndex)
-  checkAction('padRight', right?.pressed, controllerIndex)
-  checkAction('guide', guideButton?.pressed, controllerIndex)
+  checkAction('padUp', up?.pressed ?? false, controllerIndex)
+  checkAction('padDown', down?.pressed ?? false, controllerIndex)
+  checkAction('padLeft', left?.pressed ?? false, controllerIndex)
+  checkAction('padRight', right?.pressed ?? false, controllerIndex)
+  checkAction(
+    'guide',
+    button('guide', guideButton)?.pressed ?? false,
+    controllerIndex
+  )
 }
 
 // Generic USB Joystick (Vendor: 0079 Product: 0006)

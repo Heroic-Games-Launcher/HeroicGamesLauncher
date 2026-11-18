@@ -74,12 +74,6 @@ export const generalSearchEntries: SettingsSearchEntry[] = [
     titleKey: 'setting.minimize-on-launch'
   },
   {
-    id: 'disableController',
-    tab: 'general',
-    sectionKey: 'settings.section.gameplay',
-    titleKey: 'setting.disable_controller'
-  },
-  {
     id: 'disablePlaytimeSync',
     tab: 'general',
     sectionKey: 'settings.section.gameplay',
