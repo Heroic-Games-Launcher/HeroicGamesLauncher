@@ -112,8 +112,55 @@ const DetectedControllers = () => {
     )
   }
 
+  const controllerRows = controllers.flatMap((pad) => {
+    const { vendor, product } = parseVendorProduct(pad.id)
+    const key = `pad-${pad.index}`
+
+    return [
+      <SettingRow
+        key={`${key}-device`}
+        label={t('settings.gamepad.detected.device', 'Device')}
+      >
+        <span>{pad.id.split(' (')[0] || pad.id}</span>
+      </SettingRow>,
+      <SettingRow
+        key={`${key}-vendor`}
+        label={t('settings.gamepad.detected.vendor', 'Vendor / product')}
+      >
+        <span>{vendor ? `${vendor} / ${product}` : '—'}</span>
+      </SettingRow>,
+      <SettingRow
+        key={`${key}-mapping`}
+        label={t('settings.gamepad.detected.mapping', 'Browser mapping')}
+      >
+        <span>
+          {pad.mapping || t('settings.gamepad.detected.custom', 'Custom')}
+        </span>
+      </SettingRow>,
+      <SettingRow
+        key={`${key}-layout`}
+        label={t('settings.gamepad.detected.layout', 'Heroic layout')}
+      >
+        <span>{LAYOUT_LABELS[detectGamepadLayout(pad.id)]}</span>
+      </SettingRow>,
+      <SettingRow
+        key={`${key}-slot`}
+        label={t('settings.gamepad.detected.index', 'Slot')}
+      >
+        <span>{pad.index}</span>
+      </SettingRow>,
+      <SettingRow
+        key={`${key}-id`}
+        label={t('settings.gamepad.detected.id', 'System id')}
+        layout="stacked"
+      >
+        <code className="detectedControllers__id">{pad.id}</code>
+      </SettingRow>
+    ]
+  })
+
   return (
-    <div className="detectedControllers">
+    <>
       {!controllers.length && (
         <p className="detectedControllers__empty">
           {t(
@@ -122,59 +169,23 @@ const DetectedControllers = () => {
           )}
         </p>
       )}
-      {controllers.map((pad) => {
-        const { vendor, product } = parseVendorProduct(pad.id)
-        return (
-          <div className="detectedControllers__item" key={pad.index}>
-            <SettingRow label={t('settings.gamepad.detected.device', 'Device')}>
-              <span>{pad.id.split(' (')[0] || pad.id}</span>
-            </SettingRow>
-            <SettingRow
-              label={t('settings.gamepad.detected.vendor', 'Vendor / product')}
-            >
-              <span>{vendor ? `${vendor} / ${product}` : '—'}</span>
-            </SettingRow>
-            <SettingRow
-              label={t('settings.gamepad.detected.mapping', 'Browser mapping')}
-            >
-              <span>
-                {pad.mapping || t('settings.gamepad.detected.custom', 'Custom')}
-              </span>
-            </SettingRow>
-            <SettingRow
-              label={t('settings.gamepad.detected.layout', 'Heroic layout')}
-            >
-              <span>{LAYOUT_LABELS[detectGamepadLayout(pad.id)]}</span>
-            </SettingRow>
-            <SettingRow label={t('settings.gamepad.detected.index', 'Slot')}>
-              <span>{pad.index}</span>
-            </SettingRow>
-            <SettingRow
-              label={t('settings.gamepad.detected.id', 'System id')}
-              layout="stacked"
-            >
-              <code className="detectedControllers__id">{pad.id}</code>
-            </SettingRow>
-          </div>
-        )
-      })}
+      {controllerRows}
       {batteries.map((battery) => (
-        <div className="detectedControllers__item" key={battery.name}>
-          <SettingRow
-            label={t('settings.gamepad.detected.battery', 'Battery')}
-            layout="stacked"
-          >
-            <span>
-              {battery.capacity}% · {batteryStatusLabel(battery.status, t)}{' '}
-              <span className="detectedControllers__id">{battery.name}</span>
-            </span>
-          </SettingRow>
-        </div>
+        <SettingRow
+          key={`battery-${battery.name}`}
+          label={t('settings.gamepad.detected.battery', 'Battery')}
+          layout="stacked"
+        >
+          <span>
+            {battery.capacity}% · {batteryStatusLabel(battery.status, t)}{' '}
+            <span className="detectedControllers__id">{battery.name}</span>
+          </span>
+        </SettingRow>
       ))}
       <Button variant="ghost" size="sm" onClick={copyDetails}>
         {t('settings.gamepad.detected.copy', 'Copy details')}
       </Button>
-    </div>
+    </>
   )
 }
 

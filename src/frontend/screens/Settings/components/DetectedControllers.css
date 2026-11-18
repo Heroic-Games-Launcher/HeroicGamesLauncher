@@ -1,20 +1,4 @@
-.detectedControllers {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  width: 100%;
-}
-
-.detectedControllers__item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  width: 100%;
-}
-
-.detectedControllers__item .SettingRow--inline {
-  align-items: flex-start;
-}
+/* rows are direct children of the settings card, so it draws the dividers */
 
 .detectedControllers__id {
   font-family: monospace;
