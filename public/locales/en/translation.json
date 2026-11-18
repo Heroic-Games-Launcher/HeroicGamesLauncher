@@ -1049,12 +1049,12 @@
             "gameHeight": "Game height",
             "gameWidth": "Game width",
             "interger": "Integer upscale",
+            "monitorResolution": "Monitor",
             "nis": "NVIDIA image scale (NIS)",
             "stretch": "Stretch image",
             "upscaleHeight": "Upscale height",
             "upscaleMethod": "Upscale method",
             "upscaleWidth": "Upscale width",
-            "useMonitorResolution": "Use main monitor resolution",
             "windowed": "Windowed",
             "windowType": "Window type"
         },

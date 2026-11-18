@@ -70,6 +70,24 @@ details {
     display: flex;
     gap: 10px;
   }
+
+  .rowWithAction {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+
+    .row {
+      flex: 1;
+    }
+  }
+
+  .presetChips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 6px;
+  }
 }
 
 .Field {

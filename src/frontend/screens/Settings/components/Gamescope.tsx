@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Alert,
-  Button,
+  Chip,
   SelectField,
   SettingsCard,
   TextInputField,
@@ -20,6 +20,21 @@ import {
 } from 'lucide-react'
 
 const GAMESCOPE_DOCS_URL = 'https://github.com/ValveSoftware/gamescope#options'
+
+const GAME_RESOLUTION_PRESETS = [
+  { label: '480p', width: 854, height: 480 },
+  { label: '720p', width: 1280, height: 720 },
+  { label: '1080p', width: 1920, height: 1080 },
+  { label: '1440p', width: 2560, height: 1440 },
+  { label: '4K', width: 3840, height: 2160 }
+]
+
+const UPSCALE_RESOLUTION_PRESETS = [
+  { label: '1080p', width: 1920, height: 1080 },
+  { label: '1440p', width: 2560, height: 1440 },
+  { label: '4K', width: 3840, height: 2160 },
+  { label: '8K', width: 7680, height: 4320 }
+]
 
 const Gamescope = () => {
   const { t } = useTranslation()
@@ -43,7 +58,10 @@ const Gamescope = () => {
   })
   const [fetching, setFetching] = useState(true)
   const [isInstalled, setIsInstalled] = useState(false)
-  const [detectingResolution, setDetectingResolution] = useState(false)
+  const [monitorResolution, setMonitorResolution] = useState<{
+    width: number
+    height: number
+  } | null>(null)
 
   const [additionalOptions, setAdditionalOptions] = useState(
     gamescope.additionalOptions ?? ''
@@ -70,6 +88,10 @@ const Gamescope = () => {
       .getPrimaryDisplay()
       .then((display) => {
         if (!display.width || !display.height) return
+        setMonitorResolution({
+          width: display.width,
+          height: display.height
+        })
         setGamescope({
           ...gamescope,
           upscaleWidth: String(display.width),
@@ -79,11 +101,30 @@ const Gamescope = () => {
       .catch(() => undefined)
   }, [gamescope, setGamescope])
 
+  const setGameResolution = (width: number, height: number) => {
+    setGamescope({
+      ...gamescope,
+      gameWidth: String(width),
+      gameHeight: String(height)
+    })
+  }
+
+  const setUpscaleResolution = (width: number, height: number) => {
+    setGamescope({
+      ...gamescope,
+      upscaleWidth: String(width),
+      upscaleHeight: String(height)
+    })
+  }
+
   const detectResolution = async () => {
-    setDetectingResolution(true)
     try {
       const display = await window.api.getPrimaryDisplay()
       if (!display.width || !display.height) return
+      setMonitorResolution({
+        width: display.width,
+        height: display.height
+      })
       setGamescope({
         ...gamescope,
         upscaleWidth: String(display.width),
@@ -91,8 +132,6 @@ const Gamescope = () => {
       })
     } catch {
       // keep the current values when detection fails
-    } finally {
-      setDetectingResolution(false)
     }
   }
 
@@ -210,92 +249,133 @@ const Gamescope = () => {
                 </MenuItem>
               ))}
             </SelectField>
-            <div className="row">
-              <TextInputField
-                label={t('options.gamescope.gameWidth', 'Game width')}
-                htmlId="gameWidth"
-                placeholder=""
-                maxLength={4}
-                value={gamescope.gameWidth}
-                info={t(
-                  'help.gamescope.gameWidth',
-                  'The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.'
-                )}
-                onChange={(newValue) => {
-                  setGamescope({
-                    ...gamescope,
-                    gameWidth: setResolution(newValue) ?? gamescope.gameWidth
-                  })
-                }}
-              />
-              <TextInputField
-                label={t('options.gamescope.gameHeight', 'Game height')}
-                htmlId="gameHeight"
-                placeholder=""
-                maxLength={4}
-                value={gamescope.gameHeight}
-                info={t(
-                  'help.gamescope.gameHeight',
-                  'The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.'
-                )}
-                onChange={(newValue) => {
-                  setGamescope({
-                    ...gamescope,
-                    gameHeight: setResolution(newValue) ?? gamescope.gameHeight
-                  })
-                }}
-              />
-            </div>
-            <div className="row">
-              <TextInputField
-                label={t('options.gamescope.upscaleWidth', 'Upscale width')}
-                htmlId="upscaleWidth"
-                placeholder=""
-                maxLength={4}
-                value={gamescope.upscaleWidth}
-                info={t(
-                  'help.gamescope.upscaleWidth',
-                  'The width resolution used by gamescope. A 16:9 aspect ratio is assumed.'
-                )}
-                onChange={(newValue) => {
-                  setGamescope({
-                    ...gamescope,
-                    upscaleWidth:
-                      setResolution(newValue) ?? gamescope.upscaleWidth
-                  })
-                }}
-              />
-              <TextInputField
-                label={t('options.gamescope.upscaleHeight', 'Upscale height')}
-                htmlId="upscaleHeight"
-                placeholder=""
-                maxLength={4}
-                value={gamescope.upscaleHeight}
-                info={t(
-                  'help.gamescope.upscaleHeight',
-                  'The height resolution used by gamescope. A 16:9 aspect ratio is assumed.'
-                )}
-                onChange={(newValue) => {
-                  setGamescope({
-                    ...gamescope,
-                    upscaleHeight:
-                      setResolution(newValue) ?? gamescope.upscaleHeight
-                  })
-                }}
-              />
-            </div>
-            <Button
-              variant="secondary"
-              onClick={() => void detectResolution()}
-              disabled={detectingResolution}
-            >
-              {detectingResolution
-                ? t('please-wait', 'Please wait...')
-                : t(
-                    'options.gamescope.useMonitorResolution',
-                    'Use main monitor resolution'
+            <div className="rowWithAction">
+              <div className="row">
+                <TextInputField
+                  label={t('options.gamescope.gameWidth', 'Game width')}
+                  htmlId="gameWidth"
+                  placeholder=""
+                  maxLength={4}
+                  value={gamescope.gameWidth}
+                  info={t(
+                    'help.gamescope.gameWidth',
+                    'The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.'
                   )}
-            </Button>
+                  onChange={(newValue) => {
+                    setGamescope({
+                      ...gamescope,
+                      gameWidth: setResolution(newValue) ?? gamescope.gameWidth
+                    })
+                  }}
+                />
+                <TextInputField
+                  label={t('options.gamescope.gameHeight', 'Game height')}
+                  htmlId="gameHeight"
+                  placeholder=""
+                  maxLength={4}
+                  value={gamescope.gameHeight}
+                  info={t(
+                    'help.gamescope.gameHeight',
+                    'The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.'
+                  )}
+                  onChange={(newValue) => {
+                    setGamescope({
+                      ...gamescope,
+                      gameHeight:
+                        setResolution(newValue) ?? gamescope.gameHeight
+                    })
+                  }}
+                />
+              </div>
+              <div className="presetChips">
+                {GAME_RESOLUTION_PRESETS.map((preset) => (
+                  <Chip
+                    key={preset.label}
+                    active={
+                      gamescope.gameWidth === String(preset.width) &&
+                      gamescope.gameHeight === String(preset.height)
+                    }
+                    onClick={() =>
+                      setGameResolution(preset.width, preset.height)
+                    }
+                  >
+                    {preset.label}
+                  </Chip>
+                ))}
+              </div>
+            </div>
+            <div className="rowWithAction">
+              <div className="row">
+                <TextInputField
+                  label={t('options.gamescope.upscaleWidth', 'Upscale width')}
+                  htmlId="upscaleWidth"
+                  placeholder=""
+                  maxLength={4}
+                  value={gamescope.upscaleWidth}
+                  info={t(
+                    'help.gamescope.upscaleWidth',
+                    'The width resolution used by gamescope. A 16:9 aspect ratio is assumed.'
+                  )}
+                  onChange={(newValue) => {
+                    setGamescope({
+                      ...gamescope,
+                      upscaleWidth:
+                        setResolution(newValue) ?? gamescope.upscaleWidth
+                    })
+                  }}
+                />
+                <TextInputField
+                  label={t('options.gamescope.upscaleHeight', 'Upscale height')}
+                  htmlId="upscaleHeight"
+                  placeholder=""
+                  maxLength={4}
+                  value={gamescope.upscaleHeight}
+                  info={t(
+                    'help.gamescope.upscaleHeight',
+                    'The height resolution used by gamescope. A 16:9 aspect ratio is assumed.'
+                  )}
+                  onChange={(newValue) => {
+                    setGamescope({
+                      ...gamescope,
+                      upscaleHeight:
+                        setResolution(newValue) ?? gamescope.upscaleHeight
+                    })
+                  }}
+                />
+              </div>
+              <div className="presetChips">
+                <Chip
+                  active={
+                    !!monitorResolution &&
+                    gamescope.upscaleWidth ===
+                      String(monitorResolution.width) &&
+                    gamescope.upscaleHeight === String(monitorResolution.height)
+                  }
+                  title={
+                    monitorResolution
+                      ? `${monitorResolution.width}x${monitorResolution.height}`
+                      : undefined
+                  }
+                  onClick={() => void detectResolution()}
+                >
+                  {t('options.gamescope.monitorResolution', 'Monitor')}
+                </Chip>
+                {UPSCALE_RESOLUTION_PRESETS.map((preset) => (
+                  <Chip
+                    key={preset.label}
+                    active={
+                      gamescope.upscaleWidth === String(preset.width) &&
+                      gamescope.upscaleHeight === String(preset.height)
+                    }
+                    onClick={() =>
+                      setUpscaleResolution(preset.width, preset.height)
+                    }
+                  >
+                    {preset.label}
+                  </Chip>
+                ))}
+              </div>
+            </div>
             <SelectField
               label={t('options.gamescope.windowType', 'Window type')}
               htmlId="windowType"
