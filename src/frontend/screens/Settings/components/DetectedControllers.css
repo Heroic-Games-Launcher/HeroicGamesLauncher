@@ -13,3 +13,8 @@
   font-size: var(--text-sm);
   color: var(--text-secondary);
 }
+
+.detectedControllers__actions {
+  display: flex;
+  width: 100%;
+}

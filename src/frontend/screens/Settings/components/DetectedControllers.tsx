@@ -182,9 +182,11 @@ const DetectedControllers = () => {
           </span>
         </SettingRow>
       ))}
-      <Button variant="ghost" size="sm" onClick={copyDetails}>
-        {t('settings.gamepad.detected.copy', 'Copy details')}
-      </Button>
+      <div className="detectedControllers__actions">
+        <Button variant="ghost" size="sm" onClick={copyDetails}>
+          {t('settings.gamepad.detected.copy', 'Copy details')}
+        </Button>
+      </div>
     </>
   )
 }
