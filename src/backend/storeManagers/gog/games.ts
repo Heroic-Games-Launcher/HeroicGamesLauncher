@@ -227,10 +227,13 @@ export default class GOGGame implements Game {
 
       if (isLinux && this.isNative()) {
         const gameConfig = GameConfig.get(this.id)
-        const { defaultSteamRuntime } = GlobalConfig.get().getSettings()
+        const globalConfig = GlobalConfig.get()
+        const { defaultSteamRuntime } = globalConfig.getSettings()
         gameConfig.setSetting(
           'steamRuntime',
-          defaultSteamRuntime || 'umu-scout'
+          globalConfig.hasSetting('defaultSteamRuntime')
+            ? defaultSteamRuntime
+            : 'umu-scout'
         )
       }
     } catch (error) {
@@ -482,8 +485,14 @@ export default class GOGGame implements Game {
       }
     } else if (isLinuxNative) {
       const gameConfig = GameConfig.get(this.id)
-      const { defaultSteamRuntime } = GlobalConfig.get().getSettings()
-      gameConfig.setSetting('steamRuntime', defaultSteamRuntime || 'umu-scout')
+      const globalConfig = GlobalConfig.get()
+      const { defaultSteamRuntime } = globalConfig.getSettings()
+      gameConfig.setSetting(
+        'steamRuntime',
+        globalConfig.hasSetting('defaultSteamRuntime')
+          ? defaultSteamRuntime
+          : 'umu-scout'
+      )
 
       const installer = join(install_path, 'support/postinst.sh')
       if (existsSync(installer)) {

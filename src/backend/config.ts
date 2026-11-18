@@ -82,6 +82,11 @@ abstract class GlobalConfig {
     this.config = config
   }
 
+  public hasSetting(key: keyof AppSettings): boolean {
+    const settings = configStore.get_nodefault('settings') ?? {}
+    return Object.prototype.hasOwnProperty.call(settings, key)
+  }
+
   public reloadFromFile() {
     this.config = undefined
     this.config = this.getSettings()
@@ -313,16 +318,18 @@ class GlobalConfigV0 extends GlobalConfig {
 
     // migrate legacy booleans to their replacements
     if (
-      defaultSettings.enableHDR === true &&
-      defaultSettings.hdrMode === undefined
+      defaultSettings.hdrMode === undefined &&
+      defaultSettings.enableHDR !== undefined
     ) {
-      defaultSettings.hdrMode = 'force'
+      defaultSettings.hdrMode = defaultSettings.enableHDR ? 'force' : 'off'
     }
     if (
       defaultSettings.nvapiMode === undefined &&
-      defaultSettings.autoInstallDxvkNvapi === false
+      defaultSettings.autoInstallDxvkNvapi !== undefined
     ) {
-      defaultSettings.nvapiMode = 'off'
+      defaultSettings.nvapiMode = defaultSettings.autoInstallDxvkNvapi
+        ? 'auto'
+        : 'off'
     }
 
     // fix relative paths
@@ -372,11 +379,11 @@ class GlobalConfigV0 extends GlobalConfig {
       enviromentOptions: [],
       wrapperOptions: [],
       showFps: false,
-      useGameMode: false,
+      useGameMode: isFlatpak,
       wineCrossoverBottle: 'Heroic',
       winePrefix: isWindows ? '' : sharedWinePrefix,
       wineVersion: defaultWine,
-      enableEsync: false,
+      enableEsync: true,
       enableFsync: isLinux,
       enableMsync: isMac,
       enableWineWayland: false,
@@ -389,10 +396,10 @@ class GlobalConfigV0 extends GlobalConfig {
       umuGameId: '',
       disableProtonFixes: false,
       enableWoW64: false,
-      eacRuntime: false,
+      eacRuntime: isLinux,
       gamepadRepeatDelay: 50,
       gamepadInitialRepeatDelay: 300,
-      battlEyeRuntime: false,
+      battlEyeRuntime: isLinux,
       framelessWindow: false,
       hideWindowOnProtocolLaunch: false,
       beforeLaunchScriptPath: '',

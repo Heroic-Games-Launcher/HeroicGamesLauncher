@@ -835,7 +835,7 @@ function getDxvkUrl(): string {
   )
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend
-  return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
+  return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v1.10.3'
 }
 
 /**
@@ -871,7 +871,7 @@ function getVkd3dUrl(): string {
   )
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend
-  return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
+  return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/tags/v2.6'
 }
 
 export async function runWineCommandOnGame(

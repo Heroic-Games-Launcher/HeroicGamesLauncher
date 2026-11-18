@@ -871,8 +871,8 @@ interface GameScopeSettings {
   enableUpscaling: boolean
   enableLimiter: boolean
   enableForceGrabCursor: boolean
-  enableHDR: boolean
-  enableAdaptiveSync: boolean
+  enableHDR?: boolean
+  enableAdaptiveSync?: boolean
   windowType: string
   gameWidth: string
   gameHeight: string

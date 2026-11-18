@@ -598,7 +598,7 @@ async function prepareLaunch(
       }
       logWarning(reason)
     } else {
-      mangoHudCommand = [mangoHudBin]
+      mangoHudCommand = [mangoHudBin, '--dlsym']
     }
   }
 
@@ -1165,8 +1165,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       break
   }
 
-  if (gameSettings.showFps && isMac) {
-    ret.MTL_HUD_ENABLED = '1'
+  if (gameSettings.showFps) {
+    if (isMac) ret.MTL_HUD_ENABLED = '1'
+    else ret.DXVK_HUD = 'fps'
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
@@ -1201,9 +1202,11 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.PROTON_NO_FSYNC = '1'
   }
   if (isLinux && gameSettings.disableNTSync && wineVersion.type === 'proton') {
-    ret.PROTON_NO_NTSYNC = '1'
-    // Proton-CachyOS uses the opposite spelling; unknown variables are ignored.
-    ret.PROTON_USE_NTSYNC = '0'
+    if (wineVersion.name.includes('CachyOS')) {
+      ret.PROTON_USE_NTSYNC = '0'
+    } else {
+      ret.PROTON_NO_NTSYNC = '1'
+    }
   }
   if (isLinux && gameSettings.enableWineWayland) {
     if (wineVersion.type === 'proton') {
@@ -1214,12 +1217,20 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (isLinux) {
     const hdrMode =
-      gameSettings.hdrMode ?? (gameSettings.enableHDR ? 'force' : 'auto')
+      gameSettings.hdrMode ??
+      (gameSettings.enableHDR === true
+        ? 'force'
+        : gameSettings.enableHDR === false
+          ? 'off'
+          : 'auto')
     if (hdrMode === 'off') {
+      ret.DXVK_HDR = '0'
       ret.DXVK_NO_HDR = '1'
     } else if (hdrMode === 'force') {
       if (wineVersion.type === 'proton') {
         ret.PROTON_FORCE_HDR = '1'
+        // Legacy alias used by older GE-Proton/Proton-CachyOS builds.
+        ret.PROTON_ENABLE_HDR = '1'
       }
       ret.DXVK_HDR = '1'
     }
@@ -1232,13 +1243,18 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
   }
   if (wineVersion.type === 'proton') {
-    const nvapiMode =
-      gameSettings.nvapiMode ??
-      (gameSettings.autoInstallDxvkNvapi === false ? 'off' : 'auto')
+    const nvapiMode = gameSettings.nvapiMode ?? 'auto'
     if (nvapiMode === 'off') {
       ret.PROTON_DISABLE_NVAPI = '1'
-    } else if (nvapiMode === 'force') {
-      ret.PROTON_FORCE_NVAPI = '1'
+    } else {
+      if (nvapiMode === 'force') {
+        ret.PROTON_FORCE_NVAPI = '1'
+      }
+      if (gameSettings.autoInstallDxvkNvapi) {
+        // Legacy aliases still needed by Proton < 9 and non-NVIDIA drivers.
+        ret.PROTON_ENABLE_NVAPI = '1'
+        ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+      }
     }
     if (gameSettings.fsr4Upgrade) {
       ret.PROTON_FSR4_UPGRADE = '1'
@@ -1269,20 +1285,11 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = process.env.SteamGameId || `heroic-${gameId}`
     ret.PROTON_LOG_DIR = flatpakHome
-    if (gameSettings.umuGameId?.trim()) {
-      ret.GAMEID = gameSettings.umuGameId.trim()
-    }
     if (gameSettings.disableProtonFixes) {
       ret.PROTONFIXES_DISABLE = '1'
     }
     // add back default wine/dxvk debug logging
     if (gameSettings?.verboseLogs) {
-      if (
-        !gameSettings?.enviromentOptions.find((env) => env.key === 'PROTON_LOG')
-      )
-        ret.PROTON_LOG = '1'
-      if (!gameSettings?.enviromentOptions.find((env) => env.key === 'UMU_LOG'))
-        ret.UMU_LOG = '1'
       if (
         !gameSettings?.enviromentOptions.find((env) => env.key === 'WINEDEBUG')
       )

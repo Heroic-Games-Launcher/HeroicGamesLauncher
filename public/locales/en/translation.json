@@ -1392,6 +1392,7 @@
             "label": "Allow using Valve Proton builds to run games",
             "wine_selector_warning": "Valve versions of Proton are ignored by default, enable them in the advanced global settings"
         },
+        "showfps": "Show FPS (DX9, 10 and 11)",
         "showfps-description": "Draw a frame rate counter on top of the game",
         "showMetalOverlay": "Show stats overlay",
         "start-in-console-mode": "Start in console mode",
@@ -1428,7 +1429,7 @@
         "umuGameId": "UMU GAMEID override",
         "verboseLogs": {
             "description": "Enable verbose logs",
-            "hint": "Record a detailed log on every launch, including PROTON_LOG and UMU_LOG, useful for reporting problems"
+            "hint": "Record a detailed log on every launch, useful for reporting problems"
         },
         "winecfg": {
             "description": "Open the Wine configuration panel for this prefix"
