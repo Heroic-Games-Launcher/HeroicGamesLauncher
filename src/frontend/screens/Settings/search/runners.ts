@@ -34,12 +34,6 @@ export const runnersSearchEntries: SettingsSearchEntry[] = [
     titleKey: 'setting.disable_gog_presence'
   },
   {
-    id: 'disableGOGAffiliate',
-    tab: 'runners',
-    sectionKey: 'settings.section.gog',
-    titleKey: 'setting.disableGOGAffiliate'
-  },
-  {
     id: 'setting-alt-nile',
     tab: 'runners',
     sectionKey: 'settings.section.amazon',

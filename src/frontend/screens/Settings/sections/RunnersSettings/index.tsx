@@ -9,7 +9,6 @@ import {
   AltLegendaryBin,
   AltNileBin,
   DefaultSteamPath,
-  DisableGOGAffiliate,
   DisableGOGPresence,
   EgsSettings,
   ShowValveProton
@@ -33,7 +32,6 @@ export default function RunnersSettings() {
       <SettingsCard glyph={Store} title={t('settings.section.gog', 'GOG')}>
         <AltGOGdlBin />
         <DisableGOGPresence />
-        <DisableGOGAffiliate />
       </SettingsCard>
 
       <SettingsCard

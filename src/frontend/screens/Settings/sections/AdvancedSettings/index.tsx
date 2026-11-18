@@ -8,6 +8,7 @@ import {
   CustomCSS,
   DisableLogs,
   DisableDiscounts,
+  DisableGOGAffiliate,
   DownloadNoHTTPS,
   ExperimentalFeatures,
   HideWindowOnProtocolLaunch,
@@ -168,6 +169,7 @@ export default function AdvancedSetting() {
         <DownloadNoHTTPS />
         <DisableLogs />
         <DisableDiscounts />
+        <DisableGOGAffiliate />
         <AllowInstallationBrokenAnticheat />
         <HideWindowOnProtocolLaunch />
       </SettingsCard>

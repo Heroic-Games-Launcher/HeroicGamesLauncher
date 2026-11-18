@@ -130,7 +130,7 @@ export default function SettingsSearch({ onSelect }: Props) {
       }}
     >
       <div className="SettingsSearch__field">
-        <Search size={20} strokeWidth={1.75} aria-hidden />
+        <Search size={18} strokeWidth={1.75} aria-hidden />
         <input
           ref={inputRef}
           id="search"

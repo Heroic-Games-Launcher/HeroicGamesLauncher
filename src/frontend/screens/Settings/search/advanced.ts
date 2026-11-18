@@ -26,6 +26,12 @@ export const advancedSearchEntries: SettingsSearchEntry[] = [
     titleKey: 'setting.disableDiscounts'
   },
   {
+    id: 'disableGOGAffiliate',
+    tab: 'advanced',
+    sectionKey: 'settings.section.behaviour',
+    titleKey: 'setting.disableGOGAffiliate'
+  },
+  {
     id: 'disableAnticheatCheck',
     tab: 'advanced',
     sectionKey: 'settings.section.behaviour',

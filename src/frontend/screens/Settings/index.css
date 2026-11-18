@@ -327,11 +327,14 @@ a {
   gap: var(--space-md);
 }
 
-.settingsSearchRow {
-  width: 100%;
-  padding-inline-start: calc(
-    var(--settings-nav-width) + var(--space-2xl-fixed)
-  );
+.settingsSidebar {
+  position: sticky;
+  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
 }
 
 .settingsLayout {
@@ -355,8 +358,7 @@ a {
 }
 
 .settingsNav {
-  position: sticky;
-  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+  width: 100%;
 }
 
 .settingsPane {
@@ -367,21 +369,18 @@ a {
 }
 
 @media screen and (max-width: 1100px) {
-  .settingsSearchRow {
-    padding-inline-start: 0;
-  }
-
   .settingsLayout {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-lg-fixed);
   }
 
-  .settingsNav--tabs {
-    position: sticky;
+  .settingsSidebar {
     top: var(--settings-header-block);
-    z-index: 2;
     background: var(--body-background);
     padding-block-end: var(--space-2xs-fixed);
+  }
+
+  .settingsNav--tabs {
     flex-wrap: wrap;
     overflow-x: visible;
   }

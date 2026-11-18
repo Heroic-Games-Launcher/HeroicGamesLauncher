@@ -328,28 +328,29 @@ function Settings() {
               actions={!isLogSettings ? copyButton : undefined}
             />
 
-            {(isGeneralSettings || isRunnersSettings || isAdvancedSetting) && (
-              <div className="settingsSearchRow">
-                <SettingsSearch onSelect={handleSearchSelect} />
-              </div>
-            )}
-
             <div className="settingsLayout">
-              {isNarrow ? (
-                <Tabs
-                  items={sections}
-                  value={type}
-                  onChange={(value) => navigate(`/settings/${value}`)}
-                  aria-label={t('Settings', 'Settings')}
-                  className="settingsNav settingsNav--tabs"
-                />
-              ) : (
-                <NavList
-                  items={navItems}
-                  className="settingsNav"
-                  aria-label={t('Settings', 'Settings')}
-                />
-              )}
+              <div className="settingsSidebar">
+                {(isGeneralSettings ||
+                  isRunnersSettings ||
+                  isAdvancedSetting) && (
+                  <SettingsSearch onSelect={handleSearchSelect} />
+                )}
+                {isNarrow ? (
+                  <Tabs
+                    items={sections}
+                    value={type}
+                    onChange={(value) => navigate(`/settings/${value}`)}
+                    aria-label={t('Settings', 'Settings')}
+                    className="settingsNav settingsNav--tabs"
+                  />
+                ) : (
+                  <NavList
+                    items={navItems}
+                    className="settingsNav"
+                    aria-label={t('Settings', 'Settings')}
+                  />
+                )}
+              </div>
               <div className="settingsPane">
                 {isGeneralSettings && <GeneralSettings />}
                 {isGamesSettings && <GamesSettings />}
