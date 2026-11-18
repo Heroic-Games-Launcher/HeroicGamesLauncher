@@ -2,6 +2,7 @@ import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Alert,
+  Button,
   SelectField,
   SettingsCard,
   TextInputField,
@@ -42,6 +43,7 @@ const Gamescope = () => {
   })
   const [fetching, setFetching] = useState(true)
   const [isInstalled, setIsInstalled] = useState(false)
+  const [detectingResolution, setDetectingResolution] = useState(false)
 
   const [additionalOptions, setAdditionalOptions] = useState(
     gamescope.additionalOptions ?? ''
@@ -60,6 +62,39 @@ const Gamescope = () => {
         setFetching(false)
       })
   }, [])
+
+  useEffect(() => {
+    if (!gamescope.enableUpscaling) return
+    if (gamescope.upscaleWidth || gamescope.upscaleHeight) return
+    void window.api
+      .getPrimaryDisplay()
+      .then((display) => {
+        if (!display.width || !display.height) return
+        setGamescope({
+          ...gamescope,
+          upscaleWidth: String(display.width),
+          upscaleHeight: String(display.height)
+        })
+      })
+      .catch(() => undefined)
+  }, [gamescope, setGamescope])
+
+  const detectResolution = async () => {
+    setDetectingResolution(true)
+    try {
+      const display = await window.api.getPrimaryDisplay()
+      if (!display.width || !display.height) return
+      setGamescope({
+        ...gamescope,
+        upscaleWidth: String(display.width),
+        upscaleHeight: String(display.height)
+      })
+    } catch {
+      // keep the current values when detection fails
+    } finally {
+      setDetectingResolution(false)
+    }
+  }
 
   function setResolution(value: string): string | undefined {
     const re = /^[0-9\b]+$/
@@ -249,6 +284,18 @@ const Gamescope = () => {
                 }}
               />
             </div>
+            <Button
+              variant="secondary"
+              onClick={() => void detectResolution()}
+              disabled={detectingResolution}
+            >
+              {detectingResolution
+                ? t('please-wait', 'Please wait...')
+                : t(
+                    'options.gamescope.useMonitorResolution',
+                    'Use main monitor resolution'
+                  )}
+            </Button>
             <SelectField
               label={t('options.gamescope.windowType', 'Window type')}
               htmlId="windowType"

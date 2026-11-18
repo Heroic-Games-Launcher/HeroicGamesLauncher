@@ -1054,6 +1054,7 @@
             "upscaleHeight": "Upscale height",
             "upscaleMethod": "Upscale method",
             "upscaleWidth": "Upscale width",
+            "useMonitorResolution": "Use main monitor resolution",
             "windowed": "Windowed",
             "windowType": "Window type"
         },
