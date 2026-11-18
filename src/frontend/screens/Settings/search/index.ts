@@ -7,13 +7,9 @@ import type {
   SettingsSearchTab
 } from './types'
 
-export type {
-  ResolvedSettingsSearchEntry,
-  SettingsSearchEntry,
-  SettingsSearchTab
-}
+export type { ResolvedSettingsSearchEntry, SettingsSearchTab }
 
-export const SETTINGS_SEARCH_ENTRIES: SettingsSearchEntry[] = [
+const SETTINGS_SEARCH_ENTRIES: SettingsSearchEntry[] = [
   ...generalSearchEntries,
   ...runnersSearchEntries,
   ...advancedSearchEntries
