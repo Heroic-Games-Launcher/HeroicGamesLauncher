@@ -34,6 +34,8 @@ export const setGamepadPassthrough = (enabled: boolean) => {
 
 export const isUsingGamepad = () => currentController !== -1
 
+export const isControllerDisabled = () => controllerIsDisabled
+
 export type NavigateDirection = 'up' | 'down' | 'left' | 'right'
 type ScrollDirection = 'up' | 'down'
 
@@ -231,6 +233,16 @@ export const initGamepad = () => {
 
   // store the current controllers
   let controllers: number[] = []
+  let isPolling = false
+
+  // Chromium does not always replay `gamepadconnected` for pads that were
+  // already connected when the renderer started, so seed the list from the
+  // snapshot rather than waiting for an event that may never come.
+  for (const gamepad of navigator.getGamepads()) {
+    if (gamepad) controllers.push(gamepad.index)
+  }
+  isPolling = controllers.length > 0
+  if (isPolling) requestAnimationFrame(updateStatus)
 
   updateGamepadActions()
 
@@ -240,6 +252,7 @@ export const initGamepad = () => {
     pressed: boolean,
     controllerIndex: number
   ) {
+    if (!actions) return
     if (controllerIsDisabled || gamepadPassthrough) return
 
     if (!document.hasFocus()) {
@@ -428,6 +441,16 @@ export const initGamepad = () => {
             }
           }
           break
+      }
+
+      // Console Mode dialogs handle A themselves (see ConfirmDialog /
+      // InstallOverlay); clicking the focused button here too would run the
+      // action twice.
+      if (
+        action === 'mainAction' &&
+        document.body.classList.contains('console-modal-open')
+      ) {
+        return
       }
 
       if (action === 'mainAction') {
@@ -668,7 +691,9 @@ export const initGamepad = () => {
    * @param gamepad
    */
   function isValveGamepad(gamepad: Gamepad | null) {
-    return gamepad && gamepad.id.includes('Vendor: 28de')
+    // Chromium formats ids differently per platform
+    // ("... Vendor: 28de ..." on Windows, "28de-11ff-name" on macOS)
+    return !!gamepad && /28de/i.test(gamepad.id)
   }
 
   /**
@@ -708,6 +733,27 @@ export const initGamepad = () => {
     return isValveGamepad(gamepad) || !isMaskedGamepad(valveGamepads, gamepad)
   }
 
+  // Per axis/controller latch so sticks engage and release with different
+  // thresholds. Without it a worn stick parked near the 0.5 threshold repeats
+  // the same direction every frame.
+  const STICK_ENGAGE = 0.5
+  const STICK_RELEASE = 0.3
+  const activeAxes = new Map<string, boolean>()
+
+  function withStickHysteresis(
+    axes: readonly number[],
+    controllerIndex: number
+  ) {
+    return axes.map((value, axisIndex) => {
+      const key = `${controllerIndex}:${axisIndex}`
+      const isActive = activeAxes.get(key) ?? false
+      const threshold = isActive ? STICK_RELEASE : STICK_ENGAGE
+      const nextActive = Math.abs(value) > threshold
+      activeAxes.set(key, nextActive)
+      return nextActive ? value : 0
+    })
+  }
+
   // check all the buttons and axes every frame if gamepads are connected
   function updateStatus() {
     const gamepads = navigator.getGamepads()
@@ -719,7 +765,7 @@ export const initGamepad = () => {
       // logState(index)
 
       const buttons = controller.buttons
-      const axes = controller.axes
+      const axes = withStickHysteresis(controller.axes, index)
       try {
         if (controller.id.match(/gamecube|0337/i)) {
           checkGameCube(buttons, axes, index, checkAction)
@@ -742,7 +788,8 @@ export const initGamepad = () => {
       }
     })
 
-    if (controllers.length) requestAnimationFrame(updateStatus)
+    isPolling = controllers.length > 0
+    if (isPolling) requestAnimationFrame(updateStatus)
   }
 
   // function logState(index: number) {
@@ -776,8 +823,11 @@ export const initGamepad = () => {
 
   function addgamepad(gamepad: Gamepad) {
     console.log(`Gamepad added: ${JSON.stringify(gamepad.id)}`)
-    controllers.push(gamepad.index)
-    requestAnimationFrame(updateStatus)
+    if (!controllers.includes(gamepad.index)) controllers.push(gamepad.index)
+    if (!isPolling) {
+      isPolling = true
+      requestAnimationFrame(updateStatus)
+    }
   }
 
   function disconnecthandler(e: GamepadEvent) {
@@ -786,13 +836,12 @@ export const initGamepad = () => {
 
   function removegamepad(gamepad: Gamepad) {
     console.log(`Gamepad removed: ${gamepad.id}`)
-    const removedIndex = controllers.findIndex((idx) => idx === gamepad.index)
 
     // remove disconnected controller
     controllers = controllers.filter((idx) => idx !== gamepad.index)
 
     // if controller was the current controller, reset and emit
-    if (removedIndex === currentController) {
+    if (gamepad.index === currentController) {
       emitControllerEvent(-1)
     }
   }

@@ -30,6 +30,18 @@ export default function StatCard({
         'StatCard--clickable': !!onClick
       })}
       onClick={onClick}
+      onKeyDown={
+        onClick
+          ? (event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault()
+                onClick()
+              }
+            }
+          : undefined
+      }
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
       title={title}
     >
       <span className="StatCard__label">

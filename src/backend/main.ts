@@ -1285,6 +1285,26 @@ addHandler('gamepadAction', async (event, args) => {
         y: mainWindow.getBounds().height / 2
       })
       break
+    case 'prevPage':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'PageUp'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'PageUp'
+      })
+      break
+    case 'nextPage':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'PageDown'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'PageDown'
+      })
+      break
     case 'leftStickUp':
     case 'leftStickDown':
     case 'leftStickLeft':

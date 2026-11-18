@@ -405,6 +405,12 @@
   display: none;
 }
 
+// with a controller the card is a single focus target: launch and options are
+// on Y/X, so keep auxiliary buttons out of the focus order as well
+.gameCard.gamepad .cloud-sync-icon {
+  display: none;
+}
+
 .gameCard > .icons > .svg-button {
   justify-self: center;
 }

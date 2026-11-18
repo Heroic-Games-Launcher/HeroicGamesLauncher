@@ -7,10 +7,18 @@ import {
   type RefObject
 } from 'react'
 
+import { isControllerDisabled } from 'frontend/helpers/gamepad'
+
 import { detectControllerLayout, type ControllerLayout } from './controller'
 
 function isPressed(btn: GamepadButton | undefined) {
   return !!btn && (btn.pressed || btn.value > 0.5)
+}
+
+// Same gate the global gamepad helper applies: ignore input while the window
+// is in the background (e.g. a game is running) or the user disabled it.
+function gamepadInputEnabled() {
+  return !isControllerDisabled() && document.hasFocus()
 }
 
 export function useGamepadButtonPress(
@@ -32,10 +40,11 @@ export function useGamepadButtonPress(
     }
     let raf = 0
     const tick = () => {
+      const inputEnabled = gamepadInputEnabled()
       for (const gp of navigator.getGamepads()) {
         if (!gp) continue
         const pressed = isPressed(gp.buttons[buttonIndex])
-        if (pressed && !prev.get(gp.index)) handlerRef.current()
+        if (pressed && !prev.get(gp.index) && inputEnabled) handlerRef.current()
         prev.set(gp.index, pressed)
       }
       raf = requestAnimationFrame(tick)
@@ -61,10 +70,12 @@ export function useGamepadButtonHold(
     let raf = 0
     const tick = () => {
       let anyHeld = false
-      for (const gp of navigator.getGamepads()) {
-        if (gp && isPressed(gp.buttons[buttonIndex])) {
-          anyHeld = true
-          break
+      if (gamepadInputEnabled()) {
+        for (const gp of navigator.getGamepads()) {
+          if (gp && isPressed(gp.buttons[buttonIndex])) {
+            anyHeld = true
+            break
+          }
         }
       }
       if (anyHeld !== held) {

@@ -91,7 +91,7 @@ export default function SearchBar({
       />
       {value.length > 0 && (
         <>
-          <ul className="autoComplete">
+          <ul className="autoComplete" role="listbox">
             {suggestionsListItems &&
               suggestionsListItems.length > 0 &&
               suggestionsListItems.map((li, idx) => (
@@ -99,7 +99,11 @@ export default function SearchBar({
               ))}
           </ul>
 
-          <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
+          <button
+            className="clearSearchButton"
+            onClick={onClear}
+            aria-label="Clear search"
+          >
             <X size={18} strokeWidth={2} aria-hidden />
           </button>
         </>

@@ -80,8 +80,13 @@ export default function ConsoleMode() {
     refreshLibrary,
     refreshing,
     gameUpdates,
-    hiddenGames
+    hiddenGames,
+    isFullscreen
   } = useContext(ContextProvider)
+
+  // Remembered so leaving console mode restores the previous window state
+  // instead of forcing windowed mode on a Steam Deck / `--fullscreen` session.
+  const wasFullscreen = useRef(isFullscreen)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [sortMode, setSortMode] = useState<ConsoleSortMode>('last_played')
@@ -99,6 +104,13 @@ export default function ConsoleMode() {
   const [queuedNoticeGame, setQueuedNoticeGame] = useState<GameInfo | null>(
     null
   )
+
+  const idle =
+    !launchingGame &&
+    !installingGame &&
+    !updateNoticeGame &&
+    !cancelDownloadGame &&
+    !queuedNoticeGame
 
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
@@ -123,7 +135,7 @@ export default function ConsoleMode() {
       void refreshLibrary({ runInBackground: true })
     }
     return () => {
-      window.api.setFullscreen(false)
+      window.api.setFullscreen(wasFullscreen.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -247,13 +259,16 @@ export default function ConsoleMode() {
   }, [visibleGames.length, focusedIndex])
 
   useEffect(() => {
+    // also runs when `idle` flips back to true so focus returns to the grid
+    // after an overlay/dialog closes
+    if (!idle) return
     const btn = cardRefs.current[focusedIndex]
     if (!btn) return
     if (document.activeElement !== btn) {
       btn.focus({ preventScroll: true })
     }
     btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-  }, [focusedIndex, visibleGames.length])
+  }, [focusedIndex, visibleGames.length, idle])
 
   const cycleStore = useCallback(
     (direction: 1 | -1) => {
@@ -267,13 +282,6 @@ export default function ConsoleMode() {
   )
 
   const quit = useCallback(() => navigate('/'), [navigate])
-
-  const idle =
-    !launchingGame &&
-    !installingGame &&
-    !updateNoticeGame &&
-    !cancelDownloadGame &&
-    !queuedNoticeGame
 
   const activateGame = useCallback(
     (game: GameInfo) => {

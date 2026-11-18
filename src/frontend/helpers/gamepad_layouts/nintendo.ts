@@ -139,9 +139,9 @@ export function checkN64Clone1(
   const dPadVal = Math.round(dPadAxis * 10)
 
   checkAction('padUp', dPadVal === -10, controllerIndex)
-  checkAction('padDown', dPadVal === -1, controllerIndex)
+  checkAction('padDown', dPadVal === 1, controllerIndex)
   checkAction('padLeft', dPadVal === 7, controllerIndex)
-  checkAction('padRight', dPadVal === 4, controllerIndex)
+  checkAction('padRight', dPadVal === -4, controllerIndex)
   checkAction('leftStickLeft', axisX < -0.5, controllerIndex)
   checkAction('leftStickRight', axisX > 0.5, controllerIndex)
   checkAction('leftStickUp', axisY < -0.5, controllerIndex)
