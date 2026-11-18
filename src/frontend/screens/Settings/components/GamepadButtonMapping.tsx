@@ -1,20 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import { Button, SelectField } from 'frontend/components/UI'
-import { updateGamepadActions } from 'frontend/helpers/gamepad'
+import {
+  DEFAULT_GAMEPAD_BUTTONS,
+  updateGamepadActions
+} from 'frontend/helpers/gamepad'
 import useSetting from 'frontend/hooks/useSetting'
 import type { RemappableGamepadAction } from 'common/types'
 import { MenuItem } from '@mui/material'
-
-const DEFAULT_MAPPING: Record<RemappableGamepadAction, number | null> = {
-  mainAction: 0,
-  back: 1,
-  rightClick: 2,
-  altAction: 3,
-  prevPage: 4,
-  nextPage: 5,
-  enter: 10,
-  guide: 16
-}
 
 const ACTIONS: RemappableGamepadAction[] = [
   'mainAction',
@@ -60,7 +52,9 @@ const GamepadButtonMapping = () => {
   }
 
   const resolve = (action: RemappableGamepadAction) =>
-    mapping[action] === undefined ? DEFAULT_MAPPING[action] : mapping[action]
+    mapping[action] === undefined
+      ? DEFAULT_GAMEPAD_BUTTONS[action]
+      : mapping[action]
 
   const update = (action: RemappableGamepadAction, value: string) => {
     const button = value === 'none' ? null : Number(value)

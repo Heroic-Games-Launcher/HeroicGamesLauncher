@@ -187,6 +187,28 @@ let stickDeadzone = 0.15
 let buttonMapping: Partial<Record<RemappableGamepadAction, number | null>> = {}
 let guideButtonDisabled = false
 
+export const GAMEPAD_MAPPING_CHANGED_EVENT = 'gamepad-mapping-changed'
+
+export const DEFAULT_GAMEPAD_BUTTONS: Record<
+  RemappableGamepadAction,
+  number | null
+> = {
+  mainAction: 0,
+  back: 1,
+  rightClick: 2,
+  altAction: 3,
+  prevPage: 4,
+  nextPage: 5,
+  enter: 10,
+  guide: 16
+}
+
+// physical button currently bound to an action (user mapping over defaults)
+export const getMappedButton = (action: RemappableGamepadAction) => {
+  const override = buttonMapping[action]
+  return override === undefined ? DEFAULT_GAMEPAD_BUTTONS[action] : override
+}
+
 const NAVIGATION_ACTIONS: ValidGamepadAction[] = [
   'padUp',
   'padDown',
@@ -226,6 +248,8 @@ export const updateGamepadActions = async () => {
   stickDeadzone = settings.gamepadDeadzone ?? 0.15
   buttonMapping = settings.gamepadButtonMapping ?? {}
   guideButtonDisabled = settings.disableGuideButton ?? false
+
+  window.dispatchEvent(new Event(GAMEPAD_MAPPING_CHANGED_EVENT))
 
   // input should be cloned to prevent variables from being re-used
   // across different controller indexes
