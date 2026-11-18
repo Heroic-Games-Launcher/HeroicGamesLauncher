@@ -18,7 +18,9 @@ import {
 import { Button, Icon, SettingRow, SettingsCard } from 'frontend/components/UI'
 import {
   Bug,
+  Check,
   Code2,
+  Copy,
   Layers,
   RefreshCw,
   ShieldAlert,
@@ -31,7 +33,15 @@ import {
   Download as DownloadIcon
 } from 'lucide-react'
 
-export default function AdvancedSetting() {
+interface Props {
+  copiedToClipboard: boolean
+  onCopySettings: () => void
+}
+
+export default function AdvancedSetting({
+  copiedToClipboard,
+  onCopySettings
+}: Props) {
   const [eosOverlayInstalled, setEosOverlayInstalled] = useState(false)
   const [eosOverlayVersion, setEosOverlayVersion] = useState('')
   const [eosOverlayLatestVersion, setEosOverlayLatestVersion] = useState('')
@@ -290,6 +300,27 @@ export default function AdvancedSetting() {
         title={t('settings.section.maintenance', 'Customisation & maintenance')}
       >
         <CustomCSS />
+        <SettingRow
+          label={t(
+            'settings.copyToClipboard',
+            'Copy all settings to clipboard'
+          )}
+          description={t(
+            'settings.copySettings.description',
+            'Save the current Heroic configuration as JSON to the clipboard.'
+          )}
+        >
+          <Button
+            variant={copiedToClipboard ? 'primary' : 'ghost'}
+            size="sm"
+            icon={<Icon glyph={copiedToClipboard ? Check : Copy} size="md" />}
+            onClick={onCopySettings}
+          >
+            {copiedToClipboard
+              ? t('settings.copiedToClipboard', 'Copied to clipboard!')
+              : t('settings.copySettings.button', 'Copy')}
+          </Button>
+        </SettingRow>
         <ClearCache />
         <ResetHeroic />
       </SettingsCard>

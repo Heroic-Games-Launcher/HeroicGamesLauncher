@@ -1,4 +1,11 @@
-import { Fragment, useCallback, useEffect, useRef } from 'react'
+import {
+  Fragment,
+  HTMLAttributes,
+  InputHTMLAttributes,
+  useCallback,
+  useEffect,
+  useRef
+} from 'react'
 import './index.scss'
 import { Search, X } from 'lucide-react'
 
@@ -7,13 +14,20 @@ interface Props {
   onInputChanged: (text: string) => void
   value: string
   placeholder: string
+  inputProps?: Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'value' | 'defaultValue' | 'onChange' | 'ref'
+  >
+  suggestionsListProps?: HTMLAttributes<HTMLUListElement>
 }
 
 export default function SearchBar({
   suggestionsListItems,
   onInputChanged,
   value,
-  placeholder
+  placeholder,
+  inputProps,
+  suggestionsListProps
 }: Props) {
   const input = useRef<HTMLInputElement>(null)
 
@@ -88,10 +102,11 @@ export default function SearchBar({
         // and in src/helpers/gamepad.ts#isSearchInput
         id="search"
         className="searchBarInput"
+        {...inputProps}
       />
       {value.length > 0 && (
         <>
-          <ul className="autoComplete" role="listbox">
+          <ul className="autoComplete" role="listbox" {...suggestionsListProps}>
             {suggestionsListItems &&
               suggestionsListItems.length > 0 &&
               suggestionsListItems.map((li, idx) => (

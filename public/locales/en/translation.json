@@ -1453,6 +1453,10 @@
         "clear-cache": "Clear Heroic cache",
         "clear-images-cache": "Clear images cache",
         "copiedToClipboard": "Copied to clipboard!",
+        "copySettings": {
+            "button": "Copy",
+            "description": "Save the current Heroic configuration as JSON to the clipboard."
+        },
         "copyToClipboard": "Copy all settings to clipboard",
         "custom_css": {
             "title": "Custom CSS style"
@@ -1530,7 +1534,6 @@
             "warning": "Cloud saves feature is in beta, please backup your saves before syncing (in case something goes wrong)"
         },
         "search": {
-            "clear": "Clear search",
             "noResults": "No settings found",
             "placeholder": "Search settings",
             "results": "Settings results"

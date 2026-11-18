@@ -80,6 +80,11 @@ function Settings() {
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
   const isImportExport = type === 'importexport'
+  const showSettingsSearch =
+    isGeneralSettings ||
+    isGamepadSettings ||
+    isRunnersSettings ||
+    isAdvancedSetting
 
   useEffect(() => {
     if (!searchTarget || type !== searchTarget.tab) return
@@ -172,14 +177,14 @@ function Settings() {
         : isGamepadSettings
           ? t('settings.navbar.gamepad', 'Gamepad')
           : isAdvancedSetting
-            ? t('settings.navbar.advanced', 'Advanced')
-            : isSystemInfo
-              ? t('settings.navbar.systemInformation', 'System information')
-              : isLogSettings
-                ? t('settings.navbar.log', 'Log')
-                : isImportExport
-                  ? t('settings.navbar.importExport', 'Import / Export')
-                  : t('settings.navbar.sync', 'Sync')
+          ? t('settings.navbar.advanced', 'Advanced')
+          : isSystemInfo
+            ? t('settings.navbar.systemInformation', 'System information')
+            : isLogSettings
+              ? t('settings.navbar.log', 'Log')
+              : isImportExport
+                ? t('settings.navbar.importExport', 'Import / Export')
+                : t('settings.navbar.sync', 'Sync')
 
   const pageDescription = isGeneralSettings
     ? t('settings.pageSubtitle.general', 'Configure your launcher preferences')
@@ -199,23 +204,23 @@ function Settings() {
               'Controller navigation, deadzone and button mapping'
             )
           : isAdvancedSetting
+          ? t(
+              'settings.pageSubtitle.advanced',
+              'Behaviour, experimental features and maintenance'
+            )
+          : isSystemInfo
             ? t(
-                'settings.pageSubtitle.advanced',
-                'Behaviour, experimental features and maintenance'
+                'settings.pageSubtitle.systeminfo',
+                'Your hardware and the versions Heroic runs'
               )
-            : isSystemInfo
-              ? t(
-                  'settings.pageSubtitle.systeminfo',
-                  'Your hardware and the versions Heroic runs'
-                )
-              : isLogSettings
-                ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
-                : isImportExport
-                  ? t(
-                      'settings.pageSubtitle.importExport',
-                      'Back up or restore your Heroic setup'
-                    )
-                  : undefined
+            : isLogSettings
+              ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
+              : isImportExport
+                ? t(
+                    'settings.pageSubtitle.importExport',
+                    'Back up or restore your Heroic setup'
+                  )
+                : undefined
 
   const title = t('globalSettings', 'Global settings')
 
@@ -293,7 +298,7 @@ function Settings() {
     setCopiedToClipboard(true)
   }
 
-  const copyButton = (
+  const systemInfoCopyButton = (
     <Button
       variant={isCopiedToClipboard ? 'primary' : 'ghost'}
       size="sm"
@@ -302,11 +307,15 @@ function Settings() {
     >
       {isCopiedToClipboard
         ? t('settings.copiedToClipboard', 'Copied to clipboard!')
-        : isSystemInfo
-          ? t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')
-          : t('settings.copyToClipboard', 'Copy all settings to clipboard')}
+        : t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')}
     </Button>
   )
+
+  const settingsSearchRow = showSettingsSearch ? (
+    <div className="settingsSearchRow">
+      <SettingsSearch onSelect={handleSearchSelect} />
+    </div>
+  ) : null
 
   return (
     <ContextMenu
@@ -340,25 +349,22 @@ function Settings() {
               title={pageTitle}
               description={pageDescription}
               className="headerTitle"
-              actions={!isLogSettings ? copyButton : undefined}
+              actions={isSystemInfo ? systemInfoCopyButton : undefined}
             />
 
             <div className="settingsLayout">
               <div className="settingsSidebar">
-                {(isGeneralSettings ||
-                  isGamepadSettings ||
-                  isRunnersSettings ||
-                  isAdvancedSetting) && (
-                  <SettingsSearch onSelect={handleSearchSelect} />
-                )}
                 {isNarrow ? (
-                  <Tabs
-                    items={sections}
-                    value={type}
-                    onChange={(value) => navigate(`/settings/${value}`)}
-                    aria-label={t('Settings', 'Settings')}
-                    className="settingsNav settingsNav--tabs"
-                  />
+                  <>
+                    <Tabs
+                      items={sections}
+                      value={type}
+                      onChange={(value) => navigate(`/settings/${value}`)}
+                      aria-label={t('Settings', 'Settings')}
+                      className="settingsNav settingsNav--tabs"
+                    />
+                    {settingsSearchRow}
+                  </>
                 ) : (
                   <NavList
                     items={navItems}
@@ -368,12 +374,18 @@ function Settings() {
                 )}
               </div>
               <div className="settingsPane">
+                {!isNarrow && settingsSearchRow}
                 {isGeneralSettings && <GeneralSettings />}
                 {isGamesSettings && <GamesSettings />}
                 {isGamepadSettings && <GamepadSettings />}
                 {isRunnersSettings && <RunnersSettings />}
                 {isSyncSettings && <SyncSaves />}
-                {isAdvancedSetting && <AdvancedSettings />}
+                {isAdvancedSetting && (
+                  <AdvancedSettings
+                    copiedToClipboard={isCopiedToClipboard}
+                    onCopySettings={copySettingsToClipboard}
+                  />
+                )}
                 {isLogSettings && <LogSettings />}
                 {isSystemInfo && <SystemInfo />}
                 {isImportExport && <ImportExportSettings />}
