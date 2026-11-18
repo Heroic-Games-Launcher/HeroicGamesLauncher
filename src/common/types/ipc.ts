@@ -62,6 +62,15 @@ import type {
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
 import type {
+  HeroicApplyOptions,
+  HeroicApplyResult,
+  HeroicBackupDiscoveryResult,
+  HeroicBackupValidationReport,
+  HeroicExportOptions,
+  HeroicExportResult,
+  HeroicRollbackSnapshot
+} from './importExport'
+import type {
   SteamAccount,
   SteamCloudFile,
   SteamCloudSyncDirection,
@@ -445,6 +454,23 @@ interface AsyncIPCFunctions {
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
   getProtonShortcuts: (prefix: string) => Promise<Array<ParsedProtonShorctut>>
+  getHomeDir: () => Promise<string>
+  listHeroicBackups: () => Promise<HeroicBackupDiscoveryResult>
+  getWineImportProgress: () => Promise<{
+    completed: number
+    total: number
+    pending: string[]
+  }>
+  exportHeroicBackup: (
+    options: HeroicExportOptions
+  ) => Promise<HeroicExportResult>
+  validateHeroicBackup: (
+    sourcePath: string
+  ) => Promise<HeroicBackupValidationReport>
+  applyHeroicBackup: (options: HeroicApplyOptions) => Promise<HeroicApplyResult>
+  getRollbackSnapshot: () => Promise<HeroicRollbackSnapshot | null>
+  rollbackHeroicBackup: () => Promise<HeroicApplyResult>
+  restartHeroic: () => Promise<void>
 }
 
 interface FrontendMessages {
@@ -478,6 +504,11 @@ interface FrontendMessages {
     installingComponent: string
   }) => void
   progressOfWineManager: (version: string, progress: WineManagerStatus) => void
+  wineImportProgress: (state: {
+    completed: number
+    total: number
+    pending: string[]
+  }) => void
   'installing-winetricks-component': (component: string) => void
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void

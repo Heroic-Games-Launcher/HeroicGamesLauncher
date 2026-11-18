@@ -20,6 +20,7 @@ import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
 import { ItchioUserData } from './itchio'
 import { ZoomCredentials } from './zoom'
+import { HeroicRollbackSnapshot } from './importExport'
 import {
   SteamAccount,
   SteamCloudSyncStatus,
@@ -134,6 +135,9 @@ export interface StoreStructure {
   uploadedLogs: Record<string, UploadedLogData>
   migrationsStore: {
     appliedMigrations: string[]
+  }
+  importExportRollbackStore: {
+    lastSnapshot?: HeroicRollbackSnapshot
   }
   gameOverridesStore: {
     overrides: Record<

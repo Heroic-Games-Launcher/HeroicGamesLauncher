@@ -6,7 +6,8 @@
         "copied": "Скапіявана!",
         "error": "Памылка, паспрабуйце іншы код",
         "loading": "Загрузка",
-        "close": "Закрыць"
+        "close": "Закрыць",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Каб увайсці і ўсталяваць свае гульні, спачатку трэба выканаць наступныя дзеянні:",
@@ -22,5 +23,14 @@
         "error": "Памылка",
         "loading": "Загружаецца спіс гульняў, пачакайце"
     },
-    "welcome": "Вітаем!"
+    "welcome": "Вітаем!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

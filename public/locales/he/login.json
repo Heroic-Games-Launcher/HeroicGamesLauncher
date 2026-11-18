@@ -19,5 +19,14 @@
         "part7": "מספר קוד ההרשאה",
         "part8": "בתיבת הקלט למטה לחצו על כפתור הכניסה."
     },
-    "welcome": "ברוכים הבאים!"
+    "welcome": "ברוכים הבאים!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

@@ -23,5 +23,14 @@
         "error": "خطأ",
         "loading": "قيد تحميل قائمة الألعاب، يرجى الانتظار"
     },
-    "welcome": "مرحبًا!"
+    "welcome": "مرحبًا!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

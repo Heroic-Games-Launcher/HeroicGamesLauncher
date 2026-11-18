@@ -6,7 +6,8 @@
         "copied": "Kopirano!",
         "error": "Pogreška, pokušajte s drugim kodom",
         "loading": "Učitavanje",
-        "close": "Zatvori"
+        "close": "Zatvori",
+        "itchio_error": ""
     },
     "message": {
         "part1": "Ukoliko se želite prijaviti i instalirati svoje igre, morate slijediti sljedeće korake:",
@@ -22,5 +23,14 @@
         "error": "Greška",
         "loading": "Učitavanje liste igara, pričekajte"
     },
-    "welcome": "Dobro došli!"
+    "welcome": "Dobro došli!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

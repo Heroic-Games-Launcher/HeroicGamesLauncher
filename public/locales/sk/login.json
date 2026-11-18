@@ -6,7 +6,8 @@
         "copied": "Skopírované!",
         "loading": "Načítavam",
         "error": "Chyba, skúste iný kód",
-        "close": "Zavrieť"
+        "close": "Zavrieť",
+        "itchio_error": ""
     },
     "message": {
         "part1": "In order for you to be able to log in and install your games, we first need you to follow the steps below:",
@@ -22,5 +23,14 @@
         "error": "Error",
         "loading": "Loading Game list, please wait"
     },
-    "welcome": "Vitajte!"
+    "welcome": "Vitajte!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

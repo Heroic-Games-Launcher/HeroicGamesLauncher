@@ -96,7 +96,10 @@
         "remove_from_favourites": "",
         "play": "",
         "no-path-selected": "",
-        "edit-game": "აპის/თამაშის ჩასწორება"
+        "edit-game": "აპის/თამაშის ჩასწორება",
+        "backToLibrary": "",
+        "favourite": "",
+        "unfavourite": ""
     },
     "cloud_save_unsupported": "მხარდაუწერელი",
     "disabled": "გათიშულია",
@@ -128,7 +131,12 @@
         "getting-install-size": "",
         "totalPlayed": "",
         "platform": "",
-        "achievements": ""
+        "achievements": "",
+        "tabs": "",
+        "overview": "",
+        "details": "",
+        "hoursPlayedShort": "",
+        "about": "შესახებ"
     },
     "gamecard": {
         "moving": "გადაადგილება",
@@ -155,8 +163,14 @@
         "third-party-app": "",
         "installedPlatform": "",
         "steamdeck": {
-            "unsupported": "მხარდაუწერელი"
-        }
+            "unsupported": "მხარდაუწერელი",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLC"
     },
     "install": {
         "anticheat-warning": {
@@ -187,7 +201,8 @@
         "playing": {
             "start": "",
             "start_with_logs": "",
-            "stop": ""
+            "stop": "",
+            "start_with_logs_hint": ""
         },
         "redist": "",
         "game": {
@@ -196,7 +211,8 @@
         },
         "saves": {
             "syncing": ""
-        }
+        },
+        "releaseDate": ""
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
@@ -226,7 +242,9 @@
             "title": "",
             "useragent": "",
             "fullscreen": "",
-            "image": ""
+            "image": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "url": "",
@@ -237,11 +255,15 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
         "minimum": "მინიმუმი",
-        "recommended": "რეკომენდებულია"
+        "recommended": "რეკომენდებულია",
+        "other": "სხვა"
     },
     "status": {
         "downloading": "გადმოწერა",
@@ -286,7 +308,8 @@
         "addToSteam": "",
         "removeFromSteam": "",
         "removeShortcut": "",
-        "move": ""
+        "move": "",
+        "more": ""
     },
     "third-party-managed": {
         "header": "",
@@ -332,6 +355,31 @@
     "wikiLink": "",
     "edit-game": {
         "advanced": "დამატებით",
-        "title": "აპის/თამაშის ჩასწორება"
+        "title": "აპის/თამაშის ჩასწორება",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "placeholder": {
+            "image": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "dlc": "DLC",
+            "installInfo": "გადმოწერის ზომა"
+        }
     }
 }
