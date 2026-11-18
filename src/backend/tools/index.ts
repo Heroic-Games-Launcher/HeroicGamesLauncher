@@ -9,7 +9,6 @@ import {
 import {
   existsSync,
   readFileSync,
-  writeFile,
   writeFileSync,
   readdirSync,
   copyFile,
@@ -38,7 +37,7 @@ import {
   setupWineEnvVars,
   validWine
 } from '../launcher'
-import { chmod, readFile } from 'fs/promises'
+import { chmod, copyFile as copyFilePromise, readFile } from 'fs/promises'
 import {
   any_gpu_supports_version,
   get_nvngx_path,
@@ -375,50 +374,43 @@ export const DXVK = {
     }
 
     // copy the new dlls to the prefix
+    const copyTasks: Promise<void>[] = []
     if (is64bitPrefix) {
       dlls32.forEach((dll) => {
-        copyFile(
-          `${toolPathx32}/${dll}`,
-          `${winePrefix}/drive_c/windows/syswow64/${dll}`,
-          (err) => {
-            if (err) {
-              logError(
-                [`Error when copying ${dll}`, err],
-                LogPrefix.ToolInstaller
-              )
-            }
-          }
+        copyTasks.push(
+          copyFilePromise(
+            `${toolPathx32}/${dll}`,
+            `${winePrefix}/drive_c/windows/syswow64/${dll}`
+          )
         )
       })
       dlls64.forEach((dll) => {
-        copyFile(
-          `${toolPathx64}/${dll}`,
-          `${winePrefix}/drive_c/windows/system32/${dll}`,
-          (err) => {
-            if (err) {
-              logError(
-                [`Error when copying ${dll}`, err],
-                LogPrefix.ToolInstaller
-              )
-            }
-          }
+        copyTasks.push(
+          copyFilePromise(
+            `${toolPathx64}/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}`
+          )
         )
       })
     } else {
       dlls32.forEach((dll) => {
-        copyFile(
-          `${toolPathx32}/${dll}`,
-          `${winePrefix}/drive_c/windows/system32/${dll}`,
-          (err) => {
-            if (err) {
-              logError(
-                [`Error when copying ${dll}`, err],
-                LogPrefix.ToolInstaller
-              )
-            }
-          }
+        copyTasks.push(
+          copyFilePromise(
+            `${toolPathx32}/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}`
+          )
         )
       })
+    }
+
+    try {
+      await Promise.all(copyTasks)
+    } catch (err) {
+      logError(
+        [`Error when copying ${tool} DLLs`, err],
+        LogPrefix.ToolInstaller
+      )
+      return false
     }
 
     // register dlls on the wine prefix
@@ -513,14 +505,7 @@ export const DXVK = {
       }
     }
 
-    writeFile(currentVersionCheck, globalVersion, (err) => {
-      if (err) {
-        logError(
-          [`Error when writing ${tool} version`, err],
-          LogPrefix.ToolInstaller
-        )
-      }
-    })
+    writeFileSync(currentVersionCheck, globalVersion)
     return true
   }
 }
