@@ -12,6 +12,7 @@ import FooterInfo from './sections/FooterInfo'
 import {
   GeneralSettings,
   GamesSettings,
+  RunnersSettings,
   SyncSaves,
   AdvancedSettings,
   SystemInfo,
@@ -31,6 +32,7 @@ import type { TabItem } from 'frontend/components/UI/Tabs'
 import useMediaQuery from 'frontend/hooks/useMediaQuery'
 import {
   ArchiveRestore,
+  Boxes,
   Copy,
   FileText,
   Gamepad2,
@@ -66,6 +68,7 @@ function Settings() {
   const isGeneralSettings = type === 'general'
   const isSyncSettings = type === 'sync'
   const isGamesSettings = type === 'games_settings'
+  const isRunnersSettings = type === 'runners'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
@@ -110,15 +113,17 @@ function Settings() {
     ? t('settings.navbar.general', 'General')
     : isGamesSettings
       ? t('settings.navbar.games_settings_defaults', 'Game defaults')
-      : isAdvancedSetting
-        ? t('settings.navbar.advanced', 'Advanced')
-        : isSystemInfo
-          ? t('settings.navbar.systemInformation', 'System information')
-          : isLogSettings
-            ? t('settings.navbar.log', 'Log')
-            : isImportExport
-              ? t('settings.navbar.importExport', 'Import / Export')
-              : t('settings.navbar.sync', 'Sync')
+      : isRunnersSettings
+        ? t('settings.navbar.runners', 'Runners')
+        : isAdvancedSetting
+          ? t('settings.navbar.advanced', 'Advanced')
+          : isSystemInfo
+            ? t('settings.navbar.systemInformation', 'System information')
+            : isLogSettings
+              ? t('settings.navbar.log', 'Log')
+              : isImportExport
+                ? t('settings.navbar.importExport', 'Import / Export')
+                : t('settings.navbar.sync', 'Sync')
 
   const pageDescription = isGeneralSettings
     ? t('settings.pageSubtitle.general', 'Configure your launcher preferences')
@@ -127,24 +132,29 @@ function Settings() {
           'settings.pageSubtitle.games_settings_defaults',
           'Defaults applied to newly installed games'
         )
-      : isAdvancedSetting
+      : isRunnersSettings
         ? t(
-            'settings.pageSubtitle.advanced',
-            'Binaries, experimental features and maintenance'
+            'settings.pageSubtitle.runners',
+            'Store integrations and runner-specific options'
           )
-        : isSystemInfo
+        : isAdvancedSetting
           ? t(
-              'settings.pageSubtitle.systeminfo',
-              'Your hardware and the versions Heroic runs'
+              'settings.pageSubtitle.advanced',
+              'Behaviour, experimental features and maintenance'
             )
-          : isLogSettings
-            ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
-            : isImportExport
-              ? t(
-                  'settings.pageSubtitle.importExport',
-                  'Back up or restore your Heroic setup'
-                )
-              : undefined
+          : isSystemInfo
+            ? t(
+                'settings.pageSubtitle.systeminfo',
+                'Your hardware and the versions Heroic runs'
+              )
+            : isLogSettings
+              ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
+              : isImportExport
+                ? t(
+                    'settings.pageSubtitle.importExport',
+                    'Back up or restore your Heroic setup'
+                  )
+                : undefined
 
   const title = t('globalSettings', 'Global settings')
 
@@ -166,6 +176,11 @@ function Settings() {
             glyph: Gamepad2
           }
         ]),
+    {
+      value: 'runners',
+      label: t('settings.navbar.runners', 'Runners'),
+      glyph: Boxes
+    },
     {
       value: 'advanced',
       label: t('settings.navbar.advanced', 'Advanced'),
@@ -274,6 +289,7 @@ function Settings() {
               <div className="settingsPane">
                 {isGeneralSettings && <GeneralSettings />}
                 {isGamesSettings && <GamesSettings />}
+                {isRunnersSettings && <RunnersSettings />}
                 {isSyncSettings && <SyncSaves />}
                 {isAdvancedSetting && <AdvancedSettings />}
                 {isLogSettings && <LogSettings />}

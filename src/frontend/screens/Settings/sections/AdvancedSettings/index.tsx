@@ -4,16 +4,10 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
   AllowInstallationBrokenAnticheat,
-  ShowValveProton,
-  AltGOGdlBin,
-  AltLegendaryBin,
-  AltNileBin,
-  AltAureliaBin,
   ClearCache,
   CustomCSS,
   DisableLogs,
   DisableDiscounts,
-  DisableGOGAffiliate,
   DownloadNoHTTPS,
   ExperimentalFeatures,
   HideWindowOnProtocolLaunch,
@@ -21,10 +15,8 @@ import {
   GamePadDelayRepeat,
   SteamGridDbApiKey
 } from '../../components'
-import DisableGOGPresence from '../../components/DisableGOGPresence'
 import { Button, Icon, SettingRow, SettingsCard } from 'frontend/components/UI'
 import {
-  Binary,
   Bug,
   Code2,
   Gamepad2,
@@ -55,7 +47,6 @@ export default function AdvancedSetting() {
   const { libraryStatus, platform } = useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
-  const isLinux = platform === 'linux'
 
   useEffect(() => {
     const getEosStatus = async () => {
@@ -171,27 +162,14 @@ export default function AdvancedSetting() {
       </SettingsCard>
 
       <SettingsCard
-        glyph={Binary}
-        title={t('settings.section.binaries', 'Alternative binaries')}
-      >
-        <AltLegendaryBin />
-        <AltGOGdlBin />
-        <AltNileBin />
-        <AltAureliaBin />
-      </SettingsCard>
-
-      <SettingsCard
         glyph={ShieldAlert}
         title={t('settings.section.behaviour', 'Behaviour')}
       >
         <DownloadNoHTTPS />
         <DisableLogs />
-        <DisableGOGPresence />
         <DisableDiscounts />
-        <DisableGOGAffiliate />
         <AllowInstallationBrokenAnticheat />
         <HideWindowOnProtocolLaunch />
-        {isLinux && <ShowValveProton />}
       </SettingsCard>
 
       <SettingsCard
@@ -203,7 +181,7 @@ export default function AdvancedSetting() {
 
       <SettingsCard
         glyph={Layers}
-        title="EOS Overlay"
+        title={t('settings.section.eosOverlay', 'EOS Overlay')}
         description={t(
           'setting.eosOverlay.description',
           'Epic\u2019s in-game overlay, required by some Epic titles for friends and achievements'
