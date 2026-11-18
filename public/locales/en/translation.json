@@ -1506,7 +1506,11 @@
                 "layout": "Heroic layout",
                 "mapping": "Browser mapping",
                 "title": "Detected controller",
-                "vendor": "Vendor / product"
+                "vendor": "Vendor / product",
+                "battery": "Battery",
+                "charging": "Charging",
+                "discharging": "On battery",
+                "full": "Full"
             }
         },
         "gamescope": {

@@ -361,10 +361,32 @@
 }
 
 .consoleFooter {
+  position: relative;
   display: flex;
   justify-content: center;
   padding: 12px 32px 16px;
   min-height: 60px;
+}
+
+.consoleBattery {
+  position: absolute;
+  inset-inline-end: 32px;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary, #b1b1b1);
+
+  &.charging {
+    color: var(--accent, #0080ff);
+  }
+
+  &.low {
+    color: var(--warning, #e0ab40);
+  }
 }
 
 .consoleControllerHints {

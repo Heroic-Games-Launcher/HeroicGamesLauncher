@@ -15,6 +15,14 @@ import classNames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill } from 'frontend/helpers'
 import { updateGame } from 'frontend/helpers/library'
+import { useControllerBattery } from 'frontend/hooks/useControllerBattery'
+import { Icon } from 'frontend/components/UI'
+import {
+  BatteryCharging,
+  BatteryFull,
+  BatteryLow,
+  BatteryMedium
+} from 'lucide-react'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -115,6 +123,7 @@ export default function ConsoleMode() {
 
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
+  const [controllerBattery] = useControllerBattery()
   const backButtonLabel = getBackButtonLabel(controllerLayout)
   const actionButtonLabel = getActionButtonLabel(controllerLayout)
 
@@ -573,6 +582,30 @@ export default function ConsoleMode() {
       <div className="consoleFooter">
         {gamepadConnected && !launchingGame && (
           <ControllerHints layout={controllerLayout} />
+        )}
+        {!launchingGame && controllerBattery && (
+          <span
+            className={classNames('consoleBattery', {
+              charging: controllerBattery.status === 'Charging',
+              low:
+                controllerBattery.capacity <= 20 &&
+                controllerBattery.status !== 'Charging'
+            })}
+          >
+            <Icon
+              glyph={
+                controllerBattery.status === 'Charging'
+                  ? BatteryCharging
+                  : controllerBattery.capacity <= 20
+                    ? BatteryLow
+                    : controllerBattery.capacity <= 60
+                      ? BatteryMedium
+                      : BatteryFull
+              }
+              size="sm"
+            />
+            {controllerBattery.capacity}%
+          </span>
         )}
       </div>
 

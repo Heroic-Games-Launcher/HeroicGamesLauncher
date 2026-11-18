@@ -4,6 +4,7 @@ import {
   removeImageFromCache
 } from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
+import { getControllerBatteries } from './utils/controller_battery'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
@@ -695,6 +696,7 @@ addHandler('getEpicGamesStatus', async () => isEpicServiceOffline())
 addHandler('getMaxCpus', () => cpus().length)
 
 addHandler('getHeroicVersion', () => app.getVersion())
+addHandler('getControllerBatteries', () => getControllerBatteries())
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 addHandler('getGameOverride', async () =>
   libraryManagerMap['legendary'].getGameOverride()

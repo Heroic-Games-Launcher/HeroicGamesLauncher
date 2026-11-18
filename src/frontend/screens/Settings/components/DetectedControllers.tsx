@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, SettingRow } from 'frontend/components/UI'
 import { detectGamepadLayout } from 'frontend/helpers/gamepad'
 import type { GamepadLayout } from 'frontend/helpers/gamepad'
+import { useControllerBattery } from 'frontend/hooks/useControllerBattery'
 import './DetectedControllers.css'
 
 const readControllers = () =>
@@ -38,9 +39,26 @@ const LAYOUT_LABELS: Record<GamepadLayout, string> = {
   genius: 'Genius'
 }
 
+const batteryStatusLabel = (
+  status: string,
+  t: (key: string, fallback: string) => string
+) => {
+  switch (status) {
+    case 'Charging':
+      return t('settings.gamepad.detected.charging', 'Charging')
+    case 'Discharging':
+      return t('settings.gamepad.detected.discharging', 'On battery')
+    case 'Full':
+      return t('settings.gamepad.detected.full', 'Full')
+    default:
+      return status
+  }
+}
+
 const DetectedControllers = () => {
   const { t } = useTranslation()
   const [controllers, setControllers] = useState(readControllers)
+  const batteries = useControllerBattery()
 
   useEffect(() => {
     const refresh = () => setControllers(readControllers())
@@ -54,7 +72,7 @@ const DetectedControllers = () => {
     }
   }, [])
 
-  if (!controllers.length) {
+  if (!controllers.length && !batteries.length) {
     return (
       <p className="detectedControllers__empty">
         {t(
@@ -66,21 +84,26 @@ const DetectedControllers = () => {
   }
 
   const copyDetails = () => {
-    const text = controllers
-      .map((pad) => {
-        const { vendor, product } = parseVendorProduct(pad.id)
-        return [
-          `id: ${pad.id}`,
-          `index: ${pad.index}`,
-          `mapping: ${pad.mapping || 'none'}`,
-          `vendor: ${vendor || 'unknown'}`,
-          `product: ${product || 'unknown'}`,
-          `heroic layout: ${detectGamepadLayout(pad.id)}`
-        ].join('\n')
-      })
-      .join('\n\n')
+    const controllerLines = controllers.map((pad) => {
+      const { vendor, product } = parseVendorProduct(pad.id)
+      return [
+        `id: ${pad.id}`,
+        `index: ${pad.index}`,
+        `mapping: ${pad.mapping || 'none'}`,
+        `vendor: ${vendor || 'unknown'}`,
+        `product: ${product || 'unknown'}`,
+        `heroic layout: ${detectGamepadLayout(pad.id)}`
+      ].join('\n')
+    })
 
-    void window.api.clipboardWriteText(text)
+    const batteryLines = batteries.map(
+      (battery) =>
+        `battery: ${battery.name} ${battery.capacity}% (${battery.status})`
+    )
+
+    void window.api.clipboardWriteText(
+      [...controllerLines, ...batteryLines].join('\n\n')
+    )
   }
 
   return (
@@ -121,6 +144,19 @@ const DetectedControllers = () => {
           </div>
         )
       })}
+      {batteries.map((battery) => (
+        <div className="detectedControllers__item" key={battery.name}>
+          <SettingRow
+            label={t('settings.gamepad.detected.battery', 'Battery')}
+            layout="stacked"
+          >
+            <span>
+              {battery.capacity}% · {batteryStatusLabel(battery.status, t)}{' '}
+              <span className="detectedControllers__id">{battery.name}</span>
+            </span>
+          </SettingRow>
+        </div>
+      ))}
       <Button variant="ghost" size="sm" onClick={copyDetails}>
         {t('settings.gamepad.detected.copy', 'Copy details')}
       </Button>

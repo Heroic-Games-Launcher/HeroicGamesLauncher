@@ -926,6 +926,13 @@ export interface UploadedLogData {
   uploadedAt: number
 }
 
+export interface ControllerBattery {
+  /** sysfs node name, e.g. `ps-controller-battery` */
+  name: string
+  capacity: number
+  status: string
+}
+
 export interface RunnerCommandStub {
   commandParts: string[]
   response?: Promise<ExecResult>
