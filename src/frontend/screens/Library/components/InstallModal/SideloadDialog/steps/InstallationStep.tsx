@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  ChevronDown,
-  ChevronUp,
-  LoaderCircle,
-  MonitorDown,
-  SkipForward
-} from 'lucide-react'
+import { LoaderCircle, MonitorDown, SkipForward } from 'lucide-react'
 import Button from 'frontend/components/UI/Button'
 import { Icon, LogPanel } from 'frontend/components/UI'
 import HorizontalSelector from 'frontend/components/UI/HorizontalSelector'
@@ -29,7 +23,6 @@ export default function InstallationStep({
   runningSetup
 }: Props) {
   const { t } = useTranslation('gamepage')
-  const [showLogs, setShowLogs] = useState(false)
   const [logContent, setLogContent] = useState('')
   const fetching = useRef(false)
 
@@ -67,31 +60,18 @@ export default function InstallationStep({
           </span>
         </div>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          icon={<Icon glyph={showLogs ? ChevronUp : ChevronDown} size="sm" />}
-          onClick={() => setShowLogs(!showLogs)}
-        >
-          {showLogs
-            ? t('button.hide-logs', 'Hide logs')
-            : t('button.show-logs', 'Show logs')}
-        </Button>
-
-        {showLogs && (
-          <div className="sideloadInstallation__log">
-            {logContent ? (
-              <LogPanel content={logContent} />
-            ) : (
-              <span className="sideloadInstallation__logPlaceholder">
-                {t(
-                  'sideload.install.waiting-log',
-                  'Waiting for installer output…'
-                )}
-              </span>
-            )}
-          </div>
-        )}
+        <div className="sideloadInstallation__log">
+          {logContent ? (
+            <LogPanel content={logContent} />
+          ) : (
+            <span className="sideloadInstallation__logPlaceholder">
+              {t(
+                'sideload.install.waiting-log',
+                'Waiting for installer output…'
+              )}
+            </span>
+          )}
+        </div>
 
         <div className="sideloadInstallation__actions">
           <Button
