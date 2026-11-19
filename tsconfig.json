@@ -22,7 +22,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src/"
   },
-  "include": ["src", "meta/**/*.mts"],
+  "include": ["src", "meta/**/*.mts", "meta/downloadHelperBinaries.ts"],
   "exclude": [
     "vite.config.ts",
     "**/__mocks__/**",
