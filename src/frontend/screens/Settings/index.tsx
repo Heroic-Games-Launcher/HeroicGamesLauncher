@@ -168,59 +168,54 @@ function Settings() {
     return <UpdateComponent />
   }
 
-  const pageTitle = isGeneralSettings
-    ? t('settings.navbar.general', 'General')
-    : isGamesSettings
-      ? t('settings.navbar.games_settings_defaults', 'Game defaults')
-      : isRunnersSettings
-        ? t('settings.navbar.runners', 'Runners')
-        : isGamepadSettings
-          ? t('settings.navbar.gamepad', 'Gamepad')
-          : isAdvancedSetting
-          ? t('settings.navbar.advanced', 'Advanced')
-          : isSystemInfo
-            ? t('settings.navbar.systemInformation', 'System information')
-            : isLogSettings
-              ? t('settings.navbar.log', 'Log')
-              : isImportExport
-                ? t('settings.navbar.importExport', 'Import / Export')
-                : t('settings.navbar.sync', 'Sync')
+  const pageTitles: Record<string, string> = {
+    general: t('settings.navbar.general', 'General'),
+    games_settings: t(
+      'settings.navbar.games_settings_defaults',
+      'Game defaults'
+    ),
+    runners: t('settings.navbar.runners', 'Runners'),
+    gamepad: t('settings.navbar.gamepad', 'Gamepad'),
+    advanced: t('settings.navbar.advanced', 'Advanced'),
+    systeminfo: t('settings.navbar.systemInformation', 'System information'),
+    log: t('settings.navbar.log', 'Log'),
+    importexport: t('settings.navbar.importExport', 'Import / Export'),
+    sync: t('settings.navbar.sync', 'Sync')
+  }
+  const pageTitle = pageTitles[type] ?? pageTitles.sync
 
-  const pageDescription = isGeneralSettings
-    ? t('settings.pageSubtitle.general', 'Configure your launcher preferences')
-    : isGamesSettings
-      ? t(
-          'settings.pageSubtitle.games_settings_defaults',
-          'Defaults applied to newly installed games'
-        )
-      : isRunnersSettings
-        ? t(
-            'settings.pageSubtitle.runners',
-            'Store integrations and runner-specific options'
-          )
-        : isGamepadSettings
-          ? t(
-              'settings.pageSubtitle.gamepad',
-              'Controller navigation, deadzone and button mapping'
-            )
-          : isAdvancedSetting
-          ? t(
-              'settings.pageSubtitle.advanced',
-              'Behaviour, experimental features and maintenance'
-            )
-          : isSystemInfo
-            ? t(
-                'settings.pageSubtitle.systeminfo',
-                'Your hardware and the versions Heroic runs'
-              )
-            : isLogSettings
-              ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
-              : isImportExport
-                ? t(
-                    'settings.pageSubtitle.importExport',
-                    'Back up or restore your Heroic setup'
-                  )
-                : undefined
+  const pageDescriptions: Partial<Record<string, string>> = {
+    general: t(
+      'settings.pageSubtitle.general',
+      'Configure your launcher preferences'
+    ),
+    games_settings: t(
+      'settings.pageSubtitle.games_settings_defaults',
+      'Defaults applied to newly installed games'
+    ),
+    runners: t(
+      'settings.pageSubtitle.runners',
+      'Store integrations and runner-specific options'
+    ),
+    gamepad: t(
+      'settings.pageSubtitle.gamepad',
+      'Controller navigation, deadzone and button mapping'
+    ),
+    advanced: t(
+      'settings.pageSubtitle.advanced',
+      'Behaviour, experimental features and maintenance'
+    ),
+    systeminfo: t(
+      'settings.pageSubtitle.systeminfo',
+      'Your hardware and the versions Heroic runs'
+    ),
+    log: t('settings.pageSubtitle.log', 'Read and share Heroic logs'),
+    importexport: t(
+      'settings.pageSubtitle.importExport',
+      'Back up or restore your Heroic setup'
+    )
+  }
+  const pageDescription = pageDescriptions[type]
 
   const title = t('globalSettings', 'Global settings')
 
