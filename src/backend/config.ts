@@ -393,6 +393,7 @@ class GlobalConfigV0 extends GlobalConfig {
       disableNTSync: false,
       fsr4Upgrade: false,
       dlssUpgrade: false,
+      useOptiScaler: false,
       umuGameId: '',
       disableProtonFixes: false,
       enableWoW64: false,

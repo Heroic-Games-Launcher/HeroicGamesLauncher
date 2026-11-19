@@ -646,7 +646,7 @@
             "in_game_config": "Not all games support this configuration, some have in-game language setting.",
             "valid_codes": "Valid language codes are game-dependant."
         },
-        "gamemode": "GameMode applies temporary system tweaks while the game runs. Most of its CPU-governor work is obsolete on modern kernels, and with umu it often cannot register the game process.",
+        "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "gamescope": {
             "adaptiveSync": "Enable variable refresh rate for the game window when supported by the display.",
             "additionalOptions": "Additional commandline flags to pass into gamescope.",
@@ -697,6 +697,7 @@
             "wineManager": "Wine manager"
         },
         "umuGameId": "UMU uses GAMEID to apply Proton fixes and store metadata. Set this only when the game is missing from the UMU database or the wrong fixes are applied.",
+        "useOptiScaler": "Requires GE-Proton, Proton-CachyOS or umu-protonfixes. Useful on AMD GPUs to run FSR 4 in games that only expose DLSS.",
         "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.",
         "wine": {
             "part1": "Heroic searches for versions of Wine, Proton, and CrossOver in the following folders:",
@@ -1246,8 +1247,8 @@
         "FsrSharpnessStrenght": "FSR sharpness strength",
         "fsync": "Fsync fallback",
         "fsync-description": "Use fsync only when NTSync is unavailable",
-        "gamemode": "GameMode (legacy tweaks)",
-        "gamemode-description": "Legacy CPU/scheduler tweaks for the running game",
+        "gamemode": "Use GameMode (Feral game mode needs to be installed)",
+        "gamemode-description": "Ask the system to prioritise the game while it runs",
         "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
         "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
@@ -1432,6 +1433,8 @@
             "selectExe": "Select EXE"
         },
         "umuGameId": "UMU GAMEID override",
+        "useOptiScaler": "Enable OptiScaler",
+        "useOptiScaler-description": "Inject OptiScaler to remap DLSS, FSR and XeSS upscalers",
         "verboseLogs": {
             "description": "Enable verbose logs",
             "hint": "Record a detailed log on every launch, useful for reporting problems"

@@ -1263,6 +1263,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       ret.PROTON_DLSS_UPGRADE = '1'
       ret.PROTON_STREAMLINE_UPGRADE = '1'
     }
+    if (gameSettings.useOptiScaler) {
+      ret.PROTON_USE_OPTISCALER = '1'
+    }
   }
   if (
     isLinux &&

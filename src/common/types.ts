@@ -283,6 +283,7 @@ export interface GameSettings {
   disableNTSync?: boolean
   fsr4Upgrade?: boolean
   dlssUpgrade?: boolean
+  useOptiScaler?: boolean
   umuGameId?: string
   disableProtonFixes?: boolean
   enableWoW64: boolean

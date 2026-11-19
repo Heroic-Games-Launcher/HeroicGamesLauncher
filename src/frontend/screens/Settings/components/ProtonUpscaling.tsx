@@ -11,6 +11,7 @@ const ProtonUpscaling = () => {
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [fsr4Upgrade, setFsr4Upgrade] = useSetting('fsr4Upgrade', false)
   const [dlssUpgrade, setDlssUpgrade] = useSetting('dlssUpgrade', false)
+  const [useOptiScaler, setUseOptiScaler] = useSetting('useOptiScaler', false)
   const isProtonFork = /GE-Proton|Proton-CachyOS|EM-/i.test(wineVersion.name)
 
   if (platform !== 'linux' || wineVersion.type !== 'proton' || !isProtonFork) {
@@ -45,6 +46,20 @@ const ProtonUpscaling = () => {
         info={t(
           'help.dlssUpgrade',
           'Requires GE-Proton or Proton-CachyOS and an NVIDIA RTX GPU. Valve Proton ignores these variables.'
+        )}
+      />
+      <ToggleSwitch
+        htmlId="useOptiScaler"
+        value={useOptiScaler}
+        handleChange={() => setUseOptiScaler(!useOptiScaler)}
+        title={t('setting.useOptiScaler', 'Enable OptiScaler')}
+        description={t(
+          'setting.useOptiScaler-description',
+          'Inject OptiScaler to remap DLSS, FSR and XeSS upscalers'
+        )}
+        info={t(
+          'help.useOptiScaler',
+          'Requires GE-Proton, Proton-CachyOS or umu-protonfixes. Useful on AMD GPUs to run FSR 4 in games that only expose DLSS.'
         )}
       />
     </>
