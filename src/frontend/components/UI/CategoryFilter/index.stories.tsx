@@ -59,7 +59,11 @@ export const WithCustomCategories: Story = {
     </WithCategories>
   ),
   play: async ({ canvas, userEvent }) => {
-    await userEvent.click(canvas.getByRole('button', { name: 'Categories' }))
+    await expect(
+      canvas.getByLabelText('1 category selected')
+    ).toHaveTextContent('1')
+
+    await userEvent.click(canvas.getByRole('button', { name: /Categories/ }))
 
     await expect(
       canvas.getByRole('button', { name: 'Favourites' })
@@ -78,5 +82,8 @@ export const WithoutCategories: Story = {
   ),
   play: async ({ canvas }) => {
     await expect(canvas.getByText(/No custom categories/)).toBeInTheDocument()
+    await expect(
+      canvas.queryByLabelText(/category selected/)
+    ).not.toBeInTheDocument()
   }
 }

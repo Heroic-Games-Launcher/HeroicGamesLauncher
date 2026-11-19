@@ -3,7 +3,13 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import Dropdown from '../Dropdown'
-import { Button, Chip, FilterSection, Icon } from 'frontend/components/UI'
+import {
+  Button,
+  Chip,
+  CountBadge,
+  FilterSection,
+  Icon
+} from 'frontend/components/UI'
 import { LayoutGrid, ChevronDown } from 'lucide-react'
 import './index.css'
 
@@ -64,6 +70,14 @@ export default function CategoryFilter() {
         <>
           <Icon glyph={LayoutGrid} size="md" />
           <span>{t('header.categories', 'Categories')}</span>
+          <CountBadge
+            count={currentCustomCategories.length}
+            label={t('header.categories_selected', {
+              count: currentCustomCategories.length,
+              defaultValue_one: '{{count}} category selected',
+              defaultValue_other: '{{count}} categories selected'
+            })}
+          />
           <Icon glyph={ChevronDown} size="sm" />
         </>
       }
