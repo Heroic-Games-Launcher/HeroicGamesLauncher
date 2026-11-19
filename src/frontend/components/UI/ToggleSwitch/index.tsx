@@ -52,7 +52,7 @@ export default function ToggleSwitch({
         aria-label={title}
         className="ToggleSwitch__input hiddenCheckbox"
       />
-      <label className="ToggleSwitch__track" htmlFor={htmlId}>
+      <label className="ToggleSwitch__track" htmlFor={htmlId} tabIndex={-1}>
         <span className="ToggleSwitch__thumb" />
       </label>
     </SettingRow>

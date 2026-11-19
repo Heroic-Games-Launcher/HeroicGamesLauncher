@@ -20,6 +20,7 @@ import './index.css'
 
 const TAB_LABELS: Record<SettingsSearchTab, string> = {
   general: 'settings.navbar.general',
+  gamepad: 'settings.navbar.gamepad',
   runners: 'settings.navbar.runners',
   advanced: 'settings.navbar.advanced'
 }

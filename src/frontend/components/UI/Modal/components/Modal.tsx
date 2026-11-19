@@ -3,6 +3,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState
 } from 'react'
 import { Dialog as MuiDialog, IconButton } from '@mui/material'
@@ -39,13 +40,19 @@ export const Modal: React.FC<ModalProps> = ({
   const [open, setOpen] = useState(true)
   const { disableDialogBackdropClose } = useContext(ContextProvider)
 
+  // Captured during the first render, before MUI moves focus into the dialog.
+  const previouslyFocused = useRef<HTMLElement | null>(null)
+  if (previouslyFocused.current === null) {
+    previouslyFocused.current = document.activeElement as HTMLElement | null
+  }
+
   useEffect(() => {
-    // HACK: Focussing the dialog using JS does not seem to work
-    //       Instead, simulate one or two tab presses
-    // One tab to focus the dialog
-    window.api.gamepadAction({ action: 'tab' })
-    // Second tab to skip the close button if it's shown
-    if (showCloseButton) window.api.gamepadAction({ action: 'tab' })
+    // MUI focuses the dialog paper on open; restore the opener on unmount so
+    // the gamepad does not end up with nothing focused.
+    const opener = previouslyFocused.current
+    return () => {
+      if (opener?.isConnected) opener.focus()
+    }
   }, [])
 
   const close = useCallback(() => {

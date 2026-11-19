@@ -7,6 +7,7 @@ import type {
   AppSettings,
   ButtonOptions,
   ConnectivityStatus,
+  ControllerBattery,
   DialogType,
   DiskSpaceData,
   DMQueueElement,
@@ -203,6 +204,7 @@ interface AsyncIPCFunctions {
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
   getMaxCpus: () => number
   getHeroicVersion: () => string
+  getControllerBatteries: () => Promise<ControllerBattery[]>
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>
   getCometVersion: () => Promise<string>

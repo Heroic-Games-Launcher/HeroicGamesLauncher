@@ -2,8 +2,27 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import ContextProvider from 'frontend/state/ContextProvider'
+import {
+  GAMEPAD_MAPPING_CHANGED_EVENT,
+  getMappedButton
+} from 'frontend/helpers/gamepad'
 
 import './index.css'
+
+// glyphs exist for buttons 0-11 only
+const readBoundButtons = () => ({
+  main: getMappedButton('mainAction'),
+  back: getMappedButton('back'),
+  context: getMappedButton('rightClick'),
+  alt: getMappedButton('altAction'),
+  prev: getMappedButton('prevPage'),
+  next: getMappedButton('nextPage')
+})
+
+function ButtonGlyph({ index }: { index: number | null }) {
+  if (index === null || index > 11) return null
+  return <i className="buttonImage" data-button={index} />
+}
 
 export default function ControllerHints() {
   const { activeController } = useContext(ContextProvider)
@@ -20,6 +39,15 @@ export default function ControllerHints() {
 
   const location = useLocation()
   const { t } = useTranslation()
+  const [boundButtons, setBoundButtons] = useState(readBoundButtons)
+
+  useEffect(() => {
+    const refresh = () => setBoundButtons(readBoundButtons())
+    window.addEventListener(GAMEPAD_MAPPING_CHANGED_EVENT, refresh)
+    return () => {
+      window.removeEventListener(GAMEPAD_MAPPING_CHANGED_EVENT, refresh)
+    }
+  }, [])
   const inWebview =
     location.pathname.startsWith('/store/') ||
     location.pathname.startsWith('/loginweb/') ||
@@ -182,32 +210,44 @@ export default function ControllerHints() {
     <div
       className={`controller-hints ${layout}${inWebview ? ' in-webview' : ''}`}
     >
-      <div className="hint">
-        <i className="buttonImage main-action" />
-        {mainActionHint || '–'}
-      </div>
-      <div className="hint">
-        <i className="buttonImage back" />
-        {backActionHint || backActionFallback || '–'}
-      </div>
-      <div className="hint">
-        <i className="buttonImage alt-action" />
-        {altActionHint || '–'}
-      </div>
-      <div className="hint">
-        <i className="buttonImage alt-action2" />
-        {altActionHint2 || '–'}
-      </div>
+      {boundButtons.main !== null && (
+        <div className="hint">
+          <ButtonGlyph index={boundButtons.main} />
+          {mainActionHint || '–'}
+        </div>
+      )}
+      {boundButtons.back !== null && (
+        <div className="hint">
+          <ButtonGlyph index={boundButtons.back} />
+          {backActionHint || backActionFallback || '–'}
+        </div>
+      )}
+      {boundButtons.context !== null && (
+        <div className="hint">
+          <ButtonGlyph index={boundButtons.context} />
+          {altActionHint || '–'}
+        </div>
+      )}
+      {boundButtons.alt !== null && (
+        <div className="hint">
+          <ButtonGlyph index={boundButtons.alt} />
+          {altActionHint2 || '–'}
+        </div>
+      )}
       {inWebview && (
         <>
-          <div className="hint">
-            <i className="buttonImage l1" />
-            {prevPageHint || '–'}
-          </div>
-          <div className="hint">
-            <i className="buttonImage r1" />
-            {nextPageHint || '–'}
-          </div>
+          {boundButtons.prev !== null && (
+            <div className="hint">
+              <ButtonGlyph index={boundButtons.prev} />
+              {prevPageHint || '–'}
+            </div>
+          )}
+          {boundButtons.next !== null && (
+            <div className="hint">
+              <ButtonGlyph index={boundButtons.next} />
+              {nextPageHint || '–'}
+            </div>
+          )}
         </>
       )}
       <div className="hint">

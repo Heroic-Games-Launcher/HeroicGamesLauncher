@@ -44,18 +44,6 @@ export const advancedSearchEntries: SettingsSearchEntry[] = [
     titleKey: 'setting.hide-window-on-protocol-launch'
   },
   {
-    id: 'gamePadDelayRepeat',
-    tab: 'advanced',
-    sectionKey: 'settings.section.controller',
-    titleKey: 'setting.gamepad-initial-repeat-delay'
-  },
-  {
-    id: 'gamePadRepeatRate',
-    tab: 'advanced',
-    sectionKey: 'settings.section.controller',
-    titleKey: 'setting.gamepad-repeat-frequency'
-  },
-  {
     id: 'enableHelp',
     tab: 'advanced',
     sectionKey: 'settings.section.experimental',
