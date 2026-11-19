@@ -20,6 +20,7 @@ import {
   shouldPreserveSavePaths
 } from './cloud_saves/save_path_migrations'
 import { resolveEpicSavePath } from './cloud_saves/epic_resolver'
+import { resolveWindowsPathInPrefix } from './cloud_saves/prefix_paths'
 import { LegendaryUser } from './storeManagers/legendary/user'
 import { parseLegendaryOutput } from './cloud_saves/parse'
 import { isAbsolute } from 'path'
@@ -267,10 +268,12 @@ async function resolveGogSaveLocations(
     // Get all GOG-defined variables out of the path & resolve them
     const matches = location.location.matchAll(/<\?(\w+)\?>/g)
     let locationWithVariablesRemoved = location.location
+    let hasUnknownVariables = false
     for (const match of matches) {
       const matchedText = match[0]
       const variableName = match[1]
       if (!gogVariableMap[variableName]) {
+        hasUnknownVariables = true
         logWarning(
           [
             'Unknown save path variable:',
@@ -287,6 +290,15 @@ async function resolveGogSaveLocations(
       )
     }
 
+    if (hasUnknownVariables) {
+      incomplete = true
+      resolvedLocations.push({
+        name: location.name,
+        location: potAlreadyDefinedLocation?.location ?? ''
+      })
+      continue
+    }
+
     // Path now contains no more GOG-defined variables, but might
     // still contain Windows (%NAME%) or Unix ($NAME) ones
     let absolutePath: string
@@ -297,6 +309,30 @@ async function resolveGogSaveLocations(
       })
       // Wine already resolves symlinks and ./.. for us,
       // so no need to run `realpathSync` here
+      if (!absolutePath) {
+        try {
+          absolutePath =
+            resolveWindowsPathInPrefix(
+              locationWithVariablesRemoved,
+              gameSettings.winePrefix
+            ) ?? ''
+        } catch (error) {
+          logWarning(
+            ['Failed to resolve save location in the wine prefix', `${error}`],
+            LogPrefix.Gog
+          )
+        }
+        if (absolutePath) {
+          logInfo(
+            [
+              'Resolved save location from the wine prefix',
+              location.name,
+              absolutePath
+            ],
+            LogPrefix.Gog
+          )
+        }
+      }
     } else {
       absolutePath = await getShellPath(locationWithVariablesRemoved)
       if (existsSync(absolutePath)) {
@@ -324,6 +360,10 @@ async function resolveGogSaveLocations(
       continue
     }
 
+    logInfo(
+      ['Resolved save location', location.name, absolutePath],
+      LogPrefix.Gog
+    )
     resolvedLocations.push({
       name: location.name,
       location: absolutePath
@@ -404,7 +444,7 @@ async function detectAndPersistSavePaths(
       }
 
       if (cancelledPathDetections.delete(detectionKey)) {
-        return { paths: locations, updated: false }
+        return { paths: locations, updated: false, cancelled: true }
       }
 
       await migrateSavePaths(appName, runner, locations)
@@ -420,7 +460,7 @@ async function detectAndPersistSavePaths(
     }
 
     if (cancelledPathDetections.delete(detectionKey)) {
-      return { paths: path, updated: false }
+      return { paths: path, updated: false, cancelled: true }
     }
 
     await migrateSavePaths(appName, runner, path)

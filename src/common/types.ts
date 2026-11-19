@@ -433,6 +433,7 @@ export interface CloudSyncResult {
 export interface DetectSavePathsResult {
   paths: string | GOGCloudSavesLocation[]
   updated: boolean
+  cancelled?: boolean
 }
 
 export interface SaveBackupEntry {

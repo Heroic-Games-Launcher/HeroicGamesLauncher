@@ -63,6 +63,7 @@ import { download, isInstalled } from './wine/runtimes/runtimes'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
+import { extractWinePath } from './cloud_saves/wine_path_output'
 import { copyFile } from 'fs/promises'
 import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
@@ -1961,16 +1962,9 @@ async function getWinePath({
     ignoreLogging: true
   })
 
-  // umu-appended status can end up glued to the path on stdout
-  const result = stdout
-    .trim()
-    .replace(/\s*Command exited with status: \d+$/, '')
-  const isValid =
-    variant === 'unix'
-      ? isAbsolute(result) && !result.includes('\n')
-      : /^(?:[a-zA-Z]:[\\/]|\\\\)/.test(result)
+  const result = extractWinePath(stdout, variant)
 
-  if (!result || !isValid) {
+  if (!result) {
     logError(
       `Couldn't get wine path for ${path}.\n${stderr}`,
       LogPrefix.Backend

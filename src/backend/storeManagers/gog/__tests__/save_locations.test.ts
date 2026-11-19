@@ -39,6 +39,44 @@ describe('parseGOGCloudStorage', () => {
   })
 })
 
+describe('parseGOGCloudStorage (Spec Ops: The Line)', () => {
+  test('keeps the documents based save location', () => {
+    const specOps = {
+      content: {
+        Windows: {
+          overlay: { supported: true },
+          cloudStorage: {
+            enabled: true,
+            locations: [
+              {
+                name: 'saves',
+                location:
+                  '<?DOCUMENTS?>/My Games/SpecOps-TheLine/SRGame/SaveData'
+              }
+            ]
+          }
+        },
+        MacOS: {
+          overlay: { supported: false },
+          cloudStorage: { enabled: false, locations: [] }
+        },
+        cloudStorage: { quota: 0 },
+        bases: []
+      }
+    } as unknown as GOGClientsResponse
+
+    expect(parseGOGCloudStorage(specOps, 'Windows')).toEqual({
+      enabled: true,
+      locations: [
+        {
+          name: 'saves',
+          location: '<?DOCUMENTS?>/My Games/SpecOps-TheLine/SRGame/SaveData'
+        }
+      ]
+    })
+  })
+})
+
 describe('clientIdFromManifest', () => {
   test('only accepts gogdl v2 manifests', () => {
     expect(clientIdFromManifest({ version: 2, clientId: 'abc' })).toBe('abc')
