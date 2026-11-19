@@ -99,7 +99,8 @@
         "play": "ИГРАТЬ",
         "edit-game": "Редактировать игру",
         "favourite": "Добавить в избранное",
-        "unfavourite": "Удалить из избранного"
+        "unfavourite": "Удалить из избранного",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Не поддерживается",
     "disabled": "Выключено",
@@ -136,7 +137,11 @@
         "extra_info": "Дополнительная информация",
         "install_info": "Информация об установке",
         "achievements": "Достижения",
-        "details": "Детали игры"
+        "details": "Детали игры",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "О программе"
     },
     "gamecard": {
         "moving": "Перемещение",
@@ -169,8 +174,13 @@
         "third-party-app": "Сторонний менеджер",
         "genres": "Жанры",
         "steamdeck": {
-            "unsupported": "Не поддерживается"
-        }
+            "unsupported": "Не поддерживается",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Свободное место",
@@ -200,7 +210,8 @@
         "playing": {
             "start": "Начать игру",
             "stop": "Игра запущена (Остановить)",
-            "start_with_logs": "Играть сейчас (с логами)"
+            "start_with_logs": "Играть сейчас (с логами)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Синхронизация сохранений"
@@ -290,7 +301,9 @@
     },
     "specs": {
         "minimum": "Минимальные",
-        "recommended": "Рекомендованные"
+        "recommended": "Рекомендованные",
+        "notes": "Заметки",
+        "other": "Другое"
     },
     "status": {
         "clickToUpdate": "Нажмите, чтобы обновить",
@@ -338,7 +351,8 @@
         "verify": "Проверить и восстановить",
         "extraInfo": "Дополнительная информация",
         "logs": "Журналы",
-        "categories": "Категории"
+        "categories": "Категории",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Эта игра не поддерживает облачные сохранения. Эта информация предоставлена разработчиками игры. В некоторых играх реализована собственная система облачных сохранений",
@@ -391,5 +405,19 @@
         },
         "square": "Квадратная обложка",
         "title": "Редактировать игру"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Достижения",
+            "dlc": "DLC",
+            "installInfo": "Размер загрузки",
+            "launchOptions": "Параметры запуска",
+            "storeInfo": "Информация о системе"
+        }
     }
 }

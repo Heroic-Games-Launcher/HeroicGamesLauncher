@@ -10,7 +10,8 @@
         "move": {
             "message": "To może zająć dłuższą chwilę, jesteś pewien?",
             "path": "Wybierz gdzie chcesz przenieść",
-            "title": "Przenieś pliki gry"
+            "title": "Przenieś pliki gry",
+            "steamMessage": "Aby przenieść tę grę na inny dysk, uruchomimy Menedżer pamięci Steama. Heroic odświeży dane, gdy proces się zakończy."
         },
         "no": "NIE",
         "repair": {
@@ -96,11 +97,12 @@
         "changelog": "Pokaż listę zmian",
         "browse_files": "Przeglądaj pliki",
         "browse_wine_prefix": "Przeglądaj prefiks Wine",
-        "play": "GRAJ",
+        "play": "Graj",
         "edit-game": "Edytuj grę",
         "favourite": "Dodaj do ulubionych",
         "unfavourite": "Usuń z ulubionych",
-        "backToLibrary": "Wróć do biblioteki"
+        "backToLibrary": "Wróć do biblioteki",
+        "steamStore": "Otwórz stronę na Steamie"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -138,7 +140,7 @@
         "install_info": "Informacje o instalacji",
         "achievements": "Osiągnięcia",
         "details": "Szczegóły gry",
-        "about": "O tej grze",
+        "about": "O grze",
         "hoursPlayedShort": "{{hours}} godz.",
         "overview": "Przegląd",
         "tabs": "Informacje dot. gry"
@@ -179,7 +181,13 @@
             "unknown": "Nieznana",
             "verified": "Zweryfikowana"
         },
-        "developer": "Producent"
+        "developer": "Producent",
+        "dlcs": "DLC",
+        "dlc": {
+            "disabled": "Wyłączone — kliknij, aby włączyć",
+            "enabled": "Aktywne — kliknij, aby wyłączyć",
+            "notBought": "Nie posiadasz"
+        }
     },
     "install": {
         "disk-space-left": "Dostępne miejsce",
@@ -199,7 +207,10 @@
             "disabled_installation": "Ta gra używa systemu antycheat, który jest niekompatybilny z twoim systemem operacyjnym, lub twórcy nie włączyli dla niego wsparcia. Oznacza to, że funkcje wieloosobowe nie będą działać i nikt (ani ty, ani zespół Heroic) nie jest w stanie nic z tym zrobić.<br /><br />Aby mimo tego zainstalować tę grę, przejdź do Ustawienia, Zaawansowane i zaznacz opcję zezwalania na instalowanie gier z uszkodzonym lub niedostępnym antycheatem.<br /><br />Uwaga: nie ma na to żadnego rozwiązania i będziesz ryzykować otrzymaniem bana w grze.",
             "multiplayer_message": "Wsparcie antycheata nie działa lub jest zablokowane. Gra może się uruchomić ale funkcje wieloosobowe mogą nie działać. Czy chcesz zainstalować?"
         },
-        "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
+        "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych.",
+        "free": "darmowe",
+        "steam-no-libraries": "Nie znaleziono folderów biblioteki Steama — najpierw dodaj dysk na Steamie.",
+        "steam-path": "Ścieżka instalacji (biblioteka Steam)"
     },
     "label": {
         "game": {
@@ -246,7 +257,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "zoptymalizowanej do działania poprzez program Heroic, ponieważ nowe wersje Steam nie będą działać na macOS."
         },
-        "releaseDate": "Data wydania"
+        "releaseDate": "Data wydania",
+        "steam-family-share": "Udostępnianie rodzinne Steama"
     },
     "launch": {
         "options": "Opcje uruchamiania...",
@@ -300,7 +312,9 @@
     },
     "specs": {
         "minimum": "Minimalne",
-        "recommended": "Zalecane"
+        "recommended": "Zalecane",
+        "notes": "Notatki",
+        "other": "Inne"
     },
     "status": {
         "clickToUpdate": "Kliknij, by zaktualizować",
@@ -406,6 +420,20 @@
     "itchio": {
         "import": {
             "warning": "Foldery instalowane przez aplikację itch.io są importowane w całości (włącznie z aktualizacjami). W innych przypadkach Heroic nie może sprawdzać dostępności aktualizacji i odinstalowanie nie spowoduje usunięcia plików gry."
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "osiągnięcia",
+            "dlc": "DLC",
+            "installInfo": "rozmiar pobierania",
+            "launchOptions": "opcje uruchamiania",
+            "storeInfo": "informacje ze sklepu"
+        },
+        "loggedOut": {
+            "failed": "Nie udało się odnaleźć danych {{data}}.",
+            "message": "Funkcje online mogą nie działać.",
+            "title": "Nie zalogowano się kontem Steam do Heroic"
         }
     }
 }

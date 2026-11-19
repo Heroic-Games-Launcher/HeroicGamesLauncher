@@ -32,5 +32,34 @@
     "sid": {
         "paste_and_login": "Wklej ze schowka i zaloguj się",
         "placeholder": "Wklej tutaj kod SID"
+    },
+    "steam": {
+        "accountName": "Zaloguj się nazwą konta",
+        "error": "Nie udało się zalogować. Sprawdź swoje dane logowania i kod Steam Guard.",
+        "guard": {
+            "device": "Wprowadź swój kod Steam Guard",
+            "deviceConfirmation": "Zaakceptuj to logowanie w aplikacji mobilnej Steam.",
+            "email": "Wprowadź kod wysłany na Twojego e-maila",
+            "placeholder": "Kod Steam Guard"
+        },
+        "notice": {
+            "agree": "Zgadzam się",
+            "text": "Aby użyć tej funkcji, należy zainstalować klienta Steam.\n\nWsparcie dla Steam jest nowe, więc część gier może się nie uruchamiać (dotyczy to również gier od Valve, np. Half-Life 2).\n\nGry online mogą wymagać uruchomionego klienta Steam, a gry z antycheatem prawdopodobnie nie będą działać wcale.\n\nProsimy zgłaszać napotkane problemy na Discordzie lub GitHubie.",
+            "title": "Uwaga"
+        },
+        "password": "Hasło",
+        "qr": {
+            "caption": "Aby zalogować się kodem QR, użyj aplikacji Steam",
+            "denied": "Odrzucono próbę logowania w aplikacji mobilnej Steam.",
+            "error": "Nie udało się zalogować kodem QR. Spróbuj ponownie.",
+            "expired": "Kod QR wygasł, zanim go zaakceptowano. Spróbuj ponownie.",
+            "offline": "Nie udało się połączyć ze Steam. Sprawdź swoje połączenie z Internetem.",
+            "scanned": "Zeskanowano — zatwierdź logowanie w swojej aplikacji Steam.",
+            "title": "Lub zaloguj się kodem QR"
+        },
+        "signingIn": "Logowanie…",
+        "submitCode": "Prześlij kod",
+        "username": "Nazwa użytkownika",
+        "welcome": "Zaloguj się do Steam"
     }
 }

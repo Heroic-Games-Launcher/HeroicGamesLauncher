@@ -67,7 +67,6 @@ export default function CategoryFilter() {
           <Icon glyph={ChevronDown} size="sm" />
         </>
       }
-      popUpOnHover
     >
       <FilterSection>
         {categoriesList.length === 0 && (

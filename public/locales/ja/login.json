@@ -23,5 +23,14 @@
         "error": "エラー",
         "loading": "ゲームリストを読み込んでいます、お待ちください"
     },
-    "welcome": "ようこそ!"
+    "welcome": "ようこそ!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

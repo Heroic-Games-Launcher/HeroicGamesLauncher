@@ -1,0 +1,64 @@
+.LogPanel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.LogPanel__hint {
+  font-style: italic;
+  color: var(--text-log);
+}
+
+.LogPanel__wrapper {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.LogPanel__box {
+  display: block;
+  height: 100%;
+  overflow: auto;
+  user-select: text;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding-block: 4px;
+  padding-inline: 6px;
+}
+
+.LogPanel__line {
+  text-align: start;
+  margin-block: 0;
+  min-height: 1em;
+  height: max-content;
+  white-space: pre;
+  font-family: monospace;
+}
+
+.LogPanel__line.is-error {
+  color: #c18672;
+}
+
+.LogPanel__line.is-warning {
+  color: var(--text-log);
+}
+
+.LogPanel__line.is-info {
+  color: rgb(175, 172, 172);
+}
+
+.LogPanel__jump {
+  position: absolute;
+  z-index: 1;
+  inset-block-end: var(--space-sm-fixed);
+  inset-inline-end: var(--space-md-fixed);
+  opacity: 0.85;
+}
+
+.LogPanel__jump:hover,
+.LogPanel__jump:focus-visible {
+  opacity: 1;
+}

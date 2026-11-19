@@ -8,7 +8,7 @@ import {
   LaunchOption
 } from 'common/types'
 import { SteamDLCInfo, SteamInstallInfo } from 'common/types/steam'
-import { LibraryManager } from 'common/types/game_manager'
+import { LibraryManager, RunnerBackupPaths } from 'common/types/game_manager'
 import {
   getRunnerLogWriter,
   logDebug,
@@ -475,5 +475,14 @@ export default class SteamLibraryManager implements LibraryManager {
         level: 'warning'
       }
     )
+  }
+
+  getBackupPaths(): RunnerBackupPaths {
+    // Steam accounts and installs are owned by the Steam client, so there is
+    // nothing Heroic-specific to carry between machines.
+    return {
+      credentials: [],
+      libraryCache: []
+    }
   }
 }

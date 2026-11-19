@@ -7,14 +7,18 @@ import { useTranslation } from 'react-i18next'
 
 import ContextMenu from '../Library/components/ContextMenu'
 import SettingsContext from './SettingsContext'
+import SettingsSearch from './components/SettingsSearch'
+import type { ResolvedSettingsSearchEntry } from './search'
 import LogSettings from './sections/LogSettings'
 import FooterInfo from './sections/FooterInfo'
 import {
   GeneralSettings,
   GamesSettings,
+  RunnersSettings,
   SyncSaves,
   AdvancedSettings,
-  SystemInfo
+  SystemInfo,
+  ImportExportSettings
 } from './sections'
 import { AppSettings } from 'common/types'
 import {
@@ -29,6 +33,8 @@ import type { NavListItem } from 'frontend/components/UI/NavList'
 import type { TabItem } from 'frontend/components/UI/Tabs'
 import useMediaQuery from 'frontend/hooks/useMediaQuery'
 import {
+  ArchiveRestore,
+  Boxes,
   Copy,
   FileText,
   Gamepad2,
@@ -52,6 +58,8 @@ function Settings() {
   const [currentConfig, setCurrentConfig] =
     useState<Partial<AppSettings> | null>(null)
   const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
+  const [searchTarget, setSearchTarget] =
+    useState<ResolvedSettingsSearchEntry | null>(null)
 
   useEffect(() => {
     if (!isCopiedToClipboard) return
@@ -64,9 +72,60 @@ function Settings() {
   const isGeneralSettings = type === 'general'
   const isSyncSettings = type === 'sync'
   const isGamesSettings = type === 'games_settings'
+  const isRunnersSettings = type === 'runners'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
+  const isImportExport = type === 'importexport'
+  const showSettingsSearch =
+    isGeneralSettings || isRunnersSettings || isAdvancedSetting
+
+  useEffect(() => {
+    if (!searchTarget || type !== searchTarget.tab) return
+
+    const timeout = window.setTimeout(() => {
+      const rowSelector =
+        '.SettingRow, .selectFieldWrapper, .Field, .customCSSField, .SettingsCard'
+      const control = searchTarget.id
+        ? document.getElementById(searchTarget.id)
+        : null
+      let row = control?.closest<HTMLElement>(rowSelector)
+
+      if (!row) {
+        const title = t(searchTarget.titleKey).trim()
+        const label = Array.from(
+          document.querySelectorAll<HTMLElement>(
+            '.SettingRow__label, .selectFieldWrapper > label, .customCSSLabel, .SettingsCard__title'
+          )
+        ).find((element) => element.textContent?.trim() === title)
+        row = label?.closest<HTMLElement>(rowSelector)
+      }
+
+      if (row) {
+        row.scrollIntoView({
+          block: 'center',
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+            .matches
+            ? 'auto'
+            : 'smooth'
+        })
+        row.classList.add('SettingsSearchTarget')
+        const focusable =
+          row.querySelector<HTMLElement>('[role="combobox"]') ??
+          control ??
+          row.querySelector<HTMLElement>('input, select, textarea, button')
+        focusable?.focus({ preventScroll: true })
+        window.setTimeout(
+          () => row?.classList.remove('SettingsSearchTarget'),
+          2000
+        )
+      }
+
+      setSearchTarget(null)
+    }, 60)
+
+    return () => window.clearTimeout(timeout)
+  }, [searchTarget, type, t])
 
   // TODO: Adding this comment translation here for now to not lose the
   // translation. This should be removed from here when the help is added
@@ -107,13 +166,17 @@ function Settings() {
     ? t('settings.navbar.general', 'General')
     : isGamesSettings
       ? t('settings.navbar.games_settings_defaults', 'Game defaults')
-      : isAdvancedSetting
-        ? t('settings.navbar.advanced', 'Advanced')
-        : isSystemInfo
-          ? t('settings.navbar.systemInformation', 'System information')
-          : isLogSettings
-            ? t('settings.navbar.log', 'Log')
-            : t('settings.navbar.sync', 'Sync')
+      : isRunnersSettings
+        ? t('settings.navbar.runners', 'Runners')
+        : isAdvancedSetting
+          ? t('settings.navbar.advanced', 'Advanced')
+          : isSystemInfo
+            ? t('settings.navbar.systemInformation', 'System information')
+            : isLogSettings
+              ? t('settings.navbar.log', 'Log')
+              : isImportExport
+                ? t('settings.navbar.importExport', 'Import / Export')
+                : t('settings.navbar.sync', 'Sync')
 
   const pageDescription = isGeneralSettings
     ? t('settings.pageSubtitle.general', 'Configure your launcher preferences')
@@ -122,19 +185,29 @@ function Settings() {
           'settings.pageSubtitle.games_settings_defaults',
           'Defaults applied to newly installed games'
         )
-      : isAdvancedSetting
+      : isRunnersSettings
         ? t(
-            'settings.pageSubtitle.advanced',
-            'Binaries, experimental features and maintenance'
+            'settings.pageSubtitle.runners',
+            'Store integrations and runner-specific options'
           )
-        : isSystemInfo
+        : isAdvancedSetting
           ? t(
-              'settings.pageSubtitle.systeminfo',
-              'Your hardware and the versions Heroic runs'
+              'settings.pageSubtitle.advanced',
+              'Behaviour, experimental features and maintenance'
             )
-          : isLogSettings
-            ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
-            : undefined
+          : isSystemInfo
+            ? t(
+                'settings.pageSubtitle.systeminfo',
+                'Your hardware and the versions Heroic runs'
+              )
+            : isLogSettings
+              ? t('settings.pageSubtitle.log', 'Read and share Heroic logs')
+              : isImportExport
+                ? t(
+                    'settings.pageSubtitle.importExport',
+                    'Back up or restore your Heroic setup'
+                  )
+                : undefined
 
   const title = t('globalSettings', 'Global settings')
 
@@ -157,6 +230,11 @@ function Settings() {
           }
         ]),
     {
+      value: 'runners',
+      label: t('settings.navbar.runners', 'Runners'),
+      glyph: Boxes
+    },
+    {
       value: 'advanced',
       label: t('settings.navbar.advanced', 'Advanced'),
       glyph: Wrench
@@ -170,6 +248,11 @@ function Settings() {
       value: 'log',
       label: t('settings.navbar.log', 'Log'),
       glyph: FileText
+    },
+    {
+      value: 'importexport',
+      label: t('settings.navbar.importExport', 'Import / Export'),
+      glyph: ArchiveRestore
     }
   ]
 
@@ -178,6 +261,13 @@ function Settings() {
     label,
     glyph
   }))
+
+  const handleSearchSelect = (entry: ResolvedSettingsSearchEntry) => {
+    setSearchTarget(entry)
+    if (entry.tab !== type) {
+      navigate(`/settings/${entry.tab}`)
+    }
+  }
 
   const copySettingsToClipboard = () => {
     if (isSystemInfo) {
@@ -190,7 +280,7 @@ function Settings() {
     setCopiedToClipboard(true)
   }
 
-  const copyButton = (
+  const systemInfoCopyButton = (
     <Button
       variant={isCopiedToClipboard ? 'primary' : 'ghost'}
       size="sm"
@@ -199,11 +289,15 @@ function Settings() {
     >
       {isCopiedToClipboard
         ? t('settings.copiedToClipboard', 'Copied to clipboard!')
-        : isSystemInfo
-          ? t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')
-          : t('settings.copyToClipboard', 'Copy all settings to clipboard')}
+        : t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')}
     </Button>
   )
+
+  const settingsSearchRow = showSettingsSearch ? (
+    <div className="settingsSearchRow">
+      <SettingsSearch onSelect={handleSearchSelect} />
+    </div>
+  ) : null
 
   return (
     <ContextMenu
@@ -237,32 +331,45 @@ function Settings() {
               title={pageTitle}
               description={pageDescription}
               className="headerTitle"
-              actions={!isLogSettings ? copyButton : undefined}
+              actions={isSystemInfo ? systemInfoCopyButton : undefined}
             />
 
             <div className="settingsLayout">
-              {isNarrow ? (
-                <Tabs
-                  items={sections}
-                  value={type}
-                  onChange={(value) => navigate(`/settings/${value}`)}
-                  aria-label={t('Settings', 'Settings')}
-                  className="settingsNav settingsNav--tabs"
-                />
-              ) : (
-                <NavList
-                  items={navItems}
-                  className="settingsNav"
-                  aria-label={t('Settings', 'Settings')}
-                />
-              )}
+              <div className="settingsSidebar">
+                {isNarrow ? (
+                  <>
+                    <Tabs
+                      items={sections}
+                      value={type}
+                      onChange={(value) => navigate(`/settings/${value}`)}
+                      aria-label={t('Settings', 'Settings')}
+                      className="settingsNav settingsNav--tabs"
+                    />
+                    {settingsSearchRow}
+                  </>
+                ) : (
+                  <NavList
+                    items={navItems}
+                    className="settingsNav"
+                    aria-label={t('Settings', 'Settings')}
+                  />
+                )}
+              </div>
               <div className="settingsPane">
+                {!isNarrow && settingsSearchRow}
                 {isGeneralSettings && <GeneralSettings />}
                 {isGamesSettings && <GamesSettings />}
+                {isRunnersSettings && <RunnersSettings />}
                 {isSyncSettings && <SyncSaves />}
-                {isAdvancedSetting && <AdvancedSettings />}
+                {isAdvancedSetting && (
+                  <AdvancedSettings
+                    copiedToClipboard={isCopiedToClipboard}
+                    onCopySettings={copySettingsToClipboard}
+                  />
+                )}
                 {isLogSettings && <LogSettings />}
                 {isSystemInfo && <SystemInfo />}
+                {isImportExport && <ImportExportSettings />}
                 <FooterInfo />
               </div>
             </div>
