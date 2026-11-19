@@ -298,6 +298,7 @@ export interface GameSettings {
   wrapperOptions: WrapperVariable[]
   savesPath: string
   savesPathFingerprint?: string
+  savePathIsCustom?: boolean
   gogSaves?: GOGCloudSavesLocation[]
   beforeLaunchScriptPath: string
   afterLaunchScriptPath: string

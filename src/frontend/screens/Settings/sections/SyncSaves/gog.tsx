@@ -22,6 +22,7 @@ interface Props {
   savePathFingerprint: string
   savesPathFingerprint: string
   setSavesPathFingerprint: (value: string) => void
+  setSavePathIsCustom: (value: boolean) => void
   autoSyncSaves: boolean
   setAutoSyncSaves: (value: boolean) => void
   syncCommands: { name: string; value: string }[]
@@ -35,6 +36,7 @@ export default function GOGSyncSaves({
   savePathFingerprint,
   savesPathFingerprint,
   setSavesPathFingerprint,
+  setSavePathIsCustom,
   autoSyncSaves,
   setAutoSyncSaves,
   syncCommands,
@@ -65,6 +67,7 @@ export default function GOGSyncSaves({
 
       if (legacy && gogSaves.some((save) => save.location.length)) {
         setSavesPathFingerprint(savePathFingerprint)
+        setSavePathIsCustom(true)
         setIsLoading(false)
         return
       }
@@ -81,6 +84,7 @@ export default function GOGSyncSaves({
 
         if (result.updated) {
           setGogSaves(result.paths as GOGCloudSavesLocation[])
+          setSavePathIsCustom(false)
         } else if (gogSaves.length === 0) {
           setGogSaves([{ name: '__default', location: '' }])
         }
@@ -180,6 +184,7 @@ export default function GOGSyncSaves({
                     location: path
                   }
                   setGogSaves(saves)
+                  setSavePathIsCustom(true)
                 }}
                 pathDialogTitle={t('box.sync.title')}
                 label={value.name}

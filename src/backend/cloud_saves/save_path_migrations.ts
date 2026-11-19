@@ -1,6 +1,14 @@
 import type { GameSettings, Runner } from 'common/types'
 import type { GOGCloudSavesLocation } from 'common/types/gog'
 
+export const shouldPreserveSavePaths = (
+  settings: Pick<GameSettings, 'savePathIsCustom' | 'savesPathFingerprint'>,
+  fingerprint: string
+): boolean =>
+  Boolean(
+    settings.savePathIsCustom && settings.savesPathFingerprint !== fingerprint
+  )
+
 export const getSavePathMigrations = (
   runner: Runner,
   settings: GameSettings,

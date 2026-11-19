@@ -26,6 +26,7 @@ interface Props {
   savePathFingerprint: string
   savesPathFingerprint: string
   setSavesPathFingerprint: (value: string) => void
+  setSavePathIsCustom: (value: boolean) => void
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
 }
@@ -40,6 +41,7 @@ export default function LegendarySyncSaves({
   savePathFingerprint,
   savesPathFingerprint,
   setSavesPathFingerprint,
+  setSavePathIsCustom,
   syncCommands,
   featureSupported
 }: Props) {
@@ -60,6 +62,7 @@ export default function LegendarySyncSaves({
       const stale = !legacy && savesPathFingerprint !== savePathFingerprint
       if (legacy && savesPath.length) {
         setSavesPathFingerprint(savePathFingerprint)
+        setSavePathIsCustom(true)
         return
       }
       if (!legacy && !stale && savesPath.length && retry === 0) {
@@ -72,6 +75,7 @@ export default function LegendarySyncSaves({
 
         if (result.updated && newSavePath) {
           setSavesPath(newSavePath)
+          setSavePathIsCustom(false)
         }
       } catch (error) {
         window.api.logError(
@@ -141,7 +145,10 @@ export default function LegendarySyncSaves({
             <PathSelectionBox
               htmlId="inputSavePath"
               type="directory"
-              onPathChange={setSavesPath}
+              onPathChange={(path) => {
+                setSavesPath(path)
+                setSavePathIsCustom(true)
+              }}
               path={savesPath}
               placeholder={t('setting.savefolder.placeholder')}
               pathDialogTitle={t('box.sync.title')}

@@ -28,6 +28,7 @@ const SyncSaves = () => {
     'savesPathFingerprint',
     ''
   )
+  const [, setSavePathIsCustom] = useSetting('savePathIsCustom', false)
 
   const savePathFingerprint = gameInfo
     ? getSavePathFingerprint(
@@ -58,6 +59,7 @@ const SyncSaves = () => {
           savePathFingerprint={savePathFingerprint}
           savesPathFingerprint={savesPathFingerprint}
           setSavesPathFingerprint={setSavesPathFingerprint}
+          setSavePathIsCustom={setSavePathIsCustom}
           syncCommands={syncCommands}
         />
         {gameInfo?.cloud_save_enabled ? <Backups runner="legendary" /> : null}
@@ -80,6 +82,7 @@ const SyncSaves = () => {
           savePathFingerprint={savePathFingerprint}
           savesPathFingerprint={savesPathFingerprint}
           setSavesPathFingerprint={setSavesPathFingerprint}
+          setSavePathIsCustom={setSavePathIsCustom}
           autoSyncSaves={autoSyncSaves}
           setAutoSyncSaves={setAutoSyncSaves}
           syncCommands={syncCommands}

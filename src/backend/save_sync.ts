@@ -15,7 +15,10 @@ import { getShellPath } from './utils'
 import { GameConfig } from './game_config'
 import { getSavePathFingerprint } from './cloud_saves/fingerprint'
 import { copyMissingSaveFiles } from './cloud_saves/migrate'
-import { getSavePathMigrations } from './cloud_saves/save_path_migrations'
+import {
+  getSavePathMigrations,
+  shouldPreserveSavePaths
+} from './cloud_saves/save_path_migrations'
 import { resolveEpicSavePath } from './cloud_saves/epic_resolver'
 import { LegendaryUser } from './storeManagers/legendary/user'
 import { parseLegendaryOutput } from './cloud_saves/parse'
@@ -407,6 +410,7 @@ async function detectAndPersistSavePaths(
       await migrateSavePaths(appName, runner, locations)
       gameConfig.setSetting('gogSaves', locations)
       gameConfig.setSetting('savesPathFingerprint', fingerprint)
+      gameConfig.setSetting('savePathIsCustom', false)
       return { paths: locations, updated: true }
     }
 
@@ -422,6 +426,7 @@ async function detectAndPersistSavePaths(
     await migrateSavePaths(appName, runner, path)
     gameConfig.setSetting('savesPath', path)
     gameConfig.setSetting('savesPathFingerprint', fingerprint)
+    gameConfig.setSetting('savePathIsCustom', false)
     return { paths: path, updated: true }
   } catch (error) {
     cancelledPathDetections.delete(detectionKey)
@@ -465,6 +470,7 @@ async function refreshSavePathsIfConfigurationChanged(
   // it is usable, otherwise let the detection below try to resolve it.
   if (!settings.savesPathFingerprint && usable) {
     gameConfig.setSetting('savesPathFingerprint', fingerprint)
+    gameConfig.setSetting('savePathIsCustom', true)
     logInfo(
       ['Adopted the current save path configuration for', appName],
       LogPrefix.Backend
@@ -473,6 +479,19 @@ async function refreshSavePathsIfConfigurationChanged(
   }
 
   if (settings.savesPathFingerprint === fingerprint) {
+    return false
+  }
+
+  if (shouldPreserveSavePaths(settings, fingerprint)) {
+    gameConfig.setSetting('savesPathFingerprint', fingerprint)
+    logInfo(
+      [
+        'Preserved custom save paths for',
+        appName,
+        'after configuration change'
+      ],
+      LogPrefix.Backend
+    )
     return false
   }
 

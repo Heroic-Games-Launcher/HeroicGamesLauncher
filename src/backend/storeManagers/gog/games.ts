@@ -106,6 +106,10 @@ const promptGogSaveConflict = async (
       'The cloud and local saves for {{game}} have diverged. Choose which copy to keep.',
       { game: title }
     ),
+    detail: t(
+      'box.saveConflict.detail',
+      "Using this PC's saves will permanently replace the cloud copy. Cloud saves are not included in local backups."
+    ),
     buttons: [
       t('box.saveConflict.keepCloud', 'Use cloud saves'),
       t('box.saveConflict.keepLocal', "Use this PC's saves"),

@@ -9,7 +9,10 @@ import { tmpdir } from 'os'
 import { join } from 'path'
 
 import { copyMissingSaveFiles } from '../migrate'
-import { getSavePathMigrations } from '../save_path_migrations'
+import {
+  getSavePathMigrations,
+  shouldPreserveSavePaths
+} from '../save_path_migrations'
 
 const directories: string[] = []
 
@@ -100,5 +103,31 @@ describe('getSavePathMigrations', () => {
   test('does nothing when there is no previous configuration', () => {
     expect(getSavePathMigrations('legendary', {} as never, '/new')).toEqual([])
     expect(getSavePathMigrations('gog', {} as never, [])).toEqual([])
+  })
+})
+
+describe('shouldPreserveSavePaths', () => {
+  test('preserves a custom configuration after it becomes stale', () => {
+    expect(
+      shouldPreserveSavePaths(
+        { savePathIsCustom: true, savesPathFingerprint: 'old' },
+        'new'
+      )
+    ).toBe(true)
+  })
+
+  test('does not preserve automatically detected or current paths', () => {
+    expect(
+      shouldPreserveSavePaths(
+        { savePathIsCustom: false, savesPathFingerprint: 'old' },
+        'new'
+      )
+    ).toBe(false)
+    expect(
+      shouldPreserveSavePaths(
+        { savePathIsCustom: true, savesPathFingerprint: 'current' },
+        'current'
+      )
+    ).toBe(false)
   })
 })
