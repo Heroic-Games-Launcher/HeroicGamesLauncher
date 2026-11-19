@@ -1202,7 +1202,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.PROTON_NO_FSYNC = '1'
   }
   if (isLinux && gameSettings.disableNTSync && wineVersion.type === 'proton') {
-    if (wineVersion.name.includes('CachyOS')) {
+    if (/cachyos/i.test(wineVersion.name)) {
       ret.PROTON_USE_NTSYNC = '0'
     } else {
       ret.PROTON_NO_NTSYNC = '1'

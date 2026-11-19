@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Alert,
@@ -62,6 +62,7 @@ const Gamescope = () => {
     width: number
     height: number
   } | null>(null)
+  const wasUpscalingEnabled = useRef(gamescope.enableUpscaling)
 
   const [additionalOptions, setAdditionalOptions] = useState(
     gamescope.additionalOptions ?? ''
@@ -82,7 +83,10 @@ const Gamescope = () => {
   }, [])
 
   useEffect(() => {
-    if (!gamescope.enableUpscaling) return
+    const justEnabled =
+      gamescope.enableUpscaling && !wasUpscalingEnabled.current
+    wasUpscalingEnabled.current = gamescope.enableUpscaling
+    if (!justEnabled) return
     if (gamescope.upscaleWidth || gamescope.upscaleHeight) return
     void window.api
       .getPrimaryDisplay()

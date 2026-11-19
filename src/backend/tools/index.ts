@@ -505,7 +505,15 @@ export const DXVK = {
       }
     }
 
-    writeFileSync(currentVersionCheck, globalVersion)
+    try {
+      writeFileSync(currentVersionCheck, globalVersion)
+    } catch (err) {
+      logError(
+        [`Error when writing ${tool} version`, err],
+        LogPrefix.ToolInstaller
+      )
+      return false
+    }
     return true
   }
 }
