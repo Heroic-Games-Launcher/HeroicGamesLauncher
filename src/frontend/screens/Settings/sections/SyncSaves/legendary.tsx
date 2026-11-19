@@ -51,6 +51,7 @@ export default function LegendarySyncSaves({
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
   const [retry, setRetry] = useState(0)
+  const [detectError, setDetectError] = useState(false)
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -69,6 +70,7 @@ export default function LegendarySyncSaves({
         return
       }
       setLoading(true)
+      setDetectError(false)
       try {
         const result = await window.api.detectSavePaths(appName, 'legendary')
         const newSavePath = result.paths as string
@@ -76,6 +78,8 @@ export default function LegendarySyncSaves({
         if (result.updated && newSavePath) {
           setSavesPath(newSavePath)
           setSavePathIsCustom(false)
+        } else if (!result.cancelled) {
+          setDetectError(true)
         }
       } catch (error) {
         window.api.logError(
@@ -141,6 +145,14 @@ export default function LegendarySyncSaves({
         />
       ) : (
         <>
+          {detectError && (
+            <Alert variant="error">
+              {t(
+                'setting.savefolder.detect-failed',
+                'Could not detect the save folder automatically. Select it manually below or check the Heroic log for details.'
+              )}
+            </Alert>
+          )}
           <div className="saveFolderGroup">
             <PathSelectionBox
               htmlId="inputSavePath"

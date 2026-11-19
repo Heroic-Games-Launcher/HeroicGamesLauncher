@@ -49,6 +49,7 @@ export default function GOGSyncSaves({
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
   const [retry, setRetry] = useState(0)
+  const [detectError, setDetectError] = useState(false)
 
   const { t } = useTranslation()
 
@@ -72,12 +73,18 @@ export default function GOGSyncSaves({
         return
       }
 
-      if (!legacy && !stale && retry === 0 && gogSaves.length) {
+      if (
+        !legacy &&
+        !stale &&
+        retry === 0 &&
+        gogSaves.some((save) => save.location.length)
+      ) {
         setIsLoading(false)
         return
       }
 
       setIsLoading(true)
+      setDetectError(false)
       try {
         const result = await window.api.detectSavePaths(appName, 'gog')
         if (requestId !== detectionId.current) return
@@ -85,8 +92,14 @@ export default function GOGSyncSaves({
         if (result.updated) {
           setGogSaves(result.paths as GOGCloudSavesLocation[])
           setSavePathIsCustom(false)
-        } else if (gogSaves.length === 0) {
-          setGogSaves([{ name: '__default', location: '' }])
+        } else if (!result.cancelled) {
+          setDetectError(true)
+          const detected = result.paths as GOGCloudSavesLocation[]
+          if (!gogSaves.some((save) => save.location.length)) {
+            setGogSaves(
+              detected.length ? detected : [{ name: '__default', location: '' }]
+            )
+          }
         }
       } catch (error) {
         window.api.logError(
@@ -165,6 +178,14 @@ export default function GOGSyncSaves({
         />
       ) : (
         <>
+          {detectError && (
+            <Alert variant="error">
+              {t(
+                'setting.savefolder.detect-failed',
+                'Could not detect the save folder automatically. Select it manually below or check the Heroic log for details.'
+              )}
+            </Alert>
+          )}
           {gogSaves.map((value, index) => (
             <div
               key={`saves-${value.name}`}

@@ -1210,6 +1210,7 @@
             "title": "Run EXE on prefix"
         },
         "savefolder": {
+            "detect-failed": "Could not detect the save folder automatically. Select it manually below or check the Heroic log for details.",
             "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Select the exact save games folder",
             "retry": "Detect again",
