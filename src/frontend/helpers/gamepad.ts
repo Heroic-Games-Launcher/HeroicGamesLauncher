@@ -502,6 +502,11 @@ export const initGamepad = () => {
             switch (action) {
               case 'padDown':
               case 'leftStickDown':
+                if (insideMuiSlider() || isSettingsRow()) {
+                  moveFocusSequentially(1)
+                  scrollFocusedIntoView()
+                  return
+                }
                 // MUI Selects open on arrow down, which is usually not your intention
                 // when navigating down with the stick, so we change the action to tab
                 if (isMuiSelect()) {
@@ -510,17 +515,15 @@ export const initGamepad = () => {
                 if (isMuiDialogCloseButton()) {
                   action = 'tab'
                 }
-                if (insideMuiSlider()) {
-                  action = 'tab'
-                }
                 break
               case 'padUp':
               case 'leftStickUp':
-                // Same as above
-                if (isMuiSelect()) {
-                  action = 'shiftTab'
+                if (insideMuiSlider() || isSettingsRow()) {
+                  moveFocusSequentially(-1)
+                  scrollFocusedIntoView()
+                  return
                 }
-                if (insideMuiSlider()) {
+                if (isMuiSelect()) {
                   action = 'shiftTab'
                 }
                 break
@@ -649,6 +652,54 @@ export const initGamepad = () => {
     if (parent.classList.contains('MuiSlider-thumb')) return true
 
     return false
+  }
+
+  /**
+   * Settings is a vertical form whose content sits far to the right of the
+   * sidebar, so spatial navigation prefers the sidebar when moving down. Walk
+   * the focus order instead, except where the arrow keys belong to the control.
+   */
+  function isSettingsRow() {
+    const el = currentElement()
+    if (!el || !el.closest('.Settings')) return false
+
+    if (el.tagName === 'TEXTAREA') return false
+    if (el.tagName === 'INPUT') {
+      const { type } = el as HTMLInputElement
+      const keepsArrows = [
+        'text',
+        'search',
+        'number',
+        'password',
+        'email',
+        'url',
+        'range'
+      ]
+      return !keepsArrows.includes(type)
+    }
+
+    return !insideMuiSlider()
+  }
+
+  const FOCUSABLE_SELECTOR =
+    'a[href], button:not([disabled]), input:not([disabled]), ' +
+    'select:not([disabled]), textarea:not([disabled]), ' +
+    '[tabindex]:not([tabindex="-1"])'
+
+  /**
+   * Focus order step. `Tab` alone is not enough here: the MUI slider root is a
+   * dead stop (it takes focus but the arrows do nothing) that sits between a
+   * slider and its neighbours.
+   */
+  function moveFocusSequentially(direction: 1 | -1) {
+    const candidates = Array.from(
+      document.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+    ).filter((el) => el.tabIndex >= 0 && el.getClientRects().length > 0)
+
+    const index = candidates.indexOf(document.activeElement as HTMLElement)
+    if (index === -1) return
+
+    candidates[index + direction]?.focus()
   }
 
   function isMuiDialogCloseButton() {
