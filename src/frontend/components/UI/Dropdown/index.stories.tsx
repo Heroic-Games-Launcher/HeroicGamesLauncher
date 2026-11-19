@@ -32,7 +32,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'The library filter dropdown. It can open on click or on hover, and closes when focus leaves the panel so controller navigation does not get trapped.'
+          'The library filter dropdown. It opens on click and closes on click outside or Escape, so controller navigation does not get trapped.'
       }
     }
   }
@@ -43,10 +43,6 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Collapsed: Story = {}
-
-export const PopUpOnHover: Story = {
-  args: { popUpOnHover: true }
-}
 
 export const OpensOnClick: Story = {
   play: async ({ canvasElement, canvas, userEvent }) => {
