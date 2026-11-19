@@ -7,7 +7,8 @@ import { defaultWineVersion } from '../../util'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
 import SteamSyncSaves from './steam'
-import { ToggleSwitch } from 'frontend/components/UI'
+import Backups from './backups'
+import { getSavePathFingerprint } from 'common/utils'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
@@ -18,15 +19,24 @@ const SyncSaves = () => {
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
   const [savesPath, setSavesPath] = useSetting('savesPath', '')
   const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
-  const [enableQuickSavesMenu, setEnableQuickSavesMenu] = useSetting(
-    'enableQuickSavesMenu',
-    false
-  )
 
   const [sharedWinePrefix] = useSetting('sharedWinePrefix', '')
   const [winePrefix] = useSetting('winePrefix', sharedWinePrefix)
 
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [savesPathFingerprint, setSavesPathFingerprint] = useSetting(
+    'savesPathFingerprint',
+    ''
+  )
+  const [, setSavePathIsCustom] = useSetting('savePathIsCustom', false)
+
+  const savePathFingerprint = gameInfo
+    ? getSavePathFingerprint(
+        gameInfo,
+        { winePrefix, wineVersion },
+        platform !== 'win32'
+      )
+    : ''
 
   const syncCommands = [
     { name: t('setting.manualsync.download'), value: '--skip-upload' },
@@ -35,33 +45,25 @@ const SyncSaves = () => {
     { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
   ]
 
-  const QuickSavesToggle = () => {
-    return (
-      <ToggleSwitch
-        htmlId="enableQuickSavesMenu"
-        value={enableQuickSavesMenu}
-        handleChange={() => setEnableQuickSavesMenu(!enableQuickSavesMenu)}
-        title={t(
-          'setting.enable-quick-sync-menu',
-          'Enable quick save-sync menu on game page'
-        )}
-      />
-    )
-  }
-
   if (runner === 'legendary') {
     return (
-      <LegendarySyncSaves
-        featureSupported={!!gameInfo?.cloud_save_enabled}
-        savesPath={savesPath}
-        setSavesPath={setSavesPath}
-        autoSyncSaves={autoSyncSaves}
-        setAutoSyncSaves={setAutoSyncSaves}
-        isProton={!isWin && wineVersion.type === 'proton'}
-        winePrefix={winePrefix}
-        syncCommands={syncCommands}
-        quickSavesToggle={QuickSavesToggle}
-      />
+      <>
+        <LegendarySyncSaves
+          featureSupported={!!gameInfo?.cloud_save_enabled}
+          savesPath={savesPath}
+          setSavesPath={setSavesPath}
+          autoSyncSaves={autoSyncSaves}
+          setAutoSyncSaves={setAutoSyncSaves}
+          isProton={!isWin && wineVersion.type === 'proton'}
+          winePrefix={winePrefix}
+          savePathFingerprint={savePathFingerprint}
+          savesPathFingerprint={savesPathFingerprint}
+          setSavesPathFingerprint={setSavesPathFingerprint}
+          setSavePathIsCustom={setSavePathIsCustom}
+          syncCommands={syncCommands}
+        />
+        {gameInfo?.cloud_save_enabled ? <Backups runner="legendary" /> : null}
+      </>
     )
   }
 
@@ -71,16 +73,22 @@ const SyncSaves = () => {
 
   if (runner === 'gog') {
     return (
-      <GOGSyncSaves
-        featureSupported={!!gameInfo?.cloud_save_enabled}
-        isLinuxNative={gameInfo?.install.platform === 'linux'}
-        gogSaves={gogSavesLocations}
-        setGogSaves={setGogSavesLocations}
-        autoSyncSaves={autoSyncSaves}
-        setAutoSyncSaves={setAutoSyncSaves}
-        syncCommands={syncCommands}
-        quickSavesToggle={QuickSavesToggle}
-      />
+      <>
+        <GOGSyncSaves
+          featureSupported={!!gameInfo?.cloud_save_enabled}
+          isLinuxNative={gameInfo?.install.platform === 'linux'}
+          gogSaves={gogSavesLocations}
+          setGogSaves={setGogSavesLocations}
+          savePathFingerprint={savePathFingerprint}
+          savesPathFingerprint={savesPathFingerprint}
+          setSavesPathFingerprint={setSavesPathFingerprint}
+          setSavePathIsCustom={setSavePathIsCustom}
+          autoSyncSaves={autoSyncSaves}
+          setAutoSyncSaves={setAutoSyncSaves}
+          syncCommands={syncCommands}
+        />
+        {gameInfo?.cloud_save_enabled ? <Backups runner="gog" /> : null}
+      </>
     )
   }
 

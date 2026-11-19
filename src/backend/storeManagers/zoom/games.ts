@@ -20,7 +20,8 @@ import {
   InstallArgs,
   InstalledInfo,
   LaunchOption,
-  InstallProgress
+  InstallProgress,
+  CloudSyncResult
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import { installedGamesStore, libraryStore } from './electronStores'
@@ -756,12 +757,18 @@ export default class ZoomGame implements Game {
     return { stdout: '', stderr: 'Repair not implemented' }
   }
 
-  async syncSaves(): Promise<string> {
+  async syncSaves(): Promise<CloudSyncResult> {
     logWarning(
       `Sync saves not implemented for Zoom: ${this.id}`,
       LogPrefix.Zoom
     )
-    return 'Sync saves not implemented'
+    return {
+      appName: this.id,
+      runner: 'zoom',
+      state: 'failed',
+      reason: 'not-supported',
+      output: 'Sync saves not implemented'
+    }
   }
 
   async uninstall(): Promise<ExecResult> {

@@ -1,5 +1,5 @@
 import { libraryManagerMap } from '..'
-import { join } from 'path'
+import { isAbsolute, join } from 'path'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
 import {
@@ -24,7 +24,11 @@ import {
   InstalledInfo,
   InstallProgress,
   LaunchOption,
-  GOGAchievement
+  GOGAchievement,
+  CloudSyncCounts,
+  CloudSyncReason,
+  CloudSyncResult,
+  CloudSyncState
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -44,6 +48,8 @@ import {
   getRunnerLogWriter
 } from 'backend/logger'
 import { GOGUser } from './user'
+import { parseGogdlOutput } from 'backend/cloud_saves/parse'
+import { backupSaves } from 'backend/cloud_saves/backup'
 import {
   getKnownFixesEnvVariables,
   getWinePath,
@@ -69,6 +75,7 @@ import {
   UserData
 } from 'common/types/gog'
 import { t } from 'i18next'
+import { dialog } from 'electron'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../ipc'
 import { Game, RemoveArgs } from 'common/types/game_manager'
@@ -87,6 +94,35 @@ import { gogdlConfigPath, gogSupportPath } from './constants'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 
 import type LogWriter from 'backend/logger/log_writer'
+
+const promptGogSaveConflict = async (
+  title: string
+): Promise<'--force-download' | '--force-upload' | undefined> => {
+  const { response } = await dialog.showMessageBox({
+    type: 'warning',
+    title: t('box.saveConflict.title', 'Save conflict'),
+    message: t(
+      'box.saveConflict.message',
+      'The cloud and local saves for {{game}} have diverged. Choose which copy to keep.',
+      { game: title }
+    ),
+    detail: t(
+      'box.saveConflict.detail',
+      "Using this PC's saves will permanently replace the cloud copy. Cloud saves are not included in local backups."
+    ),
+    buttons: [
+      t('box.saveConflict.keepCloud', 'Use cloud saves'),
+      t('box.saveConflict.keepLocal', "Use this PC's saves"),
+      t('box.saveConflict.cancel', 'Cancel')
+    ],
+    cancelId: 2,
+    defaultId: 2
+  })
+
+  if (response === 0) return '--force-download'
+  if (response === 1) return '--force-upload'
+  return undefined
+}
 
 export default class GOGGame implements Game {
   private readonly id: string
@@ -865,25 +901,85 @@ export default class GOGGame implements Game {
   async syncSaves(
     arg: string,
     path: string,
-    gogSaves?: GOGCloudSavesLocation[]
-  ): Promise<string> {
-    if (!gogSaves) {
-      return 'Unable to sync saves, gogSaves is undefined'
+    gogSaves?: GOGCloudSavesLocation[],
+    promptOnConflict = true
+  ): Promise<CloudSyncResult> {
+    const result: CloudSyncResult = {
+      appName: this.id,
+      runner: 'gog',
+      state: 'failed',
+      output: ''
+    }
+
+    if (!gogSaves?.length) {
+      return {
+        ...result,
+        reason: 'no-path',
+        output: 'No save locations configured for this game'
+      }
     }
 
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
-      return 'Unable to sync saves, no credentials'
+      return {
+        ...result,
+        reason: 'provider-error',
+        output: 'Unable to sync saves, no credentials'
+      }
     }
 
     const gameInfo = this.getGameInfo()
     if (!gameInfo || !gameInfo.install.platform) {
-      return 'Unable to sync saves, game info not found'
+      return {
+        ...result,
+        reason: 'provider-error',
+        output: 'Unable to sync saves, game info not found'
+      }
     }
 
-    let fullOutput = ''
+    const isDownload = arg === '--skip-upload' || arg === '--force-download'
+    if (isDownload) {
+      const backedUp = backupSaves({
+        appName: this.id,
+        runner: 'gog',
+        title: gameInfo.title,
+        locations: gogSaves
+          .filter((location) => isAbsolute(location.location))
+          .map((location) => location.location),
+        force: true
+      })
+      if (!backedUp) {
+        return {
+          ...result,
+          reason: 'provider-error',
+          output:
+            'Could not back up the current saves, aborting the download to protect them'
+        }
+      }
+    }
+
+    const counts: CloudSyncCounts = {
+      local: 0,
+      cloud: 0,
+      deletedLocal: 0,
+      deletedCloud: 0
+    }
+    let output = ''
+    let state: CloudSyncState = 'ok'
+    let reason: CloudSyncReason | undefined
 
     for (const location of gogSaves) {
+      if (!isAbsolute(location.location)) {
+        const message = `Not syncing "${location.name}": "${location.location}" is not an absolute path`
+        logError(message, LogPrefix.Gog)
+        output += `${message}\n`
+        if (state !== 'conflicts') {
+          state = 'failed'
+          reason ??= 'no-path'
+        }
+        continue
+      }
+
       const commandParts = [
         'save-sync',
         location.location,
@@ -904,7 +1000,8 @@ export default class GOGGame implements Game {
         {
           abortId: this.id,
           logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
-          onOutput: (output) => (fullOutput += output)
+          onOutput: (chunk) => (output += chunk),
+          waitForChildProcesses: false
         }
       )
 
@@ -914,12 +1011,61 @@ export default class GOGGame implements Game {
           LogPrefix.Gog
         )
       }
-      if (res.stdout) {
-        syncStore.set(`${this.id}.${location.name}`, res.stdout.trim())
+
+      const parsed = parseGogdlOutput(res.stdout, res.stderr)
+
+      if (parsed.timestamp) {
+        syncStore.set(`${this.id}.${location.name}`, parsed.timestamp)
+      }
+
+      counts.local = (counts.local ?? 0) + (parsed.counts?.local ?? 0)
+      counts.cloud = (counts.cloud ?? 0) + (parsed.counts?.cloud ?? 0)
+      counts.deletedLocal =
+        (counts.deletedLocal ?? 0) + (parsed.counts?.deletedLocal ?? 0)
+      counts.deletedCloud =
+        (counts.deletedCloud ?? 0) + (parsed.counts?.deletedCloud ?? 0)
+
+      if (parsed.state === 'conflicts') {
+        state = 'conflicts'
+        reason = 'conflict'
+      } else if (parsed.state === 'failed' && state !== 'conflicts') {
+        state = 'failed'
+        reason ??= parsed.reason
+      } else if (
+        (parsed.state === 'incomplete' || parsed.state === 'unknown') &&
+        state === 'ok'
+      ) {
+        state = 'incomplete'
       }
     }
 
-    return fullOutput
+    if (state === 'conflicts' && promptOnConflict) {
+      const forcedArg = await promptGogSaveConflict(gameInfo.title)
+      if (forcedArg) {
+        logInfo(
+          ['Resolving save conflict for', gameInfo.title, 'with', forcedArg],
+          LogPrefix.Gog
+        )
+        return this.syncSaves(forcedArg, path, gogSaves, false)
+      }
+      logInfo(
+        ['Save conflict for', gameInfo.title, 'left unresolved'],
+        LogPrefix.Gog
+      )
+    }
+
+    if (state !== 'failed') {
+      backupSaves({
+        appName: this.id,
+        runner: 'gog',
+        title: this.getGameInfo().title,
+        locations: gogSaves
+          .filter((location) => isAbsolute(location.location))
+          .map((location) => location.location)
+      })
+    }
+
+    return { ...result, state, reason, counts, output }
   }
 
   async uninstall({ shouldRemovePrefix }: RemoveArgs): Promise<ExecResult> {

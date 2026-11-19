@@ -123,6 +123,8 @@ export interface AppSettings extends GameSettings {
   altButlerBin: string
   altAureliaBin: string
   autoUpdateGames: boolean
+  backupSaves: boolean
+  maxSaveBackupSize: number
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
   customCSS: string
@@ -295,13 +297,14 @@ export interface GameSettings {
   wineVersion: WineInstallation
   wrapperOptions: WrapperVariable[]
   savesPath: string
+  savesPathFingerprint?: string
+  savePathIsCustom?: boolean
   gogSaves?: GOGCloudSavesLocation[]
   beforeLaunchScriptPath: string
   afterLaunchScriptPath: string
   disableUMU: boolean
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
-  enableQuickSavesMenu: boolean
 }
 
 export type Status =
@@ -391,6 +394,56 @@ export interface Reqs {
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
+
+export type CloudSyncState =
+  | 'ok'
+  | 'conflicts'
+  | 'incomplete'
+  | 'failed'
+  | 'unknown'
+
+export type CloudSyncReason =
+  | 'no-path'
+  | 'offline'
+  | 'lock'
+  | 'unresolved-vars'
+  | 'conflict'
+  | 'not-supported'
+  | 'provider-error'
+
+export interface CloudSyncCounts {
+  local?: number
+  cloud?: number
+  deletedLocal?: number
+  deletedCloud?: number
+}
+
+export interface CloudSyncResult {
+  appName: string
+  runner: Runner
+  state: CloudSyncState
+  action?: 'upload' | 'download' | 'none'
+  reason?: CloudSyncReason
+  remoteDate?: string
+  localDate?: string
+  counts?: CloudSyncCounts
+  output: string
+}
+
+export interface DetectSavePathsResult {
+  paths: string | GOGCloudSavesLocation[]
+  updated: boolean
+  cancelled?: boolean
+}
+
+export interface SaveBackupEntry {
+  id: string
+  createdAt: string
+  location: string
+  changed: number
+  deleted: number
+  isCurrent?: boolean
+}
 
 export type UserInfo = {
   account_id: string
@@ -487,6 +540,7 @@ export interface CallRunnerOptions {
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
   cwd?: string
+  waitForChildProcesses?: boolean
 }
 
 export interface EnviromentVariable {
