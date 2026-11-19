@@ -165,6 +165,7 @@
         },
         "saveConflict": {
             "cancel": "Cancel",
+            "detail": "Using this PC's saves will permanently replace the cloud copy. Cloud saves are not included in local backups.",
             "keepCloud": "Use cloud saves",
             "keepLocal": "Use this PC's saves",
             "message": "The cloud and local saves for {{game}} have diverged. Choose which copy to keep.",
