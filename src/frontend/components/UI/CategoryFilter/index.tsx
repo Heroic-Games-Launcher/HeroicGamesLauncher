@@ -3,13 +3,8 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import Dropdown from '../Dropdown'
-import {
-  Button,
-  Chip,
-  CountBadge,
-  FilterSection,
-  Icon
-} from 'frontend/components/UI'
+import Checkbox from '../Checkbox'
+import { Button, CountBadge, FilterSection, Icon } from 'frontend/components/UI'
 import { LayoutGrid, ChevronDown } from 'lucide-react'
 import './index.css'
 
@@ -38,24 +33,27 @@ export default function CategoryFilter() {
     )
   }
 
-  const categoryChip = (label: string, value?: string) => {
+  const categoryRow = (label: string, value?: string) => {
     const category = value || label
 
     return (
-      <span className="categoryChip" key={category}>
-        <Chip
-          active={currentCustomCategories.includes(category)}
-          onClick={() => toggleCategory(category)}
-        >
-          {label}
-        </Chip>
+      <li className="categoryRow" key={category}>
+        <label className="categoryRow__label">
+          <Checkbox
+            size="small"
+            checked={currentCustomCategories.includes(category)}
+            onChange={() => toggleCategory(category)}
+          />
+          <span className="categoryRow__name">{label}</span>
+        </label>
         <button
+          type="button"
           className="categoryOnly"
           onClick={() => setCurrentCustomCategories([category])}
         >
           {t('header.only', 'only')}
         </button>
-      </span>
+      </li>
     )
   }
 
@@ -92,11 +90,13 @@ export default function CategoryFilter() {
             )}
           </p>
         )}
-        {categoriesList.map((category) => categoryChip(category))}
-        {categoryChip(
-          t('header.uncategorized', 'Uncategorized'),
-          'preset_uncategorized'
-        )}
+        <ul className="categoryList">
+          {categoriesList.map((category) => categoryRow(category))}
+          {categoryRow(
+            t('header.uncategorized', 'Uncategorized'),
+            'preset_uncategorized'
+          )}
+        </ul>
       </FilterSection>
 
       <div className="FilterActions">

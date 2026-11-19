@@ -1,6 +1,6 @@
-import { ReactNode, useContext } from 'react'
+import { ReactNode, useContext, useState } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { expect } from 'storybook/test'
+import { expect, waitFor } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import CategoryFilter from '.'
@@ -15,12 +15,14 @@ function WithCategories({
   selected?: string[]
 }) {
   const appContext = useContext(ContextProvider)
+  const [currentCategories, setCurrentCategories] = useState(selected)
 
   return (
     <ContextProvider.Provider
       value={{
         ...appContext,
-        currentCustomCategories: selected,
+        currentCustomCategories: currentCategories,
+        setCurrentCustomCategories: setCurrentCategories,
         customCategories: {
           ...appContext.customCategories,
           listCategories: () => categories
@@ -39,7 +41,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Dropdown that filters the library by the user’s own categories. Each chip has an "only" shortcut that narrows the selection to a single category.'
+          'Dropdown that filters the library by the user’s own categories. Categories are listed with checkboxes, and each row reveals an "only" shortcut on hover that narrows the selection to a single category.'
       }
     }
   }
@@ -65,12 +67,23 @@ export const WithCustomCategories: Story = {
 
     await userEvent.click(canvas.getByRole('button', { name: /Categories/ }))
 
+    const favourites = canvas.getByRole('checkbox', { name: 'Favourites' })
+    const backlog = canvas.getByRole('checkbox', { name: 'Backlog' })
+    await expect(favourites).toBeChecked()
+    await expect(backlog).not.toBeChecked()
+
+    await userEvent.click(backlog)
+    await expect(backlog).toBeChecked()
     await expect(
-      canvas.getByRole('button', { name: 'Favourites' })
-    ).toHaveAttribute('aria-pressed', 'true')
-    await expect(
-      canvas.getByRole('button', { name: 'Backlog' })
-    ).toHaveAttribute('aria-pressed', 'false')
+      canvas.getByLabelText('2 categories selected')
+    ).toHaveTextContent('2')
+
+    const only = canvas.getAllByRole('button', { name: 'only' })[1]
+    await waitFor(() => expect(only).toBeVisible())
+    await userEvent.click(only)
+
+    await expect(favourites).not.toBeChecked()
+    await expect(backlog).toBeChecked()
   }
 }
 
