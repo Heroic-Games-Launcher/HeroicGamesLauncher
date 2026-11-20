@@ -28,7 +28,8 @@
         "source": "Mənbə",
         "status": "Vəziyyət",
         "title": "Bu oyuna anticheat proqramı daxildir",
-        "multiplayer_may_not_work": ""
+        "multiplayer_may_not_work": "",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
                     "body": "",
                     "title": ""
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Update",
         "changelog": "",
         "postpone": "",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Cancel",
@@ -263,7 +278,8 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
-            "type": "Type"
+            "type": "Type",
+            "status": ""
         },
         "title": "Downloads",
         "ETA": "Təxmini vaxt",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Epic Games serverləri oflayn olduğu üçün onlayn xidmətlər tam işləməyə bilər!",
         "offline-notification-title": "oflayn"
     },
     "Epic Games": "Epik oyunlar",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Sevimlilər",
     "game": {
         "status": "Vəziyyət",
@@ -328,7 +350,8 @@
         "stores": "Store",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD-nin FSR tam ekran rejimində daha aşağı təsvir ölçüsünü artırmaqla kadr sürətini artırmağa kömək edir. Şəkil keyfiyyəti cüzi performans zərbəsi hesabına 5-dən 1-ə yüksəlir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
@@ -483,7 +506,34 @@
         "old-mac": "",
         "zoom": "",
         "itchio": "",
-        "button": "Daxil ol"
+        "button": "Daxil ol",
+        "title_steam": "",
+        "title_epic": "",
+        "logout_confirm": {
+            "title": "",
+            "message": ""
+        },
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_gog": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "Daxil ol",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Sinxronizasiya tamamlandı",
@@ -545,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "retrying": "Retrying",
+        "hint-label": ""
     },
     "Open": "Açıq",
     "options": {
@@ -608,7 +659,8 @@
         "gogdl-version": "GOGDL versiyası: ",
         "legendary-version": "Əfsanəvi Versiya: ",
         "weblate": "Heroic tərcüməsinə kömək edin.",
-        "nile-version": "Nil versiyası: "
+        "nile-version": "Nil versiyası: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -618,7 +670,8 @@
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS-nin quraşdırıldığı prefiks",
         "prefered_language": "2 simvollu kod (yəni: \"en\" və ya \"fr\")",
-        "alt-nile-bin": "Daxili Nil binarından istifadə..."
+        "alt-nile-bin": "Daxili Nil binarından istifadə...",
+        "alt-aurelia-bin": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -748,7 +801,8 @@
                 "zoom": "",
                 "game-log": "{{gameTitle}} üçün dəyişiklik jurnalı",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -944,8 +998,28 @@
         "disableUMU-description": "",
         "gamemode-description": "",
         "steamLaunchTarget": {
-            "downloadBuild": "Download"
-        }
+            "downloadBuild": "Download",
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": "",
+            "missingRuntime": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1014,10 +1088,14 @@
             },
             "title": {
                 "resetHeroic": "",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1092,7 +1170,8 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1101,7 +1180,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Parametrlər",
     "sidebar": {
@@ -1115,7 +1195,8 @@
         "logging": "Daxil olur...",
         "processing": "Fayllar emal olunur, gözləyin",
         "preparing_login": "Giriş hazırlanır... ",
-        "installed": "Install"
+        "installed": "Install",
+        "preparing": ""
     },
     "store": "Epic Store",
     "stores": "Mağazalar",
@@ -1140,7 +1221,9 @@
     },
     "two_col_table": {
         "save_hint": "Bu cədvəldəki dəyişikliklər avtomatik olaraq yadda saxlanmır. + düyməsini basın",
-        "add": ""
+        "add": "",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Yeniləmə Mövcuddur!",
     "userselector": {
@@ -1380,7 +1463,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Təfərrüatlar",
         "sort": {
@@ -1445,7 +1529,12 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": {
+            "label": "",
+            "last_played": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
+        },
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
@@ -1488,7 +1577,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1515,7 +1612,132 @@
     "itchio-store": "",
     "cloudSync": {
         "button": {
-            "download": "Download"
+            "download": "Download",
+            "view": "",
+            "keep": "",
+            "sync": "",
+            "upload": ""
+        },
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "column": {
+            "modified": "",
+            "file": "",
+            "size": ""
+        },
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "back": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "never": "",
+        "lastSync": ""
+    },
+    "support": {
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "actions": {
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": "",
+            "open": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "Update available!": "",
+    "import-export": {
+        "action": {
+            "download": "Downloading"
+        },
+        "close": "Bağla",
+        "platform": "Platform",
+        "step6": {
+            "prefixPath": "Şərab prefiksi",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "DLC-Əlavə Genişləmə Paketləri yoxdur və ya əlçatan deyil"
         }
     }
 }
