@@ -276,6 +276,15 @@
     <content_attribute id="money-purchasing">intense</content_attribute>
   </content_rating>
   <launchable type="desktop-id">com.heroicgameslauncher.hgl.desktop</launchable>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>gamepad</control>
+    <control>touch</control>
+  </supports>
+  <requires>
+    <display_length compare="ge">600</display_length>
+  </requires>
   <screenshots>
     <screenshot type="default">
       <caption>Library</caption>
