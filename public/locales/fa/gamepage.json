@@ -10,7 +10,8 @@
         "move": {
             "message": "این کار میتواند زمان زیادی ببرد، آیا مطمئن هستید؟",
             "path": "انتخاب کنید که به کجا میخواهید منتقل کنید",
-            "title": "انتقال نصب بازی"
+            "title": "انتقال نصب بازی",
+            "steamMessage": ""
         },
         "no": "خیر",
         "repair": {
@@ -99,7 +100,9 @@
         "edit-game": "ویرایش نرم افزار/بازی",
         "favourite": "افزودن به مورد علاقه ها",
         "unfavourite": "حذف کردن از مورد علاقه ها",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "بازگشت"
     },
     "cloud_save_unsupported": "پشتیبانی نشده",
     "disabled": "غیر فعال",
@@ -179,7 +182,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLCها"
+        "dlcs": "DLCها",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "فضای موجود",
@@ -199,7 +207,10 @@
             "disabled_installation": "",
             "install_anyway": ""
         },
-        "flatpak-path-not-writtable": "خطا: دسترسی سندباکس برای این مسیر داده نشده است، از دست دادن داده رخ خواهد داد."
+        "flatpak-path-not-writtable": "خطا: دسترسی سندباکس برای این مسیر داده نشده است، از دست دادن داده رخ خواهد داد.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -224,7 +235,8 @@
         },
         "winetricks": "",
         "redist": "",
-        "releaseDate": "Release Date"
+        "releaseDate": "Release Date",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "گزینه های اجرا...",
@@ -274,12 +286,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "بررسی سازگاری",
+            "finish": "اتمام",
+            "install": "توقف نصب"
         }
     },
     "specs": {
         "minimum": "حداقل",
         "recommended": "پیشنهادی",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "برای به روزرسانی کلیک کنید",
@@ -327,7 +345,8 @@
         "extraInfo": "اطلاعات اضافی",
         "logs": "لاگ ها",
         "categories": "",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "این بازی از ذخیره ابری پشتیبانی نمی کند. این اطلاعات توسط سازندگان بازی ارائه شده است. برخی از بازی ها سیستم ذخیره ابری خود را پیاده سازی می کنند",
@@ -389,7 +408,15 @@
     "steam": {
         "data": {
             "dlc": "DLCها",
-            "installInfo": "سایز دانلود"
+            "installInfo": "سایز دانلود",
+            "achievements": "",
+            "launchOptions": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
