@@ -28,7 +28,8 @@
         "source": "Источник",
         "status": "Состояние",
         "title": "Эта игра включает в себя античит",
-        "multiplayer_may_not_work": "Многопользовательские функции могут не работать из-за сбоя в работе античит-защиты."
+        "multiplayer_may_not_work": "Многопользовательские функции могут не работать из-за сбоя в работе античит-защиты.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -117,7 +118,8 @@
                     "body": "Удаление {{game}} из Steam не удалось:{{newLine}}{{error}}",
                     "title": "При попытке убрать игру из Steam произошла ошибка"
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -211,7 +213,20 @@
         "update": "Обновление",
         "changelog": "Список изменений",
         "postpone": "Отложить",
-        "cancel": "Отмена"
+        "cancel": "Отмена",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Отмена",
@@ -266,7 +281,8 @@
             "end-time": "Завершено в",
             "queue-time": "Добавлено в",
             "start-time": "Начало в",
-            "type": "Тип"
+            "type": "Тип",
+            "status": "Состояние"
         },
         "title": "Загрузки",
         "ETA": "Расчетное время",
@@ -277,14 +293,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Онлайн-сервисы могут не работать полноценно, так как серверы Epic Games отключены!",
         "offline-notification-title": "Не в сети"
     },
     "Epic Games": "Epic Games",
-    "error": "Ошибка",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Избранное",
     "game": {
         "status": "Состояние",
@@ -332,7 +354,8 @@
         "stores": "Магазины",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD FSR помогает увеличить частоту кадров за счет увеличения масштаба разрешения в полноэкранном режиме. Качество изображения увеличивается с 5 до 1 за счет небольшого снижения производительности. Включение может повысить производительность.",
@@ -494,7 +517,27 @@
         },
         "title_amazon": "Amazon Games",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "activate": "Активировать",
+            "confirm": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "logged_in": "Войти",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Синхронизация завершена",
@@ -556,7 +599,8 @@
         "ignore": "Ignore",
         "offline": "Не в сети",
         "offline-retry-in": "Не в сети. Повторная попытка через {{seconds}} секунд.",
-        "retrying": "Повтор"
+        "retrying": "Повтор",
+        "hint-label": ""
     },
     "Open": "Открыть",
     "options": {
@@ -619,7 +663,8 @@
         "gogdl-version": "Версия GOGDL : ",
         "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic.",
-        "nile-version": "Версия Nile: "
+        "nile-version": "Версия Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Другое",
     "placeholder": {
@@ -760,7 +805,8 @@
                 "legendary": "Журнал Epic Games и Legendary",
                 "nile": "Журнал Amazon и Nile",
                 "zoom": "Логи Zoom",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "Показать отправленные журналы",
             "error": "Внутренняя ошибка чтения файла журнала",
@@ -967,8 +1013,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Загрузка",
             "missingBuild": "Total Downloaded",
-            "missingRuntime": "VCRuntime не установлен"
-        }
+            "missingRuntime": "VCRuntime не установлен",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1071,11 +1134,15 @@
             },
             "title": {
                 "resetHeroic": "Сброс Heroic",
-                "clearCache": "Очистить кэш"
+                "clearCache": "Очистить кэш",
+                "clearImagesCache": ""
             },
             "details": "Подробности",
             "resetHeroic": {
                 "help": "Это удалит все настройки и кэширование, но не удалит установленные игры или учетные данные Epic. Портативные версии (AppImage, WinPortable, ...) Heroic после этого необходимо перезапустить вручную.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1116,7 +1183,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "pageSubtitle": {
             "log": "",
@@ -1124,7 +1195,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Настройки",
     "sidebar": {
@@ -1138,7 +1210,8 @@
         "logging": "Вход…",
         "processing": "Обработка файлов, подождите",
         "preparing_login": "Подготовка входа... ",
-        "installed": "Установлено"
+        "installed": "Установлено",
+        "preparing": ""
     },
     "store": "Магазин Epic",
     "stores": "Магазины",
@@ -1410,7 +1483,8 @@
             "releaseYear": "Год выпуска",
             "platform": "Platform",
             "hideOwned": "Скрыть игры из вашей библиотеки",
-            "wishlistOnly": "Только из вашего списка желаемого"
+            "wishlistOnly": "Только из вашего списка желаемого",
+            "platformAny": ""
         },
         "sidebar": "Скидки",
         "sort": {
@@ -1477,7 +1551,9 @@
         },
         "sort": {
             "label": "Сортировка",
-            "last_played": "Последний запуск"
+            "last_played": "Последний запуск",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "3с для отмены",
@@ -1521,7 +1597,15 @@
         },
         "removeFromQueue": {
             "message": "Эта игра стоит в очереди на загрузку. Удалить её из очереди?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Следующий",
     "common": {
@@ -1549,21 +1633,162 @@
     "Update available!": "Доступно обновление!",
     "support": {
         "actions": {
-            "open": "Открыть"
+            "open": "Открыть",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Поддержать нас"
+        "title": "Поддержать нас",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Назад",
         "button": {
             "download": "Загрузка",
             "sync": "Синхронизировать",
-            "upload": "Загрузить"
+            "upload": "Загрузить",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Фильтр",
-            "size": "Размер"
+            "size": "Размер",
+            "modified": ""
         },
-        "never": "Никогда"
+        "never": "Никогда",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Загрузка"
+        },
+        "back": "Назад",
+        "close": "Закрыть",
+        "installed-games": "Установленные игры",
+        "next": "Следующий",
+        "per-game": "Настройки игры",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Сохранить"
+        },
+        "stage": {
+            "credentials": "Вход в магазин",
+            "globalSettings": "Глобальные настройки",
+            "perGameSettings": "Настройки игры"
+        },
+        "step3": {
+            "title": "Глобальные настройки"
+        },
+        "step4": {
+            "none": "Нет ни одной игры, которая соответствует фильтрам.",
+            "selectAll": "Выбрать все"
+        },
+        "step5": {
+            "title": "Вход в магазин"
+        },
+        "step6": {
+            "prefixPath": "Префикс Wine",
+            "wine-downloadable": "Загрузка",
+            "wine-unavailable": "Нет доступных DLC"
+        },
+        "steps": {
+            "credentials": "Вход в магазин",
+            "done": "Готово",
+            "global-settings": "Глобальные настройки",
+            "per-game": "Настройки игры"
+        },
+        "summaryValue": "Значение",
+        "version": "Версия Heroic",
+        "wine-versions": "Версия Wine"
     }
 }
