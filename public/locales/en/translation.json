@@ -1150,6 +1150,11 @@
         "default-install-path": "Default installation path",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set folder for new Wine prefixes",
+        "defaultWinePrefixEmpty": {
+            "restore": "Restore default",
+            "warning": "Leaving this folder empty may cause problems when installing games. The default path is \"{{defaultPath}}\".",
+            "warningNoDefault": "Leaving this folder empty may cause problems when installing games."
+        },
         "disable_controller": "Disable Heroic navigation using controller",
         "disable_gog_presence": "Disable GOG presence updates",
         "disable_logs": "Disable logs",
