@@ -501,7 +501,13 @@ export default class NileGameManager implements Game {
       logMessagePrefix: `Uninstalling ${this.id}`
     })
 
-    if (res.error) {
+    const installPath = this.getGameInfo().install.install_path
+    const gameIsGone = !!installPath && !existsSync(installPath)
+    const gaveUpOnMissingFiles =
+      /FileNotFoundError|No such file or directory/.test(
+        `${res.error ?? ''}\n${res.stderr ?? ''}`
+      )
+    if (res.error && !gameIsGone && !gaveUpOnMissingFiles) {
       logError(
         ['Failed to uninstall', `${this.id}:`, res.error],
         LogPrefix.Nile
