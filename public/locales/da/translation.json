@@ -91,7 +91,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -184,7 +185,20 @@
         "update": "Opdatering",
         "changelog": "Ændringslog",
         "postpone": "Udsæt",
-        "cancel": "Annuller"
+        "cancel": "Annuller",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "All": "Alle",
     "accessibility": {
@@ -231,7 +245,8 @@
         "processing": "Behandler filerne, vent venligst",
         "logging": "Logger ind...",
         "preparing_login": "Forbereder login... ",
-        "installed": "Installeret"
+        "installed": "Installeret",
+        "preparing": ""
     },
     "Assets": "Aktiver",
     "infobox": {
@@ -429,7 +444,8 @@
                 "legendary": "Epic Games / Legendary log",
                 "nile": "Amazon / Nile log",
                 "zoom": "Zoom log",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "join-heroic-discord": "Deltag på vores Discord",
             "show-uploads": "Vis uploadede logfiler",
@@ -707,8 +723,28 @@
         "disableUMU-description": "",
         "gamemode-description": "",
         "steamLaunchTarget": {
-            "missingBuild": "I alt downloaded"
-        }
+            "missingBuild": "I alt downloaded",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "downloadBuild": "",
+            "host": "",
+            "missingRuntime": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "wine": {
         "manager": {
@@ -799,7 +835,8 @@
             "details": "detaljer",
             "title": {
                 "resetHeroic": "Nulstil Heroic",
-                "clearCache": "Ryd mellemlager"
+                "clearCache": "Ryd mellemlager",
+                "clearImagesCache": ""
             },
             "clearCache": {
                 "help1": "Denne handling vil rydde følgende mellemlagre:",
@@ -816,6 +853,9 @@
             },
             "resetHeroic": {
                 "help": "Dette vil fjerne alle indstillinger og caching, men vil ikke fjerne dine installerede spil eller dine Epic-loginoplysninger. Bærbare versioner (AppImage, WinPortable, ...) af Heroic skal genstartes manuelt bagefter.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -890,7 +930,9 @@
             "downloads": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon Spil"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -899,6 +941,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Kopiér"
         }
     },
     "title": {
@@ -1020,7 +1066,8 @@
         "gogdl-version": "GOGDL-version: ",
         "legendary-version": "Legendarisk version: ",
         "weblate": "Hjælp med at oversætte Heroic.",
-        "nile-version": "Nile version: "
+        "nile-version": "Nile version: ",
+        "aurelia-version": ""
     },
     "platforms": {
         "win": "Windows",
@@ -1060,7 +1107,8 @@
         "stores": "",
         "hidden": "",
         "non_available": "",
-        "platforms": ""
+        "platforms": "",
+        "show_steam_owned_only": ""
     },
     "Settings": "Indstillinger",
     "sidebar": {
@@ -1087,7 +1135,8 @@
         "source": "Kilde",
         "status": "Status",
         "title": "Dette spil inkluderer et antisnyd-program",
-        "multiplayer_may_not_work": "Multiplayer-funktioner fungerer måske ikke, på grund af nægtet eller ødelagt antisnyd-understøttelse."
+        "multiplayer_may_not_work": "Multiplayer-funktioner fungerer måske ikke, på grund af nægtet eller ødelagt antisnyd-understøttelse.",
+        "removed": ""
     },
     "docs": "Dokumentation",
     "epic": {
@@ -1118,7 +1167,33 @@
         "zoom": "Zoom-login",
         "itchio": "",
         "button": "Log ind",
-        "title_amazon": "Amazon Spil"
+        "title_amazon": "Amazon Spil",
+        "logged_in": "Log ind",
+        "title_steam": "",
+        "title_epic": "",
+        "logout_confirm": {
+            "title": "",
+            "message": ""
+        },
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_gog": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "placeholder": {
         "prefered_language": "2-tegn kode (dvs.: \"en\" eller \"fr\")",
@@ -1127,7 +1202,8 @@
         "egs-prefix": "Præfiks hvor EGS er installeret",
         "custom_themes_path": "Vælg stien for at søge efter tilpassede CSS-filer",
         "dxvkfpsvalue": "Positiv heltalsværdi (f.eks. 30, 60, ...)",
-        "alt-nile-bin": "Brug af indbygget Nile binær..."
+        "alt-nile-bin": "Brug af indbygget Nile binær...",
+        "alt-aurelia-bin": ""
     },
     "search": "Søg efter spil",
     "store": "Episk butik",
@@ -1151,7 +1227,9 @@
     },
     "two_col_table": {
         "save_hint": "Ændringer i denne tabel gemmes ikke automatisk. Klik på knappen +",
-        "add": "Tilføj"
+        "add": "Tilføj",
+        "edit": "",
+        "remove": ""
     },
     "progress": "Fremskridt",
     "download": {
@@ -1167,14 +1245,17 @@
             "title": "Downloads"
         }
     },
-    "error": "Fejl",
+    "error": {
+        "recovery": ""
+    },
     "offline-message": {
         "hint": "Vi tjekker forbindelsen til:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com og{{newline}}cloudflare-dns.com",
         "offline": "Offline",
         "retry-in": "Prøver igen om ... {{seconds}} sekunder",
         "retrying": "Prøver igen",
         "offline-retry-in": "Offline. Prøver igen om {{seconds}} sekunder.",
-        "ignore": "Ignorere"
+        "ignore": "Ignorere",
+        "hint-label": ""
     },
     "Other": "Andet",
     "queue": {
@@ -1207,7 +1288,8 @@
             "end-time": "Afsluttet kl",
             "queue-time": "Tilføjet kl",
             "start-time": "Startede kl",
-            "type": "Type"
+            "type": "Type",
+            "status": ""
         },
         "title": "Downloads",
         "ETA": "Estimeret tid",
@@ -1218,7 +1300,11 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "please-wait": "Vent venligst...",
     "label": {
@@ -1423,7 +1509,8 @@
             "releaseYear": "",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platform": ""
+            "platform": "",
+            "platformAny": ""
         },
         "sidebar": "detaljer",
         "sort": {
@@ -1489,7 +1576,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "Sidst Spillet"
+            "last_played": "Sidst Spillet",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "i 3s for at afbryde",
@@ -1533,7 +1623,15 @@
         },
         "removeFromQueue": {
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Næste",
     "common": {
@@ -1560,14 +1658,144 @@
     "itchio-store": "",
     "support": {
         "actions": {
-            "open": "Åbn"
-        }
+            "open": "Åbn",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Tilbage",
         "column": {
-            "size": "Størrelse"
+            "size": "Størrelse",
+            "modified": "",
+            "file": ""
         },
-        "never": "Aldrig"
+        "never": "Aldrig",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "button": {
+            "view": "",
+            "keep": "",
+            "sync": "",
+            "upload": "",
+            "download": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "Update available!": "",
+    "import-export": {
+        "back": "Tilbage",
+        "close": "Luk",
+        "installed-games": "Installerede spil",
+        "next": "Næste",
+        "stage": {
+            "credentials": "Butikslogin"
+        },
+        "step4": {
+            "selectAll": "Vælg Alle"
+        },
+        "step5": {
+            "title": "Butikslogin"
+        },
+        "step6": {
+            "prefixPath": "Vin præfiks",
+            "wine-unavailable": "Ingen DLC tilgængelig"
+        },
+        "steps": {
+            "credentials": "Butikslogin",
+            "done": "Færdig"
+        },
+        "wine-versions": "Wine version"
     }
 }
