@@ -10,7 +10,8 @@
         "move": {
             "message": "Acest lucru poate dura mult timp, ești sigur?",
             "path": "Alege unde dorești să muți",
-            "title": "Mutați Instalarea Jocului"
+            "title": "Mutați Instalarea Jocului",
+            "steamMessage": ""
         },
         "no": "NU",
         "repair": {
@@ -100,7 +101,9 @@
         "edit-game": "Editează jocul",
         "backToLibrary": "",
         "favourite": "",
-        "unfavourite": ""
+        "unfavourite": "",
+        "steamStore": "",
+        "back": "Negru"
     },
     "cloud_save_unsupported": "Neacceptat",
     "disabled": "Dezactivat",
@@ -180,7 +183,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLC-uri"
+        "dlcs": "DLC-uri",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Spatiu disponibil",
@@ -198,7 +206,10 @@
             "multiplayer_message": "Suportul pentru anti-cheat este defect sau refuzat. Jocul se poate deschide, dar funcțiile multiplayer nu vor funcționa. Doriți să îl instalați oricum?",
             "title": "Anti-cheat defect/refuzat"
         },
-        "flatpak-path-not-writtable": ""
+        "flatpak-path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -223,7 +234,8 @@
         },
         "winetricks": "",
         "redist": "",
-        "releaseDate": ""
+        "releaseDate": "",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opțiuni de Lansare...",
@@ -273,12 +285,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "Verificați compatibilitatea",
+            "finish": "Finalizare",
+            "install": "Opriți instalarea"
         }
     },
     "specs": {
         "minimum": "Minim",
         "recommended": "Recomandat",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "Faceți clic pentru a actualiza",
@@ -326,7 +344,8 @@
         "extraInfo": "Informații suplimentare",
         "logs": "Bușteni",
         "categories": "Categorii",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud.",
@@ -389,7 +408,14 @@
         "data": {
             "achievements": "Realizări",
             "dlc": "DLC-uri",
-            "installInfo": "Dimensiune descărcare"
+            "installInfo": "Dimensiune descărcare",
+            "launchOptions": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
