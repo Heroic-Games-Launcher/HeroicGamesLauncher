@@ -8,8 +8,8 @@ import {
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
-import { logInfo, LogPrefix, logWarning } from 'backend/logger'
-import { dirname } from 'path'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
+import { dirname, parse, resolve } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
 import {
@@ -22,7 +22,9 @@ import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { removePrefix } from 'backend/utils/uninstaller'
 import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import { userHome } from 'backend/constants/paths'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
+import { sendFrontendMessage } from 'backend/ipc'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -98,38 +100,105 @@ export default class SideloadGame implements Game {
   }
 
   async uninstall({
-    shouldRemovePrefix,
+    shouldRemovePrefix = false,
     deleteFiles = false
-  }: RemoveArgs): Promise<ExecResult> {
+  }: RemoveArgs = {}): Promise<ExecResult> {
     sendGameStatusUpdate({
       appName: this.id,
       runner: 'sideload',
       status: 'uninstalling'
     })
 
-    const old = libraryStore.get('games', [])
-    const current = old.filter((a: GameInfo) => a.app_name !== this.id)
-
     const gameInfo = this.getGameInfo()
-    const {
-      title,
-      install: { executable }
-    } = gameInfo
+    const title = gameInfo.title || this.id
+    const executable = gameInfo.install?.executable
 
     if (shouldRemovePrefix) {
-      removePrefix(this.id, 'sideload')
+      try {
+        await removePrefix(this.id, 'sideload')
+      } catch (error) {
+        logError(
+          ['Failed to remove prefix for', this.id, error],
+          LogPrefix.Backend
+        )
+      }
     }
-    libraryStore.set('games', current)
 
     if (deleteFiles && executable !== undefined) {
-      rmSync(dirname(executable), { recursive: true })
+      const folder = dirname(executable)
+      const resolved = folder ? resolve(folder) : ''
+      const isRoot = !resolved || parse(resolved).root === resolved
+      const isHome = resolved === userHome
+
+      if (
+        folder &&
+        folder !== '.' &&
+        !isRoot &&
+        !isHome &&
+        existsSync(folder)
+      ) {
+        try {
+          rmSync(folder, { recursive: true })
+        } catch (error) {
+          logError(
+            ['Failed to delete game files for', this.id, error],
+            LogPrefix.Backend
+          )
+        }
+      }
     }
 
-    notify({ title, body: i18next.t('notify.uninstalled') })
+    try {
+      notify({ title, body: i18next.t('notify.uninstalled') })
+    } catch (error) {
+      logError(
+        ['Failed to show notification for', this.id, error],
+        LogPrefix.Backend
+      )
+    }
 
-    removeShortcutsUtil(this)
-    removeRecentGame(this.id)
-    removeNonSteamGame(this)
+    // Shortcut cleanup resolves the game details through getGameInfo(), so the
+    // library entry has to stay in place until both helpers have run. Failures
+    // are logged instead of aborting the uninstall, which would leave the game
+    // stuck in the 'uninstalling' state.
+    try {
+      await removeShortcutsUtil(this)
+    } catch (error) {
+      logError(
+        ['Failed to remove shortcuts for', this.id, error],
+        LogPrefix.Backend
+      )
+    }
+
+    try {
+      await removeNonSteamGame(this)
+    } catch (error) {
+      logError(
+        ['Failed to remove Steam shortcuts for', this.id, error],
+        LogPrefix.Backend
+      )
+    }
+
+    try {
+      await removeRecentGame(this.id)
+    } catch (error) {
+      logError(
+        ['Failed to remove recent game for', this.id, error],
+        LogPrefix.Backend
+      )
+    }
+
+    // Re-read the library instead of reusing a snapshot taken before the
+    // cleanup above: another install/uninstall finishing in the meantime would
+    // otherwise be overwritten with stale data.
+    libraryStore.set(
+      'games',
+      libraryStore
+        .get('games', [])
+        .filter((a: GameInfo) => a.app_name !== this.id)
+    )
+
+    sendFrontendMessage('refreshLibrary', 'sideload')
 
     sendGameStatusUpdate({
       appName: this.id,
