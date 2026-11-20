@@ -28,7 +28,8 @@
         "source": "Sumber",
         "status": "Status",
         "title": "Gim ini mengandung perangkat lunak anticheat",
-        "multiplayer_may_not_work": "Fitur multipemain mungkin tidak bekerja dikarenakan dukungan anticheat yang ditolak atau rusak."
+        "multiplayer_may_not_work": "Fitur multipemain mungkin tidak bekerja dikarenakan dukungan anticheat yang ditolak atau rusak.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "Steam sedang berjalan. Tutup Steam dan coba lagi, atau mulai ulang Steam satu kali agar Heroic dapat mengelola pintasan saat Steam berjalan.",
                 "running-gamemode": "Steam perlu dimulai ulang satu kali agar Heroic dapat mengelola pintasan Steam di perangkat ini. Mulai ulang Steam dan coba lagi."
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Perbarui",
         "changelog": "Log Perubahan",
         "postpone": "Tunda",
-        "cancel": "Batalkan"
+        "cancel": "Batalkan",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Batalkan",
@@ -263,7 +278,8 @@
             "end-time": "Selesai pada",
             "queue-time": "Ditambahkan pada",
             "start-time": "Dimulai pada",
-            "type": "Tipe"
+            "type": "Tipe",
+            "status": "Status"
         },
         "title": "Unduhan",
         "ETA": "Perkiraan waktu",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
         "offline-notification-title": "luring"
     },
     "Epic Games": "Epic Games",
-    "error": "Kesalahan",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Favorit",
     "game": {
         "status": "Status",
@@ -329,7 +351,8 @@
         "stores": "Toko",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
@@ -491,7 +514,27 @@
         },
         "title_amazon": "Amazon Games",
         "title_epic": "Game Epic",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "Aktivasi"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "Masuk",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -553,7 +596,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Luring. Mencoba dalam {{seconds}} detik.",
-        "retrying": "Mencoba kembali"
+        "retrying": "Mencoba kembali",
+        "hint-label": ""
     },
     "Open": "Buka",
     "options": {
@@ -616,7 +660,8 @@
         "gogdl-version": "Versi GOGDL: ",
         "legendary-version": "Versi Legendary: ",
         "weblate": "Bantu kami untuk menerjemahkan Heroic.",
-        "nile-version": "Versi Nile: "
+        "nile-version": "Versi Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Lainnya",
     "placeholder": {
@@ -756,7 +801,8 @@
                 "legendary": "Log Epic Games / Legendary",
                 "nile": "Log Amazon / Nile",
                 "zoom": "Log Zoom",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "join-heroic-discord": "Bergabunglah dengan Discord kami",
             "show-uploads": "Tampilkan file log yang diunggah",
@@ -956,8 +1002,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Jumlah yang Diunduh",
-            "missingRuntime": "VCRuntime belum terinstal"
-        }
+            "missingRuntime": "VCRuntime belum terinstal",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1028,13 +1091,17 @@
             },
             "title": {
                 "resetHeroic": "Reset Heroic",
-                "clearCache": "Hapus Cache"
+                "clearCache": "Hapus Cache",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Ini akan menghapus semua Pengaturan dan Cache, tetapi tidak akan menghapus game yang terinstal atau kredensial Epic Anda. Versi portabel (AppImage, WinPortable, ...) dari Heroic perlu dimulai ulang secara manual setelahnya.",
                 "description": ""
             },
-            "details": "Detail"
+            "details": "Detail",
+            "clearImagesCache": {
+                "description": ""
+            }
         },
         "systemInformation": {
             "copyToClipboard": "Disalin ke Papan Klip!",
@@ -1105,7 +1172,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon Games",
+            "epic": "Game Epic",
+            "gog": "GOG"
         },
         "pageSubtitle": {
             "log": "",
@@ -1113,7 +1184,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Pengaturan",
     "sidebar": {
@@ -1127,7 +1199,8 @@
         "logging": "Masuk Akun...",
         "processing": "Memproses berkas, harap tunggu",
         "preparing_login": "Persiapan Masuk Akun... ",
-        "installed": "Terpasang"
+        "installed": "Terpasang",
+        "preparing": ""
     },
     "store": "Epic Store",
     "stores": "Toko",
@@ -1394,7 +1467,8 @@
             "releaseYear": "Tahun rilis",
             "hideOwned": "Sembunyikan yang Dimiliki",
             "wishlistOnly": "Daftar Keinginan Saja",
-            "platform": "Platform"
+            "platform": "Platform",
+            "platformAny": ""
         },
         "sidebar": "Penawaran",
         "sort": {
@@ -1461,7 +1535,9 @@
         },
         "sort": {
             "label": "Urutkan",
-            "last_played": "Terakhir Dimainkan"
+            "last_played": "Terakhir Dimainkan",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "selama 3 detik untuk membatalkan",
@@ -1505,7 +1581,15 @@
         },
         "removeFromQueue": {
             "message": "Game ini sedang antri untuk diunduh. Hapus dari antrian?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Berikutnya",
     "common": {
@@ -1533,21 +1617,162 @@
     "Update available!": "Pembaruan Tersedia!",
     "support": {
         "actions": {
-            "open": "Buka"
+            "open": "Buka",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Support Us"
+        "title": "Support Us",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Kembali",
         "button": {
             "download": "Download",
             "sync": "Sinkronisasi",
-            "upload": "Unggah"
+            "upload": "Unggah",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Saring",
-            "size": "Ukuran"
+            "size": "Ukuran",
+            "modified": ""
         },
-        "never": "Tidak pernah"
+        "never": "Tidak pernah",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Mengunduh"
+        },
+        "back": "Kembali",
+        "close": "Tutup",
+        "installed-games": "Gim Terinstal",
+        "next": "Berikutnya",
+        "per-game": "Pengaturan gim",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Simpan"
+        },
+        "stage": {
+            "credentials": "Login toko",
+            "globalSettings": "Pengaturan Global",
+            "perGameSettings": "Pengaturan gim"
+        },
+        "step3": {
+            "title": "Pengaturan Global"
+        },
+        "step4": {
+            "none": "Tidak ada game yang cocok dengan filter saat ini.",
+            "selectAll": "Pilih Semua"
+        },
+        "step5": {
+            "title": "Login toko"
+        },
+        "step6": {
+            "prefixPath": "Prefiks Wine",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "Tidak ada DLC yang tersedia"
+        },
+        "steps": {
+            "credentials": "Login toko",
+            "done": "Selesai",
+            "global-settings": "Pengaturan Global",
+            "per-game": "Pengaturan gim"
+        },
+        "summaryValue": "Nilai",
+        "version": "Versi Heroic",
+        "wine-versions": "Versi Wine"
     }
 }
