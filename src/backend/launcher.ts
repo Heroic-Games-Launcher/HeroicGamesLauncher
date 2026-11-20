@@ -96,6 +96,12 @@ import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 import { Game } from 'common/types/game_manager'
 import { getKnownFixesFor } from './known_fixes/utils'
+import {
+  chainWineCommands,
+  getWinePrefixRoot,
+  isRegistryStringSet,
+  parseWinePathOutput
+} from './utils/wine_prefix'
 
 let powerDisplayId: number | null
 
@@ -901,30 +907,54 @@ async function prepareWineLaunch(
       gameInfo.runner === 'gog' &&
       experimentalFeatures?.cometSupport !== false
     ) {
+      // Every Wine command boots a whole Wine/Proton instance (several
+      // seconds with umu), so work out the paths ourselves when we can
+      const prefixRoot = getWinePrefixRoot(gameSettings)
       const galaxyCommWinePath =
         'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
-      const communicationDest = await getWinePath({
-        path: galaxyCommWinePath,
-        gameSettings,
-        variant: 'unix'
-      })
+      const communicationDest = prefixRoot
+        ? join(
+            prefixRoot,
+            'drive_c',
+            'ProgramData',
+            'GOG.com',
+            'Galaxy',
+            'redists',
+            'GalaxyCommunication.exe'
+          )
+        : await getWinePath({
+            path: galaxyCommWinePath,
+            gameSettings,
+            variant: 'unix'
+          })
 
+      const setupCommands: string[][] = []
       if (!existsSync(communicationDest)) {
         mkdirSync(dirname(communicationDest), { recursive: true })
         await copyFile(galaxyCommunicationExePath, communicationDest)
-        await runWineCommand({
-          commandParts: [
-            'sc',
-            'create',
-            'GalaxyCommunication',
-            `binpath=${galaxyCommWinePath}`
-          ],
-          gameSettings,
-          protonVerb: 'run'
-        })
+        setupCommands.push([
+          'sc',
+          'create',
+          'GalaxyCommunication',
+          `binpath=${galaxyCommWinePath}`
+        ])
       }
-      await runWineCommand({
-        commandParts: [
+      const galaxyClientPath = 'C:\\Program Files\\GOG Galaxy'
+      const galaxyClientRegistered =
+        prefixRoot !== null &&
+        (await isRegistryStringSet(
+          join(prefixRoot, 'system.reg'),
+          'Software\\Wow6432Node\\GOG.com\\GalaxyClient\\paths',
+          'client',
+          galaxyClientPath
+        ))
+      if (galaxyClientRegistered) {
+        logDebug(
+          'GOG Galaxy client path already registered, skipping reg add',
+          LogPrefix.Backend
+        )
+      } else {
+        setupCommands.push([
           'reg',
           'add',
           'HKLM\\SOFTWARE\\WOW6432Node\\GOG.com\\GalaxyClient\\paths',
@@ -933,12 +963,17 @@ async function prepareWineLaunch(
           '/t',
           'REG_SZ',
           '/d',
-          'C:\\Program Files\\GOG Galaxy',
+          galaxyClientPath,
           '/f'
-        ],
-        gameSettings,
-        protonVerb: 'run'
-      })
+        ])
+      }
+      if (setupCommands.length) {
+        await runWineCommand({
+          commandParts: chainWineCommands(setupCommands),
+          gameSettings,
+          protonVerb: 'run'
+        })
+      }
     }
   } catch (err) {
     logError([
@@ -1912,7 +1947,24 @@ async function getWinePath({
   gameSettings: GameSettings
   variant?: 'win' | 'unix'
 }): Promise<string> {
-  logDebug(`Getting wine path for ${path}.`, LogPrefix.Backend)
+  const [result] = await getWinePaths({ paths: [path], gameSettings, variant })
+  return result
+}
+
+/**
+ * Like getWinePath, but converts all paths in a single Wine boot
+ * @returns One result per path, in the same order (empty strings on failure)
+ */
+async function getWinePaths({
+  paths,
+  gameSettings,
+  variant = 'unix'
+}: {
+  paths: string[]
+  gameSettings: GameSettings
+  variant?: 'win' | 'unix'
+}): Promise<string[]> {
+  logDebug(`Getting wine path for ${paths.join(', ')}.`, LogPrefix.Backend)
   // TODO: Proton has a special verb for getting Unix paths, and another one for Windows ones. Use those instead
   //       Note that this would involve running `proton runinprefix cmd /c echo path` first to expand env vars
   //       https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1526-L1533
@@ -1923,22 +1975,23 @@ async function getWinePath({
       '/c',
       'winepath',
       variant === 'unix' ? '-u' : '-w',
-      path
+      ...paths
     ],
     wait: false,
     protonVerb: 'runinprefix',
     ignoreLogging: true
   })
 
-  const result = stdout.trim()
-  if (!result) {
+  const results = parseWinePathOutput(stdout, paths.length)
+  if (!results) {
     logError(
-      `Couldn't get wine path for ${path}.\n${stderr}`,
+      `Couldn't get wine path for ${paths.join(', ')}.\n${stderr}`,
       LogPrefix.Backend
     )
+    return paths.map(() => '')
   }
 
-  return result
+  return results
 }
 
 async function runBeforeLaunchScript(
@@ -2054,6 +2107,7 @@ export {
   runWineCommand,
   callRunner,
   getWinePath,
+  getWinePaths,
   launchEventCallback,
   getKnownFixesEnvVariables
 }
