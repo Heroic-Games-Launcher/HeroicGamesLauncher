@@ -28,7 +28,8 @@
         "source": "Πηγή",
         "status": "Κατάσταση",
         "title": "Αυτό το παιχνίδι περιλαμβάνει λογισμικό anticheat",
-        "multiplayer_may_not_work": "Μπορεί να μην λειτουργεί λόγω άρνησης ή ελλειπής υποστήριξης anticheat."
+        "multiplayer_may_not_work": "Μπορεί να μην λειτουργεί λόγω άρνησης ή ελλειπής υποστήριξης anticheat.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Ενημέρωση",
         "postpone": "Αναβολή",
         "changelog": "Αρχείο Αλλαγών",
-        "cancel": "Ακύρωση"
+        "cancel": "Ακύρωση",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Ακύρωση",
@@ -263,7 +278,8 @@
             "end-time": "Ολοκληρώθηκε στις",
             "queue-time": "Προστέθηκε στις",
             "start-time": "Ξεκίνησε στις",
-            "type": "Type"
+            "type": "Type",
+            "status": "Κατάσταση"
         },
         "title": "Downloads",
         "ETA": "Αναμενόμενη ώρα",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Οι διαδικτυακές υπηρεσίες πιθανό να μη λειτουργούν πλήρως καθώς οι διακομιστές Epic Games ειναι εκτός σύνδεσης!",
         "offline-notification-title": "Εκτός Σύνδεσης"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Αγαπημένα",
     "game": {
         "status": "Κατάσταση",
@@ -328,7 +350,8 @@
         "stores": "Καταστήματα",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "Το FSR της AMD συμβάλλει στην ενίσχυση του ρυθμού καρέ αναβαθμίζοντας χαμηλότερες αναλύσεις σε λειτουργία πλήρους οθόνης. Η ποιότητα της εικόνας αυξάνεται από 5 σε 1 με το κόστος μιας μικρής μείωσης της απόδοσης. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
@@ -489,7 +512,28 @@
             "title": "Αποσύνδεση"
         },
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "activate": "Ενεργοποίηση",
+            "confirm": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "logged_in": "Σύνδεση",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Ο συγχρονισμός ολοκληρώθηκε",
@@ -551,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Εκτός σύνδεσης. Επανάληψη σε {{seconds}} δευτερόλεπτα.",
-        "retrying": "Επανάληψη προσπάθειας"
+        "retrying": "Επανάληψη προσπάθειας",
+        "hint-label": ""
     },
     "Open": "Ανοιξε",
     "options": {
@@ -614,7 +659,8 @@
         "gogdl-version": "Έκδοση GOGDL: ",
         "legendary-version": "Έκδοση Legendary: ",
         "weblate": "Βοηθήστε να μεταφραστεί το Heroic.",
-        "nile-version": "Έκδοση Nile: "
+        "nile-version": "Έκδοση Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -754,7 +800,8 @@
                 "legendary": "Αρχείο καταγραφής του Epic Games / Legendary",
                 "nile": "Αρχείο καταγραφής του Amazon / Nile",
                 "zoom": "Αρχείο καταγραφής του Zoom",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "join-heroic-discord": "Γίνετε μέλος του Discord μας",
             "show-uploads": "Εμφάνιση μεταφορτωμένων αρχείων καταγραφής",
@@ -958,8 +1005,26 @@
         "alt-aurelia-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
-            "missingRuntime": "Το VCRuntime δεν είναι εγκατεστημένο"
-        }
+            "missingRuntime": "Το VCRuntime δεν είναι εγκατεστημένο",
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1028,10 +1093,14 @@
             "details": "Λεπτομέριες",
             "title": {
                 "resetHeroic": "Επαναφορά Heroic",
-                "clearCache": "Εκκαθάριση προσωρινής μνήμης"
+                "clearCache": "Εκκαθάριση προσωρινής μνήμης",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Αυτό θα αφαιρέσαι όλες τις Ρυθμίσεις και την προσωρινή μνήμη, αλλά δεν θα αφαιρέσει τα εγκατεστημένα παιχνίδια ή τις πληροφορίες εισόδου του Epic. Οι φορητές εκδόσεις (AppImage, WinPortable, ...) του Heroic θα πρέπει να επανεκκινηθούν χειροκίνητα.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1106,7 +1175,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1115,6 +1187,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Αντιγραφή"
         }
     },
     "Settings": "Ρυθμίσεις",
@@ -1129,7 +1205,8 @@
         "logging": "Σύνδεση...",
         "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε",
         "preparing_login": "Προετοιμασία σύνδεσης... ",
-        "installed": "Εγκατάσταση"
+        "installed": "Εγκατάσταση",
+        "preparing": ""
     },
     "store": "Κατάστημα Epic",
     "stores": "Καταστήματα",
@@ -1154,7 +1231,9 @@
     },
     "two_col_table": {
         "save_hint": "Οι αλλαγές σε αυτόν τον πίνακα δεν αποθηκεύονται αυτόματα. Κάντε κλικ στο κουμπί +",
-        "add": "Προσθήκη"
+        "add": "Προσθήκη",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Ενημέρωση διαθέσιμη!",
     "userselector": {
@@ -1394,7 +1473,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Προσφορές",
         "sort": {
@@ -1460,7 +1540,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "Παίχτηκε Τελευταία φορά"
+            "last_played": "Παίχτηκε Τελευταία φορά",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1504,7 +1587,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Επόμενο",
     "common": {
@@ -1532,17 +1623,158 @@
     "Update available!": "Ενημέρωση διαθέσιμη!",
     "support": {
         "actions": {
-            "open": "Άνοιγμα"
-        }
+            "open": "Άνοιγμα",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Πίσω",
         "button": {
-            "download": "Download"
+            "download": "Download",
+            "view": "",
+            "keep": "",
+            "sync": "",
+            "upload": ""
         },
         "column": {
-            "size": "Μέγεθος"
+            "size": "Μέγεθος",
+            "modified": "",
+            "file": ""
         },
-        "never": "Ποτέ"
+        "never": "Ποτέ",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Γίνεται λήψη"
+        },
+        "back": "Πίσω",
+        "close": "Kλείσιμο",
+        "installed-games": "Εγκατεστημένα Παιχνίδια",
+        "next": "Επόμενο",
+        "per-game": "Ρυθμίσεις παιχνιδιού",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "Σύνδεση στο κατάστημα",
+            "globalSettings": "Καθολικές Ρυθμίσεις",
+            "perGameSettings": "Ρυθμίσεις παιχνιδιού"
+        },
+        "step3": {
+            "title": "Καθολικές Ρυθμίσεις"
+        },
+        "step4": {
+            "selectAll": "Επιλογή Όλων"
+        },
+        "step5": {
+            "title": "Σύνδεση στο κατάστημα"
+        },
+        "step6": {
+            "prefixPath": "Wine Prefix",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "Δεν υπάρχει διαθέσιμο DLC"
+        },
+        "steps": {
+            "credentials": "Σύνδεση στο κατάστημα",
+            "done": "Ολοκληρώθηκε",
+            "global-settings": "Καθολικές Ρυθμίσεις",
+            "per-game": "Ρυθμίσεις παιχνιδιού"
+        },
+        "summaryValue": "Τιμή",
+        "version": "Έκδοση Heroic",
+        "wine-versions": "Έκδοση Wine"
     }
 }
