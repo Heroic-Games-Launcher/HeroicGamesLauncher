@@ -28,7 +28,8 @@
         "source": "Allikas",
         "status": "Olek",
         "title": "See mäng sisaldab sohivastast tarkvara",
-        "multiplayer_may_not_work": "Mitmikmängu funktsioonid ei pruugi toimida keelatud või katkiste sohivastaste meetmete tõttu."
+        "multiplayer_may_not_work": "Mitmikmängu funktsioonid ei pruugi toimida keelatud või katkiste sohivastaste meetmete tõttu.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -117,7 +118,8 @@
                     "body": "Mängu {{game}} eemaldamine Steamist ebaõnnestus:{{newLine}} {{error}}",
                     "title": "Ilmnes viga mängu Steamist eemaldamisel"
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -214,7 +216,20 @@
         "launchAnyway": "Mängi siiski",
         "shaderPreCachingDisabledMessage": "Steami Shader Pre-cache (shaderite ettelaadimine) on keelatud. Palun lülitage see töölauarežiimis Steami seadetest sisse, et mäng toimiks UMU-ga korralikult.",
         "shaderPreCachingDisabledTitle": "Shaderite ettelaadimine keelatud",
-        "cancel": "Tühista"
+        "cancel": "Tühista",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Tühista",
@@ -269,7 +284,8 @@
             "end-time": "Valmis",
             "queue-time": "Lisatud",
             "start-time": "Alustatud",
-            "type": "Tüüp"
+            "type": "Tüüp",
+            "status": "Olek"
         },
         "title": "Allalaadimised",
         "ETA": "Eeldatav kellaaeg",
@@ -280,14 +296,20 @@
                 "title": "Järjekord on tühi"
             }
         },
-        "pageSubtitle": "Mida praegu paigaldatakse, mis tuleb järgmisena, ja mis on juba valmis"
+        "pageSubtitle": "Mida praegu paigaldatakse, mis tuleb järgmisena, ja mis on juba valmis",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Võrguteenused ei pruugi täielikult töötada, kuna Epic Gamesi serverid on võrguühenduseta!",
         "offline-notification-title": "ühenduseta"
     },
     "Epic Games": "Epic Games",
-    "error": "Viga",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Lemmikud",
     "game": {
         "status": "Olek",
@@ -334,7 +356,8 @@
         "stores": "Poed",
         "display": "Kuva",
         "hidden": "Peidetud",
-        "non_available": "Pole saadaval"
+        "non_available": "Pole saadaval",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD FSR aitab suurendada kaadrisagedust, suurendades madalamaid resolutsioone täisekraani režiimis. Pildikvaliteet suureneb 5-st 1-le, mis toob aga kaasa kerge jõudluse vähenemise. Lubamine võib parandada jõudlust.",
@@ -496,7 +519,27 @@
         },
         "title_amazon": "Amazon Games",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "Keela GOG partnerlink",
+                "message": ""
+            },
+            "activate": "Aktiveeri"
+        },
+        "logged_in": "Logi sisse",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -558,7 +601,8 @@
         "ignore": "Ignoreeri",
         "offline": "Võrgust väljas",
         "offline-retry-in": "Võrguühendus puudub. Proovin uuesti {{seconds}} sekundi pärast.",
-        "retrying": "Proovin uuesti"
+        "retrying": "Proovin uuesti",
+        "hint-label": ""
     },
     "Open": "Avatud",
     "options": {
@@ -621,7 +665,8 @@
         "gogdl-version": "GOGDL versioon: ",
         "legendary-version": "Legendary versioon: ",
         "weblate": "Aidake tõlkida Heroicut.",
-        "nile-version": "Nile Version: "
+        "nile-version": "Nile Version: ",
+        "aurelia-version": ""
     },
     "Other": "Muu",
     "placeholder": {
@@ -762,7 +807,8 @@
                 "gog": "GOG logi",
                 "nile": "Amazon / Nile logi",
                 "zoom": "Zoomi logi",
-                "itchio": "itch.io logi"
+                "itchio": "itch.io logi",
+                "steam": ""
             },
             "show-uploads": "Näita üles laetud logifaile",
             "error": "Sisemine viga logifaili lugemisel",
@@ -975,8 +1021,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Allalaadimine",
             "missingBuild": "Allalaaditud kokku",
-            "missingRuntime": "VCRuntime ei ole paigaldatud"
-        }
+            "missingRuntime": "VCRuntime ei ole paigaldatud",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1044,13 +1107,17 @@
             },
             "title": {
                 "resetHeroic": "Lähtesta Heroic",
-                "clearCache": "Tühjenda vahemälu"
+                "clearCache": "Tühjenda vahemälu",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "See eemaldab kõik seaded ja vahemälud, aga ei eemalda teie installeeritud mänge ega Epicu sisselogimise seisundit. Heroicu kompaktseid versioone (AppImage, WinPortable jne.) peab pärast käsitsi taaskäivitama.",
                 "description": "Lähtestab Heroicu vaikeseadetele. Paigaldatud mängud ja poodide sisselogimised jäävad alles."
             },
-            "details": "Üksikasjad"
+            "details": "Üksikasjad",
+            "clearImagesCache": {
+                "description": ""
+            }
         },
         "systemInformation": {
             "osVersion": "Versioon {{versionNumber}}",
@@ -1123,7 +1190,11 @@
             "privacy": "Privaatsus",
             "runtimes": "Runtimed",
             "system": "Süsteem",
-            "winePerformance": "Jõudlus"
+            "winePerformance": "Jõudlus",
+            "steam": "",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "Kliki, et avada mängu seadete fail",
         "pageSubtitle": {
@@ -1132,7 +1203,8 @@
             "general": "Seadista oma käivitaja eelistused",
             "log": "Loe ja jaga Heroicu logisid",
             "systeminfo": "Teie riistvara ja versioonid, mida Heroic kasutab"
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Seaded",
     "sidebar": {
@@ -1146,7 +1218,8 @@
         "logging": "Sisselogimine...",
         "processing": "Failide töötlemine, palun oodake",
         "preparing_login": "Sisselogimise ettevalmistamine... ",
-        "installed": "Paigaldatud"
+        "installed": "Paigaldatud",
+        "preparing": ""
     },
     "store": "Epic Pood",
     "stores": "Poed",
@@ -1420,7 +1493,8 @@
             "releaseYear": "Väljalaske aasta",
             "hideOwned": "Peida kuuluvad",
             "wishlistOnly": "Ainult soovinimekirjas",
-            "platform": "Platform"
+            "platform": "Platform",
+            "platformAny": ""
         },
         "sidebar": "Allahindlused",
         "sort": {
@@ -1487,7 +1561,9 @@
         },
         "sort": {
             "label": "Sorteeri",
-            "last_played": "Viimati mängitud"
+            "last_played": "Viimati mängitud",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "3 sekundit tühistamiseks",
@@ -1531,7 +1607,15 @@
         },
         "removeFromQueue": {
             "message": "Mäng on allalaadimiste järjekorras. Eemaldada järjekorrast?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Järgmine",
     "common": {
@@ -1559,21 +1643,162 @@
     "Update available!": "Uuendus saadaval!",
     "support": {
         "actions": {
-            "open": "Ava"
+            "open": "Ava",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Toeta meid"
+        "title": "Toeta meid",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Tagasi",
         "button": {
             "download": "Allalaadimine",
             "sync": "Sünkrooni",
-            "upload": "Laadi üles"
+            "upload": "Laadi üles",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Filtreeri",
-            "size": "Suurus"
+            "size": "Suurus",
+            "modified": ""
         },
-        "never": "Mitte kunagi"
+        "never": "Mitte kunagi",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Allalaadimine"
+        },
+        "back": "Tagasi",
+        "close": "Sulge",
+        "installed-games": "Paigaldatud mängud",
+        "next": "Järgmine",
+        "per-game": "Mängu seaded",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Salvesta"
+        },
+        "stage": {
+            "credentials": "Sisselogimine poodi",
+            "globalSettings": "Globaalsed seaded",
+            "perGameSettings": "Mängu seaded"
+        },
+        "step3": {
+            "title": "Globaalsed seaded"
+        },
+        "step4": {
+            "none": "Ükski mäng ei vasta praegustele filtritele.",
+            "selectAll": "Vali kõik"
+        },
+        "step5": {
+            "title": "Sisselogimine poodi"
+        },
+        "step6": {
+            "prefixPath": "Wine prefiks",
+            "wine-downloadable": "Allalaadimine",
+            "wine-unavailable": "DLC ei ole saadaval"
+        },
+        "steps": {
+            "credentials": "Sisselogimine poodi",
+            "done": "Valmis",
+            "global-settings": "Globaalsed seaded",
+            "per-game": "Mängu seaded"
+        },
+        "summaryValue": "Väärtus",
+        "version": "Heroicu versioon",
+        "wine-versions": "Wine'i versioon"
     }
 }
