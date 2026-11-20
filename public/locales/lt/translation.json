@@ -64,7 +64,8 @@
             "steam": {
                 "running": "„Steam“ veikia. Uždarykite „Steam“ ir bandykite dar kartą, arba iš naujo paleiskite „Steam“ vienam kartui, kad „Heroic“ galėtų valdyti nuorodas, kol jis veikia.",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "no": "NE",
         "runexe": {
@@ -166,7 +167,20 @@
                 "message": "Ar Jūs tikrai norite atstatyti „Heroic“? Šis pašalins visus/-as nustatymus ir talpyklas/podėlius, bet nepašalins Jūsų įdiegtų žaidimų ar Jūsų „Epic“ kredencialų. Perkeliamos „Heroic“ versijos („AppImage“, „WinPortable“ ir t.t.) turi būti paleidžiamos iš naujo rankiniu būdu po vėliau."
             }
         },
-        "cancel": "Atšaukti"
+        "cancel": "Atšaukti",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "notify": {
         "uninstalled": "Išdiegti",
@@ -275,7 +289,8 @@
             "type": "Tipas",
             "end-time": "Baigta –",
             "queue-time": "Pridėta –",
-            "start-time": "Pradėta –"
+            "start-time": "Pradėta –",
+            "status": "Būsena/Būklė"
         },
         "ETA": "Numatytas laikas",
         "title": "Atsisiuntimai",
@@ -286,7 +301,11 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "game": {
         "modify": "Redaguoti įdiegimą",
@@ -314,7 +333,8 @@
         "stores": "Parduotuvės",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "title": {
@@ -560,7 +580,8 @@
                 "legendary": "„Epic Games“ / „Legendary“ žurnalas",
                 "nile": "„Amazon“ / „Nile“ žurnalas",
                 "zoom": "„Zoom“ žurnalas",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "join-heroic-discord": "Prisijunkite prie mūsų „Discord“",
             "show-in-folder": "Rodyti žurnalo failą aplanke/-ale",
@@ -763,8 +784,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Atsisiųsti",
             "missingBuild": "Iš viso atsisiųsta",
-            "missingRuntime": "„VCRuntime“ nėra įdiegtas"
-        }
+            "missingRuntime": "„VCRuntime“ nėra įdiegtas",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "advanced": {
@@ -784,10 +822,14 @@
             },
             "title": {
                 "clearCache": "Išvalyti talpyklą/podėlį",
-                "resetHeroic": "Atstatyti „Heroic“"
+                "resetHeroic": "Atstatyti „Heroic“",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Šis pašalins visus nustatymus ir talpyklas/podėlius, bet nepašalins Jūsų įdiegtų žaidimų ar „Epic“ kredencialų. Perkeliamos „Heroic“ versijos („AppImage“, „WinPortable“ ir t.t.) reikalauja, kad būtų perleisto rankiniu būdo po šio.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -909,7 +951,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "„Amazon“ žaidimai",
+            "epic": "„Epic Games“",
+            "gog": "„GOG“"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -918,6 +964,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Kopijuoti"
         }
     },
     "Settings": "Nustatymai",
@@ -926,7 +976,8 @@
         "processing": "Apdorojami failai, prašome palaukti",
         "preparing_login": "Paruošiamas prisijungimas... ",
         "logging": "Prisijungiama...",
-        "installed": "Įdiegta"
+        "installed": "Įdiegta",
+        "preparing": ""
     },
     "window": {
         "close": "Uždaryti",
@@ -991,7 +1042,8 @@
         "status": "Būsena/Būklė",
         "title": "Šis žaidimas įtraukia anti-sukčiavimo taikomąją programą",
         "reference": "Išnaša/Pamatinis",
-        "multiplayer_may_not_work": "Daugiažaidėjė̄škos funkcijos gali neveikti, dėl sugedusio ar atmesto anti-sukčiavimo palaikymo."
+        "multiplayer_may_not_work": "Daugiažaidėjė̄škos funkcijos gali neveikti, dėl sugedusio ar atmesto anti-sukčiavimo palaikymo.",
+        "removed": ""
     },
     "Amazon Games": "„Amazon“ žaidimai",
     "categories-manager": {
@@ -1038,14 +1090,35 @@
         },
         "title_amazon": "„Amazon“ žaidimai",
         "title_epic": "„Epic Games“",
-        "title_gog": "„GOG“"
+        "title_gog": "„GOG“",
+        "logged_in": "Prisijungti",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "offline-message": {
         "ignore": "Ignoruoti",
         "offline": "Atsijungęs/-usi",
         "retrying": "Bandoma dar kartą",
         "offline-retry-in": "Atsijungęs/-usi. Bandoma po {{seconds}} sek.",
-        "hint": "Mes tikriname prisijungimą priešais:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com ir{{newline}}cloudflare-dns.com"
+        "hint": "Mes tikriname prisijungimą priešais:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com ir{{newline}}cloudflare-dns.com",
+        "hint-label": ""
     },
     "options": {
         "wrapper": {
@@ -1107,7 +1180,8 @@
         "gogdl-version": "„GOGDL“ versija: ",
         "nile-version": "„Nile“ versija: ",
         "legendary-version": "„Legendary“ versija: ",
-        "weblate": "Padėkite išversti „Heroic“."
+        "weblate": "Padėkite išversti „Heroic“.",
+        "aurelia-version": ""
     },
     "platforms": {
         "browser": "Naršyklė",
@@ -1138,7 +1212,9 @@
         "quitMessage": "Ar Jūs tikrai norite išeiti?",
         "manage": ""
     },
-    "error": "Klaida",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Mėgstamiausi",
     "GOG": "„GOG“",
     "Other": "Kita/-s/-i",
@@ -1172,7 +1248,9 @@
     },
     "two_col_table": {
         "save_hint": "Pakeitimai šioje lentelėje nėra automatiškai išsaugomi. Spauskite – „+“ mygtuką",
-        "add": "Pridėti"
+        "add": "Pridėti",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Pasiekiamas atnaujinimas!",
     "webview": {
@@ -1322,7 +1400,8 @@
             "releaseYear": "Išleidimo metai",
             "hideOwned": "Slėpti turimus",
             "wishlistOnly": "Tik norimus",
-            "platform": "Platforma"
+            "platform": "Platforma",
+            "platformAny": ""
         },
         "region": {
             "countries": {
@@ -1425,7 +1504,9 @@
         },
         "sort": {
             "label": "Rikiuoti/Rūšiuoti",
-            "last_played": "Paskutinį kartą žaista"
+            "last_played": "Paskutinį kartą žaista",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "3sek., kad atšauktumėte",
@@ -1456,7 +1537,15 @@
         },
         "removeFromQueue": {
             "message": "Šis žaidimas yra eilėje, kad būtų atsisiųstas. Pašalinti jį iš eilės?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "steamgriddb": {
         "error": {
@@ -1501,19 +1590,160 @@
     "Update available!": "Pasiekiamas atnaujinimas!",
     "support": {
         "actions": {
-            "open": "Atidaryti"
-        }
+            "open": "Atidaryti",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Atgal",
         "button": {
             "download": "Atsisiųsti",
             "sync": "Sinchronizuoti",
-            "upload": "Įkelti"
+            "upload": "Įkelti",
+            "view": "",
+            "keep": ""
         },
         "column": {
-            "size": "Dydis"
+            "size": "Dydis",
+            "modified": "",
+            "file": ""
         },
-        "never": "Niekada"
+        "never": "Niekada",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "browse": "Naršyklė",
+            "download": "Atsisiunčiama"
+        },
+        "back": "Atgal",
+        "close": "Uždaryti",
+        "installed-games": "Įdiegti žaidimai",
+        "next": "Sekantis",
+        "per-game": "Žaidimo nustatymai",
+        "platform": "Platforma",
+        "stage": {
+            "credentials": "Parduotuvės prisijungimas",
+            "globalSettings": "Visuotiniai nustatymai",
+            "perGameSettings": "Žaidimo nustatymai"
+        },
+        "step3": {
+            "title": "Visuotiniai nustatymai"
+        },
+        "step4": {
+            "none": "Nėra žaidimų, atitinkančių dabartinius filtrus.",
+            "selectAll": "Pažymėti visus"
+        },
+        "step5": {
+            "title": "Parduotuvės prisijungimas"
+        },
+        "step6": {
+            "prefixPath": "„Wine“ prielinksnis/priešdėlis",
+            "wine-downloadable": "Atsisiųsti",
+            "wine-unavailable": "Nėra pasiekiamų „DLC“"
+        },
+        "steps": {
+            "credentials": "Parduotuvės prisijungimas",
+            "done": "Atlikta",
+            "global-settings": "Visuotiniai nustatymai",
+            "per-game": "Žaidimo nustatymai"
+        },
+        "summaryValue": "Reikšmė",
+        "version": "„Heroic“ versija",
+        "wine-versions": "„Wine“ versija"
     }
 }
