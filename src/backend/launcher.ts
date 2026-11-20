@@ -1789,6 +1789,7 @@ async function callRunner(
       }
 
       res({
+        exitCode: code,
         stdout: stdout.join(),
         stderr: stderr.join('\n')
       })
@@ -1800,8 +1801,8 @@ async function callRunner(
   })
 
   promise = promise
-    .then(({ stdout, stderr }) => {
-      return { stdout, stderr, fullCommand: safeCommand }
+    .then(({ stdout, stderr, exitCode }) => {
+      return { stdout, stderr, fullCommand: safeCommand, exitCode }
     })
     .catch((error) => {
       if (abortController.signal.aborted) {
