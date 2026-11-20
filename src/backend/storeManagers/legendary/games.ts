@@ -1,4 +1,5 @@
 import { copyFileSync, existsSync } from 'graceful-fs'
+import { legendaryImportDirectory } from './import_path'
 import axios from 'axios'
 
 import {
@@ -806,14 +807,37 @@ export default class LegendaryGame implements Game {
     return res
   }
 
+  private async macImportDirectory(
+    folderPath: string,
+    platform: InstallPlatform
+  ): Promise<string> {
+    const cleaned = folderPath.replace(/\/+$/, '')
+    if (platform !== 'Mac' || !cleaned.toLowerCase().endsWith('.app')) {
+      return folderPath
+    }
+    try {
+      const info = await libraryManagerMap['legendary'].getInstallInfo(
+        this.appName,
+        platform
+      )
+      return legendaryImportDirectory(folderPath, info?.manifest?.launch_exe)
+    } catch {
+      return folderPath
+    }
+  }
+
   async importGame(
     folderPath: string,
     platform: InstallPlatform
   ): Promise<ExecResult> {
+    const installationDirectory = await this.macImportDirectory(
+      folderPath,
+      platform
+    )
     const command: LegendaryCommand = {
       subcommand: 'import',
       appName: this.appName,
-      installationDirectory: Path.parse(folderPath),
+      installationDirectory: Path.parse(installationDirectory),
       '--with-dlcs': true,
       '--platform': LegendaryPlatform.parse(platform)
     }
