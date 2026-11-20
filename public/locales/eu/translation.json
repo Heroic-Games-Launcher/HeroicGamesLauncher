@@ -28,7 +28,8 @@
         "source": "Iturria",
         "status": "Egoera",
         "title": "Joko honek antitranpa softwarea dauka",
-        "multiplayer_may_not_work": "Posible da ez funtzionatzea antitranpa sistema ukatu edo apurtutako batengatik."
+        "multiplayer_may_not_work": "Posible da ez funtzionatzea antitranpa sistema ukatu edo apurtutako batengatik.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Update",
         "changelog": "",
         "postpone": "",
-        "cancel": "Ezeztatu"
+        "cancel": "Ezeztatu",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Ezeztatu",
@@ -263,7 +278,8 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
-            "type": "Type"
+            "type": "Type",
+            "status": "Egoera"
         },
         "title": "Downloads",
         "ETA": "Aurreikusitako denbora",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Baliteke lineako zerbitzuak guztiz ez funtzionatzea Epic Games zerbitzariak lineaz kanpo daudelako!",
         "offline-notification-title": "lineaz kanpo"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Gogokoenak",
     "game": {
         "status": "Egoera",
@@ -328,7 +350,8 @@
         "stores": "Store",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
@@ -485,7 +508,32 @@
         "itchio": "",
         "button": "Log in",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "logout_confirm": {
+            "title": "",
+            "message": ""
+        },
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": "",
+        "logged_in": "Log in"
     },
     "message": {
         "sync": "Sinkronizazioa amaituta",
@@ -547,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "retrying": "Retrying",
+        "hint-label": ""
     },
     "Open": "Ireki",
     "options": {
@@ -610,7 +659,8 @@
         "gogdl-version": "GOGDL bertsioa: ",
         "legendary-version": "Bertsio mitikoa: ",
         "weblate": "Lagundu Heroic itzultzen.",
-        "nile-version": "Nile bertsioa: "
+        "nile-version": "Nile bertsioa: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -620,7 +670,8 @@
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS instalatuta dagoen aurrizkia",
         "prefered_language": "2 karaktere kodea (hau da: \"en\" edo \"fr\")",
-        "alt-nile-bin": "Nile bitarra integratua erabiltzen..."
+        "alt-nile-bin": "Nile bitarra integratua erabiltzen...",
+        "alt-aurelia-bin": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -750,7 +801,8 @@
                 "zoom": "",
                 "game-log": "{{gameTitle}}-(r)en aldaketak",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -946,8 +998,28 @@
         "disableUMU-description": "",
         "gamemode-description": "",
         "steamLaunchTarget": {
-            "downloadBuild": "Download"
-        }
+            "downloadBuild": "Download",
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": "",
+            "missingRuntime": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1003,7 +1075,8 @@
             "details": "Xehetasunak",
             "title": {
                 "resetHeroic": "Berrezarri Heroic",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Ziur zaude Heroic berrabiarazi nahi duzula? Horrek ezarpen guztiak eta cacheko biltegiratzea ezabatuko ditu, baina ez ditu zure instalatutako jokoak edo Epic-eko kredentzialak ezabatuko. Heroic-en bertsio eramangarriak (AppImage, WinPortable, ...) berrabiarazi egin behar dira.",
@@ -1020,6 +1093,9 @@
                 "help6": "",
                 "help2": "",
                 "help4": "",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1094,7 +1170,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1103,7 +1182,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Ezarpenak",
     "sidebar": {
@@ -1117,7 +1197,8 @@
         "logging": "Saioa hasi...",
         "processing": "Fitxategiak prozesatzen, itxaron mesedez",
         "preparing_login": "Saioa hasteko prestatzen... ",
-        "installed": "Install"
+        "installed": "Install",
+        "preparing": ""
     },
     "store": "Denda epikoa",
     "stores": "Dendak",
@@ -1142,7 +1223,9 @@
     },
     "two_col_table": {
         "save_hint": "Taula honetako aldaketak ez dira automatikoki gordetzen. Egin klik + botoian",
-        "add": ""
+        "add": "",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Eguneraketa eskuragarri!",
     "userselector": {
@@ -1382,7 +1465,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Xehetasunak",
         "sort": {
@@ -1447,7 +1531,12 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": {
+            "label": "",
+            "last_played": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
+        },
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
@@ -1490,7 +1579,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1519,10 +1616,139 @@
     "cloudSync": {
         "button": {
             "download": "Download",
-            "sync": "Sinkronizatu"
+            "sync": "Sinkronizatu",
+            "view": "",
+            "keep": "",
+            "upload": ""
         },
         "column": {
-            "file": "Iragazkiarekin"
-        }
+            "file": "Iragazkiarekin",
+            "modified": "",
+            "size": ""
+        },
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "back": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "never": "",
+        "lastSync": ""
+    },
+    "support": {
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "actions": {
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": "",
+            "open": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Downloading"
+        },
+        "close": "Itxi",
+        "platform": "Platform",
+        "stage": {
+            "globalSettings": "Ezarpen globalak"
+        },
+        "step3": {
+            "title": "Ezarpen globalak"
+        },
+        "step6": {
+            "prefixPath": "Ardoaren aurrizkia",
+            "wine-downloadable": "Download"
+        },
+        "steps": {
+            "global-settings": "Ezarpen globalak"
+        },
+        "version": "Heroic bertsioa"
     }
 }
