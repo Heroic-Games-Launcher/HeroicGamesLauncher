@@ -10,7 +10,8 @@
         "move": {
             "message": "Cette opération peut prendre beaucoup de temps. Êtes-vous certain(e) de vouloir continuer ?",
             "path": "Choisir où vous voulez le déplacer",
-            "title": "Déplacer le répertoire du jeu"
+            "title": "Déplacer le répertoire du jeu",
+            "steamMessage": ""
         },
         "no": "NON",
         "repair": {
@@ -93,14 +94,20 @@
         "uninstall": "Désinstaller",
         "update": "Mettre à jour",
         "details": "Détails",
-        "changelog": "Afficher le journal des changements",
+        "changelog": "Afficher l'historique des mises à jour",
         "browse_files": "Parcourir les fichiers",
-        "browse_wine_prefix": "Parcourir le préfixe Wine",
+        "browse_wine_prefix": "Parcourir le préfixe utilisé par Wine",
         "play": "JOUER",
         "edit-game": "Modifier l'application/le jeu",
         "favourite": "Ajouter aux favoris",
         "unfavourite": "Retirer des favoris",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Retour",
+        "next": "Suivant",
+        "skip-installer": {
+            "title": "Passer"
+        }
     },
     "cloud_save_unsupported": "Non-compatible",
     "disabled": "Désactivé",
@@ -135,7 +142,7 @@
         "changelogFor": "Changements effectués dans {{gameTitle}}",
         "modify": "Modifier l’installation",
         "extra_info": "Informations complémentaires",
-        "install_info": "Installation",
+        "install_info": "Infos sur l'installation",
         "achievements": "Accomplissements",
         "details": "Caractéristiques du jeu",
         "tabs": "",
@@ -180,7 +187,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Espace disponible",
@@ -200,7 +212,10 @@
             "ok": "Entendu",
             "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n’est pas compatible avec votre système d’exploitation ou n’a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et qu’il n'y a rien que vous puissiez faire pour y remédier (les membres de l’équipe d’Heroic non plus). <br /><br />Pour installer ce jeu et l’essayer quand même, rendez-vous sur la page des paramètres avancés puis cochez l’option permettant d’autoriser l’installation de jeux comportant un dispositif anti-triche incompatible ou délaissé par ses développeurs. <br /><br />Veuillez noter qu’il n'existe pas de solution à ce problème et que vous risquez d’être banni du jeu."
         },
-        "flatpak-path-not-writtable": "Erreur : ce répertoire n’est pas accessible en mode bac-à-sable en raison d'un risque de perte de données."
+        "flatpak-path-not-writtable": "Erreur : ce répertoire n’est pas accessible en mode bac-à-sable en raison d'un risque de perte de données.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -246,7 +261,8 @@
             "specificVersion-pt1": "Ceci téléchargera une version de Steam spécifique depuis",
             "specificVersion-pt2": "archive.org"
         },
-        "releaseDate": "Date de publication"
+        "releaseDate": "Date de publication",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Paramètres de lancement...",
@@ -296,6 +312,12 @@
         },
         "images": {
             "summary": "Images"
+        },
+        "step": {
+            "compat": "Vérifier la compatibilité",
+            "finish": "Terminer",
+            "images": "Images",
+            "install": "Arrêter l'installation"
         }
     },
     "specs": {
@@ -350,7 +372,8 @@
         "extraInfo": "Informations supplémentaires",
         "logs": "Journaux d'événements",
         "categories": "Catégories",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Ce jeu n’est pas compatible avec la sauvegarde à distance. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde à distance.",
@@ -416,6 +439,11 @@
             "installInfo": "Taille du téléchargement",
             "launchOptions": "Options de lancement",
             "storeInfo": "Informations Système"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
