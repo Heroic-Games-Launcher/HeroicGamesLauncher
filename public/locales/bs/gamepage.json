@@ -10,7 +10,8 @@
         "move": {
             "message": "Ovo može potrajati, jeste li sigurni?",
             "path": "Izaberite gdje želite premjestiti",
-            "title": "Premjestite instalaciju video igre"
+            "title": "Premjestite instalaciju video igre",
+            "steamMessage": ""
         },
         "no": "NE",
         "repair": {
@@ -100,7 +101,8 @@
         "edit-game": "Edit App/Game",
         "favourite": "Dodaj u favorite",
         "unfavourite": "Otkloni iz favorita",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": ""
     },
     "cloud_save_unsupported": "Nepodržano",
     "disabled": "Onemogućeno",
@@ -118,7 +120,7 @@
         "lastPlayed": "Zadnji put odigrano",
         "neverPlayed": "Nikada",
         "platform": "Odaberi verziju platforme za instalirati",
-        "requirements": "Zahtjevi sistema",
+        "requirements": "Sistemske postavke",
         "totalPlayed": "Vrijeme igranja",
         "dlcs": "DLC",
         "branch": {
@@ -179,7 +181,13 @@
             "unsupported": ""
         },
         "developer": "",
-        "genres": ""
+        "genres": "",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        },
+        "dlcs": ""
     },
     "install": {
         "disk-space-left": "Prostora dostupno",
@@ -197,7 +205,10 @@
             "multiplayer_message": "",
             "title": ""
         },
-        "flatpak-path-not-writtable": ""
+        "flatpak-path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -222,7 +233,8 @@
         },
         "winetricks": "",
         "redist": "",
-        "releaseDate": "Datum izlaska"
+        "releaseDate": "Datum izlaska",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opcije za pokretanje...",
@@ -272,12 +284,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "Provjeri kompatibilnost",
+            "finish": "Finish",
+            "install": "Zaustavi instalaciju"
         }
     },
     "specs": {
         "minimum": "Minimalno",
         "recommended": "Preporučeno",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "Klikni za ažuriranje",
@@ -325,7 +343,8 @@
         "extraInfo": "Extra Info",
         "logs": "Dnevnici",
         "categories": "",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Ova igra ne podržava spremanje u oblaku. Ove informacije daju programeri igre. Neke igre implementiraju sopstveni sistem čuvanja u oblaku",
@@ -386,7 +405,16 @@
     },
     "steam": {
         "data": {
-            "installInfo": "Veličina Preuzimanja"
+            "installInfo": "Veličina Preuzimanja",
+            "achievements": "",
+            "dlc": "",
+            "launchOptions": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
