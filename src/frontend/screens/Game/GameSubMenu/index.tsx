@@ -25,6 +25,7 @@ import {
   FolderOpen,
   HardDriveDownload,
   Info,
+  Library,
   List,
   MonitorX,
   Pencil,
@@ -84,6 +85,9 @@ export default function GamesSubmenu({
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [protonDBurl, setProtonDBurl] = useState(
     `https://www.protondb.com/search?q=${title}`
+  )
+  const [pcGamingWikiUrl, setPcGamingWikiUrl] = useState(
+    `https://www.pcgamingwiki.com/w/index.php?search=${encodeURIComponent(title)}`
   )
   const { t } = useTranslation('gamepage')
   const isSideloaded = runner === 'sideload'
@@ -260,6 +264,9 @@ export default function GamesSubmenu({
       const steamID = info?.pcgamingwiki?.steamID ?? info?.gamesdb?.steamID
       if (steamID) {
         setProtonDBurl(`https://www.protondb.com/app/${steamID}`)
+        setPcGamingWikiUrl(
+          `https://www.pcgamingwiki.com/api/appid.php?appid=${steamID}`
+        )
       }
     })
   }, [title, appName])
@@ -420,6 +427,14 @@ export default function GamesSubmenu({
               onClick={() => createNewWindow(protonDBurl)}
             >
               {t('submenu.protondb', 'Check compatibility')}
+            </MenuItem>
+          )}
+          {!isSideloaded && (
+            <MenuItem
+              glyph={Library}
+              onClick={() => createNewWindow(pcGamingWikiUrl)}
+            >
+              {t('submenu.pcgamingwiki', 'PCGamingWiki')}
             </MenuItem>
           )}
           {onShowRequirements && (
