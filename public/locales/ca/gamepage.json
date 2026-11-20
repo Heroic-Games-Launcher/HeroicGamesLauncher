@@ -10,7 +10,8 @@
         "move": {
             "message": "Això pot trigar molt de temps, estàs segur?",
             "path": "Tria on vols moure el joc",
-            "title": "Mou la ruta d'instal·lació del joc"
+            "title": "Mou la ruta d'instal·lació del joc",
+            "steamMessage": ""
         },
         "no": "NO",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Edita el joc",
         "favourite": "Afegeix a preferits",
         "unfavourite": "Suprimeix dels preferits",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Enrere",
+        "next": "Següent",
+        "skip-installer": {
+            "title": "Salta"
+        }
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
@@ -180,7 +187,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Espai disponible",
@@ -200,7 +212,10 @@
             "ok": "D'acord",
             "disabled_installation": "Aquest joc fa servir programari antitrampes que no és compatible amb el teu sistema operatiu, o els desenvolupadors del joc no n'han activat la compatibilitat. Això significa que les funcions multijugador no funcionaran i no hi ha res que pugues fer per a resoldre-ho, ni tan sols l'equip de l'Heroic.<br /><br />Per a instal·lar aquest joc i provar-lo de totes maneres, ves a Configuració → Avançat i selecciona l'opció d'instal·lar jocs amb antitrampes trencat o denegat.<br /><br />Tingues en compte que no hi ha manera de resoldre-ho i t'arrisques a què t'expulsin de les partides."
         },
-        "flatpak-path-not-writtable": "Error: L'accés lliure a aquest camí no està garantit. Potser es perden dades."
+        "flatpak-path-not-writtable": "Error: L'accés lliure a aquest camí no està garantit. Potser es perden dades.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -247,7 +262,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "feta perquè funcioni amb l'Heroic, ja que les versions noves del Steam no funcionen en macOS."
         },
-        "releaseDate": "Data de llançament"
+        "releaseDate": "Data de llançament",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opcions d'execució...",
@@ -297,6 +313,11 @@
         },
         "images": {
             "summary": "Imatges"
+        },
+        "step": {
+            "finish": "Finalitza",
+            "images": "Imatges",
+            "install": "Atura la instal·lació"
         }
     },
     "specs": {
@@ -352,7 +373,8 @@
         "extraInfo": "Informació extra",
         "logs": "Registres",
         "categories": "Categories",
-        "more": ""
+        "more": "",
+        "options": "Opcions"
     },
     "help": {
         "cloud_save_unsupported": "Aquest joc no admet partides desades al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desament al núvol.",
@@ -418,6 +440,11 @@
             "installInfo": "Mida de la baixada",
             "launchOptions": "Opcions d'execució",
             "storeInfo": "Informació del sistema"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

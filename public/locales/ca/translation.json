@@ -28,7 +28,8 @@
         "source": "Font",
         "status": "Estat",
         "title": "Aquest joc inclou programari antitrampes",
-        "multiplayer_may_not_work": "Les funcions multijugador potser no funcionen perquè el suport antitrampes està trencat o s'ha denegat."
+        "multiplayer_may_not_work": "Les funcions multijugador potser no funcionen perquè el suport antitrampes està trencat o s'ha denegat.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -117,7 +118,8 @@
                     "body": "{{game}} no s'ha pogut treure de l'Steam a causa de:{{newLine}} {{error}}",
                     "title": "Error en suprimir el joc de Steam"
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -214,7 +216,20 @@
         "launchAnyway": "Llança el joc de totes maneres",
         "shaderPreCachingDisabledMessage": "La precaché del shader de l'Steam està desactivada. Activa-la des de la configuració de l'Steam en mode escriptori per a assegurar que el joc funciona adequadament amb UMU.",
         "shaderPreCachingDisabledTitle": "Pre-caché del shader desactivada",
-        "cancel": "Cancel·la"
+        "cancel": "Cancel·la",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Cancel·la",
@@ -269,7 +284,8 @@
             "end-time": "Finalitzat a les",
             "queue-time": "Afegit el",
             "start-time": "Iniciat a les",
-            "type": "Tipus"
+            "type": "Tipus",
+            "status": "Estat"
         },
         "title": "Baixades",
         "ETA": "Temps estimat",
@@ -280,14 +296,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Els serveis en línia podrien no funcionar, ja que els servidors d'Epic Games estan desconnectats.",
         "offline-notification-title": "fora de línia"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Preferits",
     "game": {
         "status": "Estat",
@@ -335,7 +357,8 @@
         "stores": "Botigues",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -496,7 +519,28 @@
             "title": "Tanca la sessió"
         },
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "activate": "Activa",
+            "confirm": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "logged_in": "Inicia la sessió",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -558,7 +602,8 @@
         "ignore": "Ignora",
         "offline": "Sense connexió",
         "offline-retry-in": "Sense connexió. Es tornarà a intentar d'aquí {{seconds}} segons.",
-        "retrying": "Es torna a provar"
+        "retrying": "Es torna a provar",
+        "hint-label": ""
     },
     "Open": "Obre",
     "options": {
@@ -621,7 +666,8 @@
         "gogdl-version": "Versió del GOGDL: ",
         "legendary-version": "Versió del Legendary: ",
         "weblate": "Ajuda a traduir l'Heroic...",
-        "nile-version": "Versió del Nile: "
+        "nile-version": "Versió del Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Altres",
     "placeholder": {
@@ -762,7 +808,8 @@
                 "legendary": "Registre de l'Epic Games/Legendary",
                 "nile": "Registre d'Amazon/Nile",
                 "zoom": "Registre del Zoom",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "Mostra els fitxers de registre pujats",
             "error": "Error intern en llegir el fitxer de registres",
@@ -969,8 +1016,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Baixada",
             "missingBuild": "Total baixat",
-            "missingRuntime": "El VCRuntime no està instal·lat"
-        }
+            "missingRuntime": "El VCRuntime no està instal·lat",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1060,7 +1124,8 @@
         "advanced": {
             "title": {
                 "resetHeroic": "Restableix l'Heroic",
-                "clearCache": "Buida la memòria cau"
+                "clearCache": "Buida la memòria cau",
+                "clearImagesCache": ""
             },
             "clearCache": {
                 "help8": "Jocs instal·lats",
@@ -1078,6 +1143,9 @@
             "details": "Detalls",
             "resetHeroic": {
                 "help": "Se suprimirà tota la configuració i els continguts de la memòria cau, però no se suprimiran els jocs instal·lats de l'Epic o les seves credencials. Cal reiniciar manualment les versions portables (AppImage, WinPortable...) de l'Heroic.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1118,7 +1186,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "pageSubtitle": {
             "log": "",
@@ -1126,6 +1197,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Còpia"
         }
     },
     "Settings": "Configuració",
@@ -1140,7 +1215,8 @@
         "logging": "S'està iniciant la sessió...",
         "processing": "S'estan processant els fitxers, espera",
         "preparing_login": "S'està preparant l'inici de sessió... ",
-        "installed": "Instal·lat"
+        "installed": "Instal·lat",
+        "preparing": ""
     },
     "store": "Botiga de l'Epic",
     "stores": "Botigues",
@@ -1414,7 +1490,8 @@
             "releaseYear": "Any de publicació",
             "hideOwned": "Amaga els que tens",
             "wishlistOnly": "Només en la llista de desitjats",
-            "platform": "Platform"
+            "platform": "Platform",
+            "platformAny": ""
         },
         "sidebar": "Ofertes",
         "sort": {
@@ -1481,7 +1558,9 @@
         },
         "sort": {
             "label": "Ordre",
-            "last_played": "Última partida"
+            "last_played": "Última partida",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "durant 3 s per a cancel·lar",
@@ -1525,7 +1604,15 @@
         },
         "removeFromQueue": {
             "message": "El joc s'ha posat en cua per a baixar-lo. Vols suprimir-lo de la cua?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Següent",
     "common": {
@@ -1553,21 +1640,162 @@
     "Update available!": "Hi ha una actualització disponible",
     "support": {
         "actions": {
-            "open": "Obre"
+            "open": "Obre",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Suporta'ns"
+        "title": "Suporta'ns",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Enrere",
         "button": {
             "download": "Baixada",
             "sync": "Sincronitza",
-            "upload": "Puja"
+            "upload": "Puja",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Filtra",
-            "size": "Mida"
+            "size": "Mida",
+            "modified": ""
         },
-        "never": "Mai"
+        "never": "Mai",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "S'està baixant"
+        },
+        "back": "Enrere",
+        "close": "Tanca",
+        "installed-games": "Jocs instal·lats",
+        "next": "Següent",
+        "per-game": "Configuració del joc",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Desa"
+        },
+        "stage": {
+            "credentials": "Inici de sessió a la botiga",
+            "globalSettings": "Configuració global",
+            "perGameSettings": "Configuració del joc"
+        },
+        "step3": {
+            "title": "Configuració global"
+        },
+        "step4": {
+            "none": "No hi ha cap joc que coincideixi amb els filtres triats.",
+            "selectAll": "Selecciona-ho tot"
+        },
+        "step5": {
+            "title": "Inici de sessió a la botiga"
+        },
+        "step6": {
+            "prefixPath": "Prefix del Wine",
+            "wine-downloadable": "Baixada",
+            "wine-unavailable": "No hi ha DLC disponibles"
+        },
+        "steps": {
+            "credentials": "Inici de sessió a la botiga",
+            "done": "Fet",
+            "global-settings": "Configuració global",
+            "per-game": "Configuració del joc"
+        },
+        "summaryValue": "Valor",
+        "version": "Versió del Heroic",
+        "wine-versions": "Versió del Wine"
     }
 }
