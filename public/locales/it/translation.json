@@ -28,7 +28,8 @@
         "source": "Fonte",
         "status": "Stato",
         "title": "Questo gioco include software anticheat",
-        "multiplayer_may_not_work": "Le funzionalità multiplayer potrebbero non funzionare poiché il supporto anticheat potrebbe essere bloccato o non funzionare."
+        "multiplayer_may_not_work": "Le funzionalità multiplayer potrebbero non funzionare poiché il supporto anticheat potrebbe essere bloccato o non funzionare.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -117,7 +118,8 @@
                     "body": "La rimozione di {{game}} da Steam è fallita con:{{newLine}} {{error}}",
                     "title": ""
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -214,7 +216,20 @@
         "launchAnyway": "Lancia comunque il gioco",
         "shaderPreCachingDisabledMessage": "La Pre-cache dello Share di Steam è disabilitata. Per favore abilitala nelle Impostazioni Steam nella Modalità Desktop per assicurarti che il gioco funzioni correttamente con UMU.",
         "shaderPreCachingDisabledTitle": "Pre-Caching Shader Disabilitato",
-        "cancel": "Annulla"
+        "cancel": "Annulla",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Annulla",
@@ -269,7 +284,8 @@
             "end-time": "Finito alle",
             "queue-time": "Aggiunto a",
             "start-time": "Iniziato il",
-            "type": "Tipo"
+            "type": "Tipo",
+            "status": "Stato"
         },
         "title": "Download",
         "ETA": "Tempo stimato",
@@ -280,14 +296,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "I servizi online potrebbero non funzionare completamente poiché i server di Epic Games sono offline!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Errore",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Preferiti",
     "game": {
         "status": "Stato",
@@ -334,7 +356,8 @@
         "stores": "Negozi",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "FSR di AMD aiuta a incrementare il framerate grazie all'upscaling delle risoluzioni più basse in modalità schermo intero. La qualità dell'immagine aumenta da 5 a 1 al costo di un leggero calo delle prestazioni. L'attivazione può migliorare le prestazioni.",
@@ -495,7 +518,28 @@
             "title": "Disconnetti"
         },
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "Attiva"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "Accedi",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Sincronizzazione completata",
@@ -557,7 +601,8 @@
         "ignore": "Ignora",
         "offline": "Offline",
         "offline-retry-in": "Offline. Riprova tra {{seconds}} secondi.",
-        "retrying": "Riprova"
+        "retrying": "Riprova",
+        "hint-label": ""
     },
     "Open": "Apri",
     "options": {
@@ -620,7 +665,8 @@
         "gogdl-version": "Versione di GOGDL: ",
         "legendary-version": "Versione Legendary: ",
         "weblate": "Aiuta a tradurre Heroic.",
-        "nile-version": "Versione di Nile: "
+        "nile-version": "Versione di Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -761,7 +807,8 @@
                 "legendary": "Registro Epic Games / Legendary",
                 "nile": "Amazon / Nile log",
                 "zoom": "Registro di Zoom",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "Mostra file di log caricati",
             "error": "",
@@ -972,8 +1019,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Totale scaricato",
-            "missingRuntime": "VCRuntime non installato"
-        }
+            "missingRuntime": "VCRuntime non installato",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1071,10 +1135,14 @@
             "details": "Dettagli",
             "title": {
                 "resetHeroic": "Reset Heroic",
-                "clearCache": "Pulisci cache"
+                "clearCache": "Pulisci cache",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Sei sicuro di voler resettare Heroic? Saranno rimosse tutte le Impostazioni e la Cache ma non saranno rimossi i giochi installati e le credenziali di Epic. Le versioni portatili (AppImage, WinPortable, ...) di Heroic devono essere riavviate manualmente in seguito.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1120,7 +1188,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1129,6 +1200,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Copia"
         }
     },
     "Settings": "Impostazioni",
@@ -1143,7 +1218,8 @@
         "logging": "Accesso in corso...",
         "processing": "File in elaborazione, attendere",
         "preparing_login": "Preparazione dell'accesso... ",
-        "installed": "Installata"
+        "installed": "Installata",
+        "preparing": ""
     },
     "store": "Epic Store",
     "stores": "Negozi",
@@ -1168,7 +1244,9 @@
     },
     "two_col_table": {
         "save_hint": "Le modifiche a questa tabella non sono salvate automaticamente. Clicca il pulsante +",
-        "add": "Aggiungi"
+        "add": "Aggiungi",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Aggiornamento Disponibile!",
     "userselector": {
@@ -1415,7 +1493,8 @@
             "releaseYear": "Anno di rilascio",
             "hideOwned": "Nascondi posseduti",
             "wishlistOnly": "Solo lista dei desideri",
-            "platform": "Piattaforma"
+            "platform": "Piattaforma",
+            "platformAny": ""
         },
         "sidebar": "Offerte",
         "sort": {
@@ -1482,7 +1561,9 @@
         },
         "sort": {
             "label": "Ordina",
-            "last_played": "Giocato recentemente"
+            "last_played": "Giocato recentemente",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "per 3s per annullare",
@@ -1526,7 +1607,15 @@
         },
         "removeFromQueue": {
             "message": "Questo gioco è in coda per il download. Rimuoverlo dalla coda?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Avanti",
     "common": {
@@ -1554,21 +1643,160 @@
     "Update available!": "Aggiornamento Disponibile!",
     "support": {
         "actions": {
-            "open": "Apri"
+            "open": "Apri",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Supportaci"
+        "title": "Supportaci",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Indietro",
         "button": {
             "download": "Download",
             "sync": "Sincronizza",
-            "upload": "Upload"
+            "upload": "Upload",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Filtra",
-            "size": "Dimensione"
+            "size": "Dimensione",
+            "modified": ""
         },
-        "never": "Mai"
+        "never": "Mai",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "browse": "Browser",
+            "download": "Scaricamento"
+        },
+        "back": "Indietro",
+        "close": "Chiudi",
+        "installed-games": "Giochi installati",
+        "next": "Prossimo",
+        "per-game": "Impostazioni di gioco",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "Memorizza login",
+            "globalSettings": "Impostazioni globali",
+            "perGameSettings": "Impostazioni di gioco"
+        },
+        "step3": {
+            "title": "Impostazioni globali"
+        },
+        "step4": {
+            "none": "Nessun gioco corrisponde ai filtri correnti.",
+            "selectAll": "Seleziona Tutto"
+        },
+        "step5": {
+            "title": "Memorizza login"
+        },
+        "step6": {
+            "prefixPath": "Prefisso di Wine",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "Nessun DLC disponibile"
+        },
+        "steps": {
+            "credentials": "Memorizza login",
+            "done": "Fatto",
+            "global-settings": "Impostazioni globali",
+            "per-game": "Impostazioni di gioco"
+        },
+        "summaryValue": "Valore",
+        "version": "Versione Heroic",
+        "wine-versions": "Versione di Wine"
     }
 }
