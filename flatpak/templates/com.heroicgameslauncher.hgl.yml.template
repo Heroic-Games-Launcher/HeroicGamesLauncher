@@ -25,6 +25,7 @@ finish-args:
   - --device=all
   - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin:/usr/lib/extensions/vulkan/gamescope/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin:/app/bin/heroic/resources/app.asar.unpacked/build/bin/${helper-arch}/linux
   - --env=LD_LIBRARY_PATH=/usr/lib/extensions/vulkan/gamescope/lib
+  - --env=APPIMAGE_EXTRACT_AND_RUN=1
   - --filesystem=~/.local/share/lutris:rw
   - --filesystem=~/.steam/steam:rw
   - --filesystem=~/.local/share/applications:rw
