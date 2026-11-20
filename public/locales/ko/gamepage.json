@@ -10,7 +10,8 @@
         "move": {
             "message": "이 작업은 긴 시간이 소요될 수 있습니다, 계속하겠습니까?",
             "path": "이동할 위치 선택",
-            "title": "게임 설치 이동"
+            "title": "게임 설치 이동",
+            "steamMessage": ""
         },
         "no": "아니오",
         "repair": {
@@ -99,7 +100,9 @@
         "edit-game": "앱/게임 편집",
         "favourite": "즐겨찾기에 추가",
         "unfavourite": "즐겨찾기에서 제거",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "뒤로"
     },
     "cloud_save_unsupported": "지원되지 않음",
     "disabled": "비활성화됨",
@@ -179,7 +182,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",
@@ -198,7 +206,10 @@
             "multiplayer_message": "안티치트 지원이 중단되었거나 거부되었습니다. 게임은 열릴 수 있지만 멀티플레이어 기능은 작동하지 않습니다. 그래도 설치하겠습니까?",
             "title": "안티치트 손상됨/거부됨"
         },
-        "flatpak-path-not-writtable": "오류: 이 경로에 대한 샌드박스 접속이 허용되지 않아 데이터 손실이 발생합니다."
+        "flatpak-path-not-writtable": "오류: 이 경로에 대한 샌드박스 접속이 허용되지 않아 데이터 손실이 발생합니다.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -223,7 +234,8 @@
             "pleaseWait": "잠시만 기다려 주세요....",
             "installation": "설치 중지"
         },
-        "releaseDate": "출시일"
+        "releaseDate": "출시일",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "실행 옵션...",
@@ -273,12 +285,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "호환성 확인",
+            "finish": "완료",
+            "install": "설치 중지"
         }
     },
     "specs": {
         "minimum": "최소 사양",
         "recommended": "권장 사양",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "업데이트하려면 클릭",
@@ -326,7 +344,8 @@
         "extraInfo": "추가 정보",
         "logs": "로그",
         "categories": "범주",
-        "more": ""
+        "more": "",
+        "options": "옵션"
     },
     "help": {
         "cloud_save_unsupported": "이 게임은 클라우드 저장을 지원하지 않습니다. 이 정보는 게임 개발자에 의해 제공됩니다. 일부 게임은 자체 클라우드 저장 시스템을 지원합니다",
@@ -390,7 +409,13 @@
             "dlc": "DLC",
             "installInfo": "설치 크기",
             "launchOptions": "실행 옵션...",
-            "storeInfo": "시스템 정보"
+            "storeInfo": "시스템 정보",
+            "achievements": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
