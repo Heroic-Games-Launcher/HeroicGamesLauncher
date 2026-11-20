@@ -28,7 +28,8 @@
         "source": "ソース",
         "status": "状態",
         "title": "このゲームにはアンチチートソフトウェアが含まれています",
-        "multiplayer_may_not_work": "マルチプレイ機能は、アンチチートのサポートが拒否されているか壊れているため、動作しない場合があります。"
+        "multiplayer_may_not_work": "マルチプレイ機能は、アンチチートのサポートが拒否されているか壊れているため、動作しない場合があります。",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -115,7 +116,8 @@
                     "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
                     "title": "Steamからゲームを削除する際にエラーが発生しました"
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -209,7 +211,20 @@
         "update": "Update",
         "postpone": "延期",
         "changelog": "変更履歴",
-        "cancel": "キャンセル"
+        "cancel": "キャンセル",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "キャンセル",
@@ -264,7 +279,8 @@
             "end-time": "完了日時",
             "queue-time": "追加日時",
             "start-time": "開始日時",
-            "type": "種類"
+            "type": "種類",
+            "status": "状態"
         },
         "title": "ダウンロード",
         "ETA": "推定残り時間",
@@ -275,14 +291,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Epic Gamesサーバーがオフラインであるため、オンラインサービスが完全には機能しない可能性があります!",
         "offline-notification-title": "オフライン"
     },
     "Epic Games": "Epic Games",
-    "error": "エラー",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "お気に入り",
     "game": {
         "status": "状態",
@@ -330,7 +352,8 @@
         "stores": "ストア",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMDのFSRは、フルスクリーンモードで低い解像度をアップスケーリングすることでフレームレートを向上させます。パフォーマンスに若干の影響を及ぼしますが、画質は5から1に向上します。有効にするとパフォーマンスが向上する可能性があります。",
@@ -492,7 +515,27 @@
         },
         "title_amazon": "Amazon Games",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "activate": "Activate",
+            "confirm": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "logged_in": "ログイン",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "同期を完了しました",
@@ -554,7 +597,8 @@
         "ignore": "無視",
         "offline": "オフライン",
         "offline-retry-in": "オフラインです。{{seconds}}秒後に再試行します。",
-        "retrying": "再試行中"
+        "retrying": "再試行中",
+        "hint-label": ""
     },
     "Open": "開く",
     "options": {
@@ -617,7 +661,8 @@
         "gogdl-version": "GOGDLバージョン: ",
         "legendary-version": "Legendaryバージョン: ",
         "weblate": "Heroicの翻訳に協力",
-        "nile-version": "Nileバージョン: "
+        "nile-version": "Nileバージョン: ",
+        "aurelia-version": ""
     },
     "Other": "その他",
     "placeholder": {
@@ -758,7 +803,8 @@
                 "legendary": "Epic Games / Legendaryログ",
                 "nile": "Amazon / Nileログ",
                 "zoom": "Zoom ログ",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "アップロードされたログファイルを表示する",
             "error": "ログファイルの読み込み中に内部エラーが発生しました",
@@ -965,8 +1011,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "合計ダウンロード",
-            "missingRuntime": "VCRuntimeがインストールされていません"
-        }
+            "missingRuntime": "VCRuntimeがインストールされていません",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1057,7 +1120,8 @@
             "details": "詳細",
             "title": {
                 "resetHeroic": "Reset Heroic",
-                "clearCache": "キャッシュクリア"
+                "clearCache": "キャッシュクリア",
+                "clearImagesCache": ""
             },
             "clearCache": {
                 "help8": "Installed Games",
@@ -1074,6 +1138,9 @@
             },
             "resetHeroic": {
                 "help": "これにより、すべての設定とキャッシュが削除されますが、インストール済みのゲームやEpicの認証情報は削除されません。また、Heroicのポータブル版（AppImage、WinPortable、...）を手動で再起動する必要があります。",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1114,7 +1181,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "pageSubtitle": {
             "log": "",
@@ -1122,7 +1193,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "設定",
     "sidebar": {
@@ -1136,7 +1208,8 @@
         "logging": "ログイン中…",
         "processing": "ファイルを処理中。しばらくお待ちください",
         "preparing_login": "ログインを準備しています... ",
-        "installed": "インストールされています"
+        "installed": "インストールされています",
+        "preparing": ""
     },
     "store": "Epic Store",
     "stores": "ストア",
@@ -1379,7 +1452,9 @@
         "quitApp": "アプリを終了",
         "sort": {
             "label": "並び替え",
-            "last_played": "最終プレイ日時"
+            "last_played": "最終プレイ日時",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "update": {
             "body": "このゲームのアップデートが利用可能です。起動する前に、コンソールモードを終了してゲームをアップデートしてください。",
@@ -1405,7 +1480,15 @@
         },
         "removeFromQueue": {
             "message": "このゲームはダウンロード待ちです。キューから削除しますか？"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "discounts": {
         "region": {
@@ -1465,7 +1548,8 @@
             "releaseYear": "発売年",
             "hideOwned": "所有済みゲームを非表示",
             "wishlistOnly": "ウィッシュリストのみ",
-            "platform": "Platform"
+            "platform": "Platform",
+            "platformAny": ""
         },
         "sidebar": "セール情報",
         "sort": {
@@ -1549,21 +1633,162 @@
     "Update available!": "アップデートが利用可能です!",
     "support": {
         "actions": {
-            "open": "開く"
+            "open": "開く",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "サポートしてください"
+        "title": "サポートしてください",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "戻る",
         "button": {
             "download": "Download",
             "sync": "同期",
-            "upload": "アップロード"
+            "upload": "アップロード",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "フィルター",
-            "size": "サイズ"
+            "size": "サイズ",
+            "modified": ""
         },
-        "never": "未プレイ"
+        "never": "未プレイ",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "ダウンロード中"
+        },
+        "back": "戻る",
+        "close": "閉じる",
+        "installed-games": "Installed Games",
+        "next": "進む",
+        "per-game": "ゲームの設定",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "保存"
+        },
+        "stage": {
+            "credentials": "ログイン情報の保存",
+            "globalSettings": "グローバル設定",
+            "perGameSettings": "ゲームの設定"
+        },
+        "step3": {
+            "title": "グローバル設定"
+        },
+        "step4": {
+            "none": "現在の条件に一致するゲームはありません。",
+            "selectAll": "すべて選択"
+        },
+        "step5": {
+            "title": "ログイン情報の保存"
+        },
+        "step6": {
+            "prefixPath": "Wine環境",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "DLCはありません"
+        },
+        "steps": {
+            "credentials": "ログイン情報の保存",
+            "done": "完了",
+            "global-settings": "グローバル設定",
+            "per-game": "ゲームの設定"
+        },
+        "summaryValue": "値",
+        "version": "Heroicバージョン",
+        "wine-versions": "Wineバージョン"
     }
 }

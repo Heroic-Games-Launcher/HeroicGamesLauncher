@@ -10,7 +10,8 @@
         "move": {
             "message": "これには長い時間がかかる場合があります。よろしいですか?",
             "path": "移動先を選択してください",
-            "title": "ゲームのインストール場所を移動"
+            "title": "ゲームのインストール場所を移動",
+            "steamMessage": ""
         },
         "no": "いいえ",
         "repair": {
@@ -99,7 +100,13 @@
         "edit-game": "App/ゲームを編集",
         "favourite": "お気に入りに追加",
         "unfavourite": "お気に入りから削除",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "戻る",
+        "next": "進む",
+        "skip-installer": {
+            "title": "スキップ"
+        }
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -179,7 +186,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLC一覧"
+        "dlcs": "DLC一覧",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "空き領域",
@@ -199,7 +211,10 @@
             "install_anyway": "OK（マルチプレイ機能が使えないことを理解しました）",
             "multiplayer_message": "アンチチートのサポートが壊れているか拒否されています。 マルチプレイ機能は動作しませんが、インストールしますか？"
         },
-        "flatpak-path-not-writtable": "エラー：このパスにサンドボックスへのアクセスが許可されていないため、データの損失が発生します。"
+        "flatpak-path-not-writtable": "エラー：このパスにサンドボックスへのアクセスが許可されていないため、データの損失が発生します。",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -225,7 +240,8 @@
             "pleaseWait": "Please wait...",
             "installation": "インストールを停止する"
         },
-        "releaseDate": "リリース日"
+        "releaseDate": "リリース日",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "起動オプション…",
@@ -275,6 +291,12 @@
         },
         "images": {
             "summary": "画像"
+        },
+        "step": {
+            "compat": "互換性を確認",
+            "finish": "終了",
+            "images": "画像",
+            "install": "インストールを中止"
         }
     },
     "specs": {
@@ -330,7 +352,8 @@
         "extraInfo": "追加情報",
         "logs": "ログ",
         "categories": "カテゴリー",
-        "more": ""
+        "more": "",
+        "options": "オプション"
     },
     "help": {
         "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブ機能を実装しているものもあります。",
@@ -394,7 +417,13 @@
             "achievements": "実績",
             "dlc": "DLC",
             "installInfo": "ダウンロードサイズ",
-            "storeInfo": "システム情報"
+            "storeInfo": "システム情報",
+            "launchOptions": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
