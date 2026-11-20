@@ -10,7 +10,8 @@
         "move": {
             "message": "這可能需要很長的時間，確定？",
             "path": "選擇要移動的目的地",
-            "title": "移動遊戲安裝"
+            "title": "移動遊戲安裝",
+            "steamMessage": ""
         },
         "no": "否",
         "repair": {
@@ -72,7 +73,7 @@
         "cancel": "暫停/取消",
         "continue": "繼續下載",
         "finish": "完成",
-        "force_update": "如果可用則強制更新",
+        "force_update": "Force Update if Available",
         "force-innstall": "強制安裝",
         "hide_game": "隱藏遊戲",
         "import": "導入",
@@ -99,7 +100,9 @@
         "edit-game": "編輯應用程式/遊戲",
         "favourite": "加入我的最愛",
         "unfavourite": "自我的最愛移除",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "返回"
     },
     "cloud_save_unsupported": "不支援",
     "disabled": "已關閉",
@@ -179,7 +182,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "可用空間",
@@ -197,7 +205,10 @@
             "multiplayer_message": "",
             "title": ""
         },
-        "flatpak-path-not-writtable": ""
+        "flatpak-path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -221,7 +232,8 @@
         },
         "winetricks": "",
         "redist": "",
-        "releaseDate": "發行日期"
+        "releaseDate": "發行日期",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "啟動選項…",
@@ -271,12 +283,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "檢查相容性",
+            "finish": "完成",
+            "install": "正在安裝"
         }
     },
     "specs": {
         "minimum": "最低配備",
         "recommended": "建議配備",
-        "other": "其它"
+        "other": "其它",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "點擊更新",
@@ -320,11 +338,12 @@
         "removeShortcut": "移除捷徑",
         "settings": "設定",
         "store": "商店頁面",
-        "verify": "驗證並修復遊戲檔案",
+        "verify": "驗證並修復遊戲文件",
         "extraInfo": "額外信息",
         "logs": "日誌",
         "categories": "分類",
-        "more": ""
+        "more": "",
+        "options": "選項"
     },
     "help": {
         "cloud_save_unsupported": "本遊戲不支援雲端存檔。此訊息由遊戲開發商提供。有些遊戲確實實現了自己的雲端存檔系統",
@@ -387,7 +406,14 @@
         "data": {
             "dlc": "DLC",
             "installInfo": "下載大小",
-            "storeInfo": "系統資訊"
+            "storeInfo": "系統資訊",
+            "achievements": "",
+            "launchOptions": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
