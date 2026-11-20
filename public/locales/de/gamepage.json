@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Der Installationspfad wird durch diese Aktion geändert, möchtest Du fortfahren?",
+            "message": "Der Installationspfad wird durch diese Aktion geändert, möchtest du fortfahren?",
             "path": "Wähle einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
@@ -10,7 +10,8 @@
         "move": {
             "message": "Dies kann eine längere Zeit in Anspruch nehmen, möchtest Du trotzdem fortfahren?",
             "path": "Auswählen, wohin du es verschieben möchtest",
-            "title": "Spieleinstallation verschieben"
+            "title": "Spieleinstallation verschieben",
+            "steamMessage": ""
         },
         "no": "NEIN",
         "repair": {
@@ -61,7 +62,7 @@
             "force_download_warning": "Lokale Speicherdaten werden gelöscht. Möchtest du trotzdem fortfahren?",
             "force_upload_warning": "Cloud-Speicherdaten werden überschrieben. Möchtest du trotzdem fortfahren?"
         },
-        "ok": "OK",
+        "ok": "Ok",
         "offline_warning": {
             "message": "Dieses Spiel funktioniert möglicherweise offline nicht richtig. Möchtest du es trotzdem spielen?",
             "playAnyway": "Trotzdem spielen",
@@ -100,7 +101,13 @@
         "edit-game": "Bearbeite Spiel",
         "favourite": "Zu Favoriten hinzufügen",
         "unfavourite": "Aus Favoriten entfernen",
-        "backToLibrary": ""
+        "backToLibrary": "Zurück zur Bibliothek",
+        "steamStore": "Öffnen der Steam Seite",
+        "back": "Zurück",
+        "next": "Weiter",
+        "skip-installer": {
+            "title": "Überspringen"
+        }
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -139,8 +146,8 @@
         "achievements": "Erfolge",
         "details": "Spieldetails",
         "tabs": "",
-        "overview": "",
-        "hoursPlayedShort": "",
+        "overview": "Überblick",
+        "hoursPlayedShort": "{{hours}} Stunden",
         "about": "Über Heroic"
     },
     "gamecard": {
@@ -175,12 +182,17 @@
         "genres": "Genre",
         "steamdeck": {
             "unsupported": "Nicht unterstützt",
-            "verified": "",
-            "unknown": "",
-            "playable": ""
+            "verified": "Verifiziert",
+            "unknown": "Unbekannt",
+            "playable": "Spielbar"
         },
-        "developer": "",
-        "dlcs": "DLCs"
+        "developer": "Entwickler",
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "Aktiviert — klicken zum deaktivieren",
+            "notBought": "Nicht im Besitz",
+            "disabled": "Deaktiviert — klicken zum aktivieren"
+        }
     },
     "install": {
         "disk-space-left": "Verfügbarer Speicherplatz",
@@ -200,7 +212,10 @@
             "install_anyway": "Ja (ich verstehe, dass die Multiplayer-Funktionen nicht funktionieren werden)",
             "multiplayer_message": "Die Anticheat-Unterstützung ist defekt oder wird abgelehnt. Das Spiel lässt sich möglicherweise öffnen, aber die Multiplayer-Funktionen funktionieren nicht. Möchtest du es trotzdem installieren?"
         },
-        "flatpak-path-not-writtable": "Fehler: Sandbox-Zugriff auf diesen Pfad nicht gewährt, Datenverlust wird eintreten."
+        "flatpak-path-not-writtable": "Fehler: Sandbox-Zugriff auf diesen Pfad nicht gewährt, Datenverlust wird eintreten.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -247,7 +262,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "durch Heroic nutzbar gemacht, da neuere Steam-Versionen nicht unter macOS funktionieren."
         },
-        "releaseDate": "Veröffentlicht"
+        "releaseDate": "Veröffentlicht",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Startoptionen …",
@@ -297,6 +313,12 @@
         },
         "images": {
             "summary": "Bilder"
+        },
+        "step": {
+            "compat": "Kompatibilität überprüfen",
+            "finish": "Abschließen",
+            "images": "Bilder",
+            "install": "Installation abbrechen"
         }
     },
     "specs": {
@@ -315,16 +337,16 @@
         "notinstalled": "Dieses Spiel ist nicht installiert",
         "notSupported": "Nicht unterstützt",
         "notSupportedGame": "Nicht unterstützt",
-        "processing": "Bitte warten. Dateien werden verarbeitet …",
+        "processing": "Bitte warten. Dateien werden verarbeitet",
         "queued": "In Warteschlange",
         "reparing": "Bitte warten. Spiel wird repariert",
         "this-game-uses-third-party": "Dieses Spiel verwendet einen Drittanbieter-Launcher und wird noch nicht unterstützt",
         "totalDownloaded": "Insgesamt heruntergeladen",
-        "uninstalling": "Wird deinstalliert …",
-        "updating": "Spiel wird aktualisiert …",
-        "playing": "Wird gespielt …",
+        "uninstalling": "Wird deinstalliert",
+        "updating": "Spiel wird aktualisiert",
+        "playing": "Wird gespielt",
         "moving-files": "Datei verschieben '{{file}}': {{percent}}%",
-        "syncingSaves": "Spielstände werden synchronisiert …",
+        "syncingSaves": "Spielstände werden synchronisiert",
         "launching": "Wird gestartet",
         "ubisoft": "Ubisoft wird installiert …",
         "downloading": "Wird heruntergeladen",
@@ -348,11 +370,12 @@
         "removeShortcut": "Verknüpfungen entfernen",
         "settings": "Einstellungen",
         "store": "Store-Seite",
-        "verify": "Auf Fehler überprüfen und Reparieren",
+        "verify": "Auf Fehler überprüfen und reparieren",
         "extraInfo": "Zusatzinformation",
         "logs": "Logs",
         "categories": "Kategorien",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem.",
@@ -418,6 +441,11 @@
             "installInfo": "Downloadgröße",
             "launchOptions": "Startoptionen",
             "storeInfo": "Systeminformationen"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

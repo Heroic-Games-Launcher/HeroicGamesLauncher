@@ -25,12 +25,41 @@
     },
     "welcome": "Willkommen!",
     "itchio": {
-        "paste_and_login": "",
-        "api_key_placeholder": "",
-        "instructions": ""
+        "paste_and_login": "Einfügen aus Zwischenablage und Anmelden",
+        "api_key_placeholder": "Einfügen Deines API Schlüssels",
+        "instructions": "Wenn der normale itch.io Login nicht funktioniert, kannst Du Dich stattdessen mit einem persönlichen API Schlüsselkey verbinden. Besuche Deine itch.io API Schlüssel Seite, erstelle einen Schlüsse, und füge ihn unten ein."
     },
     "sid": {
-        "paste_and_login": "",
-        "placeholder": ""
+        "paste_and_login": "Einfügen aus Zwischenablage und Anmelden",
+        "placeholder": "Füge den SID Code hier ein"
+    },
+    "steam": {
+        "notice": {
+            "text": "Der Steam Client muss installiert sein, um diese Funktion zu nutzen.\n\nDie Steam-Unterstützung ist neu, so dass einige Spiele möglicherweise nicht starten, einschließlich Spiele von Valve, wie Half-Life 2.\n\nOnline-Spiele benötigen eventuell einen laufenden Steam-Client , und Spiele mit Anti-Chat funktionieren wahrscheinlich nicht.\n\nBitte melde Probleme bei Discord oder GitHub.",
+            "title": "Achtung",
+            "agree": "Ich Stimme zu"
+        },
+        "qr": {
+            "denied": "Die Anmeldung wurde in der Steam Mobile App abgelehnt.",
+            "scanned": "Gescannt — genehmige die Anmeldung in Deiner Steam Mobile App.",
+            "offline": "Steam konnte nicht erreicht werden. Überprüfen Deine Internetverbindung.",
+            "expired": "Der QR-Code lief ab, bevor es genehmigt wurde. Bitte versuche es noch mal.",
+            "caption": "Benutze die Steam Mobile App zur Anmeldung mittels QR",
+            "title": "Oder melden Dich mit QR an",
+            "error": "QR Anmeldung gescheitert. Bitte versuche es noch einmal."
+        },
+        "error": "Anmeldung gescheitert. Überprüfe Deine Anmeldedaten und den Steam Guard Code.",
+        "username": "Benutzername",
+        "guard": {
+            "email": "Geben den Code ein, der an Dein E-Mail-Konto gesendet wurde",
+            "device": "Geben deinen Steam Guard Code ein",
+            "placeholder": "Steam Guard Code",
+            "deviceConfirmation": "Bestätigen dieses Anmelden in Deiner Steam Mobile App."
+        },
+        "submitCode": "Code eintragen",
+        "accountName": "Anmelden mit Konto Name",
+        "signingIn": "Anmeldung…",
+        "password": "Passwort",
+        "welcome": "In Steam anmelden"
     }
 }
