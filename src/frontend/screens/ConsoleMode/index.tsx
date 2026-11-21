@@ -14,7 +14,7 @@ import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill } from 'frontend/helpers'
-import { updateGame } from 'frontend/helpers/library'
+import { compareGameTitles, updateGame } from 'frontend/helpers/library'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -176,13 +176,14 @@ export default function ConsoleMode() {
       if (sortMode === 'last_played') {
         const ta = timestampStore.get_nodefault(a.app_name)?.lastPlayed ?? ''
         const tb = timestampStore.get_nodefault(b.app_name)?.lastPlayed ?? ''
-        if (!ta && !tb) return a.title.localeCompare(b.title)
+        if (!ta && !tb) return compareGameTitles(a, b)
         if (!ta) return 1
         if (!tb) return -1
         return tb.localeCompare(ta)
       }
-      const cmp = a.title.localeCompare(b.title)
-      return sortMode === 'alpha_asc' ? cmp : -cmp
+      return sortMode === 'alpha_asc'
+        ? compareGameTitles(a, b)
+        : compareGameTitles(b, a)
     })
   }, [allGames, filteringByInstalled, activeStore, sortMode])
 
