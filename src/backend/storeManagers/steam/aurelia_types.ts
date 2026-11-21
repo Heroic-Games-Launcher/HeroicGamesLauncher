@@ -55,6 +55,8 @@ export interface AureliaLibraryGame {
   assets?: AureliaAssets
   store_url?: string
   platform?: string
+  // Installed bytes, Aurelia 0.3+
+  size_on_disk?: number | null
 }
 
 interface AureliaDlcEntry {

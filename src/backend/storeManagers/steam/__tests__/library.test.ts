@@ -47,7 +47,9 @@ jest.mock('backend/logger', () => ({
   logWarning: jest.fn(),
   LogPrefix: { Steam: 'Steam' }
 }))
-jest.mock('backend/utils', () => ({ getFileSize: jest.fn() }))
+jest.mock('backend/utils', () => ({
+  getFileSize: (bytes: number) => `${bytes} B`
+}))
 jest.mock('backend/online_monitor', () => ({
   isOnline: () => mockOnline(),
   runOnceWhenOnline: jest.fn()
@@ -160,5 +162,22 @@ describe('SteamLibraryManager.refresh', () => {
     expect(games.map((g) => [g.app_name, g.canRunOffline])).toEqual([
       ['312200', false]
     ])
+  })
+
+  it('shows the installed size Aurelia reports', async () => {
+    mockLoggedIn.mockReturnValue(true)
+    mockOnline.mockReturnValue(true)
+    jest.mocked(runAurelia).mockResolvedValue([
+      {
+        app_id: 312200,
+        name: 'Chasm',
+        is_installed: true,
+        install_path: '/lib/steamapps/common/Chasm',
+        size_on_disk: 1024
+      }
+    ])
+    await new SteamLibraryManager().refresh()
+    const [, games] = mockLibrarySet.mock.calls[0] as [string, GameInfo[]]
+    expect(games[0].install).toMatchObject({ install_size: '1024 B' })
   })
 })

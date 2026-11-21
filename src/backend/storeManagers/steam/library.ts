@@ -165,7 +165,7 @@ export default class SteamLibraryManager implements LibraryManager {
     return {
       executable: '',
       install_path: game.install_path ?? '',
-      install_size: getFileSize(0),
+      install_size: getFileSize(game.size_on_disk ?? 0),
       is_dlc: false,
       version: '',
       platform: installedPlatformFor(game.platform),
@@ -394,7 +394,8 @@ export default class SteamLibraryManager implements LibraryManager {
 
   async markInstalled(appName: string): Promise<void> {
     const marked = await steamCall<
-      { installPath: string; platform: InstallPlatform } | undefined
+      | { installPath: string; platform: InstallPlatform; size: number }
+      | undefined
     >(
       async () => {
         // `list -i` reports installed games with their full install info
@@ -403,7 +404,8 @@ export default class SteamLibraryManager implements LibraryManager {
         if (!game?.is_installed || !game.install_path) return undefined
         return {
           installPath: game.install_path,
-          platform: installedPlatformFor(game.platform)
+          platform: installedPlatformFor(game.platform),
+          size: game.size_on_disk ?? 0
         }
       },
       {
@@ -417,7 +419,7 @@ export default class SteamLibraryManager implements LibraryManager {
     const installed: InstalledInfo = {
       executable: '',
       install_path: marked.installPath,
-      install_size: getFileSize(0),
+      install_size: getFileSize(marked.size),
       is_dlc: false,
       version: '',
       platform: marked.platform,
