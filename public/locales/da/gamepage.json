@@ -8,7 +8,8 @@
         "move": {
             "path": "Vælg hvor du vil flytte til",
             "title": "Flyt spilinstallation",
-            "message": "Dette kan tage lang tid. Er du sikker?"
+            "message": "Dette kan tage lang tid. Er du sikker?",
+            "steamMessage": ""
         },
         "no": "NEJ",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Redigér Spil",
         "favourite": "Tilføj til favorit",
         "unfavourite": "Fjern fra favoritter",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Tilbage",
+        "next": "Næste",
+        "skip-installer": {
+            "title": "Spring over"
+        }
     },
     "disabled": "Deaktiveret",
     "dlc": {
@@ -171,7 +178,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLC'er"
+        "dlcs": "DLC'er",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "path": "Vælg Installations Sti",
@@ -189,7 +201,10 @@
             "title": "Anticheat Dysfunktionel/Afvist",
             "disabled_installation": "Dette spil bruger anticheat-software, der ikke er kompatibel med dit operativsystem, eller kompatibiliteten er ikke aktiveret af spiludviklerne. Det betyder, at multiplayer-funktionerne ikke vil fungere, og der er intet, du (eller Heroic-teamet) kan gøre ved det. <br /><br />For at installere dette spil og prøve det alligevel skal du gå til \"Indstillinger\", \"Avanceret\" og giv tilladelse til installation af spil med ødelagt eller afvist anticheat.<br /><br />Bemærk, at der ikke er nogen løsning på dette, og at du risikerer at blive udelukket fra spillet."
         },
-        "flatpak-path-not-writtable": "Fejl: Sandboxens tilgang til denne sti er ikke givet. Tab af data vil forkomme."
+        "flatpak-path-not-writtable": "Fejl: Sandboxens tilgang til denne sti er ikke givet. Tab af data vil forkomme.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "playing": {
@@ -213,7 +228,8 @@
             "installing": "Installerer",
             "installation": "Stop installationen"
         },
-        "releaseDate": "Udgivelsesdato"
+        "releaseDate": "Udgivelsesdato",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opstartsinstillinger...",
@@ -225,7 +241,8 @@
     "specs": {
         "minimum": "Minimum",
         "recommended": "Anbefalet",
-        "other": "Andet"
+        "other": "Andet",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "Klik for at opdatere",
@@ -324,6 +341,11 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "Check Compatabilitet",
+            "finish": "Afslut",
+            "install": "Stop installationen"
         }
     },
     "setting": {
@@ -392,7 +414,14 @@
         "data": {
             "achievements": "Bedrifter",
             "dlc": "DLC",
-            "installInfo": "Download Størrelse"
+            "installInfo": "Download Størrelse",
+            "launchOptions": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

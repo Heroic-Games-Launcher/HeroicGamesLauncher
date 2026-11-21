@@ -101,7 +101,12 @@
         "favourite": "Lägg till i Favoriter",
         "unfavourite": "Ta bort från Favoriter",
         "backToLibrary": "Tillbaka till biblioteket",
-        "steamStore": "Öppna Steam-sidan"
+        "steamStore": "Öppna Steam-sidan",
+        "back": "Bakåt",
+        "next": "Nästa",
+        "skip-installer": {
+            "title": "Hoppa över"
+        }
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
@@ -116,7 +121,7 @@
         "getting-install-size": "Beräknar installationsstorlek",
         "installSize": "Installationsstorlek",
         "language": "Språk",
-        "lastPlayed": "Senast spelad",
+        "lastPlayed": "Senast spelat",
         "neverPlayed": "Aldrig spelat",
         "platform": "Välj plattform för installation",
         "requirements": "Systemkrav",
@@ -288,6 +293,12 @@
         },
         "images": {
             "summary": "Bilder"
+        },
+        "step": {
+            "compat": "Kontrollera kompatibilitet",
+            "finish": "Klar",
+            "images": "Bilder",
+            "install": "Avbryt installationen"
         }
     },
     "specs": {
@@ -343,7 +354,8 @@
         "extraInfo": "Ytterligare information",
         "logs": "Loggar",
         "categories": "Kategorier",
-        "more": "Mer"
+        "more": "Mer",
+        "options": "Alternativ"
     },
     "help": {
         "cloud_save_unsupported": "Spelet stöder inte sparfiler i molnet. Informationen tillhandahålls av spelutvecklarna. Vissa spel har ett eget system för molnsparning.",

@@ -28,7 +28,8 @@
         "source": "Крыніца",
         "status": "Стан",
         "title": "Гэтая гульня змяшчае ў сваім складзе антычыт",
-        "multiplayer_may_not_work": "Функцыі шматкарыстальніцкай гульні могуць не працаваць з-за забароны або парушанай падтрымкі антычытаў."
+        "multiplayer_may_not_work": "Функцыі шматкарыстальніцкай гульні могуць не працаваць з-за забароны або парушанай падтрымкі антычытаў.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -117,7 +118,8 @@
                     "body": "Не ўдалося дадаць {{game}} у Steam:{{newLine}} {{error}}",
                     "title": ""
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -214,7 +216,20 @@
         "launchAnyway": "Усё адно запусціць гульню",
         "shaderPreCachingDisabledMessage": "Папярэдняе кэшаванне шэйдараў Steam адключана. Каб гульня працавала належным чынам з UMU, уключыце яго ў наладах Steam у рэжыме працоўнага стала.",
         "shaderPreCachingDisabledTitle": "Папярэдняе кэшаванне шэйдараў адключана",
-        "cancel": "Скасаваць"
+        "cancel": "Скасаваць",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Скасаваць",
@@ -269,7 +284,8 @@
             "end-time": "Канец у",
             "queue-time": "Дададзена ў",
             "start-time": "Пачатак у",
-            "type": "Тып"
+            "type": "Тып",
+            "status": "Стан"
         },
         "title": "Спампоўкі",
         "ETA": "Засталося часу",
@@ -280,14 +296,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Анлайн-сэрвісы могуць часткова не працаваць, бо серверы Epic Games недаступны!",
         "offline-notification-title": "недаступны"
     },
     "Epic Games": "Epic Games",
-    "error": "Памылка",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Выбранае",
     "game": {
         "status": "Status",
@@ -335,7 +357,8 @@
         "stores": "Крамы",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "FSR ад AMD дапамагае павысіць частату кадраў за кошт павелічэння больш нізкага дазволу ў поўнаэкранным рэжыме. Якасць выявы павялічваецца з 5 да 1 за кошт невялікага зніжэння прадукцыйнасці. Уключэнне можа палепшыць прадукцыйнасць.",
@@ -497,7 +520,27 @@
         },
         "title_amazon": "Amazon Games",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "activate": "Activate",
+            "confirm": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "logged_in": "Увайсці",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Сінхранізацыя завершана",
@@ -559,7 +602,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "У аўтаномным рэжыме. Паўторная спроба праз {{seconds}} секунд.",
-        "retrying": "Паўторная спроба"
+        "retrying": "Паўторная спроба",
+        "hint-label": ""
     },
     "Open": "Адкрыты",
     "options": {
@@ -622,7 +666,8 @@
         "gogdl-version": "Версія GOGDL: ",
         "legendary-version": "Версія Legendary: ",
         "weblate": "Дапамажыце з перакладам Heroic.",
-        "nile-version": "Версія Nile: "
+        "nile-version": "Версія Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Іншае",
     "placeholder": {
@@ -764,7 +809,8 @@
                 "gog": "Журнал GOG",
                 "legendary": "Журнал Epic Games / Legendary",
                 "zoom": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "error": "",
             "jump-to-start": "",
@@ -971,8 +1017,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Спампоўванне",
             "missingBuild": "Усяго спампавана",
-            "missingRuntime": "VCRuntime не ўсталяваны"
-        }
+            "missingRuntime": "VCRuntime не ўсталяваны",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1062,7 +1125,8 @@
         "advanced": {
             "title": {
                 "resetHeroic": "Скінуць Heroic",
-                "clearCache": "Ачысціць кэш"
+                "clearCache": "Ачысціць кэш",
+                "clearImagesCache": ""
             },
             "clearCache": {
                 "help10": "Канфігурацыя Heroic",
@@ -1080,6 +1144,9 @@
             "details": "Падрабязнасці",
             "resetHeroic": {
                 "help": "Гэта выдаліць усе налады і кэшаванне, але не выдаліць усталяваныя гульні або ўліковыя даныя Epic. Пасля гэтага партатыўныя версіі (AppImage, WinPortable, ...) Heroic трэба перазапусціць уручную.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1119,7 +1186,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1128,6 +1199,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Скапіяваць"
         }
     },
     "Settings": "Налады",
@@ -1142,7 +1217,8 @@
         "logging": "Уваход...",
         "processing": "Апрацоўка файлаў, пачакайце",
         "preparing_login": "Падрыхтоўка ўваходу... ",
-        "installed": "Усталявана"
+        "installed": "Усталявана",
+        "preparing": ""
     },
     "store": "Epic Store",
     "stores": "Крамы",
@@ -1167,7 +1243,9 @@
     },
     "two_col_table": {
         "save_hint": "Змены ў гэтай табліцы не захоўваюцца аўтаматычна. Націсніце кнопку +",
-        "add": "Дадаць"
+        "add": "Дадаць",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Даступна абнаўленне!",
     "userselector": {
@@ -1414,7 +1492,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Падрабязнасці",
         "sort": {
@@ -1480,7 +1559,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "Апошні запуск"
+            "last_played": "Апошні запуск",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1524,7 +1606,15 @@
         },
         "removeFromQueue": {
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Далей",
     "common": {
@@ -1552,19 +1642,159 @@
     "Update available!": "Даступна абнаўленне!",
     "support": {
         "actions": {
-            "open": "Адкрыць"
-        }
+            "open": "Адкрыць",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Назад",
         "button": {
             "download": "Спампоўванне",
             "sync": "Сінхранізацыя",
-            "upload": "Запампаваць"
+            "upload": "Запампаваць",
+            "view": "",
+            "keep": ""
         },
         "column": {
-            "size": "Памер"
+            "size": "Памер",
+            "modified": "",
+            "file": ""
         },
-        "never": "ніколі"
+        "never": "ніколі",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "browse": "Браўзер",
+            "download": "Спампоўванне"
+        },
+        "back": "Назад",
+        "close": "Закрыць",
+        "installed-games": "Усталяваныя гульні",
+        "next": "Далей",
+        "per-game": "Налады гульні",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "Уваход у краму",
+            "globalSettings": "Глабальныя налады",
+            "perGameSettings": "Налады гульні"
+        },
+        "step3": {
+            "title": "Глабальныя налады"
+        },
+        "step4": {
+            "selectAll": "Выбраць усё"
+        },
+        "step5": {
+            "title": "Уваход у краму"
+        },
+        "step6": {
+            "prefixPath": "Прэфікс Wine",
+            "wine-downloadable": "Спампоўванне",
+            "wine-unavailable": "Няма даступных DLC"
+        },
+        "steps": {
+            "credentials": "Уваход у краму",
+            "done": "Гатова",
+            "global-settings": "Глабальныя налады",
+            "per-game": "Налады гульні"
+        },
+        "summaryValue": "Значэнне",
+        "version": "Heroic Version",
+        "wine-versions": "Версія Wine"
     }
 }

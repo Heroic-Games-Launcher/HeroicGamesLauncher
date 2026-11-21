@@ -278,7 +278,8 @@
             "end-time": "Slutfördes",
             "queue-time": "Lades till",
             "start-time": "Startades",
-            "type": "Typ"
+            "type": "Typ",
+            "status": "Status"
         },
         "title": "Nedladdningar",
         "ETA": "Beräknad tid",
@@ -501,7 +502,7 @@
         "alternative_method": "Alternativ inloggningsmetod",
         "epic": "Epic Games-inloggning",
         "gog": "GOG-inloggning",
-        "message": "Logga in på önskad plattform. Du kan vara inloggad på fler än en plattform samtidigt.",
+        "message": "Logga in i valfri butik där du har ett aktivt konto för att se alla dina spel i ditt bibliotek. Du kan vara inloggad i alla samtidigt.",
         "amazon": "Amazon-inloggning",
         "old-mac": "Din macOS-version är {{version}}. macOS 12 eller senare krävs för att logga in.",
         "zoom": "Zoom-inloggning",
@@ -521,11 +522,19 @@
         "description_itchio": "Upptäck och spela indiespel från itch.io.",
         "description_steam": "Köp och spela spel från Steam.",
         "description_zoom": "Köp och spela DRM-fria spel från Zoom Platform.",
-        "gog_support": "GOG-affiliatlänkar är inaktiverade. Aktivera dem för att stödja Heroic när du köper spel här.",
+        "gog_support": "Aktivera GOG-affiliatelänkar för att stödja Heroic.",
         "logged_in_as": "Inloggad som",
         "title_itchio": "itch.io",
         "title_steam": "Steam",
-        "title_zoom": "Zoom Platform"
+        "title_zoom": "Zoom Platform",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "Aktivera affiliatelänkar för GOG?",
+                "message": "Heroic använder affiliatelänkar när du köper spel från GOG, vilket bidrar till att finansiera utvecklingen utan extra kostnad för dig. Du kan när som helst stänga av detta i de avancerade inställningarna."
+            },
+            "activate": "Aktivera nu"
+        },
+        "logged_in": "Inloggad"
     },
     "message": {
         "sync": "Synkronisering slutförd",
@@ -1170,7 +1179,10 @@
             "controller": "Handkontroll",
             "language": "Språk och region",
             "privacy": "Integritet",
-            "steam": "Steam"
+            "steam": "Steam",
+            "amazon": "Amazon-Spel",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "Klicka för att öppna spelets inställningsfil",
         "pageSubtitle": {
@@ -1726,5 +1738,49 @@
     },
     "changelog": {
         "view_full": "Visa fullständig ändringslogg på GitHub"
+    },
+    "import-export": {
+        "action": {
+            "download": "Nerladdning",
+            "ignore": "Behåll"
+        },
+        "back": "Bakåt",
+        "close": "Stäng",
+        "installed-games": "Installerade spel",
+        "next": "Nästa",
+        "per-game": "Spelinställningar",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Spara"
+        },
+        "stage": {
+            "credentials": "Butik inloggning",
+            "globalSettings": "Globala inställningar",
+            "perGameSettings": "Spelinställningar"
+        },
+        "step3": {
+            "title": "Globala inställningar"
+        },
+        "step4": {
+            "none": "Inga spel matchar de aktuella filtren.",
+            "selectAll": "Välj alla"
+        },
+        "step5": {
+            "title": "Butik inloggning"
+        },
+        "step6": {
+            "prefixPath": "Wineprefix",
+            "wine-downloadable": "Nedladdning",
+            "wine-unavailable": "Ingen DLC tillgänglig"
+        },
+        "steps": {
+            "credentials": "Butik inloggning",
+            "done": "Klart",
+            "global-settings": "Globala inställningar",
+            "per-game": "Spelinställningar"
+        },
+        "summaryValue": "Värde",
+        "version": "Heroicversion",
+        "wine-versions": "Wine-version"
     }
 }

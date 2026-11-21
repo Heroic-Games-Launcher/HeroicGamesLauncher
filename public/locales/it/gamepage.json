@@ -10,7 +10,8 @@
         "move": {
             "message": "Quest'operazione può richiedere molto tempo, sei sicuro?",
             "path": "Seleziona dove vuoi spostarla",
-            "title": "Sposta l'installazione del gioco"
+            "title": "Sposta l'installazione del gioco",
+            "steamMessage": ""
         },
         "no": "NO",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Modifica gioco",
         "favourite": "Aggiungi Ai Preferiti",
         "unfavourite": "Rimuovi Dai Preferiti",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Indietro",
+        "next": "Prossimo",
+        "skip-installer": {
+            "title": "Salta"
+        }
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -180,7 +187,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Spazio Disponibile",
@@ -200,7 +212,10 @@
             "disabled_installation": "Questo gioco utilizza un anticheat che non è compatibile con il tuo sistema operativo o il supporto non è stato abilitato dagli sviluppatori. Questo significa che le funzionalità multigiocatore non saranno disponibili e non c'è nulla che tu (o il team di Heroic) possa fare.<br /><br />Per installare questo gioco e provarlo comunque, vai nelle Impostazioni, Avanzate, e abilita l'opzione per consentire l'installazione di giochi con anticheat non funzionanti o rifiutati.<br /><br />Considera che non c'è alcuna soluzione e che rischi di essere bannato in gioco.",
             "multiplayer_message": "Il supporto dell'anticheat è bloccato o non funzionante. Il gioco potrebbe aprirsi ma le funzionalità multiplayer non funzioneranno. Vuoi installarlo comunque?"
         },
-        "flatpak-path-not-writtable": "Errore: accesso a Sandbox non garantito su questa posizione, i dati andranno persi."
+        "flatpak-path-not-writtable": "Errore: accesso a Sandbox non garantito su questa posizione, i dati andranno persi.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -246,7 +261,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "è stato reso compatibile con Heroic poiché le nuove versioni di Steam non funzionano su macOS."
         },
-        "releaseDate": "Data Rilascio"
+        "releaseDate": "Data Rilascio",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opzioni di avvio...",
@@ -296,6 +312,12 @@
         },
         "images": {
             "summary": "Immagini"
+        },
+        "step": {
+            "compat": "Controlla compatibilità",
+            "finish": "Termina",
+            "images": "Immagini",
+            "install": "Ferma l'installazione"
         }
     },
     "specs": {
@@ -350,7 +372,8 @@
         "extraInfo": "Ulteriori informazioni",
         "logs": "Registri",
         "categories": "Categorie",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud.",
@@ -416,6 +439,11 @@
             "installInfo": "Dimensione del download",
             "launchOptions": "Opzioni di avvio",
             "storeInfo": "Informazioni di Sistema"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

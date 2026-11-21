@@ -28,5 +28,34 @@
     "sid": {
         "paste_and_login": "Greamaigh ón ngearrthaisce agus logáil isteach",
         "placeholder": "Greamaigh an cód SID anseo"
+    },
+    "steam": {
+        "notice": {
+            "text": "Caithfear an cliant Steam a shuiteáil chun an ghné seo a úsáid.\n\nTá tacaíocht Steam nua, mar sin d’fhéadfadh sé nach n-osclóidh roinnt cluichí — lena n-áirítear cluichí a chruthaigh Valve, ar nós Half-Life 2.\n\nD’fhéadfadh sé go mbeadh gá leis an gcliant Steam a bheith ag rith i gcás cluichí ar líne, agus is dócha nach n-oibreoidh cluichí a bhfuil córais frith-chalaoise iontu.\n\nTuairiscigh fadhbanna ar Discord nó ar GitHub, le do thoil.",
+            "title": "Aird",
+            "agree": "Aontaím"
+        },
+        "qr": {
+            "denied": "Diúltaíodh don logáil isteach san aip shoghluaiste Steam.",
+            "scanned": "Scanaithe — ceadaigh an logáil isteach i d’aip Steam Mobile.",
+            "offline": "Níorbh fhéidir teagmháil a dhéanamh le Steam. Seiceáil do nasc idirlín.",
+            "expired": "Chuaigh an cód QR in éag sular formheasadh é. Bain triail as arís, le do thoil.",
+            "caption": "Úsáid an aip shoghluaiste Steam chun logáil isteach trí chód QR",
+            "title": "Nó logáil isteach le cód QR",
+            "error": "Theip ar an logáil isteach trí chód QR. Bain triail as arís, le do thoil."
+        },
+        "error": "Theip ar an logáil isteach. Seiceáil do shonraí logála isteach agus do chód Steam Guard.",
+        "username": "Ainm úsáideora",
+        "guard": {
+            "email": "Cuir isteach an cód a seoladh chuig do ríomhphost",
+            "device": "Cuir isteach do chód Steam Guard",
+            "placeholder": "Cód Steam Guard",
+            "deviceConfirmation": "Ceadaigh an logáil isteach seo i d’aip Steam Mobile."
+        },
+        "submitCode": "Cuir cód isteach",
+        "accountName": "Logáil isteach le hainm cuntais",
+        "signingIn": "Ag logáil isteach…",
+        "password": "Focal faire",
+        "welcome": "Logáil isteach i Steam"
     }
 }

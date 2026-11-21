@@ -10,7 +10,8 @@
         "move": {
             "message": "ഇതിനിത്തിരി നേരമെടുക്കും, കുഴപ്പമില്ലല്ലോ?",
             "path": "എങ്ങോട്ടു മാറ്റണമെന്ന് പറയൂ",
-            "title": "കളിയുടെ നടീല് മാറ്റിക്കോളൂ"
+            "title": "കളിയുടെ നടീല് മാറ്റിക്കോളൂ",
+            "steamMessage": ""
         },
         "no": "വേണ്ട",
         "repair": {
@@ -99,7 +100,9 @@
         "edit-game": "Edit App/Game",
         "favourite": "Add To Favourites",
         "unfavourite": "Remove From Favourites",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "പുറകോട്ട്"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "പ്രവര്ത്തനരഹിതം",
@@ -179,7 +182,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Space Available",
@@ -197,7 +205,10 @@
             "multiplayer_message": "",
             "title": ""
         },
-        "flatpak-path-not-writtable": ""
+        "flatpak-path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -222,7 +233,8 @@
         },
         "winetricks": "",
         "redist": "",
-        "releaseDate": "Release Date"
+        "releaseDate": "Release Date",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "വിക്ഷേപണ ബദലുകൾ...",
@@ -272,12 +284,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "പറ്റുമോന്നു നോക്കൂ",
+            "finish": "Finish",
+            "install": "നടീല് നിര്ത്തൂ"
         }
     },
     "specs": {
         "minimum": "കുറഞ്ഞത്",
         "recommended": "വേണ്ടുന്നത്",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "പുതുക്കാന് അമര്ത്തൂ",
@@ -321,11 +339,12 @@
         "removeShortcut": "Remove shortcuts",
         "settings": "ക്രമീകരണങ്ങള്",
         "store": "കടത്താള്",
-        "verify": "കണ്ടെത്തി നന്നാക്കൂ",
+        "verify": "ഉറപ്പുവരുത്തി നന്നാക്കൂ",
         "extraInfo": "അധിക വിവരങ്ങൾ",
         "logs": "രേഖകൾ",
         "categories": "വിഭാഗങ്ങൾ",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "ഈ ഗെയിം ക്ലൗഡ് സേവുകളെ പിന്തുണയ്ക്കുന്നില്ല. ഗെയിം ഡെവലപ്പർമാരാണ് ഈ വിവരങ്ങൾ നൽകിയിരിക്കുന്നത്. ചില ഗെയിമുകൾ അവരുടെ സ്വന്തം ക്ലൗഡ് സേവ് സിസ്റ്റം നടപ്പിലാക്കുന്നു",
@@ -389,7 +408,13 @@
             "dlc": "DLCs",
             "installInfo": "ഇറക്കിയെടുപ്പിന്റെ വലുപ്പം",
             "launchOptions": "വിക്ഷേപണ ബദലുകൾ...",
-            "storeInfo": "സിസ്റ്റം വിവരങ്ങൾ"
+            "storeInfo": "സിസ്റ്റം വിവരങ്ങൾ",
+            "achievements": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

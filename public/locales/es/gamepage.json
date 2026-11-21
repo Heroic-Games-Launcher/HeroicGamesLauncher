@@ -10,7 +10,8 @@
         "move": {
             "message": "Esto puede tardar mucho tiempo, ¿estás seguro?",
             "path": "Selecciona hacia dónde lo quieres mover",
-            "title": "Mover la instalación del juego"
+            "title": "Mover la instalación del juego",
+            "steamMessage": ""
         },
         "no": "NO",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Editar juego",
         "favourite": "Agregar a favoritos",
         "unfavourite": "Eliminar de favoritos",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Volver",
+        "next": "Siguiente",
+        "skip-installer": {
+            "title": "Saltar"
+        }
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
@@ -180,7 +187,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Espacio disponible",
@@ -200,7 +212,10 @@
             "disabled_installation": "Este juego utiliza un software antitrampas que no es compatible con tu sistema operativo o cuyos desarrolladores no lo habilitaron. Esto significa que las funciones multijugador no funcionarán y no hay nada que tú (ni el equipo de Heroic) puedan hacer al respecto.<br /><br />Para instalar este juego y probarlo de todos modos, ve a Configuración, Avanzado y marca la opción para permitir la instalación de juegos con antitrampas defectuosos o denegados.<br /><br />Ten en cuenta que no hay solución para esto y corres el riesgo de ser baneado del juego.",
             "multiplayer_message": "El soporte antitrampas está roto o ha sido denegado. El juego podría ejecutarse, pero las características multijugador no funcionarán. ¿Deseas instalarlo de todos modos?"
         },
-        "flatpak-path-not-writtable": "Error: No se ha concedido acceso al Sandbox a esta ruta, se perderán los datos."
+        "flatpak-path-not-writtable": "Error: No se ha concedido acceso al Sandbox a esta ruta, se perderán los datos.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -247,7 +262,8 @@
             "compatibility-layer-not-available": "Capa de compatibilidad no disponible. Por favor descargue una desde \"Ajustes > Wine Manager\" primero.",
             "patience": "Si desea continuar, por favor sea paciente ya que puede tomar unos minutos para terminar dependiendo de tu conexión a internet y tu configuración del sistema."
         },
-        "releaseDate": "Fecha de lanzamiento"
+        "releaseDate": "Fecha de lanzamiento",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opciones de arranque...",
@@ -297,6 +313,12 @@
         },
         "images": {
             "summary": "Imágenes"
+        },
+        "step": {
+            "compat": "Verificar compatibilidad",
+            "finish": "Finalizar",
+            "images": "Imágenes",
+            "install": "Detener la instalación"
         }
     },
     "specs": {
@@ -352,7 +374,8 @@
         "extraInfo": "Información extra",
         "logs": "Registros",
         "categories": "Categorías",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Este juego no admite guardados en la nube. Esta información es proporcionada por los desarrolladores del juego. Algunos juegos implementan su propio sistema de guardado en la nube.",
@@ -418,6 +441,11 @@
             "installInfo": "Tamaño de descarga",
             "launchOptions": "Opciones de arranque",
             "storeInfo": "Información del sistema"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

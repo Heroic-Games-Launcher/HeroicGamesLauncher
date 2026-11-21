@@ -284,7 +284,8 @@
             "end-time": "Закінчено о",
             "queue-time": "Додано о",
             "start-time": "Почато о",
-            "type": "Тип"
+            "type": "Тип",
+            "status": "Стан"
         },
         "title": "Завантаження",
         "ETA": "Розрахунковий час",
@@ -520,7 +521,27 @@
         },
         "title_amazon": "Amazon Games",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "Вимкнути партнерське посилання GOG",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "logged_in": "Увійти",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Синхронізація завершена",
@@ -582,7 +603,8 @@
         "ignore": "Ігнорувати",
         "offline": "Не в мережі",
         "offline-retry-in": "Не в мережі. Повторна спроба через {{seconds}} секунд.",
-        "retrying": "Пробуємо знову"
+        "retrying": "Пробуємо знову",
+        "hint-label": ""
     },
     "Open": "Відкрити",
     "options": {
@@ -645,7 +667,8 @@
         "gogdl-version": "Версія GOGDL: ",
         "legendary-version": "Версія Legendary: ",
         "weblate": "Допоможіть перекласти Heroic.",
-        "nile-version": "Версія Nile: "
+        "nile-version": "Версія Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Інше",
     "placeholder": {
@@ -786,7 +809,8 @@
                 "nile": "Журнал Amazon / Nile",
                 "legendary": "Журнал Epic Games / Legendary",
                 "zoom": "Журнал Zoom",
-                "itchio": "Журнал itch.io"
+                "itchio": "Журнал itch.io",
+                "steam": ""
             },
             "show-uploads": "Показати завантажені файли журналів",
             "error": "Внутрішня помилка читання файлу журналу",
@@ -1000,8 +1024,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Завантаження",
             "missingBuild": "Всього Завантажено",
-            "missingRuntime": "VCRuntime не встановлено"
-        }
+            "missingRuntime": "VCRuntime не встановлено",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1105,10 +1146,14 @@
             "details": "Детальніше",
             "title": {
                 "resetHeroic": "Скинути Heroic",
-                "clearCache": "Очистити кеш"
+                "clearCache": "Очистити кеш",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Ця дія видаляє всі налаштування та кеш, але не видаляє ваші встановлені ігри або облікові дані для входу в Epic. Портативні версії Heroic (AppImage, WinPortable, ...) необхідно перезапустити вручну після цієї дії.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1149,7 +1194,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "pageSubtitle": {
             "log": "",
@@ -1157,6 +1206,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Скопіювати"
         }
     },
     "Settings": "Налаштування",
@@ -1171,7 +1224,8 @@
         "logging": "Вхід...",
         "processing": "Обробка файлів, будь ласка, зачекайте",
         "preparing_login": "Підготовка входу... ",
-        "installed": "Встановлено"
+        "installed": "Встановлено",
+        "preparing": ""
     },
     "store": "Крамниця Epic",
     "stores": "Крамниці",
@@ -1289,7 +1343,8 @@
         "noGames": "Ваша бібліотека порожня. <br /><br />Клацніть <4>тут</4>, щоб увійти за допомогою своїх облікових записів Epic, GOG.com або Amazon. Після цього ваші ігри з'являться тут, у бібліотеці.<br /><br />Щоб використовувати ігри або застосунки з інших джерел, натисніть <br />, щоби додати їх вручну.",
         "noResultsTitle": "Жодної гри не знайдено.",
         "description": "<0>Увійдіть</0> за допомогою облікових записів Epic, GOG.com, Amazon, itch.io або Zoom, і ваші ігри з’являться тут. Також вручну можна додавати ігри з інших джерел.",
-        "title": "Ваша бібліотека порожня."
+        "title": "Ваша бібліотека порожня.",
+        "backupHint": "Маєте резервну копію Heroic? <2>Відновіть її, щоб продовжити з того місця, де зупинилися</2>."
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton – це варіант Proton, створений Glorious Eggroll. Він призначений для використання у Steam, але деякі ігри за межами Steam можуть працювати краще з цим варіантом. Він надає переважно марні журнали для пошуку та усунення несправностей.",
@@ -1431,7 +1486,7 @@
             "price": "Ціна",
             "activeCount_other": "{{count}} активних",
             "hideDlcs": "Приховати завантажувальний уміст",
-            "ageRatingOption": "Показувати ігри з рейтингом PEGI {{age}} або нижче",
+            "ageRatingOption": "PEGI {{age}} або нижче",
             "genres": "Жанри",
             "activeCount_one": "{{count}} активний",
             "lessFilters": "Менше фільтрів",
@@ -1445,7 +1500,8 @@
             "releaseYear": "Рік виходу",
             "hideOwned": "Приховати придбані",
             "wishlistOnly": "Тільки в списку бажаного",
-            "platform": "Platform"
+            "platform": "Platform",
+            "platformAny": "Будь-яка платформа"
         },
         "sidebar": "Пропозиції",
         "sort": {
@@ -1561,7 +1617,12 @@
         },
         "launchError": "Не вдалося запустити гру. Перевірте журнали для подробиць.",
         "launchErrorNotLoggedIn": "Не вдалося запустити гру. Спочатку ви повинні ввійти в Steam.",
-        "launchErrorPrefix": "Не вдалося запустити гру:"
+        "launchErrorPrefix": "Не вдалося запустити гру:",
+        "confirm": {
+            "enter": "Увійти в режим консолі",
+            "message": "Режим консолі — це повноекранний інтерфейс, зручний для контролера. Елементи керування бічною панеллю та вікном будуть приховані.",
+            "title": "Увійти в режим консолі?"
+        }
     },
     "next": "Далі",
     "common": {
@@ -1589,8 +1650,59 @@
     "Update available!": "Доступне оновлення!",
     "support": {
         "actions": {
-            "open": "Відкрити"
-        }
+            "open": "Відкрити",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Назад",
@@ -1652,5 +1764,79 @@
     },
     "changelog": {
         "view_full": "Переглянути повний журнал змін на GitHub"
+    },
+    "import-export": {
+        "action": {
+            "download": "Завантаження",
+            "ignore": "Зберегти",
+            "browse": "Переглянути",
+            "defaultPrefix": "Використовувати типовий префікс",
+            "skip": "Пропустити гру"
+        },
+        "back": "Назад",
+        "close": "Закрити",
+        "installed-games": "Встановлені ігри",
+        "next": "Далі",
+        "per-game": "Налаштування гри",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Зберегти"
+        },
+        "stage": {
+            "credentials": "Вхід до крамниці",
+            "globalSettings": "Глобальні налаштування",
+            "perGameSettings": "Налаштування гри",
+            "categories": "Власні категорії"
+        },
+        "step3": {
+            "title": "Глобальні налаштування",
+            "none": "Ця резервна копія не містить глобальних налаштувань.",
+            "overwrite": "Перезаписати поточні глобальні налаштування",
+            "overwriteBody": "Типово вимкнено. Увімкніть це, щоб замінити поточні параметри Heroic на ті, що є в резервній копії.",
+            "playtime_one": "Імпортувати час гри та історію грання ({{count}} гра)",
+            "playtime_other": "Імпортувати час гри та історію грання ({{count}} ігор)",
+            "playtimeHint": "Оновлює локальну історію ігор за допомогою даних у резервній копії; інші ігри не змінюються.",
+            "toggle": "Імпортувати глобальні налаштування"
+        },
+        "step4": {
+            "none": "Жодна гра не відповідає вибраним фільтрам.",
+            "selectAll": "Вибрати все",
+            "deselectAll": "Скасувати вибір усіх",
+            "filter": "Фільтр ігор",
+            "selectAllGames": "Вибрати всі ігри",
+            "selected": "Вибрано {{selected}} з {{total}}",
+            "title": "Налаштування для кожної гри для імпорту"
+        },
+        "step5": {
+            "title": "Вхід до крамниці",
+            "found": "Знайдено в резервній копії",
+            "hint": "Облікові дані імпортуються як є. Якщо термін дії токена закінчився, вам буде запропоновано ввійти знову, коли ви відкриєте крамницю наступного разу.",
+            "include": "Включати"
+        },
+        "step6": {
+            "prefixPath": "Префікс для Wine",
+            "wine-downloadable": "Завантаження",
+            "wine-unavailable": "DLC недоступні"
+        },
+        "steps": {
+            "credentials": "Вхід до крамниці",
+            "done": "Готово",
+            "global-settings": "Глобальні налаштування",
+            "per-game": "Налаштування гри"
+        },
+        "summaryValue": "Значення",
+        "version": "Версія Heroic",
+        "wine-versions": "Версія Wine",
+        "apply": "Застосувати резервну копію",
+        "applying": "Застосування…",
+        "categories": "Власні категорії",
+        "created": "Створено",
+        "different-platform": "відрізняється від поточного ({{current}})",
+        "export": {
+            "done": "Збережено до",
+            "failed": "Не вдалося експортувати",
+            "filename": "Назва файлу",
+            "hint": "Зберіть налаштування, облікові дані й бібліотеку Heroic в один ZIP-файл, який можна буде відновити пізніше або перенести на інший комп’ютер."
+        }
     }
 }

@@ -22,7 +22,8 @@
         "move": {
             "title": "Perkelti žaidimo įdiegimą",
             "message": "Šis veiksmas gali užtrukti ganėtinai ilgai, ar Jūs esate tikra/-s?",
-            "path": "Pasirinkite kur Jūs norite perkelti"
+            "path": "Pasirinkite kur Jūs norite perkelti",
+            "steamMessage": ""
         },
         "update": {
             "title": "Žaidimas reikalauja atnaujinimo",
@@ -100,7 +101,13 @@
         "edit-game": "Redaguoti žaidimą",
         "favourite": "Pridėti prie mėgstamiausių",
         "unfavourite": "Pašalinti iš mėgstamiausių",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Atgal",
+        "next": "Sekantis",
+        "skip-installer": {
+            "title": "Praleisti"
+        }
     },
     "cloud_save_unsupported": "Nepalaikoma/-s",
     "game": {
@@ -162,7 +169,10 @@
         "path-not-writtable": "Įspėjimas: nurodytas kelias galimai neleidžia (į)rašyti.",
         "space-after-install": "Po įdiegimo",
         "wineprefix": "„Wine“ prielinksnis/priešdėlis",
-        "flatpak-path-not-writtable": "Klaida: „Smėlio dėžės“ prieiga nebuvo suteikta šiam keliui, duomenų praradimas įvyks."
+        "flatpak-path-not-writtable": "Klaida: „Smėlio dėžės“ prieiga nebuvo suteikta šiam keliui, duomenų praradimas įvyks.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "launching": "Paleidžiama",
@@ -186,7 +196,8 @@
             "pleaseWait": "Prašome palaukti...",
             "installation": "Stabdyti įdiegimą"
         },
-        "releaseDate": "Išleidimo data"
+        "releaseDate": "Išleidimo data",
+        "steam-family-share": ""
     },
     "modifyInstall": {
         "dlcsCollapsible": "„DLC“",
@@ -233,7 +244,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "„DLC“"
+        "dlcs": "„DLC“",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "howLongToBeat": "Laikas įveikti",
     "sideload": {
@@ -262,12 +278,19 @@
         },
         "images": {
             "summary": "Atvaizdai"
+        },
+        "step": {
+            "compat": "Patikrinti palaikymą",
+            "finish": "Užbaigti",
+            "images": "Atvaizdai",
+            "install": "Stabdyti įdiegimą"
         }
     },
     "specs": {
         "recommended": "Rekomenduojama",
         "minimum": "Minimumas",
-        "other": "Kita/-s/-i"
+        "other": "Kita/-s/-i",
+        "notes": ""
     },
     "status": {
         "downloading": "Atsisiunčiama",
@@ -330,7 +353,8 @@
         "verify": "Patikrinti/Patvirtinti ir sutaisyti",
         "disableEosOverlay": "Išjungti „EOS“ uždangą",
         "enableEosOverlay": "Įjungti „EOS“ uždangą",
-        "more": ""
+        "more": "",
+        "options": "Parinktys"
     },
     "launch": {
         "options": "Paleidimo parinktys...",
@@ -385,6 +409,11 @@
             "installInfo": "Atsisiuntimo dydis",
             "launchOptions": "Paleidimo parinktys",
             "storeInfo": "Sistemos informacija"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

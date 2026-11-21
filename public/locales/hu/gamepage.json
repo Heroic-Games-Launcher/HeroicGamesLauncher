@@ -10,7 +10,8 @@
         "move": {
             "message": "Ez eltarthat egy ideig, biztos vagy benne?",
             "path": "Válaszd ki az áthelyezés célját",
-            "title": "Játéktelepítés áthelyezése"
+            "title": "Játéktelepítés áthelyezése",
+            "steamMessage": ""
         },
         "no": "NEM",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Játék szerkesztése",
         "favourite": "Hozzáadás a kedvencekhez",
         "unfavourite": "Eltávolítás a kedvencek közül",
-        "backToLibrary": "Vissza a könyvtárhoz"
+        "backToLibrary": "Vissza a könyvtárhoz",
+        "steamStore": "",
+        "back": "Vissza",
+        "next": "Következő",
+        "skip-installer": {
+            "title": "Kihagyás"
+        }
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -180,7 +187,12 @@
             "verified": "Ellenőrizve"
         },
         "developer": "Fejlesztő",
-        "dlcs": "DLC-k"
+        "dlcs": "DLC-k",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",
@@ -200,7 +212,10 @@
             "multiplayer_message": "A csalás elleni szoftver támogatása hibás vagy tiltásra került. A játékot lehet, hogy meg lehet nyitni, de a többjátékos funkciók nem fognak működni. Mindenképp telepíted?",
             "disabled_installation": "A játék olyan csalás elleni szoftvert használ, amely nem kompatibilis az operációs rendszereddel, vagy a támogatást a játék fejlesztői nem engedélyezték. Ez azt jelenti, hogy a többjátékos funkciók nem fognak működni, és ez ellen semmit sem tehetsz (ahogy a Heroic csapata sem).<br /><br />A játék telepítéséhez, és hogy mégis megpróbáld, kattints a Beállítások, Speciális menüpontra, és kapcsold be a hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezését.<br /><br />Vedd figyelembe, hogy erre nincs megoldás, és azt kockáztatod, hogy kitiltsanak a játékból."
         },
-        "flatpak-path-not-writtable": "Hiba: nem lett hozzáférés adva a homokozóhoz ennél az elérési útnál, adatvesztés fog történni."
+        "flatpak-path-not-writtable": "Hiba: nem lett hozzáférés adva a homokozóhoz ennél az elérési útnál, adatvesztés fog történni.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -246,7 +261,8 @@
             "select-path": "A Steam telepítési mappájának kiválasztása",
             "specificVersion-pt1": "Ez letölti a Steam egy olyan verzióját az"
         },
-        "releaseDate": "Kiadás dátuma"
+        "releaseDate": "Kiadás dátuma",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Indítási kapcsolók…",
@@ -296,6 +312,12 @@
         },
         "images": {
             "summary": "Képek"
+        },
+        "step": {
+            "compat": "Kompatibilitás ellenőrzése",
+            "finish": "Befejezés",
+            "images": "Képek",
+            "install": "Telepítés megállítása"
         }
     },
     "specs": {
@@ -350,7 +372,8 @@
         "extraInfo": "Extra Info",
         "logs": "Naplók",
         "categories": "Kategóriák",
-        "more": "Továbbiak"
+        "more": "Továbbiak",
+        "options": "Beállítások"
     },
     "help": {
         "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak.",
@@ -416,6 +439,11 @@
             "installInfo": "Letöltési méret",
             "launchOptions": "Indítási kapcsolók",
             "storeInfo": "Rendszerinformációk"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

@@ -118,7 +118,8 @@
                     "body": "Odstranění hry {{game}} ze Steamu se nezdařilo z následujícího důvodu:{{newLine}} {{error}}",
                     "title": "Chyba při odstraňování hry ze Steamu"
                 }
-            }
+            },
+            "steam-running": "Steam je spuštěný. Zavřete Steam a zkuste to znovu."
         },
         "info": {
             "update": {
@@ -215,7 +216,20 @@
         "launchAnyway": "Spustit hru i tak",
         "shaderPreCachingDisabledMessage": "Předběžné ukládání shaderů ve Steamu je deaktivováno. Aktivujte jej v nastavení Steamu v režimu pro stolní počítače, aby hra s UMU fungovala správně.",
         "shaderPreCachingDisabledTitle": "Předběžné ukládání do mezipaměti shaderů je zakázáno",
-        "cancel": "Zrušit"
+        "cancel": "Zrušit",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "Ne všechny uložené hry z cloudu pro hru {{game}} se podařilo stáhnout, takže uložené hry na tomto počítači jsou neúplné. Pokud nyní začnete hrát, může dojít k přepsání chybějícího postupu v cloudu.\n\n{{details}}",
+                "title": "Uložení ve Steam Cloud není dokončeno"
+            },
+            "cloudConflict": {
+                "title": "Konflikt při ukládání do služby Steam Cloud",
+                "keepCloud": "Použít ukládání do cloudu",
+                "keepLocal": "Použít lokální ukládání",
+                "message": "Údaje uložené v cloudu a lokálně pro hru {{game}} se liší. Vyberte, kterou kopii chcete zachovat:\n\n{{files}}"
+            }
+        },
+        "choose-aurelia-binary": "Vyberte binární soubor Aurelia"
     },
     "button": {
         "cancel": "Zrušit",
@@ -270,7 +284,8 @@
             "end-time": "Dokončeno",
             "queue-time": "Přidáno",
             "start-time": "Spuštěno",
-            "type": "Typ"
+            "type": "Typ",
+            "status": "Status"
         },
         "title": "Stahování",
         "ETA": "Předpokládaný čas",
@@ -281,7 +296,11 @@
                 "title": "Fronta je prázdná"
             }
         },
-        "pageSubtitle": "Co se právě instaluje, co bude následovat a co je již hotovo"
+        "pageSubtitle": "Co se právě instaluje, co bude následovat a co je již hotovo",
+        "limit": {
+            "label": "Limit stahování",
+            "unlimited": "Neomezená"
+        }
     },
     "epic": {
         "offline-notification-body": "Online služby nemusí plně fungovat, protože servery Epic Games jsou offline!",
@@ -338,7 +357,8 @@
         "stores": "Obchody",
         "display": "Zobrazované",
         "hidden": "Skryté",
-        "non_available": "Nedostupné"
+        "non_available": "Nedostupné",
+        "show_steam_owned_only": "Zobrazit pouze hry, které vlastníte na Steamu"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -488,7 +508,7 @@
         "alternative_method": "Alternativní způsob přihlášení",
         "epic": "Přihlášení s účtem Epic Games",
         "gog": "Přihlášení s účtem GOG",
-        "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
+        "message": "Přihlaste se do libovolného obchodu, kde máte aktivní účet, a zobrazí se vám všechny hry ve vaší knihovně. Můžete být přihlášeni do všech těchto obchodů současně.",
         "amazon": "Přihlášení s účtem Amazon",
         "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější.",
         "zoom": "Přihlášení přes Zoom",
@@ -500,7 +520,27 @@
         },
         "title_amazon": "Hry Amazon",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "Zakázat partnerský odkaz GOG",
+                "message": "Heroic bude při vašich nákupech her na GOGu používat partnerské odkazy, což pomáhá financovat vývoj her, aniž by vám tím vznikly jakékoli dodatečné náklady. Tuto funkci můžete kdykoli deaktivovat v pokročilých nastaveních."
+            },
+            "activate": "Aktivovat"
+        },
+        "logged_in": "Login",
+        "title_steam": "Steam",
+        "description_amazon": "Získejte hry a hrajte je s Amazon Prime Gaming.",
+        "description_steam": "Nakupujte a hrajte hry ze služby Steam.",
+        "gog_support": "Aktivujte partnerské odkazy GOG a podpořte tak Heroic.",
+        "title_itchio": "itch.io",
+        "browse_store": "Prohlédnout si obchod",
+        "description_gog": "Nakupujte a hrajte hry bez DRM na GOG.com.",
+        "description_zoom": "Nakupujte a hrajte hry bez DRM na platformě Zoom.",
+        "description_itchio": "Objevujte a hrajte nezávislé hry z itch.io.",
+        "title_zoom": "Platforma Zoom",
+        "description_epic": "Nakupujte a hrajte hry z obchodu Epic Games Store.",
+        "logged_in_as": "Přihlášen jako"
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -550,7 +590,7 @@
             "canceled": "Aktualizace zrušena",
             "finished": "Aktualizace dokončena",
             "started": "Aktualizace zahájena",
-            "failed": "Aktualizace selhala",
+            "failed": "Aktualizace se nezdařila",
             "paused": "Aktualizace pozastavena"
         },
         "import": {
@@ -562,7 +602,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Opakování pokusu za {{seconds}} sekund.",
-        "retrying": "Opakování pokusu"
+        "retrying": "Opakování pokusu",
+        "hint-label": "Podrobnosti o kontrole připojení"
     },
     "Open": "Otevřít",
     "options": {
@@ -625,7 +666,8 @@
         "gogdl-version": "Verze GOGDL: ",
         "legendary-version": "Verze Legenary: ",
         "weblate": "Pomozte s překladem Heroic.",
-        "nile-version": "Verze Nile: "
+        "nile-version": "Verze Nile: ",
+        "aurelia-version": "Verze Aurelia: "
     },
     "Other": "Other",
     "placeholder": {
@@ -640,8 +682,8 @@
     },
     "platforms": {
         "linux": "Linux",
-        "mac": "Mac",
-        "win": "Windows",
+        "mac": "mac",
+        "win": "windows",
         "browser": "Prohlížeč"
     },
     "please-wait": "Čekejte prosím...",
@@ -766,7 +808,8 @@
                 "legendary": "Protokol Epic Games / Legendary",
                 "nile": "Protokol Amazon / Nile",
                 "zoom": "Zoom log",
-                "itchio": "Log itch.io"
+                "itchio": "Log itch.io",
+                "steam": "Protokol Steam / Aurelia"
             },
             "show-uploads": "Zobrazit nahrané soubory protokolů",
             "error": "Vnitřní chyba při čtení souboru protokolu",
@@ -783,7 +826,7 @@
             "title": "Ručně synchronizovat uložené soubory",
             "upload": "Nahrát"
         },
-        "maxRecentGames": "Max. nedávno hraných her k zobrazení",
+        "maxRecentGames": "Nedávno hrané k zobrazení",
         "maxworkers": "Maximální počet vláken při stahování",
         "minimize-on-launch": "Minimalizovat Heroic po spuštění hry",
         "offlinemode": "Spustit hru offline",
@@ -812,7 +855,7 @@
         "ignoreGameUpdates": "Ignorovat aktualizace hry",
         "disable_logs": "Zakázat protokoly",
         "addgamestoapplications": "Automaticky přidávat hry do Aplikací",
-        "showMetalOverlay": "Zobrazit překryvnou statistiku",
+        "showMetalOverlay": "Zobrazit překryvné statistiky",
         "alt-nile-bin": "Vyberte alternativní binární soubor Nile",
         "autodxvknvapi": "Automaticky instalovat/aktualizovat DXVK-NVAPI na prefixu",
         "experimental_features": {
@@ -980,9 +1023,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Celkově staženo",
-            "missingRuntime": "VCRuntime není nainstalován"
+            "missingRuntime": "VCRuntime není nainstalován",
+            "info": {
+                "none": "Bez Steamu: spustí hru bez Steamu. Online funkce a hry chráněné systémem DRM nemusí fungovat.",
+                "runtime": "Spuštění Steam v prostředí Wine: spustí samostatného klienta Steam v prostředí Wine, pokud nemáte Steam nainstalovaný ve svém systému.",
+                "host": "Spustit Steam: spustí nainstalovaného klienta Steam tiše na pozadí. Je to nutné pro online hraní, hru pro více hráčů a DRM."
+            },
+            "native": "Původní",
+            "runtime": "In-Wine Steam runtime",
+            "installRuntime": "Nainstalujte runtime prostředí Steam",
+            "none": "Bez Steamu",
+            "automatic": "Automatický",
+            "fallback": "Do té doby služba Play využívá",
+            "title": "Verze hry, která bude spuštěna",
+            "host": "Spustit Steam"
         },
-        "addgamestoapplications-description": "Při instalaci každé hry vytvořit zástupce ve službě Steam"
+        "addgamestoapplications-description": "Při instalaci každé hry vytvořit zástupce ve službě Steam",
+        "disableGOGAffiliateDescription": "Nákupem her na GOGu prostřednictvím Heroic přispíváte k podpoře tohoto projektu.",
+        "addgamestosteam-real-description": "Každou nainstalovanou hru přidejte do své knihovny Steam jako zástupce.",
+        "maxworkers-description": "Čím více workerů, tím rychlejší stahování, ale také vyšší zatížení procesoru a větší spotřeba šířky pásma. Max využívá všechna jádra."
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1018,13 +1077,15 @@
             "general": "Obecné",
             "log": "Protokol",
             "other": "Ostatní",
-            "sync": "Synchronizace uložených souborů",
+            "sync": "Synchronizace uložených dat v cloudu",
             "wineExt": "Wine rozšíření",
             "systemInformation": "Systémové informace",
             "gamescope": "Gamescope",
             "legacy": "Zastaralé",
             "categories": "Kategorie",
-            "tabs": "Sekce nastavení"
+            "tabs": "Sekce nastavení",
+            "importExport": "Import / Export",
+            "runners": "Běžci"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Resetovat Heroic",
@@ -1073,7 +1134,8 @@
             "details": "Podrobnosti",
             "title": {
                 "resetHeroic": "Resetovat Heroic",
-                "clearCache": "Vymazat mezipaměť"
+                "clearCache": "Vymazat mezipaměť",
+                "clearImagesCache": "Vymazat mezipaměť obrázků"
             },
             "clearCache": {
                 "help8": "Nainstalované Hry",
@@ -1091,6 +1153,9 @@
             "resetHeroic": {
                 "help": "Tato akce odstraní všechna nastavení a mezipaměť, ale neodstraní vaše nainstalované hry nebo přihlašovací údaje do služby Epic. Přenosné verze (AppImage, WinPortable, ...) je poté nutné restartovat ručně.",
                 "description": "Obnoví výchozí nastavení Heroic. Nainstalované hry a přihlašovací údaje do obchodu zůstanou zachovány."
+            },
+            "clearImagesCache": {
+                "description": "Odstraní pouze stažený obal, takže se znovu stáhne, přičemž je omezena rychlost stahování."
             }
         },
         "custom_css": {
@@ -1130,14 +1195,31 @@
             "privacy": "Ochrana osobních údajů",
             "runtimes": "Běhové prostředí",
             "system": "Systém",
-            "winePerformance": "Výkon"
+            "winePerformance": "Výkon",
+            "steam": "Steam",
+            "amazon": "Hry Amazon",
+            "epic": "Epic Games",
+            "gog": "GOG",
+            "eosOverlay": "Překryv EOS"
         },
         "pageSubtitle": {
             "advanced": "Binární soubory, experimentální funkce a údržba",
             "games_settings_defaults": "Výchozí nastavení pro nově nainstalované hry",
             "general": "Nastavte si předvolby spouštěče",
             "log": "Přečtěte si a sdílejte logy z Heroic",
-            "systeminfo": "Váš hardware a verze, na které běží Heroic"
+            "systeminfo": "Váš hardware a verze, na které běží Heroic",
+            "importExport": "Zálohujte nebo obnovte nastavení Heroic",
+            "runners": "Integrace obchodů a možnosti specifické pro běžce"
+        },
+        "clear-images-cache": "Vymazat mezipaměť obrázků",
+        "copySettings": {
+            "button": "Kopírovat",
+            "description": "Uložte aktuální konfiguraci Heroic ve formátu JSON do schránky."
+        },
+        "search": {
+            "noResults": "Nebylo nalezeno žádné nastavení",
+            "placeholder": "Nastavení vyhledávání",
+            "results": "Výsledky nastavení"
         }
     },
     "Settings": "Nastavení",
@@ -1151,7 +1233,7 @@
         "installing": "Instaluji",
         "logging": "Přihlašování...",
         "processing": "Zpracovávám soubory, čekejte prosím",
-        "preparing_login": "Příprava přihlášení... ",
+        "preparing_login": "Připravuje se přihlášení... ",
         "installed": "Nainstalováno",
         "preparing": "Připravuji…"
     },
@@ -1278,7 +1360,8 @@
         "noResults": "Aktuálním filtrům nic neodpovídá.",
         "noResultsTitle": "Nebyly nalezeny žádné hry",
         "description": "<0>Přihlaste se</0> pomocí svého účtu Epic, GOG.com, Amazon nebo Zoom a vaše hry se zde zobrazí. Hry z jiných zdrojů můžete také přidat ručně.",
-        "title": "Vaše knihovna je prázdná."
+        "title": "Vaše knihovna je prázdná.",
+        "backupHint": "Máte zálohu „Heroic“? <2>Obnovte ji a pokračujte tam, kde jste přestali</2>."
     },
     "adtraction-locked": {
         "title": "Služba adtraction je blokována",
@@ -1413,7 +1496,7 @@
             "price": "Cena",
             "activeCount_other": "{{count}} aktivních",
             "hideDlcs": "Schovat DLC",
-            "ageRatingOption": "Zobrazit hry s hodnocením PEGI {{age}} nebo nižším",
+            "ageRatingOption": "PEGI {{age}} nebo nižší",
             "genres": "Žánry",
             "activeCount_one": "{{count}} aktivních",
             "lessFilters": "Méně filtrů",
@@ -1427,7 +1510,8 @@
             "releaseYear": "Rok vydání",
             "hideOwned": "Schovat Vlastněné",
             "wishlistOnly": "Pouze seznam přání",
-            "platform": "Platforma"
+            "platform": "Platforma",
+            "platformAny": "Jakákoli platforma"
         },
         "sidebar": "Nabídky",
         "sort": {
@@ -1494,7 +1578,9 @@
         },
         "sort": {
             "label": "Seřadit",
-            "last_played": "Naposledy hráno"
+            "last_played": "Naposledy hráno",
+            "alpha_asc": "A → Z",
+            "alpha_desc": "Z → A"
         },
         "cancel": {
             "hintSuffix": "po dobu tří sekund pro zrušení",
@@ -1538,7 +1624,15 @@
         },
         "removeFromQueue": {
             "message": "Tato hra je ve frontě na stažení. Odstranit z fronty?"
-        }
+        },
+        "confirm": {
+            "enter": "Přejít do režimu konzole",
+            "message": "Režim konzole je rozhraní v režimu celé obrazovky, přizpůsobené pro ovládání pomocí ovladače. Postranní panel a ovládací prvky okna budou skryty.",
+            "title": "Chcete přepnout do režimu konzole?"
+        },
+        "launchErrorNotLoggedIn": "Spuštění hry se nezdařilo. Nejprve se musíte přihlásit do Steamu.",
+        "launchError": "Spuštění hry se nezdařilo. Podrobnosti najdete v protokolech.",
+        "launchErrorPrefix": "Spuštění hry se nezdařilo:"
     },
     "next": "Další",
     "common": {
@@ -1566,21 +1660,278 @@
     "Update available!": "K dispozici je aktualizace!",
     "support": {
         "actions": {
-            "open": "Otevřít"
+            "open": "Otevřít",
+            "sendEmail": "Odeslat e-mail",
+            "shop": "Obchod",
+            "copyEmail": "Kopírovat e-mail"
         },
-        "title": "Podpořte nás"
+        "title": "Podpořte nás",
+        "donations": {
+            "github": {
+                "description": "Podpořte projekt Heroic prostřednictvím GitHubu a veřejně projevte svou podporu."
+            },
+            "kofi": {
+                "description": "Jednorázový příspěvek, který jde přímo na vývoj."
+            },
+            "description": "Vyberte si, jakým způsobem byste chtěli podpořit vývoj Heroic.",
+            "paypal": {
+                "description": "Jednorázový nebo pravidelný příspěvek v měně podle vašeho výběru."
+            },
+            "patreon": {
+                "description": "Pravidelné členství s exkluzivními informacemi ze zákulisí."
+            },
+            "title": "Dary"
+        },
+        "affiliates": {
+            "title": "Partneři",
+            "gmg": {
+                "description": "Oficiální herní klíče za skvělé ceny."
+            },
+            "humble": {
+                "description": "Hry, knihy a balíčky pro charitativní účely."
+            },
+            "description": "Nakupujte přes naše odkazy a Heroic získá malou provizi, aniž by vám vznikly jakékoli dodatečné náklady.",
+            "gog": {
+                "description": "Hry a klasiky bez DRM."
+            }
+        },
+        "email": {
+            "label": "E-mail"
+        },
+        "tags": {
+            "gameKeys": "Herní klíče",
+            "tip": "Jednorázový příspěvek",
+            "bundles": "Balíčky",
+            "sponsor": "Sponzor",
+            "membership": "Členství",
+            "drmFree": "bez DRM",
+            "donation": "Dar"
+        },
+        "description": "Heroic je bezplatný a open source a vždy jím zůstane. Vaše podpora dává vývojářům více času na jeho vylepšování, nákup her pro testování nových funkcí, opravování chyb a vytváření věcí, o které komunita žádá.",
+        "partnerships": {
+            "title": "Spolupráce a tisk",
+            "description": "Máte-li zájem o sponzorství, partnerství se značkou nebo tiskové dotazy, kontaktujte nás."
+        },
+        "headline": "Pomozte nám vylepšit Heroic ještě více"
     },
     "cloudSync": {
         "back": "Zpět",
         "button": {
             "download": "Download",
             "sync": "Synchronizovat",
-            "upload": "Nahrát"
+            "upload": "Nahrát",
+            "view": "Zobrazit",
+            "keep": "Uchovat"
         },
         "column": {
             "file": "Filtr",
-            "size": "Velikost"
+            "size": "Velikost",
+            "modified": "Upraveno"
         },
-        "never": "Nikdy"
+        "never": "Nikdy",
+        "count": {
+            "failed_other": "{{count}} selhalo",
+            "failed_one": "{{count}} selhalo",
+            "skipped_one": "{{count}} bylo přeskočeno",
+            "conflicts_other": "{{count}} neshod",
+            "conflicts_one": "{{count}} neshod",
+            "skipped_other": "{{count}} bylo přeskočeno"
+        },
+        "hint": {
+            "checking": "Probíhá kontrola Steam Cloud…",
+            "cloudCopy": "Kopie z cloudu z {{when}}",
+            "firstUpload": "Vytvoří první kopii v cloudu",
+            "replaceCloud": "Nahrazuje kopii z cloudu z {{when}}",
+            "lastSync": "Naposledy synchronizováno {{when}}",
+            "neverSynced": "Zatím nebylo synchronizováno z Heroic",
+            "discardCloud": "Odstraní kopii v cloudu z {{when}}",
+            "fileCount_one": "{{count}} soubor · {{size}}",
+            "cloudEmpty": "Ve Steam Cloud zatím nic není",
+            "fileCount_other": "{{count}} souborů · {{size}}"
+        },
+        "state": {
+            "ok": "Uložené hry ve Steam Cloud jsou aktuální",
+            "failed": "Synchronizace se Steam Cloud se nezdařila",
+            "syncing": "Synchronizace uložených her ve Steam Cloud…",
+            "unknown": "Úložiště Steam Cloud zatím není synchronizováno",
+            "conflicts": "Na tomto počítači dochází ke konfliktu s ukládáním do Steam Cloud",
+            "incomplete": "Synchronizace Steam Cloud nebyla dokončena"
+        },
+        "syncing": "Probíhá synchronizace… prosím vyčkejte.",
+        "genericIssue": "Při poslední synchronizaci došlo k problému.",
+        "noFiles": "Ve Steam Cloud nejsou pro tuto hru žádné soubory.",
+        "section": {
+            "files": "Soubory v cloudu",
+            "actions": "Synchronizovat akce"
+        },
+        "pull": "Stáhnout uložené hry z cloudu",
+        "keepLocal": "Rozhodnutí: zachovat uložené hry z tohoto počítače",
+        "sync": "Synchronizovat nyní (obousměrně)",
+        "keepCloud": "Rozhodnutí: zachovat uložené hry ve Steam Cloud",
+        "viewFiles": "Zobrazit soubory uložené v cloudu",
+        "push": "Nahrát lokální uložené hry do cloudu",
+        "lastSync": "Poslední synchronizace: {{when}}"
+    },
+    "changelog": {
+        "view_full": "Zobrazit kompletní seznam změn na GitHubu"
+    },
+    "import-export": {
+        "action": {
+            "browse": "Prohlížeč",
+            "download": "Stahování",
+            "defaultPrefix": "Použít výchozí předponu",
+            "ignore": "Uchovat",
+            "skip": "Přeskočit hru"
+        },
+        "back": "Zpět",
+        "close": "Zavřít",
+        "installed-games": "Nainstalované Hry",
+        "next": "Další",
+        "per-game": "Nastavení hry",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Uložit",
+            "confirm-message": "Tím se obnoví nastavení, přihlašovací údaje a změny v knihovně provedené při posledním importu. Tuto akci nelze vrátit zpět.",
+            "confirm-title": "Vrátit zpět poslední import?",
+            "done": "Změny byly vráceny zpět. Restartujte Heroic, aby se všechny změny projevily.",
+            "failed": "Vrácení změn se nezdařilo",
+            "hint": "Během posledního importu byl uložen snímek pro vrácení zpět. Pomocí tohoto tlačítka se můžete vrátit do tohoto stavu.",
+            "run": "Vrátit zpět poslední import",
+            "running": "Vracím zpět..."
+        },
+        "stage": {
+            "credentials": "Přihlášení do obchodu",
+            "globalSettings": "Globální nastavení",
+            "perGameSettings": "Nastavení hry",
+            "categories": "Vlastní kategorie",
+            "libraryCache": "Nainstalované hry a knihovna",
+            "playtime": "Doba hraní a historie hraní",
+            "sideloadLibrary": "Hry nainstalované z jiných zdrojů",
+            "wineMetadata": "Verze Wine / Proton"
+        },
+        "step3": {
+            "title": "Globální nastavení",
+            "categories_one": "Importovat vlastní kategorie ({{count}})",
+            "categories_other": "Importovat vlastní kategorie ({{count}})",
+            "categoriesHint": "Nahradí vaše stávající vlastní kategorie kategoriemi ze zálohy.",
+            "none": "Tato záloha neobsahuje globální nastavení.",
+            "overwrite": "Přepsat aktuální globální nastavení",
+            "overwriteBody": "Ve výchozím nastavení je tato funkce vypnutá. Zapněte ji, chcete-li nahradit aktuální nastavení Heroic nastavením ze zálohy.",
+            "playtime_one": "Načíst dobu hraní a historii hraní ({{count}} her)",
+            "playtime_other": "Načíst dobu hraní a historii hraní ({{count}} her)",
+            "playtimeHint": "Aktualizuje místní historii hraní na základě údajů ze zálohy; ostatní hry zůstávají beze změny.",
+            "toggle": "Načíst globální nastavení"
+        },
+        "step4": {
+            "none": "Žádné hry neodpovídají aktuálním filtrům.",
+            "selectAll": "Vybrat vše",
+            "deselectAll": "Zrušit výběr všeho",
+            "filter": "Filtrovat hry",
+            "selectAllGames": "Vybrat všechny hry",
+            "selected": "{{selected}} z {{total}} vybraných",
+            "title": "Nastavení jednotlivých her k importu"
+        },
+        "step5": {
+            "title": "Přihlášení do obchodu",
+            "found": "Nalezeno v záloze",
+            "hint": "Přihlašovací údaje se importují v původní podobě. Pokud platnost tokenu vypršela, budete při příštím otevření obchodu vyzváni k opětovnému přihlášení.",
+            "include": "Zahrnout",
+            "missing": "Není v záloze"
+        },
+        "step6": {
+            "prefixPath": "Prefix Wine",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "Není dostupné žádné DLC",
+            "allGood": "V tomto systému jsou k dispozici všechny instalační cesty a verze Wine.",
+            "downloadMissing": "Po importu znovu stáhnout vybrané chybějící hry",
+            "installedOKHint": "Tyto hry byly nainstalovány na původním systému a jejich složky na tomto počítači stále existují – budou znovu zaregistrovány v původním stavu.",
+            "installedOKSummary_one": "Hry nalezeny a připraveny ({{count}})",
+            "installedOKSummary_other": "Hry nalezeny a připraveny ({{count}})",
+            "installPathsHint": "Instalační složky těchto her se v tomto systému nenacházejí. Hry, které chcete obnovit, si stáhněte znovu; u her, u nichž není zaškrtnuto políčko, zůstane v seznamu uvedena jejich původní (nefunkční) cesta.",
+            "installPathsSummary_one": "Hry s chybějícími instalačními cestami ({{count}})",
+            "installPathsSummary_other": "Hry s chybějícími instalačními cestami ({{count}})",
+            "prefixPathsHint": "U každé předpony si vyberte, jak s ní naložit – nejjednodušším řešením je obvykle přepnutí na výchozí předponu.",
+            "prefixPathsSummary_one": "Hry bez předpon Wine ({{count}})",
+            "prefixPathsSummary_other": "Hry bez předpon Wine ({{count}})",
+            "title": "Knihovna a systém",
+            "wineHint": "Tyto verze byly nainstalovány na původním systému, ale v místním systému chybí. Verze ke stažení budou automaticky zařazeny do fronty.",
+            "wineSummary_one": "Chybějící verze Wine / Proton ({{count}})",
+            "wineSummary_other": "Chybějící verze Wine / Proton ({{count}})"
+        },
+        "steps": {
+            "credentials": "Přihlášení do obchodu",
+            "done": "Hotovo",
+            "global-settings": "Globální nastavení",
+            "per-game": "Nastavení hry",
+            "library-system": "Knihovna a systém",
+            "pick-file": "Vyberte soubor zálohy",
+            "summary": "Shrnutí"
+        },
+        "summaryValue": "Hodnota",
+        "version": "Verze Heroic",
+        "wine-versions": "Verze Wine",
+        "apply": "Použít zálohu",
+        "applying": "Probíhá...",
+        "categories": "Vlastní kategorie",
+        "created": "Vytvořeno",
+        "different-platform": "odlišné od aktuálního ({{current}})",
+        "export": {
+            "done": "Uloženo do",
+            "failed": "Export se nezdařil",
+            "filename": "Název souboru",
+            "hint": "Sdružte nastavení, přihlašovací údaje a knihovnu Heroic do jediného souboru ZIP, který můžete později obnovit nebo přesunout na jiný počítač.",
+            "output": "Výstupní složka",
+            "output-placeholder": "Vyberte složku...",
+            "pickDir": "Vyberte, kam chcete zálohu uložit",
+            "run": "Exportovat",
+            "running": "Exportuji...",
+            "summary_one": "Zahrnuto {{count}} z {{total}}",
+            "summary_other": "Zahrnuto {{count}} z {{total}}",
+            "title": "Exportovat Heroic"
+        },
+        "import": {
+            "hint": "Spusťte průvodce krok za krokem, abyste si mohli prohlédnout náhled a obnovit dříve exportovanou zálohu Heroic.",
+            "open": "Otevřít průvodce importem",
+            "row": "Obnovit ze záložního souboru",
+            "title": "Importovat zálohu Heroic"
+        },
+        "invalid-backup": "Tento soubor není platnou zálohou Heroic.",
+        "pick-backup": "Vyberte archív zálohy Heroic",
+        "platform-limitations": {
+            "paths": "Cesty k instalaci z jiného operačního systému jsou obvykle neplatné, takže může být nutné importované hry v následujících krocích přeinstalovat nebo opravit jejich cesty.",
+            "settings": "Globální nastavení může odkazovat na nástroje a složky, které zde neexistují – před přepsáním aktuálního nastavení je zkontrolujte.",
+            "title": "Import mezi platformami má svá omezení",
+            "wine": "Verze Wine/Proton, předpony a související nastavení platí pouze v systémech Linux a macOS – ve Windows jsou vynechány.",
+            "works": "Přihlašovací údaje k obchodu, knihovna her, položky nainstalované z jiných zdrojů a vlastní kategorie fungují na jakékoli platformě."
+        },
+        "sideloaded": "Nainstalováno z externího zdroje",
+        "step1": {
+            "found": "V {{folder}} byly nalezeny zálohy",
+            "hint": "Vyberte záložní archiv (.zip) z Heroic, který jste dříve exportovali. Zálohy ve vaší výchozí složce jsou uvedeny níže.",
+            "none": "V této složce nebyly nalezeny žádné zálohy Heroic. Stále však můžete nějakou vyhledat.",
+            "placeholder": "Není vybrán žádný soubor zálohy",
+            "title": "Vyberte soubor zálohy, který chcete importovat"
+        },
+        "step2": {
+            "title": "Přehled zálohování"
+        },
+        "step7": {
+            "applying": "Probíhá zálohování...",
+            "failure": "Některé kroky se nepodařilo dokončit",
+            "queued_one": "Do fronty ke stažení bylo přidáno {{count}} her.",
+            "queued_other": "Do fronty ke stažení bylo přidáno {{count}} her.",
+            "restart-body": "Některá nastavení se ukládají do mezipaměti a projeví se až po restartu.",
+            "restart-btn": "Restartovat nyní",
+            "restart-title": "Restartujte Heroic, aby se všechny změny projevily",
+            "rollback-hint": "Byl uložen snímek pro vrácení zpět. Tento import můžete později zrušit v nabídce Nastavení > Import/Export.",
+            "success": "Záloha byla provedena",
+            "wine-busy-hint": "Počkejte, až se dokončí instalace Wine / Proton",
+            "wine-progress-body": "Prosím, počkejte — možnosti „Restartovat“ a „Zavřít“ jsou deaktivovány, dokud se nedokončí instalace všech vybraných verzí.",
+            "wine-progress-title": "Instalace Wine / verze Proton ({{current}}/{{total}})"
+        },
+        "summaryProperty": "Možnosti",
+        "unsupported-format": "Tato záloha využívá novější formát, než jaký podporuje tato verze programu Heroic.",
+        "validating": "Ověřování...",
+        "wizard-title": "Načíst zálohu Heroic"
     }
 }

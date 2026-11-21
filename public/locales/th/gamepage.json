@@ -11,7 +11,8 @@
         "move": {
             "message": "อาจจะใช้เวลานาน, คุณแน่ใจไหม?",
             "path": "เลือกที่ที่คุณจะย้ายไป",
-            "title": "ย้ายข้อมูลไฟล์เกม"
+            "title": "ย้ายข้อมูลไฟล์เกม",
+            "steamMessage": ""
         },
         "repair": {
             "message": "คุณต้องการที่จะลองซ่อมแซมเกมนี้หรือไม่? นี่อาจจะใช้เวลานาน.",
@@ -99,7 +100,8 @@
         "favourite": "เพิ่มไปยังรายการโปรด",
         "unfavourite": "ลบออกจากรายการโปรด",
         "edit-game": "",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": ""
     },
     "cloud_save_unsupported": "ไม่ได้สนับสนุน",
     "disabled": "ปิดใช้งานแล้ว",
@@ -178,7 +180,13 @@
             "playable": ""
         },
         "developer": "",
-        "genres": ""
+        "genres": "",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        },
+        "dlcs": ""
     },
     "label": {
         "launching": "กำลังเปิด",
@@ -197,7 +205,8 @@
         "saves": {
             "syncing": ""
         },
-        "releaseDate": ""
+        "releaseDate": "",
+        "steam-family-share": ""
     },
     "modifyInstall": {
         "versionCollapsable": "เวอร์ชั่นเกม",
@@ -242,11 +251,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "ตรวจสอบความเข้ากันได้",
+            "finish": "เสร็จสิ้น",
+            "install": "หยุดการติดตั้ง"
         }
     },
     "specs": {
         "minimum": "ขั้นต่ำ",
-        "recommended": "แนะนำ"
+        "recommended": "แนะนำ",
+        "notes": "",
+        "other": ""
     },
     "status": {
         "clickToUpdate": "คลิกเพื่ออัปเดต",
@@ -330,7 +346,10 @@
         "path": "",
         "flatpak-path-not-writtable": "",
         "path-not-writtable": "",
-        "wineversion": ""
+        "wineversion": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "sdl": {
         "title": ""
@@ -371,7 +390,16 @@
     },
     "steam": {
         "data": {
-            "installInfo": "ขนาดดาวน์โหลด"
+            "installInfo": "ขนาดดาวน์โหลด",
+            "achievements": "",
+            "dlc": "",
+            "launchOptions": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

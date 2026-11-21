@@ -10,7 +10,8 @@
         "move": {
             "message": "Ini bisa memakan waktu yang lama, apakah Anda yakin?",
             "path": "Pilih di mana Anda ingin pindahkan",
-            "title": "Pindahkan Pemasangan Gim"
+            "title": "Pindahkan Pemasangan Gim",
+            "steamMessage": ""
         },
         "no": "TIDAK",
         "repair": {
@@ -99,7 +100,13 @@
         "edit-game": "Edit Game",
         "favourite": "Tambahkan Ke Favorit",
         "unfavourite": "Hapus Dari Favorit",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Kembali",
+        "next": "Berikutnya",
+        "skip-installer": {
+            "title": "Lewati"
+        }
     },
     "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
@@ -179,7 +186,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
@@ -199,7 +211,10 @@
             "disabled_installation": "Game ini menggunakan perangkat lunak anticheat yang tidak kompatibel dengan sistem operasi Anda atau dukungan untuk perangkat lunak tersebut tidak diaktifkan oleh pengembang game. Hal ini berarti fitur multiplayer tidak akan berfungsi, dan tidak ada yang dapat Anda (atau tim Heroic) lakukan untuk mengatasinya. <br /><br />Untuk menginstal game ini dan mencobanya meskipun demikian, pergi ke Pengaturan, Lanjutan, dan centang opsi untuk mengizinkan instalasi game dengan anticheat yang rusak atau ditolak.<br /><br />Perlu diingat bahwa tidak ada solusi untuk ini dan Anda berisiko diblokir dalam game.",
             "multiplayer_message": "Dukungan anticheat rusak atau ditolak. Gim mungkin bisa dibuka namun fitur multipemain tidak akan bekerja. Apakah Anda ingin menginstalnya?"
         },
-        "flatpak-path-not-writtable": "Kesalahan: Akses sandbox tidak diberikan ke lokasi ini, kehilangan data mungkin bisa terjadi."
+        "flatpak-path-not-writtable": "Kesalahan: Akses sandbox tidak diberikan ke lokasi ini, kehilangan data mungkin bisa terjadi.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -224,7 +239,8 @@
             "pleaseWait": "Mohon tunggu...",
             "installation": "Hentikan Pemasangan"
         },
-        "releaseDate": "Release Date"
+        "releaseDate": "Release Date",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opsi Peluncuran…",
@@ -274,6 +290,12 @@
         },
         "images": {
             "summary": "Gambar"
+        },
+        "step": {
+            "compat": "Periksa Kompatibilitas",
+            "finish": "Selesai",
+            "images": "Gambar",
+            "install": "Hentikan Pemasangan"
         }
     },
     "specs": {
@@ -328,7 +350,8 @@
         "extraInfo": "Informasi tambahan",
         "logs": "Log",
         "categories": "Kategori",
-        "more": ""
+        "more": "",
+        "options": "Pilihan"
     },
     "help": {
         "cloud_save_unsupported": "Gim ini tidak mendukung penyimpanan cloud. Informasi ini disediakan oleh pengembang gim. Beberapa gim menerapkan sistem penyimpanan cloud mereka sendiri",
@@ -392,7 +415,13 @@
             "achievements": "Pencapaian",
             "dlc": "DLC",
             "installInfo": "Ukuran Unduhan",
-            "launchOptions": "Opsi Peluncuran"
+            "launchOptions": "Opsi Peluncuran",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

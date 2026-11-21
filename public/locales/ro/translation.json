@@ -28,7 +28,8 @@
         "source": "Sursă",
         "status": "Stare",
         "title": "Acest joc include software anti-trișare",
-        "multiplayer_may_not_work": "Funcțiile multiplayer s-ar putea să nu funcționeze din cauza suportului anti-trișare refuzat sau defect."
+        "multiplayer_may_not_work": "Funcțiile multiplayer s-ar putea să nu funcționeze din cauza suportului anti-trișare refuzat sau defect.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
                     "body": "",
                     "title": ""
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Update",
         "changelog": "Jurnalul modificărilor",
         "postpone": "Amânare",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Cancel",
@@ -263,7 +278,8 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
-            "type": "Type"
+            "type": "Type",
+            "status": "Stare"
         },
         "title": "Downloads",
         "ETA": "Timpul estimat",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Este posibil ca serviciile online să nu funcționeze complet, deoarece serverele Epic Games sunt offline!",
         "offline-notification-title": "deconectat"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Favorite",
     "game": {
         "status": "stare",
@@ -328,7 +350,8 @@
         "stores": "Store",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "FSR de la AMD ajută la creșterea ratei de cadre prin creșterea rezoluțiilor mai mici în modul Ecran complet. Calitatea imaginii crește de la 5 la 1 cu prețul unei ușoare atingeri de performanță. Activarea poate îmbunătăți performanța.",
@@ -489,7 +512,28 @@
             "title": "Deconectare"
         },
         "title_amazon": "Amazon Games",
-        "title_epic": "Epic Games"
+        "title_epic": "Epic Games",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_gog": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": "",
+        "logged_in": "Autentificare"
     },
     "message": {
         "sync": "Sincronizare Completă",
@@ -551,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "retrying": "Retrying",
+        "hint-label": ""
     },
     "Open": "Deschis",
     "options": {
@@ -614,7 +659,8 @@
         "gogdl-version": "Versiunea GOGDL: ",
         "legendary-version": "Versiune Legendary: ",
         "weblate": "Ajută la traducerea Heroic.",
-        "nile-version": "Versiunea Nile: "
+        "nile-version": "Versiunea Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -755,7 +801,8 @@
                 "zoom": "",
                 "game-log": "",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -952,8 +999,27 @@
         "gamemode-description": "",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
-            "missingBuild": "Descărcat total"
-        }
+            "missingBuild": "Descărcat total",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": "",
+            "missingRuntime": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1026,7 +1092,11 @@
             },
             "title": {
                 "resetHeroic": "",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
+            },
+            "clearImagesCache": {
+                "description": ""
             }
         },
         "launchOptions": "Opțiuni de Lansare...",
@@ -1100,7 +1170,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1109,7 +1182,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Setări",
     "sidebar": {
@@ -1123,7 +1197,8 @@
         "logging": "Autentificare...",
         "processing": "Se procesează fișierele, așteptați",
         "preparing_login": "Se pregătește autentificare... ",
-        "installed": "Instalat"
+        "installed": "Instalat",
+        "preparing": ""
     },
     "store": "Magazin",
     "stores": "Magazine",
@@ -1148,7 +1223,9 @@
     },
     "two_col_table": {
         "save_hint": "Modificările din acest tabel nu sunt salvate automat. Faceți clic pe butonul +",
-        "add": "Adaugă"
+        "add": "Adaugă",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Actualizare disponibila",
     "userselector": {
@@ -1388,7 +1465,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Detalii",
         "sort": {
@@ -1455,7 +1533,9 @@
         },
         "sort": {
             "label": "Sortează",
-            "last_played": "Ultima Dată Jucat"
+            "last_played": "Ultima Dată Jucat",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1499,7 +1579,15 @@
         },
         "removeFromQueue": {
             "message": "Acest joc se află în coada de descărcare. Îl elimini din coadă?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1526,19 +1614,143 @@
     "itchio-store": "",
     "Update available!": "Actualizare disponibila",
     "support": {
-        "title": "Ajuta-ne"
+        "title": "Ajuta-ne",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "actions": {
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": "",
+            "open": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Negru",
         "button": {
             "download": "Download",
             "sync": "Sincronizare",
-            "upload": "Încărcați"
+            "upload": "Încărcați",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Filtru",
-            "size": "Mărime"
+            "size": "Mărime",
+            "modified": ""
         },
-        "never": "Niciodată"
+        "never": "Niciodată",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Downloading"
+        },
+        "back": "Negru",
+        "close": "Închide",
+        "installed-games": "Jocuri instalate",
+        "platform": "Platform",
+        "stage": {
+            "globalSettings": "Setări Globale"
+        },
+        "step3": {
+            "title": "Setări Globale"
+        },
+        "step6": {
+            "prefixPath": "Prefix de vin",
+            "wine-downloadable": "Download"
+        },
+        "steps": {
+            "global-settings": "Setări Globale"
+        },
+        "wine-versions": "Versiune Wine"
     }
 }

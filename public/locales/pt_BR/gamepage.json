@@ -10,7 +10,8 @@
         "move": {
             "message": "Isto pode demorar, tem certeza disso?",
             "path": "Selecione a pasta para onde deseja mover",
-            "title": "Mover a pasta de instalação do jogo"
+            "title": "Mover a pasta de instalação do jogo",
+            "steamMessage": ""
         },
         "no": "NÃO",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Editar jogo",
         "favourite": "Adicionar aos favoritos",
         "unfavourite": "Remover dos favoritos",
-        "backToLibrary": "Voltar à biblioteca"
+        "backToLibrary": "Voltar à biblioteca",
+        "steamStore": "",
+        "back": "Voltar",
+        "next": "Próximo",
+        "skip-installer": {
+            "title": "Pular"
+        }
     },
     "cloud_save_unsupported": "Não suportado",
     "disabled": "Desabilitado",
@@ -118,7 +125,7 @@
         "lastPlayed": "Jogado pela última vez em",
         "neverPlayed": "Nunca",
         "platform": "Selecione a versão da plataforma para instalar",
-        "requirements": "Requisitos",
+        "requirements": "Requisitos do sistema",
         "totalPlayed": "Tempo de jogo",
         "dlcs": "DLCs",
         "branch": {
@@ -180,7 +187,12 @@
             "playable": "Jogavel"
         },
         "developer": "Desenvolvedor",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Espaço restante no dispositivo",
@@ -200,7 +212,10 @@
             "multiplayer_message": "Suporte ao sistema anti trapaça foi negado ou comprometido. Talvez o jogo funcione, mas a função multijogador não funcionará. Instalar mesmo assim?",
             "disabled_installation": "Este jogo utiliza sistema anti-trapaça que não é compatível com seu sistema operacional ou o suporte não esta disponível pelos desenvolvedores. Isto significa que recursos multijogador não funcionarão e não há nada que você (ou o Time Heroic) possa fazer sobre isso. <br /><br /> Para instalar este jogo ou tentar de alguma forma, vá para Configurações, Avançado e marque a opção para permitir a instalação de jogos com anti-trapaça quebrado ou negado.<br /><br /> Note que não há solução para isso e você terá risco de ser banido do jogo."
         },
-        "flatpak-path-not-writtable": "Erro: Acesso ao sandbox não concedido a este caminho, ocorrerá perda de dados."
+        "flatpak-path-not-writtable": "Erro: Acesso ao sandbox não concedido a este caminho, ocorrerá perda de dados.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -247,7 +262,8 @@
             "specificVersion-pt3": "feito para funcionar através do Heroic, desde que as versões da Steam não irão funcionar no macOS.",
             "hardware": "Apple Silicon M1+ (Para Macs Intel, a Steam irá funcionar com Crossover)"
         },
-        "releaseDate": "Data de lançamento"
+        "releaseDate": "Data de lançamento",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opções de inicialização...",
@@ -297,6 +313,12 @@
         },
         "images": {
             "summary": "Imagens"
+        },
+        "step": {
+            "compat": "Verificar compatibilidade",
+            "finish": "Terminar",
+            "images": "Imagens",
+            "install": "Parar a Instalação"
         }
     },
     "specs": {
@@ -352,7 +374,8 @@
         "extraInfo": "Informação extra",
         "logs": "Registros",
         "categories": "Categorias",
-        "more": "Mais"
+        "more": "Mais",
+        "options": "Opções"
     },
     "help": {
         "cloud_save_unsupported": "Este jogo não suporta salvamentos em nuvem (Informação fornecida por desenvolvedores do jogo). Alguns jogos possuem sistema próprio de salvamento em nuvem.",
@@ -418,6 +441,11 @@
             "installInfo": "Tamanho do download",
             "launchOptions": "Opções de inicialização",
             "storeInfo": "Informações do sistema"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

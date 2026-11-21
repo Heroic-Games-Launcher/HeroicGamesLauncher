@@ -102,7 +102,12 @@
         "favourite": "Favorilere Ekle",
         "unfavourite": "Favorilerden Kaldır",
         "backToLibrary": "Kütüphaneye Dön",
-        "steamStore": "Steam Sayfasını Aç"
+        "steamStore": "Steam Sayfasını Aç",
+        "back": "Geri",
+        "next": "Sonraki",
+        "skip-installer": {
+            "title": "Atla"
+        }
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
@@ -135,7 +140,7 @@
             "toggle": "Oyunu belirli bir sürümde tut"
         },
         "changelogFor": "{{gameTitle}} değişiklik günlükleri",
-        "modify": "Kurulumu Düzenle",
+        "modify": "Kurulumu düzenle",
         "install_info": "Kurulum Bilgisi",
         "extra_info": "Daha fazla",
         "achievements": "Başarımlar",
@@ -308,6 +313,12 @@
         },
         "images": {
             "summary": "Görseller"
+        },
+        "step": {
+            "compat": "Uyumluluğu Denetle",
+            "finish": "Bitir",
+            "images": "Görseller",
+            "install": "Kurulumu Durdur"
         }
     },
     "specs": {
@@ -363,7 +374,8 @@
         "extraInfo": "Fazladan bilgi",
         "logs": "Günlükler",
         "categories": "Kategoriler",
-        "more": "Daha fazla"
+        "more": "Daha fazla",
+        "options": "Seçenekler"
     },
     "help": {
         "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendine ait buluta kaydetme sistemini uygular.",

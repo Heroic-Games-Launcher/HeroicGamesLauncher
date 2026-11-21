@@ -10,7 +10,8 @@
         "move": {
             "message": "Isto pode levar moito tempo, estás seguro?",
             "path": "Selecciona a localización de destino",
-            "title": "Mover instalación do xogo"
+            "title": "Mover instalación do xogo",
+            "steamMessage": ""
         },
         "no": "NON",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Editar Xogo",
         "favourite": "Engadir a favoritos",
         "unfavourite": "Eliminar dos favoritos",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Volver",
+        "next": "Seguinte",
+        "skip-installer": {
+            "title": "Saltar"
+        }
     },
     "cloud_save_unsupported": "Non compatible",
     "disabled": "Deshabilitar",
@@ -180,7 +187,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Espazo dispoñible",
@@ -198,7 +210,10 @@
             "multiplayer_message": "O soporte de antitrampas está roto ou foi rexeitado. O xogo podería executarse, pero as funcións de multixogador non van funcionar. Queres instalalo de todos os modos?",
             "title": "Antitrampas Roto/Rexeitado"
         },
-        "flatpak-path-not-writtable": "Erro: Non foi concedido o acceso ao Sandbox nesta ruta, perderanse os datos."
+        "flatpak-path-not-writtable": "Erro: Non foi concedido o acceso ao Sandbox nesta ruta, perderanse os datos.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -244,7 +259,8 @@
         },
         "redist": "Instalando redistribuíbles",
         "winetricks": "Instalando paquetes de Winetricks",
-        "releaseDate": "Data de publicación"
+        "releaseDate": "Data de publicación",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opcións de arrinque...",
@@ -294,6 +310,12 @@
         },
         "images": {
             "summary": "Abrir cartafol de gardados"
+        },
+        "step": {
+            "compat": "Verificar compatibilidade",
+            "finish": "Rematar",
+            "images": "Abrir cartafol de gardados",
+            "install": "Deter a instalación"
         }
     },
     "specs": {
@@ -348,7 +370,8 @@
         "extraInfo": "Información extra",
         "logs": "Rexistros",
         "categories": "Categorías",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Este xogo non admite gardados na nube. Esta información é proporcionada polos desenvolvedores do xogo. Algúns xogos implementan o seu propio sistema de gardado na nube.",
@@ -414,6 +437,11 @@
             "installInfo": "Tamaño da descarga",
             "launchOptions": "Opcións de arranque",
             "storeInfo": "Información do sistema"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

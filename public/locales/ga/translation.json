@@ -124,7 +124,8 @@
                     "body": "Theip ar {{game}} a chur le Steam leis an méid seo a leanas: {{newLine}} {{error}}",
                     "title": "Earráid agus an Cluiche á Bhaint de Steam"
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -213,7 +214,20 @@
         },
         "wineprefix": "Roghnaigh Fillteán WinePrefix",
         "yes": "TÁ",
-        "cancel": "Cealaigh"
+        "cancel": "Cealaigh",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "help": {
         "title": {
@@ -427,7 +441,8 @@
                 "legendary": "Cluichí Epic / Logáil Finscéalta",
                 "nile": "Log Amazon / Níle",
                 "zoom": "Log súmáil",
-                "itchio": "loga itch.io"
+                "itchio": "loga itch.io",
+                "steam": ""
             },
             "instructions": "Bí linn inár Discord agus féach ar an rannóg \"#-support\". Léigh an snáithe bioráilte \"Léigh Mé Ar dtús | Ceisteanna Coitianta\" agus lean na treoracha chun na logaí seo agus aon fhaisnéis ábhartha faoi do fhadhb a roinnt.",
             "instructions_title": "Conas fadhb a thuairisciú?",
@@ -610,9 +625,27 @@
         "gamemode-description": "Iarr ar an gcóras tosaíocht a thabhairt don chluiche fad is atá sé ag rith",
         "alt-aurelia-bin": "Roghnaigh Binary Malartach Níle",
         "steamLaunchTarget": {
-            "downloadBuild": "Íoslódáil"
+            "downloadBuild": "Íoslódáil",
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": "",
+            "missingRuntime": ""
         },
-        "addgamestoapplications-description": "Cruthaigh aicearra Steam gach uair a shuiteáiltear cluiche"
+        "addgamestoapplications-description": "Cruthaigh aicearra Steam gach uair a shuiteáiltear cluiche",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": ""
     },
     "button": {
         "login": "Logáil isteach",
@@ -692,7 +725,8 @@
             "end-time": "Críochnaithe ag",
             "queue-time": "Curtha leis ag",
             "start-time": "Thosaigh sé ag",
-            "type": "Cineál"
+            "type": "Cineál",
+            "status": "Stádas"
         },
         "title": "Íoslódálacha",
         "empty": {
@@ -702,7 +736,11 @@
                 "title": "Tá an scuaine folamh"
             }
         },
-        "pageSubtitle": "Cad atá á shuiteáil faoi láthair, cad a thiocfaidh ina dhiaidh sin, agus cad atá déanta cheana féin"
+        "pageSubtitle": "Cad atá á shuiteáil faoi láthair, cad a thiocfaidh ina dhiaidh sin, agus cad atá déanta cheana féin",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "emptyLibrary": {
         "noGames": "Tá do leabharlann folamh.<br /><br />Cliceáil <4>anseo</4> chun logáil isteach le do chuntais Epic, GOG.com, nó Amazon. Ansin, taispeánfar do chluichí anseo sa Leabharlann.<br /><br />Chun cluichí nó aipeanna ó fhoinsí eile a úsáid, cliceáil <br /> chun iad a chur leis de láimh.",
@@ -764,7 +802,8 @@
         "stores": "Siopaí",
         "display": "Taispeáint",
         "hidden": "I bhfolach",
-        "non_available": "Níl ar fáil"
+        "non_available": "Níl ar fáil",
+        "show_steam_owned_only": ""
     },
     "status": {
         "installing": "Ag suiteáil",
@@ -835,11 +874,32 @@
         "itchio": "Logáil isteach ar itch.io",
         "button": "Logáil isteach",
         "logout_confirm": {
-            "title": "Logáil amach"
+            "title": "Logáil amach",
+            "message": ""
         },
         "title_amazon": "Cluichí Amazon",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "Díchumasaigh nasc cleamhnaithe GOG",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Sioncrónú Críochnaithe",
@@ -907,7 +967,8 @@
         "ignore": "Déan neamhaird de",
         "offline": "As líne",
         "offline-retry-in": "As líne. Ag iarraidh arís i gceann {{seconds}} soicind.",
-        "retrying": "Ag iarraidh arís"
+        "retrying": "Ag iarraidh arís",
+        "hint-label": ""
     },
     "options": {
         "advanced": {
@@ -969,7 +1030,8 @@
         "gogdl-version": "Leagan GOGDL: ",
         "legendary-version": "Leagan Finscéalach: ",
         "nile-version": "Leagan na Níle: ",
-        "weblate": "Cabhraigh le Heroic a aistriú."
+        "weblate": "Cabhraigh le Heroic a aistriú.",
+        "aurelia-version": ""
     },
     "Other": "Eile",
     "platforms": {
@@ -1015,7 +1077,11 @@
             },
             "title": {
                 "clearCache": "Glan an Taisce",
-                "resetHeroic": "Athshocraigh Heroic"
+                "resetHeroic": "Athshocraigh Heroic",
+                "clearImagesCache": ""
+            },
+            "clearImagesCache": {
+                "description": ""
             }
         },
         "battlEyeRuntime": {
@@ -1137,7 +1203,11 @@
             "runtimes": "Amanna rite",
             "system": "Córas",
             "winePerformance": "Feidhmíocht",
-            "wineTools": "Uirlisí"
+            "wineTools": "Uirlisí",
+            "steam": "",
+            "amazon": "Cluichí Amazon",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "pageSubtitle": {
             "advanced": "Comhaid dhénártha, gnéithe turgnamhacha agus cothabháil",
@@ -1145,6 +1215,10 @@
             "general": "Cumraigh do shainroghanna seolta",
             "log": "Léigh agus roinn logaí laochúla",
             "systeminfo": "Do chrua-earraí agus na leaganacha a ritheann Heroic"
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Cóipeáil"
         }
     },
     "Settings": "Socruithe",
@@ -1314,7 +1388,8 @@
             "releaseYear": "Bliain scaoilte",
             "hideOwned": "Folaigh Úinéireacht",
             "wishlistOnly": "Liosta Mianta Amháin",
-            "platform": "Ardán"
+            "platform": "Ardán",
+            "platformAny": ""
         },
         "region": {
             "countries": {
@@ -1418,7 +1493,9 @@
         },
         "sort": {
             "label": "Sórtáil",
-            "last_played": "Imríodh go deireanach"
+            "last_played": "Imríodh go deireanach",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "le haghaidh 3s le cealú",
@@ -1449,7 +1526,15 @@
         },
         "removeFromQueue": {
             "message": "Tá an cluiche seo i scuaine le híoslódáil. Bain den scuaine é?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "steamgriddb": {
         "error": {
@@ -1493,19 +1578,158 @@
     "Update available!": "Nuashonrú ar Fáil!",
     "support": {
         "actions": {
-            "open": "Oscail"
-        }
+            "open": "Oscail",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Ar ais",
         "button": {
             "download": "Íoslódáil",
             "sync": "Sioncrónaigh",
-            "upload": "Uaslódáil"
+            "upload": "Uaslódáil",
+            "view": "",
+            "keep": ""
         },
         "column": {
-            "size": "Méid"
+            "size": "Méid",
+            "modified": "",
+            "file": ""
         },
-        "never": "Choíche"
+        "never": "Choíche",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "browse": "Brabhsálaí"
+        },
+        "back": "Ar ais",
+        "close": "Dún",
+        "installed-games": "Cluichí suiteáilte",
+        "next": "Ar Aghaidh",
+        "platform": "Ardán",
+        "rollback": {
+            "saved": "Sábháil"
+        },
+        "stage": {
+            "credentials": "Logáil isteach siopa",
+            "globalSettings": "Socruithe Domhanda"
+        },
+        "step3": {
+            "title": "Socruithe Domhanda"
+        },
+        "step4": {
+            "none": "Níl aon chluiche ag teacht leis na scagairí reatha.",
+            "selectAll": "Roghnaigh Uile"
+        },
+        "step5": {
+            "title": "Logáil isteach siopa"
+        },
+        "step6": {
+            "prefixPath": "Réimír Wine",
+            "wine-unavailable": "Níl ar fáil"
+        },
+        "steps": {
+            "credentials": "Logáil isteach siopa",
+            "done": "Déanta",
+            "global-settings": "Socruithe Domhanda"
+        },
+        "summaryValue": "Luach",
+        "version": "Leagan Heroic",
+        "wine-versions": "Leagan Wine"
     }
 }

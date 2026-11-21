@@ -281,7 +281,8 @@
             "end-time": "Bitiş zamanı",
             "queue-time": "Eklenme zamanı",
             "start-time": "Başlangıç zamanı",
-            "type": "Tür"
+            "type": "Tür",
+            "status": "Durum"
         },
         "title": "İndirilenler",
         "ETA": "Tahmini süre",
@@ -528,7 +529,15 @@
         "logged_in_as": "Oturum açan hesap",
         "title_itchio": "itch.io",
         "title_steam": "Steam",
-        "title_zoom": "Zoom Platform"
+        "title_zoom": "Zoom Platform",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "GOG ortaklık bağlantısını devre dışı bırak",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "logged_in": "Oturum açan hesap"
     },
     "message": {
         "sync": "Eşitleme Tamamlandı",
@@ -1180,7 +1189,10 @@
             "controller": "Oyun kumandası",
             "language": "Dil ve bölge",
             "privacy": "Gizlilik",
-            "steam": "Steam"
+            "steam": "Steam",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "pageSubtitle": {
             "log": "Heroic günlüklerini okuyun ve paylaşın",
@@ -1742,5 +1754,49 @@
     },
     "changelog": {
         "view_full": "Tüm değişiklik günlüğünü GitHub'da görüntüle"
+    },
+    "import-export": {
+        "action": {
+            "download": "İndiriliyor",
+            "ignore": "Koru"
+        },
+        "back": "Geri",
+        "close": "Kapat",
+        "installed-games": "Kurulu oyunlar",
+        "next": "Sonraki",
+        "per-game": "Oyun ayarları",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Kaydet"
+        },
+        "stage": {
+            "credentials": "Mağaza oturum açma",
+            "globalSettings": "Genel Ayarlar",
+            "perGameSettings": "Oyun ayarları"
+        },
+        "step3": {
+            "title": "Genel Ayarlar"
+        },
+        "step4": {
+            "none": "Şu anki filtrelerle eşleşen bir oyun yok.",
+            "selectAll": "Tümünü Seç"
+        },
+        "step5": {
+            "title": "Mağaza oturum açma"
+        },
+        "step6": {
+            "prefixPath": "Wine Ön Ek",
+            "wine-downloadable": "İndirme",
+            "wine-unavailable": "DLC yok"
+        },
+        "steps": {
+            "credentials": "Mağaza oturum açma",
+            "done": "Tamamla",
+            "global-settings": "Genel Ayarlar",
+            "per-game": "Oyun ayarları"
+        },
+        "summaryValue": "Değer",
+        "version": "Heroic Sürümü",
+        "wine-versions": "Wine sürümü"
     }
 }
