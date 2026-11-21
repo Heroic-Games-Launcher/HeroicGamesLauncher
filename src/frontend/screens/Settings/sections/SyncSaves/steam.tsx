@@ -2,15 +2,21 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Cloud } from 'lucide-react'
 import type { SteamCloudSyncStatus } from 'common/types/steam'
-import { EmptyState } from 'frontend/components/UI'
+import { EmptyState, ToggleSwitch } from 'frontend/components/UI'
 import SteamCloudSyncPanel from 'frontend/components/UI/CloudSyncStatus/SteamCloudSyncPanel'
 import 'frontend/components/UI/CloudSyncStatus/index.css'
 
 interface Props {
   appName: string
+  autoSyncSaves: boolean
+  setAutoSyncSaves: (value: boolean) => void
 }
 
-export default function SteamSyncSaves({ appName }: Props) {
+export default function SteamSyncSaves({
+  appName,
+  autoSyncSaves,
+  setAutoSyncSaves
+}: Props) {
   const { t } = useTranslation()
   const [status, setStatus] = useState<SteamCloudSyncStatus | null>(null)
 
@@ -42,5 +48,15 @@ export default function SteamSyncSaves({ appName }: Props) {
     )
   }
 
-  return <SteamCloudSyncPanel appName={appName} status={status} />
+  return (
+    <>
+      <ToggleSwitch
+        htmlId="autosync"
+        value={autoSyncSaves}
+        handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
+        title={t('setting.autosync')}
+      />
+      <SteamCloudSyncPanel appName={appName} status={status} />
+    </>
+  )
 }

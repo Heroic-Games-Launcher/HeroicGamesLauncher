@@ -1246,7 +1246,11 @@ class GlobalState extends PureComponent<Props> {
     }
 
     if (steam.enabled && steamUser) {
-      await window.api.getSteamUserInfo()
+      // Refresh name from live session
+      const steamInfo = await window.api.getSteamUserInfo()
+      this.setState({
+        steam: { ...this.state.steam, username: steamInfo?.username }
+      })
     }
 
     if (!gameUpdates.length) {

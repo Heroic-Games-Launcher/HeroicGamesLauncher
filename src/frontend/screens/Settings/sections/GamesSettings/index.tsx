@@ -29,6 +29,7 @@ import {
   ShowFPS,
   SteamRuntime,
   SteamLaunchTarget,
+  SteamWinePrefix,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -282,6 +283,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
             title={t('settings.section.steam', 'Steam')}
           >
             <SteamLaunchTarget state={steamTargets} />
+            {isLinux && <SteamWinePrefix />}
           </SettingsCard>
         )}
       </TabPanel>
