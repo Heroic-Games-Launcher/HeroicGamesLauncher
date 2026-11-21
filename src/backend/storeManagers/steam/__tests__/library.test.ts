@@ -3,7 +3,10 @@ import { runAurelia } from '../aurelia'
 import type { GameInfo } from 'common/types'
 
 const mockGetLaunchPlatform = jest.fn()
-const mockLibraryGames = jest.fn()
+const mockLibraryGames = jest.fn<GameInfo[], []>()
+const mockLoggedIn = jest.fn<boolean, []>()
+const mockOnline = jest.fn<boolean, []>()
+const mockLibrarySet = jest.fn<void, unknown[]>()
 
 jest.mock('../aurelia', () => ({
   runAurelia: jest.fn(),
@@ -18,7 +21,11 @@ jest.mock('../games', () => ({
   }
 }))
 jest.mock('../electronStores', () => ({
-  libraryStore: { get: () => mockLibraryGames(), set: jest.fn() },
+  configStore: { get: () => mockLoggedIn() },
+  libraryStore: {
+    get: () => mockLibraryGames(),
+    set: (...args: unknown[]) => mockLibrarySet(...args)
+  },
   installedGamesStore: { get: () => [], set: jest.fn() },
   installInfoStore: { get: jest.fn(), set: jest.fn() }
 }))
@@ -33,7 +40,7 @@ jest.mock('../utils', () => ({
   STEAM_UNSUPPORTED: 'disabled'
 }))
 jest.mock('backend/logger', () => ({
-  getRunnerLogWriter: jest.fn(),
+  getRunnerLogWriter: () => ({ logInfo: jest.fn() }),
   logDebug: jest.fn(),
   logError: jest.fn(),
   logInfo: jest.fn(),
@@ -41,6 +48,10 @@ jest.mock('backend/logger', () => ({
   LogPrefix: { Steam: 'Steam' }
 }))
 jest.mock('backend/utils', () => ({ getFileSize: jest.fn() }))
+jest.mock('backend/online_monitor', () => ({
+  isOnline: () => mockOnline(),
+  runOnceWhenOnline: jest.fn()
+}))
 jest.mock('backend/ipc', () => ({ sendFrontendMessage: jest.fn() }))
 
 // Trimmed from aurelia v0.1.41 for Chasm.
@@ -109,6 +120,45 @@ describe('SteamLibraryManager.getLaunchOptions', () => {
     const options = await new SteamLibraryManager().getLaunchOptions('312200')
     expect(options).toEqual([
       { type: 'basic', name: 'Launch', parameters: '', steamLaunchId: '2' }
+    ])
+  })
+})
+
+describe('SteamLibraryManager.refresh', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+    jest.mocked(runAurelia).mockResolvedValue([])
+  })
+
+  it('lists nothing while logged out', async () => {
+    mockLoggedIn.mockReturnValue(false)
+    mockOnline.mockReturnValue(true)
+    await new SteamLibraryManager().refresh()
+    expect(runAurelia).not.toHaveBeenCalled()
+    expect(mockLibrarySet).toHaveBeenCalledWith('games', [])
+  })
+
+  it('keeps the cached list while offline', async () => {
+    mockLoggedIn.mockReturnValue(true)
+    mockOnline.mockReturnValue(false)
+    await new SteamLibraryManager().refresh()
+    expect(runAurelia).not.toHaveBeenCalled()
+    expect(mockLibrarySet).not.toHaveBeenCalled()
+  })
+
+  it('lists games while logged in and online', async () => {
+    mockLoggedIn.mockReturnValue(true)
+    mockOnline.mockReturnValue(true)
+    jest
+      .mocked(runAurelia)
+      .mockResolvedValue([
+        { app_id: 312200, name: 'Chasm', platform: 'windows' }
+      ])
+    await new SteamLibraryManager().refresh()
+    expect(runAurelia).toHaveBeenCalledWith(['list'])
+    const [, games] = mockLibrarySet.mock.calls[0] as [string, GameInfo[]]
+    expect(games.map((g) => [g.app_name, g.canRunOffline])).toEqual([
+      ['312200', false]
     ])
   })
 })

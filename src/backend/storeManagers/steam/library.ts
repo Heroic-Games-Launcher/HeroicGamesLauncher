@@ -20,10 +20,12 @@ import {
 import { getFileSize } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
 import {
+  configStore,
   libraryStore,
   installedGamesStore,
   installInfoStore
 } from './electronStores'
+import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import {
   runAurelia,
   runAureliaCommand,
@@ -61,6 +63,8 @@ export default class SteamLibraryManager implements LibraryManager {
   async init(): Promise<void> {
     if (!isSteamSupported()) return
     await this.refresh()
+    // Offline start keeps the cache
+    if (!isOnline()) runOnceWhenOnline(async () => this.refresh())
   }
 
   getGame(id: string): SteamGame {
@@ -77,6 +81,20 @@ export default class SteamLibraryManager implements LibraryManager {
   async refresh(): Promise<ExecResult | null> {
     if (!isSteamSupported()) {
       return { stdout: '', stderr: STEAM_UNSUPPORTED }
+    }
+
+    // Logged out: no Steam entries
+    if (!configStore.get('isLoggedIn', false)) {
+      library.clear()
+      installedGames.clear()
+      libraryStore.set('games', [])
+      installedGamesStore.set('installed', [])
+      return { stdout: 'Not logged in to Steam', stderr: '' }
+    }
+    // Offline: keep the cached list
+    if (!isOnline()) {
+      logInfo('Offline, keeping the cached Steam library', LogPrefix.Steam)
+      return { stdout: 'Offline, using cached library', stderr: '' }
     }
 
     logInfo('Refreshing Steam library', LogPrefix.Steam)
@@ -170,7 +188,8 @@ export default class SteamLibraryManager implements LibraryManager {
       folder_name: game.name,
       install: {},
       is_installed: false,
-      canRunOffline: true,
+      // Offline launches show Heroic's warning
+      canRunOffline: false,
       // Aurelia installs the Windows depots and runs them
       is_mac_native: game.platform === 'macos',
       is_linux_native: game.platform === 'linux'

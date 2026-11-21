@@ -258,7 +258,10 @@ class GlobalState extends PureComponent<Props> {
       username: itchioConfigStore.get_nodefault('userData.username')
     },
     steam: {
-      library: this.loadSteamLibrary(),
+      // Logged out: no list or search
+      library: steamConfigStore.get_nodefault('username')
+        ? this.loadSteamLibrary()
+        : [],
       username: steamConfigStore.get_nodefault('username'),
       enabled: window.platform !== 'darwin',
       users: []
@@ -923,7 +926,7 @@ class GlobalState extends PureComponent<Props> {
     }
 
     let steamLibrary: GameInfo[] = []
-    if (steam.enabled) {
+    if (steam.enabled && steam.username) {
       steamLibrary = this.loadSteamLibrary(overrides)
       if (!steamLibrary.length || !steam.library.length) {
         window.api.logInfo('No cache found, getting data from steam...')
