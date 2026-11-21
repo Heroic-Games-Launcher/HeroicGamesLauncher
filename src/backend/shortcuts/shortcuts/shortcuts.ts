@@ -41,7 +41,7 @@ async function addShortcuts(game: Game, fromMenu?: boolean) {
   const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
     GlobalConfig.get().getSettings()
 
-  if (addSteamShortcuts) {
+  if (addSteamShortcuts && runner !== 'steam') {
     addNonSteamGame(game)
   }
 

@@ -950,6 +950,7 @@
         "finished": {
             "add": {
                 "steam": {
+                    "already": "{{game}} is already added to Steam.",
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "success-no-restart": "{{game}} was successfully added to Steam.",
