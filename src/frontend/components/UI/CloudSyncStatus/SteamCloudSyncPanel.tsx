@@ -31,6 +31,7 @@ import type {
 } from 'common/types/steam'
 
 import { useCloudSyncStateLabels } from './state'
+import { getIntlLocale } from 'frontend/helpers'
 import './index.css'
 
 interface Props {
@@ -202,7 +203,7 @@ export default function SteamCloudSyncPanel({ appName, status }: Props) {
     }
   }, [files])
 
-  const language = i18n.language
+  const language = getIntlLocale(i18n.language)
   const hasIssue =
     current.state === 'conflicts' ||
     current.state === 'failed' ||
