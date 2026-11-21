@@ -668,6 +668,32 @@ export default class SteamGame implements Game {
     }
   }
 
+  /** Pass the custom prefix to Aurelia. */
+  private async applyPrefix(
+    gameSettings: GameSettings,
+    logWriter?: LogWriter
+  ): Promise<void> {
+    const dir = gameSettings.steamPrefix?.trim()
+    try {
+      await runAurelia([
+        'config',
+        'game',
+        this.id,
+        ...(dir ? ['--prefix', dir] : ['--no-prefix'])
+      ])
+      if (dir) await logWriter?.logInfo(`Wine prefix: ${dir}/pfx`)
+    } catch (error) {
+      // Older Aurelia lacks --prefix
+      if (!dir) return
+      const message = describeError(error)
+      logWarning(
+        [`Could not set the Wine prefix for ${this.id}`, message],
+        LogPrefix.Steam
+      )
+      await logWriter?.logWarning(`Custom Wine prefix not applied: ${message}`)
+    }
+  }
+
   /** Pass Heroic launch settings to Aurelia. */
   private async applyLaunchOptions(
     gameSettings: GameSettings,
@@ -1040,6 +1066,7 @@ export default class SteamGame implements Game {
       ),
       logWriter
     )
+    await this.applyPrefix(gameSettings, logWriter)
 
     await this.keepAureliaFromSyncing(logWriter)
 
@@ -1175,6 +1202,8 @@ export default class SteamGame implements Game {
     const direction = syncDirectionFromArg(arg)
     const directionFlag = direction ? [`--${direction}`] : []
     const pathArg = path ? ['--path', path] : []
+    // Saves live in the chosen prefix
+    await this.applyPrefix(await this.getSettings())
     markCloudSyncing(this.id)
     try {
       let result = await runAurelia<AureliaCloudSyncResponse>([

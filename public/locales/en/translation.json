@@ -872,7 +872,7 @@
     "infobox": {
         "help": "Help",
         "requirements": "System requirements",
-        "steam-wineprefix": "When this game runs through Proton, it uses the prefix Steam uses for it, inside the Steam library the game is installed in. It cannot be changed here yet.",
+        "steam-wineprefix": "Proton keeps the prefix in a pfx folder inside this folder. Leave it empty to use the folder Steam uses for this game, inside the Steam library it is installed in.",
         "warning": "Warning",
         "wine-path": "Wine path",
         "wine-path-invalid": "Wine path is invalid, please select another one.",

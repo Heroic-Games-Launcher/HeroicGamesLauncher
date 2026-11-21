@@ -290,6 +290,8 @@ export interface GameSettings {
   targetExe: string
   useGameMode: boolean
   steamRuntime: SteamRuntimeName | false
+  // Steam games: custom compatdata folder
+  steamPrefix?: string
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation

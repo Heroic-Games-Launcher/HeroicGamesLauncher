@@ -16,14 +16,15 @@ const WinePrefix = () => {
 
   const [sharedWinePrefix] = useSetting('sharedWinePrefix', '')
   const [winePrefix, setWinePrefix] = useSetting('winePrefix', sharedWinePrefix)
+  const [steamPrefix, setSteamPrefix] = useSetting('steamPrefix', '')
 
   if (isWin || wineVersion.type === 'crossover') {
     return <></>
   }
 
-  // Aurelia uses Steam's compatdata prefix
+  // Empty: Steam's compatdata folder
   if (runner === 'steam') {
-    const prefix = steamCompatdataPrefix(
+    const compatdata = steamCompatdataPrefix(
       gameInfo?.install.install_path,
       gameInfo?.app_name
     )
@@ -31,16 +32,15 @@ const WinePrefix = () => {
       <PathSelectionBox
         htmlId="selectWinePrefix"
         label={t('setting.wineprefix')}
-        path={prefix}
-        onPathChange={() => undefined}
+        path={steamPrefix}
+        placeholder={compatdata}
+        onPathChange={setSteamPrefix}
         type="directory"
         pathDialogTitle={t('box.wineprefix')}
-        canEditPath={false}
-        noDeleteButton
-        disabled
+        pathDialogDefaultPath={steamPrefix || compatdata}
         info={t(
           'infobox.steam-wineprefix',
-          'Steam games run in the Proton prefix Steam uses for them, inside the Steam library the game is installed in. It cannot be changed here yet.'
+          'Proton keeps the prefix in a pfx folder inside this folder. Leave it empty to use the folder Steam uses for this game, inside the Steam library it is installed in.'
         )}
       />
     )
@@ -71,7 +71,7 @@ const WinePrefix = () => {
   )
 }
 
-/** Steam compatdata prefix for an install. */
+/** Steam compatdata folder for an install. */
 export function steamCompatdataPrefix(
   installPath?: string,
   appId?: string
@@ -81,7 +81,7 @@ export function steamCompatdataPrefix(
   const marker = '/steamapps/common/'
   const at = normalized.lastIndexOf(marker)
   if (at === -1) return ''
-  return `${normalized.slice(0, at)}/steamapps/compatdata/${appId}/pfx`
+  return `${normalized.slice(0, at)}/steamapps/compatdata/${appId}`
 }
 
 export default WinePrefix
