@@ -14,6 +14,7 @@ import { logError, logInfo, logWarning, LogPrefix } from 'backend/logger'
 import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
 import type {
   AureliaCapabilitiesResponse,
+  AureliaCloudSyncConfigResponse,
   AureliaConfigShowResponse,
   AureliaDownloadLimitResponse,
   AureliaInfoResponse,
@@ -489,6 +490,42 @@ export async function aureliaSupportsLaunchOption(): Promise<boolean> {
   } catch (error) {
     logWarning(['Unable to read Aurelia capabilities', error], LogPrefix.Steam)
     return false
+  }
+}
+
+/** Outcome of turning Aurelia's sync off. */
+export type AureliaCloudSyncOff = 'off' | 'game-override' | 'unsupported'
+
+/** Heroic owns sync; idempotent per launch. */
+export async function disableAureliaCloudSync(
+  appId: string
+): Promise<AureliaCloudSyncOff> {
+  try {
+    let state = await runAurelia<AureliaCloudSyncConfigResponse>([
+      'config',
+      'cloud-sync'
+    ])
+    if (state.enable_cloud_sync !== false) {
+      state = await runAurelia<AureliaCloudSyncConfigResponse>([
+        'config',
+        'cloud-sync',
+        'off'
+      ])
+      if (state.enable_cloud_sync !== false) {
+        throw new Error('config cloud-sync off did not apply')
+      }
+      logInfo("Turned off Aurelia's own Steam Cloud sync", LogPrefix.Steam)
+    }
+    return state.game_overrides?.[appId] ? 'game-override' : 'off'
+  } catch (error) {
+    logWarning(
+      [
+        "Could not turn off Aurelia's own Steam Cloud sync (Aurelia too old?)",
+        error
+      ],
+      LogPrefix.Steam
+    )
+    return 'unsupported'
   }
 }
 

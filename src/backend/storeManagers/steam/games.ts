@@ -45,6 +45,7 @@ import {
 } from './cloud_sync_status'
 import {
   aureliaSupportsLaunchOption,
+  disableAureliaCloudSync,
   runAurelia,
   fetchAureliaInfo,
   parseAureliaJson,
@@ -759,6 +760,20 @@ export default class SteamGame implements Game {
   }
 
   /** Unset means on, like Steam. */
+  /** Heroic syncs; `play` must not. */
+  private async keepAureliaFromSyncing(logWriter: LogWriter): Promise<void> {
+    const result = await disableAureliaCloudSync(this.id)
+    if (result === 'unsupported') {
+      await logWriter.logWarning(
+        "Aurelia's own Steam Cloud sync could not be turned off; update Aurelia. Saves may sync twice."
+      )
+    } else if (result === 'game-override') {
+      await logWriter.logWarning(
+        `Aurelia still syncs Steam Cloud for this game (per-game override); clear it with 'aurelia config game ${this.id} --cloud-sync auto'.`
+      )
+    }
+  }
+
   private async shouldAutoSyncSaves(): Promise<boolean> {
     const { autoSyncSaves } = await this.getSettings()
     return (autoSyncSaves ?? true) && isOnline()
@@ -1025,6 +1040,8 @@ export default class SteamGame implements Game {
       ),
       logWriter
     )
+
+    await this.keepAureliaFromSyncing(logWriter)
 
     // Sync before starting a game
     const syncSaves = await this.shouldAutoSyncSaves()

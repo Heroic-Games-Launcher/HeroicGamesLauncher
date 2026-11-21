@@ -119,6 +119,13 @@ export interface AureliaDownloadLimitResponse {
   download_limit_kbit: number
 }
 
+/** Result of `aurelia config cloud-sync --json`. */
+export interface AureliaCloudSyncConfigResponse {
+  enable_cloud_sync: boolean
+  /** Per-game overrides by app id. */
+  game_overrides?: Record<string, boolean>
+}
+
 /** Result of `aurelia libraries --json`. */
 export interface AureliaLibrariesResponse {
   libraries: Array<{ path: string; free_bytes: number | null }>
