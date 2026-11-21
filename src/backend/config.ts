@@ -82,6 +82,11 @@ abstract class GlobalConfig {
     this.config = config
   }
 
+  public hasSetting(key: keyof AppSettings): boolean {
+    const settings = configStore.get_nodefault('settings') ?? {}
+    return Object.prototype.hasOwnProperty.call(settings, key)
+  }
+
   public reloadFromFile() {
     this.config = undefined
     this.config = this.getSettings()
@@ -311,6 +316,22 @@ class GlobalConfigV0 extends GlobalConfig {
     if (!defaultSettings.defaultWinePrefixDir)
       defaultSettings.defaultWinePrefixDir = defaultSettings.defaultWinePrefix
 
+    // migrate legacy booleans to their replacements
+    if (
+      defaultSettings.hdrMode === undefined &&
+      defaultSettings.enableHDR !== undefined
+    ) {
+      defaultSettings.hdrMode = defaultSettings.enableHDR ? 'force' : 'off'
+    }
+    if (
+      defaultSettings.nvapiMode === undefined &&
+      defaultSettings.autoInstallDxvkNvapi !== undefined
+    ) {
+      defaultSettings.nvapiMode = defaultSettings.autoInstallDxvkNvapi
+        ? 'auto'
+        : 'off'
+    }
+
     // fix relative paths
     const winePrefix = !isWindows
       ? defaultSettings?.winePrefix?.replace('~', userHome)
@@ -367,6 +388,14 @@ class GlobalConfigV0 extends GlobalConfig {
       enableMsync: isMac,
       enableWineWayland: false,
       enableHDR: false,
+      hdrMode: 'auto',
+      nvapiMode: 'auto',
+      disableNTSync: false,
+      fsr4Upgrade: false,
+      dlssUpgrade: false,
+      useOptiScaler: false,
+      umuGameId: '',
+      disableProtonFixes: false,
       enableWoW64: false,
       eacRuntime: isLinux,
       gamepadRepeatDelay: 50,
@@ -378,6 +407,7 @@ class GlobalConfigV0 extends GlobalConfig {
       afterLaunchScriptPath: '',
       disableUMU: false,
       verboseLogs: true,
+      defaultSteamRuntime: false,
       downloadProtonToSteam: false,
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,

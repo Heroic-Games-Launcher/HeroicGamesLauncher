@@ -709,9 +709,11 @@ export default class ZoomGame implements Game {
         : dirname(join(gameInfo.install.install_path, executable))
 
       if (await isUmuSupported(gameSettings)) {
-        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-        if (umuId) {
-          commandEnv['GAMEID'] = umuId
+        const gameId =
+          gameSettings.umuGameId?.trim() ||
+          (await getUmuId(gameInfo.app_name, gameInfo.runner))
+        if (gameId) {
+          commandEnv['GAMEID'] = gameId
         }
       }
 

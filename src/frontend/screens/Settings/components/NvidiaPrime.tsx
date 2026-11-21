@@ -61,7 +61,7 @@ const NvidiaPrime = () => {
         handleChange={() => setNvidiaPrime(!nvidiaPrime)}
         title={t(
           'setting.nvidiaprime.description',
-          'Force use of NVIDIA Optimus or AMD dynamic switchable graphics dGPU. ONLY use this for OpenGL and Vulkan games.'
+          'PRIME render offload (NVIDIA Optimus / AMD switchable graphics)'
         )}
       />
     </div>
