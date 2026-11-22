@@ -1778,7 +1778,7 @@ async function callRunner(
     })
 
     child.on('close', (code, signal) => {
-      errorHandler(
+      void errorHandler(
         `${stdout.join().concat(stderr.join())}`,
         appName,
         runner.name
@@ -1817,7 +1817,7 @@ async function callRunner(
 
       const errorMsg = error instanceof Error ? error.message : String(error)
 
-      errorHandler(errorMsg, appName, runner.name)
+      void errorHandler(errorMsg, appName, runner.name)
 
       logError(
         ['Error running', 'command', `"${safeCommand}":`, errorMsg],
