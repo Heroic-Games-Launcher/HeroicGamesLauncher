@@ -33,7 +33,8 @@ import { isOnline } from 'backend/online_monitor'
 import { launchCleanup, prepareLaunch, setupWrappers } from 'backend/launcher'
 import { removeQuoteIfNecessary } from 'backend/utils'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
-import { buildAureliaLaunchOptions } from './launch_options'
+import { aureliaPrefixArgs, buildAureliaLaunchOptions } from './launch_options'
+import { userHome } from 'backend/constants/paths'
 import { syncDirectionFromArg } from './sync_args'
 import { configStore, extraInfoStore } from './electronStores'
 import { getSteamBacklogEntry } from './backlog'
@@ -673,14 +674,10 @@ export default class SteamGame implements Game {
     gameSettings: GameSettings,
     logWriter?: LogWriter
   ): Promise<void> {
-    const dir = gameSettings.steamPrefix?.trim()
+    const args = aureliaPrefixArgs(gameSettings.steamPrefix, userHome)
+    const dir = args[1]
     try {
-      await runAurelia([
-        'config',
-        'game',
-        this.id,
-        ...(dir ? ['--prefix', dir] : ['--no-prefix'])
-      ])
+      await runAurelia(['config', 'game', this.id, ...args])
       if (dir) await logWriter?.logInfo(`Wine prefix: ${dir}/pfx`)
     } catch (error) {
       // Older Aurelia lacks --prefix

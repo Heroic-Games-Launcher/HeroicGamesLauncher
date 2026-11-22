@@ -1,4 +1,8 @@
-import { buildAureliaLaunchOptions, quoteToken } from '../launch_options'
+import {
+  aureliaPrefixArgs,
+  buildAureliaLaunchOptions,
+  quoteToken
+} from '../launch_options'
 
 describe('quoteToken', () => {
   it('leaves plain words alone', () => {
@@ -126,5 +130,25 @@ describe('buildAureliaLaunchOptions', () => {
     })
     expect(skippedEnv).toEqual(['BAD-NAME'])
     expect(line).toBe('GOOD=y %command%')
+  })
+})
+
+describe('aureliaPrefixArgs', () => {
+  it('clears the prefix when empty', () => {
+    expect(aureliaPrefixArgs(undefined, '/home/u')).toEqual(['--no-prefix'])
+    expect(aureliaPrefixArgs('  ', '/home/u')).toEqual(['--no-prefix'])
+  })
+
+  it('expands a leading tilde only', () => {
+    expect(aureliaPrefixArgs(' ~/Games/Elden ', '/home/u')).toEqual([
+      '--prefix',
+      '/home/u/Games/Elden'
+    ])
+    expect(aureliaPrefixArgs('~', '/home/u')).toEqual(['--prefix', '/home/u'])
+    expect(aureliaPrefixArgs('/g/~x', '/home/u')).toEqual(['--prefix', '/g/~x'])
+    expect(aureliaPrefixArgs('~bob/x', '/home/u')).toEqual([
+      '--prefix',
+      '~bob/x'
+    ])
   })
 })

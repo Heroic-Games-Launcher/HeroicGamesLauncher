@@ -113,3 +113,14 @@ export function buildAureliaLaunchOptions({
 function envWords(env: Map<string, string>): string[] {
   return [...env].map(([name, value]) => `${name}=${quoteToken(value)}`)
 }
+
+/** Aurelia args for a custom prefix. */
+export function aureliaPrefixArgs(
+  dir: string | undefined,
+  home: string
+): string[] {
+  const trimmed = dir?.trim()
+  if (!trimmed) return ['--no-prefix']
+  // Expand a leading ~ only.
+  return ['--prefix', trimmed.replace(/^~(?=\/|$)/, home)]
+}
