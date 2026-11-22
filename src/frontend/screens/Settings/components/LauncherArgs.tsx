@@ -6,14 +6,17 @@ import SettingsContext from '../SettingsContext'
 
 const LauncherArgs = () => {
   const { t } = useTranslation()
-  const { isDefault } = useContext(SettingsContext)
+  const { isDefault, runner } = useContext(SettingsContext)
   const [launcherArgs, setLauncherArgs] = useSetting('launcherArgs', '')
   const [error, setError] = useState('')
 
   const handleLauncherArgs = (newValue: string) => setLauncherArgs(newValue)
 
   useEffect(() => {
-    if (launcherArgs.match(/%command/)) {
+    // Aurelia accepts Steam launch lines
+    if (runner === 'steam') {
+      setError('')
+    } else if (launcherArgs.match(/%command/)) {
       setError(
         t(
           'options.gameargs.error.command',
@@ -30,7 +33,7 @@ const LauncherArgs = () => {
     } else {
       setError('')
     }
-  }, [launcherArgs])
+  }, [launcherArgs, runner])
 
   if (isDefault) {
     return <></>
