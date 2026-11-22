@@ -46,6 +46,10 @@ import {
 import type { SteamInstallLibrary } from 'common/types/steam'
 import { join } from 'path'
 import SteamGame from './games'
+import {
+  notifyRecentGamesChanged,
+  tagRecentGames
+} from 'backend/recent_games/recent_games'
 import type {
   AureliaLibraryGame,
   AureliaDlcResponse,
@@ -83,12 +87,19 @@ export default class SteamLibraryManager implements LibraryManager {
       return { stdout: '', stderr: STEAM_UNSUPPORTED }
     }
 
+    // Tag before a clear loses ids
+    await tagRecentGames(
+      'steam',
+      new Set(libraryStore.get('games', []).map((game) => game.app_name))
+    )
+
     // Logged out: no Steam entries
     if (!configStore.get('isLoggedIn', false)) {
       library.clear()
       installedGames.clear()
       libraryStore.set('games', [])
       installedGamesStore.set('installed', [])
+      await notifyRecentGamesChanged()
       return { stdout: 'Not logged in to Steam', stderr: '' }
     }
     // Offline: keep the cached list
@@ -135,6 +146,8 @@ export default class SteamLibraryManager implements LibraryManager {
 
     installedGamesStore.set('installed', Array.from(installedGames.values()))
     libraryStore.set('games', Array.from(library.values()))
+    await tagRecentGames('steam', new Set(library.keys()))
+    await notifyRecentGamesChanged()
 
     const logLines = Array.from(library.values()).map(
       (game) =>

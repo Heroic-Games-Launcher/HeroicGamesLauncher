@@ -4,7 +4,11 @@ import { addListener } from 'backend/ipc'
 import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from 'backend/logger'
 import { handleProtocol } from '../protocol'
-import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
+import {
+  getRecentGames,
+  maxRecentGames,
+  visibleRecentGames
+} from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
 import { backendEvents } from '../backend_events'
@@ -24,7 +28,11 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
 
   // helper function to set/update the context menu and on macOS the dock menu
   const loadContextMenu = async (recentGames?: RecentGame[]) => {
-    recentGames ??= await getRecentGames({ limited: true })
+    recentGames ??= await getRecentGames()
+    recentGames = visibleRecentGames(recentGames).slice(
+      0,
+      await maxRecentGames()
+    )
     const newContextMenu = contextMenu(mainWindow, recentGames)
     appIcon.setContextMenu(newContextMenu)
     if (isMac) app.dock?.setMenu(newContextMenu)
@@ -57,10 +65,6 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   })
 
   backendEvents.on('recentGamesChanged', async (recentGames: RecentGame[]) => {
-    const limit = await maxRecentGames()
-    if (recentGames.length > limit) {
-      recentGames = recentGames.slice(0, limit)
-    }
     await loadContextMenu(recentGames)
   })
 

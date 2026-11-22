@@ -14,6 +14,7 @@ import {
 } from './aurelia'
 import type { AureliaAccount } from './aurelia_types'
 import { configStore } from './electronStores'
+import { notifyRecentGamesChanged } from 'backend/recent_games/recent_games'
 
 const QR_LOGIN_ABORT_ID = 'steam-qr-login'
 const LOGIN_ABORT_ID = 'steam-login'
@@ -290,6 +291,7 @@ export class SteamUser {
     clearCache('steam')
     configStore.delete('isLoggedIn')
     configStore.delete('username')
+    await notifyRecentGamesChanged()
     logInfo('Logging user out from Steam', LogPrefix.Steam)
   }
 

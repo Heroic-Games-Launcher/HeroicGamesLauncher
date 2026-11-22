@@ -7,6 +7,8 @@ const mockLibraryGames = jest.fn<GameInfo[], []>()
 const mockLoggedIn = jest.fn<boolean, []>()
 const mockOnline = jest.fn<boolean, []>()
 const mockLibrarySet = jest.fn<void, unknown[]>()
+const mockTagRecent = jest.fn<Promise<void>, [string, Set<string>]>()
+const mockNotifyRecent = jest.fn<Promise<void>, []>()
 
 jest.mock('../aurelia', () => ({
   runAurelia: jest.fn(),
@@ -55,6 +57,11 @@ jest.mock('backend/online_monitor', () => ({
   runOnceWhenOnline: jest.fn()
 }))
 jest.mock('backend/ipc', () => ({ sendFrontendMessage: jest.fn() }))
+jest.mock('backend/recent_games/recent_games', () => ({
+  tagRecentGames: (runner: string, ids: Set<string>) =>
+    mockTagRecent(runner, ids),
+  notifyRecentGamesChanged: () => mockNotifyRecent()
+}))
 
 // Trimmed from aurelia v0.1.41 for Chasm.
 const chasmOptions = {
@@ -130,6 +137,7 @@ describe('SteamLibraryManager.refresh', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.mocked(runAurelia).mockResolvedValue([])
+    mockLibraryGames.mockReturnValue([])
   })
 
   it('lists nothing while logged out', async () => {
@@ -138,6 +146,15 @@ describe('SteamLibraryManager.refresh', () => {
     await new SteamLibraryManager().refresh()
     expect(runAurelia).not.toHaveBeenCalled()
     expect(mockLibrarySet).toHaveBeenCalledWith('games', [])
+    expect(mockNotifyRecent).toHaveBeenCalled()
+  })
+
+  it('tags cached Steam recents before clearing', async () => {
+    mockLoggedIn.mockReturnValue(false)
+    mockOnline.mockReturnValue(true)
+    mockLibraryGames.mockReturnValue([{ app_name: '312200' } as GameInfo])
+    await new SteamLibraryManager().refresh()
+    expect(mockTagRecent).toHaveBeenCalledWith('steam', new Set(['312200']))
   })
 
   it('keeps the cached list while offline', async () => {
@@ -162,6 +179,8 @@ describe('SteamLibraryManager.refresh', () => {
     expect(games.map((g) => [g.app_name, g.canRunOffline])).toEqual([
       ['312200', false]
     ])
+    expect(mockTagRecent).toHaveBeenLastCalledWith('steam', new Set(['312200']))
+    expect(mockNotifyRecent).toHaveBeenCalled()
   })
 
   it('shows the installed size Aurelia reports', async () => {

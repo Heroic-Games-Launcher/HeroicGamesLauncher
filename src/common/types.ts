@@ -567,6 +567,8 @@ export type RuntimeName = 'eac_runtime' | 'battleye_runtime' | 'umu'
 export type RecentGame = {
   appName: string
   title: string
+  /** Store the game came from. */
+  runner?: Runner
 }
 
 export type HiddenGame = RecentGame
