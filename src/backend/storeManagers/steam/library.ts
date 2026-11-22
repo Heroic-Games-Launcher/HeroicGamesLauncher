@@ -407,6 +407,13 @@ export default class SteamLibraryManager implements LibraryManager {
     }
   }
 
+  /** Drops cached dry-runs, e.g. after installing. */
+  forgetInstallInfo(appName: string): void {
+    for (const platform of ['windows', 'linux', 'mac', 'osx']) {
+      installInfoStore.delete(`${appName}_${platform}`)
+    }
+  }
+
   async markInstalled(appName: string): Promise<void> {
     const marked = await steamCall<
       | { installPath: string; platform: InstallPlatform; size: number }
@@ -430,6 +437,8 @@ export default class SteamLibraryManager implements LibraryManager {
       }
     )
     if (!marked) return
+    // Installed language changed
+    this.forgetInstallInfo(appName)
 
     const installed: InstalledInfo = {
       executable: '',

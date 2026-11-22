@@ -96,7 +96,9 @@ function steamLanguageLocales(languages: string[]): Record<string, string> {
 }
 
 // Rejects locale codes like en-US
-function isSteamLanguageName(value: string | undefined): boolean {
+export function isSteamLanguageName(
+  value: string | undefined
+): value is string {
   // Steam names: four+ lowercase letters
   return !!value && /^[a-z]{4,}$/.test(value)
 }
@@ -125,6 +127,6 @@ export function dryRunLanguages(
 // Install flag for a picked language
 export function installLanguageArgs(installLanguage?: string): string[] {
   return isSteamLanguageName(installLanguage)
-    ? ['--language', installLanguage!]
+    ? ['--language', installLanguage]
     : []
 }

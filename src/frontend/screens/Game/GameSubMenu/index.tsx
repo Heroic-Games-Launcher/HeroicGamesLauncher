@@ -270,7 +270,7 @@ export default function GamesSubmenu({
 
   const showModifyItem =
     onShowModifyInstall &&
-    ['legendary', 'gog'].includes(runner) &&
+    ['legendary', 'gog', 'steam'].includes(runner) &&
     isInstalled &&
     !isThirdPartyManaged
 

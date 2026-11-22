@@ -10,6 +10,7 @@ import { ItchioInstallInfo } from 'common/types/itchio'
 import { useTranslation } from 'react-i18next'
 import LegendaryModifyInstallModal from './Legendary'
 import GOGModifyInstallModal from './GOG'
+import SteamModifyInstallModal from './Steam'
 import { SteamInstallInfo } from 'common/types/steam'
 
 interface ModifyInstallProps {
@@ -41,7 +42,10 @@ export default function ModifyInstallModal({
       className={'ModifyInstall__dialog'}
     >
       <ModalHeader>{t('game.modify', 'Modify installation')}</ModalHeader>
-      {gameInstallInfo ? (
+      {gameInfo.runner === 'steam' ? (
+        // Fetches its own install info
+        <SteamModifyInstallModal gameInfo={gameInfo} onClose={onClose} />
+      ) : gameInstallInfo ? (
         <>
           {gameInfo.runner === 'gog' && (
             <GOGModifyInstallModal gameInfo={gameInfo} onClose={onClose} />

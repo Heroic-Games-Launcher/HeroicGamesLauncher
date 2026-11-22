@@ -10,6 +10,7 @@ const mockOnline = jest.fn<boolean, []>()
 const mockLibrarySet = jest.fn<void, unknown[]>()
 const mockTagRecent = jest.fn<Promise<void>, [string, Set<string>]>()
 const mockNotifyRecent = jest.fn<Promise<void>, []>()
+const mockInstallInfoDelete = jest.fn<void, [string]>()
 
 jest.mock('../aurelia', () => ({
   runAurelia: jest.fn(),
@@ -30,7 +31,11 @@ jest.mock('../electronStores', () => ({
     set: (...args: unknown[]) => mockLibrarySet(...args)
   },
   installedGamesStore: { get: () => [], set: jest.fn() },
-  installInfoStore: { get: jest.fn(), set: jest.fn() }
+  installInfoStore: {
+    get: jest.fn(),
+    set: jest.fn(),
+    delete: (key: string) => mockInstallInfoDelete(key)
+  }
 }))
 jest.mock('../utils', () => ({
   aureliaPlatform: (platform: string) => platform,
@@ -254,5 +259,17 @@ describe('SteamLibraryManager.getInstallInfo', () => {
       'windows'
     )
     expect(info?.manifest).toEqual({ download_size: 10, disk_size: 20 })
+  })
+})
+
+describe('SteamLibraryManager.forgetInstallInfo', () => {
+  it('drops the dry-run of every platform', () => {
+    new SteamLibraryManager().forgetInstallInfo('312200')
+    expect(mockInstallInfoDelete.mock.calls.map(([key]) => key)).toEqual([
+      '312200_windows',
+      '312200_linux',
+      '312200_mac',
+      '312200_osx'
+    ])
   })
 })

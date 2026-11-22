@@ -65,7 +65,11 @@ import {
   steamRunningMessage
 } from './utils'
 import { buildReqs, stripSteamMarkup, toInstallPlatforms } from './store_info'
-import { installLanguageArgs, toSteamApiLanguage } from './languages'
+import {
+  installLanguageArgs,
+  isSteamLanguageName,
+  toSteamApiLanguage
+} from './languages'
 import type {
   AureliaAchievementsResponse,
   AureliaCloudConflict,
@@ -1279,9 +1283,15 @@ export default class SteamGame implements Game {
     return { stdout: '', stderr: '' }
   }
 
-  async update(): Promise<InstallResult> {
+  async update(updateOverwrites?: {
+    language?: string
+  }): Promise<InstallResult> {
     if (!isSteamSupported()) {
       return { status: 'error', error: STEAM_UNSUPPORTED }
+    }
+    const language = updateOverwrites?.language
+    if (isSteamLanguageName(language)) {
+      return this.setLanguage(language)
     }
     const result = await this.runStreamingCommand(
       ['update', this.id],
@@ -1290,6 +1300,45 @@ export default class SteamGame implements Game {
     )
     if (result.status === 'done') {
       await libraryManagerMap['steam'].refresh()
+    }
+    return result
+  }
+
+  /** Swaps the language depots, DLC included. */
+  private async setLanguage(language: string): Promise<InstallResult> {
+    const gameInfo = this.getGameInfo()
+    logInfo(
+      `Switching ${gameInfo.title} (${this.id}) to ${language}`,
+      LogPrefix.Steam
+    )
+    const result = await this.runStreamingCommand(
+      ['set-language', this.id, language],
+      'updating',
+      'update'
+    )
+    if (result.status === 'done') {
+      libraryManagerMap['steam'].forgetInstallInfo(this.id)
+      await libraryManagerMap['steam'].refresh()
+      return result
+    }
+    if (result.status === 'error') {
+      const error = isSteamRunningError(result.error)
+        ? steamRunningMessage()
+        : result.error ||
+          t(
+            'box.error.steam.language-change-unknown',
+            'Aurelia gave no reason. The Steam log has details.'
+          )
+      showDialogBoxModalAuto({
+        title: t(
+          'box.error.steam.language-change',
+          'Could not change the language of {{game}}',
+          { game: gameInfo.title }
+        ),
+        message: error,
+        type: 'ERROR'
+      })
+      return { status: 'error', error }
     }
     return result
   }
