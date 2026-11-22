@@ -315,57 +315,61 @@ async function errorHandler(
   appName: string,
   runner: Runner
 ): Promise<void> {
-  const errStr =
-    typeof error === 'string'
-      ? error
-      : ((error as { message?: string } | null)?.message ?? String(error))
-  const plat = runner === 'legendary' ? 'Legendary (Epic Games)' : runner
-  const deletedFolderMsg = 'appears to be deleted'
-  const expiredCredentials = 'No saved credentials'
-  const legendaryRegex = /legendary.*\.py/
-  const ignoreMessages = [
-    // this message appears on macOS when no Crossover was found in the system, but it's a false alarm
-    'IndexError: list index out of range',
-    // Happens with the Zipapp build of Legendary on Linux, if the user updates
-    // dependencies requests relies on
-    'RequestsDependencyWarning'
-  ]
+  try {
+    const errStr =
+      typeof error === 'string'
+        ? error
+        : ((error as { message?: string } | null)?.message ?? String(error))
+    const plat = runner === 'legendary' ? 'Legendary (Epic Games)' : runner
+    const deletedFolderMsg = 'appears to be deleted'
+    const expiredCredentials = 'No saved credentials'
+    const legendaryRegex = /legendary.*\.py/
+    const ignoreMessages = [
+      // this message appears on macOS when no Crossover was found in the system, but it's a false alarm
+      'IndexError: list index out of range',
+      // Happens with the Zipapp build of Legendary on Linux, if the user updates
+      // dependencies requests relies on
+      'RequestsDependencyWarning'
+    ]
 
-  if (!errStr) return
+    if (!errStr) return
 
-  if (ignoreMessages.some((msg) => errStr.includes(msg))) return
+    if (ignoreMessages.some((msg) => errStr.includes(msg))) return
 
-  if (errStr.includes(deletedFolderMsg) && appName) {
-    await askForceUninstall(getGame(appName, runner))
-    return
-  }
-
-  if (legendaryRegex.test(errStr)) {
-    const MemoryError = 'MemoryError: '
-    if (errStr.includes(MemoryError)) {
+    if (errStr.includes(deletedFolderMsg) && appName) {
+      await askForceUninstall(getGame(appName, runner))
       return
     }
 
-    return showDialogBoxModalAuto({
-      title: plat,
-      message: i18next.t(
-        'box.error.legendary.generic',
-        'An error has occurred! Try to logout and login on your Epic account. {{newline}}  {{error}}',
-        { error: errStr, newline: '\n' }
-      ),
-      type: 'ERROR'
-    })
-  }
+    if (legendaryRegex.test(errStr)) {
+      const MemoryError = 'MemoryError: '
+      if (errStr.includes(MemoryError)) {
+        return
+      }
 
-  if (errStr.includes(expiredCredentials)) {
-    return showDialogBoxModalAuto({
-      title: plat,
-      message: i18next.t(
-        'box.error.credentials.message',
-        'Your Crendentials have expired, Logout and Login Again!'
-      ),
-      type: 'ERROR'
-    })
+      return showDialogBoxModalAuto({
+        title: plat,
+        message: i18next.t(
+          'box.error.legendary.generic',
+          'An error has occurred! Try to logout and login on your Epic account. {{newline}}  {{error}}',
+          { error: errStr, newline: '\n' }
+        ),
+        type: 'ERROR'
+      })
+    }
+
+    if (errStr.includes(expiredCredentials)) {
+      return showDialogBoxModalAuto({
+        title: plat,
+        message: i18next.t(
+          'box.error.credentials.message',
+          'Your Crendentials have expired, Logout and Login Again!'
+        ),
+        type: 'ERROR'
+      })
+    }
+  } catch (handlerError) {
+    logError(['errorHandler failed:', handlerError], LogPrefix.Backend)
   }
 }
 
