@@ -1,10 +1,12 @@
 import { axiosClient } from 'backend/utils'
-import { app } from 'electron'
+import { app, dialog } from 'electron'
 import { logError } from '../logger'
+import { showDialogBoxModalAuto } from '../dialog/dialog'
 import * as utils from '../utils'
 import { test_data } from './test_data/github-api-heroic-test-data.json'
 
 jest.mock('electron')
+jest.mock('i18next')
 jest.mock('../logger')
 jest.mock('../dialog/dialog')
 
@@ -55,6 +57,104 @@ describe('backend/utils.ts', () => {
       expect(
         utils.testingExportsUtils.semverGt(versions.target, versions.base)
       ).toBe(expectValue)
+    })
+  })
+
+  describe('errorHandler', () => {
+    test('Does nothing for output that matches no known error', async () => {
+      await utils.errorHandler(
+        'Launching game 12345 successfully',
+        'someApp',
+        'gog'
+      )
+
+      expect(showDialogBoxModalAuto).not.toHaveBeenCalled()
+      expect(dialog.showMessageBox).not.toHaveBeenCalled()
+      expect(logError).not.toHaveBeenCalled()
+    })
+
+    test('Asks to force uninstall when the folder appears to be deleted', async () => {
+      jest
+        .mocked(dialog.showMessageBox)
+        .mockResolvedValue({ response: 0, checkboxChecked: false })
+
+      await utils.errorHandler('appears to be deleted', 'someApp', 'gog')
+
+      expect(dialog.showMessageBox).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'question',
+          message: 'box.error.folder-not-found.title'
+        })
+      )
+      expect(showDialogBoxModalAuto).not.toHaveBeenCalled()
+      expect(logError).not.toHaveBeenCalledWith(
+        ['errorHandler failed:', expect.anything()],
+        'Backend'
+      )
+    })
+
+    test('Shows the Legendary dialog for a matching error', async () => {
+      await utils.errorHandler(
+        new Error('Command failed: legendary/cli.py install'),
+        'someApp',
+        'legendary'
+      )
+
+      expect(showDialogBoxModalAuto).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: 'Legendary (Epic Games)',
+          type: 'ERROR'
+        })
+      )
+    })
+
+    test('Shows the expired credentials dialog', async () => {
+      await utils.errorHandler('No saved credentials', 'someApp', 'gog')
+
+      expect(showDialogBoxModalAuto).toHaveBeenCalledWith(
+        expect.objectContaining({ title: 'gog', type: 'ERROR' })
+      )
+    })
+
+    test('Does not show anything for ignored or empty messages', async () => {
+      await utils.errorHandler(
+        'RequestsDependencyWarning: foo',
+        'someApp',
+        'gog'
+      )
+      await utils.errorHandler('', 'someApp', 'gog')
+      await utils.errorHandler(null, 'someApp', 'gog')
+
+      expect(showDialogBoxModalAuto).not.toHaveBeenCalled()
+      expect(logError).not.toHaveBeenCalled()
+    })
+
+    test('Does not show the Legendary dialog on MemoryError', async () => {
+      await utils.errorHandler(
+        'legendary/cli.py: MemoryError: ',
+        'someApp',
+        'legendary'
+      )
+
+      expect(showDialogBoxModalAuto).not.toHaveBeenCalled()
+    })
+
+    test('Logs and resolves when handling the error fails', async () => {
+      jest.mocked(showDialogBoxModalAuto).mockImplementation(() => {
+        throw new Error('dialog is broken')
+      })
+
+      await expect(
+        utils.errorHandler('legendary/cli.py: failed', 'someApp', 'legendary')
+      ).resolves.toBeUndefined()
+
+      expect(logError).toHaveBeenCalledWith(
+        [
+          'errorHandler failed:',
+          expect.objectContaining({ message: 'dialog is broken' })
+        ],
+        'Backend'
+      )
     })
   })
 
