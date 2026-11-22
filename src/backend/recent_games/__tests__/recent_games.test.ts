@@ -47,10 +47,6 @@ describe('tagRecentGames', () => {
       { appName: '30', title: 'Other' }
     ]
     await tagRecentGames('steam', new Set(['10', '20']))
-    expect(mockRecent.map((g) => g.runner)).toEqual([
-      'steam',
-      'gog',
-      undefined
-    ])
+    expect(mockRecent.map((g) => g.runner)).toEqual(['steam', 'gog', undefined])
   })
 })
