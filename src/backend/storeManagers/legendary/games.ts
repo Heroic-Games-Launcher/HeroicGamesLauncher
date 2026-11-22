@@ -1006,7 +1006,8 @@ export default class LegendaryGame implements Game {
         .join(' '),
       ...wineFlags
     }
-    if (skipVersionCheck) command['--skip-version-check'] = true
+    if (skipVersionCheck || gameSettings.ignoreGameUpdates)
+      command['--skip-version-check'] = true
     if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
     if (launchArguments?.type === 'altExe')
       command['--override-exe'] = launchArguments.executable
