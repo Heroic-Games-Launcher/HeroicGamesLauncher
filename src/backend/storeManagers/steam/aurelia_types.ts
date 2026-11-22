@@ -110,6 +110,10 @@ export interface AureliaDryRunResponse {
   download_size: number
   disk_size: number
   depot_count?: number
+  // Steam language names, Aurelia 0.3.1+
+  languages?: string[]
+  default_language?: string | null
+  installed_language?: string | null
 }
 
 export interface AureliaConfigShowResponse {

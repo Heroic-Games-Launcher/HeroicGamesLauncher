@@ -123,6 +123,9 @@ export default function DownloadDialog({
   )
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
+  const [languageLocales, setLanguageLocales] = useState<
+    Record<string, string> | undefined
+  >()
 
   const [diskSize, setDiskSize] = useState(0)
 
@@ -418,19 +421,34 @@ export default function DownloadDialog({
             setBuilds(builds)
           }
 
+          const manifest = gameInstallInfo.manifest
           if (
-            gameInstallInfo.manifest &&
-            'languages' in gameInstallInfo.manifest
+            manifest &&
+            'languages' in manifest &&
+            manifest.languages?.length
           ) {
-            setInstallLanguages(gameInstallInfo.manifest.languages.sort())
-            if (!gameInstallInfo.manifest.languages.includes(installLanguage)) {
+            const languages = [...manifest.languages].sort()
+            setInstallLanguages(languages)
+            // Steam: Aurelia's default goes first
+            const preferred =
+              'default_language' in manifest
+                ? manifest.default_language
+                : undefined
+            if (!languages.includes(installLanguage)) {
               setInstallLanguage(
-                getPreferredInstallLanguage(
-                  gameInstallInfo.manifest.languages,
-                  i18n.languages
-                )
+                preferred ??
+                  getPreferredInstallLanguage(languages, i18n.languages)
               )
             }
+            setLanguageLocales(
+              'language_locales' in manifest
+                ? manifest.language_locales
+                : undefined
+            )
+          } else if (isSteam) {
+            // Older Aurelia lists no languages
+            setInstallLanguages([])
+            setInstallLanguage('')
           }
 
           if (
@@ -704,6 +722,7 @@ export default function DownloadDialog({
             installLanguage={installLanguage}
             setInstallLanguage={setInstallLanguage}
             installLanguages={installLanguages}
+            languageLocales={languageLocales}
           />
         )}
 

@@ -50,7 +50,16 @@ export interface SteamInstallLibrary {
   free_bytes: number | null
 }
 
-interface SteamInstallManifest {
+export interface SteamInstallLanguages {
+  // Steam names, e.g. german
+  languages: string[]
+  default_language?: string
+  installed_language?: string
+  // Steam name to display locale
+  language_locales: Record<string, string>
+}
+
+interface SteamInstallManifest extends Partial<SteamInstallLanguages> {
   download_size: number
   disk_size: number
 }

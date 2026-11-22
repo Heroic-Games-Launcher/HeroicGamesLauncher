@@ -46,6 +46,7 @@ import {
 import type { SteamInstallLibrary } from 'common/types/steam'
 import { join } from 'path'
 import SteamGame from './games'
+import { dryRunLanguages } from './languages'
 import {
   notifyRecentGamesChanged,
   tagRecentGames
@@ -306,7 +307,8 @@ export default class SteamLibraryManager implements LibraryManager {
         const info: SteamInstallInfo = {
           manifest: {
             download_size: dryRun.download_size,
-            disk_size: dryRun.disk_size
+            disk_size: dryRun.disk_size,
+            ...dryRunLanguages(dryRun)
           },
           game: {
             id: appName,

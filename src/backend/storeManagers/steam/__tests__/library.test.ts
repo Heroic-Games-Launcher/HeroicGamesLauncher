@@ -1,5 +1,6 @@
 import SteamLibraryManager from '../library'
 import { runAurelia } from '../aurelia'
+import { platformArgs } from '../utils'
 import type { GameInfo } from 'common/types'
 
 const mockGetLaunchPlatform = jest.fn()
@@ -198,5 +199,60 @@ describe('SteamLibraryManager.refresh', () => {
     await new SteamLibraryManager().refresh()
     const [, games] = mockLibrarySet.mock.calls[0] as [string, GameInfo[]]
     expect(games[0].install).toMatchObject({ install_size: '1024 B' })
+  })
+})
+
+describe('SteamLibraryManager.getInstallInfo', () => {
+  const dryRun = {
+    app_id: 312200,
+    download_size: 10,
+    disk_size: 20,
+    depot_count: 2,
+    platform: 'windows'
+  }
+
+  function mockDryRun(extra: object) {
+    jest
+      .mocked(runAurelia)
+      .mockImplementation((args: string[]) =>
+        Promise.resolve(
+          args[0] === 'install' ? { ...dryRun, ...extra } : chasmOptions
+        )
+      )
+  }
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+    jest.mocked(platformArgs).mockReturnValue([])
+    storeGame(false)
+  })
+
+  it('lists the languages Aurelia reports', async () => {
+    mockDryRun({
+      languages: ['german', 'english'],
+      default_language: 'english',
+      installed_language: null
+    })
+    const info = await new SteamLibraryManager().getInstallInfo(
+      '312200',
+      'windows'
+    )
+    expect(info?.manifest).toEqual({
+      download_size: 10,
+      disk_size: 20,
+      languages: ['english', 'german'],
+      default_language: 'english',
+      installed_language: undefined,
+      language_locales: { english: 'en', german: 'de' }
+    })
+  })
+
+  it('has no languages from older Aurelia', async () => {
+    mockDryRun({})
+    const info = await new SteamLibraryManager().getInstallInfo(
+      '312200',
+      'windows'
+    )
+    expect(info?.manifest).toEqual({ download_size: 10, disk_size: 20 })
   })
 })

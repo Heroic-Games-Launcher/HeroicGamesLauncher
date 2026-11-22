@@ -64,12 +64,8 @@ import {
   reportSteamRunning,
   steamRunningMessage
 } from './utils'
-import {
-  buildReqs,
-  stripSteamMarkup,
-  toInstallPlatforms,
-  toSteamApiLanguage
-} from './store_info'
+import { buildReqs, stripSteamMarkup, toInstallPlatforms } from './store_info'
+import { installLanguageArgs, toSteamApiLanguage } from './languages'
 import type {
   AureliaAchievementsResponse,
   AureliaCloudConflict,
@@ -560,7 +556,8 @@ export default class SteamGame implements Game {
 
   async install({
     platformToInstall,
-    path
+    path,
+    installLanguage
   }: InstallArgs): Promise<InstallResult> {
     if (!isSteamSupported()) {
       logWarning(
@@ -588,7 +585,8 @@ export default class SteamGame implements Game {
           this.id,
           ...(platformArg ? ['-p', platformArg] : []),
           // Install into the chosen Steam library folder
-          ...(libraryRoot ? ['--library', libraryRoot] : [])
+          ...(libraryRoot ? ['--library', libraryRoot] : []),
+          ...installLanguageArgs(installLanguage)
         ]
 
     const result = await this.runStreamingCommand(

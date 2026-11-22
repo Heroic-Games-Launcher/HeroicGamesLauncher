@@ -9,19 +9,25 @@ interface GameLanguageSelectorProps {
   installLanguage: string
   installPlatform: InstallPlatform
   setInstallLanguage: (value: string) => void
+  // Display locale per value
+  languageLocales?: Record<string, string>
 }
 
 export default function GameLanguageSelector({
   installLanguages,
   installLanguage,
   setInstallLanguage,
-  installPlatform
+  installPlatform,
+  languageLocales
 }: GameLanguageSelectorProps) {
   const { t, i18n } = useTranslation('gamepage')
   const getLanguageName = useMemo(() => {
     return (language: string) => {
       try {
-        const locale = language.replace('_', '-')
+        const locale = (languageLocales?.[language] ?? language).replace(
+          '_',
+          '-'
+        )
         const displayNames = new Intl.DisplayNames(
           [locale, ...i18n.languages, 'en'],
           {
@@ -34,7 +40,7 @@ export default function GameLanguageSelector({
         return language
       }
     }
-  }, [i18n.languages, installPlatform])
+  }, [i18n.languages, installPlatform, languageLocales])
 
   return (
     <SelectField
