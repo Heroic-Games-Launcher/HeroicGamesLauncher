@@ -11,8 +11,11 @@ const mockLibrarySet = jest.fn<void, unknown[]>()
 const mockTagRecent = jest.fn<Promise<void>, [string, Set<string>]>()
 const mockNotifyRecent = jest.fn<Promise<void>, []>()
 const mockInstallInfoDelete = jest.fn<void, [string]>()
+const mockInstallInfoGet = jest.fn<unknown, [string]>()
+const mockInstallInfoSet = jest.fn<void, [string, unknown]>()
 
 jest.mock('../aurelia', () => ({
+  aureliaBinaryStamp: () => 'aurelia:2',
   runAurelia: jest.fn(),
   runAureliaCommand: jest.fn(),
   getSteamLibraryPath: jest.fn(),
@@ -32,8 +35,8 @@ jest.mock('../electronStores', () => ({
   },
   installedGamesStore: { get: () => [], set: jest.fn() },
   installInfoStore: {
-    get: jest.fn(),
-    set: jest.fn(),
+    get: (key: string) => mockInstallInfoGet(key),
+    set: (key: string, value: unknown) => mockInstallInfoSet(key, value),
     delete: (key: string) => mockInstallInfoDelete(key)
   }
 }))
@@ -260,6 +263,37 @@ describe('SteamLibraryManager.getInstallInfo', () => {
     )
     expect(info?.manifest).toEqual({ download_size: 10, disk_size: 20 })
   })
+
+  it('reuses info from the same Aurelia', async () => {
+    const cached = { manifest: { download_size: 1 }, aurelia: 'aurelia:2' }
+    mockInstallInfoGet.mockReturnValueOnce(cached)
+    const info = await new SteamLibraryManager().getInstallInfo(
+      '312200',
+      'windows'
+    )
+    expect(info).toBe(cached)
+    expect(runAurelia).not.toHaveBeenCalled()
+  })
+
+  it.each([undefined, 'aurelia:1'])(
+    'refetches info from Aurelia %s',
+    async (aurelia) => {
+      mockDryRun({})
+      mockInstallInfoGet.mockReturnValueOnce({
+        manifest: { download_size: 1 },
+        aurelia
+      })
+      const info = await new SteamLibraryManager().getInstallInfo(
+        '312200',
+        'windows'
+      )
+      expect(info?.manifest).toEqual({ download_size: 10, disk_size: 20 })
+      expect(mockInstallInfoSet).toHaveBeenCalledWith(
+        '312200_windows',
+        expect.objectContaining({ aurelia: 'aurelia:2' })
+      )
+    }
+  )
 })
 
 describe('SteamLibraryManager.forgetInstallInfo', () => {

@@ -86,6 +86,8 @@ interface SteamGameInstallInfo {
 export interface SteamInstallInfo {
   manifest: SteamInstallManifest
   game: SteamGameInstallInfo
+  /** Aurelia binary that produced this info */
+  aurelia?: string
 }
 
 /**

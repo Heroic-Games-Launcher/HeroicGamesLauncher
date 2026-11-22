@@ -27,6 +27,7 @@ import {
 } from './electronStores'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import {
+  aureliaBinaryStamp,
   runAurelia,
   runAureliaCommand,
   getSteamLibraryPath,
@@ -282,7 +283,9 @@ export default class SteamLibraryManager implements LibraryManager {
     // Key the cache by platform
     const cacheKey = `${appName}_${String(platform).toLowerCase()}`
     const cache = installInfoStore.get(cacheKey)
-    if (cache && cache.manifest) {
+    // Refetch after Aurelia changes
+    const stamp = aureliaBinaryStamp()
+    if (cache && cache.manifest && cache.aurelia === stamp) {
       logDebug('Using cached Steam install info', LogPrefix.Steam)
       return cache
     }
@@ -322,7 +325,8 @@ export default class SteamLibraryManager implements LibraryManager {
             owned_dlc: [],
             platform_versions: {},
             title: game?.title ?? appName
-          }
+          },
+          aurelia: stamp
         }
         installInfoStore.set(cacheKey, info)
         return info

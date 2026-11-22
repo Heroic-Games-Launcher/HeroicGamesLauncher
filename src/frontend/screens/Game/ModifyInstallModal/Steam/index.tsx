@@ -49,7 +49,11 @@ export default function SteamModifyInstallModal({
 
   const manifest = installInfo?.manifest
   const languages = manifest?.languages ?? []
-  const unchanged = !language || language === manifest?.installed_language
+  // One language leaves nothing to switch
+  const unchanged =
+    languages.length < 2 ||
+    !language ||
+    language === manifest?.installed_language
 
   const handleConfirm = () => {
     // Runs set-language through the queue
@@ -66,7 +70,7 @@ export default function SteamModifyInstallModal({
     <>
       <ModalContent>
         <div className="ModifyInstall__languages">
-          {languages.length ? (
+          {languages.length > 1 ? (
             <GameLanguageSelector
               installLanguages={languages}
               installLanguage={language}
@@ -76,15 +80,20 @@ export default function SteamModifyInstallModal({
             />
           ) : (
             <p className="ModifyInstall__hint">
-              {installInfo
+              {languages.length === 1
                 ? t(
-                    'modifyInstall.steam.noLanguages',
-                    'Changing the language of a Steam game needs a newer Aurelia.'
+                    'modifyInstall.steam.oneLanguage',
+                    'This game is only available in one language.'
                   )
-                : t(
-                    'modifyInstall.steam.noInfo',
-                    'Aurelia could not list the languages of this game. Check that you are logged in to Steam.'
-                  )}
+                : installInfo
+                  ? t(
+                      'modifyInstall.steam.noLanguages',
+                      'Changing the language of a Steam game needs a newer Aurelia.'
+                    )
+                  : t(
+                      'modifyInstall.steam.noInfo',
+                      'Aurelia could not list the languages of this game. Check that you are logged in to Steam.'
+                    )}
             </p>
           )}
         </div>

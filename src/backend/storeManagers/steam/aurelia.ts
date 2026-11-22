@@ -226,6 +226,22 @@ async function startAureliaDaemon(): Promise<void> {
   }
 }
 
+/**
+ * Identifies the Aurelia binary in use, so
+ * cached results can be dropped after it changes.
+ */
+export function aureliaBinaryStamp(): string {
+  const { dir, bin } = getAureliaBin()
+  const path = dir ? join(dir, bin) : bin
+  try {
+    const { size, mtimeMs } = statSync(path)
+    return `${path}:${size}:${mtimeMs}`
+  } catch {
+    // Found on PATH only
+    return path
+  }
+}
+
 export async function runAureliaCommand(
   commandParts: string[],
   options: CallRunnerOptions = {}

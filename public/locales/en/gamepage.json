@@ -267,7 +267,8 @@
         },
         "steam": {
             "noInfo": "Aurelia could not list the languages of this game. Check that you are logged in to Steam.",
-            "noLanguages": "Changing the language of a Steam game needs a newer Aurelia."
+            "noLanguages": "Changing the language of a Steam game needs a newer Aurelia.",
+            "oneLanguage": "This game is only available in one language."
         },
         "versionCollapsable": "Game Version"
     },
