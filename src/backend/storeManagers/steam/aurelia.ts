@@ -494,7 +494,7 @@ export async function aureliaSupportsLaunchOption(): Promise<boolean> {
 }
 
 /** Outcome of turning Aurelia's sync off. */
-export type AureliaCloudSyncOff = 'off' | 'game-override' | 'unsupported'
+type AureliaCloudSyncOff = 'off' | 'game-override' | 'unsupported'
 
 /** Heroic owns sync; idempotent per launch. */
 export async function disableAureliaCloudSync(

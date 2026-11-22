@@ -72,10 +72,7 @@ const WinePrefix = () => {
 }
 
 /** Steam compatdata folder for an install. */
-export function steamCompatdataPrefix(
-  installPath?: string,
-  appId?: string
-): string {
+function steamCompatdataPrefix(installPath?: string, appId?: string): string {
   if (!installPath || !appId) return ''
   const normalized = installPath.replaceAll('\\', '/')
   const marker = '/steamapps/common/'

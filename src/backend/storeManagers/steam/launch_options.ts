@@ -1,7 +1,7 @@
 import { split } from 'shlex'
 
 /** Aurelia's placeholder for the game command. */
-export const COMMAND_MARKER = '%command%'
+const COMMAND_MARKER = '%command%'
 
 const SAFE_TOKEN = /^[A-Za-z0-9_@%+=:,./-]+$/
 const ENV_NAME = /^[A-Za-z_][A-Za-z0-9_]*$/
@@ -12,7 +12,7 @@ export function quoteToken(token: string): string {
   return `'${token.replaceAll("'", `'\\''`)}'`
 }
 
-export interface AureliaLaunchOptionsInput {
+interface AureliaLaunchOptionsInput {
   /** Environment variables for the game. */
   env: Record<string, string>
   /** Wrapper command words, outermost first. */
@@ -21,7 +21,7 @@ export interface AureliaLaunchOptionsInput {
   launcherArgs?: string
 }
 
-export interface AureliaLaunchOptions {
+interface AureliaLaunchOptions {
   /** Line for `config game`; empty: none. */
   line: string
   /** Environment names Aurelia can't accept. */
