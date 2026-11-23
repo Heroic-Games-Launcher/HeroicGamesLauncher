@@ -1,3 +1,4 @@
+import { existsSync } from 'fs'
 import { readdir } from 'fs/promises'
 import { parse } from 'path'
 
@@ -12,6 +13,8 @@ export class UmuSteamRuntimeMigration implements Migration {
   identifier = 'umu-steam-runtime'
   async run() {
     if (!isLinux) return true
+    // Fresh installs have no game configs yet, so there's nothing to migrate
+    if (!existsSync(gamesConfigPath)) return true
 
     for (const entry of await readdir(gamesConfigPath, {
       withFileTypes: true
