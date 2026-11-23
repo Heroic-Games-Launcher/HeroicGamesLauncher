@@ -40,10 +40,14 @@ const AltAureliaBin = () => {
       )}
       pathDialogTitle={t('box.choose-aurelia-binary', 'Select Aurelia binary')}
       afterInput={
-        <span className="smallMessage">
-          {t('other.aurelia-version', 'Aurelia Version: ')}
-          {aureliaVersion}
-        </span>
+        aureliaVersion ? (
+          <span className="fieldCaption">
+            <span className="fieldCaption__label">
+              {t('other.aurelia-version', 'Aurelia Version: ')}
+            </span>
+            <span className="fieldCaption__value">{aureliaVersion}</span>
+          </span>
+        ) : undefined
       }
     />
   )
