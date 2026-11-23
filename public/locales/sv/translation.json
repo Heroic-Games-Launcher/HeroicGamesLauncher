@@ -663,7 +663,7 @@
         "egs-prefix": "Prefix där EGS är installerat",
         "prefered_language": "Språkkod med 2 eller 4 tecken (t.ex. \"fr\" eller \"pt-BR\")",
         "alt-nile-bin": "Använder inbyggd Nile-binärfil...",
-        "alt-aurelia-bin": "Använder inbyggd Legendary version..."
+        "alt-aurelia-bin": "Använder inbyggd Aurelia version..."
     },
     "platforms": {
         "linux": "Linux",
@@ -996,7 +996,7 @@
         "checkForUpdatesOnStartup-description": "Sök efter en ny Heroic-version varje gång appen öppnas",
         "disableUMU-description": "Starta Proton direkt i stället för via umu-startprogrammet",
         "gamemode-description": "Be systemet prioritera spelet medan det körs",
-        "alt-aurelia-bin": "Ange alternativ Legendary version",
+        "alt-aurelia-bin": "Ange alternativ Aurelia version",
         "steamLaunchTarget": {
             "downloadBuild": "Nedladdning",
             "missingBuild": "Nedladdning",

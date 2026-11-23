@@ -312,7 +312,7 @@
         "custom_themes_path": "Roghnaigh an cosán chun comhaid CSS saincheaptha a lorg",
         "dxvkfpsvalue": "Luach slánuimhir dhearfach (m.sh. 30, 60, ...)",
         "prefered_language": "Cód 2 charachtar nó 4 charachtar (i.e.: \"fr\" nó \"pt-BR\")",
-        "alt-aurelia-bin": "Ag baint úsáide as dénártha Níle ionsuite..."
+        "alt-aurelia-bin": "Ag baint úsáide as dénártha Aurelia ionsuite..."
     },
     "setting": {
         "eosOverlay": {
@@ -608,7 +608,7 @@
         "checkForUpdatesOnStartup-description": "Cuardaigh leagan nua de Heroic gach uair a osclaítear an aip",
         "disableUMU-description": "Seol Proton go díreach in áit dul tríd an seolaitheoir umu",
         "gamemode-description": "Iarr ar an gcóras tosaíocht a thabhairt don chluiche fad is atá sé ag rith",
-        "alt-aurelia-bin": "Roghnaigh Binary Malartach Níle",
+        "alt-aurelia-bin": "Roghnaigh Binary Malartach Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Íoslódáil"
         },

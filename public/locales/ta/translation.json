@@ -631,7 +631,7 @@
         "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு",
         "prefered_language": "2-கரி அல்லது 4-கரி குறியீடு (அதாவது: \"fr\" அல்லது \"pt-BR\")",
         "alt-nile-bin": "உள்ளமைக்கப்பட்ட நைல் பைனரியைப் பயன்படுத்துகிறது...",
-        "alt-aurelia-bin": "உள்ளமைக்கப்பட்ட லெஜண்டரி பைனரியைப் பயன்படுத்துகிறது..."
+        "alt-aurelia-bin": "உள்ளமைக்கப்பட்ட Aurelia பைனரியைப் பயன்படுத்துகிறது..."
     },
     "platforms": {
         "linux": "லினக்ஸ்",
@@ -962,7 +962,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "மாற்று Legendary Binary ஐத் தேர்வு செய்",
+        "alt-aurelia-bin": "மாற்று Aurelia Binary ஐத் தேர்வு செய்",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "மொத்தம் பதிவிறக்கம் செய்யப்பட்டது",

@@ -625,7 +625,7 @@
         "egs-prefix": "Prefix waar EGS is geïnstalleerd",
         "prefered_language": "2-char of 4-char code (i.e.: \"fr\" of \"pt-BR\")",
         "alt-nile-bin": "Gebruik van ingebouwde Nijl binaire...",
-        "alt-aurelia-bin": "Gebruik built-in Legendary binary..."
+        "alt-aurelia-bin": "Gebruik built-in Aurelia binary..."
     },
     "platforms": {
         "linux": "Linux",
@@ -955,7 +955,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Kies een Alternatief Legendary Binary",
+        "alt-aurelia-bin": "Kies een Alternatief Aurelia Binary",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Totaal gedownload",

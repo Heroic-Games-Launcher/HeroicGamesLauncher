@@ -633,7 +633,7 @@
         "egs-prefix": "Прэфікс, дзе ўсталяваны EGS",
         "prefered_language": "2-значны код (напрыклад: «en» або «be»)",
         "alt-nile-bin": "Выкарыстоўваючы ўбудаваны двайковы файл Nile...",
-        "alt-aurelia-bin": "Выкарыстанне ўбудаванага двайковага файла Legendary..."
+        "alt-aurelia-bin": "Выкарыстанне ўбудаванага двайковага файла Aurelia..."
     },
     "platforms": {
         "linux": "Linux",
@@ -967,7 +967,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Выберыце альтэрнатыўны двайковы файл Legendary",
+        "alt-aurelia-bin": "Выберыце альтэрнатыўны двайковы файл Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Спампоўванне",
             "missingBuild": "Усяго спампавана",

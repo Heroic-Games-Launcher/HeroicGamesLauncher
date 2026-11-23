@@ -632,7 +632,7 @@
         "egs-prefix": "Prefixo onde a EGS está instalada",
         "prefered_language": "Código de 2 ou 4 caracteres (ou seja: \"fr\" ou \"pt-BR\")",
         "alt-nile-bin": "Usando o binário integrado do Nile...",
-        "alt-aurelia-bin": "Usando o binário integrado do Nile..."
+        "alt-aurelia-bin": "Usando o binário integrado do Aurelia..."
     },
     "platforms": {
         "linux": "Linux",
@@ -972,7 +972,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Escolha um Binário Alternativo do Nile",
+        "alt-aurelia-bin": "Escolha um Binário Alternativo do Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Total baixado",

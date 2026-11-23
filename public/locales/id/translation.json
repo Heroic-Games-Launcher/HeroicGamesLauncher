@@ -627,7 +627,7 @@
         "egs-prefix": "Prefiks di mana EGS diinstal",
         "prefered_language": "Kode 2 karakter atau 4 karakter (mis.: \"fr\" atau \"pt-BR\")",
         "alt-nile-bin": "Menggunakan Nile binary bawaan ...",
-        "alt-aurelia-bin": "Menggunakan Nile binary bawaan ..."
+        "alt-aurelia-bin": "Menggunakan Aurelia binary bawaan ..."
     },
     "platforms": {
         "linux": "Linux",
@@ -952,7 +952,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Pilih Nile Binary Alternatif",
+        "alt-aurelia-bin": "Pilih Aurelia Binary Alternatif",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Jumlah yang Diunduh",

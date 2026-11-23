@@ -630,7 +630,7 @@
         "egs-prefix": "Префикс куда установлен EGS",
         "prefered_language": "2-значный или 4-значный код (например: «fr» или «pt-BR»)",
         "alt-nile-bin": "Использование встроенного двоичного файла Nile...",
-        "alt-aurelia-bin": "Используется встроенный Legendary..."
+        "alt-aurelia-bin": "Используется встроенный Aurelia..."
     },
     "platforms": {
         "linux": "Linux",
@@ -963,7 +963,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Выбрать другой исполняемый файл Legendary",
+        "alt-aurelia-bin": "Выбрать другой исполняемый файл Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Загрузка",
             "missingBuild": "Total Downloaded",

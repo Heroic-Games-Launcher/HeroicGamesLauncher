@@ -625,7 +625,7 @@
         "egs-prefix": "Prefiks gdje je EGS instaliran",
         "prefered_language": "kod od 2 znaka (tj.: \"en\" ili \"fr\")",
         "alt-nile-bin": "Koristeći ugrađeni binarni Nil...",
-        "alt-aurelia-bin": "Korištenje ugrađene Legendary binarne datoteke..."
+        "alt-aurelia-bin": "Korištenje ugrađene Aurelia binarne datoteke..."
     },
     "platforms": {
         "linux": "Linux",
@@ -950,7 +950,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Odaberite alternativnu Legendary binarnu datoteku",
+        "alt-aurelia-bin": "Odaberite alternativnu Aurelia binarnu datoteku",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Ukupno preuzeto"

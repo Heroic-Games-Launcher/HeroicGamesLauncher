@@ -628,7 +628,7 @@
         "egs-prefix": "EGSがインストールされている環境",
         "prefered_language": "2文字または4文字のコード（“fr”や“fr”など）",
         "alt-nile-bin": "組み込みのNileバイナリを使用しています...",
-        "alt-aurelia-bin": "組み込みのNileバイナリを使用しています..."
+        "alt-aurelia-bin": "組み込みのAureliaバイナリを使用しています..."
     },
     "platforms": {
         "linux": "Linux",
@@ -961,7 +961,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "代替のNileバイナリを選択する",
+        "alt-aurelia-bin": "代替のAureliaバイナリを選択する",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "合計ダウンロード",

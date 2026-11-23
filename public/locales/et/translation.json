@@ -632,7 +632,7 @@
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
         "prefered_language": "2-täheline või 4-täheline kood (nt: \"fr\" või \"pt-BR\")",
         "alt-nile-bin": "Sisseehitatud Nile programmi kasutamine...",
-        "alt-aurelia-bin": "Sisseehitatud Nile programmi kasutamine..."
+        "alt-aurelia-bin": "Sisseehitatud Aurelia programmi kasutamine..."
     },
     "platforms": {
         "linux": "Linux",
@@ -971,7 +971,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Valige mõni muu Nile programm",
+        "alt-aurelia-bin": "Valige mõni muu Aurelia programm",
         "steamLaunchTarget": {
             "downloadBuild": "Allalaadimine",
             "missingBuild": "Allalaaditud kokku",

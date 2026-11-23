@@ -635,7 +635,7 @@
         "egs-prefix": "Префикс, където е инсталиран EGS",
         "prefered_language": "Код съставен от 2 или 4 знака (например: „fr“ или „pt-BR“)",
         "alt-nile-bin": "Използване на вградения изпълним файл на Nile…",
-        "alt-aurelia-bin": "Използване на вградения изпълним файл на Nile…"
+        "alt-aurelia-bin": "Използване на вградения изпълним файл на Aurelia…"
     },
     "platforms": {
         "linux": "Линукс",
@@ -975,7 +975,7 @@
         "checkForUpdatesOnStartup-description": "Проверяване за нова версия на Heroic при всяко стартиране на приложението",
         "disableUMU-description": "Стартиране на Proton директно, без да се преминава през umu",
         "gamemode-description": "Системата ще бъде помолена да даде по-голям приоритет на играта, докато тя работи",
-        "alt-aurelia-bin": "Избиране на алтернативен изпълним файл на Nile",
+        "alt-aurelia-bin": "Избиране на алтернативен изпълним файл на Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Общо свалено",

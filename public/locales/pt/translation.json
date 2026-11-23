@@ -632,7 +632,7 @@
         "egs-prefix": "O prefixo onde a Epic Games está instalada",
         "prefered_language": "Código de 2 ou 4 caracteres (exemplo: \"pt\" ou \"pt-BR\")",
         "alt-nile-bin": "A usar binário Nile incorporado...",
-        "alt-aurelia-bin": "Utilizando o binário integrado do Nilo..."
+        "alt-aurelia-bin": "Utilizando o binário integrado do Aurelia..."
     },
     "platforms": {
         "linux": "Linux",
@@ -967,7 +967,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Selecione o binário alternativo Legendary (Percisa reiniciar)",
+        "alt-aurelia-bin": "Selecione o binário alternativo Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Descarregar",
             "missingBuild": "Total Descarregado",

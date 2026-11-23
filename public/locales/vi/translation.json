@@ -626,7 +626,7 @@
         "egs-prefix": "Tiền tố nơi EGS được cài đặt",
         "prefered_language": "Mã 2 ký tự (tức là: \"en\" hoặc \"fr\")",
         "alt-nile-bin": "Sử dụng Nile binary tích hợp sẵn...",
-        "alt-aurelia-bin": "Sử dụng Legendary binary tích hợp sẵn..."
+        "alt-aurelia-bin": "Sử dụng Aurelia binary tích hợp sẵn..."
     },
     "platforms": {
         "linux": "LInux",
@@ -951,7 +951,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Chọn Legendary binary thay thế để sử dụng",
+        "alt-aurelia-bin": "Chọn Aurelia binary thay thế để sử dụng",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Tổng số đã tải",

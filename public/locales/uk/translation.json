@@ -656,7 +656,7 @@
         "egs-prefix": "Префікс де встановлено EGS",
         "prefered_language": "Код із 2 або 4 символів (наприклад: «fr» або «pt-BR»)",
         "alt-nile-bin": "Використовується вбудований двійковий файл Nile...",
-        "alt-aurelia-bin": "Використовується вбудований двійковий файл Nile..."
+        "alt-aurelia-bin": "Використовується вбудований двійковий файл Aurelia..."
     },
     "platforms": {
         "linux": "Linux",
@@ -996,7 +996,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Вибрати альтернативний двійковий файл Nile",
+        "alt-aurelia-bin": "Вибрати альтернативний двійковий файл Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Завантаження",
             "missingBuild": "Всього Завантажено",

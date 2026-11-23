@@ -626,7 +626,7 @@
         "egs-prefix": "Etuaste johon EGS on asennettu",
         "prefered_language": "2- tai 4-merkkinen kielikoodi (kuten: \"fi\" tai \"pt-BR\")",
         "alt-nile-bin": "Käytetään sisäänrakennettua Nile-binääriä...",
-        "alt-aurelia-bin": "Käytetään sisäänrakennettua Nile-binääriä..."
+        "alt-aurelia-bin": "Käytetään sisäänrakennettua Aurelia-binääriä..."
     },
     "platforms": {
         "linux": "Linux",
@@ -957,7 +957,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Valitse vaihtoehtoinen Nile-binääri",
+        "alt-aurelia-bin": "Valitse vaihtoehtoinen Aurelia-binääri",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Ladattu yhteensä",

@@ -625,7 +625,7 @@
         "egs-prefix": "Prefixul unde este instalat EGS",
         "prefered_language": "Cod de 2 caractere (adică: „en” sau „fr”)",
         "alt-nile-bin": "Folosind binarul Nile încorporat...",
-        "alt-aurelia-bin": "Folosind binarul Legendary încorporat..."
+        "alt-aurelia-bin": "Folosind binarul Aurelia încorporat..."
     },
     "platforms": {
         "linux": "Linux",
