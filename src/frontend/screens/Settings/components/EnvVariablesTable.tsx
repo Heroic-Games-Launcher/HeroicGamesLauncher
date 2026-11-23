@@ -1,16 +1,15 @@
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, TextInputField, SvgButton } from 'frontend/components/UI'
+import {
+  Button,
+  Icon,
+  InfoTooltip,
+  TextInputField
+} from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import ClearAllIcon from '@mui/icons-material/ClearAll'
-import ListAltIcon from '@mui/icons-material/ListAlt'
-import AddBoxIcon from '@mui/icons-material/AddBox'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader
-} from 'frontend/components/UI/Dialog'
+import { Eraser, ListChecks, Plus } from 'lucide-react'
+import { Modal, ModalHeader } from 'frontend/components/UI/Modal'
 import './EnvVariablesTable.css'
 
 import BulkEditModal from './BulkEditModal'
@@ -112,19 +111,20 @@ const EnvVariablesTable = () => {
       ),
       buttons: [
         {
-          text: t('common.cancel', 'Cancel'),
-          onClick: () => {}
+          text: t('common.confirm', 'Confirm'),
+          variant: 'dangerSubtle',
+          onClick: () => setEnvironmentOptions([])
         },
         {
-          text: t('common.confirm', 'Confirm'),
-          onClick: () => setEnvironmentOptions([])
+          text: t('common.cancel', 'Cancel'),
+          onClick: () => {}
         }
       ]
     })
   }
 
   const envVariablesInfo = (
-    <InfoBox text="infobox.help">
+    <>
       {t(
         'options.env_variables.info',
         'Set environment variables to append to the command.'
@@ -134,49 +134,51 @@ const EnvVariablesTable = () => {
         'options.env_variables.example',
         'Do NOT include the "=" sign, e.g: for a setting like "MY_FLAG=123", set MY_FLAG in NAME and 123 in VALUE.'
       )}
-    </InfoBox>
+    </>
   )
 
   return (
     <div className="env-vars-container">
       {showBulkEdit && (
-        <Dialog showCloseButton onClose={() => setShowBulkEdit(false)}>
-          <DialogHeader onClose={() => setShowBulkEdit(false)}>
-            {t('options.env_variables.bulk_edit', 'Bulk Edit')}
-          </DialogHeader>
-          <DialogContent>
-            <BulkEditModal
-              initialEnvs={environmentOptions}
-              onCancel={() => setShowBulkEdit(false)}
-              onSave={(envs) => {
-                setEnvironmentOptions(envs)
-                setShowBulkEdit(false)
-              }}
-            />
-          </DialogContent>
-        </Dialog>
+        <Modal showCloseButton onClose={() => setShowBulkEdit(false)}>
+          <ModalHeader>
+            {t('options.env_variables.bulk_edit', 'Bulk edit')}
+          </ModalHeader>
+          <BulkEditModal
+            initialEnvs={environmentOptions}
+            onCancel={() => setShowBulkEdit(false)}
+            onSave={(envs) => {
+              setEnvironmentOptions(envs)
+              setShowBulkEdit(false)
+            }}
+          />
+        </Modal>
       )}
       <div className="env-vars-header">
         <span className="env-vars-title">
-          {t('options.advanced.title', 'Environment Variables')}
+          {t('options.advanced.title', 'Environment variables')}
+          <InfoTooltip
+            content={envVariablesInfo}
+            label={t('options.advanced.title', 'Environment variables')}
+          />
         </span>
         <div className="env-vars-actions">
-          <SvgButton
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => setShowBulkEdit(true)}
-            title={t('options.env_variables.bulk_edit', 'Bulk Edit')}
-          >
-            <ListAltIcon
-              style={{ color: 'var(--text-default)' }}
-              fontSize="large"
-            />
-          </SvgButton>
-          <SvgButton
+            title={t('options.env_variables.bulk_edit', 'Bulk edit')}
+            icon={<Icon glyph={ListChecks} size="md" />}
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            className="env-vars-clear"
             onClick={handleClearAll}
-            title={t('common.clear_all', 'Clear All')}
+            title={t('common.clear_all', 'Clear all')}
             disabled={environmentOptions.length === 0}
-          >
-            <ClearAllIcon style={{ color: 'var(--danger)' }} fontSize="large" />
-          </SvgButton>
+            icon={<Icon glyph={Eraser} size="md" />}
+          />
         </div>
       </div>
 
@@ -196,7 +198,7 @@ const EnvVariablesTable = () => {
 
       <div className="env-var-add-section">
         <span className="env-var-add-title">
-          {t('options.env_variables.add_new', 'Add New Variable')}
+          {t('options.env_variables.add_new', 'Add new variable')}
         </span>
         <div className="env-var-add-inputs">
           <TextInputField
@@ -215,7 +217,7 @@ const EnvVariablesTable = () => {
               setFormError(validateEnvKey(nextKey, t))
             }}
             placeholder={t('options.advanced.placeHolderKey', 'NAME')}
-            aria-label={t('options.advanced.key', 'Variable Name')}
+            aria-label={t('options.advanced.key', 'Variable name')}
           />
           <span className="env-var-connector">=</span>
           <TextInputField
@@ -227,14 +229,13 @@ const EnvVariablesTable = () => {
             placeholder={t('options.advanced.placeHolderV', 'VALUE')}
             aria-label={t('options.advanced.value', 'Value')}
           />
-          <SvgButton
+          <Button
+            variant="ghost"
             onClick={handleAdd}
-            className="is-primary"
             disabled={!newKey.trim()}
             title={t('common.add', 'Add')}
-          >
-            <AddBoxIcon style={{ color: 'var(--success)' }} fontSize="large" />
-          </SvgButton>
+            icon={<Icon glyph={Plus} size="lg" strokeWidth={2.25} />}
+          />
         </div>
         {formError && <div className="env-var-error">{formError}</div>}
       </div>

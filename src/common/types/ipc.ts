@@ -52,8 +52,36 @@ import type {
 } from './discounts'
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
+import type {
+  ItchioLoginData,
+  ItchioOAuthCodeData,
+  ItchioOAuthLoginData,
+  ItchioRegisterData,
+  ItchioUserData
+} from './itchio'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
+import type {
+  HeroicApplyOptions,
+  HeroicApplyResult,
+  HeroicBackupDiscoveryResult,
+  HeroicBackupValidationReport,
+  HeroicExportOptions,
+  HeroicExportResult,
+  HeroicRollbackSnapshot
+} from './importExport'
+import type {
+  SteamAccount,
+  SteamCloudFile,
+  SteamCloudSyncDirection,
+  SteamCloudSyncStatus,
+  SteamDataFetchFailure,
+  SteamDLCInfo,
+  SteamInstallLibrary,
+  SteamLaunchTargets,
+  SteamLoginData
+} from './steam'
+import { ParsedProtonShorctut } from './proton_shorctuts'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -110,8 +138,10 @@ interface SyncIPCFunctions {
   resumeCurrentDownload: () => void
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
+  cancelQueuedDownload: (appName: string, removeDownloaded: boolean) => void
   copySystemInfoToClipboard: () => void
   minimizeWindow: () => void
+  showWindow: () => void
   maximizeWindow: () => void
   unmaximizeWindow: () => void
   closeWindow: () => void
@@ -128,6 +158,11 @@ interface SyncIPCFunctions {
     status: boolean
   ) => void
   logoutZoom: () => void
+  logoutSteam: () => void
+  cancelSteamQrLogin: () => void
+  cancelSteamLogin: () => void
+  submitSteamGuardCode: (code: string) => void
+  logoutSteamAccount: (steamId: string) => void
   setGameMetadataOverride: (args: {
     appName: string
     title?: string
@@ -154,6 +189,8 @@ interface TestSyncIPCFunctions {
 // ts-prune-ignore-next
 interface AsyncIPCFunctions {
   kill: (appName: string, runner: Runner) => Promise<void>
+  clearImagesCache: () => Promise<void>
+  removeImageFromCache: (url: string) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
   callTool: (args: Tools) => Promise<void>
   runWineCommand: (
@@ -170,6 +207,7 @@ interface AsyncIPCFunctions {
   getGogdlVersion: () => Promise<string>
   getCometVersion: () => Promise<string>
   getNileVersion: () => Promise<string>
+  getAureliaVersion: () => Promise<string>
   isFullscreen: () => boolean
   isFrameless: () => boolean
   isMaximized: () => boolean
@@ -183,7 +221,11 @@ interface AsyncIPCFunctions {
     runner: Runner,
     lang?: string
   ) => Promise<GameAchievement[]>
-  getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
+  getExtraInfo: (
+    appName: string,
+    runner: Runner,
+    lang?: string
+  ) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
     runner: Runner
@@ -198,7 +240,31 @@ interface AsyncIPCFunctions {
   ) => Promise<InstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
+  getItchioUserInfo: () => Promise<ItchioUserData | undefined>
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
+  getSteamUserInfo: () => Promise<{ username: string } | undefined>
+  getSteamDlcInfo: (appName: string) => Promise<SteamDLCInfo[]>
+  getSteamCloudSyncStatus: (appName: string) => Promise<SteamCloudSyncStatus>
+  runSteamCloudSync: (
+    appName: string,
+    direction: SteamCloudSyncDirection
+  ) => Promise<SteamCloudSyncStatus>
+  resolveSteamCloudSync: (
+    appName: string,
+    resolve: 'cloud' | 'local'
+  ) => Promise<SteamCloudSyncStatus>
+  listSteamCloudFiles: (appName: string) => Promise<SteamCloudFile[]>
+  getSteamInstallLibraries: () => Promise<SteamInstallLibrary[]>
+  getSteamDownloadLimit: () => Promise<number>
+  setSteamDownloadLimit: (kbit: number) => Promise<number>
+  focusGameWindow: () => Promise<void>
+  setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
+  getSteamLaunchTargets: (appName: string) => Promise<SteamLaunchTargets>
+  setSteamLaunchTarget: (appName: string, targetId: string) => void
+  installSteamWineRuntime: () => Promise<{
+    status: 'done' | 'error'
+    error?: string
+  }>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'
@@ -212,9 +278,23 @@ interface AsyncIPCFunctions {
     status: 'done' | 'failed'
     user: NileUserData | undefined
   }>
+  authItchio: (data: ItchioRegisterData) => Promise<{
+    status: 'done' | 'failed'
+    user: ItchioUserData | undefined
+  }>
+  getItchioOAuthUrl: () => Promise<ItchioOAuthLoginData>
+  authItchioOAuth: (data: ItchioOAuthCodeData) => Promise<{
+    status: 'done' | 'failed'
+    user: ItchioUserData | undefined
+  }>
   authZoom: (url: string) => Promise<{ status: 'done' | 'error' }>
+  loginSteam: (
+    credentials: SteamLoginData
+  ) => Promise<{ status: 'done' | 'error'; error?: string }>
+  loginSteamQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
+  logoutItchio: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestAppSettings: () => AppSettings
@@ -246,7 +326,7 @@ interface AsyncIPCFunctions {
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
   getWebviewPreloadPath: () => string
-  clipboardReadText: () => string
+  clipboardReadText: () => Promise<string>
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
   isNative: (args: { appName: string; runner: Runner }) => boolean
@@ -329,6 +409,7 @@ interface AsyncIPCFunctions {
     appName: string
   ) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
+  getItchioLoginData: () => Promise<ItchioLoginData>
   hasExecutable: (executable: string) => Promise<boolean>
 
   setPrivateBranchPassword: (appName: string, password: string) => void
@@ -349,6 +430,7 @@ interface AsyncIPCFunctions {
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
   isLinuxArm: () => boolean
+  getSteamUsers: () => Promise<SteamAccount[]>
   getGogDealsRegion: () => Promise<GogDealsRegion | null>
   getGogDiscounts: (
     locale: CatalogLocaleSettings,
@@ -372,6 +454,24 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  getProtonShortcuts: (prefix: string) => Promise<Array<ParsedProtonShorctut>>
+  getHomeDir: () => Promise<string>
+  listHeroicBackups: () => Promise<HeroicBackupDiscoveryResult>
+  getWineImportProgress: () => Promise<{
+    completed: number
+    total: number
+    pending: string[]
+  }>
+  exportHeroicBackup: (
+    options: HeroicExportOptions
+  ) => Promise<HeroicExportResult>
+  validateHeroicBackup: (
+    sourcePath: string
+  ) => Promise<HeroicBackupValidationReport>
+  applyHeroicBackup: (options: HeroicApplyOptions) => Promise<HeroicApplyResult>
+  getRollbackSnapshot: () => Promise<HeroicRollbackSnapshot | null>
+  rollbackHeroicBackup: () => Promise<HeroicApplyResult>
+  restartHeroic: () => Promise<void>
 }
 
 interface FrontendMessages {
@@ -405,16 +505,28 @@ interface FrontendMessages {
     installingComponent: string
   }) => void
   progressOfWineManager: (version: string, progress: WineManagerStatus) => void
+  wineImportProgress: (state: {
+    completed: number
+    total: number
+    pending: string[]
+  }) => void
   'installing-winetricks-component': (component: string) => void
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void
   progressUpdate: (progress: GameStatus) => void
+  steamQrChallenge: (url: string) => void
+  steamQrScanned: () => void
+  steamGuardRequired: (type: string) => void
+  steamLoginStatus: (status: { state: string; message?: string }) => void
+  steamCloudSyncStatusChanged: (status: SteamCloudSyncStatus) => void
+  steamDataFetchFailed: (failure: SteamDataFetchFailure) => void
   metadataChanged: (
     overrides: Record<
       string,
       { title?: string; art_cover?: string; art_square?: string }
     >
   ) => void
+  itchioOAuthCallback: (url: string) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

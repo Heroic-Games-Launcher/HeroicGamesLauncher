@@ -13,6 +13,10 @@ const UseDarkTrayIcon = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.darktrayicon.description',
+        'Use the dark variant of the tray icon, better on light panels'
+      )}
       htmlId="changeTrayColor"
       value={darkTrayIcon}
       handleChange={toggleDarkTrayIcon}

@@ -23,14 +23,22 @@
     text-overflow: ellipsis;
   }
 
+  .log-box-wrapper {
+    grid-column: 2;
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+  }
+
   .setting.log-box {
+    display: block;
     background-color: #1e1e1e;
     border-radius: 10px;
     padding-block: 4px;
     padding-inline: 6px;
     overflow: auto;
     user-select: text;
-    grid-column: 2;
     height: 100%;
   }
 }
@@ -56,7 +64,7 @@ dialog .logs-wrapper {
   .log-buttongroup {
     display: none;
   }
-  .setting.log-box {
+  .log-box-wrapper {
     grid-column: 1;
   }
 }
@@ -115,4 +123,17 @@ dialog .logs-wrapper {
 .report-problem-instructions {
   text-align: start;
   max-width: 513px;
+}
+
+.log-jump {
+  position: absolute;
+  z-index: 1;
+  inset-block-end: var(--space-sm-fixed);
+  inset-inline-end: var(--space-md-fixed);
+  opacity: 0.85;
+}
+
+.log-jump:hover,
+.log-jump:focus-visible {
+  opacity: 1;
 }

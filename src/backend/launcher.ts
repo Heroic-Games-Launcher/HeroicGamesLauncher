@@ -238,6 +238,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     await gogPresence.setPresence()
   }
 
+  let launchErrorMsg: string | undefined = undefined
+
   const launchResult = await command
     .catch(async (exception) => {
       logError(exception, LogPrefix.Backend)
@@ -245,6 +247,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
         `An exception occurred when launching the game:`
       ])
       await logWriter.logError(exception)
+      launchErrorMsg =
+        exception instanceof Error ? exception.message : String(exception)
 
       return false
     })
@@ -324,7 +328,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     app.exit()
   }
 
-  return { status: launchResult ? 'done' : 'error' }
+  return { status: launchResult ? 'done' : 'error', error: launchErrorMsg }
 }
 
 function filterGameSettingsForLog(
@@ -713,8 +717,8 @@ async function prepareLaunch(
   const umuAvailable =
     (await isInstalled('umu')) || (await getUmuPath()) !== defaultUmuPath
   const useUmu =
-    (await isUmuSupported(gameSettings, false)) ||
-    (gameSettings.steamRuntime && isNative)
+    (!isNative && (await isUmuSupported(gameSettings, false))) ||
+    (isNative && gameSettings.steamRuntime)
 
   if (useUmu && !umuAvailable) {
     await download('umu')
@@ -1091,6 +1095,9 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
       break
     case 'sideload':
       ret.HEROIC_APP_SOURCE = 'sideload'
+      break
+    case 'itchio':
+      ret.HEROIC_APP_SOURCE = 'itchio'
       break
     case 'zoom':
       ret.HEROIC_APP_SOURCE = 'zoom'
@@ -1847,8 +1854,9 @@ function getRunnerCallWithoutCredentials(
     command = libraryManagerMap['legendary'].commandToArgsArray(command)
 
   const modifiedCommand = [...command]
-  // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
-  for (const sensitiveArg of ['--code', '--token']) {
+  // Redact sensitive arguments (Authorization Code for Legendary, token for
+  // GOGDL, password (`-p`)/Steam Guard code for Aurelia)
+  for (const sensitiveArg of ['--code', '--token', '-p', '--guard']) {
     // PowerShell's argument formatting is quite different, instead of having
     // arguments as members of `command`, they're all in one specific member
     // (the one after "-ArgumentList")

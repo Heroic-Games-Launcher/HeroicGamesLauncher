@@ -6,11 +6,13 @@ import {
   getCometVersion,
   getGogdlVersion,
   getLegendaryVersion,
-  getNileVersion
+  getNileVersion,
+  getAureliaVersion
 } from './helperBinaries'
 import { hasExecutable } from './os/path'
 import { formatSystemInfo, getSystemInfo } from './systeminfo'
 import { isIntelMac, isLinuxArm } from 'backend/constants/environment'
+import { loadProtonShortcutsEntries } from './proton_shortcuts'
 
 addListener('abort', (event, id) => {
   callAbortController(id)
@@ -19,11 +21,12 @@ addHandler('getLegendaryVersion', getLegendaryVersion)
 addHandler('getGogdlVersion', getGogdlVersion)
 addHandler('getCometVersion', getCometVersion)
 addHandler('getNileVersion', getNileVersion)
+addHandler('getAureliaVersion', getAureliaVersion)
 addHandler('getSystemInfo', async (e, cache) => getSystemInfo(cache))
 addListener('copySystemInfoToClipboard', async () => {
   const info = await getSystemInfo()
   const formatted = await formatSystemInfo(info)
-  clipboard.writeText(formatted)
+  await clipboard.writeText(formatted)
 })
 addHandler('hasExecutable', async (event, executable) => {
   return hasExecutable(executable)
@@ -36,3 +39,7 @@ addHandler('isIntelMac', () => {
 addHandler('isLinuxArm', () => {
   return isLinuxArm
 })
+
+addHandler('getProtonShortcuts', (e, prefix) =>
+  loadProtonShortcutsEntries(prefix)
+)

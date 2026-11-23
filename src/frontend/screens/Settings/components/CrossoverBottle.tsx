@@ -17,7 +17,7 @@ export default function CrossoverBottle() {
 
   return (
     <TextInputField
-      label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
+      label={t('setting.winecrossoverbottle', 'CrossOver bottle')}
       htmlId="crossoverBottle"
       value={wineCrossoverBottle}
       onChange={(newValue) => setWineCrossoverBottle(newValue)}

@@ -1,8 +1,19 @@
 import { createWriteStream } from 'fs'
-import { chmod, stat, mkdir, readFile, writeFile } from 'fs/promises'
+import {
+  chmod,
+  stat,
+  mkdir,
+  readFile,
+  writeFile,
+  rm,
+  readdir
+} from 'fs/promises'
 import { dirname, join } from 'path'
+import { tmpdir } from 'os'
 import { Readable } from 'stream'
-import { finished } from 'stream/promises'
+import { finished, pipeline } from 'stream/promises'
+
+import { openPromise as openZip } from 'yauzl'
 
 import { setGlobalDispatcher, ProxyAgent } from 'undici'
 
@@ -12,14 +23,24 @@ type DownloadedBinary =
   | 'gogdl'
   | 'nile'
   | 'comet'
+  | 'aurelia'
   | 'epic-integration'
+  | 'butler'
 
 const RELEASE_TAGS = {
   legendary: '0.21.1',
   gogdl: 'v1.3.0',
   nile: 'v1.2.0',
   comet: 'v0.2.0',
-  'epic-integration': 'v0.4'
+  aurelia: 'v0.2.5',
+  'epic-integration': 'v0.4',
+  // butler is distributed via itch.io's broth channel system rather than
+  // GitHub releases; "LATEST" resolves the channel's newest version at
+  // download time, but we pin a version here so reproducible builds get a
+  // known butler and `.release_tags` invalidation works the same way as
+  // for the other binaries.
+  // source: https://broth.itch.zone/butler
+  butler: '15.27.0'
 } as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
@@ -27,6 +48,23 @@ const pathExists = async (path: string): Promise<boolean> =>
     () => true,
     () => false
   )
+
+/**
+ * Extracts a zip archive into `destDir`. yauzl validates every entry name
+ * (rejecting `..` segments, absolute paths and backslashes), so entries can
+ * only write inside `destDir`.
+ */
+async function extractZip(zipPath: string, destDir: string) {
+  const zipfile = await openZip(zipPath, { strictFileNames: true })
+  for await (const entry of zipfile.eachEntry()) {
+    // Directory entries end with '/'; parents are created per file below.
+    if (entry.fileName.endsWith('/')) continue
+    const target = join(destDir, entry.fileName)
+    await mkdir(dirname(target), { recursive: true })
+    const readStream = await zipfile.openReadStreamPromise(entry)
+    await pipeline(readStream, createWriteStream(target))
+  }
+}
 
 async function downloadFile(url: string, dst: string) {
   const response = await fetch(url, {
@@ -183,6 +221,100 @@ async function downloadComet() {
   ])
 }
 
+// butler ships in a zip with the binary plus a couple of sibling shared
+// libraries (libc7zip, butler-runtime). We extract the whole zip into
+// public/bin/<arch>/<platform>/ so butler can resolve those siblings at
+// runtime; archSpecificBinary('butler') still resolves to the binary itself.
+const BUTLER_CHANNELS: Record<
+  'x64' | 'arm64',
+  Partial<Record<SupportedPlatform, string>>
+> = {
+  x64: {
+    linux: 'linux-amd64',
+    darwin: 'darwin-amd64',
+    win32: 'windows-amd64'
+  },
+  arm64: {
+    darwin: 'darwin-arm64',
+    linux: 'linux-arm64'
+  }
+}
+
+async function downloadButlerForChannel(
+  arch: 'x64' | 'arm64',
+  platform: SupportedPlatform,
+  channel: string,
+  version: string
+) {
+  const url = `https://broth.itch.zone/butler/${channel}/${version}/archive/default`
+  console.log('Downloading butler for', platform, arch, 'from', url)
+
+  const tmpZip = join(
+    tmpdir(),
+    `heroic-butler-${arch}-${platform}-${process.pid}.zip`
+  )
+  await downloadFile(url, tmpZip)
+
+  const destDir = join('public', 'bin', arch, platform)
+  await mkdir(destDir, { recursive: true })
+  // Extraction writes into an existing directory; siblings from a previous
+  // download stay put, which is fine since the same set of files just gets
+  // overwritten.
+  await extractZip(tmpZip, join(process.cwd(), destDir))
+  await rm(tmpZip, { force: true })
+
+  if (platform !== 'win32') {
+    const binPath = join(destDir, 'butler')
+    await chmod(binPath, '755').catch(() =>
+      console.warn(`butler binary not found after extract at ${binPath}`)
+    )
+    // Some butler releases ship the 7z native lib without an exec bit.
+    // chmod everything that looks like a butler-shipped helper.
+    for (const name of await readdir(destDir).catch(() => [])) {
+      if (name.startsWith('butler') || name.includes('7z')) {
+        await chmod(join(destDir, name), '755').catch(() => undefined)
+      }
+    }
+  }
+  console.log('Done downloading butler for', platform, arch)
+}
+
+async function downloadButler() {
+  const promises: Promise<void>[] = []
+  for (const [arch, byPlatform] of Object.entries(BUTLER_CHANNELS)) {
+    for (const [platform, channel] of Object.entries(byPlatform)) {
+      if (!channel) continue
+      promises.push(
+        downloadButlerForChannel(
+          arch as 'x64' | 'arm64',
+          platform as SupportedPlatform,
+          channel,
+          RELEASE_TAGS['butler']
+        )
+      )
+    }
+  }
+  await Promise.all(promises)
+}
+
+async function downloadAurelia() {
+  return downloadGithubAssets(
+    'aurelia',
+    'Drackrath/Aurelia',
+    RELEASE_TAGS['aurelia'],
+    {
+      x64: {
+        linux: 'aurelia_linux_x86_64',
+        win32: 'aurelia_windows_x86_64.exe'
+      },
+      arm64: {
+        linux: 'aurelia_linux_arm64',
+        win32: 'aurelia_windows_arm64.exe'
+      }
+    }
+  )
+}
+
 async function downloadEpicIntegration() {
   return downloadGithubAssets(
     'EpicGamesLauncher',
@@ -210,7 +342,15 @@ async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
   try {
     storedTagsParsed = JSON.parse(storedTagsText)
   } catch {
-    return ['legendary', 'gogdl', 'nile', 'comet', 'epic-integration']
+    return [
+      'legendary',
+      'gogdl',
+      'nile',
+      'comet',
+      'aurelia',
+      'epic-integration',
+      'butler'
+    ]
   }
   const binariesToDownload: DownloadedBinary[] = []
   for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {
@@ -253,8 +393,12 @@ async function main() {
   if (binariesToDownload.includes('nile')) promisesToAwait.push(downloadNile())
   if (binariesToDownload.includes('comet'))
     promisesToAwait.push(downloadComet())
+  if (binariesToDownload.includes('aurelia'))
+    promisesToAwait.push(downloadAurelia())
   if (binariesToDownload.includes('epic-integration'))
     promisesToAwait.push(downloadEpicIntegration())
+  if (binariesToDownload.includes('butler'))
+    promisesToAwait.push(downloadButler())
 
   await Promise.all(promisesToAwait)
 

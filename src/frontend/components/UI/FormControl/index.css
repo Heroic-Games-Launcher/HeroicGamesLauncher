@@ -1,6 +1,24 @@
 .FormControl {
   position: relative;
   display: inline-flex;
+  align-items: center;
+  height: var(--field-height);
+  background: var(--field-background);
+  border: 1px solid var(--field-border);
+  border-radius: var(--field-radius);
+  color: var(--field-color);
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.FormControl:hover {
+  border-color: var(--field-border-hover);
+}
+
+.FormControl:focus-within {
+  border-color: var(--field-border-focus);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
 }
 
 .FormControl__button,
@@ -9,12 +27,12 @@
   width: 100%;
   appearance: none;
   background: transparent;
-  font: var(--font-secondary-bold);
-  color: var(--text-secondary);
-  padding: 0 var(--space-lg);
+  font-family: var(--primary-font-family);
+  font-weight: var(--medium);
+  color: var(--field-color);
+  padding: 0 var(--field-padding-inline);
   border: none;
   outline: none;
-  /* box-shadow: 0 4px 4px rgb(0 0 0 / 25%); */
   transition: color 250ms;
 }
 
@@ -22,21 +40,14 @@
   height: 32px;
 }
 
-.FormControl__button:focus-visible,
-.FormControl__select:focus-visible,
-.FormControl__input:focus-visible {
-  outline: none;
-  box-shadow: var(--accent) 0 0 0 2px inset;
-}
-
 .FormControl__select,
 .FormControl__input {
-  font-size: var(--text-md);
-  line-height: var(--space-md);
+  font-size: var(--body-md);
+  line-height: 1.4;
 }
 
 .FormControl__input::placeholder {
-  color: var(--text-secondary);
+  color: var(--field-placeholder);
   opacity: 0.7;
 }
 
@@ -44,12 +55,12 @@
 .FormControl__select:disabled,
 .FormControl__input:disabled {
   cursor: default;
-  color: var(--text-secondary);
+  color: var(--field-color);
   opacity: 0.5;
 }
 
 .FormControl--clearable > input {
-  padding-inline-end: 40px;
+  padding-inline-end: var(--space-3xl-fixed);
 }
 
 .FormControl--hasSideButton > input {
@@ -62,17 +73,27 @@
 
 .FormControl--select > select {
   cursor: pointer;
-  padding-inline-end: 40px;
+  padding-inline-end: var(--space-3xl-fixed);
+}
+
+.FormControl--segmented,
+.FormControl--segmented:hover,
+.FormControl--segmented:focus-within {
+  height: auto;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .FormControl--segmented > button {
   box-sizing: border-box;
   padding: 0 var(--space-sm);
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--body-sm);
   text-transform: uppercase;
   font-weight: var(--semibold);
   color: var(--action-icon);
+  border-radius: 8px;
 }
 
 .FormControl--segmented > button:not(:disabled):hover {
@@ -84,33 +105,26 @@
   color: var(--action-icon-active);
 }
 
-.FormControl--segmented > button:not(:first-child) {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  margin-inline-start: var(--space-xs);
+.FormControl--segmented > button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-.FormControl--segmented > button:not(:last-child) {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+.FormControl--segmented > button:not(:first-child) {
+  margin-inline-start: var(--space-xs);
 }
 
 .FormControl--segmented > button > svg {
   display: block;
 }
 
-.FormControl__segmentedFaIcon {
-  font-size: var(--text-lg);
-  outline: none;
-}
-
-.FormControl--small .FormControl__segmentedFaIcon {
-  height: 16px;
+.FormControl__segmentedLucideIcon {
+  display: block;
 }
 
 .FormControl__sideButton {
   cursor: pointer;
-  font-size: var(--text-lg);
+  font-size: var(--body-lg);
   position: absolute;
   right: 0;
   top: 50%;
@@ -120,12 +134,15 @@
   border: none;
   outline: none;
   background: none;
-  color: var(--text-default);
+  color: var(--field-color);
   border-radius: 10px;
 }
 
 .FormControl__leftButton {
-  padding: var(--space-2xs) var(--space-2xs) 0 var(--space-2xs);
+  display: inline-flex;
+  align-items: center;
+  padding-inline-start: var(--space-sm);
+  color: var(--field-placeholder);
 }
 
 .FormControl__sideButton:focus-visible {
@@ -135,8 +152,11 @@
 
 .FormControl__caret,
 .FormControl__clear {
+  display: inline-flex;
+  align-items: center;
   padding-inline-end: var(--space-md);
   transition: color 250ms;
+  color: var(--field-placeholder);
 }
 
 .FormControl__caret {
@@ -147,11 +167,11 @@
   cursor: pointer;
   border: none;
   background: none;
-  color: var(--text-default);
+  color: var(--field-color);
 }
 
 .FormControl__clear:hover {
-  color: var(--text-hover);
+  color: var(--text-neutral);
 }
 
 .FormControl__clear:active {
@@ -164,11 +184,11 @@
 }
 
 .FormControl__select:hover + .FormControl__caret {
-  color: var(--text-hover);
+  color: var(--text-neutral);
 }
 
 .FormControl__select:disabled + .FormControl__caret {
-  color: var(--text-secondary);
+  color: var(--field-placeholder);
   opacity: 0.5;
 }
 
@@ -182,13 +202,4 @@
 
 .FormControl__button.small {
   max-width: fit-content;
-}
-
-.FormControl--small .FormControl__segmentedFaIcon.brands {
-  height: 24px;
-  fill: var(--text-default);
-}
-
-.FormControl--small .FormControl__segmentedFaIcon.brands.active {
-  fill: var(--accent);
 }

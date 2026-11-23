@@ -97,7 +97,10 @@
         "browse_files": "Pesquisar Ficheiros",
         "browse_wine_prefix": "Pesquisar o Prefixo Wine",
         "play": "JOGAR",
-        "edit-game": "Editar Jogo"
+        "edit-game": "Editar Jogo",
+        "favourite": "Adicionar aos Favoritos",
+        "unfavourite": "Remover dos Favoritos",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Não é suportado",
     "disabled": "Desativado",
@@ -133,7 +136,12 @@
         "modify": "Modificar a Instalação",
         "extra_info": "Informação extra",
         "install_info": "Informação da instalação",
-        "achievements": "Conquistas"
+        "achievements": "Conquistas",
+        "details": "Detalhes do Jogo",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Sobre"
     },
     "gamecard": {
         "moving": "A mover",
@@ -163,7 +171,16 @@
         "installedInfo": "Informação Instalada",
         "protondb-compatibility-info": "Níveis de Compatibilidade com o Proton",
         "steamdeck-compatibility-info": "Compatibilidade com a SteamDeck",
-        "third-party-app": "Gestor de Terceiros"
+        "third-party-app": "Gestor de Terceiros",
+        "genres": "Géneros",
+        "steamdeck": {
+            "unsupported": "Não é suportado",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLCs"
     },
     "install": {
         "disk-space-left": "Espaço Disponível",
@@ -193,7 +210,8 @@
         "playing": {
             "start": "Jogar Agora",
             "stop": "A jogar (Parar)",
-            "start_with_logs": "Jogar Agora (com registo de eventos)"
+            "start_with_logs": "Jogar Agora (com registo de eventos)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sincronizar Progressos Guardados"
@@ -227,7 +245,8 @@
             "launch": "Iniciar o Steam usando Camada de Compatibilidade do Heroic",
             "specificVersion-pt1": "Isso vai fazer o download de uma versão especifica do Steam",
             "specificVersion-pt2": "archive.org"
-        }
+        },
+        "releaseDate": "Data de Lançamento"
     },
     "launch": {
         "options": "Opções de Arranque...",
@@ -281,7 +300,9 @@
     },
     "specs": {
         "minimum": "Mínimo",
-        "recommended": "Recomendado"
+        "recommended": "Recomendado",
+        "notes": "Notas",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Clique para Atualizar",
@@ -328,7 +349,8 @@
         "verify": "Verificar e Reparar",
         "extraInfo": "Informação extra",
         "logs": "Registos de Eventos",
-        "categories": "Categorias"
+        "categories": "Categorias",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Este jogo não suporta a cópia de progressos guardados na nuvem. Esta informação é fornecida pelos programadores do jogo. Alguns jogos implementam o seu próprio sistema de cópia de progressos guardados na nuvem",
@@ -381,5 +403,19 @@
             "square": "Imagem quadrada"
         },
         "square": "Arte quadrada"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Conquistas",
+            "dlc": "DLC (Conteúdos Descarregáveis)",
+            "installInfo": "Tamanho do Descarregamento",
+            "launchOptions": "Opções de execução",
+            "storeInfo": "Informações do Sistema"
+        }
     }
 }

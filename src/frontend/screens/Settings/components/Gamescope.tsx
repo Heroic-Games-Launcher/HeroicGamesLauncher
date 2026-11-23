@@ -1,6 +1,7 @@
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
+  Alert,
   SelectField,
   TextInputField,
   ToggleSwitch,
@@ -77,32 +78,32 @@ const Gamescope = () => {
 
   if (!isInstalled) {
     return (
-      <div style={{ color: 'red' }}>
+      <Alert variant="error">
         {window.isFlatpak
           ? t(
               'setting.gamescope.warningFlatpak',
-              "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic.",
+              "We could not find a compatible version of gamescope. Install gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic.",
               { runtimeVersion: window.flatpakRuntimeVersion }
             )
           : t(
               'setting.gamescope.missingMsg',
               'We could not find gamescope on the PATH. Install it or add it to the PATH.'
             )}
-      </div>
+      </Alert>
     )
   }
 
   const upscaleMethods = [
     { name: 'AMD FidelityFX™ Super Resolution 1.0 (FSR)', value: 'fsr' },
     {
-      name: t('options.gamescope.nis', 'NVIDIA Image Scale (NIS)'),
+      name: t('options.gamescope.nis', 'NVIDIA image scale (NIS)'),
       value: 'nis'
     },
     {
       name: t('options.gamescope.interger', 'Interger Upscale'),
       value: 'integer'
     },
-    { name: t('options.gamescope.stretch', 'Stretch Image'), value: 'stretch' }
+    { name: t('options.gamescope.stretch', 'Stretch image'), value: 'stretch' }
   ]
 
   const windowTypes = [
@@ -133,7 +134,7 @@ const Gamescope = () => {
               enableUpscaling: !gamescope.enableUpscaling
             })
           }
-          title={t('setting.gamescope.enableUpscaling', 'Enables Upscaling')}
+          title={t('setting.gamescope.enableUpscaling', 'Enables upscaling')}
         />
       </div>
       {/* Upscale Settings */}
@@ -168,7 +169,7 @@ const Gamescope = () => {
           {/* Game Res */}
           <div className="row">
             <TextInputField
-              label={t('options.gamescope.gameWidth', 'Game Width')}
+              label={t('options.gamescope.gameWidth', 'Game width')}
               htmlId="gameWidth"
               placeholder=""
               maxLength={4}
@@ -190,7 +191,7 @@ const Gamescope = () => {
             />
 
             <TextInputField
-              label={t('options.gamescope.gameHeight', 'Game Height')}
+              label={t('options.gamescope.gameHeight', 'Game height')}
               htmlId="gameHeight"
               placeholder=""
               maxLength={4}
@@ -214,7 +215,7 @@ const Gamescope = () => {
           {/* Upscale Res */}
           <div className="row">
             <TextInputField
-              label={t('options.gamescope.upscaleWidth', 'Upscale Width')}
+              label={t('options.gamescope.upscaleWidth', 'Upscale width')}
               htmlId="upscaleWidth"
               placeholder=""
               maxLength={4}
@@ -237,7 +238,7 @@ const Gamescope = () => {
             />
 
             <TextInputField
-              label={t('options.gamescope.upscaleHeight', 'Upscale Height')}
+              label={t('options.gamescope.upscaleHeight', 'Upscale height')}
               htmlId="upscaleHeight"
               placeholder=""
               maxLength={4}
@@ -290,14 +291,14 @@ const Gamescope = () => {
               enableLimiter: !gamescope.enableLimiter
             })
           }
-          title={t('setting.gamescope.enableLimiter', 'Enable FPS Limiter')}
+          title={t('setting.gamescope.enableLimiter', 'Enable FPS limiter')}
         />
       </div>
       {/* FPS Limiter Settings */}
       {gamescope.enableLimiter && (
         <div className="row">
           <TextInputField
-            label={t('options.gamescope.fpsLimiter', 'FPS Limiter')}
+            label={t('options.gamescope.fpsLimiter', 'FPS limiter')}
             htmlId="fpsLimiter"
             placeholder=""
             maxLength={3}
@@ -321,7 +322,7 @@ const Gamescope = () => {
           <TextInputField
             label={t(
               'options.gamescope.fpsLimiterNoFocus',
-              'FPS Limiter (No Focus)'
+              'FPS limiter (no focus)'
             )}
             htmlId="fpsLimiterNoFocus"
             placeholder=""
@@ -358,19 +359,19 @@ const Gamescope = () => {
           }
           title={t(
             'setting.gamescope.enableForceGrabCursor',
-            'Enable Force Grab Cursor'
+            'Enable force grab cursor'
           )}
         />
         <InfoIcon
           text={t(
             'help.gamescope.forceGrabCursor',
-            'Always use relative mouse mode instead of flipping dependent on cursor visibility. (Useful for when applications keep losing focus)'
+            'Always use relative mouse mode instead of flipping dependent on cursor visibility. (useful for when applications keep losing focus)'
           )}
         />
       </div>
       {/* Additional Options */}
       <TextInputField
-        label={t('options.gamescope.additionalOptions', 'Additional Options')}
+        label={t('options.gamescope.additionalOptions', 'Additional options')}
         htmlId="additionalOptions"
         placeholder=""
         value={additionalOptions}

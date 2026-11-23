@@ -1,0 +1,52 @@
+.Checkbox.MuiCheckbox-root {
+  padding: var(--space-2xs);
+  border-radius: 8px;
+}
+
+.Checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1.5px solid color-mix(in oklab, var(--text-default) 42%, transparent);
+  background: transparent;
+  color: transparent;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.Checkbox__box svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 3;
+}
+
+.Checkbox__box--checked {
+  border-color: var(--accent);
+  background: var(--accent);
+  /* Check mark ink that stays legible on any theme's accent: black on light
+     accents, white on dark ones (same technique as --ink-on-accent, but keyed
+     to --accent since that is the fill colour here). */
+  color: oklch(from var(--accent) clamp(0, (0.62 - l) * 1000, 1) 0 h);
+}
+
+.Checkbox.MuiCheckbox-root:hover .Checkbox__box {
+  border-color: var(--text-default);
+}
+
+.Checkbox.MuiCheckbox-root:hover .Checkbox__box--checked {
+  border-color: var(--accent);
+}
+
+.Checkbox.MuiCheckbox-root.Mui-focusVisible .Checkbox__box {
+  outline: 2px solid color-mix(in oklab, var(--accent) 45%, transparent);
+  outline-offset: 2px;
+}
+
+.Checkbox.MuiCheckbox-root.Mui-disabled {
+  opacity: 0.5;
+}

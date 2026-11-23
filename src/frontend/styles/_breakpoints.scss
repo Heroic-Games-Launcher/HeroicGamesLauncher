@@ -1,0 +1,41 @@
+$window-min: 600px;
+$window-compact: 720px;
+$window-default: 840px;
+$window-wide: 1080px;
+$window-ultrawide: 1440px;
+
+@mixin for-compact-window {
+  @media (max-width: $window-compact) {
+    @content;
+  }
+}
+
+@mixin for-default-window {
+  @media (max-width: $window-default) {
+    @content;
+  }
+}
+
+@mixin for-wide-window {
+  @media (max-width: $window-wide) {
+    @content;
+  }
+}
+
+@mixin for-default-up {
+  @media (min-width: $window-default) {
+    @content;
+  }
+}
+
+@mixin for-wide-up {
+  @media (min-width: $window-wide) {
+    @content;
+  }
+}
+
+@mixin for-ultrawide-up {
+  @media (min-width: $window-ultrawide) {
+    @content;
+  }
+}

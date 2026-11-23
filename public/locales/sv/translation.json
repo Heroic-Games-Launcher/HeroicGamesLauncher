@@ -11,7 +11,13 @@
         "actions_font_family_default": "Typsnitt för åtgärder (standard: {{fontFamily}})",
         "content_font_family_default": "Typsnitt för innehåll (standard: {{fontFamily}})",
         "disable_smooth_scrolling": "Inaktivera mjuk rullning (kräver omstart)",
-        "disable_animations": "Inaktivera gränssnittsanimationer"
+        "disable_animations": "Inaktivera gränssnittsanimationer",
+        "section": {
+            "library": "Bibliotek",
+            "motion": "Rörelse och interaktion",
+            "appearance": "Utseende"
+        },
+        "subtitle": "Anpassa hur Heroic ser ut och fungerar"
     },
     "add_game": "Lägg till spel",
     "All": "Alla",
@@ -22,7 +28,8 @@
         "source": "Källa",
         "status": "Status",
         "title": "Spelet innehåller antifuskprogramvara",
-        "multiplayer_may_not_work": "Flerspelarfunktioner kanske inte fungerar på grund av nekat eller trasigt antifuskstöd."
+        "multiplayer_may_not_work": "Flerspelarfunktioner kanske inte fungerar på grund av nekat eller trasigt antifuskstöd.",
+        "removed": "Anticheat har tagits bort"
     },
     "box": {
         "cache-cleared": {
@@ -64,7 +71,7 @@
             },
             "generic": {
                 "message": "Allmänt felmeddelande",
-                "title": "Välj EXE-fil att köra"
+                "title": "Välj exekverbar fil att köra"
             },
             "launchAborted": "Start avbröts",
             "title": "Fel",
@@ -101,9 +108,15 @@
             },
             "remove": {
                 "steam": {
-                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}"
+                    "body": "Det gick inte att ta bort {{game}} från Steam:{{newLine}} {{error}}",
+                    "title": "Fel vid borttagning av spel från Steam"
                 }
-            }
+            },
+            "steam": {
+                "running": "Steam körs. Stäng Steam och försök igen, eller starta om Steam en gång så att Heroic kan hantera genvägar medan Steam körs.",
+                "running-gamemode": "Steam måste startas om en gång innan Heroic kan hantera Steam-genvägar på den här enheten. Starta om Steam och försök igen."
+            },
+            "steam-running": "Steam körs. Stäng Steam och försök sedan igen."
         },
         "info": {
             "update": {
@@ -182,6 +195,12 @@
             "rosetta": {
                 "message": "Heroic kräver Rosetta för att fungera korrekt på Mac-datorer med Apple Silicon. Installera Rosetta från macOS-terminalen med följande kommando: \"softwareupdate --install-rosetta\" och starta om Heroic. ",
                 "title": "Rosetta hittades inte"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "Heroic upptäckte att den körbara filen för ”{{title}}” är ett installationsprogram ({{exe}}).\n\nHeroic försöker köra det tyst och installera spelet i:\n{{path}}\n\nOm spelet inte startar efteråt öppnar du spelinställningar > avancerat > alternativ EXE och väljer den faktiska körbara filen för spelet.\n\nFortsätt att starta?",
+                    "title": "Installationsprogram upptäckt"
+                }
             }
         },
         "wineprefix": "Välj mapp för Wine-prefix",
@@ -190,7 +209,21 @@
         "choose-nile-binary": "Välj Nile-binärfil",
         "update": "Uppdatera",
         "changelog": "Ändringslogg",
-        "postpone": "Skjut upp"
+        "postpone": "Skjut upp",
+        "cancel": "Avbryt",
+        "choose-aurelia-binary": "Välj binärfil för Aurelia",
+        "steam": {
+            "cloudConflict": {
+                "keepCloud": "Använd molnsparning",
+                "keepLocal": "Använd lokal sparning",
+                "message": "Molnsparningen och den lokala sparningen för {{game}} har avvikit från varandra. Välj vilken kopia som ska behållas:\n\n{{files}}",
+                "title": "Konflikt i Steam-molnsparning"
+            },
+            "cloudIncomplete": {
+                "message": "Alla molnsparningar för {{game}} kunde inte hämtas, så sparningarna på den här datorn är ofullständiga. Om du spelar nu kan de saknade framstegen i molnet skrivas över.\n\n{{details}}",
+                "title": "Ofullständiga Steam-molnsparningar"
+            }
+        }
     },
     "button": {
         "cancel": "Avbryt",
@@ -199,7 +232,9 @@
         "sync": "Synkronisering",
         "syncing": "Synkroniserar",
         "unsync": "Avbryt synkronisering",
-        "continue": "Fortsätt"
+        "continue": "Fortsätt",
+        "close": "Stäng",
+        "backToLibrary": "Tillbaka till biblioteket"
     },
     "controller": {
         "hints": {
@@ -222,7 +257,9 @@
             "exit": "Avsluta",
             "next_page": "Nästa sida",
             "previous_page": "Föregående sida",
-            "search": "Sök"
+            "search": "Sök",
+            "move_focus": "Flytta fokus",
+            "url_bar": "Adressfält"
         }
     },
     "docs": "Dokumentation",
@@ -233,7 +270,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Nedladdning"
+            "speed": "Nedladdning",
+            "unit": "MB/s"
         },
         "link": "Nedladdningar",
         "queue": {
@@ -243,20 +281,35 @@
             "type": "Typ"
         },
         "title": "Nedladdningar",
-        "ETA": "Beräknad tid"
+        "ETA": "Beräknad tid",
+        "empty": {
+            "queue": {
+                "description": "Hämtningar som du startar medan en annan körs väntar här.",
+                "title": "Kön är tom"
+            },
+            "current": "Spel som du installerar eller uppdaterar visar sina förlopp här."
+        },
+        "pageSubtitle": "Det som installeras nu, det som står näst på tur och det som redan är klart",
+        "limit": {
+            "label": "Hämtningsgräns",
+            "unlimited": "Obegränsad"
+        }
     },
     "epic": {
         "offline-notification-body": "Onlinetjänster kanske inte fungerar korrekt då Epics servrar är nere för tillfället!",
         "offline-notification-title": "Offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Fel",
+    "error": {
+        "recovery": "Det löser sig oftast om du uppdaterar biblioteket. Att rensa cachen eller återställa Heroic är nästa steg om det inte gör det."
+    },
     "favourites": "Favoriter",
     "game": {
         "status": "Status",
         "store": "Butik",
         "title": "Speltitel",
-        "modify": "Ändra installation"
+        "modify": "Ändra installation",
+        "settings": "Spelinställningar"
     },
     "generic": {
         "error": {
@@ -292,7 +345,13 @@
         "categories": "Kategorier",
         "show_support_offline_only": "Visa endast spel med offlinestöd",
         "show_third_party_managed_only": "Visa endast spel som hanteras av tredje part",
-        "show_updates_only": "Visa endast spel med uppdateringar"
+        "show_updates_only": "Visa endast spel med uppdateringar",
+        "platforms": "Platform",
+        "stores": "Butiker",
+        "display": "Visa",
+        "hidden": "Dold",
+        "non_available": "Inte tillgänglig",
+        "show_steam_owned_only": "Visa endast Steam-spel som ägs"
     },
     "help": {
         "amdfsr": "AMD FSR kan öka bildfrekvensen genom att skala upp lägre upplösningar i helskärmsläge. Bildkvalitetsläget går från 5 till 1, där högre kvalitet innebär en mindre prestandaförlust. Aktivering kan förbättra prestandan.",
@@ -379,8 +438,10 @@
         "wine-wayland": "Den experimentella Wine-Wayland-drivrutinen låter spel köras direkt med Wayland-visningsprotokollet. Aktivering kan orsaka problem i vissa spel.",
         "WoW64": "Wine WoW64-läget gör att 32-bitars Windows-spel kan köras med 64-bitars Wine. Aktivering kan förbättra prestandan, men kan också göra att äldre 32-bitars spel slutar fungera.",
         "nvidiaprime": {
-            "details": "Använd dedikerat grafikkort för att rendera spel på multi-GPU system. Behövs endast på laptop eller stationära datorer som använder en headless GPU för rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Använd dedikerat grafikkort för att rendera spel på multi-GPU system. Behövs endast på laptop eller stationära datorer som använder en headless GPU för rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Läs mer i vår wiki"
+        },
+        "hide-window-on-protocol-launch": "Håller Heroic-fönstret dolt när ett spel startas från en extern genväg, till exempel med funktionen ”Lägg till i Steam”."
     },
     "info": {
         "heroic": {
@@ -427,7 +488,9 @@
             "list": "Växla till listvy"
         },
         "hideAlphabetFilter": "Dölj alfabetsfilter",
-        "showAlphabetFilter": "Visa alfabetsfilter"
+        "showAlphabetFilter": "Visa alfabetsfilter",
+        "gamesCount_one": "{{count}} spel",
+        "gamesCount_other": "{{count}} spel"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -441,7 +504,28 @@
         "message": "Logga in på önskad plattform. Du kan vara inloggad på fler än en plattform samtidigt.",
         "amazon": "Amazon-inloggning",
         "old-mac": "Din macOS-version är {{version}}. macOS 12 eller senare krävs för att logga in.",
-        "zoom": "Zoom-inloggning"
+        "zoom": "Zoom-inloggning",
+        "itchio": "",
+        "button": "Logga in",
+        "logout_confirm": {
+            "message": "Är du säker att du vill logga ut?",
+            "title": "Logga ut"
+        },
+        "title_amazon": "Amazon-Spel",
+        "title_epic": "Epic Games",
+        "title_gog": "GOG",
+        "browse_store": "Bläddra i butiken",
+        "description_amazon": "Hämta och spela spel med Amazon Prime Gaming.",
+        "description_epic": "Köp och spela spel från Epic Games Store.",
+        "description_gog": "Köp och spela DRM-fria spel från GOG.com.",
+        "description_itchio": "Upptäck och spela indiespel från itch.io.",
+        "description_steam": "Köp och spela spel från Steam.",
+        "description_zoom": "Köp och spela DRM-fria spel från Zoom Platform.",
+        "gog_support": "GOG-affiliatlänkar är inaktiverade. Aktivera dem för att stödja Heroic när du köper spel här.",
+        "logged_in_as": "Inloggad som",
+        "title_itchio": "itch.io",
+        "title_steam": "Steam",
+        "title_zoom": "Zoom Platform"
     },
     "message": {
         "sync": "Synkronisering slutförd",
@@ -457,26 +541,28 @@
                 "steam": {
                     "corrupt": "{{game}} kunde inte läggas till för alla hittade Steam-användare. Se loggar för mer information. En omstart av Steam krävs för att ändringarna ska träda i kraft.",
                     "success": "{{game}} lades till i Steam. En omstart av Steam krävs för att ändringar ska träda i kraft.",
-                    "title": "Lades till i Steam"
+                    "title": "Lades till i Steam",
+                    "success-no-restart": "{{game}} har lagts till i Steam."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} kunde inte tas bort från alla hittade Steam-användare. Se loggar för mer information. En omstart av Steam krävs för att ändringarna ska träda i kraft.",
                     "success": "{{game}} togs bort från Steam. En omstart av Steam krävs för att ändringar ska träda i kraft.",
-                    "title": "Togs bort från Steam"
+                    "title": "Togs bort från Steam",
+                    "success-no-restart": "{{game}} har tagits bort från Steam."
                 }
             },
             "reparing": "Reparationen slutförd"
         },
         "install": {
             "canceled": "Installation avbruten",
-            "error": "Installation misslyckades",
+            "error": "Installationen misslyckades",
             "finished": "Installation slutförd",
             "imported": "Spelet importerades",
             "startInstall": "Installation påbörjad",
             "failed": "Installationen misslyckades",
-            "paused": "Installation pausad"
+            "paused": "Installationen misslyckades"
         },
         "moved": "Flytten slutförd",
         "moving": "Flyttar spel",
@@ -490,7 +576,7 @@
             "finished": "Uppdatering slutförd",
             "started": "Uppdatering påbörjad",
             "failed": "Uppdateringen misslyckades",
-            "paused": "Uppdatering pausad"
+            "paused": "Uppdateringen har pausats"
         },
         "import": {
             "failed": "Importen misslyckades"
@@ -501,7 +587,8 @@
         "ignore": "Ignorera",
         "offline": "Offline",
         "offline-retry-in": "Offline. Försöker igen om {{seconds}} sekunder.",
-        "retrying": "Försöker igen"
+        "retrying": "Försöker igen",
+        "hint-label": "Information om anslutningskontrollen"
     },
     "Open": "Öppna",
     "options": {
@@ -510,16 +597,22 @@
             "placeHolderKey": "NAMN",
             "placeHolderValue": "T.ex.: Sökväg/till/extrafiler",
             "title": "Miljövariabler",
-            "value": "Värde"
+            "value": "Värde",
+            "placeHolderV": "VÄRDE"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Variabelnamn kan inte vara tomt",
                 "equal_sign_in_key": "Variabelnamn får inte innehålla tecknet \"=\"",
-                "space_in_key": "Variabelnamn får inte innehålla mellanslag"
+                "space_in_key": "Variabelnamn får inte innehålla mellanslag",
+                "duplicate_key": "Det finns redan en variabel med det här namnet"
             },
             "example": "Ta INTE med tecknet \"=\". För en inställning som \"MIN_FLAGGA=123\" anger du till exempel MIN_FLAGGA som NAMN och 123 som VÄRDE.",
-            "info": "Ställ in miljövariabler som ska läggas till kommandot."
+            "info": "Ställ in miljövariabler som ska läggas till kommandot.",
+            "clear_all_confirm": "Vill du verkligen rensa alla miljövariabler?",
+            "add_new": "Lägg till variabel",
+            "bulk_edit": "Massredigera",
+            "bulk_edit_error": "Vissa variabler är felaktiga. Kontrollera att alla rader följer formatet NYCKEL=VÄRDE."
         },
         "gameargs": {
             "placeholder": "Ange argument för startprogrammet",
@@ -558,7 +651,8 @@
         "gogdl-version": "GOGDL-version: ",
         "legendary-version": "Legendary-version: ",
         "weblate": "Hjälp till att översätta Heroic.",
-        "nile-version": "Nile-version: "
+        "nile-version": "Nile-version: ",
+        "aurelia-version": "Aurelia-version: "
     },
     "Other": "Övrigt",
     "placeholder": {
@@ -568,7 +662,8 @@
         "dxvkfpsvalue": "Positivt heltalsvärde (t.ex. 30, 60, ...)",
         "egs-prefix": "Prefix där EGS är installerat",
         "prefered_language": "Språkkod med 2 eller 4 tecken (t.ex. \"fr\" eller \"pt-BR\")",
-        "alt-nile-bin": "Använder inbyggd Nile-binärfil..."
+        "alt-nile-bin": "Använder inbyggd Nile-binärfil...",
+        "alt-aurelia-bin": "Använder inbyggd Legendary version..."
     },
     "platforms": {
         "linux": "Linux",
@@ -588,7 +683,8 @@
             "queued": "Köad",
             "remove": "Ta bort från nedladdningar",
             "pause": "Pausa nedladdningen",
-            "resume": "Återuppta nedladdning"
+            "resume": "Återuppta nedladdning",
+            "paused": "Pausad"
         }
     },
     "Recent": "Nyligen spelade",
@@ -635,7 +731,8 @@
             "removeConfirm": "Är du säker på att du vill avinstallera EOS Overlay?",
             "removeConfirmTitle": "Bekräfta borttagning av Overlay",
             "updateNow": "Uppdatera",
-            "updating": "Uppdaterar..."
+            "updating": "Uppdaterar...",
+            "description": "Epics spelöverlägg, som krävs av vissa Epic-spel för vänner och prestationer"
         },
         "esync": "Aktivera Esync",
         "exit-to-tray": "Avsluta till systemfältet",
@@ -695,9 +792,14 @@
                 "heroic": "Allmän Heroic-logg",
                 "legendary": "Epic Games-/Legendary-logg",
                 "nile": "Amazon-/Nile-logg",
-                "zoom": "Zoom-logg"
+                "zoom": "Zoom-logg",
+                "itchio": "itch.io-logg",
+                "steam": "Steam-/Aurelia-logg"
             },
-            "show-uploads": "Visa uppladdade loggfiler"
+            "show-uploads": "Visa uppladdade loggfiler",
+            "error": "Internt fel vid läsning av loggfil",
+            "jump-to-start": "Gå till början av loggen",
+            "jump-to-end": "Gå till slutet av loggen"
         },
         "mangohud": "Aktivera MangoHUD (MangoHUD måste vara installerat)",
         "manualsync": {
@@ -717,12 +819,15 @@
         "preferSystemLibs": "Föredra systemets bibliotek",
         "runexe": {
             "message": "Drag och släpp filer här",
-            "title": "Kör EXE-fil i prefixet"
+            "title": "Kör EXE-fil i prefixet",
+            "description": "Kör valfri körbar fil i det här prefixet, till exempel ett installationsprogram"
         },
         "savefolder": {
             "not-found": "Mappen för sparfiler hittades inte. Ange sökvägen manuellt (eller klicka för att försöka igen).",
             "placeholder": "Ange exakt mapp för sparfiler",
-            "warning": "Dubbelkolla att sökvägen är korrekt (klicka för att försöka igen)"
+            "warning": "Dubbelkolla att sökvägen är korrekt (klicka för att försöka igen)",
+            "retry": "Identifiera igen",
+            "title": "Mapp för sparfiler"
         },
         "select_theme": "Välj tema",
         "showfps": "Visa FPS (DX9, 10 och 11)",
@@ -773,7 +878,8 @@
             "label": "Tillåt installation av spel med trasigt eller nekat antifusk"
         },
         "verboseLogs": {
-            "description": "Aktivera detaljerade loggar"
+            "description": "Aktivera detaljerade loggar",
+            "hint": "Registrera en detaljerad logg vid varje start, vilket är användbart när du rapporterar problem"
         },
         "disableUMU": "Inaktivera umu",
         "custom_css": {
@@ -810,12 +916,115 @@
         "steamRuntime": {
             "label": "Använd Steam Runtime",
             "noRuntimeOption": "Ingen"
-        }
+        },
+        "tools": {
+            "open": "Öppna",
+            "selectExe": "Ange programfil",
+            "running": "Kör..."
+        },
+        "minimizeOnLaunch": {
+            "description": "Skicka Heroic till bakgrunden när ett spel startar"
+        },
+        "autodxvk-description": "Översätt DirectX 9-, 10- och 11-anrop till Vulkan för bättre prestanda",
+        "framelessWindow": {
+            "description": "Dölj den inbyggda titelraden och använd Heroics egna fönsterkontroller"
+        },
+        "start-in-console-mode-description": "Öppna Heroic i gränssnittet för storbildsläge, som är byggt för handkontroller",
+        "msync-description": "Snabba upp flertrådade spel med macOS-synkroniseringsprimitiver",
+        "winecfg": {
+            "description": "Öppna Wine-konfigurationspanelen för det här prefixet"
+        },
+        "experimental_features_description": {
+            "enableHelp": "Visa en hjälppanel i appen som förklarar inställningen du håller pekaren över",
+            "cometSupport": "Aktivera GOG Galaxy-funktioner som prestationer och flerspelarläge",
+            "zoomPlatform": "Lägg till Zoom Platform-butiken i ditt bibliotek"
+        },
+        "autoUpdateGames-description": "Hämta speluppdateringar så snart de släpps",
+        "analytics": {
+            "description": "Dela anonym användningsdata för att hjälpa till att förbättra Heroic"
+        },
+        "nvidiaPrime": {
+            "description": "Kör spelet på det dedikerade NVIDIA-GPU:n i stället för den integrerade"
+        },
+        "gamepad-repeat-frequency": "Upprepningsfrekvens för handkontrollsinmatning",
+        "fsync-description": "Snabba upp flertrådade spel med synkronisering via futex",
+        "hide-window-on-protocol-launch": "Dölj Heroic-fönstret när spel startas från heroic://-länkar",
+        "winetricks": {
+            "description": "Installera Windows-bibliotek och komponenter i det här prefixet"
+        },
+        "wow64": {
+            "description": "Kör 32-bitars spel i ett 64-bitars prefix utan att behöva ett separat prefix"
+        },
+        "hdr-description": "Kör spelet via Wayland så att HDR-utmatning kan användas",
+        "showfps-description": "Visa en bildfrekvensräknare ovanpå spelet",
+        "hideChangelogsOnStartup-description": "Hoppa över versionsinformationen som visas efter Heroic-uppdateringar",
+        "disableGOGAffiliate": "Inaktivera GOG-affiliatlänk",
+        "allow-broken-anticheat": {
+            "description": "Installera spel även när deras anticheat är känt för att inte fungera på det här systemet"
+        },
+        "autovkd3d-description": "Översätt DirectX 12-anrop till Vulkan",
+        "disableController": {
+            "description": "Sluta låta Heroic reagera på handkontrollsinmatning"
+        },
+        "addgamestosteam-description": "Skapa en Steam-genväg varje gång ett spel installeras",
+        "mangohud-description": "Visa ett överlägg med bildfrekvens, temperaturer och systembelastning",
+        "advertiseAvxForRosetta-description": "Informera spel om att AVX är tillgängligt, vilket krävs av vissa titlar under Rosetta",
+        "ignoreGameUpdates-description": "Uppdatera aldrig det här spelet, även när en ny version är tillgänglig",
+        "nvidiaprime": {
+            "description": "Tvinga användning av NVIDIA Optimus eller AMD:s dynamiskt växlingsbara dGPU. Använd ENDAST detta för OpenGL- och Vulkan-spel."
+        },
+        "autodxvknvapi-description": "Exponera NVIDIA-funktioner som DLSS för spel som körs via DXVK",
+        "disableDiscounts": "Inaktivera erbjudandesidan",
+        "exit-to-tray-description": "Låt Heroic fortsätta köra i systemfältet i stället för att avslutas",
+        "playtimeSync": {
+            "description": "Håll den registrerade speltiden synkroniserad med butiken"
+        },
+        "dxfpslimit-description": "Begränsa bildfrekvensen för DirectX-spel för att minska värmeutveckling och strömförbrukning",
+        "gamepad-initial-repeat-delay": "Initial upprepningsfördröjning för handkontrollsinmatning",
+        "darktrayicon": {
+            "description": "Använd den mörka varianten av systemfältsikonen, som passar bättre på ljusa paneler"
+        },
+        "download-no-https-description": "Hoppa över HTTPS vid hämtning av spelfiler, användbart med en lokal CDN-cache",
+        "discordRPC-description": "Visa spelet du spelar på din Discord-profil",
+        "preferSystemLibs-description": "Använd biblioteken som är installerade på systemet i stället för de medföljande",
+        "esync-description": "Snabba upp flertrådade spel med synkronisering via eventfd",
+        "disable-gog-presence": {
+            "description": "Sluta dela vilket GOG-spel du spelar med dina vänner"
+        },
+        "enableFSRHack-description": "Rendera spelet med lägre upplösning och skala upp det för att få fler bildrutor",
+        "offlinemode-description": "Starta det här spelet utan att ansluta till butiken",
+        "checkForUpdatesOnStartup-description": "Sök efter en ny Heroic-version varje gång appen öppnas",
+        "disableUMU-description": "Starta Proton direkt i stället för via umu-startprogrammet",
+        "gamemode-description": "Be systemet prioritera spelet medan det körs",
+        "alt-aurelia-bin": "Ange alternativ Legendary version",
+        "steamLaunchTarget": {
+            "downloadBuild": "Nedladdning",
+            "missingBuild": "Nedladdning",
+            "missingRuntime": "Steam-körtidsmiljön är inte installerad",
+            "automatic": "Automatisk",
+            "fallback": "Fram till dess används Spela",
+            "host": "Värdsystemets Steam",
+            "info": {
+                "host": "Värdsystemets Steam: startar den installerade Steam-klienten tyst i bakgrunden. Krävs för onlinespel, flerspelarläge och DRM.",
+                "none": "Utan Steam: startar spelet utan Steam. Onlinefunktioner och DRM-skyddade spel kanske inte fungerar.",
+                "runtime": "Steam-körtidsmiljö i Wine: kör en separat Steam-klient i Wine när Steam inte är installerat på systemet."
+            },
+            "installRuntime": "Installera Steam-körtidsmiljö",
+            "native": "Inbyggd",
+            "none": "Utan Steam",
+            "runtime": "Steam-körtidsmiljö i Wine",
+            "title": "Spelversion att starta"
+        },
+        "addgamestoapplications-description": "Skapa en programgenväg varje gång ett spel installeras.",
+        "addgamestosteam-real-description": "Lägg till varje installerat spel som en genväg i Steam-biblioteket.",
+        "disableGOGAffiliateDescription": "Att köpa GOG-spel via Heroic hjälper till att stödja projektet.",
+        "maxworkers-description": "Fler arbetare hämtar snabbare men använder mer processor- och nätverkskapacitet. Max använder alla kärnor."
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Installerar BattlEye-körmiljön...",
-            "name": "BattlEye AntiCheat-körmiljö"
+            "name": "BattlEye AntiCheat-körmiljö",
+            "hint": "Installera den körtidsmiljö som krävs av spel som skyddas av BattlEye"
         },
         "clear-cache": "Rensa Heroics cache",
         "copiedToClipboard": "Kopierat till urklipp!",
@@ -827,7 +1036,8 @@
                 "title": "GameMode krävs"
             },
             "installing": "Installerar EAC-körmiljön...",
-            "name": "EasyAntiCheat-körmiljö"
+            "name": "EasyAntiCheat-körmiljö",
+            "hint": "Installera den körtidsmiljö som krävs av spel som skyddas av EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -848,7 +1058,9 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformation",
             "gamescope": "Gamescope",
-            "legacy": "Äldre"
+            "legacy": "Äldre",
+            "categories": "Kategorier",
+            "tabs": "Inställningsavsnitt"
         },
         "open-config-file": "Öppna konfigurationsfilen",
         "reset-heroic": "Återställ Heroic",
@@ -879,7 +1091,10 @@
             "copyToClipboard": "Kopiera till urklipp",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "memoryUsage": "{{usedGib}} av {{totalGib}}",
+            "cpuCores": "{{numOfCores}} kärnor",
+            "memoryPercent": "{{percentUsed}} % används"
         },
         "experimental_features": {
             "title": "Experimentella funktioner"
@@ -901,15 +1116,21 @@
                 "help10": "Heroic-konfiguration",
                 "help3": "Legendary-biblioteksinformation (spellista, information i installationsdialogrutan, spelinformation)",
                 "help4": "GOG-biblioteksinformation (spellista, information i installationsdialogrutan, API-information, t.ex. krav)",
-                "help9": "Spelinställningar"
+                "help9": "Spelinställningar",
+                "description": "Tar bort cachelagrade spel- och butiksdata så att Heroic hämtar dem igen. Dina spel, inloggningar och inställningar behålls."
             },
             "title": {
                 "resetHeroic": "Återställ Heroic",
-                "clearCache": "Rensa cache"
+                "clearCache": "Rensa cache",
+                "clearImagesCache": "Rensa bildcache"
             },
             "details": "Detaljer",
             "resetHeroic": {
-                "help": "Alla inställningar och cachedata tas bort, men installerade spel och dina Epic-inloggningsuppgifter behålls. Portabla versioner (AppImage, WinPortable, ...) av Heroic måste startas om manuellt efteråt."
+                "help": "Alla inställningar och cachedata tas bort, men installerade spel och dina Epic-inloggningsuppgifter behålls. Portabla versioner (AppImage, WinPortable, ...) av Heroic måste startas om manuellt efteråt.",
+                "description": "Återställer Heroic till standardinställningarna. Installerade spel och butiksinloggningar behålls."
+            },
+            "clearImagesCache": {
+                "description": "Tar endast bort hämtad omslagsgrafik så att den hämtas på nytt, med hastighetsbegränsning."
             }
         },
         "custom_css": {
@@ -926,20 +1147,55 @@
             "help": {
                 "description": "Ange din egen API-nyckel för SteamGridDB för att aktivera sökning efter spelomslag. Nyckeln lagras krypterad om systemet stöder det. Du kan hämta en på {{url}}"
             }
-        }
+        },
+        "section": {
+            "downloads": "Nedladdningar",
+            "experimental": "Experimentella funktioner",
+            "launch": "Startalternativ",
+            "wineTools": "Verktyg",
+            "wineVersion": "Wine",
+            "environment": "Omslutande program och miljö",
+            "system": "System",
+            "maintenance": "Anpassning och underhåll",
+            "behaviour": "Beteende",
+            "binaries": "Alternativa binärfiler",
+            "graphics": "Grafik och översättning",
+            "runtimes": "Körtidsmiljöer",
+            "gameplay": "Spel",
+            "appearance": "Utseende",
+            "performance": "Prestanda och överlägg",
+            "locations": "Platser",
+            "winePerformance": "Prestanda",
+            "integrations": "Integrationer",
+            "controller": "Handkontroll",
+            "language": "Språk och region",
+            "privacy": "Integritet",
+            "steam": "Steam"
+        },
+        "open-game-settings-file-hint": "Klicka för att öppna spelets inställningsfil",
+        "pageSubtitle": {
+            "log": "Läs och dela Heroic-loggar",
+            "games_settings_defaults": "Standardvärden som tillämpas på nyinstallerade spel",
+            "general": "Anpassa inställningarna för startprogrammet",
+            "systeminfo": "Din maskinvara och de versioner som Heroic kör",
+            "advanced": "Binärfiler, experimentella funktioner och underhåll"
+        },
+        "clear-images-cache": "Rensa bildcache"
     },
     "Settings": "Inställningar",
     "sidebar": {
         "collapse": "Dölj sidofältet",
         "uncollapse": "Visa sidofältet",
-        "console": "Konsolläge"
+        "console": "Konsolläge",
+        "storesLogin": "Butik inloggning"
     },
     "status": {
         "installing": "Installerar",
         "logging": "Loggar in...",
         "processing": "Hanterar filer, vänligen vänta",
         "preparing_login": "Förbereder inloggning... ",
-        "installed": "Installerad"
+        "installed": "Installerad",
+        "preparing": "Förbereder…"
     },
     "store": "Epic-butik",
     "stores": "Butiker",
@@ -963,7 +1219,10 @@
         "show": "Visa"
     },
     "two_col_table": {
-        "save_hint": "Ändringar i den här tabellen sparas inte automatiskt. Klicka på +-knappen."
+        "save_hint": "Ändringar i den här tabellen sparas inte automatiskt. Klicka på +-knappen.",
+        "add": "Lägg till",
+        "edit": "Redigera",
+        "remove": "Ta bort"
     },
     "Update Available!": "Uppdatering tillgänglig!",
     "userselector": {
@@ -974,29 +1233,34 @@
         "manageaccounts": "Hantera konton",
         "quit": "Avsluta",
         "cancel": "Avbryt",
-        "quitMessage": "Är du säker på att du vill avsluta?"
+        "quitMessage": "Är du säker på att du vill avsluta?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "Gå tillbaka",
             "forward": "Gå framåt",
             "openInBrowser": "Öppna i webbläsare",
-            "reload": "Ladda om sida"
+            "reload": "Ladda om sida",
+            "enableGameInput": "Aktivera tangentbords- och handkontrollsinmatning för sidan",
+            "home": "Gå till butikens startsida",
+            "disableGameInput": "Inaktivera spelinmatning och återgå till Heroic-navigering"
         }
     },
     "wine": {
         "actions": "Åtgärd",
         "manager": {
-            "link": "Wine-hanterare",
+            "link": "Winehanterare",
             "not-found": "Inga Wine-versioner hittades. Klicka på uppdateringsikonen för att försöka igen.",
-            "title": "Wine-hanterare",
+            "title": "Winehanterare",
             "unzipping": "Packar upp",
             "search": "Sök efter versioner...",
             "loading": "Laddar Wine-versioner...",
             "open_folder": "Öppna mapp",
             "update": "Uppdatera",
             "settings": "Inställningar",
-            "no-results": "Inga Wine-versioner matchar sökningen."
+            "no-results": "Inga Wine-versioner matchar sökningen.",
+            "subtitle": "Hämta och hantera de Wine-, Proton- och CrossOver-versioner som Heroic kan använda"
         },
         "release": "Utgivningsdatum",
         "size": "Storlek",
@@ -1048,11 +1312,15 @@
         "proton-ge": "GE-Proton är en Proton-variant skapad av Glorious Eggroll. Den är avsedd att användas tillsammans med umu-startprogrammet (standard i Heroic).",
         "gpt": "Game Porting Toolkit utvecklas av Apple och rekommenderas för Mac-datorer med Apple Silicon (M1 eller senare). Det fungerar bäst med nyare spel som använder DirectX 12.",
         "wine-crossover": "Wine-Crossover bygger på CrossOvers Wine-projekt med öppen källkod och rekommenderas för Intel-baserade Mac-datorer och spel som använder DirectX 11 eller äldre.",
-        "wine-staging-macos": "Wine-Staging-macOS bygger på huvudgrenen av Wine och rekommenderas för Intel-baserade Mac-datorer och spel som använder DirectX 11 eller äldre, särskilt tillsammans med DXMT."
+        "wine-staging-macos": "Wine-Staging-macOS bygger på huvudgrenen av Wine och rekommenderas för Intel-baserade Mac-datorer och spel som använder DirectX 11 eller äldre, särskilt tillsammans med DXMT.",
+        "proton-cachyos": "Proton-CachyOS är en Proton-variant som underhålls av CachyOS-teamet. Den innehåller extra verktyg som DXVK-Sarek och D7VK."
     },
     "emptyLibrary": {
         "noResults": "De nuvarande filtren gav inga resultat.",
-        "noGames": "Ditt bibliotek är tomt.<br /><br />Klicka <4>här</4> för att logga in med ditt Epic-, GOG.com- eller Amazon-konto. Därefter visas spelen i biblioteket.<br /><br />Om du vill använda spel eller program från andra källor klickar du <br /> för att lägga till dem manuellt."
+        "noGames": "Ditt bibliotek är tomt.<br /><br />Klicka <4>här</4> för att logga in med ditt Epic-, GOG.com- eller Amazon-konto. Därefter visas spelen i biblioteket.<br /><br />Om du vill använda spel eller program från andra källor klickar du <br /> för att lägga till dem manuellt.",
+        "noResultsTitle": "Inga spel hittades",
+        "description": "<0>Logga in</0> med ditt Epic-, GOG.com-, Amazon-, itch.io- eller Zoom-konto så visas dina spel här. Du kan också lägga till spel från andra källor manuellt.",
+        "title": "Ditt bibliotek är tomt."
     },
     "adtraction-locked": {
         "description": "Det verkar som om domänen track.adtraction.com inte kunde laddas eller är blockerad. Alla köp du gör i GOG-butiken via Heroic bidrar ekonomiskt till Heroic. Överväg att ta bort blockeringen om du vill bidra.",
@@ -1180,7 +1448,7 @@
             "price": "Pris",
             "activeCount_other": "{{count}} aktiva",
             "hideDlcs": "Dölj DLC",
-            "ageRatingOption": "Visa spel med PEGI {{age}} eller lägre",
+            "ageRatingOption": "PEGI {{age}} eller lägre",
             "genres": "Genrer",
             "activeCount_one": "{{count}} aktivt",
             "lessFilters": "Färre filter",
@@ -1192,7 +1460,10 @@
             "ageRatingAll": "Alla",
             "pageSize": "Per sida",
             "releaseYear": "Utgivningsår",
-            "platform": "Plattform"
+            "platform": "Plattform",
+            "hideOwned": "Dölj ägda",
+            "wishlistOnly": "Endast önskelista",
+            "platformAny": "Valfri plattform"
         },
         "sidebar": "Erbjudanden",
         "sort": {
@@ -1218,12 +1489,24 @@
             "prev": "Föregående"
         },
         "tabs": {
-            "label": "Butik"
+            "label": "Butik",
+            "all": "Alla butiker"
         },
         "titleMulti": "Detaljer",
         "currency": {
             "label": "Valuta"
-        }
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "Green Man Gaming – {{drm}}-nyckel som löses in utanför Heroic",
+            "gmgHint": "Green Man Gaming – nyckel för en extern butik som inte kan installeras via Heroic",
+            "humbleHint": "Humble Bundle – nyckel för en extern butik som inte kan installeras via Heroic"
+        },
+        "affiliateBanner": "Länkarna på denna sida är affiliatlänkar. Att köpa spel via dem hjälper till att finansiera utvecklingen av Heroic."
     },
     "steamgriddb": {
         "error": {
@@ -1245,7 +1528,12 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "Sortera",
+        "sort": {
+            "label": "Sortera",
+            "last_played": "Senast spelat",
+            "alpha_asc": "A → Ö",
+            "alpha_desc": "Ö → A"
+        },
         "cancel": {
             "hintSuffix": "i 3 sekunder för att avbryta",
             "hintPrefix": "Håll"
@@ -1271,7 +1559,8 @@
         "quitApp": "Avsluta programmet",
         "loading": "Laddar ditt bibliotek…",
         "cancelUpdate": {
-            "title": "Avbryt uppdateringen?"
+            "title": "Avbryt uppdateringen?",
+            "message": "Det här spelet hämtas just nu. Avbryt den pågående uppdateringen?"
         },
         "install": {
             "platform": "Plattform",
@@ -1280,12 +1569,162 @@
             "path": "Installera i",
             "wineMissing": "Inte valt",
             "wine": "Wine"
-        }
+        },
+        "removeFromQueue": {
+            "message": "Det här spelet står i hämtningskön. Ta bort det från kön?"
+        },
+        "cancelInstall": {
+            "title": "Avbryt installationen?",
+            "message": "Det här spelet installeras just nu. Avbryt installationen?"
+        },
+        "confirm": {
+            "enter": "Öppna konsolläge",
+            "message": "Konsolläge är ett helskärmsgränssnitt anpassat för handkontroller. Sidofältet och fönsterkontrollerna döljs.",
+            "title": "Öppna konsolläge?"
+        },
+        "launchError": "Det gick inte att starta spelet. Kontrollera loggarna för mer information.",
+        "launchErrorNotLoggedIn": "Det gick inte att starta spelet. Du måste först logga in i Steam.",
+        "launchErrorPrefix": "Det gick inte att starta spelet:"
     },
     "next": "Nästa",
     "common": {
         "add": "Lägg till",
         "cancel": "Avbryt",
-        "warning": "Varning"
+        "warning": "Varning",
+        "edit": "Redigera",
+        "save": "Spara",
+        "clear_all": "Rensa allt",
+        "duplicate": "Duplicera",
+        "confirm": "Bekräfta",
+        "remove": "Ta bort"
+    },
+    "General": "Allmänt",
+    "Community": "Community",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "Stöd Heroic med dina GOG-köp",
+            "toggle": "Använd GOG-affiliatlänkar",
+            "description": "Heroic kan använda GOG-affiliatlänkar när du besöker GOG-butiken. Om du köper något efter att ha klickat dig vidare från Heroic delar GOG en liten provision med oss, utan extra kostnad för dig. Vi ser eller spårar inte vilka spel du köper eller något annat om dina köp: GOG vet bara att någon kom från Heroic. Detta är avstängt som standard och du kan ändra det när som helst i Heroics avancerade inställningar."
+        }
+    },
+    "Accounts": "",
+    "itchio-store": "",
+    "Update available!": "Uppdatering tillgänglig!",
+    "support": {
+        "actions": {
+            "open": "Öppna",
+            "copyEmail": "Kopiera e-postadress",
+            "sendEmail": "Skicka e-post",
+            "shop": "Butik"
+        },
+        "title": "Stöd oss",
+        "affiliates": {
+            "description": "Köp via våra länkar så får Heroic en liten provision utan extra kostnad för dig.",
+            "gmg": {
+                "description": "Officiella spelnycklar till bra priser."
+            },
+            "gog": {
+                "description": "DRM-fria spel och klassiker."
+            },
+            "humble": {
+                "description": "Spel, böcker och paket till välgörenhet."
+            },
+            "title": "Affiliatepartner"
+        },
+        "description": "Heroic är fritt program med öppen källkod och kommer alltid att vara det. Ditt stöd ger utvecklarna mer tid att förbättra programmet, köpa spel för att testa nya funktioner, rätta fel och bygga det som communityn ber om.",
+        "donations": {
+            "description": "Välj hur du vill stödja utvecklingen av Heroic.",
+            "github": {
+                "description": "Sponsra Heroic via GitHub och visa ditt stöd offentligt."
+            },
+            "kofi": {
+                "description": "En engångsdricks som går direkt till utvecklingen."
+            },
+            "patreon": {
+                "description": "Återkommande medlemskap med uppdateringar bakom kulisserna."
+            },
+            "paypal": {
+                "description": "Engångs- eller återkommande donation i den valuta du föredrar."
+            },
+            "title": "Donationer"
+        },
+        "email": {
+            "label": "E-post"
+        },
+        "headline": "Hjälp oss att göra Heroic ännu bättre",
+        "partnerships": {
+            "description": "Kontakta oss för sponsring, varumärkessamarbeten eller pressfrågor.",
+            "title": "Partnerskap och press"
+        },
+        "tags": {
+            "bundles": "Paket",
+            "donation": "Donation",
+            "drmFree": "DRM-fritt",
+            "gameKeys": "Spelnycklar",
+            "membership": "Medlemskap",
+            "sponsor": "Sponsor",
+            "tip": "Engångsdricks"
+        }
+    },
+    "cloudSync": {
+        "back": "Bakåt",
+        "button": {
+            "download": "Nedladdning",
+            "sync": "Synkronisera",
+            "upload": "Ladda upp",
+            "keep": "Behåll",
+            "view": "Visa"
+        },
+        "column": {
+            "file": "Filtrera",
+            "size": "Storlek",
+            "modified": "Ändrad"
+        },
+        "never": "Aldrig",
+        "count": {
+            "conflicts_one": "{{count}} konflikt",
+            "conflicts_other": "{{count}} konflikter",
+            "failed_one": "{{count}} misslyckades",
+            "failed_other": "{{count}} misslyckades",
+            "skipped_one": "{{count}} överhoppad",
+            "skipped_other": "{{count}} överhoppade"
+        },
+        "genericIssue": "Den senaste synkroniseringen hade ett problem.",
+        "hint": {
+            "checking": "Kontrollerar Steam Cloud…",
+            "cloudCopy": "Molnkopia från {{when}}",
+            "cloudEmpty": "Det finns ännu inget i Steam Cloud",
+            "discardCloud": "Tar bort molnkopian från {{when}}",
+            "fileCount_one": "{{count}} fil · {{size}}",
+            "fileCount_other": "{{count}} filer · {{size}}",
+            "firstUpload": "Skapar den första molnkopian",
+            "lastSync": "Senast synkroniserad {{when}}",
+            "neverSynced": "Har ännu inte synkroniserats från Heroic",
+            "replaceCloud": "Ersätter molnkopian från {{when}}"
+        },
+        "keepCloud": "Lös konflikt: behåll Steam-molnsparningar",
+        "keepLocal": "Lös konflikt: behåll sparningarna på denna dator",
+        "lastSync": "Senaste synkronisering: {{when}}",
+        "noFiles": "Inga filer i Steam Cloud för det här spelet.",
+        "pull": "Hämta sparningar från molnet",
+        "push": "Ladda upp lokala sparningar till molnet",
+        "section": {
+            "actions": "Synkroniseringsåtgärder",
+            "files": "Molnfiler"
+        },
+        "state": {
+            "conflicts": "Steam-molnsparningar står i konflikt med denna dator",
+            "failed": "Steam Cloud-synkronisering misslyckades",
+            "incomplete": "Steam Cloud-synkroniseringen är ofullständig",
+            "ok": "Steam-molnsparningarna är aktuella",
+            "syncing": "Synkroniserar Steam-molnsparningar…",
+            "unknown": "Steam-molnsparningarna har ännu inte synkroniserats"
+        },
+        "sync": "Synkronisera nu (båda riktningarna)",
+        "syncing": "Synkroniserar… vänta.",
+        "viewFiles": "Visa molnsparningsfiler"
+    },
+    "changelog": {
+        "view_full": "Visa fullständig ändringslogg på GitHub"
     }
 }

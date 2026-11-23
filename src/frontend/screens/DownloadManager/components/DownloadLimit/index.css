@@ -1,0 +1,7 @@
+.DownloadLimit {
+  display: flex;
+}
+
+.DownloadLimit__select {
+  min-width: 140px;
+}

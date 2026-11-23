@@ -10,6 +10,10 @@ const VerboseLogs = () => {
   return (
     <div className="toggleRow">
       <ToggleSwitch
+        description={t(
+          'setting.verboseLogs.hint',
+          'Record a detailed log on every launch, useful for reporting problems'
+        )}
         htmlId="verboseLogs"
         value={verboseLogs}
         handleChange={() => setVerboseLogs(!verboseLogs)}

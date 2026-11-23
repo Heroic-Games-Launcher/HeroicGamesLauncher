@@ -46,6 +46,7 @@ Heroic is built with Web Technologies:
     - [Building with VS Code](#building-with-vs-code)
     - [Quickly testing/debugging Heroic on your own system](#quickly-testingdebugging-heroic-on-your-own-system)
     - [Testing with Docker](#testing-with-docker)
+    - [Storybook](#storybook)
     - [Development on nix](#development-on-nix)
   - [Sponsors](#sponsors)
   - [Screenshots](#screenshots)
@@ -167,9 +168,15 @@ Please see [the Arch Wiki](https://wiki.archlinux.org/title/Arch_User_Repository
 
 #### Fedora
 
-You can download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`.
+Heroic's RPM packages are signed. Import the public key once before installing:
 
-Alternatively, you can use the Flatpak package.
+```bash
+sudo rpm --import https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest/download/RPM-GPG-KEY-heroic.asc
+```
+
+Then download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`.
+
+The same key applies to other RPM-based distributions that enforce signature checking, such as openSUSE. Alternatively, you can use the Flatpak package.
 
 #### Nix(OS)
 
@@ -273,6 +280,12 @@ To do that, open up the command palette (Ctrl + P), type in "task" and press Spa
 If you want to quickly test a change, or you're implementing features that require a lot of restarts, you can use Vite's development server to speed up the process:  
 Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)" task (alternatively, if you're not using VSCode or just prefer the terminal, run `pnpm start`). Heroic will start up after a short while, and once you make any change to the code, it'll reload/restart.
 
+### Storybook
+
+The frontend's shared components and design tokens are documented in Storybook.
+Run `pnpm storybook` to browse them, and `pnpm test:storybook` to run the stories
+as tests. See [doc/storybook.md](doc/storybook.md) for details.
+
 ### Development on Nix
 
 After cloning the repository, Nix users can use `nix-shell` to make Node.JS/pnpm available and automatically run [installation step](#development-environment) 3 and 4. See [shell.nix](shell.nix) for more information.
@@ -322,6 +335,7 @@ Heroic would not be possible without the work done in many other projects:
 - GOGdl: https://github.com/Heroic-Games-Launcher/heroic-gogdl
 - Nile: https://github.com/imLinguin/nile
 - Comet: https://github.com/imLinguin/comet
+- Aurelia: https://github.com/Drackrath/Aurelia
 - GE-Proton: https://github.com/GloriousEggroll/proton-ge-custom
 - Proton-cachyos: https://github.com/CachyOS/proton-cachyos
 - umu-launcher: https://github.com/Open-Wine-Components/umu-launcher

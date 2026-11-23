@@ -23,5 +23,11 @@
     "baseUrl": "./src/"
   },
   "include": ["src", "meta/**/*.mts"],
-  "exclude": ["vite.config.ts", "**/__mocks__/**", "sign"]
+  "exclude": [
+    "vite.config.ts",
+    "**/__mocks__/**",
+    "sign",
+    "src/**/*.stories.ts",
+    "src/**/*.stories.tsx"
+  ]
 }
