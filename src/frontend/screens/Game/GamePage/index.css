@@ -517,8 +517,7 @@
   color: var(--navbar-active);
 }
 
-.game-actions:focus-within .gameTools,
-.game-actions:hover .gameTools {
+.game-actions.open .gameTools {
   padding: var(--space-md);
   max-height: 100vh;
   opacity: 1;

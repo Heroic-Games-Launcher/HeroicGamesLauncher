@@ -11,7 +11,8 @@ import {
   ExecResult,
   InstallArgs,
   LaunchOption,
-  Status
+  Status,
+  CloudSyncResult
 } from 'common/types'
 import {
   logError,
@@ -1194,9 +1195,16 @@ export default class SteamGame implements Game {
     }
   }
 
-  async syncSaves(arg: string, path: string): Promise<string> {
+  async syncSaves(arg: string, path: string): Promise<CloudSyncResult> {
+    const result: CloudSyncResult = {
+      appName: this.id,
+      runner: 'steam',
+      state: 'failed',
+      output: ''
+    }
+
     if (!isSteamSupported()) {
-      return ''
+      return { ...result, reason: 'not-supported' }
     }
     const direction = syncDirectionFromArg(arg)
     const directionFlag = direction ? [`--${direction}`] : []
@@ -1205,35 +1213,43 @@ export default class SteamGame implements Game {
     await this.applyPrefix(await this.getSettings())
     markCloudSyncing(this.id)
     try {
-      let result = await runAurelia<AureliaCloudSyncResponse>([
+      let syncResult = await runAurelia<AureliaCloudSyncResponse>([
         'cloud',
         'sync',
         this.id,
         ...directionFlag,
         ...pathArg
       ])
-      if (result?.status === 'conflicts' && result.conflicts?.length) {
+      if (syncResult?.status === 'conflicts' && syncResult.conflicts?.length) {
         // Never widen the requested direction
-        result =
+        syncResult =
           (await this.resolveCloudConflicts(
-            result.conflicts,
+            syncResult.conflicts,
             undefined,
             direction
-          )) ?? result
-        recordCloudSyncResult(this.id, result)
-        return 'Steam Cloud conflict resolved'
+          )) ?? syncResult
+        recordCloudSyncResult(this.id, syncResult)
+        return {
+          ...result,
+          state: 'ok',
+          output: 'Steam Cloud conflict resolved'
+        }
       }
-      recordCloudSyncResult(this.id, result)
-      if (result?.failed?.length || result?.skipped?.length) {
-        const failed = result.failed?.length ?? 0
-        const skipped = result.skipped?.length ?? 0
+      recordCloudSyncResult(this.id, syncResult)
+      if (syncResult?.failed?.length || syncResult?.skipped?.length) {
+        const failed = syncResult.failed?.length ?? 0
+        const skipped = syncResult.skipped?.length ?? 0
         logWarning(
           `Steam Cloud sync for ${this.id} was incomplete: ${failed} failed, ${skipped} unplaceable`,
           LogPrefix.Steam
         )
-        return 'Steam Cloud sync incomplete — some saves are missing'
+        return {
+          ...result,
+          state: 'incomplete',
+          output: 'Steam Cloud sync incomplete — some saves are missing'
+        }
       }
-      return 'Steam Cloud sync finished'
+      return { ...result, state: 'ok', output: 'Steam Cloud sync finished' }
     } catch (error) {
       const message = describeError(error)
       recordCloudSyncError(this.id, message)
@@ -1241,7 +1257,7 @@ export default class SteamGame implements Game {
         [`Failed to sync Steam Cloud saves for ${this.id}`, message],
         LogPrefix.Steam
       )
-      return `${message}`
+      return { ...result, reason: 'provider-error', output: message }
     }
   }
 

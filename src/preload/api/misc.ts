@@ -58,6 +58,7 @@ export const checkDiskSpace = makeHandlerInvoker('checkDiskSpace')
 export const getGOGLinuxInstallersLangs = makeHandlerInvoker('getGOGLinuxInstallersLangs')
 export const getAlternativeWine = makeHandlerInvoker('getAlternativeWine')
 export const getShellPath = makeHandlerInvoker('getShellPath')
+export const getPrimaryDisplay = makeHandlerInvoker('getPrimaryDisplay')
 export const getWebviewPreloadPath = makeHandlerInvoker('getWebviewPreloadPath')
 export const callTool = makeHandlerInvoker('callTool')
 export const getAnticheatInfo = makeHandlerInvoker('getAnticheatInfo')
@@ -118,6 +119,7 @@ export const deleteUploadedLogFile = makeHandlerInvoker('deleteUploadedLogFile')
 export const logFileUploadedSlot = frontendListenerSlot('logFileUploaded')
 export const logFileUploadDeletedSlot = frontendListenerSlot('logFileUploadDeleted')
 export const isIntelMac = makeHandlerInvoker('isIntelMac')
+export const getProtonShortcuts = makeHandlerInvoker('getProtonShortcuts')
 export const steamgriddb = {
   hasApiKey: makeHandlerInvoker('steamgriddb.hasApiKey'),
   setApiKey: makeHandlerInvoker('steamgriddb.setApiKey'),

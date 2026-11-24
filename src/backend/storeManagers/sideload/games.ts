@@ -3,7 +3,8 @@ import {
   ExtraInfo,
   GameInfo,
   GameSettings,
-  LaunchOption
+  LaunchOption,
+  CloudSyncResult
 } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
@@ -202,11 +203,17 @@ export default class SideloadGame implements Game {
     return { stderr: '', stdout: '' }
   }
 
-  async syncSaves(): Promise<string> {
+  async syncSaves(): Promise<CloudSyncResult> {
     logWarning(
       `syncSaves not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
-    return ''
+    return {
+      appName: this.id,
+      runner: 'sideload',
+      state: 'failed',
+      reason: 'not-supported',
+      output: ''
+    }
   }
 
   async forceUninstall(): Promise<void> {

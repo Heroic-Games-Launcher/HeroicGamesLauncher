@@ -14,7 +14,8 @@ import {
   GameSettings,
   InstallArgs,
   InstallPlatform,
-  LaunchOption
+  LaunchOption,
+  CloudSyncResult
 } from 'common/types'
 import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
 import type LogWriter from 'backend/logger/log_writer'
@@ -1157,12 +1158,18 @@ function syncSaves(
   appName: string,
   arg: string,
   path: string
-): Promise<string> {
+): Promise<CloudSyncResult> {
   logInfo(
     `itch.io syncSaves no-op (appName=${appName}, arg=${arg}, path=${path})`,
     LogPrefix.Itchio
   )
-  return Promise.resolve('')
+  return Promise.resolve({
+    appName,
+    runner: 'itchio',
+    state: 'failed',
+    reason: 'not-supported',
+    output: ''
+  })
 }
 
 function getCaveId(appName: string): string | undefined {
@@ -1350,7 +1357,7 @@ export default class ItchioGame implements Game {
     return repair(this.appName)
   }
 
-  syncSaves(arg: string, path: string): Promise<string> {
+  syncSaves(arg: string, path: string): Promise<CloudSyncResult> {
     return syncSaves(this.appName, arg, path)
   }
 

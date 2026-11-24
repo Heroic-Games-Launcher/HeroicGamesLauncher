@@ -86,7 +86,8 @@ import {
   logError,
   logInfo,
   LogPrefix,
-  logWarning
+  logWarning,
+  createGameLogWriter
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { launchEventCallback, runWineCommand, validWine } from './launcher'
@@ -98,7 +99,17 @@ import {
 } from './online_monitor'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { callAbortController } from './utils/aborthandler/aborthandler'
-import { getDefaultSavePath } from './save_sync'
+import {
+  cancelSavePathsDetection,
+  detectAndPersistSavePaths,
+  getDefaultSavePath,
+  refreshSavePathsIfConfigurationChanged
+} from './save_sync'
+import {
+  getSaveBackupFolder,
+  getSaveBackups,
+  restoreSaveBackupById
+} from './cloud_saves/backup'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import { createMainWindow, getMainWindow, isFrameless } from './main_window'
 
@@ -652,7 +663,24 @@ addListener('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-addHandler('runWineCommand', async (e, args) => runWineCommand(args))
+addHandler('runWineCommand', async (e, args) => {
+  const { logToApp, ...rest } = args
+  if (logToApp) {
+    const logWriter = await createGameLogWriter(
+      logToApp.appName,
+      logToApp.runner,
+      'install'
+    )
+    return runWineCommand({
+      ...rest,
+      options: {
+        ...rest.options,
+        logWriters: [...(rest.options?.logWriters ?? []), logWriter]
+      }
+    })
+  }
+  return runWineCommand(rest)
+})
 
 /// IPC handlers begin here.
 
@@ -675,6 +703,14 @@ addHandler('checkGameUpdates', async (): Promise<string[]> => {
 addHandler('getEpicGamesStatus', async () => isEpicServiceOffline())
 
 addHandler('getMaxCpus', () => cpus().length)
+addHandler('getPrimaryDisplay', () => {
+  const display = screen.getPrimaryDisplay()
+  return {
+    width: Math.round(display.size.width * display.scaleFactor),
+    height: Math.round(display.size.height * display.scaleFactor),
+    scaleFactor: display.scaleFactor
+  }
+})
 
 addHandler('getHeroicVersion', () => app.getVersion())
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
@@ -1188,9 +1224,15 @@ addHandler('egsSync', async (event, args) => {
   return libraryManagerMap['legendary'].toggleGamesSync(args)
 })
 
-addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  libraryManagerMap['gog'].getGame(appName).syncSaves(arg, '', gogSaves)
-)
+addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) => {
+  const game = libraryManagerMap['gog'].getGame(appName)
+  const changed = await refreshSavePathsIfConfigurationChanged(appName, 'gog')
+  if (!changed) {
+    return game.syncSaves(arg, '', gogSaves)
+  }
+  const { gogSaves: refreshed } = await game.getSettings()
+  return game.syncSaves(arg, '', refreshed?.length ? refreshed : gogSaves)
+})
 
 addHandler('getLaunchOptions', async (event, appName, runner) => {
   const availableLaunchOptions =
@@ -1227,25 +1269,74 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
         'Epic is offline right now, cannot sync saves!',
         LogPrefix.Backend
       )
-      return 'Epic is offline right now, cannot sync saves!'
+      return {
+        appName,
+        runner,
+        state: 'failed',
+        reason: 'offline',
+        output: 'Epic is offline right now, cannot sync saves!'
+      }
     }
   }
   if (!isOnline()) {
     logWarning('App is offline, cannot sync saves!', LogPrefix.Backend)
-    return 'App is offline, cannot sync saves!'
+    return {
+      appName,
+      runner,
+      state: 'failed',
+      reason: 'offline',
+      output: 'App is offline, cannot sync saves!'
+    }
   }
 
-  const output = await libraryManagerMap[runner]
+  await refreshSavePathsIfConfigurationChanged(appName, runner)
+  if (runner === 'legendary') {
+    path =
+      (await libraryManagerMap[runner].getGame(appName).getSettings())
+        .savesPath || path
+  }
+
+  const result = await libraryManagerMap[runner]
     .getGame(appName)
     .syncSaves(arg, path)
-  logInfo(output, LogPrefix.Backend)
-  return output
+  logInfo(result.output, LogPrefix.Backend)
+  return result
+})
+
+addHandler('getSaveBackups', async (event, appName) => getSaveBackups(appName))
+
+addHandler('getSaveBackupPath', async (event, appName) =>
+  getSaveBackupFolder(appName)
+)
+
+addHandler('restoreSaveBackup', async (event, appName, runner, backupId) => {
+  const game = libraryManagerMap[runner].getGame(appName)
+  const { title } = game.getGameInfo()
+  const settings = await game.getSettings()
+  const currentLocations =
+    runner === 'gog'
+      ? (settings.gogSaves ?? [])
+          .map((location) => location.location)
+          .filter((location) => location.length > 0)
+      : settings.savesPath
+        ? [settings.savesPath]
+        : []
+
+  return restoreSaveBackupById({ appName, title, backupId, currentLocations })
 })
 
 addHandler(
   'getDefaultSavePath',
   async (event, appName, runner, alreadyDefinedGogSaves) =>
     getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
+)
+
+addHandler('detectSavePaths', async (event, appName, runner) =>
+  detectAndPersistSavePaths(appName, runner)
+)
+
+addListener('cancelSavePathsDetection', (event, appName, runner) =>
+  cancelSavePathsDetection(appName, runner)
 )
 
 // Simulate keyboard and mouse actions as if the real input device is used

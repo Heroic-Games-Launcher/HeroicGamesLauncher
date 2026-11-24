@@ -23,9 +23,12 @@ interface Props {
   setAutoSyncSaves: (value: boolean) => void
   setSavesPath: (value: string) => void
   winePrefix?: string
+  savePathFingerprint: string
+  savesPathFingerprint: string
+  setSavesPathFingerprint: (value: string) => void
+  setSavePathIsCustom: (value: boolean) => void
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
-  quickSavesToggle: () => React.ReactNode
 }
 
 export default function LegendarySyncSaves({
@@ -35,16 +38,20 @@ export default function LegendarySyncSaves({
   setAutoSyncSaves,
   isProton,
   winePrefix,
+  savePathFingerprint,
+  savesPathFingerprint,
+  setSavesPathFingerprint,
+  setSavePathIsCustom,
   syncCommands,
-  featureSupported,
-  quickSavesToggle: QuickSavesToggle
+  featureSupported
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
-  const [retry, setRetry] = useState<boolean>(false)
+  const [retry, setRetry] = useState(0)
+  const [detectError, setDetectError] = useState(false)
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
@@ -52,33 +59,52 @@ export default function LegendarySyncSaves({
 
   useEffect(() => {
     const setDefaultSaveFolder = async () => {
-      if (savesPath.length && !retry) {
+      const legacy = !savesPathFingerprint
+      const stale = !legacy && savesPathFingerprint !== savePathFingerprint
+      if (legacy && savesPath.length) {
+        setSavesPathFingerprint(savePathFingerprint)
+        setSavePathIsCustom(true)
+        return
+      }
+      if (!legacy && !stale && savesPath.length && retry === 0) {
         return
       }
       setLoading(true)
-      const newSavePath = (await window.api.getDefaultSavePath(
-        appName,
-        'legendary',
-        []
-      )) as string
+      setDetectError(false)
+      try {
+        const result = await window.api.detectSavePaths(appName, 'legendary')
+        const newSavePath = result.paths as string
 
-      setSavesPath(newSavePath)
-      setLoading(false)
-      setRetry(false)
+        if (result.updated && newSavePath) {
+          setSavesPath(newSavePath)
+          setSavePathIsCustom(false)
+        } else if (!result.cancelled) {
+          setDetectError(true)
+        }
+      } catch (error) {
+        window.api.logError(
+          `Could not detect save path for ${appName}: ${error}`
+        )
+      } finally {
+        setLoading(false)
+      }
     }
     if (featureSupported) setDefaultSaveFolder()
-  }, [winePrefix, isProton, retry])
+  }, [winePrefix, isProton, retry, savePathFingerprint, savesPathFingerprint])
 
   async function handleSync() {
     setIsSyncing(true)
 
-    await syncSaves(savesPath, appName, 'legendary', syncType).then(
-      (response: string) => {
-        setManuallyOutput(response.split('\n'))
-        setManuallyOutputShow(true)
-      }
-    )
-    setIsSyncing(false)
+    try {
+      const result = await syncSaves(savesPath, appName, 'legendary', syncType)
+      setManuallyOutput(result.output.split('\n'))
+      setManuallyOutputShow(true)
+      window.dispatchEvent(new Event('cloud-saves-synced'))
+    } catch (error) {
+      window.api.logError(`Sync saves failed for ${appName}: ${error}`)
+    } finally {
+      setIsSyncing(false)
+    }
   }
 
   if (!featureSupported) {
@@ -105,27 +131,36 @@ export default function LegendarySyncSaves({
           hideProgress
         />
       )}
-      <Alert variant="warning">
-        {t(
-          'settings.saves.warning',
-          'Cloud saves feature is in beta, please backup your saves before syncing (in case something goes wrong)'
-        )}
-      </Alert>
       {isLoading ? (
         <TextWithProgress
           text={t(
             'info.save-sync.searching',
             'Trying to detect the correct save folder (click to cancel)'
           )}
-          onClick={() => setLoading(false)}
+          onClick={() => {
+            window.api.abort(`${appName}-savePath`)
+            window.api.cancelSavePathsDetection(appName, 'legendary')
+            setLoading(false)
+          }}
         />
       ) : (
         <>
+          {detectError && (
+            <Alert variant="error">
+              {t(
+                'setting.savefolder.detect-failed',
+                'Could not detect the save folder automatically. Select it manually below or check the Heroic log for details.'
+              )}
+            </Alert>
+          )}
           <div className="saveFolderGroup">
             <PathSelectionBox
               htmlId="inputSavePath"
               type="directory"
-              onPathChange={setSavesPath}
+              onPathChange={(path) => {
+                setSavesPath(path)
+                setSavePathIsCustom(true)
+              }}
               path={savesPath}
               placeholder={t('setting.savefolder.placeholder')}
               pathDialogTitle={t('box.sync.title')}
@@ -147,7 +182,7 @@ export default function LegendarySyncSaves({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setRetry(true)}
+                  onClick={() => setRetry(retry + 1)}
                 >
                   {t('setting.savefolder.retry', 'Detect again')}
                 </Button>
@@ -200,7 +235,6 @@ export default function LegendarySyncSaves({
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
-          {savesPath.length > 0 ? <QuickSavesToggle /> : null}
         </>
       )}
     </>

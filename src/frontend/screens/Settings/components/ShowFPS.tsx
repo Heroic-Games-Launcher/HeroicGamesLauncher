@@ -29,7 +29,7 @@ const ShowFPS = () => {
       handleChange={() => setShowFps(!showFps)}
       title={
         isLinux
-          ? t('setting.showfps')
+          ? t('setting.showfps', 'Show FPS (DX9, 10 and 11)')
           : t('setting.showMetalOverlay', 'Show stats overlay')
       }
     />
