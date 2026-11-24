@@ -31,7 +31,9 @@
         "edit-game": "Измените апликацију/игру",
         "backToLibrary": "",
         "favourite": "",
-        "unfavourite": ""
+        "unfavourite": "",
+        "steamStore": "",
+        "back": "Назад"
     },
     "cloud_save_unsupported": "Неподржано",
     "submenu": {
@@ -50,7 +52,8 @@
         "extraInfo": "Ектра Инфо",
         "logs": "Дневници",
         "categories": "Категорије",
-        "more": ""
+        "more": "",
+        "options": "Опције"
     },
     "box": {
         "change": {
@@ -63,7 +66,8 @@
         "move": {
             "message": "Ово може потрајати дуже време, јесте ли сигурни?",
             "path": "Изаберите где желите да померите",
-            "title": "Померите инсталацију игре"
+            "title": "Померите инсталацију игре",
+            "steamMessage": ""
         },
         "no": "НЕ",
         "repair": {
@@ -196,7 +200,13 @@
             "unsupported": ""
         },
         "developer": "",
-        "genres": ""
+        "genres": "",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        },
+        "dlcs": ""
     },
     "install": {
         "disk-space-left": "Доступан простор",
@@ -214,7 +224,10 @@
             "multiplayer_message": "",
             "title": ""
         },
-        "flatpak-path-not-writtable": ""
+        "flatpak-path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -234,7 +247,8 @@
         "ubisoft": "Инсталирање Убисофт Цоннецт-а",
         "winetricks": "",
         "redist": "",
-        "releaseDate": ""
+        "releaseDate": "",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Опције покретања...",
@@ -288,7 +302,9 @@
     },
     "specs": {
         "minimum": "Минимум",
-        "recommended": "Препоручено"
+        "recommended": "Препоручено",
+        "notes": "",
+        "other": ""
     },
     "status": {
         "clickToUpdate": "Кликните да бисте ажурирали",
@@ -379,7 +395,16 @@
     },
     "steam": {
         "data": {
-            "launchOptions": "Опције покретања..."
+            "launchOptions": "Опције покретања...",
+            "achievements": "",
+            "dlc": "",
+            "installInfo": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
