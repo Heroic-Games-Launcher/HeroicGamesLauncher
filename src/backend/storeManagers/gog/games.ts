@@ -263,7 +263,14 @@ export default class GOGGame implements Game {
 
       if (isLinux && this.isNative()) {
         const gameConfig = GameConfig.get(this.id)
-        gameConfig.setSetting('steamRuntime', 'umu-scout')
+        const globalConfig = GlobalConfig.get()
+        const { defaultSteamRuntime } = globalConfig.getSettings()
+        gameConfig.setSetting(
+          'steamRuntime',
+          globalConfig.hasSetting('defaultSteamRuntime')
+            ? defaultSteamRuntime
+            : 'umu-scout'
+        )
       }
     } catch (error) {
       logError([`Failed to import ${this.id}:`, error], LogPrefix.Gog)
@@ -514,7 +521,14 @@ export default class GOGGame implements Game {
       }
     } else if (isLinuxNative) {
       const gameConfig = GameConfig.get(this.id)
-      gameConfig.setSetting('steamRuntime', 'umu-scout')
+      const globalConfig = GlobalConfig.get()
+      const { defaultSteamRuntime } = globalConfig.getSettings()
+      gameConfig.setSetting(
+        'steamRuntime',
+        globalConfig.hasSetting('defaultSteamRuntime')
+          ? defaultSteamRuntime
+          : 'umu-scout'
+      )
 
       const installer = join(install_path, 'support/postinst.sh')
       if (existsSync(installer)) {
@@ -649,9 +663,11 @@ export default class GOGGame implements Game {
       }
 
       if (await isUmuSupported(gameSettings)) {
-        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-        if (umuId) {
-          commandEnv['GAMEID'] = umuId
+        const gameId =
+          gameSettings.umuGameId?.trim() ||
+          (await getUmuId(gameInfo.app_name, gameInfo.runner))
+        if (gameId) {
+          commandEnv['GAMEID'] = gameId
         }
       }
 

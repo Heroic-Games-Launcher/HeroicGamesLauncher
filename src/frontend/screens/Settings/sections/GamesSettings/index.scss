@@ -61,23 +61,32 @@ details {
 }
 
 .gamescopeSettings {
-  .selectFieldWrapper {
-    grid-template-areas:
-      'label info'
-      'select select';
-    grid-template-columns: max-content 1fr;
-  }
-
-  .textInputFieldWrapper {
-    grid-template-areas:
-      'label info'
-      'input input';
-    grid-template-columns: max-content 1fr;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
 
   .row {
     display: flex;
     gap: 10px;
+  }
+
+  .rowWithAction {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+
+    .row {
+      flex: 1;
+    }
+  }
+
+  .presetChips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 6px;
   }
 }
 

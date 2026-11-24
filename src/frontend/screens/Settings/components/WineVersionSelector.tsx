@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, SelectField } from 'frontend/components/UI'
+import { InfoTooltip, SelectField } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
@@ -151,53 +151,70 @@ export default function WineVersionSelector() {
             </span>
           )}
           {isLinux && showHiddenProtonsMessage && (
-            <InfoBox
-              text={t(
-                'setting.show_valve_proton.info_label',
-                'Valve Proton versions ignored'
-              )}
-            >
-              <span>
-                {t(
+            <span className="smallInputInfo">
+              <InfoTooltip
+                content={t(
                   'setting.show_valve_proton.wine_selector_warning',
                   'Valve versions of Proton are ignored by default, enable them in the advanced global settings'
                 )}
-              </span>
-            </InfoBox>
+                label={t(
+                  'setting.show_valve_proton.info_label',
+                  'Valve Proton versions ignored'
+                )}
+              />{' '}
+              {t(
+                'setting.show_valve_proton.info_label',
+                'Valve Proton versions ignored'
+              )}
+            </span>
           )}
           {isLinux && (
-            <InfoBox text={t('infobox.wine-path', 'Wine path')}>
-              <span>{wineVersion.bin}</span>
-            </InfoBox>
+            <span className="smallInputInfo">
+              <InfoTooltip
+                content={wineVersion.bin}
+                label={t('infobox.wine-path', 'Wine path')}
+              />{' '}
+              {t('infobox.wine-path', 'Wine path')}
+            </span>
           )}
           {isLinux && (
-            <InfoBox text="infobox.help">
-              <span>{t('help.wine.part1')}</span>
-              <ul>
-                <li>
-                  <i>~/.config/heroic/tools/wine</i>
-                </li>
-                <li>
-                  <i>~/.config/heroic/tools/proton</i>
-                </li>
-                <li>
-                  <i>~/.steam/root/compatibilitytools.d</i>
-                </li>
-                <li>
-                  <i>~/.steam/steamapps/common</i>
-                </li>
-                <li>
-                  <i>~/.local/share/lutris/runners/wine</i>
-                </li>
-                <li>
-                  <i>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</i>
-                </li>
-                <li>
-                  <i>/usr/share/steam</i>
-                </li>
-              </ul>
-              <span>{t('help.wine.part2')}</span>
-            </InfoBox>
+            <span className="smallInputInfo">
+              <InfoTooltip
+                label={t('infobox.help', 'Help')}
+                content={
+                  <>
+                    <span>{t('help.wine.part1')}</span>
+                    <ul>
+                      <li>
+                        <i>~/.config/heroic/tools/wine</i>
+                      </li>
+                      <li>
+                        <i>~/.config/heroic/tools/proton</i>
+                      </li>
+                      <li>
+                        <i>~/.steam/root/compatibilitytools.d</i>
+                      </li>
+                      <li>
+                        <i>~/.steam/steamapps/common</i>
+                      </li>
+                      <li>
+                        <i>~/.local/share/lutris/runners/wine</i>
+                      </li>
+                      <li>
+                        <i>
+                          ~/.var/app/com.valvesoftware.Steam (Steam Flatpak)
+                        </i>
+                      </li>
+                      <li>
+                        <i>/usr/share/steam</i>
+                      </li>
+                    </ul>
+                    <span>{t('help.wine.part2')}</span>
+                  </>
+                }
+              />{' '}
+              {t('infobox.help', 'Help')}
+            </span>
           )}
         </>
       }

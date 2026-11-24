@@ -58,12 +58,12 @@ const EacRuntime = () => {
       <ToggleSwitch
         description={t(
           'settings.eacRuntime.hint',
-          'Install the runtime required by games protected with EasyAntiCheat'
+          'Legacy runtime for games protected with EasyAntiCheat'
         )}
         htmlId="eacRuntime"
         value={eacRuntime}
         handleChange={handleEacRuntime}
-        title={t('settings.eacRuntime.name', 'EasyAntiCheat runtime')}
+        title={t('settings.eacRuntime.name', 'EasyAntiCheat runtime (legacy)')}
       />
       {installing && (
         <span>

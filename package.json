@@ -39,6 +39,7 @@
     "release:mac": "pnpm run build && electron-builder -p always --mac --x64 --arm64",
     "release:win": "pnpm run build && electron-builder -p always --win portable --x64",
     "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
+    "sign:rpm": "node meta/signRpm.mts",
     "dist:linux": "pnpm run build && electron-builder --linux",
     "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && pnpm run build && electron-builder --mac",
     "dist:win": "pnpm run build && electron-builder --win",

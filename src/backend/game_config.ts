@@ -217,6 +217,14 @@ class GameConfigV0 extends GameConfig {
       enableFsync,
       enableWineWayland,
       enableHDR,
+      hdrMode,
+      nvapiMode,
+      disableNTSync,
+      fsr4Upgrade,
+      dlssUpgrade,
+      useOptiScaler,
+      umuGameId,
+      disableProtonFixes,
       enableDXVKFpsLimit,
       enableWoW64,
       maxSharpness,
@@ -239,7 +247,8 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
-      advertiseAvxForRosetta
+      advertiseAvxForRosetta,
+      defaultSteamRuntime
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -257,6 +266,14 @@ class GameConfigV0 extends GameConfig {
       enableFsync,
       enableWineWayland,
       enableHDR,
+      hdrMode,
+      nvapiMode,
+      disableNTSync,
+      fsr4Upgrade,
+      dlssUpgrade,
+      useOptiScaler,
+      umuGameId,
+      disableProtonFixes,
       enableWoW64,
       enableDXVKFpsLimit,
       maxSharpness,
@@ -278,7 +295,7 @@ class GameConfigV0 extends GameConfig {
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta,
-      steamRuntime: false
+      steamRuntime: defaultSteamRuntime ?? false
     } as GameSettings
 
     let gameSettings = {} as GameSettings
@@ -287,6 +304,22 @@ class GameConfigV0 extends GameConfig {
       // read game's settings
       const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
       gameSettings = settings[this.appName] || ({} as GameSettings)
+
+      // migrate legacy booleans to their replacements
+      if (
+        gameSettings.hdrMode === undefined &&
+        gameSettings.enableHDR !== undefined
+      ) {
+        gameSettings.hdrMode = gameSettings.enableHDR ? 'force' : 'off'
+      }
+      if (
+        gameSettings.nvapiMode === undefined &&
+        gameSettings.autoInstallDxvkNvapi !== undefined
+      ) {
+        gameSettings.nvapiMode = gameSettings.autoInstallDxvkNvapi
+          ? 'auto'
+          : 'off'
+      }
     } else {
       // only set the `disableUMU` default value when getting settings for a new game
       // we want it to be `undefined` for games that were installed already
@@ -337,9 +370,14 @@ class GameConfigV0 extends GameConfig {
     if (this.isExplicit) {
       // Explicit mode on. Config is taken as is, missing values are not substituted for defaults.
       // Even if global defaults are changed, this will not be affected.
+      const configToWrite: Partial<GameSettings> = { ...this.config }
+      const { defaultSteamRuntime } = GlobalConfig.get().getSettings()
+      if (configToWrite.steamRuntime === defaultSteamRuntime) {
+        delete configToWrite.steamRuntime
+      }
       return this.writeToFile(
         Object.fromEntries([
-          [this.appName, this.config],
+          [this.appName, configToWrite],
           ['version', 'v0'],
           ['explicit', this.isExplicit]
         ])

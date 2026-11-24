@@ -703,6 +703,14 @@ addHandler('checkGameUpdates', async (): Promise<string[]> => {
 addHandler('getEpicGamesStatus', async () => isEpicServiceOffline())
 
 addHandler('getMaxCpus', () => cpus().length)
+addHandler('getPrimaryDisplay', () => {
+  const display = screen.getPrimaryDisplay()
+  return {
+    width: Math.round(display.size.width * display.scaleFactor),
+    height: Math.round(display.size.height * display.scaleFactor),
+    scaleFactor: display.scaleFactor
+  }
+})
 
 addHandler('getHeroicVersion', () => app.getVersion())
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)

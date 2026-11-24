@@ -168,9 +168,15 @@ Please see [the Arch Wiki](https://wiki.archlinux.org/title/Arch_User_Repository
 
 #### Fedora
 
-You can download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`.
+Heroic's RPM packages are signed. Import the public key once before installing:
 
-Alternatively, you can use the Flatpak package.
+```bash
+sudo rpm --import https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest/download/RPM-GPG-KEY-heroic.asc
+```
+
+Then download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`.
+
+The same key applies to other RPM-based distributions that enforce signature checking, such as openSUSE. Alternatively, you can use the Flatpak package.
 
 #### Nix(OS)
 
