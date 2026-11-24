@@ -784,7 +784,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Pasirinkite kurią pakaitinę „Nile“ dvejetainę naudoti",
+        "alt-aurelia-bin": "Pasirinkite kurią pakaitinę „Aurelia“ dvejetainę naudoti",
         "steamLaunchTarget": {
             "downloadBuild": "Atsisiųsti",
             "missingBuild": "Iš viso atsisiųsta",
@@ -1250,7 +1250,7 @@
         "alt-nile-bin": "Naudojama įterpta „Nile“ dvejetaine...",
         "dxvkfpsvalue": "Natūralioji (t.y. teigiamieji) sveikoji reikšmė (pvz.: 30, 60, ...)",
         "egs-prefix": "Prielinksnis/Priešdėlis kuriame „EGS“ yra įdiegtas",
-        "alt-aurelia-bin": "Naudojama įterpta „Nile“ dvejetaine..."
+        "alt-aurelia-bin": "Naudojama įterpta „Aurelia“ dvejetaine..."
     },
     "progress": "Pažanga",
     "search": "Ieškoti žaidimų",

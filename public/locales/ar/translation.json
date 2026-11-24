@@ -672,7 +672,7 @@
         "egs-prefix": "السابقة التي ثُبت فيها متجر ألعاب أََبِك",
         "prefered_language": "رمز من حرفين (مثل \"en\" أو \"fr\")",
         "alt-nile-bin": "يستخدم ملفَّ تنفيذ نيل المدمج...",
-        "alt-aurelia-bin": "يستخدم ملفَّ تنفيذ نيل المدمج..."
+        "alt-aurelia-bin": "يستخدم ملفَّ تنفيذ Aurelia المدمج..."
     },
     "platforms": {
         "linux": "لينكس",
@@ -1006,7 +1006,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "اختر ملفَّ تنفيذ بديلًا لنيل",
+        "alt-aurelia-bin": "اختر ملفَّ تنفيذ بديلًا لـ Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "التنزيل",
             "missingBuild": "إجمالي التنزيلات",

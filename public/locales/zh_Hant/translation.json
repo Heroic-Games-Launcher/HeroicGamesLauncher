@@ -671,7 +671,7 @@
         "egs-prefix": "EGS 安裝位置",
         "prefered_language": "雙字元代碼（如：\"en\" 或 \"fr\"）",
         "alt-nile-bin": "使用內建 Nile 二進位檔案…",
-        "alt-aurelia-bin": "使用內建 Nile 二進位檔案…"
+        "alt-aurelia-bin": "使用內建 Aurelia 二進位檔案…"
     },
     "platforms": {
         "linux": "Linux",
@@ -997,7 +997,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "選擇替代的 Nile 二進位檔案",
+        "alt-aurelia-bin": "選擇替代的 Aurelia 二進位檔案",
         "steamLaunchTarget": {
             "downloadBuild": "下載",
             "missingRuntime": "未安裝 VCRuntime",

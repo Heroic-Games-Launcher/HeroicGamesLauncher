@@ -310,6 +310,8 @@ export interface GameSettings {
   targetExe: string
   useGameMode: boolean
   steamRuntime: SteamRuntimeName | false
+  // Steam games: custom compatdata folder
+  steamPrefix?: string
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -637,6 +639,8 @@ export type RuntimeName = 'eac_runtime' | 'battleye_runtime' | 'umu'
 export type RecentGame = {
   appName: string
   title: string
+  /** Store the game came from. */
+  runner?: Runner
 }
 
 export type HiddenGame = RecentGame

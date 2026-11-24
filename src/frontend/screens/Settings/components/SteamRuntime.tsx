@@ -19,7 +19,7 @@ const RUNTIME_NAMES = {
 function SteamRuntime() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, isLinuxNative } = useContext(SettingsContext)
+  const { isDefault, isLinuxNative, runner } = useContext(SettingsContext)
   const [gameSteamRuntime, setGameSteamRuntime] = useSetting(
     'steamRuntime',
     false
@@ -50,7 +50,12 @@ function SteamRuntime() {
     [setSteamRuntime]
   )
 
-  if (platform !== 'linux' || (!isDefault && !isLinuxNative)) return <></>
+  // Steam launches ignore this setting
+  if (
+    platform !== 'linux' ||
+    (!isDefault && (!isLinuxNative || runner === 'steam'))
+  )
+    return <></>
 
   return (
     <>

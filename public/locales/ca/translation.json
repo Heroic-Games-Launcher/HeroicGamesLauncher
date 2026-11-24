@@ -681,7 +681,7 @@
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos o quatre caràcters (p. ex. «fr» o «pt-BR»)",
         "alt-nile-bin": "S'utilitza el binari integrat del Nile...",
-        "alt-aurelia-bin": "S'utilitza el binari integrat del Nile..."
+        "alt-aurelia-bin": "S'utilitza el binari integrat d'Aurelia..."
     },
     "platforms": {
         "linux": "Linux",
@@ -1016,7 +1016,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Tria un binari alternatiu del Nile",
+        "alt-aurelia-bin": "Tria un binari alternatiu d'Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Baixada",
             "missingBuild": "Total baixat",

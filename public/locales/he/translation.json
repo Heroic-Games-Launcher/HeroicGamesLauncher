@@ -682,7 +682,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "בחרו Nile Binary אלטרנטיבי",
+        "alt-aurelia-bin": "בחרו Aurelia Binary אלטרנטיבי",
         "steamLaunchTarget": {
             "downloadBuild": "הורד",
             "missingBuild": "סך הורדות",
@@ -957,7 +957,7 @@
         "dxvkfpsvalue": "ערך שלם חיובי (למשל 30, 60,...)",
         "egs-prefix": "הPrefix שבו מותקן EGS",
         "prefered_language": "קוד דו-תווי (כגון: \"en\" או \"fr\")",
-        "alt-aurelia-bin": "משתמש בגרסה המובנית של Nile..."
+        "alt-aurelia-bin": "משתמש בגרסה המובנית של Aurelia..."
     },
     "progress": "התקדמות",
     "search": "חיפוש משחקים",

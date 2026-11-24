@@ -105,7 +105,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
   const isLinux = platform === 'linux'
   const steamTargets = useSteamLaunchTargets(appName, gameInfo, isLinux)
   // Steam: follows the chosen game version
-  const steamPlatform = steamTargets.effective?.platform
+  const steamPlatform = steamTargets.platform
   const isNative = steamPlatform ? steamPlatform === 'linux' : nativeFromApi
   // Hide card when both rows hide
   const showSteamCard =
@@ -121,6 +121,8 @@ export default function GamesSettings({ initialTab }: Props = {}) {
     (gameInfo?.runner === 'steam' && gameInfo.is_installed)
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
+  // Steam uses Modify installation instead
+  const showPreferredLanguage = !isSideloaded && gameInfo?.runner !== 'steam'
 
   function shouldShowSettings(tab: 'wine' | 'other'): boolean {
     if (tab === 'wine') {
@@ -330,7 +332,8 @@ export default function GamesSettings({ initialTab }: Props = {}) {
         {isLinux &&
           wineVersion?.type === 'proton' &&
           !isNative &&
-          !disableUMU && (
+          !disableUMU &&
+          gameInfo?.runner !== 'steam' && (
             <SettingsCard
               glyph={FlaskConical}
               title={t('settings.section.umu', 'UMU (Proton)')}
@@ -338,7 +341,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
               <UmuOptions />
             </SettingsCard>
           )}
-        {!isSideloaded && (
+        {showPreferredLanguage && (
           <SettingsCard
             glyph={Globe}
             title={t('settings.section.language', 'Language & region')}

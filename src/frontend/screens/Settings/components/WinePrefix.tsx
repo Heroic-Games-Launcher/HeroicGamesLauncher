@@ -5,20 +5,46 @@ import useSetting from 'frontend/hooks/useSetting'
 import { Alert, PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import { defaultWineVersion } from '../util'
+import { steamCompatdataPrefix } from 'frontend/helpers/steamPrefix'
 
 const WinePrefix = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { getSetting, gameInfo } = useContext(SettingsContext)
+  const { getSetting, runner, gameInfo } = useContext(SettingsContext)
   const wineVersion = getSetting('wineVersion', defaultWineVersion)
 
   const isWin = platform === 'win32'
 
   const [sharedWinePrefix] = useSetting('sharedWinePrefix', '')
   const [winePrefix, setWinePrefix] = useSetting('winePrefix', sharedWinePrefix)
+  const [steamPrefix, setSteamPrefix] = useSetting('steamPrefix', '')
 
   if (isWin || wineVersion.type === 'crossover') {
     return <></>
+  }
+
+  // Empty: Steam's compatdata folder
+  if (runner === 'steam') {
+    const compatdata = steamCompatdataPrefix(
+      gameInfo?.install.install_path,
+      gameInfo?.app_name
+    )
+    return (
+      <PathSelectionBox
+        htmlId="selectWinePrefix"
+        label={t('setting.wineprefix')}
+        path={steamPrefix}
+        placeholder={compatdata}
+        onPathChange={setSteamPrefix}
+        type="directory"
+        pathDialogTitle={t('box.wineprefix')}
+        pathDialogDefaultPath={steamPrefix || compatdata}
+        info={t(
+          'infobox.steam-wineprefix',
+          'Proton keeps the prefix in a pfx folder inside this folder. Leave it empty to use the folder Steam uses for this game, inside the Steam library it is installed in.'
+        )}
+      />
+    )
   }
 
   return (

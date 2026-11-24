@@ -13,6 +13,8 @@ import {
   AureliaError
 } from './aurelia'
 import type { AureliaAccount } from './aurelia_types'
+import { configStore } from './electronStores'
+import { notifyRecentGamesChanged } from 'backend/recent_games/recent_games'
 
 const QR_LOGIN_ABORT_ID = 'steam-qr-login'
 const LOGIN_ABORT_ID = 'steam-login'
@@ -100,6 +102,7 @@ export class SteamUser {
         return { status: 'error', error: 'Login was not successful' }
       }
       logInfo('Steam login successful', LogPrefix.Steam)
+      configStore.set('isLoggedIn', true)
       return { status: 'done' }
     } catch (error) {
       if (error instanceof AureliaError && error.aborted) {
@@ -171,6 +174,7 @@ export class SteamUser {
         return { status: 'error', error: 'Login was not successful' }
       }
       logInfo('Steam QR login successful', LogPrefix.Steam)
+      configStore.set('isLoggedIn', true)
       return { status: 'done' }
     } catch (error) {
       if (error instanceof AureliaError && error.aborted) {
@@ -241,23 +245,29 @@ export class SteamUser {
     const account = await this.getAccount()
     if (!account) {
       logWarning('User is not logged in', LogPrefix.Steam)
+      configStore.delete('isLoggedIn')
+      configStore.delete('username')
       return
     }
     // Prefer the public persona
-    return { username: account.persona_name || account.account_name }
+    const username = account.persona_name || account.account_name
+    configStore.set('isLoggedIn', true)
+    configStore.set('username', username)
+    return { username }
   }
 
   public static async getAccounts(): Promise<SteamAccount[]> {
     const account = await this.getAccount()
     if (!account) {
+      configStore.delete('isLoggedIn')
+      configStore.delete('username')
       return []
     }
-    return [
-      {
-        steamId: String(account.steam_id),
-        username: account.persona_name || account.account_name
-      }
-    ]
+    const username = account.persona_name || account.account_name
+    // Heals sessions predating the flag
+    configStore.set('isLoggedIn', true)
+    configStore.set('username', username)
+    return [{ steamId: String(account.steam_id), username }]
   }
 
   // Aurelia is single-session, so the specific account id is irrelevant.
@@ -279,6 +289,9 @@ export class SteamUser {
       )
     }
     clearCache('steam')
+    configStore.delete('isLoggedIn')
+    configStore.delete('username')
+    await notifyRecentGamesChanged()
     logInfo('Logging user out from Steam', LogPrefix.Steam)
   }
 

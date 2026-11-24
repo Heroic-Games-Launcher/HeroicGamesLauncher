@@ -671,7 +671,7 @@
         "egs-prefix": "محل نصب شده EGS",
         "prefered_language": "کد دو حرفی (مانند \"en\" یا \"fr\")",
         "alt-nile-bin": "استفاده از باینری داخلی نیل...",
-        "alt-aurelia-bin": "استفاده از باینری Legendary داخلی..."
+        "alt-aurelia-bin": "استفاده از باینری Aurelia داخلی..."
     },
     "platforms": {
         "linux": "لینوکس",
@@ -997,7 +997,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "یک باینری جایگزین نیل را انتخاب کنید",
+        "alt-aurelia-bin": "یک باینری جایگزین Aurelia را انتخاب کنید",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "حجم کل دانلود شده",

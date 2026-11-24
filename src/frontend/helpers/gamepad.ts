@@ -36,8 +36,6 @@ export const setGamepadPassthrough = (enabled: boolean) => {
 
 export const isUsingGamepad = () => currentController !== -1
 
-export const isControllerDisabled = () => controllerIsDisabled
-
 export type NavigateDirection = 'up' | 'down' | 'left' | 'right'
 type ScrollDirection = 'up' | 'down'
 

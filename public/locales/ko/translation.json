@@ -671,7 +671,7 @@
         "egs-prefix": "에픽 게임즈 스토어 설치 경로",
         "prefered_language": "2 자리 코드 (예: \"en\" 또는 \"fr\")",
         "alt-nile-bin": "내장 나일 바이너리 사용 중...",
-        "alt-aurelia-bin": "내장 나일 바이너리 사용 중..."
+        "alt-aurelia-bin": "내장 Aurelia 바이너리 사용 중..."
     },
     "platforms": {
         "linux": "리눅스",
@@ -1004,7 +1004,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "다른 나일 바이너리 선택",
+        "alt-aurelia-bin": "다른 Aurelia 바이너리 선택",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "전체 다운로드",

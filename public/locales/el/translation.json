@@ -674,7 +674,7 @@
         "egs-prefix": "Πρόθημα διαδρομής εγκατάστασης EGS",
         "prefered_language": "Κωδικός 2 ή 4 χαρακτήρων (π.χ.: \"en\" ή \" en-US\")",
         "alt-nile-bin": "Χρησιμοποιώντας το ενσωματωμένο δυαδικό σύστημα Nile...",
-        "alt-aurelia-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου Legendary..."
+        "alt-aurelia-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου Aurelia..."
     },
     "platforms": {
         "linux": "Linux",
@@ -1006,7 +1006,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
+        "alt-aurelia-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingRuntime": "Το VCRuntime δεν είναι εγκατεστημένο",

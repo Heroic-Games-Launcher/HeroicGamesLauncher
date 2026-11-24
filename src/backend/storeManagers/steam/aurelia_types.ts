@@ -55,6 +55,8 @@ export interface AureliaLibraryGame {
   assets?: AureliaAssets
   store_url?: string
   platform?: string
+  // Installed bytes, Aurelia 0.3+
+  size_on_disk?: number | null
 }
 
 interface AureliaDlcEntry {
@@ -108,6 +110,10 @@ export interface AureliaDryRunResponse {
   download_size: number
   disk_size: number
   depot_count?: number
+  // Steam language names, Aurelia 0.3.1+
+  languages?: string[]
+  default_language?: string | null
+  installed_language?: string | null
 }
 
 export interface AureliaConfigShowResponse {
@@ -117,6 +123,13 @@ export interface AureliaConfigShowResponse {
 /** Result of `aurelia config download-limit --json`. */
 export interface AureliaDownloadLimitResponse {
   download_limit_kbit: number
+}
+
+/** Result of `aurelia config cloud-sync --json`. */
+export interface AureliaCloudSyncConfigResponse {
+  enable_cloud_sync: boolean
+  /** Per-game overrides by app id. */
+  game_overrides?: Record<string, boolean>
 }
 
 /** Result of `aurelia libraries --json`. */

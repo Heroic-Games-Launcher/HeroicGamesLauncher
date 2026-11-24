@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DismissibleBanner } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { getIntlLocale } from 'frontend/helpers'
 import type { Runner } from 'common/types'
 import type { SteamDataFetchFailure, SteamDataKind } from 'common/types/steam'
 
@@ -50,7 +51,8 @@ const SteamLoginBanner = ({ appName, failures }: Props) => {
     installInfo: t('steam.data.installInfo', 'download size'),
     launchOptions: t('steam.data.launchOptions', 'launch options')
   }
-  const failed = new Intl.ListFormat(i18n.language, {
+  // pt_BR breaks Intl
+  const failed = new Intl.ListFormat(getIntlLocale(i18n.language), {
     type: 'conjunction'
   }).format(failures.map((failure) => labels[failure.data]))
 

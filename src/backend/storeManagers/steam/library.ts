@@ -20,11 +20,14 @@ import {
 import { getFileSize } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
 import {
+  configStore,
   libraryStore,
   installedGamesStore,
   installInfoStore
 } from './electronStores'
+import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import {
+  aureliaBinaryStamp,
   runAurelia,
   runAureliaCommand,
   getSteamLibraryPath,
@@ -44,6 +47,11 @@ import {
 import type { SteamInstallLibrary } from 'common/types/steam'
 import { join } from 'path'
 import SteamGame from './games'
+import { dryRunLanguages } from './languages'
+import {
+  notifyRecentGamesChanged,
+  tagRecentGames
+} from 'backend/recent_games/recent_games'
 import type {
   AureliaLibraryGame,
   AureliaDlcResponse,
@@ -61,6 +69,8 @@ export default class SteamLibraryManager implements LibraryManager {
   async init(): Promise<void> {
     if (!isSteamSupported()) return
     await this.refresh()
+    // Offline start keeps the cache
+    if (!isOnline()) runOnceWhenOnline(async () => this.refresh())
   }
 
   getGame(id: string): SteamGame {
@@ -77,6 +87,27 @@ export default class SteamLibraryManager implements LibraryManager {
   async refresh(): Promise<ExecResult | null> {
     if (!isSteamSupported()) {
       return { stdout: '', stderr: STEAM_UNSUPPORTED }
+    }
+
+    // Tag before a clear loses ids
+    await tagRecentGames(
+      'steam',
+      new Set(libraryStore.get('games', []).map((game) => game.app_name))
+    )
+
+    // Logged out: no Steam entries
+    if (!configStore.get('isLoggedIn', false)) {
+      library.clear()
+      installedGames.clear()
+      libraryStore.set('games', [])
+      installedGamesStore.set('installed', [])
+      await notifyRecentGamesChanged()
+      return { stdout: 'Not logged in to Steam', stderr: '' }
+    }
+    // Offline: keep the cached list
+    if (!isOnline()) {
+      logInfo('Offline, keeping the cached Steam library', LogPrefix.Steam)
+      return { stdout: 'Offline, using cached library', stderr: '' }
     }
 
     logInfo('Refreshing Steam library', LogPrefix.Steam)
@@ -117,6 +148,8 @@ export default class SteamLibraryManager implements LibraryManager {
 
     installedGamesStore.set('installed', Array.from(installedGames.values()))
     libraryStore.set('games', Array.from(library.values()))
+    await tagRecentGames('steam', new Set(library.keys()))
+    await notifyRecentGamesChanged()
 
     const logLines = Array.from(library.values()).map(
       (game) =>
@@ -147,7 +180,7 @@ export default class SteamLibraryManager implements LibraryManager {
     return {
       executable: '',
       install_path: game.install_path ?? '',
-      install_size: getFileSize(0),
+      install_size: getFileSize(game.size_on_disk ?? 0),
       is_dlc: false,
       version: '',
       platform: installedPlatformFor(game.platform),
@@ -170,7 +203,8 @@ export default class SteamLibraryManager implements LibraryManager {
       folder_name: game.name,
       install: {},
       is_installed: false,
-      canRunOffline: true,
+      // Offline launches show Heroic's warning
+      canRunOffline: false,
       // Aurelia installs the Windows depots and runs them
       is_mac_native: game.platform === 'macos',
       is_linux_native: game.platform === 'linux'
@@ -249,7 +283,9 @@ export default class SteamLibraryManager implements LibraryManager {
     // Key the cache by platform
     const cacheKey = `${appName}_${String(platform).toLowerCase()}`
     const cache = installInfoStore.get(cacheKey)
-    if (cache && cache.manifest) {
+    // Refetch after Aurelia changes
+    const stamp = aureliaBinaryStamp()
+    if (cache && cache.manifest && cache.aurelia === stamp) {
       logDebug('Using cached Steam install info', LogPrefix.Steam)
       return cache
     }
@@ -274,7 +310,8 @@ export default class SteamLibraryManager implements LibraryManager {
         const info: SteamInstallInfo = {
           manifest: {
             download_size: dryRun.download_size,
-            disk_size: dryRun.disk_size
+            disk_size: dryRun.disk_size,
+            ...dryRunLanguages(dryRun)
           },
           game: {
             id: appName,
@@ -288,7 +325,8 @@ export default class SteamLibraryManager implements LibraryManager {
             owned_dlc: [],
             platform_versions: {},
             title: game?.title ?? appName
-          }
+          },
+          aurelia: stamp
         }
         installInfoStore.set(cacheKey, info)
         return info
@@ -373,9 +411,17 @@ export default class SteamLibraryManager implements LibraryManager {
     }
   }
 
+  /** Drops cached dry-runs, e.g. after installing. */
+  forgetInstallInfo(appName: string): void {
+    for (const platform of ['windows', 'linux', 'mac', 'osx']) {
+      installInfoStore.delete(`${appName}_${platform}`)
+    }
+  }
+
   async markInstalled(appName: string): Promise<void> {
     const marked = await steamCall<
-      { installPath: string; platform: InstallPlatform } | undefined
+      | { installPath: string; platform: InstallPlatform; size: number }
+      | undefined
     >(
       async () => {
         // `list -i` reports installed games with their full install info
@@ -384,7 +430,8 @@ export default class SteamLibraryManager implements LibraryManager {
         if (!game?.is_installed || !game.install_path) return undefined
         return {
           installPath: game.install_path,
-          platform: installedPlatformFor(game.platform)
+          platform: installedPlatformFor(game.platform),
+          size: game.size_on_disk ?? 0
         }
       },
       {
@@ -394,11 +441,13 @@ export default class SteamLibraryManager implements LibraryManager {
       }
     )
     if (!marked) return
+    // Installed language changed
+    this.forgetInstallInfo(appName)
 
     const installed: InstalledInfo = {
       executable: '',
       install_path: marked.installPath,
-      install_size: getFileSize(0),
+      install_size: getFileSize(marked.size),
       is_dlc: false,
       version: '',
       platform: marked.platform,

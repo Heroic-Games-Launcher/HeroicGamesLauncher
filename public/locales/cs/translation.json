@@ -683,7 +683,7 @@
         "egs-prefix": "Prefix kde je nainstalován EGS",
         "prefered_language": "2místný nebo 4místný kód (např. „fr“ nebo „pt-BR“)",
         "alt-nile-bin": "Používání vestavěného binárního souboru Nile...",
-        "alt-aurelia-bin": "Používání vestavěného binárního souboru Nile..."
+        "alt-aurelia-bin": "Používání vestavěného binárního souboru Aurelia..."
     },
     "platforms": {
         "linux": "Linux",
@@ -1025,7 +1025,7 @@
         "checkForUpdatesOnStartup-description": "Při každém spuštění aplikace se podívejte, zda není k dispozici nová verze Heroic",
         "disableUMU-description": "Spustit Proton přímo, místo abyste ho spouštěli přes spouštěč umu",
         "gamemode-description": "Požádat systém, aby během spuštění hry upřednostnil její běh",
-        "alt-aurelia-bin": "Vyberte alternativní binární soubor Nile",
+        "alt-aurelia-bin": "Vyberte alternativní binární soubor Aurelia",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Celkově staženo",

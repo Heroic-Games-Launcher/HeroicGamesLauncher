@@ -671,7 +671,7 @@
         "egs-prefix": "EGS സ്ഥാപിച്ചയിടം",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
         "alt-nile-bin": "ബിൽറ്റ്-ഇൻ നൈൽ ബൈനറി ഉപയോഗിച്ച്...",
-        "alt-aurelia-bin": "തനത് ലെജന്ററി ഈരക്കരേഖ ഉപയോഗിക്കുന്നു..."
+        "alt-aurelia-bin": "തനത് Aurelia ഈരക്കരേഖ ഉപയോഗിക്കുന്നു..."
     },
     "platforms": {
         "linux": "ലിനക്സ്",

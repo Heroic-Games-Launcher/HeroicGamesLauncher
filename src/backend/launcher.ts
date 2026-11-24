@@ -126,8 +126,9 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   }
 
   const gameSettings = await game.getSettings()
-  const { autoSyncSaves } = gameSettings
   let { savesPath, gogSaves = [] } = gameSettings
+  // Steam syncs inside its own launch
+  const autoSyncSaves = runner !== 'steam' && gameSettings.autoSyncSaves
 
   const refreshSavePaths = async () => {
     const { refreshSavePathsIfConfigurationChanged } =

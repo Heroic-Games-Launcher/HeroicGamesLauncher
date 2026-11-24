@@ -108,6 +108,7 @@ export default memo(function RecentlyPlayed({
     amazon.library,
     zoom.library,
     itchio.library,
+    steam.library,
     sideloadedLibrary,
     hiddenGames,
     showHidden

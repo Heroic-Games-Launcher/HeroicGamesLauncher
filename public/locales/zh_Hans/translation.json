@@ -678,7 +678,7 @@
         "egs-prefix": "Epic 游戏商城安装位置",
         "prefered_language": "双字符或四字符代码 (如: \"fr\" 或 \"pt-BR\")",
         "alt-nile-bin": "使用内置 Nile 二进制文件...",
-        "alt-aurelia-bin": "使用内置的 Legendary 二进制文件..."
+        "alt-aurelia-bin": "使用内置的 Aurelia 二进制文件..."
     },
     "platforms": {
         "linux": "Linux",
@@ -1019,7 +1019,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "选择替代的 Nile 二进制文件",
+        "alt-aurelia-bin": "选择替代的 Aurelia 二进制文件",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "下载总计",

@@ -671,7 +671,7 @@
         "egs-prefix": "Predpona, kde je nainštalovaný EGS",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
         "alt-nile-bin": "Pomocou vstavaného binárneho systému Níl...",
-        "alt-aurelia-bin": "Using built-in Legendary binary..."
+        "alt-aurelia-bin": "Using built-in Aurelia binary..."
     },
     "platforms": {
         "linux": "Linux",
@@ -1004,7 +1004,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Choose an Alternative Legendary Binary (needs restart)to use",
+        "alt-aurelia-bin": "Choose an Alternative Aurelia Binary",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Celkom stiahnutých hier",

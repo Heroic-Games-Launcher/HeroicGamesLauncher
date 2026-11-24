@@ -33,6 +33,11 @@
       justify-content: space-between;
     }
   }
+  &__hint {
+    margin: var(--space-md);
+    opacity: 0.7;
+  }
+
   &__branchPassword {
     width: 100%;
   }

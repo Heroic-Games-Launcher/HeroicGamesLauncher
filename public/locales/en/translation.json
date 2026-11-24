@@ -114,6 +114,8 @@
                 }
             },
             "steam": {
+                "language-change": "Could not change the language of {{game}}",
+                "language-change-unknown": "Aurelia gave no reason. The Steam log has details.",
                 "running": "Steam is running. Close Steam and try again, or restart Steam once to let Heroic manage shortcuts while Steam is running.",
                 "running-gamemode": "A one-time Steam restart is required before Heroic can manage Steam shortcuts on this device. Restart Steam and try again."
             },
@@ -914,6 +916,7 @@
     "infobox": {
         "help": "Help",
         "requirements": "System requirements",
+        "steam-wineprefix": "Proton keeps the prefix in a pfx folder inside this folder. Leave it empty to use the folder Steam uses for this game, inside the Steam library it is installed in.",
         "warning": "Warning",
         "wine-path": "Wine path",
         "wine-path-invalid": "Wine path is invalid, please select another one.",

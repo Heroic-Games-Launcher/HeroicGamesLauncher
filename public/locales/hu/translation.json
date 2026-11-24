@@ -677,7 +677,7 @@
         "egs-prefix": "Környezet, ahol telepítve van az EGS",
         "prefered_language": "2 vagy 4 karakteres kód (tehát „fr” vagy „pt-BR”)",
         "alt-nile-bin": "A beépített Nile bináris használata…",
-        "alt-aurelia-bin": "Beépített Legendary bináris használata..."
+        "alt-aurelia-bin": "Beépített Aurelia bináris használata..."
     },
     "platforms": {
         "linux": "Linux",
@@ -1017,7 +1017,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Válasszon egy alternatív Nile binárist",
+        "alt-aurelia-bin": "Válasszon egy alternatív Aurelia binárist",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Teljesen letöltve",

@@ -23,7 +23,11 @@ export const useCloudSaveDetail = (gameInfo: GameInfo): CloudSaveDetail => {
   const { gameSettings, is } = useContext(GameContext)
   const { showDialogModal } = useContext(ContextProvider)
 
-  const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
+  // Steam syncs by default
+  const [autoSyncSaves, setAutoSyncSaves] = useSetting(
+    'autoSyncSaves',
+    gameInfo.runner === 'steam'
+  )
   const [savesPath] = useSetting('savesPath', '')
   const [gogSaves] = useSetting('gogSaves', [])
 

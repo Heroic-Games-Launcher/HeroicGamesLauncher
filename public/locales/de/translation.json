@@ -210,6 +210,7 @@
         "yes": "JA",
         "dontShowAgain": "Nicht erneut anzeigen",
         "choose-nile-binary": "Nile-Binärdatei auswählen",
+        "choose-aurelia-binary": "Aurelia-Binärdatei auswählen",
         "update": "Update",
         "postpone": "Später",
         "changelog": "Änderungsprotokoll",
@@ -671,7 +672,7 @@
         "legendary-version": "Legendary-Version: ",
         "weblate": "Hilf bei der Übersetzung von Heroic.",
         "nile-version": "Nile-Version: ",
-        "aurelia-version": ""
+        "aurelia-version": "Aurelia-Version: "
     },
     "Other": "Andere",
     "placeholder": {
@@ -682,7 +683,7 @@
         "egs-prefix": "Präfix, in dem EGS installiert ist",
         "prefered_language": "Zwei-Zeichen-Code (z.B.: „fr“ oder „pt-BR“)",
         "alt-nile-bin": "Integrierte Nile-Binärdatei wird verwendet …",
-        "alt-aurelia-bin": "Integrierte Legendary-Binärdatei wird verwendet …"
+        "alt-aurelia-bin": "Integrierte Aurelia-Binärdatei wird verwendet …"
     },
     "platforms": {
         "linux": "Linux",
@@ -1017,7 +1018,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Wählen Sie eine alternative Nile-Binärdatei",
+        "alt-aurelia-bin": "Eine alternative Aurelia-Binärdatei auswählen",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Total Downloaded",
