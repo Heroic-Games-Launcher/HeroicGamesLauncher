@@ -63,6 +63,7 @@ import { download, isInstalled } from './wine/runtimes/runtimes'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
+import { extractWinePath } from './cloud_saves/wine_path_output'
 import { copyFile } from 'fs/promises'
 import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
@@ -125,7 +126,18 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   }
 
   const gameSettings = await game.getSettings()
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const { autoSyncSaves } = gameSettings
+  let { savesPath, gogSaves = [] } = gameSettings
+
+  const refreshSavePaths = async () => {
+    const { refreshSavePathsIfConfigurationChanged } =
+      await import('./save_sync')
+    if (await refreshSavePathsIfConfigurationChanged(appName, runner)) {
+      const updated = await game.getSettings()
+      savesPath = updated.savesPath
+      gogSaves = updated.gogSaves ?? []
+    }
+  }
 
   if (!launchArguments && gameSettings.lastUsedLaunchOption) {
     launchArguments = gameSettings.lastUsedLaunchOption
@@ -144,6 +156,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   logInfo(`Launching ${title} (${appName})`, LogPrefix.Backend)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -151,8 +165,15 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     })
     logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
     try {
-      await game.syncSaves('--skip-upload', savesPath, gogSaves)
-      logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      const result = await game.syncSaves('--skip-upload', savesPath, gogSaves)
+      if (result.state === 'ok') {
+        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      } else {
+        logWarning(
+          `Could not download saves for ${title}: ${result.state}${result.reason ? ` (${result.reason})` : ''}`,
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(
         `Error while downloading saves for ${title}. ${error}`,
@@ -293,6 +314,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   await addRecentGame(gameInfo)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -307,8 +330,19 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
     logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
     try {
-      await game.syncSaves('--skip-download', savesPath, gogSaves)
-      logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      const result = await game.syncSaves(
+        '--skip-download',
+        savesPath,
+        gogSaves
+      )
+      if (result.state === 'ok') {
+        logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      } else {
+        logWarning(
+          `Could not upload saves for ${title}: ${result.state}${result.reason ? ` (${result.reason})` : ''}`,
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(
         `Error uploading saves for ${title}. Error: ${error}`,
@@ -338,8 +372,6 @@ function filterGameSettingsForLog(
   const gameSettings: PartialDeep<GameSettings> =
     structuredClone(originalSettings)
 
-  // this is irrelevant for support
-  delete gameSettings.enableQuickSavesMenu
   // if this is visible, it means verboseLogs is true, no need to print it
   delete gameSettings.verboseLogs
 
@@ -1740,7 +1772,7 @@ async function callRunner(
     shouldUsePowerShell =
       isWindows && !!(await searchForExecutableOnPath('powershell'))
 
-  if (shouldUsePowerShell) {
+  if (shouldUsePowerShell && options?.waitForChildProcesses !== false) {
     const argsAsString = commandParts
       .map((part) => part.replaceAll('\\', '\\\\'))
       .map((part) => `"\`"${part}\`""`)
@@ -1980,12 +2012,14 @@ async function getWinePath({
     ignoreLogging: true
   })
 
-  const result = stdout.trim()
+  const result = extractWinePath(stdout, variant)
+
   if (!result) {
     logError(
       `Couldn't get wine path for ${path}.\n${stderr}`,
       LogPrefix.Backend
     )
+    return ''
   }
 
   return result

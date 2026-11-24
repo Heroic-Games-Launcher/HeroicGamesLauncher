@@ -163,6 +163,14 @@
         "runexe": {
             "title": "Select EXE to run"
         },
+        "saveConflict": {
+            "cancel": "Cancel",
+            "detail": "Using this PC's saves will permanently replace the cloud copy. Cloud saves are not included in local backups.",
+            "keepCloud": "Use cloud saves",
+            "keepLocal": "Use this PC's saves",
+            "message": "The cloud and local saves for {{game}} have diverged. Choose which copy to keep.",
+            "title": "Save conflict"
+        },
         "select": {
             "button": "Select",
             "exe": "Select EXE",
@@ -612,6 +620,7 @@
         "advertiseAvxForRosetta": "Enables AVX instruction set support when running windows games through Rosetta on Apple Silicon macs. This may be required for some games like Death Stranding that need AVX support.",
         "amdfsr": "AMD's FSR 1.0 fullscreen hack only works with GE-Proton/TKG under X11. It is not available in Valve Proton or upstream Wine and is incompatible with Wine-Wayland.",
         "analytics": "Enables Heroic to collect 100% anonymous usage data to help improve the application. Needs restart to take effect.",
+        "backupSaves": "Backups are incremental and stored in the Saves_Backup folder inside your default install path",
         "button": {
             "close": "Close help",
             "open": "Open help"
@@ -1148,6 +1157,26 @@
         "autoUpdateGames-description": "Download game updates as soon as they are released",
         "autovkd3d": "Auto install/update VKD3D on prefix",
         "autovkd3d-description": "Translate DirectX 12 calls to Vulkan",
+        "backups": "Save backups",
+        "backups-already-current-body": "This backup matches your current saves",
+        "backups-already-current-title": "Saves already up to date",
+        "backups-current": "Matches your current saves",
+        "backups-empty": "No save backups yet",
+        "backups-error-failed": "Could not create a safety backup before restoring",
+        "backups-error-incomplete": "This backup is incomplete and cannot be restored",
+        "backups-error-location": "The save location changed since this backup was taken",
+        "backups-error-removed": "This backup was removed by the size limit",
+        "backups-open-folder": "Open backups folder",
+        "backups-restore": "Restore save backup",
+        "backups-restore-button": "Restore",
+        "backups-restore-confirm": "Restore the save files from {{date}}?",
+        "backups-restore-failed": "Could not restore the backup",
+        "backups-restored-body": "The save files were restored from the selected backup",
+        "backups-restored-title": "Saves restored",
+        "backups-summary": "{{changed}} changed, {{deleted}} deleted",
+        "backupSaves": "Back up saves on every sync",
+        "backupSaves-description": "Store a backup of changed save files on every sync",
+        "backupSize": "{{size}} GB",
         "before-launch-script-path": "Select a script to run before the game is launched",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic updates on startup",
@@ -1194,7 +1223,6 @@
         "dxfpslimit": "Limit DirectX games FPS",
         "dxfpslimit-description": "Cap the frame rate of DirectX games to reduce heat and power draw",
         "egs-sync": "Sync with installed Epic Games",
-        "enable-quick-sync-menu": "Enable quick save-sync menu on game page",
         "enableFSRHack": "Wine FSR 1 (fshack, X11 only)",
         "enableFSRHack-description": "Legacy fullscreen upscaling for DirectX games (X11 only)",
         "eosOverlay": {
@@ -1346,6 +1374,7 @@
             "upload": "Upload"
         },
         "maxRecentGames": "Played recently to show",
+        "maxSaveBackupSize": "Backup size limit",
         "maxworkers": "Maximum number of workers when downloading",
         "maxworkers-description": "More workers download faster but use more CPU and bandwidth. Max uses every core.",
         "minimize-on-launch": "Minimize Heroic after game launch",
@@ -1380,6 +1409,7 @@
             "title": "Run EXE on prefix"
         },
         "savefolder": {
+            "detect-failed": "Could not detect the save folder automatically. Select it manually below or check the Heroic log for details.",
             "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Select the exact save games folder",
             "retry": "Detect again",
@@ -1445,6 +1475,7 @@
         },
         "winecrossoverbottle": "CrossOver bottle",
         "wineprefix": "WinePrefix folder",
+        "wineprefix-save-warning": "Changing the Wine prefix or the Wine/Proton version can make Heroic lose track of where this game saves its data. Check the Cloud Saves tab before launching the game.",
         "winetricks": {
             "description": "Install windows libraries and components into this prefix"
         },
@@ -1556,8 +1587,7 @@
         "reset-heroic": "Reset Heroic",
         "saves": {
             "gog_linux_native_warning": "linux native games do not support GOG's cloud saves feature. Use the windows version instead.",
-            "not_supported": "This game does not support cloud saves.",
-            "warning": "Cloud saves feature is in beta, please backup your saves before syncing (in case something goes wrong)"
+            "not_supported": "This game does not support cloud saves."
         },
         "search": {
             "noResults": "No settings found",
