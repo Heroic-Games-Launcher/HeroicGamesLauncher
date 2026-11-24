@@ -28,7 +28,8 @@
         "source": "Source",
         "status": "Status",
         "title": "این بازی شامل نرم افزار آنتی چیت می باشد",
-        "multiplayer_may_not_work": "ممکن است به خاطر پشتیبانی ناقص یا عدم پشتیبانی آنتی چیت کار نکند."
+        "multiplayer_may_not_work": "ممکن است به خاطر پشتیبانی ناقص یا عدم پشتیبانی آنتی چیت کار نکند.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Update",
         "changelog": "",
         "postpone": "",
-        "cancel": "انصراف"
+        "cancel": "انصراف",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "انصراف",
@@ -263,7 +278,8 @@
             "end-time": "به پایان رسیده در",
             "queue-time": "افزوده شده در",
             "start-time": "آغاز شده در",
-            "type": "Type"
+            "type": "Type",
+            "status": "Status"
         },
         "title": "Downloads",
         "ETA": "زمان تخمینی",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "به علت آفلاین بودن سرورهای اپیک گیمز سرویسهای آنلاین ممکن است کار نکنند!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "اپیک گیمز",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "علاقه مندی ها",
     "game": {
         "status": "Status",
@@ -328,7 +350,8 @@
         "stores": "فروشگاهها",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
@@ -489,7 +512,28 @@
             "title": "خروج از حساب"
         },
         "title_epic": "اپیک گیمز",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "فعال سازی"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "ورود",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "همگامسازی کامل شد",
@@ -551,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "آفلاین. تلاش مجدد در {{seconds}} ثانیه.",
-        "retrying": "تلاش مجدد"
+        "retrying": "تلاش مجدد",
+        "hint-label": ""
     },
     "Open": "باز کردن",
     "options": {
@@ -614,7 +659,8 @@
         "gogdl-version": "نسخه GOGDL: ",
         "legendary-version": "نسخه Legendary: ",
         "weblate": "کمک به ترجمه Heroic.",
-        "nile-version": "نسخه نیل: "
+        "nile-version": "نسخه نیل: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -755,7 +801,8 @@
                 "zoom": "",
                 "game-log": "",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -954,8 +1001,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "حجم کل دانلود شده",
-            "missingRuntime": "VCRuntime نصب نشده است"
-        }
+            "missingRuntime": "VCRuntime نصب نشده است",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1023,13 +1087,17 @@
             },
             "title": {
                 "resetHeroic": "Reset Heroic",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "آیا از بازنشانی Heroic مطمئن هستید؟ این کار تمام تنظیمات و کش ها را پاک می کند اما بازی های نصب شده شما یا اعتبارهای Epic شما را پاک نمی کند. نسخه های پورتابل (AppImage, WinPortable, ...) نیازمند راه اندازی مجدد دستی پس از آن هستند.",
                 "description": ""
             },
-            "details": ""
+            "details": "",
+            "clearImagesCache": {
+                "description": ""
+            }
         },
         "systemInformation": {
             "copyToClipboard": "در کليپ بورد کپی شد!",
@@ -1102,7 +1170,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "اپیک گیمز",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1111,6 +1182,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "کپی"
         }
     },
     "Settings": "تنظیمات",
@@ -1125,7 +1200,8 @@
         "logging": "در حال ورود...",
         "processing": "در حال پردازش فایلها، لطفا منتظر بمانید",
         "preparing_login": "در حال آماده سازی ورود... ",
-        "installed": "نصب شده"
+        "installed": "نصب شده",
+        "preparing": ""
     },
     "store": "فروشگاه اپیک",
     "stores": "فروشگاهها",
@@ -1150,7 +1226,9 @@
     },
     "two_col_table": {
         "save_hint": "بازی های این جدول به صورت خودکار ذخیره نشده اند. بر روی دکمه + کلیک کنید",
-        "add": ""
+        "add": "",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "به روزرسانی موجود است!",
     "userselector": {
@@ -1390,7 +1468,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "",
         "sort": {
@@ -1456,7 +1535,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "آخرین اجرا"
+            "last_played": "آخرین اجرا",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1500,7 +1582,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1528,21 +1618,147 @@
     "Update available!": "به روزرسانی موجود است!",
     "support": {
         "actions": {
-            "open": "باز کردن"
+            "open": "باز کردن",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "حمایت از ما"
+        "title": "حمایت از ما",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "بازگشت",
         "button": {
             "download": "Download",
             "sync": "همگام سازی",
-            "upload": "آپلود"
+            "upload": "آپلود",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "فیلتر",
-            "size": "اندازه"
+            "size": "اندازه",
+            "modified": ""
         },
-        "never": "هرگز"
+        "never": "هرگز",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "در حال دانلود"
+        },
+        "back": "بازگشت",
+        "close": "بستن",
+        "installed-games": "بازی‌های نصب شده",
+        "per-game": "تنظیمات بازی",
+        "platform": "Platform",
+        "stage": {
+            "globalSettings": "تنظیمات عمومی",
+            "perGameSettings": "تنظیمات بازی"
+        },
+        "step3": {
+            "title": "تنظیمات عمومی"
+        },
+        "step6": {
+            "prefixPath": "Wine Prefix",
+            "wine-downloadable": "Download"
+        },
+        "steps": {
+            "global-settings": "تنظیمات عمومی",
+            "per-game": "تنظیمات بازی"
+        },
+        "summaryValue": "مقدار",
+        "version": "Heroic Version",
+        "wine-versions": "نسخه Wine"
     }
 }
