@@ -1,8 +1,12 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MenuItem, Select } from '@mui/material'
+import { MenuItem } from '@mui/material'
+import SelectField from 'frontend/components/UI/SelectField'
 
-import { UpdateComponent } from 'frontend/components/UI'
+import { DismissibleBanner, UpdateComponent } from 'frontend/components/UI'
+import SegmentedControl, {
+  type SegmentedControlItem
+} from 'frontend/components/UI/SegmentedControl'
 import type {
   CatalogFeature,
   CatalogGenre,
@@ -41,7 +45,7 @@ import {
   type StoreTab,
   type ViewMode
 } from './helpers'
-import './index.css'
+import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function Discounts() {
@@ -133,9 +137,7 @@ export default function Discounts() {
   const [storeTab, setStoreTab] = useState<StoreTab>(
     storedFilters.storeTab ?? 'all'
   )
-  const [viewMode, setViewMode] = useState<ViewMode>(
-    storedFilters.viewMode ?? 'grid'
-  )
+  const viewMode: ViewMode = 'grid'
   // Price and release-year ranges are bound to the loaded data's min/max,
   // which changes with the active tab, region, and currency — so they are
   // seeded fresh on each load rather than persisted (a stored range from
@@ -206,6 +208,16 @@ export default function Discounts() {
     pageSize
   ])
 
+  const [wishlistIds, setWishlistIds] = useState<Set<string>>(new Set())
+
+  // The "Wishlist only" and "Hide owned" checkboxes are hidden in the filter
+  // bar when the user is logged out of GOG, but the toggle state still lives
+  // in localStorage from a previous logged-in session. Treat them as off
+  // while logged out so the persisted preference doesn't silently filter the
+  // grid or trigger an authenticated refetch the backend can't fulfill.
+  const effectiveWishlistOnly = isGogLoggedIn && wishlistOnly
+  const effectiveHideOwned = isGogLoggedIn && hideOwned
+
   useEffect(() => {
     if (gogRegion === undefined) return
 
@@ -214,12 +226,11 @@ export default function Discounts() {
     const load = async () => {
       setLoading(true)
       setError(null)
-      setProducts([])
 
       try {
         // A GMG or Humble feed failure must not take down the GOG deals
         const [gogResult, gmgResult, humbleResult] = await Promise.all([
-          window.api.getGogDiscounts(localeSettings, hideOwned, wishlistOnly),
+          window.api.getGogDiscounts(localeSettings, effectiveHideOwned),
           window.api.getGmgDiscounts(gmgCurrency).catch((err: unknown) => {
             window.api.logError(`Failed to fetch GMG discounts: ${String(err)}`)
             return [] as CatalogProduct[]
@@ -261,7 +272,34 @@ export default function Discounts() {
     return () => {
       cancelled = true
     }
-  }, [gogRegion, localeSettings, gmgCurrency, hideOwned, wishlistOnly, t])
+  }, [gogRegion, localeSettings, gmgCurrency, effectiveHideOwned, t])
+
+  // Wishlist is fetched separately and applied client-side, so toggling the
+  // "Wishlist only" filter never wipes the loaded products. Without this,
+  // a wishlist with no items currently on sale would empty the grid and hide
+  // the filter bar, leaving the user with no way to untoggle. See issue #5588.
+  useEffect(() => {
+    let cancelled = false
+
+    if (!isGogLoggedIn) {
+      setWishlistIds(new Set())
+      return
+    }
+
+    const loadWishlist = async () => {
+      try {
+        const ids = await window.api.getGogWishlist()
+        if (!cancelled) setWishlistIds(new Set(ids))
+      } catch (err) {
+        if (!cancelled) window.api.logError(String(err))
+      }
+    }
+
+    void loadWishlist()
+    return () => {
+      cancelled = true
+    }
+  }, [isGogLoggedIn])
 
   // Filter options and bounds derive from the active tab's products.
   const tabProducts = useMemo(
@@ -424,6 +462,13 @@ export default function Discounts() {
 
       if (!showMature && isMatureProduct(p.tags, p.ratings)) return false
 
+      if (
+        effectiveWishlistOnly &&
+        (p.store ?? 'gog') === 'gog' &&
+        !wishlistIds.has(p.id)
+      )
+        return false
+
       if (showPriceFilter) {
         const amount = parsePriceAmount(p.price.finalMoney?.amount)
         if (amount < minPrice || amount > maxPrice) return false
@@ -547,6 +592,8 @@ export default function Discounts() {
     searchQuery,
     hideDlcs,
     showMature,
+    effectiveWishlistOnly,
+    wishlistIds,
     sortBy
   ])
 
@@ -568,8 +615,8 @@ export default function Discounts() {
     searchQuery,
     hideDlcs,
     showMature,
-    hideOwned,
-    wishlistOnly,
+    effectiveHideOwned,
+    effectiveWishlistOnly,
     pageSize,
     products
   ])
@@ -591,8 +638,8 @@ export default function Discounts() {
     maxPegiAge !== null ||
     hideDlcs ||
     showMature ||
-    hideOwned ||
-    wishlistOnly ||
+    effectiveHideOwned ||
+    effectiveWishlistOnly ||
     (releaseYearRange !== null &&
       (releaseYearRange[0] !== releaseYearBounds[0] ||
         releaseYearRange[1] !== releaseYearBounds[1]))
@@ -628,145 +675,121 @@ export default function Discounts() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const regionSelector =
+    storeTab === 'humble' ? null : storeTab === 'gmg' ? (
+      <div className="discountsScreen__region">
+        <label
+          className="discountsScreen__regionLabel"
+          htmlFor="discountsScreen__currencySelect"
+        >
+          {t('discounts.currency.label', 'Currency')}
+        </label>
+        <SelectField
+          htmlId="discountsScreen__currencySelect"
+          value={gmgCurrencyOverride ?? ''}
+          onChange={(e) => {
+            const value = e.target.value
+            handleGmgCurrencyChange(value === '' ? null : value)
+          }}
+          extraClass="discountsScreen__regionSelect"
+          displayEmpty
+        >
+          <MenuItem value="">
+            {t('discounts.region.auto', 'Auto ({{code}})', {
+              code: gmgCurrency
+            })}
+          </MenuItem>
+          {GMG_CURRENCIES.map((currency) => (
+            <MenuItem key={currency} value={currency}>
+              {currencyName(currency)}
+              <span className="discountsScreen__regionCurrency">
+                {currency}
+              </span>
+            </MenuItem>
+          ))}
+        </SelectField>
+      </div>
+    ) : (
+      <div className="discountsScreen__region">
+        <label
+          className="discountsScreen__regionLabel"
+          htmlFor="discountsScreen__regionSelect"
+        >
+          {t('discounts.region.label', 'Store region')}
+        </label>
+        <SelectField
+          htmlId="discountsScreen__regionSelect"
+          value={regionOverride ?? ''}
+          onChange={(e) => {
+            const value = e.target.value
+            handleRegionChange(value === '' ? null : value)
+          }}
+          extraClass="discountsScreen__regionSelect"
+          displayEmpty
+        >
+          <MenuItem value="">
+            {t('discounts.region.auto', 'Auto ({{code}})', {
+              code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
+            })}
+          </MenuItem>
+          {REGION_OPTIONS.map((r) => ({
+            ...r,
+            localizedLabel: t(
+              `discounts.region.countries.${r.countryCode}`,
+              r.label
+            )
+          }))
+            .sort((a, b) =>
+              a.localizedLabel.localeCompare(
+                b.localizedLabel,
+                i18n.language.replace('_', '-')
+              )
+            )
+            .map((r) => (
+              <MenuItem key={r.countryCode} value={r.countryCode}>
+                {r.localizedLabel}
+                <span className="discountsScreen__regionCurrency">
+                  {r.currencyCode}
+                </span>
+              </MenuItem>
+            ))}
+        </SelectField>
+      </div>
+    )
+
   return (
     <div className="discountsScreen">
+      <DismissibleBanner storageKey="deals-affiliate-banner-dismissed">
+        {t(
+          'discounts.affiliateBanner',
+          'The links on this page are affiliate links. Buying games through them helps fund Heroic development.'
+        )}
+      </DismissibleBanner>
       <div className="discountsScreen__topbar">
         <h2 className="discountsScreen__header">
           {t('discounts.titleMulti', 'Deals')}
         </h2>
 
         {storeOptions.length > 1 && (
-          <div
+          <SegmentedControl
             className="discountsScreen__storeTabs"
-            role="tablist"
             aria-label={t('discounts.tabs.label', 'Store')}
-          >
-            {(['all', ...storeOptions] as StoreTab[]).map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                role="tab"
-                aria-selected={storeTab === tab}
-                className={`discountsScreen__storeTab${
-                  storeTab === tab ? ' discountsScreen__storeTab--active' : ''
-                }`}
-                onClick={() => setStoreTab(tab)}
-              >
-                {tab === 'all'
-                  ? t('discounts.tabs.all', 'All stores')
-                  : STORE_LABELS[tab]}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {storeTab === 'humble' ? null : storeTab === 'gmg' ? (
-          <div className="discountsScreen__region">
-            <label
-              className="discountsScreen__regionLabel"
-              htmlFor="discountsScreen__currencySelect"
-            >
-              {t('discounts.currency.label', 'Currency')}
-            </label>
-            <Select
-              id="discountsScreen__currencySelect"
-              size="small"
-              value={gmgCurrencyOverride ?? ''}
-              onChange={(e) => {
-                const value = e.target.value
-                handleGmgCurrencyChange(value === '' ? null : value)
-              }}
-              className="discountsScreen__regionSelect"
-              renderValue={(value) => {
-                if (!value) {
-                  return t('discounts.region.auto', 'Auto ({{code}})', {
-                    code: gmgCurrency
-                  })
-                }
-                return `${currencyName(value)} · ${value}`
-              }}
-            >
-              <MenuItem value="">
-                {t('discounts.region.auto', 'Auto ({{code}})', {
-                  code: gmgCurrency
-                })}
-              </MenuItem>
-              {GMG_CURRENCIES.map((currency) => (
-                <MenuItem key={currency} value={currency}>
-                  {currencyName(currency)}
-                  <span className="discountsScreen__regionCurrency">
-                    {currency}
-                  </span>
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-        ) : (
-          <div className="discountsScreen__region">
-            <label
-              className="discountsScreen__regionLabel"
-              htmlFor="discountsScreen__regionSelect"
-            >
-              {t('discounts.region.label', 'Store region')}
-            </label>
-            <Select
-              id="discountsScreen__regionSelect"
-              size="small"
-              value={regionOverride ?? ''}
-              onChange={(e) => {
-                const value = e.target.value
-                handleRegionChange(value === '' ? null : value)
-              }}
-              className="discountsScreen__regionSelect"
-              renderValue={(value) => {
-                if (!value) {
-                  return t('discounts.region.auto', 'Auto ({{code}})', {
-                    code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
-                  })
-                }
-                const match = REGION_OPTIONS.find(
-                  (r) => r.countryCode === value
-                )
-                if (!match) return value
-                const label = t(
-                  `discounts.region.countries.${match.countryCode}`,
-                  match.label
-                )
-                return `${label} · ${match.currencyCode}`
-              }}
-            >
-              <MenuItem value="">
-                {t('discounts.region.auto', 'Auto ({{code}})', {
-                  code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
-                })}
-              </MenuItem>
-              {REGION_OPTIONS.map((r) => ({
-                ...r,
-                localizedLabel: t(
-                  `discounts.region.countries.${r.countryCode}`,
-                  r.label
-                )
-              }))
-                .sort((a, b) =>
-                  a.localizedLabel.localeCompare(
-                    b.localizedLabel,
-                    i18n.language.replace('_', '-')
-                  )
-                )
-                .map((r) => (
-                  <MenuItem key={r.countryCode} value={r.countryCode}>
-                    {r.localizedLabel}
-                    <span className="discountsScreen__regionCurrency">
-                      {r.currencyCode}
-                    </span>
-                  </MenuItem>
-                ))}
-            </Select>
-          </div>
+            value={storeTab}
+            onChange={setStoreTab}
+            items={(['all', ...storeOptions] as StoreTab[]).map(
+              (tab): SegmentedControlItem<StoreTab> => ({
+                value: tab,
+                label:
+                  tab === 'all'
+                    ? t('discounts.tabs.all', 'All stores')
+                    : STORE_LABELS[tab]
+              })
+            )}
+          />
         )}
       </div>
 
-      {loading && (
+      {loading && products.length === 0 && !hasActiveFilters && (
         <UpdateComponent
           message={t('discounts.loading', 'Loading discounted games...')}
         />
@@ -774,15 +797,16 @@ export default function Discounts() {
 
       {!loading && error && <p className="discountsScreen__message">{error}</p>}
 
-      {!loading && !error && products.length === 0 && (
+      {!loading && !error && products.length === 0 && !hasActiveFilters && (
         <p className="discountsScreen__message">
           {t('discounts.empty', 'No discounted games available right now.')}
         </p>
       )}
 
-      {!loading && !error && products.length > 0 && (
-        <>
+      {!error && (products.length > 0 || hasActiveFilters) && (
+        <div className="discountsScreen__body">
           <DiscountFilters
+            regionSelector={regionSelector}
             sortBy={sortBy}
             onSortChange={setSortBy}
             priceMax={priceMax}
@@ -828,32 +852,37 @@ export default function Discounts() {
             onPageSizeChange={setPageSize}
             onReset={handleReset}
             hasActiveFilters={hasActiveFilters}
-            viewMode={viewMode}
-            onViewModeChange={setViewMode}
           />
 
-          {paginated.length === 0 ? (
-            <p className="discountsScreen__message">
-              {t('discounts.noMatches', 'No games match the current filters.')}
-            </p>
-          ) : (
-            <div
-              className={`discountsScreen__grid${
-                viewMode === 'list' ? ' discountsScreen__grid--list' : ''
-              }`}
-            >
-              {paginated.map((product) => (
-                <DiscountCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
+          <div className="discountsScreen__main">
+            {loading ? (
+              <UpdateComponent
+                message={t('discounts.loading', 'Loading discounted games...')}
+              />
+            ) : paginated.length === 0 ? (
+              <p className="discountsScreen__message">
+                {t(
+                  'discounts.noMatches',
+                  'No games match the current filters.'
+                )}
+              </p>
+            ) : (
+              <>
+                <div className="discountsScreen__grid">
+                  {paginated.map((product) => (
+                    <DiscountCard key={product.id} product={product} />
+                  ))}
+                </div>
 
-          <DiscountPagination
-            page={clampedPage}
-            totalPages={totalPages}
-            onChange={handlePageChange}
-          />
-        </>
+                <DiscountPagination
+                  page={clampedPage}
+                  totalPages={totalPages}
+                  onChange={handlePageChange}
+                />
+              </>
+            )}
+          </div>
+        </div>
       )}
     </div>
   )

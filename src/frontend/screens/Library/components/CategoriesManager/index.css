@@ -1,7 +1,5 @@
-.CategoriesManager__Dialog {
-  width: 400px;
-
-  .MuiDialogContent-root {
+.CategoriesManager__modal {
+  .Modal__content {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -41,11 +39,21 @@
 
     & hr {
       width: 100%;
+      margin: 0.5rem 0;
+      border: none;
+      border-top: 1px solid var(--panel-border, var(--border-subtle));
+      opacity: 0.5;
     }
 
     .textInputFieldWrapper {
       display: flex;
+      align-items: center;
       gap: 0.5rem;
+
+      & button {
+        height: var(--field-height);
+        min-width: var(--field-height);
+      }
     }
   }
 }

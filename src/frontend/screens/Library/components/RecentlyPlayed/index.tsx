@@ -1,14 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { memo, useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
+import { SectionHeader } from 'frontend/components/UI'
+import ConsoleModeButton from '../ConsoleModeButton'
+import AddGameButton from '../AddGameButton'
+import LibraryContext from '../../LibraryContext'
+import { countGames } from 'frontend/helpers/library'
 import { configStore } from 'frontend/helpers/electronStores'
 
 interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
   onlyInstalled: boolean
   showHidden: boolean
+  onRecentGamesChange?: (hasRecent: boolean) => void
 }
 
 function getRecentGames(
@@ -33,19 +39,21 @@ function getRecentGames(
   return games
 }
 
-export default React.memo(function RecentlyPlayed({
+export default memo(function RecentlyPlayed({
   handleModal,
   onlyInstalled,
-  showHidden
+  showHidden,
+  onRecentGamesChange
 }: Props) {
   const { t } = useTranslation()
-  const { epic, gog, sideloadedLibrary, amazon, zoom } =
+  const { epic, gog, sideloadedLibrary, amazon, zoom, itchio, steam } =
     useContext(ContextProvider)
+  const { layout } = useContext(LibraryContext)
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const hiddenGames = useContext(ContextProvider).hiddenGames
 
-  const loadRecentGames = async () => {
+  const loadRecentGames = useCallback(async () => {
     const hiddenAppNames = hiddenGames.list.map((game) => game.appName)
     const { maxRecentGames } = await window.api.requestAppSettings()
     let newRecentGames = getRecentGames(
@@ -54,7 +62,9 @@ export default React.memo(function RecentlyPlayed({
         ...gog.library,
         ...sideloadedLibrary,
         ...amazon.library,
-        ...zoom.library
+        ...zoom.library,
+        ...itchio.library,
+        ...steam.library
       ],
       maxRecentGames,
       onlyInstalled
@@ -65,13 +75,25 @@ export default React.memo(function RecentlyPlayed({
       )
     }
     setRecentGames(newRecentGames)
-  }
+    onRecentGamesChange?.(newRecentGames.length > 0)
+  }, [
+    epic.library,
+    gog.library,
+    sideloadedLibrary,
+    amazon.library,
+    zoom.library,
+    steam.library,
+    hiddenGames,
+    onlyInstalled,
+    showHidden,
+    onRecentGamesChange
+  ])
 
   useEffect(() => {
-    loadRecentGames()
+    void loadRecentGames()
 
     const onRecentGamesUpdated = () => {
-      loadRecentGames()
+      void loadRecentGames()
     }
 
     const recentGamesChangedRemoveListener =
@@ -85,6 +107,7 @@ export default React.memo(function RecentlyPlayed({
     gog.library,
     amazon.library,
     zoom.library,
+    itchio.library,
     sideloadedLibrary,
     hiddenGames,
     showHidden
@@ -96,9 +119,25 @@ export default React.memo(function RecentlyPlayed({
 
   return (
     <>
-      <h5 className="libraryHeader">{t('Recent', 'Played Recently')}</h5>
+      <SectionHeader
+        className="librarySectionHeader"
+        title={t('Recent', 'Played recently')}
+        subtitle={t('library.gamesCount', {
+          count: countGames(recentGames),
+          defaultValue_one: '{{count}} game',
+          defaultValue_other: '{{count}} games'
+        })}
+        actions={
+          <>
+            <ConsoleModeButton data-tour="library-console-mode" />
+            <AddGameButton data-tour="library-add-game" />
+          </>
+        }
+        actionsTour="library-section-actions"
+      />
       <GamesList
         library={recentGames}
+        layout={layout}
         isFirstLane
         handleGameCardClick={handleModal}
         onlyInstalled={onlyInstalled}

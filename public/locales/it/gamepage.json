@@ -46,7 +46,7 @@
             "message": "Questo gioco ha un aggiornamento, desideri aggiornarlo ora?",
             "title": "Il gioco richiede un aggiornamento"
         },
-        "wineprefix": "Seleziona la cartella del prefisso di Wine",
+        "wineprefix": "Seleziona la cartella WinePrefix",
         "yes": "SI",
         "close": "Chiudi",
         "select-install-path": "Seleziona percorso di installazione di Steam",
@@ -97,7 +97,10 @@
         "browse_files": "Sfoglia file",
         "browse_wine_prefix": "Sfoglia prefisso Wine",
         "play": "GIOCA",
-        "edit-game": "Modifica gioco"
+        "edit-game": "Modifica gioco",
+        "favourite": "Aggiungi Ai Preferiti",
+        "unfavourite": "Rimuovi Dai Preferiti",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -133,7 +136,12 @@
         "modify": "Modifica Installazione",
         "extra_info": "Informazioni aggiuntive",
         "install_info": "Informazioni d'installazione",
-        "achievements": "Trofei"
+        "achievements": "Trofei",
+        "details": "Dettagli del gioco",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Informazioni su"
     },
     "gamecard": {
         "moving": "Spostamento in corso",
@@ -163,7 +171,16 @@
         "installedInfo": "Informazioni di installazione",
         "protondb-compatibility-info": "Livello di compatibilità Proton",
         "steamdeck-compatibility-info": "Compatibilità SteamDeck",
-        "third-party-app": "Gestore Terze Parti"
+        "third-party-app": "Gestore Terze Parti",
+        "genres": "Generi",
+        "steamdeck": {
+            "unsupported": "Non supportato",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Spazio Disponibile",
@@ -193,7 +210,8 @@
         "playing": {
             "start": "Esegui ora",
             "stop": "In esecuzione (Stop)",
-            "start_with_logs": "Esegui (con log)"
+            "start_with_logs": "Esegui (con log)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sincronizzando i salvataggi"
@@ -227,7 +245,8 @@
             "specificVersion-pt1": "Questo scaricherà una versione specifica di Steam da",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "è stato reso compatibile con Heroic poiché le nuove versioni di Steam non funzionano su macOS."
-        }
+        },
+        "releaseDate": "Data Rilascio"
     },
     "launch": {
         "options": "Opzioni di avvio...",
@@ -281,7 +300,9 @@
     },
     "specs": {
         "minimum": "Minime",
-        "recommended": "Raccomandate"
+        "recommended": "Raccomandate",
+        "notes": "Note",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Clicca per aggiornare",
@@ -328,7 +349,8 @@
         "verify": "Verifica e ripara",
         "extraInfo": "Ulteriori informazioni",
         "logs": "Registri",
-        "categories": "Categorie"
+        "categories": "Categorie",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Questo gioco non supporta i salvataggi nel cloud. Queste informazioni sono fornite dagli sviluppatori del gioco. Alcuni giochi implementano il proprio sistema di salvataggio nel cloud.",
@@ -381,5 +403,19 @@
         },
         "square": "Grafica quadrata",
         "title": "Modifica gioco"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Trofei",
+            "dlc": "DLC",
+            "installInfo": "Dimensione del download",
+            "launchOptions": "Opzioni di avvio",
+            "storeInfo": "Informazioni di Sistema"
+        }
     }
 }

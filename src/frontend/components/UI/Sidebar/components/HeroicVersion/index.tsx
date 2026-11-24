@@ -79,14 +79,21 @@ export default React.memo(function HeroicVersion() {
         <span
           className="heroicVersion"
           role="link"
+          tabIndex={0}
           title={t(
             'info.heroic.click-to-see-changelog',
             'Click to see changelog'
           )}
           onClick={() => setShowChangelogModalOnClick((current) => !current)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault()
+              setShowChangelogModalOnClick((current) => !current)
+            }
+          }}
         >
           <span className="heroicVersion__title">
-            <span>{t('info.heroic.version', 'Heroic Version')}: </span>
+            <span>{t('info.heroic.version', 'Heroic version')}: </span>
           </span>
           <strong>{version}</strong>
         </span>
@@ -94,7 +101,7 @@ export default React.memo(function HeroicVersion() {
       </div>
       {shouldShowUpdates && (
         <div className="heroicNewReleases">
-          <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
+          <span>{t('info.heroic.newReleases', 'Update available!')}</span>
           {newStable && (
             <a
               title={newStable.tag_name}

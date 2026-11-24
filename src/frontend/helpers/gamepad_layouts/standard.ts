@@ -1,5 +1,7 @@
-import { ValidGamepadAction } from 'common/types'
+import { RemappableGamepadAction, ValidGamepadAction } from 'common/types'
 // Holds layouts for different XBox official an clone controllers
+
+type ButtonOverrides = Partial<Record<RemappableGamepadAction, number | null>>
 
 export function checkStandard(
   buttons: readonly GamepadButton[],
@@ -9,7 +11,8 @@ export function checkStandard(
     action: ValidGamepadAction,
     pressed: boolean,
     ctrlIdx: number
-  ) => void
+  ) => void,
+  overrides: ButtonOverrides = {}
 ) {
   const mainButton = buttons[0], // Xbox: A, PS: Cross
     backButton = buttons[1], // Xbox: B, PS: Circle
@@ -35,11 +38,41 @@ export function checkStandard(
 
   // use the `?` operator here since this layout is used as fallback
   // and mapping can be incorrect
-  checkAction('mainAction', mainButton?.pressed, controllerIndex)
-  checkAction('back', backButton?.pressed, controllerIndex)
-  checkAction('altAction', altButton?.pressed, controllerIndex)
-  checkAction('prevPage', leftBumper?.pressed, controllerIndex)
-  checkAction('nextPage', rightBumper?.pressed, controllerIndex)
+  // user remapping: `null` unbinds the action, `undefined` keeps the default
+  const button = (
+    action: RemappableGamepadAction,
+    fallback: GamepadButton | undefined
+  ) => {
+    const override = overrides[action]
+    if (override === null) return undefined
+    return override === undefined ? fallback : buttons[override]
+  }
+
+  checkAction(
+    'mainAction',
+    button('mainAction', mainButton)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'back',
+    button('back', backButton)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'altAction',
+    button('altAction', altButton)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'prevPage',
+    button('prevPage', leftBumper)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'nextPage',
+    button('nextPage', rightBumper)?.pressed ?? false,
+    controllerIndex
+  )
   checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
@@ -48,10 +81,23 @@ export function checkStandard(
   checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
   checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
   checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
-  checkAction('padUp', up?.pressed, controllerIndex)
-  checkAction('padDown', down?.pressed, controllerIndex)
-  checkAction('padLeft', left?.pressed, controllerIndex)
-  checkAction('padRight', right?.pressed, controllerIndex)
-  checkAction('rightClick', contextMenuButton?.pressed, controllerIndex)
-  checkAction('guide', guideButton?.pressed, controllerIndex)
+  checkAction('padUp', up?.pressed ?? false, controllerIndex)
+  checkAction('padDown', down?.pressed ?? false, controllerIndex)
+  checkAction('padLeft', left?.pressed ?? false, controllerIndex)
+  checkAction('padRight', right?.pressed ?? false, controllerIndex)
+  checkAction(
+    'rightClick',
+    button('rightClick', contextMenuButton)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'enter',
+    button('enter', buttons[10])?.pressed ?? false,
+    controllerIndex
+  ) // L3
+  checkAction(
+    'guide',
+    button('guide', guideButton)?.pressed ?? false,
+    controllerIndex
+  )
 }

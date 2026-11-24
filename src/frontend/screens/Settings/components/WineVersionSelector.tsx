@@ -1,19 +1,17 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, SelectField } from 'frontend/components/UI'
+import { InfoTooltip, SelectField } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
-import { defaultWineVersion } from '..'
+import { defaultWineVersion } from '../util'
 import { Link } from 'react-router-dom'
-import { Box, MenuItem, SvgIcon } from '@mui/material'
+import { MenuItem, SvgIcon } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
 import ProtonLogo from 'frontend/assets/proton_logo.svg?react'
 import CodeweaversLogo from 'frontend/assets/codeweavers_icon.svg?react'
 import { faApple } from '@fortawesome/free-brands-svg-icons'
-import Badge from '@mui/material/Badge'
-import { Autorenew as AutorenewIcon } from '@mui/icons-material'
 import GELogo from 'frontend/assets/ge-logo.svg?react'
 import CachyOSLogo from 'frontend/assets/cachyos-logo.svg?react'
 
@@ -46,24 +44,11 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
     }
   }, [name, type])
 
-  const icon = useMemo(() => {
-    if (name.includes('-latest'))
-      return (
-        <Box sx={{ marginInlineEnd: 1 }}>
-          <Badge badgeContent={<AutorenewIcon sx={{ fontSize: 17.5 }} />}>
-            <SvgIcon>{primaryIcon}</SvgIcon>
-          </Badge>
-        </Box>
-      )
-
-    return <SvgIcon sx={{ marginInlineEnd: 1 }}>{primaryIcon}</SvgIcon>
-  }, [name, primaryIcon])
-
   return (
-    <Box sx={{ display: 'flex', placeItems: 'center' }}>
-      {icon}
-      {substitutedName}
-    </Box>
+    <span className="wineVersionOption">
+      <SvgIcon className="wineVersionOption__icon">{primaryIcon}</SvgIcon>
+      <span className="wineVersionOption__name">{substitutedName}</span>
+    </span>
   )
 })
 
@@ -138,7 +123,7 @@ export default function WineVersionSelector() {
       label={
         isLinux
           ? t('setting.wineversion')
-          : t('setting.crossover-version', 'Crossover/Wine Version')
+          : t('setting.crossover-version', 'Crossover/Wine version')
       }
       htmlId="setWineVersion"
       onChange={(event) =>
@@ -153,7 +138,7 @@ export default function WineVersionSelector() {
             <Link to={'/wine-manager'} className="smallInputInfo danger">
               {t(
                 'infobox.wine-path-none-found',
-                'No Wine version was found, download one from the Wine Manager'
+                'No Wine version was found, download one from the Wine manager'
               )}
             </Link>
           )}
@@ -161,58 +146,75 @@ export default function WineVersionSelector() {
             <span className="smallInputInfo danger">
               {t(
                 'infobox.wine-path-invalid',
-                'Wine Path is invalid, please select another one.'
+                'Wine path is invalid, please select another one.'
               )}
             </span>
           )}
           {isLinux && showHiddenProtonsMessage && (
-            <InfoBox
-              text={t(
+            <span className="smallInputInfo">
+              <InfoTooltip
+                content={t(
+                  'setting.show_valve_proton.wine_selector_warning',
+                  'Valve versions of Proton are ignored by default, enable them in the advanced global settings'
+                )}
+                label={t(
+                  'setting.show_valve_proton.info_label',
+                  'Valve Proton versions ignored'
+                )}
+              />{' '}
+              {t(
                 'setting.show_valve_proton.info_label',
                 'Valve Proton versions ignored'
               )}
-            >
-              <span>
-                {t(
-                  'setting.show_valve_proton.wine_selector_warning',
-                  'Valve versions of Proton are ignored by default, enable them in the Advanced global settings'
-                )}
-              </span>
-            </InfoBox>
+            </span>
           )}
           {isLinux && (
-            <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
-              <span>{wineVersion.bin}</span>
-            </InfoBox>
+            <span className="smallInputInfo">
+              <InfoTooltip
+                content={wineVersion.bin}
+                label={t('infobox.wine-path', 'Wine path')}
+              />{' '}
+              {t('infobox.wine-path', 'Wine path')}
+            </span>
           )}
           {isLinux && (
-            <InfoBox text="infobox.help">
-              <span>{t('help.wine.part1')}</span>
-              <ul>
-                <li>
-                  <i>~/.config/heroic/tools/wine</i>
-                </li>
-                <li>
-                  <i>~/.config/heroic/tools/proton</i>
-                </li>
-                <li>
-                  <i>~/.steam/root/compatibilitytools.d</i>
-                </li>
-                <li>
-                  <i>~/.steam/steamapps/common</i>
-                </li>
-                <li>
-                  <i>~/.local/share/lutris/runners/wine</i>
-                </li>
-                <li>
-                  <i>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</i>
-                </li>
-                <li>
-                  <i>/usr/share/steam</i>
-                </li>
-              </ul>
-              <span>{t('help.wine.part2')}</span>
-            </InfoBox>
+            <span className="smallInputInfo">
+              <InfoTooltip
+                label={t('infobox.help', 'Help')}
+                content={
+                  <>
+                    <span>{t('help.wine.part1')}</span>
+                    <ul>
+                      <li>
+                        <i>~/.config/heroic/tools/wine</i>
+                      </li>
+                      <li>
+                        <i>~/.config/heroic/tools/proton</i>
+                      </li>
+                      <li>
+                        <i>~/.steam/root/compatibilitytools.d</i>
+                      </li>
+                      <li>
+                        <i>~/.steam/steamapps/common</i>
+                      </li>
+                      <li>
+                        <i>~/.local/share/lutris/runners/wine</i>
+                      </li>
+                      <li>
+                        <i>
+                          ~/.var/app/com.valvesoftware.Steam (Steam Flatpak)
+                        </i>
+                      </li>
+                      <li>
+                        <i>/usr/share/steam</i>
+                      </li>
+                    </ul>
+                    <span>{t('help.wine.part2')}</span>
+                  </>
+                }
+              />{' '}
+              {t('infobox.help', 'Help')}
+            </span>
           )}
         </>
       }

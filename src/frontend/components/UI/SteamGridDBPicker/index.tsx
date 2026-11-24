@@ -1,16 +1,12 @@
 import './index.scss'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faSpinner,
-  faSearch,
-  faTimes,
-  faArrowLeft
-} from '@fortawesome/free-solid-svg-icons'
+import { ArrowLeft, LoaderCircle, Search, X } from 'lucide-react'
+import Icon from 'frontend/components/UI/Icon'
 import CachedImage from 'frontend/components/UI/CachedImage'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { SGDBGame, SGDBGrid } from 'common/types'
+import { Button } from 'frontend/components/UI'
 
 interface Props {
   initialTitle: string
@@ -124,24 +120,24 @@ export default function SteamGridDBPicker({
       <div className="SteamGridDBPicker__header">
         <div className="SteamGridDBPicker__title-group">
           {selectedGameId && (
-            <button className="button is-ghost" onClick={goBack}>
-              <FontAwesomeIcon icon={faArrowLeft} />
-            </button>
+            <Button variant="primary" className="is-ghost" onClick={goBack}>
+              <Icon glyph={ArrowLeft} size="md" />
+            </Button>
           )}
-          <h3>{t('steamgriddb.picker.title', 'SteamGridDB Covers')}</h3>
+          <h3>{t('steamgriddb.picker.title', 'SteamGridDB covers')}</h3>
         </div>
-        <button className="button is-ghost" onClick={onClose}>
-          <FontAwesomeIcon icon={faTimes} />
-        </button>
+        <Button variant="primary" className="is-ghost" onClick={onClose}>
+          <Icon glyph={X} size="md" />
+        </Button>
       </div>
 
       {!selectedGameId && (
         <TextInputWithIconField
           htmlId="steamgriddb-search"
-          label={t('steamgriddb.picker.search', 'Search Game')}
+          label={t('steamgriddb.picker.search', 'Search game')}
           value={query}
           onChange={setQuery}
-          icon={<FontAwesomeIcon icon={faSearch} />}
+          icon={<Icon glyph={Search} size="sm" />}
           onIconClick={() => void searchGames(query)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -153,7 +149,7 @@ export default function SteamGridDBPicker({
 
       {loading && (
         <div className="SteamGridDBPicker__loading">
-          <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+          <Icon glyph={LoaderCircle} size="xl" className="lucide-spin" />
         </div>
       )}
 
@@ -161,10 +157,21 @@ export default function SteamGridDBPicker({
 
       {!loading && games.length > 1 && !selectedGameId && (
         <div className="SteamGridDBPicker__games">
-          <h4>{t('steamgriddb.picker.select-game', 'Select a Game:')}</h4>
+          <h4>{t('steamgriddb.picker.select-game', 'Select a game:')}</h4>
           <ul>
             {games.map((game) => (
-              <li key={game.id} onClick={() => void handleSelectGame(game.id)}>
+              <li
+                key={game.id}
+                role="button"
+                tabIndex={0}
+                onClick={() => void handleSelectGame(game.id)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    void handleSelectGame(game.id)
+                  }
+                }}
+              >
                 {game.name}
               </li>
             ))}
@@ -178,7 +185,15 @@ export default function SteamGridDBPicker({
             <div
               key={grid.id}
               className="SteamGridDBPicker__grid-item"
+              role="button"
+              tabIndex={0}
               onClick={() => onSelect(grid.url)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  onSelect(grid.url)
+                }
+              }}
             >
               <CachedImage src={grid.thumb} />
             </div>

@@ -7,7 +7,8 @@ import {
   InstallArgs,
   InstallInfo,
   LaunchOption,
-  GOGAchievement
+  GOGAchievement,
+  CloudSyncResult
 } from 'common/types'
 import { GOGCloudSavesLocation } from './gog'
 import type LogWriter from 'backend/logger/log_writer'
@@ -25,7 +26,7 @@ export type RemoveArgs = {
 export interface Game {
   getSettings: () => Promise<GameSettings>
   getGameInfo: () => GameInfo
-  getExtraInfo: () => Promise<ExtraInfo>
+  getExtraInfo: (lang?: string) => Promise<ExtraInfo>
   importGame: (path: string, platform: InstallPlatform) => Promise<ExecResult>
   onInstallOrUpdateOutput: (
     action: 'installing' | 'updating',
@@ -48,7 +49,7 @@ export interface Game {
     arg: string,
     path: string,
     gogSaves?: GOGCloudSavesLocation[]
-  ) => Promise<string>
+  ) => Promise<CloudSyncResult>
   uninstall: (args: RemoveArgs) => Promise<ExecResult>
   update: (updateOverwrites?: {
     build?: string
@@ -63,8 +64,33 @@ export interface Game {
   getAchievements?: (lang: string) => Promise<GOGAchievement[]>
 }
 
+interface BackupFile {
+  source: () => string
+  destInZip: string
+}
+
+interface CredentialBackupFile extends BackupFile {
+  indicatesLogin?: boolean
+}
+
+interface LibraryCacheBackupFile extends BackupFile {
+  kind?: 'file' | 'dir'
+}
+
+interface InstalledGamesBackupFile extends BackupFile {
+  countGames: () => number
+}
+
+export interface RunnerBackupPaths {
+  credentials: CredentialBackupFile[]
+  libraryCache: LibraryCacheBackupFile[]
+  installedGames?: InstalledGamesBackupFile
+  sideloadLibrary?: InstalledGamesBackupFile
+}
+
 export interface LibraryManager {
   init: () => Promise<void>
+  getBackupPaths: () => RunnerBackupPaths
   getGame: (id: string) => Game
   refresh: () => Promise<ExecResult | null>
   getGameInfo: (appName: string, forceReload?: boolean) => GameInfo | undefined

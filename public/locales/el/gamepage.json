@@ -95,7 +95,11 @@
         "changelog": "Εμφάνιση αρχείου αλλαγών",
         "browse_files": "Περιήγηση Αρχείων",
         "browse_wine_prefix": "Περιήγηση στο πρόθεμα Wine",
-        "play": "ΠΑΙΞΤΕ"
+        "play": "ΠΑΙΞΤΕ",
+        "edit-game": "Edit App/Game",
+        "favourite": "Προσθήκη στα Αγαπημένα",
+        "unfavourite": "Κατάργηση από τα Αγαπημένα",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Μη υποστηριζόμενο",
     "disabled": "Απενεργοποιημένο",
@@ -131,7 +135,12 @@
         "modify": "Τροποποίηση Εγκατάστασης",
         "install_info": "Πληροφορίες εγκατάστασης",
         "extra_info": "Επιπρόσθετες πληροφορίες",
-        "achievements": "Επιτεύγματα"
+        "achievements": "Επιτεύγματα",
+        "details": "Πληροφορίες παιχνιδιού",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": ""
     },
     "gamecard": {
         "moving": "Μετακίνηση",
@@ -161,7 +170,16 @@
         "installedInfo": "Εγκατεστημένες πληροφορίες",
         "protondb-compatibility-info": "Επίπεδο συμβατότητας πρωτονίων",
         "steamdeck-compatibility-info": "Συμβατότητα SteamDeck",
-        "third-party-app": "Third-Party Διαχειριστής"
+        "third-party-app": "Third-Party Διαχειριστής",
+        "steamdeck": {
+            "unsupported": "Unsupported",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLCs"
     },
     "install": {
         "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",
@@ -189,7 +207,8 @@
         "playing": {
             "start": "Παίξτε τώρα",
             "stop": "Σε παιχνίδι (Διακοπή)",
-            "start_with_logs": "Παίξτε Τώρα (με αρχεία καταγραφής)"
+            "start_with_logs": "Παίξτε Τώρα (με αρχεία καταγραφής)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Συγχρονισμός save"
@@ -201,7 +220,8 @@
         "steam": {
             "installing": "Εγκατάσταση",
             "pleaseWait": "Please wait..."
-        }
+        },
+        "releaseDate": "Ημερομηνία κυκλοφορίας"
     },
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης...",
@@ -235,7 +255,9 @@
             "title": "Τίτλος Παιχνιδιού/Εφαρμογής",
             "broser": "Διεύθυνση URL",
             "useragent": "Προσαρμοσμένος πράκτορας χρήστη",
-            "fullscreen": "Εκκίνηση πλήρους οθόνης (F11 για έξοδο)"
+            "fullscreen": "Εκκίνηση πλήρους οθόνης (F11 για έξοδο)",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Επικολλήστε μια διεύθυνση URL μιας εικόνας ή επιλέξτε μία από τον υπολογιστή σας",
@@ -246,11 +268,16 @@
         "import-hint": {
             "title": "Σημαντικό! Προσθέτετε ένα παιχνίδι από τα Epic/GOG/Amazon; Πατήστε εδώ!",
             "content": "ΜΗΝ χρησιμοποιείτε αυτήν τη λειτουργία για αυτό.<br />Αντίθετα, <3>συνδεθείτε</3> στο κατάστημα, αναζητήστε το παιχνίδι στη συλλογή σας, ανοίξτε το παράθυρο διαλόγου εγκατάστασης και κάντε κλικ στο κουμπί &quot;Εισαγωγή παιχνιδιού&quot;"
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
         "minimum": "Ελάχιστα",
-        "recommended": "Προτεινόμενα"
+        "recommended": "Προτεινόμενα",
+        "notes": "Σημειώσεις",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Πατήστε για Ενημέρωση",
@@ -297,7 +324,8 @@
         "verify": "Επαλήθευση και Επιδιόρθωση",
         "extraInfo": "Extra Πληροφορίες",
         "logs": "κούτσουρα",
-        "categories": "Κατηγορίες"
+        "categories": "Κατηγορίες",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Αυτό το παιχνίδι δεν υποστηρίζει αποθήκευση στο cloud. Αυτές οι πληροφορίες παρέχονται από τους προγραμματιστές παιχνιδιών. Ορισμένα παιχνίδια εφαρμόζουν το δικό τους σύστημα αποθήκευσης cloud",
@@ -334,6 +362,34 @@
         "notice2": "Αφού κάνετε κλικ στην Εγκατάσταση, το Heroic θα εκτελέσει την εφαρμογή για να ολοκληρώσει τη διαδικασία εγκατάστασης"
     },
     "edit-game": {
-        "advanced": "Προχωρημένες"
+        "advanced": "Προχωρημένες",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Edit App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Επιτεύγματα",
+            "dlc": "DLC",
+            "installInfo": "Μέγεθος λήψης",
+            "launchOptions": "Ρυθμίσεις Εκκίνησης"
+        }
     }
 }

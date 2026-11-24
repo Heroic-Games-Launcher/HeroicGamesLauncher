@@ -96,7 +96,11 @@
         "changelog": "Паказаць спіс змен",
         "browse_files": "Прагляд файлаў",
         "browse_wine_prefix": "Праглядзець Wine прэфікс",
-        "play": ""
+        "play": "",
+        "edit-game": "Рэдагаваць праграму/гульню",
+        "favourite": "Дадаць у абранае",
+        "unfavourite": "Выдаліць з абранага",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Не падтрымліваецца",
     "disabled": "Адключана",
@@ -132,7 +136,12 @@
         "modify": "Змяніць усталёўку",
         "extra_info": "Дадатковая інфармацыя",
         "install_info": "Звесткі пра ўсталяванне",
-        "achievements": ""
+        "achievements": "",
+        "details": "Дэталі гульні",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Аб праграме"
     },
     "gamecard": {
         "moving": "Перамяшчэнне",
@@ -162,7 +171,16 @@
         "installedInfo": "Звесткі пра ўсталяванне",
         "protondb-compatibility-info": "Узровень сумяшчальнасці Proton",
         "steamdeck-compatibility-info": "Сумяшчальнасць са SteamDeck",
-        "third-party-app": "Старонні менеджар"
+        "third-party-app": "Старонні менеджар",
+        "steamdeck": {
+            "unsupported": "Не Падтрымліваецца",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Вольная прастора",
@@ -192,7 +210,8 @@
         "playing": {
             "start": "Гуляць зараз",
             "stop": "Гульня запушчана (Спыніць)",
-            "start_with_logs": "Гуляць зараз (з журналамі)"
+            "start_with_logs": "Гуляць зараз (з журналамі)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Сінхранізацыя захаванняў"
@@ -227,7 +246,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "зроблена для працы праз Heroic, бо новыя версіі Steam не будуць працаваць на macOS.",
             "launch": "Запусціце Steam, выкарыстоўваючы ўзровень сумяшчальнасці ў Heroic"
-        }
+        },
+        "releaseDate": "Дата выпуску"
     },
     "launch": {
         "options": "Параметры запуску...",
@@ -261,7 +281,9 @@
             "title": "Назва гульні/праграмы",
             "broser": "URL-адрас браўзера",
             "useragent": "Уласны User Agent",
-            "fullscreen": "Запуск у поўнаэкранным рэжыме (F11, каб выйсці)"
+            "fullscreen": "Запуск у поўнаэкранным рэжыме (F11, каб выйсці)",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Устаўце URL-адрас выявы або выберыце файл на сваім камп'ютары",
@@ -272,11 +294,15 @@
         "import-hint": {
             "content": "НЕ выкарыстоўвайце функцыю для гэтага.<br />Замест яе выкарыстання, трэба <3>ўвайсці</3> ў краму і знайсці гульню ў сваёй бібліятэцы, затым адкрыйце дыялогавае акно ўсталявання і націсніце кнопку &quot;Імпартаваць гульню&quot;",
             "title": "Важная інфармацыя! Вы дадаяце гульню з Epic/GOG/Amazon? Націсніце сюды!"
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
         "minimum": "Мінімальныя",
-        "recommended": "Рэкамендаваныя"
+        "recommended": "Рэкамендаваныя",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Націсніце, каб абнавіць",
@@ -324,7 +350,8 @@
         "verify": "Праверка і аднаўленне",
         "extraInfo": "Дадатковая інфармацыя",
         "logs": "Журналы",
-        "categories": "Катэгорыі"
+        "categories": "Катэгорыі",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Гэтая гульня не падтрымлівае захаванні ў воблаку. Інфармацыя пададзена распрацоўшчыкамі гульні. Некаторыя гульні рэалізуюць уласную сістэму захавання ў воблаку",
@@ -361,6 +388,33 @@
     "wikiLink": "Азнаёмцеся з важная інфармацыя пра гульню:&nbsp;<1>Адкрыць старонку</1>",
     "open-saves-folder": "",
     "edit-game": {
-        "advanced": "Пашыраныя"
+        "advanced": "Пашыраныя",
+        "placeholder": {
+            "image": "Устаўце сюды URL выявы"
+        },
+        "title": "Рэдагаваць праграму/гульню",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "dlc": "DLC",
+            "installInfo": "Памер спампоўкі",
+            "storeInfo": "Інфармацыя аб сістэме"
+        }
     }
 }

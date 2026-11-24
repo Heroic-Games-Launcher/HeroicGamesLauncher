@@ -37,3 +37,8 @@ flatpak-build
 .env
 
 playwright-report
+public/bin/**
+
+# storybook
+storybook-static
+debug-storybook.log

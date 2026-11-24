@@ -10,9 +10,7 @@ import {
   RpcClient,
   WineInstallation,
   WineCommandArgs,
-  SteamRuntime,
   GameSettings,
-  KnowFixesInfo,
   LaunchParams,
   StatusPromise
 } from 'common/types'
@@ -24,7 +22,6 @@ import { join, dirname, isAbsolute } from 'path'
 
 import {
   constructAndUpdateRPC,
-  getSteamRuntime,
   isEpicServiceOffline,
   quoteIfNecessary,
   errorHandler,
@@ -55,7 +52,6 @@ import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
 import { libraryManagerMap } from 'backend/storeManagers'
-import * as VDF from '@node-steam/vdf'
 import { readFileSync, writeFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { searchForExecutableOnPath } from './utils/os/path'
@@ -64,10 +60,10 @@ import {
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
-import { storeMap } from 'common/utils'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
+import { extractWinePath } from './cloud_saves/wine_path_output'
 import { copyFile } from 'fs/promises'
 import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
@@ -76,7 +72,6 @@ import { tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
   sharedWinePrefix,
-  fixesPath,
   flatpakHome,
   galaxyCommunicationExePath,
   gamesConfigPath,
@@ -101,6 +96,7 @@ import type { PartialDeep } from 'type-fest'
 import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 import { Game } from 'common/types/game_manager'
+import { getKnownFixesFor } from './known_fixes/utils'
 
 let powerDisplayId: number | null
 
@@ -130,7 +126,18 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   }
 
   const gameSettings = await game.getSettings()
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const { autoSyncSaves } = gameSettings
+  let { savesPath, gogSaves = [] } = gameSettings
+
+  const refreshSavePaths = async () => {
+    const { refreshSavePathsIfConfigurationChanged } =
+      await import('./save_sync')
+    if (await refreshSavePathsIfConfigurationChanged(appName, runner)) {
+      const updated = await game.getSettings()
+      savesPath = updated.savesPath
+      gogSaves = updated.gogSaves ?? []
+    }
+  }
 
   if (!launchArguments && gameSettings.lastUsedLaunchOption) {
     launchArguments = gameSettings.lastUsedLaunchOption
@@ -149,6 +156,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   logInfo(`Launching ${title} (${appName})`, LogPrefix.Backend)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -156,8 +165,15 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     })
     logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
     try {
-      await game.syncSaves('--skip-upload', savesPath, gogSaves)
-      logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      const result = await game.syncSaves('--skip-upload', savesPath, gogSaves)
+      if (result.state === 'ok') {
+        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      } else {
+        logWarning(
+          `Could not download saves for ${title}: ${result.state}${result.reason ? ` (${result.reason})` : ''}`,
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(
         `Error while downloading saves for ${title}. ${error}`,
@@ -243,6 +259,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     await gogPresence.setPresence()
   }
 
+  let launchErrorMsg: string | undefined = undefined
+
   const launchResult = await command
     .catch(async (exception) => {
       logError(exception, LogPrefix.Backend)
@@ -250,6 +268,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
         `An exception occurred when launching the game:`
       ])
       await logWriter.logError(exception)
+      launchErrorMsg =
+        exception instanceof Error ? exception.message : String(exception)
 
       return false
     })
@@ -294,6 +314,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   await addRecentGame(gameInfo)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -308,8 +330,19 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
     logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
     try {
-      await game.syncSaves('--skip-download', savesPath, gogSaves)
-      logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      const result = await game.syncSaves(
+        '--skip-download',
+        savesPath,
+        gogSaves
+      )
+      if (result.state === 'ok') {
+        logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      } else {
+        logWarning(
+          `Could not upload saves for ${title}: ${result.state}${result.reason ? ` (${result.reason})` : ''}`,
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(
         `Error uploading saves for ${title}. Error: ${error}`,
@@ -329,7 +362,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     app.exit()
   }
 
-  return { status: launchResult ? 'done' : 'error' }
+  return { status: launchResult ? 'done' : 'error', error: launchErrorMsg }
 }
 
 function filterGameSettingsForLog(
@@ -339,8 +372,6 @@ function filterGameSettingsForLog(
   const gameSettings: PartialDeep<GameSettings> =
     structuredClone(originalSettings)
 
-  // this is irrelevant for support
-  delete gameSettings.enableQuickSavesMenu
   // if this is visible, it means verboseLogs is true, no need to print it
   delete gameSettings.verboseLogs
 
@@ -367,13 +398,12 @@ function filterGameSettingsForLog(
     delete gameSettings.advertiseAvxForRosetta
 
     if (notNative) {
+      delete gameSettings.steamRuntime
       const wineVersion = gameSettings.wineVersion
       if (wineVersion) {
         if (wineVersion.type === 'proton') {
           delete gameSettings.autoInstallDxvk
           delete gameSettings.autoInstallVkd3d
-        } else {
-          delete gameSettings.useSteamRuntime
         }
       }
 
@@ -414,7 +444,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableWoW64
     delete gameSettings.showMangohud
     delete gameSettings.disableUMU
-    delete gameSettings.useSteamRuntime
+    delete gameSettings.steamRuntime
     delete gameSettings.enableFsync
 
     if (notNative) {
@@ -481,7 +511,7 @@ function filterGameSettingsForLog(
     delete gameSettings.nvidiaPrime
     delete gameSettings.disableUMU
     delete gameSettings.advertiseAvxForRosetta
-    delete gameSettings.useSteamRuntime
+    delete gameSettings.steamRuntime
   }
 
   return gameSettings
@@ -576,6 +606,11 @@ async function prepareLaunch(
     )
   ])
 
+  const knownFixes = getKnownFixesFor(gameInfo.app_name, gameInfo.runner)
+  if (knownFixes && knownFixes.wikiLink) {
+    logWriter.logInfo(`Wiki Link, read this: ${knownFixes.wikiLink}\n\n`)
+  }
+
   // If we're not on Linux, we can return here
   if (!isLinux) {
     return { success: true, rpcClient, offlineMode }
@@ -593,13 +628,10 @@ async function prepareLaunch(
       if (isFlatpak) {
         reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime ${flatpakRuntimeVersion} and restart Heroic.`
       }
-      return {
-        success: false,
-        failureReason: reason
-      }
+      logWarning(reason)
+    } else {
+      mangoHudCommand = [mangoHudBin, '--dlsym']
     }
-
-    mangoHudCommand = [mangoHudBin, '--dlsym']
   }
 
   if (gameSettings.useGameMode) {
@@ -613,11 +645,17 @@ async function prepareLaunch(
     }
   }
 
-  if (
-    (gameSettings.gamescope?.enableLimiter ||
-      gameSettings.gamescope?.enableUpscaling) &&
-    !isSteamDeckGameMode
-  ) {
+  const gamescopeSettings = gameSettings.gamescope
+  const wantsGamescope =
+    gamescopeSettings &&
+    (gamescopeSettings.enableLimiter ||
+      gamescopeSettings.enableUpscaling ||
+      gamescopeSettings.enableForceGrabCursor ||
+      gamescopeSettings.enableHDR ||
+      gamescopeSettings.enableAdaptiveSync ||
+      !!gamescopeSettings.additionalOptions?.trim())
+
+  if (wantsGamescope && !isSteamDeckGameMode) {
     const gameScopeBin = await searchForExecutableOnPath('gamescope')
     if (!gameScopeBin) {
       let warningMessage =
@@ -640,61 +678,69 @@ async function prepareLaunch(
 
       gameScopeCommand.push(gameScopeBin)
 
-      if (gameSettings.gamescope.enableUpscaling) {
+      if (gamescopeSettings.enableUpscaling) {
         // game res
-        if (gameSettings.gamescope.gameWidth) {
-          gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
+        if (gamescopeSettings.gameWidth) {
+          gameScopeCommand.push('-w', gamescopeSettings.gameWidth)
         }
-        if (gameSettings.gamescope.gameHeight) {
-          gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
+        if (gamescopeSettings.gameHeight) {
+          gameScopeCommand.push('-h', gamescopeSettings.gameHeight)
         }
 
         // gamescope res
-        if (gameSettings.gamescope.upscaleWidth) {
-          gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
+        if (gamescopeSettings.upscaleWidth) {
+          gameScopeCommand.push('-W', gamescopeSettings.upscaleWidth)
         }
-        if (gameSettings.gamescope.upscaleHeight) {
-          gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
+        if (gamescopeSettings.upscaleHeight) {
+          gameScopeCommand.push('-H', gamescopeSettings.upscaleHeight)
         }
 
         // upscale method
-        if (gameSettings.gamescope.upscaleMethod === 'fsr') {
+        if (gamescopeSettings.upscaleMethod === 'fsr') {
           if (oldVersion) gameScopeCommand.push('-U')
           else gameScopeCommand.push('-F', 'fsr')
         }
-        if (gameSettings.gamescope.upscaleMethod === 'nis') {
+        if (gamescopeSettings.upscaleMethod === 'nis') {
           if (oldVersion) gameScopeCommand.push('-Y')
           else gameScopeCommand.push('-F', 'nis')
         }
-        if (gameSettings.gamescope.upscaleMethod === 'integer') {
+        if (gamescopeSettings.upscaleMethod === 'integer') {
           if (oldVersion) gameScopeCommand.push('-i')
           else gameScopeCommand.push('-S', 'integer')
         }
         // didn't find stretch in old version
-        if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
+        if (gamescopeSettings.upscaleMethod === 'stretch' && !oldVersion) {
           gameScopeCommand.push('-S', 'stretch')
         }
 
         // window type
-        if (gameSettings.gamescope.windowType === 'fullscreen') {
+        if (gamescopeSettings.windowType === 'fullscreen') {
           gameScopeCommand.push('-f')
         }
-        if (gameSettings.gamescope.windowType === 'borderless') {
+        if (gamescopeSettings.windowType === 'borderless') {
           gameScopeCommand.push('-b')
         }
       }
 
-      if (gameSettings.gamescope.enableLimiter) {
-        if (gameSettings.gamescope.fpsLimiter) {
-          gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
+      if (gamescopeSettings.enableLimiter) {
+        if (gamescopeSettings.fpsLimiter) {
+          gameScopeCommand.push('-r', gamescopeSettings.fpsLimiter)
         }
-        if (gameSettings.gamescope.fpsLimiterNoFocus) {
-          gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
+        if (gamescopeSettings.fpsLimiterNoFocus) {
+          gameScopeCommand.push('-o', gamescopeSettings.fpsLimiterNoFocus)
         }
       }
 
-      if (gameSettings.gamescope.enableForceGrabCursor) {
+      if (gamescopeSettings.enableForceGrabCursor) {
         gameScopeCommand.push('--force-grab-cursor')
+      }
+
+      if (gamescopeSettings.enableHDR && !oldVersion) {
+        gameScopeCommand.push('--hdr-enabled')
+      }
+
+      if (gamescopeSettings.enableAdaptiveSync && !oldVersion) {
+        gameScopeCommand.push('--adaptive-sync')
       }
 
       if (gameSettings.showMangohud) {
@@ -702,7 +748,7 @@ async function prepareLaunch(
       }
 
       gameScopeCommand.push(
-        ...shlex.split(gameSettings.gamescope.additionalOptions ?? '')
+        ...shlex.split(gamescopeSettings.additionalOptions ?? '')
       )
 
       // Note: needs to be the last option
@@ -710,61 +756,19 @@ async function prepareLaunch(
     }
   }
 
-  if (
-    (await isUmuSupported(gameSettings, false)) &&
-    isOnline() &&
-    !(await isInstalled('umu')) &&
-    (await getUmuPath()) === defaultUmuPath
-  ) {
+  let steamRuntime = undefined
+  const umuAvailable =
+    (await isInstalled('umu')) || (await getUmuPath()) !== defaultUmuPath
+  const useUmu =
+    (!isNative && (await isUmuSupported(gameSettings, false))) ||
+    (isNative && gameSettings.steamRuntime)
+
+  if (useUmu && !umuAvailable) {
     await download('umu')
   }
 
-  // If the Steam Runtime is enabled, find a valid one
-  let steamRuntime: string[] = []
-  const shouldUseRuntime =
-    gameSettings.useSteamRuntime &&
-    (isNative ||
-      (!(await isUmuSupported(gameSettings)) &&
-        gameSettings.wineVersion.type === 'proton'))
-
-  if (shouldUseRuntime) {
-    // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
-    let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
-    if (!isNative) {
-      try {
-        const parentPath = dirname(gameSettings.wineVersion.bin)
-        const requiredAppId = VDF.parse(
-          readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
-        ).manifest?.require_tool_appid
-        if (requiredAppId === 1628350) nonNativeRuntime = 'sniper'
-      } catch (error) {
-        logError(
-          ['Failed to parse toolmanifest.vdf:', error],
-          LogPrefix.Backend
-        )
-      }
-    }
-
-    const runtimeType = isNative ? 'scout' : nonNativeRuntime
-    const { path, args } = await getSteamRuntime(runtimeType)
-    if (!path) {
-      return {
-        success: false,
-        failureReason:
-          'Steam Runtime is enabled, but no runtimes could be found\n' +
-          `Make sure Steam ${
-            isNative
-              ? 'is'
-              : `and the SteamLinuxRuntime - ${
-                  nonNativeRuntime === 'sniper' ? 'Sniper' : 'Soldier'
-                } are`
-          } installed`
-      }
-    }
-
-    logInfo(`Using Steam ${runtimeType} Runtime`, LogPrefix.Backend)
-
-    steamRuntime = [path, ...args]
+  if (useUmu) {
+    steamRuntime = [await getUmuPath()]
   }
 
   return {
@@ -959,9 +963,25 @@ async function prepareWineLaunch(
             `binpath=${galaxyCommWinePath}`
           ],
           gameSettings,
-          protonVerb: 'runinprefix'
+          protonVerb: 'run'
         })
       }
+      await runWineCommand({
+        commandParts: [
+          'reg',
+          'add',
+          'HKLM\\SOFTWARE\\WOW6432Node\\GOG.com\\GalaxyClient\\paths',
+          '/v',
+          'client',
+          '/t',
+          'REG_SZ',
+          '/d',
+          'C:\\Program Files\\GOG Galaxy',
+          '/f'
+        ],
+        gameSettings,
+        protonVerb: 'run'
+      })
     }
   } catch (err) {
     logError([
@@ -1004,27 +1024,8 @@ async function prepareWineLaunch(
   return { success: true, envVars: envVars }
 }
 
-export function readKnownFixes(appName: string, runner: Runner) {
-  const fixPath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
-
-  if (!existsSync(fixPath)) return null
-
-  try {
-    const fixesContent = JSON.parse(
-      readFileSync(fixPath).toString()
-    ) as KnowFixesInfo
-
-    return fixesContent
-  } catch (error) {
-    // if we fail to download the json file, it can be malformed causing
-    // JSON.parse to throw an exception
-    logWarning(`Known fixes could not be applied, ignoring.\n${error}`)
-    return null
-  }
-}
-
 async function installFixes(appName: string, runner: Runner) {
-  const knownFixes = readKnownFixes(appName, runner)
+  const knownFixes = getKnownFixesFor(appName, runner)
 
   if (!knownFixes) return
 
@@ -1062,7 +1063,7 @@ async function installFixes(appName: string, runner: Runner) {
 }
 
 function getKnownFixesEnvVariables(appName: string, runner: Runner) {
-  const knownFixes = readKnownFixes(appName, runner)
+  const knownFixes = getKnownFixesFor(appName, runner)
 
   return knownFixes?.envVariables || {}
 }
@@ -1087,6 +1088,11 @@ function setupEnvVars(gameSettings: GameSettings, installPath?: string) {
   if (isLinux && installPath) {
     // Used by steam runtime to mount the game directory to the container
     ret.STEAM_COMPAT_INSTALL_PATH = installPath
+  }
+
+  if (isLinux && gameSettings.steamRuntime) {
+    // Umu uses "PROTONPATH" to dictate the runtime to use
+    ret.PROTONPATH = gameSettings.steamRuntime
   }
 
   if (gameSettings.enviromentOptions) {
@@ -1132,6 +1138,9 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
       break
     case 'sideload':
       ret.HEROIC_APP_SOURCE = 'sideload'
+      break
+    case 'itchio':
+      ret.HEROIC_APP_SOURCE = 'itchio'
       break
     case 'zoom':
       ret.HEROIC_APP_SOURCE = 'zoom'
@@ -1224,17 +1233,38 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (isLinux && !gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
+  if (isLinux && gameSettings.disableNTSync && wineVersion.type === 'proton') {
+    if (/cachyos/i.test(wineVersion.name)) {
+      ret.PROTON_USE_NTSYNC = '0'
+    } else {
+      ret.PROTON_NO_NTSYNC = '1'
+    }
+  }
   if (isLinux && gameSettings.enableWineWayland) {
     if (wineVersion.type === 'proton') {
       ret.PROTON_ENABLE_WAYLAND = '1'
-      if (gameSettings.enableHDR) {
-        ret.PROTON_ENABLE_HDR = '1'
-      }
     } else {
       ret.DISPLAY = ''
-      if (gameSettings.enableHDR) {
-        ret.DXVK_HDR = '1'
+    }
+  }
+  if (isLinux) {
+    const hdrMode =
+      gameSettings.hdrMode ??
+      (gameSettings.enableHDR === true
+        ? 'force'
+        : gameSettings.enableHDR === false
+          ? 'off'
+          : 'auto')
+    if (hdrMode === 'off') {
+      ret.DXVK_HDR = '0'
+      ret.DXVK_NO_HDR = '1'
+    } else if (hdrMode === 'force') {
+      if (wineVersion.type === 'proton') {
+        ret.PROTON_FORCE_HDR = '1'
+        // Legacy alias used by older GE-Proton/Proton-CachyOS builds.
+        ret.PROTON_ENABLE_HDR = '1'
       }
+      ret.DXVK_HDR = '1'
     }
   }
   if (isLinux && gameSettings.enableWoW64) {
@@ -1245,13 +1275,28 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
   }
   if (wineVersion.type === 'proton') {
-    if (gameSettings.autoInstallDxvkNvapi) {
-      ret.PROTON_ENABLE_NVAPI = '1'
-      ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
-    }
-    // proton 9 enabled NVAPI by default
-    else {
+    const nvapiMode = gameSettings.nvapiMode ?? 'auto'
+    if (nvapiMode === 'off') {
       ret.PROTON_DISABLE_NVAPI = '1'
+    } else {
+      if (nvapiMode === 'force') {
+        ret.PROTON_FORCE_NVAPI = '1'
+      }
+      if (gameSettings.autoInstallDxvkNvapi) {
+        // Legacy aliases still needed by Proton < 9 and non-NVIDIA drivers.
+        ret.PROTON_ENABLE_NVAPI = '1'
+        ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+      }
+    }
+    if (gameSettings.fsr4Upgrade) {
+      ret.PROTON_FSR4_UPGRADE = '1'
+    }
+    if (gameSettings.dlssUpgrade) {
+      ret.PROTON_DLSS_UPGRADE = '1'
+      ret.PROTON_STREAMLINE_UPGRADE = '1'
+    }
+    if (gameSettings.useOptiScaler) {
+      ret.PROTON_USE_OPTISCALER = '1'
     }
   }
   if (
@@ -1275,6 +1320,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = process.env.SteamGameId || `heroic-${gameId}`
     ret.PROTON_LOG_DIR = flatpakHome
+    if (gameSettings.disableProtonFixes) {
+      ret.PROTONFIXES_DISABLE = '1'
+    }
     // add back default wine/dxvk debug logging
     if (gameSettings?.verboseLogs) {
       if (
@@ -1724,7 +1772,7 @@ async function callRunner(
     shouldUsePowerShell =
       isWindows && !!(await searchForExecutableOnPath('powershell'))
 
-  if (shouldUsePowerShell) {
+  if (shouldUsePowerShell && options?.waitForChildProcesses !== false) {
     const argsAsString = commandParts
       .map((part) => part.replaceAll('\\', '\\\\'))
       .map((part) => `"\`"${part}\`""`)
@@ -1888,8 +1936,9 @@ function getRunnerCallWithoutCredentials(
     command = libraryManagerMap['legendary'].commandToArgsArray(command)
 
   const modifiedCommand = [...command]
-  // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
-  for (const sensitiveArg of ['--code', '--token']) {
+  // Redact sensitive arguments (Authorization Code for Legendary, token for
+  // GOGDL, password (`-p`)/Steam Guard code for Aurelia)
+  for (const sensitiveArg of ['--code', '--token', '-p', '--guard']) {
     // PowerShell's argument formatting is quite different, instead of having
     // arguments as members of `command`, they're all in one specific member
     // (the one after "-ArgumentList")
@@ -1963,12 +2012,14 @@ async function getWinePath({
     ignoreLogging: true
   })
 
-  const result = stdout.trim()
+  const result = extractWinePath(stdout, variant)
+
   if (!result) {
     logError(
       `Couldn't get wine path for ${path}.\n${stderr}`,
       LogPrefix.Backend
     )
+    return ''
   }
 
   return result

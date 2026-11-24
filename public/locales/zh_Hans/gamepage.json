@@ -51,7 +51,7 @@
         "close": "关闭",
         "select-install-path": "选择 Steam 安装路径",
         "selectLaunchOption": {
-            "body": "请为该游戏选择一个启动选项（稍候可在游戏设置中更改）：",
+            "body": "请为该游戏选择一个启动选项（稍后可在游戏设置中更改）：",
             "title": "选择启动选项（{{seconds}}s）"
         },
         "warning": {
@@ -64,7 +64,7 @@
         "ok": "是",
         "offline_warning": {
             "message": "这款游戏可能无法在离线状态下正常运行。还是要玩吗？",
-            "playAnyway": "玩",
+            "playAnyway": "仍然运行",
             "title": "离线警告"
         }
     },
@@ -96,7 +96,11 @@
         "changelog": "显示更新日志",
         "browse_files": "浏览文件",
         "browse_wine_prefix": "浏览 Wine Prefix",
-        "play": "开始游戏"
+        "play": "开始游戏",
+        "edit-game": "编辑应用/游戏",
+        "favourite": "添加到收藏",
+        "unfavourite": "从收藏夹移除",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -132,7 +136,12 @@
         "modify": "修改安装",
         "extra_info": "附加信息",
         "install_info": "安装信息",
-        "achievements": "成就"
+        "achievements": "成就",
+        "details": "游戏详情",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "关于"
     },
     "gamecard": {
         "moving": "移动中",
@@ -162,7 +171,16 @@
         "installedInfo": "已安装信息",
         "protondb-compatibility-info": "Proton 兼容性级别",
         "steamdeck-compatibility-info": "SteamDeck 兼容性",
-        "third-party-app": "第三方管理器"
+        "third-party-app": "第三方管理器",
+        "steamdeck": {
+            "unsupported": "不支持",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "可用空间",
@@ -192,7 +210,8 @@
         "playing": {
             "start": "开始游戏",
             "stop": "游戏中（停止）",
-            "start_with_logs": "开始游戏（带日志）"
+            "start_with_logs": "开始游戏（带日志）",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "存档同步中"
@@ -227,7 +246,8 @@
             "specificVersion-pt3": "该版本经过调整以通过 Heroic 运行，因为新版本的 Steam 无法在 macOS 上运行。",
             "installing": "安装中",
             "pleaseWait": "请等待"
-        }
+        },
+        "releaseDate": "发行日期"
     },
     "launch": {
         "options": "启动选项...",
@@ -261,7 +281,9 @@
             "title": "游戏/应用标题",
             "broser": "浏览器网址",
             "useragent": "自定义 User Agent",
-            "fullscreen": "启动全屏（按 F11 退出）"
+            "fullscreen": "启动全屏（按 F11 退出）",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "粘贴图片 URL 计算机中选择一张",
@@ -272,11 +294,16 @@
         "import-hint": {
             "title": "重要！你正添加一款来自 Epic/GOG/Amazon 的游戏吗？请点击此处！",
             "content": "不要用此功能来添加。<br />正确做法是， <3>登录</3> 商店账号，在你的库中寻找该游戏，打开安装对话框,，单击 &quot;导入游戏&quot; 按钮"
+        },
+        "images": {
+            "summary": "图片"
         }
     },
     "specs": {
         "minimum": "最低配置",
-        "recommended": "推荐配置"
+        "recommended": "推荐配置",
+        "notes": "附注",
+        "other": "其他"
     },
     "status": {
         "clickToUpdate": "单击更新",
@@ -324,7 +351,8 @@
         "verify": "验证和修复",
         "extraInfo": "额外信息",
         "logs": "日志",
-        "categories": "分类"
+        "categories": "分类",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云存档系统。",
@@ -365,6 +393,31 @@
         "sgdb": {
             "no-key-link": "设置 → 高级",
             "no-key-prefix": "要在 SteamGridDB 中搜索封面，请添加 API 密钥"
+        },
+        "placeholder": {
+            "image": "在此粘贴映像 URL"
+        },
+        "title": "编辑应用/游戏",
+        "cover": "封面艺术",
+        "info": {
+            "cover": "封面图片",
+            "square": "方形图片"
+        },
+        "reset": "重设为默认",
+        "square": "方形艺术"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "成就",
+            "dlc": "DLC",
+            "installInfo": "下载大小",
+            "launchOptions": "启动选项",
+            "storeInfo": "系统信息"
         }
     }
 }

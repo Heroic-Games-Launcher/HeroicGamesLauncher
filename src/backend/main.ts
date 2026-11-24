@@ -1,5 +1,10 @@
-import { initImagesCache } from './images_cache'
+import {
+  initImagesCache,
+  clearImagesCache,
+  removeImageFromCache
+} from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
+import { getControllerBatteries } from './utils/controller_battery'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
@@ -21,12 +26,13 @@ import {
 } from 'backend/ipc'
 import 'backend/updater'
 import 'backend/discounts'
+import 'backend/importExport'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
-import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
+import { existsSync, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
 
-import Backend from 'i18next-fs-backend'
+import Backend from 'i18next-fs-backend/cjs'
 import i18next from 'i18next'
 import { join } from 'path'
 import { DXVK, Winetricks } from './tools'
@@ -36,7 +42,10 @@ import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
+import { ItchioUser } from './storeManagers/itchio/user'
+import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
 import { ZoomUser } from './storeManagers/zoom/user'
+import { SteamUser } from './storeManagers/steam/user'
 import {
   clearCache,
   isEpicServiceOffline,
@@ -57,6 +66,7 @@ import {
   writeConfig,
   createNecessaryFolders,
   clearAchievementCache,
+  focusGameWindow,
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
@@ -77,15 +87,11 @@ import {
   logError,
   logInfo,
   LogPrefix,
-  logWarning
+  logWarning,
+  createGameLogWriter
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
-import {
-  launchEventCallback,
-  readKnownFixes,
-  runWineCommand,
-  validWine
-} from './launcher'
+import { launchEventCallback, runWineCommand, validWine } from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
@@ -94,7 +100,17 @@ import {
 } from './online_monitor'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { callAbortController } from './utils/aborthandler/aborthandler'
-import { getDefaultSavePath } from './save_sync'
+import {
+  cancelSavePathsDetection,
+  detectAndPersistSavePaths,
+  getDefaultSavePath,
+  refreshSavePathsIfConfigurationChanged
+} from './save_sync'
+import {
+  getSaveBackupFolder,
+  getSaveBackups,
+  restoreSaveBackupById
+} from './cloud_saves/backup'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import { createMainWindow, getMainWindow, isFrameless } from './main_window'
 
@@ -126,7 +142,6 @@ import {
   wikiLink,
   wineprefixFAQ
 } from './constants/urls'
-import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
   isCLIConsoleMode,
   isCLIFullscreen,
@@ -135,10 +150,10 @@ import {
   isIntelMac,
   isLinux,
   isMac,
-  isSnap,
   isSteamDeckGameMode,
   isWindows
 } from './constants/environment'
+import { turnOffScreen } from './utils/power'
 import {
   configPath,
   gamesConfigPath,
@@ -149,6 +164,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { shouldUpdateDxvkTools } from './utils/config_helper'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -185,7 +201,11 @@ async function initializeWindow(): Promise<BrowserWindow> {
       }
     }
 
-    void DXVK.getLatest()
+    const settings = GlobalConfig.get().getSettings()
+
+    if (shouldUpdateDxvkTools(settings)) {
+      void DXVK.getLatest()
+    }
 
     Winetricks.download()
     if (shouldDownloadWine) {
@@ -326,6 +346,21 @@ if (!gotTheLock) {
 
     handleProtocol(argv)
   })
+
+  app.on('web-contents-created', (_event, contents) => {
+    if (contents.getType() !== 'webview') return
+
+    const interceptItchioOAuth = (event: Electron.Event, url: string) => {
+      if (!url.startsWith(ITCHIO_OAUTH_REDIRECT_URI)) return
+
+      event.preventDefault()
+      logInfo('Intercepted itch.io OAuth callback', LogPrefix.Itchio)
+      sendFrontendMessage('itchioOAuthCallback', url)
+    }
+
+    contents.on('will-navigate', interceptItchioOAuth)
+    contents.on('will-redirect', interceptItchioOAuth)
+  })
   app.whenReady().then(async () => {
     initLogger()
 
@@ -368,6 +403,11 @@ if (!gotTheLock) {
     })
 
     const settings = GlobalConfig.get().getSettings()
+
+    // Reset afterDownloadAction to none on startup
+    if (settings.afterDownloadAction !== 'none') {
+      GlobalConfig.get().setSetting('afterDownloadAction', 'none')
+    }
 
     if (settings && settings.analyticsOptIn === true) {
       startPlausible()
@@ -475,35 +515,6 @@ addOneTimeListener('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
 
-  if (isSnap) {
-    const snapWarning: Electron.MessageBoxOptions = {
-      title: i18next.t('box.warning.snap.title', 'Heroic is running as a Snap'),
-      message: i18next.t('box.warning.snap.message', {
-        defaultValue:
-          'Some features are not available in the Snap version of the app for now and we are trying to fix it.{{newLine}}Current limitations are: {{newLine}}Heroic will not be able to find Proton from Steam or Wine from Lutris.{{newLine}}{{newLine}}Gamescope, GameMode and MangoHud will also not work since Heroic cannot have access to them.{{newLine}}{{newLine}}To have access to this feature please install Heroic as a Flatpak, DEB or from the AppImage.',
-        newLine: '\n'
-      }),
-      checkboxLabel: i18next.t('box.warning.snap.checkbox', {
-        defaultValue: 'Do not show this message again'
-      }),
-      checkboxChecked: false
-    }
-
-    const showSnapWarning = configStore.get('showSnapWarning', true)
-
-    if (showSnapWarning) {
-      dialog
-        .showMessageBox({
-          ...snapWarning
-        })
-        .then((result) => {
-          if (result.checkboxChecked) {
-            configStore.set('showSnapWarning', false)
-          }
-        })
-    }
-  }
-
   // skip the download queue if we are running in CLI mode
   if (isCLINoGui) {
     return
@@ -527,7 +538,7 @@ process.on('uncaughtException', async (err) => {
   showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
-      'Uncaught Exception occured!'
+      'Uncaught exception occured!'
     ),
     message: i18next.t('box.error.uncaught-exception.message', {
       defaultValue:
@@ -591,7 +602,11 @@ addHandler('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
 addHandler('isFrameless', () => isFrameless())
 addHandler('isMinimized', () => !!getMainWindow()?.isMinimized())
 addHandler('isMaximized', () => !!getMainWindow()?.isMaximized())
+addHandler('focusGameWindow', () => {
+  focusGameWindow()
+})
 addListener('minimizeWindow', () => getMainWindow()?.minimize())
+addListener('showWindow', () => getMainWindow()?.show())
 addListener('maximizeWindow', () => getMainWindow()?.maximize())
 addListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 addListener('closeWindow', () => getMainWindow()?.close())
@@ -644,14 +659,35 @@ addListener('showConfigFileInFolder', async (event, appName) => {
   if (appName === 'default') {
     return openUrlOrFile(configPath)
   }
-  return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
+  const gameConfigPath = path.join(gamesConfigPath, `${appName}.json`)
+  if (!existsSync(gameConfigPath)) {
+    GameConfig.get(appName).flush()
+  }
+  return openUrlOrFile(gameConfigPath)
 })
 
 addListener('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-addHandler('runWineCommand', async (e, args) => runWineCommand(args))
+addHandler('runWineCommand', async (e, args) => {
+  const { logToApp, ...rest } = args
+  if (logToApp) {
+    const logWriter = await createGameLogWriter(
+      logToApp.appName,
+      logToApp.runner,
+      'install'
+    )
+    return runWineCommand({
+      ...rest,
+      options: {
+        ...rest.options,
+        logWriters: [...(rest.options?.logWriters ?? []), logWriter]
+      }
+    })
+  }
+  return runWineCommand(rest)
+})
 
 /// IPC handlers begin here.
 
@@ -674,8 +710,17 @@ addHandler('checkGameUpdates', async (): Promise<string[]> => {
 addHandler('getEpicGamesStatus', async () => isEpicServiceOffline())
 
 addHandler('getMaxCpus', () => cpus().length)
+addHandler('getPrimaryDisplay', () => {
+  const display = screen.getPrimaryDisplay()
+  return {
+    width: Math.round(display.size.width * display.scaleFactor),
+    height: Math.round(display.size.height * display.scaleFactor),
+    scaleFactor: display.scaleFactor
+  }
+})
 
 addHandler('getHeroicVersion', () => app.getVersion())
+addHandler('getControllerBatteries', () => getControllerBatteries())
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 addHandler('getGameOverride', async () =>
   libraryManagerMap['legendary'].getGameOverride()
@@ -725,6 +770,15 @@ addListener('clearAchievementCache', (event, appName: string) => {
   )
 })
 
+addHandler('clearImagesCache', () => {
+  clearImagesCache()
+  logInfo('Image cache was cleared', LogPrefix.Backend)
+})
+
+addHandler('removeImageFromCache', (event, url: string) => {
+  removeImageFromCache(url)
+})
+
 addListener('resetHeroic', () => resetHeroic())
 
 addListener('createNewWindow', (e, url) => {
@@ -761,7 +815,7 @@ addHandler(
   }
 )
 
-addHandler('getExtraInfo', async (event, appName, runner) => {
+addHandler('getExtraInfo', async (event, appName, runner, lang) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
   if (
     runner === 'legendary' &&
@@ -769,7 +823,7 @@ addHandler('getExtraInfo', async (event, appName, runner) => {
   ) {
     return null
   }
-  return libraryManagerMap[runner].getGame(appName).getExtraInfo()
+  return libraryManagerMap[runner].getGame(appName).getExtraInfo(lang)
 })
 
 addHandler('getGameSettings', async (event, appName, runner) => {
@@ -827,6 +881,15 @@ addHandler('getAmazonLoginData', () => NileUser.getLoginData())
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
 addHandler('logoutAmazon', () => NileUser.logout())
 
+addHandler('getItchioUserInfo', async () => ItchioUser.getUserData())
+addHandler('getItchioLoginData', async () => ItchioUser.getLoginData())
+addHandler('authItchio', async (_event, data) => ItchioUser.login(data))
+addHandler('getItchioOAuthUrl', async () => ItchioUser.getOAuthUrl())
+addHandler('authItchioOAuth', async (_event, data) =>
+  ItchioUser.loginWithOAuthCode(data)
+)
+addHandler('logoutItchio', async () => ItchioUser.logout())
+
 addHandler('authZoom', async (event, url) => {
   const login = await ZoomUser.login(url)
   if (login.status === 'done') {
@@ -834,9 +897,43 @@ addHandler('authZoom', async (event, url) => {
   }
   return login
 })
+addHandler('turnOffScreen', async () => turnOffScreen())
 
 addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
+
+addHandler('loginSteam', async (event, credentials) => {
+  const login = await SteamUser.login(credentials)
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addHandler('loginSteamQr', async () => {
+  const login = await SteamUser.loginQr()
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addListener('cancelSteamQrLogin', () => {
+  SteamUser.cancelQrLogin()
+})
+
+addListener('cancelSteamLogin', () => {
+  SteamUser.cancelLogin()
+})
+
+addListener('submitSteamGuardCode', (_e, code) => {
+  SteamUser.submitGuardCode(code)
+})
+
+addListener('logoutSteam', () => {
+  void SteamUser.logout()
+})
+addHandler('getSteamUserInfo', async () => SteamUser.getUserDetails())
 
 addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
@@ -892,22 +989,6 @@ addListener('setSetting', (event, { appName, key, value }) => {
     GameConfig.get(appName).setSetting(key, value)
   }
 })
-
-// Watch the installed games file and trigger a refresh on the installed games if something changes
-if (existsSync(legendaryInstalled)) {
-  let watchTimeout: NodeJS.Timeout | undefined
-  watch(legendaryInstalled, () => {
-    logInfo('installed.json updated, refreshing library', LogPrefix.Legendary)
-    // `watch` might fire twice (while Legendary/we are still writing chunks of the file), which would in turn make LegendaryLibrary fail to
-    // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen
-    // in a 500ms timespan
-    if (watchTimeout) clearTimeout(watchTimeout)
-    watchTimeout = setTimeout(
-      () => libraryManagerMap['legendary'].refreshInstalled(),
-      500
-    )
-  })
-}
 
 addHandler('refreshLibrary', async (e, library?) => {
   if (library !== undefined && library !== 'all') {
@@ -965,7 +1046,7 @@ addHandler('repair', async (event, appName, runner) => {
   } catch (error) {
     notify({
       title,
-      body: i18next.t('notify.error.reparing', 'Error Repairing')
+      body: i18next.t('notify.error.reparing', 'Error repairing')
     })
     logError(error, LogPrefix.Backend)
   }
@@ -988,35 +1069,56 @@ addHandler(
       status: 'moving'
     })
 
-    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
-    notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
-
-    const moveRes = await libraryManagerMap[runner]
+    const { title, install } = libraryManagerMap[runner]
       .getGame(appName)
-      .moveInstall(path)
-    if (moveRes.status === 'error') {
+      .getGameInfo()
+    notify({ title, body: i18next.t('notify.moving', 'Moving game') })
+
+    let validNewPath = true
+
+    const onMoveError = (error: string) => {
       notify({
         title,
         body: i18next.t('notify.error.move', 'Error Moving Game')
       })
+
       logError(
-        `Error while moving ${appName} to ${path}: ${moveRes.error} `,
+        `Error while moving ${appName} to ${path}: ${error}`,
         LogPrefix.Backend
       )
 
       showDialogBoxModalAuto({
         event,
         title: i18next.t('box.error.title', 'Error'),
-        message: i18next.t('box.error.moving', 'Error Moving Game {{error}}', {
-          error: moveRes.error
+        message: i18next.t('box.error.moving', 'Error moving game {{error}}', {
+          error
         }),
         type: 'ERROR'
       })
     }
 
-    if (moveRes.status === 'done') {
-      notify({ title, body: i18next.t('notify.moved') })
-      logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
+    if (path.startsWith(install.install_path!)) {
+      // we don't want to move a game in a subfolder of the current install directory
+      // it will cause all game files to be deleted since moving moves all files to the
+      // new directory and deletes the old one
+      validNewPath = false
+
+      const error = `New install path (${path}) cannot be inside the current install path (${install.install_path}).`
+      onMoveError(error)
+    }
+
+    if (validNewPath) {
+      const moveRes = await libraryManagerMap[runner]
+        .getGame(appName)
+        .moveInstall(path)
+      if (moveRes.status === 'error') {
+        onMoveError(moveRes.error!)
+      }
+
+      if (moveRes.status === 'done') {
+        notify({ title, body: i18next.t('notify.moved') })
+        logInfo(`Finished moving ${appName} to ${path}.`, LogPrefix.Backend)
+      }
     }
 
     sendGameStatusUpdate({
@@ -1049,7 +1151,7 @@ addHandler(
           title: i18next.t('box.warning.title', 'Warning'),
           message: i18next.t(
             'box.warning.epic.import',
-            'Epic Servers are having major outage right now, the game cannot be imported!'
+            'Epic servers are having major outage right now, the game cannot be imported!'
           ),
           type: 'ERROR'
         })
@@ -1067,7 +1169,7 @@ addHandler(
     const abortMessage = () => {
       notify({
         title,
-        body: i18next.t('notify.import.failed', 'Importing Failed')
+        body: i18next.t('notify.import.failed', 'Importing failed')
       })
       sendGameStatusUpdate({
         appName,
@@ -1102,7 +1204,7 @@ addHandler(
 
     notify({
       title,
-      body: i18next.t('notify.install.imported', 'Game Imported')
+      body: i18next.t('notify.install.imported', 'Game imported')
     })
     sendGameStatusUpdate({
       appName,
@@ -1131,9 +1233,15 @@ addHandler('egsSync', async (event, args) => {
   return libraryManagerMap['legendary'].toggleGamesSync(args)
 })
 
-addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  libraryManagerMap['gog'].getGame(appName).syncSaves(arg, '', gogSaves)
-)
+addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) => {
+  const game = libraryManagerMap['gog'].getGame(appName)
+  const changed = await refreshSavePathsIfConfigurationChanged(appName, 'gog')
+  if (!changed) {
+    return game.syncSaves(arg, '', gogSaves)
+  }
+  const { gogSaves: refreshed } = await game.getSettings()
+  return game.syncSaves(arg, '', refreshed?.length ? refreshed : gogSaves)
+})
 
 addHandler('getLaunchOptions', async (event, appName, runner) => {
   const availableLaunchOptions =
@@ -1141,6 +1249,7 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
 
   // add a default option if there are other options but no default
   if (
+    runner !== 'steam' &&
     availableLaunchOptions.length > 0 &&
     !availableLaunchOptions.some(
       (option) =>
@@ -1169,19 +1278,60 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
         'Epic is offline right now, cannot sync saves!',
         LogPrefix.Backend
       )
-      return 'Epic is offline right now, cannot sync saves!'
+      return {
+        appName,
+        runner,
+        state: 'failed',
+        reason: 'offline',
+        output: 'Epic is offline right now, cannot sync saves!'
+      }
     }
   }
   if (!isOnline()) {
     logWarning('App is offline, cannot sync saves!', LogPrefix.Backend)
-    return 'App is offline, cannot sync saves!'
+    return {
+      appName,
+      runner,
+      state: 'failed',
+      reason: 'offline',
+      output: 'App is offline, cannot sync saves!'
+    }
   }
 
-  const output = await libraryManagerMap[runner]
+  await refreshSavePathsIfConfigurationChanged(appName, runner)
+  if (runner === 'legendary') {
+    path =
+      (await libraryManagerMap[runner].getGame(appName).getSettings())
+        .savesPath || path
+  }
+
+  const result = await libraryManagerMap[runner]
     .getGame(appName)
     .syncSaves(arg, path)
-  logInfo(output, LogPrefix.Backend)
-  return output
+  logInfo(result.output, LogPrefix.Backend)
+  return result
+})
+
+addHandler('getSaveBackups', async (event, appName) => getSaveBackups(appName))
+
+addHandler('getSaveBackupPath', async (event, appName) =>
+  getSaveBackupFolder(appName)
+)
+
+addHandler('restoreSaveBackup', async (event, appName, runner, backupId) => {
+  const game = libraryManagerMap[runner].getGame(appName)
+  const { title } = game.getGameInfo()
+  const settings = await game.getSettings()
+  const currentLocations =
+    runner === 'gog'
+      ? (settings.gogSaves ?? [])
+          .map((location) => location.location)
+          .filter((location) => location.length > 0)
+      : settings.savesPath
+        ? [settings.savesPath]
+        : []
+
+  return restoreSaveBackupById({ appName, title, backupId, currentLocations })
 })
 
 addHandler(
@@ -1190,12 +1340,28 @@ addHandler(
     getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
 
+addHandler('detectSavePaths', async (event, appName, runner) =>
+  detectAndPersistSavePaths(appName, runner)
+)
+
+addListener('cancelSavePathsDetection', (event, appName, runner) =>
+  cancelSavePathsDetection(appName, runner)
+)
+
 // Simulate keyboard and mouse actions as if the real input device is used
 addHandler('gamepadAction', async (event, args) => {
   // we can only receive gamepad events if the main window exists
   const mainWindow = getMainWindow()!
 
   const { action, metadata } = args
+
+  // `metadata` comes from getBoundingClientRect() (CSS pixels) while
+  // sendInputEvent expects window coordinates, so a zoomed UI would click
+  // somewhere else entirely.
+  const zoomFactor = mainWindow.webContents.zoomFactor || 1
+  const clickX = metadata ? Math.round(metadata.x * zoomFactor) : 0
+  const clickY = metadata ? Math.round(metadata.y * zoomFactor) : 0
+
   const inputEvents: (
     | Electron.MouseInputEvent
     | Electron.MouseWheelInputEvent
@@ -1227,6 +1393,26 @@ addHandler('gamepadAction', async (event, args) => {
         y: mainWindow.getBounds().height / 2
       })
       break
+    case 'prevPage':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'PageUp'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'PageUp'
+      })
+      break
+    case 'nextPage':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'PageDown'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'PageDown'
+      })
+      break
     case 'leftStickUp':
     case 'leftStickDown':
     case 'leftStickLeft':
@@ -1245,32 +1431,18 @@ addHandler('gamepadAction', async (event, args) => {
         keyCode: action.replace(/pad|leftStick/, '')
       })
       break
-    case 'leftClick':
-      inputEvents.push({
-        type: 'mouseDown',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      inputEvents.push({
-        type: 'mouseUp',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      break
     case 'rightClick':
       inputEvents.push({
         type: 'mouseDown',
         button: 'right',
-        x: metadata.x,
-        y: metadata.y
+        x: clickX,
+        y: clickY
       })
       inputEvents.push({
         type: 'mouseUp',
         button: 'right',
-        x: metadata.x,
-        y: metadata.y
+        x: clickX,
+        y: clickY
       })
       break
     case 'back':
@@ -1312,6 +1484,16 @@ addHandler('gamepadAction', async (event, args) => {
         }
       )
       break
+    case 'enter':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'Return'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'Return'
+      })
+      break
   }
 
   if (inputEvents.length) {
@@ -1325,7 +1507,9 @@ addHandler('getWebviewPreloadPath', () => webviewPreloadPath)
 
 addHandler('clipboardReadText', () => clipboard.readText())
 
-addListener('clipboardWriteText', (e, text) => clipboard.writeText(text))
+addListener('clipboardWriteText', async (e, text) => {
+  await clipboard.writeText(text)
+})
 
 addHandler('getCustomThemes', async () => {
   const { customThemesPath } = GlobalConfig.get().getSettings()
@@ -1452,10 +1636,6 @@ addListener('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
   libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
 })
 
-addHandler('getKnownFixes', (e, appName, runner) =>
-  readKnownFixes(appName, runner)
-)
-
 addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
   validWine(wineVersion)
 )
@@ -1473,6 +1653,7 @@ import './logger/ipc_handler'
 import './wine/manager/ipc_handler'
 import './shortcuts/ipc_handler'
 import './anticheat/ipc_handler'
+import './known_fixes/ipc_handler'
 import './storeManagers/legendary/eos_overlay/ipc_handler'
 import './wine/runtimes/ipc_handler'
 import './downloadmanager/ipc_handler'
@@ -1482,3 +1663,5 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
+import './storeManagers/steam/ipc_handler'
+import './storeManagers/steam/ipc_handler'

@@ -9,7 +9,6 @@ import {
 import {
   existsSync,
   readFileSync,
-  writeFile,
   writeFileSync,
   readdirSync,
   copyFile,
@@ -38,7 +37,7 @@ import {
   setupWineEnvVars,
   validWine
 } from '../launcher'
-import { chmod, readFile } from 'fs/promises'
+import { chmod, copyFile as copyFilePromise, readFile } from 'fs/promises'
 import {
   any_gpu_supports_version,
   get_nvngx_path,
@@ -123,7 +122,7 @@ export async function installOrUpdateTool(tool: Tool) {
     let message = ''
 
     if (tool.name === 'dxmt') {
-      title = i18next.t('box.error.dxmt.title', 'DXMT Download Error')
+      title = i18next.t('box.error.dxmt.title', 'DXMT download error')
       message = i18next.t(
         'box.error.dxmt.message',
         'Error downloading DXMT! Check your connection!'
@@ -375,50 +374,43 @@ export const DXVK = {
     }
 
     // copy the new dlls to the prefix
+    const copyTasks: Promise<void>[] = []
     if (is64bitPrefix) {
       dlls32.forEach((dll) => {
-        copyFile(
-          `${toolPathx32}/${dll}`,
-          `${winePrefix}/drive_c/windows/syswow64/${dll}`,
-          (err) => {
-            if (err) {
-              logError(
-                [`Error when copying ${dll}`, err],
-                LogPrefix.ToolInstaller
-              )
-            }
-          }
+        copyTasks.push(
+          copyFilePromise(
+            `${toolPathx32}/${dll}`,
+            `${winePrefix}/drive_c/windows/syswow64/${dll}`
+          )
         )
       })
       dlls64.forEach((dll) => {
-        copyFile(
-          `${toolPathx64}/${dll}`,
-          `${winePrefix}/drive_c/windows/system32/${dll}`,
-          (err) => {
-            if (err) {
-              logError(
-                [`Error when copying ${dll}`, err],
-                LogPrefix.ToolInstaller
-              )
-            }
-          }
+        copyTasks.push(
+          copyFilePromise(
+            `${toolPathx64}/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}`
+          )
         )
       })
     } else {
       dlls32.forEach((dll) => {
-        copyFile(
-          `${toolPathx32}/${dll}`,
-          `${winePrefix}/drive_c/windows/system32/${dll}`,
-          (err) => {
-            if (err) {
-              logError(
-                [`Error when copying ${dll}`, err],
-                LogPrefix.ToolInstaller
-              )
-            }
-          }
+        copyTasks.push(
+          copyFilePromise(
+            `${toolPathx32}/${dll}`,
+            `${winePrefix}/drive_c/windows/system32/${dll}`
+          )
         )
       })
+    }
+
+    try {
+      await Promise.all(copyTasks)
+    } catch (err) {
+      logError(
+        [`Error when copying ${tool} DLLs`, err],
+        LogPrefix.ToolInstaller
+      )
+      return false
     }
 
     // register dlls on the wine prefix
@@ -513,14 +505,15 @@ export const DXVK = {
       }
     }
 
-    writeFile(currentVersionCheck, globalVersion, (err) => {
-      if (err) {
-        logError(
-          [`Error when writing ${tool} version`, err],
-          LogPrefix.ToolInstaller
-        )
-      }
-    })
+    try {
+      writeFileSync(currentVersionCheck, globalVersion)
+    } catch (err) {
+      logError(
+        [`Error when writing ${tool} version`, err],
+        LogPrefix.ToolInstaller
+      )
+      return false
+    }
     return true
   }
 }
@@ -805,16 +798,22 @@ function getDxvkUrl(): string {
     return ''
   }
 
-  if (any_gpu_supports_version([1, 3, 0])) {
+  if (any_gpu_supports_version([1, 4, 0])) {
     const instance_version = get_vulkan_instance_version()
-    if (instance_version && semverLt(instance_version.join('.'), '1.3.0')) {
-      // FIXME: How does the instance version matter? Even with 1.2, newer DXVK seems to work fine
+    if (instance_version && semverLt(instance_version.join('.'), '1.4.0')) {
       logWarning(
-        'Vulkan 1.3 is supported by GPUs in this system, but instance version is outdated',
+        'Vulkan 1.4 is supported by GPUs in this system, but instance version is outdated',
         LogPrefix.ToolInstaller
       )
     }
     return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
+  }
+  if (any_gpu_supports_version([1, 3, 0])) {
+    logInfo(
+      'The GPU(s) in this system support Vulkan 1.3, falling back to DXVK 2.7.1 for Wine',
+      LogPrefix.ToolInstaller
+    )
+    return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v2.7.1'
   }
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
@@ -829,7 +828,7 @@ function getDxvkUrl(): string {
   )
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend
-  return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
+  return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v1.10.3'
 }
 
 /**
@@ -865,7 +864,7 @@ function getVkd3dUrl(): string {
   )
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend
-  return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
+  return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/tags/v2.6'
 }
 
 export async function runWineCommandOnGame(

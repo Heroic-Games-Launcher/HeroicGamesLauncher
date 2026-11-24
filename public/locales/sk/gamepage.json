@@ -22,7 +22,7 @@
         },
         "select": {
             "button": "Vybrať",
-            "image": ""
+            "image": "Vyberte obrázok"
         },
         "sideload": {
             "exe": "Vyberte Spustiteľný Súbor"
@@ -52,11 +52,11 @@
         "warning": {
             "title": "Warning"
         },
-        "ok": "Ok",
+        "ok": "OK",
         "offline_warning": {
-            "message": "",
-            "playAnyway": "",
-            "title": ""
+            "message": "Táto hra nemusí fungovať správne bez internetového pripojenia. Prajete si pokračovať?",
+            "playAnyway": "Aj tak hrať",
+            "title": "Pozor, ste offline"
         },
         "selectLaunchOption": {
             "title": "",
@@ -95,7 +95,11 @@
         "changelog": "Zobraziť Changelog",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "Upraviť nastavenie App/Game",
+        "favourite": "Pridať do obľúbených",
+        "unfavourite": "Odstrániť z obľúbených",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Nepodporované",
     "disabled": "Zakázané",
@@ -131,7 +135,12 @@
         "modify": "Zmeniť Inštaláciu",
         "extra_info": "Extra Informácie",
         "install_info": "Informácie o inštalácii",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game details",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "About"
     },
     "gamecard": {
         "moving": "Presúvanie",
@@ -161,7 +170,16 @@
         "installedInfo": "Informácie o Inštalácii",
         "protondb-compatibility-info": "Úroveň kompatibility Proton",
         "steamdeck-compatibility-info": "Kompatibilita so Steam Deck",
-        "third-party-app": "Správca z Tretej Strany"
+        "third-party-app": "Správca z Tretej Strany",
+        "steamdeck": {
+            "unsupported": "Nepodporované",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Uložisko k dispozícii",
@@ -189,7 +207,8 @@
         "playing": {
             "start": "Hrať teraz",
             "stop": "Hráš (Stop)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Synchronizácia uloženia"
@@ -202,7 +221,8 @@
             "installing": "Inštaluje sa",
             "pleaseWait": "Please wait...",
             "installation": "Zastaviť inštaláciu"
-        }
+        },
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "Možnosti spustenia...",
@@ -236,7 +256,9 @@
             "title": "Game/App Názov",
             "broser": "Adresa URL prehliadača",
             "fullscreen": "Spustiť na celú obrazovku (ukončiť z F11)",
-            "useragent": "Vlastný Useragent"
+            "useragent": "Vlastný Useragent",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Sem prilepte adresu URL obrázka",
@@ -247,11 +269,15 @@
         "import-hint": {
             "title": "Dôležité! Pridáte hru z Epic/GOG/Amazon? Kliknite tu!",
             "content": "Nepoužívajte túto funkciu.<br />Namiesto, <3>log do</3> obchod, hľadať hru vo vašej knižnici, otvorte inštalačný dialóg a kliknite na \"Import Game \" tlačidlo"
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
         "minimum": "Minimum",
-        "recommended": "Odporúčané"
+        "recommended": "Odporúčané",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Kliknutím aktualizujte",
@@ -298,7 +324,8 @@
         "verify": "Overiť a opraviť",
         "extraInfo": "Ďalšie informácie",
         "logs": "Denníky",
-        "categories": "Kategórie"
+        "categories": "Kategórie",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Táto hra nepodporuje ukladanie do cloudu. Tieto informácie poskytujú vývojári hry. Niektoré hry implementujú svoj vlastný systém ukladania do cloudu",
@@ -335,6 +362,34 @@
     "Open": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "Advanced"
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "Sem prilepte adresu URL obrázka"
+        },
+        "title": "Upraviť nastavenie App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "dlc": "DLC",
+            "installInfo": "Veľkosť na stiahnutie",
+            "launchOptions": "Možnosti spustenia...",
+            "storeInfo": "Informácie o Systéme"
+        }
     }
 }

@@ -96,7 +96,11 @@
         "changelog": "Hiện Nhật Ký Thay Đổi",
         "browse_files": "Duyệt Tệp",
         "browse_wine_prefix": "Duyệt Wine Prefix",
-        "play": "CHƠI"
+        "play": "CHƠI",
+        "edit-game": "Sửa đổi App/Game",
+        "favourite": "Thêm vào mục ưa thích",
+        "unfavourite": "Xóa khỏi mục ưa thích",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Không Hỗ Trợ",
     "disabled": "Tắt",
@@ -132,7 +136,12 @@
         "extra_info": "Thông tin thêm",
         "install_info": "Thông tin cài đặt",
         "modify": "Sửa Đổi Cài Đặt",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game details",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Giới thiệu"
     },
     "gamecard": {
         "moving": "Đang Chuyển",
@@ -162,7 +171,16 @@
         "installedInfo": "Thông Tin Đã Cài Đặt",
         "protondb-compatibility-info": "Bậc Tương Thích Proton",
         "steamdeck-compatibility-info": "Khả Năng Tương Thích SteamDeck",
-        "third-party-app": "Trình Quản Lý Bên Thứ Ba"
+        "third-party-app": "Trình Quản Lý Bên Thứ Ba",
+        "steamdeck": {
+            "unsupported": "Không hỗ trợ",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "Bản mở rộng"
     },
     "install": {
         "disk-space-left": "Dung Lượng Trống Khả Dụng",
@@ -190,7 +208,8 @@
         "playing": {
             "start": "Chơi Ngay",
             "stop": "Đang chơi (Dừng)",
-            "start_with_logs": "Chơi ngay (có nhật ký)"
+            "start_with_logs": "Chơi ngay (có nhật ký)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Đang Đồng Bộ Bản Lưu"
@@ -204,7 +223,8 @@
             "install-path": "Chọn thư mục cài đặt Steam"
         },
         "redist": "Cài Đặt Bản Phân Phối Lại",
-        "winetricks": "Cài Đặt Gói Winetricks"
+        "winetricks": "Cài Đặt Gói Winetricks",
+        "releaseDate": "Ngày Phát Hành"
     },
     "launch": {
         "options": "Khởi Chạy Tuỳ Chọn ...",
@@ -238,7 +258,9 @@
             "title": "Tiêu Đề Trò Chơi/Ứng Dụng",
             "broser": "TrìnhDuyệtURL",
             "fullscreen": "Khởi Chạy Toàn Màn Hình (F11 để thoát)",
-            "useragent": "Tác Nhân Người Dùng Tùy Chỉnh"
+            "useragent": "Tác Nhân Người Dùng Tùy Chỉnh",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Dán URL của Hình ảnh hoặc chọn một hình ảnh từ máy tính của bạn",
@@ -249,11 +271,16 @@
         "import-hint": {
             "content": "KHÔNG sử dụng tính năng này cho mục đích đó.<br />Thay vào đó, hãy <3>đăng nhập vào</3> cửa hàng, tìm trò chơi trong thư viện của bạn, mở hộp thoại cài đặt và nhấp vào nút \"Nhập trò chơi\"",
             "title": "Quan trọng! Bạn có đang thêm trò chơi từ Epic/GOG/Amazon không? Bấm vào đây!"
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
         "minimum": "Thu Nhỏ",
-        "recommended": "Đề Xuất"
+        "recommended": "Đề Xuất",
+        "notes": "Ghi chú",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Nhấn để Cập Nhật",
@@ -300,7 +327,8 @@
         "verify": "Kiểm Tra và Sửa Chữa",
         "extraInfo": "Thông tin thêm",
         "logs": "Nhật ký",
-        "categories": "Phân Loại"
+        "categories": "Phân Loại",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Trò chơi này không hỗ trợ lưu vào đám mây. Thông tin này được cung cấp bởi các nhà phát triển trò chơi. Một số trò chơi triển khai hệ thống lưu trữ đám mây của riêng họ",
@@ -337,6 +365,33 @@
     "wikiLink": "Thông tin quan trọng về trò chơi này, hãy đọc phần này: <1>Mở trang</1>",
     "open-saves-folder": "Mở thư mục lưu",
     "edit-game": {
-        "advanced": "Nâng cao"
+        "advanced": "Nâng cao",
+        "placeholder": {
+            "image": "Paste an Image URL here"
+        },
+        "title": "Sửa đổi App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "dlc": "DLC",
+            "installInfo": "Kích thước tải",
+            "launchOptions": "Tùy chọn khởi chạy"
+        }
     }
 }

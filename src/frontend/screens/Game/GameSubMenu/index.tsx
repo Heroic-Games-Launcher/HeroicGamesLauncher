@@ -4,7 +4,8 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { GameInfo, GameStatus, Runner } from 'common/types'
 
-import { createNewWindow, repair } from 'frontend/helpers'
+import { createNewWindow } from 'frontend/helpers'
+import { repair } from 'frontend/helpers/library'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
@@ -17,24 +18,24 @@ import useGlobalState from 'frontend/state/GlobalStateV2'
 import EditGameDialog from 'frontend/components/UI/EditGameDialog'
 
 import {
-  ArrowUpward as ArrowUpwardIcon,
-  CheckCircle as CheckCircleIcon,
-  Delete as DeleteIcon,
-  DesktopAccessDisabled as DesktopAccessDisabledIcon,
-  DriveFileMove as DriveFileMoveIcon,
-  Edit as EditIcon,
-  FindInPage as FindInPageIcon,
-  Folder as FolderIcon,
-  FormatListBulleted as FormatListBulletedIcon,
-  Info as InfoIcon,
-  PictureInPicture as PictureInPictureIcon,
-  Repartition as RepartitionIcon,
-  Shortcut as ShortcutIcon,
-  ShoppingCart as ShoppingCartIcon
-} from '@mui/icons-material'
+  ArrowUpCircle,
+  CircleCheck,
+  ExternalLink,
+  FileSearch,
+  FolderOpen,
+  HardDriveDownload,
+  Info,
+  List,
+  MonitorX,
+  Pencil,
+  PictureInPicture,
+  ShoppingCart,
+  Trash2,
+  Wine
+} from 'lucide-react'
+import { Icon, MenuItem } from 'frontend/components/UI'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinux, faSteam } from '@fortawesome/free-brands-svg-icons'
-import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   appName: string
@@ -89,6 +90,12 @@ export default function GamesSubmenu({
   const isThirdPartyManaged = !!gameInfo.thirdPartyManagedApp
 
   async function onMoveInstallYesClick() {
+    // Steam manages the move (and destination drive selection) in its own
+    // Storage Manager, so skip Heroic's directory picker and hand off to Steam.
+    if (runner === 'steam') {
+      await window.api.moveInstall({ appName, path: '', runner })
+      return
+    }
     const { defaultInstallPath } = await window.api.requestAppSettings()
     const path = await window.api.openDialog({
       buttonLabel: t('box.choose'),
@@ -104,7 +111,8 @@ export default function GamesSubmenu({
   function handleMoveInstall() {
     showDialogModal({
       showDialog: true,
-      message: t('box.move.message'),
+      message:
+        runner === 'steam' ? t('box.move.steamMessage') : t('box.move.message'),
       title: t('box.move.title'),
       buttons: [
         { text: t('box.yes'), onClick: onMoveInstallYesClick },
@@ -207,7 +215,7 @@ export default function GamesSubmenu({
     if (addedToSteam) {
       await window.api
         .removeFromSteam(appName, runner)
-        .then(() => setAddedToSteam(false))
+        .then((removed) => setAddedToSteam(!removed))
     } else {
       await window.api
         .addToSteam(appName, runner)
@@ -257,7 +265,7 @@ export default function GamesSubmenu({
   }, [title, appName])
 
   const refreshCircle = () => {
-    return <CircularProgress className="link button is-text is-link" />
+    return <CircularProgress className="MenuItem__spinner" />
   }
 
   const showModifyItem =
@@ -299,174 +307,146 @@ export default function GamesSubmenu({
         <div className={`submenu`}>
           {isInstalled && (
             <>
-              <button
-                onClick={async () => handleEdit()}
-                className="link button is-text is-link buttonWithIcon"
-              >
-                <EditIcon />
+              <MenuItem glyph={Pencil} onClick={async () => handleEdit()}>
                 {isSideloaded
-                  ? t('button.sideload.edit', 'Edit App/Game')
-                  : t('button.edit-game', 'Edit Game')}
-              </button>{' '}
-              <button
-                onClick={() => handleShortcuts()}
-                className="link button is-text is-link buttonWithIcon"
-              >
-                <ShortcutIcon />
+                  ? t('button.sideload.edit', 'Edit app/game')
+                  : t('button.edit-game', 'Edit game')}
+              </MenuItem>{' '}
+              <MenuItem glyph={ExternalLink} onClick={() => handleShortcuts()}>
                 {hasShortcuts
                   ? t('submenu.removeShortcut', 'Remove shortcuts')
                   : t('submenu.addShortcut', 'Add shortcut')}
-              </button>
-              <button
+              </MenuItem>
+              <MenuItem
+                glyph={Trash2}
                 onClick={async () => setShowUninstallModal(true)}
-                className="link button is-text is-link buttonWithIcon"
                 disabled={is.playing}
               >
-                <DeleteIcon />
                 {t('button.uninstall', 'Uninstall')}
-              </button>{' '}
+              </MenuItem>{' '}
               {!isSideloaded && !isThirdPartyManaged && (
-                <button
+                <MenuItem
+                  glyph={ArrowUpCircle}
                   onClick={async () => handleUpdate()}
-                  className="link button is-text is-link buttonWithIcon"
                   disabled={disableUpdate}
                 >
-                  <ArrowUpwardIcon />
-                  {t('button.force_update', 'Force Update if Available')}
-                </button>
+                  {t('button.force_update', 'Force update if available')}
+                </MenuItem>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
-                <button
+                <MenuItem
+                  glyph={HardDriveDownload}
                   onClick={async () => handleMoveInstall()}
-                  className="link button is-text is-link buttonWithIcon"
                 >
-                  <DriveFileMoveIcon />
-                  {t('submenu.move', 'Move Game')}
-                </button>
+                  {t('submenu.move', 'Move game')}
+                </MenuItem>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
-                <button
+                <MenuItem
+                  glyph={FileSearch}
                   onClick={async () => handleChangeInstall()}
-                  className="link button is-text is-link buttonWithIcon"
                 >
-                  <FindInPageIcon />
-                  {t('submenu.change', 'Change Install Location')}
-                </button>
+                  {t('submenu.change', 'Change install path')}
+                </MenuItem>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
-                <button
+                <MenuItem
+                  glyph={CircleCheck}
                   onClick={async () => handleRepair(appName)}
-                  className="link button is-text is-link buttonWithIcon"
                 >
-                  <CheckCircleIcon />
-                  {t('submenu.verify', 'Verify and Repair')}
-                </button>
+                  {t('submenu.verify', 'Verify and repair')}
+                </MenuItem>
               )}{' '}
               {isLinux &&
                 runner === 'legendary' &&
                 (eosOverlayRefresh ? (
                   refreshCircle()
                 ) : (
-                  <button
-                    className="link button is-text is-link buttonWithIcon"
-                    onClick={handleEosOverlay}
-                  >
-                    <PictureInPictureIcon />
+                  <MenuItem glyph={PictureInPicture} onClick={handleEosOverlay}>
                     {eosOverlayEnabled
-                      ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
-                      : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
-                  </button>
+                      ? t('submenu.disableEosOverlay', 'Disable EOS overlay')
+                      : t('submenu.enableEosOverlay', 'Enable EOS overlay')}
+                  </MenuItem>
                 ))}
             </>
           )}
-          {steamRefresh ? (
-            refreshCircle()
-          ) : (
-            <button
-              onClick={async () => handleAddToSteam()}
-              className="link button is-text is-link buttonWithIcon"
-            >
-              <SvgIcon>
-                <FontAwesomeIcon icon={faSteam} />
-              </SvgIcon>
-              {addedToSteam
-                ? t('submenu.removeFromSteam', 'Remove from Steam')
-                : t('submenu.addToSteam', 'Add to Steam')}
-            </button>
-          )}
-          <button
+          {/* Steam games already live in Steam */}
+          {runner !== 'steam' &&
+            (steamRefresh ? (
+              refreshCircle()
+            ) : (
+              <MenuItem
+                icon={
+                  <SvgIcon>
+                    <FontAwesomeIcon icon={faSteam} />
+                  </SvgIcon>
+                }
+                onClick={async () => handleAddToSteam()}
+              >
+                {addedToSteam
+                  ? t('submenu.removeFromSteam', 'Remove from Steam')
+                  : t('submenu.addToSteam', 'Add to Steam')}
+              </MenuItem>
+            ))}
+          <MenuItem
+            glyph={List}
             onClick={() => openGameCategoriesModal(gameInfo)}
-            className="link button is-text is-link buttonWithIcon"
           >
-            <FormatListBulletedIcon />
             {t('submenu.categories', 'Categories')}
-          </button>
+          </MenuItem>
           {!isSideloaded && storeUrl && (
             <NavLink
-              className="link button is-text is-link buttonWithIcon"
+              className="MenuItem MenuItem--default"
               to={`/store-page?store-url=${storeUrl}`}
             >
-              <ShoppingCartIcon />
-              {t('submenu.store')}
+              <span className="MenuItem__icon">
+                <Icon glyph={ShoppingCart} size="md" />
+              </span>
+              <span className="MenuItem__label">{t('submenu.store')}</span>
             </NavLink>
           )}
           {!isSideloaded && !!changelog?.length && (
-            <button
-              onClick={() => handleChangeLog()}
-              className="link button is-text is-link buttonWithIcon"
-            >
-              <InfoIcon />
-              {t('button.changelog', 'Show Changelog')}
-            </button>
+            <MenuItem glyph={Info} onClick={() => handleChangeLog()}>
+              {t('button.changelog', 'Show changelog')}
+            </MenuItem>
           )}{' '}
           {!isSideloaded && isLinux && (
-            <button
+            <MenuItem
+              icon={
+                <SvgIcon>
+                  <FontAwesomeIcon icon={faLinux} />
+                </SvgIcon>
+              }
               onClick={() => createNewWindow(protonDBurl)}
-              className="link button is-text is-link buttonWithIcon"
             >
-              <SvgIcon>
-                <FontAwesomeIcon icon={faLinux} />
-              </SvgIcon>
-              {t('submenu.protondb', 'Check Compatibility')}
-            </button>
+              {t('submenu.protondb', 'Check compatibility')}
+            </MenuItem>
           )}
           {onShowRequirements && (
-            <button
+            <MenuItem
+              glyph={MonitorX}
               onClick={async () => onShowRequirements()}
-              className="link button is-text is-link buttonWithIcon"
             >
-              <DesktopAccessDisabledIcon />
-              {t('game.requirements', 'Requirements')}
-            </button>
+              {t('game.requirements', 'System requirements')}
+            </MenuItem>
           )}
           {showModifyItem && (
-            <button
+            <MenuItem
+              glyph={HardDriveDownload}
               onClick={async () => onShowModifyInstall()}
-              className="link button is-text is-link buttonWithIcon"
             >
-              <RepartitionIcon />
-              {t('game.modify', 'Modify Installation')}
-            </button>
+              {t('game.modify', 'Modify installation')}
+            </MenuItem>
           )}
           {isInstalled && (
-            <button
-              onClick={async () => onBrowseFiles()}
-              className="link button is-text is-link buttonWithIcon"
-            >
-              <FolderIcon />
-              {t('button.browse_files', 'Browse Files')}
-            </button>
+            <MenuItem glyph={FolderOpen} onClick={async () => onBrowseFiles()}>
+              {t('button.browse_files', 'Browse files')}
+            </MenuItem>
           )}
           {hasWine && (
-            <button
-              onClick={async () => onBrowsePrefix()}
-              className="link button is-text is-link buttonWithIcon"
-            >
-              <SvgIcon>
-                <FontAwesomeIcon icon={faWineGlass} />
-              </SvgIcon>
-              {t('button.browse_wine_prefix', 'Browse Wine Prefix')}
-            </button>
+            <MenuItem glyph={Wine} onClick={async () => onBrowsePrefix()}>
+              {t('button.browse_wine_prefix', 'Browse Wine prefix')}
+            </MenuItem>
           )}
         </div>
       </div>

@@ -5,7 +5,9 @@
         "copy": "Kopieren",
         "copied": "Kopiert!",
         "error": "Fehler, versuche einen anderen Code",
-        "loading": "Wird geladen"
+        "loading": "Wird geladen",
+        "close": "Schließen",
+        "itchio_error": "Fehler, versuche einen anderen Code"
     },
     "message": {
         "part1": "Damit Du Dich anmelden und Deine Spiele installieren kannst, musst Du zunächst die folgenden Schritte ausführen:",
@@ -21,5 +23,14 @@
         "error": "Fehler",
         "loading": "Lade Spieleliste, bitte warten"
     },
-    "welcome": "Willkommen!"
+    "welcome": "Willkommen!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

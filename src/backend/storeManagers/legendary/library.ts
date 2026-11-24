@@ -47,9 +47,16 @@ import shlex from 'shlex'
 import thirdParty from './thirdParty'
 import { Entries } from 'type-fest'
 import { runLegendaryCommandStub } from './e2eMock'
-import { legendaryConfigPath, legendaryMetadata } from './constants'
+import {
+  legendaryConfigPath,
+  legendaryInstalled,
+  legendaryMetadata,
+  legendaryUserInfo,
+  thirdPartyInstalled
+} from './constants'
 import { isWindows } from 'backend/constants/environment'
-import { LibraryManager } from 'common/types/game_manager'
+import { LibraryManager, RunnerBackupPaths } from 'common/types/game_manager'
+import { BACKUP_PATHS } from 'backend/importExport/constants'
 import LegendaryGame from './games'
 
 const fallBackImage = 'fallback'
@@ -128,7 +135,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
   /**
    * Refresh `installedGames` from file.
    */
-  refreshInstalled() {
+  public refreshInstalled() {
     const installedJSON = join(legendaryConfigPath, 'installed.json')
 
     let installedCache: [string, InstalledJsonMetadata][] = []
@@ -693,17 +700,9 @@ export default class LegendaryLibraryManager implements LibraryManager {
 
     // Set LEGENDARY_CONFIG_PATH to a custom, Heroic-specific location so user-made
     // changes to Legendary's main config file don't affect us
-    if (!options) {
-      options = {}
-    }
-    if (!options.env) {
-      options.env = {}
-    }
-
-    // if not on a SNAP environment, set the XDG_CONFIG_HOME to the same location as the config file
-    if (!process.env.SNAP) {
-      options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
-    }
+    options ??= {}
+    options.env ??= {}
+    options.env['LEGENDARY_CONFIG_PATH'] = legendaryConfigPath
 
     const commandParts = this.commandToArgsArray(command)
 
@@ -943,5 +942,45 @@ export default class LegendaryLibraryManager implements LibraryManager {
     logWarning(
       'changeVersionPinnedStatus not implemented on Legendary Library Manager'
     )
+  }
+
+  getBackupPaths(): RunnerBackupPaths {
+    return {
+      credentials: [
+        {
+          source: () => legendaryUserInfo,
+          destInZip: BACKUP_PATHS.credentials.legendaryUser
+        }
+      ],
+      libraryCache: [
+        {
+          source: () => libraryStore.path,
+          destInZip: BACKUP_PATHS.libraryCache.legendaryLibrary
+        },
+        {
+          source: () => thirdPartyInstalled,
+          destInZip: BACKUP_PATHS.libraryCache.legendaryThirdParty
+        },
+        {
+          source: () => legendaryMetadata,
+          destInZip: BACKUP_PATHS.libraryCache.legendaryMetadataDir,
+          kind: 'dir'
+        }
+      ],
+      installedGames: {
+        source: () => legendaryInstalled,
+        destInZip: BACKUP_PATHS.libraryCache.legendaryInstalled,
+        countGames: () => {
+          try {
+            const data = JSON.parse(
+              readFileSync(legendaryInstalled, 'utf-8')
+            ) as Record<string, unknown>
+            return Object.keys(data).length
+          } catch {
+            return 0
+          }
+        }
+      }
+    }
   }
 }

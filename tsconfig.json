@@ -22,6 +22,12 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src/"
   },
-  "include": ["src"],
-  "exclude": ["vite.config.ts", "**/__mocks__/**", "sign"]
+  "include": ["src", "meta/**/*.mts", "meta/downloadHelperBinaries.ts"],
+  "exclude": [
+    "vite.config.ts",
+    "**/__mocks__/**",
+    "sign",
+    "src/**/*.stories.ts",
+    "src/**/*.stories.tsx"
+  ]
 }

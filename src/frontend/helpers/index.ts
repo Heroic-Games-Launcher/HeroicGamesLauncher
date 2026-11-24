@@ -1,14 +1,15 @@
-import {
+import type {
   GameInfo,
   InstallProgress,
   Runner,
   GameSettings,
   InstallPlatform,
-  InstallInfo
+  InstallInfo,
+  CloudSyncResult
 } from 'common/types'
 
-import { install, launch, repair, updateGame } from './library'
 import * as fileSize from 'filesize'
+
 const readFile = window.api.readConfig
 
 const writeConfig = window.api.writeConfig
@@ -33,14 +34,13 @@ const syncSaves = async (
   appName: string,
   runner: Runner,
   arg?: string
-): Promise<string> => {
-  const response: string = await window.api.syncSaves({
+): Promise<CloudSyncResult> => {
+  return window.api.syncSaves({
     arg,
     path: savesPath,
     appName,
     runner
   })
-  return response
 }
 
 const getLegendaryConfig = async (): Promise<{
@@ -129,6 +129,10 @@ const getStoreName = (runner: Runner, other: string) => {
       return 'GOG'
     case 'nile':
       return 'Amazon Games'
+    case 'itchio':
+      return 'itch.io'
+    case 'steam':
+      return 'Steam'
     default:
       return other
   }
@@ -152,6 +156,18 @@ function getPreferredInstallLanguage(
   return availableLanguages[0]
 }
 
+function getIntlLocale(language: string | undefined) {
+  const tag = language?.replace('_', '-')
+  if (!tag) {
+    return 'en'
+  }
+  try {
+    return Intl.getCanonicalLocales(tag)[0] ?? 'en'
+  } catch {
+    return 'en'
+  }
+}
+
 export {
   createNewWindow,
   getGameInfo,
@@ -160,18 +176,15 @@ export {
   getLegendaryConfig,
   getProgress,
   handleQuit,
-  install,
-  launch,
   loginPage,
   notify,
   openDiscordLink,
-  repair,
   sendKill,
   sidInfoPage,
   syncSaves,
-  updateGame,
   writeConfig,
   removeSpecialcharacters,
   getStoreName,
-  getPreferredInstallLanguage
+  getPreferredInstallLanguage,
+  getIntlLocale
 }

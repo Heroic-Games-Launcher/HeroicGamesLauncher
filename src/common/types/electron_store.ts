@@ -18,7 +18,14 @@ import {
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
+import { ItchioUserData } from './itchio'
 import { ZoomCredentials } from './zoom'
+import { HeroicRollbackSnapshot } from './importExport'
+import {
+  SteamAccount,
+  SteamCloudSyncStatus,
+  SteamPendingDlcChange
+} from './steam'
 
 export interface StoreStructure {
   configStore: {
@@ -49,7 +56,6 @@ export interface StoreStructure {
     'window-props': WindowProps
     settings: AppSettings
     skipVcRuntime: boolean
-    showSnapWarning: boolean
   }
   wineDownloaderInfoStore: {
     'wine-releases': WineVersionInfo[]
@@ -58,6 +64,9 @@ export interface StoreStructure {
     installed: InstalledInfo[]
   }
   zoomInstalledGamesStore: {
+    installed: InstalledInfo[]
+  }
+  steamInstalledGamesStore: {
     installed: InstalledInfo[]
   }
   timestampStore: {
@@ -80,8 +89,23 @@ export interface StoreStructure {
     isLoggedIn: boolean
     username?: string
   }
+  steamConfigStore: {
+    isLoggedIn: boolean
+    steamId?: string
+    username?: string
+    accounts?: SteamAccount[]
+    pendingDlc?: SteamPendingDlcChange[]
+    // Per-game chosen `aurelia launch-targets` id
+    steamLaunchTarget?: Record<string, string>
+    // Last Cloud sync outcome per app id, so the library can show sync state
+    cloudSync?: Record<string, SteamCloudSyncStatus>
+  }
   nileConfigStore: {
     userData?: NileUserData
+  }
+  itchioConfigStore: {
+    userData?: ItchioUserData
+    profileId?: number
   }
   sideloadedStore: {
     games: GameInfo[]
@@ -111,6 +135,9 @@ export interface StoreStructure {
   uploadedLogs: Record<string, UploadedLogData>
   migrationsStore: {
     appliedMigrations: string[]
+  }
+  importExportRollbackStore: {
+    lastSnapshot?: HeroicRollbackSnapshot
   }
   gameOverridesStore: {
     overrides: Record<

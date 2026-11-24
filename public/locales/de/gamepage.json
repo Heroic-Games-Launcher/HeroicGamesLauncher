@@ -97,7 +97,10 @@
         "browse_files": "Dateien durchsuchen",
         "browse_wine_prefix": "Wine-Präfix durchsuchen",
         "play": "Spielen",
-        "edit-game": "Bearbeite Spiel"
+        "edit-game": "Bearbeite Spiel",
+        "favourite": "Zu Favoriten hinzufügen",
+        "unfavourite": "Aus Favoriten entfernen",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -133,7 +136,12 @@
         "modify": "Installation anpassen",
         "extra_info": "Zusatzinfo",
         "install_info": "Installationsinfo",
-        "achievements": "Erfolge"
+        "achievements": "Erfolge",
+        "details": "Spieldetails",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Über Heroic"
     },
     "gamecard": {
         "moving": "Wird verschoben",
@@ -163,7 +171,16 @@
         "installedInfo": "Installierte Informationen",
         "protondb-compatibility-info": "Proton-Kompatibilitätsstufe",
         "steamdeck-compatibility-info": "Steam-Deck-Kompatibilität",
-        "third-party-app": "Externer Manager"
+        "third-party-app": "Externer Manager",
+        "genres": "Genre",
+        "steamdeck": {
+            "unsupported": "Nicht unterstützt",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLCs"
     },
     "install": {
         "disk-space-left": "Verfügbarer Speicherplatz",
@@ -193,7 +210,8 @@
         "playing": {
             "start": "Jetzt spielen",
             "stop": "Anhalten",
-            "start_with_logs": "Spielen (mit Logs)"
+            "start_with_logs": "Spielen (mit Logs)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Spielstände werden synchronisiert"
@@ -228,7 +246,8 @@
             "specificVersion-pt1": "Dies wird eine spezifische Steamversion herunterladen, von",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "durch Heroic nutzbar gemacht, da neuere Steam-Versionen nicht unter macOS funktionieren."
-        }
+        },
+        "releaseDate": "Veröffentlicht"
     },
     "launch": {
         "options": "Startoptionen …",
@@ -282,7 +301,9 @@
     },
     "specs": {
         "minimum": "Minimum",
-        "recommended": "Empfohlen"
+        "recommended": "Empfohlen",
+        "notes": "Notizen",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Zum Aktualisieren klicken",
@@ -330,7 +351,8 @@
         "verify": "Auf Fehler überprüfen und Reparieren",
         "extraInfo": "Zusatzinformation",
         "logs": "Logs",
-        "categories": "Kategorien"
+        "categories": "Kategorien",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem.",
@@ -381,6 +403,21 @@
         "info": {
             "cover": "Titelbild",
             "square": "Quadratisches Bild"
+        },
+        "square": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Erfolge",
+            "dlc": "Spieleerweiterung",
+            "installInfo": "Downloadgröße",
+            "launchOptions": "Startoptionen",
+            "storeInfo": "Systeminformationen"
         }
     }
 }

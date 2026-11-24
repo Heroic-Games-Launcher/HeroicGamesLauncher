@@ -87,6 +87,10 @@
             "dxmt": {
                 "message": "Fejl ved hentning af DXMT! Kontrollér din forbindelse!",
                 "title": "DXMT-Overførselsfejl"
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "info": {
@@ -157,11 +161,6 @@
                 "message": "Vi kunne ikke finde den valgte Wine-version, for at starte denne titel ({{selectedWine}}). {{newline}} Vi fandt en anden, vil du fortsætte med at starte via {{foundWine}}?",
                 "title": "Wine ikke fundet!"
             },
-            "snap": {
-                "title": "Heroic kører som Snap",
-                "checkbox": "Vis ikke denne meddelelse igen",
-                "message": "Nogle funktioner er ikke til tilgængelige i Snap-versionen af appen lige nu, og vi prøver at ordne det.{{newLine}}Nuværende begrænsninger er: {{newLine}}Heroic vil ikke være i stand til, at finde Proton fra Steam eller Wine fra Lutris.{{newLine}}{{newLine}}Gamescope, GameMode og MangoHud vil heller ikke virke, da Heroic ikke har adgang til dem.{{newLine}}{{newLine}}For at få adgang til denne funktion installér venligst Heroic som Flatpak, DEB eller fra et AppImage."
-            },
             "sideload": {
                 "confirmExit": {
                     "title": "Er du sikker på, at du vil afslutte?",
@@ -171,6 +170,12 @@
             "rosetta": {
                 "message": "Heroic kræver Rosetta for, at køre korrekt på macOS med Apple Silicon-chip. Installér det venligst fra macOS-terminalen, ved hjælp af følgende kommando: \"softwareupdate --install-rosetta\" og genstart Heroic. ",
                 "title": "Rosetta ikke fundet"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "default-steam-path": "Steamsti.",
@@ -178,7 +183,8 @@
         "choose-nile-binary": "Vælg Nile binær",
         "update": "Opdatering",
         "changelog": "Ændringslog",
-        "postpone": "Udsæt"
+        "postpone": "Udsæt",
+        "cancel": "Annuller"
     },
     "All": "Alle",
     "accessibility": {
@@ -193,12 +199,18 @@
         "disable_dialog_backdrop_close": "Deaktivér lukning af dialogbokse ved at klikke udenfor",
         "titles_always_visible": "Vis altid titler i biblioteket",
         "actions_font_family_default": "Handlinger Skrifttypefamilie (Standard: {{fontFamily}})",
-        "content_font_family_default": "Indhold skrifttypefamilie (Standard: {{fontFamily}})",
+        "content_font_family_default": "Indholdsskrifttypefamilie (Standard: {{fontFamily}})",
         "disable_animations": "Deaktivér grænseflade-animationer",
-        "disable_smooth_scrolling": "Deaktivér jævn rulning (kræver genstart)"
+        "disable_smooth_scrolling": "Deaktivér jævn rulning (kræver genstart)",
+        "section": {
+            "library": "Bibliotek",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "info": {
-        "version": "Wine-version",
+        "version": "Wine version",
         "heroic": {
             "version": "Heroisk version",
             "beta": "Beta",
@@ -243,12 +255,14 @@
         "unsync": "Fjern synkronisering",
         "login": "Log ind",
         "cancel": "Afbryd",
-        "continue": "Fortsæt"
+        "continue": "Fortsæt",
+        "close": "Luk",
+        "backToLibrary": ""
     },
     "help": {
         "esync": "Esync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen.",
         "steamruntime": "Brugerdefinerede biblioteker leveret af Steam til at hjælpe med at køre Linux og Windows (Proton) spil. Aktivering kan forbedre kompatibiliteten.",
-        "fsync": "Fsync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
+        "fsync": "Msync har til formål at reducere wineserver-overhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
         "gamemode": "Feral GameMode anvender automatiske og midlertidige tweaks til systemet, når du kører spil. Aktivering kan forbedre ydeevnen.",
         "mangohud": "MangoHUD er en overlay, der viser og overvåger FPS, temperaturer, CPU/GPU-belastning og andre systemressourcer.",
         "other": {
@@ -324,15 +338,17 @@
             "gameWidth": "Den breddeopløsning, der bruges af spillet. Gamescope antager et billedformat på 16:9.",
             "upscaleHeight": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages.",
             "upscaleMethod": "Den opskaleringsmetode, som Gamescope skal bruge.",
-            "upscaleWidth": "Den breddeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages."
+            "upscaleWidth": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages."
         },
         "msync": "Msync har til formål at reducere wineserver-overhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
         "wine-hdr": "HDR forbedrer farverne ved at give lysere højdepunkter og dybere kontraster. For at HDR kan fungere, skal både skærmen og spillet understøtte det.",
         "wine-wayland": "Den eksperimentelle Wine-Wayland-driver gør det muligt at køre spil direkte under Wayland-skærmprotokollen. Aktivering kan medføre, at nogle spil ikke fungerer.",
         "WoW64": "Wine WoW64-tilstanden gør det muligt at køre 32-bit Windows-spil på 64-bit Wine. Aktivering kan forbedre ydeevnen, men kan også ødelægge ældre 32-bit spil.",
         "nvidiaprime": {
-            "details": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -345,14 +361,16 @@
                 "steam": {
                     "corrupt": "{{game}} kunne ikke tilføjes til alle fundne Steam-brugere. Se logs for mere info. En genstart af Steam er påkrævet, ændringer skal træde i kraft.",
                     "title": "Tilføjet til Steam",
-                    "success": "{{game}} blev føjet til Steam. En genstart af Steam er påkrævet, ændringer skal træde i kraft."
+                    "success": "{{game}} blev føjet til Steam. En genstart af Steam er påkrævet, ændringer skal træde i kraft.",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "success": "{{game}} blev fjernet til Steam. En genstart af Steam er påkrævet, ændringer skal træde i kraft.",
                     "title": "Fjernet fra Steam",
-                    "corrupt": "{{game}} kunne ikke fjernes fra alle fundne Steam-brugere. Se logs for mere info. En genstart af Steam er påkrævet, ændringer skal træde i kraft."
+                    "corrupt": "{{game}} kunne ikke fjernes fra alle fundne Steam-brugere. Se logs for mere info. En genstart af Steam er påkrævet, ændringer skal træde i kraft.",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Færdig reparation"
@@ -362,8 +380,8 @@
             "finished": "Installation afsluttet",
             "imported": "Spil importeret",
             "startInstall": "Installation påbegyndt",
-            "error": "Installation mislykkedes",
-            "failed": "Installation mislykkedes",
+            "error": "Installation annulleret",
+            "failed": "Installation annulleret",
             "paused": "Installation sat på pause"
         },
         "moved": "Færdig med flytning",
@@ -410,7 +428,8 @@
                 "heroic": "General Heroic log",
                 "legendary": "Epic Games / Legendary log",
                 "nile": "Amazon / Nile log",
-                "zoom": "Zoom log"
+                "zoom": "Zoom log",
+                "itchio": ""
             },
             "join-heroic-discord": "Deltag på vores Discord",
             "show-uploads": "Vis uploadede logfiler",
@@ -442,7 +461,10 @@
                     "content": "Uploader logfil...",
                     "title": "Uploader"
                 }
-            }
+            },
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Aktiver Mangohud (Mangohud skal installeres)",
         "manualsync": {
@@ -456,12 +478,15 @@
         },
         "runexe": {
             "message": "Træk og slip filer her",
-            "title": "Kør EXE på Præfiks"
+            "title": "Kør EXE på Præfiks",
+            "description": ""
         },
         "savefolder": {
             "placeholder": "Vælg den nøjagtige gemte spilmappe",
             "not-found": "Save-mappe blev ikke fundet, vælg den manuelt (klik for at prøve igen)",
-            "warning": "Tjek venligst to gange, om stien er korrekt (klik for at prøve igen)"
+            "warning": "Tjek venligst to gange, om stien er korrekt (klik for at prøve igen)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Vælg tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",
@@ -493,7 +518,8 @@
             "removeConfirm": "Er du sikker på, at du vil afinstallere EOS Overlay?",
             "removeConfirmTitle": "Bekræft fjernelse af overlejring",
             "updateNow": "Opdater",
-            "updating": "Opdaterer..."
+            "updating": "Opdaterer...",
+            "description": ""
         },
         "wineprefix": "WinePræfiks-mappe",
         "crossover-version": "Crossover/Wine version",
@@ -505,7 +531,7 @@
         "FsrSharpnessStrenght": "FSR Skarphed Styrke",
         "preferSystemLibs": "Foretrækker systembiblioteker",
         "resizableBar": "Aktiver BAR, der kan ændres størrelse (kun NVIDIA RTX 30xx)",
-        "wineversion": "Wine Version",
+        "wineversion": "Wine version",
         "autosync": "Autosync gemmer",
         "adddesktopshortcuts": "Tilføj skrivebordsgenveje automatisk",
         "addgamestostartmenu": "Tilføj spil til startmenuen automatisk",
@@ -588,20 +614,107 @@
             "wine_selector_warning": "Valve-versioner af Proton ignoreres som standard. Aktiver dem i de avancerede globale indstillinger"
         },
         "verboseLogs": {
-            "description": "Aktivér detaljerede logfiler"
+            "description": "Aktivér detaljerede logfiler",
+            "hint": ""
         },
         "wineWayland": "Aktivér Wine-Wayland (eksperimentelt) (Wine-versionen skal understøtte dette)",
         "WoW64": "Aktivér WoW64 (eksperimentelt)",
         "scripts": "",
         "enable-quick-sync-menu": "",
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "tools": {
+            "open": "Åbn",
+            "selectExe": "Vælg EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "steamRuntime": {
+            "label": "",
+            "noRuntimeOption": ""
+        },
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": "",
+        "steamLaunchTarget": {
+            "missingBuild": "I alt downloaded"
+        }
     },
     "wine": {
         "manager": {
-            "link": "Vinchef",
+            "link": "Wine manager",
             "error": "Kunne ikke hente Wine/Proton-versioner denne gang.",
-            "title": "Vinchef",
+            "title": "Wine manager",
             "unzipping": "Udpakker",
             "not-found": "Ingen vinversioner fundet. Klik på opdateringsikonet for at prøve igen.",
             "search": "",
@@ -609,9 +722,10 @@
             "open_folder": "",
             "update": "Opdater",
             "settings": "Indstillinger",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
-        "release": "Udgivelses dato",
+        "release": "Udgivelsesdato",
         "size": "Størrelse",
         "actions": "Handling",
         "notes": ""
@@ -626,11 +740,13 @@
             "list": "Skift til et listelayout"
         },
         "hideAlphabetFilter": "Skjul alfabetfilter",
-        "showAlphabetFilter": "Vis alfabetfilter"
+        "showAlphabetFilter": "Vis alfabetfilter",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "settings": {
         "clear-cache": "Ryd Heroic-mellemlager",
-        "copiedToClipboard": "Kopieret til udklipsholder!",
+        "copiedToClipboard": "Kopiér til udklipsholder",
         "copyToClipboard": "Kopier alle indstillinger til udklipsholder",
         "eacRuntime": {
             "installing": "Installerer EAC Runtime...",
@@ -638,7 +754,8 @@
             "gameModeRequired": {
                 "title": "GameMode påkrævet",
                 "message": "GameMode er påkrævet for at EAC runtime kan fungere på Flatpak. Vil du aktivere det nu?"
-            }
+            },
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -668,11 +785,14 @@
             "games_settings_defaults": "Spilstandarder",
             "gamescope": "Gamescope",
             "systemInformation": "Systemoplysninger",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kategorier",
+            "tabs": ""
         },
         "battlEyeRuntime": {
             "installing": "Installerer BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "default_hint": "Ændringer i dette afsnit gælder kun som standardværdier ved installation af spil. Hvis du vil ændre indstillingerne for et allerede installeret spil, skal du bruge knappen Indstillinger på spilsiden.",
         "advanced": {
@@ -691,10 +811,12 @@
                 "help6": "Dette vil IKKE slette:",
                 "help7": "Butikslogin",
                 "help8": "Installerede spil",
-                "help9": "Spilindstilinger"
+                "help9": "Spilindstilinger",
+                "description": ""
             },
             "resetHeroic": {
-                "help": "Dette vil fjerne alle indstillinger og caching, men vil ikke fjerne dine installerede spil eller dine Epic-loginoplysninger. Bærbare versioner (AppImage, WinPortable, ...) af Heroic skal genstartes manuelt bagefter."
+                "help": "Dette vil fjerne alle indstillinger og caching, men vil ikke fjerne dine installerede spil eller dine Epic-loginoplysninger. Bærbare versioner (AppImage, WinPortable, ...) af Heroic skal genstartes manuelt bagefter.",
+                "description": ""
             }
         },
         "custom_css": {
@@ -730,7 +852,10 @@
             "software": "Software:",
             "steamDeck": "Steam Deck {{model}}",
             "systemModel": "Systemmodel:",
-            "systemSpecifications": "Systemspecifikationer:"
+            "systemSpecifications": "Systemspecifikationer:",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "launchOptions": "Opstartsinstillinger...",
         "legacy_warning": "",
@@ -743,6 +868,37 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "experimental": "Eksperimentelle funktioner",
+            "launch": "Opstartsinstillinger...",
+            "wineTools": "Værktøjer",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "downloads": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "title": {
@@ -777,7 +933,13 @@
             "space": "Plads",
             "close_options": "Luk indstillinger",
             "options": "Muligheder",
-            "select": "Vælg"
+            "select": "Vælg",
+            "exit": "Afslut",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "Epic Games": "Episke spil",
@@ -786,7 +948,8 @@
         "status": "Status",
         "store": "butik",
         "title": "Spiltitel",
-        "modify": "Ændre installation"
+        "modify": "Ændre installation",
+        "settings": "Spilindstilinger"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -803,7 +966,8 @@
             "title": "Miljøvariable",
             "value": "Værdi",
             "key": "Variabel navn",
-            "placeHolderKey": "NAVN"
+            "placeHolderKey": "NAVN",
+            "placeHolderV": ""
         },
         "gameargs": {
             "placeholder": "Sæt Launcher-argumenterne her",
@@ -826,10 +990,15 @@
             "error": {
                 "equal_sign_in_key": "Variablenavne må ikke indeholde tegnet \"=\"",
                 "empty_key": "Variabelnavne må ikke være tomme",
-                "space_in_key": "Variabelnavne må ikke indeholde mellemrum"
+                "space_in_key": "Variabelnavne må ikke indeholde mellemrum",
+                "duplicate_key": ""
             },
             "example": "Inkluder IKKE tegnet \"=\", f.eks.: for en indstilling som \"MY_FLAG=123\", sæt MY_FLAG i NAVN og 123 i VÆRDI.",
-            "info": "Indstil miljøvariabler til at føje til kommandoen."
+            "info": "Indstil miljøvariabler til at føje til kommandoen.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gamescope": {
             "additionalOptions": "Yderligere muligheder",
@@ -886,13 +1055,19 @@
         "no_categories": "Ingen brugerdefineret katagorier. Tilføj katagorier ved brug af spilmenuerne.",
         "show_installed_only": "Vis Kun Installeret",
         "show_support_offline_only": "Vis Kun Offline-understøttet",
-        "show_updates_only": "Vis kun spil med opdateringer"
+        "show_updates_only": "Vis kun spil med opdateringer",
+        "display": "",
+        "stores": "",
+        "hidden": "",
+        "non_available": "",
+        "platforms": ""
     },
     "Settings": "Indstillinger",
     "sidebar": {
         "collapse": "Skjul sidebjælken",
         "uncollapse": "Luk sidebjælken ud",
-        "console": ""
+        "console": "",
+        "storesLogin": "Butikslogin"
     },
     "userselector": {
         "discord": "Uenighed",
@@ -902,7 +1077,8 @@
         "quit": "Afslut",
         "logging_out": "Logger ud",
         "cancel": "Afbestille",
-        "quitMessage": "Er du sikker på, at du vil afslutte?"
+        "quitMessage": "Er du sikker på, at du vil afslutte?",
+        "manage": ""
     },
     "anticheat": {
         "anticheats": "Antisnyd",
@@ -935,11 +1111,14 @@
         "externalLogin": "Eksternt login",
         "alternative_method": "Alternativ login-metode",
         "epic": "Epic Games login",
-        "gog": "GOG login",
+        "gog": "GOG-log",
         "message": "Log ind med din platform. Du kan logge ind på mere end én platform på samme tid.",
         "amazon": "Amazon login",
         "old-mac": "Din macOS-version er {{version}}. macOS 12 eller nyere er påkrævet for at logge ind.",
-        "zoom": "Zoom-login"
+        "zoom": "Zoom-login",
+        "itchio": "",
+        "button": "Log ind",
+        "title_amazon": "Amazon Spil"
     },
     "placeholder": {
         "prefered_language": "2-tegn kode (dvs.: \"en\" eller \"fr\")",
@@ -964,11 +1143,15 @@
             "back": "Gå tilbage",
             "forward": "Gå fremad",
             "openInBrowser": "Åbn i browser",
-            "reload": "Genindlæs siden"
+            "reload": "Genindlæs siden",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "two_col_table": {
-        "save_hint": "Ændringer i denne tabel gemmes ikke automatisk. Klik på knappen +"
+        "save_hint": "Ændringer i denne tabel gemmes ikke automatisk. Klik på knappen +",
+        "add": "Tilføj"
     },
     "progress": "Fremskridt",
     "download": {
@@ -1004,7 +1187,8 @@
             "empty": "Intet at downloade",
             "remove": "Fjern fra downloads",
             "pause": "Pause download",
-            "resume": "Genoptag download"
+            "resume": "Genoptag download",
+            "paused": ""
         }
     },
     "add_game": "Tilføj spil",
@@ -1015,7 +1199,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Hent"
+            "speed": "Hent",
+            "unit": ""
         },
         "link": "Downloads",
         "queue": {
@@ -1025,7 +1210,15 @@
             "type": "Type"
         },
         "title": "Downloads",
-        "ETA": "Estimeret tid"
+        "ETA": "Estimeret tid",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "please-wait": "Vent venligst...",
     "label": {
@@ -1089,13 +1282,16 @@
         "remove-category": "Fjern Kategori",
         "warning": "Advarsel",
         "cancel": "Afbryd",
-        "add-new-category": "Tilføj Ny Kategori",
+        "add-new-category": "Tilføj ny kategori",
         "delete-question": "Fortsættelse vil permanent fjerne denne kategori og afbinde den fra alle spil. Fortsæt?",
         "new-category": "Ny Kategori"
     },
     "emptyLibrary": {
         "noResults": "De valgte filter produceret ingen resultater.",
-        "noGames": "Dit Bibliotek er tomt. .<br /><br />Klik <4>her</4> for at logge ind med din Epic, GOG.com eller Amazon konto. Efter, vil dine spil blive vist her på biblioteket. <br /><br />for at bruge spil fra andre kilder, klik <br />for at tilføje dem manuelt."
+        "noGames": "Dit Bibliotek er tomt. .<br /><br />Klik <4>her</4> for at logge ind med din Epic, GOG.com eller Amazon konto. Efter, vil dine spil blive vist her på biblioteket. <br /><br />for at bruge spil fra andre kilder, klik <br />for at tilføje dem manuelt.",
+        "description": "",
+        "noResultsTitle": "",
+        "title": ""
     },
     "analyticsModal": {
         "disable": "Deaktivér",
@@ -1162,7 +1358,8 @@
         "proton-ge": "GE-Proton er en Proton-variant skabt af Glorious Eggroll. Den er ment til brug sammen med umu-launcheren (standard i Heroic).",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "zoom-store": "Zoom-butik",
     "launch": {
@@ -1199,7 +1396,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1222,9 +1420,12 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "Alle",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "hideOwned": "",
+            "wishlistOnly": "",
+            "platform": ""
         },
-        "sidebar": "",
+        "sidebar": "detaljer",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1246,7 +1447,26 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "titleMulti": "detaljer",
+        "currency": {
+            "label": ""
+        },
+        "tabs": {
+            "label": "",
+            "all": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1268,7 +1488,9 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": {
+            "last_played": "Sidst Spillet"
+        },
         "cancel": {
             "hintSuffix": "i 3s for at afbryde",
             "hintPrefix": "Hold nede"
@@ -1294,7 +1516,12 @@
         "quitApp": "Afslut App",
         "loading": "",
         "install": {
-            "wineLoading": "Indlæser…"
+            "wineLoading": "Indlæser…",
+            "path": "Installer",
+            "title": "Installerede spil",
+            "wine": "",
+            "wineMissing": "",
+            "platform": ""
         },
         "cancelInstall": {
             "message": "Dette spil er i gang med at installere. Afbryd installationen?",
@@ -1303,7 +1530,44 @@
         "cancelUpdate": {
             "message": "Dette spil er i gang med overførsel. Afbryd den igangværende opdatering?",
             "title": "Afbryd opdatering?"
+        },
+        "removeFromQueue": {
+            "message": ""
         }
     },
-    "next": "Næste"
+    "next": "Næste",
+    "common": {
+        "add": "Tilføj",
+        "cancel": "Annuller",
+        "warning": "Advarsel",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
+    },
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "General": "",
+    "itchio-store": "",
+    "support": {
+        "actions": {
+            "open": "Åbn"
+        }
+    },
+    "cloudSync": {
+        "back": "Tilbage",
+        "column": {
+            "size": "Størrelse"
+        },
+        "never": "Aldrig"
+    }
 }

@@ -1,9 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { CircleHelp } from 'lucide-react'
 import { useTour } from '../../state/TourContext'
+import Icon from 'frontend/components/UI/Icon'
+import Tooltip from 'frontend/components/UI/Tooltip'
 import './TourButton.scss'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-import { IconButton, Tooltip } from '@mui/material'
 
 interface TourButtonProps {
   tourId: string
@@ -26,18 +27,19 @@ const TourButton: React.FC<TourButtonProps> = ({
     startTour(tourId)
   }
 
-  const buttonLabel = label || t('tour.startTour', 'Start Tour')
+  const buttonLabel = label || t('tour.startTour', 'Start tour')
 
   return (
-    <Tooltip title={buttonLabel}>
-      <IconButton
+    <Tooltip content={buttonLabel} asChild>
+      <button
+        type="button"
         onClick={handleStartTour}
         className={`tour-button ${className}`}
         data-tour-button={tourId}
-        size="small"
+        aria-label={buttonLabel}
       >
-        <HelpOutlineIcon fontSize="small" />
-      </IconButton>
+        <Icon glyph={CircleHelp} size="lg" />
+      </button>
     </Tooltip>
   )
 }

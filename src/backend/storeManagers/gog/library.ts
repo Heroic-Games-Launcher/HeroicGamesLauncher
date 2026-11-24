@@ -10,7 +10,7 @@ import {
   LaunchOption
 } from 'common/types'
 import {
-  GOGCloudSavesLocation,
+  GOGCloudSavesInfo,
   GOGGameDotInfoFile,
   GogInstallInfo,
   GOGGameDotIdFile,
@@ -39,6 +39,12 @@ import {
 } from 'backend/logger'
 import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
 import {
+  clientIdFromManifest,
+  GOG_REMOTE_CONFIG_COMPONENT_VERSION,
+  GOG_REMOTE_CONFIG_TTL,
+  parseGOGCloudStorage
+} from './save_locations'
+import {
   libraryStore,
   installedGamesStore,
   installInfoStore,
@@ -54,16 +60,33 @@ import { unzipSync } from 'node:zlib'
 import { readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { checkForRedistUpdates } from './redist'
 import { runGogdlCommandStub } from './e2eMock'
-import { gogdlConfigPath } from './constants'
+import {
+  gogConfigPath,
+  gogInstalledConfigPath,
+  gogdlAuthConfig,
+  gogdlConfigPath
+} from './constants'
+import { BACKUP_PATHS } from 'backend/importExport/constants'
 import { userDataPath } from 'backend/constants/paths'
 import GOGGame from './games'
-import type { LibraryManager } from 'common/types/game_manager'
+import { productToGameInfo } from './unified_info'
+import type {
+  LibraryManager,
+  RunnerBackupPaths
+} from 'common/types/game_manager'
 import { libraryManagerMap } from '../index'
 import { readdir } from 'fs/promises'
 import { statSync } from 'fs'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
+
+const saveSyncClientIds = new Map<string, string>()
+const saveSyncLastKnown = new Map<string, GOGCloudSavesInfo>()
+const remoteConfigCache = new Map<
+  string,
+  { info: GOGCloudSavesInfo; fetchedAt: number }
+>()
 
 export default class GOGLibraryManager implements LibraryManager {
   private readonly gameCache: Map<string, GOGGame> = new Map()
@@ -242,30 +265,18 @@ export default class GOGLibraryManager implements LibraryManager {
   async getSaveSyncLocation(
     appName: string,
     install: InstalledInfo
-  ): Promise<GOGCloudSavesLocation[] | undefined> {
-    let syncPlatform: 'Windows' | 'MacOS' = 'Windows'
-    const platform = install.platform
-    switch (platform) {
-      case 'windows':
-        syncPlatform = 'Windows'
-        break
-      case 'osx':
-        syncPlatform = 'MacOS'
-        break
-    }
+  ): Promise<GOGCloudSavesInfo | undefined> {
+    const syncPlatform = install.platform === 'osx' ? 'MacOS' : 'Windows'
 
-    let clientId
-
+    let clientId: string | undefined
     const manifestPath = join(gogdlConfigPath, 'manifests', appName)
     if (existsSync(manifestPath)) {
       try {
-        const dataRaw = readFileSync(manifestPath, { encoding: 'utf-8' })
-        const data: GOGv1Manifest | GOGv2Manifest = JSON.parse(dataRaw)
-        if (data.version === 2) {
-          clientId = data.clientId
-        }
+        const data: GOGv1Manifest | GOGv2Manifest = JSON.parse(
+          readFileSync(manifestPath, { encoding: 'utf-8' })
+        )
+        clientId = clientIdFromManifest(data)
       } catch (err) {
-        clientId = undefined
         logWarning(
           [
             'Was not able to read clientId from manifest, falling back to info file:',
@@ -273,24 +284,30 @@ export default class GOGLibraryManager implements LibraryManager {
           ],
           LogPrefix.Gog
         )
-        clientId = this.readInfoFile(appName, install.install_path)?.clientId
       }
-    } else {
-      clientId = this.readInfoFile(appName, install.install_path)?.clientId
     }
 
+    clientId ??= this.readInfoFile(appName, install.install_path)?.clientId
+    clientId ??= saveSyncClientIds.get(appName)
+
     if (!clientId) {
-      logWarning(
-        `No clientId in goggame-${appName}.info file. Cannot resolve save path`
-      )
-      return
+      logWarning(`No clientId for ${appName}. Cannot resolve save path`)
+      return saveSyncLastKnown.get(appName)
+    }
+    saveSyncClientIds.set(appName, clientId)
+
+    const cacheKey = `${clientId}:${syncPlatform}`
+    const cached = remoteConfigCache.get(cacheKey)
+    if (cached && Date.now() - cached.fetchedAt < GOG_REMOTE_CONFIG_TTL) {
+      saveSyncLastKnown.set(appName, cached.info)
+      return cached.info
     }
 
     let response: GOGClientsResponse | undefined
     try {
       response = (
         await axiosClient.get(
-          `https://remote-config.gog.com/components/galaxy_client/clients/${clientId}?component_version=2.0.45`
+          `https://remote-config.gog.com/components/galaxy_client/clients/${clientId}?component_version=${GOG_REMOTE_CONFIG_COMPONENT_VERSION}`
         )
       ).data
     } catch (error) {
@@ -299,15 +316,22 @@ export default class GOGLibraryManager implements LibraryManager {
         LogPrefix.Gog
       )
     }
-    if (!response) {
-      return
+
+    const saveInfo = parseGOGCloudStorage(response, syncPlatform)
+    if (saveInfo) {
+      remoteConfigCache.set(cacheKey, {
+        info: saveInfo,
+        fetchedAt: Date.now()
+      })
+      saveSyncLastKnown.set(appName, saveInfo)
+      return saveInfo
     }
-    const platformInfo = response.content[syncPlatform]
-    const savesInfo = platformInfo.cloudStorage
-    if (!savesInfo.enabled) {
-      return
-    }
-    return savesInfo.locations
+
+    logWarning(
+      ['Using previously discovered save locations for', appName],
+      LogPrefix.Gog
+    )
+    return saveSyncLastKnown.get(appName)
   }
 
   private defaultExecResult = {
@@ -491,6 +515,8 @@ export default class GOGLibraryManager implements LibraryManager {
     const gamesObjects: GameInfo[] = [redistGameInfo]
     apiInfoCache.use_in_memory() // Prevent blocking operations
     for (const game of filteredApiArray) {
+      let unifiedObject: GameInfo | undefined
+      let gamesdbUnavailable = false
       let retries = 5
       while (retries > 0) {
         let gdbData
@@ -503,8 +529,10 @@ export default class GOGLibraryManager implements LibraryManager {
             credentials.access_token
           )
           gdbData = data
+          gamesdbUnavailable = !gdbData
         } catch {
           retries -= 1
+          gamesdbUnavailable = true
           logError(
             `Error getting gamesdb data for ${game.external_id} retries: ${retries}/5`,
             LogPrefix.Gog
@@ -513,37 +541,66 @@ export default class GOGLibraryManager implements LibraryManager {
           continue
         }
 
-        const unifiedObject = await this.gogToUnifiedInfo(gdbData)
-        if (unifiedObject.app_name) {
-          const oldData = library.get(unifiedObject.app_name)
-          if (oldData) {
-            unifiedObject.folder_name = oldData.folder_name
-          }
-          gamesObjects.push(unifiedObject)
-
-          const installedInfo = installedGames.get(String(game.external_id))
-          // If game is installed, verify if installed game supports cloud saves
-          if (installedInfo && installedInfo?.platform !== 'linux') {
-            const saveLocations = await this.getSaveSyncLocation(
-              unifiedObject.app_name,
-              installedInfo
-            )
-
-            if (saveLocations) {
-              unifiedObject.cloud_save_enabled = true
-              unifiedObject.gog_save_location = saveLocations
-            }
-          }
-          // Create new object to not write install data into library store
-          const copyObject = Object.assign({}, unifiedObject)
-          if (installedInfo) {
-            copyObject.is_installed = true
-            copyObject.install = installedInfo
-          }
-          library.set(copyObject.app_name, copyObject)
-        }
+        const candidate = await this.gogToUnifiedInfo(gdbData)
+        if (candidate.app_name) unifiedObject = candidate
         break
       }
+
+      if (!unifiedObject && gamesdbUnavailable) {
+        const productResponse = await this.getProductApi(
+          String(game.external_id),
+          ['description'],
+          credentials.access_token
+        )
+        if (productResponse) {
+          logWarning(
+            `Using product API metadata for GOG game ${game.external_id} because GamesDB data is unavailable`,
+            LogPrefix.Gog
+          )
+          unifiedObject = productToGameInfo(
+            productResponse.data,
+            String(game.external_id)
+          )
+        } else {
+          logError(
+            `Unable to load metadata for GOG game ${game.external_id}`,
+            LogPrefix.Gog
+          )
+          continue
+        }
+      }
+
+      if (!unifiedObject) continue
+
+      const oldData = library.get(unifiedObject.app_name)
+      if (oldData) {
+        unifiedObject.folder_name = oldData.folder_name
+      }
+      gamesObjects.push(unifiedObject)
+
+      const installedInfo = installedGames.get(String(game.external_id))
+      // If game is installed, verify if installed game supports cloud saves
+      if (installedInfo && installedInfo?.platform !== 'linux') {
+        const saveInfo = await this.getSaveSyncLocation(
+          unifiedObject.app_name,
+          installedInfo
+        )
+
+        if (saveInfo) {
+          unifiedObject.cloud_save_enabled = saveInfo.enabled
+          unifiedObject.gog_save_location = saveInfo.locations
+        } else if (oldData?.gog_save_location) {
+          unifiedObject.cloud_save_enabled = oldData.cloud_save_enabled
+          unifiedObject.gog_save_location = oldData.gog_save_location
+        }
+      }
+      // Create new object to not write install data into library store
+      const copyObject = Object.assign({}, unifiedObject)
+      if (installedInfo) {
+        copyObject.is_installed = true
+        copyObject.install = installedInfo
+      }
+      library.set(copyObject.app_name, copyObject)
     }
 
     apiInfoCache.commit() // Sync cache to drive
@@ -749,10 +806,14 @@ export default class GOGLibraryManager implements LibraryManager {
       installedGames.get(appName) &&
       installedGames.get(appName)?.platform !== 'linux'
     ) {
-      gameData.gog_save_location = await this.getSaveSyncLocation(
+      const saveInfo = await this.getSaveSyncLocation(
         appName,
         installedGames.get(appName)!
       )
+      if (saveInfo) {
+        gameData.cloud_save_enabled = saveInfo.enabled
+        gameData.gog_save_location = saveInfo.locations
+      }
     }
 
     libraryArray[gameObjectIndex].folder_name = gogInfo.folder_name
@@ -1565,5 +1626,43 @@ export default class GOGLibraryManager implements LibraryManager {
 
       return acc
     }, [] as string[])
+  }
+
+  getBackupPaths(): RunnerBackupPaths {
+    return {
+      credentials: [
+        {
+          source: () => gogConfigPath,
+          destInZip: BACKUP_PATHS.credentials.gogConfig
+        },
+        {
+          // gogdl reads tokens directly from auth.json via `gogdl auth`.
+          // Without it, a restored config.json says isLoggedIn=true but every
+          // call fails because gogdl has no access/refresh token to use.
+          source: () => gogdlAuthConfig,
+          destInZip: BACKUP_PATHS.credentials.gogAuth
+        }
+      ],
+      libraryCache: [
+        {
+          source: () => libraryStore.path,
+          destInZip: BACKUP_PATHS.libraryCache.gogLibrary
+        }
+      ],
+      installedGames: {
+        source: () => gogInstalledConfigPath,
+        destInZip: BACKUP_PATHS.libraryCache.gogInstalled,
+        countGames: () => {
+          try {
+            const data = JSON.parse(
+              readFileSync(gogInstalledConfigPath, 'utf-8')
+            ) as { installed?: unknown[] }
+            return Array.isArray(data.installed) ? data.installed.length : 0
+          } catch {
+            return 0
+          }
+        }
+      }
+    }
   }
 }

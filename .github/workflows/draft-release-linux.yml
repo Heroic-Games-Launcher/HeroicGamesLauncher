@@ -10,10 +10,32 @@ jobs:
   draft-releases:
     runs-on: ubuntu-24.04
     steps:
-      - run: sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm
+      - run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y gnupg libarchive-tools libopenjp2-tools rpm
       - uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
-      - run: pnpm release:linux
+      - name: Check RPM signing key
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          RPM_GPG_PRIVATE_KEY: ${{ secrets.RPM_GPG_PRIVATE_KEY }}
+        run: |
+          if [ -z "$RPM_GPG_PRIVATE_KEY" ]; then
+            echo "::error::RPM_GPG_PRIVATE_KEY is not configured; refusing to publish an unsigned RPM."
+            exit 1
+          fi
+      - run: pnpm release:linux --x64 --arm64
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+      - name: Sign RPM packages
+        if: startsWith(github.ref, 'refs/tags/')
+        run: pnpm sign:rpm
+        env:
+          RPM_GPG_PRIVATE_KEY: ${{ secrets.RPM_GPG_PRIVATE_KEY }}
+          RPM_GPG_KEY_ID: ${{ secrets.RPM_GPG_KEY_ID }}
+      - name: Upload signed RPM packages
+        if: startsWith(github.ref, 'refs/tags/')
+        run: gh release upload "$GITHUB_REF_NAME" dist/*.rpm dist/RPM-GPG-KEY-heroic.asc --clobber
+        env:
           GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}

@@ -1,19 +1,13 @@
 import { libraryManagerMap } from 'backend/storeManagers'
 import { logError, LogPrefix, logWarning } from 'backend/logger'
-import {
-  downloadFile,
-  isEpicServiceOffline,
-  sendGameStatusUpdate
-} from '../utils'
-import { DMStatus, InstallParams, Runner } from 'common/types'
+import { isEpicServiceOffline, sendGameStatusUpdate } from '../utils'
+import { DMStatus, InstallParams } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import pathModule from 'path'
-import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
-import { storeMap } from 'common/utils'
+import { existsSync, rmSync } from 'graceful-fs'
 import { gogdlConfigPath } from 'backend/storeManagers/gog/constants'
-import { fixesPath } from 'backend/constants/paths'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: DMStatus
@@ -47,7 +41,7 @@ async function installQueueElement(params: InstallParams): Promise<{
         title: i18next.t('box.warning.title', 'Warning'),
         message: i18next.t(
           'box.warning.epic.install',
-          'Epic Servers are having major outage right now, the game cannot be installed!'
+          'Epic servers are having major outage right now, the game cannot be installed!'
         ),
         type: 'ERROR'
       })
@@ -71,7 +65,7 @@ async function installQueueElement(params: InstallParams): Promise<{
 
   notify({
     title,
-    body: i18next.t('notify.install.startInstall', 'Installation Started')
+    body: i18next.t('notify.install.startInstall', 'Installation started')
   })
 
   const errorMessage = (error: string) => {
@@ -82,8 +76,6 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    downloadFixesFor(appName, runner)
-
     const { status, error } = await libraryManagerMap[runner]
       .getGame(appName)
       .install({
@@ -135,7 +127,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
         title: i18next.t('box.warning.title', 'Warning'),
         message: i18next.t(
           'box.warning.epic.update',
-          'Epic Servers are having major outage right now, the game cannot be updated!'
+          'Epic servers are having major outage right now, the game cannot be updated!'
         ),
         type: 'ERROR'
       })
@@ -151,7 +143,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
 
   notify({
     title,
-    body: i18next.t('notify.update.started', 'Update Started')
+    body: i18next.t('notify.update.started', 'Update started')
   })
 
   const errorMessage = (error: string) => {
@@ -185,15 +177,6 @@ async function updateQueueElement(params: InstallParams): Promise<{
       status: 'done'
     })
   }
-}
-
-async function downloadFixesFor(appName: string, runner: Runner) {
-  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${storeMap[runner]}/${appName}-${storeMap[runner]}.json`
-  const dest = pathModule.join(fixesPath, `${appName}-${storeMap[runner]}.json`)
-  if (!existsSync(fixesPath)) {
-    mkdirSync(fixesPath, { recursive: true })
-  }
-  downloadFile({ url, dest, ignoreFailure: true })
 }
 
 export { installQueueElement, updateQueueElement }

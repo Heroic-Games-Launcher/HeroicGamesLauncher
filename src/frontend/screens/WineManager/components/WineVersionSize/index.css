@@ -1,0 +1,20 @@
+.WineVersionSize {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+  width: 100%;
+  min-width: 0;
+}
+
+.WineVersionSize__label {
+  font-size: var(--body-sm);
+  font-weight: var(--medium);
+  color: var(--on-panel-success, var(--success));
+}
+
+.WineVersionSize__value {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  color: var(--on-panel-muted, var(--text-secondary));
+}

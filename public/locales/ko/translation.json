@@ -11,7 +11,13 @@
         "content_font_family_default": "콘텐츠 글꼴 패밀리 (기본값:",
         "actions_font_family_default": "Actions Font Family (Default:",
         "disable_smooth_scrolling": "",
-        "disable_animations": ""
+        "disable_animations": "",
+        "section": {
+            "library": "라이브러리",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "게임 추가",
     "All": "모두",
@@ -98,7 +104,17 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": ""
+                }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
+            }
         },
         "info": {
             "update": {
@@ -107,7 +123,7 @@
                 "message": "사용 가능한 새 버전이 있습니다!",
                 "message-finished": "지금 Heroic을 다시 시작하겠습니까?",
                 "title": "Heroic 게임 실행기",
-                "title-finished": "업데이트 완료",
+                "title-finished": "업데이트 완료함",
                 "detailNoAutoupdate": ""
             }
         },
@@ -129,7 +145,7 @@
             }
         },
         "runexe": {
-            "title": "실행할 EXE 선택"
+            "title": "실행할 EXE 파일 선택"
         },
         "select": {
             "button": "선택",
@@ -174,14 +190,15 @@
                     "message": "저장되지 않은 진행 상황은 손실될 수 있음"
                 }
             },
-            "snap": {
-                "checkbox": "이 메세지를 다시 표시 안 함",
-                "message": "일부 기능은 현재 앱의 스냅 버전에서 사용할 수 없고 이를 수정하려고 노력하고 있습니다.{{newLine}}현재 제한 사항은 다음과 같습니다:{{newLine}}Heroic은 스팀의 프로톤이나 루트리스의 와인을 찾을 수 없습니다.{{newLine}}{{newLine}}Gamescope, GameMode, MangoHud도 Heroic이 접속할 수 없으므로 작동하지 않습니다.{{newLine}}{{newLine}}이 기능에 접속하려면 Heroic을 Flatpak, DEB 또는 AppImage에서 설치하세요.",
-                "title": "Heroic은 스냅으로 실행됨"
-            },
             "rosetta": {
                 "title": "",
                 "message": ""
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "와인 설치 경로 폴더 선택",
@@ -190,7 +207,8 @@
         "choose-nile-binary": "나일 바이너리 선택",
         "update": "업데이트",
         "changelog": "변경로그",
-        "postpone": "연기"
+        "postpone": "연기",
+        "cancel": "취소"
     },
     "button": {
         "cancel": "취소",
@@ -199,7 +217,9 @@
         "sync": "싱크",
         "syncing": "싱크중",
         "unsync": "싱크 해제",
-        "continue": "계속"
+        "continue": "계속",
+        "close": "닫기",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -218,7 +238,13 @@
             "scroll": "스크롤",
             "select": "선택",
             "space": "스페이스",
-            "update_game": "게임 업데이트"
+            "update_game": "게임 업데이트",
+            "exit": "나가기",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "문서",
@@ -229,7 +255,8 @@
         },
         "label": {
             "disk": "디스크",
-            "speed": "다운로드"
+            "speed": "다운로드",
+            "unit": ""
         },
         "link": "다운로드",
         "queue": {
@@ -239,7 +266,15 @@
             "type": "유형"
         },
         "title": "다운로드",
-        "ETA": "예상 시간"
+        "ETA": "예상 시간",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "에릭 게임즈 서버가 오프라인 상태이므로 온라인 서비스가 완전히 작동하지 않을 수 있습니다!",
@@ -252,7 +287,8 @@
         "status": "상태",
         "store": "스토어",
         "title": "게임 타이틀",
-        "modify": "설치 수정"
+        "modify": "설치 수정",
+        "settings": "게임 설정"
     },
     "generic": {
         "error": {
@@ -261,7 +297,7 @@
         "library": {
             "refresh": "라이브러리 새로 고침"
         },
-        "abort": "",
+        "abort": "정보",
         "install": "설치",
         "uninstall": "설치 제거"
     },
@@ -287,7 +323,12 @@
         "only": "전용",
         "show_third_party_managed_only": "타사 관리만 표시",
         "show_support_offline_only": "오프라인 지원만 표시",
-        "show_updates_only": ""
+        "show_updates_only": "",
+        "platforms": "Platform",
+        "stores": "스토어",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD의 FSR 기술은 전체화면 모드에서 저해상도를 업스케일링하여 프레임 향상에 도움을 줍니다. 약간의 성능을 잃으며 이미지 품질은 5에서 1로 갈수록 증가합니다. 사용하면 성능이 향상될 수도 있습니다.",
@@ -374,8 +415,10 @@
         "advertiseAvxForRosetta": "",
         "analytics": "",
         "nvidiaprime": {
-            "details": "전용 그래픽 카드를 사용하여 다중 GPU 시스템에서 게임을 렌더링합니다. 렌더링에 헤드리스 GPU를 사용하는 게임용 노트북이나 데스크탑에서만 필요(엔비디아 옵티머스, AMD 크로스파이어)"
-        }
+            "details": "전용 그래픽 카드를 사용하여 다중 GPU 시스템에서 게임을 렌더링합니다. 렌더링에 헤드리스 GPU를 사용하는 게임용 노트북이나 데스크탑에서만 필요(엔비디아 옵티머스, AMD 크로스파이어)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -393,7 +436,7 @@
     },
     "infobox": {
         "help": "도움말",
-        "requirements": "시스템 요구 사양",
+        "requirements": "시스템 요구 사항",
         "warning": "경고",
         "wine-path": "와인 경로",
         "wine-prefix": {
@@ -422,7 +465,9 @@
             "list": "목록 레이아웃으로 전환"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "라이브러리",
     "loading": {
@@ -436,7 +481,15 @@
         "message": "플랫폼으로 로그인하세요. 동시에 여러 플랫폼에 로그인할 수 있습니다.",
         "amazon": "아마존 로그인",
         "old-mac": "macOS 버전은 {{version}}입니다. 로그인하려면 macOS 12 이상이 필요합니다.",
-        "zoom": ""
+        "zoom": "",
+        "itchio": "",
+        "button": "로그인",
+        "logout_confirm": {
+            "message": "정말 로그아웃 하겠습니까?",
+            "title": "로그아웃"
+        },
+        "title_epic": "에픽 게임즈",
+        "title_gog": "GOG"
     },
     "message": {
         "sync": "동기화 완료",
@@ -452,20 +505,22 @@
                 "steam": {
                     "corrupt": "{{game}}을(를) 찾은 모든 스팀 사용자에게 추가할 수 없습니다. 자세한 내용은 로그를 참조하세요. 변경 사항을 적용하려면 스팀을 다시 시작해야 합니다.",
                     "success": "{{game}}이(가) 스팀에 성공적으로 추가되었습니다. 변경 사항을 적용하려면 스팀을 다시 시작해야 합니다.",
-                    "title": "스팀에 추가됨"
+                    "title": "스팀에 추가됨",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}}을(를) 모든 스팀 사용자에서 제거할 수 없습니다. 자세한 내용은 로그를 참조하세요. 변경 사항을 적용하려면 스팀을 다시 시작해야 합니다.",
                     "success": "{{game}}이(가) 스팀에서 성공적으로 제거되었습니다. 변경 사항을 적용하려면 스팀을 다시 시작해야 합니다.",
-                    "title": "스팀에서 제거됨"
+                    "title": "스팀에서 제거됨",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "복구 완료"
         },
         "install": {
-            "canceled": "설치 취소됨",
+            "canceled": "설치 실패함",
             "error": "설치 실패함",
             "finished": "설치 완료됨",
             "imported": "게임 가져옴",
@@ -505,16 +560,22 @@
             "placeHolderKey": "이름",
             "placeHolderValue": "예: Path/To/ExtraFiles",
             "title": "환경 변수",
-            "value": "값"
+            "value": "값",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "변수 이름은 비어 있을 수 없음",
                 "equal_sign_in_key": "변수 이름에는 \"=\" 기호를 포함할 수 없음",
-                "space_in_key": "변수 이름에는 공백을 포함할 수 없음"
+                "space_in_key": "변수 이름에는 공백을 포함할 수 없음",
+                "duplicate_key": ""
             },
             "example": "\"=\" 기호를 포함하지 마십시오. 예를 들어 \"MY_FLAG=123\"과 같은 설정의 경우 이름에 MY_FLAG를 설정하고 값에 123을 설정합니다.",
-            "info": "명령에 추가할 환경 변수를 설정합니다."
+            "info": "명령에 추가할 환경 변수를 설정합니다.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "여기에 런처 인자 넣기",
@@ -563,7 +624,8 @@
         "dxvkfpsvalue": "양의 정수 값 (예: 30, 60, ...)",
         "egs-prefix": "에픽 게임즈 스토어 설치 경로",
         "prefered_language": "2 자리 코드 (예: \"en\" 또는 \"fr\")",
-        "alt-nile-bin": "내장 나일 바이너리 사용 중..."
+        "alt-nile-bin": "내장 나일 바이너리 사용 중...",
+        "alt-aurelia-bin": "내장 나일 바이너리 사용 중..."
     },
     "platforms": {
         "linux": "리눅스",
@@ -583,7 +645,8 @@
             "queued": "대기 중",
             "remove": "다운로드에서 제거",
             "resume": "다운로드 재개",
-            "pause": "다운로드 일시 정지"
+            "pause": "다운로드 일시 정지",
+            "paused": ""
         }
     },
     "Recent": "최근 플레이한 게임",
@@ -630,7 +693,8 @@
             "removeConfirm": "EOS 오버레이를 제거하겠습니까?",
             "removeConfirmTitle": "오버레이 제거 확인",
             "updateNow": "업데이트",
-            "updating": "업데이트 중..."
+            "updating": "업데이트 중...",
+            "description": ""
         },
         "esync": "Esync 활성화",
         "exit-to-tray": "시스템 트레이로 나가기",
@@ -689,10 +753,14 @@
                 "heroic": "일반 Heroic 기록",
                 "legendary": "에픽 게임즈 / 레전더리 로그",
                 "nile": "아마존 / 나일 로그",
-                "zoom": ""
+                "zoom": "",
+                "itchio": ""
             },
             "show-uploads": "업로드된 로그 파일 표시",
-            "join-heroic-discord": "우리 디스코드 참가"
+            "join-heroic-discord": "우리 디스코드 참가",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Mangohud 활성화 (Mangohud가 설치 되어있어야 함)",
         "manualsync": {
@@ -712,12 +780,15 @@
         "preferSystemLibs": "시스템 라이브러리를 선호",
         "runexe": {
             "message": "여기에 파일을 끌어다 놓기",
-            "title": "설치 경로에서 EXE 실행"
+            "title": "설치 경로에서 EXE 실행",
+            "description": ""
         },
         "savefolder": {
             "not-found": "저장 폴더를 찾을 수 없으므로, 직접 선택해야 함 (클릭하여 재시도)",
             "placeholder": "정확한 게임 저장 폴더 선택",
-            "warning": "경로가 올바른지 두 번 확인 (클릭하여 재시도)"
+            "warning": "경로가 올바른지 두 번 확인 (클릭하여 재시도)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "테마 선택",
         "showfps": "FPS 표시 (DX9, 10, 11)",
@@ -793,7 +864,8 @@
         "no-tray-icon": "",
         "analyticsOptIn": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "disableUMU": "",
         "advertiseAvxForRosetta": "",
@@ -801,16 +873,106 @@
             "warning": ""
         },
         "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "disable_gog_presence": "",
+        "steamRuntime": {
+            "label": "스팀 런타임 사용",
+            "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "열기",
+            "selectExe": "EXE 파일 선택",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": "",
+        "alt-aurelia-bin": "다른 나일 바이너리 선택",
+        "steamLaunchTarget": {
+            "downloadBuild": "Download",
+            "missingBuild": "전체 다운로드",
+            "missingRuntime": "VC 런타임 설치되지 않음"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEye 런타임 설치 중...",
-            "name": "BattlEye 안티치트 런타임"
+            "name": "BattlEye 안티치트 런타임",
+            "hint": ""
         },
         "clear-cache": "Heroic 캐시 지우기",
         "copiedToClipboard": "클립보드에 복사되었습니다!",
-        "copyToClipboard": "모든 설정을 클립보드에 복사",
+        "copyToClipboard": "Copy All Setting to Clipboard",
         "default_hint": "이 섹션의 변경 사항은 게임을 설치할 때 기본값으로만 적용됩니다. 이미 설치된 게임의 설정을 변경하려면 게임 페이지에서 설정 버튼을 사용하세요.",
         "eacRuntime": {
             "gameModeRequired": {
@@ -818,7 +980,8 @@
                 "title": "GameMode 필요함"
             },
             "installing": "EAC 런타임 설치 중...",
-            "name": "EasyAntiCheat 런타임"
+            "name": "EasyAntiCheat 런타임",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -839,7 +1002,9 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "시스템 정보",
             "gamescope": "Gamescope",
-            "legacy": ""
+            "legacy": "",
+            "categories": "범주",
+            "tabs": ""
         },
         "open-config-file": "구성 파일 열기",
         "reset-heroic": "Heroic 재설정",
@@ -860,7 +1025,8 @@
                 "help5": "아마존 라이브러리 정보 (게임 목록, 설치 대화 정보)",
                 "help6": "삭제되지 않음:",
                 "help3": "레전더리 라이브러리 정보 (게임 목록, 설치 대화 정보, 게임 정보)",
-                "help7": "스토어 로그인"
+                "help7": "스토어 로그인",
+                "description": ""
             },
             "details": "세부 사항",
             "title": {
@@ -868,7 +1034,8 @@
                 "clearCache": "캐시 지우기"
             },
             "resetHeroic": {
-                "help": "이렇게 하면 모든 설정과 캐시가 제거되지만 설치된 게임이나 에픽 자격 인증은 제거되지 않습니다. Heroic의 휴대용 버전 (AppImage, WinPortable, ...)은 그 후 수동으로 다시 시작해야 합니다."
+                "help": "이렇게 하면 모든 설정과 캐시가 제거되지만 설치된 게임이나 에픽 자격 인증은 제거되지 않습니다. Heroic의 휴대용 버전 (AppImage, WinPortable, ...)은 그 후 수동으로 다시 시작해야 합니다.",
+                "description": ""
             }
         },
         "systemInformation": {
@@ -892,7 +1059,10 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "showDetailed": "자세한 시스템 사양 표시",
             "systemModel": "시스템 모델:",
-            "nileVersion": "나일: {{nileVersion}}"
+            "nileVersion": "나일: {{nileVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "offline": {
             "warning": "이 게임은 명시적으로 오프라인 모드를 허용하지 않으므로, 본인의 책임 하에 켜세요. 게임이 작동하지 않을 수 있습니다."
@@ -917,13 +1087,45 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "다운로드",
+            "experimental": "실험적 기능",
+            "launch": "실행 옵션...",
+            "wineTools": "도구",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "설정",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "스토어 로그인"
     },
     "status": {
         "installing": "설치 중",
@@ -954,7 +1156,8 @@
         "show": "표시"
     },
     "two_col_table": {
-        "save_hint": "이 표의 변경 사항은 자동으로 저장되지 않습니다. + 버튼 클릭"
+        "save_hint": "이 표의 변경 사항은 자동으로 저장되지 않습니다. + 버튼 클릭",
+        "add": "추가"
     },
     "Update Available!": "사용 가능한 업데이트가 있습니다!",
     "userselector": {
@@ -965,14 +1168,18 @@
         "manageaccounts": "계정 관리",
         "quit": "나가기",
         "cancel": "취소",
-        "quitMessage": "정말 나가겠습니까?"
+        "quitMessage": "정말 나가겠습니까?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "돌아가기",
             "forward": "앞으로",
             "openInBrowser": "브라우저에서 열기",
-            "reload": "페이지 다시 로드"
+            "reload": "페이지 다시 로드",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -987,7 +1194,8 @@
             "open_folder": "",
             "update": "업데이트",
             "settings": "설정",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "출시일",
         "size": "크기",
@@ -1024,7 +1232,7 @@
     "category-settings": {
         "cancel": "취소",
         "warning": "경고",
-        "add-new-category": "새 범주 추가",
+        "add-new-category": "새 카테고리 추가",
         "delete-question": "계속하면 이 범주가 영구적으로 제거되고 모든 게임에서 할당이 해제됩니다. 계속하겠습니까?",
         "new-category": "새 범주",
         "remove-category": "범주 제거"
@@ -1056,11 +1264,15 @@
         "proton-ge": "GE-Proton은 Glorious Eggroll이 만든 프로톤 변형입니다. 스팀에서 사용하도록 만들어졌지만 스팀 외부의 일부 게임은 이 변형에서 더 잘 작동할 수 있습니다. 문제 해결을 위해 대부분 쓸모없는 로그를 제공합니다.",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "emptyLibrary": {
         "noResults": "현재 필터로는 결과가 생성되지 않았습니다.",
-        "noGames": ""
+        "noGames": "",
+        "noResultsTitle": "게임이 발견되지 않았습니다",
+        "description": "",
+        "title": ""
     },
     "tour": {
         "back": "뒤로",
@@ -1158,7 +1370,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1181,9 +1394,12 @@
             "featuresPlaceholder": "",
             "ageRatingAll": "모두",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "",
+            "platform": "Platform",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
-        "sidebar": "",
+        "sidebar": "세부 사항",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1205,17 +1421,36 @@
         "title": "",
         "pagination": {
             "prev": ""
-        }
+        },
+        "tabs": {
+            "label": "Store",
+            "all": ""
+        },
+        "titleMulti": "세부 사항",
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
             "no-games": "게임이 발견되지 않았습니다",
-            "no-grids": "",
+            "no-grids": "이 게임에 대한 로그를 찾을 수 없습니다",
             "search": "",
             "grids": ""
         },
         "picker": {
-            "search": "",
+            "search": "게임 검색",
             "title": "",
             "select-game": ""
         }
@@ -1227,14 +1462,16 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": {
+            "last_played": "마지막 플레이"
+        },
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
         },
         "quit": "",
         "hints": {
-            "launch": "",
+            "launch": "실행 중",
             "sort": "",
             "navigate": "",
             "quit": "나가기",
@@ -1255,8 +1492,64 @@
         "install": {
             "platform": "Platform",
             "title": "게임 설치",
-            "wineLoading": "Loading"
+            "wineLoading": "Loading",
+            "path": "다음에 설치",
+            "wineMissing": "경로가 선택되지 않음",
+            "wine": ""
+        },
+        "cancelUpdate": {
+            "title": "",
+            "message": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "추가",
+        "cancel": "취소",
+        "warning": "경고",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
+    },
+    "General": "일반",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": "",
+    "Update available!": "사용 가능한 업데이트가 있습니다!",
+    "support": {
+        "actions": {
+            "open": "열기"
+        },
+        "title": "당신의 도움이 필요합니다"
+    },
+    "cloudSync": {
+        "back": "뒤로",
+        "button": {
+            "download": "Download",
+            "sync": "동기화",
+            "upload": "업로드"
+        },
+        "column": {
+            "file": "필터",
+            "size": "크기"
+        },
+        "never": "플레이 한 적 없음"
+    }
 }

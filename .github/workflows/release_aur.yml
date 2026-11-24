@@ -16,66 +16,11 @@ jobs:
     steps:
       - name: Install Dependencies
         run: |
-          pacman -Syu --noconfirm jq
-
-      - name: Download Package
-        run: |
-          set -x
-          latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
-          version_without_v=$(echo $latest_version | cut -c 2-)
-          # Updated artifact naming convention with platform and architecture
-          curl -L https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${latest_version}/Heroic-${version_without_v}-linux-x64.pacman -o heroic.pacman
-          set +x
-        if: ${{ success() }}
-
+          pacman -Syu --noconfirm nodejs-lts-krypton
+      - uses: actions/checkout@v6
       - name: Update PKGBUILD
-        run: |
-          set -x
-          latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
-          pkgver=${latest_version#v}
-          pkgrel=1
-          url="https://heroicgameslauncher.com/"
-          # Updated artifact naming convention with platform and architecture
-          _filename=Heroic-${pkgver}-linux-x64.pacman
-          source=("https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${latest_version}/$_filename")
-          sha256sums=($(sha256sum heroic.pacman | cut -d' ' -f1))
-
-          cat <<EOF > PKGBUILD
-          # Maintainer: flaviofearn <heroicgameslauncher@protonmail.com>
-          # Maintainer: CommandMC <kate@commandmc.de>
-
-          pkgname=heroic-games-launcher-bin
-          pkgver=$pkgver
-          pkgrel=$pkgrel
-          pkgdesc="An Open source Launcher for Epic, Amazon and GOG Games"
-          arch=('x86_64')
-          url="https://heroicgameslauncher.com/"
-          license=('GPL-3.0-only')
-          _filename=$_filename
-          source=("$source")
-          noextract=("$_filename")
-          sha256sums=(${sha256sums[@]})
-          options=(!strip)
-          depends=(
-            which
-            gtk3
-          )
-          provides=(heroic-games-launcher)
-          conflicts=(heroic-games-launcher)
-
-          package() {
-            tar -xJv -C "\$pkgdir" -f "\$srcdir/\$_filename" usr opt
-            mkdir "\$pkgdir/usr/bin"
-            ln -s "/opt/Heroic/heroic" "\$pkgdir/usr/bin/heroic"
-          }
-
-          # vim:set ts=2 sw=2 et: syntax=sh
-
-          EOF
-          cat PKGBUILD
-              set +x
-        if: ${{ success() }}
-
+        run: node meta/createAurPkgbuild.mts
+        id: script
       - name: Publish AUR package
         uses: KSXGitHub/github-actions-deploy-aur@v4.1.3
         with:
@@ -84,5 +29,6 @@ jobs:
           commit_username: ${{ secrets.AUR_USERNAME }}
           commit_email: ${{ secrets.AUR_EMAIL }}
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE }}
-          commit_message: Update AUR package
+          commit_message: Update to ${{ steps.script.outputs.pkgver }}-${{ steps.script.outputs.pkgrel }}
           ssh_keyscan_types: rsa,ecdsa,ed25519
+          updpkgsums: true

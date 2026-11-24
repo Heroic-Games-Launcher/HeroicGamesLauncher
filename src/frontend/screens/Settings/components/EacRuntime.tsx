@@ -56,15 +56,19 @@ const EacRuntime = () => {
   return (
     <div className="toggleRow">
       <ToggleSwitch
+        description={t(
+          'settings.eacRuntime.hint',
+          'Legacy runtime for games protected with EasyAntiCheat'
+        )}
         htmlId="eacRuntime"
         value={eacRuntime}
         handleChange={handleEacRuntime}
-        title={t('settings.eacRuntime.name', 'EasyAntiCheat Runtime')}
+        title={t('settings.eacRuntime.name', 'EasyAntiCheat runtime (legacy)')}
       />
       {installing && (
         <span>
           <FontAwesomeIcon className="fa-spin" icon={faSyncAlt} />
-          {t('settings.eacRuntime.installing', 'Installing EAC Runtime...')}
+          {t('settings.eacRuntime.installing', 'Installing EAC runtime...')}
         </span>
       )}
     </div>

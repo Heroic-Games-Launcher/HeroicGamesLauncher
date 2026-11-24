@@ -95,7 +95,11 @@
         "changelog": "Toon Changelog",
         "browse_files": "Blader door Bestanden",
         "browse_wine_prefix": "Blader Wineprefix",
-        "play": ""
+        "play": "",
+        "edit-game": "Bewerk App/Game",
+        "favourite": "Voeg toe aan favorieten",
+        "unfavourite": "Verwijder uit favorieten",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Niet ondersteund",
     "disabled": "Uitgeschakeld",
@@ -131,7 +135,12 @@
         "changelogFor": "Changelog van {{gameTitle}}",
         "extra_info": "Extra info",
         "install_info": "Installatie-info",
-        "achievements": ""
+        "achievements": "",
+        "details": "Game details",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Over"
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",
@@ -161,7 +170,16 @@
         "installedInfo": "Geïnstalleerde informatie",
         "protondb-compatibility-info": "Proton-compatibiliteitslaag",
         "steamdeck-compatibility-info": "SteamDeck-compatibiliteit",
-        "third-party-app": "Beheerder van derden"
+        "third-party-app": "Beheerder van derden",
+        "steamdeck": {
+            "unsupported": "Niet ondersteund",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLCs"
     },
     "install": {
         "disk-space-left": "Beschikbare ruimte",
@@ -191,7 +209,8 @@
         "playing": {
             "start": "Nu spelen",
             "stop": "Aan het spelen (Stoppen)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Saves synchroniseren"
@@ -204,7 +223,8 @@
             "installing": "Installing",
             "pleaseWait": "Please wait...",
             "installation": "Installatie stoppen"
-        }
+        },
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "Opstartopties...",
@@ -238,7 +258,9 @@
             "title": "Game/App Titel",
             "broser": "BrowserURL",
             "fullscreen": "Start volledig scherm (F11 om af te sluiten)",
-            "useragent": "Aangepaste User Agent"
+            "useragent": "Aangepaste User Agent",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "Plak een foto URL hier",
@@ -249,11 +271,15 @@
         "import-hint": {
             "content": "Gebruik deze functie daar NIET voor.<br />In plaats daarvan, <3>Log in</3>zoek het spel in jouw bibliotheek in de winkel, open het installatiedialoogvenster en klik op de &quot;Import Game&quot; knop",
             "title": "Belangrijk! Voeg je een spel toe vanaf Epic/GOG/Amazon? Klik hier!"
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
         "minimum": "Minimum",
-        "recommended": "Aanbevolen"
+        "recommended": "Aanbevolen",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Klik om te Updaten",
@@ -283,7 +309,7 @@
         "goodie": "Niet installeerbaar",
         "redist": "Herverdelers installeren {{redist}}",
         "winetricks": "Winetricks verbeteringen toepassen",
-        "importing": ""
+        "importing": "Importeren"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
@@ -300,7 +326,8 @@
         "verify": "Verifiëren en repareren",
         "extraInfo": "Extra info",
         "logs": "Logboeken",
-        "categories": "Categorieën"
+        "categories": "Categorieën",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Deze game ondersteunt geen opslag in de cloud. Deze informatie wordt verstrekt door de game-ontwikkelaars. Sommige games implementeren hun eigen cloudopslagsysteem",
@@ -337,6 +364,34 @@
     "wikiLink": "Belangrijke informatie over dit spel, lees dit:&nbsp;<1>Open pagina</1>",
     "open-saves-folder": "",
     "edit-game": {
-        "advanced": "Advanced"
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "Plak een foto URL hier"
+        },
+        "title": "Bewerk App/Game",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "dlc": "DLC",
+            "installInfo": "Downloadgrootte",
+            "launchOptions": "Opstartopties",
+            "storeInfo": "Systeeminformatie"
+        }
     }
 }

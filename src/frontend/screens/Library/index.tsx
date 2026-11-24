@@ -9,8 +9,8 @@ import React, {
   useLayoutEffect
 } from 'react'
 
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
-import { Header, UpdateComponent } from 'frontend/components/UI'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUpOutlined'
+import { SectionHeader, UpdateComponent } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
@@ -26,7 +26,10 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
-  normalizeTitle
+  itchioCategories,
+  steamCategories,
+  normalizeTitle,
+  countGames
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -36,6 +39,8 @@ import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
 import AlphabetFilter from './components/AlphabetFilter'
+import AddGameButton from './components/AddGameButton'
+import ConsoleModeButton from './components/ConsoleModeButton'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 const storage = window.localStorage
@@ -57,6 +62,8 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     zoom,
+    itchio,
+    steam,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -74,6 +81,7 @@ export default React.memo(function Library(): JSX.Element {
   )
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
+  const [hasRecentGames, setHasRecentGames] = useState(false)
   const handleLayout = (layout: string) => {
     storage.setItem('layout', layout)
     setLayout(layout)
@@ -93,7 +101,9 @@ export default React.memo(function Library(): JSX.Element {
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoom.enabled && zoomCategories.includes(storedCategory)
+      zoom: zoom.enabled && zoomCategories.includes(storedCategory),
+      itchio: itchioCategories.includes(storedCategory),
+      steam: steam.enabled && steamCategories.includes(storedCategory)
     }
   }
 
@@ -189,6 +199,15 @@ export default React.memo(function Library(): JSX.Element {
   const handleShowUpdatesOnly = (value: boolean) => {
     storage.setItem('show_updates_only', JSON.stringify(value))
     setShowUpdatesOnly(value)
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const [showSteamOwnedOnly, setShowSteamOwnedOnly] = useState(
+    JSON.parse(storage.getItem('show_steam_owned_only') || 'false')
+  )
+  const handleShowSteamOwnedOnly = (value: boolean) => {
+    storage.setItem('show_steam_owned_only', JSON.stringify(value))
+    setShowSteamOwnedOnly(value)
   }
 
   const [showCategories, setShowCategories] = useState(false)
@@ -374,6 +393,12 @@ export default React.memo(function Library(): JSX.Element {
       zoom.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      itchio.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
+      steam.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -388,7 +413,9 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     sideloadedLibrary,
-    zoom
+    zoom,
+    itchio,
+    steam
   ])
 
   const favouritesIds = useMemo(() => {
@@ -403,7 +430,7 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['legendary'] && epic.username) {
       displayedStores.push('legendary')
     }
-    if (storesFilters['nile'] && amazon.username) {
+    if (storesFilters['nile'] && (amazon.user_id || amazon.username)) {
       displayedStores.push('nile')
     }
     if (storesFilters['sideload']) {
@@ -412,6 +439,12 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['zoom'] && zoom.username) {
       displayedStores.push('zoom')
     }
+    if (storesFilters['itchio'] && itchio.username) {
+      displayedStores.push('itchio')
+    }
+    if (storesFilters['steam'] && steam.enabled) {
+      displayedStores.push('steam')
+    }
 
     if (!displayedStores.length) {
       displayedStores = Object.keys(storesFilters)
@@ -419,22 +452,29 @@ export default React.memo(function Library(): JSX.Element {
 
     const showEpic = epic.username && displayedStores.includes('legendary')
     const showGog = gog.username && displayedStores.includes('gog')
-    const showAmazon = amazon.user_id && displayedStores.includes('nile')
+    const showAmazon =
+      (amazon.user_id || amazon.username) && displayedStores.includes('nile')
     const showSideloaded = displayedStores.includes('sideload')
     const showZoom = zoom.username && displayedStores.includes('zoom')
+    const showItchio = itchio.username && displayedStores.includes('itchio')
+    const showSteam = steam.enabled && displayedStores.includes('steam')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
     const zoomLibrary = showZoom ? zoom.library : []
+    const itchioLibrary = showItchio ? itchio.library : []
+    const steamLibrary = showSteam ? steam.library : []
 
     return [
       ...sideloadedApps,
       ...epicLibrary,
       ...gogLibrary,
       ...amazonLibrary,
-      ...zoomLibrary
+      ...zoomLibrary,
+      ...itchioLibrary,
+      ...steamLibrary
     ]
   }
 
@@ -493,6 +533,12 @@ export default React.memo(function Library(): JSX.Element {
 
       if (showUpdatesOnly) {
         library = library.filter((game) => gameUpdates.includes(game.app_name))
+      }
+
+      if (showSteamOwnedOnly) {
+        // Only hides Steam family-shared games; games from other stores (and
+        // owned Steam games) are left untouched.
+        library = library.filter((game) => !game.isFamilyShare)
       }
 
       if (!showNonAvailable) {
@@ -569,6 +615,8 @@ export default React.memo(function Library(): JSX.Element {
     gog.library,
     amazon.library,
     zoom.library,
+    steam.library,
+    steam.enabled,
     sideloadedLibrary,
     platform,
     filterText,
@@ -583,6 +631,7 @@ export default React.memo(function Library(): JSX.Element {
     showSupportOfflineOnly,
     showThirdPartyManagedOnly,
     showUpdatesOnly,
+    showSteamOwnedOnly,
     gameUpdates
   ])
 
@@ -638,40 +687,6 @@ export default React.memo(function Library(): JSX.Element {
     installing
   ])
 
-  // we need this to do proper `position: sticky` of the Add Game area
-  // the height of the Header can change at runtime with different font families
-  // and when resizing the window
-  useEffect(() => {
-    let timer: NodeJS.Timeout | null = null
-
-    const setHeaderHightCSS = () => {
-      if (timer) clearTimeout(timer)
-
-      // adding a timeout so we don't run this for every resize event
-      timer = setTimeout(() => {
-        const header = document.querySelector('.Header')
-        if (header) {
-          const headerHeight = header.getBoundingClientRect().height
-          const libraryHeader =
-            document.querySelector<HTMLDivElement>('.libraryHeader')
-          if (libraryHeader)
-            libraryHeader.style.setProperty(
-              '--header-height',
-              `${headerHeight}px`
-            )
-        }
-      }, 50)
-    }
-    // set when mounted
-    setHeaderHightCSS()
-    // also listen the resize event
-    window.addEventListener('resize', setHeaderHightCSS)
-
-    return () => {
-      window.removeEventListener('resize', setHeaderHightCSS)
-    }
-  }, [])
-
   if (!epic && !gog && !amazon && !zoom) {
     return (
       <ErrorComponent
@@ -710,6 +725,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
         showUpdatesOnly,
         setShowUpdatesOnly: handleShowUpdatesOnly,
+        showSteamOwnedOnly,
+        setShowSteamOwnedOnly: handleShowSteamOwnedOnly,
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
@@ -721,24 +738,36 @@ export default React.memo(function Library(): JSX.Element {
         setAlphabetFilterLetter
       }}
     >
-      <Header />
       <LibraryTour />
 
       <div className="listing">
         <span id="top" />
+        <div className="libraryStickyTop">
+          <LibraryHeader />
+
+          {showAlphabetFilter && <AlphabetFilter />}
+        </div>
+
         {showRecentGames && (
           <RecentlyPlayed
             handleModal={handleModal}
             onlyInstalled={libraryTopSection.endsWith('installed')}
             showHidden={showHidden}
+            onRecentGamesChange={setHasRecentGames}
           />
         )}
 
         {showFavourites && !showFavouritesLibrary && (
           <>
-            <div className="library-section-header" data-tour="library-header">
-              <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
-            </div>
+            <SectionHeader
+              className="librarySectionHeader"
+              title={t('favourites', 'Favourites')}
+              subtitle={t('library.gamesCount', {
+                count: countGames(favourites),
+                defaultValue_one: '{{count}} game',
+                defaultValue_other: '{{count}} games'
+              })}
+            />
             <GamesList
               library={favourites}
               handleGameCardClick={handleModal}
@@ -748,13 +777,35 @@ export default React.memo(function Library(): JSX.Element {
           </>
         )}
 
-        <LibraryHeader list={libraryToShow} />
-
-        {showAlphabetFilter && <AlphabetFilter />}
-
         {refreshing && !refreshingInTheBackground && <UpdateComponent />}
 
-        {libraryToShow.length === 0 && <EmptyLibraryMessage />}
+        {(!refreshing || refreshingInTheBackground) && (
+          <SectionHeader
+            className="librarySectionHeader"
+            title={
+              showFavourites
+                ? t('favourites', 'Favourites')
+                : t('title.allGames', 'All games')
+            }
+            subtitle={t('library.gamesCount', {
+              count: countGames(libraryToShow),
+              defaultValue_one: '{{count}} game',
+              defaultValue_other: '{{count}} games'
+            })}
+            actions={
+              hasRecentGames ? undefined : (
+                <>
+                  <ConsoleModeButton data-tour="library-console-mode" />
+                  <AddGameButton data-tour="library-add-game" />
+                </>
+              )
+            }
+            actionsTour={hasRecentGames ? undefined : 'library-section-actions'}
+          />
+        )}
+
+        {libraryToShow.length === 0 &&
+          (!refreshing || refreshingInTheBackground) && <EmptyLibraryMessage />}
 
         {libraryToShow.length > 0 &&
           (!refreshing || refreshingInTheBackground) && (

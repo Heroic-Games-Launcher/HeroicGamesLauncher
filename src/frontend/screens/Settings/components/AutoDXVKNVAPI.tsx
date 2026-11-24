@@ -2,9 +2,8 @@ import React, { useContext } from 'react'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import { useTranslation } from 'react-i18next'
-import { defaultWineVersion } from '..'
+import { defaultWineVersion } from '../util'
 import SettingsContext from '../SettingsContext'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AutoDXVKNVAPI = () => {
   const { t } = useTranslation()
@@ -17,18 +16,19 @@ const AutoDXVKNVAPI = () => {
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [installingDxvkNvapi, setInstallingDxvkNvapi] = React.useState(false)
 
+  if (wineVersion.type !== 'wine') {
+    return <></>
+  }
+
   const handleAutoInstallDxvkNvapi = async () => {
     let res = true
-    const isProton = wineVersion.type === 'proton'
-    setInstallingDxvkNvapi(true)
 
-    if (!isProton) {
-      const action = autoInstallDXVKNVAPI ? 'restore' : 'backup'
-      res = await window.api.toggleDXVKNVAPI({
-        appName,
-        action
-      })
-    }
+    setInstallingDxvkNvapi(true)
+    const action = autoInstallDXVKNVAPI ? 'restore' : 'backup'
+    res = await window.api.toggleDXVKNVAPI({
+      appName,
+      action
+    })
 
     setInstallingDxvkNvapi(false)
     if (res) {
@@ -37,30 +37,29 @@ const AutoDXVKNVAPI = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="autodxvknvapi"
-        value={autoInstallDXVKNVAPI}
-        handleChange={handleAutoInstallDxvkNvapi}
-        title={
-          installingDxvkNvapi
-            ? t('please-wait', 'Please wait...')
-            : t(
-                'setting.autodxvknvapi',
-                'Auto Install/Update DXVK-NVAPI on Prefix'
-              )
-        }
-        fading={installingDxvkNvapi}
-        disabled={!autoInstallDxvk || installingDxvkNvapi}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.dxvknvapi',
-          'DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.dxvknvapi',
+        'DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.'
+      )}
+      description={t(
+        'setting.autodxvknvapi-description',
+        'Expose NVIDIA features such as DLSS to games running through DXVK'
+      )}
+      htmlId="autodxvknvapi"
+      value={autoInstallDXVKNVAPI}
+      handleChange={handleAutoInstallDxvkNvapi}
+      title={
+        installingDxvkNvapi
+          ? t('please-wait', 'Please wait...')
+          : t(
+              'setting.autodxvknvapi',
+              'Auto install/update DXVK-NVAPI on prefix'
+            )
+      }
+      fading={installingDxvkNvapi}
+      disabled={!autoInstallDxvk || installingDxvkNvapi}
+    />
   )
 }
 

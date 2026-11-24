@@ -95,7 +95,11 @@
         "changelog": "הצג שינויים",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "ערוך אפליקציה/משחק",
+        "favourite": "הוסף למועדפים",
+        "unfavourite": "הסר ממועדפים",
+        "backToLibrary": ""
     },
     "gamecard": {
         "repairing": "מתקן",
@@ -114,7 +118,16 @@
         "steamdeck-compatibility-info": "התאמה לSteamDeck",
         "syncsaves": "סנכרון שמירות",
         "protondb-compatibility-info": "רמת תאימות Proton",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "unsupported": "לא נתמך",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLCים"
     },
     "sideload": {
         "info": {
@@ -123,7 +136,9 @@
             "image": "תמונת אפליקציה",
             "title": "כותרת אפליקציה/משחק",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "title": "הוסיפו כותרת למשחק/אפליקציה שלכם",
@@ -137,6 +152,9 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "status": {
@@ -183,7 +201,8 @@
         "addShortcut": "הוסף קיצור דרך",
         "addToSteam": "הוסף ל-Steam",
         "verify": "אמת קבצים ותקן",
-        "categories": ""
+        "categories": "",
+        "more": ""
     },
     "cloud_save_unsupported": "לא נתמך",
     "enabled": "מופעל",
@@ -214,9 +233,14 @@
         },
         "changelogFor": "",
         "modify": "",
-        "install_info": "",
+        "install_info": "מתקין",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "פרטי משחק",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "אודות"
     },
     "dlc": {
         "installDlcs": "התקן את כל הDLCים"
@@ -250,7 +274,8 @@
         "playing": {
             "stop": "משחק (עצור)",
             "start": "שחקו עכשיו",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "ubisoft": "מתקין Ubisoft Connect",
         "saves": {
@@ -262,7 +287,8 @@
             "installation": "הפסק התקנה"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "תאריך יציאה"
     },
     "install": {
         "wineversion": "גרסת Wine",
@@ -308,7 +334,8 @@
     },
     "specs": {
         "minimum": "מינימום",
-        "recommended": "מומלצים"
+        "recommended": "מומלצים",
+        "other": "אחר"
     },
     "Open": "פתוח",
     "queue": {
@@ -336,6 +363,33 @@
     "open-saves-folder": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "מתקדם"
+        "advanced": "מתקדם",
+        "placeholder": {
+            "image": "הדבק קישור תמונה לפה"
+        },
+        "title": "ערוך אפליקציה/משחק",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "dlc": "DLCים",
+            "installInfo": "גודל הורדה",
+            "storeInfo": "מידע מערכת"
+        }
     }
 }

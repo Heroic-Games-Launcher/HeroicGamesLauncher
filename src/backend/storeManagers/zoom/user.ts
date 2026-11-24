@@ -101,6 +101,10 @@ export class ZoomUser {
     logInfo('Logging user out from Zoom', LogPrefix.Zoom)
   }
 
+  public static isLoggedInSync(): boolean {
+    return existsSync(tokenPath) && configStore.get('isLoggedIn', false)
+  }
+
   public static async isLoggedIn(): Promise<boolean> {
     const tokenExists = existsSync(tokenPath)
     const isLoggedInStore = configStore.get('isLoggedIn', false)

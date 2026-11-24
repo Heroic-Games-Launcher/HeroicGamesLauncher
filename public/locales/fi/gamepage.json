@@ -95,7 +95,11 @@
         "changelog": "Näytä muutosloki",
         "browse_files": "Selaa tiedostoja",
         "browse_wine_prefix": "Selaa Wine Prefixiä",
-        "play": "PELAA"
+        "play": "PELAA",
+        "edit-game": "Muokkaa sovellusta/peliä",
+        "favourite": "Lisää suosikkeihin",
+        "unfavourite": "Poista suosikeista",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
@@ -131,7 +135,12 @@
         "changelogFor": "{{gameTitle}} muutosloki",
         "extra_info": "Lisätiedot",
         "install_info": "Asennustiedot",
-        "achievements": "Saavutukset"
+        "achievements": "Saavutukset",
+        "details": "Pelitiedot",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Tietoja"
     },
     "gamecard": {
         "moving": "Siirretään",
@@ -161,7 +170,16 @@
         "installedInfo": "Asennettu tiedot",
         "protondb-compatibility-info": "Protonien yhteensopivuustaso",
         "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus",
-        "third-party-app": "Hallinta kolmansien osapuolten asetuksille"
+        "third-party-app": "Hallinta kolmansien osapuolten asetuksille",
+        "genres": "Genret",
+        "steamdeck": {
+            "unsupported": "Ei tuettu",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLCs"
     },
     "install": {
         "disk-space-left": "Tilaa saatavilla",
@@ -191,7 +209,8 @@
         "playing": {
             "start": "Pelaa nyt",
             "stop": "Pelataan (pysäytä)",
-            "start_with_logs": "Pelaa nyt (lokitiedoilla)"
+            "start_with_logs": "Pelaa nyt (lokitiedoilla)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Synkronoidaan tallennuksia"
@@ -204,7 +223,8 @@
             "installing": "Installing",
             "pleaseWait": "Odota...",
             "installation": "Pysäytä asennus"
-        }
+        },
+        "releaseDate": "Julkaisupäivä"
     },
     "launch": {
         "options": "Käynnistysasetukset...",
@@ -238,7 +258,9 @@
             "title": "Pelin/sovelluksen otsikko",
             "broser": "Selaimen URL-osoite",
             "useragent": "Oma \"User Agent\"",
-            "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)"
+            "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)",
+            "cover-hint": "Kansi/Sankaritaide (napsauta kuvan päällä etsiäksesi SteamGridDB:stä)",
+            "image-hint": "Neliötaide (napsauta kuvaa etsiäksesi SteamGridDB:stä)"
         },
         "placeholder": {
             "image": "Liitä kuvan URL tähän, tai valitse kuva laitteeltasi",
@@ -249,11 +271,16 @@
         "import-hint": {
             "content": "Älä käytä tätä ominaisuutta siihen.<br/>Sen sijaan, <3>kirjaudu</3> kauppaan, etsi peli kirjastostasi, avaa asennusdialogi, ja klikkaa &quot;Tuo peli&quot; painiketta",
             "title": "Tärkeää! Oletko lisäämässä peliä Epic/GOG/Amazon palvelusta? Klikkaa tästä!"
+        },
+        "images": {
+            "summary": "Kuvat"
         }
     },
     "specs": {
         "minimum": "Minimi",
-        "recommended": "Suositeltu"
+        "recommended": "Suositeltu",
+        "notes": "Merkinnät",
+        "other": "Muu"
     },
     "status": {
         "clickToUpdate": "Päivitä",
@@ -300,7 +327,8 @@
         "verify": "Vahvista ja korjaa",
         "extraInfo": "Lisätiedot",
         "logs": "Lokit",
-        "categories": "Kategoriat"
+        "categories": "Kategoriat",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Tämä peli ei tue pilvitallennusta. Nämä tiedot ovat pelin kehittäjien toimittamia. Jotkin pelit toteuttavat oman pilvitallennusjärjestelmänsä.",
@@ -337,6 +365,34 @@
     "open-saves-folder": "Avaa pelitallennuskansio",
     "wikiLink": "Tärkeää tietoa tästä pelistä, lue tämä:&nbsp;<1>Avaa sivu</1>",
     "edit-game": {
-        "advanced": "Edistyneet"
+        "advanced": "Edistyneet",
+        "placeholder": {
+            "image": "Liitä kuvan URL tähän"
+        },
+        "title": "Muokkaa sovellusta/peliä",
+        "cover": "Kansitaide",
+        "info": {
+            "cover": "Kansikuva",
+            "square": "Neliökuva"
+        },
+        "reset": "Nollaa vakioihin",
+        "sgdb": {
+            "no-key-link": "Asetukset → Edistyneet",
+            "no-key-prefix": "Etsiäksesi SteamGridDB:stä kansitaidetta, lisää API-avain"
+        },
+        "square": "Neliömuotoinen taide"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Saavutukset",
+            "dlc": "DLC",
+            "installInfo": "Latauksen koko",
+            "storeInfo": "Järjestelmätiedot"
+        }
     }
 }

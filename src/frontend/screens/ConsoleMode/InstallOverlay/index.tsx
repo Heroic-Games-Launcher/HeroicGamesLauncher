@@ -4,14 +4,15 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 
 import './index.scss'
 
-import { install, writeConfig } from 'frontend/helpers'
+import { writeConfig } from 'frontend/helpers'
+import { install } from 'frontend/helpers/library'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import type { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
 
-import { BTN_ACTION, BTN_BACK } from '../controller'
-import { useGamepadButtonPress } from '../hooks'
+import { getActionButtonIndex, getBackButtonIndex } from '../controller'
+import { useGamepadButtonPress, useGamepadInfo } from '../hooks'
 
 type PlatformOption = {
   value: InstallPlatform
@@ -28,7 +29,7 @@ export default function InstallOverlay({
   onDismiss: () => void
 }) {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
+  const { platform, isLinuxArm } = useContext(ContextProvider)
   const [progress] = hasProgress(game.app_name, game.runner)
 
   const isWin = platform === 'win32'
@@ -51,7 +52,7 @@ export default function InstallOverlay({
 
   const defaultPlatform: InstallPlatform =
     (isMac && game.is_mac_native && 'Mac') ||
-    (isLinux && game.is_linux_native && 'linux') ||
+    (isLinux && !isLinuxArm && game.is_linux_native && 'linux') ||
     'Windows'
 
   const [platformIndex, setPlatformIndex] = useState(() => {
@@ -234,11 +235,12 @@ export default function InstallOverlay({
     return () => window.removeEventListener('keydown', onKeyDown, true)
   }, [])
 
-  useGamepadButtonPress(BTN_ACTION, () => {
+  const { layout } = useGamepadInfo()
+  useGamepadButtonPress(getActionButtonIndex(layout), () => {
     if (focused === 'install') void installGame()
     else if (focused === 'cancel') onDismiss()
   })
-  useGamepadButtonPress(BTN_BACK, onDismiss)
+  useGamepadButtonPress(getBackButtonIndex(layout), onDismiss)
 
   const showPlatform = availablePlatforms.length > 1
   const wineLabel =

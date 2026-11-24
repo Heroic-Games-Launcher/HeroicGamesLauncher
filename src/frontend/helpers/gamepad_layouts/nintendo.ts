@@ -1,6 +1,8 @@
 // Holds layouts for different Nintendo official and clone controllers
 
-import { ValidGamepadAction } from 'common/types'
+import { RemappableGamepadAction, ValidGamepadAction } from 'common/types'
+
+type ButtonOverrides = Partial<Record<RemappableGamepadAction, number | null>>
 
 export function checkGameCube(
   buttons: readonly GamepadButton[],
@@ -47,6 +49,85 @@ export function checkGameCube(
   checkAction('rightClick', X.pressed, controllerIndex)
 }
 
+// Nintendo Switch Pro Controller / Joy-Cons (Vendor: 057e)
+// Chromium reports these with the "standard" mapping by physical position,
+// so buttons[0] is the bottom button (labeled B on Switch) and buttons[1] is
+// the right button (labeled A). We swap the face buttons so the A/B and X/Y
+// actions match the Nintendo labels shown in the UI.
+export function checkNintendo(
+  buttons: readonly GamepadButton[],
+  axes: readonly number[],
+  controllerIndex: number,
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void,
+  overrides: ButtonOverrides = {}
+) {
+  const B = buttons[0], // bottom button
+    A = buttons[1], // right button
+    Y = buttons[2], // left button
+    X = buttons[3], // top button
+    up = buttons[12],
+    down = buttons[13],
+    left = buttons[14],
+    right = buttons[15],
+    guideButton = buttons[16],
+    leftAxisX = axes[0],
+    leftAxisY = axes[1],
+    rightAxisX = axes[2],
+    rightAxisY = axes[3]
+
+  const button = (
+    action: RemappableGamepadAction,
+    fallback: GamepadButton | undefined
+  ) => {
+    const override = overrides[action]
+    if (override === null) return undefined
+    return override === undefined ? fallback : buttons[override]
+  }
+
+  checkAction(
+    'mainAction',
+    button('mainAction', A)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction('back', button('back', B)?.pressed ?? false, controllerIndex)
+  checkAction(
+    'altAction',
+    button('altAction', Y)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'rightClick',
+    button('rightClick', X)?.pressed ?? false,
+    controllerIndex
+  )
+  checkAction(
+    'enter',
+    button('enter', buttons[10])?.pressed ?? false,
+    controllerIndex
+  ) // L3
+  checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
+  checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
+  checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
+  checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
+  checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
+  checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
+  checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
+  checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
+  checkAction('padUp', up?.pressed ?? false, controllerIndex)
+  checkAction('padDown', down?.pressed ?? false, controllerIndex)
+  checkAction('padLeft', left?.pressed ?? false, controllerIndex)
+  checkAction('padRight', right?.pressed ?? false, controllerIndex)
+  checkAction(
+    'guide',
+    button('guide', guideButton)?.pressed ?? false,
+    controllerIndex
+  )
+}
+
 // Generic USB Joystick (Vendor: 0079 Product: 0006)
 export function checkN64Clone1(
   buttons: readonly GamepadButton[],
@@ -90,9 +171,9 @@ export function checkN64Clone1(
   const dPadVal = Math.round(dPadAxis * 10)
 
   checkAction('padUp', dPadVal === -10, controllerIndex)
-  checkAction('padDown', dPadVal === -1, controllerIndex)
+  checkAction('padDown', dPadVal === 1, controllerIndex)
   checkAction('padLeft', dPadVal === 7, controllerIndex)
-  checkAction('padRight', dPadVal === 4, controllerIndex)
+  checkAction('padRight', dPadVal === -4, controllerIndex)
   checkAction('leftStickLeft', axisX < -0.5, controllerIndex)
   checkAction('leftStickRight', axisX > 0.5, controllerIndex)
   checkAction('leftStickUp', axisY < -0.5, controllerIndex)

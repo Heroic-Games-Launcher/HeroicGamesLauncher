@@ -95,7 +95,11 @@
         "changelog": "",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "ویرایش نرم افزار/بازی",
+        "favourite": "افزودن به مورد علاقه ها",
+        "unfavourite": "حذف کردن از مورد علاقه ها",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "پشتیبانی نشده",
     "disabled": "غیر فعال",
@@ -129,9 +133,14 @@
         },
         "changelogFor": "",
         "modify": "",
-        "install_info": "",
+        "install_info": "Installing",
         "extra_info": "",
-        "achievements": ""
+        "achievements": "",
+        "details": "مشخصات بازی",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "درباره"
     },
     "gamecard": {
         "moving": "در حال انتقال",
@@ -161,7 +170,16 @@
         "installedInfo": "اطلاعات نصب شده",
         "protondb-compatibility-info": "ردیف سازگاری پروتون",
         "steamdeck-compatibility-info": "سازگاری SteamDeck",
-        "third-party-app": ""
+        "third-party-app": "",
+        "steamdeck": {
+            "unsupported": "پشتیبانی نشده",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLCها"
     },
     "install": {
         "disk-space-left": "فضای موجود",
@@ -191,7 +209,8 @@
         "playing": {
             "start": "اجرا",
             "stop": "در حال اجرا (توقف)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "در حال همگام سازی ذخیره ها"
@@ -204,7 +223,8 @@
             "installation": "توقف نصب"
         },
         "winetricks": "",
-        "redist": ""
+        "redist": "",
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "گزینه های اجرا...",
@@ -238,7 +258,9 @@
             "title": "عنوان بازی/نرم افزار",
             "broser": "BrowserURL",
             "useragent": "",
-            "fullscreen": ""
+            "fullscreen": "",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "آدرس ایمیج را اینجا درج کنید",
@@ -249,11 +271,15 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
         "minimum": "حداقل",
-        "recommended": "پیشنهادی"
+        "recommended": "پیشنهادی",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "برای به روزرسانی کلیک کنید",
@@ -300,7 +326,8 @@
         "verify": "بررسی و تعمیر",
         "extraInfo": "اطلاعات اضافی",
         "logs": "لاگ ها",
-        "categories": ""
+        "categories": "",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "این بازی از ذخیره ابری پشتیبانی نمی کند. این اطلاعات توسط سازندگان بازی ارائه شده است. برخی از بازی ها سیستم ذخیره ابری خود را پیاده سازی می کنند",
@@ -337,6 +364,32 @@
     "open-saves-folder": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "Advanced"
+        "advanced": "Advanced",
+        "placeholder": {
+            "image": "آدرس ایمیج را اینجا درج کنید"
+        },
+        "title": "ویرایش نرم افزار/بازی",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "dlc": "DLCها",
+            "installInfo": "سایز دانلود"
+        }
     }
 }

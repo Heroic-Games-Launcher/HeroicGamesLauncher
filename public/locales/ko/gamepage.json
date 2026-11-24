@@ -95,7 +95,11 @@
         "changelog": "변경로그 표시",
         "browse_wine_prefix": "",
         "play": "",
-        "browse_files": ""
+        "browse_files": "",
+        "edit-game": "앱/게임 편집",
+        "favourite": "즐겨찾기에 추가",
+        "unfavourite": "즐겨찾기에서 제거",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "지원되지 않음",
     "disabled": "비활성화됨",
@@ -131,7 +135,12 @@
         "modify": "설치 수정",
         "install_info": "설치 정보",
         "extra_info": "추가 정보",
-        "achievements": ""
+        "achievements": "",
+        "details": "게임 세부 정보",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "정보"
     },
     "gamecard": {
         "moving": "이동하는 중",
@@ -161,7 +170,16 @@
         "installedInfo": "설치 정보",
         "protondb-compatibility-info": "프로톤 호환성 수준",
         "steamdeck-compatibility-info": "스팀덱 호환성",
-        "third-party-app": "타사 관리자"
+        "third-party-app": "타사 관리자",
+        "steamdeck": {
+            "unsupported": "지원되지 않음",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "genres": "",
+        "dlcs": "DLCs"
     },
     "install": {
         "disk-space-left": "사용 가능한 공간",
@@ -190,7 +208,8 @@
         "playing": {
             "start": "지금 실행하기",
             "stop": "플레이 중 (중지)",
-            "start_with_logs": ""
+            "start_with_logs": "",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "저장 동기화 중"
@@ -203,7 +222,8 @@
             "installing": "Installing",
             "pleaseWait": "잠시만 기다려 주세요....",
             "installation": "설치 중지"
-        }
+        },
+        "releaseDate": "출시일"
     },
     "launch": {
         "options": "실행 옵션...",
@@ -237,7 +257,9 @@
             "title": "게임/앱 제목",
             "broser": "브라우저URL",
             "useragent": "커스텀 사용자 에이전트",
-            "fullscreen": "전체 화면 실행 (나가려면 F11)"
+            "fullscreen": "전체 화면 실행 (나가려면 F11)",
+            "image-hint": "",
+            "cover-hint": ""
         },
         "placeholder": {
             "image": "여기에 이미지 URL 붙여넣기",
@@ -248,11 +270,15 @@
         "import-hint": {
             "content": "",
             "title": ""
+        },
+        "images": {
+            "summary": ""
         }
     },
     "specs": {
         "minimum": "최소 사양",
-        "recommended": "권장 사양"
+        "recommended": "권장 사양",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "업데이트하려면 클릭",
@@ -299,7 +325,8 @@
         "verify": "확인 및 복구",
         "extraInfo": "추가 정보",
         "logs": "로그",
-        "categories": "범주"
+        "categories": "범주",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "이 게임은 클라우드 저장을 지원하지 않습니다. 이 정보는 게임 개발자에 의해 제공됩니다. 일부 게임은 자체 클라우드 저장 시스템을 지원합니다",
@@ -336,6 +363,34 @@
     "open-saves-folder": "",
     "wikiLink": "",
     "edit-game": {
-        "advanced": "고급"
+        "advanced": "고급",
+        "placeholder": {
+            "image": "여기에 이미지 URL 붙여넣기"
+        },
+        "title": "앱/게임 편집",
+        "sgdb": {
+            "no-key-prefix": "",
+            "no-key-link": ""
+        },
+        "square": "",
+        "info": {
+            "cover": "",
+            "square": ""
+        },
+        "reset": "",
+        "cover": ""
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "dlc": "DLC",
+            "installInfo": "설치 크기",
+            "launchOptions": "실행 옵션...",
+            "storeInfo": "시스템 정보"
+        }
     }
 }

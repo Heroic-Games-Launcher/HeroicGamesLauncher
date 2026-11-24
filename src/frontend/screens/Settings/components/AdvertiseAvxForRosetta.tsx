@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next'
 import SettingsContext from '../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
-import { defaultWineVersion } from '..'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
+import { defaultWineVersion } from '../util'
 
 const AdvertiseAvxForRosetta = () => {
   const { t } = useTranslation()
@@ -24,21 +23,20 @@ const AdvertiseAvxForRosetta = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="advertiseAvxForRosettaToggle"
-        value={advertiseAvxForRosetta || false}
-        handleChange={() => setAdvertiseAvxForRosetta(!advertiseAvxForRosetta)}
-        title={t('setting.advertiseAvxForRosetta', 'Advertise AVX for Rosetta')}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.advertiseAvxForRosetta',
-          'Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.advertiseAvxForRosetta',
+        'Enables AVX instruction set support when running windows games through Rosetta on Apple Silicon macs. This may be required for some games like Death Stranding that need AVX support.'
+      )}
+      description={t(
+        'setting.advertiseAvxForRosetta-description',
+        'Tell games that AVX is available, required by some titles under Rosetta'
+      )}
+      htmlId="advertiseAvxForRosettaToggle"
+      value={advertiseAvxForRosetta || false}
+      handleChange={() => setAdvertiseAvxForRosetta(!advertiseAvxForRosetta)}
+      title={t('setting.advertiseAvxForRosetta', 'Advertise AVX for Rosetta')}
+    />
   )
 }
 
