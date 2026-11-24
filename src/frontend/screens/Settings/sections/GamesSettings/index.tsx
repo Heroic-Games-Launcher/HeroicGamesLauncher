@@ -105,7 +105,7 @@ export default function GamesSettings({ initialTab }: Props = {}) {
   const isLinux = platform === 'linux'
   const steamTargets = useSteamLaunchTargets(appName, gameInfo, isLinux)
   // Steam: follows the chosen game version
-  const steamPlatform = steamTargets.effective?.platform
+  const steamPlatform = steamTargets.platform
   const isNative = steamPlatform ? steamPlatform === 'linux' : nativeFromApi
   // Hide card when both rows hide
   const showSteamCard =

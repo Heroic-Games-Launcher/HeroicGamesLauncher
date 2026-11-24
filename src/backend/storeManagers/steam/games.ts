@@ -212,7 +212,11 @@ export default class SteamGame implements Game {
         [`Failed to list launch targets for ${this.id}`, describeError(error)],
         LogPrefix.Steam
       )
-      return { targets: [] }
+      // Offline: keep the stored pick
+      return {
+        targets: [],
+        selected: configStore.get('steamLaunchTarget', {})[this.id]
+      }
     }
   }
 

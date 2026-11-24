@@ -10,6 +10,8 @@ export interface SteamLaunchTargetsState {
   refresh: () => Promise<void>
   // Chosen target, else the default
   effective?: SteamLaunchTarget
+  // Launch platform, known offline too
+  platform?: string
 }
 
 /**
@@ -53,5 +55,19 @@ export function useSteamLaunchTargets(
     targets.find((target) => target.id === selected) ??
     targets.find((target) => target.isDefault)
 
-  return { targets, selected, select, refresh, effective }
+  // Aurelia lists targets only online
+  const platform = active
+    ? (effective?.platform ??
+      targetIdPlatform(selected) ??
+      String(gameInfo?.install?.platform ?? '').toLowerCase())
+    : undefined
+
+  return { targets, selected, select, refresh, effective, platform }
+}
+
+/** Platform encoded in a target id. */
+function targetIdPlatform(targetId: string): string | undefined {
+  if (targetId.startsWith('linux')) return 'linux'
+  if (targetId.startsWith('windows')) return 'windows'
+  return undefined
 }

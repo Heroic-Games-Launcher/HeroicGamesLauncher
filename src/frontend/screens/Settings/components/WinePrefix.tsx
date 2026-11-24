@@ -5,6 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import { Alert, PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import { defaultWineVersion } from '../util'
+import { steamCompatdataPrefix } from 'frontend/helpers/steamPrefix'
 
 const WinePrefix = () => {
   const { t } = useTranslation()
@@ -82,16 +83,6 @@ const WinePrefix = () => {
       ) : null}
     </>
   )
-}
-
-/** Steam compatdata folder for an install. */
-function steamCompatdataPrefix(installPath?: string, appId?: string): string {
-  if (!installPath || !appId) return ''
-  const normalized = installPath.replaceAll('\\', '/')
-  const marker = '/steamapps/common/'
-  const at = normalized.lastIndexOf(marker)
-  if (at === -1) return ''
-  return `${normalized.slice(0, at)}/steamapps/compatdata/${appId}`
 }
 
 export default WinePrefix
