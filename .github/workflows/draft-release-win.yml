@@ -16,6 +16,11 @@ env:
 jobs:
   draft-release:
     runs-on: windows-latest
+    # SignPath reads the uploaded artifacts through the GitHub API, so GITHUB_TOKEN
+    # needs `actions: read` (see docs.signpath.io/trusted-build-systems/github).
+    permissions:
+      actions: read
+      contents: read
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
@@ -33,7 +38,7 @@ jobs:
             dist/win-arm64-unpacked/Heroic.exe
           retention-days: 1
       - name: Sign binaries
-        uses: signpath/github-action-submit-signing-request@v2
+        uses: signpath/github-action-submit-signing-request@v3
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: ${{ env.SIGNPATH_ORGANIZATION_ID }}
@@ -64,7 +69,7 @@ jobs:
           path: dist/*.exe
           retention-days: 1
       - name: Sign installers
-        uses: signpath/github-action-submit-signing-request@v2
+        uses: signpath/github-action-submit-signing-request@v3
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: ${{ env.SIGNPATH_ORGANIZATION_ID }}
@@ -74,7 +79,6 @@ jobs:
           github-artifact-id: ${{ steps.upload-unsigned-installers.outputs.artifact-id }}
           wait-for-completion: true
           wait-for-completion-timeout-in-seconds: 1800
-          github-token: ${{ secrets.GH_TOKEN }}
           output-artifact-directory: signed-installers
       - name: Restore signed installers
         run: |
