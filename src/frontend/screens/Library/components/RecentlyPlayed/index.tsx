@@ -133,6 +133,7 @@ export default memo(function RecentlyPlayed({
             <AddGameButton data-tour="library-add-game" />
           </>
         }
+        actionsTour="library-section-actions"
       />
       <GamesList
         library={recentGames}

@@ -198,7 +198,7 @@ export default function LibraryFilters() {
         </>
       }
       className="libraryFilters"
-      data-tour="library-filters"
+      dataTour="library-filters"
     >
       <FilterSection label={t('header.stores', 'Stores')}>
         {stores

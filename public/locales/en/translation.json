@@ -1814,44 +1814,39 @@
         "back": "Back",
         "done": "Done",
         "library": {
-            "addGame": "Add your own games or apps to the library by clicking here. They can be basically anything, even browser URLs.",
-            "categories": "Organize your games into categories to keep things tidy.",
+            "actions": "This pill switches between grid and list, sorts A to Z, groups installed games first, toggles the alphabet bar, refreshes your library and replays this tour.",
+            "actionsTitle": "Library actions",
+            "empty": "Your library is empty right now. Use Stores in the sidebar to sign in, use Add game to sideload anything you want, or restore a Heroic backup from Settings.",
+            "emptyTitle": "Let us fill this up",
             "end": {
-                "intro": "That's it! Enjoy your games and have fun!",
-                "title": "Enjoy your games!"
+                "intro": "That's it! Your library is ready — enjoy your games!"
             },
-            "filters": "Filter your games by store, platform, favorites and more using these options.",
-            "gameCard": "Left-click on the game card to navigate to the game page and to see details and adjust settings or right-click to open the context menu.",
-            "refresh": "Refresh your library to check for new games or updates.",
-            "search": "Use the search bar to search for your games.",
-            "sortInstalled": "Sort games by installed status.",
-            "sortOptions": "Click here to sort games alphabetically.",
-            "viewToggle": "Switch between grid and list view for your games.",
+            "endTitle": "Have fun!",
+            "filterControls": "Categories and Filters live here. Categories use checkboxes and show how many are selected; Filters cover stores, platforms and display options and show how many are active.",
+            "filterControlsTitle": "Categories and filters",
+            "gameCard": "Click a card to open the game page, where you can install, play and adjust settings. Right-click it for a quick menu with install, edit, favorite, hide and more.",
+            "gameCardTitle": "Your game card",
+            "search": "Search filters the library as you type and suggests games by name. Press / anywhere in the library to focus the field and Esc to leave it.",
+            "searchTitle": "Search",
+            "sectionActions": "Console mode opens the fullscreen controller interface, and Add game opens the wizard to sideload an app, executable, script or web URL.",
+            "sectionActionsTitle": "Console mode and Add game",
             "welcome": {
-                "intro": "Welcome to the Heroic library! This is where you can see all your games across different stores.",
-                "intro2": "If the library is empty, make sure to login with your accounts using the manage accounts on the sidebar or add your own games using the add game button above.",
-                "title": "Welcome to Heroic!",
-                "title2": "Managing the library!"
-            }
+                "intro": "Your library brings every connected store together. Here are the controls you will use the most."
+            },
+            "welcomeTitle": "Your library"
         },
         "next": "Next",
         "sidebar": {
-            "accessibility": "Access accessibility features to customize your experience.",
-            "accounts": "Manage your connected store accounts (Epic, GOG, Amazon), logout or login on them.",
-            "community": "Join our community on Discord and support Heroic's development.",
-            "docs": "Read documentation for help with using Heroic.",
-            "downloads": "Track and manage your game downloads and installations.",
-            "library": "Access your game library from different stores in one place.",
-            "login": "Log in to your game store accounts to access your library.",
-            "quit": "Exit the application safely.",
-            "settings": "Configure Heroic's settings, game defaults, check logs and more.",
-            "stores": "Browse and shop for games in different stores including Epic, GOG, and Amazon.",
-            "version": "Check your current Heroic version, click it to see latest changelog, and access this tour from the help icon.",
+            "communityIntro": "Community opens the Heroic documentation, the Discord server and the Support us page.",
+            "communitySectionTitle": "Community",
+            "general": "General is where you access your Library, game Stores (including login), Deals, Downloads, Accessibility and Heroic Settings, with Quit at the bottom.",
+            "generalTitle": "General",
+            "version": "Click the version to read the changelog; the question-mark button beside it replays this tour.",
+            "versionTitle": "Version and help",
             "welcome": {
-                "intro": "Welcome to Heroic! This sidebar contains all the navigation options to explore the app.",
-                "title": "Sidebar navigation"
+                "intro": "Welcome to Heroic! This sidebar is your main navigation on every screen."
             },
-            "wine": "Manage or download new version of Wine/Proton/GPTK for running windows games on linux or macOS."
+            "welcomeTitle": "Welcome to Heroic"
         },
         "skip": "Skip",
         "startTour": "Start tour"
