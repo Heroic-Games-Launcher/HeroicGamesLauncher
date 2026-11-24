@@ -67,7 +67,8 @@
   transform: translateX(-20px);
 }
 
-.ToggleSwitch__input:focus-visible + .ToggleSwitch__track {
+.ToggleSwitch__input:focus-visible + .ToggleSwitch__track,
+.gamepad-active .ToggleSwitch__input:focus + .ToggleSwitch__track {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

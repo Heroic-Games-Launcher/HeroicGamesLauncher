@@ -387,6 +387,9 @@ export const initGamepad = () => {
       data.triggeredAt[controllerIndex] = now
 
       emitControllerEvent(controllerIndex)
+      // Lets CSS draw focus rings for programmatic focus, which does not
+      // necessarily match `:focus-visible`.
+      document.body.classList.add('gamepad-active')
       const el = currentElement()
 
       // Guide / PS button toggles Console Mode. Many OSes (Steam, Game Bar)
@@ -663,19 +666,18 @@ export const initGamepad = () => {
     const el = currentElement()
     if (!el || !el.closest('.Settings')) return false
 
+    // Multi-line fields and sliders keep the arrow keys. Single-line text
+    // fields navigate vertically: up/down only moves the caret there, which
+    // left fields like the Legendary binary path as dead ends.
     if (el.tagName === 'TEXTAREA') return false
-    if (el.tagName === 'INPUT') {
-      const { type } = el as HTMLInputElement
-      const keepsArrows = [
-        'text',
-        'search',
-        'number',
-        'password',
-        'email',
-        'url',
-        'range'
-      ]
-      return !keepsArrows.includes(type)
+    if (el.tagName === 'INPUT' && (el as HTMLInputElement).type === 'range') {
+      return false
+    }
+
+    // The settings search navigates its suggestion list with the arrows, but
+    // only while there is a query; an empty field must not become a dead end.
+    if (el.closest('.settingsSearchRow')) {
+      return el.tagName !== 'INPUT' || (el as HTMLInputElement).value === ''
     }
 
     return !insideMuiSlider()
@@ -684,17 +686,24 @@ export const initGamepad = () => {
   const FOCUSABLE_SELECTOR =
     'a[href], button:not([disabled]), input:not([disabled]), ' +
     'select:not([disabled]), textarea:not([disabled]), ' +
-    '[tabindex]:not([tabindex="-1"])'
+    '[tabindex]:not([tabindex="-1"]), .MuiSelect-select'
 
   /**
    * Focus order step. `Tab` alone is not enough here: the MUI slider root is a
    * dead stop (it takes focus but the arrows do nothing) that sits between a
-   * slider and its neighbours.
+   * slider and its neighbours. MUI selects are listed explicitly because they
+   * carry `tabIndex={-1}` yet must be reachable to be opened with confirm.
    */
   function moveFocusSequentially(direction: 1 | -1) {
+    const scope = document.querySelector<HTMLElement>('.Settings') ?? document
+
     const candidates = Array.from(
-      document.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
-    ).filter((el) => el.tabIndex >= 0 && el.getClientRects().length > 0)
+      scope.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+    ).filter(
+      (el) =>
+        (el.tabIndex >= 0 || el.classList.contains('MuiSelect-select')) &&
+        el.getClientRects().length > 0
+    )
 
     const index = candidates.indexOf(document.activeElement as HTMLElement)
     if (index === -1) return
@@ -1044,6 +1053,12 @@ export const initGamepad = () => {
 
   window.addEventListener('gamepadconnected', connecthandler)
   window.addEventListener('gamepaddisconnected', disconnecthandler)
+
+  window.addEventListener(
+    'pointerdown',
+    () => document.body.classList.remove('gamepad-active'),
+    true
+  )
 }
 
 export const toggleControllerIsDisabled = (value: boolean | undefined) => {
