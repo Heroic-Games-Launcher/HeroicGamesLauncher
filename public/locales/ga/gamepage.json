@@ -46,7 +46,8 @@
         "move": {
             "message": "D’fhéadfadh sé seo tamall fada a thógáil, an bhfuil tú cinnte?",
             "path": "Roghnaigh cá háit ar mhaith leat bogadh",
-            "title": "Suiteáil Cluiche Bog"
+            "title": "Suiteáil Cluiche Bog",
+            "steamMessage": "Osclófar Bainisteoir Stórála Steam chun an cluiche seo a aistriú chuig tiomántán eile. Déanann Heroic athnuachan nuair a bhíonn sé críochnaithe."
         },
         "no": "NÍL",
         "repair": {
@@ -124,7 +125,7 @@
         "remove_from_favourites": "Bain De Cheanáin",
         "remove_from_recent": "Bain as Le Déanaí",
         "run-exe-first": "Rith an Suiteálaí Ar dtús",
-        "running-setup": "Socrú Rith",
+        "running-setup": "Ag rith an suiteálaí...",
         "sideload": {
             "edit": "Cuir Aip/Cluiche in Eagar"
         },
@@ -135,7 +136,19 @@
         "edit-game": "Cuir Cluiche in Eagar",
         "favourite": "Cuir le Rogha",
         "unfavourite": "Bain De Cheanáin",
-        "backToLibrary": "Ar ais chuig an Leabharlann"
+        "backToLibrary": "Ar ais chuig an Leabharlann",
+        "steamStore": "Oscail an Leathanach Steam",
+        "back": "Ar ais",
+        "next": "Ar Aghaidh",
+        "skip-installer": {
+            "title": "Scipeáil",
+            "subtitle": "Tá comhad inrite cluiche agam cheana féin ar féidir liom a rith chun an cluiche a imirt"
+        },
+        "run-installer": {
+            "subtitle": "Tagann an cluiche le suiteálaí a chaithfidh mé a rith sular féidir liom é a imirt",
+            "title": "Rith an suiteálaí"
+        },
+        "skip-waiting": "Seachain fanacht"
     },
     "cloud_save_unsupported": "Gan tacaíocht",
     "enabled": "Cumasaithe",
@@ -185,7 +198,12 @@
             "verified": "Fíoraithe"
         },
         "developer": "Forbróir",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "Cumasaithe — cliceáil chun díchumasú",
+            "notBought": "Gan úinéir",
+            "disabled": "Díchumasaithe — cliceáil chun a chumasú"
+        }
     },
     "install": {
         "anticheat-warning": {
@@ -203,7 +221,10 @@
         "path-not-writtable": "Rabhadh: b'fhéidir nach féidir an cosán a scríobh.",
         "space-after-install": "Tar éis Suiteála",
         "wineprefix": "WinePrefix",
-        "wineversion": "Leagan Wine"
+        "wineversion": "Leagan Wine",
+        "free": "saor in aisce",
+        "steam-no-libraries": "Níor aimsíodh aon fhillteáin leabharlainne Steam — cuir tiomántán leis i Steam ar dtús.",
+        "steam-path": "Conair Suiteála (leabharlann Steam)"
     },
     "label": {
         "game": {
@@ -248,7 +269,8 @@
             "compatibility-layer-not-available": "Níl an ciseal comhoiriúnachta ar fáil. Suiteáil ceann ó \"Socruithe > Bainisteoir Fíona\" ar dtús."
         },
         "winetricks": "Ag Suiteáil Pacáistí Winetricks",
-        "releaseDate": "Dáta Eisiúna"
+        "releaseDate": "Dáta Eisiúna",
+        "steam-family-share": "Comhroinnt Teaghlaigh Steam"
     },
     "launch": {
         "options": "Roghanna Seolta...",
@@ -306,7 +328,12 @@
             "title": "Teideal Cluiche/Aipe",
             "useragent": "Gníomhaire Úsáideora Saincheaptha",
             "cover-hint": "Ealaín Chlúdaigh/Laoch (cliceáil ar an íomhá le cuardach a dhéanamh ar SteamGridDB)",
-            "image-hint": "Ealaín Chearnógach (cliceáil ar an íomhá le cuardach a dhéanamh ar SteamGridDB)"
+            "image-hint": "Ealaín Chearnógach (cliceáil ar an íomhá le cuardach a dhéanamh ar SteamGridDB)",
+            "no-proton-shortcuts": {
+                "subtitle": "Níor aimsigh Heroic aon bhogearraí suiteáilte. Roghnaigh an comhad inrite de láimh ina áit sin, le do thoil.",
+                "title": "Níor aimsíodh aon aicearraí"
+            },
+            "proton-shortcuts": "Bogearraí braite"
         },
         "placeholder": {
             "image": "Greamaigh URL Íomhá nó roghnaigh ceann ó do ríomhaire",
@@ -315,7 +342,26 @@
             "useragent": "Scríobh gníomhaire úsáideora saincheaptha anseo le húsáid ar an aip/cluiche brabhsálaí seo"
         },
         "images": {
-            "summary": "Íomhánna"
+            "summary": "Íomhánna",
+            "heading": "Roghnaigh ealaín chlúdaigh an chluiche",
+            "preview": "Réamhamharc",
+            "subheading": "Roghnaigh clúdach cearnach agus meirgí laochra, nó déan cuardach ar SteamGridDB"
+        },
+        "step": {
+            "finish": "Críochnaigh",
+            "images": "Íomhánna",
+            "compat": "Comhoiriúnacht",
+            "compat-desc": "Cumraíocht Wine / Proton",
+            "finish-desc": "Comhad inrite agus roghanna",
+            "images-desc": "Clúdach agus ealaín laochra",
+            "install": "Suiteáil",
+            "install-desc": "Rith an suiteálaí",
+            "meta": "Meiteashonraí",
+            "meta-desc": "Ainm agus ardán"
+        },
+        "install": {
+            "installing": "Ag suiteáil {{title}}…",
+            "waiting-log": "Ag fanacht le haschur ón suiteálaí…"
         }
     },
     "specs": {
@@ -368,7 +414,8 @@
         "settings": "Socruithe",
         "store": "Leathanach Siopa",
         "verify": "Fíoraigh agus Deisigh",
-        "more": "Tuilleadh"
+        "more": "Tuilleadh",
+        "options": "Roghanna"
     },
     "third-party-managed": {
         "header": "Tá an cluiche seo á bhainistiú ag feidhmchlár tríú páirtí",
@@ -405,7 +452,13 @@
             "achievements": "Éachtaí",
             "dlc": "DLC",
             "installInfo": "Méid Íoslódála",
-            "launchOptions": "Roghanna Seolta"
+            "launchOptions": "Roghanna Seolta",
+            "storeInfo": "eolas faoin siopa"
+        },
+        "loggedOut": {
+            "failed": "Theip ar aisghabháil {{data}}.",
+            "message": "D’fhéadfadh sé nach n-oibreoidh gnéithe ar líne.",
+            "title": "Níl cuntas Steam logáilte isteach i Heroic"
         }
     }
 }
