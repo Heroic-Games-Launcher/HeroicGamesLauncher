@@ -108,6 +108,7 @@ async function runQueue() {
   await pruneSteamBacklog(queuedSteam)
 
   let element = getFirstQueueElement()
+  let hadError = false
 
   while (element) {
     const queuedElements = downloadManager.get('queue', [])
@@ -128,6 +129,8 @@ async function runQueue() {
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
 
+    if (status === 'error') hadError = true
+
     if (element.type === 'update') {
       const key = updateKey(element.params.appName, element.params.runner)
       if (status === 'error') failedUpdates.add(key)
@@ -145,9 +148,11 @@ async function runQueue() {
     }
   }
 
-  if (queueState !== 'paused') {
+  if (queueState !== 'paused' && !hadError) {
     queueState = 'idle'
     await performAfterDownloadAction()
+  } else if (queueState !== 'paused') {
+    queueState = 'idle'
   }
 }
 
@@ -175,7 +180,6 @@ async function addToQueue(
   element: DMQueueElement,
   { userStarted = false }: { userStarted?: boolean } = {}
 ) {
-
   if (!element) {
     logError(
       'Can not add undefined element to queue!',

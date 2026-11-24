@@ -104,7 +104,6 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
     []
 
   return (
-
     <div className="DownloadManager">
       <div className="DownloadManager__wrapper">
         <PageHeader
@@ -112,11 +111,8 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
           description={t(
             'download-manager.pageSubtitle',
             'What is installing now, what comes next and what is already done'
-
           )}
         />
-        {window.isSteamDeck && <PowerSettings />}
-
         <Panel
           tone="glass"
           padding="lg"
@@ -142,6 +138,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                 appName={currentElement.params.appName}
                 runner={currentElement.params.runner}
               />
+              {window.isSteamOS && <PowerSettings />}
             </>
           ) : (
             <EmptyState
