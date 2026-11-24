@@ -28,7 +28,8 @@
         "source": "Source",
         "status": "Status",
         "title": "Táto hra obsahuje anticheat",
-        "multiplayer_may_not_work": "Online funkcie hry nemusia fungovať kvôli odmietnutej alebo nefunkčnej podpore anticheatov."
+        "multiplayer_may_not_work": "Online funkcie hry nemusia fungovať kvôli odmietnutej alebo nefunkčnej podpore anticheatov.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Aktualizovať",
         "changelog": "Zoznam Zmien",
         "postpone": "Odložiť",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Cancel",
@@ -263,7 +278,8 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
-            "type": "Type"
+            "type": "Type",
+            "status": "Status"
         },
         "title": "Downloads",
         "ETA": "Predpokladaný čas",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Heroic will maybe not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Favourites",
     "game": {
         "status": "Status",
@@ -328,7 +350,8 @@
         "stores": "Stores",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -489,7 +512,28 @@
             "title": "Logout"
         },
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "Prihlásiť sa",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Synchronizácia dokončená",
@@ -551,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "retrying": "Retrying",
+        "hint-label": ""
     },
     "Open": "OTVORENÉ",
     "options": {
@@ -614,7 +659,8 @@
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Version: ",
         "weblate": "Help Improve this translation.",
-        "nile-version": "Nílska verzia: "
+        "nile-version": "Nílska verzia: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -755,7 +801,8 @@
                 "legendary": "Epic hry / Legendárny denník",
                 "nile": "Amazon / Nile log",
                 "zoom": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "Zobraziť nahrané protokolové súbory",
             "error": "",
@@ -961,8 +1008,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Celkom stiahnutých hier",
-            "missingRuntime": "VCRuntime not installed"
-        }
+            "missingRuntime": "VCRuntime not installed",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1018,7 +1082,8 @@
             "details": "Podrobnosti",
             "title": {
                 "resetHeroic": "Reset Heroic",
-                "clearCache": "Vymazať Cache"
+                "clearCache": "Vymazať Cache",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
@@ -1035,6 +1100,9 @@
                 "help3": "Informácie o knižnici Legendary (zoznam hier, informácie o dialógovom okne inštalácie, informácie o hre)",
                 "help4": "Informácie o knižnici GOG (zoznam hier, informácie o dialógovom okne inštalácie, informácie o api -t.j.: požiadavky-)",
                 "help5": "Informácie o knižnici Amazon (zoznam hier, informácie o dialógovom okne inštalácie)",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1109,7 +1177,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1118,7 +1189,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "nastavenie",
     "sidebar": {
@@ -1132,7 +1204,8 @@
         "logging": "Logging In...",
         "processing": "Prebieha spracovanie súborov, čakajte",
         "preparing_login": "Pripravuje sa prihlásenie... ",
-        "installed": "Nainštalované"
+        "installed": "Nainštalované",
+        "preparing": ""
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -1157,7 +1230,9 @@
     },
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button",
-        "add": "Pridať"
+        "add": "Pridať",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -1397,7 +1472,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Podrobnosti",
         "sort": {
@@ -1463,7 +1539,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "Naposledy hrané"
+            "last_played": "Naposledy hrané",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1507,7 +1586,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1538,11 +1625,153 @@
         "button": {
             "download": "Download",
             "sync": "Synchronizovať",
-            "upload": "Nahrať"
+            "upload": "Nahrať",
+            "view": "",
+            "keep": ""
         },
         "column": {
-            "size": "Veľkosť"
+            "size": "Veľkosť",
+            "modified": "",
+            "file": ""
         },
-        "never": "Nikdy"
+        "never": "Nikdy",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "support": {
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "actions": {
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": "",
+            "open": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Sťahujem"
+        },
+        "back": "Back",
+        "close": "Zavrieť",
+        "installed-games": "Nainštalované hry",
+        "per-game": "Game settings",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "Prihlásenie do obchodu",
+            "globalSettings": "Global Settings",
+            "perGameSettings": "Game settings"
+        },
+        "step3": {
+            "title": "Global Settings"
+        },
+        "step4": {
+            "selectAll": "Vybrať Všetko"
+        },
+        "step5": {
+            "title": "Prihlásenie do obchodu"
+        },
+        "step6": {
+            "prefixPath": "Wine Prefix",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "Žiadne DLC dostupné"
+        },
+        "steps": {
+            "credentials": "Prihlásenie do obchodu",
+            "global-settings": "Global Settings",
+            "per-game": "Game settings"
+        },
+        "summaryValue": "Value",
+        "version": "Heroic Version",
+        "wine-versions": "Verzia Winu"
     }
 }

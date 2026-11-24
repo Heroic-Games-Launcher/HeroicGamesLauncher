@@ -10,7 +10,8 @@
         "move": {
             "message": "Bu uzun müddət çəkə bilər, əminsinizmi?",
             "path": "Hara köçmək istədiyinizi seçin",
-            "title": "Move Oyun Quraşdırması"
+            "title": "Move Oyun Quraşdırması",
+            "steamMessage": ""
         },
         "no": "XEYR",
         "repair": {
@@ -100,7 +101,8 @@
         "edit-game": "Edit App/Game",
         "backToLibrary": "",
         "favourite": "",
-        "unfavourite": ""
+        "unfavourite": "",
+        "steamStore": ""
     },
     "cloud_save_unsupported": "Dəstəklənmir",
     "disabled": "Əlil",
@@ -180,7 +182,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLC-Əlavə Genişləmə Paketləri"
+        "dlcs": "DLC-Əlavə Genişləmə Paketləri",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Yer Mövcuddur",
@@ -198,7 +205,10 @@
             "title": "Antiçit İşləmir/Danır",
             "multiplayer_message": "Antiçit dəstəyi ya işləmir, ya da danır. Oyun açıla bilər ancaq, çoxoyunçu funksiyaları işləməyəcək. Buna baxmayaraq oyunu quraşdırmaq istəyirsiniz?"
         },
-        "flatpak-path-not-writtable": "Xəta: Səndboks girişi bu \"fayl məkanına-path\" verilməyib, məlumat itkiləri baş verəcək."
+        "flatpak-path-not-writtable": "Xəta: Səndboks girişi bu \"fayl məkanına-path\" verilməyib, məlumat itkiləri baş verəcək.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -221,7 +231,8 @@
         "steam": {
             "pleaseWait": "Please wait..."
         },
-        "releaseDate": ""
+        "releaseDate": "",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Başlama Seçimləri...",
@@ -271,12 +282,16 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "finish": "Finish"
         }
     },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Tövsiyə",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "Yeniləmək üçün klikləyin",
@@ -324,7 +339,8 @@
         "extraInfo": "Əlavə məlumat",
         "logs": "Qeydlər",
         "categories": "Kateqoriyalar",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Bu oyun bulud qənaətlərini dəstəkləmir. Bu məlumat oyun tərtibatçıları tərəfindən verilir. Bəzi oyunlar öz bulud qənaət sistemini tətbiq edir",
@@ -385,7 +401,16 @@
     },
     "steam": {
         "data": {
-            "dlc": "DLC-Əlavə Genişləmə Paketləri"
+            "dlc": "DLC-Əlavə Genişləmə Paketləri",
+            "achievements": "",
+            "launchOptions": "",
+            "installInfo": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

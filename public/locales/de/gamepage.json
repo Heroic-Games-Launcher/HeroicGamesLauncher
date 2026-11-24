@@ -1,16 +1,17 @@
 {
     "box": {
         "change": {
-            "message": "Der Installationspfad wird durch diese Aktion geändert, möchtest Du fortfahren?",
+            "message": "Der Installationspfad wird durch diese Aktion geändert, möchtest du fortfahren?",
             "path": "Wähle einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
-            "message": "Dies kann eine längere Zeit in Anspruch nehmen, möchtest Du trotzdem fortfahren?",
+            "message": "Dies kann eine längere Zeit in Anspruch nehmen, trotzdem fortfahren?",
             "path": "Auswählen, wohin du es verschieben möchtest",
-            "title": "Spieleinstallation verschieben"
+            "title": "Spieleinstallation verschieben",
+            "steamMessage": "Der Speicher-Manager von Steam wird sich öffnen um dieses Spiel auf ein anderes Laufwerk zu verschieben. Heroic führt danach eine Aktualisierung durch."
         },
         "no": "NEIN",
         "repair": {
@@ -61,7 +62,7 @@
             "force_download_warning": "Lokale Speicherdaten werden gelöscht. Möchtest du trotzdem fortfahren?",
             "force_upload_warning": "Cloud-Speicherdaten werden überschrieben. Möchtest du trotzdem fortfahren?"
         },
-        "ok": "OK",
+        "ok": "Ok",
         "offline_warning": {
             "message": "Dieses Spiel funktioniert möglicherweise offline nicht richtig. Möchtest du es trotzdem spielen?",
             "playAnyway": "Trotzdem spielen",
@@ -85,7 +86,7 @@
         "remove_from_favourites": "Aus Favoriten entfernen",
         "remove_from_recent": "Aus „Zuletzt gespielte Spiele“ entfernen",
         "run-exe-first": "Zuerst Installationsprogramm ausführen",
-        "running-setup": "Setup ausführen",
+        "running-setup": "Installationsprogramm ausführen...",
         "sideload": {
             "edit": "Anwendung/Spiel bearbeiten"
         },
@@ -100,7 +101,19 @@
         "edit-game": "Bearbeite Spiel",
         "favourite": "Zu Favoriten hinzufügen",
         "unfavourite": "Aus Favoriten entfernen",
-        "backToLibrary": ""
+        "backToLibrary": "Zurück zur Bibliothek",
+        "steamStore": "Öffnen der Steam Seite",
+        "back": "Zurück",
+        "next": "Weiter",
+        "skip-installer": {
+            "title": "Überspringen",
+            "subtitle": "Ich habe bereits ein Programm, welches Ich ausführen kann um dieses Spiel zu spielen"
+        },
+        "run-installer": {
+            "subtitle": "Das Spiel kommt mit einem Installationsprogramm, welches ich ausführen muss bevor ich das Spiel spielen kann",
+            "title": "Installationsprogramm ausführen"
+        },
+        "skip-waiting": "Warten überspringen"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -130,17 +143,17 @@
         "builds": {
             "version": "Version",
             "buildsSelector": "Spielversion auswählen",
-            "toggle": "Behalte das Spiel in einer spezifischen Version"
+            "toggle": "Das Spiel auf einer bestimmten Version belassen"
         },
         "changelogFor": "Änderungsprotokoll für {{gameTitle}}",
         "modify": "Installation anpassen",
-        "extra_info": "Zusatzinfo",
+        "extra_info": "Zusätzliche Infos",
         "install_info": "Installationsinfo",
         "achievements": "Erfolge",
         "details": "Spieldetails",
-        "tabs": "",
-        "overview": "",
-        "hoursPlayedShort": "",
+        "tabs": "Spielinformationen",
+        "overview": "Überblick",
+        "hoursPlayedShort": "{{hours}} Stunden",
         "about": "Über Heroic"
     },
     "gamecard": {
@@ -175,12 +188,17 @@
         "genres": "Genre",
         "steamdeck": {
             "unsupported": "Nicht unterstützt",
-            "verified": "",
-            "unknown": "",
-            "playable": ""
+            "verified": "Verifiziert",
+            "unknown": "Unbekannt",
+            "playable": "Spielbar"
         },
-        "developer": "",
-        "dlcs": "DLCs"
+        "developer": "Entwickler",
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "Aktiviert — klicken zum deaktivieren",
+            "notBought": "Nicht im Besitz",
+            "disabled": "Deaktiviert — klicken zum aktivieren"
+        }
     },
     "install": {
         "disk-space-left": "Verfügbarer Speicherplatz",
@@ -200,7 +218,10 @@
             "install_anyway": "Ja (ich verstehe, dass die Multiplayer-Funktionen nicht funktionieren werden)",
             "multiplayer_message": "Die Anticheat-Unterstützung ist defekt oder wird abgelehnt. Das Spiel lässt sich möglicherweise öffnen, aber die Multiplayer-Funktionen funktionieren nicht. Möchtest du es trotzdem installieren?"
         },
-        "flatpak-path-not-writtable": "Fehler: Sandbox-Zugriff auf diesen Pfad nicht gewährt, Datenverlust wird eintreten."
+        "flatpak-path-not-writtable": "Fehler: Sandbox-Zugriff auf diesen Pfad nicht gewährt, Datenverlust wird eintreten.",
+        "free": "kostenlos",
+        "steam-no-libraries": "Keine Steam Bibliotheksordner gefunden - füge zuerst eine Festplatte in Steam hinzu.",
+        "steam-path": "Installationspfad (Steam Bibliothek)"
     },
     "label": {
         "game": {
@@ -208,10 +229,10 @@
             "not-installable-game": "Das Spiel kann NICHT installiert werden"
         },
         "playing": {
-            "start": "Jetzt spielen",
+            "start": "Spielen",
             "stop": "Anhalten",
             "start_with_logs": "Spielen (mit Logs)",
-            "start_with_logs_hint": ""
+            "start_with_logs_hint": "Startet das Spiel und schreibt einen detaillierten Bericht, nützlich wenn du ein Problem melden musst"
         },
         "saves": {
             "syncing": "Spielstände werden synchronisiert"
@@ -247,7 +268,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "durch Heroic nutzbar gemacht, da neuere Steam-Versionen nicht unter macOS funktionieren."
         },
-        "releaseDate": "Veröffentlicht"
+        "releaseDate": "Veröffentlicht",
+        "steam-family-share": "Steam Familie teilen"
     },
     "launch": {
         "options": "Startoptionen …",
@@ -283,7 +305,12 @@
             "fullscreen": "Im Vollbild starten (F11 zum Beenden)",
             "useragent": "Benutzerdefinierter Agent",
             "cover-hint": "Cover-Art (Klicke auf das Bild, um auf SteamGridDB zu suchen)",
-            "image-hint": "Quadratisches Symbol (Klicke auf das Bild, um in SteamGridDB zu suchen)"
+            "image-hint": "Quadratisches Bild (Klicke auf das Bild, um in SteamGridDB zu suchen)",
+            "no-proton-shortcuts": {
+                "subtitle": "Heroic konnte keine installierte Software erkennen. Bitte wähle stattdessen das Programm manuell.",
+                "title": "Keine Abkürzungen gefunden"
+            },
+            "proton-shortcuts": "Erkannte Programme"
         },
         "placeholder": {
             "image": "Hier die URL eines Bildes einfügen oder eines auf deinem Computer auswählen",
@@ -292,11 +319,30 @@
             "useragent": "Schreibe hier einen eigenen User-Agent, der für diese Browser-Anwendung/dieses Spiel verwendet werden soll"
         },
         "import-hint": {
-            "title": "Wichtig! Fügst du ein Spiel von Epic/GOG/Amazon hinzu? Klicke hier!",
+            "title": "Wichtig! Fügst du ein Spiel von Epic/GOG/Amazon hinzu?",
             "content": "Verwende diese Funktion NICHT dafür.<br />Logge dich stattdessen im Store ein, suche das Spiel in deiner Bibliothek, öffne den Installationsdialog und klicke auf die Schaltfläche &quot;Spiel importieren&quot;"
         },
         "images": {
-            "summary": "Bilder"
+            "summary": "Bilder",
+            "heading": "Wähle ein Deckbild für das Spiel aus",
+            "preview": "Vorschau",
+            "subheading": "Wähle ein quadratisches Deckbild und füge einen Hero Banner hinzu, oder durchsuche die SteamGridDB"
+        },
+        "step": {
+            "compat": "Kompatibilität überprüfen",
+            "finish": "Abschließen",
+            "images": "Bilder",
+            "install": "Installation abbrechen",
+            "compat-desc": "Wine / Proton Einrichtung",
+            "finish-desc": "Programm und Optionen",
+            "images-desc": "Cover und Titelbild",
+            "install-desc": "Führe das Installationsprogramm aus",
+            "meta": "Metadaten",
+            "meta-desc": "Name und Plattform"
+        },
+        "install": {
+            "installing": "Installiert {{title}}…",
+            "waiting-log": "Warte auf die Ausgabe des Installationsprogramms…"
         }
     },
     "specs": {
@@ -315,16 +361,16 @@
         "notinstalled": "Dieses Spiel ist nicht installiert",
         "notSupported": "Nicht unterstützt",
         "notSupportedGame": "Nicht unterstützt",
-        "processing": "Bitte warten. Dateien werden verarbeitet …",
+        "processing": "Bitte warten. Dateien werden verarbeitet",
         "queued": "In Warteschlange",
         "reparing": "Bitte warten. Spiel wird repariert",
         "this-game-uses-third-party": "Dieses Spiel verwendet einen Drittanbieter-Launcher und wird noch nicht unterstützt",
         "totalDownloaded": "Insgesamt heruntergeladen",
-        "uninstalling": "Wird deinstalliert …",
-        "updating": "Spiel wird aktualisiert …",
-        "playing": "Wird gespielt …",
+        "uninstalling": "Wird deinstalliert",
+        "updating": "Spiel wird aktualisiert",
+        "playing": "Wird gespielt",
         "moving-files": "Datei verschieben '{{file}}': {{percent}}%",
-        "syncingSaves": "Spielstände werden synchronisiert …",
+        "syncingSaves": "Spielstände werden synchronisiert",
         "launching": "Wird gestartet",
         "ubisoft": "Ubisoft wird installiert …",
         "downloading": "Wird heruntergeladen",
@@ -348,11 +394,12 @@
         "removeShortcut": "Verknüpfungen entfernen",
         "settings": "Einstellungen",
         "store": "Store-Seite",
-        "verify": "Auf Fehler überprüfen und Reparieren",
+        "verify": "Auf Fehler überprüfen und reparieren",
         "extraInfo": "Zusatzinformation",
         "logs": "Logs",
         "categories": "Kategorien",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Dieses Spiel unterstützt keinen Cloud-Speicher. Diese Informationen werden von den Spieleentwicklern bereitgestellt. Einige Spiele implementieren ihr eigenes Cloud-Speichersystem.",
@@ -396,7 +443,7 @@
         "reset": "Auf Standardwerte zurücksetzen",
         "sgdb": {
             "no-key-link": "Einstellungen → Erweitert",
-            "no-key-prefix": "Um in SteamGridDB nach Cover-Artworks zu suchen, füge einen API-Schlüssel hinzu in"
+            "no-key-prefix": "Um in SteamGridDB nach Cover-Artworks zu suchen, füge einen API-Schlüssel hinzu"
         },
         "title": "Spiel bearbeiten",
         "cover": "Titelbild",
@@ -404,11 +451,11 @@
             "cover": "Titelbild",
             "square": "Quadratisches Bild"
         },
-        "square": ""
+        "square": "Quadratische Kunst"
     },
     "itchio": {
         "import": {
-            "warning": ""
+            "warning": "Ordner die durch die itch.io App installiert wurden sind komplett importiert, inclusive Updates. Für alle anderen Ordner kann Heroic nicht nach Update suchen, und das Deinstallieren von Spielen wird ihre Dateien nicht löschen."
         }
     },
     "steam": {
@@ -418,6 +465,11 @@
             "installInfo": "Downloadgröße",
             "launchOptions": "Startoptionen",
             "storeInfo": "Systeminformationen"
+        },
+        "loggedOut": {
+            "failed": "Das Abrufen von {{data}} ist fehlgeschlagen.",
+            "message": "Online-Funktionen funktionieren möglicherweise nicht.",
+            "title": "Steam Konto ist nicht in Heroic angemeldet"
         }
     }
 }

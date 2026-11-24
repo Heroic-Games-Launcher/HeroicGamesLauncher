@@ -10,7 +10,8 @@
         "move": {
             "message": "Việc này có thể mất nhiều thời gian, bạn có chắc không?",
             "path": "Chọn nơi bạn muốn di chuyển",
-            "title": "Di Chuyển Cài Đặt Trò Chơi"
+            "title": "Di Chuyển Cài Đặt Trò Chơi",
+            "steamMessage": ""
         },
         "no": "KHÔNG",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Sửa đổi App/Game",
         "favourite": "Thêm vào mục ưa thích",
         "unfavourite": "Xóa khỏi mục ưa thích",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Back",
+        "next": "Tiếp",
+        "skip-installer": {
+            "title": "Bỏ Qua"
+        }
     },
     "cloud_save_unsupported": "Không Hỗ Trợ",
     "disabled": "Tắt",
@@ -180,7 +187,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "Bản mở rộng"
+        "dlcs": "Bản mở rộng",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Dung Lượng Trống Khả Dụng",
@@ -198,7 +210,10 @@
             "ok": "Ok",
             "title": "Chống Gian Lận Bị Hỏng/Từ Chối"
         },
-        "flatpak-path-not-writtable": "Lỗi: Quyền truy cập sandbox không được cấp cho đường dẫn này, mất dữ liệu sẽ xảy ra."
+        "flatpak-path-not-writtable": "Lỗi: Quyền truy cập sandbox không được cấp cho đường dẫn này, mất dữ liệu sẽ xảy ra.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -224,7 +239,8 @@
         },
         "redist": "Cài Đặt Bản Phân Phối Lại",
         "winetricks": "Cài Đặt Gói Winetricks",
-        "releaseDate": "Ngày Phát Hành"
+        "releaseDate": "Ngày Phát Hành",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Khởi Chạy Tuỳ Chọn ...",
@@ -274,6 +290,11 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "Kiểm tra độ tương thích",
+            "finish": "Hoàn thành",
+            "install": "Dừng quá trình cài đặt"
         }
     },
     "specs": {
@@ -328,7 +349,8 @@
         "extraInfo": "Thông tin thêm",
         "logs": "Nhật ký",
         "categories": "Phân Loại",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Trò chơi này không hỗ trợ lưu vào đám mây. Thông tin này được cung cấp bởi các nhà phát triển trò chơi. Một số trò chơi triển khai hệ thống lưu trữ đám mây của riêng họ",
@@ -391,7 +413,14 @@
         "data": {
             "dlc": "DLC",
             "installInfo": "Kích thước tải",
-            "launchOptions": "Tùy chọn khởi chạy"
+            "launchOptions": "Tùy chọn khởi chạy",
+            "achievements": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

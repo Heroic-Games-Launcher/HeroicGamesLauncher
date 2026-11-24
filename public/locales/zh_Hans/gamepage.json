@@ -10,7 +10,8 @@
         "move": {
             "message": "这可能需要很长的时间，你确定吗？",
             "path": "选择要移动的位置",
-            "title": "移动游戏安装"
+            "title": "移动游戏安装",
+            "steamMessage": ""
         },
         "no": "否",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "编辑应用/游戏",
         "favourite": "添加到收藏",
         "unfavourite": "从收藏夹移除",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "返回",
+        "next": "下一步",
+        "skip-installer": {
+            "title": "跳过"
+        }
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -115,7 +122,7 @@
         "getting-install-size": "获取安装大小",
         "installSize": "安装大小",
         "language": "语言",
-        "lastPlayed": "上次游玩",
+        "lastPlayed": "上次玩",
         "neverPlayed": "从未玩过",
         "platform": "选择要安装的平台版本",
         "requirements": "系统要求",
@@ -180,7 +187,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "可用空间",
@@ -200,7 +212,10 @@
             "ok": "确定",
             "disabled_installation": "此游戏使用的反作弊软件与你的操作系统不兼容，或者游戏开发者未启用支持。这意味着多人游戏功能将无法使用，你（或 Heroic 团队）对此无能为力。<br /><br />要安装此游戏并尝试运行，请前往设置、高级，并勾选允许安装反作弊损坏或被拒绝的游戏选项。<br /><br />请注意，目前没有解决方案，你可能会在游戏中面临被封禁的风险。"
         },
-        "flatpak-path-not-writtable": "错误：未授予此路径沙盒访问权限，可能发生数据丢失。"
+        "flatpak-path-not-writtable": "错误：未授予此路径沙盒访问权限，可能发生数据丢失。",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -247,7 +262,8 @@
             "installing": "安装中",
             "pleaseWait": "请等待"
         },
-        "releaseDate": "发行日期"
+        "releaseDate": "发行日期",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "启动选项...",
@@ -297,6 +313,12 @@
         },
         "images": {
             "summary": "图片"
+        },
+        "step": {
+            "compat": "检查兼容性",
+            "finish": "完成",
+            "images": "图片",
+            "install": "停止安装"
         }
     },
     "specs": {
@@ -352,7 +374,8 @@
         "extraInfo": "额外信息",
         "logs": "日志",
         "categories": "分类",
-        "more": ""
+        "more": "",
+        "options": "选项"
     },
     "help": {
         "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云存档系统。",
@@ -418,6 +441,11 @@
             "installInfo": "下载大小",
             "launchOptions": "启动选项",
             "storeInfo": "系统信息"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

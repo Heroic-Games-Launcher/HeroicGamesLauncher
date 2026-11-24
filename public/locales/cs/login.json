@@ -32,5 +32,34 @@
     "sid": {
         "paste_and_login": "Vložte obsah ze schránky a přihlaste se",
         "placeholder": "Zadejte sem kód SID"
+    },
+    "steam": {
+        "notice": {
+            "text": "K využívání této funkce je nutné mít nainstalovaného klienta Steam.\n\nPodpora Steamu je nová, takže některé hry se nemusí spustit, včetně her od Valve, jako je například Half-Life 2.\n\nOnline hry mohou vyžadovat spuštěného klienta Steam a hry s proticheatovým systémem pravděpodobně nebudou fungovat.\n\nProblémy prosím nahlaste na Discord nebo GitHub.",
+            "title": "Upozornění",
+            "agree": "Souhlasím"
+        },
+        "qr": {
+            "denied": "V mobilní aplikaci Steam bylo přihlášení zamítnuto.",
+            "scanned": "Naskenováno — potvrďte přihlášení v mobilní aplikaci Steam.",
+            "offline": "Nelze se připojit ke Steamu. Zkontrolujte připojení k internetu.",
+            "expired": "Platnost QR kódu vypršela ještě před jeho schválením. Zkuste to prosím znovu.",
+            "caption": "Pomocí mobilní aplikace Steam se přihlaste pomocí QR kódu",
+            "title": "Nebo se přihlaste pomocí QR kódu",
+            "error": "Přihlášení pomocí QR kódu se nezdařilo. Zkuste to prosím znovu."
+        },
+        "error": "Přihlášení se nezdařilo. Zkontrolujte své přihlašovací údaje a kód Steam Guard.",
+        "username": "Uživatelské jméno",
+        "guard": {
+            "email": "Zadejte kód, který vám byl zaslán e-mailem",
+            "device": "Zadejte svůj kód Steam Guard",
+            "placeholder": "Kód Steam Guard",
+            "deviceConfirmation": "Toto přihlášení potvrďte ve své aplikaci Steam Mobile."
+        },
+        "submitCode": "Odeslat kód",
+        "accountName": "Přihlásit se pomocí názvu účtu",
+        "signingIn": "Přihlašuji se…",
+        "password": "Heslo",
+        "welcome": "Přihlaste se na Steam"
     }
 }

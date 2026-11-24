@@ -68,7 +68,8 @@
                     "body": "",
                     "title": ""
                 }
-            }
+            },
+            "steam-running": ""
         },
         "ok": "დიახ",
         "postpone": "გადადება",
@@ -162,7 +163,20 @@
         },
         "choose-nile-binary": "",
         "customWine": "",
-        "cancel": "გაუქმება"
+        "cancel": "გაუქმება",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "controller": {
         "hints": {
@@ -256,7 +270,8 @@
                 "zoom": "",
                 "game-log": "",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "no-file": "",
             "instructions_title": "",
@@ -485,8 +500,28 @@
         "disableUMU-description": "",
         "gamemode-description": "",
         "steamLaunchTarget": {
-            "downloadBuild": "გადმოწერა"
-        }
+            "downloadBuild": "გადმოწერა",
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": "",
+            "missingRuntime": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "window": {
         "close": "დახურვა",
@@ -499,7 +534,8 @@
         "preparing_login": "",
         "logging": "",
         "processing": "",
-        "installed": "დაყენებულია"
+        "installed": "დაყენებულია",
+        "preparing": ""
     },
     "dlc": {
         "size": "ზომა",
@@ -523,7 +559,8 @@
             "type": "ტიპი",
             "end-time": "",
             "queue-time": "",
-            "start-time": ""
+            "start-time": "",
+            "status": "სტატუსი"
         },
         "title": "გადმოწერები",
         "ETA": "",
@@ -534,7 +571,11 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "header": {
         "categories": "კატეგორიები",
@@ -555,7 +596,8 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "platforms": ""
+        "platforms": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "title": {
@@ -724,10 +766,14 @@
             },
             "title": {
                 "resetHeroic": "",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -849,7 +895,9 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -858,6 +906,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "კოპირება"
         }
     },
     "Settings": "პარამეტრები",
@@ -915,7 +967,8 @@
         "source": "წყარო",
         "status": "სტატუსი",
         "title": "",
-        "multiplayer_may_not_work": ""
+        "multiplayer_may_not_work": "",
+        "removed": ""
     },
     "info": {
         "version": "Wine-ის ვერსია",
@@ -964,7 +1017,9 @@
         "offline-notification-title": "ხაზგარეშე",
         "offline-notification-body": ""
     },
-    "error": "შეცდომა",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "რჩეულები",
     "game": {
         "status": "სტატუსი",
@@ -1002,7 +1057,8 @@
         "offline": "ხაზგარეშე",
         "retrying": "თავიდან ცდა",
         "hint": "",
-        "offline-retry-in": ""
+        "offline-retry-in": "",
+        "hint-label": ""
     },
     "options": {
         "advanced": {
@@ -1153,7 +1209,8 @@
         "dxvkfpsvalue": "",
         "alt-legendary-bin": "",
         "alt-gogdl-bin": "",
-        "egs-prefix": ""
+        "egs-prefix": "",
+        "alt-aurelia-bin": ""
     },
     "tooltip": {
         "removepath": "",
@@ -1191,7 +1248,8 @@
         "nile-version": "",
         "gogdl-version": "",
         "legendary-version": "",
-        "weblate": ""
+        "weblate": "",
+        "aurelia-version": ""
     },
     "add_game": "",
     "webview": {
@@ -1216,7 +1274,9 @@
     "gog-store": "",
     "two_col_table": {
         "save_hint": "",
-        "add": "დამატება"
+        "add": "დამატება",
+        "edit": "",
+        "remove": ""
     },
     "login": {
         "amazon": "",
@@ -1228,7 +1288,33 @@
         "zoom": "",
         "itchio": "",
         "button": "შესვლა",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "title_epic": "",
+        "logout_confirm": {
+            "title": "",
+            "message": ""
+        },
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "toolbox": {
         "settings": {
@@ -1324,7 +1410,8 @@
             "releaseYear": "",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platform": ""
+            "platform": "",
+            "platformAny": ""
         },
         "sidebar": "დეტალები",
         "sort": {
@@ -1390,7 +1477,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "ბოლო გაშვება"
+            "last_played": "ბოლო გაშვება",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1434,7 +1524,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "შემდეგი",
     "sidebar": {
@@ -1465,19 +1563,138 @@
     "itchio-store": "",
     "support": {
         "actions": {
-            "open": "გახსნა"
-        }
+            "open": "გახსნა",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "უკან",
         "button": {
             "download": "გადმოწერა",
             "sync": "სინქრონიზაცია",
-            "upload": "ატვირთვა"
+            "upload": "ატვირთვა",
+            "view": "",
+            "keep": ""
         },
         "column": {
-            "size": "ზომა"
+            "size": "ზომა",
+            "modified": "",
+            "file": ""
         },
-        "never": "არასდროს"
+        "never": "არასდროს",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "Update available!": "",
+    "import-export": {
+        "action": {
+            "browse": "ბრაუზერი",
+            "download": "გადმოწერა"
+        },
+        "back": "უკან",
+        "close": "დახურვა",
+        "next": "შემდეგი",
+        "step6": {
+            "prefixPath": "Wine-ის პრეფიქსი",
+            "wine-downloadable": "გადმოწერა"
+        },
+        "steps": {
+            "done": "მზადაა"
+        },
+        "summaryValue": "მნიშვნელობა",
+        "wine-versions": "Wine-ის ვერსია"
     }
 }

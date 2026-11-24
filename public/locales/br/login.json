@@ -11,22 +11,51 @@
     },
     "welcome": "Donemat !",
     "message": {
-        "part2": "",
+        "part2": "Digeriñ an/ar",
         "part7": "",
         "part8": "",
         "part1": "",
-        "part3": "",
+        "part3": "Epic Games Store amañ",
         "part5": "",
-        "part6": "",
-        "part4": ""
+        "part6": "Pegañ ho",
+        "part4": ", kevreañ ouzh ho kont hag eilañ ho"
     },
     "itchio": {
         "paste_and_login": "",
-        "api_key_placeholder": "",
+        "api_key_placeholder": "Pegañ hoc'h alc'hwez API",
         "instructions": ""
     },
     "sid": {
         "paste_and_login": "",
         "placeholder": ""
+    },
+    "steam": {
+        "notice": {
+            "text": "",
+            "agree": "",
+            "title": "Diwall"
+        },
+        "qr": {
+            "denied": "",
+            "scanned": "",
+            "offline": "",
+            "expired": "",
+            "caption": "",
+            "error": "",
+            "title": "Pe kevreañ gant ur c'hod QR"
+        },
+        "error": "",
+        "guard": {
+            "email": "",
+            "device": "",
+            "placeholder": "",
+            "deviceConfirmation": ""
+        },
+        "username": "Anv implijer",
+        "submitCode": "Kas ar c'hod",
+        "accountName": "Kevreañ gant un anv kont",
+        "signingIn": "O kevreañ…",
+        "password": "Ger-tremen",
+        "welcome": "Kevreañ ouzh Steam"
     }
 }

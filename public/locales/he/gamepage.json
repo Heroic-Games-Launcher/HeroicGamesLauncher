@@ -20,7 +20,8 @@
         "move": {
             "path": "בחרו לאיפה אתם רוצים להזיז",
             "title": "הזז מיקום התקנה של המשחק",
-            "message": "זה עלול לקחת זמן רב, אתם בטוחים?"
+            "message": "זה עלול לקחת זמן רב, אתם בטוחים?",
+            "steamMessage": ""
         },
         "no": "לא",
         "repair": {
@@ -99,7 +100,9 @@
         "edit-game": "ערוך אפליקציה/משחק",
         "favourite": "הוסף למועדפים",
         "unfavourite": "הסר ממועדפים",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "חזור"
     },
     "gamecard": {
         "repairing": "מתקן",
@@ -127,7 +130,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLCים"
+        "dlcs": "DLCים",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "sideload": {
         "info": {
@@ -155,6 +163,11 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "בדוק התאמה",
+            "finish": "סיים",
+            "install": "הפסק התקנה"
         }
     },
     "status": {
@@ -200,9 +213,10 @@
         "move": "הזז משחק",
         "addShortcut": "הוסף קיצור דרך",
         "addToSteam": "הוסף ל-Steam",
-        "verify": "אמת קבצים ותקן",
+        "verify": "אימות קבצי המשחק ותיקונם",
         "categories": "",
-        "more": ""
+        "more": "",
+        "options": "אפשרויות"
     },
     "cloud_save_unsupported": "לא נתמך",
     "enabled": "מופעל",
@@ -288,7 +302,8 @@
         },
         "winetricks": "",
         "redist": "",
-        "releaseDate": "תאריך יציאה"
+        "releaseDate": "תאריך יציאה",
+        "steam-family-share": ""
     },
     "install": {
         "wineversion": "גרסת Wine",
@@ -308,7 +323,10 @@
             "install_anyway": "",
             "ok": ""
         },
-        "flatpak-path-not-writtable": ""
+        "flatpak-path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "not_logged_in": {
         "amazon": "אתה לא מחובר לחשבון אמזון בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:",
@@ -335,7 +353,8 @@
     "specs": {
         "minimum": "מינימום",
         "recommended": "מומלצים",
-        "other": "אחר"
+        "other": "אחר",
+        "notes": ""
     },
     "Open": "פתוח",
     "queue": {
@@ -389,7 +408,14 @@
         "data": {
             "dlc": "DLCים",
             "installInfo": "גודל הורדה",
-            "storeInfo": "מידע מערכת"
+            "storeInfo": "מידע מערכת",
+            "achievements": "",
+            "launchOptions": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

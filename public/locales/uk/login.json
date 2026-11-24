@@ -32,5 +32,34 @@
     "sid": {
         "paste_and_login": "Вставити з буфера обміну та ввійти",
         "placeholder": "Вставте SID-код тут"
+    },
+    "steam": {
+        "notice": {
+            "text": "",
+            "title": "",
+            "agree": ""
+        },
+        "qr": {
+            "denied": "",
+            "scanned": "",
+            "offline": "",
+            "expired": "",
+            "caption": "",
+            "title": "",
+            "error": ""
+        },
+        "error": "",
+        "username": "",
+        "guard": {
+            "email": "",
+            "device": "",
+            "placeholder": "",
+            "deviceConfirmation": ""
+        },
+        "submitCode": "",
+        "accountName": "",
+        "signingIn": "",
+        "password": "",
+        "welcome": ""
     }
 }

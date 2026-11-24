@@ -28,7 +28,8 @@
         "source": "출처",
         "status": "상태",
         "title": "안티치트 소프트웨어가 포함된 게임",
-        "multiplayer_may_not_work": "멀티플레이어 기능이 안티치트 지원이 거부되거나 중단되어 작동하지 않을 수 있습니다."
+        "multiplayer_may_not_work": "멀티플레이어 기능이 안티치트 지원이 거부되거나 중단되어 작동하지 않을 수 있습니다.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "업데이트",
         "changelog": "변경로그",
         "postpone": "연기",
-        "cancel": "취소"
+        "cancel": "취소",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "취소",
@@ -263,7 +278,8 @@
             "end-time": "완료됨",
             "queue-time": "추가됨",
             "start-time": "시작됨",
-            "type": "유형"
+            "type": "유형",
+            "status": "상태"
         },
         "title": "다운로드",
         "ETA": "예상 시간",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "에릭 게임즈 서버가 오프라인 상태이므로 온라인 서비스가 완전히 작동하지 않을 수 있습니다!",
         "offline-notification-title": "오프라인"
     },
     "Epic Games": "에픽 게임즈",
-    "error": "오류",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "즐겨찾기",
     "game": {
         "status": "상태",
@@ -328,7 +350,8 @@
         "stores": "스토어",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD의 FSR 기술은 전체화면 모드에서 저해상도를 업스케일링하여 프레임 향상에 도움을 줍니다. 약간의 성능을 잃으며 이미지 품질은 5에서 1로 갈수록 증가합니다. 사용하면 성능이 향상될 수도 있습니다.",
@@ -489,7 +512,28 @@
             "title": "로그아웃"
         },
         "title_epic": "에픽 게임즈",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "활성화"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "로그인",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "동기화 완료",
@@ -551,7 +595,8 @@
         "ignore": "무시",
         "offline": "오프라인",
         "offline-retry-in": "오프라인입니다. {{seconds}} 초 후에 다시 시도합니다.",
-        "retrying": "재시도 중"
+        "retrying": "재시도 중",
+        "hint-label": ""
     },
     "Open": "열기",
     "options": {
@@ -614,7 +659,8 @@
         "gogdl-version": "GOGDL 버전: ",
         "legendary-version": "레전더리 버전: ",
         "weblate": "Heroric 번역을 도와주세요.",
-        "nile-version": "나일 버전: "
+        "nile-version": "나일 버전: ",
+        "aurelia-version": ""
     },
     "Other": "기타",
     "placeholder": {
@@ -754,7 +800,8 @@
                 "legendary": "에픽 게임즈 / 레전더리 로그",
                 "nile": "아마존 / 나일 로그",
                 "zoom": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "업로드된 로그 파일 표시",
             "join-heroic-discord": "우리 디스코드 참가",
@@ -961,8 +1008,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "전체 다운로드",
-            "missingRuntime": "VC 런타임 설치되지 않음"
-        }
+            "missingRuntime": "VC 런타임 설치되지 않음",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1031,10 +1095,14 @@
             "details": "세부 사항",
             "title": {
                 "resetHeroic": "Heroic 재설정",
-                "clearCache": "캐시 지우기"
+                "clearCache": "캐시 지우기",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "이렇게 하면 모든 설정과 캐시가 제거되지만 설치된 게임이나 에픽 자격 인증은 제거되지 않습니다. Heroic의 휴대용 버전 (AppImage, WinPortable, ...)은 그 후 수동으로 다시 시작해야 합니다.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1109,7 +1177,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "에픽 게임즈",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1118,7 +1189,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "설정",
     "sidebar": {
@@ -1132,7 +1204,8 @@
         "logging": "로그인 중…",
         "processing": "파일 처리 중, 기다려 주세요",
         "preparing_login": "로그인 준비 중... ",
-        "installed": "설치됨"
+        "installed": "설치됨",
+        "preparing": ""
     },
     "store": "에픽 스토어",
     "stores": "스토어",
@@ -1157,7 +1230,9 @@
     },
     "two_col_table": {
         "save_hint": "이 표의 변경 사항은 자동으로 저장되지 않습니다. + 버튼 클릭",
-        "add": "추가"
+        "add": "추가",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "사용 가능한 업데이트가 있습니다!",
     "userselector": {
@@ -1397,7 +1472,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "세부 사항",
         "sort": {
@@ -1463,7 +1539,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "마지막 플레이"
+            "last_played": "마지막 플레이",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1507,7 +1586,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1535,21 +1622,156 @@
     "Update available!": "사용 가능한 업데이트가 있습니다!",
     "support": {
         "actions": {
-            "open": "열기"
+            "open": "열기",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "당신의 도움이 필요합니다"
+        "title": "당신의 도움이 필요합니다",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "뒤로",
         "button": {
             "download": "Download",
             "sync": "동기화",
-            "upload": "업로드"
+            "upload": "업로드",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "필터",
-            "size": "크기"
+            "size": "크기",
+            "modified": ""
         },
-        "never": "플레이 한 적 없음"
+        "never": "플레이 한 적 없음",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "다운로드중"
+        },
+        "back": "뒤로",
+        "close": "닫기",
+        "installed-games": "설치된 게임",
+        "per-game": "게임 설정",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "스토어 로그인",
+            "globalSettings": "글로벌 설정",
+            "perGameSettings": "게임 설정"
+        },
+        "step3": {
+            "title": "글로벌 설정"
+        },
+        "step4": {
+            "selectAll": "모두 선택"
+        },
+        "step5": {
+            "title": "스토어 로그인"
+        },
+        "step6": {
+            "prefixPath": "와인 설치 경로",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "사용 가능한 DLC 없음"
+        },
+        "steps": {
+            "credentials": "스토어 로그인",
+            "global-settings": "글로벌 설정",
+            "per-game": "게임 설정"
+        },
+        "summaryValue": "값",
+        "version": "Heroic 버전",
+        "wine-versions": "와인 버전"
     }
 }

@@ -29,7 +29,9 @@
     },
     "specs": {
         "minimum": "Eng kam",
-        "recommended": "Tavsiya etilgan"
+        "recommended": "Tavsiya etilgan",
+        "notes": "",
+        "other": ""
     },
     "status": {
         "clickToUpdate": "Yangilash uchun bosing",
@@ -72,7 +74,8 @@
         "move": {
             "message": "Bu uzoq vaqt talab qilishi mumkin, ishonchingiz komilmi?",
             "path": "Qayerga ko'chmoqchi bo'lganingizni tanlang",
-            "title": "O'yinni ko'chirish"
+            "title": "O'yinni ko'chirish",
+            "steamMessage": ""
         },
         "no": "YO'Q",
         "repair": {
@@ -161,7 +164,8 @@
         "edit-game": "",
         "backToLibrary": "",
         "favourite": "",
-        "unfavourite": ""
+        "unfavourite": "",
+        "steamStore": ""
     },
     "cloud_save_unsupported": "Qo'llab-quvvatlanmaydi",
     "disabled": "O'chirilgan",
@@ -249,7 +253,13 @@
             "unsupported": ""
         },
         "developer": "",
-        "genres": ""
+        "genres": "",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        },
+        "dlcs": ""
     },
     "install": {
         "disk-space-left": "Bo'sh joy mavjud",
@@ -267,7 +277,10 @@
             "multiplayer_message": "",
             "title": ""
         },
-        "flatpak-path-not-writtable": ""
+        "flatpak-path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -287,7 +300,8 @@
         "ubisoft": "Ubisoft Connect o'rnatilmoqda",
         "winetricks": "",
         "redist": "",
-        "releaseDate": ""
+        "releaseDate": "",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Ishga tushirish parametrlari...",
@@ -375,6 +389,20 @@
     "itchio": {
         "import": {
             "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "",
+            "dlc": "",
+            "launchOptions": "",
+            "installInfo": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

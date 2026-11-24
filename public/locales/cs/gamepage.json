@@ -10,7 +10,8 @@
         "move": {
             "message": "Toto může trvat dlouho, jste si jisti?",
             "path": "Vyberte, kam se chcete přesunout",
-            "title": "Přesunout instalaci hry"
+            "title": "Přesunout instalaci hry",
+            "steamMessage": "Otevře se Správce úložiště služby Steam, abyste mohli tuto hru přesunout na jiný disk. Po dokončení se stránka Heroic znovu načte."
         },
         "no": "NE",
         "repair": {
@@ -85,7 +86,7 @@
         "remove_from_favourites": "Odebrat z oblíbených",
         "remove_from_recent": "Odebrat z nedávných",
         "run-exe-first": "Nejprve spustit instalátor",
-        "running-setup": "Spouštění nastavení",
+        "running-setup": "Spouštím instalační program...",
         "sideload": {
             "edit": "Upravit aplikaci/hru"
         },
@@ -100,7 +101,19 @@
         "edit-game": "Upravit Hru",
         "favourite": "Přidat do oblíbených",
         "unfavourite": "Odebrat z oblíbených",
-        "backToLibrary": "Zpět do knihovny"
+        "backToLibrary": "Zpět do knihovny",
+        "steamStore": "Otevřít stránku na Steamu",
+        "back": "Zpět",
+        "next": "Další",
+        "skip-installer": {
+            "title": "Přeskočit",
+            "subtitle": "Už mám spustitelný soubor hry, který mohu spustit a hrát hru"
+        },
+        "run-installer": {
+            "subtitle": "Hra obsahuje instalační program, který je nutné spustit, než ji lze hrát",
+            "title": "Spustit instalační program"
+        },
+        "skip-waiting": "Přeskočit čekání"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
@@ -180,7 +193,12 @@
             "verified": "Ověřené"
         },
         "developer": "Vývojář",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "Povoleno — kliknutím zakážete",
+            "notBought": "Nevlastněné",
+            "disabled": "Zakázáno — kliknutím povolíte"
+        }
     },
     "install": {
         "disk-space-left": "Volné místo",
@@ -200,7 +218,10 @@
             "ok": "Ok",
             "disabled_installation": "Tato hra používá anticheat program, který není kompatibilní s vaším operačním systémem, nebo vývojáři hry nepovolili jeho podporu. To znamená, že funkce pro více hráčů nebudou fungovat a vy (ani tým Heroic) s tím nemůžete nic udělat.<br /><br />Chcete-li tuto hru přesto nainstalovat a vyzkoušet, přejděte do Nastavení, Rozšířené a zaškrtněte možnost povolit instalaci her s nefunkčním nebo zakázaným anticheatem.<br /><br />Upozorňujeme, že pro tuto situaci neexistuje žádné řešení a riskujete, že budete ve hře zablokován."
         },
-        "flatpak-path-not-writtable": "Chyba: této cestě nebyl udělen přístup k sandboxu, vyskytne se ztráta dat."
+        "flatpak-path-not-writtable": "Chyba: této cestě nebyl udělen přístup k sandboxu, vyskytne se ztráta dat.",
+        "free": "zdarma",
+        "steam-no-libraries": "Nebyly nalezeny žádné složky knihovny Steam – nejprve přidejte disk do Steamu.",
+        "steam-path": "Cesta k instalaci (knihovna Steam)"
     },
     "label": {
         "game": {
@@ -247,7 +268,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "zprovozněna přes Heroic, protože nové verze Steamu v systému MacOS nefungují."
         },
-        "releaseDate": "Datum Vydání"
+        "releaseDate": "Datum Vydání",
+        "steam-family-share": "Sdílení v rámci rodiny na Steamu"
     },
     "launch": {
         "options": "Možnosti spuštění...",
@@ -283,7 +305,12 @@
             "useragent": "Vlastní User Agent",
             "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)",
             "cover-hint": "Ikona/Grafika (klikněte na obrázek pro hledání v SteamGridDB)",
-            "image-hint": "Čtvercová Ikona (klikněte na obrázek pro hledání v SteamGridDB)"
+            "image-hint": "Čtvercová Ikona (klikněte na obrázek pro hledání v SteamGridDB)",
+            "no-proton-shortcuts": {
+                "subtitle": "Heroic nezjistil žádný nainstalovaný software. Vyberte prosím spustitelný soubor ručně.",
+                "title": "Nebyly nalezeny žádné odkazy"
+            },
+            "proton-shortcuts": "Zjištěný software"
         },
         "placeholder": {
             "image": "Sem vložte URL obrázku, nebo vyberte soubor z vašeho zařízení",
@@ -293,10 +320,29 @@
         },
         "import-hint": {
             "content": "Tuto funkci k této akci NEPOUŽÍVEJTE.<br />Namísto toho se <3>přihlaste do obchodu</3>, vyhledejte hru ve své knihovně, otevřete instalační dialog a klikněte na tlačítko &quot;Importovat hru&quot;",
-            "title": "Důležité! Přidáváte hru z obchodu Epic/GOG/Amazon? Klikněte sem!"
+            "title": "Důležité! Přidáváte hru z Epic/GOG/Amazon?"
         },
         "images": {
-            "summary": "Obrázky"
+            "summary": "Obrázky",
+            "heading": "Vyberte obal hry",
+            "preview": "Náhled",
+            "subheading": "Vyberte si čtvercový obal a banner s hrdinou, nebo vyhledejte na SteamGridDB"
+        },
+        "step": {
+            "compat": "Zkontrolovat kompatibilitu",
+            "finish": "Dokončit",
+            "images": "Obrázky",
+            "install": "Zastavit instalaci",
+            "compat-desc": "Nastavení Wine / Proton",
+            "finish-desc": "Spustitelný soubor a volby",
+            "images-desc": "Obal a obrázek hrdiny",
+            "install-desc": "Spustit instalační program",
+            "meta": "Metadata",
+            "meta-desc": "Název a platforma"
+        },
+        "install": {
+            "installing": "Probíhá instalace {{title}}…",
+            "waiting-log": "Čekám na výstup instalačního programu…"
         }
     },
     "specs": {
@@ -352,7 +398,8 @@
         "extraInfo": "Další informace",
         "logs": "Protokoly",
         "categories": "Kategorie",
-        "more": "Více"
+        "more": "Více",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání.",
@@ -418,6 +465,11 @@
             "installInfo": "Velikost ke stažení",
             "launchOptions": "Možnosti spuštění",
             "storeInfo": "Systémové informace"
+        },
+        "loggedOut": {
+            "failed": "Načtení {{data}} se nezdařilo.",
+            "message": "Online funkce nemusí fungovat.",
+            "title": "Účet Steam není přihlášen do Heroic"
         }
     }
 }

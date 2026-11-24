@@ -284,7 +284,8 @@
             "end-time": "Zakończono o",
             "queue-time": "Dodano o",
             "start-time": "Rozpoczęto o",
-            "type": "Typ"
+            "type": "Typ",
+            "status": "Stan"
         },
         "title": "Pobrane",
         "ETA": "Szacowany czas",
@@ -506,7 +507,7 @@
         "alternative_method": "Alternatywna metoda logowania",
         "epic": "Zaloguj się do Epic Games",
         "gog": "Zaloguj się do GOG",
-        "message": "Zaloguj się swoim kontem. Możesz być zalogowany do więcej niż jednej platformy w tym samym czasie.",
+        "message": "Zaloguj się do dowolnego sklepu, na którym masz aktywne konto, aby zobaczyć wszystkie swoje gry w swojej Bibliotece. Możesz być zalogowany do wszystkich sklepów w tym samym czasie.",
         "amazon": "Zaloguj się do Amazon",
         "old-mac": "Twoja wersja macOS to {{version}}. Aby się zalogować, potrzebny jest macOS 12 lub nowszy.",
         "zoom": "Zaloguj się do Zoom",
@@ -528,10 +529,18 @@
         "description_itchio": "Odkrywaj i graj w gry indie z itch.io.",
         "description_steam": "Kupuj i graj w gry ze Steam.",
         "description_zoom": "Kupuj i graj w gry bez DRM z Zoom Platform.",
-        "gog_support": "Wyłączono linki afiliacyjne GOG. Włącz je, aby wesprzeć rozwój Heroic, gdy kupujesz tam gry.",
+        "gog_support": "Włącz linki afiliacyjne GOG, aby wesprzeć rozwój Heroic.",
         "logged_in_as": "Zalogowany jako",
         "title_itchio": "itch.io",
-        "title_zoom": "Zoom Platform"
+        "title_zoom": "Zoom Platform",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "Włączyć linki afiliacyjne GOG?",
+                "message": "Heroic będzie używać linków afiliacyjnych, gdy kupujesz gry z GOG. Możesz w ten sposób wesprzeć rozwój projektu bez dodatkowych opłat. Możesz wyłączyć tę opcję w każdej chwili w zaawansowanych ustawieniach."
+            },
+            "activate": "Aktywuj teraz"
+        },
+        "logged_in": "Zalogowano"
     },
     "message": {
         "sync": "Synchronizacja zakończona",
@@ -1073,7 +1082,9 @@
             "gamescope": "Gamescope",
             "legacy": "Przestarzałe",
             "categories": "Kategorie",
-            "tabs": "Sekcje ustawień"
+            "tabs": "Sekcje ustawień",
+            "importExport": "Import / Eksport",
+            "runners": "Środowiska uruchomieniowe"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
@@ -1184,16 +1195,31 @@
             "runtimes": "Środowiska uruchomieniowe",
             "system": "System",
             "winePerformance": "Wydajność",
-            "steam": "Steam"
+            "steam": "Steam",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games",
+            "gog": "GOG",
+            "eosOverlay": "Nakładka EOS"
         },
         "pageSubtitle": {
-            "advanced": "Pliki binarne, funkcje eksperymentalne i konserwacja",
+            "advanced": "Zachowanie, funkcje eksperymentalne i konserwacja",
             "games_settings_defaults": "Ustawienia stosowane dla nowo instalowanych gier",
             "general": "Skonfiguruj swoje preferencje launchera",
             "log": "Czytaj i udostępnij logi Heroic",
-            "systeminfo": "Twój sprzęt i wersje, na których działa Heroic"
+            "systeminfo": "Twój sprzęt i wersje, na których działa Heroic",
+            "importExport": "Skopiuj lub przywróć swoją konfigurację Heroic",
+            "runners": "Integracje ze sklepami i opcje dot. konkretnych środowisk"
         },
-        "clear-images-cache": "Wyczyść pamięć podręczną obrazów"
+        "clear-images-cache": "Wyczyść pamięć podręczną obrazów",
+        "copySettings": {
+            "button": "Skopiuj",
+            "description": "Zapisz aktualną konfigurację Heroic w schowku jako JSON."
+        },
+        "search": {
+            "noResults": "Nie znaleziono ustawień",
+            "placeholder": "Wyszukaj ustawienia",
+            "results": "Wyniki ustawień"
+        }
     },
     "Settings": "Ustawienia",
     "sidebar": {
@@ -1333,7 +1359,8 @@
         "noGames": "Twoja biblioteka jest pusta.<br /><br />Kliknij <4>tutaj</4>, aby zalogować się za pomocą kont Epic, GOG.com lub Amazon. Następnie Twoje gry pojawią się w bibliotece.<br /><br />Aby korzystać z gier lub aplikacji z innych źródeł, kliknij,<br />aby dodać je ręcznie.",
         "noResultsTitle": "Nie znaleziono żadnej gry",
         "description": "<0>Zaloguj się</0> kontem Epic, GOG.com, Amazon, itch.io lub Zoom, a w tym miejscu pojawią się Twoje gry. Możesz również dodać ręcznie gry z innych źródeł.",
-        "title": "Twoja biblioteka jest pusta."
+        "title": "Twoja biblioteka jest pusta.",
+        "backupHint": "Masz kopię zapasową Heroic? <2>Przywróć ją, aby zacząć tam, gdzie skończyłeś</2>."
     },
     "categories-manager": {
         "add-placeholder": "Dodaj nową kategorię",
@@ -1747,5 +1774,164 @@
     "changelog": {
         "view_full": "Wyświetl pełną listę zmian na GitHubie"
     },
-    "steam-store": "Sklep Steam"
+    "steam-store": "Sklep Steam",
+    "import-export": {
+        "action": {
+            "download": "Pobierz brakujące",
+            "ignore": "Zachowaj",
+            "browse": "Przeglądaj",
+            "defaultPrefix": "Użyj domyślnego prefiksu",
+            "skip": "Pomiń grę"
+        },
+        "back": "Wróć",
+        "close": "Zamknij",
+        "installed-games": "Zainstalowane gry",
+        "next": "Dalej",
+        "per-game": "Ustawienia gry",
+        "platform": "Platforma",
+        "rollback": {
+            "saved": "Zapisane",
+            "confirm-message": "To działanie cofnie zmiany w ustawieniach, danych logowania i bibliotece wykonane przez ostatni import. Nie można go cofnąć.",
+            "confirm-title": "Wycofać ostatni import?",
+            "done": "Zastosowano wycofanie. Aby zastosować wszystkie zmiany, zrestartuj Heroic.",
+            "failed": "Nie udało się wycofać",
+            "hint": "Podczas ostatniego importu zapisano migawkę sprzed jego wykonania. Użyj tego przycisku, aby powrócić do tego stanu.",
+            "run": "Cofnij ostatni import",
+            "running": "Wycofywanie..."
+        },
+        "stage": {
+            "credentials": "Dane logowania sklepów",
+            "globalSettings": "Ustawienia globalne",
+            "perGameSettings": "Ustawienia gry",
+            "categories": "Własne kategorie",
+            "libraryCache": "Zainstalowane gry i biblioteka",
+            "playtime": "Czas gry i historia rozgrywek",
+            "sideloadLibrary": "Gry dodane ręcznie",
+            "wineMetadata": "Wersje Wine / Protona"
+        },
+        "step3": {
+            "title": "Ustawienia globalne",
+            "categories_one": "Zaimportuj własne kategorie ({{count}})",
+            "categories_other": "Zaimportuj własne kategorie ({{count}})",
+            "categoriesHint": "Zastąpi Twoje aktualne własne kategorie tymi znajdującymi się w kopii.",
+            "none": "Ta kopia nie zawiera ustawień globalnych.",
+            "overwrite": "Nadpisz aktualne ustawienia globalne",
+            "overwriteBody": "Domyślnie wyłączone. Włącz tę opcję, aby zastąpić Twoje aktualne ustawienia Heroic tymi znajdującymi się w kopii.",
+            "playtime_one": "Zaimportuj czas gry i historię rozgrywki ({{count}} gra)",
+            "playtime_other": "Zaimportuj czas gry i historię rozgrywki ({{count}} gier)",
+            "playtimeHint": "Aktualizuje lokalną historię rozgrywki danymi z kopii; nie zmienia danych innych gier.",
+            "toggle": "Zaimportuj globalne ustawienia"
+        },
+        "step4": {
+            "none": "Żadna gra nie pasuje do filtra.",
+            "selectAll": "Zaznacz wszystkie",
+            "deselectAll": "Odznacz wszystkie",
+            "filter": "Filtruj gry",
+            "selectAllGames": "Zaznacz wszystkie gry",
+            "selected": "Wybrano {{selected}} z {{total}}",
+            "title": "Ustawienia gier do zaimportowania"
+        },
+        "step5": {
+            "title": "Dane logowania sklepów",
+            "found": "Znalezione w kopii",
+            "hint": "Poświadczenia są importowane tak, jak je wyeksportowano. Jeśli token wygasł, otrzymasz prośbę o ponowne zalogowanie się przy następnym otwarciu sklepu.",
+            "include": "Uwzględnij",
+            "missing": "Brak w kopii"
+        },
+        "step6": {
+            "prefixPath": "Prefiks Wine",
+            "wine-downloadable": "Można pobrać",
+            "wine-unavailable": "Niedostępna",
+            "allGood": "Wszystkie ścieżki instalacji i wersje Wine znajdują się w tym systemie.",
+            "downloadMissing": "Pobierz ponownie wybrane brakujące gry po imporcie",
+            "installedOKHint": "Te gry były zainstalowane na systemie źródłowym i ich foldery wciąż istnieją na tej maszynie — zostaną one zarejestrowane ponownie tak, jak je wyeksportowano.",
+            "installedOKSummary_one": "Znalezione i gotowe gry ({{count}})",
+            "installedOKSummary_other": "Znalezione i gotowe gry ({{count}})",
+            "installPathsHint": "Foldery instalacji używane przez te gry nie znajdują się w tym systemie. Pobierz ponownie te gry, które chcesz; niezaznaczone pozycje pozostaną na liście z ich oryginalną (popsutą) ścieżką.",
+            "installPathsSummary_one": "Gry z brakującymi ścieżkami instalacji ({{count}})",
+            "installPathsSummary_other": "Gry z brakującymi ścieżkami instalacji ({{count}})",
+            "prefixPathsHint": "Zdecyduj, co zrobić z każdym prefiksem z osobna — zazwyczaj najprościej przełączyć się na domyślny prefiks.",
+            "prefixPathsSummary_one": "Gry z brakującymi prefiksami Wine ({{count}})",
+            "prefixPathsSummary_other": "Gry z brakującymi prefiksami Wine ({{count}})",
+            "title": "Biblioteka i system",
+            "wineHint": "Te wersje były zainstalowane na systemie źródłowym, ale tu ich nie ma. Te wersje, które można pobrać, zostaną zakolejkowane automatycznie.",
+            "wineSummary_one": "Brakujące wersje Wine / Proton ({{count}})",
+            "wineSummary_other": "Brakujące wersje Wine / Proton ({{count}})"
+        },
+        "steps": {
+            "credentials": "Dane logowania sklepów",
+            "done": "Gotowe",
+            "global-settings": "Ustawienia globalne",
+            "per-game": "Ustawienia gry",
+            "library-system": "Biblioteka i system",
+            "pick-file": "Wybierz plik kopii",
+            "summary": "Podsumowanie"
+        },
+        "summaryValue": "Wartość",
+        "version": "Wersja Heroic",
+        "wine-versions": "Wersje Wine",
+        "apply": "Zastosuj kopię zapasową",
+        "applying": "Stosowanie zmian...",
+        "categories": "Własne kategorie",
+        "created": "Utworzono",
+        "different-platform": "różni się (aktualnie: {{current}})",
+        "export": {
+            "done": "Zapisano w",
+            "failed": "Nie udało się wyeksportować",
+            "filename": "Nazwa pliku",
+            "hint": "Umieść ustawienia Heroic, dane logowania i bibliotekę w jednym pliku .zip, który możesz przywrócić później lub przenieść na inną maszynę.",
+            "output": "Folder wyjściowy",
+            "output-placeholder": "Wybierz folder...",
+            "pickDir": "Zdecyduj, gdzie zapisać kopię zapasową",
+            "run": "Eksportuj",
+            "running": "Eksportowanie...",
+            "summary_one": "Uwzględniono {{count}} z {{total}}",
+            "summary_other": "Uwzględniono {{count}} z {{total}}",
+            "title": "Eksportuj Heroic"
+        },
+        "import": {
+            "hint": "Rozpocznij przewodnik, aby krok po kroku przejrzeć i zastosować uprzednio wyeksportowaną kopię zapasową Heroic.",
+            "open": "Otwórz przewodnik importu",
+            "row": "Przywróć z pliku kopii zapasowej",
+            "title": "Importuj kopię zapasową Heroic"
+        },
+        "invalid-backup": "Ten plik nie jest poprawną kopią zapasową Heroic.",
+        "pick-backup": "Wybierz archiwum z kopią Heroic",
+        "platform-limitations": {
+            "paths": "Ścieżki instalacji z innych systemów operacyjnych zazwyczaj są niepoprawne. Być może trzeba będzie przeinstalować zaimportowane gry lub naprawić ich ścieżki w następnych krokach.",
+            "settings": "Ustawienia globalne mogą odnosić się do narzędzi i folderów, które tu nie istnieją — przejrzyj je, zanim nadpiszesz aktualne ustawienia.",
+            "title": "Import między platformami ma ograniczenia",
+            "wine": "Wersje Wine/Protona, ich prefiksy i powiązane ustawienia odnoszą się tylko do Linuksa i macOS-a — są one pomijane na Windowsie.",
+            "works": "Dane logowania sklepów, biblioteka gier, elementy dodawane ręcznie i własne kategorie działają na każdej platformie."
+        },
+        "sideloaded": "Dodane ręcznie",
+        "step1": {
+            "found": "Kopie znalezione w {{folder}}",
+            "hint": "Wybierz archiwum z kopią Heroic (.zip) uprzednio wyeksportowaną z Heroic. Poniżej widzisz kopie znajdujące się w Twoim domyślnym folderze.",
+            "none": "Nie znaleziono kopii Heroic w tym folderze. Wciąż możesz przeglądać pliki, aby je znaleźć.",
+            "placeholder": "Nie wybrano pliku kopii zapasowej",
+            "title": "Wybierz plik kopii do zaimportowania"
+        },
+        "step2": {
+            "title": "Podsumowanie kopii zapasowej"
+        },
+        "step7": {
+            "applying": "Stosowanie kopii zapasowej...",
+            "failure": "Nie ukończono niektórych kroków",
+            "queued_one": "Do kolejki pobierania dodano {{count}} grę.",
+            "queued_other": "Do kolejki pobierania dodano {{count}} gry(-ier).",
+            "restart-body": "Część ustawień znajduje się w pamięci podręcznej; zmienią się one dopiero po restarcie.",
+            "restart-btn": "Zrestartuj teraz",
+            "restart-title": "Aby zastosować wszystkie zmiany, zrestartuj Heroic",
+            "rollback-hint": "Zapisano migawkę sprzed importu. Możesz go później cofnąć w Ustawieniach > Import/Eksport.",
+            "success": "Zastosowano kopię zapasową",
+            "wine-busy-hint": "Poczekaj, aż Wine / Proton zakończą instalację",
+            "wine-progress-body": "Poczekaj — przyciski Zrestartuj i Zamknij są wyłączone, dopóki nie skończą się instalować wszystkie wybrane wersje.",
+            "wine-progress-title": "Instalowanie wersji Wine / Proton ({{current}}/{{total}})"
+        },
+        "summaryProperty": "Właściwość",
+        "unsupported-format": "Ta kopia zapasowa używa nowszego formatu od tego wspieranego przez tę wersję Heroic.",
+        "validating": "Sprawdzanie poprawności...",
+        "wizard-title": "Importuj kopię zapasową Heroic"
+    }
 }

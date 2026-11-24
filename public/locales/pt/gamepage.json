@@ -10,7 +10,8 @@
         "move": {
             "message": "Isto pode levar bastante tempo, tem a certeza?",
             "path": "Escolher para onde quer mover",
-            "title": "Mover a Instalação do Jogo"
+            "title": "Mover a Instalação do Jogo",
+            "steamMessage": ""
         },
         "no": "NÃO",
         "repair": {
@@ -73,7 +74,7 @@
         "cancel": "Pausar/Cancelar",
         "continue": "Continuar a Transferência",
         "finish": "Terminar",
-        "force_update": "Forçar Atualização se Disponível",
+        "force_update": "Forçar a Atualização se Disponível",
         "force-innstall": "Forçar Instalação",
         "hide_game": "Ocultar Jogo",
         "import": "Importar Jogo",
@@ -100,7 +101,13 @@
         "edit-game": "Editar Jogo",
         "favourite": "Adicionar aos Favoritos",
         "unfavourite": "Remover dos Favoritos",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Atrás",
+        "next": "Próximo",
+        "skip-installer": {
+            "title": "Pular"
+        }
     },
     "cloud_save_unsupported": "Não é suportado",
     "disabled": "Desativado",
@@ -115,7 +122,7 @@
         "getting-install-size": "A receber o tamanho da instalação",
         "installSize": "Tamanho da Instalação",
         "language": "Idioma",
-        "lastPlayed": "Jogado pela Última vez",
+        "lastPlayed": "Jogado pela Última Vez",
         "neverPlayed": "Nunca",
         "platform": "Selecione a Versão da Plataforma para Instalar",
         "requirements": "Requisitos do Sistema",
@@ -180,7 +187,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Espaço Disponível",
@@ -200,7 +212,10 @@
             "ok": "Ok",
             "disabled_installation": "Este jogo usa um sistema de anti-batota que não é compatível com o seu sistema operativo ou não está ativado para o suportar, pelos criadores do jogo. Isso significa que as funcionalidades de multi-jogador não vão funcionar e não há nada que você (ou a equipa do Heroic) possa fazer em relação a isto. <br /><br />Mesmo assim, se quiser instalar o jogo e verificar se funciona, vá a 'Definições', depois 'Avançado' e selecione a opção para permitir a instalação de jogos com anti-batota danificada ou recusada. <br /><br />Lembre-se que não existe solução para isto, pode correr o risco de ser banido no jogo."
         },
-        "flatpak-path-not-writtable": "Erro: O acesso ao contentor não foi fornecido a este caminho, irá ocorrer a perda de dados."
+        "flatpak-path-not-writtable": "Erro: O acesso ao contentor não foi fornecido a este caminho, irá ocorrer a perda de dados.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -246,7 +261,8 @@
             "specificVersion-pt1": "Isso vai fazer o download de uma versão especifica do Steam",
             "specificVersion-pt2": "archive.org"
         },
-        "releaseDate": "Data de Lançamento"
+        "releaseDate": "Data de Lançamento",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Opções de Arranque...",
@@ -296,6 +312,12 @@
         },
         "images": {
             "summary": "Imagens"
+        },
+        "step": {
+            "compat": "Verificar Compatibilidade",
+            "finish": "Terminar",
+            "images": "Imagens",
+            "install": "Cancelar a Instalação"
         }
     },
     "specs": {
@@ -350,7 +372,8 @@
         "extraInfo": "Informação extra",
         "logs": "Registos de Eventos",
         "categories": "Categorias",
-        "more": ""
+        "more": "",
+        "options": "Opções"
     },
     "help": {
         "cloud_save_unsupported": "Este jogo não suporta a cópia de progressos guardados na nuvem. Esta informação é fornecida pelos programadores do jogo. Alguns jogos implementam o seu próprio sistema de cópia de progressos guardados na nuvem",
@@ -416,6 +439,11 @@
             "installInfo": "Tamanho do Descarregamento",
             "launchOptions": "Opções de execução",
             "storeInfo": "Informações do Sistema"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

@@ -10,7 +10,8 @@
         "move": {
             "message": "Tämä voi kestää kauan, oletko varma?",
             "path": "Valitse mihin haluat siirtää",
-            "title": "Siirrä pelin asennus"
+            "title": "Siirrä pelin asennus",
+            "steamMessage": ""
         },
         "no": "EI",
         "repair": {
@@ -99,7 +100,13 @@
         "edit-game": "Muokkaa sovellusta/peliä",
         "favourite": "Lisää suosikkeihin",
         "unfavourite": "Poista suosikeista",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Takaisin",
+        "next": "Seuraava",
+        "skip-installer": {
+            "title": "Ohita"
+        }
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
@@ -179,7 +186,12 @@
             "playable": ""
         },
         "developer": "",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Tilaa saatavilla",
@@ -199,7 +211,10 @@
             "multiplayer_message": "Huijaukseneston tuki on rikki tai evätty. Peli voi käynnistyä mutta moninpeliominaisuudet eivät tule toimimaan. Haluatko asentaa pelin tästä huolimatta?",
             "disabled_installation": "Tämä peli käyttää huijauksenestojärjestelmää joka ei ole yhteensopiva käyttöjärjestelmäsi kanssa, tai pelinkehittäjät eivät ole aktivoineet sitä. Tämä tarkoittaa, että moninpeliominaisuudet eivät toimi, etkä sinä (tai Heroic-tiimi) voi asialle mitään.<br /><br />Asentaaksesi tämän pelin jokatapauksessa, mene asetuksiin, sieltä lisäasetuksiin ja salli niiden pelien asennus joissa huijauksenesto on rikki tai muutoin estetty.<br /><br />Huomaa, että tähän ei ole ratkaisua ja saatat saada peliin pelikiellon."
         },
-        "flatpak-path-not-writtable": "Virhe: pääsy tähän polkuun on hiekkalaatikoinnin ulkopuolella ja evätty, tiedonmenetystä tulee tapahtumaan."
+        "flatpak-path-not-writtable": "Virhe: pääsy tähän polkuun on hiekkalaatikoinnin ulkopuolella ja evätty, tiedonmenetystä tulee tapahtumaan.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -224,7 +239,8 @@
             "pleaseWait": "Odota...",
             "installation": "Pysäytä asennus"
         },
-        "releaseDate": "Julkaisupäivä"
+        "releaseDate": "Julkaisupäivä",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Käynnistysasetukset...",
@@ -274,6 +290,12 @@
         },
         "images": {
             "summary": "Kuvat"
+        },
+        "step": {
+            "compat": "Tarkista yhteensopivuus",
+            "finish": "Viimeistele",
+            "images": "Kuvat",
+            "install": "Pysäytä asennus"
         }
     },
     "specs": {
@@ -324,11 +346,12 @@
         "removeShortcut": "Poista näppäinyhdistelmät",
         "settings": "Asetukset",
         "store": "Kauppasivu",
-        "verify": "Vahvista ja korjaa",
+        "verify": "Tarkista ja korjaa",
         "extraInfo": "Lisätiedot",
         "logs": "Lokit",
         "categories": "Kategoriat",
-        "more": ""
+        "more": "",
+        "options": "Asetukset"
     },
     "help": {
         "cloud_save_unsupported": "Tämä peli ei tue pilvitallennusta. Nämä tiedot ovat pelin kehittäjien toimittamia. Jotkin pelit toteuttavat oman pilvitallennusjärjestelmänsä.",
@@ -392,7 +415,13 @@
             "achievements": "Saavutukset",
             "dlc": "DLC",
             "installInfo": "Latauksen koko",
-            "storeInfo": "Järjestelmätiedot"
+            "storeInfo": "Järjestelmätiedot",
+            "launchOptions": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
