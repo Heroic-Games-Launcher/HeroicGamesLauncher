@@ -382,6 +382,9 @@ export default function Discounts() {
   // those filters are hidden AND skipped unless the shown set is GOG-only:
   // the GOG tab, or any tab when no other store contributes.
   const showGogOnlyFilters = storeTab === 'gog' || !nonGogPresent
+  // The mature-content toggle applies to GOG products, which are shown on
+  // both the GOG tab and the mixed "all stores" tab.
+  const showMatureFilter = storeTab === 'all' || storeTab === 'gog'
   // The price range needs a single currency; on the mixed "all" tab (region
   // currency for GOG, its own currency for each external store) it is hidden
   // and not applied.
@@ -843,6 +846,7 @@ export default function Discounts() {
             onHideDlcsChange={setHideDlcs}
             showMature={showMature}
             onShowMatureChange={setShowMature}
+            showMatureFilter={showMatureFilter}
             hideOwned={hideOwned}
             onHideOwnedChange={setHideOwned}
             wishlistOnly={wishlistOnly}

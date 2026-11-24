@@ -51,6 +51,7 @@ interface Props {
   onHideDlcsChange: (value: boolean) => void
   showMature: boolean
   onShowMatureChange: (value: boolean) => void
+  showMatureFilter: boolean
   hideOwned: boolean
   onHideOwnedChange: (value: boolean) => void
   wishlistOnly: boolean
@@ -100,6 +101,7 @@ const DiscountFilters = ({
   onHideDlcsChange,
   showMature,
   onShowMatureChange,
+  showMatureFilter,
   hideOwned,
   onHideOwnedChange,
   wishlistOnly,
@@ -352,9 +354,9 @@ const DiscountFilters = ({
           </SelectField>
         </FilterSection>
 
-        {showGogOnlyFilters && (
+        {showMatureFilter && (
           <FilterSection label={t('header.display', 'Display')}>
-            {isGogLoggedIn && (
+            {showGogOnlyFilters && isGogLoggedIn && (
               <>
                 <Chip
                   active={wishlistOnly}
@@ -372,13 +374,15 @@ const DiscountFilters = ({
                 </Chip>
               </>
             )}
-            <Chip
-              active={hideDlcs}
-              icon={<Icon glyph={Layers} size="md" />}
-              onClick={() => onHideDlcsChange(!hideDlcs)}
-            >
-              {t('discounts.filters.hideDlcs', 'Hide DLCs')}
-            </Chip>
+            {showGogOnlyFilters && (
+              <Chip
+                active={hideDlcs}
+                icon={<Icon glyph={Layers} size="md" />}
+                onClick={() => onHideDlcsChange(!hideDlcs)}
+              >
+                {t('discounts.filters.hideDlcs', 'Hide DLCs')}
+              </Chip>
+            )}
             <Chip
               active={showMature}
               icon={<Icon glyph={Eye} size="md" />}
