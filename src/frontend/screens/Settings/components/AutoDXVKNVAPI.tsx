@@ -16,18 +16,19 @@ const AutoDXVKNVAPI = () => {
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [installingDxvkNvapi, setInstallingDxvkNvapi] = React.useState(false)
 
+  if (wineVersion.type !== 'wine') {
+    return <></>
+  }
+
   const handleAutoInstallDxvkNvapi = async () => {
     let res = true
-    const isProton = wineVersion.type === 'proton'
-    setInstallingDxvkNvapi(true)
 
-    if (!isProton) {
-      const action = autoInstallDXVKNVAPI ? 'restore' : 'backup'
-      res = await window.api.toggleDXVKNVAPI({
-        appName,
-        action
-      })
-    }
+    setInstallingDxvkNvapi(true)
+    const action = autoInstallDXVKNVAPI ? 'restore' : 'backup'
+    res = await window.api.toggleDXVKNVAPI({
+      appName,
+      action
+    })
 
     setInstallingDxvkNvapi(false)
     if (res) {

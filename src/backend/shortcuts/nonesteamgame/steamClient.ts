@@ -25,7 +25,9 @@ interface SteamClientShortcut {
   appid: number
   appName: string
   exe: string
+  startDir: string
   launchOptions: string
+  shortcutPath: string
 }
 
 interface CEFTarget {
@@ -63,7 +65,15 @@ async function getSharedJSContextSocketUrl(): Promise<string | null> {
 }
 
 async function isSteamClientApiAvailable(): Promise<boolean> {
-  return (await getSharedJSContextSocketUrl()) !== null
+  // A reachable debugging socket does not guarantee the SteamClient API exists.
+  try {
+    const probe = await evalInSteamClient<boolean>(
+      'typeof SteamClient !== "undefined" && !!SteamClient.Apps'
+    )
+    return probe === true
+  } catch {
+    return false
+  }
 }
 
 interface EvaluateResponse {
@@ -169,7 +179,9 @@ async function getSteamClientShortcuts(): Promise<SteamClientShortcut[]> {
           appid: app.appid,
           appName: details?.strDisplayName ?? app.display_name ?? '',
           exe: details?.strShortcutExe ?? '',
-          launchOptions: details?.strShortcutLaunchOptions ?? ''
+          startDir: details?.strShortcutStartDir ?? '',
+          launchOptions: details?.strShortcutLaunchOptions ?? '',
+          shortcutPath: details?.strShortcutPath ?? ''
         })
       }
       return shortcuts
@@ -181,6 +193,13 @@ async function getSteamClientShortcuts(): Promise<SteamClientShortcut[]> {
   return shortcuts
 }
 
+/** Strips the surrounding quotes used for shortcuts.vdf, which the SteamClient API does not expect. */
+function unquote(value: string): string {
+  return value.length > 1 && value.startsWith('"') && value.endsWith('"')
+    ? value.slice(1, -1)
+    : value
+}
+
 async function addShortcutViaSteamClient(props: {
   name: string
   exe: string
@@ -189,8 +208,8 @@ async function addShortcutViaSteamClient(props: {
   icon?: string
 }): Promise<number> {
   const name = JSON.stringify(props.name)
-  const exe = JSON.stringify(props.exe)
-  const startDir = JSON.stringify(props.startDir)
+  const exe = JSON.stringify(unquote(props.exe))
+  const startDir = JSON.stringify(unquote(props.startDir))
   const launchOptions = JSON.stringify(props.launchOptions)
   const icon = props.icon ? JSON.stringify(props.icon) : ''
 
@@ -200,11 +219,11 @@ async function addShortcutViaSteamClient(props: {
       if (typeof appId !== 'number' || appId <= 0) {
         throw new Error('AddShortcut did not return an app id')
       }
-      SteamClient.Apps.SetShortcutName(appId, ${name})
-      SteamClient.Apps.SetShortcutExe(appId, ${exe})
-      SteamClient.Apps.SetShortcutStartDir(appId, ${startDir})
-      SteamClient.Apps.SetShortcutLaunchOptions(appId, ${launchOptions})
-      ${icon ? `SteamClient.Apps.SetShortcutIcon(appId, ${icon})` : ''}
+      await SteamClient.Apps.SetShortcutName(appId, ${name})
+      await SteamClient.Apps.SetShortcutExe(appId, ${exe})
+      await SteamClient.Apps.SetShortcutStartDir(appId, ${startDir})
+      await SteamClient.Apps.SetShortcutLaunchOptions(appId, ${launchOptions})
+      ${icon ? `await SteamClient.Apps.SetShortcutIcon(appId, ${icon})` : ''}
       return appId
     })()`
   )
@@ -213,7 +232,7 @@ async function addShortcutViaSteamClient(props: {
 async function removeShortcutViaSteamClient(appId: number): Promise<void> {
   await evalInSteamClient<boolean>(
     `(async () => {
-      SteamClient.Apps.RemoveShortcut(${Math.trunc(appId)})
+      await SteamClient.Apps.RemoveShortcut(${Math.trunc(appId)})
       return true
     })()`
   )

@@ -6,8 +6,11 @@ import type {
   AntiCheatInfo,
   AppSettings,
   ButtonOptions,
+  CloudSyncResult,
   ConnectivityStatus,
   ControllerBattery,
+  DetectSavePathsResult,
+  SaveBackupEntry,
   DialogType,
   DiskSpaceData,
   DMQueueElement,
@@ -86,6 +89,7 @@ import { ParsedProtonShorctut } from './proton_shorctuts'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
+  cancelSavePathsDetection: (appName: string, runner: Runner) => void
   setZoomFactor: (zoomFactor: string) => void
   changeLanguage: (language: string) => void
   notify: (args: { title: string; body: string }) => void
@@ -290,9 +294,10 @@ interface AsyncIPCFunctions {
     user: ItchioUserData | undefined
   }>
   authZoom: (url: string) => Promise<{ status: 'done' | 'error' }>
-  loginSteam: (
-    credentials: SteamLoginData
-  ) => Promise<{ status: 'done' | 'error'; error?: string }>
+  loginSteam: (credentials: SteamLoginData) => Promise<{
+    status: 'done' | 'error'
+    error?: string
+  }>
   loginSteamQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
@@ -322,8 +327,26 @@ interface AsyncIPCFunctions {
     gogSaves: GOGCloudSavesLocation[],
     appname: string,
     arg: string
-  ) => Promise<string>
-  syncSaves: (args: SaveSyncArgs) => Promise<string>
+  ) => Promise<CloudSyncResult>
+  syncSaves: (args: SaveSyncArgs) => Promise<CloudSyncResult>
+  getSaveBackups: (
+    appName: string,
+    runner: Runner
+  ) => Promise<SaveBackupEntry[]>
+  getSaveBackupPath: (appName: string) => Promise<string>
+  detectSavePaths: (
+    appName: string,
+    runner: Runner
+  ) => Promise<DetectSavePathsResult>
+  restoreSaveBackup: (
+    appName: string,
+    runner: Runner,
+    backupId: string
+  ) => Promise<{
+    status: 'done' | 'error'
+    error?: string
+    alreadyCurrent?: boolean
+  }>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
@@ -413,6 +436,11 @@ interface AsyncIPCFunctions {
   getAmazonLoginData: () => Promise<NileLoginData>
   getItchioLoginData: () => Promise<ItchioLoginData>
   hasExecutable: (executable: string) => Promise<boolean>
+  getPrimaryDisplay: () => Promise<{
+    width: number
+    height: number
+    scaleFactor: number
+  }>
 
   setPrivateBranchPassword: (appName: string, password: string) => void
   getPrivateBranchPassword: (appName: string) => string

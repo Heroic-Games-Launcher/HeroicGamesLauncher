@@ -63,6 +63,7 @@ import { download, isInstalled } from './wine/runtimes/runtimes'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
+import { extractWinePath } from './cloud_saves/wine_path_output'
 import { copyFile } from 'fs/promises'
 import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
@@ -125,7 +126,18 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   }
 
   const gameSettings = await game.getSettings()
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const { autoSyncSaves } = gameSettings
+  let { savesPath, gogSaves = [] } = gameSettings
+
+  const refreshSavePaths = async () => {
+    const { refreshSavePathsIfConfigurationChanged } =
+      await import('./save_sync')
+    if (await refreshSavePathsIfConfigurationChanged(appName, runner)) {
+      const updated = await game.getSettings()
+      savesPath = updated.savesPath
+      gogSaves = updated.gogSaves ?? []
+    }
+  }
 
   if (!launchArguments && gameSettings.lastUsedLaunchOption) {
     launchArguments = gameSettings.lastUsedLaunchOption
@@ -144,6 +156,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   logInfo(`Launching ${title} (${appName})`, LogPrefix.Backend)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -151,8 +165,15 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     })
     logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
     try {
-      await game.syncSaves('--skip-upload', savesPath, gogSaves)
-      logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      const result = await game.syncSaves('--skip-upload', savesPath, gogSaves)
+      if (result.state === 'ok') {
+        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
+      } else {
+        logWarning(
+          `Could not download saves for ${title}: ${result.state}${result.reason ? ` (${result.reason})` : ''}`,
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(
         `Error while downloading saves for ${title}. ${error}`,
@@ -293,6 +314,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   await addRecentGame(gameInfo)
 
   if (autoSyncSaves && isOnline()) {
+    await refreshSavePaths()
+
     sendGameStatusUpdate({
       appName,
       runner,
@@ -307,8 +330,19 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
     logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
     try {
-      await game.syncSaves('--skip-download', savesPath, gogSaves)
-      logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      const result = await game.syncSaves(
+        '--skip-download',
+        savesPath,
+        gogSaves
+      )
+      if (result.state === 'ok') {
+        logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
+      } else {
+        logWarning(
+          `Could not upload saves for ${title}: ${result.state}${result.reason ? ` (${result.reason})` : ''}`,
+          LogPrefix.Backend
+        )
+      }
     } catch (error) {
       logError(
         `Error uploading saves for ${title}. Error: ${error}`,
@@ -338,8 +372,6 @@ function filterGameSettingsForLog(
   const gameSettings: PartialDeep<GameSettings> =
     structuredClone(originalSettings)
 
-  // this is irrelevant for support
-  delete gameSettings.enableQuickSavesMenu
   // if this is visible, it means verboseLogs is true, no need to print it
   delete gameSettings.verboseLogs
 
@@ -596,13 +628,10 @@ async function prepareLaunch(
       if (isFlatpak) {
         reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime ${flatpakRuntimeVersion} and restart Heroic.`
       }
-      return {
-        success: false,
-        failureReason: reason
-      }
+      logWarning(reason)
+    } else {
+      mangoHudCommand = [mangoHudBin, '--dlsym']
     }
-
-    mangoHudCommand = [mangoHudBin, '--dlsym']
   }
 
   if (gameSettings.useGameMode) {
@@ -616,11 +645,17 @@ async function prepareLaunch(
     }
   }
 
-  if (
-    (gameSettings.gamescope?.enableLimiter ||
-      gameSettings.gamescope?.enableUpscaling) &&
-    !isSteamDeckGameMode
-  ) {
+  const gamescopeSettings = gameSettings.gamescope
+  const wantsGamescope =
+    gamescopeSettings &&
+    (gamescopeSettings.enableLimiter ||
+      gamescopeSettings.enableUpscaling ||
+      gamescopeSettings.enableForceGrabCursor ||
+      gamescopeSettings.enableHDR ||
+      gamescopeSettings.enableAdaptiveSync ||
+      !!gamescopeSettings.additionalOptions?.trim())
+
+  if (wantsGamescope && !isSteamDeckGameMode) {
     const gameScopeBin = await searchForExecutableOnPath('gamescope')
     if (!gameScopeBin) {
       let warningMessage =
@@ -643,61 +678,69 @@ async function prepareLaunch(
 
       gameScopeCommand.push(gameScopeBin)
 
-      if (gameSettings.gamescope.enableUpscaling) {
+      if (gamescopeSettings.enableUpscaling) {
         // game res
-        if (gameSettings.gamescope.gameWidth) {
-          gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
+        if (gamescopeSettings.gameWidth) {
+          gameScopeCommand.push('-w', gamescopeSettings.gameWidth)
         }
-        if (gameSettings.gamescope.gameHeight) {
-          gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
+        if (gamescopeSettings.gameHeight) {
+          gameScopeCommand.push('-h', gamescopeSettings.gameHeight)
         }
 
         // gamescope res
-        if (gameSettings.gamescope.upscaleWidth) {
-          gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
+        if (gamescopeSettings.upscaleWidth) {
+          gameScopeCommand.push('-W', gamescopeSettings.upscaleWidth)
         }
-        if (gameSettings.gamescope.upscaleHeight) {
-          gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
+        if (gamescopeSettings.upscaleHeight) {
+          gameScopeCommand.push('-H', gamescopeSettings.upscaleHeight)
         }
 
         // upscale method
-        if (gameSettings.gamescope.upscaleMethod === 'fsr') {
+        if (gamescopeSettings.upscaleMethod === 'fsr') {
           if (oldVersion) gameScopeCommand.push('-U')
           else gameScopeCommand.push('-F', 'fsr')
         }
-        if (gameSettings.gamescope.upscaleMethod === 'nis') {
+        if (gamescopeSettings.upscaleMethod === 'nis') {
           if (oldVersion) gameScopeCommand.push('-Y')
           else gameScopeCommand.push('-F', 'nis')
         }
-        if (gameSettings.gamescope.upscaleMethod === 'integer') {
+        if (gamescopeSettings.upscaleMethod === 'integer') {
           if (oldVersion) gameScopeCommand.push('-i')
           else gameScopeCommand.push('-S', 'integer')
         }
         // didn't find stretch in old version
-        if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
+        if (gamescopeSettings.upscaleMethod === 'stretch' && !oldVersion) {
           gameScopeCommand.push('-S', 'stretch')
         }
 
         // window type
-        if (gameSettings.gamescope.windowType === 'fullscreen') {
+        if (gamescopeSettings.windowType === 'fullscreen') {
           gameScopeCommand.push('-f')
         }
-        if (gameSettings.gamescope.windowType === 'borderless') {
+        if (gamescopeSettings.windowType === 'borderless') {
           gameScopeCommand.push('-b')
         }
       }
 
-      if (gameSettings.gamescope.enableLimiter) {
-        if (gameSettings.gamescope.fpsLimiter) {
-          gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
+      if (gamescopeSettings.enableLimiter) {
+        if (gamescopeSettings.fpsLimiter) {
+          gameScopeCommand.push('-r', gamescopeSettings.fpsLimiter)
         }
-        if (gameSettings.gamescope.fpsLimiterNoFocus) {
-          gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
+        if (gamescopeSettings.fpsLimiterNoFocus) {
+          gameScopeCommand.push('-o', gamescopeSettings.fpsLimiterNoFocus)
         }
       }
 
-      if (gameSettings.gamescope.enableForceGrabCursor) {
+      if (gamescopeSettings.enableForceGrabCursor) {
         gameScopeCommand.push('--force-grab-cursor')
+      }
+
+      if (gamescopeSettings.enableHDR && !oldVersion) {
+        gameScopeCommand.push('--hdr-enabled')
+      }
+
+      if (gamescopeSettings.enableAdaptiveSync && !oldVersion) {
+        gameScopeCommand.push('--adaptive-sync')
       }
 
       if (gameSettings.showMangohud) {
@@ -705,7 +748,7 @@ async function prepareLaunch(
       }
 
       gameScopeCommand.push(
-        ...shlex.split(gameSettings.gamescope.additionalOptions ?? '')
+        ...shlex.split(gamescopeSettings.additionalOptions ?? '')
       )
 
       // Note: needs to be the last option
@@ -1190,17 +1233,38 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (isLinux && !gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
+  if (isLinux && gameSettings.disableNTSync && wineVersion.type === 'proton') {
+    if (/cachyos/i.test(wineVersion.name)) {
+      ret.PROTON_USE_NTSYNC = '0'
+    } else {
+      ret.PROTON_NO_NTSYNC = '1'
+    }
+  }
   if (isLinux && gameSettings.enableWineWayland) {
     if (wineVersion.type === 'proton') {
       ret.PROTON_ENABLE_WAYLAND = '1'
-      if (gameSettings.enableHDR) {
-        ret.PROTON_ENABLE_HDR = '1'
-      }
     } else {
       ret.DISPLAY = ''
-      if (gameSettings.enableHDR) {
-        ret.DXVK_HDR = '1'
+    }
+  }
+  if (isLinux) {
+    const hdrMode =
+      gameSettings.hdrMode ??
+      (gameSettings.enableHDR === true
+        ? 'force'
+        : gameSettings.enableHDR === false
+          ? 'off'
+          : 'auto')
+    if (hdrMode === 'off') {
+      ret.DXVK_HDR = '0'
+      ret.DXVK_NO_HDR = '1'
+    } else if (hdrMode === 'force') {
+      if (wineVersion.type === 'proton') {
+        ret.PROTON_FORCE_HDR = '1'
+        // Legacy alias used by older GE-Proton/Proton-CachyOS builds.
+        ret.PROTON_ENABLE_HDR = '1'
       }
+      ret.DXVK_HDR = '1'
     }
   }
   if (isLinux && gameSettings.enableWoW64) {
@@ -1211,13 +1275,28 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
   }
   if (wineVersion.type === 'proton') {
-    if (gameSettings.autoInstallDxvkNvapi) {
-      ret.PROTON_ENABLE_NVAPI = '1'
-      ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
-    }
-    // proton 9 enabled NVAPI by default
-    else {
+    const nvapiMode = gameSettings.nvapiMode ?? 'auto'
+    if (nvapiMode === 'off') {
       ret.PROTON_DISABLE_NVAPI = '1'
+    } else {
+      if (nvapiMode === 'force') {
+        ret.PROTON_FORCE_NVAPI = '1'
+      }
+      if (gameSettings.autoInstallDxvkNvapi) {
+        // Legacy aliases still needed by Proton < 9 and non-NVIDIA drivers.
+        ret.PROTON_ENABLE_NVAPI = '1'
+        ret.DXVK_NVAPI_ALLOW_OTHER_DRIVERS = '1'
+      }
+    }
+    if (gameSettings.fsr4Upgrade) {
+      ret.PROTON_FSR4_UPGRADE = '1'
+    }
+    if (gameSettings.dlssUpgrade) {
+      ret.PROTON_DLSS_UPGRADE = '1'
+      ret.PROTON_STREAMLINE_UPGRADE = '1'
+    }
+    if (gameSettings.useOptiScaler) {
+      ret.PROTON_USE_OPTISCALER = '1'
     }
   }
   if (
@@ -1241,6 +1320,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = process.env.SteamGameId || `heroic-${gameId}`
     ret.PROTON_LOG_DIR = flatpakHome
+    if (gameSettings.disableProtonFixes) {
+      ret.PROTONFIXES_DISABLE = '1'
+    }
     // add back default wine/dxvk debug logging
     if (gameSettings?.verboseLogs) {
       if (
@@ -1690,7 +1772,7 @@ async function callRunner(
     shouldUsePowerShell =
       isWindows && !!(await searchForExecutableOnPath('powershell'))
 
-  if (shouldUsePowerShell) {
+  if (shouldUsePowerShell && options?.waitForChildProcesses !== false) {
     const argsAsString = commandParts
       .map((part) => part.replaceAll('\\', '\\\\'))
       .map((part) => `"\`"${part}\`""`)
@@ -1930,12 +2012,14 @@ async function getWinePath({
     ignoreLogging: true
   })
 
-  const result = stdout.trim()
+  const result = extractWinePath(stdout, variant)
+
   if (!result) {
     logError(
       `Couldn't get wine path for ${path}.\n${stderr}`,
       LogPrefix.Backend
     )
+    return ''
   }
 
   return result

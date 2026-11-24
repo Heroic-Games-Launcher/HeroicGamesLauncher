@@ -12,6 +12,7 @@ import {
   RefreshCw
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { toIntlLocale } from 'common/utils'
 
 import Alert from '../Alert'
 import type { AlertVariant } from '../Alert'
@@ -74,10 +75,9 @@ function formatRelative(when: number, language: string): string {
     unitMs = candidateMs
   }
 
-  return new Intl.RelativeTimeFormat(language, { numeric: 'auto' }).format(
-    Math.round(difference / unitMs),
-    unit
-  )
+  return new Intl.RelativeTimeFormat(toIntlLocale(language), {
+    numeric: 'auto'
+  }).format(Math.round(difference / unitMs), unit)
 }
 
 /** Alert tone and glyph per state. */
