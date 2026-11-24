@@ -451,6 +451,7 @@
             "price": "Price",
             "rating": "Rating",
             "releaseYear": "Release year",
+            "showMature": "Show NSFW",
             "sort": "Sort by",
             "wishlistOnly": "Wishlist only"
         },

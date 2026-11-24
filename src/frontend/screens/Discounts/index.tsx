@@ -25,6 +25,7 @@ import {
   getStoredGmgCurrency,
   getStoredRegionOverride,
   GMG_CURRENCIES,
+  isMatureProduct,
   loadStoredFilters,
   normalizeRating,
   OS_OPTIONS,
@@ -109,6 +110,7 @@ export default function Discounts() {
     setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
+    setShowMature(false)
     setHideOwned(false)
     setWishlistOnly(false)
   }
@@ -154,6 +156,9 @@ export default function Discounts() {
     storedFilters.searchQuery ?? ''
   )
   const [hideDlcs, setHideDlcs] = useState(storedFilters.hideDlcs ?? false)
+  const [showMature, setShowMature] = useState(
+    storedFilters.showMature ?? false
+  )
   const [hideOwned, setHideOwned] = useState(storedFilters.hideOwned ?? false)
   const [wishlistOnly, setWishlistOnly] = useState(
     storedFilters.wishlistOnly ?? false
@@ -181,6 +186,7 @@ export default function Discounts() {
       maxPegiAge,
       searchQuery,
       hideDlcs,
+      showMature,
       hideOwned,
       wishlistOnly,
       pageSize
@@ -196,6 +202,7 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
+    showMature,
     hideOwned,
     wishlistOnly,
     pageSize
@@ -375,6 +382,9 @@ export default function Discounts() {
   // those filters are hidden AND skipped unless the shown set is GOG-only:
   // the GOG tab, or any tab when no other store contributes.
   const showGogOnlyFilters = storeTab === 'gog' || !nonGogPresent
+  // The mature-content toggle applies to GOG products, which are shown on
+  // both the GOG tab and the mixed "all stores" tab.
+  const showMatureFilter = storeTab === 'all' || storeTab === 'gog'
   // The price range needs a single currency; on the mixed "all" tab (region
   // currency for GOG, its own currency for each external store) it is hidden
   // and not applied.
@@ -452,6 +462,8 @@ export default function Discounts() {
 
       if (showGogOnlyFilters && hideDlcs && p.productType === 'dlc')
         return false
+
+      if (!showMature && isMatureProduct(p.tags, p.ratings)) return false
 
       if (
         effectiveWishlistOnly &&
@@ -582,6 +594,7 @@ export default function Discounts() {
     featureOptions,
     searchQuery,
     hideDlcs,
+    showMature,
     effectiveWishlistOnly,
     wishlistIds,
     sortBy
@@ -604,6 +617,7 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
+    showMature,
     effectiveHideOwned,
     effectiveWishlistOnly,
     pageSize,
@@ -626,6 +640,7 @@ export default function Discounts() {
     ratingRange[1] !== RATING_SCALE_MAX ||
     maxPegiAge !== null ||
     hideDlcs ||
+    showMature ||
     effectiveHideOwned ||
     effectiveWishlistOnly ||
     (releaseYearRange !== null &&
@@ -653,6 +668,7 @@ export default function Discounts() {
     setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
+    setShowMature(false)
     setHideOwned(false)
     setWishlistOnly(false)
   }
@@ -828,6 +844,9 @@ export default function Discounts() {
             onSearchChange={setSearchQuery}
             hideDlcs={hideDlcs}
             onHideDlcsChange={setHideDlcs}
+            showMature={showMature}
+            onShowMatureChange={setShowMature}
+            showMatureFilter={showMatureFilter}
             hideOwned={hideOwned}
             onHideOwnedChange={setHideOwned}
             wishlistOnly={wishlistOnly}

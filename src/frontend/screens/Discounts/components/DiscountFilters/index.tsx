@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem } from '@mui/material'
-import { Heart, EyeOff, Layers } from 'lucide-react'
+import { Eye, EyeOff, Heart, Layers } from 'lucide-react'
 import SearchBar from 'frontend/components/UI/SearchBar'
 import SelectField from 'frontend/components/UI/SelectField'
 import MultiSelectField from 'frontend/components/UI/MultiSelectField'
@@ -49,6 +49,9 @@ interface Props {
   onSearchChange: (query: string) => void
   hideDlcs: boolean
   onHideDlcsChange: (value: boolean) => void
+  showMature: boolean
+  onShowMatureChange: (value: boolean) => void
+  showMatureFilter: boolean
   hideOwned: boolean
   onHideOwnedChange: (value: boolean) => void
   wishlistOnly: boolean
@@ -96,6 +99,9 @@ const DiscountFilters = ({
   onSearchChange,
   hideDlcs,
   onHideDlcsChange,
+  showMature,
+  onShowMatureChange,
+  showMatureFilter,
   hideOwned,
   onHideOwnedChange,
   wishlistOnly,
@@ -348,9 +354,9 @@ const DiscountFilters = ({
           </SelectField>
         </FilterSection>
 
-        {showGogOnlyFilters && (
+        {showMatureFilter && (
           <FilterSection label={t('header.display', 'Display')}>
-            {isGogLoggedIn && (
+            {showGogOnlyFilters && isGogLoggedIn && (
               <>
                 <Chip
                   active={wishlistOnly}
@@ -368,12 +374,21 @@ const DiscountFilters = ({
                 </Chip>
               </>
             )}
+            {showGogOnlyFilters && (
+              <Chip
+                active={hideDlcs}
+                icon={<Icon glyph={Layers} size="md" />}
+                onClick={() => onHideDlcsChange(!hideDlcs)}
+              >
+                {t('discounts.filters.hideDlcs', 'Hide DLCs')}
+              </Chip>
+            )}
             <Chip
-              active={hideDlcs}
-              icon={<Icon glyph={Layers} size="md" />}
-              onClick={() => onHideDlcsChange(!hideDlcs)}
+              active={showMature}
+              icon={<Icon glyph={Eye} size="md" />}
+              onClick={() => onShowMatureChange(!showMature)}
             >
-              {t('discounts.filters.hideDlcs', 'Hide DLCs')}
+              {t('discounts.filters.showMature', 'Show NSFW')}
             </Chip>
           </FilterSection>
         )}
