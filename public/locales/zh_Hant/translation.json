@@ -11,7 +11,13 @@
         "actions_font_family_default": "Actions Font Family (Default:",
         "content_font_family_default": "內容字型家族（預設：",
         "disable_smooth_scrolling": "",
-        "disable_animations": ""
+        "disable_animations": "",
+        "section": {
+            "library": "遊戲庫",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "新增遊戲",
     "All": "全部",
@@ -101,8 +107,13 @@
             "executableNotFoundMessage": "",
             "remove": {
                 "steam": {
-                    "body": "從 Steam 移除 {{game}} 失敗，錯誤：{{newLine}} {{error}}"
+                    "body": "從 Steam 移除 {{game}} 失敗，錯誤：{{newLine}} {{error}}",
+                    "title": ""
                 }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "info": {
@@ -182,6 +193,12 @@
             "rosetta": {
                 "title": "",
                 "message": ""
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
@@ -190,7 +207,8 @@
         "choose-nile-binary": "選擇 Nile 二進位檔案",
         "update": "更新",
         "changelog": "更新日誌",
-        "postpone": "延遲"
+        "postpone": "延遲",
+        "cancel": "取消"
     },
     "button": {
         "cancel": "取消",
@@ -199,7 +217,9 @@
         "sync": "同步",
         "syncing": "正在同步",
         "unsync": "不同步",
-        "continue": "繼續"
+        "continue": "繼續",
+        "close": "關閉",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -218,7 +238,13 @@
             "scroll": "Scroll",
             "select": "選擇",
             "space": "Space",
-            "update_game": "更新遊戲"
+            "update_game": "更新遊戲",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "exit": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "文件",
@@ -229,7 +255,8 @@
         },
         "label": {
             "disk": "磁碟",
-            "speed": "下載"
+            "speed": "下載",
+            "unit": ""
         },
         "link": "下載",
         "queue": {
@@ -239,7 +266,15 @@
             "type": "類型"
         },
         "title": "下載",
-        "ETA": "預計時間"
+        "ETA": "預計時間",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "因為 Epic Games 伺服器離線，可能無法提供完整線上服務！",
@@ -252,7 +287,8 @@
         "status": "狀態",
         "store": "商店",
         "title": "遊戲名稱",
-        "modify": "修改安裝"
+        "modify": "修改安裝",
+        "settings": "遊戲設定"
     },
     "generic": {
         "error": {
@@ -287,7 +323,12 @@
         "uncategorized": "未分類",
         "only": "僅",
         "show_updates_only": "",
-        "no_categories": ""
+        "no_categories": "",
+        "platforms": "Platform",
+        "stores": "商店",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD FSR 通過在全螢幕模式下提高較低解析度來提高畫面幀率。影像品質從 5 提高到 1，但代價是效能稍有下降。啟用可能會提高效能。",
@@ -374,8 +415,10 @@
         "advertiseAvxForRosetta": "",
         "analytics": "",
         "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -393,7 +436,7 @@
     },
     "infobox": {
         "help": "幫助",
-        "requirements": "系統要求",
+        "requirements": "系統需求",
         "warning": "警告",
         "wine-path": "Wine 路徑",
         "wine-prefix": {
@@ -422,7 +465,9 @@
             "list": "切換到清單排版"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "遊戲庫",
     "loading": {
@@ -436,7 +481,16 @@
         "message": "登入您的平台。您可以同時登入多個平台。",
         "amazon": "Amazon 登入",
         "old-mac": "您的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登入。",
-        "zoom": ""
+        "zoom": "",
+        "itchio": "",
+        "button": "登入",
+        "logout_confirm": {
+            "message": "您確定要登出嗎？",
+            "title": "登出"
+        },
+        "title_amazon": "Amazon 遊戲",
+        "title_epic": "Epic Games1",
+        "title_gog": "GOG"
     },
     "message": {
         "sync": "同步完成",
@@ -452,14 +506,16 @@
                 "steam": {
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "已新增至 Steam"
+                    "title": "已新增至 Steam",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "已從 Steam 移除"
+                    "title": "已從 Steam 移除",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "已完成修復"
@@ -471,7 +527,7 @@
             "imported": "遊戲已導入",
             "startInstall": "安裝開始",
             "failed": "安裝失敗",
-            "paused": "安裝暫停"
+            "paused": "安裝失敗"
         },
         "moved": "移動完成",
         "moving": "移動遊戲中",
@@ -505,16 +561,22 @@
             "placeHolderKey": "名稱",
             "placeHolderValue": "例：Path/To/ExtraFiles",
             "title": "環境變數",
-            "value": "數值"
+            "value": "數值",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "Variable names can't be empty",
                 "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "space_in_key": "Variable names can't contain spaces",
+                "duplicate_key": ""
             },
             "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "info": "Set environment variables to append to the command.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "將啟動參數放在這裡",
@@ -563,7 +625,8 @@
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "EGS 安裝位置",
         "prefered_language": "雙字元代碼（如：\"en\" 或 \"fr\"）",
-        "alt-nile-bin": "使用內建 Nile 二進位檔案…"
+        "alt-nile-bin": "使用內建 Nile 二進位檔案…",
+        "alt-aurelia-bin": "使用內建 Nile 二進位檔案…"
     },
     "platforms": {
         "linux": "Linux",
@@ -583,7 +646,8 @@
             "queued": "佇列中",
             "remove": "從下載中移除",
             "resume": "恢復下載",
-            "pause": "暫停下載"
+            "pause": "暫停下載",
+            "paused": ""
         }
     },
     "Recent": "最近遊玩的遊戲",
@@ -630,7 +694,8 @@
             "removeConfirm": "確定要現在解除安裝 EOS 內嵌介面嗎？",
             "removeConfirmTitle": "確認移除內嵌介面",
             "updateNow": "更新",
-            "updating": "更新中..."
+            "updating": "更新中...",
+            "description": ""
         },
         "esync": "啟用 Esync",
         "exit-to-tray": "縮小到系統列",
@@ -690,9 +755,13 @@
                 "gog": "",
                 "zoom": "",
                 "game-log": "{{gameTitle}} 更新日誌",
-                "heroic": ""
+                "heroic": "",
+                "itchio": ""
             },
-            "show-uploads": ""
+            "show-uploads": "",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "啟用 MangoHud（需要已安裝 Mangohud）",
         "manualsync": {
@@ -712,12 +781,15 @@
         "preferSystemLibs": "偏好系統庫",
         "runexe": {
             "message": "將檔案拖曳到此處",
-            "title": "在 Prefix 上執行 EXE 檔案"
+            "title": "在 Prefix 上執行 EXE 檔案",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "選擇存檔的儲存位置",
-            "warning": "Please check twice if the path is correct (click to retry)"
+            "warning": "Please check twice if the path is correct (click to retry)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "選擇主題",
         "showfps": "顯示幀數（Directx 9，10 和 11）",
@@ -786,7 +858,8 @@
         "no-tray-icon": "",
         "analyticsOptIn": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "disableUMU": "",
         "advertiseAvxForRosetta": "",
@@ -798,12 +871,97 @@
         "steamRuntime": {
             "label": "使用 Steam 執行環境",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "開啟",
+            "selectExe": "選擇 EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": "",
+        "alt-aurelia-bin": "選擇替代的 Nile 二進位檔案",
+        "steamLaunchTarget": {
+            "downloadBuild": "下載",
+            "missingRuntime": "未安裝 VCRuntime"
         }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "安裝 BattlEye Runtime 中...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "clear-cache": "清理 Heroic 快取",
         "copiedToClipboard": "已複製到剪貼簿！",
@@ -815,7 +973,8 @@
                 "title": "需要啟用 GameMode"
             },
             "installing": "安裝 EAC Runtime 中...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -836,7 +995,9 @@
             "wineExt": "Wine 擴充元件",
             "systemInformation": "系統資訊",
             "gamescope": "",
-            "legacy": ""
+            "legacy": "",
+            "categories": "分類",
+            "tabs": ""
         },
         "open-config-file": "開啟配置檔案",
         "reset-heroic": "重置 Heroic",
@@ -857,7 +1018,8 @@
                 "help5": "",
                 "help6": "",
                 "help2": "",
-                "help4": ""
+                "help4": "",
+                "description": ""
             },
             "details": "內容",
             "title": {
@@ -865,7 +1027,8 @@
                 "clearCache": "清理快取"
             },
             "resetHeroic": {
-                "help": "這會移除所有設定和快取但不會移除您已安裝的遊戲或 Epic 憑證。免安裝版的 heroic（AppImage, WinPortable, ...）需要手動重新啟動。"
+                "help": "這會移除所有設定和快取但不會移除您已安裝的遊戲或 Epic 憑證。免安裝版的 heroic（AppImage, WinPortable, ...）需要手動重新啟動。",
+                "description": ""
             }
         },
         "systemInformation": {
@@ -889,7 +1052,10 @@
             "cometVersion": "",
             "memoryStats": "",
             "heroicVersion": "",
-            "nileVersion": ""
+            "nileVersion": "",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "實驗性功能"
@@ -914,13 +1080,45 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "下載",
+            "experimental": "實驗性功能",
+            "launch": "啟動選項…",
+            "wineTools": "工具",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "設定",
     "sidebar": {
         "collapse": "收起側邊欄",
         "uncollapse": "展開側邊欄",
-        "console": ""
+        "console": "",
+        "storesLogin": "儲存登入訊息"
     },
     "status": {
         "installing": "正在安裝",
@@ -951,7 +1149,8 @@
         "show": "顯示"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Changes in this table are not saved automatically. Click the + button",
+        "add": "新增"
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -962,14 +1161,18 @@
         "manageaccounts": "管理帳號",
         "quit": "退出",
         "cancel": "取消",
-        "quitMessage": "您確定要退出嗎？"
+        "quitMessage": "您確定要退出嗎？",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "返回",
             "forward": "下一頁",
             "openInBrowser": "在瀏覽器中開啟",
-            "reload": "重新載入頁面"
+            "reload": "重新載入頁面",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -984,7 +1187,8 @@
             "open_folder": "",
             "update": "Update",
             "settings": "設定",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "發行日期",
         "size": "大小",
@@ -1115,14 +1319,18 @@
     "amazon-luna": "",
     "emptyLibrary": {
         "noGames": "",
-        "noResults": ""
+        "noResults": "",
+        "description": "",
+        "noResultsTitle": "",
+        "title": ""
     },
     "zoom-store": "",
     "wineExplanation": {
         "proton-ge": "",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "discounts": {
         "region": {
@@ -1155,7 +1363,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1179,7 +1388,9 @@
             "ageRatingAll": "",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "Platform"
+            "platform": "Platform",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "內容",
         "sort": {
@@ -1205,9 +1416,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "商店"
+            "label": "商店",
+            "all": ""
         },
-        "titleMulti": "內容"
+        "titleMulti": "內容",
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1259,13 +1485,58 @@
             "title": "Install game",
             "wineLoading": "Loading",
             "path": "下載",
-            "wineMissing": "未選擇路徑"
+            "wineMissing": "未選擇路徑",
+            "wine": ""
+        },
+        "cancelUpdate": {
+            "title": "",
+            "message": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
     "next": "",
     "common": {
         "add": "新增",
         "cancel": "取消",
-        "warning": "警告"
+        "warning": "警告",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
+    },
+    "General": "一般",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": "",
+    "Update available!": "Update Available!",
+    "support": {
+        "actions": {
+            "open": "開啟"
+        }
+    },
+    "cloudSync": {
+        "back": "返回",
+        "button": {
+            "download": "下載",
+            "upload": "上載中"
+        },
+        "column": {
+            "size": "大小"
+        }
     }
 }

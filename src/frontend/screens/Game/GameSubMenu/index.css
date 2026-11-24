@@ -4,7 +4,7 @@
 }
 
 .submenu {
-  font-size: var(--text-xl);
+  font-size: var(--title);
   width: -webkit-fill-available;
   height: fit-content;
   display: flex;
@@ -30,9 +30,9 @@
 .linkTitle {
   font-family: var(--secondary-font-family);
   font-style: normal;
-  font-weight: var(--medium);
-  font-size: var(--text-md);
-  line-height: 19px;
+  font-weight: var(--weight-medium);
+  font-size: var(--body-md);
+  line-height: var(--line-height-normal);
   color: var(--text-default);
 }
 

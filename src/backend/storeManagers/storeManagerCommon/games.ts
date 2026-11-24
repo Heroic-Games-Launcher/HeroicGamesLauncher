@@ -30,7 +30,7 @@ import { windowIcon } from 'backend/constants/paths'
 import type LogWriter from 'backend/logger/log_writer'
 import { Game } from '../../../common/types/game_manager'
 
-async function getAppSettings(appName: string): Promise<GameSettings> {
+export async function getAppSettings(appName: string): Promise<GameSettings> {
   return (
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())

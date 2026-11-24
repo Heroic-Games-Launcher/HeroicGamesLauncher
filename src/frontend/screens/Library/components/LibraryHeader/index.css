@@ -1,31 +1,21 @@
-.libraryTitle {
-  grid-area: title;
+.libraryToolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
 }
 
-.sideloadGameButton {
-  font-family: var(--secondary-font-family);
-  border-radius: var(--space-md);
-  color: var(--text-tertiary);
-  background: var(--primary-button, var(--accent));
-  padding: var(--space-xs) var(--space-md);
-  border: none;
-  margin: 0 var(--space-lg);
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: 300ms;
+.libraryToolbar .ActionIcons {
+  justify-self: auto;
+  flex-shrink: 0;
 }
 
-.sideloadGameButton:hover,
-.sideloadGameButton:focus-within {
-  background: var(--primary-button, var(--accent-overlay));
-  box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
-}
-
-.numberOfgames {
-  font-size: var(--text-md);
-  font-weight: var(--regular);
+.libraryToolbar .ActionIcons .FormControl {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 6px;
+  border-radius: 999px;
   background: var(--input-background);
-  padding: var(--space-xs);
-  margin-inline-start: var(--space-sm, 4px);
-  border-radius: var(--space-3xs);
+  margin-inline-end: 0;
 }

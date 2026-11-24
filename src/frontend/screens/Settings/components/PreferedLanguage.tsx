@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { InfoBox, TextInputField } from 'frontend/components/UI'
+import { TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 
 const PreferedLanguage = () => {
@@ -9,7 +9,7 @@ const PreferedLanguage = () => {
   const handleLanguageCode = (newValue: string) => setLanguageCode(newValue)
 
   const languageInfo = (
-    <InfoBox text="infobox.help">
+    <>
       {t(
         'help.game_language.fallback',
         "Leave blank to use Heroic's language."
@@ -24,14 +24,14 @@ const PreferedLanguage = () => {
         'help.game_language.valid_codes',
         'Valid language codes are game-dependant.'
       )}
-    </InfoBox>
+    </>
   )
 
   return (
     <TextInputField
       label={t(
         'setting.prefered_language',
-        'Prefered Language (Language Code)'
+        'Prefered language (language code)'
       )}
       htmlId="prefered-language"
       placeholder={t(
@@ -40,7 +40,7 @@ const PreferedLanguage = () => {
       )}
       value={languageCode}
       onChange={handleLanguageCode}
-      afterInput={languageInfo}
+      info={languageInfo}
     />
   )
 }

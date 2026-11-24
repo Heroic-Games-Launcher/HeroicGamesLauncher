@@ -1,7 +1,7 @@
 import { AppSettings, GameInfo, Runner } from 'common/types'
 import { SettingsContextType } from 'frontend/types'
 import { useTranslation } from 'react-i18next'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import useGlobalState from 'frontend/state/GlobalStateV2'
@@ -14,6 +14,7 @@ type Props = {
 
 const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
   const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
+  const currentConfigRef = useRef(currentConfig)
   const { i18n } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { settingsModalProps } = useGlobalState.keys('settingsModalProps')
@@ -33,6 +34,7 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
       const config = isDefault
         ? await window.api.requestAppSettings()
         : await window.api.requestGameSettings(appName)
+      currentConfigRef.current = config
       setCurrentConfig(config)
     }
     void getSettings()
@@ -41,12 +43,13 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
   const contextValues: SettingsContextType = {
     getSetting: (key, fallback) => currentConfig[key] ?? fallback,
     setSetting: (key, value) => {
-      const currentValue = currentConfig[key]
-      if (currentValue !== undefined || currentValue !== null) {
-        const noChange = JSON.stringify(value) === JSON.stringify(currentValue)
-        if (noChange) return
+      const currentValue = currentConfigRef.current[key]
+      if (JSON.stringify(value) === JSON.stringify(currentValue)) {
+        return
       }
-      setCurrentConfig({ ...currentConfig, [key]: value })
+      const next = { ...currentConfigRef.current, [key]: value }
+      currentConfigRef.current = next
+      setCurrentConfig(next)
       window.api.setSetting({ appName, key, value })
     },
     config: currentConfig,

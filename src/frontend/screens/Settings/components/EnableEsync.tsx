@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableEsync = () => {
   const { t } = useTranslation()
@@ -9,21 +8,20 @@ const EnableEsync = () => {
   const [enableEsync, setEnableEsync] = useSetting('enableEsync', false)
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="esyncToggle"
-        value={enableEsync || false}
-        handleChange={() => setEnableEsync(!enableEsync)}
-        title={t('setting.esync', 'Enable Esync')}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.esync',
-          'Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.esync',
+        'Esync is only relevant for Proton 10 and older patched Wine builds. It was removed from Proton 11 and is ignored by upstream Wine.'
+      )}
+      description={t(
+        'setting.esync-description',
+        'Legacy eventfd synchronisation, only used by older Proton/Wine builds'
+      )}
+      htmlId="esyncToggle"
+      value={enableEsync || false}
+      handleChange={() => setEnableEsync(!enableEsync)}
+      title={t('setting.esync', 'Enable Esync (legacy)')}
+    />
   )
 }
 

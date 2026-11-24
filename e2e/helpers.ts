@@ -32,6 +32,12 @@ function electronTest(
 
     const page = await electronApp.firstWindow()
 
+    // Wait until the renderer has mounted and navigated to the app shell.
+    // `firstWindow` can resolve while the initial navigation is still in
+    // flight, which destroys the execution context and makes `page.evaluate`
+    // fail with "Execution context was destroyed".
+    await page.locator('.Sidebar').waitFor({ state: 'visible' })
+
     await func(electronApp, page)
 
     await resetAllStubs(electronApp)

@@ -25,8 +25,10 @@ interface GlobalStateV2 {
         isOpen: true
         type: GameSettingsModalType
         gameInfo: GameInfo
+        // Tab to open on
+        tab?: string
       }
-  openGameSettingsModal: (gameInfo: GameInfo) => void
+  openGameSettingsModal: (gameInfo: GameInfo, tab?: string) => void
   openGameLogsModal: (gameInfo: GameInfo) => void
   openGameCategoriesModal: (gameInfo: GameInfo) => void
   closeSettingsModal: () => void
@@ -47,12 +49,13 @@ const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
   },
 
   settingsModalProps: { isOpen: false },
-  openGameSettingsModal: (gameInfo) => {
+  openGameSettingsModal: (gameInfo, tab) => {
     set({
       settingsModalProps: {
         isOpen: true,
         type: 'settings',
-        gameInfo
+        gameInfo,
+        tab
       }
     })
   },

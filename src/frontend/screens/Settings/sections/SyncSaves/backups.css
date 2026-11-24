@@ -1,0 +1,12 @@
+.savesBackups__list {
+  max-height: min(50vh, 22rem);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding-inline-end: var(--space-2xs-fixed);
+}
+
+.savesBackups__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-block-start: var(--space-lg-fixed);
+}

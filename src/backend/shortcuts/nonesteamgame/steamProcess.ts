@@ -1,7 +1,12 @@
 import { spawnSync } from 'child_process'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { join } from 'path'
-import { isSteamDeckGameMode, isWindows } from 'backend/constants/environment'
+import { userHome } from 'backend/constants/paths'
+import {
+  isMac,
+  isSteamDeckGameMode,
+  isWindows
+} from 'backend/constants/environment'
 
 function isPidAlive(pid: number): boolean {
   try {
@@ -30,6 +35,15 @@ function getWindowsSteamPid(): number | null {
   return pid > 0 ? pid : null
 }
 
+function isSteamProcessRunning(): boolean {
+  // 'steam' is the client process name on Linux, 'Steam' on macOS.
+  // steamwebhelper is not checked: it can outlive the client briefly.
+  const processName = isMac ? 'Steam' : 'steam'
+  return (
+    spawnSync('pgrep', ['-x', processName], { encoding: 'utf-8' }).status === 0
+  )
+}
+
 /**
  * Best-effort check if the Steam client is currently running.
  * Steam only reads shortcuts.vdf on startup and overwrites it on exit,
@@ -48,7 +62,10 @@ function isSteamRunning(steamPath: string): boolean {
 
   const pidFiles = [
     join(steamPath, '..', 'steam.pid'),
-    join(steamPath, 'steam.pid')
+    join(steamPath, 'steam.pid'),
+    join(userHome, '.steam', 'steam.pid'),
+    join(userHome, '.local/share/Steam', 'steam.pid'),
+    join(userHome, '.var/app/com.valvesoftware.Steam/.steam/steam', 'steam.pid')
   ]
 
   for (const pidFile of pidFiles) {
@@ -61,7 +78,8 @@ function isSteamRunning(steamPath: string): boolean {
     }
   }
 
-  return false
+  // Steam can run without any reachable pid file (e.g. Steam Flatpak)
+  return isSteamProcessRunning()
 }
 
 export { isSteamRunning }

@@ -1,0 +1,150 @@
+/* The screen is pinned to the viewport height and never scrolls as a whole;
+   only the filter rail and the results grid scroll, each on its own. A fixed
+   height is needed because the app content area is only min-height:100vh, so a
+   flex-grow child would still grow and scroll the body. */
+.discountsScreen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 20vw;
+  padding: var(--space-md-fixed) var(--space-xl-fixed);
+  overflow: hidden;
+  color: var(--text-default);
+}
+
+/* Banner and topbar stay fixed at the top of the screen */
+.discountsScreen > .DismissibleBanner,
+.discountsScreen__topbar {
+  flex-shrink: 0;
+}
+
+.discountsScreen__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin: 0 0 var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.discountsScreen__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin: 0;
+  font-size: var(--text-2xl);
+}
+
+.discountsScreen__storeTabs {
+  margin-inline-end: auto;
+}
+
+.discountsScreen__region {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.discountsScreen__regionLabel {
+  align-self: start;
+  font-size: var(--text-xs);
+  font-weight: var(--semibold);
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-align: start;
+  white-space: nowrap;
+}
+
+.discountsScreen__regionSelect .MuiSelect-select {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-width: 160px;
+}
+
+/* The borderless/rounded dropdown look now lives in SelectField itself; here we
+   only tint the inputs with the Deals palette. */
+.discountsScreen .selectFieldWrapper .MuiOutlinedInput-root {
+  min-height: 40px;
+  background-color: var(--input-background, var(--background));
+  color: var(--text-default);
+}
+
+.discountsScreen__regionCurrency {
+  margin-left: auto;
+  padding: 1px var(--space-2xs);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--on-panel) 8%, transparent);
+  color: var(--text-secondary);
+  font-size: calc(var(--text-xs) * 0.85);
+  font-weight: var(--semibold);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 700px) {
+  .discountsScreen__region {
+    width: 100%;
+  }
+
+  .discountsScreen__regionSelect.MuiInputBase-root {
+    flex: 1;
+  }
+}
+
+/* Two-column layout filling the remaining height: filter rail on the left,
+   results on the right. Each column scrolls independently. */
+.discountsScreen__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(230px, 270px) minmax(0, 1fr);
+  gap: var(--space-xl-fixed);
+  overflow: hidden;
+}
+
+.discountsScreen__main {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* inner padding so card shadows and the last column aren't clipped or hidden
+     behind the overlay scrollbar at the edges of the scroll area */
+  padding: var(--space-3xs) var(--space-sm) var(--space-md);
+}
+
+@media (max-width: 900px) {
+  .discountsScreen__body {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .discountsScreen__main {
+    overflow: visible;
+  }
+}
+
+.discountsScreen__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  column-gap: var(--space-md);
+  row-gap: var(--space-2xl-fixed);
+  /* Cards can differ in height (portrait vs landscape covers); keep them
+     top-aligned instead of stretching the shorter ones. */
+  align-items: start;
+}
+
+.discountsScreen__grid--list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.discountsScreen__message {
+  margin: var(--space-xl) 0;
+  text-align: center;
+  color: var(--text-secondary);
+}

@@ -51,7 +51,7 @@ export default function CustomWineProton() {
 
   return (
     <SelectField
-      label={t('setting.customWineProton', 'Custom Wine/Proton Paths')}
+      label={t('setting.customWineProton', 'Custom Wine/Proton paths')}
       htmlId="selectWinePath"
       disabled={!customWinePaths.length}
       extraClass="rightButtons"
@@ -61,7 +61,7 @@ export default function CustomWineProton() {
         <div className="iconsWrapper rightButtons addRemoveSvgButtons">
           <SvgButton onClick={() => removeCustomPath()}>
             <Tooltip
-              title={t('tooltip.removepath', 'Remove Path')}
+              title={t('tooltip.removepath', 'Remove path')}
               placement="bottom"
               arrow
             >
@@ -82,7 +82,7 @@ export default function CustomWineProton() {
             className={`is-primary`}
           >
             <Tooltip
-              title={t('tooltip.addpath', 'Add New Path')}
+              title={t('tooltip.addpath', 'Add new path')}
               placement="bottom"
               arrow
             >

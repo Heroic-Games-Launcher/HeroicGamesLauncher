@@ -97,7 +97,10 @@
         "browse_files": "Parcourir les fichiers",
         "browse_wine_prefix": "Parcourir le préfixe Wine",
         "play": "JOUER",
-        "edit-game": "Modifier l'application/le jeu"
+        "edit-game": "Modifier l'application/le jeu",
+        "favourite": "Ajouter aux favoris",
+        "unfavourite": "Retirer des favoris",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Non-compatible",
     "disabled": "Désactivé",
@@ -133,7 +136,12 @@
         "modify": "Modifier l’installation",
         "extra_info": "Informations complémentaires",
         "install_info": "Installation",
-        "achievements": "Accomplissements"
+        "achievements": "Accomplissements",
+        "details": "Caractéristiques du jeu",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "À propos"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -163,7 +171,16 @@
         "installedInfo": "Informations sur l’installation",
         "protondb-compatibility-info": "Niveau de compatibilité Proton",
         "steamdeck-compatibility-info": "Compatibilité avec le SteamDeck",
-        "third-party-app": "Gestionnaire tiers"
+        "third-party-app": "Gestionnaire tiers",
+        "genres": "Genres",
+        "steamdeck": {
+            "unsupported": "Non-supporté",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Espace disponible",
@@ -193,7 +210,8 @@
         "playing": {
             "start": "Jouer",
             "stop": "En cours d’exécution (arrêter)",
-            "start_with_logs": "Jouer (en consignant les événements)"
+            "start_with_logs": "Jouer (en consignant les événements)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Synchronisation des sauvegardes"
@@ -227,7 +245,8 @@
             "select-path": "Choisissez un dossier d'installation pour Steam",
             "specificVersion-pt1": "Ceci téléchargera une version de Steam spécifique depuis",
             "specificVersion-pt2": "archive.org"
-        }
+        },
+        "releaseDate": "Date de publication"
     },
     "launch": {
         "options": "Paramètres de lancement...",
@@ -281,7 +300,9 @@
     },
     "specs": {
         "minimum": "Minimum",
-        "recommended": "Recommandé"
+        "recommended": "Recommandé",
+        "notes": "Notes",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Cliquez ici pour mettre à jour ce jeu",
@@ -328,7 +349,8 @@
         "verify": "Vérifier et réparer la structure des fichiers",
         "extraInfo": "Informations supplémentaires",
         "logs": "Journaux d'événements",
-        "categories": "Catégories"
+        "categories": "Catégories",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Ce jeu n’est pas compatible avec la sauvegarde à distance. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde à distance.",
@@ -381,5 +403,19 @@
             "no-key-prefix": "Pour rechercher une image d'illustration dans SteamGridDB, ajouter une clé API dans"
         },
         "square": "Image de jaquette"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Accomplissements",
+            "dlc": "Extension",
+            "installInfo": "Taille du téléchargement",
+            "launchOptions": "Options de lancement",
+            "storeInfo": "Informations Système"
+        }
     }
 }

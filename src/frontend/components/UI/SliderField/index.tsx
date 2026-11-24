@@ -59,8 +59,9 @@ export default function SliderField({
   return (
     <div
       tabIndex={-1}
-      className={classnames(`sliderFieldWrapper Field`, {
-        isRTL
+      className={classnames('sliderFieldWrapper Field', {
+        isRTL,
+        'sliderFieldWrapper--withMarks': sliderMarks.length > 0
       })}
     >
       {label && (

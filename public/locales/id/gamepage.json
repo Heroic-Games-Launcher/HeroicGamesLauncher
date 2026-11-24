@@ -96,7 +96,10 @@
         "browse_files": "Jelajahi File",
         "browse_wine_prefix": "Jelajahi Wine Prefix",
         "play": "MAIN",
-        "edit-game": "Edit Game"
+        "edit-game": "Edit Game",
+        "favourite": "Tambahkan Ke Favorit",
+        "unfavourite": "Hapus Dari Favorit",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
@@ -132,7 +135,12 @@
         "modify": "Ubah Pemasangan",
         "extra_info": "Info tambahan",
         "install_info": "Info instalasi",
-        "achievements": "Pencapaian"
+        "achievements": "Pencapaian",
+        "details": "Detail gim",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Tentang"
     },
     "gamecard": {
         "moving": "Memindahkan",
@@ -162,7 +170,16 @@
         "installedInfo": "Informasi Instalasi",
         "protondb-compatibility-info": "Tingkat Kompatibilitas Proton",
         "steamdeck-compatibility-info": "Kompatibilitas SteamDeck",
-        "third-party-app": "Manajer Pihak Ketiga"
+        "third-party-app": "Manajer Pihak Ketiga",
+        "genres": "Genre",
+        "steamdeck": {
+            "unsupported": "Tak Didukung",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
@@ -192,7 +209,8 @@
         "playing": {
             "start": "Mainkan sekarang",
             "stop": "Memainkan (Berhenti)",
-            "start_with_logs": "Main Sekarang (dengan log)"
+            "start_with_logs": "Main Sekarang (dengan log)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Menyinkronkan Penyimpanan"
@@ -205,7 +223,8 @@
             "installing": "Memasang",
             "pleaseWait": "Mohon tunggu...",
             "installation": "Hentikan Pemasangan"
-        }
+        },
+        "releaseDate": "Release Date"
     },
     "launch": {
         "options": "Opsi Peluncuran…",
@@ -259,7 +278,9 @@
     },
     "specs": {
         "minimum": "Minimum",
-        "recommended": "Direkomendasikan"
+        "recommended": "Direkomendasikan",
+        "notes": "Catatan",
+        "other": "Other"
     },
     "status": {
         "clickToUpdate": "Klik untuk Memperbarui",
@@ -306,7 +327,8 @@
         "verify": "Verifikasi dan Perbaiki",
         "extraInfo": "Informasi tambahan",
         "logs": "Log",
-        "categories": "Kategori"
+        "categories": "Kategori",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Gim ini tidak mendukung penyimpanan cloud. Informasi ini disediakan oleh pengembang gim. Beberapa gim menerapkan sistem penyimpanan cloud mereka sendiri",
@@ -359,5 +381,18 @@
             "no-key-prefix": "Untuk mencari gambar sampul di SteamGridDB, tambahkan API key di"
         },
         "square": "Gambar Persegi"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Pencapaian",
+            "dlc": "DLC",
+            "installInfo": "Ukuran Unduhan",
+            "launchOptions": "Opsi Peluncuran"
+        }
     }
 }

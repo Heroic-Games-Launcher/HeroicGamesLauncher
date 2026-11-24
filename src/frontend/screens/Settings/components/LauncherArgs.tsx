@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { InfoBox, TextInputField } from 'frontend/components/UI'
+import { TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 
@@ -36,18 +36,6 @@ const LauncherArgs = () => {
     return <></>
   }
 
-  const launcherArgsInfo = (
-    <InfoBox text="infobox.help">
-      <span>
-        {t('help.other.part4')}
-        <strong>{t('help.other.part5')}</strong>
-        {t('help.other.part6')}
-        <strong>{` -nolauncher `}</strong>
-        {t('help.other.part7')}
-      </span>
-    </InfoBox>
-  )
-
   let errorDiv = <></>
   if (error) {
     errorDiv = <p className="error">{error}</p>
@@ -55,20 +43,26 @@ const LauncherArgs = () => {
 
   return (
     <TextInputField
+      info={
+        <>
+          <span>
+            {t('help.other.part4')}
+            <strong>{t('help.other.part5')}</strong>
+            {t('help.other.part6')}
+            <strong>{` -nolauncher `}</strong>
+            {t('help.other.part7')}
+          </span>
+        </>
+      }
       label={t(
         'options.gameargs.title',
-        'Game Arguments (appended to game launch command)'
+        'Game arguments (appended to game launch command)'
       )}
       htmlId="launcherArgs"
       placeholder={t('options.gameargs.placeholder')}
       value={launcherArgs}
       onChange={handleLauncherArgs}
-      afterInput={
-        <>
-          {errorDiv}
-          {launcherArgsInfo}
-        </>
-      }
+      afterInput={<>{errorDiv}</>}
     />
   )
 }

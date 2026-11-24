@@ -1,14 +1,8 @@
-.noResultsMessage {
-  font-size: 2rem;
-  max-width: 500px;
-  margin: auto;
-  padding-bottom: 20%;
-  .sideloadGameButton {
-    margin: 0;
-    display: inline;
-    vertical-align: text-bottom;
-  }
-  & a {
-    text-decoration: underline;
-  }
+.noResultsMessage__backupHint {
+  display: block;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid color-mix(in srgb, var(--text-default) 10%, transparent);
+  font-size: var(--text-md);
+  color: var(--text-secondary);
 }

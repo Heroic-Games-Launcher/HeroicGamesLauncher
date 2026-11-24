@@ -11,12 +11,16 @@ const TraySettings = () => {
   return (
     <>
       <ToggleSwitch
+        description={t(
+          'setting.exit-to-tray-description',
+          'Keep Heroic running in the system tray instead of quitting'
+        )}
         htmlId="noTrayIcon"
         value={noTrayIcon}
         handleChange={() => setNoTrayIcon(!noTrayIcon)}
         title={t(
           'setting.no-tray-icon',
-          'Hide System Tray Icon (requires restart)'
+          'Hide system tray icon (requires restart)'
         )}
       />
 
@@ -24,7 +28,7 @@ const TraySettings = () => {
         htmlId="exitToTray"
         value={exitToTray && !noTrayIcon}
         handleChange={() => setExitToTray(!exitToTray)}
-        title={t('setting.exit-to-tray', 'Exit to System Tray')}
+        title={t('setting.exit-to-tray', 'Exit to system tray')}
         disabled={noTrayIcon}
       />
 
@@ -32,7 +36,7 @@ const TraySettings = () => {
         htmlId="startInTray"
         value={startInTray && !noTrayIcon}
         handleChange={() => setStartInTray(!startInTray)}
-        title={t('setting.start-in-tray', 'Start Minimized')}
+        title={t('setting.start-in-tray', 'Start minimized')}
         disabled={!exitToTray || noTrayIcon}
       />
     </>

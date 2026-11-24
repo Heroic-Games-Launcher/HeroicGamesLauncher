@@ -40,13 +40,17 @@ const AltGOGdlBin = () => {
       )}
       pathDialogTitle={t(
         'box.choose-gogdl-binary',
-        'Select GOGDL Binary (needs restart)'
+        'Select GOGDL binary (needs restart)'
       )}
       afterInput={
-        <span className="smallMessage">
-          {t('other.gogdl-version', 'GOGDL Version: ')}
-          {gogdlVersion}
-        </span>
+        gogdlVersion ? (
+          <span className="fieldCaption">
+            <span className="fieldCaption__label">
+              {t('other.gogdl-version', 'GOGDL version: ')}
+            </span>
+            <span className="fieldCaption__value">{gogdlVersion}</span>
+          </span>
+        ) : undefined
       }
     />
   )

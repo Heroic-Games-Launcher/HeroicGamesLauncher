@@ -96,7 +96,10 @@
         "browse_files": "Selaa tiedostoja",
         "browse_wine_prefix": "Selaa Wine Prefixiä",
         "play": "PELAA",
-        "edit-game": "Muokkaa sovellusta/peliä"
+        "edit-game": "Muokkaa sovellusta/peliä",
+        "favourite": "Lisää suosikkeihin",
+        "unfavourite": "Poista suosikeista",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
@@ -132,7 +135,12 @@
         "changelogFor": "{{gameTitle}} muutosloki",
         "extra_info": "Lisätiedot",
         "install_info": "Asennustiedot",
-        "achievements": "Saavutukset"
+        "achievements": "Saavutukset",
+        "details": "Pelitiedot",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Tietoja"
     },
     "gamecard": {
         "moving": "Siirretään",
@@ -162,7 +170,16 @@
         "installedInfo": "Asennettu tiedot",
         "protondb-compatibility-info": "Protonien yhteensopivuustaso",
         "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus",
-        "third-party-app": "Hallinta kolmansien osapuolten asetuksille"
+        "third-party-app": "Hallinta kolmansien osapuolten asetuksille",
+        "genres": "Genret",
+        "steamdeck": {
+            "unsupported": "Ei tuettu",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLCs"
     },
     "install": {
         "disk-space-left": "Tilaa saatavilla",
@@ -192,7 +209,8 @@
         "playing": {
             "start": "Pelaa nyt",
             "stop": "Pelataan (pysäytä)",
-            "start_with_logs": "Pelaa nyt (lokitiedoilla)"
+            "start_with_logs": "Pelaa nyt (lokitiedoilla)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Synkronoidaan tallennuksia"
@@ -205,7 +223,8 @@
             "installing": "Installing",
             "pleaseWait": "Odota...",
             "installation": "Pysäytä asennus"
-        }
+        },
+        "releaseDate": "Julkaisupäivä"
     },
     "launch": {
         "options": "Käynnistysasetukset...",
@@ -259,7 +278,9 @@
     },
     "specs": {
         "minimum": "Minimi",
-        "recommended": "Suositeltu"
+        "recommended": "Suositeltu",
+        "notes": "Merkinnät",
+        "other": "Muu"
     },
     "status": {
         "clickToUpdate": "Päivitä",
@@ -306,7 +327,8 @@
         "verify": "Vahvista ja korjaa",
         "extraInfo": "Lisätiedot",
         "logs": "Lokit",
-        "categories": "Kategoriat"
+        "categories": "Kategoriat",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Tämä peli ei tue pilvitallennusta. Nämä tiedot ovat pelin kehittäjien toimittamia. Jotkin pelit toteuttavat oman pilvitallennusjärjestelmänsä.",
@@ -359,5 +381,18 @@
             "no-key-prefix": "Etsiäksesi SteamGridDB:stä kansitaidetta, lisää API-avain"
         },
         "square": "Neliömuotoinen taide"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Saavutukset",
+            "dlc": "DLC",
+            "installInfo": "Latauksen koko",
+            "storeInfo": "Järjestelmätiedot"
+        }
     }
 }

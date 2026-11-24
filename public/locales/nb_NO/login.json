@@ -5,7 +5,9 @@
         "copy": "Kopiere",
         "copied": "Kopiert!",
         "loading": "Laster",
-        "error": "Feil, prøv en annen kode"
+        "error": "Feil, prøv en annen kode",
+        "close": "Lukk",
+        "itchio_error": "Feil prøv en annen API-nøkkel"
     },
     "message": {
         "part1": "Følg instruksen for å logge inn og installere spill:",
@@ -21,5 +23,43 @@
         "error": "Feil",
         "loading": "Laster inn liste over spill …"
     },
-    "welcome": "Velkommen!"
+    "welcome": "Velkommen!",
+    "itchio": {
+        "api_key_placeholder": "Lim inn API-nøkkelen din",
+        "paste_and_login": "Lim inn fra utklippstavlen",
+        "instructions": "Hvis du ikke får logget inn til itch.io på vanlig måte, kan du koble deg til kontoen med en personlig API-nøkkel istedenfor. Naviger til itchios API-nøkkelside, generer en nøkkel, og lim den inn nedenfor."
+    },
+    "sid": {
+        "paste_and_login": "Lim inn fra utklippstavlen",
+        "placeholder": "Lim inn SID-kode her"
+    },
+    "steam": {
+        "accountName": "Logg inn med kontonavn",
+        "error": "Innlogging mislyktes. Sjekk brukernavn, passord og Steam Guard-kode.",
+        "guard": {
+            "device": "Skriv inn Steam Guard-koden din",
+            "deviceConfirmation": "Godkjenn denne innloggingen fra Steam-appen.",
+            "email": "Skriv inn koden sendt til deg på e-post",
+            "placeholder": "Steam Guard-kode"
+        },
+        "notice": {
+            "agree": "Jeg samtykker",
+            "text": "Steam-klienten må installeres for at denne funksjonaliteten kan brukes.\n\nStøtte for Steam er ny, så det kan hende at enkelte spill ikke starter, også spill laget av Valve, som Half-Life 2.\n\nNettspill må ofte ha Steam åpent i bakgrunnen for å fungere, og spill med anti-cheat kommer antagelig ikke til å fungere.\n\nSend inn feilrapporter på Discord eller GitHub.",
+            "title": "Advarsel"
+        },
+        "password": "Passord",
+        "qr": {
+            "caption": "Bruk Steam-appen for å logge inn med QR-kode",
+            "denied": "Innloggingen ble avslått i Steam-appen.",
+            "error": "Innlogging med QR-kode mislyktes. Prøv igjen.",
+            "expired": "QR-koden gikk ut før den ble godkjent. Prøv igjen.",
+            "offline": "Kunne ikke oppnå kontakt med Steam. Sjekk internettilkoblingen din.",
+            "scanned": "Innskannet — godkjenn innloggingen i Steam-appen.",
+            "title": "Eller logg inn med QR-kode"
+        },
+        "signingIn": "Logger inn…",
+        "submitCode": "Skriv inn kode",
+        "username": "Brukernavn",
+        "welcome": "Logg inn på Steam"
+    }
 }

@@ -1,6 +1,6 @@
 import './index.scss'
 
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import {
@@ -20,6 +20,11 @@ import {
   EnableWoW64,
   EnvVariablesTable,
   GameMode,
+  HdrMode,
+  DisableNTSync,
+  ProtonNvapi,
+  ProtonUpscaling,
+  UmuOptions,
   LauncherArgs,
   LaunchOptionSelector,
   Mangohud,
@@ -28,6 +33,7 @@ import {
   PreferSystemLibs,
   ShowFPS,
   SteamRuntime,
+  SteamLaunchTarget,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -38,17 +44,29 @@ import {
   AfterLaunchScriptPath,
   NvidiaPrime
 } from '../../components'
-import { TabPanel } from 'frontend/components/UI'
+import { Alert, SettingsCard, TabPanel, Tabs } from 'frontend/components/UI'
+import type { TabItem } from 'frontend/components/UI/Tabs'
+import {
+  FlaskConical,
+  Gamepad2,
+  Gauge,
+  Globe,
+  MonitorCog,
+  Save,
+  ScrollText,
+  ShieldAlert,
+  SlidersHorizontal,
+  TerminalSquare,
+  Wine as WineIcon
+} from 'lucide-react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import useSetting from 'frontend/hooks/useSetting'
+import { useSteamLaunchTargets } from 'frontend/hooks/useSteamLaunchTargets'
 import { defaultWineVersion } from '../../util'
 import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
-import { Tabs, Tab } from '@mui/material'
 import { GameInfo } from 'common/types'
 import DisableUMU from '../../components/DisableUMU'
 import VerboseLogs from '../../components/VerboseLogs'
@@ -72,18 +90,35 @@ function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
   }
 }
 
-export default function GamesSettings() {
+interface Props {
+  // Overrides the remembered tab
+  initialTab?: string
+}
+
+export default function GamesSettings({ initialTab }: Props = {}) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const { isDefault, gameInfo } = useContext(SettingsContext)
+  const { isDefault, appName, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
-  const [isNative, setIsNative] = useState(false)
+  const [disableUMU] = useSetting('disableUMU', false)
+  const [nativeFromApi, setIsNative] = useState(false)
   const isLinux = platform === 'linux'
+  const steamTargets = useSteamLaunchTargets(appName, gameInfo, isLinux)
+  // Steam: follows the chosen game version
+  const steamPlatform = steamTargets.effective?.platform
+  const isNative = steamPlatform ? steamPlatform === 'linux' : nativeFromApi
+  // Hide card when both rows hide
+  const showSteamCard =
+    gameInfo?.runner === 'steam' &&
+    !isDefault &&
+    (isLinux || steamTargets.targets.length > 1)
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
   const showCloudSavesTab =
-    gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
+    gameInfo?.runner === 'gog' ||
+    gameInfo?.runner === 'legendary' ||
+    (gameInfo?.runner === 'steam' && gameInfo.is_installed)
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
 
@@ -106,13 +141,12 @@ export default function GamesSettings() {
     ? `${gameInfo.app_name}-setting_tab`
     : 'default'
   const latestTabIndex =
-    localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)
+    initialTab ||
+    localStorage.getItem(localStorageKey) ||
+    getStartingTab(platform, gameInfo)
   const [value, setValue] = useState(latestTabIndex)
 
-  const handleChange = (
-    event: React.ChangeEvent<unknown>,
-    newValue: string
-  ) => {
+  const handleChange = (newValue: string) => {
     setValue(newValue)
     // Store the latest used tab index for the current game
     localStorage.setItem(localStorageKey, newValue.toString())
@@ -134,131 +168,233 @@ export default function GamesSettings() {
   const showOtherTab = shouldShowSettings('other')
   const showWineTab = shouldShowSettings('wine')
 
+  const settingsTabs: TabItem<string>[] = []
+  if (showWineTab)
+    settingsTabs.push({
+      value: 'wine',
+      label: t('settings.section.wineVersion', 'Wine')
+    })
+  if (showOtherTab)
+    settingsTabs.push({
+      value: 'other',
+      label: t('settings.navbar.other', 'Other')
+    })
+  settingsTabs.push({
+    value: 'advanced',
+    label: t('settings.navbar.advanced', 'Advanced')
+  })
+  if (showCloudSavesTab)
+    settingsTabs.push({
+      value: 'saves',
+      label: t('settings.navbar.sync', 'Cloud saves sync')
+    })
+  if (isLinux)
+    settingsTabs.push({
+      value: 'gamescope',
+      label: t('settings.navbar.gamescope', 'Gamescope')
+    })
+  if (isLinux && !isNative)
+    settingsTabs.push({
+      value: 'legacy',
+      label: t('settings.navbar.legacy', 'Legacy')
+    })
+
+  const activeTab = settingsTabs.some((tab) => tab.value === value)
+    ? value
+    : settingsTabs[0].value
+
   return (
     <>
+      <Tabs
+        items={settingsTabs}
+        value={activeTab}
+        onChange={handleChange}
+        aria-label={t('settings.navbar.tabs', 'Settings sections')}
+        className="settingsTabs"
+      />
+
       {isDefault && (
-        <p className="defaults-hint">
-          <FontAwesomeIcon icon={faInfoCircle} />
+        <Alert variant="warning">
           {t(
             'settings.default_hint',
-            'Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.'
+            'Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the settings button in the game page.'
           )}
-        </p>
+        </Alert>
       )}
 
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        aria-label="settings tabs"
-        variant="scrollable"
-      >
-        {showWineTab && <Tab label="Wine" value="wine" />}
-        {showOtherTab && (
-          <Tab label={t('settings.navbar.other', 'Other')} value="other" />
-        )}
-        <Tab
-          label={t('settings.navbar.advanced', 'Advanced')}
-          value="advanced"
-        />
-
-        {showCloudSavesTab && (
-          <Tab
-            label={t('settings.navbar.sync', 'Cloud Saves Sync')}
-            value="saves"
-          />
-        )}
-        {isLinux && (
-          <Tab
-            label={t('settings.navbar.gamescope', 'Gamescope')}
-            value="gamescope"
-          />
-        )}
-        {isLinux && !isNative && (
-          <Tab label={t('settings.navbar.legacy', 'Legacy')} value="legacy" />
-        )}
-      </Tabs>
-
-      <TabPanel value={value} index={'wine'}>
-        <WineVersionSelector />
-        <WinePrefix />
-        <CrossoverBottle />
+      <TabPanel value={activeTab} index={'wine'}>
+        <SettingsCard
+          glyph={WineIcon}
+          title={t('settings.section.wineVersion', 'Wine')}
+        >
+          <WineVersionSelector />
+          <WinePrefix />
+          <CrossoverBottle />
+        </SettingsCard>
         {!isCrossover && (
           <>
-            <AutoDXVK />
-            {isLinux && (
-              <>
-                {!window.isSteamDeck && <AutoDXVKNVAPI />}
-                <AutoVKD3D />
-              </>
-            )}
-            <EnableEsync />
-            <EnableFsync />
-            <EnableWineWayland />
-            <EnableWoW64 />
-            <EnableMsync />
-            <AdvertiseAvxForRosetta />
-            <EnableFSR />
-            {isMac && <EnableDXVKFpsLimit />}
-            <Tools />
+            <SettingsCard
+              glyph={MonitorCog}
+              title={t('settings.section.graphics', 'Graphics & translation')}
+            >
+              <AutoDXVK />
+              {isLinux && (
+                <>
+                  {!window.isSteamDeck && <AutoDXVKNVAPI />}
+                  <AutoVKD3D />
+                  <ProtonNvapi />
+                  <ProtonUpscaling />
+                </>
+              )}
+              <HdrMode />
+              {isMac && <EnableDXVKFpsLimit />}
+            </SettingsCard>
+            <SettingsCard
+              glyph={SlidersHorizontal}
+              title={t('settings.section.winePerformance', 'Performance')}
+            >
+              <EnableFsync />
+              <DisableNTSync />
+              <EnableWineWayland />
+              <EnableWoW64 />
+              <EnableMsync />
+              <AdvertiseAvxForRosetta />
+            </SettingsCard>
+            <SettingsCard
+              glyph={FlaskConical}
+              title={t('settings.section.wineTools', 'Tools')}
+            >
+              <Tools />
+            </SettingsCard>
           </>
         )}
       </TabPanel>
 
-      <TabPanel value={value} index={'other'}>
-        {!isNative && <ShowFPS />}
-        <Mangohud />
-        <GameMode />
-        {isLinux && <PreferSystemLibs />}
-        <SteamRuntime />
-        <NvidiaPrime />
-        {!isNative && (
-          <>
-            <BattlEyeRuntime />
-            <EacRuntime />
-          </>
+      <TabPanel value={activeTab} index={'other'}>
+        <SettingsCard
+          glyph={Gauge}
+          title={t('settings.section.performance', 'Performance & overlays')}
+        >
+          {!isNative && <ShowFPS />}
+          <Mangohud />
+          <GameMode />
+          <NvidiaPrime />
+        </SettingsCard>
+        <SettingsCard
+          glyph={MonitorCog}
+          title={t('settings.section.runtimes', 'Runtimes')}
+        >
+          {isLinux && <PreferSystemLibs />}
+          <SteamRuntime />
+        </SettingsCard>
+        {showSteamCard && (
+          <SettingsCard
+            glyph={Gamepad2}
+            title={t('settings.section.steam', 'Steam')}
+          >
+            <SteamLaunchTarget state={steamTargets} />
+          </SettingsCard>
         )}
       </TabPanel>
 
-      <TabPanel value={value} index={'advanced'}>
-        {!isSideloaded && (
-          <>
-            <IgnoreGameUpdates />
-            <OfflineMode />
-          </>
-        )}
-        <VerboseLogs />
-        <AlternativeExe />
-        <LaunchOptionSelector />
-        <LauncherArgs />
-        <div className="Field">
-          <label>{t('setting.scripts', 'Scripts:')}</label>
+      <TabPanel value={activeTab} index={'advanced'}>
+        <SettingsCard
+          glyph={SlidersHorizontal}
+          title={t('settings.section.launch', 'Launch options')}
+        >
+          {!isSideloaded && (
+            <>
+              <IgnoreGameUpdates />
+              <OfflineMode />
+            </>
+          )}
+          <VerboseLogs />
+          <AlternativeExe />
+          <LaunchOptionSelector />
+          <LauncherArgs />
+        </SettingsCard>
+        <SettingsCard
+          glyph={ScrollText}
+          title={t('setting.scripts', 'Scripts')}
+        >
           <BeforeLaunchScriptPath />
           <AfterLaunchScriptPath />
-        </div>
-        <WrappersTable />
-        <EnvVariablesTable />
-        {!isSideloaded && <PreferedLanguage />}
+        </SettingsCard>
+        <SettingsCard
+          glyph={TerminalSquare}
+          title={t('settings.section.environment', 'Wrapper & environment')}
+        >
+          <WrappersTable />
+          <EnvVariablesTable />
+        </SettingsCard>
+        {isLinux &&
+          wineVersion?.type === 'proton' &&
+          !isNative &&
+          !disableUMU && (
+            <SettingsCard
+              glyph={FlaskConical}
+              title={t('settings.section.umu', 'UMU (Proton)')}
+            >
+              <UmuOptions />
+            </SettingsCard>
+          )}
+        {!isSideloaded && (
+          <SettingsCard
+            glyph={Globe}
+            title={t('settings.section.language', 'Language & region')}
+          >
+            <PreferedLanguage />
+          </SettingsCard>
+        )}
       </TabPanel>
 
-      <TabPanel value={value} index={'saves'}>
-        <SyncSaves />
+      <TabPanel value={activeTab} index={'saves'}>
+        <SettingsCard
+          glyph={Save}
+          title={t('settings.navbar.sync', 'Cloud saves sync')}
+        >
+          <SyncSaves />
+        </SettingsCard>
       </TabPanel>
 
-      <TabPanel value={value} index={'gamescope'}>
+      <TabPanel value={activeTab} index={'gamescope'}>
         <Gamescope />
       </TabPanel>
 
       {isLinux && (
-        <TabPanel value={value} index={'legacy'}>
-          <span className="defaults-hint">
-            <FontAwesomeIcon icon={faInfoCircle} />
+        <TabPanel value={activeTab} index={'legacy'}>
+          <Alert variant="warning">
             {t(
               'settings.legacy_warning',
-              'Warning: The settings on this tab are mostly deprecated and might not work at all.'
+              'Warning: these settings are deprecated or only apply to older Proton/Wine builds. They are kept for troubleshooting.'
             )}
-          </span>
-          <EnableDXVKFpsLimit />
-          <DisableUMU />
+          </Alert>
+          <SettingsCard
+            glyph={Gauge}
+            title={t('settings.section.legacySync', 'Synchronization')}
+          >
+            <EnableEsync />
+          </SettingsCard>
+          <SettingsCard
+            glyph={MonitorCog}
+            title={t('settings.section.legacyGraphics', 'Graphics')}
+          >
+            <EnableFSR />
+            <EnableDXVKFpsLimit />
+          </SettingsCard>
+          <SettingsCard
+            glyph={ShieldAlert}
+            title={t('settings.section.anticheat', 'Anti-cheat runtimes')}
+          >
+            <EacRuntime />
+            <BattlEyeRuntime />
+          </SettingsCard>
+          <SettingsCard
+            glyph={FlaskConical}
+            title={t('settings.section.umu', 'UMU (Proton)')}
+          >
+            <DisableUMU />
+          </SettingsCard>
         </TabPanel>
       )}
 

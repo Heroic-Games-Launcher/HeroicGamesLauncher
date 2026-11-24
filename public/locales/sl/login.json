@@ -5,7 +5,9 @@
         "error": "Napaka, poskusi z drugo kodo",
         "loading": "Nalagam",
         "login": "Vpis",
-        "open": "Odpri povezavo"
+        "open": "Odpri povezavo",
+        "close": "Zapri",
+        "itchio_error": "Napaka, poskusi z drugo kodo"
     },
     "message": {
         "part1": "Za vpis in namestitev vaših iger morate slediti spodnjim navodilom:",
@@ -17,5 +19,14 @@
         "part7": "avtorizacijsko kodo",
         "part8": "v spodnje polje in kliknite na gumb za vpis."
     },
-    "welcome": "Dobrodošli!"
+    "welcome": "Dobrodošli!",
+    "itchio": {
+        "paste_and_login": "",
+        "api_key_placeholder": "",
+        "instructions": ""
+    },
+    "sid": {
+        "paste_and_login": "",
+        "placeholder": ""
+    }
 }

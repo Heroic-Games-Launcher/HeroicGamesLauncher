@@ -9,11 +9,13 @@ import {
   LegendaryInstallInfo
 } from './types/legendary'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
+import { ItchioInstallInfo } from './types/itchio'
 import {
   ZoomInstallPlatform,
   ZoomInstalledInfo,
   ZoomInstallInfo
 } from './types/zoom'
+import { SteamInstallInfo } from './types/steam'
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
@@ -21,15 +23,34 @@ import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 import type { SteamRuntimeName } from './types/umu'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+export type Runner =
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'zoom'
+  | 'itchio'
+  | 'steam'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
 export type DialogType = 'MESSAGE' | 'ERROR'
 
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'danger'
+  | 'dangerSubtle'
+  | 'warning'
+  | 'success'
+  | 'info'
+  | 'link'
+
 export interface ButtonOptions {
   text: string
   onClick?: () => void
+  variant?: ButtonVariant
 }
 
 export type LaunchParams = {
@@ -50,6 +71,8 @@ interface BaseLaunchOption {
   type?: 'basic'
   name: string
   parameters: string
+  // Steam launch entry id
+  steamLaunchId?: string
 }
 
 // Option to launch an alternative executable instead
@@ -97,7 +120,11 @@ export interface AppSettings extends GameSettings {
   altCometBin: string
   altLegendaryBin: string
   altNileBin: string
+  altButlerBin: string
+  altAureliaBin: string
   autoUpdateGames: boolean
+  backupSaves: boolean
+  maxSaveBackupSize: number
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
   customCSS: string
@@ -113,6 +140,8 @@ export interface AppSettings extends GameSettings {
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
   disableLogs: boolean
+  disableDiscounts: boolean
+  enableGOGAffiliate: boolean
   disableAnimations: boolean
   discordRPC: boolean
   disableGOGPresence: boolean
@@ -137,6 +166,7 @@ export interface AppSettings extends GameSettings {
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
   verboseLogs: boolean
+  defaultSteamRuntime: SteamRuntimeName | false
   showValveProton: boolean
   steamGridDbApiKey: string
   afterDownloadAction: 'none' | 'shutdown' | 'suspend'
@@ -163,6 +193,10 @@ export interface ExtraInfo {
   storeUrl?: string
   changelog?: string
   genres?: string[]
+  background?: string
+  cover?: string
+  score?: string
+  platforms?: InstallPlatform[]
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -184,7 +218,7 @@ export type GOGAchievement = {
 export type GameAchievement = GOGAchievement
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+  runner: Runner
   store_url?: string
   app_name: string
   art_cover: string
@@ -212,6 +246,8 @@ export interface GameInfo {
   isUbisoftManaged?: boolean
   is_mac_native?: boolean
   is_linux_native?: boolean
+  // True for Steam games that come from a Steam Family member's library
+  isFamilyShare?: boolean
   browserUrl?: string
   description?: string
   //used for store release versions. if remote !== local, then update
@@ -225,6 +261,9 @@ export interface GameInfo {
     art_square?: string
   }
 }
+
+export type HDRMode = 'auto' | 'force' | 'off'
+export type NVAPIMode = 'auto' | 'off' | 'force'
 
 export interface GameSettings {
   autoInstallDxvk: boolean
@@ -240,7 +279,16 @@ export interface GameSettings {
   enableMsync: boolean
   enableFsync: boolean
   enableWineWayland: boolean
+  /** @deprecated use hdrMode */
   enableHDR: boolean
+  hdrMode?: HDRMode
+  nvapiMode?: NVAPIMode
+  disableNTSync?: boolean
+  fsr4Upgrade?: boolean
+  dlssUpgrade?: boolean
+  useOptiScaler?: boolean
+  umuGameId?: string
+  disableProtonFixes?: boolean
   enableWoW64: boolean
   gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
@@ -263,13 +311,14 @@ export interface GameSettings {
   wineVersion: WineInstallation
   wrapperOptions: WrapperVariable[]
   savesPath: string
+  savesPathFingerprint?: string
+  savePathIsCustom?: boolean
   gogSaves?: GOGCloudSavesLocation[]
   beforeLaunchScriptPath: string
   afterLaunchScriptPath: string
   disableUMU: boolean
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
-  enableQuickSavesMenu: boolean
 }
 
 export type Status =
@@ -359,6 +408,56 @@ export interface Reqs {
 }
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
+
+export type CloudSyncState =
+  | 'ok'
+  | 'conflicts'
+  | 'incomplete'
+  | 'failed'
+  | 'unknown'
+
+export type CloudSyncReason =
+  | 'no-path'
+  | 'offline'
+  | 'lock'
+  | 'unresolved-vars'
+  | 'conflict'
+  | 'not-supported'
+  | 'provider-error'
+
+export interface CloudSyncCounts {
+  local?: number
+  cloud?: number
+  deletedLocal?: number
+  deletedCloud?: number
+}
+
+export interface CloudSyncResult {
+  appName: string
+  runner: Runner
+  state: CloudSyncState
+  action?: 'upload' | 'download' | 'none'
+  reason?: CloudSyncReason
+  remoteDate?: string
+  localDate?: string
+  counts?: CloudSyncCounts
+  output: string
+}
+
+export interface DetectSavePathsResult {
+  paths: string | GOGCloudSavesLocation[]
+  updated: boolean
+  cancelled?: boolean
+}
+
+export interface SaveBackupEntry {
+  id: string
+  createdAt: string
+  location: string
+  changed: number
+  deleted: number
+  isCurrent?: boolean
+}
 
 export type UserInfo = {
   account_id: string
@@ -455,6 +554,7 @@ export interface CallRunnerOptions {
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
   cwd?: string
+  waitForChildProcesses?: boolean
 }
 
 export interface EnviromentVariable {
@@ -637,6 +737,8 @@ export interface DMQueueElement {
   startTime: number
   endTime: number
   status?: DMStatus
+  /** Set while a paused game waits. */
+  pausedAt?: number
 }
 
 type ProtonVerb =
@@ -658,6 +760,7 @@ export type WineCommandArgs = {
   startFolder?: string
   skipPrefixCheckIKnowWhatImDoing?: boolean
   ignoreLogging?: boolean
+  logToApp?: { appName: string; runner: Runner }
 }
 
 export interface SaveSyncArgs {
@@ -702,7 +805,10 @@ export interface ToolArgs {
   action: 'backup' | 'restore'
 }
 
-export type StatusPromise = Promise<{ status: 'done' | 'error' | 'abort' }>
+export type StatusPromise = Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string
+}>
 
 export interface GameScoreInfo {
   score: string
@@ -717,6 +823,7 @@ export interface PCGamingWikiInfo {
   direct3DVersions: string[]
   genres: string[]
   releaseDate: string[]
+  cover?: string
 }
 
 export interface AppleGamingWikiInfo {
@@ -820,6 +927,8 @@ interface GameScopeSettings {
   enableUpscaling: boolean
   enableLimiter: boolean
   enableForceGrabCursor: boolean
+  enableHDR?: boolean
+  enableAdaptiveSync?: boolean
   windowType: string
   gameWidth: string
   gameHeight: string
@@ -837,6 +946,8 @@ export type InstallInfo =
   | NileInstallInfo
   | ZoomInstalledInfo
   | ZoomInstallInfo
+  | ItchioInstallInfo
+  | SteamInstallInfo
 
 export interface KnownFixesInfo {
   title: string
@@ -851,7 +962,10 @@ export interface KnownFixesFile {
   amazon: Record<string, KnownFixesInfo>
   epic: Record<string, KnownFixesInfo>
   gog: Record<string, KnownFixesInfo>
+  itchio?: Record<string, KnownFixesInfo>
   zoom: Record<string, KnownFixesInfo>
+  // Not published upstream yet
+  steam?: Record<string, KnownFixesInfo>
 }
 
 export interface UploadedLogData {
