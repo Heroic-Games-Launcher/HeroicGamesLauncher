@@ -10,7 +10,8 @@
         "move": {
             "message": "See võib võtta kaua aega, kas olete kindel?",
             "path": "Valige, kuhu soovite liigutada",
-            "title": "Liiguta mängu paigaldus"
+            "title": "Liiguta mängu paigaldus",
+            "steamMessage": ""
         },
         "no": "EI",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Muuda rakendust/mängu",
         "favourite": "Lisa lemmikute hulka",
         "unfavourite": "Eemalda lemmikutest",
-        "backToLibrary": "Tagasi varamusse"
+        "backToLibrary": "Tagasi varamusse",
+        "steamStore": "",
+        "back": "Tagasi",
+        "next": "Järgmine",
+        "skip-installer": {
+            "title": "Jäta vahele"
+        }
     },
     "cloud_save_unsupported": "Mitte toetatud",
     "disabled": "Keelatud",
@@ -180,7 +187,12 @@
             "verified": "Kinnitatud"
         },
         "developer": "Arendaja",
-        "dlcs": "DLC'd"
+        "dlcs": "DLC'd",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Vaba ruumi",
@@ -200,7 +212,10 @@
             "install_anyway": "Jah (ma saan aru, et mitmikmängu funktsioonid ei toimi)",
             "disabled_installation": "See mäng kasutab sohivastast tarkvara, mis ei ühildu teie operatsioonisüsteemiga, või mängu loojad ei ole selle tuge lubanud. See tähendab, et mitmikmängu funktsioonid ei toimi ning selle vastu pole teil (ega Heroicu tiimil) võimalik midagi teha.<br /><br />Et seda mängu siiski paigaldada ja käivitada, minge Seaded, Täpsem, ja pange linnuke sättele, mis lubab katkiste või keelatud sohivastaste meetmetega mängude paigaldamist.<br /><br />Pange tähele, et selle vastu ei ole lahendust ning mäng võib teie konto blokeerida."
         },
-        "flatpak-path-not-writtable": "Viga: Liivakasti ligipääsu ei ole antud sellele asukohale, jätkates esineb andmete kadumine."
+        "flatpak-path-not-writtable": "Viga: Liivakasti ligipääsu ei ole antud sellele asukohale, jätkates esineb andmete kadumine.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -246,7 +261,8 @@
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "mis toimib läbi Heroicu, sest uued Steami versioonid ei tööta macOS-il."
         },
-        "releaseDate": "Väljalaske kuupäev"
+        "releaseDate": "Väljalaske kuupäev",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Käivitusvalikud...",
@@ -296,6 +312,12 @@
         },
         "images": {
             "summary": "Pildid"
+        },
+        "step": {
+            "compat": "Kontrolli ühilduvust",
+            "finish": "Valmis",
+            "images": "Pildid",
+            "install": "Peata paigaldamine"
         }
     },
     "specs": {
@@ -350,7 +372,8 @@
         "extraInfo": "Lisainfo",
         "logs": "Logid",
         "categories": "Kategooriad",
-        "more": "Veel"
+        "more": "Veel",
+        "options": "Valikud"
     },
     "help": {
         "cloud_save_unsupported": "See mäng ei toeta pilvesalvestust. Seda teavet pakuvad mängu arendajad. Mõned mängud rakendavad omaenda pilvesalvestussüsteemi.",
@@ -416,6 +439,11 @@
             "installInfo": "Allalaadimise suurus",
             "launchOptions": "Käivitusvalikud",
             "storeInfo": "Süsteemi teave"
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
