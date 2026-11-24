@@ -86,7 +86,7 @@
         "remove_from_favourites": "Usuń z ulubionych",
         "remove_from_recent": "Usuń z ostatnio uruchamianych",
         "run-exe-first": "Najpierw uruchom instalator",
-        "running-setup": "Rozpoczynanie instalacji",
+        "running-setup": "Uruchamianie instalatora...",
         "sideload": {
             "edit": "Edytuj aplikację/grę"
         },
@@ -102,7 +102,18 @@
         "favourite": "Dodaj do ulubionych",
         "unfavourite": "Usuń z ulubionych",
         "backToLibrary": "Wróć do biblioteki",
-        "steamStore": "Otwórz stronę na Steamie"
+        "steamStore": "Otwórz stronę na Steamie",
+        "back": "Wróć",
+        "next": "Dalej",
+        "skip-installer": {
+            "title": "Pomiń",
+            "subtitle": "Już mam plik wykonywalny gry, który mogę uruchomić, aby w nią zagrać"
+        },
+        "run-installer": {
+            "subtitle": "Gra ma instalator, który muszę uruchomić przed zagraniem w nią",
+            "title": "Uruchom instalator"
+        },
+        "skip-waiting": "Pomiń oczekiwanie"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -112,7 +123,7 @@
     "enabled": "Włączono",
     "game": {
         "downloadSize": "Rozmiar pobierania",
-        "firstPlayed": "Pierwsze uruchomienie",
+        "firstPlayed": "Pierwsze Uruchomienie",
         "getting-download-size": "Sprawdzanie rozmiaru pliku do pobrania",
         "getting-install-size": "Sprawdzanie rozmiaru instalacji",
         "installSize": "Rozmiar instalacji",
@@ -294,7 +305,12 @@
             "useragent": "Niestandardowy User Agent",
             "fullscreen": "Otwórz w trybie pełnoekranowym (F11 aby wyjść)",
             "cover-hint": "Okładka/Ikona (kliknij obraz, aby szukać na SteamGridDB)",
-            "image-hint": "Ikona (kliknij obraz, aby szukać na SteamGridDB)"
+            "image-hint": "Ikona (kliknij obraz, aby szukać na SteamGridDB)",
+            "no-proton-shortcuts": {
+                "subtitle": "Heroic nie wykrył zainstalowanego oprogramowania. Wybierz plik wykonywalny ręcznie.",
+                "title": "Nie znaleziono skrótów"
+            },
+            "proton-shortcuts": "Wykryte oprogramowanie"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazu lub wybierz jeden z komputera",
@@ -303,11 +319,30 @@
             "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
         },
         "import-hint": {
-            "title": "Uwaga! Czy dodajesz grę z Epic/GOG/Amazon? Kliknij tutaj!",
+            "title": "Uwaga! Czy dodajesz grę z Epic/GOG/Amazon?",
             "content": "NIE używaj do tego tej funkcjonalności.<br />. Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
         },
         "images": {
-            "summary": "Obrazy"
+            "summary": "Obrazy",
+            "heading": "Wybierz okładkę gry",
+            "preview": "Podgląd",
+            "subheading": "Wybierz kwadratową okładkę i hero banner bądź poszukaj ich w SteamGridDB"
+        },
+        "step": {
+            "compat": "Kompatybilność",
+            "finish": "Zakończenie",
+            "images": "Obrazy",
+            "install": "Instalacja",
+            "compat-desc": "Konfiguracja Wine / Proton",
+            "finish-desc": "Plik wykonywalny i opcje",
+            "images-desc": "Okładka i banner",
+            "install-desc": "Uruchom instalator",
+            "meta": "Metadane",
+            "meta-desc": "Nazwa i platforma"
+        },
+        "install": {
+            "installing": "Instalowanie {{title}}…",
+            "waiting-log": "Oczekiwanie na wyjście instalatora…"
         }
     },
     "specs": {
@@ -354,7 +389,7 @@
         "disableEosOverlay": "Wyłącz nakładkę EOS",
         "enableEosOverlay": "Włącz nakładkę EOS",
         "move": "Przenieś grę",
-        "protondb": "Sprawdź kompatybilność",
+        "protondb": "Sprawdź spójność",
         "removeFromSteam": "Usuń ze Steama",
         "removeShortcut": "Usuń skróty",
         "settings": "Ustawienia",
@@ -363,7 +398,8 @@
         "extraInfo": "Informacje dodatkowe",
         "logs": "Logi",
         "categories": "Kategorie",
-        "more": "Więcej"
+        "more": "Więcej",
+        "options": "Opcje"
     },
     "help": {
         "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze.",
