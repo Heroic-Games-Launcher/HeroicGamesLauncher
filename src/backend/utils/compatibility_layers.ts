@@ -4,6 +4,7 @@ import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
+import { readFile } from 'fs/promises'
 import { homedir } from 'os'
 import { dirname, join } from 'path'
 import { PlistObject, parse as plistParse } from 'plist'
@@ -591,4 +592,63 @@ export async function isUmuSupported(
   if (!existsSync(await getUmuPath())) return false
 
   return true
+}
+
+/**
+ * Lists the files a usable Wine/Proton prefix must contain
+ * @param winePrefix The prefix folder (the compat data folder for Proton)
+ * @param wineType The type of the Wine version used with the prefix
+ */
+export function getRequiredPrefixFiles(
+  winePrefix: string,
+  wineType: WineInstallation['type']
+): string[] {
+  let requiredPrefixFiles = [
+    'dosdevices',
+    'drive_c',
+    'system.reg',
+    'user.reg',
+    'userdef.reg'
+  ]
+  if (wineType === 'proton') {
+    requiredPrefixFiles = [
+      'pfx.lock',
+      'tracked_files',
+      'version',
+      'config_info',
+      ...requiredPrefixFiles.map((path) => join('pfx', path))
+    ]
+  }
+  requiredPrefixFiles = requiredPrefixFiles.map((path) =>
+    join(winePrefix, path)
+  )
+  requiredPrefixFiles.push(winePrefix)
+  return requiredPrefixFiles
+}
+
+/**
+ * Checks whether a Proton prefix is complete and was last set up by the
+ * given Proton version. Proton writes its `CURRENT_PREFIX_VERSION` to the
+ * prefix's `version` file when it creates or upgrades it, so a match means
+ * there is nothing left for `createprefix` / `wineboot --init` to do
+ * @param winePrefix The compat data folder of the prefix
+ * @param protonBin Path to the `proton` script of the selected Proton version
+ */
+export async function isProtonPrefixUpToDate(
+  winePrefix: string,
+  protonBin: string
+): Promise<boolean> {
+  const requiredFiles = getRequiredPrefixFiles(winePrefix, 'proton')
+  if (!requiredFiles.every((path) => existsSync(path))) return false
+
+  try {
+    const [prefixVersion, protonScript] = await Promise.all([
+      readFile(join(winePrefix, 'version'), 'utf-8'),
+      readFile(protonBin, 'utf-8')
+    ])
+    const match = protonScript.match(/^CURRENT_PREFIX_VERSION\s*=\s*"([^"]+)"/m)
+    return !!match && prefixVersion.trim() === match[1]
+  } catch {
+    return false
+  }
 }
