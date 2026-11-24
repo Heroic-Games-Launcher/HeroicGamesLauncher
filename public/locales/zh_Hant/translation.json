@@ -28,7 +28,8 @@
         "source": "來源",
         "status": "狀態",
         "title": "此遊戲包含反作弊軟體",
-        "multiplayer_may_not_work": "由於拒絕或破壞的反作弊支持，它可能無法運作。"
+        "multiplayer_may_not_work": "由於拒絕或破壞的反作弊支持，它可能無法運作。",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "更新",
         "changelog": "更新日誌",
         "postpone": "延遲",
-        "cancel": "取消"
+        "cancel": "取消",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "取消",
@@ -263,7 +278,8 @@
             "end-time": "完成於",
             "queue-time": "新增於",
             "start-time": "開始於",
-            "type": "類型"
+            "type": "類型",
+            "status": "狀態"
         },
         "title": "下載",
         "ETA": "預計時間",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "因為 Epic Games 伺服器離線，可能無法提供完整線上服務！",
         "offline-notification-title": "離線"
     },
     "Epic Games": "Epic Games",
-    "error": "錯誤",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "最愛",
     "game": {
         "status": "狀態",
@@ -328,7 +350,8 @@
         "stores": "商店",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD FSR 通過在全螢幕模式下提高較低解析度來提高畫面幀率。影像品質從 5 提高到 1，但代價是效能稍有下降。啟用可能會提高效能。",
@@ -490,7 +513,27 @@
         },
         "title_amazon": "Amazon 遊戲",
         "title_epic": "Epic Games1",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "登入",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "同步完成",
@@ -552,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "重試中"
+        "retrying": "重試中",
+        "hint-label": ""
     },
     "Open": "開啟",
     "options": {
@@ -615,7 +659,8 @@
         "gogdl-version": "GOGDL 版本: ",
         "legendary-version": "Legendary 版本: ",
         "weblate": "請協助翻譯 Heroic。",
-        "nile-version": "Nile 版本： "
+        "nile-version": "Nile 版本： ",
+        "aurelia-version": ""
     },
     "Other": "其它",
     "placeholder": {
@@ -756,7 +801,8 @@
                 "zoom": "",
                 "game-log": "{{gameTitle}} 更新日誌",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -954,8 +1000,26 @@
         "alt-aurelia-bin": "選擇替代的 Nile 二進位檔案",
         "steamLaunchTarget": {
             "downloadBuild": "下載",
-            "missingRuntime": "未安裝 VCRuntime"
-        }
+            "missingRuntime": "未安裝 VCRuntime",
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1024,10 +1088,14 @@
             "details": "內容",
             "title": {
                 "resetHeroic": "重置 Heroic",
-                "clearCache": "清理快取"
+                "clearCache": "清理快取",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "這會移除所有設定和快取但不會移除您已安裝的遊戲或 Epic 憑證。免安裝版的 heroic（AppImage, WinPortable, ...）需要手動重新啟動。",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1102,7 +1170,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon 遊戲",
+            "epic": "Epic Games1",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1111,7 +1183,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "設定",
     "sidebar": {
@@ -1125,7 +1198,8 @@
         "logging": "正在登入...",
         "processing": "檔案處理中，請等待",
         "preparing_login": "正在準備登入... ",
-        "installed": "下載"
+        "installed": "下載",
+        "preparing": ""
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -1150,7 +1224,9 @@
     },
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button",
-        "add": "新增"
+        "add": "新增",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -1390,7 +1466,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "內容",
         "sort": {
@@ -1455,7 +1532,12 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": {
+            "label": "",
+            "last_played": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
+        },
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
@@ -1498,7 +1580,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1526,17 +1616,155 @@
     "Update available!": "Update Available!",
     "support": {
         "actions": {
-            "open": "開啟"
-        }
+            "open": "開啟",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "返回",
         "button": {
             "download": "下載",
-            "upload": "上載中"
+            "upload": "上載中",
+            "view": "",
+            "keep": "",
+            "sync": ""
         },
         "column": {
-            "size": "大小"
-        }
+            "size": "大小",
+            "modified": "",
+            "file": ""
+        },
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "never": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "下載中"
+        },
+        "back": "返回",
+        "close": "關閉",
+        "installed-games": "已安裝的遊戲",
+        "per-game": "遊戲設定",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "儲存登入訊息",
+            "globalSettings": "全域設定",
+            "perGameSettings": "遊戲設定"
+        },
+        "step3": {
+            "title": "全域設定"
+        },
+        "step4": {
+            "selectAll": "全選"
+        },
+        "step5": {
+            "title": "儲存登入訊息"
+        },
+        "step6": {
+            "prefixPath": "Wine Prefix",
+            "wine-downloadable": "下載"
+        },
+        "steps": {
+            "credentials": "儲存登入訊息",
+            "global-settings": "全域設定",
+            "per-game": "遊戲設定"
+        },
+        "summaryValue": "數值",
+        "version": "Heroic 版本",
+        "wine-versions": "Wine 版本"
     }
 }
