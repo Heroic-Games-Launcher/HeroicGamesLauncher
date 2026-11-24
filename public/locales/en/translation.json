@@ -598,8 +598,12 @@
     "globalSettings": "Global settings",
     "header": {
         "categories": "Categories",
+        "categories_selected_one": "{{count}} category selected",
+        "categories_selected_other": "{{count}} categories selected",
         "display": "Display",
         "filters": "Filters",
+        "filters_applied_one": "{{count}} filter applied",
+        "filters_applied_other": "{{count}} filters applied",
         "hidden": "Hidden",
         "no_categories": "No custom categories. Add categories using each game menu.",
         "non_available": "Non-available",

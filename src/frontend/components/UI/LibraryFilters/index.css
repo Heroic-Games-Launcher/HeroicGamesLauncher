@@ -7,8 +7,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: var(--space-lg-fixed);
+  height: var(--space-lg-fixed);
   flex-shrink: 0;
 }
 
