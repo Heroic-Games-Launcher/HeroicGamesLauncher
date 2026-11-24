@@ -459,6 +459,7 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  isLinuxArm: () => boolean
   getSteamUsers: () => Promise<SteamAccount[]>
   getGogDealsRegion: () => Promise<GogDealsRegion | null>
   getGogDiscounts: (

@@ -120,6 +120,7 @@ export const deleteUploadedLogFile = makeHandlerInvoker('deleteUploadedLogFile')
 export const logFileUploadedSlot = frontendListenerSlot('logFileUploaded')
 export const logFileUploadDeletedSlot = frontendListenerSlot('logFileUploadDeleted')
 export const isIntelMac = makeHandlerInvoker('isIntelMac')
+export const isLinuxArm = makeHandlerInvoker('isLinuxArm')
 export const getProtonShortcuts = makeHandlerInvoker('getProtonShortcuts')
 export const steamgriddb = {
   hasApiKey: makeHandlerInvoker('steamgriddb.hasApiKey'),
