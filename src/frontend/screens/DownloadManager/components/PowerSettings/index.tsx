@@ -3,7 +3,8 @@ import './index.css'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
-import { SelectField, ToggleSwitch } from 'frontend/components/UI'
+import { MonitorOff } from 'lucide-react'
+import { Button, Icon, SelectField } from 'frontend/components/UI'
 import { AppSettings } from 'common/types'
 
 type AfterDownloadAction = AppSettings['afterDownloadAction']
@@ -30,41 +31,35 @@ export default function PowerSettings() {
 
   return (
     <div className="powerSettings">
-      <div className="powerSettingsAction">
-        <ToggleSwitch
-          htmlId="afterDownloadActionEnabled"
-          value={afterDownloadAction !== 'none'}
-          handleChange={() =>
-            updateAction(afterDownloadAction === 'none' ? 'suspend' : 'none')
-          }
-          title={t(
-            'download-manager.post-action.enable',
-            'What to do after finishing the download'
-          )}
-        />
-        {afterDownloadAction !== 'none' && (
-          <SelectField
-            htmlId="afterDownloadAction"
-            value={afterDownloadAction}
-            onChange={(e: SelectChangeEvent) =>
-              updateAction(e.target.value as AfterDownloadAction)
-            }
-          >
-            <MenuItem value="suspend">
-              {t('download-manager.post-action.suspend', 'Suspend')}
-            </MenuItem>
-            <MenuItem value="shutdown">
-              {t('download-manager.post-action.shutdown', 'Shutdown')}
-            </MenuItem>
-          </SelectField>
+      <SelectField
+        htmlId="afterDownloadAction"
+        value={afterDownloadAction}
+        onChange={(e: SelectChangeEvent) =>
+          updateAction(e.target.value as AfterDownloadAction)
+        }
+        label={t(
+          'download-manager.post-action.enable',
+          'What to do after finishing the download'
         )}
-      </div>
-      <button
-        className="button is-text"
+      >
+        <MenuItem value="none">
+          {t('download-manager.post-action.none', 'Do nothing')}
+        </MenuItem>
+        <MenuItem value="suspend">
+          {t('download-manager.post-action.suspend', 'Suspend')}
+        </MenuItem>
+        <MenuItem value="shutdown">
+          {t('download-manager.post-action.shutdown', 'Shutdown')}
+        </MenuItem>
+      </SelectField>
+      <Button
+        variant="ghost"
+        size="md"
+        icon={<Icon glyph={MonitorOff} size="md" />}
         onClick={() => void window.api.turnOffScreen()}
       >
-        {t('download-manager.screen-off', 'Turn Off Screen')}
-      </button>
+        {t('download-manager.screen-off', 'Turn off screen')}
+      </Button>
     </div>
   )
 }

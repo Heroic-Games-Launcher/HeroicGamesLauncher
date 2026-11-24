@@ -1,21 +1,12 @@
 .powerSettings {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-sm);
-  margin: var(--space-md) var(--space-lg);
-  padding: var(--space-md) var(--space-lg);
-  background-color: var(--input-background);
-  border-radius: 6px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-md-fixed);
+  margin-block-start: var(--space-sm-fixed);
 }
 
-.powerSettingsAction {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-}
-
-.powerSettingsAction .selectFieldWrapper {
-  min-width: 150px;
+.powerSettings .selectFieldWrapper {
+  min-width: 220px;
   margin-bottom: 0;
 }

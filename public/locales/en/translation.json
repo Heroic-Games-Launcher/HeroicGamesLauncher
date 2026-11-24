@@ -551,6 +551,7 @@
         "pageSubtitle": "What is installing now, what comes next and what is already done",
         "post-action": {
             "enable": "What to do after finishing the download",
+            "none": "Do nothing",
             "shutdown": "Shutdown",
             "suspend": "Suspend"
         },

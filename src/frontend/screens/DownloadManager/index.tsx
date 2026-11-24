@@ -132,13 +132,13 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                     <DownloadLimit />
                   ) : undefined
                 }
+                heroFooter={window.isSteamOS ? <PowerSettings /> : undefined}
               />
               <ProgressHeader
                 state={state}
                 appName={currentElement.params.appName}
                 runner={currentElement.params.runner}
               />
-              {window.isSteamOS && <PowerSettings />}
             </>
           ) : (
             <EmptyState
