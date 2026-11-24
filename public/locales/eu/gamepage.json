@@ -10,7 +10,8 @@
         "move": {
             "message": "Honek denbora luzea eraman dezake, ziur zaude?",
             "path": "Aukeratu nora mugitu nahi duzun",
-            "title": "Mugitu jokoaren instalazioa"
+            "title": "Mugitu jokoaren instalazioa",
+            "steamMessage": ""
         },
         "no": "EZ",
         "repair": {
@@ -100,7 +101,8 @@
         "edit-game": "Edit App/Game",
         "favourite": "Gehitu gogokoetara",
         "unfavourite": "Kendu gogokoenetik",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": ""
     },
     "cloud_save_unsupported": "Onartu gabe",
     "disabled": "Desgaituta",
@@ -179,7 +181,13 @@
             "unsupported": ""
         },
         "developer": "",
-        "genres": ""
+        "genres": "",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        },
+        "dlcs": ""
     },
     "install": {
         "disk-space-left": "Espazio erabilgarria",
@@ -199,7 +207,10 @@
             "install_anyway": "",
             "ok": ""
         },
-        "flatpak-path-not-writtable": ""
+        "flatpak-path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -222,7 +233,8 @@
         },
         "winetricks": "",
         "redist": "",
-        "releaseDate": ""
+        "releaseDate": "",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Jaurtiketa-aukerak...",
@@ -272,12 +284,16 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "finish": "Finish"
         }
     },
     "specs": {
         "minimum": "Gutxienekoa",
         "recommended": "Gomendatua",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "Egin klik eguneratu ahal izateko",
@@ -321,11 +337,12 @@
         "removeShortcut": "Sarbide zuzenak kendu",
         "settings": "Konfigurazioa",
         "store": "Dendaren orrialdea",
-        "verify": "Egiaztatzea eta konpontzea",
+        "verify": "Egiaztatu eta konpondu",
         "extraInfo": "Informazio gehigarria",
         "logs": "Erregistroak",
         "categories": "",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Joko honek ez du onartzen hodeian gordetzea. Informazio hau jokoen garatzaileek ematen dute. Zenbait jokok hodeian gordetzeko sistema propioa ezartzen dute",
@@ -382,6 +399,20 @@
     "itchio": {
         "import": {
             "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "",
+            "dlc": "",
+            "launchOptions": "",
+            "installInfo": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }
