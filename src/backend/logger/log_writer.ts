@@ -16,7 +16,7 @@ const LOG_LEVEL_LOGGING_FUNC: Record<LogLevel, (message: string) => unknown> = {
   ERROR: console.error
 }
 
-export const MAX_LOG_FILE_BYTES = 50 * 1024 * 1024
+const MAX_LOG_FILE_BYTES = 50 * 1024 * 1024
 
 export default class LogWriter {
   /** The log file path the writer should write into */
