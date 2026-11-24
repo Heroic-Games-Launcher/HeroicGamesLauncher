@@ -1,4 +1,4 @@
-export type SettingsSearchTab = 'general' | 'runners' | 'advanced'
+export type SettingsSearchTab = 'general' | 'gamepad' | 'runners' | 'advanced'
 
 export interface SettingsSearchEntry {
   /** The control's htmlId, used to scroll to and focus it. */

@@ -4,6 +4,7 @@ import {
   removeImageFromCache
 } from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
+import { getControllerBatteries } from './utils/controller_battery'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
@@ -713,6 +714,7 @@ addHandler('getPrimaryDisplay', () => {
 })
 
 addHandler('getHeroicVersion', () => app.getVersion())
+addHandler('getControllerBatteries', () => getControllerBatteries())
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 addHandler('getGameOverride', async () =>
   libraryManagerMap['legendary'].getGameOverride()
@@ -1345,6 +1347,14 @@ addHandler('gamepadAction', async (event, args) => {
   const mainWindow = getMainWindow()!
 
   const { action, metadata } = args
+
+  // `metadata` comes from getBoundingClientRect() (CSS pixels) while
+  // sendInputEvent expects window coordinates, so a zoomed UI would click
+  // somewhere else entirely.
+  const zoomFactor = mainWindow.webContents.zoomFactor || 1
+  const clickX = metadata ? Math.round(metadata.x * zoomFactor) : 0
+  const clickY = metadata ? Math.round(metadata.y * zoomFactor) : 0
+
   const inputEvents: (
     | Electron.MouseInputEvent
     | Electron.MouseWheelInputEvent
@@ -1376,6 +1386,26 @@ addHandler('gamepadAction', async (event, args) => {
         y: mainWindow.getBounds().height / 2
       })
       break
+    case 'prevPage':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'PageUp'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'PageUp'
+      })
+      break
+    case 'nextPage':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'PageDown'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'PageDown'
+      })
+      break
     case 'leftStickUp':
     case 'leftStickDown':
     case 'leftStickLeft':
@@ -1394,32 +1424,18 @@ addHandler('gamepadAction', async (event, args) => {
         keyCode: action.replace(/pad|leftStick/, '')
       })
       break
-    case 'leftClick':
-      inputEvents.push({
-        type: 'mouseDown',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      inputEvents.push({
-        type: 'mouseUp',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      break
     case 'rightClick':
       inputEvents.push({
         type: 'mouseDown',
         button: 'right',
-        x: metadata.x,
-        y: metadata.y
+        x: clickX,
+        y: clickY
       })
       inputEvents.push({
         type: 'mouseUp',
         button: 'right',
-        x: metadata.x,
-        y: metadata.y
+        x: clickX,
+        y: clickY
       })
       break
     case 'back':
@@ -1460,6 +1476,16 @@ addHandler('gamepadAction', async (event, args) => {
           modifiers: ['shift']
         }
       )
+      break
+    case 'enter':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'Return'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'Return'
+      })
       break
   }
 

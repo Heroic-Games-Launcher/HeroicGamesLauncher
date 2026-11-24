@@ -3,6 +3,8 @@
   width: 100%;
   min-width: 0;
   text-align: start;
+  /* room for the sticky settings header/tabs when scrolled into view */
+  scroll-margin-block-start: 120px;
 }
 
 .SettingRow--inline {

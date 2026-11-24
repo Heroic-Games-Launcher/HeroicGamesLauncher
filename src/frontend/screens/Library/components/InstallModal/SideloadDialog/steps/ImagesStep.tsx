@@ -199,6 +199,14 @@ export default function ImagesStep({
               loading: imageLoading
             })}
             onClick={() => hasSgdbKey && setSgdbTarget('square')}
+            onKeyDown={(event) => {
+              if (hasSgdbKey && (event.key === 'Enter' || event.key === ' ')) {
+                event.preventDefault()
+                setSgdbTarget('square')
+              }
+            }}
+            role={hasSgdbKey ? 'button' : undefined}
+            tabIndex={hasSgdbKey ? 0 : undefined}
           >
             <CachedImage
               className={classNames('appImage', {
@@ -224,6 +232,14 @@ export default function ImagesStep({
               hasSgdbKey
             })}
             onClick={() => hasSgdbKey && setSgdbTarget('cover')}
+            onKeyDown={(event) => {
+              if (hasSgdbKey && (event.key === 'Enter' || event.key === ' ')) {
+                event.preventDefault()
+                setSgdbTarget('cover')
+              }
+            }}
+            role={hasSgdbKey ? 'button' : undefined}
+            tabIndex={hasSgdbKey ? 0 : undefined}
           >
             <CachedImage
               className="appImage heroImage"

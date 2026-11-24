@@ -47,6 +47,18 @@ export default function DetailList({
             'DetailList__row--clickable': !!item.onClick
           })}
           onClick={item.onClick}
+          onKeyDown={
+            item.onClick
+              ? (event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    item.onClick?.()
+                  }
+                }
+              : undefined
+          }
+          role={item.onClick ? 'button' : undefined}
+          tabIndex={item.onClick ? 0 : undefined}
           title={item.title}
         >
           {hasIcons && (

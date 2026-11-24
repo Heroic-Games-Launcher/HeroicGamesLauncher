@@ -15,7 +15,6 @@ import {
   AutoUpdateGames,
   CheckUpdatesOnStartup,
   DefaultInstallPath,
-  DisableController,
   DiscordRPC,
   HideChangelogOnStartup,
   LibraryTopSection,
@@ -77,7 +76,6 @@ export default function GeneralSettings() {
         title={t('settings.section.gameplay', 'Gameplay')}
       >
         <MinimizeOnGameLaunch />
-        <DisableController />
         <PlaytimeSync />
         <BackupSaves />
         <Shortcuts />

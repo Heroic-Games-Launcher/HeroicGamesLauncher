@@ -11,7 +11,12 @@
 .InfoTooltip:hover,
 .InfoTooltip:focus-visible {
   color: var(--on-panel-link, var(--accent));
-  outline: none;
+}
+
+.InfoTooltip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
 }
 
 .MuiTooltip-tooltip.InfoTooltip__popper {

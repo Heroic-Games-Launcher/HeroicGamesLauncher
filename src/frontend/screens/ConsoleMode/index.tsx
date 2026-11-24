@@ -15,6 +15,14 @@ import classNames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill } from 'frontend/helpers'
 import { updateGame } from 'frontend/helpers/library'
+import { useControllerBattery } from 'frontend/hooks/useControllerBattery'
+import { Icon } from 'frontend/components/UI'
+import {
+  BatteryCharging,
+  BatteryFull,
+  BatteryLow,
+  BatteryMedium
+} from 'lucide-react'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -80,8 +88,14 @@ export default function ConsoleMode() {
     refreshLibrary,
     refreshing,
     gameUpdates,
-    hiddenGames
+    hiddenGames,
+    isFullscreen,
+    disableAnimations
   } = useContext(ContextProvider)
+
+  // Remembered so leaving console mode restores the previous window state
+  // instead of forcing windowed mode on a Steam Deck / `--fullscreen` session.
+  const wasFullscreen = useRef(isFullscreen)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [sortMode, setSortMode] = useState<ConsoleSortMode>('last_played')
@@ -100,8 +114,16 @@ export default function ConsoleMode() {
     null
   )
 
+  const idle =
+    !launchingGame &&
+    !installingGame &&
+    !updateNoticeGame &&
+    !cancelDownloadGame &&
+    !queuedNoticeGame
+
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
+  const [controllerBattery] = useControllerBattery()
   const backButtonLabel = getBackButtonLabel(controllerLayout)
   const actionButtonLabel = getActionButtonLabel(controllerLayout)
 
@@ -123,7 +145,7 @@ export default function ConsoleMode() {
       void refreshLibrary({ runInBackground: true })
     }
     return () => {
-      window.api.setFullscreen(false)
+      window.api.setFullscreen(wasFullscreen.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -247,13 +269,19 @@ export default function ConsoleMode() {
   }, [visibleGames.length, focusedIndex])
 
   useEffect(() => {
+    // also runs when `idle` flips back to true so focus returns to the grid
+    // after an overlay/dialog closes
+    if (!idle) return
     const btn = cardRefs.current[focusedIndex]
     if (!btn) return
     if (document.activeElement !== btn) {
       btn.focus({ preventScroll: true })
     }
-    btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-  }, [focusedIndex, visibleGames.length])
+    btn.scrollIntoView({
+      block: 'nearest',
+      behavior: disableAnimations ? 'auto' : 'smooth'
+    })
+  }, [focusedIndex, visibleGames.length, idle, disableAnimations])
 
   const cycleStore = useCallback(
     (direction: 1 | -1) => {
@@ -267,13 +295,6 @@ export default function ConsoleMode() {
   )
 
   const quit = useCallback(() => navigate('/'), [navigate])
-
-  const idle =
-    !launchingGame &&
-    !installingGame &&
-    !updateNoticeGame &&
-    !cancelDownloadGame &&
-    !queuedNoticeGame
 
   const activateGame = useCallback(
     (game: GameInfo) => {
@@ -561,6 +582,30 @@ export default function ConsoleMode() {
       <div className="consoleFooter">
         {gamepadConnected && !launchingGame && (
           <ControllerHints layout={controllerLayout} />
+        )}
+        {!launchingGame && controllerBattery && (
+          <span
+            className={classNames('consoleBattery', {
+              charging: controllerBattery.status === 'Charging',
+              low:
+                controllerBattery.capacity <= 20 &&
+                controllerBattery.status !== 'Charging'
+            })}
+          >
+            <Icon
+              glyph={
+                controllerBattery.status === 'Charging'
+                  ? BatteryCharging
+                  : controllerBattery.capacity <= 20
+                    ? BatteryLow
+                    : controllerBattery.capacity <= 60
+                      ? BatteryMedium
+                      : BatteryFull
+              }
+              size="sm"
+            />
+            {controllerBattery.capacity}%
+          </span>
         )}
       </div>
 

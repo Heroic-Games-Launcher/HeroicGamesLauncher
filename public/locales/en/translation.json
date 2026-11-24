@@ -1196,6 +1196,7 @@
         "defaultWinePrefix": "Set folder for new Wine prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "disable_gog_presence": "Disable GOG presence updates",
+        "disable_guide_button": "Disable console mode shortcut",
         "disable_logs": "Disable logs",
         "disable-gog-presence": {
             "description": "Stop sharing which GOG game you are playing with your friends"
@@ -1206,6 +1207,9 @@
         "disableDiscounts": "Disable deals page",
         "disableGOGAffiliate": "Disable GOG affiliate link",
         "disableGOGAffiliateDescription": "Buying GOG games through Heroic helps support the project.",
+        "disableGuideButton": {
+            "description": "Stop the Guide/PS button from opening console mode. You can still enter it from the library."
+        },
         "disableNTSync": "Disable NTSync (troubleshooting)",
         "disableNTSync-description": "Fall back to fsync/wineserver when a game hangs or stutters with NTSync",
         "disablePlaytimeSync": "Disable playtime synchronization",
@@ -1278,6 +1282,7 @@
         "fsync-description": "Use fsync only when NTSync is unavailable",
         "gamemode": "Use GameMode (Feral game mode needs to be installed)",
         "gamemode-description": "Ask the system to prioritise the game while it runs",
+        "gamepad-deadzone": "Stick deadzone",
         "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
         "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
@@ -1547,6 +1552,43 @@
                 "title": "EAC runtime enabled"
             }
         },
+        "gamepad": {
+            "button": {
+                "alt": "Play / install game",
+                "back": "Back",
+                "context": "Options menu",
+                "enter": "Submit / open keyboard",
+                "guide": "Console mode",
+                "main": "Confirm / select",
+                "nextPage": "Page down",
+                "prevPage": "Page up",
+                "reset": "Reset to defaults",
+                "unbound": "Not bound"
+            },
+            "buttonMapping": {
+                "description": "Choose which physical button triggers each action",
+                "title": "Button mapping"
+            },
+            "description": "Navigation, repeat speed and how forgiving the sticks are",
+            "detected": {
+                "battery": "Battery",
+                "charging": "Charging",
+                "copy": "Copy details",
+                "custom": "Custom",
+                "description": "What the system reports for each connected controller. Handy for third-party pads that map incorrectly.",
+                "device": "Device",
+                "discharging": "On battery",
+                "empty": "No controller detected. Press a button on it so the system reports it.",
+                "full": "Full",
+                "id": "System id",
+                "index": "Slot",
+                "layout": "Heroic layout",
+                "mapping": "Browser mapping",
+                "notReported": "The system reports a battery, but the controller is not visible to Heroic yet. Press a button on it.",
+                "title": "Detected controller",
+                "vendor": "Vendor / product"
+            }
+        },
         "gamescope": {
             "searchMsg": "Searching for gamescope executable."
         },
@@ -1558,6 +1600,7 @@
         "navbar": {
             "advanced": "Advanced",
             "categories": "Categories",
+            "gamepad": "Gamepad",
             "games_settings_defaults": "Game defaults",
             "gamescope": "Gamescope",
             "general": "General",
@@ -1577,6 +1620,7 @@
         "open-game-settings-file-hint": "Click to open game settings file",
         "pageSubtitle": {
             "advanced": "Behaviour, experimental features and maintenance",
+            "gamepad": "Controller navigation, deadzone and button mapping",
             "games_settings_defaults": "Defaults applied to newly installed games",
             "general": "Configure your launcher preferences",
             "importExport": "Back up or restore your Heroic setup",

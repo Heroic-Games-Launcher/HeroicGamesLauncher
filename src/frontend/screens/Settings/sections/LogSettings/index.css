@@ -81,6 +81,11 @@ dialog .logs-wrapper {
   cursor: pointer;
   text-align: start;
   transform-origin: 0% 50%;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
 }
 
 .log-buttons:hover {

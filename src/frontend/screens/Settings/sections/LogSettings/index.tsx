@@ -280,7 +280,8 @@ export default function LogSettings() {
                 args.appName === showLogOf.appName &&
                 args.runner === showLogOf.runner
               return (
-                <a
+                <button
+                  type="button"
                   key={i}
                   className={`log-buttons ${isSelected ? 'log-choosen' : ''}`}
                   onClick={() => {
@@ -290,7 +291,7 @@ export default function LogSettings() {
                   title={title}
                 >
                   {title}
-                </a>
+                </button>
               )
             })}
           </span>

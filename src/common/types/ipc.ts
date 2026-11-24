@@ -8,6 +8,7 @@ import type {
   ButtonOptions,
   CloudSyncResult,
   ConnectivityStatus,
+  ControllerBattery,
   DetectSavePathsResult,
   SaveBackupEntry,
   DialogType,
@@ -207,6 +208,7 @@ interface AsyncIPCFunctions {
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
   getMaxCpus: () => number
   getHeroicVersion: () => string
+  getControllerBatteries: () => Promise<ControllerBattery[]>
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>
   getCometVersion: () => Promise<string>
