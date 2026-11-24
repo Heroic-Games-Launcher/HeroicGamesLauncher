@@ -20,16 +20,16 @@ const EnableFsync = () => {
     <ToggleSwitch
       info={t(
         'help.fsync',
-        'Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported linux kernels.'
+        'Fsync is only used as a fallback when NTSync is unavailable, for example on kernels older than 6.14 or when /dev/ntsync is not available.'
       )}
       description={t(
         'setting.fsync-description',
-        'Speed up multi-threaded games using futex synchronisation'
+        'Use fsync only when NTSync is unavailable'
       )}
       htmlId="fsyncToggle"
       value={enableFsync || false}
       handleChange={() => setEnableFsync(!enableFsync)}
-      title={t('setting.fsync', 'Enable Fsync')}
+      title={t('setting.fsync', 'Fsync fallback')}
     />
   )
 }

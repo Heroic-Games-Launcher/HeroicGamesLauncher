@@ -411,6 +411,11 @@ interface AsyncIPCFunctions {
   getAmazonLoginData: () => Promise<NileLoginData>
   getItchioLoginData: () => Promise<ItchioLoginData>
   hasExecutable: (executable: string) => Promise<boolean>
+  getPrimaryDisplay: () => Promise<{
+    width: number
+    height: number
+    scaleFactor: number
+  }>
 
   setPrivateBranchPassword: (appName: string, password: string) => void
   getPrivateBranchPassword: (appName: string) => string
