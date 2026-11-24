@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
   Alert,
+  Button,
   PathSelectionBox,
   SelectField,
   SettingRow,
@@ -14,35 +15,41 @@ import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
 import { MenuItem } from '@mui/material'
-import { Button } from 'frontend/components/UI'
 
 interface Props {
   gogSaves: GOGCloudSavesLocation[]
   setGogSaves: (saves: GOGCloudSavesLocation[]) => void
+  savePathFingerprint: string
+  savesPathFingerprint: string
+  setSavesPathFingerprint: (value: string) => void
+  setSavePathIsCustom: (value: boolean) => void
   autoSyncSaves: boolean
   setAutoSyncSaves: (value: boolean) => void
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
   isLinuxNative: boolean
-  quickSavesToggle: () => React.ReactNode
 }
 
 export default function GOGSyncSaves({
   gogSaves,
   setGogSaves,
+  savePathFingerprint,
+  savesPathFingerprint,
+  setSavesPathFingerprint,
+  setSavePathIsCustom,
   autoSyncSaves,
   setAutoSyncSaves,
   syncCommands,
   featureSupported,
-  isLinuxNative,
-  quickSavesToggle: QuickSavesToggle
+  isLinuxNative
 }: Props) {
   const [isLoading, setIsLoading] = useState(true)
   const [isSyncing, setIsSyncing] = useState(false)
   const [syncType, setSyncType] = useState('--skip-upload')
   const [manuallyOutput, setManuallyOutput] = useState<string[]>([])
   const [manuallyOutputShow, setManuallyOutputShow] = useState<boolean>(false)
-  const [retry, setRetry] = useState<boolean>(false)
+  const [retry, setRetry] = useState(0)
+  const [detectError, setDetectError] = useState(false)
 
   const { t } = useTranslation()
 
@@ -51,65 +58,96 @@ export default function GOGSyncSaves({
 
   const { appName } = useContext(SettingsContext)
 
+  const detectionId = useRef(0)
+
   useEffect(() => {
     const getLocations = async () => {
-      setIsLoading(true)
-      let locations = (await window.api.getDefaultSavePath(
-        appName,
-        'gog',
-        gogSaves
-      )) as GOGCloudSavesLocation[]
+      const requestId = ++detectionId.current
+      const legacy = !savesPathFingerprint
+      const stale = !legacy && savesPathFingerprint !== savePathFingerprint
 
-      // For some reason, some games returns an empty array and this makes the input to not be shown.
-      if (locations.length === 0) {
-        locations = [
-          {
-            name: '',
-            location: ''
-          }
-        ]
+      if (legacy && gogSaves.some((save) => save.location.length)) {
+        setSavesPathFingerprint(savePathFingerprint)
+        setSavePathIsCustom(true)
+        setIsLoading(false)
+        return
       }
 
-      setGogSaves(locations)
-      setIsSyncing(false)
-      setIsLoading(false)
+      if (
+        !legacy &&
+        !stale &&
+        retry === 0 &&
+        gogSaves.some((save) => save.location.length)
+      ) {
+        setIsLoading(false)
+        return
+      }
+
+      setIsLoading(true)
+      setDetectError(false)
+      try {
+        const result = await window.api.detectSavePaths(appName, 'gog')
+        if (requestId !== detectionId.current) return
+
+        if (result.updated) {
+          setGogSaves(result.paths as GOGCloudSavesLocation[])
+          setSavePathIsCustom(false)
+        } else if (!result.cancelled) {
+          setDetectError(true)
+          const detected = result.paths as GOGCloudSavesLocation[]
+          if (!gogSaves.some((save) => save.location.length)) {
+            setGogSaves(
+              detected.length ? detected : [{ name: '__default', location: '' }]
+            )
+          }
+        }
+      } catch (error) {
+        window.api.logError(
+          `Could not detect save path for ${appName}: ${error}`
+        )
+      } finally {
+        if (requestId === detectionId.current) {
+          setIsLoading(false)
+        }
+      }
     }
     if (featureSupported && !isLinuxNative) getLocations()
-  }, [retry])
+  }, [retry, savePathFingerprint, savesPathFingerprint])
 
   const handleRetry = () => {
-    setGogSaves([])
-    setRetry(!retry)
+    setRetry(retry + 1)
   }
 
   const handleSync = async () => {
     setIsSyncing(true)
 
-    await window.api
-      .syncGOGSaves(gogSaves, appName, syncType)
-      .then(async (stderr) => {
-        setManuallyOutput(stderr.split('\n'))
-        setManuallyOutputShow(true)
-      })
-
-    setIsSyncing(false)
+    try {
+      const result = await window.api.syncGOGSaves(gogSaves, appName, syncType)
+      setManuallyOutput(result.output.split('\n'))
+      setManuallyOutputShow(true)
+      window.dispatchEvent(new Event('cloud-saves-synced'))
+    } catch (error) {
+      window.api.logError(`Sync saves failed for ${appName}: ${error}`)
+    } finally {
+      setIsSyncing(false)
+    }
   }
 
   if (isLinuxNative || !featureSupported) {
     return (
-      <div style={{ color: 'red' }}>
+      <Alert variant="error">
         {isLinuxNative &&
           t(
             'settings.saves.gog_linux_native_warning',
             "linux native games do not support GOG's cloud saves feature. Use the windows version instead."
           )}
-        <br />
+        {isLinuxNative && !featureSupported && <br />}
         {!featureSupported &&
           t(
             'settings.saves.not_supported',
             'Cloud Saves are not supported by this game.'
           )}
-      </div>
+      </Alert>
     )
   }
 
@@ -126,24 +164,34 @@ export default function GOGSyncSaves({
           hideProgress
         />
       )}
-      <Alert variant="warning">
-        {t(
-          'settings.saves.warning',
-          'Cloud saves feature is in beta, please backup your saves before syncing (in case something goes wrong)'
-        )}
-      </Alert>
       {isLoading ? (
         <TextWithProgress
           text={t(
             'info.save-sync.searching',
             'Trying to detect the correct save folder (click to cancel)'
           )}
-          onClick={() => setIsLoading(false)}
+          onClick={() => {
+            detectionId.current += 1
+            window.api.cancelSavePathsDetection(appName, 'gog')
+            setIsLoading(false)
+          }}
         />
       ) : (
         <>
+          {detectError && (
+            <Alert variant="error">
+              {t(
+                'setting.savefolder.detect-failed',
+                'Could not detect the save folder automatically. Select it manually below or check the Heroic log for details.'
+              )}
+            </Alert>
+          )}
           {gogSaves.map((value, index) => (
-            <div key={`saves-${value.name}`} style={{ width: '100%' }}>
+            <div
+              key={`saves-${value.name}`}
+              className="saveFolderGroup"
+              style={{ width: '100%' }}
+            >
               <PathSelectionBox
                 type="directory"
                 htmlId="inputSavePath"
@@ -157,6 +205,7 @@ export default function GOGSyncSaves({
                     location: path
                   }
                   setGogSaves(saves)
+                  setSavePathIsCustom(true)
                 }}
                 pathDialogTitle={t('box.sync.title')}
                 label={value.name}
@@ -211,7 +260,7 @@ export default function GOGSyncSaves({
               ))}
             </SelectField>
             <Button
-              variant="primary"
+              variant="ghost"
               data-testid="setSync"
               onClick={async () => handleSync()}
               disabled={
@@ -230,9 +279,6 @@ export default function GOGSyncSaves({
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
-          {gogSaves.some((save) => save.location.length > 0) ? (
-            <QuickSavesToggle />
-          ) : null}
         </>
       )}
     </>

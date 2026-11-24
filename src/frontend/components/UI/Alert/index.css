@@ -18,7 +18,7 @@
 .Alert__icon {
   flex-shrink: 0;
   margin-block-start: 1px;
-  color: var(--alert-tone);
+  color: color-mix(in oklab, var(--alert-tone) 52%, var(--on-panel));
 }
 
 .Alert__body {
@@ -43,6 +43,19 @@
   align-items: center;
   gap: var(--space-xs-fixed);
   flex-shrink: 0;
+}
+
+.Alert__actions--block {
+  margin-block-start: var(--space-sm-fixed);
+}
+
+.Alert .Button.Button--link {
+  color: color-mix(in oklab, var(--alert-tone) 52%, var(--on-panel));
+}
+
+.Alert .Button.Button--link:hover:not(:disabled),
+.Alert .Button.Button--link:focus-visible:not(:disabled) {
+  color: color-mix(in oklab, var(--alert-tone) 68%, var(--on-panel));
 }
 
 .Alert--neutral {

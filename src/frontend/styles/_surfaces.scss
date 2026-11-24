@@ -113,6 +113,7 @@
     var(--on-panel)
   );
   --text-success: color-mix(in oklab, var(--role-success) 52%, var(--on-panel));
+  --text-info: color-mix(in oklab, var(--role-info) 52%, var(--on-panel));
   --text-on-brand: oklch(
     from var(--role-brand) clamp(0, (0.62 - l) * 1000, 1) 0 h
   );
@@ -145,6 +146,7 @@
     var(--role-success) 16%,
     transparent
   );
+  --bg-info: var(--role-info);
   --bg-info-subtle: color-mix(in oklab, var(--role-info) 16%, transparent);
   --bg-disabled: color-mix(in oklab, var(--on-panel) 12%, var(--panel-base));
 
@@ -165,6 +167,7 @@
     transparent
   );
   --border-success: color-mix(in oklab, var(--role-success) 46%, transparent);
+  --border-info: color-mix(in oklab, var(--role-info) 46%, transparent);
   --border-accent: color-mix(in oklab, var(--role-accent) 46%, transparent);
 
   --gradient-brand: linear-gradient(

@@ -12,7 +12,8 @@ const storeMapping: Record<Runner, string> = {
   nile: 'amazon',
   sideload: 'sideload',
   zoom: 'zoomplatform',
-  itchio: 'itchio'
+  itchio: 'itchio',
+  steam: 'none'
 }
 
 export async function getUmuId(

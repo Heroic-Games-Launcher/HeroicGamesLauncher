@@ -1,5 +1,10 @@
-import { initImagesCache } from './images_cache'
+import {
+  initImagesCache,
+  clearImagesCache,
+  removeImageFromCache
+} from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
+import { getControllerBatteries } from './utils/controller_battery'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
@@ -21,6 +26,7 @@ import {
 } from 'backend/ipc'
 import 'backend/updater'
 import 'backend/discounts'
+import 'backend/importExport'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
 import { existsSync, readdirSync, readFileSync } from 'graceful-fs'
@@ -39,6 +45,7 @@ import { NileUser } from './storeManagers/nile/user'
 import { ItchioUser } from './storeManagers/itchio/user'
 import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
 import { ZoomUser } from './storeManagers/zoom/user'
+import { SteamUser } from './storeManagers/steam/user'
 import {
   clearCache,
   isEpicServiceOffline,
@@ -59,6 +66,7 @@ import {
   writeConfig,
   createNecessaryFolders,
   clearAchievementCache,
+  focusGameWindow,
   getGame
 } from './utils'
 import { startPlausible } from './utils/plausible'
@@ -79,7 +87,8 @@ import {
   logError,
   logInfo,
   LogPrefix,
-  logWarning
+  logWarning,
+  createGameLogWriter
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { launchEventCallback, runWineCommand, validWine } from './launcher'
@@ -91,7 +100,17 @@ import {
 } from './online_monitor'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { callAbortController } from './utils/aborthandler/aborthandler'
-import { getDefaultSavePath } from './save_sync'
+import {
+  cancelSavePathsDetection,
+  detectAndPersistSavePaths,
+  getDefaultSavePath,
+  refreshSavePathsIfConfigurationChanged
+} from './save_sync'
+import {
+  getSaveBackupFolder,
+  getSaveBackups,
+  restoreSaveBackupById
+} from './cloud_saves/backup'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import { createMainWindow, getMainWindow, isFrameless } from './main_window'
 
@@ -577,7 +596,11 @@ addHandler('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
 addHandler('isFrameless', () => isFrameless())
 addHandler('isMinimized', () => !!getMainWindow()?.isMinimized())
 addHandler('isMaximized', () => !!getMainWindow()?.isMaximized())
+addHandler('focusGameWindow', () => {
+  focusGameWindow()
+})
 addListener('minimizeWindow', () => getMainWindow()?.minimize())
+addListener('showWindow', () => getMainWindow()?.show())
 addListener('maximizeWindow', () => getMainWindow()?.maximize())
 addListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 addListener('closeWindow', () => getMainWindow()?.close())
@@ -641,7 +664,24 @@ addListener('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })
 
-addHandler('runWineCommand', async (e, args) => runWineCommand(args))
+addHandler('runWineCommand', async (e, args) => {
+  const { logToApp, ...rest } = args
+  if (logToApp) {
+    const logWriter = await createGameLogWriter(
+      logToApp.appName,
+      logToApp.runner,
+      'install'
+    )
+    return runWineCommand({
+      ...rest,
+      options: {
+        ...rest.options,
+        logWriters: [...(rest.options?.logWriters ?? []), logWriter]
+      }
+    })
+  }
+  return runWineCommand(rest)
+})
 
 /// IPC handlers begin here.
 
@@ -664,8 +704,17 @@ addHandler('checkGameUpdates', async (): Promise<string[]> => {
 addHandler('getEpicGamesStatus', async () => isEpicServiceOffline())
 
 addHandler('getMaxCpus', () => cpus().length)
+addHandler('getPrimaryDisplay', () => {
+  const display = screen.getPrimaryDisplay()
+  return {
+    width: Math.round(display.size.width * display.scaleFactor),
+    height: Math.round(display.size.height * display.scaleFactor),
+    scaleFactor: display.scaleFactor
+  }
+})
 
 addHandler('getHeroicVersion', () => app.getVersion())
+addHandler('getControllerBatteries', () => getControllerBatteries())
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 addHandler('getGameOverride', async () =>
   libraryManagerMap['legendary'].getGameOverride()
@@ -715,6 +764,15 @@ addListener('clearAchievementCache', (event, appName: string) => {
   )
 })
 
+addHandler('clearImagesCache', () => {
+  clearImagesCache()
+  logInfo('Image cache was cleared', LogPrefix.Backend)
+})
+
+addHandler('removeImageFromCache', (event, url: string) => {
+  removeImageFromCache(url)
+})
+
 addListener('resetHeroic', () => resetHeroic())
 
 addListener('createNewWindow', (e, url) => {
@@ -751,7 +809,7 @@ addHandler(
   }
 )
 
-addHandler('getExtraInfo', async (event, appName, runner) => {
+addHandler('getExtraInfo', async (event, appName, runner, lang) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
   if (
     runner === 'legendary' &&
@@ -759,7 +817,7 @@ addHandler('getExtraInfo', async (event, appName, runner) => {
   ) {
     return null
   }
-  return libraryManagerMap[runner].getGame(appName).getExtraInfo()
+  return libraryManagerMap[runner].getGame(appName).getExtraInfo(lang)
 })
 
 addHandler('getGameSettings', async (event, appName, runner) => {
@@ -836,6 +894,39 @@ addHandler('authZoom', async (event, url) => {
 
 addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
+
+addHandler('loginSteam', async (event, credentials) => {
+  const login = await SteamUser.login(credentials)
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addHandler('loginSteamQr', async () => {
+  const login = await SteamUser.loginQr()
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addListener('cancelSteamQrLogin', () => {
+  SteamUser.cancelQrLogin()
+})
+
+addListener('cancelSteamLogin', () => {
+  SteamUser.cancelLogin()
+})
+
+addListener('submitSteamGuardCode', (_e, code) => {
+  SteamUser.submitGuardCode(code)
+})
+
+addListener('logoutSteam', () => {
+  void SteamUser.logout()
+})
+addHandler('getSteamUserInfo', async () => SteamUser.getUserDetails())
 
 addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
@@ -1135,9 +1226,15 @@ addHandler('egsSync', async (event, args) => {
   return libraryManagerMap['legendary'].toggleGamesSync(args)
 })
 
-addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  libraryManagerMap['gog'].getGame(appName).syncSaves(arg, '', gogSaves)
-)
+addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) => {
+  const game = libraryManagerMap['gog'].getGame(appName)
+  const changed = await refreshSavePathsIfConfigurationChanged(appName, 'gog')
+  if (!changed) {
+    return game.syncSaves(arg, '', gogSaves)
+  }
+  const { gogSaves: refreshed } = await game.getSettings()
+  return game.syncSaves(arg, '', refreshed?.length ? refreshed : gogSaves)
+})
 
 addHandler('getLaunchOptions', async (event, appName, runner) => {
   const availableLaunchOptions =
@@ -1145,6 +1242,7 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
 
   // add a default option if there are other options but no default
   if (
+    runner !== 'steam' &&
     availableLaunchOptions.length > 0 &&
     !availableLaunchOptions.some(
       (option) =>
@@ -1173,19 +1271,60 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
         'Epic is offline right now, cannot sync saves!',
         LogPrefix.Backend
       )
-      return 'Epic is offline right now, cannot sync saves!'
+      return {
+        appName,
+        runner,
+        state: 'failed',
+        reason: 'offline',
+        output: 'Epic is offline right now, cannot sync saves!'
+      }
     }
   }
   if (!isOnline()) {
     logWarning('App is offline, cannot sync saves!', LogPrefix.Backend)
-    return 'App is offline, cannot sync saves!'
+    return {
+      appName,
+      runner,
+      state: 'failed',
+      reason: 'offline',
+      output: 'App is offline, cannot sync saves!'
+    }
   }
 
-  const output = await libraryManagerMap[runner]
+  await refreshSavePathsIfConfigurationChanged(appName, runner)
+  if (runner === 'legendary') {
+    path =
+      (await libraryManagerMap[runner].getGame(appName).getSettings())
+        .savesPath || path
+  }
+
+  const result = await libraryManagerMap[runner]
     .getGame(appName)
     .syncSaves(arg, path)
-  logInfo(output, LogPrefix.Backend)
-  return output
+  logInfo(result.output, LogPrefix.Backend)
+  return result
+})
+
+addHandler('getSaveBackups', async (event, appName) => getSaveBackups(appName))
+
+addHandler('getSaveBackupPath', async (event, appName) =>
+  getSaveBackupFolder(appName)
+)
+
+addHandler('restoreSaveBackup', async (event, appName, runner, backupId) => {
+  const game = libraryManagerMap[runner].getGame(appName)
+  const { title } = game.getGameInfo()
+  const settings = await game.getSettings()
+  const currentLocations =
+    runner === 'gog'
+      ? (settings.gogSaves ?? [])
+          .map((location) => location.location)
+          .filter((location) => location.length > 0)
+      : settings.savesPath
+        ? [settings.savesPath]
+        : []
+
+  return restoreSaveBackupById({ appName, title, backupId, currentLocations })
 })
 
 addHandler(
@@ -1194,12 +1333,28 @@ addHandler(
     getDefaultSavePath(appName, runner, alreadyDefinedGogSaves)
 )
 
+addHandler('detectSavePaths', async (event, appName, runner) =>
+  detectAndPersistSavePaths(appName, runner)
+)
+
+addListener('cancelSavePathsDetection', (event, appName, runner) =>
+  cancelSavePathsDetection(appName, runner)
+)
+
 // Simulate keyboard and mouse actions as if the real input device is used
 addHandler('gamepadAction', async (event, args) => {
   // we can only receive gamepad events if the main window exists
   const mainWindow = getMainWindow()!
 
   const { action, metadata } = args
+
+  // `metadata` comes from getBoundingClientRect() (CSS pixels) while
+  // sendInputEvent expects window coordinates, so a zoomed UI would click
+  // somewhere else entirely.
+  const zoomFactor = mainWindow.webContents.zoomFactor || 1
+  const clickX = metadata ? Math.round(metadata.x * zoomFactor) : 0
+  const clickY = metadata ? Math.round(metadata.y * zoomFactor) : 0
+
   const inputEvents: (
     | Electron.MouseInputEvent
     | Electron.MouseWheelInputEvent
@@ -1231,6 +1386,26 @@ addHandler('gamepadAction', async (event, args) => {
         y: mainWindow.getBounds().height / 2
       })
       break
+    case 'prevPage':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'PageUp'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'PageUp'
+      })
+      break
+    case 'nextPage':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'PageDown'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'PageDown'
+      })
+      break
     case 'leftStickUp':
     case 'leftStickDown':
     case 'leftStickLeft':
@@ -1249,32 +1424,18 @@ addHandler('gamepadAction', async (event, args) => {
         keyCode: action.replace(/pad|leftStick/, '')
       })
       break
-    case 'leftClick':
-      inputEvents.push({
-        type: 'mouseDown',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      inputEvents.push({
-        type: 'mouseUp',
-        button: 'left',
-        x: metadata.x,
-        y: metadata.y
-      })
-      break
     case 'rightClick':
       inputEvents.push({
         type: 'mouseDown',
         button: 'right',
-        x: metadata.x,
-        y: metadata.y
+        x: clickX,
+        y: clickY
       })
       inputEvents.push({
         type: 'mouseUp',
         button: 'right',
-        x: metadata.x,
-        y: metadata.y
+        x: clickX,
+        y: clickY
       })
       break
     case 'back':
@@ -1315,6 +1476,16 @@ addHandler('gamepadAction', async (event, args) => {
           modifiers: ['shift']
         }
       )
+      break
+    case 'enter':
+      inputEvents.push({
+        type: 'keyDown',
+        keyCode: 'Return'
+      })
+      inputEvents.push({
+        type: 'keyUp',
+        keyCode: 'Return'
+      })
       break
   }
 
@@ -1485,3 +1656,5 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
+import './storeManagers/steam/ipc_handler'
+import './storeManagers/steam/ipc_handler'

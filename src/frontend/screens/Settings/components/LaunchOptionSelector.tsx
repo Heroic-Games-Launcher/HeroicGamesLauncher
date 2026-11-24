@@ -37,7 +37,8 @@ const LaunchOptionSelector = ({
     lastUsedOption: lastUsedLaunchOption,
     onSelectionChange: (option) => {
       setLastUsedLaunchOption(option)
-    }
+    },
+    isInstalled: gameInfo?.is_installed
   })
 
   const handleSelectChange = (event: SelectChangeEvent) => {

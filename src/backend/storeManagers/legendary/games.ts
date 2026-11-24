@@ -8,7 +8,8 @@ import {
   InstallArgs,
   InstallPlatform,
   InstallProgress,
-  LaunchOption
+  LaunchOption,
+  CloudSyncResult
 } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
@@ -53,6 +54,8 @@ import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
 import { Game } from 'common/types/game_manager'
+import { parseLegendaryOutput } from 'backend/cloud_saves/parse'
+import { backupSaves } from 'backend/cloud_saves/backup'
 import {
   AllowedWineFlags,
   getWineFlags,
@@ -845,13 +848,38 @@ export default class LegendaryGame implements Game {
    * Sync saves.
    * Does NOT check for online connectivity.
    */
-  async syncSaves(arg: string, path: string): Promise<string> {
+  async syncSaves(arg: string, path: string): Promise<CloudSyncResult> {
+    const result: CloudSyncResult = {
+      appName: this.appName,
+      runner: 'legendary',
+      state: 'failed',
+      output: ''
+    }
+
     if (!path) {
       logError(
         'No path provided for SavesSync, check your settings!',
         LogPrefix.Legendary
       )
-      return 'No path provided.'
+      return { ...result, reason: 'no-path', output: 'No path provided.' }
+    }
+
+    if (arg === '--skip-upload' || arg === '--force-download') {
+      const backedUp = backupSaves({
+        appName: this.appName,
+        runner: 'legendary',
+        title: this.getGameInfo().title,
+        locations: [path],
+        force: true
+      })
+      if (!backedUp) {
+        return {
+          ...result,
+          reason: 'provider-error',
+          output:
+            'Could not back up the current saves, aborting the download to protect them'
+        }
+      }
     }
 
     const command: LegendaryCommand = {
@@ -866,7 +894,8 @@ export default class LegendaryGame implements Game {
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: this.appName,
       logMessagePrefix: `Syncing saves for ${this.getGameInfo().title}`,
-      onOutput: (output) => (fullOutput += output)
+      onOutput: (output) => (fullOutput += output),
+      waitForChildProcesses: false
     })
 
     if (res.error) {
@@ -875,7 +904,31 @@ export default class LegendaryGame implements Game {
         LogPrefix.Legendary
       )
     }
-    return fullOutput
+
+    const parsed = parseLegendaryOutput(res.stdout, res.stderr)
+    if (res.error || res.abort) {
+      parsed.state = 'failed'
+      parsed.reason = 'provider-error'
+    }
+
+    if (parsed.state !== 'failed') {
+      backupSaves({
+        appName: this.appName,
+        runner: 'legendary',
+        title: this.getGameInfo().title,
+        locations: [path]
+      })
+    }
+
+    return {
+      ...result,
+      state: parsed.state,
+      action: parsed.action,
+      reason: parsed.reason,
+      remoteDate: parsed.remoteDate,
+      localDate: parsed.localDate,
+      output: fullOutput
+    }
   }
 
   async launch(
@@ -978,9 +1031,11 @@ export default class LegendaryGame implements Game {
       }
 
       if (await isUmuSupported(gameSettings)) {
-        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-        if (umuId) {
-          commandEnv['GAMEID'] = umuId
+        const gameId =
+          gameSettings.umuGameId?.trim() ||
+          (await getUmuId(gameInfo.app_name, gameInfo.runner))
+        if (gameId) {
+          commandEnv['GAMEID'] = gameId
         }
       }
 

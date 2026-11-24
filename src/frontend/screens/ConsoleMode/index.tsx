@@ -15,6 +15,14 @@ import classNames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill } from 'frontend/helpers'
 import { updateGame } from 'frontend/helpers/library'
+import { useControllerBattery } from 'frontend/hooks/useControllerBattery'
+import { Icon } from 'frontend/components/UI'
+import {
+  BatteryCharging,
+  BatteryFull,
+  BatteryLow,
+  BatteryMedium
+} from 'lucide-react'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
@@ -33,6 +41,15 @@ import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
 import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
+import { timestampStore } from 'frontend/helpers/electronStores'
+
+type ConsoleSortMode = 'last_played' | 'alpha_asc' | 'alpha_desc'
+
+const SORT_MODE_ORDER: ConsoleSortMode[] = [
+  'last_played',
+  'alpha_asc',
+  'alpha_desc'
+]
 
 type StoreKey = Runner | 'all'
 
@@ -63,6 +80,7 @@ export default function ConsoleMode() {
     epic,
     gog,
     amazon,
+    steam,
     zoom,
     itchio,
     libraryStatus,
@@ -70,11 +88,17 @@ export default function ConsoleMode() {
     refreshLibrary,
     refreshing,
     gameUpdates,
-    hiddenGames
+    hiddenGames,
+    isFullscreen,
+    disableAnimations
   } = useContext(ContextProvider)
 
+  // Remembered so leaving console mode restores the previous window state
+  // instead of forcing windowed mode on a Steam Deck / `--fullscreen` session.
+  const wasFullscreen = useRef(isFullscreen)
+
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
-  const [ascending, setAscending] = useState(true)
+  const [sortMode, setSortMode] = useState<ConsoleSortMode>('last_played')
   const [filteringByInstalled, setFilteringByInstalled] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
@@ -90,8 +114,16 @@ export default function ConsoleMode() {
     null
   )
 
+  const idle =
+    !launchingGame &&
+    !installingGame &&
+    !updateNoticeGame &&
+    !cancelDownloadGame &&
+    !queuedNoticeGame
+
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
+  const [controllerBattery] = useControllerBattery()
   const backButtonLabel = getBackButtonLabel(controllerLayout)
   const actionButtonLabel = getActionButtonLabel(controllerLayout)
 
@@ -107,12 +139,13 @@ export default function ConsoleMode() {
       gog.library.length === 0 &&
       amazon.library.length === 0 &&
       zoom.library.length === 0 &&
-      itchio.library.length === 0
+      itchio.library.length === 0 &&
+      steam.library.length === 0
     ) {
       void refreshLibrary({ runInBackground: true })
     }
     return () => {
-      window.api.setFullscreen(false)
+      window.api.setFullscreen(wasFullscreen.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -125,6 +158,7 @@ export default function ConsoleMode() {
       ...epic.library,
       ...gog.library,
       ...amazon.library,
+      ...steam.library,
       ...zoom.library,
       ...itchio.library,
       ...sideloadedLibrary
@@ -139,6 +173,7 @@ export default function ConsoleMode() {
     epic.library,
     gog.library,
     amazon.library,
+    steam.library,
     zoom.library,
     itchio.library,
     sideloadedLibrary,
@@ -160,10 +195,18 @@ export default function ConsoleMode() {
     }
 
     return filteredGames.sort((a, b) => {
+      if (sortMode === 'last_played') {
+        const ta = timestampStore.get_nodefault(a.app_name)?.lastPlayed ?? ''
+        const tb = timestampStore.get_nodefault(b.app_name)?.lastPlayed ?? ''
+        if (!ta && !tb) return a.title.localeCompare(b.title)
+        if (!ta) return 1
+        if (!tb) return -1
+        return tb.localeCompare(ta)
+      }
       const cmp = a.title.localeCompare(b.title)
-      return ascending ? cmp : -cmp
+      return sortMode === 'alpha_asc' ? cmp : -cmp
     })
-  }, [allGames, filteringByInstalled, activeStore, ascending])
+  }, [allGames, filteringByInstalled, activeStore, sortMode])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<Runner>()
@@ -187,6 +230,7 @@ export default function ConsoleMode() {
       },
       { key: 'gog', label: 'GOG', enabled: storesWithGames.has('gog') },
       { key: 'nile', label: 'Amazon', enabled: storesWithGames.has('nile') },
+      { key: 'steam', label: 'Steam', enabled: storesWithGames.has('steam') },
       {
         key: 'sideload',
         label: t('console.filter.sideload', 'Other'),
@@ -225,13 +269,19 @@ export default function ConsoleMode() {
   }, [visibleGames.length, focusedIndex])
 
   useEffect(() => {
+    // also runs when `idle` flips back to true so focus returns to the grid
+    // after an overlay/dialog closes
+    if (!idle) return
     const btn = cardRefs.current[focusedIndex]
     if (!btn) return
     if (document.activeElement !== btn) {
       btn.focus({ preventScroll: true })
     }
-    btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-  }, [focusedIndex, visibleGames.length])
+    btn.scrollIntoView({
+      block: 'nearest',
+      behavior: disableAnimations ? 'auto' : 'smooth'
+    })
+  }, [focusedIndex, visibleGames.length, idle, disableAnimations])
 
   const cycleStore = useCallback(
     (direction: 1 | -1) => {
@@ -245,13 +295,6 @@ export default function ConsoleMode() {
   )
 
   const quit = useCallback(() => navigate('/'), [navigate])
-
-  const idle =
-    !launchingGame &&
-    !installingGame &&
-    !updateNoticeGame &&
-    !cancelDownloadGame &&
-    !queuedNoticeGame
 
   const activateGame = useCallback(
     (game: GameInfo) => {
@@ -408,11 +451,17 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const toggleSort = useCallback(() => setAscending((v) => !v), [])
+  const cycleSort = useCallback(() => {
+    setSortMode((current) => {
+      const idx = SORT_MODE_ORDER.indexOf(current)
+      const next = (idx + 1) % SORT_MODE_ORDER.length
+      return SORT_MODE_ORDER[next]
+    })
+  }, [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
-  useGamepadButtonPress(BTN_R2, toggleSort, idle)
+  useGamepadButtonPress(BTN_R2, cycleSort, idle)
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -451,11 +500,15 @@ export default function ConsoleMode() {
         <div className="consoleTopRight">
           <button
             className="consoleChip"
-            onClick={toggleSort}
-            aria-label={t('console.sort', 'Sort')}
+            onClick={cycleSort}
+            aria-label={t('console.sort.label', 'Sort')}
             disabled={!!launchingGame}
           >
-            {ascending ? 'A → Z' : 'Z → A'}
+            {sortMode === 'last_played'
+              ? t('console.sort.last_played', 'Last Played')
+              : sortMode === 'alpha_asc'
+                ? t('console.sort.alpha_asc', 'A → Z')
+                : t('console.sort.alpha_desc', 'Z → A')}
           </button>
           <button
             className="consoleQuitButton"
@@ -529,6 +582,30 @@ export default function ConsoleMode() {
       <div className="consoleFooter">
         {gamepadConnected && !launchingGame && (
           <ControllerHints layout={controllerLayout} />
+        )}
+        {!launchingGame && controllerBattery && (
+          <span
+            className={classNames('consoleBattery', {
+              charging: controllerBattery.status === 'Charging',
+              low:
+                controllerBattery.capacity <= 20 &&
+                controllerBattery.status !== 'Charging'
+            })}
+          >
+            <Icon
+              glyph={
+                controllerBattery.status === 'Charging'
+                  ? BatteryCharging
+                  : controllerBattery.capacity <= 20
+                    ? BatteryLow
+                    : controllerBattery.capacity <= 60
+                      ? BatteryMedium
+                      : BatteryFull
+              }
+              size="sm"
+            />
+            {controllerBattery.capacity}%
+          </span>
         )}
       </div>
 

@@ -105,8 +105,14 @@ function handleStopInstallation(
   t: TFunction<'gamepage'>,
   progress: InstallProgress,
   runner: Runner,
-  showDialogModal: (options: DialogModalOptions) => void
+  showDialogModal: (options: DialogModalOptions) => void,
+  queued = false
 ) {
+  // Queued paused games cancel by name.
+  const cancel = (removeDownloaded: boolean) =>
+    queued
+      ? window.api.cancelQueuedDownload(appName, removeDownloaded)
+      : window.api.cancelDownload(removeDownloaded)
   showDialogModal({
     title: t('gamepage:box.stopInstall.title'),
     message: t('gamepage:box.stopInstall.message'),
@@ -119,13 +125,13 @@ function handleStopInstallation(
             appName,
             JSON.stringify({ ...progress, folder: path })
           )
-          window.api.cancelDownload(false)
+          cancel(false)
         }
       },
       {
         text: t('box.no'),
         onClick: () => {
-          window.api.cancelDownload(true)
+          cancel(true)
           storage.removeItem(appName)
         }
       }
@@ -156,7 +162,10 @@ const launch = async ({
   showDialogModal,
   args,
   notPlayableOffline
-}: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
+}: LaunchOptions): Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string
+}> => {
   const proceedToLaunch = async () => {
     // First handle update dialog if needed
     if (hasUpdate) {
@@ -275,6 +284,7 @@ async function checkLaunchOptionsAndLaunch({
   skipVersionCheck = false
 }: LaunchOptions & { skipVersionCheck?: boolean }): Promise<{
   status: 'done' | 'error' | 'abort'
+  error?: string
 }> {
   // If launch arguments already provided, launch directly
   if (launchArguments) {
@@ -486,5 +496,6 @@ export const sideloadedCategories = ['all', 'sideload']
 export const amazonCategories = ['all', 'nile', 'amazon']
 export const zoomCategories = ['all', 'zoom']
 export const itchioCategories = ['all', 'itchio']
+export const steamCategories = ['all', 'steam']
 
 export { handleStopInstallation, install, launch, repair, updateGame }

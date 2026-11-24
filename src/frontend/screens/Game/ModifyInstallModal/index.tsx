@@ -10,6 +10,7 @@ import { ItchioInstallInfo } from 'common/types/itchio'
 import { useTranslation } from 'react-i18next'
 import LegendaryModifyInstallModal from './Legendary'
 import GOGModifyInstallModal from './GOG'
+import { SteamInstallInfo } from 'common/types/steam'
 
 interface ModifyInstallProps {
   gameInfo: GameInfo
@@ -20,6 +21,7 @@ interface ModifyInstallProps {
     | ZoomInstalledInfo
     | ZoomInstallInfo
     | ItchioInstallInfo
+    | SteamInstallInfo
     | null
   onClose: () => void
 }

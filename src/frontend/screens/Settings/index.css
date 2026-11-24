@@ -31,6 +31,11 @@
   color: var(--text-secondary);
 }
 
+/* leave room for the sticky settings header when focusing a row */
+body:has(.settingsWrapper) {
+  scroll-padding-top: 120px;
+}
+
 .settingsWrapper {
   margin-inline-end: auto;
   max-width: 513px;
@@ -324,7 +329,22 @@ a {
   );
   margin-inline: 0 auto;
   place-self: start;
-  gap: var(--space-md);
+  gap: var(--space-2xl-fixed);
+}
+
+.settingsSidebar {
+  position: sticky;
+  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.settingsSearchRow {
+  width: 100%;
+  min-width: 0;
 }
 
 .settingsLayout {
@@ -335,9 +355,20 @@ a {
   width: 100%;
 }
 
+.SettingsSearchTarget {
+  border-radius: 10px;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 55%, transparent);
+  animation: settingsSearchTargetFade 2s ease forwards;
+}
+
+@keyframes settingsSearchTargetFade {
+  to {
+    box-shadow: 0 0 0 3px transparent;
+  }
+}
+
 .settingsNav {
-  position: sticky;
-  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+  width: 100%;
 }
 
 .settingsPane {
@@ -347,18 +378,41 @@ a {
   min-width: 0;
 }
 
+@media screen and (min-width: 1101px) {
+  .settingsSearchRow {
+    position: sticky;
+    top: var(--settings-header-block);
+    z-index: 2;
+    padding-block: var(--space-xs);
+    background: var(--body-background, var(--background));
+  }
+
+  /* Cover the gap between the sticky header and the search row so scrolled
+     content cannot peek through. The header paints above this with its own
+     higher z-index. */
+  .settingsSearchRow::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: calc(-1 * var(--space-3xl-fixed));
+    height: var(--space-3xl-fixed);
+    background: inherit;
+  }
+}
+
 @media screen and (max-width: 1100px) {
   .settingsLayout {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-lg-fixed);
   }
 
-  .settingsNav--tabs {
-    position: sticky;
+  .settingsSidebar {
     top: var(--settings-header-block);
-    z-index: 2;
     background: var(--body-background);
     padding-block-end: var(--space-2xs-fixed);
+  }
+
+  .settingsNav--tabs {
     flex-wrap: wrap;
     overflow-x: visible;
   }
@@ -392,15 +446,17 @@ a {
 }
 
 /* Field components rendered inside a card become plain rows: the card owns
-   the vertical rhythm and the dividers. Components that already draw their own
-   box, like Alert, keep their own padding and border. */
+   the vertical rhythm and a very subtle, theme-adaptive divider (a low-alpha
+   mix of the panel text colour). Components that already draw their own box,
+   like Alert, keep their own padding and border. */
 .Settings .SettingsCard__body > *:not(.Alert),
 .settingsDialogContent .SettingsCard__body > *:not(.Alert) {
   padding-block: 20px;
   margin: 0;
   width: 100%;
   max-width: 100%;
-  border-bottom: 1px solid var(--panel-divider, var(--divider));
+  border-bottom: 1px solid
+    color-mix(in oklab, var(--on-panel, var(--text-default)) 7%, transparent);
 }
 
 .Settings .SettingsCard__body > *:not(.Alert):first-child,
@@ -430,6 +486,14 @@ a {
   grid-template-columns: minmax(0, 1fr) minmax(200px, 340px);
   align-items: center;
   column-gap: var(--space-lg);
+}
+
+/* Label + description stack on the left, the control stays centered on the
+   right across both rows. */
+.SettingsCard .selectFieldWrapper:has(.selectFieldWrapper__description) {
+  grid-template-areas:
+    'label select'
+    'description select';
 }
 
 .SettingsCard .selectFieldWrapper.small,
@@ -503,7 +567,12 @@ a {
 }
 
 .Settings .settingsTabs {
+  position: sticky;
+  top: calc(var(--settings-header-block) + var(--space-md-fixed));
+  z-index: 2;
   margin-block-end: var(--space-sm);
+  padding-block: var(--space-2xs);
+  background: var(--body-background, var(--background));
 }
 
 .Settings .defaults-hint {

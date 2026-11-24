@@ -160,7 +160,18 @@ export default function SteamGridDBPicker({
           <h4>{t('steamgriddb.picker.select-game', 'Select a game:')}</h4>
           <ul>
             {games.map((game) => (
-              <li key={game.id} onClick={() => void handleSelectGame(game.id)}>
+              <li
+                key={game.id}
+                role="button"
+                tabIndex={0}
+                onClick={() => void handleSelectGame(game.id)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    void handleSelectGame(game.id)
+                  }
+                }}
+              >
                 {game.name}
               </li>
             ))}
@@ -174,7 +185,15 @@ export default function SteamGridDBPicker({
             <div
               key={grid.id}
               className="SteamGridDBPicker__grid-item"
+              role="button"
+              tabIndex={0}
               onClick={() => onSelect(grid.url)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  onSelect(grid.url)
+                }
+              }}
             >
               <CachedImage src={grid.thumb} />
             </div>

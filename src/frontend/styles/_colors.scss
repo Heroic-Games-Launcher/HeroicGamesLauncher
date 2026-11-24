@@ -204,6 +204,18 @@ a {
     border-color: var(--osk-button-border);
     color: var(--text-default);
   }
+
+  .hg-button.hg-shift-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink-on-accent, var(--background));
+  }
+
+  .hg-button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: -3px;
+    z-index: 2;
+  }
 }
 
 h1,

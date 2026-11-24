@@ -8,8 +8,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import { MenuItem } from '@mui/material'
 
 export const defaultThemes: Record<string, string> = {
-  midnightMirage: 'Midnight Mirage',
-  heroicTheme: 'Heroic Theme',
+  midnightMirage: 'Heroic Theme',
   cyberSpaceOasis: 'Cyberspace Oasis',
   'high-contrast': 'High Contrast',
   'old-school': 'Old School Heroic',
@@ -23,8 +22,9 @@ export const defaultThemes: Record<string, string> = {
   candy: 'Candy Dark',
   'candy-light': 'Candy Light',
   vampyria: 'Vampyria',
-  forest: 'Forest',
-  onePiece: 'One Piece'
+  forest: 'Mint',
+  onePiece: 'One Piece',
+  cyberpunk: 'Cyberpunk'
 }
 
 export const ThemeSelector = () => {

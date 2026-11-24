@@ -4,7 +4,8 @@ import type {
   Runner,
   GameSettings,
   InstallPlatform,
-  InstallInfo
+  InstallInfo,
+  CloudSyncResult
 } from 'common/types'
 
 import * as fileSize from 'filesize'
@@ -33,14 +34,13 @@ const syncSaves = async (
   appName: string,
   runner: Runner,
   arg?: string
-): Promise<string> => {
-  const response: string = await window.api.syncSaves({
+): Promise<CloudSyncResult> => {
+  return window.api.syncSaves({
     arg,
     path: savesPath,
     appName,
     runner
   })
-  return response
 }
 
 const getLegendaryConfig = async (): Promise<{
@@ -131,6 +131,8 @@ const getStoreName = (runner: Runner, other: string) => {
       return 'Amazon Games'
     case 'itchio':
       return 'itch.io'
+    case 'steam':
+      return 'Steam'
     default:
       return other
   }

@@ -40,12 +40,15 @@ const BattlEyeRuntime = () => {
       <ToggleSwitch
         description={t(
           'settings.battlEyeRuntime.hint',
-          'Install the runtime required by games protected with BattlEye'
+          'Legacy runtime for games protected with BattlEye'
         )}
         htmlId="battlEyeRuntime"
         value={battlEyeRuntime}
         handleChange={handleBattlEyeRuntime}
-        title={t('settings.battlEyeRuntime.name', 'BattlEye AntiCheat runtime')}
+        title={t(
+          'settings.battlEyeRuntime.name',
+          'BattlEye AntiCheat runtime (legacy)'
+        )}
       />
       {installing && (
         <span>

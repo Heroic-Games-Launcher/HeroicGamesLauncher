@@ -15,10 +15,7 @@ import {
   AutoUpdateGames,
   CheckUpdatesOnStartup,
   DefaultInstallPath,
-  DefaultSteamPath,
-  DisableController,
   DiscordRPC,
-  EgsSettings,
   HideChangelogOnStartup,
   LibraryTopSection,
   MaxRecentGames,
@@ -31,7 +28,8 @@ import {
   UseFramelessWindow,
   WinePrefixesBasePath,
   PlaytimeSync,
-  AnalyticsOptIn
+  AnalyticsOptIn,
+  BackupSaves
 } from '../../components'
 
 export default function GeneralSettings() {
@@ -62,8 +60,6 @@ export default function GeneralSettings() {
       >
         <DefaultInstallPath />
         <WinePrefixesBasePath />
-        <DefaultSteamPath />
-        <EgsSettings />
       </SettingsCard>
 
       <SettingsCard
@@ -80,8 +76,8 @@ export default function GeneralSettings() {
         title={t('settings.section.gameplay', 'Gameplay')}
       >
         <MinimizeOnGameLaunch />
-        <DisableController />
         <PlaytimeSync />
+        <BackupSaves />
         <Shortcuts />
       </SettingsCard>
 

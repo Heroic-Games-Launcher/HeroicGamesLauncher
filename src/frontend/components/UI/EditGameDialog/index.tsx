@@ -180,6 +180,18 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
             <div
               className={classNames('appImageContainer', { hasSgdbKey })}
               onClick={() => openSgdbPicker('cover')}
+              onKeyDown={
+                hasSgdbKey
+                  ? (event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault()
+                        openSgdbPicker('cover')
+                      }
+                    }
+                  : undefined
+              }
+              role={hasSgdbKey ? 'button' : undefined}
+              tabIndex={hasSgdbKey ? 0 : undefined}
             >
               <CachedImage
                 className={classNames('appImage')}
@@ -199,6 +211,18 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
             <div
               className={classNames('appImageContainer', { hasSgdbKey })}
               onClick={() => openSgdbPicker('square')}
+              onKeyDown={
+                hasSgdbKey
+                  ? (event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault()
+                        openSgdbPicker('square')
+                      }
+                    }
+                  : undefined
+              }
+              role={hasSgdbKey ? 'button' : undefined}
+              tabIndex={hasSgdbKey ? 0 : undefined}
             >
               <CachedImage
                 className={classNames('appImage square')}

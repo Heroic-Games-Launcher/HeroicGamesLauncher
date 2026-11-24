@@ -13,8 +13,11 @@
         "disable_smooth_scrolling": "Вимкнути плавне гортання (потрібен перезапуск)",
         "disable_animations": "Вимкнути анімації інтерфейсу",
         "section": {
-            "library": "Бібліотека"
-        }
+            "library": "Бібліотека",
+            "appearance": "Вигляд",
+            "motion": "Рух і взаємодія"
+        },
+        "subtitle": "Налаштуйте, як Heroic виглядає і поводиться"
     },
     "add_game": "Додати гру",
     "All": "Всі",
@@ -25,7 +28,8 @@
         "source": "Джерело",
         "status": "Стан",
         "title": "Ця гра містить в собі систему античитів",
-        "multiplayer_may_not_work": "Функції багатоосібної гри можуть не працювати через заборону або поламану підтримку античиту."
+        "multiplayer_may_not_work": "Функції багатоосібної гри можуть не працювати через заборону або поламану підтримку античиту.",
+        "removed": "Античит прибрано"
     },
     "box": {
         "cache-cleared": {
@@ -94,7 +98,7 @@
                 "message": "Не вдалося встановити Ubisoft Connect в ігровий префікс. Відвідайте нашу wiki-сторінку за адресою https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac та встановіть його вручну."
             },
             "legendary": {
-                "generic": "Сталася помилка! Спробуйте вийти та увійти у свій обліковий запис Epic. {{newline}} {{error}}"
+                "generic": "Сталася помилка! Спробуйте вийти та ввійти у свій обліковий запис Epic. {{newline}} {{error}}"
             },
             "steam": {
                 "error": "Виконуваний файл Steam не знайдено. Ймовірно, встановлення було скасоване користувачем або завершилося помилкою на стороні Steam.",
@@ -114,7 +118,8 @@
                     "body": "Не вдалося видалити {{game}} зі Steam, з наступною помилкою: {{newLine}} {{error}}",
                     "title": "Помилка видалення гри зі Steam"
                 }
-            }
+            },
+            "steam-running": "Steam запущено. Закрийте Steam, а потім спробуйте ще раз."
         },
         "info": {
             "update": {
@@ -193,6 +198,12 @@
             "rosetta": {
                 "title": "Rosetta не знайдено",
                 "message": "Для коректної роботи Heroic потрібно, щоб Rosetta працювала на macOS з чіпами Apple Silicon. Встановіть її з терміналу macOS за допомогою наступної команди: «softwareupdate --install-rosetta» і перезапустіть Heroic. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "Heroic виявив, що виконуваний файл для «{{title}}» є встановлювачем ({{exe}}).\n\nHeroic спробує тихо його запустити і встановити гру в:\n{{path}}\n\nЯкщо після цього гра не запускається, відкрийте налаштування гри > Додатково > Альтернативний exe і виберіть фактичний виконуваний файл гри.\n\nПродовжити запуск?",
+                    "title": "Виявлено встановлювач"
+                }
             }
         },
         "wineprefix": "Вибрати теку префікса Wine",
@@ -204,7 +215,21 @@
         "postpone": "Відкласти",
         "launchAnyway": "Усе одно запустити гру",
         "shaderPreCachingDisabledMessage": "Попереднє кешування шейдерів Steam вимкнено. Увімкніть їх у налаштуваннях Steam у режимі робочого столу, щоби гра працювала належним чином з UMU.",
-        "shaderPreCachingDisabledTitle": "Попереднє кешування шейдерів вимкнено"
+        "shaderPreCachingDisabledTitle": "Попереднє кешування шейдерів вимкнено",
+        "cancel": "Скасувати",
+        "choose-aurelia-binary": "Виберіть двійковий файл Aurelia",
+        "steam": {
+            "cloudConflict": {
+                "keepCloud": "Використовувати хмарне збереження",
+                "keepLocal": "Використовувати локальне збереження",
+                "message": "Збереження в хмарі та локальні збереження для {{game}} відрізняються. Виберіть, яку копію залишити:\n\n{{files}}",
+                "title": "Конфлікт збереження в хмарі Steam"
+            },
+            "cloudIncomplete": {
+                "message": "Не всі хмарні збереження для {{game}} можна завантажити, тому збереження на цьому ПК неповні. Відтворення зараз може перезаписати відсутній прогрес у хмарі.\n\n{{details}}",
+                "title": "Збереження у хмарі Steam неповні"
+            }
+        }
     },
     "button": {
         "cancel": "Скасувати",
@@ -214,7 +239,8 @@
         "syncing": "Синхронізація",
         "unsync": "Десинхронізувати",
         "continue": "Продовжити",
-        "close": "Закрити"
+        "close": "Закрити",
+        "backToLibrary": "Повернутися до бібліотеки"
     },
     "controller": {
         "hints": {
@@ -250,7 +276,8 @@
         },
         "label": {
             "disk": "Накопичувач",
-            "speed": "Завантаження"
+            "speed": "Завантаження",
+            "unit": "МБ / с"
         },
         "link": "Завантаження",
         "queue": {
@@ -260,14 +287,28 @@
             "type": "Тип"
         },
         "title": "Завантаження",
-        "ETA": "Розрахунковий час"
+        "ETA": "Розрахунковий час",
+        "empty": {
+            "current": "Ігри, які ви встановлюєте або оновлюєте, показують свій поступ тут.",
+            "queue": {
+                "description": "Завантаження, які ви запускаєте, поки виконується інше завантаження, чекатимуть тут.",
+                "title": "Черга пуста"
+            }
+        },
+        "pageSubtitle": "Що зараз встановлюється, що далі і що вже готово",
+        "limit": {
+            "label": "Обмеження завантаження",
+            "unlimited": "Без обмежень"
+        }
     },
     "epic": {
         "offline-notification-body": "Мережеві сервіси можуть не повністю працювати, тому що сервери Epic Games наразі недоступні!",
         "offline-notification-title": "не в мережі"
     },
     "Epic Games": "Epic Games",
-    "error": "Помилка",
+    "error": {
+        "recovery": "Зазвичай проблему вирішує оновлення бібліотеки. Якщо це не допоможе, наступними кроками буде очищення кешу або скидання налаштувань Heroic."
+    },
     "favourites": "Обране",
     "game": {
         "status": "Стан",
@@ -289,7 +330,7 @@
     },
     "globalSettings": "Глобальні налаштування",
     "GOG": "GOG",
-    "gog-store": "Крамниця GOG",
+    "gog-store": "Магазин GOG",
     "header": {
         "hide_non_available_games": "Ховати не доступні ігри",
         "ignore_hidden": "Ігнорувати приховані",
@@ -312,7 +353,11 @@
         "show_third_party_managed_only": "Показувати тільки під керуванням сторонніх програм",
         "show_updates_only": "Показувати лише ігри з оновленнями",
         "platforms": "Platform",
-        "stores": "Stores"
+        "stores": "Stores",
+        "display": "Екран",
+        "hidden": "Приховано",
+        "non_available": "Недоступно",
+        "show_steam_owned_only": "Показувати лише ігри, придбані в Steam"
     },
     "help": {
         "amdfsr": "AMD's FSR допомагає збільшити частоту кадрів шляхом підвищення маштабу кожного кадру гри, яка відтворюється у нижчій роздільності, у повноекранному режимі. Якість картинки збільшується з 5 до 1, ціною незначного зниження продуктивності. Увімкнення може покращити продуктивність.",
@@ -420,7 +465,7 @@
     },
     "infobox": {
         "help": "Допомога",
-        "requirements": "Системні вимоги",
+        "requirements": "Системні Вимоги",
         "warning": "Увага",
         "wine-path": "Шлях до Wine",
         "wine-prefix": {
@@ -430,7 +475,7 @@
             "message": "Wine використовує WINEPREFIX для узагальнення програм Windows. Цей префікс містить конфігураційні файли Wine та відтворення ієрархії файлів C: (основний диск в ОС Windows). У цьому відтворенні диска C: зберігаються ваші файли збереження гри та залежності для неї, встановлені за допомогою winetricks."
         },
         "wine-path-invalid": "Шлях до Wine недійсний, виберіть інший.",
-        "wine-path-none-found": "Версії Wine не знайдено, завантажте її з менеджера Wine"
+        "wine-path-none-found": "Версії Wine не знайдено, завантажте її з Wine Manager"
     },
     "install": {
         "path": "Вкажіть Шлях Встановлення"
@@ -449,7 +494,9 @@
             "list": "Перемкнутися на вигляд списка"
         },
         "hideAlphabetFilter": "Сховати фільтр за алфавітом",
-        "showAlphabetFilter": "Показати фільтр за алфавітом"
+        "showAlphabetFilter": "Показати фільтр за алфавітом",
+        "gamesCount_one": "{{count}} гра",
+        "gamesCount_other": "{{count}} ігор"
     },
     "Library": "Бібліотека",
     "loading": {
@@ -463,7 +510,17 @@
         "message": "Увійдіть за допомогою своєї платформи. Ви можете увійти на декілька платформ одночасно.",
         "amazon": "Вхід у Amazon",
         "old-mac": "Ваша версія macOS — {{version}}. Для входу в систему потрібна macOS 12 або новіша.",
-        "zoom": "Увійти в Zoom"
+        "zoom": "Увійти в Zoom",
+        "itchio": "Увійти на itch.io",
+        "steam_add": "Додати обліковий запис Steam",
+        "button": "Увійти",
+        "logout_confirm": {
+            "message": "Точно бажаєте вийти?",
+            "title": "Вийти з облікого запису"
+        },
+        "title_amazon": "Amazon Games",
+        "title_epic": "Epic Games",
+        "title_gog": "GOG"
     },
     "message": {
         "sync": "Синхронізація завершена",
@@ -494,13 +551,13 @@
             "reparing": "Відновлення закінчено"
         },
         "install": {
-            "canceled": "Встановлення скасовано",
+            "canceled": "Помилка встановлення",
             "error": "Помилка встановлення",
             "finished": "Встановлення закінчено",
             "imported": "Гра імпортована",
             "startInstall": "Розпочалось встановлення",
             "failed": "Помилка встановлення",
-            "paused": "Встановлення призупинено"
+            "paused": "Помилка встановлення"
         },
         "moved": "Переміщення завершене",
         "moving": "Переміщення гри",
@@ -533,7 +590,7 @@
             "key": "Ім'я змінного",
             "placeHolderKey": "ІМʼЯ",
             "placeHolderValue": "Приклад: шлях/до/додатковихфайлів",
-            "title": "Змінні середовища",
+            "title": "Змінні Середовища",
             "value": "Значення",
             "placeHolderV": "ЗНАЧЕННЯ"
         },
@@ -598,7 +655,8 @@
         "dxvkfpsvalue": "Цілочисельне позитивне значення (наприклад: 30, 60, ...)",
         "egs-prefix": "Префікс де встановлено EGS",
         "prefered_language": "Код із 2 або 4 символів (наприклад: «fr» або «pt-BR»)",
-        "alt-nile-bin": "Використовується вбудований двійковий файл Nile..."
+        "alt-nile-bin": "Використовується вбудований двійковий файл Nile...",
+        "alt-aurelia-bin": "Використовується вбудований двійковий файл Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -611,18 +669,19 @@
     "queue": {
         "label": {
             "canceled": "Скасовано",
-            "clear": "Очистити список",
+            "clear": "Очистити Список",
             "downloading": "Завантаження",
             "empty": "Нічого завантажувати",
             "finished": "Виконано",
             "queued": "У черзі",
             "remove": "Прибрати із завантажених",
             "resume": "Відновити завантаження",
-            "pause": "Призупинити завантаження"
+            "pause": "Призупинити завантаження",
+            "paused": "Призупинено"
         }
     },
     "Recent": "Нещодавно зіграно",
-    "search": "Пошук ігор",
+    "search": "Пошук Ігор",
     "setting": {
         "adddesktopshortcuts": "Створювати ярлики на робочому столі автоматично",
         "addgamestostartmenu": "Додавати ігри до головного меню автоматично",
@@ -665,7 +724,8 @@
             "removeConfirm": "Ви впевнені, що бажаєте видалити накладання EOS?",
             "removeConfirmTitle": "Підтвердьте видалення накладання",
             "updateNow": "Оновити",
-            "updating": "Оновлення..."
+            "updating": "Оновлення...",
+            "description": "Внутрішньоігрове накладення Epic, яке вимагається деякими іграми Epic для друзів і досягнень"
         },
         "esync": "Ввімкнути Esync",
         "exit-to-tray": "Вийти до системної панелі",
@@ -725,10 +785,13 @@
                 "heroic": "Загальний журнал Heroic",
                 "nile": "Журнал Amazon / Nile",
                 "legendary": "Журнал Epic Games / Legendary",
-                "zoom": "Журнал Zoom"
+                "zoom": "Журнал Zoom",
+                "itchio": "Журнал itch.io"
             },
             "show-uploads": "Показати завантажені файли журналів",
-            "error": "Внутрішня помилка читання файлу журналу"
+            "error": "Внутрішня помилка читання файлу журналу",
+            "jump-to-end": "Перейти до кінця журналу",
+            "jump-to-start": "Перейти до кінця журналу"
         },
         "mangohud": "Ввімкнути Mangohud (Mangohud має бути встановлений)",
         "manualsync": {
@@ -748,18 +811,21 @@
         "preferSystemLibs": "Надавати перевагу системним бібліотекам",
         "runexe": {
             "message": "Перетягніть сюди файли",
-            "title": "Запустити EXE на префіксі"
+            "title": "Запустити EXE на префіксі",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Тека ігрових збережень не знайдена, вкажіть її вручну (натисніть, щоб повторити)",
             "placeholder": "Вкажіть точну теку збережень для гри",
-            "warning": "Будь ласка, перевірте двічі чи вказаний шлях правильний (клацніть, щоб повторити)"
+            "warning": "Будь ласка, перевірте двічі чи вказаний шлях правильний (клацніть, щоб повторити)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Вибір теми",
         "showfps": "Показувати кількість кадрів (DX9, 10 та 11)",
         "start-in-tray": "Запускати згорнутим",
         "steamruntime": "Використовувати Steam Runtime",
-        "winecrossoverbottle": "Пляшка CrossOver",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Тека префікса Wine",
         "wineversion": "Версія Wine",
         "autoUpdateGames": "Оновлювати ігри автоматично",
@@ -810,7 +876,8 @@
             "warning": "Попередження: це стосується всього інтерфейсу. Це означає, що неправильний стиль може зробити Heroic непридатним для використання. Якщо потрібно, налаштування можна змінити вручну в «~/.config/heroic/config.json». НЕ копіюйте стилі з джерел, яким ви не довіряєте."
         },
         "verboseLogs": {
-            "description": "Увімкнути розлогі журнали"
+            "description": "Увімкнути розлогі журнали",
+            "hint": ""
         },
         "download-proton-steam": "Завантажити GE-Proton до теки Steam",
         "advertiseAvxForRosetta": "Рекламувати підтримку AVX для Rosetta",
@@ -858,13 +925,89 @@
         },
         "tools": {
             "open": "Відкрити",
-            "selectExe": "Вибрати EXE"
+            "selectExe": "Вибрати EXE",
+            "running": ""
+        },
+        "allow-broken-anticheat": {
+            "description": "Встановлювати ігри, навіть якщо відомо, що їхній античит не працює на цій системі"
+        },
+        "analytics": {
+            "description": "Поділитися анонімними даними про використання, щоб покращити Heroic"
+        },
+        "darktrayicon": {
+            "description": "Використовувати темний варіант значка в лотку, краще на світлих панелях"
+        },
+        "disable-gog-presence": {
+            "description": "Не показувати друзям, у яку гру з GOG ви зараз граєте"
+        },
+        "disableController": {
+            "description": "Заборонити Heroic реагувати на введення з ґеймпада"
+        },
+        "disableDiscounts": "Вимкнути сторінку «Пропозиції»",
+        "disableGOGAffiliate": "Вимкнути партнерське посилання GOG",
+        "experimental_features_description": {
+            "cometSupport": "Увімкнути такі функції GOG Galaxy, як досягнення та багатоосібна гра",
+            "enableHelp": "Показати панель довідки в застосунку, що пояснює налаштування, на які ви наводите вказівник миші",
+            "zoomPlatform": "Додати платформу Zoom до своєї бібліотеки"
+        },
+        "framelessWindow": {
+            "description": "Приховати нативну панель гри та використовувати власні елементи керування вікном Heroic"
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "autoUpdateGames-description": "",
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "autovkd3d-description": "",
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": "",
+        "alt-aurelia-bin": "Вибрати альтернативний двійковий файл Nile",
+        "steamLaunchTarget": {
+            "downloadBuild": "Завантаження",
+            "missingBuild": "Всього Завантажено",
+            "missingRuntime": "VCRuntime не встановлено"
         }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Встановлюємо BattlEye Runtime...",
-            "name": "Запускник BattlEye AntiCheat"
+            "name": "Запускник BattlEye AntiCheat",
+            "hint": ""
         },
         "clear-cache": "Очистити кеш Heroic",
         "copiedToClipboard": "Скопійовано у сховище обміну!",
@@ -876,7 +1019,8 @@
                 "title": "Потрібен GameMode"
             },
             "installing": "Встановлення середовища виконання EAC...",
-            "name": "Середовище виконання EasyAntiCheat"
+            "name": "Середовище Виконання EasyAntiCheat",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -898,7 +1042,8 @@
             "systemInformation": "Інформація про систему",
             "gamescope": "Gamescope",
             "legacy": "Старий",
-            "categories": "Категорії"
+            "categories": "Категорії",
+            "tabs": ""
         },
         "open-config-file": "Відкрити файл налаштування",
         "reset-heroic": "Скинути Heroic",
@@ -916,7 +1061,7 @@
             "systemSpecifications": "Системні характеристики:",
             "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Драйвер: {{driverVersion}}",
-            "os": "Операційна система:",
+            "os": "Операційна система",
             "gpu": "ГП:",
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
             "osVersion": "Версія {{versionNumber}}",
@@ -929,7 +1074,10 @@
             "copyToClipboard": "Копіювати в буфер обміну",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Версія Comet: {{cometVersion}}"
+            "cometVersion": "Версія Comet: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Експериментальні особливості"
@@ -951,7 +1099,8 @@
                 "help9": "Налаштування ігор",
                 "help5": "Інформація про бібліотеку Amazon (список ігор, діалогове вікно встановлення)",
                 "help1": "Ця дія очистить наступні кеші:",
-                "help2": "Інформація про сторонні ігри (оцінки, сумісність з steam, howlongtobeat, pcgamingwiki, applegamingwiki)"
+                "help2": "Інформація про сторонні ігри (оцінки, сумісність з steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "description": ""
             },
             "details": "Детальніше",
             "title": {
@@ -959,7 +1108,8 @@
                 "clearCache": "Очистити кеш"
             },
             "resetHeroic": {
-                "help": "Ця дія видаляє всі налаштування та кеш, але не видаляє ваші встановлені ігри або облікові дані для входу в Epic. Портативні версії Heroic (AppImage, WinPortable, ...) необхідно перезапустити вручну після цієї дії."
+                "help": "Ця дія видаляє всі налаштування та кеш, але не видаляє ваші встановлені ігри або облікові дані для входу в Epic. Портативні версії Heroic (AppImage, WinPortable, ...) необхідно перезапустити вручну після цієї дії.",
+                "description": ""
             }
         },
         "custom_css": {
@@ -983,7 +1133,30 @@
             "experimental": "Експериментальні особливості",
             "launch": "Параметри запуску",
             "wineTools": "Інструменти",
-            "wineVersion": "Wine"
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "Вигляд",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Налаштування",
@@ -1023,7 +1196,9 @@
     },
     "two_col_table": {
         "save_hint": "Зміни у цій таблиці не зберігаються автоматично. Натисніть кнопку +",
-        "add": "Додати"
+        "add": "Додати",
+        "edit": "Редагувати",
+        "remove": "Видалити"
     },
     "Update Available!": "Доступне оновлення!",
     "userselector": {
@@ -1034,7 +1209,8 @@
         "manageaccounts": "Облікові записи",
         "quit": "Вийти",
         "cancel": "Скасувати",
-        "quitMessage": "Ви впевнені, що хочете вийти?"
+        "quitMessage": "Ви впевнені, що хочете вийти?",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -1042,7 +1218,9 @@
             "forward": "Вперед",
             "openInBrowser": "Відкрити у браузері",
             "reload": "Перезавантажити сторінку",
-            "home": "На головну крамниці"
+            "home": "На головну крамниці",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1057,9 +1235,10 @@
             "open_folder": "Відкрити теку",
             "update": "Оновлення",
             "settings": "Налаштування",
-            "no-results": "Жодна версія Wine не відповідає вашому запиту."
+            "no-results": "Жодна версія Wine не відповідає вашому запиту.",
+            "subtitle": ""
         },
-        "release": "Дата випуску",
+        "release": "Дата виходу",
         "size": "Розмір",
         "notes": "Примітки"
     },
@@ -1108,7 +1287,9 @@
     "emptyLibrary": {
         "noResults": "Поточні фільтри не дали жодних результатів.",
         "noGames": "Ваша бібліотека порожня. <br /><br />Клацніть <4>тут</4>, щоб увійти за допомогою своїх облікових записів Epic, GOG.com або Amazon. Після цього ваші ігри з'являться тут, у бібліотеці.<br /><br />Щоб використовувати ігри або застосунки з інших джерел, натисніть <br />, щоби додати їх вручну.",
-        "noResultsTitle": "Жодної гри не знайдено."
+        "noResultsTitle": "Жодної гри не знайдено.",
+        "description": "<0>Увійдіть</0> за допомогою облікових записів Epic, GOG.com, Amazon, itch.io або Zoom, і ваші ігри з’являться тут. Також вручну можна додавати ігри з інших джерел.",
+        "title": "Ваша бібліотека порожня."
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton – це варіант Proton, створений Glorious Eggroll. Він призначений для використання у Steam, але деякі ігри за межами Steam можуть працювати краще з цим варіантом. Він надає переважно марні журнали для пошуку та усунення несправностей.",
@@ -1306,7 +1487,8 @@
             "grid": "Сітка",
             "label": "Режим перегляду",
             "list": "Список"
-        }
+        },
+        "affiliateBanner": "Посилання на цій сторінці є партнерськими посиланнями. Придбання ігор через них допомагає фінансувати розвиток Heroic."
     },
     "steamgriddb": {
         "error": {
@@ -1328,7 +1510,12 @@
             "title": "Треба оновити",
             "hintSuffix": "для повернення"
         },
-        "sort": "Сортувати",
+        "sort": {
+            "label": "Сортувати",
+            "last_played": "Востаннє Зіграно",
+            "alpha_asc": "A → Z",
+            "alpha_desc": "Z → A"
+        },
         "cancel": {
             "hintSuffix": "на 3 с для скасування",
             "hintPrefix": "Утримуйте"
@@ -1371,7 +1558,10 @@
         },
         "removeFromQueue": {
             "message": "Ця гра в черзі на завантаження. Вилучити її з черги?"
-        }
+        },
+        "launchError": "Не вдалося запустити гру. Перевірте журнали для подробиць.",
+        "launchErrorNotLoggedIn": "Не вдалося запустити гру. Спочатку ви повинні ввійти в Steam.",
+        "launchErrorPrefix": "Не вдалося запустити гру:"
     },
     "next": "Далі",
     "common": {
@@ -1385,5 +1575,82 @@
         "remove": "Видалити",
         "save": "Зберегти"
     },
-    "General": "Загальні"
+    "General": "Загальні",
+    "Accounts": "Облікові записи",
+    "affiliate": {
+        "gogPrompt": {
+            "description": "Heroic може використовувати партнерські посилання GOG, коли ви відвідуєте крамницю GOG. Якщо ви купуєте щось після переходу від Heroic, GOG ділиться з нами невеликою комісією — без додаткових витрат для вас. Ми не бачимо і не відстежуємо, які ігри ви купуєте, або що-небудь ще про ваші покупки: тільки GOG знає, що хтось прийшов з Heroic. Типово це вимкнено, і ви можете змінити це, коли забажаєте, у розширених налаштуваннях Heroic.",
+            "title": "Підтримуйте Heroic своїми покупками в GOG",
+            "toggle": "Використовувати партнерські посилання GOG"
+        }
+    },
+    "Community": "Спільнота",
+    "itchio-store": "Крамниця itch.io",
+    "Update available!": "Доступне оновлення!",
+    "support": {
+        "actions": {
+            "open": "Відкрити"
+        }
+    },
+    "cloudSync": {
+        "back": "Назад",
+        "button": {
+            "download": "Завантаження",
+            "sync": "Синхронізувати",
+            "upload": "Вивантажити",
+            "keep": "Зберегти",
+            "view": "Переглянути"
+        },
+        "column": {
+            "file": "Фільтр",
+            "size": "Розмір",
+            "modified": "Змінено"
+        },
+        "never": "Ніколи",
+        "count": {
+            "conflicts_one": "{{count}} конфліктує",
+            "conflicts_other": "{{count}} конфліктує",
+            "failed_one": "{{count}} не вдалося",
+            "failed_other": "{{count}} не вдалося",
+            "skipped_one": "{{count}} пропущено",
+            "skipped_other": "{{count}} пропущено"
+        },
+        "genericIssue": "Остання синхронізація мала проблему.",
+        "hint": {
+            "checking": "Перевірка хмари Steam…",
+            "cloudCopy": "Копія з хмари за {{when}}",
+            "cloudEmpty": "У хмарі Steam поки нічого",
+            "discardCloud": "Видаляє копію з хмари за {{when}}",
+            "fileCount_one": "{{count}} файл · {{size}}",
+            "fileCount_other": "{{count}} файлів · {{size}}",
+            "firstUpload": "Створює першу копію у хмарі",
+            "lastSync": "Востаннє синхронізовано: {{when}}",
+            "neverSynced": "Ще не синхронізовано з Heroic",
+            "replaceCloud": "Замінює копію з хмари за {{when}}"
+        },
+        "keepCloud": "Вирішення: зберегти збереження в хмарі Steam",
+        "keepLocal": "Вирішення: зберегти збереження на цьому ПК",
+        "lastSync": "Востаннє синхронізовано: {{when}}",
+        "noFiles": "У хмарі Steam немає файлів для цієї гри.",
+        "pull": "Завантажити збереження з хмари",
+        "push": "Вивантажити локальні збереження в хмару",
+        "section": {
+            "actions": "Синхронізувати дії",
+            "files": "Файли у хмарі"
+        },
+        "state": {
+            "conflicts": "Збереження в хмарі Steam конфліктують із даними на цьому ПК",
+            "failed": "Не вдалося синхронізуватися з хмарою Steam",
+            "incomplete": "Синхронізацію із хмарою Steam не завершено",
+            "ok": "Збереження в хмарі Steam актуальні",
+            "syncing": "Синхронізація хмарних збережень Steam…",
+            "unknown": "Хмарні збереження Steam ще не синхронізовано"
+        },
+        "sync": "Синхронізувати зараз (в обидва боки)",
+        "syncing": "Синхронізація... зачекайте.",
+        "viewFiles": "Переглянути хмарні збереження файлів"
+    },
+    "changelog": {
+        "view_full": "Переглянути повний журнал змін на GitHub"
+    }
 }

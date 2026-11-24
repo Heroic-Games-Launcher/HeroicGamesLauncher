@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import GameContext from '../../GameContext'
 import { EllipsisVertical } from 'lucide-react'
 import GameSubMenu from '../../GameSubMenu'
-import { Button, Icon } from 'frontend/components/UI'
+import { Button, Icon, Tooltip } from 'frontend/components/UI'
 import { GameInfo } from 'common/types'
 import { Modal, ModalContent, ModalHeader } from 'frontend/components/UI/Modal'
 import GameRequirements from '../../GameRequirements'
@@ -22,6 +22,30 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
   const [showRequirements, setShowRequirements] = useState(false)
   const [showChangelog, setShowChangelog] = useState(false)
   const [showModifyInstallModal, setShowModifyInstallModal] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!showMenu) return
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!menuRef.current?.contains(event.target as Node)) {
+        setShowMenu(false)
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setShowMenu(false)
+    }
+
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [showMenu])
 
   const { is_installed, title } = gameInfo
 
@@ -29,35 +53,42 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
 
   return (
     <>
-      <div className="game-actions">
-        <Button
-          variant="ghost"
-          className="toggle"
-          title={t('submenu.more', 'More')}
-          icon={<Icon glyph={EllipsisVertical} size="lg" />}
-        />
+      <div ref={menuRef} className={`game-actions ${showMenu ? 'open' : ''}`}>
+        <Tooltip content={t('submenu.options', 'Options')}>
+          <Button
+            variant="ghost"
+            className="toggle"
+            aria-label={t('submenu.options', 'Options')}
+            aria-haspopup="menu"
+            aria-expanded={showMenu}
+            onClick={() => setShowMenu((open) => !open)}
+            icon={<Icon glyph={EllipsisVertical} size="lg" />}
+          />
+        </Tooltip>
 
-        <GameSubMenu
-          appName={appName}
-          isInstalled={is_installed}
-          title={title}
-          storeUrl={
-            gameExtraInfo?.storeUrl ||
-            ('store_url' in gameInfo && gameInfo.store_url !== undefined
-              ? gameInfo.store_url
-              : '')
-          }
-          changelog={gameExtraInfo?.changelog}
-          runner={gameInfo.runner}
-          handleUpdate={handleUpdate}
-          handleChangeLog={() => setShowChangelog(true)}
-          disableUpdate={is.installing || is.updating}
-          onShowRequirements={
-            hasRequirements ? () => setShowRequirements(true) : undefined
-          }
-          onShowModifyInstall={() => setShowModifyInstallModal(true)}
-          gameInfo={gameInfo}
-        />
+        <div className="gameToolsWrapper" onClick={() => setShowMenu(false)}>
+          <GameSubMenu
+            appName={appName}
+            isInstalled={is_installed}
+            title={title}
+            storeUrl={
+              gameExtraInfo?.storeUrl ||
+              ('store_url' in gameInfo && gameInfo.store_url !== undefined
+                ? gameInfo.store_url
+                : '')
+            }
+            changelog={gameExtraInfo?.changelog}
+            runner={gameInfo.runner}
+            handleUpdate={handleUpdate}
+            handleChangeLog={() => setShowChangelog(true)}
+            disableUpdate={is.installing || is.updating}
+            onShowRequirements={
+              hasRequirements ? () => setShowRequirements(true) : undefined
+            }
+            onShowModifyInstall={() => setShowModifyInstallModal(true)}
+            gameInfo={gameInfo}
+          />
+        </div>
       </div>
 
       {showRequirements && (

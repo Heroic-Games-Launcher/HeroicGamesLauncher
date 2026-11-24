@@ -14,6 +14,7 @@ import { DetailList, Panel } from 'frontend/components/UI'
 import type { DetailItem } from 'frontend/components/UI/DetailList'
 import GameContext from '../../GameContext'
 import { useCloudSaveDetail } from './CloudSavesSync'
+import SteamDlcList from './SteamDlcList'
 
 interface Props {
   gameInfo: GameInfo
@@ -43,7 +44,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   if (installPlatform === 'Browser') {
     items.push({
       glyph: MonitorPlay,
-      label: t('info.installedPlatform', 'Installed Platform'),
+      label: t('info.installedPlatform', 'Installed platform'),
       value: installPlatform
     })
 
@@ -69,7 +70,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
 
   items.push({
     glyph: MonitorPlay,
-    label: t('info.installedPlatform', 'Installed Platform'),
+    label: t('info.installedPlatform', 'Installed platform'),
     value: installPlatform === 'osx' ? 'macOS' : installPlatform
   })
 
@@ -138,6 +139,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   return (
     <Panel tone="glass" className="installationInfo">
       <DetailList items={items} columns={2} />
+      {runner === 'steam' && <SteamDlcList appName={gameInfo.app_name} />}
       {cloudSave.menu}
     </Panel>
   )

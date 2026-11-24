@@ -6,14 +6,14 @@ import {
   readFile,
   writeFile,
   rm,
-  readdir
+  readdir,
+  copyFile
 } from 'fs/promises'
 import { dirname, join } from 'path'
 import { tmpdir } from 'os'
-import { Readable } from 'stream'
-import { finished } from 'stream/promises'
+import { pipeline } from 'stream/promises'
 
-import extractZip from 'extract-zip'
+import { openPromise as openZip } from 'yauzl'
 
 import { setGlobalDispatcher, ProxyAgent } from 'undici'
 
@@ -23,14 +23,16 @@ type DownloadedBinary =
   | 'gogdl'
   | 'nile'
   | 'comet'
+  | 'aurelia'
   | 'epic-integration'
   | 'butler'
 
 const RELEASE_TAGS = {
   legendary: '0.21.1',
-  gogdl: 'v1.3.0',
+  gogdl: 'v1.4.0',
   nile: 'v1.2.0',
-  comet: 'v0.2.0',
+  comet: 'v0.4.1',
+  aurelia: 'v0.2.5',
   'epic-integration': 'v0.4',
   // butler is distributed via itch.io's broth channel system rather than
   // GitHub releases; "LATEST" resolves the channel's newest version at
@@ -38,7 +40,7 @@ const RELEASE_TAGS = {
   // known butler and `.release_tags` invalidation works the same way as
   // for the other binaries.
   // source: https://broth.itch.zone/butler
-  butler: '15.27.0'
+  butler: '15.32.0'
 } as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
@@ -46,6 +48,23 @@ const pathExists = async (path: string): Promise<boolean> =>
     () => true,
     () => false
   )
+
+/**
+ * Extracts a zip archive into `destDir`. yauzl validates every entry name
+ * (rejecting `..` segments, absolute paths and backslashes), so entries can
+ * only write inside `destDir`.
+ */
+async function extractZip(zipPath: string, destDir: string) {
+  const zipfile = await openZip(zipPath, { strictFileNames: true })
+  for await (const entry of zipfile.eachEntry()) {
+    // Directory entries end with '/'; parents are created per file below.
+    if (entry.fileName.endsWith('/')) continue
+    const target = join(destDir, entry.fileName)
+    await mkdir(dirname(target), { recursive: true })
+    const readStream = await zipfile.openReadStreamPromise(entry)
+    await pipeline(readStream, createWriteStream(target))
+  }
+}
 
 async function downloadFile(url: string, dst: string) {
   const response = await fetch(url, {
@@ -58,8 +77,7 @@ async function downloadFile(url: string, dst: string) {
     throw Error(`Failed to download ${url}: ${response.status}`)
   }
   await mkdir(dirname(dst), { recursive: true })
-  const fileStream = createWriteStream(dst, { flags: 'w' })
-  await finished(Readable.fromWeb(response.body).pipe(fileStream))
+  await writeFile(dst, Buffer.from(await response.arrayBuffer()))
 }
 
 async function downloadAsset(
@@ -174,19 +192,38 @@ async function downloadNile() {
   })
 }
 
+// The dummy service ships as a zip that also contains a standalone installer
+// script and a permissions helper; only the service binary itself is used.
+async function downloadGalaxyCommunicationDummy() {
+  const url = `https://github.com/imLinguin/comet/releases/download/${RELEASE_TAGS['comet']}/dummy-service.zip`
+  console.log('Downloading GalaxyCommunication dummy service from', url)
+
+  const tmpZip = join(
+    tmpdir(),
+    `heroic-galaxy-communication-${process.pid}.zip`
+  )
+  await downloadFile(url, tmpZip)
+
+  const tmpDir = join(tmpdir(), `heroic-galaxy-communication-${process.pid}`)
+  await extractZip(tmpZip, tmpDir)
+
+  const exePath = join(
+    'public',
+    'bin',
+    'x64',
+    'win32',
+    'GalaxyCommunication.exe'
+  )
+  await mkdir(dirname(exePath), { recursive: true })
+  await copyFile(join(tmpDir, 'GalaxyCommunication.exe'), exePath)
+  await rm(tmpDir, { recursive: true, force: true })
+  await rm(tmpZip, { force: true })
+  console.log('Done downloading GalaxyCommunication dummy service')
+}
+
 async function downloadComet() {
   return Promise.all([
-    downloadGithubAssets(
-      'GalaxyCommunication',
-      'imLinguin/comet',
-      RELEASE_TAGS['comet'],
-      {
-        x64: {
-          win32: 'GalaxyCommunication-dummy.exe'
-        },
-        arm64: {}
-      }
-    ),
+    downloadGalaxyCommunicationDummy(),
     downloadGithubAssets('comet', 'imLinguin/comet', RELEASE_TAGS['comet'], {
       x64: {
         linux: 'comet-x86_64-unknown-linux-gnu',
@@ -238,10 +275,10 @@ async function downloadButlerForChannel(
 
   const destDir = join('public', 'bin', arch, platform)
   await mkdir(destDir, { recursive: true })
-  // extract-zip writes into an existing directory; siblings from a previous
+  // Extraction writes into an existing directory; siblings from a previous
   // download stay put, which is fine since the same set of files just gets
   // overwritten.
-  await extractZip(tmpZip, { dir: join(process.cwd(), destDir) })
+  await extractZip(tmpZip, join(process.cwd(), destDir))
   await rm(tmpZip, { force: true })
 
   if (platform !== 'win32') {
@@ -278,10 +315,28 @@ async function downloadButler() {
   await Promise.all(promises)
 }
 
+async function downloadAurelia() {
+  return downloadGithubAssets(
+    'aurelia',
+    'Drackrath/Aurelia',
+    RELEASE_TAGS['aurelia'],
+    {
+      x64: {
+        linux: 'aurelia_linux_x86_64',
+        win32: 'aurelia_windows_x86_64.exe'
+      },
+      arm64: {
+        linux: 'aurelia_linux_arm64',
+        win32: 'aurelia_windows_arm64.exe'
+      }
+    }
+  )
+}
+
 async function downloadEpicIntegration() {
   return downloadGithubAssets(
     'EpicGamesLauncher',
-    'Etaash-mathamsetty/heroic-epic-integration',
+    'BananaWorks07/heroic-epic-integration',
     RELEASE_TAGS['epic-integration'],
     {
       x64: {
@@ -305,12 +360,20 @@ async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
   try {
     storedTagsParsed = JSON.parse(storedTagsText)
   } catch {
-    return ['legendary', 'gogdl', 'nile', 'comet', 'epic-integration', 'butler']
+    return [
+      'legendary',
+      'gogdl',
+      'nile',
+      'comet',
+      'aurelia',
+      'epic-integration',
+      'butler'
+    ]
   }
   const binariesToDownload: DownloadedBinary[] = []
-  for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {
-    if (storedTagsParsed[runner] !== currentTag)
-      binariesToDownload.push(runner as keyof typeof RELEASE_TAGS)
+  for (const runner of Object.keys(RELEASE_TAGS) as DownloadedBinary[]) {
+    if (storedTagsParsed[runner] !== RELEASE_TAGS[runner])
+      binariesToDownload.push(runner)
   }
   return binariesToDownload
 }
@@ -348,6 +411,8 @@ async function main() {
   if (binariesToDownload.includes('nile')) promisesToAwait.push(downloadNile())
   if (binariesToDownload.includes('comet'))
     promisesToAwait.push(downloadComet())
+  if (binariesToDownload.includes('aurelia'))
+    promisesToAwait.push(downloadAurelia())
   if (binariesToDownload.includes('epic-integration'))
     promisesToAwait.push(downloadEpicIntegration())
   if (binariesToDownload.includes('butler'))

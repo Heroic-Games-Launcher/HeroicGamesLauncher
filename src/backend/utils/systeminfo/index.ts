@@ -15,7 +15,8 @@ import {
   getCometVersion,
   getGogdlVersion,
   getLegendaryVersion,
-  getNileVersion
+  getNileVersion,
+  getAureliaVersion
 } from '../helperBinaries'
 
 type GPUInfo = {
@@ -62,6 +63,7 @@ interface SystemInformation {
     gogdlVersion: string
     cometVersion: string
     nileVersion: string
+    aureliaVersion: string
   }
 }
 
@@ -79,13 +81,19 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
   const gpus = await getGpuInfo()
   const detailedOsInfo = await getOsInfo()
   const deckInfo = getSteamDeckInfo(cpus, gpus)
-  const [legendaryVersion, gogdlVersion, cometVersion, nileVersion] =
-    await Promise.all([
-      getLegendaryVersion(),
-      getGogdlVersion(),
-      getCometVersion(),
-      getNileVersion()
-    ])
+  const [
+    legendaryVersion,
+    gogdlVersion,
+    cometVersion,
+    nileVersion,
+    aureliaVersion
+  ] = await Promise.all([
+    getLegendaryVersion(),
+    getGogdlVersion(),
+    getCometVersion(),
+    getNileVersion(),
+    getAureliaVersion()
+  ])
 
   const sysinfo: SystemInformation = {
     CPU: {
@@ -114,7 +122,8 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
       legendaryVersion: legendaryVersion,
       gogdlVersion: gogdlVersion,
       cometVersion: cometVersion,
-      nileVersion: nileVersion
+      nileVersion: nileVersion,
+      aureliaVersion: aureliaVersion
     }
   }
   cachedSystemInfo = sysinfo
@@ -151,7 +160,8 @@ Software Versions:
   Legendary: ${info.softwareInUse.legendaryVersion}
   gogdl: ${info.softwareInUse.gogdlVersion}
   comet: ${info.softwareInUse.cometVersion}
-  Nile: ${info.softwareInUse.nileVersion}`
+  Nile: ${info.softwareInUse.nileVersion}
+  Aurelia: ${info.softwareInUse.aureliaVersion}`
 }
 
 export { getSystemInfo, formatSystemInfo }

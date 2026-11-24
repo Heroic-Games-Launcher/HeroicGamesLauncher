@@ -21,6 +21,9 @@ export default function DownloadManagerHeader({ time }: Props) {
   return (
     <div className="DownloadList__head">
       <span>{t('game.title', 'Game title')}</span>
+      {time === 'finished' && (
+        <span>{t('download-manager.queue.status', 'Status')}</span>
+      )}
       <span>{t('download-manager.queue.type', 'Type')}</span>
       <span className="DownloadList__headStore">
         {t('game.store', 'Store')}

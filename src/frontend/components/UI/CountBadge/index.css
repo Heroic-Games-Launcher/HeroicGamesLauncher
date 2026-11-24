@@ -1,0 +1,17 @@
+.CountBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--space-lg-fixed);
+  height: var(--space-lg-fixed);
+  padding: 0 var(--space-2xs-fixed);
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklab, var(--role-accent) 22%, transparent);
+  color: var(--text-accent, var(--role-accent));
+  font-family: var(--primary-font-family);
+  font-size: var(--text-xs);
+  font-weight: var(--bold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  flex-shrink: 0;
+}

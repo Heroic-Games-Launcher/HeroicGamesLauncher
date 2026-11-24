@@ -1,0 +1,45 @@
+.SettingsSearch {
+  position: relative;
+  width: 50%;
+  min-width: 280px;
+  text-align: start;
+}
+
+@media screen and (max-width: 1100px) {
+  .SettingsSearch {
+    width: 100%;
+  }
+}
+
+.SettingsSearch .autoComplete .SettingsSearch__result {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.SettingsSearch .autoComplete .SettingsSearch__result--active,
+.SettingsSearch .autoComplete .SettingsSearch__result--active:hover {
+  background: var(--navbar-accent, var(--accent));
+  color: var(--ink-on-accent, var(--background-darker));
+}
+
+.SettingsSearch .autoComplete .SettingsSearch__resultTitle {
+  margin-inline-start: 0;
+  overflow-wrap: anywhere;
+  font-size: inherit;
+  line-height: inherit;
+  opacity: 1;
+}
+
+.SettingsSearch .autoComplete .SettingsSearch__resultContext {
+  margin-inline-start: 0;
+  font-size: var(--text-xs);
+  opacity: 0.65;
+}
+
+.SettingsSearch .autoComplete .SettingsSearch__empty,
+.SettingsSearch .autoComplete .SettingsSearch__empty:hover {
+  background: transparent;
+  color: var(--text-neutral-muted);
+  cursor: default;
+}

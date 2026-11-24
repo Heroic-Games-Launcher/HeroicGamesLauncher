@@ -47,6 +47,12 @@
     gap: var(--space-md);
   }
 
+  .saveFolderGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
   .Field,
   .selectFieldWrapper,
   .textInputFieldWrapper,

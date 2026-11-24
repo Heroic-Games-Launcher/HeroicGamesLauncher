@@ -23,19 +23,16 @@ const EnableFSR = () => {
       <ToggleSwitch
         info={t(
           'help.amdfsr',
-          "AMD's FSR helps boost framerate by upscaling lower resolutions in fullscreen mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
+          "AMD's FSR 1.0 fullscreen hack only works with GE-Proton/TKG under X11. It is not available in Valve Proton or upstream Wine and is incompatible with Wine-Wayland."
         )}
         description={t(
           'setting.enableFSRHack-description',
-          'Render the game at a lower resolution and upscale it to gain frames'
+          'Legacy fullscreen upscaling for DirectX games (X11 only)'
         )}
         htmlId="enableFSR"
         value={enableFSR || false}
         handleChange={() => setEnableFSR(!enableFSR)}
-        title={t(
-          'setting.enableFSRHack',
-          'Enable FSR hack (Wine version needs to support it)'
-        )}
+        title={t('setting.enableFSRHack', 'Wine FSR 1 (fshack, X11 only)')}
       />
 
       {enableFSR && (

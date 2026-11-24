@@ -11,16 +11,16 @@ const EnableEsync = () => {
     <ToggleSwitch
       info={t(
         'help.esync',
-        'Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.'
+        'Esync is only relevant for Proton 10 and older patched Wine builds. It was removed from Proton 11 and is ignored by upstream Wine.'
       )}
       description={t(
         'setting.esync-description',
-        'Speed up multi-threaded games using eventfd synchronisation'
+        'Legacy eventfd synchronisation, only used by older Proton/Wine builds'
       )}
       htmlId="esyncToggle"
       value={enableEsync || false}
       handleChange={() => setEnableEsync(!enableEsync)}
-      title={t('setting.esync', 'Enable Esync')}
+      title={t('setting.esync', 'Enable Esync (legacy)')}
     />
   )
 }

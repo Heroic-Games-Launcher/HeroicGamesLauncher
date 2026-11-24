@@ -8,9 +8,23 @@ interface Manifest {
 
 function readFlatpakRuntimeVersion() {
   try {
+    const flatpakInfo = readFileSync('/.flatpak-info', 'utf8')
+    const runtime = flatpakInfo
+      .split('\n')
+      .map((line) => line.trim())
+      .find((line) => line.startsWith('runtime='))
+      ?.slice('runtime='.length)
+      .split('/')
+      .pop()
+    if (runtime) return runtime
+  } catch (error) {
+    console.log(`Unable to read runtime version from /.flatpak-info. ${error}`)
+  }
+
+  try {
     const manifestContent = readFileSync('/app/manifest.json', 'utf8')
     const manifest = JSON.parse(manifestContent) as Manifest
-    return manifest['runtime-version']
+    if (manifest['runtime-version']) return manifest['runtime-version']
   } catch (error) {
     console.log(
       `Unable to read runtime version from flatpak manifest file. ${error}`
@@ -24,6 +38,7 @@ export const isMac = process.platform === 'darwin'
 export const isIntelMac = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
 export const isWindows = process.platform === 'win32'
 export const isLinux = process.platform === 'linux'
+export const isLinuxArm = isLinux && process.arch === 'arm64'
 export const isSteamDeckGameMode =
   process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isSteamDeckDesktopMode =

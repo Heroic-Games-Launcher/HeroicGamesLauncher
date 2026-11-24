@@ -6,7 +6,13 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import type { Runner } from 'common/types'
 import Dropdown from '../Dropdown'
 import StoreLogos from '../StoreLogos'
-import { Button, Chip, FilterSection, Icon } from 'frontend/components/UI'
+import {
+  Button,
+  Chip,
+  CountBadge,
+  FilterSection,
+  Icon
+} from 'frontend/components/UI'
 import {
   SlidersHorizontal,
   Heart,
@@ -15,15 +21,23 @@ import {
   EyeOff,
   WifiOff,
   Package,
-  RefreshCw
+  RefreshCw,
+  UserCheck
 } from 'lucide-react'
 import './index.css'
 
-type StoreKey = 'legendary' | 'gog' | 'nile' | 'zoom' | 'sideload' | 'itchio'
+type StoreKey =
+  | 'legendary'
+  | 'gog'
+  | 'nile'
+  | 'zoom'
+  | 'sideload'
+  | 'itchio'
+  | 'steam'
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon, zoom, itchio } =
+  const { platform, epic, gog, amazon, zoom, itchio, steam } =
     useContext(ContextProvider)
   const {
     setShowFavourites,
@@ -43,7 +57,9 @@ export default function LibraryFilters() {
     showThirdPartyManagedOnly,
     setShowThirdPartyManagedOnly,
     showUpdatesOnly,
-    setShowUpdatesOnly
+    setShowUpdatesOnly,
+    showSteamOwnedOnly,
+    setShowSteamOwnedOnly
   } = useContext(LibraryContext)
 
   const toggleStore = (store: StoreKey) => {
@@ -64,7 +80,8 @@ export default function LibraryFilters() {
       nile: true,
       sideload: true,
       zoom: true,
-      itchio: true
+      itchio: true,
+      steam: true
     })
     setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
     setShowHidden(true)
@@ -74,6 +91,7 @@ export default function LibraryFilters() {
     setShowSupportOfflineOnly(false)
     setShowThirdPartyManagedOnly(false)
     setShowUpdatesOnly(false)
+    setShowSteamOwnedOnly(false)
   }
 
   type StoreDef = {
@@ -90,6 +108,12 @@ export default function LibraryFilters() {
       show: !!epic.username
     },
     { key: 'gog', label: 'GOG', runner: 'gog', show: !!gog.username },
+    {
+      key: 'steam',
+      label: 'Steam',
+      runner: 'steam',
+      show: steam.enabled
+    },
     {
       key: 'nile',
       label: 'Amazon Games',
@@ -144,6 +168,18 @@ export default function LibraryFilters() {
     }
   ]
 
+  const activeFilterCount =
+    stores.filter((s) => s.show && !storesFilters[s.key]).length +
+    platforms.filter((p) => p.show && !platformsFilters[p.key]).length +
+    [
+      showFavourites,
+      showInstalledOnly,
+      showUpdatesOnly,
+      showSupportOfflineOnly,
+      showThirdPartyManagedOnly,
+      steam.enabled && showSteamOwnedOnly
+    ].filter(Boolean).length
+
   return (
     <Dropdown
       buttonClass="pill"
@@ -151,11 +187,18 @@ export default function LibraryFilters() {
         <>
           <Icon glyph={SlidersHorizontal} size="md" />
           <span>{t('header.filters', 'Filters')}</span>
+          <CountBadge
+            count={activeFilterCount}
+            label={t('header.filters_applied', {
+              count: activeFilterCount,
+              defaultValue_one: '{{count}} filter applied',
+              defaultValue_other: '{{count}} filters applied'
+            })}
+          />
         </>
       }
       className="libraryFilters"
       dataTour="library-filters"
-      popUpOnHover
     >
       <FilterSection label={t('header.stores', 'Stores')}>
         {stores
@@ -219,6 +262,15 @@ export default function LibraryFilters() {
         >
           <span>{t('header.show_updates_only', 'With updates')}</span>
         </Chip>
+        {steam.enabled && (
+          <Chip
+            active={showSteamOwnedOnly}
+            onClick={() => setShowSteamOwnedOnly(!showSteamOwnedOnly)}
+            icon={<Icon glyph={UserCheck} size="md" />}
+          >
+            <span>{t('header.show_steam_owned_only', 'Steam owned only')}</span>
+          </Chip>
+        )}
         <Chip
           active={showSupportOfflineOnly}
           onClick={() => setShowSupportOfflineOnly(!showSupportOfflineOnly)}

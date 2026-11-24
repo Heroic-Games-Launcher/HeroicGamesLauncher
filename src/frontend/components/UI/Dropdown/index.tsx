@@ -1,14 +1,11 @@
-import { FocusEvent, ReactNode, useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import './index.scss'
-
-const CLOSE_DELAY_MS = 350
 
 type Props = {
   title?: ReactNode | string
   children: ReactNode
   className?: string
   buttonClass?: string
-  popUpOnHover?: boolean
   dataTour?: string
 }
 
@@ -17,73 +14,50 @@ export default function Dropdown({
   children,
   className,
   buttonClass,
-  popUpOnHover = false,
   dataTour
 }: Props) {
   const [isExpanded, setIsExpanded] = useState(false)
-  const closeTimeout = useRef<ReturnType<typeof setTimeout>>()
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const cancelScheduledClose = () => {
-    if (closeTimeout.current) {
-      clearTimeout(closeTimeout.current)
-      closeTimeout.current = undefined
-    }
-  }
+  useEffect(() => {
+    if (!isExpanded) return
 
-  useEffect(() => cancelScheduledClose, [])
-
-  const handlePopup = (state: 'enter' | 'leave') => {
-    // if no pop up behavior is wanted, ignore mouse movements
-    if (!popUpOnHover) return
-
-    cancelScheduledClose()
-
-    if (state === 'enter') {
-      setIsExpanded(true)
-      return
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!containerRef.current?.contains(event.target as Node)) {
+        setIsExpanded(false)
+      }
     }
 
-    closeTimeout.current = setTimeout(
-      () => setIsExpanded(false),
-      CLOSE_DELAY_MS
-    )
-  }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsExpanded(false)
+    }
 
-  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
-    if (event.currentTarget.contains(event.relatedTarget)) return
-    cancelScheduledClose()
-    setIsExpanded(false)
-  }
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isExpanded])
 
   return (
-    <div className={`dropdownContainer ${className || ''}`}>
+    <div ref={containerRef} className={`dropdownContainer ${className || ''}`}>
       <button
-        onMouseEnter={() => handlePopup('enter')}
-        onMouseLeave={() => handlePopup('leave')}
         className={`dropdownButton ${buttonClass ? buttonClass : ''}`}
         data-tour={dataTour}
         onClick={() => {
           // focus first component when expanding
           if (!isExpanded) {
-            window.api.gamepadAction({ action: 'tab' })
+            void window.api.gamepadAction({ action: 'tab' })
           }
 
-          cancelScheduledClose()
-          setIsExpanded(true)
+          setIsExpanded((expanded) => !expanded)
         }}
       >
         {title}
       </button>
-      <div
-        onMouseEnter={() => handlePopup('enter')}
-        onMouseLeave={() => handlePopup('leave')}
-        onBlur={handleBlur}
-        onFocus={() => {
-          cancelScheduledClose()
-          setIsExpanded(true)
-        }}
-        className={`dropdown ${isExpanded ? 'expanded' : 'collapsed'}`}
-      >
+      <div className={`dropdown ${isExpanded ? 'expanded' : 'collapsed'}`}>
         {children}
       </div>
     </div>

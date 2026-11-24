@@ -74,6 +74,11 @@ export interface GOGCloudSavesLocation {
   location: string
 }
 
+export interface GOGCloudSavesInfo {
+  enabled: boolean
+  locations: GOGCloudSavesLocation[]
+}
+
 // Data inside the `goggame-appName.info` file in the game installation directory
 export interface GOGGameDotInfoFile {
   version: number
