@@ -1,0 +1,12 @@
+.powerSettings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-md-fixed);
+  margin-block-start: var(--space-sm-fixed);
+}
+
+.powerSettings .selectFieldWrapper {
+  min-width: 220px;
+  margin-bottom: 0;
+}

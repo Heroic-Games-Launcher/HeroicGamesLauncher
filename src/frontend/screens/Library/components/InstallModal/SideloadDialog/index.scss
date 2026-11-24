@@ -1,34 +1,107 @@
-.sideloadGrid {
-  display: grid;
-  justify-content: space-around;
-  grid-template-columns: min-content 1fr;
-  width: 800px;
+@keyframes sideloadSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sideloadDialog {
+  width: 100%;
   max-width: 100%;
-  min-height: 70vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-inline: 0;
 
-  /* When the form column scrolls, picker swaps in without bumping the dialog. */
-  .sideloadForm {
-    min-width: 0;
-    overflow-y: auto;
-    max-height: 70vh;
+  .spinner {
+    animation: sideloadSpin 1s linear infinite;
   }
 
-  .textInputFieldWrapper.Field .selectFieldWrapper.Field {
-    margin: 0 var(--space-xs);
+  .stepContentRenderer {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding-inline: var(--modal-padding-inline);
+    padding-bottom: var(--space-lg);
+    overflow: auto;
   }
 
-  .imageIcons {
-    margin-block: var(--space-lg) 0;
-    margin-inline: 0 var(--space-lg);
-    width: auto;
+  .sideloadStepper {
+    margin: var(--space-lg) 0 var(--space-lg);
+    padding-inline: var(--modal-padding-inline);
   }
+
+  &.Modal__content .Field label {
+    margin-bottom: var(--space-xs-fixed);
+  }
+}
+
+.sideloadMetadataForm,
+.sideloadCompatForm {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sideloadImportHint {
+  line-height: 1.5;
+}
+
+.sideloadImagesStep {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--space-lg);
+  padding: var(--space-md);
+}
+
+.sideloadImagesMain {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.sideloadImagesForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sideloadImagesPreview {
+  flex: 0 0 auto;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border: 2px dashed var(--panel-border);
+  border-radius: var(--radius-md);
+}
+
+.sideloadImagesPreview__caption {
+  font-size: var(--text-sm);
+  font-weight: var(--medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.sideloadImages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
 
   .appImageContainer {
     position: relative;
+    width: 100%;
     cursor: pointer;
-    margin-bottom: var(--space-md);
-    width: 210px;
-    border-radius: 10px;
+    color: white;
+    border-radius: var(--radius-md);
     overflow: hidden;
     border: 3px solid var(--neutral-02);
     transition: 200ms;
@@ -70,7 +143,6 @@
 
   .heroImageContainer {
     width: 100%;
-    margin-bottom: var(--space-md);
   }
 
   .imageLoadingOverlay,
@@ -87,6 +159,11 @@
     transition: 200ms;
     color: white;
     pointer-events: none;
+
+    svg {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   .imageLoadingOverlay {
@@ -96,27 +173,162 @@
   .imageHoverOverlay {
     opacity: 0;
   }
+}
 
-  .titleIcon {
-    word-break: break-word;
-    display: flex;
-    justify-content: space-between;
+.sideloadInstallation {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+
+  &--running {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-md);
   }
 
-  .advancedFields {
-    summary {
-      cursor: pointer;
-      font-size: var(--font-size-sm);
-      color: var(--neutral-06);
-      font-weight: bold;
-      padding: var(--space-xs) 0;
-      user-select: none;
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-lg);
+    font-weight: var(--semibold);
+    color: var(--text-default);
+
+    .spinner {
+      animation: sideloadSpin 1s linear infinite;
+    }
+  }
+
+  &__log {
+    width: 100%;
+    height: 220px;
+    display: flex;
+  }
+
+  &__logPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-md);
+    background: #1e1e1e;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+}
+
+.sideloadFinish {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+
+  .protonShortcutsTitle {
+    margin: 0;
+    font-size: var(--text-md);
+    font-weight: var(--semibold);
+    color: var(--text-secondary);
+  }
+
+  .proton-shortcuts {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+
+    .shortcutTile.Button {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      padding: var(--space-md);
+      border: solid 1px var(--panel-border);
+      border-radius: var(--radius-md);
+
+      &.shortcutTile--selected {
+        border-color: var(--accent);
+      }
+
+      .Button__label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-sm);
+        width: 100%;
+        height: 100%;
+      }
     }
 
-    &[open] {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
+    .shortcutImage {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      object-fit: contain;
     }
+
+    .shortcutName {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: normal;
+    }
+
+    .shortcutSelectedIcon {
+      position: absolute;
+      top: var(--space-xs);
+      right: var(--space-xs);
+      color: var(--accent);
+    }
+  }
+}
+
+.Modal__footer.sideload {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .sideloadFooterMetadata {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-secondary);
+
+    .InstallModal__platformIcon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      margin-inline-start: 0;
+    }
+  }
+
+  .sideloadFooterButtons {
+    order: -1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
   }
 }

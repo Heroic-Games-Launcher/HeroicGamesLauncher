@@ -1,0 +1,25 @@
+.steamLaunchTarget__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.steamLaunchTarget__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.steamLaunchTarget__missing {
+  display: inline-flex;
+  margin-inline-start: auto;
+  color: var(--text-secondary);
+
+  & svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+}

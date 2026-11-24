@@ -97,7 +97,10 @@
         "browse_wine_prefix": "Abrir prefijo de Wine",
         "browse_files": "Ver archivos",
         "play": "JUGAR",
-        "edit-game": "Editar juego"
+        "edit-game": "Editar juego",
+        "favourite": "Agregar a favoritos",
+        "unfavourite": "Eliminar de favoritos",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
@@ -133,7 +136,12 @@
         "changelogFor": "Registro de cambios de {{gameTitle}}",
         "extra_info": "Información adicional",
         "install_info": "Información sobre la instalación",
-        "achievements": "Logros"
+        "achievements": "Logros",
+        "details": "Detalles del juego",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Acerca"
     },
     "gamecard": {
         "moving": "Moviendo",
@@ -163,7 +171,16 @@
         "installedInfo": "Información de la instalación",
         "protondb-compatibility-info": "Nivel de compatibilidad con Proton",
         "steamdeck-compatibility-info": "Compatibilidad con SteamDeck",
-        "third-party-app": "Administrador de terceros"
+        "third-party-app": "Administrador de terceros",
+        "genres": "Géneros",
+        "steamdeck": {
+            "unsupported": "No compatible",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLCs"
     },
     "install": {
         "disk-space-left": "Espacio disponible",
@@ -193,7 +210,8 @@
         "playing": {
             "start": "Jugar ahora",
             "stop": "Jugando (Detener)",
-            "start_with_logs": "Jugar ahora (con registros)"
+            "start_with_logs": "Jugar ahora (con registros)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Sincronizando guardados"
@@ -228,7 +246,8 @@
             "install-path": "Ruta de Instalación de Steam",
             "compatibility-layer-not-available": "Capa de compatibilidad no disponible. Por favor descargue una desde \"Ajustes > Wine Manager\" primero.",
             "patience": "Si desea continuar, por favor sea paciente ya que puede tomar unos minutos para terminar dependiendo de tu conexión a internet y tu configuración del sistema."
-        }
+        },
+        "releaseDate": "Fecha de lanzamiento"
     },
     "launch": {
         "options": "Opciones de arranque...",
@@ -262,7 +281,9 @@
             "title": "Título de la aplicación/juego",
             "broser": "Enlace web del navegador",
             "fullscreen": "Iniciar a pantalla completa (F11 para salir)",
-            "useragent": "Agente de usuario personalizado"
+            "useragent": "Agente de usuario personalizado",
+            "cover-hint": "Portada/Hero Art (Haz click en la imagen para buscar en SteamGridDB)",
+            "image-hint": "Arte Cuadrada (haz click en la imagen para buscar en SteamGridDB)"
         },
         "placeholder": {
             "image": "Pega la URL de una imagen o selecciona una de tu ordenador",
@@ -280,7 +301,9 @@
     },
     "specs": {
         "minimum": "Mínimo",
-        "recommended": "Recomendado"
+        "recommended": "Recomendado",
+        "notes": "Notas",
+        "other": "Otros"
     },
     "status": {
         "clickToUpdate": "Clic para actualizar",
@@ -328,7 +351,8 @@
         "verify": "Verificar y reparar",
         "extraInfo": "Información extra",
         "logs": "Registros",
-        "categories": "Categorías"
+        "categories": "Categorías",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Este juego no admite guardados en la nube. Esta información es proporcionada por los desarrolladores del juego. Algunos juegos implementan su propio sistema de guardado en la nube.",
@@ -368,11 +392,32 @@
         "advanced": "Avanzado",
         "reset": "Restaurar por defecto",
         "sgdb": {
-            "no-key-link": "Ajustes → Avanzado"
+            "no-key-link": "Ajustes → Avanzado",
+            "no-key-prefix": "Para buscar imágenes de portada en SteamGridDB, agregue una clave de API"
         },
         "title": "Editar juego",
         "placeholder": {
             "image": "Inserta el enlace web de una imagen aquí"
+        },
+        "cover": "Arte de Portada",
+        "info": {
+            "cover": "Imagen de Portada",
+            "square": "Imagen Cuadrada"
+        },
+        "square": "Arte Cuadrada"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Logros",
+            "dlc": "DLC",
+            "installInfo": "Tamaño de descarga",
+            "launchOptions": "Opciones de arranque",
+            "storeInfo": "Información del sistema"
         }
     }
 }

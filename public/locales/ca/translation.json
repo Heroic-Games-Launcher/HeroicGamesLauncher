@@ -11,7 +11,13 @@
         "actions_font_family_default": "Tipus de lletra de les accions (per defecte, {{fontFamily}})",
         "content_font_family_default": "Tipus de lletra dels continguts (per defecte, {{fontFamily}})",
         "disable_smooth_scrolling": "Desactiva el desplaçament suau (cal reiniciar)",
-        "disable_animations": "Desactiva les animacions de la interfície"
+        "disable_animations": "Desactiva les animacions de la interfície",
+        "section": {
+            "library": "Biblioteca",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Afegeix un joc",
     "All": "Tot",
@@ -96,13 +102,21 @@
             "steam": {
                 "error": "No s'ha trobat l'executable del Steam. És probable que l'usuari hagi cancel·lat la instal·lació, o hagi fallat per la banda del Steam.",
                 "message": "Ha fallat la instal·lació del Steam. Llegeix amb compte les instruccions i torna a provar-ho. {{paragraph}} {{error}}",
-                "title": "Error del Steam"
+                "title": "Error del Steam",
+                "running": "Steam s'està executant. Tanca'l i torna a provar-ho, o reinicia'l una vegada per a permetre que l'Heroic gestioni les dreceres mentre Steam s'executa.",
+                "running-gamemode": "Cal un reinici puntual del Steam abans que l'Heroic pugui gestionar les dreceres de Steam en el dispositiu. Reinicia Steam i torna a provar-ho."
             },
             "executableNotFound": "No s'ha trobat l'executable",
             "executableNotFoundMessage": "L'Heroic no pot trobar l'executable d'aquest joc. Configura'l manualment a la configuració del joc.",
             "dxmt": {
                 "message": "Error en baixar el DXMT! Comprova la connexió!",
                 "title": "Error de baixada del DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "{{game}} no s'ha pogut treure de l'Steam a causa de:{{newLine}} {{error}}",
+                    "title": "Error en suprimir el joc de Steam"
+                }
             }
         },
         "info": {
@@ -129,7 +143,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Segur que vols restablir l'Heroic? Se suprimirà tota la configuració i la memòria cau, però no suprimirà els jocs instal·lats ni les credencials de l'Epic. Les versions portables (AppImage, WinPortable, ...) de l'Heroic s'hauran de reiniciar manualment després.",
+                "message": "Segur que vols restablir el Heroic? Se suprimirà tota la configuració i la memòria cau, però no suprimirà els jocs instal·lats ni les credencials de l'Epic. Les versions portables (AppImage, WinPortable, ...) del Heroic s'hauran de reiniciar manualment després.",
                 "title": "Restableix l'Heroic"
             }
         },
@@ -182,6 +196,12 @@
             "rosetta": {
                 "title": "La Rosetta no s'ha trobat.",
                 "message": "L'Heroic necessita la Rosetta per a executar jocs en el macOS amb xips d'Apple Silicon. Instal·la-la des del terminal macOS amb l'ordre: «softwareupdate --install-rosetta» i reinicia l'Heroic. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
@@ -193,7 +213,8 @@
         "postpone": "Posposa",
         "launchAnyway": "Llança el joc de totes maneres",
         "shaderPreCachingDisabledMessage": "La precaché del shader de l'Steam està desactivada. Activa-la des de la configuració de l'Steam en mode escriptori per a assegurar que el joc funciona adequadament amb UMU.",
-        "shaderPreCachingDisabledTitle": "Pre-caché del shader desactivada"
+        "shaderPreCachingDisabledTitle": "Pre-caché del shader desactivada",
+        "cancel": "Cancel·la"
     },
     "button": {
         "cancel": "Cancel·la",
@@ -202,7 +223,9 @@
         "sync": "Sincronitza",
         "syncing": "S'està sincronitzant",
         "unsync": "Dessincronitza",
-        "continue": "Continua"
+        "continue": "Continua",
+        "close": "Tanca",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -238,7 +261,8 @@
         },
         "label": {
             "disk": "Disc",
-            "speed": "Baixada"
+            "speed": "Baixada",
+            "unit": ""
         },
         "link": "Baixades",
         "queue": {
@@ -248,7 +272,15 @@
             "type": "Tipus"
         },
         "title": "Baixades",
-        "ETA": "Temps estimat"
+        "ETA": "Temps estimat",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Els serveis en línia podrien no funcionar, ja que els servidors d'Epic Games estan desconnectats.",
@@ -261,7 +293,8 @@
         "status": "Estat",
         "store": "Botiga",
         "title": "Títol del joc",
-        "modify": "Modifica la instal·lació"
+        "modify": "Modifica la instal·lació",
+        "settings": "Configuració del joc"
     },
     "generic": {
         "error": {
@@ -297,7 +330,12 @@
         "select_all": "Selecciona-ho tot",
         "no_categories": "No existeixen categories personalitzades. Afegeix-ne des del menú de cada joc.",
         "show_third_party_managed_only": "Mostra només els gestionats per tercers",
-        "show_updates_only": "Mostra només els jocs amb actualitzacions"
+        "show_updates_only": "Mostra només els jocs amb actualitzacions",
+        "platforms": "Platform",
+        "stores": "Botigues",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -393,9 +431,9 @@
         "heroic": {
             "beta": "Beta",
             "click-to-see-changelog": "Fes-hi clic per a veure el registre de canvis",
-            "newReleases": "Hi ha una actualització disponible!",
+            "newReleases": "Hi ha una actualització disponible",
             "stable": "Estable",
-            "version": "Versió de l'Heroic"
+            "version": "Versió del Heroic"
         },
         "save-sync": {
             "searching": "S'està provant de detectar la carpeta correcta de partides desades (fes clic per a cancel·lar)"
@@ -434,7 +472,9 @@
             "list": "Commuta a una vista en llista"
         },
         "hideAlphabetFilter": "Amaga el filtre d'alfabet",
-        "showAlphabetFilter": "Mostra el filtre d'alfabet"
+        "showAlphabetFilter": "Mostra el filtre d'alfabet",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Biblioteca",
     "loading": {
@@ -448,7 +488,15 @@
         "message": "Inicia la sessió. Pots iniciar sessió a més d'una plataforma alhora.",
         "amazon": "Inici de sessió d'Amazon",
         "old-mac": "La vostra versió del macOS és {{version}}. Cal el macOS 12 o posterior per a iniciar la sessió.",
-        "zoom": "Inici de sessió al Zoom"
+        "zoom": "Inici de sessió al Zoom",
+        "itchio": "",
+        "button": "Inicia la sessió",
+        "logout_confirm": {
+            "message": "Segur que vols tancar la sessió?",
+            "title": "Tanca la sessió"
+        },
+        "title_epic": "Epic Games",
+        "title_gog": "GOG"
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -464,26 +512,28 @@
                 "steam": {
                     "corrupt": "{{game}} no s'ha pogut afegir a tots els usuaris del Steam. Consulta els registres per a més informació. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
                     "success": "{{game}} s'ha afegit correctament al Steam. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
-                    "title": "S'ha afegit al Steam"
+                    "title": "S'ha afegit al Steam",
+                    "success-no-restart": "S'ha afegit correctament {{game}} a Steam."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} no s'ha pogut suprimir de tots els usuaris del Steam. Consulta els registres per a més informació. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
                     "success": "{{game}} s'ha suprimit correctament del Steam. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
-                    "title": "S'ha suprimit del Steam"
+                    "title": "S'ha suprimit del Steam",
+                    "success-no-restart": "S'ha suprimit correctament {{game}} de Steam."
                 }
             },
             "reparing": "Ha finalitzat la reparació del joc"
         },
         "install": {
-            "canceled": "S'ha cancel·lat la instal·lació",
+            "canceled": "La instal·lació ha fallat",
             "error": "La instal·lació ha fallat",
             "finished": "La instal·lació ha finalitzat",
             "imported": "S'ha importat el joc",
             "startInstall": "S'ha iniciat la instal·lació",
             "failed": "La instal·lació ha fallat",
-            "paused": "Instal·lació en pausa"
+            "paused": "La instal·lació ha fallat"
         },
         "moved": "Ha finalitzat el desplaçament",
         "moving": "S'està movent el joc...",
@@ -517,16 +567,22 @@
             "placeHolderKey": "NOM",
             "placeHolderValue": "p.ex.: Ruta/A/FitxersAddicionals",
             "title": "Variables d'entorn",
-            "value": "Valor"
+            "value": "Valor",
+            "placeHolderV": "VALOR"
         },
         "env_variables": {
             "error": {
                 "empty_key": "Els noms de les variables no es poden deixar buits",
                 "equal_sign_in_key": "Els noms de les variables no poden fer servir el signe «=»",
-                "space_in_key": "Els noms de les variables no poden contenir espais"
+                "space_in_key": "Els noms de les variables no poden contenir espais",
+                "duplicate_key": "Ja existeix una variable amb aquest nom"
             },
             "example": "No afegeixis el signe «=». Per exemple, per a una opció com ara \"MY_FLAG=123\", posa MY_FLAG a NOM i 123 a VALOR.",
-            "info": "Estableix les variables d'entorn que cal afegir a l'ordre."
+            "info": "Estableix les variables d'entorn que cal afegir a l'ordre.",
+            "add_new": "Afegeix una variable",
+            "bulk_edit": "Edició massiva",
+            "bulk_edit_error": "Algunes variables no són correctes. Comprova que totes les línies segueixen el format CLAU=VALOR.",
+            "clear_all_confirm": "Segur que vols esborrar totes les variables d'entorn?"
         },
         "gameargs": {
             "placeholder": "Introdueix aquí els arguments del llançador",
@@ -575,7 +631,8 @@
         "dxvkfpsvalue": "Valor enter positiu (com ara 30, 60, ...)",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos o quatre caràcters (p. ex. «fr» o «pt-BR»)",
-        "alt-nile-bin": "S'utilitza el binari integrat del Nile..."
+        "alt-nile-bin": "S'utilitza el binari integrat del Nile...",
+        "alt-aurelia-bin": "S'utilitza el binari integrat del Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -595,7 +652,8 @@
             "queued": "A la cua",
             "remove": "Suprimeix de les baixades",
             "pause": "Posa en pausa la descàrrega",
-            "resume": "Reprèn la descàrrega"
+            "resume": "Reprèn la descàrrega",
+            "paused": ""
         }
     },
     "Recent": "Jugats fa poc",
@@ -635,14 +693,15 @@
             "installed": "La capa de superposició EOS està instal·lada.",
             "installing": "S'està instal·lant la capa de superposició EOS…",
             "latestVersion": "Última versió: {{version}}",
-            "notInstalled": "La capa de superposició EOS no està instal·lada.",
+            "notInstalled": "L'Overlay EOS no està instal·lat.",
             "notInstalledMsg": "La superposició EOS no està instal·lada. Vols instal·lar-la?",
             "notInstalledTitle": "La capa de superposició no està instal·lada.",
             "remove": "Desinstal·la",
             "removeConfirm": "Segur que vols desinstal·lar la superposició EOS?",
             "removeConfirmTitle": "Confirmació de supressió de la capa de superposició",
             "updateNow": "Actualitza",
-            "updating": "S'està actualitzant…"
+            "updating": "S'està actualitzant…",
+            "description": ""
         },
         "esync": "Activa l'Esync",
         "exit-to-tray": "Surt a la safata del sistema",
@@ -674,7 +733,7 @@
                     "title": "Vols pujar el fitxer de registre?",
                     "content": "Estàs segur que vols pujar «{{name}}»?"
                 },
-                "delete": "Sol·licitud per a esborrar el fitxer de registre",
+                "delete": "Sol·licita suprimir el fitxer de registre",
                 "done": {
                     "title": "La pujada s'ha completat",
                     "content": "S'ha pujat a {{url}} (la URL s'ha copiat al porta-retalls)"
@@ -702,9 +761,13 @@
                 "heroic": "Registre general de l'Heroic",
                 "legendary": "Registre de l'Epic Games/Legendary",
                 "nile": "Registre d'Amazon/Nile",
-                "zoom": "Registre del Zoom"
+                "zoom": "Registre del Zoom",
+                "itchio": ""
             },
-            "show-uploads": "Mostra els fitxers de registre pujats"
+            "show-uploads": "Mostra els fitxers de registre pujats",
+            "error": "Error intern en llegir el fitxer de registres",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Activa el Mangohud (cal que el Mangohud estigui instal·lat)",
         "manualsync": {
@@ -724,12 +787,15 @@
         "preferSystemLibs": "Dóna preferència a les biblioteques del sistema",
         "runexe": {
             "message": "Arrossega i solta els fitxers aquí",
-            "title": "Executa l'EXE al prefix"
+            "title": "Executa l'EXE al prefix",
+            "description": ""
         },
         "savefolder": {
             "not-found": "No s'ha trobat la carpeta de partides desades. Selecciona-la manualment (fes clic per a intentar-ho de nou)",
             "placeholder": "Selecciona el directori exacte on es desen els jocs",
-            "warning": "Comprova si la ruta és correcta (fes clic per a provar-ho de nou)"
+            "warning": "Comprova si la ruta és correcta (fes clic per a provar-ho de nou)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Tema de la interfície",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
@@ -781,7 +847,8 @@
             "label": "Permet instal·lar jocs amb suport antitrampes trencat o denegat"
         },
         "verboseLogs": {
-            "description": "Activa els registres detallats"
+            "description": "Activa els registres detallats",
+            "hint": ""
         },
         "disableUMU": "Desactiva l'umu",
         "custom_css": {
@@ -824,14 +891,94 @@
         "steamRuntime": {
             "label": "Utilitza el Runtime del Steam",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Obre",
+            "selectExe": "Selecciona l'EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "fsync-description": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": "",
+        "alt-aurelia-bin": "Tria un binari alternatiu del Nile",
+        "steamLaunchTarget": {
+            "downloadBuild": "Baixada",
+            "missingBuild": "Total baixat",
+            "missingRuntime": "El VCRuntime no està instal·lat"
         }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "S'està instal·lant l'entorn d'execució del BattlEye...",
-            "name": "Entorn d'execució anti-trampes del BattlEye"
+            "name": "Entorn d'execució anti-trampes del BattlEye",
+            "hint": ""
         },
-        "clear-cache": "Esborra la memòria cau de l'Heroic",
+        "clear-cache": "Esborra la memòria cau del Heroic",
         "copiedToClipboard": "S'ha copiat al porta-retalls.",
         "copyToClipboard": "Copia tota la configuració al porta-retalls",
         "default_hint": "Els canvis en aquesta secció només s'apliquen als valors predefinits quan s'instal·li un joc. Si vols canviar la configuració d'un joc que ja s'hagi instal·lat, fes servir el botó de configuració de la pàgina del joc.",
@@ -841,7 +988,8 @@
                 "title": "Es necessita el GameMode"
             },
             "installing": "S'està instal·lant l'entorn d'execució de l'EAC...",
-            "name": "Entorn d'execució EasyAntiCheat"
+            "name": "Entorn d'execució EasyAntiCheat",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -862,7 +1010,9 @@
             "wineExt": "Extensions del Wine",
             "systemInformation": "Informació del sistema",
             "gamescope": "Gamescope",
-            "legacy": "Obsolets"
+            "legacy": "Obsolets",
+            "categories": "Categories",
+            "tabs": ""
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
@@ -880,7 +1030,7 @@
             "systemSpecifications": "Característiques del sistema:",
             "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Controlador: {{driverVersion}}",
-            "os": "Sistema operatiu:",
+            "os": "Sistema operatiu",
             "gpu": "GPU:",
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
             "osVersion": "Versió {{versionNumber}}",
@@ -893,7 +1043,10 @@
             "copyToClipboard": "Copia al porta-retalls",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "experimental_features": {
             "title": "Funcions experimentals"
@@ -914,16 +1067,18 @@
                 "help1": "Aquesta acció buidarà les memòries cau següents:",
                 "help3": "Informació de la biblioteca del Legendary (llista de jocs i informació dels jocs i dels diàlegs d'instal·lació)",
                 "help5": "Informació de la biblioteca d'Amazon (llista de jocs i informació dels diàlegs d'instal·lació)",
-                "help6": "Això NO esborrarà:",
+                "help6": "Això NO suprimirà:",
                 "help7": "Inici de sessió a la botiga",
                 "help4": "Informació de la biblioteca GOG (llista de jocs, informació dels diàlegs d'instal·lació i de l'api, com ara requisits)",
                 "help10": "Configuració de l'Heroic",
                 "help9": "Configuració dels jocs",
-                "help2": "Informació del joc de tercers (puntuació, compatibilitat amb el Steam, howlongtobeat, pcgamingwiki, applegamingwiki)"
+                "help2": "Informació del joc de tercers (puntuació, compatibilitat amb el Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "description": ""
             },
             "details": "Detalls",
             "resetHeroic": {
-                "help": "Se suprimirà tota la configuració i els continguts de la memòria cau, però no se suprimiran els jocs instal·lats de l'Epic o les seves credencials. Cal reiniciar manualment les versions portables (AppImage, WinPortable...) de l'Heroic."
+                "help": "Se suprimirà tota la configuració i els continguts de la memòria cau, però no se suprimiran els jocs instal·lats de l'Epic o les seves credencials. Cal reiniciar manualment les versions portables (AppImage, WinPortable...) de l'Heroic.",
+                "description": ""
             }
         },
         "custom_css": {
@@ -940,13 +1095,45 @@
             "help": {
                 "description": "Aporta la teva clau de l'API del SteamGridDB per a poder cercar caràtules dels jocs. La clau s'emmagatzema de manera xifrada si el teu sistema ho permet. Pots obtenir-ne una a {{url}}"
             }
+        },
+        "open-game-settings-file-hint": "Fes clic per a obrir el fitxer de configuració del joc",
+        "section": {
+            "downloads": "Baixades",
+            "experimental": "Funcions experimentals",
+            "launch": "Opcions d'execució",
+            "wineTools": "Eines",
+            "wineVersion": "Wine",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Configuració",
     "sidebar": {
         "collapse": "Col·lapsa la barra lateral",
         "uncollapse": "Expandeix la barra lateral",
-        "console": "Mode consola"
+        "console": "Mode consola",
+        "storesLogin": "Inici de sessió a la botiga"
     },
     "status": {
         "installing": "S'està instal·lant",
@@ -977,7 +1164,10 @@
         "show": "Mostra"
     },
     "two_col_table": {
-        "save_hint": "Els canvis en aquesta taula no es desen automàticament. Fes clic al botó +"
+        "save_hint": "Els canvis en aquesta taula no es desen automàticament. Fes clic al botó +",
+        "add": "Afegeix",
+        "edit": "Edita",
+        "remove": "Suprimeix"
     },
     "Update Available!": "Hi ha una actualització disponible",
     "userselector": {
@@ -988,7 +1178,8 @@
         "manageaccounts": "Gestor de comptes",
         "quit": "Surt",
         "cancel": "Cancel·la",
-        "quitMessage": "Segur que vols tancar l'aplicació?"
+        "quitMessage": "Segur que vols tancar l'aplicació?",
+        "manage": ""
     },
     "webview": {
         "controls": {
@@ -996,7 +1187,9 @@
             "forward": "Endavant",
             "openInBrowser": "Obre al gestor de fitxers",
             "reload": "Torna a carregar la pàgina",
-            "home": "Ves a la pàgina d'inici de la botiga"
+            "home": "Ves a la pàgina d'inici de la botiga",
+            "enableGameInput": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
@@ -1011,7 +1204,8 @@
             "open_folder": "Obre la carpeta",
             "update": "Actualitza",
             "settings": "Configuració",
-            "no-results": "No hi ha cap versió del Wine que coincideixi amb la cerca."
+            "no-results": "No hi ha cap versió del Wine que coincideixi amb la cerca.",
+            "subtitle": ""
         },
         "release": "Data de llançament",
         "size": "Mida",
@@ -1057,7 +1251,7 @@
         "remove-category": "Trau la categoria",
         "delete-question": "Si continues, es traurà la categoria i les seves assignacions de jocs permanentment. Vols continuar?",
         "new-category": "Categoria nova",
-        "add-new-category": "Afegeix una categoria nova"
+        "add-new-category": "Afegeix una categoria"
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb el llançador umu (predefinit a l'Heroic).",
@@ -1068,7 +1262,10 @@
     },
     "emptyLibrary": {
         "noResults": "Els filtres actuals no han produït cap resultat.",
-        "noGames": "La teva biblioteca està buida.<br /><br />Fes clic <4>aquí</4> per a iniciar la sessió als comptes d'Epic, GOG.com o Amazon. Es mostraran els jocs a la biblioteca.<br /><br />Per a fer servir jocs o aplicacions d'altres orígens, fes clic a <br /> per a afegir-los manualment."
+        "noGames": "La teva biblioteca està buida.<br /><br />Fes clic <4>aquí</4> per a iniciar la sessió als comptes d'Epic, GOG.com o Amazon. Es mostraran els jocs a la biblioteca.<br /><br />Per a fer servir jocs o aplicacions d'altres orígens, fes clic a <br /> per a afegir-los manualment.",
+        "noResultsTitle": "No s'ha trobat cap joc.",
+        "description": "",
+        "title": ""
     },
     "categories-manager": {
         "add": "Afegeix",
@@ -1259,7 +1456,8 @@
             "grid": "Graella",
             "label": "Mode de visualització",
             "list": "Llista"
-        }
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1281,7 +1479,10 @@
             "title": "Cal actualtizar",
             "hintSuffix": "per a tornar"
         },
-        "sort": "Ordre",
+        "sort": {
+            "label": "Ordre",
+            "last_played": "Última partida"
+        },
         "cancel": {
             "hintSuffix": "durant 3 s per a cancel·lar",
             "hintPrefix": "Manté premut"
@@ -1326,5 +1527,47 @@
             "message": "El joc s'ha posat en cua per a baixar-lo. Vols suprimir-lo de la cua?"
         }
     },
-    "next": "Següent"
+    "next": "Següent",
+    "common": {
+        "add": "Afegeix",
+        "cancel": "Cancel·la",
+        "warning": "Avís",
+        "clear_all": "Esborra-ho tot",
+        "confirm": "Confirma",
+        "duplicate": "Duplica",
+        "edit": "Edita",
+        "remove": "Suprimeix",
+        "save": "Desa"
+    },
+    "General": "General",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": "",
+    "Update available!": "Hi ha una actualització disponible",
+    "support": {
+        "actions": {
+            "open": "Obre"
+        },
+        "title": "Suporta'ns"
+    },
+    "cloudSync": {
+        "back": "Enrere",
+        "button": {
+            "download": "Baixada",
+            "sync": "Sincronitza",
+            "upload": "Puja"
+        },
+        "column": {
+            "file": "Filtra",
+            "size": "Mida"
+        },
+        "never": "Mai"
+    }
 }

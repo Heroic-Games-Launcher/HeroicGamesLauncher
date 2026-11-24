@@ -11,7 +11,13 @@
         "content_font_family_default": "Obsah Font Family (Default: {{fontFamily}})",
         "actions_font_family_default": "Akcie Font Family (Default: {{fontFamily}})",
         "disable_smooth_scrolling": "Vypnúť smooth scrolling (vyžaduje reštart)",
-        "disable_animations": ""
+        "disable_animations": "",
+        "section": {
+            "library": "Knižnica",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Pridať Hru",
     "All": "Všetky",
@@ -64,7 +70,7 @@
             },
             "generic": {
                 "message": "všeobecná chybová správa",
-                "title": "Select EXE to Run"
+                "title": "Vybrať EXE na Spustenie"
             },
             "launchAborted": "Launch aborted",
             "title": "Error",
@@ -98,7 +104,17 @@
                 "message": "",
                 "title": ""
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "",
+            "remove": {
+                "steam": {
+                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
+                    "title": ""
+                }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
+            }
         },
         "info": {
             "update": {
@@ -112,7 +128,7 @@
             }
         },
         "no": "NIE",
-        "ok": "Ok",
+        "ok": "OK",
         "protocol": {
             "install": {
                 "not_installed": "Is Not Installed, do you wish to Install it?"
@@ -177,6 +193,12 @@
             "rosetta": {
                 "title": "",
                 "message": ""
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Vyberte Priečinok WinePrefix",
@@ -185,7 +207,8 @@
         "choose-nile-binary": "Vyberte binárny Níl",
         "update": "Aktualizovať",
         "changelog": "Zoznam Zmien",
-        "postpone": "Odložiť"
+        "postpone": "Odložiť",
+        "cancel": "Cancel"
     },
     "button": {
         "cancel": "Cancel",
@@ -194,7 +217,9 @@
         "sync": "Synchronizovať",
         "syncing": "Prebieha synchronizácia",
         "unsync": "Zrušiť synchronizáciu",
-        "continue": "ďalej"
+        "continue": "ďalej",
+        "close": "Zavrieť",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -214,7 +239,12 @@
             "select": "Select",
             "space": "Space",
             "update_game": "Update game",
-            "exit": "Exit"
+            "exit": "Exit",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "Documentation",
@@ -225,7 +255,8 @@
         },
         "label": {
             "disk": "Disk",
-            "speed": "Download"
+            "speed": "Download",
+            "unit": ""
         },
         "link": "Downloads",
         "queue": {
@@ -235,7 +266,15 @@
             "type": "Type"
         },
         "title": "Downloads",
-        "ETA": "Predpokladaný čas"
+        "ETA": "Predpokladaný čas",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Heroic will maybe not work probably!",
@@ -248,7 +287,8 @@
         "status": "Status",
         "store": "Store",
         "title": "Game Title",
-        "modify": "Zmeniť Inštaláciu"
+        "modify": "Zmeniť Inštaláciu",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -283,7 +323,12 @@
         "show_support_offline_only": "Zobraziť iba podporované offline",
         "categories": "Kategórie",
         "show_third_party_managed_only": "Zobraziť iba spravované tretími stranami",
-        "show_updates_only": ""
+        "show_updates_only": "",
+        "platforms": "Platform",
+        "stores": "Stores",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -370,8 +415,10 @@
         "advertiseAvxForRosetta": "",
         "analytics": "",
         "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -385,11 +432,11 @@
             "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Nastavenia sa uložia automaticky",
-        "version": "Wine verzia"
+        "version": "Verzia Winu"
     },
     "infobox": {
         "help": "Pomoc",
-        "requirements": "Požiadavky na systém",
+        "requirements": "Systémové Požiadavky",
         "warning": "Warning",
         "wine-path": "Wine Path",
         "wine-prefix": {
@@ -418,7 +465,9 @@
             "list": "Toggle to a list layout"
         },
         "hideAlphabetFilter": "",
-        "showAlphabetFilter": ""
+        "showAlphabetFilter": "",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Knižnica",
     "loading": {
@@ -432,7 +481,15 @@
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "amazon": "Prihlásenie na Amazon",
         "old-mac": "Vaša verzia systému macOS je {{version}}. Na prihlásenie je potrebný macOS 12 alebo novší.",
-        "zoom": ""
+        "zoom": "",
+        "itchio": "",
+        "button": "Prihlásiť sa",
+        "logout_confirm": {
+            "message": "Naozaj sa chcete odhlásiť?",
+            "title": "Logout"
+        },
+        "title_epic": "Epic Games",
+        "title_gog": "GOG"
     },
     "message": {
         "sync": "Synchronizácia dokončená",
@@ -448,26 +505,28 @@
                 "steam": {
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Added to Steam"
+                    "title": "Added to Steam",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "{{game}} could not be removed from all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully removed from Steam. A restart of Steam is required for changes to take effect.",
-                    "title": "Removed from Steam"
+                    "title": "Removed from Steam",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Dokončená oprava"
         },
         "install": {
-            "canceled": "Inštalácia bola zrušená",
+            "canceled": "Inštalácia zlyhala",
             "error": "Inštalácia zlyhala",
             "finished": "Inštalácia je dokončená",
             "imported": "Game Imported",
             "startInstall": "Installation Started",
             "failed": "Inštalácia zlyhala",
-            "paused": "Inštalácia pozastavená"
+            "paused": "Inštalácia zlyhala"
         },
         "moved": "Dokončené sťahovanie",
         "moving": "Moving Game",
@@ -501,16 +560,22 @@
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
             "title": "Environment Variables",
-            "value": "Value"
+            "value": "Value",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "Variable names can't be empty",
                 "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
-                "space_in_key": "Variable names can't contain spaces"
+                "space_in_key": "Variable names can't contain spaces",
+                "duplicate_key": ""
             },
             "example": "Do NOT include the \"=\" sign, e.g: for a setting like \"MY_FLAG=123\", set MY_FLAG in NAME and 123 in VALUE.",
-            "info": "Set environment variables to append to the command."
+            "info": "Set environment variables to append to the command.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spúšťača",
@@ -559,7 +624,8 @@
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Predpona, kde je nainštalovaný EGS",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")",
-        "alt-nile-bin": "Pomocou vstavaného binárneho systému Níl..."
+        "alt-nile-bin": "Pomocou vstavaného binárneho systému Níl...",
+        "alt-aurelia-bin": "Using built-in Legendary binary..."
     },
     "platforms": {
         "linux": "Linux",
@@ -579,7 +645,8 @@
             "queued": "Queued",
             "remove": "Remove from Downloads",
             "pause": "Pozastaviť sťahovanie",
-            "resume": "Obnoviť sťahovanie"
+            "resume": "Obnoviť sťahovanie",
+            "paused": ""
         }
     },
     "Recent": "Played Recently",
@@ -626,7 +693,8 @@
             "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
             "removeConfirmTitle": "Confirm overlay removal",
             "updateNow": "Update",
-            "updating": "Updating..."
+            "updating": "Updating...",
+            "description": ""
         },
         "esync": "Enable Esync",
         "exit-to-tray": "Výstup do systémovej lišty",
@@ -686,9 +754,13 @@
                 "heroic": "Všeobecný hrdina denník",
                 "legendary": "Epic hry / Legendárny denník",
                 "nile": "Amazon / Nile log",
-                "zoom": ""
+                "zoom": "",
+                "itchio": ""
             },
-            "show-uploads": "Zobraziť nahrané protokolové súbory"
+            "show-uploads": "Zobraziť nahrané protokolové súbory",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Povoliť Mangohud (musí byť nainštalovaný Mangohud)",
         "manualsync": {
@@ -708,20 +780,23 @@
         "preferSystemLibs": "Prefer system libraries",
         "runexe": {
             "message": "Presuňte sem súbory",
-            "title": "Select EXE to Run"
+            "title": "Select EXE to Run",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Save folder not found, please select it manually (click to retry)",
             "placeholder": "Vyberte presný priečinok na uloženie hier",
-            "warning": "Please check twice if the path is correct (click to retry)"
+            "warning": "Please check twice if the path is correct (click to retry)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Select Theme",
         "showfps": "Zobraziť FPS (DX9, 10 a 11)",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Fľaša CrossOver",
         "wineprefix": "Priečinok WinePrefix",
-        "wineversion": "Wine Version",
+        "wineversion": "Verzia Winu",
         "autoUpdateGames": "Automaticky aktualizovať hry",
         "ignoreGameUpdates": "Ignorovať aktualizácie hry",
         "disable_logs": "Zakázať denníky",
@@ -789,7 +864,8 @@
         "no-tray-icon": "",
         "analyticsOptIn": "",
         "verboseLogs": {
-            "description": ""
+            "description": "",
+            "hint": ""
         },
         "advertiseAvxForRosetta": "",
         "disableUMU": "",
@@ -801,12 +877,98 @@
         "steamRuntime": {
             "label": "Use Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "selectExe": "Vyberte EXE",
+            "open": "",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": "",
+        "alt-aurelia-bin": "Choose an Alternative Legendary Binary (needs restart)to use",
+        "steamLaunchTarget": {
+            "downloadBuild": "Download",
+            "missingBuild": "Celkom stiahnutých hier",
+            "missingRuntime": "VCRuntime not installed"
         }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Installing BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
@@ -818,7 +980,8 @@
                 "title": "GameMode required"
             },
             "installing": "Installing EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -839,7 +1002,9 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "Informácie o Systéme",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Kategórie",
+            "tabs": ""
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -856,7 +1021,8 @@
                 "clearCache": "Vymazať Cache"
             },
             "resetHeroic": {
-                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "description": ""
             },
             "clearCache": {
                 "help9": "Game settings",
@@ -868,7 +1034,8 @@
                 "help2": "Informácie o hrách tretích strán (skóre, Kompatibilita so službou Steam, Howlongtobeat, PCgamingwiki, Applegamingwiki)",
                 "help3": "Informácie o knižnici Legendary (zoznam hier, informácie o dialógovom okne inštalácie, informácie o hre)",
                 "help4": "Informácie o knižnici GOG (zoznam hier, informácie o dialógovom okne inštalácie, informácie o api -t.j.: požiadavky-)",
-                "help5": "Informácie o knižnici Amazon (zoznam hier, informácie o dialógovom okne inštalácie)"
+                "help5": "Informácie o knižnici Amazon (zoznam hier, informácie o dialógovom okne inštalácie)",
+                "description": ""
             }
         },
         "systemInformation": {
@@ -892,7 +1059,10 @@
             "memoryStats": "{{percentUsed}}% použité ({{usedGib}} / {{totalGib}}",
             "systemSpecifications": "PC Špecifikácie:",
             "memory": "Pamäť:",
-            "cometVersion": "Príchod: {{cometVersion}}"
+            "cometVersion": "Príchod: {{cometVersion}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "offline": {
             "warning": "Táto hra výslovne neumožňuje offline režim, zapnite ho na vlastné riziko. Hra nemusí fungovať."
@@ -917,13 +1087,45 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Experimentálne Funkcie",
+            "launch": "Možnosti spustenia...",
+            "wineTools": "Nástroje",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "nastavenie",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Prihlásenie do obchodu"
     },
     "status": {
         "installing": "Inštaluje sa",
@@ -954,7 +1156,8 @@
         "show": "Šou"
     },
     "two_col_table": {
-        "save_hint": "Changes in this table are not saved automatically. Click the + button"
+        "save_hint": "Changes in this table are not saved automatically. Click the + button",
+        "add": "Pridať"
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -965,29 +1168,34 @@
         "manageaccounts": "Manage Accounts",
         "quit": "Quit",
         "cancel": "Cancel",
-        "quitMessage": "Si si isty ze chces skoncit?"
+        "quitMessage": "Si si isty ze chces skoncit?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "Vráť sa",
             "forward": "Choď dopredu",
             "openInBrowser": "Otvoriť v prehliadači",
-            "reload": "Znovu načítať stránku"
+            "reload": "Znovu načítať stránku",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
         "actions": "Akcia",
         "manager": {
-            "link": "Wine Manager",
+            "link": "Wine Manager (Beta)",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
-            "title": "Wine Manager",
+            "title": "Wine Manager (Beta)",
             "unzipping": "Unzipping",
             "search": "",
             "loading": "",
             "open_folder": "",
             "update": "Aktualizovať",
             "settings": "Nastavenia",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
         "release": "Release Date",
         "size": "Size",
@@ -1024,7 +1232,7 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning",
-        "add-new-category": "Pridať Novú Kategóriu",
+        "add-new-category": "Pridať novú kategóriu",
         "delete-question": "Ak budete pokračovať, natrvalo sa odstráni táto kategória a zruší sa jej priradenie k všetkým hrám. Ďalej?",
         "new-category": "Nová Kategória",
         "remove-category": "Vymazať Kategóriu"
@@ -1039,7 +1247,8 @@
         "proton-ge": "GE-Proton je variant Proton vytvorený spoločnosťou Glorious Eggroll. Je určený na použitie v službe Steam, ale niektoré hry mimo služby Steam môžu s týmto variantom fungovať lepšie. Poskytuje väčšinou zbytočné protokoly na riešenie problémov.",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "categories-manager": {
         "rename": "Premenovať \"{{name}}\"",
@@ -1060,7 +1269,10 @@
     },
     "emptyLibrary": {
         "noResults": "Tieto filtre nemajú žiadne výsledky.",
-        "noGames": ""
+        "noGames": "",
+        "description": "",
+        "noResultsTitle": "",
+        "title": ""
     },
     "tour": {
         "back": "Back",
@@ -1158,7 +1370,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1182,7 +1395,9 @@
             "ageRatingAll": "Všetky",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "Platform"
+            "platform": "Platform",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "Podrobnosti",
         "sort": {
@@ -1208,9 +1423,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "Store"
+            "label": "Store",
+            "all": ""
         },
-        "titleMulti": "Podrobnosti"
+        "titleMulti": "Podrobnosti",
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1232,7 +1462,9 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": {
+            "last_played": "Naposledy hrané"
+        },
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
@@ -1262,8 +1494,55 @@
             "title": "Install game",
             "wineLoading": "Načítavam…",
             "path": "Inštalácia",
-            "wineMissing": "Žiadna cesta nie je vybraná"
+            "wineMissing": "Žiadna cesta nie je vybraná",
+            "wine": ""
+        },
+        "cancelUpdate": {
+            "title": "",
+            "message": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
-    "next": ""
+    "next": "",
+    "common": {
+        "add": "Pridať",
+        "cancel": "Cancel",
+        "warning": "Warning",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
+    },
+    "General": "generál",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": "",
+    "Update available!": "Update Available!",
+    "cloudSync": {
+        "back": "Back",
+        "button": {
+            "download": "Download",
+            "sync": "Synchronizovať",
+            "upload": "Nahrať"
+        },
+        "column": {
+            "size": "Veľkosť"
+        },
+        "never": "Nikdy"
+    }
 }

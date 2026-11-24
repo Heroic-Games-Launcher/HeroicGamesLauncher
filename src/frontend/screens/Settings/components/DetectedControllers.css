@@ -1,0 +1,20 @@
+/* rows are direct children of the settings card, so it draws the dividers */
+
+.detectedControllers__id {
+  font-family: monospace;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  word-break: break-all;
+  text-align: start;
+}
+
+.detectedControllers__empty {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.detectedControllers__actions {
+  display: flex;
+  width: 100%;
+}

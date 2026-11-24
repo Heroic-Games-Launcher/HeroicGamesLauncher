@@ -1,8 +1,8 @@
 .gameList {
   color: var(--text-secondary);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
-  grid-gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-gap: 1.75rem 1.25rem;
   padding: 0 var(--space-md-fixed) var(--space-3xl);
   margin: var(--space-md) 0;
 }
@@ -16,46 +16,42 @@
 }
 
 .gameListLayout {
-  display: flex;
-  flex-direction: column;
-  padding-top: 1em;
-  min-height: 2vh;
-  min-width: 80vw;
-  margin: 0 var(--space-md-fixed);
-}
-
-.gameListHeader {
   display: grid;
-  grid-template-columns: 3fr 2fr 1fr 10%;
-  justify-items: baseline;
-  width: 100%;
-  color: var(--text-default);
-  font-weight: var(--bold);
-  padding-bottom: 0.5rem;
-  font-size: var(--text-lg);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(76px, auto);
+  align-items: stretch;
+  gap: 10px;
+  min-height: 0;
+  padding: 0 var(--space-md-fixed) var(--space-md);
+  margin: var(--space-md) 0;
 }
 
-.gameListHeader span:last-child {
-  justify-self: center;
+/* When the library header is sticky, scroll-into-view must leave room for it,
+   otherwise a focused card ends up hidden behind the toolbar. */
+body:has(.libraryStickyTop) {
+  scroll-padding-top: 220px;
+}
+
+.libraryStickyTop {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--gradient-body-background, var(--body-background));
 }
 
 .libraryHeader {
   text-align: start;
-  padding: var(--space-md-fixed);
+  padding: var(--space-md) var(--space-md-fixed);
   margin: 0;
-  background: var(--gradient-body-background, var(--body-background));
-  position: sticky;
-  top: var(--header-height, 82px);
-  z-index: 9;
+  font-size: var(--text-xl);
+  font-weight: var(--semibold);
+  letter-spacing: -0.01em;
 }
 
-.libraryHeaderWrapper {
-  display: grid;
-  align-items: center;
-  margin: calc(-1 * var(--space-3xs)) 0;
-  grid-template-columns: max-content min-content;
-  grid-template-areas: 'title action';
-  justify-content: space-between;
+.frameless:not(.fullscreen) .libraryHeader {
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px) + 10px
+  );
 }
 
 #backToTopArrow {
@@ -92,4 +88,19 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.librarySectionHeader {
+  padding-inline: var(--space-md-fixed);
+  margin-block: var(--space-2xl-fixed) var(--space-md-fixed);
+}
+
+.librarySectionHeader:first-of-type {
+  margin-block-start: var(--space-md-fixed);
+}
+
+.frameless:not(.fullscreen) .librarySectionHeader {
+  padding-right: calc(
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px) + 10px
+  );
 }

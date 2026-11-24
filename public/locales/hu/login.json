@@ -5,7 +5,9 @@
         "copy": "Másolat",
         "copied": "Másolva!",
         "error": "Hiba, próbálkozz másik kóddal",
-        "loading": "Betöltés…"
+        "loading": "Betöltés…",
+        "close": "Bezárás",
+        "itchio_error": "Hiba, próbálkozz másik kóddal"
     },
     "message": {
         "part1": "Hogy be tudj jelentkezni és le tudd tölteni a játékaidat, először követned kell az itt felsoroltakat:",
@@ -21,5 +23,14 @@
         "error": "Hiba",
         "loading": "Játéklista betöltése, kérlek várj"
     },
-    "welcome": "Üdvözlünk!"
+    "welcome": "Üdvözlünk!",
+    "itchio": {
+        "api_key_placeholder": "Illeszd be az API-kulcsodat",
+        "instructions": "Ha a szokásos itch.io-bejelentkezés nem működik, személyes API-kulccsal is csatlakozhatsz. Látogass el az itch.io API-kulcsok oldalára, hozz létre egy kulcsot, majd illeszd be alább.",
+        "paste_and_login": "Beillesztés a vágólapról és bejelentkezés"
+    },
+    "sid": {
+        "paste_and_login": "Beillesztés a vágólapról és bejelentkezés",
+        "placeholder": "Illeszd be ide a SID-kódot"
+    }
 }

@@ -21,6 +21,7 @@ import {
 import { VersionInfo, Repositorys, WineVersionInfo } from 'common/types'
 import {
   fetchReleases,
+  isCompatibleDownload,
   getFolderSize,
   unlinkFile,
   unzipFile
@@ -193,6 +194,15 @@ async function installVersion({
   },
   abortSignal
 }: installProps): Promise<{ versionInfo: VersionInfo; installDir: string }> {
+  if (!versionInfo.download) {
+    throw new Error(`No download link provided for ${versionInfo.version}!`)
+  }
+  if (!isCompatibleDownload(versionInfo.type, versionInfo.download)) {
+    throw new Error(
+      `Download for ${versionInfo.version} is not compatible with ${process.arch}. Refresh the compatibility-tool list.`
+    )
+  }
+
   /*
    * VARIABLE DECLARATION
    */
@@ -232,11 +242,6 @@ async function installVersion({
     mkdirSync(installDir, { recursive: true })
   } else if (!statSync(installDir).isDirectory()) {
     throw new Error(`Installation directory ${installDir} is not a directory!`)
-  }
-
-  if (!versionInfo.download) {
-    // check versionInfo has download
-    throw new Error(`No download link provided for ${versionInfo.version}!`)
   }
 
   // Check if it already exist

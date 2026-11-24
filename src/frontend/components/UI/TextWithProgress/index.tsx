@@ -13,7 +13,7 @@ export default function TextWithProgress({ text, onClick }: Props) {
       role={onClick ? 'button' : 'status'}
       onClick={onClick}
     >
-      <CircularProgress className="progress" size={24} />
+      <CircularProgress className="progress" color="inherit" size={20} />
       <span className="feedback-text">{text}</span>
     </div>
   )

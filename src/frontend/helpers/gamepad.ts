@@ -1,6 +1,7 @@
 import {
   AppSettings,
   GamepadActionStatus,
+  RemappableGamepadAction,
   ValidGamepadAction
 } from 'common/types'
 import {
@@ -23,12 +24,19 @@ let controllerIsDisabled = false
 let controllerEnabledInConsole = true
 let currentController = -1
 let webviewHasFocus = false
+let gamepadPassthrough = false
 
 export const toggleWebviewFocus = (focused: boolean) => {
   webviewHasFocus = focused
 }
 
+export const setGamepadPassthrough = (enabled: boolean) => {
+  gamepadPassthrough = enabled
+}
+
 export const isUsingGamepad = () => currentController !== -1
+
+export const isControllerDisabled = () => controllerIsDisabled
 
 export type NavigateDirection = 'up' | 'down' | 'left' | 'right'
 type ScrollDirection = 'up' | 'down'
@@ -132,6 +140,7 @@ function handleWebviewAction(action: ValidGamepadAction): boolean {
       webviewTarget.exit()
       return true
     case 'mainAction':
+    case 'enter':
       webviewTarget.send({ type: 'click' })
       return true
     case 'altAction':
@@ -166,7 +175,7 @@ function handleWebviewAction(action: ValidGamepadAction): boolean {
       webviewTarget.send({ type: 'scroll', direction: 'down' })
       return true
     default:
-      // Other actions (esc, tab, shiftTab, keyboardClick, leftClick,
+      // Other actions (esc, tab, shiftTab, keyboardClick,
       // rightStickLeft/Right) aren't relevant while a webview is focused.
       return true
   }
@@ -174,9 +183,93 @@ function handleWebviewAction(action: ValidGamepadAction): boolean {
 
 let actions: GamepadActionStatus
 
+// user preferences, refreshed by `updateGamepadActions`
+let stickDeadzone = 0.15
+let buttonMapping: Partial<Record<RemappableGamepadAction, number | null>> = {}
+let guideButtonDisabled = false
+
+export const GAMEPAD_MAPPING_CHANGED_EVENT = 'gamepad-mapping-changed'
+
+export type GamepadLayout =
+  | 'standard'
+  | 'nintendo'
+  | 'gamecube'
+  | 'ps3-clone'
+  | 'n64-clone'
+  | 'genius'
+
+// which button layout Heroic uses for a controller, based on the id reported by
+// the browser (`... Vendor: 054c Product: 0ce6 ...` or `054c-0ce6-name`)
+export const detectGamepadLayout = (id: string): GamepadLayout => {
+  if (/gamecube|0337/i.test(id)) return 'gamecube'
+  if (/2563.*0523/i.test(id)) return 'ps3-clone'
+  if (/0079.*0006/i.test(id)) return 'n64-clone'
+  if (/0583.*a009/i.test(id)) return 'genius'
+  if (/057e.*(2006|2007|2009)/i.test(id)) return 'nintendo'
+  return 'standard'
+}
+
+export const DEFAULT_GAMEPAD_BUTTONS: Record<
+  RemappableGamepadAction,
+  number | null
+> = {
+  mainAction: 0,
+  back: 1,
+  rightClick: 2,
+  altAction: 3,
+  prevPage: 4,
+  nextPage: 5,
+  enter: 10,
+  guide: 16
+}
+
+// physical button currently bound to an action (user mapping over defaults)
+export const getMappedButton = (action: RemappableGamepadAction) => {
+  const override = buttonMapping[action]
+  return override === undefined ? DEFAULT_GAMEPAD_BUTTONS[action] : override
+}
+
+const NAVIGATION_ACTIONS: ValidGamepadAction[] = [
+  'padUp',
+  'padDown',
+  'padLeft',
+  'padRight',
+  'leftStickUp',
+  'leftStickDown',
+  'leftStickLeft',
+  'leftStickRight'
+]
+
+/**
+ * Chromium scrolls a newly focused element into view, but it has no idea about
+ * sticky headers, so focus can end up hidden behind them. The library and
+ * settings items declare a `scroll-margin-block-start` and this call makes the
+ * browser honour it after a d-pad/stick move.
+ */
+function scrollFocusedIntoView() {
+  // two frames: the first lets Chromium apply the injected key event and move
+  // focus, the second measures the final layout
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const el = document.activeElement as HTMLElement | null
+      if (!el || el === document.body || el.id === 'app') return
+      // scroll the item container so its `scroll-margin` clears sticky chrome
+      const target =
+        el.closest<HTMLElement>('.gameCard, .gameListItem, .SettingRow') ?? el
+      target.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+    })
+  })
+}
+
 // called whenever we update the timings in the settings
 export const updateGamepadActions = async () => {
   const settings = await window.api.requestAppSettings()
+
+  stickDeadzone = settings.gamepadDeadzone ?? 0.15
+  buttonMapping = settings.gamepadButtonMapping ?? {}
+  guideButtonDisabled = settings.disableGuideButton ?? false
+
+  window.dispatchEvent(new Event(GAMEPAD_MAPPING_CHANGED_EVENT))
 
   // input should be cloned to prevent variables from being re-used
   // across different controller indexes
@@ -207,13 +300,13 @@ export const updateGamepadActions = async () => {
     back: { triggeredAt: {}, repeatDelay: false },
     altAction: { triggeredAt: {}, repeatDelay: false },
     rightClick: { triggeredAt: {}, repeatDelay: false },
-    leftClick: { triggeredAt: {}, repeatDelay: false },
     prevPage: { triggeredAt: {}, repeatDelay: false },
     nextPage: { triggeredAt: {}, repeatDelay: false },
     esc: { triggeredAt: {}, repeatDelay: false },
     tab: { triggeredAt: {}, repeatDelay: false },
     shiftTab: { triggeredAt: {}, repeatDelay: false },
     keyboardClick: { triggeredAt: {}, repeatDelay: false },
+    enter: { triggeredAt: {}, repeatDelay: false },
     guide: { triggeredAt: {}, repeatDelay: false }
   }
 }
@@ -230,10 +323,16 @@ export const initGamepad = () => {
 
   // store the current controllers
   let controllers: number[] = []
+  let isPolling = false
 
-  let isFocused = true
-  window.addEventListener('focus', () => (isFocused = true))
-  window.addEventListener('blur', () => (isFocused = false))
+  // Chromium does not always replay `gamepadconnected` for pads that were
+  // already connected when the renderer started, so seed the list from the
+  // snapshot rather than waiting for an event that may never come.
+  for (const gamepad of navigator.getGamepads()) {
+    if (gamepad) controllers.push(gamepad.index)
+  }
+  isPolling = controllers.length > 0
+  if (isPolling) requestAnimationFrame(updateStatus)
 
   void updateGamepadActions()
 
@@ -243,13 +342,18 @@ export const initGamepad = () => {
     pressed: boolean,
     controllerIndex: number
   ) {
-    if (isControllerNavDisabled()) return
+    if (!actions) return
+    if (isControllerNavDisabled() || gamepadPassthrough) return
 
-    if (!isFocused) {
+    if (!document.hasFocus()) {
       // ignore gamepad events if Heroic is not the focused app
       //
       // the browser still detects the gamepad interactions even
-      // if the screen is not focused when playing a game
+      // if the screen is not focused when playing a game.
+      //
+      // `document.hasFocus()` (instead of a `window.blur` flag) is
+      // intentional: focusing a store <webview> fires `blur` on the host but
+      // the window still owns focus, and a blur flag would disable the pad.
       return
     }
 
@@ -289,11 +393,16 @@ export const initGamepad = () => {
       data.triggeredAt[controllerIndex] = now
 
       emitControllerEvent(controllerIndex)
+      // Lets CSS draw focus rings for programmatic focus, which does not
+      // necessarily match `:focus-visible`.
+      document.body.classList.add('gamepad-active')
       const el = currentElement()
 
       // Guide / PS button toggles Console Mode. Many OSes (Steam, Game Bar)
       // intercept it, so the sidebar entry is the reliable fallback.
+      // The shortcut can be turned off in Settings → Gamepad.
       if (action === 'guide') {
+        if (guideButtonDisabled) return
         if (document.body.classList.contains('console-launching')) return
         const inConsole = window.location.hash.startsWith('#/console')
         window.location.hash = inConsole ? '#/' : '#/console'
@@ -326,9 +435,9 @@ export const initGamepad = () => {
       switch (action) {
         case 'mainAction':
           if (shouldSimulateClick()) {
-            // some tags require a simulated click, some require a javascript click() call
-            // if the current element requires a simulated click, change the action to `leftClick`
-            action = 'leftClick'
+            // selects open on Enter, which also works when the window is
+            // zoomed (a synthetic mouse click uses unzoomed coordinates)
+            action = 'enter'
           } else if (isGameCard()) {
             action = 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
@@ -392,11 +501,16 @@ export const initGamepad = () => {
         case 'leftStickUp':
           if (!el) {
             // if we are not focusing anything, grab focus or we are stuck unable to move around
-            document.querySelector('body')?.focus()
+            document.getElementById('app')?.focus()
           } else {
             switch (action) {
               case 'padDown':
               case 'leftStickDown':
+                if (insideMuiSlider() || isSettingsRow()) {
+                  moveFocusSequentially(1)
+                  scrollFocusedIntoView()
+                  return
+                }
                 // MUI Selects open on arrow down, which is usually not your intention
                 // when navigating down with the stick, so we change the action to tab
                 if (isMuiSelect()) {
@@ -405,23 +519,31 @@ export const initGamepad = () => {
                 if (isMuiDialogCloseButton()) {
                   action = 'tab'
                 }
-                if (insideMuiSlider()) {
-                  action = 'tab'
-                }
                 break
               case 'padUp':
               case 'leftStickUp':
-                // Same as above
-                if (isMuiSelect()) {
-                  action = 'shiftTab'
+                if (insideMuiSlider() || isSettingsRow()) {
+                  moveFocusSequentially(-1)
+                  scrollFocusedIntoView()
+                  return
                 }
-                if (insideMuiSlider()) {
+                if (isMuiSelect()) {
                   action = 'shiftTab'
                 }
                 break
             }
           }
           break
+      }
+
+      // Console Mode dialogs handle A themselves (see ConfirmDialog /
+      // InstallOverlay); clicking the focused button here too would run the
+      // action twice.
+      if (
+        action === 'mainAction' &&
+        document.body.classList.contains('console-modal-open')
+      ) {
+        return
       }
 
       if (action === 'mainAction') {
@@ -436,8 +558,10 @@ export const initGamepad = () => {
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
-        if (action !== 'leftClick' && action !== 'rightClick') {
-          void window.api.gamepadAction({ action })
+        if (action !== 'rightClick') {
+          void window.api.gamepadAction({ action }).then(() => {
+            if (NAVIGATION_ACTIONS.includes(action)) scrollFocusedIntoView()
+          })
         } else {
           const data = metadata()
           if (data) {
@@ -453,8 +577,13 @@ export const initGamepad = () => {
   }
 
   const currentElement = () => {
-    const el = document.querySelector<HTMLElement>(':focus')
-    if (!el) return
+    // `<body>` can't be a focus target, so `:focus` would return null there.
+    // Reading `activeElement` keeps the "nothing focused" state explicit.
+    const el = document.activeElement as HTMLElement | null
+    if (!el || el === document.body || el === document.documentElement) return
+
+    // `#app` is only focused to give spatial navigation a starting point
+    if (el.id === 'app') return
 
     // we can't call `click` in svg elements, so we use its parent
     if (el.tagName === 'svg') return el.parentElement
@@ -527,6 +656,60 @@ export const initGamepad = () => {
     if (parent.classList.contains('MuiSlider-thumb')) return true
 
     return false
+  }
+
+  /**
+   * Settings is a vertical form whose content sits far to the right of the
+   * sidebar, so spatial navigation prefers the sidebar when moving down. Walk
+   * the focus order instead, except where the arrow keys belong to the control.
+   */
+  function isSettingsRow() {
+    const el = currentElement()
+    if (!el || !el.closest('.Settings')) return false
+
+    // Multi-line fields and sliders keep the arrow keys. Single-line text
+    // fields navigate vertically: up/down only moves the caret there, which
+    // left fields like the Legendary binary path as dead ends.
+    if (el.tagName === 'TEXTAREA') return false
+    if (el.tagName === 'INPUT' && (el as HTMLInputElement).type === 'range') {
+      return false
+    }
+
+    // The settings search navigates its suggestion list with the arrows, but
+    // only while there is a query; an empty field must not become a dead end.
+    if (el.closest('.settingsSearchRow')) {
+      return el.tagName !== 'INPUT' || (el as HTMLInputElement).value === ''
+    }
+
+    return !insideMuiSlider()
+  }
+
+  const FOCUSABLE_SELECTOR =
+    'a[href], button:not([disabled]), input:not([disabled]), ' +
+    'select:not([disabled]), textarea:not([disabled]), ' +
+    '[tabindex]:not([tabindex="-1"]), .MuiSelect-select'
+
+  /**
+   * Focus order step. `Tab` alone is not enough here: the MUI slider root is a
+   * dead stop (it takes focus but the arrows do nothing) that sits between a
+   * slider and its neighbours. MUI selects are listed explicitly because they
+   * carry `tabIndex={-1}` yet must be reachable to be opened with confirm.
+   */
+  function moveFocusSequentially(direction: 1 | -1) {
+    const scope = document.querySelector<HTMLElement>('.Settings') ?? document
+
+    const candidates = Array.from(
+      scope.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+    ).filter(
+      (el) =>
+        (el.tabIndex >= 0 || el.classList.contains('MuiSelect-select')) &&
+        el.getClientRects().length > 0
+    )
+
+    const index = candidates.indexOf(document.activeElement as HTMLElement)
+    if (index === -1) return
+
+    candidates[index + direction]?.focus()
   }
 
   function isMuiDialogCloseButton() {
@@ -657,7 +840,9 @@ export const initGamepad = () => {
    * @param gamepad
    */
   function isValveGamepad(gamepad: Gamepad | null) {
-    return gamepad && gamepad.id.includes('Vendor: 28de')
+    // Chromium formats ids differently per platform
+    // ("... Vendor: 28de ..." on Windows, "28de-11ff-name" on macOS)
+    return !!gamepad && /28de/i.test(gamepad.id)
   }
 
   /**
@@ -697,6 +882,36 @@ export const initGamepad = () => {
     return isValveGamepad(gamepad) || !isMaskedGamepad(valveGamepads, gamepad)
   }
 
+  // Per axis/controller latch so sticks engage and release with different
+  // thresholds. Without it a worn stick parked near the threshold repeats the
+  // same direction every frame.
+  const STICK_ENGAGE_OFFSET = 0.35
+  const STICK_RELEASE_OFFSET = 0.15
+  const activeAxes = new Map<string, boolean>()
+
+  function withStickHysteresis(
+    axes: readonly number[],
+    controllerIndex: number
+  ) {
+    return axes.map((value, axisIndex) => {
+      // only the analog stick axes are normalised; d-pad axes (4+) must keep
+      // their raw values because the clone layouts read exact positions
+      if (axisIndex > 3) return value
+
+      const key = `${controllerIndex}:${axisIndex}`
+      const isActive = activeAxes.get(key) ?? false
+      const threshold = isActive
+        ? stickDeadzone + STICK_RELEASE_OFFSET
+        : stickDeadzone + STICK_ENGAGE_OFFSET
+      const nextActive = Math.abs(value) > threshold
+      activeAxes.set(key, nextActive)
+
+      // the layouts only compare against a fixed threshold, so a pressed axis
+      // is reported as fully tilted
+      return nextActive ? Math.sign(value) : 0
+    })
+  }
+
   // check all the buttons and axes every frame if gamepads are connected
   function updateStatus() {
     const gamepads = navigator.getGamepads()
@@ -708,30 +923,36 @@ export const initGamepad = () => {
       // logState(index)
 
       const buttons = controller.buttons
-      const axes = controller.axes
+      const axes = withStickHysteresis(controller.axes, index)
       try {
-        if (controller.id.match(/gamecube|0337/i)) {
-          checkGameCube(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/2563.*0523/i)) {
-          checkPS3Clone1(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/0079.*0006/i)) {
-          checkN64Clone1(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/0583.*a009/i)) {
-          checkGenius1(buttons, axes, index, checkAction)
-        } else if (controller.id.match(/057e.*(2006|2007|2009)/i)) {
-          checkNintendo(buttons, axes, index, checkAction)
-        } else {
-          // if not specific, fallback to the standard layout, seems
-          // to be the most common for now and if not exact it seems
-          // to cover at least the left stick and the main 2 buttons
-          checkStandard(buttons, axes, index, checkAction)
+        switch (detectGamepadLayout(controller.id)) {
+          case 'gamecube':
+            checkGameCube(buttons, axes, index, checkAction)
+            break
+          case 'ps3-clone':
+            checkPS3Clone1(buttons, axes, index, checkAction)
+            break
+          case 'n64-clone':
+            checkN64Clone1(buttons, axes, index, checkAction)
+            break
+          case 'genius':
+            checkGenius1(buttons, axes, index, checkAction)
+            break
+          case 'nintendo':
+            checkNintendo(buttons, axes, index, checkAction, buttonMapping)
+            break
+          default:
+            // most controllers follow the standard mapping and, if not exact,
+            // it still covers the left stick and the main 2 buttons
+            checkStandard(buttons, axes, index, checkAction, buttonMapping)
         }
       } catch (error) {
         console.log('Gamepad error:', error)
       }
     })
 
-    if (controllers.length) requestAnimationFrame(updateStatus)
+    isPolling = controllers.length > 0
+    if (isPolling) requestAnimationFrame(updateStatus)
   }
 
   // function logState(index: number) {
@@ -765,8 +986,11 @@ export const initGamepad = () => {
 
   function addgamepad(gamepad: Gamepad) {
     console.log(`Gamepad added: ${JSON.stringify(gamepad.id)}`)
-    controllers.push(gamepad.index)
-    requestAnimationFrame(updateStatus)
+    if (!controllers.includes(gamepad.index)) controllers.push(gamepad.index)
+    if (!isPolling) {
+      isPolling = true
+      requestAnimationFrame(updateStatus)
+    }
   }
 
   function disconnecthandler(e: GamepadEvent) {
@@ -775,13 +999,12 @@ export const initGamepad = () => {
 
   function removegamepad(gamepad: Gamepad) {
     console.log(`Gamepad removed: ${gamepad.id}`)
-    const removedIndex = controllers.findIndex((idx) => idx === gamepad.index)
 
     // remove disconnected controller
     controllers = controllers.filter((idx) => idx !== gamepad.index)
 
     // if controller was the current controller, reset and emit
-    if (removedIndex === currentController) {
+    if (gamepad.index === currentController) {
       emitControllerEvent(-1)
     }
   }
@@ -831,6 +1054,12 @@ export const initGamepad = () => {
 
   window.addEventListener('gamepadconnected', connecthandler)
   window.addEventListener('gamepaddisconnected', disconnecthandler)
+
+  window.addEventListener(
+    'pointerdown',
+    () => document.body.classList.remove('gamepad-active'),
+    true
+  )
 }
 
 // True when controller nav is blocked

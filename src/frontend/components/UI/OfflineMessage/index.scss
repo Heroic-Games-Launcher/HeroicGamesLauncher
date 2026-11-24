@@ -1,7 +1,8 @@
 .offline-message {
-  background: var(--accent-overlay);
-  padding: 0.5rem;
-  color: var(--text-tertiary);
+  background: color-mix(in oklab, var(--role-warning) 34%, var(--panel-base));
+  padding: var(--space-xs-fixed) var(--space-sm-fixed);
+  color: var(--on-panel);
+  font-size: var(--body-sm);
   display: grid;
   position: relative;
 
@@ -12,11 +13,25 @@
   }
 
   button {
-    background: var(--accent-overlay);
+    background: transparent;
     border: transparent;
+    color: inherit;
+    cursor: pointer;
+    font-size: inherit;
     &.hint-hover {
       justify-self: flex-end;
-      align-self: flex-end;
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      line-height: 1;
+
+      &:hover {
+        background: color-mix(in oklab, var(--on-panel) 14%, transparent);
+      }
     }
     &.ignore {
       text-decoration: underline;
@@ -30,9 +45,11 @@
     right: 0px;
     width: 400px;
     z-index: 100;
-    background: var(--accent-overlay);
-    padding: 1rem;
+    background: color-mix(in oklab, var(--role-warning) 34%, var(--panel-base));
+    color: var(--on-panel);
+    padding: var(--space-md-fixed);
     border: transparent;
+    border-radius: var(--radius-sm);
   }
 
   .hint-hover:hover + .retry-hint {

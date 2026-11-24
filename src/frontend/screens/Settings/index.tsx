@@ -1,24 +1,50 @@
 import './index.css'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-import { NavLink, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 import ContextMenu from '../Library/components/ContextMenu'
 import SettingsContext from './SettingsContext'
+import SettingsSearch from './components/SettingsSearch'
+import type { ResolvedSettingsSearchEntry } from './search'
 import LogSettings from './sections/LogSettings'
 import FooterInfo from './sections/FooterInfo'
 import {
   GeneralSettings,
   GamesSettings,
+  GamepadSettings,
+  RunnersSettings,
   SyncSaves,
   AdvancedSettings,
-  SystemInfo
+  SystemInfo,
+  ImportExportSettings
 } from './sections'
 import { AppSettings } from 'common/types'
-import { UpdateComponent } from 'frontend/components/UI'
+import {
+  Button,
+  Icon,
+  NavList,
+  PageHeader,
+  Tabs,
+  UpdateComponent
+} from 'frontend/components/UI'
+import type { NavListItem } from 'frontend/components/UI/NavList'
+import type { TabItem } from 'frontend/components/UI/Tabs'
+import useMediaQuery from 'frontend/hooks/useMediaQuery'
+import {
+  ArchiveRestore,
+  Boxes,
+  Copy,
+  FileText,
+  Gamepad2,
+  Joystick,
+  MonitorCog,
+  SlidersHorizontal,
+  Wrench
+} from 'lucide-react'
+import ContextProvider from 'frontend/state/ContextProvider'
 import { SettingsContextType } from 'frontend/types'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -26,18 +52,86 @@ import { ContentCopy, FileOpen } from '@mui/icons-material'
 
 function Settings() {
   const { t } = useTranslation()
+  const { platform } = useContext(ContextProvider)
+  const navigate = useNavigate()
+  const isNarrow = useMediaQuery('(max-width: 1100px)')
+  const isWin = platform === 'win32'
 
   const [currentConfig, setCurrentConfig] =
     useState<Partial<AppSettings> | null>(null)
+  const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
+  const [searchTarget, setSearchTarget] =
+    useState<ResolvedSettingsSearchEntry | null>(null)
+
+  useEffect(() => {
+    if (!isCopiedToClipboard) return
+    const timer = setTimeout(() => setCopiedToClipboard(false), 3000)
+    return () => clearTimeout(timer)
+  }, [isCopiedToClipboard])
 
   const { type = 'general' } = useParams()
   const appName = 'default'
   const isGeneralSettings = type === 'general'
   const isSyncSettings = type === 'sync'
   const isGamesSettings = type === 'games_settings'
+  const isGamepadSettings = type === 'gamepad'
+  const isRunnersSettings = type === 'runners'
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
+  const isImportExport = type === 'importexport'
+  const showSettingsSearch =
+    isGeneralSettings ||
+    isGamepadSettings ||
+    isRunnersSettings ||
+    isAdvancedSetting
+
+  useEffect(() => {
+    if (!searchTarget || type !== searchTarget.tab) return
+
+    const timeout = window.setTimeout(() => {
+      const rowSelector =
+        '.SettingRow, .selectFieldWrapper, .Field, .customCSSField, .SettingsCard'
+      const control = searchTarget.id
+        ? document.getElementById(searchTarget.id)
+        : null
+      let row = control?.closest<HTMLElement>(rowSelector)
+
+      if (!row) {
+        const title = t(searchTarget.titleKey).trim()
+        const label = Array.from(
+          document.querySelectorAll<HTMLElement>(
+            '.SettingRow__label, .selectFieldWrapper > label, .customCSSLabel, .SettingsCard__title'
+          )
+        ).find((element) => element.textContent?.trim() === title)
+        row = label?.closest<HTMLElement>(rowSelector)
+      }
+
+      if (row) {
+        row.scrollIntoView({
+          block: 'center',
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+            .matches
+            ? 'auto'
+            : 'smooth'
+        })
+        row.classList.add('SettingsSearchTarget')
+        const focusable =
+          row.querySelector<HTMLElement>('[role="combobox"]') ??
+          control ??
+          row.querySelector<HTMLElement>('input, select, textarea, button')
+        focusable?.focus({ preventScroll: true })
+        window.setTimeout(
+          () => row?.classList.remove('SettingsSearchTarget'),
+          2000
+        )
+      }
+
+      setSearchTarget(null)
+    }, 60)
+
+    return () => window.clearTimeout(timeout)
+  }, [searchTarget, type, t])
 
   // TODO: Adding this comment translation here for now to not lose the
   // translation. This should be removed from here when the help is added
@@ -74,7 +168,149 @@ function Settings() {
     return <UpdateComponent />
   }
 
-  const title = t('globalSettings', 'Global Settings')
+  const pageTitles: Record<string, string> = {
+    general: t('settings.navbar.general', 'General'),
+    games_settings: t(
+      'settings.navbar.games_settings_defaults',
+      'Game defaults'
+    ),
+    runners: t('settings.navbar.runners', 'Runners'),
+    gamepad: t('settings.navbar.gamepad', 'Gamepad'),
+    advanced: t('settings.navbar.advanced', 'Advanced'),
+    systeminfo: t('settings.navbar.systemInformation', 'System information'),
+    log: t('settings.navbar.log', 'Log'),
+    importexport: t('settings.navbar.importExport', 'Import / Export'),
+    sync: t('settings.navbar.sync', 'Sync')
+  }
+  const pageTitle = pageTitles[type] ?? pageTitles.sync
+
+  const pageDescriptions: Partial<Record<string, string>> = {
+    general: t(
+      'settings.pageSubtitle.general',
+      'Configure your launcher preferences'
+    ),
+    games_settings: t(
+      'settings.pageSubtitle.games_settings_defaults',
+      'Defaults applied to newly installed games'
+    ),
+    runners: t(
+      'settings.pageSubtitle.runners',
+      'Store integrations and runner-specific options'
+    ),
+    gamepad: t(
+      'settings.pageSubtitle.gamepad',
+      'Controller navigation, deadzone and button mapping'
+    ),
+    advanced: t(
+      'settings.pageSubtitle.advanced',
+      'Behaviour, experimental features and maintenance'
+    ),
+    systeminfo: t(
+      'settings.pageSubtitle.systeminfo',
+      'Your hardware and the versions Heroic runs'
+    ),
+    log: t('settings.pageSubtitle.log', 'Read and share Heroic logs'),
+    importexport: t(
+      'settings.pageSubtitle.importExport',
+      'Back up or restore your Heroic setup'
+    )
+  }
+  const pageDescription = pageDescriptions[type]
+
+  const title = t('globalSettings', 'Global settings')
+
+  const sections: TabItem<string>[] = [
+    {
+      value: 'general',
+      label: t('settings.navbar.general'),
+      glyph: SlidersHorizontal
+    },
+    ...(isWin
+      ? []
+      : [
+          {
+            value: 'games_settings',
+            label: t(
+              'settings.navbar.games_settings_defaults',
+              'Game defaults'
+            ),
+            glyph: Gamepad2
+          }
+        ]),
+    {
+      value: 'runners',
+      label: t('settings.navbar.runners', 'Runners'),
+      glyph: Boxes
+    },
+    {
+      value: 'gamepad',
+      label: t('settings.navbar.gamepad', 'Gamepad'),
+      glyph: Joystick
+    },
+    {
+      value: 'advanced',
+      label: t('settings.navbar.advanced', 'Advanced'),
+      glyph: Wrench
+    },
+    {
+      value: 'systeminfo',
+      label: t('settings.navbar.systemInformation', 'System information'),
+      glyph: MonitorCog
+    },
+    {
+      value: 'log',
+      label: t('settings.navbar.log', 'Log'),
+      glyph: FileText
+    },
+    {
+      value: 'importexport',
+      label: t('settings.navbar.importExport', 'Import / Export'),
+      glyph: ArchiveRestore
+    }
+  ]
+
+  const navItems: NavListItem[] = sections.map(({ value, label, glyph }) => ({
+    to: `/settings/${value}`,
+    label,
+    glyph
+  }))
+
+  const handleSearchSelect = (entry: ResolvedSettingsSearchEntry) => {
+    setSearchTarget(entry)
+    if (entry.tab !== type) {
+      navigate(`/settings/${entry.tab}`)
+    }
+  }
+
+  const copySettingsToClipboard = () => {
+    if (isSystemInfo) {
+      window.api.systemInfo.copyToClipboard()
+    } else {
+      window.api.clipboardWriteText(
+        JSON.stringify({ appName, title, ...currentConfig }, null, 2)
+      )
+    }
+    setCopiedToClipboard(true)
+  }
+
+  const systemInfoCopyButton = (
+    <Button
+      variant={isCopiedToClipboard ? 'primary' : 'ghost'}
+      size="sm"
+      icon={<Icon glyph={Copy} size="md" />}
+      onClick={copySettingsToClipboard}
+    >
+      {isCopiedToClipboard
+        ? t('settings.copiedToClipboard', 'Copied to clipboard!')
+        : t('settings.systemInformation.copyToClipboard', 'Copy to clipboard')}
+    </Button>
+  )
+
+  const settingsSearchRow = showSettingsSearch ? (
+    <div className="settingsSearchRow">
+      <SettingsSearch onSelect={handleSearchSelect} />
+    </div>
+  ) : null
 
   return (
     <ContextMenu
@@ -82,7 +318,7 @@ function Settings() {
         {
           label: t(
             'settings.copyToClipboard',
-            'Copy All Settings to Clipboard'
+            'Copy all settings to clipboard'
           ),
           onclick: async () =>
             window.api.clipboardWriteText(
@@ -92,7 +328,7 @@ function Settings() {
           icon: <ContentCopy />
         },
         {
-          label: t('settings.open-config-file', 'Open Config File'),
+          label: t('settings.open-config-file', 'Open config file'),
           onclick: () => window.api.showConfigFileInFolder(appName),
           show: !isLogSettings,
           icon: <FileOpen />
@@ -102,20 +338,55 @@ function Settings() {
       <SettingsContext.Provider value={contextValues}>
         <div className={`Settings ${type}`}>
           <div role="list" className="settingsWrapper">
-            <NavLink to="/library" role="link" className="backButton">
-              <ArrowCircleLeftIcon />
-            </NavLink>
-            <h1 className="headerTitle" data-testid="headerTitle">
-              {title}
-            </h1>
+            <PageHeader
+              backTo="/library"
+              backLabel={t('button.backToLibrary', 'Back to library')}
+              title={pageTitle}
+              description={pageDescription}
+              className="headerTitle"
+              actions={isSystemInfo ? systemInfoCopyButton : undefined}
+            />
 
-            {isGeneralSettings && <GeneralSettings />}
-            {isGamesSettings && <GamesSettings />}
-            {isSyncSettings && <SyncSaves />}
-            {isAdvancedSetting && <AdvancedSettings />}
-            {isLogSettings && <LogSettings />}
-            {isSystemInfo && <SystemInfo />}
-            <FooterInfo />
+            <div className="settingsLayout">
+              <div className="settingsSidebar">
+                {isNarrow ? (
+                  <>
+                    <Tabs
+                      items={sections}
+                      value={type}
+                      onChange={(value) => navigate(`/settings/${value}`)}
+                      aria-label={t('Settings', 'Settings')}
+                      className="settingsNav settingsNav--tabs"
+                    />
+                    {settingsSearchRow}
+                  </>
+                ) : (
+                  <NavList
+                    items={navItems}
+                    className="settingsNav"
+                    aria-label={t('Settings', 'Settings')}
+                  />
+                )}
+              </div>
+              <div className="settingsPane">
+                {!isNarrow && settingsSearchRow}
+                {isGeneralSettings && <GeneralSettings />}
+                {isGamesSettings && <GamesSettings />}
+                {isGamepadSettings && <GamepadSettings />}
+                {isRunnersSettings && <RunnersSettings />}
+                {isSyncSettings && <SyncSaves />}
+                {isAdvancedSetting && (
+                  <AdvancedSettings
+                    copiedToClipboard={isCopiedToClipboard}
+                    onCopySettings={copySettingsToClipboard}
+                  />
+                )}
+                {isLogSettings && <LogSettings />}
+                {isSystemInfo && <SystemInfo />}
+                {isImportExport && <ImportExportSettings />}
+                <FooterInfo />
+              </div>
+            </div>
           </div>
         </div>
       </SettingsContext.Provider>

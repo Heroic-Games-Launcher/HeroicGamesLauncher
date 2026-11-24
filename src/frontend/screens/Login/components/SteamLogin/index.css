@@ -1,0 +1,113 @@
+/* Wider modal so the credentials and QR columns sit side by side*/
+.steam-login-modal {
+  place-items: stretch;
+  min-width: min(640px, 90vw);
+  gap: var(--space-lg);
+}
+
+.steam-login-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+.steam-login-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.steam-credentials {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.steam-qr-column {
+  flex: 0 0 auto;
+  align-items: center;
+  text-align: center;
+}
+
+.steam-section-title {
+  font-size: var(--eyebrow);
+  font-weight: var(--semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-panel-muted, var(--text-secondary));
+  margin-bottom: var(--space-2xs);
+}
+
+.steam-field-label {
+  font-size: var(--body-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-2xs);
+}
+
+.steam-signin-btn {
+  margin-top: var(--space-sm);
+}
+
+.steam-login-divider {
+  align-self: stretch;
+  width: 1px;
+  background: var(--panel-divider, var(--divider, var(--background)));
+}
+
+/* White quiet-zone backing so the code scans on any theme. */
+.steam-qr-code {
+  background: #ffffff;
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  line-height: 0;
+}
+
+/* Same footprint as the rendered QR */
+.steam-qr-placeholder {
+  display: grid;
+  place-items: center;
+  width: 216px;
+  height: 216px;
+  background: var(--input-background);
+  border: 1px solid var(--background);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+}
+
+.steam-qr-caption {
+  max-width: 216px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--body-sm);
+}
+
+.steam-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--body-sm);
+}
+
+/* Notice text matches the heading */
+.steam-notice-modal .loginInstructions > p {
+  color: var(--text-hover);
+  white-space: pre-line;
+}
+
+/* Stack the columns on narrow viewports. */
+@media (max-width: 640px) {
+  .steam-login-columns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .steam-qr-column {
+    align-items: center;
+  }
+
+  .steam-login-divider {
+    width: auto;
+    height: 1px;
+  }
+}

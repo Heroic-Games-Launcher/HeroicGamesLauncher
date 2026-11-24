@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Dialog, DialogContent, DialogHeader } from '../Dialog'
+import { useTranslation } from 'react-i18next'
+import { Modal, ModalContent, ModalHeader } from '../Modal'
+import Link from '../Link'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import classNames from 'classnames'
@@ -14,7 +16,20 @@ type Props = {
 const storage = window.localStorage
 const lastChangelog = storage.getItem('last_changelog')?.replaceAll('"', '')
 
+function enhanceChangelog(body: string): string {
+  const withMentions = body.replace(
+    /(^|[\s(])@([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?)/g,
+    '$1<span class="changelogMention">@$2</span>'
+  )
+  return withMentions.replace(
+    /(?<![\]("'=>])https?:\/\/[^\s<>()]+/g,
+    (url) =>
+      `<a href="${url}" target="_blank" rel="noreferrer" class="changelogLink">${url}</a>`
+  )
+}
+
 export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
+  const { t } = useTranslation()
   const [currentChangelog, setCurrentChangelog] = useState<Release | null>(null)
 
   useEffect(() => {
@@ -35,11 +50,9 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
 
   return (
     <div className={classNames('changelogModal')}>
-      <Dialog onClose={onClose} showCloseButton={true}>
-        <DialogHeader onClose={onClose}>
-          <div>{currentChangelog.name}</div>
-        </DialogHeader>
-        <DialogContent>
+      <Modal onClose={onClose} showCloseButton={true}>
+        <ModalHeader>{currentChangelog.name}</ModalHeader>
+        <ModalContent>
           <div className={classNames('changelogModalContent')}>
             {currentChangelog.body && (
               <ReactMarkdown
@@ -47,12 +60,21 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
                 linkTarget={'_blank'}
                 rehypePlugins={[rehypeRaw]}
               >
-                {currentChangelog.body}
+                {enhanceChangelog(currentChangelog.body)}
               </ReactMarkdown>
             )}
           </div>
-        </DialogContent>
-      </Dialog>
+          {currentChangelog.html_url && (
+            <Link
+              className="changelogModalFullLink"
+              href={currentChangelog.html_url}
+              external
+            >
+              {t('changelog.view_full', 'View full changelog on GitHub')}
+            </Link>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   )
 }

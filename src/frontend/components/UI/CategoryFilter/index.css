@@ -1,0 +1,77 @@
+.categoriesFilter .dropdown {
+  min-width: 340px;
+  max-width: 420px;
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.categoryRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+  border-radius: var(--radius-sm);
+  padding-inline-end: var(--space-2xs-fixed);
+  transition: background-color 150ms ease;
+}
+
+.categoryRow:hover,
+.categoryRow:focus-within {
+  background: color-mix(in oklab, var(--on-panel) 6%, transparent);
+}
+
+.categoryRow__label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+  padding-block: var(--space-2xs-fixed);
+  cursor: pointer;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  color: var(--on-panel, var(--text-default));
+}
+
+.categoryRow__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.categoryOnly {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  padding: 0 var(--space-2xs-fixed);
+  font-family: var(--primary-font-family);
+  font-size: var(--eyebrow);
+  font-weight: var(--semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  color: var(--navbar-accent, var(--accent));
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.categoryRow:hover .categoryOnly,
+.categoryRow:focus-within .categoryOnly {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.categoryOnly:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--accent) 45%, transparent);
+  outline-offset: 2px;
+}

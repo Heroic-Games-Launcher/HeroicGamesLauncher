@@ -4,7 +4,6 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../SettingsContext'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableFsync = () => {
   const { t } = useTranslation()
@@ -18,21 +17,20 @@ const EnableFsync = () => {
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="fsyncToggle"
-        value={enableFsync || false}
-        handleChange={() => setEnableFsync(!enableFsync)}
-        title={t('setting.fsync', 'Enable Fsync')}
-      />
-
-      <InfoIcon
-        text={t(
-          'help.fsync',
-          'Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
-        )}
-      />
-    </div>
+    <ToggleSwitch
+      info={t(
+        'help.fsync',
+        'Fsync is only used as a fallback when NTSync is unavailable, for example on kernels older than 6.14 or when /dev/ntsync is not available.'
+      )}
+      description={t(
+        'setting.fsync-description',
+        'Use fsync only when NTSync is unavailable'
+      )}
+      htmlId="fsyncToggle"
+      value={enableFsync || false}
+      handleChange={() => setEnableFsync(!enableFsync)}
+      title={t('setting.fsync', 'Fsync fallback')}
+    />
   )
 }
 

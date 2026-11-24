@@ -1,7 +1,6 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
-import LinearProgress from '@mui/material/LinearProgress'
-import Paper from '@mui/material/Paper'
+
+import { ProgressBar, SpecCard } from 'frontend/components/UI'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
 import { useTranslation } from 'react-i18next'
@@ -17,23 +16,25 @@ function MemoryProgress({ memory }: Props) {
   const memoryUsedInPercent = (used / total) * 100
 
   return (
-    <Paper sx={{ p: 1, height: '100%' }} square>
-      <Typography variant="h6">
-        {t('settings.systemInformation.memory', 'Memory:')}
-      </Typography>
-      <LinearProgress variant="determinate" value={memoryUsedInPercent} />
-      <Typography>
+    <SpecCard title={t('settings.systemInformation.memory', 'Memory')}>
+      <span className="SpecCard__value">
         {t(
-          'settings.systemInformation.memoryStats',
-          '{{percentUsed}}% used ({{usedGib}} / {{totalGib}}',
+          'settings.systemInformation.memoryUsage',
+          '{{usedGib}} of {{totalGib}}',
+          { usedGib: usedFormatted, totalGib: totalFormatted }
+        )}
+      </span>
+      <ProgressBar value={memoryUsedInPercent} tone="success" />
+      <span className="SpecCard__meta">
+        {t(
+          'settings.systemInformation.memoryPercent',
+          '{{percentUsed}}% used',
           {
-            percentUsed: Math.round(memoryUsedInPercent),
-            usedGib: usedFormatted,
-            totalGib: totalFormatted
+            percentUsed: Math.round(memoryUsedInPercent)
           }
         )}
-      </Typography>
-    </Paper>
+      </span>
+    </SpecCard>
   )
 }
 

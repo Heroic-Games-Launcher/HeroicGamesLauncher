@@ -2,14 +2,15 @@ import { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
+import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../SettingsContext'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
+import InfoTooltip from 'frontend/components/UI/InfoTooltip'
 import { Box, MenuItem, Stack, Typography } from '@mui/material'
 import type { SteamRuntimeName } from 'common/types/umu'
 
 // Names as they appear in the Steam client
 const RUNTIME_NAMES = {
-  'umu-scout': 'Steam Linux Runtime 1.0 (scout)',
+  'umu-scout': 'Steam Linux Runtime 1.0 (scout-on-soldier)',
   'umu-soldier': 'Steam Linux Runtime 2.0 (soldier)',
   'umu-sniper': 'Steam Linux Runtime 3.0 (sniper)',
   'umu-steamrt4': 'Steam Linux Runtime 4.0'
@@ -17,8 +18,21 @@ const RUNTIME_NAMES = {
 
 function SteamRuntime() {
   const { t } = useTranslation()
-  const { isLinuxNative } = useContext(SettingsContext)
-  const [steamRuntime, setSteamRuntime] = useSetting('steamRuntime', false)
+  const { platform } = useContext(ContextProvider)
+  const { isDefault, isLinuxNative } = useContext(SettingsContext)
+  const [gameSteamRuntime, setGameSteamRuntime] = useSetting(
+    'steamRuntime',
+    false
+  )
+  const [defaultSteamRuntime, setDefaultSteamRuntime] = useSetting(
+    'defaultSteamRuntime',
+    false
+  )
+
+  const steamRuntime = isDefault ? defaultSteamRuntime : gameSteamRuntime
+  const setSteamRuntime = isDefault
+    ? setDefaultSteamRuntime
+    : setGameSteamRuntime
 
   const parseAndSet = useCallback(
     (value: string) => {
@@ -36,7 +50,7 @@ function SteamRuntime() {
     [setSteamRuntime]
   )
 
-  if (!isLinuxNative) return <></>
+  if (platform !== 'linux' || (!isDefault && !isLinuxNative)) return <></>
 
   return (
     <>
@@ -47,7 +61,15 @@ function SteamRuntime() {
         gap={2}
       >
         <Typography>
-          {t('setting.steamRuntime.label', 'Use Steam Runtime')}
+          {isDefault
+            ? t(
+                'setting.steamRuntime.defaultLabel',
+                'Default Steam runtime (native Linux games)'
+              )
+            : t(
+                'setting.steamRuntime.label',
+                'Steam runtime (native Linux games)'
+              )}
         </Typography>
         <Box
           display="flex"
@@ -68,7 +90,7 @@ function SteamRuntime() {
             value={steamRuntime || 'none'}
           >
             <MenuItem value={'none'}>
-              {t('setting.steamRuntime.noRuntimeOption', 'None')}
+              {t('setting.steamRuntime.noRuntimeOption', 'None (run on host)')}
             </MenuItem>
             {Object.entries(RUNTIME_NAMES).map(([id, name]) => (
               <MenuItem key={id} value={id}>
@@ -76,10 +98,14 @@ function SteamRuntime() {
               </MenuItem>
             ))}
           </SelectField>
-          <InfoIcon
-            text={t(
+          <InfoTooltip
+            content={t(
               'help.steamruntime',
-              'Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.'
+              'Run native Linux games inside a Steam Linux Runtime container. The global default applies to games without an explicit per-game choice; Proton games are launched through umu automatically.'
+            )}
+            label={t(
+              'setting.steamRuntime.label',
+              'Steam runtime (native Linux games)'
             )}
           />
         </Box>

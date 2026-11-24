@@ -11,7 +11,13 @@
         "disable_animations": "Tắt hoạt ảnh UI",
         "disable_dialog_backdrop_close": "Vô hiệu hóa việc đóng hộp thoại bằng cách nhấp vào bên ngoài",
         "disable_smooth_scrolling": "Tắt tính năng cuộn mượt mà (yêu cầu khởi động lại)",
-        "titles_always_visible": "Luôn hiển thị tiêu đề trong thư viện"
+        "titles_always_visible": "Luôn hiển thị tiêu đề trong thư viện",
+        "section": {
+            "library": "Thư viện",
+            "motion": "",
+            "appearance": ""
+        },
+        "subtitle": ""
     },
     "add_game": "Thêm Trò Chơi",
     "All": "Tất cả",
@@ -30,7 +36,7 @@
             "title": "Đã xoá bộ nhớ đệm"
         },
         "choose": "Chọn",
-        "choose-egs-prefix": "Chọn Prefix nơi EGS được cài đặt",
+        "choose-egs-prefix": "Tiền tố nơi EGS được cài đặt",
         "choose-gogdl-binary": "Chọn GOGDL Binary (cần khởi động lại)",
         "choose-legendary-binary": "Chọn Legendary binary",
         "customWine": "Chọn Wine hoặc Proton binary",
@@ -98,6 +104,16 @@
             "dxmt": {
                 "message": "Lỗi tải DXMT! Kiểm tra kết nối của bạn!",
                 "title": "Lỗi tải xuống DXMT"
+            },
+            "remove": {
+                "steam": {
+                    "body": "Removing {{game}} from Steam failed with:{{newLine}} {{error}}",
+                    "title": ""
+                }
+            },
+            "steam": {
+                "running": "",
+                "running-gamemode": ""
             }
         },
         "info": {
@@ -177,6 +193,12 @@
             "rosetta": {
                 "message": "Heroic yêu cầu Rosetta chạy chính xác trên macOS với chip Apple Silicon. Vui lòng cài đặt nó từ thiết bị đầu cuối macOS bằng lệnh sau: \"softwareupdate --install-rosetta\" và khởi động lại Heroic. ",
                 "title": "Không tìm thấy Rosetta"
+            },
+            "itchio": {
+                "installer": {
+                    "message": "",
+                    "title": ""
+                }
             }
         },
         "wineprefix": "Chọn thư mục WinePrefix",
@@ -185,7 +207,8 @@
         "choose-nile-binary": "Chọn Nile binary",
         "update": "Cập Nhật",
         "changelog": "Nhật Ký Thay Đổi",
-        "postpone": "Hoãn"
+        "postpone": "Hoãn",
+        "cancel": "Cancel"
     },
     "button": {
         "cancel": "Hủy",
@@ -194,7 +217,9 @@
         "sync": "Đồng bộ",
         "syncing": "Đang đồng bộ",
         "unsync": "Hủy đồng bộ",
-        "continue": "Tiếp Tục"
+        "continue": "Tiếp Tục",
+        "close": "Đóng",
+        "backToLibrary": ""
     },
     "controller": {
         "hints": {
@@ -214,7 +239,12 @@
             "select": "Chọn",
             "space": "Phím Cách",
             "update_game": "Cập nhật trò chơi",
-            "exit": "Thoát"
+            "exit": "Thoát",
+            "move_focus": "",
+            "previous_page": "",
+            "search": "",
+            "url_bar": "",
+            "next_page": ""
         }
     },
     "docs": "Tài Liệu",
@@ -225,7 +255,8 @@
         },
         "label": {
             "disk": "Ổ Đĩa",
-            "speed": "Tải Xuống"
+            "speed": "Tải Xuống",
+            "unit": ""
         },
         "link": "Tải Xuống",
         "queue": {
@@ -235,7 +266,15 @@
             "type": "Kiểu"
         },
         "title": "Tải Xuống",
-        "ETA": "Thời gian dự kiến"
+        "ETA": "Thời gian dự kiến",
+        "empty": {
+            "queue": {
+                "description": "",
+                "title": ""
+            },
+            "current": ""
+        },
+        "pageSubtitle": ""
     },
     "epic": {
         "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
@@ -248,7 +287,8 @@
         "status": "Trạng Thái",
         "store": "Cửa Hàng",
         "title": "Tiêu Đề Trò Chơi",
-        "modify": "Sửa Đổi Cài Đặt"
+        "modify": "Sửa Đổi Cài Đặt",
+        "settings": "Game settings"
     },
     "generic": {
         "error": {
@@ -283,7 +323,12 @@
         "show_support_offline_only": "Chỉ hiển thị được hỗ trợ ngoại tuyến",
         "show_third_party_managed_only": "Chỉ hiển thị do bên thứ ba quản lý",
         "show_updates_only": "Chỉ hiển thị các trò chơi có bản cập nhật",
-        "uncategorized": "Chưa được phân loại"
+        "uncategorized": "Chưa được phân loại",
+        "platforms": "Platform",
+        "stores": "Cửa hàng",
+        "display": "",
+        "hidden": "",
+        "non_available": ""
     },
     "help": {
         "amdfsr": "FSR của AMD giúp tăng tốc độ khung hình bằng cách nâng cấp độ phân giải thấp hơn ở Chế độ toàn màn hình. Chất lượng hình ảnh tăng từ 5 lên 1 với cái giá phải trả là hiệu suất bị giảm nhẹ. Việc kích hoạt có thể cải thiện hiệu suất.",
@@ -370,8 +415,10 @@
         "wine-wayland": "Trình điều khiển thử nghiệm Wine-Wayland cho phép trò chơi chạy nguyên bản theo giao thức hiển thị Wayland. Việc kích hoạt có thể làm hỏng một số trò chơi.",
         "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn.",
         "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": ""
+        },
+        "hide-window-on-protocol-launch": ""
     },
     "info": {
         "heroic": {
@@ -385,7 +432,7 @@
             "searching": "Đang cố gắng phát hiện đúng thư mục lưu (bấm để hủy)"
         },
         "settings": "Cài đặt được lưu tự động",
-        "version": "Phiên Bản Wine"
+        "version": "Phiên bản Wine"
     },
     "infobox": {
         "help": "Trợ Giúp",
@@ -418,7 +465,9 @@
             "list": "Chuyển sang bố cục danh sách"
         },
         "hideAlphabetFilter": "Ẩn Bộ Lọc Bảng Chữ Cái",
-        "showAlphabetFilter": "Hiển Thị Bộ Lọc Bảng Chữ Cái"
+        "showAlphabetFilter": "Hiển Thị Bộ Lọc Bảng Chữ Cái",
+        "gamesCount_one": "",
+        "gamesCount_other": ""
     },
     "Library": "Thư Viện",
     "loading": {
@@ -432,7 +481,16 @@
         "message": "Đăng nhập với nền tảng của bạn. Bạn có thể đăng nhập vào nhiều nền tảng cùng một lúc.",
         "amazon": "Đăng Nhập Amazon",
         "old-mac": "Phiên bản macOS của bạn là {{version}}. Cần có macOS 12 hoặc mới hơn để đăng nhập.",
-        "zoom": "Đăng nhập Zoom"
+        "zoom": "Đăng nhập Zoom",
+        "itchio": "",
+        "button": "Log in",
+        "logout_confirm": {
+            "message": "Xác nhận đăng xuất?",
+            "title": "Đăng xuất"
+        },
+        "title_amazon": "Trò Chơi Amazon",
+        "title_epic": "Epic Game",
+        "title_gog": "GOG"
     },
     "message": {
         "sync": "Đồng Bộ Hóa Hoàn Tất",
@@ -448,14 +506,16 @@
                 "steam": {
                     "corrupt": "Không thể thêm {{game}} vào tất cả người dùng Steam được tìm thấy. Xem nhật ký để biết thêm thông tin. Cần phải khởi động lại Steam để các thay đổi có hiệu lực.",
                     "success": "{{game}} đã được thêm thành công vào Steam. Cần phải khởi động lại Steam để các thay đổi có hiệu lực.",
-                    "title": "Đã thêm vào Steam"
+                    "title": "Đã thêm vào Steam",
+                    "success-no-restart": ""
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "Không thể xóa {{game}} khỏi tất cả người dùng Steam được tìm thấy. Xem nhật ký để biết thêm thông tin. Cần phải khởi động lại Steam để các thay đổi có hiệu lực.",
                     "success": "{{game}} đã được xóa thành công khỏi Steam. Cần phải khởi động lại Steam để các thay đổi có hiệu lực.",
-                    "title": "Đã xóa khỏi Steam"
+                    "title": "Đã xóa khỏi Steam",
+                    "success-no-restart": ""
                 }
             },
             "reparing": "Sửa Xong"
@@ -501,16 +561,22 @@
             "placeHolderKey": "TÊN",
             "placeHolderValue": "Ví dụ: Đường dẫn/Tới/TệpBổSung",
             "title": "Biến Môi Trường",
-            "value": "Giá Trị"
+            "value": "Giá Trị",
+            "placeHolderV": ""
         },
         "env_variables": {
             "error": {
                 "empty_key": "Tên biến không được để trống",
                 "equal_sign_in_key": "Tên biến không được chứa dấu \"=\"",
-                "space_in_key": "Tên biến không được chứa dấu cách"
+                "space_in_key": "Tên biến không được chứa dấu cách",
+                "duplicate_key": ""
             },
             "example": "KHÔNG bao gồm dấu \"=\", ví dụ: đối với cài đặt như \"MY_FLAG=123\", hãy đặt MY_FLAG trong NAME và 123 trong VALUE.",
-            "info": "Đặt các biến môi trường để thêm vào lệnh."
+            "info": "Đặt các biến môi trường để thêm vào lệnh.",
+            "clear_all_confirm": "",
+            "add_new": "",
+            "bulk_edit": "",
+            "bulk_edit_error": ""
         },
         "gameargs": {
             "placeholder": "Thêm Đối Số Trình Khởi Chạy ở đây",
@@ -559,7 +625,8 @@
         "dxvkfpsvalue": "Giá trị nguyên dương (ví dụ: 30, 60, ...)",
         "egs-prefix": "Tiền tố nơi EGS được cài đặt",
         "prefered_language": "Mã 2 ký tự (tức là: \"en\" hoặc \"fr\")",
-        "alt-nile-bin": "Sử dụng Nile binary tích hợp sẵn..."
+        "alt-nile-bin": "Sử dụng Nile binary tích hợp sẵn...",
+        "alt-aurelia-bin": "Sử dụng Legendary binary tích hợp sẵn..."
     },
     "platforms": {
         "linux": "LInux",
@@ -579,7 +646,8 @@
             "queued": "Đã xếp hàng",
             "remove": "Remove from Downloads",
             "pause": "Tạm dừng tải xuống",
-            "resume": "tiếp tục tải xuống"
+            "resume": "tiếp tục tải xuống",
+            "paused": ""
         }
     },
     "Recent": "Đã Chơi Gần Đây",
@@ -626,7 +694,8 @@
             "removeConfirm": "Bạn có chắc chắn muốn gỡ cài đặt EOS Overlay không?",
             "removeConfirmTitle": "Xác nhận xóa overlay",
             "updateNow": "Cập Nhật",
-            "updating": "Đang Cập Nhật..."
+            "updating": "Đang Cập Nhật...",
+            "description": ""
         },
         "esync": "Bật Esync",
         "exit-to-tray": "Thoát vào Khay Hệ Thống",
@@ -685,10 +754,14 @@
                 "heroic": "Tổng Quan Nhật Ký Heroic",
                 "legendary": "Nhật ký",
                 "nile": "Nhật ký",
-                "zoom": "Nhật ký Zoom"
+                "zoom": "Nhật ký Zoom",
+                "itchio": ""
             },
             "join-heroic-discord": "Tham gia Discord của chúng tôi",
-            "show-uploads": "Hiển thị tệp nhật ký đã tải lên"
+            "show-uploads": "Hiển thị tệp nhật ký đã tải lên",
+            "error": "",
+            "jump-to-start": "",
+            "jump-to-end": ""
         },
         "mangohud": "Bật Mangohud (Cần cài đặt mangohud)",
         "manualsync": {
@@ -708,12 +781,15 @@
         "preferSystemLibs": "Ưu tiên thư viện hệ thống",
         "runexe": {
             "message": "Kéo thả file vào đây",
-            "title": "Chạy EXE trên Tiền Tố"
+            "title": "Chạy EXE trên Tiền Tố",
+            "description": ""
         },
         "savefolder": {
             "not-found": "Không tìm thấy thư mục lưu, vui lòng chọn thủ công (bấm để thử lại)",
             "placeholder": "Chọn thư mục lưu trò chơi chính xác",
-            "warning": "Vui lòng kiểm tra lại xem đường dẫn có đúng không (click để thử lại)"
+            "warning": "Vui lòng kiểm tra lại xem đường dẫn có đúng không (click để thử lại)",
+            "retry": "",
+            "title": ""
         },
         "select_theme": "Chọn Chủ Đề",
         "showfps": "Hiển Thị FPS (DX9, 10 và 11)",
@@ -721,7 +797,7 @@
         "steamruntime": "Sử Dụng Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Thư Mục WinePrefix",
-        "wineversion": "Phiên Bản Wine",
+        "wineversion": "Phiên bản Wine",
         "autoUpdateGames": "Tự động cập nhật trò chơi",
         "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",
         "disable_logs": "Tắt Nhật Ký",
@@ -783,7 +859,8 @@
             "wine_selector_warning": "Các phiên bản Valve của Proton bị bỏ qua theo mặc định, hãy bật chúng trong cài đặt chung Nâng Cao"
         },
         "verboseLogs": {
-            "description": "Bật nhật ký chi tiết"
+            "description": "Bật nhật ký chi tiết",
+            "hint": ""
         },
         "wineWayland": "Kích hoạt Wine-Wayland (Thử nghiệm) (Phiên bản Wine cần hỗ trợ)",
         "WoW64": "Kích hoạt WoW64 (Thử nghiệm)",
@@ -794,12 +871,98 @@
         "steamRuntime": {
             "label": "Sử dụng Steam Runtime",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Mở",
+            "selectExe": "Chọn file EXE",
+            "running": ""
+        },
+        "minimizeOnLaunch": {
+            "description": ""
+        },
+        "autodxvk-description": "",
+        "framelessWindow": {
+            "description": ""
+        },
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "winecfg": {
+            "description": ""
+        },
+        "experimental_features_description": {
+            "enableHelp": "",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "autoUpdateGames-description": "",
+        "analytics": {
+            "description": ""
+        },
+        "nvidiaPrime": {
+            "description": ""
+        },
+        "gamepad-repeat-frequency": "",
+        "fsync-description": "",
+        "hide-window-on-protocol-launch": "",
+        "winetricks": {
+            "description": ""
+        },
+        "wow64": {
+            "description": ""
+        },
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "disableGOGAffiliate": "",
+        "allow-broken-anticheat": {
+            "description": ""
+        },
+        "autovkd3d-description": "",
+        "disableController": {
+            "description": ""
+        },
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "nvidiaprime": {
+            "description": ""
+        },
+        "autodxvknvapi-description": "",
+        "disableDiscounts": "",
+        "exit-to-tray-description": "",
+        "playtimeSync": {
+            "description": ""
+        },
+        "dxfpslimit-description": "",
+        "gamepad-initial-repeat-delay": "",
+        "darktrayicon": {
+            "description": ""
+        },
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "disable-gog-presence": {
+            "description": ""
+        },
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": "",
+        "alt-aurelia-bin": "Chọn Legendary binary thay thế để sử dụng",
+        "steamLaunchTarget": {
+            "downloadBuild": "Download",
+            "missingBuild": "Tổng số đã tải",
+            "missingRuntime": "VCRuntime not installed"
         }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Đang cài đặt BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye AntiCheat Runtime",
+            "hint": ""
         },
         "clear-cache": "Xóa Bộ Nhớ Đệm Của Heroic",
         "copiedToClipboard": "Đã sao chép vào Bộ Nhớ Tạm!",
@@ -811,7 +974,8 @@
                 "title": "Yêu cầu GameMode"
             },
             "installing": "Đang cài đặt EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "EasyAntiCheat Runtime",
+            "hint": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -832,7 +996,9 @@
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
             "systemInformation": "Thông Tin Hệ Thống",
-            "legacy": ""
+            "legacy": "",
+            "categories": "Phân Loại",
+            "tabs": ""
         },
         "open-config-file": "Mở Tệp Cấu Hình",
         "reset-heroic": "Đặt Lại Heroic",
@@ -853,7 +1019,8 @@
                 "help4": "Thông tin thư viện GOG (danh sách trò chơi, thông tin hộp thoại cài đặt, thông tin api -v.d: yêu cầu-)",
                 "help5": "Thông tin thư viện Amazon (danh sách trò chơi, thông tin hộp thoại cài đặt)",
                 "help6": "Điều này sẽ KHÔNG xóa:",
-                "help7": "Đăng nhập cửa hàng"
+                "help7": "Đăng nhập cửa hàng",
+                "description": ""
             },
             "details": "Chi Tiết",
             "title": {
@@ -861,7 +1028,8 @@
                 "clearCache": "Xóa Bộ Nhớ Đệm"
             },
             "resetHeroic": {
-                "help": "Thao tác này sẽ xóa tất cả Cài Đặt và Bộ Nhớ Đệm nhưng sẽ không xóa Trò chơi đã cài đặt hoặc thông tin xác thực Epic của bạn. Các phiên bản di động (AppImage, WinPortable, ...) của Heroic cần được khởi động lại theo cách thủ công sau đó."
+                "help": "Thao tác này sẽ xóa tất cả Cài Đặt và Bộ Nhớ Đệm nhưng sẽ không xóa Trò chơi đã cài đặt hoặc thông tin xác thực Epic của bạn. Các phiên bản di động (AppImage, WinPortable, ...) của Heroic cần được khởi động lại theo cách thủ công sau đó.",
+                "description": ""
             }
         },
         "systemInformation": {
@@ -885,7 +1053,10 @@
             "systemModel": "Mô Hình Hệ Thống:",
             "systemSpecifications": "Thông Số Hệ Thống:",
             "nileVersion": "Nile: {{nileVersion}}",
-            "steamDeck": "Steam Deck {{model}}"
+            "steamDeck": "Steam Deck {{model}}",
+            "memoryUsage": "",
+            "cpuCores": "",
+            "memoryPercent": ""
         },
         "custom_css": {
             "title": "Kiểu CSS Tùy Chỉnh"
@@ -910,13 +1081,45 @@
             "help": {
                 "description": ""
             }
+        },
+        "section": {
+            "downloads": "Downloads",
+            "experimental": "Tính Năng Thử Nghiệm",
+            "launch": "Tùy chọn khởi chạy",
+            "wineTools": "Công cụ",
+            "environment": "",
+            "system": "",
+            "maintenance": "",
+            "behaviour": "",
+            "binaries": "",
+            "graphics": "",
+            "runtimes": "",
+            "gameplay": "",
+            "appearance": "",
+            "wineVersion": "",
+            "performance": "",
+            "locations": "",
+            "winePerformance": "",
+            "integrations": "",
+            "controller": "",
+            "language": "",
+            "privacy": ""
+        },
+        "open-game-settings-file-hint": "",
+        "pageSubtitle": {
+            "log": "",
+            "games_settings_defaults": "",
+            "general": "",
+            "systeminfo": "",
+            "advanced": ""
         }
     },
     "Settings": "Cài Đặt",
     "sidebar": {
         "collapse": "Thu gọn sidebar",
         "uncollapse": "Hủy thu gọn sidebar",
-        "console": ""
+        "console": "",
+        "storesLogin": "Đăng nhập cửa hàng"
     },
     "status": {
         "installing": "Đang Cài Đặt",
@@ -947,7 +1150,8 @@
         "show": "Hiển Thị"
     },
     "two_col_table": {
-        "save_hint": "Những thay đổi trong bảng này không được lưu tự động. Nhấp vào nút +"
+        "save_hint": "Những thay đổi trong bảng này không được lưu tự động. Nhấp vào nút +",
+        "add": "Thêm"
     },
     "Update Available!": "Cập Nhật Có Sẵn!",
     "userselector": {
@@ -958,20 +1162,24 @@
         "manageaccounts": "Quản Lý Tài Khoản",
         "quit": "Thoát",
         "cancel": "Hủy",
-        "quitMessage": "Bạn có chắc muốn thoát?"
+        "quitMessage": "Bạn có chắc muốn thoát?",
+        "manage": ""
     },
     "webview": {
         "controls": {
             "back": "Quay lại",
             "forward": "Đi tiếp",
             "openInBrowser": "Mở trong trình duyệt",
-            "reload": "Tải lại trang"
+            "reload": "Tải lại trang",
+            "enableGameInput": "",
+            "home": "",
+            "disableGameInput": ""
         }
     },
     "wine": {
         "actions": "Hành Động",
         "manager": {
-            "link": "Trình Quản Lý Wine",
+            "link": "Quản lý Wine (thử nghiệm)",
             "not-found": "Không tìm thấy phiên bản Wine nào. Vui lòng nhấp vào biểu tượng làm mới để thử lại.",
             "title": "Trình Quản Lý Wine (thử nghiệm)",
             "unzipping": "Đang Giải Nén",
@@ -980,9 +1188,10 @@
             "open_folder": "",
             "update": "Update",
             "settings": "Cài đặt",
-            "no-results": ""
+            "no-results": "",
+            "subtitle": ""
         },
-        "release": "Ngày Phát Hành",
+        "release": "Release Date",
         "size": "Kích Thước",
         "notes": "Ghi chú"
     },
@@ -1017,7 +1226,7 @@
     "category-settings": {
         "cancel": "Hủy",
         "warning": "Cảnh Báo",
-        "add-new-category": "Thêm Danh Mục Mới",
+        "add-new-category": "Thêm danh mục mới",
         "delete-question": "Việc tiếp tục sẽ xóa vĩnh viễn danh mục này và bỏ chỉ định nó khỏi tất cả các trò chơi. Tiếp tục?",
         "new-category": "Danh Mục Mới",
         "remove-category": "Xóa Danh Mục"
@@ -1108,13 +1317,17 @@
     },
     "emptyLibrary": {
         "noGames": "Thư viện của bạn trống.<br /><br />Nhấp vào <4>đây</4> để đăng nhập bằng tài khoản Epic, GOG.com hoặc Amazon của bạn. Sau đó, trò chơi của bạn sẽ hiển thị tại đây trong Thư Viện.<br /><br />Để sử dụng trò chơi hoặc ứng dụng từ các nguồn khác, hãy nhấp vào <br /> để thêm chúng theo cách thủ công.",
-        "noResults": "Các bộ lọc hiện tại không cho ra kết quả nào."
+        "noResults": "Các bộ lọc hiện tại không cho ra kết quả nào.",
+        "noResultsTitle": "Không tìm thấy game nào",
+        "description": "",
+        "title": ""
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton là một biến thể Proton được tạo ra bởi Glorious Eggroll. Nó được sử dụng cùng với trình khởi chạy umu (mặc định trong Heroic).",
         "gpt": "",
         "wine-crossover": "",
-        "wine-staging-macos": ""
+        "wine-staging-macos": "",
+        "proton-cachyos": ""
     },
     "zoom-store": "Cửa hàng Zoom",
     "launch": {
@@ -1151,7 +1364,8 @@
                 "PL": "",
                 "BR": "",
                 "CH": "",
-                "TR": ""
+                "TR": "",
+                "ZA": ""
             },
             "auto": "",
             "label": ""
@@ -1175,7 +1389,9 @@
             "ageRatingAll": "Tất cả",
             "pageSize": "",
             "releaseYear": "",
-            "platform": "Platform"
+            "platform": "Platform",
+            "hideOwned": "",
+            "wishlistOnly": ""
         },
         "sidebar": "Chi tiết",
         "sort": {
@@ -1201,9 +1417,24 @@
             "prev": ""
         },
         "tabs": {
-            "label": "Cửa hàng"
+            "label": "Cửa hàng",
+            "all": ""
         },
-        "titleMulti": "Chi tiết"
+        "titleMulti": "Chi tiết",
+        "currency": {
+            "label": ""
+        },
+        "view": {
+            "label": "",
+            "list": "",
+            "grid": ""
+        },
+        "storeBadge": {
+            "gmgDrmHint": "",
+            "gmgHint": "",
+            "humbleHint": ""
+        },
+        "affiliateBanner": ""
     },
     "steamgriddb": {
         "error": {
@@ -1225,7 +1456,9 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": {
+            "last_played": "Lần chơi trước"
+        },
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
@@ -1255,8 +1488,61 @@
             "title": "Install game",
             "wineLoading": "Loading",
             "path": "Install",
-            "wineMissing": "Chưa chọn thư mục"
+            "wineMissing": "Chưa chọn thư mục",
+            "wine": ""
+        },
+        "cancelUpdate": {
+            "title": "",
+            "message": ""
+        },
+        "removeFromQueue": {
+            "message": ""
+        },
+        "cancelInstall": {
+            "title": "",
+            "message": ""
         }
     },
-    "next": "Tiếp"
+    "next": "Tiếp",
+    "common": {
+        "add": "Thêm",
+        "cancel": "Cancel",
+        "warning": "Warning",
+        "edit": "",
+        "save": "",
+        "clear_all": "",
+        "duplicate": "",
+        "confirm": "",
+        "remove": ""
+    },
+    "General": "Tổng quan",
+    "Community": "",
+    "affiliate": {
+        "gogPrompt": {
+            "title": "",
+            "toggle": "",
+            "description": ""
+        }
+    },
+    "Accounts": "",
+    "itchio-store": "",
+    "Update available!": "Update Available!",
+    "support": {
+        "actions": {
+            "open": "Mở"
+        }
+    },
+    "cloudSync": {
+        "back": "Back",
+        "button": {
+            "download": "Download",
+            "sync": "Đồng bộ",
+            "upload": "Tải lên"
+        },
+        "column": {
+            "file": "Lọc",
+            "size": "Kích thước"
+        },
+        "never": "Không bao giờ"
+    }
 }

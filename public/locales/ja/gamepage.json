@@ -96,7 +96,10 @@
         "browse_wine_prefix": "Wine Prefixを閲覧",
         "play": "プレイ",
         "browse_files": "ファイルを閲覧",
-        "edit-game": "App/ゲームを編集"
+        "edit-game": "App/ゲームを編集",
+        "favourite": "お気に入りに追加",
+        "unfavourite": "お気に入りから削除",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -132,7 +135,12 @@
         "modify": "インストールの変更",
         "extra_info": "追加情報",
         "install_info": "インストール情報",
-        "achievements": "実績"
+        "achievements": "実績",
+        "details": "ゲームの詳細",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "Heroicについて"
     },
     "gamecard": {
         "moving": "移動中",
@@ -162,7 +170,16 @@
         "installedInfo": "インストール情報",
         "protondb-compatibility-info": "Proton互換性レベル",
         "steamdeck-compatibility-info": "SteamDeck の互換性",
-        "third-party-app": "サードパーティマネージャー"
+        "third-party-app": "サードパーティマネージャー",
+        "genres": "ジャンル",
+        "steamdeck": {
+            "unsupported": "非対応",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLC一覧"
     },
     "install": {
         "disk-space-left": "空き領域",
@@ -192,7 +209,8 @@
         "playing": {
             "start": "今すぐプレイ",
             "stop": "プレイ中（中止）",
-            "start_with_logs": "今すぐプレイ (ログを出力する)"
+            "start_with_logs": "今すぐプレイ (ログを出力する)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "セーブデータを同期中"
@@ -206,7 +224,8 @@
             "installing": "Installing",
             "pleaseWait": "Please wait...",
             "installation": "インストールを停止する"
-        }
+        },
+        "releaseDate": "リリース日"
     },
     "launch": {
         "options": "起動オプション…",
@@ -240,7 +259,9 @@
             "title": "ゲーム/Appタイトル",
             "broser": "ブラウザURL",
             "useragent": "カスタムユーザーエージェント",
-            "fullscreen": "フルスクリーンで起動（F11で終了）"
+            "fullscreen": "フルスクリーンで起動（F11で終了）",
+            "cover-hint": "カバー／ヒーローアート (画像をクリックすると SteamGridDB で検索できます)",
+            "image-hint": "正方形アート (画像をクリックすると SteamGridDB で検索できます)"
         },
         "placeholder": {
             "image": "画像のURLを貼り付けるか、お使いのコンピュータから画像を選択してください",
@@ -251,11 +272,16 @@
         "import-hint": {
             "content": "そのためにこの機能を使用しないでください。<br />代わりに、ストアに<3>ログイン</3>し、ライブラリでゲームを探し、インストールダイアログを開いて「ゲームのインポート」ボタンをクリックします。",
             "title": "重要! Epic/GOG/Amazonからゲームを追加しますか? ここをクリックしてください!"
+        },
+        "images": {
+            "summary": "画像"
         }
     },
     "specs": {
         "minimum": "最低",
-        "recommended": "推奨"
+        "recommended": "推奨",
+        "notes": "注記",
+        "other": "その他"
     },
     "status": {
         "clickToUpdate": "クリックしてアップデート",
@@ -303,7 +329,8 @@
         "verify": "検証と修復",
         "extraInfo": "追加情報",
         "logs": "ログ",
-        "categories": "カテゴリー"
+        "categories": "カテゴリー",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブ機能を実装しているものもあります。",
@@ -340,10 +367,34 @@
     "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>",
     "open-saves-folder": "保存フォルダを開く",
     "edit-game": {
-        "advanced": "Advanced",
+        "advanced": "詳細",
         "placeholder": {
             "image": "ここにイメージURLをペーストしてください"
         },
-        "title": "App/ゲームを編集"
+        "title": "App/ゲームを編集",
+        "cover": "カバーアート",
+        "info": {
+            "cover": "カバー画像",
+            "square": "正方形画像"
+        },
+        "reset": "デフォルト設定に戻す",
+        "sgdb": {
+            "no-key-prefix": "SteamGridDBでカバーアートを検索するには、APIキーを追加してください",
+            "no-key-link": "[設定] → [詳細]"
+        },
+        "square": "正方形アート"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "実績",
+            "dlc": "DLC",
+            "installInfo": "ダウンロードサイズ",
+            "storeInfo": "システム情報"
+        }
     }
 }

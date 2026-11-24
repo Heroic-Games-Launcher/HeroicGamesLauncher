@@ -5,21 +5,30 @@
   width: 100%;
   padding: 0;
   border: none;
-  background-color: var(--gradient-gamecard);
+  background-color: transparent;
   color: var(--text-secondary);
   text-align: start;
-  border-radius: var(--space-3xs);
-  overflow: hidden;
   cursor: pointer;
-  box-shadow: 0px 0px 12px 4px #00000055;
   transition: transform 0.1s ease-in;
   animation: fade-in 0.1s ease-in;
+}
+
+/* Only the cover art is a rounded, shadowed card; the title and price sit as
+   plain text on the page below it (no footer box). */
+.discountCard__cover {
+  border-radius: var(--space-3xs);
+  overflow: hidden;
+  box-shadow: 0px 0px 12px 4px #00000055;
 }
 
 .discountCard:hover,
 .discountCard:focus-visible {
   transform: scale(1.05);
-  outline: none;
+}
+
+.discountCard:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .discountCard__image {
@@ -71,7 +80,7 @@
   right: 8px;
   z-index: 2;
   background: var(--success, #18ad57);
-  color: var(--text-tertiary, #ffffff);
+  color: var(--ink-on-success, #ffffff);
   font-weight: var(--bold);
   font-size: var(--text-md);
   padding: var(--space-3xs) var(--space-xs);
@@ -115,7 +124,7 @@
   background: rgba(0, 0, 0, 0.7);
   color: #ffffff;
   font-weight: var(--bold);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   padding: var(--space-3xs) var(--space-xs);
   border-radius: var(--space-3xs);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -132,7 +141,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3xs);
-  padding: var(--space-2xs) var(--space-xs);
+  padding: var(--space-2xs) 0 0;
 }
 
 .discountCard__title {
@@ -148,7 +157,7 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-xs);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
 }
 
 .discountCard__basePrice {
@@ -158,7 +167,7 @@
 }
 
 .discountCard__finalPrice {
-  color: var(--success, #18ad57);
+  color: var(--text-success, var(--success, #18ad57));
   font-weight: var(--bold);
   font-size: var(--text-md);
 }

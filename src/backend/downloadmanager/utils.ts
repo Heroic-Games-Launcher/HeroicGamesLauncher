@@ -41,7 +41,7 @@ async function installQueueElement(params: InstallParams): Promise<{
         title: i18next.t('box.warning.title', 'Warning'),
         message: i18next.t(
           'box.warning.epic.install',
-          'Epic Servers are having major outage right now, the game cannot be installed!'
+          'Epic servers are having major outage right now, the game cannot be installed!'
         ),
         type: 'ERROR'
       })
@@ -65,7 +65,7 @@ async function installQueueElement(params: InstallParams): Promise<{
 
   notify({
     title,
-    body: i18next.t('notify.install.startInstall', 'Installation Started')
+    body: i18next.t('notify.install.startInstall', 'Installation started')
   })
 
   const errorMessage = (error: string) => {
@@ -127,7 +127,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
         title: i18next.t('box.warning.title', 'Warning'),
         message: i18next.t(
           'box.warning.epic.update',
-          'Epic Servers are having major outage right now, the game cannot be updated!'
+          'Epic servers are having major outage right now, the game cannot be updated!'
         ),
         type: 'ERROR'
       })
@@ -143,7 +143,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
 
   notify({
     title,
-    body: i18next.t('notify.update.started', 'Update Started')
+    body: i18next.t('notify.update.started', 'Update started')
   })
 
   const errorMessage = (error: string) => {

@@ -11,7 +11,13 @@
         "titles_always_visible": "Címek megjelenítése mindig a könyvtárban",
         "actions_font_family_default": "Műveletek betűkészlete (Alapértelmezett: {{fontFamily}})",
         "disable_smooth_scrolling": "Sima görgetés letiltása (újraindítást igényel)",
-        "disable_animations": "A felhasználói felület animációinak letiltása"
+        "disable_animations": "A felhasználói felület animációinak letiltása",
+        "section": {
+            "library": "Könyvtár",
+            "appearance": "Megjelenés",
+            "motion": "Mozgás és interakció"
+        },
+        "subtitle": "A Heroic megjelenésének és működésének testreszabása"
     },
     "add_game": "Játék hozzáadása",
     "All": "Összes",
@@ -22,7 +28,8 @@
         "source": "Forrás",
         "status": "Állapot",
         "title": "Ez a játék csalás elleni szoftvert tartalmaz",
-        "multiplayer_may_not_work": "A csalás elleni szoftver hibás vagy letiltott támogatása miatt a többjátékos funkciók lehet, hogy nem fognak működni."
+        "multiplayer_may_not_work": "A csalás elleni szoftver hibás vagy letiltott támogatása miatt a többjátékos funkciók lehet, hogy nem fognak működni.",
+        "removed": "Csalás elleni szoftver eltávolítva"
     },
     "box": {
         "cache-cleared": {
@@ -96,13 +103,21 @@
             "steam": {
                 "message": "A Steam telepítése sikertelen! Olvassa el figyelmesen az utasításokat, és próbálja újra! {{paragraph}} {{error}}",
                 "title": "Steam hiba",
-                "error": "A Steam indítófájlja nem található. Lehet, hogy egy felhasználó megszakította a telepítést, vagy hiba történt a Steam oldalán."
+                "error": "A Steam indítófájlja nem található. Lehet, hogy egy felhasználó megszakította a telepítést, vagy hiba történt a Steam oldalán.",
+                "running": "A Steam fut. Zárd be a Steamet és próbáld újra, vagy indítsd újra a Steamet egyszer, hogy a Heroic kezelni tudja a parancsikonokat, miközben a Steam fut.",
+                "running-gamemode": "A Steam egyszeri újraindítása szükséges, mielőtt a Heroic kezelhetné a Steam-parancsikonokat ezen az eszközön. Indítsd újra a Steamet, majd próbáld újra."
             },
             "executableNotFound": "Az indítófájl nem található",
             "executableNotFoundMessage": "A Heroic nem találta a játék indítófájlát. Állítsd be kézileg a játék beállításaiban.",
             "dxmt": {
                 "message": "Hiba a DXMT letöltésekor. Ellenőrizd az internetkapcsolatot!",
                 "title": "DXMT letöltési hiba"
+            },
+            "remove": {
+                "steam": {
+                    "body": "A(z) {{game}} eltávolítása a Steamből sikertelen volt:{{newLine}}{{error}}",
+                    "title": "Hiba a játék Steamről való eltávolításakor"
+                }
             }
         },
         "info": {
@@ -112,7 +127,7 @@
                 "message": "Új verzió érhető el.",
                 "message-finished": "Újraindítod most a Heroicot?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Frissítés befejezve",
+                "title-finished": "A frissítés befejezve",
                 "detailNoAutoupdate": "Az automatikus frissítések nem támogatottak a csomag formátumához. Használd a csomagkezelőt a frissítéshez."
             }
         },
@@ -182,6 +197,12 @@
             "rosetta": {
                 "title": "A Rosetta nem található",
                 "message": "A Heroichoz jelenleg a Rosetta szükséges macOS-en az Apple Silicon chipek esetén. Telepítsd a macOS terminálból a következő parancs használatával: „softwareupdate --install-rosetta”, majd indítsd újra a Heroicot. "
+            },
+            "itchio": {
+                "installer": {
+                    "message": "A Heroic észlelte, hogy a(z) „{{title}}” futtatható fájlja egy telepítő. ({{exe}})\n\nA Heroic megpróbálja csendben futtatni a telepítőt, és a játékot a következő helyre telepíteni:\n{{path}}\n\nHa ezután nem indul el a játék, nyisd meg a játék beállításait, majd a Speciális részen az Alternatív futtatható fájl beállításánál válaszd ki a játék tényleges futtatható fájlját.\n\nFolytatod az indítást?",
+                    "title": "Telepítő észlelve"
+                }
             }
         },
         "wineprefix": "Wine-környezetmappa kiválasztása",
@@ -193,7 +214,9 @@
         "postpone": "Elhalasztás",
         "launchAnyway": "Játék indítása ennek ellenére",
         "shaderPreCachingDisabledMessage": "A Steam shader előtöltése ki van kapcsolva. Kérjük, engedélyezze a Steam beállításaiban asztali módban, hogy a játék megfelelően működjön az UMU-val.",
-        "shaderPreCachingDisabledTitle": "Shader előtöltés kikapcsolva"
+        "shaderPreCachingDisabledTitle": "Shader előtöltés kikapcsolva",
+        "cancel": "Mégse",
+        "choose-aurelia-binary": "Aurelia bináris kiválasztása"
     },
     "button": {
         "cancel": "Mégse",
@@ -202,7 +225,9 @@
         "sync": "Szinkronizálás",
         "syncing": "Szinkronizálás folyamatban",
         "unsync": "Deszinkronizálás",
-        "continue": "Folytatás"
+        "continue": "Folytatás",
+        "close": "Bezárás",
+        "backToLibrary": "Vissza a könyvtárhoz"
     },
     "controller": {
         "hints": {
@@ -238,7 +263,8 @@
         },
         "label": {
             "disk": "Lemez",
-            "speed": "Letöltés"
+            "speed": "Letöltés",
+            "unit": "MB/s"
         },
         "link": "Letöltések",
         "queue": {
@@ -248,7 +274,15 @@
             "type": "Típus"
         },
         "title": "Letöltések",
-        "ETA": "Becsült idő"
+        "ETA": "Becsült idő",
+        "empty": {
+            "current": "A telepített vagy frissített játékok előrehaladása itt jelenik meg.",
+            "queue": {
+                "description": "Az elindított letöltések itt várakoznak, amíg egy másik letöltés folyamatban van.",
+                "title": "A várólista üres"
+            }
+        },
+        "pageSubtitle": "Mi települ éppen, mi következik, és mi készült már el"
     },
     "epic": {
         "offline-notification-body": "Az online szolgáltatások lehet, hogy nem működnek teljesen, mert az Epic Games kiszolgálói nem működnek.",
@@ -261,14 +295,15 @@
         "status": "Állapot",
         "store": "Áruház",
         "title": "Játék címe",
-        "modify": "Telepítés módosítása"
+        "modify": "Telepítés módosítása",
+        "settings": "Játék beállításai"
     },
     "generic": {
         "error": {
             "component": "Nem található játék – Próbálj meg ki- és bejelentkezni, vagy próbáld ki az alábbi lehetőségek egyikét"
         },
         "library": {
-            "refresh": "Könyvtár frissítése"
+            "refresh": "Refresh Library"
         },
         "abort": "Megszakítás",
         "install": "Telepítés",
@@ -296,10 +331,15 @@
         "uncategorized": "Kategorizálatlan",
         "show_support_offline_only": "Csak az offline támogatásúak megjelenítése",
         "show_third_party_managed_only": "Csak a külső kezelésűek megjelenítése",
-        "show_updates_only": "Csak a frissítésekkel rendelkező játékok megjelenítése"
+        "show_updates_only": "Csak a frissítésekkel rendelkező játékok megjelenítése",
+        "platforms": "Platform",
+        "stores": "Áruházak",
+        "display": "Megjelenítés",
+        "hidden": "Rejtett",
+        "non_available": "Nem érhető el"
     },
     "help": {
-        "amdfsr": "Az AMD FSR segít a képkockasebesség növelésében az alacsonyabb felbontások felskálázásával teljes képernyős módban. A képminőség 5-ről 1-re növekszik, némi teljesítménycsökkenés mellett. Engedélyezése javíthat a teljesítményen.",
+        "amdfsr": "Az AMD FSR segít a képkockasebesség növelésében az alacsonyabb felbontások felskálázásával teljes képernyős módban. A képminőség 5-ről 1-re növekszik, némi teljesítménycsökkenés mellett. engedélyezése javíthat a teljesítményen.",
         "custom_themes_path": "Ne használj nem megbízható forrásokból származó CSS-fájlokat. Kétség esetén kérj felülvizsgálatot a Discord csatornánkon.",
         "custom_themes_wiki": "Nézd meg a Wikit az egyéni témák hozzáadásával kapcsolatos további részletekért. Kattints ide.",
         "dxvk": "A DXVK egy Vulkanon alapuló fordítási szoftverréteg a DirectX 9, 10 és 11 játékoknak. Engedélyezése növelheti a kompatibilitást. Okozhat problémákat, különösen a régebbi DirectX játékok esetén.",
@@ -377,7 +417,7 @@
         "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken.",
         "dxfpslimit": "Képkockaszámkorlátot állít be a DXVK-s játékokhoz",
         "advertiseAvxForRosetta": "Engedélyezi az AVX utasításkészlet támogatását, ha Windowsos játékokat futtat a Rosettával az Apple Silicon Maceken. Ez az olyan játékok esetén lehet szükséges, mint a Death Stranding, amelyhez AVX támogatás szükséges.",
-        "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve, és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni.",
+        "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni.",
         "wine-hdr": "A HDR javítja a színeket azáltal, hogy világosabb fényeket és mélyebb kontrasztokat biztosít. A HDR működéséhez mind a kijelzőnek, mind a játéknak támogatnia kell azt.",
         "wine-wayland": "A kísérleti Wine-Wayland illesztőprogram lehetővé teszi a játékok natív futtatását a Wayland megjelenítési protokoll alatt. Engedélyezése néhány játéknál problémákat okozhat.",
         "analytics": "Lehetővé teszi a Heroic számára, hogy 100%-ban anonim használati adatokat gyűjtsön az alkalmazás fejlesztésének érdekében. Újraindítás után lép életbe.",
@@ -433,7 +473,9 @@
             "list": "Lista elrendezés engedélyezése"
         },
         "hideAlphabetFilter": "Betűrendes szűrő elrejtése",
-        "showAlphabetFilter": "Betűrendes szűrő megjelenítése"
+        "showAlphabetFilter": "Betűrendes szűrő megjelenítése",
+        "gamesCount_one": "{{count}} játék",
+        "gamesCount_other": "{{count}} játék"
     },
     "Library": "Könyvtár",
     "loading": {
@@ -447,7 +489,15 @@
         "message": "Jelentkezz be a platformjaidra. Egyszerre több helyre is bejelentkezhetsz.",
         "amazon": "Amazon bejelentkezés",
         "old-mac": "A macOS verziója: {{version}}. macOS 12 vagy újabb szükséges a belépéshez.",
-        "zoom": "Zoom bejelentkezés"
+        "zoom": "Zoom bejelentkezés",
+        "itchio": "Bejelentkezés az itch.io-ba",
+        "button": "Bejelentkezés",
+        "logout_confirm": {
+            "message": "Biztos, hogy kijelentkezik?",
+            "title": "Kijelentkezés"
+        },
+        "title_epic": "Epic Games",
+        "title_gog": "GOG"
     },
     "message": {
         "sync": "Szinkronizálás befejezve",
@@ -463,14 +513,16 @@
                 "steam": {
                     "corrupt": "A(z) {{game}} nem adható hozzá az összes megtalált Steam felhasználóhoz. További információkért lásd a naplókat. A változások érvénybe lépéséhez újra kell indítani a Steamet.",
                     "success": "A(z) {{game}} sikeresen hozzá lett adva Steamhez. A változások érvénybe lépéséhez újra kell indítani a Steamet.",
-                    "title": "Hozzáadva a Steamhez"
+                    "title": "Hozzáadva a Steamhez",
+                    "success-no-restart": "A(z) {{game}} sikeresen hozzáadva a Steamhez."
                 }
             },
             "remove": {
                 "steam": {
                     "corrupt": "A(z) {{game}} nem távolítható el az összes Steam felhasználótól. További információkért lásd a naplókat. A változások érvénybe lépéséhez újra kell indítani a Steamet.",
                     "success": "A(z) {{game}} sikeresen el lett távolítva a Steamből. A változások érvénybe lépéséhez újra kell indítani a Steamet.",
-                    "title": "Eltávolítva a Steamről"
+                    "title": "Eltávolítva a Steamről",
+                    "success-no-restart": "A(z) {{game}} sikeresen eltávolítva a Steamből."
                 }
             },
             "reparing": "A javítás befejezve"
@@ -516,16 +568,22 @@
             "placeHolderKey": "NÉV",
             "placeHolderValue": "Például: elérési/út/ExtraFájlok",
             "title": "Környezeti változók",
-            "value": "Érték"
+            "value": "Érték",
+            "placeHolderV": "ÉRTÉK"
         },
         "env_variables": {
             "error": {
                 "empty_key": "A változónevek nem lehetnek üresek",
                 "equal_sign_in_key": "A változónevek nem tartalmazhatnak „=” jelet",
-                "space_in_key": "A változónevek nem tartalmazhatnak szóközt"
+                "space_in_key": "A változónevek nem tartalmazhatnak szóközt",
+                "duplicate_key": "Már létezik ilyen nevű változó"
             },
             "example": "NE tartalmazza a „=” jelet, például a „MY_FLAG=123” beállításához állítsd be a NAME értékének „MY_FLAG”, a VALUE értékének pedig „123”.",
-            "info": "A parancshoz fűzendő környezeti változók beállítása."
+            "info": "A parancshoz fűzendő környezeti változók beállítása.",
+            "add_new": "Új változó hozzáadása",
+            "bulk_edit": "Tömeges szerkesztés",
+            "bulk_edit_error": "Néhány változó hibás. Ellenőrizd, hogy minden sor a KULCS=ÉRTÉK formátumot követi-e.",
+            "clear_all_confirm": "Biztosan törölni szeretnéd az összes környezeti változót?"
         },
         "gameargs": {
             "placeholder": "Ide írd az indító argumentumait",
@@ -574,7 +632,8 @@
         "dxvkfpsvalue": "Pozitív egész érték (például 30, 60, …)",
         "egs-prefix": "Környezet, ahol telepítve van az EGS",
         "prefered_language": "2 vagy 4 karakteres kód (tehát „fr” vagy „pt-BR”)",
-        "alt-nile-bin": "A beépített Nile bináris használata…"
+        "alt-nile-bin": "A beépített Nile bináris használata…",
+        "alt-aurelia-bin": "Beépített Legendary bináris használata..."
     },
     "platforms": {
         "linux": "Linux",
@@ -594,7 +653,8 @@
             "queued": "Sorbaállítva",
             "remove": "Eltávolítás a letöltések közül",
             "pause": "Letöltés szüneteltetése",
-            "resume": "Letöltés folytatása"
+            "resume": "Letöltés folytatása",
+            "paused": "Szüneteltetve"
         }
     },
     "Recent": "Nemrég játszott",
@@ -641,7 +701,8 @@
             "removeConfirm": "Biztosan eltávolítod az EOS átfedést?",
             "removeConfirmTitle": "Átfedés eltávolításának megerősítése",
             "updateNow": "Frissítés",
-            "updating": "Frissítés…"
+            "updating": "Frissítés…",
+            "description": "Az Epic játékon belüli átfedő felülete, amely egyes Epic-játékokban szükséges az ismerősök és az eredmények eléréséhez"
         },
         "esync": "Esync engedélyezése",
         "exit-to-tray": "Kilépés a rendszertálcára",
@@ -701,9 +762,13 @@
                 "gog": "GOG napló",
                 "heroic": "Általános Heroic napló",
                 "nile": "Amazon / Nile napló",
-                "zoom": "Zoom napló"
+                "zoom": "Zoom napló",
+                "itchio": "itch.io-napló"
             },
-            "show-uploads": "Feltöltött naplófájlok megjelenítése"
+            "show-uploads": "Feltöltött naplófájlok megjelenítése",
+            "error": "Belső hiba a naplófájl olvasása közben",
+            "jump-to-end": "Ugrás a napló végére",
+            "jump-to-start": "Ugrás a napló elejére"
         },
         "mangohud": "Mangohud engedélyezése (a Mangohudnak telepítve kell lennie)",
         "manualsync": {
@@ -723,12 +788,15 @@
         "preferSystemLibs": "Rendszer programkönyvtárainak előnyben részesítése",
         "runexe": {
             "message": "Húzza és ejtse ide ide a fájlokat",
-            "title": "EXE-fájl futtatása a környezeten"
+            "title": "EXE-fájl futtatása a környezeten",
+            "description": "Bármely futtatható fájl futtatása ebben a prefixben, például egy telepítő"
         },
         "savefolder": {
             "not-found": "A mentési mappa nem található, válaszd ki kézileg (kattints az újrapróbálkozáshoz)",
             "placeholder": "Pontos játékmentési mappa kiválasztása",
-            "warning": "Jelöld be kétszer, ha az elérési út helyes (kattints az újrapróbálkozáshoz)"
+            "warning": "Jelöld be kétszer, ha az elérési út helyes (kattints az újrapróbálkozáshoz)",
+            "retry": "Újbóli keresés",
+            "title": "Mentési mappa"
         },
         "select_theme": "Téma kiválasztása",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
@@ -781,7 +849,8 @@
         "after-launch-script-path": "Válaszd ki a játék kilépése után futtatandó parancsfájlt",
         "disableUMU": "Az umu letiltása",
         "verboseLogs": {
-            "description": "Bőbeszédű naplók engedélyezése"
+            "description": "Bőbeszédű naplók engedélyezése",
+            "hint": "Részletes napló készítése minden indításkor, ami hasznos lehet a problémák bejelentésekor"
         },
         "custom_css": {
             "warning": "Figyelmeztetés: ez az egész felhasználói felületre érvényes. Ez azt jelenti, hogy a hibás stílus használhatatlanná teheti a Heroicot. Ha szükséges, a beállítás kézileg megváltoztatható a `~/.config/heroic/config.json` fájlban. NE másolj stílusokat olyan forrásokból, melyekben nem bízol."
@@ -816,7 +885,7 @@
             "info_label": "A Valve Proton-verziók figyelmen kívül hagyva"
         },
         "WoW64": "WoW64 engedélyezése (kísérleti)",
-        "scripts": "Parancsfájlok:",
+        "scripts": "Parancsfájlok",
         "enable-quick-sync-menu": "Gyors mentés szinkronizálás menü engedélyezése a játék adatlapján",
         "disable_gog_presence": "GOG jelenlétfrissítések letiltása",
         "start-in-console-mode": "Indítás konzol módban",
@@ -829,12 +898,92 @@
         "steamRuntime": {
             "label": "Steam futtatókörnyezet használata",
             "noRuntimeOption": "None"
+        },
+        "tools": {
+            "open": "Megnyitás",
+            "selectExe": "EXE kiválasztása",
+            "running": "Futtatás…"
+        },
+        "allow-broken-anticheat": {
+            "description": "Olyan játékok telepítésének engedélyezése, amelyek csalás elleni védelme ismerten nem működik ezen a rendszeren"
+        },
+        "analytics": {
+            "description": "Névtelen használati adatok megosztása a Heroic fejlesztésének elősegítésére"
+        },
+        "darktrayicon": {
+            "description": "A tálcaikon sötét változatának használata, amely világos paneleken jobban látható"
+        },
+        "disableController": {
+            "description": "A Heroic ne reagáljon játékvezérlő-bemenetre"
+        },
+        "disableDiscounts": "Kedvezmények oldal letiltása",
+        "disableGOGAffiliate": "GOG-partnerhivatkozások letiltása",
+        "experimental_features_description": {
+            "cometSupport": "GOG Galaxy-funkciók, például az eredmények és a többjátékos mód engedélyezése",
+            "enableHelp": "Az éppen fölé vitt beállítást ismertető súgópanel megjelenítése az alkalmazásban",
+            "zoomPlatform": "A Zoom Platform áruház hozzáadása a könyvtárhoz"
+        },
+        "framelessWindow": {
+            "description": "A natív címsor elrejtése és a Heroic saját ablakvezérlőinek használata"
+        },
+        "minimizeOnLaunch": {
+            "description": "A Heroic háttérbe küldése a játék elindításakor"
+        },
+        "nvidiaPrime": {
+            "description": "A játék futtatása a dedikált NVIDIA GPU-n az integrált helyett"
+        },
+        "playtimeSync": {
+            "description": "A rögzített játékidő szinkronban tartása az áruházzal"
+        },
+        "winecfg": {
+            "description": "A Wine konfigurációs paneljének megnyitása ehhez a prefixhez"
+        },
+        "winetricks": {
+            "description": "Windows-könyvtárak és -összetevők telepítése ebbe a környezetbe"
+        },
+        "wow64": {
+            "description": "32 bites játékok futtatása 64 bites környezetben, külön környezet létrehozása nélkül"
+        },
+        "disable-gog-presence": {
+            "description": "GOG-játékállapot megosztásának kikapcsolása"
+        },
+        "autodxvk-description": "",
+        "start-in-console-mode-description": "",
+        "msync-description": "",
+        "autoUpdateGames-description": "",
+        "fsync-description": "",
+        "hdr-description": "",
+        "showfps-description": "",
+        "hideChangelogsOnStartup-description": "",
+        "autovkd3d-description": "",
+        "addgamestosteam-description": "",
+        "mangohud-description": "",
+        "advertiseAvxForRosetta-description": "",
+        "ignoreGameUpdates-description": "",
+        "autodxvknvapi-description": "",
+        "exit-to-tray-description": "",
+        "dxfpslimit-description": "",
+        "download-no-https-description": "",
+        "discordRPC-description": "",
+        "preferSystemLibs-description": "",
+        "esync-description": "",
+        "enableFSRHack-description": "",
+        "offlinemode-description": "",
+        "checkForUpdatesOnStartup-description": "",
+        "disableUMU-description": "",
+        "gamemode-description": "",
+        "alt-aurelia-bin": "Válasszon egy alternatív Nile binárist",
+        "steamLaunchTarget": {
+            "downloadBuild": "Download",
+            "missingBuild": "Teljesen letöltve",
+            "missingRuntime": "A VCRuntime nincs telepítve"
         }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "BattlEye futtatókörnyezet telepítése…",
-            "name": "BattlEye csalás elleni futtatókörnyezet"
+            "name": "BattlEye csalás elleni futtatókörnyezet",
+            "hint": "A BattlEye védelemmel ellátott játékok futtatásához szükséges futtatókörnyezet telepítése"
         },
         "clear-cache": "Heroic gyorsítótár törlése",
         "copiedToClipboard": "Vágólapra másolva.",
@@ -846,7 +995,8 @@
                 "title": "GameMode szükséges"
             },
             "installing": "EAC futtatókörnyezet telepítése…",
-            "name": "EasyAntiCheat futtatókörnyezet"
+            "name": "EasyAntiCheat futtatókörnyezet",
+            "hint": "Az Easy Anti-Cheat védelemmel ellátott játékok futtatásához szükséges futtatókörnyezet telepítése"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -867,7 +1017,9 @@
             "wineExt": "Wine Extensions",
             "systemInformation": "Rendszer-információk",
             "gamescope": "Gamescope",
-            "legacy": "Örökölt"
+            "legacy": "Örökölt",
+            "categories": "Kategóriák",
+            "tabs": "Beállítási kategóriák"
         },
         "open-config-file": "Beállítófájl megnyitása",
         "reset-heroic": "A Heroic visszaállítása",
@@ -878,27 +1030,30 @@
             "not_supported": "Ez a játék nem támogatja a felhőmentéseket."
         },
         "systemInformation": {
-            "cpu": "CPU:",
-            "gpuWithNumber": "{{number}}. GPU:",
+            "cpu": "CPU",
+            "gpuWithNumber": "{{number}}. GPU",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "systemSpecifications": "Rendszer-specifikációk:",
             "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Illesztőprogram: {{driverVersion}}",
-            "os": "Operációs rendszer:",
-            "gpu": "GPU:",
+            "os": "Operációs rendszer",
+            "gpu": "GPU",
             "osVersion": "Verzió: {{versionNumber}}",
             "osNameFlatpak": "{{osName}} (Flatpaken belül)",
-            "software": "Szoftver:",
+            "software": "Szoftver",
             "memoryStats": "{{percentUsed}}% használatban ({{usedGib}}/{{totalGib}})",
-            "systemModel": "Rendszermodell:",
+            "systemModel": "Rendszermodell",
             "showDetailed": "Részletes rendszerleírás megjelenítése",
-            "memory": "Memória:",
+            "memory": "Memória",
             "copyToClipboard": "Vágólapra másolás",
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
             "legendaryVersion": "Legendary: {{legendaryVersion}}",
-            "cometVersion": "Comet: {{cometVersion}}"
+            "cometVersion": "Comet: {{cometVersion}}",
+            "cpuCores": "{{numOfCores}} processzormag",
+            "memoryPercent": "{{percentUsed}}% használatban",
+            "memoryUsage": "{{usedGib}} / {{totalGib}}"
         },
         "experimental_features": {
             "title": "Kísérleti funkciók"
@@ -917,7 +1072,8 @@
                 "help7": "Áruházi bejelentkezések",
                 "help9": "Játékbeállítások",
                 "help3": "Legendary könyvtárinformációk (játéklista, telepítési párbeszédablak információi, játékinformációk)",
-                "help2": "Harmadik féltől származó játékinformációk (pontok, steam kompatibilitás, howlongtobeat, pcgamingwiki, applegamingwiki)"
+                "help2": "Harmadik féltől származó játékinformációk (pontok, steam kompatibilitás, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "description": "A játékokkal és áruházakkal kapcsolatos gyorsítótárazott adatok törlése, hogy a Heroic újra letöltse őket. A játékaid, bejelentkezési adataid és beállításaid megmaradnak."
             },
             "title": {
                 "resetHeroic": "A Heroic visszaállítása",
@@ -925,7 +1081,8 @@
             },
             "details": "Részletek",
             "resetHeroic": {
-                "help": "Ez eltávolítja az összes beállítást és gyorsítótárazást, de nem távolítja el a telepített játékokat vagy az Epichez használt hitelesítési adatokat. A Heroic hordozható verzióit (AppImage, WinPortable, …) kézileg kell újraindítani."
+                "help": "Ez eltávolítja az összes beállítást és gyorsítótárazást, de nem távolítja el a telepített játékokat vagy az Epichez használt hitelesítési adatokat. A Heroic hordozható verzióit (AppImage, WinPortable, …) kézileg kell újraindítani.",
+                "description": "A Heroic visszaállítása az alapértelmezett beállításokra. A telepített játékok és az áruházi bejelentkezések megmaradnak."
             }
         },
         "offline": {
@@ -934,7 +1091,7 @@
         "custom_css": {
             "title": "Egyéni CSS stílus"
         },
-        "launchOptions": "Indítási kapcsolók…",
+        "launchOptions": "Indítási kapcsolók",
         "legacy_warning": "Figyelmeztetés: Ezen a lapon található beállítások nagyrészt elavultak, és előfordulhat, hogy egyáltalán nem működnek.",
         "steamgriddb": {
             "apikey": {
@@ -945,13 +1102,45 @@
             "help": {
                 "description": "Add meg a saját SteamGridDB API-kulcsodat a játékborítók keresésének engedélyezéséhez. A kulcs titkosítva kerül tárolásra, ha a rendszered támogatja. Itt szerezhetsz egyet: {{url}}"
             }
+        },
+        "open-game-settings-file-hint": "Kattints a játék beállításfájljának megnyitásához",
+        "section": {
+            "downloads": "Letöltések",
+            "experimental": "Kísérleti funkciók",
+            "launch": "Indítási kapcsolók",
+            "wineTools": "Ezközök",
+            "wineVersion": "Wine",
+            "appearance": "Megjelenés",
+            "behaviour": "Működés",
+            "binaries": "Alternatív futtatható fájlok",
+            "controller": "Játékvezérlő",
+            "environment": "Indítóprogram és környezet",
+            "gameplay": "Játékmenet",
+            "graphics": "Grafika és fordítás",
+            "integrations": "Integrációk",
+            "language": "Nyelv és régió",
+            "locations": "Helyek",
+            "maintenance": "Testreszabás és karbantartás",
+            "performance": "Teljesítmény és átfedések",
+            "privacy": "Adatvédelem",
+            "runtimes": "Futtatókörnyezetek",
+            "system": "Rendszer",
+            "winePerformance": "Teljesítmény"
+        },
+        "pageSubtitle": {
+            "advanced": "Futtatható fájlok, kísérleti funkciók és karbantartás",
+            "games_settings_defaults": "Az újonnan telepített játékokra alkalmazott alapértelmezett beállítások",
+            "general": "Az indítóprogram beállításainak testreszabása",
+            "log": "A Heroic naplóinak megtekintése és megosztása",
+            "systeminfo": "A hardvered és a Heroic által használt verziók"
         }
     },
     "Settings": "Beállítások",
     "sidebar": {
         "collapse": "Collapse sidebar",
         "uncollapse": "Uncollapse sidebar",
-        "console": "Konzol mód"
+        "console": "Konzol mód",
+        "storesLogin": "Áruházi bejelentkezések"
     },
     "status": {
         "installing": "Telepítés…",
@@ -982,7 +1171,10 @@
         "show": "Megjelenítés"
     },
     "two_col_table": {
-        "save_hint": "A táblázat módosításai nem kerülnek automatikusan mentésre. Kattints a + gombra."
+        "save_hint": "A táblázat módosításai nem kerülnek automatikusan mentésre. Kattints a + gombra.",
+        "add": "Hozzáadás",
+        "edit": "Szerkesztés",
+        "remove": "Eltávolítás"
     },
     "Update Available!": "Frissítés érhető el.",
     "userselector": {
@@ -993,7 +1185,8 @@
         "manageaccounts": "Fiókok kezelése",
         "quit": "Kilépés",
         "cancel": "Mégse",
-        "quitMessage": "Biztosan kilépsz?"
+        "quitMessage": "Biztosan kilépsz?",
+        "manage": "Kezelés"
     },
     "webview": {
         "controls": {
@@ -1001,22 +1194,25 @@
             "forward": "Előre",
             "openInBrowser": "Megnyitás böngészőben",
             "reload": "Lap újratöltése",
-            "home": "Ugrás az áruház kezdőlapjára"
+            "home": "Ugrás az áruház kezdőlapjára",
+            "disableGameInput": "Játékbemenet letiltása és visszatérés a Heroic kezeléséhez",
+            "enableGameInput": "Billentyűzet- és játékvezérlő-bemenet engedélyezése az oldalon"
         }
     },
     "wine": {
         "actions": "Művelet",
         "manager": {
-            "link": "Wine-kezelő",
+            "link": "Wine kezelő",
             "not-found": "Nem található Wine verzió. Kattints a frissítés gombra az újrapróbálkozáshoz.",
-            "title": "Wine-kezelő",
+            "title": "Wine kezelő",
             "unzipping": "Kibontás",
             "search": "Verziók keresése…",
             "loading": "Wine verziók betöltése…",
             "open_folder": "Mappa megnyitása",
             "update": "Frissítés",
             "settings": "Beállítások",
-            "no-results": "Nincs a keresésnek megfelelő Wine verzió."
+            "no-results": "Nincs a keresésnek megfelelő Wine verzió.",
+            "subtitle": "A Heroic által használható Wine-, Proton- és CrossOver-verziók letöltése és kezelése"
         },
         "release": "Kiadás dátuma",
         "size": "Méret",
@@ -1066,7 +1262,10 @@
     },
     "emptyLibrary": {
         "noResults": "A jelenlegi szűrők nem adtak találatokat.",
-        "noGames": "A könyvtárad üres.<br /><br />Kattints <4>ide</4>, hogy bejelentkezz az Epic, GOG.com vagy Amazon-fiókodba. Ezután a játékai meg fognak itt jelenni a Könyvtárban.<br /><br />A más forrásból származó játékok vagy alkalmazások használatához, kattints <br /> a kézi hozzáadásukhoz."
+        "noGames": "A könyvtárad üres.<br /><br />Kattints <4>ide</4>, hogy bejelentkezz az Epic, GOG.com vagy Amazon-fiókodba. Ezután a játékai meg fognak itt jelenni a Könyvtárban.<br /><br />A más forrásból származó játékok vagy alkalmazások használatához, kattints <br /> a kézi hozzáadásukhoz.",
+        "noResultsTitle": "Nem található játék",
+        "description": "<0>Jelentkezz be</0> Epic-, GOG.com-, Amazon-, itch.io- vagy Zoom-fiókoddal, és a játékaid megjelennek itt. Más forrásokból származó játékokat kézzel is hozzáadhatsz.",
+        "title": "A könyvtárad üres."
     },
     "wineExplanation": {
         "proton-ge": "A GE-Proton egy olyan Proton változat, melyet GloriousEggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
@@ -1157,7 +1356,7 @@
             "pt6": "Átláthatóság céljából megtekintheted az általunk gyűjtött adatokat a Heroic naplóiban.",
             "pt7": "Ezt a beállítást bármikor módosíthatod az Alkalmazásbeállításokban."
         },
-        "title": "Anonim analitika küldése"
+        "title": "Névtelen analitika küldése"
     },
     "amazon-luna": "Amazon Luna",
     "zoom-store": "Zoom Store",
@@ -1264,7 +1463,8 @@
             "grid": "Rács",
             "label": "Nézetmód",
             "list": "Lista"
-        }
+        },
+        "affiliateBanner": "Az ezen az oldalon található hivatkozások partnerhivatkozások. A rajtuk keresztül történő játék vásárlásával a Heroic fejlesztését támogatod."
     },
     "steamgriddb": {
         "error": {
@@ -1286,7 +1486,10 @@
             "title": "Frissítés szükséges",
             "hintSuffix": "gombot a visszalépéshez"
         },
-        "sort": "Rendezés",
+        "sort": {
+            "label": "Rendezés",
+            "last_played": "Legutóbb játsztva"
+        },
         "cancel": {
             "hintSuffix": "gombot 3 másodpercig a megszakításhoz",
             "hintPrefix": "Tartsd lenyomva a(z)"
@@ -1331,5 +1534,47 @@
             "message": "Ez a játék letöltési sorban van. Eltávolítod a sorból?"
         }
     },
-    "next": "Következő"
+    "next": "Következő",
+    "common": {
+        "add": "Hozzáadás",
+        "cancel": "Mégse",
+        "warning": "Figyelmeztetés",
+        "clear_all": "Összes törlése",
+        "confirm": "Megerősítés",
+        "duplicate": "Kétszerezés",
+        "edit": "Szerkesztés",
+        "remove": "Eltávolítás",
+        "save": "Mentés"
+    },
+    "General": "Általános",
+    "Accounts": "Fiókok",
+    "affiliate": {
+        "gogPrompt": {
+            "description": "A Heroic GOG-partnerhivatkozásokat használhat, amikor felkeresed a GOG áruházát. Ha a Heroicból továbblépve vásárolsz valamit, a GOG kis összegű jutalékot fizet nekünk, neked pedig ez semmilyen többletköltséggel nem jár. Nem látjuk és nem követjük nyomon, hogy milyen játékokat vásárolsz, vagy bármi mást a vásárlásaiddal kapcsolatban: a GOG csak azt tudja, hogy valaki a Heroicból érkezett. Ez a lehetőség alapértelmezés szerint ki van kapcsolva, és bármikor módosíthatod a Heroic speciális beállításaiban.",
+            "title": "Támogasd a Heroic fejlesztését GOG-vásárlásaiddal",
+            "toggle": "GOG-partnerhivatkozások használata"
+        }
+    },
+    "Community": "Közösség",
+    "itchio-store": "itch.io-áruház",
+    "Update available!": "Frissítés érhető el.",
+    "support": {
+        "actions": {
+            "open": "Megnyitás"
+        },
+        "title": "Támogass minket"
+    },
+    "cloudSync": {
+        "back": "Vissza",
+        "button": {
+            "download": "Download",
+            "sync": "Szinkronizálás",
+            "upload": "Feltöltés"
+        },
+        "column": {
+            "file": "Szűrő",
+            "size": "Méret"
+        },
+        "never": "Soha"
+    }
 }

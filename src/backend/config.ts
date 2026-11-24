@@ -49,18 +49,30 @@ function getSteamCompatFolder() {
       '.var/app/com.valvesoftware.Steam/.steam/steam'
     )
 
-    if (existsSync(flatpakSteamPath)) {
-      // check if steam is really installed via flatpak
-      const { status } = spawnSync('flatpak', [
-        'info',
-        'com.valvesoftware.Steam'
-      ])
+    const nativeSteamPath = join(userHome, '.steam/steam')
 
-      if (status === 0) {
-        return flatpakSteamPath
+    if (existsSync(flatpakSteamPath)) {
+      if (isFlatpak) {
+        // There is no `flatpak` command inside Heroic's own sandbox to ask
+        // whether Steam is installed. The manifest gives us access to Steam's
+        // data folder, which stays around after Steam is uninstalled, so only
+        // use it when there is no native Steam to prefer instead.
+        if (!existsSync(nativeSteamPath)) {
+          return flatpakSteamPath
+        }
+      } else {
+        // check if steam is really installed via flatpak
+        const { status } = spawnSync('flatpak', [
+          'info',
+          'com.valvesoftware.Steam'
+        ])
+
+        if (status === 0) {
+          return flatpakSteamPath
+        }
       }
     }
-    return join(userHome, '.steam/steam')
+    return nativeSteamPath
   }
 }
 
@@ -80,6 +92,16 @@ abstract class GlobalConfig {
 
   public set(config: AppSettings) {
     this.config = config
+  }
+
+  public hasSetting(key: keyof AppSettings): boolean {
+    const settings = configStore.get_nodefault('settings') ?? {}
+    return Object.prototype.hasOwnProperty.call(settings, key)
+  }
+
+  public reloadFromFile() {
+    this.config = undefined
+    this.config = this.getSettings()
   }
 
   /**
@@ -306,15 +328,45 @@ class GlobalConfigV0 extends GlobalConfig {
     if (!defaultSettings.defaultWinePrefixDir)
       defaultSettings.defaultWinePrefixDir = defaultSettings.defaultWinePrefix
 
+    // migrate legacy booleans to their replacements
+    if (
+      defaultSettings.hdrMode === undefined &&
+      defaultSettings.enableHDR !== undefined
+    ) {
+      defaultSettings.hdrMode = defaultSettings.enableHDR ? 'force' : 'off'
+    }
+    if (
+      defaultSettings.nvapiMode === undefined &&
+      defaultSettings.autoInstallDxvkNvapi !== undefined
+    ) {
+      defaultSettings.nvapiMode = defaultSettings.autoInstallDxvkNvapi
+        ? 'auto'
+        : 'off'
+    }
+
     // fix relative paths
     const winePrefix = !isWindows
       ? defaultSettings?.winePrefix?.replace('~', userHome)
       : ''
 
+    const factoryDefaults = this.getFactoryDefaults()
+
+    // The first start stores every default in config.json, so an install that
+    // ran before Flatpak Steam was detected keeps the native path forever. If
+    // that stored path does not exist and Steam was found elsewhere, follow
+    // the detected folder. A path the user set by hand is left alone.
+    const nativeSteamPath = join(userHome, '.steam/steam')
+    const storedSteamPath = defaultSettings.defaultSteamPath
+    const defaultSteamPath =
+      storedSteamPath === nativeSteamPath && !existsSync(nativeSteamPath)
+        ? factoryDefaults.defaultSteamPath
+        : (storedSteamPath ?? factoryDefaults.defaultSteamPath)
+
     settings = {
-      ...this.getFactoryDefaults(),
+      ...factoryDefaults,
       ...defaultSettings,
-      winePrefix
+      winePrefix,
+      defaultSteamPath
     } as AppSettings
 
     return settings
@@ -337,6 +389,8 @@ class GlobalConfigV0 extends GlobalConfig {
       preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
       autoUpdateGames: false,
+      backupSaves: true,
+      maxSaveBackupSize: 1,
       customWinePaths: [],
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
@@ -344,6 +398,8 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultWinePrefix: defaultWinePrefixDir,
       defaultWinePrefixDir: defaultWinePrefixDir,
       hideChangelogsOnStartup: false,
+      disableDiscounts: false,
+      enableGOGAffiliate: false,
       language: 'en',
       maxWorkers: 0,
       minimizeOnLaunch: false,
@@ -360,10 +416,21 @@ class GlobalConfigV0 extends GlobalConfig {
       enableMsync: isMac,
       enableWineWayland: false,
       enableHDR: false,
+      hdrMode: 'auto',
+      nvapiMode: 'auto',
+      disableNTSync: false,
+      fsr4Upgrade: false,
+      dlssUpgrade: false,
+      useOptiScaler: false,
+      umuGameId: '',
+      disableProtonFixes: false,
       enableWoW64: false,
       eacRuntime: isLinux,
       gamepadRepeatDelay: 50,
       gamepadInitialRepeatDelay: 300,
+      gamepadDeadzone: 0.15,
+      gamepadButtonMapping: {},
+      disableGuideButton: false,
       battlEyeRuntime: isLinux,
       framelessWindow: false,
       hideWindowOnProtocolLaunch: false,
@@ -371,12 +438,14 @@ class GlobalConfigV0 extends GlobalConfig {
       afterLaunchScriptPath: '',
       disableUMU: false,
       verboseLogs: true,
+      defaultSteamRuntime: false,
       downloadProtonToSteam: false,
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,
       showValveProton: false,
       steamGridDbApiKey: '',
-      disableGOGPresence: false
+      disableGOGPresence: false,
+      afterDownloadAction: 'none'
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

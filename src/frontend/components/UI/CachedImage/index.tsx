@@ -11,17 +11,18 @@ interface CachedImageProps {
 
 type Props = React.ImgHTMLAttributes<HTMLImageElement> & CachedImageProps
 
+const isCacheableSource = (src?: string) =>
+  Boolean(src?.startsWith('http') || src?.startsWith('file://'))
+
 const CachedImage = (props: Props) => {
-  const [useCache, setUseCache] = useState(
-    props.src?.startsWith('http') || false
-  )
+  const [useCache, setUseCache] = useState(isCacheableSource(props.src))
   const [loaded, setLoaded] = useState(false)
   const [useFallback, setUseFallback] = useState(false)
 
   useEffect(() => {
     setLoaded(false)
     setUseFallback(false)
-    setUseCache(props.src?.startsWith('http') || false)
+    setUseCache(isCacheableSource(props.src))
   }, [props.src])
 
   const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {

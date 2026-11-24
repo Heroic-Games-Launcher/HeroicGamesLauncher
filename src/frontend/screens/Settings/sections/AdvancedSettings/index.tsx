@@ -1,42 +1,47 @@
+import type { GameStatus } from 'common/types'
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  ContentCopyOutlined,
-  DeleteOutline,
-  CachedOutlined,
-  UploadOutlined,
-  DownloadOutlined,
-  CancelOutlined,
-  SelectAllOutlined,
-  DeselectOutlined
-} from '@mui/icons-material'
-import classNames from 'classnames'
-import SettingsContext from '../../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameStatus } from 'common/types'
 import {
   AllowInstallationBrokenAnticheat,
-  ShowValveProton,
-  AltGOGdlBin,
-  AltLegendaryBin,
-  AltNileBin,
   ClearCache,
   CustomCSS,
   DisableLogs,
+  DisableDiscounts,
+  DisableGOGAffiliate,
   DownloadNoHTTPS,
   ExperimentalFeatures,
   HideWindowOnProtocolLaunch,
   ResetHeroic,
-  GamePadDelayRepeat,
   SteamGridDbApiKey
 } from '../../components'
-import DisableGOGPresence from '../../components/DisableGOGPresence'
+import { Button, Icon, SettingRow, SettingsCard } from 'frontend/components/UI'
+import {
+  Bug,
+  Check,
+  Code2,
+  Copy,
+  Layers,
+  RefreshCw,
+  ShieldAlert,
+  SquareCheck,
+  SquareDashed,
+  Terminal,
+  Trash2,
+  Upload,
+  X,
+  Download as DownloadIcon
+} from 'lucide-react'
 
-export default function AdvancedSetting() {
-  const { config } = useContext(SettingsContext)
+interface Props {
+  copiedToClipboard: boolean
+  onCopySettings: () => void
+}
 
-  const [isCopiedToClipboard, setCopiedToClipboard] = useState(false)
-
+export default function AdvancedSetting({
+  copiedToClipboard,
+  onCopySettings
+}: Props) {
   const [eosOverlayInstalled, setEosOverlayInstalled] = useState(false)
   const [eosOverlayVersion, setEosOverlayVersion] = useState('')
   const [eosOverlayLatestVersion, setEosOverlayLatestVersion] = useState('')
@@ -51,19 +56,6 @@ export default function AdvancedSetting() {
   const { libraryStatus, platform } = useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
-  const isLinux = platform === 'linux'
-
-  useEffect(() => {
-    // set copied to clipboard status to true if it's not already set to true
-    // used for changing text and color
-    if (!isCopiedToClipboard) return
-
-    const timer = setTimeout(() => {
-      setCopiedToClipboard(false)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [isCopiedToClipboard])
 
   useEffect(() => {
     const getEosStatus = async () => {
@@ -108,16 +100,16 @@ export default function AdvancedSetting() {
         'The EOS Overlay is being updated...'
       )
     if (eosOverlayInstalled && !eosOverlayInstallingOrUpdating)
-      return t('setting.eosOverlay.installed', 'The EOS Overlay is installed')
+      return t('setting.eosOverlay.installed', 'The EOS overlay is installed')
     if (!eosOverlayInstalled && eosOverlayInstallingOrUpdating)
       return t(
         'setting.eosOverlay.installing',
-        'The EOS Overlay is being installed...'
+        'The EOS overlay is being installed...'
       )
     if (!eosOverlayInstalled && !eosOverlayInstallingOrUpdating)
       return t(
         'setting.eosOverlay.notInstalled',
-        'The EOS Overlay is not installed'
+        'The EOS overlay is not installed'
       )
     return ''
   }
@@ -170,197 +162,168 @@ export default function AdvancedSetting() {
   }
 
   return (
-    <div>
-      <h3 className="settingSubheader">{t('settings.navbar.advanced')}</h3>
-
-      <div className="advancedSetting">
+    <div className="settingsSections">
+      <SettingsCard
+        glyph={Code2}
+        title={t('settings.section.integrations', 'Integrations')}
+      >
         <SteamGridDbApiKey />
-        <hr />
-      </div>
+      </SettingsCard>
 
-      <AltLegendaryBin />
+      <SettingsCard
+        glyph={ShieldAlert}
+        title={t('settings.section.behaviour', 'Behaviour')}
+      >
+        <DownloadNoHTTPS />
+        <DisableLogs />
+        <DisableDiscounts />
+        <DisableGOGAffiliate />
+        <AllowInstallationBrokenAnticheat />
+        <HideWindowOnProtocolLaunch />
+      </SettingsCard>
 
-      <AltGOGdlBin />
-
-      <AltNileBin />
-
-      <DownloadNoHTTPS />
-
-      <DisableLogs />
-
-      <DisableGOGPresence />
-
-      <AllowInstallationBrokenAnticheat />
-
-      <GamePadDelayRepeat />
-
-      <HideWindowOnProtocolLaunch />
-
-      {isLinux && <ShowValveProton />}
-
-      <hr />
-
-      <div className="advancedSetting">
-        <h3>EOS Overlay</h3>
-        <div>{getMainEosText()}</div>
-        <br />
-        {eosOverlayInstalled && !eosOverlayInstallingOrUpdating && (
-          <>
-            <div>
-              {t(
-                'setting.eosOverlay.currentVersion',
-                'Current Version: {{version}}',
-                { version: eosOverlayVersion }
-              )}
-            </div>
-            <div>
-              {t(
-                'setting.eosOverlay.latestVersion',
-                'Latest Version: {{version}}',
-                { version: eosOverlayLatestVersion }
-              )}
-            </div>
-            <br />
-          </>
+      <SettingsCard
+        glyph={Layers}
+        title={t('settings.section.eosOverlay', 'EOS Overlay')}
+        description={t(
+          'setting.eosOverlay.description',
+          'Epic\u2019s in-game overlay, required by some Epic titles for friends and achievements'
         )}
-        <div className="footerFlex">
+      >
+        <SettingRow
+          label={getMainEosText()}
+          description={
+            eosOverlayInstalled && !eosOverlayInstallingOrUpdating
+              ? `${t(
+                  'setting.eosOverlay.currentVersion',
+                  'Current version: {{version}}',
+                  { version: eosOverlayVersion }
+                )} · ${t(
+                  'setting.eosOverlay.latestVersion',
+                  'Latest version: {{version}}',
+                  { version: eosOverlayLatestVersion }
+                )}`
+              : undefined
+          }
+        >
           {eosOverlayInstalled && (
             <>
-              {/* Check for updates */}
               {(eosOverlayVersion === eosOverlayLatestVersion ||
                 eosOverlayCheckingForUpdates) && (
-                <button
-                  className="button is-primary"
+                <Button
+                  variant="primary"
+                  icon={<Icon glyph={RefreshCw} size="md" />}
                   onClick={checkForEosOverlayUpdates}
                 >
-                  <CachedOutlined />
-                  <span>
-                    {eosOverlayCheckingForUpdates
-                      ? t(
-                          'setting.eosOverlay.checkingForUpdates',
-                          'Checking for updates...'
-                        )
-                      : t(
-                          'setting.eosOverlay.checkForUpdates',
-                          'Check for updates'
-                        )}
-                  </span>
-                </button>
+                  {eosOverlayCheckingForUpdates
+                    ? t(
+                        'setting.eosOverlay.checkingForUpdates',
+                        'Checking for updates...'
+                      )
+                    : t(
+                        'setting.eosOverlay.checkForUpdates',
+                        'Check for updates'
+                      )}
+                </Button>
               )}
-              {/* Update */}
               {eosOverlayVersion !== eosOverlayLatestVersion &&
                 !eosOverlayCheckingForUpdates && (
-                  <button
-                    className="button is-primary"
+                  <Button
+                    variant="primary"
+                    icon={<Icon glyph={Upload} size="md" />}
                     onClick={updateEosOverlay}
                   >
-                    <UploadOutlined />
-                    <span>
-                      {eosOverlayInstallingOrUpdating
-                        ? t('setting.eosOverlay.updating', 'Updating...')
-                        : t('setting.eosOverlay.updateNow', 'Update')}
-                    </span>
-                  </button>
+                    {eosOverlayInstallingOrUpdating
+                      ? t('setting.eosOverlay.updating', 'Updating...')
+                      : t('setting.eosOverlay.updateNow', 'Update')}
+                  </Button>
                 )}
-              {/* Enable/Disable */}
               {isWindows && (
-                <button
-                  className={
-                    eosOverlayEnabledGlobally
-                      ? 'button is-danger'
-                      : 'button is-primary'
+                <Button
+                  variant={eosOverlayEnabledGlobally ? 'dangerSubtle' : 'ghost'}
+                  icon={
+                    <Icon
+                      glyph={
+                        eosOverlayEnabledGlobally ? SquareDashed : SquareCheck
+                      }
+                      size="md"
+                    />
                   }
                   onClick={toggleEosOverlay}
                 >
-                  {eosOverlayEnabledGlobally ? (
-                    <DeselectOutlined />
-                  ) : (
-                    <SelectAllOutlined />
-                  )}
-                  <span>
-                    {eosOverlayEnabledGlobally
-                      ? t('setting.eosOverlay.disable', 'Disable')
-                      : t('setting.eosOverlay.enable', 'Enable')}
-                  </span>
-                </button>
+                  {eosOverlayEnabledGlobally
+                    ? t('setting.eosOverlay.disable', 'Disable')
+                    : t('setting.eosOverlay.enable', 'Enable')}
+                </Button>
               )}
-              {/* Remove */}
               {!eosOverlayInstallingOrUpdating && (
-                <button className="button is-danger" onClick={removeEosOverlay}>
-                  <DeleteOutline />
-                  <span>{t('setting.eosOverlay.remove', 'Uninstall')}</span>
-                </button>
+                <Button
+                  variant="dangerSubtle"
+                  icon={<Icon glyph={Trash2} size="md" />}
+                  onClick={removeEosOverlay}
+                >
+                  {t('setting.eosOverlay.remove', 'Uninstall')}
+                </Button>
               )}
             </>
           )}
-          {/* Install */}
           {!eosOverlayInstalled && !eosOverlayInstallingOrUpdating && (
-            <button className="button is-primary" onClick={installEosOverlay}>
-              <DownloadOutlined />
-              <span>{t('setting.eosOverlay.install', 'Install')}</span>
-            </button>
+            <Button
+              variant="primary"
+              icon={<Icon glyph={DownloadIcon} size="md" />}
+              onClick={installEosOverlay}
+            >
+              {t('setting.eosOverlay.install', 'Install')}
+            </Button>
           )}
-          {/* Cancel install/update */}
           {eosOverlayInstallingOrUpdating && (
-            <button
-              className="button is-danger"
+            <Button
+              variant="dangerSubtle"
+              icon={<Icon glyph={X} size="md" />}
               onClick={cancelEosOverlayInstallOrUpdate}
             >
-              <CancelOutlined />
-              <span>{t('setting.eosOverlay.cancelInstall', 'Cancel')}</span>
-            </button>
+              {t('setting.eosOverlay.cancelInstall', 'Cancel')}
+            </Button>
           )}
-        </div>
-        <hr />
-      </div>
+        </SettingRow>
+      </SettingsCard>
 
-      <div className="advancedSetting">
+      <SettingsCard
+        glyph={Bug}
+        title={t('settings.section.experimental', 'Experimental features')}
+      >
         <ExperimentalFeatures />
-        <hr />
-      </div>
+      </SettingsCard>
 
-      <div className="advancedSetting">
+      <SettingsCard
+        glyph={Terminal}
+        title={t('settings.section.maintenance', 'Customisation & maintenance')}
+      >
         <CustomCSS />
-        <hr />
-      </div>
-
-      <div className="advancedSetting">
-        <ClearCache />
-        <hr />
-      </div>
-
-      <div className="advancedSetting">
-        <ResetHeroic />
-        <hr />
-      </div>
-
-      <div className="footerFlex">
-        <button
-          className={classNames('button', 'is-footer', {
-            isSuccess: isCopiedToClipboard
-          })}
-          onClick={() => {
-            window.api.clipboardWriteText(
-              JSON.stringify({ ...config }, null, 2)
-            )
-            setCopiedToClipboard(true)
-          }}
+        <SettingRow
+          label={t(
+            'settings.copyToClipboard',
+            'Copy all settings to clipboard'
+          )}
+          description={t(
+            'settings.copySettings.description',
+            'Save the current Heroic configuration as JSON to the clipboard.'
+          )}
         >
-          <div className="button-icontext-flex">
-            <div className="button-icon-flex">
-              <ContentCopyOutlined />
-            </div>
-            <span className="button-icon-text">
-              {isCopiedToClipboard
-                ? t('settings.copiedToClipboard', 'Copied to Clipboard!')
-                : t(
-                    'settings.copyToClipboard',
-                    'Copy All Settings to Clipboard'
-                  )}
-            </span>
-          </div>
-        </button>
-      </div>
+          <Button
+            variant={copiedToClipboard ? 'primary' : 'ghost'}
+            size="sm"
+            icon={<Icon glyph={copiedToClipboard ? Check : Copy} size="md" />}
+            onClick={onCopySettings}
+          >
+            {copiedToClipboard
+              ? t('settings.copiedToClipboard', 'Copied to clipboard!')
+              : t('settings.copySettings.button', 'Copy')}
+          </Button>
+        </SettingRow>
+        <ClearCache />
+        <ResetHeroic />
+      </SettingsCard>
     </div>
   )
 }

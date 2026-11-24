@@ -40,14 +40,15 @@ const Tour: React.FC<TourProps> = ({
     skipLabel: t('tour.skip', 'Skip'),
     doneLabel: t('tour.done', 'Done'),
     showStepNumbers: false,
-    showBullets: true,
+    showBullets: false,
+    showProgress: true,
     exitOnOverlayClick: true,
     disableInteraction: false,
     highlightClass: 'heroic-tour-highlight',
     tooltipClass: 'heroic-tour-tooltip',
     overlayOpacity: 0.7,
-    scrollToElement: false,
-    scrollPadding: 0
+    scrollToElement: true,
+    scrollPadding: 16
   }
 
   const handleComplete = () => {

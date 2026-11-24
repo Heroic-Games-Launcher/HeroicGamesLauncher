@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Это изменит путь установки игры. Вы уверены?",
+            "message": "Это изменит путь установки игры, вы уверены?",
             "path": "Выберите новый путь установки",
             "title": "Изменить путь установки игры"
         },
@@ -97,7 +97,10 @@
         "browse_files": "Просмотр файлов",
         "browse_wine_prefix": "Просмотр префикса Wine",
         "play": "ИГРАТЬ",
-        "edit-game": "Редактировать игру"
+        "edit-game": "Редактировать игру",
+        "favourite": "Добавить в избранное",
+        "unfavourite": "Удалить из избранного",
+        "backToLibrary": ""
     },
     "cloud_save_unsupported": "Не поддерживается",
     "disabled": "Выключено",
@@ -133,7 +136,12 @@
         "modify": "Модифицировать установку",
         "extra_info": "Дополнительная информация",
         "install_info": "Информация об установке",
-        "achievements": "Достижения"
+        "achievements": "Достижения",
+        "details": "Детали игры",
+        "tabs": "",
+        "overview": "",
+        "hoursPlayedShort": "",
+        "about": "О программе"
     },
     "gamecard": {
         "moving": "Перемещение",
@@ -163,7 +171,16 @@
         "installedInfo": "Сведения об установке",
         "protondb-compatibility-info": "Уровень совместимости Proton",
         "steamdeck-compatibility-info": "Совместимость со SteamDeck",
-        "third-party-app": "Сторонний менеджер"
+        "third-party-app": "Сторонний менеджер",
+        "genres": "Жанры",
+        "steamdeck": {
+            "unsupported": "Не поддерживается",
+            "verified": "",
+            "unknown": "",
+            "playable": ""
+        },
+        "developer": "",
+        "dlcs": "DLC"
     },
     "install": {
         "disk-space-left": "Свободное место",
@@ -193,7 +210,8 @@
         "playing": {
             "start": "Начать игру",
             "stop": "Игра запущена (Остановить)",
-            "start_with_logs": "Играть сейчас (с логами)"
+            "start_with_logs": "Играть сейчас (с логами)",
+            "start_with_logs_hint": ""
         },
         "saves": {
             "syncing": "Синхронизация сохранений"
@@ -228,7 +246,8 @@
             "specificVersion-pt1": "Это скачает определенную версию Steam из",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "созданную для работы через Heroic ведь новые версии Steam не работают на macOS."
-        }
+        },
+        "releaseDate": "Дата выхода"
     },
     "launch": {
         "options": "Параметры запуска...",
@@ -282,7 +301,9 @@
     },
     "specs": {
         "minimum": "Минимальные",
-        "recommended": "Рекомендованные"
+        "recommended": "Рекомендованные",
+        "notes": "Заметки",
+        "other": "Другое"
     },
     "status": {
         "clickToUpdate": "Нажмите, чтобы обновить",
@@ -330,7 +351,8 @@
         "verify": "Проверить и восстановить",
         "extraInfo": "Дополнительная информация",
         "logs": "Журналы",
-        "categories": "Категории"
+        "categories": "Категории",
+        "more": ""
     },
     "help": {
         "cloud_save_unsupported": "Эта игра не поддерживает облачные сохранения. Эта информация предоставлена разработчиками игры. В некоторых играх реализована собственная система облачных сохранений",
@@ -383,5 +405,19 @@
         },
         "square": "Квадратная обложка",
         "title": "Редактировать игру"
+    },
+    "itchio": {
+        "import": {
+            "warning": ""
+        }
+    },
+    "steam": {
+        "data": {
+            "achievements": "Достижения",
+            "dlc": "DLC",
+            "installInfo": "Размер загрузки",
+            "launchOptions": "Параметры запуска",
+            "storeInfo": "Информация о системе"
+        }
     }
 }

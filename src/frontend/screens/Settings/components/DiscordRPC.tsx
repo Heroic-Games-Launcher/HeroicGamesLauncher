@@ -15,10 +15,14 @@ const DiscordRPC = () => {
 
   return (
     <ToggleSwitch
+      description={t(
+        'setting.discordRPC-description',
+        'Show the game you are playing on your Discord profile'
+      )}
       htmlId="discordRPC"
       value={discordRPC}
       handleChange={() => setDiscordRPC(!discordRPC)}
-      title={t('setting.discordRPC', 'Enable Discord Rich Presence')}
+      title={t('setting.discordRPC', 'Enable Discord rich presence')}
     />
   )
 }
