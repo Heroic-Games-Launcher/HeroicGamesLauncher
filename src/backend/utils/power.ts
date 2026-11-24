@@ -9,11 +9,13 @@ async function runPowerCommand(command: string) {
   try {
     await execAsync(fullCommand)
     logInfo(`Executed power command: ${fullCommand}`, LogPrefix.Backend)
+    return true
   } catch (error) {
     logError(
       [`Failed to execute power command: ${fullCommand}`, error],
       LogPrefix.Backend
     )
+    return false
   }
 }
 
@@ -21,7 +23,7 @@ export const shutdown = async () => runPowerCommand('systemctl poweroff')
 
 export const suspend = async () => runPowerCommand('systemctl suspend')
 
-export const turnOffScreen = async () => {
+export const turnOffScreen = async (): Promise<boolean> => {
   // gamescope provides XWayland, so DPMS via xset works in game mode
   if (!isSteamDeckGameMode && process.env.XDG_SESSION_TYPE === 'wayland') {
     return runPowerCommand('kscreen-doctor --dpms off')

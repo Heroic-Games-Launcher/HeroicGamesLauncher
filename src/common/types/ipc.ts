@@ -299,7 +299,7 @@ interface AsyncIPCFunctions {
   loginSteamQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
-  turnOffScreen: () => Promise<void>
+  turnOffScreen: () => Promise<boolean>
   logoutItchio: () => Promise<void>
 
   getAlternativeWine: () => Promise<WineInstallation[]>

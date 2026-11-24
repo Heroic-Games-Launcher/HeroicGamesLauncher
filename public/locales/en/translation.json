@@ -555,7 +555,6 @@
             "shutdown": "Shutdown",
             "suspend": "Suspend"
         },
-
         "queue": {
             "end-time": "Finished at",
             "queue-time": "Added at",
@@ -564,6 +563,10 @@
             "type": "Type"
         },
         "screen-off": "Turn Off Screen",
+        "screen-off-error": {
+            "message": "Heroic could not run the power command. If you are using the Flatpak version, grant it the org.freedesktop.Flatpak permission and restart Heroic.",
+            "title": "Could not turn off the screen"
+        },
         "title": "Downloads"
     },
     "emptyLibrary": {

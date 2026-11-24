@@ -1,16 +1,18 @@
 import './index.css'
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
 import { MonitorOff } from 'lucide-react'
 import { Button, Icon, SelectField } from 'frontend/components/UI'
 import { AppSettings } from 'common/types'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 type AfterDownloadAction = AppSettings['afterDownloadAction']
 
 export default function PowerSettings() {
   const { t } = useTranslation()
+  const { showDialogModal } = useContext(ContextProvider)
   const [afterDownloadAction, setAfterDownloadAction] =
     useState<AfterDownloadAction>('none')
 
@@ -56,7 +58,22 @@ export default function PowerSettings() {
         variant="ghost"
         size="md"
         icon={<Icon glyph={MonitorOff} size="md" />}
-        onClick={() => void window.api.turnOffScreen()}
+        onClick={async () => {
+          const success = await window.api.turnOffScreen()
+          if (!success) {
+            showDialogModal({
+              type: 'ERROR',
+              title: t(
+                'download-manager.screen-off-error.title',
+                'Could not turn off the screen'
+              ),
+              message: t(
+                'download-manager.screen-off-error.message',
+                'Heroic could not run the power command. If you are using the Flatpak version, grant it the org.freedesktop.Flatpak permission and restart Heroic.'
+              )
+            })
+          }
+        }}
       >
         {t('download-manager.screen-off', 'Turn off screen')}
       </Button>
