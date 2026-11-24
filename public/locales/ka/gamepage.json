@@ -38,7 +38,8 @@
         "move": {
             "message": "ამ პროცესს შეიძლება დიდი ხანი დაჭირდეს, დარწმუნებული ხართ?",
             "path": "აირჩიეთ სად გსურთ რომ გადაიტანოთ",
-            "title": "გადაიტანეთ თამაშის ინსტალაცია"
+            "title": "გადაიტანეთ თამაშის ინსტალაცია",
+            "steamMessage": ""
         },
         "repair": {
             "message": "გსურთ ამ თამაშის აღდგენა სცადოთ? ამას შეიძლება დიდი დრო დასჭირდეს.",
@@ -99,7 +100,13 @@
         "edit-game": "აპის/თამაშის ჩასწორება",
         "backToLibrary": "",
         "favourite": "",
-        "unfavourite": ""
+        "unfavourite": "",
+        "steamStore": "",
+        "back": "უკან",
+        "next": "შემდეგი",
+        "skip-installer": {
+            "title": "გამოტოვება"
+        }
     },
     "cloud_save_unsupported": "მხარდაუწერელი",
     "disabled": "გათიშულია",
@@ -170,7 +177,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "anticheat-warning": {
@@ -188,7 +200,10 @@
         "not-enough-disk-space": "",
         "path": "",
         "flatpak-path-not-writtable": "",
-        "path-not-writtable": ""
+        "path-not-writtable": "",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "launching": "ეშვება",
@@ -212,7 +227,8 @@
         "saves": {
             "syncing": ""
         },
-        "releaseDate": ""
+        "releaseDate": "",
+        "steam-family-share": ""
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
@@ -258,12 +274,17 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "finish": "დასრულება",
+            "install": "დაყენების გაჩერება"
         }
     },
     "specs": {
         "minimum": "მინიმუმი",
         "recommended": "რეკომენდებულია",
-        "other": "სხვა"
+        "other": "სხვა",
+        "notes": ""
     },
     "status": {
         "downloading": "გადმოწერა",
@@ -309,7 +330,8 @@
         "removeFromSteam": "",
         "removeShortcut": "",
         "move": "",
-        "more": ""
+        "more": "",
+        "options": "მორგება"
     },
     "third-party-managed": {
         "header": "",
@@ -379,7 +401,15 @@
     "steam": {
         "data": {
             "dlc": "DLC",
-            "installInfo": "გადმოწერის ზომა"
+            "installInfo": "გადმოწერის ზომა",
+            "achievements": "",
+            "launchOptions": "",
+            "storeInfo": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

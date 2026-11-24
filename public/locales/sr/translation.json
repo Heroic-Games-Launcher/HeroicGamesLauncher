@@ -77,7 +77,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "quit": {
             "message": "Постоје недовршене операције, да ли сте сигурни?",
@@ -177,7 +178,20 @@
         "update": "Ажурирај",
         "changelog": "Дневник измене",
         "postpone": "",
-        "cancel": "Откажи"
+        "cancel": "Откажи",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "anticheat": {
         "status": "Статус",
@@ -186,7 +200,8 @@
         "reference": "Референца",
         "source": "Извор",
         "title": "Ова игра садржи античит систем",
-        "multiplayer_may_not_work": "Можда неће радити због одбијене или покварене античит подршке."
+        "multiplayer_may_not_work": "Можда неће радити због одбијене или покварене античит подршке.",
+        "removed": ""
     },
     "accessibility": {
         "content_font_family_no_default": "Породица фонтова садржаја (Подразумевано: ",
@@ -263,7 +278,8 @@
             "end-time": "Завршено у",
             "queue-time": "Додато у",
             "start-time": "Започето у",
-            "type": "Тип"
+            "type": "Тип",
+            "status": "Статус"
         },
         "title": "Преузимања",
         "ETA": "Процењено време",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-title": "ван мреже",
         "offline-notification-body": "Мрежне услуге можда неће радити у потпуности јер су Epic Games сервери ван мреже!"
     },
     "Epic Games": "Epic Games",
-    "error": "Грешка",
+    "error": {
+        "recovery": ""
+    },
     "game": {
         "store": "Продавница",
         "title": "Наслов игре",
@@ -327,7 +349,8 @@
         "stores": "Продавница",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "favourites": "Омиљено",
     "gog-store": "Продавница GOG",
@@ -458,7 +481,32 @@
         "itchio": "",
         "button": "Пријави се",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "logout_confirm": {
+            "title": "",
+            "message": ""
+        },
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "Пријави се",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Синхронизација је завршена",
@@ -654,7 +702,8 @@
                 "zoom": "",
                 "game-log": "",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -879,8 +928,27 @@
         "gamemode-description": "",
         "steamLaunchTarget": {
             "downloadBuild": "Преузимање",
-            "missingRuntime": "VCRuntime није инсталиран"
-        }
+            "missingRuntime": "VCRuntime није инсталиран",
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -936,7 +1004,8 @@
         "advanced": {
             "title": {
                 "resetHeroic": "Ресетуј Heroic",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "clearCache": {
                 "help9": "Подешавања игре",
@@ -955,7 +1024,10 @@
                 "help": "Да ли сте сигурни да желите да ресетујете Heroic? Ово ће избрисати сва подешавања и кеширања али неће избрисати ваше инсталиране игре или ваше Epic податке за пријаву. Преносиве верзије Heroic-а (AppImage, WinPortable, итд.) се морају после ручно рестартовати.",
                 "description": ""
             },
-            "details": ""
+            "details": "",
+            "clearImagesCache": {
+                "description": ""
+            }
         },
         "launchOptions": "Опције покретања...",
         "legacy_warning": "",
@@ -1028,7 +1100,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1037,7 +1112,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "toolbox": {
         "settings": {
@@ -1101,7 +1177,8 @@
         "installing": "Инсталирање",
         "processing": "Обрада датотека, молимо вас сачекајте",
         "preparing_login": "Припрема за пријаву... ",
-        "installed": "Инсталирано"
+        "installed": "Инсталирано",
+        "preparing": ""
     },
     "sidebar": {
         "collapse": "Скупи бочну траку",
@@ -1139,20 +1216,24 @@
     },
     "two_col_table": {
         "save_hint": "Промене у овој табели се не чувају аутоматски. Кликните на дугме +",
-        "add": ""
+        "add": "",
+        "edit": "",
+        "remove": ""
     },
     "offline-message": {
         "hint": "Проверавамо повезаност са:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com and{{newline}}cloudflare-dns.com",
         "ignore": "Игнорирај",
         "offline": "Одсутан",
         "offline-retry-in": "Одсутан. Поновни покушај за [Кс21Кс] секунди.",
-        "retrying": "Поновни покушај"
+        "retrying": "Поновни покушај",
+        "hint-label": ""
     },
     "other": {
         "legendary-version": "Легендарна верзија: ",
         "weblate": "Помозите у преводу Хероиц.",
         "gogdl-version": "ГОГЛ верзија: ",
-        "nile-version": "Нил верзија: "
+        "nile-version": "Нил верзија: ",
+        "aurelia-version": ""
     },
     "placeholder": {
         "alt-gogdl-bin": "Коришћење уграђеног ГОГЛ бинарног...",
@@ -1161,7 +1242,8 @@
         "dxvkfpsvalue": "Позитивна целобројна вредност (нпр. 30, 60, ...)",
         "egs-prefix": "Префикс где је ЕГС инсталиран",
         "prefered_language": "Код од 2 знака (тј.: „ен“ или „фр“)",
-        "alt-nile-bin": "Користећи уграђени бинарни Нил..."
+        "alt-nile-bin": "Користећи уграђени бинарни Нил...",
+        "alt-aurelia-bin": ""
     },
     "please-wait": "Сачекајте...",
     "progress": "Напредак",
@@ -1385,7 +1467,8 @@
             "releaseYear": "",
             "platform": "Платформа",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "",
         "sort": {
@@ -1451,7 +1534,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "Последње одиграно"
+            "last_played": "Последње одиграно",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1495,7 +1581,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1524,7 +1618,143 @@
         "back": "Назад",
         "button": {
             "download": "Преузимање",
-            "sync": "Синхронизуј"
-        }
+            "sync": "Синхронизуј",
+            "view": "",
+            "keep": "",
+            "upload": ""
+        },
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "column": {
+            "modified": "",
+            "file": "",
+            "size": ""
+        },
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "never": "",
+        "lastSync": ""
+    },
+    "support": {
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "actions": {
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": "",
+            "open": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "Update available!": "",
+    "import-export": {
+        "back": "Назад",
+        "installed-games": "Инсталирај игру",
+        "per-game": "Подешавања игре",
+        "platform": "Платформа",
+        "stage": {
+            "globalSettings": "Глобална подешавања",
+            "perGameSettings": "Подешавања игре"
+        },
+        "step3": {
+            "title": "Глобална подешавања"
+        },
+        "step4": {
+            "selectAll": "Изабери Све"
+        },
+        "step6": {
+            "prefixPath": "WinePrefix",
+            "wine-downloadable": "Преузимање"
+        },
+        "steps": {
+            "global-settings": "Глобална подешавања",
+            "per-game": "Подешавања игре"
+        },
+        "wine-versions": "Wine верзија"
     }
 }

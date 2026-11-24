@@ -1,13 +1,20 @@
+.ToggleSwitch {
+  position: relative;
+}
+
+/* Keep the input focusable but give it the track's geometry: spatial
+   navigation starts from the focused element's box, and a 1x1 clipped input
+   sends the cursor to whatever is nearest that corner instead of the switch. */
 .ToggleSwitch__input {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+  inset-block-start: 50%;
+  inset-inline-end: 0;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 26px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .ToggleSwitch__track {
@@ -60,7 +67,8 @@
   transform: translateX(-20px);
 }
 
-.ToggleSwitch__input:focus-visible + .ToggleSwitch__track {
+.ToggleSwitch__input:focus-visible + .ToggleSwitch__track,
+.gamepad-active .ToggleSwitch__input:focus + .ToggleSwitch__track {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }

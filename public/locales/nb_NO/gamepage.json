@@ -103,7 +103,12 @@
         "backToLibrary": "Tilbake til biblioteket",
         "favourite": "Legg til i favoritter",
         "unfavourite": "Fjern fra favoritter",
-        "steamStore": "Åpne Steam-side"
+        "steamStore": "Åpne Steam-side",
+        "back": "Tilbake",
+        "next": "Neste",
+        "skip-installer": {
+            "title": "Hopp over"
+        }
     },
     "cloud_save_unsupported": "Ustøttet",
     "disabled": "Deaktivert",
@@ -307,6 +312,11 @@
         },
         "images": {
             "summary": "Bilder"
+        },
+        "step": {
+            "finish": "Fullfør",
+            "images": "Bilder",
+            "install": "Stopp installasjon"
         }
     },
     "specs": {
@@ -361,7 +371,8 @@
         "extraInfo": "Ekstra info",
         "logs": "Logger",
         "categories": "Kategorier",
-        "more": "Mer"
+        "more": "Mer",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Dette spillet støtter ikke skylagring. Denne informasjonen er gitt av spillutviklerne. Noen spill implementerer sitt eget skylagringssystem.",

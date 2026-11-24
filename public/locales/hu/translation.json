@@ -118,7 +118,8 @@
                     "body": "A(z) {{game}} eltávolítása a Steamből sikertelen volt:{{newLine}}{{error}}",
                     "title": "Hiba a játék Steamről való eltávolításakor"
                 }
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -216,7 +217,19 @@
         "shaderPreCachingDisabledMessage": "A Steam shader előtöltése ki van kapcsolva. Kérjük, engedélyezze a Steam beállításaiban asztali módban, hogy a játék megfelelően működjön az UMU-val.",
         "shaderPreCachingDisabledTitle": "Shader előtöltés kikapcsolva",
         "cancel": "Mégse",
-        "choose-aurelia-binary": "Aurelia bináris kiválasztása"
+        "choose-aurelia-binary": "Aurelia bináris kiválasztása",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        }
     },
     "button": {
         "cancel": "Mégse",
@@ -271,7 +284,8 @@
             "end-time": "Befejezve",
             "queue-time": "Hozzáadva",
             "start-time": "Elkezdve",
-            "type": "Típus"
+            "type": "Típus",
+            "status": "Állapot"
         },
         "title": "Letöltések",
         "ETA": "Becsült idő",
@@ -282,14 +296,20 @@
                 "title": "A várólista üres"
             }
         },
-        "pageSubtitle": "Mi települ éppen, mi következik, és mi készült már el"
+        "pageSubtitle": "Mi települ éppen, mi következik, és mi készült már el",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Az online szolgáltatások lehet, hogy nem működnek teljesen, mert az Epic Games kiszolgálói nem működnek.",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Hiba",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Kedvencek",
     "game": {
         "status": "Állapot",
@@ -336,7 +356,8 @@
         "stores": "Áruházak",
         "display": "Megjelenítés",
         "hidden": "Rejtett",
-        "non_available": "Nem érhető el"
+        "non_available": "Nem érhető el",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "Az AMD FSR segít a képkockasebesség növelésében az alacsonyabb felbontások felskálázásával teljes képernyős módban. A képminőség 5-ről 1-re növekszik, némi teljesítménycsökkenés mellett. engedélyezése javíthat a teljesítményen.",
@@ -497,7 +518,28 @@
             "title": "Kijelentkezés"
         },
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "GOG-partnerhivatkozások letiltása",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "logged_in": "Bejelentkezés",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Szinkronizálás befejezve",
@@ -559,7 +601,8 @@
         "ignore": "Figyelmen kívül hagyás",
         "offline": "Offline",
         "offline-retry-in": "Offline. Újrapróbálkozás {{seconds}} másodperc múlva.",
-        "retrying": "Újrapróbálkozás"
+        "retrying": "Újrapróbálkozás",
+        "hint-label": ""
     },
     "Open": "Megnyitás",
     "options": {
@@ -622,7 +665,8 @@
         "gogdl-version": "GOGDL verzió: ",
         "legendary-version": "Legendary verzió: ",
         "weblate": "Segíts a Heroic fordításában.",
-        "nile-version": "Nile verzió: "
+        "nile-version": "Nile verzió: ",
+        "aurelia-version": ""
     },
     "Other": "Egyéb",
     "placeholder": {
@@ -763,7 +807,8 @@
                 "heroic": "Általános Heroic napló",
                 "nile": "Amazon / Nile napló",
                 "zoom": "Zoom napló",
-                "itchio": "itch.io-napló"
+                "itchio": "itch.io-napló",
+                "steam": ""
             },
             "show-uploads": "Feltöltött naplófájlok megjelenítése",
             "error": "Belső hiba a naplófájl olvasása közben",
@@ -976,8 +1021,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Teljesen letöltve",
-            "missingRuntime": "A VCRuntime nincs telepítve"
-        }
+            "missingRuntime": "A VCRuntime nincs telepítve",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1077,12 +1139,16 @@
             },
             "title": {
                 "resetHeroic": "A Heroic visszaállítása",
-                "clearCache": "Gyorsítótár törlése"
+                "clearCache": "Gyorsítótár törlése",
+                "clearImagesCache": ""
             },
             "details": "Részletek",
             "resetHeroic": {
                 "help": "Ez eltávolítja az összes beállítást és gyorsítótárazást, de nem távolítja el a telepített játékokat vagy az Epichez használt hitelesítési adatokat. A Heroic hordozható verzióit (AppImage, WinPortable, …) kézileg kell újraindítani.",
                 "description": "A Heroic visszaállítása az alapértelmezett beállításokra. A telepített játékok és az áruházi bejelentkezések megmaradnak."
+            },
+            "clearImagesCache": {
+                "description": ""
             }
         },
         "offline": {
@@ -1125,7 +1191,10 @@
             "privacy": "Adatvédelem",
             "runtimes": "Futtatókörnyezetek",
             "system": "Rendszer",
-            "winePerformance": "Teljesítmény"
+            "winePerformance": "Teljesítmény",
+            "steam": "",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "pageSubtitle": {
             "advanced": "Futtatható fájlok, kísérleti funkciók és karbantartás",
@@ -1133,7 +1202,8 @@
             "general": "Az indítóprogram beállításainak testreszabása",
             "log": "A Heroic naplóinak megtekintése és megosztása",
             "systeminfo": "A hardvered és a Heroic által használt verziók"
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Beállítások",
     "sidebar": {
@@ -1147,7 +1217,8 @@
         "logging": "Bejelentkezés…",
         "processing": "Fájlok feldolgozása, kis türelmet",
         "preparing_login": "Bejelentkezés előkészítése… ",
-        "installed": "Telepítve"
+        "installed": "Telepítve",
+        "preparing": ""
     },
     "store": "Epic Store",
     "stores": "Áruházak",
@@ -1421,7 +1492,8 @@
             "releaseYear": "Megjelenési év",
             "hideOwned": "Meglévők elrejtése",
             "wishlistOnly": "Csak kívánságlistás",
-            "platform": "Platform"
+            "platform": "Platform",
+            "platformAny": ""
         },
         "sidebar": "Kedvezmények",
         "sort": {
@@ -1488,7 +1560,9 @@
         },
         "sort": {
             "label": "Rendezés",
-            "last_played": "Legutóbb játsztva"
+            "last_played": "Legutóbb játsztva",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "gombot 3 másodpercig a megszakításhoz",
@@ -1532,7 +1606,15 @@
         },
         "removeFromQueue": {
             "message": "Ez a játék letöltési sorban van. Eltávolítod a sorból?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Következő",
     "common": {
@@ -1560,21 +1642,162 @@
     "Update available!": "Frissítés érhető el.",
     "support": {
         "actions": {
-            "open": "Megnyitás"
+            "open": "Megnyitás",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Támogass minket"
+        "title": "Támogass minket",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Vissza",
         "button": {
             "download": "Download",
             "sync": "Szinkronizálás",
-            "upload": "Feltöltés"
+            "upload": "Feltöltés",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Szűrő",
-            "size": "Méret"
+            "size": "Méret",
+            "modified": ""
         },
-        "never": "Soha"
+        "never": "Soha",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Letöltés…"
+        },
+        "back": "Vissza",
+        "close": "Bezárás",
+        "installed-games": "Telepített játékok",
+        "next": "Következő",
+        "per-game": "Játék beállításai",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Mentés"
+        },
+        "stage": {
+            "credentials": "Áruházi bejelentkezések",
+            "globalSettings": "Globális beállítások",
+            "perGameSettings": "Játék beállításai"
+        },
+        "step3": {
+            "title": "Globális beállítások"
+        },
+        "step4": {
+            "none": "Nincs a jelenlegi szűrőknek megfelelő játék.",
+            "selectAll": "Összes kijelölése"
+        },
+        "step5": {
+            "title": "Áruházi bejelentkezések"
+        },
+        "step6": {
+            "prefixPath": "Wine előtag",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "Nem érhető el DLC"
+        },
+        "steps": {
+            "credentials": "Áruházi bejelentkezések",
+            "done": "Kész",
+            "global-settings": "Globális beállítások",
+            "per-game": "Játék beállításai"
+        },
+        "summaryValue": "Érték",
+        "version": "Heroic verzió",
+        "wine-versions": "Wine verzió"
     }
 }

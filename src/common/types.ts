@@ -137,6 +137,7 @@ export interface AppSettings extends GameSettings {
   defaultWinePrefix: string // only here for backwards compatibility, don't use in new code
   defaultWinePrefixDir: string
   disableController: boolean
+  disableGuideButton: boolean
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
   disableLogs: boolean
@@ -152,6 +153,8 @@ export interface AppSettings extends GameSettings {
   exitToTray: boolean
   gamepadRepeatDelay: number
   gamepadInitialRepeatDelay: number
+  gamepadDeadzone: number
+  gamepadButtonMapping: Partial<Record<RemappableGamepadAction, number | null>>
   noTrayIcon: boolean
   experimentalFeatures?: ExperimentalFeatures
   framelessWindow: boolean
@@ -162,6 +165,7 @@ export interface AppSettings extends GameSettings {
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInConsoleMode: boolean
+  enableControllerInConsoleMode: boolean
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
@@ -169,6 +173,7 @@ export interface AppSettings extends GameSettings {
   defaultSteamRuntime: SteamRuntimeName | false
   showValveProton: boolean
   steamGridDbApiKey: string
+  afterDownloadAction: 'none' | 'shutdown' | 'suspend'
 }
 
 export type LibraryTopSectionOptions =
@@ -655,6 +660,21 @@ export interface WineVersionInfo extends VersionInfo {
   installDir: string
 }
 
+/**
+ * Actions that can be bound to a different physical button in
+ * Settings → Gamepad. Directions (d-pad/sticks) come from axes/buttons that
+ * are already conventional and are not remappable.
+ */
+export type RemappableGamepadAction =
+  | 'mainAction'
+  | 'back'
+  | 'altAction'
+  | 'rightClick'
+  | 'prevPage'
+  | 'nextPage'
+  | 'enter'
+  | 'guide'
+
 export type GamepadActionStatus = Record<
   ValidGamepadAction,
   {
@@ -674,7 +694,7 @@ export type GamepadActionArgs =
   | GamepadActionArgsWithoutMetadata
 
 interface GamepadActionArgsWithMetadata {
-  action: 'leftClick' | 'rightClick'
+  action: 'rightClick'
   metadata: {
     elementTag: string
     x: number
@@ -705,6 +725,7 @@ interface GamepadActionArgsWithoutMetadata {
     | 'tab'
     | 'shiftTab'
     | 'keyboardClick'
+    | 'enter'
     | 'guide'
   metadata?: undefined
 }
@@ -978,6 +999,13 @@ export interface UploadedLogData {
   token: string
   // Time the log file was uploaded (used to know whether it expired)
   uploadedAt: number
+}
+
+export interface ControllerBattery {
+  /** sysfs node name, e.g. `ps-controller-battery` */
+  name: string
+  capacity: number
+  status: string
 }
 
 export interface RunnerCommandStub {

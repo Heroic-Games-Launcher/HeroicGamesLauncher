@@ -63,7 +63,7 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
         return (
           <>
             <div className="errorDialog contentHeader">
-              {t('error', 'Error')}:
+              {t('box.error.title', 'Error')}:
             </div>
             <div className="errorDialog error-box">{message}</div>
           </>

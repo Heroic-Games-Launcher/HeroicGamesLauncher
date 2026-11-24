@@ -8,6 +8,7 @@ import type {
   ButtonOptions,
   CloudSyncResult,
   ConnectivityStatus,
+  ControllerBattery,
   DetectSavePathsResult,
   SaveBackupEntry,
   DialogType,
@@ -102,6 +103,7 @@ interface SyncIPCFunctions {
   openReleases: () => void
   openWeblate: () => void
   showAboutWindow: () => void
+  focusMainWindow: () => void
   openLoginPage: () => void
   openDiscordLink: () => void
   openPatreonPage: () => void
@@ -207,6 +209,7 @@ interface AsyncIPCFunctions {
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
   getMaxCpus: () => number
   getHeroicVersion: () => string
+  getControllerBatteries: () => Promise<ControllerBattery[]>
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>
   getCometVersion: () => Promise<string>
@@ -299,7 +302,9 @@ interface AsyncIPCFunctions {
   loginSteamQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
+  turnOffScreen: () => Promise<boolean>
   logoutItchio: () => Promise<void>
+
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestAppSettings: () => AppSettings
@@ -457,6 +462,7 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  isLinuxArm: () => boolean
   getSteamUsers: () => Promise<SteamAccount[]>
   getGogDealsRegion: () => Promise<GogDealsRegion | null>
   getGogDiscounts: (

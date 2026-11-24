@@ -28,7 +28,8 @@
         "source": "Lähde",
         "status": "Tila",
         "title": "Tämä peli sisältää huijauksenesto-ohjelmistoa",
-        "multiplayer_may_not_work": "Moninpeliin tarkoitetut ominaisuudet eivät mahdollisesti toimi estetyn- tai rikkinäisen huijauksenestotuen uupumisen takia."
+        "multiplayer_may_not_work": "Moninpeliin tarkoitetut ominaisuudet eivät mahdollisesti toimi estetyn- tai rikkinäisen huijauksenestotuen uupumisen takia.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Päivitä",
         "changelog": "Muutoskirjaukset",
         "postpone": "Viivytä",
-        "cancel": "Peruuta"
+        "cancel": "Peruuta",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Keskeytä",
@@ -263,7 +278,8 @@
             "end-time": "Viimeistelty",
             "queue-time": "Lisätty",
             "start-time": "Aloitettu",
-            "type": "Laji"
+            "type": "Laji",
+            "status": "Tila"
         },
         "title": "Lataukset",
         "ETA": "Arvioitu aika",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi täysin Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
         "offline-notification-title": "yhteydetön"
     },
     "Epic Games": "Epic Games",
-    "error": "Virhe",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Suosikit",
     "game": {
         "status": "Tila",
@@ -328,7 +350,8 @@
         "stores": "Kaupat",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD FSR auttaa parantamaan ruudunpäivitysnopeutta ylösskaalaamalla alemman resoluution kuvaa koko näytön tilassa. Kuvanlaatu paranee asteikolla 5–1 pienen suorituskykyvaikutuksen kustannuksella. Käyttöönotto saattaa parantaa suorituskykyä.",
@@ -490,7 +513,27 @@
         },
         "title_amazon": "Amazon-pelit",
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "Kirjaudu sisään",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Synkronointi valmis",
@@ -552,7 +595,8 @@
         "ignore": "Ohita",
         "offline": "Yhteydetön",
         "offline-retry-in": "Ei yhteyttä. Yritetään uudestaan {{seconds}} sekunnin kuluttua.",
-        "retrying": "Yritetään uudelleen"
+        "retrying": "Yritetään uudelleen",
+        "hint-label": ""
     },
     "Open": "Avaa",
     "options": {
@@ -615,7 +659,8 @@
         "gogdl-version": "GOGDL-versio: ",
         "legendary-version": "Legendary:n julkaisu: ",
         "weblate": "Auta kääntämään Heroic:ia kielellesi.",
-        "nile-version": "Nile-julkaisu: "
+        "nile-version": "Nile-julkaisu: ",
+        "aurelia-version": ""
     },
     "Other": "Muu",
     "placeholder": {
@@ -756,7 +801,8 @@
                 "zoom": "Zoom lokitiedot",
                 "game-log": "Pelin {{gameTitle}} lokitiedot",
                 "heroic": "Yleiset Heroic lokitiedot",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "Näytä lähetetyt lokitiedot",
             "error": "",
@@ -961,8 +1007,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Ladattu yhteensä",
-            "missingRuntime": "VCRuntime ei ole asennettu"
-        }
+            "missingRuntime": "VCRuntime ei ole asennettu",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1059,13 +1122,17 @@
             },
             "title": {
                 "resetHeroic": "Nollaa Heroic",
-                "clearCache": "Tyhjennä välimuisti"
+                "clearCache": "Tyhjennä välimuisti",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Haluatko varmasti nollata Heroic:in? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei asentamiasi pelejä eikä Epic-tietojasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:istä pitää uudelleenkäynnistää manuaalisesti jälkeenpäin.",
                 "description": ""
             },
-            "details": "Yksityiskohdat"
+            "details": "Yksityiskohdat",
+            "clearImagesCache": {
+                "description": ""
+            }
         },
         "custom_css": {
             "title": "Mukautettu CSS-tyyli"
@@ -1109,7 +1176,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Amazon-pelit",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1118,6 +1189,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "Kopioi"
         }
     },
     "Settings": "Asetukset",
@@ -1132,7 +1207,8 @@
         "logging": "Kirjaudutaan sisään...",
         "processing": "Käsitellään tiedostoja, odota hetki",
         "preparing_login": "Valmistellaan kirjautumista... ",
-        "installed": "Asennettu"
+        "installed": "Asennettu",
+        "preparing": ""
     },
     "store": "Epic-kauppa",
     "stores": "Kaupat",
@@ -1157,7 +1233,9 @@
     },
     "two_col_table": {
         "save_hint": "Tämän osion muutokset eivät tallennu automaattisesti. Napsauta + painiketta",
-        "add": "Lisää"
+        "add": "Lisää",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Päivitys saatavilla!",
     "userselector": {
@@ -1397,7 +1475,8 @@
             "releaseYear": "Julkaisuvuosi",
             "hideOwned": "Piilota omistetut",
             "wishlistOnly": "Vain toivelistalla olevat",
-            "platform": "Platform"
+            "platform": "Platform",
+            "platformAny": ""
         },
         "sidebar": "Tarjoukset",
         "sort": {
@@ -1464,7 +1543,9 @@
         },
         "sort": {
             "label": "Lajittele",
-            "last_played": "Viimeksi pelattu"
+            "last_played": "Viimeksi pelattu",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "3s peruuttaaksesi",
@@ -1508,7 +1589,15 @@
         },
         "removeFromQueue": {
             "message": "Tämä peli on latausjonossa. Poista se jonosta?"
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Seuraava",
     "common": {
@@ -1536,21 +1625,159 @@
     "Update available!": "Päivitys saatavilla!",
     "support": {
         "actions": {
-            "open": "Avaa"
+            "open": "Avaa",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Tue meitä"
+        "title": "Tue meitä",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Takaisin",
         "button": {
             "download": "Download",
             "sync": "Synkronoi",
-            "upload": "Lähetä"
+            "upload": "Lähetä",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Suodata",
-            "size": "Koko"
+            "size": "Koko",
+            "modified": ""
         },
-        "never": "Ei koskaan"
+        "never": "Ei koskaan",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Ladataan"
+        },
+        "back": "Takaisin",
+        "close": "Sulje",
+        "installed-games": "Asennetut pelit",
+        "next": "Seuraava",
+        "per-game": "Peliasetukset",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "Kaupan kirjautuminen",
+            "globalSettings": "Yleisvaikutteiset asetukset",
+            "perGameSettings": "Peliasetukset"
+        },
+        "step3": {
+            "title": "Yleisvaikutteiset asetukset"
+        },
+        "step4": {
+            "none": "Ei pelejä valituilla suodattimilla.",
+            "selectAll": "Valitse kaikki"
+        },
+        "step5": {
+            "title": "Kaupan kirjautuminen"
+        },
+        "step6": {
+            "prefixPath": "Wine-etuaste",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "Ei DLC:tä saatavilla"
+        },
+        "steps": {
+            "credentials": "Kaupan kirjautuminen",
+            "done": "Valmis",
+            "global-settings": "Yleisvaikutteiset asetukset",
+            "per-game": "Peliasetukset"
+        },
+        "summaryValue": "Arvo",
+        "version": "Heroic-versio",
+        "wine-versions": "Wine-versio"
     }
 }

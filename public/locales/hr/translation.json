@@ -28,7 +28,8 @@
         "source": "Source",
         "status": "Status",
         "title": "Ova igra uključuje softver protiv varanja",
-        "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support."
+        "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Update",
         "changelog": "",
         "postpone": "",
-        "cancel": "Odustani"
+        "cancel": "Odustani",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Odustani",
@@ -263,7 +278,8 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
-            "type": "Type"
+            "type": "Type",
+            "status": "Status"
         },
         "title": "Downloads",
         "ETA": "Procijenjeno vrijeme",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Internetske usluge možda neće raditi u potpunosti jer EpicGames serveri nisu spojeni na internet!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Favourites",
     "game": {
         "status": "Status",
@@ -328,7 +350,8 @@
         "stores": "Stores",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -489,7 +512,28 @@
             "title": "Logout"
         },
         "title_epic": "Epic igre",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": "",
+        "logged_in": "Prijava"
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
@@ -551,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "retrying": "Retrying",
+        "hint-label": ""
     },
     "Open": "Otvori",
     "options": {
@@ -614,7 +659,8 @@
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Verzije: ",
         "weblate": "Help Improve this translation.",
-        "nile-version": "Verzija Nila: "
+        "nile-version": "Verzija Nila: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -755,7 +801,8 @@
                 "zoom": "",
                 "game-log": "",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -954,8 +1001,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Sveukupno preuzeto",
-            "missingRuntime": "VCRuntime not installed"
-        }
+            "missingRuntime": "VCRuntime not installed",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1024,10 +1088,14 @@
             "details": "Pojedinosti",
             "title": {
                 "resetHeroic": "Reset Heroic",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1102,7 +1170,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "Epic igre",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1111,7 +1182,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Postavke",
     "sidebar": {
@@ -1125,7 +1197,8 @@
         "logging": "Logging In...",
         "processing": "Obrada datoteka, pričekaj",
         "preparing_login": "Priprema prijave... ",
-        "installed": "Instalirano"
+        "installed": "Instalirano",
+        "preparing": ""
     },
     "store": "Epic trgovina",
     "stores": "Stores",
@@ -1150,7 +1223,9 @@
     },
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button",
-        "add": "Dodaj"
+        "add": "Dodaj",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Dostupno ažuriranje!",
     "userselector": {
@@ -1390,7 +1465,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Pojedinosti",
         "sort": {
@@ -1456,7 +1532,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "Zadnje odigrano"
+            "last_played": "Zadnje odigrano",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1500,7 +1579,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1528,21 +1615,147 @@
     "Update available!": "Dostupno ažuriranje!",
     "support": {
         "actions": {
-            "open": "Otvori"
+            "open": "Otvori",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Podržite Nas"
+        "title": "Podržite Nas",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Back",
         "button": {
             "download": "Download",
             "sync": "Sinkroniziraj",
-            "upload": "Prebaci"
+            "upload": "Prebaci",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Filter",
-            "size": "Size"
+            "size": "Size",
+            "modified": ""
         },
-        "never": "Nikad"
+        "never": "Nikad",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Downloading"
+        },
+        "back": "Back",
+        "close": "Zatvori",
+        "installed-games": "Installed Games",
+        "per-game": "Postavke igre",
+        "platform": "Platform",
+        "stage": {
+            "globalSettings": "Global Settings",
+            "perGameSettings": "Postavke igre"
+        },
+        "step3": {
+            "title": "Global Settings"
+        },
+        "step6": {
+            "prefixPath": "Wine Prefix",
+            "wine-downloadable": "Download"
+        },
+        "steps": {
+            "global-settings": "Global Settings",
+            "per-game": "Postavke igre"
+        },
+        "summaryValue": "Value",
+        "version": "Heroic verzija",
+        "wine-versions": "Wine verzija"
     }
 }

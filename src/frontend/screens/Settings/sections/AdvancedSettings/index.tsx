@@ -13,7 +13,6 @@ import {
   ExperimentalFeatures,
   HideWindowOnProtocolLaunch,
   ResetHeroic,
-  GamePadDelayRepeat,
   SteamGridDbApiKey
 } from '../../components'
 import { Button, Icon, SettingRow, SettingsCard } from 'frontend/components/UI'
@@ -22,7 +21,6 @@ import {
   Check,
   Code2,
   Copy,
-  Gamepad2,
   Layers,
   RefreshCw,
   ShieldAlert,
@@ -182,13 +180,6 @@ export default function AdvancedSetting({
         <DisableGOGAffiliate />
         <AllowInstallationBrokenAnticheat />
         <HideWindowOnProtocolLaunch />
-      </SettingsCard>
-
-      <SettingsCard
-        glyph={Gamepad2}
-        title={t('settings.section.controller', 'Controller')}
-      >
-        <GamePadDelayRepeat />
       </SettingsCard>
 
       <SettingsCard

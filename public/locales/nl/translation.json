@@ -28,7 +28,8 @@
         "source": "Source",
         "status": "Status",
         "title": "Deze game bevat anticheat software",
-        "multiplayer_may_not_work": "Multiplayer functies werken misschien niet vanwege geblokkeerde of niet werkende Anticheat ondersteuning."
+        "multiplayer_may_not_work": "Multiplayer functies werken misschien niet vanwege geblokkeerde of niet werkende Anticheat ondersteuning.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Update",
         "postpone": "Stel uit",
         "changelog": "Updatelog",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Cancel",
@@ -263,7 +278,8 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
-            "type": "Type"
+            "type": "Type",
+            "status": "Status"
         },
         "title": "Downloads",
         "ETA": "Geschatte tijd",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Online services werken mogelijk niet, sinds Epic Games servers offline zijn!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Favourites",
     "game": {
         "status": "Status",
@@ -328,7 +350,8 @@
         "stores": "Stores",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -489,7 +512,28 @@
             "title": "Uitloggen"
         },
         "title_epic": "Epic Games",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "Inloggen",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Synchronisatie compleet",
@@ -551,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "retrying": "Retrying",
+        "hint-label": ""
     },
     "Open": "Open de",
     "options": {
@@ -614,7 +659,8 @@
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "Legendary Versie: ",
         "weblate": "Help met het vertalen van Heroic.",
-        "nile-version": "Nijlversie: "
+        "nile-version": "Nijlversie: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -755,7 +801,8 @@
                 "legendary": "Epic Games / Legendarisch logboek",
                 "nile": "Amazon / Nile logboek",
                 "zoom": "Zoom logboek",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "Laat geüploade logboek-bestanden zien",
             "error": "",
@@ -959,8 +1006,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Totaal gedownload",
-            "missingRuntime": "VCRuntime not installed"
-        }
+            "missingRuntime": "VCRuntime not installed",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1028,13 +1092,17 @@
             },
             "title": {
                 "resetHeroic": "Heroic Resetten",
-                "clearCache": "Cache Leegmaken"
+                "clearCache": "Cache Leegmaken",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Dit zal alle Instellingen en Cache verwijderen, maar niet je Geïnstalleerde spellen of Epic-gegevens. Verplaatsbare versies (AppImage, WinPortable, ...) van Heroic moeten achteraf handmatig herstart worden.",
                 "description": ""
             },
-            "details": "Details"
+            "details": "Details",
+            "clearImagesCache": {
+                "description": ""
+            }
         },
         "systemInformation": {
             "systemModel": "Systeemmodel:",
@@ -1107,7 +1175,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "Epic Games",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1116,7 +1187,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Instellingen",
     "sidebar": {
@@ -1130,7 +1202,8 @@
         "logging": "Aan het inloggen...",
         "processing": "Bestanden verwerken, een ogenblik geduld a.u.b.",
         "preparing_login": "Inloggen Voorbereiden... ",
-        "installed": "Geïnstalleerd"
+        "installed": "Geïnstalleerd",
+        "preparing": ""
     },
     "store": "Epic Winkel",
     "stores": "Winkels",
@@ -1155,7 +1228,9 @@
     },
     "two_col_table": {
         "save_hint": "Aanpassingen in deze tabel worden niet automatisch opgeslagen. Klik op de + knop",
-        "add": "Voeg toe"
+        "add": "Voeg toe",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Update Beschikbaar!",
     "userselector": {
@@ -1395,7 +1470,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Details",
         "sort": {
@@ -1461,7 +1537,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "Laatst gespeeld"
+            "last_played": "Laatst gespeeld",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1505,7 +1584,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Volgende",
     "common": {
@@ -1533,21 +1620,158 @@
     "Update available!": "Update Available!",
     "support": {
         "actions": {
-            "open": "Open de"
+            "open": "Open de",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "Steun ons"
+        "title": "Steun ons",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Back",
         "button": {
             "download": "Download",
             "sync": "Synchroniseren",
-            "upload": "Upload"
+            "upload": "Upload",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Filter",
-            "size": "Size"
+            "size": "Size",
+            "modified": ""
         },
-        "never": "Nooit"
+        "never": "Nooit",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "Downloaden"
+        },
+        "back": "Back",
+        "close": "sluit",
+        "installed-games": "Installed Games",
+        "next": "Volgende",
+        "per-game": "Game settings",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "Winkellogin",
+            "globalSettings": "Algemene instellingen",
+            "perGameSettings": "Game settings"
+        },
+        "step3": {
+            "title": "Algemene instellingen"
+        },
+        "step4": {
+            "selectAll": "Selecteer Alles"
+        },
+        "step5": {
+            "title": "Winkellogin"
+        },
+        "step6": {
+            "prefixPath": "Wine Prefix",
+            "wine-downloadable": "Download",
+            "wine-unavailable": "Geen DLC beschikbaar"
+        },
+        "steps": {
+            "credentials": "Winkellogin",
+            "done": "Klaar",
+            "global-settings": "Algemene instellingen",
+            "per-game": "Game settings"
+        },
+        "summaryValue": "Value",
+        "version": "Heroic Version",
+        "wine-versions": "Wine Versie"
     }
 }

@@ -15,8 +15,17 @@ import classNames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { sendKill } from 'frontend/helpers'
 import { updateGame } from 'frontend/helpers/library'
+import { useControllerBattery } from 'frontend/hooks/useControllerBattery'
+import { Icon } from 'frontend/components/UI'
+import {
+  BatteryCharging,
+  BatteryFull,
+  BatteryLow,
+  BatteryMedium
+} from 'lucide-react'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
+import BackHint from './components/BackHint'
 import ConfirmDialog from './components/ConfirmDialog'
 import ConsoleCard from './components/ConsoleCard'
 import ControllerHints from './components/ControllerHints'
@@ -26,10 +35,20 @@ import {
   BTN_L1,
   BTN_R1,
   BTN_R2,
+  BTN_SELECT,
   getActionButtonLabel,
-  getBackButtonLabel
+  getBackButtonLabel,
+  getR2ButtonLabel,
+  getSelectButtonLabel
 } from './controller'
-import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
+import {
+  isGamepadButtonHeld,
+  useCancelOnHold,
+  useColumnCount,
+  useGamepadButtonPress,
+  useGamepadComboHold,
+  useGamepadInfo
+} from './hooks'
 
 import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
@@ -44,6 +63,8 @@ const SORT_MODE_ORDER: ConsoleSortMode[] = [
 ]
 
 type StoreKey = Runner | 'all'
+
+const QUIT_HOLD_MS = 3000
 
 const CANCEL_DOWNLOAD_COPY = {
   update: {
@@ -80,8 +101,14 @@ export default function ConsoleMode() {
     refreshLibrary,
     refreshing,
     gameUpdates,
-    hiddenGames
+    hiddenGames,
+    isFullscreen,
+    disableAnimations
   } = useContext(ContextProvider)
+
+  // Remembered so leaving console mode restores the previous window state
+  // instead of forcing windowed mode on a Steam Deck / `--fullscreen` session.
+  const wasFullscreen = useRef(isFullscreen)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [sortMode, setSortMode] = useState<ConsoleSortMode>('last_played')
@@ -100,8 +127,16 @@ export default function ConsoleMode() {
     null
   )
 
+  const idle =
+    !launchingGame &&
+    !installingGame &&
+    !updateNoticeGame &&
+    !cancelDownloadGame &&
+    !queuedNoticeGame
+
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
+  const [controllerBattery] = useControllerBattery()
   const backButtonLabel = getBackButtonLabel(controllerLayout)
   const actionButtonLabel = getActionButtonLabel(controllerLayout)
 
@@ -123,7 +158,7 @@ export default function ConsoleMode() {
       void refreshLibrary({ runInBackground: true })
     }
     return () => {
-      window.api.setFullscreen(false)
+      window.api.setFullscreen(wasFullscreen.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -247,13 +282,19 @@ export default function ConsoleMode() {
   }, [visibleGames.length, focusedIndex])
 
   useEffect(() => {
+    // also runs when `idle` flips back to true so focus returns to the grid
+    // after an overlay/dialog closes
+    if (!idle) return
     const btn = cardRefs.current[focusedIndex]
     if (!btn) return
     if (document.activeElement !== btn) {
       btn.focus({ preventScroll: true })
     }
-    btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-  }, [focusedIndex, visibleGames.length])
+    btn.scrollIntoView({
+      block: 'nearest',
+      behavior: disableAnimations ? 'auto' : 'smooth'
+    })
+  }, [focusedIndex, visibleGames.length, idle, disableAnimations])
 
   const cycleStore = useCallback(
     (direction: 1 | -1) => {
@@ -267,13 +308,6 @@ export default function ConsoleMode() {
   )
 
   const quit = useCallback(() => navigate('/'), [navigate])
-
-  const idle =
-    !launchingGame &&
-    !installingGame &&
-    !updateNoticeGame &&
-    !cancelDownloadGame &&
-    !queuedNoticeGame
 
   const activateGame = useCallback(
     (game: GameInfo) => {
@@ -410,18 +444,42 @@ export default function ConsoleMode() {
     }
   }
 
-  // Esc quits when idle. While a game is launching or a dialog is open,
-  // the overlay/dialog handles Esc itself.
+  // Quitting requires a deliberate hold
+  const {
+    holdStart: quitHoldStart,
+    startHold: startQuitHold,
+    stopHold: stopQuitHold
+  } = useCancelOnHold({
+    active: idle,
+    holdMs: QUIT_HOLD_MS,
+    onCancel: quit
+  })
+
+  // Hold Esc while idle to quit
   useEffect(() => {
     if (!idle) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       e.preventDefault()
-      quit()
+      if (!e.repeat) startQuitHold()
+    }
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') stopQuitHold()
     }
     window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [quit, idle])
+    window.addEventListener('keyup', onKeyUp)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keyup', onKeyUp)
+    }
+  }, [idle, startQuitHold, stopQuitHold])
+
+  // View+R2 hold quits Console Mode
+  useGamepadComboHold(
+    [BTN_SELECT, BTN_R2],
+    (held) => (held ? startQuitHold() : stopQuitHold()),
+    idle
+  )
 
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
@@ -440,7 +498,14 @@ export default function ConsoleMode() {
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
-  useGamepadButtonPress(BTN_R2, cycleSort, idle)
+  // Skip sort during quit combo
+  useGamepadButtonPress(
+    BTN_R2,
+    () => {
+      if (!isGamepadButtonHeld(BTN_SELECT)) cycleSort()
+    },
+    idle
+  )
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -495,6 +560,14 @@ export default function ConsoleMode() {
             disabled={!!launchingGame}
           >
             {t('console.quit', 'Quit console')}
+            {gamepadConnected && (
+              <span
+                className={`consoleButtonGlyphs consoleQuitCombo ${controllerLayout}`}
+              >
+                <i className="buttonImage select" />
+                <i className="buttonImage trigger-r" />
+              </span>
+            )}
           </button>
           <button
             className="consoleQuitButton danger"
@@ -562,6 +635,30 @@ export default function ConsoleMode() {
         {gamepadConnected && !launchingGame && (
           <ControllerHints layout={controllerLayout} />
         )}
+        {!launchingGame && controllerBattery && (
+          <span
+            className={classNames('consoleBattery', {
+              charging: controllerBattery.status === 'Charging',
+              low:
+                controllerBattery.capacity <= 20 &&
+                controllerBattery.status !== 'Charging'
+            })}
+          >
+            <Icon
+              glyph={
+                controllerBattery.status === 'Charging'
+                  ? BatteryCharging
+                  : controllerBattery.capacity <= 20
+                    ? BatteryLow
+                    : controllerBattery.capacity <= 60
+                      ? BatteryMedium
+                      : BatteryFull
+              }
+              size="sm"
+            />
+            {controllerBattery.capacity}%
+          </span>
+        )}
       </div>
 
       {launchingGame && (
@@ -569,6 +666,26 @@ export default function ConsoleMode() {
           game={launchingGame}
           onDismiss={() => setLaunchingGame(null)}
         />
+      )}
+
+      {quitHoldStart != null && (
+        <div className="consoleLaunchOverlay" role="status" aria-live="polite">
+          <div className="consoleLaunchSpinner" />
+          <div className="consoleLaunchText">
+            {t('console.quitting', 'Quitting console')}
+          </div>
+          {gamepadConnected && (
+            <BackHint
+              prefix={t('console.cancel.hintPrefix', 'Hold')}
+              suffix={t('console.quitHold.hintSuffix', 'for 3s to quit')}
+              buttons={[
+                getSelectButtonLabel(controllerLayout),
+                getR2ButtonLabel(controllerLayout)
+              ]}
+              active
+            />
+          )}
+        </div>
       )}
 
       {installingGame && (

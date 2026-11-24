@@ -226,6 +226,11 @@
                 "message": "{{game}} için Bulut kayıtlarının tümü indirilemedi, bu nedenle bu bilgisayardaki kayıtlar eksik. Şimdi oynamak Buluttaki eksik ilerlemenin üzerine yazabilir.\n\n{{details}}",
                 "title": "Steam Bulut kayıtları eksik"
             }
+        },
+        "saveConflict": {
+            "cancel": "İptal",
+            "keepCloud": "Bulut kaydını kullan",
+            "message": "{{game}} için Bulut ve Yerel kayıtlar birbirinden farklılaştı, hangi kopyanın tutulacağını seçin:\n\n{{files}}"
         }
     },
     "button": {
@@ -281,7 +286,8 @@
             "end-time": "Bitiş zamanı",
             "queue-time": "Eklenme zamanı",
             "start-time": "Başlangıç zamanı",
-            "type": "Tür"
+            "type": "Tür",
+            "status": "Durum"
         },
         "title": "İndirilenler",
         "ETA": "Tahmini süre",
@@ -528,7 +534,15 @@
         "logged_in_as": "Oturum açan hesap",
         "title_itchio": "itch.io",
         "title_steam": "Steam",
-        "title_zoom": "Zoom Platform"
+        "title_zoom": "Zoom Platform",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "GOG ortaklık bağlantısını devre dışı bırak",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "logged_in": "Oturum açan hesap"
     },
     "message": {
         "sync": "Eşitleme Tamamlandı",
@@ -867,7 +881,8 @@
             "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
             "missingMsg": "PATH üzerinde gamescope bulunamadı. Kurun veya PATH'e ekleyin.",
             "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir",
-            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
+            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un flatpak paketini kurun ve ardından Heroic'i yeniden başlatın.",
+            "enableHDR": "HDR'ı Etkinleştir"
         },
         "after-launch-script-path": "Oyun kapandıktan sonra çalıştırılacak betiği seçin",
         "before-launch-script-path": "Oyun başlatılmadan önce çalıştırılacak betiği seçin",
@@ -1180,7 +1195,12 @@
             "controller": "Oyun kumandası",
             "language": "Dil ve bölge",
             "privacy": "Gizlilik",
-            "steam": "Steam"
+            "steam": "Steam",
+            "amazon": "Amazon Games",
+            "epic": "Epic Games",
+            "gog": "GOG",
+            "gamescopeAdditionalOptions": "Ek Seçenekler",
+            "gamescopeDisplay": "Görüntüleme"
         },
         "pageSubtitle": {
             "log": "Heroic günlüklerini okuyun ve paylaşın",
@@ -1189,7 +1209,14 @@
             "systeminfo": "Donanımınız ve Heroic'in çalıştırdığı sürümler",
             "advanced": "Çalıştırılabilir dosyalar, deneysel özellikler ve bakım"
         },
-        "clear-images-cache": "Görsel önbelleğini temizle"
+        "clear-images-cache": "Görsel önbelleğini temizle",
+        "gamepad": {
+            "button": {
+                "back": "Geri",
+                "guide": "Konsol Modu",
+                "reset": "Varsayılana Sıfırla"
+            }
+        }
     },
     "Settings": "Ayarlar",
     "sidebar": {
@@ -1742,5 +1769,49 @@
     },
     "changelog": {
         "view_full": "Tüm değişiklik günlüğünü GitHub'da görüntüle"
+    },
+    "import-export": {
+        "action": {
+            "download": "İndiriliyor",
+            "ignore": "Koru"
+        },
+        "back": "Geri",
+        "close": "Kapat",
+        "installed-games": "Kurulu oyunlar",
+        "next": "Sonraki",
+        "per-game": "Oyun ayarları",
+        "platform": "Platform",
+        "rollback": {
+            "saved": "Kaydet"
+        },
+        "stage": {
+            "credentials": "Mağaza oturum açma",
+            "globalSettings": "Genel Ayarlar",
+            "perGameSettings": "Oyun ayarları"
+        },
+        "step3": {
+            "title": "Genel Ayarlar"
+        },
+        "step4": {
+            "none": "Şu anki filtrelerle eşleşen bir oyun yok.",
+            "selectAll": "Tümünü Seç"
+        },
+        "step5": {
+            "title": "Mağaza oturum açma"
+        },
+        "step6": {
+            "prefixPath": "Wine Ön Ek",
+            "wine-downloadable": "İndirme",
+            "wine-unavailable": "DLC yok"
+        },
+        "steps": {
+            "credentials": "Mağaza oturum açma",
+            "done": "Tamamla",
+            "global-settings": "Genel Ayarlar",
+            "per-game": "Oyun ayarları"
+        },
+        "summaryValue": "Değer",
+        "version": "Heroic Sürümü",
+        "wine-versions": "Wine sürümü"
     }
 }

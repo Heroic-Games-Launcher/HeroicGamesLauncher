@@ -6,7 +6,13 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import type { Runner } from 'common/types'
 import Dropdown from '../Dropdown'
 import StoreLogos from '../StoreLogos'
-import { Button, Chip, FilterSection, Icon } from 'frontend/components/UI'
+import {
+  Button,
+  Chip,
+  CountBadge,
+  FilterSection,
+  Icon
+} from 'frontend/components/UI'
 import {
   SlidersHorizontal,
   Heart,
@@ -162,6 +168,18 @@ export default function LibraryFilters() {
     }
   ]
 
+  const activeFilterCount =
+    stores.filter((s) => s.show && !storesFilters[s.key]).length +
+    platforms.filter((p) => p.show && !platformsFilters[p.key]).length +
+    [
+      showFavourites,
+      showInstalledOnly,
+      showUpdatesOnly,
+      showSupportOfflineOnly,
+      showThirdPartyManagedOnly,
+      steam.enabled && showSteamOwnedOnly
+    ].filter(Boolean).length
+
   return (
     <Dropdown
       buttonClass="pill"
@@ -169,10 +187,18 @@ export default function LibraryFilters() {
         <>
           <Icon glyph={SlidersHorizontal} size="md" />
           <span>{t('header.filters', 'Filters')}</span>
+          <CountBadge
+            count={activeFilterCount}
+            label={t('header.filters_applied', {
+              count: activeFilterCount,
+              defaultValue_one: '{{count}} filter applied',
+              defaultValue_other: '{{count}} filters applied'
+            })}
+          />
         </>
       }
       className="libraryFilters"
-      data-tour="library-filters"
+      dataTour="library-filters"
     >
       <FilterSection label={t('header.stores', 'Stores')}>
         {stores

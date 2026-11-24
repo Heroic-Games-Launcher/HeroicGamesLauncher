@@ -6,13 +6,15 @@ type Props = {
   children: ReactNode
   className?: string
   buttonClass?: string
+  dataTour?: string
 }
 
 export default function Dropdown({
   title,
   children,
   className,
-  buttonClass
+  buttonClass,
+  dataTour
 }: Props) {
   const [isExpanded, setIsExpanded] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -43,6 +45,7 @@ export default function Dropdown({
     <div ref={containerRef} className={`dropdownContainer ${className || ''}`}>
       <button
         className={`dropdownButton ${buttonClass ? buttonClass : ''}`}
+        data-tour={dataTour}
         onClick={() => {
           // focus first component when expanding
           if (!isExpanded) {

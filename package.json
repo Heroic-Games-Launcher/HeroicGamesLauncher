@@ -1,8 +1,8 @@
 {
   "name": "heroic",
-  "version": "2.22.4",
+  "version": "3.0.0-beta.1",
   "versionNames": {
-    "stable": "Hajrudin",
+    "stable": "Caesar Clown",
     "beta": "Caesar Clown"
   },
   "private": false,

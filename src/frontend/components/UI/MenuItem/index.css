@@ -49,6 +49,11 @@
   outline: none;
 }
 
+.MenuItem:focus-visible:not(:disabled) {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
 .MenuItem--danger {
   color: var(--danger, #ef4444);
 }

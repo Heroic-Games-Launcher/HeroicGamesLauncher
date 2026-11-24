@@ -10,7 +10,8 @@
         "move": {
             "message": "Môže to trvať dlho, ste si istý?",
             "path": "Vyberte si, kam sa chcete presunúť",
-            "title": "Presunúť Inštaláciu Hry"
+            "title": "Presunúť Inštaláciu Hry",
+            "steamMessage": ""
         },
         "no": "NIE",
         "repair": {
@@ -99,7 +100,9 @@
         "edit-game": "Upraviť nastavenie App/Game",
         "favourite": "Pridať do obľúbených",
         "unfavourite": "Odstrániť z obľúbených",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Back"
     },
     "cloud_save_unsupported": "Nepodporované",
     "disabled": "Zakázané",
@@ -179,7 +182,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Uložisko k dispozícii",
@@ -197,7 +205,10 @@
             "cancel": "Nie",
             "title": "Anticheat Nefunguje/Nepovolený"
         },
-        "flatpak-path-not-writtable": "Chyba: Tejto ceste nebol udelený prístup do Sandboxu, dôjde k strate údajov."
+        "flatpak-path-not-writtable": "Chyba: Tejto ceste nebol udelený prístup do Sandboxu, dôjde k strate údajov.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -222,7 +233,8 @@
             "pleaseWait": "Please wait...",
             "installation": "Zastaviť inštaláciu"
         },
-        "releaseDate": "Release Date"
+        "releaseDate": "Release Date",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Možnosti spustenia...",
@@ -272,12 +284,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "Skontrolujte kompatibilitu",
+            "finish": "Dokončiť",
+            "install": "Zastaviť inštaláciu"
         }
     },
     "specs": {
         "minimum": "Minimum",
         "recommended": "Odporúčané",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "Kliknutím aktualizujte",
@@ -321,11 +339,12 @@
         "removeShortcut": "Odstrániť skratky",
         "settings": "Nastavenia",
         "store": "Stránka Obchodu",
-        "verify": "Overiť a opraviť",
+        "verify": "Overiť a opraviť súbory",
         "extraInfo": "Ďalšie informácie",
         "logs": "Denníky",
         "categories": "Kategórie",
-        "more": ""
+        "more": "",
+        "options": "Options"
     },
     "help": {
         "cloud_save_unsupported": "Táto hra nepodporuje ukladanie do cloudu. Tieto informácie poskytujú vývojári hry. Niektoré hry implementujú svoj vlastný systém ukladania do cloudu",
@@ -389,7 +408,13 @@
             "dlc": "DLC",
             "installInfo": "Veľkosť na stiahnutie",
             "launchOptions": "Možnosti spustenia...",
-            "storeInfo": "Informácie o Systéme"
+            "storeInfo": "Informácie o Systéme",
+            "achievements": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

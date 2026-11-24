@@ -405,6 +405,18 @@
   display: none;
 }
 
+/* room for the sticky library header when a card is scrolled into view */
+.gameCard,
+.gameListItem {
+  scroll-margin-block-start: 220px;
+}
+
+/* with a controller the card is a single focus target: launch and options are
+   on Y/X, so keep auxiliary buttons out of the focus order as well */
+.gameCard.gamepad .cloud-sync-icon {
+  display: none;
+}
+
 .gameCard > .icons > .svg-button {
   justify-self: center;
 }
@@ -516,6 +528,11 @@
     var(--search-bar-background, var(--input-background)) 88%,
     var(--navbar-accent, var(--accent))
   );
+}
+
+.gameListItem:focus-within {
+  outline: 3px solid var(--navbar-accent, var(--accent));
+  outline-offset: -1px;
 }
 
 .gameListItem > a {

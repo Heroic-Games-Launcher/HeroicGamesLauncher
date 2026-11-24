@@ -69,12 +69,27 @@ export default function LibrarySearchBar() {
     })
   }
 
-  const suggestions = list.map((game) => (
-    <li onClick={() => handleClick(game)} key={game.app_name}>
-      {game.overrides?.title || game.title}{' '}
-      <span>({RUNNER_TO_STORE[game.runner] || game.runner})</span>
-    </li>
-  ))
+  const suggestions = list.slice(0, 8).map((game) => {
+    const select = () => handleClick(game)
+    return (
+      <li
+        role="option"
+        aria-selected={false}
+        tabIndex={0}
+        onClick={select}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault()
+            select()
+          }
+        }}
+        key={game.app_name}
+      >
+        {game.overrides?.title || game.title}{' '}
+        <span>({RUNNER_TO_STORE[game.runner] || game.runner})</span>
+      </li>
+    )
+  })
 
   const onInputChanged = (text: string) => {
     handleSearch(text)

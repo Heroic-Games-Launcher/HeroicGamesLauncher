@@ -76,13 +76,10 @@ export default React.memo(function ActionIcons({
                 'Toggle to a list layout'
               )}
               className="FormControl__button"
+              data-tour="library-view-toggle"
               onClick={() => handleLayout('list')}
             >
-              <Icon
-                glyph={List}
-                className="FormControl__segmentedLucideIcon"
-                data-tour="library-view-toggle"
-              />
+              <Icon glyph={List} className="FormControl__segmentedLucideIcon" />
             </button>
           </Tooltip>
         ) : (
@@ -96,12 +93,12 @@ export default React.memo(function ActionIcons({
                 'Toggle to a grid layout'
               )}
               className="FormControl__button"
+              data-tour="library-view-toggle"
               onClick={() => handleLayout('grid')}
             >
               <Icon
                 glyph={LayoutGrid}
                 className="FormControl__segmentedLucideIcon"
-                data-tour="library-view-toggle"
               />
             </button>
           </Tooltip>
@@ -121,19 +118,18 @@ export default React.memo(function ActionIcons({
                 : t('library.sortAscending', 'Sort ascending')
             }
             className="FormControl__button"
+            data-tour="library-sort-az"
             onClick={() => setSortDescending(!sortDescending)}
           >
             {sortDescending ? (
               <Icon
                 glyph={ArrowDownZA}
                 className="FormControl__segmentedLucideIcon"
-                data-tour="library-sort-az"
               />
             ) : (
               <Icon
                 glyph={ArrowDownAZ}
                 className="FormControl__segmentedLucideIcon"
-                data-tour="library-sort-az"
               />
             )}
           </button>
@@ -142,6 +138,7 @@ export default React.memo(function ActionIcons({
           <button
             aria-label={t('library.sortByStatus', 'Sort by status')}
             className="FormControl__button"
+            data-tour="library-sort-installed"
             onClick={() => setSortInstalled(!sortInstalled)}
           >
             <Icon
@@ -150,7 +147,6 @@ export default React.memo(function ActionIcons({
               strokeWidth={sortInstalled ? 2.25 : undefined}
               fill={sortInstalled ? 'currentColor' : 'none'}
               fillOpacity={sortInstalled ? 0.15 : 0}
-              data-tour="library-sort-installed"
             />
           </button>
         </Tooltip>
@@ -169,6 +165,7 @@ export default React.memo(function ActionIcons({
                 : t('library.showAlphabetFilter', 'Show alphabet filter')
             }
             className="FormControl__button"
+            data-tour="library-alphabet-toggle"
             onClick={onToggleAlphabetFilter}
           >
             {showAlphabetFilter ? (
@@ -193,6 +190,7 @@ export default React.memo(function ActionIcons({
             className={classNames('FormControl__button', {
               active: refreshing || spinning
             })}
+            data-tour="library-refresh"
             onClick={handleRefresh}
           >
             <Icon
@@ -200,7 +198,6 @@ export default React.memo(function ActionIcons({
               className={classNames('FormControl__segmentedLucideIcon', {
                 ['lucide-spin']: refreshing || spinning
               })}
-              data-tour="library-refresh"
             />
           </button>
         </Tooltip>

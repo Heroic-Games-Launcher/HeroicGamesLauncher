@@ -1,4 +1,5 @@
 import { advancedSearchEntries } from './advanced'
+import { gamepadSearchEntries } from './gamepad'
 import { generalSearchEntries } from './general'
 import { runnersSearchEntries } from './runners'
 import type {
@@ -11,6 +12,7 @@ export type { ResolvedSettingsSearchEntry, SettingsSearchTab }
 
 const SETTINGS_SEARCH_ENTRIES: SettingsSearchEntry[] = [
   ...generalSearchEntries,
+  ...gamepadSearchEntries,
   ...runnersSearchEntries,
   ...advancedSearchEntries
 ]

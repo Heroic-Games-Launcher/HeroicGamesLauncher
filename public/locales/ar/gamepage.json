@@ -10,7 +10,8 @@
         "move": {
             "message": "قد تستغرق هذه العملية وقتًا طويلًا، هل أنت متأكد؟",
             "path": "اختر وجهة النقل",
-            "title": "غير مكان تثبيت اللعبة"
+            "title": "غير مكان تثبيت اللعبة",
+            "steamMessage": ""
         },
         "no": "لا",
         "repair": {
@@ -100,7 +101,8 @@
         "edit-game": "حرِّر التطبيق/اللعبة",
         "favourite": "أضف للمفضلة",
         "unfavourite": "احذف من المفضلة",
-        "backToLibrary": "العودة إلى المكتبة"
+        "backToLibrary": "العودة إلى المكتبة",
+        "steamStore": ""
     },
     "cloud_save_unsupported": "غير مدعوم",
     "disabled": "معطّل",
@@ -180,7 +182,12 @@
             "unsupported": "غير مدعومة"
         },
         "developer": "المطور",
-        "dlcs": "DLCs"
+        "dlcs": "DLCs",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "المساحة المتوفرة",
@@ -200,7 +207,10 @@
             "install_anyway": "نعم (أفهم أن مزايا تعدد اللاعبين لن تعمل)",
             "multiplayer_message": "برنامج منع الغش لا يعمل. اللعبة قد تفتح و لكن مزايا تعدد اللاعبين لن تعمل. هل تريد تثبيتها على أي حال؟"
         },
-        "flatpak-path-not-writtable": "خطأ: ليس عند هذا المسار وصول للمعزل، وسوف تفقد بيانات."
+        "flatpak-path-not-writtable": "خطأ: ليس عند هذا المسار وصول للمعزل، وسوف تفقد بيانات.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -225,7 +235,8 @@
             "pleaseWait": "يُرجى الانتظار...",
             "installation": "إيقاف التثبيت"
         },
-        "releaseDate": "تاريخ الإصدار"
+        "releaseDate": "تاريخ الإصدار",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "خيارات التشغيل...",
@@ -275,12 +286,19 @@
         },
         "images": {
             "summary": "الصور"
+        },
+        "step": {
+            "compat": "تحقق من التوافق",
+            "finish": "أنهِ",
+            "images": "الصور",
+            "install": "إيقاف التثبيت"
         }
     },
     "specs": {
         "minimum": "الحد الأدنى",
         "recommended": "الموصى به",
-        "other": "آخر"
+        "other": "آخر",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "انقر للتحديث",
@@ -324,11 +342,12 @@
         "removeShortcut": "أزل الاختصارات",
         "settings": "الإعدادات",
         "store": "صفحة المتجر",
-        "verify": "تحقق وأصلح",
+        "verify": "أكّد وأصلح",
         "extraInfo": "معلومات إضافية",
         "logs": "السجلَّات",
         "categories": "الفئات",
-        "more": "المزيد"
+        "more": "المزيد",
+        "options": "الخيارات"
     },
     "help": {
         "cloud_save_unsupported": "هذه اللعبة لا تدعم ملفَّات التخزين عبر السحابة. يوفِّر مطوِّروا اللعبة هذه المعلومات. تطبِّق بعض الألعاب أنظمة تخزين عبر السحابة خاصة بهم",
@@ -392,7 +411,13 @@
             "achievements": "الإنجازات",
             "dlc": "محتوى قابل للتنزيل (DLC)",
             "installInfo": "حجم التحميل",
-            "storeInfo": "معلومات النظام"
+            "storeInfo": "معلومات النظام",
+            "launchOptions": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

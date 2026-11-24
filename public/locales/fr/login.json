@@ -26,11 +26,40 @@
     "welcome": "Bienvenue !",
     "itchio": {
         "paste_and_login": "",
-        "api_key_placeholder": "",
+        "api_key_placeholder": "Collez votre clé d'API",
         "instructions": ""
     },
     "sid": {
         "paste_and_login": "",
         "placeholder": ""
+    },
+    "steam": {
+        "submitCode": "Envoyer le code",
+        "notice": {
+            "title": "Attention",
+            "text": "",
+            "agree": ""
+        },
+        "signingIn": "Connexion…",
+        "password": "Mot de passe",
+        "qr": {
+            "title": "Ou se connecter avec un QR Code",
+            "denied": "",
+            "scanned": "",
+            "offline": "",
+            "expired": "",
+            "caption": "",
+            "error": ""
+        },
+        "error": "",
+        "username": "",
+        "guard": {
+            "email": "",
+            "device": "",
+            "placeholder": "",
+            "deviceConfirmation": ""
+        },
+        "accountName": "",
+        "welcome": ""
     }
 }

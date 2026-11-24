@@ -10,7 +10,8 @@
         "move": {
             "message": "На гэта можа спатрэбіцца шмат часу, вы ўпэўнены?",
             "path": "Выберыце куды перамясціць",
-            "title": "Перамяшчэнне файлаў гульні"
+            "title": "Перамяшчэнне файлаў гульні",
+            "steamMessage": ""
         },
         "no": "НЕ",
         "repair": {
@@ -100,7 +101,13 @@
         "edit-game": "Рэдагаваць праграму/гульню",
         "favourite": "Дадаць у абранае",
         "unfavourite": "Выдаліць з абранага",
-        "backToLibrary": ""
+        "backToLibrary": "",
+        "steamStore": "",
+        "back": "Назад",
+        "next": "Далей",
+        "skip-installer": {
+            "title": "Прапусціць"
+        }
     },
     "cloud_save_unsupported": "Не падтрымліваецца",
     "disabled": "Адключана",
@@ -180,7 +187,12 @@
         },
         "developer": "",
         "genres": "",
-        "dlcs": "DLC"
+        "dlcs": "DLC",
+        "dlc": {
+            "enabled": "",
+            "notBought": "",
+            "disabled": ""
+        }
     },
     "install": {
         "disk-space-left": "Вольная прастора",
@@ -200,7 +212,10 @@
             "ok": "Ок",
             "install_anyway": "Так (я разумею што шматкарытсальніцкі рэжым не будзе працаваць)"
         },
-        "flatpak-path-not-writtable": "Памылка: доступ да пясочніцы не прадастаўлены для гэтага шляху, адбудзецца страта даных."
+        "flatpak-path-not-writtable": "Памылка: доступ да пясочніцы не прадастаўлены для гэтага шляху, адбудзецца страта даных.",
+        "free": "",
+        "steam-no-libraries": "",
+        "steam-path": ""
     },
     "label": {
         "game": {
@@ -247,7 +262,8 @@
             "specificVersion-pt3": "зроблена для працы праз Heroic, бо новыя версіі Steam не будуць працаваць на macOS.",
             "launch": "Запусціце Steam, выкарыстоўваючы ўзровень сумяшчальнасці ў Heroic"
         },
-        "releaseDate": "Дата выпуску"
+        "releaseDate": "Дата выпуску",
+        "steam-family-share": ""
     },
     "launch": {
         "options": "Параметры запуску...",
@@ -297,12 +313,18 @@
         },
         "images": {
             "summary": ""
+        },
+        "step": {
+            "compat": "Праверыць сумяшчальнасць",
+            "finish": "Скончыць",
+            "install": "Спыніць усталёўку"
         }
     },
     "specs": {
         "minimum": "Мінімальныя",
         "recommended": "Рэкамендаваныя",
-        "other": "Other"
+        "other": "Other",
+        "notes": ""
     },
     "status": {
         "clickToUpdate": "Націсніце, каб абнавіць",
@@ -351,7 +373,8 @@
         "extraInfo": "Дадатковая інфармацыя",
         "logs": "Журналы",
         "categories": "Катэгорыі",
-        "more": ""
+        "more": "",
+        "options": "Параметры"
     },
     "help": {
         "cloud_save_unsupported": "Гэтая гульня не падтрымлівае захаванні ў воблаку. Інфармацыя пададзена распрацоўшчыкамі гульні. Некаторыя гульні рэалізуюць уласную сістэму захавання ў воблаку",
@@ -414,7 +437,14 @@
         "data": {
             "dlc": "DLC",
             "installInfo": "Памер спампоўкі",
-            "storeInfo": "Інфармацыя аб сістэме"
+            "storeInfo": "Інфармацыя аб сістэме",
+            "achievements": "",
+            "launchOptions": ""
+        },
+        "loggedOut": {
+            "failed": "",
+            "message": "",
+            "title": ""
         }
     }
 }

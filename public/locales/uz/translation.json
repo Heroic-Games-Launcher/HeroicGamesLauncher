@@ -78,7 +78,8 @@
                     "body": "",
                     "title": ""
                 }
-            }
+            },
+            "steam-running": ""
         },
         "choose": "Tanlang",
         "warning": {
@@ -171,7 +172,21 @@
         "choose-nile-binary": "Nil ikkilik-ni tanlang",
         "update": "",
         "changelog": "",
-        "postpone": ""
+        "postpone": "",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "cancel": "",
+        "choose-aurelia-binary": ""
     },
     "accessibility": {
         "actions_font_family_no_default": "Harakatlar shriftlari oilasi (standart: ",
@@ -202,7 +217,8 @@
         "source": "Manba",
         "status": "Holat",
         "title": "Ushbu o'yin anticheat dasturini o'z ichiga oladi",
-        "multiplayer_may_not_work": ""
+        "multiplayer_may_not_work": "",
+        "removed": ""
     },
     "externalLink": {
         "dontAskAgain": "Yana so'ramang",
@@ -216,7 +232,9 @@
     },
     "two_col_table": {
         "save_hint": "Ushbu jadvaldagi o'zgarishlar avtomatik ravishda saqlanmaydi. + tugmasini bosing",
-        "add": ""
+        "add": "",
+        "edit": "",
+        "remove": ""
     },
     "userselector": {
         "cancel": "Bekor qilish",
@@ -321,7 +339,8 @@
             "end-time": "Bajarilgan",
             "queue-time": "Qo'shilgan",
             "start-time": "Boshlangan",
-            "type": "Turi"
+            "type": "Turi",
+            "status": ""
         },
         "title": "Yuklashlar",
         "ETA": "Taxminiy vaqt",
@@ -332,14 +351,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Onlayn xizmatlar to'liq ishlamasligi mumkin, chunki Epic Games serverlari oflayn!",
         "offline-notification-title": "oflayn"
     },
     "Epic Games": "Epik o'yinlar",
-    "error": "Xato",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Sevimlilar",
     "game": {
         "status": "Holat",
@@ -386,7 +411,8 @@
         "stores": "",
         "hidden": "",
         "non_available": "",
-        "platforms": ""
+        "platforms": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD ning FSR to'liq ekran rejimida pastroq piksellar sonini oshirish orqali kadrlar tezligini oshirishga yordam beradi. Tasvir sifati unchalik katta bo'lmagan samaradorlik evaziga 5 dan 1 gacha oshadi. Yoqish unumdorlikni oshirishi mumkin.",
@@ -540,7 +566,35 @@
         "amazon": "Amazonga kirish",
         "old-mac": "",
         "zoom": "",
-        "itchio": ""
+        "itchio": "",
+        "title_steam": "",
+        "title_epic": "",
+        "logout_confirm": {
+            "title": "",
+            "message": ""
+        },
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_gog": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "",
+        "button": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Sinxronizatsiya tugallandi",
@@ -602,7 +656,8 @@
         "ignore": "E'tibor bermaslik",
         "offline": "Oflayn",
         "offline-retry-in": "Oflayn. {{seconds}} soniyadan keyin qayta urinish.",
-        "retrying": "Qayta urinish"
+        "retrying": "Qayta urinish",
+        "hint-label": ""
     },
     "options": {
         "advanced": {
@@ -664,7 +719,8 @@
         "gogdl-version": "GOGDL versiyasi: ",
         "legendary-version": "Afsonaviy versiya: ",
         "weblate": "Heroic tarjimasiga yordam bering.",
-        "nile-version": "Nil versiyasi: "
+        "nile-version": "Nil versiyasi: ",
+        "aurelia-version": ""
     },
     "Other": "Boshqa",
     "placeholder": {
@@ -674,7 +730,8 @@
         "dxvkfpsvalue": "Postiv tamsayı qiymati (masalan, 30, 60, ...)",
         "egs-prefix": "EGS o'rnatilgan prefiks",
         "prefered_language": "2 belgili kod (masalan: \"en\" yoki \"fr\")",
-        "alt-nile-bin": "O'rnatilgan Nil ikkilik tizimidan foydalanish..."
+        "alt-nile-bin": "O'rnatilgan Nil ikkilik tizimidan foydalanish...",
+        "alt-aurelia-bin": ""
     },
     "please-wait": "Iltimos kuting...",
     "progress": "Taraqqiyot",
@@ -801,7 +858,8 @@
                 "zoom": "",
                 "game-log": "",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -992,7 +1050,30 @@
         "offlinemode-description": "",
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
-        "gamemode-description": ""
+        "gamemode-description": "",
+        "steamLaunchTarget": {
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "downloadBuild": "",
+            "host": "",
+            "missingRuntime": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1059,11 +1140,15 @@
             },
             "title": {
                 "resetHeroic": "",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "details": "",
             "resetHeroic": {
                 "help": "",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1137,7 +1222,8 @@
             "downloads": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1146,7 +1232,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Sozlamalar",
     "status": {
@@ -1154,7 +1241,8 @@
         "logging": "Tizimga kirish...",
         "processing": "Fayllarga ishlov berilmoqda, kuting",
         "preparing_login": "Kirish tayyorlanmoqda... ",
-        "installed": ""
+        "installed": "",
+        "preparing": ""
     },
     "store": "Epic Store",
     "stores": "Do'konlar",
@@ -1362,7 +1450,8 @@
             "releaseYear": "",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platform": ""
+            "platform": "",
+            "platformAny": ""
         },
         "sidebar": "",
         "sort": {
@@ -1427,7 +1516,12 @@
             "title": "",
             "hintSuffix": ""
         },
-        "sort": "",
+        "sort": {
+            "label": "",
+            "last_played": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
+        },
         "cancel": {
             "hintSuffix": "",
             "hintPrefix": ""
@@ -1470,7 +1564,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "sidebar": {
@@ -1498,5 +1600,123 @@
     },
     "Accounts": "",
     "General": "",
-    "itchio-store": ""
+    "itchio-store": "",
+    "cloudSync": {
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "button": {
+            "view": "",
+            "keep": "",
+            "sync": "",
+            "upload": "",
+            "download": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "column": {
+            "modified": "",
+            "file": "",
+            "size": ""
+        },
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "back": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "never": "",
+        "lastSync": ""
+    },
+    "support": {
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "actions": {
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": "",
+            "open": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "Update available!": ""
 }

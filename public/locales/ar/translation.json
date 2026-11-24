@@ -28,7 +28,8 @@
         "source": "المصدر",
         "status": "الحالة",
         "title": "تتضمن هذه اللعبة برنامج مكافحة غش",
-        "multiplayer_may_not_work": "مزايا تعدد اللاعبين قد لا تعمل بسبب عدم عمل برنامج منع الغش."
+        "multiplayer_may_not_work": "مزايا تعدد اللاعبين قد لا تعمل بسبب عدم عمل برنامج منع الغش.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "حدّث",
         "changelog": "سجل التغيرات",
         "postpone": "أجِّل",
-        "cancel": "ألغِ"
+        "cancel": "ألغِ",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "ألغِ",
@@ -263,7 +278,8 @@
             "end-time": "انتهى في",
             "queue-time": "أُضيف في",
             "start-time": "بُدئت في",
-            "type": "النوع"
+            "type": "النوع",
+            "status": "الحالة"
         },
         "title": "التنزيلات",
         "ETA": "الوقت المقدَّر",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "قد لا تعمل الخدمات عبر الإنترنت بشكل كامل لأن خوادم أَبِك جيمز غير متصلة بالإنترنت!",
         "offline-notification-title": "غير متصل بالانترنت"
     },
     "Epic Games": "أَبِك جيمز",
-    "error": "خطأ",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "المفضلة",
     "game": {
         "status": "الحالة",
@@ -329,7 +351,8 @@
         "stores": "المتاجر",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "تساعد تقنية إف.إس.آر من أي.إم.دي على رفع معدل الإطارات من خلال رفع جودة الدقة المنخفضة في وضع ملء الشاشة. تزداد جودة الصورة من 5 إلى 1 على حساب انخفاض طفيف في الأداء. قد يؤدي التمكين إلى تحسين الأداء.",
@@ -490,7 +513,28 @@
             "title": "سجل الخروج"
         },
         "title_epic": "أَبِك جيمز",
-        "title_gog": "جي.أو.جي"
+        "title_gog": "جي.أو.جي",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "سجل الدخول",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "اكتملت عملية المزامنة",
@@ -552,7 +596,8 @@
         "ignore": "تجاهل",
         "offline": "غير متصل",
         "offline-retry-in": "غير متصل. قيد إعادة المحاولة خلال {{seconds}} ثانية.",
-        "retrying": "قيد إعادة المحاولة"
+        "retrying": "قيد إعادة المحاولة",
+        "hint-label": ""
     },
     "Open": "افتح",
     "options": {
@@ -615,7 +660,8 @@
         "gogdl-version": "إصدار جي.أو.جي.دي.إل: ",
         "legendary-version": "إصدار لِجَندَرِي: ",
         "weblate": "ساعد في ترجمة هِرُوِك.",
-        "nile-version": "إصدار نيل: "
+        "nile-version": "إصدار نيل: ",
+        "aurelia-version": ""
     },
     "Other": "آخر",
     "placeholder": {
@@ -756,7 +802,8 @@
                 "zoom": "",
                 "game-log": "سجل التغيير لـ {{gameTitle}}",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -963,8 +1010,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "التنزيل",
             "missingBuild": "إجمالي التنزيلات",
-            "missingRuntime": "في.سي.رنتايم ليس مثبتًا"
-        }
+            "missingRuntime": "في.سي.رنتايم ليس مثبتًا",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1065,10 +1129,14 @@
             "details": "التفاصيل",
             "title": {
                 "resetHeroic": "إعادة تعيين هِرُوِك",
-                "clearCache": "مسح ذاكرة التخزين المؤقت"
+                "clearCache": "مسح ذاكرة التخزين المؤقت",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "سيؤدي هذا إلى إزالة جميع الإعدادات والتخزين المؤقت، لكنه لن يؤدي إلى إزالة الألعاب المثبتة أو بيانات اعتماد Epic الخاصة بك. يجب إعادة تشغيل الإصدارات المحمولة (AppImage، WinPortable، ...) من heroic يدويًا بعد ذلك.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1111,7 +1179,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "أَبِك جيمز",
+            "gog": "جي.أو.جي"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1120,6 +1191,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "انسخ"
         }
     },
     "Settings": "الإعدادات",
@@ -1134,7 +1209,8 @@
         "logging": "قيد تسجيل الدخول...",
         "processing": "قيد معالجة الملفات، يرجى الانتظار",
         "preparing_login": "يحضِّر الولوج ",
-        "installed": "مثبت"
+        "installed": "مثبت",
+        "preparing": ""
     },
     "store": "متجر أََبِك",
     "stores": "المتاجر",
@@ -1159,7 +1235,9 @@
     },
     "two_col_table": {
         "save_hint": "لا تُحفظ التغييرات في هذا الجدول تلقائيًا. انقر فوق زر +",
-        "add": "أضيف"
+        "add": "أضيف",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "يتوفَّر تحديث!",
     "userselector": {
@@ -1399,7 +1477,8 @@
             "releaseYear": "",
             "platform": "منصة",
             "hideOwned": "أخفي المملوك",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "التفاصيل",
         "sort": {
@@ -1466,7 +1545,9 @@
         },
         "sort": {
             "label": "رتب",
-            "last_played": "لُعِبت آخر مرة في"
+            "last_played": "لُعِبت آخر مرة في",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "ل3 ثواني للالغاء",
@@ -1510,7 +1591,15 @@
         },
         "removeFromQueue": {
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1538,19 +1627,152 @@
     "Update available!": "يتوفَّر تحديث!",
     "support": {
         "actions": {
-            "open": "افتح"
-        }
+            "open": "افتح",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "button": {
             "download": "التنزيل",
             "sync": "مزامنة",
-            "upload": "ارفع"
+            "upload": "ارفع",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "فلتر",
-            "size": "الحجم"
+            "size": "الحجم",
+            "modified": ""
         },
-        "never": "لم تُلعب مطلقًا"
+        "never": "لم تُلعب مطلقًا",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "back": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "ينزَّل"
+        },
+        "close": "أغلق",
+        "installed-games": "الألعاب المثبتة",
+        "platform": "منصة",
+        "stage": {
+            "credentials": "تسجيل الدخول للمتجر",
+            "globalSettings": "الإعدادات العامة"
+        },
+        "step3": {
+            "title": "الإعدادات العامة"
+        },
+        "step4": {
+            "selectAll": "حدِّد الكلَّ"
+        },
+        "step5": {
+            "title": "تسجيل الدخول للمتجر"
+        },
+        "step6": {
+            "prefixPath": "سابقة واين",
+            "wine-downloadable": "التنزيل",
+            "wine-unavailable": "لا يوجد محتوى قابل للتنزيل (DLC) متاح"
+        },
+        "steps": {
+            "credentials": "تسجيل الدخول للمتجر",
+            "global-settings": "الإعدادات العامة"
+        },
+        "summaryValue": "القيمة",
+        "version": "إصدار هِرُوِك",
+        "wine-versions": "إصدار واين"
     }
 }

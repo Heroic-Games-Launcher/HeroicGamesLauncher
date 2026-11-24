@@ -28,7 +28,8 @@
         "source": "Nguồn",
         "status": "Trạng Thái",
         "title": "Trò chơi này bao gồm phần mềm phần mềm chống gian lận",
-        "multiplayer_may_not_work": "Các tính năng nhiều người chơi có thể không hoạt động do hỗ trợ chống gian lận bị từ chối hoặc bị hỏng."
+        "multiplayer_may_not_work": "Các tính năng nhiều người chơi có thể không hoạt động do hỗ trợ chống gian lận bị từ chối hoặc bị hỏng.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Cập Nhật",
         "changelog": "Nhật Ký Thay Đổi",
         "postpone": "Hoãn",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Hủy",
@@ -263,7 +278,8 @@
             "end-time": "Hoàn thành lúc",
             "queue-time": "Đã thêm vào lúc",
             "start-time": "Bắt đầu lúc",
-            "type": "Kiểu"
+            "type": "Kiểu",
+            "status": "Status"
         },
         "title": "Tải Xuống",
         "ETA": "Thời gian dự kiến",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
         "offline-notification-title": "ngoại tuyến"
     },
     "Epic Games": "Epic Games",
-    "error": "Lỗi",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Ưa Thích",
     "game": {
         "status": "Trạng Thái",
@@ -328,7 +350,8 @@
         "stores": "Cửa hàng",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "FSR của AMD giúp tăng tốc độ khung hình bằng cách nâng cấp độ phân giải thấp hơn ở Chế độ toàn màn hình. Chất lượng hình ảnh tăng từ 5 lên 1 với cái giá phải trả là hiệu suất bị giảm nhẹ. Việc kích hoạt có thể cải thiện hiệu suất.",
@@ -490,7 +513,27 @@
         },
         "title_amazon": "Trò Chơi Amazon",
         "title_epic": "Epic Game",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "gog_affiliate": {
+            "activate": "Activate",
+            "confirm": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "logged_in": "Log in",
+        "title_steam": "",
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "Đồng Bộ Hóa Hoàn Tất",
@@ -552,7 +595,8 @@
         "ignore": "Bỏ Qua",
         "offline": "Ngoại Tuyến",
         "offline-retry-in": "Ngoại tuyến. Sẽ thử lại sau {{seconds}} giây.",
-        "retrying": "Đang Thử Lại"
+        "retrying": "Đang Thử Lại",
+        "hint-label": ""
     },
     "Open": "Mở",
     "options": {
@@ -615,7 +659,8 @@
         "gogdl-version": "Phiên Bản GOGDL: ",
         "legendary-version": "Phiên Bản Legendary ",
         "weblate": "Giúp dịch Heroic.",
-        "nile-version": "Phiên bản Nile: "
+        "nile-version": "Phiên bản Nile: ",
+        "aurelia-version": ""
     },
     "Other": "Khác",
     "placeholder": {
@@ -755,7 +800,8 @@
                 "legendary": "Nhật ký",
                 "nile": "Nhật ký",
                 "zoom": "Nhật ký Zoom",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "join-heroic-discord": "Tham gia Discord của chúng tôi",
             "show-uploads": "Hiển thị tệp nhật ký đã tải lên",
@@ -955,8 +1001,25 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Tổng số đã tải",
-            "missingRuntime": "VCRuntime not installed"
-        }
+            "missingRuntime": "VCRuntime not installed",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1025,10 +1088,14 @@
             "details": "Chi Tiết",
             "title": {
                 "resetHeroic": "Đặt Lại Heroic",
-                "clearCache": "Xóa Bộ Nhớ Đệm"
+                "clearCache": "Xóa Bộ Nhớ Đệm",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "Thao tác này sẽ xóa tất cả Cài Đặt và Bộ Nhớ Đệm nhưng sẽ không xóa Trò chơi đã cài đặt hoặc thông tin xác thực Epic của bạn. Các phiên bản di động (AppImage, WinPortable, ...) của Heroic cần được khởi động lại theo cách thủ công sau đó.",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -1103,7 +1170,11 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "amazon": "Trò Chơi Amazon",
+            "epic": "Epic Game",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1112,7 +1183,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "Cài Đặt",
     "sidebar": {
@@ -1126,7 +1198,8 @@
         "logging": "Đang Đăng Nhập...",
         "processing": "Đang xử lý tệp, vui lòng đợi",
         "preparing_login": "Đang Chuẩn Bị Đăng Nhập... ",
-        "installed": "Đã Cài Đặt"
+        "installed": "Đã Cài Đặt",
+        "preparing": ""
     },
     "store": "Cửa hàng Epic",
     "stores": "Cửa Hàng",
@@ -1151,7 +1224,9 @@
     },
     "two_col_table": {
         "save_hint": "Những thay đổi trong bảng này không được lưu tự động. Nhấp vào nút +",
-        "add": "Thêm"
+        "add": "Thêm",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Cập Nhật Có Sẵn!",
     "userselector": {
@@ -1391,7 +1466,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "Chi tiết",
         "sort": {
@@ -1457,7 +1533,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "Lần chơi trước"
+            "last_played": "Lần chơi trước",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1501,7 +1580,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "Tiếp",
     "common": {
@@ -1529,20 +1616,158 @@
     "Update available!": "Update Available!",
     "support": {
         "actions": {
-            "open": "Mở"
-        }
+            "open": "Mở",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
+        },
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "Back",
         "button": {
             "download": "Download",
             "sync": "Đồng bộ",
-            "upload": "Tải lên"
+            "upload": "Tải lên",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "Lọc",
-            "size": "Kích thước"
+            "size": "Kích thước",
+            "modified": ""
         },
-        "never": "Không bao giờ"
+        "never": "Không bao giờ",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "browse": "Duyệt",
+            "download": "Downloading"
+        },
+        "back": "Back",
+        "close": "Đóng",
+        "installed-games": "Game đã cài",
+        "next": "Tiếp",
+        "per-game": "Game settings",
+        "platform": "Platform",
+        "stage": {
+            "credentials": "Đăng nhập cửa hàng",
+            "globalSettings": "Cài đặt chung",
+            "perGameSettings": "Game settings"
+        },
+        "step3": {
+            "title": "Cài đặt chung"
+        },
+        "step4": {
+            "selectAll": "Chọn Tất Cả"
+        },
+        "step5": {
+            "title": "Đăng nhập cửa hàng"
+        },
+        "step6": {
+            "prefixPath": "Wine Prefix",
+            "wine-downloadable": "Download"
+        },
+        "steps": {
+            "credentials": "Đăng nhập cửa hàng",
+            "done": "Xong",
+            "global-settings": "Cài đặt chung",
+            "per-game": "Game settings"
+        },
+        "summaryValue": "Value",
+        "version": "Phiên bản Heroic",
+        "wine-versions": "Phiên bản Wine"
     }
 }

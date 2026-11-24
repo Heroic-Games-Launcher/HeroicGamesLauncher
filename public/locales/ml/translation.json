@@ -28,7 +28,8 @@
         "source": "Source",
         "status": "Status",
         "title": "This game includes anticheat software",
-        "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support."
+        "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support.",
+        "removed": ""
     },
     "box": {
         "cache-cleared": {
@@ -114,7 +115,8 @@
             "steam": {
                 "running": "",
                 "running-gamemode": ""
-            }
+            },
+            "steam-running": ""
         },
         "info": {
             "update": {
@@ -208,7 +210,20 @@
         "update": "Update",
         "changelog": "",
         "postpone": "",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "choose-aurelia-binary": ""
     },
     "button": {
         "cancel": "Cancel",
@@ -263,7 +278,8 @@
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
-            "type": "Type"
+            "type": "Type",
+            "status": "Status"
         },
         "title": "Downloads",
         "ETA": "കണക്കാക്കിയ സമയം",
@@ -274,14 +290,20 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "epic": {
         "offline-notification-body": "Heroic will not work probably!",
         "offline-notification-title": "offline"
     },
     "Epic Games": "എപിക് ഗെയിംസ്",
-    "error": "Error",
+    "error": {
+        "recovery": ""
+    },
     "favourites": "Favourites",
     "game": {
         "status": "Status",
@@ -328,7 +350,8 @@
         "stores": "Stores",
         "display": "",
         "hidden": "",
-        "non_available": ""
+        "non_available": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -489,7 +512,28 @@
             "title": "ഇറങ്ങൂ(ലോഗൌട്ട്)"
         },
         "title_epic": "എപിക് ഗെയിംസ്",
-        "title_gog": "GOG"
+        "title_gog": "GOG",
+        "title_steam": "",
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": "Activate"
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "logged_in": "അകത്ത് കയറുക",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": ""
     },
     "message": {
         "sync": "ഒന്നിപ്പിച്ചു",
@@ -551,7 +595,8 @@
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "retrying": "Retrying",
+        "hint-label": ""
     },
     "Open": "തുറക്കൂ",
     "options": {
@@ -614,7 +659,8 @@
         "gogdl-version": "GOGDL Version: ",
         "legendary-version": "ലെജന്ററിയുടെ പതിപ്പ്: ",
         "weblate": "ഹീറോയിക്കിനെ മൊഴിമാറ്റുവാന് സഹായിക്കൂ.",
-        "nile-version": "നൈൽ പതിപ്പ്: "
+        "nile-version": "നൈൽ പതിപ്പ്: ",
+        "aurelia-version": ""
     },
     "Other": "Other",
     "placeholder": {
@@ -755,7 +801,8 @@
                 "zoom": "",
                 "game-log": "",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "show-uploads": "",
             "error": "",
@@ -953,8 +1000,26 @@
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "ആകെ ഇറക്കിയെടുത്തത്",
-            "missingRuntime": "VCRuntime not installed"
-        }
+            "missingRuntime": "VCRuntime not installed",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1041,7 +1106,8 @@
         "advanced": {
             "title": {
                 "resetHeroic": "Reset Heroic",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "clearCache": {
                 "help8": "നട്ട കളികള്‍",
@@ -1060,7 +1126,10 @@
                 "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
                 "description": ""
             },
-            "details": ""
+            "details": "",
+            "clearImagesCache": {
+                "description": ""
+            }
         },
         "launchOptions": "വിക്ഷേപണ ബദലുകൾ...",
         "legacy_warning": "",
@@ -1101,7 +1170,10 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": "",
+            "epic": "എപിക് ഗെയിംസ്",
+            "gog": "GOG"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1110,7 +1182,8 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
-        }
+        },
+        "clear-images-cache": ""
     },
     "Settings": "ക്രമീകരണങ്ങള്",
     "sidebar": {
@@ -1124,7 +1197,8 @@
         "logging": "Logging In...",
         "processing": "Processing files, please wait",
         "preparing_login": "ലോഗിൻ തയ്യാറാക്കുന്നു... ",
-        "installed": "നട്ടു"
+        "installed": "നട്ടു",
+        "preparing": ""
     },
     "store": "കട",
     "stores": "Stores",
@@ -1149,7 +1223,9 @@
     },
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button",
-        "add": ""
+        "add": "",
+        "edit": "",
+        "remove": ""
     },
     "Update Available!": "Update Available!",
     "userselector": {
@@ -1389,7 +1465,8 @@
             "releaseYear": "",
             "platform": "Platform",
             "hideOwned": "",
-            "wishlistOnly": ""
+            "wishlistOnly": "",
+            "platformAny": ""
         },
         "sidebar": "",
         "sort": {
@@ -1455,7 +1532,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "ഒടുക്കം കളിച്ചത്"
+            "last_played": "ഒടുക്കം കളിച്ചത്",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1499,7 +1579,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "common": {
@@ -1527,21 +1615,150 @@
     "Update available!": "Update Available!",
     "support": {
         "actions": {
-            "open": "തുറക്കൂ"
+            "open": "തുറക്കൂ",
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": ""
         },
-        "title": "ഞങ്ങളെ പിന്താങ്ങൂ"
+        "title": "ഞങ്ങളെ പിന്താങ്ങൂ",
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
     },
     "cloudSync": {
         "back": "പുറകോട്ട്",
         "button": {
             "download": "Download",
             "sync": "ഒന്നിപ്പിക്കൂ",
-            "upload": "കയറ്റിവയ്ക്കുൂ"
+            "upload": "കയറ്റിവയ്ക്കുൂ",
+            "view": "",
+            "keep": ""
         },
         "column": {
             "file": "അരിപ്പ",
-            "size": "Size"
+            "size": "Size",
+            "modified": ""
         },
-        "never": "കളിച്ചിട്ടേയില്ല"
+        "never": "കളിച്ചിട്ടേയില്ല",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "import-export": {
+        "action": {
+            "download": "ഇറക്കുന്നു"
+        },
+        "back": "പുറകോട്ട്",
+        "close": "അടയ്ക്കുക",
+        "installed-games": "നട്ട കളികള്‍",
+        "per-game": "Game settings",
+        "platform": "Platform",
+        "stage": {
+            "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
+            "perGameSettings": "Game settings"
+        },
+        "step3": {
+            "title": "ആഗോള ക്രമീകരണങ്ങള്"
+        },
+        "step4": {
+            "selectAll": "എല്ലാം തിരഞ്ഞെടുക്കുക"
+        },
+        "step6": {
+            "prefixPath": "Wine Prefix",
+            "wine-downloadable": "Download"
+        },
+        "steps": {
+            "global-settings": "ആഗോള ക്രമീകരണങ്ങള്",
+            "per-game": "Game settings"
+        },
+        "summaryValue": "Value",
+        "version": "Heroic Version",
+        "wine-versions": "Wine Version"
     }
 }

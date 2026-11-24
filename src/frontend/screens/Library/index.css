@@ -26,6 +26,12 @@
   margin: var(--space-md) 0;
 }
 
+/* When the library header is sticky, scroll-into-view must leave room for it,
+   otherwise a focused card ends up hidden behind the toolbar. */
+body:has(.libraryStickyTop) {
+  scroll-padding-top: 220px;
+}
+
 .libraryStickyTop {
   position: sticky;
   top: 0;

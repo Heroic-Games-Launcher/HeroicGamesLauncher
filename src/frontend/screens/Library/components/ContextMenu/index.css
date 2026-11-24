@@ -30,6 +30,11 @@
   color: var(--text-hover, var(--text-default));
 }
 
+.contextMenu .MuiMenuItem-root.Mui-focusVisible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
 .contextMenu .MuiMenuItem-root .MuiListItemIcon-root {
   min-width: 0;
   color: var(--text-muted, var(--text-secondary));

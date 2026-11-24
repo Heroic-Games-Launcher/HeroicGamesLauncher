@@ -91,7 +91,8 @@
                     "body": "",
                     "title": ""
                 }
-            }
+            },
+            "steam-running": ""
         },
         "runexe": {
             "title": "เลือกไฟล์ EXE ที่จะรัน"
@@ -193,7 +194,21 @@
         },
         "ok": "",
         "choose-nile-binary": "",
-        "customWine": ""
+        "customWine": "",
+        "steam": {
+            "cloudIncomplete": {
+                "message": "",
+                "title": ""
+            },
+            "cloudConflict": {
+                "title": "",
+                "keepCloud": "",
+                "keepLocal": "",
+                "message": ""
+            }
+        },
+        "cancel": "",
+        "choose-aurelia-binary": ""
     },
     "button": {
         "login": "เข้าสู่ระบบ",
@@ -247,7 +262,8 @@
             "type": "",
             "end-time": "",
             "queue-time": "",
-            "start-time": ""
+            "start-time": "",
+            "status": ""
         },
         "label": {
             "disk": "",
@@ -263,7 +279,11 @@
             },
             "current": ""
         },
-        "pageSubtitle": ""
+        "pageSubtitle": "",
+        "limit": {
+            "label": "",
+            "unlimited": ""
+        }
     },
     "game": {
         "modify": "ปรับแต่งการติดตั้ง",
@@ -291,7 +311,8 @@
         "stores": "",
         "hidden": "",
         "non_available": "",
-        "platforms": ""
+        "platforms": "",
+        "show_steam_owned_only": ""
     },
     "help": {
         "title": {
@@ -538,7 +559,8 @@
                 "zoom": "",
                 "game-log": "",
                 "heroic": "",
-                "itchio": ""
+                "itchio": "",
+                "steam": ""
             },
             "no-file": "",
             "instructions_title": "",
@@ -759,8 +781,28 @@
         "disableUMU-description": "",
         "gamemode-description": "",
         "steamLaunchTarget": {
-            "downloadBuild": "กำลังดาวน์โหลด"
-        }
+            "downloadBuild": "กำลังดาวน์โหลด",
+            "missingBuild": "",
+            "info": {
+                "none": "",
+                "runtime": "",
+                "host": ""
+            },
+            "native": "",
+            "runtime": "",
+            "installRuntime": "",
+            "none": "",
+            "automatic": "",
+            "fallback": "",
+            "title": "",
+            "host": "",
+            "missingRuntime": ""
+        },
+        "alt-aurelia-bin": "",
+        "disableGOGAffiliateDescription": "",
+        "addgamestosteam-real-description": "",
+        "maxworkers-description": "",
+        "addgamestoapplications-description": ""
     },
     "settings": {
         "advanced": {
@@ -780,10 +822,14 @@
             },
             "title": {
                 "resetHeroic": "",
-                "clearCache": ""
+                "clearCache": "",
+                "clearImagesCache": ""
             },
             "resetHeroic": {
                 "help": "",
+                "description": ""
+            },
+            "clearImagesCache": {
                 "description": ""
             }
         },
@@ -905,7 +951,8 @@
             "integrations": "",
             "controller": "",
             "language": "",
-            "privacy": ""
+            "privacy": "",
+            "steam": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -914,6 +961,10 @@
             "general": "",
             "systeminfo": "",
             "advanced": ""
+        },
+        "clear-images-cache": "",
+        "copySettings": {
+            "button": "คัดลอก"
         }
     },
     "Settings": "การตั้งค่า",
@@ -922,7 +973,8 @@
         "preparing_login": "",
         "logging": "",
         "processing": "",
-        "installed": "ติดตั้งแล้ว"
+        "installed": "ติดตั้งแล้ว",
+        "preparing": ""
     },
     "tray": {
         "about": "เกี่ยวกับ",
@@ -1020,7 +1072,8 @@
         "dxvkfpsvalue": "",
         "alt-legendary-bin": "",
         "alt-gogdl-bin": "",
-        "egs-prefix": ""
+        "egs-prefix": "",
+        "alt-aurelia-bin": ""
     },
     "options": {
         "env_variables": {
@@ -1147,7 +1200,8 @@
         "nile-version": "",
         "gogdl-version": "",
         "legendary-version": "",
-        "weblate": ""
+        "weblate": "",
+        "aurelia-version": ""
     },
     "add_game": "",
     "anticheat": {
@@ -1156,7 +1210,8 @@
         "title": "",
         "reference": "",
         "source": "",
-        "multiplayer_may_not_work": ""
+        "multiplayer_may_not_work": "",
+        "removed": ""
     },
     "generic": {
         "error": {
@@ -1212,7 +1267,9 @@
     "gog-store": "",
     "two_col_table": {
         "save_hint": "",
-        "add": ""
+        "add": "",
+        "edit": "",
+        "remove": ""
     },
     "login": {
         "amazon": "",
@@ -1223,7 +1280,34 @@
         "old-mac": "",
         "zoom": "",
         "itchio": "",
-        "button": "เข้าสู่ระบบ"
+        "button": "เข้าสู่ระบบ",
+        "title_steam": "",
+        "title_epic": "",
+        "logout_confirm": {
+            "title": "",
+            "message": ""
+        },
+        "gog_affiliate": {
+            "confirm": {
+                "title": "",
+                "message": ""
+            },
+            "activate": ""
+        },
+        "description_amazon": "",
+        "description_steam": "",
+        "gog_support": "",
+        "title_gog": "",
+        "title_itchio": "",
+        "browse_store": "",
+        "description_gog": "",
+        "title_amazon": "",
+        "description_zoom": "",
+        "description_itchio": "",
+        "title_zoom": "",
+        "description_epic": "",
+        "logged_in_as": "",
+        "logged_in": "เข้าสู่ระบบ"
     },
     "stores": "",
     "GOG": "",
@@ -1238,7 +1322,8 @@
         "offline": "",
         "retrying": "",
         "hint": "",
-        "offline-retry-in": ""
+        "offline-retry-in": "",
+        "hint-label": ""
     },
     "Recent": "",
     "Library": "",
@@ -1254,7 +1339,9 @@
         "offline-notification-body": ""
     },
     "search": "",
-    "error": "",
+    "error": {
+        "recovery": ""
+    },
     "zoom-store": "",
     "wineExplanation": {
         "proton-ge": "",
@@ -1322,7 +1409,8 @@
             "releaseYear": "",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platform": ""
+            "platform": "",
+            "platformAny": ""
         },
         "sidebar": "รายละเอียด",
         "sort": {
@@ -1388,7 +1476,10 @@
             "hintSuffix": ""
         },
         "sort": {
-            "last_played": "เล่นไปล่าสุดเมื่อ"
+            "last_played": "เล่นไปล่าสุดเมื่อ",
+            "label": "",
+            "alpha_asc": "",
+            "alpha_desc": ""
         },
         "cancel": {
             "hintSuffix": "",
@@ -1432,7 +1523,15 @@
         "cancelInstall": {
             "title": "",
             "message": ""
-        }
+        },
+        "confirm": {
+            "enter": "",
+            "message": "",
+            "title": ""
+        },
+        "launchErrorNotLoggedIn": "",
+        "launchError": "",
+        "launchErrorPrefix": ""
     },
     "next": "",
     "sidebar": {
@@ -1463,11 +1562,126 @@
     "itchio-store": "",
     "cloudSync": {
         "button": {
-            "download": "กำลังดาวน์โหลด"
+            "download": "กำลังดาวน์โหลด",
+            "view": "",
+            "keep": "",
+            "sync": "",
+            "upload": ""
         },
         "column": {
-            "size": "ขนาด"
+            "size": "ขนาด",
+            "modified": "",
+            "file": ""
         },
-        "never": "ไม่เคยเลย"
+        "never": "ไม่เคยเลย",
+        "count": {
+            "failed_other": "",
+            "failed_one": "",
+            "skipped_one": "",
+            "conflicts_other": "",
+            "conflicts_one": "",
+            "skipped_other": ""
+        },
+        "hint": {
+            "checking": "",
+            "cloudCopy": "",
+            "firstUpload": "",
+            "replaceCloud": "",
+            "lastSync": "",
+            "neverSynced": "",
+            "discardCloud": "",
+            "fileCount_one": "",
+            "cloudEmpty": "",
+            "fileCount_other": ""
+        },
+        "state": {
+            "ok": "",
+            "failed": "",
+            "syncing": "",
+            "unknown": "",
+            "conflicts": "",
+            "incomplete": ""
+        },
+        "syncing": "",
+        "genericIssue": "",
+        "noFiles": "",
+        "section": {
+            "files": "",
+            "actions": ""
+        },
+        "pull": "",
+        "keepLocal": "",
+        "back": "",
+        "sync": "",
+        "keepCloud": "",
+        "viewFiles": "",
+        "push": "",
+        "lastSync": ""
+    },
+    "support": {
+        "donations": {
+            "github": {
+                "description": ""
+            },
+            "kofi": {
+                "description": ""
+            },
+            "description": "",
+            "paypal": {
+                "description": ""
+            },
+            "patreon": {
+                "description": ""
+            },
+            "title": ""
+        },
+        "affiliates": {
+            "title": "",
+            "gmg": {
+                "description": ""
+            },
+            "humble": {
+                "description": ""
+            },
+            "description": "",
+            "gog": {
+                "description": ""
+            }
+        },
+        "email": {
+            "label": ""
+        },
+        "title": "",
+        "tags": {
+            "gameKeys": "",
+            "tip": "",
+            "bundles": "",
+            "sponsor": "",
+            "membership": "",
+            "drmFree": "",
+            "donation": ""
+        },
+        "actions": {
+            "sendEmail": "",
+            "shop": "",
+            "copyEmail": "",
+            "open": ""
+        },
+        "description": "",
+        "partnerships": {
+            "title": "",
+            "description": ""
+        },
+        "headline": ""
+    },
+    "changelog": {
+        "view_full": ""
+    },
+    "Update available!": "",
+    "import-export": {
+        "action": {
+            "download": "กำลังดาวน์โหลด"
+        },
+        "close": "ปิด"
     }
 }

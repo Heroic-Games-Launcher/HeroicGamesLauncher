@@ -8,6 +8,7 @@ interface SectionHeaderProps {
   actions?: ReactNode
   className?: string
   'data-tour'?: string
+  actionsTour?: string
 }
 
 export default function SectionHeader({
@@ -15,7 +16,8 @@ export default function SectionHeader({
   subtitle,
   actions,
   className,
-  'data-tour': dataTour
+  'data-tour': dataTour,
+  actionsTour
 }: SectionHeaderProps) {
   return (
     <div
@@ -28,7 +30,11 @@ export default function SectionHeader({
           <span className="SectionHeader__subtitle">{subtitle}</span>
         )}
       </div>
-      {actions && <div className="SectionHeader__actions">{actions}</div>}
+      {actions && (
+        <div className="SectionHeader__actions" data-tour={actionsTour}>
+          {actions}
+        </div>
+      )}
     </div>
   )
 }

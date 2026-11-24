@@ -82,19 +82,11 @@
 }
 
 .sidebar-tour-button {
-  margin-left: var(--space-xs);
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
-  color: var(--brand-primary);
-  padding: 0;
+  width: 24px;
+  height: 24px;
 
   svg {
     width: 18px;
     height: 18px;
-  }
-
-  &:hover {
-    opacity: 1;
-    color: var(--accent);
   }
 }

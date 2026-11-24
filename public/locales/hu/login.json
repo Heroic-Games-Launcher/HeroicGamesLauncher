@@ -32,5 +32,34 @@
     "sid": {
         "paste_and_login": "Beillesztés a vágólapról és bejelentkezés",
         "placeholder": "Illeszd be ide a SID-kódot"
+    },
+    "steam": {
+        "notice": {
+            "text": "",
+            "title": "",
+            "agree": ""
+        },
+        "qr": {
+            "denied": "",
+            "scanned": "",
+            "offline": "",
+            "expired": "",
+            "caption": "",
+            "title": "",
+            "error": ""
+        },
+        "error": "",
+        "username": "",
+        "guard": {
+            "email": "",
+            "device": "",
+            "placeholder": "",
+            "deviceConfirmation": ""
+        },
+        "submitCode": "",
+        "accountName": "",
+        "signingIn": "",
+        "password": "",
+        "welcome": ""
     }
 }

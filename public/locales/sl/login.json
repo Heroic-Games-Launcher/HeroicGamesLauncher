@@ -28,5 +28,34 @@
     "sid": {
         "paste_and_login": "",
         "placeholder": ""
+    },
+    "steam": {
+        "notice": {
+            "text": "",
+            "title": "",
+            "agree": ""
+        },
+        "qr": {
+            "denied": "",
+            "scanned": "",
+            "offline": "",
+            "expired": "",
+            "caption": "",
+            "title": "",
+            "error": ""
+        },
+        "error": "",
+        "username": "",
+        "guard": {
+            "email": "",
+            "device": "",
+            "placeholder": "",
+            "deviceConfirmation": ""
+        },
+        "submitCode": "",
+        "accountName": "",
+        "signingIn": "",
+        "password": "",
+        "welcome": ""
     }
 }
