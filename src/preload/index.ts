@@ -1,12 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { contextBridge } from 'electron'
 import api from './api'
-import { flatpakRuntimeVersion, isFlatpak, isSteamDeck, isSteamDeckGameMode } from 'backend/constants/environment'
+import {
+  flatpakRuntimeVersion,
+  isFlatpak,
+  isSteamDeck,
+  isSteamDeckGameMode,
+  isSteamOS
+} from 'backend/constants/environment'
 
 contextBridge.exposeInMainWorld('api', api)
 contextBridge.exposeInMainWorld('isSteamDeckGameMode', isSteamDeckGameMode)
 contextBridge.exposeInMainWorld('isFlatpak', isFlatpak)
 contextBridge.exposeInMainWorld('isSteamDeck', isSteamDeck)
+contextBridge.exposeInMainWorld('isSteamOS', isSteamOS)
 contextBridge.exposeInMainWorld('platform', process.platform)
 contextBridge.exposeInMainWorld('isE2ETesting', process.env.CI === 'e2e')
 contextBridge.exposeInMainWorld('flatpakRuntimeVersion', flatpakRuntimeVersion)

@@ -46,6 +46,28 @@ const isSteamDeckDesktopMode =
   env.HOME === '/home/deck' &&
   env.DESKTOP_SESSION?.includes('steamos')
 export const isSteamDeck = isSteamDeckGameMode || isSteamDeckDesktopMode
+
+function readSteamOsId(): string | null {
+  for (const potPath of ['/run/host/os-release', '/etc/os-release']) {
+    try {
+      const content = readFileSync(potPath, 'utf-8')
+      const match = content.match(/^ID=(.*)/m)
+      if (match) {
+        const value = match[1].trim()
+        return value.startsWith('"') && value.endsWith('"')
+          ? value.slice(1, -1)
+          : value
+      }
+    } catch {
+      // Ignore missing/unreadable os-release files.
+    }
+  }
+  return null
+}
+
+// SteamOS covers Steam Deck and Steam Machine (game and desktop modes).
+export const isSteamOS =
+  isSteamDeck || isSteamDeckGameMode || readSteamOsId() === 'steamos'
 export const isCLIFullscreen = process.argv.includes('--fullscreen')
 export const isCLINoGui = process.argv.includes('--no-gui')
 export const isCLIConsoleMode = process.argv.includes('--console')

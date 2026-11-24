@@ -549,12 +549,23 @@
         },
         "link": "Downloads",
         "pageSubtitle": "What is installing now, what comes next and what is already done",
+        "post-action": {
+            "enable": "What to do after finishing the download",
+            "none": "Do nothing",
+            "shutdown": "Shutdown",
+            "suspend": "Suspend"
+        },
         "queue": {
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
             "status": "Status",
             "type": "Type"
+        },
+        "screen-off": "Turn Off Screen",
+        "screen-off-error": {
+            "message": "Heroic could not run the power command. If you are using the Flatpak version, grant it the org.freedesktop.Flatpak permission and restart Heroic.",
+            "title": "Could not turn off the screen"
         },
         "title": "Downloads"
     },

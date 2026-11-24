@@ -153,6 +153,7 @@ import {
   isSteamDeckGameMode,
   isWindows
 } from './constants/environment'
+import { turnOffScreen } from './utils/power'
 import {
   configPath,
   gamesConfigPath,
@@ -402,6 +403,11 @@ if (!gotTheLock) {
     })
 
     const settings = GlobalConfig.get().getSettings()
+
+    // Reset afterDownloadAction to none on startup
+    if (settings.afterDownloadAction !== 'none') {
+      GlobalConfig.get().setSetting('afterDownloadAction', 'none')
+    }
 
     if (settings && settings.analyticsOptIn === true) {
       startPlausible()
@@ -891,6 +897,7 @@ addHandler('authZoom', async (event, url) => {
   }
   return login
 })
+addHandler('turnOffScreen', async () => turnOffScreen())
 
 addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())

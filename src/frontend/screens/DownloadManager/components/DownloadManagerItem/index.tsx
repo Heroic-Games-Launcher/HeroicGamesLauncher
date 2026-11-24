@@ -40,6 +40,8 @@ type Props = {
   variant?: 'row' | 'hero'
   /** Leading hero action, e.g. limiter. */
   extraAction?: ReactNode
+  /** Extra controls rendered under the hero actions. */
+  heroFooter?: ReactNode
   handleClearItem?: (appName: string) => void
   showStatusColumn?: boolean
 }
@@ -78,6 +80,7 @@ const DownloadManagerItem = ({
   position,
   variant = 'row',
   extraAction,
+  heroFooter,
   handleClearItem,
   showStatusColumn = false
 }: Props) => {
@@ -447,6 +450,7 @@ const DownloadManagerItem = ({
             </div>
           )}
           {isHero && actionButtons}
+          {isHero && heroFooter}
         </div>
       </div>
 
