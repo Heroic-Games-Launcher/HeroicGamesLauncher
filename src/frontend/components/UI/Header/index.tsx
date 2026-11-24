@@ -10,7 +10,7 @@ export default function Header() {
         <div className="Header__search">
           <LibrarySearchBar />
         </div>
-        <span className="Header__filters">
+        <span className="Header__filters" data-tour="library-filter-controls">
           <CategoryFilter />
           <LibraryFilters />
         </span>

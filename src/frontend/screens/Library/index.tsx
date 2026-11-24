@@ -800,6 +800,7 @@ export default React.memo(function Library(): JSX.Element {
                 </>
               )
             }
+            actionsTour={hasRecentGames ? undefined : 'library-section-actions'}
           />
         )}
 

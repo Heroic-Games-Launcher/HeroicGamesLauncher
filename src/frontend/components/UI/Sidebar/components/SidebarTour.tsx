@@ -1,192 +1,76 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import Tour, { TourStep } from '../../../../components/Tour/Tour'
 import { useTour } from '../../../../state/TourContext'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { buildLibraryTourSteps } from 'frontend/screens/Library/components/libraryTourSteps'
 
 export const SIDEBAR_TOUR_ID = 'sidebar-tour'
 
 interface SidebarTourProps {
-  hasCurrentDownload?: boolean
   isCollapsed?: boolean
 }
 
-const SidebarTour: React.FC<SidebarTourProps> = ({
-  hasCurrentDownload = false,
-  isCollapsed = false
-}) => {
+const SidebarTour: React.FC<SidebarTourProps> = ({ isCollapsed = false }) => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
-  const { platform, isRTL, disableDiscounts } = useContext(ContextProvider)
+  const location = useLocation()
+  const { epic, gog, amazon, zoom, itchio, steam, sideloadedLibrary, isRTL } =
+    useContext(ContextProvider)
 
-  const isWin = platform === 'win32'
-
-  // Set position based on RTL
   const position = isRTL ? 'left' : 'right'
+  const isLibrary = location.pathname === '/'
+  const hasGames = Boolean(
+    epic.library.length ||
+    gog.library.length ||
+    amazon.library.length ||
+    zoom.library.length ||
+    itchio.library.length ||
+    steam.library.length ||
+    sideloadedLibrary.length
+  )
 
   const steps: TourStep[] = [
     {
       element: '[data-tour="sidebar-brand"]',
       intro: t(
         'tour.sidebar.welcome.intro',
-        'Welcome to Heroic! This sidebar is your main navigation. It groups your library, stores, downloads, settings and community links.'
+        'Welcome to Heroic! This sidebar is your main navigation on every screen.'
       ),
       title: t('tour.sidebar.welcomeTitle', 'Welcome to Heroic'),
       position
     },
-    ...(!isCollapsed
-      ? [
-          {
-            element: '[data-tour="sidebar-general-label"]',
-            intro: t(
-              'tour.sidebar.general',
-              'The General section groups the places you will use every day.'
-            ),
-            title: t('tour.sidebar.generalTitle', 'General'),
-            position
-          } satisfies TourStep
-        ]
-      : []),
     {
-      element: '[data-tour="sidebar-library"]',
+      element: isCollapsed
+        ? '[data-tour="sidebar-library"]'
+        : '[data-tour="sidebar-general-label"]',
       intro: t(
-        'tour.sidebar.library',
-        'Library brings together every game from your connected stores — Epic, GOG, Steam, Amazon, itch.io, ZOOM — plus anything you add yourself.'
+        'tour.sidebar.general',
+        'General is where you access your Library, game Stores (including login), Deals, Downloads, Accessibility and Heroic Settings, with Quit at the bottom.'
       ),
-      title: t('tour.sidebar.libraryTitle', 'Library'),
+      title: t('tour.sidebar.generalTitle', 'General'),
       position
     },
     {
-      element: '[data-tour="sidebar-stores"]',
+      element: isCollapsed
+        ? '[data-tour="sidebar-community"]'
+        : '[data-tour="sidebar-community-label"]',
       intro: t(
-        'tour.sidebar.stores',
-        'Stores opens the Stores page, where you can sign in to Epic, GOG, Steam, Amazon, itch.io and ZOOM and browse each store catalogue.'
+        'tour.sidebar.communityIntro',
+        'Community opens the Heroic documentation, the Discord server and the Support us page.'
       ),
-      title: t('tour.sidebar.storesTitle', 'Stores'),
+      title: t('tour.sidebar.communitySectionTitle', 'Community'),
       position
     },
-    ...(!disableDiscounts
-      ? [
-          {
-            element: '[data-tour="sidebar-discounts"]',
-            intro: t(
-              'tour.sidebar.deals',
-              'Deals collects current discounts and lets you filter them by store, price, genre, rating and more.'
-            ),
-            title: t('tour.sidebar.dealsTitle', 'Deals'),
-            position
-          } satisfies TourStep
-        ]
-      : []),
-    {
-      element: '[data-tour="sidebar-downloads"]',
-      intro: t(
-        'tour.sidebar.downloads',
-        'Downloads opens the download manager: what is installing now, what is queued and what has already finished. The badge counts active downloads.'
-      ),
-      title: t('tour.sidebar.downloadsTitle', 'Downloads'),
-      position
-    },
-    ...(!isWin
-      ? [
-          {
-            element: '[data-tour="sidebar-wine"]',
-            intro: t(
-              'tour.sidebar.wine',
-              'Wine manager downloads and organizes the Wine, Proton and CrossOver builds used to run Windows games on Linux and macOS.'
-            ),
-            title: t('tour.sidebar.wineTitle', 'Wine manager'),
-            position
-          } satisfies TourStep
-        ]
-      : []),
-    {
-      element: '[data-tour="sidebar-accessibility"]',
-      intro: t(
-        'tour.sidebar.accessibility',
-        'Accessibility groups font, contrast, animation and navigation options so you can adapt Heroic to your needs.'
-      ),
-      title: t('tour.sidebar.accessibilityTitle', 'Accessibility'),
-      position
-    },
-    {
-      element: '[data-tour="sidebar-settings"]',
-      intro: t(
-        'tour.sidebar.settings',
-        'Settings holds launcher preferences and per-game defaults. Use the search field to jump straight to a setting; pages are split into General, Game defaults, Advanced, System information and Log, and include backup and import/export tools.'
-      ),
-      title: t('tour.sidebar.settingsTitle', 'Settings'),
-      position
-    },
-    {
-      element: '[data-tour="sidebar-quit"]',
-      intro: t(
-        'tour.sidebar.quit',
-        'Quit closes Heroic safely and gives the launcher time to finish background work.'
-      ),
-      title: t('tour.sidebar.quitTitle', 'Quit'),
-      position
-    },
-    ...(!isCollapsed
-      ? [
-          {
-            element: '[data-tour="sidebar-community-label"]',
-            intro: t(
-              'tour.sidebar.communityIntro',
-              'The Community section links Heroic documentation, chat and ways to support the project.'
-            ),
-            title: t('tour.sidebar.communitySectionTitle', 'Community'),
-            position
-          } satisfies TourStep
-        ]
-      : []),
-    {
-      element: '[data-tour="sidebar-docs"]',
-      intro: t(
-        'tour.sidebar.docs',
-        'Documentation opens the Heroic wiki with setup guides, troubleshooting and Linux tips.'
-      ),
-      title: t('tour.sidebar.docsTitle', 'Documentation'),
-      position
-    },
-    {
-      element: '[data-tour="sidebar-discord"]',
-      intro: t(
-        'tour.sidebar.discord',
-        'Discord opens the community server for help, chat and news from the developers.'
-      ),
-      title: t('tour.sidebar.discordTitle', 'Discord'),
-      position
-    },
-    {
-      element: '[data-tour="sidebar-support"]',
-      intro: t(
-        'tour.sidebar.support',
-        'Support us explains how donations and affiliate links keep Heroic going, at no extra cost to you.'
-      ),
-      title: t('tour.sidebar.supportTitle', 'Support us'),
-      position
-    },
-    ...(hasCurrentDownload
-      ? [
-          {
-            element: '[data-tour="sidebar-current-download"]',
-            intro: t(
-              'tour.sidebar.currentDownload',
-              'While a game is downloading or updating, this card shows its progress and status. Click it to open the download manager.'
-            ),
-            title: t('tour.sidebar.currentDownloadTitle', 'Download progress'),
-            position
-          } satisfies TourStep
-        ]
-      : []),
+    ...(isLibrary ? buildLibraryTourSteps({ t, hasGames }) : []),
     {
       element: '[data-tour="sidebar-version"]',
       intro: t(
         'tour.sidebar.version',
-        'The version number opens the changelog. The question-mark button beside it restarts this tour at any time.'
+        'Click the version to read the changelog; the question-mark button beside it replays this tour.'
       ),
-      title: t('tour.sidebar.versionTitle', 'Version and tours'),
+      title: t('tour.sidebar.versionTitle', 'Version and help'),
       position
     }
   ]

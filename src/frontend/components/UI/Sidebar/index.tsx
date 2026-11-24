@@ -163,10 +163,7 @@ export default React.memo(function Sidebar() {
       </div>
       <HeroicVersion />
       <div className="resizer" onMouseDown={handleDragStart} />
-      <SidebarTour
-        hasCurrentDownload={Boolean(currentDMElement)}
-        isCollapsed={isCollapsed}
-      />
+      <SidebarTour isCollapsed={isCollapsed} />
     </aside>
   )
 })
