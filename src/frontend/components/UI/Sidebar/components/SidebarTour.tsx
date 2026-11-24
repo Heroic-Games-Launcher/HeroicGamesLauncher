@@ -17,17 +17,8 @@ const SidebarTour: React.FC<SidebarTourProps> = ({
 }) => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
-  const { epic, gog, amazon, zoom, itchio, platform, isRTL, disableDiscounts } =
-    useContext(ContextProvider)
+  const { platform, isRTL, disableDiscounts } = useContext(ContextProvider)
 
-  // Check if the user is logged into any store
-  const isLoggedIn = Boolean(
-    epic.username ||
-    gog.username ||
-    amazon.user_id ||
-    (zoom.enabled && zoom.username) ||
-    itchio.username
-  )
   const isWin = platform === 'win32'
 
   // Set position based on RTL
@@ -60,7 +51,7 @@ const SidebarTour: React.FC<SidebarTourProps> = ({
       element: '[data-tour="sidebar-library"]',
       intro: t(
         'tour.sidebar.library',
-        'Library brings together every game from your connected stores — Epic, GOG, Amazon, itch.io, ZOOM — plus anything you add yourself.'
+        'Library brings together every game from your connected stores — Epic, GOG, Steam, Amazon, itch.io, ZOOM — plus anything you add yourself.'
       ),
       title: t('tour.sidebar.libraryTitle', 'Library'),
       position
@@ -69,7 +60,7 @@ const SidebarTour: React.FC<SidebarTourProps> = ({
       element: '[data-tour="sidebar-stores"]',
       intro: t(
         'tour.sidebar.stores',
-        'Stores opens the built-in store browser. While you are inside a store, a submenu lists Epic, GOG, itch.io, Amazon Luna and ZOOM.'
+        'Stores opens the Stores page, where you can sign in to Epic, GOG, Steam, Amazon, itch.io and ZOOM and browse each store catalogue.'
       ),
       title: t('tour.sidebar.storesTitle', 'Stores'),
       position
@@ -119,36 +110,14 @@ const SidebarTour: React.FC<SidebarTourProps> = ({
       position
     },
     {
-      element: '[data-tour="sidebar-console"]',
-      intro: t(
-        'tour.sidebar.console',
-        'Console mode switches to a TV-friendly layout that works well with a gamepad.'
-      ),
-      title: t('tour.sidebar.consoleTitle', 'Console mode'),
-      position
-    },
-    {
       element: '[data-tour="sidebar-settings"]',
       intro: t(
         'tour.sidebar.settings',
-        'Settings holds launcher preferences and per-game defaults, split into General, Game defaults, Advanced, System information and Log.'
+        'Settings holds launcher preferences and per-game defaults. Use the search field to jump straight to a setting; pages are split into General, Game defaults, Advanced, System information and Log, and include backup and import/export tools.'
       ),
       title: t('tour.sidebar.settingsTitle', 'Settings'),
       position
     },
-    ...(!isLoggedIn
-      ? [
-          {
-            element: '[data-tour="sidebar-login"]',
-            intro: t(
-              'tour.sidebar.login',
-              'Stores login is where you connect your Epic, GOG, Amazon, itch.io and ZOOM accounts. Sign in to see your games here.'
-            ),
-            title: t('tour.sidebar.loginTitle', 'Stores login'),
-            position
-          } satisfies TourStep
-        ]
-      : []),
     {
       element: '[data-tour="sidebar-quit"]',
       intro: t(
@@ -158,32 +127,6 @@ const SidebarTour: React.FC<SidebarTourProps> = ({
       title: t('tour.sidebar.quitTitle', 'Quit'),
       position
     },
-    ...(isLoggedIn && !isCollapsed
-      ? [
-          {
-            element: '[data-tour="sidebar-accounts-label"]',
-            intro: t(
-              'tour.sidebar.accountsLabel',
-              'The Accounts section appears once you are signed in to at least one store.'
-            ),
-            title: t('tour.sidebar.accountsTitle', 'Accounts'),
-            position
-          } satisfies TourStep
-        ]
-      : []),
-    ...(isLoggedIn
-      ? [
-          {
-            element: '[data-tour="sidebar-manage-accounts"]',
-            intro: t(
-              'tour.sidebar.accountsManage',
-              'Manage opens the account selector, where you can switch accounts, sign in to more stores or log out.'
-            ),
-            title: t('tour.sidebar.accountsManageTitle', 'Manage accounts'),
-            position
-          } satisfies TourStep
-        ]
-      : []),
     ...(!isCollapsed
       ? [
           {

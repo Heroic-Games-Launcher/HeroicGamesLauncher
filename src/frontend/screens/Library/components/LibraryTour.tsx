@@ -10,7 +10,7 @@ export const LIBRARY_TOUR_ID = 'library-tour'
 const LibraryTour: React.FC = () => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
-  const { epic, gog, amazon, zoom, itchio, sideloadedLibrary } =
+  const { epic, gog, amazon, zoom, itchio, steam, sideloadedLibrary } =
     useContext(ContextProvider)
   const { showAlphabetFilter } = useContext(LibraryContext)
 
@@ -21,6 +21,7 @@ const LibraryTour: React.FC = () => {
     amazon.library.length ||
     zoom.library.length ||
     itchio.library.length ||
+    steam.library.length ||
     sideloadedLibrary.length
   )
 
@@ -37,21 +38,12 @@ const LibraryTour: React.FC = () => {
           {
             intro: t(
               'tour.library.empty',
-              'Your library is empty right now. Sign in to your stores using Stores login in the sidebar, or use Add game to sideload anything you want.'
+              'Your library is empty right now. Use Stores in the sidebar to sign in, use Add game to sideload anything you want, or restore a Heroic backup from Settings.'
             ),
             title: t('tour.library.emptyTitle', 'Let us fill this up')
           } satisfies TourStep
         ]
       : []),
-    {
-      element: '[data-tour="library-add-game"]',
-      intro: t(
-        'tour.library.addGame',
-        'Add game lets you sideload an app, executable, script or even a web URL. It does not need to be a store game.'
-      ),
-      title: t('tour.library.addGameTitle', 'Add your own games'),
-      position: 'bottom'
-    },
     {
       element: '[data-tour="library-search"]',
       intro: t(
@@ -65,7 +57,7 @@ const LibraryTour: React.FC = () => {
       element: '[data-tour="library-categories"]',
       intro: t(
         'tour.library.categories',
-        'Categories let you group games into your own lists. Select one or more to filter, or use only to show just that category. Manage categories opens the editor.'
+        'Categories let you group games into your own lists. Tick the boxes to filter by one or more categories, use only to isolate one, and check the badge for how many are selected. Manage categories opens the editor.'
       ),
       title: t('tour.library.categoriesTitle', 'Categories'),
       position: 'bottom'
@@ -74,7 +66,7 @@ const LibraryTour: React.FC = () => {
       element: '[data-tour="library-filters"]',
       intro: t(
         'tour.library.filters',
-        'Filters narrow the library by store, platform and display options such as favorites, installed, games with updates, offline-supported games, third-party managed games, hidden and unavailable entries. Reset all brings everything back.'
+        'Filters narrow the library by store, platform and display options such as favorites, installed, games with updates, offline-supported games, third-party managed games, hidden and unavailable entries. The badge shows how many filters are active, and Reset all brings everything back.'
       ),
       title: t('tour.library.filtersTitle', 'Filters'),
       position: 'bottom'
@@ -144,6 +136,24 @@ const LibraryTour: React.FC = () => {
         'Use this question mark whenever you want to replay the library tour.'
       ),
       title: t('tour.library.helpTitle', 'Replay the tour'),
+      position: 'bottom'
+    },
+    {
+      element: '[data-tour="library-console-mode"]',
+      intro: t(
+        'tour.library.consoleMode',
+        'Console mode switches to a fullscreen, controller-friendly interface with the sidebar and window controls hidden. Confirm to enter and you can leave it later.'
+      ),
+      title: t('tour.library.consoleModeTitle', 'Console mode'),
+      position: 'bottom'
+    },
+    {
+      element: '[data-tour="library-add-game"]',
+      intro: t(
+        'tour.library.addGame',
+        'Add game opens a guided wizard to sideload an app, executable, script or web URL, including its own metadata and images.'
+      ),
+      title: t('tour.library.addGameTitle', 'Add your own games'),
       position: 'bottom'
     },
     ...(hasGames
