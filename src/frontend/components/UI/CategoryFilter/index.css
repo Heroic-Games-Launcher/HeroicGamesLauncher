@@ -6,7 +6,7 @@
 .categoryList {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-3xs-fixed);
   width: 100%;
   margin: 0;
   padding: 0;
@@ -18,7 +18,7 @@
   align-items: center;
   gap: var(--space-xs-fixed);
   min-width: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding-inline-end: var(--space-2xs-fixed);
   transition: background-color 150ms ease;
 }

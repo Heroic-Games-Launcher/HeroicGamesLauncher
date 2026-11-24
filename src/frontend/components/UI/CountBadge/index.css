@@ -2,8 +2,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 20px;
-  height: 20px;
+  min-width: var(--space-lg-fixed);
+  height: var(--space-lg-fixed);
   padding: 0 var(--space-2xs-fixed);
   border-radius: var(--radius-pill);
   background: color-mix(in oklab, var(--role-accent) 22%, transparent);
