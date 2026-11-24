@@ -9,14 +9,15 @@ export default function ControllerHints({
 }) {
   const { t } = useTranslation()
   return (
-    <div className={`consoleControllerHints ${layout}`}>
+    <div className={`consoleButtonGlyphs consoleControllerHints ${layout}`}>
       <div className="hint">
         <i className="buttonImage main-action" />
         {t('console.hints.launch', 'Launch')}
       </div>
       <div className="hint">
-        <i className="buttonImage back" />
-        {t('console.hints.quit', 'Quit')}
+        <i className="buttonImage select" />
+        <i className="buttonImage trigger-r" />
+        {t('console.hints.hold_quit', 'Hold to quit')}
       </div>
       <div className="hint">
         <i className="buttonImage shoulder-l" />

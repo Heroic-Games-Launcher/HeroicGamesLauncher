@@ -11,6 +11,7 @@ const BTN_BACK = 1
 export const BTN_L1 = 4
 export const BTN_R1 = 5
 export const BTN_R2 = 7
+export const BTN_SELECT = 8
 
 export const getActionButtonLabel = (layout: ControllerLayout) =>
   layout.startsWith('ps') ? '✕' : 'A'
@@ -35,3 +36,15 @@ export function detectControllerLayout(id: string): ControllerLayout {
 
 export const getBackButtonLabel = (layout: ControllerLayout) =>
   layout.startsWith('ps') ? '◯' : 'B'
+
+// Select/Start names differ per family
+export const getSelectButtonLabel = (layout: ControllerLayout) => {
+  if (layout.startsWith('ps')) return 'Share'
+  if (layout === 'nintendo') return '-'
+  return 'View'
+}
+export const getR2ButtonLabel = (layout: ControllerLayout) => {
+  if (layout.startsWith('ps')) return 'R2'
+  if (layout === 'nintendo') return 'ZR'
+  return 'RT'
+}

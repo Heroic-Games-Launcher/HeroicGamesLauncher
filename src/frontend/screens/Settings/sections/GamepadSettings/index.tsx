@@ -5,6 +5,7 @@ import {
   DetectedControllers,
   DisableController,
   DisableGuideButton,
+  EnableControllerInConsoleMode,
   GamePadDelayRepeat,
   GamepadButtonMapping,
   GamepadDeadzone
@@ -24,6 +25,7 @@ export default function GamepadSettings() {
         )}
       >
         <DisableController />
+        <EnableControllerInConsoleMode />
         <DisableGuideButton />
         <GamepadDeadzone />
         <GamePadDelayRepeat />

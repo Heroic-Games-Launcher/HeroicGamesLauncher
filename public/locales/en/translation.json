@@ -355,6 +355,9 @@
         "card": {
             "needsUpdate": "Needs update"
         },
+        "close": {
+            "hintSuffix": "for 3s to close the game"
+        },
         "confirm": {
             "enter": "Enter Console Mode",
             "message": "Console Mode is a fullscreen, controller friendly interface. The sidebar and window controls will be hidden.",
@@ -368,9 +371,9 @@
         "games": "Installed games",
         "hints": {
             "change_store": "Change store",
+            "hold_quit": "Hold to quit",
             "launch": "Launch",
             "navigate": "Navigate",
-            "quit": "Quit",
             "sort": "Sort"
         },
         "install": {
@@ -388,6 +391,10 @@
         "loading": "Loading your library…",
         "quit": "Quit console",
         "quitApp": "Quit app",
+        "quitHold": {
+            "hintSuffix": "for 3s to quit"
+        },
+        "quitting": "Quitting console",
         "removeFromQueue": {
             "message": "This game is queued for download. Remove it from the queue?"
         },
@@ -1243,6 +1250,7 @@
         "dxfpslimit": "Limit DirectX games FPS",
         "dxfpslimit-description": "Cap the frame rate of DirectX games to reduce heat and power draw",
         "egs-sync": "Sync with installed Epic Games",
+        "enable-controller-in-console-mode": "Always enable controller in Console Mode",
         "enableFSRHack": "Wine FSR 1 (fshack, X11 only)",
         "enableFSRHack-description": "Legacy fullscreen upscaling for DirectX games (X11 only)",
         "eosOverlay": {
