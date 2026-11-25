@@ -20,7 +20,6 @@ import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
-import PowerSettings from './components/PowerSettings'
 import DownloadLimit from './components/DownloadLimit'
 
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -132,7 +131,6 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
                     <DownloadLimit />
                   ) : undefined
                 }
-                heroFooter={window.isSteamOS ? <PowerSettings /> : undefined}
               />
               <ProgressHeader
                 state={state}
