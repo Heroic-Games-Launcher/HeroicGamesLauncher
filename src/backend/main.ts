@@ -1,3 +1,4 @@
+import './cli_version'
 import {
   initImagesCache,
   clearImagesCache,
