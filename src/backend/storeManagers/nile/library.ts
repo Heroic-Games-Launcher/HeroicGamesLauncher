@@ -47,6 +47,14 @@ export default class NileLibraryManager implements LibraryManager {
     if (!existsSync(nileConfigPath) && existsSync(globalNileConfig)) {
       copySync(globalNileConfig, nileConfigPath)
       await NileUser.getUserData()
+    } else if (existsSync(nileUserData)) {
+      // Recover a Nile session that Heroic no longer has cached, otherwise
+      // Amazon shows as logged out while Nile still refuses to start a login.
+      try {
+        await NileUser.getUserData()
+      } catch (error) {
+        logError(['Failed to read Nile user data:', error], LogPrefix.Nile)
+      }
     }
 
     this.refresh()
