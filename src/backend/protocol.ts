@@ -12,7 +12,15 @@ import { Path } from './schemas'
 import { isCLINoGui } from './constants/environment'
 import { GlobalConfig } from './config'
 
-const RUNNERS = z.enum(['legendary', 'gog', 'nile', 'sideload'])
+// Every runner that gets heroic:// shortcuts, which excludes steam
+const RUNNERS = z.enum([
+  'legendary',
+  'gog',
+  'sideload',
+  'nile',
+  'zoom',
+  'itchio'
+])
 
 function parseHeroicUrl(args: string[]): URL | undefined {
   const urlStr = args.find((arg) => arg.startsWith('heroic://'))
