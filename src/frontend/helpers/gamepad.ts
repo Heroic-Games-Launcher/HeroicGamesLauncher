@@ -195,6 +195,8 @@ export type GamepadLayout =
   | 'ps3-clone'
   | 'n64-clone'
   | 'genius'
+  | 'WiiU'
+  | 'N64Switch'
 
 // which button layout Heroic uses for a controller, based on the id reported by
 // the browser (`... Vendor: 054c Product: 0ce6 ...` or `054c-0ce6-name`)
@@ -204,6 +206,8 @@ export const detectGamepadLayout = (id: string): GamepadLayout => {
   if (/0079.*0006/i.test(id)) return 'n64-clone'
   if (/0583.*a009/i.test(id)) return 'genius'
   if (/057e.*(2006|2007|2009)/i.test(id)) return 'nintendo'
+  if (/057e.*0330/i.test(id)) return 'WiiU'
+  if (/057e.*2019/i.test(id)) return 'N64Switch'
   return 'standard'
 }
 
