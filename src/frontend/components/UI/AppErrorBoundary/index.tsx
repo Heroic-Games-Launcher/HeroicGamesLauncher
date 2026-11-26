@@ -117,6 +117,8 @@ interface AppErrorScreenProps {
  * everything needed to file a usable bug report: the error itself, the route
  * and version it happened on, and one-click access to Heroic's log.
  */
+// Used by the Storybook stories, which ts-prune does not scan.
+// ts-prune-ignore-next
 export function AppErrorScreen({
   error,
   route,
