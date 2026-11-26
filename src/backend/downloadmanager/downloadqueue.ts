@@ -16,8 +16,6 @@ import {
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 import { onConnectivityChange } from 'backend/online_monitor'
-import { GlobalConfig } from '../config'
-import { shutdown, suspend } from '../utils/power'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -108,7 +106,6 @@ async function runQueue() {
   await pruneSteamBacklog(queuedSteam)
 
   let element = getFirstQueueElement()
-  let allSucceeded = true
 
   while (element) {
     const queuedElements = downloadManager.get('queue', [])
@@ -129,8 +126,6 @@ async function runQueue() {
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
 
-    if (status !== 'done') allSucceeded = false
-
     if (element.type === 'update') {
       const key = updateKey(element.params.appName, element.params.runner)
       if (status === 'error') failedUpdates.add(key)
@@ -148,23 +143,9 @@ async function runQueue() {
     }
   }
 
-  if (queueState !== 'paused' && allSucceeded) {
-    queueState = 'idle'
-    await performAfterDownloadAction()
-  } else if (queueState !== 'paused') {
+  if (queueState !== 'paused') {
     queueState = 'idle'
   }
-}
-
-async function performAfterDownloadAction() {
-  const globalConfig = GlobalConfig.get()
-  const action = globalConfig.getSettings().afterDownloadAction
-  if (action === 'none') {
-    return
-  }
-
-  globalConfig.setSetting('afterDownloadAction', 'none')
-  return action === 'shutdown' ? shutdown() : suspend()
 }
 
 /** Whether this session's update failed. */

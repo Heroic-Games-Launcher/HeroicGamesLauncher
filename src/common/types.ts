@@ -173,7 +173,6 @@ export interface AppSettings extends GameSettings {
   defaultSteamRuntime: SteamRuntimeName | false
   showValveProton: boolean
   steamGridDbApiKey: string
-  afterDownloadAction: 'none' | 'shutdown' | 'suspend'
 }
 
 export type LibraryTopSectionOptions =

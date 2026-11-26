@@ -32,14 +32,6 @@ jest.mock('backend/logger', () => ({
   logWarning: jest.fn(),
   LogPrefix: { DownloadManager: 'DownloadManager' }
 }))
-jest.mock('backend/config', () => ({
-  GlobalConfig: {
-    get: () => ({
-      getSettings: () => ({ afterDownloadAction: 'none' }),
-      setSetting: jest.fn()
-    })
-  }
-}))
 jest.mock('backend/storeManagers', () => {
   const game = {
     getGameInfo: () => ({ title: 'Game', folder_name: 'game' }),

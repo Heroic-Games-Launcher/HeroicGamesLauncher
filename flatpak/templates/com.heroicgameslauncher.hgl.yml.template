@@ -66,7 +66,6 @@ finish-args:
   - --system-talk-name=org.freedesktop.UPower
   - --talk-name=org.freedesktop.PowerManagement
   - --talk-name=org.freedesktop.Notifications
-  - --talk-name=org.freedesktop.Flatpak
   - --env=TZ=
   - --unset-env=TZ
   - --env=LC_ADDRESS=C

@@ -210,7 +210,6 @@ declare global {
     setTheme: (themeClass: string) => void
     isSteamDeck: boolean
     isSteamDeckGameMode: boolean
-    isSteamOS: boolean
     isFlatpak: boolean
     flatpakRuntimeVersion?: string
     platform: NodeJS.Platform
