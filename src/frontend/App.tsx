@@ -23,6 +23,7 @@ import { InstallGameWrapper } from './screens/Library/components/InstallModal'
 import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
 import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
 import ConsoleComboListener from './screens/ConsoleMode/components/ConsoleComboListener'
+import AppErrorBoundary from './components/UI/AppErrorBoundary'
 
 function Root() {
   const {
@@ -143,6 +144,7 @@ const router = createHashRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement: <AppErrorBoundary />,
     children: [
       {
         index: true,
