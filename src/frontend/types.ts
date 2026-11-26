@@ -207,7 +207,7 @@ declare global {
       canvas_width: number,
       canvas_height: number
     ) => Promise<string>
-    setTheme: (themeClass: string) => void
+    setTheme: (themeClass: string) => Promise<string>
     isSteamDeck: boolean
     isSteamDeckGameMode: boolean
     isFlatpak: boolean

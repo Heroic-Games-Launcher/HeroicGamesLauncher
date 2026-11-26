@@ -4,28 +4,9 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField, PathSelectionBox } from '..'
 import { AppSettings } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
+import { DEFAULT_THEME, defaultThemes } from 'frontend/helpers/themes'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import { MenuItem } from '@mui/material'
-
-export const defaultThemes: Record<string, string> = {
-  midnightMirage: 'Heroic Theme',
-  cyberSpaceOasis: 'Cyberspace Oasis',
-  'high-contrast': 'High Contrast',
-  'old-school': 'Old School Heroic',
-  dracula: 'Dracula',
-  marine: 'Marine',
-  zombie: 'Zombie',
-  'nord-light': 'Nord Light',
-  'nord-dark': 'Nord Dark',
-  gruvbox_dark: 'Gruvbox Dark',
-  sweet: 'Sweet',
-  candy: 'Candy Dark',
-  'candy-light': 'Candy Light',
-  vampyria: 'Vampyria',
-  forest: 'Mint',
-  onePiece: 'One Piece',
-  cyberpunk: 'Cyberpunk'
-}
 
 export const ThemeSelector = () => {
   const { theme, setTheme } = useContext(ContextProvider)
@@ -33,6 +14,7 @@ export const ThemeSelector = () => {
   const [appConfig, setAppConfig] = useState<AppSettings | null>(null)
   const [themesPath, setThemesPath] = useState('')
   const [themes, setThemes] = useState<string[]>(Object.keys(defaultThemes))
+  const selectedTheme = themes.includes(theme) ? theme : DEFAULT_THEME
 
   hasHelp(
     'customThemesPath',
@@ -76,7 +58,7 @@ export const ThemeSelector = () => {
         htmlId="theme_selector"
         label={t('setting.select_theme', 'Select theme')}
         onChange={(event) => setTheme(event.target.value)}
-        value={theme}
+        value={selectedTheme}
       >
         {themes.map((key) => (
           <MenuItem key={key} value={key}>

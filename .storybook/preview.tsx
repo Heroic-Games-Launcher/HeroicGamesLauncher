@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import type { Decorator, Preview } from '@storybook/react-vite'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { defaultThemes } from 'frontend/components/UI/ThemeSelector'
+import { defaultThemes } from 'frontend/helpers/themes'
 
 import i18n from './i18n'
 
