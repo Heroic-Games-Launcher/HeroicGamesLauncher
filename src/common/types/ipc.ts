@@ -289,6 +289,10 @@ interface AsyncIPCFunctions {
     status: 'done' | 'failed'
     user: ItchioUserData | undefined
   }>
+  itchioAddGameToCatalog: (appName: string) => Promise<{
+    status: 'done' | 'failed'
+    error?: string
+  }>
   getItchioOAuthUrl: () => Promise<ItchioOAuthLoginData>
   authItchioOAuth: (data: ItchioOAuthCodeData) => Promise<{
     status: 'done' | 'failed'

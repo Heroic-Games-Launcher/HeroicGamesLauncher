@@ -242,8 +242,28 @@
         "wineversion": "Wine version"
     },
     "itchio": {
+        "catalog": {
+            "added": {
+                "message": "The game was added to your \"heroic\" collection on itch.io.",
+                "title": "Added to your catalog"
+            },
+            "failed": {
+                "title": "Could not add to your catalog"
+            }
+        },
         "import": {
             "warning": "Folders installed by the itch.io app are fully imported, including updates. For any other folder, Heroic cannot check for updates and uninstalling will not delete the game files."
+        },
+        "locked": {
+            "add": "Add to catalog",
+            "message": "Heroic can't install this game because you don't own it and it isn't free on itch.io. You can add it to your itch.io catalog to keep it in this library.",
+            "open": "Open on itch.io",
+            "title": "Not available in Heroic"
+        },
+        "status": {
+            "free": "Free",
+            "owned": "Owned",
+            "unowned": "Not owned"
         }
     },
     "label": {

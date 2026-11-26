@@ -11,6 +11,7 @@ const initialContext: LibraryContextType = {
     sideload: true,
     zoom: true,
     itchio: true,
+    itchioBundles: false,
     steam: true
   },
   platformsFilters: { win: true, linux: true, mac: true, browser: true },

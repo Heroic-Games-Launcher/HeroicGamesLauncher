@@ -7,6 +7,8 @@ import {
 } from 'common/types'
 import {
   ItchioGame,
+  ItchioGameSource,
+  ItchioGameStatus,
   ItchioInstallInfo,
   ItchioUpload
 } from 'common/types/itchio'
@@ -86,6 +88,7 @@ interface InstallGetUploadsResult {
 
 // Lutris-compatible escape hatch for games the owned-keys list misses.
 const DISCOVERY_COLLECTION_NAMES = ['heroic', 'lutris']
+const CATALOG_COLLECTION_NAME = 'heroic'
 
 const MAX_PAGES = 50
 
@@ -98,6 +101,15 @@ function gameToAppName(game: ItchioGame): string {
 export function gameIdFromAppName(appName: string): number | undefined {
   const id = Number(appName.replace(/^itchio-/, ''))
   return Number.isNaN(id) ? undefined : id
+}
+
+function discoveryStatus(
+  game: ItchioGame,
+  source: ItchioGameSource
+): ItchioGameStatus {
+  if (source !== 'collection') return 'owned'
+  const isFree = !game.canBeBought || (game.minPrice ?? 0) === 0
+  return isFree ? 'free' : 'unowned'
 }
 
 function gameToGameInfo(game: ItchioGame): ItchioGameInfo {
@@ -279,6 +291,65 @@ async function fetchCollectionGames(
   return games
 }
 
+function findCatalogCollection(
+  collections: ButlerdCollection[]
+): ButlerdCollection | undefined {
+  for (const name of DISCOVERY_COLLECTION_NAMES) {
+    const found = collections.find(
+      (collection) => (collection.title ?? '').trim().toLowerCase() === name
+    )
+    if (found) return found
+  }
+  return undefined
+}
+
+// Adds a game to the itch.io collection the library syncs, creating it if needed.
+export async function addGameToCatalog(appName: string): Promise<ExecResult> {
+  const gameId = gameIdFromAppName(appName)
+  const profileId = configStore.get_nodefault('profileId')
+
+  if (gameId === undefined) {
+    return { stdout: '', stderr: '', error: `Unknown itch.io app ${appName}` }
+  }
+  if (profileId === undefined) {
+    return { stdout: '', stderr: '', error: 'Not logged in to itch.io' }
+  }
+
+  try {
+    const client = await getClient()
+    const collections = await fetchAllPages<ButlerdCollection>(
+      client,
+      'Fetch.ProfileCollections',
+      { profileId },
+      true
+    )
+    const catalog = findCatalogCollection(collections)
+
+    if (catalog) {
+      await client.call('Collections.AddGame', {
+        profileId,
+        collectionId: catalog.id,
+        gameId
+      })
+    } else {
+      await client.call('Collections.Create', {
+        profileId,
+        title: CATALOG_COLLECTION_NAME,
+        private: true,
+        gameId
+      })
+    }
+
+    return { stdout: 'done', stderr: '' }
+  } catch (err) {
+    logError(
+      ['itch.io add to catalog failed:', (err as Error).message],
+      LogPrefix.Itchio
+    )
+    return { stdout: '', stderr: '', error: (err as Error).message }
+  }
+}
+
 async function refresh(): Promise<ExecResult | null> {
   const profileId = configStore.get_nodefault('profileId')
   if (profileId === undefined) {
@@ -309,15 +380,22 @@ async function refresh(): Promise<ExecResult | null> {
       return []
     })
   ])
-  const games = [...ownedGames, ...bundleGames, ...collectionGames]
+  const games: Array<{ game: ItchioGame; source: ItchioGameSource }> = [
+    ...ownedGames.map((game) => ({ game, source: 'owned' as const })),
+    ...bundleGames.map((game) => ({ game, source: 'bundle' as const })),
+    ...collectionGames.map((game) => ({ game, source: 'collection' as const }))
+  ]
 
   // A game owned through several download keys (e.g. bought directly AND
   // via a bundle) comes back once per key — dedupe by app_name so the
   // library doesn't render duplicate entries.
   const merged = new Map<string, ItchioGameInfo>()
-  for (const game of games) {
+  for (const { game, source } of games) {
     const info = gameToGameInfo(game)
     if (merged.has(info.app_name)) continue
+    info.itchio_source = source
+    info.itchio_status = discoveryStatus(game, source)
+    info.installable = info.itchio_status !== 'unowned'
     const existing = inMemoryLibrary.get(info.app_name)
     if (existing?.is_installed) {
       info.install = existing.install

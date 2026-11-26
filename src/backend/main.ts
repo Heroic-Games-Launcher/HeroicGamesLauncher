@@ -43,6 +43,7 @@ import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
+import { addGameToCatalog } from './storeManagers/itchio/library'
 import { ItchioUser } from './storeManagers/itchio/user'
 import { ITCHIO_OAUTH_REDIRECT_URI } from 'common/types/itchio'
 import { ZoomUser } from './storeManagers/zoom/user'
@@ -900,6 +901,12 @@ addHandler('authItchioOAuth', async (_event, data) =>
   ItchioUser.loginWithOAuthCode(data)
 )
 addHandler('logoutItchio', async () => ItchioUser.logout())
+addHandler('itchioAddGameToCatalog', async (_event, appName) => {
+  const result = await addGameToCatalog(appName)
+  return result.error
+    ? { status: 'failed' as const, error: result.error }
+    : { status: 'done' as const }
+})
 
 addHandler('authZoom', async (event, url) => {
   const login = await ZoomUser.login(url)

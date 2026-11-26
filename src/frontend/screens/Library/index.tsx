@@ -103,6 +103,7 @@ export default React.memo(function Library(): JSX.Element {
       sideload: sideloadedCategories.includes(storedCategory),
       zoom: zoom.enabled && zoomCategories.includes(storedCategory),
       itchio: itchioCategories.includes(storedCategory),
+      itchioBundles: false,
       steam: steam.enabled && steamCategories.includes(storedCategory)
     }
   }
@@ -464,7 +465,12 @@ export default React.memo(function Library(): JSX.Element {
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
     const zoomLibrary = showZoom ? zoom.library : []
-    const itchioLibrary = showItchio ? itchio.library : []
+    const itchioLibrary = showItchio
+      ? itchio.library.filter(
+          (game) =>
+            storesFilters['itchioBundles'] || game.itchio_source !== 'bundle'
+        )
+      : []
     const steamLibrary = showSteam ? steam.library : []
 
     return [

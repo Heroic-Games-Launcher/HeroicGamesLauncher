@@ -33,6 +33,7 @@ type StoreKey =
   | 'zoom'
   | 'sideload'
   | 'itchio'
+  | 'itchioBundles'
   | 'steam'
 
 export default function LibraryFilters() {
@@ -81,6 +82,7 @@ export default function LibraryFilters() {
       sideload: true,
       zoom: true,
       itchio: true,
+      itchioBundles: false,
       steam: true
     })
     setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
@@ -133,6 +135,12 @@ export default function LibraryFilters() {
       show: !!itchio.username
     },
     {
+      key: 'itchioBundles',
+      label: 'itch.io bundles',
+      runner: 'itchio',
+      show: !!itchio.username
+    },
+    {
       key: 'sideload',
       label: t('Other', 'Other'),
       runner: 'sideload',
@@ -168,8 +176,11 @@ export default function LibraryFilters() {
     }
   ]
 
+  // Bundle games are hidden by default, so that toggle isn't an active filter.
   const activeFilterCount =
-    stores.filter((s) => s.show && !storesFilters[s.key]).length +
+    stores.filter(
+      (s) => s.show && s.key !== 'itchioBundles' && !storesFilters[s.key]
+    ).length +
     platforms.filter((p) => p.show && !platformsFilters[p.key]).length +
     [
       showFavourites,

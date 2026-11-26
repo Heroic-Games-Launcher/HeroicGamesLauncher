@@ -143,6 +143,10 @@
   color: var(--text-default);
 }
 
+.gameCard .itchioStatus {
+  align-self: flex-start;
+}
+
 .gameCard .runner {
   display: inline-block;
   font-family: var(--primary-font-family);
@@ -493,6 +497,10 @@
 .gameCard.notAvailable .gameLog.installed {
   filter: sepia(100%);
   opacity: 0.7;
+}
+
+.gameCard .itchioStatus {
+  align-self: flex-start;
 }
 
 .gameCard .runner {

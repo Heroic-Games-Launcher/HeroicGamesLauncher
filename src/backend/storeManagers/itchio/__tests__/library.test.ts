@@ -1,6 +1,7 @@
+import type { GameInfo } from 'common/types'
 import type { ItchioGame } from 'common/types/itchio'
 
-import ItchioLibraryManager from '../library'
+import ItchioLibraryManager, { addGameToCatalog } from '../library'
 
 const mockCall = jest.fn<Promise<unknown>, [string, Record<string, unknown>]>()
 const mockLibrarySet = jest.fn<void, [string, unknown]>()
@@ -61,10 +62,16 @@ function makeGame(id: number, title: string): ItchioGame {
   }
 }
 
-function refreshedLibrary(): Array<{ app_name: string; title: string }> {
+function refreshedLibrary(): GameInfo[] {
   const call = mockLibrarySet.mock.calls.find(([key]) => key === 'library')
   expect(call).toBeDefined()
-  return call![1] as Array<{ app_name: string; title: string }>
+  return call![1] as GameInfo[]
+}
+
+function libraryEntry(library: GameInfo[], title: string): GameInfo {
+  const entry = library.find((game) => game.title === title)
+  expect(entry).toBeDefined()
+  return entry!
 }
 
 const winUpload = {
@@ -109,11 +116,47 @@ describe('itch.io library refresh', () => {
 
     await new ItchioLibraryManager().refresh()
 
-    expect(
-      refreshedLibrary()
-        .map((game) => game.title)
-        .sort()
-    ).toEqual(['Bundled', 'Collected', 'Owned'])
+    const library = refreshedLibrary()
+    expect(library.map((game) => game.title).sort()).toEqual([
+      'Bundled',
+      'Collected',
+      'Owned'
+    ])
+    expect(libraryEntry(library, 'Owned').itchio_source).toBe('owned')
+    expect(libraryEntry(library, 'Bundled').itchio_source).toBe('bundle')
+    expect(libraryEntry(library, 'Bundled').itchio_status).toBe('owned')
+    expect(libraryEntry(library, 'Collected').itchio_source).toBe('collection')
+    expect(libraryEntry(library, 'Collected').itchio_status).toBe('free')
+  })
+
+  it('marks unowned paid collection games as not installable', async () => {
+    mockButlerd({
+      'Fetch.ProfileOwnedKeys': () => ({ items: [] }),
+      'Fetch.ProfileBundleOwnerships': () => ({}),
+      'Fetch.ProfileOwnedBundles': () => ({ items: [] }),
+      'Fetch.ProfileCollections': () => ({
+        items: [{ id: 8, title: 'heroic' }]
+      }),
+      'Fetch.Collection.Games': () => ({
+        items: [
+          {
+            collectionId: 8,
+            gameId: 30,
+            game: {
+              ...makeGame(30, 'Paid'),
+              canBeBought: true,
+              minPrice: 499
+            }
+          }
+        ]
+      })
+    })
+
+    await new ItchioLibraryManager().refresh()
+
+    const paid = libraryEntry(refreshedLibrary(), 'Paid')
+    expect(paid.itchio_status).toBe('unowned')
+    expect(paid.installable).toBe(false)
   })
 
   it('dedupes a game that is both an owned key and a bundle game', async () => {
@@ -172,6 +215,56 @@ describe('itch.io library refresh', () => {
         .map((game) => game.title)
         .sort()
     ).toEqual(['Collected', 'Owned'])
+  })
+})
+
+describe('itch.io catalog collection', () => {
+  it('adds the game to the existing heroic collection', async () => {
+    let added: Record<string, unknown> | undefined
+    mockCall.mockImplementation((method, params) => {
+      if (method === 'Fetch.ProfileCollections') {
+        return Promise.resolve({
+          items: [
+            { id: 7, title: 'jams' },
+            { id: 8, title: 'Heroic' }
+          ]
+        })
+      }
+      if (method === 'Collections.AddGame') {
+        added = params
+        return Promise.resolve({})
+      }
+      return Promise.reject(new Error(`unexpected butlerd method ${method}`))
+    })
+
+    const result = await addGameToCatalog('itchio-12')
+
+    expect(result.error).toBeUndefined()
+    expect(added).toEqual({ profileId: 42, collectionId: 8, gameId: 12 })
+  })
+
+  it('creates a private heroic collection when none exists', async () => {
+    let created: Record<string, unknown> | undefined
+    mockCall.mockImplementation((method, params) => {
+      if (method === 'Fetch.ProfileCollections') {
+        return Promise.resolve({ items: [{ id: 7, title: 'jams' }] })
+      }
+      if (method === 'Collections.Create') {
+        created = params
+        return Promise.resolve({})
+      }
+      return Promise.reject(new Error(`unexpected butlerd method ${method}`))
+    })
+
+    const result = await addGameToCatalog('itchio-12')
+
+    expect(result.error).toBeUndefined()
+    expect(created).toEqual({
+      profileId: 42,
+      title: 'heroic',
+      private: true,
+      gameId: 12
+    })
   })
 })
 
