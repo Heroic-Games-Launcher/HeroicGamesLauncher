@@ -12,6 +12,7 @@ interface StatCardProps {
   className?: string
   onClick?: () => void
   title?: string
+  surface?: 'panel' | 'none'
 }
 
 export default function StatCard({
@@ -20,14 +21,18 @@ export default function StatCard({
   glyph,
   className,
   onClick,
-  title
+  title,
+  surface = 'panel'
 }: StatCardProps) {
+  const isBare = surface === 'none'
+
   return (
     <Panel
-      tone="glass"
-      padding="sm"
+      tone={isBare ? 'none' : 'glass'}
+      padding={isBare ? 'none' : 'sm'}
       className={classNames('StatCard', className, {
-        'StatCard--clickable': !!onClick
+        'StatCard--clickable': !!onClick,
+        'StatCard--bare': isBare
       })}
       onClick={onClick}
       onKeyDown={

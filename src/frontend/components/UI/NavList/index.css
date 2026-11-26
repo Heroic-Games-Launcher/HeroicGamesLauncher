@@ -9,7 +9,7 @@
   align-items: center;
   gap: var(--space-sm-fixed);
   padding: var(--space-sm-fixed) var(--space-md-fixed);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   font-family: var(--primary-font-family);
   font-size: var(--body-md);
   font-weight: var(--medium);

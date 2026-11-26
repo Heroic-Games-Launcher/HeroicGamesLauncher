@@ -18,8 +18,7 @@ const Description = () => {
     .filter(Boolean)
 
   return (
-    <section className="aboutGame">
-      <h2 className="aboutGame__title">{t('game.about', 'About')}</h2>
+    <section className="aboutGame" aria-label={t('game.about', 'About')}>
       <div className="summary">
         {paragraphs.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>

@@ -6,7 +6,7 @@
   justify-content: center;
   gap: var(--space-xs-fixed);
   border: 1px solid transparent;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: 0 var(--space-lg-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--button-md);
@@ -83,17 +83,17 @@
 }
 
 .Button--secondary {
-  --button-surface: var(--panel-base);
+  --button-surface: var(--bg-brand-subtle);
 
   background: var(--button-surface);
   color: var(--text-brand);
-  border-color: var(--border-brand);
+  border-color: var(--button-secondary-border, transparent);
 }
 
 .Button--secondary:hover:not(:disabled),
 .Button--secondary:focus-visible:not(:disabled) {
-  border-color: var(--bg-brand);
-  background: var(--bg-brand-subtle);
+  border-color: var(--button-secondary-border, transparent);
+  background: color-mix(in oklab, var(--role-brand) 26%, transparent);
 }
 
 .Button--ghost {

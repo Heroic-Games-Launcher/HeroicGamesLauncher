@@ -165,7 +165,7 @@
   gap: var(--space-md-fixed);
   padding: var(--space-sm-fixed) var(--space-xs-fixed);
   margin-inline: calc(var(--space-xs-fixed) * -1);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   transition: background-color 150ms ease;
 }
 
@@ -200,7 +200,7 @@
 .DownloadItem--hero .DownloadItem__cover {
   width: 136px;
   aspect-ratio: 3 / 4;
-  border-radius: 16px;
+  border-radius: var(--radius-sm);
 }
 
 .DownloadItem--hero .DownloadItem__text {

@@ -7,3 +7,26 @@
   display: block;
   flex-shrink: 0;
 }
+
+.ActionIcons .FormControl--segmented > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.ActionIcons .FormControl--segmented > button:not(:first-child) {
+  margin-inline-start: var(--space-2xs-fixed);
+}
+
+.ActionIcons .FormControl--segmented > button:not(:disabled):hover {
+  background: color-mix(in oklab, var(--on-panel) 12%, transparent);
+}

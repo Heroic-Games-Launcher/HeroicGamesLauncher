@@ -21,7 +21,7 @@
   gap: 16px;
   flex-direction: column;
   padding: var(--space-xl);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-sm);
 }
 
 @keyframes overlayFade {
@@ -70,7 +70,7 @@
   align-items: center;
   gap: var(--space-md, 12px);
   padding: 8px 12px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: color-mix(
     in srgb,
     var(--background-darker, #1a1a20) 50%,

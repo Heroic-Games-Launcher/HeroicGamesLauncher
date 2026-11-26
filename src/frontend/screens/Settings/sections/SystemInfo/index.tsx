@@ -64,7 +64,7 @@ function SpecCardSkeleton() {
   return (
     <div className="SpecCard SpecCard--loading Panel Panel--translucent Panel--padding-md">
       <Skeleton width="30%" height="12px" />
-      <Skeleton width="48px" height="48px" radius="12px" />
+      <Skeleton width="48px" height="48px" radius="var(--radius-sm)" />
       <Skeleton width="60%" height="18px" />
       <Skeleton width="38%" height="14px" />
     </div>

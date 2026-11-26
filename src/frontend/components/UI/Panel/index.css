@@ -1,5 +1,5 @@
 .Panel {
-  border-radius: 16px;
+  border-radius: var(--radius-sm);
   isolation: isolate;
 }
 
@@ -13,6 +13,10 @@
 
 .Panel--glass {
   background: var(--panel-glass, var(--panel-background));
+}
+
+.Panel--none {
+  background: none;
 }
 
 .Panel--padding-none {

@@ -6,11 +6,13 @@ import './index.css'
 
 type BadgeVariant =
   | 'neutral'
+  | 'strong'
   | 'accent'
   | 'info'
   | 'success'
   | 'warning'
   | 'error'
+  | 'brand'
   | 'gradient'
 
 interface BadgeProps {

@@ -135,7 +135,7 @@
   outline: none;
   background: none;
   color: var(--field-color);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
 }
 
 .FormControl__leftButton {

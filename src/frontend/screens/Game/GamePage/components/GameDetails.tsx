@@ -1,8 +1,7 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CalendarDays, Code2, MonitorPlay, Tags } from 'lucide-react'
 import { GameInfo } from 'common/types'
-import { DetailList, Panel, StoreBadge } from 'frontend/components/UI'
+import { DetailList, StoreBadge } from 'frontend/components/UI'
 import type { DetailItem } from 'frontend/components/UI/DetailList'
 import { getIntlLocale } from 'frontend/helpers'
 import { getReleaseDate } from 'frontend/helpers/releaseDate'
@@ -25,7 +24,6 @@ const GameDetails = ({ gameInfo }: Props) => {
   const { t, i18n } = useTranslation('gamepage')
   const { gameExtraInfo, runner, wikiInfo, is } = useContext(GameContext)
 
-  const genres = gameExtraInfo?.genres || wikiInfo?.pcgamingwiki?.genres || []
   const releaseDate = getReleaseDate(
     wikiInfo?.pcgamingwiki?.releaseDate,
     gameExtraInfo?.releaseDate,
@@ -38,7 +36,6 @@ const GameDetails = ({ gameInfo }: Props) => {
 
   if (gameInfo.developer) {
     items.push({
-      glyph: Code2,
       label: t('info.developer', 'Developer'),
       value: gameInfo.developer
     })
@@ -46,30 +43,20 @@ const GameDetails = ({ gameInfo }: Props) => {
 
   if (releaseDate) {
     items.push({
-      glyph: CalendarDays,
       label: t('label.releaseDate', 'Release date'),
       value: releaseDate
     })
   }
 
-  if (genres.length && genres[0] !== '') {
-    items.push({
-      glyph: Tags,
-      label: t('info.genres', 'Genres'),
-      value: genres.join(', ')
-    })
-  }
-
   if (gameInfo.is_installed && installPlatform) {
     items.push({
-      glyph: MonitorPlay,
       label: t('info.installedPlatform', 'Installed platform'),
       value: installPlatform === 'osx' ? 'macOS' : installPlatform
     })
   }
 
   return (
-    <Panel tone="glass" className="gameDetails">
+    <section className="gameDetails">
       <div className="gameDetails__header">
         <h3 className="gameDetails__title">
           {t('game.details', 'Game details')}
@@ -77,7 +64,7 @@ const GameDetails = ({ gameInfo }: Props) => {
         <StoreBadge runner={runner} title={STORE_NAMES[runner] ?? runner} />
       </div>
       <DetailList items={items} />
-    </Panel>
+    </section>
   )
 }
 

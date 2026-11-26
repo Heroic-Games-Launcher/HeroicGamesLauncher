@@ -42,7 +42,7 @@
     font-size: var(--body-md);
     font-weight: var(--medium);
     color: var(--sidebar-item-inactive-text-color);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     transition:
       color 150ms ease,
       background-color 150ms ease;
@@ -72,7 +72,7 @@
       min-width: 24px;
       height: 24px;
       padding: 0 9px;
-      border-radius: 999px;
+      border-radius: var(--radius-sm);
       background: var(--navbar-accent, var(--accent));
       color: var(--ink-on-accent);
       font-family: var(--primary-font-family);

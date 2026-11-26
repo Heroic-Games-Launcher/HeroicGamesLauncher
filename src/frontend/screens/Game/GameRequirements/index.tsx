@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Cpu,
@@ -10,7 +11,7 @@ import {
 import type { LucideIcon } from 'lucide-react'
 import { Reqs } from 'common/types'
 import { REQS_NOTES_TITLE, REQS_OTHER_TITLE } from 'common/utils'
-import { DetailList, Panel } from 'frontend/components/UI'
+import { DetailList } from 'frontend/components/UI'
 import type { DetailItem } from 'frontend/components/UI/DetailList'
 
 import './index.css'
@@ -33,14 +34,18 @@ function glyphFor(title: string) {
   return GLYPHS.find(({ match }) => match.test(title))?.glyph ?? MonitorPlay
 }
 
+const MISSING_VALUE = '—'
+
 function toItems(reqs: Reqs[], key: 'minimum' | 'recommended'): DetailItem[] {
-  return reqs
-    .filter((req) => req?.title && req[key])
-    .map((req) => ({
-      glyph: glyphFor(req.title),
-      label: req.title,
-      value: req[key]
-    }))
+  return reqs.map((req) => ({
+    glyph: glyphFor(req.title),
+    label: req.title,
+    value: req[key] || MISSING_VALUE
+  }))
+}
+
+function rowSpan(rows: number): CSSProperties {
+  return { '--requirements-rows': rows + 1 } as CSSProperties
 }
 
 function GameRequirements({ reqs }: Props) {
@@ -50,7 +55,11 @@ function GameRequirements({ reqs }: Props) {
 
   // Other/Notes render as full-width panels
   const specs = reqs.filter(
-    (e) => e && e.title && !FULL_WIDTH_TITLES.includes(e.title)
+    (e) =>
+      e &&
+      e.title &&
+      !FULL_WIDTH_TITLES.includes(e.title) &&
+      (e.minimum || e.recommended)
   )
   const sections = [
     {
@@ -63,33 +72,44 @@ function GameRequirements({ reqs }: Props) {
     }
   ]
 
-  const minimum = toItems(specs, 'minimum')
-  const recommended = toItems(specs, 'recommended')
+  const hasMinimum = specs.some((req) => req.minimum)
+  const hasRecommended = specs.some((req) => req.recommended)
 
   return (
     <div className="gameRequirements">
-      {!!minimum.length && (
-        <Panel tone="glass" className="gameRequirements__column">
+      {hasMinimum && (
+        <section
+          className="gameRequirements__column gameRequirements__specs"
+          style={rowSpan(specs.length)}
+        >
           <h3 className="gameRequirements__title">{t('specs.minimum')}</h3>
-          <DetailList items={minimum} />
-        </Panel>
+          <DetailList
+            items={toItems(specs, 'minimum')}
+            className="gameRequirements__list"
+          />
+        </section>
       )}
-      {!!recommended.length && (
-        <Panel tone="glass" className="gameRequirements__column">
+      {hasRecommended && (
+        <section
+          className="gameRequirements__column gameRequirements__specs"
+          style={rowSpan(specs.length)}
+        >
           <h3 className="gameRequirements__title">{t('specs.recommended')}</h3>
-          <DetailList items={recommended} />
-        </Panel>
+          <DetailList
+            items={toItems(specs, 'recommended')}
+            className="gameRequirements__list"
+          />
+        </section>
       )}
       {sections.map(({ row, label }) =>
         row?.minimum ? (
-          <Panel
+          <section
             key={row.title}
-            tone="glass"
             className="gameRequirements__column gameRequirements__section"
           >
             <h3 className="gameRequirements__title">{label}</h3>
             <p className="gameRequirements__text">{row.minimum}</p>
-          </Panel>
+          </section>
         ) : null
       )}
     </div>

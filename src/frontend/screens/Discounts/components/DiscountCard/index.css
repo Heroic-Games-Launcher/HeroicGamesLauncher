@@ -103,7 +103,7 @@
   width: 28px;
   height: 28px;
   padding: var(--space-3xs);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: var(--background-darker);
   fill: var(--text-default);
 }

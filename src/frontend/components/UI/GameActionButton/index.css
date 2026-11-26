@@ -1,14 +1,19 @@
 .GameActionButton {
-  border-radius: var(--radius-md);
-}
-
-.GameActionButton.Button--secondary {
-  box-shadow: inset 0 0 0 1px var(--border-brand);
+  border-radius: var(--radius-sm);
 }
 
 .Button.GameActionButton svg,
 .Button.GameActionButton svg * {
   fill: none;
+}
+
+.Button--primary.playIcon::before {
+  content: none;
+}
+
+.Button--primary.playIcon:hover:not(:disabled),
+.Button--primary.playIcon:focus-visible:not(:disabled) {
+  --button-surface: color-mix(in oklab, var(--bg-brand) 85%, var(--on-panel));
 }
 
 .GameActionButton.updateIcon svg {

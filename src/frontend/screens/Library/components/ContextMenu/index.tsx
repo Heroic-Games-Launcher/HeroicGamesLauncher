@@ -9,6 +9,7 @@ export interface Item {
   label: string
   onclick: () => void
   show: boolean
+  tone?: 'default' | 'danger'
 }
 
 interface Props {
@@ -63,9 +64,15 @@ function ContextMenu({ children, items, className }: Props) {
         }
       >
         {items.map(
-          ({ label, onclick, show, icon }, i) =>
+          ({ label, onclick, show, icon, tone = 'default' }, i) =>
             show && (
-              <MenuItem key={i} onClick={() => handleClick(onclick)}>
+              <MenuItem
+                key={i}
+                className={
+                  tone === 'danger' ? 'contextMenu__item--danger' : undefined
+                }
+                onClick={() => handleClick(onclick)}
+              >
                 <ListItemIcon>{icon}</ListItemIcon>
                 {label}
               </MenuItem>

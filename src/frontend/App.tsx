@@ -60,7 +60,7 @@ function Root() {
             backgroundColor: 'var(--background-darker)',
             color: 'var(--text-default)',
             padding: 'var(--space-md)',
-            borderRadius: 'var(--space-sm)',
+            borderRadius: 'var(--radius-sm)',
             maxWidth: '350px'
           }
         }

@@ -1,0 +1,72 @@
+.FilterOptionList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs-fixed);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.FilterOption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+  border-radius: var(--radius-sm);
+  padding-inline-end: var(--space-xs-fixed);
+  transition: background-color 150ms ease;
+}
+
+.FilterOption:hover,
+.FilterOption:focus-within {
+  background: color-mix(in oklab, var(--on-panel) 6%, transparent);
+}
+
+.FilterOption__label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  min-width: 0;
+  padding-block: var(--space-2xs-fixed);
+  cursor: pointer;
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  color: var(--on-panel, var(--text-default));
+}
+
+.FilterOption__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.FilterOption__only {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-xs);
+  padding: var(--space-3xs-fixed) var(--space-2xs-fixed);
+  font-family: var(--primary-font-family);
+  font-size: var(--body-md);
+  font-weight: var(--bold);
+  text-transform: capitalize;
+  white-space: nowrap;
+  color: var(--text-brand);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.FilterOption:hover .FilterOption__only,
+.FilterOption:focus-within .FilterOption__only {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.FilterOption__only:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--accent) 45%, transparent);
+  outline-offset: 2px;
+}

@@ -51,7 +51,7 @@ export default memo(function Support() {
     <div className="Support">
       <div className="Support__wrapper">
         <header className="Support__hero">
-          <Badge variant="gradient" className="Support__eyebrow">
+          <Badge variant="brand" className="Support__eyebrow">
             {t('support.title', 'Support us')}
           </Badge>
           <h1 className="Support__title">
@@ -86,7 +86,7 @@ export default memo(function Support() {
                 'Recurring membership with behind-the-scenes updates.'
               )}
               meta={
-                <Badge variant="neutral">
+                <Badge variant="accent">
                   {t('support.tags.membership', 'Membership')}
                 </Badge>
               }
@@ -103,7 +103,7 @@ export default memo(function Support() {
                 'A one-time tip that goes straight into development.'
               )}
               meta={
-                <Badge variant="neutral">
+                <Badge variant="accent">
                   {t('support.tags.tip', 'One-time tip')}
                 </Badge>
               }
@@ -124,7 +124,7 @@ export default memo(function Support() {
                 'One-time or recurring donation in the currency you prefer.'
               )}
               meta={
-                <Badge variant="neutral">
+                <Badge variant="accent">
                   {t('support.tags.donation', 'Donation')}
                 </Badge>
               }
@@ -145,7 +145,7 @@ export default memo(function Support() {
                 'Sponsor Heroic through GitHub and show your support publicly.'
               )}
               meta={
-                <Badge variant="neutral">
+                <Badge variant="accent">
                   {t('support.tags.sponsor', 'Sponsor')}
                 </Badge>
               }
@@ -180,7 +180,7 @@ export default memo(function Support() {
                 'DRM-free games and classics.'
               )}
               meta={
-                <Badge variant="neutral">
+                <Badge variant="accent">
                   {t('support.tags.drmFree', 'DRM-free')}
                 </Badge>
               }
@@ -203,7 +203,7 @@ export default memo(function Support() {
                 'Official game keys at great prices.'
               )}
               meta={
-                <Badge variant="neutral">
+                <Badge variant="accent">
                   {t('support.tags.gameKeys', 'Game keys')}
                 </Badge>
               }
@@ -226,7 +226,7 @@ export default memo(function Support() {
                 'Games, books and bundles for charity.'
               )}
               meta={
-                <Badge variant="neutral">
+                <Badge variant="accent">
                   {t('support.tags.bundles', 'Bundles')}
                 </Badge>
               }

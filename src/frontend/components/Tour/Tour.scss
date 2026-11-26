@@ -18,7 +18,7 @@
   background: var(--tour-surface);
   color: var(--text-neutral);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   box-shadow:
     0 24px 64px -16px rgb(0 0 0 / 0.55),
     0 8px 24px -12px rgb(0 0 0 / 0.4);
@@ -106,7 +106,7 @@
   background: var(--bg-surface-raised);
   color: var(--text-neutral);
   border: 1px solid transparent;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
   font-weight: var(--semibold);
@@ -184,7 +184,7 @@
 .introjs-helperLayer {
   box-sizing: border-box;
   border: 2px solid var(--role-brand);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: transparent;
   transition:
     border-color 150ms ease,
@@ -195,7 +195,7 @@
 }
 
 .heroic-tour-highlight {
-  border-radius: var(--radius-md) !important;
+  border-radius: var(--radius-sm) !important;
   background: color-mix(
     in oklab,
     var(--role-brand) 10%,

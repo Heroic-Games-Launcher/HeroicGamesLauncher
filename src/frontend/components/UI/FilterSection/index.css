@@ -13,8 +13,6 @@
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
   font-weight: var(--semibold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   text-align: start;
   color: var(--text-muted, var(--text-secondary));
 }

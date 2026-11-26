@@ -7,7 +7,7 @@
   margin: 0;
   padding: var(--space-xs-fixed) var(--space-sm-fixed);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: none;
   font-family: var(--primary-font-family);
   font-size: var(--body-md);

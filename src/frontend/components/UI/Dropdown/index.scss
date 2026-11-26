@@ -12,7 +12,7 @@
     background: var(--input-background);
     color: var(--text-default, var(--text-secondary));
     border: 1px solid transparent;
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     padding: 0 18px;
     height: 44px;
     font-family: var(--primary-font-family);
@@ -43,6 +43,12 @@
   .dropdown.expanded {
     pointer-events: all;
     opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 200ms,
+      max-height 200ms,
+      box-shadow 200ms,
+      visibility 0s linear 0s;
     max-height: 80vh;
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
     overflow-y: auto;
@@ -54,14 +60,18 @@
     right: 0px;
     min-width: 320px;
     display: flex;
-    border-radius: 14px;
+    border-radius: var(--radius-sm);
     flex-direction: column;
     background: var(--modal-background, var(--background));
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
     opacity: 0;
-    transition: all 200ms;
+    visibility: hidden;
+    transition:
+      opacity 200ms,
+      max-height 200ms,
+      box-shadow 200ms,
+      visibility 0s linear 200ms;
     pointer-events: none;
-    opacity: 0;
     max-height: 0;
     overflow: hidden;
     gap: var(--space-sm);

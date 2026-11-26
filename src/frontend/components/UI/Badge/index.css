@@ -10,7 +10,7 @@
   align-items: center;
   gap: var(--space-xs-fixed);
   border: 1px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
   padding: var(--space-2xs-fixed) var(--space-sm-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--eyebrow);
@@ -31,12 +31,22 @@
   --badge-surface: var(--bg-surface-raised);
 }
 
+.Badge--strong {
+  --badge-color: var(--on-panel);
+  --badge-surface: var(--panel-base);
+
+  color: var(--on-panel);
+}
+
 .Badge--accent {
   --badge-color: var(--role-accent);
 }
 
 .Badge--info {
-  --badge-color: var(--role-info);
+  --badge-color: var(--text-on-info);
+  --badge-surface: var(--bg-info);
+
+  color: var(--text-on-info);
 }
 
 .Badge--success {
@@ -49,6 +59,14 @@
 
 .Badge--error {
   --badge-color: var(--role-destructive);
+}
+
+.Badge--brand {
+  --badge-color: var(--text-on-brand);
+  --badge-surface: var(--bg-brand);
+
+  color: var(--text-on-brand);
+  font-weight: var(--bold);
 }
 
 .Badge--gradient {

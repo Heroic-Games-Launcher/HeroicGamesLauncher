@@ -5,7 +5,7 @@
   background: var(--input-background);
   color: var(--on-panel, var(--text-default));
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   padding: var(--space-xs-fixed) var(--space-md-fixed);
   font-family: var(--primary-font-family);
   font-size: var(--body-md);

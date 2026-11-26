@@ -1,6 +1,6 @@
 .errorDialog.error-box {
   background-color: #1e1e1e;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding-block: 4px;
   padding-inline: 6px;
   height: 25em;

@@ -46,7 +46,6 @@ import {
   GameDetails,
   GameStats,
   GameStatus,
-  Genres,
   HLTB,
   InstalledInfo,
   ReportIssue,
@@ -381,8 +380,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
 
+    const genres =
+      [extraInfo?.genres, wikiInfo?.pcgamingwiki?.genres].find((list) =>
+        list?.some((genre) => genre.trim() !== '')
+      ) ?? []
+
     const tabs: TabItem<GameTab>[] = [
-      { value: 'overview', label: t('game.overview', 'Overview') },
+      { value: 'overview', label: t('game.about', 'About') },
       {
         value: 'info',
         label: t('game.install_info', 'Installation info')
@@ -456,16 +460,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               <Panel tone="glass" padding="lg" className="gamePage__hero">
                 <div className="gamePage__heroMain">
                   <h1 className="gamePage__title">{title}</h1>
-                  <GameBadges gameInfo={gameInfo} runner={runner} />
-                  <div className="gamePage__meta">
-                    <Genres
-                      genres={
-                        extraInfo?.genres ||
-                        wikiInfo?.pcgamingwiki?.genres ||
-                        []
-                      }
-                    />
-                  </div>
+                  <GameBadges gameInfo={gameInfo} genres={genres} />
 
                   <GameActions
                     gameInfo={gameInfo}
@@ -480,10 +475,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   {wikiLink}
                 </div>
 
-                <div className="gamePage__heroAside">
-                  {!notInstallable && <GameStats gameInfo={gameInfo} />}
-                  <Scores gameInfo={gameInfo} />
-                </div>
+                {!notInstallable && (
+                  <div className="gamePage__heroAside">
+                    <GameStats gameInfo={gameInfo} />
+                  </div>
+                )}
               </Panel>
 
               <Panel tone="glass" padding="lg" className="gamePage__tabs">
@@ -501,6 +497,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 >
                   <div className="overviewTab__main">
                     <Description />
+                    <Scores gameInfo={gameInfo} />
                     <ReportIssue gameInfo={gameInfo} />
                   </div>
                   <GameDetails gameInfo={gameInfo} />

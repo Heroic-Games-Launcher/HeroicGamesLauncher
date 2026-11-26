@@ -6,7 +6,7 @@
   align-items: center;
   background: var(--search-bar-background, var(--input-background));
   border: 1px solid var(--search-bar-border, transparent);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   padding: 0 16px;
   gap: 10px;
   height: 44px;
@@ -38,7 +38,7 @@
     text-align: start;
     overflow-x: hidden;
     z-index: 5;
-    border-radius: 12px;
+    border-radius: var(--radius-sm);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 
     li {
@@ -55,8 +55,12 @@
       }
 
       &:hover {
-        background-color: var(--navbar-accent, var(--accent));
-        color: var(--ink-on-accent);
+        background-color: color-mix(
+          in oklab,
+          var(--selected, var(--accent)) 12%,
+          transparent
+        );
+        color: var(--text-default);
 
         span {
           opacity: 0.8;

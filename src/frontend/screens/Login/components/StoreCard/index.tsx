@@ -124,7 +124,7 @@ export default function StoreCard({
           description={description}
           meta={
             isLoggedIn && displayName ? (
-              <Badge variant="success" className="storeCard__loggedBadge">
+              <Badge variant="neutral" className="storeCard__loggedBadge">
                 <span className="storeCard__loggedLabel">
                   {t('login.logged_in', 'Logged in')}:
                 </span>

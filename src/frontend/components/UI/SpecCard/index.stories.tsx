@@ -58,7 +58,7 @@ export const WithMedia: Story = {
       <span
         style={{
           background: 'var(--status-success)',
-          borderRadius: 'var(--radius-pill)',
+          borderRadius: 'var(--radius-sm)',
           color: 'var(--neutral-01)',
           fontWeight: 'var(--bold)',
           padding: '0.25rem 0.75rem'

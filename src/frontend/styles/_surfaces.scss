@@ -117,6 +117,9 @@
   --text-on-brand: oklch(
     from var(--role-brand) clamp(0, (0.62 - l) * 1000, 1) 0 h
   );
+  --text-on-info: oklch(
+    from var(--role-info) clamp(0, (0.62 - l) * 1000, 1) 0 h
+  );
 
   --bg-surface: var(--panel-surface);
   --bg-surface-raised: color-mix(

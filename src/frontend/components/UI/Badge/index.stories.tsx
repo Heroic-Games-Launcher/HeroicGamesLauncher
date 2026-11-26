@@ -6,11 +6,13 @@ import Badge from '.'
 
 const variants = [
   'neutral',
+  'strong',
   'accent',
   'info',
   'success',
   'warning',
   'error',
+  'brand',
   'gradient'
 ] as const
 
@@ -63,7 +65,7 @@ export const OnOverlay: Story = {
     <div
       style={{
         background: 'linear-gradient(135deg, #1b2735 0%, #090a0f 100%)',
-        borderRadius: 'var(--radius-md)',
+        borderRadius: 'var(--radius-sm)',
         display: 'flex',
         gap: '0.5rem',
         padding: '2rem'

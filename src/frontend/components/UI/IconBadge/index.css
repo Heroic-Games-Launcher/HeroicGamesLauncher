@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: var(--radius-pill, 999px);
+  border-radius: var(--radius-sm);
   color: var(--on-panel, var(--text-neutral));
 }
 

@@ -74,6 +74,7 @@ import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
 import { configStore } from 'backend/constants/key_value_stores'
 import { epicRedistPath, legendaryInstalled } from './constants'
+import { formatEpicTags } from './tags'
 import { isCLINoGui, isMac, isWindows } from 'backend/constants/environment'
 import { fakeEpicExePath } from 'backend/constants/paths'
 
@@ -190,6 +191,7 @@ export default class LegendaryGame implements Game {
           about: about.data.about,
           reqs: about.data.requirements.systems[0].details,
           releaseDate: about.data.meta.releaseDate?.substring(0, 19),
+          genres: formatEpicTags(about.data.meta?.tags),
           storeUrl: `https://www.epicgames.com/store/product/${slug}`
         }
       } else {

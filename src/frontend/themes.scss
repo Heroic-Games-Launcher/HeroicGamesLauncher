@@ -101,8 +101,8 @@ body.midnightMirage {
   --success-hover: var(--status-success-hover);
   --danger: var(--status-danger);
   --danger-hover: var(--status-danger-hover);
-  --status-info: var(--brand-secondary);
-  --status-info-hover: var(--brand-secondary-hover);
+  --status-info: var(--color-blue-800);
+  --status-info-hover: var(--color-blue-700);
 
   /* Others for compatibility, probably can be refactored */
   --primary: var(--brand-primary);
@@ -280,6 +280,10 @@ body.high-contrast {
   --field-border: #ffffff;
   --field-border-hover: #ffffff;
   --field-border-focus: var(--accent);
+  --select-border: var(--field-border);
+  --select-border-hover: var(--field-border-hover);
+  --modal-border-color: var(--modal-border);
+  --button-secondary-border: var(--border-brand);
 
   .Button--ghost {
     border-color: var(--border-subtle);
@@ -850,7 +854,6 @@ body.cyberpunk {
   --accent-overlay: #33f5ff;
   --navbar-accent: #f8f006;
   --on-nav-accent: #f8f006;
-  --card-hover-accent: #ff00ff;
   --border-brand: #00f0ff;
   --sidebar-item-hover-bg: color-mix(
     in oklab,
@@ -912,7 +915,6 @@ body.cyberpunk {
   .Button--ghost:hover:not(:disabled),
   .Button--ghost:focus-visible:not(:disabled) {
     background: color-mix(in oklab, var(--on-panel) 7%, var(--panel-base));
-    border-color: var(--border-brand);
   }
 }
 
@@ -1004,7 +1006,6 @@ body.onePiece {
   --accent-overlay: #2a84cf;
   --navbar-accent: #d62828;
   --on-nav-accent: #ffd84d;
-  --card-hover-accent: #ffcf33;
   --border-brand: #e0a800;
   --sidebar-item-hover-bg: color-mix(
     in oklab,
@@ -1064,7 +1065,6 @@ body.onePiece {
   .Button--ghost:hover:not(:disabled),
   .Button--ghost:focus-visible:not(:disabled) {
     background: color-mix(in oklab, var(--on-panel) 7%, var(--panel-base));
-    border-color: var(--border-brand);
   }
 
   .Sidebar {

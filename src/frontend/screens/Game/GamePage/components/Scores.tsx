@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Gamepad2 } from 'lucide-react'
 import { GameInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
-import { Icon, Panel, Score } from 'frontend/components/UI'
+import { Icon, Score } from 'frontend/components/UI'
 import GameContext from '../../GameContext'
 
 interface Props {
@@ -32,11 +32,11 @@ const Scores = ({ gameInfo }: Props) => {
   const title = gameInfo.overrides?.title || gameInfo.title
 
   return (
-    <Panel tone="glass" padding="sm" className="gameScores">
-      <span className="gameScores__title">
-        <Icon glyph={Gamepad2} size="sm" />
+    <section className="gameScores">
+      <h3 className="gameScores__title">
+        <Icon glyph={Gamepad2} size="md" />
         {t('info.game-scores', 'Game Scores')}
-      </span>
+      </h3>
       <div className="gameScores__list">
         {opencritic?.score && (
           <Score
@@ -95,7 +95,7 @@ const Scores = ({ gameInfo }: Props) => {
           />
         )}
       </div>
-    </Panel>
+    </section>
   )
 }
 

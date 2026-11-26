@@ -1,21 +1,9 @@
-import { Apple, Globe, Monitor, Store } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
-import { GameInfo, Runner } from 'common/types'
+import { GameInfo } from 'common/types'
 import { Badge } from 'frontend/components/UI'
 
 interface Props {
   gameInfo: GameInfo
-  runner: Runner
-}
-
-const STORE_NAMES: Record<string, string> = {
-  legendary: 'Epic Games',
-  gog: 'GOG',
-  nile: 'Amazon Games',
-  zoom: 'ZOOM',
-  itchio: 'itch.io',
-  steam: 'Steam',
-  sideload: 'Sideloaded'
+  genres: string[]
 }
 
 const PLATFORM_LABELS: Record<string, string> = {
@@ -29,29 +17,19 @@ const PLATFORM_LABELS: Record<string, string> = {
   Browser: 'Browser'
 }
 
-const PLATFORM_GLYPHS: Record<string, LucideIcon> = {
-  macOS: Apple,
-  Linux: Monitor,
-  Windows: Monitor,
-  Browser: Globe
-}
-
-const GameBadges = ({ gameInfo, runner }: Props) => {
-  const storeLabel = STORE_NAMES[runner] ?? runner
+const GameBadges = ({ gameInfo, genres }: Props) => {
   const rawPlatform = gameInfo.install.platform || 'Windows'
   const platformLabel = PLATFORM_LABELS[rawPlatform] ?? rawPlatform
+  const visibleGenres = genres.filter((genre) => genre.trim() !== '')
 
   return (
     <div className="gamePage__badges">
-      <Badge variant="neutral" glyph={Store}>
-        {storeLabel}
-      </Badge>
-      <Badge
-        variant="neutral"
-        glyph={PLATFORM_GLYPHS[platformLabel] ?? Monitor}
-      >
-        {platformLabel}
-      </Badge>
+      <Badge variant="strong">{platformLabel}</Badge>
+      {visibleGenres.map((genre) => (
+        <Badge key={genre} variant="neutral">
+          {genre}
+        </Badge>
+      ))}
     </div>
   )
 }

@@ -405,7 +405,7 @@
 
 .ImportExportWizard__pill {
   padding: var(--space-3xs) var(--space-sm);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;

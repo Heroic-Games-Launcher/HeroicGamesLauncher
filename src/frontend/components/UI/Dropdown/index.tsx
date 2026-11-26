@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useId, useRef, useState } from 'react'
 import './index.scss'
 
 type Props = {
@@ -18,6 +18,7 @@ export default function Dropdown({
 }: Props) {
   const [isExpanded, setIsExpanded] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const menuId = useId()
 
   useEffect(() => {
     if (!isExpanded) return
@@ -44,8 +45,11 @@ export default function Dropdown({
   return (
     <div ref={containerRef} className={`dropdownContainer ${className || ''}`}>
       <button
+        type="button"
         className={`dropdownButton ${buttonClass ? buttonClass : ''}`}
         data-tour={dataTour}
+        aria-expanded={isExpanded}
+        aria-controls={menuId}
         onClick={() => {
           // focus first component when expanding
           if (!isExpanded) {
@@ -57,7 +61,10 @@ export default function Dropdown({
       >
         {title}
       </button>
-      <div className={`dropdown ${isExpanded ? 'expanded' : 'collapsed'}`}>
+      <div
+        id={menuId}
+        className={`dropdown ${isExpanded ? 'expanded' : 'collapsed'}`}
+      >
         {children}
       </div>
     </div>

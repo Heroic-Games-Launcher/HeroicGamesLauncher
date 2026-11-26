@@ -13,10 +13,23 @@ import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { GameScoreInfo, PCGamingWikiInfo } from 'common/types'
 import { axiosClient } from 'backend/utils'
 
+export type PCGamingWikiResult =
+  | { status: 'found'; info: PCGamingWikiInfo }
+  | { status: 'notFound' }
+  | { status: 'failed' }
+
 export async function getInfoFromPCGamingWiki(
   title: string,
   gogID?: string
 ): Promise<PCGamingWikiInfo | null> {
+  const result = await fetchPCGamingWikiInfo(title, gogID)
+  return result.status === 'found' ? result.info : null
+}
+
+export async function fetchPCGamingWikiInfo(
+  title: string,
+  gogID?: string
+): Promise<PCGamingWikiResult> {
   try {
     // pcgamingwiki does not like "-" and mostly replaces it with ":"
     title = title.replace(' -', ':')
@@ -26,13 +39,13 @@ export async function getInfoFromPCGamingWiki(
     const id = await getPageID(title, gogID)
 
     if (!id) {
-      return null
+      return { status: 'notFound' }
     }
 
     const wikitext = await getWikiText(id)
 
     if (!wikitext) {
-      return null
+      return { status: 'notFound' }
     }
     const metacritic = getGameScore(wikitext, metacriticRegEx)
     const opencritic = getGameScore(wikitext, opencriticRegEx)
@@ -48,22 +61,25 @@ export async function getInfoFromPCGamingWiki(
     const cover = coverFile ? await getImageUrl(coverFile) : undefined
 
     return {
-      steamID,
-      howLongToBeatID,
-      metacritic,
-      opencritic,
-      igdb,
-      direct3DVersions: direct3DVersions.replaceAll(' ', '').split(','),
-      genres: genres.replaceAll(' ', '').split(','),
-      releaseDate: releaseDates,
-      cover
+      status: 'found',
+      info: {
+        steamID,
+        howLongToBeatID,
+        metacritic,
+        opencritic,
+        igdb,
+        direct3DVersions: direct3DVersions.replaceAll(' ', '').split(','),
+        genres: genres.replaceAll(' ', '').split(','),
+        releaseDate: releaseDates,
+        cover
+      }
     }
   } catch (error) {
     logError(
       [`Was not able to get PCGamingWiki data for ${title}`, error],
       LogPrefix.ExtraGameInfo
     )
-    return null
+    return { status: 'failed' }
   }
 }
 

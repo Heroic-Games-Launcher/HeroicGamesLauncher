@@ -216,6 +216,7 @@ const GameCard = ({
     if (!isInstallable) {
       return (
         <GameActionButton
+          iconOnly={grid}
           action="unavailable"
           label={t(
             'label.game.not-installable-game',
@@ -228,6 +229,7 @@ const GameCard = ({
     if (notSupportedGame) {
       return (
         <GameActionButton
+          iconOnly={grid}
           action="unavailable"
           label={t(
             'label.game.third-party-game',
@@ -237,11 +239,18 @@ const GameCard = ({
       )
     }
     if (isUninstalling) {
-      return <GameActionButton action="busy" label={t('status.uninstalling')} />
+      return (
+        <GameActionButton
+          action="busy"
+          iconOnly={grid}
+          label={t('status.uninstalling')}
+        />
+      )
     }
     if (isQueued) {
       return (
         <GameActionButton
+          iconOnly={grid}
           action="queue"
           label={t('button.queue.remove', 'Remove from Queue')}
           onClick={() => handleRemoveFromQueue()}
@@ -251,6 +260,7 @@ const GameCard = ({
     if (isPlaying) {
       return (
         <GameActionButton
+          iconOnly={grid}
           action="stop"
           label={t('label.playing.stop')}
           title={`${t('label.playing.stop')} (${title})`}
@@ -261,6 +271,7 @@ const GameCard = ({
     if (isInstalling || isQueued) {
       return (
         <GameActionButton
+          iconOnly={grid}
           action="cancel"
           label={t('button.cancel')}
           title={`${t('button.cancel')} (${title})`}
@@ -274,6 +285,7 @@ const GameCard = ({
         ['syncing-saves', 'launching', 'winetricks', 'redist'].includes(status!)
       return (
         <GameActionButton
+          iconOnly={grid}
           action={notAvailable ? 'unavailable' : 'play'}
           label={t('button.play', 'Play')}
           title={`${t('label.playing.start')} (${title})`}
@@ -284,6 +296,7 @@ const GameCard = ({
     }
     return (
       <GameActionButton
+        iconOnly={grid}
         action="install"
         label={t('button.install')}
         title={`${t('button.install')} (${title})`}
@@ -443,7 +456,8 @@ const GameCard = ({
       label: t('button.uninstall'),
       onclick: onUninstallClick,
       show: isInstalled && !isUpdating && !isPlaying,
-      icon: <Icon glyph={Trash2} size="md" />
+      icon: <Icon glyph={Trash2} size="md" />,
+      tone: 'danger'
     }
   ]
 
@@ -522,13 +536,13 @@ const GameCard = ({
                 src={steamCover || getImageFormatting(cover, runner)}
                 fallback={art_cover}
                 className={imgClasses}
-                alt="cover"
+                alt={title}
                 onError={handleCoverError}
               />
             )}
             {(justPlayed || runner !== 'nile') && logo && (
               <CachedImage
-                alt="logo"
+                alt=""
                 src={`${logo}?h=400&resize=1&w=300`}
                 className={logoClasses}
               />

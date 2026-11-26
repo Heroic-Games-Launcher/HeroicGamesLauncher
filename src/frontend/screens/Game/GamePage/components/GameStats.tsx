@@ -52,12 +52,14 @@ const GameStats = ({ gameInfo }: Props) => {
   return (
     <div className="gameStats">
       <StatCard
+        surface="none"
         glyph={Clock}
         label={t('game.totalPlayed', 'Time played')}
         value={t('game.hoursPlayedShort', '{{hours}} hours', { hours })}
         title={firstPlayedTitle}
       />
       <StatCard
+        surface="none"
         glyph={MonitorPlay}
         label={t('game.lastPlayed', 'Last played')}
         value={
