@@ -53,32 +53,14 @@
 .Button--primary {
   --button-surface: var(--bg-brand);
 
-  position: relative;
   background: var(--button-surface);
   color: var(--text-on-brand);
 }
 
-.Button--primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: var(--gradient-brand);
-  opacity: 0;
-  transition: opacity 150ms ease;
-}
-
-.Button--primary > * {
-  position: relative;
-}
-
-.Button--primary:hover:not(:disabled)::before,
-.Button--primary:focus-visible:not(:disabled)::before {
-  opacity: 1;
-}
-
 .Button--primary:hover:not(:disabled),
 .Button--primary:focus-visible:not(:disabled) {
+  --button-surface: color-mix(in oklab, var(--bg-brand) 85%, var(--on-panel));
+
   box-shadow: 0 8px 24px -8px var(--bg-brand);
 }
 

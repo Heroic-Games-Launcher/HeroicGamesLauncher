@@ -13,7 +13,7 @@ import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { GameScoreInfo, PCGamingWikiInfo } from 'common/types'
 import { axiosClient } from 'backend/utils'
 
-export type PCGamingWikiResult =
+type PCGamingWikiResult =
   | { status: 'found'; info: PCGamingWikiInfo }
   | { status: 'notFound' }
   | { status: 'failed' }

@@ -7,15 +7,6 @@
   fill: none;
 }
 
-.Button--primary.playIcon::before {
-  content: none;
-}
-
-.Button--primary.playIcon:hover:not(:disabled),
-.Button--primary.playIcon:focus-visible:not(:disabled) {
-  --button-surface: color-mix(in oklab, var(--bg-brand) 85%, var(--on-panel));
-}
-
 .GameActionButton.updateIcon svg {
   color: var(--success, var(--status-success));
 }

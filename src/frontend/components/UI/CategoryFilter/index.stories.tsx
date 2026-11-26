@@ -78,7 +78,7 @@ export const WithCustomCategories: Story = {
       canvas.getByLabelText('2 categories selected')
     ).toHaveTextContent('2')
 
-    const only = canvas.getAllByRole('button', { name: 'only' })[1]
+    const only = canvas.getByRole('button', { name: 'only: Backlog' })
     await waitFor(() => expect(only).toBeVisible())
     await userEvent.click(only)
 
