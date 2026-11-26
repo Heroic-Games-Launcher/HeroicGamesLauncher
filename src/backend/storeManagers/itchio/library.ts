@@ -20,7 +20,13 @@ import {
 import { join, relative } from 'path'
 import { readFileSync } from 'graceful-fs'
 
-import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger'
+import {
+  LogPrefix,
+  logDebug,
+  logError,
+  logInfo,
+  logWarning
+} from 'backend/logger'
 import { isLinux } from 'backend/constants/environment'
 import { BACKUP_PATHS } from 'backend/importExport/constants'
 
@@ -30,6 +36,7 @@ import { butlerDbPath, itchioStoreConfigPath } from './constants'
 import { ItchioUser } from './user'
 import ItchioGameManager from './games'
 import setupItchio from './setup'
+import type { ButlerdClient } from './butlerdClient'
 
 interface DownloadKeyRecord {
   id: number
@@ -37,15 +44,50 @@ interface DownloadKeyRecord {
   game: ItchioGame
 }
 
-interface FetchProfileOwnedKeysResult {
-  items: DownloadKeyRecord[]
+interface FetchGameUploadsResult {
+  uploads: ItchioUpload[]
+}
+
+interface PagedResult<T> {
+  items?: T[]
   stale?: boolean
   nextCursor?: string
 }
 
-interface FetchGameUploadsResult {
-  uploads: ItchioUpload[]
+interface ButlerdBundleKey {
+  bundleId: number
+  bundle?: { id: number; title: string }
 }
+
+interface ButlerdBundleGame {
+  bundleId: number
+  game?: ItchioGame
+}
+
+interface ButlerdCollection {
+  id: number
+  title: string
+}
+
+interface ButlerdCollectionGame {
+  collectionId: number
+  game?: ItchioGame
+}
+
+interface FetchGameOwnershipResult {
+  owned: boolean
+  bundleId?: number
+}
+
+interface InstallGetUploadsResult {
+  uploads?: ItchioUpload[]
+  incompatibleUploads?: ItchioUpload[]
+}
+
+// Lutris-compatible escape hatch for games the owned-keys list misses.
+const DISCOVERY_COLLECTION_NAMES = ['heroic', 'lutris']
+
+const MAX_PAGES = 50
 
 const inMemoryLibrary: Map<string, ItchioGameInfo> = new Map()
 
@@ -111,6 +153,132 @@ async function initItchioLibraryManager(): Promise<void> {
   }
 }
 
+async function fetchAllPages<T>(
+  client: ButlerdClient,
+  method: string,
+  params: Record<string, unknown>,
+  forceFresh: boolean
+): Promise<T[]> {
+  const items: T[] = []
+  let cursor: string | undefined
+  let pages = 0
+  let fresh = forceFresh
+
+  do {
+    let result = await client.call<PagedResult<T>>(method, {
+      ...params,
+      cursor,
+      fresh
+    })
+    if (pages === 0 && !fresh && result.stale) {
+      result = await client.call<PagedResult<T>>(method, {
+        ...params,
+        cursor,
+        fresh: true
+      })
+    }
+    items.push(...(result.items ?? []))
+    cursor = result.nextCursor
+    fresh = false
+    pages += 1
+    if (pages > MAX_PAGES) {
+      logError(
+        `${method} bailed out after ${MAX_PAGES} pages`,
+        LogPrefix.Itchio
+      )
+      break
+    }
+  } while (cursor)
+
+  return items
+}
+
+async function fetchOwnedKeyGames(
+  client: ButlerdClient,
+  profileId: number
+): Promise<ItchioGame[]> {
+  // Not Fetch.ProfileGames: that one lists games the user develops.
+  const keys = await fetchAllPages<DownloadKeyRecord>(
+    client,
+    'Fetch.ProfileOwnedKeys',
+    { profileId },
+    true
+  )
+  return keys.flatMap((key) => (key.game ? [key.game] : []))
+}
+
+// Bundle games only get a download key when claimed, so they need their own source.
+async function fetchBundleGames(
+  client: ButlerdClient,
+  profileId: number
+): Promise<ItchioGame[]> {
+  // Best effort: older butler builds don't expose bundle ownership.
+  await client
+    .call('Fetch.ProfileBundleOwnerships', { profileId, fresh: true })
+    .catch((err: Error) => {
+      logDebug(
+        ['itch.io bundle ownership sync skipped:', err.message],
+        LogPrefix.Itchio
+      )
+    })
+
+  const bundleKeys = await fetchAllPages<ButlerdBundleKey>(
+    client,
+    'Fetch.ProfileOwnedBundles',
+    { profileId },
+    true
+  )
+
+  const games: ItchioGame[] = []
+  const seenBundles = new Set<number>()
+  for (const bundleKey of bundleKeys) {
+    if (seenBundles.has(bundleKey.bundleId)) continue
+    seenBundles.add(bundleKey.bundleId)
+    const bundleGames = await fetchAllPages<ButlerdBundleGame>(
+      client,
+      'Fetch.BundleGames',
+      { profileId, bundleId: bundleKey.bundleId },
+      false
+    )
+    for (const item of bundleGames) {
+      if (item.game) games.push(item.game)
+    }
+  }
+  return games
+}
+
+// Lutris-style discovery from a collection the user named "heroic"/"lutris".
+async function fetchCollectionGames(
+  client: ButlerdClient,
+  profileId: number
+): Promise<ItchioGame[]> {
+  const collections = await fetchAllPages<ButlerdCollection>(
+    client,
+    'Fetch.ProfileCollections',
+    { profileId },
+    true
+  )
+  const discovery = collections.filter((collection) =>
+    DISCOVERY_COLLECTION_NAMES.includes(
+      (collection.title ?? '').trim().toLowerCase()
+    )
+  )
+
+  const games: ItchioGame[] = []
+  for (const collection of discovery) {
+    const collectionGames = await fetchAllPages<ButlerdCollectionGame>(
+      client,
+      'Fetch.Collection.Games',
+      { profileId, collectionId: collection.id },
+      false
+    )
+    for (const item of collectionGames) {
+      if (item.game) games.push(item.game)
+    }
+  }
+  return games
+}
+
 async function refresh(): Promise<ExecResult | null> {
   const profileId = configStore.get_nodefault('profileId')
   if (profileId === undefined) {
@@ -122,30 +290,26 @@ async function refresh(): Promise<ExecResult | null> {
   }
 
   const client = await getClient()
-  const games: ItchioGame[] = []
-  let cursor: string | undefined
-  let pages = 0
+  const ownedGames = await fetchOwnedKeyGames(client, profileId)
 
-  // Fetch.ProfileOwnedKeys = games bought / claimed / gifted (NOT
-  // Fetch.ProfileGames, which is developer-uploaded titles).
-  do {
-    const result = await client.call<FetchProfileOwnedKeysResult>(
-      'Fetch.ProfileOwnedKeys',
-      { profileId, cursor, fresh: pages === 0 }
-    )
-    for (const item of result.items ?? []) {
-      if (item.game) games.push(item.game)
-    }
-    cursor = result.nextCursor
-    pages += 1
-    if (pages > 50) {
-      logError(
-        'itch.io Fetch.ProfileOwnedKeys bailed out after 50 pages',
+  // Best effort: a failing source must not empty the library.
+  const [bundleGames, collectionGames] = await Promise.all([
+    fetchBundleGames(client, profileId).catch((err: Error) => {
+      logWarning(
+        ['itch.io bundle games fetch failed:', err.message],
         LogPrefix.Itchio
       )
-      break
-    }
-  } while (cursor)
+      return []
+    }),
+    fetchCollectionGames(client, profileId).catch((err: Error) => {
+      logWarning(
+        ['itch.io collection games fetch failed:', err.message],
+        LogPrefix.Itchio
+      )
+      return []
+    })
+  ])
+  const games = [...ownedGames, ...bundleGames, ...collectionGames]
 
   // A game owned through several download keys (e.g. bought directly AND
   // via a bundle) comes back once per key — dedupe by app_name so the
@@ -174,7 +338,12 @@ async function refresh(): Promise<ExecResult | null> {
   inMemoryLibrary.clear()
   for (const [appName, info] of merged) inMemoryLibrary.set(appName, info)
   libraryStore.set('library', Array.from(merged.values()))
-  logInfo(`itch.io library refreshed: ${merged.size} games`, LogPrefix.Itchio)
+  logInfo(
+    `itch.io library refreshed: ${merged.size} games ` +
+      `(${ownedGames.length} owned keys, ${bundleGames.length} bundle games, ` +
+      `${collectionGames.length} collection games)`,
+    LogPrefix.Itchio
+  )
   return { stdout: '', stderr: '' }
 }
 
@@ -219,6 +388,41 @@ function pickUploadForPlatform(
   return uploads.slice().sort((a, b) => b.size - a.size)[0]
 }
 
+// Paid uploads stay hidden until the bundle's key is claimed; this claims it.
+async function fetchBundleOwnedUpload(
+  client: ButlerdClient,
+  gameId: number,
+  profileId: number | undefined,
+  installPlatform: InstallPlatform,
+  strict: boolean
+): Promise<ItchioUpload | undefined> {
+  if (profileId === undefined) return undefined
+
+  const ownership = await client
+    .call<FetchGameOwnershipResult>('Fetch.GameOwnership', {
+      profileId,
+      gameId
+    })
+    .catch((err: Error) => {
+      logDebug(
+        ['itch.io ownership lookup skipped:', err.message],
+        LogPrefix.Itchio
+      )
+      return undefined
+    })
+  if (!ownership?.owned || !ownership.bundleId) return undefined
+
+  const result = await client.call<InstallGetUploadsResult>(
+    'Install.GetUploads',
+    { gameId, profileId }
+  )
+  const uploads = [
+    ...(result.uploads ?? []),
+    ...(result.incompatibleUploads ?? [])
+  ]
+  return pickUploadForPlatform(uploads, installPlatform, strict)
+}
+
 async function fetchInstallInfo(
   appName: string,
   installPlatform: InstallPlatform,
@@ -241,11 +445,20 @@ async function fetchInstallInfo(
       'Fetch.GameUploads',
       { gameId, profileId, fresh: true }
     )
-    const upload = pickUploadForPlatform(
+    let upload = pickUploadForPlatform(
       result.uploads ?? [],
       installPlatform,
       strict
     )
+    if (!upload) {
+      upload = await fetchBundleOwnedUpload(
+        client,
+        gameId,
+        profileId,
+        installPlatform,
+        strict
+      )
+    }
     if (!upload) {
       if (!strict) {
         logError(
