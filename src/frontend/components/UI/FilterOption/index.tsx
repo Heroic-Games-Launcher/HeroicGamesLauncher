@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { KeyboardEvent, ReactNode } from 'react'
 import classNames from 'classnames'
 import Checkbox from '../Checkbox'
 import './index.css'
@@ -32,9 +32,18 @@ export default function FilterOption({
   onOnly,
   onlyLabel
 }: FilterOptionProps) {
+  const handleKeyDown = (event: KeyboardEvent<HTMLLabelElement>) => {
+    const isNativeToggle =
+      event.key === ' ' && (event.target as HTMLElement).tagName === 'INPUT'
+    if ((event.key === 'Enter' || event.key === ' ') && !isNativeToggle) {
+      event.preventDefault()
+      onChange()
+    }
+  }
+
   return (
     <li className="FilterOption">
-      <label className="FilterOption__label">
+      <label className="FilterOption__label" onKeyDown={handleKeyDown}>
         <Checkbox size="small" checked={checked} onChange={onChange} />
         <span className="FilterOption__name">{label}</span>
       </label>
