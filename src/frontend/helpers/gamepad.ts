@@ -945,6 +945,12 @@ export const initGamepad = () => {
           case 'nintendo':
             checkNintendo(buttons, axes, index, checkAction, buttonMapping)
             break
+          case 'WiiU':
+            checkWiiU(buttons, axes, index, checkAction)
+            break
+          case 'N64Switch':
+            checkN64Switch(buttons, axes, index, checkAction)
+            break
           default:
             // most controllers follow the standard mapping and, if not exact,
             // it still covers the left stick and the main 2 buttons
