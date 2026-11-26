@@ -77,27 +77,6 @@ export default function LibraryFilters() {
 
   const onlyLabel = t('header.only', 'only')
 
-  const resetFilters = () => {
-    setStoresFilters({
-      legendary: true,
-      gog: true,
-      nile: true,
-      sideload: true,
-      zoom: true,
-      itchio: true,
-      steam: true
-    })
-    setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
-    setShowHidden(true)
-    setShowNonAvailable(true)
-    setShowFavourites(false)
-    setShowInstalledOnly(false)
-    setShowSupportOfflineOnly(false)
-    setShowThirdPartyManagedOnly(false)
-    setShowUpdatesOnly(false)
-    setShowSteamOwnedOnly(false)
-  }
-
   type StoreDef = {
     key: StoreKey
     label: string
@@ -166,71 +145,88 @@ export default function LibraryFilters() {
       key: 'favourites',
       label: t('header.show_favourites_only', 'Favorites only'),
       checked: showFavourites,
-      toggle: () => setShowFavourites(!showFavourites),
+      set: setShowFavourites,
+      defaultChecked: false,
       show: true
     },
     {
       key: 'installed',
       label: t('header.show_installed_only', 'Installed only'),
       checked: showInstalledOnly,
-      toggle: () => setShowInstalledOnly(!showInstalledOnly),
+      set: setShowInstalledOnly,
+      defaultChecked: false,
       show: true
     },
     {
       key: 'updates',
       label: t('header.show_updates_only', 'With updates'),
       checked: showUpdatesOnly,
-      toggle: () => setShowUpdatesOnly(!showUpdatesOnly),
+      set: setShowUpdatesOnly,
+      defaultChecked: false,
       show: true
     },
     {
       key: 'steamOwned',
       label: t('header.show_steam_owned_only', 'Steam owned only'),
       checked: showSteamOwnedOnly,
-      toggle: () => setShowSteamOwnedOnly(!showSteamOwnedOnly),
+      set: setShowSteamOwnedOnly,
+      defaultChecked: false,
       show: steam.enabled
     },
     {
       key: 'offline',
       label: t('header.show_support_offline_only', 'Offline-supported'),
       checked: showSupportOfflineOnly,
-      toggle: () => setShowSupportOfflineOnly(!showSupportOfflineOnly),
+      set: setShowSupportOfflineOnly,
+      defaultChecked: false,
       show: true
     },
     {
       key: 'thirdParty',
       label: t('header.show_third_party_managed_only', 'Third-party only'),
       checked: showThirdPartyManagedOnly,
-      toggle: () => setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly),
+      set: setShowThirdPartyManagedOnly,
+      defaultChecked: false,
       show: true
     },
     {
       key: 'hidden',
       label: t('header.hidden', 'Hidden'),
       checked: showHidden,
-      toggle: () => setShowHidden(!showHidden),
+      set: setShowHidden,
+      defaultChecked: false,
       show: true
     },
     {
       key: 'nonAvailable',
       label: t('header.non_available', 'Non-available'),
       checked: showNonAvailable,
-      toggle: () => setShowNonAvailable(!showNonAvailable),
+      set: setShowNonAvailable,
+      defaultChecked: true,
       show: true
     }
   ]
 
+  const resetFilters = () => {
+    setStoresFilters({
+      legendary: true,
+      gog: true,
+      nile: true,
+      sideload: true,
+      zoom: true,
+      itchio: true,
+      steam: true
+    })
+    setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
+    displayOptions.forEach((option) => option.set(option.defaultChecked))
+  }
+
   const activeFilterCount =
     stores.filter((s) => s.show && !storesFilters[s.key]).length +
     platforms.filter((p) => p.show && !platformsFilters[p.key]).length +
-    [
-      showFavourites,
-      showInstalledOnly,
-      showUpdatesOnly,
-      showSupportOfflineOnly,
-      showThirdPartyManagedOnly,
-      steam.enabled && showSteamOwnedOnly
-    ].filter(Boolean).length
+    displayOptions.filter(
+      (option) => option.show && option.checked !== option.defaultChecked
+    ).length
 
   return (
     <Dropdown
@@ -298,7 +294,7 @@ export default function LibraryFilters() {
                 key={option.key}
                 label={option.label}
                 checked={option.checked}
-                onChange={option.toggle}
+                onChange={() => option.set(!option.checked)}
               />
             ))}
         </FilterOptionList>
