@@ -1827,7 +1827,8 @@ async function callRunner(
       signal: abortController.signal
     })
 
-    const stdout = memoryLog()
+    // JSON results must stay complete
+    const stdout = memoryLog(options?.fullOutput ? Infinity : undefined)
     const stderr = memoryLog()
 
     child.stdout.setEncoding('utf-8')
@@ -1842,7 +1843,7 @@ async function callRunner(
         options.onOutput(data, child)
       }
 
-      stdout.push(data.trim())
+      stdout.push(options?.fullOutput ? data : data.trim())
     })
 
     child.stderr.setEncoding('utf-8')
@@ -1862,7 +1863,10 @@ async function callRunner(
 
     child.on('close', (code, signal) => {
       errorHandler(
-        `${stdout.join().concat(stderr.join())}`,
+        // Full stdout is data only
+        options?.fullOutput
+          ? stderr.join()
+          : `${stdout.join().concat(stderr.join())}`,
         appName,
         runner.name
       )

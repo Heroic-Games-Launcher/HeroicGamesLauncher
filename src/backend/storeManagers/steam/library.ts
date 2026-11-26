@@ -60,6 +60,15 @@ import type {
 } from './aurelia_types'
 
 const library: Map<string, GameInfo> = new Map()
+
+/** Whether a `list` entry is a usable game. */
+function isLibraryGame(game: unknown): game is AureliaLibraryGame {
+  return (
+    typeof game === 'object' &&
+    game !== null &&
+    Number.isInteger((game as AureliaLibraryGame).app_id)
+  )
+}
 const installedGames: Map<string, InstalledInfo> = new Map()
 
 /**
@@ -114,9 +123,9 @@ export default class SteamLibraryManager implements LibraryManager {
     library.clear()
     installedGames.clear()
 
-    let games: AureliaLibraryGame[]
+    let games: unknown
     try {
-      games = await runAurelia<AureliaLibraryGame[]>(['list'])
+      games = await runAurelia(['list'])
     } catch (error) {
       logError(
         ['Unable to list Steam games', describeError(error)],
@@ -124,8 +133,20 @@ export default class SteamLibraryManager implements LibraryManager {
       )
       return { stdout: '', stderr: 'Unable to list Steam games' }
     }
+    if (!Array.isArray(games)) {
+      logError(
+        'Unable to list Steam games: aurelia list returned no game list',
+        LogPrefix.Steam
+      )
+      return { stdout: '', stderr: 'Unable to list Steam games' }
+    }
 
-    for (const game of games) {
+    let skipped = 0
+    for (const game of games as Partial<AureliaLibraryGame>[]) {
+      if (!isLibraryGame(game)) {
+        skipped++
+        continue
+      }
       const appId = String(game.app_id)
       const info = this.steamToUnifiedInfo(game)
 
@@ -165,6 +186,12 @@ export default class SteamLibraryManager implements LibraryManager {
     }\n`
     void getRunnerLogWriter('steam').logInfo(logContent)
 
+    if (skipped) {
+      logError(
+        `Skipped ${skipped} Steam list entries without an app id`,
+        LogPrefix.Steam
+      )
+    }
     logInfo(`Found ${library.size} Steam games`, LogPrefix.Steam)
 
     return { stdout: 'Library refreshed', stderr: '' }
@@ -195,12 +222,12 @@ export default class SteamLibraryManager implements LibraryManager {
     return {
       runner: 'steam',
       app_name: appId,
-      title: game.name,
+      title: game.name || appId,
       art_cover: assets.header ?? '',
       art_square: assets.capsule ?? '',
       art_background: assets.hero ?? '',
       store_url: game.store_url,
-      folder_name: game.name,
+      folder_name: game.name || appId,
       install: {},
       is_installed: false,
       // Offline launches show Heroic's warning

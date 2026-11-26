@@ -192,6 +192,36 @@ describe('SteamLibraryManager.refresh', () => {
     expect(mockNotifyRecent).toHaveBeenCalled()
   })
 
+  it('reports an error when the list is not an array', async () => {
+    mockLoggedIn.mockReturnValue(true)
+    mockOnline.mockReturnValue(true)
+    jest
+      .mocked(runAurelia)
+      .mockResolvedValue({ name: 'Chasm', platform: 'windows' })
+    const res = await new SteamLibraryManager().refresh()
+    expect(res?.stderr).toBe('Unable to list Steam games')
+    expect(mockLibrarySet).not.toHaveBeenCalled()
+  })
+
+  it('skips entries without a numeric app id', async () => {
+    mockLoggedIn.mockReturnValue(true)
+    mockOnline.mockReturnValue(true)
+    jest
+      .mocked(runAurelia)
+      .mockResolvedValue([
+        { name: 'No id' },
+        null,
+        { app_id: 312200, name: 'Chasm' },
+        { app_id: 620 }
+      ])
+    await new SteamLibraryManager().refresh()
+    const [, games] = mockLibrarySet.mock.calls[0] as [string, GameInfo[]]
+    expect(games.map((g) => [g.app_name, g.title])).toEqual([
+      ['312200', 'Chasm'],
+      ['620', '620']
+    ])
+  })
+
   it('shows the installed size Aurelia reports', async () => {
     mockLoggedIn.mockReturnValue(true)
     mockOnline.mockReturnValue(true)
