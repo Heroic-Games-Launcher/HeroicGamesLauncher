@@ -262,7 +262,6 @@
         },
         "status": {
             "free": "Free",
-            "owned": "Owned",
             "unowned": "Not owned"
         }
     },

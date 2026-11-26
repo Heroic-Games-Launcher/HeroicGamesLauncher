@@ -167,9 +167,10 @@ const GameCard = ({
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
 
   const itchioStatus = gameInfo.itchio_status
-  // Only games discovered from bundles/collections carry a status tag.
+  // Owned games need no tag; only hint when the game is free or not owned.
   const showItchioStatus =
-    !!gameInfo.itchio_source && gameInfo.itchio_source !== 'owned'
+    !!gameInfo.itchio_source &&
+    (itchioStatus === 'free' || itchioStatus === 'unowned')
   const itchioLocked = itchioStatus === 'unowned' && !isInstalled
 
   const [progress, previousProgress] = hasProgress(appName, runner)
@@ -198,13 +199,11 @@ const GameCard = ({
   }
 
   const itchioStatusLabel =
-    itchioStatus === 'owned'
-      ? t('itchio.status.owned', 'Owned')
-      : itchioStatus === 'free'
-        ? t('itchio.status.free', 'Free')
-        : itchioStatus === 'unowned'
-          ? t('itchio.status.unowned', 'Not owned')
-          : ''
+    itchioStatus === 'free'
+      ? t('itchio.status.free', 'Free')
+      : itchioStatus === 'unowned'
+        ? t('itchio.status.unowned', 'Not owned')
+        : ''
 
   function openGameDetails() {
     if (itchioLocked) {
@@ -626,13 +625,7 @@ const GameCard = ({
             </span>
             {showItchioStatus && itchioStatusLabel && (
               <Badge
-                variant={
-                  itchioStatus === 'unowned'
-                    ? 'warning'
-                    : itchioStatus === 'free'
-                      ? 'info'
-                      : 'success'
-                }
+                variant={itchioStatus === 'unowned' ? 'warning' : 'info'}
                 className="itchioStatus"
               >
                 {itchioStatusLabel}
