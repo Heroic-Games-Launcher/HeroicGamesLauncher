@@ -5,13 +5,6 @@
 
 .libraryFilters .FilterSection + .FilterSection {
   padding-top: var(--space-md-fixed);
-  border-top: none;
-}
-
-.libraryFilters .FilterActions {
-  margin-top: var(--space-md-fixed);
-  padding-top: 0;
-  border-top: none;
 }
 
 .FilterActions .Button {

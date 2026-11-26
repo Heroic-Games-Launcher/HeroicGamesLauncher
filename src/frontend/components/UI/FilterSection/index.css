@@ -34,6 +34,5 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--space-xs-fixed);
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--divider);
+  margin-top: var(--space-2xs-fixed);
 }
