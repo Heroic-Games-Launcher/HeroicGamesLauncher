@@ -33,6 +33,8 @@
   cursor: pointer;
   font-family: var(--primary-font-family);
   font-size: var(--body-md);
+  font-weight: var(--regular);
+  line-height: var(--leading-normal);
   color: var(--on-panel, var(--text-default));
 }
 
