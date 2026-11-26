@@ -584,7 +584,7 @@ const GameCard = ({
                   action="update"
                   label={t('button.update')}
                   title={`${t('button.update')} (${title})`}
-                  iconOnly={!grid}
+                  iconOnly
                   onClick={() => handleUpdate()}
                 />
               )}
