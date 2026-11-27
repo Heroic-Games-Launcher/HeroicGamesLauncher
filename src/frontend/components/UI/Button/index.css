@@ -119,14 +119,12 @@
   --button-surface: var(--bg-destructive);
 
   background: var(--bg-destructive-subtle);
-  border-color: var(--border-destructive);
   color: var(--text-destructive);
 }
 
 .Button--dangerSubtle:hover:not(:disabled),
 .Button--dangerSubtle:focus-visible:not(:disabled) {
   background: color-mix(in oklab, var(--button-surface) 28%, transparent);
-  border-color: var(--button-surface);
 }
 
 .Button--warning {
