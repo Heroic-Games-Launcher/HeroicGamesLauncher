@@ -13,7 +13,7 @@
         "disable_smooth_scrolling": "禁用平滑滚动（需要重启）",
         "disable_animations": "禁用界面动画",
         "section": {
-            "library": "仓库",
+            "library": "游戏库",
             "motion": "",
             "appearance": ""
         },
@@ -42,7 +42,7 @@
         "choose-legendary-binary": "选择 Legendary 二进制文件",
         "customWine": "选择 Wine 或 Proton 二进制文件",
         "default-install-path": "选择默认安装路径",
-        "default-steam-path": "Steam 路径.",
+        "default-steam-path": "Steam 路径。",
         "downloadNow": "立即下载",
         "error": {
             "add": {
@@ -158,10 +158,10 @@
             "script": "选择脚本…"
         },
         "shortcuts": {
-            "message": "桌面与开始菜单快捷方式已创建",
-            "message-mac": "快捷方式创建于应用程序文件夹上",
-            "message-remove": "从桌面和启动菜单移除了快捷方式",
-            "message-remove-mac": "从应用程序文件夹删除了快捷方式",
+            "message": "已添加到桌面与开始菜单",
+            "message-mac": "已添加到应用程序文件夹",
+            "message-remove": "已从桌面与开始菜单移除",
+            "message-remove-mac": "已从应用程序文件夹移除",
             "title": "快捷方式"
         },
         "sync": {
@@ -229,7 +229,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "cancel": "取消",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
+        }
     },
     "button": {
         "cancel": "取消",
@@ -300,7 +308,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "在线服务可能无法完全工作，因为 Epic Games 服务器离线！",
@@ -310,7 +329,7 @@
     "error": {
         "recovery": ""
     },
-    "favourites": "最爱",
+    "favourites": "您的收藏",
     "game": {
         "status": "状态",
         "store": "商店",
@@ -338,7 +357,7 @@
         "platform": "平台",
         "show_all_games": "显示所有游戏",
         "show_available_games": "显示不可用的游戏",
-        "show_favourites_only": "仅显示最爱",
+        "show_favourites_only": "仅显示收藏",
         "show_hidden": "显示隐藏项",
         "store": "过滤商店",
         "filters": "筛选",
@@ -358,7 +377,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
@@ -411,7 +434,10 @@
             "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
             "fpsLimiter": "Gamescope 帧数限制，比如 60",
             "additionalOptions": "要传递给 gamescope 的额外命令行标记。",
-            "forceGrabCursor": "总是使用相对鼠标模式而不是取决于指针可见性的翻转。（当程序一直失去焦点时有用）"
+            "forceGrabCursor": "总是使用相对鼠标模式而不是取决于指针可见性的翻转。（当程序一直失去焦点时有用）",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "content": {
             "defaultInstallPath": "这是安装游戏时预先选择的默认路径。",
@@ -430,7 +456,7 @@
             "settings": "设置",
             "downloadManager": "下载管理器",
             "wineManager": "Wine 管理器",
-            "library": "库"
+            "library": "游戏库"
         },
         "button": {
             "open": "打开帮助",
@@ -448,7 +474,16 @@
             "details": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": "从外部快捷方式（如“添加到 Steam”）启动游戏时，保持 Heroic 窗口隐藏。"
+        "hide-window-on-protocol-launch": "从外部启动游戏时保持 Heroic 窗口隐藏（比如从 Steam 启动“添加到 Steam”的游戏）。",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -557,7 +592,8 @@
                     "corrupt": "{{game}} 不能被添加到所有找到的 Steam 用户。查看日志了解更多信息。 需要重启 Steam 更改才能生效。",
                     "success": "成功添加 {{game}} 到 Steam。需要重启 Steam 更改才能生效。",
                     "title": "已添加到 Steam",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -659,7 +695,10 @@
             "interger": "整数型 Upscale",
             "stretch": "拉伸图像",
             "windowed": "已窗口化",
-            "additionalOptions": "额外选项"
+            "additionalOptions": "额外选项",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -678,7 +717,8 @@
         "egs-prefix": "Epic 游戏商城安装位置",
         "prefered_language": "双字符或四字符代码 (如: \"fr\" 或 \"pt-BR\")",
         "alt-nile-bin": "使用内置 Nile 二进制文件...",
-        "alt-aurelia-bin": "使用内置的 Aurelia 二进制文件..."
+        "alt-aurelia-bin": "使用内置的 Legendary 二进制文件...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -705,7 +745,7 @@
     "Recent": "最近玩过",
     "search": "搜索游戏",
     "setting": {
-        "adddesktopshortcuts": "自动添加桌面快捷方式",
+        "adddesktopshortcuts": "自动添加到桌面",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
         "addgamestosteam": "自动添加游戏到 Steam",
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
@@ -758,9 +798,9 @@
         "language": "选择应用语言",
         "library_top_option": {
             "disabled": "已禁用",
-            "favourites": "最爱的游戏",
-            "recently_played": "最近玩过的游戏",
-            "recently_played_installed": "最近玩过的游戏 (仅已安装）"
+            "favourites": "您的收藏",
+            "recently_played": "最近游玩",
+            "recently_played_installed": "最近游玩（已安装）"
         },
         "library_top_section": "游戏库顶部",
         "log": {
@@ -842,7 +882,8 @@
             "placeholder": "选择存档的保存位置",
             "warning": "请确保路径正确无误（单击重试）",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
@@ -874,7 +915,13 @@
             "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
             "enableForceGrabCursor": "启用强制抓取指针",
             "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 25.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
-            "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。"
+            "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。",
+            "enableHDR": "启用 HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "frameless-window": {
             "confirmation": {
@@ -924,7 +971,7 @@
             "confirmation": {
                 "dont_show": "不要显示它们",
                 "message": "我们推荐在 Heroic 中使用自定义 Proton 分叉（GE-Proton、Proton-CachyOS 等），因为 Valve 的 Proton 构建缺少 winetricks 和 protofixes。但如果需要您仍可使用它。",
-                "show": "我明白，显示它们",
+                "show": "我明白了，显示它们",
                 "title": "您确定吗？"
             },
             "info_label": "已忽略 Valve Proton",
@@ -942,7 +989,8 @@
         "hide-window-on-protocol-launch": "通过 heroic:// 链接启动游戏时隐藏 Heroic 窗口",
         "steamRuntime": {
             "label": "使用 Steam 运行时",
-            "noRuntimeOption": "无"
+            "noRuntimeOption": "无",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "打开",
@@ -1019,9 +1067,9 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "选择替代的 Aurelia 二进制文件",
+        "alt-aurelia-bin": "选择替代的 Nile 二进制文件",
         "steamLaunchTarget": {
-            "downloadBuild": "Download",
+            "downloadBuild": "下载",
             "missingBuild": "下载总计",
             "missingRuntime": "VCRuntime 未安装",
             "info": {
@@ -1041,7 +1089,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1083,7 +1183,10 @@
             "gamescope": "Gamescope",
             "legacy": "老古董",
             "categories": "分类",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -1196,7 +1299,16 @@
             "steam": "",
             "amazon": "Amazon 游戏",
             "epic": "Epic 游戏",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeAdditionalOptions": "额外选项",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1204,9 +1316,58 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
-        "clear-images-cache": ""
+        "clear-images-cache": "",
+        "gamepad": {
+            "button": {
+                "back": "返回",
+                "guide": "主机模式",
+                "reset": "重设为默认",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
+        }
     },
     "Settings": "设置",
     "sidebar": {
@@ -1346,7 +1507,8 @@
         "noGames": "你的仓库是空的。<br /><br />单击<4>此处</4>登录你的 Epic、GOG.com 或 Amazon 账号。登录后，你的游戏会出现在库中。<br /><br />要使用其它来源的应用或游戏，请单击手动添加。",
         "noResultsTitle": "未找到游戏",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "adtraction-locked": {
         "dont-show-again": "不再显示此警告",
@@ -1387,7 +1549,19 @@
             "addGame": "单击此处将你自己的游戏或应用添加到库中。基本啥都行，即使是浏览器 URLs。",
             "refresh": "刷新库检查新游戏或更新。",
             "gameCard": "左键单击游戏卡片导航至游戏页，查看详情和调整设置，或右键单击打开上下文菜单。",
-            "steamInstall": "使用此按钮安装 Windows 版 Steam，并通过 Crossover、Wine 或 GPTK 玩你的 Windows 游戏。"
+            "steamInstall": "使用此按钮安装 Windows 版 Steam，并通过 Crossover、Wine 或 GPTK 玩你的 Windows 游戏。",
+            "searchTitle": "搜索",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": ""
         },
         "sidebar": {
             "community": "加入我们的 Discord 社区并支持 Heroic 的开发。",
@@ -1405,7 +1579,13 @@
             },
             "accessibility": "访问无障碍功能定制体验。",
             "accounts": "管理已连接的商店账号（Epic、GOG、Amazon），退出登录或登录账号。",
-            "wine": "管理或下载新版 Wine/Proton/GPTK 来在 Linux 或 macOS 上运行 Windows 游戏。"
+            "wine": "管理或下载新版 Wine/Proton/GPTK 来在 Linux 或 macOS 上运行 Windows 游戏。",
+            "generalTitle": "常规",
+            "welcomeTitle": "欢迎来到 Heroic！",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": ""
         },
         "skip": "跳过",
         "startTour": "开始入门指南",
@@ -1496,7 +1676,8 @@
             "wishlistOnly": "仅显示愿望单",
             "hideOwned": "隐藏已拥有",
             "platform": "Platform",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "优惠",
         "sort": {
@@ -1577,7 +1758,8 @@
             "sort": "分类",
             "navigate": "导航",
             "quit": "退出",
-            "change_store": "切换商店"
+            "change_store": "切换商店",
+            "hold_quit": ""
         },
         "launching": "启动中",
         "card": {
@@ -1590,17 +1772,17 @@
         "empty": "没有已安装的游戏可以展示。请先安装一些游戏。",
         "games": "已安装的游戏",
         "quitApp": "退出软件",
-        "loading": "加载你的游戏库中……",
+        "loading": "正在加载游戏库……",
         "cancelInstall": {
             "title": "取消安装",
-            "message": "这款游戏目前正在安装，取消安装？"
+            "message": "游戏安装中。是否取消安装？"
         },
         "cancelUpdate": {
             "title": "取消更新",
-            "message": "这款游戏目前正在下载。取消正在进行的更新？"
+            "message": "游戏下载中。是否取消正在进行的更新？"
         },
         "install": {
-            "platform": "Platform",
+            "platform": "平台",
             "title": "安装游戏",
             "wineLoading": "加载中…",
             "path": "安装到",
@@ -1617,7 +1799,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "下一步",
     "common": {
@@ -1762,7 +1951,11 @@
     },
     "import-export": {
         "action": {
-            "download": "下载中"
+            "download": "下载中",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "返回",
         "close": "关闭",
@@ -1773,30 +1966,146 @@
         "stage": {
             "credentials": "存储登录信息",
             "globalSettings": "全局设置",
-            "perGameSettings": "游戏设置"
+            "perGameSettings": "游戏设置",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "全局设置"
+            "title": "全局设置",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
-            "selectAll": "全选"
+            "selectAll": "全选",
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "存储登录信息"
+            "title": "存储登录信息",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Wine 前缀",
             "wine-downloadable": "Download",
-            "wine-unavailable": "无 DLC 可用"
+            "wine-unavailable": "无 DLC 可用",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "存储登录信息",
             "done": "完毕",
             "global-settings": "全局设置",
-            "per-game": "游戏设置"
+            "per-game": "游戏设置",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "值",
         "version": "Heroic 版本",
-        "wine-versions": "Wine 版本"
+        "wine-versions": "Wine 版本",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

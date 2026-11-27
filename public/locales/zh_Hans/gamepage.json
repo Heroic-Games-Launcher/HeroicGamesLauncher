@@ -106,8 +106,14 @@
         "back": "返回",
         "next": "下一步",
         "skip-installer": {
-            "title": "跳过"
-        }
+            "title": "跳过",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "错误：未授予此路径沙盒访问权限，可能发生数据丢失。",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -299,7 +306,12 @@
             "useragent": "自定义 User Agent",
             "fullscreen": "启动全屏（按 F11 退出）",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "粘贴图片 URL 计算机中选择一张",
@@ -312,13 +324,26 @@
             "content": "不要用此功能来添加。<br />正确做法是， <3>登录</3> 商店账号，在你的库中寻找该游戏，打开安装对话框,，单击 &quot;导入游戏&quot; 按钮"
         },
         "images": {
-            "summary": "图片"
+            "summary": "图片",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "检查兼容性",
             "finish": "完成",
             "images": "图片",
-            "install": "停止安装"
+            "install": "停止安装",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
