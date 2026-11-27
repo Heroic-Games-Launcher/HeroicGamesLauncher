@@ -178,20 +178,25 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [currentTab, setCurrentTab] = useState<GameTab>('overview')
 
   const [dlcs, setDlcs] = useState<SteamDLCInfo[]>([])
-  const loadDlcs = useCallback(async () => {
-    if (runner !== 'steam') {
-      setDlcs([])
-      return
-    }
-    try {
-      setDlcs(await window.api.getSteamDlcInfo(appName))
-    } catch {
-      setDlcs([])
-    }
-  }, [appName, runner])
+  // Fresh on open, cached within the page
+  const loadDlcs = useCallback(
+    async (noCache = false) => {
+      if (runner !== 'steam') {
+        setDlcs([])
+        return
+      }
+      try {
+        setDlcs(await window.api.getSteamDlcInfo(appName, noCache))
+      } catch {
+        setDlcs([])
+      }
+    },
+    [appName, runner]
+  )
 
+  // Opening, or returning from the store page
   useEffect(() => {
-    void loadDlcs()
+    void loadDlcs(true)
   }, [loadDlcs])
 
   const previousIsPlaying = useRef<boolean>(isPlaying)
@@ -548,7 +553,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
                 <TabPanel value={activeTab} index="dlcs" className="dlcsTab">
                   <Panel tone="glass" className="installationInfo">
-                    <SteamDlcList dlcs={dlcs} onChange={loadDlcs} />
+                    <SteamDlcList dlcs={dlcs} onChange={() => loadDlcs()} />
                   </Panel>
                 </TabPanel>
 

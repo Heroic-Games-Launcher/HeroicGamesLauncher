@@ -237,11 +237,16 @@ export default class SteamLibraryManager implements LibraryManager {
   /**
    * Lists a Steam game's DLC with whether the user owns each one and whether its
    * files are installed, via `aurelia dlc <id>`.
+   * `noCache` makes Aurelia skip its DLC cache (fresh ownership).
    */
-  async getDLCInfo(appId: string): Promise<SteamDLCInfo[]> {
+  async getDLCInfo(appId: string, noCache = false): Promise<SteamDLCInfo[]> {
     return steamCall(
       async () => {
-        const response = await runAurelia<AureliaDlcResponse>(['dlc', appId])
+        const response = await runAurelia<AureliaDlcResponse>([
+          'dlc',
+          appId,
+          ...(noCache ? ['--no-cache'] : [])
+        ])
         const dlcs: SteamDLCInfo[] = (response.dlc ?? []).map((dlc) => ({
           appId: String(dlc.app_id),
           title: dlc.name || `DLC ${dlc.app_id}`,

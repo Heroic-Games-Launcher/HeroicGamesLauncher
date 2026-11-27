@@ -250,7 +250,10 @@ interface AsyncIPCFunctions {
   getItchioUserInfo: () => Promise<ItchioUserData | undefined>
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
   getSteamUserInfo: () => Promise<{ username: string } | undefined>
-  getSteamDlcInfo: (appName: string) => Promise<SteamDLCInfo[]>
+  getSteamDlcInfo: (
+    appName: string,
+    noCache?: boolean
+  ) => Promise<SteamDLCInfo[]>
   getSteamCloudSyncStatus: (appName: string) => Promise<SteamCloudSyncStatus>
   runSteamCloudSync: (
     appName: string,
