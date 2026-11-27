@@ -580,6 +580,27 @@
         "offline-notification-title": "offline"
     },
     "error": {
+        "boundary": {
+            "copy-failed": "Could not copy. Please try again.",
+            "copy-log": "Copy Heroic log",
+            "copy-report": "Copy error report",
+            "go-to-library": "Back to library",
+            "hint": "The error report includes the stack trace, your system information and the Heroic log. Attach it when opening an issue.",
+            "log-copied": "Heroic log copied to clipboard.",
+            "no-log": "No Heroic log file was found.",
+            "open-log-folder": "Open log folder",
+            "preparing-report": "Preparing report…",
+            "reload": "Reload Heroic",
+            "report-copied": "Error report copied to clipboard, including the Heroic log.",
+            "report-issue": "Report on GitHub",
+            "route": "Route",
+            "subtitle": "Heroic ran into a problem it could not recover from. The details below help the developers find and fix it.",
+            "technical-details": "Technical details for developers",
+            "time": "Time",
+            "title": "Unexpected application error",
+            "unknown": "Unknown",
+            "version": "Version"
+        },
         "recovery": "Refreshing the library usually fixes it. Clearing the cache or resetting Heroic are the next steps if it does not."
     },
     "externalLink": {
