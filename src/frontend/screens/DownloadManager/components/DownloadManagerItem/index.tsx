@@ -6,7 +6,6 @@ import { DMQueueElement, DownloadManagerState } from 'common/types'
 import {
   CircleCheck,
   CircleX,
-  Download,
   Gamepad2,
   Loader,
   Pause,
@@ -257,11 +256,7 @@ const DownloadManagerItem = ({
         <Badge variant="warning" glyph={Pause}>
           {t2('queue.label.paused', 'Paused')}
         </Badge>
-      ) : (
-        <Badge variant="success" glyph={Download}>
-          {t2('queue.label.downloading', 'Downloading')}
-        </Badge>
-      )
+      ) : null
     }
 
     if (finished) {
