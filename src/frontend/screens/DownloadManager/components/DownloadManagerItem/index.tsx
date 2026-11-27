@@ -456,9 +456,7 @@ const DownloadManagerItem = ({
 
       {!isHero && (
         <span className="DownloadItem__type">
-          <Badge variant={type === 'update' ? 'info' : 'neutral'}>
-            {translatedTypes[type]}
-          </Badge>
+          <Badge variant="neutral">{translatedTypes[type]}</Badge>
         </span>
       )}
 
