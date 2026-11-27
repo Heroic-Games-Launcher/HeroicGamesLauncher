@@ -7,6 +7,8 @@ interface CachedImageProps {
   className?: string
   onLoad?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void
   onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void
+  /** Called once src and fallback both failed */
+  onFinalError?: () => void
 }
 
 type Props = React.ImgHTMLAttributes<HTMLImageElement> & CachedImageProps
@@ -31,9 +33,11 @@ const CachedImage = (props: Props) => {
       setUseCache(false)
     } else {
       // if not cached and can't access real, try with the fallback
-      if (props.fallback) {
+      if (props.fallback && !useFallback) {
         setUseFallback(true)
         setUseCache(props.fallback.startsWith('http'))
+      } else {
+        props.onFinalError?.()
       }
     }
     props.onError?.(e)
@@ -47,10 +51,14 @@ const CachedImage = (props: Props) => {
   let src = useFallback ? props.fallback : props.src
   src = useCache && src ? `imagecache://${encodeURIComponent(src)}` : src
 
+  // Not DOM attributes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { onFinalError, fallback, ...imgProps } = props
+
   return (
     <img
       loading="lazy"
-      {...props}
+      {...imgProps}
       src={src}
       onLoad={handleLoad}
       onError={onError}
