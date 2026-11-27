@@ -1,11 +1,17 @@
-import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger'
+import {
+  LogPrefix,
+  logDebug,
+  logError,
+  logInfo,
+  logWarning
+} from 'backend/logger'
 import {
   NileLoginData,
   NileRegisterData,
   NileUserData
 } from 'common/types/nile'
 import { libraryManagerMap } from '..'
-import { existsSync, readFileSync } from 'graceful-fs'
+import { existsSync, readFileSync, unlinkSync } from 'graceful-fs'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
 import { nileUserData } from './constants'
@@ -25,16 +31,41 @@ function authLogSanitizer(line: string) {
 }
 
 export class NileUser {
-  static async getLoginData(): Promise<NileLoginData> {
-    logDebug('Getting login data from Nile', LogPrefix.Nile)
-    const { stdout } = await libraryManagerMap['nile'].runRunnerCommand(
+  private static requestLoginData() {
+    return libraryManagerMap['nile'].runRunnerCommand(
       ['auth', '--login', '--non-interactive'],
       {
         abortId: 'nile-auth',
         logSanitizer: authLogSanitizer
       }
     )
-    const output: NileLoginData = JSON.parse(stdout)
+  }
+
+  static async getLoginData(): Promise<NileLoginData> {
+    logDebug('Getting login data from Nile', LogPrefix.Nile)
+    let result = await this.requestLoginData()
+
+    // Nile refuses to start a login while a local session exists. Only reset it
+    // when Heroic has no cached account for that session, so a redundant login
+    // attempt never discards an active login.
+    if (
+      !result.stdout &&
+      result.stderr.includes('already logged in') &&
+      !this.isLoggedIn()
+    ) {
+      logWarning('Resetting stale Nile session', LogPrefix.Nile)
+      await this.logout()
+      if (existsSync(nileUserData)) {
+        unlinkSync(nileUserData)
+      }
+      result = await this.requestLoginData()
+    }
+
+    if (!result.stdout) {
+      throw new Error(`Nile did not return login data: ${result.stderr}`)
+    }
+
+    const output: NileLoginData = JSON.parse(result.stdout)
 
     logInfo(['Register data is:', output], LogPrefix.Nile)
     return output

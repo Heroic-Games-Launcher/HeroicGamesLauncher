@@ -193,13 +193,17 @@ export default function WebView() {
       refresh: true,
       message: t('status.preparing_login', 'Preparing Login...')
     })
-    amazon.getLoginData().then((data) => {
-      setAmazonLoginData(data)
-      setLoading({
-        ...loading,
-        refresh: false
+    amazon
+      .getLoginData()
+      .then((data) => {
+        setAmazonLoginData(data)
+        setLoading((previous) => ({ ...previous, refresh: false }))
       })
-    })
+      .catch((error) => {
+        console.error('Could not get Amazon login data:', error)
+        setLoading((previous) => ({ ...previous, refresh: false }))
+        navigate('/login')
+      })
   }, [pathname])
 
   useEffect(() => {
