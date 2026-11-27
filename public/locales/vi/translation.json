@@ -223,7 +223,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": "",
+            "cancel": "Cancel"
+        }
     },
     "button": {
         "cancel": "Hủy",
@@ -294,7 +302,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Các dịch vụ trực tuyến có thể không hoạt động đầy đủ vì máy chủ của Epic Games đang ngoại tuyến!",
@@ -351,7 +370,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "FSR của AMD giúp tăng tốc độ khung hình bằng cách nâng cấp độ phân giải thấp hơn ở Chế độ toàn màn hình. Chất lượng hình ảnh tăng từ 5 lên 1 với cái giá phải trả là hiệu suất bị giảm nhẹ. Việc kích hoạt có thể cải thiện hiệu suất.",
@@ -432,7 +455,10 @@
             "gameWidth": "Độ phân giải chiều rộng được trò chơi sử dụng. Tỷ lệ khung hình 16:9 được giả định bởi gamescope.",
             "upscaleHeight": "Độ phân giải chiều cao được sử dụng bởi gamescope. Tỷ lệ khung hình 16:9 được giả định.",
             "upscaleMethod": "Phương pháp nâng cấp gamescope nên sử dụng.",
-            "upscaleWidth": "Độ phân giải chiều rộng được sử dụng bởi gamescope. Tỷ lệ khung hình 16:9 được giả định."
+            "upscaleWidth": "Độ phân giải chiều rộng được sử dụng bởi gamescope. Tỷ lệ khung hình 16:9 được giả định.",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "wine-hdr": "HDR tăng cường màu sắc bằng cách mang lại những highlight sáng hơn và độ tương phản sâu hơn. Để HDR hoạt động, cả màn hình và trò chơi đều phải hỗ trợ nó.",
         "wine-wayland": "Trình điều khiển thử nghiệm Wine-Wayland cho phép trò chơi chạy nguyên bản theo giao thức hiển thị Wayland. Việc kích hoạt có thể làm hỏng một số trò chơi.",
@@ -441,7 +467,16 @@
             "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -550,7 +585,8 @@
                     "corrupt": "Không thể thêm {{game}} vào tất cả người dùng Steam được tìm thấy. Xem nhật ký để biết thêm thông tin. Cần phải khởi động lại Steam để các thay đổi có hiệu lực.",
                     "success": "{{game}} đã được thêm thành công vào Steam. Cần phải khởi động lại Steam để các thay đổi có hiệu lực.",
                     "title": "Đã thêm vào Steam",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -652,7 +688,10 @@
             "stretch": "Kéo Dài Hình Ảnh",
             "upscaleHeight": "Chiều Cao Tăng Cường Hình Ảnh",
             "upscaleWidth": "Chiều Rộng Tăng Cường Hình Ảnh",
-            "windowed": "Có Cửa Sổ"
+            "windowed": "Có Cửa Sổ",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -671,7 +710,8 @@
         "egs-prefix": "Tiền tố nơi EGS được cài đặt",
         "prefered_language": "Mã 2 ký tự (tức là: \"en\" hoặc \"fr\")",
         "alt-nile-bin": "Sử dụng Nile binary tích hợp sẵn...",
-        "alt-aurelia-bin": "Sử dụng Aurelia binary tích hợp sẵn..."
+        "alt-aurelia-bin": "Sử dụng Legendary binary tích hợp sẵn...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "LInux",
@@ -835,7 +875,8 @@
             "placeholder": "Chọn thư mục lưu trò chơi chính xác",
             "warning": "Vui lòng kiểm tra lại xem đường dẫn có đúng không (click để thử lại)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Chọn Chủ Đề",
         "showfps": "Hiển Thị FPS (DX9, 10 và 11)",
@@ -889,7 +930,13 @@
             "enableLimiter": "Bật Giới Hạn FPS",
             "enableUpscaling": "Cho Phép Nâng Cấp Hình Ảnh",
             "missingMsg": "Chúng tôi không thể tìm thấy gamescope trên PATH. Cài đặt nó hoặc thêm nó vào PATH.",
-            "warningFlatpak": "Chúng tôi không thể tìm thấy phiên bản tương thích của Gamescope. Cài đặt gói Flatpak của Gamescope với thời gian chạy {{runtimeVersion}} và khởi động lại Heroic."
+            "warningFlatpak": "Chúng tôi không thể tìm thấy phiên bản tương thích của Gamescope. Cài đặt gói Flatpak của Gamescope với thời gian chạy {{runtimeVersion}} và khởi động lại Heroic.",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": "",
+            "enableHDR": "Bật HDR"
         },
         "hdr": "Bật HDR",
         "no-tray-icon": "Ẩn Biểu Tượng Khay Hệ Thống (yêu cầu khởi động lại)",
@@ -916,7 +963,8 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "Sử dụng Steam Runtime",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Mở",
@@ -997,7 +1045,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Chọn Aurelia binary thay thế để sử dụng",
+        "alt-aurelia-bin": "Chọn Legendary binary thay thế để sử dụng",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Tổng số đã tải",
@@ -1019,7 +1067,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1061,7 +1161,10 @@
             "systemInformation": "Thông Tin Hệ Thống",
             "legacy": "",
             "categories": "Phân Loại",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Mở Tệp Cấu Hình",
         "reset-heroic": "Đặt Lại Heroic",
@@ -1174,7 +1277,16 @@
             "steam": "",
             "amazon": "Trò Chơi Amazon",
             "epic": "Epic Game",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": "",
+            "gamescopeAdditionalOptions": "Tùy Chọn Bổ Sung"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1182,9 +1294,58 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
-        "clear-images-cache": ""
+        "clear-images-cache": "",
+        "gamepad": {
+            "button": {
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "guide": "",
+                "nextPage": "",
+                "back": "Back"
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
+        }
     },
     "Settings": "Cài Đặt",
     "sidebar": {
@@ -1334,7 +1495,19 @@
                 "intro2": "Nếu thư viện trống, hãy đảm bảo đăng nhập bằng tài khoản của bạn bằng cách sử dụng Quản lý tài khoản trên thanh bên hoặc thêm trò chơi của riêng bạn bằng nút Thêm Trò Chơi ở trên.",
                 "title": "Chào mừng đến Heroic!",
                 "title2": "Quản lý thư viện!"
-            }
+            },
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "next": "Tiếp",
         "sidebar": {
@@ -1353,7 +1526,13 @@
                 "intro": "Chào mừng đến với Heroic! Thanh bên này chứa tất cả các tùy chọn điều hướng để khám phá ứng dụng.",
                 "title": "Điều Hướng Thanh Bên"
             },
-            "wine": "Quản lý hoặc tải xuống phiên bản Wine/Proton/GPTK mới để chạy trò chơi Windows trên Linux hoặc macOS."
+            "wine": "Quản lý hoặc tải xuống phiên bản Wine/Proton/GPTK mới để chạy trò chơi Windows trên Linux hoặc macOS.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "Chào mừng đến Heroic!",
+            "generalTitle": "Tổng quan"
         },
         "skip": "Bỏ Qua",
         "startTour": "Bắt Đầu Chuyến Tham Quan"
@@ -1395,7 +1574,8 @@
         "noResults": "Các bộ lọc hiện tại không cho ra kết quả nào.",
         "noResultsTitle": "Không tìm thấy game nào",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton là một biến thể Proton được tạo ra bởi Glorious Eggroll. Nó được sử dụng cùng với trình khởi chạy umu (mặc định trong Heroic).",
@@ -1467,7 +1647,8 @@
             "platform": "Platform",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Chi tiết",
         "sort": {
@@ -1548,7 +1729,8 @@
             "sort": "",
             "navigate": "",
             "quit": "Thoát",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "Ra Mắt",
         "card": {
@@ -1588,7 +1770,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Tiếp",
     "common": {
@@ -1734,7 +1923,10 @@
     "import-export": {
         "action": {
             "browse": "Duyệt",
-            "download": "Downloading"
+            "download": "Downloading",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Back",
         "close": "Đóng",
@@ -1745,29 +1937,146 @@
         "stage": {
             "credentials": "Đăng nhập cửa hàng",
             "globalSettings": "Cài đặt chung",
-            "perGameSettings": "Game settings"
+            "perGameSettings": "Game settings",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Cài đặt chung"
+            "title": "Cài đặt chung",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
-            "selectAll": "Chọn Tất Cả"
+            "selectAll": "Chọn Tất Cả",
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Đăng nhập cửa hàng"
+            "title": "Đăng nhập cửa hàng",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Wine Prefix",
-            "wine-downloadable": "Download"
+            "wine-downloadable": "Download",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wine-unavailable": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Đăng nhập cửa hàng",
             "done": "Xong",
             "global-settings": "Cài đặt chung",
-            "per-game": "Game settings"
+            "per-game": "Game settings",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Value",
         "version": "Phiên bản Heroic",
-        "wine-versions": "Phiên bản Wine"
+        "wine-versions": "Phiên bản Wine",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }
