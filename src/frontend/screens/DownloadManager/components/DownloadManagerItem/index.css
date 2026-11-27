@@ -198,9 +198,19 @@
 }
 
 .DownloadItem--hero .DownloadItem__cover {
+  position: relative;
   width: 136px;
   aspect-ratio: 3 / 4;
   border-radius: var(--radius-sm);
+}
+
+.DownloadItem__coverStore {
+  position: absolute;
+  top: var(--space-xs-fixed);
+  left: var(--space-xs-fixed);
+  width: 32px;
+  height: 32px;
+  padding: 6px;
 }
 
 .DownloadItem--hero .DownloadItem__text {

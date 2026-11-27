@@ -21,6 +21,7 @@ import {
   Icon,
   ProgressBar,
   StoreBadge,
+  PlatformIcon,
   Tooltip
 } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
@@ -404,6 +405,13 @@ const DownloadManagerItem = ({
           ) : (
             <Icon glyph={Gamepad2} size="lg" />
           )}
+          {isHero && (
+            <StoreBadge
+              runner={runner}
+              title={storeName}
+              className="DownloadItem__coverStore"
+            />
+          )}
         </span>
         <div className="DownloadItem__text">
           <div className="DownloadItem__titleRow">
@@ -422,9 +430,10 @@ const DownloadManagerItem = ({
             >
               {title}
             </span>
+            {isHero && platformToInstall && (
+              <PlatformIcon platform={platformToInstall} />
+            )}
             {!showStatusColumn && statusBadge()}
-            {isHero && <Badge variant="info">{storeName}</Badge>}
-            {isHero && platform && <Badge variant="accent">{platform}</Badge>}
           </div>
           <span className="DownloadItem__details" title={path}>
             {details}
