@@ -74,6 +74,8 @@ interface Card {
 
 const storage: Storage = window.localStorage
 
+const PENDING_STATUSES = ['launching', 'syncing-saves', 'uninstalling']
+
 const GameCard = ({
   hasUpdate,
   buttonClick,
@@ -504,7 +506,13 @@ const GameCard = ({
           data-tour={dataTour}
         >
           {haveStatus && (
-            <Badge variant="success" onOverlay className="gameCardStatus">
+            <Badge
+              variant="success"
+              onOverlay
+              className={classNames('gameCardStatus', {
+                'gameCardStatus--pending': PENDING_STATUSES.includes(status!)
+              })}
+            >
               {label}
             </Badge>
           )}

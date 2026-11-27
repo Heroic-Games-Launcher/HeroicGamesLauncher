@@ -80,10 +80,45 @@
   position: absolute;
   z-index: 5;
   top: 10px;
-  left: 10px;
+  right: 10px;
   max-width: calc(100% - 64px);
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.gameCard:has(> .gameCardStatus) .StoreBadge {
+  display: none;
+}
+
+.gameCardStatus--pending::after {
+  content: '...' / '';
+  display: inline-block;
+  width: 1.1em;
+  margin-inline-start: calc(-1 * var(--space-xs-fixed));
+  text-align: start;
+  animation: gameCardStatusEllipsis 1.2s steps(1, end) infinite;
+}
+
+@keyframes gameCardStatusEllipsis {
+  0% {
+    content: '' / '';
+  }
+  25% {
+    content: '.' / '';
+  }
+  50% {
+    content: '..' / '';
+  }
+  75% {
+    content: '...' / '';
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gameCardStatus--pending::after {
+    content: '…' / '';
+    animation: none;
+  }
 }
 
 .gameCard .gameCardUpdateBadge {
@@ -93,10 +128,6 @@
   left: 10px;
   max-width: calc(100% - 64px);
   pointer-events: none;
-}
-
-.gameCard:has(.gameCardStatus) .gameCardUpdateBadge {
-  top: 35px; /* Offset if status is present */
 }
 
 .gameListItem .gameCardUpdateBadge {
