@@ -106,8 +106,14 @@
         "back": "Tagasi",
         "next": "Järgmine",
         "skip-installer": {
-            "title": "Jäta vahele"
-        }
+            "title": "Jäta vahele",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Mitte toetatud",
     "disabled": "Keelatud",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Viga: Liivakasti ligipääsu ei ole antud sellele asukohale, jätkates esineb andmete kadumine.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -298,7 +305,12 @@
             "fullscreen": "Käivita täisekraanis (sulge klahviga F11)",
             "useragent": "Kohandatud User Agent",
             "cover-hint": "Kaane/Sangarikunst (klikkige pildile, et otsida SteamGridDB-st)",
-            "image-hint": "Ruudukujuline kunst (klikkige pildile, et otsida SteamGridDB-st)"
+            "image-hint": "Ruudukujuline kunst (klikkige pildile, et otsida SteamGridDB-st)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Kleepige pildi URL siia või valige üks oma arvutist",
@@ -311,13 +323,26 @@
             "content": "Ärge kasutage selleks seda funktsiooni.<br />Selle asemel <3>logige sisse</3> poodi, otsige mäng oma varamust üles, avage paigaldusaken ja klikkige nupul &quot;Impordi mäng&quot;"
         },
         "images": {
-            "summary": "Pildid"
+            "summary": "Pildid",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Kontrolli ühilduvust",
             "finish": "Valmis",
             "images": "Pildid",
-            "install": "Peata paigaldamine"
+            "install": "Peata paigaldamine",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
