@@ -221,7 +221,8 @@
         "flatpak-path-not-writtable": "Fehler: Sandbox-Zugriff auf diesen Pfad nicht gewährt, Datenverlust wird eintreten.",
         "free": "kostenlos",
         "steam-no-libraries": "Keine Steam Bibliotheksordner gefunden - füge zuerst eine Festplatte in Steam hinzu.",
-        "steam-path": "Installationspfad (Steam Bibliothek)"
+        "steam-path": "Installationspfad (Steam Bibliothek)",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
