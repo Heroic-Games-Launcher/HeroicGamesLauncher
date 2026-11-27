@@ -18,6 +18,10 @@ asarUnpack:
   - '!build/bin/legendary.LICENSE'
   - build/preload/webviewPreload.js
 
+toolsets:
+  # Static AppImage toolset: fuse3 runtime, no libfuse2 dependency.
+  appimage: '1.0.3'
+
 protocols:
   - name: heroic
     schemes:
