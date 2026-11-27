@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from 'react'
 import classNames from 'classnames'
 import './index.css'
 
-type PanelTone = 'translucent' | 'solid' | 'glass'
+type PanelTone = 'translucent' | 'solid' | 'glass' | 'none'
 type PanelPadding = 'none' | 'sm' | 'md' | 'lg'
 
 interface PanelProps extends HTMLAttributes<HTMLDivElement> {

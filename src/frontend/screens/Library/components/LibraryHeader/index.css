@@ -14,8 +14,39 @@
   display: flex;
   align-items: center;
   height: 44px;
-  padding: 0 6px;
-  border-radius: 999px;
+  padding: 0 var(--space-2xs-fixed);
+  border-radius: var(--radius-sm);
   background: var(--input-background);
   margin-inline-end: 0;
+}
+
+.libraryToolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs-fixed);
+  flex-shrink: 0;
+}
+
+@container main-content (max-width: 1100px) {
+  .libraryToolbar__actions .Button {
+    width: 44px;
+    padding: 0;
+  }
+
+  .libraryToolbar__actions .Button__label,
+  .libraryToolbar .dropdownButton__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+.libraryToolbar .Header__search {
+  min-width: 180px;
 }

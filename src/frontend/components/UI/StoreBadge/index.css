@@ -5,11 +5,15 @@
   width: 40px;
   height: 40px;
   padding: var(--space-xs-fixed);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   /* the store marks are brand assets: they keep their own plate in every
      theme instead of following the surface colours */
   background: #ffffff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.StoreBadge__mark {
+  display: contents;
 }
 
 .StoreBadge__logo {

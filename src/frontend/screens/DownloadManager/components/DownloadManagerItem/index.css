@@ -165,7 +165,7 @@
   gap: var(--space-md-fixed);
   padding: var(--space-sm-fixed) var(--space-xs-fixed);
   margin-inline: calc(var(--space-xs-fixed) * -1);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   transition: background-color 150ms ease;
 }
 
@@ -198,14 +198,28 @@
 }
 
 .DownloadItem--hero .DownloadItem__cover {
+  position: relative;
   width: 136px;
   aspect-ratio: 3 / 4;
-  border-radius: 16px;
+  border-radius: var(--radius-sm);
+}
+
+.DownloadItem__coverStore {
+  position: absolute;
+  top: var(--space-xs-fixed);
+  left: var(--space-xs-fixed);
+  width: 32px;
+  height: 32px;
+  padding: 6px;
 }
 
 .DownloadItem--hero .DownloadItem__text {
   flex: 1 1 auto;
   gap: var(--space-2xs-fixed);
+}
+
+.DownloadItem--hero .DownloadItem__text > .Badge {
+  align-self: flex-start;
 }
 
 .DownloadItem--hero .DownloadItem__title {

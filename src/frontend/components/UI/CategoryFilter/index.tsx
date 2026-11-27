@@ -3,7 +3,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import Dropdown from '../Dropdown'
-import Checkbox from '../Checkbox'
+import FilterOption, { FilterOptionList } from '../FilterOption'
 import { Button, CountBadge, FilterSection, Icon } from 'frontend/components/UI'
 import { LayoutGrid, ChevronDown } from 'lucide-react'
 import './index.css'
@@ -37,23 +37,14 @@ export default function CategoryFilter() {
     const category = value || label
 
     return (
-      <li className="categoryRow" key={category}>
-        <label className="categoryRow__label">
-          <Checkbox
-            size="small"
-            checked={currentCustomCategories.includes(category)}
-            onChange={() => toggleCategory(category)}
-          />
-          <span className="categoryRow__name">{label}</span>
-        </label>
-        <button
-          type="button"
-          className="categoryOnly"
-          onClick={() => setCurrentCustomCategories([category])}
-        >
-          {t('header.only', 'only')}
-        </button>
-      </li>
+      <FilterOption
+        key={category}
+        label={label}
+        checked={currentCustomCategories.includes(category)}
+        onChange={() => toggleCategory(category)}
+        onOnly={() => setCurrentCustomCategories([category])}
+        onlyLabel={t('header.only', 'only')}
+      />
     )
   }
 
@@ -67,7 +58,9 @@ export default function CategoryFilter() {
       title={
         <>
           <Icon glyph={LayoutGrid} size="md" />
-          <span>{t('header.categories', 'Categories')}</span>
+          <span className="dropdownButton__label">
+            {t('header.categories', 'Categories')}
+          </span>
           <CountBadge
             count={currentCustomCategories.length}
             label={t('header.categories_selected', {
@@ -89,13 +82,13 @@ export default function CategoryFilter() {
             )}
           </p>
         )}
-        <ul className="categoryList">
+        <FilterOptionList>
           {categoriesList.map((category) => categoryRow(category))}
           {categoryRow(
             t('header.uncategorized', 'Uncategorized'),
             'preset_uncategorized'
           )}
-        </ul>
+        </FilterOptionList>
       </FilterSection>
 
       <div className="FilterActions">

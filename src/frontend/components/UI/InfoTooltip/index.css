@@ -22,7 +22,7 @@
 .MuiTooltip-tooltip.InfoTooltip__popper {
   max-width: 320px;
   padding: var(--space-sm-fixed) var(--space-sm-fixed);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: var(--background-darker, #0a0e13);
   color: var(--on-panel, var(--text-default));
   font-family: var(--primary-font-family);

@@ -3,27 +3,10 @@ import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import { PlatformsFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
-import type { Runner } from 'common/types'
 import Dropdown from '../Dropdown'
-import StoreLogos from '../StoreLogos'
-import {
-  Button,
-  Chip,
-  CountBadge,
-  FilterSection,
-  Icon
-} from 'frontend/components/UI'
-import {
-  SlidersHorizontal,
-  Heart,
-  Clock,
-  Eye,
-  EyeOff,
-  WifiOff,
-  Package,
-  RefreshCw,
-  UserCheck
-} from 'lucide-react'
+import FilterOption, { FilterOptionList } from '../FilterOption'
+import { Button, CountBadge, FilterSection, Icon } from 'frontend/components/UI'
+import { ChevronDown, SlidersHorizontal } from 'lucide-react'
 import './index.css'
 
 type StoreKey =
@@ -73,6 +56,157 @@ export default function LibraryFilters() {
     })
   }
 
+  const onlyStore = (store: StoreKey) => {
+    const next = { ...storesFilters }
+    for (const key of Object.keys(next) as StoreKey[]) {
+      next[key] = key === store
+    }
+    setStoresFilters(next)
+  }
+
+  const onlyPlatform = (plat: keyof PlatformsFilters) => {
+    const next = { ...platformsFilters }
+    for (const key of Object.keys(next) as (keyof PlatformsFilters)[]) {
+      next[key] = key === plat
+    }
+    setPlatformsFilters(next)
+  }
+
+  const capitalize = (text: string) =>
+    text.charAt(0).toLocaleUpperCase() + text.slice(1)
+
+  const onlyLabel = t('header.only', 'only')
+
+  type StoreDef = {
+    key: StoreKey
+    label: string
+    show: boolean
+  }
+  const stores: StoreDef[] = [
+    {
+      key: 'legendary',
+      label: 'Epic Games',
+      show: !!epic.username
+    },
+    { key: 'gog', label: 'GOG', show: !!gog.username },
+    {
+      key: 'steam',
+      label: 'Steam',
+      show: steam.enabled
+    },
+    {
+      key: 'nile',
+      label: 'Amazon Games',
+      show: !!amazon.user_id
+    },
+    {
+      key: 'zoom',
+      label: 'ZOOM',
+      show: !!(zoom.enabled && zoom.username)
+    },
+    {
+      key: 'itchio',
+      label: 'itch.io',
+      show: !!itchio.username
+    },
+    {
+      key: 'sideload',
+      label: t('Other', 'Other'),
+      show: true
+    }
+  ]
+
+  type PlatformDef = {
+    key: keyof PlatformsFilters
+    label: string
+    show: boolean
+  }
+  const platforms: PlatformDef[] = [
+    { key: 'win', label: t('platforms.win', 'windows'), show: true },
+    {
+      key: 'linux',
+      label: t('platforms.linux', 'linux'),
+      show: platform === 'linux'
+    },
+    {
+      key: 'mac',
+      label: t('platforms.mac', 'mac'),
+      show: platform === 'darwin'
+    },
+    {
+      key: 'browser',
+      label: t('platforms.browser', 'browser'),
+      show: true
+    }
+  ]
+
+  const displayOptions = [
+    {
+      key: 'favourites',
+      label: t('header.show_favourites_only', 'Favorites only'),
+      checked: showFavourites,
+      set: setShowFavourites,
+      defaultChecked: false,
+      show: true
+    },
+    {
+      key: 'installed',
+      label: t('header.show_installed_only', 'Installed only'),
+      checked: showInstalledOnly,
+      set: setShowInstalledOnly,
+      defaultChecked: false,
+      show: true
+    },
+    {
+      key: 'updates',
+      label: t('header.show_updates_only', 'With updates'),
+      checked: showUpdatesOnly,
+      set: setShowUpdatesOnly,
+      defaultChecked: false,
+      show: true
+    },
+    {
+      key: 'steamOwned',
+      label: t('header.show_steam_owned_only', 'Steam owned only'),
+      checked: showSteamOwnedOnly,
+      set: setShowSteamOwnedOnly,
+      defaultChecked: false,
+      show: steam.enabled
+    },
+    {
+      key: 'offline',
+      label: t('header.show_support_offline_only', 'Offline-supported'),
+      checked: showSupportOfflineOnly,
+      set: setShowSupportOfflineOnly,
+      defaultChecked: false,
+      show: true
+    },
+    {
+      key: 'thirdParty',
+      label: t('header.show_third_party_managed_only', 'Third-party only'),
+      checked: showThirdPartyManagedOnly,
+      set: setShowThirdPartyManagedOnly,
+      defaultChecked: false,
+      show: true
+    },
+    {
+      key: 'hidden',
+      label: t('header.hidden', 'Hidden'),
+      checked: showHidden,
+      set: setShowHidden,
+      defaultChecked: false,
+      show: true
+    },
+    {
+      key: 'nonAvailable',
+      label: t('header.non_available', 'Non-available'),
+      checked: showNonAvailable,
+      set: setShowNonAvailable,
+      defaultChecked: true,
+      show: true
+    }
+  ]
+
   const resetFilters = () => {
     setStoresFilters({
       legendary: true,
@@ -84,101 +218,15 @@ export default function LibraryFilters() {
       steam: true
     })
     setPlatformsFilters({ win: true, linux: true, mac: true, browser: true })
-    setShowHidden(true)
-    setShowNonAvailable(true)
-    setShowFavourites(false)
-    setShowInstalledOnly(false)
-    setShowSupportOfflineOnly(false)
-    setShowThirdPartyManagedOnly(false)
-    setShowUpdatesOnly(false)
-    setShowSteamOwnedOnly(false)
+    displayOptions.forEach((option) => option.set(option.defaultChecked))
   }
-
-  type StoreDef = {
-    key: StoreKey
-    label: string
-    runner: Runner
-    show: boolean
-  }
-  const stores: StoreDef[] = [
-    {
-      key: 'legendary',
-      label: 'Epic Games',
-      runner: 'legendary',
-      show: !!epic.username
-    },
-    { key: 'gog', label: 'GOG', runner: 'gog', show: !!gog.username },
-    {
-      key: 'steam',
-      label: 'Steam',
-      runner: 'steam',
-      show: steam.enabled
-    },
-    {
-      key: 'nile',
-      label: 'Amazon Games',
-      runner: 'nile',
-      show: !!amazon.user_id
-    },
-    {
-      key: 'zoom',
-      label: 'ZOOM',
-      runner: 'zoom',
-      show: !!(zoom.enabled && zoom.username)
-    },
-    {
-      key: 'itchio',
-      label: 'itch.io',
-      runner: 'itchio',
-      show: !!itchio.username
-    },
-    {
-      key: 'sideload',
-      label: t('Other', 'Other'),
-      runner: 'sideload',
-      show: true
-    }
-  ]
-
-  type PlatformDef = {
-    key: keyof PlatformsFilters
-    label: string
-    tag: string
-    show: boolean
-  }
-  const platforms: PlatformDef[] = [
-    { key: 'win', label: t('platforms.win', 'windows'), tag: 'W', show: true },
-    {
-      key: 'linux',
-      label: t('platforms.linux', 'linux'),
-      tag: 'L',
-      show: platform === 'linux'
-    },
-    {
-      key: 'mac',
-      label: t('platforms.mac', 'mac'),
-      tag: 'M',
-      show: platform === 'darwin'
-    },
-    {
-      key: 'browser',
-      label: t('platforms.browser', 'browser'),
-      tag: 'B',
-      show: true
-    }
-  ]
 
   const activeFilterCount =
     stores.filter((s) => s.show && !storesFilters[s.key]).length +
     platforms.filter((p) => p.show && !platformsFilters[p.key]).length +
-    [
-      showFavourites,
-      showInstalledOnly,
-      showUpdatesOnly,
-      showSupportOfflineOnly,
-      showThirdPartyManagedOnly,
-      steam.enabled && showSteamOwnedOnly
-    ].filter(Boolean).length
+    displayOptions.filter(
+      (option) => option.show && option.checked !== option.defaultChecked
+    ).length
 
   return (
     <Dropdown
@@ -186,7 +234,9 @@ export default function LibraryFilters() {
       title={
         <>
           <Icon glyph={SlidersHorizontal} size="md" />
-          <span>{t('header.filters', 'Filters')}</span>
+          <span className="dropdownButton__label">
+            {t('header.filters', 'Filters')}
+          </span>
           <CountBadge
             count={activeFilterCount}
             label={t('header.filters_applied', {
@@ -195,116 +245,59 @@ export default function LibraryFilters() {
               defaultValue_other: '{{count}} filters applied'
             })}
           />
+          <Icon glyph={ChevronDown} size="sm" />
         </>
       }
       className="libraryFilters"
       dataTour="library-filters"
     >
       <FilterSection label={t('header.stores', 'Stores')}>
-        {stores
-          .filter((s) => s.show)
-          .map((s) => (
-            <Chip
-              key={s.key}
-              active={storesFilters[s.key]}
-              onClick={() => toggleStore(s.key)}
-              icon={
-                <span className="filterChipIcon">
-                  <StoreLogos runner={s.runner} className="filterChipLogo" />
-                </span>
-              }
-            >
-              {s.label}
-            </Chip>
-          ))}
+        <FilterOptionList>
+          {stores
+            .filter((s) => s.show)
+            .map((s) => (
+              <FilterOption
+                key={s.key}
+                label={s.label}
+                checked={storesFilters[s.key]}
+                onChange={() => toggleStore(s.key)}
+                onOnly={() => onlyStore(s.key)}
+                onlyLabel={onlyLabel}
+              />
+            ))}
+        </FilterOptionList>
       </FilterSection>
 
       <FilterSection label={t('header.platforms', 'Platforms')}>
-        {platforms
-          .filter((p) => p.show)
-          .map((p) => (
-            <Chip
-              key={p.key}
-              active={platformsFilters[p.key]}
-              onClick={() => togglePlatform(p.key)}
-              icon={
-                <span
-                  className={`filterPlatformTag filterPlatformTag--${p.key}`}
-                >
-                  {p.tag}
-                </span>
-              }
-            >
-              {p.label}
-            </Chip>
-          ))}
+        <FilterOptionList>
+          {platforms
+            .filter((p) => p.show)
+            .map((p) => (
+              <FilterOption
+                key={p.key}
+                label={capitalize(p.label)}
+                checked={platformsFilters[p.key]}
+                onChange={() => togglePlatform(p.key)}
+                onOnly={() => onlyPlatform(p.key)}
+                onlyLabel={onlyLabel}
+              />
+            ))}
+        </FilterOptionList>
       </FilterSection>
 
       <FilterSection label={t('header.display', 'Display')}>
-        <Chip
-          active={showFavourites}
-          onClick={() => setShowFavourites(!showFavourites)}
-          icon={<Icon glyph={Heart} size="md" />}
-        >
-          <span>{t('header.show_favourites_only', 'Favorites only')}</span>
-        </Chip>
-        <Chip
-          active={showInstalledOnly}
-          onClick={() => setShowInstalledOnly(!showInstalledOnly)}
-          icon={<Icon glyph={Package} size="md" />}
-        >
-          <span>{t('header.show_installed_only', 'Installed only')}</span>
-        </Chip>
-        <Chip
-          active={showUpdatesOnly}
-          onClick={() => setShowUpdatesOnly(!showUpdatesOnly)}
-          icon={<Icon glyph={RefreshCw} size="md" />}
-        >
-          <span>{t('header.show_updates_only', 'With updates')}</span>
-        </Chip>
-        {steam.enabled && (
-          <Chip
-            active={showSteamOwnedOnly}
-            onClick={() => setShowSteamOwnedOnly(!showSteamOwnedOnly)}
-            icon={<Icon glyph={UserCheck} size="md" />}
-          >
-            <span>{t('header.show_steam_owned_only', 'Steam owned only')}</span>
-          </Chip>
-        )}
-        <Chip
-          active={showSupportOfflineOnly}
-          onClick={() => setShowSupportOfflineOnly(!showSupportOfflineOnly)}
-          icon={<Icon glyph={WifiOff} size="md" />}
-        >
-          <span>
-            {t('header.show_support_offline_only', 'Offline-supported')}
-          </span>
-        </Chip>
-        <Chip
-          active={showThirdPartyManagedOnly}
-          onClick={() =>
-            setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly)
-          }
-          icon={<Icon glyph={Clock} size="md" />}
-        >
-          <span>
-            {t('header.show_third_party_managed_only', 'Third-party only')}
-          </span>
-        </Chip>
-        <Chip
-          active={showHidden}
-          onClick={() => setShowHidden(!showHidden)}
-          icon={<Icon glyph={showHidden ? Eye : EyeOff} size="md" />}
-        >
-          <span>{t('header.hidden', 'Hidden')}</span>
-        </Chip>
-        <Chip
-          active={showNonAvailable}
-          onClick={() => setShowNonAvailable(!showNonAvailable)}
-          icon={<Icon glyph={Eye} size="md" />}
-        >
-          <span>{t('header.non_available', 'Non-available')}</span>
-        </Chip>
+        <FilterOptionList>
+          {displayOptions
+            .filter((option) => option.show)
+            .map((option) => (
+              <FilterOption
+                key={option.key}
+                label={option.label}
+                checked={option.checked}
+                onChange={() => option.set(!option.checked)}
+              />
+            ))}
+        </FilterOptionList>
       </FilterSection>
 
       <div className="FilterActions">

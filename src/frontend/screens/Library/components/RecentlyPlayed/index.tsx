@@ -4,8 +4,6 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { SectionHeader } from 'frontend/components/UI'
-import ConsoleModeButton from '../ConsoleModeButton'
-import AddGameButton from '../AddGameButton'
 import LibraryContext from '../../LibraryContext'
 import { countGames } from 'frontend/helpers/library'
 import { configStore } from 'frontend/helpers/electronStores'
@@ -14,7 +12,6 @@ interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
   onlyInstalled: boolean
   showHidden: boolean
-  onRecentGamesChange?: (hasRecent: boolean) => void
 }
 
 function getRecentGames(
@@ -42,8 +39,7 @@ function getRecentGames(
 export default memo(function RecentlyPlayed({
   handleModal,
   onlyInstalled,
-  showHidden,
-  onRecentGamesChange
+  showHidden
 }: Props) {
   const { t } = useTranslation()
   const { epic, gog, sideloadedLibrary, amazon, zoom, itchio, steam } =
@@ -75,7 +71,6 @@ export default memo(function RecentlyPlayed({
       )
     }
     setRecentGames(newRecentGames)
-    onRecentGamesChange?.(newRecentGames.length > 0)
   }, [
     epic.library,
     gog.library,
@@ -85,8 +80,7 @@ export default memo(function RecentlyPlayed({
     steam.library,
     hiddenGames,
     onlyInstalled,
-    showHidden,
-    onRecentGamesChange
+    showHidden
   ])
 
   useEffect(() => {
@@ -128,13 +122,6 @@ export default memo(function RecentlyPlayed({
           defaultValue_one: '{{count}} game',
           defaultValue_other: '{{count}} games'
         })}
-        actions={
-          <>
-            <ConsoleModeButton data-tour="library-console-mode" />
-            <AddGameButton data-tour="library-add-game" />
-          </>
-        }
-        actionsTour="library-section-actions"
       />
       <GamesList
         library={recentGames}

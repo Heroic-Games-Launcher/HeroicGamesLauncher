@@ -1,6 +1,6 @@
 .progressDialog.log-box {
   background-color: #1e1e1e;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding-block: var(--space-2xs-fixed);
   padding-inline: var(--space-xs-fixed);
   height: 25em;

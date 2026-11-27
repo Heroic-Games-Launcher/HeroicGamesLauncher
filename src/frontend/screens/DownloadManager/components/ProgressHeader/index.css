@@ -5,7 +5,7 @@
   width: 100%;
   cursor: default;
   background: var(--panel-surface);
-  border-radius: 16px;
+  border-radius: var(--radius-sm);
   padding: var(--space-md-fixed);
 }
 

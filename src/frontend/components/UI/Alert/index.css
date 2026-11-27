@@ -6,7 +6,7 @@
   gap: var(--space-sm-fixed);
   width: 100%;
   padding: var(--space-md-fixed) var(--space-md-fixed);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: color-mix(in oklab, var(--alert-tone) 14%, var(--panel-base));
   font-family: var(--primary-font-family);
   font-size: var(--body-md);

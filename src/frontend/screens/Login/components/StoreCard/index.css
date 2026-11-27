@@ -3,7 +3,7 @@
   height: 100%;
   background: var(--panel-surface, var(--background-darker));
   border: none;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-sm);
   overflow: hidden;
   cursor: pointer;
   outline: none;
@@ -27,11 +27,10 @@
 .storeCard .storeCard__badge {
   width: 56px;
   height: 56px;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
 }
 
 .storeCard__loggedLabel {
-  color: var(--text-success);
   font-weight: var(--bold);
 }
 

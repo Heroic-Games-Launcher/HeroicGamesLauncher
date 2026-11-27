@@ -4,7 +4,7 @@
   justify-content: flex-start;
   grid-template-columns: 1fr 5fr;
   width: 100%;
-  border-radius: 1rem;
+  border-radius: var(--radius-sm);
   grid-area: content;
   padding: var(--space-xl-fixed) var(--space-5xl-fixed) var(--space-3xl-fixed);
   position: relative;
@@ -272,7 +272,7 @@ a {
 .customCSSArea {
   display: block;
   resize: vertical;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   width: 100%;
   min-height: 200px;
   background: var(--input-background);
@@ -356,7 +356,7 @@ a {
 }
 
 .SettingsSearchTarget {
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 55%, transparent);
   animation: settingsSearchTargetFade 2s ease forwards;
 }
@@ -571,12 +571,12 @@ a {
   top: calc(var(--settings-header-block) + var(--space-md-fixed));
   z-index: 2;
   margin-block-end: var(--space-sm);
-  padding-block: var(--space-2xs);
+  padding-block: var(--space-2xs) 0;
   background: var(--body-background, var(--background));
 }
 
 .Settings .defaults-hint {
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   line-height: 1.5;
 }
 
@@ -647,7 +647,7 @@ a {
 }
 
 .Settings .log-box {
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
 }
 
 .Settings .settingsWrapper > p,

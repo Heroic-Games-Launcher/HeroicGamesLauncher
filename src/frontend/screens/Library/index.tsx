@@ -10,7 +10,7 @@ import React, {
 } from 'react'
 
 import ArrowDropUp from '@mui/icons-material/ArrowDropUpOutlined'
-import { SectionHeader, UpdateComponent } from 'frontend/components/UI'
+import { SectionHeader, Tooltip, UpdateComponent } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
@@ -39,8 +39,6 @@ import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
 import AlphabetFilter from './components/AlphabetFilter'
-import AddGameButton from './components/AddGameButton'
-import ConsoleModeButton from './components/ConsoleModeButton'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 const storage = window.localStorage
@@ -87,7 +85,6 @@ export default React.memo(function Library(): JSX.Element {
   )
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
-  const [hasRecentGames, setHasRecentGames] = useState(false)
   const handleLayout = (layout: string) => {
     storage.setItem('layout', layout)
     setLayout(layout)
@@ -759,7 +756,6 @@ export default React.memo(function Library(): JSX.Element {
             handleModal={handleModal}
             onlyInstalled={libraryTopSection.endsWith('installed')}
             showHidden={showHidden}
-            onRecentGamesChange={setHasRecentGames}
           />
         )}
 
@@ -798,15 +794,6 @@ export default React.memo(function Library(): JSX.Element {
               defaultValue_one: '{{count}} game',
               defaultValue_other: '{{count}} games'
             })}
-            actions={
-              hasRecentGames ? undefined : (
-                <>
-                  <ConsoleModeButton data-tour="library-console-mode" />
-                  <AddGameButton data-tour="library-add-game" />
-                </>
-              )
-            }
-            actionsTour={hasRecentGames ? undefined : 'library-section-actions'}
           />
         )}
 
@@ -823,9 +810,17 @@ export default React.memo(function Library(): JSX.Element {
           )}
       </div>
 
-      <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
-        <ArrowDropUp id="backToTopArrow" className="material-icons" />
-      </button>
+      <Tooltip content={t('library.backToTop', 'Back to top')} asChild>
+        <button
+          id="backToTopBtn"
+          type="button"
+          aria-label={t('library.backToTop', 'Back to top')}
+          onClick={backToTop}
+          ref={backToTopElement}
+        >
+          <ArrowDropUp id="backToTopArrow" className="material-icons" />
+        </button>
+      </Tooltip>
 
       {showCategories && <CategoriesManager />}
     </LibraryContext.Provider>

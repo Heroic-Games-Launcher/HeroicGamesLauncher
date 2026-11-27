@@ -39,7 +39,7 @@ export const Menu: Story = {
       style={{
         background: 'var(--panel-surface)',
         border: '1px solid var(--panel-border)',
-        borderRadius: 'var(--radius-md)',
+        borderRadius: 'var(--radius-sm)',
         display: 'flex',
         flexDirection: 'column',
         padding: '0.25rem',

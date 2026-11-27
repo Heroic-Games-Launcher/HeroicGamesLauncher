@@ -25,7 +25,7 @@ const initialContext: LibraryContextType = {
   setShowHidden: () => null,
   showFavourites: false,
   setShowFavourites: () => null,
-  showNonAvailable: false,
+  showNonAvailable: true,
   setShowNonAvailable: () => null,
   showInstalledOnly: false,
   setShowInstalledOnly: () => null,

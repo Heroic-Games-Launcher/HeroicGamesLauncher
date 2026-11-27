@@ -42,7 +42,7 @@
 }
 
 .Tabs__tab--active {
-  color: var(--on-panel, var(--text-default));
+  color: var(--text-brand);
   font-weight: var(--semibold);
   border-bottom-color: var(--selected, var(--navbar-accent, var(--accent)));
 }

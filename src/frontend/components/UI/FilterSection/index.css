@@ -13,8 +13,6 @@
   font-family: var(--primary-font-family);
   font-size: var(--body-sm);
   font-weight: var(--semibold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   text-align: start;
   color: var(--text-muted, var(--text-secondary));
 }
@@ -36,6 +34,5 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--space-xs-fixed);
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--divider);
+  margin-top: var(--space-2xs-fixed);
 }

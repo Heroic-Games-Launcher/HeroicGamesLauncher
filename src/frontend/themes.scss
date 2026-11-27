@@ -66,6 +66,8 @@ body.midnightMirage {
   --icon-disabled-overlay: var(--disabled-button-overlay);
   --icons-background: var(--neutral-02);
 
+  --brand-primary: #1becde;
+
   /* Buttons */
   --primary-button: var(--brand-primary);
   --secondary-button: var(--brand-secondary);
@@ -101,8 +103,8 @@ body.midnightMirage {
   --success-hover: var(--status-success-hover);
   --danger: var(--status-danger);
   --danger-hover: var(--status-danger-hover);
-  --status-info: var(--brand-secondary);
-  --status-info-hover: var(--brand-secondary-hover);
+  --status-info: var(--color-blue-800);
+  --status-info-hover: var(--color-blue-700);
 
   /* Others for compatibility, probably can be refactored */
   --primary: var(--brand-primary);
@@ -280,6 +282,10 @@ body.high-contrast {
   --field-border: #ffffff;
   --field-border-hover: #ffffff;
   --field-border-focus: var(--accent);
+  --select-border: var(--field-border);
+  --select-border-hover: var(--field-border-hover);
+  --modal-border-color: var(--modal-border);
+  --button-secondary-border: var(--border-brand);
 
   .Button--ghost {
     border-color: var(--border-subtle);
@@ -614,6 +620,7 @@ body.zombie .alphabet-filter-button--active {
 
 body.old-school {
   --accent: #ffa800;
+  --logo-mark: var(--secondary-button);
   --accent-overlay: #ffc44f;
   --navbar-accent: #eae8e5;
   --background: #1d1f1f;
@@ -775,6 +782,7 @@ body.candy-light {
 
 body.vampyria {
   --accent: #e01f45;
+  --logo-ink: #000000;
   --accent-overlay: #ff4d6e;
   --navbar-accent: #e01f45;
   --background: #1a0608;
@@ -850,7 +858,6 @@ body.cyberpunk {
   --accent-overlay: #33f5ff;
   --navbar-accent: #f8f006;
   --on-nav-accent: #f8f006;
-  --card-hover-accent: #ff00ff;
   --border-brand: #00f0ff;
   --sidebar-item-hover-bg: color-mix(
     in oklab,
@@ -912,7 +919,6 @@ body.cyberpunk {
   .Button--ghost:hover:not(:disabled),
   .Button--ghost:focus-visible:not(:disabled) {
     background: color-mix(in oklab, var(--on-panel) 7%, var(--panel-base));
-    border-color: var(--border-brand);
   }
 }
 
@@ -1001,10 +1007,10 @@ body.cyberpunk {
 
 body.onePiece {
   --accent: #1f6fb2;
+  --logo-ink: var(--on-nav-accent);
   --accent-overlay: #2a84cf;
   --navbar-accent: #d62828;
   --on-nav-accent: #ffd84d;
-  --card-hover-accent: #ffcf33;
   --border-brand: #e0a800;
   --sidebar-item-hover-bg: color-mix(
     in oklab,
@@ -1064,7 +1070,6 @@ body.onePiece {
   .Button--ghost:hover:not(:disabled),
   .Button--ghost:focus-visible:not(:disabled) {
     background: color-mix(in oklab, var(--on-panel) 7%, var(--panel-base));
-    border-color: var(--border-brand);
   }
 
   .Sidebar {

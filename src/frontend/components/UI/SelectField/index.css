@@ -5,19 +5,20 @@
 
 .selectStyle,
 .selectFieldWrapper .MuiOutlinedInput-root {
-  border-radius: 8px;
+  border-radius: var(--field-radius);
   grid-area: select;
   width: 100%;
   height: var(--field-height);
-  background: var(--field-background);
+  background-color: var(--select-background);
   font-family: var(--primary-font-family);
   font-weight: var(--regular);
   font-size: var(--body-md);
   color: var(--field-color);
-  border: 1px solid var(--field-border);
+  border: 1px solid var(--select-border);
   box-shadow: none;
   cursor: pointer;
   transition:
+    background-color 150ms ease,
     border-color 150ms ease,
     box-shadow 150ms ease;
   background-image:
@@ -153,7 +154,7 @@
   color: var(--text-secondary);
   text-indent: 22px;
   font-size: var(--body-md);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
 }
 
 .selectFieldWrapper.rightButtons {
@@ -182,7 +183,8 @@
 
 .selectStyle:hover,
 .selectFieldWrapper .MuiOutlinedInput-root:hover {
-  border-color: var(--field-border-hover);
+  background-color: var(--select-background-hover);
+  border-color: var(--select-border-hover);
 }
 
 .selectStyle:focus,
@@ -202,7 +204,7 @@
 
 .MuiPopover-root .MuiPaper-root.MuiMenu-paper {
   margin-top: var(--space-xs-fixed);
-  border-radius: var(--field-radius, 12px);
+  border-radius: var(--field-radius);
   background: var(--modal-background, var(--background));
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
 }

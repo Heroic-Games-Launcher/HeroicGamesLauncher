@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { CloudDownload, HardDrive, Package } from 'lucide-react'
 import { GameInfo } from 'common/types'
 import { size } from 'frontend/helpers'
-import { DetailList, Panel } from 'frontend/components/UI'
+import { DetailList } from 'frontend/components/UI'
 import type { DetailItem } from 'frontend/components/UI/DetailList'
 import ContextProvider from 'frontend/state/ContextProvider'
 import GameContext from '../../GameContext'
@@ -27,7 +27,7 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
 
   if (gameInfo.thirdPartyManagedApp) {
     return (
-      <Panel tone="glass" className="downloadSizeInfo">
+      <div className="downloadSizeInfo">
         <DetailList
           items={[
             {
@@ -39,7 +39,7 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
             }
           ]}
         />
-      </Panel>
+      </div>
     )
   }
 
@@ -64,9 +64,9 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
   ]
 
   return (
-    <Panel tone="glass" className="downloadSizeInfo">
+    <div className="downloadSizeInfo">
       <DetailList items={items} columns={2} />
-    </Panel>
+    </div>
   )
 }
 

@@ -6,7 +6,6 @@ import { DMQueueElement, DownloadManagerState } from 'common/types'
 import {
   CircleCheck,
   CircleX,
-  Download,
   Gamepad2,
   Loader,
   Pause,
@@ -22,6 +21,7 @@ import {
   Icon,
   ProgressBar,
   StoreBadge,
+  PlatformIcon,
   Tooltip
 } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
@@ -257,11 +257,7 @@ const DownloadManagerItem = ({
         <Badge variant="warning" glyph={Pause}>
           {t2('queue.label.paused', 'Paused')}
         </Badge>
-      ) : (
-        <Badge variant="success" glyph={Download}>
-          {t2('queue.label.downloading', 'Downloading')}
-        </Badge>
-      )
+      ) : null
     }
 
     if (finished) {
@@ -332,10 +328,13 @@ const DownloadManagerItem = ({
   const isPreparing =
     current && !isPaused && !finished && !canceled && !hasStarted
 
-  const progressSummary = [
-    size,
-    `(${progress.bytes} · ${Math.round(progress.percent ?? 0)}%)`
+  const progressDetail = [
+    progress.bytes,
+    `${Math.round(progress.percent ?? 0)}%`
   ]
+    .filter(Boolean)
+    .join(' · ')
+  const progressSummary = [size, `(${progressDetail})`]
     .filter(Boolean)
     .join(' ')
 
@@ -406,6 +405,13 @@ const DownloadManagerItem = ({
           ) : (
             <Icon glyph={Gamepad2} size="lg" />
           )}
+          {isHero && (
+            <StoreBadge
+              runner={runner}
+              title={storeName}
+              className="DownloadItem__coverStore"
+            />
+          )}
         </span>
         <div className="DownloadItem__text">
           <div className="DownloadItem__titleRow">
@@ -424,13 +430,15 @@ const DownloadManagerItem = ({
             >
               {title}
             </span>
-            {!showStatusColumn && statusBadge()}
-            {isHero && <Badge variant="info">{storeName}</Badge>}
-            {isHero && platform && <Badge variant="accent">{platform}</Badge>}
+            {isHero && platformToInstall && (
+              <PlatformIcon platform={platformToInstall} />
+            )}
+            {!isHero && !showStatusColumn && statusBadge()}
           </div>
           <span className="DownloadItem__details" title={path}>
             {details}
           </span>
+          {isHero && statusBadge()}
           {isHero && (
             <div className="DownloadItem__progress">
               <span className="DownloadItem__progressSummary">
@@ -456,9 +464,7 @@ const DownloadManagerItem = ({
 
       {!isHero && (
         <span className="DownloadItem__type">
-          <Badge variant={type === 'update' ? 'info' : 'neutral'}>
-            {translatedTypes[type]}
-          </Badge>
+          <Badge variant="neutral">{translatedTypes[type]}</Badge>
         </span>
       )}
 

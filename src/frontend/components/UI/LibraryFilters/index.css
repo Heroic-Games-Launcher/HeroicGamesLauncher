@@ -3,54 +3,11 @@
   max-width: 440px;
 }
 
-.filterChipIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--space-lg-fixed);
-  height: var(--space-lg-fixed);
-  flex-shrink: 0;
-}
-
-.filterChipIcon .filterChipLogo {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
-.filterPlatformTag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  font-family: var(--primary-font-family);
-  font-size: 10px;
-  font-weight: var(--bold);
-  color: #fff;
-  flex-shrink: 0;
-}
-
-.filterPlatformTag--win {
-  background: #3b82f6;
-}
-.filterPlatformTag--mac {
-  background: #9ca3af;
-}
-.filterPlatformTag--linux {
-  background: #f59e0b;
-}
-.filterPlatformTag--browser {
-  background: #8b5cf6;
-}
-
-.FilterActions {
-  margin-top: var(--space-md-fixed);
+.libraryFilters .FilterSection + .FilterSection {
+  padding-top: var(--space-md-fixed);
 }
 
 .FilterActions .Button {
   width: 100%;
   justify-content: center;
-  border-color: var(--border-subtle);
 }

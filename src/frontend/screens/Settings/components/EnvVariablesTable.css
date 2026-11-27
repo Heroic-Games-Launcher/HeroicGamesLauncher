@@ -113,7 +113,7 @@
   gap: var(--space-sm-fixed);
   margin-top: 0;
   padding: var(--space-md-fixed);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   background: var(--panel-background, var(--background-darker));
 }
 

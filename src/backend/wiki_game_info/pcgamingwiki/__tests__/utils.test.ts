@@ -1,5 +1,5 @@
 import { logError } from 'backend/logger'
-import { getInfoFromPCGamingWiki } from '../utils'
+import { fetchPCGamingWikiInfo, getInfoFromPCGamingWiki } from '../utils'
 import { axiosClient } from 'backend/utils'
 
 jest.mock('backend/logger')
@@ -135,6 +135,39 @@ describe('getInfoFromPCGamingWiki', () => {
       ],
       'ExtraGameInfo'
     )
+  })
+})
+
+describe('fetchPCGamingWikiInfo', () => {
+  test('reports found with the parsed info', async () => {
+    const mockAxios = jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
+      data: { query: { search: [{ pageid: 1 }] } }
+    })
+    mockAxios.mockResolvedValueOnce({
+      data: { parse: { wikitext: { '*': '|steam appid  = 100\n' } } }
+    })
+
+    const result = await fetchPCGamingWikiInfo('The Witcher 3')
+    expect(result.status).toBe('found')
+    expect(result.status === 'found' && result.info.steamID).toBe('100')
+  })
+
+  test('reports notFound when the game has no page', async () => {
+    jest.spyOn(axiosClient, 'get').mockResolvedValueOnce({
+      data: { query: { search: [] } }
+    })
+
+    const result = await fetchPCGamingWikiInfo('Unknown Game')
+    expect(result).toStrictEqual({ status: 'notFound' })
+  })
+
+  test('reports failed when the request throws', async () => {
+    jest
+      .spyOn(axiosClient, 'get')
+      .mockRejectedValueOnce(new Error('Request failed with status code 403'))
+
+    const result = await fetchPCGamingWikiInfo('Minit')
+    expect(result).toStrictEqual({ status: 'failed' })
   })
 })
 

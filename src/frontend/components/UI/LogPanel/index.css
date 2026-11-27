@@ -24,7 +24,7 @@
   overflow: auto;
   user-select: text;
   background-color: #1e1e1e;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding-block: 4px;
   padding-inline: 6px;
 }

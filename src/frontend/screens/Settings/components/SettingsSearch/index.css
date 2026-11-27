@@ -19,8 +19,12 @@
 
 .SettingsSearch .autoComplete .SettingsSearch__result--active,
 .SettingsSearch .autoComplete .SettingsSearch__result--active:hover {
-  background: var(--navbar-accent, var(--accent));
-  color: var(--ink-on-accent, var(--background-darker));
+  background: color-mix(
+    in oklab,
+    var(--selected, var(--accent)) 12%,
+    transparent
+  );
+  color: var(--text-default);
 }
 
 .SettingsSearch .autoComplete .SettingsSearch__resultTitle {

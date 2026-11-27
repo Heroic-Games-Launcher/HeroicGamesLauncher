@@ -79,6 +79,14 @@ body:has(.MuiDialog-root) {
   outline-offset: 2px;
 }
 
+.heroicLogo__mark {
+  fill: var(--logo-mark, var(--role-brand));
+}
+
+.heroicLogo__ink {
+  fill: var(--logo-ink, var(--text-on-brand));
+}
+
 // These are always wrapped by a component that draws the ring itself.
 input:focus-visible,
 textarea:focus-visible,

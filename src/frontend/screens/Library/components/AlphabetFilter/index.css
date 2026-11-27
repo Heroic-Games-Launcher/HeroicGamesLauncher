@@ -24,7 +24,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   margin: 0 var(--space-md-fixed) var(--space-md);
-  gap: 6px;
+  gap: var(--space-3xs-fixed);
 }
 
 .alphabet-filter-button {
@@ -37,9 +37,11 @@
   letter-spacing: 0.02em;
   cursor: pointer;
 
-  height: 40px;
-  min-width: 40px;
-  padding: 0 10px;
+  flex: 1 1 24px;
+  min-width: 24px;
+  max-width: 36px;
+  height: 32px;
+  padding: 0;
   text-align: center;
   vertical-align: middle;
 
@@ -53,7 +55,11 @@
     .alphabet-filter-button--disabled
   ):hover {
   color: var(--alphabet-filter-text-hover);
-  border-color: var(--alphabet-filter-accent-color);
+  background-color: color-mix(
+    in oklab,
+    var(--on-panel) 12%,
+    var(--input-background)
+  );
 }
 
 .alphabet-filter-button:focus-visible {

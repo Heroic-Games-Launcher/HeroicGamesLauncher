@@ -1,6 +1,8 @@
 .gameConfigContainer {
   --game-page-gutter: clamp(16px, 4vw, 48px);
   --game-page-max-width: 1280px;
+  --game-panel-opacity: 55%;
+  --game-panel-blur: var(--blur-light);
 
   position: relative;
   display: flex;
@@ -67,6 +69,16 @@
   padding-block-end: var(--space-xl);
 }
 
+.gameConfigContainer .gamePage__hero,
+.gameConfigContainer .gamePage__tabs {
+  background: color-mix(
+    in oklab,
+    var(--panel-surface) var(--game-panel-opacity),
+    transparent
+  );
+  backdrop-filter: blur(var(--game-panel-blur));
+}
+
 .gamePage__hero {
   position: relative;
   z-index: 2;
@@ -87,32 +99,12 @@
 .gamePage__title {
   margin: 0;
   font-size: var(--display-lg);
-  font-weight: var(--regular);
+  font-weight: var(--bold);
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--on-panel, var(--text-default));
   text-align: start;
   overflow-wrap: anywhere;
-}
-
-.gamePage__meta {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.gamePage__metaDot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--text-faint, var(--text-secondary));
-}
-
-.gamePage__meta .genres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
 }
 
 .gamePage__badges {
@@ -213,6 +205,7 @@
 .gamePage__heroAside {
   display: flex;
   flex-direction: column;
+  align-self: center;
   gap: 16px;
   min-width: 0;
 }
@@ -220,14 +213,15 @@
 .gameStats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
+  gap: 32px;
 }
 
 .gameScores {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
+  width: 100%;
   container-type: inline-size;
   container-name: gameScores;
 }
@@ -236,21 +230,27 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: var(--body-md);
-  color: var(--text-muted, var(--text-secondary));
+  margin: 0;
+  font-size: var(--title-sm);
+  font-weight: var(--semibold);
+  color: var(--on-panel, var(--text-default));
+}
+
+.gameScores__title svg {
+  color: var(--text-brand);
 }
 
 .gameScores__list {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 20px;
+  justify-content: flex-start;
+  gap: 8px 16px;
 }
 
 .gameScores__list > *:not(:last-child)::after {
-  content: '·';
-  margin-inline-start: 20px;
+  content: '•';
+  margin-inline-start: 16px;
   color: var(--text-faint, var(--text-secondary));
 }
 
@@ -298,23 +298,14 @@
   flex: 1;
 }
 
-.aboutGame__title {
-  margin: 0 0 16px;
-  font-size: var(--title-md);
-  font-weight: var(--regular);
-  letter-spacing: -0.01em;
-  color: var(--on-panel, var(--text-default));
-  text-align: start;
-}
-
 .aboutGame .summary {
   display: flex;
   flex-direction: column;
   gap: 16px;
   font-size: var(--body-md);
-  font-weight: var(--medium);
+  font-weight: var(--regular);
   line-height: var(--leading-normal, 1.5);
-  color: var(--on-panel, var(--text-default));
+  color: var(--on-panel-muted, var(--text-secondary));
   text-align: start;
 }
 
@@ -333,7 +324,7 @@
 .gameDetails__title {
   margin: 0;
   font-size: var(--title-md);
-  font-weight: var(--semibold);
+  font-weight: var(--bold);
   color: var(--on-panel, var(--text-default));
   text-align: start;
 }
@@ -341,7 +332,7 @@
 .infoTab > div {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-xl-fixed);
 }
 
 .extraTab > div {
@@ -392,7 +383,7 @@
   align-items: center;
   gap: 12px;
   padding: 12px;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   background: var(--input-background);
 }
 
@@ -467,7 +458,7 @@
   align-self: flex-start;
   margin: 0;
   padding: 10px 16px;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   background: var(--status-warning);
   color: #000;
 }
@@ -498,7 +489,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   background: var(--background-darker, #0a0e13);
   border: 1px solid transparent;
   transition: all 0.2s;
@@ -591,7 +582,7 @@
   gap: 10px;
   width: 100%;
   padding: 8px 10px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   margin: 0;
   font-size: var(--text-md);
   font-weight: var(--medium);
@@ -703,7 +694,7 @@
   padding: 11px;
   box-sizing: border-box;
   border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   background: var(--input-background);
   color: var(--on-panel, var(--text-default));
   transition: border-color 150ms ease;

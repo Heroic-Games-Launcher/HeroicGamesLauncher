@@ -10,7 +10,7 @@ import {
   Wine
 } from 'lucide-react'
 import { GameInfo } from 'common/types'
-import { DetailList, Panel } from 'frontend/components/UI'
+import { DetailList } from 'frontend/components/UI'
 import type { DetailItem } from 'frontend/components/UI/DetailList'
 import GameContext from '../../GameContext'
 import { steamCompatdataPrefix } from 'frontend/helpers/steamPrefix'
@@ -50,9 +50,9 @@ const InstalledInfo = ({ gameInfo }: Props) => {
     })
 
     return (
-      <Panel tone="glass" className="installationInfo">
+      <div className="installationInfo">
         <DetailList items={items} columns={2} />
-      </Panel>
+      </div>
     )
   }
 
@@ -144,11 +144,11 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   }
 
   return (
-    <Panel tone="glass" className="installationInfo">
+    <div className="installationInfo">
       <DetailList items={items} columns={2} />
       {runner === 'steam' && <SteamDlcList appName={gameInfo.app_name} />}
       {cloudSave.menu}
-    </Panel>
+    </div>
   )
 }
 

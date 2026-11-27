@@ -921,6 +921,8 @@
         "options": "Launch options..."
     },
     "library": {
+        "alphabetFilter": "Filter by first letter",
+        "backToTop": "Back to top",
         "gamesCount_one": "{{count}} game",
         "gamesCount_other": "{{count}} games",
         "hideAlphabetFilter": "Hide alphabet filter",

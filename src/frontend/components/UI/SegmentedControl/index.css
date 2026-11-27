@@ -5,7 +5,7 @@
   padding: var(--space-3xs-fixed);
   background: var(--input-background);
   border: 1px solid var(--panel-border);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
 }
 
 .SegmentedControl__item {
@@ -21,7 +21,7 @@
   font-weight: var(--semibold);
   line-height: 1;
   white-space: nowrap;
-  border-radius: var(--radius-pill);
+  border-radius: calc(var(--radius-sm) - var(--space-3xs-fixed));
   cursor: pointer;
   transition:
     background-color 150ms ease,

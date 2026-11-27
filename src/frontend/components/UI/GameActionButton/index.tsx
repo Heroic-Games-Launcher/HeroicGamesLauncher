@@ -11,6 +11,7 @@ import {
 import type { LucideIcon } from 'lucide-react'
 import Button, { ButtonVariant } from '../Button'
 import Icon from '../Icon'
+import Tooltip from '../Tooltip'
 import './index.css'
 
 type GameAction =
@@ -50,6 +51,7 @@ interface GameActionButtonProps {
   title?: string
   disabled?: boolean
   iconOnly?: boolean
+  variant?: ButtonVariant
   className?: string
   onClick?: () => void
 }
@@ -60,16 +62,19 @@ export default function GameActionButton({
   title,
   disabled = false,
   iconOnly = false,
+  variant,
   className,
   onClick
 }: GameActionButtonProps) {
-  const { glyph, variant, legacyClass } = ACTIONS[action]
+  const { glyph, variant: defaultVariant, legacyClass } = ACTIONS[action]
+  const isDisabled = disabled || !onClick
+  const showTooltip = iconOnly && !isDisabled
 
-  return (
+  const button = (
     <Button
-      variant={variant}
-      title={title ?? label}
-      disabled={disabled || !onClick}
+      variant={variant ?? defaultVariant}
+      title={showTooltip ? undefined : (title ?? label)}
+      disabled={isDisabled}
       onClick={onClick}
       className={classNames('GameActionButton', legacyClass, className)}
       icon={glyph ? <Icon glyph={glyph} size="sm" strokeWidth={2} /> : null}
@@ -77,5 +82,15 @@ export default function GameActionButton({
     >
       {iconOnly ? null : label}
     </Button>
+  )
+
+  if (!showTooltip) {
+    return button
+  }
+
+  return (
+    <Tooltip content={label} asChild>
+      {button}
+    </Tooltip>
   )
 }

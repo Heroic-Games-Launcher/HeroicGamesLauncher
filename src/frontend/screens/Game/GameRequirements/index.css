@@ -1,9 +1,22 @@
 .gameRequirements {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 16px;
+  gap: var(--space-xl-fixed) var(--space-2xl-fixed);
   user-select: text;
   width: 100%;
+}
+
+.gameRequirements__specs {
+  display: grid;
+  grid-row: span var(--requirements-rows);
+  grid-template-rows: subgrid;
+  row-gap: 0;
+}
+
+.gameRequirements__specs .gameRequirements__list {
+  grid-row: 2 / -1;
+  grid-template-rows: subgrid;
+  row-gap: 0;
 }
 
 .gameRequirements__title {

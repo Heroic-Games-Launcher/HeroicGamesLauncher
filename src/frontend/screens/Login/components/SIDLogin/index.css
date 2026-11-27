@@ -20,7 +20,7 @@
   flex-direction: column;
   gap: var(--space-md);
   background: var(--background-darker);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   z-index: 7;
   padding: var(--space-xl) var(--space-lg) var(--space-lg);
   width: min(560px, calc(100vw - 4rem));

@@ -169,6 +169,7 @@ export type DialogModalOptions = {
   title?: string
   message?: string | React.ReactElement
   buttons?: Array<ButtonOptions>
+  buttonLayout?: 'inline' | 'stacked'
   type?: DialogType
   className?: string
   onClose?: () => void

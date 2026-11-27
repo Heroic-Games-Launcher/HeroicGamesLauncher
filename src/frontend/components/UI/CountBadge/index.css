@@ -5,7 +5,7 @@
   min-width: var(--space-lg-fixed);
   height: var(--space-lg-fixed);
   padding: 0 var(--space-2xs-fixed);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
   background: color-mix(in oklab, var(--role-accent) 22%, transparent);
   color: var(--text-accent, var(--role-accent));
   font-family: var(--primary-font-family);

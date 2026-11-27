@@ -2,7 +2,7 @@
   --modal-padding-inline: 32px;
   --modal-padding-block: 24px;
   --modal-gap: 24px;
-  --modal-radius: 16px;
+  --modal-radius: var(--radius-sm);
 
   position: relative;
   display: flex;
@@ -10,7 +10,7 @@
   overflow: hidden;
   width: 100%;
   margin: 32px;
-  border: solid 1px var(--panel-border);
+  border: solid 1px var(--modal-border-color, transparent);
   border-radius: var(--modal-radius);
   background: var(--modal-background);
   color: var(--text-neutral);

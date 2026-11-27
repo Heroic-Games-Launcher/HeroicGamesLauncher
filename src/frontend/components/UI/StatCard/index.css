@@ -43,3 +43,11 @@
   color: var(--on-panel, var(--text-default));
   white-space: nowrap;
 }
+
+.StatCard--bare .StatCard__label svg {
+  color: var(--text-brand);
+}
+
+.StatCard--bare .StatCard__value {
+  font-size: var(--title-lg);
+}

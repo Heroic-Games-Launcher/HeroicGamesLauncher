@@ -7,7 +7,7 @@ import { PCGamingWikiInfo, SteamInfo, WikiInfo } from 'common/types'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
 import { getHowLongToBeat } from './howlongtobeat/utils'
-import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
+import { fetchPCGamingWikiInfo } from './pcgamingwiki/utils'
 import { getUmuId } from './umu/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
 import type { Game } from 'common/types/game_manager'
@@ -16,8 +16,9 @@ async function getSteamWikiInfo(
   title: string,
   appName: string,
   game: Game
-): Promise<WikiInfo> {
-  const pcgw = await getInfoFromPCGamingWiki(title)
+): Promise<{ info: WikiInfo; cacheable: boolean }> {
+  const pcgwResult = await fetchPCGamingWikiInfo(title)
+  const pcgw = pcgwResult.status === 'found' ? pcgwResult.info : null
 
   const pcgamingwiki: PCGamingWikiInfo = {
     steamID: pcgw?.steamID || appName,
@@ -37,12 +38,15 @@ async function getSteamWikiInfo(
   )
 
   return {
-    pcgamingwiki,
-    applegamingwiki: null,
-    howlongtobeat,
-    gamesdb: null,
-    steamInfo: null,
-    umuId: null
+    info: {
+      pcgamingwiki,
+      applegamingwiki: null,
+      howlongtobeat,
+      gamesdb: null,
+      steamInfo: null,
+      umuId: null
+    },
+    cacheable: pcgwResult.status !== 'failed'
   }
 }
 
@@ -70,17 +74,20 @@ export async function getWikiGameInfo(game: Game): Promise<WikiInfo | null> {
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
     if (runner === 'steam') {
-      const steamWikiInfo = await getSteamWikiInfo(title, appName, game)
-      wikiGameInfoStore.set(cacheKey, steamWikiInfo)
-      return steamWikiInfo
+      const { info, cacheable } = await getSteamWikiInfo(title, appName, game)
+      if (cacheable) {
+        wikiGameInfoStore.set(cacheKey, info)
+      }
+      return info
     }
 
-    const [pcgamingwiki, gamesdb, applegamingwiki, umuId] = await Promise.all([
-      getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
+    const [pcgwResult, gamesdb, applegamingwiki, umuId] = await Promise.all([
+      fetchPCGamingWikiInfo(title, runner === 'gog' ? appName : undefined),
       getInfoFromGamesDB(title, appName, runner),
       isMac ? getInfoFromAppleGamingWiki(title) : null,
       isLinux ? getUmuId(appName, runner) : null
     ])
+    const pcgamingwiki = pcgwResult.status === 'found' ? pcgwResult.info : null
 
     // Get HowLongToBeat data, using gog.com site for GOG games, and HLTB ID from PCGamingWiki if available
     const howlongtobeat = await getHowLongToBeat(
@@ -115,7 +122,9 @@ export async function getWikiGameInfo(game: Game): Promise<WikiInfo | null> {
       umuId
     }
 
-    wikiGameInfoStore.set(cacheKey, wikiGameInfo)
+    if (pcgwResult.status !== 'failed') {
+      wikiGameInfoStore.set(cacheKey, wikiGameInfo)
+    }
 
     return wikiGameInfo
   } catch (error) {

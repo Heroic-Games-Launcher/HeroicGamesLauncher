@@ -176,7 +176,7 @@ export default React.memo(function NewLogin() {
           notice={
             disableGOGAffiliate ? (
               <Alert
-                variant="info"
+                variant="neutral"
                 actionsPlacement="block"
                 actions={
                   <Button

@@ -79,7 +79,7 @@
   height: 34px;
   padding: 0 var(--space-md-fixed);
   border: 1px solid var(--divider);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: var(--input-background);
   font-family: inherit;
   font-size: var(--body-sm);

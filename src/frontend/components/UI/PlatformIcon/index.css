@@ -1,0 +1,9 @@
+.PlatformIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--text-neutral-muted);
+}

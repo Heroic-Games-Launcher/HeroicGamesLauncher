@@ -50,7 +50,7 @@ export const CardGrid: Story = {
           key={index}
           style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
         >
-          <Skeleton height="10rem" radius="12px" />
+          <Skeleton height="10rem" radius="var(--radius-sm)" />
           <Skeleton height="0.9em" width="70%" />
         </div>
       ))}

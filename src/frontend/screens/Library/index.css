@@ -8,7 +8,8 @@
 }
 
 .gameList.firstLane {
-  padding: 0 var(--space-md-fixed) var(--space-md-fixed);
+  padding: 0 var(--space-md-fixed);
+  margin-block-end: 0;
 }
 
 .gameList.firstLane > div:has(.justPlayed) {
@@ -17,7 +18,7 @@
 
 .gameListLayout {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
   grid-auto-rows: minmax(76px, auto);
   align-items: stretch;
   gap: 10px;
@@ -55,39 +56,49 @@ body:has(.libraryStickyTop) {
 }
 
 #backToTopArrow {
-  font-size: 3.2vh;
+  font-size: 28px;
 }
 
 #backToTopBtn {
-  border-radius: 100%;
-  width: 5vh;
-  height: 5vh;
   position: fixed;
-  bottom: 3%;
-  right: 0;
-  margin: var(--space-md) var(--space-xl);
-  border: 1px var(--accent) solid;
-  background-color: var(--background);
-  color: var(--accent);
+  right: var(--space-xl-fixed);
+  bottom: var(--space-xl-fixed);
+  z-index: 9;
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: flex-end;
-  z-index: 9;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--color-neutral-700) 92%, transparent);
+  color: var(--text-default);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
   visibility: hidden;
-  transition: all 0.3s ease-in;
   cursor: pointer;
-  opacity: 0.7;
+  transition: background-color 150ms ease;
 }
 
 #backToTopBtn:hover {
-  opacity: 1;
+  background: color-mix(
+    in oklab,
+    var(--on-panel) 14%,
+    color-mix(in srgb, var(--color-neutral-700) 92%, transparent)
+  );
+}
+
+#backToTopBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .listing {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  padding-block-end: calc(44px + 2 * var(--space-xl-fixed));
 }
 
 .librarySectionHeader {

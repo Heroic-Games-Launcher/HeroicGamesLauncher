@@ -79,7 +79,7 @@
   gap: var(--space-md);
   padding: var(--space-lg);
   border: 2px dashed var(--panel-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
 }
 
 .sideloadImagesPreview__caption {
@@ -101,7 +101,7 @@
     width: 100%;
     cursor: pointer;
     color: white;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     overflow: hidden;
     border: 3px solid var(--neutral-02);
     transition: 200ms;
@@ -214,7 +214,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     background: #1e1e1e;
     color: var(--text-secondary);
     font-style: italic;
@@ -255,7 +255,7 @@
       height: 150px;
       padding: var(--space-md);
       border: solid 1px var(--panel-border);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-sm);
 
       &.shortcutTile--selected {
         border-color: var(--accent);
