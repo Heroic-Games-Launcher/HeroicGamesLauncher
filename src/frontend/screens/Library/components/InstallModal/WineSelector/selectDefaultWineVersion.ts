@@ -21,3 +21,36 @@ export function selectDefaultWineVersion(
 
   return wineVersionList.at(0)
 }
+
+/**
+ * Returns the version the dialog should show after a parent reset or a
+ * refetched list. A user-picked selection is never replaced; otherwise the
+ * default is applied again when the current version is gone.
+ */
+export function isWineVersionListed(
+  version: WineInstallation | undefined,
+  wineVersionList: WineInstallation[]
+): boolean {
+  return !!version && wineVersionList.some(({ bin }) => bin === version.bin)
+}
+
+export function repickWineVersion(
+  currentVersion: WineInstallation | undefined,
+  configuredVersion: WineInstallation | undefined | null,
+  wineVersionList: WineInstallation[],
+  userPicked: boolean
+): WineInstallation | undefined {
+  const currentInList = currentVersion
+    ? wineVersionList.find(({ bin }) => bin === currentVersion.bin)
+    : undefined
+
+  if (currentInList) {
+    return currentInList
+  }
+
+  if (userPicked) {
+    return undefined
+  }
+
+  return selectDefaultWineVersion(configuredVersion, wineVersionList)
+}

@@ -66,6 +66,7 @@ interface Props {
   winePrefix: string
   crossoverBottle: string
   wineVersion: WineInstallation | undefined
+  wineSelectionValid: boolean
   children: React.ReactNode
   gameInfo: GameInfo
 }
@@ -105,6 +106,7 @@ export default function DownloadDialog({
   availablePlatforms,
   winePrefix,
   wineVersion,
+  wineSelectionValid,
   children,
   gameInfo,
   crossoverBottle
@@ -267,6 +269,8 @@ export default function DownloadDialog({
   }
 
   async function handleInstall(path?: string, ignoreAnticheat = false) {
+    if (!wineSelectionValid) return
+
     if (
       anticheatInfo &&
       ['Denied', 'Broken', 'Unknown'].includes(anticheatInfo.status)
@@ -645,7 +649,11 @@ export default function DownloadDialog({
   }
 
   const readyToInstall =
-    installPath && !!diskSize && !gettingInstallInfo && validFlatpakPath
+    installPath &&
+    !!diskSize &&
+    !gettingInstallInfo &&
+    validFlatpakPath &&
+    wineSelectionValid
 
   const showDlcSelector =
     ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0

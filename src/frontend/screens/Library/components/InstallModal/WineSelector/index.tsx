@@ -6,7 +6,7 @@ import {
   Icon,
   Divider
 } from 'frontend/components/UI'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { WineInstallation } from 'common/types'
 import { Trans, useTranslation } from 'react-i18next'
 import { removeSpecialcharacters } from 'frontend/helpers'
@@ -14,10 +14,10 @@ import { TriangleAlert } from 'lucide-react'
 import { WineVersionListItem } from 'frontend/screens/Settings/components/WineVersionSelector'
 import { MenuItem } from '@mui/material'
 import { useAwaited } from 'frontend/hooks/useAwaited'
-import { selectDefaultWineVersion } from './selectDefaultWineVersion'
+import { repickWineVersion } from './selectDefaultWineVersion'
 
 type Props = {
-  setWineVersion: (newVersion: WineInstallation) => void
+  setWineVersion: (newVersion: WineInstallation | undefined) => void
   setWinePrefix: (newPrefix: string) => void
   setCrossoverBottle: React.Dispatch<React.SetStateAction<string>>
   winePrefix: string
@@ -28,6 +28,10 @@ type Props = {
   appName: string
   initiallyOpen?: boolean
   noDetails?: boolean
+  userPickedWineVersion: boolean
+  onWineVersionPicked: () => void
+  useSharedPrefix: boolean
+  setUseSharedPrefix: (value: boolean) => void
 }
 
 export default function WineSelector({
@@ -41,13 +45,13 @@ export default function WineSelector({
   setCrossoverBottle,
   initiallyOpen,
   appName,
-  noDetails = false
+  noDetails = false,
+  userPickedWineVersion,
+  onWineVersionPicked,
+  useSharedPrefix,
+  setUseSharedPrefix
 }: Props) {
   const { t, i18n } = useTranslation('gamepage')
-
-  const [useSharedPrefix, setUseSharedPrefix] = useState(false)
-  const userPickedWineVersion = useRef(false)
-  const defaultWineVersionApplied = useRef(false)
 
   const globalConfig = useAwaited(window.api.requestAppSettings)
 
@@ -78,26 +82,26 @@ export default function WineSelector({
   ])
 
   useEffect(() => {
-    // A late config load must not overwrite a manual pick.
-    if (
-      defaultWineVersionApplied.current ||
-      userPickedWineVersion.current ||
-      wineVersion ||
-      !globalConfig
-    ) {
-      return
-    }
+    if (!globalConfig || useSharedPrefix) return
 
-    const defaultWineVersion = selectDefaultWineVersion(
+    const nextWineVersion = repickWineVersion(
+      wineVersion,
       globalConfig.wineVersion,
-      wineVersionList
+      wineVersionList,
+      userPickedWineVersion
     )
 
-    if (!defaultWineVersion) return
-
-    defaultWineVersionApplied.current = true
-    setWineVersion(defaultWineVersion)
-  }, [wineVersion, wineVersionList, globalConfig, setWineVersion])
+    if (nextWineVersion !== wineVersion) {
+      setWineVersion(nextWineVersion)
+    }
+  }, [
+    wineVersion,
+    wineVersionList,
+    globalConfig,
+    setWineVersion,
+    useSharedPrefix,
+    userPickedWineVersion
+  ])
 
   const showPrefix = wineVersion?.type !== 'crossover'
   const showBottle = wineVersion?.type === 'crossover'
@@ -155,9 +159,9 @@ export default function WineSelector({
         value={wineVersion?.name || ''}
         disabled={useSharedPrefix || wineVersionList.length === 0}
         onChange={(e) => {
-          userPickedWineVersion.current = true
+          onWineVersionPicked()
           setWineVersion(
-            wineVersionList.find((version) => version.name === e.target.value)!
+            wineVersionList.find((version) => version.name === e.target.value)
           )
         }}
       >
