@@ -30,7 +30,8 @@ import {
   CloudSyncResult,
   CloudSyncState
 } from 'common/types'
-import { existsSync, rmSync } from 'graceful-fs'
+import { existsSync, readdirSync, rmSync } from 'graceful-fs'
+import { gogInstallDirectory } from './install_path'
 import {
   achievementStore,
   configStore,
@@ -477,8 +478,27 @@ export default class GOGGame implements Game {
       return { status: 'error' }
     }
 
-    const sizeOnDisk = await getPathDiskSize(join(path, gameInfo.folder_name))
-    const install_path = join(path, gameInfo.folder_name)
+    let entries: string[] | undefined
+    try {
+      entries = readdirSync(path)
+    } catch {
+      entries = undefined
+    }
+    const install_path = gogInstallDirectory(
+      path,
+      gameInfo.folder_name,
+      entries,
+      (entry) =>
+        existsSync(
+          join(path, entry, 'Contents', 'Resources', `goggame-${this.id}.info`)
+        )
+    )
+    if (!existsSync(install_path)) {
+      const message = `Installed files were not found at ${install_path}`
+      logError(message, LogPrefix.Gog)
+      return { status: 'error', error: message }
+    }
+    const sizeOnDisk = await getPathDiskSize(install_path)
 
     const installedData: InstalledInfo = {
       platform: installPlatform,
