@@ -1,5 +1,5 @@
 import { AureliaError } from '../aurelia'
-import { isSteamRunningError, reportSteamRunning } from '../utils'
+import { isLibraryApp, isSteamRunningError, reportSteamRunning } from '../utils'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 
 jest.mock('backend/launcher', () => ({ callRunner: jest.fn() }))
@@ -48,5 +48,19 @@ describe('reportSteamRunning', () => {
   it('stays quiet for other failures', () => {
     reportSteamRunning(new Error('network down'))
     expect(showDialogBoxModalAuto).not.toHaveBeenCalled()
+  })
+})
+
+describe('isLibraryApp', () => {
+  it('hides soundtracks', () => {
+    expect(isLibraryApp({ type: 'Soundtrack' })).toBe(false)
+  })
+
+  it('keeps games and apps without a type', () => {
+    expect(isLibraryApp({ type: 'Game' })).toBe(true)
+    expect(isLibraryApp({ type: 'Advertising' })).toBe(true)
+    // Aurelia before 0.3.3, or unknown
+    expect(isLibraryApp({})).toBe(true)
+    expect(isLibraryApp({ type: null })).toBe(true)
   })
 })

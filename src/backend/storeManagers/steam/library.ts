@@ -38,6 +38,7 @@ import {
   currentOsList,
   describeError,
   installedPlatformFor,
+  isLibraryApp,
   isSteamSupported,
   platformArgs,
   steamCall,
@@ -125,7 +126,7 @@ export default class SteamLibraryManager implements LibraryManager {
       return { stdout: '', stderr: 'Unable to list Steam games' }
     }
 
-    for (const game of games) {
+    for (const game of games.filter(isLibraryApp)) {
       const appId = String(game.app_id)
       const info = this.steamToUnifiedInfo(game)
 
@@ -349,7 +350,7 @@ export default class SteamLibraryManager implements LibraryManager {
           '--check-updates'
         ])
         const updates = games
-          .filter((game) => game.update_available)
+          .filter((game) => isLibraryApp(game) && game.update_available)
           .map((game) => String(game.app_id))
         if (updates.length) {
           logInfo(

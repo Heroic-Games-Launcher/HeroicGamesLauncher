@@ -3,6 +3,7 @@ import { logError, logWarning, LogPrefix } from 'backend/logger'
 import { isMac, isWindows } from 'backend/constants/environment'
 import type { InstallPlatform } from 'common/types'
 import type { SteamDataKind } from 'common/types/steam'
+import type { AureliaLibraryGame } from './aurelia_types'
 import { sendFrontendMessage } from 'backend/ipc'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { t } from 'i18next'
@@ -136,4 +137,10 @@ export async function steamCall<T>(
     }
     return fallback
   }
+}
+
+/** Apps shown in the library and search. */
+export function isLibraryApp(game: Pick<AureliaLibraryGame, 'type'>): boolean {
+  // Soundtracks aren't games
+  return game.type !== 'Soundtrack'
 }
