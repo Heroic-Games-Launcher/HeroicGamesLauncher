@@ -43,10 +43,9 @@
 }
 
 .Badge--info {
-  --badge-color: var(--text-on-info);
-  --badge-surface: var(--bg-info);
+  --badge-color: var(--role-info);
 
-  color: var(--text-on-info);
+  color: var(--text-info);
 }
 
 .Badge--success {
