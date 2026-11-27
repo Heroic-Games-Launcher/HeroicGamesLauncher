@@ -5,14 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
 import { Gauge } from 'lucide-react'
 import { Icon, SelectField, Tooltip } from 'frontend/components/UI'
-import { MEGABYTES_PER_SECOND } from 'common/format'
-
-// 1 MB/s in kbit/s
-const KBIT_PER_MB = 8000
-const PRESETS_MB = [1, 2, 5, 10, 25, 50, 100]
+import { useDisplayUnits } from 'frontend/state/DisplayUnits'
+import { PRESETS_KBIT, equivalentText, rateText } from './limitText'
 
 export default function DownloadLimit() {
   const { t } = useTranslation()
+  const units = useDisplayUnits((state) => state.units)
   const [limit, setLimit] = useState<number>()
   const [saving, setSaving] = useState(false)
 
@@ -41,8 +39,7 @@ export default function DownloadLimit() {
     }
   }
 
-  const unit = MEGABYTES_PER_SECOND
-  const presets = PRESETS_MB.map((mb) => mb * KBIT_PER_MB)
+  const presets = [...PRESETS_KBIT]
   // keep custom CLI values selectable
   if (limit && !presets.includes(limit)) {
     presets.push(limit)
@@ -50,24 +47,39 @@ export default function DownloadLimit() {
   }
 
   const label = t('download-manager.limit.label', 'Download limit')
+  const unlimitedLabel = t('download-manager.limit.unlimited', 'Unlimited')
+  const limitText = (kbit: number) =>
+    t('download-manager.limit.short', 'Limit {{value}}', {
+      value: rateText(kbit)
+    })
+
+  const tooltip = limit
+    ? t(
+        'download-manager.limit.tooltip',
+        'Download limit: {{limit}} (≈ {{speed}})',
+        {
+          limit: rateText(limit),
+          speed: equivalentText(limit, units)
+        }
+      )
+    : label
 
   return (
-    <Tooltip content={label}>
+    <Tooltip content={tooltip}>
       <div className="DownloadLimit">
         <SelectField
           htmlId="steam_download_limit"
           value={limit === undefined ? '' : String(limit)}
           onChange={(event) => void handleChange(event)}
           disabled={limit === undefined || saving}
+          ariaLabel={label}
           extraClass="DownloadLimit__select"
           startIcon={<Icon glyph={Gauge} size="sm" />}
         >
-          <MenuItem value="0">
-            {t('download-manager.limit.unlimited', 'Unlimited')}
-          </MenuItem>
+          <MenuItem value="0">{unlimitedLabel}</MenuItem>
           {presets.map((kbit) => (
             <MenuItem key={kbit} value={String(kbit)}>
-              {`${Math.round((kbit / KBIT_PER_MB) * 100) / 100} ${unit}`}
+              {limitText(kbit)}
             </MenuItem>
           ))}
         </SelectField>
