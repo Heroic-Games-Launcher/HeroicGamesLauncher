@@ -223,7 +223,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": "",
+            "cancel": "Cancel"
+        }
     },
     "button": {
         "cancel": "Cancel",
@@ -294,7 +302,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Online services werken mogelijk niet, sinds Epic Games servers offline zijn!",
@@ -351,7 +370,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -428,7 +451,10 @@
             "gameWidth": "De breedte-resolutie die het spel gebruikt. Een beeldverhouding van 16:9 wordt door gamescope aangenomen.",
             "upscaleHeight": "De hoogteresolutie die door gamescope gebruikt wordt. Een beeldverhouding van 16:9 wordt aangenomen.",
             "upscaleMethod": "De opschalingsmethode die gamescope moet gebruiken.",
-            "upscaleWidth": "De breedte-resolutie die gamescope gebruikt. Een beeldverhouding van 16:9 wordt aangenomen."
+            "upscaleWidth": "De breedte-resolutie die gamescope gebruikt. Een beeldverhouding van 16:9 wordt aangenomen.",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "analytics": "Staat toe dat Heroic 100% anonieme gebruiksdata mag verzamelen die helpen om de applicatie te verbeteren. Vereist herstart om toe te passen.",
@@ -441,7 +467,16 @@
             "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -550,7 +585,8 @@
                     "corrupt": "{{game}} could not be added to all found Steam users. See logs for more info. A restart of Steam is required for changes to take effect.",
                     "success": "{{game}} was successfully added to Steam. A restart of Steam is required for changes to take effect.",
                     "title": "Added to Steam",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -652,7 +688,10 @@
             "stretch": "Afbeelding Uitrekken",
             "upscaleWidth": "",
             "upscaleHeight": "",
-            "interger": ""
+            "interger": "",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -671,7 +710,8 @@
         "egs-prefix": "Prefix waar EGS is geïnstalleerd",
         "prefered_language": "2-char of 4-char code (i.e.: \"fr\" of \"pt-BR\")",
         "alt-nile-bin": "Gebruik van ingebouwde Nijl binaire...",
-        "alt-aurelia-bin": "Gebruik built-in Aurelia binary..."
+        "alt-aurelia-bin": "Gebruik built-in Legendary binary...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -835,7 +875,8 @@
             "placeholder": "Selecteer de exacte spel-opslagmap",
             "warning": "Dubbelcheck of het pad correct is a.u.b. (klik om opnieuw te proberen)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Selecteer Thema",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
@@ -857,7 +898,13 @@
             "enableLimiter": "Zet FPS limiteerder aan",
             "enableForceGrabCursor": "Schakel Force Grab Cursor in",
             "missingMsg": "We konden gamescope niet vinden op het PAD. Installeer het of voeg het toe aan het PAD.",
-            "warningFlatpak": "We konden geen compatibele versie vinden van Gamescope. Installeer Gamescope's flatpak-pakketje met runtime  {{runtimeVersion}} en herstart Heroic."
+            "warningFlatpak": "We konden geen compatibele versie vinden van Gamescope. Installeer Gamescope's flatpak-pakketje met runtime  {{runtimeVersion}} en herstart Heroic.",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": "",
+            "enableHDR": "HDR inschakelen"
         },
         "before-launch-script-path": "Selecteer een script om uit te voeren voordat een game is opgestart",
         "frameless-window": {
@@ -921,7 +968,8 @@
         "start-in-console-mode": "",
         "steamRuntime": {
             "label": "Use Steam Runtime",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Open de",
@@ -1002,7 +1050,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Kies een Alternatief Aurelia Binary",
+        "alt-aurelia-bin": "Kies een Alternatief Legendary Binary",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Totaal gedownload",
@@ -1024,7 +1072,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1066,7 +1166,10 @@
             "gamescope": "Gamescope",
             "legacy": "",
             "categories": "Categorieën",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Open Config Bestand",
         "reset-heroic": "Reset Heroic",
@@ -1178,7 +1281,17 @@
             "privacy": "",
             "steam": "",
             "epic": "Epic Games",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": "",
+            "gamescopeAdditionalOptions": "Additionele opties"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1186,9 +1299,58 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
-        "clear-images-cache": ""
+        "clear-images-cache": "",
+        "gamepad": {
+            "button": {
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "guide": "",
+                "nextPage": "",
+                "back": "Back"
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
+        }
     },
     "Settings": "Instellingen",
     "sidebar": {
@@ -1321,7 +1483,8 @@
         "noGames": "Jouw bibliotheek is leeg.<br /><br />Klik <4>hier</4> om in te loggen met je Epic, GOG.com of Amazon accounts. Dan zullen je spellen hier in de biblotheek zichtbaar worden.<br /><br />Om spelletjes of apps vanuit andere bronnen te gebruiken, klik <br /> om ze handmatig toe te voegen.",
         "noResultsTitle": "Geen spellen gevonden",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "adtraction-locked": {
         "title": "Adtraction is geblokkeerd",
@@ -1362,7 +1525,19 @@
                 "intro2": "Als de bibliotheek leeg is, kun je inloggen bij je accounts door op Accounts Beheren te klikken in de zijbalk of door je eigen spellen toe te voegen met de Voeg Spel toe knop aan de bovenkant.",
                 "title": "Welkom bij Heroic!",
                 "title2": "De bibliotheek beheren!"
-            }
+            },
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "next": "Volgende",
         "sidebar": {
@@ -1381,7 +1556,13 @@
                 "intro": "Welkom bij Heroic! Deze zijbalk bevat alle navigatie-opties om de app te verkennen.",
                 "title": "Zijbalk Navigatie"
             },
-            "wine": "Beheer of download nieuwe versies van Wine/Proton/GPTK om Windows spellen te spelen op Linux of macOS."
+            "wine": "Beheer of download nieuwe versies van Wine/Proton/GPTK om Windows spellen te spelen op Linux of macOS.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "Welkom bij Heroic!",
+            "generalTitle": "Algemeen"
         },
         "skip": "Overslaan",
         "startTour": "Begin de Tour"
@@ -1471,7 +1652,8 @@
             "platform": "Platform",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Details",
         "sort": {
@@ -1552,7 +1734,8 @@
             "sort": "",
             "navigate": "",
             "quit": "Stop",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "",
         "card": {
@@ -1592,7 +1775,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Volgende",
     "common": {
@@ -1737,7 +1927,11 @@
     },
     "import-export": {
         "action": {
-            "download": "Downloaden"
+            "download": "Downloaden",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Back",
         "close": "sluit",
@@ -1748,30 +1942,146 @@
         "stage": {
             "credentials": "Winkellogin",
             "globalSettings": "Algemene instellingen",
-            "perGameSettings": "Game settings"
+            "perGameSettings": "Game settings",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Algemene instellingen"
+            "title": "Algemene instellingen",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
-            "selectAll": "Selecteer Alles"
+            "selectAll": "Selecteer Alles",
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Winkellogin"
+            "title": "Winkellogin",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Wine Prefix",
             "wine-downloadable": "Download",
-            "wine-unavailable": "Geen DLC beschikbaar"
+            "wine-unavailable": "Geen DLC beschikbaar",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Winkellogin",
             "done": "Klaar",
             "global-settings": "Algemene instellingen",
-            "per-game": "Game settings"
+            "per-game": "Game settings",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Value",
         "version": "Heroic Version",
-        "wine-versions": "Wine Versie"
+        "wine-versions": "Wine Versie",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

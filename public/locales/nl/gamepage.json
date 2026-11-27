@@ -105,8 +105,14 @@
         "back": "Back",
         "next": "Volgende",
         "skip-installer": {
-            "title": "Overslaan"
-        }
+            "title": "Overslaan",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Niet ondersteund",
     "disabled": "Uitgeschakeld",
@@ -214,7 +220,8 @@
         "flatpak-path-not-writtable": "Fout: Sandboxtoegang werd niet toegestaan naar dit pad, er zal data verloren gaan.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -276,7 +283,12 @@
             "fullscreen": "Start volledig scherm (F11 om af te sluiten)",
             "useragent": "Aangepaste User Agent",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Plak een foto URL hier",
@@ -289,12 +301,26 @@
             "title": "Belangrijk! Voeg je een spel toe vanaf Epic/GOG/Amazon? Klik hier!"
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Compatibiliteit controleren",
             "finish": "Gereed",
-            "install": "Installatie stoppen"
+            "install": "Installatie stoppen",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
