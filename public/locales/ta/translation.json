@@ -231,7 +231,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "ரத்து செய்"
+            "cancel": "ரத்து செய்",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "button": {
@@ -303,7 +308,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "எபிக் கேம்ஸ் சர்வர்கள் ஆஃப்லைனில் இருப்பதால் ஆன்லைன் சேவைகள் முழுமையாக வேலை செய்யாமல் போகலாம்!",
@@ -360,7 +376,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD இன் FSR ஆனது முழுத்திரை பயன்முறையில் குறைந்த தெளிவுத்திறனை அதிகரிப்பதன் மூலம் ஃப்ரேம்ரேட்டை அதிகரிக்க உதவுகிறது. ஒரு சிறிய செயல்திறன் வெற்றியின் விலையில் படத்தின் தரம் 5 முதல் 1 வரை அதிகரிக்கிறது. இயக்குவது செயல்திறனை மேம்படுத்தலாம்.",
@@ -411,7 +431,10 @@
             "fpsLimiter": "பிரேம்கள் கேம்ஸ்கோப்பின் அளவு வரம்பிட வேண்டும். எ.கா. 60",
             "upscaleWidth": "விளையாட்டு பயன்படுத்தும் உயர தீர்மானம். கேம்ஸ்கோப் மூலம் 16:9 விகித விகிதம் கருதப்படுகிறது.",
             "additionalOptions": "கேம்ச்கோப்பிற்குள் செல்ல கூடுதல் கட்டளை கொடிகள்.",
-            "forceGrabCursor": "கர்சர் தெரிவுநிலையைப் பொறுத்து புரட்டுவதற்கு பதிலாக எப்போதும் உறவினர் சுட்டி பயன்முறையைப் பயன்படுத்துங்கள். (பயன்பாடுகள் கவனத்தை இழக்கும்போது பயனுள்ளதாக இருக்கும்)"
+            "forceGrabCursor": "கர்சர் தெரிவுநிலையைப் பொறுத்து புரட்டுவதற்கு பதிலாக எப்போதும் உறவினர் சுட்டி பயன்முறையைப் பயன்படுத்துங்கள். (பயன்பாடுகள் கவனத்தை இழக்கும்போது பயனுள்ளதாக இருக்கும்)",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "dxvknvapi": "DXVK-NVAPI என்பது DXVK மற்றும் லினக்ஸ் நேட்டிவ் NVAPI ஆகியவற்றின் மேல் கட்டப்பட்ட NVAPI இன் செயலாக்கமாகும், இது Nvidia GPUகளில் DLSS ஐப் பயன்படுத்த அனுமதிக்கிறது.",
         "disablePlaytimeSync": "கொடுக்கப்பட்ட ஸ்டோர் சர்வர்களுடன் பிளேடைம் ஒத்திசைவை முடக்குகிறது (தற்போது GOG மட்டுமே ஆதரிக்கப்படுகிறது)",
@@ -450,7 +473,16 @@
             "details": "மல்டி-ஜிபியு சிஸ்டங்களில் கேமை வழங்க, பிரத்யேக கிராபிக்ஸ் கார்டைப் பயன்படுத்தவும். கேமிங் மடிக்கணினிகள் அல்லது டெஸ்க்டாப்களில் மட்டுமே தேவைப்படும், அவை ரெண்டரிங் செய்வதற்கு ஹெட்லெஸ் ஜிபியுவைப் பயன்படுத்துகின்றன (NVIDIA Optimus, AMD CrossFire)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -559,7 +591,8 @@
                     "corrupt": "கண்டுபிடிக்கப்பட்ட அனைத்து Steam பயனர்களிடமும் {{game}} ஐ சேர்க்க முடியவில்லை. மேலும் தகவலுக்கு பதிவுகளைப் பார்க்கவும். மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
                     "success": "{{game}} வெற்றிகரமாக நீராவியில் சேர்க்கப்பட்டது. மாற்றங்கள் நடைமுறைக்கு வர நீராவியை மறுதொடக்கம் செய்ய வேண்டும்.",
                     "title": "நீராவியில் சேர்க்கப்பட்டது",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -661,7 +694,10 @@
             "fpsLimiterNoFocus": "FPS லிமிட்டர் (கவனம் தேவை இல்லை)",
             "stretch": "நீட்சி படம்",
             "windowed": "சாளரம்",
-            "additionalOptions": "கூடுதல் விருப்பங்கள்"
+            "additionalOptions": "கூடுதல் விருப்பங்கள்",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -680,7 +716,8 @@
         "egs-prefix": "EGS நிறுவப்பட்ட முன்னொட்டு",
         "prefered_language": "2-கரி அல்லது 4-கரி குறியீடு (அதாவது: \"fr\" அல்லது \"pt-BR\")",
         "alt-nile-bin": "உள்ளமைக்கப்பட்ட நைல் பைனரியைப் பயன்படுத்துகிறது...",
-        "alt-aurelia-bin": "உள்ளமைக்கப்பட்ட Aurelia பைனரியைப் பயன்படுத்துகிறது..."
+        "alt-aurelia-bin": "உள்ளமைக்கப்பட்ட லெஜண்டரி பைனரியைப் பயன்படுத்துகிறது...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "லினக்ஸ்",
@@ -844,7 +881,8 @@
             "placeholder": "சரியான விளையாட்டுகளை சேமிக்கும் கோப்புறையை தேர்ந்தெடு",
             "warning": "பாதை சரியாக உள்ளதா என இருமுறை சரிபார்க்கவும் (மீண்டும் முயற்சிக்க கிளிக் செய்யவும்)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "தீம் தேர்ந்தெடுக்கவும்",
         "showfps": "FPS ஐக் காட்டு (DX9, 10 and 11)",
@@ -875,7 +913,12 @@
             "enableForceGrabCursor": "ஃபோர்ச் கிராப் கர்சரை இயக்கவும்",
             "missingMsgFlatpak": "கேம்ச்கோப்பின் இணக்கமான பதிப்பை எங்களால் கண்டுபிடிக்க முடியவில்லை. கேமச்கோப்பின் பிளாட்பாக் தொகுப்பை இயக்க நேரம் 25.08 உடன் நிறுவி வீரத்தை மறுதொடக்கம் செய்யுங்கள்.",
             "warningFlatpak": "கேம்ச்கோப்பின் இணக்கமான பதிப்பை எங்களால் கண்டுபிடிக்க முடியவில்லை. கேமச்கோப்பின் பிளாட்பாக் தொகுப்பை இயக்க நேரம் {{runtimeVersion}}உடன் நிறுவி வீரத்தை மறுதொடக்கம் செய்யுங்கள்.",
-            "enableHDR": "HDR ஐ இயக்கு"
+            "enableHDR": "HDR ஐ இயக்கு",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "experimental_features": {
             "enableNewDesign": "புதிய வடிவமைப்பு",
@@ -932,7 +975,8 @@
         "start-in-console-mode": "",
         "steamRuntime": {
             "label": "நீராவி இயக்க நேரத்தைப் பயன்படுத்தவும்",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "திறக்க",
@@ -1013,7 +1057,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "மாற்று Aurelia Binary ஐத் தேர்வு செய்",
+        "alt-aurelia-bin": "மாற்று Legendary Binary ஐத் தேர்வு செய்",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "மொத்தம் பதிவிறக்கம் செய்யப்பட்டது",
@@ -1035,7 +1079,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1077,7 +1173,10 @@
             "systemInformation": "கணினி தகவல்",
             "legacy": "மரபு",
             "categories": "வகைகள்",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "கட்டமைப்பு கோப்பைத் திறக்கவும்",
         "reset-heroic": "Reset Heroic",
@@ -1190,7 +1289,16 @@
             "steam": "",
             "epic": "காவிய விளையாட்டுகள்",
             "gog": "கோக்",
-            "gamescopeAdditionalOptions": "கூடுதல் விருப்பங்கள்"
+            "gamescopeAdditionalOptions": "கூடுதல் விருப்பங்கள்",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1198,16 +1306,57 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "நகலெடுக்கவும்"
+            "button": "நகலெடுக்கவும்",
+            "description": ""
         },
         "gamepad": {
             "button": {
-                "back": "பின்னே"
+                "back": "பின்னே",
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "guide": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "அமைப்புகள்",
@@ -1365,7 +1514,8 @@
         "noGames": "உங்கள் நூலகம் காலியாகிவிட்டது. பின்னர், உங்கள் விளையாட்டுகள் இங்கே நூலகத்தில் காண்பிக்கப்படும். <Br /> <br /> பிற மூலங்களிலிருந்து விளையாட்டுகள் அல்லது பயன்பாடுகளைப் பயன்படுத்த, அவற்றை கைமுறையாகச் சேர்க்க <br /> என்பதைக் சொடுக்கு செய்க.",
         "noResultsTitle": "தேடலுக்குரிய கேம்கள் கிடைக்கவில்லை.",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "tour": {
         "back": "பின்னே",
@@ -1390,7 +1540,19 @@
                 "intro2": "நூலகம் காலியாக இருந்தால், பக்கப்பட்டியில் கணக்குகளை நிர்வகி கணக்குகளைப் பயன்படுத்தி உங்கள் கணக்குகளுடன் உள்நுழைவதை உறுதிப்படுத்திக் கொள்ளுங்கள் அல்லது மேலே உள்ள கேம் பொத்தானைப் பயன்படுத்தி உங்கள் சொந்த விளையாட்டுகளைச் சேர்க்கவும்.",
                 "title": "வீரத்திற்கு வருக!",
                 "title2": "நூலகத்தை நிர்வகித்தல்!"
-            }
+            },
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "next": "அடுத்தது",
         "sidebar": {
@@ -1409,7 +1571,13 @@
                 "intro": "வீரத்திற்கு வருக! இந்த பக்கப்பட்டியில் பயன்பாட்டை ஆராய அனைத்து வழிசெலுத்தல் விருப்பங்களும் உள்ளன.",
                 "title": "பக்கப்பட்டி வழிசெலுத்தல்"
             },
-            "wine": "லினக்ச் அல்லது மேகோசில் சாளரங்கள் கேம்களை இயக்க ஒயின்/புரோட்டான்/சிபிடிகேவின் புதிய பதிப்பை நிர்வகிக்கவும் அல்லது பதிவிறக்கவும்."
+            "wine": "லினக்ச் அல்லது மேகோசில் சாளரங்கள் கேம்களை இயக்க ஒயின்/புரோட்டான்/சிபிடிகேவின் புதிய பதிப்பை நிர்வகிக்கவும் அல்லது பதிவிறக்கவும்.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "வீரத்திற்கு வருக!",
+            "generalTitle": "பொதுவானவை"
         },
         "skip": "தவிர்",
         "startTour": "சுற்றுப்பயணம்"
@@ -1498,7 +1666,8 @@
             "platform": "Platform",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "விவரங்கள்",
         "sort": {
@@ -1579,7 +1748,8 @@
             "sort": "",
             "navigate": "",
             "quit": "வெளியேறு",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "",
         "card": {
@@ -1619,7 +1789,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "அடுத்தது",
     "common": {
@@ -1764,7 +1941,11 @@
     },
     "import-export": {
         "action": {
-            "download": "பதிவிறக்குகிறது"
+            "download": "பதிவிறக்குகிறது",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "பின்னே",
         "close": "மூடு",
@@ -1775,30 +1956,146 @@
         "stage": {
             "credentials": "உள்நுழைவை சேமிக்கவும்",
             "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
-            "perGameSettings": "விளையாட்டு அமைப்புகள்"
+            "perGameSettings": "விளையாட்டு அமைப்புகள்",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "உலகளாவிய விருப்பத்தேர்வுகள்"
+            "title": "உலகளாவிய விருப்பத்தேர்வுகள்",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
-            "selectAll": "அனைத்தையும் தெரிவுசெய்"
+            "selectAll": "அனைத்தையும் தெரிவுசெய்",
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "உள்நுழைவை சேமிக்கவும்"
+            "title": "உள்நுழைவை சேமிக்கவும்",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "ஓயினின் முன்னொட்டு",
             "wine-downloadable": "Download",
-            "wine-unavailable": "டி.எல்.சி கிடைக்கவில்லை"
+            "wine-unavailable": "டி.எல்.சி கிடைக்கவில்லை",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "உள்நுழைவை சேமிக்கவும்",
             "done": "முடிந்தது",
             "global-settings": "உலகளாவிய விருப்பத்தேர்வுகள்",
-            "per-game": "விளையாட்டு அமைப்புகள்"
+            "per-game": "விளையாட்டு அமைப்புகள்",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "மதிப்பு",
         "version": "வீர பதிப்பு",
-        "wine-versions": "வைன் பதிப்பு"
+        "wine-versions": "வைன் பதிப்பு",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

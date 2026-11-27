@@ -106,8 +106,14 @@
         "back": "பின்னே",
         "next": "அடுத்தது",
         "skip-installer": {
-            "title": "தவிர்"
-        }
+            "title": "தவிர்",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "ஆதரவற்ற",
     "disabled": "முடக்கப்பட்டது",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "பிழை: இந்தப் பாதைக்கு சாண்ட்பாக்ஸ் அணுகல் வழங்கப்படவில்லை, தரவு இழப்பு ஏற்படும்.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -298,7 +305,12 @@
             "useragent": "தனிப்பயன் பயனர் முகவர்",
             "fullscreen": "முழுத்திரையை இயக்கவும் (வெளியேற F11)",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "ஒரு படத்தின் முகவரி ஐ ஒட்டவும் அல்லது உங்கள் கணினியிலிருந்து ஒன்றைத் தேர்ந்தெடுக்கவும்",
@@ -311,12 +323,26 @@
             "title": "முக்கியமானது! நீங்கள் காவிய/கோக்/அமேசானிலிருந்து ஒரு விளையாட்டைச் சேர்க்கிறீர்களா? இங்கே சொடுக்கு செய்க!"
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "பொருந்தக்கூடிய தன்மையை சரிபார்",
             "finish": "முடிக்கவும்",
-            "install": "நிறுவலை நிறுத்து"
+            "install": "நிறுவலை நிறுத்து",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
