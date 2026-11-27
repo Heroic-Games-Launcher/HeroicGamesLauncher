@@ -11,7 +11,7 @@
             "message": "Ez eltarthat egy ideig, biztos vagy benne?",
             "path": "Válaszd ki az áthelyezés célját",
             "title": "Játéktelepítés áthelyezése",
-            "steamMessage": ""
+            "steamMessage": "Megnyílik a Steam tárhelykezelője, ahol áthelyezheted a játékot egy másik meghajtóra. A Heroic a művelet befejezése után újratölt."
         },
         "no": "NEM",
         "repair": {
@@ -86,7 +86,7 @@
         "remove_from_favourites": "Eltávolítás a kedvencek közül",
         "remove_from_recent": "Eltávolítás a legutóbbiak közül",
         "run-exe-first": "Először a telepítő futtatása",
-        "running-setup": "Telepítés futtatása",
+        "running-setup": "Telepítő futtatása…",
         "sideload": {
             "edit": "Alkalmazás/játék szerkesztése"
         },
@@ -102,12 +102,18 @@
         "favourite": "Hozzáadás a kedvencekhez",
         "unfavourite": "Eltávolítás a kedvencek közül",
         "backToLibrary": "Vissza a könyvtárhoz",
-        "steamStore": "",
+        "steamStore": "Steam-oldal megnyitása",
         "back": "Vissza",
         "next": "Következő",
         "skip-installer": {
-            "title": "Kihagyás"
-        }
+            "title": "Kihagyás",
+            "subtitle": "Már rendelkezem a játék futtatható fájljával, amellyel elindíthatom a játékot"
+        },
+        "run-installer": {
+            "subtitle": "A játékhoz tartozik egy telepítő, amelyet futtatnom kell a játék indítása előtt",
+            "title": "Telepítő futtatása"
+        },
+        "skip-waiting": "Várakozás kihagyása"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -117,12 +123,12 @@
     "enabled": "Engedélyezve",
     "game": {
         "downloadSize": "Letöltési méret",
-        "firstPlayed": "Először játsztva",
+        "firstPlayed": "Először játszva",
         "getting-download-size": "Letöltendő adatmennyiség lekérése",
         "getting-install-size": "Telepítendő adatmennyiség lekérése",
         "installSize": "Telepítési méret",
         "language": "Nyelv",
-        "lastPlayed": "Legutóbb játszva",
+        "lastPlayed": "Utoljára játszva",
         "neverPlayed": "Soha",
         "platform": "Telepítendő platformverzió kiválasztása",
         "requirements": "Rendszerkövetelmények",
@@ -177,7 +183,7 @@
         "game-scores": "Játékpontszámok",
         "installedInfo": "Telepített információk",
         "protondb-compatibility-info": "Proton kompatibilitási szint",
-        "steamdeck-compatibility-info": "SteamDeck kompatibilitás",
+        "steamdeck-compatibility-info": "Steam Deck-kompatibilitás",
         "third-party-app": "Külső kezelő",
         "genres": "Műfajok",
         "steamdeck": {
@@ -189,9 +195,9 @@
         "developer": "Fejlesztő",
         "dlcs": "DLC-k",
         "dlc": {
-            "enabled": "",
-            "notBought": "",
-            "disabled": ""
+            "enabled": "Engedélyezve – kattints a letiltáshoz",
+            "notBought": "Nincs megvásárolva",
+            "disabled": "Letiltva – kattints az engedélyezéshez"
         }
     },
     "install": {
@@ -213,9 +219,10 @@
             "disabled_installation": "A játék olyan csalás elleni szoftvert használ, amely nem kompatibilis az operációs rendszereddel, vagy a támogatást a játék fejlesztői nem engedélyezték. Ez azt jelenti, hogy a többjátékos funkciók nem fognak működni, és ez ellen semmit sem tehetsz (ahogy a Heroic csapata sem).<br /><br />A játék telepítéséhez, és hogy mégis megpróbáld, kattints a Beállítások, Speciális menüpontra, és kapcsold be a hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezését.<br /><br />Vedd figyelembe, hogy erre nincs megoldás, és azt kockáztatod, hogy kitiltsanak a játékból."
         },
         "flatpak-path-not-writtable": "Hiba: nem lett hozzáférés adva a homokozóhoz ennél az elérési útnál, adatvesztés fog történni.",
-        "free": "",
-        "steam-no-libraries": "",
-        "steam-path": ""
+        "free": "ingyenes",
+        "steam-no-libraries": "Nem találhatók Steam-könyvtárak – először adj hozzá egy meghajtót a Steamben.",
+        "steam-path": "Telepítési útvonal (Steam-könyvtár)",
+        "linux-arm-native-warning": "A natív Linux-játékok x86_64 architektúrára készülnek, ezért ARM rendszeren egy FEX-hez hasonló emulátorra van szükség a futtatásukhoz. A windowsos verzió telepítése ajánlott."
     },
     "label": {
         "game": {
@@ -262,7 +269,7 @@
             "specificVersion-pt1": "Ez letölti a Steam egy olyan verzióját az"
         },
         "releaseDate": "Kiadás dátuma",
-        "steam-family-share": ""
+        "steam-family-share": "Steam családi megosztás"
     },
     "launch": {
         "options": "Indítási kapcsolók…",
@@ -298,7 +305,12 @@
             "fullscreen": "Indítás teljes képernyőben (F11 a kilépéshez)",
             "useragent": "Egyéni felhasználói ügynök",
             "cover-hint": "Borítógrafika/Kiemelt kép (kattints a képre a SteamGridDB-n való kereséshez)",
-            "image-hint": "Négyzetes grafika (kattints a képre a SteamGridDB-n való kereséshez)"
+            "image-hint": "Négyzetes grafika (kattints a képre a SteamGridDB-n való kereséshez)",
+            "proton-shortcuts": "Felismert programok",
+            "no-proton-shortcuts": {
+                "title": "Nem találhatók parancsikonok",
+                "subtitle": "A Heroic nem talált telepített programot. Válaszd ki helyette manuálisan a futtatható fájlt."
+            }
         },
         "placeholder": {
             "image": "Ide illeszd be a kép webcímét, vagy válassz egyet a számítógépedről",
@@ -307,17 +319,30 @@
             "useragent": "Írj ide egy egyéni felhasználói ügynököt, melyet ehhez a böngészős alkalmazáshoz/játékhoz használna"
         },
         "import-hint": {
-            "title": "Fontos! Épp egy játékot adsz hozzá az Epicről/GOG-ról/Amazonról? Kattints ide!",
+            "title": "Fontos! Épp egy játékot adsz hozzá az Epicről/GOG-ról/Amazonról?",
             "content": "NE használd erre ezt a funkciót.<br />Helyette <3>jelentkezz be</3> az áruházba, keresd meg a játékot a könyvtárodban, nyisd meg a telepítési párbeszédablakot, és kattints a „Játék importálása” gombra."
         },
         "images": {
-            "summary": "Képek"
+            "summary": "Képek",
+            "preview": "Előnézet",
+            "heading": "Játékborító kiválasztása",
+            "subheading": "Válassz négyzetes borítóképet és kiemelt képet, vagy keress a SteamGridDB-n"
         },
         "step": {
-            "compat": "Kompatibilitás ellenőrzése",
+            "compat": "Kompatibilitás",
             "finish": "Befejezés",
             "images": "Képek",
-            "install": "Telepítés megállítása"
+            "install": "Telepítés",
+            "install-desc": "Telepítő futtatása",
+            "finish-desc": "Futtatható fájl és beállítások",
+            "meta": "Metaadatok",
+            "meta-desc": "Név és platform",
+            "compat-desc": "Wine / Proton beállítása",
+            "images-desc": "Borítóképek és kiemelt képek"
+        },
+        "install": {
+            "installing": "{{title}} telepítése…",
+            "waiting-log": "Várakozás a telepítő kimenetére…"
         }
     },
     "specs": {
@@ -360,8 +385,8 @@
         "addShortcut": "Parancsikon hozzáadása",
         "addToSteam": "Hozzáadás a Steamhez",
         "change": "Telepítési útvonal megváltoztatása",
-        "disableEosOverlay": "EOS átfedés letiltása",
-        "enableEosOverlay": "EOS átfedés engedélyezése",
+        "disableEosOverlay": "EOS-átfedés letiltása",
+        "enableEosOverlay": "EOS-átfedés engedélyezése",
         "move": "Játék áthelyezése",
         "protondb": "Kompatibilitás ellenőrzése",
         "removeFromSteam": "Eltávolítás a Steamből",
@@ -391,7 +416,12 @@
         },
         "dlcsCollapsible": "DLC",
         "nodlcs": "Nem érhető el DLC",
-        "versionCollapsable": "Játékverzió"
+        "versionCollapsable": "Játékverzió",
+        "steam": {
+            "noInfo": "Az Aurelia nem tudta lekérni a játékhoz elérhető nyelveket. Ellenőrizd, hogy be vagy-e jelentkezve a Steambe.",
+            "noLanguages": "A Steam-játékok nyelvének módosításához az Aurelia újabb verziójára van szükség.",
+            "oneLanguage": "Ez a játék csak egy nyelven érhető el."
+        }
     },
     "third-party-managed": {
         "header": "Ezt a játékot egy külső alkalmazás kezeli",
@@ -438,12 +468,12 @@
             "dlc": "DLC",
             "installInfo": "Letöltési méret",
             "launchOptions": "Indítási kapcsolók",
-            "storeInfo": "Rendszerinformációk"
+            "storeInfo": "Áruház adatai"
         },
         "loggedOut": {
-            "failed": "",
-            "message": "",
-            "title": ""
+            "failed": "Nem sikerült lekérni: {{data}}.",
+            "message": "Előfordulhat, hogy az online funkciók nem működnek.",
+            "title": "Nincs bejelentkezve Steam-fiók a Heroicban"
         }
     }
 }

@@ -11,7 +11,7 @@
             "message": "Isto pode levar bastante tempo, tem a certeza?",
             "path": "Escolher para onde quer mover",
             "title": "Mover a Instalação do Jogo",
-            "steamMessage": ""
+            "steamMessage": "O 'Gestor de Armazenamento' do Steam será aberto para mover este jogo para outra unidade. O Heroic é atualizado quando terminar."
         },
         "no": "NÃO",
         "repair": {
@@ -86,11 +86,11 @@
         "remove_from_favourites": "Remover dos Favoritos",
         "remove_from_recent": "Remover dos Recentes",
         "run-exe-first": "Execute Primeiro o Instalador",
-        "running-setup": "A Executar Configuração",
+        "running-setup": "A executar o instalador...",
         "sideload": {
             "edit": "Editar Aplicação/Jogo"
         },
-        "unhide_game": "Exibir Jogo",
+        "unhide_game": "Desocultar Jogo",
         "uninstall": "Desinstalar",
         "update": "Atualizar",
         "details": "Detalhes",
@@ -101,15 +101,21 @@
         "edit-game": "Editar Jogo",
         "favourite": "Adicionar aos Favoritos",
         "unfavourite": "Remover dos Favoritos",
-        "backToLibrary": "",
-        "steamStore": "",
+        "backToLibrary": "Voltar à Biblioteca",
+        "steamStore": "Abrir Página do Steam",
         "back": "Atrás",
         "next": "Próximo",
         "skip-installer": {
-            "title": "Pular"
-        }
+            "title": "Ignorar",
+            "subtitle": "Eu já tenho um executável do jogo que eu posso executar para jogar o jogo"
+        },
+        "run-installer": {
+            "subtitle": "Este jogo vem com um instalador que eu preciso de executar antes de o poder jogar",
+            "title": "Executar instalador"
+        },
+        "skip-waiting": "Ignorar espera"
     },
-    "cloud_save_unsupported": "Não é suportado",
+    "cloud_save_unsupported": "Não suportado",
     "disabled": "Desativado",
     "dlc": {
         "installDlcs": "Instalar todas as DLCs"
@@ -117,22 +123,22 @@
     "enabled": "Ativado",
     "game": {
         "downloadSize": "Tamanho da Transferência",
-        "firstPlayed": "Jogado pela Primeira Vez",
-        "getting-download-size": "A receber o tamanho da transferência",
-        "getting-install-size": "A receber o tamanho da instalação",
+        "firstPlayed": "Jogado pela primeira vez",
+        "getting-download-size": "A obter o tamanho da transferência",
+        "getting-install-size": "A obter o tamanho da instalação",
         "installSize": "Tamanho da Instalação",
         "language": "Idioma",
-        "lastPlayed": "Jogado pela Última Vez",
+        "lastPlayed": "Jogado pela última vez",
         "neverPlayed": "Nunca",
         "platform": "Selecione a Versão da Plataforma para Instalar",
-        "requirements": "Requisitos do Sistema",
+        "requirements": "Requisitos do sistema",
         "totalPlayed": "Tempo Jogado",
         "dlcs": "DLCs",
         "branch": {
             "disabled": "Desativado",
-            "password": "Defina uma senha para o canal privado",
+            "password": "Defina uma palavra-passe para o canal privado",
             "select": "Selecionar o canal beta",
-            "setPrivateBranchPassword": "Defina uma senha para o canal privado"
+            "setPrivateBranchPassword": "Defina uma palavra-passe para o canal privado"
         },
         "builds": {
             "version": "Versão",
@@ -140,19 +146,19 @@
             "toggle": "Deixar o jogo numa versão especifica"
         },
         "changelogFor": "Registo de Alterações do {{gameTitle}}",
-        "modify": "Modificar a Instalação",
+        "modify": "Modificar instalação",
         "extra_info": "Informação extra",
         "install_info": "Informação da instalação",
         "achievements": "Conquistas",
         "details": "Detalhes do Jogo",
-        "tabs": "",
-        "overview": "",
-        "hoursPlayedShort": "",
+        "tabs": "Informação do Jogo",
+        "overview": "Sinopse",
+        "hoursPlayedShort": "{{hours}} hora(s)",
         "about": "Sobre"
     },
     "gamecard": {
         "moving": "A mover",
-        "repairing": "A Reparar"
+        "repairing": "A reparar"
     },
     "generic": {
         "error": "Erro desconhecido",
@@ -160,7 +166,7 @@
     },
     "hours": "Horas",
     "how-long-to-beat": {
-        "completionist": "Colecionista",
+        "completionist": "Complecionista",
         "main-plus-extras": "Principal + Extras",
         "main-story": "História Principal"
     },
@@ -170,28 +176,28 @@
         "installedPlatform": "Plataforma Instalada",
         "path": "Caminho da Instalação",
         "size": "Tamanho",
-        "syncsaves": "Sincronização de Progressos Guardados na Nuvem",
+        "syncsaves": "Sincronizar Jogos Guardados",
         "version": "Versão",
         "apple-gaming-wiki": "Avaliação da AppleGamingWiki",
         "clickToOpen": "Clique para abrir",
         "game-scores": "Pontuações do Jogo",
         "installedInfo": "Informação Instalada",
         "protondb-compatibility-info": "Níveis de Compatibilidade com o Proton",
-        "steamdeck-compatibility-info": "Compatibilidade com a SteamDeck",
+        "steamdeck-compatibility-info": "Compatibilidade com SteamDeck",
         "third-party-app": "Gestor de Terceiros",
         "genres": "Géneros",
         "steamdeck": {
-            "unsupported": "Não é suportado",
-            "verified": "",
-            "unknown": "",
-            "playable": ""
+            "unsupported": "Não suportado",
+            "verified": "Verificado",
+            "unknown": "Desconhecido",
+            "playable": "Jogável"
         },
-        "developer": "",
+        "developer": "Programador",
         "dlcs": "DLCs",
         "dlc": {
-            "enabled": "",
-            "notBought": "",
-            "disabled": ""
+            "enabled": "Ativado — clique para desativar",
+            "notBought": "Não tenho",
+            "disabled": "Desativado — clique para ativar"
         }
     },
     "install": {
@@ -207,15 +213,16 @@
             "message": "O suporte anti-batota está danificado ou foi recusado. O jogo não irá funcionar. Deseja instalá-lo mesmo assim?",
             "install": "Sim (Eu entendo que não irá funcionar)",
             "title": "Sistema de Anti-Batota Danificado/Recusado",
-            "install_anyway": "Sim (eu entendo que as funcionalidades de multi-jogador não vão funcionar)",
-            "multiplayer_message": "O suporte anti-batota está danificado ou recusado. O jogo poderá abrir mas as funcionalidades de multi-jogador não vão funcionar. Pretende fazer a instalação à mesma?",
+            "install_anyway": "Sim (eu entendo que as funcionalidades de multijogador não vão funcionar)",
+            "multiplayer_message": "O suporte anti-batota está danificado ou recusado. O jogo poderá abrir mas as funcionalidades de multijogador não vão funcionar. Mesmo assim, pretende instalar?",
             "ok": "Ok",
-            "disabled_installation": "Este jogo usa um sistema de anti-batota que não é compatível com o seu sistema operativo ou não está ativado para o suportar, pelos criadores do jogo. Isso significa que as funcionalidades de multi-jogador não vão funcionar e não há nada que você (ou a equipa do Heroic) possa fazer em relação a isto. <br /><br />Mesmo assim, se quiser instalar o jogo e verificar se funciona, vá a 'Definições', depois 'Avançado' e selecione a opção para permitir a instalação de jogos com anti-batota danificada ou recusada. <br /><br />Lembre-se que não existe solução para isto, pode correr o risco de ser banido no jogo."
+            "disabled_installation": "Este jogo utiliza programas anti-batota que não são compatíveis com o seu sistema operativo ou cujo suporte não foi ativado pelos programadores do jogo. Isto significa que as funcionalidades multijogador não vão funcionar, e não há nada que o utilizador (ou a equipa do Heroic) possa fazer quanto a isso.<br /><br />Para instalar este jogo e tentar mesmo assim, aceda a 'Definições -> Avançadas', e selecione a opção que permite a instalação de jogos com anti-batota danificado ou recusado.<br /><br />Tenha em atenção que não existe solução para isto e que corre o risco de ser banido do jogo."
         },
-        "flatpak-path-not-writtable": "Erro: O acesso ao contentor não foi fornecido a este caminho, irá ocorrer a perda de dados.",
-        "free": "",
-        "steam-no-libraries": "",
-        "steam-path": ""
+        "flatpak-path-not-writtable": "Erro: o acesso à ''sandbox'' não foi concedido para esta localização; ocorrerá perda de dados.",
+        "free": "grátis",
+        "steam-no-libraries": "Não foram encontradas pastas da biblioteca do Steam — adicione primeiro uma unidade no Steam.",
+        "steam-path": "Caminho de Instalação (Biblioteca do Steam)",
+        "linux-arm-native-warning": "Os jogos nativos para Linux são criados para x86_64 e precisam de um emulador como o FEX para funcionar em ARM. Recomenda-se a instalação da versão para Windows."
     },
     "label": {
         "game": {
@@ -225,8 +232,8 @@
         "playing": {
             "start": "Jogar Agora",
             "stop": "A jogar (Parar)",
-            "start_with_logs": "Jogar Agora (com registo de eventos)",
-            "start_with_logs_hint": ""
+            "start_with_logs": "Jogar com registos de eventos",
+            "start_with_logs_hint": "Inicia o jogo e regista um registo detalhado, útil quando precisa de comunicar um problema"
         },
         "saves": {
             "syncing": "Sincronizar Progressos Guardados"
@@ -262,7 +269,7 @@
             "specificVersion-pt2": "archive.org"
         },
         "releaseDate": "Data de Lançamento",
-        "steam-family-share": ""
+        "steam-family-share": "Partilha em Família do Steam"
     },
     "launch": {
         "options": "Opções de Arranque...",
@@ -298,7 +305,12 @@
             "useragent": "Agente de Utilizador Personalizado",
             "fullscreen": "Iniciar em Ecrã Inteiro (F11 para sair)",
             "cover-hint": "Arte de Capa/Herói (clique na imagem para pesquisar em SteamGridDB)",
-            "image-hint": "Arte quadrada (clique na imagem para pesquisar em SteamGridDB)"
+            "image-hint": "Arte quadrada (clique na imagem para pesquisar em SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Cole um URL de uma Imagem aqui ou selecione a partir do seu computador",
@@ -311,13 +323,26 @@
             "title": "Importante! Está a adicionar um jogo da Epic/GOG/Amazon? Clique aqui!"
         },
         "images": {
-            "summary": "Imagens"
+            "summary": "Imagens",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Verificar Compatibilidade",
             "finish": "Terminar",
             "images": "Imagens",
-            "install": "Cancelar a Instalação"
+            "install": "Cancelar a Instalação",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
@@ -376,22 +401,25 @@
         "options": "Opções"
     },
     "help": {
-        "cloud_save_unsupported": "Este jogo não suporta a cópia de progressos guardados na nuvem. Esta informação é fornecida pelos programadores do jogo. Alguns jogos implementam o seu próprio sistema de cópia de progressos guardados na nuvem",
+        "cloud_save_unsupported": "Este jogo não suporta o guardar na nuvem. Esta informação é fornecida pelos programadores do jogo. Alguns jogos implementam o seu próprio sistema de guardar na nuvem.",
         "title": {
             "gamePage": "Página do Jogo"
         },
         "content": {
-            "gamePage": "Mostrar todos os detalhes e ações. Utilize o menu com os 3 pontos para obter mais opções."
+            "gamePage": "Mostrar todos os detalhes e ações do jogo. Utilize o menu com os 3 pontos para obter mais opções."
         }
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
         "nodlcs": "Não há DLC disponível",
         "redMod": {
-            "enable": "Ativar modificações (mods)",
+            "enable": "Ativar Mods",
             "collapsible": "Integração REDmod"
         },
-        "versionCollapsable": "Versão do Jogo"
+        "versionCollapsable": "Versão do Jogo",
+        "steam": {
+            "oneLanguage": "Este jogo só está disponível num idioma."
+        }
     },
     "third-party-managed": {
         "header": "Este jogo é gerido por uma aplicação de terceiros",
@@ -412,12 +440,12 @@
     "edit-game": {
         "advanced": "Avançado",
         "placeholder": {
-            "image": "Colar link para imagem"
+            "image": "Colar um URL da imagem"
         },
         "reset": "Restaurar predefinições",
         "sgdb": {
             "no-key-link": "Definições → Avançadas",
-            "no-key-prefix": "Para procurar capas em SteamGridDB, adicione uma chave API em"
+            "no-key-prefix": "Para procurar capas em SteamGridDB, adicione uma chave da API em"
         },
         "title": "Editar Jogo",
         "cover": "Arte da Capa",
@@ -429,7 +457,7 @@
     },
     "itchio": {
         "import": {
-            "warning": ""
+            "warning": "As pastas instaladas pela aplicação itch.io são totalmente importadas, incluindo as atualizações. Para qualquer outra pasta, o Heroic não consegue verificar se existem atualizações e a desinstalação não eliminará os ficheiros do jogo."
         }
     },
     "steam": {

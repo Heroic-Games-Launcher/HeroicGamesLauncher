@@ -106,8 +106,14 @@
         "back": "Back",
         "next": "Tiếp",
         "skip-installer": {
-            "title": "Bỏ Qua"
-        }
+            "title": "Bỏ Qua",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Không Hỗ Trợ",
     "disabled": "Tắt",
@@ -213,7 +219,8 @@
         "flatpak-path-not-writtable": "Lỗi: Quyền truy cập sandbox không được cấp cho đường dẫn này, mất dữ liệu sẽ xảy ra.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -276,7 +283,12 @@
             "fullscreen": "Khởi Chạy Toàn Màn Hình (F11 để thoát)",
             "useragent": "Tác Nhân Người Dùng Tùy Chỉnh",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Dán URL của Hình ảnh hoặc chọn một hình ảnh từ máy tính của bạn",
@@ -289,12 +301,26 @@
             "title": "Quan trọng! Bạn có đang thêm trò chơi từ Epic/GOG/Amazon không? Bấm vào đây!"
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Kiểm tra độ tương thích",
             "finish": "Hoàn thành",
-            "install": "Dừng quá trình cài đặt"
+            "install": "Dừng quá trình cài đặt",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

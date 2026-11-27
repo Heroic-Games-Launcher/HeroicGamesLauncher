@@ -102,7 +102,18 @@
         "favourite": "أضف للمفضلة",
         "unfavourite": "احذف من المفضلة",
         "backToLibrary": "العودة إلى المكتبة",
-        "steamStore": ""
+        "steamStore": "",
+        "skip-installer": {
+            "title": "",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "next": "",
+        "back": "",
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "غير مدعوم",
     "disabled": "معطّل",
@@ -210,7 +221,8 @@
         "flatpak-path-not-writtable": "خطأ: ليس عند هذا المسار وصول للمعزل، وسوف تفقد بيانات.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -272,7 +284,12 @@
             "useragent": "وكيل مستخدمٍ مُخصَّص",
             "fullscreen": "املأ الشاشة (F11 يصغِّرها)",
             "cover-hint": "صورة الغلاف الرئيسية (اضغط على الصورة للبحث على \"SteamGridDB\")",
-            "image-hint": "صورة مربعة (اضغط على الصورة للبحث على \"SteamGridDB\")"
+            "image-hint": "صورة مربعة (اضغط على الصورة للبحث على \"SteamGridDB\")",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "الصق عنوان URL للصورة هنا أو اختار واحدة من جهازك",
@@ -285,13 +302,26 @@
             "title": "مهم! هل أنت تضيف لعبة من ايبك/GOG/أمازون؟ أنقر هنا!"
         },
         "images": {
-            "summary": "الصور"
+            "summary": "الصور",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "تحقق من التوافق",
             "finish": "أنهِ",
             "images": "الصور",
-            "install": "إيقاف التثبيت"
+            "install": "إيقاف التثبيت",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

@@ -106,8 +106,14 @@
         "back": "Atgal",
         "next": "Sekantis",
         "skip-installer": {
-            "title": "Praleisti"
-        }
+            "title": "Praleisti",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Nepalaikoma/-s",
     "game": {
@@ -172,7 +178,8 @@
         "flatpak-path-not-writtable": "Klaida: „Smėlio dėžės“ prieiga nebuvo suteikta šiam keliui, duomenų praradimas įvyks.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "launching": "Paleidžiama",
@@ -261,7 +268,12 @@
             "title": "Žaidimo/Programos antraštė/pavadinimas",
             "useragent": "Pasirinktinis naudotojo/vartotojo agentas",
             "cover-hint": "Viršelio/„Hero“ menas (spustelėkite ant atvaizdo, kad jį ieškotumėte „SteamGridDB“)",
-            "image-hint": "Kvadratinis menas (spustelėkite ant atvaizdo, kad jį ieškotumėte „SteamGridDB“)"
+            "image-hint": "Kvadratinis menas (spustelėkite ant atvaizdo, kad jį ieškotumėte „SteamGridDB“)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "field": {
             "title": "Antraštė/Pavadinimas"
@@ -277,13 +289,26 @@
             "title": "Svarbu! Ar Jūs pridedate žaidimą iš „Epic“/„GOG“/„Amazon“? Spauskite/Spustelėkite čia!"
         },
         "images": {
-            "summary": "Atvaizdai"
+            "summary": "Atvaizdai",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Patikrinti palaikymą",
             "finish": "Užbaigti",
             "images": "Atvaizdai",
-            "install": "Stabdyti įdiegimą"
+            "install": "Stabdyti įdiegimą",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

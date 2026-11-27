@@ -105,8 +105,14 @@
         "back": "უკან",
         "next": "შემდეგი",
         "skip-installer": {
-            "title": "გამოტოვება"
-        }
+            "title": "გამოტოვება",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "მხარდაუწერელი",
     "disabled": "გათიშულია",
@@ -203,7 +209,8 @@
         "path-not-writtable": "",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "launching": "ეშვება",
@@ -260,7 +267,12 @@
             "fullscreen": "",
             "image": "",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "url": "",
@@ -273,11 +285,26 @@
             "title": ""
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "finish": "დასრულება",
-            "install": "დაყენების გაჩერება"
+            "install": "დაყენების გაჩერება",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": "",
+            "compat": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

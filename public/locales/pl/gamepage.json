@@ -221,7 +221,8 @@
         "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych.",
         "free": "darmowe",
         "steam-no-libraries": "Nie znaleziono folderów biblioteki Steama — najpierw dodaj dysk na Steamie.",
-        "steam-path": "Ścieżka instalacji (biblioteka Steam)"
+        "steam-path": "Ścieżka instalacji (biblioteka Steam)",
+        "linux-arm-native-warning": "Gry w wersji natywnej na Linuksa są budowane dla architektury x86_64. Aby je uruchomić na układach ARM, konieczny jest emulator (np. FEX). Zalecamy instalację wersji pod Windowsa."
     },
     "label": {
         "game": {
@@ -417,7 +418,12 @@
             "collapsible": "Integracja REDmod",
             "enable": "Włącz mody"
         },
-        "versionCollapsable": "Wersja gry"
+        "versionCollapsable": "Wersja gry",
+        "steam": {
+            "noInfo": "Aurelia nie mogła przedstawić listy języków dla tej gry. Sprawdź, czy jesteś zalogowany do Steam.",
+            "noLanguages": "Zmiana języka gry na Steam wymaga nowszej wersji Aurelia.",
+            "oneLanguage": "Ta gra jest dostępna tylko w jednym języku."
+        }
     },
     "third-party-managed": {
         "header": "Ta gra jest zarządzana poprzez zewnętrzną aplikację",

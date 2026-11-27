@@ -105,8 +105,14 @@
         "back": "戻る",
         "next": "進む",
         "skip-installer": {
-            "title": "スキップ"
-        }
+            "title": "スキップ",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -214,7 +220,8 @@
         "flatpak-path-not-writtable": "エラー：このパスにサンドボックスへのアクセスが許可されていないため、データの損失が発生します。",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -277,7 +284,12 @@
             "useragent": "カスタムユーザーエージェント",
             "fullscreen": "フルスクリーンで起動（F11で終了）",
             "cover-hint": "カバー／ヒーローアート (画像をクリックすると SteamGridDB で検索できます)",
-            "image-hint": "正方形アート (画像をクリックすると SteamGridDB で検索できます)"
+            "image-hint": "正方形アート (画像をクリックすると SteamGridDB で検索できます)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "画像のURLを貼り付けるか、お使いのコンピュータから画像を選択してください",
@@ -290,13 +302,26 @@
             "title": "重要! Epic/GOG/Amazonからゲームを追加しますか? ここをクリックしてください!"
         },
         "images": {
-            "summary": "画像"
+            "summary": "画像",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "互換性を確認",
             "finish": "終了",
             "images": "画像",
-            "install": "インストールを中止"
+            "install": "インストールを中止",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

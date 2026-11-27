@@ -86,7 +86,7 @@
         "remove_from_favourites": "Favorilerden Kaldır",
         "remove_from_recent": "Son Kullanılanlardan Kaldır",
         "run-exe-first": "Önce Kurucuyu Çalıştırın",
-        "running-setup": "Kurulum Çalıştırılıyor",
+        "running-setup": "Kurulum çalıştırılıyor...",
         "sideload": {
             "edit": "Uygulamayı/Oyunu Düzenle"
         },
@@ -106,8 +106,14 @@
         "back": "Geri",
         "next": "Sonraki",
         "skip-installer": {
-            "title": "Atla"
-        }
+            "title": "Atla",
+            "subtitle": "Oyunu oynamak için çalıştırabileceğim bir oyun dosyası zaten var"
+        },
+        "run-installer": {
+            "subtitle": "Oyun, oynamaya başlamadan önce çalıştırmam gereken bir kurulum programı ile birlikte geliyor",
+            "title": "Kurucuyu çalıştır"
+        },
+        "skip-waiting": "Beklemeyi geç"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Hata: Bu yola sandbox erişimi verilmedi, veri kaybı yaşanacak.",
         "free": "boş",
         "steam-no-libraries": "Steam kütüphane klasörü bulunamadı. Önce Steam'de bir sürücü ekleyin.",
-        "steam-path": "Kurulum Yolu (Steam kütüphanesi)"
+        "steam-path": "Kurulum Yolu (Steam kütüphanesi)",
+        "linux-arm-native-warning": "Linux için geliştirilmiş oyunlar x86_64 için tasarlanmıştır ve ARM üzerinde çalışabilmeleri için FEX gibi bir emülatöre ihtiyaç duyar. Windows sürümünün yüklenmesi tavsiye edilir."
     },
     "label": {
         "game": {
@@ -299,7 +306,12 @@
             "useragent": "Özel Kullanıcı Aracısı",
             "fullscreen": "Tam Ekran Başlat (Çıkmak için F11)",
             "cover-hint": "Kapak/Ana Görsel (SteamGridDB'de aramak için resme tıklayın)",
-            "image-hint": "Kare Görsel (SteamGridDB'de aramak için resme tıklayın)"
+            "image-hint": "Kare Görsel (SteamGridDB'de aramak için resme tıklayın)",
+            "proton-shortcuts": "Yazılım tespit edildi",
+            "no-proton-shortcuts": {
+                "title": "Kısayol bulunamadı",
+                "subtitle": "Heroic, yüklü herhangi bir yazılım tespit edemedi. Lütfen yürütülebilir dosyayı manuel olarak seçin."
+            }
         },
         "placeholder": {
             "image": "Bir resim URL'si yapıştırın ya da bilgisayarınızdan bir tane seçin",
@@ -312,13 +324,26 @@
             "content": "Bu özelliği bu amaç için KULLANMAYIN.<br />Bunun yerine, mağazaya <3>giriş yapın</3>, kütüphanenizde oyunu bulun, yükleme penceresini açın ve &quot;Oyunu İçe Aktar&quot; butonuna tıklayın"
         },
         "images": {
-            "summary": "Görseller"
+            "summary": "Görseller",
+            "preview": "Ön izleme",
+            "heading": "Oyun kapak resmi seç",
+            "subheading": "Bir kare kapak resmi ve bir kahraman afişi seçin ya da SteamGridDB’de arama yapın"
         },
         "step": {
             "compat": "Uyumluluğu Denetle",
             "finish": "Bitir",
             "images": "Görseller",
-            "install": "Kurulumu Durdur"
+            "install": "Kurulumu Durdur",
+            "install-desc": "Kurucuyu çalıştır",
+            "finish-desc": "Çalıştırılabilir dosya ve seçenekler",
+            "meta": "Üstveri",
+            "meta-desc": "İsim ve platform",
+            "compat-desc": "Wine / Proton ayarları",
+            "images-desc": "Kapak ve ana görsel"
+        },
+        "install": {
+            "installing": "{{title}} kuruluyor…",
+            "waiting-log": "Kurucu çıktısı bekleniyor…"
         }
     },
     "specs": {
@@ -393,7 +418,12 @@
             "collapsible": "REDmod Tümleşimi",
             "enable": "Modları etkinleştir"
         },
-        "versionCollapsable": "Oyun Sürümü"
+        "versionCollapsable": "Oyun Sürümü",
+        "steam": {
+            "noInfo": "Aurelia bu oyunun dillerini listeleyemedi. Steam'de oturum açtığınızdan emin olun.",
+            "noLanguages": "Bir Steam oyununun dilini değiştirmek için daha yeni bir Aurelia gerekir.",
+            "oneLanguage": "Bu oyun sadece tek bir dilde mevcut."
+        }
     },
     "third-party-managed": {
         "header": "Oyun üçüncü parti bir uygulama tarafından yönetiliyor",

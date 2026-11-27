@@ -102,7 +102,17 @@
         "unfavourite": "즐겨찾기에서 제거",
         "backToLibrary": "",
         "steamStore": "",
-        "back": "뒤로"
+        "back": "뒤로",
+        "skip-installer": {
+            "title": "",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "next": "",
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "지원되지 않음",
     "disabled": "비활성화됨",
@@ -209,7 +219,8 @@
         "flatpak-path-not-writtable": "오류: 이 경로에 대한 샌드박스 접속이 허용되지 않아 데이터 손실이 발생합니다.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -271,7 +282,12 @@
             "useragent": "커스텀 사용자 에이전트",
             "fullscreen": "전체 화면 실행 (나가려면 F11)",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "여기에 이미지 URL 붙여넣기",
@@ -284,12 +300,26 @@
             "title": ""
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "호환성 확인",
             "finish": "완료",
-            "install": "설치 중지"
+            "install": "설치 중지",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

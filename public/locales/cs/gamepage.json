@@ -221,7 +221,8 @@
         "flatpak-path-not-writtable": "Chyba: této cestě nebyl udělen přístup k sandboxu, vyskytne se ztráta dat.",
         "free": "zdarma",
         "steam-no-libraries": "Nebyly nalezeny žádné složky knihovny Steam – nejprve přidejte disk do Steamu.",
-        "steam-path": "Cesta k instalaci (knihovna Steam)"
+        "steam-path": "Cesta k instalaci (knihovna Steam)",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {

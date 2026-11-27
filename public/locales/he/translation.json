@@ -185,7 +185,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": "",
+            "cancel": "בטל"
+        }
     },
     "wine": {
         "size": "גודל",
@@ -278,7 +286,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "info": {
         "version": "גרסת Wine",
@@ -324,7 +343,8 @@
                     "title": "התווסף לSteam",
                     "corrupt": "לא היה ניתן להוסיף את {{game}} לכל משתמשי הSteam שנמצאו. הסתכלו בלוג למידע נוסף. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף.",
                     "success": "{{game}} התווסף בהצלחה לSteam. אתחול של Steam נדרש כדי שהשינויים יכנסו לתוקף.",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -510,7 +530,8 @@
             "placeholder": "בחרו את תיקיית המשחקים המדויקת",
             "warning": "נא לבדוק שוב אם הנתיב נכון (לחצו כדי לנסות שוב)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "בחרו ערכת נושא",
         "showMetalOverlay": "הצג סטטיסטיקות מעל המסך",
@@ -581,7 +602,13 @@
             "enableUpscaling": "",
             "enableForceGrabCursor": "",
             "warningFlatpak": "",
-            "missingMsg": ""
+            "missingMsg": "",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableHDR": "",
+            "enableUpscaling-description": ""
         },
         "enable-quick-sync-menu": "",
         "no-tray-icon": "",
@@ -601,7 +628,8 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "השתמש בSteam Runtime",
-            "noRuntimeOption": ""
+            "noRuntimeOption": "",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "פתוח",
@@ -682,7 +710,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "בחרו Aurelia Binary אלטרנטיבי",
+        "alt-aurelia-bin": "בחרו Nile Binary אלטרנטיבי",
         "steamLaunchTarget": {
             "downloadBuild": "הורד",
             "missingBuild": "סך הורדות",
@@ -704,7 +732,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "status": {
         "processing": "מעבד קבצים, נא לחכות",
@@ -788,7 +868,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
@@ -861,7 +945,10 @@
             "additionalOptions": "",
             "forceGrabCursor": "",
             "upscaleHeight": "",
-            "fpsLimiter": ""
+            "fpsLimiter": "",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "button": {
             "open": "פתח את ה",
@@ -878,7 +965,16 @@
             "details": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "Library": "ספריה",
     "message": {
@@ -939,7 +1035,10 @@
             "upscaleHeight": "",
             "fpsLimiterNoFocus": "",
             "stretch": "",
-            "interger": ""
+            "interger": "",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -957,7 +1056,8 @@
         "dxvkfpsvalue": "ערך שלם חיובי (למשל 30, 60,...)",
         "egs-prefix": "הPrefix שבו מותקן EGS",
         "prefered_language": "קוד דו-תווי (כגון: \"en\" או \"fr\")",
-        "alt-aurelia-bin": "משתמש בגרסה המובנית של Aurelia..."
+        "alt-aurelia-bin": "משתמש בגרסה המובנית של Nile...",
+        "umuGameId": ""
     },
     "progress": "התקדמות",
     "search": "חיפוש משחקים",
@@ -994,7 +1094,10 @@
             "gamescope": "",
             "legacy": "",
             "categories": "",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "פתח את קובץ התצורה",
         "reset-heroic": "אפס את Heroic",
@@ -1112,7 +1215,16 @@
             "steam": "",
             "amazon": "Amazon Games",
             "epic": "Epic Games",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeAdditionalOptions": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1120,11 +1232,57 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "העתק"
+            "button": "העתק",
+            "description": ""
+        },
+        "gamepad": {
+            "button": {
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "guide": "",
+                "nextPage": "",
+                "back": "חזור"
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "הגדרות",
@@ -1311,7 +1469,13 @@
             "downloads": "",
             "accounts": "",
             "stores": "",
-            "version": ""
+            "version": "",
+            "communityIntro": "",
+            "welcomeTitle": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "generalTitle": "כללי"
         },
         "library": {
             "gameCard": "",
@@ -1332,7 +1496,19 @@
             "categories": "",
             "sortInstalled": "",
             "sortOptions": "",
-            "addGame": ""
+            "addGame": "",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "next": "",
         "startTour": "",
@@ -1378,7 +1554,8 @@
         "noResults": "",
         "description": "",
         "noResultsTitle": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "zoom-store": "",
     "wineExplanation": {
@@ -1447,7 +1624,8 @@
             "platform": "פלטפורמה",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "פרטים",
         "sort": {
@@ -1528,7 +1706,8 @@
             "sort": "",
             "navigate": "",
             "quit": "יציאה",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "מפעיל",
         "card": {
@@ -1568,7 +1747,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "",
     "sidebar": {
@@ -1718,7 +1904,10 @@
     "import-export": {
         "action": {
             "browse": "דפדפן",
-            "download": "מוריד"
+            "download": "מוריד",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "חזור",
         "close": "לסגור",
@@ -1727,21 +1916,148 @@
         "platform": "פלטפורמה",
         "stage": {
             "globalSettings": "הגדרות גלובליות",
-            "perGameSettings": "הגדרות משחק"
+            "perGameSettings": "הגדרות משחק",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "credentials": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "הגדרות גלובליות"
+            "title": "הגדרות גלובליות",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step6": {
             "prefixPath": "prefix של wine",
-            "wine-downloadable": "הורד"
+            "wine-downloadable": "הורד",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wine-unavailable": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "global-settings": "הגדרות גלובליות",
-            "per-game": "הגדרות משחק"
+            "per-game": "הגדרות משחק",
+            "library-system": "",
+            "credentials": "",
+            "done": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "ערך",
         "version": "גרסת Heroic",
-        "wine-versions": "גרסת Wine"
+        "wine-versions": "גרסת Wine",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "step4": {
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAll": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "step5": {
+            "include": "",
+            "title": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
+        },
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "next": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

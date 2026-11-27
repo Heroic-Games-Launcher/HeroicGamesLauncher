@@ -103,7 +103,17 @@
         "favourite": "",
         "unfavourite": "",
         "steamStore": "",
-        "back": "Negru"
+        "back": "Negru",
+        "skip-installer": {
+            "title": "",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "next": "",
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Neacceptat",
     "disabled": "Dezactivat",
@@ -209,7 +219,8 @@
         "flatpak-path-not-writtable": "",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -271,7 +282,12 @@
             "useragent": "",
             "fullscreen": "",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Lipește adresa URL a unei imagini sau selectează una de pe computer",
@@ -284,12 +300,26 @@
             "title": ""
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Verificați compatibilitatea",
             "finish": "Finalizare",
-            "install": "Opriți instalarea"
+            "install": "Opriți instalarea",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

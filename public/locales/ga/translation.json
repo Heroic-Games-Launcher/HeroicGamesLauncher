@@ -229,7 +229,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "Cealaigh"
+            "cancel": "Cealaigh",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "help": {
@@ -284,7 +289,10 @@
             "gameWidth": "An taifeach leithead a úsáideann an cluiche. Glacann Gamescope le cóimheas gné 16:9.",
             "upscaleHeight": "An taifeach airde a úsáideann Gamescope. Glactar leis go bhfuil cóimheas gné 16:9 ann.",
             "upscaleMethod": "An modh uasghrádaithe ba chóir do Gamescope a úsáid.",
-            "upscaleWidth": "An taifeach leithead a úsáideann Gamescope. Glactar leis go bhfuil cóimheas gné 16:9 ann."
+            "upscaleWidth": "An taifeach leithead a úsáideann Gamescope. Glactar leis go bhfuil cóimheas gné 16:9 ann.",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "general": "Sioncrónaigh le EGL má tá suiteáil oibre den Epic Games Launcher agat in áit eile agus más mian leat do chluichí a allmhairiú chun nach mbeidh ort iad a íoslódáil arís.",
         "mangohud": "Is forleagan é MangoHUD a thaispeánann agus a dhéanann monatóireacht ar FPS, teochtaí, ualach LAP/GPU agus acmhainní córais eile.",
@@ -319,7 +327,16 @@
             "details": "Bain úsáid as cárta grafaicí tiomnaithe chun cluiche a rindreáil ar chórais il-GPU. Ní gá ach ar ríomhairí glúine nó deisce cearrbhachais a úsáideann GPU gan cheann le haghaidh rindreála (NVIDIA Optimus, AMD CrossFire)",
             "link": "Seiceáil tuilleadh sonraí inár vicí"
         },
-        "hide-window-on-protocol-launch": "Coinníonn sé an fhuinneog Heroic i bhfolach nuair a sheoltar cluiche ó aicearra seachtrach, cosúil leis an ngné 'Cuir le Steam'."
+        "hide-window-on-protocol-launch": "Coinníonn sé an fhuinneog Heroic i bhfolach nuair a sheoltar cluiche ó aicearra seachtrach, cosúil leis an ngné 'Cuir le Steam'.",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "placeholder": {
         "egs-prefix": "Roghnaigh Réimír ina bhfuil EGS suiteáilte",
@@ -329,7 +346,8 @@
         "custom_themes_path": "Roghnaigh an cosán chun comhaid CSS saincheaptha a lorg",
         "dxvkfpsvalue": "Luach slánuimhir dhearfach (m.sh. 30, 60, ...)",
         "prefered_language": "Cód 2 charachtar nó 4 charachtar (i.e.: \"fr\" nó \"pt-BR\")",
-        "alt-aurelia-bin": "Ag baint úsáide as dénártha Aurelia ionsuite..."
+        "alt-aurelia-bin": "Ag baint úsáide as dénártha Níle ionsuite...",
+        "umuGameId": ""
     },
     "setting": {
         "eosOverlay": {
@@ -430,7 +448,12 @@
             "enableUpscaling": "Cumasaíonn sé Uasghrádú",
             "missingMsg": "Ní raibh muid in ann Gamescope a aimsiú ar an PATH. Suiteáil é nó cuir leis an PATH é.",
             "warningFlatpak": "Ní bhfuaireamar leagan comhoiriúnach de Gamescope. Suiteáil pacáiste flatpak Gamescope le ham-rith {{runtimeVersion}} agus atosú Heroic.",
-            "enableHDR": "Cumasaigh HDR"
+            "enableHDR": "Cumasaigh HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "hdr": "Cumasaigh HDR",
         "hideChangelogsOnStartup": "Ná taispeáin logaí athraithe ar an Tosaithe",
@@ -514,7 +537,8 @@
             "placeholder": "Roghnaigh an fillteán cluichí sábhála cruinn",
             "warning": "Seiceáil faoi dhó le do thoil an bhfuil an cosán ceart (cliceáil chun iarracht eile a dhéanamh)",
             "retry": "Braith arís",
-            "title": "Fillteán sábhála"
+            "title": "Fillteán sábhála",
+            "detect-failed": ""
         },
         "select_theme": "Roghnaigh Téama",
         "show_valve_proton": {
@@ -552,7 +576,8 @@
         "gamepad-repeat-frequency": "Minicíocht athrá ionchuir Gamepad",
         "steamRuntime": {
             "label": "Úsáid Am Rith Steam",
-            "noRuntimeOption": "Dada"
+            "noRuntimeOption": "Dada",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Oscail",
@@ -627,7 +652,7 @@
         "checkForUpdatesOnStartup-description": "Cuardaigh leagan nua de Heroic gach uair a osclaítear an aip",
         "disableUMU-description": "Seol Proton go díreach in áit dul tríd an seolaitheoir umu",
         "gamemode-description": "Iarr ar an gcóras tosaíocht a thabhairt don chluiche fad is atá sé ag rith",
-        "alt-aurelia-bin": "Roghnaigh Binary Malartach Aurelia",
+        "alt-aurelia-bin": "Roghnaigh Binary Malartach Níle",
         "steamLaunchTarget": {
             "downloadBuild": "Íoslódáil",
             "missingBuild": "",
@@ -649,7 +674,59 @@
         "addgamestoapplications-description": "Cruthaigh aicearra Steam gach uair a shuiteáiltear cluiche",
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
-        "maxworkers-description": ""
+        "maxworkers-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "button": {
         "login": "Logáil isteach",
@@ -744,14 +821,26 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "emptyLibrary": {
         "noGames": "Tá do leabharlann folamh.<br /><br />Cliceáil <4>anseo</4> chun logáil isteach le do chuntais Epic, GOG.com, nó Amazon. Ansin, taispeánfar do chluichí anseo sa Leabharlann.<br /><br />Chun cluichí nó aipeanna ó fhoinsí eile a úsáid, cliceáil <br /> chun iad a chur leis de láimh.",
         "noResults": "Níor tháirg na scagairí reatha aon torthaí.",
         "noResultsTitle": "Níor aimsíodh aon chluichí",
         "description": "<0>Logáil isteach</0> le do chuntais Epic, GOG.com, Amazon nó Zoom agus beidh do chuid cluichí le feiceáil anseo. Is féidir leat cluichí ó fhoinsí eile a chur leis de láimh freisin.",
-        "title": "Tá do leabharlann folamh."
+        "title": "Tá do leabharlann folamh.",
+        "backupHint": ""
     },
     "epic": {
         "offline-notification-body": "B’fhéidir nach n-oibreoidh seirbhísí ar líne go hiomlán mar go bhfuil freastalaithe Epic Games as líne!",
@@ -807,7 +896,11 @@
         "display": "Taispeáint",
         "hidden": "I bhfolach",
         "non_available": "Níl ar fáil",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "status": {
         "installing": "Ag suiteáil",
@@ -926,7 +1019,8 @@
                     "corrupt": "Níorbh fhéidir {{game}} a chur le gach úsáideoir Steam a aimsíodh. Féach na logaí le haghaidh tuilleadh eolais. Tá atosú Steam ag teastáil chun go dtiocfaidh athruithe i bhfeidhm.",
                     "success": "Cuireadh {{game}} le Steam go rathúil. Tá atosú Steam ag teastáil chun na hathruithe a chur i bhfeidhm.",
                     "title": "Curtha le Steam",
-                    "success-no-restart": "Cuireadh {{game}} le Steam go rathúil."
+                    "success-no-restart": "Cuireadh {{game}} le Steam go rathúil.",
+                    "already": ""
                 }
             },
             "remove": {
@@ -1018,7 +1112,10 @@
             "stretch": "Íomhá Sínte",
             "upscaleHeight": "Airde Uasghrádaithe",
             "upscaleWidth": "Leithead Uasghrádaithe",
-            "windowed": "Fuinneogach"
+            "windowed": "Fuinneogach",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         },
         "quote-args-with-spaces": "Rabhadh: Bí cinnte spásanna a úsáid sna hargóintí! M.sh.: \"cosán/le spásanna/\"",
         "wrapper": {
@@ -1135,7 +1232,10 @@
             "systemInformation": "Faisnéis Córais",
             "legacy": "Oidhreacht",
             "categories": "Catagóirí",
-            "tabs": "Rannáin socruithe"
+            "tabs": "Rannáin socruithe",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "offline": {
             "warning": "Ní cheadaíonn an cluiche seo mód as líne go sainráite, mar sin is ar do phriacal féin atá sé seo a chur air. Seans nach n-oibreoidh an cluiche."
@@ -1213,25 +1313,71 @@
             "epic": "Epic Games",
             "gog": "GOG",
             "gamescopeAdditionalOptions": "Roghanna Breise",
-            "gamescopeDisplay": "Taispeáint"
+            "gamescopeDisplay": "Taispeáint",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "pageSubtitle": {
             "advanced": "Comhaid dhénártha, gnéithe turgnamhacha agus cothabháil",
             "games_settings_defaults": "Réamhshocruithe a chuirtear i bhfeidhm ar chluichí nua-shuiteáilte",
             "general": "Cumraigh do shainroghanna seolta",
             "log": "Léigh agus roinn logaí laochúla",
-            "systeminfo": "Do chrua-earraí agus na leaganacha a ritheann Heroic"
+            "systeminfo": "Do chrua-earraí agus na leaganacha a ritheann Heroic",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "Cóipeáil"
+            "button": "Cóipeáil",
+            "description": ""
         },
         "gamepad": {
             "button": {
                 "back": "Ar ais",
                 "guide": "Mód Consóil",
-                "reset": "Athshocraigh go réamhshocraithe"
+                "reset": "Athshocraigh go réamhshocraithe",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "Socruithe",
@@ -1272,7 +1418,19 @@
                 "intro2": "Mura bhfuil an leabharlann folamh, déan cinnte logáil isteach le do chuntais ag baint úsáide as Bainistigh cuntais ar an mbarra taoibh nó cuir do chluichí féin leis ag baint úsáide as an gcnaipe Cuir Cluiche Leis thuas.",
                 "title": "Fáilte go dtí Heroic!",
                 "title2": "Ag bainistiú na leabharlainne!"
-            }
+            },
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "Cuardaigh"
         },
         "next": "Ar Aghaidh",
         "sidebar": {
@@ -1291,7 +1449,13 @@
                 "intro": "Fáilte go Heroic! Tá na roghanna nascleanúna go léir chun an aip a iniúchadh sa bharra taoibh seo.",
                 "title": "Nascleanúint Barra Taobh"
             },
-            "wine": "Bainistigh nó íoslódáil leagan nua de Wine/Proton/GPTK le haghaidh cluichí Windows a rith ar Linux nó macOS."
+            "wine": "Bainistigh nó íoslódáil leagan nua de Wine/Proton/GPTK le haghaidh cluichí Windows a rith ar Linux nó macOS.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "welcomeTitle": "Fáilte go dtí Heroic!",
+            "communitySectionTitle": "Pobal",
+            "generalTitle": "Ginearálta"
         },
         "skip": "Scipeáil",
         "startTour": "Tosaigh an Turas"
@@ -1402,7 +1566,8 @@
             "hideOwned": "Folaigh Úinéireacht",
             "wishlistOnly": "Liosta Mianta Amháin",
             "platform": "Ardán",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "region": {
             "countries": {
@@ -1495,7 +1660,8 @@
             "launch": "Seoladh",
             "sort": "Sórtáil",
             "navigate": "Loingseoireacht",
-            "change_store": "Athraigh siopa"
+            "change_store": "Athraigh siopa",
+            "hold_quit": ""
         },
         "launching": "Ag lainseáil",
         "update": {
@@ -1547,7 +1713,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "steamgriddb": {
         "error": {
@@ -1708,7 +1881,11 @@
     },
     "import-export": {
         "action": {
-            "browse": "Brabhsálaí"
+            "browse": "Brabhsálaí",
+            "download": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Ar ais",
         "close": "Dún",
@@ -1716,33 +1893,149 @@
         "next": "Ar Aghaidh",
         "platform": "Ardán",
         "rollback": {
-            "saved": "Sábháil"
+            "saved": "Sábháil",
+            "run": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
         },
         "stage": {
             "credentials": "Logáil isteach siopa",
-            "globalSettings": "Socruithe Domhanda"
+            "globalSettings": "Socruithe Domhanda",
+            "perGameSettings": "",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Socruithe Domhanda"
+            "title": "Socruithe Domhanda",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "Níl aon chluiche ag teacht leis na scagairí reatha.",
-            "selectAll": "Roghnaigh Uile"
+            "selectAll": "Roghnaigh Uile",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Logáil isteach siopa"
+            "title": "Logáil isteach siopa",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Réimír Wine",
-            "wine-unavailable": "Níl ar fáil"
+            "wine-unavailable": "Níl ar fáil",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "wine-downloadable": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Logáil isteach siopa",
             "done": "Déanta",
-            "global-settings": "Socruithe Domhanda"
+            "global-settings": "Socruithe Domhanda",
+            "library-system": "",
+            "summary": "",
+            "pick-file": "",
+            "per-game": ""
         },
         "summaryValue": "Luach",
         "version": "Leagan Heroic",
-        "wine-versions": "Leagan Wine"
+        "wine-versions": "Leagan Wine",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "apply": "",
+        "per-game": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

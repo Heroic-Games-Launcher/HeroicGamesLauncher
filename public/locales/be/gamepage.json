@@ -106,8 +106,14 @@
         "back": "Назад",
         "next": "Далей",
         "skip-installer": {
-            "title": "Прапусціць"
-        }
+            "title": "Прапусціць",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Не падтрымліваецца",
     "disabled": "Адключана",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Памылка: доступ да пясочніцы не прадастаўлены для гэтага шляху, адбудзецца страта даных.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -299,7 +306,12 @@
             "useragent": "Уласны User Agent",
             "fullscreen": "Запуск у поўнаэкранным рэжыме (F11, каб выйсці)",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Устаўце URL-адрас выявы або выберыце файл на сваім камп'ютары",
@@ -312,12 +324,26 @@
             "title": "Важная інфармацыя! Вы дадаяце гульню з Epic/GOG/Amazon? Націсніце сюды!"
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Праверыць сумяшчальнасць",
             "finish": "Скончыць",
-            "install": "Спыніць усталёўку"
+            "install": "Спыніць усталёўку",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

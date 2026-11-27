@@ -231,7 +231,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "Скасаваць"
+            "cancel": "Скасаваць",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "button": {
@@ -303,7 +308,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Анлайн-сэрвісы могуць часткова не працаваць, бо серверы Epic Games недаступны!",
@@ -361,7 +377,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "FSR ад AMD дапамагае павысіць частату кадраў за кошт павелічэння больш нізкага дазволу ў поўнаэкранным рэжыме. Якасць выявы павялічваецца з 5 да 1 за кошт невялікага зніжэння прадукцыйнасці. Уключэнне можа палепшыць прадукцыйнасць.",
@@ -414,7 +434,10 @@
             "upscaleHeight": "Раздзяляльнасць па вышыні, якая выкарыстоўваецца gamescope. Прадугледжваюцца суадносіны бакоў 16:9.",
             "fpsLimiter": "Колькасць кадраў GameScope павінна быць абмежавана. напрыклад 60",
             "additionalOptions": "Дадатковыя параметры каманднага радка для перадачы ў Gamescope.",
-            "forceGrabCursor": "Заўсёды выкарыстоўвайце рэжым адноснага пераключэння мышы замест пераключэння ў залежнасці ад бачнасці курсора. (Карысна, калі праграмы пастаянна губляюць фокус)"
+            "forceGrabCursor": "Заўсёды выкарыстоўвайце рэжым адноснага пераключэння мышы замест пераключэння ў залежнасці ад бачнасці курсора. (Карысна, калі праграмы пастаянна губляюць фокус)",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "title": {
             "accessibility": "Даступнасць",
@@ -451,7 +474,16 @@
             "details": "Выкарыстоўвайце спецыяльную відэакарту для візуалізацыі гульні ў сістэмах з некалькімі графічнымі працэсарамі. Патрэбны толькі на гульнявых наўтбуках або настольных кампутарах, якія выкарыстоўваюць абезгалоўлены графічны працэсар для візуалізацыі (NVIDIA Optimus, AMD CrossFire)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -560,7 +592,8 @@
                     "corrupt": "{{game}} не можа быць дададзена да ўсіх знойдзеных карыстальнікаў Steam. Для атрымання дадатковай інфармацыі глядзіце журналы. Каб змены ўступілі ў сілу, неабходна перазапусціць Steam.",
                     "success": "{{game}} была паспяхова дададзена ў Steam. Каб змены ўступілі ў сілу, неабходна перазапусціць Steam.",
                     "title": "Дададзена ў Steam",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -662,7 +695,10 @@
             "fpsLimiterNoFocus": "Абмежавальнік FPS (Па-за фокусам)",
             "stretch": "Расцягванне выявы",
             "windowed": "Аконны",
-            "additionalOptions": "Дадатковыя параметры"
+            "additionalOptions": "Дадатковыя параметры",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -681,7 +717,8 @@
         "egs-prefix": "Прэфікс, дзе ўсталяваны EGS",
         "prefered_language": "2-значны код (напрыклад: «en» або «be»)",
         "alt-nile-bin": "Выкарыстоўваючы ўбудаваны двайковы файл Nile...",
-        "alt-aurelia-bin": "Выкарыстанне ўбудаванага двайковага файла Aurelia..."
+        "alt-aurelia-bin": "Выкарыстанне ўбудаванага двайковага файла Legendary...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -845,7 +882,8 @@
             "placeholder": "Выберыце дакладную папку захаванняў гульні",
             "warning": "Двойчы праверце, ці правільны шлях (націсніце, каб паўтарыць)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Выберыце тэму",
         "showfps": "Паказаць FPS (DX9, 10 і 11)",
@@ -885,7 +923,12 @@
             "enableForceGrabCursor": "Уключыць прымусовае захопліванне курсора",
             "missingMsgFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце flatpak-пакет Gamescope з асяроддзем выканання версіі 25.08 і перазапусціце Heroic.",
             "warningFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце flatpak-пакет Gamescope з асяроддзем выканання версіі 25.08 і перазапусціце Heroic.",
-            "enableHDR": "Уключыць HDR"
+            "enableHDR": "Уключыць HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "msync": "Уключыць Msync",
         "after-launch-script-path": "Выберыце скрыпт для запуску пасля выхаду з гульні",
@@ -936,7 +979,8 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "Выкарыстоўвайце Steam Runtime",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Адкрыць",
@@ -1017,7 +1061,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Выберыце альтэрнатыўны двайковы файл Aurelia",
+        "alt-aurelia-bin": "Выберыце альтэрнатыўны двайковы файл Legendary",
         "steamLaunchTarget": {
             "downloadBuild": "Спампоўванне",
             "missingBuild": "Усяго спампавана",
@@ -1039,7 +1083,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1081,7 +1177,10 @@
             "gamescope": "Gamescope",
             "legacy": "",
             "categories": "Катэгорыі",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Адкрыйце файл канфігурацыі",
         "reset-heroic": "Скінуць Heroic",
@@ -1195,7 +1294,15 @@
             "amazon": "Amazon Games",
             "epic": "Epic Games",
             "gog": "GOG",
-            "gamescopeAdditionalOptions": "Дадатковыя параметры"
+            "gamescopeAdditionalOptions": "Дадатковыя параметры",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1203,16 +1310,57 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "Скапіяваць"
+            "button": "Скапіяваць",
+            "description": ""
         },
         "gamepad": {
             "button": {
-                "back": "Назад"
+                "back": "Назад",
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "guide": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "Налады",
@@ -1353,7 +1501,8 @@
         "noGames": "Ваша бібліятэка пустая.<br /><br />Націсніце тут, каб увайсці ў сістэму з дапамогай сваіх уліковых запісаў Epic, GOG.com або Amazon. Пасля гэтага вашы гульні з'явяцца тут, у бібліятэцы.<br /><br />Каб выкарыстоўваць гульні або праграмы з іншых крыніц, націсніце, каб дадаць іх уручную.",
         "description": "",
         "noResultsTitle": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "adtraction-locked": {
         "title": "Adtraction заблакаваны",
@@ -1391,7 +1540,13 @@
             "accounts": "Кіруйце падлучанымі ўліковымі запісамі крам (Epic, GOG, Amazon), выходзьце з іх або ўваходзьце ў іх.",
             "community": "Далучайцеся да нашай суполкі на Discord і падтрымайце развіццё Heroic.",
             "quit": "Бяспечна выйсці з праграмы.",
-            "stores": "Праглядайце і купляйце гульні ў розных крамах, у тым ліку Epic, GOG і Amazon."
+            "stores": "Праглядайце і купляйце гульні ў розных крамах, у тым ліку Epic, GOG і Amazon.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "Вітаем у Heroic!",
+            "generalTitle": "Агульныя"
         },
         "library": {
             "sortOptions": "Націсніце тут, каб адсартаваць гульні ў алфавітным парадку.",
@@ -1413,7 +1568,19 @@
             "refresh": "Абнавіце сваю бібліятэку, каб праверыць наяўнасць новых гульняў або абнаўленняў.",
             "gameCard": "Націсніце левай кнопкай мышы на карту гульні, каб перайсці на старонку гульні і паглядзець падрабязную інфармацыю і змяніць налады, або націсніце правай кнопкай мышы, каб адкрыць кантэкстнае меню.",
             "viewToggle": "Пераключэнне выгляду вашых гульняў паміж сеткай і спісам.",
-            "addGame": "Дадайце свае ўласныя гульні або праграмы ў бібліятэку, націснуўшы тут. Гэта можа быць што заўгодна, нават URL-адрасы браўзера."
+            "addGame": "Дадайце свае ўласныя гульні або праграмы ў бібліятэку, націснуўшы тут. Гэта можа быць што заўгодна, нават URL-адрасы браўзера.",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "skip": "Прапусціць",
         "startTour": "Пачаць азнаямленне",
@@ -1503,7 +1670,8 @@
             "platform": "Platform",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Падрабязнасці",
         "sort": {
@@ -1584,7 +1752,8 @@
             "sort": "",
             "navigate": "",
             "quit": "Выйсці",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "",
         "card": {
@@ -1624,7 +1793,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Далей",
     "common": {
@@ -1770,7 +1946,10 @@
     "import-export": {
         "action": {
             "browse": "Браўзер",
-            "download": "Спампоўванне"
+            "download": "Спампоўванне",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Назад",
         "close": "Закрыць",
@@ -1781,30 +1960,146 @@
         "stage": {
             "credentials": "Уваход у краму",
             "globalSettings": "Глабальныя налады",
-            "perGameSettings": "Налады гульні"
+            "perGameSettings": "Налады гульні",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Глабальныя налады"
+            "title": "Глабальныя налады",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
-            "selectAll": "Выбраць усё"
+            "selectAll": "Выбраць усё",
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Уваход у краму"
+            "title": "Уваход у краму",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Прэфікс Wine",
             "wine-downloadable": "Спампоўванне",
-            "wine-unavailable": "Няма даступных DLC"
+            "wine-unavailable": "Няма даступных DLC",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Уваход у краму",
             "done": "Гатова",
             "global-settings": "Глабальныя налады",
-            "per-game": "Налады гульні"
+            "per-game": "Налады гульні",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Значэнне",
         "version": "Heroic Version",
-        "wine-versions": "Версія Wine"
+        "wine-versions": "Версія Wine",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

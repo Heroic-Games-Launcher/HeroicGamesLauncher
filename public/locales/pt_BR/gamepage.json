@@ -106,8 +106,14 @@
         "back": "Voltar",
         "next": "Próximo",
         "skip-installer": {
-            "title": "Pular"
-        }
+            "title": "Pular",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Não suportado",
     "disabled": "Desabilitado",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Erro: Acesso ao sandbox não concedido a este caminho, ocorrerá perda de dados.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -299,7 +306,12 @@
             "useragent": "\"User Agent\" personalizado",
             "fullscreen": "Inicie em tela cheia (F11 para sair)",
             "image-hint": "Arte quadrada (clique na imagem para buscar no SteamGridDB)",
-            "cover-hint": "Arte da capa/herói (clique na imagem para buscar no SteamGridDB)"
+            "cover-hint": "Arte da capa/herói (clique na imagem para buscar no SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Cole uma URL de uma imagem ou selecione uma do seu computador",
@@ -312,13 +324,26 @@
             "content": "NÃO utilize essa função para isso.<br />Em vez disso, <3>faça o login</3> na loja, procure pelo jogo na sua biblioteca, abra o diálogo de instalação, e clique no botão &quot;Importar Jogo&quot;"
         },
         "images": {
-            "summary": "Imagens"
+            "summary": "Imagens",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Verificar compatibilidade",
             "finish": "Terminar",
             "images": "Imagens",
-            "install": "Parar a Instalação"
+            "install": "Parar a Instalação",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

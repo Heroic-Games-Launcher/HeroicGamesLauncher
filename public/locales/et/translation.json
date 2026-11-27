@@ -231,7 +231,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "Tühista"
+            "cancel": "Tühista",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "button": {
@@ -303,7 +308,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Võrguteenused ei pruugi täielikult töötada, kuna Epic Gamesi serverid on võrguühenduseta!",
@@ -360,7 +376,11 @@
         "display": "Kuva",
         "hidden": "Peidetud",
         "non_available": "Pole saadaval",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD FSR aitab suurendada kaadrisagedust, suurendades madalamaid resolutsioone täisekraani režiimis. Pildikvaliteet suureneb 5-st 1-le, mis toob aga kaasa kerge jõudluse vähenemise. Lubamine võib parandada jõudlust.",
@@ -420,7 +440,10 @@
             "fpsLimiter": "Gamescope'i kaadrisageduse limiit, nt. 60",
             "gameHeight": "Kuvasuhe kõrgus, mida mäng kasutab. Gamescope eeldab 16:9 kuvasuhet.",
             "gameWidth": "Kuvasuhe laius, mida mäng kasutab. Gamescope eeldab 16:9 kuvasuhet.",
-            "forceGrabCursor": "Alati kasuta suhtelist hiirerežiimi selle asemel, et vahetada kursori nähtavuse põhjal. (Kasulik, kui rakendused kaotavad sageli fookust)"
+            "forceGrabCursor": "Alati kasuta suhtelist hiirerežiimi selle asemel, et vahetada kursori nähtavuse põhjal. (Kasulik, kui rakendused kaotavad sageli fookust)",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "content": {
             "customThemesPath": "Vaadake meie vikit.",
@@ -450,7 +473,16 @@
             "details": "Mitme GPU-süsteemides mängu renderdamiseks kasutage spetsiaalset graafikakaarti. Vajalik ainult mängusülearvutites või lauaarvutites, mis kasutavad renderdamiseks peata GPU-d (NVIDIA Optimus, AMD CrossFire)",
             "link": "Vaata rohkem üksikasju meie vikis"
         },
-        "hide-window-on-protocol-launch": "Hoiab Heroicu akna peidus, kui mäng käivitatakse läbi välise otsetee, näiteks läbi 'Lisa Steami' funktsiooni."
+        "hide-window-on-protocol-launch": "Hoiab Heroicu akna peidus, kui mäng käivitatakse läbi välise otsetee, näiteks läbi 'Lisa Steami' funktsiooni.",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -559,7 +591,8 @@
                     "corrupt": "Mängu {{game}} ei saanud lisada kõigile leitud Steami kasutajatele. Lisainfo saamiseks vaadake logisid. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "success": "Mäng {{game}} lisati edukalt Steami. Muutuste jõustumiseks on vajalik Steami taaskäivitamine.",
                     "title": "Lisatud Steami",
-                    "success-no-restart": "{{game}} lisati edukalt Steami."
+                    "success-no-restart": "{{game}} lisati edukalt Steami.",
+                    "already": ""
                 }
             },
             "remove": {
@@ -661,7 +694,10 @@
             "stretch": "Pikenda pilti",
             "upscaleHeight": "Ülesskaleerimise kõrgus",
             "upscaleWidth": "Ülesskaleerimise laius",
-            "windowed": "Aknas"
+            "windowed": "Aknas",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -680,7 +716,8 @@
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
         "prefered_language": "2-täheline või 4-täheline kood (nt: \"fr\" või \"pt-BR\")",
         "alt-nile-bin": "Sisseehitatud Nile programmi kasutamine...",
-        "alt-aurelia-bin": "Sisseehitatud Aurelia programmi kasutamine..."
+        "alt-aurelia-bin": "Sisseehitatud Nile programmi kasutamine...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -844,7 +881,8 @@
             "placeholder": "Valige täpne mängude salvestiste kaust",
             "warning": "Palun kontrollige veelkord, kas tee on õige (klikkige, et uuesti proovida)",
             "retry": "Tuvasta uuesti",
-            "title": "Salvesta kaust"
+            "title": "Salvesta kaust",
+            "detect-failed": ""
         },
         "select_theme": "Valige teema",
         "showfps": "Näita kaadrisagedust (DX9, 10 ja 11)",
@@ -867,7 +905,12 @@
             "enableForceGrabCursor": "Luba sunnitud kursori haaramine",
             "missingMsgFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 25.08 ja taaskäivitage Heroic.",
             "warningFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga {{runtimeVersion}} ja taaskäivitage Heroic.",
-            "enableHDR": "Luba HDR"
+            "enableHDR": "Luba HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "after-launch-script-path": "Vali skript, mida käitada pärast mängu sulgemist",
         "msync": "Luba Msync",
@@ -946,7 +989,8 @@
         "hide-window-on-protocol-launch": "Peida Heroicu aken, kui käivitatakse mänge läbi heroic:// linkide",
         "steamRuntime": {
             "label": "Kasuta Steam Runtime'i",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Ava",
@@ -1021,7 +1065,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Valige mõni muu Aurelia programm",
+        "alt-aurelia-bin": "Valige mõni muu Nile programm",
         "steamLaunchTarget": {
             "downloadBuild": "Allalaadimine",
             "missingBuild": "Allalaaditud kokku",
@@ -1043,7 +1087,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1085,7 +1181,10 @@
             "gamescope": "Gamescope",
             "legacy": "Igand",
             "categories": "Kategooriad",
-            "tabs": "Seadete sektsioonid"
+            "tabs": "Seadete sektsioonid",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic",
@@ -1200,7 +1299,14 @@
             "epic": "Epic Games",
             "gog": "GOG",
             "gamescopeAdditionalOptions": "Muud seaded",
-            "gamescopeDisplay": "Kuva"
+            "gamescopeDisplay": "Kuva",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "Kliki, et avada mängu seadete fail",
         "pageSubtitle": {
@@ -1208,15 +1314,57 @@
             "games_settings_defaults": "Vaikimisi seaded, mis rakenduvad äsja paigaldatud mängudele",
             "general": "Seadista oma käivitaja eelistused",
             "log": "Loe ja jaga Heroicu logisid",
-            "systeminfo": "Teie riistvara ja versioonid, mida Heroic kasutab"
+            "systeminfo": "Teie riistvara ja versioonid, mida Heroic kasutab",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "gamepad": {
             "button": {
                 "back": "Tagasi",
                 "guide": "Konsoolirežiim",
-                "reset": "Lähtesta vaikimisi sättele"
+                "reset": "Lähtesta vaikimisi sättele",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
         }
     },
     "Settings": "Seaded",
@@ -1374,7 +1522,8 @@
         "noGames": "Teie varamu on tühi.<br /><br />Klikkige <4>siia,</4> et sisse logida oma Epicu, GOG.com või Amazoni kontodega. Siis ilmuvad teie mängud siia varamusse.<br /><br />Et kasutada mänge või rakendusi teistest allikatest, klikkige <br /> et need käsitsi lisada.",
         "noResultsTitle": "Mänge ei leitud",
         "description": "<0>Logi sisse</0> oma Epicu, GOG.com-i, Amazoni, itch.io või Zoomi kontodega, ja teie mängud ilmuvad siia. Võite muudest allikatest mänge käsitsi lisada.",
-        "title": "Teie varamu on tühi."
+        "title": "Teie varamu on tühi.",
+        "backupHint": ""
     },
     "tour": {
         "back": "Tagasi",
@@ -1399,7 +1548,19 @@
             },
             "gameCard": "Tehke vasakklõps mängu kaardil, et minna mängu lehele, näha üksikasju ja muuta seadeid, või paremklõps, et avada menüü.",
             "addGame": "Klikkige siia, et lisada oma mänge või rakendusi varamusse. Need võivad olla peaaegu mis iganes, isegi brauseri URLid.",
-            "steamInstall": "Kasutage seda nuppu, et paigaldada Steami Windowsi versioon ja mängida oma Windowsi mänge kasutades Crossoverit, Wine'i või GPTK-d."
+            "steamInstall": "Kasutage seda nuppu, et paigaldada Steami Windowsi versioon ja mängida oma Windowsi mänge kasutades Crossoverit, Wine'i või GPTK-d.",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "Otsing"
         },
         "next": "Järgmine",
         "sidebar": {
@@ -1418,7 +1579,13 @@
             },
             "settings": "Vaadake üle Heroicu ja mängude vaikimisi seaded, kontrollige logisid ja muud.",
             "wine": "Hallake või laadige alla uus Wine/Proton/GPTK versioon, et käivitada Windowsi mänge Linuxil või macOS-il.",
-            "accounts": "Hallake oma ühendatud poekontosid (Epic, GOG, Amazon), logige nendega välja või sisse."
+            "accounts": "Hallake oma ühendatud poekontosid (Epic, GOG, Amazon), logige nendega välja või sisse.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "welcomeTitle": "Tere tulemast Heroicusse!",
+            "communitySectionTitle": "Kogukond",
+            "generalTitle": "Üldine"
         },
         "skip": "Jäta vahele",
         "startTour": "Alusta tuur"
@@ -1507,7 +1674,8 @@
             "hideOwned": "Peida kuuluvad",
             "wishlistOnly": "Ainult soovinimekirjas",
             "platform": "Platform",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Allahindlused",
         "sort": {
@@ -1588,7 +1756,8 @@
             "sort": "Sorteeri",
             "navigate": "Navigeeri",
             "quit": "Lahku",
-            "change_store": "Vaheta poodi"
+            "change_store": "Vaheta poodi",
+            "hold_quit": ""
         },
         "launching": "Käivitamas",
         "card": {
@@ -1628,7 +1797,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Järgmine",
     "common": {
@@ -1773,7 +1949,11 @@
     },
     "import-export": {
         "action": {
-            "download": "Allalaadimine"
+            "download": "Allalaadimine",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Tagasi",
         "close": "Sulge",
@@ -1782,36 +1962,148 @@
         "per-game": "Mängu seaded",
         "platform": "Platform",
         "rollback": {
-            "saved": "Salvesta"
+            "saved": "Salvesta",
+            "run": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
         },
         "stage": {
             "credentials": "Sisselogimine poodi",
             "globalSettings": "Globaalsed seaded",
-            "perGameSettings": "Mängu seaded"
+            "perGameSettings": "Mängu seaded",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Globaalsed seaded"
+            "title": "Globaalsed seaded",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "Ükski mäng ei vasta praegustele filtritele.",
-            "selectAll": "Vali kõik"
+            "selectAll": "Vali kõik",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Sisselogimine poodi"
+            "title": "Sisselogimine poodi",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Wine prefiks",
             "wine-downloadable": "Allalaadimine",
-            "wine-unavailable": "DLC ei ole saadaval"
+            "wine-unavailable": "DLC ei ole saadaval",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Sisselogimine poodi",
             "done": "Valmis",
             "global-settings": "Globaalsed seaded",
-            "per-game": "Mängu seaded"
+            "per-game": "Mängu seaded",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Väärtus",
         "version": "Heroicu versioon",
-        "wine-versions": "Wine'i versioon"
+        "wine-versions": "Wine'i versioon",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

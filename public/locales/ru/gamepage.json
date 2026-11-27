@@ -106,8 +106,14 @@
         "back": "Назад",
         "next": "Следующий",
         "skip-installer": {
-            "title": "Пропустить"
-        }
+            "title": "Пропустить",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Не поддерживается",
     "disabled": "Выключено",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Ошибка: доступ к песочнице по этому пути не предоставлен, произойдёт потеря данных.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -299,7 +306,12 @@
             "useragent": "Пользовательский User Agent",
             "fullscreen": "Запустить полноэкранный режим (F11 для выхода)",
             "cover-hint": "Обложка/Фоновое изображение (нажмите на изображение для поиска в SteamGridDB)",
-            "image-hint": "Квадратное изображение (нажмите на изображение для поиска в SteamGridDB)"
+            "image-hint": "Квадратное изображение (нажмите на изображение для поиска в SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Вставьте сюда URL-адрес изображения или выберите его с вашего компьютера",
@@ -312,13 +324,26 @@
             "title": "Это важно! Вы добавляете игру от Epic/GOG/Amazon? Нажмите здесь!"
         },
         "images": {
-            "summary": "Изображения"
+            "summary": "Изображения",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Проверить совместимость",
             "finish": "Завершить",
             "images": "Изображения",
-            "install": "Прекращение установки"
+            "install": "Прекращение установки",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

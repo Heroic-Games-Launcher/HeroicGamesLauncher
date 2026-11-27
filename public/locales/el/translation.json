@@ -225,7 +225,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "Ακύρωση"
+            "cancel": "Ακύρωση",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "button": {
@@ -297,7 +302,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Οι διαδικτυακές υπηρεσίες πιθανό να μη λειτουργούν πλήρως καθώς οι διακομιστές Epic Games ειναι εκτός σύνδεσης!",
@@ -354,7 +370,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "Το FSR της AMD συμβάλλει στην ενίσχυση του ρυθμού καρέ αναβαθμίζοντας χαμηλότερες αναλύσεις σε λειτουργία πλήρους οθόνης. Η ποιότητα της εικόνας αυξάνεται από 5 σε 1 με το κόστος μιας μικρής μείωσης της απόδοσης. Η ενεργοποίηση μπορεί να βελτιώσει την απόδοση.",
@@ -435,7 +455,10 @@
             "gameWidth": "Η ανάλυση πλάτους που χρησιμοποιείται από το παιχνίδι. Το gamescope υποθέτει αναλογία διαστάσεων 16:9.",
             "upscaleHeight": "Η ανάλυση ύψους που χρησιμοποιείται από το gamescope. Θεωρείται αναλογία διαστάσεων 16:9.",
             "upscaleMethod": "Η μέθοδος upscaling που θα πρέπει να χρησιμοποιεί το Gamescope.",
-            "upscaleWidth": "Η ανάλυση πλάτους που χρησιμοποιείται από το gamescope. Θεωρείται αναλογία διαστάσεων 16:9."
+            "upscaleWidth": "Η ανάλυση πλάτους που χρησιμοποιείται από το gamescope. Θεωρείται αναλογία διαστάσεων 16:9.",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "wine-hdr": "Το HDR βελτιώνει τα χρώματα παρέχοντας πιο φωτεινά σημεία και βαθύτερες αντιθέσεις. Για να λειτουργήσει το HDR, πρέπει να το υποστηρίζει τόσο η οθόνη όσο και το παιχνίδι.",
         "wine-wayland": "Το πειραματικό πρόγραμμα οδήγησης Wine-Wayland επιτρέπει στα παιχνίδια να εκτελούνται εγγενώς με το πρωτόκολλο εμφάνισης Wayland. Η ενεργοποίησή του ενδέχεται να προκαλέσει προβλήματα σε ορισμένα παιχνίδια.",
@@ -444,7 +467,16 @@
             "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -553,7 +585,8 @@
                     "corrupt": "Δεν ήταν δυνατή η προσθήκη του {{game}} σε όλους τους χρήστες Steam που βρέθηκαν. Δείτε τα αρχεία καταγραφής για περισσότερες πληροφορίες. Απαιτείται επανεκκίνηση του Steam για να ισχύσουν οι αλλαγές.",
                     "success": "Το {{game}} προστέθηκε με επιτυχία στο Steam. Απαιτείται επανεκκίνηση του Steam για να ισχύσουν οι αλλαγές.",
                     "title": "Προστέθηκε στο Steam",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -655,7 +688,10 @@
             "nis": "NVIDIA Image Scale (NIS)",
             "stretch": "Επέκταση Eικόνας",
             "upscaleHeight": "Ύψος Upscale",
-            "upscaleWidth": "Πλάτος Upscale"
+            "upscaleWidth": "Πλάτος Upscale",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -674,7 +710,8 @@
         "egs-prefix": "Πρόθημα διαδρομής εγκατάστασης EGS",
         "prefered_language": "Κωδικός 2 ή 4 χαρακτήρων (π.χ.: \"en\" ή \" en-US\")",
         "alt-nile-bin": "Χρησιμοποιώντας το ενσωματωμένο δυαδικό σύστημα Nile...",
-        "alt-aurelia-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου Aurelia..."
+        "alt-aurelia-bin": "Χρήση ενσωματωμένου δυαδικού αρχείου Legendary...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -838,7 +875,8 @@
             "placeholder": "Διαλέξτε τον ακριβή φάκελο αποθήκευσης παιχνιδιών",
             "warning": "Ελέγξτε αν η διαδρομή είναι σωστή (κάντε κλικ για να προσπαθήσετε ξανά)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Επιλογή θέματος",
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
@@ -909,7 +947,12 @@
             "enableUpscaling": "Ενεργοποίηση Upscaling",
             "missingMsg": "Το gamescope δεν βρέθηκε στο PATH. Εγκαταστήστε το ή προσθέστε το στο PATH.",
             "warningFlatpak": "Δεν βρέθηκε κάποια συμβατή έκδοση του Gamescope. Εγκαταστήστε το πακέτο flatpak του Gamescope με το περιβάλλον εκτέλεσης {{runtimeVersion}} και επανεκκινήστε το Heroic.",
-            "enableHDR": "Ενεργοποίηση HDR"
+            "enableHDR": "Ενεργοποίηση HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "hdr": "Ενεργοποίηση HDR",
         "no-tray-icon": "Απόκρυψη εικονιδίου γραμμής εργασιών (απαιτείται επανεκκίνηση)",
@@ -925,7 +968,8 @@
         "start-in-console-mode": "",
         "steamRuntime": {
             "label": "Χρήση Steam Runtime",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Άνοιγμα",
@@ -1006,7 +1050,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Aurelia",
+        "alt-aurelia-bin": "Επιλέξτε ένα εναλλακτικό δυαδικό αρχείο Legendary",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingRuntime": "Το VCRuntime δεν είναι εγκατεστημένο",
@@ -1028,7 +1072,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1070,7 +1166,10 @@
             "systemInformation": "Πληροφορίες Συστήματος",
             "legacy": "Legacy",
             "categories": "Κατηγορίες",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Άνοιγμα αρχείου παραμετροποίησης",
         "reset-heroic": "Επαναφορά Heroic",
@@ -1183,7 +1282,16 @@
             "steam": "",
             "epic": "Epic Games",
             "gog": "GOG",
-            "gamescopeAdditionalOptions": "Επιπρόσθετες επιλογές"
+            "gamescopeAdditionalOptions": "Επιπρόσθετες επιλογές",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1191,17 +1299,57 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "Αντιγραφή"
+            "button": "Αντιγραφή",
+            "description": ""
         },
         "gamepad": {
             "button": {
                 "back": "Πίσω",
-                "guide": "Λειτουργία κονσόλας"
+                "guide": "Λειτουργία κονσόλας",
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "Ρυθμίσεις",
@@ -1346,7 +1494,8 @@
         "noGames": "Η βιβλιοθήκη σας είναι κενή.<br /><br />Κάντε κλικ <4>εδώ</4> για να συνδεθείτε με τους λογαριασμούς σας Epic, GOG.com ή Amazon. Στη συνέχεια, τα παιχνίδια σας θα εμφανιστούν εδώ στη Βιβλιοθήκη.<br /><br />Για να χρησιμοποιήσετε παιχνίδια ή εφαρμογές από άλλες πηγές, κάντε κλικ <br /> για να τα προσθέσετε χειροκίνητα.",
         "description": "",
         "noResultsTitle": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "window": {
         "close": "Kλείσιμο",
@@ -1375,7 +1524,19 @@
             "search": "Χρησιμοποιήστε τη γραμμή αναζήτησης για να αναζητήσετε τα παιχνίδια σας.",
             "sortInstalled": "Ταξινόμηση παιχνιδιών κατά κατάσταση εγκατάστασης.",
             "sortOptions": "Κάντε κλικ εδώ για να ταξινομήσετε τα παιχνίδια αλφαβητικά.",
-            "viewToggle": "Εναλλαγή μεταξύ προβολής των παιχνίδια σας σε πλέγμα ή λίστα."
+            "viewToggle": "Εναλλαγή μεταξύ προβολής των παιχνίδια σας σε πλέγμα ή λίστα.",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "done": "Ολοκληρώθηκε",
         "next": "Επόμενο",
@@ -1395,7 +1556,13 @@
                 "intro": "Καλώς ορίσατε στο Heroic! Αυτή η πλαϊνή μπάρα περιέχει όλες τις επιλογές πλοήγησης για να εξερευνήσετε την εφαρμογή.",
                 "title": "Πλαϊνή Μπάρα Πλοήγησης"
             },
-            "wine": "Διαχειριστείτε ή κατεβάστε νέα έκδοση του Wine/Proton/GPTK για την εκτέλεση παιχνιδιών Windows σε Linux ή macOS."
+            "wine": "Διαχειριστείτε ή κατεβάστε νέα έκδοση του Wine/Proton/GPTK για την εκτέλεση παιχνιδιών Windows σε Linux ή macOS.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "generalTitle": "",
+            "welcomeTitle": "Καλώς ορίσατε στο Heroic!"
         },
         "skip": "Παράλειψη",
         "startTour": "Έναρξη περιήγησης"
@@ -1485,7 +1652,8 @@
             "platform": "Platform",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Προσφορές",
         "sort": {
@@ -1566,7 +1734,8 @@
             "sort": "",
             "navigate": "",
             "quit": "",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "",
         "card": {
@@ -1606,7 +1775,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Επόμενο",
     "common": {
@@ -1751,7 +1927,11 @@
     },
     "import-export": {
         "action": {
-            "download": "Γίνεται λήψη"
+            "download": "Γίνεται λήψη",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Πίσω",
         "close": "Kλείσιμο",
@@ -1762,30 +1942,146 @@
         "stage": {
             "credentials": "Σύνδεση στο κατάστημα",
             "globalSettings": "Καθολικές Ρυθμίσεις",
-            "perGameSettings": "Ρυθμίσεις παιχνιδιού"
+            "perGameSettings": "Ρυθμίσεις παιχνιδιού",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Καθολικές Ρυθμίσεις"
+            "title": "Καθολικές Ρυθμίσεις",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
-            "selectAll": "Επιλογή Όλων"
+            "selectAll": "Επιλογή Όλων",
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Σύνδεση στο κατάστημα"
+            "title": "Σύνδεση στο κατάστημα",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Wine Prefix",
             "wine-downloadable": "Download",
-            "wine-unavailable": "Δεν υπάρχει διαθέσιμο DLC"
+            "wine-unavailable": "Δεν υπάρχει διαθέσιμο DLC",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Σύνδεση στο κατάστημα",
             "done": "Ολοκληρώθηκε",
             "global-settings": "Καθολικές Ρυθμίσεις",
-            "per-game": "Ρυθμίσεις παιχνιδιού"
+            "per-game": "Ρυθμίσεις παιχνιδιού",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Τιμή",
         "version": "Έκδοση Heroic",
-        "wine-versions": "Έκδοση Wine"
+        "wine-versions": "Έκδοση Wine",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

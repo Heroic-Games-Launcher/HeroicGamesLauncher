@@ -223,7 +223,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": "",
+            "cancel": "ألغِ"
+        }
     },
     "button": {
         "cancel": "ألغِ",
@@ -294,7 +302,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "قد لا تعمل الخدمات عبر الإنترنت بشكل كامل لأن خوادم أَبِك جيمز غير متصلة بالإنترنت!",
@@ -352,7 +371,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "تساعد تقنية إف.إس.آر من أي.إم.دي على رفع معدل الإطارات من خلال رفع جودة الدقة المنخفضة في وضع ملء الشاشة. تزداد جودة الصورة من 5 إلى 1 على حساب انخفاض طفيف في الأداء. قد يؤدي التمكين إلى تحسين الأداء.",
@@ -405,7 +428,10 @@
             "upscaleHeight": "طول النافذة عند gamescope، ويُفتَرض أن نسبة الطولَين ٩:١٦.",
             "fpsLimiter": "غاية عدد إطارات gamescope، فمثًلا حدها ٦٠",
             "additionalOptions": "أعلام سطر الأوامر الأضافية المُمَرّرة إلى gamescope.",
-            "forceGrabCursor": ""
+            "forceGrabCursor": "",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "title": {
             "accessibility": "إمكانية الوصول",
@@ -442,7 +468,16 @@
             "details": "استخدم بطاقة رسوميات مخصصة لعرض اللعبة على أنظمة متعددة وحدات معالجة الرسوميات. مطلوب فقط على أجهزة الكمبيوتر المحمولة أو أجهزة الكمبيوتر المكتبية المخصصة للألعاب التي تستخدم وحدة معالجة رسوميات بدون رأس للعرض (إنفيديا.أُبتِمُس و أي.إم.دي كُرُوسفَيَر)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -551,7 +586,8 @@
                     "corrupt": "تعذرت إضافة {{game}} لجميع مستخدمي ستيم المعثور عليهم. راجع السجلات لمزيد من المعلومات. تتطلب إعادة تشغيل ستيم لتطبيق التغييرات.",
                     "success": "تمت إضافة {{game}} بنجاح إلى ستيم. تتطلب إعادة تشغيل ستيم لتطبيق التغييرات.",
                     "title": "أُضيف لستيم",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -653,7 +689,10 @@
             "fpsLimiterNoFocus": "حدُّ معدَّل الإطارات (دون التركيز)",
             "stretch": "مدِّد الصورة",
             "additionalOptions": "الإعدادات الإضافية",
-            "windowed": "ويندوز"
+            "windowed": "ويندوز",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -672,7 +711,8 @@
         "egs-prefix": "السابقة التي ثُبت فيها متجر ألعاب أََبِك",
         "prefered_language": "رمز من حرفين (مثل \"en\" أو \"fr\")",
         "alt-nile-bin": "يستخدم ملفَّ تنفيذ نيل المدمج...",
-        "alt-aurelia-bin": "يستخدم ملفَّ تنفيذ Aurelia المدمج..."
+        "alt-aurelia-bin": "يستخدم ملفَّ تنفيذ نيل المدمج...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "لينكس",
@@ -836,7 +876,8 @@
             "placeholder": "حدد مجلد ملفات تخزين الألعاب بالضبط",
             "warning": "تحقَّق من صحَّة المسار مرَّتين (انقر لتعيد المحاولة)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "اختر سِمة",
         "showfps": "عرض معدل الإطارات (دايركت.إكس 9 و 10 و 11)",
@@ -867,7 +908,13 @@
             "enableUpscaling": "يمكِّن التجويد",
             "missingMsg": "لم أجد gamescope في المسار، فثبِّته أو أضفه إليه.",
             "enableForceGrabCursor": "",
-            "warningFlatpak": ""
+            "warningFlatpak": "",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableHDR": "",
+            "enableUpscaling-description": ""
         },
         "frameless-window": {
             "confirmation": {
@@ -925,7 +972,8 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "استخدم بيئة تشغيل ستيم",
-            "noRuntimeOption": ""
+            "noRuntimeOption": "",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "افتح",
@@ -1006,7 +1054,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "اختر ملفَّ تنفيذ بديلًا لـ Aurelia",
+        "alt-aurelia-bin": "اختر ملفَّ تنفيذ بديلًا لنيل",
         "steamLaunchTarget": {
             "downloadBuild": "التنزيل",
             "missingBuild": "إجمالي التنزيلات",
@@ -1028,7 +1076,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1070,7 +1170,10 @@
             "gamescope": "Gamescope",
             "legacy": "",
             "categories": "الفئات",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "افتح ملف التكوين",
         "reset-heroic": "إعادة تعيين هِرُوِك",
@@ -1182,7 +1285,17 @@
             "privacy": "",
             "steam": "",
             "epic": "أَبِك جيمز",
-            "gog": "جي.أو.جي"
+            "gog": "جي.أو.جي",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": "",
+            "gamescopeAdditionalOptions": "الإعدادات الإضافية"
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1190,11 +1303,57 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "انسخ"
+            "button": "انسخ",
+            "description": ""
+        },
+        "gamepad": {
+            "button": {
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "back": "",
+                "context": "",
+                "guide": "",
+                "nextPage": "",
+                "reset": "إعادة ضبط إلى الإعدادات الأصلية"
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "الإعدادات",
@@ -1328,7 +1487,8 @@
         "noGames": "",
         "noResultsTitle": "لم يتم العثور على ألعاب",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton هو نوع Proton تم إنشاؤه بواسطة Glorious Eggroll. من المفترض استخدامه في Steam، لكن بعض الألعاب خارج Steam قد تعمل بشكل أفضل مع هذا المتغير. ويوفر سجلات غير مجدية في الغالب لاستكشاف الأخطاء وإصلاحها.",
@@ -1389,7 +1549,13 @@
             "downloads": "",
             "accounts": "",
             "stores": "",
-            "version": ""
+            "version": "",
+            "communityIntro": "",
+            "welcomeTitle": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "generalTitle": "عام"
         },
         "library": {
             "gameCard": "",
@@ -1410,7 +1576,19 @@
             "categories": "",
             "sortInstalled": "",
             "sortOptions": "",
-            "addGame": ""
+            "addGame": "",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "ابحث"
         },
         "next": "",
         "back": "",
@@ -1478,7 +1656,8 @@
             "platform": "منصة",
             "hideOwned": "أخفي المملوك",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "التفاصيل",
         "sort": {
@@ -1559,7 +1738,8 @@
             "sort": "رتب",
             "navigate": "",
             "quit": "اخرج",
-            "change_store": "غيّر المتجر"
+            "change_store": "غيّر المتجر",
+            "hold_quit": ""
         },
         "launching": "يشغَّل",
         "card": {
@@ -1599,7 +1779,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "",
     "common": {
@@ -1744,35 +1931,161 @@
     },
     "import-export": {
         "action": {
-            "download": "ينزَّل"
+            "download": "ينزَّل",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "close": "أغلق",
         "installed-games": "الألعاب المثبتة",
         "platform": "منصة",
         "stage": {
             "credentials": "تسجيل الدخول للمتجر",
-            "globalSettings": "الإعدادات العامة"
+            "globalSettings": "الإعدادات العامة",
+            "perGameSettings": "",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "الإعدادات العامة"
+            "title": "الإعدادات العامة",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
-            "selectAll": "حدِّد الكلَّ"
+            "selectAll": "حدِّد الكلَّ",
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "تسجيل الدخول للمتجر"
+            "title": "تسجيل الدخول للمتجر",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "سابقة واين",
             "wine-downloadable": "التنزيل",
-            "wine-unavailable": "لا يوجد محتوى قابل للتنزيل (DLC) متاح"
+            "wine-unavailable": "لا يوجد محتوى قابل للتنزيل (DLC) متاح",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "تسجيل الدخول للمتجر",
-            "global-settings": "الإعدادات العامة"
+            "global-settings": "الإعدادات العامة",
+            "library-system": "",
+            "done": "",
+            "summary": "",
+            "pick-file": "",
+            "per-game": ""
         },
         "summaryValue": "القيمة",
         "version": "إصدار هِرُوِك",
-        "wine-versions": "إصدار واين"
+        "wine-versions": "إصدار واين",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "per-game": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "next": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": "",
+        "back": ""
     }
 }

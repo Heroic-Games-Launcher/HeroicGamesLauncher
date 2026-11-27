@@ -229,7 +229,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": "",
+            "cancel": "Annuler"
+        }
     },
     "button": {
         "cancel": "Annuler",
@@ -300,7 +308,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Les services en ligne peuvent ne pas entièrement fonctionner car les serveurs d'Epic Games sont hors ligne !",
@@ -358,7 +377,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -411,7 +434,10 @@
             "fpsLimiterNoFocus": "Le nombre d'images par seconde auquel gamescope doit se limiter si le jeu est en arrière-plan.",
             "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60",
             "additionalOptions": "Spécificateurs en ligne de commande supplémentaires à transmettre à gamescope.",
-            "forceGrabCursor": "Toujours utiliser le mode souris relatif au lieu de basculer en fonction de la visibilité du curseur. (Utile quand les applications ne cessent de perdre la focalisation)"
+            "forceGrabCursor": "Toujours utiliser le mode souris relatif au lieu de basculer en fonction de la visibilité du curseur. (Utile quand les applications ne cessent de perdre la focalisation)",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "title": {
             "accessibility": "Accessibilité",
@@ -448,7 +474,16 @@
             "details": "Utiliser la carte graphique dédiée pour le rendu sur les systèmes à multiples processeurs graphiques. Utile seulement sur les ordinateurs ayant un processeur graphique intégré et une carte graphique dédiée (NVIDIA Optimus, AMD CrossFire)",
             "link": "Voir plus de détails dans notre wiki"
         },
-        "hide-window-on-protocol-launch": "Garder la fenêtre Heroic cachée lorsqu'un jeu est lancé à partir d'un raccourci externe, comme la fonction 'Ajouter à Steam'."
+        "hide-window-on-protocol-launch": "Garder la fenêtre Heroic cachée lorsqu'un jeu est lancé à partir d'un raccourci externe, comme la fonction 'Ajouter à Steam'.",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -557,7 +592,8 @@
                     "corrupt": "{{game}} n'a pas pu être ajouté à tous les utilisateurs de Steam détectés. Vérifiez les rapports d'événements pour plus d'informations. Steam doit être redémarré pour prendre en compte ces changements.",
                     "success": "{{game}} a bien été ajouté à Steam. Un redémarrage de Steam est nécessaire pour que ces changements soient effectués.",
                     "title": "Ajouté à Steam",
-                    "success-no-restart": "{{game}} a été ajouté avec succès à Steam."
+                    "success-no-restart": "{{game}} a été ajouté avec succès à Steam.",
+                    "already": ""
                 }
             },
             "remove": {
@@ -659,7 +695,10 @@
             "stretch": "Étirer l'image",
             "interger": "Mise à l'échelle vers une résolution plus grande (avec un ratio entier)",
             "windowed": "Fenêtré",
-            "additionalOptions": "Options supplémentaires"
+            "additionalOptions": "Options supplémentaires",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -678,7 +717,8 @@
         "egs-prefix": "Préfixe où l'EGS est installé",
         "prefered_language": "code comportant 2 ou 4 caractères (par exemple : « fr » ou « pt-BR »)",
         "alt-nile-bin": "Utilisation de l'exécutable Nile intégré...",
-        "alt-aurelia-bin": "Utilisation du binaire Aurelia intégré..."
+        "alt-aurelia-bin": "Utilisation du binaire Legendary intégré...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -849,7 +889,8 @@
             "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
             "warning": "Veuillez par deux fois vous assurer de l'exactitude du chemin choisi (cliquez pour réessayer)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Sélection du thème",
         "showfps": "Afficher les FPS (DirectX 9, 10 et 11)",
@@ -887,7 +928,13 @@
             "missingMsg": "Gamescope n'a pas pu être trouvé en suivant la variable PATH définie. Installez-le ou ajoutez-le manuellement à ladite variable.",
             "enableForceGrabCursor": "Activer « Force Grab Cursor »",
             "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package flatpak Gamescope avec la runtime 25.08 et redémarrez Heroic.",
-            "warningFlatpak": "Nous n'avons pas pu trouver une version de Gamescope compatible. Installez le paquet flatpak Gamescope avec l'environnement d'exécution {{runtimeVersion}} et redémarrez Heroic."
+            "warningFlatpak": "Nous n'avons pas pu trouver une version de Gamescope compatible. Installez le paquet flatpak Gamescope avec l'environnement d'exécution {{runtimeVersion}} et redémarrez Heroic.",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": "",
+            "enableHDR": "Activer le HDR"
         },
         "msync": "Activer Msync",
         "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",
@@ -944,7 +991,8 @@
         "start-in-console-mode": "Démarrer en mode Console",
         "steamRuntime": {
             "label": "Utiliser le runtime Steam",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "hide-window-on-protocol-launch": "Cacher la fenêtre Heroic lors du lancement de jeux via les liens Heroic",
         "nvidiaprime": {
@@ -1025,7 +1073,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Choisissez un binaire alternatif pour Aurelia",
+        "alt-aurelia-bin": "Choisissez un binaire alternatif pour Nile",
         "steamLaunchTarget": {
             "downloadBuild": "Téléchargement",
             "missingBuild": "Téléchargé au total",
@@ -1047,7 +1095,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1089,7 +1189,10 @@
             "gamescope": "Gamescope",
             "legacy": "Obsolète",
             "categories": "Catégories",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Ouvrir le fichier de configuration",
         "reset-heroic": "Réinitialiser Heroic",
@@ -1202,18 +1305,74 @@
             "privacy": "",
             "steam": "",
             "epic": "Epic Games",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": "",
+            "gamescopeAdditionalOptions": "Options supplémentaires"
         },
         "pageSubtitle": {
             "log": "",
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "Copier"
+            "button": "Copier",
+            "description": ""
+        },
+        "gamepad": {
+            "button": {
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": "",
+                "reset": "Réinitialisation",
+                "back": "Retour",
+                "guide": "Mode Console"
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "Options",
@@ -1354,7 +1513,8 @@
         "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la section « Bibliothèque ».<br /><br />Pour utiliser des jeux ou des applications provenant d'autres sources, cliquez pour les ajouter manuellement<br />.",
         "noResultsTitle": "Aucun jeu trouvé.",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "adtraction-locked": {
         "description": "Il semble que le domaine « track.adtraction.com » soit bloqué ou n'ait pas pu être atteint. Avec « adtraction », tous les achats que vous faites dans la boutique GOG contribuent au financement de Heroic. Si vous souhaitez nous soutenir ainsi, songez à autoriser ce domaine.",
@@ -1394,7 +1554,19 @@
             "gameCard": "Faites un clic-gauche sur la vignette du jeu afin de naviguer vers sa page, consulter ses détails et ajuster ses paramètres ou faites un clic-droit pour ouvrir le menu contextuel.",
             "sortInstalled": "Classez les jeux selon leur statut (installé/non-installé).",
             "sortOptions": "Cliquez ici pour classer les jeux par ordre alphabétique.",
-            "steamInstall": "Utilisez ce bouton pour installer la version Windows de Steam et jouer à vos jeux Windows au moyen de Crossover, Wine ou GPTK."
+            "steamInstall": "Utilisez ce bouton pour installer la version Windows de Steam et jouer à vos jeux Windows au moyen de Crossover, Wine ou GPTK.",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "Rechercher"
         },
         "back": "Retour",
         "done": "Compris",
@@ -1415,7 +1587,13 @@
             "version": "Vérifiez la version actuelle d'Heroic, cliquez dessus pour consulter les dernier changements et accédez à cette visite guidée depuis le bouton d'aide.",
             "wine": "Supervisez ou téléchargez de nouvelles versions de Wine/Proton/GPTK pour exécuter des jeux Windows sur Linux ou macOS.",
             "quit": "Quittez l'application de manière sûre.",
-            "docs": "Lisez la documentation pour en apprendre plus sur l'utilisation d'Heroic."
+            "docs": "Lisez la documentation pour en apprendre plus sur l'utilisation d'Heroic.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "Bienvenue dans Heroic !",
+            "generalTitle": "Général"
         },
         "skip": "Passer",
         "startTour": "Débuter la visite guidée"
@@ -1504,7 +1682,8 @@
             "platform": "Système",
             "hideOwned": "Cacher les articles possédés",
             "wishlistOnly": "Liste de souhaits uniquement",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Détails",
         "sort": {
@@ -1585,7 +1764,8 @@
             "sort": "Trier",
             "navigate": "Navigation",
             "quit": "Quitter",
-            "change_store": "Changer de boutique"
+            "change_store": "Changer de boutique",
+            "hold_quit": ""
         },
         "launching": "Lancement",
         "card": {
@@ -1625,7 +1805,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Suivant",
     "common": {
@@ -1770,7 +1957,11 @@
     },
     "import-export": {
         "action": {
-            "download": "En cours de téléchargement"
+            "download": "En cours de téléchargement",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Retour",
         "close": "Fermer",
@@ -1779,36 +1970,148 @@
         "per-game": "Paramètres",
         "platform": "Système",
         "rollback": {
-            "saved": "Enregistrer"
+            "saved": "Enregistrer",
+            "run": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
         },
         "stage": {
             "credentials": "Connexion à la boutique",
             "globalSettings": "Paramètres généraux",
-            "perGameSettings": "Paramètres"
+            "perGameSettings": "Paramètres",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Paramètres généraux"
+            "title": "Paramètres généraux",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "Aucun jeu ne correspond aux filtres actuels.",
-            "selectAll": "Tout sélectionner"
+            "selectAll": "Tout sélectionner",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Connexion à la boutique"
+            "title": "Connexion à la boutique",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Dossier de préfixe Wine",
             "wine-downloadable": "Téléchargement",
-            "wine-unavailable": "Aucune extension n'est disponible"
+            "wine-unavailable": "Aucune extension n'est disponible",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Connexion à la boutique",
             "done": "Compris",
             "global-settings": "Paramètres généraux",
-            "per-game": "Paramètres"
+            "per-game": "Paramètres",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Valeur",
         "version": "Version d'Heroic",
-        "wine-versions": "Version de Wine"
+        "wine-versions": "Version de Wine",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

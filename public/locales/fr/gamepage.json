@@ -106,8 +106,14 @@
         "back": "Retour",
         "next": "Suivant",
         "skip-installer": {
-            "title": "Passer"
-        }
+            "title": "Passer",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Non-compatible",
     "disabled": "Désactivé",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Erreur : ce répertoire n’est pas accessible en mode bac-à-sable en raison d'un risque de perte de données.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -298,7 +305,12 @@
             "useragent": "Compte Utilisateur Personnalisé",
             "fullscreen": "Exécuter en plein écran (F11 pour quitter)",
             "cover-hint": "Image d'arrière-plan (cliquer sur l'image pour rechercher sur SteamGridDB)",
-            "image-hint": "Image de jaquette (cliquer sur l'image pour rechercher sur SteamGridDB)"
+            "image-hint": "Image de jaquette (cliquer sur l'image pour rechercher sur SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Coller ici l'URL d'une image ou sélectionnez-en une provenant de votre ordinateur",
@@ -311,13 +323,26 @@
             "content": "N'utilisez PAS cette fonctionnalité pour cela. <br />À la place, <3>connectez-vous</3> à la boutique, recherchez le jeu dans votre bibliothèque, ouvrez la fenêtre d'installation, et cliquez sur le bouton &quot;Import Game&quot;"
         },
         "images": {
-            "summary": "Images"
+            "summary": "Images",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Vérifier la compatibilité",
             "finish": "Terminer",
             "images": "Images",
-            "install": "Arrêter l'installation"
+            "install": "Arrêter l'installation",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

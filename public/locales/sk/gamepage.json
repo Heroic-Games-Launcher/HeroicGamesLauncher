@@ -102,7 +102,17 @@
         "unfavourite": "Odstrániť z obľúbených",
         "backToLibrary": "",
         "steamStore": "",
-        "back": "Back"
+        "back": "Back",
+        "skip-installer": {
+            "title": "",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "next": "",
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Nepodporované",
     "disabled": "Zakázané",
@@ -208,7 +218,8 @@
         "flatpak-path-not-writtable": "Chyba: Tejto ceste nebol udelený prístup do Sandboxu, dôjde k strate údajov.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -270,7 +281,12 @@
             "fullscreen": "Spustiť na celú obrazovku (ukončiť z F11)",
             "useragent": "Vlastný Useragent",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Sem prilepte adresu URL obrázka",
@@ -283,12 +299,26 @@
             "content": "Nepoužívajte túto funkciu.<br />Namiesto, <3>log do</3> obchod, hľadať hru vo vašej knižnici, otvorte inštalačný dialóg a kliknite na \"Import Game \" tlačidlo"
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Skontrolujte kompatibilitu",
             "finish": "Dokončiť",
-            "install": "Zastaviť inštaláciu"
+            "install": "Zastaviť inštaláciu",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

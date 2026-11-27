@@ -102,7 +102,17 @@
         "unfavourite": "הסר ממועדפים",
         "backToLibrary": "",
         "steamStore": "",
-        "back": "חזור"
+        "back": "חזור",
+        "skip-installer": {
+            "title": "",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "next": "",
+        "skip-waiting": ""
     },
     "gamecard": {
         "repairing": "מתקן",
@@ -146,7 +156,12 @@
             "useragent": "",
             "fullscreen": "",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "title": "הוסיפו כותרת למשחק/אפליקציה שלכם",
@@ -162,12 +177,26 @@
             "title": ""
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "בדוק התאמה",
             "finish": "סיים",
-            "install": "הפסק התקנה"
+            "install": "הפסק התקנה",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "status": {
@@ -326,7 +355,8 @@
         "flatpak-path-not-writtable": "",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "not_logged_in": {
         "amazon": "אתה לא מחובר לחשבון אמזון בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:",

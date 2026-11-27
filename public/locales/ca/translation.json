@@ -231,7 +231,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "Cancel·la"
+            "cancel": "Cancel·la",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "button": {
@@ -303,7 +308,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Els serveis en línia podrien no funcionar, ja que els servidors d'Epic Games estan desconnectats.",
@@ -361,7 +377,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -414,7 +434,10 @@
             "gameHeight": "La resolució vertical del joc. El gamescope assumeix una relació 16:9.",
             "upscaleHeight": "La resolució vertical que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
             "additionalOptions": "Opcions d'ordre de comandes addicionals per al gamescope",
-            "forceGrabCursor": "Fes servir sempre el mode de ratolí relatiu en lloc del gir dependent de la visibilitat del cursor. (Útil quan les aplicacions perden el focus)"
+            "forceGrabCursor": "Fes servir sempre el mode de ratolí relatiu en lloc del gir dependent de la visibilitat del cursor. (Útil quan les aplicacions perden el focus)",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "title": {
             "accessibility": "Accessibilitat",
@@ -451,7 +474,16 @@
             "details": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes amb diverses GPU. Només cal en portàtils o ordinadors que tinguin una GPU «headless» per al renderitzat (NVIDIA Optimus, AMD Crossfire)",
             "link": "Obtén més informació en la nostra wiki"
         },
-        "hide-window-on-protocol-launch": "Manté la finestra de l'Heroic amagada quan s'executa un joc des d'una drecera externa, com ara la funció «Afegeix al Steam»."
+        "hide-window-on-protocol-launch": "Manté la finestra de l'Heroic amagada quan s'executa un joc des d'una drecera externa, com ara la funció «Afegeix al Steam».",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -560,7 +592,8 @@
                     "corrupt": "{{game}} no s'ha pogut afegir a tots els usuaris del Steam. Consulta els registres per a més informació. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
                     "success": "{{game}} s'ha afegit correctament al Steam. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
                     "title": "S'ha afegit al Steam",
-                    "success-no-restart": "S'ha afegit correctament {{game}} a Steam."
+                    "success-no-restart": "S'ha afegit correctament {{game}} a Steam.",
+                    "already": ""
                 }
             },
             "remove": {
@@ -662,7 +695,10 @@
             "stretch": "Estira la imatge",
             "interger": "Escalatge enter",
             "additionalOptions": "Opcions addicionals",
-            "windowed": "En finestra"
+            "windowed": "En finestra",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -681,7 +717,8 @@
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos o quatre caràcters (p. ex. «fr» o «pt-BR»)",
         "alt-nile-bin": "S'utilitza el binari integrat del Nile...",
-        "alt-aurelia-bin": "S'utilitza el binari integrat d'Aurelia..."
+        "alt-aurelia-bin": "S'utilitza el binari integrat del Nile...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -845,7 +882,8 @@
             "placeholder": "Selecciona el directori exacte on es desen els jocs",
             "warning": "Comprova si la ruta és correcta (fes clic per a provar-ho de nou)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Tema de la interfície",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
@@ -884,7 +922,12 @@
             "enableForceGrabCursor": "Activa la captura forçada de cursor",
             "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 25.08 i reinicia l'Heroic.",
             "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb l'entorn d'execució {{runtimeVersion}} i reinicia l'Heroic.",
-            "enableHDR": "Activa l'HDR"
+            "enableHDR": "Activa l'HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "after-launch-script-path": "Selecciona un script que s'executarà després de sortir del joc",
         "msync": "Activa l'Msync",
@@ -941,7 +984,8 @@
         "gamepad-repeat-frequency": "Freqüència de repetició de l'entrada del comandament",
         "steamRuntime": {
             "label": "Utilitza el Runtime del Steam",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Obre",
@@ -1016,7 +1060,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Tria un binari alternatiu d'Aurelia",
+        "alt-aurelia-bin": "Tria un binari alternatiu del Nile",
         "steamLaunchTarget": {
             "downloadBuild": "Baixada",
             "missingBuild": "Total baixat",
@@ -1038,7 +1082,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1080,7 +1176,10 @@
             "gamescope": "Gamescope",
             "legacy": "Obsolets",
             "categories": "Categories",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
@@ -1194,25 +1293,73 @@
             "steam": "",
             "epic": "Epic Games",
             "gog": "GOG",
-            "gamescopeAdditionalOptions": "Opcions addicionals"
+            "gamescopeAdditionalOptions": "Opcions addicionals",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "pageSubtitle": {
             "log": "",
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "Còpia"
+            "button": "Còpia",
+            "description": ""
         },
         "gamepad": {
             "button": {
                 "back": "Enrere",
                 "guide": "Mode consola",
-                "reset": "Restableix al predefinit"
+                "reset": "Restableix al predefinit",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "Configuració",
@@ -1353,7 +1500,8 @@
         "noGames": "La teva biblioteca està buida.<br /><br />Fes clic <4>aquí</4> per a iniciar la sessió als comptes d'Epic, GOG.com o Amazon. Es mostraran els jocs a la biblioteca.<br /><br />Per a fer servir jocs o aplicacions d'altres orígens, fes clic a <br /> per a afegir-los manualment.",
         "noResultsTitle": "No s'ha trobat cap joc.",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "categories-manager": {
         "add": "Afegeix",
@@ -1395,7 +1543,19 @@
             "addGame": "Pots afegir els teus jocs o aplicacions propis a la biblioteca si fas clic aquí. Poden ser de qualsevol classe, fins i tot adreces URL.",
             "categories": "Organitza els teus jocs en categories per a mantenir-ho tot ben ordenat.",
             "gameCard": "Fes clic amb el botó esquerre a la carta del joc per a anar a la seva pàgina, veure'n els detalls i ajustar-ne la configuració. Si hi fas clic amb el botó dret, s'obrirà el menú contextual.",
-            "steamInstall": "Utilitza aquest botó per a instal·lar la versió del Steam per al Windows i jugar als teus jocs de Windows fent servir el Crossover, Wine o GPTK."
+            "steamInstall": "Utilitza aquest botó per a instal·lar la versió del Steam per al Windows i jugar als teus jocs de Windows fent servir el Crossover, Wine o GPTK.",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "Cerca"
         },
         "next": "Següent",
         "sidebar": {
@@ -1414,7 +1574,13 @@
                 "intro": "Us donem la benvinguda a l'Heroic! Aquesta barra lateral conté totes les opcions de navegació per a explorar l'aplicació."
             },
             "wine": "Gestiona o baixa les versions noves del Wine/Proton/GPTK per a executar jocs de Windows en màquines Linux o macOS.",
-            "stores": "Cerca i compra jocs de diferents botigues com ara Epic, GOG o Amazon."
+            "stores": "Cerca i compra jocs de diferents botigues com ara Epic, GOG o Amazon.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "Us donem la benvinguda a l'Heroic!",
+            "generalTitle": "General"
         },
         "skip": "Salta",
         "startTour": "Inicia la guia"
@@ -1503,7 +1669,8 @@
             "hideOwned": "Amaga els que tens",
             "wishlistOnly": "Només en la llista de desitjats",
             "platform": "Platform",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Ofertes",
         "sort": {
@@ -1584,7 +1751,8 @@
             "sort": "Ordre",
             "navigate": "Navega",
             "quit": "Surt",
-            "change_store": "Canvia la botiga"
+            "change_store": "Canvia la botiga",
+            "hold_quit": ""
         },
         "launching": "S'està executant",
         "card": {
@@ -1624,7 +1792,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Següent",
     "common": {
@@ -1769,7 +1944,11 @@
     },
     "import-export": {
         "action": {
-            "download": "S'està baixant"
+            "download": "S'està baixant",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Enrere",
         "close": "Tanca",
@@ -1778,36 +1957,148 @@
         "per-game": "Configuració del joc",
         "platform": "Platform",
         "rollback": {
-            "saved": "Desa"
+            "saved": "Desa",
+            "run": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
         },
         "stage": {
             "credentials": "Inici de sessió a la botiga",
             "globalSettings": "Configuració global",
-            "perGameSettings": "Configuració del joc"
+            "perGameSettings": "Configuració del joc",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Configuració global"
+            "title": "Configuració global",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "No hi ha cap joc que coincideixi amb els filtres triats.",
-            "selectAll": "Selecciona-ho tot"
+            "selectAll": "Selecciona-ho tot",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Inici de sessió a la botiga"
+            "title": "Inici de sessió a la botiga",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Prefix del Wine",
             "wine-downloadable": "Baixada",
-            "wine-unavailable": "No hi ha DLC disponibles"
+            "wine-unavailable": "No hi ha DLC disponibles",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Inici de sessió a la botiga",
             "done": "Fet",
             "global-settings": "Configuració global",
-            "per-game": "Configuració del joc"
+            "per-game": "Configuració del joc",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Valor",
         "version": "Versió del Heroic",
-        "wine-versions": "Versió del Wine"
+        "wine-versions": "Versió del Wine",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }

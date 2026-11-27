@@ -105,8 +105,14 @@
         "back": "Bakåt",
         "next": "Nästa",
         "skip-installer": {
-            "title": "Hoppa över"
-        }
+            "title": "Hoppa över",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Stöds inte",
     "disabled": "Inaktiverad",
@@ -214,7 +220,8 @@
         "flatpak-path-not-writtable": "Fel: Flatpak saknar åtkomst till den här sökvägen. Data kommer att gå förlorade.",
         "free": "ledigt",
         "steam-no-libraries": "Inga Steam-biblioteksmappar hittades – lägg först till en enhet i Steam.",
-        "steam-path": "Installationssökväg (Steam-bibliotek)"
+        "steam-path": "Installationssökväg (Steam-bibliotek)",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -279,7 +286,12 @@
             "useragent": "Anpassad användaragent",
             "fullscreen": "Starta i helskärmsläge (tryck på F11 för att lämna helskärmsläget)",
             "image-hint": "Kvadratisk bild (klicka på bilden för att söka på SteamGridDB)",
-            "cover-hint": "Omslagsbild eller bannerbild (klicka på bilden för att söka på SteamGridDB)"
+            "cover-hint": "Omslagsbild eller bannerbild (klicka på bilden för att söka på SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Klistra in en bildadress eller välj en bild från datorn",
@@ -292,13 +304,26 @@
             "content": "Använd inte den här funktionen för det.<br /><3>Logga in</3> i butiken, leta upp spelet i ditt bibliotek, öppna installationsdialogen och klicka på &quot;Importera spel&quot;."
         },
         "images": {
-            "summary": "Bilder"
+            "summary": "Bilder",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Kompatibilitet",
             "finish": "Klar",
             "images": "Bilder",
-            "install": "Installation"
+            "install": "Installation",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
