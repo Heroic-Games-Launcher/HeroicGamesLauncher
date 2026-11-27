@@ -116,10 +116,14 @@ function handleStopInstallation(
   showDialogModal({
     title: t('gamepage:box.stopInstall.title'),
     message: t('gamepage:box.stopInstall.message'),
+    buttonLayout: 'inline',
     buttons: [
-      { text: t('gamepage:box.stopInstall.keepInstalling') },
       {
-        text: t('box.yes'),
+        text: t(
+          'gamepage:box.stopInstall.stopKeepFiles',
+          'Stop and keep files'
+        ),
+        variant: 'primary',
         onClick: () => {
           storage.setItem(
             appName,
@@ -129,11 +133,19 @@ function handleStopInstallation(
         }
       },
       {
-        text: t('box.no'),
+        text: t(
+          'gamepage:box.stopInstall.stopDeleteFiles',
+          'Stop and delete files'
+        ),
+        variant: 'dangerSubtle',
         onClick: () => {
           cancel(true)
           storage.removeItem(appName)
         }
+      },
+      {
+        text: t('gamepage:box.stopInstall.keepInstalling'),
+        variant: 'tertiary'
       }
     ]
   })

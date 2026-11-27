@@ -40,9 +40,11 @@
             "exe": "Select Executable"
         },
         "stopInstall": {
-            "keepInstalling": "Keep Installing",
-            "message": "Do you wish to KEEP downloaded files?",
-            "title": "Stop Installation"
+            "keepInstalling": "Keep installing",
+            "message": "Keep the files downloaded so far to resume later, or delete them to free up disk space.",
+            "stopDeleteFiles": "Stop and delete files",
+            "stopKeepFiles": "Stop and keep files",
+            "title": "Stop installing?"
         },
         "sync": {
             "force_download_warning": "Local saves will be erased. Do you want to proceed?",

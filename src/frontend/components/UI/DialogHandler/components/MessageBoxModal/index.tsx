@@ -15,6 +15,7 @@ interface MessageBoxModalProps {
   message: string | ReactElement
   onClose: () => void
   buttons: Array<ButtonOptions>
+  buttonLayout?: 'inline' | 'stacked'
   type: DialogType
   className?: string
 }
@@ -85,7 +86,12 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
     >
       <ModalHeader>{props.title}</ModalHeader>
       <ModalContent>{getContent()}</ModalContent>
-      <ModalFooter layout={props.buttons.length > 2 ? 'stacked' : 'inline'}>
+      <ModalFooter
+        layout={
+          props.buttonLayout ??
+          (props.buttons.length > 2 ? 'stacked' : 'inline')
+        }
+      >
         {getButtons()}
       </ModalFooter>
     </Modal>
