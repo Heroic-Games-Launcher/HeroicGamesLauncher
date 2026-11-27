@@ -52,6 +52,7 @@ const CachedImage = (props: Props) => {
   src = useCache && src ? `imagecache://${encodeURIComponent(src)}` : src
 
   // Not DOM attributes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { onFinalError, fallback, ...imgProps } = props
 
   return (
