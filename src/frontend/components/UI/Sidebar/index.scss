@@ -9,6 +9,7 @@
   position: relative;
   z-index: 10;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: min-content 2fr min-content min-content;
   grid-template-areas: 'icon' 'links' 'utils' 'updates' 'version';
   grid-area: sidebar;
