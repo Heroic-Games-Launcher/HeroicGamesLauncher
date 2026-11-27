@@ -174,7 +174,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
       <Button
         variant={variant}
         className={classNames('mainBtn', legacyClass)}
-        icon={glyph ? <Icon glyph={glyph} size="xl" strokeWidth={2} /> : null}
+        icon={glyph ? <Icon glyph={glyph} size="lg" strokeWidth={2} /> : null}
         {...props}
       >
         {label}
