@@ -18,7 +18,7 @@ const ReportIssue = ({ gameInfo }: Props) => {
 
   return (
     <Button
-      variant="warning"
+      variant="ghost"
       className="reportProblem"
       onClick={() => openGameLogsModal(gameInfo)}
       icon={<Icon glyph={TriangleAlert} size="md" />}
