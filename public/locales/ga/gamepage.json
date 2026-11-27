@@ -224,7 +224,8 @@
         "wineversion": "Leagan Wine",
         "free": "saor in aisce",
         "steam-no-libraries": "Níor aimsíodh aon fhillteáin leabharlainne Steam — cuir tiomántán leis i Steam ar dtús.",
-        "steam-path": "Conair Suiteála (leabharlann Steam)"
+        "steam-path": "Conair Suiteála (leabharlann Steam)",
+        "linux-arm-native-warning": "Tá cluichí dúchasacha Linux tógtha le haghaidh x86_64 agus teastaíonn aithriseoir, ar nós FEX, uathu chun rith ar ARM. Moltar an leagan Windows a shuiteáil."
     },
     "label": {
         "game": {
@@ -283,7 +284,12 @@
             "collapsible": "Comhtháthú REDmod",
             "enable": "Cumasaigh mods"
         },
-        "versionCollapsable": "Leagan Cluiche"
+        "versionCollapsable": "Leagan Cluiche",
+        "steam": {
+            "noInfo": "Níorbh fhéidir le Aurelia teangacha an chluiche seo a liostú. Deimhnigh go bhfuil tú logáilte isteach i Steam.",
+            "noLanguages": "Teastaíonn Aurelia níos nuaí chun teanga cluiche Steam a athrú.",
+            "oneLanguage": "Níl an cluiche seo ar fáil ach i dteanga amháin."
+        }
     },
     "not_logged_in": {
         "amazon": "Níl tú logáilte isteach le cuntas Amazon i Heroic. Ná húsáid leathanach an tsiopa chun logáil isteach, cliceáil an cnaipe seo a leanas ina ionad:",
@@ -317,7 +323,7 @@
             "title": "Teideal"
         },
         "import-hint": {
-            "title": "Tábhachtach! An bhfuil cluiche ó Epic/GOG/Amazon á chur leis agat? Cliceáil anseo!",
+            "title": "Tábhachtach! An bhfuil cluiche ó Epic/GOG/Amazon á chur agat?",
             "content": "NÁ húsáid an ghné seo chuige sin.<br />Ina áit sin, <3>logáil isteach</3> sa siopa, cuardaigh an cluiche i do leabharlann, oscail an dialóg suiteála, agus cliceáil an cnaipe &quot;Iompórtáil Cluiche&quot;"
         },
         "info": {
