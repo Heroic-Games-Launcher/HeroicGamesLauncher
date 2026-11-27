@@ -16,6 +16,8 @@ const LOG_LEVEL_LOGGING_FUNC: Record<LogLevel, (message: string) => unknown> = {
   ERROR: console.error
 }
 
+const MAX_LOG_FILE_BYTES = 50 * 1024 * 1024
+
 export default class LogWriter {
   /** The log file path the writer should write into */
   public readonly logFilePath: string
@@ -27,6 +29,9 @@ export default class LogWriter {
    */
   readonly #logsDisabled: boolean
 
+  /** Maximum size in bytes before rotating the active log file to `.old` */
+  readonly #maxFileBytes: number
+
   readonly #isGeneralLog: boolean
 
   /**
@@ -36,6 +41,12 @@ export default class LogWriter {
   #wasWrittenTo: boolean
   /** Whether the log file was closed by calling {@link close} */
   #isClosed: boolean
+  /** Number of bytes written to the current log file since creation/rotation */
+  #bytesWritten: number
+  /** Last non-empty line written, used to collapse consecutive duplicate lines */
+  #lastLine: string | null
+  /** Number of consecutive times {@link #lastLine} was repeated */
+  #repeatCount: number
   /**
    * A {@link Promise} the writer waits for before writing new messages to the
    * file. This is used in case a Promise is passed to {@link writeString}
@@ -45,14 +56,19 @@ export default class LogWriter {
   public constructor(
     logFilePath: string,
     outputToOsStreams: boolean,
-    logsDisabled: boolean
+    logsDisabled: boolean,
+    maxFileBytes: number = MAX_LOG_FILE_BYTES
   ) {
     this.logFilePath = logFilePath
     this.#outputToOsStreams = outputToOsStreams
     this.#logsDisabled = logsDisabled
+    this.#maxFileBytes = maxFileBytes
     this.#isGeneralLog = logFilePath === getLogFilePath({})
     this.#wasWrittenTo = false
     this.#isClosed = false
+    this.#bytesWritten = 0
+    this.#lastLine = null
+    this.#repeatCount = 0
     this.#messageWaitPromise = Promise.resolve()
   }
 
@@ -74,6 +90,31 @@ export default class LogWriter {
     return renameSync(this.logFilePath, this.oldLogFilePath)
   }
 
+  #collapseRepeatedLines(message: string): string {
+    const normalized = message.endsWith('\n') ? message.slice(0, -1) : message
+    const lines = normalized.split('\n')
+    const outputLines: string[] = []
+
+    for (const line of lines) {
+      if (line.trim().length > 0 && line === this.#lastLine) {
+        this.#repeatCount += 1
+        continue
+      }
+
+      if (this.#repeatCount > 0) {
+        const times = this.#repeatCount === 1 ? 'time' : 'times'
+        outputLines.push(`[Last line repeated ${this.#repeatCount} ${times}]`)
+        this.#repeatCount = 0
+      }
+
+      this.#lastLine = line.trim().length > 0 ? line : null
+      outputLines.push(line)
+    }
+
+    if (!outputLines.length) return ''
+    return `${outputLines.join('\n')}\n`
+  }
+
   /**
    * Writes a string to the log file, waiting for any previous messages in the
    * queue to be written first
@@ -92,36 +133,40 @@ export default class LogWriter {
     }
 
     if (!this.#wasWrittenTo) {
+      this.#wasWrittenTo = true
       this.#archiveOldLogFile()
 
       // print this message only once when a new log file is created and it's not the general log
       if (!this.#isGeneralLog)
         logDebug(`Logging to file(s) ${this.logFilePath}`, LogPrefix.Backend)
       const dirname = path.dirname(this.logFilePath)
-      await fsPromises.mkdir(dirname, { recursive: true })
+      this.#messageWaitPromise = this.#messageWaitPromise.then(() =>
+        fsPromises.mkdir(dirname, { recursive: true })
+      )
     }
 
-    // Wait for any previously-submitted Promise<string>s to be written first
-    await this.#messageWaitPromise
+    const writePromise = this.#messageWaitPromise.then(async () => {
+      const resolvedMessage = await message
+      if (!resolvedMessage.trim().length) return
 
-    // If our message is a Promise<string>, add it to the chain of `#messageWaitPromise`
-    // Any future calls to `writeString` will then wait on the new chain with
-    // this message added
-    if (message instanceof Promise) {
-      this.#messageWaitPromise = this.#messageWaitPromise.then(() => message)
-      message = await message
-    }
+      const output = this.#collapseRepeatedLines(resolvedMessage)
+      if (!output.length) return
 
-    if (!message.trim().length) return
+      const messageBytes = Buffer.byteLength(output, 'utf-8')
+      if (
+        this.#bytesWritten > 0 &&
+        this.#bytesWritten + messageBytes > this.#maxFileBytes
+      ) {
+        this.#archiveOldLogFile()
+        this.#bytesWritten = 0
+      }
 
-    // Append a newline only if there isn't one already. This is used in favor
-    // of `.trim()`ing the message as it still allows for messages to insert
-    // additional whitespace if desired
-    const appendNewline = !message.endsWith('\n')
-    if (appendNewline) message += '\n'
+      await fsPromises.appendFile(this.logFilePath, output, 'utf-8')
+      this.#bytesWritten += messageBytes
+    })
 
-    await fsPromises.appendFile(this.logFilePath, message, 'utf-8')
-    this.#wasWrittenTo = true
+    this.#messageWaitPromise = writePromise.catch(() => {})
+    await writePromise
   }
 
   /**
