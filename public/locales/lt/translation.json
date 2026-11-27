@@ -182,7 +182,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "Atšaukti"
+            "cancel": "Atšaukti",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "notify": {
@@ -193,7 +198,8 @@
                     "title": "Pridėti prie „Steam“",
                     "success": "„{{game}}“ buvo sėkmingai pridėtas prie „Steam“. „Steam“ paleidimas iš naujo yra reikalingas, norint, kad pokyčiai būtų įtvirtinti.",
                     "corrupt": "„{{game}}“ negalėjo būt pridėtas prie visų rastų „Steam“ vartotojų/naudotojų. Peržiūrėkite žurnalą, norint sužinoti daugiau. „Steam“ paleidimas iš naujo yra reikalingas, norint, kad pokyčiai būtų įtvirtinti.",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -308,7 +314,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "game": {
         "modify": "Redaguoti įdiegimą",
@@ -337,7 +354,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "title": {
@@ -394,7 +415,10 @@
             "upscaleWidth": "Pločio skiriamoji geba, kuri yra naudojama „Gamescope“. Numatoma 16:9 proporcija.",
             "upscaleMethod": "Išplėstai padidintos gebos būdas, kurį „gamescope“ turėtų naudoti.",
             "additionalOptions": "Papildomos komandinės eilutės „vėliavos“, kurias pravesti į „gamescope“.",
-            "forceGrabCursor": "Visada naudoti santykinį pelės veikseną, vietoj jį išversti priklausomai nuo žymeklio matomumo. (Naudinga, kai programos/programėlės prarandą pirmenybę)"
+            "forceGrabCursor": "Visada naudoti santykinį pelės veikseną, vietoj jį išversti priklausomai nuo žymeklio matomumo. (Naudinga, kai programos/programėlės prarandą pirmenybę)",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "dxvk": "„DXVK“ yra „Vulkan“ pagrindo vertimo sluoksnis „DirectX 9/10/11“ žaidimams. Įjungus/Įgalinant gali pagerinti palaikomumą. Gali sukelti problemų, ypatingai senesniems „DirectX“ žaidimams.",
         "sync": {
@@ -427,7 +451,16 @@
             "details": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)",
             "link": "Peržiūrėkite daugiau išsamumo mūsų aiškinamajame puslapyje"
         },
-        "hide-window-on-protocol-launch": "Laiko „Heroic“ langą paslėpta, kai žaidimas yra paleistas iš kitos išorinės nuorodos, tokios kaip – „pridėti prie „Steam““ funkcijos."
+        "hide-window-on-protocol-launch": "Laiko „Heroic“ langą paslėpta, kai žaidimas yra paleistas iš kitos išorinės nuorodos, tokios kaip – „pridėti prie „Steam““ funkcijos.",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "version": "„Wine“ versija",
@@ -607,7 +640,8 @@
             "warning": "Prašome patikrinti dar kartą ar šis kelias yra teisingas (spausti, norint bandyti iš naujo)",
             "placeholder": "Pažymėkite tikslų žaidimų išsaugojimų aplanką/-alą",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "showfps": "Rodyti kdr./sek. („DX9/10/11“)",
         "steamruntime": "Naudoti „Steam“ vykdantįjį",
@@ -627,7 +661,12 @@
             "enableUpscaling": "Įjungia/Įgalina išplečiama gebą",
             "enableForceGrabCursor": "Įjungti/Įgalinti priverstinį griebimo žymeklį",
             "warningFlatpak": "Negalėjome rasti palaikomos „Gamescope“ versijos. Įdiekite „Gamescope“ „flatpak“ paketą su vykdomuoju – {{runtimeVersion}} ir perleiskite „Heroic“.",
-            "enableHDR": "Įjungti „HDR“"
+            "enableHDR": "Įjungti „HDR“",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "hideChangelogsOnStartup": "Nerodyti keitinių žurnalo paleidime",
         "maxRecentGames": "Rodyti neseniai žaistus",
@@ -709,7 +748,8 @@
         "gamepad-repeat-frequency": "Valdiklio įvesties atkartojimo dažnis",
         "steamRuntime": {
             "label": "Naudoti „Steam“ vykdantįjį",
-            "noRuntimeOption": ""
+            "noRuntimeOption": "",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Atidaryti",
@@ -784,7 +824,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Pasirinkite kurią pakaitinę „Aurelia“ dvejetainę naudoti",
+        "alt-aurelia-bin": "Pasirinkite kurią pakaitinę „Nile“ dvejetainę naudoti",
         "steamLaunchTarget": {
             "downloadBuild": "Atsisiųsti",
             "missingBuild": "Iš viso atsisiųsta",
@@ -806,7 +846,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "advanced": {
@@ -848,7 +940,10 @@
             "general": "Bendri",
             "legacy": "Pasenusio standarto",
             "categories": "Kategorijos",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "systemInformation": {
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
@@ -960,7 +1055,15 @@
             "amazon": "„Amazon“ žaidimai",
             "epic": "„Epic Games“",
             "gog": "„GOG“",
-            "gamescopeAdditionalOptions": "Papildomos parinktys"
+            "gamescopeAdditionalOptions": "Papildomos parinktys",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -968,18 +1071,57 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "Kopijuoti"
+            "button": "Kopijuoti",
+            "description": ""
         },
         "gamepad": {
             "button": {
                 "back": "Atgal",
                 "guide": "Konsolės veiksena",
-                "reset": "Atstatyti į numatytuosius"
+                "reset": "Atstatyti į numatytuosius",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "Nustatymai",
@@ -1154,7 +1296,10 @@
             "nis": "„NVIDIA“ vaizdo skalė („NIS“)",
             "upscaleHeight": "Išplėsti gebos aukštį",
             "upscaleWidth": "Išplėsti gebos plotį",
-            "interger": "Sveikaskaitinis išplėstimas gebai"
+            "interger": "Sveikaskaitinis išplėstimas gebai",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         },
         "advanced": {
             "value": "Reikšmė",
@@ -1250,7 +1395,8 @@
         "alt-nile-bin": "Naudojama įterpta „Nile“ dvejetaine...",
         "dxvkfpsvalue": "Natūralioji (t.y. teigiamieji) sveikoji reikšmė (pvz.: 30, 60, ...)",
         "egs-prefix": "Prielinksnis/Priešdėlis kuriame „EGS“ yra įdiegtas",
-        "alt-aurelia-bin": "Naudojama įterpta „Aurelia“ dvejetaine..."
+        "alt-aurelia-bin": "Naudojama įterpta „Nile“ dvejetaine...",
+        "umuGameId": ""
     },
     "progress": "Pažanga",
     "search": "Ieškoti žaidimų",
@@ -1282,7 +1428,8 @@
         "noGames": "Jūsų biblioteka yra tuščia.<br /><br />Spustelėkite <4>čia</4>, norint prisijungti su savo „Epic“, „GOG.com“ ar „Amazon“ paskyromis. Tada Jūsų žaidimai atras šitoje bibliotekoje.<br /><br />Norint žaisti/naudotis žaidimais ar programėlėmis iš kitų šaltinių, spustelėkite <br />, kad pridėtumėte juos rankiniu būdu.",
         "noResultsTitle": "Nerasta žaidimų.",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "generic": {
         "error": {
@@ -1344,7 +1491,13 @@
             "downloads": "Sekite ir valdykite savo žaidimų atnaujinimus ir įdiegimus.",
             "accounts": "Valdykite savo sujungtų parduotuvių paskyras („Epic“, „GOG“, „Amazon“); jų atsijungimą ir prisijungimą.",
             "stores": "Naršykite ir pirkite žaidimus skirtinguose parduotuvėse, įskaitant – „Epic“, „GOG“ ir „Amazon“.",
-            "version": "Patikrinkite savo dabartinę „Heroic“ versiją, spustelėkite čia, norint peržiūrėti naujausią keitinių žurnalą ir pasiekite šį gidą iš pagalbos piktogramos."
+            "version": "Patikrinkite savo dabartinę „Heroic“ versiją, spustelėkite čia, norint peržiūrėti naujausią keitinių žurnalą ir pasiekite šį gidą iš pagalbos piktogramos.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "Sveiki atvykę į „Heroic“!",
+            "generalTitle": "Bendri"
         },
         "library": {
             "gameCard": "Spustelėkite kairiuoju pelės mygtuku ant žaidimo kortelės, kad pereitumėte į žaidimo puslapį ir pamatytumėte jo išsamumą bei pakeistumėte nustatymus. Tai pat, galite spustelėti dešiniuoju pelės mygtuku, norint atidaryti parankinį meniu.",
@@ -1365,7 +1518,19 @@
             "categories": "Surikiuokite/Surūšiuokite savo žaidimus į kategorijas, siekiant viską laikyti tvarkingai.",
             "sortInstalled": "Rikiuoti/Rūšiuoti žaidimus pagal įdiegsenos būseną.",
             "sortOptions": "Spustelėkite čia, norint surikiuoti žaidimus pagal abėcėlę.",
-            "addGame": "Pridėkite savo žaidimus ar programas/programėles į biblioteką spustelėjus čia. Jie gali būti bet kas, net naršyklės „URL“ – saitai."
+            "addGame": "Pridėkite savo žaidimus ar programas/programėles į biblioteką spustelėjus čia. Jie gali būti bet kas, net naršyklės „URL“ – saitai.",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "(Pa-)Ieška"
         },
         "startTour": "Pradėti apžiūrą",
         "skip": "Praleisti",
@@ -1413,7 +1578,8 @@
             "hideOwned": "Slėpti turimus",
             "wishlistOnly": "Tik norimus",
             "platform": "Platforma",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "region": {
             "countries": {
@@ -1505,7 +1671,8 @@
             "launch": "Paleisti",
             "sort": "Rikiuoti/Rūšiuoti",
             "navigate": "Vèsti",
-            "change_store": "Pakeisti parduotuvę"
+            "change_store": "Pakeisti parduotuvę",
+            "hold_quit": ""
         },
         "launching": "Paleidžiama",
         "update": {
@@ -1557,7 +1724,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "steamgriddb": {
         "error": {
@@ -1720,7 +1894,10 @@
     "import-export": {
         "action": {
             "browse": "Naršyklė",
-            "download": "Atsisiunčiama"
+            "download": "Atsisiunčiama",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Atgal",
         "close": "Uždaryti",
@@ -1731,31 +1908,146 @@
         "stage": {
             "credentials": "Parduotuvės prisijungimas",
             "globalSettings": "Visuotiniai nustatymai",
-            "perGameSettings": "Žaidimo nustatymai"
+            "perGameSettings": "Žaidimo nustatymai",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Visuotiniai nustatymai"
+            "title": "Visuotiniai nustatymai",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "Nėra žaidimų, atitinkančių dabartinius filtrus.",
-            "selectAll": "Pažymėti visus"
+            "selectAll": "Pažymėti visus",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Parduotuvės prisijungimas"
+            "title": "Parduotuvės prisijungimas",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "„Wine“ prielinksnis/priešdėlis",
             "wine-downloadable": "Atsisiųsti",
-            "wine-unavailable": "Nėra pasiekiamų „DLC“"
+            "wine-unavailable": "Nėra pasiekiamų „DLC“",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Parduotuvės prisijungimas",
             "done": "Atlikta",
             "global-settings": "Visuotiniai nustatymai",
-            "per-game": "Žaidimo nustatymai"
+            "per-game": "Žaidimo nustatymai",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Reikšmė",
         "version": "„Heroic“ versija",
-        "wine-versions": "„Wine“ versija"
+        "wine-versions": "„Wine“ versija",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }
