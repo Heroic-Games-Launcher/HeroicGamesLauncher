@@ -549,9 +549,11 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
+            "disk-unit-mib": "MiB/s",
+            "disk-write": "Disk write",
             "speed": "Download",
-            "unit": "MB/s"
+            "unit": "MB/s",
+            "unit-mib": "MiB/s"
         },
         "limit": {
             "label": "Download limit",

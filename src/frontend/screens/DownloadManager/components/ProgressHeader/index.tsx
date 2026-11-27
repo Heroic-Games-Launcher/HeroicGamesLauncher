@@ -12,6 +12,9 @@ interface Point {
   disk: number
 }
 
+// Steam mirrors the download speed and itch reports no disk speed.
+const RUNNERS_WITH_DISK_SPEED: Runner[] = ['legendary', 'gog', 'nile']
+
 const roundToNearestHundredth = function (val: number | undefined) {
   if (!val) return 0
   return Math.round(val * 100) / 100
@@ -52,7 +55,9 @@ export default function ProgressHeader(props: {
     setAvgDownloadSpeed([...avgSpeed])
   }, [progress, props.state])
 
-  const speedUnit = t('download-manager.label.unit', 'MB/s')
+  const speedUnit = t('download-manager.label.unit-mib', 'MiB/s')
+  const diskUnit = t('download-manager.label.disk-unit-mib', 'MiB/s')
+  const showDiskSpeed = RUNNERS_WITH_DISK_SPEED.includes(props.runner)
 
   return (
     <div className="DownloadStats">
@@ -86,15 +91,17 @@ export default function ProgressHeader(props: {
               strokeWidth="1.5px"
               fill="url(#downloadRate)"
             />
-            <Area
-              isAnimationActive={false}
-              type="monotone"
-              dataKey="disk"
-              stroke="var(--secondary, var(--accent))"
-              strokeWidth="2px"
-              strokeDasharray="4 3"
-              fillOpacity={0}
-            />
+            {showDiskSpeed && (
+              <Area
+                isAnimationActive={false}
+                type="monotone"
+                dataKey="disk"
+                stroke="var(--secondary, var(--accent))"
+                strokeWidth="2px"
+                strokeDasharray="4 3"
+                fillOpacity={0}
+              />
+            )}
           </AreaChart>
         </ResponsiveContainer>
       </div>
@@ -108,12 +115,14 @@ export default function ProgressHeader(props: {
           )} ${speedUnit}`}
           className="DownloadStats__card DownloadStats__card--download"
         />
-        <StatCard
-          glyph={HardDrive}
-          label={t('download-manager.label.disk', 'Disk')}
-          value={`${roundToNearestHundredth(avgSpeed.at(-1)?.disk)} ${speedUnit}`}
-          className="DownloadStats__card DownloadStats__card--disk"
-        />
+        {showDiskSpeed && (
+          <StatCard
+            glyph={HardDrive}
+            label={t('download-manager.label.disk-write', 'Disk write')}
+            value={`${roundToNearestHundredth(avgSpeed.at(-1)?.disk)} ${diskUnit}`}
+            className="DownloadStats__card DownloadStats__card--disk"
+          />
+        )}
       </div>
     </div>
   )

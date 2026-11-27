@@ -183,7 +183,9 @@ export default class NileGameManager implements Game {
     if (progress.bytes === '') {
       const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
       progress.bytes =
-        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+        bytesMatch && bytesMatch?.length >= 2
+          ? `${bytesMatch[1].trim()} MiB`
+          : ''
     }
 
     // parse log for download speed
