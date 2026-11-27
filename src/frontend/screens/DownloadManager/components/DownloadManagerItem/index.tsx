@@ -327,10 +327,13 @@ const DownloadManagerItem = ({
   const isPreparing =
     current && !isPaused && !finished && !canceled && !hasStarted
 
-  const progressSummary = [
-    size,
-    `(${progress.bytes} · ${Math.round(progress.percent ?? 0)}%)`
+  const progressDetail = [
+    progress.bytes,
+    `${Math.round(progress.percent ?? 0)}%`
   ]
+    .filter(Boolean)
+    .join(' · ')
+  const progressSummary = [size, `(${progressDetail})`]
     .filter(Boolean)
     .join(' ')
 
