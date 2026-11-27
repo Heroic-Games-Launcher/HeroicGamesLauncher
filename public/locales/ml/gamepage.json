@@ -102,7 +102,17 @@
         "unfavourite": "Remove From Favourites",
         "backToLibrary": "",
         "steamStore": "",
-        "back": "പുറകോട്ട്"
+        "back": "പുറകോട്ട്",
+        "skip-installer": {
+            "title": "",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "next": "",
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "പ്രവര്ത്തനരഹിതം",
@@ -208,7 +218,8 @@
         "flatpak-path-not-writtable": "",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -270,7 +281,12 @@
             "useragent": "",
             "fullscreen": "",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Paste an Image URL here",
@@ -283,12 +299,26 @@
             "title": ""
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "പറ്റുമോന്നു നോക്കൂ",
             "finish": "Finish",
-            "install": "നടീല് നിര്ത്തൂ"
+            "install": "നടീല് നിര്ത്തൂ",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
