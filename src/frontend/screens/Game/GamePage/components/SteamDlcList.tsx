@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Ban, CircleCheck, ExternalLink, ShoppingCart } from 'lucide-react'
@@ -6,25 +6,17 @@ import { CachedImage } from 'frontend/components/UI'
 import { SteamDLCInfo } from 'common/types/steam'
 
 interface Props {
-  appName: string
+  dlcs: SteamDLCInfo[]
+  onChange: () => Promise<void>
 }
 
-const SteamDlcList = ({ appName }: Props) => {
+const SteamDlcList = ({ dlcs, onChange }: Props) => {
   const { t } = useTranslation('gamepage')
   const navigate = useNavigate()
-  const [dlcs, setDlcs] = useState<SteamDLCInfo[]>([])
   const [busy, setBusy] = useState<Set<string>>(new Set())
 
   const dlcStorePage = (storeUrl: string) =>
     `/store-page?store-url=${encodeURIComponent(storeUrl)}`
-
-  const loadDlcs = useCallback(async () => {
-    try {
-      setDlcs(await window.api.getSteamDlcInfo(appName))
-    } catch {
-      setDlcs([])
-    }
-  }, [appName])
 
   const onStatusClick = async (dlc: SteamDLCInfo) => {
     if (!dlc.owned) {
@@ -37,7 +29,7 @@ const SteamDlcList = ({ appName }: Props) => {
     setBusy((prev) => new Set(prev).add(dlc.appId))
     try {
       await window.api.setSteamDlcEnabled(dlc.appId, dlc.disabled)
-      await loadDlcs()
+      await onChange()
     } catch (error) {
       window.api.logError(`Failed to toggle Steam DLC: ${String(error)}`)
     } finally {
@@ -47,25 +39,6 @@ const SteamDlcList = ({ appName }: Props) => {
         return next
       })
     }
-  }
-
-  useEffect(() => {
-    let active = true
-    window.api
-      .getSteamDlcInfo(appName)
-      .then((list) => {
-        if (active) setDlcs(list)
-      })
-      .catch(() => {
-        if (active) setDlcs([])
-      })
-    return () => {
-      active = false
-    }
-  }, [appName])
-
-  if (!dlcs.length) {
-    return null
   }
 
   // Resolve a DLC's state to an icon
@@ -93,7 +66,6 @@ const SteamDlcList = ({ appName }: Props) => {
 
   return (
     <div className="steamDlcInfo">
-      <b>{t('info.dlcs', 'DLCs')}:</b>
       <ul className="steamDlcList">
         {dlcs.map((dlc) => {
           const status = statusFor(dlc)

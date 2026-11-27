@@ -1,6 +1,12 @@
 import './index.css'
 
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 
 import { Info } from 'lucide-react'
 
@@ -18,6 +24,7 @@ import {
   UpdateComponent
 } from 'frontend/components/UI'
 import type { TabItem } from 'frontend/components/UI/Tabs'
+import { SteamDLCInfo } from 'common/types/steam'
 
 import {
   ExtraInfo,
@@ -49,6 +56,7 @@ import {
   Genres,
   HLTB,
   InstalledInfo,
+  SteamDlcList,
   ReportIssue,
   Requirements,
   Scores
@@ -65,7 +73,13 @@ import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
 
-type GameTab = 'overview' | 'info' | 'achievements' | 'extra' | 'requirements'
+type GameTab =
+  | 'overview'
+  | 'info'
+  | 'dlcs'
+  | 'achievements'
+  | 'extra'
+  | 'requirements'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -162,6 +176,23 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const storage: Storage = window.localStorage
 
   const [currentTab, setCurrentTab] = useState<GameTab>('overview')
+
+  const [dlcs, setDlcs] = useState<SteamDLCInfo[]>([])
+  const loadDlcs = useCallback(async () => {
+    if (runner !== 'steam') {
+      setDlcs([])
+      return
+    }
+    try {
+      setDlcs(await window.api.getSteamDlcInfo(appName))
+    } catch {
+      setDlcs([])
+    }
+  }, [appName, runner])
+
+  useEffect(() => {
+    void loadDlcs()
+  }, [loadDlcs])
 
   const previousIsPlaying = useRef<boolean>(isPlaying)
   useEffect(() => {
@@ -389,6 +420,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     ]
 
+    if (dlcs.length > 0) {
+      tabs.push({ value: 'dlcs', label: t('game.dlcs', 'DLCs') })
+    }
+
     if (hasAchievements) {
       tabs.push({
         value: 'achievements',
@@ -509,6 +544,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 <TabPanel value={activeTab} index="info" className="infoTab">
                   <DownloadSizeInfo gameInfo={gameInfo} />
                   <InstalledInfo gameInfo={gameInfo} />
+                </TabPanel>
+
+                <TabPanel value={activeTab} index="dlcs" className="dlcsTab">
+                  <Panel tone="glass" className="installationInfo">
+                    <SteamDlcList dlcs={dlcs} onChange={loadDlcs} />
+                  </Panel>
                 </TabPanel>
 
                 <TabPanel

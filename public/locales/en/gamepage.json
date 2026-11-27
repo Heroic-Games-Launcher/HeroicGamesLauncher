@@ -150,6 +150,7 @@
         },
         "changelogFor": "Changelog for {{gameTitle}}",
         "details": "Game details",
+        "dlcs": "DLC's",
         "downloadSize": "Download Size",
         "extra_info": "Extra",
         "firstPlayed": "First played",
@@ -201,7 +202,6 @@
             "enabled": "Enabled — click to disable",
             "notBought": "Not owned"
         },
-        "dlcs": "DLCs",
         "game-scores": "Game Scores",
         "genres": "Genres",
         "installedPlatform": "Installed platform",
