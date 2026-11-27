@@ -1,6 +1,6 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 import { useTranslation } from 'react-i18next'
 import { ArrowDownToLine, HardDrive } from 'lucide-react'
@@ -15,6 +15,18 @@ interface Point {
 const roundToNearestHundredth = function (val: number | undefined) {
   if (!val) return 0
   return Math.round(val * 100) / 100
+}
+
+const SMOOTHING = 0.3
+
+function smoothPoints(points: Point[]): Point[] {
+  let download = points[0]?.download ?? 0
+  let disk = points[0]?.disk ?? 0
+  return points.map((point) => {
+    download += SMOOTHING * (point.download - download)
+    disk += SMOOTHING * (point.disk - disk)
+    return { download, disk }
+  })
 }
 
 export default function ProgressHeader(props: {
@@ -52,13 +64,14 @@ export default function ProgressHeader(props: {
     setAvgDownloadSpeed([...avgSpeed])
   }, [progress, props.state])
 
+  const chartData = useMemo(() => smoothPoints(avgSpeed), [avgSpeed])
   const speedUnit = t('download-manager.label.unit', 'MB/s')
 
   return (
     <div className="DownloadStats">
       <div className="DownloadStats__chart">
         <ResponsiveContainer width="100%" height={88}>
-          <AreaChart data={avgSpeed} margin={{ top: 4, right: 0, bottom: 0 }}>
+          <AreaChart data={chartData} margin={{ top: 4, right: 0, bottom: 0 }}>
             {/* keeps the baseline at the bottom of the chart while idle */}
             <YAxis
               hide
@@ -69,31 +82,46 @@ export default function ProgressHeader(props: {
                 <stop
                   offset="0%"
                   stopColor="var(--success, #10b981)"
-                  stopOpacity={0.55}
+                  stopOpacity={0.28}
                 />
                 <stop
                   offset="100%"
                   stopColor="var(--success, #10b981)"
-                  stopOpacity={0.05}
+                  stopOpacity={0}
+                />
+              </linearGradient>
+              <linearGradient id="diskRate" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0%"
+                  stopColor="var(--secondary, var(--accent))"
+                  stopOpacity={0.28}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="var(--secondary, var(--accent))"
+                  stopOpacity={0}
                 />
               </linearGradient>
             </defs>
             <Area
               isAnimationActive={false}
               type="monotone"
-              dataKey="download"
-              stroke="var(--success, #10b981)"
+              dataKey="disk"
+              stroke="var(--secondary, var(--accent))"
               strokeWidth="1.5px"
-              fill="url(#downloadRate)"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              fill="url(#diskRate)"
             />
             <Area
               isAnimationActive={false}
               type="monotone"
-              dataKey="disk"
-              stroke="var(--secondary, var(--accent))"
-              strokeWidth="2px"
-              strokeDasharray="4 3"
-              fillOpacity={0}
+              dataKey="download"
+              stroke="var(--success, #10b981)"
+              strokeWidth="1.5px"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              fill="url(#downloadRate)"
             />
           </AreaChart>
         </ResponsiveContainer>
