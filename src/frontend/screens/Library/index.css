@@ -8,7 +8,8 @@
 }
 
 .gameList.firstLane {
-  padding: 0 var(--space-md-fixed) var(--space-md-fixed);
+  padding: 0 var(--space-md-fixed);
+  margin-block-end: 0;
 }
 
 .gameList.firstLane > div:has(.justPlayed) {
