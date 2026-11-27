@@ -1861,7 +1861,7 @@ async function callRunner(
     })
 
     child.on('close', (code, signal) => {
-      errorHandler(
+      void errorHandler(
         `${stdout.join().concat(stderr.join())}`,
         appName,
         runner.name
@@ -1898,14 +1898,21 @@ async function callRunner(
         }
       }
 
-      errorHandler(error, appName, runner.name)
+      const errorMsg = error instanceof Error ? error.message : String(error)
+
+      void errorHandler(errorMsg, appName, runner.name)
 
       logError(
-        ['Error running', 'command', `"${safeCommand}":`, error],
+        ['Error running', 'command', `"${safeCommand}":`, errorMsg],
         runner.logPrefix
       )
 
-      return { stdout: '', stderr: `${error}`, fullCommand: safeCommand, error }
+      return {
+        stdout: '',
+        stderr: errorMsg,
+        fullCommand: safeCommand,
+        error: errorMsg
+      }
     })
     .finally(() => {
       // remove from list when done

@@ -587,7 +587,7 @@ export default class GOGGame implements Game {
     }
 
     if (!existsSync(gameInfo.install.install_path)) {
-      errorHandler('appears to be deleted', this.id, 'gog')
+      void errorHandler('appears to be deleted', this.id, 'gog')
       return false
     }
 

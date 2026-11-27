@@ -595,7 +595,7 @@ export default class ZoomGame implements Game {
     }
 
     if (!existsSync(gameInfo.install.install_path)) {
-      errorHandler('appears to be deleted', this.id, 'zoom')
+      void errorHandler('appears to be deleted', this.id, 'zoom')
       return false
     }
 
