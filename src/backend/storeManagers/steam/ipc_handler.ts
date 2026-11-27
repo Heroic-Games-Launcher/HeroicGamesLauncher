@@ -11,8 +11,8 @@ import { logError, LogPrefix } from 'backend/logger'
 
 addHandler('getSteamUsers', () => SteamUser.getAccounts())
 
-addHandler('getSteamDlcInfo', async (_e, appName) =>
-  libraryManagerMap['steam'].getDLCInfo(appName)
+addHandler('getSteamDlcInfo', async (_e, appName, noCache) =>
+  libraryManagerMap['steam'].getDLCInfo(appName, noCache)
 )
 
 addHandler('getSteamInstallLibraries', async () =>
