@@ -223,6 +223,14 @@
                 "message": "Det gick inte att hämta alla sparfiler för {{game}} från Steam Cloud. Sparfilerna på den här datorn är därför ofullständiga. Om du spelar nu kan spelförlopp som bara finns i molnet skrivas över.\n\n{{details}}",
                 "title": "Ofullständiga sparfiler från Steam Cloud"
             }
+        },
+        "saveConflict": {
+            "title": "",
+            "keepLocal": "",
+            "detail": "",
+            "cancel": "Avbryt",
+            "keepCloud": "Använd sparfilen i molnet",
+            "message": "Sparfilerna för {{game}} skiljer sig åt på datorn och i molnet. Välj vilken kopia du vill behålla:\n\n{{files}}"
         }
     },
     "button": {
@@ -294,7 +302,18 @@
         "limit": {
             "label": "Hastighetsgräns för hämtningar",
             "unlimited": "Obegränsad"
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Onlinetjänster kan fungera sämre eftersom Epic Games servrar är offline.",
@@ -352,7 +371,11 @@
         "display": "Visning",
         "hidden": "Dolda",
         "non_available": "Otillgängliga",
-        "show_steam_owned_only": "Visa endast spel som du äger på Steam"
+        "show_steam_owned_only": "Visa endast spel som du äger på Steam",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD:s FSR kan höja bildfrekvensen genom att skala upp en bild med lägre upplösning i helskärmsläge. När du går från nivå 5 till 1 ökar bildkvaliteten på bekostnad av lite prestanda.",
@@ -405,7 +428,10 @@
             "gameWidth": "Bredden på spelets bildupplösning. Gamescope utgår från bildförhållandet 16:9.",
             "gameHeight": "Höjden på spelets bildupplösning. Gamescope utgår från bildförhållandet 16:9.",
             "additionalOptions": "Ytterligare kommandoradsflaggor som skickas till gamescope.",
-            "forceGrabCursor": "Använd alltid relativt musläge i stället för att växla beroende på markörens synlighet. Användbart när program ofta tappar fokus."
+            "forceGrabCursor": "Använd alltid relativt musläge i stället för att växla beroende på markörens synlighet. Användbart när program ofta tappar fokus.",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "title": {
             "accessibility": "Tillgänglighet",
@@ -442,7 +468,16 @@
             "details": "Använd det dedikerade grafikkortet för att rendera spel på datorer med flera grafikprocessorer. Behövs bara på speldatorer där grafikkortet som renderar bilden inte är anslutet direkt till skärmen (NVIDIA Optimus, AMD CrossFire).",
             "link": "Läs mer i vår wiki"
         },
-        "hide-window-on-protocol-launch": "Håller Heroic-fönstret dolt när ett spel startas från en extern genväg, till exempel med funktionen ”Lägg till i Steam”."
+        "hide-window-on-protocol-launch": "Håller Heroic-fönstret dolt när ett spel startas från en extern genväg, till exempel med funktionen ”Lägg till i Steam”.",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -551,7 +586,8 @@
                     "corrupt": "Det gick inte att lägga till {{game}} för alla Steam-användare på datorn. Mer information finns i loggarna. Starta om Steam för att ändringarna ska börja gälla.",
                     "success": "{{game}} har lagts till i Steam. Starta om Steam för att ändringen ska börja gälla.",
                     "title": "Lades till i Steam",
-                    "success-no-restart": "{{game}} har lagts till i Steam."
+                    "success-no-restart": "{{game}} har lagts till i Steam.",
+                    "already": ""
                 }
             },
             "remove": {
@@ -653,7 +689,10 @@
             "interger": "Heltalsuppskalning",
             "stretch": "Sträck bilden",
             "windowed": "I fönster",
-            "additionalOptions": "Ytterligare alternativ"
+            "additionalOptions": "Ytterligare alternativ",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -672,7 +711,8 @@
         "egs-prefix": "Prefix där EGS är installerat",
         "prefered_language": "Språkkod med två eller fyra bokstäver, till exempel ”fr” eller ”pt-BR”",
         "alt-nile-bin": "Använder den inbyggda körbara filen för Nile …",
-        "alt-aurelia-bin": "Använder den inbyggda körbara filen för Aurelia …"
+        "alt-aurelia-bin": "Använder den inbyggda körbara filen för Aurelia …",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -836,7 +876,8 @@
             "placeholder": "Välj den mapp där spelets sparfiler finns",
             "warning": "Kontrollera noga att sökvägen är rätt (klicka för att försöka igen)",
             "retry": "Identifiera igen",
-            "title": "Mapp för sparfiler"
+            "title": "Mapp för sparfiler",
+            "detect-failed": ""
         },
         "select_theme": "Välj tema",
         "showfps": "Visa bildfrekvens (DX9, 10 och 11)",
@@ -873,7 +914,13 @@
             "enableUpscaling": "Aktivera uppskalning",
             "missingMsg": "gamescope hittades inte i PATH. Installera det eller lägg till det i PATH.",
             "enableForceGrabCursor": "Tvinga muspekaren att stanna i spelfönstret",
-            "warningFlatpak": "Ingen kompatibel version av gamescope hittades. Installera Flatpak-paketet för gamescope med körmiljön {{runtimeVersion}} och starta om Heroic."
+            "warningFlatpak": "Ingen kompatibel version av gamescope hittades. Installera Flatpak-paketet för gamescope med körmiljön {{runtimeVersion}} och starta om Heroic.",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": "",
+            "enableHDR": "Aktivera HDR"
         },
         "msync": "Aktivera Msync",
         "after-launch-script-path": "Välj ett skript att köra efter att spelet avslutats",
@@ -924,7 +971,8 @@
         "start-in-console-mode": "Starta i konsolläge",
         "steamRuntime": {
             "label": "Använd Steam Runtime",
-            "noRuntimeOption": "Ingen"
+            "noRuntimeOption": "Ingen",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Öppna",
@@ -1027,7 +1075,59 @@
         "addgamestoapplications-description": "Skapa en programgenväg varje gång ett spel installeras.",
         "addgamestosteam-real-description": "Lägg till varje installerat spel som en genväg i Steam-biblioteket.",
         "disableGOGAffiliateDescription": "När du köper GOG-spel via Heroic stöder du projektet.",
-        "maxworkers-description": "Fler parallella processer kan ge snabbare hämtningar, men ökar processorbelastningen och tar mer bandbredd i anspråk. Med Max används alla processorkärnor."
+        "maxworkers-description": "Fler parallella processer kan ge snabbare hämtningar, men ökar processorbelastningen och tar mer bandbredd i anspråk. Med Max används alla processorkärnor.",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1069,7 +1169,10 @@
             "gamescope": "Gamescope",
             "legacy": "Äldre",
             "categories": "Kategorier",
-            "tabs": "Inställningsavsnitt"
+            "tabs": "Inställningsavsnitt",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Öppna konfigurationsfilen",
         "reset-heroic": "Återställ Heroic",
@@ -1182,7 +1285,16 @@
             "steam": "Steam",
             "amazon": "Amazon Games",
             "epic": "Epic Games",
-            "gog": "GOG"
+            "gog": "GOG",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": "",
+            "gamescopeDisplay": "Visning",
+            "gamescopeAdditionalOptions": "Ytterligare alternativ"
         },
         "open-game-settings-file-hint": "Klicka för att öppna spelets inställningsfil",
         "pageSubtitle": {
@@ -1190,9 +1302,58 @@
             "games_settings_defaults": "Standardvärden som tillämpas på nyinstallerade spel",
             "general": "Anpassa inställningarna för startprogrammet",
             "systeminfo": "Din maskinvara och versionerna av Heroic och dess komponenter",
-            "advanced": "Beteende, experimentella funktioner och underhåll"
+            "advanced": "Beteende, experimentella funktioner och underhåll",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
-        "clear-images-cache": "Rensa bildcache"
+        "clear-images-cache": "Rensa bildcache",
+        "gamepad": {
+            "button": {
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": "",
+                "reset": "Återställ till standard",
+                "back": "Bakåt",
+                "guide": "Konsolläge"
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
+        }
     },
     "Settings": "Inställningar",
     "sidebar": {
@@ -1332,7 +1493,8 @@
         "noGames": "Ditt bibliotek är tomt.<br /><br />Klicka <4>här</4> för att logga in med ditt Epic-, GOG.com- eller Amazon-konto. Därefter visas spelen i biblioteket.<br /><br />Om du vill använda spel eller program från andra källor klickar du <br /> för att lägga till dem manuellt.",
         "noResultsTitle": "Inga spel hittades",
         "description": "<0>Logga in</0> med ditt Epic-, GOG.com-, Amazon-, itch.io- eller Zoom-konto så visas dina spel här. Du kan också lägga till spel från andra källor manuellt.",
-        "title": "Ditt bibliotek är tomt."
+        "title": "Ditt bibliotek är tomt.",
+        "backupHint": ""
     },
     "adtraction-locked": {
         "description": "Det gick inte att nå track.adtraction.com. Domänen kan vara blockerad. Om du handlar i GOG-butiken via Adtraction får Heroic ekonomiskt stöd. Om du vill bidra på det sättet kan du ta bort blockeringen.",
@@ -1372,7 +1534,19 @@
                 "intro2": "Om biblioteket är tomt kan du logga in på dina butikskonton under Hantera konton i sidofältet eller lägga till egna spel med knappen Lägg till spel ovan.",
                 "title": "Välkommen till Heroic!",
                 "title2": "Hantera ditt bibliotek!"
-            }
+            },
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "Sök"
         },
         "done": "Klart",
         "next": "Nästa",
@@ -1392,7 +1566,13 @@
                 "intro": "Välkommen till Heroic! I sidofältet hittar du programmets olika delar.",
                 "title": "Navigera med sidofältet"
             },
-            "wine": "Hantera eller hämta nya versioner av Wine, Proton och GPTK för att köra Windows-spel på Linux eller macOS."
+            "wine": "Hantera eller hämta nya versioner av Wine, Proton och GPTK för att köra Windows-spel på Linux eller macOS.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "welcomeTitle": "Välkommen till Heroic!",
+            "communitySectionTitle": "Gemenskap",
+            "generalTitle": "Allmänt"
         },
         "skip": "Hoppa över",
         "startTour": "Starta rundtur"
@@ -1475,7 +1655,8 @@
             "platform": "Plattform",
             "hideOwned": "Dölj spel jag äger",
             "wishlistOnly": "Visa endast spel på önskelistan",
-            "platformAny": "Valfri plattform"
+            "platformAny": "Valfri plattform",
+            "showMature": ""
         },
         "sidebar": "Erbjudanden",
         "sort": {
@@ -1556,7 +1737,8 @@
             "sort": "Sortera",
             "navigate": "Navigera",
             "quit": "Avsluta",
-            "change_store": "Byt butik"
+            "change_store": "Byt butik",
+            "hold_quit": ""
         },
         "launching": "Startar",
         "card": {
@@ -1596,7 +1778,14 @@
         },
         "launchError": "Det gick inte att starta spelet. Kontrollera loggarna för mer information.",
         "launchErrorNotLoggedIn": "Det gick inte att starta spelet. Du måste först logga in i Steam.",
-        "launchErrorPrefix": "Det gick inte att starta spelet:"
+        "launchErrorPrefix": "Det gick inte att starta spelet:",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Nästa",
     "common": {
@@ -1742,7 +1931,10 @@
     "import-export": {
         "action": {
             "download": "Hämta det som saknas",
-            "ignore": "Behåll"
+            "ignore": "Behåll",
+            "browse": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Bakåt",
         "close": "Stäng",
@@ -1751,36 +1943,148 @@
         "per-game": "Inställningar per spel",
         "platform": "Plattform",
         "rollback": {
-            "saved": "Sparad"
+            "saved": "Sparad",
+            "run": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
         },
         "stage": {
             "credentials": "Inloggningar i spelbutiker",
             "globalSettings": "Globala inställningar",
-            "perGameSettings": "Inställningar per spel"
+            "perGameSettings": "Inställningar per spel",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Globala inställningar"
+            "title": "Globala inställningar",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "Inga spel matchar filtret.",
-            "selectAll": "Markera alla"
+            "selectAll": "Markera alla",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Inloggningar i spelbutiker"
+            "title": "Inloggningar i spelbutiker",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Wine-prefix",
             "wine-downloadable": "Kan hämtas",
-            "wine-unavailable": "Inte tillgänglig"
+            "wine-unavailable": "Inte tillgänglig",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Inloggningar i spelbutiker",
             "done": "Klart",
             "global-settings": "Globala inställningar",
-            "per-game": "Inställningar per spel"
+            "per-game": "Inställningar per spel",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Värde",
         "version": "Heroic-version",
-        "wine-versions": "Wine-versioner"
+        "wine-versions": "Wine-versioner",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }
