@@ -533,7 +533,11 @@ const GameCard = ({
               />
             ) : (
               <CachedImage
-                src={steamCover || getImageFormatting(cover, runner)}
+                src={
+                  grid
+                    ? steamCover || getImageFormatting(cover, runner)
+                    : art_cover || getImageFormatting(cover, runner)
+                }
                 fallback={art_cover}
                 className={imgClasses}
                 alt={title}
