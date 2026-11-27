@@ -105,8 +105,14 @@
         "back": "Kembali",
         "next": "Berikutnya",
         "skip-installer": {
-            "title": "Lewati"
-        }
+            "title": "Lewati",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
@@ -214,7 +220,8 @@
         "flatpak-path-not-writtable": "Kesalahan: Akses sandbox tidak diberikan ke lokasi ini, kehilangan data mungkin bisa terjadi.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -276,7 +283,12 @@
             "useragent": "Kustomisasi User Agent",
             "fullscreen": "Luncurkan Layar Penuh (F11 untuk keluar)",
             "cover-hint": "Gambar Sampul/Hero (klik pada gambar untuk mencari di SteamGridDB)",
-            "image-hint": "Gambar Persegi (klik pada gambar untuk mencari di SteamGridDB)"
+            "image-hint": "Gambar Persegi (klik pada gambar untuk mencari di SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Tempel URL gambar atau pilih salah satu dari komputer Anda",
@@ -289,13 +301,26 @@
             "title": "Penting! Apakah Anda menambahkan game dari Epic/GOG/Amazon? Klik di sini!"
         },
         "images": {
-            "summary": "Gambar"
+            "summary": "Gambar",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Periksa Kompatibilitas",
             "finish": "Selesai",
             "images": "Gambar",
-            "install": "Hentikan Pemasangan"
+            "install": "Hentikan Pemasangan",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

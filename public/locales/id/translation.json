@@ -223,7 +223,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": "",
+            "cancel": "Batalkan"
+        }
     },
     "button": {
         "cancel": "Batalkan",
@@ -294,7 +302,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Layanan daring mungkin tidak akan bekerja sepenuhnya karena server Epic Games sedang luring!",
@@ -352,7 +371,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
@@ -433,7 +456,10 @@
             "gameWidth": "Resolusi lebar yang digunakan oleh game. Rasio aspek 16:9 diasumsikan oleh gamescope.",
             "upscaleHeight": "Resolusi tinggi yang digunakan oleh gamescope. Rasio aspek 16:9 diasumsikan.",
             "upscaleMethod": "Metode peningkatan skala yang harus digunakan oleh gamescope.",
-            "upscaleWidth": "Resolusi lebar yang digunakan oleh gamescope. Rasio aspek 16:9 diasumsikan."
+            "upscaleWidth": "Resolusi lebar yang digunakan oleh gamescope. Rasio aspek 16:9 diasumsikan.",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "wine-hdr": "HDR meningkatkan warna dengan memberikan sorotan yang lebih terang dan kontras yang lebih dalam. Agar HDR berfungsi, baik tampilan maupun game harus mendukungnya.",
         "wine-wayland": "Driver eksperimental Wine-Wayland memungkinkan game dijalankan secara native di bawah protokol tampilan Wayland. Mengaktifkannya dapat menyebabkan beberapa game tidak berfungsi.",
@@ -442,7 +468,16 @@
             "details": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)",
             "link": "Periksa detail lebih lanjut di wiki kami"
         },
-        "hide-window-on-protocol-launch": "Menjaga jendela Heroic tetap tersembunyi saat game diluncurkan dari pintasan eksternal, seperti fitur 'Tambahkan ke Steam'."
+        "hide-window-on-protocol-launch": "Menjaga jendela Heroic tetap tersembunyi saat game diluncurkan dari pintasan eksternal, seperti fitur 'Tambahkan ke Steam'.",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -551,7 +586,8 @@
                     "corrupt": "{{game}} tidak dapat ditambahkan dari pengguna Steam yang ditemukan. Lihat log untuk lebih banyak info. Steam perlu dijalankan ulang untuk melihat perubahan ini.",
                     "success": "{{game}} berhasil ditambahkan ke Steam. Perlu memuat ulang Steam untuk menerapkan perubahan.",
                     "title": "Ditambahkan ke Steam",
-                    "success-no-restart": "{{game}} berhasil ditambahkan ke Steam."
+                    "success-no-restart": "{{game}} berhasil ditambahkan ke Steam.",
+                    "already": ""
                 }
             },
             "remove": {
@@ -653,7 +689,10 @@
             "nis": "Skala Gambar NVIDIA (NIS)",
             "upscaleHeight": "Tinggi Peningkatan Skala",
             "upscaleWidth": "Lebar Peningkatan Skala",
-            "windowed": "Jendela (Windowed)"
+            "windowed": "Jendela (Windowed)",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -672,7 +711,8 @@
         "egs-prefix": "Prefiks di mana EGS diinstal",
         "prefered_language": "Kode 2 karakter atau 4 karakter (mis.: \"fr\" atau \"pt-BR\")",
         "alt-nile-bin": "Menggunakan Nile binary bawaan ...",
-        "alt-aurelia-bin": "Menggunakan Aurelia binary bawaan ..."
+        "alt-aurelia-bin": "Menggunakan Nile binary bawaan ...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -836,7 +876,8 @@
             "placeholder": "Pilih folder gim tersimpan yang tepat",
             "warning": "Silakan periksa dua kali apakah lokasinya sudah benar (klik untuk coba kembali)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
@@ -857,7 +898,13 @@
             "enableForceGrabCursor": "Aktifkan Paksa Pengambilan Kursor",
             "enableUpscaling": "Mengaktifkan Peningkatan Skala",
             "missingMsg": "Kami tidak dapat menemukan gamescope di PATH. Instal atau tambahkan ke PATH.",
-            "warningFlatpak": "Kami tidak dapat menemukan versi Gamescope yang kompatibel. Instal paket flatpak Gamescope dengan runtime {{runtimeVersion}} dan mulai ulang Heroic."
+            "warningFlatpak": "Kami tidak dapat menemukan versi Gamescope yang kompatibel. Instal paket flatpak Gamescope dengan runtime {{runtimeVersion}} dan mulai ulang Heroic.",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": "",
+            "enableHDR": "Aktifkan HDR"
         },
         "experimental_features": {
             "enableNewDesign": "Desain baru",
@@ -923,7 +970,8 @@
         "gamepad-repeat-frequency": "Frekuensi repetisi input gamepad",
         "steamRuntime": {
             "label": "Gunakan Steam Runtime",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Buka",
@@ -998,7 +1046,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Pilih Aurelia Binary Alternatif",
+        "alt-aurelia-bin": "Pilih Nile Binary Alternatif",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Jumlah yang Diunduh",
@@ -1020,7 +1068,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1062,7 +1162,10 @@
             "systemInformation": "Informasi Sistem",
             "legacy": "Warisan",
             "categories": "Kategori",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Buka Berkas Pengaturan",
         "reset-heroic": "Reset Heroic",
@@ -1176,16 +1279,74 @@
             "steam": "",
             "amazon": "Amazon Games",
             "epic": "Game Epic",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": "",
+            "gamescopeAdditionalOptions": "Opsi Tambahan"
         },
         "pageSubtitle": {
             "log": "",
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
-        "clear-images-cache": ""
+        "clear-images-cache": "",
+        "gamepad": {
+            "button": {
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": "",
+                "reset": "Atur ulang ke default",
+                "back": "Kembali",
+                "guide": "Mode Konsol"
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
+        }
     },
     "Settings": "Pengaturan",
     "sidebar": {
@@ -1352,7 +1513,19 @@
                 "intro2": "Jika pustaka kosong, pastikan Anda masuk dengan akun Anda menggunakan Kelola akun di bilah sisi atau tambahkan game Anda sendiri menggunakan tombol Tambah Game di atas.",
                 "title": "Selamat datang di Heroic!",
                 "title2": "Mengelola pustaka!"
-            }
+            },
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "Cari"
         },
         "next": "Berikutnya",
         "sidebar": {
@@ -1371,7 +1544,13 @@
                 "intro": "Selamat datang di Heroic! Bilah sisi ini berisi semua opsi navigasi untuk menjelajahi aplikasi.",
                 "title": "Navigasi Bilah Sisi"
             },
-            "wine": "Kelola atau unduh versi baru Wine/Proton/GPTK untuk menjalankan game Windows di Linux atau macOS."
+            "wine": "Kelola atau unduh versi baru Wine/Proton/GPTK untuk menjalankan game Windows di Linux atau macOS.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "Selamat datang di Heroic!",
+            "generalTitle": "Umum"
         },
         "skip": "Lewati",
         "startTour": "Mulai Tur"
@@ -1396,7 +1575,8 @@
         "noResults": "Filter saat ini tidak menghasilkan hasil apa pun.",
         "noResultsTitle": "Tidak Ada Gim yang Ditemukan",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton adalah varian Proton yang dibuat oleh Glorious Eggroll. Versi ini dirancang untuk digunakan bersama peluncur umu (default di Heroic).",
@@ -1468,7 +1648,8 @@
             "hideOwned": "Sembunyikan yang Dimiliki",
             "wishlistOnly": "Daftar Keinginan Saja",
             "platform": "Platform",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Penawaran",
         "sort": {
@@ -1549,7 +1730,8 @@
             "sort": "Urutkan",
             "navigate": "Navigasi",
             "quit": "Keluar",
-            "change_store": "Ganti toko"
+            "change_store": "Ganti toko",
+            "hold_quit": ""
         },
         "launching": "Meluncurkan",
         "card": {
@@ -1589,7 +1771,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Berikutnya",
     "common": {
@@ -1734,7 +1923,11 @@
     },
     "import-export": {
         "action": {
-            "download": "Mengunduh"
+            "download": "Mengunduh",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Kembali",
         "close": "Tutup",
@@ -1743,36 +1936,148 @@
         "per-game": "Pengaturan gim",
         "platform": "Platform",
         "rollback": {
-            "saved": "Simpan"
+            "saved": "Simpan",
+            "run": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
         },
         "stage": {
             "credentials": "Login toko",
             "globalSettings": "Pengaturan Global",
-            "perGameSettings": "Pengaturan gim"
+            "perGameSettings": "Pengaturan gim",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Pengaturan Global"
+            "title": "Pengaturan Global",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "Tidak ada game yang cocok dengan filter saat ini.",
-            "selectAll": "Pilih Semua"
+            "selectAll": "Pilih Semua",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Login toko"
+            "title": "Login toko",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Prefiks Wine",
             "wine-downloadable": "Download",
-            "wine-unavailable": "Tidak ada DLC yang tersedia"
+            "wine-unavailable": "Tidak ada DLC yang tersedia",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Login toko",
             "done": "Selesai",
             "global-settings": "Pengaturan Global",
-            "per-game": "Pengaturan gim"
+            "per-game": "Pengaturan gim",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Nilai",
         "version": "Versi Heroic",
-        "wine-versions": "Versi Wine"
+        "wine-versions": "Versi Wine",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }
