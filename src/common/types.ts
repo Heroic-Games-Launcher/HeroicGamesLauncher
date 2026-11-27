@@ -251,6 +251,8 @@ export interface GameInfo {
   is_linux_native?: boolean
   // True for Steam games that come from a Steam Family member's library
   isFamilyShare?: boolean
+  // Steam game pulled from the store
+  storeStatus?: 'removed' | 'delisted'
   browserUrl?: string
   description?: string
   //used for store release versions. if remote !== local, then update

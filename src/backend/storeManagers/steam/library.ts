@@ -136,6 +136,12 @@ export default class SteamLibraryManager implements LibraryManager {
         info.isFamilyShare = true
       }
 
+      if (game.type === 'Removed') {
+        info.storeStatus = 'removed'
+      } else if (game.type === 'Delisted') {
+        info.storeStatus = 'delisted'
+      }
+
       if (game.is_installed && game.install_path) {
         const installed = this.toInstalledInfo(appId, game)
         info.is_installed = true

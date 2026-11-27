@@ -1,0 +1,5 @@
+.storeStatusWarning__buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+}

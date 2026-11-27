@@ -56,6 +56,11 @@ describe('isLibraryApp', () => {
     expect(isLibraryApp({ type: 'Soundtrack' })).toBe(false)
   })
 
+  it('keeps removed and delisted games', () => {
+    expect(isLibraryApp({ type: 'Removed' })).toBe(true)
+    expect(isLibraryApp({ type: 'Delisted' })).toBe(true)
+  })
+
   it('keeps games and apps without a type', () => {
     expect(isLibraryApp({ type: 'Game' })).toBe(true)
     expect(isLibraryApp({ type: 'Advertising' })).toBe(true)

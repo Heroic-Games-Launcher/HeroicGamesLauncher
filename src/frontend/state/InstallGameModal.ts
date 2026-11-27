@@ -1,5 +1,6 @@
 import { GameInfo, Runner } from 'common/types'
 import { create } from 'zustand'
+import { confirmStoreStatus } from './StoreStatusWarning'
 
 interface InstallGameModalState {
   isOpen: boolean
@@ -21,12 +22,14 @@ interface OpenInstallGameModalParams {
   gameInfo: GameInfo | null
   action?: 'install' | 'import'
 }
-export const openInstallGameModal = ({
+export const openInstallGameModal = async ({
   appName,
   runner,
   gameInfo,
   action = 'install'
 }: OpenInstallGameModalParams) => {
+  // Imports skip the abandoned warning
+  if (action === 'install' && !(await confirmStoreStatus(gameInfo))) return
   useInstallGameModal.setState({
     isOpen: true,
     appName,

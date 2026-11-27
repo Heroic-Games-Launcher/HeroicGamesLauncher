@@ -11,6 +11,7 @@ import {
 import { TFunction } from 'i18next'
 import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
+import { confirmStoreStatus } from 'frontend/state/StoreStatusWarning'
 
 const storage: Storage = window.localStorage
 
@@ -69,6 +70,8 @@ async function install({
   if (is_installed) {
     return
   }
+
+  if (!(await confirmStoreStatus(gameInfo))) return
 
   if (installPath !== 'default') {
     if (setInstallPath) setInstallPath(installPath)
@@ -166,6 +169,14 @@ const launch = async ({
   status: 'done' | 'error' | 'abort'
   error?: string
 }> => {
+  // Only Steam reports store status
+  if (
+    runner === 'steam' &&
+    !(await confirmStoreStatus(await getGameInfo(appName, runner)))
+  ) {
+    return { status: 'abort' }
+  }
+
   const proceedToLaunch = async () => {
     // First handle update dialog if needed
     if (hasUpdate) {

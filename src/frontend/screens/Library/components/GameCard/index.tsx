@@ -488,10 +488,18 @@ const GameCard = ({
           data-app-name={appName}
           data-tour={dataTour}
         >
-          {haveStatus && (
+          {haveStatus ? (
             <Badge variant="success" onOverlay className="gameCardStatus">
               {label}
             </Badge>
+          ) : (
+            gameInfo.storeStatus && (
+              <Badge variant="warning" onOverlay className="gameCardStatus">
+                {gameInfo.storeStatus === 'removed'
+                  ? t('status.removed', 'Removed')
+                  : t('status.delisted', 'Delisted')}
+              </Badge>
+            )
           )}
           <Link
             to={`/gamepage/${runner}/${appName}`}

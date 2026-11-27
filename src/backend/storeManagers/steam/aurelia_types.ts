@@ -57,7 +57,7 @@ export interface AureliaLibraryGame {
   platform?: string
   // Installed bytes, Aurelia 0.3+
   size_on_disk?: number | null
-  // Store app type, e.g. "Soundtrack"
+  // Store type, or "Removed"/"Delisted"
   type?: string | null
 }
 

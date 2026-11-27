@@ -368,6 +368,7 @@
         "recommended": "Recommended"
     },
     "status": {
+        "delisted": "Delisted",
         "downloading": "Downloading",
         "extracting": "Extracting",
         "gameNotAvailable": "Game not available",
@@ -387,6 +388,7 @@
         "processing": "Processing files, please wait",
         "queued": "Queued",
         "redist": "Installing Redistributables ({{redist}})",
+        "removed": "Removed",
         "reparing": "Repairing Game, please wait",
         "syncingSaves": "Syncing Saves",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
@@ -408,6 +410,12 @@
             "message": "Online features might not work.",
             "title": "Steam account not logged in to Heroic"
         }
+    },
+    "store_status_warning": {
+        "agree": "I Agree",
+        "cancel": "Cancel",
+        "text": "{{title}} has been abandoned by Steam and its developer.\n\nOnline features may not work, and the game itself may not run.",
+        "title": "Attention"
     },
     "submenu": {
         "addShortcut": "Add shortcut",

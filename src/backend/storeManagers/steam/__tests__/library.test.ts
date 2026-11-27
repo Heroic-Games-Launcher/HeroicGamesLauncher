@@ -211,6 +211,23 @@ describe('SteamLibraryManager.refresh', () => {
     expect(games.map((g) => g.app_name)).toEqual(['1501750'])
   })
 
+  it('flags removed and delisted games', async () => {
+    mockLoggedIn.mockReturnValue(true)
+    mockOnline.mockReturnValue(true)
+    jest.mocked(runAurelia).mockResolvedValue([
+      { app_id: 227700, name: 'Firefall', type: 'Delisted' },
+      { app_id: 12345, name: 'Gone Game', type: 'Removed' },
+      { app_id: 1501750, name: 'Lords of the Fallen', type: 'Game' }
+    ])
+    await new SteamLibraryManager().refresh()
+    const [, games] = mockLibrarySet.mock.calls[0] as [string, GameInfo[]]
+    expect(games.map((g) => [g.app_name, g.storeStatus])).toEqual([
+      ['227700', 'delisted'],
+      ['12345', 'removed'],
+      ['1501750', undefined]
+    ])
+  })
+
   it('shows the installed size Aurelia reports', async () => {
     mockLoggedIn.mockReturnValue(true)
     mockOnline.mockReturnValue(true)

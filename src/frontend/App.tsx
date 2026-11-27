@@ -20,6 +20,7 @@ import LogFileUploadDialog from './components/UI/LogFileUploadDialog'
 import UploadedLogFilesList from './screens/Settings/sections/LogSettings/components/UploadedLogFilesList'
 import { TourProvider } from './state/TourContext'
 import { InstallGameWrapper } from './screens/Library/components/InstallModal'
+import StoreStatusWarning from './components/UI/StoreStatusWarning'
 import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
 import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
 import ConsoleComboListener from './screens/ConsoleMode/components/ConsoleComboListener'
@@ -90,6 +91,7 @@ function Root() {
                 console UI too, e.g. launch-option pickers and errors */}
             <DialogHandler />
             <InstallGameWrapper />
+            <StoreStatusWarning />
             <SettingsModalWrapper />
             <ExternalLinkDialog />
             <LogFileUploadDialog />
@@ -108,6 +110,7 @@ function Root() {
             <main className="content">
               <DialogHandler />
               <InstallGameWrapper />
+              <StoreStatusWarning />
               <SettingsModalWrapper />
               <ExternalLinkDialog />
               <LogFileUploadDialog />
