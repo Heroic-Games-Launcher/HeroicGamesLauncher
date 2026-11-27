@@ -15,7 +15,8 @@ electronTest('webview', async (app) => {
 
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
+      'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki',
+      { timeout: 15000 }
     )
     await page.waitForTimeout(600)
 
@@ -23,13 +24,13 @@ electronTest('webview', async (app) => {
     // inside the webview programatically
     await page.$eval(
       'webview',
-      (el: WebviewTag) => (el.src = 'https://www.google.com/')
+      (el: WebviewTag) => (el.src = 'https://example.com/')
     )
     await page.waitForTimeout(600)
 
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      /^https:\/\/www\.google\.com\//
+      /^https:\/\/example\.com\//
     )
 
     // go back to previous page in webview's history
@@ -39,11 +40,11 @@ electronTest('webview', async (app) => {
       'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
     )
 
-    // go forward again to google.com
+    // go forward again to example.com
     await page.getByTitle('Go forward').click()
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      /^https:\/\/www\.google\.com\//
+      /^https:\/\/example\.com\//
     )
     await page.waitForTimeout(600)
 
@@ -67,14 +68,16 @@ electronTest('webview', async (app) => {
     })
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
-      /^https:\/\/www\.google\.com\//
+      /^https:\/\/example\.com\//
     )
     await page.waitForTimeout(600)
 
     // it looks like we can't simulate mouse buttons INSIDE the webview to also test those
 
     // go back twice to end up in the library
+    await page.waitForTimeout(1200)
     await page.getByTitle('Go back').click()
+    await page.waitForTimeout(1500)
     await page.getByTitle('Go back').click()
     await expect(page.getByText('All Games')).toBeVisible()
   })
