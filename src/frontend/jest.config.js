@@ -15,7 +15,7 @@ module.exports = {
   // The root of your source code, typically /src
   roots: ['<rootDir>/src/frontend'],
 
-  testMatch: ['**/__tests__/**/*.test.ts'],
+  testMatch: ['**/__tests__/**/*.test.{ts,tsx}'],
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {
