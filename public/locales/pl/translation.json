@@ -105,7 +105,9 @@
                 "message": "Błąd podczas instalacji Steam! Prosimy o dokładne zapoznanie się z instrukcją, po czym prosimy spróbować ponownie! {{paragraph}} {{error}}",
                 "title": "Błąd Steam",
                 "running": "Uruchomiono Steama. Zamknij go i spróbuj ponownie bądź zrestartuj Steama, aby pozwolić Heroicowi na zarządzanie skrótami, gdy Steam jest uruchomiony.",
-                "running-gamemode": "Zanim Heroic będzie w stanie zarządzać skrótami Steama na tym urządzeniu, konieczny jest jednorazowy restart Steama. Wykonaj tę czynność i spróbuj ponownie."
+                "running-gamemode": "Zanim Heroic będzie w stanie zarządzać skrótami Steama na tym urządzeniu, konieczny jest jednorazowy restart Steama. Wykonaj tę czynność i spróbuj ponownie.",
+                "language-change": "Nie udało się zmienić języka: {{game}}",
+                "language-change-unknown": "Aurelia nie przekazała powodu. Szczegóły znajdują się w logu Steam."
             },
             "executableNotFound": "Nie znaleziono pliku wykonywalnego",
             "executableNotFoundMessage": "Heroic nie mógł znaleźć pliku wykonywalnego tej gry. Wybierz go ręcznie w ustawieniach gry.",
@@ -229,6 +231,14 @@
                 "message": "Nie udało się pobrać wszystkich zapisów z chmury dla {{game}}, przez co zapisy na tym komputerze są niekompletne. Zaczynając teraz rozgrywkę, możesz nadpisać brakujący postęp w chmurze.\n\n{{details}}",
                 "title": "Niekompletne zapisy ze Steam Cloud"
             }
+        },
+        "saveConflict": {
+            "title": "Konflikt zapisów",
+            "keepLocal": "Użyj zapisów z tego PC",
+            "detail": "Użycie zapisów z tego komputera spowoduje permanentne zastępowanie kopii w chmurze. Zapisy w chmurze nie są uwzględniane w lokalnych kopiach zapasowych.",
+            "cancel": "Anuluj",
+            "keepCloud": "Użyj zapisów z chmury",
+            "message": "Zapisy w chmurze i na dysku dla gry {{game}} się różnią. Wybierz kopię, którą chcesz zachować."
         }
     },
     "button": {
@@ -300,7 +310,18 @@
         "limit": {
             "label": "Limit pobierania",
             "unlimited": "Bez limitu"
-        }
+        },
+        "screen-off-error": {
+            "message": "Heroic nie mógł uruchomić poleceń zasilania. Jeśli używasz wersji Flatpak, przyznaj jej uprawnienie org.freedesktop.Flatpak i zrestartuj Heroic.",
+            "title": "Nie udało się wyłączyć ekranu"
+        },
+        "post-action": {
+            "shutdown": "Wyłącz",
+            "suspend": "Uśpij",
+            "none": "Nic nie rób",
+            "enable": "Co zrobić po zakończeniu pobierania"
+        },
+        "screen-off": "Wyłącz ekran"
     },
     "epic": {
         "offline-notification-body": "Usługi sieciowe mogą nie działać w pełni, ponieważ serwery Epic Games są niedostępne!",
@@ -357,16 +378,20 @@
         "display": "Wyświetlaj",
         "hidden": "Ukryte",
         "non_available": "Niedostępne",
-        "show_steam_owned_only": "Pokaż tylko gry posiadane na Steamie"
+        "show_steam_owned_only": "Pokaż tylko gry posiadane na Steamie",
+        "categories_selected_other": "Wybrano {{count}} kategorie/-i",
+        "filters_applied_other": "Zastosowano {{count}} filtry/-ów",
+        "categories_selected_one": "Wybrano {{count}} kategorię",
+        "filters_applied_one": "Zastosowano {{count}} filtr"
     },
     "help": {
-        "amdfsr": "AMD FSR pomaga podnieść liczbę klatek na sekundę poprzez skalowanie niższej rozdzielczości do rozdzielczości monitora. Jakość obrazu można dostosować od 5 do 1, z drobnym spadkiem wydajności. Włączenie może poprawić wydajność.",
+        "amdfsr": "Pełnoekranowy hack AMD FSR 1.0 działa tylko z GE-Proton/TKG na X11. Nie jest on dostępny w Protonie od Valve lub głównej gałęzi Wine i jest niekompatybilny z Wine-Wayland.",
         "custom_themes_path": "Nie używaj plików CSS z nieznanych źródeł. Jeśli masz wątpliwości, spytaj nas na naszym Discordzie.",
         "custom_themes_wiki": "Sprawdź Wiki, aby dowiedzieć się więcej o dodawaniu niestandardowych motywów. Kliknij tutaj.",
         "dxvk": "DXVK to oparta o Vulkana warstwa tłumacząca dla gier opartych o DirectX 9, 10 i 11. Włączenie DXVK może poprawić kompatybilność, lecz także powodować problemy, szczególnie w starszych grach opartych na DirectX.",
         "dxvkfpslimit": "Ustala limit klatek na sekundę dla gier z DXVK",
-        "esync": "Zadaniem Esync jest zmniejszenie narzutu wydajności spowodowanego przez wineserver w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność.",
-        "fsync": "Zadaniem Fsync jest zmniejszenie narzutu wydajności spowodowanego przez wineserver w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność na wspieranych kernelach Linuksa.",
+        "esync": "Esync jest przydatny tylko w przypadku Protona 10 i starszych zmodyfikowanych kompilacji Wine. Został on usunięty w Protonie 11 i jest ignorowany przez główną gałąź Wine.",
+        "fsync": "Fsync jest używany tylko jako odniesienie, gdy niedostępny jest NTSync (np. w jądrach w wersji starszej niż 6.14 lub gdy /dev/ntsync jest niedostępny).",
         "game_language": {
             "fallback": "Zostaw puste, aby używać języka Heroic.",
             "in_game_config": "Nie wszystkie gry wspierają taką konfigurację, niektóre mają wbudowane ustawienia językowe.",
@@ -386,7 +411,7 @@
         "steam_path": {
             "info": "Ta ścieżka pozwala Heroic określić, jakiej wersji Protona używa Steam do dodawania gier spoza Steam do Steama."
         },
-        "steamruntime": "Niestandardowe biblioteki dostarczane przez Steam w celu ułatwienia uruchamiania gier Windows na Linux. Włączenie poprawi kompatybilność.",
+        "steamruntime": "Uruchamiaj gry w wersji natywnej pod Linuksa wewnątrz kontenera z środowiskiem Steam dla Linuksa. Globalna opcja jest stosowana w przypadku gier, w których nie ustawiono konkretnego ustawienia; gry obsługujące Protona są automatycznie uruchamiane przez umu.",
         "sync": {
             "part1": "Heroic spróbuje odgadnąć właściwy folder zapisów gier. W większości przypadków działa to prawidłowo. Jeżeli jednak folder jest nieprawidłowy, użyj pola \"Nadpisz\", aby go zmienić.",
             "part2": "W przypadku zmiany folderu prefiksu dla Wine lub Proton musisz ponownie sprawdzić ścieżkę, ponieważ Proton używa innego prefiksu (/pfx) i nazwy użytkownika (steamuser). Możesz więc po prostu usunąć bieżącą ścieżkę, wyjść ze strony ustawień synchronizacji i wrócić ponownie, aby Heroic jeszcze raz odgadł folder z odpowiednim prefiksem.",
@@ -410,7 +435,10 @@
             "upscaleHeight": "Wysokość (rozdzielczość) używana przez gamescope. Przyjmuje się proporcje 16:9.",
             "fpsLimiter": "Limit klatek na sekundę, który powinien zastosować gamescope; np. 60",
             "additionalOptions": "Dodatkowe argumenty linii poleceń dla gamescope.",
-            "forceGrabCursor": "Zawsze używaj trybu relatywnego myszy zamiast odwracania w zależności od widoczności kursora (przydatne, gdy aplikacje tracą skupienie)"
+            "forceGrabCursor": "Zawsze używaj trybu relatywnego myszy zamiast odwracania w zależności od widoczności kursora (przydatne, gdy aplikacje tracą skupienie)",
+            "hdr": "Poproś gamescope o włączenie wyjścia HDR. Wyświetlacz, menedżer okien i gra muszą wspierać HDR.",
+            "windowType": "Jak gamescope wyświetla okno gry.",
+            "adaptiveSync": "Włącz zmienną częstotliwość klatek dla okna gry, gdy jest ona wspierana przez wyświetlacz."
         },
         "title": {
             "accessibility": "Ułatwienia dostępu",
@@ -441,13 +469,22 @@
         "download_proton_steam": "Po włączeniu, GE-Proton zostanie pobrany bezpośrednio do katalogu narzędzi zgodności Steam, zamiast do domyślnej ścieżki programu Heroic. Będzie używana ścieżka Steam ustawiona w opcji 'Domyślna ścieżka Steam' powyżej.",
         "analytics": "Umożliwia Heroic zbieranie w 100% anonimowych danych o użytkowaniu w celu ulepszenia aplikacji. Wymaga ponownego uruchomienia.",
         "wine-hdr": "HDR poprawia kolory, zapewniając jaśniejsze światła i głębsze kontrasty. Aby HDR działał, zarówno wyświetlacz, jak i gra muszą go obsługiwać.",
-        "wine-wayland": "Eksperymentalny sterownik Wine-Wayland umożliwia natywne uruchamianie gier w protokole graficznym Wayland. Włączenie może spowodować uszkodzenie niektórych gier.",
-        "WoW64": "Tryb Wine WoW64 pozwala 32-bitowym grom używać 64-bitowego Wine'a. Włączenie może poprawić wydajność, ale może również zepsuć niektóre starsze 32-bitowe gry.",
+        "wine-wayland": "Sterownik Wine-Wayland umożliwia uruchamianie gier bezpośrednio w protokole graficznym Wayland. Jest to wciąż opcja eksperymentalna, która może uszkodzić niektóre gry. W przypadku GE-Proton i Proton-CachyOS ta opcja wykorzystuje zmienną PROTON_ENABLE_WAYLAND; Proton od Valve może ją zignorować.",
+        "WoW64": "Nowy tryb WoW64 pozwala 32-bitowym grom z Windowsa używać 64-bitowego prefiksu Wine'a bez 32-bitowych bibliotek hosta. Jest on w pełni wspierany w Wine 11, ale wciąż opcjonalny w Protonie.",
         "nvidiaprime": {
             "details": "Używaj dedykowanej karty graficznej do renderowania na urządzeniach multi-GPU. Potrzebne tylko dla gamingowych laptopów lub komputerów używających więcej niż jednej karty graficznej (NVIDIA Optimus, AMD CrossFire)",
             "link": "Więcej szczegółów na naszej wiki"
         },
-        "hide-window-on-protocol-launch": "Ukrywa okno Heroic, kiedy gra uruchamiana jest przez skrót zewnętrzny, np. skrót stworzony przez funkcję \"Dodaj do Steama\"."
+        "hide-window-on-protocol-launch": "Ukrywa okno Heroic, kiedy gra uruchamiana jest przez skrót zewnętrzny, np. skrót stworzony przez funkcję \"Dodaj do Steama\".",
+        "dlssUpgrade": "Wymaga GE-Proton lub Proton-CachyOS, a także układu graficznego NVIDIA RTX. Proton od Valve ignoruje te zmienne.",
+        "disableProtonFixes": "Użyj tej opcji, gdy fix Protona psuje grę. Wpływa ona tylko na fixy zastosowane przez umu, a nie przez samego Protona.",
+        "fsr4Upgrade": "Wymaga GE-Proton, Proton-CachyOS lub umu-protonfixes. Proton od Valve może już mieć zaktualizowany plik DLL.",
+        "nvapiMode": "Proton domyślnie włącza NVAPI. Wyłącz go, jeśli gra się wyłącza lub zawiesza na karcie graficznej innej niż NVIDIA, lub wymuś dla gier, które nie włączają automatycznie trybu DLSS.",
+        "backupSaves": "Kopie są przyrostowe i przechowywane w folderze Saves_Backup wewnątrz Twojej domyślnej ścieżki instalacji",
+        "useOptiScaler": "Wymaga GE-Proton, Proton-CachyOS lub umu-protonfixes. Przydatne na kartach graficznych AMD, gdy chcesz uruchomić FSR 4 w grach, które informują tylko o DLSS.",
+        "umuGameId": "UMU używa GAMEID, aby zastosować poprawki Protona i metadane ze sklepu. Ustaw tę opcję, tylko gdy gry nie ma w bazie danych UMU lub zastosowane zostały złe poprawki.",
+        "disableNTSync": "NTSync jest włączony automatycznie na jądrach w wersji 6.14 i nowszej. Jego wyłączenie jest przydatne tylko w przypadku rozwiązywania problemów z regresjami w konkretnych tytułach.",
+        "hdrMode": "Opcja Automatycznie pozwala grze i menedżerowi okien negocjować ustawienia HDR. Opcja Wymuś jest przydatna w menedżerach okien, które nie zgłaszają przestrzeni HDR (np. KDE Plasma lub Hyprland). Opcja Wyłączone wyłącza HDR w grach z wyblakłym lub uszkodzonym sygnałem."
     },
     "info": {
         "heroic": {
@@ -475,7 +512,8 @@
             "message": "Wine wykorzystuje tzw. prefiks w celu przechowywania aplikacji dla Windowsa. Prefiks ten zawiera pliki konfiguracyjne Wine oraz dokładne odwzorowanie hierarchii dysku C: (głównego dysku w systemie Windows). Tam przechowywane są zapisy gier oraz pliki potrzebne do uruchomienia gry, zainstalowane przez winetricks."
         },
         "wine-path-invalid": "Ścieżka Wine jest nieprawidłowa, wybierz inną.",
-        "wine-path-none-found": "Nie znaleziono wersji Wine, pobierz ją z Menedżera Wine"
+        "wine-path-none-found": "Nie znaleziono wersji Wine, pobierz ją z Menedżera Wine",
+        "steam-wineprefix": "Proton zachowuje prefiks w katalogu pfx wewnątrz tego katalogu. Pozostaw tę opcję pustą, aby użyć katalogu, którego dla tej gry używa Steam (wewnątrz biblioteki Steam, w której jest zainstalowany)."
     },
     "install": {
         "path": "Wybierz ścieżkę instalacji"
@@ -557,7 +595,8 @@
                     "corrupt": "Gra {{game}} nie mogła zostać dodana dla wszystkich znalezionych użytkowników Steam. Aby dowiedzieć się więcej, sprawdź logi. Restart aplikacji Steam jest wymagany, by zatwierdzić zmiany.",
                     "success": "Gra {{game}} została dodana do Steam. Restart aplikacji Steam jest wymagany, by zatwierdzić zmiany.",
                     "title": "Dodano do Steam",
-                    "success-no-restart": "Pomyślnie dodano {{game}} do Steama."
+                    "success-no-restart": "Pomyślnie dodano {{game}} do Steama.",
+                    "already": "{{game}} jest już dodana do Steam."
                 }
             },
             "remove": {
@@ -659,7 +698,10 @@
             "fpsLimiterNoFocus": "Ograniczenie FPS (w tle)",
             "stretch": "Rozciągnij obraz",
             "additionalOptions": "Opcje dodatkowe",
-            "windowed": "W oknie"
+            "windowed": "W oknie",
+            "monitorResolution": "Monitor",
+            "upscaleMethod": "Metoda skalowania",
+            "windowType": "Typ okna"
         }
     },
     "other": {
@@ -678,7 +720,8 @@
         "egs-prefix": "Prefiks, w którym zainstalowany jest EGS",
         "prefered_language": "dwu- lub czteroznakowy kod (np. : \"pl\" lub \"pt-BR\")",
         "alt-nile-bin": "Używanie domyślnego pliku wykonywalnego Nile...",
-        "alt-aurelia-bin": "Używanie domyślnego pliku wykonywalnego Aurelia..."
+        "alt-aurelia-bin": "Używanie domyślnego pliku wykonywalnego Aurelia...",
+        "umuGameId": "Pozostaw puste, aby użyć wartości z bazy danych UMU"
     },
     "platforms": {
         "linux": "Linux",
@@ -727,7 +770,7 @@
         "download-no-https": "Pobieraj gry bez użycia szyfrowania HTTPS (przydatne przy CDN-ach, np. LanCache)",
         "dxvkfpslimit": "Limit klatek na sekundę (DX9, 10 i 11)",
         "egs-sync": "Synchronizuj z zainstalowanym Epic Games",
-        "enableFSRHack": "Włącz FSR Hack (wymagana odpowiednia wersja Wine)",
+        "enableFSRHack": "Wine FSR 1 (fshack, tylko X11)",
         "eosOverlay": {
             "cancelInstall": "Anuluj",
             "checkForUpdates": "Sprawdź dostępność aktualizacji",
@@ -749,10 +792,10 @@
             "updating": "Aktualizowanie...",
             "description": "Nakładka w grze od Epica, wymagana przez niektóre tytuły Epica pod kątem znajomych i osiągnięć"
         },
-        "esync": "Włącz Esync",
+        "esync": "Włącz Esync (przestarzałe)",
         "exit-to-tray": "Minimalizuj do zasobnika systemowego",
         "FsrSharpnessStrenght": "Siła wyostrzania FSR",
-        "fsync": "Włącz Fsync",
+        "fsync": "Fsync (opcja rezerwowa)",
         "gamemode": "Użyj GameMode (wymagany zainstalowany Feral GameMode)",
         "hideChangelogsOnStartup": "Nie pokazuj listy zmian po uruchomieniu",
         "language": "Wybierz język aplikacji",
@@ -842,7 +885,8 @@
             "placeholder": "Wybierz folder zapisu gier",
             "warning": "Upewnij się, że ścieżka jest poprawna (kliknij, aby spróbować ponownie)",
             "retry": "Wykryj ponownie",
-            "title": "Folder zapisu"
+            "title": "Folder zapisu",
+            "detect-failed": "Nie udało się automatycznie wykryć folderu zapisów. Wybierz go ręcznie poniżej lub sprawdź log Heroic, aby dowiedzieć się więcej."
         },
         "select_theme": "Wybierz motyw",
         "showfps": "Pokaż klatki na sekundę (DX9, DX10, DX11)",
@@ -880,7 +924,13 @@
             "missingMsg": "Nie mogliśmy znaleźć gamescope w ścieżce PATH. Zainstaluj go lub dodaj do ścieżki PATH.",
             "enableForceGrabCursor": "Włącz wymuszanie łapania kursora",
             "missingMsgFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym 25.08 i uruchom ponownie program Heroic.",
-            "warningFlatpak": "Nie mogliśmy znaleźć kompatybilnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym {{runtimeVersion}} i uruchom ponownie program Heroic."
+            "warningFlatpak": "Nie mogliśmy znaleźć kompatybilnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym {{runtimeVersion}} i uruchom ponownie program Heroic.",
+            "additionalOptionsWarning": "Opcje są przekazywane do gamescope tak, jak je podano. Nieprawidłowe lub niewspierane flagi mogą sprawić, że gra się nie uruchomi.",
+            "additionalOptionsDocs": "Sprawdź dokumentację gamescope",
+            "enableLimiter-description": "Ogranicz klatkaż poprzez gamescope",
+            "enableAdaptiveSync": "Włącz adaptacyjne odświeżanie (VRR)",
+            "enableUpscaling-description": "Renderuj grę w rozdzielczości niższej niż natywna, a następnie ją podwyższ",
+            "enableHDR": "Włącz HDR"
         },
         "after-launch-script-path": "Wybierz skrypt do uruchomienia po zakończeniu gry",
         "before-launch-script-path": "Wybierz skrypt do uruchomienia przed rozpoczęciem gry",
@@ -918,7 +968,7 @@
         "analyticsOptIn": "Wysyłaj anonimowe dane, by wspomóc rozwój Heroic",
         "hdr": "Włącz HDR",
         "no-tray-icon": "Ukryj ikonę zasobnika systemowego (wymaga ponownego uruchomienia)",
-        "wineWayland": "Włącz Wine-Wayland (eksperymentalne) (używana wersja Wine musi to wspierać)",
+        "wineWayland": "Wymuś Wine-Wayland (eksperymentalne)",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Nie pokazuj ich",
@@ -930,18 +980,19 @@
             "wine_selector_warning": "Wersje Valve Protona są domyślnie ignorowane, włącz je w globalnych ustawieniach Zaawansowanych",
             "info_label": "Wersje Protona od Valve ignorowane"
         },
-        "WoW64": "Włącz WoW64 (eksperymentalne)",
+        "WoW64": "Wymuś nowy tryb WoW64",
         "scripts": "Skrypty",
         "enable-quick-sync-menu": "Włącz menu szybkiej synchronizacji zapisów na stronie gry",
         "start-in-console-mode": "Uruchamiaj w trybie konsolowym",
         "disable_gog_presence": "Wyłącz aktualizacje GOG Presence",
         "nvidiaprime": {
-            "description": "Wymuś użycie NVIDIA Optimus lub AMD Dynamic Switchable Graphics dGPU. Używaj TYLKO do gier OpenGL lub Vulkan."
+            "description": "Odciążenie renderowania PRIME (technologie zmiany układów graficznych NVIDIA Optimus / AMD)"
         },
         "hide-window-on-protocol-launch": "Ukryj okno Heroic podczas uruchamiania gier przez odnośniki heroic://",
         "steamRuntime": {
-            "label": "Używaj Steam Runtime",
-            "noRuntimeOption": "Brak"
+            "label": "Środowisko Steam (gry natywne pod Linuksa)",
+            "noRuntimeOption": "Brak (uruchom na hoście)",
+            "defaultLabel": "Domyślne środowisko Steam (gry natywne pod Linuksa)"
         },
         "gamepad-initial-repeat-delay": "Opóźnienie pierwszego powtórzenia akcji kontrolera",
         "gamepad-repeat-frequency": "Częstotliwość powtarzania akcji kontrolera",
@@ -997,7 +1048,7 @@
         "start-in-console-mode-description": "Otwórz Heroic w trybie big-picture, zbudowanym z myślą o kontrolerach",
         "msync-description": "Przyspiesz gry korzystające z wielu wątków, używając prymitywów synchronizacji macOS",
         "autoUpdateGames-description": "Pobieraj aktualizacje gier zaraz po ich wydaniu",
-        "fsync-description": "Przyspiesz gry korzystające z wielu wątków, używając synchronizacji futex",
+        "fsync-description": "Użyj fsync, tylko gdy NTSync jest niedostępny",
         "hdr-description": "Uruchamiaj grę przez Waylanda, co pozwoli na użycie wyjścia w HDR",
         "showfps-description": "Wyświetlaj licznik klatek na górze gry",
         "hideChangelogsOnStartup-description": "Pomijaj informacje o wydaniu pokazywane po aktualizacji Heroic",
@@ -1012,8 +1063,8 @@
         "download-no-https-description": "Pomijaj HTTPS podczas pobierania plików gry (przydatne przy lokalnej pamięci podręcznej CDN)",
         "discordRPC-description": "Pokaż ogrywaną grę na swoim profilu Discorda",
         "preferSystemLibs-description": "Użyj bibliotek zainstalowanych w Twoim systemie zamiast tych dołączonych",
-        "esync-description": "Przyspiesz gry korzystające z wielu wątków, używając synchronizacji eventfd",
-        "enableFSRHack-description": "Renderuj grę w niższej rozdzielczości i podwyższ ją, aby uzyskać dodatkowe klatki",
+        "esync-description": "Przestarzała synchronizacja eventfd, używana tylko przez starsze kompilacje Protona/Wine",
+        "enableFSRHack-description": "Pełnoekranowe skalowanie dla gier DirectX (przestarzałe, tylko X11)",
         "offlinemode-description": "Uruchom tę grę bez łączenia się ze sklepem",
         "checkForUpdatesOnStartup-description": "Sprawdzaj dostępność nowej wersji Heroic po uruchomieniu aplikacji",
         "disableUMU-description": "Uruchamiaj Protona bezpośrednio, pomijając launcher umu",
@@ -1040,13 +1091,65 @@
         "addgamestoapplications-description": "Twórz skrót do aplikacji po zainstalowaniu gry.",
         "addgamestosteam-real-description": "Dodaj każdą z zainstalowanych gier do swojej biblioteki Steam jako jej skrót.",
         "disableGOGAffiliateDescription": "Kupowanie gier na GOG przez Heroic wspiera rozwój projektu.",
-        "maxworkers-description": "Większa liczba wątków przyspiesza pobieranie, ale zużywa też więcej zasobów procesora i przepustowości. Max używa wszystkich rdzeni."
+        "maxworkers-description": "Większa liczba wątków przyspiesza pobieranie, ale zużywa też więcej zasobów procesora i przepustowości. Max używa wszystkich rdzeni.",
+        "backups-restore-confirm": "Przywrócić pliki zapisów ({{date}})?",
+        "backups": "Kopie zapasowe zapisów",
+        "wineWayland-description": "Uruchom grę przez eksperymentalny sterownik Wine-Wayland",
+        "useOptiScaler": "Włącz OptiScaler",
+        "backups-error-removed": "Ta kopia została usunięta z powodu limitu rozmiaru",
+        "disableNTSync": "Wyłącz NTSync (dla rozwiązywania problemów)",
+        "useOptiScaler-description": "Zintegruj OptiScaler, aby zmienić upscalery DLSS, FSR i XeSS",
+        "nvapiMode": {
+            "off": "Wyłączone",
+            "auto": "Automatycznie (zalecane)",
+            "label": "NVAPI / DLSS",
+            "force": "Wymuś"
+        },
+        "disableProtonFixes-description": "Pomiń umu-protonfixes dla tej gry",
+        "backups-restore-failed": "Nie udało się przywrócić kopii",
+        "hdrMode": {
+            "off": "Wyłączone",
+            "auto": "Automatycznie (zalecane)",
+            "force": "Wymuś",
+            "label": "HDR"
+        },
+        "umuGameId": "Nadpisz UMU GAMEID",
+        "maxSaveBackupSize": "Limit rozmiaru kopii zapasowej",
+        "disableGuideButton": {
+            "description": "Przycisk Guide/PS nie będzie otwierać trybu konsolowego. Wciąż możesz do niego wejść z poziomu biblioteki."
+        },
+        "backups-empty": "Nie ma jeszcze kopii zapisów",
+        "wineprefix-save-warning": "Zmiana prefiksu Wine lub wersji Wine/Protona może sprawić, że Heroic nie będzie wiedzieć, gdzie ta gra przechowuje swoje dane. Sprawdź kartę Zapisy w chmurze, zanim uruchomisz grę.",
+        "backups-current": "Uwzględnia Twoje obecne zapisy",
+        "disableNTSync-description": "Przejdź na fsync/wineserver, gdy w przypadku NTSync gra się zawiesza lub klatkuje",
+        "disableProtonFixes": "Wyłącz poprawki UMU dla gry",
+        "backups-summary": "Zmieniono {{changed}}, usunięto {{deleted}}",
+        "backups-open-folder": "Otwórz katalog z kopiami",
+        "backups-error-failed": "Nie udało się utworzyć kopii bezpieczeństwa przed przywróceniem",
+        "backupSaves": "Wykonaj kopię zapisów przy ich synchronizacji",
+        "backups-already-current-title": "Zapisy są już aktualne",
+        "enable-controller-in-console-mode": "Zawsze włączaj kontroler w Trybie konsolowym",
+        "backups-already-current-body": "Ta kopia uwzględnia Twoje aktualne zapisy",
+        "backups-restored-body": "Przywrócono pliki zapisów z wybranej kopii",
+        "gamepad-deadzone": "Martwa strefa drążka",
+        "fsr4Upgrade-description": "Zamień plik DLL FSR 3.1 w grze z FSR 4, gdy jest on wspierany",
+        "backupSize": "{{size}} GB",
+        "dlssUpgrade-description": "Użyj nowszych plików DLL dla DLSS i Streamline (w tym generowanie wielu klatek)",
+        "backups-error-incomplete": "Ta kopia jest niekompletna i nie można jej przywrócić",
+        "backups-restored-title": "Przywrócono zapisy",
+        "fsr4Upgrade": "Zaktualizuj FSR 3.1 do FSR 4",
+        "backupSaves-description": "Przechowuj kopię zmienionych plików zapisów przy ich synchronizacji",
+        "backups-error-location": "Lokalizacja zapisów zmieniła się od momentu wykonania tej kopii",
+        "disable_guide_button": "Wyłącz skrót do trybu konsolowego",
+        "dlssUpgrade": "Ulepsz DLSS / Streamline",
+        "backups-restore-button": "Przywróć",
+        "backups-restore": "Przywróć kopię zapisów"
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Instalowanie programu BattlEye...",
-            "name": "BattlEye AntiCheat",
-            "hint": "Zainstaluj środowisko uruchomieniowe wymagane przez gry chronione przez BattlEye"
+            "name": "Środowisko BattlEye AntiCheat (przestarzałe)",
+            "hint": "Przestarzałe środowisko uruchomieniowe dla gier chronionych przez BattlEye"
         },
         "clear-cache": "Wyczyść pamięć podręczną Heroic",
         "copiedToClipboard": "Skopiowano do schowka!",
@@ -1058,8 +1161,8 @@
                 "title": "Wymagany GameMode"
             },
             "installing": "Instalowanie programu EAC...",
-            "name": "EasyAntiCheat",
-            "hint": "Zainstaluj środowisko uruchomieniowe wymagane przez gry chronione przez EasyAntiCheat"
+            "name": "Środowisko EasyAntiCheat (przestarzałe)",
+            "hint": "Przestarzałe środowisko dla gier chronionych przez EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -1084,7 +1187,8 @@
             "categories": "Kategorie",
             "tabs": "Sekcje ustawień",
             "importExport": "Import / Eksport",
-            "runners": "Środowiska uruchomieniowe"
+            "runners": "Środowiska uruchomieniowe",
+            "gamepad": "Kontroler"
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
@@ -1161,7 +1265,7 @@
             "title": "Własny styl CSS"
         },
         "launchOptions": "Opcje startowe",
-        "legacy_warning": "Uwaga: Ustawienia w tej zakładce są w większości przestarzałe i mogą w ogóle nie działać.",
+        "legacy_warning": "Uwaga: te ustawienia są przestarzałe lub działają tylko w starszych kompilacjach Protona/Wine. Zostały one utrzymane w celu rozwiązywania problemów.",
         "steamgriddb": {
             "apikey": {
                 "title": "Klucz API SteamGridDB",
@@ -1199,7 +1303,15 @@
             "amazon": "Amazon Games",
             "epic": "Epic Games",
             "gog": "GOG",
-            "eosOverlay": "Nakładka EOS"
+            "eosOverlay": "Nakładka EOS",
+            "legacyGraphics": "Grafika",
+            "umu": "UMU (Proton)",
+            "anticheat": "Środowiska antycheat",
+            "gamescopeUpscaling": "Skalowanie",
+            "gamescopeLimiter": "Ogranicznik klatek",
+            "legacySync": "Synchronizacja",
+            "gamescopeDisplay": "Wyświetlanie",
+            "gamescopeAdditionalOptions": "Opcje dodatkowe"
         },
         "pageSubtitle": {
             "advanced": "Zachowanie, funkcje eksperymentalne i konserwacja",
@@ -1208,7 +1320,8 @@
             "log": "Czytaj i udostępnij logi Heroic",
             "systeminfo": "Twój sprzęt i wersje, na których działa Heroic",
             "importExport": "Skopiuj lub przywróć swoją konfigurację Heroic",
-            "runners": "Integracje ze sklepami i opcje dot. konkretnych środowisk"
+            "runners": "Integracje ze sklepami i opcje dot. konkretnych środowisk",
+            "gamepad": "Nawigacja kontrolerem, martwa strefa i mapowanie przycisków"
         },
         "clear-images-cache": "Wyczyść pamięć podręczną obrazów",
         "copySettings": {
@@ -1219,6 +1332,43 @@
             "noResults": "Nie znaleziono ustawień",
             "placeholder": "Wyszukaj ustawienia",
             "results": "Wyniki ustawień"
+        },
+        "gamepad": {
+            "button": {
+                "prevPage": "Przewiń w górę",
+                "unbound": "Nie przypisano",
+                "alt": "Uruchom/zainstaluj grę",
+                "main": "Potwierdź/wybierz",
+                "enter": "Prześlij/otwórz klawiaturę",
+                "context": "Menu opcji",
+                "nextPage": "Przewiń w dół",
+                "reset": "Zresetuj do ustawień domyślnych",
+                "back": "Wróć",
+                "guide": "Tryb konsolowy"
+            },
+            "detected": {
+                "empty": "Nie wykryto kontrolera. Naciśnij na nim jakiś przycisk, dzięki czemu poinformuje o nim system.",
+                "custom": "Niestandardowe",
+                "charging": "Ładowanie",
+                "full": "Naładowany",
+                "device": "Urządzenie",
+                "mapping": "Przypisanie w przeglądarce",
+                "index": "Slot",
+                "discharging": "Na baterii",
+                "copy": "Skopiuj szczegóły",
+                "vendor": "Dostawca/produkt",
+                "description": "Informacje, które przekazuje system w przypadku podłączonych kontrolerów. Przydatne dla padów firm trzecich, które pokazują się niepoprawnie.",
+                "title": "Wykryty kontroler",
+                "layout": "Układ Heroic",
+                "battery": "Bateria",
+                "id": "Identyfikator",
+                "notReported": "System zgłasza baterię, ale kontroler nie jest jeszcze widoczny dla Heroic. Naciśnij na nim jakiś przycisk."
+            },
+            "description": "Nawigacja, prędkość powtarzania i tolerancja drążków",
+            "buttonMapping": {
+                "title": "Przypisanie przycisków",
+                "description": "Wybierz przycisk, który wywoła daną akcję"
+            }
         }
     },
     "Settings": "Ustawienia",
@@ -1385,22 +1535,34 @@
                 "title": "Witaj w Heroic!",
                 "title2": "Zarządzanie biblioteką!",
                 "intro2": "Jeśli biblioteka jest pusta, upewnij się, że zalogowałeś się na swoje konta za pomocą 'Zarządzaj kontami' na pasku bocznym lub dodaj własne gry, używając przycisku 'Dodaj grę' powyżej.",
-                "intro": "Witaj w bibliotece Heroic! Znajdziesz tu wszystkie swoje gry z różnych sklepów."
+                "intro": "Twoja biblioteka łączy wszystkie połączone sklepy. Tu znajdują się przyciski, których będziesz używać najczęściej."
             },
-            "gameCard": "Naciśnij lewym przyciskiem myszy na kartę gry, aby przejść do jej strony i wyświetlić informacje oraz dostosować ustawienia, lub prawym przyciskiem, by otworzyć menu kontekstowe.",
+            "gameCard": "Kliknij kartę, aby otworzyć stronę gry, gdzie możesz ją zainstalować, w nią zagrać i zmienić jej ustawienia. Prawym przyciskiem otworzysz szybkie menu z opcjami instalacji, edycji, dodania do ulubionych, ukrycia i innymi.",
             "addGame": "Dodaj własne gry lub aplikacje, klikając tutaj. Może to być cokolwiek, nawet URL do przeglądarki.",
             "categories": "Grupuj swoje gry w kategorie, aby zachować porządek.",
             "end": {
-                "intro": "To wszystko! Miłej zabawy podczas grania!",
+                "intro": "To wszystko! Twoja biblioteka jest gotowa — miłej zabawy podczas grania!",
                 "title": "Miłej zabawy!"
             },
             "filters": "Filtruj swoje gry według sklepu, platformy, ulubionych i innych za pomocą tych opcji.",
             "refresh": "Odśwież swoją bibliotekę, aby poszukać nowych gier lub aktualizacji.",
-            "search": "Użyj paska wyszukiwania, aby znaleźć swoje gry.",
+            "search": "Wyszukiwarka filtruje bibliotekę podczas wprowadzania liter i sugeruje gry po ich nazwie. Aby przejść do jej obszaru, naciśnij w dowolnym miejscu biblioteki klawisz /, zaś aby z niej wyjść - klawisz Esc.",
             "sortInstalled": "Sortuj gry według ich statusu instalacji.",
             "sortOptions": "Kliknij tutaj, aby posortować gry alfabetycznie.",
             "viewToggle": "Przełączaj pomiędzy widokami siatki i listy dla swoich gier.",
-            "steamInstall": "Użyj tego przycisku, aby zainstalować wersję Steam dla systemu Windows i grać w swoje gry z systemu Windows, używając programów Crossover, Wine lub GPTK."
+            "steamInstall": "Użyj tego przycisku, aby zainstalować wersję Steam dla systemu Windows i grać w swoje gry z systemu Windows, używając programów Crossover, Wine lub GPTK.",
+            "sectionActionsTitle": "Tryb konsolowy i Dodaj grę",
+            "filterControls": "Tu żyją Kategorie i Filtry. Kategorie mają pola wyboru i pokazują, ile z nich jest wybranych, zaś Filtry uwzględniają sklepy, platformy i opcje wyświetlania i pokazują, ile z nich jest aktywnych.",
+            "welcomeTitle": "Twoja biblioteka",
+            "gameCardTitle": "Twoja karta gry",
+            "endTitle": "Miłej zabawy!",
+            "sectionActions": "Tryb konsolowy otwiera pełnoekranowy interfejs dla kontrolerów, zaś opcja Dodaj grę otwiera przewidnik, gdzie możesz dodać aplikację, plik wykonywalny, skrypt lub adres URL.",
+            "filterControlsTitle": "Kategorie i filtry",
+            "actions": "W tej części możesz przełączać się między siatką a listą, sortować pozycje od A do Z, pogrupować zainstalowane gry jako pierwsze, włączać pasek z literami alfabetu, odświeżyć bibliotekę i odtworzyć ten przewodnik.",
+            "empty": "Obecnie Twoja biblioteka jest pusta. Użyj opcji Sklepy na pasku bocznym, aby się do nich zalogować; możesz też dodać to, co tylko chcesz, używając przycisku Dodaj grę, lub przywrócić kopię zapasową Heroic w Ustawieniach.",
+            "actionsTitle": "Akcje w bibliotece",
+            "emptyTitle": "Wypełnijmy tę pustkę",
+            "searchTitle": "Wyszukaj"
         },
         "sidebar": {
             "stores": "Przeglądaj i kupuj gry w różnych sklepach, m.in. Epic, GOG i Amazon.",
@@ -1413,12 +1575,18 @@
             "login": "Zaloguj się do swoich kont do sklepów z grami, aby uzyskać dostęp do swojej biblioteki.",
             "quit": "Wyjdź z aplikacji w bezpieczny sposób.",
             "settings": "Dostosuj ustawienia Heroica, domyślne dla gier, sprawdź logi i inne.",
-            "version": "Sprawdź aktualną wersję Heroic, kliknij na nią, by zobaczyć listę zmian, oraz uzyskaj dostęp do tego przewodnika poprzez ikonę pomocy.",
+            "version": "Kliknij wersję, aby przeczytać listę zmian; przycisk ze znakiem zapytania obok niej odtworzy ten przewodnik.",
             "welcome": {
-                "intro": "Witamy w Heroic! Ten pasek boczny zawiera wszystkie opcje nawigacji do odkrywania aplikacji.",
+                "intro": "Witamy w Heroic! Ten pasek boczny to Twoja główna nawigacja na każdym ekranie.",
                 "title": "Nawigacja na pasku bocznym"
             },
-            "wine": "Zarządzaj lub pobierz nowe wersje Wine/Proton/GPTK, aby uruchamiać gry z Windowsa na Linuksie lub macOS."
+            "wine": "Zarządzaj lub pobierz nowe wersje Wine/Proton/GPTK, aby uruchamiać gry z Windowsa na Linuksie lub macOS.",
+            "communityIntro": "Społeczność otwiera dokumentację Heroic, serwer Discorda i stronę Wesprzyj nas.",
+            "general": "W menu Główne masz dostęp do swojej biblioteki, sklepów z grami (w tym logowania do nich), promocji, pobrań, ułatwień dostępu i ustawień Heroic, a także znajdującego się na dole przycisku Wyjdź.",
+            "versionTitle": "Wersja i pomoc",
+            "welcomeTitle": "Witaj w Heroic",
+            "communitySectionTitle": "Społeczność",
+            "generalTitle": "Główne"
         },
         "back": "Wróć",
         "done": "Gotowe",
@@ -1510,7 +1678,8 @@
             "hideOwned": "Ukryj posiadane",
             "wishlistOnly": "Tylko lista życzeń",
             "platform": "Platforma",
-            "platformAny": "Dowolna platforma"
+            "platformAny": "Dowolna platforma",
+            "showMature": "Wyświetlaj treści NSFW"
         },
         "sidebar": "Promocje",
         "sort": {
@@ -1582,7 +1751,7 @@
             "alpha_desc": "Z → A"
         },
         "cancel": {
-            "hintSuffix": "przez 3s, aby anulować",
+            "hintSuffix": "przez 3 s, aby anulować",
             "hintPrefix": "Przytrzymaj"
         },
         "quit": "Opuść tryb konsolowy",
@@ -1591,7 +1760,8 @@
             "sort": "Sortuj",
             "navigate": "Nawiguj",
             "quit": "Wyjdź",
-            "change_store": "Zmiana sklepu"
+            "change_store": "Zmiana sklepu",
+            "hold_quit": "Przytrzymaj, aby wyjść"
         },
         "launching": "Uruchamianie",
         "card": {
@@ -1631,6 +1801,13 @@
             "enter": "Wejdź w tryb konsolowy",
             "message": "Tryb kontrolowy to pełnoekranowy interfejs, stworzony z myślą o kontrolerach. Pasek boczny i przyciski kontroli okna zostaną ukryte.",
             "title": "Wejść w tryb konsolowy?"
+        },
+        "quitting": "Wychodzenie z konsoli",
+        "close": {
+            "hintSuffix": "przez 3 s, aby zamknąć grę"
+        },
+        "quitHold": {
+            "hintSuffix": "przez 3 s, aby wyjść"
         }
     },
     "next": "Następny",
@@ -1847,7 +2024,7 @@
             "installedOKHint": "Te gry były zainstalowane na systemie źródłowym i ich foldery wciąż istnieją na tej maszynie — zostaną one zarejestrowane ponownie tak, jak je wyeksportowano.",
             "installedOKSummary_one": "Znalezione i gotowe gry ({{count}})",
             "installedOKSummary_other": "Znalezione i gotowe gry ({{count}})",
-            "installPathsHint": "Foldery instalacji używane przez te gry nie znajdują się w tym systemie. Pobierz ponownie te gry, które chcesz; niezaznaczone pozycje pozostaną na liście z ich oryginalną (popsutą) ścieżką.",
+            "installPathsHint": "Foldery instalacji używane przez te gry nie znajdują się w tym systemie. Pobierz ponownie te gry, które chcesz; niezaznaczone pozycje pozostaną na liście z ich oryginalną (uszkodzoną) ścieżką.",
             "installPathsSummary_one": "Gry z brakującymi ścieżkami instalacji ({{count}})",
             "installPathsSummary_other": "Gry z brakującymi ścieżkami instalacji ({{count}})",
             "prefixPathsHint": "Zdecyduj, co zrobić z każdym prefiksem z osobna — zazwyczaj najprościej przełączyć się na domyślny prefiks.",
