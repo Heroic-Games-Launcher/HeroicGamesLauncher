@@ -233,7 +233,10 @@
         "saveConflict": {
             "cancel": "Zrušit",
             "keepCloud": "Použít ukládání do cloudu",
-            "message": "Údaje uložené v cloudu a lokálně pro hru {{game}} se liší. Vyberte, kterou kopii chcete zachovat:\n\n{{files}}"
+            "message": "Údaje uložené v cloudu a lokálně pro hru {{game}} se liší. Vyberte, kterou kopii chcete zachovat:\n\n{{files}}",
+            "title": "",
+            "keepLocal": "",
+            "detail": ""
         }
     },
     "button": {
@@ -305,7 +308,18 @@
         "limit": {
             "label": "Limit stahování",
             "unlimited": "Neomezená"
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Online služby nemusí plně fungovat, protože servery Epic Games jsou offline!",
@@ -363,7 +377,11 @@
         "display": "Zobrazované",
         "hidden": "Skryté",
         "non_available": "Nedostupné",
-        "show_steam_owned_only": "Zobrazit pouze hry, které vlastníte na Steamu"
+        "show_steam_owned_only": "Zobrazit pouze hry, které vlastníte na Steamu",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -416,7 +434,10 @@
             "upscaleHeight": "Rozlišení výšky používané službou gamescope. Je předpokládán rozměr 16:9.",
             "fpsLimiter": "Počet snímků, na který by měl být omezen gamescope. Např. 60",
             "additionalOptions": "Další vlajky příkazového řádku k použití v gamescope.",
-            "forceGrabCursor": "Vždy používejte relativní režim myši namísto převracení v závislosti na viditelnosti kurzoru. (Užitečné v případě, že aplikace stále ztrácejí fokus)"
+            "forceGrabCursor": "Vždy používejte relativní režim myši namísto převracení v závislosti na viditelnosti kurzoru. (Užitečné v případě, že aplikace stále ztrácejí fokus)",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "title": {
             "accessibility": "Přístupnost",
@@ -453,7 +474,16 @@
             "details": "K vykreslování hry na systémech s více grafickými procesory používejte dedikovanou grafickou kartu. Potřebné pouze u herních notebooků nebo stolních počítačů, které pro vykreslování používají headless GPU (NVIDIA Optimus, AMD CrossFire)",
             "link": "Další podrobnosti najdete na naší wiki"
         },
-        "hide-window-on-protocol-launch": "Ponechává okno Heroicu schované když je hra spuštěna z externí zkratky, jako třeba přes \"Přidat na Steam\"."
+        "hide-window-on-protocol-launch": "Ponechává okno Heroicu schované když je hra spuštěna z externí zkratky, jako třeba přes \"Přidat na Steam\".",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -562,7 +592,8 @@
                     "corrupt": "Hru {{game}} se nepodařilo přidat všem nalezeným uživatelům Steam. Další informace naleznete v protokolech. Aby se změny projevily, je nutné službu Steam restartovat.",
                     "success": "Hra {{game}} byla úspěšně přidána do služby Steam. Aby se změny projevily, je nutné službu Steam restartovat.",
                     "title": "Přidáno do Steamu",
-                    "success-no-restart": "Hra {{game}} byla úspěšně přidána do Steamu."
+                    "success-no-restart": "Hra {{game}} byla úspěšně přidána do Steamu.",
+                    "already": ""
                 }
             },
             "remove": {
@@ -664,7 +695,10 @@
             "interger": "Celočíselný upscaling",
             "stretch": "Roztáhnout obraz",
             "windowed": "V okně",
-            "additionalOptions": "Další možnosti"
+            "additionalOptions": "Další možnosti",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -683,7 +717,8 @@
         "egs-prefix": "Prefix kde je nainstalován EGS",
         "prefered_language": "2místný nebo 4místný kód (např. „fr“ nebo „pt-BR“)",
         "alt-nile-bin": "Používání vestavěného binárního souboru Nile...",
-        "alt-aurelia-bin": "Používání vestavěného binárního souboru Aurelia..."
+        "alt-aurelia-bin": "Používání vestavěného binárního souboru Nile...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -847,7 +882,8 @@
             "placeholder": "Vyberte přesnou složku s uloženými soubory",
             "warning": "Zkontrolujte prosím dvakrát, zda je cesta správná (klikněte pro opakování)",
             "retry": "Znovu detekovat",
-            "title": "Uložit složku"
+            "title": "Uložit složku",
+            "detect-failed": ""
         },
         "select_theme": "Vybrat motiv",
         "showfps": "Zobrazit FPS (DX9, 10 a 11)",
@@ -880,7 +916,12 @@
             "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru",
             "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
             "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic.",
-            "enableHDR": "Zapnout HDR"
+            "enableHDR": "Zapnout HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "frameless-window": {
             "confirmation": {
@@ -950,7 +991,8 @@
         "gamepad-repeat-frequency": "Frekvence opakování vstupů z gamepadu",
         "steamRuntime": {
             "label": "Použít služby Steam Runtime",
-            "noRuntimeOption": "Žádný"
+            "noRuntimeOption": "Žádný",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Otevřít",
@@ -1025,7 +1067,7 @@
         "checkForUpdatesOnStartup-description": "Při každém spuštění aplikace se podívejte, zda není k dispozici nová verze Heroic",
         "disableUMU-description": "Spustit Proton přímo, místo abyste ho spouštěli přes spouštěč umu",
         "gamemode-description": "Požádat systém, aby během spuštění hry upřednostnil její běh",
-        "alt-aurelia-bin": "Vyberte alternativní binární soubor Aurelia",
+        "alt-aurelia-bin": "Vyberte alternativní binární soubor Nile",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Celkově staženo",
@@ -1047,7 +1089,59 @@
         "addgamestoapplications-description": "Při každé instalaci hry vytvořte zástupce.",
         "disableGOGAffiliateDescription": "Nákupem her na GOGu prostřednictvím Heroic přispíváte k podpoře tohoto projektu.",
         "addgamestosteam-real-description": "Každou nainstalovanou hru přidejte do své knihovny Steam jako zástupce.",
-        "maxworkers-description": "Čím více workerů, tím rychlejší stahování, ale také vyšší zatížení procesoru a větší spotřeba šířky pásma. Max využívá všechna jádra."
+        "maxworkers-description": "Čím více workerů, tím rychlejší stahování, ale také vyšší zatížení procesoru a větší spotřeba šířky pásma. Max využívá všechna jádra.",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1091,7 +1185,8 @@
             "categories": "Kategorie",
             "tabs": "Sekce nastavení",
             "importExport": "Import / Export",
-            "runners": "Běžci"
+            "runners": "Běžci",
+            "gamepad": ""
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Resetovat Heroic",
@@ -1208,7 +1303,13 @@
             "gog": "GOG",
             "eosOverlay": "Překryv EOS",
             "gamescopeAdditionalOptions": "Další možnosti",
-            "gamescopeDisplay": "Zobrazované"
+            "gamescopeDisplay": "Zobrazované",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "pageSubtitle": {
             "advanced": "Binární soubory, experimentální funkce a údržba",
@@ -1217,7 +1318,8 @@
             "log": "Přečtěte si a sdílejte logy z Heroic",
             "systeminfo": "Váš hardware a verze, na které běží Heroic",
             "importExport": "Zálohujte nebo obnovte nastavení Heroic",
-            "runners": "Integrace obchodů a možnosti specifické pro běžce"
+            "runners": "Integrace obchodů a možnosti specifické pro běžce",
+            "gamepad": ""
         },
         "clear-images-cache": "Vymazat mezipaměť obrázků",
         "copySettings": {
@@ -1233,7 +1335,37 @@
             "button": {
                 "back": "Zpět",
                 "guide": "Konzolový Mód",
-                "reset": "Vrátit do výchozího"
+                "reset": "Vrátit do výchozího",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
         }
     },
@@ -1416,7 +1548,19 @@
             "sortOptions": "Klikněte sem pro abecední řazení her.",
             "search": "Použijte vyhledávací pole pro vyhledání vašich her.",
             "gameCard": "Klikněte levým na kartu hry pro navigaci na stránku hry, zobrazení podrobností a úpravu nastavení nebo klikněte pravým pro otevření kontextové nabídky.",
-            "steamInstall": "Pomocí tohoto tlačítka můžete nainstalovat verzi Steamu pro systém Windows a hrát hry pro systém Windows pomocí aplikací Crossover, Wine nebo GPTK."
+            "steamInstall": "Pomocí tohoto tlačítka můžete nainstalovat verzi Steamu pro systém Windows a hrát hry pro systém Windows pomocí aplikací Crossover, Wine nebo GPTK.",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "Hledat"
         },
         "next": "Další",
         "sidebar": {
@@ -1435,7 +1579,13 @@
             "settings": "Nastavte si nastavení aplikace Heroic, výchozí hodnoty her, zkontrolujte protokoly a další.",
             "accessibility": "Prozkoumejte nastavení přístupnosti pro přizpůsobení pro vaše potřeby.",
             "accounts": "Spravujte své připojené účty obchodů (Epic, GOG, Amazon), odhlaste se nebo se do nich přihlaste.",
-            "community": "Připojte se k naší komunitě na Discordu a podpořte vývoj aplikace Heroic."
+            "community": "Připojte se k naší komunitě na Discordu a podpořte vývoj aplikace Heroic.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "welcomeTitle": "Vítejte v aplikaci Heroic!",
+            "communitySectionTitle": "Komunita",
+            "generalTitle": "Obecné"
         },
         "skip": "Přeskočit",
         "startTour": "Spustit prohlídku",
@@ -1526,7 +1676,8 @@
             "hideOwned": "Schovat Vlastněné",
             "wishlistOnly": "Pouze seznam přání",
             "platform": "Platforma",
-            "platformAny": "Jakákoli platforma"
+            "platformAny": "Jakákoli platforma",
+            "showMature": ""
         },
         "sidebar": "Nabídky",
         "sort": {
@@ -1607,7 +1758,8 @@
             "sort": "Seřadit",
             "navigate": "Vyhledat",
             "quit": "Ukončit",
-            "change_store": "Změnit obchod"
+            "change_store": "Změnit obchod",
+            "hold_quit": ""
         },
         "launching": "Spouštění",
         "card": {
@@ -1647,7 +1799,14 @@
         },
         "launchErrorNotLoggedIn": "Spuštění hry se nezdařilo. Nejprve se musíte přihlásit do Steamu.",
         "launchError": "Spuštění hry se nezdařilo. Podrobnosti najdete v protokolech.",
-        "launchErrorPrefix": "Spuštění hry se nezdařilo:"
+        "launchErrorPrefix": "Spuštění hry se nezdařilo:",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Další",
     "common": {
