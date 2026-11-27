@@ -560,6 +560,8 @@ export interface CallRunnerOptions {
   abortId?: string
   cwd?: string
   waitForChildProcesses?: boolean
+  // Keep all of stdout, untrimmed
+  fullOutput?: boolean
 }
 
 export interface EnviromentVariable {

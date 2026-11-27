@@ -270,7 +270,10 @@ export async function runAurelia<T = unknown>(
   commandParts: string[],
   options: CallRunnerOptions = {}
 ): Promise<T> {
-  const res = await runAureliaCommand([...commandParts, '--json'], options)
+  const res = await runAureliaCommand([...commandParts, '--json'], {
+    ...options,
+    fullOutput: true
+  })
   return parseAureliaJson<T>(res)
 }
 

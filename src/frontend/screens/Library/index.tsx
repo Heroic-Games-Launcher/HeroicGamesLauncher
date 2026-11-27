@@ -45,6 +45,12 @@ import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 const storage = window.localStorage
 
+// Cached games can lack a title
+function sortTitle(game: GameInfo): string {
+  const title = game.overrides?.title || game.title || game.app_name || ''
+  return title.toUpperCase().replace('THE ', '')
+}
+
 type SearchableGame = {
   original: GameInfo
   title: string
@@ -401,8 +407,8 @@ export default React.memo(function Library(): JSX.Element {
       })
     }
     return tempArray.sort((a, b) => {
-      const gameA = a.title.toUpperCase().replace('THE ', '')
-      const gameB = b.title.toUpperCase().replace('THE ', '')
+      const gameA = sortTitle(a)
+      const gameB = sortTitle(b)
       return gameA.localeCompare(gameB)
     })
   }, [
@@ -660,8 +666,8 @@ export default React.memo(function Library(): JSX.Element {
 
     // sort
     library = library.sort((a, b) => {
-      const gameA = a.title.toUpperCase().replace('THE ', '')
-      const gameB = b.title.toUpperCase().replace('THE ', '')
+      const gameA = sortTitle(a)
+      const gameB = sortTitle(b)
       return sortDescending
         ? -gameA.localeCompare(gameB)
         : gameA.localeCompare(gameB)
