@@ -163,6 +163,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const [currentTab, setCurrentTab] = useState<GameTab>('overview')
 
+  // Hide a background that never loads
+  const [backgroundFailed, setBackgroundFailed] = useState(false)
+  useEffect(() => setBackgroundFailed(false), [appName])
+
   const previousIsPlaying = useRef<boolean>(isPlaying)
   useEffect(() => {
     const updateAchievements = async () => {
@@ -434,12 +438,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
       <SettingsContext.Provider value={settingsContextValues}>
         <GameContext.Provider value={contextValues}>
           <div className="gameConfigContainer">
-            {!!(extraInfo?.background || art_background || art_cover) && (
-              <CachedImage
-                src={extraInfo?.background || art_background || art_cover}
-                className="backgroundImage"
-              />
-            )}
+            {!!(extraInfo?.background || art_background || art_cover) &&
+              !backgroundFailed && (
+                <CachedImage
+                  src={extraInfo?.background || art_background || art_cover}
+                  // Missing hero: try the header
+                  fallback={art_cover}
+                  className="backgroundImage"
+                  onFinalError={() => setBackgroundFailed(true)}
+                />
+              )}
             <div className="gamePage__scrim" />
 
             <div className="topRowWrapper">

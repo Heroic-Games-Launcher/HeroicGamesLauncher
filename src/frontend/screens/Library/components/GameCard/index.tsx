@@ -157,10 +157,17 @@ const GameCard = ({
     window.api
       .getWikiGameInfo(gameInfo.title, appName, runner)
       .then((info) => {
-        const wikiCover = info?.pcgamingwiki?.cover
-        if (wikiCover) setSteamCover(wikiCover)
+        // No art anywhere: Heroic's card
+        setSteamCover(info?.pcgamingwiki?.cover || fallBackImage)
       })
-      .catch(() => undefined)
+      .catch(() => setSteamCover(fallBackImage))
+  }
+
+  // No art anywhere: Heroic's card
+  const handleCoverGone = (): void => {
+    if (runner === 'steam' && steamCover !== fallBackImage) {
+      setSteamCover(fallBackImage)
+    }
   }
 
   const isInstallable =
@@ -524,6 +531,7 @@ const GameCard = ({
                 className={imgClasses}
                 alt="cover"
                 onError={handleCoverError}
+                onFinalError={handleCoverGone}
               />
             )}
             {(justPlayed || runner !== 'nile') && logo && (
