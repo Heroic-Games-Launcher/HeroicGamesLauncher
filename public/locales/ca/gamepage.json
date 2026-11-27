@@ -106,8 +106,14 @@
         "back": "Enrere",
         "next": "Següent",
         "skip-installer": {
-            "title": "Salta"
-        }
+            "title": "Salta",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Error: L'accés lliure a aquest camí no està garantit. Potser es perden dades.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -299,7 +306,12 @@
             "useragent": "Agent d'usuari personalitzat",
             "fullscreen": "Executa a pantalla completa (F11 per a sortir)",
             "cover-hint": "Art de la caràtula/principal (fes clic en la imatge per a cercar al SteamGridDB)",
-            "image-hint": "Art quadrada (fes clic en la imatge per a cercar al SteamGridDB)"
+            "image-hint": "Art quadrada (fes clic en la imatge per a cercar al SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Enganxa l'URL d'una imatge o selecciona'n una del teu ordinador",
@@ -312,12 +324,26 @@
             "content": "No facis servir aquesta funció per a això.<br />En el seu lloc, <3>inicia la sessió</3> a la botiga, cerca el joc a la teva biblioteca, obre el diàleg d'instal·lació i fes clic al botó &quot;Importa un joc&quot;."
         },
         "images": {
-            "summary": "Imatges"
+            "summary": "Imatges",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "finish": "Finalitza",
             "images": "Imatges",
-            "install": "Atura la instal·lació"
+            "install": "Atura la instal·lació",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": "",
+            "compat": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
