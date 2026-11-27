@@ -107,8 +107,14 @@
         "back": "Tilbake",
         "next": "Neste",
         "skip-installer": {
-            "title": "Hopp over"
-        }
+            "title": "Hopp over",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Ustøttet",
     "disabled": "Deaktivert",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Feil: Sandkassetilgang ikke gitt til denne stien, datatap vil forekomme.",
         "free": "gratis",
         "steam-no-libraries": "Ingen biblioteksmapper fra Steam ble funnet — legg til en diskstasjon i Steam først.",
-        "steam-path": "Installasjonssti (Steam-bibliotek)"
+        "steam-path": "Installasjonssti (Steam-bibliotek)",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -298,7 +305,12 @@
             "fullscreen": "Start fullskjerm (F11 for å avslutte)",
             "useragent": "Egendefinert brukeragent",
             "cover-hint": "Forside/Heltekunst (klikk på bildet for å søke på SteamGridDB)",
-            "image-hint": "Stående forsidekunst (klikk på bildet for å søke på SteamGridDB)"
+            "image-hint": "Stående forsidekunst (klikk på bildet for å søke på SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Lim inn en bilde-URL her eller velg et bilde fra datamaskinen din",
@@ -311,12 +323,26 @@
             "title": "Viktig! Legger du til et spill fra Epic/GOG/Amazon? Klikk her!"
         },
         "images": {
-            "summary": "Bilder"
+            "summary": "Bilder",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "finish": "Fullfør",
             "images": "Bilder",
-            "install": "Stopp installasjon"
+            "install": "Stopp installasjon",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": "",
+            "compat": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
