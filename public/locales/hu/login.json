@@ -2,12 +2,12 @@
     "button": {
         "login": "Bejelentkezés",
         "open": "Hivatkozás megnyitása",
-        "copy": "Másolat",
+        "copy": "Másolás",
         "copied": "Másolva!",
         "error": "Hiba, próbálkozz másik kóddal",
         "loading": "Betöltés…",
         "close": "Bezárás",
-        "itchio_error": "Hiba, próbálkozz másik kóddal"
+        "itchio_error": "Hiba, próbálkozz másik API-kulccsal"
     },
     "message": {
         "part1": "Hogy be tudj jelentkezni és le tudd tölteni a játékaidat, először követned kell az itt felsoroltakat:",
@@ -35,31 +35,31 @@
     },
     "steam": {
         "notice": {
-            "text": "",
-            "title": "",
-            "agree": ""
+            "text": "A funkció használatához telepíteni kell a Steam klienst.\n\nA Steam támogatása még kezdeti szakaszban van, ezért előfordulhat, hogy egyes játékok nem indulnak el, köztük a Valve játékai, például a Half-Life 2.\n\nAz online játékok futtatásához szükség lehet a Steam kliensre, a csalás elleni szoftvert használó játékok pedig valószínűleg nem fognak működni.\n\nJelentsd a problémákat Discordon vagy a GitHubon.",
+            "title": "Figyelem",
+            "agree": "Elfogadom"
         },
         "qr": {
-            "denied": "",
-            "scanned": "",
-            "offline": "",
-            "expired": "",
-            "caption": "",
-            "title": "",
-            "error": ""
+            "denied": "A Steam Mobil alkalmazásban el lett utasítva a bejelentkezés.",
+            "scanned": "Beolvasva – hagyd jóvá a bejelentkezést a Steam Mobil alkalmazásban.",
+            "offline": "Nem sikerült kapcsolódni a Steamhez. Ellenőrizd az internetkapcsolatot.",
+            "expired": "A QR-kód lejárt, mielőtt jóvá lett volna hagyva a bejelentkezés. Próbáld újra.",
+            "caption": "Jelentkezz be QR-kóddal a Steam Mobil alkalmazással",
+            "title": "Vagy jelentkezz be QR-kóddal",
+            "error": "Nem sikerült bejelentkezni QR-kóddal. Próbáld újra."
         },
-        "error": "",
-        "username": "",
+        "error": "Sikertelen bejelentkezés. Ellenőrizd a bejelentkezési adataidat és a Steam Guard-kódot.",
+        "username": "Felhasználónév",
         "guard": {
-            "email": "",
-            "device": "",
-            "placeholder": "",
-            "deviceConfirmation": ""
+            "email": "Add meg az e-mailben kapott kódot",
+            "device": "Add meg a Steam Guard-kódot",
+            "placeholder": "Steam Guard-kód",
+            "deviceConfirmation": "Hagyd jóvá a bejelentkezést a Steam Mobil alkalmazásban."
         },
-        "submitCode": "",
-        "accountName": "",
-        "signingIn": "",
-        "password": "",
-        "welcome": ""
+        "submitCode": "Kód elküldése",
+        "accountName": "Bejelentkezés fióknévvel",
+        "signingIn": "Bejelentkezés…",
+        "password": "Jelszó",
+        "welcome": "Bejelentkezés a Steambe"
     }
 }
