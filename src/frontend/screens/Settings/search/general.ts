@@ -68,6 +68,12 @@ export const generalSearchEntries: SettingsSearchEntry[] = [
     titleKey: 'setting.maxworkers'
   },
   {
+    id: 'units_selector',
+    tab: 'general',
+    sectionKey: 'settings.section.downloads',
+    titleKey: 'setting.units'
+  },
+  {
     id: 'minimizeOnLaunch',
     tab: 'general',
     sectionKey: 'settings.section.gameplay',

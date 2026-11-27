@@ -42,3 +42,6 @@ public/bin/**
 # storybook
 storybook-static
 debug-storybook.log
+
+# playwright artifacts
+/test-results

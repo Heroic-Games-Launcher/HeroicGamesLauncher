@@ -120,7 +120,7 @@ export function createRedistDMQueueElement(): DMQueueElement {
       path: gogRedistPath,
       platformToInstall: 'windows',
       gameInfo,
-      size: '?? MB'
+      size: '—'
     },
     addToQueueTime: new Date().getTime(),
     startTime: 0,

@@ -28,6 +28,7 @@ import { handleStopInstallation } from 'frontend/helpers/library'
 import { getGameInfo, getIntlLocale, getStoreName } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import { getProgressSummary } from './getProgressSummary'
 import { useInstallProgress } from 'frontend/state/InstallProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
@@ -332,10 +333,7 @@ const DownloadManagerItem = ({
   const isPreparing =
     current && !isPaused && !finished && !canceled && !hasStarted
 
-  const progressSummary = [
-    size,
-    `(${progress.bytes} · ${Math.round(progress.percent ?? 0)}%)`
-  ]
+  const progressSummary = [size, getProgressSummary(progress)]
     .filter(Boolean)
     .join(' ')
 

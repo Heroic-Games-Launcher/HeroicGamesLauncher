@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
 import { Gauge } from 'lucide-react'
 import { Icon, SelectField, Tooltip } from 'frontend/components/UI'
+import { MEGABYTES_PER_SECOND } from 'common/format'
 
 // 1 MB/s in kbit/s
 const KBIT_PER_MB = 8000
@@ -40,7 +41,7 @@ export default function DownloadLimit() {
     }
   }
 
-  const unit = t('download-manager.label.unit', 'MB/s')
+  const unit = MEGABYTES_PER_SECOND
   const presets = PRESETS_MB.map((mb) => mb * KBIT_PER_MB)
   // keep custom CLI values selectable
   if (limit && !presets.includes(limit)) {

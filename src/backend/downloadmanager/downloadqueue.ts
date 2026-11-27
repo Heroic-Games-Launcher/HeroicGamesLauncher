@@ -209,7 +209,7 @@ async function addToQueue(
 
       element.params.size = installInfo?.manifest?.download_size
         ? getFileSize(installInfo?.manifest?.download_size)
-        : '?? MB'
+        : '—'
 
       if (
         element.params.runner === 'gog' &&
@@ -227,7 +227,7 @@ async function addToQueue(
         }
       }
     } else {
-      element.params.size = '?? MB'
+      element.params.size = '—'
     }
   }
 

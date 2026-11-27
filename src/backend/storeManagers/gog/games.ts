@@ -280,7 +280,7 @@ export default class GOGGame implements Game {
   }
 
   private defaultTmpProgress = () => ({
-    bytes: '',
+    bytes: undefined,
     eta: '',
     percent: undefined,
     diskSpeed: undefined,
@@ -315,10 +315,10 @@ export default class GOGGame implements Game {
     }
 
     // parse log for game download progress
-    if (progress.bytes === '') {
+    if (progress.bytes === undefined) {
       const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
-      progress.bytes =
-        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+      const bytes = Number(bytesMatch?.at(1))
+      progress.bytes = bytesMatch && !Number.isNaN(bytes) ? bytes : undefined
     }
 
     // parse log for download speed

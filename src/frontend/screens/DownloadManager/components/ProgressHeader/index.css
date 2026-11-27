@@ -20,6 +20,10 @@
   gap: var(--space-sm-fixed);
 }
 
+.DownloadStats__cards--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .DownloadStats__card {
   min-width: 0;
   align-items: flex-start;

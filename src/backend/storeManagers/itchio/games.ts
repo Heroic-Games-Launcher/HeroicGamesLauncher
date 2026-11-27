@@ -634,7 +634,7 @@ function createProgressEmitter(
       appName,
       runner: 'itchio',
       status: action,
-      progress: { percent, bytes: '', eta, downSpeed }
+      progress: { percent, bytes: undefined, eta, downSpeed }
     })
 
     const now = Date.now()
