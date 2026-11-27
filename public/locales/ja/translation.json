@@ -226,7 +226,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "キャンセル"
+            "cancel": "キャンセル",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "button": {
@@ -298,7 +303,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Epic Gamesサーバーがオフラインであるため、オンラインサービスが完全には機能しない可能性があります!",
@@ -356,7 +372,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMDのFSRは、フルスクリーンモードで低い解像度をアップスケーリングすることでフレームレートを向上させます。パフォーマンスに若干の影響を及ぼしますが、画質は5から1に向上します。有効にするとパフォーマンスが向上する可能性があります。",
@@ -407,7 +427,10 @@
             "upscaleHeight": "Gamescopeで使用される縦解像度。16:9のアスペクト比を想定しています。",
             "fpsLimiter": "Gamescopeが制限するフレーム数（例:60）",
             "additionalOptions": "gamescopeに渡す追加のコマンドラインフラグ。",
-            "forceGrabCursor": "カーソルの可視性に応じて切り替えるのではなく、常に相対マウスモードを使用します。（アプリケーションがフォーカスを失い続ける場合に便利です）"
+            "forceGrabCursor": "カーソルの可視性に応じて切り替えるのではなく、常に相対マウスモードを使用します。（アプリケーションがフォーカスを失い続ける場合に便利です）",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "dxvknvapi": "DXVK-NVAPIは、DXVKとLinuxネイティブNVAPIの上に構築されたNVAPIの実装で、Nvidia GPU上でDLSSを使用することができます。",
         "disablePlaytimeSync": "指定したストアのサーバーとのプレイタイムの同期を無効にする（現時点ではGOGのみ対応）",
@@ -446,7 +469,16 @@
             "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
             "link": "詳細についてはWikiをご確認ください"
         },
-        "hide-window-on-protocol-launch": "「Steamに追加」機能などの外部ショートカットからゲームが起動された際、Heroicのウィンドウを非表示にしたままにします。"
+        "hide-window-on-protocol-launch": "「Steamに追加」機能などの外部ショートカットからゲームが起動された際、Heroicのウィンドウを非表示にしたままにします。",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -555,7 +587,8 @@
                     "corrupt": "{{game}}を検出されたすべてのSteamユーザに追加できませんでした。詳細については、ログを参照してください。変更を有効にするには、Steamを再起動する必要があります。",
                     "success": "{{game}}がSteamに正常に追加されました。変更を有効にするには、Steamを再起動する必要があります。",
                     "title": "Steamに追加されました",
-                    "success-no-restart": "{{game}} が Steamに正常に追加されました。"
+                    "success-no-restart": "{{game}} が Steamに正常に追加されました。",
+                    "already": ""
                 }
             },
             "remove": {
@@ -657,7 +690,10 @@
             "fpsLimiterNoFocus": "FPSリミッター（非アクティブ）",
             "stretch": "引き伸ばし",
             "windowed": "ウィンドウ",
-            "additionalOptions": "追加オプション"
+            "additionalOptions": "追加オプション",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -676,7 +712,8 @@
         "egs-prefix": "EGSがインストールされている環境",
         "prefered_language": "2文字または4文字のコード（“fr”や“fr”など）",
         "alt-nile-bin": "組み込みのNileバイナリを使用しています...",
-        "alt-aurelia-bin": "組み込みのAureliaバイナリを使用しています..."
+        "alt-aurelia-bin": "組み込みのNileバイナリを使用しています...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -840,7 +877,8 @@
             "placeholder": "正しいセーブデータフォルダを選択してください",
             "warning": "パスが正しいか再度確認してください（クリックして再試行）",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "テーマを選択",
         "showfps": "FPSを表示（DX9、10、11）",
@@ -870,7 +908,12 @@
             "enableForceGrabCursor": "強制的にグラブカーソルを有効にする",
             "missingMsgFlatpak": "互換性のあるバージョンのGamescopeが見つかりませんでした。Gamescopeのflatpakパッケージとランタイム25.08をインストールし、Heroicを再起動してください。",
             "warningFlatpak": "互換性のあるバージョンのGamescopeが見つかりませんでした。Gamescopeのflatpakパッケージとランタイム25.08をインストールし、Heroicを再起動してください。",
-            "enableHDR": "HDRを有効化"
+            "enableHDR": "HDRを有効化",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "disablePlaytimeSync": "プレイ時間の同期を無効",
         "experimental_features": {
@@ -930,7 +973,8 @@
         "disable_gog_presence": "GOG Presenceの更新を無効にする",
         "steamRuntime": {
             "label": "Steamランタイムを使用",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "gamepad-initial-repeat-delay": "ゲームパッド入力の初期リピート遅延",
         "gamepad-repeat-frequency": "ゲームパッド入力のリピート頻度",
@@ -1011,7 +1055,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "代替のAureliaバイナリを選択する",
+        "alt-aurelia-bin": "代替のNileバイナリを選択する",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "合計ダウンロード",
@@ -1033,7 +1077,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1075,7 +1171,10 @@
             "systemInformation": "システム情報",
             "legacy": "レガシー設定",
             "categories": "カテゴリー",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "構成ファイルを開く",
         "reset-heroic": "Heroicをリセット",
@@ -1190,22 +1289,72 @@
             "amazon": "Amazon Games",
             "epic": "Epic Games",
             "gog": "GOG",
-            "gamescopeAdditionalOptions": "追加オプション"
+            "gamescopeAdditionalOptions": "追加オプション",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "pageSubtitle": {
             "log": "",
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "gamepad": {
             "button": {
                 "back": "戻る",
                 "guide": "コンソールモード",
-                "reset": "デフォルト設定に戻す"
+                "reset": "デフォルト設定に戻す",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
         }
     },
     "Settings": "設定",
@@ -1363,7 +1512,8 @@
         "noGames": "ライブラリが空です。<br /><br /><4>こちら</4>をクリックして、Epic、GOG.com、またはAmazonアカウントでログインしてください。<br /><br />その他のゲームやアプリを登録するには、「ゲームの追加」をクリックして手動で追加してください。",
         "noResultsTitle": "ゲームが見つかりません",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "tour": {
         "done": "完了",
@@ -1388,7 +1538,19 @@
                 "title2": "ライブラリを管理します！"
             },
             "refresh": "ライブラリを更新して、新しいゲームやアップデートがあるかどうかを確認します。",
-            "steamInstall": "SteamのWindows版をインストールし、Crossover、Wine、またはGPTKを使用してWindowsゲームをプレイするには、このボタンを使用します。"
+            "steamInstall": "SteamのWindows版をインストールし、Crossover、Wine、またはGPTKを使用してWindowsゲームをプレイするには、このボタンを使用します。",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "検索"
         },
         "next": "進む",
         "sidebar": {
@@ -1407,7 +1569,13 @@
             },
             "wine": "LinuxまたはmacOSで Windowsゲームを実行するための Wine/Proton/GPTK の新しいバージョンの管理やダウンロードができます。",
             "version": "現在のHeroic バージョンを確認し、それをクリックして最新の変更ログを表示し、ヘルプアイコンからこのツアーにアクセスします。",
-            "accounts": "接続されているストアのアカウント（Epic、GOG、Amazon）を管理し、ログアウトまたはログインできます。"
+            "accounts": "接続されているストアのアカウント（Epic、GOG、Amazon）を管理し、ログアウトまたはログインできます。",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "welcomeTitle": "Heroicへようこそ！",
+            "generalTitle": "一般"
         },
         "startTour": "ツアーを開始",
         "skip": "スキップ"
@@ -1456,7 +1624,8 @@
             "launch": "起動",
             "navigate": "ナビゲート",
             "quit": "終了",
-            "sort": "並び替え"
+            "sort": "並び替え",
+            "hold_quit": ""
         },
         "launching": "開始",
         "loading": "ライブラリを読み込んでいます…",
@@ -1500,7 +1669,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "discounts": {
         "region": {
@@ -1561,7 +1737,8 @@
             "hideOwned": "所有済みゲームを非表示",
             "wishlistOnly": "ウィッシュリストのみ",
             "platform": "Platform",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "セール情報",
         "sort": {
@@ -1762,7 +1939,11 @@
     },
     "import-export": {
         "action": {
-            "download": "ダウンロード中"
+            "download": "ダウンロード中",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "戻る",
         "close": "閉じる",
@@ -1771,36 +1952,148 @@
         "per-game": "ゲームの設定",
         "platform": "Platform",
         "rollback": {
-            "saved": "保存"
+            "saved": "保存",
+            "run": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
         },
         "stage": {
             "credentials": "ログイン情報の保存",
             "globalSettings": "グローバル設定",
-            "perGameSettings": "ゲームの設定"
+            "perGameSettings": "ゲームの設定",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "グローバル設定"
+            "title": "グローバル設定",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "現在の条件に一致するゲームはありません。",
-            "selectAll": "すべて選択"
+            "selectAll": "すべて選択",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "ログイン情報の保存"
+            "title": "ログイン情報の保存",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Wine環境",
             "wine-downloadable": "Download",
-            "wine-unavailable": "DLCはありません"
+            "wine-unavailable": "DLCはありません",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "ログイン情報の保存",
             "done": "完了",
             "global-settings": "グローバル設定",
-            "per-game": "ゲームの設定"
+            "per-game": "ゲームの設定",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "値",
         "version": "Heroicバージョン",
-        "wine-versions": "Wineバージョン"
+        "wine-versions": "Wineバージョン",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }
