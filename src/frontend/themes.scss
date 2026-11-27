@@ -618,6 +618,7 @@ body.zombie .alphabet-filter-button--active {
 
 body.old-school {
   --accent: #ffa800;
+  --logo-mark: var(--secondary-button);
   --accent-overlay: #ffc44f;
   --navbar-accent: #eae8e5;
   --background: #1d1f1f;
@@ -779,6 +780,7 @@ body.candy-light {
 
 body.vampyria {
   --accent: #e01f45;
+  --logo-ink: #000000;
   --accent-overlay: #ff4d6e;
   --navbar-accent: #e01f45;
   --background: #1a0608;
@@ -1003,6 +1005,7 @@ body.cyberpunk {
 
 body.onePiece {
   --accent: #1f6fb2;
+  --logo-ink: var(--on-nav-accent);
   --accent-overlay: #2a84cf;
   --navbar-accent: #d62828;
   --on-nav-accent: #ffd84d;
