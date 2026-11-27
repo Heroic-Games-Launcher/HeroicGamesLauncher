@@ -5,6 +5,7 @@ files:
   - node_modules/**/*
   - '!build/bin/*'
   - build/bin/legendary.LICENSE
+  - '!build/icons/*'
 
 asarUnpack:
   - build/icon.png
@@ -66,7 +67,7 @@ dmg:
 linux:
   artifactName: ${productName}-${version}-linux-${arch}.${ext}
   category: Game
-  icon: build/icon.png
+  icon: build/icons
   desktop:
     entry:
       Name: Heroic Games Launcher
