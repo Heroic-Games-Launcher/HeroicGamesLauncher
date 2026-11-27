@@ -218,6 +218,10 @@
   gap: var(--space-2xs-fixed);
 }
 
+.DownloadItem--hero .DownloadItem__text > .Badge {
+  align-self: flex-start;
+}
+
 .DownloadItem--hero .DownloadItem__title {
   font-size: var(--title-md);
   white-space: normal;

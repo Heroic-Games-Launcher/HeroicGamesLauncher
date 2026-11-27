@@ -433,11 +433,12 @@ const DownloadManagerItem = ({
             {isHero && platformToInstall && (
               <PlatformIcon platform={platformToInstall} />
             )}
-            {!showStatusColumn && statusBadge()}
+            {!isHero && !showStatusColumn && statusBadge()}
           </div>
           <span className="DownloadItem__details" title={path}>
             {details}
           </span>
+          {isHero && statusBadge()}
           {isHero && (
             <div className="DownloadItem__progress">
               <span className="DownloadItem__progressSummary">
