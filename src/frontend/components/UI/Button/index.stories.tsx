@@ -9,6 +9,7 @@ const variants = [
   'primary',
   'secondary',
   'ghost',
+  'tertiary',
   'danger',
   'dangerSubtle',
   'warning'

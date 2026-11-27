@@ -46,6 +46,7 @@ export type ButtonVariant =
   | 'success'
   | 'info'
   | 'link'
+  | 'tertiary'
 
 export interface ButtonOptions {
   text: string

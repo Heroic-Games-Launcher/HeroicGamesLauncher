@@ -91,6 +91,18 @@
   background: color-mix(in oklab, var(--on-panel) 18%, var(--panel-base));
 }
 
+.Button--tertiary {
+  --button-surface: transparent;
+
+  background: var(--button-surface);
+  color: var(--text-neutral);
+}
+
+.Button--tertiary:hover:not(:disabled),
+.Button--tertiary:focus-visible:not(:disabled) {
+  background: color-mix(in oklab, var(--on-panel) 8%, transparent);
+}
+
 .Button--danger {
   --button-surface: var(--panel-base);
 
