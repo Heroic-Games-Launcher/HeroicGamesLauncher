@@ -9,7 +9,11 @@ import {
   LegendaryInstallInfo
 } from './types/legendary'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
-import { ItchioInstallInfo } from './types/itchio'
+import {
+  ItchioGameSource,
+  ItchioGameStatus,
+  ItchioInstallInfo
+} from './types/itchio'
 import {
   ZoomInstallPlatform,
   ZoomInstalledInfo,
@@ -251,6 +255,8 @@ export interface GameInfo {
   is_linux_native?: boolean
   // True for Steam games that come from a Steam Family member's library
   isFamilyShare?: boolean
+  itchio_source?: ItchioGameSource
+  itchio_status?: ItchioGameStatus
   browserUrl?: string
   description?: string
   //used for store release versions. if remote !== local, then update

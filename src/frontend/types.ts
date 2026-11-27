@@ -248,6 +248,7 @@ export interface StoresFilters {
   sideload: boolean
   zoom: boolean
   itchio: boolean
+  itchioBundles: boolean
   steam: boolean
 }
 

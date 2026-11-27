@@ -63,6 +63,7 @@ export const ShowsActiveFilterCount: Story = {
           sideload: false,
           zoom: true,
           itchio: true,
+          itchioBundles: false,
           steam: true
         },
         platformsFilters: {

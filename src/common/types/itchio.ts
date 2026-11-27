@@ -19,6 +19,15 @@ import type { LaunchOption } from 'common/types'
 // itch.io upload platforms exposed by butlerd. Lower-case in the wire format.
 type ItchioInstallPlatform = 'windows' | 'linux' | 'osx'
 
+// Where a library entry came from. Owned keys are games with a materialized
+// download key, bundles are owned but not claimed yet, collections are the
+// user's own lists (which may contain games they don't own).
+export type ItchioGameSource = 'owned' | 'bundle' | 'collection'
+
+// Whether Heroic can install the game: owned (key or bundle), free (no payment
+// needed) or unowned (paid and not owned).
+export type ItchioGameStatus = 'owned' | 'free' | 'unowned'
+
 export interface ItchioUserData {
   id: number
   username: string
@@ -78,6 +87,9 @@ export interface ItchioGame {
   // | 'osx'. Values can be booleans or arch strings ("all", "x64"); we
   // treat any truthy value as supported.
   platforms?: Partial<Record<ItchioInstallPlatform, unknown>>
+  // Price in cents; `canBeBought` is true when payments are accepted.
+  minPrice?: number
+  canBeBought?: boolean
   // itch.io has no DLC concept; declared as a required empty array so
   // the generic `InstallInfo['game'].owned_dlc` access in DownloadDialog
   // narrows cleanly across all union variants.

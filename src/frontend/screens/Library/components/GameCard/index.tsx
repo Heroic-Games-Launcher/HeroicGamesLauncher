@@ -166,6 +166,13 @@ const GameCard = ({
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
 
+  const itchioStatus = gameInfo.itchio_status
+  // Owned games need no tag; only hint when the game is free or not owned.
+  const showItchioStatus =
+    !!gameInfo.itchio_source &&
+    (itchioStatus === 'free' || itchioStatus === 'unowned')
+  const itchioLocked = itchioStatus === 'unowned' && !isInstalled
+
   const [progress, previousProgress] = hasProgress(appName, runner)
   const { install_size: size = '0' } = {
     ...gameInstallInfo
@@ -189,6 +196,65 @@ const GameCard = ({
   async function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
       updateGame({ appName, runner, gameInfo })
+  }
+
+  const itchioStatusLabel =
+    itchioStatus === 'free'
+      ? t('itchio.status.free', 'Free')
+      : itchioStatus === 'unowned'
+        ? t('itchio.status.unowned', 'Not owned')
+        : ''
+
+  function openGameDetails() {
+    if (itchioLocked) {
+      openItchioLockedModal()
+      return
+    }
+    void navigate(`/gamepage/${runner}/${appName}`, { state: { gameInfo } })
+  }
+
+  async function addItchioGameToCatalog() {
+    const result = await window.api.itchioAddGameToCatalog(appName)
+    if (result.status === 'done') {
+      showDialogModal({
+        title: t('itchio.catalog.added.title', 'Added to your catalog'),
+        message: t(
+          'itchio.catalog.added.message',
+          'The game was added to your "heroic" collection on itch.io.'
+        ),
+        buttons: [{ text: t2('box.ok', 'OK') }]
+      })
+      return
+    }
+    showDialogModal({
+      title: t('itchio.catalog.failed.title', 'Could not add to your catalog'),
+      message: result.error ?? '',
+      buttons: [{ text: t2('box.ok', 'OK') }]
+    })
+  }
+
+  function openItchioLockedModal() {
+    showDialogModal({
+      title: t('itchio.locked.title', 'Not available in Heroic'),
+      message: t(
+        'itchio.locked.message',
+        "Heroic can't install this game because you don't own it and it isn't free on itch.io. You can add it to your itch.io catalog to keep it in this library."
+      ),
+      buttons: [
+        {
+          text: t('itchio.locked.add', 'Add to catalog'),
+          onClick: () => void addItchioGameToCatalog()
+        },
+        {
+          text: t('itchio.locked.open', 'Open on itch.io'),
+          onClick: () => {
+            if (gameInfo.store_url)
+              window.api.openExternalUrl(gameInfo.store_url)
+          }
+        },
+        { text: t2('box.cancel', 'Cancel') }
+      ]
+    })
   }
 
   const grid = forceCard || layout === 'grid'
@@ -374,8 +440,7 @@ const GameCard = ({
     {
       // open the game page
       label: t('button.details', 'Details'),
-      onclick: () =>
-        navigate(`/gamepage/${runner}/${appName}`, { state: { gameInfo } }),
+      onclick: openGameDetails,
       show: true,
       icon: <Icon glyph={ExternalLink} size="md" />
     },
@@ -496,6 +561,11 @@ const GameCard = ({
           <Link
             to={`/gamepage/${runner}/${appName}`}
             state={{ gameInfo }}
+            onClick={(event) => {
+              if (!itchioLocked) return
+              event.preventDefault()
+              openItchioLockedModal()
+            }}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
@@ -553,6 +623,14 @@ const GameCard = ({
             >
               <span>{title}</span>
             </span>
+            {showItchioStatus && itchioStatusLabel && (
+              <Badge
+                variant={itchioStatus === 'unowned' ? 'warning' : 'info'}
+                className="itchioStatus"
+              >
+                {itchioStatusLabel}
+              </Badge>
+            )}
             <span
               className={classNames('runner', {
                 active: haveStatus,
