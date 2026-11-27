@@ -106,8 +106,14 @@
         "back": "Volver",
         "next": "Seguinte",
         "skip-installer": {
-            "title": "Saltar"
-        }
+            "title": "Saltar",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Non compatible",
     "disabled": "Deshabilitar",
@@ -213,7 +219,8 @@
         "flatpak-path-not-writtable": "Erro: Non foi concedido o acceso ao Sandbox nesta ruta, perderanse os datos.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -296,7 +303,12 @@
             "fullscreen": "Iniciar a pantalla completa (F11 para saír)",
             "useragent": "Axente de usuario personalizado",
             "cover-hint": "Portada/Hero Art (faga clic na imaxe para buscar en SteamGridDB)",
-            "image-hint": "Arte Cadrada (faga clic na imaxe para buscar en SteamGridDB)"
+            "image-hint": "Arte Cadrada (faga clic na imaxe para buscar en SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Inserta a URL dunha imaxe ou selecciona unha do teu ordenador",
@@ -309,13 +321,26 @@
             "title": "Importante! Estás engadindo un xogo de Epic/GOG/Amazon? Fai clic aquí!"
         },
         "images": {
-            "summary": "Abrir cartafol de gardados"
+            "summary": "Abrir cartafol de gardados",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Verificar compatibilidade",
             "finish": "Rematar",
             "images": "Abrir cartafol de gardados",
-            "install": "Deter a instalación"
+            "install": "Deter a instalación",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
