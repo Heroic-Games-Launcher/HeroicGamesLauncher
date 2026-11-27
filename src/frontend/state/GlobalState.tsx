@@ -47,6 +47,7 @@ import { NileRegisterData } from 'common/types/nile'
 import { ItchioOAuthCodeData, ItchioRegisterData } from 'common/types/itchio'
 import { SteamAccount, SteamLoginData } from 'common/types/steam'
 import useGlobalState from './GlobalStateV2'
+import { openInstallGameModal } from './InstallGameModal'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -123,12 +124,6 @@ interface StateProps {
   disableDiscounts: boolean
   disableGOGAffiliate: boolean
   lastChangelogShown: string | null
-  showInstallModal: {
-    show: boolean
-    gameInfo: GameInfo | null
-    appName: string
-    runner: Runner
-  }
   helpItems: { [key: string]: HelpItem }
   experimentalFeatures: ExperimentalFeatures
   disableDialogBackdropClose: boolean
@@ -303,12 +298,6 @@ class GlobalState extends PureComponent<Props> {
     titlesAlwaysVisible: configStore.get('titlesAlwaysVisible', false),
     activeController: '',
     connectivity: { status: 'offline', retryIn: 0 },
-    showInstallModal: {
-      show: false,
-      appName: '',
-      runner: 'legendary',
-      gameInfo: null
-    },
     sideloadedLibrary: applyGameOverrides(sideloadLibrary.get('games', [])),
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
@@ -1105,7 +1094,6 @@ class GlobalState extends PureComponent<Props> {
       zoom,
       steam,
       gameUpdates = [],
-      libraryStatus,
       platform
     } = this.state
 
@@ -1114,7 +1102,7 @@ class GlobalState extends PureComponent<Props> {
     }
 
     window.api.handleInstallGame(async (e, appName, runner) => {
-      const currentApp = libraryStatus.filter(
+      const currentApp = this.state.libraryStatus.filter(
         (game) => game.appName === appName
       )[0]
       if (!currentApp || (currentApp && currentApp.status !== 'installing')) {
@@ -1122,13 +1110,10 @@ class GlobalState extends PureComponent<Props> {
         if (!gameInfo || gameInfo.runner === 'sideload') {
           return
         }
-        return this.setState({
-          showInstallModal: {
-            show: true,
-            appName,
-            runner,
-            gameInfo
-          }
+        openInstallGameModal({
+          appName,
+          runner,
+          gameInfo
         })
       }
     })
