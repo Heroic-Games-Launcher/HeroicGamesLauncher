@@ -225,7 +225,12 @@
         },
         "choose-aurelia-binary": "",
         "saveConflict": {
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
         }
     },
     "button": {
@@ -297,7 +302,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Online usluge možda neće raditi u potpunosti jer su Epic Games serveri van mreže!",
@@ -354,7 +370,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD-ov FSR pomaže u povećanju frekvencije kadrova povećavajući niže rezolucije u načinu rada preko cijelog ekrana. Kvalitet slike se povećava sa 5 na 1 po cenu blagog smanjenja performansi. Omogućavanje može poboljšati performanse.",
@@ -426,7 +446,10 @@
             "additionalOptions": "",
             "forceGrabCursor": "",
             "upscaleHeight": "",
-            "fpsLimiter": ""
+            "fpsLimiter": "",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "button": {
             "open": "Otvorite",
@@ -444,7 +467,16 @@
             "details": "Koristite namjensku grafičku karticu za renderiranje igre na multi-GPU sistemima. Potrebno samo na laptop računarima ili desktop računarima koji koriste GPU bez glave za renderovanje (NVIDIA Optimus, AMD CrossFire)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -553,7 +585,8 @@
                     "corrupt": "{{game}} nije bilo moguće dodati svim pronađenim korisnicima Steam-a. Pogledajte dnevnike za više informacija. Potrebno je ponovno pokretanje Steam-a, promjene će stupiti na snagu.",
                     "success": "{{game}} je uspješno dodan u Steam. Potrebno je ponovno pokretanje Steam-a, promjene će stupiti na snagu.",
                     "title": "Dodato u Steam",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -655,7 +688,10 @@
             "upscaleHeight": "",
             "fpsLimiterNoFocus": "",
             "stretch": "",
-            "interger": ""
+            "interger": "",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -674,7 +710,8 @@
         "egs-prefix": "Prefiks gdje je EGS instaliran",
         "prefered_language": "kod od 2 znaka (tj.: \"en\" ili \"fr\")",
         "alt-nile-bin": "Koristeći ugrađeni binarni Nil...",
-        "alt-aurelia-bin": "Korištenje ugrađene Aurelia binarne datoteke..."
+        "alt-aurelia-bin": "Korištenje ugrađene Legendary binarne datoteke...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -838,7 +875,8 @@
             "placeholder": "Odaberite tačnu mapu za spremanje video igara",
             "warning": "Please check twice if the path is correct (click to retry)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Izaberite temu",
         "showfps": "Pokaži FPS (DX9, 10 i 11)",
@@ -899,7 +937,13 @@
             "enableUpscaling": "",
             "enableForceGrabCursor": "",
             "warningFlatpak": "",
-            "missingMsg": ""
+            "missingMsg": "",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableHDR": "",
+            "enableUpscaling-description": ""
         },
         "enable-quick-sync-menu": "",
         "no-tray-icon": "",
@@ -919,7 +963,8 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "Koristi Steam Runtime",
-            "noRuntimeOption": ""
+            "noRuntimeOption": "",
+            "defaultLabel": ""
         },
         "tools": {
             "selectExe": "Izaberi EXE",
@@ -1000,7 +1045,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Odaberite alternativnu Aurelia binarnu datoteku",
+        "alt-aurelia-bin": "Odaberite alternativnu Legendary binarnu datoteku",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Ukupno preuzeto",
@@ -1022,7 +1067,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1064,7 +1161,10 @@
             "systemInformation": "",
             "legacy": "",
             "categories": "",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Otvorite konfig. fajl",
         "reset-heroic": "Resetujte Heroic",
@@ -1176,7 +1276,17 @@
             "privacy": "",
             "steam": "",
             "epic": "Epic Games",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeAdditionalOptions": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1184,9 +1294,58 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
-        "clear-images-cache": ""
+        "clear-images-cache": "",
+        "gamepad": {
+            "button": {
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "back": "",
+                "context": "",
+                "guide": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
+        }
     },
     "Settings": "Postavke",
     "sidebar": {
@@ -1342,7 +1501,13 @@
             "downloads": "",
             "accounts": "",
             "stores": "",
-            "version": ""
+            "version": "",
+            "communityIntro": "",
+            "welcomeTitle": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": "",
+            "generalTitle": "Generalno"
         },
         "library": {
             "gameCard": "",
@@ -1363,7 +1528,19 @@
             "categories": "",
             "sortInstalled": "",
             "sortOptions": "",
-            "addGame": ""
+            "addGame": "",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "next": "",
         "back": "",
@@ -1400,7 +1577,8 @@
         "noResults": "",
         "description": "",
         "noResultsTitle": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "zoom-store": "",
     "wineExplanation": {
@@ -1469,7 +1647,8 @@
             "platform": "Platform",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "",
         "sort": {
@@ -1550,7 +1729,8 @@
             "sort": "",
             "navigate": "",
             "quit": "Odustani",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "",
         "card": {
@@ -1590,7 +1770,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "",
     "common": {
@@ -1735,23 +1922,161 @@
     "Update available!": "",
     "import-export": {
         "action": {
-            "download": "Downloading"
+            "download": "Downloading",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "platform": "Platform",
         "stage": {
-            "globalSettings": "Globalne postavke"
+            "globalSettings": "Globalne postavke",
+            "perGameSettings": "",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "credentials": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Globalne postavke"
+            "title": "Globalne postavke",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step6": {
             "prefixPath": "Vinski prefiks",
-            "wine-downloadable": "Download"
+            "wine-downloadable": "Download",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wine-unavailable": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
-            "global-settings": "Globalne postavke"
+            "global-settings": "Globalne postavke",
+            "library-system": "",
+            "credentials": "",
+            "done": "",
+            "summary": "",
+            "pick-file": "",
+            "per-game": ""
         },
         "version": "Heroic verzija",
-        "wine-versions": "Wine verzija"
+        "wine-versions": "Wine verzija",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "step4": {
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAll": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "close": "",
+        "apply": "",
+        "per-game": "",
+        "step5": {
+            "include": "",
+            "title": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
+        },
+        "validating": "",
+        "wizard-title": "",
+        "installed-games": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "next": "",
+        "pick-backup": "",
+        "summaryValue": "",
+        "unsupported-format": "",
+        "different-platform": "",
+        "back": ""
     }
 }
