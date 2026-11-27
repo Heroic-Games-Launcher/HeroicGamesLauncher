@@ -10,6 +10,7 @@ import {
 } from './types/legendary'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import { ItchioInstallInfo } from './types/itchio'
+import type { DisplayUnits } from './format'
 import {
   ZoomInstallPlatform,
   ZoomInstalledInfo,
@@ -164,6 +165,7 @@ export interface AppSettings extends GameSettings {
   libraryTopSection: LibraryTopSectionOptions
   maxRecentGames: number
   maxWorkers: number
+  downloadUnits: DisplayUnits
   minimizeOnLaunch: boolean
   startInConsoleMode: boolean
   enableControllerInConsoleMode: boolean
@@ -360,7 +362,7 @@ export interface GameStatus {
 
 export type GlobalConfigVersion = 'auto' | 'v0'
 export interface InstallProgress {
-  bytes: string
+  bytes?: number
   eta: string
   folder?: string
   percent?: number

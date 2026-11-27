@@ -20,6 +20,7 @@ import {
   LibraryTopSection,
   MaxRecentGames,
   MaxWorkers,
+  DownloadUnits,
   MinimizeOnGameLaunch,
   Shortcuts,
   StartInConsoleMode,
@@ -69,6 +70,7 @@ export default function GeneralSettings() {
         <AutoUpdateGames />
         <CheckUpdatesOnStartup />
         <MaxWorkers />
+        <DownloadUnits />
       </SettingsCard>
 
       <SettingsCard

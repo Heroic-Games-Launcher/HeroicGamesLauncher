@@ -186,7 +186,7 @@ interface HiddenGame {
 }
 
 export interface InstallProgress {
-  bytes: string
+  bytes?: number
   eta: string
   folder?: string
   percent: number

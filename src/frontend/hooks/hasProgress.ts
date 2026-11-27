@@ -13,7 +13,7 @@ export const hasProgress = (appName: string, runner: Runner) => {
 
   const [currentProgress, setProgress] = useState<InstallProgress>(
     previousProgress ?? {
-      bytes: '0.00MB',
+      bytes: undefined,
       eta: '00:00:00',
       percent: 0
     }
