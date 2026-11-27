@@ -106,8 +106,14 @@
         "back": "Volver",
         "next": "Siguiente",
         "skip-installer": {
-            "title": "Saltar"
-        }
+            "title": "Saltar",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Error: No se ha concedido acceso al Sandbox a esta ruta, se perderán los datos.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -299,7 +306,12 @@
             "fullscreen": "Iniciar a pantalla completa (F11 para salir)",
             "useragent": "Agente de usuario personalizado",
             "cover-hint": "Portada/Hero Art (Haz click en la imagen para buscar en SteamGridDB)",
-            "image-hint": "Arte Cuadrada (haz click en la imagen para buscar en SteamGridDB)"
+            "image-hint": "Arte Cuadrada (haz click en la imagen para buscar en SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Pega la URL de una imagen o selecciona una de tu ordenador",
@@ -312,13 +324,26 @@
             "title": "¡Importante! ¿Estás añadiendo un juego de Epic/GOG/Amazon? ¡Presiona aquí!"
         },
         "images": {
-            "summary": "Imágenes"
+            "summary": "Imágenes",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Verificar compatibilidad",
             "finish": "Finalizar",
             "images": "Imágenes",
-            "install": "Detener la instalación"
+            "install": "Detener la instalación",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
