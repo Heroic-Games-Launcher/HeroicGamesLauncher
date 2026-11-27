@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { expect } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { defaultThemes } from 'frontend/components/UI/ThemeSelector'
+import { defaultThemes } from 'frontend/helpers/themes'
 
 import { Page, Section } from './TokenPreview'
 

@@ -11,7 +11,12 @@ import GlobalState from './state/GlobalState'
 import { initShortcuts } from './helpers/shortcuts'
 import { configStore } from './helpers/electronStores'
 import { initOnlineMonitor } from './helpers/onlineMonitor'
-import { defaultThemes } from './components/UI/ThemeSelector'
+import {
+  DEFAULT_THEME,
+  isBuiltinTheme,
+  migrateTheme,
+  toThemeClassName
+} from './helpers/themes'
 import Loading from './screens/Loading'
 
 initOnlineMonitor()
@@ -19,8 +24,6 @@ initOnlineMonitor()
 window.addEventListener('error', (ev: ErrorEvent) => {
   window.api.logError(ev.error)
 })
-
-const DEFAULT_THEME = 'midnightMirage'
 
 const Backend = new HttpApi(null, {
   addPath: 'build/locales/{{lng}}/{{ns}}',
@@ -134,23 +137,39 @@ root.render(
 window.setTheme = async (themeClass: string) => {
   document.querySelector('style.customTheme')?.remove()
 
-  if (
-    themeClass !== DEFAULT_THEME &&
-    !Object.keys(defaultThemes).includes(themeClass)
-  ) {
-    const cssContent = await window.api.getThemeCSS(themeClass)
-    themeClass = themeClass
-      .replace('.css', '') // remove extension
-      .replace(/[\s.]/, '_') // remove dots and empty spaces
+  let theme = migrateTheme(themeClass)
+  let cssContent = ''
+
+  if (!isBuiltinTheme(theme)) {
+    try {
+      cssContent = await window.api.getThemeCSS(theme)
+    } catch {
+      cssContent = ''
+    }
+
+    // Unknown themes are treated as custom ones, so a theme removed from
+    // Heroic would leave the body without any theme variables.
+    if (!cssContent) {
+      theme = DEFAULT_THEME
+    }
+  }
+
+  if (theme !== themeClass) {
+    configStore.set('theme', theme)
+  }
+
+  if (!isBuiltinTheme(theme)) {
     const style = document.createElement('style')
     style.classList.add('customTheme')
     style.innerHTML = cssContent
     document.body.insertAdjacentElement('afterbegin', style)
   }
 
-  document.body.className = themeClass
+  document.body.className = isBuiltinTheme(theme)
+    ? theme
+    : toThemeClassName(theme)
 
-  if (navigator.windowControlsOverlay.visible) {
+  if (navigator.windowControlsOverlay?.visible) {
     const titlebarOverlay = Object.fromEntries(
       ['height', 'color', 'symbol-color']
         .map((item) => [
@@ -163,10 +182,12 @@ window.setTheme = async (themeClass: string) => {
     )
     window.api.setTitleBarOverlay(titlebarOverlay)
   }
+
+  return theme
 }
 
 const themeClass = configStore.get('theme', DEFAULT_THEME)
-window.setTheme(themeClass)
+void window.setTheme(themeClass)
 
 // helper function to generate images for steam
 // image is centered, sides are padded with blurred image

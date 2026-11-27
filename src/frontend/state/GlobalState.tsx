@@ -43,6 +43,7 @@ import {
   steamInstalledGamesStore,
   steamLibraryStore
 } from '../helpers/electronStores'
+import { DEFAULT_THEME, isBuiltinTheme, migrateTheme } from '../helpers/themes'
 import { NileRegisterData } from 'common/types/nile'
 import { ItchioOAuthCodeData, ItchioRegisterData } from 'common/types/itchio'
 import { SteamAccount, SteamLoginData } from 'common/types/steam'
@@ -285,7 +286,7 @@ class GlobalState extends PureComponent<Props> {
     ),
     favouriteGames: configStore.get('games.favourites', []),
     customCategories: configStore.get('games.customCategories', {}),
-    theme: configStore.get('theme', 'midnightMirage'),
+    theme: migrateTheme(configStore.get('theme', DEFAULT_THEME)),
     isFullscreen: false,
     isFrameless: false,
     zoomPercent: configStore.get('zoomPercent', 100),
@@ -346,7 +347,12 @@ class GlobalState extends PureComponent<Props> {
   setTheme = (newThemeName: string) => {
     configStore.set('theme', newThemeName)
     this.setState({ theme: newThemeName })
-    window.setTheme(newThemeName)
+    void window.setTheme(newThemeName).then((theme) => {
+      if (theme !== newThemeName) {
+        configStore.set('theme', theme)
+        this.setState({ theme })
+      }
+    })
   }
 
   zoomTimer: NodeJS.Timeout | undefined = undefined
@@ -1108,6 +1114,16 @@ class GlobalState extends PureComponent<Props> {
       libraryStatus,
       platform
     } = this.state
+
+    // Re-apply the theme with the same fallback used on startup, so a stale
+    // theme value ends up as the default theme in the selector as well.
+    if (!isBuiltinTheme(this.state.theme)) {
+      const appliedTheme = await window.setTheme(this.state.theme)
+      if (appliedTheme !== this.state.theme) {
+        configStore.set('theme', appliedTheme)
+        this.setState({ theme: appliedTheme })
+      }
+    }
 
     if (steam.enabled) {
       void this.loadSteamUsers()

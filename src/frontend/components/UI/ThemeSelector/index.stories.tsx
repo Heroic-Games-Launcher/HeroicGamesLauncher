@@ -1,7 +1,10 @@
+import { useContext } from 'react'
 import { expect } from 'storybook/test'
-import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite'
 
-import { ThemeSelector, defaultThemes } from '.'
+import ContextProvider from 'frontend/state/ContextProvider'
+import { defaultThemes } from 'frontend/helpers/themes'
+import { ThemeSelector } from '.'
 
 const meta = {
   title: 'Forms/ThemeSelector',
@@ -21,6 +24,23 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+
+const WithRemovedTheme: Decorator = (Story) => {
+  const appContext = useContext(ContextProvider)
+
+  return (
+    <ContextProvider.Provider value={{ ...appContext, theme: 'heroicTheme' }}>
+      <Story />
+    </ContextProvider.Provider>
+  )
+}
+
+export const RemovedThemeFallsBackToDefault: Story = {
+  decorators: [WithRemovedTheme],
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('combobox')).toHaveTextContent('Heroic Theme')
+  }
+}
 
 export const WithCustomThemes: Story = {
   beforeEach: () => {
