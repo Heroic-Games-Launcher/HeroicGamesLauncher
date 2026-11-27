@@ -106,8 +106,14 @@
         "back": "Tilbage",
         "next": "Næste",
         "skip-installer": {
-            "title": "Spring over"
-        }
+            "title": "Spring over",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "disabled": "Deaktiveret",
     "dlc": {
@@ -204,7 +210,8 @@
         "flatpak-path-not-writtable": "Fejl: Sandboxens tilgang til denne sti er ikke givet. Tab af data vil forkomme.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "playing": {
@@ -291,7 +298,8 @@
         "extraInfo": "Ekstra info",
         "logs": "Logger",
         "categories": "Kategorier",
-        "more": ""
+        "more": "",
+        "options": ""
     },
     "generic": {
         "error": "Ukendt fejl",
@@ -327,7 +335,12 @@
             "fullscreen": "Start Fuld Skærm (F11 for at forlade)",
             "useragent": "Brugerdefineret User Agent",
             "image-hint": "",
-            "cover-hint": ""
+            "cover-hint": "",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Indsæt en billed-URL her, eller vælg en fra din computer",
@@ -340,12 +353,26 @@
             "title": "Vigtigt! Vil du tilfølge et spil fra Epic/GOG/Amazon? Klik her!"
         },
         "images": {
-            "summary": ""
+            "summary": "",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Check Compatabilitet",
             "finish": "Afslut",
-            "install": "Stop installationen"
+            "install": "Stop installationen",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "images": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "setting": {
