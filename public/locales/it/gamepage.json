@@ -106,8 +106,14 @@
         "back": "Indietro",
         "next": "Prossimo",
         "skip-installer": {
-            "title": "Salta"
-        }
+            "title": "Salta",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Errore: accesso a Sandbox non garantito su questa posizione, i dati andranno persi.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -298,7 +305,12 @@
             "useragent": "Agente Utente Personalizzato",
             "fullscreen": "Apri schermo intero (F11 per uscire)",
             "cover-hint": "Grafica (clicca sull'immagine per cercare su SteamGridDB)",
-            "image-hint": "Grafica quadrata (clicca sull'immagine per cercare su SteamGridDB)"
+            "image-hint": "Grafica quadrata (clicca sull'immagine per cercare su SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Incolla qui l'URL di un'Immagine o seleziona un'immagine dal computer",
@@ -311,13 +323,26 @@
             "content": "NON utilizzare questa funzionalità per fare questo.<br />Invece, <3>accedi</3> al negozio, cerca il gioco nella tua libreria, apri la finestra d'installazione e clicca il tasto &quot;Importa Gioco&quot;"
         },
         "images": {
-            "summary": "Immagini"
+            "summary": "Immagini",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Controlla compatibilità",
             "finish": "Termina",
             "images": "Immagini",
-            "install": "Ferma l'installazione"
+            "install": "Ferma l'installazione",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
