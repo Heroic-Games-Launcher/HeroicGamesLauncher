@@ -276,7 +276,28 @@
 
 .gameListItem .GameActionButton.Button--iconOnly:hover {
   color: var(--text-default);
-  border-color: var(--navbar-accent, var(--accent));
+  background: color-mix(
+    in oklab,
+    var(--background-darker, var(--panel-base)) 90%,
+    var(--on-panel)
+  );
+  border-color: color-mix(in oklab, var(--on-panel) 28%, transparent);
+}
+
+.gameListItem > .icons > .downIcon.Button--ghost {
+  background: var(--background-darker, #0a0e13);
+  border: 1px solid var(--panel-border);
+  color: var(--text-default);
+}
+
+.gameListItem > .icons > .downIcon.Button--ghost:hover:not(:disabled),
+.gameListItem > .icons > .downIcon.Button--ghost:focus-visible:not(:disabled) {
+  background: color-mix(
+    in oklab,
+    var(--background-darker, var(--panel-base)) 90%,
+    var(--on-panel)
+  );
+  border-color: color-mix(in oklab, var(--on-panel) 28%, transparent);
 }
 
 .gameListItem > .icons > button > svg {
@@ -608,8 +629,8 @@
 .gameListItem:focus-within {
   background: color-mix(
     in oklab,
-    var(--search-bar-background, var(--input-background)) 88%,
-    var(--navbar-accent, var(--accent))
+    var(--search-bar-background, var(--input-background)) 94%,
+    var(--on-panel)
   );
 }
 
@@ -736,7 +757,42 @@
 
 .gameListItem > .icons > .settingsIcon:hover {
   color: var(--text-default);
-  border-color: var(--navbar-accent, var(--accent));
+  background: color-mix(
+    in oklab,
+    var(--background-darker, var(--panel-base)) 90%,
+    var(--on-panel)
+  );
+  border-color: color-mix(in oklab, var(--on-panel) 28%, transparent);
+}
+
+.gameListItem > .icons > .settingsIcon,
+.gameListItem > .icons > .playIcon,
+.gameListItem > .icons > .downIcon {
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.gameCardWrapper:hover .gameListItem > .icons > .settingsIcon,
+.gameCardWrapper:hover .gameListItem > .icons > .playIcon,
+.gameCardWrapper:hover .gameListItem > .icons > .downIcon,
+.gameListItem:focus-within > .icons > .settingsIcon,
+.gameListItem:focus-within > .icons > .playIcon,
+.gameListItem:focus-within > .icons > .downIcon {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .gameListItem > .icons > .settingsIcon,
+  .gameListItem > .icons > .playIcon,
+  .gameListItem > .icons > .downIcon {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 .gameListItem.hidden {

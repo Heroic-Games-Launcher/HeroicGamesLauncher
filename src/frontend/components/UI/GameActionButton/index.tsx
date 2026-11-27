@@ -51,6 +51,7 @@ interface GameActionButtonProps {
   title?: string
   disabled?: boolean
   iconOnly?: boolean
+  variant?: ButtonVariant
   className?: string
   onClick?: () => void
 }
@@ -61,16 +62,17 @@ export default function GameActionButton({
   title,
   disabled = false,
   iconOnly = false,
+  variant,
   className,
   onClick
 }: GameActionButtonProps) {
-  const { glyph, variant, legacyClass } = ACTIONS[action]
+  const { glyph, variant: defaultVariant, legacyClass } = ACTIONS[action]
   const isDisabled = disabled || !onClick
   const showTooltip = iconOnly && !isDisabled
 
   const button = (
     <Button
-      variant={variant}
+      variant={variant ?? defaultVariant}
       title={showTooltip ? undefined : (title ?? label)}
       disabled={isDisabled}
       onClick={onClick}

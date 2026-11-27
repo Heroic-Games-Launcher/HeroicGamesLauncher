@@ -298,6 +298,7 @@ const GameCard = ({
       <GameActionButton
         iconOnly={grid}
         action="install"
+        variant={grid ? undefined : 'ghost'}
         label={t('button.install')}
         title={`${t('button.install')} (${title})`}
         onClick={() => buttonClick()}
