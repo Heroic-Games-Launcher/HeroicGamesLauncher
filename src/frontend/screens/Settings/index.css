@@ -571,7 +571,7 @@ a {
   top: calc(var(--settings-header-block) + var(--space-md-fixed));
   z-index: 2;
   margin-block-end: var(--space-sm);
-  padding-block: var(--space-2xs);
+  padding-block: var(--space-2xs) 0;
   background: var(--body-background, var(--background));
 }
 
