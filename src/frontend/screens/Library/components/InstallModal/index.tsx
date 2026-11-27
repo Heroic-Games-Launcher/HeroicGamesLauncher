@@ -18,6 +18,7 @@ import DownloadDialog from './DownloadDialog'
 import ImportDialog from './ImportDialog'
 import SideloadDialog from './SideloadDialog'
 import WineSelector from './WineSelector'
+import { isWineVersionListed } from './WineSelector/selectDefaultWineVersion'
 import { Alert, SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import ThirdPartyDialog from './ThirdPartyDialog'
@@ -49,6 +50,8 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
+  const [userPickedWineVersion, setUserPickedWineVersion] = useState(false)
+  const [useSharedPrefix, setUseSharedPrefix] = useState(false)
   const [crossoverBottle, setCrossoverBottle] = useState('')
   const [sideloadTitle, setSideloadTitle] = useState(
     t('sideload.field.title', 'Title')
@@ -158,6 +161,9 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
   const hasWine =
     platformToInstall === 'Windows' && !isWin && runner !== 'steam'
 
+  const wineSelectionValid =
+    !hasWine || isWineVersionListed(wineVersion, wineVersionList)
+
   useEffect(() => {
     if (hasWine) {
       const getWine = async () => {
@@ -260,6 +266,10 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
                 setWineVersion={setWineVersion}
                 crossoverBottle={crossoverBottle}
                 setCrossoverBottle={setCrossoverBottle}
+                userPickedWineVersion={userPickedWineVersion}
+                onWineVersionPicked={() => setUserPickedWineVersion(true)}
+                useSharedPrefix={useSharedPrefix}
+                setUseSharedPrefix={setUseSharedPrefix}
                 initiallyOpen
               />
             ) : null}
@@ -288,6 +298,10 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
                 setWineVersion={setWineVersion}
                 crossoverBottle={crossoverBottle}
                 setCrossoverBottle={setCrossoverBottle}
+                userPickedWineVersion={userPickedWineVersion}
+                onWineVersionPicked={() => setUserPickedWineVersion(true)}
+                useSharedPrefix={useSharedPrefix}
+                setUseSharedPrefix={setUseSharedPrefix}
               />
             ) : null}
           </ImportDialog>
@@ -297,6 +311,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             runner={runner}
             winePrefix={winePrefix}
             wineVersion={wineVersion}
+            wineSelectionValid={wineSelectionValid}
             availablePlatforms={availablePlatforms}
             backdropClick={closeModal}
             platformToInstall={platformToInstall}
@@ -316,6 +331,10 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
                 setWineVersion={setWineVersion}
                 crossoverBottle={crossoverBottle}
                 setCrossoverBottle={setCrossoverBottle}
+                userPickedWineVersion={userPickedWineVersion}
+                onWineVersionPicked={() => setUserPickedWineVersion(true)}
+                useSharedPrefix={useSharedPrefix}
+                setUseSharedPrefix={setUseSharedPrefix}
               />
             ) : null}
           </DownloadDialog>
@@ -325,6 +344,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             setTitle={setSideloadTitle}
             winePrefix={winePrefix}
             wineVersion={wineVersion}
+            wineSelectionValid={wineSelectionValid}
             availablePlatforms={availablePlatforms}
             backdropClick={closeModal}
             platformToInstall={platformToInstall}
@@ -342,6 +362,10 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
                   setWineVersion={setWineVersion}
                   crossoverBottle={crossoverBottle}
                   setCrossoverBottle={setCrossoverBottle}
+                  userPickedWineVersion={userPickedWineVersion}
+                  onWineVersionPicked={() => setUserPickedWineVersion(true)}
+                  useSharedPrefix={useSharedPrefix}
+                  setUseSharedPrefix={setUseSharedPrefix}
                   title={sideloadTitle}
                   initiallyOpen
                   noDetails

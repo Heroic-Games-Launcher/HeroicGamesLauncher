@@ -27,6 +27,7 @@ type Props = {
   winePrefix: string
   crossoverBottle: string
   wineVersion: WineInstallation | undefined
+  wineSelectionValid: boolean
   platformToInstall: InstallPlatform
   platformSelection: React.ReactNode
   wineSelector?: React.ReactNode
@@ -44,6 +45,7 @@ export default function SideloadDialog({
   winePrefix,
   crossoverBottle,
   wineVersion,
+  wineSelectionValid,
   platformToInstall,
   platformSelection,
   wineSelector,
@@ -115,6 +117,8 @@ export default function SideloadDialog({
   }, [])
 
   async function handleInstall(): Promise<void> {
+    if (!wineSelectionValid) return
+
     setAddingApp(true)
     window.api.addNewApp({
       runner: 'sideload',
@@ -384,7 +388,9 @@ export default function SideloadDialog({
               variant="primary"
               onClick={handleNextStepClick}
               disabled={
-                (lastStep && noAppEntryPoint) || addingApp || runningSetup
+                (lastStep && (noAppEntryPoint || !wineSelectionValid)) ||
+                addingApp ||
+                runningSetup
               }
             >
               {lastStep
