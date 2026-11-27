@@ -105,8 +105,14 @@
         "back": "Takaisin",
         "next": "Seuraava",
         "skip-installer": {
-            "title": "Ohita"
-        }
+            "title": "Ohita",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
@@ -214,7 +220,8 @@
         "flatpak-path-not-writtable": "Virhe: pääsy tähän polkuun on hiekkalaatikoinnin ulkopuolella ja evätty, tiedonmenetystä tulee tapahtumaan.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -276,7 +283,12 @@
             "useragent": "Oma \"User Agent\"",
             "fullscreen": "Vaihda täyden ruudun näkymään (F11 poistuu)",
             "cover-hint": "Kansi/Sankaritaide (napsauta kuvan päällä etsiäksesi SteamGridDB:stä)",
-            "image-hint": "Neliötaide (napsauta kuvaa etsiäksesi SteamGridDB:stä)"
+            "image-hint": "Neliötaide (napsauta kuvaa etsiäksesi SteamGridDB:stä)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Liitä kuvan URL tähän, tai valitse kuva laitteeltasi",
@@ -289,13 +301,26 @@
             "title": "Tärkeää! Oletko lisäämässä peliä Epic/GOG/Amazon palvelusta? Klikkaa tästä!"
         },
         "images": {
-            "summary": "Kuvat"
+            "summary": "Kuvat",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Tarkista yhteensopivuus",
             "finish": "Viimeistele",
             "images": "Kuvat",
-            "install": "Pysäytä asennus"
+            "install": "Pysäytä asennus",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {

@@ -223,7 +223,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "cancel": "Peruuta",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
+        }
     },
     "button": {
         "cancel": "Keskeytä",
@@ -294,7 +302,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Verkkopalvelut eivät välttämättä toimi täysin Epic Games:in palvelinten ollessa vailla verkkoyhteyttä!",
@@ -351,7 +370,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD FSR auttaa parantamaan ruudunpäivitysnopeutta ylösskaalaamalla alemman resoluution kuvaa koko näytön tilassa. Kuvanlaatu paranee asteikolla 5–1 pienen suorituskykyvaikutuksen kustannuksella. Käyttöönotto saattaa parantaa suorituskykyä.",
@@ -428,7 +451,10 @@
             "upscaleHeight": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
             "upscaleWidth": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
             "forceGrabCursor": "Käytä aina suhteellista hiiritilaa kursorin näkyvyydestä riippuvan vaihtelutilan sijaan. (Hyödyllinen kun ohjelmisto menettää jatkuvasti kohdistuksensa)",
-            "upscaleMethod": "Ylösskaalauksen menetelmä jota Gamescope asetetaan toteuttamaan."
+            "upscaleMethod": "Ylösskaalauksen menetelmä jota Gamescope asetetaan toteuttamaan.",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "dxfpslimit": "Asettaa ruudunpäivitykselle katon DXVK-peleissä",
         "advertiseAvxForRosetta": "Ottaa käyttöön AVX-käskykannan tuen ajettaessa Windows-pelejä Rosettan kautta Apple Silicon -Maceilla. Tämä saattaa olla välttämätöntä peleissä, kuten Death Stranding, jotka vaativat AVX-tukea.",
@@ -441,7 +467,16 @@
             "details": "Käytä omistautunutta tehokkaampaa grafiikkakorttia pelin hahmontamiseen moninäytönohjaimisissa järjestelmissä. Tarvitaan vain kannettavissa tietokoneissa tai työpöytäkonessa, jotka käyttävät vaihtelevaa näytönohjainmallia (NVIDIA Optimus, AMD CrossFire)",
             "link": "Lue lisää yksityiskohtia wikistämme"
         },
-        "hide-window-on-protocol-launch": "Pitää Heroic:in ikkunan piilossa, kun peli käynnistetään ulkoisesta pikakuvakkeesta, kuten \"lisää Steamiin\" -toiminnon kautta."
+        "hide-window-on-protocol-launch": "Pitää Heroic:in ikkunan piilossa, kun peli käynnistetään ulkoisesta pikakuvakkeesta, kuten \"lisää Steamiin\" -toiminnon kautta.",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -550,7 +585,8 @@
                     "corrupt": "{{game}} ei lisäytynyt kaikille Steam-käyttäjille. Lue lokikirjaukset lisätietoja varten. Steam pitää uudelleenkäynnistä jotta muutokset astuvat voimaan.",
                     "success": "{{game}} lisättiin Steam:iin onnistuneesti. Steam pitää uudelleenkäynnistää jotta muutokset astuvat voimaan.",
                     "title": "Lisätty Steam:iin",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -652,7 +688,10 @@
             "interger": "Kokonaisluvullinen ylösskaalaus",
             "upscaleHeight": "Korkeuden ylösskaalaus",
             "fpsLimiterNoFocus": "FPS-rajoitin (Ei aktiivisena)",
-            "stretch": "Venytä kuva"
+            "stretch": "Venytä kuva",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -671,7 +710,8 @@
         "egs-prefix": "Etuaste johon EGS on asennettu",
         "prefered_language": "2- tai 4-merkkinen kielikoodi (kuten: \"fi\" tai \"pt-BR\")",
         "alt-nile-bin": "Käytetään sisäänrakennettua Nile-binääriä...",
-        "alt-aurelia-bin": "Käytetään sisäänrakennettua Aurelia-binääriä..."
+        "alt-aurelia-bin": "Käytetään sisäänrakennettua Nile-binääriä...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -835,7 +875,8 @@
             "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
             "warning": "Tarkista kaksikin kertaa että polku on oikein (napsauta uudelleenyritystä varten)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Valitse teema",
         "showfps": "Näytä ruudunpäivitys (DX9, 10 ja 11)",
@@ -908,7 +949,13 @@
             "enableUpscaling": "Ota käyttöön ylösskaalaus",
             "missingMsg": "Emme löytäneet Gamescopea PATH-ympäristömuuttujassa. Asenna Gamescope, tai lisää se PATH-ympäristömuuttujaan.",
             "enableForceGrabCursor": "Ota käyttöön kursorin pakotettu kaappaus",
-            "warningFlatpak": "Emme löytäneet yhteensopivaa versiota Gamescopesta. Asenna Gamescopen flatpak-paketti ajoympäristöllä {{runtimeVersion}} ja uudelleenkäynnistä Heroic."
+            "warningFlatpak": "Emme löytäneet yhteensopivaa versiota Gamescopesta. Asenna Gamescopen flatpak-paketti ajoympäristöllä {{runtimeVersion}} ja uudelleenkäynnistä Heroic.",
+            "enableHDR": "Ota käyttöön HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "enable-quick-sync-menu": "Ota käyttöön pikatallennuksen synkronointivalikko pelisivulla",
         "no-tray-icon": "Piiloita ilmoitusalueen kuvake (vaatii uudelleenkäynnistyksen)",
@@ -928,7 +975,8 @@
         "hide-window-on-protocol-launch": "Piilota Heroic:in ikkuna kun pelejä käynnistetään heroic:// links -osoitteesta",
         "steamRuntime": {
             "label": "Käytä Steam Runtimea",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Avaa",
@@ -1003,7 +1051,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Valitse vaihtoehtoinen Aurelia-binääri",
+        "alt-aurelia-bin": "Valitse vaihtoehtoinen Nile-binääri",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "Ladattu yhteensä",
@@ -1025,7 +1073,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1067,7 +1167,10 @@
             "gamescope": "Gamescope",
             "legacy": "Vanhentuneet",
             "categories": "Kategoriat",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Avaa asetustiedosto",
         "reset-heroic": "Nollaa Heroic",
@@ -1180,7 +1283,16 @@
             "steam": "",
             "amazon": "Amazon-pelit",
             "epic": "Epic Games",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeAdditionalOptions": "Lisämuuttujat",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1188,11 +1300,57 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "Kopioi"
+            "button": "Kopioi",
+            "description": ""
+        },
+        "gamepad": {
+            "button": {
+                "back": "Takaisin",
+                "guide": "Päätetila",
+                "reset": "Nollaa vakioihin",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "Asetukset",
@@ -1343,7 +1501,8 @@
         "noGames": "Kirjastosi on tyhjä.<br /><br />Napsauta <4>tässä</4> kirjautuaksesi sisään Epic, GOG.com, tai Amazon -tilillesi. Tämän jälkeen pelisi ilmestyvät tähän kirjastonäkymään.<br /><br />Käyttääksesi pelejä- tai sovelluksia muista lähteistä, napsauta <br /> lisätäksesi ne manuaalisesti.",
         "noResultsTitle": "Pelejä ei löydetty",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "tour": {
         "back": "Takaisin",
@@ -1367,7 +1526,19 @@
             "categories": "Järjestele pelisi eri luokkiin pitääksesi näkymän siistinä.",
             "sortInstalled": "Lajittele pelit asennustilanteen mukaan.",
             "sortOptions": "Npsauta tässä lajitellaksesi pelit aakkosjärjestykseen.",
-            "addGame": "Lisää omia pelejä tai sovelluksia kirjastoon napsauttamalla tässä. Ne voivat olla periaatteessa mitä tahansa, jopa selaimen URL-osoitteita."
+            "addGame": "Lisää omia pelejä tai sovelluksia kirjastoon napsauttamalla tässä. Ne voivat olla periaatteessa mitä tahansa, jopa selaimen URL-osoitteita.",
+            "searchTitle": "Hae",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": ""
         },
         "next": "Seuraava",
         "startTour": "Käynnistä tutustumiskierros",
@@ -1388,7 +1559,13 @@
             "downloads": "Seuraa ja hallitse pelien latauksia ja asennuksia.",
             "accounts": "Hallinnoi yhdistettyjen pelikauppojen tilejä (Epic, GOG, Amazon), kirjaudu niistä ulos tai sisään.",
             "stores": "Selaa ja osta pelejä eri pelikaupoista, mukaan lukien Epic, GOG sekä Amazon.",
-            "version": "Tarkista tämänhetkinen Heroic-versiosi, napsauta nähdäksesi uusimmat muutoslokit ja siirtyäksesi tähän esittelyyn ohjekuvakkeesta."
+            "version": "Tarkista tämänhetkinen Heroic-versiosi, napsauta nähdäksesi uusimmat muutoslokit ja siirtyäksesi tähän esittelyyn ohjekuvakkeesta.",
+            "generalTitle": "Yleiset",
+            "welcomeTitle": "Tervetuloa Heroiciin!",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": ""
         }
     },
     "analyticsModal": {
@@ -1476,7 +1653,8 @@
             "hideOwned": "Piilota omistetut",
             "wishlistOnly": "Vain toivelistalla olevat",
             "platform": "Platform",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "Tarjoukset",
         "sort": {
@@ -1557,7 +1735,8 @@
             "sort": "Lajittele",
             "navigate": "Navigoi",
             "quit": "Poistu",
-            "change_store": "Vaihda kauppaa"
+            "change_store": "Vaihda kauppaa",
+            "hold_quit": ""
         },
         "launching": "Käynnistää",
         "card": {
@@ -1597,7 +1776,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "Seuraava",
     "common": {
@@ -1742,7 +1928,11 @@
     },
     "import-export": {
         "action": {
-            "download": "Ladataan"
+            "download": "Ladataan",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "Takaisin",
         "close": "Sulje",
@@ -1753,31 +1943,146 @@
         "stage": {
             "credentials": "Kaupan kirjautuminen",
             "globalSettings": "Yleisvaikutteiset asetukset",
-            "perGameSettings": "Peliasetukset"
+            "perGameSettings": "Peliasetukset",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "Yleisvaikutteiset asetukset"
+            "title": "Yleisvaikutteiset asetukset",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "Ei pelejä valituilla suodattimilla.",
-            "selectAll": "Valitse kaikki"
+            "selectAll": "Valitse kaikki",
+            "filter": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "Kaupan kirjautuminen"
+            "title": "Kaupan kirjautuminen",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "Wine-etuaste",
             "wine-downloadable": "Download",
-            "wine-unavailable": "Ei DLC:tä saatavilla"
+            "wine-unavailable": "Ei DLC:tä saatavilla",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Kaupan kirjautuminen",
             "done": "Valmis",
             "global-settings": "Yleisvaikutteiset asetukset",
-            "per-game": "Peliasetukset"
+            "per-game": "Peliasetukset",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Arvo",
         "version": "Heroic-versio",
-        "wine-versions": "Wine-versio"
+        "wine-versions": "Wine-versio",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }
