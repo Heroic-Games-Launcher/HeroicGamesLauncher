@@ -176,7 +176,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "cancel": "გაუქმება",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
+        }
     },
     "controller": {
         "hints": {
@@ -325,7 +333,8 @@
             "warning": "",
             "not-found": "",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "autosync": "",
         "show_valve_proton": {
@@ -359,7 +368,13 @@
             "enableUpscaling": "",
             "missingMsg": "",
             "enableForceGrabCursor": "",
-            "warningFlatpak": ""
+            "warningFlatpak": "",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableHDR": "",
+            "enableUpscaling-description": ""
         },
         "enable-quick-sync-menu": "",
         "runexe": {
@@ -464,7 +479,8 @@
         "autovkd3d-description": "",
         "steamRuntime": {
             "label": "",
-            "noRuntimeOption": ""
+            "noRuntimeOption": "",
+            "defaultLabel": ""
         },
         "disableController": {
             "description": ""
@@ -521,7 +537,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "window": {
         "close": "დახურვა",
@@ -575,7 +643,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "header": {
         "categories": "კატეგორიები",
@@ -597,7 +676,11 @@
         "hidden": "",
         "non_available": "",
         "platforms": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "title": {
@@ -644,7 +727,10 @@
             "additionalOptions": "",
             "forceGrabCursor": "",
             "upscaleHeight": "",
-            "fpsLimiter": ""
+            "fpsLimiter": "",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "amdfsr": "",
         "button": {
@@ -685,7 +771,16 @@
             "details": "",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "notify": {
         "uninstalled": "წაშლა",
@@ -704,7 +799,8 @@
                     "corrupt": "",
                     "title": "",
                     "success": "",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             }
         },
@@ -788,7 +884,10 @@
             "sync": "",
             "legacy": "",
             "categories": "კატეგორიები",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -897,7 +996,18 @@
             "language": "",
             "privacy": "",
             "steam": "",
-            "gog": "GOG"
+            "gog": "GOG",
+            "epic": "",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeAdditionalOptions": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -905,11 +1015,57 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "კოპირება"
+            "button": "კოპირება",
+            "description": ""
+        },
+        "gamepad": {
+            "button": {
+                "back": "უკან",
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "guide": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "პარამეტრები",
@@ -1082,7 +1238,10 @@
             "interger": "",
             "upscaleHeight": "",
             "fpsLimiterNoFocus": "",
-            "stretch": ""
+            "stretch": "",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         },
         "wrapper": {
             "args": "არგუმენტები",
@@ -1146,7 +1305,13 @@
             "downloads": "",
             "accounts": "",
             "stores": "",
-            "version": ""
+            "version": "",
+            "generalTitle": "ზოგადი",
+            "communityIntro": "",
+            "welcomeTitle": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": ""
         },
         "library": {
             "gameCard": "",
@@ -1167,7 +1332,19 @@
             "categories": "",
             "sortInstalled": "",
             "sortOptions": "",
-            "addGame": ""
+            "addGame": "",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "startTour": ""
     },
@@ -1210,7 +1387,8 @@
         "alt-legendary-bin": "",
         "alt-gogdl-bin": "",
         "egs-prefix": "",
-        "alt-aurelia-bin": ""
+        "alt-aurelia-bin": "",
+        "umuGameId": ""
     },
     "tooltip": {
         "removepath": "",
@@ -1328,7 +1506,8 @@
         "noResults": "",
         "description": "",
         "noResultsTitle": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "generic": {
         "library": {
@@ -1411,7 +1590,8 @@
             "hideOwned": "",
             "wishlistOnly": "",
             "platform": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "დეტალები",
         "sort": {
@@ -1492,7 +1672,8 @@
             "sort": "",
             "navigate": "",
             "quit": "გასვლა",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "ეშვება",
         "card": {
@@ -1532,7 +1713,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "შემდეგი",
     "sidebar": {
@@ -1682,19 +1870,160 @@
     "import-export": {
         "action": {
             "browse": "ბრაუზერი",
-            "download": "გადმოწერა"
+            "download": "გადმოწერა",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "უკან",
         "close": "დახურვა",
         "next": "შემდეგი",
         "step6": {
             "prefixPath": "Wine-ის პრეფიქსი",
-            "wine-downloadable": "გადმოწერა"
+            "wine-downloadable": "გადმოწერა",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wine-unavailable": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
-            "done": "მზადაა"
+            "done": "მზადაა",
+            "library-system": "",
+            "credentials": "",
+            "summary": "",
+            "pick-file": "",
+            "global-settings": "",
+            "per-game": ""
         },
         "summaryValue": "მნიშვნელობა",
-        "wine-versions": "Wine-ის ვერსია"
+        "wine-versions": "Wine-ის ვერსია",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "stage": {
+            "perGameSettings": "",
+            "globalSettings": "",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "credentials": "",
+            "wineMetadata": ""
+        },
+        "step3": {
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": "",
+            "title": ""
+        },
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "step4": {
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAll": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "per-game": "",
+        "step5": {
+            "include": "",
+            "title": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
+        },
+        "validating": "",
+        "platform": "",
+        "wizard-title": "",
+        "installed-games": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "version": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }
