@@ -94,5 +94,13 @@ describe('formatSpeed wrapper', () => {
         expect(`${key}: ${value}`).not.toMatch(/MiB|MB/)
       }
     }
+
+    const limit = (
+      catalog['download-manager'] as {
+        limit: Record<string, string>
+      }
+    ).limit
+    expect(limit.short).not.toMatch(/MiB|MB|Mbit/)
+    expect(limit.tooltip).not.toMatch(/MiB|MB|Mbit/)
   })
 })

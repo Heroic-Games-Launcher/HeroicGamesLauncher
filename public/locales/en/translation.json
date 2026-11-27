@@ -554,6 +554,8 @@
         },
         "limit": {
             "label": "Download limit",
+            "short": "Limit {{value}}",
+            "tooltip": "Download limit: {{limit}} (≈ {{speed}})",
             "unlimited": "Unlimited"
         },
         "link": "Downloads",
