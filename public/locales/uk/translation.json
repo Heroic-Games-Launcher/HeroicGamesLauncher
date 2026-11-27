@@ -233,7 +233,10 @@
         "saveConflict": {
             "cancel": "Скасувати",
             "keepCloud": "Використовувати хмарне збереження",
-            "message": "Збереження в хмарі та локальні збереження для {{game}} відрізняються. Виберіть, яку копію залишити:\n\n{{files}}"
+            "message": "Збереження в хмарі та локальні збереження для {{game}} відрізняються. Виберіть, яку копію залишити:\n\n{{files}}",
+            "title": "",
+            "keepLocal": "",
+            "detail": ""
         }
     },
     "button": {
@@ -305,7 +308,18 @@
         "limit": {
             "label": "Обмеження завантаження",
             "unlimited": "Без обмежень"
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "Мережеві сервіси можуть не повністю працювати, тому що сервери Epic Games наразі недоступні!",
@@ -363,7 +377,11 @@
         "display": "Екран",
         "hidden": "Приховано",
         "non_available": "Недоступно",
-        "show_steam_owned_only": "Показувати лише ігри, придбані в Steam"
+        "show_steam_owned_only": "Показувати лише ігри, придбані в Steam",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD's FSR допомагає збільшити частоту кадрів шляхом підвищення маштабу кожного кадру гри, яка відтворюється у нижчій роздільності, у повноекранному режимі. Якість картинки збільшується з 5 до 1, ціною незначного зниження продуктивності. Увімкнення може покращити продуктивність.",
@@ -416,7 +434,10 @@
             "upscaleHeight": "Роздільність по висоті, яку використовує gamescope. Передбачається співвідношення сторін 16:9.",
             "fpsLimiter": "Частота кадрів в gamescope повинна бути обмежена. Приклад: 60",
             "additionalOptions": "Додаткові параметри та флаги командного рядка, що будуть передаватися у gamescope.",
-            "forceGrabCursor": "Завжди використовувати відносний режим миші замість гортання залежно від видимості курсору. (Корисно, коли застосунки постійно втрачають фокус)"
+            "forceGrabCursor": "Завжди використовувати відносний режим миші замість гортання залежно від видимості курсору. (Корисно, коли застосунки постійно втрачають фокус)",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "title": {
             "accessibility": "Спеціальні можливості, доступність",
@@ -453,7 +474,16 @@
             "details": "Використовуйте окрему відеокарту для ігор на системах із кількома графічними картами. Це потрібено тільки на ігрових ноутбуках, або настільних комп’ютерах які використовують подвійні графічні процесори для візуалізації (NVIDIA Optimus, AMD CrossFire)",
             "link": "Більше інформації дивіться на нашій вікі-сторінці"
         },
-        "hide-window-on-protocol-launch": "Приховує вікно Heroic, коли гра запускається через зовнішній ярлик, наприклад, за допомогою функції «Додати до Steam»."
+        "hide-window-on-protocol-launch": "Приховує вікно Heroic, коли гра запускається через зовнішній ярлик, наприклад, за допомогою функції «Додати до Steam».",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -563,7 +593,8 @@
                     "corrupt": "{{game}} не вдалося додати до всіх знайдених користувачів Steam. Перегляньте журнал помилок задля додаткової інформації. Щоб зміни набули чинності, необхідно перезапустити Steam.",
                     "success": "{{game}} було успішно додано в Steam. Щоб зміни набули чинності, необхідно перезапустити Steam.",
                     "title": "Додано до Steam",
-                    "success-no-restart": "{{game}} було успішно додано до Steam."
+                    "success-no-restart": "{{game}} було успішно додано до Steam.",
+                    "already": ""
                 }
             },
             "remove": {
@@ -665,7 +696,10 @@
             "stretch": "Розтягнення зображення",
             "interger": "Цілочисельне масштабування",
             "windowed": "У вікні",
-            "additionalOptions": "Додаткові налаштування"
+            "additionalOptions": "Додаткові налаштування",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -684,7 +718,8 @@
         "egs-prefix": "Префікс де встановлено EGS",
         "prefered_language": "Код із 2 або 4 символів (наприклад: «fr» або «pt-BR»)",
         "alt-nile-bin": "Використовується вбудований двійковий файл Nile...",
-        "alt-aurelia-bin": "Використовується вбудований двійковий файл Aurelia..."
+        "alt-aurelia-bin": "Використовується вбудований двійковий файл Nile...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "Linux",
@@ -848,7 +883,8 @@
             "placeholder": "Вкажіть точну теку збережень для гри",
             "warning": "Будь ласка, перевірте двічі чи вказаний шлях правильний (клацніть, щоб повторити)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "Вибір теми",
         "showfps": "Показувати кількість кадрів (DX9, 10 та 11)",
@@ -888,7 +924,12 @@
             "enableForceGrabCursor": "Увімкнути курсор примусового захоплення",
             "missingMsgFlatpak": "Не вдалося знайти сумісну версію Gamescope. Встановіть Flatpak-пакет Gamescope з середовищем виконання 25.08 і перезапустіть Heroic.",
             "warningFlatpak": "Не вдалося знайти сумісну версію Gamescope. Встановіть Flatpak-пакет Gamescope з середовищем виконання {{runtimeVersion}} і перезапустіть Heroic.",
-            "enableHDR": "Увімкнути HDR"
+            "enableHDR": "Увімкнути HDR",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableUpscaling-description": ""
         },
         "msync": "Ввімкнути Msync",
         "after-launch-script-path": "Виберіть скрипт, який повинен запускатися після виходу із гри",
@@ -951,7 +992,8 @@
         "gamepad-repeat-frequency": "Частота повторення введення ґеймпада",
         "steamRuntime": {
             "label": "Використовувати середовище Steam",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "Відкрити",
@@ -1026,7 +1068,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "Вибрати альтернативний двійковий файл Aurelia",
+        "alt-aurelia-bin": "Вибрати альтернативний двійковий файл Nile",
         "steamLaunchTarget": {
             "downloadBuild": "Завантаження",
             "missingBuild": "Всього Завантажено",
@@ -1048,7 +1090,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1090,7 +1184,10 @@
             "gamescope": "Gamescope",
             "legacy": "Старий",
             "categories": "Категорії",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "Відкрити файл налаштування",
         "reset-heroic": "Скинути Heroic",
@@ -1206,25 +1303,71 @@
             "epic": "Epic Games",
             "gog": "GOG",
             "gamescopeAdditionalOptions": "Додаткові налаштування",
-            "gamescopeDisplay": "Екран"
+            "gamescopeDisplay": "Екран",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "pageSubtitle": {
             "log": "",
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
         "clear-images-cache": "",
         "copySettings": {
-            "button": "Скопіювати"
+            "button": "Скопіювати",
+            "description": ""
         },
         "gamepad": {
             "button": {
                 "back": "Назад",
                 "guide": "Режим консолі",
-                "reset": "Скинути до типових"
+                "reset": "Скинути до типових",
+                "prevPage": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
             }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
         }
     },
     "Settings": "Налаштування",
@@ -1407,7 +1550,19 @@
             "search": "Використати рядок пошуку, щоби знайти ігри.",
             "sortOptions": "Клацніть тут, щоби відсортувати ігри за абеткою.",
             "refresh": "Оновити бібліотеку, щоби перевірити наявність нових ігор або оновлень.",
-            "steamInstall": "Використовуйте цю кнопку, щоб встановити версію Steam для Windows та грати у свої Windows-ігри за допомогою Crossover, Wine або GPTK."
+            "steamInstall": "Використовуйте цю кнопку, щоб встановити версію Steam для Windows та грати у свої Windows-ігри за допомогою Crossover, Wine або GPTK.",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "emptyTitle": "",
+            "searchTitle": "Пошук"
         },
         "sidebar": {
             "community": "Приєднуйтесь до нашої спільноти у Discord і підтримайте розвиток Heroic.",
@@ -1425,7 +1580,13 @@
             "login": "Увійдіть до свого облікового запису в ігровій крамниці, щоб отримати доступ до бібліотеки.",
             "accounts": "Керуйте під'єднаними обліковими записами крамниць (Epic, GOG, Amazon), виходьте або входьте в них.",
             "stores": "Переглядайте та купуйте ігри в різних крамницях, включаючи Epic, GOG та Amazon.",
-            "version": "Перевірте вашу поточну версію Heroic, клацніть тут, щоби переглянути список останніх змін, і перейдіть туди за допомогою значка довідки."
+            "version": "Перевірте вашу поточну версію Heroic, клацніть тут, щоби переглянути список останніх змін, і перейдіть туди за допомогою значка довідки.",
+            "communityIntro": "",
+            "general": "",
+            "versionTitle": "",
+            "welcomeTitle": "Вітаємо в Heroic!",
+            "communitySectionTitle": "Спільнота",
+            "generalTitle": "Загальні"
         },
         "startTour": "Розпочати ознайомлення",
         "back": "Назад",
@@ -1516,7 +1677,8 @@
             "hideOwned": "Приховати придбані",
             "wishlistOnly": "Тільки в списку бажаного",
             "platform": "Platform",
-            "platformAny": "Будь-яка платформа"
+            "platformAny": "Будь-яка платформа",
+            "showMature": ""
         },
         "sidebar": "Пропозиції",
         "sort": {
@@ -1597,7 +1759,8 @@
             "sort": "Сортувати",
             "navigate": "Навігація",
             "quit": "Закрити",
-            "change_store": "Змінити крамницю"
+            "change_store": "Змінити крамницю",
+            "hold_quit": ""
         },
         "launching": "Запускається",
         "card": {
@@ -1637,6 +1800,13 @@
             "enter": "Увійти в режим консолі",
             "message": "Режим консолі — це повноекранний інтерфейс, зручний для контролера. Елементи керування бічною панеллю та вікном будуть приховані.",
             "title": "Увійти в режим консолі?"
+        },
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
         }
     },
     "next": "Далі",
@@ -1795,13 +1965,24 @@
         "per-game": "Налаштування гри",
         "platform": "Platform",
         "rollback": {
-            "saved": "Зберегти"
+            "saved": "Зберегти",
+            "run": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
         },
         "stage": {
             "credentials": "Вхід до крамниці",
             "globalSettings": "Глобальні налаштування",
             "perGameSettings": "Налаштування гри",
-            "categories": "Власні категорії"
+            "categories": "Власні категорії",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
             "title": "Глобальні налаштування",
@@ -1811,7 +1992,10 @@
             "playtime_one": "Імпортувати час гри та історію грання ({{count}} гра)",
             "playtime_other": "Імпортувати час гри та історію грання ({{count}} ігор)",
             "playtimeHint": "Оновлює локальну історію ігор за допомогою даних у резервній копії; інші ігри не змінюються.",
-            "toggle": "Імпортувати глобальні налаштування"
+            "toggle": "Імпортувати глобальні налаштування",
+            "categories_other": "",
+            "categoriesHint": "",
+            "categories_one": ""
         },
         "step4": {
             "none": "Жодна гра не відповідає вибраним фільтрам.",
@@ -1826,18 +2010,37 @@
             "title": "Вхід до крамниці",
             "found": "Знайдено в резервній копії",
             "hint": "Облікові дані імпортуються як є. Якщо термін дії токена закінчився, вам буде запропоновано ввійти знову, коли ви відкриєте крамницю наступного разу.",
-            "include": "Включати"
+            "include": "Включати",
+            "missing": ""
         },
         "step6": {
             "prefixPath": "Префікс для Wine",
             "wine-downloadable": "Завантаження",
-            "wine-unavailable": "DLC недоступні"
+            "wine-unavailable": "DLC недоступні",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "Вхід до крамниці",
             "done": "Готово",
             "global-settings": "Глобальні налаштування",
-            "per-game": "Налаштування гри"
+            "per-game": "Налаштування гри",
+            "library-system": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "Значення",
         "version": "Версія Heroic",
@@ -1851,7 +2054,59 @@
             "done": "Збережено до",
             "failed": "Не вдалося експортувати",
             "filename": "Назва файлу",
-            "hint": "Зберіть налаштування, облікові дані й бібліотеку Heroic в один ZIP-файл, який можна буде відновити пізніше або перенести на інший комп’ютер."
-        }
+            "hint": "Зберіть налаштування, облікові дані й бібліотеку Heroic в один ZIP-файл, який можна буде відновити пізніше або перенести на інший комп’ютер.",
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "output-placeholder": "",
+            "running": "",
+            "pickDir": ""
+        },
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "summaryProperty": "",
+        "validating": "",
+        "wizard-title": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "pick-backup": "",
+        "unsupported-format": ""
     }
 }

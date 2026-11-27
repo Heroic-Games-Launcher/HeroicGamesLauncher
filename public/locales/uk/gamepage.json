@@ -106,8 +106,14 @@
         "back": "Назад",
         "next": "Далі",
         "skip-installer": {
-            "title": "Пропустити"
-        }
+            "title": "Пропустити",
+            "subtitle": ""
+        },
+        "run-installer": {
+            "subtitle": "",
+            "title": ""
+        },
+        "skip-waiting": ""
     },
     "cloud_save_unsupported": "Не підтримується",
     "disabled": "Вимкнено",
@@ -215,7 +221,8 @@
         "flatpak-path-not-writtable": "Помилка: доступ до пісочниці не надано для цього шляху, можлива втрата даних.",
         "free": "",
         "steam-no-libraries": "",
-        "steam-path": ""
+        "steam-path": "",
+        "linux-arm-native-warning": ""
     },
     "label": {
         "game": {
@@ -299,7 +306,12 @@
             "useragent": "Власний User Agent",
             "fullscreen": "Запуск повноекранного режиму (F11 для виходу)",
             "cover-hint": "Значок/Головне зображення (натисніть на зображення, щоби знайти на SteamGridDB)",
-            "image-hint": "Квадратний значок (натисніть на зображення, щоби знайти на SteamGridDB)"
+            "image-hint": "Квадратний значок (натисніть на зображення, щоби знайти на SteamGridDB)",
+            "proton-shortcuts": "",
+            "no-proton-shortcuts": {
+                "title": "",
+                "subtitle": ""
+            }
         },
         "placeholder": {
             "image": "Вставте URL-адресу зображення або виберіть його з комп'ютера",
@@ -312,13 +324,26 @@
             "title": "Важливо! Ви додаєте гру з Epic/GOG/Amazon? Клацніть тут!"
         },
         "images": {
-            "summary": "Зображення"
+            "summary": "Зображення",
+            "preview": "",
+            "heading": "",
+            "subheading": ""
         },
         "step": {
             "compat": "Перевірити Сумісність",
             "finish": "Завершити",
             "images": "Зображення",
-            "install": "Зупинити Встановлення"
+            "install": "Зупинити Встановлення",
+            "install-desc": "",
+            "finish-desc": "",
+            "meta": "",
+            "meta-desc": "",
+            "compat-desc": "",
+            "images-desc": ""
+        },
+        "install": {
+            "installing": "",
+            "waiting-log": ""
         }
     },
     "specs": {
