@@ -223,7 +223,15 @@
                 "message": ""
             }
         },
-        "choose-aurelia-binary": ""
+        "choose-aurelia-binary": "",
+        "saveConflict": {
+            "cancel": "취소",
+            "title": "",
+            "keepCloud": "",
+            "keepLocal": "",
+            "message": "",
+            "detail": ""
+        }
     },
     "button": {
         "cancel": "취소",
@@ -294,7 +302,18 @@
         "limit": {
             "label": "",
             "unlimited": ""
-        }
+        },
+        "screen-off-error": {
+            "message": "",
+            "title": ""
+        },
+        "post-action": {
+            "shutdown": "",
+            "suspend": "",
+            "none": "",
+            "enable": ""
+        },
+        "screen-off": ""
     },
     "epic": {
         "offline-notification-body": "에릭 게임즈 서버가 오프라인 상태이므로 온라인 서비스가 완전히 작동하지 않을 수 있습니다!",
@@ -351,7 +370,11 @@
         "display": "",
         "hidden": "",
         "non_available": "",
-        "show_steam_owned_only": ""
+        "show_steam_owned_only": "",
+        "categories_selected_other": "",
+        "filters_applied_other": "",
+        "categories_selected_one": "",
+        "filters_applied_one": ""
     },
     "help": {
         "amdfsr": "AMD의 FSR 기술은 전체화면 모드에서 저해상도를 업스케일링하여 프레임 향상에 도움을 줍니다. 약간의 성능을 잃으며 이미지 품질은 5에서 1로 갈수록 증가합니다. 사용하면 성능이 향상될 수도 있습니다.",
@@ -411,7 +434,10 @@
             "gameHeight": "게임에서 사용하는 높이 해상도입니다. gamescope는 16:9 화면비를 가정합니다.",
             "upscaleMethod": "gamescope가 사용해야 하는 업스케일링 방법입니다.",
             "upscaleWidth": "gamescope에서 사용하는 폭 해상도입니다. 16:9 화면비가 가정됩니다.",
-            "forceGrabCursor": ""
+            "forceGrabCursor": "",
+            "hdr": "",
+            "windowType": "",
+            "adaptiveSync": ""
         },
         "content": {
             "accessibility": "접근성 설정을 표시합니다.",
@@ -441,7 +467,16 @@
             "details": "전용 그래픽 카드를 사용하여 다중 GPU 시스템에서 게임을 렌더링합니다. 렌더링에 헤드리스 GPU를 사용하는 게임용 노트북이나 데스크탑에서만 필요(엔비디아 옵티머스, AMD 크로스파이어)",
             "link": ""
         },
-        "hide-window-on-protocol-launch": ""
+        "hide-window-on-protocol-launch": "",
+        "dlssUpgrade": "",
+        "disableProtonFixes": "",
+        "fsr4Upgrade": "",
+        "nvapiMode": "",
+        "backupSaves": "",
+        "useOptiScaler": "",
+        "umuGameId": "",
+        "disableNTSync": "",
+        "hdrMode": ""
     },
     "info": {
         "heroic": {
@@ -550,7 +585,8 @@
                     "corrupt": "{{game}}을(를) 찾은 모든 스팀 사용자에게 추가할 수 없습니다. 자세한 내용은 로그를 참조하세요. 변경 사항을 적용하려면 스팀을 다시 시작해야 합니다.",
                     "success": "{{game}}이(가) 스팀에 성공적으로 추가되었습니다. 변경 사항을 적용하려면 스팀을 다시 시작해야 합니다.",
                     "title": "스팀에 추가됨",
-                    "success-no-restart": ""
+                    "success-no-restart": "",
+                    "already": ""
                 }
             },
             "remove": {
@@ -652,7 +688,10 @@
             "upscaleWidth": "업스케일 너비",
             "windowed": "창",
             "fpsLimiterNoFocus": "FPS 제한기 (초점 없음)",
-            "fpsLimiter": "FPS 제한기"
+            "fpsLimiter": "FPS 제한기",
+            "monitorResolution": "",
+            "upscaleMethod": "",
+            "windowType": ""
         }
     },
     "other": {
@@ -671,7 +710,8 @@
         "egs-prefix": "에픽 게임즈 스토어 설치 경로",
         "prefered_language": "2 자리 코드 (예: \"en\" 또는 \"fr\")",
         "alt-nile-bin": "내장 나일 바이너리 사용 중...",
-        "alt-aurelia-bin": "내장 Aurelia 바이너리 사용 중..."
+        "alt-aurelia-bin": "내장 나일 바이너리 사용 중...",
+        "umuGameId": ""
     },
     "platforms": {
         "linux": "리눅스",
@@ -835,7 +875,8 @@
             "placeholder": "정확한 게임 저장 폴더 선택",
             "warning": "경로가 올바른지 두 번 확인 (클릭하여 재시도)",
             "retry": "",
-            "title": ""
+            "title": "",
+            "detect-failed": ""
         },
         "select_theme": "테마 선택",
         "showfps": "FPS 표시 (DX9, 10, 11)",
@@ -882,7 +923,13 @@
             "enableLimiter": "FPS 제한기 활성화",
             "missingMsg": "PATH에서 gamescope를 찾을 수 없습니다. 설치하거나 PATH에 추가하세요.",
             "enableForceGrabCursor": "",
-            "warningFlatpak": ""
+            "warningFlatpak": "",
+            "additionalOptionsWarning": "",
+            "additionalOptionsDocs": "",
+            "enableLimiter-description": "",
+            "enableAdaptiveSync": "",
+            "enableHDR": "",
+            "enableUpscaling-description": ""
         },
         "after-launch-script-path": "게임을 나간 후 실행할 스크립트를 선택",
         "allow_non_ge_proton": {
@@ -923,7 +970,8 @@
         "disable_gog_presence": "",
         "steamRuntime": {
             "label": "스팀 런타임 사용",
-            "noRuntimeOption": "None"
+            "noRuntimeOption": "None",
+            "defaultLabel": ""
         },
         "tools": {
             "open": "열기",
@@ -1004,7 +1052,7 @@
         "checkForUpdatesOnStartup-description": "",
         "disableUMU-description": "",
         "gamemode-description": "",
-        "alt-aurelia-bin": "다른 Aurelia 바이너리 선택",
+        "alt-aurelia-bin": "다른 나일 바이너리 선택",
         "steamLaunchTarget": {
             "downloadBuild": "Download",
             "missingBuild": "전체 다운로드",
@@ -1026,7 +1074,59 @@
         "disableGOGAffiliateDescription": "",
         "addgamestosteam-real-description": "",
         "maxworkers-description": "",
-        "addgamestoapplications-description": ""
+        "addgamestoapplications-description": "",
+        "backups-restore-confirm": "",
+        "backups": "",
+        "wineWayland-description": "",
+        "useOptiScaler": "",
+        "backups-error-removed": "",
+        "disableNTSync": "",
+        "useOptiScaler-description": "",
+        "nvapiMode": {
+            "off": "",
+            "auto": "",
+            "label": "",
+            "force": ""
+        },
+        "disableProtonFixes-description": "",
+        "backups-restore-failed": "",
+        "hdrMode": {
+            "off": "",
+            "auto": "",
+            "force": "",
+            "label": ""
+        },
+        "umuGameId": "",
+        "maxSaveBackupSize": "",
+        "disableGuideButton": {
+            "description": ""
+        },
+        "backups-empty": "",
+        "wineprefix-save-warning": "",
+        "backups-current": "",
+        "disableNTSync-description": "",
+        "disableProtonFixes": "",
+        "backups-summary": "",
+        "backups-open-folder": "",
+        "backups-error-failed": "",
+        "backupSaves": "",
+        "backups-already-current-title": "",
+        "enable-controller-in-console-mode": "",
+        "backups-already-current-body": "",
+        "backups-restored-body": "",
+        "gamepad-deadzone": "",
+        "fsr4Upgrade-description": "",
+        "backupSize": "",
+        "dlssUpgrade-description": "",
+        "backups-error-incomplete": "",
+        "backups-restored-title": "",
+        "fsr4Upgrade": "",
+        "backupSaves-description": "",
+        "backups-error-location": "",
+        "disable_guide_button": "",
+        "dlssUpgrade": "",
+        "backups-restore-button": "",
+        "backups-restore": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1068,7 +1168,10 @@
             "gamescope": "Gamescope",
             "legacy": "",
             "categories": "범주",
-            "tabs": ""
+            "tabs": "",
+            "runners": "",
+            "gamepad": "",
+            "importExport": ""
         },
         "open-config-file": "구성 파일 열기",
         "reset-heroic": "Heroic 재설정",
@@ -1180,7 +1283,17 @@
             "privacy": "",
             "steam": "",
             "epic": "에픽 게임즈",
-            "gog": "GOG"
+            "gog": "GOG",
+            "gamescopeAdditionalOptions": "추가 옵션",
+            "gamescopeDisplay": "",
+            "legacyGraphics": "",
+            "umu": "",
+            "anticheat": "",
+            "eosOverlay": "",
+            "amazon": "",
+            "gamescopeUpscaling": "",
+            "gamescopeLimiter": "",
+            "legacySync": ""
         },
         "open-game-settings-file-hint": "",
         "pageSubtitle": {
@@ -1188,9 +1301,58 @@
             "games_settings_defaults": "",
             "general": "",
             "systeminfo": "",
-            "advanced": ""
+            "advanced": "",
+            "gamepad": "",
+            "importExport": "",
+            "runners": ""
         },
-        "clear-images-cache": ""
+        "clear-images-cache": "",
+        "gamepad": {
+            "button": {
+                "back": "뒤로",
+                "prevPage": "",
+                "reset": "",
+                "unbound": "",
+                "alt": "",
+                "main": "",
+                "enter": "",
+                "context": "",
+                "guide": "",
+                "nextPage": ""
+            },
+            "detected": {
+                "empty": "",
+                "custom": "",
+                "charging": "",
+                "full": "",
+                "device": "",
+                "mapping": "",
+                "index": "",
+                "discharging": "",
+                "copy": "",
+                "vendor": "",
+                "description": "",
+                "title": "",
+                "layout": "",
+                "battery": "",
+                "id": "",
+                "notReported": ""
+            },
+            "description": "",
+            "buttonMapping": {
+                "title": "",
+                "description": ""
+            }
+        },
+        "search": {
+            "placeholder": "",
+            "noResults": "",
+            "results": ""
+        },
+        "copySettings": {
+            "description": "",
+            "button": ""
+        }
     },
     "Settings": "설정",
     "sidebar": {
@@ -1347,7 +1509,8 @@
         "noGames": "",
         "noResultsTitle": "게임이 발견되지 않았습니다",
         "description": "",
-        "title": ""
+        "title": "",
+        "backupHint": ""
     },
     "tour": {
         "back": "뒤로",
@@ -1367,7 +1530,13 @@
             "downloads": "",
             "accounts": "",
             "stores": "",
-            "version": ""
+            "version": "",
+            "generalTitle": "일반",
+            "communityIntro": "",
+            "welcomeTitle": "",
+            "general": "",
+            "versionTitle": "",
+            "communitySectionTitle": ""
         },
         "library": {
             "gameCard": "",
@@ -1388,7 +1557,19 @@
             "categories": "",
             "sortInstalled": "",
             "sortOptions": "",
-            "addGame": ""
+            "addGame": "",
+            "sectionActionsTitle": "",
+            "filterControls": "",
+            "welcomeTitle": "",
+            "gameCardTitle": "",
+            "endTitle": "",
+            "sectionActions": "",
+            "filterControlsTitle": "",
+            "actions": "",
+            "empty": "",
+            "actionsTitle": "",
+            "searchTitle": "",
+            "emptyTitle": ""
         },
         "next": "",
         "startTour": "",
@@ -1473,7 +1654,8 @@
             "platform": "Platform",
             "hideOwned": "",
             "wishlistOnly": "",
-            "platformAny": ""
+            "platformAny": "",
+            "showMature": ""
         },
         "sidebar": "세부 사항",
         "sort": {
@@ -1554,7 +1736,8 @@
             "sort": "",
             "navigate": "",
             "quit": "나가기",
-            "change_store": ""
+            "change_store": "",
+            "hold_quit": ""
         },
         "launching": "실행 중",
         "card": {
@@ -1594,7 +1777,14 @@
         },
         "launchErrorNotLoggedIn": "",
         "launchError": "",
-        "launchErrorPrefix": ""
+        "launchErrorPrefix": "",
+        "quitting": "",
+        "close": {
+            "hintSuffix": ""
+        },
+        "quitHold": {
+            "hintSuffix": ""
+        }
     },
     "next": "",
     "common": {
@@ -1739,7 +1929,11 @@
     },
     "import-export": {
         "action": {
-            "download": "다운로드중"
+            "download": "다운로드중",
+            "browse": "",
+            "ignore": "",
+            "defaultPrefix": "",
+            "skip": ""
         },
         "back": "뒤로",
         "close": "닫기",
@@ -1749,29 +1943,147 @@
         "stage": {
             "credentials": "스토어 로그인",
             "globalSettings": "글로벌 설정",
-            "perGameSettings": "게임 설정"
+            "perGameSettings": "게임 설정",
+            "categories": "",
+            "playtime": "",
+            "libraryCache": "",
+            "sideloadLibrary": "",
+            "wineMetadata": ""
         },
         "step3": {
-            "title": "글로벌 설정"
+            "title": "글로벌 설정",
+            "overwrite": "",
+            "playtime_one": "",
+            "none": "",
+            "playtimeHint": "",
+            "categories_other": "",
+            "playtime_other": "",
+            "overwriteBody": "",
+            "categoriesHint": "",
+            "toggle": "",
+            "categories_one": ""
         },
         "step4": {
-            "selectAll": "모두 선택"
+            "selectAll": "모두 선택",
+            "filter": "",
+            "none": "",
+            "title": "",
+            "selectAllGames": "",
+            "selected": "",
+            "deselectAll": ""
         },
         "step5": {
-            "title": "스토어 로그인"
+            "title": "스토어 로그인",
+            "include": "",
+            "found": "",
+            "missing": "",
+            "hint": ""
         },
         "step6": {
             "prefixPath": "와인 설치 경로",
             "wine-downloadable": "Download",
-            "wine-unavailable": "사용 가능한 DLC 없음"
+            "wine-unavailable": "사용 가능한 DLC 없음",
+            "prefixPathsHint": "",
+            "installedOKHint": "",
+            "prefixPathsSummary_other": "",
+            "prefixPathsSummary_one": "",
+            "installPathsHint": "",
+            "installPathsSummary_other": "",
+            "wineSummary_one": "",
+            "downloadMissing": "",
+            "wineSummary_other": "",
+            "allGood": "",
+            "installedOKSummary_other": "",
+            "wineHint": "",
+            "installPathsSummary_one": "",
+            "installedOKSummary_one": "",
+            "title": ""
         },
         "steps": {
             "credentials": "스토어 로그인",
             "global-settings": "글로벌 설정",
-            "per-game": "게임 설정"
+            "per-game": "게임 설정",
+            "library-system": "",
+            "done": "",
+            "summary": "",
+            "pick-file": ""
         },
         "summaryValue": "값",
         "version": "Heroic 버전",
-        "wine-versions": "와인 버전"
+        "wine-versions": "와인 버전",
+        "step7": {
+            "applying": "",
+            "wine-busy-hint": "",
+            "queued_one": "",
+            "rollback-hint": "",
+            "restart-body": "",
+            "restart-title": "",
+            "wine-progress-title": "",
+            "queued_other": "",
+            "success": "",
+            "failure": "",
+            "restart-btn": "",
+            "wine-progress-body": ""
+        },
+        "invalid-backup": "",
+        "step1": {
+            "hint": "",
+            "found": "",
+            "none": "",
+            "title": "",
+            "placeholder": ""
+        },
+        "export": {
+            "summary_other": "",
+            "run": "",
+            "summary_one": "",
+            "output": "",
+            "title": "",
+            "filename": "",
+            "output-placeholder": "",
+            "running": "",
+            "hint": "",
+            "done": "",
+            "failed": "",
+            "pickDir": ""
+        },
+        "categories": "",
+        "import": {
+            "hint": "",
+            "row": "",
+            "open": "",
+            "title": ""
+        },
+        "platform-limitations": {
+            "paths": "",
+            "works": "",
+            "settings": "",
+            "title": "",
+            "wine": ""
+        },
+        "applying": "",
+        "summaryProperty": "",
+        "rollback": {
+            "run": "",
+            "saved": "",
+            "confirm-title": "",
+            "done": "",
+            "hint": "",
+            "confirm-message": "",
+            "failed": "",
+            "running": ""
+        },
+        "apply": "",
+        "validating": "",
+        "wizard-title": "",
+        "created": "",
+        "step2": {
+            "title": ""
+        },
+        "sideloaded": "",
+        "next": "",
+        "pick-backup": "",
+        "unsupported-format": "",
+        "different-platform": ""
     }
 }
