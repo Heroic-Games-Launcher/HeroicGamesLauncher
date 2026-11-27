@@ -45,6 +45,7 @@ jest.mock('../utils', () => ({
   currentOsList: 'linux',
   describeError: String,
   installedPlatformFor: jest.fn(),
+  isLibraryApp: (game: { type?: string | null }) => game.type !== 'Soundtrack',
   isSteamSupported: () => true,
   platformArgs: jest.fn(),
   steamCall: <T>(task: () => Promise<T>) => task(),
@@ -190,6 +191,24 @@ describe('SteamLibraryManager.refresh', () => {
     ])
     expect(mockTagRecent).toHaveBeenLastCalledWith('steam', new Set(['312200']))
     expect(mockNotifyRecent).toHaveBeenCalled()
+  })
+
+  it('leaves soundtracks out of the library', async () => {
+    mockLoggedIn.mockReturnValue(true)
+    mockOnline.mockReturnValue(true)
+    jest.mocked(runAurelia).mockResolvedValue([
+      { app_id: 1501750, name: 'Lords of the Fallen', type: 'Game' },
+      {
+        app_id: 2387900,
+        name: 'Lords of the Fallen Soundtrack',
+        type: 'Soundtrack',
+        is_installed: true,
+        install_path: '/lib/steamapps/music/Lords of the Fallen - Soundtrack'
+      }
+    ])
+    await new SteamLibraryManager().refresh()
+    const [, games] = mockLibrarySet.mock.calls[0] as [string, GameInfo[]]
+    expect(games.map((g) => g.app_name)).toEqual(['1501750'])
   })
 
   it('shows the installed size Aurelia reports', async () => {
