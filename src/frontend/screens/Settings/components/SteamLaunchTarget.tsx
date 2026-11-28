@@ -182,11 +182,11 @@ const SteamLaunchTarget = ({ state }: Props) => {
               {downloadsOnSwitch
                 ? t(
                     'setting.steamLaunchTarget.platformSwitchNoteNow',
-                    'Switching between Linux and Windows downloads that version right away.'
+                    'Switching platform downloads it right away.'
                   )
                 : t(
                     'setting.steamLaunchTarget.platformSwitchNote',
-                    'Switching between Linux and Windows downloads that version on the next launch.'
+                    'Switching platform downloads it on next launch.'
                   )}
             </span>
           )}
