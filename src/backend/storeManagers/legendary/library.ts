@@ -38,6 +38,7 @@ import {
   libraryStore
 } from './electronStores'
 import { callRunner } from '../../launcher'
+import { GlobalConfig } from 'backend/config'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { LegendaryCommand } from './commands'
@@ -705,6 +706,11 @@ export default class LegendaryLibraryManager implements LibraryManager {
     options.env['LEGENDARY_CONFIG_PATH'] = legendaryConfigPath
 
     const commandParts = this.commandToArgsArray(command)
+
+    // Legendary only honors global options like `-A` before the subcommand
+    const { legendaryApiTimeout } = GlobalConfig.get().getSettings()
+    if (legendaryApiTimeout > 0)
+      commandParts.unshift('-A', legendaryApiTimeout.toString())
 
     return callRunner(
       commandParts,

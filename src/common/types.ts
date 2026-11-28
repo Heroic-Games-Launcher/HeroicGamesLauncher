@@ -120,6 +120,7 @@ export interface AppSettings extends GameSettings {
   altGogdlBin: string
   altCometBin: string
   altLegendaryBin: string
+  legendaryApiTimeout: number
   altNileBin: string
   altButlerBin: string
   altAureliaBin: string

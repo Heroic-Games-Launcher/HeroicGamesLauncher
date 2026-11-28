@@ -10,6 +10,13 @@
   text-align: start;
 }
 
+.sliderFieldWrapper__description {
+  font-family: var(--primary-font-family);
+  font-size: var(--body-sm);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--field-label-color, var(--text-secondary));
+}
+
 .sliderFieldWrapper .sliderStyle {
   margin: 0;
   padding-block: var(--space-xs-fixed);
