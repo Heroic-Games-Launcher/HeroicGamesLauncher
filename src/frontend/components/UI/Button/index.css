@@ -97,7 +97,7 @@
 
 .Button--secondary:hover:not(:disabled),
 .Button--secondary:focus-visible:not(:disabled) {
-  border-color: var(--button-secondary-border, transparent);
+  border-color: var(--button-secondary-border, var(--border-brand));
   background: color-mix(in oklab, var(--role-brand) 26%, transparent);
 }
 
@@ -123,6 +123,7 @@
 
 .Button--tertiary:hover:not(:disabled),
 .Button--tertiary:focus-visible:not(:disabled) {
+  border-color: var(--border-subtle);
   background: color-mix(in oklab, var(--on-panel) 8%, transparent);
 }
 
@@ -147,6 +148,7 @@
 
 .Button--dangerSubtle:hover:not(:disabled),
 .Button--dangerSubtle:focus-visible:not(:disabled) {
+  border-color: var(--border-destructive);
   background: color-mix(in oklab, var(--button-surface) 28%, transparent);
 }
 
