@@ -1,19 +1,21 @@
-import {
-  KeyboardEvent,
-  MouseEvent,
-  ReactNode,
-  useContext,
-  useState
-} from 'react'
+import { ReactNode, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
+import {
+  Circle,
+  CircleCheck,
+  LoaderCircle,
+  LogIn,
+  LogOut,
+  Store
+} from 'lucide-react'
 import { Runner } from 'common/types'
 import FeatureCard from 'frontend/components/UI/FeatureCard'
 import Badge from 'frontend/components/UI/Badge'
 import Button from 'frontend/components/UI/Button'
+import Icon from 'frontend/components/UI/Icon'
 import StoreBadge from 'frontend/components/UI/StoreBadge'
-import Tooltip from 'frontend/components/UI/Tooltip'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 
@@ -31,7 +33,6 @@ interface StoreCardProps {
   /** Primary login via a custom action (e.g. a modal) instead of loginUrl */
   loginAction?: () => void
   alternativeLoginAction?: () => void
-  notice?: ReactNode
   disabled?: boolean
 }
 
@@ -49,7 +50,6 @@ export default function StoreCard({
   logout,
   loginAction,
   alternativeLoginAction,
-  notice,
   disabled = false
 }: StoreCardProps) {
   const { t } = useTranslation()
@@ -57,17 +57,13 @@ export default function StoreCard({
   const { showDialogModal } = useContext(ContextProvider)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
-  const openStore = () => navigate(storeRoute)
+  const openStore = () => {
+    void navigate(storeRoute)
+  }
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    // Only open the store when the card itself is focused. When a child
-    // button (e.g. "Log in") is focused, let that button handle Enter/Space
-    // so it does not also trigger store navigation.
-    if (event.target !== event.currentTarget) return
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      openStore()
-    }
+  const login = () => {
+    if (loginAction) loginAction()
+    else if (loginUrl) void navigate(loginUrl)
   }
 
   async function performLogout() {
@@ -76,8 +72,7 @@ export default function StoreCard({
     setIsLoggingOut(false)
   }
 
-  function handleLogout(event: MouseEvent) {
-    event.stopPropagation()
+  function handleLogout() {
     showDialogModal({
       title: t('login.logout_confirm.title', 'Log out?'),
       message: t(
@@ -103,94 +98,105 @@ export default function StoreCard({
       (String(user).length > maxNameLength ? '...' : '')
     : ''
 
+  const status: ReactNode = isLoggedIn ? (
+    <Badge
+      variant="success"
+      glyph={CircleCheck}
+      className="storeCard__status"
+      title={user ? String(user) : undefined}
+    >
+      {displayName
+        ? t('login.status.connected_as', 'Connected as {{user}}', {
+            user: displayName
+          })
+        : t('login.status.connected', 'Connected')}
+    </Badge>
+  ) : (
+    <Badge variant="neutral" glyph={Circle} className="storeCard__status">
+      {t('login.status.not_connected', 'Not connected')}
+    </Badge>
+  )
+
+  const browseStoreButton = (
+    <Button
+      variant={isLoggedIn ? 'secondary' : 'ghost'}
+      size="md"
+      icon={<Icon glyph={Store} size="md" />}
+      disabled={disabled}
+      onClick={openStore}
+      className="storeCard__browse"
+    >
+      {t('login.browse_store', 'Browse store')}
+    </Button>
+  )
+
   return (
-    <Tooltip content={t('login.browse_store', 'Browse store')} asChild>
-      <div
-        className={classNames('storeCard', storeKey, { disabled })}
-        role="link"
-        tabIndex={0}
-        onClick={(event) => {
-          if ((event.target as HTMLElement).closest('.storeCard__actions'))
-            return
-          openStore()
-        }}
-        onKeyDown={handleKeyDown}
-      >
-        <FeatureCard
-          className="storeCard__card"
-          layout="inline"
-          icon={<StoreBadge runner={runner} className="storeCard__badge" />}
-          title={title}
-          description={description}
-          meta={
-            isLoggedIn && displayName ? (
-              <Badge variant="neutral" className="storeCard__loggedBadge">
-                <span className="storeCard__loggedLabel">
-                  {t('login.logged_in', 'Logged in')}:
-                </span>
-                <span className="storeCard__userName">{displayName}</span>
-              </Badge>
-            ) : undefined
-          }
-          action={
-            <div className="storeCard__actions">
-              {notice}
-              {isLoggedIn ? (
+    <div className={classNames('storeCard', storeKey, { disabled })}>
+      <FeatureCard
+        className="storeCard__card"
+        layout="stacked"
+        icon={<StoreBadge runner={runner} className="storeCard__badge" />}
+        title={title}
+        description={description}
+        meta={status}
+        action={
+          <div className="storeCard__actions">
+            {isLoggedIn ? (
+              <div className="storeCard__actionRow">
+                {browseStoreButton}
                 <Button
-                  variant="dangerSubtle"
+                  variant="tertiary"
                   size="md"
-                  fullWidth
+                  icon={
+                    <Icon
+                      glyph={isLoggingOut ? LoaderCircle : LogOut}
+                      size="md"
+                      className={isLoggingOut ? 'lucide-spin' : undefined}
+                    />
+                  }
                   disabled={isLoggingOut}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleLogout(e)
-                  }}
-                  onKeyDown={(e) => e.stopPropagation()}
+                  onClick={handleLogout}
+                  className="storeCard__logout"
                 >
                   {isLoggingOut
                     ? `${t('userselector.logging_out', 'Logging out')}...`
                     : t('userselector.logout', 'Logout')}
                 </Button>
-              ) : (
-                <>
+              </div>
+            ) : (
+              <div
+                className={classNames('storeCard__actionRow', {
+                  'storeCard__actionRow--withAlternative':
+                    alternativeLoginAction
+                })}
+              >
+                <Button
+                  variant="secondary"
+                  size="md"
+                  icon={<Icon glyph={LogIn} size="md" />}
+                  disabled={disabled}
+                  onClick={login}
+                  className="storeCard__login"
+                >
+                  {t('login.button', 'Log in')}
+                </Button>
+                {browseStoreButton}
+                {alternativeLoginAction && (
                   <Button
-                    variant="ghost"
-                    size="md"
-                    fullWidth
+                    variant="link"
+                    size="sm"
                     disabled={disabled}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      if (loginAction) loginAction()
-                      else if (loginUrl) navigate(loginUrl)
-                    }}
-                    onKeyDown={(e) => e.stopPropagation()}
+                    onClick={alternativeLoginAction}
+                    className="storeCard__alternativeLogin"
                   >
-                    {t('login.button', 'Log in')}
+                    {t('login.alternative_method', 'Alternative login')}
                   </Button>
-                  {alternativeLoginAction && (
-                    <Button
-                      variant="ghost"
-                      size="md"
-                      fullWidth
-                      disabled={disabled}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        alternativeLoginAction?.()
-                      }}
-                      onKeyDown={(e) => e.stopPropagation()}
-                    >
-                      {t(
-                        'login.alternative_method',
-                        'Alternative login method'
-                      )}
-                    </Button>
-                  )}
-                </>
-              )}
-            </div>
-          }
-        />
-      </div>
-    </Tooltip>
+                )}
+              </div>
+            )}
+          </div>
+        }
+      />
+    </div>
   )
 }

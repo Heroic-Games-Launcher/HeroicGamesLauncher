@@ -9,10 +9,11 @@
 }
 
 .storesPage__hero,
+.storesPage__notice,
 .storeCardGrid,
 .storesPage .disabledMessage {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
 }
 
 .storesPage__hero {
@@ -45,7 +46,7 @@
 
 .storeCardGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-lg-fixed);
 }
 
@@ -54,4 +55,10 @@
   border-radius: var(--radius-sm);
   padding: var(--space-md);
   margin: 0;
+}
+
+@media (max-width: 760px) {
+  .storeCardGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
