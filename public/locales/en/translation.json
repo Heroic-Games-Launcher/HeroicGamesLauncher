@@ -941,7 +941,7 @@
         "website": "Loading website"
     },
     "login": {
-        "alternative_method": "Alternative login method",
+        "alternative_method": "Alternative login",
         "browse_store": "Browse store",
         "button": "Log in",
         "description_amazon": "Claim and play games with Amazon Prime Gaming.",
@@ -958,14 +958,17 @@
             }
         },
         "gog_support": "Enable GOG affiliate links to help support Heroic.",
-        "logged_in": "Logged in",
-        "logged_in_as": "Logged in as",
         "logout_confirm": {
             "message": "Are you sure you want to log out of {{store}}?",
             "title": "Log out?"
         },
         "message": "Log in to any store where you have an active account to see all your games in your Library. You can be logged in to all of them at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
+        "status": {
+            "connected": "Connected",
+            "connected_as": "Connected as {{user}}",
+            "not_connected": "Not connected"
+        },
         "title_amazon": "Amazon Games",
         "title_epic": "Epic Games",
         "title_gog": "GOG",
