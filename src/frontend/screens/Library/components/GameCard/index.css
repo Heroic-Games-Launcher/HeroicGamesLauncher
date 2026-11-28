@@ -407,6 +407,15 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
 }
 
+.gameCard > .icons > .playIcon {
+  --button-surface: var(--navbar-accent, var(--accent));
+
+  background: var(--button-sheen);
+  box-shadow:
+    var(--button-highlight),
+    0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
 .gameCard > .icons > .playIcon,
 .gameCard > .icons > .downIcon {
   opacity: 0;
@@ -463,11 +472,13 @@
 
 .gameCard > .icons > .playIcon:hover:not(:disabled),
 .gameCard > .icons > .playIcon:focus-visible:not(:disabled) {
-  background: color-mix(
+  --button-surface: color-mix(
     in oklab,
     var(--navbar-accent, var(--accent)) 85%,
     var(--on-panel)
   );
+
+  background: var(--button-sheen);
 }
 
 .gameCard > .icons > .downIcon:focus-visible,

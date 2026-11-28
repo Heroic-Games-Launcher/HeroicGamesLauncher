@@ -63,16 +63,28 @@
 
 .Button--primary {
   --button-surface: var(--bg-brand);
+  --button-highlight: inset 0 1px 0 color-mix(in oklab, white 28%, transparent);
+  --button-sheen: linear-gradient(
+    180deg,
+    var(--button-surface) 0%,
+    color-mix(in oklab, var(--button-surface) 90%, black) 100%
+  );
 
-  background: var(--button-surface);
+  background: var(--button-sheen);
   color: var(--text-on-brand);
+  box-shadow:
+    var(--button-highlight),
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    0 6px 14px -8px color-mix(in oklab, var(--button-surface) 80%, transparent);
 }
 
 .Button--primary:hover:not(:disabled),
 .Button--primary:focus-visible:not(:disabled) {
   --button-surface: color-mix(in oklab, var(--bg-brand) 85%, var(--on-panel));
 
-  box-shadow: 0 8px 24px -8px var(--bg-brand);
+  box-shadow:
+    var(--button-highlight),
+    0 8px 24px -8px var(--bg-brand);
 }
 
 .Button--secondary {

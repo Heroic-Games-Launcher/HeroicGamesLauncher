@@ -148,7 +148,9 @@
 }
 
 .gameActions .Button--primary {
-  box-shadow: 0 0 28px -6px var(--navbar-accent, var(--accent));
+  box-shadow:
+    var(--button-highlight),
+    0 0 28px -6px var(--navbar-accent, var(--accent));
 }
 
 .gameActions__uninstall svg {
