@@ -11,6 +11,7 @@ import {
   DefaultSteamPath,
   DisableGOGPresence,
   EgsSettings,
+  LegendaryApiTimeout,
   ShowValveProton
 } from '../../components'
 
@@ -26,6 +27,7 @@ export default function RunnersSettings() {
         title={t('settings.section.epic', 'Epic Games')}
       >
         <AltLegendaryBin />
+        <LegendaryApiTimeout />
         <EgsSettings />
       </SettingsCard>
 

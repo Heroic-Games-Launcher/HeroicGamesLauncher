@@ -1328,6 +1328,8 @@
         "ignoreGameUpdates": "Ignore game updates",
         "ignoreGameUpdates-description": "Never update this game, even when a new version is available",
         "language": "Choose app language",
+        "legendary-api-timeout": "Epic API timeout (seconds)",
+        "legendary-api-timeout-description": "How long Legendary waits for Epic's servers before giving up. Increase it if loading your Epic library fails with a timeout error, which can happen with large libraries.",
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite games",

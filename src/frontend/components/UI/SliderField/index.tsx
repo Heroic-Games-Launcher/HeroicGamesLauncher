@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Slider } from '@mui/material'
@@ -10,6 +10,7 @@ interface SliderFieldProps {
   value: number
   onChange?: (value: number) => void
   label?: string
+  description?: ReactNode
   disabled?: boolean
   min?: number
   max?: number
@@ -23,6 +24,7 @@ export default function SliderField({
   value,
   onChange,
   label,
+  description,
   disabled = false,
   min,
   max,
@@ -68,6 +70,9 @@ export default function SliderField({
         <label tabIndex={-1} htmlFor={htmlId}>
           {label}
         </label>
+      )}
+      {description && (
+        <span className="sliderFieldWrapper__description">{description}</span>
       )}
       <Slider
         className="sliderStyle"
