@@ -849,18 +849,22 @@
   z-index: 7;
 }
 
-.gameImg {
+.gameImg,
+.gameLogo {
   transition:
     all 0.2s,
     opacity 0.5s;
 }
 
-.gameImg:not(.installed) {
+.gameImg:not(.installed),
+.gameLogo:not(.installed) {
   filter: grayscale(var(--installing-effect));
 }
 
 .gameCard:hover .gameImg:not(.installed),
-.allTilesInColor .gameImg {
+.gameCard:hover .gameLogo:not(.installed),
+.allTilesInColor .gameImg,
+.allTilesInColor .gameLogo {
   filter: grayscale(0);
 }
 
