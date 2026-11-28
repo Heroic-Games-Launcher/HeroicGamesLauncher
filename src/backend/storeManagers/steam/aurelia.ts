@@ -421,6 +421,43 @@ export function makeAureliaProgressHandler(
   }
 }
 
+/** `platform_install` event of `aurelia play --json`. */
+export interface AureliaPlatformInstallEvent {
+  state: 'started' | 'finished' | 'failed'
+  platform: string
+}
+
+/**
+ * Builds an `onOutput` handler reporting the game version Aurelia installs
+ * before a launch, when Steam had swapped it for the other platform's.
+ */
+export function makeAureliaPlatformInstallHandler(
+  onEvent: (event: AureliaPlatformInstallEvent) => void
+): (data: string) => void {
+  return (data: string) => {
+    for (const rawLine of stripAnsi(data).split('\n')) {
+      const line = rawLine.trim()
+      if (!line.startsWith('{')) continue
+
+      let evt: { event?: string; state?: string; platform?: string }
+      try {
+        evt = JSON.parse(line)
+      } catch {
+        continue
+      }
+      if (evt.event !== 'platform_install') continue
+      if (
+        (evt.state === 'started' ||
+          evt.state === 'finished' ||
+          evt.state === 'failed') &&
+        typeof evt.platform === 'string'
+      ) {
+        onEvent({ state: evt.state, platform: evt.platform })
+      }
+    }
+  }
+}
+
 export function makeAureliaQrHandler(
   onUrl: (url: string) => void,
   onScanned?: () => void
@@ -512,6 +549,33 @@ export async function aureliaSupportsLaunchOption(): Promise<boolean> {
   }
 }
 
+/** Feature name for the enforced per-game platform. */
+const PINNED_PLATFORM_FEATURE = 'play.pinned_platform'
+const PIN_SUPPORT_TTL_MS = 60_000
+let pinSupport: { at: number; value: Promise<boolean> } | undefined
+
+/**
+ * Does `play` enforce `config game --platform`, reinstalling a build Steam
+ * swapped away? Cached briefly: asked for every launch option list.
+ */
+export async function aureliaPinsPlatform(): Promise<boolean> {
+  const now = Date.now()
+  if (pinSupport && now - pinSupport.at < PIN_SUPPORT_TTL_MS) {
+    return pinSupport.value
+  }
+  const value = runAurelia<AureliaCapabilitiesResponse>(['capabilities'])
+    .then(({ features }) => (features ?? []).includes(PINNED_PLATFORM_FEATURE))
+    .catch((error: unknown) => {
+      logWarning(
+        ['Unable to read Aurelia capabilities', error],
+        LogPrefix.Steam
+      )
+      return false
+    })
+  pinSupport = { at: now, value }
+  return value
+}
+
 /** Outcome of turning Aurelia's sync off. */
 type AureliaCloudSyncOff = 'off' | 'game-override' | 'unsupported'
 
@@ -588,6 +652,34 @@ export async function setSteamDownloadLimit(kbit: number): Promise<number> {
   ])
   logInfo(['Steam download limit set to', value], LogPrefix.Steam)
   return result.download_limit_kbit ?? 0
+}
+
+/** When Aurelia downloads a game version the user switched to. */
+export type SteamPlatformSwitchInstall = 'play' | 'switch'
+
+/** Undefined when this Aurelia has no such setting. */
+export async function getSteamPlatformSwitchInstall(): Promise<
+  SteamPlatformSwitchInstall | undefined
+> {
+  try {
+    const result = await runAurelia<{
+      platform_switch_install?: SteamPlatformSwitchInstall
+    }>(['config', 'platform-switch-install'])
+    return result.platform_switch_install
+  } catch {
+    // Older Aurelia: unknown command
+    return undefined
+  }
+}
+
+export async function setSteamPlatformSwitchInstall(
+  mode: SteamPlatformSwitchInstall
+): Promise<SteamPlatformSwitchInstall | undefined> {
+  const result = await runAurelia<{
+    platform_switch_install?: SteamPlatformSwitchInstall
+  }>(['config', 'platform-switch-install', mode])
+  logInfo(['Steam platform switch install set to', mode], LogPrefix.Steam)
+  return result.platform_switch_install
 }
 
 /**

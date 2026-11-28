@@ -12,7 +12,8 @@ import {
   InstallArgs,
   LaunchOption,
   Status,
-  CloudSyncResult
+  CloudSyncResult,
+  DMStatus
 } from 'common/types'
 import {
   logError,
@@ -39,6 +40,7 @@ import { userHome } from 'backend/constants/paths'
 import { syncDirectionFromArg } from './sync_args'
 import { configStore, extraInfoStore } from './electronStores'
 import { getSteamBacklogEntry } from './backlog'
+import { trackExternalDownload } from 'backend/downloadmanager/downloadqueue'
 import {
   getCloudSyncStatus,
   markCloudSyncing,
@@ -46,12 +48,15 @@ import {
   recordCloudSyncResult
 } from './cloud_sync_status'
 import {
+  aureliaPinsPlatform,
+  getSteamPlatformSwitchInstall,
   aureliaSupportsLaunchOption,
   disableAureliaCloudSync,
   runAurelia,
   fetchAureliaInfo,
   parseAureliaJson,
   makeAureliaProgressHandler,
+  makeAureliaPlatformInstallHandler,
   AureliaError
 } from './aurelia'
 import {
@@ -63,7 +68,9 @@ import {
   STEAM_UNSUPPORTED,
   isSteamRunningError,
   reportSteamRunning,
-  steamRunningMessage
+  steamRunningMessage,
+  pickLaunchTarget,
+  withoutPlatformFlag
 } from './utils'
 import { buildReqs, stripSteamMarkup, toInstallPlatforms } from './store_info'
 import {
@@ -232,6 +239,7 @@ export default class SteamGame implements Game {
       delete map[this.id]
     }
     configStore.set('steamLaunchTarget', map)
+    void this.pinPlatformOnSwitch(targetId)
   }
 
   /**
@@ -252,7 +260,7 @@ export default class SteamGame implements Game {
       return undefined
     }
     const selected = configStore.get('steamLaunchTarget', {})[this.id]
-    const chosen = this.chosenLaunchTarget(targets)
+    const chosen = await this.chosenLaunchTarget(targets)
     if (selected && !chosen) {
       await logWriter.logWarning(
         `Launch target ${selected} is not available, using the default`
@@ -261,11 +269,102 @@ export default class SteamGame implements Game {
     return chosen ?? targets.find((target) => target.default)
   }
 
-  private chosenLaunchTarget(
+  private async chosenLaunchTarget(
     targets: AureliaLaunchTarget[]
-  ): AureliaLaunchTarget | undefined {
+  ): Promise<AureliaLaunchTarget | undefined> {
     const selected = configStore.get('steamLaunchTarget', {})[this.id]
-    return targets.find((target) => target.id === selected && target.available)
+    if (!selected) return undefined
+    return pickLaunchTarget(
+      targets,
+      selected,
+      isLinux && (await aureliaPinsPlatform())
+    )
+  }
+
+  /**
+   * Set or clear the game's enforced platform in Aurelia. With Aurelia's
+   * `platform-switch-install switch` this downloads the picked version right
+   * away, shown in the download manager. Returns the failure text, if any.
+   */
+  private async setPinnedPlatform(
+    pinned: 'linux' | 'windows' | undefined,
+    logWriter?: LogWriter
+  ): Promise<string | undefined> {
+    const platformInstall = this.platformInstallTracker(
+      this.getGameInfo(),
+      // During a launch the game starts afterwards
+      logWriter ? 'playing' : undefined,
+      logWriter
+    )
+    const res = await libraryManagerMap['steam'].runRunnerCommand(
+      [
+        'config',
+        'game',
+        this.id,
+        ...(pinned ? ['--platform', pinned] : ['--no-platform']),
+        '--json'
+      ],
+      {
+        abortId: this.id,
+        logWriters: logWriter ? [logWriter] : [],
+        onOutput: platformInstall.onOutput
+      }
+    )
+    await platformInstall.settle()
+    if (!res.error) return undefined
+    logWarning(
+      [`Could not set the platform for ${this.id}`, res.error],
+      LogPrefix.Steam
+    )
+    return res.error
+  }
+
+  /**
+   * The user picked a game version: with `platform-switch-install switch`,
+   * tell Aurelia now so the download starts before the next launch.
+   */
+  private async pinPlatformOnSwitch(targetId: string): Promise<void> {
+    if (!isLinux || !(await aureliaPinsPlatform())) return
+    if ((await getSteamPlatformSwitchInstall()) !== 'switch') return
+    const pinned = targetId.startsWith('linux')
+      ? 'linux'
+      : targetId.startsWith('windows')
+        ? 'windows'
+        : undefined
+    await this.setPinnedPlatform(pinned)
+    try {
+      await libraryManagerMap['steam'].refresh()
+      sendFrontendMessage('refreshLibrary', 'steam')
+    } catch (error) {
+      logWarning(
+        [`Failed to refresh Steam library for ${this.id}`, error],
+        LogPrefix.Steam
+      )
+    }
+  }
+
+  /**
+   * Hand the picked platform to Aurelia as the game's enforced platform, so
+   * Play runs only that build and Aurelia reinstalls it after Steam swapped
+   * it. Returns the `play` flags for the target.
+   */
+  private async applyPlatformPin(
+    target: AureliaLaunchTarget,
+    logWriter: LogWriter
+  ): Promise<string[]> {
+    if (!isLinux || !(await aureliaPinsPlatform())) return target.flags
+    const selected = configStore.get('steamLaunchTarget', {})[this.id]
+    // Automatic: Aurelia picks, nothing enforced
+    const pinned = selected === target.id ? target.platform : undefined
+    const failure = await this.setPinnedPlatform(pinned, logWriter)
+    if (failure) {
+      await logWriter.logWarning(`Platform not enforced: ${failure}`)
+      return target.flags
+    }
+    if (!pinned) return target.flags
+    await logWriter.logInfo(`Enforced platform: ${pinned}`)
+    // An explicit --platform would override the enforced one
+    return withoutPlatformFlag(target.flags)
   }
 
   /**
@@ -276,7 +375,7 @@ export default class SteamGame implements Game {
     try {
       const targets = await this.fetchLaunchTargets()
       const target =
-        this.chosenLaunchTarget(targets) ??
+        (await this.chosenLaunchTarget(targets)) ??
         targets.find((value) => value.default)
       return target?.platform ?? installed
     } catch (error) {
@@ -285,6 +384,75 @@ export default class SteamGame implements Game {
         LogPrefix.Steam
       )
       return installed
+    }
+  }
+
+  /**
+   * Shows the game version Aurelia downloads while starting the game in the
+   * download manager: current download with progress, then history. Call
+   * `settle` when `play` ends, in case it stopped mid-download.
+   */
+  private platformInstallTracker(
+    gameInfo: GameInfo,
+    // Status once the download is done, if the game goes on to start
+    statusAfter: 'playing' | undefined,
+    logWriter?: LogWriter
+  ): { onOutput: (data: string) => void; settle: () => Promise<void> } {
+    let finish: ((status: DMStatus) => Promise<void>) | undefined
+    const forwardProgress = makeAureliaProgressHandler(this.id, 'installing')
+
+    const onInstallEvent = makeAureliaPlatformInstallHandler(
+      ({ state, platform }) => {
+        if (state === 'started') {
+          void logWriter?.logInfo(
+            `Aurelia is installing the ${platform} version`
+          )
+          const now = Date.now()
+          finish = trackExternalDownload({
+            type: 'install',
+            params: {
+              appName: this.id,
+              runner: 'steam',
+              gameInfo,
+              path: gameInfo.install.install_path ?? '',
+              platformToInstall: platform === 'linux' ? 'linux' : 'Windows'
+            },
+            addToQueueTime: now,
+            startTime: now,
+            endTime: 0
+          })
+          sendGameStatusUpdate({
+            appName: this.id,
+            runner: 'steam',
+            status: 'installing'
+          })
+          return
+        }
+        const settled = finish?.(state === 'finished' ? 'done' : 'error')
+        finish = undefined
+        if (state === 'finished' && statusAfter) {
+          // The queue reports the game as done; it starts now
+          void settled?.then(() =>
+            sendGameStatusUpdate({
+              appName: this.id,
+              runner: 'steam',
+              status: statusAfter
+            })
+          )
+        }
+      }
+    )
+
+    return {
+      onOutput: (data: string) => {
+        onInstallEvent(data)
+        if (finish) forwardProgress(data)
+      },
+      settle: async () => {
+        const pending = finish
+        finish = undefined
+        await pending?.('abort')
+      }
     }
   }
 
@@ -1100,7 +1268,7 @@ export default class SteamGame implements Game {
     if (target) {
       // Target flags pick build and Steam mode
       await logWriter.logInfo(`Launch target: ${target.id}`)
-      playCommand.push(...target.flags)
+      playCommand.push(...(await this.applyPlatformPin(target, logWriter)))
       if (isLinux && target.platform === 'windows') {
         await pushProton()
       }
@@ -1120,10 +1288,17 @@ export default class SteamGame implements Game {
       playCommand.push('--launch-option', launchOptionId)
     }
 
+    const platformInstall = this.platformInstallTracker(
+      gameInfo,
+      'playing',
+      logWriter
+    )
     const res = await libraryManagerMap['steam'].runRunnerCommand(playCommand, {
       abortId: this.id,
-      logWriters: [logWriter]
+      logWriters: [logWriter],
+      onOutput: platformInstall.onOutput
     })
+    await platformInstall.settle()
 
     launchCleanup(prep.rpcClient)
 

@@ -1,5 +1,10 @@
 import { AureliaError } from '../aurelia'
-import { isSteamRunningError, reportSteamRunning } from '../utils'
+import {
+  isSteamRunningError,
+  pickLaunchTarget,
+  reportSteamRunning,
+  withoutPlatformFlag
+} from '../utils'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 
 jest.mock('backend/launcher', () => ({ callRunner: jest.fn() }))
@@ -48,5 +53,45 @@ describe('reportSteamRunning', () => {
   it('stays quiet for other failures', () => {
     reportSteamRunning(new Error('network down'))
     expect(showDialogBoxModalAuto).not.toHaveBeenCalled()
+  })
+})
+
+describe('withoutPlatformFlag', () => {
+  it('drops the flag and its value', () => {
+    expect(
+      withoutPlatformFlag(['--platform', 'windows', '--steam-mode', 'host'])
+    ).toEqual(['--steam-mode', 'host'])
+    expect(withoutPlatformFlag(['--platform', 'linux'])).toEqual([])
+  })
+
+  it('leaves other flags alone', () => {
+    expect(withoutPlatformFlag(['--steam'])).toEqual(['--steam'])
+  })
+})
+
+describe('pickLaunchTarget', () => {
+  const targets = [
+    { id: 'linux', available: true, missing: null },
+    { id: 'windows-host', available: false, missing: 'build' },
+    { id: 'windows-runtime', available: false, missing: 'steam-runtime' }
+  ]
+
+  it('returns an available pick', () => {
+    expect(pickLaunchTarget(targets, 'linux', false)?.id).toBe('linux')
+  })
+
+  it('keeps a pick whose build is missing only when Aurelia installs it', () => {
+    expect(pickLaunchTarget(targets, 'windows-host', false)).toBeUndefined()
+    expect(pickLaunchTarget(targets, 'windows-host', true)?.id).toBe(
+      'windows-host'
+    )
+  })
+
+  it('never keeps a pick missing its Steam runtime', () => {
+    expect(pickLaunchTarget(targets, 'windows-runtime', true)).toBeUndefined()
+  })
+
+  it('returns nothing without a pick', () => {
+    expect(pickLaunchTarget(targets, undefined, true)).toBeUndefined()
   })
 })

@@ -29,7 +29,8 @@ import {
   WinePrefixesBasePath,
   PlaytimeSync,
   AnalyticsOptIn,
-  BackupSaves
+  BackupSaves,
+  SteamPlatformSwitchInstall
 } from '../../components'
 
 export default function GeneralSettings() {
@@ -69,6 +70,7 @@ export default function GeneralSettings() {
         <AutoUpdateGames />
         <CheckUpdatesOnStartup />
         <MaxWorkers />
+        <SteamPlatformSwitchInstall />
       </SettingsCard>
 
       <SettingsCard

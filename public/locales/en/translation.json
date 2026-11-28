@@ -1473,9 +1473,13 @@
             "missingRuntime": "Steam runtime not installed",
             "native": "Native",
             "none": "No Steam",
+            "platformSwitchNote": "Switching platform downloads it on next launch.",
+            "platformSwitchNoteNow": "Switching platform downloads it right away.",
             "runtime": "In-Wine Steam runtime",
             "title": "Game version to launch"
         },
+        "steamPlatformSwitchInstall": "Download Steam game versions when switching",
+        "steamPlatformSwitchInstall-description": "Start the download when you pick the Linux or Windows version of a Steam game, instead of on its next launch",
         "steamRuntime": {
             "defaultLabel": "Default Steam runtime (native Linux games)",
             "label": "Steam runtime (native Linux games)",

@@ -47,6 +47,10 @@ export function useSteamLaunchTargets(
     async (targetId: string) => {
       setSelected(targetId)
       await window.api.setSteamLaunchTarget(appName, targetId)
+      // Launch options follow the platform
+      window.dispatchEvent(
+        new CustomEvent('steam-launch-target-changed', { detail: { appName } })
+      )
     },
     [appName]
   )

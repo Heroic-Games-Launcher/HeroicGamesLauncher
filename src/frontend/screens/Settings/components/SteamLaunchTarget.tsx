@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
 import DownIcon from 'frontend/assets/down-icon.svg?react'
@@ -25,6 +25,13 @@ const SteamLaunchTarget = ({ state }: Props) => {
 
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [downloadsOnSwitch, setDownloadsOnSwitch] = useState(false)
+
+  useEffect(() => {
+    void window.api
+      .getSteamPlatformSwitchInstall()
+      .then((mode) => setDownloadsOnSwitch(mode === 'switch'))
+  }, [])
 
   const installPath = gameInfo?.install?.install_path
 
@@ -112,6 +119,10 @@ const SteamLaunchTarget = ({ state }: Props) => {
     }
   }
 
+  // Only one platform's files stay installed
+  const switchesPlatform =
+    new Set(targets.map((target) => target.platform)).size > 1
+
   const canDownload =
     current?.missing === 'build' || current?.missing === 'steam-runtime'
 
@@ -166,6 +177,19 @@ const SteamLaunchTarget = ({ state }: Props) => {
             </span>
           )}
           {error && <span className="smallInputInfo danger">{error}</span>}
+          {switchesPlatform && (
+            <span className="smallInputInfo">
+              {downloadsOnSwitch
+                ? t(
+                    'setting.steamLaunchTarget.platformSwitchNoteNow',
+                    'Switching platform downloads it right away.'
+                  )
+                : t(
+                    'setting.steamLaunchTarget.platformSwitchNote',
+                    'Switching platform downloads it on next launch.'
+                  )}
+            </span>
+          )}
         </>
       }
     >

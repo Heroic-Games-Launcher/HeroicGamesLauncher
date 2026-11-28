@@ -221,6 +221,7 @@ declare global {
   interface WindowEventMap {
     'visible-cards': CustomEvent<{ appNames: string[] }>
     'controller-changed': CustomEvent<{ controllerId: string }>
+    'steam-launch-target-changed': CustomEvent<{ appName: string }>
   }
 }
 

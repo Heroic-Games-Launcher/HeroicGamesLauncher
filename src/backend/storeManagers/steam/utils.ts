@@ -137,3 +137,32 @@ export async function steamCall<T>(
     return fallback
   }
 }
+
+/** A launch target's `play` flags without `--platform <value>`. */
+export function withoutPlatformFlag(flags: string[]): string[] {
+  const at = flags.indexOf('--platform')
+  if (at < 0) return flags
+  return [...flags.slice(0, at), ...flags.slice(at + 2)]
+}
+
+interface SelectableTarget {
+  id: string
+  available: boolean
+  missing: string | null
+}
+
+/**
+ * The user's pick, if Play can use it. With an enforced platform, Aurelia
+ * downloads a missing build itself, so that pick stays valid.
+ */
+export function pickLaunchTarget<T extends SelectableTarget>(
+  targets: T[],
+  selected: string | undefined,
+  pinsPlatform: boolean
+): T | undefined {
+  return targets.find(
+    (target) =>
+      target.id === selected &&
+      (target.available || (pinsPlatform && target.missing === 'build'))
+  )
+}

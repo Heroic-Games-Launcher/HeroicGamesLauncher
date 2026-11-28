@@ -21,6 +21,18 @@ export const useLaunchOptions = ({
   const { t } = useTranslation('gamepage')
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
   const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [reloads, setReloads] = useState(0)
+
+  // A Steam game's options depend on the version picked to launch
+  useEffect(() => {
+    const onTargetChanged = (event: CustomEvent<{ appName: string }>) => {
+      if (event.detail.appName === appName) setReloads((count) => count + 1)
+    }
+    window.addEventListener('steam-launch-target-changed', onTargetChanged)
+    return () => {
+      window.removeEventListener('steam-launch-target-changed', onTargetChanged)
+    }
+  }, [appName])
 
   // Fetch launch options
   useEffect(() => {
@@ -40,7 +52,7 @@ export const useLaunchOptions = ({
     if (appName && runner) {
       void fetchOptions()
     }
-  }, [appName, runner, isInstalled])
+  }, [appName, runner, isInstalled, reloads])
 
   // Find and set the previously used option
   useMemo(() => {
