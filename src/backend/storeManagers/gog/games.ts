@@ -166,6 +166,7 @@ export default class GOGGame implements Game {
 
     const extra: ExtraInfo = {
       about: gameInfo.extra?.about,
+      genres: gameInfo.extra?.genres,
       reqs,
       releaseDate,
       storeUrl: gogStoreUrl,

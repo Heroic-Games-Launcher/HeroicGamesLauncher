@@ -103,7 +103,8 @@ export default class NileGameManager implements Game {
             shortDescription: info.description
           }
         : undefined,
-      releaseDate: info?.extra?.releaseDate
+      releaseDate: info?.extra?.releaseDate,
+      genres: info?.extra?.genres
     }
   }
 
