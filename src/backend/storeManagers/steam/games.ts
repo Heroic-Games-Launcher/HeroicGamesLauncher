@@ -12,7 +12,8 @@ import {
   InstallArgs,
   LaunchOption,
   Status,
-  CloudSyncResult
+  CloudSyncResult,
+  DMStatus
 } from 'common/types'
 import {
   logError,
@@ -39,7 +40,7 @@ import { userHome } from 'backend/constants/paths'
 import { syncDirectionFromArg } from './sync_args'
 import { configStore, extraInfoStore } from './electronStores'
 import { getSteamBacklogEntry } from './backlog'
-import { recordFinishedDownload } from 'backend/downloadmanager/downloadqueue'
+import { trackExternalDownload } from 'backend/downloadmanager/downloadqueue'
 import {
   getCloudSyncStatus,
   markCloudSyncing,
@@ -334,38 +335,70 @@ export default class SteamGame implements Game {
   }
 
   /**
-   * Lists the game version Aurelia downloads while starting the game in the
-   * download history; it never passes through the download queue.
+   * Shows the game version Aurelia downloads while starting the game in the
+   * download manager: current download with progress, then history. Call
+   * `settle` when `play` ends, in case it stopped mid-download.
    */
-  private platformInstallRecorder(
+  private platformInstallTracker(
     gameInfo: GameInfo,
     logWriter: LogWriter
-  ): (data: string) => void {
-    let startTime = 0
-    return makeAureliaPlatformInstallHandler(({ state, platform }) => {
-      if (state === 'started') {
-        startTime = Date.now()
-        void logWriter.logInfo(`Aurelia is installing the ${platform} version`)
-        return
-      }
-      const now = Date.now()
-      recordFinishedDownload(
-        {
-          type: 'install',
-          params: {
+  ): { onOutput: (data: string) => void; settle: () => Promise<void> } {
+    let finish: ((status: DMStatus) => Promise<void>) | undefined
+    const forwardProgress = makeAureliaProgressHandler(this.id, 'installing')
+
+    const onInstallEvent = makeAureliaPlatformInstallHandler(
+      ({ state, platform }) => {
+        if (state === 'started') {
+          void logWriter.logInfo(
+            `Aurelia is installing the ${platform} version`
+          )
+          const now = Date.now()
+          finish = trackExternalDownload({
+            type: 'install',
+            params: {
+              appName: this.id,
+              runner: 'steam',
+              gameInfo,
+              path: gameInfo.install.install_path ?? '',
+              platformToInstall: platform === 'linux' ? 'linux' : 'Windows'
+            },
+            addToQueueTime: now,
+            startTime: now,
+            endTime: 0
+          })
+          sendGameStatusUpdate({
             appName: this.id,
             runner: 'steam',
-            gameInfo,
-            path: gameInfo.install.install_path ?? '',
-            platformToInstall: platform === 'linux' ? 'linux' : 'Windows'
-          },
-          addToQueueTime: startTime || now,
-          startTime: startTime || now,
-          endTime: now
-        },
-        state === 'finished' ? 'done' : 'error'
-      )
-    })
+            status: 'installing'
+          })
+          return
+        }
+        const settled = finish?.(state === 'finished' ? 'done' : 'error')
+        finish = undefined
+        if (state === 'finished') {
+          // The queue reports the game as done; it starts now
+          void settled?.then(() =>
+            sendGameStatusUpdate({
+              appName: this.id,
+              runner: 'steam',
+              status: 'playing'
+            })
+          )
+        }
+      }
+    )
+
+    return {
+      onOutput: (data: string) => {
+        onInstallEvent(data)
+        if (finish) forwardProgress(data)
+      },
+      settle: async () => {
+        const pending = finish
+        finish = undefined
+        await pending?.('abort')
+      }
+    }
   }
 
   /**
@@ -1200,11 +1233,13 @@ export default class SteamGame implements Game {
       playCommand.push('--launch-option', launchOptionId)
     }
 
+    const platformInstall = this.platformInstallTracker(gameInfo, logWriter)
     const res = await libraryManagerMap['steam'].runRunnerCommand(playCommand, {
       abortId: this.id,
       logWriters: [logWriter],
-      onOutput: this.platformInstallRecorder(gameInfo, logWriter)
+      onOutput: platformInstall.onOutput
     })
+    await platformInstall.settle()
 
     launchCleanup(prep.rpcClient)
 

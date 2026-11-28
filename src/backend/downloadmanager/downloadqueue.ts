@@ -35,6 +35,17 @@ let queueLoop: Promise<void> | null = null
 const failedUpdates = new Set<string>()
 const updateKey = (appName: string, runner: string) => `${runner}:${appName}`
 
+interface ExternalDownload {
+  // Settles with the download's outcome.
+  finish: (status: DMStatus) => void
+  done: Promise<DMStatus>
+  // Settles once the queue recorded it.
+  recorded: () => void
+  whenRecorded: Promise<void>
+}
+// Downloads a backend runs itself; the queue only shows them.
+const externalDownloads = new Map<string, ExternalDownload>()
+
 onConnectivityChange((status) => {
   if (status === 'offline' && isRunning()) {
     logInfo('System offline, auto-pausing downloads', LogPrefix.DownloadManager)
@@ -89,16 +100,60 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 */
 
 /**
- * List a download that ran outside the queue (e.g. a game version a launcher
- * backend fetched while starting the game) under finished downloads.
+ * Show a download a backend runs itself (e.g. a game version fetched while
+ * starting the game) as a queue element, with the progress it reports through
+ * `sendProgressUpdate`. Returns the function to call with the outcome; it
+ * resolves once the element moved to the finished downloads.
+ *
+ * A paused element stays queued and resumes as a normal install.
  */
-function recordFinishedDownload(element: DMQueueElement, status: DMStatus) {
-  addToFinished(element, status)
-  sendFrontendMessage(
-    'changedDMQueueInformation',
-    downloadManager.get('queue', []),
-    queueState
-  )
+function trackExternalDownload(
+  element: DMQueueElement
+): (status: DMStatus) => Promise<void> {
+  const { appName, runner } = element.params
+  const key = updateKey(appName, runner)
+
+  let finish: ExternalDownload['finish'] = () => undefined
+  const done = new Promise<DMStatus>((resolve) => {
+    finish = resolve
+  })
+  let recorded: ExternalDownload['recorded'] = () => undefined
+  const whenRecorded = new Promise<void>((resolve) => {
+    recorded = resolve
+  })
+  externalDownloads.set(key, { finish, done, recorded, whenRecorded })
+
+  const elements = downloadManager.get('queue', [])
+  if (
+    !elements.some(
+      (el) => updateKey(el.params.appName, el.params.runner) === key
+    )
+  ) {
+    elements.push(element)
+    downloadManager.set('queue', elements)
+  }
+  sendFrontendMessage('changedDMQueueInformation', elements, queueState)
+  if (isIdle() && !isPaused()) {
+    void initQueue()
+  }
+
+  return async (status: DMStatus) => {
+    const external = externalDownloads.get(key)
+    if (!external) return
+    externalDownloads.delete(key)
+
+    const isCurrent =
+      currentElement?.params.appName === appName &&
+      currentElement.params.runner === runner
+    if (isCurrent) {
+      external.finish(status)
+      await external.whenRecorded
+      return
+    }
+    // Never reached the front of the queue.
+    addToFinished({ ...element, endTime: Date.now() }, status)
+    removeFromQueue(appName)
+  }
 }
 
 function initQueue(): Promise<void> {
@@ -133,8 +188,12 @@ async function runQueue() {
     queueState = 'running'
     sendFrontendMessage('changedDMQueueInformation', queuedElements, queueState)
 
-    const { status } =
-      element.type === 'install'
+    const external = externalDownloads.get(
+      updateKey(element.params.appName, element.params.runner)
+    )
+    const { status } = external
+      ? { status: await external.done }
+      : element.type === 'install'
         ? await installQueueElement(element.params)
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
@@ -150,8 +209,10 @@ async function runQueue() {
     if (!isPaused()) {
       addToFinished(element, status)
       removeFromQueue(element.params.appName)
+      external?.recorded()
       element = getFirstQueueElement()
     } else {
+      external?.recorded()
       element = null
     }
   }
@@ -462,7 +523,7 @@ export {
   cancelCurrentDownload,
   cancelQueuedDownload,
   hasFailedUpdate,
-  recordFinishedDownload,
+  trackExternalDownload,
   pauseCurrentDownload,
   resumeCurrentDownload,
   isRunning,

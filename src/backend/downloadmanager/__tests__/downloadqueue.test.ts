@@ -206,3 +206,58 @@ describe('auto-updates', () => {
     expect(dm.hasFailedUpdate('rust', 'steam')).toBe(false)
   })
 })
+
+describe('a download a backend runs itself', () => {
+  it('is the current element until it finishes, then history', async () => {
+    const finish = dm.trackExternalDownload(element('factorio'))
+    await flush()
+
+    expect(queued()).toEqual(['factorio'])
+    expect(dm.isRunning()).toBe(true)
+    // The queue never starts its own install for it
+    expect(install).not.toHaveBeenCalled()
+
+    await finish('done')
+
+    expect(queued()).toEqual([])
+    expect(dm.getQueueInformation().finished).toEqual([
+      expect.objectContaining({
+        status: 'done',
+        params: expect.objectContaining({ appName: 'factorio' })
+      })
+    ])
+  })
+
+  it('goes to history when it ends while waiting behind another', async () => {
+    await dm.addToQueue(element('other'))
+    await flush()
+    const finish = dm.trackExternalDownload(element('factorio'))
+    await flush()
+    expect(queued()).toEqual(['other', 'factorio'])
+
+    await finish('error')
+
+    expect(queued()).toEqual(['other'])
+    expect(dm.getQueueInformation().finished).toEqual([
+      expect.objectContaining({ status: 'error' })
+    ])
+    expect(dm.isRunning()).toBe(true)
+  })
+
+  it('resumes as a normal install after a pause', async () => {
+    const finish = dm.trackExternalDownload(element('factorio'))
+    await flush()
+    dm.pauseCurrentDownload()
+    await finish('abort')
+    await flush()
+
+    expect(dm.isPaused()).toBe(true)
+    expect(queued()).toEqual(['factorio'])
+
+    await dm.resumeCurrentDownload()
+    await flush()
+    expect(install).toHaveBeenLastCalledWith(
+      expect.objectContaining({ appName: 'factorio' })
+    )
+  })
+})
