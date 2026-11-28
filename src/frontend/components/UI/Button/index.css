@@ -17,10 +17,21 @@
   cursor: pointer;
   white-space: nowrap;
   transition:
+    transform 120ms cubic-bezier(0.23, 1, 0.32, 1),
     background-color 150ms ease,
     border-color 150ms ease,
     color 150ms ease,
     box-shadow 150ms ease;
+}
+
+.Button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Button:active:not(:disabled) {
+    transform: none;
+  }
 }
 
 .Button--md {
@@ -52,16 +63,28 @@
 
 .Button--primary {
   --button-surface: var(--bg-brand);
+  --button-highlight: inset 0 1px 0 color-mix(in oklab, white 28%, transparent);
+  --button-sheen: linear-gradient(
+    180deg,
+    var(--button-surface) 0%,
+    color-mix(in oklab, var(--button-surface) 90%, black) 100%
+  );
 
-  background: var(--button-surface);
+  background: var(--button-sheen);
   color: var(--text-on-brand);
+  box-shadow:
+    var(--button-highlight),
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    0 6px 14px -8px color-mix(in oklab, var(--button-surface) 80%, transparent);
 }
 
 .Button--primary:hover:not(:disabled),
 .Button--primary:focus-visible:not(:disabled) {
   --button-surface: color-mix(in oklab, var(--bg-brand) 85%, var(--on-panel));
 
-  box-shadow: 0 8px 24px -8px var(--bg-brand);
+  box-shadow:
+    var(--button-highlight),
+    0 8px 24px -8px var(--bg-brand);
 }
 
 .Button--secondary {
@@ -74,7 +97,7 @@
 
 .Button--secondary:hover:not(:disabled),
 .Button--secondary:focus-visible:not(:disabled) {
-  border-color: var(--button-secondary-border, transparent);
+  border-color: var(--button-secondary-border, var(--border-brand));
   background: color-mix(in oklab, var(--role-brand) 26%, transparent);
 }
 
@@ -100,6 +123,7 @@
 
 .Button--tertiary:hover:not(:disabled),
 .Button--tertiary:focus-visible:not(:disabled) {
+  border-color: var(--border-subtle);
   background: color-mix(in oklab, var(--on-panel) 8%, transparent);
 }
 
@@ -124,6 +148,7 @@
 
 .Button--dangerSubtle:hover:not(:disabled),
 .Button--dangerSubtle:focus-visible:not(:disabled) {
+  border-color: var(--border-destructive);
   background: color-mix(in oklab, var(--button-surface) 28%, transparent);
 }
 
