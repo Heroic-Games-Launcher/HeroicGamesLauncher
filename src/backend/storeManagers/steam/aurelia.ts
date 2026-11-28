@@ -512,6 +512,33 @@ export async function aureliaSupportsLaunchOption(): Promise<boolean> {
   }
 }
 
+/** Feature name for the enforced per-game platform. */
+const PINNED_PLATFORM_FEATURE = 'play.pinned_platform'
+const PIN_SUPPORT_TTL_MS = 60_000
+let pinSupport: { at: number; value: Promise<boolean> } | undefined
+
+/**
+ * Does `play` enforce `config game --platform`, reinstalling a build Steam
+ * swapped away? Cached briefly: asked for every launch option list.
+ */
+export async function aureliaPinsPlatform(): Promise<boolean> {
+  const now = Date.now()
+  if (pinSupport && now - pinSupport.at < PIN_SUPPORT_TTL_MS) {
+    return pinSupport.value
+  }
+  const value = runAurelia<AureliaCapabilitiesResponse>(['capabilities'])
+    .then(({ features }) => (features ?? []).includes(PINNED_PLATFORM_FEATURE))
+    .catch((error: unknown) => {
+      logWarning(
+        ['Unable to read Aurelia capabilities', error],
+        LogPrefix.Steam
+      )
+      return false
+    })
+  pinSupport = { at: now, value }
+  return value
+}
+
 /** Outcome of turning Aurelia's sync off. */
 type AureliaCloudSyncOff = 'off' | 'game-override' | 'unsupported'
 

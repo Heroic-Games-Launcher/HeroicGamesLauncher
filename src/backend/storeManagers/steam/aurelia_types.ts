@@ -156,6 +156,8 @@ export interface AureliaLaunchOptionsResponse {
 /** Result of `aurelia capabilities <command> --json`. */
 export interface AureliaCapabilitiesResponse {
   flags?: Array<{ long: string }>
+  // Behaviours, listed by the root command only
+  features?: string[]
 }
 
 /** One entry from `aurelia launch-targets <id> --json`. */

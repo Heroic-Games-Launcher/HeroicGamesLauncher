@@ -46,6 +46,7 @@ import {
   recordCloudSyncResult
 } from './cloud_sync_status'
 import {
+  aureliaPinsPlatform,
   aureliaSupportsLaunchOption,
   disableAureliaCloudSync,
   runAurelia,
@@ -63,7 +64,9 @@ import {
   STEAM_UNSUPPORTED,
   isSteamRunningError,
   reportSteamRunning,
-  steamRunningMessage
+  steamRunningMessage,
+  pickLaunchTarget,
+  withoutPlatformFlag
 } from './utils'
 import { buildReqs, stripSteamMarkup, toInstallPlatforms } from './store_info'
 import {
@@ -252,7 +255,7 @@ export default class SteamGame implements Game {
       return undefined
     }
     const selected = configStore.get('steamLaunchTarget', {})[this.id]
-    const chosen = this.chosenLaunchTarget(targets)
+    const chosen = await this.chosenLaunchTarget(targets)
     if (selected && !chosen) {
       await logWriter.logWarning(
         `Launch target ${selected} is not available, using the default`
@@ -261,11 +264,51 @@ export default class SteamGame implements Game {
     return chosen ?? targets.find((target) => target.default)
   }
 
-  private chosenLaunchTarget(
+  private async chosenLaunchTarget(
     targets: AureliaLaunchTarget[]
-  ): AureliaLaunchTarget | undefined {
+  ): Promise<AureliaLaunchTarget | undefined> {
     const selected = configStore.get('steamLaunchTarget', {})[this.id]
-    return targets.find((target) => target.id === selected && target.available)
+    if (!selected) return undefined
+    return pickLaunchTarget(
+      targets,
+      selected,
+      isLinux && (await aureliaPinsPlatform())
+    )
+  }
+
+  /**
+   * Hand the picked platform to Aurelia as the game's enforced platform, so
+   * Play runs only that build and Aurelia reinstalls it after Steam swapped
+   * it. Returns the `play` flags for the target.
+   */
+  private async applyPlatformPin(
+    target: AureliaLaunchTarget,
+    logWriter: LogWriter
+  ): Promise<string[]> {
+    if (!isLinux || !(await aureliaPinsPlatform())) return target.flags
+    const selected = configStore.get('steamLaunchTarget', {})[this.id]
+    // Automatic: Aurelia picks, nothing enforced
+    const pinned = selected === target.id ? target.platform : undefined
+    try {
+      await runAurelia([
+        'config',
+        'game',
+        this.id,
+        ...(pinned ? ['--platform', pinned] : ['--no-platform'])
+      ])
+    } catch (error) {
+      const message = describeError(error)
+      logWarning(
+        [`Could not set the platform for ${this.id}`, message],
+        LogPrefix.Steam
+      )
+      await logWriter.logWarning(`Platform not enforced: ${message}`)
+      return target.flags
+    }
+    if (!pinned) return target.flags
+    await logWriter.logInfo(`Enforced platform: ${pinned}`)
+    // An explicit --platform would override the enforced one
+    return withoutPlatformFlag(target.flags)
   }
 
   /**
@@ -276,7 +319,7 @@ export default class SteamGame implements Game {
     try {
       const targets = await this.fetchLaunchTargets()
       const target =
-        this.chosenLaunchTarget(targets) ??
+        (await this.chosenLaunchTarget(targets)) ??
         targets.find((value) => value.default)
       return target?.platform ?? installed
     } catch (error) {
@@ -1100,7 +1143,7 @@ export default class SteamGame implements Game {
     if (target) {
       // Target flags pick build and Steam mode
       await logWriter.logInfo(`Launch target: ${target.id}`)
-      playCommand.push(...target.flags)
+      playCommand.push(...(await this.applyPlatformPin(target, logWriter)))
       if (isLinux && target.platform === 'windows') {
         await pushProton()
       }
