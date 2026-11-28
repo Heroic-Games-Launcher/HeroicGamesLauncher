@@ -88,6 +88,19 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 #### Public ####
 */
 
+/**
+ * List a download that ran outside the queue (e.g. a game version a launcher
+ * backend fetched while starting the game) under finished downloads.
+ */
+function recordFinishedDownload(element: DMQueueElement, status: DMStatus) {
+  addToFinished(element, status)
+  sendFrontendMessage(
+    'changedDMQueueInformation',
+    downloadManager.get('queue', []),
+    queueState
+  )
+}
+
 function initQueue(): Promise<void> {
   queueLoop ??= runQueue().finally(() => {
     queueLoop = null
@@ -449,6 +462,7 @@ export {
   cancelCurrentDownload,
   cancelQueuedDownload,
   hasFailedUpdate,
+  recordFinishedDownload,
   pauseCurrentDownload,
   resumeCurrentDownload,
   isRunning,

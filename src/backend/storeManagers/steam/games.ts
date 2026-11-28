@@ -39,6 +39,7 @@ import { userHome } from 'backend/constants/paths'
 import { syncDirectionFromArg } from './sync_args'
 import { configStore, extraInfoStore } from './electronStores'
 import { getSteamBacklogEntry } from './backlog'
+import { recordFinishedDownload } from 'backend/downloadmanager/downloadqueue'
 import {
   getCloudSyncStatus,
   markCloudSyncing,
@@ -53,6 +54,7 @@ import {
   fetchAureliaInfo,
   parseAureliaJson,
   makeAureliaProgressHandler,
+  makeAureliaPlatformInstallHandler,
   AureliaError
 } from './aurelia'
 import {
@@ -329,6 +331,41 @@ export default class SteamGame implements Game {
       )
       return installed
     }
+  }
+
+  /**
+   * Lists the game version Aurelia downloads while starting the game in the
+   * download history; it never passes through the download queue.
+   */
+  private platformInstallRecorder(
+    gameInfo: GameInfo,
+    logWriter: LogWriter
+  ): (data: string) => void {
+    let startTime = 0
+    return makeAureliaPlatformInstallHandler(({ state, platform }) => {
+      if (state === 'started') {
+        startTime = Date.now()
+        void logWriter.logInfo(`Aurelia is installing the ${platform} version`)
+        return
+      }
+      const now = Date.now()
+      recordFinishedDownload(
+        {
+          type: 'install',
+          params: {
+            appName: this.id,
+            runner: 'steam',
+            gameInfo,
+            path: gameInfo.install.install_path ?? '',
+            platformToInstall: platform === 'linux' ? 'linux' : 'Windows'
+          },
+          addToQueueTime: startTime || now,
+          startTime: startTime || now,
+          endTime: now
+        },
+        state === 'finished' ? 'done' : 'error'
+      )
+    })
   }
 
   /**
@@ -1165,7 +1202,8 @@ export default class SteamGame implements Game {
 
     const res = await libraryManagerMap['steam'].runRunnerCommand(playCommand, {
       abortId: this.id,
-      logWriters: [logWriter]
+      logWriters: [logWriter],
+      onOutput: this.platformInstallRecorder(gameInfo, logWriter)
     })
 
     launchCleanup(prep.rpcClient)

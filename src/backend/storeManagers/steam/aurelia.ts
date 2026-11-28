@@ -421,6 +421,43 @@ export function makeAureliaProgressHandler(
   }
 }
 
+/** `platform_install` event of `aurelia play --json`. */
+export interface AureliaPlatformInstallEvent {
+  state: 'started' | 'finished' | 'failed'
+  platform: string
+}
+
+/**
+ * Builds an `onOutput` handler reporting the game version Aurelia installs
+ * before a launch, when Steam had swapped it for the other platform's.
+ */
+export function makeAureliaPlatformInstallHandler(
+  onEvent: (event: AureliaPlatformInstallEvent) => void
+): (data: string) => void {
+  return (data: string) => {
+    for (const rawLine of stripAnsi(data).split('\n')) {
+      const line = rawLine.trim()
+      if (!line.startsWith('{')) continue
+
+      let evt: { event?: string; state?: string; platform?: string }
+      try {
+        evt = JSON.parse(line)
+      } catch {
+        continue
+      }
+      if (evt.event !== 'platform_install') continue
+      if (
+        (evt.state === 'started' ||
+          evt.state === 'finished' ||
+          evt.state === 'failed') &&
+        typeof evt.platform === 'string'
+      ) {
+        onEvent({ state: evt.state, platform: evt.platform })
+      }
+    }
+  }
+}
+
 export function makeAureliaQrHandler(
   onUrl: (url: string) => void,
   onScanned?: () => void

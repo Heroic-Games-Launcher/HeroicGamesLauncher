@@ -1,4 +1,8 @@
-import { AureliaError, parseAureliaJson } from '../aurelia'
+import {
+  AureliaError,
+  makeAureliaPlatformInstallHandler,
+  parseAureliaJson
+} from '../aurelia'
 import type { ExecResult } from 'common/types'
 
 jest.mock('backend/launcher', () => ({ callRunner: jest.fn() }))
@@ -80,5 +84,28 @@ describe('parseAureliaJson', () => {
   it('reports an aborted command', () => {
     const error = parseError({ stdout: '', stderr: '', abort: true })
     expect(error.aborted).toBe(true)
+  })
+})
+
+describe('makeAureliaPlatformInstallHandler', () => {
+  it('reports platform installs and ignores other output', () => {
+    const events: unknown[] = []
+    const handler = makeAureliaPlatformInstallHandler((event) =>
+      events.push(event)
+    )
+    handler(
+      [
+        '{"event":"message","message":"installing"}',
+        '{"event":"platform_install","state":"started","app_id":427520,"platform":"linux"}',
+        '{"event":"progress","percent":50}',
+        'not json',
+        '{"event":"platform_install","state":"finished","app_id":427520,"platform":"linux"}',
+        '{"event":"platform_install","state":"odd","platform":"linux"}'
+      ].join('\n')
+    )
+    expect(events).toEqual([
+      { state: 'started', platform: 'linux' },
+      { state: 'finished', platform: 'linux' }
+    ])
   })
 })
