@@ -393,7 +393,7 @@ export default class LegendaryGame implements Game {
   }
 
   private defaultTmpProgres = () => ({
-    bytes: '',
+    bytes: undefined,
     eta: '',
     percent: undefined,
     diskSpeed: undefined,
@@ -427,10 +427,10 @@ export default class LegendaryGame implements Game {
     }
 
     // parse log for game download progress
-    if (progress.bytes === '') {
+    if (progress.bytes === undefined) {
       const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-      progress.bytes =
-        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+      const bytes = Number(bytesMatch?.at(1))
+      progress.bytes = bytesMatch && !Number.isNaN(bytes) ? bytes : undefined
     }
 
     // parse log for download speed
@@ -454,8 +454,8 @@ export default class LegendaryGame implements Game {
       Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
 
     // calculate percentage
-    if (progress.bytes !== '') {
-      const downloaded = parseFloat(progress.bytes)
+    if (progress.bytes !== undefined) {
+      const downloaded = progress.bytes
       const downloadCache = totalDownloadSize - (this.currentDownloadSize ?? 0)
       const totalDownloaded = downloaded + downloadCache
       const newPercent =

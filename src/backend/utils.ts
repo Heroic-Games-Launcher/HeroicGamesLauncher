@@ -1133,7 +1133,7 @@ export async function moveOnWindows(
           file: currentFile,
           // FIXME: Robocopy does not report bytes moved / an ETA, so we have to
           //        leave these blank for now
-          bytes: '',
+          bytes: undefined,
           eta: ''
         }
       })
@@ -1193,7 +1193,7 @@ export async function moveOnUnix(
       (data) => {
         let percent = 0
         let eta = ''
-        let bytes = '0'
+        let bytes = 0
 
         // Multiple output lines might be buffered into a single `data`, so
         // we have to iterate over every line (we can't just look at the last
@@ -1217,14 +1217,14 @@ export async function moveOnUnix(
             currentFile = outLine
             percent = 0
             eta = ''
-            bytes = '0'
+            bytes = 0
           } else {
             // If we got the progress update, try to read out the bytes, ETA and
             // percent
             const bytesMatch = outLine.match(/^\s+(\d+)/)?.[1]
             const etaMatch = outLine.match(/(\d+:\d{2}:\d{2})/)?.[1]
             const percentMatch = outLine.match(/(\d+)%/)?.[1]
-            if (bytesMatch) bytes = getFileSize(Number(bytesMatch))
+            if (bytesMatch) bytes = Number(bytesMatch) / 1024 ** 2
             if (etaMatch) eta = etaMatch
             if (percentMatch) percent = Number(percentMatch)
           }

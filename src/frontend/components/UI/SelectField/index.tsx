@@ -16,6 +16,7 @@ interface SelectFieldProps {
   onChange: (event: SelectChangeEvent) => void
   children: ReactNode
   afterSelect?: ReactNode
+  ariaLabel?: string
   label?: string
   description?: ReactNode
   info?: ReactNode
@@ -40,6 +41,7 @@ export default function SelectField({
   displayEmpty = false,
   afterSelect,
   startIcon,
+  ariaLabel,
   children
 }: SelectFieldProps) {
   const { isRTL } = useContext(ContextProvider)
@@ -67,6 +69,7 @@ export default function SelectField({
         onChange={onChange}
         disabled={disabled}
         displayEmpty={displayEmpty}
+        inputProps={ariaLabel ? { 'aria-label': ariaLabel } : undefined}
         startAdornment={
           startIcon ? (
             <InputAdornment position="start">{startIcon}</InputAdornment>

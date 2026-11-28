@@ -11,6 +11,7 @@ import {
 import { TFunction } from 'i18next'
 import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
+import { openStopInstallationDialog } from './stopInstallation'
 
 const storage: Storage = window.localStorage
 
@@ -108,46 +109,15 @@ function handleStopInstallation(
   showDialogModal: (options: DialogModalOptions) => void,
   queued = false
 ) {
-  // Queued paused games cancel by name.
-  const cancel = (removeDownloaded: boolean) =>
+  openStopInstallationDialog({
+    appName,
+    path,
+    t,
+    progress,
+    showDialogModal,
+    api: window.api,
+    storage,
     queued
-      ? window.api.cancelQueuedDownload(appName, removeDownloaded)
-      : window.api.cancelDownload(removeDownloaded)
-  showDialogModal({
-    title: t('gamepage:box.stopInstall.title'),
-    message: t('gamepage:box.stopInstall.message'),
-    buttonLayout: 'inline',
-    buttons: [
-      {
-        text: t(
-          'gamepage:box.stopInstall.stopKeepFiles',
-          'Stop and keep files'
-        ),
-        variant: 'primary',
-        onClick: () => {
-          storage.setItem(
-            appName,
-            JSON.stringify({ ...progress, folder: path })
-          )
-          cancel(false)
-        }
-      },
-      {
-        text: t(
-          'gamepage:box.stopInstall.stopDeleteFiles',
-          'Stop and delete files'
-        ),
-        variant: 'dangerSubtle',
-        onClick: () => {
-          cancel(true)
-          storage.removeItem(appName)
-        }
-      },
-      {
-        text: t('gamepage:box.stopInstall.keepInstalling'),
-        variant: 'tertiary'
-      }
-    ]
   })
 }
 

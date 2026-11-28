@@ -3,12 +3,7 @@ import { userInfo } from 'os'
 import { spawn } from 'child_process'
 import { readFileSync, statSync, writeFileSync } from 'graceful-fs'
 import { callRunner } from 'backend/launcher'
-import {
-  getAureliaBin,
-  getFileSize,
-  formatTime,
-  sendProgressUpdate
-} from 'backend/utils'
+import { getAureliaBin, formatTime, sendProgressUpdate } from 'backend/utils'
 import { appFolder } from 'backend/constants/paths'
 import { logError, logInfo, logWarning, LogPrefix } from 'backend/logger'
 import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
@@ -406,7 +401,7 @@ export function makeAureliaProgressHandler(
         runner: 'steam',
         status,
         progress: {
-          bytes: getFileSize(evt.bytes_downloaded ?? 0),
+          bytes: (evt.bytes_downloaded ?? 0) / 1024 ** 2,
           eta,
           percent:
             typeof evt.percent === 'number'

@@ -171,7 +171,7 @@ export default class ZoomGame implements Game {
   }
 
   private defaultTmpProgress = () => ({
-    bytes: '',
+    bytes: undefined,
     eta: '',
     percent: undefined,
     diskSpeed: undefined,
@@ -200,7 +200,7 @@ export default class ZoomGame implements Game {
     if (this.tmpProgress.percent > 100) {
       this.tmpProgress.percent = 100
     }
-    this.tmpProgress.bytes = 'N/A'
+    this.tmpProgress.bytes = undefined
     this.tmpProgress.eta = 'N/A'
     this.tmpProgress.downSpeed = 0
     this.tmpProgress.diskSpeed = 0

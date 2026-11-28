@@ -402,6 +402,7 @@ class GlobalConfigV0 extends GlobalConfig {
       enableGOGAffiliate: false,
       language: 'en',
       maxWorkers: 0,
+      downloadUnits: 'mib',
       minimizeOnLaunch: false,
       nvidiaPrime: false,
       enviromentOptions: [],

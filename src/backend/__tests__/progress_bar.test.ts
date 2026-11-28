@@ -69,7 +69,7 @@ describe('progress_bar', () => {
       sendProgressUpdate({
         appName: 'Test',
         status: 'installing',
-        progress: { percent: 42, bytes: '', eta: '' }
+        progress: { percent: 42, bytes: undefined, eta: '' }
       })
 
       expect(window.setProgressBar).toBeCalledWith(0.42)

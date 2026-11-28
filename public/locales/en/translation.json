@@ -549,12 +549,13 @@
             "update": "Update"
         },
         "label": {
-            "disk": "Disk",
-            "speed": "Download",
-            "unit": "MB/s"
+            "disk-write": "Disk write",
+            "speed": "Download"
         },
         "limit": {
             "label": "Download limit",
+            "short": "Limit {{value}}",
+            "tooltip": "Download limit: {{limit}} (≈ {{speed}})",
             "unlimited": "Unlimited"
         },
         "link": "Downloads",
@@ -1487,6 +1488,11 @@
             "selectExe": "Select EXE"
         },
         "umuGameId": "UMU GAMEID override",
+        "units": "Download speed units",
+        "units-description": "How download and disk write speeds are shown.",
+        "units-info": "1 {{mib}} = 1,048,576 bytes. 1 {{mb}} = 1,000,000 bytes, so the same speed reads about 5% higher in {{mbps}}.",
+        "units-option-mb": "{{unit}} (decimal)",
+        "units-option-mib": "{{unit}} (binary)",
         "useOptiScaler": "Enable OptiScaler",
         "useOptiScaler-description": "Inject OptiScaler to remap DLSS, FSR and XeSS upscalers",
         "verboseLogs": {
