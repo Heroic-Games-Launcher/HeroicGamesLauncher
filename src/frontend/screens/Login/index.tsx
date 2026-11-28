@@ -159,6 +159,27 @@ export default React.memo(function NewLogin() {
 
       {oldMac && <p className="disabledMessage">{oldMacMessage}</p>}
 
+      {disableGOGAffiliate && (
+        <Alert
+          variant="info"
+          className="storesPage__notice"
+          actions={
+            <Button
+              variant="link"
+              size="sm"
+              onClick={handleActivateGOGAffiliate}
+            >
+              {t('login.gog_affiliate.activate', 'Activate now')}
+            </Button>
+          }
+        >
+          {t(
+            'login.gog_support',
+            'Enable GOG affiliate links to help support Heroic.'
+          )}
+        </Alert>
+      )}
+
       <div className="storeCardGrid">
         <StoreCard
           storeKey="gog"
@@ -173,28 +194,6 @@ export default React.memo(function NewLogin() {
           loginUrl={gogLoginPath}
           storeRoute="/store/gog"
           logout={gog.logout}
-          notice={
-            disableGOGAffiliate ? (
-              <Alert
-                variant="neutral"
-                actionsPlacement="block"
-                actions={
-                  <Button
-                    variant="link"
-                    size="sm"
-                    onClick={handleActivateGOGAffiliate}
-                  >
-                    {t('login.gog_affiliate.activate', 'Activate now')}
-                  </Button>
-                }
-              >
-                {t(
-                  'login.gog_support',
-                  'Enable GOG affiliate links to help support Heroic.'
-                )}
-              </Alert>
-            ) : undefined
-          }
           disabled={oldMac}
         />
         <StoreCard
