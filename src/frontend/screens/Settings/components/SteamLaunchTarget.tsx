@@ -112,6 +112,10 @@ const SteamLaunchTarget = ({ state }: Props) => {
     }
   }
 
+  // Only one platform's files stay installed
+  const switchesPlatform =
+    new Set(targets.map((target) => target.platform)).size > 1
+
   const canDownload =
     current?.missing === 'build' || current?.missing === 'steam-runtime'
 
@@ -166,6 +170,14 @@ const SteamLaunchTarget = ({ state }: Props) => {
             </span>
           )}
           {error && <span className="smallInputInfo danger">{error}</span>}
+          {switchesPlatform && (
+            <span className="smallInputInfo">
+              {t(
+                'setting.steamLaunchTarget.platformSwitchNote',
+                'Switching between Linux and Windows downloads that version on the next launch.'
+              )}
+            </span>
+          )}
         </>
       }
     >
