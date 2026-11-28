@@ -9,9 +9,10 @@ import {
 } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { PassThrough } from 'node:stream'
 import GOGLibraryManager from '../library'
 import { GOGUser } from '../user'
-import { downloadFile } from '../../../utils'
+import { axiosClient, downloadFile } from '../../../utils'
 
 jest.mock('electron')
 jest.mock('../../../../backend/logger', () => ({
@@ -132,15 +133,13 @@ describe('GOG Extras', () => {
     )
     writeFileSync(join(destination, 'manual.pdf'), 'existing')
     jest
-      .mocked(downloadFile)
-      .mockImplementationOnce(({ dest }) => {
-        writeFileSync(dest, 'partial download')
-        return Promise.reject(new Error('network failure'))
-      })
-      .mockImplementationOnce(({ dest }) => {
-        expect(existsSync(dest)).toBe(false)
-        writeFileSync(dest, 'complete download')
-        return Promise.resolve()
+      .mocked(axiosClient.get)
+      .mockRejectedValueOnce(new Error('network failure'))
+      .mockImplementationOnce(async (_url, config) => {
+        expect(config?.headers).toEqual({ Authorization: 'Bearer test-token' })
+        const stream = new PassThrough()
+        stream.end('complete download')
+        return { data: stream } as never
       })
 
     await expect(
@@ -149,20 +148,19 @@ describe('GOG Extras', () => {
       downloaded: ['manual (1).pdf'],
       failed: ['12:a']
     })
-    expect(downloadFile).toHaveBeenNthCalledWith(1, {
-      url: 'https://cdn.gog.com/manual.pdf',
-      dest: join(destination, 'manual (1).pdf')
-    })
     expect(readFileSync(join(destination, 'manual (1).pdf'), 'utf8')).toBe(
       'complete download'
     )
     expect(readFileSync(join(destination, 'manual.pdf'), 'utf8')).toBe(
       'existing'
     )
-    expect(downloadFile).toHaveBeenNthCalledWith(2, {
-      url: 'https://cdn.gog.com/manual.pdf',
-      dest: join(destination, 'manual (1).pdf')
-    })
+    expect(axiosClient.get).toHaveBeenCalledWith(
+      'https://cdn.gog.com/manual.pdf',
+      {
+        headers: { Authorization: 'Bearer test-token' },
+        responseType: 'stream'
+      }
+    )
   })
 
   it('retries a failed download using the original filename', async () => {
@@ -181,14 +179,12 @@ describe('GOG Extras', () => {
       ])
     )
     jest
-      .mocked(downloadFile)
-      .mockImplementationOnce(({ dest }) => {
-        writeFileSync(dest, 'partial download')
-        return Promise.reject(new Error('network failure'))
-      })
-      .mockImplementationOnce(({ dest }) => {
-        writeFileSync(dest, 'complete download')
-        return Promise.resolve()
+      .mocked(axiosClient.get)
+      .mockRejectedValueOnce(new Error('network failure'))
+      .mockImplementationOnce(async () => {
+        const stream = new PassThrough()
+        stream.end('complete download')
+        return { data: stream } as never
       })
 
     await expect(

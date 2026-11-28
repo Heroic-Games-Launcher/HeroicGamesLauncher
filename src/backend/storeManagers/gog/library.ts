@@ -39,12 +39,7 @@ import {
   LogPrefix,
   logWarning
 } from 'backend/logger'
-import {
-  getGOGdlBin,
-  getFileSize,
-  axiosClient,
-  downloadFile
-} from '../../utils'
+import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
 import {
   clientIdFromManifest,
   GOG_REMOTE_CONFIG_COMPONENT_VERSION,
@@ -64,7 +59,13 @@ import { isOnline, runOnceWhenOnline } from '../../online_monitor'
 import i18next from 'i18next'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { unzipSync } from 'node:zlib'
-import { readdirSync, rmSync, writeFileSync } from 'node:fs'
+import {
+  createWriteStream,
+  readdirSync,
+  rmSync,
+  statSync,
+  writeFileSync
+} from 'node:fs'
 import { checkForRedistUpdates } from './redist'
 import { runGogdlCommandStub } from './e2eMock'
 import {
@@ -83,7 +84,7 @@ import type {
 } from 'common/types/game_manager'
 import { libraryManagerMap } from '../index'
 import { readdir } from 'fs/promises'
-import { statSync } from 'fs'
+import { pipeline } from 'node:stream/promises'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
@@ -1519,7 +1520,7 @@ export default class GOGLibraryManager implements LibraryManager {
       type: extra.type,
       total_size: extra.total_size,
       files: (Array.isArray(extra.files) ? extra.files : [])
-        .filter((file) => this.isValidExtraUrl(file.downlink))
+        .filter((file) => this.isValidExtraUrl(file?.downlink))
         .map((file) => ({
           id: `${extra.id}:${file.id}`,
           filename: this.getExtraFilename(file.downlink, file.id),
@@ -1569,7 +1570,7 @@ export default class GOGLibraryManager implements LibraryManager {
         .filter(
           (file) =>
             selectedIds.has(`${extra.id}:${file.id}`) &&
-            this.isValidExtraUrl(file.downlink)
+            this.isValidExtraUrl(file?.downlink)
         )
         .map((file) => ({
           id: `${extra.id}:${file.id}`,
@@ -1591,7 +1592,17 @@ export default class GOGLibraryManager implements LibraryManager {
       )
       const destinationPath = join(destination, filename)
       try {
-        await downloadFile({ url: file.url, dest: destinationPath })
+        /* Product bonus downlinks are authenticated GOG API routes. The generic
+         * downloader probes them with an unauthenticated HEAD request, which
+         * GOG rejects with 403 before the actual download can begin. */
+        const downloadResponse = await axiosClient.get(file.url, {
+          headers: { Authorization: `Bearer ${credentials.access_token}` },
+          responseType: 'stream'
+        })
+        await pipeline(
+          downloadResponse.data,
+          createWriteStream(destinationPath)
+        )
         usedNames.add(filename.toLocaleLowerCase())
         downloaded.push(filename)
       } catch (error) {
@@ -1614,8 +1625,10 @@ export default class GOGLibraryManager implements LibraryManager {
     return { downloaded, failed }
   }
 
-  private getExtraFilename(url: string, fallbackId: string): string {
-    const safeFallbackId = sanitize(fallbackId).replace(/[. ]+$/, '') || 'file'
+  private getExtraFilename(url: unknown, fallbackId: unknown): string {
+    const safeId = typeof fallbackId === 'string' ? fallbackId : 'file'
+    const safeFallbackId = sanitize(safeId).replace(/[. ]+$/, '') || 'file'
+    if (typeof url !== 'string') return `extra-${safeFallbackId}`
     try {
       const parsedUrl = new URL(url)
       if (parsedUrl.protocol !== 'https:') return `extra-${safeFallbackId}`
@@ -1641,7 +1654,8 @@ export default class GOGLibraryManager implements LibraryManager {
     }
   }
 
-  private isValidExtraUrl(url: string): boolean {
+  private isValidExtraUrl(url: unknown): url is string {
+    if (typeof url !== 'string') return false
     try {
       const parsedUrl = new URL(url)
       return (
