@@ -3,11 +3,14 @@ import { SteamUser } from './user'
 import { libraryManagerMap } from '..'
 import {
   getSteamDownloadLimit,
+  getSteamPlatformSwitchInstall,
   runAurelia,
-  setSteamDownloadLimit
+  setSteamDownloadLimit,
+  setSteamPlatformSwitchInstall
 } from './aurelia'
 import { describeError } from './utils'
 import { logError, LogPrefix } from 'backend/logger'
+import { isLinux } from 'backend/constants/environment'
 
 addHandler('getSteamUsers', () => SteamUser.getAccounts())
 
@@ -23,6 +26,15 @@ addHandler('getSteamDownloadLimit', async () => getSteamDownloadLimit())
 
 addHandler('setSteamDownloadLimit', async (_e, kbit) =>
   setSteamDownloadLimit(kbit)
+)
+
+// Only Linux has two versions to switch between
+addHandler('getSteamPlatformSwitchInstall', async () =>
+  isLinux ? getSteamPlatformSwitchInstall() : undefined
+)
+
+addHandler('setSteamPlatformSwitchInstall', async (_e, mode) =>
+  setSteamPlatformSwitchInstall(mode)
 )
 
 addHandler('getSteamCloudSyncStatus', (_e, appName) =>

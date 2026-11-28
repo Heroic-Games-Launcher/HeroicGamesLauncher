@@ -264,6 +264,10 @@ interface AsyncIPCFunctions {
   getSteamInstallLibraries: () => Promise<SteamInstallLibrary[]>
   getSteamDownloadLimit: () => Promise<number>
   setSteamDownloadLimit: (kbit: number) => Promise<number>
+  getSteamPlatformSwitchInstall: () => Promise<'play' | 'switch' | undefined>
+  setSteamPlatformSwitchInstall: (
+    mode: 'play' | 'switch'
+  ) => Promise<'play' | 'switch' | undefined>
   focusGameWindow: () => Promise<void>
   setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
   getSteamLaunchTargets: (appName: string) => Promise<SteamLaunchTargets>

@@ -1474,9 +1474,12 @@
             "native": "Native",
             "none": "No Steam",
             "platformSwitchNote": "Switching between Linux and Windows downloads that version on the next launch.",
+            "platformSwitchNoteNow": "Switching between Linux and Windows downloads that version right away.",
             "runtime": "In-Wine Steam runtime",
             "title": "Game version to launch"
         },
+        "steamPlatformSwitchInstall": "Download Steam game versions when switching",
+        "steamPlatformSwitchInstall-description": "Start the download when you pick the Linux or Windows version of a Steam game, instead of on its next launch",
         "steamRuntime": {
             "defaultLabel": "Default Steam runtime (native Linux games)",
             "label": "Steam runtime (native Linux games)",

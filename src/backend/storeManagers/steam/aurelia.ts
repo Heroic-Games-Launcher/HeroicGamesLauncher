@@ -654,6 +654,34 @@ export async function setSteamDownloadLimit(kbit: number): Promise<number> {
   return result.download_limit_kbit ?? 0
 }
 
+/** When Aurelia downloads a game version the user switched to. */
+export type SteamPlatformSwitchInstall = 'play' | 'switch'
+
+/** Undefined when this Aurelia has no such setting. */
+export async function getSteamPlatformSwitchInstall(): Promise<
+  SteamPlatformSwitchInstall | undefined
+> {
+  try {
+    const result = await runAurelia<{
+      platform_switch_install?: SteamPlatformSwitchInstall
+    }>(['config', 'platform-switch-install'])
+    return result.platform_switch_install
+  } catch {
+    // Older Aurelia: unknown command
+    return undefined
+  }
+}
+
+export async function setSteamPlatformSwitchInstall(
+  mode: SteamPlatformSwitchInstall
+): Promise<SteamPlatformSwitchInstall | undefined> {
+  const result = await runAurelia<{
+    platform_switch_install?: SteamPlatformSwitchInstall
+  }>(['config', 'platform-switch-install', mode])
+  logInfo(['Steam platform switch install set to', mode], LogPrefix.Steam)
+  return result.platform_switch_install
+}
+
 /**
  * Lists the Steam library folders
  */

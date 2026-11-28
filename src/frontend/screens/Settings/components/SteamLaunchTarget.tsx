@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
 import DownIcon from 'frontend/assets/down-icon.svg?react'
@@ -25,6 +25,13 @@ const SteamLaunchTarget = ({ state }: Props) => {
 
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [downloadsOnSwitch, setDownloadsOnSwitch] = useState(false)
+
+  useEffect(() => {
+    void window.api
+      .getSteamPlatformSwitchInstall()
+      .then((mode) => setDownloadsOnSwitch(mode === 'switch'))
+  }, [])
 
   const installPath = gameInfo?.install?.install_path
 
@@ -172,10 +179,15 @@ const SteamLaunchTarget = ({ state }: Props) => {
           {error && <span className="smallInputInfo danger">{error}</span>}
           {switchesPlatform && (
             <span className="smallInputInfo">
-              {t(
-                'setting.steamLaunchTarget.platformSwitchNote',
-                'Switching between Linux and Windows downloads that version on the next launch.'
-              )}
+              {downloadsOnSwitch
+                ? t(
+                    'setting.steamLaunchTarget.platformSwitchNoteNow',
+                    'Switching between Linux and Windows downloads that version right away.'
+                  )
+                : t(
+                    'setting.steamLaunchTarget.platformSwitchNote',
+                    'Switching between Linux and Windows downloads that version on the next launch.'
+                  )}
             </span>
           )}
         </>
