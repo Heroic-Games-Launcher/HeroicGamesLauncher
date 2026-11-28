@@ -17,10 +17,21 @@
   cursor: pointer;
   white-space: nowrap;
   transition:
+    transform 120ms cubic-bezier(0.23, 1, 0.32, 1),
     background-color 150ms ease,
     border-color 150ms ease,
     color 150ms ease,
     box-shadow 150ms ease;
+}
+
+.Button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Button:active:not(:disabled) {
+    transform: none;
+  }
 }
 
 .Button--md {

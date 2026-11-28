@@ -477,6 +477,18 @@
   outline-offset: 2px;
 }
 
+.gameCard > .icons > .playIcon:active:not(:disabled),
+.gameCard > .icons > .downIcon:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gameCard > .icons > .playIcon:active:not(:disabled),
+  .gameCard > .icons > .downIcon:active:not(:disabled) {
+    transform: none;
+  }
+}
+
 .gameCard > .icons > .playIcon > svg,
 .gameCard > .icons > .downIcon > svg,
 .gameCard > .icons > .notAvailableIcon > svg,
