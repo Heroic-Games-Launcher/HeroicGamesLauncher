@@ -4,6 +4,43 @@ import { RemappableGamepadAction, ValidGamepadAction } from 'common/types'
 
 type ButtonOverrides = Partial<Record<RemappableGamepadAction, number | null>>
 
+export function checkN64Switch(
+  buttons: readonly GamepadButton[],
+  axes: readonly number[],
+  controllerIndex: number,
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
+) {
+  const B = buttons[1],
+    A = buttons[0],
+    //CUp = buttons[10],
+    CDown = buttons[3],
+    CLeft = buttons[4],
+    //CRight = buttons[2],
+    guideButton = buttons[11],
+    stickAxisX = axes[0],
+    stickAxisY = axes[1],
+    DpadAxisX : number = axes[2],
+    DpadAxisY : number = axes[3]
+
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', CDown?.pressed, controllerIndex)
+  checkAction('rightClick', CLeft?.pressed, controllerIndex)
+  checkAction('rightStickLeft', stickAxisX < -0.5, controllerIndex)
+  checkAction('rightStickRight', stickAxisX > 0.5, controllerIndex)
+  checkAction('rightStickUp', stickAxisY < -0.5, controllerIndex)
+  checkAction('rightStickDown', stickAxisY > 0.5, controllerIndex)
+  checkAction('padLeft', DpadAxisX < -0.5, controllerIndex)
+  checkAction('padRight', DpadAxisX > 0.5, controllerIndex)
+  checkAction('padUp', DpadAxisY < -0.5, controllerIndex)
+  checkAction('padDown', DpadAxisY > 0.5, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
+}
+
 export function checkGameCube(
   buttons: readonly GamepadButton[],
   axes: readonly number[],
@@ -62,8 +99,7 @@ export function checkNintendo(
     action: ValidGamepadAction,
     pressed: boolean,
     ctrlIdx: number
-  ) => void,
-  overrides: ButtonOverrides = {}
+  ) => void
 ) {
   const B = buttons[0], // bottom button
     A = buttons[1], // right button
@@ -79,36 +115,10 @@ export function checkNintendo(
     rightAxisX = axes[2],
     rightAxisY = axes[3]
 
-  const button = (
-    action: RemappableGamepadAction,
-    fallback: GamepadButton | undefined
-  ) => {
-    const override = overrides[action]
-    if (override === null) return undefined
-    return override === undefined ? fallback : buttons[override]
-  }
-
-  checkAction(
-    'mainAction',
-    button('mainAction', A)?.pressed ?? false,
-    controllerIndex
-  )
-  checkAction('back', button('back', B)?.pressed ?? false, controllerIndex)
-  checkAction(
-    'altAction',
-    button('altAction', Y)?.pressed ?? false,
-    controllerIndex
-  )
-  checkAction(
-    'rightClick',
-    button('rightClick', X)?.pressed ?? false,
-    controllerIndex
-  )
-  checkAction(
-    'enter',
-    button('enter', buttons[10])?.pressed ?? false,
-    controllerIndex
-  ) // L3
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', Y?.pressed, controllerIndex)
+  checkAction('rightClick', X?.pressed, controllerIndex)
   checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
   checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
   checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
@@ -117,15 +127,53 @@ export function checkNintendo(
   checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
   checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
   checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
-  checkAction('padUp', up?.pressed ?? false, controllerIndex)
-  checkAction('padDown', down?.pressed ?? false, controllerIndex)
-  checkAction('padLeft', left?.pressed ?? false, controllerIndex)
-  checkAction('padRight', right?.pressed ?? false, controllerIndex)
-  checkAction(
-    'guide',
-    button('guide', guideButton)?.pressed ?? false,
-    controllerIndex
-  )
+  checkAction('padUp', up?.pressed, controllerIndex)
+  checkAction('padDown', down?.pressed, controllerIndex)
+  checkAction('padLeft', left?.pressed, controllerIndex)
+  checkAction('padRight', right?.pressed, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
+}
+export function checkWiiU(
+  buttons: readonly GamepadButton[],
+  axes: readonly number[],
+  controllerIndex: number,
+  checkAction: (
+    action: ValidGamepadAction,
+    pressed: boolean,
+    ctrlIdx: number
+  ) => void
+) {
+  const B = buttons[0], // bottom button
+    A = buttons[1], // right button
+    Y = buttons[3], // left button
+    X = buttons[2], // top button
+    up = buttons[13],
+    down = buttons[14],
+    left = buttons[15],
+    right = buttons[16],
+    guideButton = buttons[10],
+    leftAxisX = axes[0],
+    leftAxisY = axes[1],
+    rightAxisX = axes[2],
+    rightAxisY = axes[3]
+
+  checkAction('mainAction', A?.pressed, controllerIndex)
+  checkAction('back', B?.pressed, controllerIndex)
+  checkAction('altAction', Y?.pressed, controllerIndex)
+  checkAction('rightClick', X?.pressed, controllerIndex)
+  checkAction('leftStickLeft', leftAxisX < -0.5, controllerIndex)
+  checkAction('leftStickRight', leftAxisX > 0.5, controllerIndex)
+  checkAction('leftStickUp', leftAxisY < -0.5, controllerIndex)
+  checkAction('leftStickDown', leftAxisY > 0.5, controllerIndex)
+  checkAction('rightStickLeft', rightAxisX < -0.5, controllerIndex)
+  checkAction('rightStickRight', rightAxisX > 0.5, controllerIndex)
+  checkAction('rightStickUp', rightAxisY < -0.5, controllerIndex)
+  checkAction('rightStickDown', rightAxisY > 0.5, controllerIndex)
+  checkAction('padUp', up?.pressed, controllerIndex)
+  checkAction('padDown', down?.pressed, controllerIndex)
+  checkAction('padLeft', left?.pressed, controllerIndex)
+  checkAction('padRight', right?.pressed, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
 }
 
 // Generic USB Joystick (Vendor: 0079 Product: 0006)
@@ -171,9 +219,9 @@ export function checkN64Clone1(
   const dPadVal = Math.round(dPadAxis * 10)
 
   checkAction('padUp', dPadVal === -10, controllerIndex)
-  checkAction('padDown', dPadVal === 1, controllerIndex)
+  checkAction('padDown', dPadVal === -1, controllerIndex)
   checkAction('padLeft', dPadVal === 7, controllerIndex)
-  checkAction('padRight', dPadVal === -4, controllerIndex)
+  checkAction('padRight', dPadVal === 4, controllerIndex)
   checkAction('leftStickLeft', axisX < -0.5, controllerIndex)
   checkAction('leftStickRight', axisX > 0.5, controllerIndex)
   checkAction('leftStickUp', axisY < -0.5, controllerIndex)
